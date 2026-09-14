@@ -1,0 +1,69 @@
+{
+ "generated_utc": "2026-09-14T09:28:06.189Z",
+ "presets": [
+  {
+   "id": "distance-calculator",
+   "title": "Grid distance calculator",
+   "blurb": "How far is a site from the nearest substation and line, by road and as the crow flies.",
+   "blocks": [
+    "Gc",
+    "Vn",
+    "Ed"
+   ]
+  },
+  {
+   "id": "substation-finder",
+   "title": "Substation finder on a map",
+   "blurb": "A map that finds the nearest substations to any place and lands on them from a link.",
+   "blocks": [
+    "Si",
+    "Vn",
+    "Ug",
+    "Ps",
+    "Dt"
+   ]
+  },
+  {
+   "id": "connection-check",
+   "title": "Connection capacity check",
+   "blurb": "Can this site connect, how much, and what would the corridor cost.",
+   "blocks": [
+    "Cc",
+    "Fc",
+    "Dd",
+    "Re",
+    "Ce"
+   ]
+  },
+  {
+   "id": "cable-trench",
+   "title": "Cable trench design",
+   "blurb": "Lay cables in a trench with the right spacing and depth, and draw it.",
+   "blocks": [
+    "Cg",
+    "Vd"
+   ]
+  },
+  {
+   "id": "solar-bess-site",
+   "title": "Solar and BESS site layout",
+   "blurb": "Design a site with its single-line diagram and cable runs.",
+   "blocks": [
+    "Sb",
+    "Cg",
+    "Po"
+   ]
+  },
+  {
+   "id": "news-page",
+   "title": "Pipeline News page",
+   "blurb": "The news page with grid proximity and wider-fleet panels.",
+   "blocks": [
+    "Pn",
+    "Gp",
+    "Wf",
+    "Em"
+   ]
+  }
+ ]
+}

@@ -12,6 +12,15 @@ graphs:
     nodes: 306
     edges: 939
     graph_generated_utc: "2026-09-14T09:08:12.722Z"
+  - id: "periodic-table"
+    title: "Periodic table"
+    path: "https://ventusltd.github.io/stars/blocks/graph.json"
+    edges_path: null
+    source_spider: "stars/modular-star (blocks.mjs)"
+    description: "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the repositories it lives in. Underneath each block are its numbered functions. External opens the table page."
+    nodes: 263
+    edges: 515
+    graph_generated_utc: "2026-09-14T09:28:06.189Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
