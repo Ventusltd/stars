@@ -1,7 +1,7 @@
 # Graphs this repository publishes for the Spider dashboard (ventus-grid-engine spider/manifest.json).
 # Written by spider/register.py on every build. Each entry has the same fields as a manifest entry.
 schema_version: spider-features-v1
-generated_utc: "2026-09-14T02:31:13+00:00"
+generated_utc: "2026-09-14T02:32:05+00:00"
 site: "https://ventusltd.github.io/stars/"
 graphs:
   - id: "modular"
@@ -12,7 +12,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines, External opens the published page. Rebuilt hourly on GitHub Actions."
     nodes: 134
     edges: 485
-    graph_generated_utc: "2026-09-14T02:25:26.877Z"
+    graph_generated_utc: "2026-09-14T02:31:26.328Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
