@@ -11,7 +11,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines, External opens the published page. Rebuilt hourly on GitHub Actions."
     nodes: 134
     edges: 485
-    graph_generated_utc: "2026-09-14T04:55:52.990Z"
+    graph_generated_utc: "2026-09-14T05:55:08.003Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
