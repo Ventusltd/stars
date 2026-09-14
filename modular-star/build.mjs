@@ -127,17 +127,26 @@ writeFileSync(path.join(OUT, 'library', 'standalone.mjs'),
   library.map(({ f, c, src }) => `// Family #${f.n} · element #${c.el} · ${f.places.length} places in ${f.repos.size} repositories · ${gh(c)}\n` +
     `export const f${f.n}_${String(c.name).replace(/[^A-Za-z0-9_$]/g, '_').slice(0, 40)} = ${src};\n`).join('\n'));
 
-// Spider graph (receiver idiom: nodes {label,type,rag,reason,gh}, edges {from,to,kind}).
+// Spider graph, in the ventus-grid-engine receiver's generic shape (index.html normaliseGenericGraph):
+// nodes {id, label, type, rag, reason, gh, ext}, edges {from, to, type} by id. Ids are the permanent keys, so any
+// other graph that uses the same key (family:N, repo:owner/name) joins this one.
 const top = repeated.slice(0, 120);
 const nodes = [], edges = [], repoNodes = new Set();
 for (const f of top) {
-  const c = f.places[0], label = `#${f.n} ${[...f.names][0]}`;
+  const c = f.places[0], id = `family:${f.n}`;
   const needs = c.needs ? JSON.parse(c.needs) : null;
-  nodes.push({ label, type: 'element', rag: c.standalone ? 'GREEN' : 'AMBER', gh: gh(c),
-    reason: `${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : '') });
-  for (const r of f.repos) { repoNodes.add(r); edges.push({ from: label, to: `repo ${r}`, kind: 'found-in' }); }
+  const published = f.places.find(p => live.has(p.repo));
+  nodes.push({ id, key: id, label: `#${f.n} ${[...f.names][0]}`, type: c.standalone ? 'library element' : 'element', rag: c.standalone ? 'green' : 'amber',
+    reason: `${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : ''),
+    gh: gh(c), ext: published ? live.get(published.repo) + published.path : null });
+  for (const r of f.repos) { repoNodes.add(r); edges.push({ from: id, to: `repo:${r}`, type: 'found-in' }); }
 }
-for (const r of repoNodes) nodes.push({ label: `repo ${r}`, type: 'repo', rag: 'GREEN', reason: live.has(r) ? `published at ${live.get(r)}` : 'repository', gh: `https://github.com/${r}` });
+// Same name, different code: wire the families that share a name, so the Spider shows where a name means two things.
+const byName = new Map();
+for (const f of top) for (const name of f.names) if (name.length > 3 && !['(anonymous)', 'default', 'constructor'].includes(name)) byName.set(name, [...(byName.get(name) || []), f.n]);
+for (const ns of byName.values()) for (let i = 1; i < ns.length; i++) edges.push({ from: `family:${ns[0]}`, to: `family:${ns[i]}`, type: 'same-name' });
+for (const r of repoNodes) nodes.push({ id: `repo:${r}`, key: `repo:${r}`, label: r.split('/')[1], type: 'repo', rag: 'green',
+  reason: live.has(r) ? `published at ${live.get(r)}` : 'repository', gh: `https://github.com/${r}`, ext: live.get(r) || null });
 mkdirSync(path.join(OUT, 'modular'), { recursive: true });
 writeFileSync(path.join(OUT, 'modular', 'graph.json'), JSON.stringify({ schema: 'modular-star-graph.v1', label: 'The Modular star', generated_utc: now, nodes, edges }, null, 1));
 
