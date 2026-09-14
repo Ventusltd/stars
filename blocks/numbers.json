@@ -1,5 +1,5 @@
 {
- "next": 835,
+ "next": 848,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -771,6 +771,19 @@
   "pipelinenews:cartridges/reported-project-panel.mjs": 831,
   "testcode:sandbox/{stamp}/atlas/map-controls-layout.js": 832,
   "testcode:sandbox/{stamp}/cable/drawing-view-exit.js": 833,
-  "testcode:sandbox/{stamp}/atlas/index.html": 834
+  "testcode:sandbox/{stamp}/atlas/index.html": 834,
+  "code-generator:apps/substation-finder/index.html": 835,
+  "code-generator:rules.mjs": 836,
+  "globalgrid2050:testcode/{stamp}/core.js": 837,
+  "globalgrid2050:testcode/{stamp}/v02-radial-sunburst/index.html": 838,
+  "globalgrid2050:testcode/{stamp}/v03-particle-universe/index.html": 839,
+  "globalgrid2050:testcode/{stamp}/v04-periodic-arrows/index.html": 840,
+  "globalgrid2050:testcode/{stamp}/v05-chord-dependencies/index.html": 841,
+  "globalgrid2050:testcode/{stamp}/v06-treemap-lines/index.html": 842,
+  "globalgrid2050:testcode/{stamp}/v07-flow-repos/index.html": 843,
+  "globalgrid2050:testcode/{stamp}/v08-ring-journey/index.html": 844,
+  "globalgrid2050:testcode/{stamp}/v09-line-river/index.html": 845,
+  "globalgrid2050:testcode/{stamp}/v10-ide-search/index.html": 846,
+  "globalgrid2050:testcode/{stamp}/journey.js": 847
  }
 }

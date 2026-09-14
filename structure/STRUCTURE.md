@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-14 12:58 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (94 KB, 122 cards, 337 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-14 14:30 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (94 KB, 122 cards, 342 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (27)
 
@@ -13,9 +13,9 @@ flowchart TD
   classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3
   classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5
   estate["globalgrid2050 architecture development"]:::ok
-  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 22 blocks"]:::ok
+  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 23 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
-  n_Ventusltd_globalgrid2050["globalgrid2050 · 19 blocks"]:::ok
+  n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050
   n_Ventusltd_gridatlas["gridatlas · 12 blocks"]:::ok
   estate --> n_Ventusltd_gridatlas
@@ -253,6 +253,9 @@ flowchart LR
   n_block_Em --> n_block_Pr
   n_block_Em --> n_block_Gn
   n_block_Pr --> n_block_Dc
+  n_block_Gn --> n_block_St
+  n_block_Gn --> n_block_Pn
+  n_block_Gn --> n_block_Em
 ```
 
 ## Engine modules (20), in the engine graph's order
