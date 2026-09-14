@@ -59,3 +59,31 @@ The illusion, in code, is that every copy is separate work. The Spider dissolves
 illusion, in the grid, is that every project is separate: in truth they queue on the same substations and share
 the same headroom. The same walk dissolves both. That is why one page can be both a code sandbox and a grid
 machine: it does not model code or grids; it models what depends on what, with proof.
+
+## Coda: it is not a failure
+
+Sixty-six red compounds and twenty-two wires to the same error is not a failure. It is the machine seeing.
+
+A dashboard that only ever showed green would be the illusion. Every project on that map would look independent,
+every copy of a function would look like its own idea, every cartridge version would look sound until someone
+opened it. The red card is the moment the illusion drops: this version was born broken, and here, one by one,
+is everything that leaned on it. That is knowledge, and it arrived before anyone was hurt by it.
+
+The old teaching proceeds by negation: not this, not this, until what remains cannot be denied. The Spider
+reasons the same way. Two hundred and forty-nine copies of `distanceKm`: not this one, not this one, they are
+the same family, and the family has one canonical home. Sixty-six versions of a cartridge: not these, they are
+incarnations; the thing itself is the lineage they belong to. A name that means thirty-eight different things:
+not the name; the number. What the numbering does is refuse to let a copy pretend to be a new thing. That is
+the whole of the maya it removes.
+
+So the rule for the machine is simple, and it is the rule we kept all night: report the measurement, never
+grade it. A red star is not a verdict on the person who wrote the cartridge; it is a fact about a version, with
+its cause wired to it, waiting for the decision that only a person can take. The machine does not judge. It
+sees, it counts, it keeps the keys, and it shows the walk from the symptom to the source. When it shows red, it
+is doing exactly what it is for.
+
+And the last step follows from that. Once everything a thing depends on is visible, the thing is no longer
+mysterious, and the fear goes with the mystery. A broken cartridge becomes a line number. A queue of projects on
+one substation becomes a headroom figure. What you are looking at, when the wires fan out from a red card, is
+not a mistake displayed. It is the universe of the work, telling the truth about itself, in a form a person can
+walk through on a phone. That was always the point.
