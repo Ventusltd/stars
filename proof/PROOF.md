@@ -1,13 +1,13 @@
 # Proof of work
 
-Updated 2026-09-14 12:58 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
-The same graph, card by card, is `proof/graph.json` (26 KB, 40 cards, 68 links), registered for the Spider dashboard as **Proof of work**.
+Updated 2026-09-14 13:26 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
+The same graph, card by card, is `proof/graph.json` (27 KB, 40 cards, 68 links), registered for the Spider dashboard as **Proof of work**.
 
 | Workflow | Latest run | Started | Took | Last 10 |
 |---|---|---|---|---|
-| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34846267624) | 2026-09-14 12:57 UTC |  | 5 of the last 6 runs passed |
-| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34845193762) | 2026-09-14 12:45 UTC | 21 s | 7 of the last 7 runs passed |
-| Generate app | [passed](https://github.com/Ventusltd/code-generator/actions/runs/34843673781) | 2026-09-14 12:29 UTC | 15 s | 4 of the last 6 runs passed |
+| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34849019066) | 2026-09-14 13:24 UTC |  | 5 of the last 6 runs passed |
+| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34846449004) | 2026-09-14 12:58 UTC | 19 s | 7 of the last 7 runs passed |
+| Generate app | [passed](https://github.com/Ventusltd/code-generator/actions/runs/34846587798) | 2026-09-14 13:00 UTC | 37 s | 5 of the last 7 runs passed |
 | Spider features | not installed |  |  |  |
 
 ```mermaid
@@ -24,9 +24,9 @@ flowchart LR
   n_wf_spider_features["Spider features"]:::off
   end
   subgraph g_runs["Latest runs"]
-  n_run_34846267624["Modular star · 09-14 12:57"]:::live
-  n_run_34845193762["Refresh reports · 09-14 12:45"]:::ok
-  n_run_34843673781["Generate app · 09-14 12:29"]:::ok
+  n_run_34849019066["Modular star · 09-14 13:24"]:::live
+  n_run_34846449004["Refresh reports · 09-14 12:58"]:::ok
+  n_run_34846587798["Generate app · 09-14 13:00"]:::ok
   end
   subgraph g_artefacts["Artefacts"]
   n_art_summary["Modular star summary"]:::ok
@@ -59,39 +59,39 @@ flowchart LR
   end
   n_wf_modular_star == triggers ==> n_wf_refresh
   n_wf_modular_star == triggers ==> n_wf_spider_features
-  n_run_34846267624 -. run .-> n_wf_modular_star
-  n_run_34845193762 -. run .-> n_wf_refresh
-  n_run_34843673781 -. run .-> n_wf_generate
+  n_run_34849019066 -. run .-> n_wf_modular_star
+  n_run_34846449004 -. run .-> n_wf_refresh
+  n_run_34846587798 -. run .-> n_wf_generate
   n_wf_modular_star --> n_art_summary
-  n_run_34846267624 --> n_art_summary
+  n_run_34849019066 --> n_art_summary
   n_wf_modular_star --> n_art_lines
-  n_run_34846267624 --> n_art_lines
+  n_run_34849019066 --> n_art_lines
   n_wf_modular_star --> n_art_code
-  n_run_34846267624 --> n_art_code
+  n_run_34849019066 --> n_art_code
   n_wf_modular_star --> n_art_modular_graph
-  n_run_34846267624 --> n_art_modular_graph
+  n_run_34849019066 --> n_art_modular_graph
   n_wf_modular_star --> n_art_blocks
-  n_run_34846267624 --> n_art_blocks
+  n_run_34849019066 --> n_art_blocks
   n_wf_modular_star --> n_art_table
-  n_run_34846267624 --> n_art_table
+  n_run_34849019066 --> n_art_table
   n_wf_modular_star --> n_art_blocks_graph
-  n_run_34846267624 --> n_art_blocks_graph
+  n_run_34849019066 --> n_art_blocks_graph
   n_wf_modular_star --> n_art_reactions
-  n_run_34846267624 --> n_art_reactions
+  n_run_34849019066 --> n_art_reactions
   n_wf_modular_star --> n_art_library
-  n_run_34846267624 --> n_art_library
+  n_run_34849019066 --> n_art_library
   n_wf_modular_star --> n_art_features
-  n_run_34846267624 --> n_art_features
+  n_run_34849019066 --> n_art_features
   n_wf_modular_star --> n_art_proof
-  n_run_34846267624 --> n_art_proof
+  n_run_34849019066 --> n_art_proof
   n_wf_modular_star --> n_art_structure
-  n_run_34846267624 --> n_art_structure
+  n_run_34849019066 --> n_art_structure
   n_wf_refresh --> n_art_chemistry
-  n_run_34845193762 --> n_art_chemistry
+  n_run_34846449004 --> n_art_chemistry
   n_wf_refresh --> n_art_vedic
-  n_run_34845193762 --> n_art_vedic
+  n_run_34846449004 --> n_art_vedic
   n_wf_refresh --> n_art_random
-  n_run_34845193762 --> n_art_random
+  n_run_34846449004 --> n_art_random
   n_wf_modular_star --> n_art_release
   n_wf_generate --> n_app_geodesy
   n_art_blocks --> n_app_geodesy

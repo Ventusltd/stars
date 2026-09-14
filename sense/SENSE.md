@@ -1,11 +1,11 @@
 # Sense of the code universe
 
-Generated 2026-09-14T12:58:24.635Z. 142 nodes, 548 edges, 88.6 KB.
+Generated 2026-09-14T13:26:45.685Z. 142 nodes, 507 edges, 86.3 KB.
 
 This graph is not a list of files. It is globalgrid2050 architecture development's code read in an order that makes sense, so the FOCUS list on the
 Spider dashboard reads as a narrative from the whole to the parts:
 
-1. **The code universe** — 10,811 distinct functions, 207 numbered blocks.
+1. **The code universe** — 10,822 distinct functions, 207 numbered blocks.
 2. **What the code is for** — 11 purposes, each containing the blocks that serve it.
 3. **The blocks** — 63 named blocks (constants, engines, cartridges, layers, apps, tools), wired by *depends-on*
    so a reader can walk from a purpose to a part to what that part needs.
@@ -13,7 +13,7 @@ Spider dashboard reads as a narrative from the whole to the parts:
 5. **What is illusion** — 65 copies of those functions exist elsewhere (15 shown here); each is wired
    *should-import* to its home. They look like separate code; they are the same function written twice.
 6. **What is a decision, not a fact** — 12 values in use in more than one form. No computation settles them.
-7. **What is proven together** — 188 block pairs seen together in shipped apps and 6 unstable pairs, drawn as edges
+7. **What is proven together** — 187 block pairs seen together in shipped apps and 6 unstable pairs, drawn as edges
    between the blocks. A block not wired from this chapter has never shipped in an app; *proven* wires are composition tests that passed, *seen-together* wires are use without a test.
 8. **What breaks** — the 5 most frequent composition-test errors, each wired to the block whose function throws it.
 9. **What everything leans on** — the 20 most-used functions in globalgrid2050 architecture development.
@@ -28,9 +28,9 @@ Spider dashboard reads as a narrative from the whole to the parts:
 
 - `contains`: 180
 - `concerns`: 12
-- `depends-on`: 90
+- `depends-on`: 50
 - `should-import`: 72
-- `seen-together`: 188
+- `seen-together`: 187
 - `unstable`: 6
 
 ## Sources

@@ -1,5 +1,5 @@
 {
- "next": 835,
+ "next": 837,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -771,6 +771,8 @@
   "pipelinenews:cartridges/reported-project-panel.mjs": 831,
   "testcode:sandbox/{stamp}/atlas/map-controls-layout.js": 832,
   "testcode:sandbox/{stamp}/cable/drawing-view-exit.js": 833,
-  "testcode:sandbox/{stamp}/atlas/index.html": 834
+  "testcode:sandbox/{stamp}/atlas/index.html": 834,
+  "code-generator:apps/substation-finder/index.html": 835,
+  "code-generator:rules.mjs": 836
  }
 }
