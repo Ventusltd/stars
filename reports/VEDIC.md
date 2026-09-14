@@ -1,6 +1,6 @@
 # The Vedic star
 
-*Tat tvam asi* — every incarnation is its soul: 8,682 souls behind 104,964 forms. Below, the forms sorted into the five bhutas, what neti neti would release, and whether rita — the declared order — held. Updated 2026-09-14T09:50:39.514Z. No model.
+*Tat tvam asi* — every incarnation is its soul: 8,682 souls behind 104,964 forms. Below, the forms sorted into the five bhutas, what neti neti would release, and whether rita — the declared order — held. Updated 2026-09-14T09:52:16.960Z. No model.
 
 ## Pancha bhuta — in which element does each form exist?
 | bhuta | meaning here | forms |
