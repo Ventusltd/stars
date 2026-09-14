@@ -6,7 +6,7 @@ name: Modular star
 on:
   workflow_dispatch:
   schedule:
-    - cron: '41 */6 * * *'
+    - cron: '41 * * * *'
   push:
     branches: [main]
     paths: ['modular-star/**', '.github/workflows/modular-star.yml', 'package.json']
@@ -21,7 +21,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 100
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
@@ -45,6 +45,9 @@ jobs:
           else
             echo "First run: starting the numbered database."
           fi
+
+      - name: Wander through history (continues where the last run stopped)
+        run: node modular-star/wandering.mjs --db modular.sqlite --work /tmp/wander --minutes 40
 
       - name: Scan and build
         run: node modular-star/build.mjs --db modular.sqlite --work /tmp/repos --out .

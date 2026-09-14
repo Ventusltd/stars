@@ -87,6 +87,8 @@ if (rebuiltOk !== sample.length) { console.error(`Rebuild check failed: ${rebuil
 const count = t => Number(ctx.db.prepare(`SELECT count(*) c FROM ${t}`).get().c);
 const live = new Map(JSON.parse(readFileSync(new URL('./live-sites.json', import.meta.url), 'utf8').replace(/^\uFEFF/, '')).sites.map(s => [s.repo, s.site]));
 const enc = p => p.split('/').map(encodeURIComponent).join('/');
+// A file's lineage is its path with timestamp stamps (8 or 12 digits) folded, so 202609051152-x.js and 202609041945-x.js match.
+const lineageOf = p => p.replace(/(^|[^0-9])\d{8}(\d{4})?(?=[^0-9]|$)/g, '$1{stamp}');
 const gh = o => `https://github.com/${o.repo}/blob/${o.commit_sha}/${enc(o.path)}#L${o.first}-L${o.last}`;
 
 const places = ctx.db.prepare(`
@@ -98,11 +100,21 @@ const places = ctx.db.prepare(`
 const families = new Map();
 for (const p of places) {
   let f = families.get(p.fam);
-  if (!f) families.set(p.fam, f = { n: Number(p.fam), places: [], repos: new Set(), elements: new Set(), names: new Set() });
-  f.places.push(p); f.repos.add(p.repo); f.elements.add(Number(p.el)); f.names.add(p.name);
+  if (!f) families.set(p.fam, f = { n: Number(p.fam), places: [], repos: new Set(), elements: new Set(), names: new Set(), lineages: new Set() });
+  f.places.push(p); f.repos.add(p.repo); f.elements.add(Number(p.el)); f.names.add(p.name); f.lineages.add(p.repo + ':' + lineageOf(p.path));
 }
 const famList = [...families.values()];
-const repeated = famList.filter(f => f.places.length >= 2).sort((a, b) => b.repos.size - a.repos.size || b.places.length - a.places.length || a.n - b.n);
+// Copies of one file in timestamped release folders are versions, not duplicate work. Only logic that lives in two or
+// more different files (lineages) counts as work done more than once.
+const repeated = famList.filter(f => f.lineages.size >= 2).sort((a, b) => b.repos.size - a.repos.size || b.lineages.size - a.lineages.size || b.places.length - a.places.length || a.n - b.n);
+const versionedOnly = famList.filter(f => f.places.length >= 2 && f.lineages.size === 1).length;
+const firstWritten = new Map();
+let history = null;
+try {
+  for (const r of ctx.db.prepare(`SELECT e.family fam, min(ci.date) d FROM tablet_element te JOIN element e ON e.n = te.element
+      JOIN occurrence o ON o.tablet = te.tablet JOIN commit_info ci ON ci.repo = o.repo AND ci.sha = o.commit_sha GROUP BY e.family`).all()) firstWritten.set(Number(r.fam), r.d);
+  history = ctx.db.prepare('SELECT count(*) repos, sum(commits_done) done, sum(commits_total) total, sum(commits_done >= commits_total) complete FROM wander').get();
+} catch { /* history not walked yet */ }
 const divergent = ctx.db.prepare(`
   SELECT te.name, count(DISTINCT e.family) fams, count(DISTINCT o.repo) repos
   FROM tablet_element te JOIN element e ON e.n = te.element JOIN occurrence o ON o.tablet = te.tablet
@@ -137,7 +149,7 @@ for (const f of top) {
   const needs = c.needs ? JSON.parse(c.needs) : null;
   const published = f.places.find(p => live.has(p.repo));
   nodes.push({ id, key: id, label: `#${f.n} ${[...f.names][0]}`, type: c.standalone ? 'library element' : 'element', rag: c.standalone ? 'green' : 'amber',
-    reason: `${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : ''),
+    reason: `${f.lineages.size} different files · ${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (firstWritten.has(f.n) ? ` · first written ${firstWritten.get(f.n).slice(0, 10)}` : '') + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : ''),
     gh: gh(c), ext: published ? live.get(published.repo) + published.path : null });
   for (const r of f.repos) { repoNodes.add(r); edges.push({ from: id, to: `repo:${r}`, type: 'found-in' }); }
 }
@@ -169,11 +181,12 @@ md.push(`Updated ${now.slice(0, 16).replace('T', ' ')} UTC by GitHub Actions. It
 md.push('Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.', '');
 md.push('## Totals', '', '| | count |', '|---|---|');
 md.push(`| Unique lines | ${count('line').toLocaleString('en-GB')} |`, `| File versions | ${count('tablet').toLocaleString('en-GB')} |`, `| Elements (functions and classes) | ${count('element').toLocaleString('en-GB')} |`, `| Families (same logic) | ${count('family').toLocaleString('en-GB')} |`);
-md.push(`| Families found in two or more places | ${repeated.length.toLocaleString('en-GB')} |`, `| Self-contained functions compiled into the library | ${library.length.toLocaleString('en-GB')} |`, '');
+md.push(`| Families written in two or more different files (duplicate work) | ${repeated.length.toLocaleString('en-GB')} |`, `| Families only copied between versions of one file | ${versionedOnly.toLocaleString('en-GB')} |`, `| Self-contained functions compiled into the library | ${library.length.toLocaleString('en-GB')} |`, '');
 md.push(`Check: ${rebuiltOk} randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.`, '');
-md.push('## Work already done more than once', '', 'The same logic exists in several places. Before writing something similar, reuse one of these.', '');
-md.push('| Family | Name | Places | Repositories | Self-contained | First copy |', '|---|---|---|---|---|---|');
-for (const f of repeated.slice(0, 30)) { const c = f.places[0]; md.push(`| #${f.n} | \`${[...f.names].slice(0, 2).join('`, `')}\` | ${f.places.length} | ${f.repos.size} | ${c.standalone ? 'yes' : 'no'} | [${c.repo.split('/')[1]}/${c.path}](${gh(c)}) |`); }
+if (history) md.push(`History walked: ${Number(history.done).toLocaleString('en-GB')} of ${Number(history.total).toLocaleString('en-GB')} commits across ${history.repos} repositories (${history.complete} complete). Each run continues where the last one stopped.`, '');
+md.push('## Work already done more than once', '', 'The same logic written in two or more different files. Copies of one file in timestamped release folders are counted as versions, not here. Before writing something similar, reuse one of these.', '');
+md.push('| Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |', '|---|---|---|---|---|---|---|---|');
+for (const f of repeated.slice(0, 30)) { const c = f.places[0]; md.push(`| #${f.n} | \`${[...f.names].slice(0, 2).join('`, `')}\` | ${f.lineages.size} | ${f.places.length} | ${f.repos.size} | ${c.standalone ? 'yes' : 'no'} | ${(firstWritten.get(f.n) || '').slice(0, 10) || '–'} | [${c.repo.split('/')[1]}/${c.path}](${gh(c)}) |`); }
 md.push('', '## Same name, different code', '', 'These names mean different things in different repositories, so check which version is meant before relying on one.', '');
 md.push('| Name | Different versions | Repositories |', '|---|---|---|');
 for (const d of divergent) md.push(`| \`${d.name}\` | ${d.fams} | ${d.repos} |`);

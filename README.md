@@ -35,5 +35,5 @@ functions and classes are numbered as elements, and elements with the same logic
 - [Compiled library](library/standalone.mjs): self-contained functions that already appear in two or more places
 - [Spider graph](modular/graph.json): the most repeated families, wired to their repositories, for the Spider dashboard
 - **Before writing code:** `npm install`, then `node modular-star/find-prior.mjs your-file.js`
-- The workflow in `.github/workflows/modular-star.yml` runs every six hours. The database and catalogue are kept on the
+- The workflow in `.github/workflows/modular-star.yml` runs every hour. Each run first walks further back through the full commit history (the wandering star), then rebuilds the reports. The database and catalogue are kept on the
   [modular-star release](https://github.com/Ventusltd/stars/releases/tag/modular-star), and every run checks that no earlier number changed.
