@@ -9,7 +9,7 @@ on:
     - cron: '41 * * * *'
   push:
     branches: [main]
-    paths: ['modular-star/**', '.github/workflows/modular-star.yml', 'package.json']
+    paths: ['modular-star/**', 'tools/check-graph.mjs', '.github/workflows/modular-star.yml', 'package.json']
 
 permissions:
   contents: write
@@ -54,6 +54,9 @@ jobs:
 
       - name: Group the families into blocks (the periodic table)
         run: node modular-star/blocks.mjs --out . && node modular-star/reactions.mjs --out .
+
+      - name: Check the Spider graphs read the way the dashboard reads them
+        run: node tools/check-graph.mjs modular/graph.json && node tools/check-graph.mjs blocks/graph.json
 
       - name: Structure of the estate and proof of work (Spider graphs with Mermaid pages)
         run: node modular-star/structure.mjs --out . && node modular-star/proof.mjs --out .
