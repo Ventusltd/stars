@@ -1,7 +1,7 @@
 {
  "schema": "modular-star-graph.v1",
  "label": "The Modular star",
- "generated_utc": "2026-09-14T08:43:42.389Z",
+ "generated_utc": "2026-09-14T08:50:29.936Z",
  "nodes": [
   {
    "id": "family:975",
@@ -11,7 +11,7 @@
    "rag": "amber",
    "reason": "67 different files · 98 places in 5 repositories · 1 version(s) · first written 2026-08-22",
    "gh": "https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48",
-   "ext": "https://ventusltd.github.io/data-grid-gb/chatgpt/ingest_etys.py"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=975"
   },
   {
    "id": "family:1586",
@@ -21,7 +21,7 @@
    "rag": "green",
    "reason": "37 different files · 459 places in 5 repositories · 4 version(s) · first written 2026-08-28 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs#L12-L14",
-   "ext": "https://globalgrid2050.com/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1586"
   },
   {
    "id": "family:8770",
@@ -31,7 +31,7 @@
    "rag": "amber",
    "reason": "10 different files · 251 places in 5 repositories · 4 version(s) · first written 2026-08-31 · needs DEG",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1627-L1633",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8770"
   },
   {
    "id": "family:511",
@@ -41,7 +41,7 @@
    "rag": "amber",
    "reason": "10 different files · 248 places in 5 repositories · 5 version(s) · first written 2026-09-01 · needs DEG, EARTH_RADIUS_KM",
    "gh": "https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=511"
   },
   {
    "id": "family:591",
@@ -51,7 +51,7 @@
    "rag": "amber",
    "reason": "10 different files · 10 places in 5 repositories · 1 version(s) · first written 2026-08-29",
    "gh": "https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42",
-   "ext": "https://ventusltd.github.io/data-gridatlas/atman/202608291410-verify-repd-routing-release.py"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=591"
   },
   {
    "id": "family:8285",
@@ -61,7 +61,7 @@
    "rag": "amber",
    "reason": "23 different files · 305 places in 4 repositories · 4 version(s) · first written 2026-08-29 · needs crypto",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L124-L127",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8285"
   },
   {
    "id": "family:5168",
@@ -71,7 +71,7 @@
    "rag": "green",
    "reason": "16 different files · 188 places in 4 repositories · 5 version(s) · first written 2026-04-03 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/repd_grid_atlasv3/index.html#L193-L197",
-   "ext": "https://globalgrid2050.com/repd_grid_atlasv3/index.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=5168"
   },
   {
    "id": "family:5609",
@@ -81,7 +81,7 @@
    "rag": "amber",
    "reason": "13 different files · 185 places in 4 repositories · 3 version(s) · first written 2026-04-07 · needs DEG, ad, lat1, lon, n",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/repd_grid_atlasv6/ventus-corev6engine.js#L135-L140",
-   "ext": "https://globalgrid2050.com/repd_grid_atlasv6/ventus-corev6engine.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=5609"
   },
   {
    "id": "family:1",
@@ -91,7 +91,7 @@
    "rag": "green",
    "reason": "11 different files · 41 places in 4 repositories · 2 version(s) · first written 2026-04-09 · self-contained",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L3-L7",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1"
   },
   {
    "id": "family:18",
@@ -101,7 +101,7 @@
    "rag": "amber",
    "reason": "11 different files · 41 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs ctx, r, scale",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L51-L59",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=18"
   },
   {
    "id": "family:32",
@@ -111,7 +111,7 @@
    "rag": "amber",
    "reason": "11 different files · 41 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs appState, buildReview, buildSnapshot, computeLayout, drawBend, drawFormation",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L288-L302",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=32"
   },
   {
    "id": "family:8400",
@@ -121,7 +121,7 @@
    "rag": "amber",
    "reason": "10 different files · 142 places in 4 repositories · 1 version(s) · first written 2026-08-31 · needs PROJECT_TECHS, document",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1733-L1744",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8400"
   },
   {
    "id": "family:8528",
@@ -131,7 +131,7 @@
    "rag": "amber",
    "reason": "10 different files · 142 places in 4 repositories · 1 version(s) · first written 2026-09-01 · needs LAYER_CONTROL, clearStatus, document, layerWatcher, link, onReady",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L4469-L4479",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8528"
   },
   {
    "id": "family:8529",
@@ -141,7 +141,7 @@
    "rag": "amber",
    "reason": "10 different files · 142 places in 4 repositories · 1 version(s) · first written 2026-09-01 · needs LAYER_CONTROL, MutationObserver, clearStatus, document, layerWatcher, link",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L4466-L4485",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8529"
   },
   {
    "id": "family:8531",
@@ -151,7 +151,7 @@
    "rag": "amber",
    "reason": "10 different files · 142 places in 4 repositories · 1 version(s) · first written 2026-08-31 · needs label",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L4571-L4575",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8531"
   },
   {
    "id": "family:8586",
@@ -161,7 +161,7 @@
    "rag": "amber",
    "reason": "10 different files · 142 places in 4 repositories · 1 version(s) · first written 2026-08-31 · needs clearStatus, enableBoth, waitForLayerControls, watchForLayerControls",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5960-L5968",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8586"
   },
   {
    "id": "family:8398",
@@ -171,7 +171,7 @@
    "rag": "amber",
    "reason": "10 different files · 116 places in 4 repositories · 1 version(s) · first written 2026-09-03 · needs OFF",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1723-L1727",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8398"
   },
   {
    "id": "family:8399",
@@ -181,7 +181,7 @@
    "rag": "amber",
    "reason": "10 different files · 116 places in 4 repositories · 1 version(s) · first written 2026-09-03 · needs window",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1716-L1730",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8399"
   },
   {
    "id": "family:8466",
@@ -191,7 +191,7 @@
    "rag": "green",
    "reason": "10 different files · 106 places in 4 repositories · 1 version(s) · first written 2026-09-04 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L3215-L3227",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8466"
   },
   {
    "id": "family:8581",
@@ -201,7 +201,7 @@
    "rag": "amber",
    "reason": "10 different files · 106 places in 4 repositories · 1 version(s) · first written 2026-09-03 · needs apply, done, framed, link, map, noteFailure",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5777-L5791",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8581"
   },
   {
    "id": "family:8589",
@@ -211,7 +211,7 @@
    "rag": "amber",
    "reason": "10 different files · 104 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs arrivalGate, epoch, link, noteFailure, repdRef",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L6131-L6140",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8589"
   },
   {
    "id": "family:8583",
@@ -221,7 +221,7 @@
    "rag": "amber",
    "reason": "10 different files · 100 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs lat, lon",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5796-L5798",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8583"
   },
   {
    "id": "family:2",
@@ -231,7 +231,7 @@
    "rag": "green",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · self-contained",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L11-L15",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=2"
   },
   {
    "id": "family:3",
@@ -241,7 +241,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs DEFAULT_BURIAL_DEPTHS, byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L17-L23",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=3"
   },
   {
    "id": "family:7",
@@ -251,7 +251,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs appState, byId, clampInteger, getBurialDepthForComputation",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L50-L67",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=7"
   },
   {
    "id": "family:8",
@@ -261,7 +261,7 @@
    "rag": "green",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · self-contained",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L69-L83",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8"
   },
   {
    "id": "family:9",
@@ -271,7 +271,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs effectiveGap, getGroupGeometry",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L85-L118",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9"
   },
   {
    "id": "family:12",
@@ -281,7 +281,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 3 version(s) · first written 2026-04-09 · needs Blob, appState, byId, document",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/export.js#L1-L13",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v6/cable-geometry-visualiser/export.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=12"
   },
   {
    "id": "family:13",
@@ -291,7 +291,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs appState, byId, navigator",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/export.js#L15-L26",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=13"
   },
   {
    "id": "family:14",
@@ -301,7 +301,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 3 version(s) · first written 2026-04-08 · needs byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L1-L5",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v6/cable-geometry-visualiser/rendering.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=14"
   },
   {
    "id": "family:15",
@@ -311,7 +311,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs byId, document",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L7-L22",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=15"
   },
   {
    "id": "family:16",
@@ -321,7 +321,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs byId, formatMm",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L24-L39",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=16"
   },
   {
    "id": "family:17",
@@ -331,7 +331,7 @@
    "rag": "green",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · self-contained",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L41-L46",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=17"
   },
   {
    "id": "family:22",
@@ -341,7 +341,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L275-L346",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=22"
   },
   {
    "id": "family:24",
@@ -351,7 +351,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs document, sel",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L5-L10",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=24"
   },
   {
    "id": "family:25",
@@ -361,7 +361,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 3 version(s) · first written 2026-04-09 · needs FORMATION_LIBRARY, byId, document",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L1-L12",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v6/cable-geometry-visualiser/ui.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=25"
   },
   {
    "id": "family:33",
@@ -371,7 +371,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L304-L307",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=33"
   },
   {
    "id": "family:36",
@@ -381,7 +381,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs normaliseBurialDepthFieldOnBlur, normaliseIntegerFields, renderAll, syncSpacingInputs",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L330-L341",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=36"
   },
   {
    "id": "family:37",
@@ -391,7 +391,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs document, window",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L343-L346",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=37"
   },
   {
    "id": "family:38",
@@ -401,7 +401,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs byId, document, renderAll, updateViewportMode",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L348-L353",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=38"
   },
   {
    "id": "family:42",
@@ -411,7 +411,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 2 version(s) · first written 2026-04-09 · needs byId, handleBlur, handleInput",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L381-L384",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=42"
   },
   {
    "id": "family:8582",
@@ -421,7 +421,7 @@
    "rag": "amber",
    "reason": "10 different files · 40 places in 4 repositories · 1 version(s) · first written 2026-09-03 · needs framed, link, noteFailure, zoomUsable",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5771-L5795",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8582"
   },
   {
    "id": "family:8585",
@@ -431,7 +431,7 @@
    "rag": "amber",
    "reason": "10 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs arrivalGate, currentArrival, enableSubstationLayer, enableTechnologyLayer, epoch, technologyKnown",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5954-L5959",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8585"
   },
   {
    "id": "family:8767",
@@ -441,7 +441,7 @@
    "rag": "green",
    "reason": "9 different files · 250 places in 4 repositories · 4 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1557-L1575",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8767"
   },
   {
    "id": "family:8768",
@@ -451,7 +451,7 @@
    "rag": "green",
    "reason": "9 different files · 250 places in 4 repositories · 4 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1583-L1601",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8768"
   },
   {
    "id": "family:8769",
@@ -461,7 +461,7 @@
    "rag": "amber",
    "reason": "9 different files · 246 places in 4 repositories · 4 version(s) · first written 2026-09-01 · needs DEG, EARTH_RADIUS_KM",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1615-L1625",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8769"
   },
   {
    "id": "family:8584",
@@ -471,7 +471,7 @@
    "rag": "green",
    "reason": "9 different files · 100 places in 4 repositories · 1 version(s) · first written 2026-09-04 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5837-L5840",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8584"
   },
   {
    "id": "family:8587",
@@ -481,7 +481,7 @@
    "rag": "amber",
    "reason": "9 different files · 94 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs arrivalGate, capturedMap, currentDeclared, currentRepdRef, document, ensureArrivalCard",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5980-L6021",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8587"
   },
   {
    "id": "family:8328",
@@ -491,7 +491,7 @@
    "rag": "amber",
    "reason": "9 different files · 76 places in 4 repositories · 1 version(s) · first written 2026-08-30 · needs bindSearch, document, receiveExactRepdDeepLink, state",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L786-L796",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8328"
   },
   {
    "id": "family:8782",
@@ -501,7 +501,7 @@
    "rag": "amber",
    "reason": "8 different files · 353 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs UNDECLARED",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1965-L1969",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8782"
   },
   {
    "id": "family:8380",
@@ -511,7 +511,7 @@
    "rag": "green",
    "reason": "8 different files · 144 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L951-L954",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8380"
   },
   {
    "id": "family:8401",
@@ -521,7 +521,7 @@
    "rag": "amber",
    "reason": "8 different files · 97 places in 4 repositories · 2 version(s) · first written 2026-09-04 · needs LAYER_ID_FOR_BUCKET",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1785-L1789",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8401"
   },
   {
    "id": "family:4",
@@ -531,7 +531,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs DEFAULT_BURIAL_DEPTHS, MIN_BURIAL_DEPTHS, byId, clampInteger",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L25-L33",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=4"
   },
   {
    "id": "family:5",
@@ -541,7 +541,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId, clampInteger",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L44-L47",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=5"
   },
   {
    "id": "family:6",
@@ -551,7 +551,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs appState, byId, clampInteger",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L35-L48",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=6"
   },
   {
    "id": "family:10",
@@ -561,7 +561,7 @@
    "rag": "green",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · self-contained",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/calculations.js#L120-L164",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=10"
   },
   {
    "id": "family:11",
@@ -571,7 +571,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs OD_A, OD_B, OD_C, OD_CONFIRMED, VOLTAGE_CLASSES",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/data.js#L374-L418",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=11"
   },
   {
    "id": "family:19",
@@ -581,7 +581,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs getServiceColours",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L48-L121",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=19"
   },
   {
    "id": "family:20",
@@ -591,7 +591,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId, drawGroup",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L123-L185",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=20"
   },
   {
    "id": "family:21",
@@ -601,7 +601,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L187-L273",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=21"
   },
   {
    "id": "family:26",
@@ -611,7 +611,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs appState, byId, clampInteger",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L14-L52",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=26"
   },
   {
    "id": "family:27",
@@ -621,7 +621,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs DEFAULT_BURIAL_DEPTHS, MIN_BURIAL_DEPTHS, byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L54-L70",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=27"
   },
   {
    "id": "family:28",
@@ -631,7 +631,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs document, isThree, lookupOD, sel, vk",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L192-L200",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=28"
   },
   {
    "id": "family:29",
@@ -641,7 +641,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs MC2_CSAS_CU_LV, MC5_CSAS_AL_LV, MC5_CSAS_CU_LV, MC_CSAS_AL_LV, MC_CSAS_CU_LV, SC_CSAS_ATA",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L72-L201",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=29"
   },
   {
    "id": "family:30",
@@ -651,7 +651,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs VOLTAGE_CLASSES, byId, lookupOD, updateFromLookup",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L203-L268",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=30"
   },
   {
    "id": "family:31",
@@ -661,7 +661,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId, lookupOD, renderAll",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L270-L286",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=31"
   },
   {
    "id": "family:34",
@@ -671,7 +671,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId, debouncedRenderAll, populateFormationOptions, syncBurialDepthNote, syncSpacingInputs",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L310-L318",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=34"
   },
   {
    "id": "family:35",
@@ -681,7 +681,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId, populateFormationOptions, renderAll, syncBurialDepthNote, syncSpacingInputs",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L320-L328",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=35"
   },
   {
    "id": "family:39",
@@ -691,7 +691,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs window",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L356-L361",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=39"
   },
   {
    "id": "family:40",
@@ -701,7 +701,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs document, window",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L355-L362",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=40"
   },
   {
    "id": "family:41",
@@ -711,7 +711,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L371-L378",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=41"
   },
   {
    "id": "family:43",
@@ -721,7 +721,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs applyLookup, byId, copySnapshot, debounce, exportJson, handleBlur",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L364-L390",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=43"
   },
   {
    "id": "family:44",
@@ -731,7 +731,7 @@
    "rag": "amber",
    "reason": "8 different files · 38 places in 4 repositories · 1 version(s) · first written 2026-04-09 · needs bindEvents, bindNumericFieldUX, byId, normaliseIntegerFields, populateFormationOptions, populateLookupCSA",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L392-L402",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=44"
   },
   {
    "id": "family:8850",
@@ -741,7 +741,7 @@
    "rag": "green",
    "reason": "7 different files · 220 places in 4 repositories · 2 version(s) · first written 2026-09-04 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L4617-L4623",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8850"
   },
   {
    "id": "family:8856",
@@ -751,7 +751,7 @@
    "rag": "amber",
    "reason": "7 different files · 220 places in 4 repositories · 2 version(s) · first written 2026-09-04 · needs menu, openMenu, panel, title",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L4749-L4752",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8856"
   },
   {
    "id": "family:8772",
@@ -761,7 +761,7 @@
    "rag": "green",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1723-L1727",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8772"
   },
   {
    "id": "family:8773",
@@ -771,7 +771,7 @@
    "rag": "green",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1731-L1739",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8773"
   },
   {
    "id": "family:8775",
@@ -781,7 +781,7 @@
    "rag": "green",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1790-L1797",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8775"
   },
   {
    "id": "family:8776",
@@ -791,7 +791,7 @@
    "rag": "amber",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs byNode",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1822-L1826",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8776"
   },
   {
    "id": "family:8777",
@@ -801,7 +801,7 @@
    "rag": "amber",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs nodes",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1836-L1839",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8777"
   },
   {
    "id": "family:8781",
@@ -811,7 +811,7 @@
    "rag": "amber",
    "reason": "7 different files · 182 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs sitesByCode, sitesByName",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1876-L1880",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8781"
   },
   {
    "id": "family:8778",
@@ -821,7 +821,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs nodes",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1855-L1858",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8778"
   },
   {
    "id": "family:8779",
@@ -831,7 +831,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs nodes",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1862-L1869",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8779"
   },
   {
    "id": "family:8780",
@@ -841,7 +841,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 4 version(s) · first written 2026-09-01 · needs byNode, nodes, parametersOf, ratingsOf, sitesByCode, voltageOf",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1850-L1874",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8780"
   },
   {
    "id": "family:8786",
@@ -851,7 +851,7 @@
    "rag": "green",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2104-L2113",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8786"
   },
   {
    "id": "family:8787",
@@ -861,7 +861,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs crossing",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2115-L2141",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8787"
   },
   {
    "id": "family:8788",
@@ -871,7 +871,7 @@
    "rag": "green",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2152-L2161",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8788"
   },
   {
    "id": "family:8789",
@@ -881,7 +881,7 @@
    "rag": "green",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2163-L2167",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8789"
   },
   {
    "id": "family:8790",
@@ -891,7 +891,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs IMPEDANCE_CARRIED, NOT_A_CAPACITY, NOT_A_DISTANCE, REQUIRES, SCHEMA, crossing",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2183-L2301",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8790"
   },
   {
    "id": "family:8791",
@@ -901,7 +901,7 @@
    "rag": "green",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2374-L2377",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8791"
   },
   {
    "id": "family:8792",
@@ -911,7 +911,7 @@
    "rag": "amber",
    "reason": "7 different files · 178 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs NOT_A_CAPACITY, NOT_A_DISTANCE, REQUIRES, SCHEMA, crossing, legality",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2311-L2383",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8792"
   },
   {
    "id": "family:8794",
@@ -921,7 +921,7 @@
    "rag": "amber",
    "reason": "7 different files · 177 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs FIELD, SEASONS",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2477-L2486",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8794"
   },
   {
    "id": "family:8795",
@@ -931,7 +931,7 @@
    "rag": "amber",
    "reason": "7 different files · 177 places in 4 repositories · 3 version(s) · first written 2026-09-01 · needs IMPLAUSIBLE_MVA",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2488-L2502",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8795"
   },
   {
    "id": "family:8796",
@@ -941,7 +941,7 @@
    "rag": "amber",
    "reason": "7 different files · 177 places in 4 repositories · 4 version(s) · first written 2026-09-01 · needs IMPLAUSIBLE_MVA, NEVER_SUMMED, NOT_A_CAPACITY, REQUIRES, SCHEMA, SEASONS",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L2512-L2598",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8796"
   },
   {
    "id": "family:8946",
@@ -951,7 +951,7 @@
    "rag": "amber",
    "reason": "7 different files · 175 places in 4 repositories · 4 version(s) · first written 2026-09-01 · needs NOISE",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L6622-L6626",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8946"
   },
   {
    "id": "family:8377",
@@ -961,7 +961,7 @@
    "rag": "green",
    "reason": "7 different files · 139 places in 4 repositories · 2 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L778-L847",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8377"
   },
   {
    "id": "family:8381",
@@ -971,7 +971,7 @@
    "rag": "amber",
    "reason": "7 different files · 139 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs DEVELOPMENT_STAGES, DEVELOPMENT_SUCCESS, financeNumber",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L976-L983",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8381"
   },
   {
    "id": "family:8385",
@@ -981,7 +981,7 @@
    "rag": "amber",
    "reason": "7 different files · 139 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs best, computeSldStats, outerKey, sld",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1203-L1209",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8385"
   },
   {
    "id": "family:8375",
@@ -991,7 +991,7 @@
    "rag": "green",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L689-L701",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8375"
   },
   {
    "id": "family:8376",
@@ -1001,7 +1001,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs physicalInputs",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L703-L723",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8376"
   },
   {
    "id": "family:8378",
@@ -1011,7 +1011,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs buildStats",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L849-L871",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8378"
   },
   {
    "id": "family:8379",
@@ -1021,7 +1021,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs buildStats",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L873-L939",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8379"
   },
   {
    "id": "family:8382",
@@ -1031,7 +1031,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs BIFACIAL_BY_GCR",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L988-L995",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8382"
   },
   {
    "id": "family:8383",
@@ -1041,7 +1041,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs DEVELOPMENT_STAGES, financeNumber",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1003-L1096",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8383"
   },
   {
    "id": "family:8384",
@@ -1051,7 +1051,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs centralStats, consistency, screeningFinance, stringStats",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1098-L1108",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8384"
   },
   {
    "id": "family:8386",
@@ -1061,7 +1061,7 @@
    "rag": "amber",
    "reason": "7 different files · 133 places in 4 repositories · 2 version(s) · first written 2026-09-01 · needs FIT_INNER_MAX, FIT_OUTER_MAX",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L1158-L1211",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8386"
   },
   {
    "id": "family:8532",
@@ -1071,7 +1071,7 @@
    "rag": "amber",
    "reason": "7 different files · 96 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs TECH_LABEL_FALLBACK, document, layerIdForBucket, link, noteFailure, recoverFailures",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L4549-L4595",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8532"
   },
   {
    "id": "family:8591",
@@ -1081,7 +1081,7 @@
    "rag": "amber",
    "reason": "7 different files · 89 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs link",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L6176-L6183",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8591"
   },
   {
    "id": "family:8592",
@@ -1091,7 +1091,7 @@
    "rag": "amber",
    "reason": "7 different files · 89 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs arrivalAttempts, document, link, runDeepLink",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L6184-L6189",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8592"
   },
   {
    "id": "family:8319",
@@ -1101,7 +1101,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs params",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L616-L621",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8319"
   },
   {
    "id": "family:8320",
@@ -1111,7 +1111,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs params",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L622-L625",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8320"
   },
   {
    "id": "family:8321",
@@ -1121,7 +1121,7 @@
    "rag": "green",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · self-contained",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L615-L638",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8321"
   },
   {
    "id": "family:8323",
@@ -1131,7 +1131,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs arrivalCoordinator, invariant, receiveExactRepdDeepLink, resetOfficialRuntime, state",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L733-L742",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8323"
   },
   {
    "id": "family:8324",
@@ -1141,7 +1141,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs debounceTimer, executeSearch, input, invalidatePendingDeepLink, resultsEl",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L752-L757",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8324"
   },
   {
    "id": "family:8325",
@@ -1151,7 +1151,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs debounceTimer, executeSearch, input, invalidatePendingDeepLink, resultsEl",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L759-L771",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8325"
   },
   {
    "id": "family:8326",
@@ -1161,7 +1161,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs debounceTimer, executeSearch, input, invalidatePendingDeepLink, resultsEl",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L773-L779",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8326"
   },
   {
    "id": "family:8327",
@@ -1171,7 +1171,7 @@
    "rag": "amber",
    "reason": "7 different files · 73 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs debounceTimer, document, executeSearch, invalidatePendingDeepLink, invariant, retryExactRepdDeepLink",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L744-L784",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8327"
   },
   {
    "id": "family:23",
@@ -1181,7 +1181,7 @@
    "rag": "amber",
    "reason": "7 different files · 37 places in 4 repositories · 1 version(s) · first written 2026-05-17 · needs appState, byId",
    "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/958449237b6f498677025a0e274709bc147f43f4/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L348-L414",
-   "ext": "https://globalgrid2050.com/solar-bess-topology-v5/cable-geometry-visualiser-v5.html"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=23"
   },
   {
    "id": "family:8588",
@@ -1191,7 +1191,7 @@
    "rag": "amber",
    "reason": "7 different files · 32 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs currentArrival, currentCapacityMw, distanceKm, enableBoth, epoch, injectStatusStyle",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L6034-L6131",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8588"
   },
   {
    "id": "family:8783",
@@ -1201,7 +1201,807 @@
    "rag": "amber",
    "reason": "6 different files · 171 places in 4 repositories · 4 version(s) · first written 2026-09-03 · needs ACCEPTS, IMPEDANCE_BASIS, NOT_AN_ASSESSMENT, UNDECLARED, bandKey, byNode",
    "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1889-L2006",
-   "ext": "https://globalgrid2050.com/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js"
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8783"
+  },
+  {
+   "id": "family:8784",
+   "key": "family:8784",
+   "label": "#8784 index",
+   "type": "element",
+   "rag": "amber",
+   "reason": "6 different files · 171 places in 4 repositories · 4 version(s) · first written 2026-09-03 · needs ACCEPTS, IMPEDANCE_BASIS, NOT_AN_ASSESSMENT, UNDECLARED, bandKey, parametersOf",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1803-L2020",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8784"
+  },
+  {
+   "id": "family:8838",
+   "key": "family:8838",
+   "label": "#8838 forCable",
+   "type": "element",
+   "rag": "amber",
+   "reason": "6 different files · 166 places in 4 repositories · 3 version(s) · first written 2026-09-03 · needs BASIS, CABLE_FACTOR, MINIMUM_KM",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L4176-L4189",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8838"
+  },
+  {
+   "id": "family:8955",
+   "key": "family:8955",
+   "label": "#8955 escapeAttribute",
+   "type": "library element",
+   "rag": "green",
+   "reason": "6 different files · 147 places in 4 repositories · 1 version(s) · first written 2026-08-30 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/index.html#L23-L25",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8955"
+  },
+  {
+   "id": "family:8957",
+   "key": "family:8957",
+   "label": "#8957 fail",
+   "type": "element",
+   "rag": "amber",
+   "reason": "6 different files · 147 places in 4 repositories · 1 version(s) · first written 2026-08-30 · needs document, loader",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/index.html#L32-L36",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8957"
+  },
+  {
+   "id": "family:8958",
+   "key": "family:8958",
+   "label": "#8958 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "6 different files · 147 places in 4 repositories · 1 version(s) · first written 2026-08-30 · needs SCRIPT_CLOSE, blobUrl, cartridge, escapeAttribute, id, replaced",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/index.html#L74-L78",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8958"
+  },
+  {
+   "id": "family:8715",
+   "key": "family:8715",
+   "label": "#8715 focusCanonicalProjectDeepLink",
+   "type": "element",
+   "rag": "amber",
+   "reason": "6 different files · 144 places in 4 repositories · 2 version(s) · first written 2026-09-04 · needs map, window",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L799-L841",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8715"
+  },
+  {
+   "id": "family:8774",
+   "key": "family:8774",
+   "label": "#8774 physicalUnits",
+   "type": "library element",
+   "rag": "green",
+   "reason": "5 different files · 170 places in 4 repositories · 3 version(s) · first written 2026-09-03 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1770-L1788",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8774"
+  },
+  {
+   "id": "family:8590",
+   "key": "family:8590",
+   "label": "#8590 runDeepLink",
+   "type": "element",
+   "rag": "amber",
+   "reason": "5 different files · 19 places in 4 repositories · 1 version(s) · first written 2026-09-04",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609050354-sld-sandbox-v9-8.js#L5720-L6148",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8590"
+  },
+  {
+   "id": "family:8322",
+   "key": "family:8322",
+   "label": "#8322 receiveExactRepdDeepLink",
+   "type": "element",
+   "rag": "amber",
+   "reason": "5 different files · 6 places in 4 repositories · 1 version(s) · first written 2026-09-04 · needs activeQuerySerial, arrivalCoordinator, document, hasSafeMapPoint, invariant, queryOfficialRepd",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L640-L731",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8322"
+  },
+  {
+   "id": "family:1635",
+   "key": "family:1635",
+   "label": "#1635 csvCell",
+   "type": "library element",
+   "rag": "green",
+   "reason": "79 different files · 615 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L590-L594",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1635"
+  },
+  {
+   "id": "family:1609",
+   "key": "family:1609",
+   "label": "#1609 displayDate",
+   "type": "library element",
+   "rag": "green",
+   "reason": "67 different files · 530 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L305-L309",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1609"
+  },
+  {
+   "id": "family:1626",
+   "key": "family:1626",
+   "label": "#1626 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "67 different files · 530 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs dataKey, selected",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L486-L490",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1626"
+  },
+  {
+   "id": "family:1627",
+   "key": "family:1627",
+   "label": "#1627 setButtonState",
+   "type": "element",
+   "rag": "amber",
+   "reason": "67 different files · 530 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L485-L491",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1627"
+  },
+  {
+   "id": "family:1639",
+   "key": "family:1639",
+   "label": "#1639 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "67 different files · 530 places in 3 repositories · 2 version(s) · first written 2026-08-23 · needs apply, button, setButtonState, technology",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L644-L648",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1639"
+  },
+  {
+   "id": "family:1641",
+   "key": "family:1641",
+   "label": "#1641 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "66 different files · 510 places in 3 repositories · 2 version(s) · first written 2026-08-23 · needs apply, button, setButtonState, status",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L651-L655",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1641"
+  },
+  {
+   "id": "family:9321",
+   "key": "family:9321",
+   "label": "#9321 relationshipSummary",
+   "type": "library element",
+   "rag": "green",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L55-L60",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9321"
+  },
+  {
+   "id": "family:9328",
+   "key": "family:9328",
+   "label": "#9328 populateCounties",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs Option, all, document",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L117-L123",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9328"
+  },
+  {
+   "id": "family:9336",
+   "key": "family:9336",
+   "label": "#9336 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs button, original",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L204-L207",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9336"
+  },
+  {
+   "id": "family:9337",
+   "key": "family:9337",
+   "label": "#9337 copyProjectId",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document, navigator",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L186-L208",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9337"
+  },
+  {
+   "id": "family:9341",
+   "key": "family:9341",
+   "label": "#9341 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs apply, setButtonState, technology",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L240-L246",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9341"
+  },
+  {
+   "id": "family:9343",
+   "key": "family:9343",
+   "label": "#9343 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs apply, setButtonState, status",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L247-L253",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9343"
+  },
+  {
+   "id": "family:9344",
+   "key": "family:9344",
+   "label": "#9344 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "61 different files · 428 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs copyProjectId",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L259-L262",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9344"
+  },
+  {
+   "id": "family:9326",
+   "key": "family:9326",
+   "label": "#9326 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "60 different files · 427 places in 3 repositories · 2 version(s) · first written 2026-08-23 · needs county, projectMatchesV9_2, searchIndex, status, technology, tokens",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L104-L109",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9326"
+  },
+  {
+   "id": "family:9324",
+   "key": "family:9324",
+   "label": "#9324 updateResultSummary",
+   "type": "element",
+   "rag": "amber",
+   "reason": "59 different files · 424 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs all, document, filtered, formatCapacityV9_2, formatLargestV9_2, summariseProjectsV9_2",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-2.js#L83-L90",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9324"
+  },
+  {
+   "id": "family:9089",
+   "key": "family:9089",
+   "label": "#9089 fetchRelease",
+   "type": "element",
+   "rag": "amber",
+   "reason": "54 different files · 420 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs RELEASE_URL, fetch, invariant, window",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/data/canonical-projects-v9-2.js#L9-L14",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9089"
+  },
+  {
+   "id": "family:9364",
+   "key": "family:9364",
+   "label": "#9364 clearFilters",
+   "type": "element",
+   "rag": "amber",
+   "reason": "51 different files · 352 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs apply, county, document, query, setButtonState, sortMode",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-3.js#L197-L210",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9364"
+  },
+  {
+   "id": "family:9348",
+   "key": "family:9348",
+   "label": "#9348 repdUpdatedTimestamp",
+   "type": "library element",
+   "rag": "green",
+   "reason": "49 different files · 343 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-3.js#L57-L61",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9348"
+  },
+  {
+   "id": "family:9354",
+   "key": "family:9354",
+   "label": "#9354 syncFilterUrl",
+   "type": "element",
+   "rag": "amber",
+   "reason": "48 different files · 342 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs county, history, query, sortMode, status, technology",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-3.js#L110-L119",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9354"
+  },
+  {
+   "id": "family:9360",
+   "key": "family:9360",
+   "label": "#9360 hydrateFiltersFromUrl",
+   "type": "element",
+   "rag": "amber",
+   "reason": "48 different files · 342 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs ALLOWED_SORTS, ALLOWED_STATUSES, ALLOWED_TECHNOLOGIES, county, document, query",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-3.js#L154-L172",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9360"
+  },
+  {
+   "id": "family:9113",
+   "key": "family:9113",
+   "label": "#9113 deepFreeze",
+   "type": "library element",
+   "rag": "green",
+   "reason": "48 different files · 267 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/data/canonical-projects.js#L77-L81",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9113"
+  },
+  {
+   "id": "family:9185",
+   "key": "family:9185",
+   "label": "#9185 updateChart",
+   "type": "library element",
+   "rag": "green",
+   "reason": "43 different files · 263 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/gauges-v9-1.js#L10-L13",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9185"
+  },
+  {
+   "id": "family:1643",
+   "key": "family:1643",
+   "label": "#1643 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "42 different files · 280 places in 3 repositories · 2 version(s) · first written 2026-08-23 · needs apply, document, sortMode",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L659-L663",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1643"
+  },
+  {
+   "id": "family:9379",
+   "key": "family:9379",
+   "label": "#9379 updateSortHeader",
+   "type": "element",
+   "rag": "amber",
+   "reason": "37 different files · 258 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document, sortMode",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-4.js#L72-L95",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9379"
+  },
+  {
+   "id": "family:9203",
+   "key": "family:9203",
+   "label": "#9203 signalLabel",
+   "type": "library element",
+   "rag": "green",
+   "reason": "34 different files · 254 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-2.js#L28-L37",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9203"
+  },
+  {
+   "id": "family:9083",
+   "key": "family:9083",
+   "label": "#9083 round2",
+   "type": "library element",
+   "rag": "green",
+   "reason": "33 different files · 180 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/data/canonical-projects-v9-1.js#L9-L11",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9083"
+  },
+  {
+   "id": "family:9209",
+   "key": "family:9209",
+   "label": "#9209 validPayload",
+   "type": "library element",
+   "rag": "green",
+   "reason": "28 different files · 174 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-2.js#L114-L118",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9209"
+  },
+  {
+   "id": "family:9210",
+   "key": "family:9210",
+   "label": "#9210 payloadTime",
+   "type": "library element",
+   "rag": "green",
+   "reason": "28 different files · 174 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-2.js#L120-L123",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9210"
+  },
+  {
+   "id": "family:9211",
+   "key": "family:9211",
+   "label": "#9211 fetchPayload",
+   "type": "element",
+   "rag": "amber",
+   "reason": "28 different files · 174 places in 3 repositories · 1 version(s) · first written 2026-08-22 · needs fetch, validPayload",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-2.js#L125-L131",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9211"
+  },
+  {
+   "id": "family:1597",
+   "key": "family:1597",
+   "label": "#1597 (anonymous)",
+   "type": "library element",
+   "rag": "green",
+   "reason": "27 different files · 197 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L202-L208",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1597"
+  },
+  {
+   "id": "family:1598",
+   "key": "family:1598",
+   "label": "#1598 escapeHtml",
+   "type": "library element",
+   "rag": "green",
+   "reason": "27 different files · 197 places in 3 repositories · 2 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608291447-app.mjs#L201-L209",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1598"
+  },
+  {
+   "id": "family:9032",
+   "key": "family:9032",
+   "label": "#9032 start",
+   "type": "element",
+   "rag": "amber",
+   "reason": "22 different files · 242 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs bindProjectControlsV9_5_1, loadProjectsV9_5_1",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/app-v9-5-1.js#L26-L29",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9032"
+  },
+  {
+   "id": "family:9218",
+   "key": "family:9218",
+   "label": "#9218 indexNewsItems",
+   "type": "element",
+   "rag": "amber",
+   "reason": "22 different files · 169 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs canonicalItem, newsIndex",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-5-1.js#L20-L32",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9218"
+  },
+  {
+   "id": "family:9061",
+   "key": "family:9061",
+   "label": "#9061 startPlugins",
+   "type": "library element",
+   "rag": "green",
+   "reason": "21 different files · 95 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/plugin-host.js#L1-L14",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9061"
+  },
+  {
+   "id": "family:9079",
+   "key": "family:9079",
+   "label": "#9079 normaliseProject",
+   "type": "library element",
+   "rag": "green",
+   "reason": "21 different files · 95 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/utils.js#L11-L18",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9079"
+  },
+  {
+   "id": "family:9080",
+   "key": "family:9080",
+   "label": "#9080 titleCase",
+   "type": "library element",
+   "rag": "green",
+   "reason": "21 different files · 95 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/utils.js#L20-L24",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9080"
+  },
+  {
+   "id": "family:9081",
+   "key": "family:9081",
+   "label": "#9081 isFinanceEvent",
+   "type": "library element",
+   "rag": "green",
+   "reason": "21 different files · 95 places in 3 repositories · 1 version(s) · first written 2026-08-22 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/utils.js#L26-L28",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9081"
+  },
+  {
+   "id": "family:9226",
+   "key": "family:9226",
+   "label": "#9226 payloadTime",
+   "type": "library element",
+   "rag": "green",
+   "reason": "20 different files · 167 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/newspaper-v9-5-1.js#L113-L116",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9226"
+  },
+  {
+   "id": "family:1336",
+   "key": "family:1336",
+   "label": "#1336 money",
+   "type": "library element",
+   "rag": "green",
+   "reason": "18 different files · 79 places in 3 repositories · 1 version(s) · first written 2026-05-12 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L34-L38",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1336"
+  },
+  {
+   "id": "family:1337",
+   "key": "family:1337",
+   "label": "#1337 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "18 different files · 79 places in 3 repositories · 1 version(s) · first written 2026-05-14 · needs fn, ms, t",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L42-L45",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1337"
+  },
+  {
+   "id": "family:1338",
+   "key": "family:1338",
+   "label": "#1338 debounce",
+   "type": "element",
+   "rag": "amber",
+   "reason": "18 different files · 79 places in 3 repositories · 1 version(s) · first written 2026-05-14",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L40-L46",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1338"
+  },
+  {
+   "id": "family:1339",
+   "key": "family:1339",
+   "label": "#1339 isValidLngLat",
+   "type": "library element",
+   "rag": "green",
+   "reason": "18 different files · 79 places in 3 repositories · 1 version(s) · first written 2026-05-14 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L48-L52",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1339"
+  },
+  {
+   "id": "family:1340",
+   "key": "family:1340",
+   "label": "#1340 pickProp",
+   "type": "library element",
+   "rag": "green",
+   "reason": "18 different files · 79 places in 3 repositories · 1 version(s) · first written 2026-05-14 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L54-L59",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1340"
+  },
+  {
+   "id": "family:1341",
+   "key": "family:1341",
+   "label": "#1341 setFetchStatus",
+   "type": "element",
+   "rag": "amber",
+   "reason": "18 different files · 79 places in 3 repositories · 2 version(s) · first written 2026-05-14 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L61-L75",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1341"
+  },
+  {
+   "id": "family:9409",
+   "key": "family:9409",
+   "label": "#9409 compareProjectUpdatesV9_5_1",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 92 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs repdUpdatedTimestamp",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/projects-v9-5-1.js#L71-L78",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9409"
+  },
+  {
+   "id": "family:9062",
+   "key": "family:9062",
+   "label": "#9062 normaliseSearchV9_2",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-filter-v9-2.js#L3-L12",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9062"
+  },
+  {
+   "id": "family:9063",
+   "key": "family:9063",
+   "label": "#9063 tokeniseSearchV9_2",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs normaliseSearchV9_2",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-filter-v9-2.js#L14-L17",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9063"
+  },
+  {
+   "id": "family:9064",
+   "key": "family:9064",
+   "label": "#9064 buildProjectSearchTextV9_2",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs normaliseSearchV9_2",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-filter-v9-2.js#L19-L46",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9064"
+  },
+  {
+   "id": "family:9065",
+   "key": "family:9065",
+   "label": "#9065 projectMatchesV9_2",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs TECHNOLOGIES, buildProjectSearchTextV9_2, tokeniseSearchV9_2",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-filter-v9-2.js#L48-L58",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9065"
+  },
+  {
+   "id": "family:9066",
+   "key": "family:9066",
+   "label": "#9066 summariseProjectsV9_2",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-filter-v9-2.js#L60-L72",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9066"
+  },
+  {
+   "id": "family:9082",
+   "key": "family:9082",
+   "label": "#9082 invariant",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/data/canonical-projects-v9-1.js#L5-L7",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9082"
+  },
+  {
+   "id": "family:9086",
+   "key": "family:9086",
+   "label": "#9086 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs ALLOWED_TECHNOLOGIES, capacity, counts, invariant, largest, projectIds",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/data/canonical-projects-v9-1.js#L44-L58",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9086"
+  },
+  {
+   "id": "family:9177",
+   "key": "family:9177",
+   "label": "#9177 parseDisplayNumber",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L3-L6",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9177"
+  },
+  {
+   "id": "family:9178",
+   "key": "family:9178",
+   "label": "#9178 formatWholeMwV9_3",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs parseDisplayNumber",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L8-L11",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9178"
+  },
+  {
+   "id": "family:9179",
+   "key": "family:9179",
+   "label": "#9179 applyGaugeValue",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document, formatWholeMwV9_3, parseDisplayNumber",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L13-L21",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9179"
+  },
+  {
+   "id": "family:9180",
+   "key": "family:9180",
+   "label": "#9180 applyResultsSummary",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document, formatWholeMwV9_3",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L23-L32",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9180"
+  },
+  {
+   "id": "family:9181",
+   "key": "family:9181",
+   "label": "#9181 applyWholeMwPresentationV9_3",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs applyGaugeValue, applyResultsSummary",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L34-L37",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9181"
+  },
+  {
+   "id": "family:9182",
+   "key": "family:9182",
+   "label": "#9182 observe",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs MutationObserver, applyWholeMwPresentationV9_3, observers",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L39-L44",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9182"
+  },
+  {
+   "id": "family:9183",
+   "key": "family:9183",
+   "label": "#9183 initialiseWholeMwPresentationV9_3",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs applyWholeMwPresentationV9_3, document, observe, observers",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/capacity-presentation-v9-3.js#L46-L51",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9183"
+  },
+  {
+   "id": "family:9189",
+   "key": "family:9189",
+   "label": "#9189 createGauge",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs document",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/gauges-v9-2.js#L4-L12",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9189"
+  },
+  {
+   "id": "family:9191",
+   "key": "family:9191",
+   "label": "#9191 formatCapacityV9_2",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/gauges-v9-2.js#L19-L25",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9191"
+  },
+  {
+   "id": "family:9192",
+   "key": "family:9192",
+   "label": "#9192 formatLargestV9_2",
+   "type": "library element",
+   "rag": "green",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/gauges-v9-2.js#L27-L29",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9192"
+  },
+  {
+   "id": "family:9194",
+   "key": "family:9194",
+   "label": "#9194 setGaugeUniverseV9_2",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 91 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs universe",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/plugins/gauges-v9-2.js#L45-L47",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9194"
+  },
+  {
+   "id": "family:1331",
+   "key": "family:1331",
+   "label": "#1331 num",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 78 places in 3 repositories · 1 version(s) · first written 2026-05-16 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L9-L12",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1331"
+  },
+  {
+   "id": "family:1332",
+   "key": "family:1332",
+   "label": "#1332 intVal",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 78 places in 3 repositories · 1 version(s) · first written 2026-05-16 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L14-L17",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1332"
+  },
+  {
+   "id": "family:1333",
+   "key": "family:1333",
+   "label": "#1333 checked",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 78 places in 3 repositories · 1 version(s) · first written 2026-05-16 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L19-L22",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1333"
+  },
+  {
+   "id": "family:1334",
+   "key": "family:1334",
+   "label": "#1334 setText",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 78 places in 3 repositories · 1 version(s) · first written 2026-05-16 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L24-L27",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1334"
+  },
+  {
+   "id": "family:1335",
+   "key": "family:1335",
+   "label": "#1335 setClass",
+   "type": "element",
+   "rag": "amber",
+   "reason": "17 different files · 78 places in 3 repositories · 1 version(s) · first written 2026-05-16 · needs $",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/feature_requests/003_extract_v2_helpers/files/solar-bess-topology-v2/gis-sld-v2-helpers.js#L29-L32",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=1335"
+  },
+  {
+   "id": "family:8299",
+   "key": "family:8299",
+   "label": "#8299 rowObject",
+   "type": "library element",
+   "rag": "green",
+   "reason": "16 different files · 155 places in 3 repositories · 1 version(s) · first written 2026-08-29 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L277-L279",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=8299"
+  },
+  {
+   "id": "family:9067",
+   "key": "family:9067",
+   "label": "#9067 defaultFilters",
+   "type": "library element",
+   "rag": "green",
+   "reason": "16 different files · 89 places in 3 repositories · 1 version(s) · first written 2026-08-23 · self-contained",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-state.js#L16-L25",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9067"
+  },
+  {
+   "id": "family:9068",
+   "key": "family:9068",
+   "label": "#9068 (anonymous)",
+   "type": "element",
+   "rag": "amber",
+   "reason": "16 different files · 89 places in 3 repositories · 1 version(s) · first written 2026-08-23 · needs filters",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/pipeline/scripts/core/project-state.js#L29-L35",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=9068"
   },
   {
    "id": "repo:Ventusltd/data-grid-gb",
@@ -3769,6 +4569,1271 @@
    "from": "family:8783",
    "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
+  },
+  {
+   "from": "family:8784",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8784",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8784",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8784",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8838",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8838",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8838",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8838",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8955",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8955",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8955",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8955",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8957",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8957",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8957",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8957",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8958",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8958",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8958",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8958",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8715",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8715",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8715",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8715",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8774",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8774",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8774",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8774",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8590",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8590",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8590",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8590",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8322",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8322",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8322",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8322",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1635",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1635",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1635",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1609",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1609",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1609",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1626",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1626",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1626",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1627",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1627",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1627",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1639",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1639",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1639",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1641",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1641",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1641",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9321",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9321",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9321",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9328",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9328",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9328",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9336",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9336",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9336",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9337",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9337",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9337",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9341",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9341",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9341",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9343",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9343",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9343",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9344",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9344",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9344",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9326",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9326",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9326",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9324",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9324",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9324",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9089",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9089",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9089",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9364",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9364",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9364",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9348",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9348",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9348",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9354",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9354",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9354",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9360",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9360",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9360",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9113",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9113",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9113",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9185",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9185",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9185",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1643",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1643",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1643",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9379",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9379",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9379",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9203",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9203",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9203",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9083",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9083",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9083",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9209",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9209",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9209",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9210",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9210",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9210",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9211",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9211",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9211",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1597",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1597",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1597",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1598",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1598",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1598",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9032",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9032",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9032",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9218",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9218",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9218",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9061",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9061",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9061",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9079",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9079",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9079",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9080",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9080",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9080",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9081",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9081",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9081",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9226",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9226",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9226",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1336",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1336",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1336",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1337",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1337",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1337",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1338",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1338",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1338",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1339",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1339",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1339",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1340",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1340",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1340",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1341",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1341",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1341",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9409",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9409",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9409",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9062",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9062",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9062",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9063",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9063",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9063",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9064",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9064",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9064",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9065",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9065",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9065",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9066",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9066",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9066",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9082",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9082",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9082",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9086",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9086",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9086",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9177",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9177",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9177",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9178",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9178",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9178",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9179",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9179",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9179",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9180",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9180",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9180",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9181",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9181",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9181",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9182",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9182",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9182",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9183",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9183",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9183",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9189",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9189",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9189",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9191",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9191",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9191",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9192",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9192",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9192",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9194",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9194",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9194",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1331",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1331",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1331",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1332",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1332",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1332",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1333",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1333",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1333",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1334",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1334",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1334",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1335",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1335",
+   "to": "repo:Ventusltd/layout-tool",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1335",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8299",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8299",
+   "to": "repo:Ventusltd/gridatlas",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8299",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9067",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9067",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9067",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9068",
+   "to": "repo:Ventusltd/globalgrid2050",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9068",
+   "to": "repo:Ventusltd/pipelinenews",
+   "type": "found-in"
+  },
+  {
+   "from": "family:9068",
+   "to": "repo:Ventusltd/testcode",
+   "type": "found-in"
+  },
+  {
+   "from": "family:1586",
+   "to": "family:9082",
+   "type": "same-name"
+  },
+  {
+   "from": "family:33",
+   "to": "family:1338",
+   "type": "same-name"
+  },
+  {
+   "from": "family:1639",
+   "to": "family:1641",
+   "type": "same-name"
+  },
+  {
+   "from": "family:9210",
+   "to": "family:9226",
+   "type": "same-name"
   }
  ]
 }
