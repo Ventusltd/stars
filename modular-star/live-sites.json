@@ -1,0 +1,93 @@
+﻿{
+    "note":  "Public GitHub Pages sites of public Ventusltd repositories, observed 2026-09-14. A file at \u003cpath\u003e in the repository is published at \u003csite\u003e\u003cpath\u003e.",
+    "sites":  [
+                  {
+                      "repo":  "Ventusltd/architecture",
+                      "site":  "https://ventusltd.github.io/architecture/"
+                  },
+                  {
+                      "repo":  "Ventusltd/chatgpt-audits",
+                      "site":  "https://ventusltd.github.io/chatgpt-audits/"
+                  },
+                  {
+                      "repo":  "Ventusltd/cvaa",
+                      "site":  "https://ventusltd.github.io/cvaa/"
+                  },
+                  {
+                      "repo":  "Ventusltd/data_uk_dno_and_tso",
+                      "site":  "https://ventusltd.github.io/data_uk_dno_and_tso/"
+                  },
+                  {
+                      "repo":  "Ventusltd/data-centres-gb",
+                      "site":  "https://ventusltd.github.io/data-centres-gb/"
+                  },
+                  {
+                      "repo":  "Ventusltd/data-federation-map-for-globalgrid2050-all-repos",
+                      "site":  "https://ventusltd.github.io/data-federation-map-for-globalgrid2050-all-repos/"
+                  },
+                  {
+                      "repo":  "Ventusltd/data-gridatlas",
+                      "site":  "https://ventusltd.github.io/data-gridatlas/"
+                  },
+                  {
+                      "repo":  "Ventusltd/data-grid-gb",
+                      "site":  "https://ventusltd.github.io/data-grid-gb/"
+                  },
+                  {
+                      "repo":  "Ventusltd/gb-electricity-ui",
+                      "site":  "https://ventusltd.github.io/gb-electricity-ui/"
+                  },
+                  {
+                      "repo":  "Ventusltd/globalgrid2050",
+                      "site":  "https://globalgrid2050.com/"
+                  },
+                  {
+                      "repo":  "Ventusltd/globalgrid2050-homepage",
+                      "site":  "https://ventusltd.github.io/globalgrid2050-homepage/"
+                  },
+                  {
+                      "repo":  "Ventusltd/globalgrid2050-hompage",
+                      "site":  "https://ventusltd.github.io/globalgrid2050-hompage/"
+                  },
+                  {
+                      "repo":  "Ventusltd/gridatlas",
+                      "site":  "https://ventusltd.github.io/gridatlas/"
+                  },
+                  {
+                      "repo":  "Ventusltd/grid-distance-maths",
+                      "site":  "https://ventusltd.github.io/grid-distance-maths/"
+                  },
+                  {
+                      "repo":  "Ventusltd/pipelinenews",
+                      "site":  "https://ventusltd.github.io/pipelinenews/"
+                  },
+                  {
+                      "repo":  "Ventusltd/registry_of_all_content_in_repos_and_dependencies",
+                      "site":  "https://ventusltd.github.io/registry_of_all_content_in_repos_and_dependencies/"
+                  },
+                  {
+                      "repo":  "Ventusltd/reports",
+                      "site":  "https://ventusltd.github.io/reports/"
+                  },
+                  {
+                      "repo":  "Ventusltd/seed-data",
+                      "site":  "https://ventusltd.github.io/seed-data/"
+                  },
+                  {
+                      "repo":  "Ventusltd/solar-electrical-topology-analysis-engine-text-based",
+                      "site":  "https://ventusltd.github.io/solar-electrical-topology-analysis-engine-text-based/"
+                  },
+                  {
+                      "repo":  "Ventusltd/spiders",
+                      "site":  "https://ventusltd.github.io/spiders/"
+                  },
+                  {
+                      "repo":  "Ventusltd/ventus-grid-engine",
+                      "site":  "https://ventusltd.github.io/ventus-grid-engine/"
+                  },
+                  {
+                      "repo":  "Ventusltd/youengineer-code-review",
+                      "site":  "https://ventusltd.github.io/youengineer-code-review/"
+                  }
+              ]
+}

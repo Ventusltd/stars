@@ -1,0 +1,16 @@
+{
+  "name": "stars",
+  "private": true,
+  "type": "module",
+  "description": "Reports and the modular star built from Ventusltd code and test results",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test modular-star/test.mjs",
+    "find-prior": "node modular-star/find-prior.mjs"
+  },
+  "dependencies": {
+    "acorn": "^8.14.0",
+    "acorn-loose": "^8.4.0",
+    "acorn-walk": "^8.3.4"
+  }
+}

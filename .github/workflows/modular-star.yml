@@ -1,0 +1,87 @@
+name: Modular star
+
+# Scans the current code of every Ventusltd repository into a database where every unique line has a
+# permanent number, groups the lines into numbered functions and families, and writes the reports,
+# the Spider graph, the prior-work catalogue and the compiled library. Runs on GitHub's servers.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '41 */6 * * *'
+  push:
+    branches: [main]
+    paths: ['modular-star/**', '.github/workflows/modular-star.yml', 'package.json']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: modular-star
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: npm install --no-audit --no-fund
+
+      - name: Tests
+        run: node --test modular-star/test.mjs
+
+      - name: Restore the numbered database
+        run: |
+          mkdir -p /tmp/prev
+          if gh release view modular-star --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            # The release exists, so the database must come back; never start again from zero.
+            gh release download modular-star --repo "$GITHUB_REPOSITORY" --pattern modular.sqlite.gz --dir /tmp/prev
+            gunzip -c /tmp/prev/modular.sqlite.gz > modular.sqlite
+            cp modular.sqlite /tmp/prev/before.sqlite
+          else
+            echo "First run: starting the numbered database."
+          fi
+
+      - name: Scan and build
+        run: node modular-star/build.mjs --db modular.sqlite --work /tmp/repos --out .
+
+      - name: Check that no earlier number changed
+        run: |
+          if [ -f /tmp/prev/before.sqlite ]; then node modular-star/check-permanent.mjs /tmp/prev/before.sqlite modular.sqlite; fi
+
+      - name: Check that the compiled library loads
+        run: |
+          node --check library/standalone.mjs
+          node -e "import('./library/standalone.mjs').then(m => console.log(Object.keys(m).length + ' library functions load'))"
+
+      - name: Save the database and catalogue
+        run: |
+          gzip -9 -c modular.sqlite > modular.sqlite.gz
+          if gh release view modular-star --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gzip -9 -c /tmp/prev/before.sqlite > modular.previous.sqlite.gz
+            gh release upload modular-star modular.previous.sqlite.gz --clobber --repo "$GITHUB_REPOSITORY"
+            gh release upload modular-star modular.sqlite.gz catalog.json.gz --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create modular-star modular.sqlite.gz catalog.json.gz --repo "$GITHUB_REPOSITORY" \
+              --title "Modular star database" \
+              --notes "The numbered code database (SQLite, gzip) and the prior-work catalogue. Updated by the Modular star workflow."
+          fi
+
+      - name: Save reports
+        run: |
+          git add modular library
+          if git diff --cached --quiet; then echo "No changes."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -qm "Modular star $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
+
+      - name: Summary
+        if: always()
+        run: |
+          [ -f modular/SUMMARY.md ] && head -n 20 modular/SUMMARY.md >> "$GITHUB_STEP_SUMMARY" || echo "No summary produced." >> "$GITHUB_STEP_SUMMARY"

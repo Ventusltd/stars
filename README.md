@@ -25,3 +25,15 @@ local machine has to do it.
 - It reads star-maker read-only and never changes it.
 - It saves a new version of the reports only when there are new test results.
 - The builders in `builders/` are plain JavaScript. No AI model is involved.
+
+## The Modular star
+
+Every unique line of Ventusltd code gets a permanent number. Each file version is stored as its list of line numbers,
+functions and classes are numbered as elements, and elements with the same logic share a family. Its purpose is to stop the same work being done twice.
+
+- [Summary](modular/SUMMARY.md): work already done more than once, and names that mean different things in different places
+- [Compiled library](library/standalone.mjs): self-contained functions that already appear in two or more places
+- [Spider graph](modular/graph.json): the most repeated families, wired to their repositories, for the Spider dashboard
+- **Before writing code:** `npm install`, then `node modular-star/find-prior.mjs your-file.js`
+- The workflow in `.github/workflows/modular-star.yml` runs every six hours. The database and catalogue are kept on the
+  [modular-star release](https://github.com/Ventusltd/stars/releases/tag/modular-star), and every run checks that no earlier number changed.
