@@ -80,7 +80,7 @@ jobs:
       - name: Save reports
         run: |
           python3 spider/register.py
-          git add modular library spider LINES.md
+          git add modular library spider code LINES.md
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

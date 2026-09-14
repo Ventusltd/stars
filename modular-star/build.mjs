@@ -6,7 +6,7 @@ import { mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import path from 'node:path';
 import * as acorn from 'acorn';
-import { openDb, ingestFile, langOf, rebuildTablet, gitBlobId, elementSource } from './lib.mjs';
+import { openDb, ingestFile, langOf, rebuildTablet, gitBlobId, elementSource, unpack } from './lib.mjs';
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const DB = arg('db', 'modular.sqlite'), WORK = arg('work', '/tmp/repos'), OUT = arg('out', '.');
@@ -142,15 +142,16 @@ writeFileSync(path.join(OUT, 'library', 'standalone.mjs'),
 // Spider graph, in the ventus-grid-engine receiver's generic shape (index.html normaliseGenericGraph):
 // nodes {id, label, type, rag, reason, gh, ext}, edges {from, to, type} by id. Ids are the permanent keys, so any
 // other graph that uses the same key (family:N, repo:owner/name) joins this one.
-const top = repeated.slice(0, 120);
+const SITE = 'https://ventusltd.github.io/stars/';
+const codePage = n => `${SITE}code.html?family=${n}`;
+const top = repeated.slice(0, 200);
 const nodes = [], edges = [], repoNodes = new Set();
 for (const f of top) {
   const c = f.places[0], id = `family:${f.n}`;
   const needs = c.needs ? JSON.parse(c.needs) : null;
-  const published = f.places.find(p => live.has(p.repo));
   nodes.push({ id, key: id, label: `#${f.n} ${[...f.names][0]}`, type: c.standalone ? 'library element' : 'element', rag: c.standalone ? 'green' : 'amber',
     reason: `${f.lineages.size} different files · ${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (firstWritten.has(f.n) ? ` · first written ${firstWritten.get(f.n).slice(0, 10)}` : '') + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : ''),
-    gh: gh(c), ext: published ? live.get(published.repo) + published.path : null });
+    gh: gh(c), ext: codePage(f.n) });
   for (const r of f.repos) { repoNodes.add(r); edges.push({ from: id, to: `repo:${r}`, type: 'found-in' }); }
 }
 // Same name, different code: wire the families that share a name, so the Spider shows where a name means two things.
@@ -161,6 +162,36 @@ for (const r of repoNodes) nodes.push({ id: `repo:${r}`, key: `repo:${r}`, label
   reason: live.has(r) ? `published at ${live.get(r)}` : 'repository', gh: `https://github.com/${r}`, ext: live.get(r) || null });
 mkdirSync(path.join(OUT, 'modular'), { recursive: true });
 writeFileSync(path.join(OUT, 'modular', 'graph.json'), JSON.stringify({ schema: 'modular-star-graph.v1', label: 'The Modular star', generated_utc: now, nodes, edges }, null, 1));
+
+// Code records for the report page (code.html): every family, in buckets of 500 by number, so a page loads one
+// small file. Each record carries every place the logic lives, the live page that serves it, and the permanent
+// line numbers of its first copy. Plus a name index for search.
+const libraryExport = new Map(library.map(({ f, c }) => [f.n, `f${f.n}_${String(c.name).replace(/[^A-Za-z0-9_$]/g, '_').slice(0, 40)}`]));
+const tabletLines = new Map();
+const lineNumbers = p => {
+  if (!tabletLines.has(p.tablet)) tabletLines.set(p.tablet, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(p.tablet).lines));
+  return tabletLines.get(p.tablet).slice(p.first - 1, p.last);
+};
+const buckets = new Map(), names = {};
+for (const f of famList) {
+  const c = f.places[0];
+  const rec = {
+    n: f.n, names: [...f.names].slice(0, 6), kind: c.kind, standalone: !!c.standalone, needs: c.needs ? JSON.parse(c.needs) : null,
+    first_written: firstWritten.get(f.n) || null, library: libraryExport.get(f.n) || null,
+    files: f.lineages.size, versions: f.elements.size, repos: [...f.repos],
+    lines: lineNumbers(c),
+    places: f.places.slice(0, 40).map(p => ({ repo: p.repo, commit: p.commit_sha, path: p.path, first: p.first, last: p.last, name: p.name,
+      live: live.has(p.repo) ? live.get(p.repo) + p.path : null })),
+  };
+  const b = Math.floor(f.n / 500);
+  if (!buckets.has(b)) buckets.set(b, {});
+  buckets.get(b)[f.n] = rec;
+  for (const name of f.names) if (name !== '(anonymous)') (names[name] ||= []).push(f.n);
+}
+mkdirSync(path.join(OUT, 'code', 'f'), { recursive: true });
+for (const [b, recs] of buckets) writeFileSync(path.join(OUT, 'code', 'f', `${b}.json`), JSON.stringify(recs));
+writeFileSync(path.join(OUT, 'code', 'names.json'), JSON.stringify(names));
+writeFileSync(path.join(OUT, 'code', 'index.json'), JSON.stringify({ generated_utc: now, families: famList.length, bucket_size: 500, buckets: [...buckets.keys()].sort((a, b) => a - b), lines: count('line'), elements: count('element') }));
 
 // Prior-work catalogue (release asset): exact element hashes and family hashes → where they already live.
 const elementRows = ctx.db.prepare('SELECT e.n, e.sha, e.family, f.sha fsha FROM element e JOIN family f ON f.n = e.family').all();

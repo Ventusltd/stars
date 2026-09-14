@@ -17,7 +17,7 @@ GRAPHS = [
     ("modular", "Modular star", "modular/graph.json", "stars/modular-star (build.mjs)",
      "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the "
      "repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); "
-     "GitHub opens the exact lines, External opens the published page. Rebuilt hourly on GitHub Actions."),
+     "GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."),
     ("chemistry", "Chemistry stars", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),
