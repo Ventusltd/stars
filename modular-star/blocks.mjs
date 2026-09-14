@@ -87,7 +87,8 @@ mkdirSync(path.join(OUT, 'blocks'), { recursive: true });
 // The public table is kept light for phones: family lists live in families.json, the rest in blocks.json.
 writeFileSync(path.join(OUT, 'blocks', 'families.json'), JSON.stringify(Object.fromEntries(out.map(b => [b.symbol, b.families]))));
 writeFileSync(path.join(OUT, 'blocks', 'blocks.json'), JSON.stringify({ generated_utc: now, categories: cat.categories,
-  blocks: out.map(({ families, ...b }) => b.kind === 'auto' ? { ...b, inside: b.inside.slice(0, 6), files: b.files.slice(0, 2), live: b.live.slice(0, 1), repos: b.repos.slice(0, 3) } : { ...b, inside: b.inside.slice(0, 24), files: b.files.slice(0, 8), live: b.live.slice(0, 4) }) }));
+  // Small auto-blocks (under 8 functions) stay in families.json only; they are not shown anywhere.
+  blocks: out.filter(b => b.kind !== 'auto' || b.functions >= 8).map(({ families, ...b }) => b.kind === 'auto' ? { ...b, inside: b.inside.slice(0, 6), files: b.files.slice(0, 2), live: b.live.slice(0, 1), repos: b.repos.slice(0, 3) } : { ...b, inside: b.inside.slice(0, 24), files: b.files.slice(0, 8), live: b.live.slice(0, 4) }) }));
 writeFileSync(path.join(OUT, 'blocks', 'presets.json'), JSON.stringify({ generated_utc: now, presets: cat.presets }, null, 1));
 
 // ---- Spider graph: blocks wired to their categories and to the repositories they live in. Plain descriptions on the card.
