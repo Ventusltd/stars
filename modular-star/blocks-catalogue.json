@@ -108,6 +108,6 @@
   ],
   "needs_words": {
     "DEG": "degrees-to-radians constant (Ek's neighbour)", "EARTH_RADIUS_KM": "the earth radius: an open decision (element Ek)", "R_ATLAS": "the atlas earth radius (Gc)", "R_UK": "the UK earth radius (Gc)", "R_MEAN": "the mean earth radius (Gc)",
-    "document": "a web page", "window": "a web page", "maplibregl": "the MapLibre map library", "fetch": "network access", "L": "the Leaflet map library", "turf": "the Turf geometry library", "duckdb": "the DuckDB query engine"
+    "document": "a web page", "window": "a web page", "navigator": "a web browser", "location": "the page address", "localStorage": "browser storage", "maplibregl": "the MapLibre map library", "fetch": "network access", "L": "the Leaflet map library", "turf": "the Turf geometry library", "duckdb": "the DuckDB query engine"
   }
 }

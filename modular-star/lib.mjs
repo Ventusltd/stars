@@ -103,7 +103,13 @@ const GLOBALS = new Set(('undefined NaN Infinity globalThis Object Function Arra
   'Atomics Uint8Array Int8Array Uint16Array Int16Array Uint32Array Int32Array Float32Array Float64Array Uint8ClampedArray BigInt64Array ' +
   'BigUint64Array BigInt Map Set WeakMap WeakSet WeakRef FinalizationRegistry Proxy Reflect isFinite isNaN encodeURI encodeURIComponent decodeURI ' +
   'decodeURIComponent structuredClone queueMicrotask setTimeout clearTimeout setInterval clearInterval console TextEncoder TextDecoder URL ' +
-  'URLSearchParams AbortController AbortSignal').split(' '));
+  'URLSearchParams AbortController AbortSignal ' +
+  // Browser built-ins: present in every page, never something a copied file has to supply.
+  'Blob File FileReader FileList FormData Headers Request Response Worker Image Audio ImageCapture ImageData ImageBitmap createImageBitmap OffscreenCanvas Path2D ' +
+  'MutationObserver ResizeObserver IntersectionObserver PerformanceObserver CompressionStream DecompressionStream ReadableStream WritableStream TransformStream ' +
+  'HTMLElement HTMLCanvasElement Element Node Event CustomEvent MouseEvent KeyboardEvent PointerEvent TouchEvent DOMParser XMLSerializer XMLHttpRequest WebSocket ' +
+  'crypto performance requestAnimationFrame cancelAnimationFrame requestIdleCallback getComputedStyle matchMedia screen devicePixelRatio atob btoa ' +
+  'alert confirm prompt history sessionStorage indexedDB caches self globalThis').split(' '));
 
 function tokenKey(text) {
   try {
