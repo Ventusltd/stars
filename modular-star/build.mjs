@@ -172,7 +172,7 @@ const lineNumbers = p => {
   if (!tabletLines.has(p.tablet)) tabletLines.set(p.tablet, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(p.tablet).lines));
   return tabletLines.get(p.tablet).slice(p.first - 1, p.last);
 };
-const buckets = new Map(), names = {};
+const buckets = new Map(), names = Object.create(null); // null prototype: a function named constructor or toString must not collide
 for (const f of famList) {
   const c = f.places[0];
   const rec = {
