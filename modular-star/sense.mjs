@@ -86,7 +86,7 @@ const settled = blocks.filter((b) => b.state === 'SETTLED');
 
 add({
   id: 'universe', label: 'The code universe', type: 'whole', rag: 'amber',
-  reason: `${familyCount.toLocaleString()} distinct functions across the public estate, organised into ${blocks.length} numbered blocks; ${settled.length} blocks are settled, ${unsettled.length} are open decisions, and ${fragmentCount} copies still shadow a canonical home.`
+  reason: `${familyCount.toLocaleString()} distinct functions across globalgrid2050 architecture development, organised into ${blocks.length} numbered blocks; ${settled.length} blocks are settled, ${unsettled.length} are open decisions, and ${fragmentCount} copies still shadow a canonical home.`
     + `<br><small>Read downwards: purpose → block → canonical home → copies → decisions → proof → faults → foundations.</small>`,
   gh: 'https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md',
   ext: `${STARS}table.html`,
@@ -95,7 +95,7 @@ add({
 // ---------- 2. chapters ----------
 const CH = {
   purpose: add({ id: 'ch-purpose', label: 'What the code is for', type: 'chapter', rag: 'green',
-    reason: 'The purposes the estate serves; every block below belongs to one of them.', gh: null, ext: `${STARS}table.html` }),
+    reason: 'The purposes globalgrid2050 architecture development serves; every block below belongs to one of them.', gh: null, ext: `${STARS}table.html` }),
   canonical: add({ id: 'ch-canonical', label: 'What is canonical', type: 'chapter', rag: 'green',
     reason: `The ${canonicalCount} functions whose one true home the engine graph declares; everything else with the same name is a copy.`,
     gh: 'https://github.com/Ventusltd/ventus-grid-engine/blob/main/genome/engine-graph.json', ext: `${STARS}modular/engine-join.json` }),
@@ -103,7 +103,7 @@ const CH = {
     reason: `${fragmentCount} copies of canonical functions that look like separate code but are the same thing written twice; each should import its home.`,
     gh: 'https://github.com/Ventusltd/ventus-grid-engine/blob/main/genome/engine-graph.json', ext: `${STARS}modular/engine-join.json` }),
   decision: add({ id: 'ch-decision', label: 'What is a decision, not a fact', type: 'chapter', rag: 'amber',
-    reason: `${unsettled.length} values the estate uses in more than one form; which is true cannot be computed, it has to be decided.`,
+    reason: `${unsettled.length} values globalgrid2050 architecture development uses in more than one form; which is true cannot be computed, it has to be decided.`,
     gh: 'https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md', ext: `${STARS}table.html?state=UNSETTLED` }),
   proof: add({ id: 'ch-proof', label: 'What is proven together', type: 'chapter', rag: 'amber',
     reason: `${reactions.reactions?.length ?? 0} pairs of blocks are used together in shipped apps; "seen together" is evidence of fit, not a passed test.`,
@@ -112,7 +112,7 @@ const CH = {
     reason: `${decays.decays?.length ?? 0} error messages seen in composition tests, each traced to the exact function that throws it.`,
     gh: null, ext: `${STARS}modular/decays.json` }),
   foundation: add({ id: 'ch-foundation', label: 'What everything leans on', type: 'chapter', rag: 'green',
-    reason: 'The most-used functions in the estate; a change here is felt everywhere.', gh: null, ext: `${STARS}modular/dependencies.json` }),
+    reason: 'The most-used functions in globalgrid2050 architecture development; a change here is felt everywhere.', gh: null, ext: `${STARS}modular/dependencies.json` }),
 };
 for (const id of Object.values(CH)) wire('universe', id, 'contains');
 
@@ -279,7 +279,7 @@ const md = `# Sense of the code universe
 
 Generated ${graph.generated_utc}. ${nodes.length} nodes, ${edges.length} edges, ${(out.length / 1024).toFixed(1)} KB.
 
-This graph is not a list of files. It is the estate's code read in an order that makes sense, so the FOCUS list on the
+This graph is not a list of files. It is globalgrid2050 architecture development's code read in an order that makes sense, so the FOCUS list on the
 Spider dashboard reads as a narrative from the whole to the parts:
 
 1. **The code universe** — ${familyCount.toLocaleString()} distinct functions, ${blocks.length} numbered blocks.
@@ -293,7 +293,7 @@ Spider dashboard reads as a narrative from the whole to the parts:
 7. **What is proven together** — ${seen} block pairs seen together in shipped apps and ${unstable} unstable pairs, drawn as edges
    between the blocks. A block with no *proven* wire has never shipped in an app.
 8. **What breaks** — the ${decayList.length} most frequent composition-test errors, each wired to the block whose function throws it.
-9. **What everything leans on** — the ${hubs.length} most-used functions in the estate.
+9. **What everything leans on** — the ${hubs.length} most-used functions in globalgrid2050 architecture development.
 
 ## Reading the colours
 

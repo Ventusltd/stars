@@ -32,7 +32,7 @@ for (const e of table?.elements || []) {
   const title = kind === 'engine' ? (cat.engine_titles[e.name] || e.name) : kind === 'constant' ? e.name.replace(/_/g, ' ').toLowerCase().replace(/^./, c => c.toUpperCase()) :
     kind === 'layer' ? e.name.replace(/_/g, ' ').replace(/(\d+)kv/i, '$1 kV').replace(/^./, c => c.toUpperCase()) : kind === 'deeplink' ? 'The MAP button (deep-link contract)' : e.name;
   const description = kind === 'engine' ? (cat.engine_descriptions[e.name] || engineReason.get('engine/' + e.name) || '') :
-    kind === 'constant' ? `A value the estate must agree on. ${e.state === 'UNSETTLED' ? (e.candidates?.length || 0) + ' different values are in use; which is true is a decision.' : 'Settled.'}` :
+    kind === 'constant' ? `A value globalgrid2050 architecture development must agree on. ${e.state === 'UNSETTLED' ? (e.candidates?.length || 0) + ' different values are in use; which is true is a decision.' : 'Settled.'}` :
     kind === 'layer' ? 'A data layer drawn on the GridAtlas map.' : kind === 'cartridge' ? 'A plug-in part of the GridAtlas map.' : 'The contract every MAP link obeys, so a link always arrives on the right feature.';
   const match = kind === 'engine' ? [`^ventus-grid-engine:engine/${e.name.replace('.', '\\.')}$`] : kind === 'cartridge' ? [`cartridges/\\{stamp\\}-${e.name}`, `parts/\\{stamp\\}-${e.name}`, `modules/\\{stamp\\}-${e.name}`, `/${e.name}\\.js$`] :
     kind === 'layer' ? [`(^|[/_-])${e.name}([/_.-]|$)`] : kind === 'deeplink' ? ['deeplink', 'deep-link'] : [];

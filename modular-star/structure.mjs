@@ -1,4 +1,4 @@
-// The structure of the estate, top-down: Estate → repositories → categories → the named blocks → the engine's
+// The structure of globalgrid2050 architecture development, top-down: Estate → repositories → categories → the named blocks → the engine's
 // canonical modules, as a Spider graph whose enumeration reads like a table of contents.
 // Reads blocks/blocks.json (blocks, categories, interdependencies), modular/source.json (which repositories were
 // scanned, at which commit), modular-star/live-sites.json (public sites), spider/register.py (the graphs this
@@ -45,13 +45,13 @@ repoNames.sort((a, b) => (a === ENGINE_REPO ? -1 : b === ENGINE_REPO ? 1 : 0) ||
 const repoRole = r => r === ENGINE_REPO ? 'The engine: the canonical modules every other copy is measured against, and the Spider dashboard.' :
   r === 'Ventusltd/stars' ? `This repository: the numbered code database, the periodic table and the reports. Publishes ${published.length} graphs for the dashboard: ${published.map(p => p.title).join(', ')}.` :
   r === 'Ventusltd/star-maker' ? 'The recorded composition tests (the stars) that the reports read.' :
-  r === 'Ventusltd/code-generator' ? 'Assembles apps from blocks of the periodic table.' : 'A public repository of the estate.';
+  r === 'Ventusltd/code-generator' ? 'Assembles apps from blocks of the periodic table.' : 'A public repository of globalgrid2050 architecture development.';
 
 const nodes = [], edges = [];
 const edge = (from, to, type) => edges.push({ from, to, type });
 
-// ---- 1. the estate
-nodes.push({ id: 'estate', label: 'Ventus estate', type: 'estate', rag: 'green',
+// ---- 1. globalgrid2050 architecture development
+nodes.push({ id: 'estate', label: 'globalgrid2050 architecture development', type: 'estate', rag: 'green',
   reason: `Every public repository, the named blocks of the periodic table found across them, and the engine's canonical modules. Read top-down: estate, repositories, categories, blocks, modules.` +
     mono(esc(`${repoNames.length} repositories · ${categories.length} categories · ${named.length} named blocks · ${engineModules.length} engine modules · ${source.repositories?.length || 0} repositories scanned ${utc(source.generated_utc)}`)),
   gh: `${GH}Ventusltd`, ext: `${SITE}table.html` });
@@ -96,8 +96,8 @@ if (!engineModules.length) nodes.push({ id: 'module:none', label: 'Engine module
 
 // ---- write the graph
 mkdirSync(path.join(OUT, 'structure'), { recursive: true });
-const graph = { schema: 'structure-graph.v1', label: 'Structure of the estate', generated_utc: now.toISOString(),
-  note: 'Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph\'s order. Rebuilt by the Modular star workflow.',
+const graph = { schema: 'structure-graph.v1', label: 'Structure of globalgrid2050 architecture development', generated_utc: now.toISOString(),
+  note: 'Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph\'s order. Rebuilt by the Modular star workflow.',
   counts: { repositories: repoNames.length, categories: nodes.filter(n => n.type === 'category').length, blocks: named.length, engine_modules: engineModules.length },
   nodes, edges };
 writeFileSync(path.join(OUT, 'structure', 'graph.json'), JSON.stringify(graph));
@@ -107,17 +107,17 @@ const mid = s => 'n_' + s.replace(/[^a-z0-9]+/gi, '_');
 const ml = s => `"${String(s).replace(/"/g, '#quot;')}"`;
 const cls = { green: 'ok', amber: 'warn', red: 'fail', blue: 'live', grey: 'off' };
 const defs = ['  classDef ok fill:#153d2a,stroke:#39d353,color:#e6edf3', '  classDef warn fill:#3d2f0f,stroke:#ffd54a,color:#e6edf3', '  classDef fail fill:#3d1414,stroke:#ff6b6b,color:#e6edf3', '  classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3', '  classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5'];
-const d1 = ['flowchart TD', ...defs, `  estate[${ml('Ventus estate')}]:::ok`];
+const d1 = ['flowchart TD', ...defs, `  estate[${ml('globalgrid2050 architecture development')}]:::ok`];
 for (const r of repoNames) { const n = nodes.find(x => x.id === `repo:${r}`); d1.push(`  ${mid(r)}[${ml(r.split('/')[1] + (blocksIn.get(r)?.length ? ' · ' + blocksIn.get(r).length + ' blocks' : ''))}]:::${cls[n.rag]}`, `  estate --> ${mid(r)}`); }
 const d2 = ['flowchart LR', ...defs];
 for (const c of categories) { const inCat = named.filter(b => b.category === c.id); if (!inCat.length) continue; d2.push(`  subgraph ${mid(c.id)}[${ml(c.title)}]`); for (const b of inCat) d2.push(`    ${mid('block:' + b.symbol)}[${ml(b.symbol + ' · ' + b.title)}]:::${cls[nodes.find(n => n.id === 'block:' + b.symbol).rag]}`); d2.push('  end'); }
 for (const b of named) for (const d of b.depends_on || []) if (named.some(x => x.symbol === d.symbol)) d2.push(`  ${mid('block:' + b.symbol)} --> ${mid('block:' + d.symbol)}`);
 const d3 = ['flowchart LR', ...defs, `  engine[${ml('ventus-grid-engine')}]:::ok`];
 for (const n of engineModules) { const b = blockOfModule(n.label); d3.push(`  ${mid(n.label)}[${ml(n.label)}]:::${cls[n.rag] || 'ok'}`, `  engine --> ${mid(n.label)}`); if (b) d3.push(`  ${mid(n.label)} -. block .-> ${mid('block:' + b.symbol)}[${ml(b.symbol + ' · ' + b.title)}]:::${cls[nodes.find(x => x.id === 'block:' + b.symbol).rag]}`); }
-const md = `# Structure of the estate
+const md = `# Structure of globalgrid2050 architecture development
 
-Updated ${utc(now.toISOString())} by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is \`structure/graph.json\` (${kb(statSync(path.join(OUT, 'structure', 'graph.json')).size)}, ${nodes.length} cards, ${edges.length} links), registered for the Spider dashboard as **Structure of the estate**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated ${utc(now.toISOString())} by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is \`structure/graph.json\` (${kb(statSync(path.join(OUT, 'structure', 'graph.json')).size)}, ${nodes.length} cards, ${edges.length} links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (${repoNames.length})
 

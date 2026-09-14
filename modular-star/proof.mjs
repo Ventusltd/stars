@@ -89,7 +89,7 @@ for (const w of WORKFLOWS) for (const r of w.runs) {
 // ---- 3. artefacts: what the runs leave behind, with size and last-updated
 const artefacts = [
   { id: 'art:summary', file: 'modular/SUMMARY.md', label: 'Modular star summary', by: 'wf:modular-star', what: 'Totals, duplicate work, the rebuild check and the history walked, in plain words.', ext: `${GH}${REPO}/blob/main/modular/SUMMARY.md` },
-  { id: 'art:lines', file: 'LINES.md', label: 'Every numbered line', by: 'wf:modular-star', what: 'Every unique line of code in the estate with its permanent number.', ext: `${GH}${REPO}/blob/main/LINES.md` },
+  { id: 'art:lines', file: 'LINES.md', label: 'Every numbered line', by: 'wf:modular-star', what: 'Every unique line of code in globalgrid2050 architecture development with its permanent number.', ext: `${GH}${REPO}/blob/main/LINES.md` },
   { id: 'art:code', file: 'code.html', label: 'Code report page', by: 'wf:modular-star', what: 'One page per function family: every place it is used, the live page, the numbered lines, copy.', ext: `${SITE}code.html` },
   { id: 'art:modular-graph', file: 'modular/graph.json', label: 'Modular star graph', by: 'wf:modular-star', what: 'The Spider graph of families found in two or more files, wired to their repositories.', ext: `${SITE}modular/graph.json` },
   { id: 'art:blocks', file: 'blocks/blocks.json', label: 'Periodic table of blocks', by: 'wf:modular-star', what: 'Every block with its number, description, functions, repositories and interdependencies.', ext: `${SITE}blocks/blocks.json` },
@@ -99,7 +99,7 @@ const artefacts = [
   { id: 'art:library', file: 'library/standalone.mjs', label: 'Compiled library', by: 'wf:modular-star', what: 'Every self-contained function, compiled into one importable module.', ext: `${GH}${REPO}/blob/main/library/standalone.mjs` },
   { id: 'art:features', file: 'spider/features.yml', label: 'Dashboard registry', by: 'wf:modular-star', what: 'The list of graphs this repository offers to the Spider dashboard.', ext: `${GH}${REPO}/blob/main/spider/features.yml` },
   { id: 'art:proof', file: 'proof/graph.json', label: 'Proof of work graph', by: 'wf:modular-star', what: 'This graph. Rebuilt on every run.', ext: `${SITE}proof/graph.json` },
-  { id: 'art:structure', file: 'structure/graph.json', label: 'Structure graph', by: 'wf:modular-star', what: 'The estate top-down: repositories, blocks and the engine modules.', ext: `${SITE}structure/graph.json` },
+  { id: 'art:structure', file: 'structure/graph.json', label: 'Structure graph', by: 'wf:modular-star', what: 'globalgrid2050 architecture development, top-down: repositories, blocks and the engine modules.', ext: `${SITE}structure/graph.json` },
   { id: 'art:chemistry', file: 'reports/CHEMISTRY.md', label: 'Chemistry report', by: 'wf:refresh', what: 'Which combinations of map components always work and which fail.', ext: `${GH}${REPO}/blob/main/reports/CHEMISTRY.md` },
   { id: 'art:vedic', file: 'reports/VEDIC.md', label: 'Vedic report', by: 'wf:refresh', what: 'The five-element classification of the code and whether each test respected its rules.', ext: `${GH}${REPO}/blob/main/reports/VEDIC.md` },
   { id: 'art:random', file: 'reports/RANDOM.md', label: 'Random report', by: 'wf:refresh', what: 'Randomly chosen links between components, as prompts to look.', ext: `${GH}${REPO}/blob/main/reports/RANDOM.md` },

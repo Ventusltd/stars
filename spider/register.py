@@ -19,7 +19,7 @@ GRAPHS = [
      "repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); "
      "GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."),
     ("periodic-table", "Inventory", "blocks/graph.json", "stars/modular-star (blocks.mjs)",
-     "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the "
+     "Every block of globalgrid2050 architecture development with a permanent number and a plain-language description, grouped by category and wired to the "
      "repositories it lives in. Underneath each block are its numbered functions. External opens the table page."),
     ("sense", "Assessment", "sense/graph.json", "stars/modular-star (sense.mjs)",
      "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and "
@@ -27,7 +27,7 @@ GRAPHS = [
     ("proof-of-work", "Audit", "proof/graph.json", "stars/modular-star (proof.mjs)",
      "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."),
     ("structure", "Structure", "structure/graph.json", "stars/modular-star (structure.mjs)",
-     "The estate top-down: repositories, the blocks in each, and the engine modules in their canonical order."),
+     "globalgrid2050 architecture development, top-down: repositories, the blocks in each, and the engine modules in their canonical order."),
     ("chemistry", "Compatibility", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),
