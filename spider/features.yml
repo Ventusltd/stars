@@ -11,7 +11,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
     nodes: 298
     edges: 996
-    graph_generated_utc: "2026-09-14T09:36:37.694Z"
+    graph_generated_utc: "2026-09-14T09:42:20.241Z"
   - id: "periodic-table"
     title: "Periodic table"
     path: "https://ventusltd.github.io/stars/blocks/graph.json"
@@ -20,7 +20,7 @@ graphs:
     description: "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the repositories it lives in. Underneath each block are its numbered functions. External opens the table page."
     nodes: 261
     edges: 714
-    graph_generated_utc: "2026-09-14T09:37:29.543Z"
+    graph_generated_utc: "2026-09-14T09:43:17.282Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
