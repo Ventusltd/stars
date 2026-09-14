@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-14 09:52 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
+Updated 2026-09-14 09:58 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,10 +8,10 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 247,778 |
-| File versions | 5,477 |
-| Elements (functions and classes) | 16,856 |
-| Families (same logic) | 15,512 |
+| Unique lines | 247,847 |
+| File versions | 5,478 |
+| Elements (functions and classes) | 16,858 |
+| Families (same logic) | 15,514 |
 | Families written in two or more different files (duplicate work) | 3,337 |
 | Families only copied between versions of one file | 800 |
 | Self-contained functions compiled into the library | 321 |
@@ -72,9 +72,9 @@ These names mean different things in different repositories, so check which vers
 | `load` | 15 | 9 |
 | `sha256` | 16 | 8 |
 | `__init__` | 15 | 8 |
+| `fetch` | 11 | 8 |
 | `haversine` | 7 | 8 |
 | `record` | 14 | 7 |
-| `fetch` | 10 | 7 |
 | `close` | 7 | 7 |
 | `distanceKm` | 5 | 7 |
 | `sha256_file` | 5 | 7 |

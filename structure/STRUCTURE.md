@@ -1,7 +1,7 @@
 # Structure of the estate
 
-Updated 2026-09-14 09:54 UTC by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (93 KB, 122 cards, 337 links), registered for the Spider dashboard as **Structure of the estate**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-14 09:59 UTC by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (93 KB, 122 cards, 338 links), registered for the Spider dashboard as **Structure of the estate**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (27)
 
@@ -13,7 +13,7 @@ flowchart TD
   classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3
   classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5
   estate["Ventus estate"]:::ok
-  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 21 blocks"]:::ok
+  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 22 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
   n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050

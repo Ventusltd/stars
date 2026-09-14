@@ -1,7 +1,7 @@
 {
  "schema": "modular-star-graph.v1",
  "label": "The Modular star",
- "generated_utc": "2026-09-14T09:52:57.301Z",
+ "generated_utc": "2026-09-14T09:58:51.258Z",
  "nodes": [
   {
    "id": "family:511",
@@ -12,6 +12,26 @@
    "reason": "13 different files · 251 places in 6 repositories · 6 version(s) · first written 2026-09-01 · needs DEG, EARTH_RADIUS_KM · engine: canonical home engine/v9-geodesy.js; fragment cited as superseded gridatlas 202609011950-geodesy.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\"> 14137</span> function distanceKm(lon1, lat1, lon2, lat2) {\n<span style=\"color:#4b5568\"> 14138</span>     const dLat = (lat2 - lat1) * DEG;\n<span style=\"color:#4b5568\"> 14139</span>     const dLon = (lon2 - lon1) * DEG;\n<span style=\"color:#4b5568\"> 14140</span>     const a = Math.sin(dLat / 2) ** 2\n<span style=\"color:#4b5568\"> 14141</span>       + Math.cos(lat1 * DEG) * Math.cos(lat2 * DEG) * Math.sin(dLon / 2) ** 2;\n<span style=\"color:#4b5568\"> 14142</span>     return EARTH_RADIUS_KM * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\n<span style=\"color:#4b5568\">  1640</span>   }</pre>",
    "gh": "https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41",
    "ext": "https://ventusltd.github.io/stars/code.html?family=511"
+  },
+  {
+   "id": "family:80352",
+   "key": "family:80352",
+   "label": "#80352 nearest",
+   "type": "element",
+   "rag": "amber",
+   "reason": "4 different files · 4 places in 2 repositories · 1 version(s) · first written 2026-09-04 · needs distanceKm, located · engine: canonical home engine/v9-nearest-search.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193131</span> (lon, lat, options) =&gt; {\n<span style=\"color:#4b5568\">193132</span>       const minimumKv = (options &amp;&amp; options.minimumKv) || 0;\n<span style=\"color:#4b5568\">193133</span>       const limit = (options &amp;&amp; options.limit) || 1;\n<span style=\"color:#4b5568\"> 37686</span>       const found = [];\n<span style=\"color:#4b5568\">193134</span>       for (const point of located) {\n<span style=\"color:#4b5568\">193135</span>         const voltages = point.voltages_kv || [];\n<span style=\"color:#4b5568\">193136</span>         if (!voltages.length || Math.max(...voltages) &lt; minimumKv) continue;\n<span style=\"color:#4b5568\">193137</span>         found.push({\n<span style=\"color:#4b5568\">193138</span>           point,\n<span style=\"color:#4b5568\">193139</span>           km: distanceKm(lon, lat, point.location.lon, point.location.lat)\n<span style=\"color:#4b5568\">    39</span>         });\n<span style=\"color:#4b5568\">  5968</span>       }\n<span style=\"color:#4b5568\">193140</span>       found.sort((a, b) =&gt; a.km - b.km);\n<span style=\"color:#4b5568\">193141</span>       return limit === 1 ? (found[0] || null) : found.slice(0, limit);\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
+   "gh": "https://github.com/Ventusltd/code-generator/blob/e1217f540cf7ced342109a87f118627c1330cdbd/apps/substation-finder/Vn/nearest-search.mjs#L72-L86",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=80352"
+  },
+  {
+   "id": "family:80353",
+   "key": "family:80353",
+   "label": "#80353 index",
+   "type": "element",
+   "rag": "amber",
+   "reason": "4 different files · 4 places in 2 repositories · 1 version(s) · first written 2026-09-04 · needs distanceKm, normalise · engine: canonical home engine/v9-nearest-search.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193114</span> function index(points) {\n<span style=\"color:#4b5568\"> 83284</span>   const byName = new Map();\n<span style=\"color:#4b5568\"> 83285</span>   const located = [];\n<span style=\"color:#4b5568\">193115</span>   for (const point of points || []) {\n<span style=\"color:#4b5568\">193116</span>     const key = normalise(point &amp;&amp; point.name);\n<span style=\"color:#4b5568\">193117</span>     if (key &amp;&amp; !byName.has(key)) byName.set(key, point);\n<span style=\"color:#4b5568\">193118</span>     if (point &amp;&amp; point.location) located.push(point);\n<span style=\"color:#4b5568\">  1640</span>   }\n<span style=\"color:#4b5568\">  5877</span>   return {\n<span style=\"color:#4b5568\">193119</span>     size: byName.size,\n<span style=\"color:#4b5568\">193120</span>     located: located.length,\n<span style=\"color:#4b5568\">193121</span>     byName: (name) =&gt; byName.get(normalise(name)) || null,\n<span style=\"color:#4b5568\">193122</span>     /* Nearest by measurement, not by guess. minimumKv filters on the\n<span style=\"color:#4b5568\">193123</span>        highest voltage the site declares; limit 1 returns one match or\n<span style=\"color:#4b5568\">… 25 more lines</span></pre>",
+   "gh": "https://github.com/Ventusltd/code-generator/blob/e1217f540cf7ced342109a87f118627c1330cdbd/apps/substation-finder/Vn/nearest-search.mjs#L50-L88",
+   "ext": "https://ventusltd.github.io/stars/code.html?family=80353"
   },
   {
    "id": "family:591",
@@ -1720,7 +1740,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs REPD_LAYER_IDS, layerIdForBucket · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">190959</span> function bucketHasLayer(tech) {\n<span style=\"color:#4b5568\">190960</span>     const id = layerIdForBucket(tech);\n<span style=\"color:#4b5568\">190961</span>     return id !== null &amp;&amp; REPD_LAYER_IDS.includes(id);\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L93-L96",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L93-L96",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80242"
   },
   {
@@ -1730,7 +1750,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs RETIRED_RECEIVERS · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">190980</span> function isRetiredReceiver(base) {\n<span style=\"color:#4b5568\">190981</span>     if (!base) return false;\n<span style=\"color:#4b5568\">190982</span>     const strip = (value) =&gt; String(value).split('?')[0].split('#')[0].replace(/\\/+$/, '');\n<span style=\"color:#4b5568\">190983</span>     const target = strip(base);\n<span style=\"color:#4b5568\">190984</span>     return RETIRED_RECEIVERS.some((route) =&gt; strip(route) === target);\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L126-L131",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L126-L131",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80243"
   },
   {
@@ -1740,7 +1760,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs IDENTITY_PARAM, buildDeepLink, isRetiredReceiver, requireGeometry · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191003</span> (row) =&gt; {\n<span style=\"color:#4b5568\">191004</span>         const identity = row ? row[IDENTITY_PARAM] : null;\n<span style=\"color:#4b5568\">191005</span>         const hasIdentity = identity !== undefined &amp;&amp; identity !== null &amp;&amp; identity !== '';\n<span style=\"color:#4b5568\">191006</span>         const hasGeometry = Boolean(row)\n<span style=\"color:#4b5568\">191007</span>             &amp;&amp; row.latitude !== undefined &amp;&amp; row.latitude !== null &amp;&amp; row.latitude !== ''\n<span style=\"color:#4b5568\">191008</span>             &amp;&amp; row.longitude !== undefined &amp;&amp; row.longitude !== null &amp;&amp; row.longitude !== '';\n<span style=\"color:#4b5568\">191009</span>         const linkable = hasIdentity &amp;&amp; (!requireGeometry || hasGeometry);\n<span style=\"color:#4b5568\">    41</span>         return {\n<span style=\"color:#4b5568\">191010</span>             [IDENTITY_PARAM]: hasIdentity ? identity : null,\n<span style=\"color:#4b5568\">191011</span>             has_identity: hasIdentity,\n<span style=\"color:#4b5568\">191012</span>             has_geometry: hasGeometry,\n<span style=\"color:#4b5568\">191013</span>             linkable,\n<span style=\"color:#4b5568\">191014</span>             current_href: row &amp;&amp; row.href ? String(row.href) : null,\n<span style=\"color:#4b5568\">191015</span>             current_is_retired: Boolean(row &amp;&amp; row.href &amp;&amp; isRetiredReceiver(row.href)),\n<span style=\"color:#4b5568\">… 3 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L157-L173",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L157-L173",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80244"
   },
   {
@@ -1750,7 +1770,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs IDENTITY_PARAM, buildDeepLink, isRetiredReceiver · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191000</span> function auditProjectRows(rows, options) {\n<span style=\"color:#4b5568\">191001</span>     const requireGeometry = !options || options.requireGeometry !== false;\n<span style=\"color:#4b5568\">191002</span>     const list = Array.isArray(rows) ? rows : [];\n<span style=\"color:#4b5568\">191003</span>     const entries = list.map((row) =&gt; {\n<span style=\"color:#4b5568\">191004</span>         const identity = row ? row[IDENTITY_PARAM] : null;\n<span style=\"color:#4b5568\">191005</span>         const hasIdentity = identity !== undefined &amp;&amp; identity !== null &amp;&amp; identity !== '';\n<span style=\"color:#4b5568\">191006</span>         const hasGeometry = Boolean(row)\n<span style=\"color:#4b5568\">191007</span>             &amp;&amp; row.latitude !== undefined &amp;&amp; row.latitude !== null &amp;&amp; row.latitude !== ''\n<span style=\"color:#4b5568\">191008</span>             &amp;&amp; row.longitude !== undefined &amp;&amp; row.longitude !== null &amp;&amp; row.longitude !== '';\n<span style=\"color:#4b5568\">191009</span>         const linkable = hasIdentity &amp;&amp; (!requireGeometry || hasGeometry);\n<span style=\"color:#4b5568\">    41</span>         return {\n<span style=\"color:#4b5568\">191010</span>             [IDENTITY_PARAM]: hasIdentity ? identity : null,\n<span style=\"color:#4b5568\">191011</span>             has_identity: hasIdentity,\n<span style=\"color:#4b5568\">191012</span>             has_geometry: hasGeometry,\n<span style=\"color:#4b5568\">… 16 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L154-L183",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L154-L183",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80245"
   },
   {
@@ -1760,7 +1780,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs CANONICAL_RECEIVER, IDENTITY_PARAM, PARAMS, isRetiredReceiver · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191033</span> function buildDeepLink(base, project) {\n<span style=\"color:#4b5568\">191034</span>     if (project === undefined &amp;&amp; base &amp;&amp; typeof base === 'object') {\n<span style=\"color:#4b5568\">191035</span>         project = base;\n<span style=\"color:#4b5568\">191036</span>         base = CANONICAL_RECEIVER;\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191037</span>     if (!project || project[IDENTITY_PARAM] == null || project[IDENTITY_PARAM] === '') {\n<span style=\"color:#4b5568\">191038</span>         throw new Error('buildDeepLink: ' + IDENTITY_PARAM + ' is required and is the project identity');\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191039</span>     if (isRetiredReceiver(base)) {\n<span style=\"color:#4b5568\">191040</span>         throw new Error(\n<span style=\"color:#4b5568\">191041</span>             'buildDeepLink: ' + base + ' is a retired receiver and carries no engine; '\n<span style=\"color:#4b5568\">191042</span>             + 'a link built against it cannot compute anything. Use the canonical receiver '\n<span style=\"color:#4b5568\">191043</span>             + CANONICAL_RECEIVER + ' (call buildDeepLink(project) and the contract supplies it).'\n<span style=\"color:#4b5568\"> 40297</span>         );\n<span style=\"color:#4b5568\">… 9 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L198-L220",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L198-L220",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80246"
   },
   {
@@ -1770,7 +1790,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs get · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191056</span> (k) =&gt; {\n<span style=\"color:#4b5568\">191057</span>         const raw = get(k);\n<span style=\"color:#4b5568\">191058</span>         if (raw === null || raw.trim() === '') return null;\n<span style=\"color:#4b5568\">191059</span>         const n = Number(raw);\n<span style=\"color:#4b5568\">191060</span>         return Number.isFinite(n) ? n : null;\n<span style=\"color:#4b5568\">   158</span>     }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L232-L237",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L232-L237",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80247"
   },
   {
@@ -1780,7 +1800,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs BUCKETS, IDENTITY_PARAM, bucketHasLayer, layerIdForBucket · engine: canonical home deeplink/contract.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191054</span> function parseDeepLink(href) {\n<span style=\"color:#4b5568\"> 97655</span>     const url = new URL(href);\n<span style=\"color:#4b5568\">191055</span>     const get = (k) =&gt; url.searchParams.get(k);\n<span style=\"color:#4b5568\">191056</span>     const num = (k) =&gt; {\n<span style=\"color:#4b5568\">191057</span>         const raw = get(k);\n<span style=\"color:#4b5568\">191058</span>         if (raw === null || raw.trim() === '') return null;\n<span style=\"color:#4b5568\">191059</span>         const n = Number(raw);\n<span style=\"color:#4b5568\">191060</span>         return Number.isFinite(n) ? n : null;\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">191061</span>     const technology = get('technology');\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191062</span>         repd_ref:     get(IDENTITY_PARAM),\n<span style=\"color:#4b5568\">191063</span>         technology,\n<span style=\"color:#4b5568\">191064</span>         latitude:     num('latitude'),\n<span style=\"color:#4b5568\">… 7 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/deeplink/contract.js#L229-L249",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/deeplink/contract.js#L229-L249",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80248"
   },
   {
@@ -1790,7 +1810,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "5 different files · 5 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/diversified-demand.js; canonical home engine/connection-capacity.js; canonical home engine/route-obstacles.js; canonical home engine/power-factor.js; canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191116</span> function positive(name, v) {\n<span style=\"color:#4b5568\">191117</span>     if (typeof v !== 'number' || !Number.isFinite(v)) {\n<span style=\"color:#4b5568\">191118</span>         throw new TypeError(`${name} must be a finite number, received ${v === null ? 'null' : typeof v}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191119</span>     if (v &lt;= 0) throw new RangeError(`${name} must be greater than zero, received ${v}`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L56-L62",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L56-L62",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80257"
   },
   {
@@ -1800,7 +1820,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191120</span> function ratio(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191122</span>     if (v &gt; 1) throw new RangeError(\n<span style=\"color:#4b5568\">191123</span>         `${name} must be a fraction in (0, 1], received ${v}. A percentage such as 88 must be passed as 0.88.`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L64-L69",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L64-L69",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80258"
   },
   {
@@ -1810,7 +1830,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs name · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191127</span> (v, i) =&gt; {\n<span style=\"color:#4b5568\">191128</span>         if (typeof v !== 'number' || !Number.isFinite(v)) {\n<span style=\"color:#4b5568\">191129</span>             throw new TypeError(`${name}[${i}] must be a finite number, received ${typeof v}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">191130</span>         if (v &lt; 0) throw new RangeError(`${name}[${i}] must not be negative, received ${v}`);\n<span style=\"color:#4b5568\">  1770</span>     }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L75-L80",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L75-L80",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80259"
   },
   {
@@ -1820,7 +1840,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191124</span> function profileOf(name, p) {\n<span style=\"color:#4b5568\">191125</span>     if (!Array.isArray(p) || p.length === 0) {\n<span style=\"color:#4b5568\">191126</span>         throw new TypeError(`${name} must be a non-empty array of interval values`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191127</span>     p.forEach((v, i) =&gt; {\n<span style=\"color:#4b5568\">191128</span>         if (typeof v !== 'number' || !Number.isFinite(v)) {\n<span style=\"color:#4b5568\">191129</span>             throw new TypeError(`${name}[${i}] must be a finite number, received ${typeof v}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">191130</span>         if (v &lt; 0) throw new RangeError(`${name}[${i}] must not be negative, received ${v}`);\n<span style=\"color:#4b5568\">  1770</span>     });\n<span style=\"color:#4b5568\">191131</span>     return p;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L71-L82",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L71-L82",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80260"
   },
   {
@@ -1830,7 +1850,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, profileOf, schema · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191136</span> function exceedance({ profileKw, capKw, intervalHours }) {\n<span style=\"color:#4b5568\">191137</span>     profileOf('profileKw', profileKw);\n<span style=\"color:#4b5568\">191138</span>     positive('capKw', capKw);\n<span style=\"color:#4b5568\">191139</span>     positive('intervalHours', intervalHours);\n<span style=\"color:#4b5568\">191140</span>     if (intervalHours &gt; 24) throw new RangeError(`intervalHours must be at most 24, received ${intervalHours}`);\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">191141</span>     let peakExcess = 0, energyKwh = 0, intervals = 0, peakKw = 0, totalKwh = 0;\n<span style=\"color:#4b5568\">191142</span>     for (const v of profileKw) {\n<span style=\"color:#4b5568\">191143</span>         totalKwh += v * intervalHours;\n<span style=\"color:#4b5568\">191144</span>         if (v &gt; peakKw) peakKw = v;\n<span style=\"color:#4b5568\">191145</span>         const over = v - capKw;\n<span style=\"color:#4b5568\">191146</span>         if (over &gt; 0) {\n<span style=\"color:#4b5568\">191147</span>             intervals += 1;\n<span style=\"color:#4b5568\">191148</span>             energyKwh += over * intervalHours;\n<span style=\"color:#4b5568\">… 28 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L91-L132",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L91-L132",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80261"
   },
   {
@@ -1840,7 +1860,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs exceedance, ratio, schema · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191176</span> function batteryForPeakShaving({ profileKw, capKw, intervalHours, roundTripEfficiency, depthOfDischarge }) {\n<span style=\"color:#4b5568\">191177</span>     const ex = exceedance({ profileKw, capKw, intervalHours });\n<span style=\"color:#4b5568\">191178</span>     ratio('roundTripEfficiency', roundTripEfficiency);\n<span style=\"color:#4b5568\">191179</span>     ratio('depthOfDischarge', depthOfDischarge);\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">191180</span>     const usableKwh = ex.energyAboveCapKwh;\n<span style=\"color:#4b5568\">191181</span>     const storedKwh = usableKwh / roundTripEfficiency;\n<span style=\"color:#4b5568\">191182</span>     const installedKwh = storedKwh / depthOfDischarge;\n<span style=\"color:#4b5568\">191183</span>     const powerKw = ex.peakExcessKw;\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191184</span>         quantity: 'battery_for_peak_shaving',\n<span style=\"color:#4b5568\">191185</span>         powerKw,\n<span style=\"color:#4b5568\">… 22 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L141-L176",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L141-L176",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80262"
   },
   {
@@ -1850,7 +1870,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, profileOf, schema · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191208</span> function clippedEnergy({ generationKw, exportCapKw, intervalHours }) {\n<span style=\"color:#4b5568\">191209</span>     profileOf('generationKw', generationKw);\n<span style=\"color:#4b5568\">191210</span>     positive('exportCapKw', exportCapKw);\n<span style=\"color:#4b5568\">191139</span>     positive('intervalHours', intervalHours);\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">191211</span>     let clippedKwh = 0, deliveredKwh = 0, intervals = 0, peakKw = 0;\n<span style=\"color:#4b5568\">191212</span>     for (const v of generationKw) {\n<span style=\"color:#4b5568\">191144</span>         if (v &gt; peakKw) peakKw = v;\n<span style=\"color:#4b5568\">191213</span>         const over = v - exportCapKw;\n<span style=\"color:#4b5568\">191214</span>         if (over &gt; 0) { clippedKwh += over * intervalHours; intervals += 1; deliveredKwh += exportCapKw * intervalHours; }\n<span style=\"color:#4b5568\">191215</span>         else deliveredKwh += v * intervalHours;\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191216</span>     const potentialKwh = clippedKwh + deliveredKwh;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">… 18 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L184-L215",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L184-L215",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80263"
   },
   {
@@ -1860,7 +1880,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, profileOf, schema · engine: canonical home engine/connection-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191234</span> function netAtConnection({ loadKw, generationKw, importCapKw, exportCapKw, intervalHours }) {\n<span style=\"color:#4b5568\">191235</span>     profileOf('loadKw', loadKw);\n<span style=\"color:#4b5568\">191209</span>     profileOf('generationKw', generationKw);\n<span style=\"color:#4b5568\">191236</span>     if (loadKw.length !== generationKw.length) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">191238</span>             `loadKw has ${loadKw.length} intervals and generationKw has ${generationKw.length}; ` +\n<span style=\"color:#4b5568\">191239</span>             `they must describe the same period at the same resolution.`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191240</span>     positive('importCapKw', importCapKw);\n<span style=\"color:#4b5568\">191210</span>     positive('exportCapKw', exportCapKw);\n<span style=\"color:#4b5568\">191139</span>     positive('intervalHours', intervalHours);\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">191241</span>     let peakImport = 0, peakExport = 0, importKwh = 0, exportKwh = 0;\n<span style=\"color:#4b5568\">191242</span>     let importBreaches = 0, exportBreaches = 0;\n<span style=\"color:#4b5568\">… 33 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/connection-capacity.js#L221-L267",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/connection-capacity.js#L221-L267",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80264"
   },
   {
@@ -1870,7 +1890,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191120</span> function ratio(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191122</span>     if (v &gt; 1) throw new RangeError(\n<span style=\"color:#4b5568\">191374</span>         `${name} must be a fraction in (0, 1], received ${v}. A percentage such as 20 must be passed as 0.2.`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L58-L63",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L58-L63",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80267"
   },
   {
@@ -1880,7 +1900,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191375</span> function count(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191376</span>     if (!Number.isInteger(v)) throw new RangeError(`${name} must be a whole number, received ${v}`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L65-L69",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L65-L69",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80268"
   },
   {
@@ -1890,7 +1910,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs count, positive, ratio, schema · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191381</span> function diversifiedDemandKw({ unitCount, perUnitKw, coincidenceFactor }) {\n<span style=\"color:#4b5568\">191382</span>     count('unitCount', unitCount);\n<span style=\"color:#4b5568\">191383</span>     positive('perUnitKw', perUnitKw);\n<span style=\"color:#4b5568\">191384</span>     ratio('coincidenceFactor', coincidenceFactor);\n<span style=\"color:#4b5568\">191385</span>     const unrestricted = unitCount * perUnitKw;\n<span style=\"color:#4b5568\">191386</span>     const value = unrestricted * coincidenceFactor;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191387</span>         quantity: 'after_diversity_maximum_demand_kw',\n<span style=\"color:#4b5568\"> 24448</span>         value,\n<span style=\"color:#4b5568\">191388</span>         unit: 'kW',\n<span style=\"color:#4b5568\">191389</span>         from: { unitCount, perUnitKw, coincidenceFactor, unrestrictedKw: unrestricted },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191390</span>             `${unitCount.toLocaleString('en-GB')} units of ${perUnitKw} kW could draw ` +\n<span style=\"color:#4b5568\">… 7 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L79-L99",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L79-L99",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80269"
   },
   {
@@ -1900,7 +1920,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs count, positive, schema · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191398</span> function impliedCoincidence({ unitCount, perUnitKw, measuredGroupPeakKw }) {\n<span style=\"color:#4b5568\">191382</span>     count('unitCount', unitCount);\n<span style=\"color:#4b5568\">191383</span>     positive('perUnitKw', perUnitKw);\n<span style=\"color:#4b5568\">191399</span>     positive('measuredGroupPeakKw', measuredGroupPeakKw);\n<span style=\"color:#4b5568\">191385</span>     const unrestricted = unitCount * perUnitKw;\n<span style=\"color:#4b5568\">191400</span>     if (measuredGroupPeakKw &gt; unrestricted) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">191401</span>             `measuredGroupPeakKw (${measuredGroupPeakKw}) exceeds the unrestricted total ` +\n<span style=\"color:#4b5568\">191402</span>             `(${unrestricted}); a group cannot draw more than all its units at full rating.`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191403</span>         quantity: 'coincidence_factor',\n<span style=\"color:#4b5568\">191404</span>         value: measuredGroupPeakKw / unrestricted,\n<span style=\"color:#4b5568\">… 8 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L105-L126",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L105-L126",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80270"
   },
   {
@@ -1910,7 +1930,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs HOURS_PER_YEAR, positive, schema · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191413</span> function averageOverWindowGw({ annualTwh, windowHoursPerDay }) {\n<span style=\"color:#4b5568\">191414</span>     positive('annualTwh', annualTwh);\n<span style=\"color:#4b5568\">191415</span>     positive('windowHoursPerDay', windowHoursPerDay);\n<span style=\"color:#4b5568\">191416</span>     if (windowHoursPerDay &gt; 24) {\n<span style=\"color:#4b5568\">191417</span>         throw new RangeError(`windowHoursPerDay must be at most 24, received ${windowHoursPerDay}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191418</span>     const windowHoursPerYear = windowHoursPerDay * 365;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191419</span>         quantity: 'average_power_across_window_gw',\n<span style=\"color:#4b5568\">191420</span>         value: (annualTwh * 1000) / windowHoursPerYear,\n<span style=\"color:#4b5568\">191421</span>         unit: 'GW',\n<span style=\"color:#4b5568\">191422</span>         from: { annualTwh, windowHoursPerDay, windowHoursPerYear, hoursPerYear: HOURS_PER_YEAR },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">… 6 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L134-L153",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L134-L153",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80271"
   },
   {
@@ -1920,7 +1940,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs count, positive, schema · engine: canonical home engine/diversified-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191430</span> function populationEnergyTwh({ unitCount, perUnitKwhPerYear }) {\n<span style=\"color:#4b5568\">191382</span>     count('unitCount', unitCount);\n<span style=\"color:#4b5568\">191431</span>     positive('perUnitKwhPerYear', perUnitKwhPerYear);\n<span style=\"color:#4b5568\">191432</span>     const kwh = unitCount * perUnitKwhPerYear;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191433</span>         quantity: 'population_annual_energy_twh',\n<span style=\"color:#4b5568\">191434</span>         value: kwh / 1e9,\n<span style=\"color:#4b5568\">191435</span>         unit: 'TWh',\n<span style=\"color:#4b5568\">191436</span>         from: { unitCount, perUnitKwhPerYear, totalKwh: kwh },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191437</span>             `${unitCount.toLocaleString('en-GB')} units at ${perUnitKwhPerYear.toLocaleString('en-GB')} kWh ` +\n<span style=\"color:#4b5568\">191438</span>             `a year. Annual energy only — it says nothing about when any of it is drawn.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/diversified-demand.js#L162-L176",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/diversified-demand.js#L162-L176",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80272"
   },
   {
@@ -1930,7 +1950,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs describe · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191713</span> function requireRatio(name, value, { allowAboveOne = false } = {}) {\n<span style=\"color:#4b5568\">191714</span>     if (typeof value !== 'number' || !Number.isFinite(value)) {\n<span style=\"color:#4b5568\">191715</span>         throw new TypeError(`${name} must be a finite number, received ${describe(value)}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191716</span>     if (value &lt;= 0) {\n<span style=\"color:#4b5568\">191717</span>         throw new RangeError(`${name} must be greater than zero, received ${value}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191718</span>     if (!allowAboveOne &amp;&amp; value &gt; 1) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">191719</span>             `${name} must be a fraction in (0, 1], received ${value}. ` +\n<span style=\"color:#4b5568\">191720</span>             `A percentage such as 40 must be passed as 0.4.`\n<span style=\"color:#4b5568\"> 40297</span>         );\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\"> 79094</span>     return value;\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L89-L103",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L89-L103",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80280"
   },
   {
@@ -1940,7 +1960,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs describe · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191721</span> function requirePositive(name, value) {\n<span style=\"color:#4b5568\">191714</span>     if (typeof value !== 'number' || !Number.isFinite(value)) {\n<span style=\"color:#4b5568\">191715</span>         throw new TypeError(`${name} must be a finite number, received ${describe(value)}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191716</span>     if (value &lt;= 0) {\n<span style=\"color:#4b5568\">191717</span>         throw new RangeError(`${name} must be greater than zero, received ${value}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\"> 79094</span>     return value;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L105-L113",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L105-L113",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80281"
   },
   {
@@ -1950,7 +1970,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191722</span> function describe(value) {\n<span style=\"color:#4b5568\">191723</span>     if (value === null) return 'null';\n<span style=\"color:#4b5568\">191724</span>     if (Array.isArray(value)) return 'an array';\n<span style=\"color:#4b5568\">191725</span>     return typeof value;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L115-L119",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L115-L119",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80282"
   },
   {
@@ -1960,7 +1980,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs HOURS_PER_YEAR, HOURS_TWH_TO_GW, requirePositive, schema · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191728</span> function averagePowerGw({ annualTwh }) {\n<span style=\"color:#4b5568\">191729</span>     requirePositive('annualTwh', annualTwh);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191730</span>         quantity: 'average_power_gw',\n<span style=\"color:#4b5568\">191731</span>         value: annualTwh / HOURS_TWH_TO_GW,\n<span style=\"color:#4b5568\">191421</span>         unit: 'GW',\n<span style=\"color:#4b5568\">191732</span>         from: { annualTwh, hoursPerYear: HOURS_PER_YEAR },\n<span style=\"color:#4b5568\">191733</span>         basis: 'Definition: mean power is annual energy divided by the hours in the year. Exact; carries no assumption.'\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L126-L136",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L126-L136",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80283"
   },
   {
@@ -1970,7 +1990,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive, requireRatio, schema · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191737</span> function peakFromLoadFactorGw({ averageGw, loadFactor }) {\n<span style=\"color:#4b5568\">191738</span>     requirePositive('averageGw', averageGw);\n<span style=\"color:#4b5568\">191739</span>     requireRatio('loadFactor', loadFactor);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191740</span>         quantity: 'peak_demand_gw',\n<span style=\"color:#4b5568\">191741</span>         value: averageGw / loadFactor,\n<span style=\"color:#4b5568\">191421</span>         unit: 'GW',\n<span style=\"color:#4b5568\">191742</span>         from: { averageGw, loadFactor },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191743</span>             `Definition rearranged: peak = average / load factor, at a load factor of ${loadFactor} ` +\n<span style=\"color:#4b5568\">191744</span>             `supplied by the caller. The load factor is the whole assumption; this figure is only ` +\n<span style=\"color:#4b5568\">191745</span>             `as good as it. It is a sensitivity, not a forecast, and it is not a published peak.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L144-L158",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L144-L158",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80284"
   },
   {
@@ -1980,7 +2000,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive, schema · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191749</span> function loadFactorFromPeak({ averageGw, peakGw }) {\n<span style=\"color:#4b5568\">191738</span>     requirePositive('averageGw', averageGw);\n<span style=\"color:#4b5568\">191750</span>     requirePositive('peakGw', peakGw);\n<span style=\"color:#4b5568\">191751</span>     if (peakGw &lt; averageGw) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">191752</span>             `peakGw (${peakGw}) is below averageGw (${averageGw}); a peak cannot be lower than the mean it contains.`\n<span style=\"color:#4b5568\"> 40297</span>         );\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191753</span>         quantity: 'load_factor',\n<span style=\"color:#4b5568\">191754</span>         value: averageGw / peakGw,\n<span style=\"color:#4b5568\">191405</span>         unit: 'dimensionless',\n<span style=\"color:#4b5568\">191755</span>         from: { averageGw, peakGw },\n<span style=\"color:#4b5568\">… 3 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L166-L182",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L166-L182",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80285"
   },
   {
@@ -1990,7 +2010,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs HOURS_TWH_TO_GW, requirePositive, requireRatio, schema · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191761</span> function nameplateFromCapacityFactorGw({ annualTwh, capacityFactor }) {\n<span style=\"color:#4b5568\">191729</span>     requirePositive('annualTwh', annualTwh);\n<span style=\"color:#4b5568\">191762</span>     requireRatio('capacityFactor', capacityFactor);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191763</span>         quantity: 'nameplate_capacity_gw',\n<span style=\"color:#4b5568\">191764</span>         value: annualTwh / (HOURS_TWH_TO_GW * capacityFactor),\n<span style=\"color:#4b5568\">191421</span>         unit: 'GW',\n<span style=\"color:#4b5568\">191765</span>         from: { annualTwh, capacityFactor },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191766</span>             `Energy equivalence only: the nameplate that produces ${annualTwh} TWh a year at an annual ` +\n<span style=\"color:#4b5568\">191767</span>             `capacity factor of ${capacityFactor}. It does not follow that this capacity meets peak, ` +\n<span style=\"color:#4b5568\">191768</span>             `provides firm capacity, or satisfies adequacy — those are chronological studies.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L191-L205",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L191-L205",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80286"
   },
   {
@@ -2000,7 +2020,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive, requireRatio, schema · engine: canonical home engine/electrification-demand.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191774</span> function electricityForDisplacedFuelTwh({ fuelTwh, oldEfficiency, newPerformance }) {\n<span style=\"color:#4b5568\">191775</span>     requirePositive('fuelTwh', fuelTwh);\n<span style=\"color:#4b5568\">191776</span>     requireRatio('oldEfficiency', oldEfficiency);\n<span style=\"color:#4b5568\">191777</span>     requireRatio('newPerformance', newPerformance, { allowAboveOne: true });\n<span style=\"color:#4b5568\">191778</span>     const usefulTwh = fuelTwh * oldEfficiency;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191779</span>         quantity: 'electricity_required_twh',\n<span style=\"color:#4b5568\">191780</span>         value: usefulTwh / newPerformance,\n<span style=\"color:#4b5568\">191435</span>         unit: 'TWh',\n<span style=\"color:#4b5568\">191781</span>         from: { fuelTwh, oldEfficiency, newPerformance, usefulOutputTwh: usefulTwh },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191782</span>             `Useful output is conserved, not fuel energy: ${fuelTwh} TWh of fuel at ${oldEfficiency} ` +\n<span style=\"color:#4b5568\">191783</span>             `delivers ${usefulTwh.toFixed(3)} TWh of useful output, which an electrical route of ` +\n<span style=\"color:#4b5568\">… 4 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/electrification-demand.js#L216-L233",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/electrification-demand.js#L216-L233",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80287"
   },
   {
@@ -2010,7 +2030,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191721</span> function requirePositive(name, value) {\n<span style=\"color:#4b5568\">191714</span>     if (typeof value !== 'number' || !Number.isFinite(value)) {\n<span style=\"color:#4b5568\">191842</span>         throw new TypeError(`${name} must be a finite number, received ${value === null ? 'null' : typeof value}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191843</span>     if (value &lt;= 0) throw new RangeError(`${name} must be greater than zero, received ${value}`);\n<span style=\"color:#4b5568\"> 79094</span>     return value;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L59-L65",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L59-L65",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80288"
   },
   {
@@ -2020,7 +2040,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191844</span> function requireRatio(name, value) {\n<span style=\"color:#4b5568\">191845</span>     requirePositive(name, value);\n<span style=\"color:#4b5568\">191846</span>     if (value &gt; 1) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">191847</span>             `${name} must be a fraction in (0, 1], received ${value}. A percentage such as 95 must be passed as 0.95.`\n<span style=\"color:#4b5568\"> 40297</span>         );\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\"> 79094</span>     return value;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L67-L75",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L67-L75",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80289"
   },
   {
@@ -2030,7 +2050,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191848</span> function requireUnits(units) {\n<span style=\"color:#4b5568\">191849</span>     if (!Array.isArray(units) || units.length === 0) {\n<span style=\"color:#4b5568\">191850</span>         throw new TypeError('units must be a non-empty array of transformer ratings in MVA');\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191851</span>     units.forEach((u, i) =&gt; requirePositive(`units[${i}]`, u));\n<span style=\"color:#4b5568\"> 79739</span>     return units;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L77-L83",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L77-L83",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80290"
   },
   {
@@ -2040,7 +2060,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive, requireRatio, schema · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191855</span> function apparentPowerMva({ mw, powerFactor }) {\n<span style=\"color:#4b5568\">191856</span>     requirePositive('mw', mw);\n<span style=\"color:#4b5568\">191857</span>     requireRatio('powerFactor', powerFactor);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191858</span>         quantity: 'apparent_power_mva',\n<span style=\"color:#4b5568\">191859</span>         value: mw / powerFactor,\n<span style=\"color:#4b5568\">191860</span>         unit: 'MVA',\n<span style=\"color:#4b5568\">191861</span>         from: { mw, powerFactor },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191862</span>             `Plant is limited by current, and current follows apparent power: ${mw} MW at a power ` +\n<span style=\"color:#4b5568\">191863</span>             `factor of ${powerFactor} draws the MVA stated. Sizing on MW alone under-counts by ` +\n<span style=\"color:#4b5568\">191864</span>             `1/pf — here that is ${(((1 / powerFactor) - 1) * 100).toFixed(1)}%.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L92-L106",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L92-L106",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80291"
   },
   {
@@ -2050,7 +2070,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requireUnits, schema · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191869</span> function firmCapacityMva({ units }) {\n<span style=\"color:#4b5568\">191870</span>     requireUnits(units);\n<span style=\"color:#4b5568\">191871</span>     const installed = units.reduce((a, b) =&gt; a + b, 0);\n<span style=\"color:#4b5568\">191872</span>     const largest = Math.max(...units);\n<span style=\"color:#4b5568\">191873</span>     const firm = installed - largest;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191874</span>         quantity: 'firm_capacity_mva',\n<span style=\"color:#4b5568\">191875</span>         value: firm,\n<span style=\"color:#4b5568\">191860</span>         unit: 'MVA',\n<span style=\"color:#4b5568\">191876</span>         from: { units: [...units], installedMva: installed, largestUnitMva: largest, unitCount: units.length },\n<span style=\"color:#4b5568\">191877</span>         basis: units.length === 1\n<span style=\"color:#4b5568\">191878</span>             ? `A single ${largest} MVA transformer has NO firm capacity: losing it loses the site. ` +\n<span style=\"color:#4b5568\">191879</span>               `Installed capacity is ${installed} MVA and firm capacity is zero. That is the answer, not a fault.`\n<span style=\"color:#4b5568\">… 7 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L115-L135",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L115-L135",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80292"
   },
   {
@@ -2060,7 +2080,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs requirePositive, schema · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191888</span> function utilisationAgainstRating({ demandMva, ratingMva }) {\n<span style=\"color:#4b5568\">191889</span>     requirePositive('demandMva', demandMva);\n<span style=\"color:#4b5568\">191890</span>     requirePositive('ratingMva', ratingMva);\n<span style=\"color:#4b5568\">191891</span>     const ratio = demandMva / ratingMva;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191892</span>         quantity: 'utilisation_of_stated_rating',\n<span style=\"color:#4b5568\">191893</span>         value: ratio,\n<span style=\"color:#4b5568\">191405</span>         unit: 'dimensionless',\n<span style=\"color:#4b5568\">191894</span>         percent: ratio * 100,\n<span style=\"color:#4b5568\">191895</span>         exceedsRating: ratio &gt; 1,\n<span style=\"color:#4b5568\">191896</span>         from: { demandMva, ratingMva },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">191897</span>             `${demandMva} MVA against a stated rating of ${ratingMva} MVA is ` +\n<span style=\"color:#4b5568\">… 9 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L143-L165",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L143-L165",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80293"
   },
   {
@@ -2070,7 +2090,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs firmCapacityMva, requirePositive, schema · engine: canonical home engine/firm-capacity.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191907</span> function assessAgainstFirm({ units, demandMva }) {\n<span style=\"color:#4b5568\">191908</span>     const firm = firmCapacityMva({ units });\n<span style=\"color:#4b5568\">191889</span>     requirePositive('demandMva', demandMva);\n<span style=\"color:#4b5568\">191909</span>     const installed = firm.from.installedMva;\n<span style=\"color:#4b5568\">191910</span>     const withinFirm = demandMva &lt;= firm.value;\n<span style=\"color:#4b5568\">191911</span>     const withinInstalled = demandMva &lt;= installed;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">191912</span>         quantity: 'n_minus_one_assessment',\n<span style=\"color:#4b5568\">191913</span>         withinFirm,\n<span style=\"color:#4b5568\">191914</span>         withinInstalled,\n<span style=\"color:#4b5568\">191915</span>         firmMva: firm.value,\n<span style=\"color:#4b5568\">191916</span>         installedMva: installed,\n<span style=\"color:#4b5568\">191917</span>         demandMva,\n<span style=\"color:#4b5568\">… 14 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/firm-capacity.js#L171-L198",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/firm-capacity.js#L171-L198",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80294"
   },
   {
@@ -2080,7 +2100,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs KM2_PER_MI2, M2_PER_ACRE, M2_PER_PITCH · engine: canonical home engine/geo-area.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191964</span> function conversions(areaKm2, perimKm) {\n<span style=\"color:#4b5568\">191965</span>     const areaM2 = areaKm2 * 1e6;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191966</span>         areaKm2,\n<span style=\"color:#4b5568\">191967</span>         areaM2,\n<span style=\"color:#4b5568\">191968</span>         areaHa:  areaM2 / 10000,\n<span style=\"color:#4b5568\">191969</span>         areaAc:  areaM2 / M2_PER_ACRE,\n<span style=\"color:#4b5568\">191970</span>         areaMi2: areaKm2 * KM2_PER_MI2,\n<span style=\"color:#4b5568\">191971</span>         perimKm,\n<span style=\"color:#4b5568\">191972</span>         pitches: areaM2 / M2_PER_PITCH\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-area.js#L37-L48",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-area.js#L37-L48",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80295"
   },
   {
@@ -2090,7 +2110,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs EARTH_RADIUS_KM, conversions, polylinePerimeterKm · engine: canonical home engine/geo-area.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191979</span> function polygonAreaKm2(pts, radiusKm = EARTH_RADIUS_KM) {\n<span style=\"color:#4b5568\">191980</span>     if (!Array.isArray(pts) || pts.length &lt; 3) return conversions(0, 0);\n<span style=\"color:#4b5568\">191981</span>     let area = 0;\n<span style=\"color:#4b5568\">191982</span>     const R = radiusKm;\n<span style=\"color:#4b5568\">191983</span>     for (let i = 0; i &lt; pts.length; i++) {\n<span style=\"color:#4b5568\">191984</span>         const j  = (i + 1) % pts.length;\n<span style=\"color:#4b5568\">191985</span>         const xi = pts[i][0] * Math.PI / 180, yi = pts[i][1] * Math.PI / 180;\n<span style=\"color:#4b5568\">191986</span>         const xj = pts[j][0] * Math.PI / 180, yj = pts[j][1] * Math.PI / 180;\n<span style=\"color:#4b5568\">191987</span>         area += (xj - xi) * (2 + Math.sin(yi) + Math.sin(yj));\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">191988</span>     const areaKm2 = Math.abs(area) * R * R / 2;\n<span style=\"color:#4b5568\">191989</span>     return conversions(areaKm2, polylinePerimeterKm(pts, true, radiusKm));\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-area.js#L60-L72",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-area.js#L60-L72",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80296"
   },
   {
@@ -2100,7 +2120,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs EARTH_RADIUS_KM, haversine · engine: canonical home engine/geo-area.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191993</span> function polylinePerimeterKm(pts, closed = false, radiusKm = EARTH_RADIUS_KM) {\n<span style=\"color:#4b5568\">191994</span>     if (!Array.isArray(pts) || pts.length &lt; 2) return 0;\n<span style=\"color:#4b5568\">191995</span>     let km = 0;\n<span style=\"color:#4b5568\">191996</span>     const last = closed ? pts.length : pts.length - 1;\n<span style=\"color:#4b5568\">191997</span>     for (let i = 0; i &lt; last; i++) {\n<span style=\"color:#4b5568\">191998</span>         const j = (i + 1) % pts.length;\n<span style=\"color:#4b5568\">191999</span>         km += haversine(pts[i][0], pts[i][1], pts[j][0], pts[j][1], radiusKm);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">192000</span>     return km;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-area.js#L79-L88",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-area.js#L79-L88",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80297"
   },
   {
@@ -2110,7 +2130,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs EARTH_RADIUS_KM, conversions · engine: canonical home engine/geo-area.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192005</span> function circleCapAreaKm2(km, radiusKm = EARTH_RADIUS_KM) {\n<span style=\"color:#4b5568\">191982</span>     const R = radiusKm;\n<span style=\"color:#4b5568\">192006</span>     const areaKm2 = 2 * Math.PI * R * R * (1 - Math.cos(km / R));\n<span style=\"color:#4b5568\">192007</span>     return conversions(areaKm2, 2 * Math.PI * R * Math.sin(km / R));\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-area.js#L96-L100",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-area.js#L96-L100",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80298"
   },
   {
@@ -2120,7 +2140,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs EARTH_RADIUS_KM · engine: canonical home engine/geo-core.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192067</span> function haversine(lon1, lat1, lon2, lat2, radiusKm = EARTH_RADIUS_KM) {\n<span style=\"color:#4b5568\">192068</span>     const R = radiusKm, r = Math.PI / 180;\n<span style=\"color:#4b5568\">192069</span>     const dLat = (lat2 - lat1) * r, dLon = (lon2 - lon1) * r;\n<span style=\"color:#4b5568\">192070</span>     const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * r) * Math.cos(lat2 * r) * Math.sin(dLon / 2) ** 2;\n<span style=\"color:#4b5568\">192071</span>     return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-core.js#L82-L87",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-core.js#L82-L87",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80299"
   },
   {
@@ -2130,7 +2150,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs R_UK, haversine · engine: canonical home engine/geo-core.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192074</span> function haversineUK(lon1, lat1, lon2, lat2) {\n<span style=\"color:#4b5568\">192075</span>     return haversine(lon1, lat1, lon2, lat2, R_UK);\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-core.js#L93-L95",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-core.js#L93-L95",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80300"
   },
   {
@@ -2140,7 +2160,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs circleVertexCount, destinationCirclePoints · engine: canonical home engine/geo-geojson.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192085</span> function circleFeatureCollection(lon, lat, radiusKm) {\n<span style=\"color:#4b5568\">192086</span>     const ring = destinationCirclePoints(lon, lat, radiusKm, circleVertexCount(radiusKm));\n<span style=\"color:#4b5568\">192087</span>     ring.push(ring[0]);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\"> 40336</span>         type: 'FeatureCollection',\n<span style=\"color:#4b5568\">192088</span>         features: [{\n<span style=\"color:#4b5568\"> 40338</span>             type: 'Feature',\n<span style=\"color:#4b5568\">192089</span>             properties: { radius_km: radiusKm, centre: [lon, lat] },\n<span style=\"color:#4b5568\">192090</span>             geometry: { type: 'Polygon', coordinates: [ring] }\n<span style=\"color:#4b5568\">192091</span>         }]\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-geojson.js#L16-L27",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-geojson.js#L16-L27",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80301"
   },
   {
@@ -2150,7 +2170,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · needs EARTH_RADIUS_KM · engine: canonical home engine/geo-shapes.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192105</span> function destinationCirclePoints(lon, lat, radiusKm, n, earthRadiusKm = EARTH_RADIUS_KM) {\n<span style=\"color:#4b5568\">192106</span>     const R = earthRadiusKm, DEG = Math.PI / 180;\n<span style=\"color:#4b5568\">192107</span>     const ad = radiusKm / R;\n<span style=\"color:#4b5568\">192108</span>     const lat1 = lat * DEG;\n<span style=\"color:#4b5568\">192109</span>     return Array.from({ length: n }, (_, i) =&gt; {\n<span style=\"color:#4b5568\">192110</span>         const b = (i / n) * 2 * Math.PI;\n<span style=\"color:#4b5568\">192111</span>         const lat2 = Math.asin(Math.sin(lat1) * Math.cos(ad) + Math.cos(lat1) * Math.sin(ad) * Math.cos(b));\n<span style=\"color:#4b5568\">192112</span>         const lon2 = lon * DEG + Math.atan2(Math.sin(b) * Math.sin(ad) * Math.cos(lat1), Math.cos(ad) - Math.sin(lat1) * Math.sin(lat2));\n<span style=\"color:#4b5568\">192113</span>         return [lon2 / DEG, lat2 / DEG];\n<span style=\"color:#4b5568\">  1770</span>     });\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-shapes.js#L24-L34",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-shapes.js#L24-L34",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80303"
   },
   {
@@ -2160,7 +2180,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · self-contained · engine: canonical home engine/geo-shapes.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192117</span> function circleVertexCount(radiusKm) {\n<span style=\"color:#4b5568\">192118</span>     return radiusKm &gt; 5000 ? 128 : radiusKm &gt; 500 ? 96 : 64;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/geo-shapes.js#L41-L43",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/geo-shapes.js#L41-L43",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80304"
   },
   {
@@ -2170,7 +2190,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192161</span> function finite(name, v) {\n<span style=\"color:#4b5568\">191117</span>     if (typeof v !== 'number' || !Number.isFinite(v)) {\n<span style=\"color:#4b5568\">191118</span>         throw new TypeError(`${name} must be a finite number, received ${v === null ? 'null' : typeof v}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L55-L60",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L55-L60",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80305"
   },
   {
@@ -2180,7 +2200,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs finite · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191116</span> function positive(name, v) {\n<span style=\"color:#4b5568\">192162</span>     finite(name, v);\n<span style=\"color:#4b5568\">191119</span>     if (v &lt;= 0) throw new RangeError(`${name} must be greater than zero, received ${v}`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L62-L66",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L62-L66",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80306"
   },
   {
@@ -2190,7 +2210,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191120</span> function ratio(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191122</span>     if (v &gt; 1) throw new RangeError(\n<span style=\"color:#4b5568\">192163</span>         `${name} must be a fraction in (0, 1], received ${v}. A percentage such as 70 must be passed as 0.7.`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L68-L73",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L68-L73",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80307"
   },
   {
@@ -2200,7 +2220,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs finite, schema · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192167</span> function flowDirection({ gbPriceGbpPerMwh, neighbourPriceGbpPerMwh }) {\n<span style=\"color:#4b5568\">192168</span>     finite('gbPriceGbpPerMwh', gbPriceGbpPerMwh);\n<span style=\"color:#4b5568\">192169</span>     finite('neighbourPriceGbpPerMwh', neighbourPriceGbpPerMwh);\n<span style=\"color:#4b5568\">192170</span>     const spread = gbPriceGbpPerMwh - neighbourPriceGbpPerMwh;\n<span style=\"color:#4b5568\">192171</span>     const direction = spread &gt; 0 ? 'import to GB' : spread &lt; 0 ? 'export from GB' : 'no commercial incentive';\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192172</span>         quantity: 'commercial_flow_direction',\n<span style=\"color:#4b5568\">192173</span>         direction,\n<span style=\"color:#4b5568\">192174</span>         spreadGbpPerMwh: Math.abs(spread),\n<span style=\"color:#4b5568\">192175</span>         signedSpreadGbpPerMwh: spread,\n<span style=\"color:#4b5568\">192176</span>         from: { gbPriceGbpPerMwh, neighbourPriceGbpPerMwh },\n<span style=\"color:#4b5568\">192177</span>         basis: spread === 0\n<span style=\"color:#4b5568\">192178</span>             ? `Both systems are at £${gbPriceGbpPerMwh}/MWh. With no spread there is no commercial ` +\n<span style=\"color:#4b5568\">… 9 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L81-L103",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L81-L103",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80308"
   },
   {
@@ -2210,7 +2230,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, ratio, schema · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192187</span> function energyTransferredGwh({ capacityGw, hours, utilisation }) {\n<span style=\"color:#4b5568\">192188</span>     positive('capacityGw', capacityGw);\n<span style=\"color:#4b5568\">192189</span>     positive('hours', hours);\n<span style=\"color:#4b5568\">192190</span>     ratio('utilisation', utilisation);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192191</span>         quantity: 'energy_transferred_gwh',\n<span style=\"color:#4b5568\">192192</span>         value: capacityGw * hours * utilisation,\n<span style=\"color:#4b5568\">192193</span>         unit: 'GWh',\n<span style=\"color:#4b5568\">192194</span>         from: { capacityGw, hours, utilisation },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">192195</span>             `${capacityGw} GW at ${(utilisation * 100).toFixed(0)}% utilisation over ${hours} hours. ` +\n<span style=\"color:#4b5568\">192196</span>             `Utilisation is stated by the caller, never assumed: a link's actual load factor depends ` +\n<span style=\"color:#4b5568\">192197</span>             `on the spread persisting, on availability, and on what the coupled markets schedule.`\n<span style=\"color:#4b5568\">… 2 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L108-L123",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L108-L123",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80309"
   },
   {
@@ -2220,7 +2240,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs energyTransferredGwh, positive, schema · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192201</span> function congestionRentGbp({ capacityGw, hours, utilisation, spreadGbpPerMwh }) {\n<span style=\"color:#4b5568\">192202</span>     const energy = energyTransferredGwh({ capacityGw, hours, utilisation });\n<span style=\"color:#4b5568\">192203</span>     positive('spreadGbpPerMwh', spreadGbpPerMwh);\n<span style=\"color:#4b5568\">192204</span>     const mwh = energy.value * 1000;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192205</span>         quantity: 'gross_congestion_rent_gbp',\n<span style=\"color:#4b5568\">192206</span>         value: mwh * spreadGbpPerMwh,\n<span style=\"color:#4b5568\">192207</span>         unit: 'GBP',\n<span style=\"color:#4b5568\">192208</span>         energyGwh: energy.value,\n<span style=\"color:#4b5568\">192209</span>         from: { capacityGw, hours, utilisation, spreadGbpPerMwh },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">192210</span>             `${energy.value.toFixed(1)} GWh moved across a £${spreadGbpPerMwh}/MWh spread. This is the ` +\n<span style=\"color:#4b5568\">192211</span>             `GROSS value of the arbitrage: before transmission losses, before availability outages, ` +\n<span style=\"color:#4b5568\">… 4 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L131-L148",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L131-L148",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80310"
   },
   {
@@ -2230,7 +2250,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs byCountry, byStatus, observable, planned, positive · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192223</span> (l, i) =&gt; {\n<span style=\"color:#4b5568\">192224</span>         positive(`links[${i}].capacityGw`, l.capacityGw);\n<span style=\"color:#4b5568\">192225</span>         if (typeof l.status !== 'string' || !l.status) {\n<span style=\"color:#4b5568\">192226</span>             throw new TypeError(`links[${i}].status must be a non-empty string`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">192227</span>         byStatus[l.status] = (byStatus[l.status] || 0) + l.capacityGw;\n<span style=\"color:#4b5568\">192228</span>         byCountry[l.country] = (byCountry[l.country] || 0) + l.capacityGw;\n<span style=\"color:#4b5568\">192229</span>         if (l.bmrsCode) observable += l.capacityGw; else planned += l.capacityGw;\n<span style=\"color:#4b5568\">  1770</span>     }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L163-L171",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L163-L171",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80311"
   },
   {
@@ -2240,7 +2260,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, schema · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192217</span> function fleetCapacity({ links }) {\n<span style=\"color:#4b5568\">192218</span>     if (!Array.isArray(links) || links.length === 0) {\n<span style=\"color:#4b5568\">192219</span>         throw new TypeError('links must be a non-empty array');\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">192220</span>     const byStatus = {};\n<span style=\"color:#4b5568\">192221</span>     const byCountry = {};\n<span style=\"color:#4b5568\">192222</span>     let observable = 0, planned = 0;\n<span style=\"color:#4b5568\">192223</span>     links.forEach((l, i) =&gt; {\n<span style=\"color:#4b5568\">192224</span>         positive(`links[${i}].capacityGw`, l.capacityGw);\n<span style=\"color:#4b5568\">192225</span>         if (typeof l.status !== 'string' || !l.status) {\n<span style=\"color:#4b5568\">192226</span>             throw new TypeError(`links[${i}].status must be a non-empty string`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">192227</span>         byStatus[l.status] = (byStatus[l.status] || 0) + l.capacityGw;\n<span style=\"color:#4b5568\">192228</span>         byCountry[l.country] = (byCountry[l.country] || 0) + l.capacityGw;\n<span style=\"color:#4b5568\">… 20 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L156-L189",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L156-L189",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80312"
   },
   {
@@ -2250,7 +2270,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, schema · engine: canonical home engine/interconnector-economics.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192245</span> function shareOfDemand({ transferGw, gbDemandGw }) {\n<span style=\"color:#4b5568\">192246</span>     positive('transferGw', transferGw);\n<span style=\"color:#4b5568\">192247</span>     positive('gbDemandGw', gbDemandGw);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192248</span>         quantity: 'share_of_stated_demand',\n<span style=\"color:#4b5568\">192249</span>         value: transferGw / gbDemandGw,\n<span style=\"color:#4b5568\">191405</span>         unit: 'dimensionless',\n<span style=\"color:#4b5568\">192250</span>         percent: (transferGw / gbDemandGw) * 100,\n<span style=\"color:#4b5568\">192251</span>         from: { transferGw, gbDemandGw },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">192252</span>             `${transferGw} GW against a stated GB demand of ${gbDemandGw} GW is ` +\n<span style=\"color:#4b5568\">192253</span>             `${((transferGw / gbDemandGw) * 100).toFixed(1)}%. The demand figure is yours: a share of ` +\n<span style=\"color:#4b5568\">192254</span>             `&quot;GB demand&quot; means nothing without saying which demand and at what moment, and the same ` +\n<span style=\"color:#4b5568\">… 3 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/interconnector-economics.js#L197-L213",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/interconnector-economics.js#L197-L213",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80313"
   },
   {
@@ -2260,7 +2280,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-04 · self-contained · engine: canonical home engine/network-topology.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192308</span> function physicalUnits(records) {\n<span style=\"color:#4b5568\">192309</span>   const pairs = new Map();\n<span style=\"color:#4b5568\">131579</span>   for (const record of records) {\n<span style=\"color:#4b5568\">192310</span>     const near = String(record.from_node);\n<span style=\"color:#4b5568\">192311</span>     const far = String(record.to_node);\n<span style=\"color:#4b5568\">192312</span>     const forward = near &lt; far;\n<span style=\"color:#4b5568\">192313</span>     const key = forward ? near + ' ' + far : far + ' ' + near;\n<span style=\"color:#4b5568\">192314</span>     if (!pairs.has(key)) pairs.set(key, { forward: 0, reverse: 0 });\n<span style=\"color:#4b5568\">192315</span>     const seen = pairs.get(key);\n<span style=\"color:#4b5568\">192316</span>     if (forward) seen.forward += 1; else seen.reverse += 1;\n<span style=\"color:#4b5568\">  1640</span>   }\n<span style=\"color:#4b5568\">192317</span>   let units = 0;\n<span style=\"color:#4b5568\">192318</span>   for (const seen of pairs.values()) {\n<span style=\"color:#4b5568\">192319</span>     units += (seen.forward &amp;&amp; seen.reverse)\n<span style=\"color:#4b5568\">… 5 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/network-topology.js#L73-L91",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/network-topology.js#L73-L91",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80316"
   },
   {
@@ -2270,7 +2290,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192514</span> function powerFactor(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191122</span>     if (v &gt; 1) throw new RangeError(\n<span style=\"color:#4b5568\">192515</span>         `${name} must be a fraction in (0, 1], received ${v}. A power factor of 95% must be passed as 0.95.`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L59-L64",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L59-L64",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80328"
   },
   {
@@ -2280,7 +2300,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192520</span> function tanPhi(pf) {\n<span style=\"color:#4b5568\">192521</span>     return Math.sqrt(1 - pf * pf) / pf;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L70-L72",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L70-L72",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80329"
   },
   {
@@ -2290,7 +2310,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, powerFactor, schema, tanPhi · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192523</span> function reactivePowerKvar({ kw, powerFactor: pf }) {\n<span style=\"color:#4b5568\">192524</span>     positive('kw', pf === undefined ? kw : kw);\n<span style=\"color:#4b5568\">192525</span>     powerFactor('powerFactor', pf);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192526</span>         quantity: 'reactive_power_kvar',\n<span style=\"color:#4b5568\">192527</span>         value: kw * tanPhi(pf),\n<span style=\"color:#4b5568\">192528</span>         unit: 'kVAr',\n<span style=\"color:#4b5568\">192529</span>         from: { kw, powerFactor: pf },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">192530</span>             `${kw} kW at a power factor of ${pf} draws ${(kw * tanPhi(pf)).toFixed(1)} kVAr of reactive ` +\n<span style=\"color:#4b5568\">192531</span>             `power. Reactive power does no work, but it is carried by the same conductors and occupies ` +\n<span style=\"color:#4b5568\">192532</span>             `the same plant rating as the real power beside it.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L77-L91",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L77-L91",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80330"
   },
   {
@@ -2300,7 +2320,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, powerFactor, schema · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192534</span> function apparentPowerKva({ kw, powerFactor: pf }) {\n<span style=\"color:#4b5568\">192535</span>     positive('kw', kw);\n<span style=\"color:#4b5568\">192525</span>     powerFactor('powerFactor', pf);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192536</span>         quantity: 'apparent_power_kva',\n<span style=\"color:#4b5568\">192537</span>         value: kw / pf,\n<span style=\"color:#4b5568\">192538</span>         unit: 'kVA',\n<span style=\"color:#4b5568\">192529</span>         from: { kw, powerFactor: pf },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">192539</span>             `${kw} kW at ${pf} is ${(kw / pf).toFixed(1)} kVA. This is the figure the transformer, the ` +\n<span style=\"color:#4b5568\">192540</span>             `cable and the agreed capacity are all measured against.`\n<span style=\"color:#4b5568\">   158</span>     };\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L96-L109",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L96-L109",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80331"
   },
   {
@@ -2310,7 +2330,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, powerFactor, schema, tanPhi · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192545</span> function correctionKvar({ kw, fromPowerFactor, toPowerFactor }) {\n<span style=\"color:#4b5568\">192535</span>     positive('kw', kw);\n<span style=\"color:#4b5568\">192546</span>     powerFactor('fromPowerFactor', fromPowerFactor);\n<span style=\"color:#4b5568\">192547</span>     powerFactor('toPowerFactor', toPowerFactor);\n<span style=\"color:#4b5568\">192548</span>     if (toPowerFactor &lt;= fromPowerFactor) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">192549</span>             `toPowerFactor (${toPowerFactor}) must be better than fromPowerFactor (${fromPowerFactor}); ` +\n<span style=\"color:#4b5568\">192550</span>             `correction improves a power factor, it does not worsen one.`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">192551</span>     const qBefore = kw * tanPhi(fromPowerFactor);\n<span style=\"color:#4b5568\">192552</span>     const qAfter = kw * tanPhi(toPowerFactor);\n<span style=\"color:#4b5568\">192553</span>     const sBefore = kw / fromPowerFactor;\n<span style=\"color:#4b5568\">192554</span>     const sAfter = kw / toPowerFactor;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">… 21 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L118-L152",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L118-L152",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80332"
   },
   {
@@ -2320,7 +2340,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs apparentPowerKva, positive, schema · engine: canonical home engine/power-factor.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192573</span> function againstAgreedCapacity({ kw, powerFactor: pf, agreedKva }) {\n<span style=\"color:#4b5568\">192574</span>     const s = apparentPowerKva({ kw, powerFactor: pf });\n<span style=\"color:#4b5568\">192575</span>     positive('agreedKva', agreedKva);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192576</span>         quantity: 'demand_against_agreed_capacity',\n<span style=\"color:#4b5568\">192577</span>         value: s.value / agreedKva,\n<span style=\"color:#4b5568\">191405</span>         unit: 'dimensionless',\n<span style=\"color:#4b5568\">192578</span>         percent: (s.value / agreedKva) * 100,\n<span style=\"color:#4b5568\">192579</span>         apparentKva: s.value,\n<span style=\"color:#4b5568\">192580</span>         agreedKva,\n<span style=\"color:#4b5568\">192581</span>         exceeds: s.value &gt; agreedKva,\n<span style=\"color:#4b5568\">192582</span>         from: { kw, powerFactor: pf, agreedKva },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">… 9 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/power-factor.js#L158-L180",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/power-factor.js#L158-L180",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80333"
   },
   {
@@ -2330,7 +2350,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · self-contained · engine: canonical home engine/published-fault-level.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192701</span> function refuse(reason) {\n<span style=\"color:#4b5568\">192702</span>   return { ok: false, record: null, refused: reason };\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/published-fault-level.js#L129-L131",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/published-fault-level.js#L129-L131",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80334"
   },
   {
@@ -2340,7 +2360,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs ALLOWED_UNITS, CAVEAT, DATE_RE, METRIC_LABELS, REFUSED_GENERIC_NAMES, SHA256_RE · engine: canonical home engine/published-fault-level.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192713</span> function record(input) {\n<span style=\"color:#4b5568\">192714</span>   if (!input || typeof input !== 'object') return refuse('no input');\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">192715</span>   const p = input.provenance;\n<span style=\"color:#4b5568\">192716</span>   if (!p || typeof p !== 'object') return refuse('no provenance');\n<span style=\"color:#4b5568\">192717</span>   for (const key of ['publisher', 'publication', 'source_url', 'sha256', 'published_date', 'study_basis']) {\n<span style=\"color:#4b5568\">192718</span>     if (typeof p[key] !== 'string' || p[key].trim() === '') return refuse('provenance.' + key + ' missing');\n<span style=\"color:#4b5568\">  1640</span>   }\n<span style=\"color:#4b5568\">192719</span>   if (!URL_RE.test(p.source_url)) return refuse('provenance.source_url is not a URL');\n<span style=\"color:#4b5568\">192720</span>   if (!SHA256_RE.test(p.sha256)) return refuse('provenance.sha256 is not a 64-hex SHA-256');\n<span style=\"color:#4b5568\">192721</span>   if (!DATE_RE.test(p.published_date)) return refuse('provenance.published_date is not YYYY-MM-DD');\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">192722</span>   const site = input.site;\n<span style=\"color:#4b5568\">192723</span>   if (!site || typeof site !== 'object') return refuse('no site');\n<span style=\"color:#4b5568\">… 62 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/published-fault-level.js#L147-L222",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/published-fault-level.js#L147-L222",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80335"
   },
   {
@@ -2350,7 +2370,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · needs formatNumber, schema · engine: canonical home engine/published-fault-level.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192779</span> function quote(rec, metricName) {\n<span style=\"color:#4b5568\">192780</span>   if (!rec || rec.schema !== schema) return null;\n<span style=\"color:#4b5568\">192781</span>   const m = rec.metrics[metricName];\n<span style=\"color:#4b5568\"> 18225</span>   if (!m) return null;\n<span style=\"color:#4b5568\">192782</span>   const range = m.min === m.max\n<span style=\"color:#4b5568\">192783</span>     ? formatNumber(m.min)\n<span style=\"color:#4b5568\">192784</span>     : formatNumber(m.min) + '–' + formatNumber(m.max);\n<span style=\"color:#4b5568\">192785</span>   const unit = m.unit ? ' ' + m.unit : '';\n<span style=\"color:#4b5568\">192786</span>   const where = rec.site.busbar ? rec.site.name + ' ' + rec.site.busbar : rec.site.name;\n<span style=\"color:#4b5568\">192787</span>   return m.label + ' ' + range + unit\n<span style=\"color:#4b5568\">192788</span>     + ' · ' + where + ' ' + rec.site.voltage_kv + ' kV'\n<span style=\"color:#4b5568\">192789</span>     + ' · ' + rec.provenance.publisher + ', ' + rec.provenance.publication\n<span style=\"color:#4b5568\">192790</span>     + ' · ' + rec.provenance.study_basis\n<span style=\"color:#4b5568\">192791</span>     + ' · published ' + rec.provenance.published_date;\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/published-fault-level.js#L232-L246",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/published-fault-level.js#L232-L246",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80336"
   },
   {
@@ -2360,7 +2380,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-05 · self-contained · engine: canonical home engine/published-fault-level.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192792</span> function formatNumber(n) {\n<span style=\"color:#4b5568\">192793</span>   return Number.isInteger(n) ? String(n) : n.toFixed(2).replace(/\\.?0+$/, '');\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/published-fault-level.js#L248-L250",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/published-fault-level.js#L248-L250",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80337"
   },
   {
@@ -2370,7 +2390,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, schema · engine: canonical home engine/route-obstacles.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192968</span> function crossingLengthM({ widthM, setbackM, depthM = 0 }) {\n<span style=\"color:#4b5568\">192969</span>     positive('widthM', widthM);\n<span style=\"color:#4b5568\">192970</span>     positive('setbackM', setbackM);\n<span style=\"color:#4b5568\">192971</span>     if (typeof depthM !== 'number' || !Number.isFinite(depthM) || depthM &lt; 0) {\n<span style=\"color:#4b5568\">192972</span>         throw new TypeError(`depthM must be a finite number of zero or more, received ${depthM}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">192973</span>     const span = widthM + 2 * setbackM;\n<span style=\"color:#4b5568\">192974</span>     /* Pythagorean allowance for the dip: the bore runs from surface down to\n<span style=\"color:#4b5568\">192975</span>        depth and back. Approximate, stated as approximate, and zero when no\n<span style=\"color:#4b5568\">192976</span>        depth is declared. */\n<span style=\"color:#4b5568\">192977</span>     const withDip = depthM &gt; 0 ? Math.hypot(span / 2, depthM) * 2 : span;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">192978</span>         quantity: 'crossing_length_m',\n<span style=\"color:#4b5568\">… 15 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/route-obstacles.js#L104-L132",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/route-obstacles.js#L104-L132",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80342"
   },
   {
@@ -2380,7 +2400,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs OBSTACLES, crossingLengthM · engine: canonical home engine/route-obstacles.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192998</span> (c, i) =&gt; {\n<span style=\"color:#4b5568\">192999</span>         const spec = OBSTACLES[c.type];\n<span style=\"color:#4b5568\">193000</span>         if (!spec) {\n<span style=\"color:#4b5568\">193001</span>             throw new RangeError(\n<span style=\"color:#4b5568\">193002</span>                 `crossings[${i}].type &quot;${c.type}&quot; is not a known obstacle. Known: ${Object.keys(OBSTACLES).join(', ')}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">193003</span>         const count = c.count === undefined ? 1 : c.count;\n<span style=\"color:#4b5568\">193004</span>         if (!Number.isInteger(count) || count &lt;= 0) {\n<span style=\"color:#4b5568\">193005</span>             throw new RangeError(`crossings[${i}].count must be a whole number greater than zero, received ${c.count}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">193006</span>         let lengthM = 0, lengthBasis = 'no length declared';\n<span style=\"color:#4b5568\">193007</span>         if (c.widthM !== undefined || c.setbackM !== undefined) {\n<span style=\"color:#4b5568\">193008</span>             const l = crossingLengthM({ widthM: c.widthM, setbackM: c.setbackM, depthM: c.depthM });\n<span style=\"color:#4b5568\">193009</span>             lengthM = l.value * count;\n<span style=\"color:#4b5568\">… 10 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/route-obstacles.js#L145-L168",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/route-obstacles.js#L145-L168",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80343"
   },
   {
@@ -2390,7 +2410,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs OBSTACLES, crossingLengthM, schema · engine: canonical home engine/route-obstacles.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">192995</span> function crossingSchedule({ crossings }) {\n<span style=\"color:#4b5568\">192996</span>     if (!Array.isArray(crossings)) {\n<span style=\"color:#4b5568\">192997</span>         throw new TypeError('crossings must be an array, empty if the route crosses nothing');\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">192998</span>     const items = crossings.map((c, i) =&gt; {\n<span style=\"color:#4b5568\">192999</span>         const spec = OBSTACLES[c.type];\n<span style=\"color:#4b5568\">193000</span>         if (!spec) {\n<span style=\"color:#4b5568\">193001</span>             throw new RangeError(\n<span style=\"color:#4b5568\">193002</span>                 `crossings[${i}].type &quot;${c.type}&quot; is not a known obstacle. Known: ${Object.keys(OBSTACLES).join(', ')}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">193003</span>         const count = c.count === undefined ? 1 : c.count;\n<span style=\"color:#4b5568\">193004</span>         if (!Number.isInteger(count) || count &lt;= 0) {\n<span style=\"color:#4b5568\">193005</span>             throw new RangeError(`crossings[${i}].count must be a whole number greater than zero, received ${c.count}`);\n<span style=\"color:#4b5568\">    17</span>         }\n<span style=\"color:#4b5568\">… 43 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/route-obstacles.js#L141-L197",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/route-obstacles.js#L141-L197",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80344"
   },
   {
@@ -2400,28 +2420,8 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs crossingSchedule, positive, schema · engine: canonical home engine/route-obstacles.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193043</span> function routeEstimate({ straightLineKm, crossings = [], corridorFactor }) {\n<span style=\"color:#4b5568\">193044</span>     positive('straightLineKm', straightLineKm);\n<span style=\"color:#4b5568\">193045</span>     positive('corridorFactor', corridorFactor);\n<span style=\"color:#4b5568\">193046</span>     if (corridorFactor &lt; 1) {\n<span style=\"color:#4b5568\">191237</span>         throw new RangeError(\n<span style=\"color:#4b5568\">193047</span>             `corridorFactor must be at least 1, received ${corridorFactor}; a route cannot be shorter than the straight line between its ends.`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">193048</span>     const sched = crossingSchedule({ crossings });\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">193049</span>     if (!sched.corridorApplicable) {\n<span style=\"color:#4b5568\">    41</span>         return {\n<span style=\"color:#4b5568\">155891</span>             schema,\n<span style=\"color:#4b5568\">193050</span>             quantity: 'route_estimate',\n<span style=\"color:#4b5568\">193051</span>             value: null,\n<span style=\"color:#4b5568\">… 32 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/route-obstacles.js#L206-L251",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/route-obstacles.js#L206-L251",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80345"
-  },
-  {
-   "id": "family:80352",
-   "key": "family:80352",
-   "label": "#80352 nearest",
-   "type": "element",
-   "rag": "amber",
-   "reason": "4 different files · 4 places in 2 repositories · 1 version(s) · first written 2026-09-04 · needs distanceKm, located · engine: canonical home engine/v9-nearest-search.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193131</span> (lon, lat, options) =&gt; {\n<span style=\"color:#4b5568\">193132</span>       const minimumKv = (options &amp;&amp; options.minimumKv) || 0;\n<span style=\"color:#4b5568\">193133</span>       const limit = (options &amp;&amp; options.limit) || 1;\n<span style=\"color:#4b5568\"> 37686</span>       const found = [];\n<span style=\"color:#4b5568\">193134</span>       for (const point of located) {\n<span style=\"color:#4b5568\">193135</span>         const voltages = point.voltages_kv || [];\n<span style=\"color:#4b5568\">193136</span>         if (!voltages.length || Math.max(...voltages) &lt; minimumKv) continue;\n<span style=\"color:#4b5568\">193137</span>         found.push({\n<span style=\"color:#4b5568\">193138</span>           point,\n<span style=\"color:#4b5568\">193139</span>           km: distanceKm(lon, lat, point.location.lon, point.location.lat)\n<span style=\"color:#4b5568\">    39</span>         });\n<span style=\"color:#4b5568\">  5968</span>       }\n<span style=\"color:#4b5568\">193140</span>       found.sort((a, b) =&gt; a.km - b.km);\n<span style=\"color:#4b5568\">193141</span>       return limit === 1 ? (found[0] || null) : found.slice(0, limit);\n<span style=\"color:#4b5568\">… 1 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/v9-nearest-search.js#L72-L86",
-   "ext": "https://ventusltd.github.io/stars/code.html?family=80352"
-  },
-  {
-   "id": "family:80353",
-   "key": "family:80353",
-   "label": "#80353 index",
-   "type": "element",
-   "rag": "amber",
-   "reason": "4 different files · 4 places in 2 repositories · 1 version(s) · first written 2026-09-04 · needs distanceKm, normalise · engine: canonical home engine/v9-nearest-search.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193114</span> function index(points) {\n<span style=\"color:#4b5568\"> 83284</span>   const byName = new Map();\n<span style=\"color:#4b5568\"> 83285</span>   const located = [];\n<span style=\"color:#4b5568\">193115</span>   for (const point of points || []) {\n<span style=\"color:#4b5568\">193116</span>     const key = normalise(point &amp;&amp; point.name);\n<span style=\"color:#4b5568\">193117</span>     if (key &amp;&amp; !byName.has(key)) byName.set(key, point);\n<span style=\"color:#4b5568\">193118</span>     if (point &amp;&amp; point.location) located.push(point);\n<span style=\"color:#4b5568\">  1640</span>   }\n<span style=\"color:#4b5568\">  5877</span>   return {\n<span style=\"color:#4b5568\">193119</span>     size: byName.size,\n<span style=\"color:#4b5568\">193120</span>     located: located.length,\n<span style=\"color:#4b5568\">193121</span>     byName: (name) =&gt; byName.get(normalise(name)) || null,\n<span style=\"color:#4b5568\">193122</span>     /* Nearest by measurement, not by guess. minimumKv filters on the\n<span style=\"color:#4b5568\">193123</span>        highest voltage the site declares; limit 1 returns one match or\n<span style=\"color:#4b5568\">… 25 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/v9-nearest-search.js#L50-L88",
-   "ext": "https://ventusltd.github.io/stars/code.html?family=80353"
   },
   {
    "id": "family:80355",
@@ -2430,7 +2430,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193185</span> function nonNegative(name, v) {\n<span style=\"color:#4b5568\">191117</span>     if (typeof v !== 'number' || !Number.isFinite(v)) {\n<span style=\"color:#4b5568\">191118</span>         throw new TypeError(`${name} must be a finite number, received ${v === null ? 'null' : typeof v}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">193186</span>     if (v &lt; 0) throw new RangeError(`${name} must not be negative, received ${v}`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L67-L73",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L67-L73",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80355"
   },
   {
@@ -2440,7 +2440,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">191120</span> function ratio(name, v) {\n<span style=\"color:#4b5568\">191121</span>     positive(name, v);\n<span style=\"color:#4b5568\">191122</span>     if (v &gt; 1) throw new RangeError(\n<span style=\"color:#4b5568\">193187</span>         `${name} must be a fraction in (0, 1], received ${v}. A power factor of 90% must be passed as 0.9.`);\n<span style=\"color:#4b5568\"> 99739</span>     return v;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L75-L80",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L75-L80",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80356"
   },
   {
@@ -2450,7 +2450,7 @@
    "type": "library element",
    "rag": "green",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · self-contained · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193188</span> function phasesOf(phases) {\n<span style=\"color:#4b5568\">193189</span>     if (phases !== 'three' &amp;&amp; phases !== 'single') {\n<span style=\"color:#4b5568\">193190</span>         throw new RangeError(`phases must be &quot;three&quot; or &quot;single&quot;, received ${JSON.stringify(phases)}`);\n<span style=\"color:#4b5568\">     7</span>     }\n<span style=\"color:#4b5568\">193191</span>     return phases;\n<span style=\"color:#4b5568\">  1416</span> }</pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L82-L87",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L82-L87",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80357"
   },
   {
@@ -2460,7 +2460,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs PHASE_FACTOR, nonNegative, phasesOf, positive, ratio, schema · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193195</span> function voltageDropVolts({\n<span style=\"color:#4b5568\">193196</span>     currentA, lengthM, resistanceOhmPerKm, reactanceOhmPerKm = 0, powerFactor, phases = 'three'\n<span style=\"color:#4b5568\">145205</span> }) {\n<span style=\"color:#4b5568\">193197</span>     positive('currentA', currentA);\n<span style=\"color:#4b5568\">193198</span>     positive('lengthM', lengthM);\n<span style=\"color:#4b5568\">193199</span>     positive('resistanceOhmPerKm', resistanceOhmPerKm);\n<span style=\"color:#4b5568\">193200</span>     nonNegative('reactanceOhmPerKm', reactanceOhmPerKm);\n<span style=\"color:#4b5568\">193201</span>     ratio('powerFactor', powerFactor);\n<span style=\"color:#4b5568\">193202</span>     phasesOf(phases);\n<span style=\"color:#4b5568\">     2</span> \n<span style=\"color:#4b5568\">193203</span>     const km = lengthM / 1000;\n<span style=\"color:#4b5568\">193204</span>     const sinPhi = Math.sqrt(1 - powerFactor * powerFactor);\n<span style=\"color:#4b5568\">193205</span>     const zEffective = resistanceOhmPerKm * powerFactor + reactanceOhmPerKm * sinPhi;\n<span style=\"color:#4b5568\">193206</span>     const factor = PHASE_FACTOR[phases];\n<span style=\"color:#4b5568\">… 21 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L95-L129",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L95-L129",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80358"
   },
   {
@@ -2470,7 +2470,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, schema · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193224</span> function dropPercent({ dropVolts, nominalVolts }) {\n<span style=\"color:#4b5568\">193225</span>     positive('dropVolts', dropVolts);\n<span style=\"color:#4b5568\">193226</span>     positive('nominalVolts', nominalVolts);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">193227</span>         quantity: 'voltage_drop_percent',\n<span style=\"color:#4b5568\">193228</span>         value: (dropVolts / nominalVolts) * 100,\n<span style=\"color:#4b5568\">193229</span>         unit: '%',\n<span style=\"color:#4b5568\">193230</span>         from: { dropVolts, nominalVolts },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">193231</span>             `${dropVolts.toFixed(2)} V on a ${nominalVolts} V nominal system is ` +\n<span style=\"color:#4b5568\">193232</span>             `${((dropVolts / nominalVolts) * 100).toFixed(3)}%. What limit applies is a design and ` +\n<span style=\"color:#4b5568\">193233</span>             `compliance question — it depends on the installation, on what is at the far end, and on ` +\n<span style=\"color:#4b5568\">193234</span>             `how much of the allowance the rest of the system has already spent. No limit is asserted here.`\n<span style=\"color:#4b5568\">… 2 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L135-L150",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L135-L150",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80359"
   },
   {
@@ -2480,7 +2480,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs phasesOf, positive, schema · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193238</span> function lossesWatts({ currentA, lengthM, resistanceOhmPerKm, phases = 'three' }) {\n<span style=\"color:#4b5568\">193197</span>     positive('currentA', currentA);\n<span style=\"color:#4b5568\">193198</span>     positive('lengthM', lengthM);\n<span style=\"color:#4b5568\">193199</span>     positive('resistanceOhmPerKm', resistanceOhmPerKm);\n<span style=\"color:#4b5568\">193202</span>     phasesOf(phases);\n<span style=\"color:#4b5568\">193203</span>     const km = lengthM / 1000;\n<span style=\"color:#4b5568\">193239</span>     /* Three phase: three conductors each carrying I. Single phase: two\n<span style=\"color:#4b5568\">193240</span>        conductors, both carrying the full current. */\n<span style=\"color:#4b5568\">193241</span>     const conductors = phases === 'three' ? 3 : 2;\n<span style=\"color:#4b5568\">193242</span>     const watts = conductors * currentA * currentA * resistanceOhmPerKm * km;\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">193243</span>         quantity: 'losses_watts',\n<span style=\"color:#4b5568\">193244</span>         value: watts,\n<span style=\"color:#4b5568\">… 10 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L158-L181",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L158-L181",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80360"
   },
   {
@@ -2490,7 +2490,7 @@
    "type": "element",
    "rag": "amber",
    "reason": "1 different files · 1 places in 1 repositories · 1 version(s) · first written 2026-09-06 · needs positive, ratio, schema · engine: canonical home engine/voltage-drop.js<pre style=\"margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px\"><span style=\"color:#4b5568\">193256</span> function annualLossKwh({ peakLossWatts, lossLoadFactor, hours = 8760 }) {\n<span style=\"color:#4b5568\">193257</span>     positive('peakLossWatts', peakLossWatts);\n<span style=\"color:#4b5568\">193258</span>     ratio('lossLoadFactor', lossLoadFactor);\n<span style=\"color:#4b5568\">192189</span>     positive('hours', hours);\n<span style=\"color:#4b5568\">  1457</span>     return {\n<span style=\"color:#4b5568\">191151</span>         schema,\n<span style=\"color:#4b5568\">193259</span>         quantity: 'annual_loss_kwh',\n<span style=\"color:#4b5568\">193260</span>         value: (peakLossWatts * lossLoadFactor * hours) / 1000,\n<span style=\"color:#4b5568\">193261</span>         unit: 'kWh',\n<span style=\"color:#4b5568\">193262</span>         from: { peakLossWatts, lossLoadFactor, hours },\n<span style=\"color:#4b5568\">  1461</span>         basis:\n<span style=\"color:#4b5568\">193263</span>             `${peakLossWatts.toFixed(1)} W at peak, held for the equivalent of ${lossLoadFactor} of ` +\n<span style=\"color:#4b5568\">193264</span>             `${hours} hours. The LOSS load factor is not the load factor: losses follow the square of ` +\n<span style=\"color:#4b5568\">193265</span>             `current, so a site with a load factor of 0.5 typically has a loss load factor well below ` +\n<span style=\"color:#4b5568\">… 3 more lines</span></pre>",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/be057061311fc088f27a4ff38756d5feb295175d/engine/voltage-drop.js#L190-L206",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/e3deb3d0546cad0b63f2044a4a0e1af2bd3162d6/engine/voltage-drop.js#L190-L206",
    "ext": "https://ventusltd.github.io/stars/code.html?family=80361"
   },
   {
@@ -2534,16 +2534,6 @@
    "ext": null
   },
   {
-   "id": "repo:Ventusltd/ventus-grid-engine",
-   "key": "repo:Ventusltd/ventus-grid-engine",
-   "label": "ventus-grid-engine",
-   "type": "repo",
-   "rag": "green",
-   "reason": "published at https://ventusltd.github.io/ventus-grid-engine/",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine",
-   "ext": "https://ventusltd.github.io/ventus-grid-engine/"
-  },
-  {
    "id": "repo:Ventusltd/code-generator",
    "key": "repo:Ventusltd/code-generator",
    "label": "code-generator",
@@ -2552,6 +2542,16 @@
    "reason": "repository",
    "gh": "https://github.com/Ventusltd/code-generator",
    "ext": null
+  },
+  {
+   "id": "repo:Ventusltd/ventus-grid-engine",
+   "key": "repo:Ventusltd/ventus-grid-engine",
+   "label": "ventus-grid-engine",
+   "type": "repo",
+   "rag": "green",
+   "reason": "published at https://ventusltd.github.io/ventus-grid-engine/",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine",
+   "ext": "https://ventusltd.github.io/ventus-grid-engine/"
   },
   {
    "id": "repo:Ventusltd/companies",
@@ -2642,6 +2642,16 @@
    "reason": "fragment in the engine-graph",
    "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
    "ext": "https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph&focus=gridatlas%20202609011950-geodesy.js"
+  },
+  {
+   "id": "engine:engine/v9-nearest-search.js",
+   "key": "engine:engine/v9-nearest-search.js",
+   "label": "engine/v9-nearest-search.js",
+   "type": "engine canonical",
+   "rag": "green",
+   "reason": "the engine's canonical module: the copy that should be imported",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/v9-nearest-search.js",
+   "ext": "https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph&focus=engine%2Fv9-nearest-search.js"
   },
   {
    "id": "engine:ventus-corev8engine.js haversine()",
@@ -2834,16 +2844,6 @@
    "ext": "https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph&focus=gridatlas%20202609030205-corridor-estimate.js"
   },
   {
-   "id": "engine:engine/v9-nearest-search.js",
-   "key": "engine:engine/v9-nearest-search.js",
-   "label": "engine/v9-nearest-search.js",
-   "type": "engine canonical",
-   "rag": "green",
-   "reason": "the engine's canonical module: the copy that should be imported",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/v9-nearest-search.js",
-   "ext": "https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph&focus=engine%2Fv9-nearest-search.js"
-  },
-  {
    "id": "engine:gridatlas 202609011950-substation-lookup.js",
    "key": "engine:gridatlas 202609011950-substation-lookup.js",
    "label": "gridatlas 202609011950-substation-lookup.js",
@@ -3007,12 +3007,12 @@
   },
   {
    "from": "family:511",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:511",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -3024,6 +3024,36 @@
    "from": "family:511",
    "to": "engine:gridatlas 202609011950-geodesy.js",
    "type": "engine"
+  },
+  {
+   "from": "family:80352",
+   "to": "repo:Ventusltd/code-generator",
+   "type": "found-in"
+  },
+  {
+   "from": "family:80352",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:80352",
+   "to": "engine:engine/v9-nearest-search.js",
+   "type": "canonical"
+  },
+  {
+   "from": "family:80353",
+   "to": "repo:Ventusltd/code-generator",
+   "type": "found-in"
+  },
+  {
+   "from": "family:80353",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:80353",
+   "to": "engine:engine/v9-nearest-search.js",
+   "type": "canonical"
   },
   {
    "from": "family:591",
@@ -3102,12 +3132,12 @@
   },
   {
    "from": "family:1586",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:1586",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -3682,12 +3712,12 @@
   },
   {
    "from": "family:5609",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:5609",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5237,12 +5267,12 @@
   },
   {
    "from": "family:8285",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8285",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5362,12 +5392,12 @@
   },
   {
    "from": "family:8319",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8319",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5387,12 +5417,12 @@
   },
   {
    "from": "family:8320",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8320",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5412,12 +5442,12 @@
   },
   {
    "from": "family:8321",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8321",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5437,12 +5467,12 @@
   },
   {
    "from": "family:8322",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8322",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5462,12 +5492,12 @@
   },
   {
    "from": "family:8323",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8323",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5487,12 +5517,12 @@
   },
   {
    "from": "family:8324",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8324",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5512,12 +5542,12 @@
   },
   {
    "from": "family:8325",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8325",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5537,12 +5567,12 @@
   },
   {
    "from": "family:8326",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8326",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5562,12 +5592,12 @@
   },
   {
    "from": "family:8327",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8327",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5587,12 +5617,12 @@
   },
   {
    "from": "family:8328",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8328",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5672,12 +5702,12 @@
   },
   {
    "from": "family:8715",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8715",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5697,12 +5727,12 @@
   },
   {
    "from": "family:8767",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8767",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5732,12 +5762,12 @@
   },
   {
    "from": "family:8768",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8768",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5767,12 +5797,12 @@
   },
   {
    "from": "family:8769",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8769",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5807,12 +5837,12 @@
   },
   {
    "from": "family:8770",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8770",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -5872,16 +5902,16 @@
   },
   {
    "from": "family:8772",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8772",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8772",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8772",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -5907,16 +5937,16 @@
   },
   {
    "from": "family:8773",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8773",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8773",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8773",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -5942,16 +5972,16 @@
   },
   {
    "from": "family:8774",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8774",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8774",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8774",
    "to": "engine:gridatlas 202609012245-network-topology.js",
    "type": "engine"
   },
@@ -5977,16 +6007,16 @@
   },
   {
    "from": "family:8775",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8775",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8775",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8775",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6012,16 +6042,16 @@
   },
   {
    "from": "family:8776",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8776",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8776",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8776",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6047,16 +6077,16 @@
   },
   {
    "from": "family:8777",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8777",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8777",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8777",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6082,16 +6112,16 @@
   },
   {
    "from": "family:8778",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8778",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8778",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8778",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6117,16 +6147,16 @@
   },
   {
    "from": "family:8779",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8779",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8779",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8779",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6152,16 +6182,16 @@
   },
   {
    "from": "family:8780",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8780",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8780",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8780",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6187,16 +6217,16 @@
   },
   {
    "from": "family:8781",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8781",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8781",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8781",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6222,16 +6252,16 @@
   },
   {
    "from": "family:8782",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8782",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8782",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8782",
    "to": "engine:engine/network-topology.js",
    "type": "canonical"
   },
@@ -6257,12 +6287,12 @@
   },
   {
    "from": "family:8783",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8783",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6292,12 +6322,12 @@
   },
   {
    "from": "family:8784",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8784",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6357,16 +6387,16 @@
   },
   {
    "from": "family:8786",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8786",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8786",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8786",
    "to": "engine:engine/electrical-distance.js",
    "type": "canonical"
   },
@@ -6392,16 +6422,16 @@
   },
   {
    "from": "family:8787",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8787",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8787",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8787",
    "to": "engine:engine/electrical-distance.js",
    "type": "canonical"
   },
@@ -6427,16 +6457,16 @@
   },
   {
    "from": "family:8788",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8788",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8788",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8788",
    "to": "engine:engine/electrical-distance.js",
    "type": "canonical"
   },
@@ -6462,16 +6492,16 @@
   },
   {
    "from": "family:8789",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8789",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8789",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8789",
    "to": "engine:engine/electrical-distance.js",
    "type": "canonical"
   },
@@ -6497,16 +6527,16 @@
   },
   {
    "from": "family:8790",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8790",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8790",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8790",
    "to": "engine:engine/electrical-distance.js",
    "type": "canonical"
   },
@@ -6532,12 +6562,12 @@
   },
   {
    "from": "family:8791",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8791",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6567,12 +6597,12 @@
   },
   {
    "from": "family:8792",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8792",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6632,16 +6662,16 @@
   },
   {
    "from": "family:8794",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:8794",
    "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8794",
+   "to": "repo:Ventusltd/ventus-grid-engine",
+   "type": "found-in"
+  },
+  {
+   "from": "family:8794",
    "to": "engine:engine/rating-envelope.js",
    "type": "canonical"
   },
@@ -6667,12 +6697,12 @@
   },
   {
    "from": "family:8795",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8795",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6702,12 +6732,12 @@
   },
   {
    "from": "family:8796",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8796",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6767,12 +6797,12 @@
   },
   {
    "from": "family:8838",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8838",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -6882,12 +6912,12 @@
   },
   {
    "from": "family:8946",
-   "to": "repo:Ventusltd/ventus-grid-engine",
+   "to": "repo:Ventusltd/code-generator",
    "type": "found-in"
   },
   {
    "from": "family:8946",
-   "to": "repo:Ventusltd/code-generator",
+   "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
   },
   {
@@ -7731,36 +7761,6 @@
    "type": "canonical"
   },
   {
-   "from": "family:80352",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:80352",
-   "to": "repo:Ventusltd/code-generator",
-   "type": "found-in"
-  },
-  {
-   "from": "family:80352",
-   "to": "engine:engine/v9-nearest-search.js",
-   "type": "canonical"
-  },
-  {
-   "from": "family:80353",
-   "to": "repo:Ventusltd/ventus-grid-engine",
-   "type": "found-in"
-  },
-  {
-   "from": "family:80353",
-   "to": "repo:Ventusltd/code-generator",
-   "type": "found-in"
-  },
-  {
-   "from": "family:80353",
-   "to": "engine:engine/v9-nearest-search.js",
-   "type": "canonical"
-  },
-  {
    "from": "family:80355",
    "to": "repo:Ventusltd/ventus-grid-engine",
    "type": "found-in"
@@ -7829,6 +7829,21 @@
    "from": "family:80361",
    "to": "engine:engine/voltage-drop.js",
    "type": "canonical"
+  },
+  {
+   "from": "family:80352",
+   "to": "family:67981",
+   "type": "same-name"
+  },
+  {
+   "from": "family:80353",
+   "to": "family:8784",
+   "type": "same-name"
+  },
+  {
+   "from": "family:80353",
+   "to": "family:67982",
+   "type": "same-name"
   },
   {
    "from": "family:5605",
@@ -7841,23 +7856,8 @@
    "type": "same-name"
   },
   {
-   "from": "family:8784",
-   "to": "family:67982",
-   "type": "same-name"
-  },
-  {
-   "from": "family:8784",
-   "to": "family:80353",
-   "type": "same-name"
-  },
-  {
    "from": "family:8787",
    "to": "family:80282",
-   "type": "same-name"
-  },
-  {
-   "from": "family:67981",
-   "to": "family:80352",
    "type": "same-name"
   },
   {

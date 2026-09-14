@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-14T09:53:52.771Z",
+ "generated_utc": "2026-09-14T09:59:37.982Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -285,6 +285,18 @@
    ],
    "live": null,
    "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/tools"
+  },
+  {
+   "folder": "ventus-grid-engine/spider",
+   "title": "Spider",
+   "repo": "Ventusltd/ventus-grid-engine",
+   "blocks": [
+    "Dt",
+    "Gn",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
   },
   {
    "folder": "globalgrid2050/solar-bess-topology-v5",
@@ -582,17 +594,6 @@
    ],
    "live": "https://ventusltd.github.io/ventus-grid-engine/proofs/",
    "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/proofs"
-  },
-  {
-   "folder": "ventus-grid-engine/spider",
-   "title": "Spider",
-   "repo": "Ventusltd/ventus-grid-engine",
-   "blocks": [
-    "Dt",
-    "Pr"
-   ],
-   "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
   },
   {
    "folder": "spiders/tools",
@@ -1916,6 +1917,28 @@
      "title": "Gridatlas",
      "live": null,
      "gh": "https://github.com/Ventusltd/teleprinter/tree/main/drivers/gridatlas"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Gn",
+   "b": "Pr",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Spider",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
+    },
+    {
+     "title": "Genome spider",
+     "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
+     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
     }
    ],
    "tests": null,
@@ -4290,6 +4313,23 @@
    "decay": null
   },
   {
+   "a": "Dt",
+   "b": "Gn",
+   "probability": 0.6,
+   "verdict": "seen together",
+   "basis": "already used together in 1 app folder, never composition-tested",
+   "together": 1,
+   "examples": [
+    {
+     "title": "Spider",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Cg",
    "b": "Pr",
    "probability": 0.6,
@@ -4335,23 +4375,6 @@
      "title": "Javascript",
      "live": "https://ventusltd.github.io/pipelinenews/discovery/javascript/",
      "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/discovery/javascript"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gn",
-   "b": "Pr",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Genome spider",
-     "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
-     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
     }
    ],
    "tests": null,
