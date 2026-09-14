@@ -4,7 +4,7 @@ schema_version: spider-features-v1
 site: "https://ventusltd.github.io/stars/"
 graphs:
   - id: "modular"
-    title: "Modular star"
+    title: "Reuse"
     path: "https://ventusltd.github.io/stars/modular/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (build.mjs)"
@@ -13,7 +13,7 @@ graphs:
     edges: 996
     graph_generated_utc: "2026-09-14T10:07:47.912Z"
   - id: "periodic-table"
-    title: "Periodic table"
+    title: "Inventory"
     path: "https://ventusltd.github.io/stars/blocks/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (blocks.mjs)"
@@ -22,7 +22,7 @@ graphs:
     edges: 715
     graph_generated_utc: "2026-09-14T10:08:38.562Z"
   - id: "sense"
-    title: "Sense of the code universe"
+    title: "Assessment"
     path: "https://ventusltd.github.io/stars/sense/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (sense.mjs)"
@@ -31,7 +31,7 @@ graphs:
     edges: 549
     graph_generated_utc: "2026-09-14T10:08:47.714Z"
   - id: "proof-of-work"
-    title: "Proof of work"
+    title: "Audit"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (proof.mjs)"
@@ -40,7 +40,7 @@ graphs:
     edges: 68
     graph_generated_utc: "2026-09-14T10:08:47.757Z"
   - id: "structure"
-    title: "Structure of the estate"
+    title: "Structure"
     path: "https://ventusltd.github.io/stars/structure/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (structure.mjs)"
@@ -49,29 +49,29 @@ graphs:
     edges: 338
     graph_generated_utc: "2026-09-14T10:08:54.781Z"
   - id: "chemistry"
-    title: "Chemistry stars"
+    title: "Compatibility"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
     edges_path: null
     source_spider: "star-maker (chemistry.mjs), rebuilt by stars"
     description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
     nodes: 125
     edges: 2786
-    graph_generated_utc: "2026-09-14T12:19:29.644Z"
+    graph_generated_utc: "2026-09-14T12:29:15.090Z"
   - id: "vedic"
-    title: "Classification stars"
+    title: "Classification"
     path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
     edges_path: null
     source_spider: "star-maker (vedic.mjs), rebuilt by stars"
     description: "The five classes of the code (structure, movement, computation, flow, data), what is never used, and whether each test loaded the map's parts in the declared order."
     nodes: 305
     edges: 300
-    graph_generated_utc: "2026-09-14T12:19:30.262Z"
+    graph_generated_utc: "2026-09-14T12:29:15.920Z"
   - id: "random"
-    title: "Random stars"
+    title: "Sampling"
     path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
     edges_path: null
     source_spider: "star-maker (random.mjs), rebuilt by stars"
     description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
     nodes: 163
     edges: 150
-    graph_generated_utc: "2026-09-14T12:19:30.331Z"
+    graph_generated_utc: "2026-09-14T12:29:16.000Z"
