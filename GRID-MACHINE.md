@@ -87,3 +87,19 @@ mysterious, and the fear goes with the mystery. A broken cartridge becomes a lin
 one substation becomes a headroom figure. What you are looking at, when the wires fan out from a red card, is
 not a mistake displayed. It is the universe of the work, telling the truth about itself, in a form a person can
 walk through on a phone. That was always the point.
+
+## The spider's dharma
+
+A spider does not judge what lands in its web. Its dharma is the web: to spin it, to keep it whole, to feel every
+thread move. Judgement is not its work, and a spider that stopped to judge would leave the web unspun.
+
+So the Spider Sandbox has one duty: to map the web of what depends on what, completely and truthfully, and to
+keep every thread attached to its evidence. A red card is a thread that moved. A wire is a thread that holds.
+The map is never finished, because the web is never finished; every hour the machine spins the new threads and
+re-checks the old ones, and that is enough. What to do about a red thread is the reader's dharma, not the
+spider's. The spider has done its whole duty when the reader can see the thread, follow it to its source, and
+decide with nothing hidden.
+
+That is why the machine must not grade, must not guess, and must not tidy away what it cannot prove. A web
+with invented threads catches nothing. A web with hidden threads catches its maker. The web that is only what is
+true is the one that holds.
