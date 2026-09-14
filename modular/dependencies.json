@@ -1,0 +1,307 @@
+{
+ "generated_utc": "2026-09-14T09:36:37.694Z",
+ "note": "A family uses the families that define a name it needs; hubs are the most used.",
+ "families_with_uses": 4132,
+ "hubs": [
+  {
+   "family": 1318,
+   "name": "state",
+   "used_by": 363
+  },
+  {
+   "family": 72282,
+   "name": "invariant",
+   "used_by": 320
+  },
+  {
+   "family": 1586,
+   "name": "invariant",
+   "used_by": 236
+  },
+  {
+   "family": 70695,
+   "name": "state",
+   "used_by": 211
+  },
+  {
+   "family": 1600,
+   "name": "invariant",
+   "used_by": 160
+  },
+  {
+   "family": 1679,
+   "name": "invariant",
+   "used_by": 160
+  },
+  {
+   "family": 77688,
+   "name": "assert",
+   "used_by": 157
+  },
+  {
+   "family": 70873,
+   "name": "assert",
+   "used_by": 145
+  },
+  {
+   "family": 1598,
+   "name": "escapeHtml",
+   "used_by": 123
+  },
+  {
+   "family": 3412,
+   "name": "escapeHtml",
+   "used_by": 123
+  },
+  {
+   "family": 76405,
+   "name": "byId",
+   "used_by": 111
+  },
+  {
+   "family": 3938,
+   "name": "esc",
+   "used_by": 104
+  },
+  {
+   "family": 1199,
+   "name": "esc",
+   "used_by": 100
+  },
+  {
+   "family": 1289,
+   "name": "escapeHtml",
+   "used_by": 97
+  },
+  {
+   "family": 70861,
+   "name": "query",
+   "used_by": 97
+  },
+  {
+   "family": 70974,
+   "name": "query",
+   "used_by": 97
+  },
+  {
+   "family": 7364,
+   "name": "fetch",
+   "used_by": 93
+  },
+  {
+   "family": 531,
+   "name": "query",
+   "used_by": 92
+  },
+  {
+   "family": 975,
+   "name": "sha256",
+   "used_by": 88
+  },
+  {
+   "family": 1624,
+   "name": "apply",
+   "used_by": 87
+  },
+  {
+   "family": 2015,
+   "name": "apply",
+   "used_by": 87
+  },
+  {
+   "family": 2112,
+   "name": "apply",
+   "used_by": 87
+  },
+  {
+   "family": 32733,
+   "name": "state",
+   "used_by": 85
+  },
+  {
+   "family": 32234,
+   "name": "sha256",
+   "used_by": 82
+  },
+  {
+   "family": 9053,
+   "name": "technology",
+   "used_by": 76
+  },
+  {
+   "family": 72147,
+   "name": "sha256",
+   "used_by": 74
+  },
+  {
+   "family": 1331,
+   "name": "num",
+   "used_by": 67
+  },
+  {
+   "family": 3939,
+   "name": "num",
+   "used_by": 67
+  },
+  {
+   "family": 6004,
+   "name": "num",
+   "used_by": 67
+  },
+  {
+   "family": 6650,
+   "name": "rows",
+   "used_by": 64
+  },
+  {
+   "family": 7270,
+   "name": "rows",
+   "used_by": 64
+  },
+  {
+   "family": 59000,
+   "name": "button",
+   "used_by": 55
+  },
+  {
+   "family": 59012,
+   "name": "button",
+   "used_by": 55
+  },
+  {
+   "family": 71137,
+   "name": "fetch",
+   "used_by": 54
+  },
+  {
+   "family": 71200,
+   "name": "fetch",
+   "used_by": 54
+  },
+  {
+   "family": 1617,
+   "name": "renderTable",
+   "used_by": 52
+  },
+  {
+   "family": 9304,
+   "name": "renderTable",
+   "used_by": 52
+  },
+  {
+   "family": 72345,
+   "name": "technology",
+   "used_by": 52
+  },
+  {
+   "family": 72360,
+   "name": "technology",
+   "used_by": 52
+  },
+  {
+   "family": 5175,
+   "name": "fmt",
+   "used_by": 49
+  },
+  {
+   "family": 7992,
+   "name": "fmt",
+   "used_by": 49
+  },
+  {
+   "family": 71154,
+   "name": "fail",
+   "used_by": 46
+  },
+  {
+   "family": 78247,
+   "name": "button",
+   "used_by": 45
+  },
+  {
+   "family": 1317,
+   "name": "el",
+   "used_by": 43
+  },
+  {
+   "family": 1686,
+   "name": "el",
+   "used_by": 43
+  },
+  {
+   "family": 1627,
+   "name": "setButtonState",
+   "used_by": 42
+  },
+  {
+   "family": 59008,
+   "name": "say",
+   "used_by": 42
+  },
+  {
+   "family": 32251,
+   "name": "fail",
+   "used_by": 42
+  },
+  {
+   "family": 72484,
+   "name": "fail",
+   "used_by": 42
+  },
+  {
+   "family": 71485,
+   "name": "CustomEvent",
+   "used_by": 40
+  },
+  {
+   "family": 1604,
+   "name": "fetchImmutable",
+   "used_by": 40
+  },
+  {
+   "family": 1606,
+   "name": "project",
+   "used_by": 39
+  },
+  {
+   "family": 8460,
+   "name": "noteFailure",
+   "used_by": 39
+  },
+  {
+   "family": 71301,
+   "name": "fetch",
+   "used_by": 39
+  },
+  {
+   "family": 1609,
+   "name": "displayDate",
+   "used_by": 38
+  },
+  {
+   "family": 9302,
+   "name": "displayDate",
+   "used_by": 38
+  },
+  {
+   "family": 402,
+   "name": "fetch",
+   "used_by": 37
+  },
+  {
+   "family": 454,
+   "name": "fetch",
+   "used_by": 37
+  },
+  {
+   "family": 1085,
+   "name": "fetch",
+   "used_by": 37
+  },
+  {
+   "family": 1284,
+   "name": "renderTable",
+   "used_by": 35
+  }
+ ]
+}

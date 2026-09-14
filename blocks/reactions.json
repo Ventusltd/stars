@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-14T09:30:39.940Z",
+ "generated_utc": "2026-09-14T09:37:30.503Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -203,6 +203,18 @@
    "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
   },
   {
+   "folder": "code-generator/apps/substation-finder/Dt",
+   "title": "Dt",
+   "repo": "Ventusltd/code-generator",
+   "blocks": [
+    "Dc",
+    "Dt",
+    "Pr"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
+  },
+  {
    "folder": "data-gridatlas/compiler",
    "title": "Compiler",
    "repo": "Ventusltd/data-gridatlas",
@@ -249,6 +261,18 @@
    ],
    "live": "https://ventusltd.github.io/pipelinenews/atman/",
    "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/atman"
+  },
+  {
+   "folder": "code-generator/apps/substation-finder/Ps",
+   "title": "Ps",
+   "repo": "Ventusltd/code-generator",
+   "blocks": [
+    "Dt",
+    "Pr",
+    "Ps"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Ps"
   },
   {
    "folder": "testcode/sandbox/tools",
@@ -483,6 +507,17 @@
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/"
   },
   {
+   "folder": "code-generator/apps/substation-finder/Si",
+   "title": "Si",
+   "repo": "Ventusltd/code-generator",
+   "blocks": [
+    "Ra",
+    "Si"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Si"
+  },
+  {
    "folder": "gridatlas/atlas/modules",
    "title": "Gridatlas",
    "repo": "Ventusltd/gridatlas",
@@ -514,6 +549,17 @@
    ],
    "live": null,
    "gh": "https://github.com/Ventusltd/teleprinter/tree/main/drivers/gridatlas"
+  },
+  {
+   "folder": "code-generator/apps/substation-finder/Ug",
+   "title": "Ug",
+   "repo": "Ventusltd/code-generator",
+   "blocks": [
+    "Dt",
+    "Ps"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Ug"
   },
   {
    "folder": "gridatlas/atman",
@@ -705,6 +751,33 @@
  ],
  "reactions": [
   {
+   "a": "Dt",
+   "b": "Pr",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 13 app folders, never composition-tested",
+   "together": 13,
+   "examples": [
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/scripts/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
+    },
+    {
+     "title": "Proofs",
+     "live": "https://ventusltd.github.io/gridatlas/tools/proofs/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
+    },
+    {
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Pn",
    "b": "Pr",
    "probability": 0.9,
@@ -732,12 +805,12 @@
    "decay": null
   },
   {
-   "a": "Dt",
+   "a": "Dc",
    "b": "Pr",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 11 app folders, never composition-tested",
-   "together": 11,
+   "basis": "already used together in 8 app folders, never composition-tested",
+   "together": 8,
    "examples": [
     {
      "title": "Globalgrid2050",
@@ -745,9 +818,9 @@
      "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
     },
     {
-     "title": "Proofs",
-     "live": "https://ventusltd.github.io/gridatlas/tools/proofs/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
     },
     {
      "title": "Compiler",
@@ -759,27 +832,27 @@
    "decay": null
   },
   {
-   "a": "Dc",
-   "b": "Pr",
+   "a": "Dt",
+   "b": "Ps",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 7 app folders, never composition-tested",
-   "together": 7,
+   "basis": "already used together in 8 app folders, never composition-tested",
+   "together": 8,
    "examples": [
     {
      "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
+     "live": "https://globalgrid2050.com/testcode/202609060537/atlas/cartridges/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060537/atlas/cartridges"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+     "title": "Gridatlas",
+     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+     "title": "Testcode",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
     }
    ],
    "tests": null,
@@ -790,8 +863,8 @@
    "b": "Si",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 7 app folders, never composition-tested",
-   "together": 7,
+   "basis": "already used together in 8 app folders, never composition-tested",
+   "together": 8,
    "examples": [
     {
      "title": "202608300453 atlas v9",
@@ -813,8 +886,8 @@
    "decay": null
   },
   {
-   "a": "Dt",
-   "b": "Ps",
+   "a": "Dc",
+   "b": "Dt",
    "probability": 0.9,
    "verdict": "seen together",
    "basis": "already used together in 6 app folders, never composition-tested",
@@ -822,18 +895,18 @@
    "examples": [
     {
      "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/testcode/202609060537/atlas/cartridges/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060537/atlas/cartridges"
+     "live": "https://globalgrid2050.com/scripts/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
     },
     {
-     "title": "Gridatlas",
-     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
-    },
-    {
-     "title": "Testcode",
+     "title": "Dt",
      "live": null,
-     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
+    },
+    {
+     "title": "Compiler",
+     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     }
    ],
    "tests": null,
@@ -861,33 +934,6 @@
      "title": "202609060232 pipelinenews",
      "live": "https://ventusltd.github.io/pipelinenews/releases/202609060232-pipelinenews/assets/",
      "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/releases/202609060232-pipelinenews/assets"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dc",
-   "b": "Dt",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 5 app folders, never composition-tested",
-   "together": 5,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
     }
    ],
    "tests": null,
@@ -1515,6 +1561,33 @@
    "decay": null
   },
   {
+   "a": "Pr",
+   "b": "Ps",
+   "probability": 0.8,
+   "verdict": "seen together",
+   "basis": "already used together in 3 app folders, never composition-tested",
+   "together": 3,
+   "examples": [
+    {
+     "title": "Proofs",
+     "live": "https://ventusltd.github.io/gridatlas/tools/proofs/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
+    },
+    {
+     "title": "Atman",
+     "live": "https://ventusltd.github.io/pipelinenews/atman/",
+     "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/atman"
+    },
+    {
+     "title": "Ps",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Ps"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Si",
    "b": "Ss",
    "probability": 0.77,
@@ -1799,28 +1872,6 @@
      "title": "Globalgrid2050",
      "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
      "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pr",
-   "b": "Ps",
-   "probability": 0.7,
-   "verdict": "seen together",
-   "basis": "already used together in 2 app folders, never composition-tested",
-   "together": 2,
-   "examples": [
-    {
-     "title": "Proofs",
-     "live": "https://ventusltd.github.io/gridatlas/tools/proofs/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
-    },
-    {
-     "title": "Atman",
-     "live": "https://ventusltd.github.io/pipelinenews/atman/",
-     "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/atman"
     }
    ],
    "tests": null,

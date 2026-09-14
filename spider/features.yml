@@ -9,18 +9,18 @@ graphs:
     edges_path: null
     source_spider: "stars/modular-star (build.mjs)"
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
-    nodes: 306
-    edges: 939
-    graph_generated_utc: "2026-09-14T09:29:55.281Z"
+    nodes: 298
+    edges: 996
+    graph_generated_utc: "2026-09-14T09:36:37.694Z"
   - id: "periodic-table"
     title: "Periodic table"
     path: "https://ventusltd.github.io/stars/blocks/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (blocks.mjs)"
     description: "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the repositories it lives in. Underneath each block are its numbered functions. External opens the table page."
-    nodes: 263
-    edges: 515
-    graph_generated_utc: "2026-09-14T09:30:39.062Z"
+    nodes: 261
+    edges: 714
+    graph_generated_utc: "2026-09-14T09:37:29.543Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
