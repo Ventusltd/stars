@@ -53,7 +53,7 @@ jobs:
         run: node modular-star/build.mjs --db modular.sqlite --work /tmp/repos --out .
 
       - name: Group the families into blocks (the periodic table)
-        run: node modular-star/blocks.mjs --out . && node modular-star/reactions.mjs --out .
+        run: node modular-star/blocks.mjs --out . --work /tmp/repos && node modular-star/reactions.mjs --out .
 
       - name: Draw the decision records on the Decisions map
         run: node modular-star/decisions.mjs --out . && node tools/check-graph.mjs decisions/graph.json

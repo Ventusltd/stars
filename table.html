@@ -53,6 +53,30 @@ function closePanel() {
   const q = new URLSearchParams(location.search); q.delete('block');
   history.replaceState(null, '', q.toString() ? '?' + q : location.pathname);
 }
+// What a block needs from elsewhere, in plain words. Only names that must be supplied are shown first (a library, a
+// value or function still to be written, or another block of the table); everything else that was checked, and why
+// it is not a need, sits behind a disclosure. The classes are the eight shared with the app generator.
+const CLASSES = [
+  ['missing', 'To be written', 'used by the code, defined nowhere'],
+  ['library', 'A library', 'a script tag must supply it'],
+  ['block', 'Another block of the table', 'add that block'],
+  ['absent', 'Not in the copied files', 'the table saw it in another version of the block'],
+  ['defined', 'Declared inside the block', 'a parameter or local of its own files; nothing to write'],
+  ['word', 'A word from comments or text', 'not code'],
+  ['browser', 'Provided by the web browser', 'nothing to write'],
+  ['node', 'Provided by Node.js', 'a script, not a web page part']
+];
+const needName = n => n.block ? `${esc(n.name)} (<a href="?block=${esc(n.block)}">${esc(n.meaning)}</a>)` : `${esc(n.name)} (${esc(n.meaning)})`;
+function needsHtml(b) {
+  const needs = b.needs || [], detail = b.needs_detail || [];
+  if (!needs.length && !detail.length) return '';
+  const first = needs.length ? `<div style="margin-top:6px"><span style="color:#ffd54a">Needs from elsewhere:</span> ${needs.map(needName).join('; ')}</div>`
+    : `<div class="muted" style="margin-top:6px">Needs nothing from elsewhere: every name it uses is provided by the browser or by its own files.</div>`;
+  if (!detail.length) return first;
+  const groups = CLASSES.map(([id, title, why]) => [title, why, detail.filter(d => d.class === id)]).filter(g => g[2].length);
+  return first + `<details><summary>Show everything that was checked (${detail.length} name${detail.length === 1 ? '' : 's'})</summary><div style="font-size:13px">${groups.map(([title, why, ds]) =>
+    `<div style="margin-top:6px"><b>${esc(title)}</b> <span class="muted">· ${esc(why)} · ${ds.length}</span><div class="inside" style="columns:1">${ds.map(d => `${esc(d.name)}${d.block ? ` <a href="?block=${esc(d.block)}">${esc(d.block)}</a>` : ''}`).join(', ')}</div></div>`).join('')}</div></details>`;
+}
 function show(sym) {
   const b = data.blocks.find(x => x.symbol === sym); if (!b) return;
   document.querySelectorAll('.tile').forEach(t => t.classList.toggle('on', t.dataset.sym === sym));
@@ -77,7 +101,7 @@ function show(sym) {
     <div class="muted" style="margin-top:6px">${esc(kind)}${state}${b.functions ? ` · ${b.functions} functions inside (${b.named_functions} named)` : ' · no code of its own'}${b.repos.length ? ' · lives in ' + b.repos.map(r => esc(r.split('/')[1])).sort(byName).join(', ') : ''}${b.first_written ? ' · first written ' + b.first_written.slice(0, 10) : ''}</div>
     <div>${buttons}</div>
     ${deps.length ? `<div style="margin-top:8px"><span class="muted">Depends on:</span> ${deps.map(d => `<a href="?block=${esc(d.symbol)}">${esc(d.symbol)} ${esc(d.title)}</a> <span class="muted">(through ${d.via.map(esc).join(", ")})</span>`).join("; ")}</div>` : ""}${usedBy.length ? `<div><span class="muted">Used by:</span> ${usedBy.map(s => `<a href="?block=${esc(s)}">${esc(s)}</a>`).join(", ")}</div>` : ""}
-    ${b.needs.length ? `<div style="margin-top:6px"><span style="color:#ffd54a">Needs from elsewhere:</span> ${b.needs.slice(0, 8).map(n => esc(n.meaning)).join('; ')}</div>` : ''}
+    ${needsHtml(b)}
     ${inside.length ? `<details><summary>Inside: the parts list (${inside.length} of ${b.named_functions} named functions, most used first)</summary><div class="inside">${inside.map(f => `<div><a href="./code.html?family=${f.family}">#${f.family}</a> ${esc(f.name)} <span class="muted">×${f.places}</span></div>`).join('')}</div></details>` : ''}`;
   $('#close').onclick = closePanel;
   document.querySelectorAll('#panel a[href^="?block="]').forEach(a => a.onclick = e => { e.preventDefault(); show(new URLSearchParams(a.getAttribute('href')).get('block')); });

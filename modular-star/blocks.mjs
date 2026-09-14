@@ -2,12 +2,15 @@
 // Numbers 1-47 are star-maker's elements and never change; catalogue blocks take 48+ in catalogue order; anything
 // unmatched becomes an auto-block per source file, numbered once and persisted in blocks/numbers.json.
 // Reads code/f/*.json (written by build.mjs), the star-maker table and the engine-graph. Writes blocks/*.json and
-// the Spider graph blocks/graph.json. Usage: node modular-star/blocks.mjs --out .
+// the Spider graph blocks/graph.json. Usage: node modular-star/blocks.mjs --out . [--work /tmp/repos]
+// --work is build.mjs's clone directory; a block's files are read from it (else from GitHub) to sort its needs.
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import { readFiles, classifyNeeds, REQUIRED, counts } from './needs.mjs';
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const OUT = arg('out', '.'), SITE = 'https://ventusltd.github.io/stars/';
+const WORK = arg('work', '/tmp/repos'), work = existsSync(WORK) ? WORK : null;
 const now = new Date().toISOString();
 const cat = JSON.parse(readFileSync(new URL('./blocks-catalogue.json', import.meta.url), 'utf8'));
 const fold = p => p.replace(/(^|[^0-9])\d{8}(\d{4})?(?=[^0-9]|$)/g, '$1{stamp}');
@@ -62,9 +65,8 @@ for (const f of families) {
 mkdirSync(path.join(OUT, 'blocks'), { recursive: true });
 writeFileSync(numbersPath, JSON.stringify(numbers, null, 1));
 
-// ---- finish each block: functions inside, needs in plain words, files to copy, where it lives
+// ---- finish each block: functions inside, files to copy, where it lives (needs are sorted below, once every block's names are known)
 const stampOf = p => (p.match(/\d{12}|\d{8}/g) || ['0']).sort().pop();
-const nameOf = n => cat.needs_words[n] || n;
 const out = blocks.map(b => {
   const fams = b.families;
   const defined = new Set(fams.flatMap(f => f.names));
@@ -80,16 +82,32 @@ const out = blocks.map(b => {
   return { number: b.number, symbol: b.symbol, title: b.title, description: b.description, category: b.category, kind: b.kind, state: b.state, source: b.source,
     functions: fams.length, named_functions: named.length, families: fams.map(f => f.n),
     inside: named.sort((a, b2) => b2.places.length - a.places.length).slice(0, 40).map(f => ({ family: f.n, name: f.names[0], places: f.places.length, standalone: f.standalone })),
-    needs: needs.map(n => ({ name: n, meaning: nameOf(n) })), repos, live, files,
+    needs: [], needs_detail: [], needs_checked: needs.length, repos, live, files,
     first_written: fams.map(f => f.first_written).filter(Boolean).sort()[0] || null };
 }).sort((a, b) => a.number - b.number);
 
-// Interdependencies between blocks: block A depends on block B when a name A needs is defined inside B.
+// ---- needs, sorted the way code-generator sorts them (needs.mjs, needs-rules.mjs). The scan's raw list is every
+// name a function uses without defining it; reading the block's own files tells built-ins, locals and prose apart
+// from what is genuinely required. `needs` keeps only the required names (missing, library, another block);
+// `needs_detail` is the whole checked list so nothing is hidden.
 const namedBlocks = blocks.filter(b => b.kind !== 'auto' && b.families.length);
+const tally = {};
 for (const o of out) {
   const b = byKey.get(o.symbol) || blocks.find(x => x.number === o.number);
+  if (!b.needsRaw?.length) continue;
+  const texts = await readFiles(o.files, work);
+  const definersOf = name => namedBlocks.filter(other => other.number !== b.number && other.defined?.has(name)).map(x => ({ symbol: x.symbol, title: x.title }));
+  o.needs_detail = classifyNeeds(b.needsRaw, texts, { definersOf, words: cat.needs_words });
+  o.needs = o.needs_detail.filter(d => REQUIRED.has(d.class)).map(({ name, class: cls, meaning, block }) => block ? { name, class: cls, meaning, block } : { name, class: cls, meaning });
+  o.needs_files_read = texts.length;
+  for (const [c, n] of Object.entries(counts(o.needs_detail))) tally[c] = (tally[c] || 0) + n;
+}
+console.log(`Needs checked: ${Object.entries(tally).map(([c, n]) => `${c} ${n}`).join(', ') || 'none'}; required ${out.reduce((s, o) => s + o.needs.length, 0)} of ${out.reduce((s, o) => s + o.needs_checked, 0)} names.`);
+
+// Interdependencies between blocks: block A depends on block B when a name A needs is defined inside B.
+for (const o of out) {
   const deps = new Map();
-  for (const name of b.needsRaw || []) for (const other of namedBlocks) if (other.number !== b.number && other.defined?.has(name)) { if (!deps.has(other.symbol)) deps.set(other.symbol, []); deps.get(other.symbol).push(name); }
+  for (const d of o.needs_detail) if (d.class === 'block') for (const symbol of d.blocks) { if (!deps.has(symbol)) deps.set(symbol, []); deps.get(symbol).push(d.name); }
   o.depends_on = [...deps].map(([symbol, via]) => ({ symbol, title: namedBlocks.find(x => x.symbol === symbol).title, via: via.slice(0, 6) }));
 }
 for (const o of out) o.used_by = out.filter(x => x.depends_on.some(d => d.symbol === o.symbol)).map(x => x.symbol);
@@ -111,7 +129,7 @@ for (const b of out) {
   if (b.kind === 'auto' && b.functions < 8) continue;
   const rag = b.state === 'UNSETTLED' ? 'amber' : b.functions ? (b.needs.length ? 'amber' : 'green') : 'grey';
   nodes.push({ id: `block:${b.symbol}`, label: `${b.symbol} · ${b.title}`, type: b.kind, rag,
-    reason: esc(b.description) + (b.functions ? ` <span style="color:#9aa3b5">· ${b.functions} functions inside${b.needs.length ? ' · needs ' + b.needs.slice(0, 5).map(n => esc(n.meaning)).join(', ') : ''}</span>` : ''),
+    reason: esc(b.description) + (b.functions ? ` <span style="color:#9aa3b5">· ${b.functions} functions inside${b.needs.length ? ' · needs from elsewhere: ' + b.needs.slice(0, 5).map(n => esc(n.name) + ' (' + esc(n.meaning) + ')').join(', ') : ''}</span>` : ''),
     gh: b.files[0] ? `https://github.com/${b.files[0].repo}/blob/${b.files[0].commit}/${b.files[0].path}` : null, ext: `${SITE}table.html?block=${b.symbol}` });
   edges.push({ from: `category:${b.category}`, to: `block:${b.symbol}`, type: 'contains' }); // edge types follow relationships/VOCABULARY.md
   for (const d of b.depends_on) edges.push({ from: `block:${b.symbol}`, to: `block:${d.symbol}`, type: 'depends-on' });

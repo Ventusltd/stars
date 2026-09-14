@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { openDb, ingestFile, rebuildTablet, extractJs, extractHtml, extractAny, gitBlobId, elementSource } from './lib.mjs';
+import { classifyNeeds, REQUIRED } from './needs.mjs';
 
 const B = s => Buffer.from(s);
 const ADD = 'function add(a, b) {\n  const s = a + b;\n  return s;\n}\n';
@@ -72,6 +73,18 @@ test('files rebuild byte for byte, including Windows line endings and no final n
 
 test('unusual line breaks are refused rather than mis-numbered', () => {
   assert.match(extractAny('js', B('function q() {\r  return 1;\r}\r')).issue, /Unusual line breaks/);
+});
+
+test('a block\'s needs are sorted into the eight classes shared with the app generator; only three classes are required', () => {
+  const texts = [{ path: 'a.js', text: 'const BLOCK_CLASS = "x";\n// the map is genuinely needed\nfunction go(map) {\n  return new maplibregl.Map({ container: document.body, style: resolve(map) });\n}\ngo(1);\n' }];
+  const detail = classifyNeeds(['maplibregl', 'document', 'BLOCK_CLASS', 'map', 'genuinely', 'resolve', 'GB_ID', 'process'], texts,
+    { definersOf: n => n === 'resolve' ? [{ symbol: 'Ss', title: 'Substation search' }] : [] });
+  const by = Object.fromEntries(detail.map(d => [d.name, d.class]));
+  assert.deepEqual(by, { maplibregl: 'library', document: 'browser', BLOCK_CLASS: 'defined', map: 'defined', genuinely: 'word', resolve: 'block', GB_ID: 'absent', process: 'node' });
+  assert.deepEqual(detail.filter(d => REQUIRED.has(d.class)).map(d => d.name), ['maplibregl', 'resolve']);
+  assert.equal(detail.find(d => d.name === 'resolve').block, 'Ss');
+  assert.equal(detail[0].class, 'library'); // required classes come first
+  assert.equal(classifyNeeds(['EARTH_KM'], [], {})[0].class, 'missing'); // no files to read: a capitalised name is still a need
 });
 
 const python = process.env.PYTHON || (process.platform === 'win32' ? 'python' : 'python3');

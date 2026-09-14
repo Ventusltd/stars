@@ -61,7 +61,7 @@ function whyBlock(sym) {
   const b = bySymbol.get(sym);
   const fails = reactions.filter((r) => (r.a === sym || r.b === sym) && r.verdict === 'fails');
   if (fails.length) { const r = fails[0]; const other = r.a === sym ? r.b : r.a; return `Red because composition tests with ${blockName(other)} fail (${r.basis})${r.decay ? `, the error being "${r.decay}"` : ''}${fails.length > 1 ? `; ${plural(fails.length - 1, 'other pair')} also fail` : ''}.`; }
-  if (b?.needs?.length) return `Red because the block needs ${plural(b.needs.length, 'name')} it does not define (${b.needs.slice(0, 4).map((x) => x.meaning || x.name).join(', ')}${b.needs.length > 4 ? ', …' : ''}).`;
+  if (b?.needs?.length) return `Red because the block needs ${plural(b.needs.length, 'name')} it does not define (${b.needs.slice(0, 4).map((x) => x.name || x.meaning).join(', ')}${b.needs.length > 4 ? ', …' : ''}).`;
   if (b && !b.functions) return 'Red because no function of the numbered code was placed in this block.';
   return NOT_TRACED;
 }
