@@ -7,6 +7,7 @@
 //   node vedic.mjs  → <sky>/vedic/{classes.json, graph.json}, CLASSIFICATION.md   (folder name kept for continuity)
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { nodeLinks } from './node-links.mjs';
 const SKY = process.env.SKY_DIR || 'C:/Users/vikra/Documents/GitHub/star-maker';
 const OUT = path.join(SKY, 'vedic'); await mkdir(OUT, { recursive: true });
 const table = JSON.parse(await readFile(path.join(SKY, 'elements', 'table.json'), 'utf8')).elements;
@@ -32,6 +33,7 @@ await writeFile(path.join(OUT, 'classes.json'), JSON.stringify({ generated_utc: 
 const nodes = CLASSES.map(([c, , meaning]) => ({ label: c, type: 'class', rag: 'green', reason: `${meaning} · ${counts[c]} forms` }));
 const edges = [];
 for (const f of forms.slice(0, 300)) { nodes.push({ label: f.name, type: f.kind, rag: f.state === 'UNSETTLED' || f.class === 'inert-unused' ? 'amber' : 'green', reason: `${f.kind} · ${f.cls}` }); edges.push({ from: f.cls, to: f.name, kind: 'IS_MADE_OF' }); }
+for (const n of nodes) Object.assign(n, nodeLinks(n, { report: 'CLASSIFICATION', symbols: new Set(table.map(e => e.symbol)) }));
 await writeFile(path.join(OUT, 'graph.json'), JSON.stringify({ schema: 'classification-graph.v1', label: 'The Classification star', generated_utc: new Date().toISOString(), note: 'Five classes and the forms in each; unused forms and the declared-order check are in the report.', focus_default: 'Computation', nodes, edges }, null, 2));
 const md = `# The Classification star
 

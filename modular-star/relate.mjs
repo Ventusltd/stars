@@ -31,6 +31,7 @@ export const VOCABULARY = {
   'implements':    ['evidence', 'implements {n}', 'implemented by {n}'],
   'proven':        ['evidence', 'proven with {n}', 'proven with {n}'],
   'seen-together': ['evidence', 'seen with {n}', 'seen with {n}'],
+  'mixed-evidence': ['question', 'mixed test evidence with {n}', 'mixed test evidence with {n}'],
   'produces':      ['evidence', 'produces {n}', 'produced by {n}'],
   'run-of':        ['evidence', 'run of {n}', '{n} {run|runs}'],
   'checked-by':    ['evidence', 'checked by {n}', 'checks {n}'],

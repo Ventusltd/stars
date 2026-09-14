@@ -3,8 +3,9 @@
 // together; (2) the code itself: blocks whose functions already live in the same app folder. Each pair gets an
 // honest probability and an example app to open. Anything without evidence is "untested".
 // Reads blocks/blocks.json and code/f/*.json. Writes blocks/reactions.json. Usage: node modular-star/reactions.mjs --out .
-import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
+import { pairVerdict } from './pair-verdict.mjs';
 
 const arg = (k, d) => { const i = process.argv.indexOf('--' + k); return i > 0 ? process.argv[i + 1] : d; };
 const OUT = arg('out', '.');
@@ -39,17 +40,19 @@ const appList = [...apps.values()].filter(a => a.blocks.size >= 2).map(a => ({
 
 // ---- tests: the composition tests, by cartridge symbol pair
 const tests = new Map();
-try {
-  const compounds = JSON.parse(readFileSync(path.join(OUT, 'reports', 'chemistry', 'compounds.json'), 'utf8')).compounds || [];
+{
+  const compounds = JSON.parse(readFileSync(path.join(OUT, 'reports', 'chemistry', 'compounds.json'), 'utf8')).compounds;
+  if (!Array.isArray(compounds) || !compounds.length) throw new Error('Composition evidence is missing or empty');
   for (const c of compounds) {
+    pairVerdict({ green: c.green, red: c.red, total: c.stars });
     const syms = [...new Set((c.formula || '').split('·').map(s => s.replace(/\(.*\)$/, '').trim()).filter(s => bySym.has(s)))].sort();
     for (let i = 0; i < syms.length; i++) for (let j = i + 1; j < syms.length; j++) {
-      const k = syms[i] + '|' + syms[j]; if (!tests.has(k)) tests.set(k, { green: 0, total: 0, decays: new Map() });
-      const t = tests.get(k); t.green += c.green || 0; t.total += c.stars || 0;
+      const k = syms[i] + '|' + syms[j]; if (!tests.has(k)) tests.set(k, { green: 0, red: 0, total: 0, decays: new Map() });
+      const t = tests.get(k); t.green += c.green || 0; t.red += c.red || 0; t.total += c.stars || 0;
       for (const d of c.decays || []) t.decays.set(d.text, (t.decays.get(d.text) || 0) + (d.n || 1));
     }
   }
-} catch { /* no composition tests in this checkout */ }
+}
 
 // ---- pairs: evidence and probability
 const pairs = new Map();
@@ -61,11 +64,11 @@ for (const k of tests.keys()) if (!pairs.has(k)) { const [a, b] = k.split('|'); 
 const reactions = [...pairs.values()].map(p => {
   const t = tests.get(p.a + '|' + p.b);
   let probability, verdict, basis;
-  if (t && t.total) { probability = Math.round(100 * (t.green + 1) / (t.total + 2)) / 100; verdict = probability >= 0.8 ? 'proven' : probability >= 0.4 ? 'unstable' : 'fails'; basis = `${t.green} of ${t.total} composition tests green`; }
+  if (t && t.total) { probability = Math.round(100 * (t.green + 1) / (t.total + 2)) / 100; verdict = pairVerdict(t); basis = `${t.green} green, ${t.red} red of ${t.total} composition tests`; }
   else if (p.together) { probability = Math.min(0.9, 0.5 + 0.1 * p.together); verdict = 'seen together'; basis = `already used together in ${p.together} app folder${p.together === 1 ? '' : 's'}, never composition-tested`; }
   else { probability = 0.25; verdict = 'untested'; basis = 'no evidence either way'; }
   const decay = t ? [...t.decays].sort((x, y) => y[1] - x[1])[0] : null;
-  return { a: p.a, b: p.b, probability, verdict, basis, together: p.together, examples: p.examples, tests: t ? { green: t.green, total: t.total } : null, decay: decay ? decay[0] : null };
+  return { a: p.a, b: p.b, probability, verdict, basis, together: p.together, examples: p.examples, tests: t ? { green: t.green, red: t.red, total: t.total } : null, decay: decay ? decay[0] : null };
 }).sort((x, y) => y.probability - x.probability || y.together - x.together);
 
 writeFileSync(path.join(OUT, 'blocks', 'reactions.json'), JSON.stringify({ generated_utc: now,

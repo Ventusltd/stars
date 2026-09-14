@@ -6,6 +6,7 @@
 //   node random.mjs [n]  → star-maker/random/graph.json, RANDOM.md
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { nodeLinks } from './node-links.mjs';
 const SKY = process.env.SKY_DIR || 'C:/Users/vikra/Documents/GitHub/star-maker';
 const OUT = path.join(SKY, 'random'); await mkdir(OUT, { recursive: true });
 const N = Number(process.argv[2] || 150);
@@ -18,6 +19,7 @@ const KINDS = ['MIGHT_TOUCH', 'RHYMES_WITH', 'COULD_REPLACE', 'REMINDS_OF', 'WHA
 const edges = [], used = new Map();
 for (let i = 0; i < N && pool.length > 1; i++) { const a = pool[Math.floor(rnd() * pool.length)], b = pool[Math.floor(rnd() * pool.length)]; if (a === b) continue; edges.push({ from: a.label, to: b.label, kind: KINDS[Math.floor(rnd() * KINDS.length)], p: Math.round(rnd() * 1000) / 1000 }); used.set(a.label, a); used.set(b.label, b); }
 const nodes = [...used.values()].map(n => ({ label: n.label, type: n.star, rag: 'green', reason: `from the ${n.star} star · ${(n.reason || '').slice(0, 80)}` }));
+for (const n of nodes) Object.assign(n, nodeLinks(used.get(n.label), { report: 'RANDOM' }));
 await writeFile(path.join(OUT, 'graph.json'), JSON.stringify({ schema: 'random-graph.v1', label: 'The Random star', seed: seedStr, generated_utc: new Date().toISOString(), note: 'Links chosen by probability alone. Not findings. Serendipity for Claude + VIK-AI.', focus_default: nodes[0]?.label, nodes, edges }, null, 2));
 const md = `# The Random star — ${edges.length} links by chance, seed \`${seedStr}\`
 

@@ -7,6 +7,7 @@
 //   node chemistry.mjs   → star-maker/chemistry/{compounds.json, graph.json}, CHEMISTRY.md
 import { readFile, readdir, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
+import { nodeLinks } from './node-links.mjs';
 
 const SKY = process.env.SKY_DIR || 'C:/Users/vikra/Documents/GitHub/star-maker';
 const OUT = path.join(SKY, 'chemistry');
@@ -17,7 +18,9 @@ const contractSym = table.find(e => e.key === 'contract:deeplink')?.symbol || 'D
 
 const files = (await readdir(path.join(SKY, 'stars'))).filter(f => f.endsWith('.json'));
 const stars = [];
-for (const f of files) { try { stars.push(JSON.parse(await readFile(path.join(SKY, 'stars', f), 'utf8'))); } catch {} }
+const exampleFile = new Map();
+for (const f of files) { const star = JSON.parse(await readFile(path.join(SKY, 'stars', f), 'utf8')); stars.push(star); exampleFile.set(star.id, f); }
+if (!stars.length) throw new Error('No composition tests found');
 
 // formula: one term per element present. A cartridge term is Symbol(version stamp); absence = shell original in that slot.
 const term = (id, sel) => `${symbolOf.get(id) || id}${sel ? '(' + String(sel).slice(0, 12) + ')' : ''}`;
@@ -53,18 +56,38 @@ const unstableTerms = [...termStats.values()].filter(x => x.stars >= 3 && x.red 
 const nobleTerms = [...termStats.values()].filter(x => x.stars >= 3 && x.red === 0).sort((a, b) => b.stars - a.stars);
 
 // graph for the Spider: element-version nodes; UNSTABLE_WITH edges between terms that co-occur in red compounds; DECAYS_TO edges to the exception text
-const nodes = [], edges = [], seen = new Set();
-const node = (label, type, rag, reason) => { if (!seen.has(label)) { seen.add(label); nodes.push({ label, type, rag, reason }); } };
+const nodes = [], edges = [], seen = new Set(), wired = new Set();
+const symbols = new Set(table.map(e => e.symbol));
+const decayExamples = new Map();
+for (const star of stars) for (const decay of decayOf(star)) if (!decayExamples.has(decay)) decayExamples.set(decay, 'https://github.com/Ventusltd/star-maker/blob/main/stars/' + encodeURIComponent(exampleFile.get(star.id)));
+const node = (label, type, rag, reason) => { if (!seen.has(label)) { seen.add(label); const n = { label, type, rag, reason }; nodes.push({ ...n, ...nodeLinks(n, { report: 'CHEMISTRY', symbols, example: decayExamples.get(label) }) }); } };
+// one wire per relationship: a pair seen in many compounds is still one relationship
+const wire = (from, to, kind) => { const k = kind === 'DECAYS_TO' ? `${from}\u0000${to}\u0000${kind}` : `${[from, to].sort().join('\u0000')}\u0000${kind}`; if (!wired.has(k)) { wired.add(k); edges.push({ from, to, kind }); } };
+// pair evidence across ALL stars, red and green: a pair is unstable only when the stars that contain it are mostly red,
+// by the same thresholds the element rules use (at least 3 stars, at least 90% red). Co-occurring in a red star is not enough:
+// an element present in every star co-occurs with every failure.
+const pairStats = new Map();
+for (const s of stars) {
+  const t = [...new Set(formulaOf(s).split('·'))].sort();
+  for (let i = 0; i < t.length; i++) for (let j = i + 1; j < t.length; j++) {
+    const k = `${t[i]}\u0000${t[j]}`; const p = pairStats.get(k) || pairStats.set(k, { stars: 0, red: 0 }).get(k);
+    p.stars++; if (s.verdict === 'RED') p.red++;
+  }
+}
+const termUnstable = t => { const x = termStats.get(t); return !!x && x.stars >= 3 && x.red / x.stars >= 0.9; };
+// A pair wire adds no distinct evidence when either element already meets the rule alone.
+// Such an element keeps its red node and decay links; suppressing this wire does not clear its fault.
+const pairUnstable = (a, b) => { const p = pairStats.get([a, b].sort().join('\u0000')); return !!p && p.stars >= 3 && p.red / p.stars >= 0.9 && !termUnstable(a) && !termUnstable(b); };
 for (const x of [...unstableTerms.slice(0, 80), ...nobleTerms.slice(0, 40)]) node(x.term, 'element', x.red / x.stars >= 0.9 ? 'red' : 'green', `${x.stars} compounds · ${x.red} red`);
 for (const c of list.filter(c => c.red && c.formula.includes('·')).slice(0, 300)) {
   const terms = c.formula.split('·'); const bad = terms.filter(t => termStats.get(t) && termStats.get(t).red / termStats.get(t).stars < 0.9);
   for (const t of terms) node(t, 'element', termStats.get(t).red / termStats.get(t).stars >= 0.9 ? 'red' : 'amber', `${termStats.get(t).stars} compounds · ${termStats.get(t).red} red`);
-  for (let i = 0; i < terms.length; i++) for (let j = i + 1; j < terms.length; j++) if (bad.includes(terms[i]) && bad.includes(terms[j])) edges.push({ from: terms[i], to: terms[j], kind: 'UNSTABLE_WITH' });
-  for (const d of c.decays.slice(0, 1)) { node(d.text, 'decay', 'red', `${d.n} stars`); for (const t of terms) edges.push({ from: t, to: d.text, kind: 'DECAYS_TO' }); }
+  for (let i = 0; i < terms.length; i++) for (let j = i + 1; j < terms.length; j++) if (pairUnstable(terms[i], terms[j])) wire(terms[i], terms[j], 'UNSTABLE_WITH');
+  for (const d of c.decays.slice(0, 1)) { node(d.text, 'decay', 'red', `${d.n} stars`); for (const t of terms) wire(t, d.text, 'DECAYS_TO'); }
 }
 await writeFile(path.join(OUT, 'compounds.json'), JSON.stringify({ generated_utc: new Date().toISOString(), stars: stars.length, compounds: list }, null, 2));
 await writeFile(path.join(OUT, 'graph.json'), JSON.stringify({ schema: 'chemistry-graph.v1', label: 'The Chemistry star', generated_utc: new Date().toISOString(),
-  note: 'Elements (cartridge versions, the contract) as nodes; UNSTABLE_WITH between elements that only decay together; DECAYS_TO the exception a compound produces.', focus_default: nodes[0]?.label, nodes, edges }, null, 2));
+  note: 'Elements (cartridge versions, the contract) as nodes; UNSTABLE_WITH when at least three recorded tests contain the pair and at least 90% are red; co-occurrence does not establish cause; DECAYS_TO the exception a compound produces.', focus_default: nodes[0]?.label, nodes, edges }, null, 2));
 
 const md = `# The Chemistry star — ${list.length} compounds from ${stars.length} stars
 
