@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Start here · globalgrid2050 architecture development</title>
+<style>
+  :root{color-scheme:dark}
+  body{margin:0;padding:16px 18px 40px;background:#0b0d12;color:#d8dee9;font:15px/1.55 ui-monospace,Menlo,Consolas,monospace;max-width:720px}
+  a{color:#00e5ff}
+  h1{font-size:22px;margin:0 0 4px}
+  h2{font-size:17px;margin:0 0 10px;color:#eef2fb}
+  .ey{color:#7da0c8;text-transform:uppercase;letter-spacing:.08em;font-size:11px}
+  .nav{display:flex;flex-wrap:wrap;gap:6px 14px;margin:10px 0 18px;font-size:13px}
+  .muted{color:#8b93a7}
+  .step{border:1px solid #2a3140;border-radius:10px;padding:14px;margin:14px 0;background:#0f1218}
+  .choice{display:block;width:100%;box-sizing:border-box;text-align:left;background:#12151c;border:1px solid #385464;color:#eef2fb;padding:12px 14px;border-radius:8px;font:inherit;cursor:pointer;margin:8px 0;text-decoration:none}
+  .choice:hover,.choice:focus{border-color:#00e5ff;outline:none}
+  .choice small{display:block;color:#8b93a7;font-size:12.5px;margin-top:2px}
+  .choice .go{color:#00e5ff;font-size:12px}
+  .back{background:none;border:none;color:#8b93a7;font:inherit;font-size:13px;cursor:pointer;padding:0;margin:0 0 8px}
+  .back:hover{color:#00e5ff}
+  .cats a.choice{padding:9px 12px}
+  @media(max-width:600px){body{padding:12px 12px 40px}}
+</style>
+<div class="ey">Ventus · Global Grid 2050</div>
+<h1>Start here</h1>
+<nav class="nav"><a href="https://globalgrid2050.com/">Home</a><a href="https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table">Map</a><a href="./table.html">Blocks</a><a href="./code.html">Code report</a></nav>
+<p class="muted">Three questions, in plain words, lead you to the right page. No code is shown until you ask for it.</p>
+
+<section class="step" id="s-what">
+  <h2>What do you want to do?</h2>
+  <button class="choice" data-next="s-built">See what has been built<small>The blocks, the repositories, the whole picture</small></button>
+  <button class="choice" data-next="s-find">Find one piece of code<small>By its name, by its subject, or by its number</small></button>
+  <button class="choice" data-next="s-check">Check that things work<small>What ran, what passed, what works together</small></button>
+  <button class="choice" data-next="s-build">Put blocks together into a new app<small>Choose blocks from the table and generate an app</small></button>
+</section>
+
+<section class="step" id="s-built" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>How do you want to see it?</h2>
+  <a class="choice" href="./table.html">As a table of blocks, by subject<small>63 named blocks, each with a permanent number and a plain description. The best first view.</small><span class="go">Blocks page →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=structure">Top-down: which repository holds what<small>Repositories, the blocks in each, and the engine modules in order</small><span class="go">Structure map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=federation">As the list of repositories<small>The repositories and how they relate</small><span class="go">Repositories map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=gridatlas-lineage">How the current map was composed<small>The map's ancestry, version by version</small><span class="go">Lineage map →</span></a>
+</section>
+
+<section class="step" id="s-find" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>Do you know its name?</h2>
+  <a class="choice" href="./code.html">Yes, roughly<small>Type part of the name; matches appear as you type. Code is shown only when you open one.</small><span class="go">Code report →</span></a>
+  <button class="choice" data-next="s-subject">No, but I know the subject<small>Distance, grid network, capacity, map layers, news, solar…</small></button>
+  <button class="choice" data-next="s-number">I have a number<small>A block number (1 to 63 and up) or a function number (#511 and up)</small></button>
+</section>
+
+<section class="step" id="s-subject" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>Which subject?</h2>
+  <div class="cats">
+    <a class="choice" href="./table.html?category=geodesy">Distances on the earth<small>Distance, bearing, area, circles, GeoJSON</small></a>
+    <a class="choice" href="./table.html?category=network">The grid network<small>Topology, electrical distance, ratings, fault level, voltage</small></a>
+    <a class="choice" href="./table.html?category=connections">Connections and capacity<small>Can a site connect, how much, and what it costs</small></a>
+    <a class="choice" href="./table.html?category=layers">Data drawn on the map<small>Substations, lines by voltage, power plants, data centres, railways</small></a>
+    <a class="choice" href="./table.html?category=cartridges">Plug-in parts of the map<small>Search, substation intelligence, the single-line sandbox</small></a>
+    <a class="choice" href="./table.html?category=arrival">Links that land on the right place<small>The MAP button and place search</small></a>
+    <a class="choice" href="./table.html?category=news">Pipeline News<small>The news site and its panels</small></a>
+    <a class="choice" href="./table.html?category=solar">Solar, batteries and cables<small>Site layout, single-line diagrams, cable trenches</small></a>
+    <a class="choice" href="./table.html?category=interface">Menus and page controls<small>Menu bars, teleprinter controls, page shells</small></a>
+    <a class="choice" href="./table.html?category=constants">Numbers everyone must agree on<small>Earth radius, allowed technologies, statuses: some not yet agreed</small></a>
+    <a class="choice" href="./table.html?category=proofs">Checks on the other code<small>Proofs, verifiers, the spiders that draw these maps</small></a>
+    <a class="choice" href="./table.html?category=other">Everything else<small>Blocks found automatically from source files</small></a>
+  </div>
+</section>
+
+<section class="step" id="s-number" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>What kind of number is it?</h2>
+  <a class="choice" href="./table.html">A block number, for example 13<small>Blocks are numbered from 1. Open the table and tap the tile with that number.</small><span class="go">Blocks page →</span></a>
+  <a class="choice" href="./code.html">A function number, for example #511<small>Type the number into the search box on the code report.</small><span class="go">Code report →</span></a>
+</section>
+
+<section class="step" id="s-check" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>What do you want to check?</h2>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=proof-of-work">That the hourly build ran and passed<small>What ran, when, what it produced, which checks passed</small><span class="go">Audit map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=chemistry">Which parts of the map work together<small>Combinations that always work, combinations that fail, and the error each gives</small><span class="go">Compatibility map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=sense">What is the original and what is a copy<small>What is proven, what is untested, what is still a decision</small><span class="go">Assessment map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=modular">Which functions are written more than once<small>The same logic in two or more files, and where</small><span class="go">Reuse map →</span></a>
+</section>
+
+<section class="step" id="s-build" hidden>
+  <button class="back" data-back>← Back</button>
+  <h2>Build a new app</h2>
+  <a class="choice" href="./table.html">1. Choose blocks from the table<small>Open a block and tap "Add to an app". Blocks with no code of their own cannot be added.</small><span class="go">Blocks page →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/ventus-grid-engine/?graph=generated-apps">2. See the apps already built<small>Each app and the blocks it is made of</small><span class="go">Applications map →</span></a>
+  <a class="choice" href="https://ventusltd.github.io/code-generator/">3. Go straight to the generator<small>Generating an app needs a GitHub account with access to the code-generator repository.</small><span class="go">Code generator →</span></a>
+</section>
+
+<p class="muted" style="margin-top:22px">On the map pages, "Tap does" sets what a tap on a card does: Explore shows its links; External opens its page here. <a href="https://github.com/Ventusltd/stars/blob/main/MODULAR-STAR.md">What this is</a></p>
+<script>
+const steps = [...document.querySelectorAll('.step')];
+const trail = [];
+function go(id, push) {
+  if (!document.getElementById(id)) id = 's-what';
+  steps.forEach(s => s.hidden = s.id !== id);
+  if (push) trail.push(id);
+  if (location.hash !== '#' + id) history.replaceState(null, '', id === 's-what' ? location.pathname : '#' + id);
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll('[data-next]').forEach(b => b.onclick = () => go(b.dataset.next, true));
+document.querySelectorAll('[data-back]').forEach(b => b.onclick = () => { trail.pop(); go(trail[trail.length - 1] || 's-what', false); });
+window.onhashchange = () => go(location.hash.slice(1) || 's-what', true);
+go(location.hash.slice(1) || 's-what', true);
+</script>
+</html>
