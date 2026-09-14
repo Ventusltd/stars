@@ -1,0 +1,42 @@
+# Graphs this repository publishes for the Spider dashboard (ventus-grid-engine spider/manifest.json).
+# Written by spider/register.py on every build. Each entry has the same fields as a manifest entry.
+schema_version: spider-features-v1
+generated_utc: "2026-09-14T02:31:13+00:00"
+site: "https://ventusltd.github.io/stars/"
+graphs:
+  - id: "modular"
+    title: "Modular star"
+    path: "https://ventusltd.github.io/stars/modular/graph.json"
+    edges_path: null
+    source_spider: "stars/modular-star (build.mjs)"
+    description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines, External opens the published page. Rebuilt hourly on GitHub Actions."
+    nodes: 134
+    edges: 485
+    graph_generated_utc: "2026-09-14T02:25:26.877Z"
+  - id: "chemistry"
+    title: "Chemistry stars"
+    path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
+    edges_path: null
+    source_spider: "star-maker (chemistry.mjs), rebuilt by stars"
+    description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
+    nodes: 125
+    edges: 2786
+    graph_generated_utc: "2026-09-14T01:53:12.709Z"
+  - id: "vedic"
+    title: "Vedic stars"
+    path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
+    edges_path: null
+    source_spider: "star-maker (vedic.mjs), rebuilt by stars"
+    description: "The five-element classification of the code: how components group into broad classes, and whether each test respected its declared rules."
+    nodes: 305
+    edges: 300
+    graph_generated_utc: "2026-09-14T01:53:13.426Z"
+  - id: "random"
+    title: "Random stars"
+    path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
+    edges_path: null
+    source_spider: "star-maker (random.mjs), rebuilt by stars"
+    description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
+    nodes: 163
+    edges: 150
+    graph_generated_utc: "2026-09-14T01:53:13.504Z"

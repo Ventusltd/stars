@@ -1,4 +1,4 @@
-﻿name: Refresh reports
+name: Refresh reports
 
 # Reads the latest recorded test results (the "stars") from Ventusltd/star-maker, read-only,
 # and rebuilds the summary reports in this repository. Runs on GitHub's servers.
@@ -72,8 +72,9 @@ jobs:
       - name: Save if anything changed
         run: |
           printf '{\n  "source_repository": "Ventusltd/star-maker",\n  "source_commit": "%s",\n  "test_results_read": %s\n}\n' "$SOURCE_SHA" "$STAR_COUNT" > reports/source.json
-          git add reports
-          if git diff --cached --quiet -- reports/source.json; then
+          python3 spider/register.py
+          git add reports spider
+          if git diff --cached --quiet -- reports/source.json spider; then
             echo "No new test results since the last refresh." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
