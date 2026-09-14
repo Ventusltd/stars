@@ -1,0 +1,372 @@
+{
+ "generated_utc": "2026-09-14T09:03:45.627Z",
+ "note": "Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.",
+ "decays": [
+  {
+   "message": "sld-sandbox: Error: sld-sandbox requires the sld-styles module",
+   "red_stars": 702,
+   "needle": "sld-sandbox requires the sld-styles module",
+   "lines": [
+    74978,
+    122462,
+    122466
+   ],
+   "families": [
+    {
+     "family": 8653,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 9781,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 10535,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 11310,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 23483,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 50245,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 51078,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 52192,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 52762,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 59692,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 64325,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65294,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65615,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65938,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66263,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66591,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66925,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67259,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67596,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67933,
+     "name": "(anonymous)"
+    }
+   ]
+  },
+  {
+   "message": "sld-sandbox: Error: grid-scope requires the geodesy module",
+   "red_stars": 220,
+   "needle": "grid-scope requires the geodesy module",
+   "lines": [
+    73821
+   ],
+   "families": [
+    {
+     "family": 8361,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 32994,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67987,
+     "name": "(anonymous)"
+    }
+   ]
+  },
+  {
+   "message": "substation-intelligence: SyntaxError: Invalid or unexpected token",
+   "red_stars": 198,
+   "needle": "Invalid or unexpected token",
+   "lines": [],
+   "families": []
+  },
+  {
+   "message": "loader: TypeError: window.initVentusMap is not a function",
+   "red_stars": 198,
+   "needle": "window.initVentusMap is not a function",
+   "lines": [],
+   "families": []
+  },
+  {
+   "message": "sld-sandbox: Error: V8 engine init function is unavailable before map-ready adapter",
+   "red_stars": 36,
+   "needle": "V8 engine init function is unavailable before map-ready adapter",
+   "lines": [
+    74986
+   ],
+   "families": [
+    {
+     "family": 8653,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 9781,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 10535,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 11310,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 23483,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 32944,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 33184,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 33689,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 33922,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 34120,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 34357,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 34595,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 34846,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 35103,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 35311,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 35581,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 35858,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 36147,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 36389,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 36801,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 37240,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 37509,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 37952,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 38222,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 38492,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 38762,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 39210,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 39660,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 40113,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 40570,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 41043,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 41527,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 42015,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 42503,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 44398,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 45410,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 46935,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 47470,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 48009,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 48548,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 49692,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 50245,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 51078,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 52192,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 52762,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 59692,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 64325,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65294,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65615,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 65938,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66263,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66591,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 66925,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67259,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67596,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 67933,
+     "name": "(anonymous)"
+    },
+    {
+     "family": 70542,
+     "name": "(anonymous)"
+    }
+   ]
+  }
+ ]
+}

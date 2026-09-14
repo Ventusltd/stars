@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-14 08:50 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
+Updated 2026-09-14 09:03 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,10 +8,10 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 247,444 |
-| File versions | 5,470 |
-| Elements (functions and classes) | 16,844 |
-| Families (same logic) | 15,502 |
+| Unique lines | 247,620 |
+| File versions | 5,474 |
+| Elements (functions and classes) | 16,851 |
+| Families (same logic) | 15,507 |
 | Families written in two or more different files (duplicate work) | 3,160 |
 | Families only copied between versions of one file | 840 |
 | Self-contained functions compiled into the library | 319 |
@@ -26,10 +26,10 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
+| #8770 | `initialBearingDeg` | 11 | 252 | 6 | no | 2026-08-31 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1627-L1633) |
+| #511 | `distanceKm` | 11 | 249 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #975 | `sha256` | 67 | 98 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
 | #1586 | `invariant` | 37 | 459 | 5 | yes | 2026-08-28 | [globalgrid2050/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs#L12-L14) |
-| #8770 | `initialBearingDeg` | 10 | 251 | 5 | no | 2026-08-31 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1627-L1633) |
-| #511 | `distanceKm` | 10 | 248 | 5 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 10 | 10 | 5 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
 | #8285 | `sha256Hex` | 23 | 305 | 4 | no | 2026-08-29 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L124-L127) |
 | #5168 | `escapeHTML` | 16 | 188 | 4 | yes | 2026-04-03 | [globalgrid2050/repd_grid_atlasv3/index.html](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/repd_grid_atlasv3/index.html#L193-L197) |
@@ -75,6 +75,7 @@ These names mean different things in different repositories, so check which vers
 | `record` | 14 | 7 |
 | `fetch` | 10 | 7 |
 | `haversine` | 7 | 7 |
+| `distanceKm` | 5 | 7 |
 | `write` | 15 | 6 |
 | `validate` | 13 | 6 |
 | `write_reports` | 12 | 6 |
@@ -85,7 +86,6 @@ These names mean different things in different repositories, so check which vers
 | `draw` | 9 | 6 |
 | `inspect` | 9 | 6 |
 | `close` | 7 | 6 |
-| `distanceKm` | 5 | 6 |
 | `sha256_file` | 5 | 6 |
 | `sha256Hex` | 4 | 6 |
 
