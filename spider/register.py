@@ -14,27 +14,27 @@ OUT = ROOT / "spider" / "graphs"
 
 # id, title, source file, who makes it, what it shows. Ids match the local Spider copies where they exist.
 GRAPHS = [
-    ("modular", "Modular star", "modular/graph.json", "stars/modular-star (build.mjs)",
+    ("modular", "Reuse", "modular/graph.json", "stars/modular-star (build.mjs)",
      "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the "
      "repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); "
      "GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."),
-    ("periodic-table", "Periodic table", "blocks/graph.json", "stars/modular-star (blocks.mjs)",
+    ("periodic-table", "Inventory", "blocks/graph.json", "stars/modular-star (blocks.mjs)",
      "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the "
      "repositories it lives in. Underneath each block are its numbered functions. External opens the table page."),
-    ("sense", "Sense of the code universe", "sense/graph.json", "stars/modular-star (sense.mjs)",
+    ("sense", "Assessment", "sense/graph.json", "stars/modular-star (sense.mjs)",
      "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and "
      "what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."),
-    ("proof-of-work", "Proof of work", "proof/graph.json", "stars/modular-star (proof.mjs)",
+    ("proof-of-work", "Audit", "proof/graph.json", "stars/modular-star (proof.mjs)",
      "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."),
-    ("structure", "Structure of the estate", "structure/graph.json", "stars/modular-star (structure.mjs)",
+    ("structure", "Structure", "structure/graph.json", "stars/modular-star (structure.mjs)",
      "The estate top-down: repositories, the blocks in each, and the engine modules in their canonical order."),
-    ("chemistry", "Chemistry stars", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
+    ("chemistry", "Compatibility", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),
-    ("vedic", "Classification stars", "reports/vedic/graph.json", "star-maker (vedic.mjs), rebuilt by stars",
+    ("vedic", "Classification", "reports/vedic/graph.json", "star-maker (vedic.mjs), rebuilt by stars",
      "The five classes of the code (structure, movement, computation, flow, data), what is never used, and whether each "
      "test loaded the map's parts in the declared order."),
-    ("random", "Random stars", "reports/random/graph.json", "star-maker (random.mjs), rebuilt by stars",
+    ("random", "Sampling", "reports/random/graph.json", "star-maker (random.mjs), rebuilt by stars",
      "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, "
      "not findings."),
 ]
