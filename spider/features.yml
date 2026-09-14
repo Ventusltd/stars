@@ -39,15 +39,6 @@ graphs:
     nodes: 122
     edges: 338
     graph_generated_utc: "2026-09-14T10:03:59.686Z"
-  - id: "sense"
-    title: "Sense of the code universe"
-    path: "https://ventusltd.github.io/stars/sense/graph.json"
-    edges_path: null
-    source_spider: "stars/modular-star (sense.mjs)"
-    description: "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."
-    nodes: 142
-    edges: 549
-    graph_generated_utc: "2026-09-14T10:03:52.620Z"
   - id: "proof-of-work"
     title: "Proof of work"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
@@ -74,7 +65,7 @@ graphs:
     description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
     nodes: 125
     edges: 2786
-    graph_generated_utc: "2026-09-14T10:00:28.925Z"
+    graph_generated_utc: "2026-09-14T10:04:38.133Z"
   - id: "vedic"
     title: "Vedic stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
@@ -83,7 +74,7 @@ graphs:
     description: "The five-element classification of the code: how components group into broad classes, and whether each test respected its declared rules."
     nodes: 305
     edges: 300
-    graph_generated_utc: "2026-09-14T10:00:29.772Z"
+    graph_generated_utc: "2026-09-14T10:04:38.588Z"
   - id: "random"
     title: "Random stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
@@ -92,4 +83,4 @@ graphs:
     description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
     nodes: 163
     edges: 150
-    graph_generated_utc: "2026-09-14T10:00:29.852Z"
+    graph_generated_utc: "2026-09-14T10:04:39.055Z"
