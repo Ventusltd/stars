@@ -1,12 +1,12 @@
 # Proof of work
 
-Updated 2026-09-14 12:42 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
+Updated 2026-09-14 12:44 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
 The same graph, card by card, is `proof/graph.json` (26 KB, 40 cards, 68 links), registered for the Spider dashboard as **Proof of work**.
 
 | Workflow | Latest run | Started | Took | Last 10 |
 |---|---|---|---|---|
-| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34844771835) | 2026-09-14 12:41 UTC |  | 4 of the last 5 runs passed |
-| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34843966496) | 2026-09-14 12:32 UTC | 18 s | 7 of the last 7 runs passed |
+| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34844930408) | 2026-09-14 12:42 UTC |  | 4 of the last 5 runs passed |
+| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34844984526) | 2026-09-14 12:43 UTC | 21 s | 7 of the last 7 runs passed |
 | Generate app | [passed](https://github.com/Ventusltd/code-generator/actions/runs/34843673781) | 2026-09-14 12:29 UTC | 15 s | 4 of the last 6 runs passed |
 | Spider features | not installed |  |  |  |
 
@@ -24,8 +24,8 @@ flowchart LR
   n_wf_spider_features["Spider features"]:::off
   end
   subgraph g_runs["Latest runs"]
-  n_run_34844771835["Modular star · 09-14 12:41"]:::live
-  n_run_34843966496["Refresh reports · 09-14 12:32"]:::ok
+  n_run_34844930408["Modular star · 09-14 12:42"]:::live
+  n_run_34844984526["Refresh reports · 09-14 12:43"]:::ok
   n_run_34843673781["Generate app · 09-14 12:29"]:::ok
   end
   subgraph g_artefacts["Artefacts"]
@@ -59,39 +59,39 @@ flowchart LR
   end
   n_wf_modular_star == triggers ==> n_wf_refresh
   n_wf_modular_star == triggers ==> n_wf_spider_features
-  n_run_34844771835 -. run .-> n_wf_modular_star
-  n_run_34843966496 -. run .-> n_wf_refresh
+  n_run_34844930408 -. run .-> n_wf_modular_star
+  n_run_34844984526 -. run .-> n_wf_refresh
   n_run_34843673781 -. run .-> n_wf_generate
   n_wf_modular_star --> n_art_summary
-  n_run_34844771835 --> n_art_summary
+  n_run_34844930408 --> n_art_summary
   n_wf_modular_star --> n_art_lines
-  n_run_34844771835 --> n_art_lines
+  n_run_34844930408 --> n_art_lines
   n_wf_modular_star --> n_art_code
-  n_run_34844771835 --> n_art_code
+  n_run_34844930408 --> n_art_code
   n_wf_modular_star --> n_art_modular_graph
-  n_run_34844771835 --> n_art_modular_graph
+  n_run_34844930408 --> n_art_modular_graph
   n_wf_modular_star --> n_art_blocks
-  n_run_34844771835 --> n_art_blocks
+  n_run_34844930408 --> n_art_blocks
   n_wf_modular_star --> n_art_table
-  n_run_34844771835 --> n_art_table
+  n_run_34844930408 --> n_art_table
   n_wf_modular_star --> n_art_blocks_graph
-  n_run_34844771835 --> n_art_blocks_graph
+  n_run_34844930408 --> n_art_blocks_graph
   n_wf_modular_star --> n_art_reactions
-  n_run_34844771835 --> n_art_reactions
+  n_run_34844930408 --> n_art_reactions
   n_wf_modular_star --> n_art_library
-  n_run_34844771835 --> n_art_library
+  n_run_34844930408 --> n_art_library
   n_wf_modular_star --> n_art_features
-  n_run_34844771835 --> n_art_features
+  n_run_34844930408 --> n_art_features
   n_wf_modular_star --> n_art_proof
-  n_run_34844771835 --> n_art_proof
+  n_run_34844930408 --> n_art_proof
   n_wf_modular_star --> n_art_structure
-  n_run_34844771835 --> n_art_structure
+  n_run_34844930408 --> n_art_structure
   n_wf_refresh --> n_art_chemistry
-  n_run_34843966496 --> n_art_chemistry
+  n_run_34844984526 --> n_art_chemistry
   n_wf_refresh --> n_art_vedic
-  n_run_34843966496 --> n_art_vedic
+  n_run_34844984526 --> n_art_vedic
   n_wf_refresh --> n_art_random
-  n_run_34843966496 --> n_art_random
+  n_run_34844984526 --> n_art_random
   n_wf_modular_star --> n_art_release
   n_wf_generate --> n_app_geodesy
   n_art_blocks --> n_app_geodesy
