@@ -1,14 +1,9 @@
 name: Coherence intelligent resume
 
 # The lab's memory: one page that says what ran, what exists, what the graphs say and what is waiting, so any
-# agent or person resumes from the same place. Bursts of at most 20 minutes. Runs after every Modular star run,
-# every 30 minutes if GitHub's schedule fires, and on demand.
+# agent or person resumes from the same place. A one-off run, started by hand when a resume page is wanted;
+# at most 20 minutes. It is deliberately not scheduled and not chained, so it adds no recurring logic.
 on:
-  workflow_run:
-    workflows: ["Modular star"]
-    types: [completed]
-  schedule:
-    - cron: '13,43 * * * *'
   workflow_dispatch:
 
 permissions:
