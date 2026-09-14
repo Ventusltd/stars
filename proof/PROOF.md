@@ -1,12 +1,12 @@
 # Proof of work
 
-Updated 2026-09-14 09:51 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
+Updated 2026-09-14 09:54 UTC by GitHub Actions. Green passed, amber needs a look, red failed, blue still running, grey not readable from here.
 The same graph, card by card, is `proof/graph.json` (26 KB, 40 cards, 68 links), registered for the Spider dashboard as **Proof of work**.
 
 | Workflow | Latest run | Started | Took | Last 10 |
 |---|---|---|---|---|
-| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34830016340) | 2026-09-14 09:49 UTC |  | 6 of the last 8 runs passed |
-| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34830067116) | 2026-09-14 09:50 UTC | 21 s | 8 of the last 8 runs passed |
+| Modular star | [running now (this run writes this graph)](https://github.com/Ventusltd/stars/actions/runs/34830258504) | 2026-09-14 09:52 UTC |  | 5 of the last 7 runs passed |
+| Refresh reports | [passed](https://github.com/Ventusltd/stars/actions/runs/34830206791) | 2026-09-14 09:52 UTC | 28 s | 7 of the last 7 runs passed |
 | Generate app | [passed](https://github.com/Ventusltd/code-generator/actions/runs/34829448635) | 2026-09-14 09:43 UTC | 16 s | 3 of the last 5 runs passed |
 | Spider features | not installed |  |  |  |
 
@@ -24,8 +24,8 @@ flowchart LR
   n_wf_spider_features["Spider features"]:::off
   end
   subgraph g_runs["Latest runs"]
-  n_run_34830016340["Modular star · 09-14 09:49"]:::live
-  n_run_34830067116["Refresh reports · 09-14 09:50"]:::ok
+  n_run_34830258504["Modular star · 09-14 09:52"]:::live
+  n_run_34830206791["Refresh reports · 09-14 09:52"]:::ok
   n_run_34829448635["Generate app · 09-14 09:43"]:::ok
   end
   subgraph g_artefacts["Artefacts"]
@@ -49,49 +49,49 @@ flowchart LR
   n_app_substation_finder["App · substation-finder"]:::ok
   end
   subgraph g_checks["Checks"]
-  n_chk_tests["Unit tests"]:::off
+  n_chk_tests["Unit tests"]:::ok
   n_chk_rebuild["Rebuild check"]:::ok
-  n_chk_permanence["Permanence check"]:::off
-  n_chk_library["Library loads"]:::off
+  n_chk_permanence["Permanence check"]:::ok
+  n_chk_library["Library loads"]:::ok
   n_chk_size["Graph size limit"]:::ok
   n_chk_parses["Generated app parses"]:::ok
-  n_chk_pages["Published to the web"]:::ok
+  n_chk_pages["Published to the web"]:::live
   end
   n_wf_modular_star == triggers ==> n_wf_refresh
   n_wf_modular_star == triggers ==> n_wf_spider_features
-  n_run_34830016340 -. run .-> n_wf_modular_star
-  n_run_34830067116 -. run .-> n_wf_refresh
+  n_run_34830258504 -. run .-> n_wf_modular_star
+  n_run_34830206791 -. run .-> n_wf_refresh
   n_run_34829448635 -. run .-> n_wf_generate
   n_wf_modular_star --> n_art_summary
-  n_run_34830016340 --> n_art_summary
+  n_run_34830258504 --> n_art_summary
   n_wf_modular_star --> n_art_lines
-  n_run_34830016340 --> n_art_lines
+  n_run_34830258504 --> n_art_lines
   n_wf_modular_star --> n_art_code
-  n_run_34830016340 --> n_art_code
+  n_run_34830258504 --> n_art_code
   n_wf_modular_star --> n_art_modular_graph
-  n_run_34830016340 --> n_art_modular_graph
+  n_run_34830258504 --> n_art_modular_graph
   n_wf_modular_star --> n_art_blocks
-  n_run_34830016340 --> n_art_blocks
+  n_run_34830258504 --> n_art_blocks
   n_wf_modular_star --> n_art_table
-  n_run_34830016340 --> n_art_table
+  n_run_34830258504 --> n_art_table
   n_wf_modular_star --> n_art_blocks_graph
-  n_run_34830016340 --> n_art_blocks_graph
+  n_run_34830258504 --> n_art_blocks_graph
   n_wf_modular_star --> n_art_reactions
-  n_run_34830016340 --> n_art_reactions
+  n_run_34830258504 --> n_art_reactions
   n_wf_modular_star --> n_art_library
-  n_run_34830016340 --> n_art_library
+  n_run_34830258504 --> n_art_library
   n_wf_modular_star --> n_art_features
-  n_run_34830016340 --> n_art_features
+  n_run_34830258504 --> n_art_features
   n_wf_modular_star --> n_art_proof
-  n_run_34830016340 --> n_art_proof
+  n_run_34830258504 --> n_art_proof
   n_wf_modular_star --> n_art_structure
-  n_run_34830016340 --> n_art_structure
+  n_run_34830258504 --> n_art_structure
   n_wf_refresh --> n_art_chemistry
-  n_run_34830067116 --> n_art_chemistry
+  n_run_34830206791 --> n_art_chemistry
   n_wf_refresh --> n_art_vedic
-  n_run_34830067116 --> n_art_vedic
+  n_run_34830206791 --> n_art_vedic
   n_wf_refresh --> n_art_random
-  n_run_34830067116 --> n_art_random
+  n_run_34830206791 --> n_art_random
   n_wf_modular_star --> n_art_release
   n_wf_generate --> n_app_geodesy
   n_art_blocks --> n_app_geodesy
@@ -121,10 +121,10 @@ flowchart LR
 
 ## Checks
 
-- **Unit tests** (grey): The numbering and parsing logic is tested before any run touches the database.
+- **Unit tests** (green): The numbering and parsing logic is tested before any run touches the database.
 - **Rebuild check** (green): Randomly chosen files are rebuilt from their numbered lines and compared with GitHub byte for byte.
-- **Permanence check** (grey): No line, function or family number from an earlier run may change. The run refuses to save if one did.
-- **Library loads** (grey): The compiled library is parsed and imported before it is published.
+- **Permanence check** (green): No line, function or family number from an earlier run may change. The run refuses to save if one did.
+- **Library loads** (green): The compiled library is parsed and imported before it is published.
 - **Graph size limit** (green): Every graph registered for the dashboard must stay under the size limit, because the dashboard loads them all on open.
 - **Generated app parses** (green): A generated app is only committed once its assembled code parses.
-- **Published to the web** (green): GitHub Pages rebuilt the public site after the last save, so what this graph describes is what a reader can open.
+- **Published to the web** (blue): GitHub Pages rebuilt the public site after the last save, so what this graph describes is what a reader can open.
