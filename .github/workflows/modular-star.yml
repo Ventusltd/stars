@@ -82,7 +82,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -qm "Modular star $(date -u +%Y-%m-%dT%H:%MZ)"
-          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push -q && exit 0; git rebase --abort 2>/dev/null || true; sleep 7; done
           exit 1
 
       - name: Summary

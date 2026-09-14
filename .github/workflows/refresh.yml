@@ -4,6 +4,9 @@ name: Refresh reports
 # and rebuilds the summary reports in this repository. Runs on GitHub's servers.
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Modular star"]
+    types: [completed]
   schedule:
     - cron: '23 * * * *'
 

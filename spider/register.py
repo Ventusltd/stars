@@ -7,7 +7,6 @@ reachable, and adds it. Standard library only; no model involved.
 """
 import json
 import pathlib
-import datetime
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SITE = "https://ventusltd.github.io/stars/"
@@ -91,7 +90,6 @@ lines = [
     "# Graphs this repository publishes for the Spider dashboard (ventus-grid-engine spider/manifest.json).",
     "# Written by spider/register.py on every build. Each entry has the same fields as a manifest entry.",
     "schema_version: spider-features-v1",
-    f"generated_utc: {yaml_str(datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'))}",
     "site: " + yaml_str(SITE),
     "graphs:",
 ]

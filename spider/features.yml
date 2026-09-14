@@ -1,7 +1,6 @@
 # Graphs this repository publishes for the Spider dashboard (ventus-grid-engine spider/manifest.json).
 # Written by spider/register.py on every build. Each entry has the same fields as a manifest entry.
 schema_version: spider-features-v1
-generated_utc: "2026-09-14T03:55:09+00:00"
 site: "https://ventusltd.github.io/stars/"
 graphs:
   - id: "modular"
