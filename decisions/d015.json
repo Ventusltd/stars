@@ -1,0 +1,27 @@
+{
+  "id": "d015",
+  "subject": {
+    "type": "block",
+    "key": "block:Ss"
+  },
+  "also": [
+    "block:G2",
+    "block:T"
+  ],
+  "question": "What do the three remaining evidence packs settle: what sld-sandbox needs to load, where the 220 kV grid layer comes from, and which TECHNOLOGIES vocabulary is true?",
+  "decision": "",
+  "rationale": "Three evidence packs exist and have not been read into a decision: sld-sandbox NEEDS (702 red composition tests say it requires the sld-styles module), the provenance of the 220 kV layer, and the TECHNOLOGIES vocabulary (also d012). Each may become its own decided record.",
+  "evidence": [
+    "https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md#decisions-waiting",
+    "https://ventusltd.github.io/stars/blocks/reactions.json",
+    "https://ventusltd.github.io/stars/table.html?block=Ss"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Read each pack and open one decision per pack with the evidence linked."
+    ]
+  }
+}

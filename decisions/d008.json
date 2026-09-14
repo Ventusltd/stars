@@ -1,0 +1,22 @@
+{
+  "id": "d008",
+  "subject": {
+    "type": "constant",
+    "key": "block:Ri"
+  },
+  "question": "Which REPD technology ids are recognised: the long list with the operational variants, or the short one?",
+  "decision": "",
+  "rationale": "2 values are in use across globalgrid2050, gridatlas, testcode, ventus-grid-engine: list[\"act\",\"bess\",\"bess_operational\",\"biomass\",\"caes\",\"flywheel\",\"geothermal\",\"hydro\",\"hydrogen\",\"solar\",\"solar_operational\",\"solar_roof\",\"tidal\",\"wind\",\"wind_offshore_operational\",\"wind_onshore_operational\"] (in 12 files); list[\"act\",\"bess\",\"biomass\",\"caes\",\"flywheel\",\"geothermal\",\"hydro\",\"hydrogen\",\"solar\",\"solar_roof\",\"tidal\",\"wind\"] (in 1 file). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/REPD_IDS.json",
+    "https://ventusltd.github.io/stars/table.html?block=Ri"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

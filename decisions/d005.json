@@ -1,0 +1,22 @@
+{
+  "id": "d005",
+  "subject": {
+    "type": "constant",
+    "key": "block:L"
+  },
+  "question": "What is LIMIT: a result count of 100, or the screening-only limit statement? These are two different things sharing one name.",
+  "decision": "",
+  "rationale": "2 values are in use across gridatlas, solar-electrical-topology-analysis-engine-text-based: Screening only: not solved power flow, available headroom, queue position, a connection offer or a connection assessment. (in 1 file); 100 (in 1 file). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/LIMIT.json",
+    "https://ventusltd.github.io/stars/table.html?block=L"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

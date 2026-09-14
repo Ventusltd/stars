@@ -1,0 +1,23 @@
+{
+  "id": "d014",
+  "subject": {
+    "type": "pair",
+    "key": "block:Ek+block:Gc"
+  },
+  "question": "Do the three named radii in the engine (R_ATLAS, R_UK, R_MEAN in geo-core.js) settle the earth-radius question, so that every other copy of distanceKm is superseded and imports from the engine?",
+  "decision": "",
+  "rationale": "The engine already holds three radii by purpose. If that is the answer, the 248 other copies of distanceKm are superseded and generated apps take the radius from the engine block, never as a bare number. Deciding this also decides d002.",
+  "evidence": [
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/geo-core.js",
+    "https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md#decisions-waiting",
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/EARTH_KM.json"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "List every copy of distanceKm with its file and lines; do not rewrite any until decided."
+    ]
+  }
+}

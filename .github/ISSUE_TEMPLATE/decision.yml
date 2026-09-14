@@ -1,0 +1,144 @@
+name: Decision
+description: Record a decision, or an open question, against a block, constant or function family. The workflow files it as decisions/dNNN.json and closes this issue with a link.
+title: "Decision: "
+labels: ["decision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One record, one question, one key. Pick the key from the list, say what was decided and why. The workflow gives it the next permanent number, commits it and closes this issue with a link to the record. See `decisions/README.md`.
+  - type: dropdown
+    id: record
+    attributes:
+      label: Record
+      description: A decision is permission; an open question is filed for later.
+      options:
+        - A decision (settles the question)
+        - An open question (not decided yet)
+    validations:
+      required: true
+  - type: dropdown
+    id: subject_type
+    attributes:
+      label: Subject type
+      options:
+        - Constant (blocks 1 to 12)
+        - Block (a named part of the periodic table)
+        - Function family (a permanent family number)
+        - Pair of blocks
+    validations:
+      required: true
+  - type: dropdown
+    id: subject_key
+    attributes:
+      label: Subject key
+      description: The key the decision is about. Constants first, then the named blocks. Families and pairs go in the box below.
+      options:
+        - At · Allowed technologies
+        - Ek · Earth km
+        - Hr · Hit radius edge px
+        - Hi · Hit radius vertex px
+        - L · Limit
+        - Mr · Max resources
+        - Mt · Max tries
+        - Ri · Repd ids
+        - Rp · Repd page
+        - Sm · Solar min exclusive
+        - S · Statuses
+        - T · Technologies
+        - Gc · Distance and bearing
+        - Ga · Area and perimeter
+        - Gs · Circles and shapes on the map
+        - Gg · GeoJSON helpers
+        - Vg · Geodesy (v9 atlas copy)
+        - Vn · Nearest substation search
+        - Nt · Grid network topology
+        - Ed · Electrical distance
+        - Re · Line and transformer ratings
+        - Ce · Cable corridor estimate
+        - Pf · Published fault level
+        - El · Electrification demand
+        - Fc · Firm capacity
+        - Dd · Diversified demand
+        - Cc · Connection capacity
+        - Ro · Route obstacles
+        - Ie · Interconnector economics
+        - Po · Power factor
+        - Vd · Voltage drop
+        - Sp · streaming-parquet-bridge
+        - Ug · uk-gazetteer-flyto
+        - Ss · sld-sandbox
+        - Si · substation-intelligence
+        - A · Airports
+        - D · Datacentres
+        - G1 · Grid 132 kV
+        - G2 · Grid 220 kV
+        - Gr · Grid 275 kV
+        - G4 · Grid 400 kV
+        - G6 · Grid 66 kV
+        - Gri · Grid substations
+        - Io · Industrial offtakers
+        - Pp · Power plants
+        - R · Railways
+        - Dt · The MAP button (deep-link contract)
+        - Ps · Place search and arrival
+        - Ra · REPD Grid Atlas core engine (v3 to v8)
+        - Cg · Cable trench geometry
+        - Sb · Solar and BESS single-line sandbox
+        - St · Solar electrical topology (text engine)
+        - Pn · Pipeline News app
+        - Gp · Grid proximity panel
+        - Wf · Wider fleet panel
+        - Ln · Live news discovery
+        - Tp · Teleprinter controls
+        - Em · Site menu bar
+        - Mb · Atlas menu bar
+        - Sa · Satellite imagery
+        - Pr · Proofs and checks
+        - Gn · Genome and spiders
+        - Dc · Data centres and offtakers data tools
+        - Not in the list (type it below)
+    validations:
+      required: true
+  - type: input
+    id: subject_key_other
+    attributes:
+      label: Subject key (if not in the list)
+      description: "A family number (511 or family:511), a block symbol not listed, or a pair (Ek+Gc)."
+      placeholder: "family:511  or  Ek+Gc"
+  - type: input
+    id: question
+    attributes:
+      label: Question
+      description: The question being decided, one sentence.
+      placeholder: Which earth radius does distance use?
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: What was decided, one or two sentences. Leave empty for an open question.
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Rationale
+      description: Why, in plain words. The experience behind the decision is the point of the record.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Links, one per line. Evidence packs, files, test runs, earlier issues.
+      placeholder: https://github.com/Ventusltd/star-maker/blob/main/logic/EARTH_KM.json
+  - type: textarea
+    id: agents_may
+    attributes:
+      label: What agents may now do
+      description: One sentence per line. What an agent may do on this key without asking, once decided.
+      placeholder: Replace any bare earth radius with an import from geo-core.js.
+  - type: input
+    id: supersedes
+    attributes:
+      label: Supersedes
+      description: The id of an earlier record this one replaces, if any (for example d002).
+      placeholder: d002

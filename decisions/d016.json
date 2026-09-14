@@ -1,0 +1,22 @@
+{
+  "id": "d016",
+  "subject": {
+    "type": "block",
+    "key": "block:Gn"
+  },
+  "question": "Do the private repositories join the maps through a private twin of the modular star with a read token, or stay out?",
+  "decision": "",
+  "rationale": "The modular star reads public code only, because this repository is public. Four private repositories are not counted. Including them needs a private twin of the star with a read token; leaving them out keeps one star and a smaller universe.",
+  "evidence": [
+    "https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md#decisions-waiting",
+    "https://github.com/Ventusltd/stars/blob/main/.github/workflows/modular-star.yml"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Estimate the private repositories' size and function count; do not create a private twin until decided."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "d012",
+  "subject": {
+    "type": "constant",
+    "key": "block:T"
+  },
+  "question": "Which technology vocabulary is the one true list, and is it a set or an ordered list?",
+  "decision": "",
+  "rationale": "4 values are in use across globalgrid2050, gridatlas, pipelinenews, testcode, ventus-grid-engine: set[\"all\",\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 24 files); list[\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 1 file); list[\"all\",\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 2 files); set[\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 2 files). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/TECHNOLOGIES.json",
+    "https://ventusltd.github.io/stars/table.html?block=T"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

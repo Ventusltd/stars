@@ -55,6 +55,9 @@ jobs:
       - name: Group the families into blocks (the periodic table)
         run: node modular-star/blocks.mjs --out . && node modular-star/reactions.mjs --out .
 
+      - name: Draw the decision records on the Decisions map
+        run: node modular-star/decisions.mjs --out . && node tools/check-graph.mjs decisions/graph.json
+
       - name: Check the Spider graphs read the way the dashboard reads them
         run: node tools/check-graph.mjs modular/graph.json && node tools/check-graph.mjs blocks/graph.json
 
@@ -94,7 +97,7 @@ jobs:
       - name: Save reports
         run: |
           python3 spider/register.py
-          git add modular library spider code blocks sense proof structure LINES.md
+          git add modular library spider code blocks sense proof structure decisions LINES.md
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

@@ -1,0 +1,22 @@
+{
+  "id": "d003",
+  "subject": {
+    "type": "constant",
+    "key": "block:Hr"
+  },
+  "question": "How many pixels from a line count as a tap on it?",
+  "decision": "",
+  "rationale": "2 values are in use across globalgrid2050, gridatlas, testcode: 22 (in 11 files); 16 (in 4 files). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/HIT_RADIUS_EDGE_PX.json",
+    "https://ventusltd.github.io/stars/table.html?block=Hr"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "d009",
+  "subject": {
+    "type": "constant",
+    "key": "block:Rp"
+  },
+  "question": "Which government page is the REPD source: the monthly extract or the quarterly extract?",
+  "decision": "",
+  "rationale": "2 values are in use across globalgrid2050: https://www.gov.uk/government/publications/renewable-energy-planning-database-monthly-extract (in 3 files); https://www.gov.uk/government/publications/renewable-energy-planning-database-quarterly-extract (in 1 file). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/REPD_PAGE.json",
+    "https://ventusltd.github.io/stars/table.html?block=Rp"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

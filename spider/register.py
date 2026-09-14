@@ -28,6 +28,10 @@ GRAPHS = [
      "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."),
     ("structure", "Structure", "structure/graph.json", "stars/modular-star (structure.mjs)",
      "globalgrid2050 architecture development, top-down: repositories, the blocks in each, and the engine modules in their canonical order."),
+    ("decisions", "Decisions", "decisions/graph.json", "stars/modular-star (decisions.mjs)",
+     "The judgements attached to the maps' permanent keys: one card per decision record, open (amber), decided (green) or "
+     "superseded (grey), wired to the block, constant or function family it concerns. A decided record is permission; an open "
+     "record is a question. Records are made by clicks from the Decision issue form."),
     ("chemistry", "Compatibility", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),

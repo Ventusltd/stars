@@ -1,0 +1,22 @@
+{
+  "id": "d000",
+  "subject": { "type": "constant", "key": "block:Ek" },
+  "also": ["block:Gc"],
+  "question": "Which earth radius does globalgrid2050 architecture development use for distance in kilometres?",
+  "decision": "Distance takes its radius from the engine's named radii (R_ATLAS, R_UK, R_MEAN in geo-core.js), chosen by purpose; no bare number is written anywhere else.",
+  "rationale": "Two values are in use (6371.0088 and 6378.137). Neither is wrong; they serve different purposes. The engine already names them by purpose, so the decision is to import, never to copy.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/EARTH_KM.json",
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/geo-core.js"
+  ],
+  "date": "2026-09-14",
+  "status": "decided",
+  "consequences": {
+    "settles": ["block:Ek"],
+    "agents_may": [
+      "Replace any bare earth radius with an import from geo-core.js.",
+      "Generate apps that take the radius from the engine block Gc."
+    ]
+  },
+  "note": "This is the example only: id d000 is never a real record. Real records start at d001."
+}

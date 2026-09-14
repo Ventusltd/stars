@@ -1,0 +1,62 @@
+name: Decisions
+
+# Turns an issue labelled `decision` (made from the Decision issue form) into decisions/dNNN.json with the next
+# permanent number, commits it, and closes the issue with a link to the record. The Modular star then draws the
+# record on the Decisions map at its next run.
+on:
+  issues:
+    types: [opened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: decisions
+  cancel-in-progress: false
+
+jobs:
+  record:
+    if: contains(github.event.issue.labels.*.name, 'decision') && github.event.issue.state == 'open'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Write the record
+        id: record
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: node modular-star/decision-record.mjs --out .
+
+      - name: Check the record reads as a graph
+        run: node modular-star/decisions.mjs --out . && node tools/check-graph.mjs decisions/graph.json
+
+      - name: Commit the record
+        run: |
+          git add decisions/*.json
+          git reset -q decisions/graph.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -qm "Decision ${{ steps.record.outputs.id }} (${{ steps.record.outputs.status }}): ${{ steps.record.outputs.key }} (#${{ github.event.issue.number }})"
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push -q && exit 0; git rebase --abort 2>/dev/null || true; sleep 7; done
+          exit 1
+
+      - name: Close the issue with a link to the record
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --repo "$GITHUB_REPOSITORY" --body "Recorded as **${{ steps.record.outputs.id }}** (${{ steps.record.outputs.status }}) on \`${{ steps.record.outputs.key }}\`: https://github.com/$GITHUB_REPOSITORY/blob/main/${{ steps.record.outputs.path }}
+
+          The Decisions map redraws at the next Modular star run: https://ventusltd.github.io/ventus-grid-engine/?graph=decisions"
+          gh issue close "${{ github.event.issue.number }}" --repo "$GITHUB_REPOSITORY" --reason completed
+
+      - name: Say why, if the record was not written
+        if: failure()
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --repo "$GITHUB_REPOSITORY" --body "The record was not written. Check the run: https://github.com/$GITHUB_REPOSITORY/actions/runs/${{ github.run_id }} — usually the question or the subject key was empty, or a decision was marked as decided with no decision text. Edit the issue and add the \`decision\` label again to retry."

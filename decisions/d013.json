@@ -1,0 +1,22 @@
+{
+  "id": "d013",
+  "subject": {
+    "type": "block",
+    "key": "block:Gn"
+  },
+  "question": "May the dashboard receiver gain lazy drill-in, particle drawing and lines-as-particles by additive change, or should the code universe be a new spider page linked from the dashboard?",
+  "decision": "",
+  "rationale": "The dashboard loads every listed graph on open, so 16,844 functions cannot be listed as cards. Three additive changes to the receiver would let the front door stay one small card. The alternative is a separate page that copies the receiver. Recommendation on record: change the receiver, additively, because the dashboard is the master IDE.",
+  "evidence": [
+    "https://github.com/Ventusltd/stars/blob/main/CODE-UNIVERSE.md#to-show-all-the-code-as-particles-what-needs-the-page-to-change",
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/index.html"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Prototype either route in a branch; do not change the live dashboard page until decided."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "d011",
+  "subject": {
+    "type": "constant",
+    "key": "block:S"
+  },
+  "question": "Which planning statuses are offered, and is the vocabulary a set or an ordered list?",
+  "decision": "",
+  "rationale": "2 values are in use across globalgrid2050, pipelinenews: set[\"All\",\"Application Submitted\",\"Awaiting Construction\",\"Operational\",\"Under Construction\"] (in 5 files); list[\"All\",\"Application Submitted\",\"Awaiting Construction\",\"Operational\",\"Under Construction\"] (in 2 files). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/STATUSES.json",
+    "https://ventusltd.github.io/stars/table.html?block=S"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "id": "d001",
+  "subject": {
+    "type": "constant",
+    "key": "block:At"
+  },
+  "question": "Which technologies may a reader filter to: with or without \"all\", and does \"interconnector\" belong?",
+  "decision": "",
+  "rationale": "3 values are in use across globalgrid2050, pipelinenews, testcode: set[\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 17 files); set[\"all\",\"bess\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 59 files); set[\"all\",\"bess\",\"interconnector\",\"solar\",\"wind_offshore\",\"wind_onshore\"] (in 2 files). Which is true cannot be computed; it has to be decided.",
+  "evidence": [
+    "https://github.com/Ventusltd/star-maker/blob/main/logic/ALLOWED_TECHNOLOGIES.json",
+    "https://ventusltd.github.io/stars/table.html?block=At"
+  ],
+  "date": "2026-09-14",
+  "status": "open",
+  "consequences": {
+    "settles": [],
+    "agents_may": [
+      "Gather where each value is used and propose; do not change any value until this record is decided."
+    ]
+  }
+}
