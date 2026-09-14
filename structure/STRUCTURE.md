@@ -1,6 +1,6 @@
 # Structure of the estate
 
-Updated 2026-09-14 09:59 UTC by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+Updated 2026-09-14 10:03 UTC by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
 The same structure, card by card, is `structure/graph.json` (93 KB, 122 cards, 338 links), registered for the Spider dashboard as **Structure of the estate**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (27)
