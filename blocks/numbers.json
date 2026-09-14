@@ -1,5 +1,5 @@
 {
- "next": 850,
+ "next": 855,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -786,6 +786,11 @@
   "globalgrid2050:testcode/{stamp}/v10-ide-search/index.html": 846,
   "globalgrid2050:testcode/{stamp}/journey.js": 847,
   "globalgrid2050:homepage_versions/homepage_v110.html": 848,
-  "testcode:table/{stamp}T144622Z-block-page-rnd/index.html": 849
+  "testcode:table/{stamp}T144622Z-block-page-rnd/index.html": 849,
+  "globalgrid2050:scripts/plain_language.py": 850,
+  "globalgrid2050:testcode/{stamp}/view.js": 851,
+  "grid-dictionary:index.html": 852,
+  "grid-dictionary:tools/build_dictionary.py": 853,
+  "testcode:sandbox/{stamp}-numbered-universe/view.js": 854
  }
 }

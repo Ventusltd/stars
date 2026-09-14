@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-14T15:13:31.283Z",
+ "generated_utc": "2026-09-14T15:52:14.563Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 4259,
+ "families_with_uses": 4281,
  "hubs": [
   {
    "family": 1318,
@@ -61,12 +61,12 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 118
+   "used_by": 123
   },
   {
    "family": 1199,
    "name": "esc",
-   "used_by": 114
+   "used_by": 119
   },
   {
    "family": 76405,
@@ -76,6 +76,11 @@
   {
    "family": 1289,
    "name": "escapeHtml",
+   "used_by": 97
+  },
+  {
+   "family": 7364,
+   "name": "fetch",
    "used_by": 97
   },
   {
@@ -89,11 +94,6 @@
    "used_by": 97
   },
   {
-   "family": 7364,
-   "name": "fetch",
-   "used_by": 95
-  },
-  {
    "family": 531,
    "name": "query",
    "used_by": 92
@@ -102,6 +102,16 @@
    "family": 975,
    "name": "sha256",
    "used_by": 88
+  },
+  {
+   "family": 1317,
+   "name": "el",
+   "used_by": 87
+  },
+  {
+   "family": 1686,
+   "name": "el",
+   "used_by": 87
   },
   {
    "family": 1624,
@@ -129,29 +139,19 @@
    "used_by": 82
   },
   {
+   "family": 129751,
+   "name": "el",
+   "used_by": 80
+  },
+  {
    "family": 9053,
    "name": "technology",
    "used_by": 76
   },
   {
-   "family": 1317,
-   "name": "el",
-   "used_by": 74
-  },
-  {
-   "family": 1686,
-   "name": "el",
-   "used_by": 74
-  },
-  {
    "family": 72147,
    "name": "sha256",
    "used_by": 74
-  },
-  {
-   "family": 129751,
-   "name": "el",
-   "used_by": 69
   },
   {
    "family": 1331,
@@ -181,12 +181,12 @@
   {
    "family": 59000,
    "name": "button",
-   "used_by": 55
+   "used_by": 56
   },
   {
    "family": 59012,
    "name": "button",
-   "used_by": 55
+   "used_by": 56
   },
   {
    "family": 71137,
@@ -231,17 +231,17 @@
   {
    "family": 129810,
    "name": "sld",
-   "used_by": 48
+   "used_by": 49
+  },
+  {
+   "family": 78247,
+   "name": "button",
+   "used_by": 46
   },
   {
    "family": 71154,
    "name": "fail",
    "used_by": 46
-  },
-  {
-   "family": 78247,
-   "name": "button",
-   "used_by": 45
   },
   {
    "family": 1627,
@@ -274,6 +274,21 @@
    "used_by": 40
   },
   {
+   "family": 402,
+   "name": "fetch",
+   "used_by": 39
+  },
+  {
+   "family": 454,
+   "name": "fetch",
+   "used_by": 39
+  },
+  {
+   "family": 1085,
+   "name": "fetch",
+   "used_by": 39
+  },
+  {
    "family": 1606,
    "name": "project",
    "used_by": 39
@@ -287,21 +302,6 @@
    "family": 71301,
    "name": "fetch",
    "used_by": 39
-  },
-  {
-   "family": 402,
-   "name": "fetch",
-   "used_by": 38
-  },
-  {
-   "family": 454,
-   "name": "fetch",
-   "used_by": 38
-  },
-  {
-   "family": 1085,
-   "name": "fetch",
-   "used_by": 38
   }
  ]
 }
