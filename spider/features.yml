@@ -3,6 +3,15 @@
 schema_version: spider-features-v1
 site: "https://ventusltd.github.io/stars/"
 graphs:
+  - id: "modular"
+    title: "Modular star"
+    path: "https://ventusltd.github.io/stars/modular/graph.json"
+    edges_path: null
+    source_spider: "stars/modular-star (build.mjs)"
+    description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
+    nodes: 306
+    edges: 939
+    graph_generated_utc: "2026-09-14T09:08:12.722Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
