@@ -51,6 +51,8 @@ try {
   const entries = [...yml.matchAll(/- id: "([^"]+)"[\s\S]*?nodes: (\d+)\s+edges: (\d+)\s+graph_generated_utc: "([^"]*)"/g)];
   console.log(`\nRegistry: ${entries.length} graphs: ${entries.map(m => `${m[1]} (${m[2]}n/${m[3]}e, ${m[4] ? span(now - Date.parse(m[4])) + ' old' : 'undated'})`).join(', ')}`);
   if (!entries.length) problems++;
+  const seen = new Set(), dup = entries.map(m => m[1]).filter(id => seen.has(id) || !seen.add(id));
+  if (dup.length) { problems++; console.log(`  duplicate registry id(s): ${[...new Set(dup)].join(', ')} (the dashboard would show each twice; see spider/register.py)`); }
 } catch (e) { problems++; console.log(`Registry: unreadable: ${e.message}`); }
 
 console.log(problems ? `\n${problems} problem(s) above.` : '\nNo problems.');

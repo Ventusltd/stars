@@ -21,7 +21,7 @@ try { log = gh(['run', 'view', id, '-R', repo, '--log']); }
 catch (e) { console.log(`  log not available yet: ${String(e.stderr || e.message).trim().split('\n')[0]}`); process.exit(run.status === 'completed' ? 1 : 2); }
 
 // Lines arrive as "job<TAB>step<TAB>2026-09-14T09:44:57.1234567Z text"; keep the step, drop the clock and colours.
-const OURS = /^(Blocks:|Reactions:|Spider graph:|Repositories to scan:|Done:|Rebuild check|History|No changes\.|First run:|\d+ graphs registered|[\w.-]+: \d+ KB is over|Ventusltd\/\S+: (\d+ code files|not scanned)|\d+ library functions load|✔|✖|# (pass|fail|tests) )/;
+const OURS = /^(Blocks:|Reactions:|Spider graph:|Repositories to scan:|Done:|Rebuild check|History|No changes\.|First run:|\d+ graphs registered|[\w.-]+: \d+ KB is over|Ventusltd\/\S+: (\d+ code files|not scanned)|\d+ library functions load|✔|✖|# (pass|fail|tests) |\S+\.json: .* KB · generated|\s+(warning: |FAULT: |Readable by the receiver|\d+ fault\(s\)))/;
 const TROUBLE = /(##\[error\]|\bError\b|\bERR!|Traceback|^\s+File "|^\s+at |Unhandled|exit code|fatal:|failed|FAULT|npm error|SyntaxError|TypeError|ReferenceError|RangeError)/;
 let lastStep = '', shown = 0;
 for (const raw of log.split('\n')) {
