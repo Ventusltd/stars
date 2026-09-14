@@ -12,10 +12,7 @@ continue. Any session, human or agent, resumes from here. Newest entry last. Tim
 | **Generate app** (`code-generator`, `generate.yml`) | on demand | assembles an app from blocks of the periodic table, proves it parses, commits it with a report and a recipe |
 | **Spider features** (`ventus-grid-engine`, `spider-features.yml`) | hourly at :09 | adds registered graphs to the dashboard once they are verified live; installed 14 September |
 
-Known limitation: GitHub's cron schedule has not fired for this repository since it was created. Runs are
-triggered by pushes, by the chain above, and by hand. A fallback trigger runs hourly from the Ventus workstation
-while it is on. The durable fix is a personal access token stored as a repository secret so a run can schedule
-the next one; that needs an owner to create the token.
+GitHub's cron schedule first fired on 14 September (07:58 and 08:05 UTC). Runs are also triggered by pushes, by the chain above, and by hand.
 
 ## Where things are
 
@@ -30,7 +27,7 @@ the next one; that needs an owner to create the token.
 3. EARTH_KM: does `engine/geo-core.js` settle the radius question.
 4. The three other evidence packs: sld-sandbox needs, 220 kV provenance, TECHNOLOGIES vocabulary.
 5. Private repositories: include via a private twin, or leave out.
-6. A personal access token for self-scheduling runs.
+6. ~~A personal access token for self-scheduling runs~~ not needed: cron now fires.
 
 ## Log
 
@@ -41,3 +38,4 @@ the next one; that needs an owner to create the token.
 - 2026-09-14 09:53 — Proof of work graph added: `proof/graph.json` (40 cards, 68 links, 26 KB) and `proof/PROOF.md` (Mermaid), written by `modular-star/proof.mjs` on every Modular star run: workflows, latest runs with status and duration, artefacts with sizes and update times, the checks passed. Registered as `proof-of-work`.
 - 2026-09-14 09:53 — Structure graph added: `structure/graph.json` (122 cards, 337 links, 93 KB: 27 repositories, 12 categories, 63 named blocks, 20 engine modules) and `structure/STRUCTURE.md` (Mermaid), written by `modular-star/structure.mjs`. Registered as `structure`. Both live at the raw URLs; the dashboard shows them once its manifest is pushed.
 - 2026-09-14 09:56 — The Spider features workflow is installed in ventus-grid-engine (commit e133712) and its first run passed: the dashboard now lists every verified graph from the registries (modular, periodic-table, sense, proof-of-work, structure, chemistry, vedic, random, generated-apps) and re-checks them hourly. Decision 1 closed. Work finalised; the automation continues on GitHub.
+- 2026-09-14 10:07 — Debugging tools' findings fixed: duplicate registry entries removed, `sense` now committed by the run, modular graph written compact (under the size limit), six more built-ins treated as globals, cron note corrected. Open item: needs are frozen at first ingest, so global-list changes reach only new file versions; a one-off re-derivation for existing elements (no numbers change) is the next task.

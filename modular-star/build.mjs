@@ -237,7 +237,7 @@ for (const d of decays) {
   for (const x of d.families.slice(0, 6)) if (chosen.has(x.family)) edges.push({ from: id, to: `family:${x.family}`, type: 'thrown-by' });
 }
 mkdirSync(path.join(OUT, 'modular'), { recursive: true });
-writeFileSync(path.join(OUT, 'modular', 'graph.json'), JSON.stringify({ schema: 'modular-star-graph.v1', label: 'The Modular star', generated_utc: now, nodes, edges }, null, 1));
+writeFileSync(path.join(OUT, 'modular', 'graph.json'), JSON.stringify({ schema: 'modular-star-graph.v1', label: 'The Modular star', generated_utc: now, nodes: nodes.map(({ key, ...n }) => n), edges })); // compact, no redundant key: stays under the registry limit
 writeFileSync(path.join(OUT, 'modular', 'decays.json'), JSON.stringify({ generated_utc: now, note: 'Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.', decays }, null, 1));
 writeFileSync(path.join(OUT, 'modular', 'engine-join.json'), JSON.stringify({ generated_utc: now, source: ENGINE_GRAPH, families: Object.fromEntries([...engineJoin].map(([n, j]) => [n, { name: [...familyOf.get(n).names][0], joins: j }])) }, null, 1));
 console.log(`Spider graph: ${nodes.length} nodes, ${edges.length} edges; engine join ${engineJoin.size} families; ${decays.length} decay messages resolved.`);

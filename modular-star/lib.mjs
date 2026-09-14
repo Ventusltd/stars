@@ -109,7 +109,7 @@ const GLOBALS = new Set(('undefined NaN Infinity globalThis Object Function Arra
   'MutationObserver ResizeObserver IntersectionObserver PerformanceObserver CompressionStream DecompressionStream ReadableStream WritableStream TransformStream ' +
   'HTMLElement HTMLCanvasElement Element Node Event CustomEvent MouseEvent KeyboardEvent PointerEvent TouchEvent DOMParser XMLSerializer XMLHttpRequest WebSocket ' +
   'crypto performance requestAnimationFrame cancelAnimationFrame requestIdleCallback getComputedStyle matchMedia screen devicePixelRatio atob btoa ' +
-  'alert confirm prompt history sessionStorage indexedDB caches self globalThis').split(' '));
+  'alert confirm prompt history sessionStorage indexedDB caches self globalThis Buffer process innerWidth innerHeight DOMException EventTarget').split(' '));
 
 function tokenKey(text) {
   try {
