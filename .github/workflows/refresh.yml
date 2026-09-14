@@ -1,0 +1,83 @@
+name: Refresh reports
+
+# Reads the latest recorded test results (the "stars") from Ventusltd/star-maker, read-only,
+# and rebuilds the summary reports in this repository. Runs on GitHub's servers.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch the latest test results (read-only)
+        uses: actions/checkout@v4
+        with:
+          repository: Ventusltd/star-maker
+          path: sky
+          fetch-depth: 1
+          sparse-checkout: |
+            stars
+            elements
+            electron
+            soul
+            magnetar
+            chemistry
+            vedic
+            random
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Rebuild reports
+        env:
+          SKY_DIR: ${{ github.workspace }}/sky
+        run: |
+          source_sha=$(git -C sky rev-parse --short HEAD)
+          count=$(ls sky/stars/*.json | wc -l)
+          echo "SOURCE_SHA=$source_sha" >> "$GITHUB_ENV"
+          echo "STAR_COUNT=$count" >> "$GITHUB_ENV"
+          {
+            echo "## Reports refreshed"
+            echo "Test results read: **$count**, from star-maker \`$source_sha\`."
+            echo ""
+            echo "| Report | Result |"
+            echo "|---|---|"
+          } >> "$GITHUB_STEP_SUMMARY"
+          # Order matters: each report may read the one before it.
+          for r in chemistry vedic random; do
+            if node "builders/$r.mjs" > "/tmp/$r.log" 2>&1; then
+              res="updated"
+              mkdir -p "reports/$r"
+              cp "sky/${r^^}.md" "reports/${r^^}.md"
+              cp sky/$r/*.json "reports/$r/" 2>/dev/null || true
+            else
+              res="not updated: $(tail -n 1 /tmp/$r.log | cut -c1-160)"
+            fi
+            echo "| $r | $res |" >> "$GITHUB_STEP_SUMMARY"
+          done
+
+      - name: Save if anything changed
+        run: |
+          printf '{\n  "source_repository": "Ventusltd/star-maker",\n  "source_commit": "%s",\n  "test_results_read": %s\n}\n' "$SOURCE_SHA" "$STAR_COUNT" > reports/source.json
+          git add reports
+          if git diff --cached --quiet -- reports/source.json; then
+            echo "No new test results since the last refresh." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -qm "Reports from star-maker $SOURCE_SHA ($STAR_COUNT test results)"
+          git push
