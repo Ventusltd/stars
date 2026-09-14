@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-14T09:03:45.627Z",
+ "generated_utc": "2026-09-14T09:05:56.104Z",
  "source": "https://ventusltd.github.io/ventus-grid-engine/genome/engine-graph.json",
  "families": {
   "511": {
@@ -16,45 +16,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
      "relation": "fragment cited as superseded"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5166": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5167": {
-   "name": "deepFreeze",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5168": {
-   "name": "escapeHTML",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -66,45 +27,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L57-L71",
      "relation": "cited: duplicates"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5172": {
-   "name": "toggleCurtain",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5173": {
-   "name": "getRadiusValue",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5174": {
-   "name": "validateRadiusInput",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -115,199 +37,6 @@
      "label": "substation-intelligence cartridge, geodesy copy #1",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L57-L71",
-     "relation": "cited: duplicates"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5178": {
-   "name": "updateMeasureLayers",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5179": {
-   "name": "clearMeasure",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5181": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5182": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5183": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5186": {
-   "name": "add",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5187": {
-   "name": "FetchQueue",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5188": {
-   "name": "fetchWithTimeout",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5189": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5199": {
-   "name": "buildSearchIndex",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5204": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5206": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5214": {
-   "name": "buildLayerRow",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5215": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5217": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5218": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5221": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
      "relation": "cited: duplicates"
     }
    ]
@@ -332,23 +61,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L57-L71",
      "relation": "cited: duplicates"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5608": {
-   "name": "_zoneDrawGetRadius",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -360,12 +72,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/geo-shapes.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "ventus-corev8engine.js _zoneDrawCirclePoints",
@@ -384,12 +90,6 @@
   "5610": {
    "name": "_zoneDrawCirclePoints",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "ventus-corev8engine.js _zoneDrawCirclePoints",
      "type": "fragment",
@@ -414,12 +114,6 @@
    "name": "_zoneDrawCalcArea",
    "joins": [
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "ventus-corev8engine.js _zoneDrawCalcArea (Impl A)",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/repd_grid_atlasv8/ventus-corev8engine.js#L134-L149",
@@ -439,213 +133,9 @@
     }
    ]
   },
-  "5612": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5613": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5614": {
-   "name": "_zoneDrawUpdateLayers",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5615": {
-   "name": "_zoneDrawShowPopup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5616": {
-   "name": "_zoneDrawShowPopupDebounced",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5617": {
-   "name": "_zoneDrawClear",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5618": {
-   "name": "zoneDrawUndo",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5619": {
-   "name": "toggleZoneDrawMode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5620": {
-   "name": "_zoneDrawNearVertex",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5621": {
-   "name": "_zoneDrawNearEdgeDot",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5622": {
-   "name": "_zoneDrawOnClick",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5623": {
-   "name": "_zoneDrawOnMouseDown",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5624": {
-   "name": "_zoneDrawOnMouseMove",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5625": {
-   "name": "_zoneDrawOnMouseUp",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5626": {
-   "name": "openPopup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5627": {
-   "name": "closeActivePopup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5628": {
-   "name": "window.enterFullscreen",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5629": {
-   "name": "window.exitFullscreen",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "5633": {
    "name": "updateMeasureDisplay",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "ventus-corev8engine.js updateMeasureDisplay (Impl B)",
      "type": "fragment",
@@ -660,48 +150,9 @@
     }
    ]
   },
-  "5636": {
-   "name": "undoLastMeasurePoint",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5637": {
-   "name": "toggleMeasureMode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5638": {
-   "name": "toggleRadiusAreaMode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "5639": {
    "name": "doRadiusAreaMeasure",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "ventus-corev8engine.js doRadiusAreaMeasure (Impl C)",
      "type": "fragment",
@@ -716,81 +167,9 @@
     }
    ]
   },
-  "5647": {
-   "name": "fetchAndParseGeoJSON",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5648": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5649": {
-   "name": "snapCoordinate",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5650": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5651": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5652": {
-   "name": "snapLines",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "5653": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "ventus-corev8engine.js createGeoJSONCircle",
      "type": "fragment",
@@ -809,12 +188,6 @@
    "name": "createGeoJSONCircle",
    "joins": [
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "ventus-corev8engine.js createGeoJSONCircle",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/repd_grid_atlasv8/ventus-corev8engine.js#L727-L740",
@@ -825,369 +198,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/geo-shapes.js",
      "relation": "superseded by"
-    }
-   ]
-  },
-  "5655": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5656": {
-   "name": "_rebuildVisibleCache",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5657": {
-   "name": "buildSearchButtons",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5659": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5661": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5663": {
-   "name": "searchProjects",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5665": {
-   "name": "exportCSV",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5666": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5668": {
-   "name": "toggleRadiusMode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5669": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5670": {
-   "name": "doRadiusSearch",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5673": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5677": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5678": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5679": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5680": {
-   "name": "buildDOM",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5687": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5688": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5689": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5690": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5692": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5693": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5694": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5757": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5758": {
-   "name": "updateUIState",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5776": {
-   "name": "flyToProject",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5783": {
-   "name": "toggleStatusMode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5798": {
-   "name": "getSourceIdForLayer",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5799": {
-   "name": "evalFilter",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5800": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5801": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5802": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "5811": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1425,191 +435,9 @@
    "name": "focusCanonicalProjectDeepLink",
    "joins": [
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "deeplink/contract.js",
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/deeplink/contract.js",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8736": {
-   "name": "handleLayerToggle",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8738": {
-   "name": "transitExpressionValue",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8739": {
-   "name": "transitFilterMatches",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8740": {
-   "name": "geometryFitsMapLayer",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8741": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8742": {
-   "name": "countTransitFeaturesLayerCanDraw",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8743": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8744": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8745": {
-   "name": "setLayerControlAvailability",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8746": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8747": {
-   "name": "updateTransitSourceStates",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8752": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8753": {
-   "name": "hydrateLayer",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8754": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8755": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8764": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
      "relation": "cited: duplicates"
     }
    ]
@@ -1621,12 +449,6 @@
      "label": "substation-intelligence cartridge, geodesy copy #1",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L57-L71",
-     "relation": "cited: duplicates"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
      "relation": "cited: duplicates"
     },
     {
@@ -1651,12 +473,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
      "relation": "fragment cited as superseded"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1674,12 +490,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
      "relation": "fragment cited as superseded"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1697,12 +507,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
      "relation": "fragment cited as superseded"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1720,12 +524,6 @@
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609011950-geodesy.js",
      "relation": "fragment cited as superseded"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1743,12 +541,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/v9-geodesy.js",
      "relation": "superseded by"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     }
    ]
   },
@@ -1760,12 +552,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/network-topology.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-network-topology.js",
@@ -1785,12 +571,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -1801,12 +581,6 @@
   "8774": {
    "name": "physicalUnits",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
@@ -1831,12 +605,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -1852,12 +620,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/network-topology.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-network-topology.js",
@@ -1877,12 +639,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -1898,12 +654,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/network-topology.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-network-topology.js",
@@ -1923,12 +673,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -1944,12 +688,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/network-topology.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-network-topology.js",
@@ -1969,12 +707,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -1990,12 +722,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/network-topology.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-network-topology.js",
@@ -2015,12 +741,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -2038,12 +758,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-network-topology.js",
@@ -2054,12 +768,6 @@
   "8785": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "gridatlas 202609012245-network-topology.js",
      "type": "fragment",
@@ -2084,12 +792,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-electrical-distance.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-electrical-distance.js",
@@ -2105,12 +807,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/electrical-distance.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-electrical-distance.js",
@@ -2130,12 +826,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-electrical-distance.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-electrical-distance.js",
@@ -2151,12 +841,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/electrical-distance.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-electrical-distance.js",
@@ -2176,12 +860,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-electrical-distance.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-electrical-distance.js",
@@ -2197,12 +875,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/electrical-distance.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012245-electrical-distance.js",
@@ -2222,12 +894,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012245-electrical-distance.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012245-electrical-distance.js",
@@ -2238,12 +904,6 @@
   "8793": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "gridatlas 202609012245-electrical-distance.js",
      "type": "fragment",
@@ -2268,12 +928,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012250-rating-envelope.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012250-rating-envelope.js",
@@ -2289,12 +943,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/rating-envelope.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609012250-rating-envelope.js",
@@ -2314,12 +962,6 @@
      "relation": "canonical home"
     },
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "gridatlas 202609012250-rating-envelope.js",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/modules/202609012250-rating-envelope.js",
@@ -2330,12 +972,6 @@
   "8797": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "gridatlas 202609012250-rating-envelope.js",
      "type": "fragment",
@@ -2350,402 +986,6 @@
     }
    ]
   },
-  "8798": {
-   "name": "find",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8799": {
-   "name": "union",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8800": {
-   "name": "makeUnionFind",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8801": {
-   "name": "assemble",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8802": {
-   "name": "multiply",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8803": {
-   "name": "solve",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8804": {
-   "name": "sinkFor",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8805": {
-   "name": "respond",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8806": {
-   "name": "modelFor",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8807": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8808": {
-   "name": "statusRank",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8809": {
-   "name": "yearRank",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8810": {
-   "name": "publishedToday",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8811": {
-   "name": "describe",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8812": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8813": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8814": {
-   "name": "at",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8815": {
-   "name": "index",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8816": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8817": {
-   "name": "relation",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8818": {
-   "name": "describe",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8819": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8820": {
-   "name": "band",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8821": {
-   "name": "count",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8823": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8825": {
-   "name": "at",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8827": {
-   "name": "boundaries",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8828": {
-   "name": "index",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8829": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8830": {
-   "name": "pin",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8831": {
-   "name": "url",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8832": {
-   "name": "encode",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8833": {
-   "name": "digestBytes",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8834": {
-   "name": "digestHex",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8835": {
-   "name": "verify",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8836": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "8838": {
    "name": "forCable",
    "joins": [
@@ -2754,12 +994,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/corridor-estimate.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609030205-corridor-estimate.js",
@@ -2772,12 +1006,6 @@
   "8839": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "gridatlas 202609030205-corridor-estimate.js",
      "type": "fragment",
@@ -2792,820 +1020,6 @@
     }
    ]
   },
-  "8840": {
-   "name": "array",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8841": {
-   "name": "cleanText",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8842": {
-   "name": "layerKey",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8843": {
-   "name": "layerLabel",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8844": {
-   "name": "layerGroup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8845": {
-   "name": "inventory",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8846": {
-   "name": "state.inspect",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8847": {
-   "name": "required",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8849": {
-   "name": "syncAttribClearance",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8850": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8851": {
-   "name": "closeAll",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8852": {
-   "name": "syncLayer",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8853": {
-   "name": "syncAll",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8854": {
-   "name": "clampPanel",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8855": {
-   "name": "openMenu",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8856": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8857": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8858": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8859": {
-   "name": "buildBar",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8860": {
-   "name": "appendGroup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8885": {
-   "name": "layerCheckbox",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8886": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8887": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8888": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8889": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8890": {
-   "name": "buildLayerControls",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8891": {
-   "name": "move",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8892": {
-   "name": "trayRoute",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8895": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8897": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8899": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8900": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8901": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8903": {
-   "name": "loudFailure",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8904": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8905": {
-   "name": "start",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8908": {
-   "name": "tidy",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8909": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8910": {
-   "name": "watch",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8911": {
-   "name": "arrivalTidy",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8912": {
-   "name": "note",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8913": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8914": {
-   "name": "readRegisterSource",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8915": {
-   "name": "primeRegister",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8916": {
-   "name": "loadRegister",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8917": {
-   "name": "readSelection",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8918": {
-   "name": "near",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8919": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8920": {
-   "name": "collection",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8921": {
-   "name": "setSourceData",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8922": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8923": {
-   "name": "ensureLayers",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8924": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8925": {
-   "name": "escapeHtml",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8926": {
-   "name": "setVisibility",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8927": {
-   "name": "labelFor",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8928": {
-   "name": "paintLabels",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8929": {
-   "name": "refresh",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8930": {
-   "name": "buildGroup",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8931": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8932": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8933": {
-   "name": "bind",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8934": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8935": {
-   "name": "install",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8936": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8937": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8938": {
-   "name": "neonBlock",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8939": {
-   "name": "bootStatus",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8940": {
-   "name": "versionLedger",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8941": {
-   "name": "mobileTray",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8942": {
-   "name": "gbConditions",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8943": {
-   "name": "sldPanel",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8944": {
-   "name": "fullscreenLayers",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8945": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "8946": {
    "name": "normalise",
    "joins": [
@@ -3614,12 +1028,6 @@
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/v9-nearest-search.js",
      "relation": "canonical home"
-    },
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
     },
     {
      "label": "gridatlas 202609011950-substation-lookup.js",
@@ -3639,12 +1047,6 @@
    "name": "(anonymous)",
    "joins": [
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "substation-intelligence cartridge, inline nearest()",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L6014-L6095",
@@ -3656,12 +1058,6 @@
    "name": "state.nearest",
    "joins": [
     {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
-    {
      "label": "substation-intelligence cartridge, inline nearest()",
      "type": "fragment",
      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L6014-L6095",
@@ -3669,59 +1065,9 @@
     }
    ]
   },
-  "8949": {
-   "name": "eligible",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8950": {
-   "name": "state.coverage",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8951": {
-   "name": "unitCount",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "8952": {
-   "name": "state.summarise",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
   "8953": {
    "name": "(anonymous)",
    "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    },
     {
      "label": "substation-intelligence cartridge, inline nearest()",
      "type": "fragment",
@@ -3748,72 +1094,6 @@
      "label": "engine/v9-geodesy.js",
      "type": "canonical",
      "gh": "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/v9-geodesy.js",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "46631": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "51567": {
-   "name": "adoptLate",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "51573": {
-   "name": "install",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "51807": {
-   "name": "(anonymous)",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "51818": {
-   "name": "installStyle",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
-     "relation": "cited: duplicates"
-    }
-   ]
-  },
-  "51851": {
-   "name": "gridAtlasMenuBar",
-   "joins": [
-    {
-     "label": "substation-intelligence cartridge, geodesy copy #2",
-     "type": "fragment",
-     "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041330-substation-intelligence-v9-63.js#L1541-L1550",
      "relation": "cited: duplicates"
     }
    ]

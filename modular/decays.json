@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-14T09:03:45.627Z",
+ "generated_utc": "2026-09-14T09:05:56.104Z",
  "note": "Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.",
  "decays": [
   {
@@ -14,83 +14,83 @@
    "families": [
     {
      "family": 8653,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609050354-sld-sandbox-v9-8.js"
     },
     {
      "family": 9781,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051214-sld-sandbox.js"
     },
     {
      "family": 10535,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051300-sld-sandbox.js"
     },
     {
      "family": 11310,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051344-sld-sandbox.js"
     },
     {
      "family": 23483,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609060300-sld-sandbox.js"
     },
     {
      "family": 50245,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040403-sld-sandbox-v9-8.js"
     },
     {
      "family": 51078,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041244-sld-sandbox-v9-8.js"
     },
     {
      "family": 52192,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041945-sld-sandbox-v9-8.js"
     },
     {
      "family": 52762,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041954-sld-sandbox-v9-8.js"
     },
     {
      "family": 59692,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051522-sld-sandbox-v9-8.js"
     },
     {
      "family": 64325,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609070857-sld-sandbox-v9-8.js"
     },
     {
      "family": 65294,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609071232-sld-sandbox-v9-8.js"
     },
     {
      "family": 65615,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609072329-sld-sandbox-v9-8.js"
     },
     {
      "family": 65938,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609072337-sld-sandbox-v9-8.js"
     },
     {
      "family": 66263,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080000-sld-sandbox-v9-8.js"
     },
     {
      "family": 66591,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080030-sld-sandbox-v9-8.js"
     },
     {
      "family": 66925,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080430-sld-sandbox-v9-8.js"
     },
     {
      "family": 67259,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080837-sld-sandbox-v9-8.js"
     },
     {
      "family": 67596,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080846-sld-sandbox-v9-8.js"
     },
     {
      "family": 67933,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080850-sld-sandbox-v9-8.js"
     }
    ]
   },
@@ -104,15 +104,15 @@
    "families": [
     {
      "family": 8361,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609050354-sld-sandbox-v9-8.js"
     },
     {
      "family": 32994,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012045-sld-sandbox-v9-8.js"
     },
     {
      "family": 67987,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012010-grid-scope.js"
     }
    ]
   },
@@ -140,231 +140,231 @@
    "families": [
     {
      "family": 8653,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609050354-sld-sandbox-v9-8.js"
     },
     {
      "family": 9781,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051214-sld-sandbox.js"
     },
     {
      "family": 10535,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051300-sld-sandbox.js"
     },
     {
      "family": 11310,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051344-sld-sandbox.js"
     },
     {
      "family": 23483,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609060300-sld-sandbox.js"
     },
     {
      "family": 32944,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202608311910-neon-substation-links-v9-6.js"
     },
     {
      "family": 33184,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012045-sld-sandbox-v9-8.js"
     },
     {
      "family": 33689,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012130-sld-sandbox-v9-8.js"
     },
     {
      "family": 33922,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012141-sld-sandbox-v9-8.js"
     },
     {
      "family": 34120,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012155-sld-sandbox-v9-8.js"
     },
     {
      "family": 34357,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012211-sld-sandbox-v9-8.js"
     },
     {
      "family": 34595,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012234-sld-sandbox-v9-8.js"
     },
     {
      "family": 34846,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012243-sld-sandbox-v9-8.js"
     },
     {
      "family": 35103,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012249-sld-sandbox-v9-8.js"
     },
     {
      "family": 35311,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012250-sld-sandbox-v9-8.js"
     },
     {
      "family": 35581,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012308-sld-sandbox-v9-8.js"
     },
     {
      "family": 35858,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012317-sld-sandbox-v9-8.js"
     },
     {
      "family": 36147,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609012345-sld-sandbox-v9-8.js"
     },
     {
      "family": 36389,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609020006-sld-sandbox-v9-8.js"
     },
     {
      "family": 36801,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609020018-sld-sandbox-v9-8.js"
     },
     {
      "family": 37240,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030059-sld-sandbox-v9-8.js"
     },
     {
      "family": 37509,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030109-sld-sandbox-v9-8.js"
     },
     {
      "family": 37952,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030116-sld-sandbox-v9-8.js"
     },
     {
      "family": 38222,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030119-sld-sandbox-v9-8.js"
     },
     {
      "family": 38492,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030128-sld-sandbox-v9-8.js"
     },
     {
      "family": 38762,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030137-sld-sandbox-v9-8.js"
     },
     {
      "family": 39210,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030151-sld-sandbox-v9-8.js"
     },
     {
      "family": 39660,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030156-sld-sandbox-v9-8.js"
     },
     {
      "family": 40113,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030200-sld-sandbox-v9-8.js"
     },
     {
      "family": 40570,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030233-sld-sandbox-v9-8.js"
     },
     {
      "family": 41043,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609030234-sld-sandbox-v9-8.js"
     },
     {
      "family": 41527,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609031316-sld-sandbox-v9-8.js"
     },
     {
      "family": 42015,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609031751-sld-sandbox-v9-8.js"
     },
     {
      "family": 42503,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609031809-sld-sandbox-v9-8.js"
     },
     {
      "family": 44398,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609032213-sld-sandbox-v9-8.js"
     },
     {
      "family": 45410,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609032246-sld-sandbox-v9-8.js"
     },
     {
      "family": 46935,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040046-sld-sandbox-v9-8.js"
     },
     {
      "family": 47470,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040047-sld-sandbox-v9-8.js"
     },
     {
      "family": 48009,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040058-sld-sandbox-v9-8.js"
     },
     {
      "family": 48548,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040134-sld-sandbox-v9-8.js"
     },
     {
      "family": 49692,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040337-sld-sandbox-v9-8.js"
     },
     {
      "family": 50245,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609040403-sld-sandbox-v9-8.js"
     },
     {
      "family": 51078,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041244-sld-sandbox-v9-8.js"
     },
     {
      "family": 52192,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041945-sld-sandbox-v9-8.js"
     },
     {
      "family": 52762,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609041954-sld-sandbox-v9-8.js"
     },
     {
      "family": 59692,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609051522-sld-sandbox-v9-8.js"
     },
     {
      "family": 64325,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609070857-sld-sandbox-v9-8.js"
     },
     {
      "family": 65294,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609071232-sld-sandbox-v9-8.js"
     },
     {
      "family": 65615,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609072329-sld-sandbox-v9-8.js"
     },
     {
      "family": 65938,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609072337-sld-sandbox-v9-8.js"
     },
     {
      "family": 66263,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080000-sld-sandbox-v9-8.js"
     },
     {
      "family": 66591,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080030-sld-sandbox-v9-8.js"
     },
     {
      "family": 66925,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080430-sld-sandbox-v9-8.js"
     },
     {
      "family": 67259,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080837-sld-sandbox-v9-8.js"
     },
     {
      "family": 67596,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080846-sld-sandbox-v9-8.js"
     },
     {
      "family": 67933,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202609080850-sld-sandbox-v9-8.js"
     },
     {
      "family": 70542,
-     "name": "(anonymous)"
+     "name": "(anonymous) in 202608292126-pre-snapped-config-adapter.js"
     }
    ]
   }
