@@ -46,6 +46,7 @@ function show(sym) {
     <h3><span style="font-family:ui-monospace,monospace">${esc(b.symbol)}</span> ${esc(b.title)}</h3>
     <div>${esc(b.description)}</div>
     <div class="muted" style="margin-top:6px">${b.functions ? `${b.functions} functions inside (${b.named_functions} named)` : 'no code of its own'}${b.repos.length ? ' · lives in ' + b.repos.map(r => esc(r.split('/')[1])).join(', ') : ''}${b.first_written ? ' · first written ' + b.first_written.slice(0, 10) : ''}</div>
+    ${b.depends_on && b.depends_on.length ? `<div style="margin-top:6px"><span class="muted">Depends on:</span> ${b.depends_on.map(d => `<a href="?block=${esc(d.symbol)}">${esc(d.symbol)} ${esc(d.title)}</a> <span class="muted">(${d.via.map(esc).join(", ")})</span>`).join("; ")}</div>` : ""}${b.used_by && b.used_by.length ? `<div><span class="muted">Used by:</span> ${b.used_by.map(s => `<a href="?block=${esc(s)}">${esc(s)}</a>`).join(", ")}</div>` : ""}
     ${b.needs.length ? `<div style="margin-top:6px"><span style="color:#ffd54a">Needs from outside:</span> ${b.needs.slice(0, 8).map(n => esc(n.meaning)).join('; ')}</div>` : ''}
     <div>
       ${b.functions ? `<a class="btn" href="https://ventusltd.github.io/code-generator/?blocks=${encodeURIComponent(b.symbol)}">Add to an app</a>` : ''}

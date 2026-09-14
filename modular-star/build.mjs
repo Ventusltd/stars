@@ -246,16 +246,56 @@ console.log(`Spider graph: ${nodes.length} nodes, ${edges.length} edges; engine 
 // line numbers of its first copy. Plus a name index for search.
 const libraryExport = new Map(library.map(({ f, c }) => [f.n, `f${f.n}_${String(c.name).replace(/[^A-Za-z0-9_$]/g, '_').slice(0, 40)}`]));
 const buckets = new Map(), names = Object.create(null); // null prototype: a function named constructor or toString must not collide
+// Interdependencies: a family "uses" the families that define a name it needs, preferring ones in the same repository.
+const definers = new Map();
+for (const f of famList) for (const name of f.names) if (name !== '(anonymous)' && name.length > 1) { if (!definers.has(name)) definers.set(name, []); definers.get(name).push(f); }
+const usesOf = f => {
+  const needs = f.places[0].needs ? JSON.parse(f.places[0].needs) : [];
+  const out = [];
+  for (const name of needs) {
+    const cands = definers.get(name); if (!cands) continue;
+    const same = cands.filter(g => [...g.repos].some(r => f.repos.has(r)));
+    for (const g of (same.length ? same : cands).slice(0, 3)) if (g.n !== f.n) out.push({ family: g.n, name, via: same.length ? 'same repository' : 'by name only' });
+  }
+  return out;
+};
+const usedBy = new Map();
+const recs = new Map();
+// What a function still needs from OUTSIDE ITS FILE: its needs minus every name its own file declares
+// (constants, variables, functions, classes, window.x assignments). This is what a copied file still lacks.
+const declaredCache = new Map();
+const fileDeclares = tablet => {
+  if (!declaredCache.has(tablet)) {
+    const src = rebuildTablet(ctx, tablet).toString('utf8');
+    const s = new Set();
+    for (const m of src.matchAll(/\b(?:const|let|var|function|class)\s+([A-Za-z_$][\w$]*)/g)) s.add(m[1]);
+    for (const m of src.matchAll(/\b(?:const|let|var)\s*\{([^}]*)\}/g)) for (const part of m[1].split(',')) { const nm = part.split(':').pop().trim().split('=')[0].trim(); if (/^[A-Za-z_$][\w$]*$/.test(nm)) s.add(nm); }
+    for (const m of src.matchAll(/\bwindow\.([A-Za-z_$][\w$]*)\s*=/g)) s.add(m[1]);
+    for (const m of src.matchAll(/\bimport\s+(?:\*\s+as\s+)?([A-Za-z_$][\w$]*)|\bimport\s*\{([^}]*)\}/g)) { if (m[1]) s.add(m[1]); if (m[2]) for (const part of m[2].split(',')) { const nm = part.split(' as ').pop().trim(); if (nm) s.add(nm); } }
+    declaredCache.set(tablet, s);
+  }
+  return declaredCache.get(tablet);
+};
 for (const f of famList) {
   const c = f.places[0];
-  const rec = {
-    n: f.n, names: [...f.names].slice(0, 6), kind: c.kind, standalone: !!c.standalone, needs: c.needs ? JSON.parse(c.needs) : null,
+  const uses = usesOf(f);
+  const declared = fileDeclares(c.tablet);
+  const needsOutside = (c.needs ? JSON.parse(c.needs) : []).filter(n => !declared.has(n));
+  for (const u of uses) { if (!usedBy.has(u.family)) usedBy.set(u.family, []); usedBy.get(u.family).push({ family: f.n, name: u.name }); }
+  recs.set(f.n, {
+    n: f.n, names: [...f.names].slice(0, 6), kind: c.kind, standalone: !!c.standalone, needs: needsOutside, needs_in_function: c.needs ? JSON.parse(c.needs) : null,
     first_written: firstWritten.get(f.n) || null, library: libraryExport.get(f.n) || null,
     files: f.lineages.size, versions: f.elements.size, repos: [...f.repos],
-    lines: lineNumbers(c),
+    lines: lineNumbers(c), uses,
     places: f.places.slice(0, 40).map(p => ({ repo: p.repo, commit: p.commit_sha, path: p.path, first: p.first, last: p.last, name: p.name,
       live: live.has(p.repo) ? live.get(p.repo) + p.path : null })),
-  };
+  });
+}
+const hubs = [...usedBy].map(([n, by]) => ({ family: n, name: [...familyOf.get(n).names][0], used_by: by.length })).sort((a, b) => b.used_by - a.used_by).slice(0, 60);
+writeFileSync(path.join(OUT, 'modular', 'dependencies.json'), JSON.stringify({ generated_utc: now, note: 'A family uses the families that define a name it needs; hubs are the most used.', families_with_uses: [...recs.values()].filter(r => r.uses.length).length, hubs }, null, 1));
+for (const f of famList) {
+  const rec = recs.get(f.n);
+  rec.used_by = (usedBy.get(f.n) || []).slice(0, 40);
   const b = Math.floor(f.n / 500);
   if (!buckets.has(b)) buckets.set(b, {});
   buckets.get(b)[f.n] = rec;

@@ -76,12 +76,23 @@ const out = blocks.map(b => {
   for (const f of fams) for (const p of f.places) { const l = lineageOf(p); const cur = byLineage.get(l); if (!cur || stampOf(p.path) > stampOf(cur.path)) byLineage.set(l, p); }
   const files = [...byLineage.values()].map(p => ({ repo: p.repo, commit: p.commit, path: p.path, live: p.live || null })).slice(0, 12);
   const named = fams.filter(f => f.names[0] !== '(anonymous)');
+  b.defined = defined; b.needsRaw = needs;
   return { number: b.number, symbol: b.symbol, title: b.title, description: b.description, category: b.category, kind: b.kind, state: b.state, source: b.source,
     functions: fams.length, named_functions: named.length, families: fams.map(f => f.n),
     inside: named.sort((a, b2) => b2.places.length - a.places.length).slice(0, 40).map(f => ({ family: f.n, name: f.names[0], places: f.places.length, standalone: f.standalone })),
     needs: needs.map(n => ({ name: n, meaning: nameOf(n) })), repos, live, files,
     first_written: fams.map(f => f.first_written).filter(Boolean).sort()[0] || null };
 }).sort((a, b) => a.number - b.number);
+
+// Interdependencies between blocks: block A depends on block B when a name A needs is defined inside B.
+const namedBlocks = blocks.filter(b => b.kind !== 'auto' && b.families.length);
+for (const o of out) {
+  const b = byKey.get(o.symbol) || blocks.find(x => x.number === o.number);
+  const deps = new Map();
+  for (const name of b.needsRaw || []) for (const other of namedBlocks) if (other.number !== b.number && other.defined?.has(name)) { if (!deps.has(other.symbol)) deps.set(other.symbol, []); deps.get(other.symbol).push(name); }
+  o.depends_on = [...deps].map(([symbol, via]) => ({ symbol, title: namedBlocks.find(x => x.symbol === symbol).title, via: via.slice(0, 6) }));
+}
+for (const o of out) o.used_by = out.filter(x => x.depends_on.some(d => d.symbol === o.symbol)).map(x => x.symbol);
 
 mkdirSync(path.join(OUT, 'blocks'), { recursive: true });
 // The public table is kept light for phones: family lists live in families.json, the rest in blocks.json.
@@ -103,6 +114,7 @@ for (const b of out) {
     reason: esc(b.description) + (b.functions ? ` <span style="color:#9aa3b5">· ${b.functions} functions inside${b.needs.length ? ' · needs ' + b.needs.slice(0, 5).map(n => esc(n.meaning)).join(', ') : ''}</span>` : ''),
     gh: b.files[0] ? `https://github.com/${b.files[0].repo}/blob/${b.files[0].commit}/${b.files[0].path}` : null, ext: `${SITE}table.html?block=${b.symbol}` });
   edges.push({ from: `block:${b.symbol}`, to: `category:${b.category}`, type: 'category' });
+  for (const d of b.depends_on) edges.push({ from: `block:${b.symbol}`, to: `block:${d.symbol}`, type: 'depends-on' });
   for (const r of b.repos.slice(0, 6)) { if (!repoSeen.has(r)) { repoSeen.add(r); nodes.push({ id: `repo:${r}`, label: r.split('/')[1], type: 'repo', rag: 'green', reason: 'repository', gh: `https://github.com/${r}`, ext: null }); } edges.push({ from: `block:${b.symbol}`, to: `repo:${r}`, type: 'found-in' }); }
 }
 writeFileSync(path.join(OUT, 'blocks', 'graph.json'), JSON.stringify({ schema: 'periodic-table-graph.v1', label: 'The periodic table', generated_utc: now, nodes, edges }));

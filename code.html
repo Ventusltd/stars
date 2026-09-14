@@ -34,6 +34,14 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let index, names;
 const bucketCache = new Map();
+let blocksPromise = null;
+async function purposeOf(n) {
+  if (!blocksPromise) blocksPromise = Promise.all([fetch('./blocks/blocks.json').then(r => r.json()), fetch('./blocks/families.json').then(r => r.json())]);
+  const [table, fams] = await blocksPromise;
+  const sym = Object.keys(fams).find(s => fams[s].includes(n)); if (!sym) return null;
+  const block = table.blocks.find(b => b.symbol === sym) || { symbol: sym, title: 'other tools', category: 'other' };
+  return { block, category: table.categories.find(c => c.id === block.category) || { id: 'other', title: 'Other tools' } };
+}
 async function loadFamily(n) {
   const b = Math.floor(n / index.bucket_size);
   if (!bucketCache.has(b)) bucketCache.set(b, fetch(`./code/f/${b}.json`, {cache: 'no-cache'}).then(r => r.ok ? r.json() : {}));
@@ -71,6 +79,8 @@ async function show(n) {
     <div><span class="${rag}">●</span> ${f.standalone ? 'self-contained' : 'needs ' + (f.needs && f.needs.length ? esc(f.needs.join(', ')) : 'context')}
       · ${esc(f.kind)} · ${f.files} different file${f.files === 1 ? '' : 's'} · ${f.places.length}${f.places.length === 40 ? '+' : ''} places in ${f.repos.length} repositor${f.repos.length === 1 ? 'y' : 'ies'} · ${f.versions} version${f.versions === 1 ? '' : 's'}${f.first_written ? ' · first written ' + f.first_written.slice(0, 10) : ''}</div>
     ${f.names.length > 1 ? `<div class="muted">also named: ${f.names.slice(1).map(esc).join(', ')}</div>` : ''}
+    <div id="purpose" class="muted"></div>
+    ${(f.uses && f.uses.length) || (f.used_by && f.used_by.length) ? `<div style="margin-top:6px">${f.uses && f.uses.length ? `<div><span class="muted">uses:</span> ${f.uses.slice(0, 10).map(u => `<a href="?family=${u.family}">#${u.family} ${esc(u.name)}</a>`).join(', ')}</div>` : ''}${f.used_by && f.used_by.length ? `<div><span class="muted">used by:</span> ${f.used_by.slice(0, 12).map(u => `<a href="?family=${u.family}">#${u.family}</a>`).join(', ')}${f.used_by.length > 12 ? ` <span class="muted">and ${f.used_by.length - 12} more</span>` : ''}</div>` : ''}</div>` : ''}
     <div style="margin-top:10px">
       <button id="copy">Copy code</button>
       ${f.library ? `<button id="copyImport">Copy import from library</button>` : ''}
@@ -85,6 +95,7 @@ async function show(n) {
     </table>
     ${f.library ? `<p class="muted">In the compiled library as <code>${esc(f.library)}</code>: <code>import { ${esc(f.library)} } from 'https://ventusltd.github.io/stars/library/standalone.mjs'</code></p>` : ''}
   </div>`;
+  purposeOf(n).then(p => { const el = $('#purpose'); if (el && p) el.innerHTML = `purpose: <a href="./table.html?category=${esc(p.category.id)}">${esc(p.category.title)}</a> › <a href="./table.html?block=${esc(p.block.symbol)}">${esc(p.block.symbol)} ${esc(p.block.title)}</a>`; }).catch(() => {});
   let source = '';
   try {
     const lines = await fetchSource(c);
