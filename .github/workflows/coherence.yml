@@ -1,0 +1,50 @@
+name: Coherence intelligent resume
+
+# The lab's memory: one page that says what ran, what exists, what the graphs say and what is waiting, so any
+# agent or person resumes from the same place. Bursts of at most 20 minutes. Runs after every Modular star run,
+# every 30 minutes if GitHub's schedule fires, and on demand.
+on:
+  workflow_run:
+    workflows: ["Modular star"]
+    types: [completed]
+  schedule:
+    - cron: '13,43 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: coherence
+  cancel-in-progress: false
+
+jobs:
+  resume:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Gather the resume page
+        run: node modular-star/coherence.mjs
+
+      - name: Save
+        run: |
+          git add resume
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -qm "Coherence resume $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do git pull --rebase -q -X theirs && git push -q && exit 0; git rebase --abort 2>/dev/null || true; sleep 7; done
+          exit 1
+
+      - name: Summary
+        if: always()
+        run: |
+          [ -f resume/RESUME.md ] && head -n 30 resume/RESUME.md >> "$GITHUB_STEP_SUMMARY" || echo "No resume page produced." >> "$GITHUB_STEP_SUMMARY"
