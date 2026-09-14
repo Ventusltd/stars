@@ -1,6 +1,6 @@
 # The Chemistry star — 4228 compounds from 4228 stars
 
-A compound is a composition of elements (cartridge versions by symbol and stamp; **Dt** = the deep-link contract; **Shell** = nothing bolted on). Stability = share of its stars that were GREEN. Decay = the exception the compound produces. Updated 2026-09-14T13:27:40.636Z. No model — arithmetic over the sky.
+A compound is a composition of elements (cartridge versions by symbol and stamp; **Dt** = the deep-link contract; **Shell** = nothing bolted on). Stability = share of its stars that were GREEN. Decay = the exception the compound produces. Updated 2026-09-14T14:28:43.565Z. No model — arithmetic over the sky.
 
 Symbols: **Sp** streaming-parquet-bridge · **Ug** uk-gazetteer-flyto · **Ss** sld-sandbox · **Si** substation-intelligence
 
@@ -65,4 +65,4 @@ Symbols: **Sp** streaming-parquet-bridge · **Ug** uk-gazetteer-flyto · **Ss** 
 - `Si(202609040021)·Sp·Ss(202609051540)·Ug` — 0 % stable (1 red / 1) · `sld-sandbox: Error: sld-sandbox requires the sld-styles module`
 
 ## For the Spider
-`chemistry/graph.json` — 125 nodes, 2786 edges, receiver idiom.
+`chemistry/graph.json` — 125 nodes, 129 edges, receiver idiom.
