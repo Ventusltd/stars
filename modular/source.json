@@ -1,0 +1,236 @@
+{
+  "generated_utc": "2026-09-14T02:18:45.882Z",
+  "repositories": [
+    {
+      "repo": "Ventusltd/Mahabharata",
+      "commit": "b9b70d8656b8fef2a8a222be0095d8a6d6da2e77",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/Solar-PV-Hybrid-and-off-grid",
+      "commit": "a74f5ee6bffe91a4251469a54e2206bee62b85b2",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/architecture",
+      "commit": "c07260091c47e96c7df8207bd50b0e0ce211d01f",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/cable-trench-or-drill",
+      "commit": "958449237b6f498677025a0e274709bc147f43f4",
+      "code_files": 23
+    },
+    {
+      "repo": "Ventusltd/chatgpt-audits",
+      "commit": "2ffb435d105d3729be764e20f1fce6720d681133",
+      "code_files": 18
+    },
+    {
+      "repo": "Ventusltd/claude",
+      "commit": "df9da02425fdf0c65d11a84f32cd9b3ef927b309",
+      "code_files": 63
+    },
+    {
+      "repo": "Ventusltd/codex-chatgpt",
+      "commit": "9bc0a5feaa81fb7181cfe86c42955c9f84b8671f",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/companies",
+      "commit": "ac70a37408d4f434e89e8a80cc36d40e450d3cfb",
+      "code_files": 10
+    },
+    {
+      "repo": "Ventusltd/control-pad",
+      "commit": "fd232f85072306c8900b6451764869ba4fd70701",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/cvaa",
+      "commit": "c7c9ba8f6ceef9efbb09fc4b674a30387a297287",
+      "code_files": 8
+    },
+    {
+      "repo": "Ventusltd/data-centres-gb",
+      "commit": "f9f47286fae63872375c558fc89ff4b1793914e4",
+      "code_files": 6
+    },
+    {
+      "repo": "Ventusltd/data-federation-map-for-globalgrid2050-all-repos",
+      "commit": "b759a7d2b5ec0dcc233c27db813ceadc5469157d",
+      "code_files": 13
+    },
+    {
+      "repo": "Ventusltd/data-gb-electricity",
+      "commit": "d310e3cec8cd14bc7cd3eef1e37037197bcb0798",
+      "code_files": 11
+    },
+    {
+      "repo": "Ventusltd/data-grid-gb",
+      "commit": "5181de3423e4fe50c77c568b9f3066c61a1d9e41",
+      "code_files": 8
+    },
+    {
+      "repo": "Ventusltd/data-gridatlas",
+      "commit": "8bf88da9e210ce9f61dc0398869d3369f3fa2445",
+      "code_files": 13
+    },
+    {
+      "repo": "Ventusltd/data-interconnectors",
+      "commit": "1e00d0e4d7bf3ddbc86224b3b6be5c2f3eaabf86",
+      "code_files": 2
+    },
+    {
+      "repo": "Ventusltd/data_uk_dno_and_tso",
+      "commit": "3d46dd63ce9bfc082ad7c506c056d242f159d8b6",
+      "code_files": 11
+    },
+    {
+      "repo": "Ventusltd/gb-electricity-ui",
+      "commit": "5b4533914bb2bcad7f5ea697af00faf67cf626cc",
+      "code_files": 8
+    },
+    {
+      "repo": "Ventusltd/gemini",
+      "commit": "16122ae08d45cec6f56838fb74938a1ab8131f81",
+      "code_files": 1
+    },
+    {
+      "repo": "Ventusltd/globalgrid2050",
+      "commit": "a387cac3aa3f09b8cdd27d3ed8040d661303f127",
+      "code_files": 5834
+    },
+    {
+      "repo": "Ventusltd/globalgrid2050-homepage",
+      "commit": "13055b1906e4a72dbcf7405d31fd12219607d622",
+      "code_files": 3
+    },
+    {
+      "repo": "Ventusltd/globalgrid2050-hompage",
+      "commit": "e0c3de9b47685b649e9e73cd377e3cadd2b143ac",
+      "code_files": 3
+    },
+    {
+      "repo": "Ventusltd/gpu-drivers-for-global-grid",
+      "commit": "31e1bcf86285a0749ca3dd8167c40efadf14cdcb",
+      "code_files": 15
+    },
+    {
+      "repo": "Ventusltd/grid-distance-maths",
+      "commit": "30aa4e0456f95f084aa4ca7a234c610546eaf020",
+      "code_files": 6
+    },
+    {
+      "repo": "Ventusltd/gridatlas",
+      "commit": "ece848117a6d21b7fccb232557194877698c48a9",
+      "code_files": 411
+    },
+    {
+      "repo": "Ventusltd/gridmachine1",
+      "commit": "c6cbf9686eea1aa148b2e4616b7d603e6a93b450",
+      "code_files": 6
+    },
+    {
+      "repo": "Ventusltd/gridmachine2",
+      "commit": "243091b58763af93c83f4205499cbe3f02c1a9b0",
+      "code_files": 1
+    },
+    {
+      "repo": "Ventusltd/layout-tool",
+      "commit": "5c450e27e430d6eb5d80070f794a5660f30015a1",
+      "code_files": 24
+    },
+    {
+      "repo": "Ventusltd/linux-for-the-power-grid",
+      "commit": "b984303b3d9ec104c92d754b8fd6207af021fef8",
+      "code_files": 5
+    },
+    {
+      "repo": "Ventusltd/pipelinenews",
+      "commit": "4980096b57cb35f63ad2d80bded5687beb2a9532",
+      "code_files": 992
+    },
+    {
+      "repo": "Ventusltd/pv-arc-protection-circuit",
+      "commit": "8c74069d192741f07d36752381e14a39328f002a",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/registry_of_all_content_in_repos_and_dependencies",
+      "commit": "4088117acd2c2d1ea3596779e13373fbb709c696",
+      "code_files": 8
+    },
+    {
+      "repo": "Ventusltd/reports",
+      "commit": "7648f57c5a50c11982de00b82b1fddac1d009056",
+      "code_files": 3
+    },
+    {
+      "repo": "Ventusltd/seed-data",
+      "commit": "016f2a101ca589a680f227e85490b0cd68986e46",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/solar-electrical-topology-analysis-engine-text-based",
+      "commit": "d3b4c497144c2c9b3e8f0e82117e7e9abe4672b9",
+      "code_files": 183
+    },
+    {
+      "repo": "Ventusltd/solar-repowering-whitepaper",
+      "commit": "be02c9bbaa83584ec38f14c8092e4a680fc93f67",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/spiders",
+      "commit": "731daf10075a539adf84c035da5a7125adf23286",
+      "code_files": 45
+    },
+    {
+      "repo": "Ventusltd/star-maker",
+      "commit": "5cd0003588bee0e0dbf9dd2ae1cb9fdd5bdeb580",
+      "code_files": 14
+    },
+    {
+      "repo": "Ventusltd/studies",
+      "commit": "6caf90f27d04473378b759513280e51537f85f7a",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/teleprinter",
+      "commit": "142163d591ab2cafbe36806f12e6f3607740f4c7",
+      "code_files": 59
+    },
+    {
+      "repo": "Ventusltd/testcode",
+      "commit": "e8f6222226a7254ce08091b549803c3c1b92d979",
+      "code_files": 3272
+    },
+    {
+      "repo": "Ventusltd/uk-dno-data",
+      "commit": "f90b038c9309b01b5f3eda2328b5853d823d1d0c",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/v11",
+      "commit": "debb30e092a1983e775d2ab4126995ab7bb72fe3",
+      "code_files": 4
+    },
+    {
+      "repo": "Ventusltd/ventus-grid-engine",
+      "commit": "be057061311fc088f27a4ff38756d5feb295175d",
+      "code_files": 65
+    },
+    {
+      "repo": "Ventusltd/ventusltd.com",
+      "commit": "f64dbf2f1d1fc5879725027863070f5a0b67c374",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/youengineer-code-review",
+      "commit": "f86dcb229b40ea774b2b5af049dbdc4b90b476de",
+      "code_files": 19
+    }
+  ],
+  "not_scanned": []
+}
