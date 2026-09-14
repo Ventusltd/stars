@@ -95,7 +95,7 @@ const tabletLines = new Map();
 const tabletOf = t => { if (!tabletLines.has(t)) tabletLines.set(t, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(t).lines)); return tabletLines.get(t); };
 const lineNumbers = p => tabletOf(p.tablet).slice(p.first - 1, p.last);
 // The code itself, on the focused card, in the dashboard's own monospace: numbered lines, capped so the graph stays light.
-const CODE_LINES = 28;
+const CODE_LINES = 16;
 function inlineCode(p) {
   const text = elementSource(ctx, p).split('\n'), nums = lineNumbers(p);
   const shown = text.slice(0, CODE_LINES).map((t, i) => `<span style="color:#4b5568">${String(nums[i] ?? '').padStart(6)}</span> ${esc(t)}`).join('\n');
@@ -171,7 +171,8 @@ if (engineGraph?.nodes) {
   engineGraph.nodes.forEach(node => { for (const p of placeIndex.get('ventus-grid-engine/' + node.label) || []) link(p.family, node, node.type === 'canonical' ? 'canonical home' : 'engine file'); });
   for (const e of engineGraph.edges || []) {
     const ev = e.evidence; if (!ev?.file) continue;
-    const m = String(ev.lines || '').match(/(\d+)\s*-\s*(\d+)/); const [a, b] = m ? [Number(m[1]), Number(m[2])] : [1, 1e9];
+    const m = String(ev.lines || '').match(/(\d+)\s*-\s*(\d+)/); if (!m) continue; // evidence without a line range cites a whole file: too loose to wire
+    const [a, b] = [Number(m[1]), Number(m[2])];
     for (const p of placeIndex.get(ev.file) || []) if (p.first <= b && p.last >= a) {
       const fromNode = engineGraph.nodes[e.from], toNode = engineGraph.nodes[e.to];
       if (toNode) link(p.family, toNode, e.type === 'supersedes' ? 'fragment cited as superseded' : `cited: ${e.type}`);
@@ -196,11 +197,13 @@ try {
     const lines = ctx.db.prepare("SELECT n FROM line WHERE instr(CAST(text AS TEXT), ?) > 0 LIMIT 200").all(msg).map(r => Number(r.n));
     const fams = new Map();
     for (const ln of lines) for (const [t, pos] of tabletsByLine.get(ln) || []) for (const te of teByTablet.get(t) || []) if (te.first <= pos && pos <= te.last) fams.set(Number(te.family), te.name);
-    decays.push({ message: text, red_stars: n, needle: msg, lines, families: [...fams].map(([f, name]) => ({ family: f, name })).filter(x => familyOf.has(x.family)) });
+    // Named functions first; anonymous wrappers (cartridge IIFEs) are shown with their file so the card still says where.
+    const list = [...fams].map(([f, name]) => ({ family: f, name: name === '(anonymous)' ? '(anonymous) in ' + (familyOf.get(f)?.places[0]?.path.split('/').pop() || '?') : name })).filter(x => familyOf.has(x.family)).sort((a, b) => (a.name.startsWith('(anonymous)') ? 1 : 0) - (b.name.startsWith('(anonymous)') ? 1 : 0));
+    decays.push({ message: text, red_stars: n, needle: msg, lines, families: list });
   }
 } catch { /* no chemistry report in this checkout */ }
 
-const chosen = new Map(repeated.slice(0, 200).map(f => [f.n, f]));
+const chosen = new Map(repeated.slice(0, 150).map(f => [f.n, f]));
 for (const n of engineJoin.keys()) if (familyOf.has(n)) chosen.set(n, familyOf.get(n));
 for (const d of decays) for (const x of d.families.slice(0, 6)) chosen.set(x.family, familyOf.get(x.family));
 const top = [...chosen.values()];
