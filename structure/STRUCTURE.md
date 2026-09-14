@@ -1,7 +1,7 @@
-# Structure of the estate
+# Structure of globalgrid2050 architecture development
 
-Updated 2026-09-14 10:08 UTC by GitHub Actions. Top-down: the estate, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (93 KB, 122 cards, 338 links), registered for the Spider dashboard as **Structure of the estate**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-14 12:31 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (94 KB, 122 cards, 337 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (27)
 
@@ -12,26 +12,26 @@ flowchart TD
   classDef fail fill:#3d1414,stroke:#ff6b6b,color:#e6edf3
   classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3
   classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5
-  estate["Ventus estate"]:::ok
+  estate["globalgrid2050 architecture development"]:::ok
   n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 22 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
-  n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
+  n_Ventusltd_globalgrid2050["globalgrid2050 · 19 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050
-  n_Ventusltd_gridatlas["gridatlas · 11 blocks"]:::ok
+  n_Ventusltd_gridatlas["gridatlas · 12 blocks"]:::ok
   estate --> n_Ventusltd_gridatlas
+  n_Ventusltd_code_generator["code-generator · 11 blocks"]:::ok
+  estate --> n_Ventusltd_code_generator
   n_Ventusltd_testcode["testcode · 11 blocks"]:::ok
   estate --> n_Ventusltd_testcode
-  n_Ventusltd_code_generator["code-generator · 10 blocks"]:::ok
-  estate --> n_Ventusltd_code_generator
   n_Ventusltd_pipelinenews["pipelinenews · 7 blocks"]:::ok
   estate --> n_Ventusltd_pipelinenews
   n_Ventusltd_spiders["spiders · 5 blocks"]:::ok
   estate --> n_Ventusltd_spiders
   n_Ventusltd_claude["claude · 4 blocks"]:::ok
   estate --> n_Ventusltd_claude
-  n_Ventusltd_data_grid_gb["data-grid-gb · 3 blocks"]:::ok
+  n_Ventusltd_data_grid_gb["data-grid-gb · 4 blocks"]:::ok
   estate --> n_Ventusltd_data_grid_gb
-  n_Ventusltd_data_gridatlas["data-gridatlas · 3 blocks"]:::ok
+  n_Ventusltd_data_gridatlas["data-gridatlas · 4 blocks"]:::ok
   estate --> n_Ventusltd_data_gridatlas
   n_Ventusltd_layout_tool["layout-tool · 3 blocks"]:::ok
   estate --> n_Ventusltd_layout_tool
@@ -156,7 +156,7 @@ flowchart LR
   end
   subgraph n_interface["Pages and interface"]
     n_block_Tp["Tp · Teleprinter controls"]:::ok
-    n_block_Em["Em · Estate menu bar"]:::ok
+    n_block_Em["Em · Site menu bar"]:::ok
     n_block_Mb["Mb · Atlas menu bar"]:::off
   end
   subgraph n_proofs["Proofs and checks"]
@@ -205,10 +205,6 @@ flowchart LR
   n_block_Pn --> n_block_Ss
   n_block_Pn --> n_block_Wf
   n_block_Pn --> n_block_Sa
-  n_block_Gp --> n_block_St
-  n_block_Gp --> n_block_Tp
-  n_block_Gp --> n_block_Pr
-  n_block_Gp --> n_block_Gn
   n_block_Gp --> n_block_Ss
   n_block_Gp --> n_block_Wf
   n_block_Wf --> n_block_St

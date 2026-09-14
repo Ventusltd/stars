@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-14 10:07 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
+Updated 2026-09-14 12:30 UTC by GitHub Actions. It reads the current code of 47 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,10 +8,10 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 247,847 |
-| File versions | 5,478 |
-| Elements (functions and classes) | 16,858 |
-| Families (same logic) | 15,514 |
+| Unique lines | 247,856 |
+| File versions | 5,484 |
+| Elements (functions and classes) | 16,862 |
+| Families (same logic) | 15,518 |
 | Families written in two or more different files (duplicate work) | 3,337 |
 | Families only copied between versions of one file | 800 |
 | Self-contained functions compiled into the library | 321 |
@@ -26,36 +26,36 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 43 | 469 | 6 | yes | 2026-08-28 | [globalgrid2050/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/pipelinenews_intelligence/202608311343/assets/202608282200-federated-relationships.mjs#L12-L14) |
-| #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1627-L1633) |
+| #1586 | `invariant` | 43 | 469 | 6 | yes | 2026-08-28 | [gridatlas/202608310050-gridatlas-next-version-builders/tools/202608310050-select-build-plan.mjs](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/202608310050-gridatlas-next-version-builders/tools/202608310050-select-build-plan.mjs#L28-L30) |
+| #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [gridatlas/atlas/cartridges/202609012045-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-sld-sandbox-v9-8.js#L3643-L3649) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
 | #975 | `sha256` | 67 | 98 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
-| #8285 | `sha256Hex` | 29 | 315 | 5 | no | 2026-08-29 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L124-L127) |
-| #5168 | `escapeHTML` | 23 | 195 | 5 | yes | 2026-04-03 | [globalgrid2050/repd_grid_atlasv3/index.html](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/repd_grid_atlasv3/index.html#L193-L197) |
-| #5609 | `(anonymous)` | 19 | 191 | 5 | no | 2026-04-07 | [globalgrid2050/repd_grid_atlasv6/ventus-corev6engine.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/repd_grid_atlasv6/ventus-corev6engine.js#L135-L140) |
-| #8328 | `(anonymous)` | 15 | 86 | 5 | no | 2026-08-30 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L786-L796) |
-| #8319 | `numberOrNull` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L616-L621) |
-| #8320 | `textOrNull` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L622-L625) |
-| #8321 | `suppliedArrivalFields` | 12 | 81 | 5 | yes | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L615-L638) |
-| #8323 | `retryExactRepdDeepLink` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L733-L742) |
-| #8324 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L752-L757) |
-| #8325 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L759-L771) |
-| #8326 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L773-L779) |
-| #8327 | `bindSearch` | 12 | 81 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609041945-place-global-search-v9-5.js#L744-L784) |
-| #8767 | `representativePoint` | 11 | 252 | 5 | yes | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1557-L1575) |
-| #8768 | `voltagesKv` | 11 | 252 | 5 | yes | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1583-L1601) |
-| #8769 | `destinationPoint` | 11 | 248 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1615-L1625) |
-| #8946 | `normalise` | 11 | 179 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L6622-L6626) |
-| #8782 | `(anonymous)` | 10 | 357 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1965-L1969) |
-| #8850 | `(anonymous)` | 9 | 222 | 5 | yes | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L4617-L4623) |
-| #8856 | `(anonymous)` | 9 | 222 | 5 | no | 2026-09-04 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L4749-L4752) |
-| #8772 | `voltageOf` | 9 | 184 | 5 | yes | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1723-L1727) |
-| #8773 | `ratingsOf` | 9 | 184 | 5 | yes | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1731-L1739) |
-| #8775 | `parametersOf` | 9 | 184 | 5 | yes | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1790-L1797) |
-| #8776 | `land` | 9 | 184 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1822-L1826) |
-| #8777 | `siteOf` | 9 | 184 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1836-L1839) |
-| #8781 | `resolve` | 9 | 184 | 5 | no | 2026-09-01 | [globalgrid2050/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js](https://github.com/Ventusltd/globalgrid2050/blob/a387cac3aa3f09b8cdd27d3ed8040d661303f127/testcode/202609051152/atlas/cartridges/202609051152-substation-intelligence.js#L1876-L1880) |
+| #8285 | `sha256Hex` | 29 | 315 | 5 | no | 2026-08-29 | [gridatlas/atlas/cartridges/202608301136-place-postcode-search.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202608301136-place-postcode-search.js#L64-L67) |
+| #5168 | `escapeHTML` | 23 | 195 | 5 | yes | 2026-04-03 | [gridatlas/atlas/cartridges/202609012045-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-substation-intelligence-v9-63.js#L45-L49) |
+| #5609 | `(anonymous)` | 19 | 191 | 5 | no | 2026-04-07 | [gridatlas/atlas/cartridges/202609012045-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-substation-intelligence-v9-63.js#L154-L159) |
+| #8328 | `(anonymous)` | 15 | 86 | 5 | no | 2026-08-30 | [gridatlas/atlas/cartridges/202608301136-place-postcode-search.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202608301136-place-postcode-search.js#L495-L505) |
+| #8319 | `numberOrNull` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L577-L582) |
+| #8320 | `textOrNull` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L583-L586) |
+| #8321 | `suppliedArrivalFields` | 12 | 81 | 5 | yes | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L576-L599) |
+| #8323 | `retryExactRepdDeepLink` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L694-L703) |
+| #8324 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L713-L718) |
+| #8325 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L720-L732) |
+| #8326 | `(anonymous)` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L734-L740) |
+| #8327 | `bindSearch` | 12 | 81 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040337-place-global-search-v9-5.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040337-place-global-search-v9-5.js#L705-L745) |
+| #8767 | `representativePoint` | 11 | 252 | 5 | yes | 2026-09-01 | [gridatlas/atlas/cartridges/202609012045-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-sld-sandbox-v9-8.js#L58-L76) |
+| #8768 | `voltagesKv` | 11 | 252 | 5 | yes | 2026-09-01 | [gridatlas/atlas/cartridges/202609012045-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-sld-sandbox-v9-8.js#L84-L102) |
+| #8769 | `destinationPoint` | 11 | 248 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L131-L141) |
+| #8946 | `normalise` | 11 | 179 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012045-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-substation-intelligence-v9-63.js#L1512-L1516) |
+| #8782 | `(anonymous)` | 10 | 357 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L992-L996) |
+| #8850 | `(anonymous)` | 9 | 222 | 5 | yes | 2026-09-04 | [gridatlas/atlas/cartridges/202609040021-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040021-substation-intelligence-v9-63.js#L4382-L4388) |
+| #8856 | `(anonymous)` | 9 | 222 | 5 | no | 2026-09-04 | [gridatlas/atlas/cartridges/202609040021-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609040021-substation-intelligence-v9-63.js#L4445-L4448) |
+| #8772 | `voltageOf` | 9 | 184 | 5 | yes | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L834-L838) |
+| #8773 | `ratingsOf` | 9 | 184 | 5 | yes | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L842-L850) |
+| #8775 | `parametersOf` | 9 | 184 | 5 | yes | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L852-L859) |
+| #8776 | `land` | 9 | 184 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L884-L888) |
+| #8777 | `siteOf` | 9 | 184 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L898-L901) |
+| #8781 | `resolve` | 9 | 184 | 5 | no | 2026-09-01 | [gridatlas/atlas/cartridges/202609012141-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012141-sld-sandbox-v9-8.js#L903-L907) |
 
 ## Same name, different code
 
@@ -67,7 +67,7 @@ These names mean different things in different repositories, so check which vers
 | `check` | 38 | 11 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `build` | 30 | 9 |
+| `build` | 34 | 9 |
 | `write_json` | 16 | 9 |
 | `load` | 15 | 9 |
 | `sha256` | 16 | 8 |
