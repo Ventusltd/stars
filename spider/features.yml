@@ -1,7 +1,7 @@
 # Graphs this repository publishes for the Spider dashboard (ventus-grid-engine spider/manifest.json).
 # Written by spider/register.py on every build. Each entry has the same fields as a manifest entry.
 schema_version: spider-features-v1
-generated_utc: "2026-09-14T02:32:05+00:00"
+generated_utc: "2026-09-14T03:55:09+00:00"
 site: "https://ventusltd.github.io/stars/"
 graphs:
   - id: "modular"
@@ -21,7 +21,7 @@ graphs:
     description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
     nodes: 125
     edges: 2786
-    graph_generated_utc: "2026-09-14T01:53:12.709Z"
+    graph_generated_utc: "2026-09-14T03:55:08.911Z"
   - id: "vedic"
     title: "Vedic stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
@@ -30,7 +30,7 @@ graphs:
     description: "The five-element classification of the code: how components group into broad classes, and whether each test respected its declared rules."
     nodes: 305
     edges: 300
-    graph_generated_utc: "2026-09-14T01:53:13.426Z"
+    graph_generated_utc: "2026-09-14T03:55:09.797Z"
   - id: "random"
     title: "Random stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
@@ -39,4 +39,4 @@ graphs:
     description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
     nodes: 163
     edges: 150
-    graph_generated_utc: "2026-09-14T01:53:13.504Z"
+    graph_generated_utc: "2026-09-14T03:55:09.877Z"
