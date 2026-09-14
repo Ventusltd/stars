@@ -85,7 +85,7 @@ if (rebuiltOk !== sample.length) { console.error(`Rebuild check failed: ${rebuil
 
 // ---------- reports ----------
 const count = t => Number(ctx.db.prepare(`SELECT count(*) c FROM ${t}`).get().c);
-const live = new Map(JSON.parse(readFileSync(new URL('./live-sites.json', import.meta.url))).sites.map(s => [s.repo, s.site]));
+const live = new Map(JSON.parse(readFileSync(new URL('./live-sites.json', import.meta.url), 'utf8').replace(/^\uFEFF/, '')).sites.map(s => [s.repo, s.site]));
 const enc = p => p.split('/').map(encodeURIComponent).join('/');
 const gh = o => `https://github.com/${o.repo}/blob/${o.commit_sha}/${enc(o.path)}#L${o.first}-L${o.last}`;
 
