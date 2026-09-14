@@ -31,9 +31,9 @@ GRAPHS = [
     ("chemistry", "Chemistry stars", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),
-    ("vedic", "Vedic stars", "reports/vedic/graph.json", "star-maker (vedic.mjs), rebuilt by stars",
-     "The five-element classification of the code: how components group into broad classes, and whether each test "
-     "respected its declared rules."),
+    ("vedic", "Classification stars", "reports/vedic/graph.json", "star-maker (vedic.mjs), rebuilt by stars",
+     "The five classes of the code (structure, movement, computation, flow, data), what is never used, and whether each "
+     "test loaded the map's parts in the declared order."),
     ("random", "Random stars", "reports/random/graph.json", "star-maker (random.mjs), rebuilt by stars",
      "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, "
      "not findings."),

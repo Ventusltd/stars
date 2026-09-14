@@ -64,7 +64,8 @@ jobs:
             if node "builders/$r.mjs" > "/tmp/$r.log" 2>&1; then
               res="updated"
               mkdir -p "reports/$r"
-              cp "sky/${r^^}.md" "reports/${r^^}.md"
+              name=$r; [ "$r" = vedic ] && name=classification
+              cp "sky/${name^^}.md" "reports/${name^^}.md"
               cp sky/$r/*.json "reports/$r/" 2>/dev/null || true
             else
               res="not updated: $(tail -n 1 /tmp/$r.log | cut -c1-160)"

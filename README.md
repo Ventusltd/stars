@@ -14,7 +14,7 @@ local machine has to do it.
 | Report | What it answers |
 |---|---|
 | [Chemistry](reports/CHEMISTRY.md) | Which combinations of components always work, which fail, and the error each failure produces |
-| [Vedic](reports/VEDIC.md) | How components group into broad classes, and whether each test respected its declared rules |
+| [Classification](reports/CLASSIFICATION.md) | The five classes of the code, what is never used, and whether each test kept the declared order |
 | [Random](reports/RANDOM.md) | Randomly chosen links between components, for spotting dependencies nobody wrote down (these are prompts to look, not findings) |
 
 [`reports/source.json`](reports/source.json) records which snapshot of the test results was used.
