@@ -207,7 +207,8 @@ const chosen = new Map(repeated.slice(0, 150).map(f => [f.n, f]));
 // Only the strong relations join the front-door graph; every relation is kept in engine-join.json.
 for (const [n, joins] of engineJoin) if (familyOf.has(n) && joins.some(j => /canonical home|superseded by/.test(j.relation))) chosen.set(n, familyOf.get(n));
 for (const d of decays) for (const x of d.families.slice(0, 6)) chosen.set(x.family, familyOf.get(x.family));
-const top = [...chosen.values()];
+// Enumeration order for the FOCUS list: by source file (repository, then path), then by family number, so the list reads like a table of contents.
+const top = [...chosen.values()].sort((x, y) => x.places[0].repo.localeCompare(y.places[0].repo) || x.places[0].path.localeCompare(y.places[0].path) || x.n - y.n);
 const nodes = [], edges = [], repoNodes = new Set(), engineNodes = new Map();
 for (const f of top) {
   const c = f.places[0], id = `family:${f.n}`;
