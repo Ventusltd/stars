@@ -90,6 +90,17 @@ const enc = p => p.split('/').map(encodeURIComponent).join('/');
 // A file's lineage is its path with timestamp stamps (8 or 12 digits) folded, so 202609051152-x.js and 202609041945-x.js match.
 const lineageOf = p => p.replace(/(^|[^0-9])\d{8}(\d{4})?(?=[^0-9]|$)/g, '$1{stamp}');
 const gh = o => `https://github.com/${o.repo}/blob/${o.commit_sha}/${enc(o.path)}#L${o.first}-L${o.last}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const tabletLines = new Map();
+const tabletOf = t => { if (!tabletLines.has(t)) tabletLines.set(t, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(t).lines)); return tabletLines.get(t); };
+const lineNumbers = p => tabletOf(p.tablet).slice(p.first - 1, p.last);
+// The code itself, on the focused card, in the dashboard's own monospace: numbered lines, capped so the graph stays light.
+const CODE_LINES = 28;
+function inlineCode(p) {
+  const text = elementSource(ctx, p).split('\n'), nums = lineNumbers(p);
+  const shown = text.slice(0, CODE_LINES).map((t, i) => `<span style="color:#4b5568">${String(nums[i] ?? '').padStart(6)}</span> ${esc(t)}`).join('\n');
+  return `<pre style="margin:6px 0 0;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.62rem;line-height:1.35;color:var(--text);white-space:pre;overflow:auto;max-height:260px">${shown}${text.length > CODE_LINES ? `\n<span style="color:#4b5568">… ${text.length - CODE_LINES} more lines</span>` : ''}</pre>`;
+}
 
 const places = ctx.db.prepare(`
   SELECT e.family fam, te.element el, te.tablet, te.first, te.last, te.col0, te.col1, te.name, e.kind, e.needs, e.standalone,
@@ -144,15 +155,66 @@ writeFileSync(path.join(OUT, 'library', 'standalone.mjs'),
 // other graph that uses the same key (family:N, repo:owner/name) joins this one.
 const SITE = 'https://ventusltd.github.io/stars/';
 const codePage = n => `${SITE}code.html?family=${n}`;
-const top = repeated.slice(0, 200);
-const nodes = [], edges = [], repoNodes = new Set();
+const ENGINE_GRAPH = 'https://ventusltd.github.io/ventus-grid-engine/genome/engine-graph.json';
+const familyOf = new Map(famList.map(f => [f.n, f]));
+
+// ---- Join to the engine-graph: the hand-made duplication map the Spider already shows at ?graph=engine-graph.
+// Its canonical nodes are files in ventus-grid-engine; its edges carry file+lines evidence. A family whose copy
+// sits in one of those files, at those lines, is wired to that node; the node deep-links into the engine graph.
+const engineJoin = new Map(); // family n -> [{label, type, gh, relation}]
+let engineGraph = null;
+try { engineGraph = await (await fetch(ENGINE_GRAPH)).json(); } catch { /* offline: no join this run */ }
+if (engineGraph?.nodes) {
+  const placeIndex = new Map(); // "repo-name/path" -> places
+  for (const f of famList) for (const p of f.places) { const k = p.repo.split('/')[1] + '/' + p.path; if (!placeIndex.has(k)) placeIndex.set(k, []); placeIndex.get(k).push({ ...p, family: f.n }); }
+  const link = (n, node, relation) => { if (!engineJoin.has(n)) engineJoin.set(n, []); if (!engineJoin.get(n).some(x => x.label === node.label)) engineJoin.get(n).push({ label: node.label, type: node.type, gh: node.gh, relation }); };
+  engineGraph.nodes.forEach(node => { for (const p of placeIndex.get('ventus-grid-engine/' + node.label) || []) link(p.family, node, node.type === 'canonical' ? 'canonical home' : 'engine file'); });
+  for (const e of engineGraph.edges || []) {
+    const ev = e.evidence; if (!ev?.file) continue;
+    const m = String(ev.lines || '').match(/(\d+)\s*-\s*(\d+)/); const [a, b] = m ? [Number(m[1]), Number(m[2])] : [1, 1e9];
+    for (const p of placeIndex.get(ev.file) || []) if (p.first <= b && p.last >= a) {
+      const fromNode = engineGraph.nodes[e.from], toNode = engineGraph.nodes[e.to];
+      if (toNode) link(p.family, toNode, e.type === 'supersedes' ? 'fragment cited as superseded' : `cited: ${e.type}`);
+      if (fromNode && e.type === 'supersedes') link(p.family, fromNode, 'superseded by');
+    }
+  }
+}
+
+// ---- Join to the chemistry stars: each decay message (the error a red composition produces) resolved to the
+// numbered lines that contain it, and so to the functions that throw it.
+const decays = [];
+try {
+  const compounds = JSON.parse(readFileSync(path.join(OUT, 'reports', 'chemistry', 'compounds.json'), 'utf8')).compounds || [];
+  const counts = new Map();
+  for (const c of compounds) for (const d of c.decays || []) counts.set(d.text, (counts.get(d.text) || 0) + (d.n || 1));
+  const tabletsByLine = new Map();
+  for (const t of ctx.db.prepare('SELECT n, lines FROM tablet').all()) unpack(t.lines).forEach((ln, i) => { if (!tabletsByLine.has(ln)) tabletsByLine.set(ln, []); tabletsByLine.get(ln).push([Number(t.n), i + 1]); });
+  const teByTablet = new Map();
+  for (const te of ctx.db.prepare('SELECT te.tablet, te.first, te.last, te.name, e.family FROM tablet_element te JOIN element e ON e.n = te.element').all()) { if (!teByTablet.has(te.tablet)) teByTablet.set(te.tablet, []); teByTablet.get(te.tablet).push(te); }
+  for (const [text, n] of [...counts].sort((a, b) => b[1] - a[1]).slice(0, 12)) {
+    const msg = text.split(': ').slice(-1)[0].trim(); if (msg.length < 12) continue;
+    const lines = ctx.db.prepare("SELECT n FROM line WHERE instr(CAST(text AS TEXT), ?) > 0 LIMIT 200").all(msg).map(r => Number(r.n));
+    const fams = new Map();
+    for (const ln of lines) for (const [t, pos] of tabletsByLine.get(ln) || []) for (const te of teByTablet.get(t) || []) if (te.first <= pos && pos <= te.last) fams.set(Number(te.family), te.name);
+    decays.push({ message: text, red_stars: n, needle: msg, lines, families: [...fams].map(([f, name]) => ({ family: f, name })).filter(x => familyOf.has(x.family)) });
+  }
+} catch { /* no chemistry report in this checkout */ }
+
+const chosen = new Map(repeated.slice(0, 200).map(f => [f.n, f]));
+for (const n of engineJoin.keys()) if (familyOf.has(n)) chosen.set(n, familyOf.get(n));
+for (const d of decays) for (const x of d.families.slice(0, 6)) chosen.set(x.family, familyOf.get(x.family));
+const top = [...chosen.values()];
+const nodes = [], edges = [], repoNodes = new Set(), engineNodes = new Map();
 for (const f of top) {
   const c = f.places[0], id = `family:${f.n}`;
   const needs = c.needs ? JSON.parse(c.needs) : null;
+  const joins = engineJoin.get(f.n) || [];
   nodes.push({ id, key: id, label: `#${f.n} ${[...f.names][0]}`, type: c.standalone ? 'library element' : 'element', rag: c.standalone ? 'green' : 'amber',
-    reason: `${f.lineages.size} different files · ${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (firstWritten.has(f.n) ? ` · first written ${firstWritten.get(f.n).slice(0, 10)}` : '') + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : ''),
+    reason: `${f.lineages.size} different files · ${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (firstWritten.has(f.n) ? ` · first written ${firstWritten.get(f.n).slice(0, 10)}` : '') + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : '')
+      + (joins.length ? ` · engine: ${joins.map(j => j.relation + ' ' + j.label).join('; ')}` : '') + inlineCode(c),
     gh: gh(c), ext: codePage(f.n) });
   for (const r of f.repos) { repoNodes.add(r); edges.push({ from: id, to: `repo:${r}`, type: 'found-in' }); }
+  for (const j of joins) { const eid = `engine:${j.label}`; if (!engineNodes.has(eid)) engineNodes.set(eid, j); edges.push({ from: id, to: eid, type: j.type === 'canonical' ? 'canonical' : 'engine' }); }
 }
 // Same name, different code: wire the families that share a name, so the Spider shows where a name means two things.
 const byName = new Map();
@@ -160,18 +222,25 @@ for (const f of top) for (const name of f.names) if (name.length > 3 && !['(anon
 for (const ns of byName.values()) for (let i = 1; i < ns.length; i++) edges.push({ from: `family:${ns[0]}`, to: `family:${ns[i]}`, type: 'same-name' });
 for (const r of repoNodes) nodes.push({ id: `repo:${r}`, key: `repo:${r}`, label: r.split('/')[1], type: 'repo', rag: 'green',
   reason: live.has(r) ? `published at ${live.get(r)}` : 'repository', gh: `https://github.com/${r}`, ext: live.get(r) || null });
+for (const [eid, j] of engineNodes) nodes.push({ id: eid, key: eid, label: j.label, type: j.type === 'canonical' ? 'engine canonical' : 'engine ' + j.type, rag: j.type === 'canonical' ? 'green' : 'amber',
+  reason: j.type === 'canonical' ? 'the engine\'s canonical module: the copy that should be imported' : `${j.type} in the engine-graph`, gh: j.gh || null,
+  ext: `https://ventusltd.github.io/ventus-grid-engine/?graph=engine-graph&focus=${encodeURIComponent(j.label)}` });
+for (const d of decays) {
+  if (!d.families.length) continue;
+  const id = `decay:${d.needle}`;
+  nodes.push({ id, key: id, label: d.message.slice(0, 90), type: 'decay', rag: 'red', reason: `${d.red_stars} red composition tests produce this error · found in ${d.lines.length} numbered line(s) · the functions that carry it are wired below`, gh: null, ext: `${SITE}reports/CHEMISTRY.md` });
+  for (const x of d.families.slice(0, 6)) if (chosen.has(x.family)) edges.push({ from: id, to: `family:${x.family}`, type: 'thrown-by' });
+}
 mkdirSync(path.join(OUT, 'modular'), { recursive: true });
 writeFileSync(path.join(OUT, 'modular', 'graph.json'), JSON.stringify({ schema: 'modular-star-graph.v1', label: 'The Modular star', generated_utc: now, nodes, edges }, null, 1));
+writeFileSync(path.join(OUT, 'modular', 'decays.json'), JSON.stringify({ generated_utc: now, note: 'Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.', decays }, null, 1));
+writeFileSync(path.join(OUT, 'modular', 'engine-join.json'), JSON.stringify({ generated_utc: now, source: ENGINE_GRAPH, families: Object.fromEntries([...engineJoin].map(([n, j]) => [n, { name: [...familyOf.get(n).names][0], joins: j }])) }, null, 1));
+console.log(`Spider graph: ${nodes.length} nodes, ${edges.length} edges; engine join ${engineJoin.size} families; ${decays.length} decay messages resolved.`);
 
 // Code records for the report page (code.html): every family, in buckets of 500 by number, so a page loads one
 // small file. Each record carries every place the logic lives, the live page that serves it, and the permanent
 // line numbers of its first copy. Plus a name index for search.
 const libraryExport = new Map(library.map(({ f, c }) => [f.n, `f${f.n}_${String(c.name).replace(/[^A-Za-z0-9_$]/g, '_').slice(0, 40)}`]));
-const tabletLines = new Map();
-const lineNumbers = p => {
-  if (!tabletLines.has(p.tablet)) tabletLines.set(p.tablet, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(p.tablet).lines));
-  return tabletLines.get(p.tablet).slice(p.first - 1, p.last);
-};
 const buckets = new Map(), names = Object.create(null); // null prototype: a function named constructor or toString must not collide
 for (const f of famList) {
   const c = f.places[0];
