@@ -1,5 +1,5 @@
 {
- "next": 855,
+ "next": 873,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -791,6 +791,24 @@
   "globalgrid2050:testcode/{stamp}/view.js": 851,
   "grid-dictionary:index.html": 852,
   "grid-dictionary:tools/build_dictionary.py": 853,
-  "testcode:sandbox/{stamp}-numbered-universe/view.js": 854
+  "testcode:sandbox/{stamp}-numbered-universe/view.js": 854,
+  "globalgrid2050:homepage_versions/homepage_v111.html": 855,
+  "globalgrid2050:testcode/{stamp}/block-register/index.html": 856,
+  "globalgrid2050:testcode/{stamp}/code-map/core.js": 857,
+  "globalgrid2050:testcode/{stamp}/code-map/v01-dependency-drill/index.html": 858,
+  "globalgrid2050:testcode/{stamp}/code-map/v02-radial-hierarchy/index.html": 859,
+  "globalgrid2050:testcode/{stamp}/code-map/v03-block-map/index.html": 860,
+  "globalgrid2050:testcode/{stamp}/code-map/v04-block-register-links/index.html": 861,
+  "globalgrid2050:testcode/{stamp}/code-map/v05-chord-dependencies/index.html": 862,
+  "globalgrid2050:testcode/{stamp}/code-map/v06-treemap/index.html": 863,
+  "globalgrid2050:testcode/{stamp}/code-map/v07-flow/index.html": 864,
+  "globalgrid2050:testcode/{stamp}/code-map/v08-ring-navigation/index.html": 865,
+  "globalgrid2050:testcode/{stamp}/code-map/v09-line-view/index.html": 866,
+  "globalgrid2050:testcode/{stamp}/code-map/v10-code-browser/index.html": 867,
+  "globalgrid2050:testcode/{stamp}/code-navigation/core.js": 868,
+  "globalgrid2050:testcode/{stamp}/code-navigation/navigation.js": 869,
+  "globalgrid2050:testcode/{stamp}/code-record/index.html": 870,
+  "globalgrid2050:testcode/{stamp}/corporate.js": 871,
+  "globalgrid2050:testcode/{stamp}/grid-engine/index.html": 872
  }
 }

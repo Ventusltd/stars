@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-14 15:52 UTC by GitHub Actions. It reads the current code of 48 Ventusltd repositories.
+Updated 2026-09-14 19:55 UTC by GitHub Actions. It reads the current code of 48 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 249,718 |
-| File versions | 5,536 |
-| Elements (functions and classes) | 16,995 |
-| Families (same logic) | 15,651 |
-| Families written in two or more different files (duplicate work) | 3,362 |
-| Families only copied between versions of one file | 844 |
-| Self-contained functions compiled into the library | 321 |
+| Unique lines | 250,174 |
+| File versions | 5,559 |
+| Elements (functions and classes) | 17,043 |
+| Families (same logic) | 15,695 |
+| Families written in two or more different files (duplicate work) | 3,414 |
+| Families only copied between versions of one file | 808 |
+| Self-contained functions compiled into the library | 323 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -67,7 +67,7 @@ These names mean different things in different repositories, so check which vers
 | `check` | 38 | 11 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `build` | 36 | 9 |
+| `build` | 38 | 9 |
 | `write_json` | 16 | 9 |
 | `load` | 15 | 9 |
 | `sha256` | 16 | 8 |
@@ -79,10 +79,10 @@ These names mean different things in different repositories, so check which vers
 | `distanceKm` | 5 | 7 |
 | `sha256_file` | 5 | 7 |
 | `sha256Hex` | 4 | 7 |
-| `start` | 37 | 6 |
+| `start` | 38 | 6 |
 | `invariant` | 22 | 6 |
+| `draw` | 15 | 6 |
 | `write` | 15 | 6 |
-| `draw` | 14 | 6 |
 | `validate` | 13 | 6 |
 | `write_reports` | 12 | 6 |
 | `collect` | 11 | 6 |
