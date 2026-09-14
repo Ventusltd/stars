@@ -113,7 +113,7 @@ for (const b of out) {
   nodes.push({ id: `block:${b.symbol}`, label: `${b.symbol} · ${b.title}`, type: b.kind, rag,
     reason: esc(b.description) + (b.functions ? ` <span style="color:#9aa3b5">· ${b.functions} functions inside${b.needs.length ? ' · needs ' + b.needs.slice(0, 5).map(n => esc(n.meaning)).join(', ') : ''}</span>` : ''),
     gh: b.files[0] ? `https://github.com/${b.files[0].repo}/blob/${b.files[0].commit}/${b.files[0].path}` : null, ext: `${SITE}table.html?block=${b.symbol}` });
-  edges.push({ from: `block:${b.symbol}`, to: `category:${b.category}`, type: 'category' });
+  edges.push({ from: `category:${b.category}`, to: `block:${b.symbol}`, type: 'contains' }); // edge types follow relationships/VOCABULARY.md
   for (const d of b.depends_on) edges.push({ from: `block:${b.symbol}`, to: `block:${d.symbol}`, type: 'depends-on' });
   for (const r of b.repos.slice(0, 6)) { if (!repoSeen.has(r)) { repoSeen.add(r); nodes.push({ id: `repo:${r}`, label: r.split('/')[1], type: 'repo', rag: 'green', reason: 'repository', gh: `https://github.com/${r}`, ext: null }); } edges.push({ from: `block:${b.symbol}`, to: `repo:${r}`, type: 'found-in' }); }
 }

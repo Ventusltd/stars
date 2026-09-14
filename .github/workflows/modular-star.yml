@@ -72,6 +72,12 @@ jobs:
           for s in sense proof structure; do [ -f modular-star/$s.mjs ] && (node modular-star/$s.mjs --out . || echo "$s: did not complete"); done
           true
 
+      - name: Relationship line on every focused card and the why on every red card (relationships/VOCABULARY.md)
+        run: |
+          node modular-star/why.mjs --out .
+          node modular-star/relate.mjs --out . modular/graph.json blocks/graph.json sense/graph.json structure/graph.json proof/graph.json
+          node tools/check-graph.mjs modular/graph.json && node tools/check-graph.mjs blocks/graph.json
+
       - name: Write every unique line with its number (LINES.md)
         run: node modular-star/lines.mjs --db modular.sqlite --out LINES.md
 
@@ -100,7 +106,7 @@ jobs:
       - name: Save reports
         run: |
           python3 spider/register.py
-          git add modular library spider code blocks sense proof structure decisions LINES.md
+          git add modular library spider code blocks sense proof structure decisions relationships LINES.md
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

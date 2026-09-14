@@ -156,8 +156,8 @@ for (const b of namedBlocks) {
 for (const b of namedBlocks) {
   const cat = catIds.get(b.category);
   if (cat) wire(cat, blockId(b), 'contains');
-  for (const d of b.depends_on || []) { const t = findBlock(d); if (t && ids.has(blockId(t))) wire(blockId(b), blockId(t), 'depends_on'); }
-  if (b.state === 'UNSETTLED') wire(CH.decision, blockId(b), 'decides');
+  for (const d of b.depends_on || []) { const t = findBlock(d); if (t && ids.has(blockId(t))) wire(blockId(b), blockId(t), 'depends-on'); }
+  if (b.state === 'UNSETTLED') wire(CH.decision, blockId(b), 'concerns');
 }
 
 // ---------- 5. canonical homes and their copies (illusion) ----------
@@ -180,7 +180,7 @@ for (const [label, h] of homeList) {
   const id = add({
     id: `home-${label.replace(/[^a-z0-9]+/gi, '-')}`, label, type: 'canonical', rag: h.fragments.length ? 'amber' : 'green',
     reason: `The one true home of ${[...h.functions].slice(0, 4).map(esc).join(', ')}${h.functions.size > 4 ? ` and ${h.functions.size - 4} more` : ''}.`
-      + (h.fragments.length ? `<br><small>${plural(h.fragments.length, 'copy')} elsewhere should import from here.</small>` : ''),
+      + (h.fragments.length ? `<br><small>${`${h.fragments.length} ${h.fragments.length === 1 ? 'copy' : 'copies'}`} elsewhere should import from here.</small>` : ''),
     gh: h.gh || null, ext: `${STARS}modular/engine-join.json`,
   });
   homeIds.set(label, id);
@@ -194,7 +194,7 @@ for (const [label, h] of homeList) {
   for (const f of h.fragments) {
     if (copyBudget <= 0) break;
     const key = f.label;
-    if (copySeen.has(key)) { wire(`copy-${key.replace(/[^a-z0-9]+/gi, '-')}`, homeIds.get(label), 'should_import'); continue; }
+    if (copySeen.has(key)) { wire(`copy-${key.replace(/[^a-z0-9]+/gi, '-')}`, homeIds.get(label), 'should-import'); continue; }
     copySeen.add(key);
     const id = add({
       id: `copy-${key.replace(/[^a-z0-9]+/gi, '-')}`, label: key, type: 'copy', rag: 'red',
@@ -203,7 +203,7 @@ for (const [label, h] of homeList) {
       gh: f.gh || null, ext: `${STARS}code.html?family=${f.family}`,
     });
     copyBudget--;
-    wire(id, homeIds.get(label), 'should_import');
+    wire(id, homeIds.get(label), 'should-import');
     wire(CH.illusion, id, 'contains');
   }
 }
@@ -215,15 +215,15 @@ const appsBySymbol = new Map();
 for (const app of reactions.apps || []) for (const s of app.blocks || []) appsBySymbol.set(s, (appsBySymbol.get(s) || 0) + 1);
 for (const r of reactions.reactions || []) {
   const a = findBlock(r.a), b = findBlock(r.b);
-  if (!a || !b || !ids.has(blockId(a)) || !ids.has(blockId(b))) continue;
-  const type = r.verdict === 'unstable' ? 'unstable' : 'seen_together';
-  if (type === 'unstable') unstable++; else seen++;
+  if (!a || !b || !ids.has(blockId(a)) || !ids.has(blockId(b)) || r.verdict === 'untested') continue;
+  const type = r.verdict === 'proven' ? 'proven' : r.verdict === 'unstable' ? 'unstable' : r.verdict === 'fails' ? 'fails' : 'seen-together';
+  if (type === 'unstable' || type === 'fails') unstable++; else seen++;
   wire(blockId(a), blockId(b), type);
 }
 // Blocks that appear in no shipped app are untested by use.
 for (const b of namedBlocks) {
   if (b.kind === 'constant') continue;
-  if ((appsBySymbol.get(b.symbol) || 0) > 0) wire(CH.proof, blockId(b), 'proven');
+  if ((appsBySymbol.get(b.symbol) || 0) > 0) wire(CH.proof, blockId(b), 'contains');
 }
 
 // ---------- 7. what breaks (decays → throwing functions → blocks) ----------
@@ -242,7 +242,7 @@ decayList.forEach((d, i) => {
   wire(CH.fault, id, 'contains');
   const hit = new Set();
   for (const t of d.families || []) { const b = familyToBlock.get(String(t.family)); if (b && ids.has(blockId(b))) hit.add(blockId(b)); }
-  for (const bid of hit) wire(id, bid, 'throws');
+  for (const bid of hit) wire(id, bid, 'thrown-by');
 });
 
 // ---------- 8. foundations (hubs) ----------
@@ -255,7 +255,7 @@ for (const h of hubs) {
       + (rec?.repos?.length ? `<br><small>in ${plural(rec.repos.length, 'repository')}, ${plural(rec.places?.length || 0, 'place')}</small>` : ''),
     gh: familyGh(rec), ext: `${STARS}code.html?family=${h.family}`,
   });
-  wire(CH.foundation, id, 'leans_on');
+  wire(CH.foundation, id, 'contains');
   const b = familyToBlock.get(String(h.family));
   if (b && ids.has(blockId(b))) wire(blockId(b), id, 'contains');
 }
@@ -267,7 +267,7 @@ const graph = {
   id: 'sense',
   title: 'Sense of the code universe',
   generated_utc: new Date().toISOString(),
-  note: 'Order is the narrative: whole, chapters, purposes, blocks, canonical homes, copies, faults, foundations. Edges carry the meaning: contains, depends_on, should_import, decides, seen_together, unstable, proven, throws, leans_on.',
+  note: 'Order is the narrative: whole, chapters, purposes, blocks, canonical homes, copies, faults, foundations. Edge types are the shared vocabulary (relationships/VOCABULARY.md): contains, depends-on, canonical, should-import, concerns, proven, seen-together, unstable, fails, thrown-by.',
   source: { blocks: 'blocks/blocks.json', reactions: 'blocks/reactions.json', dependencies: 'modular/dependencies.json', decays: 'modular/decays.json', engine_join: 'modular/engine-join.json' },
   nodes, edges,
 };
@@ -284,14 +284,14 @@ Spider dashboard reads as a narrative from the whole to the parts:
 
 1. **The code universe** — ${familyCount.toLocaleString()} distinct functions, ${blocks.length} numbered blocks.
 2. **What the code is for** — ${catIds.size} purposes, each containing the blocks that serve it.
-3. **The blocks** — ${namedBlocks.length} named blocks (constants, engines, cartridges, layers, apps, tools), wired by *depends_on*
+3. **The blocks** — ${namedBlocks.length} named blocks (constants, engines, cartridges, layers, apps, tools), wired by *depends-on*
    so a reader can walk from a purpose to a part to what that part needs.
 4. **What is canonical** — ${homeList.length} homes declared by the engine graph, holding ${canonicalCount} canonical functions.
 5. **What is illusion** — ${fragmentCount} copies of those functions exist elsewhere (${copiesShown} shown here); each is wired
-   *should_import* to its home. They look like separate code; they are the same function written twice.
+   *should-import* to its home. They look like separate code; they are the same function written twice.
 6. **What is a decision, not a fact** — ${unsettled.length} values in use in more than one form. No computation settles them.
 7. **What is proven together** — ${seen} block pairs seen together in shipped apps and ${unstable} unstable pairs, drawn as edges
-   between the blocks. A block with no *proven* wire has never shipped in an app.
+   between the blocks. A block not wired from this chapter has never shipped in an app; *proven* wires are composition tests that passed, *seen-together* wires are use without a test.
 8. **What breaks** — the ${decayList.length} most frequent composition-test errors, each wired to the block whose function throws it.
 9. **What everything leans on** — the ${hubs.length} most-used functions in globalgrid2050 architecture development.
 

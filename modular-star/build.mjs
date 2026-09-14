@@ -219,7 +219,7 @@ for (const f of top) {
       + (joins.length ? ` · engine: ${joins.map(j => j.relation + ' ' + j.label).join('; ')}` : '') + inlineCode(c),
     gh: gh(c), ext: codePage(f.n) });
   for (const r of f.repos) { repoNodes.add(r); edges.push({ from: id, to: `repo:${r}`, type: 'found-in' }); }
-  for (const j of joins) { const eid = `engine:${j.label}`; if (!engineNodes.has(eid)) engineNodes.set(eid, j); edges.push({ from: id, to: eid, type: j.type === 'canonical' ? 'canonical' : 'engine' }); }
+  for (const j of joins) { const eid = `engine:${j.label}`; if (!engineNodes.has(eid)) engineNodes.set(eid, j); edges.push({ from: id, to: eid, type: j.type === 'canonical' ? 'canonical' : 'should-import' }); } // vocabulary: relationships/VOCABULARY.md
 }
 // Same name, different code: wire the families that share a name, so the Spider shows where a name means two things.
 const byName = new Map();
