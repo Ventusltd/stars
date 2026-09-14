@@ -11,7 +11,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
     nodes: 298
     edges: 996
-    graph_generated_utc: "2026-09-14T09:48:58.441Z"
+    graph_generated_utc: "2026-09-14T09:50:37.248Z"
   - id: "periodic-table"
     title: "Periodic table"
     path: "https://ventusltd.github.io/stars/blocks/graph.json"
@@ -20,7 +20,7 @@ graphs:
     description: "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the repositories it lives in. Underneath each block are its numbered functions. External opens the table page."
     nodes: 261
     edges: 714
-    graph_generated_utc: "2026-09-14T09:49:48.806Z"
+    graph_generated_utc: "2026-09-14T09:51:22.416Z"
   - id: "proof-of-work"
     title: "Proof of work"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
@@ -29,7 +29,7 @@ graphs:
     description: "What ran, when, and what it produced: the workflows, their latest runs with status and duration, the artefacts they leave behind with sizes and update times, and the checks each must pass. Every card opens the run, file or release it describes. Rebuilt hourly on GitHub Actions; PROOF.md holds the same as a diagram."
     nodes: 40
     edges: 68
-    graph_generated_utc: "2026-09-14T09:49:50.444Z"
+    graph_generated_utc: "2026-09-14T09:51:31.786Z"
   - id: "structure"
     title: "Structure of the estate"
     path: "https://ventusltd.github.io/stars/structure/graph.json"
@@ -38,7 +38,16 @@ graphs:
     description: "The estate top-down: repositories, the categories of the periodic table, every named block with what it depends on and what uses it, and the engine's canonical modules in the engine graph's order. External opens the block on the table page; STRUCTURE.md holds the same as diagrams."
     nodes: 122
     edges: 337
-    graph_generated_utc: "2026-09-14T09:49:50.223Z"
+    graph_generated_utc: "2026-09-14T09:51:38.820Z"
+  - id: "sense"
+    title: "Sense of the code universe"
+    path: "https://ventusltd.github.io/stars/sense/graph.json"
+    edges_path: null
+    source_spider: "stars/modular-star (sense.mjs)"
+    description: "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."
+    nodes: 142
+    edges: 548
+    graph_generated_utc: "2026-09-14T09:51:31.744Z"
   - id: "proof-of-work"
     title: "Proof of work"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
@@ -47,7 +56,7 @@ graphs:
     description: "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."
     nodes: 40
     edges: 68
-    graph_generated_utc: "2026-09-14T09:49:50.444Z"
+    graph_generated_utc: "2026-09-14T09:51:31.786Z"
   - id: "structure"
     title: "Structure of the estate"
     path: "https://ventusltd.github.io/stars/structure/graph.json"
@@ -56,7 +65,7 @@ graphs:
     description: "The estate top-down: repositories, the blocks in each, and the engine modules in their canonical order."
     nodes: 122
     edges: 337
-    graph_generated_utc: "2026-09-14T09:49:50.223Z"
+    graph_generated_utc: "2026-09-14T09:51:38.820Z"
   - id: "chemistry"
     title: "Chemistry stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
