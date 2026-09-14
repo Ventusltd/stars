@@ -56,16 +56,16 @@ graphs:
     description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
     nodes: 125
     edges: 2786
-    graph_generated_utc: "2026-09-14T10:09:34.046Z"
+    graph_generated_utc: "2026-09-14T12:19:29.644Z"
   - id: "vedic"
-    title: "Vedic stars"
+    title: "Classification stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
     edges_path: null
     source_spider: "star-maker (vedic.mjs), rebuilt by stars"
-    description: "The five-element classification of the code: how components group into broad classes, and whether each test respected its declared rules."
+    description: "The five classes of the code (structure, movement, computation, flow, data), what is never used, and whether each test loaded the map's parts in the declared order."
     nodes: 305
     edges: 300
-    graph_generated_utc: "2026-09-14T10:09:34.926Z"
+    graph_generated_utc: "2026-09-14T12:19:30.262Z"
   - id: "random"
     title: "Random stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
@@ -74,4 +74,4 @@ graphs:
     description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
     nodes: 163
     edges: 150
-    graph_generated_utc: "2026-09-14T10:09:35.311Z"
+    graph_generated_utc: "2026-09-14T12:19:30.331Z"

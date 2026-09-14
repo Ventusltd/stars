@@ -2,7 +2,7 @@
   "schema": "random-graph.v1",
   "label": "The Random star",
   "seed": "2026-09-14",
-  "generated_utc": "2026-09-14T10:09:35.311Z",
+  "generated_utc": "2026-09-14T12:19:30.331Z",
   "note": "Links chosen by probability alone. Not findings. Serendipity for Claude + VIK-AI.",
   "focus_default": "#5439 title",
   "nodes": [
@@ -22,7 +22,7 @@
       "label": "#6652 megawatts",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3610 globalgrid2050/onChange",
@@ -52,7 +52,7 @@
       "label": "#4942 sourceId",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609050354)",
@@ -64,7 +64,7 @@
       "label": "Pp power_plants",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · agni (fire)"
+      "reason": "from the vedic star · element · Computation"
     },
     {
       "label": "#3792 setGaugeUniverseV9_2",
@@ -76,7 +76,7 @@
       "label": "#3799 indexNewsItems",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609040337)",
@@ -106,7 +106,7 @@
       "label": "#8552 compute",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · agni (fire)"
+      "reason": "from the vedic star · function · Computation"
     },
     {
       "label": "#1524 pipelinenews/promise",
@@ -130,7 +130,7 @@
       "label": "#6974 log_message",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · vayu (air)"
+      "reason": "from the vedic star · function · Movement"
     },
     {
       "label": "#3384 globalgrid2050/promise",
@@ -148,7 +148,7 @@
       "label": "#3840 drawRegional",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#15 testcode/renderStats",
@@ -160,7 +160,7 @@
       "label": "#4569 success",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1179 computeStats",
@@ -193,10 +193,10 @@
       "reason": "from the electron star · function · 3 lines · shells K50 L61 M60 · valence 0 · spin paired · homes global"
     },
     {
-      "label": "akasha (ether)",
+      "label": "Structure",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · 5 forms"
+      "reason": "from the vedic star · what holds everything in place: shells, manifests, contracts, registries · 5 for"
     },
     {
       "label": "Ss(202609080837)",
@@ -220,13 +220,13 @@
       "label": "Pf published-fault-level.js",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · agni (fire)"
+      "reason": "from the vedic star · element · Computation"
     },
     {
       "label": "Gr grid_275kv",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "Si(202609031316)",
@@ -238,7 +238,7 @@
       "label": "#1470 invariant",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#8471 edit",
@@ -268,7 +268,7 @@
       "label": "#4272 preparePage",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#6554 centre",
@@ -292,13 +292,13 @@
       "label": "#1793 _zoneDrawCalcArea",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · agni (fire)"
+      "reason": "from the vedic star · function · Computation"
     },
     {
       "label": "#3616 cleanText",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1532 buildAtlasV9DeepLink",
@@ -316,13 +316,13 @@
       "label": "#4621 graph",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#7851 available",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1524 globalgrid2050/promise",
@@ -340,7 +340,7 @@
       "label": "#2138 files",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609032315)",
@@ -352,13 +352,13 @@
       "label": "#4312 readText",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#4320 gitBlob",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609041244)",
@@ -370,13 +370,13 @@
       "label": "#5547 writeText",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#5889 authority",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3880 repdUpdatedTimestamp",
@@ -388,7 +388,7 @@
       "label": "#1241 updateArrayRotationDisplay",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3827 renderNews",
@@ -436,7 +436,7 @@
       "label": "#1476 invariant",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3406 provisional",
@@ -454,13 +454,13 @@
       "label": "#3812 indexNewsItems",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#346 fetcher",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · apas (water)"
+      "reason": "from the vedic star · function · Flow"
     },
     {
       "label": "Ss(202609071005)",
@@ -472,19 +472,19 @@
       "label": "#3725 deepFreeze",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1 clampInteger",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Rp REPD_PAGE",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#3262 startCableRouteMode",
@@ -502,7 +502,7 @@
       "label": "#14 renderIssues",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609031751)",
@@ -526,13 +526,13 @@
       "label": "#1465 validateAsset",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3805 validPayload",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#5324 element",
@@ -604,25 +604,25 @@
       "label": "#5253 evidence",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3418 fitToStatedCapacity",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · agni (fire)"
+      "reason": "from the vedic star · function · Computation"
     },
     {
       "label": "#1463 installStyles",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1684 clearWider",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1724 centroid",
@@ -634,7 +634,7 @@
       "label": "#1175 getCentralInverterDcMwdc",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#8398 tool",
@@ -646,7 +646,7 @@
       "label": "#1201 renderFinanceWarnings",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3606 release",
@@ -664,7 +664,7 @@
       "label": "#5490 pair",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3573 published",
@@ -676,7 +676,7 @@
       "label": "#1567 select",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#4646 relation",
@@ -706,19 +706,19 @@
       "label": "L LIMIT",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#401 head_sha",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#4843 envelope",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · agni (fire)"
+      "reason": "from the vedic star · function · Computation"
     },
     {
       "label": "Ss(202609072329)",
@@ -742,13 +742,13 @@
       "label": "Ss sld-sandbox",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#1504 csvCell",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Si(202609050249)",
@@ -766,13 +766,13 @@
       "label": "#4299 fetchImpl",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · apas (water)"
+      "reason": "from the vedic star · function · Flow"
     },
     {
       "label": "#1680 presentSummary",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609070857)",
@@ -790,7 +790,7 @@
       "label": "#3793 updateGaugesV9_2",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Si(202609040134)",
@@ -802,7 +802,7 @@
       "label": "#3820 renderNews",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Ss(202609040219)",
@@ -814,13 +814,13 @@
       "label": "A airports",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#3748 hasValidatedModel",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Si(202609030156)",
@@ -838,13 +838,13 @@
       "label": "#4318 readJson",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#3789 formatCapacityV9_2",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · agni (fire)"
+      "reason": "from the vedic star · function · Computation"
     },
     {
       "label": "Ss(202609040021)",
@@ -874,19 +874,19 @@
       "label": "G1 grid_132kv",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#7945 notify",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "T TECHNOLOGIES",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#3403 scope",
@@ -898,19 +898,19 @@
       "label": "Hr HIT_RADIUS_EDGE_PX",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#3413 centralStats",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#5909 projects",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#4052 globalgrid2050/handle",
@@ -922,25 +922,25 @@
       "label": "#4315 readText",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#6 getInputs",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "Si substation-intelligence",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · prithvi (earth)"
+      "reason": "from the vedic star · element · Data"
     },
     {
       "label": "#3411 consistency",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#1232 updateSelectedSubstationDisplay",
@@ -958,7 +958,7 @@
       "label": "#3869 updateResultSummary",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · soul · prithvi (earth)"
+      "reason": "from the vedic star · function · Data"
     },
     {
       "label": "#766 geometry",
@@ -1090,7 +1090,7 @@
     },
     {
       "from": "#3790 formatLargestV9_2",
-      "to": "akasha (ether)",
+      "to": "Structure",
       "kind": "COULD_REPLACE",
       "p": 0.547
     },

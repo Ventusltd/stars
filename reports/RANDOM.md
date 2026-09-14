@@ -19,7 +19,7 @@ No logic. Pairs drawn at random from every node the other stars drew (1129 in th
 - #4569 success —REMINDS_OF (0.427)→ #3384 globalgrid2050/promise
 - #1179 computeStats —REMINDS_OF (0.221)→ #3801 signalForProjectV9_2
 - repo v11 —WHAT_IF (0.906)→ #5 normaliseIntegerFields
-- #3790 formatLargestV9_2 —COULD_REPLACE (0.547)→ akasha (ether)
+- #3790 formatLargestV9_2 —COULD_REPLACE (0.547)→ Structure
 - Ss(202609080837) —COULD_REPLACE (0.437)→ #3384 testcode/promise
 - repo gb-electricity-ui —ENTANGLED_MAYBE (0.757)→ #1524 pipelinenews/promise
 - repo claude —RHYMES_WITH (0.543)→ Pf published-fault-level.js

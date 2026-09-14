@@ -1,3797 +1,3797 @@
 {
-  "generated_utc": "2026-09-13T22:58:57.318Z",
+  "generated_utc": "2026-09-14T12:19:30.261Z",
   "counts": {
-    "akasha (ether)": 5,
-    "vayu (air)": 30,
-    "agni (fire)": 53,
-    "apas (water)": 16,
-    "prithvi (earth)": 443
+    "Structure": 5,
+    "Movement": 30,
+    "Computation": 53,
+    "Flow": 16,
+    "Data": 443
   },
   "forms": [
     {
       "kind": "element",
       "name": "At ALLOWED_TECHNOLOGIES",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Ek EARTH_KM",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Hr HIT_RADIUS_EDGE_PX",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Hi HIT_RADIUS_VERTEX_PX",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "L LIMIT",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Mr MAX_RESOURCES",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Mt MAX_TRIES",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Ri REPD_IDS",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Rp REPD_PAGE",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Sm SOLAR_MIN_EXCLUSIVE",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "S STATUSES",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "T TECHNOLOGIES",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "UNSETTLED"
     },
     {
       "kind": "element",
       "name": "Gc geo-core.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ga geo-area.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Gs geo-shapes.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Gg geo-geojson.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Vg v9-geodesy.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Vn v9-nearest-search.js",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Nt network-topology.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ed electrical-distance.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Re rating-envelope.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ce corridor-estimate.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Pf published-fault-level.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "El electrification-demand.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Fc firm-capacity.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Dd diversified-demand.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Cc connection-capacity.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ro route-obstacles.js",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ie interconnector-economics.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Po power-factor.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Vd voltage-drop.js",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Sp streaming-parquet-bridge",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ug uk-gazetteer-flyto",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Ss sld-sandbox",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Si substation-intelligence",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "A airports",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "D datacentres",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "G1 grid_132kv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "G2 grid_220kv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Gr grid_275kv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "G4 grid_400kv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "G6 grid_66kv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Gri grid_substations",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Io industrial_offtakers",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Pp power_plants",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "R railways",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "state": "SETTLED"
     },
     {
       "kind": "element",
       "name": "Dt deeplink (the MAP button)",
-      "bhuta": "akasha (ether)",
+      "cls": "Structure",
       "state": "SETTLED"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2039 Number",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6554 centre",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8421 function",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#766 geometry",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#7846 cable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2138 files",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5246 finding",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "conductor",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8297 header",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4402 category",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8099 mount",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3978 click",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#7335 child",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4674 encode",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3606 release",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4076 reset",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3615 array",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3616 cleanText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4568 outcome",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5214 grab",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5403 nativeFetch",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8351 assess",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8398 tool",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8552 compute",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3262 startCableRouteMode",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3263 finishCableRouteMode",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3265 addCableRouteWaypoint",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5909 projects",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8630 getLayerConfig",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#346 fetcher",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6847 cell",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#7050 clamp",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3571 network",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6743 cartridge",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8538 quote",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#980 cells",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5490 pair",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "halogen",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6974 log_message",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "halogen",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4299 fetchImpl",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4093 dispose",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4336 capacity",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4621 graph",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1197 migrateFinanceUnitsToWp",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4364 schedule",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4711 waitForResolvedIdentity",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2926 indexed",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2966 composition",
-      "bhuta": "akasha (ether)",
+      "cls": "Structure",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4538 nearest",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5324 element",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1822 createGeoJSONCircle",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1792 _zoneDrawCirclePoints",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1793 _zoneDrawCalcArea",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1811 updateMeasureDisplay",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1817 doRadiusAreaMeasure",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4340 passed",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1724 centroid",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4624 crossing",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4646 relation",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#401 head_sha",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5372 measured",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2055 union",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4804 answer",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8209 body",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#537 query",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5096 classified",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5587 dump",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6161 item",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4942 sourceId",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5556 sha256PublishedFile",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#2141 scripts",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3573 published",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3579 ratings",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3979 detach",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5547 writeText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8299 writeSourceCodeBundle",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8391 buildNavigationRegistry",
-      "bhuta": "akasha (ether)",
+      "cls": "Structure",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8493 auditProjectRows",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#411 cartridges",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4870 savePdf",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5885 groupFor",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8298 verifySourceCodeBundleAgainstRepository",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8436 overlap",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8445 distance",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8492 isRetiredReceiver",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#190 replay",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#352 sweep",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1431 modules",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4466 words",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4569 success",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4843 envelope",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5253 evidence",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5439 title",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5440 panel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5726 counts",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5889 authority",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5914 repoUrl",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6580 curvature",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6588 nearest_segment",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6589 nearest_substations",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6652 megawatts",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6688 releases",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#7851 available",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#7945 notify",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8336 publishes",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8341 blocks",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8471 edit",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8579 drawLegend",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "alkali",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1529 invariant",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3360 sharedDuckDBRuntime",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3366 rowObject",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3705 round2",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3709 fetchRelease",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3800 signalLabel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3805 validPayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3806 payloadTime",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3807 fetchPayload",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3810 refreshProjects",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3812 indexNewsItems",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3818 payloadTime",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3869 updateResultSummary",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3880 repdUpdatedTimestamp",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4281 layoutSnapshot",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4282 assertContained",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4317 readText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4318 readJson",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1209 intVal",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1683 declineExport",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1686 carried",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4320 gitBlob",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4304 readText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4305 readJson",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4312 readText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4313 readJson",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4315 readText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4316 readJson",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1531 finiteInRange",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1533 selfTest",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1211 setText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1532 buildAtlasV9DeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1465 validateAsset",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1467 loadPayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1468 renderRows",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3789 formatCapacityV9_2",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3790 formatLargestV9_2",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3792 setGaugeUniverseV9_2",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3793 updateGaugesV9_2",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4272 preparePage",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1470 invariant",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1476 invariant",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1535 invariant",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1233 recalcAll",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3845 signalForProject",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1463 installStyles",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1676 writeDeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1677 selectTechnology",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1464 sha256Hex",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3801 signalForProjectV9_2",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3804 renderNews",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3817 validPayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3819 fetchPayload",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3820 renderNews",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3827 renderNews",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3828 validPayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3829 fetchPayload",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3848 renderNews",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3707 loadCanonicalProjectsV9_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1200 renderFinance",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1232 updateSelectedSubstationDisplay",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1530 buildAtlasV9DeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1469 select",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1542 select",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1684 clearWider",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1201 renderFinanceWarnings",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1219 toggleAtlasV8GridLayer",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3799 indexNewsItems",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3816 drawNewsV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1567 select",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1680 presentSummary",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1206 setFetchStatus",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3725 deepFreeze",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1205 pickProp",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1218 toggleAtlasV8OperatingAssetLayer",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1666 bindWiderFleet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1179 computeStats",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1199 computeFinance",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1220 initMap",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1231 renderBenchmark",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1241 updateArrayRotationDisplay",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1236 updateLegend",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1240 updateExportCableLengthDisplay",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1248 updateCableRouteStatus",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1191 computeAndDraw",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4114 mountMapControlsLayout",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1222 showPopup",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3570 cancel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3706 fetchJson",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3734 fetchJson",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3738 classifyRegionalV9_7",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3748 hasValidatedModel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3754 createCanonicalProjectControls",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3764 hasValidatedModel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3769 buildAtlasV8Url",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3786 setGaugeUniverseV9_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3787 updateGaugesV9_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3811 canonicalItem",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3813 signalForProjectV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3821 loadNewsV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3822 bindNewspaperV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3823 canonicalItem",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3824 signalForProjectV9_5",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3832 queryMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3833 regionalRows",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3834 drawRegional",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3838 queryMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3839 regionalRows",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3840 drawRegional",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3855 drawProjectTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1175 getCentralInverterDcMwdc",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1228 normaliseSubstations",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1230 renderTechSummary",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3969 decodePngPixels",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4034 captureGeometry",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4035 assertStableGeometry",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4037 cloneVisiblePrinterUi",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1 clampInteger",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4 normaliseBurialDepthFieldOnBlur",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#5 normaliseIntegerFields",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#6 getInputs",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#8 computeLayout",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#9 buildReview",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#10 lookupOD",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#13 renderStatus",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#14 renderIssues",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#19 drawFormation",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#20 drawTrench",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#21 drawBend",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#22 buildSnapshot",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1687 visible",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1483 displayDate",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1497 setButtonState",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1504 csvCell",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3402 classOf",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3403 scope",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3404 survey",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3405 ready",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3406 provisional",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3408 nearestTransmission",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3409 physicalInputs",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3411 consistency",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3412 stringStats",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3413 centralStats",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3415 applyMountingBifacial",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3416 screeningFinance",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3418 fitToStatedCapacity",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3419 bucketOf",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3420 policy",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3421 namedOffshore",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3422 widerFleetNames",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3423 widerFleetBuckets",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3424 measuredCount",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3425 isProjectTech",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3427 provisionalDeclaredConnection",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3428 resolveDeclaredConnection",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3429 nearestTransmission",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3431 corridorTargets",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3432 corridorAction",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3433 installCorridorSheet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3434 openCorridorSheet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3435 armCorridorGestures",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3436 nearestScope",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3437 declaredBlockHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3439 topologyModule",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3440 ensureTopology",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3441 distanceModule",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3442 ownerModule",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3443 plannedModule",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3444 flowModule",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3445 flowModelFor",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3446 ratingModule",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3447 runGridAtPoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3448 topologyBlockHtml",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3449 fillTopologyBlocks",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3450 topologyInnerHtml",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3451 setFlowDash",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3452 flowIndex",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3453 flowDash",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3454 noteFailure",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3455 recoverFailures",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3457 voltagesKv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3458 representativePoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3459 deepLinkPlan",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3460 createArrivalGate",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3461 continueVerifiedArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3462 arrivalKey",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3463 claimPendingArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3464 invalidatePendingArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3467 nearestProjects",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3470 caveatHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3471 kvContext",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3472 policyNotesHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3473 cardBlockHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3474 parkingSpot",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3475 sheetTarget",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3476 dockAsSheet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3477 undockSheet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3478 boundCardToMap",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3479 addCardBar",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3480 resetCardGeometry",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3481 injectIntoCard",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3482 removeArrivalFallback",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3483 markArrivalIdentityState",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3484 ensureArrivalCard",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3485 injectDeclaredOnly",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3486 armCardKeeper",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3487 disarmCardKeeper",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3488 removeCardBlock",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3489 emptyCollection",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3490 ensureLayers",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3491 stopAnimation",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3492 startAnimation",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3493 clearLinks",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3494 drawLinks",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3495 enableSubstationLayer",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3496 fromOwnUi",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3497 statusHost",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3498 showStatus",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3499 clearStatus",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3500 retryIdentityOwnerThenArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3501 injectStatusStyle",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3502 watchForLayerControls",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3503 waitForLayerControls",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3504 enableTechnologyLayer",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3505 ensurePinLayers",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3506 setPin",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3507 clearPin",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3508 togglePin",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3509 styleTextFont",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3510 glyphsReachable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3511 addLabelLayerWhenDrawable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3512 gbRow",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3513 gbProductError",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3514 renderGbConditions",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3515 ledgerStamp",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3516 installVersionLedger",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3517 scopeModule",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3518 ensureScopeLayers",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3519 clearScope",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3520 scopeHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3521 runGridScope",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3523 engineLayerBox",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3524 installMobileTray",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3525 quickChip",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3527 installGbConditions",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3528 setSourceData",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3529 interactiveLayerIds",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3531 selectAt",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3533 honourRequestedZoom",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3534 runArrivalSelection",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3538 PatchedMap",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3544 rectPolygon",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3545 footOnSegment",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3547 applyMountingBifacial",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3548 computeScreeningFinance",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3549 buildLayout",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3550 ensureSldLayers",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3551 animateSld",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3552 attachSldDragging",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3553 installSldStyles",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3554 sldPanel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3555 normalizeElectricalInput",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3556 electricalInputAttributes",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3557 renderSldPanel",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3558 closeSld",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3559 openSldAt",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3560 openSldFromProject",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3561 keepLayersInFullscreen",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3562 installSld",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3563 worksAt",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3564 financeNumber",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3576 reflectFullscreen",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3578 caveat",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3585 push",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3590 retryArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3591 gbNumber",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3592 framed",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3594 coordsUsable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3595 enableBoth",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3596 arrive",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3598 bootOnce",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3599 freshFinanceInputs",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3600 computeSldStats",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3601 push",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3607 financeFieldHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3608 moneyText",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3784 updateChart",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3867 relationshipSummary",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3871 populateCounties",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3875 copyProjectId",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3892 updateSortHeader",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3944 representativePoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3945 voltagesKv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4338 require",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1204 isValidLngLat",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3532 runDeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3883 syncFilterUrl",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3886 clearFilters",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1466 decodePayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1685 renderWider",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1866 focusCanonicalProjectDeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3426 layerIdForBucket",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3430 corridorBeside",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3466 nearestSubstations",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3603 walk",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3535 arrivalHasVisibleOutcome",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3536 attemptArrival",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1806 openPopup",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3861 populateCounties",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3917 populateCounties",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4036 captureAppFrame",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3577 show",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3858 displayDate",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3862 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3873 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3885 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3894 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3902 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3910 downloadCsv",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1629 select",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1640 decodePayload",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3539 destinationPoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3540 initialBearingDeg",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3541 pathLengthKm",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3542 localScaleKm",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3870 syncFilterUrl",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3874 clearFilters",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3946 destinationPoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3947 initialBearingDeg",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#15 renderStats",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1198 applyDevelopmentStageDefaults",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1202 money",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1203 debounce",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1229 loadSubstations",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3802 newsMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3815 newsMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3825 newsMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3846 newsMatches",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#522 distanceKm",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3456 distanceKm",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3537 attach",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3543 distanceToSegmentKm",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3783 createGauge",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3788 createGauge",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3794 createGauge",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1474 escapeHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1646 escapeHtml",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3859 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3868 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3882 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3893 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3901 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3909 renderTable",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1212 setClass",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3797 updateGauges",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3701 normaliseProject",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4256 canonical_sha",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4257 atomic_write_json",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4261 resolve_geometry",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1480 project",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1699 renderWider",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3884 hydrateFiltersFromUrl",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4051 bindLayerDismissal",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4289 check",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4361 check",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#4363 check",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1210 checked",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1517 bindSectorIntelligence",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1608 hydrateFiltersFromUrl",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1838 FetchQueue",
-      "bhuta": "apas (water)",
+      "cls": "Flow",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3872 hydrateFiltersFromUrl",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1694 selfTest",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#938 sha256",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#1659 boot",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "unpaired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3389 requestPath",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3390 mapReadyKey",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3391 legacyStem",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3393 getManifest",
-      "bhuta": "akasha (ether)",
+      "cls": "Structure",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3397 queryOnDemand",
-      "bhuta": "agni (fire)",
+      "cls": "Computation",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3898 atlasUrlV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3899 compareProjectUpdatesV9_5_1",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3355 sqlString",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3356 normaliseCompact",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3357 parseGroups",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3359 verifyManifest",
-      "bhuta": "akasha (ether)",
+      "cls": "Structure",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3361 runtime",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3363 installMapCapture",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3364 buildWhere",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3365 buildScore",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3367 queryOfficialRepd",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "ambiguous",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3368 hasSafeMapPoint",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3369 setDeepLink",
-      "bhuta": "vayu (air)",
+      "cls": "Movement",
       "class": "noble",
       "spin": "paired"
     },
     {
-      "kind": "soul",
+      "kind": "function",
       "name": "#3370 geocoderGet",
-      "bhuta": "prithvi (earth)",
+      "cls": "Data",
       "class": "noble",
       "spin": "paired"
     }
   ],
-  "neti_neti": [
+  "unused": [
     {
       "soul": "b89e5a3b7ca6",
       "number": 1470,
@@ -4025,8 +4025,8 @@
       "tunnelling": false
     }
   ],
-  "rita": {
-    "kept": 3414,
+  "declared_order": {
+    "kept": 4000,
     "broke": 0
   }
 }
