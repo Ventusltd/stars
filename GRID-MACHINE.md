@@ -103,3 +103,22 @@ decide with nothing hidden.
 That is why the machine must not grade, must not guess, and must not tidy away what it cannot prove. A web
 with invented threads catches nothing. A web with hidden threads catches its maker. The web that is only what is
 true is the one that holds.
+
+## The logical and the illogical
+
+The spider exists to map the code so that every link is beautiful, precise, and serves a purpose, and so that
+the whole logic of the estate becomes a legible web. Beautiful means a link a reader wants to follow. Precise
+means it lands on the exact line, at a fixed commit, every time. Purposeful means it answers the question the
+reader was holding when they tapped: what is this, where does it live, what does it depend on, who uses it.
+
+The web must hold both the logical and the illogical, because one cannot be without the other. The illogical is
+not noise to be cleaned away before the map is drawn; it is half of what the map is for. The copy that should not
+exist, the version born broken, the name that means thirty-eight things, the constant with three values, the
+combination nobody has tested: these are the threads that show where the logic ends. Remove them and the web
+lies by omission. Keep them, marked as what they are, and the logic becomes visible by contrast, the way a
+coastline is drawn by the sea.
+
+So the machine draws both, and never in the same colour. Green for what is proven, amber for what is near,
+red for what has failed, grey for what is not yet known, and a wire whose type tells the reader whether it
+carries evidence, debt, a warning, or a question. The estate, seen this way, is legible not because it is tidy
+but because nothing in it is hidden. That is the web the spider spins, and it is only beautiful because it is true.
