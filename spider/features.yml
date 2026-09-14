@@ -8,7 +8,7 @@ graphs:
     path: "https://ventusltd.github.io/stars/modular/graph.json"
     edges_path: null
     source_spider: "stars/modular-star (build.mjs)"
-    description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines, External opens the published page. Rebuilt hourly on GitHub Actions."
+    description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
     nodes: 134
     edges: 485
     graph_generated_utc: "2026-09-14T08:43:42.389Z"
@@ -20,7 +20,7 @@ graphs:
     description: "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. Arithmetic over every recorded composition test."
     nodes: 125
     edges: 2786
-    graph_generated_utc: "2026-09-14T08:44:48.202Z"
+    graph_generated_utc: "2026-09-14T08:50:04.240Z"
   - id: "vedic"
     title: "Vedic stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/vedic.json"
@@ -29,7 +29,7 @@ graphs:
     description: "The five-element classification of the code: how components group into broad classes, and whether each test respected its declared rules."
     nodes: 305
     edges: 300
-    graph_generated_utc: "2026-09-14T08:44:48.758Z"
+    graph_generated_utc: "2026-09-14T08:50:04.931Z"
   - id: "random"
     title: "Random stars"
     path: "https://ventusltd.github.io/stars/spider/graphs/random.json"
@@ -38,4 +38,4 @@ graphs:
     description: "Randomly chosen links between components, for tripping over dependencies nobody wrote down. Prompts to look, not findings."
     nodes: 163
     edges: 150
-    graph_generated_utc: "2026-09-14T08:44:48.951Z"
+    graph_generated_utc: "2026-09-14T08:50:05.012Z"
