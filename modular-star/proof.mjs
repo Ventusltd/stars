@@ -101,7 +101,7 @@ const artefacts = [
   { id: 'art:proof', file: 'proof/graph.json', label: 'Proof of work graph', by: 'wf:modular-star', what: 'This graph. Rebuilt on every run.', ext: `${SITE}proof/graph.json` },
   { id: 'art:structure', file: 'structure/graph.json', label: 'Structure graph', by: 'wf:modular-star', what: 'globalgrid2050 architecture development, top-down: repositories, blocks and the engine modules.', ext: `${SITE}structure/graph.json` },
   { id: 'art:chemistry', file: 'reports/CHEMISTRY.md', label: 'Chemistry report', by: 'wf:refresh', what: 'Which combinations of map components always work and which fail.', ext: `${GH}${REPO}/blob/main/reports/CHEMISTRY.md` },
-  { id: 'art:vedic', file: 'reports/VEDIC.md', label: 'Vedic report', by: 'wf:refresh', what: 'The five-element classification of the code and whether each test respected its rules.', ext: `${GH}${REPO}/blob/main/reports/VEDIC.md` },
+  { id: 'art:vedic', file: 'reports/CLASSIFICATION.md', label: 'Classification report', by: 'wf:refresh', what: 'The five-element classification of the code and whether each test respected its rules.', ext: `${GH}${REPO}/blob/main/reports/CLASSIFICATION.md` },
   { id: 'art:random', file: 'reports/RANDOM.md', label: 'Random report', by: 'wf:refresh', what: 'Randomly chosen links between components, as prompts to look.', ext: `${GH}${REPO}/blob/main/reports/RANDOM.md` },
 ];
 const generatedUtc = f => { try { const j = JSON.parse(readFileSync(path.join(OUT, f), 'utf8')); return j.generated_utc || null; } catch { return null; } };

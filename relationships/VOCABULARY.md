@@ -21,12 +21,13 @@ direction is always `from → to`, and the meaning is read from the source.
 | evidence | `canonical` | the source sits at its declared canonical home, proven by file and lines | ✓ canonical home |
 | evidence | `implements` | the source (an engine module) implements the target block | ✓ implements |
 | evidence | `proven` | the two blocks passed composition tests together | ✓ proven with |
+| question | `mixed-evidence` | recorded tests exist but do not meet the proven or unstable threshold; no causal claim | ? mixed test evidence with |
 | evidence | `seen-together` | the two blocks already live in the same shipped app; use, not a test | ✓ seen with |
 | evidence | `produces`, `run-of`, `checked-by`, `triggers` | the audit trail: a run of a workflow produced an artefact, a check checked it | ✓ |
 | debt | `should-import` | the source is a copy that should import the target, its canonical home | ⚠ should import · ⚠ copies should import this |
 | debt | `supersedes` | the source replaces the target; the target should go | ⚠ supersedes · ⚠ superseded by |
-| warning | `unstable` | composition tests pass sometimes (40 to 80 per cent) | ⚠ unstable with |
-| warning | `fails` | composition tests fail (under 40 per cent) | ⚠ fails with |
+| warning | `unstable` | at least three recorded composition tests containing the pair, at least 90 per cent red | ⚠ unstable with |
+| warning | `fails` | legacy failure verdict; the reactions builder now emits unstable under the explicit red-rate rule | ⚠ fails with |
 | warning | `thrown-by` | the source is an error; the target is a function that throws it | ⚠ thrown by · ⚠ throws |
 | warning | `same-name` | two functions share a name but not their logic | ⚠ shares a name with |
 | question | `concerns` | the source is a decision record about the target key; open is a question, decided is permission | ? decision |

@@ -210,14 +210,14 @@ for (const [label, h] of homeList) {
 const copiesShown = copySeen.size;
 
 // ---------- 6. proven together (reactions as edges between blocks) ----------
-let seen = 0, unstable = 0;
+let seen = 0, unstable = 0, mixed = 0;
 const appsBySymbol = new Map();
 for (const app of reactions.apps || []) for (const s of app.blocks || []) appsBySymbol.set(s, (appsBySymbol.get(s) || 0) + 1);
 for (const r of reactions.reactions || []) {
   const a = findBlock(r.a), b = findBlock(r.b);
   if (!a || !b || !ids.has(blockId(a)) || !ids.has(blockId(b)) || r.verdict === 'untested') continue;
-  const type = r.verdict === 'proven' ? 'proven' : r.verdict === 'unstable' ? 'unstable' : r.verdict === 'fails' ? 'fails' : 'seen-together';
-  if (type === 'unstable' || type === 'fails') unstable++; else seen++;
+  const type = r.verdict === 'proven' ? 'proven' : r.verdict === 'unstable' ? 'unstable' : r.verdict === 'fails' ? 'fails' : r.verdict === 'mixed evidence' ? 'mixed-evidence' : 'seen-together';
+  if (type === 'unstable' || type === 'fails') unstable++; else if (type === 'mixed-evidence') mixed++; else seen++;
   wire(blockId(a), blockId(b), type);
 }
 // Blocks that appear in no shipped app are untested by use.
@@ -267,7 +267,7 @@ const graph = {
   id: 'sense',
   title: 'Sense of the code universe',
   generated_utc: new Date().toISOString(),
-  note: 'Order is the narrative: whole, chapters, purposes, blocks, canonical homes, copies, faults, foundations. Edge types are the shared vocabulary (relationships/VOCABULARY.md): contains, depends-on, canonical, should-import, concerns, proven, seen-together, unstable, fails, thrown-by.',
+  note: 'Order is the narrative: whole, chapters, purposes, blocks, canonical homes, copies, faults, foundations. Edge types are the shared vocabulary (relationships/VOCABULARY.md): contains, depends-on, canonical, should-import, concerns, proven, seen-together, mixed-evidence, unstable, fails, thrown-by.',
   source: { blocks: 'blocks/blocks.json', reactions: 'blocks/reactions.json', dependencies: 'modular/dependencies.json', decays: 'modular/decays.json', engine_join: 'modular/engine-join.json' },
   nodes, edges,
 };
@@ -290,7 +290,7 @@ Spider dashboard reads as a narrative from the whole to the parts:
 5. **What is illusion** — ${fragmentCount} copies of those functions exist elsewhere (${copiesShown} shown here); each is wired
    *should-import* to its home. They look like separate code; they are the same function written twice.
 6. **What is a decision, not a fact** — ${unsettled.length} values in use in more than one form. No computation settles them.
-7. **What is proven together** — ${seen} block pairs seen together in shipped apps and ${unstable} unstable pairs, drawn as edges
+7. **What is proven together** — ${seen} block pairs with passed tests or app co-occurrence, ${mixed} pairs with mixed test evidence and ${unstable} unstable pairs, drawn as edges
    between the blocks. A block not wired from this chapter has never shipped in an app; *proven* wires are composition tests that passed, *seen-together* wires are use without a test.
 8. **What breaks** — the ${decayList.length} most frequent composition-test errors, each wired to the block whose function throws it.
 9. **What everything leans on** — the ${hubs.length} most-used functions in globalgrid2050 architecture development.
