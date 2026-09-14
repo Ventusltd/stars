@@ -58,6 +58,11 @@ jobs:
       - name: Structure of the estate and proof of work (Spider graphs with Mermaid pages)
         run: node modular-star/structure.mjs --out . && node modular-star/proof.mjs --out .
 
+      - name: Further graphs, when their scripts exist (sense, proof, structure)
+        run: |
+          for s in sense proof structure; do [ -f modular-star/$s.mjs ] && (node modular-star/$s.mjs --out . || echo "$s: did not complete"); done
+          true
+
       - name: Write every unique line with its number (LINES.md)
         run: node modular-star/lines.mjs --db modular.sqlite --out LINES.md
 

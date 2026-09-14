@@ -29,6 +29,13 @@ GRAPHS = [
      "The estate top-down: repositories, the categories of the periodic table, every named block with what it depends "
      "on and what uses it, and the engine's canonical modules in the engine graph's order. External opens the block on "
      "the table page; STRUCTURE.md holds the same as diagrams."),
+    ("sense", "Sense of the code universe", "sense/graph.json", "stars/modular-star (sense.mjs)",
+     "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and "
+     "what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."),
+    ("proof-of-work", "Proof of work", "proof/graph.json", "stars/modular-star (proof.mjs)",
+     "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."),
+    ("structure", "Structure of the estate", "structure/graph.json", "stars/modular-star (structure.mjs)",
+     "The estate top-down: repositories, the blocks in each, and the engine modules in their canonical order."),
     ("chemistry", "Chemistry stars", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),
