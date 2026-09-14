@@ -1,5 +1,5 @@
 {
- "next": 873,
+ "next": 884,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -809,6 +809,17 @@
   "globalgrid2050:testcode/{stamp}/code-navigation/navigation.js": 869,
   "globalgrid2050:testcode/{stamp}/code-record/index.html": 870,
   "globalgrid2050:testcode/{stamp}/corporate.js": 871,
-  "globalgrid2050:testcode/{stamp}/grid-engine/index.html": 872
+  "globalgrid2050:testcode/{stamp}/grid-engine/index.html": 872,
+  "testcode:sandbox/{stamp}-browser-evidence/view.js": 873,
+  "globalgrid2050:homepage_versions/homepage_v112.html": 874,
+  "globalgrid2050:testcode/{stamp}/amend_pack.mjs": 875,
+  "globalgrid2050:testcode/{stamp}/build_state.mjs": 876,
+  "globalgrid2050:testcode/{stamp}/proof/proof.mjs": 877,
+  "globalgrid2050:testcode/{stamp}/proof/proof2.mjs": 878,
+  "globalgrid2050:testcode/{stamp}/proof/review1_check.mjs": 879,
+  "globalgrid2050:testcode/{stamp}/quantum.js": 880,
+  "globalgrid2050:testcode/{stamp}/concept_compute.py": 881,
+  "globalgrid2050:testcode/{stamp}/merge_results.py": 882,
+  "globalgrid2050:testcode/{stamp}/test_dual_compute.py": 883
  }
 }
