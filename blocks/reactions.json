@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-14T12:31:30.796Z",
+ "generated_utc": "2026-09-14T12:42:31.585Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -20,7 +20,6 @@
     "Pf",
     "Po",
     "Ro",
-    "Ss",
     "Vd",
     "Vn"
    ],
@@ -292,18 +291,6 @@
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
   },
   {
-   "folder": "ventus-grid-engine/sources/deeplink-extracts/receiver",
-   "title": "Receiver",
-   "repo": "Ventusltd/ventus-grid-engine",
-   "blocks": [
-    "Dt",
-    "Ss",
-    "Ug"
-   ],
-   "live": "https://ventusltd.github.io/ventus-grid-engine/sources/deeplink-extracts/receiver/",
-   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/sources/deeplink-extracts/receiver"
-  },
-  {
    "folder": "code-generator/apps/substation-finder/Ug",
    "title": "Ug",
    "repo": "Ventusltd/code-generator",
@@ -503,6 +490,17 @@
    ],
    "live": "https://ventusltd.github.io/gridatlas/atlas/modules/",
    "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/modules"
+  },
+  {
+   "folder": "ventus-grid-engine/sources/deeplink-extracts/receiver",
+   "title": "Receiver",
+   "repo": "Ventusltd/ventus-grid-engine",
+   "blocks": [
+    "Dt",
+    "Ss"
+   ],
+   "live": "https://ventusltd.github.io/ventus-grid-engine/sources/deeplink-extracts/receiver/",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/sources/deeplink-extracts/receiver"
   },
   {
    "folder": "globalgrid2050/repd_grid_atlasv7",
@@ -840,33 +838,6 @@
    "decay": null
   },
   {
-   "a": "Dt",
-   "b": "Ug",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 7 app folders, never composition-tested",
-   "together": 7,
-   "examples": [
-    {
-     "title": "Gridatlas",
-     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
-    },
-    {
-     "title": "Gridatlas",
-     "live": "https://ventusltd.github.io/gridatlas/atlas/parts/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/parts"
-    },
-    {
-     "title": "Testcode",
-     "live": null,
-     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
    "a": "Ps",
    "b": "Ug",
    "probability": 0.9,
@@ -915,6 +886,33 @@
      "title": "Compiler",
      "live": "https://ventusltd.github.io/gridatlas/compiler/",
      "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Dt",
+   "b": "Ug",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 6 app folders, never composition-tested",
+   "together": 6,
+   "examples": [
+    {
+     "title": "Gridatlas",
+     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
+    },
+    {
+     "title": "Gridatlas",
+     "live": "https://ventusltd.github.io/gridatlas/atlas/parts/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/parts"
+    },
+    {
+     "title": "Testcode",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
     }
    ],
    "tests": null,
@@ -1689,12 +1687,12 @@
    "decay": "sld-sandbox: Error: sld-sandbox requires the sld-styles module"
   },
   {
-   "a": "Ss",
-   "b": "Ug",
+   "a": "Sp",
+   "b": "Ss",
    "probability": 0.77,
    "verdict": "unstable",
    "basis": "3259 of 4216 composition tests green",
-   "together": 5,
+   "together": 4,
    "examples": [
     {
      "title": "Gridatlas",
@@ -1719,8 +1717,8 @@
    "decay": "sld-sandbox: Error: sld-sandbox requires the sld-styles module"
   },
   {
-   "a": "Sp",
-   "b": "Ss",
+   "a": "Ss",
+   "b": "Ug",
    "probability": 0.77,
    "verdict": "unstable",
    "basis": "3259 of 4216 composition tests green",
@@ -2042,23 +2040,6 @@
   },
   {
    "a": "Cc",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Cc",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -2280,23 +2261,6 @@
   },
   {
    "a": "Dd",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dd",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -2501,23 +2465,6 @@
   },
   {
    "a": "El",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "El",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -2705,23 +2652,6 @@
   },
   {
    "a": "Fc",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Fc",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -2892,23 +2822,6 @@
   },
   {
    "a": "Ga",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ga",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3062,23 +2975,6 @@
   },
   {
    "a": "Gc",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gc",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3215,23 +3111,6 @@
   },
   {
    "a": "Gg",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gg",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3351,23 +3230,6 @@
   },
   {
    "a": "Gs",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gs",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3470,23 +3332,6 @@
   },
   {
    "a": "Ie",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ie",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3572,23 +3417,6 @@
   },
   {
    "a": "Nt",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Nt",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3657,23 +3485,6 @@
   },
   {
    "a": "Pf",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pf",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3725,23 +3536,6 @@
   },
   {
    "a": "Po",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Po",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3776,23 +3570,6 @@
   },
   {
    "a": "Ro",
-   "b": "Ss",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ro",
    "b": "Vd",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3810,40 +3587,6 @@
   },
   {
    "a": "Ro",
-   "b": "Vn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ss",
-   "b": "Vd",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ss",
    "b": "Vn",
    "probability": 0.6,
    "verdict": "seen together",
