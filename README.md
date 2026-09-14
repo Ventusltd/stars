@@ -31,6 +31,7 @@ local machine has to do it.
 Every unique line of Ventusltd code gets a permanent number. Each file version is stored as its list of line numbers,
 functions and classes are numbered as elements, and elements with the same logic share a family. Its purpose is to stop the same work being done twice.
 
+- [Every unique line, numbered](LINES.md): the full list, one row per line, key then code (large; open the raw file)
 - [Summary](modular/SUMMARY.md): work already done more than once, and names that mean different things in different places
 - [Compiled library](library/standalone.mjs): self-contained functions that already appear in two or more places
 - [Spider graph](modular/graph.json): the most repeated families, wired to their repositories, for the Spider dashboard

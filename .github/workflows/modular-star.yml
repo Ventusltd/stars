@@ -52,6 +52,9 @@ jobs:
       - name: Scan and build
         run: node modular-star/build.mjs --db modular.sqlite --work /tmp/repos --out .
 
+      - name: Write every unique line with its number (LINES.md)
+        run: node modular-star/lines.mjs --db modular.sqlite --out LINES.md
+
       - name: Check that no earlier number changed
         run: |
           if [ -f /tmp/prev/before.sqlite ]; then node modular-star/check-permanent.mjs /tmp/prev/before.sqlite modular.sqlite; fi
@@ -77,7 +80,7 @@ jobs:
       - name: Save reports
         run: |
           python3 spider/register.py
-          git add modular library spider
+          git add modular library spider LINES.md
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
