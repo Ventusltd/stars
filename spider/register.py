@@ -21,6 +21,14 @@ GRAPHS = [
     ("periodic-table", "Periodic table", "blocks/graph.json", "stars/modular-star (blocks.mjs)",
      "Every block of the estate with a permanent number and a plain-language description, grouped by category and wired to the "
      "repositories it lives in. Underneath each block are its numbered functions. External opens the table page."),
+    ("proof-of-work", "Proof of work", "proof/graph.json", "stars/modular-star (proof.mjs)",
+     "What ran, when, and what it produced: the workflows, their latest runs with status and duration, the artefacts "
+     "they leave behind with sizes and update times, and the checks each must pass. Every card opens the run, file or "
+     "release it describes. Rebuilt hourly on GitHub Actions; PROOF.md holds the same as a diagram."),
+    ("structure", "Structure of the estate", "structure/graph.json", "stars/modular-star (structure.mjs)",
+     "The estate top-down: repositories, the categories of the periodic table, every named block with what it depends "
+     "on and what uses it, and the engine's canonical modules in the engine graph's order. External opens the block on "
+     "the table page; STRUCTURE.md holds the same as diagrams."),
     ("chemistry", "Chemistry stars", "reports/chemistry/graph.json", "star-maker (chemistry.mjs), rebuilt by stars",
      "Which combinations of GridAtlas components always work, which fail, and the error each failure produces. "
      "Arithmetic over every recorded composition test."),

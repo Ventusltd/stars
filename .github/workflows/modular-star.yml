@@ -55,6 +55,9 @@ jobs:
       - name: Group the families into blocks (the periodic table)
         run: node modular-star/blocks.mjs --out . && node modular-star/reactions.mjs --out .
 
+      - name: Structure of the estate and proof of work (Spider graphs with Mermaid pages)
+        run: node modular-star/structure.mjs --out . && node modular-star/proof.mjs --out .
+
       - name: Write every unique line with its number (LINES.md)
         run: node modular-star/lines.mjs --db modular.sqlite --out LINES.md
 
@@ -83,7 +86,7 @@ jobs:
       - name: Save reports
         run: |
           python3 spider/register.py
-          git add modular library spider code blocks LINES.md
+          git add modular library spider code blocks proof structure LINES.md
           if git diff --cached --quiet; then echo "No changes."; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
