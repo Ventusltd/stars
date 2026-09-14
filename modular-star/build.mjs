@@ -95,7 +95,7 @@ const tabletLines = new Map();
 const tabletOf = t => { if (!tabletLines.has(t)) tabletLines.set(t, unpack(ctx.db.prepare('SELECT lines FROM tablet WHERE n = ?').get(t).lines)); return tabletLines.get(t); };
 const lineNumbers = p => tabletOf(p.tablet).slice(p.first - 1, p.last);
 // The code itself, on the focused card, in the dashboard's own monospace: numbered lines, capped so the graph stays light.
-const CODE_LINES = 16;
+const CODE_LINES = 14;
 function inlineCode(p) {
   const text = elementSource(ctx, p).split('\n'), nums = lineNumbers(p);
   const shown = text.slice(0, CODE_LINES).map((t, i) => `<span style="color:#4b5568">${String(nums[i] ?? '').padStart(6)}</span> ${esc(t)}`).join('\n');
@@ -204,14 +204,15 @@ try {
 } catch { /* no chemistry report in this checkout */ }
 
 const chosen = new Map(repeated.slice(0, 150).map(f => [f.n, f]));
-for (const n of engineJoin.keys()) if (familyOf.has(n)) chosen.set(n, familyOf.get(n));
+// Only the strong relations join the front-door graph; every relation is kept in engine-join.json.
+for (const [n, joins] of engineJoin) if (familyOf.has(n) && joins.some(j => /canonical home|superseded by/.test(j.relation))) chosen.set(n, familyOf.get(n));
 for (const d of decays) for (const x of d.families.slice(0, 6)) chosen.set(x.family, familyOf.get(x.family));
 const top = [...chosen.values()];
 const nodes = [], edges = [], repoNodes = new Set(), engineNodes = new Map();
 for (const f of top) {
   const c = f.places[0], id = `family:${f.n}`;
   const needs = c.needs ? JSON.parse(c.needs) : null;
-  const joins = engineJoin.get(f.n) || [];
+  const joins = (engineJoin.get(f.n) || []).filter(j => /canonical home|superseded by|superseded$/.test(j.relation));
   nodes.push({ id, key: id, label: `#${f.n} ${[...f.names][0]}`, type: c.standalone ? 'library element' : 'element', rag: c.standalone ? 'green' : 'amber',
     reason: `${f.lineages.size} different files · ${f.places.length} places in ${f.repos.size} repositories · ${f.elements.size} version(s)` + (firstWritten.has(f.n) ? ` · first written ${firstWritten.get(f.n).slice(0, 10)}` : '') + (needs?.length ? ` · needs ${needs.slice(0, 6).join(', ')}` : c.standalone ? ' · self-contained' : '')
       + (joins.length ? ` · engine: ${joins.map(j => j.relation + ' ' + j.label).join('; ')}` : '') + inlineCode(c),

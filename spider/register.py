@@ -80,8 +80,8 @@ for gid, title, src, spider, description in GRAPHS:
         url = SITE + "spider/graphs/" + gid + ".json"
     else:
         target, url = path, SITE + src
-    if target.stat().st_size > 400 * 1024:  # the dashboard fetches every registered graph on load; Pages gzips, so 400 KB raw is ~70 KB on the wire
-        print(f"{gid}: {target.stat().st_size // 1024} KB is over the 400 KB limit, not registered")
+    if target.stat().st_size > 600 * 1024:  # the dashboard fetches every registered graph on load; Pages gzips, so 600 KB raw is ~90 KB on the wire
+        print(f"{gid}: {target.stat().st_size // 1024} KB is over the 600 KB limit, not registered")
         continue
     features.append((gid, title, url, spider, description, len(graph["nodes"]), len(graph["edges"]),
                      graph.get("generated_utc", "")))
