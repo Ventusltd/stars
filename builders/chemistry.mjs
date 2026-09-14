@@ -74,7 +74,10 @@ for (const s of stars) {
     p.stars++; if (s.verdict === 'RED') p.red++;
   }
 }
-const pairUnstable = (a, b) => { const p = pairStats.get([a, b].sort().join('\u0000')); return !!p && p.stars >= 3 && p.red / p.stars >= 0.9; };
+const termUnstable = t => { const x = termStats.get(t); return !!x && x.stars >= 3 && x.red / x.stars >= 0.9; };
+// A pair wire adds no distinct evidence when either element already meets the rule alone.
+// Such an element keeps its red node and decay links; suppressing this wire does not clear its fault.
+const pairUnstable = (a, b) => { const p = pairStats.get([a, b].sort().join('\u0000')); return !!p && p.stars >= 3 && p.red / p.stars >= 0.9 && !termUnstable(a) && !termUnstable(b); };
 for (const x of [...unstableTerms.slice(0, 80), ...nobleTerms.slice(0, 40)]) node(x.term, 'element', x.red / x.stars >= 0.9 ? 'red' : 'green', `${x.stars} compounds · ${x.red} red`);
 for (const c of list.filter(c => c.red && c.formula.includes('·')).slice(0, 300)) {
   const terms = c.formula.split('·'); const bad = terms.filter(t => termStats.get(t) && termStats.get(t).red / termStats.get(t).stars < 0.9);

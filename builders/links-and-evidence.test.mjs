@@ -28,7 +28,7 @@ test('unstable needs three observations and at least ninety percent actually red
   assert.equal(pairVerdict({ green: 3, red: 0, total: 3 }), 'proven');
   assert.throws(() => pairVerdict({ green: 4, red: 0, total: 3 }), /Invalid/);
 });
-test('chemistry keeps qualifying pairs even when one element is independently unstable', () => {
+test('chemistry suppresses pairs explained by an independently unstable element', () => {
   const root = mkdtempSync(join(tmpdir(), 'stars-pairs-'));
   try {
     mkdirSync(join(root, 'elements')); mkdirSync(join(root, 'stars'));
@@ -37,8 +37,15 @@ test('chemistry keeps qualifying pairs even when one element is independently un
     const run = spawnSync(process.execPath, [fileURLToPath(new URL('./chemistry.mjs', import.meta.url))], { env: { ...process.env, SKY_DIR: root }, encoding: 'utf8' });
     assert.equal(run.status, 0, run.stderr);
     const graph = JSON.parse(readFileSync(join(root, 'chemistry/graph.json'), 'utf8'));
-    assert.equal(graph.edges.filter(e => e.kind === 'UNSTABLE_WITH').length, 1);
+    assert.equal(graph.edges.filter(e => e.kind === 'UNSTABLE_WITH').length, 0);
     assert.ok(graph.nodes.every(n => n.gh && n.ext));
+    assert.ok(graph.nodes.every(n => n.rag === 'red'));
+    // Add green observations separately: now the pair carries additional evidence.
+    for (let i = 3; i < 9; i++) writeFileSync(join(root, `stars/${i}.json`), JSON.stringify({ id: i, seed: { kind: 'constellation', choice: { selected: {} } }, loaded: [i < 6 ? 'a' : 'b'], verdict: 'GREEN', findings: [] }));
+    const rerun = spawnSync(process.execPath, [fileURLToPath(new URL('./chemistry.mjs', import.meta.url))], { env: { ...process.env, SKY_DIR: root }, encoding: 'utf8' });
+    assert.equal(rerun.status, 0, rerun.stderr);
+    const updated = JSON.parse(readFileSync(join(root, 'chemistry/graph.json'), 'utf8'));
+    assert.equal(updated.edges.filter(e => e.kind === 'UNSTABLE_WITH').length, 1);
   } finally {
     assert.ok(resolve(root).startsWith(resolve(tmpdir()) + sep));
     rmSync(root, { recursive: true, force: true });
