@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-15T18:28:27.198Z",
+ "generated_utc": "2026-09-15T21:44:36.246Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -329,6 +329,18 @@
    "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
   },
   {
+   "folder": "globalgrid2050/testcode/{stamp}",
+   "title": "Globalgrid2050",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Dt",
+    "Gn",
+    "Pn"
+   ],
+   "live": "https://globalgrid2050.com/testcode/202609151428/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609151428"
+  },
+  {
    "folder": "globalgrid2050/solar-bess-topology-v5",
    "title": "Solar bess topology v5",
    "repo": "Ventusltd/globalgrid2050",
@@ -637,15 +649,48 @@
    "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
   },
   {
-   "folder": "globalgrid2050/testcode/{stamp}",
-   "title": "Globalgrid2050",
-   "repo": "Ventusltd/globalgrid2050",
+   "folder": "galaxies-wafers/.",
+   "title": "Galaxies wafers",
+   "repo": "Ventusltd/galaxies-wafers",
    "blocks": [
     "Dt",
-    "Pn"
+    "Gn"
    ],
-   "live": "https://globalgrid2050.com/testcode/202609151447/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609151447"
+   "live": null,
+   "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/"
+  },
+  {
+   "folder": "galaxies-wafers/iterations/21-dark-pixels",
+   "title": "21 dark pixels",
+   "repo": "Ventusltd/galaxies-wafers",
+   "blocks": [
+    "Dt",
+    "Gn"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/iterations/21-dark-pixels"
+  },
+  {
+   "folder": "galaxies-wafers/iterations/26-apps-layers-substrate",
+   "title": "26 apps layers substrate",
+   "repo": "Ventusltd/galaxies-wafers",
+   "blocks": [
+    "Dt",
+    "Gn"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/iterations/26-apps-layers-substrate"
+  },
+  {
+   "folder": "galaxies-wafers/iterations/31-code-card-everywhere",
+   "title": "31 code card everywhere",
+   "repo": "Ventusltd/galaxies-wafers",
+   "blocks": [
+    "Dt",
+    "Gn"
+   ],
+   "live": null,
+   "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/iterations/31-code-card-everywhere"
   },
   {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.6.1/tests",
@@ -980,6 +1025,33 @@
      "title": "Testcode",
      "live": null,
      "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Dt",
+   "b": "Gn",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 6 app folders, never composition-tested",
+   "together": 6,
+   "examples": [
+    {
+     "title": "Spider",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609151428/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609151428"
+    },
+    {
+     "title": "Galaxies wafers",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/"
     }
    ],
    "tests": null,
@@ -1826,6 +1898,28 @@
      "title": "Genome spider",
      "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
      "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Gn",
+   "b": "Pn",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609151428/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609151428"
+    },
+    {
+     "title": "Spiders",
+     "live": "https://ventusltd.github.io/spiders/tools/",
+     "gh": "https://github.com/Ventusltd/spiders/tree/main/tools"
     }
    ],
    "tests": null,
@@ -4387,23 +4481,6 @@
    "decay": null
   },
   {
-   "a": "Dt",
-   "b": "Gn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Spider",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
    "a": "Cg",
    "b": "Pr",
    "probability": 0.6,
@@ -4415,23 +4492,6 @@
      "title": "Layout tool",
      "live": null,
      "gh": "https://github.com/Ventusltd/layout-tool/tree/main/tools"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gn",
-   "b": "Pn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Spiders",
-     "live": "https://ventusltd.github.io/spiders/tools/",
-     "gh": "https://github.com/Ventusltd/spiders/tree/main/tools"
     }
    ],
    "tests": null,

@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-15 18:28 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (98 KB, 125 cards, 355 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-15 21:44 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (99 KB, 125 cards, 362 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (30)
 
@@ -33,6 +33,8 @@ flowchart TD
   estate --> n_Ventusltd_data_grid_gb
   n_Ventusltd_data_gridatlas["data-gridatlas · 4 blocks"]:::ok
   estate --> n_Ventusltd_data_gridatlas
+  n_Ventusltd_galaxies_wafers["galaxies-wafers · 3 blocks"]:::ok
+  estate --> n_Ventusltd_galaxies_wafers
   n_Ventusltd_layout_tool["layout-tool · 3 blocks"]:::ok
   estate --> n_Ventusltd_layout_tool
   n_Ventusltd_chatgpt_audits["chatgpt-audits · 2 blocks"]:::ok
@@ -41,8 +43,6 @@ flowchart TD
   estate --> n_Ventusltd_companies
   n_Ventusltd_data_gb_electricity["data-gb-electricity · 2 blocks"]:::ok
   estate --> n_Ventusltd_data_gb_electricity
-  n_Ventusltd_galaxies_wafers["galaxies-wafers · 2 blocks"]:::ok
-  estate --> n_Ventusltd_galaxies_wafers
   n_Ventusltd_grid_distance_maths["grid-distance-maths · 2 blocks"]:::ok
   estate --> n_Ventusltd_grid_distance_maths
   n_Ventusltd_teleprinter["teleprinter · 2 blocks"]:::ok
@@ -197,10 +197,13 @@ flowchart LR
   n_block_Sa --> n_block_Gn
   n_block_Sa --> n_block_Ie
   n_block_Sa --> n_block_Ss
+  n_block_Dt --> n_block_Ps
+  n_block_Dt --> n_block_Pr
+  n_block_Dt --> n_block_Gp
   n_block_Dt --> n_block_St
   n_block_Dt --> n_block_Tp
-  n_block_Dt --> n_block_Pr
   n_block_Dt --> n_block_Gn
+  n_block_Dt --> n_block_Cg
   n_block_Dt --> n_block_Dc
   n_block_Ps --> n_block_Ss
   n_block_Ps --> n_block_Wf
@@ -228,10 +231,10 @@ flowchart LR
   n_block_Cg --> n_block_Si
   n_block_Cg --> n_block_Ra
   n_block_Cg --> n_block_Pn
+  n_block_Cg --> n_block_Gn
   n_block_Cg --> n_block_Ss
   n_block_Cg --> n_block_Dt
   n_block_Cg --> n_block_Wf
-  n_block_Cg --> n_block_Gn
   n_block_Cg --> n_block_Dc
   n_block_Cg --> n_block_St
   n_block_Cg --> n_block_Ps
@@ -253,8 +256,10 @@ flowchart LR
   n_block_St --> n_block_Dt
   n_block_St --> n_block_Pn
   n_block_St --> n_block_Em
+  n_block_St --> n_block_Gn
   n_block_Tp --> n_block_Pr
   n_block_Tp --> n_block_Ss
+  n_block_Tp --> n_block_Gn
   n_block_Tp --> n_block_Wf
   n_block_Tp --> n_block_Pn
   n_block_Em --> n_block_St
@@ -267,6 +272,7 @@ flowchart LR
   n_block_Gn --> n_block_St
   n_block_Gn --> n_block_Pn
   n_block_Gn --> n_block_Em
+  n_block_Gn --> n_block_Si
 ```
 
 ## Engine modules (20), in the engine graph's order

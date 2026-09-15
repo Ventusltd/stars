@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-15T18:27:11.039Z",
+ "generated_utc": "2026-09-15T21:43:36.108Z",
  "note": "Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.",
  "decays": [
   {
@@ -10,7 +10,9 @@
     74978,
     122462,
     122466,
-    361097
+    361097,
+    378097,
+    382184
    ],
    "families": [
     {
@@ -101,7 +103,9 @@
    "needle": "grid-scope requires the geodesy module",
    "lines": [
     73821,
-    361099
+    361099,
+    378097,
+    382184
    ],
    "families": [
     {
