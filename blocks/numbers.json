@@ -1,5 +1,5 @@
 {
- "next": 954,
+ "next": 955,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -890,6 +890,7 @@
   "star-solar-star:testcode/{stamp}/browser.mjs": 950,
   "star-solar-star:testcode/{stamp}/test_integrity.py": 951,
   "star-solar-star:testcode/{stamp}/vectors.py": 952,
-  "star-solar-star:tests/test_publication.py": 953
+  "star-solar-star:tests/test_publication.py": 953,
+  "globalgrid2050:homepage_versions/homepage_v116.html": 954
  }
 }

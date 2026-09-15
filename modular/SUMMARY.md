@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-15 08:01 UTC by GitHub Actions. It reads the current code of 54 Ventusltd repositories.
+Updated 2026-09-15 13:50 UTC by GitHub Actions. It reads the current code of 54 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,11 +8,11 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 259,333 |
-| File versions | 5,672 |
-| Elements (functions and classes) | 17,554 |
-| Families (same logic) | 16,209 |
-| Families written in two or more different files (duplicate work) | 3,558 |
+| Unique lines | 259,490 |
+| File versions | 5,676 |
+| Elements (functions and classes) | 17,565 |
+| Families (same logic) | 16,220 |
+| Families written in two or more different files (duplicate work) | 3,559 |
 | Families only copied between versions of one file | 808 |
 | Self-contained functions compiled into the library | 330 |
 
@@ -68,7 +68,7 @@ These names mean different things in different repositories, so check which vers
 | `load` | 19 | 11 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `build` | 45 | 10 |
+| `build` | 46 | 10 |
 | `write_json` | 17 | 10 |
 | `__init__` | 16 | 9 |
 | `fetch` | 13 | 9 |
@@ -84,7 +84,7 @@ These names mean different things in different repositories, so check which vers
 | `sha256Hex` | 4 | 7 |
 | `start` | 38 | 6 |
 | `invariant` | 22 | 6 |
-| `draw` | 15 | 6 |
+| `draw` | 16 | 6 |
 | `write` | 15 | 6 |
 | `fail` | 12 | 6 |
 | `write_reports` | 12 | 6 |
