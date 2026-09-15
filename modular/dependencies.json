@@ -1,12 +1,12 @@
 {
- "generated_utc": "2026-09-15T01:52:58.518Z",
+ "generated_utc": "2026-09-15T08:01:00.787Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 4488,
+ "families_with_uses": 4505,
  "hubs": [
   {
    "family": 1318,
    "name": "state",
-   "used_by": 400
+   "used_by": 406
   },
   {
    "family": 72282,
@@ -44,19 +44,19 @@
    "used_by": 160
   },
   {
+   "family": 3938,
+   "name": "esc",
+   "used_by": 158
+  },
+  {
    "family": 77688,
    "name": "assert",
    "used_by": 157
   },
   {
-   "family": 3938,
-   "name": "esc",
-   "used_by": 157
-  },
-  {
    "family": 1199,
    "name": "esc",
-   "used_by": 153
+   "used_by": 154
   },
   {
    "family": 70873,
@@ -91,12 +91,17 @@
   {
    "family": 7364,
    "name": "fetch",
-   "used_by": 117
+   "used_by": 118
   },
   {
    "family": 76405,
    "name": "byId",
    "used_by": 111
+  },
+  {
+   "family": 130547,
+   "name": "fetch",
+   "used_by": 103
   },
   {
    "family": 1289,
@@ -149,19 +154,19 @@
    "used_by": 85
   },
   {
-   "family": 9053,
-   "name": "technology",
-   "used_by": 76
-  },
-  {
    "family": 5175,
    "name": "fmt",
-   "used_by": 74
+   "used_by": 77
   },
   {
    "family": 7992,
    "name": "fmt",
-   "used_by": 74
+   "used_by": 77
+  },
+  {
+   "family": 9053,
+   "name": "technology",
+   "used_by": 76
   },
   {
    "family": 72147,
@@ -274,33 +279,28 @@
    "used_by": 42
   },
   {
+   "family": 1486,
+   "name": "row",
+   "used_by": 41
+  },
+  {
+   "family": 1512,
+   "name": "row",
+   "used_by": 41
+  },
+  {
+   "family": 6103,
+   "name": "row",
+   "used_by": 41
+  },
+  {
    "family": 71485,
    "name": "CustomEvent",
    "used_by": 40
   },
   {
-   "family": 1486,
-   "name": "row",
-   "used_by": 40
-  },
-  {
-   "family": 1512,
-   "name": "row",
-   "used_by": 40
-  },
-  {
-   "family": 6103,
-   "name": "row",
-   "used_by": 40
-  },
-  {
    "family": 1604,
    "name": "fetchImmutable",
-   "used_by": 40
-  },
-  {
-   "family": 129758,
-   "name": "trailPush",
    "used_by": 40
   }
  ]

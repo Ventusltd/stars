@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-15 01:52 UTC by GitHub Actions. It reads the current code of 54 Ventusltd repositories.
+Updated 2026-09-15 08:01 UTC by GitHub Actions. It reads the current code of 54 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,11 +8,11 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 257,980 |
-| File versions | 5,644 |
-| Elements (functions and classes) | 17,442 |
-| Families (same logic) | 16,097 |
-| Families written in two or more different files (duplicate work) | 3,563 |
+| Unique lines | 259,333 |
+| File versions | 5,672 |
+| Elements (functions and classes) | 17,554 |
+| Families (same logic) | 16,209 |
+| Families written in two or more different files (duplicate work) | 3,558 |
 | Families only copied between versions of one file | 808 |
 | Self-contained functions compiled into the library | 330 |
 
@@ -68,15 +68,16 @@ These names mean different things in different repositories, so check which vers
 | `load` | 19 | 11 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `build` | 43 | 10 |
+| `build` | 45 | 10 |
 | `write_json` | 17 | 10 |
 | `__init__` | 16 | 9 |
-| `fetch` | 12 | 9 |
+| `fetch` | 13 | 9 |
 | `sha256` | 16 | 8 |
 | `haversine` | 7 | 8 |
+| `validate` | 16 | 7 |
 | `record` | 15 | 7 |
-| `validate` | 15 | 7 |
-| `walk` | 12 | 7 |
+| `walk` | 13 | 7 |
+| `setUp` | 12 | 7 |
 | `close` | 7 | 7 |
 | `distanceKm` | 5 | 7 |
 | `sha256_file` | 5 | 7 |
@@ -87,7 +88,6 @@ These names mean different things in different repositories, so check which vers
 | `write` | 15 | 6 |
 | `fail` | 12 | 6 |
 | `write_reports` | 12 | 6 |
-| `collect` | 11 | 6 |
 
 ## How to check for earlier work before writing code
 
