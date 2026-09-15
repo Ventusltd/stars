@@ -1,12 +1,12 @@
 {
- "generated_utc": "2026-09-15T13:50:48.529Z",
+ "generated_utc": "2026-09-15T18:27:11.039Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 4514,
+ "families_with_uses": 4817,
  "hubs": [
   {
    "family": 1318,
    "name": "state",
-   "used_by": 407
+   "used_by": 447
   },
   {
    "family": 72282,
@@ -14,14 +14,14 @@
    "used_by": 320
   },
   {
+   "family": 70695,
+   "name": "state",
+   "used_by": 249
+  },
+  {
    "family": 1586,
    "name": "invariant",
    "used_by": 236
-  },
-  {
-   "family": 70695,
-   "name": "state",
-   "used_by": 211
   },
   {
    "family": 129814,
@@ -34,6 +34,21 @@
    "used_by": 193
   },
   {
+   "family": 3938,
+   "name": "esc",
+   "used_by": 169
+  },
+  {
+   "family": 1199,
+   "name": "esc",
+   "used_by": 165
+  },
+  {
+   "family": 130715,
+   "name": "esc",
+   "used_by": 164
+  },
+  {
    "family": 1600,
    "name": "invariant",
    "used_by": 160
@@ -44,19 +59,9 @@
    "used_by": 160
   },
   {
-   "family": 3938,
-   "name": "esc",
-   "used_by": 159
-  },
-  {
    "family": 77688,
    "name": "assert",
    "used_by": 157
-  },
-  {
-   "family": 1199,
-   "name": "esc",
-   "used_by": 155
   },
   {
    "family": 70873,
@@ -74,6 +79,11 @@
    "used_by": 131
   },
   {
+   "family": 7364,
+   "name": "fetch",
+   "used_by": 128
+  },
+  {
    "family": 129751,
    "name": "el",
    "used_by": 124
@@ -89,19 +99,44 @@
    "used_by": 123
   },
   {
-   "family": 7364,
-   "name": "fetch",
-   "used_by": 118
+   "family": 32733,
+   "name": "state",
+   "used_by": 123
+  },
+  {
+   "family": 131439,
+   "name": "process",
+   "used_by": 119
   },
   {
    "family": 76405,
    "name": "byId",
-   "used_by": 111
+   "used_by": 118
+  },
+  {
+   "family": 130796,
+   "name": "link",
+   "used_by": 114
   },
   {
    "family": 130547,
    "name": "fetch",
-   "used_by": 103
+   "used_by": 113
+  },
+  {
+   "family": 131104,
+   "name": "readFile",
+   "used_by": 104
+  },
+  {
+   "family": 5175,
+   "name": "fmt",
+   "used_by": 97
+  },
+  {
+   "family": 7992,
+   "name": "fmt",
+   "used_by": 97
   },
   {
    "family": 1289,
@@ -119,6 +154,21 @@
    "used_by": 97
   },
   {
+   "family": 1624,
+   "name": "apply",
+   "used_by": 96
+  },
+  {
+   "family": 2015,
+   "name": "apply",
+   "used_by": 96
+  },
+  {
+   "family": 2112,
+   "name": "apply",
+   "used_by": 96
+  },
+  {
    "family": 975,
    "name": "sha256",
    "used_by": 92
@@ -129,38 +179,23 @@
    "used_by": 92
   },
   {
-   "family": 1624,
-   "name": "apply",
-   "used_by": 87
-  },
-  {
-   "family": 2015,
-   "name": "apply",
-   "used_by": 87
-  },
-  {
-   "family": 2112,
-   "name": "apply",
-   "used_by": 87
-  },
-  {
    "family": 32234,
    "name": "sha256",
    "used_by": 86
   },
   {
-   "family": 32733,
-   "name": "state",
-   "used_by": 85
-  },
-  {
-   "family": 5175,
-   "name": "fmt",
+   "family": 402,
+   "name": "fetch",
    "used_by": 77
   },
   {
-   "family": 7992,
-   "name": "fmt",
+   "family": 454,
+   "name": "fetch",
+   "used_by": 77
+  },
+  {
+   "family": 1085,
+   "name": "fetch",
    "used_by": 77
   },
   {
@@ -261,47 +296,12 @@
   {
    "family": 1486,
    "name": "row",
-   "used_by": 42
+   "used_by": 44
   },
   {
    "family": 1512,
    "name": "row",
-   "used_by": 42
-  },
-  {
-   "family": 6103,
-   "name": "row",
-   "used_by": 42
-  },
-  {
-   "family": 1627,
-   "name": "setButtonState",
-   "used_by": 42
-  },
-  {
-   "family": 59008,
-   "name": "say",
-   "used_by": 42
-  },
-  {
-   "family": 32251,
-   "name": "fail",
-   "used_by": 42
-  },
-  {
-   "family": 72484,
-   "name": "fail",
-   "used_by": 42
-  },
-  {
-   "family": 71485,
-   "name": "CustomEvent",
-   "used_by": 40
-  },
-  {
-   "family": 1604,
-   "name": "fetchImmutable",
-   "used_by": 40
+   "used_by": 44
   }
  ]
 }

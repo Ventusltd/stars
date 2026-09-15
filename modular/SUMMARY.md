@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-15 13:50 UTC by GitHub Actions. It reads the current code of 54 Ventusltd repositories.
+Updated 2026-09-15 18:27 UTC by GitHub Actions. It reads the current code of 55 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 259,490 |
-| File versions | 5,676 |
-| Elements (functions and classes) | 17,565 |
-| Families (same logic) | 16,220 |
-| Families written in two or more different files (duplicate work) | 3,559 |
-| Families only copied between versions of one file | 808 |
-| Self-contained functions compiled into the library | 330 |
+| Unique lines | 265,480 |
+| File versions | 5,779 |
+| Elements (functions and classes) | 18,049 |
+| Families (same logic) | 16,705 |
+| Families written in two or more different files (duplicate work) | 3,640 |
+| Families only copied between versions of one file | 811 |
+| Self-contained functions compiled into the library | 339 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 8,961 of 8,961 commits across 54 repositories (54 complete). Each run continues where the last one stopped.
+History walked: 9,012 of 9,012 commits across 55 repositories (55 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -30,7 +30,7 @@ The same logic written in two or more different files. Copies of one file in tim
 | #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [gridatlas/atlas/cartridges/202609012045-sld-sandbox-v9-8.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-sld-sandbox-v9-8.js#L3643-L3649) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
-| #975 | `sha256` | 67 | 98 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
+| #975 | `sha256` | 67 | 94 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
 | #8285 | `sha256Hex` | 30 | 317 | 5 | no | 2026-08-29 | [gridatlas/atlas/cartridges/202608301136-place-postcode-search.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202608301136-place-postcode-search.js#L64-L67) |
 | #5168 | `escapeHTML` | 24 | 196 | 5 | yes | 2026-04-03 | [gridatlas/atlas/cartridges/202609012045-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-substation-intelligence-v9-63.js#L45-L49) |
 | #5609 | `(anonymous)` | 20 | 192 | 5 | no | 2026-04-07 | [gridatlas/atlas/cartridges/202609012045-substation-intelligence-v9-63.js](https://github.com/Ventusltd/gridatlas/blob/ece848117a6d21b7fccb232557194877698c48a9/atlas/cartridges/202609012045-substation-intelligence-v9-63.js#L154-L159) |
@@ -64,30 +64,30 @@ These names mean different things in different repositories, so check which vers
 | Name | Different versions | Repositories |
 |---|---|---|
 | `normalise` | 8 | 12 |
+| `build` | 50 | 11 |
 | `check` | 38 | 11 |
-| `load` | 19 | 11 |
+| `load` | 21 | 11 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `build` | 46 | 10 |
 | `write_json` | 17 | 10 |
-| `__init__` | 16 | 9 |
+| `__init__` | 17 | 9 |
 | `fetch` | 13 | 9 |
+| `draw` | 18 | 8 |
 | `sha256` | 16 | 8 |
+| `inspect` | 14 | 8 |
 | `haversine` | 7 | 8 |
+| `start` | 46 | 7 |
 | `validate` | 16 | 7 |
 | `record` | 15 | 7 |
 | `walk` | 13 | 7 |
 | `setUp` | 12 | 7 |
-| `close` | 7 | 7 |
+| `close` | 8 | 7 |
+| `worker` | 8 | 7 |
 | `distanceKm` | 5 | 7 |
 | `sha256_file` | 5 | 7 |
 | `sha256Hex` | 4 | 7 |
-| `start` | 38 | 6 |
 | `invariant` | 22 | 6 |
-| `draw` | 16 | 6 |
 | `write` | 15 | 6 |
-| `fail` | 12 | 6 |
-| `write_reports` | 12 | 6 |
 
 ## How to check for earlier work before writing code
 

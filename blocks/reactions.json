@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-15T13:51:40.748Z",
+ "generated_utc": "2026-09-15T18:28:27.198Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -637,6 +637,17 @@
    "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
   },
   {
+   "folder": "globalgrid2050/testcode/{stamp}",
+   "title": "Globalgrid2050",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Dt",
+    "Pn"
+   ],
+   "live": "https://globalgrid2050.com/testcode/202609151447/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609151447"
+  },
+  {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.6.1/tests",
    "title": "Tests",
    "repo": "Ventusltd/globalgrid2050",
@@ -709,8 +720,8 @@
    "b": "Pn",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 15 app folders, never composition-tested",
-   "together": 15,
+   "basis": "already used together in 16 app folders, never composition-tested",
+   "together": 16,
    "examples": [
     {
      "title": "Globalgrid2050",

@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-15 13:51 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (96 KB, 124 cards, 347 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-15 18:28 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (98 KB, 125 cards, 355 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (29)
+## Repositories (30)
 
 ```mermaid
 flowchart TD
@@ -41,6 +41,8 @@ flowchart TD
   estate --> n_Ventusltd_companies
   n_Ventusltd_data_gb_electricity["data-gb-electricity · 2 blocks"]:::ok
   estate --> n_Ventusltd_data_gb_electricity
+  n_Ventusltd_galaxies_wafers["galaxies-wafers · 2 blocks"]:::ok
+  estate --> n_Ventusltd_galaxies_wafers
   n_Ventusltd_grid_distance_maths["grid-distance-maths · 2 blocks"]:::ok
   estate --> n_Ventusltd_grid_distance_maths
   n_Ventusltd_teleprinter["teleprinter · 2 blocks"]:::ok
@@ -199,6 +201,7 @@ flowchart LR
   n_block_Dt --> n_block_Tp
   n_block_Dt --> n_block_Pr
   n_block_Dt --> n_block_Gn
+  n_block_Dt --> n_block_Dc
   n_block_Ps --> n_block_Ss
   n_block_Ps --> n_block_Wf
   n_block_Pn --> n_block_Pr
@@ -208,6 +211,7 @@ flowchart LR
   n_block_Pn --> n_block_Gn
   n_block_Pn --> n_block_Ss
   n_block_Pn --> n_block_Wf
+  n_block_Pn --> n_block_Dt
   n_block_Pn --> n_block_Sa
   n_block_Gp --> n_block_Ss
   n_block_Gp --> n_block_Wf
@@ -246,6 +250,7 @@ flowchart LR
   n_block_St --> n_block_Si
   n_block_St --> n_block_Tp
   n_block_St --> n_block_Sp
+  n_block_St --> n_block_Dt
   n_block_St --> n_block_Pn
   n_block_St --> n_block_Em
   n_block_Tp --> n_block_Pr
@@ -257,6 +262,8 @@ flowchart LR
   n_block_Em --> n_block_Pr
   n_block_Em --> n_block_Gn
   n_block_Pr --> n_block_Dc
+  n_block_Pr --> n_block_Dt
+  n_block_Gn --> n_block_Dt
   n_block_Gn --> n_block_St
   n_block_Gn --> n_block_Pn
   n_block_Gn --> n_block_Em
