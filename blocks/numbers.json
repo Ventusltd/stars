@@ -1,5 +1,5 @@
 {
- "next": 1096,
+ "next": 1117,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1032,6 +1032,27 @@
   "testcode:sandbox/{stamp}-galaxy-firm/model.mjs": 1092,
   "globalgrid2050:homepage_versions/homepage_v121.html": 1093,
   "globalgrid2050:homepage_versions/homepage_v122.html": 1094,
-  "globalgrid2050:testcode/{stamp}/proof/key_permanence.mjs": 1095
+  "globalgrid2050:testcode/{stamp}/proof/key_permanence.mjs": 1095,
+  "globalgrid2050:testcode/{stamp}/layers.mjs": 1096,
+  "globalgrid2050:testcode/{stamp}/notation.mjs": 1097,
+  "globalgrid2050:testcode/{stamp}/pick.mjs": 1098,
+  "globalgrid2050:testcode/{stamp}/read.mjs": 1099,
+  "globalgrid2050:testcode/{stamp}/select.mjs": 1100,
+  "globalgrid2050:testcode/{stamp}/build-particles.mjs": 1101,
+  "globalgrid2050:testcode/{stamp}/build.mjs": 1102,
+  "globalgrid2050:testcode/{stamp}/derive.mjs": 1103,
+  "globalgrid2050:testcode/{stamp}/enforcers/render-proof.mjs": 1104,
+  "globalgrid2050:testcode/{stamp}/laws.mjs": 1105,
+  "globalgrid2050:testcode/{stamp}/nest.mjs": 1106,
+  "globalgrid2050:testcode/{stamp}/proof/charter.check.mjs": 1107,
+  "globalgrid2050:testcode/{stamp}/proof/estate-vacuity.check.mjs": 1108,
+  "globalgrid2050:testcode/{stamp}/proof/journeys.check.mjs": 1109,
+  "globalgrid2050:testcode/{stamp}/proof/laws.check.mjs": 1110,
+  "globalgrid2050:testcode/{stamp}/proof/particles.check.mjs": 1111,
+  "globalgrid2050:testcode/{stamp}/proof/safe-publish.mjs": 1112,
+  "globalgrid2050:testcode/{stamp}/proof/siblings.check.mjs": 1113,
+  "globalgrid2050:testcode/{stamp}/proof/why.check.mjs": 1114,
+  "globalgrid2050:testcode/{stamp}/proof/law.check.mjs": 1115,
+  "globalgrid2050:testcode/{stamp}/wafer.mjs": 1116
  }
 }

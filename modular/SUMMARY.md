@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-16 00:46 UTC by GitHub Actions. It reads the current code of 56 Ventusltd repositories.
+Updated 2026-09-16 06:41 UTC by GitHub Actions. It reads the current code of 56 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,12 +8,12 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 283,231 |
-| File versions | 5,951 |
-| Elements (functions and classes) | 19,411 |
-| Families (same logic) | 18,070 |
-| Families written in two or more different files (duplicate work) | 3,931 |
-| Families only copied between versions of one file | 811 |
+| Unique lines | 287,699 |
+| File versions | 6,020 |
+| Elements (functions and classes) | 19,600 |
+| Families (same logic) | 18,261 |
+| Families written in two or more different files (duplicate work) | 3,932 |
+| Families only copied between versions of one file | 866 |
 | Self-contained functions compiled into the library | 355 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
@@ -64,7 +64,7 @@ These names mean different things in different repositories, so check which vers
 | Name | Different versions | Repositories |
 |---|---|---|
 | `load` | 27 | 13 |
-| `build` | 54 | 12 |
+| `build` | 63 | 12 |
 | `check` | 40 | 12 |
 | `normalise` | 8 | 12 |
 | `require` | 16 | 11 |
@@ -73,17 +73,17 @@ These names mean different things in different repositories, so check which vers
 | `__init__` | 17 | 9 |
 | `fetch` | 13 | 9 |
 | `setUp` | 13 | 9 |
-| `draw` | 29 | 8 |
+| `draw` | 38 | 8 |
 | `inspect` | 17 | 8 |
 | `validate` | 17 | 8 |
 | `record` | 16 | 8 |
 | `sha256` | 16 | 8 |
 | `haversine` | 7 | 8 |
-| `start` | 55 | 7 |
+| `start` | 56 | 7 |
+| `walk` | 14 | 7 |
 | `refresh` | 13 | 7 |
-| `walk` | 13 | 7 |
+| `classify` | 10 | 7 |
 | `index` | 10 | 7 |
-| `classify` | 9 | 7 |
 | `measure` | 9 | 7 |
 | `close` | 8 | 7 |
 | `execute` | 8 | 7 |
