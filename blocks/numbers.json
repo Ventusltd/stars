@@ -1,5 +1,5 @@
 {
- "next": 1078,
+ "next": 1096,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1014,6 +1014,24 @@
   "galaxies-wafers:proof/browser/judge.mjs": 1074,
   "galaxies-wafers:proof/browser/root.check.mjs": 1075,
   "testcode:sandbox/{stamp}-galaxy-profile/app.mjs": 1076,
-  "testcode:sandbox/{stamp}-galaxy-profile/model.mjs": 1077
+  "testcode:sandbox/{stamp}-galaxy-profile/model.mjs": 1077,
+  "testcode:sandbox/{stamp}-galaxy-bond/wafer.mjs": 1078,
+  "globalgrid2050:homepage_versions/homepage_v120.html": 1079,
+  "testcode:sandbox/{stamp}-galaxy-bond/model.mjs": 1080,
+  "testcode:sandbox/{stamp}-galaxy-bond/test_adversarial_v2.py": 1081,
+  "testcode:sandbox/{stamp}-galaxy-bond/test_v2_contract.py": 1082,
+  "testcode:sandbox/{stamp}-galaxy-visibility/app.mjs": 1083,
+  "testcode:sandbox/{stamp}-galaxy-visibility/model.mjs": 1084,
+  "testcode:sandbox/{stamp}-galaxy-visibility/visibility-style.mjs": 1085,
+  "testcode:sandbox/{stamp}-galaxy-demand/app.mjs": 1086,
+  "testcode:sandbox/{stamp}-galaxy-demand/model.mjs": 1087,
+  "testcode:sandbox/{stamp}-galaxy-hops/app.mjs": 1088,
+  "testcode:sandbox/{stamp}-galaxy-hops/model.mjs": 1089,
+  "testcode:sandbox/{stamp}-galaxy-spread/app.mjs": 1090,
+  "testcode:sandbox/{stamp}-galaxy-spread/model.mjs": 1091,
+  "testcode:sandbox/{stamp}-galaxy-firm/model.mjs": 1092,
+  "globalgrid2050:homepage_versions/homepage_v121.html": 1093,
+  "globalgrid2050:homepage_versions/homepage_v122.html": 1094,
+  "globalgrid2050:testcode/{stamp}/proof/key_permanence.mjs": 1095
  }
 }
