@@ -1,5 +1,5 @@
 {
- "next": 1117,
+ "next": 1126,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1053,6 +1053,15 @@
   "globalgrid2050:testcode/{stamp}/proof/siblings.check.mjs": 1113,
   "globalgrid2050:testcode/{stamp}/proof/why.check.mjs": 1114,
   "globalgrid2050:testcode/{stamp}/proof/law.check.mjs": 1115,
-  "globalgrid2050:testcode/{stamp}/wafer.mjs": 1116
+  "globalgrid2050:testcode/{stamp}/wafer.mjs": 1116,
+  "code-generator:apps/substation-finder/Ug/v9-parquet-fetch-bridge.js": 1117,
+  "code-generator:apps/substation-finder/Ug/{stamp}-place-postcode-search.js": 1118,
+  "globalgrid2050:testcode/{stamp}-quantum-twin-flights/pilot-rules.js": 1119,
+  "globalgrid2050:testcode/{stamp}-quantum-twin-flights/pilot.mjs": 1120,
+  "globalgrid2050:testcode/{stamp}-quantum-twin-flights/pipeline/describe.py": 1121,
+  "globalgrid2050:testcode/{stamp}-quantum-twin-flights/pipeline/label.py": 1122,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/app.mjs": 1123,
+  "code-generator:apps/substation-finder/Dt/{stamp}-build-repd-ref-index.py": 1124,
+  "code-generator:apps/substation-finder/Dt/{stamp}-calibrate-design-freeze.py": 1125
  }
 }

@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-16 21:42 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (99 KB, 125 cards, 361 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-16 23:51 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (100 KB, 126 cards, 366 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (30)
+## Repositories (31)
 
 ```mermaid
 flowchart TD
@@ -13,7 +13,7 @@ flowchart TD
   classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3
   classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5
   estate["globalgrid2050 architecture development"]:::ok
-  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 23 blocks"]:::ok
+  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 22 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
   n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050
@@ -65,6 +65,8 @@ flowchart TD
   estate --> n_Ventusltd_gridmachine1
   n_Ventusltd_solar_electrical_topology_analysis_engine_text_based["solar-electrical-topology-analysis-engine-text-based · 1 blocks"]:::ok
   estate --> n_Ventusltd_solar_electrical_topology_analysis_engine_text_based
+  n_Ventusltd_star_electron_star["star-electron-star · 1 blocks"]:::ok
+  estate --> n_Ventusltd_star_electron_star
   n_Ventusltd_star_quantum_twin["star-quantum-twin · 1 blocks"]:::ok
   estate --> n_Ventusltd_star_quantum_twin
   n_Ventusltd_star_solar_star["star-solar-star · 1 blocks"]:::ok
@@ -189,8 +191,8 @@ flowchart LR
   n_block_Ra --> n_block_Pr
   n_block_Ra --> n_block_Gn
   n_block_Ra --> n_block_Ss
-  n_block_Ra --> n_block_Wf
   n_block_Ra --> n_block_Si
+  n_block_Ra --> n_block_Wf
   n_block_Sa --> n_block_St
   n_block_Sa --> n_block_Tp
   n_block_Sa --> n_block_Pr
@@ -206,6 +208,7 @@ flowchart LR
   n_block_Dt --> n_block_Cg
   n_block_Dt --> n_block_Dc
   n_block_Ps --> n_block_Ss
+  n_block_Ps --> n_block_Si
   n_block_Ps --> n_block_Wf
   n_block_Pn --> n_block_Pr
   n_block_Pn --> n_block_Si
@@ -217,6 +220,7 @@ flowchart LR
   n_block_Pn --> n_block_Dt
   n_block_Pn --> n_block_Sa
   n_block_Gp --> n_block_Ss
+  n_block_Gp --> n_block_Si
   n_block_Gp --> n_block_Wf
   n_block_Wf --> n_block_St
   n_block_Wf --> n_block_Tp
@@ -247,6 +251,7 @@ flowchart LR
   n_block_Sb --> n_block_Pr
   n_block_Sb --> n_block_Gn
   n_block_Sb --> n_block_Ss
+  n_block_Sb --> n_block_Si
   n_block_Sb --> n_block_Wf
   n_block_Sb --> n_block_Cg
   n_block_Sb --> n_block_Pn
@@ -260,6 +265,7 @@ flowchart LR
   n_block_Tp --> n_block_Pr
   n_block_Tp --> n_block_Ss
   n_block_Tp --> n_block_Gn
+  n_block_Tp --> n_block_Si
   n_block_Tp --> n_block_Wf
   n_block_Tp --> n_block_Pn
   n_block_Em --> n_block_St
