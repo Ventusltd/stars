@@ -1,5 +1,5 @@
 {
- "next": 1126,
+ "next": 1128,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1062,6 +1062,8 @@
   "globalgrid2050:testcode/{stamp}-quantum-twin-flights/pipeline/label.py": 1122,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/app.mjs": 1123,
   "code-generator:apps/substation-finder/Dt/{stamp}-build-repd-ref-index.py": 1124,
-  "code-generator:apps/substation-finder/Dt/{stamp}-calibrate-design-freeze.py": 1125
+  "code-generator:apps/substation-finder/Dt/{stamp}-calibrate-design-freeze.py": 1125,
+  "globalgrid2050:testcode/{stamp}-quantum-twin-flights/app.mjs": 1126,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/pilot.mjs": 1127
  }
 }
