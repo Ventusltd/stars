@@ -1,5 +1,5 @@
 {
- "next": 1131,
+ "next": 1149,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1067,6 +1067,24 @@
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/pilot.mjs": 1127,
   "particle-physics-drawing-engine:measurements/coax-field-test.mjs": 1128,
   "particle-physics-drawing-engine:measurements/exactness.mjs": 1129,
-  "particle-physics-drawing-engine:tools/particles.py": 1130
+  "particle-physics-drawing-engine:tools/particles.py": 1130,
+  "star-electron-star:proof/page.check.mjs": 1131,
+  "star-electron-star:app.mjs": 1132,
+  "star-electron-star:pick.mjs": 1133,
+  "star-electron-star:read.mjs": 1134,
+  "star-electron-star:pilot-rules.js": 1135,
+  "star-electron-star:pilot.mjs": 1136,
+  "star-electron-star:pipeline/describe.py": 1137,
+  "star-electron-star:pipeline/label.py": 1138,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-underground/pilot.mjs": 1139,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-real-systems/pilot.mjs": 1140,
+  "particle-physics-drawing-engine:tools/fault.py": 1141,
+  "particle-physics-drawing-engine:tools/geometry.py": 1142,
+  "particle-physics-drawing-engine:tools/networks.py": 1143,
+  "particle-physics-drawing-engine:tools/png.py": 1144,
+  "particle-physics-drawing-engine:tools/publish_iteration.py": 1145,
+  "particle-physics-drawing-engine:tools/scope_check.py": 1146,
+  "particle-physics-drawing-engine:tools/spiral_vs_stack.py": 1147,
+  "particle-physics-drawing-engine:tools/underground.py": 1148
  }
 }

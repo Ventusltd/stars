@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-18 00:45 UTC by GitHub Actions. It reads the current code of 57 Ventusltd repositories.
+Updated 2026-09-18 06:36 UTC by GitHub Actions. It reads the current code of 57 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,10 +8,10 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 288,992 |
-| File versions | 6,083 |
-| Elements (functions and classes) | 19,656 |
-| Families (same logic) | 18,317 |
+| Unique lines | 290,056 |
+| File versions | 6,111 |
+| Elements (functions and classes) | 19,705 |
+| Families (same logic) | 18,354 |
 | Families written in two or more different files (duplicate work) | 3,996 |
 | Families only copied between versions of one file | 844 |
 | Self-contained functions compiled into the library | 358 |
@@ -63,18 +63,18 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `load` | 27 | 13 |
+| `load` | 28 | 14 |
+| `normalise` | 9 | 13 |
 | `build` | 63 | 12 |
 | `check` | 40 | 12 |
-| `normalise` | 8 | 12 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
 | `write_json` | 17 | 10 |
+| `fetch` | 14 | 10 |
+| `draw` | 39 | 9 |
 | `__init__` | 17 | 9 |
-| `fetch` | 13 | 9 |
 | `setUp` | 13 | 9 |
 | `start` | 56 | 8 |
-| `draw` | 38 | 8 |
 | `inspect` | 17 | 8 |
 | `validate` | 17 | 8 |
 | `record` | 16 | 8 |
@@ -82,12 +82,12 @@ These names mean different things in different repositories, so check which vers
 | `measure` | 10 | 8 |
 | `haversine` | 7 | 8 |
 | `step` | 21 | 7 |
+| `write` | 16 | 7 |
 | `walk` | 14 | 7 |
 | `refresh` | 13 | 7 |
 | `classify` | 10 | 7 |
 | `index` | 10 | 7 |
 | `close` | 8 | 7 |
-| `execute` | 8 | 7 |
 
 ## How to check for earlier work before writing code
 
