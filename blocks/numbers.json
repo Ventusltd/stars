@@ -1,5 +1,5 @@
 {
- "next": 1149,
+ "next": 1151,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1085,6 +1085,8 @@
   "particle-physics-drawing-engine:tools/publish_iteration.py": 1145,
   "particle-physics-drawing-engine:tools/scope_check.py": 1146,
   "particle-physics-drawing-engine:tools/spiral_vs_stack.py": 1147,
-  "particle-physics-drawing-engine:tools/underground.py": 1148
+  "particle-physics-drawing-engine:tools/underground.py": 1148,
+  "kuiper-belt:tools/entangle_hosts.mjs": 1149,
+  "kuiper-belt:tools/twin_register.mjs": 1150
  }
 }
