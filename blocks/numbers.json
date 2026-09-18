@@ -1,5 +1,5 @@
 {
- "next": 1128,
+ "next": 1131,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1064,6 +1064,9 @@
   "code-generator:apps/substation-finder/Dt/{stamp}-build-repd-ref-index.py": 1124,
   "code-generator:apps/substation-finder/Dt/{stamp}-calibrate-design-freeze.py": 1125,
   "globalgrid2050:testcode/{stamp}-quantum-twin-flights/app.mjs": 1126,
-  "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/pilot.mjs": 1127
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-estate/pilot.mjs": 1127,
+  "particle-physics-drawing-engine:measurements/coax-field-test.mjs": 1128,
+  "particle-physics-drawing-engine:measurements/exactness.mjs": 1129,
+  "particle-physics-drawing-engine:tools/particles.py": 1130
  }
 }
