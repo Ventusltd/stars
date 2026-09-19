@@ -1,5 +1,5 @@
 {
- "next": 1203,
+ "next": 1206,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1139,6 +1139,9 @@
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0010/conductor.html": 1199,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0010/index.html": 1200,
   "kuiper-belt:tools/cadence.py": 1201,
-  "kuiper-belt:tools/swarm.py": 1202
+  "kuiper-belt:tools/swarm.py": 1202,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0014/index.html": 1203,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0015/index.html": 1204,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0017/index.html": 1205
  }
 }
