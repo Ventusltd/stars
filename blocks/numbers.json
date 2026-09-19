@@ -1,5 +1,5 @@
 {
- "next": 1166,
+ "next": 1187,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1102,6 +1102,27 @@
   "cosmic:tools/belt_split.py": 1162,
   "cosmic:tools/clusters.py": 1163,
   "cosmic:tools/wafer.py": 1164,
-  "grid:tools/web.py": 1165
+  "grid:tools/web.py": 1165,
+  "kuiper-belt:tools/iterate.py": 1166,
+  "faraday:tools/build.py": 1167,
+  "time-stone:tools/watch.py": 1168,
+  "tokens:tools/budget_guard.py": 1169,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-one-wafer/index.html": 1170,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-one-wafer/tools/key.py": 1171,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-one-wafer/tools/wafer_keys.py": 1172,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-2/index.html": 1173,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-2/tools/permanence.py": 1174,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-4/conductor.html": 1175,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-4/index.html": 1176,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-6/conductor.html": 1177,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-6/index.html": 1178,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-6/phone.html": 1179,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-7/conductor.html": 1180,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-7/index.html": 1181,
+  "kuiper-belt:tools/check_proof.py": 1182,
+  "kuiper-belt:tools/ci_check.py": 1183,
+  "kuiper-belt:tools/harvest.py": 1184,
+  "kuiper-belt:tools/publish_proof.py": 1185,
+  "law:tools/build.py": 1186
  }
 }
