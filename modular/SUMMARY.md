@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-19 14:45 UTC by GitHub Actions. It reads the current code of 66 Ventusltd repositories.
+Updated 2026-09-19 18:11 UTC by GitHub Actions. It reads the current code of 67 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 295,428 |
-| File versions | 6,211 |
-| Elements (functions and classes) | 19,965 |
-| Families (same logic) | 18,608 |
-| Families written in two or more different files (duplicate work) | 4,083 |
+| Unique lines | 296,131 |
+| File versions | 6,228 |
+| Elements (functions and classes) | 20,015 |
+| Families (same logic) | 18,659 |
+| Families written in two or more different files (duplicate work) | 4,070 |
 | Families only copied between versions of one file | 844 |
-| Self-contained functions compiled into the library | 362 |
+| Self-contained functions compiled into the library | 363 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,061 of 9,061 commits across 66 repositories (66 complete). Each run continues where the last one stopped.
+History walked: 9,067 of 9,067 commits across 67 repositories (67 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -69,7 +69,7 @@ These names mean different things in different repositories, so check which vers
 | `normalise` | 9 | 13 |
 | `require` | 16 | 11 |
 | `verify` | 11 | 11 |
-| `draw` | 46 | 10 |
+| `draw` | 53 | 10 |
 | `write_json` | 17 | 10 |
 | `fetch` | 14 | 10 |
 | `__init__` | 17 | 9 |
@@ -77,13 +77,13 @@ These names mean different things in different repositories, so check which vers
 | `classify` | 12 | 9 |
 | `measure` | 11 | 9 |
 | `start` | 57 | 8 |
-| `frame` | 17 | 8 |
 | `inspect` | 17 | 8 |
 | `validate` | 17 | 8 |
 | `write` | 17 | 8 |
+| `frame` | 16 | 8 |
 | `record` | 16 | 8 |
 | `sha256` | 16 | 8 |
-| `walk` | 15 | 8 |
+| `walk` | 16 | 8 |
 | `describe` | 8 | 8 |
 | `haversine` | 7 | 8 |
 | `step` | 21 | 7 |

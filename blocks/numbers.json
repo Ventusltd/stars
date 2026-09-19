@@ -1,5 +1,5 @@
 {
- "next": 1187,
+ "next": 1203,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1123,6 +1123,22 @@
   "kuiper-belt:tools/ci_check.py": 1183,
   "kuiper-belt:tools/harvest.py": 1184,
   "kuiper-belt:tools/publish_proof.py": 1185,
-  "law:tools/build.py": 1186
+  "law:tools/build.py": 1186,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-cable-cross-sections/app.mjs": 1187,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-cable-cross-sections/index.html": 1188,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-cable-cross-sections/kuiper-weigh.mjs": 1189,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-cable-cross-sections/proof/kuiper-pulse.check.mjs": 1190,
+  "132kV:tools/capacity.py": 1191,
+  "132kV:tools/watch_catalogue.py": 1192,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0002/conductor.html": 1193,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0003/conductor.html": 1194,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0005/conductor.html": 1195,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0005/index.html": 1196,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0009/conductor.html": 1197,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0009/index.html": 1198,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0010/conductor.html": 1199,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0010/index.html": 1200,
+  "kuiper-belt:tools/cadence.py": 1201,
+  "kuiper-belt:tools/swarm.py": 1202
  }
 }
