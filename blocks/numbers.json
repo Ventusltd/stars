@@ -1,5 +1,5 @@
 {
- "next": 1151,
+ "next": 1158,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1087,6 +1087,13 @@
   "particle-physics-drawing-engine:tools/spiral_vs_stack.py": 1147,
   "particle-physics-drawing-engine:tools/underground.py": 1148,
   "kuiper-belt:tools/entangle_hosts.mjs": 1149,
-  "kuiper-belt:tools/twin_register.mjs": 1150
+  "kuiper-belt:tools/twin_register.mjs": 1150,
+  "stones:tools/check-policy.mjs": 1151,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/app.mjs": 1152,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/index.html": 1153,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/kuiper-weigh.mjs": 1154,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/pilot.mjs": 1155,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/proof/kuiper-pulse.check.mjs": 1156,
+  "kuiper-belt:tools/estate.py": 1157
  }
 }

@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-18 22:47 UTC by GitHub Actions. It reads the current code of 58 Ventusltd repositories.
+Updated 2026-09-19 01:32 UTC by GitHub Actions. It reads the current code of 59 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 290,321 |
-| File versions | 6,136 |
-| Elements (functions and classes) | 19,709 |
-| Families (same logic) | 18,358 |
-| Families written in two or more different files (duplicate work) | 3,996 |
+| Unique lines | 291,227 |
+| File versions | 6,149 |
+| Elements (functions and classes) | 19,753 |
+| Families (same logic) | 18,399 |
+| Families written in two or more different files (duplicate work) | 3,999 |
 | Families only copied between versions of one file | 844 |
 | Self-contained functions compiled into the library | 358 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,033 of 9,033 commits across 58 repositories (58 complete). Each run continues where the last one stopped.
+History walked: 9,038 of 9,038 commits across 59 repositories (59 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -74,18 +74,18 @@ These names mean different things in different repositories, so check which vers
 | `draw` | 39 | 9 |
 | `__init__` | 17 | 9 |
 | `setUp` | 13 | 9 |
-| `start` | 56 | 8 |
+| `start` | 57 | 8 |
 | `inspect` | 17 | 8 |
 | `validate` | 17 | 8 |
 | `record` | 16 | 8 |
 | `sha256` | 16 | 8 |
+| `classify` | 11 | 8 |
 | `measure` | 10 | 8 |
 | `haversine` | 7 | 8 |
 | `step` | 21 | 7 |
 | `write` | 16 | 7 |
 | `walk` | 14 | 7 |
 | `refresh` | 13 | 7 |
-| `classify` | 10 | 7 |
 | `index` | 10 | 7 |
 | `close` | 8 | 7 |
 
