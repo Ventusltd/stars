@@ -1,5 +1,5 @@
 {
- "next": 1158,
+ "next": 1160,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1094,6 +1094,8 @@
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/kuiper-weigh.mjs": 1154,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/pilot.mjs": 1155,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-kuiper-belt/proof/kuiper-pulse.check.mjs": 1156,
-  "kuiper-belt:tools/estate.py": 1157
+  "kuiper-belt:tools/estate.py": 1157,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-cable-cross-sections/pilot.mjs": 1158,
+  "kuiper-belt:tools/count_lines.py": 1159
  }
 }
