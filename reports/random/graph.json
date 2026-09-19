@@ -2,7 +2,7 @@
   "schema": "random-graph.v1",
   "label": "The Random star",
   "seed": "2026-09-19",
-  "generated_utc": "2026-09-19T11:31:21.631Z",
+  "generated_utc": "2026-09-19T14:32:49.642Z",
   "note": "Links chosen by probability alone. Not findings. Serendipity for Claude + VIK-AI.",
   "focus_default": "#5253 evidence",
   "nodes": [
@@ -402,7 +402,7 @@
       "label": "#1175 getCentralInverterDcMwdc",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 4 lines · shells K28 L61 M61 · valence 0 · spin paired · homes gis-sl",
+      "reason": "from the electron star · function · 4 lines · shells K28 L61 M61 · valence 0 · spin paired · homes unname",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
@@ -450,7 +450,7 @@
       "label": "#1236 updateLegend",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 29 lines · shells K31 L61 M61 · valence 0 · spin paired · homes gis-s",
+      "reason": "from the electron star · function · 29 lines · shells K31 L61 M61 · valence 0 · spin paired · homes unnam",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
@@ -682,7 +682,7 @@
       "label": "#1228 normaliseSubstations",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 53 lines · shells K28 L61 M61 · valence 0 · spin paired · homes gis-s",
+      "reason": "from the electron star · function · 53 lines · shells K28 L61 M61 · valence 0 · spin paired · homes unnam",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
@@ -1298,7 +1298,7 @@
       "label": "#1241 updateArrayRotationDisplay",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 6 lines · shells K32 L61 M61 · valence 0 · spin paired · homes gis-sl",
+      "reason": "from the electron star · function · 6 lines · shells K32 L61 M61 · valence 0 · spin paired · homes unname",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
