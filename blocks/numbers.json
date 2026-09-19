@@ -1,5 +1,5 @@
 {
- "next": 1206,
+ "next": 1233,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1142,6 +1142,33 @@
   "kuiper-belt:tools/swarm.py": 1202,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0014/index.html": 1203,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0015/index.html": 1204,
-  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0017/index.html": 1205
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0017/index.html": 1205,
+  "kuiper-belt:index.html": 1206,
+  "kuiper-belt:tools/key.py": 1207,
+  "kuiper-belt:tools/wafer_keys.py": 1208,
+  "kuiper-belt:tools/permanence.py": 1209,
+  "kuiper-belt:conductor.html": 1210,
+  "kuiper-belt:phone.html": 1211,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/conductor-round.html": 1212,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/conductor.html": 1213,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/index.html": 1214,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/kuiper-controls.js": 1215,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/kuiper-tests.js": 1216,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/kuiper-card.js": 1217,
+  "faraday:apparatus/cells.mjs": 1218,
+  "globalgrid2050:kuiper/cartridges/{stamp}-kuiper-chrome.js": 1219,
+  "globalgrid2050:kuiper/cartridges/{stamp}-kuiper-programs.js": 1220,
+  "globalgrid2050:kuiper/index.html": 1221,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/assemble.mjs": 1222,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/kuiper-programs.js": 1223,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0018/index.html": 1224,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0019/index.html": 1225,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0021/index.html": 1226,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0022/index.html": 1227,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0024/index.html": 1228,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0025/index.html": 1229,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0026/index.html": 1230,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-s0004/pilot.mjs": 1231,
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0030/index.html": 1232
  }
 }

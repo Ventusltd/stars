@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-19 20:59 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (100 KB, 126 cards, 363 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-19 23:30 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (101 KB, 127 cards, 365 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (31)
+## Repositories (32)
 
 ```mermaid
 flowchart TD
@@ -59,6 +59,8 @@ flowchart TD
   estate --> n_Ventusltd_data_federation_map_for_globalgrid2050_all_repos
   n_Ventusltd_data_interconnectors["data-interconnectors · 1 blocks"]:::ok
   estate --> n_Ventusltd_data_interconnectors
+  n_Ventusltd_faraday["faraday · 1 blocks"]:::ok
+  estate --> n_Ventusltd_faraday
   n_Ventusltd_gemini["gemini · 1 blocks"]:::ok
   estate --> n_Ventusltd_gemini
   n_Ventusltd_gridmachine1["gridmachine1 · 1 blocks"]:::ok
