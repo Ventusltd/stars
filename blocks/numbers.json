@@ -1,5 +1,5 @@
 {
- "next": 1261,
+ "next": 1284,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1197,6 +1197,29 @@
   "faraday:experiments/e095.mjs": 1257,
   "faraday:experiments/e099.mjs": 1258,
   "faraday:experiments/lib.mjs": 1259,
-  "faraday:experiments/run.mjs": 1260
+  "faraday:experiments/run.mjs": 1260,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/index.html": 1261,
+  "globalgrid2050:kuiper-grid/i0073/cartridges/{stamp}-kuiper-tests.js": 1262,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/conductor-round.html": 1263,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/kuiper-controls.js": 1264,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/phone.html": 1265,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/conductor.html": 1266,
+  "globalgrid2050:kuiper-grid/i0073/cartridges/{stamp}-kuiper-card.js": 1267,
+  "globalgrid2050:kuiper-grid/i0073/cartridges/{stamp}-kuiper-chrome.js": 1268,
+  "globalgrid2050:kuiper-grid/i0073/cartridges/{stamp}-kuiper-programs.js": 1269,
+  "globalgrid2050:kuiper-grid/i0073/index.html": 1270,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/assemble.mjs": 1271,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/kuiper-card.js": 1272,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/kuiper-programs.js": 1273,
+  "globalgrid2050:kuiper-grid/i0073/releases/{stamp}-kuiper-shell/kuiper-tests.js": 1274,
+  "globalgrid2050:kuiper-grid/i0083/cartridges/{stamp}-kuiper-programs.js": 1275,
+  "globalgrid2050:kuiper-grid/i0084/cartridges/{stamp}-kuiper-programs.js": 1276,
+  "globalgrid2050:kuiper-grid/i0085/cartridges/{stamp}-kuiper-programs.js": 1277,
+  "globalgrid2050:kuiper-grid/i0086/cartridges/{stamp}-kuiper-chrome.js": 1278,
+  "globalgrid2050:kuiper-grid/i0087/cartridges/{stamp}-kuiper-programs.js": 1279,
+  "globalgrid2050:kuiper-grid/i0088/cartridges/{stamp}-kuiper-programs.js": 1280,
+  "globalgrid2050:kuiper-grid/i0089/cartridges/{stamp}-kuiper-programs.js": 1281,
+  "globalgrid2050:kuiper-grid/i0090/cartridges/{stamp}-kuiper-programs.js": 1282,
+  "globalgrid2050:kuiper-grid/i0091/cartridges/{stamp}-kuiper-programs.js": 1283
  }
 }

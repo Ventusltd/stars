@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-20T19:01:54.194Z",
+ "generated_utc": "2026-09-20T21:47:35.928Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6217,
+ "families_with_uses": 6517,
  "hubs": [
   {
    "family": 1318,
@@ -11,12 +11,12 @@
   {
    "family": 5175,
    "name": "fmt",
-   "used_by": 352
+   "used_by": 358
   },
   {
    "family": 7992,
    "name": "fmt",
-   "used_by": 348
+   "used_by": 354
   },
   {
    "family": 134305,
@@ -64,24 +64,29 @@
    "used_by": 196
   },
   {
+   "family": 1317,
+   "name": "el",
+   "used_by": 190
+  },
+  {
+   "family": 1686,
+   "name": "el",
+   "used_by": 190
+  },
+  {
    "family": 77548,
    "name": "fmt",
    "used_by": 185
   },
   {
+   "family": 129751,
+   "name": "el",
+   "used_by": 180
+  },
+  {
    "family": 7364,
    "name": "fetch",
-   "used_by": 166
-  },
-  {
-   "family": 1317,
-   "name": "el",
-   "used_by": 166
-  },
-  {
-   "family": 1686,
-   "name": "el",
-   "used_by": 166
+   "used_by": 168
   },
   {
    "family": 32733,
@@ -104,14 +109,9 @@
    "used_by": 157
   },
   {
-   "family": 129751,
-   "name": "el",
-   "used_by": 156
-  },
-  {
    "family": 130547,
    "name": "fetch",
-   "used_by": 151
+   "used_by": 153
   },
   {
    "family": 70873,
@@ -179,6 +179,21 @@
    "used_by": 105
   },
   {
+   "family": 1807,
+   "name": "draw",
+   "used_by": 101
+  },
+  {
+   "family": 1923,
+   "name": "draw",
+   "used_by": 101
+  },
+  {
+   "family": 3097,
+   "name": "draw",
+   "used_by": 101
+  },
+  {
    "family": 131104,
    "name": "readFile",
    "used_by": 101
@@ -209,21 +224,6 @@
    "used_by": 96
   },
   {
-   "family": 1807,
-   "name": "draw",
-   "used_by": 96
-  },
-  {
-   "family": 1923,
-   "name": "draw",
-   "used_by": 96
-  },
-  {
-   "family": 3097,
-   "name": "draw",
-   "used_by": 96
-  },
-  {
    "family": 136164,
    "name": "registry",
    "used_by": 93
@@ -244,14 +244,29 @@
    "used_by": 92
   },
   {
+   "family": 130262,
+   "name": "card",
+   "used_by": 88
+  },
+  {
    "family": 32234,
    "name": "sha256",
    "used_by": 86
   },
   {
-   "family": 130262,
-   "name": "card",
-   "used_by": 80
+   "family": 6650,
+   "name": "rows",
+   "used_by": 81
+  },
+  {
+   "family": 7270,
+   "name": "rows",
+   "used_by": 81
+  },
+  {
+   "family": 135023,
+   "name": "rows",
+   "used_by": 81
   },
   {
    "family": 70861,
@@ -269,29 +284,14 @@
    "used_by": 77
   },
   {
-   "family": 6650,
-   "name": "rows",
-   "used_by": 76
-  },
-  {
-   "family": 7270,
-   "name": "rows",
-   "used_by": 76
-  },
-  {
-   "family": 135023,
-   "name": "rows",
+   "family": 131002,
+   "name": "target",
    "used_by": 76
   },
   {
    "family": 9053,
    "name": "technology",
    "used_by": 76
-  },
-  {
-   "family": 131002,
-   "name": "target",
-   "used_by": 75
   },
   {
    "family": 133891,

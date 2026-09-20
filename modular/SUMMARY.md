@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-20 19:01 UTC by GitHub Actions. It reads the current code of 71 Ventusltd repositories.
+Updated 2026-09-20 21:47 UTC by GitHub Actions. It reads the current code of 71 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 300,382 |
-| File versions | 6,313 |
-| Elements (functions and classes) | 20,300 |
-| Families (same logic) | 18,943 |
-| Families written in two or more different files (duplicate work) | 4,160 |
-| Families only copied between versions of one file | 862 |
-| Self-contained functions compiled into the library | 368 |
+| Unique lines | 307,096 |
+| File versions | 6,366 |
+| Elements (functions and classes) | 20,753 |
+| Families (same logic) | 19,393 |
+| Families written in two or more different files (duplicate work) | 4,650 |
+| Families only copied between versions of one file | 848 |
+| Self-contained functions compiled into the library | 420 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -65,7 +65,7 @@ These names mean different things in different repositories, so check which vers
 |---|---|---|
 | `load` | 29 | 15 |
 | `check` | 44 | 14 |
-| `build` | 64 | 13 |
+| `build` | 72 | 13 |
 | `normalise` | 9 | 13 |
 | `draw` | 61 | 11 |
 | `require` | 16 | 11 |
@@ -81,9 +81,9 @@ These names mean different things in different repositories, so check which vers
 | `frame` | 17 | 8 |
 | `inspect` | 17 | 8 |
 | `validate` | 17 | 8 |
+| `walk` | 17 | 8 |
 | `write` | 17 | 8 |
 | `sha256` | 16 | 8 |
-| `walk` | 16 | 8 |
 | `describe` | 11 | 8 |
 | `haversine` | 7 | 8 |
 | `step` | 22 | 7 |
