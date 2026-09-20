@@ -1,5 +1,5 @@
 {
- "next": 1244,
+ "next": 1261,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1180,6 +1180,23 @@
   "faraday:bench/run100.py": 1240,
   "faraday:bench/site_cases.py": 1241,
   "faraday:bench/tests.py": 1242,
-  "faraday:bench/traction_cases.py": 1243
+  "faraday:bench/traction_cases.py": 1243,
+  "globalgrid2050:kuiper/releases/{stamp}-kuiper-shell/phone.html": 1244,
+  "faraday:bench/backup.py": 1245,
+  "faraday:bench/commands_build.py": 1246,
+  "faraday:bench/fire.js": 1247,
+  "faraday:bench/fire_site.js": 1248,
+  "faraday:bench/fire_topo.js": 1249,
+  "faraday:bench/million.py": 1250,
+  "faraday:bench/million_check.mjs": 1251,
+  "faraday:bench/results/index.html": 1252,
+  "faraday:bench/topo.py": 1253,
+  "faraday:experiments/e036.mjs": 1254,
+  "faraday:experiments/e037.mjs": 1255,
+  "faraday:experiments/e038.mjs": 1256,
+  "faraday:experiments/e095.mjs": 1257,
+  "faraday:experiments/e099.mjs": 1258,
+  "faraday:experiments/lib.mjs": 1259,
+  "faraday:experiments/run.mjs": 1260
  }
 }

@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-20T01:34:41.434Z",
+ "generated_utc": "2026-09-20T06:56:34.803Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6195,
+ "families_with_uses": 6217,
  "hubs": [
   {
    "family": 1318,
@@ -46,7 +46,12 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 199
+   "used_by": 200
+  },
+  {
+   "family": 1199,
+   "name": "esc",
+   "used_by": 196
   },
   {
    "family": 129814,
@@ -57,11 +62,6 @@
    "family": 130047,
    "name": "link",
    "used_by": 196
-  },
-  {
-   "family": 1199,
-   "name": "esc",
-   "used_by": 195
   },
   {
    "family": 77548,
@@ -251,7 +251,7 @@
   {
    "family": 130262,
    "name": "card",
-   "used_by": 79
+   "used_by": 80
   },
   {
    "family": 70861,
@@ -262,6 +262,11 @@
    "family": 70974,
    "name": "query",
    "used_by": 78
+  },
+  {
+   "family": 133426,
+   "name": "page",
+   "used_by": 77
   },
   {
    "family": 6650,
@@ -276,11 +281,6 @@
   {
    "family": 135023,
    "name": "rows",
-   "used_by": 76
-  },
-  {
-   "family": 133426,
-   "name": "page",
    "used_by": 76
   },
   {
