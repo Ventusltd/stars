@@ -1,5 +1,5 @@
 {
- "next": 1233,
+ "next": 1244,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1169,6 +1169,17 @@
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0025/index.html": 1229,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0026/index.html": 1230,
   "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-s0004/pilot.mjs": 1231,
-  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0030/index.html": 1232
+  "globalgrid2050:testcode/wafer-development-environment/{stamp}-proof-k0030/index.html": 1232,
+  "globalgrid2050:kuiper/cartridges/{stamp}-kuiper-tests.js": 1233,
+  "globalgrid2050:kuiper/cartridges/{stamp}-kuiper-card.js": 1234,
+  "faraday:bench/cable_cases.py": 1235,
+  "faraday:bench/energy_cases.py": 1236,
+  "faraday:bench/national_cases.py": 1237,
+  "faraday:bench/one.py": 1238,
+  "faraday:bench/page.py": 1239,
+  "faraday:bench/run100.py": 1240,
+  "faraday:bench/site_cases.py": 1241,
+  "faraday:bench/tests.py": 1242,
+  "faraday:bench/traction_cases.py": 1243
  }
 }
