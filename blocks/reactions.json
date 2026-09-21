@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-21T11:05:27.483Z",
+ "generated_utc": "2026-09-21T17:12:22.361Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -622,17 +622,6 @@
    ],
    "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
    "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
-  },
-  {
-   "folder": "spiders/species/seer-spider/estate-menu",
-   "title": "Estate menu",
-   "repo": "Ventusltd/spiders",
-   "blocks": [
-    "Em",
-    "Si"
-   ],
-   "live": "https://ventusltd.github.io/spiders/species/seer-spider/estate-menu/",
-   "gh": "https://github.com/Ventusltd/spiders/tree/main/species/seer-spider/estate-menu"
   },
   {
    "folder": "code-generator/apps/substation-finder/Vn",
@@ -4496,23 +4485,6 @@
      "title": "Javascript",
      "live": "https://ventusltd.github.io/pipelinenews/discovery/javascript/",
      "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/discovery/javascript"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Em",
-   "b": "Si",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Estate menu",
-     "live": "https://ventusltd.github.io/spiders/species/seer-spider/estate-menu/",
-     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/seer-spider/estate-menu"
     }
    ],
    "tests": null,

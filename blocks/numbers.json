@@ -1,5 +1,5 @@
 {
- "next": 1313,
+ "next": 1335,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1249,6 +1249,28 @@
   "worlds-:src/bifacial_chain.py": 1309,
   "globalgrid2050:kuiper-grid/i0089/cartridges/{stamp}-kuiper-chrome.js": 1310,
   "globalgrid2050:kuiper-grid/i0092/cartridges/{stamp}-kuiper-programs.js": 1311,
-  "grid-distance-maths:src/placement.mjs": 1312
+  "grid-distance-maths:src/placement.mjs": 1312,
+  "globalgrid2050:compute/enumeration/sweep_hot_cold.py": 1313,
+  "globalgrid2050:kuiper-grid/i0093/cartridges/{stamp}-kuiper-programs.js": 1314,
+  "globalgrid2050:kuiper-grid/i0094/cartridges/{stamp}-kuiper-programs.js": 1315,
+  "globalgrid2050:kuiper-grid/i0096/cartridges/{stamp}-kuiper-programs.js": 1316,
+  "globalgrid2050:kuiper-grid/i0097/cartridges/{stamp}-kuiper-programs.js": 1317,
+  "worlds-:scripts/check_no_private_paths.py": 1318,
+  "worlds-:src/all_gates.py": 1319,
+  "worlds-:src/annihilate.py": 1320,
+  "worlds-:src/furnace.py": 1321,
+  "worlds-:src/geometry.py": 1322,
+  "worlds-:src/harvest_crunch.py": 1323,
+  "worlds-:src/layout_gate.py": 1324,
+  "worlds-:src/logic_loop.py": 1325,
+  "worlds-:src/paths.py": 1326,
+  "worlds-:src/provenance_gate.py": 1327,
+  "worlds-:src/thread_truth.py": 1328,
+  "worlds-:src/verdict_gate.py": 1329,
+  "worlds-:src/watch_breakpoint.py": 1330,
+  "worlds-:src/watch_collapse.py": 1331,
+  "worlds-:src/watch_refused.py": 1332,
+  "worlds-:src/watch_ulp.py": 1333,
+  "worlds-:src/worked_examples.py": 1334
  }
 }
