@@ -1,5 +1,5 @@
 {
- "next": 1284,
+ "next": 1298,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1220,6 +1220,20 @@
   "globalgrid2050:kuiper-grid/i0088/cartridges/{stamp}-kuiper-programs.js": 1280,
   "globalgrid2050:kuiper-grid/i0089/cartridges/{stamp}-kuiper-programs.js": 1281,
   "globalgrid2050:kuiper-grid/i0090/cartridges/{stamp}-kuiper-programs.js": 1282,
-  "globalgrid2050:kuiper-grid/i0091/cartridges/{stamp}-kuiper-programs.js": 1283
+  "globalgrid2050:kuiper-grid/i0091/cartridges/{stamp}-kuiper-programs.js": 1283,
+  "globalgrid2050:scripts/check_public_language.py": 1284,
+  "gpu-drivers-for-global-grid:cuda-maths/layout-bench/bench.py": 1285,
+  "gpu-drivers-for-global-grid:cuda-maths/layout-bench/gpu_score.py": 1286,
+  "gpu-drivers-for-global-grid:cuda-maths/precision-sense/sense.py": 1287,
+  "gpu-drivers-for-global-grid:cuda-maths/solar-billion/cpu_ref.py": 1288,
+  "gpu-drivers-for-global-grid:cuda-maths/solar-billion/cpu_vec.py": 1289,
+  "gpu-drivers-for-global-grid:cuda-maths/solar-billion/gpu_vec.py": 1290,
+  "gpu-drivers-for-global-grid:engine/east_west_block.py": 1291,
+  "gpu-drivers-for-global-grid:engine/farm.py": 1292,
+  "gpu-drivers-for-global-grid:engine/feeding.py": 1293,
+  "gpu-drivers-for-global-grid:engine/fused.py": 1294,
+  "gpu-drivers-for-global-grid:engine/selftest.py": 1295,
+  "gpu-drivers-for-global-grid:engine/ventus_engine.py": 1296,
+  "gpu-drivers-for-global-grid:engine/worlds.py": 1297
  }
 }
