@@ -1,5 +1,5 @@
 {
- "next": 1298,
+ "next": 1313,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1234,6 +1234,21 @@
   "gpu-drivers-for-global-grid:engine/fused.py": 1294,
   "gpu-drivers-for-global-grid:engine/selftest.py": 1295,
   "gpu-drivers-for-global-grid:engine/ventus_engine.py": 1296,
-  "gpu-drivers-for-global-grid:engine/worlds.py": 1297
+  "gpu-drivers-for-global-grid:engine/worlds.py": 1297,
+  "grid-distance-maths:src/placement.py": 1298,
+  "worlds-:src/worlds.py": 1299,
+  "worlds-:worlds.html": 1300,
+  "worlds-:src/atlas_lattice.py": 1301,
+  "worlds-:src/gb_study.py": 1302,
+  "worlds-:src/plant500.py": 1303,
+  "worlds-:src/hundred_billion.py": 1304,
+  "worlds-:src/to_kuiper.py": 1305,
+  "worlds-:src/arc_break.py": 1306,
+  "worlds-:src/loop_geometry.py": 1307,
+  "worlds-:src/substation.py": 1308,
+  "worlds-:src/bifacial_chain.py": 1309,
+  "globalgrid2050:kuiper-grid/i0089/cartridges/{stamp}-kuiper-chrome.js": 1310,
+  "globalgrid2050:kuiper-grid/i0092/cartridges/{stamp}-kuiper-programs.js": 1311,
+  "grid-distance-maths:src/placement.mjs": 1312
  }
 }

@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-21 00:28 UTC by GitHub Actions. It reads the current code of 72 Ventusltd repositories.
+Updated 2026-09-21 05:24 UTC by GitHub Actions. It reads the current code of 73 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 309,004 |
-| File versions | 6,388 |
-| Elements (functions and classes) | 20,828 |
-| Families (same logic) | 19,468 |
-| Families written in two or more different files (duplicate work) | 4,650 |
+| Unique lines | 311,023 |
+| File versions | 6,406 |
+| Elements (functions and classes) | 20,891 |
+| Families (same logic) | 19,531 |
+| Families written in two or more different files (duplicate work) | 4,661 |
 | Families only copied between versions of one file | 848 |
-| Self-contained functions compiled into the library | 420 |
+| Self-contained functions compiled into the library | 421 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,073 of 9,073 commits across 72 repositories (72 complete). Each run continues where the last one stopped.
+History walked: 9,088 of 9,088 commits across 73 repositories (73 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -27,7 +27,7 @@ The same logic written in two or more different files. Copies of one file in tim
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
 | #1586 | `invariant` | 44 | 472 | 6 | yes | 2026-08-28 | [pipelinenews/releases/202608291447-pipelinenews/assets/202608282200-federated-relationships.mjs](https://github.com/Ventusltd/pipelinenews/blob/4980096b57cb35f63ad2d80bded5687beb2a9532/releases/202608291447-pipelinenews/assets/202608282200-federated-relationships.mjs#L12-L14) |
-| #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [grid-distance-maths/src/geodesy.mjs](https://github.com/Ventusltd/grid-distance-maths/blob/30aa4e0456f95f084aa4ca7a234c610546eaf020/src/geodesy.mjs#L132-L138) |
+| #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
 | #975 | `sha256` | 67 | 94 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
@@ -63,12 +63,12 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `load` | 29 | 15 |
+| `load` | 30 | 16 |
 | `check` | 44 | 14 |
 | `build` | 72 | 13 |
 | `normalise` | 9 | 13 |
+| `draw` | 62 | 12 |
 | `verify` | 12 | 12 |
-| `draw` | 61 | 11 |
 | `require` | 16 | 11 |
 | `__init__` | 22 | 10 |
 | `write_json` | 17 | 10 |
