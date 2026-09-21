@@ -1,7 +1,7 @@
 {
   "schema": "chemistry-graph.v1",
   "label": "The Chemistry star",
-  "generated_utc": "2026-09-21T14:22:31.029Z",
+  "generated_utc": "2026-09-21T17:13:49.583Z",
   "note": "Elements (cartridge versions, the contract) as nodes; UNSTABLE_WITH when at least three recorded tests contain the pair and at least 90% are red; co-occurrence does not establish cause; DECAYS_TO the exception a compound produces.",
   "focus_default": "Si(202609051526)",
   "nodes": [
