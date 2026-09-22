@@ -1,5 +1,5 @@
 {
- "next": 1349,
+ "next": 1351,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1285,6 +1285,8 @@
   "globalgrid2050:kuiper-grid/drawing/power-block-planner.js": 1345,
   "globalgrid2050:kuiper-grid/drawing/public-start.js": 1346,
   "globalgrid2050:kuiper-grid/drawing/site-scale.js": 1347,
-  "globalgrid2050:kuiper-grid/drawing/view-mode.js": 1348
+  "globalgrid2050:kuiper-grid/drawing/view-mode.js": 1348,
+  "globalgrid2050:kuiper-grid/drawing/whole-site-route-view.js": 1349,
+  "globalgrid2050:kuiper-grid/drawing/whole-site-routes.js": 1350
  }
 }
