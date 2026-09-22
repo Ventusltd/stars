@@ -1,5 +1,5 @@
 {
- "next": 1335,
+ "next": 1349,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1271,6 +1271,20 @@
   "worlds-:src/watch_collapse.py": 1331,
   "worlds-:src/watch_refused.py": 1332,
   "worlds-:src/watch_ulp.py": 1333,
-  "worlds-:src/worked_examples.py": 1334
+  "worlds-:src/worked_examples.py": 1334,
+  "globalgrid2050:kuiper-grid/drawing/renderer.html": 1335,
+  "globalgrid2050:kuiper-grid/drawing/kuiper-controls.js": 1336,
+  "globalgrid2050:kuiper-grid/drawing/kuiper-pointer.js": 1337,
+  "globalgrid2050:kuiper-grid/drawing/kuiper-card.js": 1338,
+  "globalgrid2050:kuiper-grid/drawing/kuiper-programs.js": 1339,
+  "globalgrid2050:kuiper-grid/drawing/assemble.mjs": 1340,
+  "globalgrid2050:kuiper-grid/drawing/kuiper-chrome.js": 1341,
+  "globalgrid2050:homepage_versions/homepage_v123.html": 1342,
+  "globalgrid2050:kuiper-grid/drawing/array-lab.js": 1343,
+  "globalgrid2050:kuiper-grid/drawing/design-record.js": 1344,
+  "globalgrid2050:kuiper-grid/drawing/power-block-planner.js": 1345,
+  "globalgrid2050:kuiper-grid/drawing/public-start.js": 1346,
+  "globalgrid2050:kuiper-grid/drawing/site-scale.js": 1347,
+  "globalgrid2050:kuiper-grid/drawing/view-mode.js": 1348
  }
 }
