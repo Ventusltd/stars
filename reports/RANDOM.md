@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-09-22`
+# The Random star — 150 links by chance, seed `2026-09-23`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- #4843 envelope —RHYMES_WITH (0.829)→ Ss(202609050244)
-- #3804 renderNews —COULD_REPLACE (0.392)→ #3610 testcode/onChange
-- #1206 setFetchStatus —ENTANGLED_MAYBE (0.087)→ #5439 title
-- repo data-gridatlas —ENTANGLED_MAYBE (0.901)→ #3366 rowObject
-- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.529)→ #3384 testcode/promise
-- #3610 globalgrid2050/onChange —RHYMES_WITH (0.288)→ #3610 testcode/onChange
-- #3610 globalgrid2050/onChange —ENTANGLED_MAYBE (0.089)→ #1683 declineExport
-- #15 globalgrid2050/renderStats —WHAT_IF (0.717)→ #3610 testcode/onChange
-- #1524 pipelinenews/promise —COULD_REPLACE (0.465)→ Si(202609032213)
-- #3610 globalgrid2050/onChange —COULD_REPLACE (0.592)→ #3799 indexNewsItems
-- #5556 sha256PublishedFile —COULD_REPLACE (0.584)→ #4942 sourceId
-- #4052 globalgrid2050/handle —REMINDS_OF (0.75)→ #4402 category
-- #15 layout-tool/renderStats —ENTANGLED_MAYBE (0.318)→ #1524 pipelinenews/promise
-- #4942 sourceId —WHAT_IF (0.426)→ #1524 pipelinenews/promise
-- Dd diversified-demand.js —ENTANGLED_MAYBE (0.982)→ #4674 encode
-- #1529 invariant —MIGHT_TOUCH (0.853)→ #2141 scripts
-- Ro route-obstacles.js —ENTANGLED_MAYBE (0.297)→ #3404 survey
-- #4569 success —MIGHT_TOUCH (0.39)→ #8099 mount
-- #1524 globalgrid2050/promise —ENTANGLED_MAYBE (0.18)→ #1524 pipelinenews/promise
-- #15 globalgrid2050/renderStats —MIGHT_TOUCH (0.835)→ #5889 authority
-- #1686 carried —COULD_REPLACE (0.338)→ #1524 pipelinenews/promise
-- #3610 testcode/onChange —MIGHT_TOUCH (0.595)→ #3384 testcode/promise
-- #1542 select —COULD_REPLACE (0.04)→ #1531 finiteInRange
-- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.04)→ #1524 pipelinenews/promise
-- #1532 buildAtlasV9DeepLink —ENTANGLED_MAYBE (0.245)→ repo unnamed-01
-- #1524 pipelinenews/promise —REMINDS_OF (0.689)→ #1476 invariant
-- #3734 fetchJson —MIGHT_TOUCH (0.673)→ #3610 testcode/onChange
-- #4052 globalgrid2050/handle —RHYMES_WITH (0.883)→ repo crm
-- #1686 carried —RHYMES_WITH (0.69)→ #3384 globalgrid2050/promise
-- #1476 invariant —RHYMES_WITH (0.242)→ #3571 network
-- Si(202609051529) —MIGHT_TOUCH (0.565)→ #3610 testcode/onChange
-- Si(202609051211) —COULD_REPLACE (0.459)→ #1 clampInteger
-- #537 query —COULD_REPLACE (0.384)→ #3384 globalgrid2050/promise
-- #1241 updateArrayRotationDisplay —WHAT_IF (0.235)→ Sp
-- #1524 pipelinenews/promise —MIGHT_TOUCH (0.224)→ #15 cable-trench-or-drill/renderStats
-- #8391 buildNavigationRegistry —MIGHT_TOUCH (0.442)→ Ss(202609040403)
-- Ss sld-sandbox —RHYMES_WITH (0.484)→ #3570 cancel
-- #1529 invariant —COULD_REPLACE (0.926)→ Si(202609051510)
-- #5372 measured —COULD_REPLACE (0.763)→ #1677 selectTechnology
-- #4364 schedule —MIGHT_TOUCH (0.918)→ Si(202609062358)
+- #4843 envelope —COULD_REPLACE (0.019)→ Ss(202609012345)
+- #3705 round2 —WHAT_IF (0.731)→ #3610 globalgrid2050/onChange
+- #1524 pipelinenews/promise —REMINDS_OF (0.016)→ #4942 sourceId
+- Si(202609050238) —ENTANGLED_MAYBE (0.863)→ repo gb-electricity-ui
+- #1469 select —REMINDS_OF (0.894)→ #1529 invariant
+- #15 testcode/renderStats —ENTANGLED_MAYBE (0.093)→ #1468 renderRows
+- #3827 renderNews —REMINDS_OF (0.648)→ Re rating-envelope.js
+- #1524 globalgrid2050/promise —REMINDS_OF (0.97)→ #1524 globalgrid2050/promise
+- #1191 computeAndDraw —ENTANGLED_MAYBE (0.499)→ Gri grid_substations
+- #3384 testcode/promise —WHAT_IF (0.553)→ #3787 updateGaugesV9_1
+- Si(202609050301) —REMINDS_OF (0.767)→ #3384 testcode/promise
+- #4843 envelope —RHYMES_WITH (0.499)→ #15 globalgrid2050/renderStats
+- #4037 cloneVisiblePrinterUi —REMINDS_OF (0.381)→ #3384 testcode/promise
+- #3833 regionalRows —RHYMES_WITH (0.515)→ #3979 detach
+- #3384 testcode/promise —RHYMES_WITH (0.702)→ #4035 assertStableGeometry
+- #5490 pair —MIGHT_TOUCH (0.648)→ #1464 sha256Hex
+- #3610 testcode/onChange —RHYMES_WITH (0.939)→ repo gridmachine1
+- #15 testcode/renderStats —REMINDS_OF (0.036)→ #1524 pipelinenews/promise
+- repo crm —MIGHT_TOUCH (0.982)→ #1533 selfTest
+- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.455)→ #1524 pipelinenews/promise
+- #14 renderIssues —MIGHT_TOUCH (0.306)→ #3820 renderNews
+- #4569 success —MIGHT_TOUCH (0.647)→ #3813 signalForProjectV9_5_1
+- Si(202609040403) —WHAT_IF (0.433)→ #21 drawBend
+- #2039 Number —RHYMES_WITH (0.233)→ #3800 signalLabel
+- Si(202609051510) —WHAT_IF (0.901)→ repo spiders
+- Si(202609031751) —RHYMES_WITH (0.362)→ #1524 pipelinenews/promise
+- #3610 globalgrid2050/onChange —MIGHT_TOUCH (0.876)→ #1236 updateLegend
+- #1524 globalgrid2050/promise —REMINDS_OF (0.261)→ #3384 testcode/promise
+- #3834 drawRegional —MIGHT_TOUCH (0.182)→ #1529 invariant
+- #3384 globalgrid2050/promise —RHYMES_WITH (0.199)→ #766 geometry
+- #4315 readText —RHYMES_WITH (0.555)→ #8579 drawLegend
+- #15 testcode/renderStats —REMINDS_OF (0.489)→ #1200 renderFinance
+- #4316 readJson —MIGHT_TOUCH (0.709)→ #3821 loadNewsV9_5_1
+- #5440 panel —COULD_REPLACE (0.219)→ #3610 testcode/onChange
+- #3384 testcode/promise —ENTANGLED_MAYBE (0.19)→ #4402 category
+- #4 normaliseBurialDepthFieldOnBlur —WHAT_IF (0.293)→ #1524 globalgrid2050/promise
+- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.895)→ #3384 testcode/promise
+- #1524 pipelinenews/promise —COULD_REPLACE (0.848)→ #3827 renderNews
+- #3610 testcode/onChange —MIGHT_TOUCH (0.941)→ #1524 pipelinenews/promise
+- #1179 computeStats —WHAT_IF (0.828)→ #5556 sha256PublishedFile
 
 ## For the Spider
-`random/graph.json` — 165 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 169 nodes, 150 edges. Fly it when you want to get lost on purpose.
