@@ -11,7 +11,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
     nodes: 298
     edges: 996
-    graph_generated_utc: "2026-09-24T01:38:00.828Z"
+    graph_generated_utc: "2026-09-24T06:43:07.880Z"
   - id: "periodic-table"
     title: "Inventory"
     path: "https://ventusltd.github.io/stars/blocks/graph.json"
@@ -20,7 +20,7 @@ graphs:
     description: "Every block of globalgrid2050 architecture development with a permanent number and a plain-language description, grouped by category and wired to the repositories it lives in. Underneath each block are its numbered functions. External opens the table page."
     nodes: 392
     edges: 1277
-    graph_generated_utc: "2026-09-24T01:39:36.037Z"
+    graph_generated_utc: "2026-09-24T06:44:17.226Z"
   - id: "sense"
     title: "Assessment"
     path: "https://ventusltd.github.io/stars/sense/graph.json"
@@ -29,7 +29,7 @@ graphs:
     description: "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."
     nodes: 142
     edges: 566
-    graph_generated_utc: "2026-09-24T01:39:52.840Z"
+    graph_generated_utc: "2026-09-24T06:44:32.837Z"
   - id: "proof-of-work"
     title: "Audit"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
@@ -38,7 +38,7 @@ graphs:
     description: "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."
     nodes: 40
     edges: 68
-    graph_generated_utc: "2026-09-24T01:39:52.873Z"
+    graph_generated_utc: "2026-09-24T06:44:32.874Z"
   - id: "structure"
     title: "Structure"
     path: "https://ventusltd.github.io/stars/structure/graph.json"
@@ -47,7 +47,7 @@ graphs:
     description: "globalgrid2050 architecture development, top-down: repositories, the blocks in each, and the engine modules in their canonical order."
     nodes: 127
     edges: 368
-    graph_generated_utc: "2026-09-24T01:40:03.008Z"
+    graph_generated_utc: "2026-09-24T06:44:43.010Z"
   - id: "decisions"
     title: "Decisions"
     path: "https://ventusltd.github.io/stars/decisions/graph.json"
@@ -56,7 +56,7 @@ graphs:
     description: "The judgements attached to the maps' permanent keys: one card per decision record, open (amber), decided (green) or superseded (grey), wired to the block, constant or function family it concerns. A decided record is permission; an open record is a question. Records are made by clicks from the Decision issue form."
     nodes: 33
     edges: 35
-    graph_generated_utc: "2026-09-24T01:39:37.400Z"
+    graph_generated_utc: "2026-09-24T06:44:18.847Z"
   - id: "chemistry"
     title: "Compatibility"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
