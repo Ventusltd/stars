@@ -1,5 +1,5 @@
 {
- "next": 1399,
+ "next": 1414,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1335,6 +1335,21 @@
   "sld:tests/test_furnace_gate.py": 1395,
   "sld:tests/test_sources.py": 1396,
   "kuiper-drawing-engine:tests/test_public_bundle.py": 1397,
-  "kuiper-drawing-engine:tools/check_public_bundle.py": 1398
+  "kuiper-drawing-engine:tools/check_public_bundle.py": 1398,
+  "graphics-engines-open-source:web/atlas-picker.mjs": 1399,
+  "graphics-engines-open-source:web/gridatlas.mjs": 1400,
+  "graphics-engines-open-source:tests/browser.cjs": 1401,
+  "graphics-engines-open-source:web/explore.mjs": 1402,
+  "graphics-engines-open-source:web/route-file.mjs": 1403,
+  "graphics-engines-open-source:web/route-files-ui.mjs": 1404,
+  "graphics-engines-open-source:web/substation-picker.mjs": 1405,
+  "graphics-engines-open-source:tools/gpu_watch.py": 1406,
+  "graphics-engines-open-source:tests/existing-wiring.cjs": 1407,
+  "soil:gpu_check.py": 1408,
+  "soil:import_environment.py": 1409,
+  "soil:import_soil.py": 1410,
+  "soil:test_thermal.py": 1411,
+  "soil:thermal.py": 1412,
+  "globalgrid2050:ventus/wiring/station-geometry.mjs": 1413
  }
 }

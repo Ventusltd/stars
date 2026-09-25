@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-25T12:09:22.567Z",
+ "generated_utc": "2026-09-25T17:31:10.202Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6713,
+ "families_with_uses": 6741,
  "hubs": [
   {
    "family": 1318,
@@ -21,7 +21,7 @@
   {
    "family": 72282,
    "name": "invariant",
-   "used_by": 340
+   "used_by": 351
   },
   {
    "family": 134305,
@@ -74,6 +74,11 @@
    "used_by": 196
   },
   {
+   "family": 77688,
+   "name": "assert",
+   "used_by": 188
+  },
+  {
    "family": 129751,
    "name": "el",
    "used_by": 186
@@ -84,19 +89,14 @@
    "used_by": 185
   },
   {
-   "family": 77688,
+   "family": 70873,
    "name": "assert",
-   "used_by": 177
+   "used_by": 179
   },
   {
    "family": 7364,
    "name": "fetch",
    "used_by": 172
-  },
-  {
-   "family": 70873,
-   "name": "assert",
-   "used_by": 168
   },
   {
    "family": 32733,
@@ -121,17 +121,17 @@
   {
    "family": 402,
    "name": "fetch",
-   "used_by": 144
+   "used_by": 146
   },
   {
    "family": 454,
    "name": "fetch",
-   "used_by": 144
+   "used_by": 146
   },
   {
    "family": 1085,
    "name": "fetch",
-   "used_by": 144
+   "used_by": 146
   },
   {
    "family": 76405,
@@ -209,6 +209,21 @@
    "used_by": 101
   },
   {
+   "family": 1624,
+   "name": "apply",
+   "used_by": 99
+  },
+  {
+   "family": 2015,
+   "name": "apply",
+   "used_by": 99
+  },
+  {
+   "family": 2112,
+   "name": "apply",
+   "used_by": 99
+  },
+  {
    "family": 136164,
    "name": "registry",
    "used_by": 98
@@ -226,21 +241,6 @@
   {
    "family": 1289,
    "name": "escapeHtml",
-   "used_by": 97
-  },
-  {
-   "family": 1624,
-   "name": "apply",
-   "used_by": 97
-  },
-  {
-   "family": 2015,
-   "name": "apply",
-   "used_by": 97
-  },
-  {
-   "family": 2112,
-   "name": "apply",
    "used_by": 97
   },
   {
@@ -291,17 +291,17 @@
   {
    "family": 70861,
    "name": "query",
-   "used_by": 78
+   "used_by": 82
   },
   {
    "family": 70974,
    "name": "query",
-   "used_by": 78
+   "used_by": 82
   },
   {
-   "family": 131002,
-   "name": "target",
-   "used_by": 76
+   "family": 531,
+   "name": "query",
+   "used_by": 77
   }
  ]
 }

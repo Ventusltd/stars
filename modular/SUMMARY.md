@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-25 12:09 UTC by GitHub Actions. It reads the current code of 78 Ventusltd repositories.
+Updated 2026-09-25 17:31 UTC by GitHub Actions. It reads the current code of 80 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 322,637 |
-| File versions | 6,586 |
-| Elements (functions and classes) | 21,485 |
-| Families (same logic) | 20,106 |
+| Unique lines | 323,778 |
+| File versions | 6,653 |
+| Elements (functions and classes) | 21,564 |
+| Families (same logic) | 20,185 |
 | Families written in two or more different files (duplicate work) | 4,715 |
 | Families only copied between versions of one file | 863 |
 | Self-contained functions compiled into the library | 430 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,098 of 9,098 commits across 78 repositories (78 complete). Each run continues where the last one stopped.
+History walked: 9,114 of 9,114 commits across 80 repositories (80 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -64,20 +64,21 @@ These names mean different things in different repositories, so check which vers
 | Name | Different versions | Repositories |
 |---|---|---|
 | `load` | 31 | 17 |
-| `build` | 84 | 15 |
+| `build` | 85 | 16 |
 | `check` | 45 | 15 |
 | `require` | 18 | 15 |
 | `__init__` | 26 | 14 |
-| `draw` | 64 | 13 |
+| `draw` | 65 | 13 |
 | `verify` | 13 | 13 |
 | `normalise` | 9 | 13 |
 | `validate` | 23 | 11 |
+| `classify` | 15 | 11 |
+| `fetch` | 15 | 11 |
 | `setUp` | 15 | 11 |
 | `walk` | 20 | 10 |
 | `write_json` | 17 | 10 |
-| `classify` | 14 | 10 |
-| `fetch` | 14 | 10 |
 | `record` | 17 | 9 |
+| `refresh` | 16 | 9 |
 | `describe` | 12 | 9 |
 | `measure` | 11 | 9 |
 | `start` | 57 | 8 |
@@ -85,7 +86,6 @@ These names mean different things in different repositories, so check which vers
 | `frame` | 17 | 8 |
 | `write` | 17 | 8 |
 | `sha256` | 16 | 8 |
-| `refresh` | 14 | 8 |
 | `resolve` | 8 | 8 |
 | `haversine` | 7 | 8 |
 
