@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-25 00:46 UTC by GitHub Actions. It reads the current code of 77 Ventusltd repositories.
+Updated 2026-09-25 06:34 UTC by GitHub Actions. It reads the current code of 78 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 320,236 |
-| File versions | 6,532 |
-| Elements (functions and classes) | 21,295 |
-| Families (same logic) | 19,917 |
-| Families written in two or more different files (duplicate work) | 4,703 |
+| Unique lines | 322,598 |
+| File versions | 6,582 |
+| Elements (functions and classes) | 21,480 |
+| Families (same logic) | 20,101 |
+| Families written in two or more different files (duplicate work) | 4,715 |
 | Families only copied between versions of one file | 863 |
-| Self-contained functions compiled into the library | 429 |
+| Self-contained functions compiled into the library | 430 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,093 of 9,093 commits across 77 repositories (77 complete). Each run continues where the last one stopped.
+History walked: 9,098 of 9,098 commits across 78 repositories (78 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -63,21 +63,21 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `load` | 30 | 16 |
-| `build` | 81 | 14 |
+| `load` | 31 | 17 |
+| `build` | 84 | 15 |
+| `require` | 18 | 15 |
 | `check` | 44 | 14 |
-| `require` | 18 | 13 |
+| `__init__` | 26 | 14 |
+| `draw` | 64 | 13 |
+| `verify` | 13 | 13 |
 | `normalise` | 9 | 13 |
-| `draw` | 63 | 12 |
-| `__init__` | 24 | 12 |
-| `verify` | 12 | 12 |
+| `validate` | 23 | 11 |
+| `setUp` | 15 | 11 |
 | `walk` | 20 | 10 |
 | `write_json` | 17 | 10 |
 | `classify` | 14 | 10 |
 | `fetch` | 14 | 10 |
-| `validate` | 20 | 9 |
 | `record` | 17 | 9 |
-| `setUp` | 13 | 9 |
 | `describe` | 12 | 9 |
 | `measure` | 11 | 9 |
 | `start` | 57 | 8 |
@@ -85,9 +85,9 @@ These names mean different things in different repositories, so check which vers
 | `frame` | 17 | 8 |
 | `write` | 17 | 8 |
 | `sha256` | 16 | 8 |
+| `refresh` | 14 | 8 |
+| `resolve` | 8 | 8 |
 | `haversine` | 7 | 8 |
-| `show` | 24 | 7 |
-| `step` | 22 | 7 |
 
 ## How to check for earlier work before writing code
 

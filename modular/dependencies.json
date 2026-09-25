@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-25T00:46:09.838Z",
+ "generated_utc": "2026-09-25T06:34:07.116Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6651,
+ "families_with_uses": 6713,
  "hubs": [
   {
    "family": 1318,
@@ -19,14 +19,14 @@
    "used_by": 363
   },
   {
+   "family": 72282,
+   "name": "invariant",
+   "used_by": 340
+  },
+  {
    "family": 134305,
    "name": "state",
    "used_by": 329
-  },
-  {
-   "family": 72282,
-   "name": "invariant",
-   "used_by": 323
   },
   {
    "family": 70695,
@@ -56,12 +56,12 @@
   {
    "family": 129814,
    "name": "link",
-   "used_by": 200
+   "used_by": 202
   },
   {
    "family": 130047,
    "name": "link",
-   "used_by": 200
+   "used_by": 202
   },
   {
    "family": 1317,
@@ -84,19 +84,24 @@
    "used_by": 185
   },
   {
+   "family": 77688,
+   "name": "assert",
+   "used_by": 177
+  },
+  {
    "family": 7364,
    "name": "fetch",
-   "used_by": 171
+   "used_by": 172
+  },
+  {
+   "family": 70873,
+   "name": "assert",
+   "used_by": 168
   },
   {
    "family": 32733,
    "name": "state",
    "used_by": 161
-  },
-  {
-   "family": 77688,
-   "name": "assert",
-   "used_by": 160
   },
   {
    "family": 1600,
@@ -111,32 +116,27 @@
   {
    "family": 130547,
    "name": "fetch",
-   "used_by": 156
-  },
-  {
-   "family": 70873,
-   "name": "assert",
-   "used_by": 151
+   "used_by": 157
   },
   {
    "family": 402,
    "name": "fetch",
-   "used_by": 141
+   "used_by": 144
   },
   {
    "family": 454,
    "name": "fetch",
-   "used_by": 141
+   "used_by": 144
   },
   {
    "family": 1085,
    "name": "fetch",
-   "used_by": 141
+   "used_by": 144
   },
   {
    "family": 76405,
    "name": "byId",
-   "used_by": 130
+   "used_by": 133
   },
   {
    "family": 130796,
@@ -209,6 +209,21 @@
    "used_by": 101
   },
   {
+   "family": 136164,
+   "name": "registry",
+   "used_by": 98
+  },
+  {
+   "family": 136168,
+   "name": "registry",
+   "used_by": 98
+  },
+  {
+   "family": 136172,
+   "name": "registry",
+   "used_by": 98
+  },
+  {
    "family": 1289,
    "name": "escapeHtml",
    "used_by": 97
@@ -234,21 +249,6 @@
    "used_by": 94
   },
   {
-   "family": 136164,
-   "name": "registry",
-   "used_by": 93
-  },
-  {
-   "family": 136168,
-   "name": "registry",
-   "used_by": 93
-  },
-  {
-   "family": 136172,
-   "name": "registry",
-   "used_by": 93
-  },
-  {
    "family": 130262,
    "name": "card",
    "used_by": 93
@@ -259,8 +259,18 @@
    "used_by": 86
   },
   {
-   "family": 144037,
+   "family": 144149,
    "name": "link",
+   "used_by": 85
+  },
+  {
+   "family": 133426,
+   "name": "page",
+   "used_by": 83
+  },
+  {
+   "family": 141565,
+   "name": "page",
    "used_by": 83
   },
   {
@@ -277,16 +287,6 @@
    "family": 135023,
    "name": "rows",
    "used_by": 82
-  },
-  {
-   "family": 133426,
-   "name": "page",
-   "used_by": 81
-  },
-  {
-   "family": 141565,
-   "name": "page",
-   "used_by": 81
   },
   {
    "family": 70861,

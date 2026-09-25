@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-09-25 00:47 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (102 KB, 127 cards, 368 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-09-25 06:36 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (105 KB, 131 cards, 376 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (32)
+## Repositories (36)
 
 ```mermaid
 flowchart TD
@@ -63,8 +63,16 @@ flowchart TD
   estate --> n_Ventusltd_faraday
   n_Ventusltd_gemini["gemini · 1 blocks"]:::ok
   estate --> n_Ventusltd_gemini
+  n_Ventusltd_globalgrid2050_homepage["globalgrid2050-homepage · 1 blocks"]:::ok
+  estate --> n_Ventusltd_globalgrid2050_homepage
+  n_Ventusltd_globalgrid2050_ip_and_mac_addresses["globalgrid2050-ip-and-mac-addresses · 1 blocks"]:::ok
+  estate --> n_Ventusltd_globalgrid2050_ip_and_mac_addresses
   n_Ventusltd_gridmachine1["gridmachine1 · 1 blocks"]:::ok
   estate --> n_Ventusltd_gridmachine1
+  n_Ventusltd_kuiper_drawing_engine["kuiper-drawing-engine · 1 blocks"]:::ok
+  estate --> n_Ventusltd_kuiper_drawing_engine
+  n_Ventusltd_sld["sld · 1 blocks"]:::ok
+  estate --> n_Ventusltd_sld
   n_Ventusltd_solar_electrical_topology_analysis_engine_text_based["solar-electrical-topology-analysis-engine-text-based · 1 blocks"]:::ok
   estate --> n_Ventusltd_solar_electrical_topology_analysis_engine_text_based
   n_Ventusltd_star_electron_star["star-electron-star · 1 blocks"]:::ok

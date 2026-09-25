@@ -1,5 +1,5 @@
 {
- "next": 1372,
+ "next": 1397,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1308,6 +1308,31 @@
   "globalgrid2050:scripts/render_site_navigation.py": 1368,
   "globalgrid2050-homepage:scripts/releases.py": 1369,
   "globalgrid2050-homepage:tests/test_releases.py": 1370,
-  "globalgrid2050-hompage:scripts/build_federation_systems_map.py": 1371
+  "globalgrid2050-hompage:scripts/build_federation_systems_map.py": 1371,
+  "globalgrid2050-ip-and-mac-addresses:assets/app.js": 1372,
+  "globalgrid2050-ip-and-mac-addresses:build.py": 1373,
+  "globalgrid2050-ip-and-mac-addresses:registry.py": 1374,
+  "globalgrid2050-ip-and-mac-addresses:tests/frontend.test.cjs": 1375,
+  "globalgrid2050-ip-and-mac-addresses:tests/test_labels.py": 1376,
+  "globalgrid2050-ip-and-mac-addresses:tests/test_registry.py": 1377,
+  "globalgrid2050-homepage:scripts/build_homepage_fallback.py": 1378,
+  "globalgrid2050-homepage:scripts/fetch_active_pages.py": 1379,
+  "globalgrid2050-homepage:tests/homepage-browser.cjs": 1380,
+  "globalgrid2050-homepage:tests/test_active_pages.py": 1381,
+  "kuiper-drawing-engine:tests/browser.cjs": 1382,
+  "kuiper-drawing-engine:tools/audit_estate.py": 1383,
+  "kuiper-drawing-engine:tools/electrical_reference_check.py": 1384,
+  "kuiper-drawing-engine:tools/geometry_loop.py": 1385,
+  "kuiper-drawing-engine:web/app.mjs": 1386,
+  "kuiper-drawing-engine:web/geometry.mjs": 1387,
+  "kuiper-drawing-engine:web/site.mjs": 1388,
+  "sld:assets/app.js": 1389,
+  "sld:scripts/build_catalogue.py": 1390,
+  "sld:scripts/build_site.py": 1391,
+  "sld:scripts/fetch_sources.py": 1392,
+  "sld:scripts/furnace.py": 1393,
+  "sld:tests/browser.cjs": 1394,
+  "sld:tests/test_furnace_gate.py": 1395,
+  "sld:tests/test_sources.py": 1396
  }
 }
