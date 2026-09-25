@@ -1,5 +1,5 @@
 {
- "next": 1397,
+ "next": 1399,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1333,6 +1333,8 @@
   "sld:scripts/furnace.py": 1393,
   "sld:tests/browser.cjs": 1394,
   "sld:tests/test_furnace_gate.py": 1395,
-  "sld:tests/test_sources.py": 1396
+  "sld:tests/test_sources.py": 1396,
+  "kuiper-drawing-engine:tests/test_public_bundle.py": 1397,
+  "kuiper-drawing-engine:tools/check_public_bundle.py": 1398
  }
 }
