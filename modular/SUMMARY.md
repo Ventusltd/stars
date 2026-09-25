@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-24 21:45 UTC by GitHub Actions. It reads the current code of 75 Ventusltd repositories.
+Updated 2026-09-25 00:46 UTC by GitHub Actions. It reads the current code of 77 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 319,478 |
-| File versions | 6,519 |
-| Elements (functions and classes) | 21,242 |
-| Families (same logic) | 19,864 |
-| Families written in two or more different files (duplicate work) | 4,690 |
+| Unique lines | 320,236 |
+| File versions | 6,532 |
+| Elements (functions and classes) | 21,295 |
+| Families (same logic) | 19,917 |
+| Families written in two or more different files (duplicate work) | 4,703 |
 | Families only copied between versions of one file | 863 |
-| Self-contained functions compiled into the library | 427 |
+| Self-contained functions compiled into the library | 429 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,091 of 9,091 commits across 75 repositories (75 complete). Each run continues where the last one stopped.
+History walked: 9,093 of 9,093 commits across 77 repositories (77 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -66,22 +66,22 @@ These names mean different things in different repositories, so check which vers
 | `load` | 30 | 16 |
 | `build` | 81 | 14 |
 | `check` | 44 | 14 |
+| `require` | 18 | 13 |
 | `normalise` | 9 | 13 |
 | `draw` | 63 | 12 |
 | `__init__` | 24 | 12 |
-| `require` | 17 | 12 |
 | `verify` | 12 | 12 |
+| `walk` | 20 | 10 |
 | `write_json` | 17 | 10 |
 | `classify` | 14 | 10 |
 | `fetch` | 14 | 10 |
-| `walk` | 19 | 9 |
+| `validate` | 20 | 9 |
 | `record` | 17 | 9 |
 | `setUp` | 13 | 9 |
 | `describe` | 12 | 9 |
 | `measure` | 11 | 9 |
 | `start` | 57 | 8 |
 | `inspect` | 18 | 8 |
-| `validate` | 18 | 8 |
 | `frame` | 17 | 8 |
 | `write` | 17 | 8 |
 | `sha256` | 16 | 8 |

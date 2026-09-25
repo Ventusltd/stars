@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-09-24T21:45:59.218Z",
+ "generated_utc": "2026-09-25T00:46:09.838Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6629,
+ "families_with_uses": 6651,
  "hubs": [
   {
    "family": 1318,
@@ -26,7 +26,7 @@
   {
    "family": 72282,
    "name": "invariant",
-   "used_by": 320
+   "used_by": 323
   },
   {
    "family": 70695,
@@ -54,6 +54,16 @@
    "used_by": 204
   },
   {
+   "family": 129814,
+   "name": "link",
+   "used_by": 200
+  },
+  {
+   "family": 130047,
+   "name": "link",
+   "used_by": 200
+  },
+  {
    "family": 1317,
    "name": "el",
    "used_by": 196
@@ -61,16 +71,6 @@
   {
    "family": 1686,
    "name": "el",
-   "used_by": 196
-  },
-  {
-   "family": 129814,
-   "name": "link",
-   "used_by": 196
-  },
-  {
-   "family": 130047,
-   "name": "link",
    "used_by": 196
   },
   {
@@ -86,12 +86,17 @@
   {
    "family": 7364,
    "name": "fetch",
-   "used_by": 170
+   "used_by": 171
   },
   {
    "family": 32733,
    "name": "state",
    "used_by": 161
+  },
+  {
+   "family": 77688,
+   "name": "assert",
+   "used_by": 160
   },
   {
    "family": 1600,
@@ -104,19 +109,14 @@
    "used_by": 160
   },
   {
-   "family": 77688,
-   "name": "assert",
-   "used_by": 157
-  },
-  {
    "family": 130547,
    "name": "fetch",
-   "used_by": 155
+   "used_by": 156
   },
   {
    "family": 70873,
    "name": "assert",
-   "used_by": 148
+   "used_by": 151
   },
   {
    "family": 402,
@@ -196,12 +196,12 @@
   {
    "family": 136068,
    "name": "status",
-   "used_by": 101
+   "used_by": 104
   },
   {
    "family": 142915,
    "name": "status",
-   "used_by": 101
+   "used_by": 104
   },
   {
    "family": 131104,
@@ -229,6 +229,11 @@
    "used_by": 97
   },
   {
+   "family": 975,
+   "name": "sha256",
+   "used_by": 94
+  },
+  {
    "family": 136164,
    "name": "registry",
    "used_by": 93
@@ -249,14 +254,14 @@
    "used_by": 93
   },
   {
-   "family": 975,
-   "name": "sha256",
-   "used_by": 92
-  },
-  {
    "family": 32234,
    "name": "sha256",
    "used_by": 86
+  },
+  {
+   "family": 144037,
+   "name": "link",
+   "used_by": 83
   },
   {
    "family": 6650,
@@ -296,11 +301,6 @@
   {
    "family": 131002,
    "name": "target",
-   "used_by": 76
-  },
-  {
-   "family": 9053,
-   "name": "technology",
    "used_by": 76
   }
  ]

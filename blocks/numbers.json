@@ -1,5 +1,5 @@
 {
- "next": 1364,
+ "next": 1372,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1300,6 +1300,14 @@
   "globalgrid2050:ventus/wiring/inverter-48.mjs": 1360,
   "globalgrid2050:ventus/wiring/inverter-station.mjs": 1361,
   "globalgrid2050:ventus/wiring/public-start.js": 1362,
-  "globalgrid2050:ventus/wiring/renderer.html": 1363
+  "globalgrid2050:ventus/wiring/renderer.html": 1363,
+  "globalgrid2050-hompage:assets/dashboard.js": 1364,
+  "globalgrid2050:homepage-before-four-nests-{stamp}.html": 1365,
+  "globalgrid2050:homepage-shell/assets/versioned-homepage.js": 1366,
+  "globalgrid2050:scripts/import_homepage_owner.py": 1367,
+  "globalgrid2050:scripts/render_site_navigation.py": 1368,
+  "globalgrid2050-homepage:scripts/releases.py": 1369,
+  "globalgrid2050-homepage:tests/test_releases.py": 1370,
+  "globalgrid2050-hompage:scripts/build_federation_systems_map.py": 1371
  }
 }

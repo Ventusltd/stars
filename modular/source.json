@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-24T21:45:59.218Z",
+  "generated_utc": "2026-09-25T00:46:09.838Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -58,13 +58,13 @@
     },
     {
       "repo": "Ventusltd/cosmic",
-      "commit": "450b2e1094cefadd72a4a23076e378dfcc3e4893",
+      "commit": "3f26bb39387b46c498c0567280516d9d43844a16",
       "code_files": 4
     },
     {
       "repo": "Ventusltd/cvaa",
-      "commit": "48393ff23b4602b045fbc9d7c1db16ffc5b6e6d4",
-      "code_files": 8
+      "commit": "55bb551ccb00003885902f7acf12d574200bf48c",
+      "code_files": 9
     },
     {
       "repo": "Ventusltd/data-centres-gb",
@@ -133,13 +133,13 @@
     },
     {
       "repo": "Ventusltd/globalgrid2050",
-      "commit": "bec0c7e7ef4b2617bc1027373c25be29470f1751",
-      "code_files": 7845
+      "commit": "451109c67982ab74f129753d422d832d41bca782",
+      "code_files": 7853
     },
     {
       "repo": "Ventusltd/globalgrid2050-homepage",
-      "commit": "13055b1906e4a72dbcf7405d31fd12219607d622",
-      "code_files": 3
+      "commit": "fedcc7ff4c8fa86f489ccaf6f95c955aab3de258",
+      "code_files": 6
     },
     {
       "repo": "Ventusltd/globalgrid2050-hompage",
@@ -148,7 +148,7 @@
     },
     {
       "repo": "Ventusltd/gpu-drivers-for-global-grid",
-      "commit": "71c44dcdc9a654866f4ec903bfeefea419675fdb",
+      "commit": "1ef5f3a6c42c9cb4aa9c976d2781e5993fe4f30e",
       "code_files": 32
     },
     {
@@ -187,6 +187,11 @@
       "code_files": 18
     },
     {
+      "repo": "Ventusltd/kuiper-drawing-engine",
+      "commit": "dff7ec1168661f263804422dbccf0c9b45404322",
+      "code_files": 0
+    },
+    {
       "repo": "Ventusltd/kuiper-ship",
       "commit": "668ff0897022d5c14635198939673de3d9a66ce9",
       "code_files": 0
@@ -208,7 +213,7 @@
     },
     {
       "repo": "Ventusltd/particle-physics-drawing-engine",
-      "commit": "a6c95aa0d0370f53256d4e26bce584bcdec2a65a",
+      "commit": "03802e5d435a37f81c3e4a6c03f3d00f4da01277",
       "code_files": 11
     },
     {
@@ -244,6 +249,11 @@
     {
       "repo": "Ventusltd/sld",
       "commit": "1b9d269f90506441bc456337211f96ce16cfd8c6",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/solar-bess-topology-sandbox",
+      "commit": "4cc5eb2d2ec5d30107d1caec4584c5555ed0b360",
       "code_files": 0
     },
     {
@@ -333,7 +343,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "e5388f9191940dc72c8daa624f790807636af348",
+      "commit": "d8b49f20def1e927987adb4dc0953ae4ad4d50bf",
       "code_files": 1
     },
     {
@@ -358,7 +368,7 @@
     },
     {
       "repo": "Ventusltd/ventus-grid-engine",
-      "commit": "ce300596f01bafd22c24196b488a49761c2dd658",
+      "commit": "7e354690026ca579509351c64dabb096e4321867",
       "code_files": 72
     },
     {
