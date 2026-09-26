@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-26 10:12 UTC by GitHub Actions. It reads the current code of 80 Ventusltd repositories.
+Updated 2026-09-26 14:42 UTC by GitHub Actions. It reads the current code of 80 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -26,7 +26,7 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 44 | 473 | 6 | yes | 2026-08-28 | [pipelinenews/releases/202608291447-pipelinenews/assets/202608282200-federated-relationships.mjs](https://github.com/Ventusltd/pipelinenews/blob/4980096b57cb35f63ad2d80bded5687beb2a9532/releases/202608291447-pipelinenews/assets/202608282200-federated-relationships.mjs#L12-L14) |
+| #1586 | `invariant` | 44 | 473 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
 | #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |

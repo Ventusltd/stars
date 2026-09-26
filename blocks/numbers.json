@@ -1,5 +1,5 @@
 {
- "next": 1415,
+ "next": 1443,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1351,6 +1351,34 @@
   "soil:test_thermal.py": 1411,
   "soil:thermal.py": 1412,
   "globalgrid2050:ventus/wiring/station-geometry.mjs": 1413,
-  "graphics-engines-open-source:tools/convert-connector.cjs": 1414
+  "graphics-engines-open-source:tools/convert-connector.cjs": 1414,
+  "testcode:sandbox/{stamp}/pipeline/scripts/app-v9-3.js": 1415,
+  "testcode:sandbox/{stamp}/pipeline/scripts/app-v9-6-2.js": 1416,
+  "testcode:sandbox/{stamp}/pipeline/scripts/app.js": 1417,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/news-regions-v9-6-2.js": 1418,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/news-relevance-v9-2.js": 1419,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/plugin-host.js": 1420,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/project-filter-v9-2.js": 1421,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/project-state.js": 1422,
+  "testcode:sandbox/{stamp}/pipeline/scripts/core/utils.js": 1423,
+  "testcode:sandbox/{stamp}/pipeline/scripts/data/canonical-projects-v9-2.js": 1424,
+  "testcode:sandbox/{stamp}/pipeline/scripts/data/canonical-projects-v9-3.js": 1425,
+  "testcode:sandbox/{stamp}/pipeline/scripts/data/canonical-projects-v9-5-1.js": 1426,
+  "testcode:sandbox/{stamp}/pipeline/scripts/data/canonical-projects.js": 1427,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/canonical-project-controls.js": 1428,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/canonical-project-export.js": 1429,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/capacity-presentation-v9-3.js": 1430,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/gauges-v9-1.js": 1431,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/gauges-v9-2.js": 1432,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/gauges.js": 1433,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/newspaper-v9-2.js": 1434,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/newspaper-v9-5-1.js": 1435,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/newspaper-v9-6-2.js": 1436,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/newspaper.js": 1437,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/project-export.js": 1438,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/project-filters.js": 1439,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/project-table.js": 1440,
+  "testcode:sandbox/{stamp}/pipeline/scripts/plugins/projects.js": 1441,
+  "globalgrid2050-homepage:assets/versioned-homepage.js": 1442
  }
 }

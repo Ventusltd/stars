@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-26T10:13:49.123Z",
+ "generated_utc": "2026-09-26T14:43:51.947Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -36,7 +36,6 @@
     "Dc",
     "Dt",
     "Io",
-    "Pn",
     "Pp",
     "Pr",
     "R",
@@ -150,43 +149,30 @@
    "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Ps"
   },
   {
-   "folder": "data-gridatlas/compiler",
-   "title": "Compiler",
-   "repo": "Ventusltd/data-gridatlas",
+   "folder": "globalgrid2050/pipelinenews_intelligence/{stamp}/assets",
+   "title": "Pipelinenews intelligence",
+   "repo": "Ventusltd/globalgrid2050",
    "blocks": [
-    "Dc",
     "Dt",
+    "Gp",
     "Pn",
-    "Pr"
+    "Wf"
    ],
-   "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-   "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+   "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
   },
   {
-   "folder": "gridatlas/compiler",
-   "title": "Compiler",
-   "repo": "Ventusltd/gridatlas",
+   "folder": "globalgrid2050/testcode/{stamp}/pipeline/assets",
+   "title": "Globalgrid2050",
+   "repo": "Ventusltd/globalgrid2050",
    "blocks": [
-    "Dc",
     "Dt",
+    "Gp",
     "Pn",
-    "Pr"
+    "Wf"
    ],
-   "live": "https://ventusltd.github.io/gridatlas/compiler/",
-   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
-  },
-  {
-   "folder": "data-grid-gb/chatgpt",
-   "title": "Chatgpt",
-   "repo": "Ventusltd/data-grid-gb",
-   "blocks": [
-    "Dc",
-    "Dt",
-    "Pn",
-    "Pr"
-   ],
-   "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-   "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
+   "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
   },
   {
    "folder": "gridatlas/atlas/parts",
@@ -265,28 +251,40 @@
    "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Si"
   },
   {
-   "folder": "data-gridatlas/atman",
-   "title": "Atman",
+   "folder": "data-gridatlas/compiler",
+   "title": "Compiler",
    "repo": "Ventusltd/data-gridatlas",
    "blocks": [
+    "Dc",
     "Dt",
-    "Pn",
     "Pr"
    ],
-   "live": "https://ventusltd.github.io/data-gridatlas/atman/",
-   "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/atman"
+   "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+   "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
   },
   {
-   "folder": "gridatlas/atman",
-   "title": "Atman",
+   "folder": "gridatlas/compiler",
+   "title": "Compiler",
    "repo": "Ventusltd/gridatlas",
    "blocks": [
+    "Dc",
     "Dt",
-    "Pn",
     "Pr"
    ],
-   "live": "https://ventusltd.github.io/gridatlas/atman/",
-   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
+   "live": "https://ventusltd.github.io/gridatlas/compiler/",
+   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+  },
+  {
+   "folder": "data-grid-gb/chatgpt",
+   "title": "Chatgpt",
+   "repo": "Ventusltd/data-grid-gb",
+   "blocks": [
+    "Dc",
+    "Dt",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
+   "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
   },
   {
    "folder": "pipelinenews/atman",
@@ -299,18 +297,6 @@
    ],
    "live": "https://ventusltd.github.io/pipelinenews/atman/",
    "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/atman"
-  },
-  {
-   "folder": "globalgrid2050/testcode/{stamp}/pipeline/assets",
-   "title": "Globalgrid2050",
-   "repo": "Ventusltd/globalgrid2050",
-   "blocks": [
-    "Dt",
-    "Pn",
-    "Wf"
-   ],
-   "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
   },
   {
    "folder": "testcode/sandbox/tools",
@@ -393,15 +379,15 @@
    "gh": "https://github.com/Ventusltd/companies/tree/main/scripts"
   },
   {
-   "folder": "pipelinenews/orchestration",
-   "title": "Orchestration",
-   "repo": "Ventusltd/pipelinenews",
+   "folder": "data-gridatlas/atman",
+   "title": "Atman",
+   "repo": "Ventusltd/data-gridatlas",
    "blocks": [
     "Dt",
-    "Pn"
+    "Pr"
    ],
-   "live": "https://ventusltd.github.io/pipelinenews/orchestration/",
-   "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/orchestration"
+   "live": "https://ventusltd.github.io/data-gridatlas/atman/",
+   "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/atman"
   },
   {
    "folder": "data-gb-electricity/derived",
@@ -426,6 +412,28 @@
    "gh": "https://github.com/Ventusltd/data-gb-electricity/tree/main/pipelines"
   },
   {
+   "folder": "gridatlas/atman",
+   "title": "Atman",
+   "repo": "Ventusltd/gridatlas",
+   "blocks": [
+    "Dt",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/gridatlas/atman/",
+   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
+  },
+  {
+   "folder": "globalgrid2050/uk_renewables_pipeline/{stamp}/scripts/data",
+   "title": "Uk renewables pipeline",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/scripts/data/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202609082224/scripts/data"
+  },
+  {
    "folder": "globalgrid2050/uk_renewables_pipeline/{stamp}/tests",
    "title": "Tests",
    "repo": "Ventusltd/globalgrid2050",
@@ -435,6 +443,17 @@
    ],
    "live": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/tests/",
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202609082224/tests"
+  },
+  {
+   "folder": "globalgrid2050/uk_renewables_pipeline/v7/scripts/data",
+   "title": "V7",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v7/scripts/data/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v7/scripts/data"
   },
   {
    "folder": "pipelinenews/tools/publication",
@@ -468,17 +487,6 @@
    ],
    "live": "https://ventusltd.github.io/pipelinenews/releases/202609060232-pipelinenews/assets/",
    "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/releases/202609060232-pipelinenews/assets"
-  },
-  {
-   "folder": "globalgrid2050/pipelinenews_intelligence/{stamp}/assets",
-   "title": "Pipelinenews intelligence",
-   "repo": "Ventusltd/globalgrid2050",
-   "blocks": [
-    "Dt",
-    "Pn"
-   ],
-   "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
   },
   {
    "folder": "youengineer-code-review/civilisation-atlas-v8",
@@ -567,17 +575,6 @@
    ],
    "live": "https://ventusltd.github.io/spiders/tools/",
    "gh": "https://github.com/Ventusltd/spiders/tree/main/tools"
-  },
-  {
-   "folder": "pipelinenews/index",
-   "title": "Index",
-   "repo": "Ventusltd/pipelinenews",
-   "blocks": [
-    "Dt",
-    "Pn"
-   ],
-   "live": "https://ventusltd.github.io/pipelinenews/index/",
-   "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/index"
   },
   {
    "folder": "pipelinenews/discovery/javascript",
@@ -679,6 +676,39 @@
    "gh": "https://github.com/Ventusltd/galaxies-wafers/tree/main/iterations/31-code-card-everywhere"
   },
   {
+   "folder": "globalgrid2050/uk_renewables_pipeline/v9.4/tests",
+   "title": "Tests",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.4/tests/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.4/tests"
+  },
+  {
+   "folder": "globalgrid2050/uk_renewables_pipeline/v9.5.1/tests",
+   "title": "Tests",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.5.1/tests/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.5.1/tests"
+  },
+  {
+   "folder": "globalgrid2050/uk_renewables_pipeline/v9.5/tests",
+   "title": "Tests",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.5/tests/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.5/tests"
+  },
+  {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.6.1/tests",
    "title": "Tests",
    "repo": "Ventusltd/globalgrid2050",
@@ -748,33 +778,6 @@
  "reactions": [
   {
    "a": "Dt",
-   "b": "Pn",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 15 app folders, never composition-tested",
-   "together": 15,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dt",
    "b": "Pr",
    "probability": 0.9,
    "verdict": "seen together",
@@ -792,9 +795,9 @@
      "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Ps"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+     "title": "Proofs",
+     "live": "https://ventusltd.github.io/gridatlas/tools/proofs/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/tools/proofs"
     }
    ],
    "tests": null,
@@ -805,23 +808,23 @@
    "b": "Pr",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 12 app folders, never composition-tested",
-   "together": 12,
+   "basis": "already used together in 11 app folders, never composition-tested",
+   "together": 11,
    "examples": [
     {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
+     "title": "Uk renewables pipeline",
+     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/scripts/data/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202609082224/scripts/data"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+     "title": "Tests",
+     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202609082224/tests/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202609082224/tests"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+     "title": "V7",
+     "live": "https://globalgrid2050.com/uk_renewables_pipeline/v7/scripts/data/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v7/scripts/data"
     }
    ],
    "tests": null,
@@ -841,14 +844,14 @@
      "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
     },
     {
      "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     }
    ],
    "tests": null,
@@ -882,6 +885,33 @@
    "decay": null
   },
   {
+   "a": "Dt",
+   "b": "Pn",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 7 app folders, never composition-tested",
+   "together": 7,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609160207/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609160207"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Dc",
    "b": "Dt",
    "probability": 0.9,
@@ -895,14 +925,14 @@
      "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
     },
     {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
     },
     {
      "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     }
    ],
    "tests": null,
@@ -1308,33 +1338,6 @@
      "title": "Repd grid atlasv7",
      "live": "https://globalgrid2050.com/repd_grid_atlasv7/scripts/",
      "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/repd_grid_atlasv7/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dc",
-   "b": "Pn",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 4 app folders, never composition-tested",
-   "together": 4,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
     }
    ],
    "tests": null,
@@ -1812,6 +1815,116 @@
     "total": 4216
    },
    "decay": "sld-sandbox: Error: sld-sandbox requires the sld-styles module"
+  },
+  {
+   "a": "Dt",
+   "b": "Gp",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Dt",
+   "b": "Wf",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Gp",
+   "b": "Pn",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Gp",
+   "b": "Wf",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Pn",
+   "b": "Wf",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Pipelinenews intelligence",
+     "live": "https://globalgrid2050.com/pipelinenews_intelligence/202609050309/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/pipelinenews_intelligence/202609050309/assets"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
+    }
+   ],
+   "tests": null,
+   "decay": null
   },
   {
    "a": "Pr",
@@ -3744,23 +3857,6 @@
   },
   {
    "a": "A",
-   "b": "Pn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "A",
    "b": "Pr",
    "probability": 0.6,
    "verdict": "seen together",
@@ -3829,23 +3925,6 @@
   },
   {
    "a": "D",
-   "b": "Pn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "D",
    "b": "Pr",
    "probability": 0.6,
    "verdict": "seen together",
@@ -4050,23 +4129,6 @@
   },
   {
    "a": "Io",
-   "b": "Pn",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Io",
    "b": "Pr",
    "probability": 0.6,
    "verdict": "seen together",
@@ -4084,74 +4146,6 @@
   },
   {
    "a": "Io",
-   "b": "Sb",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pn",
-   "b": "Pp",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pn",
-   "b": "R",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pn",
-   "b": "Ra",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pn",
    "b": "Sb",
    "probability": 0.6,
    "verdict": "seen together",
@@ -4400,40 +4394,6 @@
      "title": "Si",
      "live": null,
      "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Si"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dt",
-   "b": "Wf",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Pn",
-   "b": "Wf",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/testcode/202609060349/pipeline/assets/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060349/pipeline/assets"
     }
    ],
    "tests": null,
