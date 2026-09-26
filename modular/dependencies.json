@@ -1,12 +1,12 @@
 {
- "generated_utc": "2026-09-26T18:42:07.070Z",
+ "generated_utc": "2026-09-26T22:10:59.226Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 6742,
+ "families_with_uses": 6816,
  "hubs": [
   {
    "family": 1318,
    "name": "state",
-   "used_by": 490
+   "used_by": 497
   },
   {
    "family": 5175,
@@ -26,7 +26,7 @@
   {
    "family": 134305,
    "name": "state",
-   "used_by": 329
+   "used_by": 336
   },
   {
    "family": 70695,
@@ -96,12 +96,22 @@
   {
    "family": 7364,
    "name": "fetch",
-   "used_by": 172
+   "used_by": 175
+  },
+  {
+   "family": 144574,
+   "name": "view",
+   "used_by": 170
   },
   {
    "family": 32733,
    "name": "state",
    "used_by": 161
+  },
+  {
+   "family": 130547,
+   "name": "fetch",
+   "used_by": 160
   },
   {
    "family": 1600,
@@ -112,11 +122,6 @@
    "family": 1679,
    "name": "invariant",
    "used_by": 160
-  },
-  {
-   "family": 130547,
-   "name": "fetch",
-   "used_by": 157
   },
   {
    "family": 402,
@@ -176,32 +181,32 @@
   {
    "family": 1807,
    "name": "draw",
-   "used_by": 107
+   "used_by": 108
   },
   {
    "family": 1923,
    "name": "draw",
-   "used_by": 107
+   "used_by": 108
   },
   {
    "family": 3097,
    "name": "draw",
-   "used_by": 107
+   "used_by": 108
+  },
+  {
+   "family": 136068,
+   "name": "status",
+   "used_by": 105
+  },
+  {
+   "family": 142915,
+   "name": "status",
+   "used_by": 105
   },
   {
    "family": 133853,
    "name": "readFile",
    "used_by": 105
-  },
-  {
-   "family": 136068,
-   "name": "status",
-   "used_by": 104
-  },
-  {
-   "family": 142915,
-   "name": "status",
-   "used_by": 104
   },
   {
    "family": 131104,
@@ -246,7 +251,7 @@
   {
    "family": 975,
    "name": "sha256",
-   "used_by": 94
+   "used_by": 96
   },
   {
    "family": 130262,
@@ -256,7 +261,7 @@
   {
    "family": 32234,
    "name": "sha256",
-   "used_by": 86
+   "used_by": 88
   },
   {
    "family": 144149,
@@ -297,11 +302,6 @@
    "family": 70974,
    "name": "query",
    "used_by": 82
-  },
-  {
-   "family": 531,
-   "name": "query",
-   "used_by": 77
   }
  ]
 }

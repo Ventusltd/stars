@@ -1,5 +1,5 @@
 {
- "next": 1443,
+ "next": 1466,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1379,6 +1379,29 @@
   "testcode:sandbox/{stamp}/pipeline/scripts/plugins/project-filters.js": 1439,
   "testcode:sandbox/{stamp}/pipeline/scripts/plugins/project-table.js": 1440,
   "testcode:sandbox/{stamp}/pipeline/scripts/plugins/projects.js": 1441,
-  "globalgrid2050-homepage:assets/versioned-homepage.js": 1442
+  "globalgrid2050-homepage:assets/versioned-homepage.js": 1442,
+  "lidar:src/build_site.py": 1443,
+  "lidar:src/cut_tiles.py": 1444,
+  "lidar:src/cable_sweep.py": 1445,
+  "lidar:src/earthworks_pair.py": 1446,
+  "lidar:src/fetch_wcs.py": 1447,
+  "lidar:src/geotiff_read.py": 1448,
+  "lidar:src/pair_gpu.py": 1449,
+  "lidar:src/slope_tiles.py": 1450,
+  "lidar:tests/test_earthworks.py": 1451,
+  "lidar:tests/test_pair.py": 1452,
+  "lidar:tests/test_roundtrip.py": 1453,
+  "lidar:tests/test_slope.py": 1454,
+  "lidar:tests/test_cable_sweep.py": 1455,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/camera.mjs": 1456,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/device-budget.mjs": 1457,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/frame-gate.mjs": 1458,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/input.mjs": 1459,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/layers.mjs": 1460,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/layers/ground-grid.mjs": 1461,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/layers/terrain.mjs": 1462,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/lines.mjs": 1463,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/substrate.mjs": 1464,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/views.mjs": 1465
  }
 }
