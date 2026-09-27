@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-27 13:16 UTC by GitHub Actions. It reads the current code of 81 Ventusltd repositories.
+Updated 2026-09-27 17:55 UTC by GitHub Actions. It reads the current code of 85 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 342,202 |
-| File versions | 6,918 |
-| Elements (functions and classes) | 23,359 |
-| Families (same logic) | 21,974 |
+| Unique lines | 352,377 |
+| File versions | 7,064 |
+| Elements (functions and classes) | 24,208 |
+| Families (same logic) | 22,825 |
 | Families written in two or more different files (duplicate work) | 5,974 |
-| Families only copied between versions of one file | 1,047 |
+| Families only copied between versions of one file | 1,247 |
 | Self-contained functions compiled into the library | 641 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,118 of 9,118 commits across 81 repositories (81 complete). Each run continues where the last one stopped.
+History walked: 9,126 of 9,126 commits across 85 repositories (85 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -63,10 +63,10 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `load` | 41 | 18 |
-| `build` | 93 | 17 |
+| `load` | 43 | 18 |
+| `build` | 94 | 17 |
 | `check` | 46 | 16 |
-| `draw` | 80 | 15 |
+| `draw` | 86 | 15 |
 | `__init__` | 27 | 15 |
 | `require` | 18 | 15 |
 | `verify` | 13 | 13 |
@@ -78,14 +78,14 @@ These names mean different things in different repositories, so check which vers
 | `setUp` | 15 | 11 |
 | `measure` | 18 | 10 |
 | `write_json` | 17 | 10 |
-| `refresh` | 21 | 9 |
+| `refresh` | 27 | 9 |
 | `sha256` | 19 | 9 |
 | `record` | 17 | 9 |
 | `describe` | 16 | 9 |
 | `start` | 62 | 8 |
 | `step` | 25 | 8 |
-| `frame` | 23 | 8 |
-| `inspect` | 18 | 8 |
+| `frame` | 24 | 8 |
+| `inspect` | 20 | 8 |
 | `write` | 18 | 8 |
 | `resolve` | 8 | 8 |
 

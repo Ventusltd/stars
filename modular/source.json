@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-09-27T13:16:38.908Z",
+  "generated_utc": "2026-09-27T17:55:46.993Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -19,6 +19,16 @@
     {
       "repo": "Ventusltd/architecture",
       "commit": "c07260091c47e96c7df8207bd50b0e0ce211d01f",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/binoculars",
+      "commit": "a0bfd9e66ac82ca1052b7d2993d018995e745062",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/buggy",
+      "commit": "6be6597a57d6453c0401d112a9cc48fa1358d97e",
       "code_files": 0
     },
     {
@@ -133,12 +143,12 @@
     },
     {
       "repo": "Ventusltd/globalgrid2050",
-      "commit": "9091c92783a558e5107041703cb1aae448939900",
-      "code_files": 8829
+      "commit": "1fc3b080dcc54cad3b2e5ee017057e31101bfb41",
+      "code_files": 9149
     },
     {
       "repo": "Ventusltd/globalgrid2050-homepage",
-      "commit": "b18149ce5aa1604100ced36f6ea245f38b644fb0",
+      "commit": "2101983d2c3ce4b26048ecc51c8194de6f7441a0",
       "code_files": 10
     },
     {
@@ -193,7 +203,7 @@
     },
     {
       "repo": "Ventusltd/kuiper-belt",
-      "commit": "9a3b30a14da2745f0d6c9c2f44e7c2dc018206d9",
+      "commit": "77ad249458d5ef5d2cc73c57ecfdde44511a9912",
       "code_files": 19
     },
     {
@@ -228,13 +238,18 @@
     },
     {
       "repo": "Ventusltd/particle-physics-drawing-engine",
-      "commit": "26b337e8dbffe091c92383dfea76c785e0aaf75e",
+      "commit": "9924d6a6b711512769a411ac57ca2a18f0f4fa1d",
       "code_files": 11
     },
     {
       "repo": "Ventusltd/pipelinenews",
       "commit": "67aa2eb05993c630887b41c3b720ba42a86669a4",
       "code_files": 992
+    },
+    {
+      "repo": "Ventusltd/primordial-brain",
+      "commit": "5375ed247f59c8f1bdf4dc71bed8bb220d78e188",
+      "code_files": 0
     },
     {
       "repo": "Ventusltd/pv-arc-protection-circuit",
@@ -363,7 +378,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "d94927e11b2c1b9e415a6718d6764c05c5a21b5f",
+      "commit": "ead8e080c888f9e40645c0943b624111a818dc9d",
       "code_files": 1
     },
     {
@@ -388,12 +403,17 @@
     },
     {
       "repo": "Ventusltd/ventus-grid-engine",
-      "commit": "ee040da2d213cc32c84ac6d6f25d44fccbf078d8",
+      "commit": "6d6486d6453f4f23097d4e833a539ed0dc225cc2",
       "code_files": 76
     },
     {
       "repo": "Ventusltd/ventusltd.com",
       "commit": "f64dbf2f1d1fc5879725027863070f5a0b67c374",
+      "code_files": 0
+    },
+    {
+      "repo": "Ventusltd/world-lidar",
+      "commit": "e34241916387b1f59d6bba03b49b5318481fa4fd",
       "code_files": 0
     },
     {
