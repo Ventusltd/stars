@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-27 00:50 UTC by GitHub Actions. It reads the current code of 81 Ventusltd repositories.
+Updated 2026-09-27 07:04 UTC by GitHub Actions. It reads the current code of 81 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 338,515 |
-| File versions | 6,828 |
-| Elements (functions and classes) | 22,947 |
-| Families (same logic) | 21,570 |
-| Families written in two or more different files (duplicate work) | 4,938 |
-| Families only copied between versions of one file | 1,570 |
-| Self-contained functions compiled into the library | 481 |
+| Unique lines | 342,186 |
+| File versions | 6,915 |
+| Elements (functions and classes) | 23,355 |
+| Families (same logic) | 21,970 |
+| Families written in two or more different files (duplicate work) | 5,974 |
+| Families only copied between versions of one file | 1,047 |
+| Self-contained functions compiled into the library | 641 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -63,10 +63,10 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `load` | 38 | 18 |
-| `build` | 91 | 17 |
+| `load` | 41 | 18 |
+| `build` | 93 | 17 |
 | `check` | 46 | 16 |
-| `draw` | 78 | 15 |
+| `draw` | 80 | 15 |
 | `__init__` | 27 | 15 |
 | `require` | 18 | 15 |
 | `verify` | 13 | 13 |
@@ -76,15 +76,15 @@ These names mean different things in different repositories, so check which vers
 | `walk` | 21 | 11 |
 | `fetch` | 15 | 11 |
 | `setUp` | 15 | 11 |
-| `measure` | 17 | 10 |
+| `measure` | 18 | 10 |
 | `write_json` | 17 | 10 |
 | `refresh` | 21 | 9 |
 | `sha256` | 19 | 9 |
 | `record` | 17 | 9 |
-| `describe` | 15 | 9 |
-| `start` | 59 | 8 |
-| `step` | 24 | 8 |
-| `frame` | 22 | 8 |
+| `describe` | 16 | 9 |
+| `start` | 62 | 8 |
+| `step` | 25 | 8 |
+| `frame` | 23 | 8 |
 | `inspect` | 18 | 8 |
 | `write` | 18 | 8 |
 | `resolve` | 8 | 8 |
