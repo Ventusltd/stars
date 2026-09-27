@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-27 21:34 UTC by GitHub Actions. It reads the current code of 87 Ventusltd repositories.
+Updated 2026-09-27 23:56 UTC by GitHub Actions. It reads the current code of 87 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 361,957 |
-| File versions | 7,236 |
-| Elements (functions and classes) | 25,011 |
-| Families (same logic) | 23,628 |
-| Families written in two or more different files (duplicate work) | 5,975 |
-| Families only copied between versions of one file | 1,528 |
-| Self-contained functions compiled into the library | 641 |
+| Unique lines | 362,220 |
+| File versions | 7,288 |
+| Elements (functions and classes) | 25,023 |
+| Families (same logic) | 23,640 |
+| Families written in two or more different files (duplicate work) | 6,179 |
+| Families only copied between versions of one file | 1,364 |
+| Self-contained functions compiled into the library | 678 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -64,7 +64,7 @@ These names mean different things in different repositories, so check which vers
 | Name | Different versions | Repositories |
 |---|---|---|
 | `build` | 96 | 18 |
-| `load` | 46 | 18 |
+| `load` | 47 | 18 |
 | `check` | 47 | 17 |
 | `draw` | 88 | 15 |
 | `__init__` | 27 | 15 |
@@ -78,13 +78,13 @@ These names mean different things in different repositories, so check which vers
 | `fetch` | 15 | 11 |
 | `setUp` | 15 | 11 |
 | `write_json` | 17 | 10 |
-| `refresh` | 28 | 9 |
+| `refresh` | 31 | 9 |
 | `sha256` | 19 | 9 |
 | `describe` | 17 | 9 |
 | `record` | 17 | 9 |
-| `start` | 63 | 8 |
-| `step` | 33 | 8 |
-| `frame` | 27 | 8 |
+| `start` | 68 | 8 |
+| `step` | 34 | 8 |
+| `frame` | 28 | 8 |
 | `inspect` | 20 | 8 |
 | `write` | 18 | 8 |
 | `resolve` | 9 | 8 |
