@@ -1,5 +1,5 @@
 {
- "next": 1618,
+ "next": 1619,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1554,6 +1554,7 @@
   "globalgrid2050:solar-design-studio/{stamp}-site-world/world/phases-design.mjs": 1614,
   "globalgrid2050:solar-design-studio/{stamp}-site-world/world/phases.mjs": 1615,
   "globalgrid2050:solar-design-studio/{stamp}-site-world/world/project-ui.mjs": 1616,
-  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/tour.mjs": 1617
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/tour.mjs": 1617,
+  "globalgrid2050:solar-design-studio/{stamp}-site-world/world/design-sections.mjs": 1618
  }
 }
