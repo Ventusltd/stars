@@ -1,0 +1,32 @@
+{
+  "id": "d017",
+  "subject": {
+    "type": "block",
+    "key": "block:Ps"
+  },
+  "also": [
+    "block:Sa",
+    "block:x1538"
+  ],
+  "question": "How does a place get its measured ground: bulk national downloads kept on disk, or the tiles under the place streamed on arrival?",
+  "decision": "Wireframe rule R5, the site tile. Measured ground is streamed on arrival in fixed 2,048 m lattice tiles, one request per product per tile, at least 40 s apart and at most 16 a day per client. Only the derived wireframe and a receipt are kept, and nothing is downloaded in bulk.",
+  "rationale": "One request for a 2,048 m tile returned a whole site in under two seconds with every cell valid, and a 4,096 m request also succeeded. The same ground asked for in 256 m pieces is 64 requests, and the service refused a client after about ten in three minutes. A bulk copy of England was projected at 577 GB. The fetch is the limit, not the GPU, so fetching only where someone arrives removes it. Three witnesses (measurement, logic, conformance) were asked to refute the rule. They refused version 1 and signed version 2.",
+  "evidence": [
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/docs/site-tile.md",
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/engine/site-tile.js",
+    "https://github.com/Ventusltd/ventus-grid-engine/blob/main/proofs/site-tile.proof.mjs",
+    "https://github.com/Ventusltd/cvaa/blob/main/vaccines/202609272325-site-tile-stream.md"
+  ],
+  "date": "2026-09-27",
+  "status": "decided",
+  "consequences": {
+    "settles": [
+      "block:Ps"
+    ],
+    "agents_may": [
+      "Stream the 2,048 m lattice tiles under a place on arrival, under R5's pace and cap, keeping only the derived wireframe and a receipt.",
+      "Import ventus-grid-engine engine/site-tile.js for tile, schedule, back-off and survey-year maths rather than writing another copy.",
+      "Refuse, and say so, any plan that downloads measured ground in bulk, keeps a raw mirror, or fetches on movement."
+    ]
+  }
+}
