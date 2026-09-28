@@ -1,5 +1,5 @@
 {
- "next": 1797,
+ "next": 1812,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1733,6 +1733,21 @@
   "globalgrid2050:energy-transition-simulator/{stamp}/mod/engine/sub-grammar.mjs": 1793,
   "globalgrid2050:energy-transition-simulator/{stamp}/mod/plant.js": 1794,
   "globalgrid2050:energy-transition-simulator/{stamp}/place-frame.mjs": 1795,
-  "ventus-grid-engine:engine/site-tile.js": 1796
+  "ventus-grid-engine:engine/site-tile.js": 1796,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/lidar-stream/r5.mjs": 1797,
+  "globalgrid2050:energy-transition-simulator/{stamp}/world/fade.mjs": 1798,
+  "globalgrid2050:energy-transition-simulator/{stamp}/world/layers/ground-grid.mjs": 1799,
+  "globalgrid2050:energy-transition-simulator/{stamp}/world/lines.mjs": 1800,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/scanner-rows.js": 1801,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/addresses.js": 1802,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/farm-assess.js": 1803,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/trench-measure.js": 1804,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/lidar-stream.js": 1805,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/menu-bar.js": 1806,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/menu-style.js": 1807,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/plan-view.js": 1808,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/procedural.js": 1809,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/wire-look.js": 1810,
+  "globalgrid2050:energy-transition-simulator/{stamp}/mod/ac-trenches.js": 1811
  }
 }

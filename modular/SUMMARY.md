@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-09-27 23:56 UTC by GitHub Actions. It reads the current code of 87 Ventusltd repositories.
+Updated 2026-09-28 05:48 UTC by GitHub Actions. It reads the current code of 87 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,12 +8,12 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 362,220 |
-| File versions | 7,288 |
-| Elements (functions and classes) | 25,023 |
-| Families (same logic) | 23,640 |
+| Unique lines | 364,755 |
+| File versions | 7,309 |
+| Elements (functions and classes) | 25,254 |
+| Families (same logic) | 23,872 |
 | Families written in two or more different files (duplicate work) | 6,179 |
-| Families only copied between versions of one file | 1,364 |
+| Families only copied between versions of one file | 1,696 |
 | Self-contained functions compiled into the library | 678 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
@@ -63,28 +63,28 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `build` | 96 | 18 |
+| `build` | 97 | 18 |
 | `load` | 47 | 18 |
-| `check` | 47 | 17 |
-| `draw` | 88 | 15 |
+| `check` | 51 | 17 |
+| `draw` | 92 | 15 |
 | `__init__` | 27 | 15 |
 | `require` | 18 | 15 |
 | `verify` | 13 | 13 |
 | `normalise` | 10 | 13 |
-| `classify` | 16 | 12 |
-| `validate` | 23 | 11 |
+| `classify` | 17 | 12 |
+| `validate` | 24 | 11 |
 | `walk` | 21 | 11 |
 | `measure` | 20 | 11 |
 | `fetch` | 15 | 11 |
 | `setUp` | 15 | 11 |
 | `write_json` | 17 | 10 |
-| `refresh` | 31 | 9 |
+| `refresh` | 34 | 9 |
 | `sha256` | 19 | 9 |
 | `describe` | 17 | 9 |
 | `record` | 17 | 9 |
-| `start` | 68 | 8 |
-| `step` | 34 | 8 |
-| `frame` | 28 | 8 |
+| `start` | 71 | 8 |
+| `step` | 36 | 8 |
+| `frame` | 29 | 8 |
 | `inspect` | 20 | 8 |
 | `write` | 18 | 8 |
 | `resolve` | 9 | 8 |
