@@ -1,5 +1,5 @@
 {
- "next": 1901,
+ "next": 1902,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1837,6 +1837,7 @@
   "energy-transition-simulator:tests/ui.cjs": 1897,
   "globalgrid2050:energy-transition-simulator/{stamp}/mod/tables.js": 1898,
   "wire-frame-scanner:audit/geometry_audit.py": 1899,
-  "wire-frame-scanner:docs/next-weekend.spec.mjs": 1900
+  "wire-frame-scanner:docs/next-weekend.spec.mjs": 1900,
+  "gridatlas:tools/cartridges/audit.mjs": 1901
  }
 }
