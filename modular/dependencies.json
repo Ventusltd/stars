@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-03T01:24:10.082Z",
+ "generated_utc": "2026-10-03T07:04:04.350Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 9152,
+ "families_with_uses": 9173,
  "hubs": [
   {
    "family": 1318,
@@ -21,12 +21,12 @@
   {
    "family": 5175,
    "name": "fmt",
-   "used_by": 379
+   "used_by": 380
   },
   {
    "family": 7992,
    "name": "fmt",
-   "used_by": 375
+   "used_by": 376
   },
   {
    "family": 72282,
@@ -59,6 +59,11 @@
    "used_by": 286
   },
   {
+   "family": 130715,
+   "name": "esc",
+   "used_by": 262
+  },
+  {
    "family": 379,
    "name": "api",
    "used_by": 261
@@ -74,11 +79,6 @@
    "used_by": 261
   },
   {
-   "family": 130715,
-   "name": "esc",
-   "used_by": 256
-  },
-  {
    "family": 1586,
    "name": "invariant",
    "used_by": 237
@@ -86,12 +86,12 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 214
+   "used_by": 220
   },
   {
    "family": 1199,
    "name": "esc",
-   "used_by": 210
+   "used_by": 216
   },
   {
    "family": 1317,
@@ -114,14 +114,14 @@
    "used_by": 207
   },
   {
+   "family": 144574,
+   "name": "view",
+   "used_by": 200
+  },
+  {
    "family": 129751,
    "name": "el",
    "used_by": 199
-  },
-  {
-   "family": 144574,
-   "name": "view",
-   "used_by": 194
   },
   {
    "family": 77688,
@@ -259,6 +259,11 @@
    "used_by": 116
   },
   {
+   "family": 151622,
+   "name": "zoom",
+   "used_by": 116
+  },
+  {
    "family": 132249,
    "name": "finite",
    "used_by": 110
@@ -295,11 +300,6 @@
   },
   {
    "family": 3939,
-   "name": "num",
-   "used_by": 103
-  },
-  {
-   "family": 6004,
    "name": "num",
    "used_by": 103
   }
