@@ -1,5 +1,5 @@
 {
- "next": 1904,
+ "next": 1905,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1840,6 +1840,7 @@
   "wire-frame-scanner:docs/next-weekend.spec.mjs": 1900,
   "gridatlas:tools/cartridges/audit.mjs": 1901,
   "globalgrid2050:testcode/red-beach-blind-{stamp}-6f8a2c/index.html": 1902,
-  "globalgrid2050:testcode/red-beach-blind-full-{stamp}-a4c91e/index.html": 1903
+  "globalgrid2050:testcode/red-beach-blind-full-{stamp}-a4c91e/index.html": 1903,
+  "kuiper-belt:what-is-kuiper.html": 1904
  }
 }
