@@ -1,5 +1,5 @@
 {
- "next": 1905,
+ "next": 1921,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1841,6 +1841,22 @@
   "gridatlas:tools/cartridges/audit.mjs": 1901,
   "globalgrid2050:testcode/red-beach-blind-{stamp}-6f8a2c/index.html": 1902,
   "globalgrid2050:testcode/red-beach-blind-full-{stamp}-a4c91e/index.html": 1903,
-  "kuiper-belt:what-is-kuiper.html": 1904
+  "kuiper-belt:what-is-kuiper.html": 1904,
+  "kuiper-belt:learn-the-kuiper/{stamp}/kuiper-law.js": 1905,
+  "kuiper-belt:learn-the-kuiper/{stamp}/start-here.js": 1906,
+  "kuiper-belt:learn-the-kuiper/{stamp}/index.html": 1907,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/deep.js": 1908,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/grid-test.html": 1909,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/grid.js": 1910,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/radar-test.html": 1911,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/radar.js": 1912,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/realgame.js": 1913,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/strings-test.html": 1914,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/strings.js": 1915,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/zoom.js": 1916,
+  "kuiper-belt:learn-the-kuiper/{stamp}/scale-logic.js": 1917,
+  "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/code-data.js": 1918,
+  "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/logic.js": 1919,
+  "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/ui.js": 1920
  }
 }

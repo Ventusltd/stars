@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-04T18:47:35.573Z",
+ "generated_utc": "2026-10-04T22:30:04.162Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 9175,
+ "families_with_uses": 9423,
  "hubs": [
   {
    "family": 1318,
@@ -86,12 +86,12 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 220
+   "used_by": 221
   },
   {
    "family": 1199,
    "name": "esc",
-   "used_by": 216
+   "used_by": 217
   },
   {
    "family": 1317,
@@ -296,12 +296,12 @@
   {
    "family": 1331,
    "name": "num",
-   "used_by": 103
+   "used_by": 104
   },
   {
    "family": 3939,
    "name": "num",
-   "used_by": 103
+   "used_by": 104
   }
  ]
 }
