@@ -1,5 +1,5 @@
 {
- "next": 1926,
+ "next": 1936,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1862,6 +1862,16 @@
   "kuiper-belt:learn-the-kuiper/{stamp}/modules/descent.js": 1922,
   "kuiper-belt:learn-the-kuiper/{stamp}/lesson.html": 1923,
   "kuiper-belt:learn-the-kuiper/{stamp}/lesson.js": 1924,
-  "kuiper-belt:learn-the-kuiper/{stamp}/play.js": 1925
+  "kuiper-belt:learn-the-kuiper/{stamp}/play.js": 1925,
+  "kuiper-belt:learn-the-kuiper/{stamp}/fx-common.js": 1926,
+  "kuiper-belt:learn-the-kuiper/{stamp}/fx-raw.js": 1927,
+  "kuiper-belt:learn-the-kuiper/{stamp}/one.js": 1928,
+  "kuiper-belt:learn-the-kuiper/{stamp}/solid.html": 1929,
+  "kuiper-belt:learn-the-kuiper/{stamp}/solid.js": 1930,
+  "kuiper-belt:see-through/{stamp}/descent.js": 1931,
+  "kuiper-belt:see-through/{stamp}/index.html": 1932,
+  "kuiper-belt:see-through/{stamp}/model.js": 1933,
+  "kuiper-belt:see-through/{stamp}/pf.js": 1934,
+  "kuiper-belt:see-through/{stamp}/see3d.js": 1935
  }
 }
