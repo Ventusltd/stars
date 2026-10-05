@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-05T07:39:31.591Z",
+ "generated_utc": "2026-10-05T16:22:33.137Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 9954,
+ "families_with_uses": 9984,
  "hubs": [
   {
    "family": 1318,
@@ -61,17 +61,17 @@
   {
    "family": 379,
    "name": "api",
-   "used_by": 269
+   "used_by": 270
   },
   {
    "family": 386,
    "name": "api",
-   "used_by": 269
+   "used_by": 270
   },
   {
    "family": 455,
    "name": "api",
-   "used_by": 269
+   "used_by": 270
   },
   {
    "family": 130715,
@@ -86,17 +86,17 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 222
+   "used_by": 223
   },
   {
    "family": 1199,
    "name": "esc",
-   "used_by": 218
+   "used_by": 219
   },
   {
    "family": 144574,
    "name": "view",
-   "used_by": 210
+   "used_by": 213
   },
   {
    "family": 1317,
@@ -144,6 +144,21 @@
    "used_by": 167
   },
   {
+   "family": 402,
+   "name": "fetch",
+   "used_by": 160
+  },
+  {
+   "family": 454,
+   "name": "fetch",
+   "used_by": 160
+  },
+  {
+   "family": 1085,
+   "name": "fetch",
+   "used_by": 160
+  },
+  {
    "family": 1600,
    "name": "invariant",
    "used_by": 160
@@ -154,21 +169,6 @@
    "used_by": 160
   },
   {
-   "family": 402,
-   "name": "fetch",
-   "used_by": 159
-  },
-  {
-   "family": 454,
-   "name": "fetch",
-   "used_by": 159
-  },
-  {
-   "family": 1085,
-   "name": "fetch",
-   "used_by": 159
-  },
-  {
    "family": 76405,
    "name": "byId",
    "used_by": 141
@@ -176,7 +176,7 @@
   {
    "family": 151717,
    "name": "fmt",
-   "used_by": 136
+   "used_by": 140
   },
   {
    "family": 130544,
@@ -186,6 +186,11 @@
   {
    "family": 144643,
    "name": "origin",
+   "used_by": 135
+  },
+  {
+   "family": 151895,
+   "name": "fmt",
    "used_by": 135
   },
   {
@@ -201,11 +206,6 @@
   {
    "family": 149509,
    "name": "status",
-   "used_by": 131
-  },
-  {
-   "family": 151895,
-   "name": "fmt",
    "used_by": 131
   },
   {
@@ -274,6 +274,11 @@
    "used_by": 116
   },
   {
+   "family": 775,
+   "name": "root",
+   "used_by": 111
+  },
+  {
    "family": 132249,
    "name": "finite",
    "used_by": 110
@@ -297,11 +302,6 @@
    "family": 146383,
    "name": "readFile",
    "used_by": 107
-  },
-  {
-   "family": 775,
-   "name": "root",
-   "used_by": 106
   }
  ]
 }
