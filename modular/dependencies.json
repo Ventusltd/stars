@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-04T22:30:04.162Z",
+ "generated_utc": "2026-10-05T01:14:30.629Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 9423,
+ "families_with_uses": 9708,
  "hubs": [
   {
    "family": 1318,
@@ -59,24 +59,24 @@
    "used_by": 286
   },
   {
-   "family": 130715,
-   "name": "esc",
-   "used_by": 262
-  },
-  {
    "family": 379,
    "name": "api",
-   "used_by": 261
+   "used_by": 263
   },
   {
    "family": 386,
    "name": "api",
-   "used_by": 261
+   "used_by": 263
   },
   {
    "family": 455,
    "name": "api",
-   "used_by": 261
+   "used_by": 263
+  },
+  {
+   "family": 130715,
+   "name": "esc",
+   "used_by": 262
   },
   {
    "family": 1586,
@@ -86,12 +86,12 @@
   {
    "family": 3938,
    "name": "esc",
-   "used_by": 221
+   "used_by": 222
   },
   {
    "family": 1199,
    "name": "esc",
-   "used_by": 217
+   "used_by": 218
   },
   {
    "family": 1317,
@@ -156,17 +156,17 @@
   {
    "family": 402,
    "name": "fetch",
-   "used_by": 152
+   "used_by": 153
   },
   {
    "family": 454,
    "name": "fetch",
-   "used_by": 152
+   "used_by": 153
   },
   {
    "family": 1085,
    "name": "fetch",
-   "used_by": 152
+   "used_by": 153
   },
   {
    "family": 76405,
@@ -182,6 +182,11 @@
    "family": 144643,
    "name": "origin",
    "used_by": 135
+  },
+  {
+   "family": 151717,
+   "name": "fmt",
+   "used_by": 132
   },
   {
    "family": 136068,
@@ -207,6 +212,11 @@
    "family": 144622,
    "name": "baseHeight",
    "used_by": 129
+  },
+  {
+   "family": 151895,
+   "name": "fmt",
+   "used_by": 127
   },
   {
    "family": 130795,
@@ -292,16 +302,6 @@
    "family": 77669,
    "name": "finite",
    "used_by": 106
-  },
-  {
-   "family": 1331,
-   "name": "num",
-   "used_by": 104
-  },
-  {
-   "family": 3939,
-   "name": "num",
-   "used_by": 104
   }
  ]
 }

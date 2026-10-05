@@ -1,5 +1,5 @@
 {
- "next": 1921,
+ "next": 1926,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1857,6 +1857,11 @@
   "kuiper-belt:learn-the-kuiper/{stamp}/scale-logic.js": 1917,
   "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/code-data.js": 1918,
   "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/logic.js": 1919,
-  "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/ui.js": 1920
+  "kuiper-belt:learn-the-kuiper/astra-codex/{stamp}/ui.js": 1920,
+  "kuiper-belt:learn-the-kuiper/{stamp}/audio-unlock.js": 1921,
+  "kuiper-belt:learn-the-kuiper/{stamp}/modules/descent.js": 1922,
+  "kuiper-belt:learn-the-kuiper/{stamp}/lesson.html": 1923,
+  "kuiper-belt:learn-the-kuiper/{stamp}/lesson.js": 1924,
+  "kuiper-belt:learn-the-kuiper/{stamp}/play.js": 1925
  }
 }
