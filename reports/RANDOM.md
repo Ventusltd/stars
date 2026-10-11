@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-10-10`
+# The Random star — 150 links by chance, seed `2026-10-11`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- Ss(202609040403) —ENTANGLED_MAYBE (0.161)→ #3610 testcode/onChange
-- #3384 globalgrid2050/promise —REMINDS_OF (0.179)→ Ss(202609020006)
-- #8298 verifySourceCodeBundleAgainstRepository —WHAT_IF (0.366)→ #1680 presentSummary
-- #4843 envelope —MIGHT_TOUCH (0.04)→ #3769 buildAtlasV8Url
-- Si(202609041945) —REMINDS_OF (0.013)→ #3384 testcode/promise
-- #8298 verifySourceCodeBundleAgainstRepository —RHYMES_WITH (0.878)→ #3384 globalgrid2050/promise
-- #766 geometry —ENTANGLED_MAYBE (0.126)→ Si(202609041957)
-- #190 replay —REMINDS_OF (0.801)→ repo gridatlas
-- #1206 setFetchStatus —RHYMES_WITH (0.152)→ #3832 queryMatches
-- #3610 testcode/onChange —WHAT_IF (0.16)→ #4538 nearest
-- #3384 globalgrid2050/promise —ENTANGLED_MAYBE (0.231)→ repo pipelinenews
-- #4336 capacity —COULD_REPLACE (0.3)→ #3384 globalgrid2050/promise
-- #3384 testcode/promise —RHYMES_WITH (0.989)→ #3570 cancel
-- Dd diversified-demand.js —REMINDS_OF (0.335)→ #1220 initMap
-- #3811 canonicalItem —MIGHT_TOUCH (0.018)→ #4538 nearest
-- #3384 globalgrid2050/promise —COULD_REPLACE (0.876)→ #3384 testcode/promise
-- #3384 globalgrid2050/promise —ENTANGLED_MAYBE (0.585)→ Si(202609012045)
-- #4569 success —WHAT_IF (0.906)→ Ss(202609032315)
-- #3833 regionalRows —REMINDS_OF (0.278)→ Ss(202609032315)
-- #3384 globalgrid2050/promise —WHAT_IF (0.1)→ #3828 validPayload
-- #1524 pipelinenews/promise —RHYMES_WITH (0.349)→ #6589 nearest_substations
-- #1524 globalgrid2050/promise —WHAT_IF (0.855)→ Si(202609051510)
-- #1524 globalgrid2050/promise —ENTANGLED_MAYBE (0.647)→ Pp power_plants
-- Ss(202609070857) —MIGHT_TOUCH (0.606)→ Si(202609041244)
-- #4037 cloneVisiblePrinterUi —MIGHT_TOUCH (0.696)→ Si(202609051616)
-- #3384 globalgrid2050/promise —RHYMES_WITH (0.712)→ #3384 testcode/promise
-- #3610 globalgrid2050/onChange —COULD_REPLACE (0.211)→ #30 cable-trench-or-drill/debounce
-- #8471 edit —COULD_REPLACE (0.23)→ #3384 testcode/promise
-- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.477)→ #8630 getLayerConfig
-- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.515)→ #3610 gridatlas/onChange
-- #4624 crossing —COULD_REPLACE (0.657)→ Po power-factor.js
-- #401 head_sha —MIGHT_TOUCH (0.511)→ #3384 testcode/promise
-- #3384 testcode/promise —REMINDS_OF (0.44)→ #15 globalgrid2050/renderStats
-- Ss(202609050354) —COULD_REPLACE (0.313)→ #1497 setButtonState
-- Si(202609051624) —ENTANGLED_MAYBE (0.515)→ #3787 updateGaugesV9_1
-- #5246 finding —MIGHT_TOUCH (0.137)→ Si(202609032213)
-- #5547 writeText —RHYMES_WITH (0.561)→ #1524 globalgrid2050/promise
-- #3406 provisional —COULD_REPLACE (0.826)→ #4318 readJson
-- #3384 globalgrid2050/promise —ENTANGLED_MAYBE (0.286)→ #15 globalgrid2050/renderStats
-- Mr MAX_RESOURCES —COULD_REPLACE (0.447)→ #4114 mountMapControlsLayout
+- Ss(202609040403) —REMINDS_OF (0.603)→ #3610 testcode/onChange
+- #8552 compute —RHYMES_WITH (0.389)→ #4114 mountMapControlsLayout
+- #3610 testcode/onChange —MIGHT_TOUCH (0.462)→ repo gb-electricity-ui
+- #5885 groupFor —RHYMES_WITH (0.611)→ #1811 updateMeasureDisplay
+- Ss(202609032041) —ENTANGLED_MAYBE (0.423)→ #3384 testcode/promise
+- #1524 pipelinenews/promise —WHAT_IF (0.045)→ Si(202609032012)
+- #3610 testcode/onChange —RHYMES_WITH (0.398)→ #1524 globalgrid2050/promise
+- #1197 migrateFinanceUnitsToWp —WHAT_IF (0.787)→ Si(202609051340)
+- #3384 testcode/promise —RHYMES_WITH (0.146)→ #4568 outcome
+- #1524 globalgrid2050/promise —COULD_REPLACE (0.372)→ #1687 visible
+- #1530 buildAtlasV9DeepLink —MIGHT_TOUCH (0.962)→ #3384 globalgrid2050/promise
+- #3610 testcode/onChange —RHYMES_WITH (0.974)→ #1524 globalgrid2050/promise
+- #3816 drawNewsV9_5_1 —REMINDS_OF (0.592)→ #1531 finiteInRange
+- #4843 envelope —REMINDS_OF (0.684)→ #3384 testcode/promise
+- repo globalgrid2050 —ENTANGLED_MAYBE (0.006)→ #4942 sourceId
+- #4052 globalgrid2050/handle —COULD_REPLACE (0.502)→ #1524 globalgrid2050/promise
+- #3415 applyMountingBifacial —WHAT_IF (0.43)→ #3832 queryMatches
+- #3384 testcode/promise —WHAT_IF (0.988)→ #1206 setFetchStatus
+- repo pipelinenews —RHYMES_WITH (0.168)→ #8579 drawLegend
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.613)→ #3610 testcode/onChange
+- #5889 authority —WHAT_IF (0.489)→ #6743 cartridge
+- #15 testcode/renderStats —COULD_REPLACE (0.495)→ #3384 testcode/promise
+- #3610 testcode/onChange —MIGHT_TOUCH (0.272)→ Ss(202609031751)
+- #2138 files —ENTANGLED_MAYBE (0.453)→ #1465 validateAsset
+- #5889 authority —WHAT_IF (0.071)→ Dt deeplink (the MAP button)
+- #3384 testcode/promise —MIGHT_TOUCH (0.086)→ #352 sweep
+- Sp —WHAT_IF (0.47)→ #3610 testcode/onChange
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.226)→ #1542 select
+- #3821 loadNewsV9_5_1 —COULD_REPLACE (0.798)→ #5403 nativeFetch
+- #3610 gridatlas/onChange —RHYMES_WITH (0.243)→ #3406 provisional
+- #4052 globalgrid2050/handle —MIGHT_TOUCH (0.51)→ Si(202609032315)
+- #6743 cartridge —REMINDS_OF (0.84)→ Si(202609041956)
+- Si(202609050244) —ENTANGLED_MAYBE (0.109)→ #3610 gridatlas/onChange
+- #3610 testcode/onChange —RHYMES_WITH (0.121)→ Si(202609032012)
+- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.653)→ #3789 formatCapacityV9_2
+- #6743 cartridge —MIGHT_TOUCH (0.128)→ #3384 testcode/promise
+- Si(202609030109) —REMINDS_OF (0.418)→ #3384 testcode/promise
+- #3384 testcode/promise —ENTANGLED_MAYBE (0.966)→ #8341 blocks
+- #411 cartridges —ENTANGLED_MAYBE (0.542)→ #3384 globalgrid2050/promise
+- #4299 fetchImpl —RHYMES_WITH (0.149)→ #3384 globalgrid2050/promise
 
 ## For the Spider
-`random/graph.json` — 170 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 166 nodes, 150 edges. Fly it when you want to get lost on purpose.
