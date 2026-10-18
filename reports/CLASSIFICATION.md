@@ -1,6 +1,6 @@
 # The Classification star
 
-Every version belongs to its family: 8,682 function families behind 104,964 versions. Below, the forms sorted into five classes, what is never used, and whether the declared order held. Updated 2026-10-18T01:14:51.467Z. No model.
+Every version belongs to its family: 8,682 function families behind 104,964 versions. Below, the forms sorted into five classes, what is never used, and whether the declared order held. Updated 2026-10-18T05:07:49.354Z. No model.
 
 ## Five classes: what does each form do?
 | class | meaning here | forms |
