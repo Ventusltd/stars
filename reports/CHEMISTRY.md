@@ -1,6 +1,6 @@
 # The Chemistry star — 4228 compounds from 4228 stars
 
-A compound is a composition of elements (cartridge versions by symbol and stamp; **Dt** = the deep-link contract; **Shell** = nothing bolted on). Stability = share of its stars that were GREEN. Decay = the exception the compound produces. Updated 2026-10-19T22:39:34.227Z. No model — arithmetic over the sky.
+A compound is a composition of elements (cartridge versions by symbol and stamp; **Dt** = the deep-link contract; **Shell** = nothing bolted on). Stability = share of its stars that were GREEN. Decay = the exception the compound produces. Updated 2026-10-20T01:17:21.945Z. No model — arithmetic over the sky.
 
 Symbols: **Sp** streaming-parquet-bridge · **Ug** uk-gazetteer-flyto · **Ss** sld-sandbox · **Si** substation-intelligence
 
