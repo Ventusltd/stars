@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-380,728 unique lines, numbered 1 to 587,902. Generated 2026-10-22T14:06:13.442Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+380,899 unique lines, numbered 1 to 588,138. Generated 2026-10-22T18:48:03.032Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -380731,4 +380731,175 @@
 587715	      <div class="brand">LEARN THE <strong>KUIPER</strong><span id="header-layer">YOUR SPIRAL</span></div>
 587747	  <dialog id="numbers-dialog" aria-labelledby="numbers-title"><div class="dialog-heading"><h1 id="numbers-title">Every number is yours.</h1><button data-close="numbers-dialog" aria-label="Close number controls">×</button></div><p>Changes act on the same drawing. Real Kuiper restores the original rule.</p><div id="parameter-fields" class="field-grid"></div><div class="extra-controls"><label>Colour palette<select id="palette"><option value="kuiper">Kuiper</option><option value="paper">White ink</option><option value="ember">Ember</option><option value="ocean">Ocean</option><option value="orchid">Orchid</option></select></label><label>Colour each particle by<select id="colour"><option value="age">Age</option><option value="turn">Turn</option><option value="duplicate">Repeated line</option></select></label><label>Music mood<select id="mood"><option value="calm">Calm</option><option value="arcade">Arcade</option><option value="piano">Piano by distance</option></select></label></div><div class="button-wrap"><button id="mute">Sound off</button><button id="text-up">A+</button><button id="text-down">A−</button><button id="step">One more line</button><button id="slower">Slower</button><button id="faster">Faster</button><button id="reset-numbers">Real Kuiper</button></div><p id="parameter-note"></p></dialog>
 587902	    if (!bad && (S.mapVis || S.in3d)) { t.push(ATTR_MAP); if (S.view === 'sat' || S.in3d) t.push(ATTR_SAT); if (S.in3d) t.push('Terrain: Terrain Tiles (Tilezen) on AWS; UK terrain (c) Environment Agency copyright and/or database right 2015. All rights reserved'); }
+587924	"""UK lightning flash GeoJSON from EUMETSAT Meteosat LI L2-LFL.
+587926	Optical flashes observed from orbit (including intracloud), NOT proven
+587927	cloud-to-ground strikes. This produces public map data, not safety advice.
+587928	Only genuine downloaded detections are published; no sample points.
+587940	COLLECTION = "EO:EUM:DAT:0691"  # LI Lightning Flashes - MTG 0 degree
+587941	PROVIDER = "EUMETSAT MTG Lightning Imager L2-LFL"
+587942	SOURCE_URL = "https://api.eumetsat.int/data/browse/collections/EO%3AEUM%3ADAT%3A0691?format=html"
+587943	# UK coverage AND neighbouring waters; this rectangle is NOT the UK border.
+587944	UK_BOUNDS = (-11.0, 49.5, 3.0, 61.5)  # west, south, east, north
+587945	MAX_RENDER_POINTS = 40000
+587946	def parse_utc(value: str) -> datetime:
+587947	    result = datetime.fromisoformat(value.replace("Z", "+00:00"))
+587948	    if result.tzinfo is None:
+587949	        result = result.replace(tzinfo=timezone.utc)
+587950	    return result.astimezone(timezone.utc)
+587951	def iso_utc(value) -> str:
+587952	    """Handle Python datetime, cftime and numpy-style date representations."""
+587954	        return value.replace(tzinfo=value.tzinfo or timezone.utc).astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+587955	    text = value.strftime("%Y-%m-%dT%H:%M:%S.%f") if hasattr(value, "strftime") else str(value)
+587956	    return text.rstrip("0").rstrip(".") + "Z" if not text.endswith("Z") else text
+587957	def inside_uk_view(longitude: float, latitude: float) -> bool:
+587958	    w, s, e, n = UK_BOUNDS
+587959	    return math.isfinite(longitude) and math.isfinite(latitude) and w <= longitude <= e and s <= latitude <= n
+587960	def build_feature(lon, lat, timestamp, product_name: str, index: int):
+587961	    lon, lat = float(lon), float(lat)
+587962	    if not inside_uk_view(lon, lat):
+587964	    observed = iso_utc(timestamp)
+587965	    key = f"{product_name}:{index}"
+587968	        "id": key,
+587969	        "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]},
+587971	            "name": "Lightning flash " + observed[:16].replace("T", " ") + " UTC",
+587972	            "raw_tech": "EUMETSAT optical flash (not a confirmed ground strike)",
+587973	            "status": "Satellite detection",
+587974	            "time_utc": observed,
+587975	            "source": "EUMETSAT",
+587976	            "source_product": "MTG LI L2-LFL",
+587977	            "observation_kind": "optical_lightning_flash",
+587980	def decode_body(content: bytes, product_name: str, start: datetime, end: datetime):
+587981	    """Read actual LFL BODY NetCDF with CF scale/offset and UTC flash times."""
+587982	    from netCDF4 import Dataset, num2date
+587983	    with Dataset("lightning-body", memory=content) as ds:
+587984	        vars_ = ds.variables
+587985	        for field in ("longitude", "latitude", "flash_time"):
+587986	            if field not in vars_:
+587987	                raise ValueError(f"{product_name}: missing expected LFL field {field}")
+587988	        lons = vars_["longitude"][:]
+587989	        lats = vars_["latitude"][:]
+587990	        times_var = vars_["flash_time"]
+587991	        times = times_var[:]
+587992	        if len(lons) != len(lats) or len(lons) != len(times):
+587993	            raise ValueError(f"{product_name}: coordinate/time dimensions do not match")
+587994	        units = getattr(times_var, "units", "seconds since 2000-01-01 00:00:00")
+587995	        calendar = getattr(times_var, "calendar", "standard")
+587996	        dates = num2date(times, units=units, calendar=calendar)
+587997	        results = []
+587998	        for i in range(len(lons)):
+588000	                if any(getattr(x, "mask", False) is True for x in (lons[i], lats[i], times[i])):
+588002	                dt = parse_utc(iso_utc(dates[i]))
+588003	                if not start <= dt < end:
+588004	                feat = build_feature(lons[i], lats[i], dt, product_name, i)
+588005	                if feat:
+588006	                    results.append(feat)
+588007	            except (ValueError, TypeError, OverflowError):
+588009	        return results
+588010	def decode_product(blob: bytes, product_name: str, start: datetime, end: datetime):
+588011	    """EUMETSAT packages products as ZIP archives with *BODY*.nc."""
+588012	    if not zipfile.is_zipfile(io.BytesIO(blob)):
+588013	        raise ValueError(f"{product_name}: expected EUMETSAT product ZIP")
+588014	    found = False
+588016	    with zipfile.ZipFile(io.BytesIO(blob)) as archive:
+588017	        for name in archive.namelist():
+588018	            if name.upper().endswith(".NC") and "BODY" in Path(name).name.upper():
+588019	                found = True
+588020	                features.extend(decode_body(archive.read(name), product_name, start, end))
+588022	        raise ValueError(f"{product_name}: ZIP contained no BODY NetCDF")
+588024	def download(start: datetime, end: datetime):
+588025	    key = os.environ.get("EUMETSAT_CONSUMER_KEY", "").strip()
+588026	    secret = os.environ.get("EUMETSAT_CONSUMER_SECRET", "").strip()
+588027	    if not key or not secret:
+588028	        raise RuntimeError("Missing EUMETSAT_CONSUMER_KEY / EUMETSAT_CONSUMER_SECRET. Never commit credentials.")
+588029	    import eumdac
+588030	    datastore = eumdac.DataStore(eumdac.AccessToken((key, secret)))
+588031	    products = datastore.get_collection(COLLECTION).search(
+588032	        dtstart=start.replace(tzinfo=None), dtend=end.replace(tzinfo=None)
+588034	    count = getattr(products, "total_results", None)
+588036	        raise RuntimeError("No EUMETSAT product files returned. Existing map data left unchanged.")
+588039	    for product in products:
+588040	        downloaded += 1
+588041	        if downloaded > 1000:
+588042	            raise RuntimeError("Too many products in one run; reduce --hours.")
+588043	        print(f"Product {downloaded}: {product}", file=sys.stderr)
+588044	        with product.open() as stream:
+588045	            found.extend(decode_product(stream.read(), str(product), start, end))
+588046	    if downloaded == 0:
+588047	        raise RuntimeError("Empty product search. Existing map data left unchanged.")
+588048	    return found, downloaded
+588049	def read_previous(path: Path):
+588052	    obj = json.loads(path.read_text(encoding="utf-8"))
+588053	    if obj.get("type") != "FeatureCollection":
+588054	        raise ValueError("Previous GeoJSON is not a FeatureCollection")
+588055	    return obj.get("features", [])
+588056	def assemble(previous, incoming, now: datetime, retention_days: int = 7):
+588057	    cutoff = now - timedelta(days=retention_days)
+588058	    by_id = {}
+588059	    for feature in list(previous) + list(incoming):
+588060	        if feature.get("type") != "Feature" or feature.get("geometry", {}).get("type") != "Point":
+588063	        if props.get("source_product") != "MTG LI L2-LFL":
+588065	            timestamp = parse_utc(props["time_utc"])
+588066	            x, y = feature["geometry"]["coordinates"]
+588067	            if cutoff <= timestamp <= now and inside_uk_view(float(x), float(y)):
+588068	                by_id[str(feature["id"])] = feature
+588069	        except (KeyError, ValueError, TypeError):
+588070	    rows = sorted(by_id.values(), key=lambda f: (f["properties"]["time_utc"], str(f["id"])))
+588071	    total = len(rows)
+588072	    if total > MAX_RENDER_POINTS:
+588073	        rows = rows[-MAX_RENDER_POINTS:]
+588076	            "source": PROVIDER, "source_url": SOURCE_URL,
+588077	            "license": "EUMETSAT data policy: NoConditions; attribution retained",
+588078	            "coverage": "UK geographic bounding box and neighbouring waters, not national boundary",
+588079	            "bounds_wsen": list(UK_BOUNDS),
+588080	            "observation": "satellite optical flashes; not verified ground strike locations",
+588081	            "retention_days": retention_days,
+588082	            "total_before_display_cap": total,
+588083	            "display_cap": MAX_RENDER_POINTS,
+588084	            "latest_detection_utc": rows[-1]["properties"]["time_utc"] if rows else None,
+588085	            "status": "ready",
+588086	        "features": rows,
+588089	    parser.add_argument("--hours", type=int, default=3, help="How far back to fetch from EUMETSAT; 1-48")
+588090	    parser.add_argument("--retention-days", type=int, default=7)
+588091	    parser.add_argument("--out", type=Path, default=Path("data/uk_lightning.geojson"))
+588093	    if not 1 <= args.hours <= 48 or not 1 <= args.retention_days <= 31:
+588094	        parser.error("hours must be 1..48 and retention-days must be 1..31")
+588096	    beginning = now - timedelta(hours=args.hours)
+588097	    incoming, product_count = download(beginning, now)
+588098	    existing = read_previous(args.out)
+588099	    result = assemble(existing, incoming, now, retention_days=args.retention_days)
+588100	    # Refresh provenance only when a successful query returned product files.
+588101	    result["metadata"]["products_examined"] = product_count
+588102	    result["metadata"]["query_start_utc"] = iso_utc(beginning)
+588103	    result["metadata"]["query_end_utc"] = iso_utc(now)
+588104	    args.out.parent.mkdir(parents=True, exist_ok=True)
+588105	    args.out.write_text(json.dumps(result, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
+588106	    print(f"Published {len(result['features'])} genuine optical flashes from {product_count} EUMETSAT products.")
+588111	sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+588112	from collect import assemble, build_feature, inside_uk_view, parse_utc
+588113	class UKLightningTests(unittest.TestCase):
+588114	    def test_uk_extent_and_neighbouring_waters(self):
+588115	        self.assertTrue(inside_uk_view(-3.2, 55.9))
+588116	        self.assertTrue(inside_uk_view(-6.5, 54.5))
+588117	        self.assertFalse(inside_uk_view(20, 55.9))
+588118	        self.assertFalse(inside_uk_view(-3, float("nan")))
+588119	    def test_utc_normalisation(self):
+588120	        self.assertEqual(parse_utc("2026-10-22T15:00:00+01:00").isoformat(), "2026-10-22T14:00:00+00:00")
+588121	    def test_feature_timestamp_and_provenance(self):
+588122	        point = build_feature(-1.3, 52.1, datetime(2026, 10, 22, 12, tzinfo=timezone.utc), "product1", 1)
+588123	        self.assertEqual(point["geometry"]["coordinates"], [-1.3, 52.1])
+588124	        self.assertIn("not a confirmed ground strike", point["properties"]["raw_tech"])
+588125	        self.assertEqual(point["properties"]["source_product"], "MTG LI L2-LFL")
+588126	    def test_no_outside_points(self):
+588127	        self.assertIsNone(build_feature(15, 52, datetime.now(timezone.utc), "x", 1))
+588128	    def test_deduplicate_and_retention(self):
+588129	        now = datetime(2026, 10, 22, 17, tzinfo=timezone.utc)
+588130	        recent = build_feature(-1, 51, now - timedelta(hours=1), "recent", 1)
+588131	        old = build_feature(-1, 51, now - timedelta(days=9), "old", 1)
+588132	        result = assemble([old, recent], [recent], now, retention_days=7)
+588133	        self.assertEqual(len(result["features"]), 1)
+588134	        self.assertEqual(result["features"][0]["id"], recent["id"])
+588135	    def test_empty_collection_has_no_synthetic_strikes(self):
+588136	        output = assemble([], [], datetime.now(timezone.utc))
+588137	        self.assertEqual(output["features"], [])
+588138	        self.assertEqual(output["metadata"]["total_before_display_cap"], 0)
 ```

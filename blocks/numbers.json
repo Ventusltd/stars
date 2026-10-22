@@ -1,5 +1,5 @@
 {
- "next": 1936,
+ "next": 1938,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1872,6 +1872,8 @@
   "kuiper-belt:see-through/{stamp}/index.html": 1932,
   "kuiper-belt:see-through/{stamp}/model.js": 1933,
   "kuiper-belt:see-through/{stamp}/pf.js": 1934,
-  "kuiper-belt:see-through/{stamp}/see3d.js": 1935
+  "kuiper-belt:see-through/{stamp}/see3d.js": 1935,
+  "lightning:collect.py": 1936,
+  "lightning:tests/test_collect.py": 1937
  }
 }
