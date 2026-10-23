@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-381,158 unique lines, numbered 1 to 595,600. Generated 2026-10-23T13:48:46.984Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+381,180 unique lines, numbered 1 to 595,855. Generated 2026-10-23T18:43:06.796Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -381161,4 +381161,26 @@
 595597	 console.log('PASS: desktop/mobile baseline menu parity, native lightning GeoJSON and map paint');
 595599	 await browser.close();
 595600	 await new Promise(resolve=>server.close(resolve));
+595666	    // Front-load the public Weather overlay so it is visible immediately
+595667	    // when Grid opens on desktop and phone, without scrolling through 63 layers.
+595668	    // These independent nodes do not alter any original input or handler.
+595669	    body.prepend(group,label);
+595768	const result={baseline:'202609241334',preview:'202610231505',profiles:[]};
+595838	  assert.equal(await toggle.count(),1,'independent lightning toggle missing from Grid menu');
+595839	  // Crucial UX regression gate: the toggle MUST be visible on initial Grid
+595840	  // opening without scrolling past the 63 original layer controls.
+595841	  const weatherPosition=await page.evaluate(()=>{
+595842	   const body=document.querySelector('#gridatlas-menu-bar-panel-4 .gm-panel-body');
+595843	   const toggle=document.querySelector('[data-gridatlas-layer-proxy="weather:uk_lightning"]');
+595844	   if(!body||!toggle)return null;
+595845	   body.scrollTop=0;
+595846	   const root=body.getBoundingClientRect();
+595847	   const rect=toggle.getBoundingClientRect();
+595848	   return {firstGroup:body.firstElementChild?.getAttribute('data-weather-group'),
+595849	     visibleWithoutScroll:rect.top>=root.top-1&&rect.bottom<=root.bottom+1,
+595850	     headerText:body.firstElementChild?.textContent,scrollTop:body.scrollTop};
+595852	  assert.equal(weatherPosition?.firstGroup,'uk_lightning','Weather is not the first Grid menu group');
+595853	  assert.equal(weatherPosition?.visibleWithoutScroll,true,'Lightning toggle is below the fold on first Grid open');
+595854	  record.preview.weatherPosition=weatherPosition;
+595855	  await page.screenshot({path:path.join(out,'preview-'+width+'-weather-first.png')});
 ```
