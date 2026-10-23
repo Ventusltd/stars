@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-380,899 unique lines, numbered 1 to 588,138. Generated 2026-10-22T22:45:33.641Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+381,158 unique lines, numbered 1 to 595,600. Generated 2026-10-23T01:54:44.545Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -380902,4 +380902,263 @@
 588136	        output = assemble([], [], datetime.now(timezone.utc))
 588137	        self.assertEqual(output["features"], [])
 588138	        self.assertEqual(output["metadata"]["total_before_display_cap"], 0)
+594991	 * UK PUBLIC LIGHTNING OVERLAY — config-only addition, no immutable shell edits.
+594992	 * The legacy UK layer catalogue is created in the immutable shell immediately
+594993	 * after this cartridge executes. Wrap the existing constructor, append one
+594994	 * ordinary point layer, and let the existing map engine own all UI/GeoJSON.
+594995	 * Raw data are EUMETSAT satellite OPTICAL flashes, NOT ground strike positions.
+594996	    throw new Error('UK lightning layer: GridAtlas map constructor unavailable');
+594997	  window.initVentusMap = function addPublicLightningLayer(options) {
+594998	    const groups = options && options.config;
+594999	    if (Array.isArray(groups) && !groups.some(group =>
+595000	      Array.isArray(group.layers) && group.layers.some(layer => layer.id === 'uk_lightning'))) {
+595001	      groups.push({
+595002	        group: 'Weather (GeoJSON)',
+595003	        layers: [{
+595004	          id: 'uk_lightning',
+595005	          label: 'Lightning (satellite flashes)',
+595006	          color: '#ffdf44',
+595007	          type: 'point',
+595008	          radius: ['interpolate', ['linear'], ['zoom'], 4, 3, 9, 5, 14, 8],
+595009	          url: 'https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson',
+595010	          preload: false
+595012	    return originalInit.call(this, options);
+595071	      const url = new URL(raw, window.location.href);
+595072	      // The GridAtlas internal Parquet resolver owns only same-origin paths.
+595073	      // External GeoJSON (e.g. public lightning observations) must go to native
+595074	      // browser fetch, not be interpreted as an internal DuckDB partition.
+595075	      if (url.origin !== window.location.origin) return '';
+595076	      return url.pathname;
+595273	  <title>GridAtlas Lightning · Isolated Preview</title>
+595281	  <main id="gridatlas-loader"><div><strong>GRIDATLAS LIGHTNING PREVIEW</strong><br>verifying immutable shell and cartridges…</div></main>
+595332	      // Preview-only weather extension: SHA-256 verified before injection.
+595333	      // The extension waits for the ORIGINAL 60+3 menu to install and leaves
+595334	      // the immutable UK config, existing menu scripts and handlers untouched.
+595335	      invariant(current.weather_module?.path && /^[a-f0-9]{64}$/.test(current.weather_module.sha256 || ''), 'weather module manifest is missing');
+595336	      const weatherUrl = new URL(current.weather_module.path, window.location.href);
+595337	      const weatherResponse = await fetch(weatherUrl, { cache: 'no-store' });
+595338	      invariant(weatherResponse.ok, 'weather module HTTP ' + weatherResponse.status);
+595339	      const weatherBytes = await weatherResponse.arrayBuffer();
+595340	      invariant(await sha256Hex(weatherBytes) === current.weather_module.sha256, 'weather module SHA-256 mismatch');
+595341	      const weatherBlob = URL.createObjectURL(new Blob([weatherBytes], { type: 'text/javascript' }));
+595342	      html = html.replace(/<\/body>/i, '<script data-gridatlas-weather="uk-lightning" src="' + escapeAttribute(weatherBlob) + '">' + SCRIPT_CLOSE + '</body>');
+595361	 * Public UK Lightning, isolated from the immutable 60+3 control contract.
+595362	 * EUMETSAT Meteosat LI L2 optical flashes; NOT confirmed ground strikes.
+595363	 * This module NEVER edits ukConfig, the engine's 60 layer controls, the three
+595364	 * Pipeline News controls, or their delegated click/keyboard handlers.
+595365	 * It waits until GridAtlas installs its own menu, then adds a separate toggle
+595366	 * inside Grid and one standard MapLibre GeoJSON point source.
+595367	  const DATA_URL='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson';
+595368	  const SOURCE='src-uk_lightning';
+595369	  const LAYER='l-uk_lightning';
+595370	  const PREFIX='weather:uk_lightning';
+595371	  const PANEL='#gridatlas-menu-bar-panel-4 .gm-panel-body';
+595372	  const state={schema:'gridatlas.uk-weather-lightning.v2',installed:false,status:'WAIT',
+595373	    source:DATA_URL,features:0,source_type:'EUMETSAT satellite optical flashes',
+595374	    observations_are_ground_strikes:false,errors:[]};
+595375	  window.__GRIDATLAS_WEATHER_LIGHTNING__=state;
+595377	    if(state.installed)return true;
+595378	    const map=window.__GRIDATLAS_V9_MAP__;
+595379	    const menu=window.__GRIDATLAS_MODULES__?.menuBar;
+595380	    const body=document.querySelector(PANEL);
+595381	    if(!map||!menu?.installed||!body||!map.isStyleLoaded())return false;
+595382	    if(!map.getSource(SOURCE)){
+595383	      map.addSource(SOURCE,{type:'geojson',data:{type:'FeatureCollection',features:[]}});
+595384	    if(!map.getLayer(LAYER)){
+595385	        id:LAYER,type:'circle',source:SOURCE,
+595386	        layout:{visibility:'none'},
+595387	        paint:{
+595388	          'circle-color':'#ffdf44',
+595389	          'circle-radius':['interpolate',['linear'],['zoom'],4,3,9,5,14,8],
+595390	          'circle-stroke-width':1.2,
+595391	          'circle-stroke-color':'#251800',
+595392	          'circle-opacity':0.95
+595393	    // The GridAtlas menu's fixed 60+3 inventory was validated BEFORE this
+595394	    // module runs. This toggle has NO data-layer-id or data-pn-layer.
+595395	    const group=document.createElement('div');
+595396	    group.className='gm-layer-group';
+595397	    group.textContent='Weather (GeoJSON)';
+595398	    group.setAttribute('data-weather-group','uk_lightning');
+595399	    const label=document.createElement('label');
+595400	    label.className='gm-layer';
+595401	    label.setAttribute('data-gridatlas-layer-key',PREFIX);
+595402	    const input=document.createElement('input');
+595403	    input.id='gridatlas-weather-lightning-toggle';
+595404	    input.type='checkbox';
+595405	    input.setAttribute('data-gridatlas-layer-proxy',PREFIX);
+595406	    input.setAttribute('data-weather-layer','uk_lightning');
+595407	    input.setAttribute('aria-label','Lightning (satellite flashes)');
+595408	    const box=document.createElement('span');
+595409	    box.className='gm-layer-box';
+595410	    box.setAttribute('aria-hidden','true');
+595411	    const title=document.createElement('span');
+595412	    title.className='gm-layer-name';
+595413	    title.id='lbl-uk_lightning';
+595414	    title.textContent='Lightning (satellite flashes) [WAIT]';
+595415	    label.append(input,box,title);
+595416	    body.append(group,label);
+595417	    function status(word,details) {
+595418	      state.status=word;
+595419	      title.textContent='Lightning (satellite flashes) ['+word+']'+(details?' '+details:'');
+595420	      input.setAttribute('aria-label',title.textContent);
+595421	    let loaded=false;
+595422	    let loading=null;
+595423	    async function hydrate() {
+595424	      if(loaded)return;
+595425	      if(loading)return loading;
+595426	      status('LOAD');
+595427	      loading=(async()=>{
+595428	        const response=await fetch(DATA_URL,{cache:'no-store'});
+595429	        if(!response.ok)throw new Error('lightning GeoJSON HTTP '+response.status);
+595430	        const data=await response.json();
+595431	        if(data?.type!=='FeatureCollection'||!Array.isArray(data.features))
+595432	          throw new Error('lightning feed is not a GeoJSON FeatureCollection');
+595433	        const features=data.features.filter(f=>f?.type==='Feature'
+595434	          && f.geometry?.type==='Point'
+595435	          && Array.isArray(f.geometry.coordinates)
+595436	          && f.geometry.coordinates.length>=2
+595437	          && f.geometry.coordinates.slice(0,2).every(Number.isFinite));
+595438	        map.getSource(SOURCE).setData({type:'FeatureCollection',features});
+595439	        state.features=features.length;
+595440	        state.latest_utc=data.metadata?.latest_detection_utc||null;
+595441	        state.feed_status=data.metadata?.status||'unknown';
+595442	        loaded=true;
+595443	        status(features.length?'OK':'EMPTY',features.length?'('+features.length+' flashes)':'(no published observations)');
+595444	      })().finally(()=>{loading=null;});
+595445	      return loading;
+595446	    input.addEventListener('change',()=>{
+595447	      const visible=input.checked;
+595448	      map.setLayoutProperty(LAYER,'visibility',visible?'visible':'none');
+595449	      if(visible)hydrate().catch(error=>{
+595450	        state.errors.push(String(error?.message||error));
+595451	        status('FAIL');
+595452	        input.checked=false;
+595453	        map.setLayoutProperty(LAYER,'visibility','none');
+595454	        console.error('[GRIDATLAS WEATHER]',error);
+595455	    map.on('click',LAYER,e=>{
+595456	      if(!input.checked||!e.features?.length)return;
+595457	      const p=e.features[0].properties||{};
+595458	      const box=document.createElement('div');
+595459	      box.style.cssText='font:12px/1.5 monospace;color:#dceeff;background:#07151e;padding:8px;max-width:260px';
+595460	      const headline=document.createElement('strong');
+595461	      headline.textContent='⚡ Satellite lightning flash';
+595462	      headline.style.color='#ffdf44';
+595463	      const detail=document.createElement('div');
+595464	      detail.textContent=(p.time_utc||'Time unavailable')+' · UTC / source: EUMETSAT MTG LI';
+595465	      const note=document.createElement('small');
+595466	      note.textContent='Optical lightning detection; not a confirmed ground strike.';
+595467	      box.append(headline,detail,note);
+595468	      new window.maplibregl.Popup({closeButton:true}).setLngLat(e.lngLat).setDOMContent(box).addTo(map);
+595469	    map.on('mouseenter',LAYER,()=>{if(input.checked)map.getCanvas().style.cursor='pointer';});
+595470	    map.on('mouseleave',LAYER,()=>{map.getCanvas().style.cursor='';});
+595471	    state.installed=true;
+595472	    status('WAIT');
+595473	  const begin=Date.now();
+595474	  const timer=setInterval(()=>{
+595475	      if(install()){clearInterval(timer);}
+595476	      else if(Date.now()-begin>60000){
+595477	        state.errors.push('Weather module did not find installed GridAtlas menu within 60s');
+595478	        clearInterval(timer);
+595479	    }catch(error){
+595480	      state.errors.push(String(error?.message||error));
+595481	      console.error('[GRIDATLAS WEATHER] isolated extension failure',error);
+595482	      clearInterval(timer);
+595484	 * Compare the restored live Atlas with isolated UK lightning V2.
+595485	 * Browser test fixtures reproduce real EUMETSAT observations but are NEVER
+595486	 * included in production data: intercepted requests exist only inside CI.
+595493	const out=path.join(root,'work','uk-lightning-preview');
+595495	const mime={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.geojson':'application/geo+json','.css':'text/css','.wasm':'application/wasm','.png':'image/png','.svg':'image/svg+xml'};
+595496	const server=createServer((req,res)=>{
+595498	  let p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+595499	  if(!p.startsWith(root+path.sep))throw new Error('outside repository');
+595500	  if(fs.statSync(p).isDirectory())p=path.join(p,'index.html');
+595501	  res.setHeader('content-type',mime[path.extname(p)]||'application/octet-stream');
+595502	  res.setHeader('cache-control','no-store');
+595503	  res.end(fs.readFileSync(p));
+595504	 } catch {res.writeHead(404).end();}
+595506	await new Promise(done=>server.listen(0,'127.0.0.1',done));
+595507	const origin='http://127.0.0.1:'+server.address().port;
+595509	const result={baseline:'202609241334',preview:'202610230230',profiles:[]};
+595510	const sourceUrl='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson';
+595511	const fixture={type:'FeatureCollection',features:[
+595512	 {type:'Feature',id:'test-real-observation-1',geometry:{type:'Point',coordinates:[-3.9177,49.515301]},properties:{name:'Lightning flash 2026-10-21 12:32 UTC',time_utc:'2026-10-21T12:32:19.282Z',raw_tech:'EUMETSAT optical flash (not a confirmed ground strike)',status:'Satellite detection',source:'EUMETSAT',source_product:'MTG LI L2-LFL'}},
+595513	 {type:'Feature',id:'test-real-observation-2',geometry:{type:'Point',coordinates:[-2.052,50.079601]},properties:{name:'Lightning flash 2026-10-22 22:10 UTC',time_utc:'2026-10-22T22:10:13.082Z',raw_tech:'EUMETSAT optical flash (not a confirmed ground strike)',status:'Satellite detection',source:'EUMETSAT',source_product:'MTG LI L2-LFL'}}
+595515	const menus=['File','Edit','View','Scope','Grid','About'];
+595516	async function openProfile(width,mode) {
+595517	 const mobile=width<700;
+595518	 const context=await browser.newContext({viewport:{width,height:mobile?852:1000},isMobile:mobile,hasTouch:mobile,...(mobile?{userAgent:'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36'}:{})});
+595519	 let requests=0;
+595520	 const jsErrors=[];
+595521	 const page=await context.newPage();
+595522	 const networkFailures=[];
+595523	 const consoleErrors=[];
+595524	 page.on('pageerror',e=>jsErrors.push(String(e)));
+595525	 page.on('requestfailed',r=>networkFailures.push(r.url()+' '+(r.failure()?.errorText||'')));
+595526	 page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text().slice(0,260));});
+595527	 await page.route(sourceUrl,async route=>{
+595528	  requests++;
+595529	  await route.fulfill({status:200,contentType:'application/geo+json',headers:{'Access-Control-Allow-Origin':'*'},body:JSON.stringify(fixture)});
+595531	 const url=origin+(mode==='baseline'?'/atlas/':'/atlas/preview/lightning/');
+595533	  await page.waitForFunction(()=>window.__GRIDATLAS_V9_MAP__&&document.querySelectorAll('[data-gridatlas-layer-proxy]').length>=60,null,{timeout:35000});
+595534	 } catch(error) {
+595535	  const state=await page.evaluate(()=>({title:document.title,url:location.href,router:document.body?.dataset?.gridatlasRouter,body:document.body?.innerText?.slice(0,1400),generation:window.__GRIDATLAS_ATLAS__?.generation,map:!!window.__GRIDATLAS_V9_MAP__,proxies:document.querySelectorAll('[data-gridatlas-layer-proxy]').length,scripts:[...document.scripts].map(s=>s.src?.slice(-160)).filter(Boolean).slice(-12)}));
+595536	  console.error('GRIDATLAS_LOAD_DIAGNOSTIC',JSON.stringify({mode,width,state,networkFailures:networkFailures.slice(-25),consoleErrors:consoleErrors.slice(-25),jsErrors:jsErrors.slice(-25)}));
+595537	  await page.screenshot({path:path.join(out,mode+'-'+width+'-load-failure.png'),fullPage:true}).catch(()=>{});
+595540	 if(mode==='preview')await page.waitForFunction(()=>window.__GRIDATLAS_WEATHER_LIGHTNING__?.installed,null,{timeout:15000});
+595541	 const gen=await page.evaluate(()=>window.__GRIDATLAS_ATLAS__.generation);
+595542	 assert.equal(gen,mode==='baseline'?result.baseline:result.preview,mode+' generation mismatch');
+595543	 const layerIds=await page.locator('#scada-ui-container input[data-layer-id]').evaluateAll(xs=>xs.map(x=>x.dataset.layerId).sort());
+595544	 const allIds=await page.locator('[data-gridatlas-layer-proxy]').evaluateAll(xs=>xs.map(x=>x.getAttribute('data-gridatlas-layer-proxy')).sort());
+595545	 const menuInventory={};
+595546	 for(const name of menus) {
+595547	  const btn=page.getByRole('button',{name,exact:true});
+595548	  await btn.click();
+595549	  assert.equal(await btn.getAttribute('aria-expanded'),'true',mode+' cannot open menu '+name);
+595550	  menuInventory[name]=await page.locator('.gm-open .gm-panel').evaluateAll(xs=>xs.map(x=>({
+595551	   headings:[...x.querySelectorAll('h1,h2,h3,summary')].map(n=>n.textContent.trim()),
+595552	   ids:[...x.querySelectorAll('button,input,select')].map(n=>n.id).filter(Boolean).sort()
+595554	 await page.screenshot({path:path.join(out,mode+'-'+width+'-menus.png')});
+595555	 return {context,page,gen,layerIds,allIds,menuInventory,requests:()=>requests,jsErrors};
+595558	 for(const width of [1440,393]) {
+595559	  const record={width,baseline:null,preview:null,pass:false};
+595560	  result.profiles.push(record);
+595561	  const baseline=await openProfile(width,'baseline');
+595562	  record.baseline={generation:baseline.gen,layers:baseline.layerIds.length,menus:Object.keys(baseline.menuInventory)};
+595563	  assert(!baseline.layerIds.includes('uk_lightning'),'restored baseline unexpectedly has lightning');
+595564	  await baseline.context.close();
+595565	  const preview=await openProfile(width,'preview');
+595566	  record.preview={generation:preview.gen,layers:preview.layerIds.length};
+595567	  assert(!preview.layerIds.includes('uk_lightning'),'Weather must NOT mutate ukConfig');
+595568	  assert.deepEqual(preview.layerIds,baseline.layerIds,'Original 60 GridAtlas controls changed');
+595569	  assert.deepEqual(preview.allIds.filter(id=>id!=='weather:uk_lightning'),baseline.allIds,'Original layer proxies changed');
+595570	  for(const name of menus){
+595571	   const newInventory=preview.menuInventory[name].map(panel=>({...panel,ids:panel.ids.filter(id=>id!=='gridatlas-weather-lightning-toggle')}));
+595572	   assert.deepEqual(newInventory,baseline.menuInventory[name],'Original menu controls changed: '+name);
+595573	  const menuContract=await preview.page.evaluate(()=>window.__GRIDATLAS_MODULES__?.menuBar?.inspect?.());
+595574	  assert(menuContract?.complete&&menuContract?.engine===60&&menuContract?.pipeline===3,'Menu 60+3 contract violated');
+595575	  const page=preview.page;
+595576	  const grid=page.getByRole('button',{name:'Grid',exact:true});
+595577	  if(await grid.getAttribute('aria-expanded')!=='true')await grid.click();
+595578	  const toggle=page.locator('[data-gridatlas-layer-proxy="weather:uk_lightning"]');
+595579	  assert.equal(await toggle.count(),1,'lightning checkbox not generated by native UK config');
+595580	  await toggle.scrollIntoViewIfNeeded();
+595581	  await toggle.click();
+595582	  await page.waitForFunction(()=>/\[(OK|FAIL|EMPTY)\]/.test(document.getElementById('lbl-uk_lightning')?.textContent||''),null,{timeout:60000});
+595583	  const status=await page.locator('#lbl-uk_lightning').textContent();
+595584	  assert(status.includes('[OK]'),'UK lightning hydration failed: '+status);
+595585	  assert.equal(preview.requests(),1,'lightning URL was not fetched externally');
+595586	  const features=await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('src-uk_lightning')._data.features.length);
+595587	  assert.equal(features,2,'unexpected test observation count');
+595588	  await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.jumpTo({center:[-3.9177,49.515301],zoom:9}));
+595589	  await page.waitForFunction(()=>window.__GRIDATLAS_V9_MAP__.queryRenderedFeatures({layers:['l-uk_lightning']}).length>0,null,{timeout:20000});
+595590	  record.preview={...record.preview,status:status.trim(),features,rendered:await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.queryRenderedFeatures({layers:['l-uk_lightning']}).length),externalRequests:preview.requests()};
+595591	  await page.screenshot({path:path.join(out,'preview-'+width+'-lightning-on.png')});
+595592	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayoutProperty('l-uk_lightning','visibility')),'none');
+595593	  record.pass=true;
+595594	  await preview.context.close();
+595595	  console.log(JSON.stringify(record));
+595596	 fs.writeFileSync(path.join(out,'comparison.json'),JSON.stringify(result,null,2)+'\n');
+595597	 console.log('PASS: desktop/mobile baseline menu parity, native lightning GeoJSON and map paint');
+595599	 await browser.close();
+595600	 await new Promise(resolve=>server.close(resolve));
 ```
