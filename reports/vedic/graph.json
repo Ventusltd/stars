@@ -1,7 +1,7 @@
 {
   "schema": "classification-graph.v1",
   "label": "The Classification star",
-  "generated_utc": "2026-10-24T17:37:10.368Z",
+  "generated_utc": "2026-10-24T19:35:13.427Z",
   "note": "Five classes and the forms in each; unused forms and the declared-order check are in the report.",
   "focus_default": "Computation",
   "nodes": [
