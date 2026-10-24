@@ -1,6 +1,6 @@
 # Why, on every red card
 
-Generated 2026-10-24T00:03:17.538Z. One sentence per red card, walked from the evidence this repository holds
+Generated 2026-10-24T05:00:19.174Z. One sentence per red card, walked from the evidence this repository holds
 (decays, the engine join, the chemistry, a block's needs) by `modular-star/why.mjs`. "Cause not yet traced" means the walk found nothing; it is never invented.
 
 ## The Modular star (`modular/graph.json`)
@@ -11,6 +11,6 @@ Generated 2026-10-24T00:03:17.538Z. One sentence per red card, walked from the e
 
 ## The periodic table (`blocks/graph.json`)
 
-No red cards at 2026-10-24T00:02:50.236Z.
+No red cards at 2026-10-24T04:59:56.602Z.
 
 3 red cards, 3 traced, 0 not yet traced. Cards: https://ventusltd.github.io/stars/spider/graphs/
