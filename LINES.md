@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-381,180 unique lines, numbered 1 to 595,855. Generated 2026-10-26T14:34:02.988Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+381,259 unique lines, numbered 1 to 596,216. Generated 2026-10-26T20:09:57.373Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -381183,4 +381183,83 @@
 595853	  assert.equal(weatherPosition?.visibleWithoutScroll,true,'Lightning toggle is below the fold on first Grid open');
 595854	  record.preview.weatherPosition=weatherPosition;
 595855	  await page.screenshot({path:path.join(out,'preview-'+width+'-weather-first.png')});
+595883	 * It waits until GridAtlas installs its own menu, then adds synchronised toggles
+595884	 * to both the native Layers panel and Grid menu, with one MapLibre source.
+595946	    // Show the SAME isolated overlay in the actual SCADA LAYERS dashboard
+595947	    // and fullscreen curtain, not just in the six-menu Grid dropdown.
+595948	    // Original 60 engine + 3 Pipeline News inputs retain their attributes,
+595949	    // indices, delegated handlers and fail-closed menu contract.
+595950	    const switches=[input];
+595951	    const statusLabels=[title];
+595952	    function appendToLayers(hostId,kind) {
+595953	      const host=document.getElementById(hostId);
+595954	      if(!host) return;
+595955	      const weatherGroup=document.createElement('div');
+595956	      weatherGroup.className='key-group';
+595957	      weatherGroup.setAttribute('data-weather-native-group',kind);
+595958	      const heading=document.createElement('div');
+595959	      heading.className='key-title';
+595960	      heading.textContent='Weather (GeoJSON)';
+595961	      const row=document.createElement('label');
+595962	      row.className='key-item';
+595963	      row.setAttribute('data-weather-native-row',kind);
+595964	      const cb=document.createElement('input');
+595965	      cb.type='checkbox';
+595966	      cb.id='gridatlas-weather-lightning-'+kind;
+595967	      cb.setAttribute('data-weather-layer','uk_lightning');
+595968	      cb.setAttribute('aria-label','Lightning (satellite flashes)');
+595969	      // Do NOT set data-layer-id or data-pn-layer. GridAtlas's existing
+595970	      // change handlers and menu's 63-control cardinality stay untouched.
+595971	      const name=document.createElement('span');
+595972	      name.setAttribute('data-weather-label',kind);
+595973	      name.style.color='#ffdf44';
+595974	      name.textContent='Lightning (satellite flashes) [WAIT]';
+595975	      row.append(cb,document.createTextNode(' '),name);
+595976	      weatherGroup.append(heading,row);
+595977	      host.prepend(weatherGroup);
+595978	      switches.push(cb);
+595979	      statusLabels.push(name);
+595980	    appendToLayers('scada-ui-container','layers');
+595981	    appendToLayers('fs-curtain-keys','fullscreen');
+595982	    state.controls=switches.length;
+595985	      const updated='Lightning (satellite flashes) ['+word+']'+(details?' '+details:'');
+595986	      statusLabels.forEach(node=>{node.textContent=updated;});
+595987	      switches.forEach(cb=>cb.setAttribute('aria-label',updated));
+596013	    function setActive(visible) {
+596014	      switches.forEach(cb=>{cb.checked=visible;});
+596019	        switches.forEach(cb=>{cb.checked=false;});
+596022	    switches.forEach(cb=>cb.addEventListener('change',()=>setActive(cb.checked)));
+596083	const result={baseline:'202609241334',preview:'202610261500',profiles:[]};
+596150	  const native=page.locator('#scada-ui-container input[data-weather-layer="uk_lightning"]');
+596151	  const fs=page.locator('#fs-curtain-keys input[data-weather-layer="uk_lightning"]');
+596152	  assert.equal(await native.count(),1,'Lightning missing from the actual LAYERS panel');
+596153	  assert.equal(await fs.count(),1,'Lightning missing from fullscreen layer controls');
+596154	  const nativeStructure=await page.evaluate(()=>({
+596155	    firstGroup:document.querySelector('#scada-ui-container')?.firstElementChild?.getAttribute('data-weather-native-group'),
+596156	    fullFirst:document.querySelector('#fs-curtain-keys')?.firstElementChild?.getAttribute('data-weather-native-group')
+596158	  assert.equal(nativeStructure.firstGroup,'layers','Weather is not the first native LAYERS group');
+596159	  assert.equal(nativeStructure.fullFirst,'fullscreen','Weather is not the first fullscreen layer group');
+596160	  record.preview.nativeStructure=nativeStructure;
+596183	  assert.equal(await native.isChecked(),true,'Menu ON not synchronised to actual LAYERS');
+596184	  assert.equal(await fs.isChecked(),true,'Menu ON not synchronised to fullscreen');
+596197	  assert.equal(await native.isChecked(),false,'Menu OFF not synchronised to actual LAYERS');
+596198	  if(await grid.getAttribute('aria-expanded')==='true')await grid.click();
+596199	  const dash=page.locator('#gridatlas-dash-toggle');
+596200	  const wrapper=page.locator('.scada-wrapper');
+596201	  // On mobile the native panel starts COLLAPSED, but Playwright isVisible()
+596202	  // still sees layout inside its clipped, zero-height ancestor. Explicitly
+596203	  // OPEN the user's real ▲ LAYERS control before asking for a real tap.
+596204	  if(await wrapper.getAttribute('data-gridatlas-collapsed')==='1'){
+596205	    assert.equal(await dash.isVisible(),true,'Mobile LAYERS expand control is hidden');
+596206	    await dash.click();
+596207	  assert.notEqual(await wrapper.getAttribute('data-gridatlas-collapsed'),'1','Native LAYERS failed to expand');
+596208	  assert.equal(await native.isVisible(),true,'Actual LAYERS Weather checkbox is not visible');
+596209	  await native.scrollIntoViewIfNeeded();
+596210	  await page.screenshot({path:path.join(out,'preview-'+width+'-native-layers-weather-visible.png')});
+596211	  await native.click();
+596212	  assert.equal(await toggle.isChecked(),true,'LAYERS ON not synchronised to Grid dropdown');
+596213	  assert.equal(await fs.isChecked(),true,'LAYERS ON not synchronised to fullscreen');
+596214	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayoutProperty('l-uk_lightning','visibility')),'visible');
+596215	  assert.equal(await toggle.isChecked(),false,'LAYERS OFF not synchronised to Grid dropdown');
+596216	  record.preview.nativeLayersToggle='PASS: visible, clickable, synchronised in both directions';
 ```
