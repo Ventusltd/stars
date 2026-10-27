@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-381,545 unique lines, numbered 1 to 603,370. Generated 2026-10-27T00:05:03.746Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+386,032 unique lines, numbered 1 to 615,259. Generated 2026-10-27T05:33:49.041Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -381548,4 +381548,4491 @@
 603368	assert.ok(Buffer.byteLength(module,'utf8')<=24781,'module exceeds the 24,781-byte budget');
 603369	assert.equal(module.includes('gm-panel-body'),false,'the Grid dropdown mirror was removed: the module must not touch the original Grid panel body (P02/P10)');
 603370	for(const needle of ["visibility:'none'",'not confirmed ground strikes','unknown','data-lightning-control="toggle"','scada-ui-container','fs-curtain-keys','appendChild','cluster:true','10000','40000','AbortController','EUMETSAT'])
+610222	/* uk-lightning-overlay, generation 202610270024 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+610230	const GEN='202610270024',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+610231	FEED='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson',FEED_SCHEMA='FeatureCollection/optical_lightning_flash',
+610233	PERIODS=[['12h','12 hours',12*HOUR],['24h','24 hours',DAY],['48h','48 hours',2*DAY],['7d','7 days',7*DAY],['30d','30 days',30*DAY],['3m','3 months',-3],['6m','6 months',-6],['12m','12 months',-12],['custom','Custom UTC dates',0]],
+610234	BASE='Lightning Flashes (Optical)',TITLE='Weather · EUMETSAT Lightning Imager',
+610239	N=n=>Number(n).toLocaleString('en-GB'),F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,AGO=t=>{const m=Math.round(t/6e4);return m<1?'<1 min':`${Math.floor(m/60)}h ${m%60}min`},
+610240	ov=(a,b,c,d)=>Math.max(0,Math.min(b,d)-Math.max(a,c)),FC=f=>({type:'FeatureCollection',features:f||[]}),bx=(x,y)=>x===+x&&y===+y&&x>=-11&&x<=3&&y>=49.5&&y<=61.5,isFC=o=>o&&o.type==='FeatureCollection'&&Array.isArray(o.features),tm=f=>{const s=f.properties.time_utc+'';return Date.parse(/T[\d:.]+$/.test(s)?s+'Z':s)},msg=e=>e&&e.message||String(e),
+610255	if(r.coverage==='none'?n!==null:!(Number.isSafeInteger(n)&&n>=0))b('count');if(n===0&&!(r.scanned_seconds>0))b('count 0 unscanned');if(n>0&&!r.path&&!(r.parts&&r.parts.length))b('no path/parts');
+610256	if(r.path&&!/^days\/\d{4}\/\d{2}\/\d{2}\.json$/.test(r.path))b('path');if(typeof r.sealed!=='boolean')b('sealed');
+610257	if(r.parts&&!(Array.isArray(r.parts)&&r.parts.length<=24&&r.parts.every(p=>p&&/^days\/\d{4}(\/\d\d){3}\.json$/.test(p.path)&&Number.isSafeInteger(p.count))))b('parts')},
+610259	if(raw.schema!==IX_SCHEMA)E('unsupported index schema '+raw.schema);
+610265	return{days:raw.days,by:new Map(raw.days.map(r=>[r.date,r])),sw,gen,cutoff,iv,nextDue:Date.parse(raw.next_update_due_utc||'')||gen+(iv+1)*HOUR,lastScan:sw.length?sw.reduce((a,w)=>Math.max(a,w.e),-Infinity):null,
+610266	covStart:Date.parse(raw.coverage_start_utc||'')||(sw.length?sw[0].s:cutoff),cutoffDate:raw.cutoff_date_utc,lost:new Set(raw.days.filter(r=>r.shard_lost).map(r=>r.date))}},
+610267	stale=(x,now)=>!(now-x.gen<=4*HOUR)||now>x.nextDue,
+610268	li=()=>{if(!S.ip){const p=S.ip=gj(AR+'index.json','no-cache').then(ni).then(m=>{if(S.ip===p){for(const k of[...lru.keys()])if(!lru.get(k).sealed)lru.delete(k);S.idx=m;S.ie=null}return m}).catch(e=>{if(S.ip===p){S.ip=null;S.idx=null;S.ie=msg(e)}throw e})}return S.ip},
+610270	cv=(x,ws,we)=>{const win=we-ws,u=[];let r=0,a=null,b=null,sd=0,d=0,l=0;
+610272	for(let t=ds(ymd(ws));t<we;t+=DAY){if(ov(ws,we,t,t+DAY)<=0)continue;d++;const y=ymd(t),row=x.by.get(y);if(x.lost.has(y)){l++;for(const w of x.sw)sd-=ov(Math.max(ws,t),Math.min(we,t+DAY),w.s,w.e)}else if(!row||row.coverage==='none')u.push(y)}
+610273	return{f:win>0?Math.min(1,sd/win):0,r,a,b,d,u,l,ny:x.lastScan===null?win:Math.max(0,we-Math.max(ws,x.lastScan)),bf:Math.max(0,Math.min(we,x.covStart)-ws)}},
+610277	return{s,e,atLatest,period:P[0],label:P[1],span:e-s,clamped:false,custom:cu,mo:P[2]}},
+610286	fr=async(rows,ws,we,sn)=>{const jobs=[];for(const row of rows)for(const t of tg(row,ws,we))jobs.push({row,t});const parts=new Array(jobs.length),fl=[];let pos=0;
+610287	await Promise.all(Array.from({length:Math.min(4,jobs.length)},async()=>{while(pos<jobs.length&&sn===S.serial){const i=pos++,{row,t}=jobs[i];try{parts[i]=await sh(t,row.date)}catch(e){parts[i]=[];fl.push({date:row.date,error:msg(e)})}}}));
+610289	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&(c=>Array.isArray(c)&&c.length<4&&bx(c[0],c[1]))(f.geometry.coordinates)&&f.properties&&FEED_SCHEMA.endsWith('/'+f.properties.observation_kind)&&isFinite(tm(f)),
+610290	co=(parts,ws,we)=>{const m=new Map();let k=0;for(const part of parts)for(const f of part){if(!ok(f)){k++;continue}const t=tm(f);if(t>=ws&&t<we)m.set(f.id==null?t+','+f.geometry.coordinates:JSON.stringify(f.id),f)}const a=[...m.values()].sort((a,b)=>tm(a)-tm(b));a.bad=k;return a},
+610295	lw=async(now,sn)=>{const w=wf(now);let x=null,ie=null;try{x=await li()}catch(e){ie=msg(e)}
+610304	if(count>BUDGET||bytes>32e6){r.budget=`${N(count)} flashes, ${N(bytes)} bytes`;if(!S.consent){r.clp=true;return r}
+610305	let run=0,rb=0;tf.sort((a,b)=>b.date.localeCompare(a.date));const keep=[];for(const y of tf){const b=y.bytes>0?y.bytes:y.count*530;if(r.sk.length||run+y.count>BUDGET||rb+b>32e6){r.sk.push(y.date);continue}keep.push(y);run+=y.count;rb+=b}if(!keep.length){r.clp=r.big=1;return r}tf=keep;count=run}
+610307	const got=await fr(tf,w.s,w.e,sn);r.mode='detail';r.fl=got.fl;r.rq=got.rq;r.ev=co(got.parts,w.s,w.e);return r},
+610313	else if(f<0.999||c.ny>0||c.l){st='PARTIAL';if(c.ny>0)rs.push('tail not yet ingested');if(c.bf>0)rs.push('head before archive start');if(c.u.length)rs.push(`${c.u.length} dates without a scan window`);if(!rs.length)rs.push('gaps inside the window')}
+610314	else if(r.mode!=='overview')st=r.sk.length?'PARTIAL':r.ev.length?'READY·DETAIL':'EMPTY-COVERED';else st=r.arch>0?'READY·SUMMARY':'EMPTY-COVERED'}
+610315	return{st,stale:!!(r.idx||r.meta)&&stale(r.idx||{gen:Date.parse(r.meta.query_end_utc)},now),colour:COLOUR(st),rs}},
+610318	L.window=w.custom?`Window  UTC dates ${ymd(w.s)} to ${ymd(Math.max(w.s,w.e-1))} inclusive = ${T(w.s)} → ${T(w.e)}`:`Window  ${T(w.s)} → ${T(w.e)} (${w.label}${w.atLatest?', latest':', end exclusive'})`;
+610322	r.out=0;try{const b=mh().getBounds();r.out=r.ev.filter(f=>!b.contains(f.geometry.coordinates)).length}catch(_){}
+610324	drawn=(!n?'':` · ${N(n)} drawn as ${r.cl?'clusters':'points'} (${r.cs} count ${N(r.ic)} ${r.cl?'exceeds':'within'} the ${N(cap())}-point cap for this ${dev})`)+(r.ev&&r.ev.bad?` · ${N(r.ev.bad)} malformed records rejected`:'')+(r.out?` · ${N(r.out)} of ${N(n)} outside the current view`:'');
+610328	L.actual=first||'Actual  none seen in the available 7-day feed for this window (unknown, not zero)';L.flashes=`Flashes ${F7(r)}${drawn}`}
+610332	L.actual=o.length?`Actual  on the ${k} overlapping UTC dates: first ${Ts(Date.parse(o[0].first_observation_utc))} · last ${Ts(Date.parse(o[o.length-1].last_observation_utc))} (day-level; may lie outside a midday window edge)`:`Actual  no archived flashes on the ${k} overlapping UTC dates`;
+610333	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'choose ≤31 days for points'})`}
+610335	const c=r.mode!=='feed'&&r.cov;if(c){const warn=[];
+610336	L.searched=c.f>0?`Searched EUMETSAT ${Math.floor(c.f*100)}% of window · ${c.r} successful runs${c.a!==null?` · ${T(c.a)} → ${T(c.b)}`:''}`:'Searched EUMETSAT 0% of window — no collection run covers these dates';
+610339	if(c.l)warn.push(`${c.l} days lost from the archive (integrity alert), unknown, not zero`);if(c.u.length)warn.push(`Unknown: ${c.u.length} of ${c.d} UTC dates have no collection run`);
+610354	bg=key=>{const g=document.createElement('div');g.className='key-group';g.style.gridColumn='1/-1';g.dataset.lightningGroup=key;
+610359	+`<div class="status-legend" style="border:0;margin:0;padding:2px 0"><div class="status-dot" style="color:#bbb"><span data-lightning-dot style="background:#888"></span>LOADING</div></div>`
+610360	+`<div id="gridatlas-lightning-caption-${key}" data-lightning-caption role="status" aria-live="polite" style="font:12px/1.5 'Courier New',monospace;color:#bbb;overflow-wrap:break-word">`
+610361	+['window','actual','flashes','refresh','searched','warning','footer'].map(k=>`<div data-cap="${k}"${k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:11px;color:#bbb"':''}></div>`).join('')+'</div></div>';
+610369	const n=r.mode==='overview'?r.arch:r.ev.length;return`${BASE} [${/UNKNOWN|BEFORE/.test(c.st)?'UNKNOWN':n>0?(c.st==='PARTIAL'?'≥':'')+N(n):c.st==='PARTIAL'?'UNKNOWN':'EMPTY'} | ${r.w.period}${c.stale?' STALE':''}]`},
+610371	return(r.mode==='feed'&&st!=='FAIL'?`${st} · ${F7(r)} · searched unknown`:st.startsWith('READY')?'READY · '+n:st==='EMPTY-COVERED'?'NO FLASHES DETECTED · SEARCHED 100%':st==='PARTIAL'?`PARTIAL · ${n} · SEARCHED ${r.cov?Math.floor(r.cov.f*100)+'%':'UNKNOWN'}`:st==='FAIL'?'FAIL · '+c.rs.join('; '):st)+(c.stale?' · STALE':'')},
+610377	sf.nav.prev.disabled=loading||cu||!S.idx||!w||w.s<=S.idx.cutoff;sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;flag(sf.nav.points,'hidden',!(r&&r.clp&&!r.big));
+610384	else if(which==='latest'){S.end=null;return ld(true)}else if(which==='prev')S.end=w.s;else if(which==='next'){const e=w.mo<0?mm(w.e,w.mo):w.e+w.span;S.end=e>=now-9e5?null:e}
+610387	lw(now,serial).then(r=>({r}),e=>({e})).then(({r,e})=>{if(serial!==S.serial||!S.on)return;
+610395	fit=()=>{const d=Q('gridatlas-dash-toggle'),b=d&&d.getBoundingClientRect(),v=b&&b.height;for(const sf of S.sfs){const s=sf.group.style;s.paddingBottom=(v?innerHeight-b.top+16:96)+'px';s.paddingRight=(v?Math.max(0,sf.group.getBoundingClientRect().right-b.left+16):0)+'px'}},
+610400	const main=bg('main');host.appendChild(main.group);bt(host);S.sfs.push(main);
+610402	S.installed=true;pt(false);fit();for(const e of['resize','orientationchange'])addEventListener(e,fit);return true};
+610406	/* uk-lightning-overlay, generation 202610270113 (UTC). EUMETSAT MTG LI (L2-LFL) optical flashes, OFF by default, appended
+610407	 * last to the Layers panel and fullscreen curtain; nothing requested before switch-on; never persisted. Rules: lightning
+610408	 * history-window.mjs @ f7db76c. Optical flashes are NOT confirmed ground strikes; never searched = unknown, never zero.
+610409	 * Glossary: docs/lightning/CANDIDATE-202610261949.md */
+610410	const GEN='202610270113',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+610412	N=n=>Number(n).toLocaleString('en-GB'),F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,AGO=t=>{const m=Math.round(t/6e4);return m<0?'?':m<1?'<1 min':`${Math.floor(m/60)}h ${m%60}min`},
+610413	period:'24h',end:null,h:[],from:'',to:'',consent:false,serial:0,idx:null,ie:null,res:null,sfs:[]},lru=new Map(),
+610414	return fetch(u,{cache,signal:c.signal}).then(r=>{if(!r.ok||r.redirected)throw new Error(r.ok?'redirected':'HTTP '+r.status);return raw&&r.arrayBuffer?r.arrayBuffer():r.json()}).catch(e=>{throw e&&e.name==='AbortError'?new Error(TOE):e}).finally(()=>clearTimeout(t))},
+610415	x.onload=()=>{if(x.status>=200&&x.status<300){try{if(x.responseURL&&!x.responseURL.startsWith(u))E('redirected');res(JSON.parse(x.responseText))}catch(e){rej(e)}}else rej(new Error('HTTP '+x.status))};
+610416	vk=r=>{const n=r&&r.count,b=w=>E(`invalid index row ${r&&r.date}: ${w}`);if(!r||ymd(ds(r.date)||0)!=r.date)b('date');if(!['none','partial','full'].includes(r.coverage))b('coverage');
+610417	if(r.coverage==='none'?n!==null:n>>>0!==n)b('count');if(n===0&&!(r.scanned_seconds>0))b('count 0 unscanned');if(n>0&&!r.path&&!(r.parts&&r.parts.length))b('no path/parts');
+610418	if(r.parts&&!(Array.isArray(r.parts)&&r.parts.length<=24&&r.parts.every(p=>p&&/^days\/\d{4}(\/\d\d){3}\.json$/.test(p.path)&&(p.count>>>0||-1)===p.count)))b('parts')},
+610419	if(raw.observation!=='satellite optical lightning flashes, not ground strikes')E('index observation missing');
+610420	stale=(x,now)=>!(now-x.gen<=4*HOUR&&x.gen<=now+9e5)||now>x.nextDue,
+610421	li=q=>{if(!S.ip){const p=S.ip=gj(AR+'index.json'+(q?'?'+q:''),'no-cache').then(ni).then(m=>{if(S.ip===p){for(const k of[...lru.keys()])if(!lru.get(k).sealed)lru.delete(k);S.idx=m;S.ie=null}return m}).catch(e=>{if(S.ip===p){S.ip=null;S.idx=null;S.ie=msg(e)}throw e})}return S.ip},
+610422	for(const w of x.sw){const o=ov(Math.max(ws,b),we,w.s,w.e);if(o<=0)continue;sd+=o;r+=w.n;const s=Math.max(ws,w.s),e=Math.min(we,w.e);a=a===null?s:Math.min(a,s);b=b===null?e:Math.max(b,e)}
+610424	:(row.parts||[]).filter(p=>{const h=ds(row.date)+p.path.slice(-7,-5)*HOUR;return h<we&&h+HOUR>ws}).map(p=>({...p,sealed:row.sealed})),
+610425	if(bad.length)E('index mismatch: '+bad.join(', '));if(!s&&t.sha256)E('not verified (no WebCrypto)');return o.features}).catch(e=>{lru.delete(u);throw e});
+610426	await Promise.all(Array.from({length:Math.min(4,jobs.length)},async()=>{while(pos<jobs.length&&sn===S.serial){const i=pos++,{row,t}=jobs[i];try{parts[i]=await sh(t,row.date)}catch(e){parts[i]=[];fl.push({date:row.date,error:msg(e),t})}}}));
+610427	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&(c=>Array.isArray(c)&&c.length<4&&bx(c[0],c[1]))(f.geometry.coordinates)&&f.properties&&FEED_SCHEMA.split('/')[1]===f.properties.observation_kind&&isFinite(tm(f)),
+610428	lw=async(now,sn,q)=>{const w=wf(now);let x=null,ie=null;try{x=await li(q)}catch(e){ie=msg(e)}
+610429	if(w.e<=x.cutoff)return{mode:'overview',w,idx:x,before:true,fl:[],ev:[],arch:0};
+610430	const rows=[...x.by.values()].filter(y=>{const f=ds(y.date);return f<w.e&&f+DAY>w.s}),known=rows.filter(y=>y.count!==null),
+610431	r={mode:'overview',w,idx:x,before:false,rows,arch:known.reduce((n,y)=>n+y.count,0),cov:cv(x,w.s,w.e),fl:[],ev:[],ld:[],sk:[]};
+610432	const got=await fr(tf,w.s,w.e,sn);for(const f of got.fl)if(/WebCrypto/.test(f.error))f.u=1;else if(!f.t.sealed&&/mismatch/.test(f.error)){if(!q){S.ip=null;return lw(now,sn,now)}f.error+='; archive updating, reload later';f.u=1}r.mode='detail';r.fl=got.fl;r.rq=got.rq;r.ev=co(got.parts,w.s,w.e);return r},
+610433	if(r.fail){st='FAIL';rs.push(r.fail)}else if(r.before){st='BEFORE-ARCHIVE';rs.push('before archive start')}
+610434	else if(r.fl.some(f=>!f.u)){st='FAIL';rs.push(`${r.fl.length} of ${r.rq} day files failed`)}
+610435	else{const c=r.cov,f=c?c.f:0;if(r.mode==='feed'){st=r.ev.length?'PARTIAL':'UNKNOWN';rs.push('coverage unknown')}else if(!c||f<=0){st='UNKNOWN';rs.push('0% searched')}
+610436	else if(f<1||c.ny>0||c.l||c.u.length||r.fl.length){st='PARTIAL';if(c.ny>0)rs.push('tail unknown');if(c.bf>0)rs.push('head unknown');if(c.u.length)rs.push(`${c.u.length} unscanned dates`);if(!rs.length)rs.push(r.fl.length?'unverified':'gaps in window')}
+610437	else if(r.mode!=='overview')st=r.sk.length?(rs.push('days not loaded'),'PARTIAL'):r.ev.length?'READY·DETAIL':'EMPTY-COVERED';else st=r.arch>0?'READY·SUMMARY':'EMPTY-COVERED'}
+610438	cp=(r,now,k)=>{const w=r.w,x=r.idx,L={window:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER};
+610439	if(r.fail){L.warning=r.ie&&!x?`Archive unavailable: ${r.ie} — nothing shown (unknown, not zero)`:r.fail;return L}
+610440	if(r.before){L.warning=`Window predates the archive (began ${T(x.covStart)}; retention from ${x.cutoffDate}) — unknown, not zero`;return L}
+610441	const n=r.ev.length,first=n?`Actual  first ${Ts(tm(r.ev[0]))} · last ${Ts(tm(r.ev[n-1]))}`:'',
+610442	drawn=(!n?'':` · ${N(n)} drawn as ${r.cl?'clusters':'points'} (cap ${N(cap())})`)+(r.ev&&r.ev.bad?` · ${N(r.ev.bad)} malformed records rejected`:'')+(r.out?` · ${N(r.out)} of ${N(n)} outside the current view`:'');
+610443	L.actual=first||'Actual  none seen in the 7-day feed (unknown, not zero)';L.flashes=`Flashes ${F7(r)}${drawn}`}
+610444	else if(r.mode==='detail'){L.actual=r.fl.length?'Actual  unknown (day files failed)':first||'Actual  no archived flashes within this window';
+610445	L.flashes=r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}`:`Flashes ${r.fl.length?`${N(r.ic)} in index · ${N(n)} loaded`:N(n)+' archived in window'}${drawn}`}
+610446	L.searched=c.f>0?`Searched EUMETSAT ${Math.floor(c.f*100)}% of window · ${c.r} successful runs${c.a!==null?` · ${T(c.a)} → ${T(c.b)}`:''}`:c.l?'Searched EUMETSAT: shard lost (integrity alert), unknown, not zero':'Searched EUMETSAT 0% of window — no collection run covers these dates';
+610447	if(k&&/UNK|PAR/.test(k.st)&&/^Flashes 0 a/.test(L.flashes))L.flashes+=' (unknown, not zero)'
+610448	dw=(fc,cl)=>{const m=mh(),K={'circle-stroke-width':1,'circle-stroke-color':'#000'};if(!m)E('no map');const mode=cl?'cluster':'raw';if(S.mode&&S.mode!==mode)cx();
+610449	m.addLayer({id:LAYER,type:'circle',source:SRC,layout:{visibility:'none'},paint:cl?{'circle-radius':['case',['has','point_count'],['step',['get','point_count'],9,100,13,1000,18,10000,24],4],...K,'circle-color':['case',['has','point_count'],'#ffb000','#ffdf44'],'circle-opacity':0.8}
+610450	:{'circle-radius':['interpolate',['linear'],['zoom'],4,4,8,5,12,7],...K,'circle-color':'#ffdf44','circle-opacity':0.85}});S.mode=mode}
+610451	+`<div id="gridatlas-lightning-caption-${key}" data-lightning-caption role="status" style="font:12px/1.5 'Courier New',monospace;color:#bbb;overflow-wrap:break-word">`
+610452	return(r.mode==='feed'&&st!=='FAIL'?`${st} · ${F7(r)} · searched unknown`:st.startsWith('READY')?'READY · '+n:st==='EMPTY-COVERED'?'NO FLASHES DETECTED · SEARCHED 100%':st==='PARTIAL'?`PARTIAL · ${n} · SEARCHED ${r.cov&&!r.fl.length?Math.floor(r.cov.f*100)+'%':'UNKNOWN'}`:st==='FAIL'?'FAIL · '+c.rs.join('; '):st)+(c.stale?' · STALE':'')},
+610453	pt=loading=>{const now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now,c):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null;
+610454	if(r&&!loading)S.last={state:c.st,stale:c.stale,mode:r.mode,period:w.period,drawn:r.ev.length,cluster:!!r.cl,cap:cap(),cap_source:r.cs||null,index_count:r.ic===undefined?null:r.ic,failures:r.fl.length,reasons:c.rs};if(S.installed)fit()},
+610455	if(!good)return txt(sf.caps.warning,'Custom dates invalid — nothing loaded');S.from=f;S.to=t}
+610456	else if(which==='latest'){S.end=null;return ld(true)}else if(which==='prev')S.h.push(S.end),S.end=w.s;else if(which==='next')S.end=S.h.pop()||null;
+610457	if(e){note(e);r={mode:'fail',fail:msg(e),w:wf(now),idx:S.idx,ie:S.ie,fl:[],ev:[]}}
+610458	fit=()=>{const d=Q('gridatlas-dash-toggle'),b=d&&d.getBoundingClientRect(),v=b&&b.height;if(d&&d!==S.ro&&typeof ResizeObserver=='function')new ResizeObserver(fit).observe(S.ro=d);for(const sf of S.sfs){const s=sf.group.style;s.paddingBottom=(v?innerHeight-b.top+16:96)+'px';s.paddingRight=(v?Math.max(0,sf.group.getBoundingClientRect().right-b.left+16):0)+'px'}},
+610459	S.installed=true;pt(!S.res);for(const e of['resize','orientationchange','click','transitionend'])addEventListener(e,fit);return true};
+610460	/* uk-lightning-overlay, generation 202610270246 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+610461	 * request, source, layer or map listener until the first switch-on; never persisted; no engine, Pipeline News or
+610462	 * menu-proxy attribute. Rules trimmed from lightning history-window.mjs (data-plane/hourly-lookback-index-v2 @ f7db76c).
+610463	 * Optical flashes are NOT confirmed ground strikes; a day never searched is unknown, never zero. Until the archive is
+610464	 * published only the 7-day live feed exists, and the panel says so. Glossary: docs/lightning/CANDIDATE-202610261949.md */
+610465	const GEN='202610270246',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+610466	LONG=['30d','3m','6m','12m'],BASE='Lightning Flashes (Optical)',TITLE='Weather · EUMETSAT Lightning Imager',
+610467	// transport: fetch for .json (no redirects), XMLHttpRequest for the live feed
+610468	// index v2: every row validated; parts are hourly days/YYYY/MM/DD/HH.json with integer counts
+610469	// coverage from scan_windows (union); lost (shard_lost) days are unknown, never searched
+610470	for(let t=ds(ymd(ws));t<we;t+=DAY){if(ov(ws,we,t,t+DAY)<=0)continue;d++;const y=ymd(t),row=x.by.get(y);if(x.lost.has(y)){l++;let m=t;for(const w of x.sw)sd-=ov(Math.max(ws,m),Math.min(we,t+DAY),w.s,w.e),m=Math.max(m,w.e)}else if(!row||row.coverage==='none')u.push(y)}
+610471	// windows: UTC, end-anchored, [start,end); PREV/NEXT walk the S.h stack of window ends
+610472	// tiers: live feed (7 days only), archive overview (>31 days), archive detail (budgeted)
+610473	// caption lines
+610474	cp=(r,now,k)=>{const w=r.w,x=r.idx,L={notice:'',window:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER};
+610475	L.searched='Searched EUMETSAT unknown (live feed records only its last collection window)';if(r.old){L.notice='Only the last 7 days are available yet. The 12-month archive is being collected and backfilled; earlier months are unknown, not zero.';L.warning=NA(r.ie)+': earlier coverage unknown, not zero'}
+610476	// map: one source, a points layer, an invisible 44 px hit layer and (clustered) count labels; hidden until data
+610477	sf=m=>{try{for(const l of m.getStyle().layers||[]){const f=l.type==='symbol'&&l.layout&&l.layout['text-font'];if(Array.isArray(f)&&f.length&&typeof f[0]==='string')return f}}catch(_){}return['Open Sans Regular']},
+610478	HIT=LAYER+'-hit',CNT=LAYER+'-count',pc=()=>{if(S.pp){S.pp.remove();S.pp=null}},
+610479	cx=()=>{const m=mh();pc();if(m)try{for(const l of[CNT,HIT,LAYER])if(m.getLayer(l))m.removeLayer(l);if(m.getSource(SRC))m.removeSource(SRC)}catch(e){note(e)}S.mode=null},
+610480	dw=(fc,cl)=>{const m=mh(),K={'circle-stroke-width':1.5,'circle-stroke-color':'#1a1a1a'},Z=k=>['interpolate',['linear'],['zoom'],5,k(6),8,k(8),11,k(10)];pc();if(!m)E('no map');const mode=cl?'cluster':'raw';if(S.mode&&S.mode!==mode)cx();
+610481	m.addLayer({id:LAYER,type:'circle',source:SRC,layout:{visibility:'none'},paint:cl?{'circle-radius':Z(x=>['case',['has','point_count'],['step',['get','point_count'],12,100,16,1000,20,10000,26],x]),...K,'circle-color':['case',['has','point_count'],'#ffb000','#fff3a0'],'circle-opacity':0.9}
+610482	:{'circle-radius':Z(x=>x),...K,'circle-color':'#fff3a0','circle-opacity':0.95}});
+610483	m.addLayer({id:HIT,type:'circle',source:SRC,layout:{visibility:'none'},paint:{'circle-radius':22,'circle-opacity':0}});
+610484	if(cl)try{m.addLayer({id:CNT,type:'symbol',source:SRC,filter:['has','point_count'],layout:{visibility:'none','text-field':['get','point_count_abbreviated'],'text-font':sf(m),'text-size':11},paint:{'text-color':'#000'}})}catch(e){note('count labels: '+msg(e))}S.mode=mode}
+610485	m.getSource(SRC).setData(fc);const v=fc.features.length?'visible':'none';for(const l of[LAYER,HIT,CNT])if(m.getLayer(l))m.setLayoutProperty(l,'visibility',v)},
+610486	// tap: query only our hit layer; open our popup only when a flash is under the tap. Other click handlers always run.
+610487	tap=e=>{const m=mh();if(!S.on||!m||!m.getLayer(HIT))return;const f=m.queryRenderedFeatures(e.point,{layers:[HIT]})[0];pc();if(!f)return;
+610488	const p=f.properties||{};if(p.cluster){const go=z=>m.easeTo({center:f.geometry.coordinates,zoom:z}),z=m.getSource(SRC).getClusterExpansionZoom(p.cluster_id,(err,z)=>err||go(z));if(z&&z.then)z.then(go,note);return}
+610489	const g=S.res&&S.res.ev[p.i];if(!g||!window.maplibregl)return;const[x,y]=g.geometry.coordinates,d=document.createElement('div');d.style.cssText='font:12px/1.4 monospace;color:#000';
+610490	for(const s of[Ts(tm(g)),'Flash ID '+(g.id==null?'(none)':g.id),`lat ${y.toFixed(3)}, lon ${x.toFixed(3)}`,'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike']){const l=document.createElement('div');l.textContent=s;d.appendChild(l)}
+610491	S.pp=new maplibregl.Popup({maxWidth:'260px'}).setLngLat([x,y]).setDOMContent(d).addTo(m)},
+610492	+`<div ${ROW}>${NAV('prev','◀ PREV')}${NAV('latest','LATEST',' disabled')}${NAV('next','NEXT ▶',' disabled')}${NAV('points','LOAD POINTS',' hidden')}${NAV('fit','FIT FLASHES',' hidden')}</div>`
+610493	+['notice','window','actual','flashes','refresh','searched','warning','footer'].map(k=>`<div data-cap="${k}"${k==='notice'?' style="color:#ffcc00;font-weight:bold"':k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:11px;color:#bbb"':''}></div>`).join('')+'</div></div>';
+610494	const n=r.mode==='overview'?r.arch:r.ev.length;if(r.mode==='feed'&&r.old)return`${BASE} [${n>0?N(n):'UNKNOWN'} · last 7 days only${c.stale?' STALE':''}]`;return`${BASE} [${/UNKNOWN|BEFORE/.test(c.st)?'UNKNOWN':n>0?(c.st==='PARTIAL'?'≥':'')+N(n):c.st==='PARTIAL'?'UNKNOWN':'EMPTY'} | ${r.w.period}${c.stale?' STALE':''}]`},
+610495	return(r.mode==='feed'&&r.old&&st!=='FAIL'?`7-DAY FEED ONLY · ${N(r.ev.length)} FLASHES · OLDER HISTORY NOT YET COLLECTED`:r.mode==='feed'&&st!=='FAIL'?`${st} · ${F7(r)} · searched unknown`:st.startsWith('READY')?'READY · '+n:st==='EMPTY-COVERED'?'NO FLASHES DETECTED · SEARCHED 100%':st==='PARTIAL'?`PARTIAL · ${n} · SEARCHED ${r.cov&&!r.fl.length?Math.floor(r.cov.f*100)+'%':'UNKNOWN'}`:st==='FAIL'?'FAIL · '+c.rs.join('; '):st)+(c.stale?' · STALE':'')},
+610497	pt=loading=>{S.busy=loading;const now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now,c):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null;
+610498	for(const k in sf.chips){const b=sf.chips[k],na=!S.idx&&!!S.ie&&LONG.includes(k);b.setAttribute('aria-pressed',b.classList.toggle('active',k===S.period));
+610499	if(LONG.includes(k)){let d=b.lastChild;if(!d||!d.tagName){d=document.createElement('span');d.style.opacity='.55';b.appendChild(d)}txt(d,na?' •':'');b.title=na?'7-day feed only: the archive is not available yet':''}}
+610500	sf.nav.prev.disabled=loading||cu||!S.idx||!w||w.s<=S.idx.cutoff;sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;flag(sf.nav.points,'hidden',!(r&&r.clp&&!r.big));flag(sf.nav.fit,'hidden',loading||!(r&&r.ev.length));
+610502	fb=()=>{const e=S.res&&S.res.ev,m=mh();if(!e||!e.length||!m)return;let a=180,b=90,c=-180,d=-90;for(const f of e){const[x,y]=f.geometry.coordinates;a=Math.min(a,x);b=Math.min(b,y);c=Math.max(c,x);d=Math.max(d,y)}m.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})},
+610503	nv=(which,sf)=>{if(which==='fit')return fb();const now=Date.now(),w=wf(now);S.consent=which==='points';
+610504	S.res=r;try{dw(FC(r.ev.map((f,i)=>({type:'Feature',id:f.id,geometry:f.geometry,properties:{i}}))),!!r.cl)}catch(err){note('draw: '+err.message);r.fail=r.fail||'map layer: '+err.message}pt(false)})},
+610505	if(on){S.end=null;S.consent=false;S.res=null;const m=mh();if(m&&!S.ck&&typeof m.on==='function'){S.ck=1;m.on('click',tap);m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})}
+610506	// keep Lightning-owned text clear of the shell's fixed HIDE LAYERS button (its live rect + 16 px; 96 px if absent)
+610507	 * Standalone Lightning → existing MAP/nearest Grid Engine integration LAB.
+610508	 * Read-only browser sidecar; no mutation of Atlas, archive, original controls.
+610509	 * The dependency is pinned to a REVIEWED draft Grid Engine source SHA.
+610510	 * This is experimental: verify actual CDN import/CORS in browser before
+610511	 * publication. NOT a confirmed ground strike or electrical fault prediction.
+610513	  createLightningContextEngine,
+610514	  lightningElectricalScenario,
+610515	  postEventDiligence,
+610516	  caveat
+610517	} from 'https://cdn.jsdelivr.net/gh/Ventusltd/ventus-grid-engine@69b4e88c8464f0310bd67e47ec83ee8afa9e1921/engine/lightning-click-context.js';
+610518	import {parseOpticalFeed,describeOpticalFeedEvidence} from './feed-contract.mjs';
+610519	import {initLightningMap} from './map-view.mjs';
+610520	const FEED='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson';
+610521	const SUBSTATIONS='https://raw.githubusercontent.com/Ventusltd/gridatlas/main/atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson';
+610522	const SOLAR_PREFIX='https://raw.githubusercontent.com/Ventusltd/pipelinenews/main/data/atlas/202608261927-atlas-solar-partition-v9-1-';
+610523	const solarURLs=Array.from({length:8},(_,i)=>SOLAR_PREFIX+String(i+1).padStart(3,'0')+'.geojson');
+610525	const pretty=n=>Number(n).toLocaleString('en-GB',{maximumFractionDigits:2});
+610526	const date=t=>new Date(t).toISOString().replace('T',' ').replace('Z',' UTC');
+610527	const state={observations:[],files:null,engine:null,ctx:null,serial:0,loadingAssets:null};
+610528	let mapView=null;
+610529	function mapStatus(msg){el('map-status').textContent=msg}
+610530	function node(tag,value,cls=''){
+610531	  const e=document.createElement(tag);
+610532	  if(value!=null)e.textContent=String(value);
+610533	  if(cls)e.className=cls;
+610536	function clear(id){const e=el(id);e.replaceChildren();return e}
+610537	function line(target,what){target.appendChild(node('p',what,'small'))}
+610538	function status(msg){el('status').textContent=msg}
+610539	function fail(message){
+610540	  const e=document.createElement('span');
+610541	  e.className='strong';e.textContent=message;
+610542	  el('status').replaceChildren(e);
+610543	async function downloadJSON(url){
+610544	  const c=new AbortController(),timeout=setTimeout(()=>c.abort(),20000);
+610545	    const r=await fetch(url,{cache:'no-store',signal:c.signal});
+610546	    if(!r.ok)throw Error('HTTP '+r.status);
+610548	  }finally{clearTimeout(timeout)}
+610549	function features(data){
+610550	  if(data?.type==='FeatureCollection' && Array.isArray(data.features))return data.features;
+610551	  if(Array.isArray(data?.features))return data.features;
+610552	  throw Error('Not a GeoJSON feature collection');
+610553	async function getAssets(){
+610554	  if(state.loadingAssets)return state.loadingAssets;
+610555	  state.loadingAssets=(async()=>{
+610556	    // No 35.7 MB register download; reuse eight established, bounded,
+610557	    // genuine Pipeline News solar partitions and original Atlas substations.
+610558	    const settled=await Promise.allSettled([downloadJSON(SUBSTATIONS),...solarURLs.map(downloadJSON)]);
+610559	    let subs=[],solar=[],issues=[];
+610560	    if(settled[0].status==='fulfilled'){
+610561	      try{subs=features(settled[0].value)}catch(e){issues.push('Substation source shape: '+e.message)}
+610562	    } else issues.push('Substation source unavailable: '+settled[0].reason.message);
+610563	    for(let i=1;i<settled.length;i++){
+610564	      const x=settled[i];
+610565	      if(x.status==='fulfilled'){try{solar.push(...features(x.value))}catch(e){issues.push('Solar partition '+i+': '+e.message)}}
+610566	      else issues.push('Solar partition '+i+' unavailable: '+x.reason.message);
+610567	    state.files={substations:subs,solar,issues};
+610568	    state.engine=createLightningContextEngine({substations:subs,solarProjects:solar});
+610569	    return state.files;
+610571	    const result=await state.loadingAssets;
+610572	    // A partial source load is not a permanently cached zero. Let the
+610573	    // next explicit Inspect attempt retry unavailable source partitions.
+610574	    if(result.issues.length)state.loadingAssets=null;
+610575	  }catch(e){state.loadingAssets=null;throw e}
+610576	function currentFlash(){
+610577	  const id=el('flash').value;
+610578	  return state.observations.find(f=>String(f.id)===id)||null;
+610579	function setObservation(f){
+610580	  state.ctx=null;
+610581	  mapView?.selectFlash(f);
+610582	  el('fit-selection').disabled=!f||!mapView;
+610583	  el('scenario').disabled=true;
+610584	  el('project').replaceChildren(node('option','No project selected'));
+610585	  el('scenario-output').textContent='Select a genuine optical observation and run the proximity search first.';
+610586	  const t=clear('observation');
+610587	  if(!f){line(t,'No observation selected.');return}
+610588	  const p=node('div',null,'record');
+610589	  line(p,'Optical detection · '+date(f.properties.time_utc));
+610590	  line(p,'Latitude '+f.geometry.coordinates[1]+', longitude '+f.geometry.coordinates[0]+' (source coordinate; not a ground-strike fix)');
+610591	  line(p,'Source ID: '+String(f.id));
+610592	  t.appendChild(p);
+610593	  const u=new URL(location.href);
+610594	  u.searchParams.set('flash_id',String(f.id));
+610595	  const a=node('a','Link to this optical observation');
+610596	  a.href=u.href;a.rel='noopener';t.appendChild(a);
+610597	function display(ctx,assets){
+610598	  const summary=el('provenance');
+610599	  const d=ctx.search,n=state.engine.dataset_summary;
+610600	  summary.textContent=
+610601	    'Scanned '+pretty(d.scanned_geolocated_substations)+' located substation records of '+pretty(n.total_substations)+
+610602	    '; '+pretty(d.scanned_repd_solar_projects)+' located, identified solar projects of '+pretty(n.total_solar_records)+
+610603	    ' source rows. Distances are straight-line, not electrical paths.'+
+610604	    (assets.issues.length?' PARTIAL SOURCE FAILURE: '+assets.issues.join('; '):'');
+610605	  mapView?.setContext(ctx);
+610606	  const subs=clear('substations');
+610607	  if(!ctx.substations.length)line(subs,'No eligible located substation found in the loaded records. Not evidence that none exists.');
+610608	  for(const p of ctx.substations){
+610609	    const card=node('div',null,'record');
+610610	    card.appendChild(node('strong',p.name||'Unnamed substation'));
+610611	    line(card,pretty(p.km)+' km · declared '+p.voltages_kv.map(x=>x+' kV').join(', '));
+610612	    if(p.source_site_id)line(card,'Source identifier: '+p.source_site_id);
+610613	    subs.appendChild(card);
+610614	  const solar=clear('solar'),chooser=el('project');
+610615	  chooser.replaceChildren(node('option','No project selected'));
+610616	  chooser.firstChild.value='';
+610617	  if(!ctx.nearby_solar.length)line(solar,'No eligible identified REPD solar project in this radius among the loaded records. This is not a site exposure assessment.');
+610618	  for(const p of ctx.nearby_solar){
+610619	    card.appendChild(node('strong',p.name));
+610620	    line(card,pretty(p.km)+' km · '+(p.capacity_mw===null?'MW capacity not declared':pretty(p.capacity_mw)+' MW as recorded')+
+610621	      ' · symbol radius '+pretty(p.marker_radius_px)+' px (display only; not land area)');
+610622	    line(card,'Observed optical lightning activity '+pretty(p.km)+' km from this mapped project. Consider post-event inspection as diligence, NOT as evidence of a strike, fault or damage.');
+610623	    const a=node('a','Open project in existing GridAtlas MAP');
+610624	    a.href=p.gridatlas_project_url;a.target='_blank';a.rel='noopener noreferrer';
+610625	    card.appendChild(a);solar.appendChild(card);
+610626	    const option=node('option',p.name+' · '+pretty(p.km)+' km');option.value=p.repd_ref;
+610627	    chooser.appendChild(option);
+610628	function scenario(){
+610629	  const t=clear('scenario-output');
+610630	  if(!state.ctx){line(t,'No selected context.');return}
+610631	    const result=lightningElectricalScenario(state.ctx,{
+610632	      acEarthing:el('ac').value,dcReference:el('dc').value,
+610633	      inverterIsolation:el('inverter').value,
+610634	      selectedRepdRef:el('project').value||null
+610635	    const diligence=postEventDiligence(state.ctx,{
+610636	      selectedRepdRef:el('project').value||null,
+610637	      overheadLineProximity:el('overhead').value,
+610638	      wetWeather:el('weather').value
+610639	    const title=node('p','NOT RUN — no current, voltage, probability or event causality calculated','strong');
+610640	    t.appendChild(title);
+610641	    line(t,'Selected site: '+(result.site?.name||'None; generic hypothetical study inputs only'));
+610642	    line(t,result.disclaimer);
+610643	    result.candidate_scenarios.forEach(s=>{
+610644	      const detail=node('details');
+610645	      const summary=node('summary',s.label+' · '+(s.applicable===false?'not confirmed applicable':'scenario inputs'));
+610646	      detail.appendChild(summary);
+610647	      const list=node('ul');
+610648	      s.needs.forEach(need=>list.appendChild(node('li',need)));
+610649	      detail.appendChild(list);t.appendChild(detail);
+610650	    t.appendChild(node('h3','Post-event inspection: engineering diligence, not diagnosis'));
+610651	    line(t,diligence.disclaimer);
+610652	    line(t,diligence.overhead_note);
+610653	    line(t,diligence.weather_note);
+610654	    const inspection=node('ul');
+610655	    diligence.actions.forEach(a=>inspection.appendChild(node('li',a)));
+610656	    t.appendChild(inspection);
+610657	    line(t,'Other possible causes: '+diligence.other_possible_causes.join('; ')+'.');
+610658	    line(t,'Technical background: DEHN WPX051 / EN / 0422 on string-inverter AC-side surge paths; consult manufacturer instructions and applicable standards.');
+610659	  }catch(e){line(t,'Scenario setup refused: '+e.message)}
+610660	async function inspect(){
+610661	  const f=currentFlash();if(!f)return;
+610662	  const serial=++state.serial;
+610663	  // Explicit refresh cannot leave a previous result looking like the current
+610664	  // answer while the genuine source is still being fetched or has failed.
+610665	  mapView?.clearContext();
+610666	  clear('substations').textContent='Refreshing genuine source records; previous results cleared.';
+610667	  clear('solar').textContent='Refreshing genuine source records; previous results cleared.';
+610668	  el('provenance').textContent='Loading source provenance; no current proximity result.';
+610669	  el('scenario-output').textContent='Source refresh in progress. No electrical solver has run.';
+610670	  el('inspect').disabled=true;
+610671	  status('Loading genuine substation and solar source records. No changes to the original Atlas…');
+610672	    const assets=await getAssets();
+610673	    if(serial!==state.serial)return;
+610674	    const ctx=state.engine.selectFlash(f,{
+610675	      radiusKm:Number(el('radius').value),minimumKv:Number(el('kv').value),
+610676	      solarLimit:30,substationLimit:6
+610677	    state.ctx=ctx;
+610678	    display(ctx,assets);
+610679	    el('scenario').disabled=false;
+610680	    status('Ready · '+pretty(ctx.nearby_solar.length)+' located solar projects and '+pretty(ctx.substations.length)+
+610681	      ' nearest substations returned from LOADED datasets. '+caveat+
+610682	      (assets.issues.length?' Partial data: see source failures.':'')+
+610683	      ' Earlier than the seven-day feed remains UNKNOWN.');
+610685	    if(serial===state.serial)fail('Unable to compute or load context: '+e.message+'. No results have been inferred.');
+610686	  }finally{
+610687	    // Changing flash or filters while a request is in flight invalidates
+610688	    // that request, but must NEVER strand the Inspect button disabled.
+610689	    el('inspect').disabled=false;
+610690	el('flash').addEventListener('change',()=>{
+610691	  state.serial++;setObservation(currentFlash());el('scenario').disabled=true;
+610692	  clear('substations').textContent='Awaiting proximity search.';
+610693	  clear('solar').textContent='Awaiting proximity search.';
+610694	  el('provenance').textContent='New observation selected; previous results cleared.';
+610695	  status('Observation changed. Run a new proximity search; earlier results are not retained.');
+610697	el('inspect').addEventListener('click',inspect);
+610698	el('scenario').addEventListener('click',scenario);
+610699	for(const k of ['ac','dc','inverter','project','overhead','weather']){
+610700	  el(k).addEventListener('change',()=>{
+610701	    el('scenario-output').textContent='Assumptions changed; prepare the scenario again. No electrical solver has run.';
+610702	for(const k of ['radius','kv'])el(k).addEventListener('change',()=>{
+610703	  state.serial++;state.ctx=null;mapView?.clearContext();el('scenario').disabled=true;
+610704	  clear('substations').textContent='Parameters changed. Run proximity search again.';
+610705	  clear('solar').textContent='Parameters changed. Run proximity search again.';
+610706	  el('provenance').textContent='Prior proximity results cleared; no new search yet.';
+610707	  el('scenario-output').textContent='Parameters changed. Run proximity search again.';
+610708	  status('Search parameters changed. Earlier results cleared; select Find nearest mapped infrastructure to recalculate.');
+610710	    const source=await downloadJSON(FEED);
+610711	    const parsed=parseOpticalFeed(source);
+610712	    state.observations=parsed.observations;
+610713	    const mapped=mapView?.setObservations(state.observations);
+610714	    el('fit-flashes').disabled=!mapView||!mapped;
+610715	    if(!state.observations.length)
+610716	      throw Error('No valid optical observations in available source; coverage UNKNOWN');
+610717	    const selector=el('flash');
+610718	    selector.replaceChildren();
+610719	    state.observations.forEach((f,i)=>{
+610720	      const name=date(f.properties.time_utc)+' · '+f.geometry.coordinates.map(x=>Number(x).toFixed(3)).join(', ')+' · #'+(i+1);
+610721	      const item=node('option',name);item.value=String(f.id);selector.appendChild(item);
+610722	    const requested=new URL(location.href).searchParams.get('flash_id');
+610723	    if(requested && state.observations.some(f=>String(f.id)===requested))selector.value=requested;
+610724	    selector.disabled=el('inspect').disabled=false;
+610725	    setObservation(currentFlash());
+610726	    status(describeOpticalFeedEvidence(parsed.evidence)+' '+caveat+
+610727	      ' Select an observation, then run the genuine nearest search.');
+610728	  }catch(e){fail('Feed unavailable: '+e.message+'. No flash or infrastructure result is inferred.')}
+610730	  mapView=initLightningMap({
+610731	    onPick:id=>{
+610732	      const actual=state.observations.find(f=>String(f.id)===String(id));
+610733	      if(!actual)return;
+610734	      el('flash').value=String(actual.id);
+610735	      state.serial++;
+610736	      setObservation(actual);
+610737	      void inspect(); // actual optical marker selection immediately opens grid context
+610738	    onStatus:mapStatus,
+610739	    onError:message=>mapStatus('Map rendering warning: '+message+'; the UTC dropdown remains available.')
+610740	}catch(e){mapStatus('Map could not start: '+e.message+'. UTC dropdown selection remains available.')}
+610741	el('fit-flashes').addEventListener('click',()=>mapView?.fitFlashes());
+610742	el('fit-selection').addEventListener('click',()=>mapView?.fitSelection());
+610744	 * Read-only source-evidence contract for the standalone Lightning → Grid Lab.
+610745	 * A recent collector query is NOT proof that seven days were exhaustively
+610746	 * searched. A quiet interval is UNKNOWN unless durable coverage says otherwise.
+610747	 * No optical event is a verified ground strike or diagnosed site incident.
+610748	const hour=3600000;
+610749	const utc=t=>typeof t==='string' && /(?:Z|\+00:00)$/i.test(t) && Number.isFinite(Date.parse(t))
+610750	  ? Date.parse(t) : NaN;
+610751	const finite=n=>typeof n==='number' && Number.isFinite(n);
+610752	const validCoordinates=p=>Array.isArray(p) && p.length>=2
+610753	  && finite(p[0]) && finite(p[1])
+610754	  && p[0]>=-180 && p[0]<=180 && p[1]>=-90 && p[1]<=90;
+610755	export function parseOpticalFeed(data,{nowMs=Date.now(),staleAfterHours=6}={}){
+610756	  if(!finite(nowMs)||!finite(staleAfterHours)||staleAfterHours<=0)
+610757	    throw new TypeError('Invalid clock or freshness threshold');
+610758	  if(data?.type!=='FeatureCollection'||!Array.isArray(data.features))
+610759	    throw new Error('Source is not a GeoJSON FeatureCollection');
+610760	  const meta=data.metadata||{};
+610761	  const queryStartMs=utc(meta.query_start_utc);
+610762	  const queryEndMs=utc(meta.query_end_utc);
+610763	  if(Number.isFinite(queryEndMs)&&queryEndMs>nowMs+5*60000)
+610764	    throw new Error('Feed query end is in the future; coverage UNKNOWN');
+610765	  if(Number.isFinite(queryStartMs)&&Number.isFinite(queryEndMs)&&queryStartMs>queryEndMs)
+610766	    throw new Error('Feed query window is inverted; coverage UNKNOWN');
+610767	  const selected=new Map(),conflicting=new Set();
+610768	  let rejected=0,duplicate=0;
+610769	  for(const f of data.features){
+610770	    const id=f?.id==null?'':String(f.id).trim();
+610771	    const time=utc(f?.properties?.time_utc);
+610772	    const coordinates=f?.geometry?.coordinates;
+610773	    if(!id || f?.type!=='Feature' || f?.geometry?.type!=='Point'
+610774	      || !validCoordinates(coordinates)
+610775	      || f?.properties?.observation_kind!=='optical_lightning_flash'
+610776	      || !Number.isFinite(time)||time>nowMs+5*60000
+610777	      || (Number.isFinite(queryEndMs)&&time>queryEndMs+5*60000)){
+610778	      rejected++;continue;
+610779	    if(selected.has(id)){
+610780	      duplicate++;
+610781	      const old=selected.get(id);
+610782	      if(old.properties.time_utc!==f.properties.time_utc
+610783	        || old.geometry.coordinates[0]!==coordinates[0]
+610784	        || old.geometry.coordinates[1]!==coordinates[1])conflicting.add(id);
+610786	    selected.set(id,f);
+610787	  for(const id of conflicting){selected.delete(id);rejected++}
+610788	  const observations=[...selected.values()].sort((a,b)=>
+610789	    Date.parse(b.properties.time_utc)-Date.parse(a.properties.time_utc));
+610790	  const freshness=Number.isFinite(queryEndMs)
+610791	    ?(nowMs-queryEndMs>staleAfterHours*hour?'STALE_QUERY':'RECENT_QUERY')
+610792	    :'QUERY_TIME_UNKNOWN';
+610793	  const latestMs=observations.length?Date.parse(observations[0].properties.time_utc):NaN;
+610794	  const latestDeclaredMs=utc(meta.latest_detection_utc);
+610796	  if(rejected||duplicate)warnings.push(rejected+' rejected/ambiguous, '+duplicate+' duplicate source records');
+610797	  if(freshness==='STALE_QUERY')warnings.push('Collector query is stale; later optical observations UNKNOWN');
+610798	  if(freshness==='QUERY_TIME_UNKNOWN')warnings.push('Last successful query time UNKNOWN');
+610799	  if(Number.isFinite(latestDeclaredMs) && Number.isFinite(latestMs)
+610800	    && Math.abs(latestMs-latestDeclaredMs)>60000)
+610801	    warnings.push('Latest detected timestamp differs from feed metadata');
+610802	  if(Number.isFinite(meta.total_before_display_cap)
+610803	    && meta.total_before_display_cap<data.features.length)
+610804	    warnings.push('Feed source total is inconsistent with displayed rows');
+610805	  if(data.features.length && !observations.length)
+610806	    throw new Error('All source records invalid or ambiguous; observations UNKNOWN, not zero');
+610809	    evidence:Object.freeze({
+610810	      raw_records:data.features.length,accepted:observations.length,
+610811	      rejected,duplicates:duplicate,conflicting_ids:conflicting.size,
+610812	      latest_detection_utc:Number.isFinite(latestMs)?new Date(latestMs).toISOString():null,
+610813	      query_start_utc:Number.isFinite(queryStartMs)?new Date(queryStartMs).toISOString():null,
+610814	      query_end_utc:Number.isFinite(queryEndMs)?new Date(queryEndMs).toISOString():null,
+610815	      query_freshness:freshness,
+610816	      query_age_hours:Number.isFinite(queryEndMs)?Math.max(0,(nowMs-queryEndMs)/hour):null,
+610817	      retention_days:Number.isFinite(meta.retention_days)?meta.retention_days:null,
+610818	      cumulative_coverage:'UNKNOWN',
+610819	      unobserved_interval:'UNKNOWN',
+610820	      warnings
+610822	export function describeOpticalFeedEvidence(e){
+610823	  const last=e.latest_detection_utc?e.latest_detection_utc.replace('T',' ').replace('Z',' UTC')
+610824	    :'not recorded';
+610825	  const query=e.query_end_utc?e.query_end_utc.replace('T',' ').replace('Z',' UTC')
+610826	    :'UNKNOWN';
+610827	  const freshness=e.query_freshness==='STALE_QUERY'?'STALE COLLECTOR QUERY'
+610828	    :e.query_freshness==='QUERY_TIME_UNKNOWN'?'QUERY FRESHNESS UNKNOWN'
+610829	    :'recent collector query (not complete coverage)';
+610830	  return 'Authentic optical observations: '+e.accepted+' accepted of '+e.raw_records+
+610831	    ' source records. Latest optical detection: '+last+'. Latest collector query ended: '+
+610832	    query+' ('+freshness+'). Seven-day retention is not a verified seven-day search: '+
+610833	    'unsearched hours and older history UNKNOWN, not zero.'+
+610834	    (e.warnings.length?' SOURCE WARNINGS: '+e.warnings.join('; ')+'.':'');
+610840	  <meta name="theme-color" content="#10151c">
+610841	  <title>Lightning → Grid Scenario Lab · GlobalGrid2050</title>
+610843	    :root{color-scheme:dark;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:#10151c;color:#e6edf4}
+610845	    body{margin:0;line-height:1.55}
+610846	    header{background:#141f2a;border-bottom:1px solid #45566a;padding:14px max(16px,4vw)}
+610847	    header h1{margin:0;font-size:clamp(1.3rem,4vw,2rem);letter-spacing:-.03em}
+610848	    a{color:#83d9ff}
+610849	    main{max-width:1150px;margin:auto;padding:18px}
+610850	    .intro{max-width:900px;color:#c5d5e1}
+610851	    .status{border-left:4px solid #f7c66d;background:#192534;padding:12px 14px;white-space:pre-wrap;margin:12px 0}
+610852	    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,335px),1fr));gap:14px}
+610853	    #flash-map{height:min(58vh,560px);min-height:335px;width:100%;border-radius:8px;overflow:hidden;border:1px solid #4e697f}
+610854	    .map-tools{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0}
+610855	    .map-tools button{width:auto;min-width:156px;flex:1}
+610856	    .map-legend{display:flex;gap:15px;flex-wrap:wrap;margin-top:6px;color:#d9e5f1;font-size:.9rem}
+610857	    .map-legend span{display:inline-flex;align-items:center;gap:7px}
+610858	    .map-dot{display:inline-block;border-radius:50%;width:13px;height:13px;border:1px solid #202c38;background:#ffe890}
+610859	    .map-dot.solar{background:#43e3ab}
+610860	    .map-dot.sub{background:#81a6ff}
+610861	    .maplibregl-popup-content{background:#152735;color:#ecf6ff;border-radius:7px;max-width:290px}
+610862	    .maplibregl-popup-content a{color:#83d9ff}
+610863	    .maplibregl-popup-close-button{color:white;font-size:20px}
+610864	    @media(max-width:520px){#flash-map{height:43vh;min-height:300px}.maplibregl-ctrl-top-right{top:2px}}
+610865	    section{min-width:0;background:#16212b;border:1px solid #3b5065;border-radius:10px;padding:16px}
+610866	    section h2{font-size:1.06rem;margin:0 0 12px}
+610867	    label{display:block;font-weight:600;margin:10px 0 4px}
+610868	    select,button,input{font:inherit;color:#f5f7f8;min-height:44px;border:1px solid #648199;border-radius:6px;background:#182b38;padding:8px;width:100%}
+610869	    button{background:#115d7a;border-color:#8dd5ef;cursor:pointer;font-weight:700}
+610870	    button:hover,button:focus-visible,a:focus-visible{outline:2px solid #f7c66d;outline-offset:2px}
+610871	    button:disabled{cursor:not-allowed;opacity:.5}
+610872	    .small{font-size:.86rem;color:#b9c7d4}
+610873	    .muted{color:#b9c7d4}
+610874	    .strong{color:#ffe3a1;font-weight:700}
+610875	    ul{padding-left:22px}
+610876	    li{margin:9px 0}
+610877	    .record{padding:12px 0;border-bottom:1px solid #35495d;overflow-wrap:anywhere}
+610878	    .record:last-child{border:0}
+610879	    .tag{display:inline-block;background:#243849;border-radius:4px;padding:2px 6px;margin-right:5px;color:#c8edf9}
+610880	    .scenario{max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}
+610881	    footer{padding:20px;font-size:.87rem;color:#b7c9d8;border-top:1px solid #35495d}
+610882	    [hidden]{display:none!important}
+610887	 <h1>GlobalGrid2050 · Lightning → Grid Scenario Lab</h1>
+610888	 <div class="small">Experimental, read-only | Existing Ventus Grid Engine + Pipeline News MAP contract | No production changes</div>
+610891	 <p class="intro">Select a <strong>genuine EUMETSAT optical lightning flash</strong>, inspect nearby mapped substations and REPD solar farms, then prepare a clearly hypothetical inverter/earthing scenario. An optical flash is <strong>not</strong> necessarily a ground strike and is <strong>not evidence that any asset was hit</strong>.</p>
+610892	 <p class="status" id="safety-boundary"><strong>Evidence boundary:</strong> fault currents, surges and insulation damage can also arise from grid switching transients, equipment failure, insulation degradation, moisture ingress or a second IT-network fault. This map attributes <strong>no fault</strong> to lightning. <strong>Post-event inspection is a diligence recommendation, not a diagnosis.</strong></p>
+610893	 <div class="status" id="status" role="status" aria-live="polite">Loading the genuine seven-day lightning feed…</div>
+610894	 <section aria-label="Map of genuine optical flashes and nearby infrastructure">
+610895	   <h2>Optical flashes on the map — tap a larger yellow point</h2>
+610896	   <p class="small">The bright dots mark real satellite optical-flash positions, not confirmed ground strikes. Each dot has an invisible 44 CSS px touch target. Tapping one selects it and measures nearby mapped solar farms and substations. Larger amber circles group multiple optical flashes; tap to expand.</p>
+610897	   <div id="flash-map" role="region" aria-label="Interactive map of optical lightning flashes and, after selection, nearby solar farms and substations"></div>
+610898	   <div class="map-tools">
+610899	     <button type="button" id="fit-flashes" disabled>Fit available flashes</button>
+610900	     <button type="button" id="fit-selection" disabled>Fit selected observation</button>
+610901	   </div>
+610902	   <div id="map-status" role="status" aria-live="polite" class="small">Preparing the map. You can always select a flash by UTC time using the dropdown below.</div>
+610903	   <div class="map-legend"><span><i class="map-dot"></i> Optical observation</span><span><i class="map-dot solar"></i> Mapped REPD solar project (radius shows declared MW)</span><span><i class="map-dot sub"></i> Mapped substation</span></div>
+610904	 </section>
+610905	 <div class="grid">
+610907	   <h2>1. Select optical observation</h2>
+610908	   <label for="flash">Observed optical flash (UTC)</label>
+610909	   <select id="flash" disabled><option>Loading…</option></select>
+610910	   <label for="radius">Nearby solar search radius</label>
+610911	   <select id="radius"><option value="5">5 km</option><option value="10">10 km</option><option value="20" selected>20 km</option><option value="50">50 km</option></select>
+610912	   <label for="kv">Minimum declared substation voltage</label>
+610913	   <select id="kv"><option value="0">All declared voltage classes</option><option value="132" selected>≥132 kV</option><option value="275">≥275 kV</option><option value="400">≥400 kV</option></select>
+610914	   <button id="inspect" disabled>Find nearest mapped infrastructure</button>
+610915	   <div id="observation" class="small" role="region" aria-label="Selected optical observation"></div>
+610917	   <h2>2. Nearby mapped infrastructure</h2>
+610918	   <p class="small">Actual distances in kilometres, using existing Ventus Grid Engine geodesy. Nearest does <strong>not</strong> imply connected, hit, exposed, or damaged.</p>
+610919	   <div id="provenance" class="small">No search run.</div>
+610920	   <h3>Substations</h3><div id="substations">Not evaluated.</div>
+610921	   <h3>Solar projects</h3><div id="solar">Not evaluated.</div>
+610922	   <h2>3. Hypothetical electrical scenario</h2>
+610923	   <p class="small">No numerical result is produced. Declare installation earthing and inverter characteristics; do not infer them from the optical flash.</p>
+610924	   <label for="ac">AC earthing</label>
+610925	   <select id="ac"><option value="unspecified">Not known</option><option value="IT">IT / unearthed</option><option value="TN">TN</option><option value="TT">TT</option></select>
+610926	   <label for="dc">PV DC reference</label>
+610927	   <select id="dc"><option value="unspecified">Not known</option><option value="floating">Floating</option><option value="functional_earthed">Functional earthing declared</option></select>
+610928	   <label for="inverter">Inverter isolation</label>
+610929	   <select id="inverter"><option value="unspecified">Not known</option><option value="transformerless">Transformerless</option><option value="isolated">Galvanically isolated</option></select>
+610930	   <label for="project">Scenario site</label>
+610931	   <select id="project"><option value="">No project selected</option></select>
+610932	   <label for="overhead">Overhead lines / pylons nearby (user-provided)</label>
+610933	   <select id="overhead"><option value="unknown">Unknown / not assessed</option><option value="nearby">Yes, verified nearby</option><option value="not_reported_nearby">Not reported nearby</option></select>
+610934	   <label for="weather">Weather / moisture (user-provided)</label>
+610935	   <select id="weather"><option value="unknown">Unknown / not assessed</option><option value="wet">Wet, verified</option><option value="dry">Dry, verified</option></select>
+610936	   <button id="scenario" disabled>Prepare scenario &amp; inspection checklist</button>
+610937	   <div id="scenario-output" class="scenario" aria-live="polite">Select an observation and find actual nearby infrastructure first.</div>
+610938	 </div>
+610939	 <p class="status">Coverage: this experimental page currently reads the <strong>seven-day live feed only</strong>. It does not load historical archive shards, even if they are published separately. Earlier dates and unsearched hours are <strong>UNKNOWN, not zero</strong> in this view. Source: EUMETSAT MTG Lightning Imager L2-LFL. No optical observation is interpreted as a ground attachment.</p>
+610941	<footer>Ventus Ltd · GlobalGrid2050 · Experimental next-generation preview branch, not a safety study, forensic diagnosis or connection assessment. Code: Apache 2.0 where declared; EUMETSAT, NESO and OSM datasets retain their own source terms. Technical background: <a href="https://www.dehn-international.com/sites/default/files/media/files/string-inverters-wpx051-en.pdf">DEHN WPX051: AC-side surge protection on string-inverter plants</a> (manufacturer guidance, not proof of an incident). <a href="https://ventusltd.github.io/gridatlas/atlas/">Original GridAtlas</a> · <a href="https://github.com/Ventusltd/gridatlas/issues/36">Engineering scope</a></footer>
+610944	<script type="module" src="./app.mjs"></script>
+610947	 * Optical-flash map view for the standalone Lightning → Grid laboratory.
+610948	 * This is NOT a patch to the original Atlas map. It is an isolated map on a
+610949	 * different page, with a real 44 CSS-pixel target for every visible flash.
+610950	 * Click selection calls the imported Ventus Grid Engine through app.mjs.
+610951	 * Never infer a ground strike, connection or damage from these coordinates.
+610952	const blank=()=>({type:'FeatureCollection',features:[]});
+610953	const ref=(p)=>Number.isFinite(p?.[0])&&Number.isFinite(p?.[1])
+610954	  && Math.abs(p[0])<=180&&Math.abs(p[1])<=90;
+610955	const checkedFeature=f=>f?.type==='Feature' && f?.geometry?.type==='Point'
+610956	  && ref(f.geometry.coordinates) && f.id!=null
+610957	  && f.properties?.observation_kind==='optical_lightning_flash';
+610958	const number=n=>Number(n).toLocaleString('en-GB');
+610959	const notice='Optical positions only. Nearest assets are not necessarily connected, hit or damaged.';
+610960	export function initLightningMap({onPick,onStatus=()=>{},onError=()=>{}}={}) {
+610961	  if(typeof onPick!=='function')throw new TypeError('Map must have a genuine observation selection callback');
+610962	  if(!globalThis.maplibregl?.Map)throw new Error('MapLibre library unavailable. Use the accessible UTC dropdown below.');
+610963	  const lib=globalThis.maplibregl;
+610964	  const map=new lib.Map({
+610965	    container:'flash-map',center:[-3.5,54.5],zoom:5.3,minZoom:2,maxZoom:17,
+610966	    attributionControl:true,
+610967	    style:{
+610968	      version:8,name:'Dark UK context (CARTO / OSM)',
+610969	      sources:{
+610970	        'carto-dark':{type:'raster',
+610971	          tiles:['https://basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'],
+610972	          tileSize:256,
+610973	          attribution:'© OpenStreetMap contributors · © CARTO'}
+610974	      layers:[{id:'dark-basemap',type:'raster',source:'carto-dark'}]
+610975	  map.addControl(new lib.NavigationControl({showCompass:false}),'top-right');
+610976	  let ready=false;
+610977	  let events=[],selection=null,context=null;
+610978	  let popup=null;
+610979	  const solarById=new Map(),subsById=new Map();
+610980	  function addSourcesAndLayers(){
+610981	    if(ready)return;
+610982	    map.addSource('optical-observations',{type:'geojson',data:blank(),cluster:true,
+610983	      clusterRadius:42,clusterMaxZoom:10});
+610984	    map.addLayer({id:'optical-clusters',type:'circle',source:'optical-observations',
+610985	      filter:['has','point_count'],
+610986	      paint:{'circle-radius':['step',['get','point_count'],14,10,18,100,23,1000,27],
+610987	        'circle-color':'#e4a523','circle-stroke-color':'#15202b','circle-stroke-width':2}});
+610988	    // Count-scaled cluster circles require no external glyph URL. Tap to expand.
+610989	    map.addLayer({id:'optical-cluster-tap',type:'circle',source:'optical-observations',
+610990	      filter:['has','point_count'],paint:{'circle-radius':24,'circle-opacity':0.01}});
+610991	    map.addLayer({id:'optical-dots',type:'circle',source:'optical-observations',
+610992	      filter:['!',['has','point_count']],
+610993	      paint:{'circle-radius':['interpolate',['linear'],['zoom'],4,7,7,10,10,13,15,17],
+610994	        'circle-color':'#fff2ad','circle-stroke-color':'#18242b',
+610995	        'circle-stroke-width':1.5,'circle-opacity':0.97}});
+610996	    // 22px RADIUS = 44 CSS px DIAMETER. Transparent hit layer remains
+610997	    // hit-testable on mobile; a dropdown provides keyboard access.
+610998	    map.addLayer({id:'optical-flash-tap',type:'circle',source:'optical-observations',
+610999	      paint:{'circle-radius':22,'circle-opacity':0.01}});
+611000	    map.addSource('selected-optical',{type:'geojson',data:blank()});
+611001	    map.addLayer({id:'selected-optical-ring',type:'circle',source:'selected-optical',
+611002	      paint:{'circle-radius':24,'circle-color':'#ffffff','circle-opacity':0,
+611003	        'circle-stroke-color':'#ffffff','circle-stroke-width':3,'circle-stroke-opacity':1}});
+611004	    map.addSource('nearby-solar',{type:'geojson',data:blank()});
+611005	    map.addLayer({id:'nearby-solar-capacity',type:'circle',source:'nearby-solar',
+611006	      paint:{'circle-radius':['get','marker_radius_px'],
+611007	        'circle-color':'#43e3ab','circle-stroke-color':'#0c2020','circle-stroke-width':2,
+611008	        'circle-opacity':0.85}});
+611009	    map.addLayer({id:'nearby-solar-tap',type:'circle',source:'nearby-solar',
+611010	    map.addSource('nearest-substations',{type:'geojson',data:blank()});
+611011	    map.addLayer({id:'nearest-substation-dots',type:'circle',source:'nearest-substations',
+611012	      paint:{'circle-radius':7,'circle-color':'#83acff','circle-stroke-color':'#102038',
+611013	        'circle-stroke-width':2}});
+611014	    map.addLayer({id:'nearest-substation-tap',type:'circle',source:'nearest-substations',
+611015	    map.on('click','optical-flash-tap',event=>{
+611016	      const id=event.features?.[0]?.properties?.flash_id;
+611017	      if(id==null)return;
+611018	      const match=events.find(f=>String(f.id)===String(id));
+611019	      if(match)onPick(String(match.id)); // App callback selects & computes
+611020	    map.on('click','optical-cluster-tap',event=>{
+611021	      const group=event.features?.[0];
+611022	      const id=group?.properties?.cluster_id;
+611023	      map.getSource('optical-observations')?.getClusterExpansionZoom(id,(error,zoom)=>{
+611024	        if(error){onError(error.message);return}
+611025	        map.easeTo({center:group.geometry.coordinates,zoom:Math.min(17,zoom),duration:550});
+611026	    map.on('click','nearby-solar-tap',event=>{
+611027	      const refId=String(event.features?.[0]?.properties?.repd_ref??'');
+611028	      const p=solarById.get(refId);
+611029	      if(!p)return;
+611030	      const panel=document.createElement('div');
+611031	      const headline=document.createElement('strong');headline.textContent=p.name;
+611032	      panel.append(headline);
+611033	      const description=document.createElement('p');
+611034	      description.textContent=number(p.km)+' km from selected optical position · '+
+611035	        (p.capacity_mw==null?'capacity not recorded':number(p.capacity_mw)+' MW recorded')+
+611036	        ' · no strike or damage implied.';
+611037	      panel.append(description);
+611038	      const link=document.createElement('a');
+611039	      link.textContent='Open existing GridAtlas MAP project';
+611040	      link.href=p.gridatlas_project_url;
+611041	      link.target='_blank';link.rel='noopener noreferrer';
+611042	      panel.append(link);
+611043	      popup?.remove();
+611044	      popup=new lib.Popup({closeButton:true,closeOnClick:true})
+611045	        .setLngLat([p.location.lon,p.location.lat]).setDOMContent(panel).addTo(map);
+611046	    map.on('click','nearest-substation-tap',event=>{
+611047	      const id=String(event.features?.[0]?.properties?.item_id??'');
+611048	      const p=subsById.get(id);
+611050	      headline.textContent=p.name||'Unnamed mapped substation';panel.append(headline);
+611051	      const para=document.createElement('p');
+611052	      para.textContent=number(p.km)+' km from selected optical point · '+
+611053	        (p.voltages_kv||[]).map(x=>x+' kV').join(', ') +
+611054	        '. Straight-line only; no confirmed electrical connection.';
+611055	      panel.append(para);
+611056	    const interactive=['optical-flash-tap','optical-cluster-tap',
+611057	      'nearby-solar-tap','nearest-substation-tap'];
+611058	    for(const layer of interactive){
+611059	      map.on('mouseenter',layer,()=>map.getCanvas().style.cursor='pointer');
+611060	      map.on('mouseleave',layer,()=>map.getCanvas().style.cursor='');
+611061	    ready=true;
+611063	    onStatus('Map ready: '+number(events.length)+' genuine optical flashes. Yellow dots have a 44 px tap target. '+notice);
+611064	  function paint(){
+611065	    if(!ready)return;
+611066	    const data=events.filter(checkedFeature).map(f=>({
+611067	      type:'Feature',geometry:{type:'Point',coordinates:f.geometry.coordinates.slice(0,2)},
+611068	      properties:{flash_id:String(f.id),time_utc:f.properties.time_utc}
+611069	    map.getSource('optical-observations').setData({type:'FeatureCollection',features:data});
+611070	    paintSelection();
+611071	    paintContext();
+611072	  function paintSelection(){
+611073	    const data=selection&&checkedFeature(selection)
+611074	      ?{type:'FeatureCollection',features:[{type:'Feature',geometry:selection.geometry,
+611075	        properties:{flash_id:String(selection.id)}}]}:blank();
+611076	    map.getSource('selected-optical').setData(data);
+611077	  function paintContext(){
+611078	    solarById.clear();subsById.clear();
+611079	    const solar=[],subs=[];
+611080	    for(const p of context?.nearby_solar||[]){
+611081	      const coords=[p.location?.lon,p.location?.lat];
+611082	      if(!ref(coords)||!p.repd_ref)continue;
+611083	      solarById.set(String(p.repd_ref),p);
+611084	      solar.push({type:'Feature',geometry:{type:'Point',coordinates:coords},
+611085	        properties:{repd_ref:String(p.repd_ref),marker_radius_px:p.marker_radius_px}});
+611086	    for(const [i,p] of (context?.substations||[]).entries()){
+611087	      if(!ref(coords))continue;
+611088	      const id=String(i);
+611089	      subsById.set(id,p);
+611090	      subs.push({type:'Feature',geometry:{type:'Point',coordinates:coords},
+611091	        properties:{item_id:id}});
+611092	    map.getSource('nearby-solar').setData({type:'FeatureCollection',features:solar});
+611093	    map.getSource('nearest-substations').setData({type:'FeatureCollection',features:subs});
+611094	  function fit(features,padding=40){
+611095	    if(!ready){onStatus('Map is still loading.');return}
+611096	    const coords=features.map(f=>f?.geometry?.coordinates).filter(ref);
+611097	    if(!coords.length){onStatus('No valid coordinates to fit; no camera move.');return}
+611098	    if(coords.length===1){map.easeTo({center:coords[0],zoom:8,duration:650});return}
+611099	    const bounds=new lib.LngLatBounds(coords[0],coords[0]);
+611100	    coords.forEach(c=>bounds.extend(c));
+611101	    map.fitBounds(bounds,{padding,maxZoom:9,duration:650});
+611102	  map.once('load',addSourcesAndLayers);
+611103	  map.on('error',e=>onError('Map tiles or rendering: '+String(e.error?.message||'unknown error')));
+611104	    setObservations(rows){
+611105	      events=Array.isArray(rows)?rows.filter(checkedFeature).slice(0,40000):[];
+611106	      paint();
+611107	      return events.length;
+611108	    selectFlash(f){
+611109	      selection=checkedFeature(f)?f:null;
+611110	      // No auto-flying or zooming: owner must press Fit selection.
+611111	      context=null;
+611112	      popup?.remove();popup=null;
+611113	      paintSelection();paintContext();
+611114	    setContext(c){context=c||null;paintContext()},
+611115	    clearContext(){context=null;paintContext()},
+611116	    fitFlashes(){fit(events)},
+611117	    fitSelection(){fit(selection?[selection]:[])},
+611118	    getBounds(){return ready?map.getBounds():null},
+611119	    isReady(){return ready}
+611126	const GEN='202610270024';
+611162	const GEN='202610270113';
+611163	const GEN='202610270246';
+611164	assert.ok(Buffer.byteLength(module,'utf8')<=44781,'module exceeds the 44,781-byte budget');
+611165	assert.ok(Buffer.byteLength(source,'utf8')<=480000,'cartridge exceeds the 480 kB ceiling (raised from 460 kB by the owner, 27 Oct 2026)');
+611171	Collection model (data plane only, nothing here touches GridAtlas):
+611172	- hourly runs; each run searches a self-healing lookback window
+611173	  ``max(6 h, now - last successful scan end + 30 min)`` capped at 48 h, so a
+611174	  late or failed run is caught up by the next one instead of leaving a gap;
+611175	- every examined EUMETSAT product is a 10-minute sensing slot; the run records
+611176	  the slots it actually examined, and only those slots count as "searched".
+611177	  The slot containing ``now`` is normally not yet published, so the tail of
+611178	  the query window is unobserved and is recorded as such (unknown, not zero);
+611179	- the live 7-day feed is written first; the one-year archive and the status
+611180	  file are produced by separate steps from the run record this module leaves
+611181	  behind, so an archive failure can never block the feed.
+611200	# Self-healing lookback window (hours / minutes); see lookback_window().
+611201	LOOKBACK_MIN_HOURS = 6
+611202	LOOKBACK_MAX_HOURS = 48
+611203	LOOKBACK_MARGIN_MINUTES = 30
+611204	# LI L2-LFL "ARC" products cover 10-minute sensing slots (144 per UTC day).
+611205	SLOT_SECONDS = 600
+611206	# Products appear a few minutes after the slot ends; a gap ending within this
+611207	# many seconds of ``now`` is "not yet published", not a source outage.
+611208	PUBLICATION_GRACE_SECONDS = 15 * 60
+611209	RUN_RECORD_SCHEMA = "uk-lightning-run-record.v1"
+611210	# ..._L2PF_OPE_<sensing start YYYYMMDDHHMMSS>_<sensing end YYYYMMDDHHMMSS>_N__O_<slot>_0000
+611211	PRODUCT_SLOT = re.compile(r"_OPE_(\d{14})_(\d{14})_")
+611224	    # Only fractional seconds may lose trailing zeros; "12:32:20" must stay "12:32:20".
+611225	    if "." in text:
+611226	        text = text.rstrip("0").rstrip(".")
+611227	    return text + "Z"
+611293	    """Return (features, products_examined, product_names) for a real search."""
+611307	    names = []
+611314	        names.append(str(product))
+611319	    return found, downloaded, names
+611358	# --- self-healing lookback -------------------------------------------------
+611359	def lookback_window(
+611361	    last_success_end: datetime | None,
+611363	    minimum_hours: float = LOOKBACK_MIN_HOURS,
+611364	    maximum_hours: float = LOOKBACK_MAX_HOURS,
+611365	    margin_minutes: float = LOOKBACK_MARGIN_MINUTES,
+611366	) -> tuple[timedelta, bool]:
+611367	    """``max(minimum, now - last_success_end + margin)`` capped at ``maximum``.
+611368	    Returns (window, capped). ``capped`` is True when the gap since the last
+611369	    successful scan exceeds the maximum: the part of the gap older than
+611370	    ``maximum`` can never be searched by the scheduled job and stays UNKNOWN.
+611372	    minimum = timedelta(hours=minimum_hours)
+611373	    maximum = timedelta(hours=maximum_hours)
+611374	    wanted = minimum
+611375	    if last_success_end is not None:
+611376	        wanted = max(minimum, now - last_success_end + timedelta(minutes=margin_minutes))
+611377	    return min(wanted, maximum), wanted > maximum
+611378	def read_last_success(status_path: Path | None, history_dir: Path | None) -> tuple[datetime | None, str]:
+611379	    """Last successful scan end from data/status.json, else the archive index."""
+611380	    if status_path and status_path.exists():
+611381	            status = json.loads(status_path.read_text(encoding="utf-8"))
+611382	            value = status.get("last_successful_scan_end_utc")
+611383	            if value:
+611384	                return parse_utc(value), "status"
+611387	    index_path = history_dir / "index.json" if history_dir else None
+611388	    if index_path and index_path.exists():
+611389	            index = json.loads(index_path.read_text(encoding="utf-8"))
+611390	            value = index.get("last_successful_scan_end_utc")
+611391	                return parse_utc(value), "index"
+611392	            ends = [parse_utc(w["end_utc"]) for w in index.get("scan_windows", []) if w.get("end_utc")]
+611393	            if ends:
+611394	                return max(ends), "index"
+611395	        except (ValueError, TypeError, AttributeError, KeyError):
+611396	    return None, "default"
+611397	# --- examined 10-minute product slots --------------------------------------
+611398	def product_slot(product_name: str) -> tuple[datetime, datetime] | None:
+611399	    """Sensing slot [start, end) encoded in an LFL product name, or None."""
+611400	    match = PRODUCT_SLOT.search(product_name or "")
+611403	        start = datetime.strptime(match.group(1), "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc)
+611404	        end = datetime.strptime(match.group(2), "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc)
+611406	    if end <= start or (end - start) > timedelta(hours=1):
+611408	def merge_ranges(ranges, *, tolerance_seconds: float = 1.0) -> list[tuple[datetime, datetime]]:
+611409	    """Union of half-open ranges; adjacent slots (within tolerance) join."""
+611410	    ordered = sorted((s, e) for s, e in ranges if e > s)
+611411	    merged: list[list[datetime]] = []
+611412	    for start, end in ordered:
+611413	        if merged and start <= merged[-1][1] + timedelta(seconds=tolerance_seconds):
+611414	            merged[-1][1] = max(merged[-1][1], end)
+611416	            merged.append([start, end])
+611417	    return [(s, e) for s, e in merged]
+611418	def scanned_ranges(product_names, beginning: datetime, now: datetime) -> tuple[list[tuple[datetime, datetime]], list[datetime], bool]:
+611419	    """Searched coverage of a run = union of examined slots clipped to [beginning, now).
+611420	    Returns (ranges, slot_starts, parsed). When no product name carries a
+611421	    slot, the whole query window is returned and ``parsed`` is False so the
+611422	    record can say the coverage is the requested window, not examined slots.
+611423	    slots = []
+611424	    for name in product_names:
+611425	        slot = product_slot(name)
+611426	        if slot:
+611427	            slots.append(slot)
+611429	        return ([(beginning, now)] if now > beginning else []), [], False
+611430	    clipped = []
+611431	    for start, end in slots:
+611432	        s, e = max(start, beginning), min(end, now)
+611433	        if e > s:
+611434	            clipped.append((s, e))
+611435	    return merge_ranges(clipped), sorted({s for s, _ in slots}), True
+611436	def unscanned_ranges(ranges, beginning: datetime, now: datetime, *, grace_seconds: int = PUBLICATION_GRACE_SECONDS):
+611437	    """Gaps inside [beginning, now) no examined slot covers.
+611438	    Returns (gaps, tail_seconds): ``tail_seconds`` is the unobserved tail
+611439	    ending at ``now`` (products not yet published); ``gaps`` are the other
+611440	    holes, i.e. genuine source gaps (EUMETSAT slots missing at search time).
+611442	    cursor = beginning
+611443	    for start, end in sorted(ranges):
+611444	        if start > cursor:
+611445	            gaps.append((cursor, start))
+611446	        cursor = max(cursor, end)
+611447	    tail_seconds = 0
+611448	    if cursor < now:
+611449	        tail_seconds = int((now - cursor).total_seconds())
+611450	        if tail_seconds > grace_seconds:
+611451	            gaps.append((cursor, now))
+611452	    return gaps, tail_seconds
+611453	def _iso_pairs(ranges):
+611454	    return [{"start_utc": iso_utc(s), "end_utc": iso_utc(e)} for s, e in ranges]
+611455	def build_run_record(
+611456	    beginning: datetime,
+611457	    lookback_source: str,
+611458	    lookback_capped: bool,
+611459	    last_success_before: datetime | None,
+611460	    product_names,
+611461	    products_examined: int,
+611462	    incoming,
+611463	    existing,
+611464	    feed,
+611466	    """Everything the archive and status steps need; never committed itself."""
+611467	    ranges, slot_starts, parsed = scanned_ranges(product_names, beginning, now)
+611468	    gaps, tail = unscanned_ranges(ranges, beginning, now)
+611469	        "schema": RUN_RECORD_SCHEMA,
+611470	        "run_utc": iso_utc(now),
+611471	        "outcome": "success",
+611472	        "error": None,
+611473	        "query_start_utc": iso_utc(beginning),
+611474	        "query_end_utc": iso_utc(now),
+611475	        "lookback_hours": round((now - beginning).total_seconds() / 3600, 4),
+611476	        "lookback_source": lookback_source,
+611477	        "lookback_capped": lookback_capped,
+611478	        "last_successful_scan_end_utc_before_run": iso_utc(last_success_before) if last_success_before else None,
+611479	        "products_examined": products_examined,
+611480	        "slot_seconds": SLOT_SECONDS,
+611481	        "slots_examined": len(slot_starts),
+611482	        "slots_examined_utc": [iso_utc(s) for s in slot_starts],
+611483	        "slots_parsed": parsed,
+611484	        "scanned_ranges": _iso_pairs(ranges),
+611485	        "scanned_end_utc": iso_utc(max(e for _, e in ranges)) if ranges else None,
+611486	        "unscanned_ranges": _iso_pairs(gaps),
+611487	        "tail_unobserved_seconds": tail,
+611488	        "incoming_features": len(incoming),
+611489	        "feed_features": len(feed["features"]),
+611490	        "feed_total_before_display_cap": feed["metadata"]["total_before_display_cap"],
+611491	        "feed_latest_detection_utc": feed["metadata"]["latest_detection_utc"],
+611492	        "note": "Only examined 10-minute slots count as searched; the unobserved tail and gaps are unknown, not zero.",
+611493	        # Uncapped incoming detections plus the previously published feed (the
+611494	        # seed on the first archive run; idempotent afterwards).
+611495	        "features": [*existing, *incoming],
+611496	def write_json(path: Path, obj) -> None:
+611498	    path.write_text(json.dumps(obj, separators=(",", ":"), ensure_ascii=False) + "\n", encoding="utf-8")
+611499	def rebuild_day_record(day: str, run_record: Path, *, now: datetime | None = None, downloader=None) -> int:
+611500	    """Fresh EUMETSAT search of one whole UTC date, for ``history.py recover --rebuild``.
+611501	    Writes ONLY the run record (never the public feed, status or archive). Its
+611502	    ``run_utc`` is the real time of this search, so recover can check it was made
+611503	    after the loss was detected; its examined slots and flashes are then checked
+611504	    against the archive's recorded scan windows and count before anything changes.
+611505	    from datetime import date as _date
+611506	    now = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+611507	    start = datetime.combine(_date.fromisoformat(day), datetime.min.time(), tzinfo=timezone.utc)
+611508	    end = min(start + timedelta(days=1), now)
+611509	    if end <= start:
+611510	        raise ValueError(f"{day} has not started yet")
+611511	    incoming, product_count, names = (downloader or download)(start, end)
+611512	    record = build_run_record(
+611513	        now=end, beginning=start, lookback_source="rebuild", lookback_capped=False, last_success_before=None,
+611514	        product_names=names, products_examined=product_count, incoming=incoming, existing=[],
+611515	        feed={"features": [], "metadata": {"total_before_display_cap": None, "latest_detection_utc": None}},
+611516	    record["run_utc"] = iso_utc(now)
+611517	    record["rebuild_day_utc"] = day
+611518	    record["note"] = ("Rebuild search of one UTC date for history.py recover --rebuild; not a feed run. "
+611519	                      "Only examined 10-minute slots count as searched.")
+611520	    write_json(run_record, record)
+611521	    print(f"Rebuild of {day}: {len(incoming)} flashes from {product_count} products "
+611522	          f"({record['slots_examined']} slots examined, {len(record['unscanned_ranges'])} gaps).", file=sys.stderr)
+611526	    window = parser.add_mutually_exclusive_group()
+611527	    window.add_argument("--hours", type=float, default=None, help="Explicit lookback from EUMETSAT; 1-48")
+611528	    window.add_argument("--auto-window", action="store_true",
+611529	                        help=f"max({LOOKBACK_MIN_HOURS} h, now - last successful scan end + "
+611530	                             f"{LOOKBACK_MARGIN_MINUTES} min) capped at {LOOKBACK_MAX_HOURS} h")
+611531	    window.add_argument("--rebuild-day", default=None, metavar="YYYY-MM-DD",
+611532	                        help="Search one whole past UTC date and write only --run-record (for history.py recover --rebuild)")
+611535	    parser.add_argument("--status", type=Path, default=Path("data/status.json"),
+611536	                        help="Collector status file read for the last successful scan end")
+611537	    parser.add_argument("--history-dir", type=Path, default=Path("data/history"),
+611538	                        help="Archive directory; its index is the fallback source of the last scan end")
+611539	    parser.add_argument("--run-record", type=Path, default=None,
+611540	                        help="Where to leave the uncapped run record for the archive/status steps (not committed)")
+611542	    if args.rebuild_day:
+611543	        if not args.run_record:
+611544	            parser.error("--rebuild-day needs --run-record")
+611545	        return rebuild_day_record(args.rebuild_day, args.run_record)
+611546	    if args.hours is not None and not 1 <= args.hours <= LOOKBACK_MAX_HOURS:
+611547	        parser.error(f"hours must be 1..{LOOKBACK_MAX_HOURS}")
+611548	    if not 1 <= args.retention_days <= 31:
+611549	        parser.error("retention-days must be 1..31")
+611551	    last_success, source = read_last_success(args.status, args.history_dir)
+611553	    if args.hours is not None:
+611554	        window, source = timedelta(hours=args.hours), "explicit"
+611555	    elif args.auto_window:
+611556	        window, capped = lookback_window(now, last_success)
+611558	        window, source = timedelta(hours=LOOKBACK_MIN_HOURS), "default"
+611559	    beginning = now - window
+611560	    print(f"Query window {iso_utc(beginning)} -> {iso_utc(now)} ({window.total_seconds() / 3600:.2f} h, "
+611561	          f"source={source}, capped={capped}, last successful scan end={iso_utc(last_success) if last_success else 'none'})",
+611563	        incoming, product_count, names = download(beginning, now)
+611564	        existing = read_previous(args.out)
+611565	        result = assemble(existing, incoming, now, retention_days=args.retention_days)
+611566	        record = build_run_record(
+611567	            now=now, beginning=beginning, lookback_source=source, lookback_capped=capped,
+611568	            last_success_before=last_success, product_names=names, products_examined=product_count,
+611569	            incoming=incoming, existing=existing, feed=result,
+611571	    except Exception as error:  # noqa: BLE001 - the record must name any failure
+611572	        if args.run_record:
+611573	            write_json(args.run_record, {
+611574	                "schema": RUN_RECORD_SCHEMA, "run_utc": iso_utc(now), "outcome": "failure",
+611575	                "error": f"{type(error).__name__}: {error}", "query_start_utc": iso_utc(beginning),
+611576	                "query_end_utc": iso_utc(now), "lookback_hours": round(window.total_seconds() / 3600, 4),
+611577	                "lookback_source": source, "lookback_capped": capped,
+611578	                "last_successful_scan_end_utc_before_run": iso_utc(last_success) if last_success else None,
+611579	                "products_examined": 0, "scanned_ranges": [], "features": [],
+611583	    meta = result["metadata"]
+611584	    meta["products_examined"] = product_count
+611585	    meta["slots_examined"] = record["slots_examined"]
+611586	    meta["query_start_utc"] = iso_utc(beginning)
+611587	    meta["query_end_utc"] = iso_utc(now)
+611588	    meta["scan_end_utc"] = record["scanned_end_utc"]
+611589	    meta["published_at_utc"] = iso_utc(now)
+611590	    meta["first_detection_utc"] = result["features"][0]["properties"]["time_utc"] if result["features"] else None
+611591	    meta["last_detection_utc"] = meta["latest_detection_utc"]
+611592	    meta["coverage_note"] = ("query_start/end are the last search window only; earlier hours of the "
+611593	                             "7-day retention were searched by earlier runs or not at all (see data/history/index.json)")
+611594	    write_json(args.out, result)
+611595	    if args.run_record:
+611596	        write_json(args.run_record, record)
+611597	    print(f"Published {len(result['features'])} genuine optical flashes from {product_count} EUMETSAT products "
+611598	          f"({record['slots_examined']} slots examined, {len(record['unscanned_ranges'])} gaps, "
+611599	          f"tail unobserved {record['tail_unobserved_seconds']} s).")
+611602	 * history-window.mjs — standalone UTC date-window client for the UK lightning
+611603	 * archive (index v1 or v2 + UTC day shards) and the live 7-day feed.
+611604	 * Modelled on GlobalGrid2050 UK Energy Tracker V6 loading principles (named
+611605	 * periods, previous/next navigation, tiered loading, Promise caches) without
+611606	 * any of its UI. NO DOM, CSS, window.fetch rewrite or GridAtlas mutation.
+611607	 * Rules implemented (see docs/HISTORY_ONE_YEAR.md):
+611608	 * - accepts uk-lightning-history-index.v1 and .v2; v1 is normalised to v2 rows;
+611609	 * - budget BEFORE fan-out from index bytes/count; LRU of 8 shards in memory;
+611610	 * - cache 'default' for sealed shards, 'no-cache' for the index and unsealed;
+611611	 * - window end clamped to now; start clamped to the retention cutoff and
+611612	 *   flagged (never thrown); windows entirely before the archive are a state;
+611613	 * - shards fetched with allSettled semantics: failures are named per day and
+611614	 *   index counts are still returned;
+611615	 * - tier A: the live feed for 12h–7d windows ending now (one request);
+611616	 * - coverage per day and per window from scan_windows or day rows;
+611617	 * - the nine UI states of the time-window UX specification.
+611618	 * EUMETSAT LI optical flashes are NOT confirmed cloud-to-ground strikes.
+611619	 * Missing days are UNKNOWN, never zero.
+611620	const DAY = 86400000;
+611621	const HOUR = 3600000;
+611622	export const PERIODS = Object.freeze({
+611623	  '12h': '12 hours', '24h': '24 hours', '48h': '48 hours',
+611624	  '7d': '7 days', '30d': '30 days', '3m': '3 months',
+611625	  '6m': '6 months', '12m': '1 year', custom: 'Custom UTC dates'
+611626	const FIXED = Object.freeze({ '12h': 12 * HOUR, '24h': DAY, '48h': 2 * DAY, '7d': 7 * DAY, '30d': 30 * DAY });
+611627	const MONTHS = Object.freeze({ '3m': 3, '6m': 6, '12m': 12 });
+611628	export const STATES = Object.freeze({
+611629	  OFF: 'OFF', LOADING: 'LOADING', READY_DETAIL: 'READY·DETAIL', READY_SUMMARY: 'READY·SUMMARY',
+611630	  EMPTY_COVERED: 'EMPTY-COVERED', PARTIAL: 'PARTIAL', UNKNOWN: 'UNKNOWN',
+611631	  BEFORE_ARCHIVE: 'BEFORE-ARCHIVE', FAIL: 'FAIL'
+611632	export const STATE_COLOURS = Object.freeze({
+611633	  [STATES.OFF]: '#555', [STATES.LOADING]: '#888', [STATES.READY_DETAIL]: '#00ff88',
+611634	  [STATES.READY_SUMMARY]: '#00ff88', [STATES.EMPTY_COVERED]: '#00ff88', [STATES.PARTIAL]: '#ffcc00',
+611635	  [STATES.UNKNOWN]: '#ff8800', [STATES.BEFORE_ARCHIVE]: '#ff8800', [STATES.FAIL]: '#ff4444'
+611637	  indexUrl: 'https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/index.json',
+611638	  feedUrl: 'https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson',
+611639	  maxDetailDays: 31, maxMapPoints: 40000, maxShardCache: 8, concurrency: 4,
+611640	  byteBudget: 32_000_000, countBudget: 40000, bytesPerFeatureEstimate: 530,
+611641	  staleAfterMs: 4 * HOUR, feedRetentionDays: 7, feedLatestToleranceMs: 15 * 60000,
+611642	  lookbackMaxHours: 48, timeoutMs: 15000
+611643	export const OBSERVATION_SENTENCE = 'satellite optical lightning flashes, not ground strikes';
+611644	export const FOOTER = 'Times UTC · Optical flashes seen by MTG Lightning Imager (EUMETSAT L2-LFL), not confirmed ground strikes · Missing days are unknown, not zero · UK box −11.0,49.5 → 3.0,61.5';
+611645	// ---------------------------------------------------------------- windows --
+611646	function utc(v, name) {
+611647	  const d = v instanceof Date ? new Date(v.getTime()) : new Date(v);
+611648	  if (!Number.isFinite(d.getTime())) throw new RangeError(name + ' must be a valid UTC date');
+611650	function minusMonths(d, count) {
+611651	  const first = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() - count, 1,
+611652	    d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
+611653	  const length = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate();
+611654	  first.setUTCDate(Math.min(d.getUTCDate(), length));
+611655	  return first;
+611656	const ymd = (ms) => new Date(ms).toISOString().slice(0, 10);
+611657	const dayStart = (date) => Date.parse(date + 'T00:00:00Z');
+611658	/** All windows are UTC and [start, end) so midnight events cannot double count.
+611659	 *  When `now` is given the end is clamped to it (never a future window). */
+611660	export function selectUtcWindow({ period = '24h', end = new Date(), start = null, now = null } = {}) {
+611661	  if (!Object.hasOwn(PERIODS, period)) throw new RangeError('Unsupported period: ' + period);
+611662	  let e = utc(end, 'end');
+611663	  let clampedEnd = false;
+611664	  if (now !== null && now !== undefined) {
+611665	    const n = utc(now, 'now');
+611666	    if (e > n) { e = n; clampedEnd = true; }
+611667	  const s = period === 'custom' ? utc(start, 'start')
+611668	    : MONTHS[period] ? minusMonths(e, MONTHS[period]) : new Date(e.getTime() - FIXED[period]);
+611669	  if (s >= e) throw new RangeError('Start must precede end');
+611670	  if (s < minusMonths(e, 12)) throw new RangeError('Maximum archive lookback is one calendar year');
+611671	  return Object.freeze({ period, start: s.toISOString(), end: e.toISOString(), timezone: 'UTC', bounds: '[start,end)', clampedEnd });
+611672	/** Date-only input includes the selected end day in full (UTC). */
+611673	export function selectUtcDates(fromYmd, toYmd, { now = null } = {}) {
+611674	  for (const x of [fromYmd, toYmd]) {
+611675	    if (!/^\d{4}-\d{2}-\d{2}$/.test(x)) throw new RangeError('Date must be YYYY-MM-DD');
+611676	    if (utc(x + 'T00:00:00Z', 'date').toISOString().slice(0, 10) !== x) throw new RangeError('Invalid calendar date');
+611677	  return selectUtcWindow({ period: 'custom', start: fromYmd + 'T00:00:00Z', end: new Date(Date.parse(toYmd + 'T00:00:00Z') + DAY), now });
+611678	export function previousUtcWindow(w) {
+611679	  const e = utc(w.start, 'previous end');
+611680	  return w.period === 'custom'
+611681	    ? selectUtcWindow({ period: 'custom', end: e, start: new Date(e.getTime() - (Date.parse(w.end) - Date.parse(w.start))) })
+611682	    : selectUtcWindow({ period: w.period, end: e });
+611683	export function nextUtcWindow(w, now = new Date()) {
+611684	  const end = Math.min(Date.parse(w.end) + (Date.parse(w.end) - Date.parse(w.start)), utc(now, 'now').getTime());
+611685	  if (end <= Date.parse(w.end)) return w;
+611686	    ? selectUtcWindow({ period: 'custom', end: new Date(end), start: new Date(end - (Date.parse(w.end) - Date.parse(w.start))) })
+611687	    : selectUtcWindow({ period: w.period, end: new Date(end) });
+611688	/** Clamp a window to [cutoff, now). Never throws for the retention edge: it flags. */
+611689	export function clampWindow(w, { cutoffMs = -Infinity, nowMs = Infinity } = {}) {
+611690	  let start = Date.parse(w.start), end = Date.parse(w.end);
+611691	  const result = { clampedStart: false, clampedEnd: false, beforeArchive: false, afterNow: false, window: w };
+611692	  if (end > nowMs) { end = nowMs; result.clampedEnd = true; }
+611693	  if (start >= nowMs) { result.afterNow = true; return result; }
+611694	  if (end <= cutoffMs) { result.beforeArchive = true; return result; }
+611695	  if (start < cutoffMs) { start = cutoffMs; result.clampedStart = true; }
+611696	  result.window = Object.freeze({ ...w, start: new Date(start).toISOString(), end: new Date(end).toISOString(), clampedEnd: w.clampedEnd || result.clampedEnd });
+611698	/** PREV is possible while the previous window would still end after the cutoff. */
+611699	export function canGoPrevious(w, index) {
+611700	  const cutoff = index?.cutoffMs ?? dayStart(index?.cutoff_date_utc || '1970-01-01');
+611701	  return Date.parse(w.start) > cutoff;
+611702	export function canGoNext(w, now = Date.now()) {
+611703	  return Date.parse(w.end) < utc(now, 'now').getTime();
+611704	// ------------------------------------------------------------------ index --
+611706	const DAY_PATH_RE = /^days\/\d{4}\/\d{2}\/\d{2}\.json$/;
+611707	const PART_PATH_RE = /^days\/\d{4}\/\d{2}\/\d{2}\/\d{2}\.json$/;
+611708	const SHA_RE = /^[0-9a-f]{64}$/;
+611709	const isCount = (n) => Number.isSafeInteger(n) && n >= 0;
+611710	function validateV1Row(row) {
+611711	  if (!DATE_RE.test(row.date) || !DAY_PATH_RE.test(row.path) || !isCount(row.count))
+611712	    throw new TypeError('Invalid dated lightning history shard (v1): ' + (row && row.date));
+611713	function validateV2Row(row) {
+611714	  const bad = (why) => { throw new TypeError('Invalid lightning history row ' + (row && row.date) + ': ' + why); };
+611715	  if (!row || !DATE_RE.test(row.date)) bad('date');
+611716	  if (!['none', 'partial', 'full'].includes(row.coverage)) bad('coverage');
+611717	  if (!Number.isSafeInteger(row.scanned_seconds) || row.scanned_seconds < 0 || row.scanned_seconds > 86400) bad('scanned_seconds');
+611718	  if (row.coverage === 'none' ? row.count !== null : !isCount(row.count)) bad('count must be null iff coverage none');
+611719	  if (row.count === 0 && row.scanned_seconds <= 0) bad('count 0 needs scanned time');
+611720	  if (row.path !== null && typeof row.path !== 'undefined' && !DAY_PATH_RE.test(row.path)) bad('path');
+611721	  if ((row.count === null || row.count === 0) && row.path) bad('path must be null without flashes');
+611722	  if (row.count > 0 && !row.path && !(Array.isArray(row.parts) && row.parts.length)) bad('flashes without path or parts');
+611723	  if (row.bytes !== null && typeof row.bytes !== 'undefined' && !isCount(row.bytes)) bad('bytes');
+611724	  if (typeof row.sealed !== 'boolean') bad('sealed');
+611725	  if (row.sha256 !== null && typeof row.sha256 !== 'undefined' && !SHA_RE.test(row.sha256)) bad('sha256');
+611726	  for (const part of row.parts || []) {
+611727	    if (!PART_PATH_RE.test(part.path) || !isCount(part.count) || !isCount(part.bytes)) bad('part ' + (part && part.path));
+611728	/** Accept v1 or v2 and return a v2-shaped, enriched index (never mutates the input). */
+611729	export function normaliseIndex(raw, { lookbackMaxHours = DEFAULTS.lookbackMaxHours } = {}) {
+611730	  if (!raw || typeof raw !== 'object' || !Array.isArray(raw.days) || raw.observation !== OBSERVATION_SENTENCE)
+611731	    throw new TypeError('Invalid historical lightning index');
+611732	  const generatedMs = Date.parse(raw.generated_utc);
+611733	  if (!Number.isFinite(generatedMs)) throw new TypeError('Lightning index generated_utc is missing');
+611734	  if (!DATE_RE.test(raw.cutoff_date_utc || '')) throw new TypeError('Lightning archive cutoff is missing');
+611735	  const scanWindows = (raw.scan_windows || []).map((w) => ({ start: Date.parse(w.start_utc), end: Date.parse(w.end_utc), runs: Number(w.successful_runs) || 1 }))
+611736	    .filter((w) => Number.isFinite(w.start) && Number.isFinite(w.end) && w.end > w.start).sort((a, b) => a.start - b.start);
+611737	  const cutoffMs = dayStart(raw.cutoff_date_utc);
+611738	  const todayMs = dayStart(ymd(generatedMs));
+611739	  const lookbackMax = Number(raw.collection_lookback_hours_max) || lookbackMaxHours;
+611740	  let days, schemaVersion;
+611741	  if (raw.schema === 'uk-lightning-history-index.v2') {
+611742	    schemaVersion = 2;
+611743	    raw.days.forEach(validateV2Row);
+611744	    days = raw.days.map((r) => ({ ...r }));
+611745	  } else if (raw.schema === 'uk-lightning-history-index.v1') {
+611746	    schemaVersion = 1;
+611747	    raw.days.forEach(validateV1Row);
+611748	    const byDate = new Map(raw.days.map((r) => [r.date, r]));
+611749	    days = [];
+611750	    for (let t = cutoffMs; t <= todayMs; t += DAY) {
+611751	      const date = ymd(t);
+611752	      const old = byDate.get(date);
+611753	      let scanned = 0;
+611754	      for (const w of scanWindows) scanned += Math.max(0, Math.min(w.end, t + DAY) - Math.max(w.start, t)) / 1000;
+611755	      scanned = Math.min(86400, Math.round(scanned));
+611756	      if (old && scanned <= 0) scanned = 600; // flashes prove at least one examined slot
+611757	      const coverage = scanned <= 0 ? 'none' : scanned >= 86400 ? 'full' : 'partial';
+611758	      days.push({
+611759	        date, coverage, scanned_seconds: scanned, count: coverage === 'none' ? null : (old ? old.count : 0),
+611760	        bytes: null, path: old ? old.path : null,
+611761	        sealed: coverage === 'full' || generatedMs >= t + DAY + lookbackMax * HOUR,
+611762	        first_observation_utc: old?.first_observation_utc || null, last_observation_utc: old?.last_observation_utc || null, sha256: null
+611764	    throw new TypeError('Unsupported lightning index schema: ' + raw.schema);
+611765	  const lastScanEndMs = scanWindows.length ? Math.max(...scanWindows.map((w) => w.end)) : null;
+611766	  const coverageStartMs = Date.parse(raw.coverage_start_utc || '') || (scanWindows.length ? Math.min(...scanWindows.map((w) => w.start)) : null);
+611767	  const intervalHours = Number(raw.collection_interval_hours) || 3;
+611768	  const nextDueMs = Date.parse(raw.next_update_due_utc || '') || generatedMs + (intervalHours + 1) * HOUR;
+611769	  // shard_lost: a listed shard vanished; the date is unknown (never zero) until a verified recovery.
+611770	  const lostDays = [...new Set([...days.filter((r) => r.shard_lost).map((r) => r.date),
+611771	    ...((raw.integrity && Array.isArray(raw.integrity.lost_days)) ? raw.integrity.lost_days.map((e) => e && e.date).filter((d) => DATE_RE.test(d || '')) : [])])].sort();
+611772	  const integrityState = lostDays.length || raw.integrity?.state === 'shard_lost' ? 'shard_lost' : 'ok';
+611773	    ...raw, schemaVersion, days, dayMap: new Map(days.map((r) => [r.date, r])), scanWindows,
+611774	    generatedMs, nextDueMs, cutoffMs, todayMs, lastScanEndMs, coverageStartMs, lostDays, integrityState,
+611775	    archiveFirstEnabledMs: Date.parse(raw.archive_first_enabled_utc || '') || null, lookbackMaxHours: lookbackMax
+611776	export function isStale(index, nowMs = Date.now(), staleAfterMs = DEFAULTS.staleAfterMs) {
+611777	  return nowMs - index.generatedMs > staleAfterMs || nowMs > index.nextDueMs;
+611778	// --------------------------------------------------------------- coverage --
+611779	function overlap(aStart, aEnd, bStart, bEnd) { return Math.max(0, Math.min(aEnd, bEnd) - Math.max(aStart, bStart)); }
+611780	/** Rows of the index whose UTC date intersects the window. */
+611781	export function chosenDays(index, w) {
+611782	  const start = Date.parse(w.start), end = Date.parse(w.end);
+611783	  return index.days.filter((row) => { const from = dayStart(row.date); return from < end && from + DAY > start; });
+611784	/** Coverage of one UTC date: what the index knows, never a guess. */
+611785	export function dayCoverage(index, date) {
+611786	  const row = index.dayMap.get(date);
+611787	  if (!row) return { date, coverage: 'none', scanned_seconds: 0, count: null, known: false };
+611788	  return { ...row, known: true };
+611789	/** Searched fraction of a window from scan_windows, with day rows as the floor
+611790	 *  (rows carry the slots proven by archived flashes when no window was recorded). */
+611791	export function windowCoverage(index, w) {
+611792	  const ws = Date.parse(w.start), we = Date.parse(w.end);
+611793	  const windowSeconds = (we - ws) / 1000;
+611794	  let runs = 0, scanStart = null, scanEnd = null;
+611795	  for (const sw of index.scanWindows) {
+611796	    const o = overlap(ws, we, sw.start, sw.end);
+611797	    if (o <= 0) continue;
+611798	    runs += sw.runs;
+611799	    scanStart = scanStart === null ? Math.max(ws, sw.start) : Math.min(scanStart, Math.max(ws, sw.start));
+611800	    scanEnd = scanEnd === null ? Math.min(we, sw.end) : Math.max(scanEnd, Math.min(we, sw.end));
+611801	  const days = [];
+611802	  const unknownDays = [];
+611803	  const lostDays = [];
+611804	  const lost = new Set(index.lostDays || []);
+611805	  let searched = 0;
+611806	  for (let t = dayStart(ymd(ws)); t < we; t += DAY) {
+611807	    const date = ymd(t);
+611808	    const o = overlap(ws, we, t, t + DAY);
+611809	    let fromWindows = 0;
+611810	    for (const sw of index.scanWindows) fromWindows += overlap(Math.max(ws, t), Math.min(we, t + DAY), sw.start, sw.end);
+611811	    const row = index.dayMap.get(date);
+611812	    const rowEstimate = row && row.coverage !== 'none' ? row.scanned_seconds * 1000 * (o / DAY) : 0;
+611813	    // A shard_lost date's scan windows are NOT searched time we can vouch for: its count is unknown.
+611814	    const isLost = lost.has(date) || !!(row && row.shard_lost);
+611815	    const got = isLost ? 0 : Math.min(o, Math.max(fromWindows, rowEstimate));
+611816	    searched += got;
+611817	    const coverage = isLost ? 'none' : row ? row.coverage : 'none';
+611818	    if (coverage === 'none') unknownDays.push(date);
+611819	    if (isLost) lostDays.push(date);
+611820	    days.push({ date, overlapSeconds: o / 1000, searchedSeconds: got / 1000, coverage, count: row ? row.count : null, known: !!row });
+611821	  const notYetIngestedSeconds = index.lastScanEndMs === null ? windowSeconds : Math.max(0, we - Math.max(ws, index.lastScanEndMs)) / 1000;
+611822	  const archiveStart = index.coverageStartMs ?? index.cutoffMs;
+611823	  const beforeArchiveSeconds = archiveStart === null ? 0 : Math.max(0, Math.min(we, archiveStart) - ws) / 1000;
+611824	  const searchedSeconds = Math.round(searched / 1000);
+611826	    windowSeconds, searchedSeconds, searchedFraction: windowSeconds > 0 ? Math.min(1, searchedSeconds / windowSeconds) : 0,
+611827	    runs, scanStart: scanStart === null ? null : new Date(scanStart).toISOString(), scanEnd: scanEnd === null ? null : new Date(scanEnd).toISOString(),
+611828	    notYetIngestedSeconds, beforeArchiveSeconds, unknownDays, lostDays, days
+611829	// ---------------------------------------------------------------- states --
+611830	/** The seven data-derived states (OFF and LOADING belong to the UI). */
+611831	export function classifyState(result, { nowMs = Date.now(), staleAfterMs = DEFAULTS.staleAfterMs } = {}) {
+611834	  if (result.fallback === 'feed') reasons.push('archive unavailable (' + result.indexError + '); live feed shown');
+611835	  if (result.indexError && !result.index && result.mode !== 'feed') { state = STATES.FAIL; reasons.push('index: ' + result.indexError); }
+611836	  else if (result.beforeArchive) { state = STATES.BEFORE_ARCHIVE; reasons.push('window entirely before the archive'); }
+611837	  else if (result.failures && result.failures.length) {
+611838	    state = STATES.FAIL;
+611839	    reasons.push(result.failures.length + ' of ' + (result.requestedDays || result.failures.length) + ' day files failed');
+611840	    const c = result.coverage;
+611841	    const fraction = c ? c.searchedFraction : 0;
+611842	    if (!c || fraction <= 0) { state = STATES.UNKNOWN; reasons.push('0% searched'); }
+611843	    else if (fraction < 0.999) {
+611844	      state = STATES.PARTIAL;
+611845	      if (c.notYetIngestedSeconds > 0) reasons.push('tail not yet ingested');
+611846	      if (c.beforeArchiveSeconds > 0) reasons.push('head before archive start');
+611847	      const lostN = (c.lostDays || []).length;
+611848	      if (lostN) reasons.push(lostN + (lostN === 1 ? ' date lost its archive shard' : ' dates lost their archive shard') + ' (integrity alert; unknown, not zero)');
+611849	      if (c.unknownDays.length - lostN > 0) reasons.push((c.unknownDays.length - lostN) + ' dates without a scan window');
+611850	      if (!reasons.length) reasons.push('gaps inside the window');
+611851	    } else if (result.mode === 'detail' || result.mode === 'feed') {
+611852	      state = result.totalMatchingObservations > 0 ? STATES.READY_DETAIL : STATES.EMPTY_COVERED;
+611853	      state = result.archivedDayCount > 0 ? STATES.READY_SUMMARY : STATES.EMPTY_COVERED;
+611854	  const stale = !!(result.index && isStale(result.index, nowMs, staleAfterMs));
+611855	  return { state, stale, colour: STATE_COLOURS[state], reasons };
+611856	// --------------------------------------------------------------- captions --
+611857	const pad = (n) => String(n).padStart(2, '0');
+611858	export const T = (iso) => { const d = new Date(iso); return d.getUTCFullYear() + '-' + pad(d.getUTCMonth() + 1) + '-' + pad(d.getUTCDate()) + ' ' + pad(d.getUTCHours()) + ':' + pad(d.getUTCMinutes()) + ' UTC'; };
+611859	export const Ts = (iso) => T(iso).replace(' UTC', ':' + pad(new Date(iso).getUTCSeconds()) + ' UTC');
+611860	export const N = (n) => Number(n).toLocaleString('en-GB');
+611861	export const AGO = (ms) => { const m = Math.max(0, Math.round(ms / 60000)); return Math.floor(m / 60) + 'h ' + (m % 60) + 'min'; };
+611862	/** The seven caption templates of the UX specification, as plain strings. */
+611863	export function captionLines(result, { nowMs = Date.now() } = {}) {
+611864	  const w = result.window;
+611865	  const lines = { window: '', actual: '', flashes: '', refresh: '', searched: '', warning: '', footer: FOOTER };
+611866	  const label = PERIODS[w.period] || w.period;
+611867	  lines.window = w.period === 'custom'
+611868	    ? 'Window  UTC dates ' + w.start.slice(0, 10) + ' to ' + ymd(Date.parse(w.end) - 1) + ' inclusive = ' + T(w.start) + ' → ' + T(w.end)
+611869	    : 'Window  ' + T(w.start) + ' → ' + T(w.end) + ' (' + label + (result.atLatest ? ', latest' : ', end exclusive') + ')';
+611870	  if (result.indexError && !result.index && result.mode !== 'feed') {
+611871	    lines.warning = 'Archive unavailable: ' + result.indexError + ' at ' + T(new Date(nowMs).toISOString()) + ' — nothing shown (unknown, not zero)';
+611873	  if (result.mode === 'feed') {
+611874	    const meta = result.feedMetadata || {};
+611875	    lines.refresh = 'Refresh live feed ' + (meta.query_end_utc ? T(meta.query_end_utc) : 'unknown') + ' (last collection window ' +
+611876	      (meta.query_start_utc ? T(meta.query_start_utc) + ' → ' + T(meta.query_end_utc) : 'unknown') + '; 7-day retention' +
+611877	      (result.fallback === 'feed' ? '; archive not yet published: ' + result.indexError : '') + ')';
+611878	  if (result.beforeArchive) {
+611879	    lines.warning = 'Window predates the archive (began ' + (result.index?.coverage_start_utc || result.index?.archive_first_enabled_utc || '?').slice(0, 10) +
+611880	      '; retention from ' + result.index?.cutoff_date_utc + ') — nothing can be shown; not zero lightning';
+611881	  if (result.mode === 'detail' || result.mode === 'feed') {
+611882	    lines.actual = result.totalMatchingObservations > 0
+611883	      ? 'Actual  first ' + Ts(result.firstObservationUtc) + ' · last ' + Ts(result.lastObservationUtc)
+611884	      : 'Actual  no archived flashes within this window' + (result.previousObservationUtc
+611885	        ? ' · last archived flash before window ' + Ts(result.previousObservationUtc) + ' (' + AGO(Date.parse(w.start) - Date.parse(result.previousObservationUtc)) + ' before start)' : '');
+611886	    if (result.skippedDays && result.skippedDays.length) {
+611887	      // LOAD POINTS: only the newest days up to the cap were fetched; M comes from the index.
+611888	      lines.flashes = 'Flashes ' + N(result.archivedDayCount) + ' archived in window (index) · ' + N(result.shownObservations) + ' drawn from the newest ' +
+611889	        result.loadedDays.length + ' of ' + (result.loadedDays.length + result.skippedDays.length) + ' days (cap ' + N(result.maxMapPoints) + '; ' +
+611890	        result.skippedDays.length + ' older days not loaded)';
+611891	      lines.flashes = 'Flashes ' + N(result.totalMatchingObservations) + ' archived in window · ' + N(result.shownObservations) + ' drawn' +
+611892	        (result.truncated ? ' (cap ' + N(result.maxMapPoints) + ': newest drawn, ' + N(result.totalMatchingObservations - result.shownObservations) + ' older not drawn)' : '');
+611893	    const rows = result.selectedDays.filter((r) => r.first_observation_utc);
+611894	    lines.actual = rows.length
+611895	      ? 'Actual  on the ' + result.selectedDays.length + ' overlapping UTC dates: first ' + Ts(rows[0].first_observation_utc) + ' · last ' + Ts(rows.at(-1).last_observation_utc) + ' (day-level; may lie outside a mid-day window edge)'
+611896	      : 'Actual  no archived flashes on the ' + result.selectedDays.length + ' overlapping UTC dates';
+611897	    lines.flashes = 'Flashes ' + N(result.archivedDayCount) + ' archived on ' + result.selectedDays.length + ' overlapping UTC dates · none drawn (summary mode; choose ≤31 days or LOAD POINTS)';
+611898	  if (result.index) {
+611899	    const age = nowMs - result.index.generatedMs;
+611900	    const archive = 'Refresh archive ' + T(result.index.generated_utc) + ' (' + AGO(age) + ' ago; expected every ' + (result.index.collection_interval_hours || 3) + ' h)' + (isStale(result.index, nowMs) ? ' · STALE' : '');
+611901	    lines.refresh = lines.refresh ? archive + ' · ' + lines.refresh.replace(/^Refresh /, '') : archive;
+611902	  const c = result.coverage;
+611903	  if (c) {
+611904	    lines.searched = c.searchedFraction > 0
+611905	      ? 'Searched EUMETSAT ' + Math.round(c.searchedFraction * 100) + '% of window · ' + c.runs + ' successful runs' + (c.scanStart ? ' · ' + T(c.scanStart) + ' → ' + T(c.scanEnd) : '')
+611906	      : 'Searched EUMETSAT 0% of window — no collection run covers these dates';
+611908	    if (c.notYetIngestedSeconds > 0) warnings.push('Not yet ingested: last ' + AGO(c.notYetIngestedSeconds * 1000) + ' of window (unknown, not zero)');
+611909	    if (c.beforeArchiveSeconds > 0 && result.index) warnings.push('Unknown: ' + w.start.slice(0, 10) + ' to ' + ymd(Math.min(Date.parse(w.end), result.index.coverageStartMs ?? result.index.cutoffMs) - 1) + ' precede archive start ' + (result.index.coverage_start_utc || result.index.cutoff_date_utc).slice(0, 10) + ' (not zero)');
+611910	    const lostDays = c.lostDays || [];
+611911	    if (lostDays.length) warnings.push('Integrity: ' + lostDays.length + ' UTC date' + (lostDays.length === 1 ? ' lost its' : 's lost their') + ' archive shard (' + lostDays.join(', ') + '); count unknown, not zero');
+611912	    if (c.unknownDays.length - lostDays.length > 0) warnings.push('Unknown: ' + (c.unknownDays.length - lostDays.length) + ' of ' + c.days.length + ' UTC dates have no collection run');
+611913	    if (result.failures && result.failures.length) warnings.push(result.failures.length + ' of ' + result.requestedDays + ' day files failed (' + result.failures.map((f) => f.date).join(', ') + '); points incomplete, counts from index');
+611914	    lines.warning = warnings.join(' · ');
+611916	/** One-line honest summary (compatibility with the draft API). */
+611917	export function formatHistoryLabel(result, opts = {}) {
+611918	  const l = captionLines(result, opts);
+611919	  return [l.window, l.actual, l.flashes, l.refresh, l.searched, l.warning].filter(Boolean).join(' · ') + ' · Historical gaps are unknown, not zero lightning';
+611920	// ----------------------------------------------------------------- client --
+611921	class Lru {
+611922	  constructor(max) { this.max = max; this.map = new Map(); }
+611923	  get(key) { if (!this.map.has(key)) return undefined; const v = this.map.get(key); this.map.delete(key); this.map.set(key, v); return v; }
+611924	  set(key, value) {
+611925	    if (this.map.has(key)) this.map.delete(key);
+611926	    this.map.set(key, value);
+611927	    while (this.map.size > this.max) this.map.delete(this.map.keys().next().value);
+611928	  delete(key) { this.map.delete(key); }
+611930	  keys() { return [...this.map.keys()]; }
+611931	async function readJson(fetchImpl, url, cache, timeoutMs) {
+611932	  const controller = typeof AbortController === 'function' ? new AbortController() : null;
+611933	  const timer = controller ? setTimeout(() => controller.abort(), timeoutMs) : null;
+611934	    const res = await fetchImpl(url, { cache, signal: controller ? controller.signal : undefined });
+611936	    return await res.json();
+611937	  } finally { if (timer) clearTimeout(timer); }
+611938	function validateFeature(feature) {
+611939	  return feature?.type === 'Feature' && feature.geometry?.type === 'Point' &&
+611940	    feature.properties?.observation_kind === 'optical_lightning_flash' && typeof feature.id === 'string' &&
+611941	    Number.isFinite(Date.parse(feature.properties?.time_utc));
+611942	function collect(parts, ws, we) {
+611944	  for (const part of parts) for (const feature of part) {
+611945	    if (!validateFeature(feature)) continue;
+611946	    const t = Date.parse(feature.properties.time_utc);
+611947	    if (t < ws || t >= we) continue;
+611948	    found.set(feature.id, feature);
+611949	  return [...found.values()].sort((a, b) => a.properties.time_utc.localeCompare(b.properties.time_utc) || a.id.localeCompare(b.id));
+611950	/** Shard files (whole day or the hourly parts overlapping the window) for a row. */
+611951	export function shardTargets(row, w) {
+611952	  if (!row || !row.count) return [];
+611953	  if (row.path) return [{ path: row.path, bytes: row.bytes, count: row.count, sha256: row.sha256, sealed: row.sealed }];
+611954	  const ws = Date.parse(w.start), we = Date.parse(w.end), day = dayStart(row.date);
+611955	  return (row.parts || []).filter((p) => { const h = day + Number(p.hour) * HOUR; return h < we && h + HOUR > ws; })
+611956	    .map((p) => ({ path: p.path, bytes: p.bytes, count: p.count, sha256: p.sha256, sealed: row.sealed }));
+611957	/** Pre-fetch budget: index bytes (or an estimate from count) and counts, before any shard request. */
+611958	export function windowBudget(rows, w, { byteBudget = DEFAULTS.byteBudget, countBudget = DEFAULTS.countBudget, bytesPerFeatureEstimate = DEFAULTS.bytesPerFeatureEstimate } = {}) {
+611959	  let bytes = 0, count = 0, requests = 0, estimated = false;
+611960	  for (const row of rows) for (const t of shardTargets(row, w)) {
+611961	    requests++;
+611962	    count += t.count || 0;
+611963	    if (Number.isFinite(t.bytes) && t.bytes !== null) bytes += t.bytes; else { bytes += (t.count || 0) * bytesPerFeatureEstimate; estimated = true; }
+611964	  const withinBudget = bytes <= byteBudget && count <= countBudget;
+611965	  return { bytes, count, requests, estimated, byteBudget, countBudget, withinBudget,
+611966	    reason: withinBudget ? null : (count > countBudget ? N(count) + ' indexed flashes exceed ' + N(countBudget) : N(bytes) + ' indexed bytes exceed ' + N(byteBudget)) };
+611967	/** Makes no UI; a GridAtlas implant can consume only this data contract. */
+611968	export function createLightningHistoryClient(options = {}) {
+611969	  const o = { ...DEFAULTS, ...options };
+611970	  const fetchImpl = o.fetchImpl || fetch;
+611971	  const feedFetchImpl = o.feedFetchImpl || fetchImpl;   // the implant uses XHR for the .geojson feed
+611972	  const nowMs = () => (typeof o.now === 'function' ? Number(o.now()) : Date.now());
+611973	  const shards = new Lru(o.maxShardCache);
+611974	  let cachedIndex = null, cachedFeed = null, lastIndex = null;
+611975	  function invalidateChanged(index) {
+611976	    // Only shards whose row changed (or that are not sealed) are dropped.
+611977	    for (const url of shards.keys()) {
+611978	      const entry = shards.get(url);
+611979	      const rel = url.startsWith(o.indexUrl.replace(/index\.json$/, '')) ? url.slice(o.indexUrl.replace(/index\.json$/, '').length) : url;
+611980	      const row = index.days.find((r) => r.path === rel || (r.parts || []).some((p) => p.path === rel));
+611981	      const part = row && !row.path ? (row.parts || []).find((p) => p.path === rel) : null;
+611982	      const sha = part ? part.sha256 : row?.sha256;
+611983	      if (!row || !row.sealed || (sha && entry.sha256 && sha !== entry.sha256) || (sha && !entry.sha256)) shards.delete(url);
+611984	  async function index({ refresh = false } = {}) {
+611985	    if (!cachedIndex || refresh) {
+611986	      cachedIndex = readJson(fetchImpl, o.indexUrl, 'no-cache', o.timeoutMs).then((raw) => normaliseIndex(raw, o)).then((m) => {
+611987	        if (lastIndex && lastIndex.generated_utc !== m.generated_utc) invalidateChanged(m);
+611988	        lastIndex = m;
+611989	        return m;
+611990	      }).catch((e) => { cachedIndex = null; throw e; });
+611991	    return cachedIndex;
+611992	  function shard(target, date) {
+611993	    const url = new URL(target.path, o.indexUrl).href;
+611994	    const cached = shards.get(url);
+611995	    if (cached) return cached.promise;
+611996	    const promise = readJson(fetchImpl, url, target.sealed ? 'default' : 'no-cache', o.timeoutMs).then((obj) => {
+611997	      if (obj?.schema !== 'uk-lightning-history-day.v1' || obj?.type !== 'FeatureCollection' || !Array.isArray(obj.features) || obj.metadata?.date_utc !== date)
+611998	        throw new TypeError('Invalid flash history day ' + date);
+611999	      return obj.features;
+612000	    }).catch((e) => { shards.delete(url); throw e; });
+612001	    shards.set(url, { promise, sha256: target.sha256 || null, sealed: !!target.sealed });
+612003	  async function feed({ refresh = false } = {}) {
+612004	    if (!cachedFeed || refresh) {
+612005	      cachedFeed = readJson(feedFetchImpl, o.feedUrl, 'no-cache', o.timeoutMs).then((obj) => {
+612006	        if (obj?.type !== 'FeatureCollection' || !Array.isArray(obj.features)) throw new TypeError('Invalid live lightning feed');
+612007	        return obj;
+612008	      }).catch((e) => { cachedFeed = null; throw e; });
+612009	    return cachedFeed;
+612010	  /** allSettled fan-out with bounded concurrency; failures are named per day. */
+612011	  async function fetchRows(rows, w) {
+612013	    for (const row of rows) for (const t of shardTargets(row, w)) jobs.push({ row, target: t });
+612014	    const parts = new Array(jobs.length);
+612016	    let pos = 0;
+612017	    await Promise.all(Array.from({ length: Math.min(o.concurrency, jobs.length) }, async () => {
+612018	      while (pos < jobs.length) {
+612019	        const i = pos++;
+612020	        const { row, target } = jobs[i];
+612021	          parts[i] = await shard(target, row.date);
+612022	          if (row.path && Number.isSafeInteger(row.count) && parts[i].length !== row.count)
+612023	            warnings.push({ date: row.date, kind: 'count-mismatch', indexCount: row.count, shardCount: parts[i].length });
+612025	          parts[i] = [];
+612026	          failures.push({ date: row.date, path: target.path, error: e && e.message ? e.message : String(e) });
+612027	    return { parts, failures, warnings, requested: jobs.length };
+612028	  function feedWindowOk(w, t) {
+612029	    const span = Date.parse(w.end) - Date.parse(w.start);
+612030	    return span <= o.feedRetentionDays * DAY && t - Date.parse(w.end) <= o.feedLatestToleranceMs;
+612031	  async function fromFeed(w, t, m, indexError) {
+612032	    const f = await feed();
+612033	    const meta = f.metadata || {};
+612034	    const events = collect([f.features], Date.parse(w.start), Date.parse(w.end));
+612035	    const shown = events.length > o.maxMapPoints ? events.slice(-o.maxMapPoints) : events;
+612036	    const firstFeed = f.features.length ? Date.parse(f.features[0].properties.time_utc) : null;
+612037	    const feedTruncated = Number(meta.total_before_display_cap) > f.features.length;
+612038	    let coverage = m ? windowCoverage(m, w) : null;
+612039	    if (!coverage) {
+612040	      // Only the last search window is known from the feed itself.
+612041	      const qs = Date.parse(meta.query_start_utc || ''), qe = Date.parse(meta.scan_end_utc || meta.query_end_utc || '');
+612042	      const ws = Date.parse(w.start), we = Date.parse(w.end);
+612043	      const searched = Number.isFinite(qs) && Number.isFinite(qe) ? overlap(ws, we, qs, qe) / 1000 : 0;
+612044	      coverage = { windowSeconds: (we - ws) / 1000, searchedSeconds: searched, searchedFraction: Math.min(1, searched / ((we - ws) / 1000)),
+612045	        runs: searched > 0 ? 1 : 0, scanStart: searched > 0 ? new Date(Math.max(ws, qs)).toISOString() : null, scanEnd: searched > 0 ? new Date(Math.min(we, qe)).toISOString() : null,
+612046	        notYetIngestedSeconds: Number.isFinite(qe) ? Math.max(0, we - Math.max(ws, qe)) / 1000 : (we - ws) / 1000, beforeArchiveSeconds: 0, unknownDays: [], days: [], fromFeedMetadataOnly: true };
+612048	      mode: 'feed', source: 'live-feed', window: w, index: m, indexError: indexError || null, fallback: indexError ? 'feed' : null,
+612049	      feedMetadata: meta, feedTruncated, feedFirstObservationUtc: firstFeed === null ? null : new Date(firstFeed).toISOString(),
+612050	      selectedDays: m ? chosenDays(m, w) : [], archivedDayCount: null, coverage, failures: [], warnings: [], requestedDays: 0,
+612051	      totalMatchingObservations: events.length, shownObservations: shown.length, truncated: events.length > shown.length, maxMapPoints: o.maxMapPoints,
+612052	      firstObservationUtc: events[0]?.properties.time_utc || null, lastObservationUtc: events.at(-1)?.properties.time_utc || null,
+612053	      geojson: { type: 'FeatureCollection', features: shown }, atLatest: true, clamped: { start: false, end: false },
+612054	      availabilityNote: 'live feed, 7-day retention; coverage of hours outside the last search window is unknown unless the archive index says otherwise'
+612055	    // Dates the 40k feed cap removed are completed from day shards when the index is present.
+612056	    if (m && feedTruncated && firstFeed !== null && Date.parse(w.start) < firstFeed) {
+612057	      const rows = chosenDays(m, { start: w.start, end: new Date(firstFeed).toISOString() }).filter((r) => r.count > 0);
+612058	      const got = await fetchRows(rows, w);
+612059	      const merged = collect([shown, ...got.parts], Date.parse(w.start), Date.parse(w.end));
+612060	      const shown2 = merged.length > o.maxMapPoints ? merged.slice(-o.maxMapPoints) : merged;
+612061	      Object.assign(result, { failures: got.failures, warnings: got.warnings, requestedDays: rows.length, totalMatchingObservations: merged.length,
+612062	        shownObservations: shown2.length, truncated: merged.length > shown2.length, firstObservationUtc: merged[0]?.properties.time_utc || null,
+612063	        lastObservationUtc: merged.at(-1)?.properties.time_utc || null, geojson: { type: 'FeatureCollection', features: shown2 } });
+612064	    result.status = classifyState(result, { nowMs: t, staleAfterMs: o.staleAfterMs });
+612065	   * Load a window. Default tier: detail for ≤ maxDetailDays when the budget
+612066	   * allows, else overview (index only). `consentPoints` loads the newest
+612067	   * shards up to maxMapPoints when the budget refuses detail (LOAD POINTS).
+612068	  async function loadWindow(window, { detail = null, refreshIndex = false, tier = 'auto', consentPoints = false } = {}) {
+612069	    const t = nowMs();
+612070	    const requested = selectUtcWindow({ period: window.period, start: window.start, end: window.end, now: t });
+612071	    let m = null, indexError = null;
+612072	    try { m = await index({ refresh: refreshIndex }); } catch (e) { indexError = e && e.message ? e.message : String(e); }
+612073	    const atLatest = t - Date.parse(requested.end) <= o.feedLatestToleranceMs;
+612074	    if (tier === 'feed' || (!m && o.feedUrl && feedWindowOk(requested, t))) {
+612075	      if (tier === 'feed' && !feedWindowOk(requested, t)) throw new RangeError('The live feed covers only the last ' + o.feedRetentionDays + ' days ending now');
+612076	        return await fromFeed(requested, t, m, indexError);
+612078	        if (!indexError) throw e;
+612079	        const both = new Error('History index unavailable: ' + indexError + '; live feed unavailable: ' + (e && e.message ? e.message : e));
+612080	        both.indexError = indexError; both.feedError = e && e.message ? e.message : String(e);
+612081	        throw both;
+612082	    if (!m) { const e = new Error('History index unavailable: ' + indexError); e.indexError = indexError; throw e; }
+612083	    const clamp = clampWindow(requested, { cutoffMs: m.cutoffMs, nowMs: t });
+612084	    if (clamp.afterNow) throw new RangeError('Window starts in the future');
+612085	    const w = clamp.window;
+612087	      mode: 'overview', window: w, requestedWindow: requested, index: m, indexError: null, atLatest,
+612088	      clamped: { start: clamp.clampedStart, end: clamp.clampedEnd || requested.clampedEnd }, beforeArchive: clamp.beforeArchive,
+612089	      selectedDays: [], archivedDayCount: 0, unknownDayCount: 0, dailyCounts: [], coverage: null, budget: null, failures: [], warnings: [],
+612090	      requestedDays: 0, maxMapPoints: o.maxMapPoints, availabilityNote: m.availability_note || null, scanWindowNote: m.scan_window_note || null,
+612091	      canDrillDown: true, canLoadPoints: false, detailReason: null
+612092	    if (clamp.beforeArchive) {
+612093	      base.status = classifyState(base, { nowMs: t, staleAfterMs: o.staleAfterMs });
+612095	    const rows = chosenDays(m, w);
+612096	    const known = rows.filter((r) => r.count !== null);
+612097	    Object.assign(base, {
+612098	      selectedDays: rows, archivedDayCount: known.reduce((n, r) => n + r.count, 0), unknownDayCount: rows.length - known.length,
+612099	      dailyCounts: rows.map((r) => ({ date: r.date, count: r.count, coverage: r.coverage, scanned_seconds: r.scanned_seconds })),
+612100	      coverage: windowCoverage(m, w), budget: windowBudget(rows, w, o)
+612101	    const days = (Date.parse(w.end) - Date.parse(w.start)) / DAY;
+612102	    const wantDetail = detail === null ? days <= o.maxDetailDays : detail;
+612103	    if (!wantDetail || days > o.maxDetailDays) {
+612104	      base.detailReason = days > o.maxDetailDays ? 'Choose at most ' + o.maxDetailDays + ' days for exact point positions' : 'Long date ranges load small daily summaries until the user selects details';
+612105	    let rowsToFetch = rows.filter((r) => r.count > 0);
+612106	    let loadedDays = rowsToFetch.map((r) => r.date), skippedDays = [];
+612107	    if (!base.budget.withinBudget) {
+612108	      if (!consentPoints) {
+612109	        base.detailReason = 'Index sum exceeds the detail budget (' + base.budget.reason + '); summary mode until LOAD POINTS';
+612110	        base.canLoadPoints = true;
+612111	        base.status = classifyState(base, { nowMs: t, staleAfterMs: o.staleAfterMs });
+612112	        return base;
+612113	      // LOAD POINTS: newest days first until the map cap is reached.
+612114	      const newestFirst = [...rowsToFetch].sort((a, b) => b.date.localeCompare(a.date));
+612115	      let running = 0; rowsToFetch = [];
+612116	      for (const r of newestFirst) { if (running >= o.maxMapPoints) { skippedDays.push(r.date); continue; } rowsToFetch.push(r); running += r.count; }
+612117	      loadedDays = rowsToFetch.map((r) => r.date);
+612118	    const got = await fetchRows(rowsToFetch, w);
+612119	    const events = collect(got.parts, Date.parse(w.start), Date.parse(w.end));
+612120	    let previousObservationUtc = null;
+612121	    if (!events.length) {
+612122	      const before = m.days.filter((r) => r.last_observation_utc && Date.parse(r.last_observation_utc) < Date.parse(w.start));
+612123	      previousObservationUtc = before.length ? before.at(-1).last_observation_utc : null;
+612124	      ...base, mode: 'detail', source: 'archive', failures: got.failures, warnings: got.warnings, requestedDays: got.requested,
+612125	      loadedDays, skippedDays, consentPoints, totalMatchingObservations: events.length, shownObservations: shown.length,
+612126	      truncated: events.length > shown.length || skippedDays.length > 0, firstObservationUtc: events[0]?.properties.time_utc || null,
+612127	      lastObservationUtc: events.at(-1)?.properties.time_utc || null, previousObservationUtc, geojson: { type: 'FeatureCollection', features: shown }
+612128	    index, feed, loadWindow, periods: PERIODS, states: STATES,
+612129	    cacheStats: () => ({ shards: shards.size, max: o.maxShardCache, urls: shards.keys() })
+612130	"""Append genuine EUMETSAT lightning observations to a one-year, UTC-day archive.
+612131	A data-plane module only. It does not touch GridAtlas's shell, UI, map, or
+612132	legacy fetch bridge. Stored FeatureCollections use the .json extension
+612133	intentionally: the original GridAtlas fetch bridge intercepts ALL .geojson
+612134	URLs, including cross-origin ones, but not these namespaced .json files.
+612135	Contract (uk-lightning-history-index.v2, see docs/HISTORY_ONE_YEAR.md):
+612136	- one index row per UTC date from the retention cutoff to today;
+612137	- ``coverage`` none/partial/full and ``scanned_seconds`` come from the
+612138	  recorded successful scan windows (examined 10-minute EUMETSAT slots);
+612139	- ``count`` is null iff coverage is none; 0 is only legal for scanned days;
+612140	- ``bytes``/``sha256`` describe the shard file; shards above
+612141	  ``MAX_SHARD_BYTES`` fail the run loudly; days above ``TARGET_SHARD_BYTES``
+612142	  are split into hourly parts ``days/YYYY/MM/DD/HH.json`` listed in the row;
+612143	- ``sealed`` says a shard can no longer change (safe for long HTTP caching).
+612144	An observed flash is NOT a proven cloud-to-ground strike. Missing archives
+612145	mean UNKNOWN history, not zero lightning. This archive is prospective: it
+612146	starts when enabled; the previous seven-day rolling feed is a seed over
+612147	half-scanned days, not a year of back-data.
+612150	from datetime import date, datetime, time, timedelta, timezone
+612152	from collect import (
+612153	    LOOKBACK_MAX_HOURS, LOOKBACK_MIN_HOURS, PROVIDER, RUN_RECORD_SCHEMA, SLOT_SECONDS, SOURCE_URL,
+612154	    UK_BOUNDS, inside_uk_view, parse_utc,
+612156	SCHEMA_INDEX = "uk-lightning-history-index.v2"
+612157	SCHEMA_INDEX_V1 = "uk-lightning-history-index.v1"  # accepted on read, upgraded on write
+612158	SCHEMA_DAY = "uk-lightning-history-day.v1"
+612159	SCHEMA_QUARANTINE = "uk-lightning-history-quarantine.v1"
+612160	MAX_SHARD_BYTES = 25_000_000       # hard failure (V6 builder rule, GitHub-safe)
+612161	TARGET_SHARD_BYTES = 8 * 1024 * 1024  # above this a day is split into hourly parts
+612162	COLLECTION_INTERVAL_HOURS = 1
+612163	UPDATE_GRACE_HOURS = 2  # GitHub cron drift observed up to ~2.4 h late
+612164	DAY_SECONDS = 86400
+612165	SLOT_PHASE_SECONDS = 9  # LI ARC slots run from HH:M0:09 to HH:(M+1)0:09
+612166	WINDOW_NOTE = (
+612167	    "Successful EUMETSAT search windows are the union of examined 10-minute product "
+612168	    "slots; they document what was searched, not a guarantee that every flash was detected."
+612169	HISTORY_NOTE = (
+612170	    "Only archived optical flash observations are included. coverage none / count null "
+612171	    "means never searched (unknown, not zero); count 0 is only reported for searched time."
+612172	SPLIT_NOTE = (
+612173	    "A row with count > 0 and path null is split into hourly parts listed in 'parts' "
+612174	    "(days/YYYY/MM/DD/HH.json); fetch the parts overlapping the wanted hours."
+612175	SEED_NOTE = (
+612176	    "Prospective archive: it begins at archive_first_enabled_utc; earlier dates come from the "
+612177	    "7-day live feed seed over partially scanned days. Nothing is interpolated; a never-searched "
+612178	    "date is only filled by an explicit backfill (history.py backfill) from a fresh whole-day EUMETSAT "
+612179	    "search, with that search's examined slots as its coverage. "
+612180	    "A day with flashes but no recorded scan window gets coverage partial with scanned_seconds "
+612181	    "= the 10-minute slots its flashes prove were examined (a lower bound)."
+612182	STATUS_TEXT = "archive_partial_until_history_is_genuinely_collected_or_backfilled"
+612183	QUARANTINE_NOTE = (
+612184	    "Flashes observed for a shard_lost date after the loss. They are NOT counted in the index "
+612185	    "(the date stays unknown) until a verified recovery merges them (history.py recover)."
+612186	BACKFILL_MAX_DAYS = 31  # dates considered per backfill run (workflow input ``days``)
+612187	DAY_PATTERN = re.compile(r"^days/(\d{4})/(\d{2})/(\d{2})\.json$")
+612188	PART_PATTERN = re.compile(r"^days/(\d{4})/(\d{2})/(\d{2})/(\d{2})\.json$")
+612189	def format_utc(value: datetime) -> str:
+612190	    if value.tzinfo is None:
+612191	        raise ValueError("UTC timestamps must carry timezone")
+612192	    return value.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+612193	def year_ago(current: date) -> date:
+612194	    """Calendar-year cutoff, including leap-day handling."""
+612195	        return current.replace(year=current.year - 1)
+612196	        return current.replace(year=current.year - 1, day=28)
+612197	def day_path(day: date) -> str:
+612198	    return f"days/{day:%Y/%m/%d}.json"
+612199	def part_path(day: date, hour: int) -> str:
+612200	    return f"days/{day:%Y/%m/%d}/{hour:02d}.json"
+612201	def validate_feature(feature: object, now: datetime, cutoff: date) -> tuple[str, dict] | None:
+612202	    if not isinstance(feature, dict) or feature.get("type") != "Feature":
+612204	    props = feature.get("properties")
+612205	    if not isinstance(geometry, dict) or geometry.get("type") != "Point" or not isinstance(props, dict):
+612206	    if props.get("source_product") != "MTG LI L2-LFL" or props.get("observation_kind") != "optical_lightning_flash":
+612207	    identifier = feature.get("id")
+612208	    if not isinstance(identifier, str) or not identifier.strip():
+612209	        timestamp = parse_utc(props["time_utc"])
+612210	        coords = geometry["coordinates"]
+612211	        lon, lat = float(coords[0]), float(coords[1])
+612212	    except (KeyError, IndexError, TypeError, ValueError, OverflowError):
+612213	    if not (math.isfinite(lon) and math.isfinite(lat) and inside_uk_view(lon, lat)):
+612214	    if not (cutoff <= timestamp.date() <= now.date() and timestamp <= now):
+612215	    return (timestamp.date().isoformat(), feature)
+612216	def _serialise(obj: object) -> str:
+612217	    return json.dumps(obj, separators=(",", ":"), ensure_ascii=False) + "\n"
+612218	def _sha256(content: str) -> str:
+612219	    return hashlib.sha256(content.encode("utf-8")).hexdigest()
+612220	def _write_if_changed(destination: Path, content: str) -> bool:
+612221	    if destination.exists() and destination.read_text(encoding="utf-8") == content:
+612224	    temporary = destination.with_suffix(destination.suffix + ".tmp")
+612225	    temporary.write_text(content, encoding="utf-8")
+612226	    os.replace(temporary, destination)
+612228	def _read_features(file: Path, expected_day: str) -> list[dict]:
+612229	    data = json.loads(file.read_text(encoding="utf-8"))
+612230	    if data.get("schema") != SCHEMA_DAY or data.get("type") != "FeatureCollection":
+612231	        raise ValueError(f"{file}: invalid archive schema")
+612232	    if data.get("metadata", {}).get("date_utc") != expected_day:
+612233	        raise ValueError(f"{file}: shard date does not match its path")
+612234	    features = data.get("features")
+612236	        raise ValueError(f"{file}: invalid archive features")
+612237	def _features_from_text(text: str, label: str, expected_day: str) -> list[dict]:
+612238	    data = json.loads(text)
+612239	    if not isinstance(data, dict) or data.get("schema") != SCHEMA_DAY or data.get("type") != "FeatureCollection":
+612240	        raise ValueError(f"{label}: invalid archive schema")
+612241	        raise ValueError(f"{label}: shard date does not match {expected_day}")
+612242	        raise ValueError(f"{label}: invalid archive features")
+612243	def quarantine_path(day: str) -> str:
+612244	    return f"quarantine/{day}.json"
+612245	def _read_quarantine(file: Path, day: str, now: datetime, cutoff: date) -> dict[str, dict]:
+612246	    """Flashes held back for a shard_lost date, validated like shard features."""
+612247	    if not file.exists():
+612249	    if data.get("schema") != SCHEMA_QUARANTINE or data.get("metadata", {}).get("date_utc") != day:
+612250	        raise ValueError(f"{file}: invalid quarantine file")
+612251	    held: dict[str, dict] = {}
+612252	    for record in data.get("features") or []:
+612253	        valid = validate_feature(record, now, cutoff)
+612254	        if valid is None or valid[0] != day or record["id"] in held:
+612255	            raise ValueError(f"{file}: invalid, duplicated or wrong-day quarantined observation")
+612256	        held[record["id"]] = record
+612257	    return held
+612258	def _quarantine_content(day: str, held: dict[str, dict]) -> str:
+612259	    records = sorted(held.values(), key=lambda f: (f["properties"]["time_utc"], f["id"]))
+612260	    return _serialise({"schema": SCHEMA_QUARANTINE, "type": "FeatureCollection",
+612261	                       "metadata": {"date_utc": day, "count": len(records), "note": QUARANTINE_NOTE},
+612262	                       "features": records})
+612263	def _evidence(row: dict, index_generated_utc: str | None) -> dict:
+612264	    """The last index entry recorded for a date: what a recovery must match."""
+612265	        "index_generated_utc": index_generated_utc,
+612266	        "path": row.get("path"), "parts": row.get("parts"), "count": row.get("count"),
+612267	        "bytes": row.get("bytes"), "sha256": row.get("sha256"),
+612268	        "first_observation_utc": row.get("first_observation_utc"),
+612269	        "last_observation_utc": row.get("last_observation_utc"),
+612270	def integrity_alert(lost_dates: list[str]) -> str | None:
+612271	    if not lost_dates:
+612272	    n = len(lost_dates)
+612273	    return (f"INTEGRITY ALERT: {n} UTC date{'s' if n != 1 else ''} lost {'their' if n != 1 else 'its'} listed "
+612274	            f"archive shard ({', '.join(lost_dates)}); counts are unknown, not zero, until a verified "
+612275	            "recovery (history.py recover). Other dates are archived normally.")
+612276	def _normalise_windows(prior: list, extra: list, cutoff: datetime, now: datetime) -> list[dict]:
+612278	    for rec in list(prior) + list(extra):
+612279	            start = parse_utc(rec["start_utc"])
+612280	            end = parse_utc(rec["end_utc"])
+612281	            count = int(rec.get("successful_runs", 1))
+612282	        except (KeyError, TypeError, ValueError, AttributeError):
+612283	        if start >= end or end <= cutoff or start > now or count < 1:
+612284	        records.append((max(start, cutoff), min(end, now), count))
+612285	    records.sort(key=lambda row: (row[0], row[1]))
+612286	    merged = []
+612287	    for start, end, count in records:
+612288	        if merged and start <= merged[-1][1]:
+612289	            old = merged[-1]
+612290	            old[1] = max(old[1], end)
+612291	            old[2] += count
+612292	            merged.append([start, end, count])
+612294	        {"start_utc": format_utc(start), "end_utc": format_utc(end), "successful_runs": count}
+612295	        for start, end, count in merged
+612297	def scanned_seconds_for_day(windows: list[dict], day: date) -> int:
+612298	    """Seconds of a UTC date covered by the (merged) successful scan windows."""
+612299	    day_start = datetime.combine(day, time.min, tzinfo=timezone.utc)
+612300	    day_end = day_start + timedelta(days=1)
+612302	    for window in windows:
+612303	        start = max(parse_utc(window["start_utc"]), day_start)
+612304	        end = min(parse_utc(window["end_utc"]), day_end)
+612305	        if end > start:
+612306	            total += (end - start).total_seconds()
+612307	    return max(0, min(DAY_SECONDS, int(round(total))))
+612308	def slots_proved_by_flashes(records: list[dict]) -> int:
+612309	    """Lower bound of searched seconds: every archived flash proves that the
+612310	    10-minute product slot containing it was examined."""
+612311	    slots = set()
+612313	        moment = parse_utc(record["properties"]["time_utc"])
+612314	        seconds = moment.hour * 3600 + moment.minute * 60 + moment.second - SLOT_PHASE_SECONDS
+612315	        slots.add(seconds // SLOT_SECONDS)
+612316	    return min(DAY_SECONDS, len(slots) * SLOT_SECONDS)
+612317	def coverage_for(scanned: int) -> str:
+612318	    if scanned <= 0:
+612319	        return "none"
+612320	    return "full" if scanned >= DAY_SECONDS else "partial"
+612321	def is_sealed(day: date, coverage: str, now: datetime, lookback_max_hours: float = LOOKBACK_MAX_HOURS) -> bool:
+612322	    """A shard can no longer change once every slot was examined, or once the
+612323	    longest possible lookback window can no longer reach the date."""
+612324	    if coverage == "full":
+612326	    closes = datetime.combine(day, time.min, tzinfo=timezone.utc) + timedelta(days=1, hours=lookback_max_hours)
+612327	    return now >= closes
+612328	def _day_collection(day: str, records: list[dict], *, hour: int | None = None) -> dict:
+612330	        "date_utc": day,
+612331	        "source": PROVIDER,
+612332	        "observation": "optical satellite flash; not a confirmed ground strike",
+612333	        "count": len(records),
+612334	        "first_observation_utc": records[0]["properties"]["time_utc"],
+612335	        "last_observation_utc": records[-1]["properties"]["time_utc"],
+612336	    if hour is not None:
+612337	        metadata["hour_utc"] = f"{hour:02d}"
+612338	        metadata["part_of_day"] = True
+612339	    return {"schema": SCHEMA_DAY, "type": "FeatureCollection", "metadata": metadata, "features": records}
+612340	class ShardTooLarge(ValueError):
+612341	    """A shard would exceed MAX_SHARD_BYTES; the run must fail loudly."""
+612342	def _plan_shards(day: str, records: list[dict], *, max_bytes: int, target_bytes: int) -> list[tuple[str, str, dict]]:
+612343	    """Return [(relative path, content, summary)] for one day's records.
+612344	    A day at or below ``target_bytes`` is one file; above it the day is split
+612345	    into hourly parts. Any single file above ``max_bytes`` raises.
+612346	    whole = _serialise(_day_collection(day, records))
+612347	    size = len(whole.encode("utf-8"))
+612348	    day_date = date.fromisoformat(day)
+612349	    if size <= target_bytes:
+612350	        if size > max_bytes:
+612351	            raise ShardTooLarge(f"{day_path(day_date)} would be {size} bytes > max_shard_bytes {max_bytes}")
+612352	        return [(day_path(day_date), whole, {
+612353	            "count": len(records), "bytes": size, "sha256": _sha256(whole),
+612354	            "first_observation_utc": records[0]["properties"]["time_utc"],
+612355	            "last_observation_utc": records[-1]["properties"]["time_utc"]})]
+612356	    by_hour: dict[int, list[dict]] = {}
+612357	        by_hour.setdefault(parse_utc(record["properties"]["time_utc"]).hour, []).append(record)
+612358	    plan = []
+612359	    for hour in sorted(by_hour):
+612360	        content = _serialise(_day_collection(day, by_hour[hour], hour=hour))
+612361	        part_size = len(content.encode("utf-8"))
+612362	        if part_size > max_bytes:
+612363	            raise ShardTooLarge(
+612364	                f"{part_path(day_date, hour)} would be {part_size} bytes > max_shard_bytes {max_bytes}; "
+612365	                "refusing to write (feed unaffected; archive step fails loudly)")
+612366	        plan.append((part_path(day_date, hour), content, {
+612367	            "hour": f"{hour:02d}", "count": len(by_hour[hour]), "bytes": part_size, "sha256": _sha256(content),
+612368	            "first_observation_utc": by_hour[hour][0]["properties"]["time_utc"],
+612369	            "last_observation_utc": by_hour[hour][-1]["properties"]["time_utc"]}))
+612371	def _verify_unchanged(archive_dir: Path, row: dict, *, strict: bool = False) -> None:
+612372	    """Cheap verification of an untouched day against its previous index row.
+612373	    ``strict`` (used by ``verify``) refuses a listed file whose row lacks
+612374	    ``bytes`` or ``sha256`` instead of skipping that check.
+612375	    targets = []
+612376	    if row.get("path"):
+612377	        targets.append((row["path"], row.get("bytes"), row.get("sha256")))
+612378	    for part in row.get("parts") or []:
+612379	        targets.append((part["path"], part.get("bytes"), part.get("sha256")))
+612380	    for rel, size, digest in targets:
+612381	        file = archive_dir / rel
+612382	        if not file.exists():
+612383	            raise ValueError(f"{file}: listed in the index but missing on disk")
+612384	        if strict and (size is None or not digest):
+612385	            raise ValueError(f"{file}: index row lacks {'bytes' if size is None else 'sha256'}; cannot verify")
+612386	        content = file.read_text(encoding="utf-8")
+612387	        if size is not None and len(content.encode("utf-8")) != size:
+612388	            raise ValueError(f"{file}: size differs from the index; refusing to overwrite")
+612389	        if digest and _sha256(content) != digest:
+612390	            raise ValueError(f"{file}: sha256 differs from the index; refusing to overwrite")
+612391	def _load_old_index(index_path: Path) -> dict | None:
+612392	    if not index_path.exists():
+612393	    old = json.loads(index_path.read_text(encoding="utf-8"))
+612394	    if old.get("schema") not in (SCHEMA_INDEX, SCHEMA_INDEX_V1):
+612395	        raise ValueError("Existing history index schema mismatch; refusing to overwrite it")
+612396	    return old
+612397	def _discover_shards(archive_dir: Path, cutoff: date, today: date) -> tuple[dict[str, dict], list[Path]]:
+612398	    disk: dict[str, dict] = {}
+612399	    expired: list[Path] = []
+612400	    if not archive_dir.exists():
+612401	        return disk, expired
+612402	    for f in sorted(list(archive_dir.glob("days/*/*/*.json")) + list(archive_dir.glob("days/*/*/*/*.json"))):
+612403	        rel = f.relative_to(archive_dir).as_posix()
+612404	        m_day, m_part = DAY_PATTERN.fullmatch(rel), PART_PATTERN.fullmatch(rel)
+612405	        if not (m_day or m_part):
+612406	        groups = (m_day or m_part).groups()
+612407	            archive_day = date.fromisoformat("-".join(groups[:3]))
+612408	            hour = int(groups[3]) if m_part else None
+612409	            if hour is not None and not 0 <= hour <= 23:
+612410	                raise ValueError
+612411	        except ValueError as e:
+612412	            raise ValueError(f"{f}: invalid day path") from e
+612413	        if archive_day < cutoff:
+612414	            expired.append(f)
+612415	        if archive_day > today:
+612416	            raise ValueError(f"{f}: archive day lies in the future")
+612417	        entry = disk.setdefault(archive_day.isoformat(), {"file": None, "parts": {}})
+612418	        if hour is None:
+612419	            entry["file"] = f
+612420	            entry["parts"][hour] = f
+612421	    return disk, expired
+612422	def archive_observations(
+612423	    archive_dir: Path,
+612424	    observations: Iterable[dict],
+612425	    scanned_window: dict | None = None,
+612426	    scanned_windows: Iterable[dict] | None = None,
+612427	    seed_scan_windows: Iterable[dict] | None = None,
+612428	    lookback_hours: float | None = None,
+612429	    max_shard_bytes: int = MAX_SHARD_BYTES,
+612430	    target_shard_bytes: int = TARGET_SHARD_BYTES,
+612431	    """Merge genuine observations into day shards and rebuild index v2.
+612432	    Read/validation failures abort (do not overwrite valid files with empty
+612433	    data). No sample points or synthetic historical dates are ever created.
+612434	    Observations before the one-year cutoff are clamped away and counted in
+612435	    ``dropped_before_cutoff`` instead of raising. ``seed_scan_windows`` are
+612436	    merged only when no index exists yet (one-off, idempotent afterwards).
+612437	    if now.tzinfo is None:
+612438	        raise ValueError("now must be timezone-aware")
+612439	    now = now.astimezone(timezone.utc)
+612440	    today = now.date()
+612441	    cutoff = year_ago(today)
+612442	    cutoff_time = datetime.combine(cutoff, time.min, tzinfo=timezone.utc)
+612443	    archive_dir = Path(archive_dir)
+612444	    index_path = archive_dir / "index.json"
+612445	    old_index = _load_old_index(index_path)
+612446	    old_rows = {row["date"]: row for row in (old_index or {}).get("days", []) if isinstance(row, dict) and "date" in row}
+612447	    incoming_by_day: dict[str, dict[str, dict]] = {}
+612448	    dropped_before_cutoff = dropped_invalid = 0
+612449	    for feature in observations:
+612450	        valid = validate_feature(feature, now, cutoff)
+612451	        if valid:
+612452	            key, feature = valid
+612453	            incoming_by_day.setdefault(key, {})[feature["id"]] = feature
+612454	            if parse_utc(feature["properties"]["time_utc"]).date() < cutoff:
+612455	                dropped_before_cutoff += 1
+612456	        dropped_invalid += 1
+612457	    disk, expired_files = _discover_shards(archive_dir, cutoff, today)
+612458	    # Inspect before modifying anything so malformed archives fail without
+612459	    # silently deleting observations on the next scheduled run.
+612460	    changed_files = 0
+612461	    summaries: dict[str, dict] = {}
+612462	    split_days: list[str] = []
+612463	    # A shard the old index lists but the disk lacks is LOST: its count can no
+612464	    # longer be proven, so the day becomes unknown (count null), never zero or
+612465	    # a partial count rebuilt from whatever flashes arrive later. Sticky via
+612466	    # the row's ``shard_lost`` flag until the date leaves retention.
+612467	    window = (cutoff.isoformat(), today.isoformat())
+612468	    old_integrity = (old_index or {}).get("integrity") or {}
+612469	    lost_entries = {e["date"]: dict(e) for e in old_integrity.get("lost_days") or []
+612470	                    if isinstance(e, dict) and window[0] <= str(e.get("date")) <= window[1]}
+612471	    recoveries = [r for r in old_integrity.get("recoveries") or [] if isinstance(r, dict) and str(r.get("date")) >= window[0]]
+612472	    lost_days = {d for d, r in old_rows.items() if r.get("shard_lost") and window[0] <= d <= window[1]} | set(lost_entries)
+612473	    for d in lost_days - set(lost_entries):  # flagged before evidence was kept: no recorded entry to verify against
+612474	        lost_entries[d] = {"date": d, "reason": "flagged_without_evidence", "detected_utc": format_utc(now),
+612475	                           "missing_paths": None, "last_recorded": None}
+612476	    indexed = {d for d, r in old_rows.items() if (r.get("path") or r.get("parts")) and window[0] <= d <= window[1]}
+612477	    dropped_lost_day = quarantined_lost_day = 0
+612478	    for day in sorted(set(disk) | set(incoming_by_day) | indexed | lost_days):
+612479	        on_disk = disk.get(day, {"file": None, "parts": {}})
+612480	        old_row = old_rows.get(day)
+612481	        if day not in lost_days and old_row and (old_row.get("path") or old_row.get("parts")):
+612482	            listed = [old_row["path"]] if old_row.get("path") else [p["path"] for p in old_row.get("parts") or []]
+612483	            missing = [rel for rel in listed if not (archive_dir / rel).exists()]
+612484	            if missing:
+612485	                lost_days.add(day)
+612486	                lost_entries[day] = {
+612487	                    "date": day, "reason": "listed_file_missing", "detected_utc": format_utc(now),
+612488	                    "missing_paths": missing,
+612489	                    "last_recorded": _evidence(old_row, (old_index or {}).get("generated_utc")),
+612491	        if day in lost_days:
+612492	            # Unknown, never zero, never a partial count: later flashes wait in
+612493	            # quarantine (not counted) until a verified recovery merges them.
+612494	            # Remaining shard files stay on disk, unlisted, for that recovery.
+612495	            q_file = archive_dir / quarantine_path(day)
+612496	            held = _read_quarantine(q_file, day, now, cutoff)
+612497	            new = {i: f for i, f in incoming_by_day.get(day, {}).items() if i not in held}
+612498	            if new:
+612499	                content = _quarantine_content(day, {**held, **new})
+612500	                if len(content.encode("utf-8")) > max_shard_bytes:
+612501	                    dropped_lost_day += len(new)  # counted, loud in status; never silently
+612503	                    _write_if_changed(q_file, content)
+612504	                    changed_files += 1
+612505	                    quarantined_lost_day += len(new)
+612506	                    held = {**held, **new}
+612507	            lost_entries[day]["quarantined_observations"] = len(held)
+612508	            lost_entries[day]["quarantine_path"] = quarantine_path(day) if held else None
+612509	        verifiable = (
+612510	            old_row is not None and day not in incoming_by_day
+612511	            and bool(old_row.get("path") or old_row.get("parts"))
+612512	            and bool(old_row.get("sha256") or old_row.get("parts"))
+612513	        if verifiable:
+612514	            listed = {old_row["path"]} if old_row.get("path") else {p["path"] for p in old_row.get("parts") or []}
+612515	            present = ({on_disk["file"].relative_to(archive_dir).as_posix()} if on_disk["file"] else set()) | {
+612516	                p.relative_to(archive_dir).as_posix() for p in on_disk["parts"].values()}
+612517	            if listed == present:
+612518	                _verify_unchanged(archive_dir, old_row)
+612519	                summaries[day] = {
+612520	                    "count": old_row["count"], "bytes": old_row.get("bytes"), "sha256": old_row.get("sha256"),
+612521	                    "path": old_row.get("path"), "parts": old_row.get("parts"),
+612522	                    "first_observation_utc": old_row.get("first_observation_utc"),
+612523	                    "last_observation_utc": old_row.get("last_observation_utc"),
+612524	                    "records": None, "scanned_floor": old_row.get("scanned_seconds") or 0,
+612525	                if old_row.get("parts"):
+612526	                    split_days.append(day)
+612527	        features_by_id: dict[str, dict] = {}
+612528	        files = ([on_disk["file"]] if on_disk["file"] else []) + [on_disk["parts"][h] for h in sorted(on_disk["parts"])]
+612530	            for record in _read_features(f, day):
+612531	                valid = validate_feature(record, now, cutoff)
+612532	                if valid is None or valid[0] != day:
+612533	                    raise ValueError(f"{f}: invalid, duplicated or wrong-day history observation")
+612534	                if record["id"] in features_by_id:
+612535	                    raise ValueError(f"{f}: duplicate feature ID {record['id']}")
+612536	                features_by_id[record["id"]] = record
+612537	        for identifier, feature in incoming_by_day.get(day, {}).items():
+612538	            features_by_id.setdefault(identifier, feature)  # existing bytes win; dedupe by stable id
+612539	        records = sorted(features_by_id.values(), key=lambda f: (f["properties"]["time_utc"], f["id"]))
+612540	        if not records:
+612541	        plan = _plan_shards(day, records, max_bytes=max_shard_bytes, target_bytes=target_shard_bytes)
+612542	        planned_paths = {rel for rel, _, _ in plan}
+612543	        for rel, content, _ in plan:
+612544	            if _write_if_changed(archive_dir / rel, content):
+612545	                changed_files += 1
+612546	        for stale in files:
+612547	            if stale.relative_to(archive_dir).as_posix() not in planned_paths:
+612548	                stale.unlink()
+612549	        if len(plan) == 1 and "hour" not in plan[0][2]:
+612550	            rel, _, summary = plan[0]
+612551	            summaries[day] = {**summary, "path": rel, "parts": None, "records": records}
+612552	            split_days.append(day)
+612553	            parts = [{"hour": s["hour"], "path": rel, "count": s["count"], "bytes": s["bytes"], "sha256": s["sha256"],
+612554	                      "first_observation_utc": s["first_observation_utc"], "last_observation_utc": s["last_observation_utc"]}
+612555	                     for rel, _, s in plan]
+612556	            summaries[day] = {
+612557	                "count": len(records), "bytes": sum(p["bytes"] for p in parts), "sha256": None, "path": None,
+612558	                "parts": parts, "first_observation_utc": records[0]["properties"]["time_utc"],
+612559	                "last_observation_utc": records[-1]["properties"]["time_utc"], "records": records,
+612560	    for f in expired_files:
+612561	        f.unlink()
+612562	        changed_files += 1
+612563	    quarantine_dir = archive_dir / "quarantine"
+612564	    if quarantine_dir.exists():
+612565	        for f in sorted(quarantine_dir.glob("*.json")):
+612566	            if f.stem < window[0]:
+612567	                f.unlink()
+612568	    _remove_empty_dirs(archive_dir / "days")
+612569	    _remove_empty_dirs(quarantine_dir)
+612570	    if quarantine_dir.exists() and not any(quarantine_dir.iterdir()):
+612571	        quarantine_dir.rmdir()
+612572	    extra = list(scanned_windows or [])
+612573	    if scanned_window:
+612574	        extra.append(scanned_window)
+612575	    if old_index is None and seed_scan_windows:
+612576	        extra.extend(seed_scan_windows)
+612577	    old_windows = old_index.get("scan_windows", []) if old_index else []
+612578	    merged_windows = _normalise_windows(old_windows, extra, cutoff_time, now)
+612579	    last_scan_end = max((parse_utc(w["end_utc"]) for w in merged_windows), default=None)
+612580	    coverage_start = min((parse_utc(w["start_utc"]) for w in merged_windows), default=None)
+612583	    oldest = newest = None
+612584	    day = cutoff
+612585	    while day <= today:
+612586	        key = day.isoformat()
+612587	        scanned = scanned_seconds_for_day(merged_windows, day)
+612588	        summary = summaries.get(key)
+612589	        if summary:
+612590	            total += summary["count"]
+612591	            oldest = min(oldest, summary["first_observation_utc"]) if oldest else summary["first_observation_utc"]
+612592	            newest = max(newest, summary["last_observation_utc"]) if newest else summary["last_observation_utc"]
+612593	            if scanned <= 0:
+612594	                # Flashes prove their slots were examined even when no window was
+612595	                # recorded for the date (e.g. a seed older than the recorded windows).
+612596	                proven = slots_proved_by_flashes(summary["records"]) if summary.get("records") else SLOT_SECONDS
+612597	                scanned = max(SLOT_SECONDS, proven, int(summary.get("scanned_floor") or 0))
+612598	        if key in lost_days:
+612599	            scanned, summary = 0, None
+612600	        coverage = coverage_for(scanned)
+612601	        count = None if coverage == "none" else (summary["count"] if summary else 0)
+612603	            "date": key,
+612604	            "coverage": coverage,
+612605	            "scanned_seconds": scanned,
+612606	            "count": count,
+612607	            "bytes": summary["bytes"] if summary else None,
+612608	            "path": summary["path"] if summary else None,
+612609	            "sealed": is_sealed(day, coverage, now, LOOKBACK_MAX_HOURS),
+612610	            "first_observation_utc": summary["first_observation_utc"] if summary else None,
+612611	            "last_observation_utc": summary["last_observation_utc"] if summary else None,
+612612	            "sha256": summary["sha256"] if summary else None,
+612613	        if summary and summary.get("parts"):
+612614	            row["parts"] = summary["parts"]
+612615	            row["shard_lost"] = True
+612617	        day += timedelta(days=1)
+612618	    lost_list = [lost_entries[d] for d in sorted(lost_days)]
+612619	    integrity = {
+612620	        "state": "shard_lost" if lost_list else "ok",
+612621	        "alert": integrity_alert(sorted(lost_days)),
+612622	        "lost_days": lost_list,
+612623	        "recoveries": recoveries,
+612624	    first_enabled = (old_index or {}).get("archive_first_enabled_utc") or format_utc(now)
+612626	        "schema": SCHEMA_INDEX,
+612627	        "generated_utc": format_utc(now),
+612628	        "collection_interval_hours": COLLECTION_INTERVAL_HOURS,
+612629	        "collection_lookback_hours": LOOKBACK_MIN_HOURS,
+612630	        "collection_lookback_hours_max": LOOKBACK_MAX_HOURS,
+612631	        "last_run_lookback_hours": lookback_hours,
+612632	        "update_grace_hours": UPDATE_GRACE_HOURS,
+612633	        "next_update_due_utc": format_utc(now + timedelta(hours=COLLECTION_INTERVAL_HOURS + UPDATE_GRACE_HOURS)),
+612634	        "cutoff_date_utc": cutoff.isoformat(),
+612635	        "retention": "one calendar year, UTC",
+612636	        "source_url": SOURCE_URL,
+612637	        "observation": "satellite optical lightning flashes, not ground strikes",
+612638	        "bounds_wsen": list(UK_BOUNDS),
+612639	        "max_shard_bytes": max_shard_bytes,
+612640	        "target_shard_bytes": target_shard_bytes,
+612641	        "archive_first_enabled_utc": first_enabled,
+612642	        "coverage_start_utc": format_utc(coverage_start) if coverage_start else None,
+612643	        "last_successful_scan_end_utc": format_utc(last_scan_end) if last_scan_end else None,
+612644	        "archived_observations": total,
+612645	        "archived_days_with_flashes": len(summaries),
+612646	        "scanned_days": sum(1 for r in rows if r["coverage"] != "none"),
+612647	        "first_observation_utc": oldest,
+612648	        "last_observation_utc": newest,
+612649	        "scan_windows": merged_windows,
+612650	        "scan_window_note": WINDOW_NOTE,
+612651	        "availability_note": HISTORY_NOTE,
+612652	        "split_note": SPLIT_NOTE,
+612653	        "seed_note": SEED_NOTE,
+612654	        "integrity": integrity,
+612655	        "days": rows,
+612656	        "status": STATUS_TEXT,
+612657	    if _write_if_changed(index_path, _serialise(index)):
+612658	        "index": index, "files_changed": changed_files, "days_expired": len(expired_files),
+612659	        "dropped_before_cutoff": dropped_before_cutoff, "dropped_invalid": dropped_invalid,
+612660	        "split_days": sorted(set(split_days)),
+612661	        "lost_days": sorted(lost_days), "dropped_lost_day": dropped_lost_day,
+612662	        "quarantined_lost_day": quarantined_lost_day,
+612663	        "integrity": {
+612664	            "state": integrity["state"], "alert": integrity["alert"], "lost_days": sorted(lost_days),
+612665	            "quarantined_observations": sum(e.get("quarantined_observations") or 0 for e in lost_list),
+612666	def _remove_empty_dirs(root: Path) -> None:
+612669	    for directory in sorted((p for p in root.rglob("*") if p.is_dir()), key=lambda p: len(p.parts), reverse=True):
+612670	        if not any(directory.iterdir()):
+612671	            directory.rmdir()
+612672	def successful_scan(start_utc: str, end_utc: str, products_examined: int) -> dict:
+612673	    """Record a real successful EUMETSAT search (not a coverage guarantee).
+612674	    Zero products means the search found nothing to examine (an outage or an
+612675	    empty catalogue), which is UNKNOWN coverage, so it cannot be recorded.
+612676	    begin, end = parse_utc(start_utc), parse_utc(end_utc)
+612677	    if end <= begin or products_examined < 1:
+612678	        raise ValueError("Only a real successful, nonempty EUMETSAT search can be archived")
+612679	    return {"start_utc": format_utc(begin), "end_utc": format_utc(end), "successful_runs": 1}
+612680	def windows_from_run_record(record: dict) -> list[dict]:
+612681	    """Scan windows (one per examined range) from a collect.py run record."""
+612682	    if record.get("outcome") != "success" or int(record.get("products_examined") or 0) < 1:
+612683	    if record.get("slots_parsed") is False:
+612684	        # No product name carried a sensing slot, so scanned_ranges is the whole
+612685	        # requested window including the unpublished tail: coverage stays unknown.
+612686	    return [successful_scan(r["start_utc"], r["end_utc"], 1) for r in record.get("scanned_ranges", [])
+612687	            if parse_utc(r["end_utc"]) > parse_utc(r["start_utc"])]
+612688	def load_seed_windows(path: Path | None) -> list[dict]:
+612689	    """Reconstructed scan windows of runs that predate the archive (optional)."""
+612690	    if not path or not Path(path).exists():
+612691	    obj = json.loads(Path(path).read_text(encoding="utf-8"))
+612692	    windows = obj.get("scan_windows", obj) if isinstance(obj, dict) else obj
+612693	    return [successful_scan(w["start_utc"], w["end_utc"], int(w.get("products_examined", 1)))
+612694	            for w in windows]
+612695	def verify_archive(archive_dir: Path) -> dict:
+612696	    """Check every listed shard against the index before it is committed.
+612697	    Strict: bytes and sha256 must be present and match, each file's feature
+612698	    count must equal its row (and part) count, and ``count`` must be null iff
+612699	    coverage is none, with flashes always backed by a path or parts.
+612700	    index = _load_old_index(archive_dir / "index.json")
+612701	    if index is None:
+612702	        raise ValueError("no index.json")
+612704	    lost_rows = sorted(r.get("date") for r in index["days"] if r.get("shard_lost"))
+612705	    integrity = index.get("integrity")
+612706	    if integrity is None:
+612707	        if lost_rows:
+612708	            raise ValueError(f"rows flagged shard_lost {lost_rows} but the index has no integrity block")
+612709	        state = "absent"  # index written before integrity tracking existed
+612710	        listed = sorted(str(e.get("date")) for e in integrity.get("lost_days") or [])
+612711	        if listed != lost_rows:
+612712	            raise ValueError(f"shard_lost rows {lost_rows} differ from integrity.lost_days {listed}; "
+612713	                             "a lost day is cleared only by history.py recover")
+612714	        state = integrity.get("state")
+612715	        if state != ("shard_lost" if lost_rows else "ok"):
+612716	            raise ValueError(f"integrity.state {state!r} contradicts shard_lost rows {lost_rows}")
+612717	        if lost_rows and not integrity.get("alert"):
+612718	            raise ValueError("shard_lost without an integrity alert")
+612719	    now = parse_utc(index["generated_utc"])
+612720	    cutoff = date.fromisoformat(index["cutoff_date_utc"])
+612721	    for f in sorted(quarantine_dir.glob("*.json")) if quarantine_dir.exists() else []:
+612722	        if f.stem not in lost_rows:
+612723	            raise ValueError(f"{f}: quarantine file for a date that is not shard_lost")
+612724	        _read_quarantine(f, f.stem, now, cutoff)
+612725	    for row in index["days"]:
+612726	        day, count = row.get("date"), row.get("count")
+612727	        if row.get("shard_lost") and (row.get("coverage") != "none" or count is not None or row.get("path")
+612728	                                      or row.get("parts") or row.get("sha256") or row.get("scanned_seconds")):
+612729	            raise ValueError(f"{day}: a shard_lost row must be coverage none, scanned_seconds 0, count null, no files")
+612730	        if (count is None) != (row.get("coverage") == "none"):
+612731	            raise ValueError(f"{day}: count must be null iff coverage is none")
+612732	        listed = [(row["path"], count)] if row.get("path") else [(p["path"], p.get("count")) for p in row.get("parts") or []]
+612733	        if count and not listed:
+612734	            raise ValueError(f"{day}: count {count} without path or parts")
+612735	        if not listed:
+612736	        _verify_unchanged(archive_dir, row, strict=True)
+612737	        found = 0
+612738	        for rel, expected in listed:
+612739	            n = len(_read_features(archive_dir / rel, day))
+612740	            if n != expected:
+612741	                raise ValueError(f"{archive_dir / rel}: {n} features but the index count is {expected}")
+612742	            found += n
+612743	        if found != count:
+612744	            raise ValueError(f"{day}: parts hold {found} features but the row count is {count}")
+612746	    return {"rows": len(index["days"]), "shards_checked": checked, "integrity": state, "lost_days": lost_rows}
+612747	def _covered_gap_seconds(required: list[tuple[datetime, datetime]], cover: list[tuple[datetime, datetime]]) -> int:
+612748	    """Seconds of ``required`` intervals not inside the union of ``cover``."""
+612749	    gap = 0.0
+612750	    for start, end in required:
+612751	        cursor = start
+612752	        for c_start, c_end in sorted(cover):
+612753	            if c_end <= cursor or c_start >= end:
+612754	            if c_start > cursor:
+612755	                gap += (c_start - cursor).total_seconds()
+612756	            cursor = max(cursor, c_end)
+612757	            if cursor >= end:
+612759	        if cursor < end:
+612760	            gap += (end - cursor).total_seconds()
+612761	    return int(math.ceil(gap))
+612762	def _expected_files(evidence: dict) -> list[dict]:
+612763	    if evidence.get("path"):
+612764	        return [{"path": evidence["path"], "bytes": evidence.get("bytes"), "sha256": evidence.get("sha256"),
+612765	                 "count": evidence.get("count")}]
+612766	    return [{"path": p["path"], "bytes": p.get("bytes"), "sha256": p.get("sha256"), "count": p.get("count")}
+612767	            for p in evidence.get("parts") or []]
+612768	def recover_day(
+612769	    day: str,
+612770	    from_shards: Iterable[Path] | None = None,
+612771	    rebuild_record: Path | None = None,
+612772	    recorded_index: Path | None = None,
+612773	    accept_unanchored: bool = False,
+612774	    """Clear a shard_lost date only from verified evidence, with an audit record.
+612775	    ``from_shards``: earlier copies of the lost file(s) (e.g. ``git show``) whose
+612776	    bytes and sha256 must equal a previously recorded index entry and whose
+612777	    feature counts must equal the recorded counts. ``rebuild_record``: a fresh,
+612778	    independent collect.py run record whose examined slots cover every second
+612779	    the archive recorded as searched on that date and whose flash count equals
+612780	    the recorded count (``accept_unanchored`` only when no count was recorded).
+612781	    Every gate runs before anything is written; a refusal changes nothing.
+612782	    if (from_shards is None) == (rebuild_record is None):
+612783	        raise ValueError("recover needs exactly one of from_shards / rebuild_record")
+612784	    cutoff = year_ago(now.date())
+612785	    day = date.fromisoformat(day).isoformat()
+612786	    row = next((r for r in index["days"] if r.get("date") == day), None)
+612787	    if not row or not row.get("shard_lost"):
+612788	        raise ValueError(f"{day} is not marked shard_lost; nothing to recover")
+612789	    integrity = index.setdefault("integrity", {"state": "shard_lost", "alert": None, "lost_days": [], "recoveries": []})
+612790	    entry = next((e for e in integrity.get("lost_days") or [] if e.get("date") == day), None) or {}
+612791	    evidence = entry.get("last_recorded")
+612792	    anchor: dict = {"source": "lost_entry"}
+612793	    if not (evidence and evidence.get("count")) and recorded_index:
+612794	        raw = Path(recorded_index).read_bytes()
+612795	        earlier = json.loads(raw)
+612796	        if not isinstance(earlier, dict) or earlier.get("schema") not in (SCHEMA_INDEX, SCHEMA_INDEX_V1):
+612797	            raise ValueError(f"{recorded_index}: not a lightning history index")
+612798	        old = next((r for r in earlier.get("days") or [] if r.get("date") == day and (r.get("path") or r.get("parts"))), None)
+612799	        if old:
+612800	            evidence = _evidence(old, earlier.get("generated_utc"))
+612801	            anchor = {"source": "recorded_index", "index_sha256": hashlib.sha256(raw).hexdigest()}
+612802	    if evidence and not evidence.get("count"):
+612803	        evidence = None
+612804	    if evidence:
+612805	        anchor.update({k: evidence.get(k) for k in ("index_generated_utc", "count", "bytes", "sha256", "path")})
+612806	        if evidence.get("parts"):
+612807	            anchor["parts"] = [{"path": p["path"], "sha256": p.get("sha256"), "count": p.get("count")} for p in evidence["parts"]]
+612808	    disk, _ = _discover_shards(archive_dir, cutoff, now.date())
+612809	    on_disk = disk.get(day, {"file": None, "parts": {}})
+612810	    present = {f.relative_to(archive_dir).as_posix(): f
+612811	               for f in ([on_disk["file"]] if on_disk["file"] else []) + list(on_disk["parts"].values())}
+612812	    held = _read_quarantine(archive_dir / quarantine_path(day), day, now, cutoff)
+612813	    def checked_features(text: str, label: str) -> list[dict]:
+612815	        for record in _features_from_text(text, label, day):
+612816	            valid = validate_feature(record, now, cutoff)
+612817	            if valid is None or valid[0] != day:
+612818	                raise ValueError(f"{label}: invalid or wrong-day observation")
+612821	    writes: dict[str, str] = {}
+612822	    inputs: list[dict] = []
+612823	    audit: dict = {"date": day, "recovered_utc": format_utc(now), "lost_detected_utc": entry.get("detected_utc"),
+612824	                   "missing_paths": entry.get("missing_paths"), "verified_against": anchor if evidence else None}
+612825	    if from_shards is not None:
+612826	        if not evidence:
+612827	            raise ValueError(f"{day}: no previously recorded index entry (sha256 + count) to verify the shard against; "
+612828	                             "pass --recorded-index with an earlier index.json from git history, or use --rebuild")
+612829	        expected = _expected_files(evidence)
+612830	        if any(not e["sha256"] or e["bytes"] is None or e["count"] is None for e in expected):
+612831	            raise ValueError(f"{day}: the recorded entry lacks sha256/bytes/count; it cannot verify a shard")
+612832	        supplied: dict[str, bytes] = {}
+612833	        for path in from_shards:
+612834	            data = Path(path).read_bytes()
+612835	            digest = hashlib.sha256(data).hexdigest()
+612836	            match = next((e for e in expected if e["sha256"] == digest and e["bytes"] == len(data)), None)
+612838	                raise ValueError(f"{path}: sha256 {digest} / {len(data)} bytes match no recorded file of {day} "
+612839	                                 f"({', '.join(e['path'] + ' ' + e['sha256'] for e in expected)}); refusing")
+612840	            supplied[match["path"]] = data
+612841	            inputs.append({"file": Path(path).name, "as": match["path"], "sha256": digest, "bytes": len(data)})
+612842	        unexpected = sorted(set(present) - {e["path"] for e in expected})
+612843	        if unexpected:
+612844	            raise ValueError(f"{unexpected}: files on disk for {day} that the recorded entry does not list; move them aside")
+612845	        ids: set[str] = set()
+612846	        total = 0
+612847	        for e in expected:
+612848	            if e["path"] in supplied:
+612849	                data = supplied[e["path"]]
+612850	            elif e["path"] in present:
+612851	                data = present[e["path"]].read_bytes()
+612852	                if hashlib.sha256(data).hexdigest() != e["sha256"] or len(data) != e["bytes"]:
+612853	                    raise ValueError(f"{e['path']}: surviving file differs from the recorded sha256; refusing")
+612854	                inputs.append({"file": e["path"], "as": e["path"], "sha256": e["sha256"], "bytes": e["bytes"],
+612855	                               "source": "survivor_on_disk"})
+612857	                raise ValueError(f"{e['path']}: recorded file is still missing; supply it with --from-shard")
+612858	            features = checked_features(data.decode("utf-8"), e["path"])
+612859	            if len(features) != e["count"]:
+612860	                raise ValueError(f"{e['path']}: {len(features)} features but the recorded count is {e['count']}")
+612861	            for f in features:
+612862	                if f["id"] in ids:
+612863	                    raise ValueError(f"{e['path']}: duplicate feature ID {f['id']}")
+612864	                ids.add(f["id"])
+612866	            writes[e["path"]] = data.decode("utf-8")
+612867	        if total != evidence["count"]:
+612868	            raise ValueError(f"{day}: files hold {total} features but the recorded count is {evidence['count']}")
+612869	        new_row = {k: evidence.get(k) for k in ("count", "bytes", "sha256", "path", "parts",
+612870	                                                 "first_observation_utc", "last_observation_utc")}
+612871	        audit.update({"method": "from_shard", "byte_identical": True})
+612872	        raw = Path(rebuild_record).read_bytes()
+612873	        record = json.loads(raw)
+612874	        if not isinstance(record, dict) or record.get("schema") != RUN_RECORD_SCHEMA:
+612875	            raise ValueError(f"{rebuild_record}: not a collect.py run record")
+612876	        if record.get("outcome") != "success" or int(record.get("products_examined") or 0) < 1:
+612877	            raise ValueError(f"{rebuild_record}: the rebuild collection did not succeed with examined products")
+612878	        if record.get("slots_parsed") is not True:
+612879	            raise ValueError(f"{rebuild_record}: slots_parsed is not true, so examined slots are unproven; refusing")
+612880	        run_utc = parse_utc(record["run_utc"])
+612881	        detected = entry.get("detected_utc")
+612882	        if detected and run_utc <= parse_utc(detected):
+612883	            raise ValueError(f"{rebuild_record}: run_utc {record['run_utc']} is not after the loss was detected "
+612884	                             f"({detected}); an independent rebuild must be a fresh EUMETSAT download")
+612885	        day_start = datetime.combine(date.fromisoformat(day), time.min, tzinfo=timezone.utc)
+612886	        day_end = day_start + timedelta(days=1)
+612887	        required = []
+612888	        for w in index.get("scan_windows") or []:
+612889	            start, end = max(parse_utc(w["start_utc"]), day_start), min(parse_utc(w["end_utc"]), day_end)
+612890	            if end > start:
+612891	                required.append((start, end))
+612893	            required = [(day_start, day_end)]  # nothing recorded: the rebuild must cover the whole date
+612894	        cover = [(parse_utc(w["start_utc"]), parse_utc(w["end_utc"])) for w in windows_from_run_record(record)]
+612895	        uncovered = _covered_gap_seconds(required, cover)
+612896	        if uncovered:
+612897	            raise ValueError(f"{rebuild_record}: rebuild does not cover {uncovered} s of the time the archive "
+612898	                             f"recorded as searched on {day}; refusing a partial count")
+612899	        found: dict[str, dict] = {}
+612900	        for feature in record.get("features") or []:
+612901	            valid = validate_feature(feature, now, cutoff)
+612902	            if valid and valid[0] == day:
+612903	                found.setdefault(feature["id"], feature)
+612904	        survivors: set[str] = set()
+612905	        for rel, f in present.items():
+612906	            survivors |= {r["id"] for r in _read_features(f, day)}
+612907	        lacking = (set(held) | survivors) - set(found)
+612908	        if lacking:
+612909	            raise ValueError(f"{rebuild_record}: rebuild lacks {len(lacking)} flash(es) already observed for {day} "
+612910	                             "(quarantined or still on disk); it is not complete")
+612911	        if evidence:
+612912	            if len(found) != evidence["count"]:
+612913	                raise ValueError(f"{rebuild_record}: rebuild found {len(found)} flashes on {day} but the recorded count "
+612914	                                 f"is {evidence['count']}; missing history is never replaced by a different count")
+612915	        elif not accept_unanchored:
+612916	            raise ValueError(f"{day}: no previously recorded count anchors the rebuild; re-run with "
+612917	                             "--accept-unanchored only after an independent check, or pass --recorded-index")
+612918	        if not found:
+612919	            raise ValueError(f"{rebuild_record}: rebuild found no flashes for a date that had a shard; refusing")
+612920	        records = sorted(found.values(), key=lambda f: (f["properties"]["time_utc"], f["id"]))
+612921	        writes = {rel: content for rel, content, _ in plan}
+612922	            new_row = {**{k: summary[k] for k in ("count", "bytes", "sha256", "first_observation_utc",
+612923	                                                    "last_observation_utc")}, "path": rel, "parts": None}
+612924	            new_row = {"count": len(records), "bytes": sum(p["bytes"] for p in parts), "sha256": None, "path": None,
+612925	                       "parts": parts, "first_observation_utc": records[0]["properties"]["time_utc"],
+612926	                       "last_observation_utc": records[-1]["properties"]["time_utc"]}
+612927	        identical = bool(evidence) and sorted(
+612928	            (e["path"], e["sha256"]) for e in _expected_files(evidence)) == sorted(
+612929	            (rel, _sha256(content)) for rel, content in writes.items())
+612930	        inputs.append({"file": Path(rebuild_record).name, "sha256": hashlib.sha256(raw).hexdigest(), "bytes": len(raw)})
+612931	        audit.update({"method": "rebuild", "byte_identical": identical, "rebuild": {
+612932	            "run_utc": record["run_utc"], "products_examined": record.get("products_examined"),
+612933	            "required_seconds": int(sum((e - s).total_seconds() for s, e in required)), "uncovered_seconds": 0,
+612934	            "anchored": bool(evidence)}})
+612935	    # All gates passed: write the verified files, restore the row, audit, then re-index.
+612936	    for rel, f in present.items():
+612937	        if rel not in writes:
+612938	            f.unlink()
+612939	    for rel, content in writes.items():
+612940	        _write_if_changed(archive_dir / rel, content)
+612941	    row.pop("shard_lost", None)
+612942	    row.update({k: v for k, v in new_row.items() if k != "parts"})
+612943	    if new_row.get("parts"):
+612944	        row["parts"] = new_row["parts"]
+612945	        row.pop("parts", None)
+612946	    audit["inputs"] = inputs
+612947	    audit["result"] = {"count": new_row["count"], "bytes": new_row["bytes"], "sha256": new_row["sha256"],
+612948	                       "path": new_row["path"],
+612949	                       "parts": [{"path": p["path"], "sha256": p["sha256"], "count": p["count"]}
+612950	                                 for p in new_row.get("parts") or []] or None}
+612951	    audit["quarantined_merged"] = len(held)
+612952	    integrity["lost_days"] = [e for e in integrity.get("lost_days") or [] if e.get("date") != day]
+612953	    integrity["recoveries"] = list(integrity.get("recoveries") or []) + [audit]
+612954	    _write_if_changed(archive_dir / "index.json", _serialise(index))
+612955	    result = archive_observations(archive_dir, list(held.values()), now=now,
+612956	                                  lookback_hours=index.get("last_run_lookback_hours"),
+612957	                                  max_shard_bytes=max_shard_bytes, target_shard_bytes=target_shard_bytes)
+612958	    q_file = archive_dir / quarantine_path(day)
+612959	    if q_file.exists():
+612960	        q_file.unlink()
+612961	        _remove_empty_dirs(archive_dir / "quarantine")
+612962	        if not any((archive_dir / "quarantine").iterdir()):
+612963	            (archive_dir / "quarantine").rmdir()
+612964	    checked = verify_archive(archive_dir)
+612965	    return {"index": result["index"], "audit": audit, "verify": checked}
+612966	def _never_searched(row: dict | None, lost: set[str]) -> bool:
+612967	    return (row is not None and row.get("coverage") == "none" and row.get("count") is None
+612968	            and not row.get("shard_lost") and row.get("date") not in lost)
+612969	def backfill_plan(archive_dir: Path, *, end_date: date, days: int, today: date) -> list[str]:
+612970	    """UTC dates in ``[end_date - days + 1, end_date]``, newest first, that the index
+612971	    marks never searched (coverage none / count null and not shard_lost).
+612972	    shard_lost dates are excluded: they need ``recover``, never a backfill. Dates
+612973	    before the retention cutoff or missing from the index are not listed.
+612974	    if not 1 <= days <= BACKFILL_MAX_DAYS:
+612975	        raise ValueError(f"days must be 1..{BACKFILL_MAX_DAYS}")
+612976	    if end_date >= today:
+612977	        raise ValueError(f"end_date {end_date} must be a complete past UTC date (before {today})")
+612978	    index = _load_old_index(Path(archive_dir) / "index.json")
+612979	        raise ValueError("no index.json: the hourly job creates the archive (and its seed) first; "
+612980	                         "a backfill only fills dates of an existing index")
+612981	    rows = {r.get("date"): r for r in index.get("days") or [] if isinstance(r, dict)}
+612982	    lost = {str(e.get("date")) for e in (index.get("integrity") or {}).get("lost_days") or [] if isinstance(e, dict)}
+612983	    day = end_date
+612984	    for _ in range(days):
+612985	        if day < cutoff:
+612987	        if _never_searched(rows.get(day.isoformat()), lost):
+612988	            plan.append(day.isoformat())
+612989	        day -= timedelta(days=1)
+612990	def backfill_day(
+612991	    rebuild_record: Path,
+612992	    """Ingest a ``collect.py --rebuild-day`` record for a NEVER-SEARCHED date.
+612993	    Distinct from ``recover`` (shard_lost dates, verified against a recorded
+612994	    count): here nothing was ever recorded, so the date simply becomes searched
+612995	    with the rebuild's real coverage, i.e. the union of its examined 10-minute
+612996	    slots. Gaps in that search stay unknown; a count of 0 is only possible for
+612997	    searched time. Gates run first; the ingest and ``verify`` then run on a
+612998	    staging copy that replaces the archive only when both succeed, so a refusal
+612999	    or any failure (e.g. ``ShardTooLarge``) changes nothing.
+613000	        raise ValueError("no index.json: the hourly job creates the archive (and its seed) first; nothing to backfill")
+613001	    row = next((r for r in index.get("days") or [] if r.get("date") == day), None)
+613003	        raise ValueError(f"{day} has no row in the index (outside retention or index out of date)")
+613004	    if row.get("shard_lost") or day in lost:
+613005	        raise ValueError(f"{day} is shard_lost: use history.py recover (verified recovery), not backfill")
+613006	    if not _never_searched(row, lost):
+613007	        raise ValueError(f"{day} was already searched (coverage {row.get('coverage')}, count {row.get('count')}); "
+613008	                         "backfill only fills never-searched dates")
+613009	    day_start = datetime.combine(date.fromisoformat(day), time.min, tzinfo=timezone.utc)
+613010	    if day_end > now:
+613011	        raise ValueError(f"{day} has not ended yet")
+613012	    raw = Path(rebuild_record).read_bytes()
+613013	    record = json.loads(raw)
+613014	    if not isinstance(record, dict) or record.get("schema") != RUN_RECORD_SCHEMA:
+613015	        raise ValueError(f"{rebuild_record}: not a collect.py run record")
+613016	    if record.get("rebuild_day_utc") != day:
+613017	        raise ValueError(f"{rebuild_record}: a rebuild of {record.get('rebuild_day_utc')}, not of {day}")
+613018	        raise ValueError(f"{rebuild_record}: the rebuild collection did not succeed with examined products")
+613019	    if record.get("slots_parsed") is not True:
+613020	        raise ValueError(f"{rebuild_record}: slots_parsed is not true, so examined slots are unproven; refusing")
+613021	    if (parse_utc(record["query_start_utc"]) != day_start or parse_utc(record["query_end_utc"]) != day_end
+613022	            or parse_utc(record["run_utc"]) < day_end):
+613023	        raise ValueError(f"{rebuild_record}: not a search of the whole UTC date {day} made after it ended")
+613024	    windows = windows_from_run_record(record)
+613025	    if not windows:
+613026	        raise ValueError(f"{rebuild_record}: no examined slot; the date stays unknown")
+613027	    spans = [(parse_utc(w["start_utc"]), parse_utc(w["end_utc"])) for w in windows]
+613028	    if any(s < day_start or e > day_end for s, e in spans):
+613029	        raise ValueError(f"{rebuild_record}: scanned ranges leave {day}")
+613030	    found: dict[str, dict] = {}
+613031	    for feature in record.get("features") or []:
+613032	        if valid is None or valid[0] != day:
+613033	            raise ValueError(f"{rebuild_record}: invalid or wrong-day observation {feature.get('id') if isinstance(feature, dict) else feature!r}")
+613034	        moment = parse_utc(feature["properties"]["time_utc"])
+613035	        if not any(s <= moment < e for s, e in spans):
+613036	            raise ValueError(f"{rebuild_record}: flash {feature['id']} lies outside the examined slots")
+613037	        found.setdefault(feature["id"], feature)
+613038	    expected_seconds = scanned_seconds_for_day(windows, date.fromisoformat(day))
+613039	    if day in disk:
+613040	        raise ValueError(f"{day}: unlisted shard files exist on disk for a never-searched date; move them aside")
+613041	    staging = archive_dir.parent / f".{archive_dir.name}.backfill-{day}"
+613042	    retired = archive_dir.parent / f".{archive_dir.name}.backfill-retired"
+613043	    for leftover in (staging, retired):
+613044	        if leftover.exists():
+613045	            shutil.rmtree(leftover)
+613046	    shutil.copytree(archive_dir, staging)
+613047	        result = archive_observations(
+613048	            staging, list(found.values()), now=now, scanned_windows=windows,
+613049	            lookback_hours=index.get("last_run_lookback_hours"),
+613050	            max_shard_bytes=max_shard_bytes, target_shard_bytes=target_shard_bytes)
+613051	        checked = verify_archive(staging)
+613052	        new_row = next(r for r in result["index"]["days"] if r["date"] == day)
+613053	        if new_row["coverage"] == "none" or new_row["scanned_seconds"] != expected_seconds:
+613054	            raise ValueError(f"{day}: archived coverage {new_row['scanned_seconds']} s differs from the rebuild's "
+613055	                             f"examined {expected_seconds} s")
+613056	        if new_row["count"] != len(found):
+613057	            raise ValueError(f"{day}: archived count {new_row['count']} differs from the rebuild's {len(found)} flashes")
+613058	    except BaseException:
+613059	        shutil.rmtree(staging, ignore_errors=True)
+613060	    os.replace(archive_dir, retired)
+613061	    os.replace(staging, archive_dir)
+613062	    shutil.rmtree(retired)
+613063	    index_after = result["index"]
+613064	        "outcome": "success", "error": None, "date": day, "row": new_row,
+613065	        "rebuild": {"run_utc": record["run_utc"], "products_examined": record.get("products_examined"),
+613066	                    "slots_examined": record.get("slots_examined"),
+613067	                    "record_sha256": hashlib.sha256(raw).hexdigest()},
+613068	        "unscanned_ranges": record.get("unscanned_ranges") or [],
+613069	        "files_changed": result["files_changed"], "split_days": result["split_days"],
+613070	        "archived_observations": index_after["archived_observations"],
+613071	        "index_generated_utc": index_after["generated_utc"],
+613072	        "last_successful_scan_end_utc": index_after["last_successful_scan_end_utc"],
+613073	        "integrity": result["integrity"], "verify": checked,
+613075	    backfill = sub.add_parser(
+613076	        "backfill", help="Ingest a collect.py --rebuild-day record for a never-searched date (not shard_lost)")
+613077	    backfill.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+613078	    backfill.add_argument("--day", required=True, help="UTC date YYYY-MM-DD marked never searched (count null)")
+613079	    backfill.add_argument("--rebuild-record", type=Path, required=True)
+613080	    backfill.add_argument("--result-out", type=Path, default=None)
+613081	    backfill.add_argument("--now", default=None, help="ISO-8601 UTC override (tests/fixtures)")
+613082	    plan = sub.add_parser("backfill-plan", help="Print never-searched UTC dates, newest first, one per line")
+613083	    plan.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+613084	    plan.add_argument("--end-date", default="", help="Newest UTC date YYYY-MM-DD; empty = yesterday UTC")
+613085	    plan.add_argument("--days", type=int, default=7, help=f"Dates to consider back from end-date (1-{BACKFILL_MAX_DAYS})")
+613086	    plan.add_argument("--now", default=None, help="ISO-8601 UTC override (tests/fixtures)")
+613087	    ingest = sub.add_parser("ingest", help="Append a collect.py run record to the archive")
+613088	    ingest.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+613089	    ingest.add_argument("--run-record", type=Path, required=True)
+613090	    ingest.add_argument("--seed-scan-windows", type=Path, default=Path("data/seed_scan_windows.json"),
+613091	                        help="Used only when no index exists yet")
+613092	    ingest.add_argument("--result-out", type=Path, default=None)
+613093	    ingest.add_argument("--now", default=None, help="ISO-8601 UTC override (tests/fixtures)")
+613094	    verify = sub.add_parser("verify", help="Verify shard bytes/sha256 against the index")
+613095	    verify.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+613096	    recover = sub.add_parser(
+613097	        "recover", help="Clear a shard_lost date from verified evidence only (see docs/HISTORY_ONE_YEAR.md)")
+613098	    recover.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+613099	    recover.add_argument("--day", required=True, help="UTC date YYYY-MM-DD flagged shard_lost")
+613100	    source = recover.add_mutually_exclusive_group(required=True)
+613101	    source.add_argument("--from-shard", type=Path, nargs="+",
+613102	                        help="Earlier copies of the lost file(s), e.g. from git show; must match the recorded sha256")
+613103	    source.add_argument("--rebuild", action="store_true",
+613104	                        help="Use an independent, fresh EUMETSAT collection given by --rebuild-record")
+613105	    recover.add_argument("--rebuild-record", type=Path, default=None, help="collect.py run record covering the date")
+613106	    recover.add_argument("--recorded-index", type=Path, default=None,
+613107	                         help="Earlier index.json (git history) holding the recorded entry, when the lost entry has none")
+613108	    recover.add_argument("--accept-unanchored", action="store_true",
+613109	                         help="Rebuild only: allow a date with no recorded count (audited as anchored=false)")
+613110	    recover.add_argument("--now", default=None, help="ISO-8601 UTC override (tests/fixtures)")
+613111	    if args.command == "backfill-plan":
+613112	        now = parse_utc(args.now) if args.now else datetime.now(timezone.utc)
+613113	        today = now.date()
+613114	        end = date.fromisoformat(args.end_date.strip()) if args.end_date.strip() else today - timedelta(days=1)
+613115	        for day in backfill_plan(args.archive_dir, end_date=end, days=args.days, today=today):
+613116	            print(day)
+613118	    if args.command == "backfill":
+613119	        result = backfill_day(args.archive_dir, args.day, now=now, rebuild_record=args.rebuild_record)
+613120	        if args.result_out:
+613121	            args.result_out.parent.mkdir(parents=True, exist_ok=True)
+613122	            args.result_out.write_text(json.dumps(result, indent=1) + "\n", encoding="utf-8")
+613123	        row = result["row"]
+613124	        print(f"Backfilled {result['date']}: coverage {row['coverage']} ({row['scanned_seconds']} s searched), "
+613125	              f"count {row['count']}, {len(result['unscanned_ranges'])} unsearched gap(s) left unknown; verify ok.")
+613126	        if result["integrity"]["state"] != "ok":
+613127	            print(result["integrity"]["alert"], file=sys.stderr)
+613128	    if args.command == "verify":
+613129	        checked = verify_archive(args.archive_dir)
+613130	        print(json.dumps(checked))
+613131	        if checked["integrity"] == "shard_lost":
+613132	            print(integrity_alert(checked["lost_days"]), file=sys.stderr)
+613133	    if args.command == "recover":
+613134	        if args.rebuild and not args.rebuild_record:
+613135	            parser.error("--rebuild needs --rebuild-record")
+613136	        result = recover_day(args.archive_dir, args.day, now=now, from_shards=args.from_shard,
+613137	                             rebuild_record=args.rebuild_record if args.rebuild else None,
+613138	                             recorded_index=args.recorded_index, accept_unanchored=args.accept_unanchored)
+613139	        print(json.dumps({"recovered": result["audit"], "verify": result["verify"]}, indent=1))
+613140	    record = json.loads(args.run_record.read_text(encoding="utf-8"))
+613141	    if record.get("schema") != RUN_RECORD_SCHEMA:
+613142	        raise SystemExit("run record schema mismatch")
+613143	    if record.get("outcome") != "success":
+613144	        raise SystemExit(f"collection failed; nothing to archive: {record.get('error')}")
+613145	    now = parse_utc(args.now) if args.now else datetime.now(timezone.utc)
+613146	    result = archive_observations(
+613147	        args.archive_dir, record.get("features", []), now=now,
+613148	        scanned_windows=windows_from_run_record(record), seed_scan_windows=load_seed_windows(args.seed_scan_windows),
+613149	        lookback_hours=record.get("lookback_hours"),
+613150	    summary = {k: v for k, v in result.items() if k != "index"}
+613151	    summary.update({
+613152	        "outcome": "success", "error": None,
+613153	        "archived_observations": result["index"]["archived_observations"],
+613154	        "index_generated_utc": result["index"]["generated_utc"],
+613155	        "last_successful_scan_end_utc": result["index"]["last_successful_scan_end_utc"],
+613156	    if args.result_out:
+613157	        args.result_out.parent.mkdir(parents=True, exist_ok=True)
+613158	        args.result_out.write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8")
+613159	    print(f"Archived {summary['archived_observations']} dated optical observations; "
+613160	          f"{result['files_changed']} files changed, {result['days_expired']} days expired, "
+613161	          f"{result['dropped_before_cutoff']} observations older than the cutoff clamped away, "
+613162	          f"split days: {result['split_days'] or 'none'}.")
+613163	    if result["integrity"]["state"] != "ok":
+613164	        print(result["integrity"]["alert"], file=sys.stderr)
+613166	    except ValueError as error:
+613167	        print(f"ARCHIVE FAILURE: {error}", file=sys.stderr)
+613169	"""Write data/status.json after every collector run, successful or not.
+613170	The status file is the collector's heartbeat and the source of the
+613171	self-healing lookback: ``last_successful_scan_end_utc`` is the end of the
+613172	last examined EUMETSAT product slot, so the next run searches from there
+613173	(plus a margin) instead of leaving a gap. A failed run keeps the previous
+613174	success values, records the error and increments ``consecutive_failures``;
+613175	nothing here ever claims zero lightning for an unsearched period.
+613176	``freshness`` is the age-based value (ok/warn/stale/stopped/never). ``health``
+613177	is the same value except that an archive with any ``shard_lost`` date is never
+613178	reported ``ok``: a fresh run with a lost shard is ``degraded``. ``integrity``
+613179	carries the explicit alert; ``status.py alert`` exits 1 while it is raised.
+613181	from collect import RUN_RECORD_SCHEMA, iso_utc, parse_utc
+613182	SCHEMA_STATUS = "uk-lightning-status.v1"
+613183	STALE_WARN_HOURS = 6
+613184	STALE_HOURS = 12
+613185	STOPPED_HOURS = 24
+613186	def _load(path: Path | None) -> dict | None:
+613187	        obj = json.loads(Path(path).read_text(encoding="utf-8"))
+613189	    return obj if isinstance(obj, dict) else None
+613190	def health(now: datetime, last_success_end: datetime | None) -> str:
+613191	    """ok / warn (>6 h) / stale (>12 h) / stopped (>24 h) / never."""
+613192	    if last_success_end is None:
+613193	        return "never"
+613194	    age = (now - last_success_end).total_seconds() / 3600
+613195	    if age > STOPPED_HOURS:
+613196	        return "stopped"
+613197	    if age > STALE_HOURS:
+613198	        return "stale"
+613199	    if age > STALE_WARN_HOURS:
+613200	        return "warn"
+613201	    return "ok"
+613202	def integrity_status(previous: dict, archive_result: dict | None, archive_outcome: str) -> dict:
+613203	    """The archive integrity block. A lost shard is never forgotten by a failed run.
+613204	    Only a successful archive step (ingest + verify, then committed) can change the
+613205	    state; otherwise the previous status is carried, and any loss this run detected
+613206	    is added to it (an alert is never hidden by a failure).
+613207	    prev = previous.get("integrity") if isinstance(previous.get("integrity"), dict) else None
+613208	    this = (archive_result or {}).get("integrity") if isinstance((archive_result or {}).get("integrity"), dict) else None
+613209	    if archive_outcome == "success" and this and this.get("state") in ("ok", "shard_lost"):
+613210	        lost, source = sorted(this.get("lost_days") or []), "this_run"
+613211	        alert = this.get("alert")
+613212	        quarantined = this.get("quarantined_observations")
+613213	    elif prev or (this and this.get("state") == "shard_lost"):
+613214	        lost = sorted(set((prev or {}).get("lost_days") or []) | set((this or {}).get("lost_days") or []))
+613215	        source = "previous_status" if prev else "this_run_unverified"
+613216	        alert = (this or {}).get("alert") if (this or {}).get("state") == "shard_lost" else (prev or {}).get("alert")
+613217	        quarantined = (prev or {}).get("quarantined_observations")
+613218	        return {"state": "unknown", "alert": None, "lost_days": [], "quarantined_observations": None, "source": None}
+613219	    state = "shard_lost" if lost else "ok"
+613220	    if state == "shard_lost" and not alert:
+613221	        alert = f"INTEGRITY ALERT: archive shard lost for {', '.join(lost)}; counts unknown, not zero"
+613222	    return {"state": state, "alert": alert if state == "shard_lost" else None, "lost_days": lost,
+613223	            "quarantined_observations": quarantined, "source": source}
+613224	def build_status(
+613225	    previous: dict | None,
+613226	    record: dict | None,
+613227	    archive_result: dict | None,
+613228	    collect_outcome: str,
+613229	    archive_outcome: str,
+613230	    previous = previous or {}
+613231	    record = record if record and record.get("schema") == RUN_RECORD_SCHEMA else None
+613232	    collected = collect_outcome == "success" and record is not None and record.get("outcome") == "success"
+613233	    error = None
+613234	    if not collected:
+613235	        error = (record or {}).get("error") or f"collect step outcome={collect_outcome}; no run record"
+613236	    archive_error = None
+613237	    if archive_outcome == "failure":
+613238	        archive_error = (archive_result or {}).get("error") or "archive step failed (see workflow log)"
+613239	    elif archive_result and archive_result.get("outcome") == "failure":
+613240	        archive_error = archive_result.get("error")
+613241	    last_success_end = previous.get("last_successful_scan_end_utc")
+613242	    last_success_start = previous.get("last_successful_scan_start_utc")
+613243	    last_success_run = previous.get("last_successful_run_utc")
+613244	    if collected:
+613245	        last_success_run = record["run_utc"]
+613246	        ranges = record.get("scanned_ranges") or []
+613247	        if ranges and record.get("slots_parsed") is not False:  # unparsed = requested window, not examined slots
+613248	            end = max(parse_utc(r["end_utc"]) for r in ranges)
+613249	            start = min(parse_utc(r["start_utc"]) for r in ranges)
+613250	            if not last_success_end or end > parse_utc(last_success_end):
+613251	                last_success_end = iso_utc(end)
+613252	            last_success_start = iso_utc(start)
+613253	    failures = 0 if collected else int(previous.get("consecutive_failures") or 0) + 1
+613254	    last_end_dt = parse_utc(last_success_end) if last_success_end else None
+613255	    freshness = health(now, last_end_dt)
+613256	    integrity = integrity_status(previous, archive_result, archive_outcome)
+613257	    overall = "degraded" if integrity["state"] == "shard_lost" and freshness in ("ok", "warn") else freshness
+613258	        "schema": SCHEMA_STATUS,
+613259	        "written_utc": iso_utc(now),
+613260	        "health": overall,
+613261	        "freshness": freshness,
+613262	        "last_attempt_utc": (record or {}).get("run_utc") or iso_utc(now),
+613263	        "last_attempt_outcome": "success" if collected else "failure",
+613264	        "last_error": error,
+613265	        "consecutive_failures": failures,
+613266	        "last_successful_run_utc": last_success_run,
+613267	        "last_successful_scan_start_utc": last_success_start,
+613268	        "last_successful_scan_end_utc": last_success_end,
+613269	        "last_query_start_utc": (record or {}).get("query_start_utc"),
+613270	        "last_query_end_utc": (record or {}).get("query_end_utc"),
+613271	        "last_lookback_hours": (record or {}).get("lookback_hours"),
+613272	        "last_lookback_source": (record or {}).get("lookback_source"),
+613273	        "last_lookback_capped": (record or {}).get("lookback_capped"),
+613274	        "last_products_examined": (record or {}).get("products_examined"),
+613275	        "last_slots_examined": (record or {}).get("slots_examined"),
+613276	        "last_slots_parsed": (record or {}).get("slots_parsed"),
+613277	        "last_slots_examined_utc": (record or {}).get("slots_examined_utc") if collected else None,
+613278	        "last_scanned_ranges": (record or {}).get("scanned_ranges") if collected else None,
+613279	        "last_unscanned_ranges": (record or {}).get("unscanned_ranges") if collected else None,
+613280	        "last_tail_unobserved_seconds": (record or {}).get("tail_unobserved_seconds") if collected else None,
+613281	        "feed": {
+613282	            "features": (record or {}).get("feed_features"),
+613283	            "total_before_display_cap": (record or {}).get("feed_total_before_display_cap"),
+613284	            "latest_detection_utc": (record or {}).get("feed_latest_detection_utc"),
+613285	            "incoming_features": (record or {}).get("incoming_features"),
+613286	        } if collected else previous.get("feed"),
+613287	        "archive": {
+613288	            "outcome": archive_outcome,
+613289	            "error": archive_error,
+613290	            "archived_observations": (archive_result or {}).get("archived_observations"),
+613291	            "files_changed": (archive_result or {}).get("files_changed"),
+613292	            "dropped_before_cutoff": (archive_result or {}).get("dropped_before_cutoff"),
+613293	            "split_days": (archive_result or {}).get("split_days"),
+613294	            "lost_days": (archive_result or {}).get("lost_days"),
+613295	            "dropped_lost_day": (archive_result or {}).get("dropped_lost_day"),
+613296	            "index_generated_utc": (archive_result or {}).get("index_generated_utc"),
+613297	        "thresholds_hours": {"warn": STALE_WARN_HOURS, "stale": STALE_HOURS, "stopped": STOPPED_HOURS},
+613298	        "backfill": previous.get("backfill"),
+613299	        "note": ("A failed run leaves the feed and archive unchanged. Time not covered by a successful "
+613300	                 "scan is unknown, not zero. Flashes are optical satellite detections, not confirmed ground strikes."),
+613301	BACKFILL_OK = ("completed", "time_budget")
+613302	def backfill_status(
+613303	    planned: list[str],
+613304	    filled: list[str],
+613305	    stopped: str,
+613306	    error: str | None,
+613307	    index: dict | None,
+613308	    """Record a backfill run WITHOUT touching the hourly heartbeat.
+613309	    The heartbeat fields (last attempt, failures, last successful scan end,
+613310	    freshness) belong to the hourly collector: a backfill searches past dates
+613311	    and must not move the lookback anchor. Only the ``backfill`` block, the
+613312	    archive totals and the integrity state are refreshed from the index the
+613313	    backfill committed, so status.json and index.json stay consistent.
+613314	    status = dict(previous or {"schema": SCHEMA_STATUS})
+613315	    filled_set = set(filled)
+613316	    status["backfill"] = {
+613317	        "last_run_utc": iso_utc(now),
+613318	        "outcome": stopped if stopped in BACKFILL_OK else "stopped",
+613319	        "stopped_reason": stopped,
+613320	        "error": error or None,
+613321	        "planned_days": list(planned),
+613322	        "filled_days": list(filled),
+613323	        "remaining_unknown_days": [d for d in planned if d not in filled_set],
+613324	        "note": ("Backfilled dates carry the examined 10-minute slots of a fresh whole-day EUMETSAT search; "
+613325	                 "dates not filled stay never searched (unknown, not zero)."),
+613327	        archive = dict(status.get("archive") or {})
+613328	        archive["archived_observations"] = index.get("archived_observations")
+613329	        archive["index_generated_utc"] = index.get("generated_utc")
+613330	        status["archive"] = archive
+613331	        integ = index.get("integrity") or {}
+613332	        lost = sorted(str(e.get("date")) for e in integ.get("lost_days") or [] if isinstance(e, dict))
+613333	        state = "shard_lost" if lost else "ok"
+613334	        status["integrity"] = {
+613335	            "state": state, "alert": integ.get("alert") if lost else None, "lost_days": lost,
+613336	            "quarantined_observations": sum(int(e.get("quarantined_observations") or 0)
+613337	                                            for e in integ.get("lost_days") or [] if isinstance(e, dict)),
+613338	            "source": "backfill",
+613339	        freshness = status.get("freshness")
+613340	        if freshness is not None:
+613341	            status["health"] = "degraded" if state == "shard_lost" and freshness in ("ok", "warn") else freshness
+613342	    return status
+613343	def _lines(path: Path | None) -> list[str]:
+613344	    return [line.strip() for line in Path(path).read_text(encoding="utf-8").splitlines() if line.strip()]
+613345	def write_status(path: Path, status: dict) -> None:
+613347	    path.write_text(json.dumps(status, indent=1) + "\n", encoding="utf-8")
+613348	    write = sub.add_parser("write")
+613349	    write.add_argument("--status", type=Path, default=Path("data/status.json"))
+613350	    write.add_argument("--run-record", type=Path, default=None)
+613351	    write.add_argument("--archive-result", type=Path, default=None)
+613352	    write.add_argument("--collect-outcome", default="failure")
+613353	    write.add_argument("--archive-outcome", default="skipped")
+613354	    write.add_argument("--now", default=None)
+613355	    alert = sub.add_parser("alert", help="Print the integrity alert and exit 1 while any shard_lost date exists")
+613356	    alert.add_argument("--status", type=Path, default=Path("data/status.json"))
+613357	    backfill = sub.add_parser("backfill", help="Record a backfill run; the hourly heartbeat is left untouched")
+613358	    backfill.add_argument("--status", type=Path, default=Path("data/status.json"))
+613359	    backfill.add_argument("--plan", type=Path, required=True, help="Planned dates, one per line (newest first)")
+613360	    backfill.add_argument("--filled", type=Path, required=True, help="Dates actually backfilled, one per line")
+613361	    backfill.add_argument("--stopped", required=True, help="completed | time_budget | eumetsat_error | archive_refused")
+613362	    backfill.add_argument("--error", default="")
+613363	    backfill.add_argument("--now", default=None)
+613364	        status = backfill_status(_load(args.status), now=now, planned=_lines(args.plan), filled=_lines(args.filled),
+613365	                                 stopped=args.stopped, error=args.error, index=_load(args.archive_dir / "index.json"))
+613366	        write_status(args.status, status)
+613367	        block = status["backfill"]
+613368	        print(f"backfill: {block['outcome']} filled={len(block['filled_days'])} "
+613369	              f"remaining_unknown={len(block['remaining_unknown_days'])} integrity={status.get('integrity', {}).get('state')}")
+613370	    if args.command == "alert":
+613371	        current = _load(args.status) or {}
+613372	        integrity = current.get("integrity") or {}
+613373	        if integrity.get("state") == "shard_lost":
+613374	            print(f"::error::{integrity.get('alert') or 'INTEGRITY ALERT: shard_lost'}")
+613376	        print(f"integrity={integrity.get('state', 'unknown')}")
+613377	    status = build_status(
+613378	        now=now, previous=_load(args.status), record=_load(args.run_record),
+613379	        archive_result=_load(args.archive_result), collect_outcome=args.collect_outcome,
+613380	        archive_outcome=args.archive_outcome,
+613381	    write_status(args.status, status)
+613382	    print(f"status: {status['last_attempt_outcome']} health={status['health']} "
+613383	          f"last_successful_scan_end={status['last_successful_scan_end_utc']} "
+613384	          f"consecutive_failures={status['consecutive_failures']} archive={status['archive']['outcome']} "
+613385	          f"integrity={status['integrity']['state']}")
+613386	    if status["integrity"]["state"] == "shard_lost":
+613387	        print(status["integrity"]["alert"], file=sys.stderr)
+613388	"""Backfill of never-searched UTC dates from a fresh, whole-day EUMETSAT search.
+613389	``collect.py --rebuild-day D`` (here with a fake downloader, never the network)
+613390	writes a run record; ``history.py backfill --day D`` ingests it only for a date
+613391	the index marks never searched (coverage none / count null, not shard_lost), with
+613392	the record's real examined slots as coverage: a gap stays unknown, a zero is
+613393	only written for searched time, and any refusal or failure changes nothing.
+613394	Synthetic features exist ONLY inside temporary directories created by these
+613395	tests (ids start with "TEST-"); nothing synthetic is ever published.
+613400	import collect
+613401	import history
+613402	import status as status_module
+613403	from collect import build_feature
+613404	from history import archive_observations, day_path, successful_scan, verify_archive
+613405	NOW = datetime(2026, 10, 27, 6, 0, tzinfo=timezone.utc)
+613406	TARGET = "2026-10-20"          # never searched in the fixture archive
+613407	SEARCHED = "2026-10-26"        # searched by an "hourly" run in the fixture archive
+613408	DAY0 = datetime(2026, 10, 20, tzinfo=timezone.utc)
+613409	def slot_name(start: datetime) -> str:
+613410	    end = start + timedelta(minutes=10)
+613411	    return ("W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_"
+613412	            f"{end:%Y%m%d%H%M%S}_L2PF_OPE_{start:%Y%m%d%H%M%S}_{end:%Y%m%d%H%M%S}_N__O_0001_0000")
+613413	def flash(moment: datetime, tag: str, index: int = 0) -> dict:
+613414	    return build_feature(-2.12, 51.11, moment, "TEST-" + tag, index)
+613415	class FakeDownloader:
+613416	    """Stands in for collect.download: 10-minute slots of [start, end) minus ``skip``."""
+613417	    def __init__(self, flashes=(), skip_slots=(), error=None):
+613418	        self.flashes, self.skip, self.error, self.calls = list(flashes), set(skip_slots), error, []
+613419	    def __call__(self, start, end):
+613420	        self.calls.append((start, end))
+613422	            raise self.error
+613423	        names, cursor, i = [], start, 0
+613424	        while cursor < end:
+613425	            if i not in self.skip:
+613426	                names.append(slot_name(cursor))
+613427	            cursor += timedelta(minutes=10)
+613429	        return [f for f in self.flashes if start <= collect.parse_utc(f["properties"]["time_utc"]) < end], len(names), names
+613430	def rows(index):
+613431	    return {r["date"]: r for r in index["days"]}
+613432	class BackfillTests(unittest.TestCase):
+613435	        self.base = Path(self.temp.name)
+613436	        self.root = self.base / "history"
+613437	        hourly = datetime(2026, 10, 26, tzinfo=timezone.utc)
+613438	        archive_observations(
+613439	            self.root, [flash(hourly + timedelta(hours=3), "hourly")], now=NOW - timedelta(hours=1),
+613440	            scanned_windows=[successful_scan((hourly + timedelta(hours=1)).isoformat(),
+613441	                                             (hourly + timedelta(hours=7)).isoformat(), 36)],
+613442	            lookback_hours=6.0)
+613443	        self.before = json.loads((self.root / "index.json").read_text())
+613444	        self.record = self.base / "rb.json"
+613447	    def index(self):
+613448	        return json.loads((self.root / "index.json").read_text())
+613449	    def snapshot(self):
+613450	        return {p.relative_to(self.base).as_posix(): p.read_bytes() for p in sorted(self.base.rglob("*")) if p.is_file()
+613451	                and p != self.record}
+613452	    def rebuild(self, day=TARGET, **fake):
+613453	        fake_dl = FakeDownloader(**fake)
+613454	        collect.rebuild_day_record(day, self.record, now=NOW, downloader=fake_dl)
+613455	        return fake_dl
+613456	    def backfill(self, day=TARGET, **kwargs):
+613457	        return history.backfill_day(self.root, day, now=NOW, rebuild_record=self.record, **kwargs)
+613458	    # --- the fixture: TARGET is never searched, SEARCHED is ---------------------
+613459	    def test_fixture_marks_the_target_date_never_searched(self):
+613460	        r = rows(self.before)
+613461	        self.assertEqual((r[TARGET]["coverage"], r[TARGET]["count"]), ("none", None))
+613462	        self.assertEqual(r[SEARCHED]["coverage"], "partial")
+613463	    # --- happy path: real coverage, real count, gaps stay unknown ---------------
+613464	    def test_backfill_ingests_a_rebuild_with_its_real_coverage_and_count(self):
+613465	        flashes = [flash(DAY0 + timedelta(hours=h, minutes=3), f"bf{h}") for h in (2, 9, 17)]
+613466	        fake = self.rebuild(flashes=flashes, skip_slots={30, 31})  # 05:00-05:20 missing at EUMETSAT
+613467	        self.assertEqual(fake.calls, [(DAY0, DAY0 + timedelta(days=1))])
+613468	        result = self.backfill()
+613469	        row = rows(self.index())[TARGET]
+613470	        self.assertEqual(row["coverage"], "partial")
+613471	        self.assertEqual(row["scanned_seconds"], 86400 - 1200)
+613472	        self.assertEqual(row["count"], 3)
+613473	        self.assertEqual(row["path"], day_path(date(2026, 10, 20)))
+613474	        self.assertEqual(verify_archive(self.root)["integrity"], "ok")
+613475	        self.assertEqual(result["row"]["count"], 3)
+613476	        self.assertEqual(result["unscanned_ranges"],
+613477	                         [{"start_utc": "2026-10-20T05:00:00.000Z", "end_utc": "2026-10-20T05:20:00.000Z"}])
+613478	    def test_backfill_keeps_the_hourly_heartbeat_fields_of_the_index(self):
+613479	        self.rebuild(flashes=[flash(DAY0 + timedelta(hours=4), "x")])
+613480	        self.backfill()
+613481	        after = self.index()
+613482	        for key in ("last_successful_scan_end_utc", "last_run_lookback_hours", "archive_first_enabled_utc"):
+613483	            self.assertEqual(after[key], self.before[key], key)
+613484	        self.assertEqual(after["coverage_start_utc"], "2026-10-20T00:00:00.000Z")
+613485	        self.assertEqual(rows(after)[SEARCHED], {**rows(self.before)[SEARCHED], "sealed": rows(after)[SEARCHED]["sealed"]})
+613486	    def test_a_fully_searched_day_without_flashes_is_zero_with_full_coverage(self):
+613487	        self.rebuild(flashes=[])
+613488	        self.assertEqual((row["coverage"], row["scanned_seconds"], row["count"], row["path"]), ("full", 86400, 0, None))
+613489	    def test_heavy_day_respects_the_byte_caps_and_splits_into_hourly_parts(self):
+613490	        flashes = [flash(DAY0 + timedelta(hours=h, seconds=s), f"heavy{h}", s) for h in (1, 2) for s in range(20)]
+613491	        self.rebuild(flashes=flashes)
+613492	        self.backfill(target_shard_bytes=4000, max_shard_bytes=25_000)
+613493	        self.assertIsNone(row["path"])
+613494	        self.assertEqual([p["hour"] for p in row["parts"]], ["01", "02"])
+613495	        self.assertEqual(row["count"], 40)
+613496	        self.assertEqual(verify_archive(self.root)["shards_checked"], 2)
+613497	    # --- refusals change nothing -------------------------------------------------
+613498	    def assert_refused(self, message, **kwargs):
+613499	        before = self.snapshot()
+613500	        with self.assertRaisesRegex(ValueError, message):
+613501	            self.backfill(**kwargs)
+613502	        self.assertEqual(self.snapshot(), before, "a refused backfill must not change any file")
+613503	        self.assertEqual(sorted(p.name for p in self.base.iterdir()), sorted(["history", "rb.json"]))
+613504	    def test_shard_too_large_changes_nothing_and_the_day_stays_unknown(self):
+613505	        self.rebuild(flashes=[flash(DAY0 + timedelta(hours=1, seconds=s), "big", s) for s in range(20)])
+613506	        self.assert_refused("max_shard_bytes", max_shard_bytes=3000, target_shard_bytes=2000)
+613507	        self.assertIsNone(rows(self.index())[TARGET]["count"])
+613508	    def test_refuses_a_date_that_was_already_searched(self):
+613509	        self.rebuild(day=SEARCHED)
+613510	        with self.assertRaisesRegex(ValueError, "already searched"):
+613511	            history.backfill_day(self.root, SEARCHED, now=NOW, rebuild_record=self.record)
+613512	        self.assertEqual(self.snapshot(), before)
+613513	    def test_refuses_a_shard_lost_date_and_points_to_recover(self):
+613514	        lost_day = datetime(2026, 10, 26, tzinfo=timezone.utc)
+613515	        (self.root / day_path(lost_day.date())).unlink()
+613516	        archive_observations(self.root, [], now=NOW - timedelta(minutes=30))
+613517	        with self.assertRaisesRegex(ValueError, "shard_lost.*recover"):
+613518	    def test_refuses_a_record_for_another_date(self):
+613519	        self.rebuild(day="2026-10-19")
+613520	        self.assert_refused("2026-10-19")
+613521	    def test_refuses_a_record_without_parsed_slots(self):
+613522	        self.rebuild()
+613523	        rec = json.loads(self.record.read_text())
+613524	        rec["slots_parsed"] = False
+613525	        self.record.write_text(json.dumps(rec))
+613526	        self.assert_refused("slots_parsed")
+613527	    def test_refuses_a_failed_record(self):
+613528	        rec.update(outcome="failure", error="HTTPError: 429 Too Many Requests")
+613529	        self.assert_refused("did not succeed")
+613530	    def test_refuses_a_search_made_before_the_date_ended(self):
+613531	        collect.rebuild_day_record(TARGET, self.record, now=DAY0 + timedelta(hours=20), downloader=FakeDownloader())
+613532	        self.assert_refused("whole UTC date")
+613533	    def test_refuses_a_flash_outside_the_examined_slots(self):
+613534	        self.rebuild(skip_slots={12})
+613535	        rec["features"] = [flash(DAY0 + timedelta(hours=2, minutes=5), "ghost")]
+613536	        self.assert_refused("outside the examined slots")
+613537	    def test_refuses_without_an_index(self):
+613538	        with self.assertRaisesRegex(ValueError, "no index.json"):
+613539	            history.backfill_day(self.base / "empty", TARGET, now=NOW, rebuild_record=self.record)
+613540	        self.assertFalse((self.base / "empty").exists())
+613541	    # --- EUMETSAT errors: no record, nothing to ingest --------------------------
+613542	    def test_eumetsat_error_or_rate_limit_writes_no_record(self):
+613543	        with self.assertRaisesRegex(RuntimeError, "429"):
+613544	            collect.rebuild_day_record(TARGET, self.record, now=NOW,
+613545	                                       downloader=FakeDownloader(error=RuntimeError("HTTP 429 Too Many Requests")))
+613546	        self.assertFalse(self.record.exists())
+613547	    # --- CLI ------------------------------------------------------------------
+613548	    def test_cli_backfill_writes_a_result_and_runs_verify(self):
+613549	        self.rebuild(flashes=[flash(DAY0 + timedelta(hours=4), "cli")])
+613550	        out = self.base / "result.json"
+613551	        code = history.main(["backfill", "--archive-dir", str(self.root), "--day", TARGET,
+613552	                             "--rebuild-record", str(self.record), "--result-out", str(out), "--now", NOW.isoformat()])
+613553	        self.assertEqual(code, 0)
+613554	        result = json.loads(out.read_text())
+613555	        self.assertEqual((result["outcome"], result["date"], result["row"]["count"]), ("success", TARGET, 1))
+613556	        self.assertEqual(result["verify"]["integrity"], "ok")
+613557	class BackfillPlanTests(unittest.TestCase):
+613558	        self.root = Path(self.temp.name) / "history"
+613559	        d = datetime(2026, 10, 24, tzinfo=timezone.utc)
+613560	        archive_observations(self.root, [flash(d + timedelta(hours=1), "p")], now=NOW,
+613561	                             scanned_windows=[successful_scan((d + timedelta(hours=1)).isoformat(),
+613562	                                                              (d + timedelta(hours=2)).isoformat(), 6)])
+613563	    def test_plan_lists_never_searched_dates_newest_first(self):
+613564	        plan = history.backfill_plan(self.root, end_date=date(2026, 10, 26), days=5, today=NOW.date())
+613565	        self.assertEqual(plan, ["2026-10-26", "2026-10-25", "2026-10-23", "2026-10-22"])
+613566	    def test_plan_skips_shard_lost_dates(self):
+613567	        (self.root / day_path(date(2026, 10, 24))).unlink()
+613568	        archive_observations(self.root, [], now=NOW)
+613569	        plan = history.backfill_plan(self.root, end_date=date(2026, 10, 25), days=3, today=NOW.date())
+613570	        self.assertEqual(plan, ["2026-10-25", "2026-10-23"])
+613571	    def test_plan_stops_at_the_retention_cutoff(self):
+613572	        plan = history.backfill_plan(self.root, end_date=date(2025, 10, 28), days=5, today=NOW.date())
+613573	        self.assertEqual(plan, ["2025-10-28", "2025-10-27"])
+613574	    def test_plan_limits(self):
+613575	        for end, days in ((date(2026, 10, 26), 32), (date(2026, 10, 26), 0), (NOW.date(), 1)):
+613577	                history.backfill_plan(self.root, end_date=end, days=days, today=NOW.date())
+613578	            history.backfill_plan(Path(self.temp.name) / "none", end_date=date(2026, 10, 26), days=1, today=NOW.date())
+613579	    def test_cli_plan_defaults_to_yesterday(self):
+613580	        import contextlib
+613581	        import io
+613582	        out = io.StringIO()
+613583	        with contextlib.redirect_stdout(out):
+613584	            code = history.main(["backfill-plan", "--archive-dir", str(self.root), "--end-date", "", "--days", "3",
+613585	                                 "--now", NOW.isoformat()])
+613586	        self.assertEqual(out.getvalue().split(), ["2026-10-26", "2026-10-25"])
+613587	class BackfillStatusTests(unittest.TestCase):
+613588	    PREVIOUS = {
+613589	        "schema": "uk-lightning-status.v1", "written_utc": "2026-10-27T05:18:00.000Z", "health": "ok", "freshness": "ok",
+613590	        "integrity": {"state": "ok", "alert": None, "lost_days": [], "quarantined_observations": 0, "source": "this_run"},
+613591	        "last_attempt_utc": "2026-10-27T05:17:00.000Z", "last_attempt_outcome": "success", "last_error": None,
+613592	        "consecutive_failures": 0, "last_successful_scan_end_utc": "2026-10-27T05:10:09.000Z",
+613593	        "archive": {"outcome": "success", "archived_observations": 1, "index_generated_utc": "2026-10-27T05:18:00.000Z"},
+613594	    def test_backfill_block_leaves_the_hourly_heartbeat_untouched(self):
+613595	        index = {"generated_utc": "2026-10-27T07:00:00.000Z", "archived_observations": 4,
+613596	                 "integrity": {"state": "ok", "alert": None, "lost_days": []}}
+613597	        result = status_module.backfill_status(
+613598	            self.PREVIOUS, now=NOW, planned=["2026-10-26", "2026-10-25", "2026-10-24"], filled=["2026-10-26"],
+613599	            stopped="eumetsat_error", error="2026-10-25: RuntimeError: HTTP 429", index=index)
+613600	        for key in ("written_utc", "last_attempt_utc", "last_attempt_outcome", "last_error", "consecutive_failures",
+613601	                    "last_successful_scan_end_utc", "freshness", "health"):
+613602	            self.assertEqual(result[key], self.PREVIOUS[key], key)
+613603	        block = result["backfill"]
+613604	        self.assertEqual(block["outcome"], "stopped")
+613605	        self.assertEqual(block["filled_days"], ["2026-10-26"])
+613606	        self.assertEqual(block["remaining_unknown_days"], ["2026-10-25", "2026-10-24"])
+613607	        self.assertIn("429", block["error"])
+613608	        self.assertEqual(result["archive"]["archived_observations"], 4)
+613609	        self.assertEqual(result["archive"]["index_generated_utc"], "2026-10-27T07:00:00.000Z")
+613610	        self.assertEqual(result["archive"]["outcome"], "success")
+613611	    def test_hourly_status_carries_the_last_backfill_forward(self):
+613612	        previous = {**self.PREVIOUS, "backfill": {"last_run_utc": "2026-10-27T06:00:00.000Z", "outcome": "completed"}}
+613613	        result = status_module.build_status(now=NOW, previous=previous, record=None, archive_result=None,
+613614	                                            collect_outcome="failure", archive_outcome="skipped")
+613615	        self.assertEqual(result["backfill"], previous["backfill"])
+613616	    def test_cli_backfill_reads_plan_and_filled_files(self):
+613618	            tmp = Path(tmp)
+613619	            (tmp / "status.json").write_text(json.dumps(self.PREVIOUS))
+613620	            (tmp / "plan.txt").write_text("2026-10-26\n2026-10-25\n")
+613621	            (tmp / "filled.txt").write_text("2026-10-26\n2026-10-25\n\n")
+613622	            (tmp / "history").mkdir()
+613623	            (tmp / "history" / "index.json").write_text(json.dumps(
+613624	                {"generated_utc": "2026-10-27T07:00:00.000Z", "archived_observations": 9,
+613625	                 "integrity": {"state": "ok", "alert": None, "lost_days": []}}))
+613626	            code = status_module.main(["backfill", "--status", str(tmp / "status.json"), "--plan", str(tmp / "plan.txt"),
+613627	                                       "--filled", str(tmp / "filled.txt"), "--stopped", "completed", "--error", "",
+613628	                                       "--archive-dir", str(tmp / "history"), "--now", NOW.isoformat()])
+613629	            self.assertEqual(code, 0)
+613630	            written = json.loads((tmp / "status.json").read_text())
+613631	            self.assertEqual(written["backfill"]["outcome"], "completed")
+613632	            self.assertEqual(written["backfill"]["remaining_unknown_days"], [])
+613633	            self.assertIsNone(written["backfill"]["error"])
+613634	            self.assertEqual(written["archive"]["archived_observations"], 9)
+613636	"""Executes the shell of backfill-lightning.yml in throwaway git repositories.
+613637	No network, no EUMETSAT, no GitHub. Each test builds a temporary repository
+613638	with a local bare 'origin', a real archive (history.py) and status, and a copy
+613639	of collect.py whose ``download`` is replaced by a FAKE downloader (10-minute
+613640	slot names, one synthetic "TEST-" flash per date, or a fake 429 rate-limit
+613641	error). The real history.py and status.py run unchanged.
+613643	from datetime import datetime, time, timedelta, timezone
+613646	BACKFILL = ROOT / ".github" / "workflows" / "backfill-lightning.yml"
+613647	HOURLY = ROOT / ".github" / "workflows" / "update-lightning.yml"
+613648	PLAN = "Plan never-searched UTC dates"
+613649	SEARCH = "Search and ingest each date"
+613650	COMMIT = "Verify and commit backfilled dates (one commit)"
+613651	SURFACE = "Surface backfill stop"
+613652	FAKE_DOWNLOAD = '''
+613653	def download(start, end):  # FAKE (tests only): replaces the EUMETSAT download
+613654	    sys.stdin.read()  # a child that drains stdin must not eat the plan the loop reads
+613655	    day = start.date().isoformat()
+613656	    if day in os.environ.get("FAKE_FAIL_DAYS", "").split(","):
+613657	        raise RuntimeError("HTTP 429 Too Many Requests (fake EUMETSAT rate limit)")
+613658	    ghost = day in os.environ.get("FAKE_GHOST_DAYS", "").split(",")
+613659	    names, cursor, i = [], start, 0
+613660	    while cursor < end:
+613661	        if not (ghost and i == 5):
+613662	            stop = cursor + timedelta(minutes=10)
+613663	            names.append("W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_"
+613664	                         f"{stop:%Y%m%d%H%M%S}_L2PF_OPE_{cursor:%Y%m%d%H%M%S}_{stop:%Y%m%d%H%M%S}_N__O_0001_0000")
+613665	        cursor += timedelta(minutes=10)
+613667	    flashes = [build_feature(-2.0, 52.0, start + timedelta(hours=1, minutes=3), "TEST-fake-" + day, 0)]
+613668	    if ghost:  # a flash inside the slot the fake search did not examine: history.py must refuse it
+613669	        flashes.append(build_feature(-2.0, 52.0, start + timedelta(minutes=55), "TEST-ghost-" + day, 0))
+613670	    return flashes, len(names), names
+613672	def step(workflow: Path, name: str) -> str:
+613673	    lines = workflow.read_text(encoding="utf-8").splitlines()
+613674	    start = next(i for i, line in enumerate(lines) if line.strip() == f"- name: {name}")
+613675	    run = next(i for i in range(start + 1, len(lines)) if lines[i].strip() == "run: |")
+613676	    body, indent = [], None
+613677	    for line in lines[run + 1:]:
+613678	        if line.strip() and indent is None:
+613679	            indent = len(line) - len(line.lstrip())
+613680	        if line.strip() and len(line) - len(line.lstrip()) < indent:
+613681	        body.append(line[indent:] if line.strip() else "")
+613682	    return "\n".join(body) + "\n"
+613683	def substitute(script: str, values: dict) -> str:
+613684	    def value(match):
+613685	        key = match.group(1).strip()
+613686	        if key in values:
+613687	            return values[key]
+613688	        raise KeyError(f"unhandled workflow expression {key}")
+613689	    return re.sub(r"\$\{\{\s*([^}]+?)\s*\}\}", value, script)
+613690	def outputs(path: Path) -> dict:
+613691	    out, lines, i = {}, path.read_text().splitlines() if path.exists() else [], 0
+613694	        if "<<" in line:
+613695	            key, marker = line.split("<<", 1)
+613696	            j = lines.index(marker, i + 1)
+613697	            out[key] = "\n".join(lines[i + 1:j])
+613699	        key, _, val = line.partition("=")
+613700	        out[key] = val
+613702	class BackfillWorkflowTextTests(unittest.TestCase):
+613703	    """Structure checks without a YAML library (CI's Python has none installed)."""
+613704	    def test_manual_dispatch_only_with_the_three_inputs(self):
+613705	        text = BACKFILL.read_text()
+613706	        on_block = text.split("\non:\n", 1)[1].split("\npermissions:", 1)[0]
+613707	        self.assertIn("workflow_dispatch:", on_block)
+613708	        for trigger in ("schedule:", "push:", "pull_request:", "cron:"):
+613709	            self.assertNotIn(trigger, on_block)
+613710	        for name in ("end_date:", "days:", "dry_run:"):
+613711	            self.assertIn(name, on_block)
+613712	        self.assertRegex(on_block, r'days:\n(?:\s+.*\n)*?\s+default: "7"')
+613713	        self.assertRegex(on_block, r"dry_run:\n(?:\s+.*\n)*?\s+type: boolean")
+613714	    def test_shares_the_hourly_concurrency_group_without_cancelling(self):
+613715	        def group(path):
+613716	            block = path.read_text().split("\nconcurrency:\n", 1)[1].split("\n\n", 1)[0]
+613717	            return (re.search(r"group:\s*(\S+)", block).group(1), re.search(r"cancel-in-progress:\s*(\S+)", block).group(1))
+613718	        self.assertEqual(group(BACKFILL), ("uk-lightning-update", "false"))
+613719	        self.assertEqual(group(BACKFILL), group(HOURLY))
+613720	    def test_search_step_uses_the_eumetsat_secrets_and_rebuild_day(self):
+613721	        self.assertIn("${{ secrets.EUMETSAT_CONSUMER_KEY }}", text)
+613722	        self.assertIn("${{ secrets.EUMETSAT_CONSUMER_SECRET }}", text)
+613723	        script = step(BACKFILL, SEARCH)
+613724	        self.assertIn('collect.py --rebuild-day "$D" --run-record "$rec"', script)
+613725	        self.assertIn('"$RUNNER_TEMP/rb-$D.json"', script)
+613726	        self.assertIn("history.py backfill", script)
+613727	@unittest.skipUnless(shutil.which("git") and shutil.which("bash"), "git and bash are required")
+613728	class BackfillWorkflowShellTests(unittest.TestCase):
+613729	        base = Path(self.temp.name)
+613730	        self.runner_temp = base / "runner"
+613731	        self.runner_temp.mkdir()
+613732	        self.env = {**os.environ, "HOME": str(base), "GIT_CONFIG_NOSYSTEM": "1",
+613733	                    "GIT_AUTHOR_NAME": "test", "GIT_AUTHOR_EMAIL": "test@example.invalid",
+613734	                    "GIT_COMMITTER_NAME": "test", "GIT_COMMITTER_EMAIL": "test@example.invalid",
+613735	                    "RUNNER_TEMP": str(self.runner_temp), "GITHUB_REF": "refs/heads/main",
+613736	                    "GITHUB_OUTPUT": str(base / "github_output"), "PYTHONDONTWRITEBYTECODE": "1"}
+613737	        bin_dir = base / "bin"
+613738	        bin_dir.mkdir()
+613739	        (bin_dir / "python").symlink_to(sys.executable)
+613740	        self.env["PATH"] = f"{bin_dir}{os.pathsep}{os.environ.get('PATH', '')}"
+613741	        self.env.pop("EUMETSAT_CONSUMER_KEY", None)
+613742	        self.origin = base / "origin.git"
+613743	        self.repo = base / "repo"
+613744	        self.git("init", "-q", "--bare", "-b", "main", str(self.origin), cwd=base)
+613745	        self.git("init", "-q", "-b", "main", str(self.repo), cwd=base)
+613746	        self.git("remote", "add", "origin", str(self.origin))
+613747	        for name in ("history.py", "status.py"):
+613748	            shutil.copy(ROOT / name, self.repo / name)
+613749	        source = (ROOT / "collect.py").read_text()
+613750	        source = source.replace("def download(start: datetime, end: datetime):", "def _real_download(start, end):")
+613751	        source = source.replace('\nif __name__ == "__main__":', FAKE_DOWNLOAD + '\nif __name__ == "__main__":')
+613752	        (self.repo / "collect.py").write_text(source)
+613753	        (self.repo / ".gitignore").write_text("__pycache__/\n")
+613755	        self.today = now.date()
+613756	        self.days = [(self.today - timedelta(days=n)).isoformat() for n in range(1, 5)]  # d1 newest .. d4
+613757	        searched = datetime.combine(self.today - timedelta(days=2), time.min, tzinfo=timezone.utc)
+613758	        history.archive_observations(
+613759	            self.repo / "data" / "history", [build_feature(-2.0, 52.0, searched + timedelta(hours=2), "TEST-hourly", 0)],
+613760	            now=now, scanned_windows=[history.successful_scan((searched + timedelta(hours=1)).isoformat(),
+613761	                                                              (searched + timedelta(hours=7)).isoformat(), 36)],
+613762	        self.heartbeat = {"schema": "uk-lightning-status.v1", "written_utc": "2026-10-27T05:18:00.000Z",
+613763	                          "health": "ok", "freshness": "ok", "last_attempt_outcome": "success",
+613764	                          "consecutive_failures": 0, "last_successful_scan_end_utc": "2026-10-27T05:10:09.000Z",
+613765	                          "integrity": {"state": "ok", "alert": None, "lost_days": []},
+613766	                          "archive": {"outcome": "success", "archived_observations": 1}}
+613767	        (self.repo / "data" / "status.json").write_text(json.dumps(self.heartbeat, indent=1) + "\n")
+613768	        self.git("add", "-A")
+613769	        self.git("commit", "-q", "-m", "initial archive")
+613770	        self.git("push", "-q", "-u", "origin", "main")
+613771	        self.base_head = self.git("rev-parse", "HEAD").strip()
+613772	    def git(self, *args, cwd=None):
+613773	        return subprocess.run(["git", *args], cwd=cwd or self.repo, env=self.env, check=True,
+613774	                              capture_output=True, text=True).stdout
+613775	    def run_step(self, name, extra=None, values=None):
+613776	        script = substitute(step(BACKFILL, name), values or {})
+613777	        return subprocess.run(["bash", "-e", "-c", script], cwd=self.repo, env={**self.env, **(extra or {})},
+613779	    def rows(self, ref="origin/main"):
+613780	        index = json.loads(self.git("show", f"{ref}:data/history/index.json"))
+613781	        return {r["date"]: r for r in index["days"]}
+613782	    def full_run(self, extra=None):
+613783	        plan = self.run_step(PLAN, {"END_DATE": "", "DAYS": "4"})
+613784	        self.assertEqual(plan.returncode, 0, plan.stderr)
+613785	        search = self.run_step(SEARCH, extra)
+613786	        out = outputs(Path(self.env["GITHUB_OUTPUT"]))
+613787	        values = {"steps.backfill.outputs.stopped": out.get("stopped", "")}
+613788	        commit = self.run_step(COMMIT, extra, values) if search.returncode == 0 else None
+613789	        surface = self.run_step(SURFACE, {**(extra or {}), "STOPPED": out.get("stopped", ""), "ERROR": out.get("error", ""),
+613790	                                     "OUTCOME": "success" if search.returncode == 0 else "failure"})
+613791	        self.git("fetch", "-q", "origin")
+613792	        return plan, search, commit, surface, out
+613793	        d1, d2, d3, d4 = self.days
+613794	        self.assertEqual((self.runner_temp / "backfill-plan.txt").read_text().split(), [d1, d3, d4])
+613795	        self.assertEqual(outputs(Path(self.env["GITHUB_OUTPUT"]))["count"], "3")
+613796	    def test_plan_rejects_more_than_31_days_and_an_unfinished_end_date(self):
+613797	        self.assertNotEqual(self.run_step(PLAN, {"END_DATE": "", "DAYS": "32"}).returncode, 0)
+613798	        self.assertNotEqual(self.run_step(PLAN, {"END_DATE": self.today.isoformat(), "DAYS": "1"}).returncode, 0)
+613799	    def test_full_backfill_is_one_verified_commit_and_leaves_the_heartbeat_alone(self):
+613800	        plan, search, commit, surface, out = self.full_run()
+613801	        self.assertEqual(search.returncode, 0, search.stderr)
+613802	        self.assertEqual(commit.returncode, 0, commit.stderr)
+613803	        self.assertEqual(surface.returncode, 0, surface.stdout)
+613804	        self.assertEqual(out["stopped"], "completed")
+613805	        self.assertEqual(self.git("rev-list", "--count", f"{self.base_head}..origin/main").strip(), "1")
+613806	        rows = self.rows()
+613807	        for d in (d1, d3, d4):
+613808	            self.assertEqual((rows[d]["coverage"], rows[d]["scanned_seconds"], rows[d]["count"]), ("full", 86400, 1), d)
+613809	        self.assertEqual(rows[d2]["count"], 1)  # the hourly-searched date is untouched
+613810	        status = json.loads(self.git("show", "origin/main:data/status.json"))
+613811	        for key in ("written_utc", "last_attempt_outcome", "consecutive_failures", "last_successful_scan_end_utc"):
+613812	            self.assertEqual(status[key], self.heartbeat[key], key)
+613813	        self.assertEqual(status["backfill"]["filled_days"], [d1, d3, d4])
+613814	        self.assertEqual(status["archive"]["archived_observations"], 4)
+613815	        self.assertEqual(self.git("status", "--porcelain"), "")
+613816	    def test_rate_limit_stops_cleanly_commits_verified_dates_and_leaves_the_rest_unknown(self):
+613817	        plan, search, commit, surface, out = self.full_run({"FAKE_FAIL_DAYS": d3})
+613818	        self.assertEqual(out["stopped"], "eumetsat_error")
+613819	        self.assertIn("429", out["error"])
+613820	        self.assertEqual(rows[d1]["count"], 1)
+613821	        for d in (d3, d4):  # never a zero for a date the search did not cover
+613822	            self.assertEqual((rows[d]["coverage"], rows[d]["count"]), ("none", None), d)
+613823	        self.assertFalse((self.runner_temp / f"rb-{d4}.json").exists(), "the loop must stop at the first error")
+613824	        self.assertEqual(status["backfill"]["remaining_unknown_days"], [d3, d4])
+613825	        self.assertNotEqual(surface.returncode, 0)
+613826	        self.assertIn("::error::Backfill stopped (eumetsat_error)", surface.stdout)
+613827	    def test_archive_refusal_stops_and_keeps_that_date_unknown(self):
+613828	        plan, search, commit, surface, out = self.full_run({"FAKE_GHOST_DAYS": d1})
+613829	        self.assertEqual(out["stopped"], "archive_refused")
+613830	        self.assertIn("outside the examined slots", out["error"])
+613831	            self.assertIsNone(rows[d]["count"], d)
+613832	        self.assertEqual(status["backfill"]["stopped_reason"], "archive_refused")
+613833	    def test_time_budget_stops_before_any_search_and_only_warns(self):
+613834	        plan, search, commit, surface, out = self.full_run({"BACKFILL_BUDGET_MINUTES": "0"})
+613835	        self.assertEqual(out["stopped"], "time_budget")
+613836	        self.assertEqual(out["filled"], "0")
+613837	        self.assertFalse(list(self.runner_temp.glob("rb-*.json")))
+613838	        self.assertEqual(surface.returncode, 0)
+613839	        self.assertIn("::warning::", surface.stdout)
+613840	    def test_refuses_to_write_outside_main(self):
+613841	        self.run_step(PLAN, {"END_DATE": "", "DAYS": "4"})
+613842	        search = self.run_step(SEARCH, {"GITHUB_REF": "refs/heads/feature"})
+613843	        self.assertNotEqual(search.returncode, 0)
+613844	        self.assertIn("must run on main", search.stdout)
+613845	    LOOKBACK_MAX_HOURS, LOOKBACK_MIN_HOURS, assemble, build_feature, build_run_record, inside_uk_view, iso_utc,
+613846	    lookback_window, merge_ranges, parse_utc, product_slot, read_last_success, scanned_ranges, unscanned_ranges,
+613847	# A genuine product name from data/uk_lightning.geojson (sensing slot 12:30:09-12:40:09 UTC, 21 Oct 2026).
+613848	REAL_PRODUCT = ("W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_20261021124026_L2PF_OPE_"
+613849	                "20261021123009_20261021124009_N__O_0076_0000")
+613850	def product_for(slot_start: datetime) -> str:
+613851	    """Build an LFL-style product name for a 10-minute slot starting at slot_start."""
+613852	    end = slot_start + timedelta(minutes=10)
+613853	            f"{end:%Y%m%d%H%M%S}_L2PF_OPE_{slot_start:%Y%m%d%H%M%S}_{end:%Y%m%d%H%M%S}_N__O_0001_0000")
+613880	    def test_iso_utc_keeps_whole_seconds_and_strips_only_fractional_zeros(self):
+613881	        # Latent bug found by the archive audit: "12:32:20" used to become "12:32:2Z".
+613882	        self.assertEqual(iso_utc("2026-10-21T12:32:20"), "2026-10-21T12:32:20Z")
+613883	        self.assertEqual(iso_utc("2026-10-21T12:32:19.282000"), "2026-10-21T12:32:19.282Z")
+613884	        self.assertEqual(iso_utc("2026-10-21T12:32:19.000000"), "2026-10-21T12:32:19Z")
+613885	        self.assertEqual(iso_utc("2026-10-21T12:32:19.282Z"), "2026-10-21T12:32:19.282Z")
+613886	        self.assertEqual(iso_utc(datetime(2026, 10, 21, 12, 32, 19, 282000, tzinfo=timezone.utc)), "2026-10-21T12:32:19.282Z")
+613887	class LookbackWindowTests(unittest.TestCase):
+613888	    """window = max(6 h, now - last successful scan end + 30 min) capped at 48 h."""
+613889	        self.now = datetime(2026, 10, 26, 14, 17, tzinfo=timezone.utc)
+613890	    def test_defaults_to_six_hours_without_history(self):
+613891	        window, capped = lookback_window(self.now, None)
+613892	        self.assertEqual(window, timedelta(hours=LOOKBACK_MIN_HOURS))
+613893	        self.assertFalse(capped)
+613894	    def test_recent_success_keeps_the_six_hour_minimum(self):
+613895	        window, capped = lookback_window(self.now, self.now - timedelta(hours=1, minutes=17))
+613896	        self.assertEqual(window, timedelta(hours=6))
+613897	    def test_gap_since_last_success_plus_margin_wins_over_minimum(self):
+613898	        window, capped = lookback_window(self.now, self.now - timedelta(hours=10))
+613899	        self.assertEqual(window, timedelta(hours=10, minutes=30))
+613900	    def test_gap_is_capped_at_48_hours_and_flagged(self):
+613901	        window, capped = lookback_window(self.now, self.now - timedelta(days=3))
+613902	        self.assertEqual(window, timedelta(hours=LOOKBACK_MAX_HOURS))
+613904	    def test_exactly_at_the_cap_is_not_flagged(self):
+613905	        window, capped = lookback_window(self.now, self.now - timedelta(hours=47, minutes=30))
+613906	        self.assertEqual(window, timedelta(hours=48))
+613907	    def test_last_success_comes_from_status_then_index_then_default(self):
+613909	            self.assertEqual(read_last_success(root / "status.json", root / "history"), (None, "default"))
+613910	            (root / "history").mkdir()
+613911	            (root / "history" / "index.json").write_text(json.dumps({
+613912	                "scan_windows": [{"start_utc": "2026-10-26T01:00:00Z", "end_utc": "2026-10-26T04:40:09Z"},
+613913	                                 {"start_utc": "2026-10-25T01:00:00Z", "end_utc": "2026-10-25T04:00:00Z"}]}))
+613914	            value, source = read_last_success(root / "status.json", root / "history")
+613915	            self.assertEqual((value.isoformat(), source), ("2026-10-26T04:40:09+00:00", "index"))
+613916	            (root / "status.json").write_text(json.dumps({"last_successful_scan_end_utc": "2026-10-26T13:00:09Z"}))
+613917	            self.assertEqual((value.isoformat(), source), ("2026-10-26T13:00:09+00:00", "status"))
+613918	class ProductSlotTests(unittest.TestCase):
+613919	    """Only examined 10-minute slots count as searched; the tail is unobserved."""
+613920	    def test_real_product_name_yields_its_sensing_slot(self):
+613921	        start, end = product_slot(REAL_PRODUCT)
+613922	        self.assertEqual(start.isoformat(), "2026-10-21T12:30:09+00:00")
+613923	        self.assertEqual(end.isoformat(), "2026-10-21T12:40:09+00:00")
+613924	        self.assertIsNone(product_slot("not-a-product"))
+613925	        self.assertIsNone(product_slot(""))
+613926	    def test_adjacent_slots_merge_and_clip_to_the_query_window(self):
+613927	        beginning = datetime(2026, 10, 26, 10, 5, 58, tzinfo=timezone.utc)
+613928	        now = datetime(2026, 10, 26, 13, 5, 58, tzinfo=timezone.utc)
+613929	        first = datetime(2026, 10, 26, 10, 0, 9, tzinfo=timezone.utc)
+613930	        names = [product_for(first + timedelta(minutes=10 * i)) for i in range(18)]  # 10:00:09 .. 13:00:09
+613931	        ranges, slots, parsed = scanned_ranges(names, beginning, now)
+613932	        self.assertTrue(parsed)
+613933	        self.assertEqual(len(slots), 18)
+613934	        self.assertEqual(ranges, [(beginning, datetime(2026, 10, 26, 13, 0, 9, tzinfo=timezone.utc))])
+613935	        gaps, tail = unscanned_ranges(ranges, beginning, now)
+613936	        self.assertEqual(gaps, [])
+613937	        self.assertEqual(tail, 349)  # 13:00:09 -> 13:05:58 not yet published: unknown, not zero
+613938	    def test_missing_middle_slot_is_a_source_gap(self):
+613939	        beginning = datetime(2026, 10, 26, 10, 0, 9, tzinfo=timezone.utc)
+613940	        now = datetime(2026, 10, 26, 11, 0, 9, tzinfo=timezone.utc)
+613941	        names = [product_for(beginning + timedelta(minutes=10 * i)) for i in (0, 1, 3, 4, 5)]  # slot 2 missing
+613942	        self.assertEqual(len(ranges), 2)
+613943	        self.assertEqual(gaps, [(datetime(2026, 10, 26, 10, 20, 9, tzinfo=timezone.utc),
+613944	                                 datetime(2026, 10, 26, 10, 30, 9, tzinfo=timezone.utc))])
+613945	        self.assertEqual(tail, 0)
+613946	    def test_long_tail_is_also_reported_as_a_gap(self):
+613947	        now = datetime(2026, 10, 26, 12, 0, 9, tzinfo=timezone.utc)
+613948	        names = [product_for(beginning)]
+613949	        ranges, _, _ = scanned_ranges(names, beginning, now)
+613950	        self.assertEqual(tail, 6600)
+613951	        self.assertEqual(gaps, [(datetime(2026, 10, 26, 10, 10, 9, tzinfo=timezone.utc), now)])
+613952	    def test_unparseable_names_fall_back_to_the_query_window_and_say_so(self):
+613953	        beginning = datetime(2026, 10, 26, 10, tzinfo=timezone.utc)
+613954	        now = datetime(2026, 10, 26, 13, tzinfo=timezone.utc)
+613955	        ranges, slots, parsed = scanned_ranges(["opaque-product"], beginning, now)
+613956	        self.assertFalse(parsed)
+613957	        self.assertEqual(ranges, [(beginning, now)])
+613958	        self.assertEqual(slots, [])
+613959	    def test_merge_ranges_tolerates_one_second_seams(self):
+613960	        a = datetime(2026, 1, 1, 0, 0, tzinfo=timezone.utc)
+613961	        merged = merge_ranges([(a, a + timedelta(minutes=10)), (a + timedelta(minutes=10, seconds=1), a + timedelta(minutes=20))])
+613962	        self.assertEqual(merged, [(a, a + timedelta(minutes=20))])
+613963	class RunRecordTests(unittest.TestCase):
+613964	    def test_run_record_carries_window_slots_and_uncapped_features(self):
+613965	        beginning = now - timedelta(hours=6)
+613966	        names = [product_for(datetime(2026, 10, 26, 7, 0, 9, tzinfo=timezone.utc) + timedelta(minutes=10 * i)) for i in range(36)]
+613967	        incoming = [build_feature(-2, 52, now - timedelta(hours=1), names[0], 7)]
+613968	        existing = [build_feature(-2, 52, now - timedelta(days=2), "older", 1)]
+613969	        feed = assemble(existing, incoming, now)
+613970	        record = build_run_record(now=now, beginning=beginning, lookback_source="status", lookback_capped=False,
+613971	                                  last_success_before=now - timedelta(hours=1), product_names=names,
+613972	                                  products_examined=36, incoming=incoming, existing=existing, feed=feed)
+613973	        self.assertEqual(record["schema"], "uk-lightning-run-record.v1")
+613974	        self.assertEqual(record["outcome"], "success")
+613975	        self.assertEqual(record["lookback_hours"], 6)
+613976	        self.assertEqual(record["slots_examined"], 36)
+613977	        self.assertEqual(record["scanned_ranges"], [{"start_utc": "2026-10-26T07:05:58.000Z", "end_utc": "2026-10-26T13:00:09.000Z"}])
+613978	        self.assertEqual(record["scanned_end_utc"], "2026-10-26T13:00:09.000Z")
+613979	        self.assertEqual(record["tail_unobserved_seconds"], 349)
+613980	        self.assertEqual(record["incoming_features"], 1)
+613981	        self.assertEqual(len(record["features"]), 2)
+613982	        self.assertEqual(record["feed_features"], 2)
+613983	    def test_main_without_credentials_writes_a_failure_record_and_raises(self):
+613984	            env = {k: v for k, v in os.environ.items() if not k.startswith("EUMETSAT_")}
+613985	            saved = dict(os.environ)
+613986	            os.environ.clear()
+613987	            os.environ.update(env)
+613989	                    collect.main(["--auto-window", "--out", str(root / "feed.geojson"), "--status", str(root / "status.json"),
+613990	                                  "--history-dir", str(root / "history"), "--run-record", str(root / "run.json")])
+613992	                os.environ.clear()
+613993	                os.environ.update(saved)
+613994	            record = json.loads((root / "run.json").read_text())
+613995	            self.assertEqual(record["outcome"], "failure")
+613996	            self.assertIn("EUMETSAT_CONSUMER_KEY", record["error"])
+613997	            self.assertEqual(record["lookback_hours"], 6)
+613998	            self.assertEqual(record["lookback_source"], "default")
+613999	            self.assertEqual(record["features"], [])
+614000	            self.assertFalse((root / "feed.geojson").exists(), "a failed run must not write the feed")
+614001	"""Offline contracts for the one-year lightning archive (index v2); no network.
+614002	from history import (
+614003	    MAX_SHARD_BYTES, SCHEMA_INDEX, TARGET_SHARD_BYTES, ShardTooLarge, archive_observations, coverage_for, day_path,
+614004	    is_sealed, load_seed_windows, part_path, scanned_seconds_for_day, slots_proved_by_flashes, successful_scan,
+614005	    verify_archive, windows_from_run_record, year_ago,
+614006	F8_ROW_KEYS = ["date", "coverage", "scanned_seconds", "count", "bytes", "path", "sealed",
+614007	               "first_observation_utc", "last_observation_utc", "sha256"]
+614008	F8_TOP_KEYS = ["schema", "generated_utc", "collection_interval_hours", "collection_lookback_hours", "next_update_due_utc",
+614009	               "cutoff_date_utc", "retention", "source", "source_url", "observation", "bounds_wsen", "max_shard_bytes",
+614010	               "archived_observations", "first_observation_utc", "last_observation_utc", "scan_windows", "days", "status"]
+614011	def rows_with_flashes(index):
+614012	    return [row for row in index["days"] if row["count"]]
+614013	class LightningHistoryTests(unittest.TestCase):
+614014	        self.now = datetime(2026, 10, 26, 14, 0, 0, tzinfo=timezone.utc)
+614015	    def flash(self, timestamp, product, index=0, lon=-2.12, lat=51.11):
+614016	        return build_feature(lon, lat, timestamp, "TEST-" + product, index)
+614017	    def scan(self, start, end):
+614018	        return successful_scan(start.isoformat(), end.isoformat(), 18)
+614019	    # --- F8 shape --------------------------------------------------------
+614020	    def test_index_v2_has_the_f8_fields_and_one_row_per_utc_date(self):
+614021	        result = archive_observations(self.root, [self.flash(self.now - timedelta(hours=1), "a")], now=self.now,
+614022	                                      scanned_window=self.scan(self.now - timedelta(hours=6), self.now), lookback_hours=6)
+614023	        index = result["index"]
+614024	        self.assertEqual(index["schema"], SCHEMA_INDEX)
+614025	        for key in F8_TOP_KEYS:
+614026	            self.assertIn(key, index)
+614027	        self.assertEqual(index["cutoff_date_utc"], "2025-10-26")
+614028	        self.assertEqual(len(index["days"]), 366)
+614029	        self.assertEqual(index["days"][0]["date"], "2025-10-26")
+614030	        self.assertEqual(index["days"][-1]["date"], "2026-10-26")
+614031	        for row in index["days"]:
+614032	            self.assertEqual([k for k in row if k in F8_ROW_KEYS], F8_ROW_KEYS)
+614033	        self.assertEqual(index["max_shard_bytes"], 25_000_000)
+614034	        self.assertEqual(index["collection_interval_hours"], 1)
+614035	        self.assertEqual(index["next_update_due_utc"], "2026-10-26T17:00:00.000Z")
+614036	        self.assertEqual(index["status"], "archive_partial_until_history_is_genuinely_collected_or_backfilled")
+614037	        self.assertEqual(index["observation"], "satellite optical lightning flashes, not ground strikes")
+614038	        self.assertEqual(index["last_successful_scan_end_utc"], "2026-10-26T14:00:00.000Z")
+614039	        self.assertEqual(index["coverage_start_utc"], "2026-10-26T08:00:00.000Z")
+614040	        self.assertEqual(json.loads((self.root / "index.json").read_text())["schema"], SCHEMA_INDEX)
+614041	    def test_never_scanned_and_scanned_zero_are_different_rows(self):
+614042	        scanned_day = datetime(2026, 10, 24, tzinfo=timezone.utc)
+614043	        result = archive_observations(self.root, [], now=self.now,
+614044	                                      scanned_window=self.scan(scanned_day, scanned_day + timedelta(days=1)))
+614045	        rows = {row["date"]: row for row in result["index"]["days"]}
+614046	        full = rows["2026-10-24"]
+614047	        self.assertEqual((full["coverage"], full["scanned_seconds"], full["count"], full["path"], full["sealed"]),
+614048	                         ("full", 86400, 0, None, True))
+614049	        never = rows["2026-10-23"]
+614050	        self.assertEqual((never["coverage"], never["scanned_seconds"], never["count"], never["path"], never["bytes"]),
+614051	                         ("none", 0, None, None, None))
+614052	        self.assertIn("unknown, not zero", result["index"]["availability_note"])
+614053	        for row in result["index"]["days"]:
+614054	            self.assertEqual(row["count"] is None, row["coverage"] == "none")
+614055	            if row["count"] == 0:
+614056	                self.assertGreater(row["scanned_seconds"], 0)
+614057	    def test_partial_coverage_counts_only_scanned_seconds(self):
+614058	        day = datetime(2026, 10, 24, tzinfo=timezone.utc)
+614059	        windows = [self.scan(day + timedelta(hours=1, minutes=52), day + timedelta(hours=4, minutes=50)),
+614060	                   self.scan(day + timedelta(hours=8), day + timedelta(hours=11))]
+614061	        result = archive_observations(self.root, [self.flash(day + timedelta(hours=2), "p")], now=self.now,
+614062	                                      scanned_windows=windows)
+614063	        row = {r["date"]: r for r in result["index"]["days"]}["2026-10-24"]
+614064	        self.assertEqual(row["scanned_seconds"], (2 * 3600 + 58 * 60) + 3 * 3600)
+614065	        self.assertEqual(row["count"], 1)
+614066	        self.assertEqual(scanned_seconds_for_day(result["index"]["scan_windows"], day.date()), row["scanned_seconds"])
+614067	        self.assertEqual(coverage_for(0), "none")
+614068	        self.assertEqual(coverage_for(86400), "full")
+614069	    def test_day_with_flashes_but_no_recorded_window_gets_a_proven_lower_bound(self):
+614070	        day = datetime(2026, 10, 24, 10, 15, tzinfo=timezone.utc)
+614071	        flashes = [self.flash(day, "s1"), self.flash(day + timedelta(minutes=3), "s2"), self.flash(day + timedelta(minutes=30), "s3")]
+614072	        result = archive_observations(self.root, flashes, now=self.now)
+614073	        self.assertEqual(row["scanned_seconds"], 1200)  # two distinct 10-minute slots proven by three flashes
+614074	        self.assertEqual(slots_proved_by_flashes(flashes), 1200)
+614075	    # --- shard shape, bytes, sha256, dedupe ----------------------------------
+614076	    def test_day_shard_v1_shape_bytes_and_sha256_are_indexed(self):
+614078	        oldest = self.now - timedelta(days=100)
+614079	        newest = self.now - timedelta(hours=1)
+614080	        result = archive_observations(self.root, [self.flash(newest, "b"), self.flash(oldest, "a")], now=self.now,
+614081	                                      scanned_window=self.scan(self.now - timedelta(hours=3), self.now))
+614082	        self.assertEqual(index["archived_observations"], 2)
+614083	        self.assertEqual(index["archived_days_with_flashes"], 2)
+614084	        self.assertEqual(len(rows_with_flashes(index)), 2)
+614085	        for row in rows_with_flashes(index):
+614086	            self.assertTrue(row["path"].startswith("days/") and row["path"].endswith(".json"))
+614087	            self.assertNotIn("strike", row["path"])
+614088	            file = self.root / row["path"]
+614089	            raw = file.read_bytes()
+614090	            self.assertEqual(row["bytes"], len(raw))
+614091	            self.assertEqual(row["sha256"], hashlib.sha256(raw).hexdigest())
+614092	            content = json.loads(raw)
+614093	            self.assertEqual(content["schema"], "uk-lightning-history-day.v1")
+614094	            self.assertEqual(content["type"], "FeatureCollection")
+614095	            self.assertEqual(content["metadata"]["date_utc"], row["date"])
+614096	            self.assertEqual(content["metadata"]["count"], 1)
+614097	            feature = content["features"][0]
+614098	            self.assertEqual(sorted(feature), ["geometry", "id", "properties", "type"])
+614099	            self.assertEqual(sorted(feature["properties"]),
+614100	                             ["name", "observation_kind", "raw_tech", "source", "source_product", "status", "time_utc"])
+614101	            self.assertEqual(feature["properties"]["observation_kind"], "optical_lightning_flash")
+614102	    def test_duplicate_reingestion_and_rerun_are_idempotent_and_existing_bytes_win(self):
+614103	        flash = self.flash(self.now - timedelta(hours=1), "same")
+614104	        first = archive_observations(self.root, [flash], now=self.now)
+614105	        reordered = json.loads(json.dumps(flash))
+614106	        reordered["properties"] = dict(reversed(list(reordered["properties"].items())))
+614107	        second = archive_observations(self.root, [reordered, flash], now=self.now)
+614108	        self.assertEqual(second["index"]["archived_observations"], 1)
+614109	        self.assertEqual(second["files_changed"], 0)
+614110	        self.assertEqual(first["index"]["archive_first_enabled_utc"], second["index"]["archive_first_enabled_utc"])
+614111	        self.assertEqual(rows_with_flashes(first["index"])[0]["sha256"], rows_with_flashes(second["index"])[0]["sha256"])
+614112	    def test_outside_location_non_source_and_future_are_rejected(self):
+614113	        valid = self.flash(self.now - timedelta(hours=2), "valid")
+614114	        future = self.flash(self.now + timedelta(hours=1), "future")
+614115	        wrong_kind = self.flash(self.now - timedelta(hours=1), "tamper")
+614116	        wrong_kind["properties"]["observation_kind"] = "ground_strike"
+614117	        outside = self.flash(self.now - timedelta(hours=2), "outside")
+614118	        outside["geometry"]["coordinates"] = [20, 51]
+614119	        result = archive_observations(self.root, [valid, future, wrong_kind, outside], now=self.now)
+614120	        self.assertEqual(result["index"]["archived_observations"], 1)
+614121	        self.assertEqual(result["dropped_invalid"], 3)
+614122	        self.assertFalse(rows_with_flashes(result["index"])[0]["path"].endswith(".geojson"))
+614123	    # --- retention, clamp-and-flag ----------------------------------------
+614124	    def test_retention_prunes_day_files_but_not_current(self):
+614125	        old_time = self.now - timedelta(days=367)
+614126	        fresh_time = self.now - timedelta(days=10)
+614127	        old = self.flash(old_time, "old")
+614128	        fresh = self.flash(fresh_time, "fresh")
+614129	        earlier = self.now - timedelta(days=360)
+614130	        archive_observations(self.root, [old, fresh], now=earlier)
+614131	        self.assertTrue((self.root / day_path(old_time.date())).exists())
+614132	        second = archive_observations(self.root, [fresh], now=self.now)
+614133	        self.assertEqual(second["days_expired"], 1)
+614134	        self.assertFalse((self.root / day_path(old_time.date())).exists())
+614135	        self.assertTrue((self.root / day_path(fresh_time.date())).exists())
+614136	        self.assertEqual(second["index"]["days"][0]["date"], "2025-10-26")
+614137	    def test_observations_before_the_cutoff_are_clamped_and_flagged_not_raised(self):
+614138	        too_old = self.flash(self.now - timedelta(days=400), "ancient")
+614139	        result = archive_observations(self.root, [too_old, self.flash(self.now - timedelta(hours=1), "ok")], now=self.now,
+614140	                                      scanned_window=self.scan(self.now - timedelta(days=400), self.now - timedelta(days=399)))
+614141	        self.assertEqual(result["dropped_before_cutoff"], 1)
+614142	        self.assertEqual(result["index"]["scan_windows"], [])  # a window entirely before the cutoff is clipped away
+614143	    def test_calendar_year_cutoff_handles_leap_day(self):
+614144	        self.assertEqual(str(year_ago(datetime(2024, 2, 29, tzinfo=timezone.utc).date())), "2023-02-28")
+614145	    # --- sealed ---------------------------------------------------------------
+614146	    def test_sealed_rule(self):
+614147	        today = self.now.date()
+614148	        self.assertTrue(is_sealed(today - timedelta(days=5), "partial", self.now))
+614149	        self.assertFalse(is_sealed(today - timedelta(days=1), "partial", self.now))
+614150	        self.assertTrue(is_sealed(today - timedelta(days=1), "full", self.now))
+614151	        self.assertFalse(is_sealed(today, "partial", self.now))
+614152	        # date + 1 day + 48 h boundary: 2026-10-23 closes at 2026-10-26T00:00Z
+614153	        self.assertTrue(is_sealed(datetime(2026, 10, 23).date(), "partial", datetime(2026, 10, 26, 0, 0, tzinfo=timezone.utc)))
+614154	        self.assertFalse(is_sealed(datetime(2026, 10, 23).date(), "partial", datetime(2026, 10, 25, 23, 59, tzinfo=timezone.utc)))
+614155	    # --- storm day: split and hard cap --------------------------------------
+614156	    def test_storm_day_splits_into_hourly_parts_above_the_target(self):
+614157	        flashes = [self.flash(day + timedelta(hours=h, minutes=m), f"storm{h}-{m}", m) for h in (3, 4, 17) for m in range(4)]
+614158	        result = archive_observations(self.root, flashes, now=self.now, scanned_window=self.scan(day, day + timedelta(days=1)),
+614159	                                      target_shard_bytes=2000, max_shard_bytes=25_000_000)
+614160	        self.assertEqual(result["split_days"], ["2026-10-24"])
+614161	        self.assertIsNone(row["sha256"])
+614162	        self.assertEqual(row["count"], 12)
+614163	        self.assertEqual([p["hour"] for p in row["parts"]], ["03", "04", "17"])
+614164	        self.assertEqual([p["path"] for p in row["parts"]], [part_path(day.date(), h) for h in (3, 4, 17)])
+614165	        self.assertEqual(row["bytes"], sum(p["bytes"] for p in row["parts"]))
+614166	        for part in row["parts"]:
+614167	            file = self.root / part["path"]
+614168	            self.assertEqual(part["bytes"], len(file.read_bytes()))
+614169	            content = json.loads(file.read_text())
+614170	            self.assertEqual(content["metadata"]["date_utc"], "2026-10-24")
+614171	            self.assertEqual(content["metadata"]["hour_utc"], part["hour"])
+614172	            self.assertEqual(len(content["features"]), 4)
+614173	        self.assertFalse((self.root / day_path(day.date())).exists())
+614174	        # A second run with one more flash in hour 04 rewrites only that part.
+614175	        again = archive_observations(self.root, [self.flash(day + timedelta(hours=4, minutes=30), "late", 9)], now=self.now,
+614176	                                     target_shard_bytes=2000)
+614177	        self.assertEqual(again["files_changed"], 2)  # the 04 part and the index
+614178	        self.assertEqual({r["date"]: r for r in again["index"]["days"]}["2026-10-24"]["count"], 13)
+614179	        self.assertEqual(verify_archive(self.root)["shards_checked"], 1)
+614180	    def test_real_constants_split_a_genuine_shape_storm_day(self):
+614181	        # 20,000 features of the real 526-byte shape are ~10.5 MB: above the 8 MiB target, below the 25 MB cap.
+614182	        self.assertEqual(TARGET_SHARD_BYTES, 8 * 1024 * 1024)
+614183	        self.assertEqual(MAX_SHARD_BYTES, 25_000_000)
+614184	        product = ("TEST-W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_20261024010026_L2PF_OPE_"
+614185	                   "20261024000009_20261024001009_N__O_0001_0000")
+614186	        flashes = [build_feature(-2.0 + (i % 100) / 1000, 51.0 + (i // 100) / 1000, day + timedelta(seconds=i * 4), product, i)
+614187	                   for i in range(20000)]
+614188	        result = archive_observations(self.root, flashes, now=self.now, scanned_window=self.scan(day, day + timedelta(days=1)))
+614189	        self.assertGreater(row["bytes"], TARGET_SHARD_BYTES)
+614190	        self.assertEqual(sum(p["count"] for p in row["parts"]), 20000)
+614191	        self.assertTrue(all(p["bytes"] <= MAX_SHARD_BYTES for p in row["parts"]))
+614192	        self.assertEqual(len(row["parts"]), 23)  # 20000 x 4 s = 22.2 hours
+614193	    def test_shard_above_max_bytes_fails_loudly_and_writes_nothing(self):
+614194	        flashes = [self.flash(day + timedelta(hours=3, minutes=m), f"cap{m}", m) for m in range(5)]
+614195	        with self.assertRaises(ShardTooLarge):
+614196	            archive_observations(self.root, flashes, now=self.now, target_shard_bytes=600, max_shard_bytes=900)
+614197	        self.assertFalse((self.root / "index.json").exists())
+614198	        self.assertFalse(any((self.root / "days").rglob("*.json")) if (self.root / "days").exists() else False)
+614199	        self.assertTrue(issubclass(ShardTooLarge, ValueError))
+614200	    # --- integrity --------------------------------------------------------
+614201	    def test_damaged_day_archive_fails_without_erasure(self):
+614202	        flash = self.flash(self.now - timedelta(hours=1), "good")
+614203	        archive_observations(self.root, [flash], now=self.now)
+614204	        path = self.root / day_path(self.now.date())
+614206	        payload["schema"] = "wrong-schema"
+614207	        path.write_text(json.dumps(payload))
+614209	            archive_observations(self.root, [flash], now=self.now)  # touched day: full re-validation
+614210	            archive_observations(self.root, [], now=self.now)  # untouched day: sha256 verification
+614211	        self.assertEqual(json.loads(path.read_text())["schema"], "wrong-schema")
+614212	    def test_untouched_days_are_verified_by_sha256_not_reparsed(self):
+614213	        archive_observations(self.root, [self.flash(self.now - timedelta(days=3), "a"), self.flash(self.now - timedelta(hours=1), "b")], now=self.now)
+614214	        parsed = []
+614215	        original = history._read_features
+614216	        def spy(file, expected_day):
+614217	            parsed.append(expected_day)
+614218	            return original(file, expected_day)
+614219	        history._read_features = spy
+614220	            archive_observations(self.root, [self.flash(self.now - timedelta(hours=2), "c")], now=self.now)
+614222	            history._read_features = original
+614223	        self.assertEqual(parsed, ["2026-10-26"])  # only the touched day was parsed
+614224	    def test_missing_days_never_claim_zero_lightning(self):
+614225	        result = archive_observations(self.root, [], now=self.now)
+614226	        self.assertEqual(rows_with_flashes(result["index"]), [])
+614227	        self.assertTrue(all(row["coverage"] == "none" and row["count"] is None for row in result["index"]["days"]))
+614228	        self.assertEqual(result["index"]["archived_observations"], 0)
+614229	        self.assertIn("partial", result["index"]["status"])
+614230	    # --- scan windows ---------------------------------------------------------
+614231	    def test_overlap_scan_windows_merge_without_false_complete_coverage_claim(self):
+614232	        s1 = successful_scan("2026-10-26T10:00:00Z", "2026-10-26T12:00:00Z", 12)
+614233	        s2 = successful_scan("2026-10-26T11:30:00Z", "2026-10-26T13:00:00Z", 12)
+614234	        archive_observations(self.root, [], now=self.now, scanned_window=s1)
+614235	        result = archive_observations(self.root, [], now=self.now, scanned_window=s2)
+614236	        windows = result["index"]["scan_windows"]
+614237	        self.assertEqual(len(windows), 1)
+614238	        self.assertEqual(windows[0]["start_utc"], "2026-10-26T10:00:00.000Z")
+614239	        self.assertEqual(windows[0]["end_utc"], "2026-10-26T13:00:00.000Z")
+614240	        self.assertEqual(windows[0]["successful_runs"], 2)
+614241	        self.assertIn("not a guarantee", result["index"]["scan_window_note"])
+614242	        today = {r["date"]: r for r in result["index"]["days"]}["2026-10-26"]
+614243	        self.assertEqual((today["coverage"], today["scanned_seconds"], today["count"]), ("partial", 3 * 3600, 0))
+614244	    def test_zero_product_search_cannot_be_recorded_as_coverage(self):
+614245	            successful_scan("2026-10-26T10:00:00Z", "2026-10-26T12:00:00Z", 0)
+614246	            successful_scan("2026-10-26T12:00:00Z", "2026-10-26T10:00:00Z", 5)
+614247	    def test_windows_from_run_record_use_examined_ranges_only(self):
+614248	        record = {"outcome": "success", "products_examined": 18,
+614249	                  "scanned_ranges": [{"start_utc": "2026-10-26T07:05:58.000Z", "end_utc": "2026-10-26T13:00:09.000Z"}]}
+614250	        self.assertEqual(windows_from_run_record(record),
+614251	                         [{"start_utc": "2026-10-26T07:05:58.000Z", "end_utc": "2026-10-26T13:00:09.000Z", "successful_runs": 1}])
+614252	        self.assertEqual(windows_from_run_record({"outcome": "failure", "products_examined": 0, "scanned_ranges": []}), [])
+614253	    def test_seed_windows_are_used_only_when_no_index_exists(self):
+614254	        seed_file = Path(self.temp.name) / "seed.json"
+614255	        seed_file.write_text(json.dumps({"scan_windows": [
+614256	            {"start_utc": "2026-10-20T22:41:54.847Z", "end_utc": "2026-10-22T22:40:09.000Z", "products_examined": 288}]}))
+614257	        seeds = load_seed_windows(seed_file)
+614258	        first = archive_observations(self.root, [], now=self.now, seed_scan_windows=seeds)
+614259	        self.assertEqual(first["index"]["scan_windows"][0]["successful_runs"], 1)
+614260	        self.assertEqual({r["date"]: r for r in first["index"]["days"]}["2026-10-21"]["coverage"], "full")
+614261	        second = archive_observations(self.root, [], now=self.now, seed_scan_windows=seeds)
+614262	        self.assertEqual(second["index"]["scan_windows"][0]["successful_runs"], 1)  # not double counted
+614263	        self.assertEqual(load_seed_windows(Path(self.temp.name) / "absent.json"), [])
+614264	    # --- v1 migration -----------------------------------------------------------
+614265	    def test_v1_index_from_pr1_is_accepted_and_upgraded(self):
+614266	        flash = self.flash(datetime(2026, 10, 24, 10, tzinfo=timezone.utc), "v1")
+614267	        self.root.mkdir(parents=True)
+614268	        shard = {"schema": "uk-lightning-history-day.v1", "type": "FeatureCollection",
+614269	                 "metadata": {"date_utc": "2026-10-24", "count": 1}, "features": [flash]}
+614270	        (self.root / "days/2026/10").mkdir(parents=True)
+614271	        (self.root / "days/2026/10/24.json").write_text(json.dumps(shard))
+614272	        (self.root / "index.json").write_text(json.dumps({
+614273	            "schema": "uk-lightning-history-index.v1", "generated_utc": "2026-10-25T00:00:00.000Z",
+614274	            "archive_first_enabled_utc": "2026-10-23T00:00:00.000Z", "cutoff_date_utc": "2025-10-25",
+614275	            "days": [{"date": "2026-10-24", "path": "days/2026/10/24.json", "count": 1,
+614276	                      "first_observation_utc": flash["properties"]["time_utc"], "last_observation_utc": flash["properties"]["time_utc"]}],
+614277	            "scan_windows": [{"start_utc": "2026-10-24T09:00:00.000Z", "end_utc": "2026-10-24T12:00:00.000Z", "successful_runs": 1}]}))
+614278	        self.assertEqual(index["archive_first_enabled_utc"], "2026-10-23T00:00:00.000Z")
+614279	        row = {r["date"]: r for r in index["days"]}["2026-10-24"]
+614280	        self.assertEqual((row["coverage"], row["scanned_seconds"], row["count"]), ("partial", 3 * 3600, 1))
+614281	        self.assertTrue(row["sha256"])
+614282	        (self.root / "index.json").write_text(json.dumps({"schema": "something-else", "days": []}))
+614283	            archive_observations(self.root, [], now=self.now)
+614284	    # --- D-1: a shard listed in the index but missing on disk -------------------
+614285	    def test_listed_shard_missing_on_disk_becomes_unknown_not_zero(self):
+614286	        first = archive_observations(self.root, [self.flash(day + timedelta(hours=10), "a"),
+614287	                                                 self.flash(day + timedelta(hours=11), "b")],
+614288	                                     now=self.now, scanned_window=self.scan(day, day + timedelta(days=1)))
+614289	        self.assertEqual({r["date"]: r for r in first["index"]["days"]}["2026-10-24"]["count"], 2)
+614290	        (self.root / day_path(day.date())).unlink()  # lost between runs (bad merge, manual edit, ...)
+614291	        second = archive_observations(self.root, [], now=self.now)
+614292	        row = {r["date"]: r for r in second["index"]["days"]}["2026-10-24"]
+614293	        self.assertEqual((row["coverage"], row["scanned_seconds"], row["count"], row["path"], row["bytes"], row["sha256"]),
+614294	                         ("none", 0, None, None, None, None))  # unknown, never a searched zero
+614295	        self.assertTrue(row["shard_lost"])
+614296	        self.assertEqual(second["lost_days"], ["2026-10-24"])
+614297	        self.assertEqual(second["index"]["archived_observations"], 0)
+614298	        # Sticky: a later run carrying one flash of that day must not turn it into a partial "count 1".
+614299	        third = archive_observations(self.root, [self.flash(day + timedelta(hours=12), "c")], now=self.now)
+614300	        row = {r["date"]: r for r in third["index"]["days"]}["2026-10-24"]
+614301	        self.assertEqual((row["coverage"], row["count"], row["path"]), ("none", None, None))
+614302	        # Not discarded either: the flash waits in quarantine until a verified recovery.
+614303	        self.assertEqual((third["quarantined_lost_day"], third["dropped_lost_day"]), (1, 0))
+614304	        self.assertEqual(verify_archive(self.root)["shards_checked"], 0)
+614305	    def test_missing_hourly_part_marks_the_whole_day_unknown(self):
+614306	        flashes = [self.flash(day + timedelta(hours=h, minutes=m), f"p{h}-{m}", m) for h in (3, 4) for m in range(4)]
+614307	        archive_observations(self.root, flashes, now=self.now, scanned_window=self.scan(day, day + timedelta(days=1)),
+614308	                             target_shard_bytes=2000)
+614309	        (self.root / part_path(day.date(), 4)).unlink()
+614310	        result = archive_observations(self.root, [], now=self.now, target_shard_bytes=2000)
+614311	        self.assertEqual((row["coverage"], row["count"], row.get("parts")), ("none", None, None))
+614312	        self.assertEqual(result["lost_days"], ["2026-10-24"])
+614313	    # --- D-3: unparsed product names are not examined slots ----------------------
+614314	    def test_unparsed_slot_names_record_no_coverage(self):
+614315	        record = {"outcome": "success", "products_examined": 2, "slots_parsed": False,
+614316	                  "scanned_ranges": [{"start_utc": "2026-10-26T08:00:00.000Z", "end_utc": "2026-10-26T14:00:00.000Z"}]}
+614317	        self.assertEqual(windows_from_run_record(record), [])
+614318	        result = archive_observations(self.root, [], now=self.now, scanned_windows=windows_from_run_record(record))
+614319	        self.assertEqual((today["coverage"], today["scanned_seconds"], today["count"]), ("none", 0, None))
+614320	        self.assertEqual(len(windows_from_run_record({**record, "slots_parsed": True})), 1)
+614321	    # --- verify: strict bytes/sha256 and counts ----------------------------------
+614322	    def test_verify_requires_bytes_and_sha256_and_matching_counts(self):
+614323	        archive_observations(self.root, [self.flash(self.now - timedelta(hours=1), "v")], now=self.now)
+614324	        index_path = self.root / "index.json"
+614325	        good = json.loads(index_path.read_text())
+614326	        for field in ("sha256", "bytes"):
+614327	            index = json.loads(json.dumps(good))
+614328	            row = rows_with_flashes(index)[0]
+614329	            row[field] = None
+614330	            index_path.write_text(json.dumps(index))
+614331	            with self.assertRaisesRegex(ValueError, field):
+614332	                verify_archive(self.root)
+614333	        index = json.loads(json.dumps(good))
+614334	        rows_with_flashes(index)[0]["count"] = 5  # bytes and sha256 still match the file
+614335	        index_path.write_text(json.dumps(index))
+614336	        with self.assertRaisesRegex(ValueError, "count"):
+614337	            verify_archive(self.root)
+614338	        index["days"][0].update({"coverage": "full", "scanned_seconds": 86400, "count": None})
+614339	    # --- CLI --------------------------------------------------------------------
+614340	    def test_cli_ingest_and_verify(self):
+614341	        record_path = Path(self.temp.name) / "run.json"
+614342	        result_path = Path(self.temp.name) / "result.json"
+614343	        record_path.write_text(json.dumps({
+614344	            "schema": "uk-lightning-run-record.v1", "outcome": "success", "run_utc": "2026-10-26T13:05:58.000Z",
+614345	            "products_examined": 18, "lookback_hours": 6.0,
+614346	            "scanned_ranges": [{"start_utc": "2026-10-26T07:05:58.000Z", "end_utc": "2026-10-26T13:00:09.000Z"}],
+614347	            "features": [self.flash(self.now - timedelta(hours=2), "cli")]}))
+614348	        code = history.main(["ingest", "--archive-dir", str(self.root), "--run-record", str(record_path),
+614349	                             "--result-out", str(result_path), "--now", self.now.isoformat(),
+614350	                             "--seed-scan-windows", str(Path(self.temp.name) / "none.json")])
+614351	        summary = json.loads(result_path.read_text())
+614352	        self.assertEqual(summary["archived_observations"], 1)
+614353	        self.assertEqual(summary["last_successful_scan_end_utc"], "2026-10-26T13:00:09.000Z")
+614354	        self.assertEqual(json.loads((self.root / "index.json").read_text())["last_run_lookback_hours"], 6.0)
+614355	        self.assertEqual(history.main(["verify", "--archive-dir", str(self.root)]), 0)
+614356	        record_path.write_text(json.dumps({"schema": "uk-lightning-run-record.v1", "outcome": "failure", "error": "x"}))
+614357	        with self.assertRaises(SystemExit):
+614358	            history.main(["ingest", "--archive-dir", str(self.root), "--run-record", str(record_path)])
+614360	  PERIODS, STATES, STATE_COLOURS, selectUtcWindow, selectUtcDates, previousUtcWindow, nextUtcWindow, clampWindow,
+614361	  canGoPrevious, canGoNext, normaliseIndex, isStale, windowCoverage, dayCoverage, windowBudget, shardTargets,
+614362	  classifyState, captionLines, formatHistoryLabel, createLightningHistoryClient
+614363	} from '../history-window.mjs';
+614364	// Synthetic fixtures live only in this test process (ids start with "TEST-"); nothing is published.
+614365	const base = 'https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/index.json';
+614366	const feedUrl = 'https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson';
+614367	const NOW = Date.parse('2026-10-26T14:00:00Z');
+614368	const OBS = 'satellite optical lightning flashes, not ground strikes';
+614369	const flash = (time, id) => ({
+614370	  type: 'Feature', id: 'TEST-' + id, geometry: { type: 'Point', coordinates: [-2, 51] },
+614371	  properties: { source_product: 'MTG LI L2-LFL', observation_kind: 'optical_lightning_flash', time_utc: time }
+614372	const shard = (date, features, extra = {}) => ({
+614373	  schema: 'uk-lightning-history-day.v1', type: 'FeatureCollection', metadata: { date_utc: date, count: features.length, ...extra }, features
+614374	const sha = (c) => c.repeat(64);
+614375	function v2Row(date, over = {}) {
+614376	    date, coverage: 'none', scanned_seconds: 0, count: null, bytes: null, path: null, sealed: true,
+614377	    first_observation_utc: null, last_observation_utc: null, sha256: null, ...over
+614378	/** Rows for every date between two dates (inclusive), mostly never scanned. */
+614379	function rowsBetween(from, to, overrides) {
+614381	  for (let t = Date.parse(from + 'T00:00:00Z'); t <= Date.parse(to + 'T00:00:00Z'); t += 86400000) {
+614382	    const date = new Date(t).toISOString().slice(0, 10);
+614383	    rows.push(v2Row(date, overrides[date] || {}));
+614385	function v2Index(overrides = {}, top = {}) {
+614386	    schema: 'uk-lightning-history-index.v2', generated_utc: '2026-10-26T13:00:00.000Z', collection_interval_hours: 1,
+614387	    collection_lookback_hours: 6, collection_lookback_hours_max: 48, next_update_due_utc: '2026-10-26T16:00:00.000Z',
+614388	    cutoff_date_utc: '2025-10-26', retention: 'one calendar year, UTC', source: 'EUMETSAT MTG Lightning Imager L2-LFL',
+614389	    source_url: 'https://example.invalid', observation: OBS, bounds_wsen: [-11, 49.5, 3, 61.5], max_shard_bytes: 25000000,
+614390	    archive_first_enabled_utc: '2026-10-26T13:00:00.000Z', coverage_start_utc: '2026-10-20T22:41:54.847Z',
+614391	    last_successful_scan_end_utc: '2026-10-26T13:00:09.000Z', archived_observations: 3,
+614392	    first_observation_utc: '2026-10-24T10:00:00Z', last_observation_utc: '2026-10-25T01:00:00Z',
+614393	    scan_windows: [{ start_utc: '2026-10-20T22:41:54.847Z', end_utc: '2026-10-22T22:40:09.000Z', successful_runs: 1 },
+614394	      { start_utc: '2026-10-24T00:00:00.000Z', end_utc: '2026-10-25T12:00:00.000Z', successful_runs: 5 },
+614395	      { start_utc: '2026-10-26T10:05:58.649Z', end_utc: '2026-10-26T13:00:09.000Z', successful_runs: 1 }],
+614396	    availability_note: 'Missing archives mean unknown, not no lightning', scan_window_note: 'not a guarantee',
+614397	    days: rowsBetween('2025-10-26', '2026-10-26', {
+614398	      '2026-10-20': { coverage: 'partial', scanned_seconds: 4685, count: 0 },
+614399	      '2026-10-21': { coverage: 'full', scanned_seconds: 86400, count: 0 },
+614400	      '2026-10-22': { coverage: 'partial', scanned_seconds: 81609, count: 0 },
+614401	      '2026-10-24': { coverage: 'full', scanned_seconds: 86400, count: 2, bytes: 1100, path: 'days/2026/10/24.json', sealed: true,
+614402	        first_observation_utc: '2026-10-24T10:00:00Z', last_observation_utc: '2026-10-24T23:59:59Z', sha256: sha('a') },
+614403	      '2026-10-25': { coverage: 'partial', scanned_seconds: 43200, count: 1, bytes: 550, path: 'days/2026/10/25.json', sealed: false,
+614404	        first_observation_utc: '2026-10-25T01:00:00Z', last_observation_utc: '2026-10-25T01:00:00Z', sha256: sha('b') },
+614405	      '2026-10-26': { coverage: 'partial', scanned_seconds: 10451, count: 0, sealed: false },
+614406	      ...overrides
+614408	    status: 'archive_partial_until_history_is_genuinely_collected_or_backfilled', ...top
+614409	function v1Index() {
+614410	    schema: 'uk-lightning-history-index.v1', generated_utc: '2026-10-26T13:00:00Z', observation: OBS, cutoff_date_utc: '2025-10-26',
+614411	    archive_first_enabled_utc: '2026-10-26T13:00:00Z',
+614412	    days: [{ date: '2026-10-24', path: 'days/2026/10/24.json', count: 2, first_observation_utc: '2026-10-24T10:00:00Z', last_observation_utc: '2026-10-24T23:59:59Z' },
+614413	      { date: '2026-10-25', path: 'days/2026/10/25.json', count: 1, first_observation_utc: '2026-10-25T01:00:00Z', last_observation_utc: '2026-10-25T01:00:00Z' }],
+614414	    scan_windows: [{ start_utc: '2026-10-24T00:00:00.000Z', end_utc: '2026-10-25T12:00:00.000Z', successful_runs: 5 }],
+614415	    archived_observations: 3, availability_note: 'Missing archives mean unknown, not no lightning', scan_window_note: 'not a guarantee'
+614416	function fixtures(index = v2Index(), { feed = null, bodies = {} } = {}) {
+614417	  const body = new Map([
+614418	    [base, index],
+614419	    [new URL('days/2026/10/24.json', base).href, shard('2026-10-24', [flash('2026-10-24T10:00:00Z', 'first'), flash('2026-10-24T23:59:59Z', 'second')])],
+614420	    [new URL('days/2026/10/25.json', base).href, shard('2026-10-25', [flash('2026-10-25T01:00:00Z', 'third')])]
+614421	  if (feed) body.set(feedUrl, feed);
+614422	  for (const [k, v] of Object.entries(bodies)) body.set(new URL(k, base).href, v);
+614424	  const fetchImpl = async (url, init = {}) => {
+614425	    requests.push({ url: url.replace(new URL('.', base).href, ''), cache: init.cache });
+614426	    if (!body.has(url)) return { ok: false, status: 404 };
+614427	    const b = body.get(url);
+614428	    if (b instanceof Error) throw b;
+614429	    if (typeof b === 'string') return { ok: true, status: 200, json: async () => JSON.parse(b) };
+614430	    return { ok: true, status: 200, json: async () => b };
+614431	  return { body, requests, fetchImpl };
+614432	const client = (f, extra = {}) => createLightningHistoryClient({ indexUrl: base, feedUrl, fetchImpl: f.fetchImpl, now: () => NOW, ...extra });
+614433	// ------------------------------------------------------------------ windows
+614434	test('V6-like names, leap-year calendar and exact UTC window boundaries', () => {
+614435	  assert.equal(PERIODS['12m'], '1 year');
+614436	  const end = '2026-10-26T14:00:00Z';
+614437	  const year = selectUtcWindow({ period: '12m', end });
+614438	  assert.equal(year.start, '2025-10-26T14:00:00.000Z');
+614439	  assert.equal(year.end, '2026-10-26T14:00:00.000Z');
+614440	  assert.equal(year.bounds, '[start,end)');
+614441	  assert.equal(selectUtcWindow({ period: '12m', end: '2024-02-29T12:00:00Z' }).start, '2023-02-28T12:00:00.000Z');
+614442	  const dates = selectUtcDates('2026-10-24', '2026-10-25');
+614443	  assert.equal(dates.start, '2026-10-24T00:00:00.000Z');
+614444	  assert.equal(dates.end, '2026-10-26T00:00:00.000Z');
+614445	  assert.throws(() => selectUtcDates('2026-02-30', '2026-03-01'), RangeError);
+614446	test('Previous and next period navigation uses UTC and avoids future lookahead', () => {
+614447	  const initial = selectUtcWindow({ period: '7d', end: '2026-10-26T14:00:00Z' });
+614448	  const prev = previousUtcWindow(initial);
+614449	  assert.equal(prev.end, initial.start);
+614450	  assert.equal(nextUtcWindow(prev, '2026-10-26T14:00:00Z').end, initial.end);
+614451	  assert.strictEqual(nextUtcWindow(initial, '2026-10-26T14:00:00Z'), initial);
+614452	  assert.equal(canGoNext(initial, NOW), false);
+614453	  assert.equal(canGoNext(prev, NOW), true);
+614454	test('Window end is clamped to now, never a future window', () => {
+614455	  const w = selectUtcWindow({ period: '24h', end: '2026-10-27T10:00:00Z', now: NOW });
+614456	  assert.equal(w.end, new Date(NOW).toISOString());
+614457	  assert.equal(w.start, '2026-10-25T14:00:00.000Z');
+614458	  assert.equal(w.clampedEnd, true);
+614459	  const c = clampWindow(selectUtcWindow({ period: 'custom', start: '2026-10-26T00:00:00Z', end: '2026-10-28T00:00:00Z' }), { nowMs: NOW });
+614460	  assert.equal(c.clampedEnd, true);
+614461	  assert.equal(c.window.end, new Date(NOW).toISOString());
+614462	  assert.equal(c.window.start, '2026-10-26T00:00:00.000Z');
+614463	test('Retention edge clamps and flags instead of throwing; entirely-before is a state', () => {
+614464	  const cutoff = Date.parse('2025-10-26T00:00:00Z');
+614465	  const straddling = clampWindow(selectUtcWindow({ period: '7d', end: '2025-10-28T00:00:00Z' }), { cutoffMs: cutoff, nowMs: NOW });
+614466	  assert.equal(straddling.clampedStart, true);
+614467	  assert.equal(straddling.beforeArchive, false);
+614468	  assert.equal(straddling.window.start, '2025-10-26T00:00:00.000Z');
+614469	  const before = clampWindow(selectUtcWindow({ period: '7d', end: '2025-10-25T00:00:00Z' }), { cutoffMs: cutoff, nowMs: NOW });
+614470	  assert.equal(before.beforeArchive, true);
+614471	  const idx = normaliseIndex(v2Index());
+614472	  assert.equal(canGoPrevious(selectUtcWindow({ period: '12m', end: '2026-10-26T14:00:00Z' }), idx), true);
+614473	  assert.equal(canGoPrevious(selectUtcDates('2025-10-26', '2025-10-27'), idx), false);
+614474	// -------------------------------------------------------------------- index
+614475	test('Index v2 is accepted and validated; v1 is normalised to v2 rows with coverage from scan_windows', () => {
+614476	  const v2 = normaliseIndex(v2Index());
+614477	  assert.equal(v2.schemaVersion, 2);
+614478	  assert.equal(v2.days.length, 366);
+614479	  assert.equal(v2.dayMap.get('2026-10-24').coverage, 'full');
+614480	  const v1 = normaliseIndex(v1Index());
+614481	  assert.equal(v1.schemaVersion, 1);
+614482	  assert.equal(v1.days.length, 366);
+614483	  const d24 = v1.dayMap.get('2026-10-24');
+614484	  assert.deepEqual([d24.coverage, d24.scanned_seconds, d24.count, d24.path, d24.sealed], ['full', 86400, 2, 'days/2026/10/24.json', true]);
+614485	  const d25 = v1.dayMap.get('2026-10-25');
+614486	  assert.deepEqual([d25.coverage, d25.scanned_seconds, d25.count, d25.sealed], ['partial', 43200, 1, false]);
+614487	  const d23 = v1.dayMap.get('2026-10-23');
+614488	  assert.deepEqual([d23.coverage, d23.count, d23.path], ['none', null, null]);
+614489	  assert.equal(v1.lastScanEndMs, Date.parse('2026-10-25T12:00:00Z'));
+614490	  assert.throws(() => normaliseIndex({ ...v2Index(), schema: 'uk-lightning-history-index.v3' }), /Unsupported/);
+614491	  assert.throws(() => normaliseIndex({ ...v2Index(), observation: 'strikes' }), /Invalid historical lightning index/);
+614492	  const badCount = v2Index({ '2026-10-23': { coverage: 'none', scanned_seconds: 0, count: 0 } });
+614493	  assert.throws(() => normaliseIndex(badCount), /count must be null iff coverage none/);
+614494	  const zeroUnscanned = v2Index({ '2026-10-23': { coverage: 'partial', scanned_seconds: 0, count: 0 } });
+614495	  assert.throws(() => normaliseIndex(zeroUnscanned), /count 0 needs scanned time/);
+614496	test('Staleness uses generated_utc age or next_update_due_utc', () => {
+614497	  assert.equal(isStale(idx, NOW), false);
+614498	  assert.equal(isStale(idx, Date.parse('2026-10-26T16:01:00Z')), true);   // past next_update_due_utc
+614499	  assert.equal(isStale(normaliseIndex(v2Index({}, { next_update_due_utc: '2026-10-27T00:00:00Z' })), Date.parse('2026-10-26T17:30:00Z')), true); // > 4 h
+614500	// ----------------------------------------------------------------- coverage
+614501	test('Coverage per day and per window: searched fraction, runs, not-yet-ingested tail, unknown days', () => {
+614502	  assert.deepEqual([dayCoverage(idx, '2026-10-21').coverage, dayCoverage(idx, '2026-10-23').coverage, dayCoverage(idx, '2026-10-23').count], ['full', 'none', null]);
+614503	  assert.equal(dayCoverage(idx, '2024-01-01').known, false);
+614504	  const w = selectUtcDates('2026-10-24', '2026-10-25');
+614505	  const c = windowCoverage(idx, w);
+614506	  assert.equal(c.windowSeconds, 172800);
+614507	  assert.equal(c.searchedSeconds, 129600);
+614508	  assert.equal(c.searchedFraction, 0.75);
+614509	  assert.equal(c.runs, 5);
+614510	  assert.equal(c.scanStart, '2026-10-24T00:00:00.000Z');
+614511	  assert.equal(c.scanEnd, '2026-10-25T12:00:00.000Z');
+614512	  assert.equal(c.notYetIngestedSeconds, 0);
+614513	  assert.deepEqual(c.unknownDays, []);
+614514	  const latest = windowCoverage(idx, selectUtcWindow({ period: '24h', end: NOW }));
+614515	  assert.equal(latest.notYetIngestedSeconds, (NOW - Date.parse('2026-10-26T13:00:09Z')) / 1000);
+614516	  const never = windowCoverage(idx, selectUtcDates('2026-06-01', '2026-06-02'));
+614517	  assert.equal(never.searchedFraction, 0);
+614518	  assert.deepEqual(never.unknownDays, ['2026-06-01', '2026-06-02']);
+614519	  assert.equal(never.beforeArchiveSeconds, 172800);
+614520	  // Day rows are a floor when no scan window is recorded for the date.
+614521	  const floored = normaliseIndex(v2Index({ '2026-10-23': { coverage: 'partial', scanned_seconds: 1200, count: 0 } }));
+614522	  assert.equal(windowCoverage(floored, selectUtcDates('2026-10-23', '2026-10-23')).searchedSeconds, 1200);
+614523	// ------------------------------------------------------------------- budget
+614524	test('Budget is decided from index bytes and counts before any shard request', () => {
+614525	  const rows = idx.days.filter((r) => r.count);
+614526	  const ok = windowBudget(rows, selectUtcDates('2026-10-24', '2026-10-25'));
+614527	  assert.deepEqual([ok.bytes, ok.count, ok.requests, ok.withinBudget], [1650, 3, 2, true]);
+614528	  const big = windowBudget([v2Row('2026-10-23', { coverage: 'full', scanned_seconds: 86400, count: 120000, bytes: 48000000, path: 'days/2026/10/23.json' })],
+614529	    selectUtcDates('2026-10-23', '2026-10-23'));
+614530	  assert.equal(big.withinBudget, false);
+614531	  assert.match(big.reason, /120,000 indexed flashes exceed 40,000/);
+614532	  const estimated = windowBudget([v2Row('2026-10-23', { coverage: 'full', scanned_seconds: 86400, count: 10, path: 'days/2026/10/23.json' })], selectUtcDates('2026-10-23', '2026-10-23'));
+614533	  assert.deepEqual([estimated.bytes, estimated.estimated], [5300, true]);
+614534	test('Hourly parts: only the parts overlapping the window are targeted', () => {
+614535	  const row = v2Row('2026-10-23', { coverage: 'full', scanned_seconds: 86400, count: 30, bytes: 3000, sealed: true, parts: [
+614536	    { hour: '03', path: 'days/2026/10/23/03.json', count: 10, bytes: 1000, sha256: sha('c') },
+614537	    { hour: '04', path: 'days/2026/10/23/04.json', count: 10, bytes: 1000, sha256: sha('d') },
+614538	    { hour: '17', path: 'days/2026/10/23/17.json', count: 10, bytes: 1000, sha256: sha('e') }] });
+614539	  normaliseIndex(v2Index({ '2026-10-23': row }));
+614540	  const targets = shardTargets(row, selectUtcWindow({ period: 'custom', start: '2026-10-23T04:30:00Z', end: '2026-10-23T18:00:00Z' }));
+614541	  assert.deepEqual(targets.map((t) => t.path), ['days/2026/10/23/04.json', 'days/2026/10/23/17.json']);
+614542	  assert.equal(shardTargets(v2Row('2026-10-23', { coverage: 'full', scanned_seconds: 86400, count: 0 }), selectUtcDates('2026-10-23', '2026-10-23')).length, 0);
+614543	// --------------------------------------------------------------- the client
+614544	test('Year lookback reads index only; no 365 day downloads on mobile', async () => {
+614545	  const f = fixtures();
+614546	  const c = client(f);
+614547	  const annual = await c.loadWindow(selectUtcWindow({ period: '12m', end: NOW }));
+614548	  assert.equal(annual.mode, 'overview');
+614549	  assert.equal(annual.archivedDayCount, 3);
+614550	  assert.equal(annual.unknownDayCount, 360);
+614551	  assert.equal(annual.dailyCounts.length, 366);
+614552	  assert.deepEqual(f.requests.map((r) => r.url), ['index.json']);
+614553	  assert.equal(f.requests[0].cache, 'no-cache');
+614554	  assert.equal(annual.status.state, STATES.PARTIAL);
+614555	  assert.match(formatHistoryLabel(annual, { nowMs: NOW }), /Historical gaps are unknown/);
+614556	  assert.match(formatHistoryLabel(annual, { nowMs: NOW }), /360 of 366 UTC dates have no collection run/);
+614557	test('Detail is the default for short windows: exact time filter, dedupe, sealed-aware cache mode, LRU reuse', async () => {
+614558	  const window = selectUtcWindow({ period: 'custom', start: '2026-10-24T11:00:00Z', end: '2026-10-26T00:00:00Z' });
+614559	  const once = await c.loadWindow(window);
+614560	  assert.equal(once.mode, 'detail');
+614561	  assert.equal(once.totalMatchingObservations, 2);
+614562	  assert.equal(once.geojson.features[0].id, 'TEST-second');
+614563	  assert.equal(once.firstObservationUtc, '2026-10-24T23:59:59Z');
+614564	  assert.equal(once.lastObservationUtc, '2026-10-25T01:00:00Z');
+614565	  assert.equal(once.truncated, false);
+614566	  assert.equal(f.requests.length, 3);
+614567	  const byUrl = Object.fromEntries(f.requests.map((r) => [r.url, r.cache]));
+614568	  assert.equal(byUrl['days/2026/10/24.json'], 'default');   // sealed shard: ordinary HTTP caching
+614569	  assert.equal(byUrl['days/2026/10/25.json'], 'no-cache');  // unsealed shard: revalidate
+614570	  const again = await c.loadWindow(window);
+614571	  assert.equal(again.totalMatchingObservations, 2);
+614572	  assert.equal(c.cacheStats().shards, 2);
+614573	  assert.match(captionLines(once, { nowMs: NOW }).flashes, /2 archived in window · 2 drawn/);
+614574	test('Long range refuses bulk exact points, and short range can display cap honestly', async () => {
+614575	  const c = client(f, { maxMapPoints: 1 });
+614576	  const annual = await c.loadWindow(selectUtcWindow({ period: '12m', end: NOW }), { detail: true });
+614577	  assert.match(annual.detailReason, /Choose at most/);
+614578	  assert.equal(f.requests.length, 1);
+614579	  const short = await c.loadWindow(selectUtcDates('2026-10-24', '2026-10-25'));
+614580	  assert.equal(short.mode, 'detail');
+614581	  assert.equal(short.totalMatchingObservations, 3);
+614582	  assert.equal(short.shownObservations, 1);
+614583	  assert.equal(short.truncated, true);
+614584	  assert.match(captionLines(short, { nowMs: NOW }).flashes, /cap 1: newest drawn, 2 older not drawn/);
+614585	test('Never-scanned is UNKNOWN; scanned with zero flashes is EMPTY-COVERED; never zero strikes', async () => {
+614586	  const never = await c.loadWindow(selectUtcDates('2026-06-01', '2026-06-02'));
+614587	  assert.equal(never.totalMatchingObservations, 0);
+614588	  assert.equal(never.status.state, STATES.UNKNOWN);
+614589	  assert.equal(never.coverage.searchedFraction, 0);
+614590	  assert.match(never.availabilityNote, /unknown, not no lightning/);
+614591	  assert.equal(f.requests.length, 1);  // count null → nothing to fetch
+614592	  const covered = await c.loadWindow(selectUtcDates('2026-10-21', '2026-10-21'));
+614593	  assert.equal(covered.totalMatchingObservations, 0);
+614594	  assert.equal(covered.status.state, STATES.EMPTY_COVERED);
+614595	  assert.equal(covered.coverage.searchedFraction, 1);
+614596	  assert.match(captionLines(covered, { nowMs: NOW }).searched, /Searched EUMETSAT 100% of window/);
+614597	  assert.match(captionLines(never, { nowMs: NOW }).searched, /0% of window — no collection run covers these dates/);
+614598	  assert.doesNotMatch(JSON.stringify(captionLines(never, { nowMs: NOW })), /0 strikes/);
+614599	test('Archive network and invalid manifest failures are explicit, never fabricated', async () => {
+614601	  const c = createLightningHistoryClient({ indexUrl: base, feedUrl, now: () => NOW, fetchImpl: async () => { calls++; return { ok: false, status: 503 }; } });
+614602	  await assert.rejects(() => c.loadWindow(selectUtcWindow({ period: '24h', end: NOW })), /HTTP 503/);
+614603	  assert.equal(calls, 4); // index + feed fallback, twice; nothing cached from failures
+614604	  const bad = fixtures({ ...v2Index(), days: 'nope' });
+614605	  await assert.rejects(() => client(bad, { feedUrl: null }).loadWindow(selectUtcDates('2026-10-24', '2026-10-24')), /Invalid historical lightning index/);
+614606	test('Requests older than the retained year are clamped and flagged; entirely before is BEFORE-ARCHIVE with zero shard requests', async () => {
+614607	  const beyond = await c.loadWindow(selectUtcWindow({ period: '7d', end: '2025-10-25T00:00:00Z' }));
+614608	  assert.equal(beyond.beforeArchive, true);
+614609	  assert.equal(beyond.status.state, STATES.BEFORE_ARCHIVE);
+614610	  assert.match(captionLines(beyond, { nowMs: NOW }).warning, /Window predates the archive .* not zero lightning/);
+614611	  const straddle = await c.loadWindow(selectUtcWindow({ period: '7d', end: '2025-10-28T00:00:00Z' }));
+614612	  assert.equal(straddle.clamped.start, true);
+614613	  assert.equal(straddle.window.start, '2025-10-26T00:00:00.000Z');
+614614	  assert.equal(straddle.status.state, STATES.UNKNOWN);
+614615	test('allSettled: one missing day file is named, other data and index counts are still returned, state FAIL', async () => {
+614616	  const f = fixtures(v2Index({
+614617	    '2026-10-23': { coverage: 'full', scanned_seconds: 86400, count: 5, bytes: 2600, path: 'days/2026/10/23.json', sealed: true,
+614618	      first_observation_utc: '2026-10-23T05:00:00Z', last_observation_utc: '2026-10-23T06:00:00Z', sha256: sha('f') }
+614620	  const r = await c.loadWindow(selectUtcDates('2026-10-23', '2026-10-25'));
+614621	  assert.equal(r.mode, 'detail');
+614622	  assert.equal(r.failures.length, 1);
+614623	  assert.deepEqual(r.failures[0], { date: '2026-10-23', path: 'days/2026/10/23.json', error: 'HTTP 404' });
+614624	  assert.equal(r.totalMatchingObservations, 3);
+614625	  assert.equal(r.archivedDayCount, 8);
+614626	  assert.equal(r.requestedDays, 3);
+614627	  assert.equal(r.status.state, STATES.FAIL);
+614628	  assert.equal(r.status.colour, '#ff4444');
+614629	  assert.match(captionLines(r, { nowMs: NOW }).warning, /1 of 3 day files failed \(2026-10-23\); points incomplete, counts from index/);
+614630	test('Shard count mismatch against the index is a named warning (mid-write race)', async () => {
+614631	  const f = fixtures(v2Index(), { bodies: { 'days/2026/10/24.json': shard('2026-10-24', [flash('2026-10-24T10:00:00Z', 'only')]) } });
+614632	  const r = await client(f).loadWindow(selectUtcDates('2026-10-24', '2026-10-24'));
+614633	  assert.deepEqual(r.warnings, [{ date: '2026-10-24', kind: 'count-mismatch', indexCount: 2, shardCount: 1 }]);
+614634	test('Budget gate: a storm month is summary-first; LOAD POINTS loads newest days up to the cap and says N of M', async () => {
+614635	  const overrides = {};
+614636	  const bodies = {};
+614637	  // 30 storm days ending today (a window past now would be clamped to now).
+614638	  for (let i = 29; i >= 0; i--) {
+614639	    const date = new Date(NOW - i * 86400000).toISOString().slice(0, 10);
+614640	    const path = 'days/' + date.replaceAll('-', '/') + '.json';
+614641	    overrides[date] = { coverage: 'full', scanned_seconds: 86400, count: 4000, bytes: 1_600_000, path, sealed: true,
+614642	      first_observation_utc: date + 'T01:00:00Z', last_observation_utc: date + 'T02:00:00Z', sha256: sha('9') };
+614643	    bodies[path] = shard(date, [flash(date + 'T01:00:00Z', 'a' + i), flash(date + 'T02:00:00Z', 'b' + i)]);
+614644	  const f = fixtures(v2Index(overrides), { bodies });
+614645	  const c = client(f, { maxMapPoints: 10000 });
+614646	  const w = selectUtcDates('2026-09-27', '2026-10-26');
+614647	  const summary = await c.loadWindow(w);
+614648	  assert.equal(summary.mode, 'overview');
+614649	  assert.equal(summary.budget.count, 120000);
+614650	  assert.equal(summary.budget.bytes, 48_000_000);
+614651	  assert.equal(summary.budget.withinBudget, false);
+614652	  assert.equal(summary.canLoadPoints, true);
+614653	  assert.equal(summary.archivedDayCount, 120000);
+614654	  assert.equal(f.requests.length, 1, 'no shard may be fetched before consent');
+614655	  const points = await c.loadWindow(w, { consentPoints: true });
+614656	  assert.equal(points.mode, 'detail');
+614657	  assert.deepEqual(points.loadedDays, ['2026-10-26', '2026-10-25', '2026-10-24']); // 3 x 4000 ≥ 10,000 cap
+614658	  assert.equal(points.skippedDays.length, 27);
+614659	  assert.equal(points.truncated, true);
+614660	  assert.equal(points.totalMatchingObservations, 6); // genuine features in the small shards; "N of M" from the index
+614661	  assert.equal(points.archivedDayCount, 120000);
+614662	  assert.equal(f.requests.length, 4);
+614663	  assert.equal(captionLines(points, { nowMs: NOW }).flashes,
+614664	    'Flashes 120,000 archived in window (index) · 6 drawn from the newest 3 of 30 days (cap 10,000; 27 older days not loaded)');
+614665	test('LRU keeps at most 8 shards; evicted shards are re-fetched, cached ones are not', async () => {
+614666	  for (let d = 1; d <= 12; d++) {
+614667	    const dd = String(d).padStart(2, '0');
+614668	    overrides['2026-10-' + dd] = { coverage: 'full', scanned_seconds: 86400, count: 1, bytes: 550, path: `days/2026/10/${dd}.json`, sealed: true,
+614669	      first_observation_utc: `2026-10-${dd}T01:00:00Z`, last_observation_utc: `2026-10-${dd}T01:00:00Z`, sha256: sha('7') };
+614670	    bodies[`days/2026/10/${dd}.json`] = shard('2026-10-' + dd, [flash(`2026-10-${dd}T01:00:00Z`, 'd' + d)]);
+614671	  const r = await c.loadWindow(selectUtcDates('2026-10-01', '2026-10-12'));
+614672	  assert.equal(r.totalMatchingObservations, 12);
+614673	  assert.equal(c.cacheStats().shards, 8);
+614674	  assert.equal(c.cacheStats().max, 8);
+614675	  const before = f.requests.length;
+614676	  await c.loadWindow(selectUtcDates('2026-10-12', '2026-10-12'));           // the newest shard is still cached
+614677	  assert.equal(f.requests.length, before);
+614678	  await c.loadWindow(selectUtcDates('2026-10-01', '2026-10-01'));           // evicted: fetched again
+614679	  assert.equal(f.requests.length, before + 1);
+614680	test('Index refresh invalidates only unsealed or changed shards', async () => {
+614681	  await c.loadWindow(selectUtcDates('2026-10-24', '2026-10-25'));
+614682	  f.body.set(base, { ...v2Index(), generated_utc: '2026-10-26T14:00:00.000Z' });
+614683	  await c.loadWindow(selectUtcDates('2026-10-24', '2026-10-25'), { refreshIndex: true });
+614684	  const urls = f.requests.map((r) => r.url);
+614685	  assert.equal(urls.filter((u) => u === 'days/2026/10/24.json').length, 1, 'sealed, unchanged sha: kept');
+614686	  assert.equal(urls.filter((u) => u === 'days/2026/10/25.json').length, 2, 'unsealed: re-fetched');
+614687	test('Tier A: the live feed serves 12h-7d windows ending now with one request; the cap gap is completed from shards', async () => {
+614688	  const feed = { type: 'FeatureCollection', metadata: { total_before_display_cap: 3, query_start_utc: '2026-10-26T08:00:00Z', query_end_utc: '2026-10-26T13:05:58Z', scan_end_utc: '2026-10-26T13:00:09Z' },
+614689	    features: [flash('2026-10-25T01:00:00Z', 'third'), flash('2026-10-26T12:00:00Z', 'fresh')] };
+614690	  const f = fixtures(v2Index(), { feed });
+614691	  const r = await c.loadWindow(selectUtcWindow({ period: '48h', end: NOW }), { tier: 'feed' });
+614692	  assert.equal(r.mode, 'feed');
+614693	  assert.equal(r.feedTruncated, true);
+614694	  assert.equal(r.totalMatchingObservations, 3); // 'second' (24 Oct 23:59) came from the shard the feed cap had dropped
+614695	  // The cap gap [window start, first feed flash) overlaps 24 Oct and the first hour of 25 Oct: both shards are completed.
+614696	  assert.deepEqual(f.requests.map((x) => x.url).sort(), ['days/2026/10/24.json', 'days/2026/10/25.json', 'index.json', feedUrl].sort());
+614697	  assert.equal(r.status.state, STATES.PARTIAL);
+614698	  await assert.rejects(() => c.loadWindow(selectUtcWindow({ period: '30d', end: NOW }), { tier: 'feed' }), /live feed covers only/);
+614699	test('Fallback: index 404 but feed available → feed result flagged, never a zero; both down → both named', async () => {
+614700	  const feed = { type: 'FeatureCollection', metadata: { total_before_display_cap: 1, query_start_utc: '2026-10-26T08:00:00Z', query_end_utc: '2026-10-26T13:05:58Z' },
+614701	    features: [flash('2026-10-26T12:00:00Z', 'fresh')] };
+614702	  f.body.delete(base);
+614703	  const r = await client(f).loadWindow(selectUtcWindow({ period: '24h', end: NOW }));
+614704	  assert.equal(r.fallback, 'feed');
+614705	  assert.equal(r.indexError, 'HTTP 404');
+614706	  assert.equal(r.totalMatchingObservations, 1);
+614707	  assert.equal(r.coverage.fromFeedMetadataOnly, true);
+614708	  assert.match(r.status.reasons.join(' '), /archive unavailable/);
+614709	  assert.match(captionLines(r, { nowMs: NOW }).refresh, /archive not yet published: HTTP 404/);
+614710	  await assert.rejects(() => client(f).loadWindow(selectUtcWindow({ period: '30d', end: NOW })), /History index unavailable: HTTP 404/);
+614711	  f.body.delete(feedUrl);
+614712	  await assert.rejects(() => client(f).loadWindow(selectUtcWindow({ period: '24h', end: NOW })), /index unavailable: HTTP 404; live feed unavailable: HTTP 404/);
+614713	test('The nine UX states exist with their colours, and the data states are reachable', async () => {
+614714	  assert.deepEqual(Object.values(STATES), ['OFF', 'LOADING', 'READY·DETAIL', 'READY·SUMMARY', 'EMPTY-COVERED', 'PARTIAL', 'UNKNOWN', 'BEFORE-ARCHIVE', 'FAIL']);
+614715	  assert.equal(Object.keys(STATE_COLOURS).length, 9);
+614716	  assert.equal(STATE_COLOURS[STATES.PARTIAL], '#ffcc00');
+614717	  const f = fixtures(v2Index({ '2026-10-24': { coverage: 'full', scanned_seconds: 86400, count: 2, bytes: 1100, path: 'days/2026/10/24.json', sealed: true,
+614718	    first_observation_utc: '2026-10-24T10:00:00Z', last_observation_utc: '2026-10-24T23:59:59Z', sha256: sha('a') } }));
+614719	  const ready = await c.loadWindow(selectUtcDates('2026-10-24', '2026-10-24'));
+614720	  assert.equal(ready.status.state, STATES.READY_DETAIL);
+614721	  assert.equal(ready.status.stale, false);
+614722	  const summary = await c.loadWindow(selectUtcDates('2026-10-24', '2026-10-24'), { detail: false });
+614723	  assert.equal(summary.status.state, STATES.READY_SUMMARY);
+614724	  const partial = await c.loadWindow(selectUtcDates('2026-10-25', '2026-10-25'));
+614725	  assert.equal(partial.status.state, STATES.PARTIAL);
+614726	  assert.deepEqual(partial.status.reasons, ['gaps inside the window']);
+614727	  const stale = classifyState(ready, { nowMs: Date.parse('2026-10-26T18:00:00Z') });
+614728	  assert.equal(stale.stale, true);
+614729	  assert.match(captionLines(ready, { nowMs: Date.parse('2026-10-26T18:00:00Z') }).refresh, /STALE/);
+614730	test('Caption templates carry window, actual, flashes, refresh, searched, warning and the optical-flash footer', async () => {
+614731	  const l = captionLines(r, { nowMs: NOW });
+614732	  assert.equal(l.window, 'Window  2026-10-25 14:00 UTC → 2026-10-26 14:00 UTC (24 hours, latest)');
+614733	  assert.match(l.actual, /^Actual  no archived flashes within this window · last archived flash before window 2026-10-25 01:00:00 UTC \(13h 0min before start\)$/);
+614734	  assert.equal(l.flashes, 'Flashes 0 archived in window · 0 drawn');
+614735	  assert.equal(l.refresh, 'Refresh archive 2026-10-26 13:00 UTC (1h 0min ago; expected every 1 h)');
+614736	  assert.match(l.searched, /^Searched EUMETSAT \d+% of window · 1 successful runs · 2026-10-26 10:05 UTC → 2026-10-26 13:00 UTC$/);
+614737	  assert.match(l.warning, /Not yet ingested: last 1h 0min of window \(unknown, not zero\)/);
+614738	  assert.match(l.footer, /not confirmed ground strikes · Missing days are unknown, not zero · UK box/);
+614739	  const annual = await client(fixtures()).loadWindow(selectUtcWindow({ period: '12m', end: NOW }));
+614740	  const a = captionLines(annual, { nowMs: NOW });
+614741	  assert.match(a.actual, /on the 366 overlapping UTC dates: first 2026-10-24 10:00:00 UTC · last 2026-10-25 01:00:00 UTC/);
+614742	  assert.match(a.flashes, /3 archived on 366 overlapping UTC dates · none drawn \(summary mode/);
+614743	  assert.match(a.warning, /precede archive start 2026-10-20 \(not zero\)/);
+614744	// --------------------------------------------------------------- shard_lost
+614745	test('A shard_lost date is unknown: its scan-window seconds are not claimed as searched, and it is named', async () => {
+614746	  const lostRow = { coverage: 'none', scanned_seconds: 0, count: null, bytes: null, path: null, sha256: null,
+614747	    first_observation_utc: null, last_observation_utc: null, shard_lost: true };
+614748	  const raw = v2Index({ '2026-10-24': lostRow }, {
+614749	    archived_observations: 1,
+614750	    integrity: { state: 'shard_lost', alert: 'INTEGRITY ALERT: 1 UTC date lost its listed shard (2026-10-24)', lost_days: [{ date: '2026-10-24' }], recoveries: [] }
+614751	  const idx = normaliseIndex(raw);
+614752	  const c = windowCoverage(idx, selectUtcDates('2026-10-24', '2026-10-25'));
+614753	  assert.equal(c.searchedSeconds, 43200);           // only 2026-10-25's half day; the lost day is not "searched"
+614754	  assert.deepEqual(c.unknownDays, ['2026-10-24']);
+614755	  assert.deepEqual(c.lostDays, ['2026-10-24']);
+614756	  assert.equal(idx.integrityState, 'shard_lost');
+614757	  const r = await client(fixtures(raw)).loadWindow(selectUtcDates('2026-10-24', '2026-10-25'));
+614758	  assert.ok(r.status.reasons.some((x) => /1 date lost its archive shard/.test(x)), r.status.reasons.join('; '));
+614759	  assert.match(l.warning, /Integrity: 1 UTC date lost its archive shard \(2026-10-24\); count unknown, not zero/);
+614760	  // Healthy indexes stay quiet.
+614761	  assert.equal(normaliseIndex(v2Index()).integrityState, 'ok');
+614762	"""A listed shard that vanished: unknown (never zero), flagged in index and status,
+614763	healthy days keep flowing, and recovery only from verified evidence.
+614764	from history import archive_observations, day_path, part_path, successful_scan, verify_archive
+614765	LOST = "2026-10-24"
+614766	HEALTHY = "2026-10-23"
+614767	def rows(result_or_index):
+614768	    index = result_or_index.get("index", result_or_index)
+614769	class ShardLostTests(unittest.TestCase):
+614770	        self.saved = self.base / "from-git-history"  # outside the archive: an earlier committed copy
+614771	        self.saved.mkdir()
+614772	        self.day = datetime(2026, 10, 24, tzinfo=timezone.utc)
+614773	    def flash(self, timestamp, product, index=0):
+614774	        return build_feature(-2.12, 51.11, timestamp, "TEST-" + product, index)
+614775	    def lose_whole_day(self):
+614776	        """Archive two flashes on LOST and one on HEALTHY, save LOST's shard, delete it, re-run."""
+614777	        healthy = datetime(2026, 10, 23, tzinfo=timezone.utc)
+614778	        first = archive_observations(
+614779	            self.root, [self.flash(self.day + timedelta(hours=10), "a"), self.flash(self.day + timedelta(hours=11), "b"),
+614780	                        self.flash(healthy + timedelta(hours=9), "h")],
+614781	            now=self.now, scanned_windows=[self.scan(healthy, self.day + timedelta(days=1))])
+614782	        self.recorded = rows(first)[LOST]
+614783	        self.first_index = json.loads((self.root / "index.json").read_text())
+614784	        shutil.copy(self.root / day_path(self.day.date()), self.saved / "24.json")
+614785	        (self.root / day_path(self.day.date())).unlink()
+614786	        return archive_observations(self.root, [], now=self.now)
+614787	    def index_bytes(self):
+614788	        return (self.root / "index.json").read_bytes()
+614789	    # --- condition 1: the affected day is UNKNOWN, never zero --------------------
+614790	    def test_lost_day_is_unknown_and_its_last_recorded_entry_is_kept_as_evidence(self):
+614791	        result = self.lose_whole_day()
+614792	        row = rows(result)[LOST]
+614793	        self.assertEqual((row["coverage"], row["scanned_seconds"], row["count"], row["path"]), ("none", 0, None, None))
+614794	        lost = result["index"]["integrity"]["lost_days"]
+614795	        self.assertEqual([e["date"] for e in lost], [LOST])
+614796	        evidence = lost[0]["last_recorded"]
+614797	        self.assertEqual((evidence["count"], evidence["sha256"], evidence["bytes"], evidence["path"]),
+614798	                         (2, self.recorded["sha256"], self.recorded["bytes"], self.recorded["path"]))
+614799	        self.assertEqual(lost[0]["missing_paths"], [self.recorded["path"]])
+614800	        self.assertEqual(lost[0]["detected_utc"], "2026-10-26T14:00:00.000Z")
+614801	    def test_later_flashes_for_a_lost_day_are_quarantined_never_counted_or_discarded(self):
+614802	        self.lose_whole_day()
+614803	        late = archive_observations(self.root, [self.flash(self.day + timedelta(hours=23), "late")], now=self.now)
+614804	        self.assertEqual(rows(late)[LOST]["count"], None)
+614805	        self.assertEqual((late["quarantined_lost_day"], late["dropped_lost_day"]), (1, 0))
+614806	        quarantine = json.loads((self.root / "quarantine" / f"{LOST}.json").read_text())
+614807	        self.assertEqual([f["id"] for f in quarantine["features"]], [self.flash(self.day + timedelta(hours=23), "late")["id"]])
+614808	        again = archive_observations(self.root, [self.flash(self.day + timedelta(hours=23), "late")], now=self.now)
+614809	        self.assertEqual(again["quarantined_lost_day"], 0)  # idempotent by stable id
+614810	        self.assertEqual(again["index"]["integrity"]["lost_days"][0]["quarantined_observations"], 1)
+614811	        verify_archive(self.root)
+614812	    # --- condition 2: index integrity block with an explicit alert ---------------
+614813	    def test_index_carries_an_explicit_integrity_alert(self):
+614814	        integrity = result["index"]["integrity"]
+614815	        self.assertEqual(integrity["state"], "shard_lost")
+614816	        self.assertIn("INTEGRITY ALERT", integrity["alert"])
+614817	        self.assertIn(LOST, integrity["alert"])
+614818	        self.assertIn("unknown", integrity["alert"])
+614819	        self.assertEqual(result["integrity"]["state"], "shard_lost")  # in the ingest result -> status.json
+614820	        self.assertEqual(result["integrity"]["lost_days"], [LOST])
+614821	    def test_healthy_archive_reports_integrity_ok(self):
+614822	        result = archive_observations(self.root, [self.flash(self.day + timedelta(hours=1), "ok")], now=self.now)
+614823	        self.assertEqual(result["index"]["integrity"], {"state": "ok", "alert": None, "lost_days": [], "recoveries": []})
+614824	    def test_cli_ingest_prints_the_alert_and_still_succeeds(self):
+614825	        record = self.base / "run.json"
+614826	        record.write_text(json.dumps({"schema": "uk-lightning-run-record.v1", "outcome": "success",
+614827	                                      "run_utc": "2026-10-26T13:05:58.000Z", "products_examined": 1, "scanned_ranges": [],
+614828	                                      "features": []}))
+614829	        code = history.main(["ingest", "--archive-dir", str(self.root), "--run-record", str(record), "--result-out", str(out),
+614830	                             "--now", self.now.isoformat(), "--seed-scan-windows", str(self.base / "none.json")])
+614831	        self.assertEqual(json.loads(out.read_text())["integrity"]["state"], "shard_lost")
+614832	    # --- condition 3: healthy days keep flowing, never "entirely healthy" ---------
+614833	    def test_healthy_days_continue_while_the_archive_stays_flagged(self):
+614834	        today = datetime(2026, 10, 26, tzinfo=timezone.utc)
+614835	        later = archive_observations(self.root, [self.flash(today + timedelta(hours=12), "new")], now=self.now,
+614836	                                     scanned_window=self.scan(today + timedelta(hours=8), today + timedelta(hours=13)))
+614837	        self.assertEqual(rows(later)["2026-10-26"]["count"], 1)
+614838	        self.assertEqual(rows(later)[HEALTHY]["count"], 1)
+614839	        self.assertEqual(later["index"]["archived_observations"], 2)
+614840	        self.assertEqual(later["index"]["integrity"]["state"], "shard_lost")
+614841	        self.assertEqual(verify_archive(self.root)["integrity"], "shard_lost")
+614842	    def test_verify_rejects_a_silently_cleared_flag_or_a_lost_row_with_a_count(self):
+614843	        good = json.loads((self.root / "index.json").read_text())
+614844	        cleared = json.loads(json.dumps(good))
+614845	        cleared["integrity"] = {"state": "ok", "alert": None, "lost_days": [], "recoveries": []}
+614846	        (self.root / "index.json").write_text(json.dumps(cleared))
+614847	        with self.assertRaisesRegex(ValueError, "shard_lost"):
+614848	        counted = json.loads(json.dumps(good))
+614849	        next(r for r in counted["days"] if r["date"] == LOST).update({"coverage": "full", "scanned_seconds": 86400, "count": 0})
+614850	        (self.root / "index.json").write_text(json.dumps(counted))
+614851	    # --- condition 4: recovery only from verified evidence -------------------------
+614852	    def test_recover_from_a_verified_earlier_shard_restores_the_row_and_audits_it(self):
+614853	        archive_observations(self.root, [self.flash(self.day + timedelta(hours=23), "late")], now=self.now)
+614854	        result = history.recover_day(self.root, LOST, now=self.now + timedelta(hours=1),
+614855	                                     from_shards=[self.saved / "24.json"])
+614856	        self.assertNotIn("shard_lost", row)
+614857	        self.assertEqual(row["count"], 3)  # 2 verified + 1 quarantined flash merged after verification
+614858	        self.assertEqual(row["coverage"], "full")
+614859	        self.assertEqual((integrity["state"], integrity["alert"], integrity["lost_days"]), ("ok", None, []))
+614860	        audit = integrity["recoveries"][0]
+614861	        self.assertEqual((audit["date"], audit["method"]), (LOST, "from_shard"))
+614862	        self.assertEqual(audit["verified_against"]["sha256"], self.recorded["sha256"])
+614863	        self.assertEqual(audit["verified_against"]["count"], 2)
+614864	        self.assertEqual(audit["inputs"][0]["sha256"], self.recorded["sha256"])
+614865	        self.assertEqual(audit["quarantined_merged"], 1)
+614866	        self.assertEqual(audit["recovered_utc"], "2026-10-26T15:00:00.000Z")
+614867	        self.assertFalse((self.root / "quarantine" / f"{LOST}.json").exists())
+614868	        # The audit survives later ingests.
+614869	        later = archive_observations(self.root, [], now=self.now + timedelta(hours=2))
+614870	        self.assertEqual(len(later["index"]["integrity"]["recoveries"]), 1)
+614871	    def test_recover_refuses_a_partial_or_altered_shard_and_changes_nothing(self):
+614872	        partial = json.loads((self.saved / "24.json").read_text())
+614873	        partial["features"] = partial["features"][:1]
+614874	        partial["metadata"]["count"] = 1
+614875	        bad = self.saved / "partial.json"
+614876	        bad.write_text(history._serialise(partial))
+614877	        before = self.index_bytes()
+614878	        with self.assertRaisesRegex(ValueError, "sha256"):
+614879	            history.recover_day(self.root, LOST, now=self.now, from_shards=[bad])
+614880	        self.assertEqual(self.index_bytes(), before)
+614881	        self.assertFalse((self.root / day_path(self.day.date())).exists())
+614882	    def test_recover_refuses_without_a_recorded_entry_unless_an_earlier_index_is_given(self):
+614883	        index = json.loads((self.root / "index.json").read_text())
+614884	        index["integrity"]["lost_days"][0]["last_recorded"] = None  # e.g. lost before evidence was kept
+614885	        (self.root / "index.json").write_text(history._serialise(index))
+614886	        with self.assertRaisesRegex(ValueError, "previously recorded"):
+614887	            history.recover_day(self.root, LOST, now=self.now, from_shards=[self.saved / "24.json"])
+614888	        earlier = self.base / "earlier-index.json"
+614889	        earlier.write_text(json.dumps(self.first_index))
+614890	        result = history.recover_day(self.root, LOST, now=self.now, from_shards=[self.saved / "24.json"],
+614891	                                     recorded_index=earlier)
+614892	        self.assertEqual(rows(result)[LOST]["count"], 2)
+614893	        self.assertEqual(result["index"]["integrity"]["recoveries"][0]["verified_against"]["source"], "recorded_index")
+614894	    def test_recover_split_day_needs_every_missing_part_and_verifies_survivors(self):
+614895	        flashes = [self.flash(self.day + timedelta(hours=h, minutes=m), f"p{h}-{m}", m) for h in (3, 4) for m in range(4)]
+614896	        archive_observations(self.root, flashes, now=self.now, scanned_window=self.scan(self.day, self.day + timedelta(days=1)),
+614897	        shutil.copy(self.root / part_path(self.day.date(), 4), self.saved / "04.json")
+614898	        shutil.copy(self.root / part_path(self.day.date(), 3), self.saved / "03.json")
+614899	        (self.root / part_path(self.day.date(), 4)).unlink()
+614900	        archive_observations(self.root, [], now=self.now, target_shard_bytes=2000)
+614901	        with self.assertRaisesRegex(ValueError, "missing"):
+614902	            history.recover_day(self.root, LOST, now=self.now, from_shards=[self.saved / "03.json"],
+614903	                                target_shard_bytes=2000)
+614904	        result = history.recover_day(self.root, LOST, now=self.now, from_shards=[self.saved / "04.json"],
+614905	        self.assertEqual((row["count"], len(row["parts"])), (8, 2))
+614906	    def test_recover_refuses_a_day_that_is_not_lost(self):
+614907	        archive_observations(self.root, [self.flash(self.day + timedelta(hours=1), "x")], now=self.now)
+614908	        with self.assertRaisesRegex(ValueError, "not marked shard_lost"):
+614909	            history.recover_day(self.root, LOST, now=self.now, from_shards=[self.root / day_path(self.day.date())])
+614910	    def rebuild_record(self, features, start, end, run_utc="2026-10-26T15:00:00.000Z", **over):
+614911	        record = {"schema": "uk-lightning-run-record.v1", "outcome": "success", "run_utc": run_utc,
+614912	                  "products_examined": 144, "slots_parsed": True, "slots_examined": 144,
+614913	                  "scanned_ranges": [{"start_utc": start.isoformat(), "end_utc": end.isoformat()}],
+614914	                  "unscanned_ranges": [], "features": features}
+614915	        record.update(over)
+614916	        path = self.base / "rebuild.json"
+614917	        path.write_text(json.dumps(record))
+614919	    def test_rebuild_must_cover_the_recorded_scan_and_match_the_recorded_count(self):
+614920	        both = [self.flash(self.day + timedelta(hours=10), "a"), self.flash(self.day + timedelta(hours=11), "b")]
+614921	        later = self.now + timedelta(hours=2)
+614922	        half = self.rebuild_record(both, self.day, self.day + timedelta(hours=12))
+614923	        with self.assertRaisesRegex(ValueError, "does not cover"):
+614924	            history.recover_day(self.root, LOST, now=later, rebuild_record=half)
+614925	        short = self.rebuild_record(both[:1], self.day, self.day + timedelta(days=1))
+614926	            history.recover_day(self.root, LOST, now=later, rebuild_record=short)
+614927	        stale = self.rebuild_record(both, self.day, self.day + timedelta(days=1), run_utc="2026-10-26T13:00:00.000Z")
+614928	        with self.assertRaisesRegex(ValueError, "independent"):
+614929	            history.recover_day(self.root, LOST, now=later, rebuild_record=stale)
+614930	        opaque = self.rebuild_record(both, self.day, self.day + timedelta(days=1), slots_parsed=False)
+614931	        with self.assertRaisesRegex(ValueError, "slots"):
+614932	            history.recover_day(self.root, LOST, now=later, rebuild_record=opaque)
+614933	        good = self.rebuild_record(both, self.day, self.day + timedelta(days=1))
+614934	        result = history.recover_day(self.root, LOST, now=later, rebuild_record=good)
+614935	        audit = result["index"]["integrity"]["recoveries"][0]
+614936	        self.assertEqual((audit["method"], audit["rebuild"]["anchored"], audit["byte_identical"]), ("rebuild", True, True))
+614937	        self.assertEqual(audit["rebuild"]["uncovered_seconds"], 0)
+614938	    def test_rebuild_must_contain_every_quarantined_flash(self):
+614939	        record = self.rebuild_record(both, self.day, self.day + timedelta(days=1))
+614940	        with self.assertRaisesRegex(ValueError, "quarantined"):
+614941	            history.recover_day(self.root, LOST, now=self.now + timedelta(hours=2), rebuild_record=record)
+614942	    def test_unanchored_rebuild_needs_an_explicit_flag_and_is_audited_as_such(self):
+614943	        index["integrity"]["lost_days"][0]["last_recorded"] = None
+614944	        with self.assertRaisesRegex(ValueError, "accept-unanchored"):
+614945	        result = history.recover_day(self.root, LOST, now=self.now + timedelta(hours=2), rebuild_record=record,
+614946	                                     accept_unanchored=True)
+614947	        self.assertIs(result["index"]["integrity"]["recoveries"][0]["rebuild"]["anchored"], False)
+614948	    def test_cli_recover(self):
+614949	        with self.assertRaises(SystemExit):  # exactly one of --from-shard / --rebuild
+614950	            history.main(["recover", "--archive-dir", str(self.root), "--day", LOST])
+614951	        bad = self.saved / "empty.json"
+614952	        bad.write_text("{}\n")
+614953	            history.main(["recover", "--archive-dir", str(self.root), "--day", LOST, "--from-shard", str(bad),
+614954	                          "--now", self.now.isoformat()])
+614955	        code = history.main(["recover", "--archive-dir", str(self.root), "--day", LOST,
+614956	                             "--from-shard", str(self.saved / "24.json"), "--now", self.now.isoformat()])
+614957	    def test_collect_rebuild_day_feeds_recover_rebuild_end_to_end(self):
+614958	        """collect.py --rebuild-day writes only a run record for that UTC date (never the feed or
+614959	        status); history.py recover --rebuild accepts it only through the same gates."""
+614960	        import collect
+614961	        names = [("W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_"
+614962	                  f"{e:%Y%m%d%H%M%S}_L2PF_OPE_{s:%Y%m%d%H%M%S}_{e:%Y%m%d%H%M%S}_N__O_0001_0000")
+614963	                 for s, e in ((self.day + timedelta(minutes=10 * i), self.day + timedelta(minutes=10 * (i + 1)))
+614964	                              for i in range(144))]
+614966	        def fake_download(start, end):
+614967	            calls.append((start, end))
+614968	            return both, len(names), names
+614969	        feed = self.base / "feed.geojson"
+614970	        status = self.base / "status.json"
+614971	        record = self.base / "rebuild-record.json"
+614972	        run_now = self.now + timedelta(hours=2)
+614973	        code = collect.rebuild_day_record(LOST, record, now=run_now, downloader=fake_download)
+614974	        self.assertEqual(calls, [(self.day, self.day + timedelta(days=1))])
+614975	        self.assertFalse(feed.exists() or status.exists())
+614976	        rec = json.loads(record.read_text())
+614977	        self.assertEqual((rec["lookback_source"], rec["rebuild_day_utc"], rec["run_utc"]),
+614978	                         ("rebuild", LOST, "2026-10-26T16:00:00.000Z"))
+614979	        self.assertEqual(len(rec["features"]), 2)
+614980	        with self.assertRaises(SystemExit):  # --rebuild-day excludes --hours / --auto-window
+614981	            collect.main(["--rebuild-day", LOST, "--hours", "6", "--run-record", str(record)])
+614982	        code = history.main(["recover", "--archive-dir", str(self.root), "--day", LOST, "--rebuild",
+614983	                             "--rebuild-record", str(record), "--now", run_now.isoformat()])
+614984	        self.assertEqual(rows(index)[LOST]["count"], 2)
+614985	        self.assertEqual(index["integrity"]["recoveries"][0]["method"], "rebuild")
+614986	"""data/status.json is written after every run; failures leave a trace, never a zero."""
+614987	from status import build_status, health
+614988	NOW = datetime(2026, 10, 26, 14, 20, tzinfo=timezone.utc)
+614989	RECORD = {
+614990	    "schema": "uk-lightning-run-record.v1", "run_utc": "2026-10-26T14:17:00.000Z", "outcome": "success", "error": None,
+614991	    "query_start_utc": "2026-10-26T08:17:00.000Z", "query_end_utc": "2026-10-26T14:17:00.000Z", "lookback_hours": 6.0,
+614992	    "lookback_source": "status", "lookback_capped": False, "products_examined": 36, "slots_examined": 36,
+614993	    "slots_examined_utc": ["2026-10-26T08:10:09.000Z"], "scanned_ranges": [
+614994	        {"start_utc": "2026-10-26T08:17:00.000Z", "end_utc": "2026-10-26T14:10:09.000Z"}],
+614995	    "unscanned_ranges": [], "tail_unobserved_seconds": 411, "incoming_features": 3, "feed_features": 411,
+614996	    "feed_total_before_display_cap": 411, "feed_latest_detection_utc": "2026-10-26T13:58:00.000Z", "features": [],
+614997	class StatusTests(unittest.TestCase):
+614998	    def test_success_records_the_examined_scan_end_not_now(self):
+614999	        result = build_status(now=NOW, previous=None, record=RECORD, archive_result={
+615000	            "outcome": "success", "archived_observations": 411, "files_changed": 2, "index_generated_utc": "2026-10-26T14:18:00.000Z"},
+615001	            collect_outcome="success", archive_outcome="success")
+615002	        self.assertEqual(result["schema"], "uk-lightning-status.v1")
+615003	        self.assertEqual(result["last_attempt_outcome"], "success")
+615004	        self.assertEqual(result["consecutive_failures"], 0)
+615005	        self.assertEqual(result["last_successful_scan_end_utc"], "2026-10-26T14:10:09.000Z")
+615006	        self.assertEqual(result["last_successful_scan_start_utc"], "2026-10-26T08:17:00.000Z")
+615007	        self.assertEqual(result["health"], "ok")
+615008	        self.assertEqual(result["last_tail_unobserved_seconds"], 411)
+615009	        self.assertEqual(result["archive"]["archived_observations"], 411)
+615010	        self.assertIsNone(result["last_error"])
+615011	        self.assertIn("unknown, not zero", result["note"])
+615012	    def test_failure_keeps_previous_success_and_counts_consecutive_failures(self):
+615013	        previous = build_status(now=NOW - timedelta(hours=1), previous=None, record=RECORD, archive_result=None,
+615014	                                collect_outcome="success", archive_outcome="success")
+615015	        failed_record = {**RECORD, "run_utc": "2026-10-26T15:17:00.000Z", "outcome": "failure",
+615016	                         "error": "RuntimeError: No EUMETSAT product files returned", "scanned_ranges": [], "products_examined": 0}
+615017	        first = build_status(now=NOW + timedelta(hours=1), previous=previous, record=failed_record, archive_result=None,
+615018	                             collect_outcome="failure", archive_outcome="skipped")
+615019	        self.assertEqual(first["last_attempt_outcome"], "failure")
+615020	        self.assertEqual(first["consecutive_failures"], 1)
+615021	        self.assertIn("No EUMETSAT product files", first["last_error"])
+615022	        self.assertEqual(first["last_successful_scan_end_utc"], "2026-10-26T14:10:09.000Z")
+615023	        self.assertEqual(first["last_successful_run_utc"], "2026-10-26T14:17:00.000Z")
+615024	        self.assertIsNone(first["last_scanned_ranges"])
+615025	        second = build_status(now=NOW + timedelta(hours=2), previous=first, record=None, archive_result=None,
+615026	                              collect_outcome="failure", archive_outcome="skipped")
+615027	        self.assertEqual(second["consecutive_failures"], 2)
+615028	        self.assertIn("no run record", second["last_error"])
+615029	        self.assertEqual(second["last_successful_scan_end_utc"], "2026-10-26T14:10:09.000Z")
+615030	        recovered = build_status(now=NOW + timedelta(hours=3), previous=second,
+615031	                                 record={**RECORD, "run_utc": "2026-10-26T17:17:00.000Z", "scanned_ranges": [
+615032	                                     {"start_utc": "2026-10-26T13:40:09.000Z", "end_utc": "2026-10-26T17:10:09.000Z"}]},
+615033	                                 archive_result=None, collect_outcome="success", archive_outcome="success")
+615034	        self.assertEqual(recovered["consecutive_failures"], 0)
+615035	        self.assertEqual(recovered["last_successful_scan_end_utc"], "2026-10-26T17:10:09.000Z")
+615036	    def test_archive_failure_is_recorded_without_touching_feed_success(self):
+615037	        result = build_status(now=NOW, previous=None, record=RECORD, archive_result=None,
+615038	                              collect_outcome="success", archive_outcome="failure")
+615039	        self.assertEqual(result["archive"]["outcome"], "failure")
+615040	        self.assertIn("archive step failed", result["archive"]["error"])
+615041	        self.assertEqual(result["feed"]["features"], 411)
+615042	    def test_unparsed_slots_do_not_advance_the_scan_end(self):
+615043	        opaque = {**RECORD, "run_utc": "2026-10-26T15:17:00.000Z", "slots_parsed": False, "scanned_ranges": [
+615044	            {"start_utc": "2026-10-26T09:17:00.000Z", "end_utc": "2026-10-26T15:17:00.000Z"}]}
+615045	        result = build_status(now=NOW + timedelta(hours=1), previous=previous, record=opaque, archive_result=None,
+615046	                              collect_outcome="success", archive_outcome="success")
+615047	        self.assertEqual(result["last_successful_scan_end_utc"], "2026-10-26T14:10:09.000Z")  # not the query end
+615048	        self.assertIs(result["last_slots_parsed"], False)
+615049	        self.assertEqual(result["consecutive_failures"], 0)  # the feed run itself succeeded
+615050	    def test_lost_days_reach_the_status_file(self):
+615051	            "outcome": "success", "lost_days": ["2026-10-24"], "dropped_lost_day": 1},
+615052	        self.assertEqual(result["archive"]["lost_days"], ["2026-10-24"])
+615053	        self.assertEqual(result["archive"]["dropped_lost_day"], 1)
+615054	    # --- shard_lost: explicit integrity alert, never reported entirely healthy ---------
+615055	    LOST_RESULT = {"outcome": "success", "lost_days": ["2026-10-24"], "dropped_lost_day": 0,
+615056	                   "integrity": {"state": "shard_lost", "lost_days": ["2026-10-24"], "quarantined_observations": 1,
+615057	                                 "alert": "INTEGRITY ALERT: 1 UTC date lost its listed shard (2026-10-24); unknown, not zero"}}
+615058	    def test_shard_lost_degrades_health_and_raises_an_integrity_alert(self):
+615059	        result = build_status(now=NOW, previous=None, record=RECORD, archive_result=self.LOST_RESULT,
+615060	        self.assertEqual(result["freshness"], "ok")
+615061	        self.assertEqual(result["health"], "degraded")  # fresh, but not entirely healthy
+615062	        self.assertEqual(result["integrity"]["state"], "shard_lost")
+615063	        self.assertEqual(result["integrity"]["lost_days"], ["2026-10-24"])
+615064	        self.assertIn("INTEGRITY ALERT", result["integrity"]["alert"])
+615065	        self.assertEqual(result["integrity"]["source"], "this_run")
+615066	    def test_integrity_alert_is_carried_when_the_archive_step_fails_or_is_skipped(self):
+615067	        lost = build_status(now=NOW, previous=None, record=RECORD, archive_result=self.LOST_RESULT,
+615068	                            collect_outcome="success", archive_outcome="success")
+615069	        for outcome in ("failure", "skipped"):
+615070	            later = build_status(now=NOW + timedelta(hours=1), previous=lost, record=RECORD, archive_result=None,
+615071	                                 collect_outcome="success", archive_outcome=outcome)
+615072	            self.assertEqual(later["integrity"]["state"], "shard_lost", outcome)
+615073	            self.assertEqual(later["integrity"]["source"], "previous_status", outcome)
+615074	            self.assertEqual(later["health"], "degraded", outcome)
+615075	    def test_recovered_archive_reports_ok_again(self):
+615076	        ok = build_status(now=NOW, previous=lost, record=RECORD, archive_result={
+615077	            "outcome": "success", "integrity": {"state": "ok", "lost_days": [], "alert": None}},
+615078	        self.assertEqual((ok["health"], ok["integrity"]["state"], ok["integrity"]["alert"]), ("ok", "ok", None))
+615079	    def test_alert_command_exits_nonzero_while_a_shard_is_lost(self):
+615080	            target = Path(tmp) / "status.json"
+615081	            status_module.write_status(target, build_status(
+615082	                now=NOW, previous=None, record=RECORD, archive_result=self.LOST_RESULT,
+615083	                collect_outcome="success", archive_outcome="success"))
+615084	            self.assertEqual(status_module.main(["alert", "--status", str(target)]), 1)
+615085	                now=NOW, previous=None, record=RECORD, archive_result={"outcome": "success", "integrity": {"state": "ok"}},
+615086	            self.assertEqual(status_module.main(["alert", "--status", str(target)]), 0)
+615087	    def test_health_thresholds(self):
+615088	        self.assertEqual(health(NOW, None), "never")
+615089	        self.assertEqual(health(NOW, NOW - timedelta(hours=5)), "ok")
+615090	        self.assertEqual(health(NOW, NOW - timedelta(hours=7)), "warn")
+615091	        self.assertEqual(health(NOW, NOW - timedelta(hours=13)), "stale")
+615092	        self.assertEqual(health(NOW, NOW - timedelta(hours=25)), "stopped")
+615093	    def test_cli_writes_the_file_even_without_a_run_record(self):
+615094	            target = Path(tmp) / "data" / "status.json"
+615095	            code = status_module.main(["write", "--status", str(target), "--run-record", str(Path(tmp) / "missing.json"),
+615096	                                       "--collect-outcome", "failure", "--archive-outcome", "skipped", "--now", NOW.isoformat()])
+615097	            written = json.loads(target.read_text())
+615098	            self.assertEqual(written["last_attempt_outcome"], "failure")
+615099	            self.assertEqual(written["consecutive_failures"], 1)
+615100	            self.assertEqual(written["health"], "never")
+615101	            record = Path(tmp) / "run.json"
+615102	            record.write_text(json.dumps(RECORD))
+615103	            status_module.main(["write", "--status", str(target), "--run-record", str(record), "--collect-outcome", "success",
+615104	                                "--archive-outcome", "success", "--now", NOW.isoformat()])
+615105	            self.assertEqual(written["consecutive_failures"], 0)
+615106	            self.assertEqual(written["last_successful_scan_end_utc"], "2026-10-26T14:10:09.000Z")
+615107	"""Executes the shell of update-lightning.yml steps in throwaway git repositories.
+615108	No network, no EUMETSAT, no GitHub: each test builds a temporary repository
+615109	with a local bare 'origin', substitutes the ${{ ... }} expressions the step
+615110	uses, and runs the step's script with bash -e (the GitHub Actions default).
+615111	WORKFLOW = ROOT / ".github" / "workflows" / "update-lightning.yml"
+615112	ARCHIVE_COMMIT = "Commit archive and status (archive commit)"
+615113	ARCHIVE_STEP = "Append to the one-year UTC archive"
+615114	SURFACE_STEP = "Surface collection, archive or integrity failure"
+615115	def step_script(name: str) -> str:
+615116	    """The literal 'run: |' block of the named step (no YAML library needed)."""
+615117	    lines = WORKFLOW.read_text(encoding="utf-8").splitlines()
+615118	def substitute(script: str, outcomes: dict) -> str:
+615119	        if key in outcomes:
+615120	            return outcomes[key]
+615121	class WorkflowShellTests(unittest.TestCase):
+615122	                    "GIT_COMMITTER_NAME": "test", "GIT_COMMITTER_EMAIL": "test@example.invalid"}
+615123	        (self.repo / "data").mkdir()
+615124	        (self.repo / "data" / "uk_lightning.geojson").write_text("{}\n")
+615125	        self.git("commit", "-q", "-m", "initial")
+615126	    def run_step(self, name, outcomes, extra_env=None):
+615127	        script = substitute(step_script(name), outcomes)
+615128	        return subprocess.run(["bash", "-e", "-c", script], cwd=self.repo, env={**self.env, **(extra_env or {})},
+615129	    def pushed_files(self):
+615130	        return set(self.git("ls-tree", "-r", "--name-only", "origin/main").split())
+615131	    # --- D-4: the heartbeat is committed before data/history exists ---------------
+615132	    def test_status_is_committed_when_data_history_does_not_exist_yet(self):
+615133	        (self.repo / "data" / "status.json").write_text('{"last_attempt_outcome": "failure"}\n')
+615134	        self.assertFalse((self.repo / "data" / "history").exists())
+615135	        done = self.run_step(ARCHIVE_COMMIT, {"steps.archive.outcome": "skipped"})
+615136	        self.assertEqual(done.returncode, 0, done.stderr)
+615137	        self.assertIn("data/status.json", self.pushed_files())
+615138	    def test_archive_and_status_are_committed_together_after_a_good_run(self):
+615139	        (self.repo / "data" / "status.json").write_text('{"last_attempt_outcome": "success"}\n')
+615140	        (self.repo / "data" / "history" / "days").mkdir(parents=True)
+615141	        (self.repo / "data" / "history" / "index.json").write_text("{}\n")
+615142	        done = self.run_step(ARCHIVE_COMMIT, {"steps.archive.outcome": "success"})
+615143	        self.assertTrue({"data/status.json", "data/history/index.json"} <= self.pushed_files())
+615144	    # --- verify gate: nothing unverified is committed ---------------------------
+615145	    def test_archive_step_runs_verify_after_ingest_and_fails_when_verify_fails(self):
+615146	        bin_dir = Path(self.temp.name) / "bin"
+615147	        log = Path(self.temp.name) / "calls.log"
+615148	        (self.repo / "history.py").write_text(  # stub: records the sub-command, fails on request
+615149	            "import os, sys\n"
+615150	            f"open({str(log)!r}, 'a').write(sys.argv[1] + '\\n')\n"
+615151	            "sys.exit(1 if os.environ.get('FAIL_' + sys.argv[1].upper()) else 0)\n")
+615152	        env = {"PATH": f"{bin_dir}{os.pathsep}{os.environ.get('PATH', '')}", "RUNNER_TEMP": self.temp.name}
+615153	        good = self.run_step(ARCHIVE_STEP, {}, env)
+615154	        self.assertEqual(good.returncode, 0, good.stderr)
+615155	        self.assertEqual(log.read_text().split(), ["ingest", "verify"])
+615156	        bad = self.run_step(ARCHIVE_STEP, {}, {**env, "FAIL_VERIFY": "1"})
+615157	        self.assertNotEqual(bad.returncode, 0)
+615158	    def test_failed_archive_step_commits_status_only_and_restores_the_archive(self):
+615159	        history_dir = self.repo / "data" / "history"
+615160	        (history_dir / "days").mkdir(parents=True)
+615161	        (history_dir / "index.json").write_text('{"committed": true}\n')
+615162	        self.git("commit", "-q", "-m", "archive v1")
+615163	        self.git("push", "-q")
+615164	        (history_dir / "index.json").write_text('{"half": "written"}\n')  # ingest/verify failed mid-way
+615165	        (history_dir / "days" / "partial.json").write_text("{}\n")
+615166	        (self.repo / "data" / "status.json").write_text('{"archive": {"outcome": "failure"}}\n')
+615167	        done = self.run_step(ARCHIVE_COMMIT, {"steps.archive.outcome": "failure"})
+615168	        files = self.pushed_files()
+615169	        self.assertIn("data/status.json", files)
+615170	        self.assertNotIn("data/history/days/partial.json", files)
+615171	        self.assertEqual(self.git("show", "origin/main:data/history/index.json"), '{"committed": true}\n')
+615172	        self.assertEqual(self.git("status", "--porcelain", "--", "data/history"), "")
+615173	    # --- shard_lost: an integrity alert turns the run red after everything is committed ---
+615174	    def test_surface_step_fails_on_an_integrity_alert_even_when_collect_and_archive_succeed(self):
+615175	        for name in ("status.py", "collect.py"):
+615176	        ok = {"steps.collect.outcome": "success", "steps.archive.outcome": "success"}
+615177	        (self.repo / "data" / "status.json").write_text('{"integrity": {"state": "ok", "alert": null}}\n')
+615178	        done = self.run_step(SURFACE_STEP, ok)
+615179	        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+615180	        (self.repo / "data" / "status.json").write_text(
+615181	            '{"integrity": {"state": "shard_lost", "alert": "INTEGRITY ALERT: 2026-10-24 lost"}}\n')
+615182	        self.assertNotEqual(done.returncode, 0)
+615183	        self.assertIn("::error::INTEGRITY ALERT: 2026-10-24 lost", done.stdout)
+615184	        done = self.run_step(SURFACE_STEP, {**ok, "steps.collect.outcome": "failure"})
+615185	        self.assertIn("::error::collect=failure", done.stdout)
+615186	 * Independent GridAtlas Lightning candidate preservation audit.
+615187	 * This lives in TESTCODE, never in the product repository.
+615188	 * Execute with a checkout of the exact candidate beside testcode:
+615189	 *   GRIDATLAS_ROOT=../gridatlas LIGHTNING_GEN=202610270024 \
+615190	 *     node --test drivers/gridatlas-lightning-immutable.test.mjs
+615191	 * No network; no CSS, shell, app or archive writes; no synthetic data substitution.
+615192	 * This proves STATIC invariants ONLY. Live WebKit/network and owner veto are separate.
+615194	import { resolve, join } from 'node:path';
+615196	import { Script } from 'node:vm';
+615198	const GEN = process.env.LIGHTNING_GEN || '202610270024';
+615199	const HERE = fileURLToPath(new URL('.', import.meta.url));
+615200	const ROOT = resolve(process.env.GRIDATLAS_ROOT || join(HERE, '../../gridatlas'));
+615201	const file = p => readFileSync(join(ROOT, p));
+615202	const json = p => JSON.parse(file(p).toString('utf8'));
+615204	const get = (j,id) => {
+615205	  const x=j.cartridges.filter(c=>c.id===id);
+615206	  assert.equal(x.length,1, 'Missing/duplicated cartridge ' + id);
+615207	  return x[0];
+615209	const ids = ['streaming-parquet-bridge','uk-gazetteer-flyto','substation-intelligence','sld-sandbox'];
+615211	const candidate = json('atlas/v/'+GEN+'/current.json');
+615212	const manifest = json('atlas/manifests/'+GEN+'-composition.json');
+615213	const overlay = file('atlas/modules/'+GEN+'-uk-lightning-overlay.js');
+615214	const orig = file('atlas/cartridges/202609241334-sld-sandbox-v9-8.js');
+615215	const composed = file('atlas/cartridges/'+GEN+'-sld-sandbox-v9-8.js');
+615216	const loader = file('atlas/v/'+GEN+'/index.html');
+615217	test('LIVE-01: still selects accepted generation 202609241334',()=>{
+615218	  assert.equal(current.generation,'202609241334');
+615219	  assert.equal(current.architecture,'IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES');
+615220	  assert.deepEqual(current.cartridge_order,ids);
+615221	test('LIVE-02: accepted original cartridge is byte-verifiable',()=>{
+615222	  assert.equal(hash(orig),get(current,'sld-sandbox').sha256);
+615223	  assert.equal(orig.length,435218);
+615224	test('CAND-01: versioned standalone page uses byte-identical composer',()=>{
+615225	  assert.deepEqual(loader,file('atlas/index.html'));
+615226	  assert.equal(candidate.generation,GEN);
+615227	  assert.equal(manifest.generation,GEN);
+615228	  assert.deepEqual(candidate.cartridge_order,ids);
+615229	  assert.deepEqual(manifest.cartridge_order,ids);
+615230	  assert.equal(candidate.shell.index,'../../releases/202608300453-atlas-v9/index.html');
+615231	  assert.equal(candidate.shell.base,'../../releases/202608300453-atlas-v9/');
+615232	test('CAND-02: all other three original slot hashes are unmodified',()=>{
+615233	  for(const id of ids.slice(0,3)){
+615234	    assert.equal(get(candidate,id).sha256,get(current,id).sha256,'Hash changed for '+id);
+615235	    assert.equal(get(manifest,id).sha256,get(current,id).sha256,'Manifest hash changed for '+id);
+615236	test('CAND-03: original composed cartridge is EXACT prefix, then one new module',()=>{
+615237	  const expected = Buffer.concat([orig,Buffer.from('\n'),overlay]);
+615238	  assert.deepEqual(composed,expected);
+615239	  assert.equal(hash(composed),get(candidate,'sld-sandbox').sha256);
+615240	  assert.equal(hash(composed),get(manifest,'sld-sandbox').sha256);
+615241	  assert.equal(composed.length,get(candidate,'sld-sandbox').bytes);
+615242	test('CAND-04: overlay stays within documented byte limits',()=>{
+615243	  assert.ok(overlay.length<=24781,'Original 460 kB budget leaves at most 24,781 overlay bytes: '+overlay.length);
+615244	  assert.ok(overlay.length<=24781,'Hard bound 24,781 exceeded');
+615245	  assert.ok(composed.length<=460000,'Derived cartridge exceeds 460,000 bytes');
+615246	test('CAND-05: module parses without execution or fetching anything',()=>{
+615247	  assert.doesNotThrow(()=>new Script(overlay.toString('utf8'),{filename:GEN+'-uk-lightning-overlay.js'}));
+615248	test('CAND-06: optical flashes explicitly distinguish ground strikes',()=>{
+615249	  const s=overlay.toString('utf8');
+615250	  assert.match(s,/optical/i);
+615251	  assert.match(s,/ground strike/i);
+615252	  assert.match(s,/12m/);
+615253	  assert.match(s,/7d/);
+615254	test('CAND-07: provenance record states exact candidate SHA and source',()=>{
+615255	  const p=get(candidate,'sld-sandbox');
+615256	  assert.equal(p.generation,GEN);
+615257	  assert.match(p.path,new RegExp(GEN));
+615258	  assert.match(candidate.composition_manifest,new RegExp(GEN));
+615259	console.log('Testcode independent audit reads:',ROOT,'generation',GEN);
 ```

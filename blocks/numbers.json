@@ -1,5 +1,5 @@
 {
- "next": 1939,
+ "next": 1952,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1875,6 +1875,19 @@
   "kuiper-belt:see-through/{stamp}/see3d.js": 1935,
   "lightning:collect.py": 1936,
   "lightning:tests/test_collect.py": 1937,
-  "gridatlas:atlas/preview/lightning/weather-module.js": 1938
+  "gridatlas:atlas/preview/lightning/weather-module.js": 1938,
+  "gridatlas:atlas/labs/lightning-grid/app.mjs": 1939,
+  "gridatlas:atlas/labs/lightning-grid/feed-contract.mjs": 1940,
+  "gridatlas:atlas/labs/lightning-grid/map-view.mjs": 1941,
+  "lightning:history-window.mjs": 1942,
+  "lightning:history.py": 1943,
+  "lightning:status.py": 1944,
+  "lightning:tests/test_backfill.py": 1945,
+  "lightning:tests/test_backfill_workflow.py": 1946,
+  "lightning:tests/test_history.py": 1947,
+  "lightning:tests/test_history_window.mjs": 1948,
+  "lightning:tests/test_shard_lost.py": 1949,
+  "lightning:tests/test_status.py": 1950,
+  "lightning:tests/test_workflow.py": 1951
  }
 }
