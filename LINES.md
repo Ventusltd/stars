@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-381,259 unique lines, numbered 1 to 596,216. Generated 2026-10-26T20:09:57.373Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+381,545 unique lines, numbered 1 to 603,370. Generated 2026-10-27T00:05:03.746Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -381262,4 +381262,290 @@
 596214	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayoutProperty('l-uk_lightning','visibility')),'visible');
 596215	  assert.equal(await toggle.isChecked(),false,'LAYERS OFF not synchronised to Grid dropdown');
 596216	  record.preview.nativeLayersToggle='PASS: visible, clickable, synchronised in both directions';
+603076	/* uk-lightning-overlay, generation 202610261949 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+603077	 * OFF-by-default overlay appended LAST to the original Layers panel, fullscreen curtain and Grid dropdown footer. No
+603078	 * request, source or layer until the first switch-on; never persisted; no engine, Pipeline News or menu-proxy attribute.
+603079	 * Rules trimmed from lightning history-window.mjs (data-plane/hourly-lookback-index-v2 @ f7db76c). Optical flashes are
+603080	 * NOT confirmed ground strikes; a day never searched is unknown, never zero. Glossary: docs/lightning/CANDIDATE-202610261949.md */
+603082	const NS=(window.__GRIDATLAS_MODULES__=window.__GRIDATLAS_MODULES__||{});
+603083	if(NS.ukLightning||typeof document==='undefined')return;
+603084	const GEN='202610261949',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',
+603085	FEED='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson',
+603086	SRC='gridatlas-lightning',LAYER='l-gridatlas-lightning',DAY=864e5,HOUR=36e5,TMO=15000,BUDGET=40000,DRE=/^\d{4}-\d{2}-\d{2}$/,TOE='timeout after 15 s',NA='archive not yet published',
+603087	PERIODS=[['12h','12 hours',12*HOUR],['24h','24 hours',DAY],['48h','48 hours',2*DAY],['7d','7 days',7*DAY],['30d','30 days',30*DAY],['3m','3 months',-3],['6m','6 months',-6],['12m','1 year',-12],['custom','Custom UTC dates',0]],
+603088	LONG=['30d','3m','6m','12m'],BASE='Lightning flashes (optical)',TITLE='Weather · EUMETSAT Lightning Imager',
+603089	FOOTER='Times UTC · Optical flashes seen by MTG Lightning Imager (EUMETSAT L2-LFL), not confirmed ground strikes · Missing days are unknown, not zero · UK box −11.0,49.5 → 3.0,61.5',
+603090	COLOUR=st=>({L:'#888',P:'#ffcc00',U:'#ff8800',B:'#ff8800',F:'#ff4444'})[st[0]]||'#00ff88',
+603091	pad=n=>String(n).padStart(2,'0'),ymd=t=>new Date(t).toISOString().slice(0,10),ds=d=>Date.parse(d+'T00:00:00Z'),Q=id=>document.getElementById(id),E=m=>{throw new TypeError(m)},
+603092	T=t=>{const d=new Date(t);return`${ymd(t)} ${pad(d.getUTCHours())}:${pad(d.getUTCMinutes())} UTC`},Ts=t=>T(t).replace(' UTC',`:${pad(new Date(t).getUTCSeconds())} UTC`),
+603093	N=n=>Number(n).toLocaleString('en-GB'),AGO=t=>{const m=Math.max(0,Math.round(t/6e4));return`${Math.floor(m/60)}h ${m%60}min`},
+603094	ov=(a,b,c,d)=>Math.max(0,Math.min(b,d)-Math.max(a,c)),FC=f=>({type:'FeatureCollection',features:f||[]}),tm=f=>Date.parse(f.properties.time_utc),msg=e=>e&&e.message||String(e),
+603095	ph=()=>{try{return matchMedia('(pointer: coarse)').matches||window.innerWidth<=700}catch(_){return false}},cap=()=>ph()?10000:40000,
+603096	mm=(t,k)=>{const d=new Date(t),day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()-k);d.setUTCDate(Math.min(day,new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate()));return d.getTime()},
+603097	S={schema:'gridatlas.module.uk-lightning-overlay.v1',generation:GEN,installed:false,waiting_for:[],on:false,requests:0,errors:[],last:null,
+603098	period:'24h',end:null,from:'',to:'',consent:false,serial:0,idx:null,ie:null,ip:null,fp:null,res:null,mode:null,timer:null,sfs:[],menu:null},lru=new Map(),
+603099	note=m=>S.errors.push(String(m)),
+603100	// transport: fetch for .json, XMLHttpRequest for the live feed
+603101	gj=(u,cache)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),TMO);S.requests++;
+603102	return fetch(u,{cache,signal:c.signal}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).catch(e=>{throw e&&e.name==='AbortError'?new Error(TOE):e}).finally(()=>clearTimeout(t))},
+603103	gx=u=>{S.requests++;return new Promise((res,rej)=>{const x=new XMLHttpRequest();x.open('GET',u);x.timeout=TMO;
+603104	x.onload=()=>{if(x.status>=200&&x.status<300){try{res(JSON.parse(x.responseText))}catch(e){rej(e)}}else rej(new Error('HTTP '+x.status))};
+603105	x.onerror=()=>rej(new Error('network error'));x.ontimeout=()=>rej(new Error(TOE));x.send()})},
+603106	lg=k=>{if(!lru.has(k))return;const v=lru.get(k);lru.delete(k);lru.set(k,v);return v},ls=(k,v)=>{lru.delete(k);lru.set(k,v);while(lru.size>8)lru.delete(lru.keys().next().value)},
+603107	// index v2
+603108	vk=r=>{const n=r&&r.count,b=w=>E(`invalid index row ${r&&r.date}: ${w}`);if(!r||!DRE.test(r.date))b('date');if(!['none','partial','full'].includes(r.coverage))b('coverage');
+603109	if(r.coverage==='none'?n!==null:!(n>=0))b('count');if(n===0&&!(r.scanned_seconds>0))b('count 0 unscanned');if(n>0&&!r.path&&!(r.parts&&r.parts.length))b('no path/parts');
+603110	if(r.path&&!/^days\/\d{4}\/\d{2}\/\d{2}\.json$/.test(r.path))b('path');if(typeof r.sealed!=='boolean')b('sealed')},
+603111	ni=raw=>{if(!raw||typeof raw!=='object'||!Array.isArray(raw.days))E('not a lightning history index');
+603112	if(raw.schema!=='uk-lightning-history-index.v2')E('unsupported index schema '+raw.schema);
+603113	if(raw.observation!=='satellite optical lightning flashes, not ground strikes')E('index observation sentence missing');
+603114	const gen=Date.parse(raw.generated_utc);if(!isFinite(gen))E('index generated_utc missing');if(!DRE.test(raw.cutoff_date_utc||''))E('index cutoff_date_utc missing');
+603115	raw.days.forEach(vk);
+603116	const sw=(raw.scan_windows||[]).map(w=>({s:Date.parse(w.start_utc),e:Date.parse(w.end_utc),n:Number(w.successful_runs)||1})).filter(w=>isFinite(w.s)&&isFinite(w.e)&&w.e>w.s).sort((a,b)=>a.s-b.s),
+603117	cutoff=ds(raw.cutoff_date_utc),iv=Number(raw.collection_interval_hours)||3;
+603118	return{raw,days:raw.days,by:new Map(raw.days.map(r=>[r.date,r])),sw,gen,cutoff,iv,nextDue:Date.parse(raw.next_update_due_utc||'')||gen+(iv+1)*HOUR,lastScan:sw.length?Math.max(...sw.map(w=>w.e)):null,
+603119	covStart:Date.parse(raw.coverage_start_utc||'')||(sw.length?Math.min(...sw.map(w=>w.s)):cutoff),cutoffDate:raw.cutoff_date_utc}},
+603120	stale=(x,now)=>now-x.gen>4*HOUR||now>x.nextDue,
+603121	li=()=>{if(!S.ip)S.ip=gj(AR+'index.json','no-cache').then(ni).then(m=>{for(const k of[...lru.keys()])if(!lru.get(k).sealed)lru.delete(k);S.idx=m;S.ie=null;return m}).catch(e=>{S.ip=null;S.ie=msg(e);throw e});return S.ip},
+603122	// coverage from scan_windows
+603123	cv=(x,ws,we)=>{const win=we-ws,u=[];let r=0,a=null,b=null,sd=0,d=0;
+603124	for(const w of x.sw){const o=ov(ws,we,w.s,w.e);if(o<=0)continue;sd+=o;r+=w.n;const s=Math.max(ws,w.s),e=Math.min(we,w.e);a=a===null?s:Math.min(a,s);b=b===null?e:Math.max(b,e)}
+603125	for(let t=ds(ymd(ws));t<we;t+=DAY){if(ov(ws,we,t,t+DAY)<=0)continue;d++;const row=x.by.get(ymd(t));if(!row||row.coverage==='none')u.push(ymd(t))}
+603126	return{f:win>0?Math.min(1,sd/win):0,r,a,b,d,u,ny:x.lastScan===null?win:Math.max(0,we-Math.max(ws,x.lastScan)),bf:Math.max(0,Math.min(we,x.covStart)-ws)}},
+603127	// windows: UTC, end-anchored, [start,end)
+603128	wf=now=>{const P=PERIODS.find(p=>p[0]===S.period)||PERIODS[1];let s,e,atLatest;
+603129	if(S.period==='custom'){s=ds(S.from);e=Math.min(ds(S.to)+DAY,now);atLatest=ds(S.to)+DAY>=now}else{e=S.end===null?now:Math.min(S.end,now);atLatest=S.end===null;s=P[2]<0?mm(e,-P[2]):e-P[2]}
+603130	return{s,e,atLatest,period:P[0],label:P[1],span:e-s,clamped:false,custom:S.period==='custom'}},
+603131	tg=(row,ws,we)=>!row||!row.count?[]:row.path?[{path:row.path,bytes:row.bytes,count:row.count,sealed:row.sealed}]
+603132	:(row.parts||[]).filter(p=>{const h=ds(row.date)+Number(p.hour)*HOUR;return h<we&&h+HOUR>ws}).map(p=>({path:p.path,bytes:p.bytes,count:p.count,sealed:row.sealed})),
+603133	sh=(t,date)=>{const u=AR+t.path,c=lg(u);if(c)return c.p;
+603134	const p=gj(u,t.sealed?'default':'no-cache').then(o=>{if(!o||o.schema!=='uk-lightning-history-day.v1'||o.type!=='FeatureCollection'||!Array.isArray(o.features)||!o.metadata||o.metadata.date_utc!==date)E('invalid day file');return o.features}).catch(e=>{lru.delete(u);throw e});
+603135	ls(u,{p,sealed:!!t.sealed});return p},
+603136	fr=async(rows,ws,we)=>{const jobs=[];for(const row of rows)for(const t of tg(row,ws,we))jobs.push({row,t});const parts=new Array(jobs.length),fl=[];let pos=0;
+603137	await Promise.all(Array.from({length:Math.min(4,jobs.length)},async()=>{while(pos<jobs.length){const i=pos++,{row,t}=jobs[i];try{parts[i]=await sh(t,row.date)}catch(e){parts[i]=[];fl.push({date:row.date,error:msg(e)})}}}));
+603138	return{parts,fl,rq:jobs.length}},
+603139	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&f.properties&&f.properties.observation_kind==='optical_lightning_flash'&&isFinite(tm(f)),
+603140	co=(parts,ws,we)=>{const m=new Map();for(const part of parts)for(const f of part){if(!ok(f))continue;const t=tm(f);if(t>=ws&&t<we)m.set(String(f.id),f)}return[...m.values()].sort((a,b)=>tm(a)-tm(b))},
+603141	// tiers
+603142	ff=async(w,now,reason)=>{
+603143	if(w.s<now-7*DAY)E(`${w.label} needs the archive (${NA}); the live feed keeps 7 days`);
+603144	const f=await(S.fp||(S.fp=gx(FEED).catch(e=>{S.fp=null;throw e})));if(!f||f.type!=='FeatureCollection'||!Array.isArray(f.features))E('invalid live feed');
+603145	const m=f.metadata||{},ev=co([f.features],w.s,w.e),qs=Date.parse(m.query_start_utc||''),qe=Date.parse(m.scan_end_utc||m.query_end_utc||''),one=isFinite(qs)&&isFinite(qe)&&qe>qs;
+603146	return{mode:'feed',w,idx:null,ie:reason,meta:m,ev,fl:[],rq:1,cs:'live feed',ic:ev.length,cl:ev.length>cap(),ld:[],sk:[],cov:cv({sw:one?[{s:qs,e:qe,n:1}]:[],by:{get:()=>({coverage:'partial'})},lastScan:one?qe:null,covStart:-Infinity},w.s,w.e)}},
+603147	lw=async now=>{const w=wf(now);let x=null,ie=null;try{x=await li()}catch(e){ie=msg(e)}
+603148	if(!x)return ff(w,now,ie);
+603149	if(w.e<=x.cutoff)return{mode:'overview',w,idx:x,before:true,rows:[],cov:null,fl:[],ev:[],arch:0};
+603150	if(w.s<x.cutoff){w.s=x.cutoff;w.span=w.e-w.s;w.clamped=true}
+603151	const rows=x.days.filter(y=>{const f=ds(y.date);return f<w.e&&f+DAY>w.s}),known=rows.filter(y=>y.count!==null),
+603152	r={mode:'overview',w,idx:x,before:false,rows,arch:known.reduce((n,y)=>n+y.count,0),cov:cv(x,w.s,w.e),fl:[],ev:[],ld:[],sk:[],clp:false};
+603153	if(w.span/DAY>31)return r;
+603154	let tf=rows.filter(y=>y.count>0),bytes=0,count=0;
+603155	for(const row of tf)for(const t of tg(row,w.s,w.e)){count+=t.count||0;bytes+=t.bytes>=0?t.bytes:(t.count||0)*530}
+603156	if(count>BUDGET||bytes>32e6){if(!S.consent){r.clp=true;r.budget=`${N(count)} flashes, ${N(bytes)} bytes`;return r}
+603157	let run=0;tf.sort((a,b)=>b.date.localeCompare(a.date));const keep=[];for(const y of tf){if(run>=BUDGET){r.sk.push(y.date);continue}keep.push(y);run+=y.count}tf=keep;count=run}
+603158	r.ld=tf.map(y=>y.date);r.ic=count;r.cs='index';r.cl=count>cap();
+603159	const got=await fr(tf,w.s,w.e);r.mode='detail';r.fl=got.fl;r.rq=got.rq;r.ev=co(got.parts,w.s,w.e);return r},
+603160	// state machine
+603161	cf=(r,now)=>{let st;const rs=[];
+603162	if(r.fail){st='FAIL';rs.push(r.fail)}else if(r.before){st='BEFORE-ARCHIVE';rs.push('window entirely before the archive')}
+603163	else if(r.fl.length){st='FAIL';rs.push(`${r.fl.length} of ${r.rq} day files failed`)}
+603164	else{const c=r.cov,f=c?c.f:0;if(!c||f<=0){st='UNKNOWN';rs.push('0% searched')}
+603165	else if(f<0.999){st='PARTIAL';if(c.ny>0)rs.push('tail not yet ingested');if(c.bf>0)rs.push('head before archive start');if(c.u.length)rs.push(`${c.u.length} dates without a scan window`);if(!rs.length)rs.push('gaps inside the window')}
+603166	else if(r.mode!=='overview')st=r.ev.length?'READY·DETAIL':'EMPTY-COVERED';else st=r.arch>0?'READY·SUMMARY':'EMPTY-COVERED'}
+603167	return{st,stale:!!(r.idx&&stale(r.idx,now)),colour:COLOUR(st),rs}},
+603168	// the seven caption templates
+603169	cp=(r,now)=>{const w=r.w,x=r.idx,L={window:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER};
+603170	L.window=w.custom?`Window  UTC dates ${ymd(w.s)} to ${ymd(w.e-1)} inclusive = ${T(w.s)} → ${T(w.e)}`:`Window  ${T(w.s)} → ${T(w.e)} (${w.label}${w.atLatest?', latest':', end exclusive'})`;
+603171	if(w.clamped)L.window+=' · start clamped to retention start '+x.cutoffDate;
+603172	if(r.fail){L.warning=r.ie&&!x?`Archive unavailable: ${r.ie} at ${T(now)} — nothing shown (unknown, not zero)`:r.fail;return L}
+603173	if(r.before){L.warning=`Window predates the archive (began ${T(x.covStart)}; retention from ${x.cutoffDate}) — nothing can be shown; not zero lightning`;return L}
+603174	const n=r.ev.length,dev=ph()?'phone':'desktop',first=n?`Actual  first ${Ts(tm(r.ev[0]))} · last ${Ts(tm(r.ev[n-1]))}`:'',
+603175	drawn=!n?'':` · ${N(n)} drawn as ${r.cl?'clusters':'points'} (${r.cs} count ${N(r.ic)} ${r.cl?'exceeds':'within'} the ${N(cap())}-point cap for this ${dev})`;
+603176	if(r.mode==='feed'){const m=r.meta,P=k=>m[k]?T(Date.parse(m[k])):'unknown';
+603177	L.refresh=`Refresh live feed ${P('query_end_utc')} (last collection window ${P('query_start_utc')} → ${P('query_end_utc')}; latest detection ${m.latest_detection_utc?Ts(Date.parse(m.latest_detection_utc)):'unknown'}; 7-day retention; ${NA}${r.ie?': '+r.ie:''}; earlier hours unknown, not zero)`;
+603178	L.actual=first||'Actual  no flashes in the live feed in this window';L.flashes=`Flashes ${N(n)} in window (live feed, 7-day retention)${drawn}`}
+603179	else if(r.mode==='detail'){L.actual=first||'Actual  no archived flashes within this window';
+603180	L.flashes=r.sk.length?`Flashes ${N(r.arch)} archived in window (index) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)}; ${r.sk.length} older days not loaded)${drawn}`:`Flashes ${r.fl.length?'at least ':''}${N(n)} archived in window${drawn}`}
+603181	else{const o=r.rows.filter(y=>y.first_observation_utc),k=r.rows.length;
+603182	L.actual=o.length?`Actual  on the ${k} overlapping UTC dates: first ${Ts(Date.parse(o[0].first_observation_utc))} · last ${Ts(Date.parse(o[o.length-1].last_observation_utc))} (day-level; may lie outside a mid-day window edge)`:`Actual  no archived flashes on the ${k} overlapping UTC dates`;
+603183	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; LOAD POINTS draws the newest ${N(BUDGET)}`:'choose ≤31 days for points'})`}
+603184	if(x)L.refresh=`Refresh archive ${T(x.gen)} (${AGO(now-x.gen)} ago; expected every ${x.iv} h)${stale(x,now)?' · STALE':''}${L.refresh?' · '+L.refresh.slice(8):''}`;
+603185	const c=r.cov;if(c){const warn=[];
+603186	L.searched=c.f>0?`Searched EUMETSAT ${Math.round(c.f*100)}% of window · ${c.r} successful runs${c.a!==null?` · ${T(c.a)} → ${T(c.b)}`:''}`:'Searched EUMETSAT 0% of window — no collection run covers these dates';
+603187	if(c.ny>0)warn.push(`Not yet ingested: last ${AGO(c.ny)} of window (unknown, not zero)`);
+603188	if(c.bf>0&&x)warn.push(`Unknown: ${ymd(w.s)} to ${ymd(Math.min(w.e,x.covStart)-1)} precede archive start ${T(x.covStart)} (not zero)`);
+603189	if(c.u.length)warn.push(`Unknown: ${c.u.length} of ${c.d} UTC dates have no collection run`);
+603190	if(r.fl.length)warn.push(`${r.fl.length} of ${r.rq} day files failed (${r.fl.map(f=>f.date+' '+f.error).join(', ')}); points incomplete, counts from index`);
+603191	L.warning=warn.join(' · ')}
+603192	return L},
+603193	// map: one source, one circle layer, hidden until data
+603194	mh=()=>{const m=window.__GRIDATLAS_V9_MAP__;return m&&typeof m.addSource==='function'?m:null},
+603195	cx=()=>{const m=mh();if(m)try{if(m.getLayer(LAYER))m.removeLayer(LAYER);if(m.getSource(SRC))m.removeSource(SRC)}catch(e){note(e)}S.mode=null},
+603196	dw=(fc,cl)=>{const m=mh();if(!m)E('no map');const mode=cl?'cluster':'raw';if(S.mode&&S.mode!==mode)cx();
+603197	if(!m.getSource(SRC)){m.addSource(SRC,Object.assign({type:'geojson',data:FC()},cl?{cluster:true,clusterRadius:40,clusterMaxZoom:10}:{}));
+603198	m.addLayer({id:LAYER,type:'circle',source:SRC,layout:{visibility:'none'},paint:cl?{'circle-radius':['case',['has','point_count'],['step',['get','point_count'],9,100,13,1000,18,10000,24],3],'circle-color':['case',['has','point_count'],'#ffb000','#ffdf44'],'circle-opacity':0.8}
+603199	:{'circle-radius':['interpolate',['linear'],['zoom'],4,2.2,8,4,12,7],'circle-color':'#ffdf44','circle-opacity':0.85}});S.mode=mode}
+603200	m.getSource(SRC).setData(fc);m.setLayoutProperty(LAYER,'visibility',fc.features.length?'visible':'none')},
+603201	// DOM: shell classes, inline styles on own nodes only
+603202	BTN=(a,t,x)=>`<button type="button" class="map-ctrl-btn" ${a}${x||''}>${t}</button>`,ROW='style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0"',
+603203	DATE=k=>`<input type="date" class="search-input" data-lightning-date="${k}" style="width:9.5em;color-scheme:dark">`,
+603204	bg=key=>{const g=document.createElement('div');g.className='key-group';g.dataset.lightningGroup=key;
+603205	g.innerHTML=`<div class="key-title">${TITLE}</div><label class="key-item"><input type="checkbox" data-lightning-control="toggle"> <span data-lightning-label="${key}" style="color:#ffdf44">${BASE} [WAIT]</span></label>`
+603206	+`<div data-lightning-controls="${key}" hidden><div role="group" ${ROW}>${PERIODS.map(p=>BTN(`data-lightning-period="${p[0]}"`,p[0].toUpperCase())).join('')}</div>`
+603207	+`<div class="radius-input-row" data-lightning-custom style="display:none;flex-wrap:wrap;margin:4px 0"><span class="radius-unit">From (UTC)</span>${DATE('from')}<span class="radius-unit">To (incl.)</span>${DATE('to')}${BTN('data-lightning-nav="apply"','APPLY')}</div>`
+603208	+`<div ${ROW}>${BTN('data-lightning-nav="prev"','◀ PREV')}${BTN('data-lightning-nav="latest"','LATEST',' disabled')}${BTN('data-lightning-nav="next"','NEXT ▶',' disabled')}${BTN('data-lightning-nav="points"','LOAD POINTS',' hidden')}</div>`
+603209	+`<div class="status-legend" style="border:0;margin:0;padding:2px 0"><div class="status-dot"><span data-lightning-dot style="background:#888"></span>LOADING</div></div>`
+603210	+`<div id="gridatlas-lightning-caption-${key}" data-lightning-caption role="status" aria-live="polite" style="font:10px/1.5 'Courier New',monospace;color:#888;overflow-wrap:anywhere">`
+603211	+['window','actual','flashes','refresh','searched','warning','footer'].map(k=>`<div data-cap="${k}"${k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:9px;color:#555"':''}></div>`).join('')+'</div></div>';
+603212	if(ph())g.querySelectorAll('.map-ctrl-btn').forEach(b=>{b.style.cssText+='min-height:44px;min-width:44px'});
+603213	const q=s=>g.querySelector(s),sf={key,group:g,toggle:q('[data-lightning-control]'),label:q('[data-lightning-label]'),ctl:q('[data-lightning-controls]'),custom:q('[data-lightning-custom]'),from:q('[data-lightning-date="from"]'),to:q('[data-lightning-date="to"]'),dot:q('[data-lightning-dot]'),stx:q('.status-dot').lastChild,caps:{},nav:{},chips:{}};
+603214	g.querySelectorAll('[data-cap],[data-lightning-nav],[data-lightning-period]').forEach(n=>{const d=n.dataset;if(d.cap)sf.caps[d.cap]=n;else if(d.lightningNav)sf.nav[d.lightningNav]=n;else sf.chips[d.lightningPeriod]=n});
+603215	g.addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b||!g.contains(b))return;if(b.dataset.lightningPeriod)sp(b.dataset.lightningPeriod);else if(b.dataset.lightningNav)nv(b.dataset.lightningNav,sf)});
+603216	return sf},
+603217	bmn=(panel,body)=>{const f=document.createElement('div');f.dataset.lightningGroup='menu';f.style.cssText='flex:0 0 auto;padding:0 6px 6px;border-top:1px solid #19343b';
+603218	f.innerHTML=`<div class="gm-layer-group">${TITLE}</div><label class="gm-layer"><input type="checkbox" data-lightning-control="toggle" aria-label="${BASE}"><span class="gm-layer-box" aria-hidden="true"></span><span class="gm-layer-name" data-lightning-label="menu">${BASE} [WAIT]</span></label>`;
+603219	// the menu's bubble-phase click closer never sees this row
+603220	f.addEventListener('click',ev=>ev.stopPropagation());panel.insertBefore(f,body.nextSibling);
+603221	return{key:'menu',group:f,toggle:f.querySelector('[data-lightning-control]'),label:f.querySelector('[data-lightning-label]')}},
+603222	txt=(n,s)=>{if(n&&n.textContent!==s)n.textContent=s},flag=(n,a,on)=>{if(n)on?n.setAttribute(a,''):n.removeAttribute(a)},
+603223	lt=(r,c,loading)=>{if(!S.on)return BASE+' [WAIT]';if(loading)return BASE+' [LOAD]';if(!r||c.st==='FAIL')return BASE+' [FAIL]';
+603224	const n=r.mode==='overview'?r.arch:r.ev.length;return`${BASE} [${/UNKNOWN|BEFORE/.test(c.st)?'UNKNOWN':n>0?N(n):c.st==='PARTIAL'?'UNKNOWN':'EMPTY'} | ${r.w.period}${c.stale?' STALE':''}]`},
+603225	sl=(r,c)=>{const st=c.st,n=r.mode==='overview'?`${N(r.arch)} ARCHIVED`:`${N(r.ev.length)} FLASHES${r.cl?' CLUSTERED':' DRAWN'}`;
+603226	return(st.startsWith('READY')?'READY · '+n:st==='EMPTY-COVERED'?'NO FLASHES DETECTED · SEARCHED 100%':st==='PARTIAL'?`PARTIAL · ${n} · SEARCHED ${Math.round(r.cov.f*100)}%`:st==='FAIL'?'FAIL · '+c.rs.join('; '):st)+(c.stale?' · STALE':'')},
+603227	// one batched repaint
+603228	pt=loading=>{const now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null,feedOnly=!S.idx&&!!S.ie;
+603229	for(const sf of S.sfs.concat(S.menu?[S.menu]:[])){if(sf.toggle.checked!==S.on)sf.toggle.checked=S.on;txt(sf.label,text);sf.label.style.opacity=fail?'0.5':'1'}
+603230	for(const sf of S.sfs){flag(sf.ctl,'hidden',!S.on);if(!S.on)continue;
+603231	for(const k in sf.chips){const b=sf.chips[k],on=k===S.period,off=feedOnly&&LONG.includes(k);b.classList.toggle('active',on);b.disabled=off}
+603232	sf.custom.style.display=S.period==='custom'?'flex':'none';if(S.idx)sf.from.min=sf.to.min=S.idx.cutoffDate;sf.from.max=sf.to.max=ymd(now);if(sf.from.value!==S.from)sf.from.value=S.from;if(sf.to.value!==S.to)sf.to.value=S.to;
+603233	const cut=S.idx?S.idx.cutoff:now-7*DAY,cu=S.period==='custom';sf.nav.prev.disabled=loading||cu||!w||w.s<=cut;sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;flag(sf.nav.points,'hidden',!(r&&r.clp));
+603234	sf.dot.style.background=loading?COLOUR('L'):c.colour;txt(sf.stx,loading?'LOADING':sl(r,c));if(!loading)for(const k in L)txt(sf.caps[k],L[k])}
+603235	if(r&&!loading)S.last={state:c.st,stale:c.stale,mode:r.mode,period:w.period,drawn:r.ev.length,cluster:!!r.cl,cap:cap(),cap_source:r.cs||null,index_count:r.ic===undefined?null:r.ic,failures:r.fl.length,reasons:c.rs}},
+603236	// actions
+603237	sp=p=>{S.period=p;S.consent=false;if(p==='custom'){if(!S.from)S.from=S.to=ymd(Date.now());pt(false)}else ld()},
+603238	nv=(which,sf)=>{const now=Date.now(),w=wf(now);S.consent=which==='points';
+603239	if(which==='apply'){const f=sf.from.value,t=sf.to.value,good=DRE.test(f)&&DRE.test(t)&&f<=t;sf.from.style.borderColor=sf.to.style.borderColor=good?'':'#ff4444';
+603240	if(!good)return txt(sf.caps.warning,'Custom dates: From must not be after To — nothing loaded');S.from=f;S.to=t}
+603241	else if(which==='latest'){S.end=null;return ld(true)}else if(which==='prev')S.end=w.s;else if(which==='next'){const e=w.e+w.span;S.end=e>=now-9e5?null:e}
+603242	ld()},
+603243	ld=refresh=>{const serial=++S.serial,now=Date.now();if(refresh)S.ip=null;pt(true);
+603244	lw(now).then(r=>({r}),e=>({e})).then(({r,e})=>{if(serial!==S.serial||!S.on)return;
+603245	if(e){note(e);r={mode:'fail',fail:msg(e),w:wf(now),idx:S.idx,ie:S.ie,fl:[],ev:[],rows:[],arch:0}}
+603246	S.res=r;try{dw(FC(r.ev),!!r.cl)}catch(err){note('draw: '+err.message);r.fail=r.fail||'map layer: '+err.message}pt(false)})},
+603247	so=(on,from)=>{if(S.on===on)return;S.on=on;
+603248	if(on){S.end=null;S.consent=false;S.res=null;if(from==='menu'&&ph()){const h=Q('scada-ui-container'),g=S.sfs[0]&&S.sfs[0].group;if(h&&g)h.scrollTop+=g.getBoundingClientRect().top-h.getBoundingClientRect().top}
+603249	ld();if(!S.timer)S.timer=setInterval(()=>{if(S.on&&S.res&&S.res.w.atLatest)ld(true)},6e5)}
+603250	else{S.serial++;S.res=null;cx();if(S.timer){clearInterval(S.timer);S.timer=null}pt(false)}},
+603251	bt=(c,from)=>c.addEventListener('change',ev=>{const t=ev.target;if(t&&t.dataset&&t.dataset.lightningControl==='toggle')so(!!t.checked,from)}),
+603252	// install after menu, Pipeline News and map exist
+603253	ins=()=>{if(S.installed)return true;
+603254	const M=NS.menuBar,P=window.__GRIDATLAS_PIPELINE_LAYERS__,host=Q('scada-ui-container'),bar=Q('gridatlas-menu-bar'),body=bar&&bar.querySelector('.gm-panel-body'),miss=[];
+603255	if(!(M&&M.installed===true))miss.push('menuBar');if(!(P&&P.installed))miss.push('pipelineLayers');if(!mh())miss.push('map');if(!host||!host.querySelector('.key-group'))miss.push('groups');if(!body)miss.push('gm-panel-body');S.waiting_for=miss;if(miss.length)return false;
+603256	const main=bg('main');host.appendChild(main.group);bt(host,'main');S.sfs.push(main);
+603257	const cur=Q('fs-curtain-keys');if(cur){const fs=bg('fs');cur.appendChild(fs.group);bt(cur,'fs');S.sfs.push(fs)}
+603258	S.menu=bmn(body.parentNode,body);bt(S.menu.group,'menu');pt(false);S.installed=true;return true};
+603259	if(typeof setInterval==='function'&&typeof MutationObserver==='function'){const ob=new MutationObserver(()=>tick()),poll=setInterval(()=>tick(),250),
+603260	tick=()=>{try{if(ins()){clearInterval(poll);ob.disconnect()}}catch(e){note('install: '+msg(e))}};ob.observe(document.documentElement,{childList:true,subtree:true})}
+603261	NS.ukLightning=Object.freeze({schema:S.schema,generation:GEN,state:S,install:ins,setOn:so,load:()=>ld(true),windowFor:wf});
+603262	/* uk-lightning-overlay, generation 202610262323 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+603263	 * OFF-by-default overlay appended LAST to the original Layers panel and fullscreen curtain (no Grid dropdown row). No
+603264	const GEN='202610262323',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',
+603265	SRC='gridatlas-lightning',LAYER='l-gridatlas-lightning',DAY=864e5,HOUR=36e5,TMO=15000,BUDGET=40000,DRE=/^\d{4}-\d{2}-\d{2}$/,TOE='timeout after 15 s',NA=e=>/HTTP 404/.test(e)?'archive not yet published':'archive unavailable',
+603266	BASE='Lightning flashes (optical)',TITLE='Weather · EUMETSAT Lightning Imager',
+603267	ymd=t=>new Date(t).toISOString().slice(0,10),ds=d=>Date.parse(d+'T00:00:00Z'),Q=id=>document.getElementById(id),E=m=>{throw new TypeError(m)},
+603268	T=(t,n=16)=>isFinite(t)?new Date(t).toISOString().slice(0,n).replace('T',' ')+' UTC':'unknown',Ts=t=>T(t,19),
+603269	ov=(a,b,c,d)=>Math.max(0,Math.min(b,d)-Math.max(a,c)),FC=f=>({type:'FeatureCollection',features:f||[]}),// D02 UK box
+603270	bx=(x,y)=>x===+x&&y===+y&&x>=-11&&x<=3&&y>=49.5&&y<=61.5,isFC=o=>o&&o.type==='FeatureCollection'&&Array.isArray(o.features),tm=f=>Date.parse(f.properties.time_utc),msg=e=>e&&e.message||String(e),
+603271	period:'24h',end:null,from:'',to:'',consent:false,serial:0,idx:null,ie:null,ip:null,fp:null,res:null,mode:null,timer:null,sfs:[]},lru=new Map(),
+603272	gj=(u,cache,raw)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),TMO);S.requests++;
+603273	return fetch(u,{cache,signal:c.signal}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return raw&&r.arrayBuffer?r.arrayBuffer():r.json()}).catch(e=>{throw e&&e.name==='AbortError'?new Error(TOE):e}).finally(()=>clearTimeout(t))},
+603274	return{days:raw.days,by:new Map(raw.days.map(r=>[r.date,r])),sw,gen,cutoff,iv,nextDue:Date.parse(raw.next_update_due_utc||'')||gen+(iv+1)*HOUR,lastScan:sw.length?Math.max(...sw.map(w=>w.e)):null,
+603275	wf=now=>{const P=PERIODS.find(p=>p[0]===S.period)||PERIODS[1],cu=S.period==='custom';let s,e,atLatest;
+603276	if(cu){s=ds(S.from);e=Math.min(ds(S.to)+DAY,now);atLatest=ds(S.to)+DAY>=now}else{e=S.end===null?now:Math.min(S.end,now);atLatest=S.end===null;s=P[2]<0?mm(e,-P[2]):e-P[2]}
+603277	return{s,e,atLatest,period:P[0],label:P[1],span:e-s,clamped:false,custom:cu}},
+603278	tg=(row,ws,we)=>!row||!row.count?[]:row.path?[row]
+603279	:(row.parts||[]).filter(p=>{const h=ds(row.date)+Number(p.hour)*HOUR;return h<we&&h+HOUR>ws}).map(p=>({...p,sealed:row.sealed})),
+603280	const p=gj(u,t.sealed?'default':'no-cache',1).then(async b=>{const o=b.byteLength>=0?await new Response(b).json():b,s=(window.crypto||0).subtle;
+603281	if(!isFC(o)||o.schema!=='uk-lightning-history-day.v1'||!o.metadata||o.metadata.date_utc!==date)E('invalid day file');
+603282	// D08 (sha256 needs https)
+603283	const bad=[o.features.length!==t.count&&'count',b.byteLength!==t.bytes&&'bytes',s&&[...new Uint8Array(await s.digest('SHA-256',b))].map(x=>(x|256).toString(16).slice(1)).join('')!==t.sha256&&'sha256'].filter(Boolean);
+603284	if(bad.length)E('index mismatch: '+bad.join(', '));return o.features}).catch(e=>{lru.delete(u);throw e});
+603285	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&bx(...[].concat(f.geometry.coordinates))&&f.properties&&f.properties.observation_kind==='optical_lightning_flash'&&isFinite(tm(f)),
+603286	co=(parts,ws,we)=>{const m=new Map();let k=0;for(const part of parts)for(const f of part){if(!ok(f)){k++;continue}const t=tm(f);if(t>=ws&&t<we)m.set(String(f.id),f)}const a=[...m.values()].sort((a,b)=>tm(a)-tm(b));a.bad=k;return a},
+603287	const f=await(S.fp||(S.fp=gx(FEED).catch(e=>{S.fp=null;throw e})));if(!isFC(f))E('invalid live feed');
+603288	const ev=co([f.features],w.s,w.e);
+603289	return{mode:'feed',w,idx:null,ie:reason,meta:f.metadata||{},old:w.s<now-7*DAY,ev,fl:[],cs:'live feed',ic:ev.length,cl:ev.length>cap(),cov:null}},
+603290	for(const row of tf)for(const t of tg(row,w.s,w.e)){count+=t.count||0;bytes+=t.bytes>0?t.bytes:(t.count||0)*530}
+603291	// newest days within both budgets
+603292	let run=0,rb=0;tf.sort((a,b)=>b.date.localeCompare(a.date));const keep=[];for(const y of tf){const b=y.bytes>0?y.bytes:y.count*530;if(r.sk.length||run+y.count>BUDGET||rb+b>32e6){r.sk.push(y.date);continue}keep.push(y);run+=y.count;rb+=b}tf=keep;count=run}
+603293	else{const c=r.cov,f=c?c.f:0;if(r.mode==='feed'){st=r.ev.length?'PARTIAL':'UNKNOWN';rs.push('feed coverage unknown')}else if(!c||f<=0){st='UNKNOWN';rs.push('0% searched')}
+603294	return{st,stale:stale(r.idx||{gen:Date.parse((r.meta||0).query_end_utc)},now),colour:COLOUR(st),rs}},
+603295	drawn=(!n?'':` · ${N(n)} drawn as ${r.cl?'clusters':'points'} (${r.cs} count ${N(r.ic)} ${r.cl?'exceeds':'within'} the ${N(cap())}-point cap for this ${dev})`)+(r.ev&&r.ev.bad?` · ${N(r.ev.bad)} malformed records rejected`:'');
+603296	if(r.mode==='feed'){const m=r.meta,P=(k,f=T)=>f(Date.parse(m[k]));
+603297	L.refresh=`Refresh live feed ${P('query_end_utc')} (last collection window ${P('query_start_utc')} → ${P('query_end_utc')}; latest detection ${P('latest_detection_utc',Ts)}; 7-day retention; ${NA(r.ie)}: ${r.ie}; earlier hours unknown, not zero)`;
+603298	L.searched='Searched EUMETSAT unknown (live feed records only its last collection window)';if(r.old)L.warning=NA(r.ie)+': earlier coverage unknown, not zero';
+603299	L.flashes=r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}`:`Flashes ${r.fl.length?'at least ':''}${N(n)} archived in window${drawn}`}
+603300	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; LOAD POINTS draws up to the newest ${N(BUDGET)}`:'choose ≤31 days for points'})`}
+603301	if(x)L.refresh=`Refresh archive ${T(x.gen)} (${AGO(now-x.gen)} ago; expected every ${x.iv} h)${stale(x,now)?' · STALE':''}`;
+603302	BTN=(a,t,x)=>`<button type="button" class="map-ctrl-btn" ${a}${x||''}>${t}</button>`,NAV=(k,t,x)=>BTN(`data-lightning-nav="${k}"`,t,x),ROW='style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0"',
+603303	DATE=k=>`<input type="date" class="search-input" data-lightning-date="${k}" aria-label="${k} date (UTC)" style="width:9.5em;color-scheme:dark">`,
+603304	+`<div class="radius-input-row" data-lightning-custom style="display:none;flex-wrap:wrap;margin:4px 0"><span class="radius-unit">From (UTC)</span>${DATE('from')}<span class="radius-unit">To (incl.)</span>${DATE('to')}${NAV('apply','APPLY')}</div>`
+603305	+`<div ${ROW}>${NAV('prev','◀ PREV')}${NAV('latest','LATEST',' disabled')}${NAV('next','NEXT ▶',' disabled')}${NAV('points','LOAD POINTS',' hidden')}</div>`
+603306	+`<div class="status-legend" style="border:0;margin:0;padding:2px 0"><div class="status-dot" style="color:#888"><span data-lightning-dot style="background:#888"></span>LOADING</div></div>`
+603307	+['window','actual','flashes','refresh','searched','warning','footer'].map(k=>`<div data-cap="${k}"${k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:9px;color:#888"':''}></div>`).join('')+'</div></div>';
+603308	if(ph())g.querySelectorAll('.map-ctrl-btn').forEach(b=>b.style.cssText+='min-height:44px;min-width:44px');
+603309	return(st.startsWith('READY')?'READY · '+n:st==='EMPTY-COVERED'?'NO FLASHES DETECTED · SEARCHED 100%':st==='PARTIAL'?`PARTIAL · ${n} · SEARCHED ${r.cov?Math.round(r.cov.f*100)+'%':'UNKNOWN'}`:st==='FAIL'?'FAIL · '+c.rs.join('; '):st)+(c.stale?' · STALE':'')},
+603310	pt=loading=>{const now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null;
+603311	for(const sf of S.sfs){if(sf.toggle.checked!==S.on)sf.toggle.checked=S.on;txt(sf.label,text);sf.label.style.opacity=fail?'0.6':'1'}
+603312	for(const k in sf.chips){const b=sf.chips[k];b.setAttribute('aria-pressed',b.classList.toggle('active',k===S.period))}
+603313	const cu=S.period==='custom';sf.custom.style.display=cu?'flex':'none';if(S.idx)sf.from.min=sf.to.min=S.idx.cutoffDate;sf.from.max=sf.to.max=ymd(now);if(sf.from.value!==S.from)sf.from.value=S.from;if(sf.to.value!==S.to)sf.to.value=S.to;
+603314	sf.nav.prev.disabled=loading||cu||!S.idx||!w||w.s<=S.idx.cutoff;sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;flag(sf.nav.points,'hidden',!(r&&r.clp));
+603315	sp=p=>{S.period=p;S.consent=false;if(p==='custom'&&!S.from)S.from=S.to=ymd(Date.now());ld()},
+603316	ld=refresh=>{const serial=++S.serial,now=Date.now();if(refresh)S.ip=S.fp=null;pt(true);
+603317	so=on=>{if(S.on===on)return;S.on=on;
+603318	if(on){S.end=null;S.consent=false;S.res=null;
+603319	ld(true);if(!S.timer)S.timer=setInterval(()=>{if(S.on&&S.res&&S.res.w.atLatest)ld(true)},6e5)}
+603320	bt=c=>c.addEventListener('change',ev=>{const t=ev.target;if(t&&t.dataset&&t.dataset.lightningControl==='toggle')so(!!t.checked)}),
+603321	const M=NS.menuBar,P=window.__GRIDATLAS_PIPELINE_LAYERS__,host=Q('scada-ui-container'),miss=[];
+603322	if(!(M&&M.installed===true))miss.push('menuBar');if(!(P&&P.installed))miss.push('pipelineLayers');if(!mh())miss.push('map');if(!host||!host.querySelector('.key-group'))miss.push('groups');S.waiting_for=miss;if(miss.length)return false;
+603323	const main=bg('main');main.group.style.paddingBottom='64px';host.appendChild(main.group);bt(host);S.sfs.push(main);
+603324	const cur=Q('fs-curtain-keys');if(cur){const fs=bg('fs');cur.appendChild(fs.group);bt(cur);S.sfs.push(fs)}
+603325	pt(false);S.installed=true;return true};
+603326	/** Exact change boundary: the live 202609241334 sld-sandbox bytes are carried forward UNCHANGED and exactly one module, the UK lightning overlay, is appended after a single '\n'. Static negatives keep the module outside the engine's, Pipeline News' and the menu's contracts. Browser regression tests prove layout, hit targets and the OFF/ON behaviour separately. */
+603332	const GEN='202610261949';
+603333	const readJson=(p)=>JSON.parse(fs.readFileSync(new URL(p,root)));
+603334	/* The composition that names this generation: atlas/current.json once the owner releases it, the pinned candidate route
+603335	   atlas/v/<GEN>/ until then. The candidate branch leaves the live pointer at 202609241334 by design. */
+603336	let current=readJson('atlas/current.json'),base='atlas/';
+603337	if(current.cartridges.find(x=>x.id==='sld-sandbox').generation!==GEN){current=readJson('atlas/v/'+GEN+'/current.json');base='atlas/v/'+GEN+'/';}
+603339	assert.equal(entry.generation,GEN);
+603340	assert.equal(current.generation,GEN);
+603341	const source=fs.readFileSync(new URL(base+entry.path,root),'utf8');
+603343	const original=fs.readFileSync(new URL('atlas/cartridges/202609241334-sld-sandbox-v9-8.js',root),'utf8');
+603344	assert.equal(createHash('sha256').update(original).digest('hex'),'7812953671d8bb22a566de5e98fd3137da2d23411c5aecd526df5afa111ca4ca','the live 202609241334 cartridge must itself be untouched');
+603345	const module=fs.readFileSync(new URL('atlas/modules/'+GEN+'-uk-lightning-overlay.js',root),'utf8');
+603346	const expected=original+'\n'+module;
+603347	assert.equal(source,expected,'the cartridge must be the live bytes, one newline and the module: nothing replaced, nothing reordered');
+603348	assert.ok(Buffer.byteLength(module,'utf8')<=24000,'module exceeds the 24,000-byte budget');
+603349	assert.ok(Buffer.byteLength(source,'utf8')<=460000,'cartridge exceeds the 460 kB ceiling');
+603350	assert.ok(module.includes('generation '+GEN),'module header must name its generation');
+603351	/* Static negatives: the module must not reach into any original contract. */
+603352	const negatives=/ukConfig|initVentusMap|window\.fetch|data-layer-id|data-pn-layer|data-gridatlas-layer-proxy|data-gridatlas-layer-key|prepend\(|lbl-|name=["']bm|<style|createElement\(['"]style|localStorage|sessionStorage|document\.cookie/;
+603353	assert.equal(negatives.test(module),false,'module touches an engine, Pipeline News, menu, stylesheet or storage contract');
+603354	const geojson=module.split('.geojson');
+603355	assert.equal(geojson.length,2,'exactly one .geojson literal is allowed: the live feed read by XMLHttpRequest');
+603356	assert.ok(module.includes("FEED='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson'"),'the one .geojson literal is the live feed URL');
+603357	assert.ok(module.includes('XMLHttpRequest'),'the live feed must be read by XMLHttpRequest, which the original bridge does not hook');
+603358	assert.ok(/data\/history\//.test(module),'archive base URL');
+603359	const v6=/price-history-time-tabs|price-history-chart-nav|price-history-period-(back|forward)|v5-chart-open|electricity-price-history-panel/;
+603360	assert.equal(v6.test(module),false,'no UK Energy Tracker V6 markup transplanted');
+603361	/* Static positives: OFF by default, honest vocabulary, the three surfaces, the caps. */
+603362	for(const needle of ["visibility:'none'",'not confirmed ground strikes','unknown','data-lightning-control="toggle"','scada-ui-container','fs-curtain-keys','gm-panel-body','appendChild','insertBefore','cluster:true','10000','40000','AbortController','EUMETSAT'])
+603363	 assert.ok(module.includes(needle),'module must contain '+JSON.stringify(needle));
+603364	assert.equal((module.match(/\(\(\)=>\{'use strict'/g)||[]).length,1,'one IIFE');
+603366	console.log('SLD exact delta (202609241334 bytes + \\n + '+GEN+' uk-lightning-overlay module), SHA-256, byte budget, static negatives, static positives and syntax PASS; browser verification runs separately.');
+603367	const GEN='202610262323';
+603368	assert.ok(Buffer.byteLength(module,'utf8')<=24781,'module exceeds the 24,781-byte budget');
+603369	assert.equal(module.includes('gm-panel-body'),false,'the Grid dropdown mirror was removed: the module must not touch the original Grid panel body (P02/P10)');
+603370	for(const needle of ["visibility:'none'",'not confirmed ground strikes','unknown','data-lightning-control="toggle"','scada-ui-container','fs-curtain-keys','appendChild','cluster:true','10000','40000','AbortController','EUMETSAT'])
 ```
