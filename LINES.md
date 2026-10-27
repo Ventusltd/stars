@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-386,032 unique lines, numbered 1 to 615,259. Generated 2026-10-27T05:33:49.041Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+386,071 unique lines, numbered 1 to 622,340. Generated 2026-10-27T10:57:33.589Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -386035,4 +386035,43 @@
 615257	  assert.match(p.path,new RegExp(GEN));
 615258	  assert.match(candidate.composition_manifest,new RegExp(GEN));
 615259	console.log('Testcode independent audit reads:',ROOT,'generation',GEN);
+622111	/* uk-lightning-overlay, generation 202610270929 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+622120	const GEN='202610270929',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+622122	SRC='gridatlas-lightning',LAYER='l-gridatlas-lightning',DAY=864e5,HOUR=36e5,TMO=15000,BUDGET=40000,RQ=400,DRE=/^\d{4}-\d{2}-\d{2}$/,TOE='timeout after 15 s',NA=e=>/HTTP 404/.test(e)?'archive not yet published':'archive unavailable',
+622192	let tf=rows.filter(y=>y.count>0),bytes=0,count=0,nq=0;
+622193	for(const row of tf)for(const t of tg(row,w.s,w.e)){nq++;count+=t.count||0;bytes+=t.bytes>0?t.bytes:(t.count||0)*530}
+622194	// within the device point cap, 32 MB and RQ files the points load for any window length; above, LOAD POINTS asks first
+622195	if(count>Math.min(BUDGET,cap())||bytes>32e6||nq>RQ){r.budget=`${N(count)} flashes, ${N(bytes)} bytes, ${N(nq)} files`;if(!S.consent){r.clp=true;return r}
+622196	let run=0,rb=0,rn=0;tf.sort((a,b)=>b.date.localeCompare(a.date));const keep=[];for(const y of tf){const b=y.bytes>0?y.bytes:y.count*530,q=tg(y,w.s,w.e).length;if(r.sk.length||run+y.count>BUDGET||rb+b>32e6||rn+q>RQ){r.sk.push(y.date);continue}keep.push(y);run+=y.count;rb+=b;rn+=q}if(!keep.length){r.clp=r.big=1;return r}tf=keep;count=run}
+622224	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})`}
+622238	HIT=LAYER+'-hit',CNT=LAYER+'-count',pc=()=>{if(S.pp){S.pp.remove();S.pp=null}nc()},
+622239	el=(t,css,s)=>{const e=document.createElement(t);if(css)e.style.cssText=css;if(s!=null)e.textContent=s;return e},
+622240	// above the flash when it fits below the menu bar, else below it; clamped inside the map; scrolls when taller than the map
+622241	cpos=()=>{const c=S.pp,m=mh();if(!c||!m)return;const p=m.project(c.ll),k=m.getContainer().getBoundingClientRect(),b=Q('gridatlas-menu-bar'),t=Math.max(0,(b?b.getBoundingClientRect().bottom:0)-k.top)+8,w=c.offsetWidth||0,h=c.offsetHeight||0;
+622242	c.style.maxHeight=Math.max(120,k.height-t-8)+'px';c.style.left=Math.min(Math.max(p.x,w/2+8),Math.max(w/2+8,k.width-w/2-8))+'px';c.style.top=(p.y-h-14>=t?p.y-h-14:Math.max(t,Math.min(p.y+14,k.height-h-8)))+'px'},
+622244	dw=(fc,cl)=>{const m=mh(),K={'circle-stroke-width':1.5,'circle-stroke-color':'#1a1a1a'},Z=k=>['interpolate',['linear'],['zoom'],5,k(6),8,k(8),11,k(10)];if(!m)E('no map');const mode=cl?'cluster':'raw';if(S.mode&&S.mode!==mode)cx();
+622251	// tap: query only our hit layer; open our card only when a flash is under the tap. Other click handlers always run.
+622252	tap=e=>{const m=mh();if(!S.on||!m||!m.getLayer(HIT))return;const px=e.point.x??e.point[0],py=e.point.y??e.point[1];let f=null,dm=Infinity;
+622253	for(const q of m.queryRenderedFeatures(e.point,{layers:[HIT]})){const g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f)return;
+622255	const g=S.res&&S.res.ev[p.i];if(!g)return;const[x,y]=g.geometry.coordinates,c=el('div','position:absolute;z-index:5;max-width:280px;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #00ffff;border-radius:4px;padding:8px 48px 8px 10px;font:12px/1.45 monospace;overflow-wrap:anywhere;overflow:auto;transform:translateX(-50%)');
+622256	c.dataset.lightningCard='';c.ll=[x,y];const b=el('button','position:absolute;top:0;right:0;width:44px;height:44px;background:none;border:0;color:#e8f4f5;font:20px monospace;cursor:pointer','×');b.type='button';b.setAttribute('aria-label','Close');b.addEventListener('click',pc);c.appendChild(b);
+622257	for(const s of[Ts(tm(g)),'Flash ID '+(g.id==null?'(none)':g.id),`lat ${y.toFixed(3)}, lon ${x.toFixed(3)}`,'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike'])c.appendChild(el('div','',s));
+622258	const n=el('button','margin-top:6px;min-height:44px;padding:0 10px;background:#001418;color:#00ffff;border:1px solid #00ffff;font:12px monospace;cursor:pointer','NEAREST SUBSTATIONS');n.type='button';n.dataset.lightningNearest='';n.addEventListener('click',()=>near(m,c,x,y));c.appendChild(n);
+622259	c.out=el('div','margin-top:6px');c.appendChild(c.out);m.getContainer().appendChild(c);S.pp=c;cpos()},
+622260	// nearest substations: no public draw entry exists (link.selectAt treats its origin as a project and needs the engine's popup),
+622261	// so the neon-links lane's PUBLIC list and distance function are reused; the lines are Lightning-owned, styled like the originals.
+622262	NEAR='gridatlas-lightning-nearest',NL=[NEAR+'-glow',NEAR+'-core',NEAR+'-node',NEAR+'-label'],
+622263	nc=()=>{const m=mh();if(m)try{for(const l of NL)if(m.getLayer(l))m.removeLayer(l);if(m.getSource(NEAR))m.removeSource(NEAR)}catch(e){note(e)}},
+622264	nr=(m,c,x,y)=>{const L=window.__GRIDATLAS_NEON_LINKS__||{},subs=L.substations||window.__GRIDATLAS_SUBSTATIONS__||[],dk=L.measure&&L.measure.distanceKm,say=s=>c.out.appendChild(el('div','',s));c.out.textContent='';nc();
+622265	if(!subs.length||typeof dk!=='function')return say('Substation data not loaded yet; try again in a moment.');
+622266	const k=subs.filter(s=>s&&Array.isArray(s.at)&&Array.isArray(s.kv)&&s.kv[0]>=132).map(s=>({s,km:dk(x,y,s.at[0],s.at[1])})).filter(a=>isFinite(a.km)).sort((a,b)=>a.km-b.km).slice(0,3);
+622267	say('Nearest substations to this optical flash (straight-line km). Not evidence any asset was struck; faults can have other causes.');for(const a of k)say(`${a.km.toFixed(2)} km · ${a.s.kv[0]} kV · ${a.s.name||'unnamed substation'}`);if(!k.length)return say('No transmission substation (132 kV or above) in the published list.');
+622268	const F=[];k.forEach((a,i)=>F.push({type:'Feature',properties:{o:Math.max(.2,.62-i*.1)},geometry:{type:'LineString',coordinates:[[x,y],a.s.at]}},{type:'Feature',properties:{t:`${a.km.toFixed(2)} km · ${a.s.kv[0]} kV`},geometry:{type:'Point',coordinates:a.s.at}}));
+622269	const C='#5fbdc2',LS=['==',['geometry-type'],'LineString'],PT=['==',['geometry-type'],'Point'];m.addSource(NEAR,{type:'geojson',data:FC(F)});
+622270	m.addLayer({id:NL[0],type:'line',source:NEAR,filter:LS,paint:{'line-color':C,'line-width':['interpolate',['linear'],['zoom'],6,5,12,12],'line-opacity':0.1,'line-blur':['interpolate',['linear'],['zoom'],6,3,12,8]}});
+622271	m.addLayer({id:NL[1],type:'line',source:NEAR,filter:LS,paint:{'line-color':C,'line-width':['interpolate',['linear'],['zoom'],6,0.9,12,1.8],'line-opacity':['get','o']}});
+622272	m.addLayer({id:NL[2],type:'circle',source:NEAR,filter:PT,paint:{'circle-radius':['interpolate',['linear'],['zoom'],6,2.2,12,4],'circle-color':C,'circle-opacity':0.8}});
+622273	try{m.addLayer({id:NL[3],type:'symbol',source:NEAR,filter:PT,layout:{'text-field':['get','t'],'text-size':10,'text-offset':[0,-1.5],'text-anchor':'bottom','text-font':sf(m)},paint:{'text-color':'#a9c4c9','text-halo-color':'#000c10','text-halo-width':1.5}})}catch(e){note('nearest labels: '+msg(e))}},near=(m,c,x,y)=>{nr(m,c,x,y);cpos()},
+622318	if(on){S.end=null;S.consent=false;S.res=null;const m=mh();if(m&&!S.ck&&typeof m.on==='function'){S.ck=1;m.on('click',tap);m.on('move',cpos);m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})}
+622340	const GEN='202610270929';
 ```
