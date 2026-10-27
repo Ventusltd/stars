@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-386,071 unique lines, numbered 1 to 622,340. Generated 2026-10-27T10:57:33.589Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+387,169 unique lines, numbered 1 to 625,086. Generated 2026-10-27T16:52:03.208Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -386074,4 +386074,1102 @@
 622273	try{m.addLayer({id:NL[3],type:'symbol',source:NEAR,filter:PT,layout:{'text-field':['get','t'],'text-size':10,'text-offset':[0,-1.5],'text-anchor':'bottom','text-font':sf(m)},paint:{'text-color':'#a9c4c9','text-halo-color':'#000c10','text-halo-width':1.5}})}catch(e){note('nearest labels: '+msg(e))}},near=(m,c,x,y)=>{nr(m,c,x,y);cpos()},
 622318	if(on){S.end=null;S.consent=false;S.res=null;const m=mh();if(m&&!S.ck&&typeof m.on==='function'){S.ck=1;m.on('click',tap);m.on('move',cpos);m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})}
 622340	const GEN='202610270929';
+622377	"""Parallel backfill of never-searched UTC dates (.github/workflows/backfill-parallel-lightning.yml).
+622379	The sequential backfill searches about 10 dates per run (one whole-day
+622380	EUMETSAT search takes about 18.5 minutes). This splits the work:
+622381	1. ``plan``      never-searched dates of the committed index, newest first
+622382	                 (``history.backfill_plan``), and a GitHub Actions matrix of at
+622383	                 most ``MAX_SHARDS`` round-robin date shards (EUMETSAT fair use).
+622384	2. ``shard``     one matrix job: ``collect.py --rebuild-day D`` for each of its
+622385	                 dates, newest first. It writes ONLY run records (never the feed,
+622386	                 status or archive) plus a ``shard-K.json`` summary, both uploaded
+622387	                 as an artifact. The first EUMETSAT error (rate limit, outage, no
+622388	                 products) stops the shard; later dates are never attempted.
+622389	3. ``finalize``  one job: ingests every record sequentially with the gated
+622390	                 ``history.backfill_day`` (staging copy, verify), writes the
+622391	                 ``backfill`` status block and leaves one commit to the workflow.
+622392	                 Dates without a verified record stay never searched: unknown,
+622393	                 not zero.
+622394	4. ``wait-hourly`` best-effort wait while the hourly collector is running, so
+622395	                 the short finalize commit does not race its archive push.
+622396	Nothing here talks to EUMETSAT directly; ``shard`` runs collect.py.
+622403	import signal
+622410	import status as status_mod
+622411	MAX_SHARDS = 6  # EUMETSAT fair use: never more than six concurrent whole-day searches
+622412	SHARD_SCHEMA = "uk-lightning-backfill-shard.v1"
+622413	# Severity of a stop, worst last. Only completed / time_budget are "green".
+622414	STOP_ORDER = ("completed", "time_budget", "cancelled", "shard_missing", "eumetsat_error", "archive_refused")
+622415	HOURLY_ACTIVE = ("in_progress", "queued", "requested", "waiting", "pending")
+622419	    return value.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+622421	    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+622422	def write_json_atomic(path: Path, obj) -> None:
+622425	    tmp = path.with_name(f".{path.name}.tmp")
+622426	    tmp.write_text(json.dumps(obj, indent=1) + "\n", encoding="utf-8")
+622428	def read_lines(path: Path) -> list[str]:
+622429	    if not Path(path).exists():
+622432	def worst(stops) -> str:
+622433	    stops = [s for s in stops if s] or ["completed"]
+622434	    return max(stops, key=lambda s: STOP_ORDER.index(s) if s in STOP_ORDER else len(STOP_ORDER))
+622435	# --- 1. plan ---------------------------------------------------------------
+622436	def split_shards(dates: list[str], shards: int) -> list[dict]:
+622437	    """Round-robin: date i goes to shard (i mod n) + 1, each shard newest first.
+622438	    Round-robin (not contiguous blocks) keeps every shard working on similar
+622439	    dates, so a time-budget stop leaves the newest dates filled and a stop at an
+622440	    EUMETSAT retention edge is reached by all shards at about the same time.
+622441	    Empty shards are dropped. ``shards`` is capped at MAX_SHARDS.
+622443	    if not 1 <= shards <= MAX_SHARDS:
+622444	        raise ValueError(f"shards must be 1..{MAX_SHARDS} (EUMETSAT fair use)")
+622445	    groups = [dates[k::shards] for k in range(shards)]
+622446	    return [{"shard": k + 1, "dates": " ".join(g)} for k, g in enumerate(groups) if g]
+622447	def plan(archive_dir: Path, *, end_date: str, days: int, shards: int, now: datetime) -> tuple[list[str], list[dict]]:
+622449	    end = date.fromisoformat(end_date.strip()) if end_date.strip() else today - timedelta(days=1)
+622450	    dates = history.backfill_plan(archive_dir, end_date=end, days=days, today=today,
+622451	                                  max_days=history.BACKFILL_PARALLEL_MAX_DAYS)
+622452	    return dates, split_shards(dates, shards)
+622453	# --- 2. shard --------------------------------------------------------------
+622454	class Cancelled(BaseException):  # not caught by the per-date "except Exception"
+622456	def _on_term(signum, frame):  # GitHub cancels a job with SIGINT, then SIGTERM
+622457	    raise Cancelled(f"signal {signum}")
+622458	def collect_subprocess(day: str, record: Path, log: Path) -> None:
+622459	    """Run the real ``collect.py --rebuild-day``; raise RuntimeError on any failure."""
+622460	    with open(log, "w", encoding="utf-8") as err:
+622461	        code = subprocess.call([sys.executable, "collect.py", "--rebuild-day", day, "--run-record", str(record)],
+622462	                               stdin=subprocess.DEVNULL, stderr=err)
+622463	    text = Path(log).read_text(encoding="utf-8", errors="replace")
+622464	    sys.stderr.write(text)
+622465	    if code != 0:
+622466	        last = next((line for line in reversed(text.splitlines()) if line.strip()), f"exit {code}")
+622467	        raise RuntimeError(last.strip())
+622468	def run_shard(shard: int, dates: list[str], out_dir: Path, *, budget_minutes: float, stagger_seconds: float = 0,
+622469	              collector=None, clock=time.monotonic, sleep=time.sleep, now=utc_now) -> dict:
+622470	    """Search each date of one shard, newest first, writing only run records.
+622471	    A record is renamed into ``out_dir`` only after collect.py succeeded, so a
+622472	    killed or failed search never leaves a partial ``rb-D.json``. The summary is
+622473	    rewritten after every date, so even a cancelled job uploads an accurate one.
+622474	    out_dir = Path(out_dir)
+622476	    collector = collector or collect_subprocess
+622477	    summary_path = out_dir / f"shard-{shard}.json"
+622478	    summary = {"schema": SHARD_SCHEMA, "shard": shard, "dates": list(dates), "collected": [],
+622479	               "stopped": "running", "error": None, "started_utc": iso(now()), "finished_utc": None,
+622480	               "budget_minutes": budget_minutes,
+622481	               "note": "Only dates listed in 'collected' have a record; every other date stays never searched."}
+622482	    write_json_atomic(summary_path, summary)
+622483	    started = clock()
+622484	    stopped, error = "completed", None
+622486	        if stagger_seconds > 0:  # spread the shards' first token/search requests (fair use)
+622487	            sleep(stagger_seconds)
+622488	        for day in dates:
+622489	            if clock() - started >= budget_minutes * 60:
+622490	                stopped = "time_budget"
+622492	            tmp = out_dir / f".partial-rb-{day}.json"
+622493	            final = out_dir / f"rb-{day}.json"
+622494	            began = clock()
+622496	                collector(day, tmp, out_dir / f"rb-{day}.log")
+622497	                record = json.loads(tmp.read_text(encoding="utf-8"))
+622498	                if record.get("rebuild_day_utc") != day or record.get("outcome") != "success":
+622499	                    raise RuntimeError(f"collect.py left no successful rebuild record for {day}")
+622500	            except Exception as exc:  # noqa: BLE001 - every EUMETSAT failure stops the shard
+622501	                tmp.unlink(missing_ok=True)
+622502	                stopped, error = "eumetsat_error", f"{day}: {exc}"
+622503	            os.replace(tmp, final)
+622504	            summary["collected"].append({"date": day, "record": final.name, "sha256": sha256_file(final),
+622505	                                         "bytes": final.stat().st_size, "seconds": round(clock() - began, 1)})
+622506	            write_json_atomic(summary_path, summary)
+622507	    except (Cancelled, KeyboardInterrupt) as exc:
+622508	        for leftover in out_dir.glob(".partial-rb-*.json"):
+622509	            leftover.unlink(missing_ok=True)
+622510	        stopped, error = "cancelled", f"shard {shard} cancelled ({exc or 'interrupt'})"
+622511	    summary.update(stopped=stopped, error=error, finished_utc=iso(now()))
+622513	# --- 3. finalize -----------------------------------------------------------
+622514	def finalize(*, plan_dates: list[str], shards: int, records_dir: Path, archive_dir: Path, status_path: Path,
+622515	             now: datetime) -> dict:
+622516	    """Ingest all shard records into the archive, one date at a time, newest first.
+622517	    Gates beyond ``history.backfill_day``'s own: the record must be listed in its
+622518	    shard's summary with the same sha256 (an artifact that changed on the way is
+622519	    refused). A date the index no longer marks never searched (filled by another
+622520	    backfill, or out of retention) is skipped, not refused, so a re-ingest on a
+622521	    newer main after a rejected push is idempotent. The first refusal stops the
+622522	    ingest; dates not filled stay never searched (unknown, not zero).
+622523	    records_dir, archive_dir = Path(records_dir), Path(archive_dir)
+622524	    expected = split_shards(plan_dates, shards) if plan_dates else []
+622525	    listed: dict[str, dict] = {}
+622526	    stops, errors = [], []
+622527	    for entry in expected:
+622528	        path = records_dir / f"shard-{entry['shard']}.json"
+622530	            stops.append("shard_missing")
+622531	            errors.append(f"shard {entry['shard']}: no summary artifact ({entry['dates'].split()[0]}...)")
+622533	        summary = json.loads(path.read_text(encoding="utf-8"))
+622534	        if summary.get("schema") != SHARD_SCHEMA or summary.get("dates") != entry["dates"].split():
+622535	            stops.append("archive_refused")
+622536	            errors.append(f"shard {entry['shard']}: summary does not match the plan")
+622537	        stop = summary.get("stopped")
+622538	        stops.append("cancelled" if stop == "running" else stop)
+622539	        if summary.get("error"):
+622540	            errors.append(f"shard {entry['shard']} {summary['error']}")
+622541	        for item in summary.get("collected") or []:
+622542	            listed[item["date"]] = item
+622543	    filled, skipped = [], []
+622544	    refused = None
+622545	    for day in plan_dates:
+622546	        item = listed.get(day)
+622548	        record = records_dir / f"rb-{day}.json"
+622549	        if not record.exists() or sha256_file(record) != item.get("sha256"):
+622550	            refused = f"{day}: record missing or sha256 differs from its shard summary"
+622552	        index = json.loads((archive_dir / "index.json").read_text(encoding="utf-8"))
+622553	        row = next((r for r in index.get("days") or [] if r.get("date") == day), None)
+622554	        lost = {str(e.get("date")) for e in (index.get("integrity") or {}).get("lost_days") or [] if isinstance(e, dict)}
+622555	        if not history._never_searched(row, lost):
+622556	            skipped.append(day)
+622558	            result = history.backfill_day(archive_dir, day, now=now, rebuild_record=record)
+622560	            refused = f"{day}: {exc}"
+622562	        print(f"Backfilled {day}: coverage {row['coverage']} ({row['scanned_seconds']} s searched), count {row['count']}, "
+622563	              f"{len(result['unscanned_ranges'])} unsearched gap(s) left unknown.", file=sys.stderr)
+622564	        filled.append(day)
+622565	    if refused:
+622566	        stops.append("archive_refused")
+622567	        errors.insert(0, refused)
+622568	    stopped = worst(stops)
+622569	    error = "; ".join(errors)[:2000]
+622570	    checked = history.verify_archive(archive_dir)
+622571	    index = json.loads((archive_dir / "index.json").read_text(encoding="utf-8"))
+622572	    new_status = status_mod.backfill_status(status_mod._load(status_path), now=now, planned=plan_dates,
+622573	                                            filled=filled, stopped=stopped, error=error, index=index)
+622574	    new_status["backfill"].update(mode="parallel", shards=len(expected), skipped_already_searched_days=skipped)
+622575	    status_mod.write_status(status_path, new_status)
+622576	    return {"stopped": stopped, "error": error, "filled": filled, "skipped": skipped,
+622577	            "remaining_unknown": new_status["backfill"]["remaining_unknown_days"], "verify": checked}
+622578	# --- 4. wait-hourly ----------------------------------------------------------
+622579	def hourly_active(gh: str, repo: str, workflow: str) -> int | None:
+622580	    """Number of active runs of the hourly workflow, or None when gh cannot tell."""
+622581	        out = subprocess.run([gh, "run", "list", "-R", repo, "--workflow", workflow, "-L", "5", "--json", "status"],
+622583	        if out.returncode != 0:
+622585	        return sum(1 for run in json.loads(out.stdout or "[]") if run.get("status") in HOURLY_ACTIVE)
+622586	    except (OSError, ValueError, subprocess.TimeoutExpired):
+622588	def wait_for_hourly(gh: str, repo: str, workflow: str, *, max_minutes: float, poll_seconds: float = 30,
+622589	                    clock=time.monotonic, sleep=time.sleep) -> str:
+622590	    """Wait (bounded) while the hourly collector runs. Never blocks it: it only delays us."""
+622592	        active = hourly_active(gh, repo, workflow)
+622593	        if active is None:
+622594	            return "unknown"
+622595	        if active == 0:
+622596	            return "idle"
+622597	        if clock() - started >= max_minutes * 60:
+622598	            return "timeout"
+622599	        print(f"Hourly collector active ({active} run(s)); waiting {poll_seconds:.0f} s", file=sys.stderr)
+622600	        sleep(poll_seconds)
+622601	# --- CLI ---------------------------------------------------------------------
+622602	def _github_output(pairs: dict) -> None:
+622603	    target = os.environ.get("GITHUB_OUTPUT")
+622605	    for key, value in pairs.items():
+622606	        value = str(value)
+622607	        if "\n" in value:
+622608	            lines += [f"{key}<<BACKFILL_EOF", value, "BACKFILL_EOF"]
+622610	            lines.append(f"{key}={value}")
+622611	    if target:
+622612	        with open(target, "a", encoding="utf-8") as fh:
+622613	            fh.write("\n".join(lines) + "\n")
+622617	    p = sub.add_parser("plan", help="Plan never-searched dates and the shard matrix")
+622618	    p.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+622619	    p.add_argument("--end-date", default="")
+622620	    p.add_argument("--days", type=int, default=90)
+622621	    p.add_argument("--shards", type=int, default=MAX_SHARDS)
+622622	    p.add_argument("--plan-out", type=Path, required=True)
+622623	    p.add_argument("--now", default=None)
+622624	    s = sub.add_parser("shard", help="Search one shard's dates (run records only)")
+622625	    s.add_argument("--shard", type=int, required=True)
+622626	    s.add_argument("--dates", required=True, help="Space-separated UTC dates, newest first")
+622627	    s.add_argument("--out-dir", type=Path, required=True)
+622628	    s.add_argument("--budget-minutes", type=float, default=290)
+622629	    s.add_argument("--stagger-step-seconds", type=float, default=20,
+622630	                   help="Shard K pauses step x (K - 1) seconds before its first search (fair use)")
+622631	    f = sub.add_parser("finalize", help="Ingest all shard records, write status, verify")
+622632	    f.add_argument("--plan", type=Path, required=True)
+622633	    f.add_argument("--shards", type=int, required=True)
+622634	    f.add_argument("--records-dir", type=Path, required=True)
+622635	    f.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+622636	    f.add_argument("--status", type=Path, default=Path("data/status.json"))
+622637	    f.add_argument("--filled-out", type=Path, default=None)
+622638	    f.add_argument("--now", default=None)
+622639	    w = sub.add_parser("wait-hourly", help="Bounded wait while the hourly collector workflow is active")
+622640	    w.add_argument("--repo", required=True)
+622641	    w.add_argument("--workflow", default="update-lightning.yml")
+622642	    w.add_argument("--max-minutes", type=float, default=20)
+622643	    w.add_argument("--poll-seconds", type=float, default=30)
+622644	    w.add_argument("--gh", default="gh")
+622646	    now = history.parse_utc(args.now) if getattr(args, "now", None) else utc_now()
+622647	    if args.command == "plan":
+622648	        dates, matrix = plan(args.archive_dir, end_date=args.end_date, days=args.days, shards=args.shards, now=now)
+622649	        args.plan_out.parent.mkdir(parents=True, exist_ok=True)
+622650	        args.plan_out.write_text("".join(d + "\n" for d in dates), encoding="utf-8")
+622651	        print(f"{len(dates)} never-searched UTC date(s) in {len(matrix)} shard(s):", file=sys.stderr)
+622652	        for entry in matrix:
+622653	            print(f"  shard {entry['shard']}: {entry['dates']}", file=sys.stderr)
+622654	        # GitHub rejects an empty matrix even on a job its ``if`` skips: give it a
+622655	        # placeholder that the shard job's ``count != '0'`` condition never runs.
+622656	        include = matrix or [{"shard": 0, "dates": ""}]
+622657	        _github_output({"count": len(dates), "shards": len(matrix),
+622658	                        "matrix": json.dumps({"include": include}, separators=(",", ":"))})
+622660	    if args.command == "shard":
+622661	        signal.signal(signal.SIGTERM, _on_term)
+622662	        signal.signal(signal.SIGINT, _on_term)
+622663	        stagger = max(0.0, args.stagger_step_seconds) * (args.shard - 1)
+622664	        summary = run_shard(args.shard, args.dates.split(), args.out_dir, budget_minutes=args.budget_minutes,
+622665	                            stagger_seconds=stagger)
+622666	        print(f"shard {args.shard}: {summary['stopped']}, {len(summary['collected'])}/{len(summary['dates'])} "
+622667	              f"date(s) searched{'; ' + summary['error'] if summary['error'] else ''}", file=sys.stderr)
+622668	        _github_output({"stopped": summary["stopped"], "collected": len(summary["collected"]),
+622669	                        "error": summary["error"] or ""})
+622670	    if args.command == "finalize":
+622671	        result = finalize(plan_dates=read_lines(args.plan), shards=args.shards, records_dir=args.records_dir,
+622672	                          archive_dir=args.archive_dir, status_path=args.status, now=now)
+622673	        if args.filled_out:
+622674	            args.filled_out.write_text("".join(d + "\n" for d in result["filled"]), encoding="utf-8")
+622675	        print(f"finalize: {result['stopped']} filled={len(result['filled'])} skipped={len(result['skipped'])} "
+622676	              f"remaining_unknown={len(result['remaining_unknown'])}", file=sys.stderr)
+622677	        _github_output({"stopped": result["stopped"], "filled": len(result["filled"]),
+622678	                        "range": ",".join(result["filled"]), "error": result["error"]})
+622679	    state = wait_for_hourly(args.gh, args.repo, args.workflow, max_minutes=args.max_minutes,
+622680	                            poll_seconds=args.poll_seconds)
+622681	    print(f"hourly collector: {state}")
+622686	        print(f"BACKFILL FAILURE: {error}", file=sys.stderr)
+622746	# The parallel backfill (backfill_parallel.py) may plan the whole retention year at once.
+622747	BACKFILL_PARALLEL_MAX_DAYS = 366
+623542	def backfill_plan(archive_dir: Path, *, end_date: date, days: int, today: date,
+623543	                  max_days: int = BACKFILL_MAX_DAYS) -> list[str]:
+623548	    if not 1 <= days <= max_days:
+623549	        raise ValueError(f"days must be 1..{max_days}")
+623757	# The hourly collector's schedule (update-lightning.yml). Two cron offsets: the
+623758	# :47 run is a fallback that skips itself (``status.py due``) when the :17 run
+623759	# already succeeded, because GitHub's scheduler delays or drops runs (27 Oct
+623760	# 2026: 2 of 13 hourly slots between 03:17 and 15:17 UTC produced a run).
+623761	CRON_UTC = ("17 * * * *", "47 * * * *")
+623762	CRON_MINUTES = (17, 47)
+623763	EXPECTED_EVERY_MINUTES = 60
+623764	LATE_AFTER_MINUTES = 90      # a heartbeat older than this is late, whatever the cause
+623765	DUE_MIN_GAP_MINUTES = 40     # a scheduled fallback run skips if a run succeeded this recently
+623766	QUEUED_MINUTES = 20          # queue time above this is reported as "waited behind another run"
+623783	def _minutes(a: datetime | None, b: datetime | None) -> float | None:
+623784	    if a is None or b is None:
+623785	    return round((b - a).total_seconds() / 60, 1)
+623786	def _maybe_utc(value) -> datetime | None:
+623788	        return parse_utc(str(value))
+623789	def next_cron_slot(now: datetime) -> datetime:
+623790	    """The next scheduled slot (minute 17 or 47 of any hour) strictly after ``now``."""
+623791	    base = now.replace(second=0, microsecond=0)
+623792	    for hour_offset in (0, 1):
+623793	        for minute in CRON_MINUTES:
+623794	            slot = base.replace(minute=minute) + timedelta(hours=hour_offset)
+623795	            if slot > now:
+623796	                return slot
+623797	    raise AssertionError("unreachable")
+623798	def _fmt_minutes(minutes: float) -> str:
+623799	    total = int(round(minutes))
+623800	    hours, mins = divmod(total, 60)
+623801	    return f"{hours} h {mins:02d} min" if hours else f"{mins} min"
+623802	def heartbeat_block(
+623803	    previous: dict,
+623804	    attempt_utc: str,
+623805	    outcome: str,
+623806	    trigger: str | None,
+623807	    run_id: str | None,
+623808	    run_created_utc: str | None,
+623809	    job_started_utc: str | None,
+623810	    """Explain when the collector ran, what triggered it and why the gap before it was long.
+623811	    The gap is measured from the previous heartbeat's attempt to the moment
+623812	    GitHub created this run, and split into the scheduler's share (no run was
+623813	    created) and the queue's share (the run existed but waited for the
+623814	    concurrency group). A collector cannot report a run that never started, so
+623815	    ``if_late`` tells a reader what a heartbeat older than ``late_after_utc``
+623816	    means.
+623817	    attempt = parse_utc(attempt_utc)
+623818	    created = _maybe_utc(run_created_utc)
+623819	    started = _maybe_utc(job_started_utc)
+623820	    prev_attempt = _maybe_utc(previous.get("last_attempt_utc"))
+623821	    queued = _minutes(created, started) if created and started and started >= created else None
+623822	    this_run = {
+623823	        "trigger": trigger or None,
+623824	        "run_id": str(run_id) if run_id else None,
+623825	        "run_created_utc": iso_utc(created) if created else None,
+623826	        "job_started_utc": iso_utc(started) if started else None,
+623827	        "queued_minutes": queued,
+623828	        "attempt_utc": attempt_utc,
+623829	        "outcome": outcome,
+623830	    arrived = created or started or attempt
+623831	    gap = None
+623832	    if prev_attempt is not None and arrived >= prev_attempt:
+623833	        total = _minutes(prev_attempt, attempt)
+623834	        to_created = _minutes(prev_attempt, arrived)
+623835	        scheduler_late = to_created > LATE_AFTER_MINUTES
+623836	        long_queue = queued is not None and queued > QUEUED_MINUTES
+623837	        if total <= LATE_AFTER_MINUTES:
+623838	            cause = "on_time"
+623839	        elif scheduler_late and long_queue:
+623840	            cause = "github_schedule_late_then_queued"
+623841	        elif long_queue:
+623842	            cause = "queued_behind_another_run"
+623843	        elif scheduler_late and trigger == "schedule" and created is not None:
+623844	            cause = "github_schedule_late_or_dropped"
+623845	        elif scheduler_late and trigger and trigger != "schedule":
+623846	            cause = "no_scheduled_run_until_manual_start"
+623847	            cause = "unknown"
+623848	        # :17 slots after the previous attempt that produced no run (a scheduled run serves one of them).
+623849	        missed = max(0, _hourly_slots(prev_attempt, arrived) - (1 if trigger == "schedule" else 0))
+623850	        gap = {
+623851	            "previous_attempt_utc": iso_utc(prev_attempt),
+623852	            "previous_attempt_outcome": previous.get("last_attempt_outcome"),
+623853	            "minutes": total,
+623854	            "minutes_until_run_created": to_created if created else None,
+623855	            "hourly_slots_without_a_run": missed,
+623856	            "cause": cause,
+623857	    explanation = _explain(attempt, outcome, this_run, gap)
+623858	    late_after = attempt + timedelta(minutes=LATE_AFTER_MINUTES)
+623859	        "expected_every_minutes": EXPECTED_EVERY_MINUTES,
+623860	        "cron_utc": list(CRON_UTC),
+623861	        "next_expected_run_utc": iso_utc(next_cron_slot(max(now, attempt))),
+623862	        "late_after_utc": iso_utc(late_after),
+623863	        "this_run": this_run,
+623864	        "gap_before_this_run": gap,
+623865	        "explanation": explanation,
+623866	        "if_late": ("If now is past late_after_utc, no collector run has written a heartbeat since "
+623867	                    f"{_hhmm(attempt)} UTC. GitHub's scheduler does not guarantee scheduled runs; the next run "
+623868	                    "records the cause (scheduler delay or queue). Flashes in the gap are unknown, not zero."),
+623869	def _hhmm(value: datetime) -> str:
+623870	    return value.strftime("%d %b %H:%M")
+623871	def _slots_between(start: datetime, end: datetime):
+623872	    slot = next_cron_slot(start)
+623873	    while slot <= end:
+623874	        yield slot
+623875	        slot = next_cron_slot(slot)
+623876	def _hourly_slots(start: datetime, end: datetime) -> int:
+623877	    """Number of :17 slots in (start, end]: the hourly cadence the job promises."""
+623878	    return sum(1 for slot in _slots_between(start, end) if slot.minute == CRON_MINUTES[0])
+623879	def _explain(attempt: datetime, outcome: str, this_run: dict, gap: dict | None) -> str:
+623880	    trigger = this_run.get("trigger") or "unknown trigger"
+623881	    text = f"Last collector run {_hhmm(attempt)} UTC ({trigger}, {outcome})."
+623882	    if gap is None:
+623883	        return text + " No earlier heartbeat to compare with."
+623884	    span = _fmt_minutes(gap["minutes"])
+623885	    prev = _hhmm(parse_utc(gap["previous_attempt_utc"]))
+623886	    queued = this_run.get("queued_minutes")
+623887	    cause = gap["cause"]
+623888	    if cause == "on_time":
+623889	        return text + f" Previous run {prev} UTC, {span} earlier: on schedule."
+623890	    missed = gap["hourly_slots_without_a_run"]
+623891	    slots = f"{missed} hourly slot{'s' if missed != 1 else ''} produced no run"
+623892	    if cause == "github_schedule_late_or_dropped":
+623893	        return text + (f" Before it, no run for {span} (since {prev} UTC): GitHub's scheduler started no run "
+623894	                       f"on time ({slots}). It is not a collector or EUMETSAT failure.")
+623895	    if cause == "queued_behind_another_run":
+623896	        return text + (f" Before it, no run for {span} (since {prev} UTC): this run waited "
+623897	                       f"{_fmt_minutes(queued)} in the queue behind another run in its concurrency group.")
+623898	    if cause == "github_schedule_late_then_queued":
+623899	                       f"on time ({slots}), then this run waited {_fmt_minutes(queued)} in the queue behind another run.")
+623900	    if cause == "no_scheduled_run_until_manual_start":
+623901	        return text + f" Before it, no run for {span} (since {prev} UTC): {slots}; this run was started manually."
+623902	    return text + f" Before it, no run for {span} (since {prev} UTC); cause unknown (run creation time not recorded)."
+623903	def is_due(previous: dict | None, *, now: datetime, event: str, min_gap_minutes: int = DUE_MIN_GAP_MINUTES) -> tuple[bool, str]:
+623904	    """Should this run collect? Only a scheduled run may skip, and only after a recent success.
+623905	    The fallback cron slot (:47) makes a dropped :17 slot cost at most ~30 min.
+623906	    When the :17 run already succeeded, the :47 run skips instead of searching
+623907	    the same 6 h window again.
+623908	    if event != "schedule":
+623909	        return True, f"{event or 'unknown'} trigger always collects"
+623911	    attempt = _maybe_utc(previous.get("last_attempt_utc"))
+623912	    if attempt is None:
+623913	        return True, "no previous heartbeat"
+623914	    if previous.get("last_attempt_outcome") != "success":
+623915	        return True, "previous attempt did not succeed"
+623916	    age = (now - attempt).total_seconds() / 60
+623917	    if 0 <= age < min_gap_minutes:
+623918	        return False, f"last successful attempt {age:.0f} min ago (< {min_gap_minutes} min); skipping this slot"
+623919	    return True, f"last successful attempt {age:.0f} min ago"
+623948	    trigger: str | None = None,
+623949	    run_id: str | None = None,
+623950	    run_created_utc: str | None = None,
+623951	    job_started_utc: str | None = None,
+623979	    attempt_utc = (record or {}).get("run_utc") or iso_utc(now)
+623980	    heartbeat = heartbeat_block(now=now, previous=previous, attempt_utc=attempt_utc,
+623981	                                outcome="success" if collected else "failure", trigger=trigger, run_id=run_id,
+623982	                                run_created_utc=run_created_utc, job_started_utc=job_started_utc)
+623987	        "last_attempt_utc": attempt_utc,
+624023	        "heartbeat": heartbeat,
+624079	    write.add_argument("--trigger", default=None, help="github.event_name (schedule | workflow_dispatch)")
+624080	    write.add_argument("--run-id", default=None)
+624081	    write.add_argument("--run-created", default=None, help="When GitHub created this run (UTC ISO); empty = unknown")
+624082	    write.add_argument("--job-started", default=None, help="When the collect job started (UTC ISO)")
+624083	    due = sub.add_parser("due", help="Print due=true|false: may a scheduled fallback run skip?")
+624084	    due.add_argument("--status", type=Path, default=Path("data/status.json"))
+624085	    due.add_argument("--event", required=True)
+624086	    due.add_argument("--min-gap-minutes", type=int, default=DUE_MIN_GAP_MINUTES)
+624087	    due.add_argument("--github-output", type=Path, default=None)
+624088	    due.add_argument("--now", default=None)
+624104	    if args.command == "due":
+624105	        ok, reason = is_due(_load(args.status), now=now, event=args.event, min_gap_minutes=args.min_gap_minutes)
+624106	        print(f"due={'true' if ok else 'false'}: {reason}")
+624107	        if args.github_output:
+624108	            with open(args.github_output, "a", encoding="utf-8") as fh:
+624109	                fh.write(f"due={'true' if ok else 'false'}\n")
+624120	        archive_outcome=args.archive_outcome, trigger=args.trigger or None, run_id=args.run_id or None,
+624121	        run_created_utc=args.run_created or None, job_started_utc=args.job_started or None,
+624127	    print(status["heartbeat"]["explanation"])
+624131	"""Parallel backfill: shard planning, shard searches and the single finalize ingest.
+624132	No network, no EUMETSAT, no GitHub. Shards search with a FAKE downloader
+624133	(10-minute slot names, synthetic "TEST-" flashes only inside temporary
+624134	directories, or a fake 429 rate limit); the real history.py and status.py run
+624135	unchanged. The shell tests run the real step scripts of
+624136	backfill-parallel-lightning.yml in a throwaway repository with a bare origin.
+624142	import backfill_parallel as bp
+624145	from test_backfill_workflow import FAKE_DOWNLOAD, outputs, step, substitute
+624146	WORKFLOW = ROOT / ".github" / "workflows" / "backfill-parallel-lightning.yml"
+624149	def slot_name(start):
+624153	class FakeEumetsat:
+624154	    """Per-date fake downloader: one flash per date, optional skipped slots, rate limits."""
+624155	    def __init__(self, fail_days=(), skip=None, quiet_days=()):
+624156	        self.fail, self.skip, self.quiet, self.calls = set(fail_days), skip or {}, set(quiet_days), []
+624158	        day = start.date().isoformat()
+624159	        self.calls.append(day)
+624160	        if day in self.fail:
+624161	            raise RuntimeError("HTTP 429 Too Many Requests (fake EUMETSAT rate limit)")
+624164	            if i not in self.skip.get(day, ()):
+624168	        flashes = [] if day in self.quiet else [build_feature(-2.0, 52.0, start + timedelta(hours=1, minutes=3), "TEST-" + day, 0)]
+624169	        return flashes, len(names), names
+624170	    def collector(self):
+624171	        return lambda day, record, log: collect.rebuild_day_record(day, record, now=NOW, downloader=self)
+624172	def make_archive(root: Path, now: datetime, searched: date) -> None:
+624173	    """An index whose only searched date is ``searched`` (hours 01-07, one flash)."""
+624174	    start = datetime.combine(searched, time.min, tzinfo=timezone.utc)
+624175	    history.archive_observations(
+624176	        root, [build_feature(-2.0, 52.0, start + timedelta(hours=2), "TEST-hourly", 0)], now=now,
+624177	        scanned_windows=[history.successful_scan((start + timedelta(hours=1)).isoformat(),
+624178	                                                 (start + timedelta(hours=7)).isoformat(), 36)],
+624179	        lookback_hours=6.0)
+624180	def index_rows(root: Path) -> dict:
+624181	    return {r["date"]: r for r in json.loads((root / "index.json").read_text())["days"]}
+624182	class SplitTests(unittest.TestCase):
+624183	    def test_round_robin_newest_first_and_empty_shards_dropped(self):
+624184	        dates = [f"2026-10-{d:02d}" for d in range(20, 13, -1)]  # 7 dates, newest first
+624185	        self.assertEqual(bp.split_shards(dates, 3), [
+624186	            {"shard": 1, "dates": "2026-10-20 2026-10-17 2026-10-14"},
+624187	            {"shard": 2, "dates": "2026-10-19 2026-10-16"},
+624188	            {"shard": 3, "dates": "2026-10-18 2026-10-15"}])
+624189	        self.assertEqual(len(bp.split_shards(dates[:2], 6)), 2)
+624190	        self.assertEqual(bp.split_shards([], 6), [])
+624191	    def test_parallelism_is_capped_at_six_for_eumetsat_fair_use(self):
+624192	        self.assertEqual(bp.MAX_SHARDS, 6)
+624193	        for bad in (0, 7, 12):
+624195	                bp.split_shards(["2026-10-20"], bad)
+624196	        text = WORKFLOW.read_text()
+624197	        self.assertIn("max-parallel: 6", text)
+624198	    def test_plan_accepts_a_whole_year_but_not_more(self):
+624200	            root = Path(tmp) / "history"
+624201	            make_archive(root, NOW, date(2026, 10, 26))
+624202	            dates, matrix = bp.plan(root, end_date="", days=366, shards=6, now=NOW)
+624203	            self.assertEqual(dates[0], "2026-10-25")  # yesterday (26th) was searched by the hourly job
+624204	            self.assertNotIn("2026-10-26", dates)
+624205	            self.assertEqual(len(matrix), 6)
+624206	            self.assertEqual(sorted(sum((m["dates"].split() for m in matrix), [])), sorted(dates))
+624207	                bp.plan(root, end_date="", days=367, shards=6, now=NOW)
+624208	                bp.plan(root, end_date="2026-10-27", days=1, shards=6, now=NOW)
+624209	    def test_an_empty_plan_still_emits_a_valid_matrix(self):
+624210	            root, out = Path(tmp) / "history", Path(tmp) / "github_output"
+624211	            old = os.environ.get("GITHUB_OUTPUT")
+624212	            os.environ["GITHUB_OUTPUT"] = str(out)
+624213	                bp.main(["plan", "--archive-dir", str(root), "--end-date", "2026-10-26", "--days", "1",
+624214	                         "--plan-out", str(Path(tmp) / "plan.txt"), "--now", NOW.isoformat()])
+624216	                if old is None:
+624217	                    os.environ.pop("GITHUB_OUTPUT")
+624218	                    os.environ["GITHUB_OUTPUT"] = old
+624219	            got = outputs(out)
+624220	            self.assertEqual((got["count"], got["shards"]), ("0", "0"))
+624221	            self.assertEqual(json.loads(got["matrix"])["include"], [{"shard": 0, "dates": ""}])
+624222	class ShardTests(unittest.TestCase):
+624225	        self.out = Path(self.temp.name) / "records"
+624226	        self.dates = ["2026-10-20", "2026-10-17", "2026-10-14"]
+624229	    def test_shard_writes_only_records_and_a_summary(self):
+624230	        fake = FakeEumetsat()
+624231	        summary = bp.run_shard(1, self.dates, self.out, budget_minutes=290, collector=fake.collector())
+624232	        self.assertEqual(summary["stopped"], "completed")
+624233	        self.assertEqual([c["date"] for c in summary["collected"]], self.dates)
+624234	        self.assertEqual(sorted(p.name for p in self.out.iterdir() if p.suffix == ".json"),
+624235	                         ["rb-2026-10-14.json", "rb-2026-10-17.json", "rb-2026-10-20.json", "shard-1.json"])
+624236	        on_disk = json.loads((self.out / "shard-1.json").read_text())
+624237	        self.assertEqual(on_disk, summary)
+624238	        for item in summary["collected"]:
+624239	            self.assertEqual(item["sha256"], bp.sha256_file(self.out / item["record"]))
+624240	    def test_rate_limit_stops_the_shard_and_never_attempts_later_dates(self):
+624241	        fake = FakeEumetsat(fail_days={"2026-10-17"})
+624242	        summary = bp.run_shard(2, self.dates, self.out, budget_minutes=290, collector=fake.collector())
+624243	        self.assertEqual(summary["stopped"], "eumetsat_error")
+624244	        self.assertIn("429", summary["error"])
+624245	        self.assertEqual(fake.calls, ["2026-10-20", "2026-10-17"])
+624246	        self.assertEqual([c["date"] for c in summary["collected"]], ["2026-10-20"])
+624247	        self.assertFalse((self.out / "rb-2026-10-17.json").exists())
+624248	        self.assertFalse(list(self.out.glob(".partial-*")))
+624249	    def test_time_budget_stops_before_starting_a_date(self):
+624250	        clock = [0.0]
+624251	        def slow(day, record, log):  # each whole-day search "takes" 100 minutes
+624252	            fake.collector()(day, record, log)
+624253	            clock[0] += 100 * 60
+624254	        summary = bp.run_shard(1, self.dates, self.out, budget_minutes=150, collector=slow, clock=lambda: clock[0])
+624255	        self.assertEqual(summary["stopped"], "time_budget")
+624256	        self.assertFalse((self.out / "rb-2026-10-14.json").exists())
+624257	    def test_cancellation_mid_search_keeps_finished_records_and_drops_the_partial_one(self):
+624258	        def collector(day, record, log):
+624259	            if day == "2026-10-17":
+624260	                record.write_text('{"schema": "uk-lightning-run-rec')  # killed mid-write
+624261	                raise bp.Cancelled("signal 15")
+624262	        summary = bp.run_shard(3, self.dates, self.out, budget_minutes=290, collector=collector)
+624263	        self.assertEqual(summary["stopped"], "cancelled")
+624264	        self.assertEqual(json.loads((self.out / "shard-3.json").read_text())["stopped"], "cancelled")
+624265	    def test_stagger_pauses_before_the_first_search(self):
+624266	        slept = []
+624267	        bp.run_shard(4, self.dates[:1], self.out, budget_minutes=290, stagger_seconds=60,
+624268	                     collector=FakeEumetsat().collector(), sleep=slept.append)
+624269	        self.assertEqual(slept, [60])
+624270	class FinalizeTests(unittest.TestCase):
+624271	    """Records from several shards, ingested sequentially into one archive."""
+624273	        self.root, self.records, self.status = base / "history", base / "records", base / "status.json"
+624274	        make_archive(self.root, NOW - timedelta(hours=1), date(2026, 10, 26))
+624277	                          "consecutive_failures": 0, "last_successful_scan_end_utc": "2026-10-27T05:10:09.000Z"}
+624278	        self.status.write_text(json.dumps(self.heartbeat))
+624279	        self.plan = [f"2026-10-{d:02d}" for d in range(25, 17, -1)]  # 8 never-searched dates
+624280	    def shards(self, n=3, **fake):
+624281	        fake = FakeEumetsat(**fake)
+624282	        summaries = [bp.run_shard(m["shard"], m["dates"].split(), self.records, budget_minutes=290,
+624283	                                  collector=fake.collector()) for m in bp.split_shards(self.plan, n)]
+624284	        return summaries
+624285	    def finalize(self, n=3):
+624286	        return bp.finalize(plan_dates=self.plan, shards=n, records_dir=self.records, archive_dir=self.root,
+624287	                           status_path=self.status, now=NOW)
+624288	    def test_all_shards_ingested_in_one_pass_with_real_coverage(self):
+624289	        self.shards(skip={"2026-10-22": {20, 21}}, quiet_days={"2026-10-19"})  # 03:20-03:40 not examined
+624290	        result = self.finalize()
+624291	        self.assertEqual(result["stopped"], "completed")
+624292	        self.assertEqual(result["filled"], self.plan)
+624293	        rows = index_rows(self.root)
+624294	        for d in self.plan:
+624295	            self.assertEqual(rows[d]["count"], 0 if d == "2026-10-19" else 1, d)
+624296	        self.assertEqual((rows["2026-10-19"]["coverage"], rows["2026-10-19"]["scanned_seconds"]), ("full", 86400))
+624297	        # two missing slots stay unknown: partial coverage, never a full-day claim
+624298	        self.assertEqual(rows["2026-10-22"]["coverage"], "partial")
+624299	        self.assertEqual(rows["2026-10-22"]["scanned_seconds"], 86400 - 1200)
+624300	        self.assertEqual(history.verify_archive(self.root)["integrity"], "ok")
+624301	        status = json.loads(self.status.read_text())
+624302	        for key, value in self.heartbeat.items():
+624303	            self.assertEqual(status[key], value, key)
+624304	        self.assertEqual(status["backfill"]["mode"], "parallel")
+624305	        self.assertEqual(status["backfill"]["remaining_unknown_days"], [])
+624306	    def test_a_rate_limited_shard_leaves_its_dates_unknown_not_zero(self):
+624307	        self.shards(fail_days={"2026-10-24"})  # shard 2: 24, 21, 18 -> stops at once
+624308	        self.assertEqual(result["stopped"], "eumetsat_error")
+624309	        self.assertIn("429", result["error"])
+624310	        for d in ("2026-10-24", "2026-10-21", "2026-10-18"):
+624312	        for d in ("2026-10-25", "2026-10-23", "2026-10-22", "2026-10-20", "2026-10-19"):
+624313	            self.assertEqual(rows[d]["count"], 1, d)
+624314	        self.assertEqual(status["backfill"]["remaining_unknown_days"], ["2026-10-24", "2026-10-21", "2026-10-18"])
+624315	        self.assertEqual(status["backfill"]["outcome"], "stopped")
+624316	    def test_missing_shard_artifact_is_red_and_its_dates_stay_unknown(self):
+624317	        self.shards()
+624318	        (self.records / "shard-3.json").unlink()
+624319	        self.assertEqual(result["stopped"], "shard_missing")
+624320	        for d in ("2026-10-23", "2026-10-20"):
+624322	    def test_a_record_changed_after_its_shard_summary_is_refused(self):
+624323	        record = self.records / "rb-2026-10-22.json"
+624324	        data = json.loads(record.read_text())
+624325	        data["features"] = []  # a flash dropped in transit would otherwise become a false zero
+624326	        record.write_text(json.dumps(data))
+624327	        self.assertEqual(result["stopped"], "archive_refused")
+624328	        self.assertIn("sha256", result["error"])
+624329	        self.assertEqual(rows["2026-10-23"]["count"], 1)  # newer dates before the refusal are kept
+624330	        self.assertIsNone(rows["2026-10-22"]["count"])
+624331	        self.assertIsNone(rows["2026-10-18"]["count"])  # the ingest stops at the first refusal
+624332	    def test_reingest_on_a_newer_main_is_idempotent(self):
+624333	        first = self.finalize()
+624334	        snapshot = (self.root / "index.json").read_text()
+624335	        second = self.finalize()
+624336	        self.assertEqual(first["filled"], self.plan)
+624337	        self.assertEqual(second["filled"], [])
+624338	        self.assertEqual(second["skipped"], self.plan)
+624339	        self.assertEqual(second["stopped"], "completed")
+624340	        self.assertEqual(json.loads((self.root / "index.json").read_text())["days"], json.loads(snapshot)["days"])
+624341	class WaitHourlyTests(unittest.TestCase):
+624342	        self.gh = Path(self.temp.name) / "gh"
+624343	        self.count = Path(self.temp.name) / "calls"
+624344	    def fake_gh(self, busy_calls: int, fail=False):
+624345	        self.gh.write_text(
+624346	            "#!/bin/sh\n"
+624347	            f'n=$(cat "{self.count}" 2>/dev/null || echo 0); n=$((n + 1)); echo "$n" > "{self.count}"\n'
+624348	            + ("exit 1\n" if fail else
+624349	               f'if [ "$n" -le {busy_calls} ]; then echo \'[{{"status":"in_progress"}},{{"status":"completed"}}]\'; '
+624350	               "else echo '[{\"status\":\"completed\"}]'; fi\n"))
+624351	        self.gh.chmod(0o755)
+624352	    def test_waits_while_the_hourly_job_runs(self):
+624353	        self.fake_gh(2)
+624354	        self.assertEqual(bp.wait_for_hourly(str(self.gh), "o/r", "update-lightning.yml", max_minutes=20,
+624355	                                            poll_seconds=5, sleep=slept.append), "idle")
+624356	        self.assertEqual(slept, [5, 5])
+624357	    def test_wait_is_bounded_and_never_fatal(self):
+624358	        self.fake_gh(10 ** 6)
+624359	        ticks = iter(range(0, 10 ** 6, 600))
+624360	        self.assertEqual(bp.wait_for_hourly(str(self.gh), "o/r", "w", max_minutes=20, poll_seconds=0,
+624361	                                            clock=lambda: next(ticks), sleep=lambda s: None), "timeout")
+624362	        self.fake_gh(0, fail=True)
+624363	        self.assertEqual(bp.wait_for_hourly(str(self.gh), "o/r", "w", max_minutes=20), "unknown")
+624364	class WorkflowTextTests(unittest.TestCase):
+624365	    def test_manual_only_with_its_own_concurrency_group(self):
+624370	        group = text.split("\nconcurrency:\n", 1)[1].split("\n\n", 1)[0]
+624371	        self.assertIn("group: uk-lightning-backfill", group)
+624372	        self.assertIn("cancel-in-progress: false", group)
+624373	        hourly_group = HOURLY.read_text().split("\nconcurrency:\n", 1)[1].split("\n\n", 1)[0]
+624374	        self.assertNotIn("uk-lightning-backfill", hourly_group)
+624375	        self.assertNotIn("uk-lightning-update", group)
+624376	    def test_structure_matrix_artifacts_and_one_writer(self):
+624377	            import yaml
+624378	        except ImportError:
+624379	            self.skipTest("PyYAML not installed")
+624380	        wf = yaml.safe_load(WORKFLOW.read_text())
+624381	        jobs = wf["jobs"]
+624382	        self.assertEqual(list(jobs), ["plan", "shard", "finalize"])
+624383	        self.assertEqual(wf["permissions"], {"contents": "read"})
+624384	        self.assertEqual(jobs["finalize"]["permissions"]["contents"], "write")
+624385	        self.assertNotIn("permissions", jobs["shard"])  # shards never write the repository
+624386	        strategy = jobs["shard"]["strategy"]
+624387	        self.assertEqual(strategy["max-parallel"], 6)
+624388	        self.assertTrue(strategy["fail-fast"])
+624389	        self.assertIn("fromJSON(needs.plan.outputs.matrix)", strategy["matrix"])
+624390	        uploads = [s for s in jobs["shard"]["steps"] if str(s.get("uses", "")).startswith("actions/upload-artifact")]
+624391	        self.assertEqual(uploads[0]["if"], "${{ always() }}")
+624392	        self.assertIn("always()", jobs["finalize"]["if"])
+624393	        self.assertEqual(jobs["finalize"]["needs"], ["plan", "shard"])
+624394	        secrets = [j for j, body in jobs.items() if "secrets.EUMETSAT" in json.dumps(body)]
+624395	        self.assertEqual(secrets, ["shard"])
+624396	        self.assertLessEqual(jobs["shard"]["timeout-minutes"], 360)
+624397	        self.assertLess(int(jobs["shard"]["env"]["SHARD_BUDGET_MINUTES"]) + 25, jobs["shard"]["timeout-minutes"])
+624398	    def test_listed_in_the_validation_workflow(self):
+624399	        self.assertIn("backfill-parallel-lightning.yml", (ROOT / ".github/workflows/test-lightning.yml").read_text())
+624400	        self.assertIn("backfill_parallel.py", (ROOT / ".github/workflows/test-lightning.yml").read_text())
+624401	PLAN = "Plan never-searched UTC dates and shards"
+624402	SEARCH = "Search this shard's dates (run records only)"
+624403	SHARD_SURFACE = "Surface shard stop"
+624404	FINALIZE = "Ingest, verify and commit (one commit)"
+624407	class ParallelWorkflowShellTests(unittest.TestCase):
+624408	    """plan job -> N shard jobs (separate runner dirs) -> artifacts -> finalize job."""
+624409	        self.base = base = Path(self.temp.name)
+624413	                    "GITHUB_REF": "refs/heads/main", "PYTHONDONTWRITEBYTECODE": "1",
+624414	                    "SHARD_STAGGER_STEP_SECONDS": "0", "HOURLY_POLL_SECONDS": "0"}
+624418	        gh = bin_dir / "fake-gh"
+624419	        gh.write_text("#!/bin/sh\necho '[]'\n")
+624420	        gh.chmod(0o755)
+624421	        self.env["GH_BIN"] = str(gh)
+624424	        self.origin, self.repo = base / "origin.git", base / "repo"
+624428	        for name in ("history.py", "status.py", "backfill_parallel.py"):
+624437	        self.days = [(self.today - timedelta(days=n)).isoformat() for n in range(1, 9)]  # d1 newest .. d8
+624438	        make_archive(self.repo / "data" / "history", now, self.today - timedelta(days=2))  # d2 searched
+624447	    def runner(self, name):
+624448	        path = self.base / "runners" / name
+624450	        return {"RUNNER_TEMP": str(path), "GITHUB_OUTPUT": str(path / "github_output")}
+624451	    def run_step(self, name, env, values=None):
+624452	        script = substitute(step(WORKFLOW, name), values or {})
+624453	        return subprocess.run(["bash", "-e", "-c", script], cwd=self.repo, env={**self.env, **env},
+624455	    def pipeline(self, shards="3", extra=None):
+624456	        extra = extra or {}
+624457	        plan_env = {**self.runner("plan"), "END_DATE": "", "DAYS": "8", "SHARDS": shards, "DRY_RUN": "false"}
+624458	        plan = self.run_step(PLAN, plan_env)
+624460	        planned = outputs(Path(plan_env["GITHUB_OUTPUT"]))
+624461	        final = self.runner("finalize")
+624462	        (Path(final["RUNNER_TEMP"]) / "plan").mkdir()
+624463	        shutil.copy(Path(plan_env["RUNNER_TEMP"]) / "plan-artifact" / "backfill-plan.txt",
+624464	                    Path(final["RUNNER_TEMP"]) / "plan" / "backfill-plan.txt")
+624465	        records = Path(final["RUNNER_TEMP"]) / "records"
+624466	        records.mkdir()
+624467	        shard_results = []
+624468	        for entry in json.loads(planned["matrix"])["include"]:
+624469	            env = {**self.runner(f"shard-{entry['shard']}"), "SHARD": str(entry["shard"]), "DATES": entry["dates"],
+624470	                   **extra}
+624471	            search = self.run_step(SEARCH, env)
+624472	            out = outputs(Path(env["GITHUB_OUTPUT"]))
+624473	            surface = self.run_step(SHARD_SURFACE, {**env, "STOPPED": out.get("stopped", ""), "ERROR": out.get("error", "")})
+624474	            shard_results.append((entry, search, out, surface))
+624475	            for f in (Path(env["RUNNER_TEMP"]) / "records").iterdir():  # upload/download-artifact, merge-multiple
+624476	                if not f.name.startswith("."):
+624477	                    shutil.copy(f, records / f.name)
+624478	            self.assertEqual(self.git("status", "--porcelain"), "", "a shard must not touch the repository")
+624479	        fin = self.run_step(FINALIZE, {**final, "SHARDS": planned["shards"], **extra})
+624480	        out = outputs(Path(final["GITHUB_OUTPUT"]))
+624481	        surface = self.run_step(SURFACE, {**final, "STOPPED": out.get("stopped", ""), "ERROR": out.get("error", ""),
+624482	                                          "OUTCOME": "success" if fin.returncode == 0 else "failure"})
+624484	        return planned, shard_results, fin, out, surface
+624485	    def rows(self):
+624486	        index = json.loads(self.git("show", "origin/main:data/history/index.json"))
+624488	    def test_three_shards_then_one_verified_commit(self):
+624489	        planned, shards, fin, out, surface = self.pipeline("3")
+624490	        self.assertEqual(planned["count"], "7")
+624491	        self.assertEqual(planned["shards"], "3")
+624492	        self.assertEqual(fin.returncode, 0, fin.stderr + fin.stdout)
+624494	        self.assertEqual((out["stopped"], out["pushed"], out["filled"]), ("completed", "yes", "7"))
+624497	        for d in self.days:
+624498	            if d == self.days[1]:
+624499	                self.assertEqual(rows[d]["count"], 1)  # the hourly-searched date is untouched
+624502	        self.assertEqual(status["backfill"]["shards"], 3)
+624503	    def test_rate_limit_in_one_shard_fails_it_but_other_records_are_committed(self):
+624504	        d = self.days
+624505	        planned, shards, fin, out, surface = self.pipeline("3", {"FAKE_FAIL_DAYS": d[2]})  # shard 2: d3, d6
+624506	        by_shard = {e["shard"]: (o, s) for e, _, o, s in shards}
+624507	        self.assertEqual(by_shard[2][0]["stopped"], "eumetsat_error")
+624508	        self.assertNotEqual(by_shard[2][1].returncode, 0)  # the failing shard goes red -> fail-fast
+624509	        self.assertEqual(by_shard[1][1].returncode, 0)
+624510	        self.assertEqual(fin.returncode, 0, fin.stderr)
+624513	        for day in (d[2], d[5]):
+624514	            self.assertEqual((rows[day]["coverage"], rows[day]["count"]), ("none", None), day)
+624515	        for day in (d[0], d[3], d[4], d[6], d[7]):
+624516	            self.assertEqual(rows[day]["count"], 1, day)
+624517	    def test_push_rejected_by_a_concurrent_hourly_commit_reingests_on_the_new_main(self):
+624518	        hourly = self.base / "hourly"
+624519	        self.git("clone", "-q", str(self.origin), str(hourly), cwd=self.base)
+624520	        hook = self.repo / ".git" / "hooks" / "pre-push"
+624521	        marker = self.base / "hook-fired"
+624522	        hook.write_text(
+624523	            "unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE\n"
+624524	            f'[ -e "{marker}" ] && exit 0\n'
+624525	            f'touch "{marker}"\n'
+624526	            f'cd "{hourly}" && git pull -q origin main && '
+624527	            "sed -i 's/2026-10-27T05:18:00.000Z/2026-10-27T06:18:00.000Z/' data/status.json && "
+624528	            "git commit -qam 'data: archive UTC day shards, index v2 and collector status' && git push -q origin main\n")
+624529	        hook.chmod(0o755)
+624530	        planned, shards, fin, out, surface = self.pipeline("2")
+624531	        self.assertTrue(marker.exists())
+624532	        self.assertIn("re-ingesting on the new main", fin.stdout)
+624533	        self.assertEqual(out["pushed"], "yes")
+624534	        log = self.git("log", "--format=%s", "origin/main").splitlines()
+624535	        self.assertTrue(log[0].startswith("data: parallel backfill of 7"))
+624536	        self.assertTrue(log[1].startswith("data: archive UTC day shards"))  # the hourly commit is kept
+624537	        self.assertEqual(status["written_utc"], "2026-10-27T06:18:00.000Z")  # its heartbeat survives
+624538	        self.assertEqual(len(status["backfill"]["filled_days"]), 7)
+624539	    def test_plan_refuses_more_than_six_shards_and_writing_runs_off_main(self):
+624540	        env = {**self.runner("plan"), "END_DATE": "", "DAYS": "8", "SHARDS": "7", "DRY_RUN": "false"}
+624541	        self.assertNotEqual(self.run_step(PLAN, env).returncode, 0)
+624542	        env.update(SHARDS="6", GITHUB_REF="refs/heads/feature")
+624543	        off_main = self.run_step(PLAN, env)
+624544	        self.assertNotEqual(off_main.returncode, 0)
+624545	        self.assertIn("must run on main", off_main.stdout)
+624546	        env["DRY_RUN"] = "true"
+624547	        self.assertEqual(self.run_step(PLAN, env).returncode, 0)
+624618	    def test_has_its_own_concurrency_group_so_it_never_queues_the_hourly_feed(self):
+624622	        self.assertEqual(group(BACKFILL), ("uk-lightning-backfill", "false"))
+624623	        self.assertEqual(group(HOURLY), ("uk-lightning-update", "false"))
+624624	        self.assertNotEqual(group(BACKFILL)[0], group(HOURLY)[0])
+624640	        shutil.copytree(ROOT / "ci", self.repo / "ci")
+624660	        commit_env = {**(extra or {}), "STOPPED": out.get("stopped", ""), "ERROR": out.get("error", "")}
+624661	        commit = self.run_step(COMMIT, commit_env) if search.returncode == 0 else None
+624709	"""The hourly collector and a backfill commit to main at the same time.
+624710	They run in separate concurrency groups (a backfill can no longer queue the
+624711	hourly feed), so either one can find main moved under it. These tests run the
+624712	real commit-step shells of BOTH workflows in two clones of one bare 'origin'
+624713	(no network, no EUMETSAT, no GitHub) and check that the loser of the push race
+624714	replays its own inputs on top of the winner's commit: nothing is lost, nothing
+624715	is textually merged, the archive verifies, and status.json keeps the hourly
+624716	heartbeat and the backfill block side by side.
+624717	sys.path.insert(0, str(ROOT / "tests"))
+624718	from test_backfill_workflow import BACKFILL, FAKE_DOWNLOAD, HOURLY, outputs, step, substitute
+624719	HOURLY_ARCHIVE_COMMIT = "Commit archive and status (archive commit)"
+624720	HOURLY_FEED_COMMIT = "Commit latest public GeoJSON (feed commit)"
+624721	BF_PLAN, BF_SEARCH, BF_COMMIT = ("Plan never-searched UTC dates", "Search and ingest each date",
+624722	                                 "Verify and commit backfilled dates (one commit)")
+624724	class ConcurrencyDesignTests(unittest.TestCase):
+624725	    """The hourly group belongs to the hourly workflow alone; no textual rebase of generated files."""
+624727	    def group(path):
+624728	        block = path.read_text().split("\nconcurrency:\n", 1)[1].split("\n\n", 1)[0]
+624729	        return re.search(r"group:\s*(\S+)", block).group(1)
+624730	    def test_no_other_workflow_shares_the_hourly_group(self):
+624731	        for path in WORKFLOWS.glob("*.yml"):
+624732	            if path.name != HOURLY.name and "\nconcurrency:\n" in path.read_text():
+624733	                self.assertNotEqual(self.group(path), self.group(HOURLY), path.name)
+624734	    def test_hourly_run_is_bounded_under_an_hour_and_never_cancelled(self):
+624735	        text = HOURLY.read_text()
+624736	        self.assertRegex(text, r"concurrency:\n  group: uk-lightning-update\n  cancel-in-progress: false")
+624737	        timeouts = [int(t) for t in re.findall(r"timeout-minutes:\s*(\d+)", text)]
+624738	        self.assertTrue(timeouts and max(timeouts) <= 55, timeouts)
+624739	    def test_two_cron_slots_and_a_gate_that_only_scheduled_runs_can_skip(self):
+624740	        self.assertEqual(re.findall(r'cron: "([^"]+)"', on_block), ["17 * * * *", "47 * * * *"])
+624741	        self.assertIn("needs: gate", text)
+624742	        self.assertIn("if: needs.gate.outputs.due == 'true'", text)
+624743	        self.assertIn('status.py due --status data/status.json --event "${{ github.event_name }}"', text)
+624744	    def test_status_write_records_trigger_and_run_timing(self):
+624745	        self.assertIn("actions: read", text)
+624746	        for flag in ("--trigger", "--run-id", "--run-created", "--job-started"):
+624747	            self.assertIn(flag, text)
+624748	    def test_no_pull_rebase_of_generated_files_in_any_writer(self):
+624749	        for path in (HOURLY, BACKFILL):
+624750	            self.assertNotIn("pull --rebase", path.read_text(), path.name)
+624751	            self.assertIn("ci/push-with-replay.sh", path.read_text(), path.name)
+624752	class PushRaceTests(unittest.TestCase):
+624754	        self.env = {**os.environ, "HOME": str(self.base), "GIT_CONFIG_NOSYSTEM": "1",
+624755	                    "GITHUB_REF": "refs/heads/main", "PYTHONDONTWRITEBYTECODE": "1", "PUSH_RETRY_SLEEP": "0"}
+624756	        bin_dir = self.base / "bin"
+624757	        self.origin = self.base / "origin.git"
+624758	        seed = self.base / "seed"
+624759	        self.git(self.base, "init", "-q", "--bare", "-b", "main", str(self.origin))
+624760	        self.git(self.base, "init", "-q", "-b", "main", str(seed))
+624761	        self.git(seed, "remote", "add", "origin", str(self.origin))
+624762	            shutil.copy(ROOT / name, seed / name)
+624763	        (seed / "collect.py").write_text(source)
+624764	        shutil.copytree(ROOT / "ci", seed / "ci")
+624765	        (seed / ".gitignore").write_text("__pycache__/\n")
+624766	        self.now = datetime.now(timezone.utc)
+624767	        self.today = self.now.date()
+624768	            seed / "data" / "history", [build_feature(-2.0, 52.0, searched + timedelta(hours=2), "TEST-hourly", 0)],
+624769	            now=self.now, scanned_windows=[history.successful_scan((searched + timedelta(hours=1)).isoformat(),
+624770	                                                                   (searched + timedelta(hours=7)).isoformat(), 36)],
+624771	        (seed / "data" / "status.json").write_text(json.dumps({
+624772	            "schema": "uk-lightning-status.v1", "health": "ok", "freshness": "ok",
+624773	            "last_attempt_utc": (self.now - timedelta(hours=1)).isoformat(), "last_attempt_outcome": "success",
+624774	            "consecutive_failures": 0, "last_successful_scan_end_utc": (self.now - timedelta(hours=1)).isoformat(),
+624775	            "integrity": {"state": "ok", "alert": None, "lost_days": []}}, indent=1) + "\n")
+624776	        (seed / "data" / "uk_lightning.geojson").write_text('{"features": []}\n')
+624777	        self.git(seed, "add", "-A")
+624778	        self.git(seed, "commit", "-q", "-m", "initial archive")
+624779	        self.git(seed, "push", "-q", "-u", "origin", "main")
+624780	        self.hourly = self.clone("hourly")
+624781	        self.backfill = self.clone("backfill")
+624782	    def clone(self, name):
+624783	        path = self.base / name
+624784	        self.git(self.base, "clone", "-q", str(self.origin), str(path))
+624785	        (self.base / f"{name}-runner").mkdir()
+624787	    def git(self, cwd, *args):
+624788	        return subprocess.run(["git", *args], cwd=cwd, env=self.env, check=True, capture_output=True, text=True).stdout
+624789	    def runner(self, repo):
+624790	        return self.base / f"{repo.name}-runner"
+624791	    def sh(self, repo, script, extra=None):
+624792	        env = {**self.env, "RUNNER_TEMP": str(self.runner(repo)), "GITHUB_OUTPUT": str(self.runner(repo) / "out"),
+624793	               **(extra or {})}
+624794	        return subprocess.run(["bash", "-e", "-c", script], cwd=repo, env=env, capture_output=True, text=True)
+624795	    # --- the two writers, using the real workflow step shells -----------------
+624796	    def hourly_collect(self, start, end, flash_at, flash_id):
+624797	        """Step 1 of update-lightning.yml (EUMETSAT) replaced by its outputs: run record and feed."""
+624798	        record = {"schema": "uk-lightning-run-record.v1", "outcome": "success", "error": None,
+624799	                  "run_utc": history.format_utc(self.now), "products_examined": 6, "lookback_hours": 6.0,
+624800	                  "slots_parsed": True, "scanned_ranges": [{"start_utc": history.format_utc(start),
+624801	                                                            "end_utc": history.format_utc(end)}],
+624802	                  "features": [build_feature(-2.0, 52.0, flash_at, flash_id, 0)]}
+624803	        (self.runner(self.hourly) / "lightning-run-record.json").write_text(json.dumps(record))
+624804	        (self.hourly / "data" / "uk_lightning.geojson").write_text(json.dumps({"features": [flash_id]}) + "\n")
+624805	        self.hourly_env = {"ARCHIVE_OUTCOME": "success", "COLLECT_OUTCOME": "success", "TRIGGER": "schedule",
+624806	                           "RUN_ID": "4242", "RUN_CREATED_UTC": history.format_utc(self.now - timedelta(minutes=2)),
+624807	                           "JOB_STARTED_UTC": history.format_utc(self.now - timedelta(minutes=1))}
+624808	    def hourly_commit(self, before_feed=None, before_archive_commit=None):
+624809	        """Steps 2-5 of update-lightning.yml in order; the hooks let the other writer push in between."""
+624810	        if before_feed:
+624811	            before_feed()
+624812	        feed = self.sh(self.hourly, substitute(step(HOURLY, HOURLY_FEED_COMMIT), {}))
+624813	        self.assertEqual(feed.returncode, 0, feed.stdout + feed.stderr)
+624814	        archive = self.sh(self.hourly, substitute(step(HOURLY, "Append to the one-year UTC archive"), {}))
+624815	        self.assertEqual(archive.returncode, 0, archive.stderr)
+624816	        status = self.sh(self.hourly, substitute(step(HOURLY, "Write data/status.json (always)"), {
+624817	            "steps.collect.outcome": "success", "steps.archive.outcome": "success", "github.event_name": "schedule",
+624818	            "github.run_id": "4242"}), self.hourly_env)
+624819	        self.assertEqual(status.returncode, 0, status.stderr)
+624820	        if before_archive_commit:
+624821	            before_archive_commit()
+624822	        done = self.sh(self.hourly, substitute(step(HOURLY, HOURLY_ARCHIVE_COMMIT), {}), self.hourly_env)
+624824	        return feed, done
+624825	    def backfill_search(self):
+624826	        plan = self.sh(self.backfill, substitute(step(BACKFILL, BF_PLAN), {}), {"END_DATE": "", "DAYS": "4"})
+624827	        search = self.sh(self.backfill, substitute(step(BACKFILL, BF_SEARCH), {}))
+624828	        return outputs(self.runner(self.backfill) / "out")
+624829	    def backfill_commit(self, out):
+624830	        done = self.sh(self.backfill, substitute(step(BACKFILL, BF_COMMIT), {}),
+624831	                       {"STOPPED": out["stopped"], "ERROR": out.get("error", "")})
+624832	        return done
+624833	    # --- what landed on origin/main --------------------------------------------
+624834	    def main_view(self):
+624835	        check = self.base / "check"
+624836	        if check.exists():
+624837	            shutil.rmtree(check)
+624838	        self.git(self.base, "clone", "-q", str(self.origin), str(check))
+624839	        self.assertEqual(history.main(["verify", "--archive-dir", str(check / "data" / "history")]), 0)
+624840	        index = json.loads((check / "data" / "history" / "index.json").read_text())
+624841	        status = json.loads((check / "data" / "status.json").read_text())
+624842	        ids = set()
+624843	        for f in (check / "data" / "history" / "days").rglob("*.json"):
+624844	            ids |= {feat["id"] for feat in json.loads(f.read_text()).get("features", [])}
+624845	        return {r["date"]: r for r in index["days"]}, status, ids, check
+624846	    def test_hourly_push_loses_to_a_backfill_and_replays_its_archive_and_heartbeat(self):
+624847	        out = self.backfill_search()
+624848	        start = self.now - timedelta(hours=2)
+624849	        self.hourly_collect(start, self.now - timedelta(minutes=10), self.now - timedelta(hours=1), "TEST-hourly-new")
+624850	        # The backfill pushes after the hourly job ingested but before it committed the archive.
+624851	        feed, done = self.hourly_commit(before_archive_commit=lambda: self.backfill_commit(out))
+624852	        self.assertIn("pushed on attempt 1", feed.stdout)
+624853	        self.assertIn("push rejected (attempt 1/5)", done.stdout)
+624854	        self.assertIn("pushed on attempt 2", done.stdout)
+624855	        rows, status, ids, check = self.main_view()
+624856	        for d in (d3, d4):
+624857	            self.assertEqual((rows[d]["coverage"], rows[d]["count"]), ("full", 1), d)
+624858	        self.assertIn("TEST-hourly-new:0", ids)          # the hourly flash survived the replay
+624859	        self.assertIn(f"TEST-fake-{d3}:0", ids)          # and the backfill's flashes were not overwritten
+624860	        self.assertEqual(status["last_attempt_utc"], history.format_utc(self.now))
+624861	        self.assertEqual(status["heartbeat"]["this_run"]["run_id"], "4242")
+624862	        self.assertEqual(status["heartbeat"]["this_run"]["trigger"], "schedule")
+624863	        self.assertEqual(json.loads((check / "data" / "uk_lightning.geojson").read_text()), {"features": ["TEST-hourly-new"]})
+624864	        log = self.git(check, "log", "--format=%s")
+624865	        self.assertIn("data: backfill 3 never-searched", log)
+624866	        self.assertIn("data: archive UTC day shards", log)
+624867	    def test_backfill_push_loses_to_the_hourly_job_and_skips_a_date_the_hourly_job_searched(self):
+624868	        d1_start = datetime.combine(self.today - timedelta(days=1), time(22, 0), tzinfo=timezone.utc)
+624869	        self.hourly_collect(d1_start, d1_start + timedelta(minutes=110), d1_start + timedelta(minutes=30), "TEST-hourly-d1")
+624870	        self.hourly_commit()                            # the hourly job wins; it touched d1 (yesterday)
+624871	        done = self.backfill_commit(out)                # rejected, replayed: d1 is no longer never searched
+624872	        self.assertIn(f"replay: {d1} is no longer never-searched", done.stdout)
+624873	        rows, status, ids, _ = self.main_view()
+624874	        self.assertEqual(rows[d1]["coverage"], "partial")   # the hourly job's row is kept, not overwritten
+624875	        self.assertIn("TEST-hourly-d1:0", ids)
+624876	        self.assertNotIn(f"TEST-fake-{d1}:0", ids)
+624877	        self.assertEqual(status["backfill"]["filled_days"], [d3, d4])
+624878	        self.assertEqual(status["backfill"]["remaining_unknown_days"], [d1])
+624879	        # The hourly heartbeat committed by the winner is untouched by the backfill replay.
+624880	    def test_feed_push_loses_to_a_backfill_and_the_archive_then_builds_on_the_backfill(self):
+624881	        self.hourly_collect(self.now - timedelta(hours=2), self.now - timedelta(minutes=10),
+624882	                            self.now - timedelta(hours=1), "TEST-hourly-feed")
+624883	        feed, done = self.hourly_commit(before_feed=lambda: self.backfill_commit(out))
+624884	        self.assertIn("push rejected (attempt 1/5)", feed.stdout)
+624885	        self.assertIn("pushed on attempt 2", feed.stdout)
+624886	        self.assertIn("pushed on attempt 1", done.stdout)  # the archive step already ran on the new main
+624887	        self.assertEqual(json.loads((check / "data" / "uk_lightning.geojson").read_text()), {"features": ["TEST-hourly-feed"]})
+624888	        self.assertTrue({"TEST-hourly-feed:0", f"TEST-fake-{self.days[2]}:0"} <= ids)
+624889	        self.assertEqual(status["backfill"]["filled_days"], [self.days[0], self.days[2], self.days[3]])
+624890	    def test_refuses_to_reset_over_unrelated_uncommitted_changes(self):
+624891	        self.backfill_commit(out)
+624892	        (self.hourly / "data" / "uk_lightning.geojson").write_text('{"features": ["x"]}\n')
+624893	        (self.hourly / "history.py").write_text("# local edit that a reset would destroy\n")
+624894	        done = self.sh(self.hourly, substitute(step(HOURLY, HOURLY_FEED_COMMIT), {}))
+624896	        self.assertIn("refusing to reset over uncommitted changes outside the step's paths: history.py", done.stdout)
+624897	        self.assertEqual((self.hourly / "history.py").read_text(), "# local edit that a reset would destroy\n")
+624898	    def test_pushes_to_the_checked_out_branch_never_to_main(self):
+624899	        main_before = self.git(self.hourly, "rev-parse", "origin/main")
+624900	        self.git(self.hourly, "checkout", "-q", "-b", "feature")
+624901	        (self.hourly / "data" / "uk_lightning.geojson").write_text('{"features": ["branch"]}\n')
+624902	        done = self.sh(self.hourly, "bash ci/push-with-replay.sh 'feed on a branch' true data/uk_lightning.geojson")
+624903	        self.git(self.hourly, "fetch", "-q", "origin")
+624904	        self.assertEqual(self.git(self.hourly, "rev-parse", "origin/main"), main_before)
+624905	        self.assertEqual(self.git(self.hourly, "log", "-1", "--format=%s", "origin/feature").strip(), "feed on a branch")
+624906	    def test_gives_up_loudly_after_the_attempt_limit(self):
+624907	                            self.now - timedelta(hours=1), "TEST-hourly-x")
+624908	        self.hourly_commit()
+624909	                       {"STOPPED": out["stopped"], "ERROR": "", "PUSH_ATTEMPTS": "1"})
+624910	        self.assertIn("::error::push-with-replay: push rejected 1 times", done.stdout)
+624911	"""status.json explains staleness: when the collector last ran, what started it, and why the gap was long.
+624912	Timings are the real 27 Oct 2026 runs of Ventusltd/lightning (gh api .../actions/runs):
+624913	00:26 scheduled run; 03:14-07:01 and 07:02-10:26 backfills in the shared group;
+624914	run 40476905747 created 08:55:15, job started 10:26:22 (91 min queued);
+624915	no run created again until 15:19:46 although the group was free from 10:43.
+624918	from status import build_status, is_due, next_cron_slot
+624919	UTC = timezone.utc
+624920	def record(run_utc: str, end_utc: str) -> dict:
+624921	    return {"schema": "uk-lightning-run-record.v1", "run_utc": run_utc, "outcome": "success", "error": None,
+624922	            "products_examined": 36, "slots_parsed": True,
+624923	            "scanned_ranges": [{"start_utc": "2026-10-27T00:00:00.000Z", "end_utc": end_utc}]}
+624924	def write(previous, rec, *, now, trigger="schedule", created=None, started=None, collect="success"):
+624925	    return build_status(now=now, previous=previous, record=rec, archive_result=None, collect_outcome=collect,
+624926	                        archive_outcome="success" if collect == "success" else "skipped", trigger=trigger,
+624927	                        run_id="1", run_created_utc=created, job_started_utc=started)
+624928	PREV = {"last_attempt_utc": "2026-10-27T00:27:10.000Z", "last_attempt_outcome": "success",
+624929	        "last_successful_scan_end_utc": "2026-10-27T00:20:09.000Z"}
+624930	class HeartbeatTests(unittest.TestCase):
+624931	    def test_on_time_run(self):
+624932	        prev = {**PREV, "last_attempt_utc": "2026-10-27T14:18:00.000Z"}
+624933	        hb = write(prev, record("2026-10-27T15:20:03.957Z", "2026-10-27T15:10:09.000Z"),
+624934	                   now=datetime(2026, 10, 27, 15, 24, tzinfo=UTC), created="2026-10-27T15:19:46Z",
+624935	                   started="2026-10-27T15:19:49Z")["heartbeat"]
+624936	        self.assertEqual(hb["gap_before_this_run"]["cause"], "on_time")
+624937	        self.assertEqual(hb["this_run"]["queued_minutes"], 0.1)
+624938	        self.assertIn("on schedule", hb["explanation"])
+624939	        self.assertEqual(hb["next_expected_run_utc"], "2026-10-27T15:47:00.000Z")
+624940	        self.assertEqual(hb["late_after_utc"], "2026-10-27T16:50:03.957Z")
+624941	    def test_the_08_55_run_names_both_the_scheduler_and_the_queue(self):
+624942	        hb = write(PREV, record("2026-10-27T10:26:40.000Z", "2026-10-27T10:20:09.000Z"),
+624943	                   now=datetime(2026, 10, 27, 10, 43, tzinfo=UTC), created="2026-10-27T08:55:15Z",
+624944	                   started="2026-10-27T10:26:22Z")["heartbeat"]
+624945	        gap = hb["gap_before_this_run"]
+624946	        self.assertEqual(gap["cause"], "github_schedule_late_then_queued")
+624947	        self.assertEqual(hb["this_run"]["queued_minutes"], 91.1)
+624948	        self.assertEqual(gap["hourly_slots_without_a_run"], 7)  # 01:17..08:17 minus the one this run served
+624949	        self.assertIn("GitHub's scheduler started no run on time", hb["explanation"])
+624950	        self.assertIn("waited 1 h 31 min in the queue behind another run", hb["explanation"])
+624951	    def test_the_15_19_run_blames_the_scheduler_not_the_collector(self):
+624952	        prev = {**PREV, "last_attempt_utc": "2026-10-27T10:26:40.000Z"}
+624953	        self.assertEqual(hb["gap_before_this_run"]["cause"], "github_schedule_late_or_dropped")
+624954	        self.assertEqual(hb["gap_before_this_run"]["hourly_slots_without_a_run"], 4)  # 11:17..14:17
+624955	        self.assertIn("no run for 4 h 53 min (since 27 Oct 10:26 UTC)", hb["explanation"])
+624956	        self.assertIn("not a collector or EUMETSAT failure", hb["explanation"])
+624957	    def test_queue_only(self):
+624958	        prev = {**PREV, "last_attempt_utc": "2026-10-27T07:20:00.000Z"}
+624959	        hb = write(prev, record("2026-10-27T10:26:40.000Z", "2026-10-27T10:20:09.000Z"),
+624960	                   now=datetime(2026, 10, 27, 10, 43, tzinfo=UTC), created="2026-10-27T08:17:30Z",
+624961	        self.assertEqual(hb["gap_before_this_run"]["cause"], "queued_behind_another_run")
+624962	    def test_manual_start_and_unknown_creation_time(self):
+624963	        hb = write(PREV, record("2026-10-27T02:38:30.000Z", "2026-10-27T02:30:09.000Z"),
+624964	                   now=datetime(2026, 10, 27, 3, 13, tzinfo=UTC), trigger="workflow_dispatch",
+624965	                   created="2026-10-27T02:38:11Z", started="2026-10-27T02:38:14Z")["heartbeat"]
+624966	        self.assertEqual(hb["gap_before_this_run"]["cause"], "no_scheduled_run_until_manual_start")
+624967	        self.assertIn("started manually", hb["explanation"])
+624968	                   now=datetime(2026, 10, 27, 10, 43, tzinfo=UTC))["heartbeat"]
+624969	        self.assertEqual(hb["gap_before_this_run"]["cause"], "unknown")
+624970	        self.assertIsNone(hb["this_run"]["queued_minutes"])
+624971	        self.assertIn("cause unknown", hb["explanation"])
+624972	    def test_first_heartbeat_and_failed_run(self):
+624973	        hb = write(None, record("2026-10-27T10:26:40.000Z", "2026-10-27T10:20:09.000Z"),
+624974	        self.assertIsNone(hb["gap_before_this_run"])
+624975	        failed = write(PREV, None, now=datetime(2026, 10, 27, 1, 20, tzinfo=UTC), collect="failure",
+624976	                       created="2026-10-27T01:17:40Z", started="2026-10-27T01:17:44Z")
+624977	        self.assertEqual(failed["heartbeat"]["this_run"]["outcome"], "failure")
+624978	        self.assertIn("(schedule, failure)", failed["heartbeat"]["explanation"])
+624979	    def test_if_late_never_claims_zero(self):
+624980	        self.assertIn("unknown, not zero", hb["if_late"])
+624981	        self.assertIn("since 27 Oct 10:26 UTC", hb["if_late"])
+624982	    def test_heartbeat_survives_a_backfill_status_write(self):
+624983	        st = write(PREV, record("2026-10-27T10:26:40.000Z", "2026-10-27T10:20:09.000Z"),
+624984	                   now=datetime(2026, 10, 27, 10, 43, tzinfo=UTC))
+624985	        after = status_module.backfill_status(st, now=datetime(2026, 10, 27, 11, tzinfo=UTC), planned=["2026-10-01"],
+624986	                                              filled=["2026-10-01"], stopped="completed", error=None, index=None)
+624987	        self.assertEqual(after["heartbeat"], st["heartbeat"])
+624988	    def test_next_cron_slot(self):
+624989	        self.assertEqual(next_cron_slot(datetime(2026, 10, 27, 10, 17, tzinfo=UTC)), datetime(2026, 10, 27, 10, 47, tzinfo=UTC))
+624990	        self.assertEqual(next_cron_slot(datetime(2026, 10, 27, 10, 50, tzinfo=UTC)), datetime(2026, 10, 27, 11, 17, tzinfo=UTC))
+624991	        self.assertEqual(next_cron_slot(datetime(2026, 10, 27, 23, 59, tzinfo=UTC)), datetime(2026, 10, 28, 0, 17, tzinfo=UTC))
+624992	class DueTests(unittest.TestCase):
+624993	    NOW = datetime(2026, 10, 27, 15, 47, 30, tzinfo=UTC)
+624994	    def test_only_a_scheduled_run_after_a_recent_success_skips(self):
+624995	        recent = {"last_attempt_utc": "2026-10-27T15:20:03.957Z", "last_attempt_outcome": "success"}
+624996	        self.assertEqual(is_due(recent, now=self.NOW, event="schedule")[0], False)
+624997	        self.assertEqual(is_due(recent, now=self.NOW, event="workflow_dispatch")[0], True)
+624998	        self.assertEqual(is_due({**recent, "last_attempt_outcome": "failure"}, now=self.NOW, event="schedule")[0], True)
+624999	        old = {**recent, "last_attempt_utc": "2026-10-27T14:20:00.000Z"}
+625000	        self.assertEqual(is_due(old, now=self.NOW, event="schedule")[0], True)
+625001	        self.assertEqual(is_due(None, now=self.NOW, event="schedule")[0], True)
+625002	        self.assertEqual(is_due({"last_attempt_utc": "garbage"}, now=self.NOW, event="schedule")[0], True)
+625003	    def test_cli_writes_the_github_output(self):
+625004	            st, out = Path(tmp) / "status.json", Path(tmp) / "out"
+625005	            st.write_text(json.dumps({"last_attempt_utc": "2026-10-27T15:20:03.957Z", "last_attempt_outcome": "success"}))
+625006	            self.assertEqual(status_module.main(["due", "--status", str(st), "--event", "schedule",
+625007	                                                 "--github-output", str(out), "--now", self.NOW.isoformat()]), 0)
+625008	            self.assertEqual(out.read_text(), "due=false\n")
+625009	            status_module.main(["due", "--status", str(Path(tmp) / "missing.json"), "--event", "schedule",
+625010	                                "--github-output", str(out), "--now", self.NOW.isoformat()])
+625011	            self.assertEqual(out.read_text(), "due=false\ndue=true\n")
+625012	    def test_cli_write_accepts_the_timing_flags(self):
+625013	            st, rec = Path(tmp) / "status.json", Path(tmp) / "rec.json"
+625014	            st.write_text(json.dumps(PREV))
+625015	            rec.write_text(json.dumps(record("2026-10-27T10:26:40.000Z", "2026-10-27T10:20:09.000Z")))
+625016	            code = status_module.main(["write", "--status", str(st), "--run-record", str(rec), "--collect-outcome",
+625017	                                       "success", "--archive-outcome", "skipped", "--trigger", "schedule",
+625018	                                       "--run-id", "40476905747", "--run-created", "2026-10-27T08:55:15Z",
+625019	                                       "--job-started", "2026-10-27T10:26:22Z", "--now", "2026-10-27T10:43:00Z"])
+625021	            hb = json.loads(st.read_text())["heartbeat"]
+625022	            self.assertEqual(hb["this_run"]["run_id"], "40476905747")
+625023	            self.assertEqual(hb["gap_before_this_run"]["cause"], "github_schedule_late_then_queued")
+625024	            # Empty flags (gh api unavailable) are unknown, never an error.
+625025	                                       "success", "--run-created", "", "--job-started", "", "--now", "2026-10-27T10:43:00Z"])
+625054	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "skipped"})
+625061	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "success"})
+625086	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "failure"})
 ```
