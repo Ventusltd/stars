@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-387,169 unique lines, numbered 1 to 625,086. Generated 2026-10-27T16:52:03.208Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+388,032 unique lines, numbered 1 to 634,183. Generated 2026-10-27T21:29:26.188Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -387172,4 +387172,867 @@
 625054	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "skipped"})
 625061	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "success"})
 625086	        done = self.run_step(ARCHIVE_COMMIT, {}, {"ARCHIVE_OUTCOME": "failure"})
+631954	/* uk-lightning-overlay, generation 202610271740 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+631963	const GEN='202610271740',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+631972	N=n=>Number(n).toLocaleString('en-GB'),pl=(n,w,s='s')=>N(n)+' '+w+(n==1?'':s),dm=t=>{const s=new Date(t).toUTCString(),y=s.slice(12,16);return+s.slice(5,7)+s.slice(7,11)+(y==new Date().getUTCFullYear()?'':' '+y)},hm=t=>T(t).slice(11,16),dt=t=>dm(t)+' '+hm(t),du=m=>(m=Math.round(m/6e4),(m>59?Math.floor(m/60)+' h ':'')+(m%60||m<60?m%60+' min':'')).trim(),hz=w=>!w.custom&&w.span<=2*DAY,de=(a,b)=>dm(a)==dm(b)?hm(b):dt(b),sv=(r,k,p)=>{const v=r.cov,w=r.w,a=k&&/READY|EMPTY/.test(k.st);return hz(w)?(a?'all ':(v.f>0?du(v.f*w.span):'0')+' of ')+w.label+' searched':(a?'all '+pl(v.d,'day'):`${v.k} of ${pl(v.d,'day')}`)+' searched'+(p&&v.pp?` (${v.pp} in part)`:'')},lr=(g,now,f)=>isFinite(g)?`collector last ran ${ymd(g)==ymd(now)?hm(g):dt(g)} UTC${f&&g-f>HOUR?`, searched to ${ymd(f)==ymd(now)?hm(f):dt(f)} UTC`:''}${g>now+9e5?' (device clock behind)':''}`:'collector last run unknown',F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,AGO=t=>{const m=Math.round(t/6e4);return m<0?'?':m<1?'<1 min':`${Math.floor(m/60)}h ${m%60}min`},
+631985	lg=k=>{if(!lru.has(k))return;const v=lru.get(k);lru.delete(k);lru.set(k,v);return v},ls=(k,v)=>{lru.delete(k);lru.set(k,v);while(lru.size>RQ)lru.delete(lru.keys().next().value)},
+632000	stale=(g,now,f=g)=>!(now-f<=4*HOUR&&g<=now+9e5),
+632003	cv=(x,ws,we)=>{const win=we-ws,u=[];let r=0,a=null,b=null,sd=0,d=0,l=0,fs=null,lz,pp=0;
+632005	for(let t=ds(ymd(ws));t<we;t+=DAY){if(ov(ws,we,t,t+DAY)<=0)continue;d++;const y=ymd(t),row=x.by.get(y);if(x.lost.has(y)){l++;let m=t;for(const w of x.sw)sd-=ov(Math.max(ws,m),Math.min(we,t+DAY),w.s,w.e),m=Math.max(m,w.e)}else if(!row||row.coverage==='none')u.push(y);else{fs??=t;lz=t;pp+=row.coverage==='partial'}}
+632006	return{f:win>0?Math.min(1,sd/win):0,r,a,b,d,u,l,fs,lz,pp,k:d-u.length-l,ny:x.lastScan===null?win:Math.max(0,we-Math.max(ws,x.lastScan)),bf:Math.max(0,Math.min(we,x.covStart)-ws)}},
+632022	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&(c=>Array.isArray(c)&&c.length<4&&bx(c[0],c[1]))(f.geometry.coordinates)&&f.properties&&FEED_SCHEMA.split('/')[1]===f.properties.observation_kind&&isFinite(tm(f))&&!(f.id&&typeof f.id=='object'),
+632034	r={mode:'overview',w,idx:x,before:false,rows,arch:known.reduce((n,y)=>n+(y.parts?tg(y,w.s,w.e).reduce((a,p)=>a+p.count,0):y.count),0),cov:cv(x,w.s,w.e),fl:[],ev:[],ld:[],sk:[]};
+632039	let run=0,rb=0,rn=0;tf.sort((a,b)=>b.date.localeCompare(a.date));const keep=[];for(const y of tf){const ps=tg(y,w.s,w.e),c=ps.reduce((a,p)=>a+(p.count||0),0),b=ps.reduce((a,p)=>a+(p.bytes>0?p.bytes:(p.count||0)*530),0),q=ps.length;if(r.sk.length||run+c>BUDGET||rb+b>32e6||rn+q>RQ){r.sk.push(y.date);continue}keep.push(y);run+=c;rb+=b;rn+=q}if(!keep.length){r.clp=r.big=1;return r}tf=keep;count=run}
+632046	else{const c=r.cov,f=c?c.f:0;if(r.mode==='feed'){st=r.ev.length?'PARTIAL':'UNKNOWN';rs.push('coverage unknown')}else if(!c||f<=0){st='UNKNOWN';rs.push('nothing searched')}
+632049	const g=r.idx?r.idx.gen:r.meta?Date.parse(r.meta.query_end_utc):NaN,f=r.idx&&r.idx.lastScan||g;return{st,g,f,stale:!!(r.idx||r.meta)&&r.w.atLatest!==false&&stale(g,now,f),colour:COLOUR(st),rs}},
+632051	cp=(r,now,k)=>{const w=r.w,x=r.idx,v=r.cov,nz=' (unknown, not zero)',L={window:'',days:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER};
+632052	L.window=w.custom?`Window  UTC dates ${ymd(w.s)} to ${ymd(Math.max(w.s,w.e-1))} inclusive (${pl(Math.ceil(w.span/DAY),'day')}${w.atLatest?', to now':''})`:`Window  ${w.label} · ${dt(w.s)} → ${de(w.s,w.e)} UTC · ${w.atLatest?'latest':'earlier page'}`;
+632053	L.days=r.mode==='feed'?`${r.old?'Last 7 days only (live feed)':'Live 7-day feed'} · ${NA(r.ie)}${/404/.test(r.ie)?'':': '+r.ie} · ${r.old?'earlier days unknown, not zero':'hours searched unknown'}`:r.before?`Before the 1-year archive (from ${dm(x.cutoff)}): never searched${nz}`:!v?'':hz(w)?(v.f<=0?`None of the ${w.label} searched yet${nz}`:k&&/READY|EMPTY/.test(k.st)?`All ${w.label} searched (${dt(v.a)} → ${de(v.a,v.b)} UTC)`:`Searched ${du(v.f*w.span)} of ${w.label} (${dt(v.a)} → ${de(v.a,v.b)} UTC) · ${du(w.span*(1-v.f))} not searched${nz}`):!v.k?`None of the ${pl(v.d,'day')} searched yet${nz}`:`${v.k==v.d&&!v.pp?'All':v.k+' of'} ${pl(v.d,'day')} searched (${dm(v.fs)}${v.lz>v.fs?'–'+dm(v.lz):''}${v.pp?`, ${v.pp} in part`:''})${v.u.length?` · ${v.u.length} not yet searched`:''}${v.l?` · ${v.l} lost (integrity alert)`:''}${v.k<v.d?nz:''}`;
+632054	if(v&&v.bf>0&&v.f<=0&&x)L.days+=` · archive starts ${dm(x.covStart)}`;
+632063	L.searched='Searched EUMETSAT unknown (live feed records only its last collection window)';if(r.old)L.warning=NA(r.ie)+': earlier coverage unknown, not zero'
+632070	if(x)L.refresh=`Refresh archive ${T(x.gen)} (${AGO(now-x.gen)} ago; expected every ${x.iv} h)${stale(x.gen,now,x.lastScan||x.gen)?' · overdue':''}`;
+632072	L.searched=c.f>0?`Searched EUMETSAT ${du(c.f*w.span)} of ${du(w.span)}${c.a!==null?` · ${T(c.a)} → ${T(c.b)}`:''}`:c.l?'Searched EUMETSAT: shard lost (integrity alert), unknown, not zero':'Searched EUMETSAT none of this window — no collection run covers it';
+632074	if(c.bf>0&&x&&!c.u.length)warn.push(`Unknown: ${ymd(w.s)} to ${ymd(Math.min(w.e,x.covStart)-1)} precede archive start ${T(x.covStart)} (not zero)`);
+632077	const ub=(r.rows||[]).filter(y=>[y.first_observation_utc,y.last_observation_utc].some(t=>t!=null&&!isFinite(Date.parse(t)))).length;if(ub)warn.push(`${N(ub)} archive entr${ub==1?'y':'ies'} unreadable (malformed timestamp; unknown, not zero)`);
+632078	if(c.f<1&&!warn.length)warn.push('Unknown: gaps between collection runs inside this window (not zero)');L.warning=warn.join(' · ')}
+632080	if(v&&v.f<=0&&!v.l&&r.mode!=='feed'&&!r.fl.length){L.flashes='Flashes not yet searched'+nz;L.actual='Actual  not yet searched'}
+632085	HIT=SRC+'-hit',CNT=LAYER+'-count',pc=()=>{if(S.pp){S.pp.remove();S.pp=null}nc()},
+632086	cs=v=>(v+'').replace(/\p{Cf}/gu,'').slice(0,200),el=(t,css,s)=>{const e=document.createElement(t);if(css)e.style.cssText=css;if(s!=null)e.textContent=s;return e},
+632087	// card bar docked at the bottom of the map like the original's (kv-card), lifted clear of the original's bottom controls, never over the menu bar
+632088	cpos=()=>{const c=S.pp,m=mh();if(!c||!m)return;const k=m.getContainer().getBoundingClientRect(),q=Q('gridatlas-menu-bar'),t=Math.max(0,(q?q.getBoundingClientRect().bottom:0)-k.top)+8,w=Math.min(480,k.width-16),L=k.left+(k.width-w)/2,h=c.offsetHeight||0;let b=8;
+632089	for(const o of[Q('gridatlas-dash-toggle'),document.querySelector('.map-controls')]){const r=o&&o.getBoundingClientRect();if(r&&r.height&&r.right>L&&r.left<L+w&&r.top<k.bottom&&r.bottom>k.top)b=Math.max(b,k.bottom-r.top+8)}
+632090	if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';c.style.maxHeight=Math.max(44,k.height-t-b)+'px'},
+632103	const g=S.res&&p.s===S.res.s&&S.res.ev[p.i];if(!g)return;const[x,y]=g.geometry.coordinates,id=g.id==null?'(none)':cs(g.id),
+632104	c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #2f6f75;border-radius:4px;box-shadow:0 0 14px rgba(95,189,194,.25);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+632105	bar=el('div','display:flex;align-items:center;gap:6px;padding-left:8px;background:#0a1a1d;border-bottom:1px solid #1d3238'),bd=el('div','padding:0 8px 6px'),d=el('details'),
+632106	B=(t,a,f)=>{const e=el('button','flex:none;width:44px;height:44px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:14px/1 monospace;cursor:pointer',t);e.type='button';e.setAttribute('aria-label',a);e.addEventListener('click',f);bar.appendChild(e);return e};
+632107	c.dataset.lightningCard='';c.setAttribute('role','dialog');c.setAttribute('aria-label','Lightning flash');
+632108	bar.appendChild(el('span','flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5fbdc2;font-weight:bold','Flash '+Ts(tm(g))));
+632109	const mn=B('−','Minimise',()=>{const o=bd.style.display=='none';bd.style.display=o?'':'none';mn.textContent=o?'−':'+';mn.setAttribute('aria-expanded',o);cpos()});mn.setAttribute('aria-expanded',true);B('×','Close',pc);
+632110	c.sm=el('summary','padding:14px 0 13px;line-height:17px;cursor:pointer;color:#bfe9ee',`lat ${y.toFixed(3)}, lon ${x.toFixed(3)} · ID ${sid(id)}`);d.appendChild(c.sm);
+632111	d.appendChild(el('div','color:#8b9aa1;font-size:10px;overflow-wrap:anywhere','Flash ID '+id));c.out=el('div','margin-top:4px;color:#9fb3ba');d.appendChild(c.out);bd.appendChild(d);
+632112	bd.appendChild(el('div','color:#8b9aa1;font-size:10px','EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));
+632113	c.appendChild(bar);c.appendChild(bd);S.pp=c;m.getContainer().appendChild(c);cpos();nf(m,c,x,y,15)},
+632114	// short ID: product sensing window + flash index (W_XX-..._<start>_<end>_N__..._0000:<index>); the full ID stays in the row
+632115	sid=s=>{const r=/_\d{8}(\d\d)(\d\d)\d\d_\d{8}(\d\d)(\d\d)\d\d_N_.*:(\d+)$/.exec(s);return r?`${r[1]}:${r[2]}–${r[3]}:${r[4]} #${r[5]}`:s.length>24?s.slice(0,12)+'…'+s.slice(-8):s},
+632116	// nearest substations: the original's own public measure (__GRIDATLAS_NEON_LINKS__.measure.nearestSubstations: >=33 kV,
+632117	// <=40 km, 5 links) fired on the tap, drawn as the original neon arrival (glow, core, two flow layers, teal nodes, labels,
+632118	// pale origin ring; kv-neon) in Lightning-owned layers, in the technology colour #d8c96a. link.selectAt is not used:
+632119	// it treats its origin as a project (stale project reference, cancelled arrivals, a false arrival record; kv-arrival-api).
+632120	NP='gridatlas-lightning-neon',NI=['glow','core','flow','flow-b','node-ring','node','label','pin-halo','pin'].map(s=>NP+'-'+s),NSR=[NP+'-links',NP+'-nodes',NP+'-pin'],
+632121	nc=()=>{const m=mh();if(S.raf){cancelAnimationFrame(S.raf);S.raf=null}if(m)try{for(const l of[...NI].reverse())if(m.getLayer(l))m.removeLayer(l);for(const s of NSR)if(m.getSource(s))m.removeSource(s)}catch(e){note(e)}},
+632122	nr=(m,c,x,y)=>{const L=window.__GRIDATLAS_NEON_LINKS__||{},M=L.measure||{},subs=Object.hasOwn(L,'substations')?L.substations:null,say=s=>c.out.appendChild(el('div','',s));c.out.textContent='';nc();
+632123	if(!Array.isArray(subs)||!subs.length||typeof M.nearestSubstations!=='function')return say('Substation data not loaded yet; trying again.'),0;
+632124	const k=M.nearestSubstations(x,y,subs);say('Nearest substations to this optical flash (straight-line km). Not evidence any asset was struck; faults can have other causes.');
+632125	if(!k.length){const b=k.beyondRadiusNearest;say(`No substation within ${k.radiusKm||40} km`+(b?` (nearest: ${cs(b.name||'unnamed substation')}, ${(+b.km).toFixed(2)} km)`:''));return k}
+632126	for(const a of k)say(`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV · ${cs(a.name||'unnamed substation')}`);
+632127	const o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},
+632128	A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));
+632129	m.addSource(NSR[0],{type:'geojson',data:FC(k.map((a,i)=>({type:'Feature',properties:{colour:TC,strength:Math.max(.2,.62-i*.1)},geometry:{type:'LineString',coordinates:[o,a.at]}})))});
+632130	m.addSource(NSR[1],{type:'geojson',data:FC(k.map(a=>({type:'Feature',properties:{label:`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV`},geometry:{type:'Point',coordinates:a.at}})))});
+632131	A(0,'line',NSR[0],{'line-color':['get','colour'],'line-width':Z(5,12),'line-opacity':.1,'line-blur':Z(3,8)},RJ);
+632132	A(1,'line',NSR[0],{'line-color':['get','colour'],'line-width':Z(.9,1.8),'line-opacity':['get','strength']},RJ);
+632133	A(2,'line',NSR[0],{'line-color':FL,'line-width':Z(1.2,2.4),'line-opacity':.8,'line-dasharray':[.2,3.2]},{'line-cap':'round'});
+632134	A(3,'line',NSR[0],{'line-color':FL,'line-width':Z(.9,1.8),'line-opacity':.45,'line-dasharray':[.2,3.2]},{'line-cap':'round'});
+632135	A(4,'circle',NSR[1],{'circle-radius':Z(6,13),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':TL,'circle-stroke-width':1,'circle-stroke-opacity':.4});
+632136	A(5,'circle',NSR[1],{'circle-radius':Z(2.2,4),'circle-color':TL,'circle-opacity':.8});
+632137	try{A(6,'symbol',NSR[1],{'text-color':'#a9c4c9','text-halo-color':'#000c10','text-halo-width':1.5,'text-opacity':.9},{'text-field':['get','label'],'text-size':10,'text-offset':[0,-1.5],'text-anchor':'bottom','text-allow-overlap':false,'text-font':sf(m)})}catch(e){note('neon labels: '+msg(e))}
+632138	m.addSource(NSR[2],{type:'geojson',data:FC([{type:'Feature',properties:{},geometry:{type:'Point',coordinates:o}}])});
+632139	A(7,'circle',NSR[2],{'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':TC,'circle-stroke-width':6,'circle-stroke-opacity':.13,'circle-blur':.4});
+632140	A(8,'circle',NSR[2],{'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#cfe9ed','circle-stroke-width':1.6,'circle-stroke-opacity':.85});
+632141	// flow: the cartridge's own 24 frozen dash patterns (measure.flowDash) when present; off under reduced motion
+632142	let rm=false;try{rm=matchMedia('(prefers-reduced-motion: reduce)').matches===true}catch(_){}
+632143	if(rm){m.setPaintProperty(NI[2],'line-opacity',0);m.setPaintProperty(NI[3],'line-opacity',0)}else if(typeof requestAnimationFrame=='function'){let ph=0;const fd=typeof M.flowDash=='function'?M.flowDash:p=>{const s=Math.floor(p/1.5*24)%24/24*1.5;return[.001,Math.max(.001,s),.42,Math.max(.001,1.5-s)]},mo={},
+632144	set=(i,p)=>{const d=fd(p),j=d.join();if(mo[i]!==j){mo[i]=j;m.setPaintProperty(NI[i],'line-dasharray',d)}},st=()=>{ph=(ph+.055)%1.5;try{set(2,ph);set(3,(ph+.75)%1.5)}catch(_){S.raf=null;return}S.raf=requestAnimationFrame(st)};S.raf=requestAnimationFrame(st)}
+632145	return k},
+632146	// fired on the tap; retried every 2 s (15 times) while the same card is open if the substation list is not loaded yet
+632147	nf=(m,c,x,y,n)=>{if(S.pp!==c)return;let k;try{k=nr(m,c,x,y)}catch(e){note('nearest: '+msg(e));nc();c.out.textContent='Substation data unavailable.';return cpos()}cpos();
+632148	if(Array.isArray(k)){c.sm.textContent+=k.length?` · ${k.length} nearest substations`:` · none within ${k.radiusKm||40} km`;if(k.length)nz(m,x,y,k);return}if(n)setTimeout(()=>nf(m,c,x,y,n-1),2e3)},
+632149	// camera: the original arrival's flyTo (zoom 12, 1200 ms); if a link end is then off screen, fitBounds with the phone sheet padding
+632150	nz=(m,x,y,k)=>{try{m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});const ck=()=>{const v=m.getBounds&&m.getBounds();if(!v||S.pp===null||k.every(a=>v.contains(a.at)))return;let w=x,s=y,e=x,n=y;for(const[a,o]of k.map(a=>a.at)){w=Math.min(w,a);e=Math.max(e,a);s=Math.min(s,o);n=Math.max(n,o)}
+632151	m.fitBounds([[w,s],[e,n]],{padding:{top:90,left:40,right:40,bottom:220},maxZoom:12,duration:900})};typeof m.once=='function'?m.once('moveend',ck):ck()}catch(e){note('camera: '+msg(e))}},
+632162	+['window','days','actual','flashes','refresh','searched','warning','footer'].map(k=>`<div data-cap="${k}"${k==='days'?' style="font-weight:bold"':k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:11px;color:#bbb"':''}></div>`).join('')+'</div></div>';
+632170	const n=fn(r);return`${BASE} [${r.mode==='feed'?(n?N(n):'none seen')+' | '+(r.old?'last 7 days only':'live feed'):/UNKNOWN|BEFORE/.test(c.st)?(r.before?'UNKNOWN':'not yet searched')+' | '+(r.before?'before archive':sv(r,c)):(n?N(n):'none found')+' | '+sv(r,c)}]`},fn=r=>r.mode==='overview'||r.mode==='detail'&&(r.sk.length||r.fl.length)?r.arch:r.ev.length,
+632171	sl=(r,c)=>{const st=c.st,n=fn(r),z=c.stale?' · '+lr(c.g,Date.now(),c.f).toUpperCase()+' · STALE':'';
+632172	return st==='FAIL'?'FAIL · '+c.rs.join('; ')+z:(r.mode==='feed'?`${pl(n,'flash','es')} · ${r.old?'last 7 days only · older not yet collected':'live 7-day feed · searched unknown'}`:/UNKNOWN|BEFORE/.test(st)?(r.before?'unknown':'not yet searched')+' · '+(r.before?'before archive (from '+dm(r.idx.cutoff)+')':sv(r,c)):`${n?(r.sk&&r.sk.length?N(r.ev.length)+' of ':'')+pl(n,'flash','es'):st==='EMPTY-COVERED'?'no flashes detected':'none found'} · ${sv(r,c,1)}`).toUpperCase()+z},
+632180	sf.nav.prev.disabled=loading||cu||!S.idx||!w||w.s<=S.idx.covStart||w.s-w.span<S.idx.cutoff;sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;flag(sf.nav.points,'hidden',!(r&&r.clp&&!r.big));flag(sf.nav.fit,'hidden',loading||!(r&&r.ev.length));
+632181	sf.dot.style.background=loading?COLOUR('L'):c.colour;txt(sf.stx,loading?'LOADING':sl(r,c));if(!loading){for(const k in L)txt(sf.caps[k],L[k]);if(c)sf.caps.days.style.color=c.colour}}
+632184	sp=p=>{S.period=p;S.consent=false;S.end=null;S.h=[];if(p==='custom'&&!S.from)S.from=S.to=ymd(Date.now());ld()},
+632187	if(which==='apply'){const f=sf.from.value,t=sf.to.value,good=DRE.test(f)&&DRE.test(t)&&f<=t&&t<=ymd(now);sf.from.style.borderColor=sf.to.style.borderColor=good?'':'#ff4444';
+632189	else if(which==='latest'){S.end=null;S.h=[];return ld(true)}else if(which==='prev')S.h.push(S.end),S.end=w.s;else if(which==='next')S.end=S.h.pop()||null;
+632191	ld=refresh=>{if(!refresh)pc();const serial=++S.serial,now=Date.now();if(refresh)S.ip=S.fp=null;pt(true);
+632194	S.res=r;r.s=serial;try{dw(FC(r.ev.map((f,i)=>({type:'Feature',id:f.id,geometry:f.geometry,properties:{i,s:serial}}))),!!r.cl)}catch(err){note('draw: '+err.message);r.fail=r.fail||'map layer: '+err.message}pt(false)})},
+632196	if(on){S.end=null;S.consent=false;S.res=null;const m=mh();if(m&&!S.ck&&typeof m.on==='function'){S.ck=1;m.on('click',tap);m.on('resize',cpos);m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})}
+632198	else{S.serial++;S.res=null;cx();if(S.rz){S.rz.disconnect();S.rz=S.ro=null}if(S.timer){clearInterval(S.timer);S.timer=null}pt(false)}},
+632201	fit=()=>{const d=Q('gridatlas-dash-toggle'),b=d&&d.getBoundingClientRect(),v=b&&b.height;if(d&&d!==S.ro&&typeof ResizeObserver=='function'){if(S.rz)S.rz.disconnect();(S.rz=new ResizeObserver(fit)).observe(S.ro=d)}for(const sf of S.sfs){const s=sf.group.style;s.paddingBottom=(v?innerHeight-b.top+16:96)+'px';s.paddingRight=(v?Math.max(0,sf.group.getBoundingClientRect().right-b.left+16):0)+'px'}},
+632218	const GEN='202610271740';
+632265	                 products, a date with too many unreadable products) stops
+632266	                 the shard; later dates are never attempted. One unreadable
+632267	                 product only leaves its 10-minute slot unknown.
+632423	    unparsed_by_day: dict[str, int] = {}
+632424	    retries_by_day: dict[str, dict] = {}
+632443	        record_obj = json.loads(record.read_text(encoding="utf-8"))
+632444	        unparsed = int(record_obj.get("products_unparsed") or 0)
+632445	        if unparsed:
+632446	            unparsed_by_day[day] = unparsed
+632447	        retry = status_mod.retry_counts(record_obj.get("download_retries"))
+632448	        if retry and (retry.get("retries") or retry.get("products_failed")):
+632449	            retries_by_day[day] = retry
+632451	              f"{len(result['unscanned_ranges'])} unsearched gap(s) left unknown, {unparsed} unparsed product(s).",
+632462	                                            filled=filled, stopped=stopped, error=error, index=index,
+632463	                                            unparsed_by_day=unparsed_by_day, retries_by_day=retries_by_day)
+632590	- one unreadable product (ZIP without a BODY NetCDF, corrupt ZIP or NetCDF)
+632591	  does not stop the run: its slot is UNPARSED, i.e. not searched time, so it
+632592	  stays unknown (never zero) and is listed with its reason in the run record;
+632593	- each product download retries transient errors (IncompleteRead,
+632594	  ProtocolError, ConnectionError, ChunkedEncodingError, timeouts, HTTP
+632595	  500/502/503/504) 4 times with exponential backoff and jitter (2, 4, 8, 16 s,
+632596	  capped at 30 s), waits out up to 3 HTTP 429 Retry-Afters (at most 60 s each)
+632597	  and re-requests the access token once on 401. A product still failing is
+632598	  UNPARSED too (unknown, never zero, with its reason) and the run carries on.
+632599	  The run stops on ``MAX_CONSECUTIVE_FAILED_PRODUCTS`` failed downloads in a
+632600	  row (likely outage), on any other HTTP/auth error, and on a UTC date with
+632601	  more than ``MAX_UNPARSED_DAY_FRACTION`` of its slots unparsed;
+632609	import zlib
+632629	# A UTC date with more unparsed slots than this fraction of its slots in the
+632630	# query window is not recorded at all: the run stops and the date stays unknown.
+632631	MAX_UNPARSED_DAY_FRACTION = 0.20
+632632	# Per-product CONTENT errors raised while decoding bytes already downloaded
+632633	# (ZIP without BODY, corrupt ZIP, corrupt/odd NetCDF: netCDF4 raises OSError or
+632634	# RuntimeError). Downloading happens outside the decode, so network, auth and
+632635	# rate-limit errors are never caught here; nor is a missing netCDF4 (ImportError).
+632636	PRODUCT_CONTENT_ERRORS = (ValueError, zipfile.BadZipFile, zipfile.LargeZipFile, zlib.error, EOFError,
+632637	                          OSError, RuntimeError, KeyError, IndexError, TypeError)
+632638	# Per-product DOWNLOAD retries (open + read of one product). Transient errors are
+632639	# matched by class name anywhere in the exception's MRO or cause chain, so the
+632640	# urllib3/requests/http.client classes match without importing those packages.
+632641	TRANSIENT_ERROR_NAMES = frozenset({
+632642	    "IncompleteRead", "ProtocolError", "ConnectionError", "ChunkedEncodingError",
+632643	    "Timeout", "TimeoutError", "ReadTimeout", "ConnectTimeout", "ReadTimeoutError", "ConnectTimeoutError",
+632644	    "RemoteDisconnected",
+632646	TRANSIENT_HTTP_STATUS = frozenset({500, 502, 503, 504})
+632647	TRANSIENT_RETRIES = 4
+632648	RETRY_BACKOFF_SECONDS = (2, 4, 8, 16)  # exponential; up to +50 % jitter, never above the cap
+632649	RETRY_MAX_BACKOFF_SECONDS = 30
+632650	RATE_LIMIT_MAX_WAITS = 3
+632651	RATE_LIMIT_MAX_WAIT_SECONDS = 60
+632652	# This many products in a row failing to download is a likely EUMETSAT outage: stop.
+632653	MAX_CONSECUTIVE_FAILED_PRODUCTS = 5
+632654	MAX_RETRY_EVENTS = 200  # cap the per-event list kept in the run record
+632655	_HTTP_STATUS_IN_TEXT = re.compile(r"\bHTTP (\d{3})\b|\b(?:error|Unauthorised|Not found) \((\d{3})\)")
+632656	class TooManyUnparsed(RuntimeError):
+632657	    """A date has too many unreadable products (or none readable): stop, leave it unknown."""
+632658	    def __init__(self, message: str, unparsed=(), retries=None):
+632659	        super().__init__(message)
+632660	        self.unparsed = list(unparsed)
+632661	        self.retries = retries
+632662	class DownloadOutage(RuntimeError):
+632663	    """``MAX_CONSECUTIVE_FAILED_PRODUCTS`` products in a row failed to download: stop the search."""
+632664	def _sleep(seconds: float) -> None:
+632665	    import time
+632666	    time.sleep(seconds)
+632667	def _error_chain(error: BaseException):
+632669	    while error is not None and id(error) not in seen:
+632670	        seen.add(id(error))
+632671	        yield error
+632672	        error = error.__cause__ or error.__context__
+632673	def http_status(error: BaseException) -> int | None:
+632674	    """HTTP status carried by an eumdac/requests error (or its cause), else None."""
+632675	    for item in _error_chain(error):
+632676	        for value in (getattr(getattr(item, "response", None), "status_code", None),
+632677	                      getattr(item, "status_code", None),
+632678	                      (getattr(item, "extra_info", None) or {}).get("status")
+632679	                      if isinstance(getattr(item, "extra_info", None), dict) else None):
+632680	            if isinstance(value, int) and 100 <= value <= 599:
+632682	    match = _HTTP_STATUS_IN_TEXT.search(str(error))
+632683	    if match:
+632684	        return int(match.group(1) or match.group(2))
+632686	def retry_after_seconds(error: BaseException, *, now: datetime | None = None) -> float | None:
+632687	    """Retry-After (seconds or HTTP date) from the error's response headers, else None."""
+632688	    from email.utils import parsedate_to_datetime
+632689	        headers = getattr(getattr(item, "response", None), "headers", None) or getattr(item, "headers", None)
+632690	        if not headers:
+632691	        value = next((v for k, v in dict(headers).items() if str(k).lower() == "retry-after"), None)
+632692	        if value is None:
+632693	        text = str(value).strip()
+632694	            return max(0.0, float(text))
+632697	            when = parsedate_to_datetime(text)
+632699	        if when.tzinfo is None:
+632700	            when = when.replace(tzinfo=timezone.utc)
+632701	        return max(0.0, (when - (now or datetime.now(timezone.utc))).total_seconds())
+632702	def classify_download_error(error: BaseException) -> tuple[str, str]:
+632703	    """(kind, label): kind is 'rate_limit', 'auth', 'transient' or 'fatal'."""
+632704	    status = http_status(error)
+632705	    if status == 429:
+632706	        return "rate_limit", "HTTP 429"
+632707	    if status == 401:
+632708	        return "auth", "HTTP 401"
+632709	    if status in TRANSIENT_HTTP_STATUS:
+632710	        return "transient", f"HTTP {status}"
+632711	    if status is not None:
+632712	        return "fatal", f"HTTP {status}"
+632713	        names = [cls.__name__ for cls in type(item).__mro__]
+632714	        hit = next((n for n in names if n in TRANSIENT_ERROR_NAMES), None)
+632716	            return "transient", type(error).__name__ if type(error).__name__ in TRANSIENT_ERROR_NAMES else hit
+632717	    return "fatal", type(error).__name__
+632718	def backoff_seconds(retry: int, rng) -> float:
+632719	    """Wait before transient retry ``retry`` (1-based): base * (1..1.5), capped at 30 s."""
+632720	    base = RETRY_BACKOFF_SECONDS[min(retry, len(RETRY_BACKOFF_SECONDS)) - 1]
+632721	    if base >= RETRY_MAX_BACKOFF_SECONDS:
+632722	        return float(RETRY_MAX_BACKOFF_SECONDS)
+632723	    return round(min(RETRY_MAX_BACKOFF_SECONDS, base * (1 + 0.5 * rng())), 3)
+632724	def refresh_access_token(product) -> None:
+632725	    """Force eumdac to request a new access token for this product's data store."""
+632726	    token = getattr(getattr(product, "datastore", None), "token", None)
+632727	    if token is None or not hasattr(token, "_update_token_data"):
+632728	        raise RuntimeError("cannot re-request the EUMETSAT access token (no eumdac token on the product)")
+632729	    token._update_token_data()
+632730	def new_retry_stats() -> dict:
+632731	    return {"retries": 0, "products_retried": 0, "products_failed": 0, "failed_products": [],
+632732	            "rate_limit_waits": 0, "rate_limit_wait_seconds": 0, "backoff_seconds": 0,
+632733	            "token_refreshes": 0, "max_consecutive_failed_products": 0, "reasons": {}, "events": [],
+632734	            "policy": {"transient_retries": TRANSIENT_RETRIES, "backoff_seconds": list(RETRY_BACKOFF_SECONDS),
+632735	                       "max_backoff_seconds": RETRY_MAX_BACKOFF_SECONDS, "rate_limit_max_waits": RATE_LIMIT_MAX_WAITS,
+632736	                       "rate_limit_max_wait_seconds": RATE_LIMIT_MAX_WAIT_SECONDS,
+632737	                       "max_consecutive_failed_products": MAX_CONSECUTIVE_FAILED_PRODUCTS}}
+632738	def fetch_product(product, name: str, stats: dict, *, sleep, rng, token_refresher):
+632739	    """Open and read one product, retrying transient errors; (blob, None) or (None, (error, attempts)).
+632740	    Transient errors: up to ``TRANSIENT_RETRIES`` retries with exponential backoff
+632741	    and jitter. 429: up to ``RATE_LIMIT_MAX_WAITS`` waits of Retry-After (at most
+632742	    60 s). 401: the access token is re-requested once. When these are used up
+632743	    the product FAILED: (None, ...) is returned, the caller marks its slot
+632744	    unparsed. A second 401, any other HTTP status and any other error propagate.
+632745	    transient = waits = refreshes = attempts = 0
+632746	    retried = False
+632747	        attempts += 1
+632748	            with product.open() as stream:
+632749	                return stream.read(), None
+632750	        except Exception as error:  # noqa: BLE001 - classified below; unknown kinds re-raised
+632751	            kind, label = classify_download_error(error)
+632752	            if kind == "fatal" or (kind == "auth" and refreshes >= 1):
+632754	            if kind == "transient" and transient < TRANSIENT_RETRIES:
+632755	                transient += 1
+632756	                wait = backoff_seconds(transient, rng)
+632757	                stats["backoff_seconds"] = round(stats["backoff_seconds"] + wait, 3)
+632758	            elif kind == "rate_limit" and waits < RATE_LIMIT_MAX_WAITS:
+632759	                waits += 1
+632760	                after = retry_after_seconds(error)
+632761	                wait = min(RATE_LIMIT_MAX_WAIT_SECONDS, after if after is not None else RATE_LIMIT_MAX_WAIT_SECONDS)
+632762	                stats["rate_limit_waits"] += 1
+632763	                stats["rate_limit_wait_seconds"] = round(stats["rate_limit_wait_seconds"] + wait, 3)
+632764	            elif kind == "auth":
+632765	                refreshes += 1
+632766	                wait = 0
+632767	                stats["token_refreshes"] += 1
+632768	                (token_refresher or refresh_access_token)(product)
+632770	                return None, (error, attempts, label)
+632771	            stats["retries"] += 1
+632772	            stats["reasons"][label] = stats["reasons"].get(label, 0) + 1
+632773	            if not retried:
+632774	                retried = True
+632775	                stats["products_retried"] += 1
+632776	            if len(stats["events"]) < MAX_RETRY_EVENTS:
+632777	                stats["events"].append({"product": name, "attempt": attempts, "reason": label,
+632778	                                        "error": f"{type(error).__name__}: {error}"[:300], "wait_seconds": wait})
+632779	            print(f"RETRY product {name} after attempt {attempts} ({label}: {error}); waiting {wait} s",
+632781	            if wait:
+632782	                sleep(wait)
+632847	def decode_product(blob: bytes, product_name: str, start: datetime, end: datetime, *, body_decoder=None):
+632849	    body_decoder = body_decoder or decode_body
+632858	                features.extend(body_decoder(archive.read(name), product_name, start, end))
+632862	def search_products(start: datetime, end: datetime):
+632863	    """The real EUMETSAT product search (network); products are opened lazily."""
+632876	    return products
+632877	def unparsed_entry(product_name: str, error: BaseException, *, kind: str = "content", reason: str | None = None,
+632878	                   attempts: int | None = None) -> dict:
+632879	    slot = product_slot(product_name)
+632880	    entry = {
+632881	        "product": product_name,
+632883	        "reason": (reason or f"{type(error).__name__}: {error}")[:1000],
+632884	        "slot_start_utc": iso_utc(slot[0]) if slot else None,
+632885	        "slot_end_utc": iso_utc(slot[1]) if slot else None,
+632886	    if attempts is not None:
+632887	        entry["attempts"] = attempts
+632888	    return entry
+632889	def download_products(products, start: datetime, end: datetime, *, body_decoder=None, sleep=None, rng=None,
+632890	                      token_refresher=None):
+632891	    """Download and decode each product: (features, readable count, readable names, unparsed, retry stats).
+632892	    Each download (``open``/``read``) goes through ``fetch_product``: transient
+632893	    network errors, 5xx, 429 and one 401 are retried. A product whose retries
+632894	    are used up, or whose downloaded bytes cannot be decoded, is UNPARSED: its
+632895	    name is NOT among the examined names, so its slot is not searched time
+632896	    (unknown, never zero) and the search carries on. ``DownloadOutage`` stops it
+632897	    after ``MAX_CONSECUTIVE_FAILED_PRODUCTS`` failed downloads in a row; any
+632898	    non-retryable error (403, 404, a second 401, ...) propagates and stops it.
+632900	    sleep = sleep or _sleep
+632901	    rng = rng or random.random
+632902	    found, names, unparsed = [], [], []
+632903	    stats = new_retry_stats()
+632904	    downloaded = consecutive = 0
+632909	        name = str(product)
+632910	        print(f"Product {downloaded}: {name}", file=sys.stderr)
+632911	        blob, failure = fetch_product(product, name, stats, sleep=sleep, rng=rng, token_refresher=token_refresher)
+632912	        if failure is not None:
+632913	            error, attempts, label = failure
+632914	            entry = unparsed_entry(name, error, kind="download", attempts=attempts,
+632915	                                   reason=f"download failed after {attempts} attempts ({label}): "
+632916	                                          f"{type(error).__name__}: {error}")
+632917	            unparsed.append(entry)
+632918	            stats["products_failed"] += 1
+632919	            stats["failed_products"].append(name)
+632920	            consecutive += 1
+632921	            stats["max_consecutive_failed_products"] = max(stats["max_consecutive_failed_products"], consecutive)
+632922	            print(f"UNPARSED product {name}: {entry['reason']} (slot left unknown)", file=sys.stderr)
+632923	            if consecutive >= MAX_CONSECUTIVE_FAILED_PRODUCTS:
+632924	                raise DownloadOutage(
+632925	                    f"{consecutive} consecutive products failed to download after retries (likely EUMETSAT "
+632926	                    f"outage); search stopped, dates left unknown (last: {entry['reason']})"[:2000],
+632927	                    unparsed, stats)
+632928	        consecutive = 0
+632929	            features = decode_product(blob, name, start, end, body_decoder=body_decoder)
+632930	        except PRODUCT_CONTENT_ERRORS as error:
+632931	            entry = unparsed_entry(name, error)
+632932	        names.append(name)
+632933	        found.extend(features)
+632936	    return found, len(names), names, unparsed, stats
+632938	    """Return (features, readable products, readable names, unparsed, retry stats) for a real search."""
+632939	    return download_products(search_products(start, end), start, end)
+632940	def unpack_download(result):
+632941	    """Downloaders return (features, count, names[, unparsed[, retry stats]]); always returns all five."""
+632942	    result = tuple(result)
+632943	    features, count, names = result[:3]
+632944	    unparsed = list(result[3] or []) if len(result) > 3 else []
+632945	    stats = result[4] if len(result) > 4 and result[4] is not None else new_retry_stats()
+632946	    return features, count, names, unparsed, stats
+632947	def check_unparsed(unparsed, names, beginning: datetime, end: datetime, *,
+632948	                   max_fraction: float = MAX_UNPARSED_DAY_FRACTION) -> dict:
+632949	    """Stop (TooManyUnparsed) when no product was readable or a UTC date has too many unparsed slots.
+632950	    An unparsed slot already covered by a readable product (e.g. a short PART
+632951	    product inside a regular slot) is not unknown time and is not counted. The
+632952	    denominator is the number of 10-minute slots of that date inside the query
+632953	    window (144 for a whole-day rebuild). Returns {date: unparsed slot count}.
+632954	    unparsed = list(unparsed)
+632955	    if not unparsed:
+632958	        raise TooManyUnparsed(f"all {len(unparsed)} product(s) unreadable; nothing was searched "
+632959	                              f"(first: {unparsed[0]['reason']})", unparsed)
+632960	    readable = merge_ranges([slot for slot in (product_slot(n) for n in names) if slot])
+632961	    per_day: dict[str, set] = {}
+632962	    day = beginning.date()
+632963	    while datetime.combine(day, datetime.min.time(), tzinfo=timezone.utc) < end:
+632964	        per_day[day.isoformat()] = set()
+632966	    for entry in unparsed:
+632967	        slot = product_slot(entry["product"])
+632968	        if slot is None:  # unknown slot: conservatively counts against every date of the window
+632969	            for marks in per_day.values():
+632970	                marks.add(entry["product"])
+632971	        s, e = max(slot[0], beginning), min(slot[1], end)
+632972	        if e <= s or any(rs <= s and e <= re_ for rs, re_ in readable):
+632973	        per_day.setdefault(s.date().isoformat(), set()).add(s)
+632975	    for day_text, marks in per_day.items():
+632976	        if not marks:
+632977	        day_start = datetime.combine(datetime.fromisoformat(day_text).date(), datetime.min.time(), tzinfo=timezone.utc)
+632978	        span = (min(end, day_start + timedelta(days=1)) - max(beginning, day_start)).total_seconds()
+632979	        slots = max(1, math.ceil(span / SLOT_SECONDS))
+632980	        counts[day_text] = len(marks)
+632981	        if len(marks) > max_fraction * slots:
+632982	            raise TooManyUnparsed(
+632983	                f"{day_text}: {len(marks)} of {slots} 10-minute slots unparsed (more than "
+632984	                f"{max_fraction:.0%}); date not recorded, left unknown (first: {unparsed[0]['reason']})", unparsed)
+632986	def unparsed_slot_starts(unparsed, names, beginning: datetime, end: datetime) -> list[str]:
+632987	    """Slot starts of unparsed products NOT covered by a readable product (unknown time)."""
+632988	    starts = set()
+632989	        if slot is None:
+632990	        if e > s and not any(rs <= s and e <= re_ for rs, re_ in readable):
+632991	            starts.add(s)
+632992	    return [iso_utc(x) for x in sorted(starts)]
+633131	    unparsed=(),
+633132	    retries=None,
+633152	        "products_unparsed": len(unparsed),
+633153	        "unparsed_products": list(unparsed),
+633154	        "unparsed_slots_utc": unparsed_slot_starts(unparsed, product_names, beginning, now),
+633155	        "max_unparsed_day_fraction": MAX_UNPARSED_DAY_FRACTION,
+633156	        # Per-product download retries (transient errors, 429 waits, 401 token refresh).
+633157	        "download_retries": retries if retries is not None else new_retry_stats(),
+633166	        "note": ("Only examined 10-minute slots count as searched; the unobserved tail, gaps and unparsed "
+633167	                 "(unreadable or failed-download) product slots are unknown, not zero."),
+633185	    product_count, unparsed, retries = 0, [], None
+633186	        incoming, product_count, names, unparsed, retries = unpack_download((downloader or download)(start, end))
+633187	        check_unparsed(unparsed, names, start, end)
+633188	    except (TooManyUnparsed, DownloadOutage) as error:
+633189	        unparsed = error.unparsed if isinstance(error, DownloadOutage) else unparsed
+633190	        retries = error.retries if isinstance(error, DownloadOutage) else retries
+633191	        write_json(run_record, {
+633192	            "schema": RUN_RECORD_SCHEMA, "run_utc": iso_utc(now), "outcome": "failure",
+633193	            "error": f"{type(error).__name__}: {error}", "rebuild_day_utc": day,
+633194	            "query_start_utc": iso_utc(start), "query_end_utc": iso_utc(end),
+633195	            "products_examined": product_count, "products_unparsed": len(unparsed),
+633196	            "unparsed_products": unparsed, "download_retries": retries, "scanned_ranges": [], "features": [],
+633202	        unparsed=unparsed, retries=retries,
+633210	          f"{record['products_unparsed']} unparsed product(s), {retries['retries']} download retries).", file=sys.stderr)
+633211	def main(argv=None, *, now: datetime | None = None):
+633247	    unparsed, retries = [], None
+633248	        incoming, product_count, names, unparsed, retries = unpack_download(download(beginning, now))
+633249	        check_unparsed(unparsed, names, beginning, now)
+633255	            incoming=incoming, existing=existing, feed=result, unparsed=unparsed, retries=retries,
+633258	        if isinstance(error, DownloadOutage):
+633259	            unparsed, retries = error.unparsed, error.retries
+633267	                "products_examined": 0, "products_unparsed": len(unparsed), "unparsed_products": unparsed,
+633268	                "download_retries": retries, "scanned_ranges": [], "features": [],
+633274	    meta["products_unparsed"] = record["products_unparsed"]
+633275	    meta["download_retries"] = record["download_retries"]["retries"]
+633288	          f"tail unobserved {record['tail_unobserved_seconds']} s, "
+633289	          f"{record['products_unparsed']} unparsed product(s), {record['download_retries']['retries']} download retries).")
+633554	        # Unreadable products: their slots are not searched time (unknown, not zero).
+633555	        "last_products_unparsed": (record or {}).get("products_unparsed"),
+633556	        "last_unparsed_products": (record or {}).get("unparsed_products"),
+633557	        # Per-product download retries of the last attempt (success or failure).
+633558	        "last_download_retries": retry_counts((record or {}).get("download_retries")),
+633585	RETRY_COUNT_KEYS = ("retries", "products_retried", "products_failed", "rate_limit_waits", "rate_limit_wait_seconds",
+633586	                    "backoff_seconds", "token_refreshes", "max_consecutive_failed_products", "reasons")
+633587	def retry_counts(stats: dict | None) -> dict | None:
+633588	    """Compact download-retry counts and reasons from a run record (no per-event list)."""
+633589	    if not isinstance(stats, dict):
+633590	    return {k: stats.get(k) for k in RETRY_COUNT_KEYS}
+633597	    unparsed_by_day: dict | None = None,
+633598	    retries_by_day: dict | None = None,
+633615	        # Unreadable products in the filled dates' searches; their slots stay unknown.
+633616	        "unparsed_products": sum(unparsed_by_day.values()) if unparsed_by_day is not None else None,
+633617	        "unparsed_products_by_day": dict(unparsed_by_day) if unparsed_by_day is not None else None,
+633618	        # Download retries in the filled dates' searches (only dates with any retry are listed).
+633619	        "download_retries": (sum(int(v.get("retries") or 0) for v in retries_by_day.values())
+633620	                             if retries_by_day is not None else None),
+633621	        "download_retries_by_day": dict(retries_by_day) if retries_by_day is not None else None,
+633707	"""A single transient download error must not stop a whole search.
+633708	Incident (parallel backfill run 40553623176, shard 2, 2026-09-16): one product
+633709	download broke mid-stream with
+633710	``urllib3.exceptions.ProtocolError: ('Connection broken: IncompleteRead(4955
+633711	bytes read, 233290 more expected)', ...)``; collect.py raised, the shard stopped
+633712	and only 3 dates were filled. The product download now retries transient
+633713	errors (IncompleteRead, ProtocolError, ConnectionError, ChunkedEncodingError,
+633714	timeouts, HTTP 500/502/503/504) 4 times with exponential backoff and jitter
+633715	(2, 4, 8, 16 s, capped at 30 s), honours Retry-After on 429 (at most 3 waits of
+633716	at most 60 s) and re-requests the access token once on 401. A product that
+633717	still fails becomes an UNPARSED slot (unknown, never zero, with its reason) and
+633718	the day carries on. The search stops only when a date exceeds the unparsed-slot
+633719	threshold or 5 consecutive products fail (a likely outage). Retry counts and
+633720	reasons are in the run record and status.json.
+633721	The fakes below go through the REAL ``collect.download_products`` retry loop
+633722	and ZIP decode; only the network (``product.open``), the sleep and the BODY
+633723	NetCDF reader are faked. No real sleeping happens.
+633724	import http.client
+633733	from test_unreadable_product import DAY0, NOW, TARGET, fake_body, good_zip, make_archive, slot_name
+633734	# --- stand-ins for the exceptions urllib3 / requests / eumdac raise ---------
+633735	# CI installs neither urllib3 nor requests, so classes with the same NAMES
+633736	# stand in; collect.py classifies by class name, so the real ones match too.
+633737	class ProtocolError(Exception):  # urllib3.exceptions.ProtocolError
+633738	class ChunkedEncodingError(Exception):  # requests.exceptions.ChunkedEncodingError
+633739	class RequestsConnectionError(OSError):  # requests.exceptions.ConnectionError
+633740	RequestsConnectionError.__name__ = "ConnectionError"
+633741	class ReadTimeout(Exception):  # requests.exceptions.ReadTimeout -> Timeout
+633742	class Timeout(Exception):
+633743	class ReadTimeoutSub(Timeout):
+633745	    def __init__(self, status_code, headers=None):
+633746	        self.status_code, self.headers = status_code, dict(headers or {})
+633747	class HTTPError(Exception):  # requests.HTTPError
+633748	    def __init__(self, status, headers=None):
+633749	        super().__init__(f"{status} Client Error")
+633750	        self.response = FakeResponse(status, headers)
+633751	class ProductError(Exception):  # eumdac.product.ProductError (raised "from" the HTTPError)
+633752	        super().__init__(f"Could not download Product x of Collection {collect.COLLECTION}")
+633753	        self.extra_info = {"status": status}
+633754	        self.__cause__ = HTTPError(status, headers)
+633755	def incident_error():
+633756	    """The exact shape of the run 40553623176 failure."""
+633757	    inner = http.client.IncompleteRead(b"x" * 4955, 233290)
+633758	    return ProtocolError(f"Connection broken: {inner!r}", inner)
+633759	class FakeProduct:
+633760	    """Each open() pops the next scripted outcome: an exception, or success (None)."""
+633761	    def __init__(self, name, blob, script, opened):
+633762	        self.name, self.blob, self.script, self.opened = name, blob, list(script), opened
+633763	    def __str__(self):
+633764	        return self.name
+633765	    def open(self):
+633766	        self.opened.append(self.name)
+633767	        outcome = self.script.pop(0) if self.script else None
+633768	        if callable(outcome):
+633769	            outcome = outcome()
+633770	        if outcome is not None:
+633771	            raise outcome
+633772	        return io.BytesIO(self.blob)
+633773	class FlakyEumetsat:
+633774	    """Fake downloader: one product per 10-minute slot; ``scripts[i]`` lists the
+633775	    outcomes of successive open() calls of slot i (exception or None = success).
+633776	    ``always[i]`` is an exception raised on every open() of slot i."""
+633777	    def __init__(self, scripts=None, always=None, token_refresher=None):
+633778	        self.scripts, self.always = dict(scripts or {}), dict(always or {})
+633779	        self.sleeps, self.opened, self.calls = [], [], []
+633780	        self.token_refresher = token_refresher
+633781	    def products(self, start, end):
+633782	        cursor, i = start, 0
+633784	            name = slot_name(cursor)
+633785	            if i in self.always:
+633786	                script = [self.always[i]] * 100
+633787	                script = self.scripts.get(i, [])
+633788	            t = (cursor + timedelta(minutes=3)).isoformat()
+633789	            yield FakeProduct(name, good_zip(name, [(-2.0, 52.0, t)] if i % 6 == 0 else []), script, self.opened)
+633794	        return collect.download_products(self.products(start, end), start, end, body_decoder=fake_body,
+633795	                                         sleep=self.sleeps.append, token_refresher=self.token_refresher)
+633796	class Base(unittest.TestCase):
+633803	    def rebuild(self, fake, day=TARGET):
+633804	        return collect.rebuild_day_record(day, self.record, now=NOW, downloader=fake)
+633805	    def load(self):
+633806	        return json.loads(self.record.read_text())
+633807	    def assertBackoff(self, sleeps, bases):
+633808	        """Exponential backoff with jitter: each wait is in [base, min(30, 1.5 * base)]."""
+633809	        self.assertEqual(len(sleeps), len(bases), sleeps)
+633810	        for wait, base in zip(sleeps, bases):
+633811	            self.assertGreaterEqual(wait, base)
+633812	            self.assertLessEqual(wait, min(30, base * 1.5))
+633813	class TransientRetryTests(Base):
+633814	    def test_incomplete_read_twice_then_success_fills_the_day_with_no_unparsed_slot(self):
+633815	        fake = FlakyEumetsat(scripts={4: [incident_error(), http.client.IncompleteRead(b"", 10), None]})
+633816	        self.assertEqual(self.rebuild(fake), 0)
+633817	        rec = self.load()
+633818	        self.assertEqual(rec["outcome"], "success")
+633819	        self.assertEqual((rec["products_unparsed"], rec["products_examined"], rec["slots_examined"]), (0, 144, 144))
+633820	        self.assertEqual(rec["unscanned_ranges"], [])
+633821	        self.assertEqual(fake.opened.count(slot_name(DAY0 + timedelta(minutes=40))), 3)
+633822	        self.assertBackoff(fake.sleeps, [2, 4])
+633823	        retries = rec["download_retries"]
+633824	        self.assertEqual(retries["retries"], 2)
+633825	        self.assertEqual(retries["products_retried"], 1)
+633826	        self.assertEqual(retries["products_failed"], 0)
+633827	        self.assertEqual(retries["reasons"], {"ProtocolError": 1, "IncompleteRead": 1})
+633828	        self.assertEqual([e["product"] for e in retries["events"]], [slot_name(DAY0 + timedelta(minutes=40))] * 2)
+633829	        self.assertIn("Connection broken: IncompleteRead(4955 bytes read, 233290 more expected)",
+633830	                      retries["events"][0]["error"])
+633831	    def test_every_transient_kind_is_retried(self):
+633832	        kinds = [incident_error(), http.client.IncompleteRead(b"", 5), RequestsConnectionError("reset"),
+633833	                 ConnectionResetError(104, "Connection reset by peer"), ChunkedEncodingError("broken chunk"),
+633834	                 TimeoutError("read timed out"), ReadTimeoutSub("read timeout"),
+633835	                 ProductError(500), ProductError(502), ProductError(503), ProductError(504), HTTPError(503)]
+633836	        for error in kinds:
+633837	            with self.subTest(error=repr(error)):
+633838	                fake = FlakyEumetsat(scripts={2: [error, None]})
+633839	                self.assertEqual(self.rebuild(fake), 0)
+633840	                rec = self.load()
+633841	                self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 0))
+633842	                self.assertEqual(rec["download_retries"]["retries"], 1)
+633843	                self.assertBackoff(fake.sleeps, [2])
+633844	    def test_a_product_that_always_fails_becomes_an_unparsed_slot_and_the_day_carries_on(self):
+633845	        fake = FlakyEumetsat(always={7: incident_error()})
+633846	        bad = slot_name(DAY0 + timedelta(minutes=70))
+633847	        self.assertEqual(fake.opened.count(bad), 5)  # 1 try + 4 retries
+633848	        self.assertBackoff(fake.sleeps, [2, 4, 8, 16])
+633849	        self.assertEqual((rec["products_unparsed"], rec["products_examined"]), (1, 143))
+633850	        [entry] = rec["unparsed_products"]
+633851	        self.assertEqual(entry["product"], bad)
+633852	        self.assertEqual(entry["kind"], "download")
+633853	        self.assertEqual(entry["attempts"], 5)
+633854	        self.assertIn("download failed after 5 attempts", entry["reason"])
+633855	        self.assertIn("ProtocolError", entry["reason"])
+633856	        self.assertEqual(rec["unparsed_slots_utc"], ["2026-10-20T01:10:00.000Z"])
+633857	        # Unknown, not zero: the failed slot is a hole in the searched coverage.
+633858	        self.assertEqual(rec["unscanned_ranges"], [{"start_utc": "2026-10-20T01:10:00.000Z",
+633859	                                                    "end_utc": "2026-10-20T01:20:00.000Z"}])
+633860	        self.assertEqual((retries["retries"], retries["products_failed"]), (4, 1))
+633861	        self.assertEqual(retries["failed_products"], [bad])
+633862	    def test_backoff_never_exceeds_thirty_seconds(self):
+633863	        with mock.patch.object(collect, "RETRY_BACKOFF_SECONDS", (2, 4, 8, 16, 32, 64)), \
+633864	             mock.patch.object(collect, "TRANSIENT_RETRIES", 6):
+633865	            fake = FlakyEumetsat(always={1: incident_error()})
+633866	            self.rebuild(fake)
+633867	        self.assertEqual(len(fake.sleeps), 6)
+633868	        self.assertTrue(all(w <= 30 for w in fake.sleeps), fake.sleeps)
+633869	        self.assertEqual(fake.sleeps[-2:], [30, 30])
+633870	    def test_four_consecutive_failures_then_a_good_product_carry_on(self):
+633871	        fake = FlakyEumetsat(always={i: incident_error() for i in range(10, 14)})
+633872	        self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 4))
+633873	        self.assertEqual(rec["download_retries"]["max_consecutive_failed_products"], 4)
+633874	    def test_five_consecutive_failed_products_stop_the_search_as_a_likely_outage(self):
+633875	        fake = FlakyEumetsat(always={i: incident_error() for i in range(20, 30)})
+633876	        with self.assertRaises(collect.DownloadOutage) as caught:
+633877	        self.assertIn("5 consecutive products failed", str(caught.exception))
+633878	        self.assertEqual(len(set(fake.opened)), 25)  # 20 good products, then stopped at the 5th failure
+633879	        self.assertEqual(rec["outcome"], "failure")
+633880	        self.assertIn("DownloadOutage", rec["error"])
+633881	        self.assertEqual(rec["products_unparsed"], 5)
+633882	        self.assertEqual(rec["download_retries"]["products_failed"], 5)
+633883	        self.assertEqual(rec["features"], [])
+633884	    def test_scattered_failures_over_the_day_threshold_still_stop_the_date(self):
+633885	        fake = FlakyEumetsat(always={i: incident_error() for i in range(0, 58, 2)})  # 29 of 144, never 5 in a row
+633886	        with self.assertRaises(collect.TooManyUnparsed) as caught:
+633887	        self.assertIn("29 of 144", str(caught.exception))
+633888	        self.assertEqual(rec["download_retries"]["products_failed"], 29)
+633889	    def test_non_transient_errors_stop_at_once_without_retry(self):
+633890	        for error in (ProductError(403), ProductError(404), HTTPError(400), PermissionError("denied"),
+633891	                      RuntimeError("HTTP 403 Forbidden")):
+633892	                self.record.unlink(missing_ok=True)
+633893	                fake = FlakyEumetsat(always={3: error})
+633894	                with self.assertRaises(type(error)):
+633895	                    self.rebuild(fake)
+633896	                self.assertEqual(fake.opened.count(slot_name(DAY0 + timedelta(minutes=30))), 1)
+633897	                self.assertEqual(fake.sleeps, [])
+633898	class RateLimitTests(Base):
+633899	    def test_429_with_retry_after_waits_that_long_then_succeeds(self):
+633900	        fake = FlakyEumetsat(scripts={5: [ProductError(429, {"Retry-After": "7"}), None]})
+633901	        self.assertEqual(fake.sleeps, [7])
+633902	        self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 0))
+633903	        self.assertEqual((retries["rate_limit_waits"], retries["rate_limit_wait_seconds"]), (1, 7))
+633904	        self.assertEqual(retries["reasons"], {"HTTP 429": 1})
+633905	    def test_retry_after_is_capped_at_sixty_seconds_and_http_dates_are_understood(self):
+633906	        later = "Wed, 21 Oct 2099 07:28:00 GMT"
+633907	        fake = FlakyEumetsat(scripts={5: [HTTPError(429, {"Retry-After": "600"}),
+633908	                                          HTTPError(429, {"retry-after": later}), None]})
+633909	        self.rebuild(fake)
+633910	        self.assertEqual(fake.sleeps, [60, 60])
+633911	    def test_at_most_three_rate_limit_waits_then_the_slot_is_unparsed(self):
+633912	        fake = FlakyEumetsat(always={5: ProductError(429, {"Retry-After": "1"})})
+633913	        self.assertEqual(fake.sleeps, [1, 1, 1])
+633914	        self.assertEqual(fake.opened.count(slot_name(DAY0 + timedelta(minutes=50))), 4)
+633915	        self.assertIn("HTTP 429", entry["reason"])
+633916	        self.assertEqual(rec["download_retries"]["rate_limit_waits"], 3)
+633917	class TokenTests(Base):
+633918	    def test_401_re_requests_the_access_token_once_and_retries(self):
+633919	        refreshed = []
+633920	        fake = FlakyEumetsat(scripts={2: [ProductError(401), None]}, token_refresher=lambda p: refreshed.append(str(p)))
+633921	        self.assertEqual(refreshed, [slot_name(DAY0 + timedelta(minutes=20))])
+633922	        self.assertEqual(self.load()["download_retries"]["token_refreshes"], 1)
+633923	    def test_a_second_401_stops_the_search(self):
+633924	        fake = FlakyEumetsat(always={2: ProductError(401)}, token_refresher=lambda p: refreshed.append(str(p)))
+633925	        with self.assertRaises(ProductError):
+633926	        self.assertEqual(len(refreshed), 1)
+633927	    def test_default_refresher_forces_a_new_eumdac_token(self):
+633928	        class Token:
+633929	            renewed = 0
+633930	            def _update_token_data(self):
+633931	                Token.renewed += 1
+633932	        product = mock.Mock()
+633933	        product.datastore.token = Token()
+633934	        collect.refresh_access_token(product)
+633935	        self.assertEqual(Token.renewed, 1)
+633936	class ShardAndStatusTests(Base):
+633937	    def test_shard_completes_through_transient_errors_and_status_surfaces_the_retries(self):
+633938	        root, out, status_path = self.base / "history", self.base / "records", self.base / "status.json"
+633939	        make_archive(root, NOW - timedelta(hours=1), date(2026, 10, 26))
+633940	        dates = ["2026-10-20", "2026-10-19"]
+633941	        fakes = {"2026-10-20": FlakyEumetsat(scripts={4: [incident_error(), incident_error(), None]},
+633942	                                             always={9: incident_error()}),
+633943	                 "2026-10-19": FlakyEumetsat()}
+633944	        collector = lambda day, record, log: collect.rebuild_day_record(day, record, now=NOW, downloader=fakes[day])
+633945	        summary = bp.run_shard(1, dates, out, budget_minutes=290, collector=collector)
+633946	        self.assertEqual((summary["stopped"], len(summary["collected"])), ("completed", 2))
+633947	        result = bp.finalize(plan_dates=dates, shards=1, records_dir=out, archive_dir=root,
+633948	                             status_path=status_path, now=NOW)
+633949	        self.assertEqual(result["filled"], dates)
+633950	        block = json.loads(status_path.read_text())["backfill"]
+633951	        self.assertEqual(block["unparsed_products_by_day"], {"2026-10-20": 1})
+633952	        self.assertEqual(block["download_retries"], 6)
+633953	        self.assertEqual(block["download_retries_by_day"]["2026-10-20"]["retries"], 6)
+633954	        self.assertEqual(block["download_retries_by_day"]["2026-10-20"]["products_failed"], 1)
+633955	        self.assertEqual(block["download_retries_by_day"]["2026-10-20"]["reasons"], {"ProtocolError": 6})
+633956	        self.assertNotIn("2026-10-19", block["download_retries_by_day"])
+633957	        rows = {r["date"]: r for r in json.loads((root / "index.json").read_text())["days"]}
+633958	        self.assertEqual(rows["2026-10-20"]["coverage"], "partial")
+633959	    def test_an_outage_stops_the_shard(self):
+633960	        out = self.base / "records"
+633961	        fake = FlakyEumetsat(always={i: incident_error() for i in range(144)})
+633962	        collector = lambda day, record, log: collect.rebuild_day_record(day, record, now=NOW, downloader=fake)
+633963	        summary = bp.run_shard(1, ["2026-10-20", "2026-10-19"], out, budget_minutes=290, collector=collector)
+633965	        self.assertIn("consecutive products failed", summary["error"])
+633966	        self.assertEqual(summary["collected"], [])
+633967	    def test_hourly_run_retries_and_status_json_shows_the_counts(self):
+633968	        now = datetime(2026, 10, 20, 12, 5, tzinfo=timezone.utc)
+633969	        out, status_path = self.base / "feed.geojson", self.base / "status.json"
+633970	        fake = FlakyEumetsat(scripts={3: [incident_error(), None]}, always={6: ProductError(503)})
+633971	        with mock.patch.object(collect, "download", fake):
+633972	            code = collect.main(["--hours", "6", "--out", str(out), "--status", str(status_path),
+633973	                                 "--history-dir", str(self.base / "history"), "--run-record", str(self.record)],
+633974	                                now=now)
+633976	        self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 1))
+633977	        self.assertEqual(rec["download_retries"]["retries"], 5)
+633978	        self.assertEqual(rec["download_retries"]["reasons"], {"ProtocolError": 1, "HTTP 503": 4})
+633979	        status = status_mod.build_status(now=now, previous={}, record=rec, archive_result=None,
+633980	                                         collect_outcome="success", archive_outcome="skipped")
+633981	        self.assertEqual(status["last_download_retries"]["retries"], 5)
+633982	        self.assertEqual(status["last_download_retries"]["products_failed"], 1)
+633983	    def test_hourly_outage_writes_a_failure_record_with_the_retries(self):
+633984	        fake = FlakyEumetsat(always={i: ProductError(503) for i in range(36)})
+633985	            with self.assertRaises(collect.DownloadOutage):
+633986	                collect.main(["--hours", "6", "--out", str(self.base / "feed.geojson"),
+633987	                              "--status", str(self.base / "status.json"), "--history-dir", str(self.base / "h"),
+633988	                              "--run-record", str(self.record)], now=now)
+633989	        self.assertFalse((self.base / "feed.geojson").exists())
+633990	                                         collect_outcome="failure", archive_outcome="skipped")
+633991	        self.assertEqual(status["last_download_retries"]["products_failed"], 5)
+633993	"""One unreadable EUMETSAT product must not stop a whole search.
+633994	Incident (parallel backfill, shard 2, 2026-09-18): one product ZIP had no BODY
+633995	NetCDF, collect.py raised ValueError and the shard stopped, leaving 22 dates
+633996	unknown. A per-product CONTENT error (ZIP without BODY, corrupt ZIP, corrupt
+633997	NetCDF) now makes that product's 10-minute slot UNPARSED: it is not searched
+633998	time (D-3), so the day becomes partial with that slot unknown, never zero, and
+633999	the run carries on. Network/auth/rate-limit errors, a missing decoder library,
+634000	and a day with more than 20 % unparsed slots still stop the run.
+634001	The fake downloader builds real ZIP bytes and goes through the real
+634002	``collect.download_products`` / ``decode_product``; only the BODY NetCDF reader
+634003	is faked (a JSON stand-in) because CI has no netCDF4. Synthetic features
+634004	("TEST-") exist only in temporary directories.
+634007	TARGET = "2026-10-20"
+634009	INCIDENT = ("W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD-PART-x-x--ARC-x_C_EUMT_20260918003140_L2PF_OPE_"
+634010	            "20260918002945_20260918003005_N__O_0003_0000")
+634015	def make_zip(members: dict) -> bytes:
+634016	    buf = io.BytesIO()
+634017	    with zipfile.ZipFile(buf, "w") as z:
+634018	        for name, data in members.items():
+634019	            z.writestr(name, data)
+634020	    return buf.getvalue()
+634021	def good_zip(name: str, flashes) -> bytes:
+634022	    body = json.dumps([[lon, lat, t] for lon, lat, t in flashes]).encode()
+634023	    return make_zip({f"{name}/EOPMetadata.xml": b"<x/>", f"{name}/{name}_BODY_0001.nc": body,
+634024	                     f"{name}/{name}_TRAIL.nc": b"trail"})
+634025	def no_body_zip(name: str) -> bytes:
+634026	    """The incident: a product ZIP with manifest and TRAIL but no BODY member."""
+634027	    return make_zip({f"{name}/EOPMetadata.xml": b"<x/>", f"{name}/{name}_TRAIL.nc": b"trail"})
+634028	def corrupt_body_zip(name: str) -> bytes:
+634029	    return make_zip({f"{name}/{name}_BODY_0001.nc": b"\x00garbage, not HDF5"})
+634030	def fake_body(content: bytes, product_name: str, start: datetime, end: datetime):
+634031	    """JSON stand-in for decode_body; garbage raises like netCDF4 does on a corrupt file."""
+634032	        rows = json.loads(content)
+634033	        raise OSError(-51, "NetCDF: Unknown file format") from None
+634035	    for i, (lon, lat, t) in enumerate(rows):
+634036	        moment = collect.parse_utc(t)
+634037	        if start <= moment < end:
+634038	            out.append(build_feature(lon, lat, moment, product_name, i))
+634040	    def __init__(self, name, blob=b"", error=None):
+634041	        self.name, self.blob, self.error = name, blob, error
+634045	    """Fake downloader: one product ZIP per 10-minute slot through the REAL decode path.
+634046	    ``no_body``/``corrupt`` are slot indexes whose ZIP lacks a BODY member or has
+634047	    a corrupt BODY; ``net_error`` raises on opening that slot (network failure);
+634048	    ``extra`` adds whole extra products (name, blob).
+634049	    def __init__(self, no_body=(), corrupt=(), net_error=None, extra=(), body_decoder=fake_body):
+634050	        self.no_body, self.corrupt, self.net_error = set(no_body), set(corrupt), net_error or {}
+634051	        self.extra, self.body_decoder, self.calls = list(extra), body_decoder, []
+634052	            if i in self.net_error:
+634053	                yield FakeProduct(name, error=self.net_error[i])
+634054	            elif i in self.no_body:
+634055	                yield FakeProduct(name, no_body_zip(name))
+634056	            elif i in self.corrupt:
+634057	                yield FakeProduct(name, corrupt_body_zip(name))
+634058	                t = (cursor + timedelta(minutes=3)).isoformat()
+634059	                yield FakeProduct(name, good_zip(name, [(-2.0, 52.0, t)] if i % 6 == 0 else []))
+634060	        for name, blob in self.extra:
+634061	            yield FakeProduct(name, blob)
+634062	        return collect.download_products(self.products(start, end), start, end, body_decoder=self.body_decoder)
+634064	    start = datetime.combine(searched, datetime.min.time(), tzinfo=timezone.utc)
+634070	        self.sleeps = []  # download retries never really sleep in tests
+634071	        patcher = mock.patch.object(collect, "_sleep", self.sleeps.append)
+634072	        patcher.start()
+634073	        self.addCleanup(patcher.stop)
+634074	class RebuildDayTests(Base):
+634075	    def test_zip_without_body_becomes_an_unparsed_slot_and_the_run_carries_on(self):
+634076	        self.assertEqual(self.rebuild(FakeEumetsat(no_body={3})), 0)
+634077	        bad = slot_name(DAY0 + timedelta(minutes=30))
+634078	        self.assertIs(rec["slots_parsed"], True)
+634079	        self.assertEqual(rec["products_unparsed"], 1)
+634080	        self.assertEqual(rec["products_examined"], 143)
+634081	        self.assertEqual(rec["slots_examined"], 143)
+634082	        self.assertIn("ZIP contained no BODY NetCDF", entry["reason"])
+634083	        self.assertEqual((entry["slot_start_utc"], entry["slot_end_utc"]),
+634084	                         ("2026-10-20T00:30:00.000Z", "2026-10-20T00:40:00.000Z"))
+634085	        self.assertEqual(rec["unparsed_slots_utc"], ["2026-10-20T00:30:00.000Z"])
+634086	        # The unparsed slot is NOT searched time: it is a hole in scanned_ranges.
+634087	        self.assertEqual(rec["unscanned_ranges"], [{"start_utc": "2026-10-20T00:30:00.000Z",
+634088	                                                    "end_utc": "2026-10-20T00:40:00.000Z"}])
+634089	        self.assertEqual(len(rec["features"]), 24)  # flashes of the readable products are kept
+634090	    def test_the_incident_product_name_is_recorded_and_does_not_stop_the_day(self):
+634091	        fake = FakeEumetsat(extra=[(INCIDENT, no_body_zip(INCIDENT))])
+634092	        day = "2026-09-18"
+634093	        self.assertEqual(collect.rebuild_day_record(day, self.record, now=NOW, downloader=fake), 0)
+634094	        self.assertEqual([e["product"] for e in rec["unparsed_products"]], [INCIDENT])
+634095	        self.assertEqual(rec["unparsed_products"][0]["reason"],
+634096	                         f"ValueError: {INCIDENT}: ZIP contained no BODY NetCDF")
+634097	        # Its 20-second PART slot is covered by readable regular products: nothing left unknown.
+634098	        self.assertEqual(rec["unparsed_slots_utc"], [])
+634099	    def test_corrupt_netcdf_and_corrupt_zip_are_unparsed_slots_too(self):
+634100	        bad_zip = slot_name(DAY0 + timedelta(hours=5))
+634101	        fake = FakeEumetsat(corrupt={10})
+634102	        fake.products_orig = fake.products
+634103	        def products(start, end):
+634104	            for p in fake.products_orig(start, end):
+634105	                if str(p) == bad_zip:
+634106	                    p.blob = b"PK\x03\x04 truncated"
+634107	                yield p
+634108	        fake.products = products
+634109	        reasons = {e["product"]: e["reason"] for e in rec["unparsed_products"]}
+634110	        self.assertEqual(rec["products_unparsed"], 2)
+634111	        self.assertIn("NetCDF: Unknown file format", reasons[slot_name(DAY0 + timedelta(minutes=100))])
+634112	        self.assertIn("expected EUMETSAT product ZIP", reasons[bad_zip])
+634113	        self.assertEqual(len(rec["unscanned_ranges"]), 2)
+634114	    def test_backfill_ingests_the_day_as_partial_with_the_unparsed_slot_unknown(self):
+634115	        root = self.base / "history"
+634116	        self.rebuild(FakeEumetsat(no_body={3, 4}))
+634117	        result = history.backfill_day(root, TARGET, now=NOW, rebuild_record=self.record)
+634120	        self.assertEqual(row["count"], 24)
+634121	        self.assertEqual(result["unscanned_ranges"], [{"start_utc": "2026-10-20T00:30:00.000Z",
+634122	                                                       "end_utc": "2026-10-20T00:50:00.000Z"}])
+634123	    def test_up_to_twenty_percent_unparsed_slots_still_succeed(self):
+634124	        self.rebuild(FakeEumetsat(no_body=set(range(28))))  # 28/144 = 19.4 %
+634125	        self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 28))
+634126	    def test_more_than_twenty_percent_unparsed_slots_stop_the_date(self):
+634127	            self.rebuild(FakeEumetsat(no_body=set(range(29))))  # 29/144 = 20.1 %
+634128	        self.assertIn("2026-10-20", str(caught.exception))
+634129	        self.assertEqual(rec["products_unparsed"], 29)
+634130	        self.assertEqual(len(rec["unparsed_products"]), 29)
+634131	    def test_non_retryable_http_and_auth_errors_still_stop(self):
+634132	        # 401 here: the fake product has no eumdac token to re-request, so it stops too.
+634133	        for error in (RuntimeError("HTTP 401 Unauthorized"), RuntimeError("HTTP 403 Forbidden"),
+634134	                      RuntimeError("HTTP 404 Not Found"), PermissionError("denied")):
+634135	            with self.subTest(error=error):
+634136	                    self.rebuild(FakeEumetsat(net_error={7: error}))
+634137	                self.assertFalse(self.record.exists() and self.load().get("outcome") == "success")
+634138	    def test_persistent_transient_errors_leave_one_unparsed_slot_after_retries(self):
+634139	        # Since the download-retry fix: retried, then the slot is unknown and the day carries on.
+634140	        for error in (RuntimeError("HTTP 429 Too Many Requests"), RuntimeError("HTTP 503 Service Unavailable"),
+634141	                      TimeoutError("read timed out"), ConnectionResetError(104, "Connection reset by peer")):
+634142	                self.assertEqual(self.rebuild(FakeEumetsat(net_error={7: error})), 0)
+634143	                self.assertEqual((rec["outcome"], rec["products_unparsed"]), ("success", 1))
+634144	                self.assertEqual(rec["unparsed_products"][0]["kind"], "download")
+634145	    @unittest.skipIf(__import__("importlib").util.find_spec("netCDF4") is not None, "netCDF4 installed")
+634146	    def test_a_missing_netcdf_library_is_not_an_unparsed_product(self):
+634147	        with self.assertRaises(ImportError):
+634148	            self.rebuild(FakeEumetsat(body_decoder=None))
+634149	    @unittest.skipUnless(__import__("importlib").util.find_spec("netCDF4") is not None, "netCDF4 not installed")
+634150	    def test_real_netcdf_reader_on_corrupt_body_is_an_unparsed_slot(self):
+634151	        fake = FakeEumetsat(corrupt={1})
+634152	        fake.products = lambda s, e: (p for p in fake.products_orig(s, e) if str(p) == slot_name(DAY0 + timedelta(minutes=10)))
+634153	        fake.body_decoder = None
+634154	        with self.assertRaises(RuntimeError):  # the only product is unreadable: nothing was searched
+634155	class ShardTests(Base):
+634156	    def test_shard_and_finalize_fill_the_day_and_surface_the_count_in_status(self):
+634157	        fakes = {"2026-10-20": FakeEumetsat(no_body={3}), "2026-10-19": FakeEumetsat()}
+634158	        self.assertEqual(block["unparsed_products"], 1)
+634159	        self.assertEqual(rows["2026-10-19"]["coverage"], "full")
+634160	    def test_a_date_over_the_threshold_stops_the_shard_and_stays_unknown(self):
+634161	        fake = FakeEumetsat(no_body=set(range(40)))
+634162	        self.assertIn("unparsed", summary["error"])
+634163	        self.assertFalse((out / "rb-2026-10-20.json").exists())
+634164	class HourlyTests(Base):
+634165	    def run_main(self, fake, now):
+634166	        return code, out
+634167	    def test_hourly_run_publishes_and_records_the_unparsed_slot(self):
+634168	        code, out = self.run_main(FakeEumetsat(no_body={5}), now)
+634169	        self.assertTrue(out.exists())
+634170	        self.assertIn("ZIP contained no BODY NetCDF", rec["unparsed_products"][0]["reason"])
+634171	        self.assertIn({"start_utc": "2026-10-20T06:55:00.000Z", "end_utc": "2026-10-20T07:05:00.000Z"},
+634172	                      rec["unscanned_ranges"])
+634173	        self.assertEqual(json.loads(out.read_text())["metadata"]["products_unparsed"], 1)
+634174	        self.assertEqual(status["last_products_unparsed"], 1)
+634175	        self.assertEqual(status["last_unparsed_products"][0]["product"], rec["unparsed_products"][0]["product"])
+634176	    def test_hourly_run_over_the_threshold_stops_and_leaves_the_feed_alone(self):
+634177	        with self.assertRaises(collect.TooManyUnparsed):
+634178	            self.run_main(FakeEumetsat(no_body=set(range(10))), now)  # 10 of 36 slots of 2026-10-20
+634179	        self.assertEqual(rec["products_unparsed"], 10)
+634180	    def test_hourly_non_retryable_error_still_stops(self):
+634182	            self.run_main(FakeEumetsat(net_error={2: RuntimeError("HTTP 403 Forbidden")}), now)
+634183	        self.assertEqual(self.load()["outcome"], "failure")
 ```

@@ -1,5 +1,5 @@
 {
- "next": 1956,
+ "next": 1958,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1892,6 +1892,8 @@
   "lightning:tests/test_backfill_parallel.py": 1952,
   "lightning:backfill_parallel.py": 1953,
   "lightning:tests/test_concurrent_writers.py": 1954,
-  "lightning:tests/test_heartbeat.py": 1955
+  "lightning:tests/test_heartbeat.py": 1955,
+  "lightning:tests/test_download_retries.py": 1956,
+  "lightning:tests/test_unreadable_product.py": 1957
  }
 }
