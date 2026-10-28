@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-388,602 unique lines, numbered 1 to 639,216. Generated 2026-10-28T07:22:56.520Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+389,448 unique lines, numbered 1 to 650,372. Generated 2026-10-28T14:29:11.182Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -388605,4 +388605,850 @@
 639214	        self.assertEqual(result["filled"], ["2026-10-22", "2026-10-21", "2026-10-19"])
 639215	        self.assertIn("OSError", result["refused"]["2026-10-20"])
 639216	        self.assertIsNone(rows(self.root)["2026-10-20"]["count"])
+646068	/* uk-lightning-overlay, generation 202610280950 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes as an
+646073	 * published only the 7-day live feed exists, and the panel says so. Above the device cap the window draws as density (≈10 km
+646074	 * cells, data/history/grid) of observed optical flashes; unsearched or stale days are blank, not zero. Glossary: docs/lightning/CANDIDATE-202610261949.md */
+646078	const GEN='202610280950',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+646137	// density: month grids grid/YYYY-MM.json (0.1° cells, day-resolved counts); a day counts only if its grid entry matches the index row
+646138	gg=mo=>{if(!/^\d{4}-\d\d$/.test(mo))E('grid path');const u=AR+'grid/'+mo+'.json',h=lg(u);if(h)return h.p;
+646139	const p=gj(u,'no-cache').then(o=>{if(!o||o.schema!==GS||o.month!==mo||o.cols!==140||o.rows!==120||o.cell_deg!==.1||!Array.isArray(o.days)||o.days.length>31||!Array.isArray(o.cells)||o.cells.length>16800)E('invalid grid '+mo);const t=[];
+646140	for(const r of o.cells){if(!Array.isArray(r)||r.length%2<1||r.length<3||r.length>63||r[0]>>>0!==r[0]||r[0]>=16800)E('grid cell');for(let i=1;i<r.length;i+=2){const d=r[i],n=r[i+1];if(d>>>0!==d||d<1||d>31||n>>>0!==n||!n)E('grid count');t[d]=(t[d]||0)+n}}
+646141	for(const d of o.days)if(!d||!Array.isArray(d.sha256)||(d.date+'').slice(0,8)!==mo+'-'||(t[+d.date.slice(8)]||0)!==(d.count||0))E('grid sum '+mo);return o}).catch(e=>{lru.delete(u);throw e});ls(u,{p});return p},
+646142	gd=async rows=>{let er,n=0,st=0,mx=1;const gs=new Map(await Promise.all([...new Set(rows.filter(y=>y.count>0).map(y=>y.date.slice(0,7)))].map(async m=>[m,await gg(m).catch(e=>(er=e,{days:[],cells:[]}))]))),ok=new Set,c=new Map;
+646143	for(const y of rows)if(y.count>0){const d=gs.get(y.date.slice(0,7)).days.find(d=>d.date===y.date);if(d&&d.count===y.count&&d.coverage===y.coverage&&d.sha256+''==(y.path?[y.sha256]:y.parts.map(p=>p.sha256))+'')ok.add(y.date),n+=y.count;else st++}if(er&&!n)throw er;
+646144	for(const[m,g]of gs)for(const r of g.cells)for(let i=1;i<r.length;i+=2)if(ok.has(m+'-'+(r[i]+'').padStart(2,0)))c.set(r[0],(c.get(r[0])||0)+r[i+1]);
+646145	return{fc:FC([...c].map(([k,v])=>(mx=Math.max(mx,v),{type:'Feature',properties:{n:v},geometry:{type:'Point',coordinates:[-11+(k%140+.5)/10,49.5+((k/140|0)+.5)/10]}}))),n,st,mx}},
+646162	if(count>Math.min(BUDGET,cap())||bytes>32e6||nq>RQ){r.budget=`${N(count)} flashes, ${N(bytes)} bytes, ${N(nq)} files`;try{r.gd=await gd(rows)}catch(e){r.ge=NA(msg(e))+': '+msg(e)}if(sn!==S.serial)return r;if(!S.consent){r.clp=true;return r}
+646172	else if(r.mode!=='overview')st=r.sk.length?(rs.push('days not loaded'),'PARTIAL'):r.ev.length?'READY·DETAIL':'EMPTY-COVERED';else st=r.arch>0?r.gd?'READY·DENSITY':'READY·SUMMARY':'EMPTY-COVERED'}
+646175	DN=r=>`density (≈10 km cells) of ${N(r.gd.n)} observed optical flashes, not ground strikes; unsearched days${r.gd.st?` and ${pl(r.gd.st,'day')} not yet in the grid`:''} blank (unknown, not zero)`,
+646191	L.flashes=r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}${r.gd?' · all days drawn beneath as '+DN(r):''}`:`Flashes ${r.fl.length?`${N(r.ic)} in index · ${N(n)} loaded`:N(n)+' archived in window'}${drawn}`}
+646194	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · ${r.gd?`drawn as ${DN(r)}${r.clp&&!r.big?` · LOAD POINTS adds the newest ${N(BUDGET)} as tappable points`:''}`:`none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})${r.ge?' · density '+r.ge:''}`}`}
+646216	cx=()=>{const m=mh();pc();if(m)try{for(const l of[CNT,HIT,LAYER])if(m.getLayer(l))m.removeLayer(l);if(m.getSource(SRC))m.removeSource(SRC);dd()}catch(e){note(e)}S.mode=null},
+646224	// density under the points: heatmap to zoom 9, then graduated cell circles; not tappable (taps query only HIT)
+646225	DS=SRC+'-density',DL=[DS+'-heat',DS+'-cell'],dd=g=>{const m=mh();if(!m)return;for(const l of DL)if(m.getLayer(l))m.removeLayer(l);if(m.getSource(DS))m.removeSource(DS);if(!g||!g.fc.features.length)return;
+646226	const b=m.getLayer(LAYER)?LAYER:void 0,z=(a,c)=>['interpolate',['linear'],['zoom'],8,a,9.5,c];m.addSource(DS,{type:'geojson',data:g.fc});
+646227	m.addLayer({id:DL[0],type:'heatmap',source:DS,paint:{'heatmap-weight':['interpolate',['linear'],['get','n'],0,0,g.mx,1],'heatmap-radius':['interpolate',['linear'],['zoom'],4,8,7,20,9,45],'heatmap-opacity':z(.85,0),
+646228	'heatmap-color':['interpolate',['linear'],['heatmap-density'],0,'rgba(255,176,0,0)',.2,'rgba(255,176,0,.5)',.6,'#ffdf44',1,'#fff']}},b);
+646229	m.addLayer({id:DL[1],type:'circle',source:DS,minzoom:7.5,paint:{'circle-radius':['interpolate',['linear'],['sqrt',['/',['get','n'],g.mx]],0,3,1,22],'circle-color':'#ffb000','circle-opacity':z(0,.5),'circle-stroke-width':1,'circle-stroke-color':'#1a1a1a'}},b)},
+646313	if(r&&!loading)S.last={state:c.st,stale:c.stale,mode:r.mode,period:w.period,drawn:r.ev.length,cluster:!!r.cl,cap:cap(),cap_source:r.cs||null,index_count:r.ic===undefined?null:r.ic,failures:r.fl.length,reasons:c.rs,density_cells:r.gd?r.gd.fc.features.length:0};if(S.installed)fit()},
+646325	S.res=r;r.s=serial;try{dw(FC(r.ev.map((f,i)=>({type:'Feature',id:f.id,geometry:f.geometry,properties:{i,s:serial}}))),!!r.cl);dd(r.gd)}catch(err){note('draw: '+err.message);r.fail=r.fail||'map layer: '+err.message}pt(false)})},
+646343	/* uk-lightning-overlay, generation 202610281250 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes, OFF by
+646344	 * default, appended last to the original Layers panel and fullscreen curtain; no request, source, layer or listener until
+646345	 * switched on; never persisted. Optical flashes are NOT confirmed ground strikes; a day never searched is unknown, never
+646346	 * zero. Above the device cap the window draws as tappable ≈10 km cells (data/history/grid) near UK land. */
+646347	const GEN='202610281250',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+646348	// cells: month grids grid/YYYY-MM.json (0.1°, per UTC day); a day counts only if coverage, count and sha256 match its index row
+646349	// land mask: cells whose centre is within 30 km of an onshore REPD site (run lengths); totals keep every cell
+646350	LM=()=>{if(!LM.a){const a=LM.a=new Uint8Array(16800);let p=0,v=1;for(const c of'w5Cq7Co9Cn8dbC17beCie83C7rC6sC6r4583Bmr1a28BmAg26BaAqB7AsB6AsB5AtB3AuB4AtB4AsB5AsAw81AqAvB0AvAzAxB0AwB1AvB3AuB3AuB8ArB6AtB4AvB0AwAzAuAyAwAzAxAyAyAxB0AvB0AuB1AmBaAmBbAkBe82A7Bh47A5BrA4Av4e5aA3Am71b7a6A3Alo4b4A4Ajr3c2A5Agv3c1A5Agw3AfAhz3AbAkA0161A3AnB9AoB5AsB1AxAyAzAwB1l2A8B2AtB9AnBbAkBdAiBdAjBcAjBdAiBfAgBiAdBnA6Bh44A5Bh81A6BgAgBgAhBgAhBiAgBjAdBib1A3B872AgB692AfB6ArB5AsB6ArBcAkBdAjB973AcB9b1A9BaA793BeA6BrA7BoAaBmf1vBnd5rBp9dlBs2hmCcmCghChfCghCfhCgfCidCl9Cr2L07ChhCdkCckCdjCehCkdCkdCkcClbClaCp4Tj'.match(/[A-Z]?./g))a.fill(v^=1,p,p+=c[1]?(c.charCodeAt(0)-64)*36+parseInt(c[1],36):parseInt(c,36))}return LM.a},
+646351	gd=async(rows,sn)=>{let er,n=0,st=0,k=0;const gs=new Map(await Promise.all([...new Set(rows.filter(y=>y.count>0).map(y=>y.date.slice(0,7)))].map(async m=>[m,await gg(m).catch(e=>(er=e,{days:[],cells:[]}))]))),ok=new Set,c=new Map,f=[],v=[];
+646352	for(const[q,x]of c)if(LM()[q]){const lon=-11+(q%140+.5)/10,lat=49.5+((q/140|0)+.5)/10;k+=x;v.push(x);f.push({type:'Feature',properties:{cell:q,n:x,lon,lat,s:sn},geometry:{type:'Point',coordinates:[lon,lat]}})}
+646353	v.sort((a,b)=>a-b);return{fc:FC(f),n,k,st,T:Math.max(30,v[v.length*.95|0]||0)}},
+646354	// within the device cap, 32 MB and RQ files points load for any window; above, cells draw and LOAD POINTS asks first
+646355	if(count>Math.min(BUDGET,cap())||bytes>32e6||nq>RQ){r.budget=`${N(count)} flashes, ${N(bytes)} bytes, ${N(nq)} files`;try{r.gd=await gd(rows,sn)}catch(e){r.ge=NA(msg(e))+': '+msg(e)}if(sn!==S.serial)return r;if(!S.consent){r.clp=true;return r}
+646356	else if(r.mode!=='overview')st=r.sk.length?(rs.push('days not loaded'),'PARTIAL'):r.ev.length?'READY·DETAIL':'EMPTY-COVERED';else st=r.arch>0?r.gd?'READY·CELLS':'READY·SUMMARY':'EMPTY-COVERED'}
+646357	DN=r=>{const g=r.gd;return`observed optical flashes per ≈10 km cell (not ground strikes): ${N(g.k)} of ${N(g.n)} in ${pl(g.fc.features.length,'cell')} within ≈30 km of UK land (sea and abroad not drawn); unsearched days${g.st?` and ${pl(g.st,'day')} not yet in the grid`:''} unknown, not zero · tap a cell for nearest substations`},
+646358	L.flashes=(r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}`:`Flashes ${r.fl.length?`${N(r.ic)} in index · ${N(n)} loaded`:N(n)+' archived in window'}${drawn}`)+(r.gd?' · cells beneath: '+DN(r):'')}
+646359	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · ${r.gd?`drawn as ${DN(r)}${r.clp&&!r.big?` · LOAD POINTS adds the newest ${N(BUDGET)} as tappable points`:''}`:`none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})${r.ge?' · cell grid '+r.ge:''}`}`}
+646360	// map: points layer, invisible 44 px hit layer, (clustered) count labels; cells below the original's projects
+646361	HIT=SRC+'-hit',CEL=SRC+'-cell',CNT=LAYER+'-count',pc=()=>{if(S.pp){S.pp.remove();S.pp=null}nc()},
+646362	// cells: REPD-style graduated core (n<=3 ~1 px, faint) + glow for the top 5%, violet ramp on log10 n (1/3/10/30/100/300); ids avoid 'l-'
+646363	CS=SRC+'-cells',CL=[CEL+'-glow',CEL+'-core',CEL],RP=(m,a)=>{try{return m.getStyle().layers.filter(l=>(l.source=='src-repd'||l.id=='l-subs')&&(a||m.getLayoutProperty(l.id,'visibility')!='none')).map(l=>l.id)}catch(_){return[]}},
+646364	dd=g=>{const m=mh();if(!m)return;for(const l of CL)if(m.getLayer(l))m.removeLayer(l);if(m.getSource(CS))m.removeSource(CS);if(!g||!g.fc.features.length)return;
+646365	const b=RP(m,1).find(l=>l!='l-subs')||(m.getLayer(LAYER)?LAYER:void 0),L=['log10',['get','n']],I=(x,...s)=>['interpolate',['linear'],x,...s],B=[0,.48,1,1.48,2,2.48],R=v=>I(L,...B.flatMap((k,i)=>[k,v[i]])),Z=(a,c,d)=>I(['zoom'],5,a,7,c,10,d),
+646366	C=R(['#5a5590','#6f68a8','#8d7fd0','#a066ff','#c23cff','#e01cff']),A=(i,p,x)=>m.addLayer({id:CL[i],type:'circle',source:CS,...x,paint:p},b);m.addSource(CS,{type:'geojson',data:g.fc});
+646367	A(0,{'circle-radius':Z(I(L,1.48,5,2.48,13),I(L,1.48,8,2.48,20),I(L,1.48,16,2.48,36)),'circle-color':C,'circle-opacity':I(L,1.48,.15,2.48,.4),'circle-blur':1},{filter:['>=',['get','n'],g.T]});
+646368	A(1,{'circle-radius':Z(R([.8,1,1.2,1.7,3.2,6]),R([1,1.2,1.6,2.4,5,9]),R([2,2.5,3.5,6,12,20])),'circle-color':C,'circle-opacity':R([.22,.3,.42,.6,.85,.95]),'circle-stroke-width':I(L,1.48,0,2,.6),'circle-stroke-color':'#140a2a'},{layout:{'circle-sort-key':['get','n']}});
+646369	A(2,{'circle-radius':22,'circle-opacity':0})},
+646370	// tap: a flash (or cluster) under the tap wins, then the nearest cell unless a project/substation of the original is hit
+646371	tap=e=>{const m=mh();if(!S.on||!m)return;const px=e.point.x??e.point[0],py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];let f=null,dm=Infinity;
+646372	for(const q of Y(HIT)){const g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f){const rp=RP(m);if(rp.length&&m.queryRenderedFeatures(e.point,{layers:rp}).length)return;for(const q of Y(CEL)){const p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;if(d<dm){dm=d;f=p}}return f&&cc(m,f)}
+646373	const g=S.res&&p.s===S.res.s&&S.res.ev[p.i];if(!g)return;const[x,y]=g.geometry.coordinates,id=g.id==null?'(none)':cs(g.id);
+646374	cd(m,x,y,'Lightning flash','Flash '+Ts(tm(g)),`lat ${y.toFixed(3)}, lon ${x.toFixed(3)} · ID ${sid(id)}`,'Flash ID '+id,'optical flash')},
+646375	cd=(m,x,y,lb,ti,su,de,wh)=>{const c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #2f6f75;border-radius:4px;box-shadow:0 0 14px rgba(95,189,194,.25);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+646376	c.dataset.lightningCard='';c.setAttribute('role','dialog');c.setAttribute('aria-label',lb);c.wh=wh;
+646377	bar.appendChild(el('span','flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#5fbdc2;font-weight:bold',ti));
+646378	c.sm=el('summary','padding:14px 0 13px;line-height:17px;cursor:pointer;color:#bfe9ee',su);d.appendChild(c.sm);
+646379	d.appendChild(el('div','color:#8b9aa1;font-size:10px;overflow-wrap:anywhere',de));c.out=el('div','margin-top:4px;color:#9fb3ba');d.appendChild(c.out);bd.appendChild(d);
+646380	cb=p=>{const c=p.cell,w=-11+c%140/10,s=49.5+(c-c%140)/1400;return c>>>0===c&&c<16800&&p.n>>>0===p.n&&p.n>0&&p.lon>w&&p.lon<w+.1&&p.lat>s&&p.lat<s+.1&&S.res&&(p.s==null||p.s===S.res.s)?[w,s]:null},
+646381	cc=(m,p)=>{const[w,s]=cb(p),W=S.res.w,r=a=>a.toFixed(2)+'–'+(a+.1).toFixed(2);cd(m,p.lon,p.lat,'Lightning cell',pl(p.n,'observed optical flash','es')+' · ≈10 km cell',`${ymd(W.s)} to ${ymd(Math.max(W.s,W.e-1))} UTC · centre lat ${p.lat.toFixed(3)}, lon ${p.lon.toFixed(3)}`,`Cell lat ${r(s)}, lon ${r(w)} (0.1°) · searched UTC days only; unsearched days unknown, not zero`,'cell centre')},
+646382	// nearest substations: the original's own measure (__GRIDATLAS_NEON_LINKS__.measure.nearestSubstations) drawn as its neon
+646383	// arrival in Lightning-owned layers; link.selectAt is not used (it treats its origin as a project; kv-arrival-api).
+646384	const k=M.nearestSubstations(x,y,subs);say(`Nearest substations to this ${c.wh} (straight-line km). Not evidence any asset was struck; faults can have other causes.`);
+646385	if(r&&!loading)S.last={state:c.st,stale:c.stale,mode:r.mode,period:w.period,drawn:r.ev.length,cluster:!!r.cl,cap:cap(),cap_source:r.cs||null,index_count:r.ic===undefined?null:r.ic,failures:r.fl.length,reasons:c.rs,cells:r.gd?r.gd.fc.features.length:0};if(S.installed)fit()},
+646386	/* uk-lightning-overlay, generation 202610281340 (UTC). EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes, OFF by
+646387	 * zero. Above the device cap the window draws as tappable ≈10 km cells (data/history/grid) within 30 km of a REPD site. */
+646388	const GEN='202610281340',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+646389	N=n=>Number(n).toLocaleString('en-GB'),pl=(n,w,s='s')=>N(n)+' '+w+(n==1?'':s),dm=t=>{const s=new Date(t).toUTCString(),y=s.slice(12,16);return+s.slice(5,7)+s.slice(7,11)+(y==new Date().getUTCFullYear()?'':' '+y)},hm=t=>T(t).slice(11,16),dt=t=>dm(t)+' '+hm(t),du=m=>(m=Math.round(m/6e4),(m>59?N(m/60|0)+' h ':'')+(m%60||m<60?m%60+' min':'')).trim(),hz=w=>!w.custom&&w.span<=2*DAY,de=(a,b)=>dm(a)==dm(b)?hm(b):dt(b),sv=(r,k,p)=>{const v=r.cov,w=r.w,a=k&&/READY|EMPTY/.test(k.st);return hz(w)?(a?'all ':(v.f>0?du(v.f*w.span):'0')+' of ')+w.label+' searched':(a?'all '+pl(v.d,'day'):`${v.k} of ${pl(v.d,'day')}`)+' searched'+(p&&v.pp?` (${v.pp} in part)`:'')},lr=(g,now,f)=>isFinite(g)?`collector last ran ${ymd(g)==ymd(now)?hm(g):dt(g)} UTC${f&&g-f>HOUR?`, searched to ${ymd(f)==ymd(now)?hm(f):dt(f)} UTC`:''}${g>now+9e5?' (device clock behind)':''}`:'collector last run unknown',F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,AGO=t=>t<0?'?':t<3e4?'<1 min':du(t),
+646390	ov=(a,b,c,d)=>Math.max(0,Math.min(b,d)-Math.max(a,c)),FC=f=>({type:'FeatureCollection',features:f||[]}),bx=(x,y)=>x===+x&&y===+y&&x>=-11&&x<=3&&y>=49.5&&y<=61.5,isFC=o=>o&&o.type==='FeatureCollection'&&Array.isArray(o.features),tm=f=>{const s=f.properties.time_utc+'';return Date.parse(/T[\d:.]+$/.test(s)?s+'Z':s)},msg=e=>cs(e&&e.message||e),
+646391	const p=gj(u,'no-cache',1).then(async b=>{const o=b.byteLength>2e6?E('grid size'):b.byteLength>=0?await new Response(b).json():b;if(!o||o.schema!==GS||o.month!==mo||o.cols!==140||o.rows!==120||o.cell_deg!==.1||!Array.isArray(o.days)||o.days.length>31||!Array.isArray(o.cells)||o.cells.length>16800)E('invalid grid '+mo);const t=[];
+646392	LM=()=>{if(!LM.a){const a=LM.a=new Uint8Array(16800);let p=0,v=1;for(const c of'M3bCjeCie83C7rC6sC6r4583Bmr1a28BmAg26BaAqB7AsB6AsB5AtB3AuB4AtB4AsB5AsAw81AqAvB0AvAzAxB0AwB1AvB3AuB3AuB8ArB6AtB4AvB0AwAzAuAyAwAzAxAyAyAxB0AvB0AuB1AmBaAmBbAkBe82A7Bh47A5BrA4Av4e5aA3Am71b7a6A3Alo4b4A4Ajr3c2A5Agv3c1A5Agw3AfAhz3AbAkA0161A3AnB9AoB5AsB1AxAyAzAwB1l2A8B2AtB9AnBbAkBdAiBdAjBcAjBdAiBfAgBiAdBnA6Bh44A5Bh81A6BgAgBgAhBgAhBiAgBjAdBib1A3B872AgB692AfB6ArB5AsB6ArBcAkBdAjB973AcB9b1A9BaA793BeA6BrA7BoAaBmf1vBnd5rBp9dlBs2hmCcmCghChfCghCfhCgfCidCl9Cr2L07ChhCdkCckCdjCehCkdCkdCkcClbClaCp4Tj'.match(/[A-Z]?./g))a.fill(v^=1,p,p+=c[1]?(c.charCodeAt(0)-64)*36+parseInt(c[1],36):parseInt(c,36))}return LM.a},
+646393	for(const y of rows)if(y.count>0){const d=gs.get(y.date.slice(0,7)).days.find(d=>d.date===y.date);if(d&&d.count===y.count&&d.coverage===y.coverage&&d.sha256+''==(y.path?[y.sha256]:y.parts.map(p=>p.sha256))+'')ok.add(y.date),n+=y.count;else st++}if(!n)throw er||Error('grid stale');
+646394	v.sort((a,b)=>a-b);return{fc:FC(f),n,k,st,e:er&&msg(er),T:Math.max(30,v[v.length*.95|0]||0)}},
+646395	r={mode:'overview',w,idx:x,before:false,rows,arch:known.reduce((n,y)=>n+(y.parts&&hz(w)?tg(y,w.s,w.e).reduce((a,p)=>a+p.count,0):y.count),0),cov:cv(x,w.s,w.e),fl:[],ev:[],ld:[],sk:[]};
+646396	DN=r=>{const g=r.gd;return`map shows ${N(g.k)} in ${pl(g.fc.features.length,'≈10 km cell')} within 30 km of a REPD site; ${N(g.n-g.k)} further out counted, not drawn${g.st?` · ${pl(g.st,'day')} not yet mapped (unknown${g.e?'; '+g.e:''})`:''} · tap a cell for nearest substations`},
+646397	L.flashes=(r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}`:`Flashes ${r.fl.length?`${N(r.ic)} in index · ${N(n)} loaded`:N(n)+' archived in window'}${drawn}`)+(r.gd?' · '+DN(r):'')}
+646398	L.actual=o.length?`Actual  on the ${k} overlapping UTC dates: first ${Ts(Date.parse(o[0].first_observation_utc))} · last ${Ts(Date.parse(o[o.length-1].last_observation_utc))} (whole UTC days)`:`Actual  no archived flashes on the ${k} overlapping UTC dates`;
+646399	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · ${r.gd?`${DN(r)}${r.clp&&!r.big?` · LOAD POINTS adds the newest ${N(Math.min(BUDGET,r.arch))} flashes`:''}`:`none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})${r.ge?' · cell grid '+r.ge:''}`}`}
+646400	if(c.ny>0)warn.push(`Not yet searched: last ${AGO(c.ny)} of window (unknown, not zero)`);
+646401	if(k&&/UNK|PAR/.test(k.st)&&/^Flashes 0 a/.test(L.flashes))L.flashes+=' (gaps unknown)'
+646402	CS=SRC+'-cells',CL=[CEL+'-glow',CEL+'-core',CEL],RP=(m,a)=>{try{return m.getStyle().layers.filter(l=>(l.source=='src-repd'||l.id=='l-subs')&&(a||!/glow/.test(l.id)&&m.getLayoutProperty(l.id,'visibility')!='none')).map(l=>l.id)}catch(_){return[]}},
+646403	tap=e=>{const m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;const px=e.point.x??e.point[0],py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];let f=null,dm=Infinity;
+646404	bar.appendChild(el('span','flex:1;min-width:0;color:#5fbdc2;font-weight:bold',ti));
+646405	cb=p=>{const c=p.cell,w=-11+c%140/10,s=49.5+(c-c%140)/1400;return c>>>0===c&&c<16800&&Number.isSafeInteger(p.n)&&p.n>0&&p.lon>w&&p.lon<w+.1&&p.lat>s&&p.lat<s+.1&&S.res&&(p.s==null||p.s===S.res.s)?[w,s]:null},
+646406	cc=(m,p)=>{const[w,s]=cb(p),W=S.res.w,r=a=>a.toFixed(2)+'–'+(a+.1).toFixed(2);cd(m,p.lon,p.lat,'Lightning cell',pl(p.n,'optical flash','es')+' in this ≈10 km cell',`${ymd(W.s)} to ${ymd(Math.max(W.s,W.e-1))} UTC · centre lat ${p.lat.toFixed(3)}, lon ${p.lon.toFixed(3)}`,`Cell lat ${r(s)}, lon ${r(w)} (0.1°) · searched UTC days only; unsearched days unknown, not zero`,'cell centre')},
+646407	m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:(S.pp.bb+S.pp.offsetHeight||196)+24},maxZoom:12,duration:900})};typeof m.once=='function'?m.once('moveend',ck):ck()}catch(e){note('camera: '+msg(e))}},
+646408	else if(which==='latest'){S.end=null;S.h=[];pc();return ld(true)}else if(which==='prev')S.h.push(S.end),S.end=w.s;else if(which==='next')S.end=S.h.pop()||null;
+646409	S.res=r;r.s=serial;try{dw(FC(r.ev.map((f,i)=>({type:'Feature',id:f.id,geometry:f.geometry,properties:{i,s:serial}}))),!!r.cl)}catch(err){note('draw: '+err.message);r.fail=r.fail||'map layer: '+err.message}try{dd(r.gd)}catch(e){note('cells: '+msg(e))}pt(false)})},
+646416	const GEN='202610280950';
+646452	const GEN='202610281250';
+646453	const GEN='202610281340';
+646656	    unexamined_by_day: dict[str, dict] = {}
+646657	    duplicates_by_day: dict[str, int] = {}
+646685	        if result.get("unexamined_time_flashes"):
+646686	            unexamined_by_day[day] = {"flashes": int(result["unexamined_time_flashes"]),
+646687	                                      "slots_utc": list(result.get("unexamined_time_slots_utc") or [])}
+646688	        if result.get("cross_product_duplicates"):
+646689	            duplicates_by_day[day] = int(result["cross_product_duplicates"])
+646705	                                  refused_days=dict(refused), outside_day_by_day=outside_by_day,
+646706	                                  unexamined_time_flashes_by_day=unexamined_by_day,
+646707	                                  cross_product_duplicates_by_day=duplicates_by_day)
+646881	# A product's "nominal slot" is the sensing start/end in its NAME (PRODUCT_SLOT),
+646882	# not its repeat-cycle counter (``_O_<NNNN>_``, 10-minute cycle NNNN of the day)
+646883	# and not the times of its flashes. The name's span is NOT a bound on the flash
+646884	# times inside it: real LFL flashes sit up to about 0.4 s outside it (observed:
+646885	# ..._OPE_20261023195009_... flash 322 at 19:50:08.639, 0.361 s early), and
+646886	# products that start late in their cycle (..._OPE_20260412001255_20260412002005_
+646887	# ..._O_0002_..., cycle 00:10-00:20) or right after midnight (..._OPE_
+646888	# 20260828000049_20260828001009_..._O_0001_...) held flashes more than 60 s
+646889	# outside their name's span (backfill runs 40620556193, 40657338115). A flash is
+646890	# therefore checked by ITS OWN TIME (see classify_flash): it is consistent when it
+646891	# lies within this tolerance of its product's span, or inside any examined span.
+646893	# Every flash of an examined product is decoded, whatever its time; callers then
+646894	# drop (and count) those outside their window or UTC date, so none is lost silently.
+646895	DECODE_ALL_TIMES = (datetime(1970, 1, 1, tzinfo=timezone.utc), datetime(9999, 1, 1, tzinfo=timezone.utc))
+647126	    bodies = 0
+647129	        for name in sorted(archive.namelist()):
+647131	                decoded = body_decoder(archive.read(name), product_name, start, end)
+647132	                if bodies:
+647133	                    # Flash indexes restart in every BODY file: without a body
+647134	                    # ordinal a second BODY's ids would collide with the first's
+647135	                    # and be deduplicated away silently. The first BODY keeps
+647136	                    # "<product>:<i>" (the ids already archived).
+647137	                    for feature in decoded:
+647138	                        product, _, index = str(feature["id"]).rpartition(":")
+647139	                        feature["id"] = f"{product}:b{bodies}.{index}"
+647140	                features.extend(decoded)
+647141	                bodies += 1
+647142	    found = bodies > 0
+647184	    def run_search():
+647185	        return datastore.get_collection(COLLECTION).search(
+647186	            dtstart=start.replace(tzinfo=None), dtend=end.replace(tzinfo=None)
+647188	    return search_with_retries(run_search)
+647189	def search_with_retries(run_search, *, sleep=None, rng=None):
+647190	    """Run a product search and LIST its results, retrying transient errors.
+647191	    The search and its paging are network calls too: backfill run 40690260149
+647192	    lost a whole run to one search ``Read timed out`` that nothing retried. A
+647193	    transient error (classify_download_error) is retried TRANSIENT_RETRIES times
+647194	    with the download backoff; anything else, or the last failure, propagates.
+647195	    Returns the products as a list, so no paging happens later, unretried.
+647198	    attempt = 0
+647199	        attempt += 1
+647200	            products = run_search()
+647201	            count = getattr(products, "total_results", None)
+647202	            listed = list(products)
+647203	        except Exception as error:  # noqa: BLE001 - classified below
+647204	            if kind != "transient" or attempt > TRANSIENT_RETRIES:
+647205	            wait = backoff_seconds(attempt, rng)
+647206	            print(f"RETRY search after attempt {attempt} ({label}: {error}); waiting {wait} s", file=sys.stderr)
+647207	            sleep(wait)
+647209	            raise RuntimeError("No EUMETSAT product files returned. Existing map data left unchanged.")
+647210	        return listed
+647261	        # Decode EVERY flash of the product, whatever its time (a product's flashes
+647262	        # can lie minutes outside its nominal span): callers then drop the ones
+647263	        # outside their window or date and COUNT them (split_by_window), instead
+647264	        # of losing them silently here.
+647265	        lo, hi = DECODE_ALL_TIMES
+647418	# classify_flash results. The first two are consistent with the examined slots;
+647419	# the third is a genuine flash in time nobody searched (kept and counted, its
+647420	# slot stays unknown); the last two are inconsistent records (refused).
+647421	FLASH_IN_PRODUCT_SPAN = "in_product_span"        # within tolerance of its product's nominal span
+647422	FLASH_IN_EXAMINED_SPAN = "in_examined_span"      # outside that, but its own time lies in an examined span
+647423	FLASH_IN_UNEXAMINED_TIME = "in_unexamined_time"  # examined product, own time in no examined span
+647424	FLASH_UNEXAMINED_PRODUCT = "unexamined_product"  # its product is not among the examined slots
+647425	FLASH_NO_SLOT_OUTSIDE = "no_slot_outside"        # legacy id without a product slot, outside every span
+647426	def classify_flash(feature, examined_starts, spans, *,
+647427	                   tolerance_seconds: float = SLOT_EDGE_TOLERANCE_SECONDS) -> str:
+647428	    """How a flash relates to what the search examined (one of the FLASH_* values).
+647429	    The product (from the id) decides only WHETHER the flash was examined: its
+647430	    nominal start must be one of ``examined_starts``. WHEN the flash happened is
+647431	    its own timestamp, checked against its product's nominal span +- tolerance
+647432	    and then against the union of examined ``spans``; a product's name span is
+647433	    not a bound on its flashes' times (see SLOT_EDGE_TOLERANCE_SECONDS).
+647435	    in_spans = any(s <= moment < e for s, e in spans)
+647438	        return FLASH_IN_EXAMINED_SPAN if in_spans else FLASH_NO_SLOT_OUTSIDE
+647441	        return FLASH_UNEXAMINED_PRODUCT
+647443	    if start - tolerance <= moment < end + tolerance:
+647444	        return FLASH_IN_PRODUCT_SPAN
+647445	    return FLASH_IN_EXAMINED_SPAN if in_spans else FLASH_IN_UNEXAMINED_TIME
+647448	    """Does this flash's own time lie in examined time (its product's span +- tolerance,
+647449	    or any examined span), with its product examined? See classify_flash."""
+647450	    return classify_flash(feature, examined_starts, spans, tolerance_seconds=tolerance_seconds) in (
+647451	        FLASH_IN_PRODUCT_SPAN, FLASH_IN_EXAMINED_SPAN)
+647684	"""Per-month density grid derived from the one-year archive's day shards.
+647685	``data/history/grid/YYYY-MM.json`` (schema ``uk-lightning-history-grid.v1``)
+647686	holds, for one UTC calendar month, the number of archived optical flashes in
+647687	each 0.1-degree cell on each UTC day. Any UTC-day window therefore sums
+647688	exactly from at most 13 small files instead of hundreds of thousands of
+647689	points.
+647690	Contract:
+647691	- the grid is a pure function of the index rows and shard files of its month
+647692	  (no timestamps of its own), so an unchanged month is byte-identical;
+647693	- ``days`` lists every UTC date of the month inside retention (cutoff..today)
+647694	  with the index row's ``coverage``, ``count`` and the shard ``sha256`` list it
+647695	  was built from. A client compares those with the current index: a day whose
+647696	  row differs is STALE and must be treated as unknown, never as zero;
+647697	- ``count`` null (coverage none, or shard_lost) means never searched: unknown,
+647698	  not zero. Such days contribute no cells;
+647699	- each day's cell counts sum exactly to its row ``count``;
+647700	- ``cells`` is ``[[cell, day, n, day, n, ...], ...]`` sorted by cell then day,
+647701	  where ``cell = row * COLS + col``, ``col = floor((lon - WEST) / 0.1)``,
+647702	  ``row = floor((lat - SOUTH) / 0.1)`` (clamped to the grid) and ``day`` is
+647703	  the day of the month (1-31).
+647704	An observed flash is NOT a proven cloud-to-ground strike, and a cell count is
+647705	a density of OBSERVED optical flashes, not of ground strikes.
+647707	from collect import UK_BOUNDS
+647708	from history import SCHEMA_INDEX, _load_old_index, _read_features, _serialise, _write_if_changed
+647709	SCHEMA_GRID = "uk-lightning-history-grid.v1"
+647710	CELL_DEG = 0.1
+647711	WEST, SOUTH, EAST, NORTH = UK_BOUNDS
+647712	COLS = int(round((EAST - WEST) / CELL_DEG))   # 140
+647713	ROWS = int(round((NORTH - SOUTH) / CELL_DEG))  # 120
+647714	GRID_DIR = "grid"
+647715	MONTH_PATTERN = re.compile(r"^(\d{4})-(\d{2})\.json$")
+647716	GRID_NOTE = (
+647717	    "Counts of archived satellite OPTICAL lightning flashes per 0.1-degree cell (about 7 x 11 km) per UTC day; "
+647718	    "not ground strikes. Days with count null were never searched: unknown, not zero. A day whose coverage, "
+647719	    "count or sha256 differs from the current index is stale and must be treated as unknown."
+647721	def cell_of(lon: float, lat: float) -> int:
+647722	    """Grid cell index of a coordinate (rounded first, so 0.1-steps never fall into the cell below)."""
+647723	    col = math.floor(round((lon - WEST) / CELL_DEG, 6))
+647724	    row = math.floor(round((lat - SOUTH) / CELL_DEG, 6))
+647725	    col = min(max(col, 0), COLS - 1)
+647726	    row = min(max(row, 0), ROWS - 1)
+647727	    return row * COLS + col
+647728	def row_digests(row: dict) -> list[str]:
+647730	        return [row.get("sha256") or ""]
+647731	    return [p.get("sha256") or "" for p in row.get("parts") or []]
+647732	def day_entry(row: dict) -> dict:
+647733	    return {"date": row["date"], "coverage": row.get("coverage"), "count": row.get("count"),
+647734	            "sha256": row_digests(row)}
+647735	def day_cells(archive_dir: Path, row: dict) -> dict[int, int]:
+647736	    """Cell counts of one indexed day, read from its shard file(s); must sum to the row count."""
+647737	    cells: dict[int, int] = {}
+647738	    if not row.get("count"):
+647739	        return cells
+647740	    files = [row["path"]] if row.get("path") else [p["path"] for p in row.get("parts") or []]
+647743	        for feature in _read_features(Path(archive_dir) / rel, row["date"]):
+647744	            lon, lat = feature["geometry"]["coordinates"][:2]
+647745	            key = cell_of(float(lon), float(lat))
+647746	            cells[key] = cells.get(key, 0) + 1
+647747	            total += 1
+647748	    if total != row["count"]:
+647749	        raise ValueError(f"{row['date']}: shards hold {total} flashes but the index count is {row['count']}")
+647750	    return cells
+647751	def month_content(month: str, entries: list[dict], cells_by_day: dict[str, dict[int, int]]) -> str:
+647752	    by_cell: dict[int, list[int]] = {}
+647753	    for entry in entries:
+647754	        dom = int(entry["date"][8:10])
+647755	        for cell, n in cells_by_day.get(entry["date"], {}).items():
+647756	            by_cell.setdefault(cell, []).extend((dom, n))
+647758	    for cell in sorted(by_cell):
+647759	        pairs = by_cell[cell]
+647760	        ordered = sorted(zip(pairs[0::2], pairs[1::2]))
+647761	        cells.append([cell] + [v for pair in ordered for v in pair])
+647762	    return _serialise({
+647763	        "schema": SCHEMA_GRID,
+647767	        "cell_deg": CELL_DEG,
+647768	        "cols": COLS,
+647769	        "rows": ROWS,
+647770	        "cell_rule": "cell=row*cols+col; col=floor((lon-west)/cell_deg); row=floor((lat-south)/cell_deg); clamped",
+647771	        "note": GRID_NOTE,
+647772	        "total": sum(e["count"] or 0 for e in entries),
+647773	        "days": entries,
+647776	def parse_grid(text: str, month: str) -> tuple[list[dict], dict[str, dict[int, int]]]:
+647777	    """Validate a grid file and return (days, per-day cell counts)."""
+647779	    if not isinstance(data, dict) or data.get("schema") != SCHEMA_GRID or data.get("month") != month:
+647780	        raise ValueError(f"grid {month}: schema or month mismatch")
+647781	    if data.get("cols") != COLS or data.get("rows") != ROWS or data.get("cell_deg") != CELL_DEG:
+647782	        raise ValueError(f"grid {month}: geometry mismatch")
+647783	    entries = data.get("days")
+647785	        raise ValueError(f"grid {month}: invalid days")
+647786	    by_dom = {}
+647787	    for e in entries:
+647788	        if not isinstance(e, dict) or not str(e.get("date", "")).startswith(month + "-"):
+647789	            raise ValueError(f"grid {month}: invalid day entry")
+647790	        by_dom[int(e["date"][8:10])] = e["date"]
+647791	    cells_by_day: dict[str, dict[int, int]] = {}
+647792	    for item in data.get("cells") or []:
+647793	        if not isinstance(item, list) or len(item) < 3 or len(item) % 2 != 1:
+647794	            raise ValueError(f"grid {month}: invalid cell row")
+647795	        cell = item[0]
+647796	        if not isinstance(cell, int) or not 0 <= cell < COLS * ROWS:
+647797	            raise ValueError(f"grid {month}: cell out of range")
+647798	        for dom, n in zip(item[1::2], item[2::2]):
+647799	            if dom not in by_dom or not isinstance(n, int) or n < 1:
+647800	                raise ValueError(f"grid {month}: invalid day count")
+647801	            cells_by_day.setdefault(by_dom[dom], {})[cell] = n
+647802	        if sum(cells_by_day.get(e["date"], {}).values()) != (e.get("count") or 0):
+647803	            raise ValueError(f"grid {month}: {e['date']} cells do not sum to its count")
+647804	    return entries, cells_by_day
+647805	def grid_path(month: str) -> str:
+647806	    return f"{GRID_DIR}/{month}.json"
+647807	def _month_rows(index: dict) -> dict[str, list[dict]]:
+647808	    months: dict[str, list[dict]] = {}
+647809	    for row in index.get("days") or []:
+647810	        if isinstance(row, dict) and isinstance(row.get("date"), str):
+647811	            months.setdefault(row["date"][:7], []).append(row)
+647813	def refresh_grids(archive_dir: Path, index: dict) -> dict:
+647814	    """Bring every month grid in line with ``index``; re-read only days whose row changed.
+647815	    Months outside retention are removed. Returns {"written": [...], "removed": [...], "unchanged": n,
+647816	    "days_read": n}.
+647818	    if index.get("schema") != SCHEMA_INDEX:
+647819	        raise ValueError("grid: index schema mismatch")
+647820	    grid_dir = archive_dir / GRID_DIR
+647821	    written, removed, unchanged, days_read = [], [], 0, 0
+647822	    months = _month_rows(index)
+647823	    for month, rows in sorted(months.items()):
+647824	        target = archive_dir / grid_path(month)
+647825	        old_entries, old_cells = [], {}
+647827	                old_entries, old_cells = parse_grid(target.read_text(encoding="utf-8"), month)
+647828	            except (ValueError, KeyError, TypeError, json.JSONDecodeError):
+647829	                old_entries, old_cells = [], {}  # invalid: rebuilt from the shards
+647830	        old_by_date = {e["date"]: e for e in old_entries}
+647831	        entries, cells_by_day = [], {}
+647832	        for row in sorted(rows, key=lambda r: r["date"]):
+647833	            entry = day_entry(row)
+647834	            entries.append(entry)
+647835	            if not entry["count"]:
+647836	            if old_by_date.get(entry["date"]) == entry:
+647837	                cells_by_day[entry["date"]] = old_cells.get(entry["date"], {})
+647838	                cells_by_day[entry["date"]] = day_cells(archive_dir, row)
+647839	                days_read += 1
+647840	        if _write_if_changed(target, month_content(month, entries, cells_by_day)):
+647841	            written.append(grid_path(month))
+647842	            unchanged += 1
+647843	    if grid_dir.exists():
+647844	        for f in sorted(grid_dir.iterdir()):
+647845	            m = MONTH_PATTERN.fullmatch(f.name)
+647846	            if f.is_file() and (not m or f.name[:7] not in months):
+647848	                removed.append(f"{GRID_DIR}/{f.name}")
+647849	        if not any(grid_dir.iterdir()):
+647850	            grid_dir.rmdir()
+647851	    return {"written": written, "removed": removed, "unchanged": unchanged, "days_read": days_read}
+647852	def verify_grids(archive_dir: Path, index: dict | None = None, *, deep: bool = False) -> dict:
+647853	    """Strict check: one grid per index month whose days equal the index rows.
+647854	    ``deep`` also recounts every day from its shards.
+647855	    index = index or _load_old_index(archive_dir / "index.json")
+647859	        if not target.exists():
+647860	            raise ValueError(f"{target}: missing")
+647861	        entries, cells = parse_grid(target.read_text(encoding="utf-8"), month)
+647862	        expected = [day_entry(r) for r in sorted(rows, key=lambda r: r["date"])]
+647863	        if entries != expected:
+647864	            raise ValueError(f"{target}: days differ from the index (stale grid)")
+647865	        if deep:
+647867	                if (cells.get(row["date"]) or {}) != day_cells(archive_dir, row):
+647868	                    raise ValueError(f"{target}: {row['date']} cells differ from its shards")
+647870	    extra = sorted(f.name for f in (archive_dir / GRID_DIR).glob("*.json") if f.name[:7] not in months) \
+647871	        if (archive_dir / GRID_DIR).exists() else []
+647873	        raise ValueError(f"grid files outside retention: {extra}")
+647874	    return {"months": checked}
+647875	    build = sub.add_parser("build", help="(Re)generate every month grid from the index and shards (idempotent)")
+647876	    build.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+647877	    check = sub.add_parser("verify", help="Check every month grid against the index")
+647878	    check.add_argument("--archive-dir", type=Path, default=Path("data/history"))
+647879	    check.add_argument("--deep", action="store_true", help="Also recount every day from its shards")
+647880	    index = _load_old_index(args.archive_dir / "index.json")
+647881	        raise SystemExit("no index.json")
+647882	    if args.command == "build":
+647883	        print(json.dumps(refresh_grids(args.archive_dir, index)))
+647884	        print(json.dumps(verify_grids(args.archive_dir, index, deep=args.deep)))
+647885	        print(f"GRID FAILURE: {error}", file=sys.stderr)
+647909	    FLASH_IN_PRODUCT_SPAN, FLASH_IN_UNEXAMINED_TIME, FLASH_NO_SLOT_OUTSIDE, FLASH_UNEXAMINED_PRODUCT,
+647910	    SOURCE_URL, UK_BOUNDS, classify_flash, flash_slot, inside_uk_view, parse_utc,
+648078	def _phase_slot_start(moment: datetime) -> str:
+648079	    """Start (UTC, HH:M0:09 phase) of the 10-minute LI slot holding ``moment``."""
+648080	    anchor = datetime.combine(moment.date(), time.min, tzinfo=timezone.utc) + timedelta(seconds=SLOT_PHASE_SECONDS)
+648081	    slots = math.floor((moment - anchor).total_seconds() / SLOT_SECONDS)
+648082	    return format_utc(anchor + timedelta(seconds=slots * SLOT_SECONDS))
+648083	def _drop_cross_product_duplicates(found: dict[str, dict], kinds: dict[str, str]) -> int:
+648084	    """Remove copies of one flash (same time_utc and position) listed by more than
+648085	    one product, keeping the copy inside its own product's span (then the lowest
+648086	    id). Ids already make a flash unique within its product; this keeps a flash
+648087	    timed outside its product's span from being counted again when the product
+648088	    covering that time lists it too. Returns how many copies were removed."""
+648089	    groups: dict[tuple, list[str]] = {}
+648090	    for fid, feature in found.items():
+648091	        key = (feature["properties"]["time_utc"], tuple(feature["geometry"]["coordinates"]))
+648092	        groups.setdefault(key, []).append(fid)
+648093	    removed = 0
+648094	    for ids in groups.values():
+648095	        if len({i.rsplit(":", 1)[0] for i in ids}) < 2:
+648096	        keep = min(ids, key=lambda i: (kinds.get(i) != FLASH_IN_PRODUCT_SPAN, i))
+648097	        product = keep.rsplit(":", 1)[0]
+648098	        for fid in ids:
+648099	            if fid != keep and fid.rsplit(":", 1)[0] != product:
+648100	                del found[fid]
+648101	                removed += 1
+648436	    # Derived month density grids (grid/YYYY-MM.json). Only months whose rows
+648437	    # changed are rewritten and only changed days are re-read. A grid failure
+648438	    # never blocks the archive: clients see the grid's days differ from the
+648439	    # index and treat them as unknown (stale), never as zero.
+648440	    # Grid writes are reported in "grid", not in files_changed (shard/index files only).
+648441	        import grid  # local import: grid.py imports this module
+648442	        grid_result = grid.refresh_grids(archive_dir, index)
+648443	        grid_result["error"] = None
+648444	    except (ImportError, ValueError, OSError, KeyError, TypeError) as error:
+648445	        grid_result = {"written": [], "removed": [], "error": f"{type(error).__name__}: {error}"}
+648446	        "grid": grid_result,
+648819	    kinds: dict[str, str] = {}
+648820	    outside_day = duplicate_ids = 0
+648825	        # The flash's OWN time decides its UTC date (exactly one); a flash of the
+648826	        # neighbouring date is dropped from this date and counted, never refused.
+648829	        # Its product decides only whether it was examined; its own time is checked
+648830	        # against its product's nominal span +- SLOT_EDGE_TOLERANCE_SECONDS, then
+648831	        # against every examined span (collect.classify_flash).
+648832	        kind = classify_flash(feature, examined, spans)
+648833	        if kind == FLASH_UNEXAMINED_PRODUCT:
+648835	                             "(its product is not among slots_examined_utc)")
+648836	        if kind == FLASH_NO_SLOT_OUTSIDE:
+648837	                             "(no product slot in its id and outside every examined span)")
+648838	        if feature["id"] in found:
+648839	            duplicate_ids += 1
+648840	        found[feature["id"]] = feature
+648841	        kinds[feature["id"]] = kind
+648842	    cross_product_duplicates = _drop_cross_product_duplicates(found, kinds)
+648844	    # A genuine flash of an examined product timed in time NO examined product
+648845	    # covers is kept and counted; its slot stays unsearched, so the date is
+648846	    # partial there (never zero, never extended to time nobody searched).
+648847	    unexamined = sorted(f["properties"]["time_utc"] for i, f in found.items() if kinds[i] == FLASH_IN_UNEXAMINED_TIME)
+648848	    if unexamined and expected_seconds >= DAY_SECONDS:  # impossible: full coverage covers every moment
+648849	        raise ValueError(f"{rebuild_record}: flashes outside every examined span on a fully searched date")
+648850	    unexamined_slots = sorted({_phase_slot_start(parse_utc(t)) for t in unexamined})
+648885	        # Kept and counted flashes timed in unsearched time: their slots stay unknown.
+648886	        "unexamined_time_flashes": len(unexamined),
+648887	        "unexamined_time_slots_utc": unexamined_slots,
+648888	        # Same flash (time and position) listed by two products: archived once.
+648889	        "cross_product_duplicates": cross_product_duplicates,
+648890	        "duplicate_ids_in_record": duplicate_ids,
+648891	        "files_changed": result["files_changed"], "split_days": result["split_days"], "grid": result["grid"],
+648946	              f"{result['outside_day']} flash(es) outside the date dropped, "
+648947	              f"{result['unexamined_time_flashes']} flash(es) kept in unsearched slot(s) "
+648948	              f"{result['unexamined_time_slots_utc']}, {result['cross_product_duplicates']} cross-product "
+648949	              "duplicate(s) removed; verify ok.")
+648989	    if result["grid"]["error"]:
+648990	        print(f"GRID WARNING (archive unaffected; grid days stay stale/unknown): {result['grid']['error']}",
+649293	        for name in ("history.py", "grid.py", "status.py", "backfill_parallel.py"):
+649504	        for name in ("history.py", "grid.py", "status.py"):
+649776	"""Month density grids (grid/YYYY-MM.json, uk-lightning-history-grid.v1); no network.
+649777	The grid is derived from the day shards only: each day's cells sum exactly to
+649778	its index count, never-searched days stay unknown (count null, no cells), a
+649779	grid day that differs from the index is stale, and the bytes are a pure
+649780	function of the archive (deterministic, rewritten only when a month changes).
+649784	import grid
+649785	from history import archive_observations, successful_scan
+649786	from test_backfill import FakeDownloader
+649787	NOW = datetime(2026, 10, 26, 14, 0, tzinfo=timezone.utc)
+649788	def flash(moment, tag, index=0, lon=-2.12, lat=51.11):
+649789	    return build_feature(lon, lat, moment, "TEST-" + tag, index)
+649790	def scan(start, end):
+649791	    return successful_scan(start.isoformat(), end.isoformat(), 18)
+649792	def load(root, month):
+649793	    return json.loads((root / "grid" / f"{month}.json").read_text())
+649794	def summed(grid_obj, day):
+649795	    entries, cells = grid.parse_grid(json.dumps(grid_obj), grid_obj["month"])
+649796	    return cells.get(day, {})
+649797	class GridTests(unittest.TestCase):
+649799	    def archive(self, flashes, *, now=NOW, windows=(), **kwargs):
+649800	        return archive_observations(self.root, flashes, now=now, scanned_windows=list(windows), **kwargs)
+649801	    def seed(self):
+649802	        d1 = datetime(2026, 10, 24, tzinfo=timezone.utc)
+649803	        d2 = datetime(2026, 9, 30, tzinfo=timezone.utc)
+649804	        flashes = [flash(d1 + timedelta(hours=3), "a", 0, -2.12, 51.11), flash(d1 + timedelta(hours=4), "b", 1, -2.11, 51.13),
+649805	                   flash(d1 + timedelta(hours=5), "c", 2, 0.5, 52.0), flash(d2 + timedelta(hours=9), "d", 0, -4.0, 55.0)]
+649806	        return self.archive(flashes, windows=[scan(d1, d1 + timedelta(days=1)), scan(d2, d2 + timedelta(days=1)),
+649807	                                              scan(datetime(2026, 10, 25, tzinfo=timezone.utc),
+649808	                                                   datetime(2026, 10, 25, 12, tzinfo=timezone.utc))])
+649809	    # --- cell rule -------------------------------------------------------
+649810	    def test_cell_rule_is_a_clamped_0_1_degree_grid_over_the_view_bounds(self):
+649811	        self.assertEqual((grid.COLS, grid.ROWS, grid.CELL_DEG), (140, 120, 0.1))
+649812	        self.assertEqual(grid.cell_of(-11.0, 49.5), 0)
+649813	        self.assertEqual(grid.cell_of(3.0, 61.5), grid.COLS * grid.ROWS - 1)  # the closed east/north edges clamp
+649814	        self.assertEqual(grid.cell_of(-10.9, 49.5), 1)  # exact 0.1 steps never fall into the cell below
+649815	        self.assertEqual(grid.cell_of(-11.0, 49.6), grid.COLS)
+649816	        self.assertEqual(grid.cell_of(-10.95, 49.55), 0)
+649817	        self.assertEqual(grid.cell_of(-2.12, 51.11), 16 * 140 + 88)  # row floor(16.1), col floor(88.8)
+649818	    # --- contents --------------------------------------------------------
+649819	    def test_ingest_writes_one_grid_per_retention_month_summing_exactly_to_the_index(self):
+649820	        result = self.seed()
+649821	        self.assertIsNone(result["grid"]["error"])
+649823	        months = sorted({r["date"][:7] for r in index["days"]})
+649824	        self.assertEqual(len(months), 13)  # 2025-10 .. 2026-10: any window sums from at most 13 files
+649825	        self.assertEqual(sorted(p.name for p in (self.root / "grid").iterdir()), [f"{m}.json" for m in months])
+649826	        for m in months:
+649827	            g = load(self.root, m)
+649828	            self.assertEqual(g["schema"], grid.SCHEMA_GRID)
+649829	            self.assertIn("not ground strikes", g["observation"])
+649830	            entries, cells = grid.parse_grid(json.dumps(g), m)
+649831	            for e in entries:
+649832	                self.assertEqual(sum(cells.get(e["date"], {}).values()), e["count"] or 0)
+649833	            total += g["total"]
+649834	        self.assertEqual(total, index["archived_observations"])
+649835	        oct_ = load(self.root, "2026-10")
+649836	        self.assertEqual(summed(oct_, "2026-10-24"), {grid.cell_of(-2.12, 51.11): 2, grid.cell_of(0.5, 52.0): 1})
+649837	        self.assertEqual(grid.verify_grids(self.root, deep=True), {"months": 13})
+649838	    def test_unknown_days_are_null_not_zero_and_a_searched_empty_day_is_zero(self):
+649839	        self.seed()
+649840	        days = {e["date"]: e for e in load(self.root, "2026-10")["days"]}
+649841	        self.assertEqual((days["2026-10-20"]["coverage"], days["2026-10-20"]["count"]), ("none", None))
+649842	        self.assertEqual(days["2026-10-20"]["sha256"], [])
+649843	        self.assertEqual((days["2026-10-25"]["coverage"], days["2026-10-25"]["count"]), ("partial", 0))
+649844	        self.assertNotIn("2026-10-27", days)  # the future is not listed at all
+649845	        first = load(self.root, "2025-10")["days"]
+649846	        self.assertEqual(first[0]["date"], "2025-10-26")  # days before the cutoff are not listed
+649847	        self.assertEqual(load(self.root, "2025-10")["cells"], [])
+649848	    def test_days_carry_the_shard_sha256_the_client_compares_with_the_index(self):
+649849	        index = self.seed()["index"]
+649851	        entry = {e["date"]: e for e in load(self.root, "2026-10")["days"]}["2026-10-24"]
+649852	        self.assertEqual(entry, {"date": "2026-10-24", "coverage": "full", "count": 3, "sha256": [row["sha256"]]})
+649853	    def test_split_days_sum_their_hourly_parts(self):
+649855	        flashes = [flash(day + timedelta(hours=h, minutes=m), f"s{h}-{m}", m) for h in (3, 4, 17) for m in range(4)]
+649856	        result = self.archive(flashes, windows=[scan(day, day + timedelta(days=1))], target_shard_bytes=2000)
+649858	        self.assertEqual(entry["sha256"], [p["sha256"] for p in row["parts"]])
+649859	        self.assertEqual(sum(summed(load(self.root, "2026-10"), "2026-10-24").values()), 12)
+649860	    # --- determinism and incremental refresh ----------------------------------
+649861	    def test_rerun_is_byte_identical_and_a_rebuild_from_scratch_gives_the_same_bytes(self):
+649862	        before = {p.name: p.read_bytes() for p in (self.root / "grid").iterdir()}
+649863	        again = self.archive([], windows=[])
+649864	        self.assertEqual((again["grid"]["written"], again["grid"]["days_read"]), ([], 0))
+649865	        for p in (self.root / "grid").iterdir():
+649866	            p.unlink()
+649868	        grid.refresh_grids(self.root, index)
+649869	        self.assertEqual({p.name: p.read_bytes() for p in (self.root / "grid").iterdir()}, before)
+649870	    def test_a_new_flash_rewrites_only_its_month_and_rereads_only_its_day(self):
+649871	        sept = (self.root / "grid" / "2026-09.json").read_bytes()
+649872	        result = self.archive([flash(datetime(2026, 10, 24, 20, tzinfo=timezone.utc), "late", 7, 1.0, 53.0)])
+649873	        self.assertEqual(result["grid"]["written"], ["grid/2026-10.json"])
+649874	        self.assertEqual(result["grid"]["days_read"], 1)
+649875	        self.assertEqual((self.root / "grid" / "2026-09.json").read_bytes(), sept)
+649876	        self.assertEqual(sum(summed(load(self.root, "2026-10"), "2026-10-24").values()), 4)
+649877	        grid.verify_grids(self.root, deep=True)
+649878	    def test_months_leaving_retention_are_removed(self):
+649879	        later = NOW + timedelta(days=40)
+649880	        result = self.archive([], now=later)
+649881	        self.assertIn("grid/2025-10.json", result["grid"]["removed"])
+649882	        self.assertIn("grid/2025-11.json", result["grid"]["removed"])
+649883	        self.assertTrue((self.root / "grid" / "2026-12.json").exists())
+649884	        first = load(self.root, "2025-12")["days"][0]["date"]
+649885	        self.assertEqual(first, "2025-12-05")
+649886	    # --- staleness and failure handling ---------------------------------------
+649887	    def test_a_grid_that_differs_from_the_index_is_stale_and_verify_refuses_it(self):
+649888	        path = self.root / "grid" / "2026-10.json"
+649889	        g = json.loads(path.read_text())
+649890	        for e in g["days"]:
+649891	            if e["date"] == "2026-10-24":
+649892	                e["sha256"] = ["0" * 64]
+649893	        path.write_text(json.dumps(g))
+649894	        with self.assertRaisesRegex(ValueError, "stale"):
+649895	            grid.verify_grids(self.root)
+649896	        # The next archive run repairs it from the shards.
+649897	        result = self.archive([])
+649898	    def test_a_corrupt_grid_is_rebuilt_and_bad_cell_rows_are_refused(self):
+649899	        (self.root / "grid" / "2026-09.json").write_text("{not json")
+649900	        self.assertEqual(self.archive([])["grid"]["written"], ["grid/2026-09.json"])
+649901	        g = load(self.root, "2026-10")
+649902	        for bad in ([[999999, 24, 1]], [[1, 32, 1]], [[1, 24, 0]], [[1, 24]], ["x"]):
+649903	                grid.parse_grid(json.dumps({**g, "cells": bad}), "2026-10")
+649904	        with self.assertRaisesRegex(ValueError, "sum"):
+649905	            grid.parse_grid(json.dumps({**g, "cells": g["cells"][:-1]}), "2026-10")
+649906	    def test_a_grid_failure_never_blocks_the_archive(self):
+649907	        with mock.patch.object(grid, "refresh_grids", side_effect=ValueError("boom")):
+649908	            result = self.seed()
+649909	        self.assertEqual(result["grid"]["error"], "ValueError: boom")
+649910	        self.assertEqual(result["index"]["archived_observations"], 4)
+649911	        history.verify_archive(self.root)
+649912	    def test_backfill_regenerates_the_month_of_the_filled_date(self):
+649913	        target = datetime(2026, 10, 20, tzinfo=timezone.utc)
+649914	        record = Path(self.temp.name) / "rb.json"
+649915	        flashes = [flash(target + timedelta(hours=h, minutes=3), f"bf{h}") for h in (2, 9)]
+649916	        collect.rebuild_day_record("2026-10-20", record, now=NOW, downloader=FakeDownloader(flashes=flashes))
+649917	        result = history.backfill_day(self.root, "2026-10-20", now=NOW, rebuild_record=record)
+649918	        entry = {e["date"]: e for e in load(self.root, "2026-10")["days"]}["2026-10-20"]
+649919	        self.assertEqual((entry["coverage"], entry["count"]), ("full", 2))
+649920	    def test_cli_build_is_the_one_off_generator_and_is_idempotent(self):
+649921	        run = subprocess.run([sys.executable, str(ROOT / "grid.py"), "build", "--archive-dir", str(self.root)],
+649922	                             capture_output=True, text=True, cwd=ROOT)
+649923	        self.assertEqual(run.returncode, 0, run.stderr)
+649924	        self.assertEqual(len(json.loads(run.stdout)["written"]), 13)
+649925	        run = subprocess.run([sys.executable, str(ROOT / "grid.py"), "verify", "--deep", "--archive-dir", str(self.root)],
+649926	        self.assertEqual((run.returncode, json.loads(run.stdout)), (0, {"months": 13}))
+649927	"""The EUMETSAT search (and its paging) is retried on transient errors (run 40690260149)."""
+649928	# Stand-ins named like the requests classes: errors are classified by class name,
+649929	# and CI runs without the requests package installed.
+649930	class ConnectionError(Exception):  # noqa: A001
+649931	class ReadTimeout(Exception):
+649932	class FakeProducts:
+649933	    def __init__(self, items, fail_on_iter=None):
+649934	        self.items, self.fail_on_iter = items, fail_on_iter
+649935	        self.total_results = len(items)
+649936	    def __iter__(self):
+649937	        if self.fail_on_iter:
+649938	            raise self.fail_on_iter
+649939	        return iter(self.items)
+649940	class SearchRetryTests(unittest.TestCase):
+649941	    def run_with(self, outcomes):
+649942	        calls, waits = [], []
+649943	        def run_search():
+649944	            calls.append(1)
+649945	            outcome = outcomes[len(calls) - 1]
+649946	            if isinstance(outcome, BaseException):
+649947	                raise outcome
+649948	            return outcome
+649949	        result = collect.search_with_retries(run_search, sleep=waits.append, rng=lambda: 0.0)
+649950	        return result, calls, waits
+649951	    def test_read_timeout_on_search_is_retried(self):
+649952	        timeout = ConnectionError("HTTPSConnectionPool(host='api.eumetsat.int', port=443): Read timed out.")
+649953	        result, calls, waits = self.run_with([timeout, FakeProducts(["a", "b"])])
+649954	        self.assertEqual(result, ["a", "b"])
+649955	        self.assertEqual(len(calls), 2)
+649956	        self.assertEqual(waits, [2.0])
+649957	    def test_timeout_while_paging_is_retried_and_results_are_listed(self):
+649958	        paged = FakeProducts(["x"], fail_on_iter=ReadTimeout("paging"))
+649959	        result, calls, _ = self.run_with([paged, FakeProducts(["x", "y"])])
+649960	        self.assertEqual(result, ["x", "y"])
+649961	        self.assertIsInstance(result, list)
+649962	    def test_gives_up_after_the_retry_budget(self):
+649963	        timeout = ReadTimeout("still down")
+649964	        with self.assertRaises(ReadTimeout):
+649965	            self.run_with([timeout] * (collect.TRANSIENT_RETRIES + 1))
+649966	    def test_fatal_errors_are_not_retried(self):
+649968	            self.run_with([ValueError("bad query")])
+649969	    def test_empty_search_still_refuses(self):
+649971	            self.run_with([FakeProducts([])])
+649981	tolerance is +-60 s. (The real 2026-08-28 flash turned out to lie more than 60 s
+649982	outside its product's name span; see tests/test_slot_span.py.)
+650087	    def test_flash_two_minutes_outside_its_product_but_in_examined_time_is_accepted(self):
+650088	        # Contract since claude/fix-slot-span-attribution: a product's name span does
+650089	        # not bound its flashes' times (2026-04-12 / 2026-08-28 refusals); the flash's
+650090	        # OWN time is checked against the examined spans (see tests/test_slot_span.py).
+650093	        # inside the examined spans (the 04:50:09 product), 120 s before its own product
+650095	        self.assertEqual(rows(self.root)[TARGET]["count"], 5)
+650096	        self.assertEqual(result["unexamined_time_flashes"], 0)
+650131	        def bad(data):  # a flash of a product the search never examined: an inconsistent record
+650132	            p = datetime.combine(date(2026, 10, 21), datetime.min.time(), tzinfo=timezone.utc) + timedelta(hours=5, minutes=3)
+650133	            data["features"].append(build_feature(-2.5, 52.5, p + timedelta(seconds=30),
+650134	                                                  product_name(p, p + timedelta(minutes=10)), 9))
+650163	"""Flashes timed outside their product's NAME span: the 2026-04-12 and 2026-08-28 refusals.
+650164	Parallel backfill runs 40620556193 (on c17b65d, PR #12) and 40657338115 refused
+650165	two whole UTC dates with "flash ... lies outside the examined slots (its
+650166	product's nominal slot +- 60 s)":
+650167	* 2026-04-12, ``..._OPE_20260412001255_20260412002005_N__O_0002_0000:2326``.
+650168	  Repeat cycle 0002 is 00:10-00:20, but the product's name span starts late,
+650169	  at 00:12:55, and ends 00:20:05, across the next slot edge.
+650170	* 2026-08-28, ``..._OPE_20260828000049_20260828001009_N__O_0001_0000:203``.
+650171	  A flash of the PREVIOUS date (27 Aug 23:5x) cannot be the cause: it is dropped
+650172	  as ``outside_day`` before the gate. Every 28 Aug moment before 00:00:49 is
+650173	  within 60 s of the product's start, so the flash lay after 00:11:09.
+650174	Root cause: the gate (PR #12) took a product's "nominal slot" from the sensing
+650175	start/end in its NAME and required every flash to lie within +-60 s of it. That
+650176	span does not bound the flashes the product holds. Both products lie at the start
+650177	of the day, where cycles start late. Their flashes lay more than 60 s outside the
+650178	span, so whole dates were refused although every flash came from an examined
+650179	product. collect.py also decoded only the product's span +- 60 s (or the query
+650180	window), which would drop such flashes silently in other paths.
+650181	The fix checks a flash's OWN time:
+650182	- it decides the UTC date;
+650183	- it is consistent if it lies within 60 s of its product's span OR inside ANY
+650184	  examined span;
+650185	- otherwise the flash (of an examined product) is kept and counted, and its
+650186	  slot stays unsearched (the date is partial there, never zero, never refused).
+650187	A flash of an unexamined product is still refused. The same flash listed by two
+650188	products is archived once.
+650189	The exact flash times are not recoverable here: run logs and artifacts are
+650190	behind GitHub storage this sandbox cannot reach, and the EUMETSAT credentials
+650191	exist only as workflow secrets. The fixtures therefore cover every place such a
+650192	flash can lie, through the REAL collect download/decode path (fake products,
+650193	fake BODY decoder) and the real backfill gate and finalize. Synthetic features
+650194	exist ONLY inside temporary directories.
+650195	from test_unreadable_product import FakeProduct, fake_body, good_zip, make_zip
+650196	NOW = datetime(2026, 10, 28, 9, 0, tzinfo=timezone.utc)
+650197	APR12 = datetime(2026, 4, 12, tzinfo=timezone.utc)
+650198	AUG28 = datetime(2026, 8, 28, tzinfo=timezone.utc)
+650199	S = timedelta(seconds=1)
+650200	M = timedelta(minutes=1)
+650201	def lfl_name(start: datetime, end: datetime, created: datetime | None = None, cycle: int = 1) -> str:
+650202	    created = created or end + 15 * M
+650203	            f"{created:%Y%m%d%H%M%S}_L2PF_OPE_{start:%Y%m%d%H%M%S}_{end:%Y%m%d%H%M%S}_N__O_{cycle:04d}_0000")
+650204	def april_layout(day: datetime) -> list[tuple[datetime, datetime, int]]:
+650205	    """2026-04-12 as the error shows it. Cycle 0001 runs 00:00:09-00:10:09. Cycle 0002 is
+650206	    the incident product, 00:12:55-00:20:05, so 00:10:09-00:12:55 is a hole. Then
+650207	    regular products follow from 00:20:09 (a 4 s hole). The previous date's last
+650208	    product ends 00:00:09."""
+650209	    out = [(day - 591 * S, day + 9 * S, 144), (day + 9 * S, day + 10 * M + 9 * S, 1),
+650210	           (day + 12 * M + 55 * S, day + 20 * M + 5 * S, 2)]
+650211	    cursor, cycle = day + 20 * M + 9 * S, 3
+650212	    while cursor < day + timedelta(days=1):
+650213	        out.append((cursor, cursor + 10 * M, cycle))
+650214	        cursor, cycle = cursor + 10 * M, cycle + 1
+650215	def august_layout(day: datetime) -> list[tuple[datetime, datetime, int]]:
+650216	    """2026-08-28: the previous date's last product ends 00:00:09. Cycle 0001 is the
+650217	    incident product, 00:00:49-00:10:09 (a 40 s hole before it), then regular
+650218	    10-minute products follow."""
+650219	    out = [(day - 591 * S, day + 9 * S, 144), (day + 49 * S, day + 10 * M + 9 * S, 1)]
+650220	    cursor, cycle = day + 10 * M + 9 * S, 2
+650221	APRIL_INCIDENT = lfl_name(APR12 + 12 * M + 55 * S, APR12 + 20 * M + 5 * S,
+650222	                          created=datetime(2026, 4, 12, 0, 29, 15, tzinfo=timezone.utc), cycle=2)
+650223	AUGUST_INCIDENT = lfl_name(AUG28 + 49 * S, AUG28 + 10 * M + 9 * S,
+650224	                           created=datetime(2026, 8, 28, 0, 15, 13, tzinfo=timezone.utc), cycle=1)
+650225	class LayoutEumetsat:
+650226	    """Fake whole-day search over a product layout, through the REAL download/decode path.
+650227	    ``flashes`` maps a product start to [(index, lon, lat, time)]. The index is the
+650228	    flash's position in its BODY, so the incident ids (``:2326``, ``:203``) are
+650229	    reproduced. ``skip`` leaves products out of the search (e.g. not yet published).
+650230	    def __init__(self, layout, flashes: dict, skip=()):
+650231	        self.layout, self.flashes, self.skip = layout, flashes, set(skip)
+650232	    def name(self, start):
+650233	        if start == APR12 + 12 * M + 55 * S:
+650234	            return APRIL_INCIDENT
+650235	        if start == AUG28 + 49 * S:
+650236	            return AUGUST_INCIDENT
+650237	        end, cycle = next((e, c) for s, e, c in self.layout if s == start)
+650238	        return lfl_name(start, end, cycle=cycle)
+650239	        for start, _, _ in self.layout:
+650240	            body = {str(index): [lon, lat, collect.iso_utc(moment)]
+650241	                    for index, lon, lat, moment in self.flashes.get(start, [])}
+650242	            name = self.name(start)
+650243	            yield FakeProduct(name, make_zip({f"{name}/{name}_BODY_0001.nc": json.dumps(body).encode()}))
+650244	        return collect.download_products(self.products(), start, end, body_decoder=indexed_body)
+650245	def indexed_body(content: bytes, product_name: str, start: datetime, end: datetime):
+650246	    """Stand-in for decode_body: a JSON {BODY index: [lon, lat, time]}, filtered like decode_body."""
+650248	    for index, (lon, lat, t) in sorted(json.loads(content).items(), key=lambda kv: int(kv[0])):
+650251	            feature = build_feature(lon, lat, moment, product_name, int(index))
+650252	            if feature:
+650253	                out.append(feature)
+650254	    hourly = datetime(2026, 10, 27, tzinfo=timezone.utc)
+650255	class Harness(unittest.TestCase):
+650256	    def rebuild(self, day: datetime, fake) -> dict:
+650257	        collect.rebuild_day_record(day.date().isoformat(), self.record, now=NOW, downloader=fake)
+650258	    def backfill(self, day: datetime) -> dict:
+650259	        return history.backfill_day(self.root, day.date().isoformat(), now=NOW, rebuild_record=self.record)
+650260	    def ids(self, day: datetime) -> list[str]:
+650261	        key = day.date().isoformat()
+650262	        return [f["id"] for f in history._read_features(self.root / rows(self.root)[key]["path"], key)]
+650263	class April12Tests(Harness):
+650264	    """``..._O_0002_..._OPE_20260412001255_20260412002005_...:2326``."""
+650265	    P2 = APR12 + 12 * M + 55 * S
+650266	    def test_incident_flash_in_its_cycle_before_the_late_start_is_kept_and_its_slot_stays_unknown(self):
+650267	        # 00:10:40 lies in repeat cycle 0002 (00:10-00:20) but 135 s before the name's start,
+650268	        # inside the 00:10:09-00:12:55 hole that no product covers.
+650269	        flash = APR12 + 10 * M + 40 * S
+650270	        fake = LayoutEumetsat(april_layout(APR12), {self.P2: [(2326, -2.0, 52.0, flash), (5, -2.1, 52.1, self.P2 + M)]})
+650271	        record = self.rebuild(APR12, fake)
+650272	        incident = next(f for f in record["features"] if f["id"] == f"{APRIL_INCIDENT}:2326")
+650273	        examined = {collect.parse_utc(s) for s in record["slots_examined_utc"]}
+650274	        spans = [(collect.parse_utc(w["start_utc"]), collect.parse_utc(w["end_utc"])) for w in record["scanned_ranges"]]
+650275	        # The pre-fix gate (product name span +- 60 s) is exactly what refused the date.
+650276	        self.assertEqual(collect.classify_flash(incident, examined, spans), collect.FLASH_IN_UNEXAMINED_TIME)
+650277	        result = self.backfill(APR12)
+650278	        row = rows(self.root)["2026-04-12"]
+650279	        self.assertEqual(row["count"], 2)                         # kept: never silently dropped
+650280	        self.assertEqual(row["coverage"], "partial")              # never zero, never full
+650281	        self.assertEqual(row["scanned_seconds"], 86400 - 166 - 4)  # the 00:10:09-00:12:55 and 00:20:05-00:20:09 holes
+650282	        self.assertEqual(result["unexamined_time_flashes"], 1)
+650283	        self.assertEqual(result["unexamined_time_slots_utc"], ["2026-04-12T00:10:09.000Z"])
+650284	        self.assertIn(f"{APRIL_INCIDENT}:2326", self.ids(APR12))
+650285	    def test_incident_flash_after_the_span_inside_the_next_product_is_accepted_and_counted_once(self):
+650286	        # 00:21:30 lies 85 s after the name's end, inside the 00:20:09 product, which lists the same flash too.
+650287	        flash = APR12 + 21 * M + 30 * S
+650288	        nxt = APR12 + 20 * M + 9 * S
+650289	        fake = LayoutEumetsat(april_layout(APR12), {self.P2: [(2326, -2.0, 52.0, flash)],
+650290	                                                    nxt: [(40, -2.0, 52.0, flash), (41, -2.3, 52.3, nxt + 5 * M)]})
+650291	        self.rebuild(APR12, fake)
+650292	        self.assertEqual(row["count"], 2)                         # the one flash once, plus the other flash
+650293	        self.assertEqual(result["cross_product_duplicates"], 1)
+650294	        ids = self.ids(APR12)
+650295	        self.assertIn(lfl_name(nxt, nxt + 10 * M, cycle=3) + ":40", ids)  # the copy inside its own product's span
+650296	        self.assertNotIn(f"{APRIL_INCIDENT}:2326", ids)
+650297	    def test_incident_flash_after_the_span_listed_only_by_its_own_product_is_accepted(self):
+650298	        fake = LayoutEumetsat(april_layout(APR12), {self.P2: [(2326, -2.0, 52.0, flash)]})
+650299	        self.assertEqual(rows(self.root)["2026-04-12"]["count"], 1)
+650300	        self.assertEqual((result["unexamined_time_flashes"], result["cross_product_duplicates"]), (0, 0))
+650301	class August28Tests(Harness):
+650302	    """``..._O_0001_..._OPE_20260828000049_20260828001009_...:203``."""
+650303	    P1 = AUG28 + 49 * S
+650304	    def test_previous_date_flash_of_the_product_is_dropped_and_counted_never_refused(self):
+650305	        # 27 Aug 23:58:30: belongs to 27 Aug, so it can never refuse 28 Aug.
+650306	        fake = LayoutEumetsat(august_layout(AUG28), {self.P1: [(203, -2.0, 52.0, AUG28 - 90 * S),
+650307	                                                               (204, -2.1, 52.1, self.P1 + M)]})
+650308	        record = self.rebuild(AUG28, fake)
+650309	        self.assertEqual(record["outside_day"], 1)                # decoded, then dropped and counted
+650310	        result = self.backfill(AUG28)
+650311	        self.assertEqual(rows(self.root)["2026-08-28"]["count"], 1)
+650312	    def test_previous_date_flash_left_in_the_record_is_dropped_and_counted(self):
+650313	        record = self.rebuild(AUG28, LayoutEumetsat(august_layout(AUG28), {self.P1: [(204, -2.1, 52.1, self.P1 + M)]}))
+650314	        record["features"].append(build_feature(-2.0, 52.0, AUG28 - 90 * S, AUGUST_INCIDENT, 203))
+650315	    def test_incident_flash_after_the_span_in_the_next_examined_product_is_accepted(self):
+650316	        # 00:11:30: 81 s after the name's end 00:10:09 (the only 28 Aug times the old gate refused).
+650317	        flash = AUG28 + 11 * M + 30 * S
+650318	        fake = LayoutEumetsat(august_layout(AUG28), {self.P1: [(203, -2.0, 52.0, flash)]})
+650319	        feature = next(f for f in record["features"] if f["id"].endswith(":203"))
+650320	        self.assertEqual(collect.classify_flash(feature, examined, spans), collect.FLASH_IN_EXAMINED_SPAN)
+650321	        row = rows(self.root)["2026-08-28"]
+650322	        self.assertEqual((row["count"], row["coverage"], row["scanned_seconds"]), (1, "partial", 86400 - 40))
+650323	    def test_incident_flash_in_a_slot_whose_product_was_not_examined_keeps_that_slot_unknown(self):
+650324	        nxt = AUG28 + 10 * M + 9 * S
+650325	        fake = LayoutEumetsat(august_layout(AUG28), {self.P1: [(203, -2.0, 52.0, flash)]}, skip={nxt})
+650326	        self.rebuild(AUG28, fake)
+650328	        self.assertEqual(row["scanned_seconds"], 86400 - 40 - 600)   # the hole and the missing slot stay unknown
+650329	        self.assertEqual(result["unexamined_time_slots_utc"], ["2026-08-28T00:10:09.000Z"])
+650330	    def test_flash_of_an_unexamined_product_is_still_refused(self):
+650331	        record = self.rebuild(AUG28, LayoutEumetsat(august_layout(AUG28), {self.P1: [(1, -2.0, 52.0, self.P1 + M)]},
+650332	                                                    skip={nxt}))
+650333	        record["features"].append(build_feature(-2.5, 52.5, nxt + M, lfl_name(nxt, nxt + 10 * M, cycle=2), 7))
+650335	            self.backfill(AUG28)
+650337	class DecodeNeverDropsSilentlyTests(unittest.TestCase):
+650338	    def test_download_keeps_flashes_far_outside_the_products_span_for_callers_to_count(self):
+650339	        start = APR12 + 12 * M + 55 * S
+650340	        name = lfl_name(start, start + 7 * M + 10 * S, cycle=2)
+650341	        rows_ = [[-2.0, 52.0, collect.iso_utc(APR12 + 10 * M + 40 * S)], [-2.0, 52.0, collect.iso_utc(APR12 + 2 * M)]]
+650342	        window = (APR12 + 12 * M, APR12 + 30 * M)
+650343	        features, count, names, unparsed, _ = collect.download_products(
+650344	            [FakeProduct(name, good_zip(name, rows_))], *window, body_decoder=fake_body)
+650345	        self.assertEqual(len(features), 2)                  # before: the 00:02:00 flash was dropped uncounted
+650346	        inside, outside = collect.split_by_window(features, *window)
+650347	        self.assertEqual((len(inside), outside), (0, 2))
+650348	    def test_second_body_file_gets_distinct_ids(self):
+650349	        name = lfl_name(APR12 + 9 * S, APR12 + 10 * M + 9 * S)
+650350	        one = json.dumps([[-2.0, 52.0, collect.iso_utc(APR12 + M)]]).encode()
+650351	        two = json.dumps([[-2.1, 52.1, collect.iso_utc(APR12 + 2 * M)]]).encode()
+650352	        blob = make_zip({f"{name}/{name}_BODY_0001.nc": one, f"{name}/{name}_BODY_0002.nc": two})
+650353	        features = collect.decode_product(blob, name, *collect.DECODE_ALL_TIMES, body_decoder=fake_body)
+650354	        self.assertEqual([f["id"] for f in features], [f"{name}:0", f"{name}:b1.0"])
+650355	        self.assertEqual({collect.flash_slot(f) for f in features}, {(APR12 + 9 * S, APR12 + 10 * M + 9 * S)})
+650356	    """Both incident dates are ingested by finalize; the run is not refused."""
+650357	        self.plan = ["2026-08-28", "2026-04-12"]
+650358	    def collector(self, day, record, log, timeout=None):
+650359	        if day == "2026-04-12":
+650360	            fake = LayoutEumetsat(april_layout(APR12), {APR12 + 12 * M + 55 * S: [(2326, -2.0, 52.0, APR12 + 10 * M + 40 * S)]})
+650361	            fake = LayoutEumetsat(august_layout(AUG28), {AUG28 + 49 * S: [(203, -2.0, 52.0, AUG28 + 11 * M + 30 * S)]})
+650362	        collect.rebuild_day_record(day, record, now=NOW, downloader=fake)
+650363	    def test_both_incident_dates_are_filled(self):
+650364	        for m in bp.split_shards(self.plan, 2):
+650365	            bp.run_shard(m["shard"], m["dates"].split(), self.records, budget_minutes=290, collector=self.collector)
+650366	        result = bp.finalize(plan_dates=self.plan, shards=2, records_dir=self.records, archive_dir=self.root,
+650367	                             status_path=self.status, now=NOW)
+650368	        self.assertEqual(result["refused"], {})
+650369	        self.assertEqual(status["unexamined_time_flashes_by_day"],
+650370	                         {"2026-04-12": {"flashes": 1, "slots_utc": ["2026-04-12T00:10:09.000Z"]}})
+650371	        self.assertEqual((r["2026-04-12"]["count"], r["2026-04-12"]["coverage"]), (1, "partial"))
+650372	        self.assertEqual((r["2026-08-28"]["count"], r["2026-08-28"]["coverage"]), (1, "partial"))
 ```

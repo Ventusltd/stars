@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-28T07:20:59.434Z",
+  "generated_utc": "2026-10-28T14:27:26.827Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -193,8 +193,8 @@
     },
     {
       "repo": "Ventusltd/gridatlas",
-      "commit": "375501234d212caae46610534e2bec5f109214e0",
-      "code_files": 467
+      "commit": "5f8715f37814e12ba5b4d55023d772b665cdf04a",
+      "code_files": 479
     },
     {
       "repo": "Ventusltd/gridmachine1",
@@ -208,7 +208,7 @@
     },
     {
       "repo": "Ventusltd/kuiper-belt",
-      "commit": "65a44f7d53c6ee40a8df2c1c88f15c94cbeb6465",
+      "commit": "0667b618be11e8421d4651e26b855b110c194eb6",
       "code_files": 196
     },
     {
@@ -238,8 +238,8 @@
     },
     {
       "repo": "Ventusltd/lightning",
-      "commit": "ab9169d56931c32c8259e0080e54c0b2287ca024",
-      "code_files": 20
+      "commit": "fb2a1e70937035608cccd9bb0d2dd4b73b1fd6f1",
+      "code_files": 24
     },
     {
       "repo": "Ventusltd/linux-for-the-power-grid",
@@ -253,7 +253,7 @@
     },
     {
       "repo": "Ventusltd/particle-physics-drawing-engine",
-      "commit": "e4af91577de5a591b86d4f9b93cf16f4d2d6815f",
+      "commit": "a94cdd01045eb3902f067052a0c0b9a453d1dbb6",
       "code_files": 11
     },
     {
@@ -363,7 +363,7 @@
     },
     {
       "repo": "Ventusltd/star-solar-star",
-      "commit": "b246f27bf07683b9cfc32f312fd888961d3a2a6f",
+      "commit": "cc1c0dcfc1b2ab4f044e17a0ecdb1e52dcb747aa",
       "code_files": 25
     },
     {
@@ -393,7 +393,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "fa4262e2cf96dffe3ba5136c7366f7154476d34f",
+      "commit": "01c2cf40c51a0ad8a56ad8779a3e280f3fbcd55d",
       "code_files": 1
     },
     {
@@ -418,7 +418,7 @@
     },
     {
       "repo": "Ventusltd/ventus-grid-engine",
-      "commit": "8ba7506ded7c9bb736f1e3fa00493aef0ced883b",
+      "commit": "9b493db600b877b7fcb22839f184b7c546631442",
       "code_files": 78
     },
     {

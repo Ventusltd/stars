@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-10-28 07:20 UTC by GitHub Actions. It reads the current code of 89 Ventusltd repositories.
+Updated 2026-10-28 14:27 UTC by GitHub Actions. It reads the current code of 89 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,11 +8,11 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 388,602 |
-| File versions | 7,581 |
-| Elements (functions and classes) | 27,499 |
-| Families (same logic) | 26,273 |
-| Families written in two or more different files (duplicate work) | 6,787 |
+| Unique lines | 389,448 |
+| File versions | 7,601 |
+| Elements (functions and classes) | 27,621 |
+| Families (same logic) | 26,434 |
+| Families written in two or more different files (duplicate work) | 6,820 |
 | Families only copied between versions of one file | 2,254 |
 | Self-contained functions compiled into the library | 728 |
 
@@ -26,12 +26,12 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 45 | 482 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
+| #1586 | `invariant` | 45 | 485 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
 | #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
 | #975 | `sha256` | 67 | 94 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
-| #8285 | `sha256Hex` | 31 | 328 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
+| #8285 | `sha256Hex` | 31 | 331 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
 | #5168 | `escapeHTML` | 24 | 196 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
 | #5609 | `(anonymous)` | 20 | 192 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
 | #8328 | `(anonymous)` | 15 | 87 | 5 | no | 2026-08-30 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L776-L786) |
@@ -67,12 +67,12 @@ These names mean different things in different repositories, so check which vers
 | `load` | 48 | 19 |
 | `check` | 54 | 18 |
 | `draw` | 114 | 16 |
-| `__init__` | 33 | 16 |
+| `__init__` | 34 | 16 |
 | `require` | 18 | 15 |
 | `classify` | 18 | 14 |
 | `verify` | 13 | 13 |
 | `normalise` | 10 | 13 |
-| `setUp` | 34 | 12 |
+| `setUp` | 36 | 12 |
 | `validate` | 24 | 12 |
 | `walk` | 22 | 12 |
 | `step` | 41 | 11 |
