@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-389,448 unique lines, numbered 1 to 650,372. Generated 2026-10-28T14:29:11.182Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+389,484 unique lines, numbered 1 to 651,999. Generated 2026-10-28T19:54:00.689Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -389451,4 +389451,40 @@
 650370	                         {"2026-04-12": {"flashes": 1, "slots_utc": ["2026-04-12T00:10:09.000Z"]}})
 650371	        self.assertEqual((r["2026-04-12"]["count"], r["2026-04-12"]["coverage"]), (1, "partial"))
 650372	        self.assertEqual((r["2026-08-28"]["count"], r["2026-08-28"]["coverage"]), (1, "partial"))
+650530	      invariant(fs.statSync(cartridgePath).size <= 480_000, `${id}: cartridge exceeds the 480 kB recorded ceiling (400 kB target; raised from 460 kB by the owner on 27 Oct 2026 for the lightning overlay)`);
+650702	# A single product the search LISTED but the Data Store will not serve (backfill
+650703	# run 40737353777: eumdac ProductError "Could not download Product ..." on one
+650704	# 2025-12-14 slot killed the shard). Such a product is FAILED: its slot becomes
+650705	# unparsed (unknown, never zero), bounded by MAX_UNPARSED_DAY_FRACTION and the
+650706	# consecutive-failure stop, instead of stopping the whole run. 401/403/429 keep
+650707	# their own handling: they are account-wide, not one product.
+650708	PRODUCT_FAILED_HTTP_STATUS = frozenset({400, 404, 409, 410, 416, 422, 423})
+650782	    if status in PRODUCT_FAILED_HTTP_STATUS:
+650783	        return "product_failed", f"HTTP {status}"
+651684	        for error in (ProductError(403), PermissionError("denied"), RuntimeError("HTTP 403 Forbidden")):
+651691	    def test_one_product_the_store_will_not_serve_becomes_an_unparsed_slot(self):
+651692	        """Backfill run 40737353777: one ProductError 'Could not download Product' killed the shard."""
+651693	        for error in (ProductError(404), ProductError(410), ProductError(400), HTTPError(400)):
+651694	                bad = slot_name(DAY0 + timedelta(minutes=30))
+651695	                self.assertEqual(rec["outcome"], "success")
+651696	                self.assertEqual(fake.opened.count(bad), 1)  # no retry: the store refused this product
+651697	                [entry] = rec["unparsed_products"]
+651698	                self.assertEqual(entry["product"], bad)
+651699	                self.assertIn("HTTP", entry["reason"])
+651700	                self.assertEqual(rec["unparsed_slots_utc"], ["2026-10-20T00:30:00.000Z"])
+651701	    def test_five_refused_products_in_a_row_still_stop_as_an_outage(self):
+651702	        fake = FlakyEumetsat(always={i: ProductError(404) for i in range(10, 15)})
+651703	        with self.assertRaises(collect.DownloadOutage):
+651800	import unittest.mock
+651845	class SearchRetryDefaultsTests(unittest.TestCase):
+651846	    def test_default_rng_and_sleep_work_without_injection(self):
+651847	        """Run 40699133665 died with NameError: random was not imported at module level."""
+651849	            if len(calls) == 1:
+651850	                raise ReadTimeout("once")
+651851	            return ["p"]
+651852	        with unittest.mock.patch.object(collect, "_sleep", lambda s: None):
+651853	            self.assertEqual(collect.search_with_retries(run_search), ["p"])
+651996	        # A 404/410/400 on ONE product is now an unparsed slot (test_download_retries:
+651997	        # test_one_product_the_store_will_not_serve_becomes_an_unparsed_slot).
+651999	                      PermissionError("denied")):
 ```
