@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-388,032 unique lines, numbered 1 to 634,183. Generated 2026-10-27T21:29:26.188Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+388,318 unique lines, numbered 1 to 636,202. Generated 2026-10-28T00:44:14.939Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -388035,4 +388035,290 @@
 634180	    def test_hourly_non_retryable_error_still_stops(self):
 634182	            self.run_main(FakeEumetsat(net_error={2: RuntimeError("HTTP 403 Forbidden")}), now)
 634183	        self.assertEqual(self.load()["outcome"], "failure")
+634226	# No new date starts after SHARD_BUDGET_MINUTES (about 18.5 min per whole-day
+634227	# search, so a date started just before the budget ends near budget + 20).
+634228	DEFAULT_SHARD_BUDGET_MINUTES = 170
+634229	# A date still running this many minutes after the budget is killed (left
+634230	# unknown) so the shard always uploads its records inside the job timeout (200).
+634231	HARD_STOP_GRACE_MINUTES = 20
+634232	# No single whole-day search may run longer than this (2.4x the usual 18.5 min).
+634233	DATE_TIMEOUT_MINUTES = 45
+634276	def collect_command(day: str, record: Path) -> list[str]:
+634277	    return [sys.executable, "collect.py", "--rebuild-day", day, "--run-record", str(record)]
+634278	def collect_subprocess(day: str, record: Path, log: Path, timeout: float | None = None) -> None:
+634279	    """Run the real ``collect.py --rebuild-day``; raise RuntimeError on any failure.
+634280	    ``timeout`` (seconds) is a wall-clock limit: the child is killed and
+634281	    ``subprocess.TimeoutExpired`` propagates (the date stays unknown).
+634283	        code = subprocess.call(collect_command(day, record), stdin=subprocess.DEVNULL, stderr=err, timeout=timeout)
+634290	              collector=None, clock=time.monotonic, sleep=time.sleep, now=utc_now,
+634291	              hard_stop_minutes: float | None = None, date_timeout_minutes: float = DATE_TIMEOUT_MINUTES) -> dict:
+634296	    Wall clock: no new date starts after ``budget_minutes``; a date in flight is
+634297	    killed after ``date_timeout_minutes`` or at ``hard_stop_minutes`` (default
+634298	    budget + HARD_STOP_GRACE_MINUTES) since the shard started, whichever comes
+634299	    first. A killed date stops the shard as ``time_budget`` (it stays unknown);
+634300	    the records already collected are kept and uploaded.
+634310	    if hard_stop_minutes is None:
+634311	        hard_stop_minutes = budget_minutes + HARD_STOP_GRACE_MINUTES
+634312	    summary["hard_stop_minutes"] = hard_stop_minutes
+634313	    summary["date_timeout_minutes"] = date_timeout_minutes
+634326	            limit = max(1.0, min(date_timeout_minutes * 60, hard_stop_minutes * 60 - (began - started)))
+634328	                collector(day, tmp, out_dir / f"rb-{day}.log", timeout=limit)
+634332	            except subprocess.TimeoutExpired:
+634334	                error = (f"{day}: whole-day search killed after {limit / 60:.1f} min (wall-clock limit; "
+634335	                         f"date left unknown, not zero)")
+634336	                print(f"shard {shard}: {error}", file=sys.stderr)
+634475	    s.add_argument("--budget-minutes", type=float, default=DEFAULT_SHARD_BUDGET_MINUTES,
+634476	                   help="No new date starts after this many minutes")
+634477	    s.add_argument("--hard-stop-minutes", type=float, default=None,
+634478	                   help="Kill a date still running at this many minutes (default budget + 20)")
+634479	    s.add_argument("--date-timeout-minutes", type=float, default=DATE_TIMEOUT_MINUTES,
+634480	                   help="Kill a single whole-day search after this many minutes")
+634517	                            stagger_seconds=stagger, hard_stop_minutes=args.hard_stop_minutes,
+634518	                            date_timeout_minutes=args.date_timeout_minutes)
+634562	  Every HTTP call has an explicit (connect, read) timeout, ``HTTP_TIMEOUT``
+634563	  (15, 60) s, so a stalled read raises a (transient) ReadTimeout instead of
+634564	  hanging for ever. The run stops on ``MAX_CONSECUTIVE_FAILED_PRODUCTS`` failed downloads in a
+634620	# Every HTTP call (token, search, product download) gets this explicit
+634621	# (connect, read) timeout in seconds. eumdac passes no timeout to requests, so
+634622	# without it one stalled TCP read blocks for ever (parallel backfill run
+634623	# 40564980740, shard 3: still "in_progress" after 5 h). The read timeout
+634624	# bounds each socket read; a ReadTimeout is transient, so it is retried and a
+634625	# product still timing out after its retries is UNPARSED (unknown, never zero).
+634626	HTTP_TIMEOUT = (15, 60)
+634837	def install_http_timeouts(timeout=None, *, requests_module=None) -> bool:
+634838	    """Give every ``requests`` call without an explicit timeout ``HTTP_TIMEOUT``.
+634839	    eumdac (token, search, ``Product.open``) calls ``requests.Session`` methods
+634840	    without ``timeout``, which means "wait for ever". This wraps
+634841	    ``Session.request`` once per process so a missing or None timeout becomes
+634842	    the (connect, read) default; an explicit timeout is kept. The socket
+634843	    default timeout is set too, for any socket opened without one. Returns
+634844	    False when requests is not installed (nothing to wrap).
+634845	    import socket
+634846	    timeout = tuple(timeout or HTTP_TIMEOUT)
+634847	    socket.setdefaulttimeout(float(max(timeout)))
+634848	    if requests_module is None:
+634849	            import requests as requests_module
+634852	    session_cls = requests_module.Session
+634853	    original = getattr(session_cls.request, "_uk_lightning_original", session_cls.request)
+634854	    def request(self, method, url, *args, **kwargs):
+634855	        # Session.request(method, url, params, data, headers, cookies, files, auth, timeout, ...)
+634856	        if len(args) > 6:
+634857	            if args[6] is None:
+634858	                args = args[:6] + (request.http_timeout,) + args[7:]
+634859	        elif kwargs.get("timeout") is None:
+634860	            kwargs["timeout"] = request.http_timeout
+634861	        return original(self, method, url, *args, **kwargs)
+634862	    request._uk_lightning_original = original
+634863	    request.http_timeout = timeout
+634864	    session_cls.request = request
+634872	    install_http_timeouts()
+635339	        return lambda day, record, log, timeout=None: collect.rebuild_day_record(day, record, now=NOW, downloader=self)
+635420	        def slow(day, record, log, timeout=None):  # each whole-day search "takes" 100 minutes
+635427	        def collector(day, record, log, timeout=None):
+635940	        collector = lambda day, record, log, timeout=None: collect.rebuild_day_record(day, record, now=NOW, downloader=fakes[day])
+635958	        collector = lambda day, record, log, timeout=None: collect.rebuild_day_record(day, record, now=NOW, downloader=fake)
+635987	"""A stalled EUMETSAT read must never hang a shard (and so the whole backfill).
+635988	Incident (parallel backfill run 40564980740, 27-28 Oct 2026): shards 1 and 2
+635989	finished in 178 and 208 min, shard 3 was still "in_progress" after 5 h and
+635990	nothing was committed, because finalize waits for every shard. eumdac passes
+635991	no ``timeout`` to requests, so one stalled TCP read blocks for ever, and the
+635992	shard budget (290 min) was only checked between dates, inside a 340-minute
+635993	job timeout.
+635994	Now:
+635995	- every HTTP call gets an explicit (connect, read) timeout, ``collect.HTTP_TIMEOUT``
+635996	  (15, 60); a read timeout is transient, retried, and once the retries are used
+635997	  up the product's slot is UNPARSED (unknown, never zero);
+635998	- the per-day unparsed threshold still stops a date with too many such slots;
+635999	- a shard starts no new date after ``SHARD_BUDGET_MINUTES`` (170) and kills a
+636000	  date still running at the hard stop (190) or after 45 min, keeps what it
+636001	  collected and uploads it inside the 200-minute job timeout;
+636002	- finalize runs ``always()`` and ingests whatever shard artifacts exist.
+636003	The hanging reads below are REAL sockets to a local server that accepts and
+636004	never answers; only the timeouts are shortened. No EUMETSAT, no network.
+636005	import socket
+636008	from datetime import date, timedelta
+636009	from test_unreadable_product import DAY0, fake_body, good_zip, slot_name
+636010	SHORT = (0.5, 0.2)  # (connect, read) seconds for the tests
+636011	class SilentServer:
+636012	    """Accepts TCP connections and never sends a byte: a stalled read."""
+636014	        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+636015	        self.sock.bind(("127.0.0.1", 0))
+636016	        self.sock.listen(16)
+636017	        self.port = self.sock.getsockname()[1]
+636018	        self.conns, self.stop = [], threading.Event()
+636019	        self.thread = threading.Thread(target=self._serve, daemon=True)
+636020	        self.thread.start()
+636021	    def _serve(self):
+636022	        self.sock.settimeout(0.1)
+636023	        while not self.stop.is_set():
+636024	                conn, _ = self.sock.accept()
+636025	                self.conns.append(conn)  # hold it open, never answer
+636028	        self.stop.set()
+636029	        self.thread.join(2)
+636030	        for conn in self.conns:
+636031	            conn.close()
+636032	        self.sock.close()
+636033	class HangingProduct:
+636034	    """Fake eumdac product whose ``open().read()`` is a real stalled socket read.
+636035	    The stream reads with the read timeout ``collect.HTTP_TIMEOUT`` gives it, as
+636036	    urllib3 does once requests passes the timeout down.
+636037	    def __init__(self, name, port, *, hang=True, blob=None):
+636038	        self.name, self.port, self.hang, self.blob, self.opens = name, port, hang, blob, 0
+636039	        product = self
+636040	        class Stream:
+636042	                product.opens += 1
+636043	                connect, read = collect.HTTP_TIMEOUT
+636044	                self.sock = socket.create_connection(("127.0.0.1", product.port), timeout=connect)
+636045	                self.sock.settimeout(read)
+636047	            def read(self):
+636048	                if not product.hang:
+636049	                    return product.blob
+636050	                return self.sock.recv(1)  # stalls: raises TimeoutError after the read timeout
+636051	            def __exit__(self, *exc):
+636052	                self.sock.close()
+636054	        return Stream()
+636055	class RequestTimeoutTests(unittest.TestCase):
+636056	        self.server = SilentServer()
+636057	        self.addCleanup(self.server.close)
+636058	    def test_hanging_read_times_out_is_retried_then_unparsed(self):
+636059	        start = DAY0
+636060	        names = [slot_name(start + timedelta(minutes=10 * i)) for i in range(4)]
+636061	        products = [HangingProduct(names[0], self.server.port, hang=False, blob=good_zip(names[0], [])),
+636062	                    HangingProduct(names[1], self.server.port, hang=True),
+636063	                    HangingProduct(names[2], self.server.port, hang=False, blob=good_zip(names[2], [])),
+636064	                    HangingProduct(names[3], self.server.port, hang=False, blob=good_zip(names[3], []))]
+636065	        with mock.patch.object(collect, "HTTP_TIMEOUT", SHORT):
+636066	            found, count, readable, unparsed, stats = collect.download_products(
+636067	                products, start, start + timedelta(minutes=40), body_decoder=fake_body,
+636068	                sleep=slept.append, rng=lambda: 0.0)
+636069	        self.assertEqual(count, 3)
+636070	        self.assertEqual(products[1].opens, 1 + collect.TRANSIENT_RETRIES)  # retried, then given up
+636071	        self.assertEqual([u["product"] for u in unparsed], [names[1]])
+636072	        self.assertEqual(unparsed[0]["kind"], "download")
+636073	        self.assertIn("TimeoutError", unparsed[0]["reason"])
+636074	        self.assertEqual(stats["products_failed"], 1)
+636075	        self.assertEqual(stats["retries"], collect.TRANSIENT_RETRIES)
+636076	        self.assertEqual(slept, [2.0, 4.0, 8.0, 16.0])
+636077	        self.assertNotIn(names[1], readable)  # unknown, never zero
+636078	    def test_read_timeouts_are_transient_by_name(self):
+636079	        for cls_name in ("ReadTimeout", "ReadTimeoutError", "ConnectTimeout", "TimeoutError"):
+636080	            error = type(cls_name, (Exception,), {})("stalled")
+636081	            self.assertEqual(collect.classify_download_error(error)[0], "transient", cls_name)
+636082	        self.assertEqual(collect.classify_download_error(socket.timeout("timed out"))[0], "transient")
+636083	    def test_too_many_timed_out_slots_still_trip_the_per_day_threshold(self):
+636084	        names = [slot_name(start + timedelta(minutes=10 * i)) for i in range(144)]
+636085	        unparsed = [collect.unparsed_entry(n, TimeoutError("timed out"), kind="download") for n in names[:30]]
+636087	            collect.check_unparsed(unparsed, names[30:], start, start + timedelta(days=1))
+636088	        collect.check_unparsed(unparsed[:28], names[28:], start, start + timedelta(days=1))  # 28/144 < 20 %
+636089	    def _fake_requests(self):
+636090	        seen = []
+636091	        class Session:
+636092	            def request(self, method, url, params=None, data=None, headers=None, cookies=None, files=None,
+636093	                        auth=None, timeout=None, **rest):
+636094	                seen.append(timeout)
+636095	                return timeout
+636096	            def get(self, url, **kwargs):  # what eumdac.request.get ends up calling
+636097	                return self.request("GET", url, **kwargs)
+636098	        return types.SimpleNamespace(Session=Session), seen
+636099	    def test_every_session_call_gets_the_explicit_timeout(self):
+636100	        fake, seen = self._fake_requests()
+636101	        old_default = socket.getdefaulttimeout()
+636102	        self.addCleanup(socket.setdefaulttimeout, old_default)
+636103	        self.assertTrue(collect.install_http_timeouts(requests_module=fake))
+636104	        session = fake.Session()
+636105	        session.get("https://example.invalid/token")                    # eumdac: no timeout at all
+636106	        session.request("GET", "https://example.invalid/x", timeout=None)
+636107	        session.get("https://example.invalid/y", timeout=5)             # explicit one is kept
+636108	        session.request("GET", "u", None, None, None, None, None, None, None)  # positional None
+636109	        self.assertEqual(seen, [(15, 60), (15, 60), 5, (15, 60)])
+636110	        self.assertEqual(socket.getdefaulttimeout(), 60.0)
+636111	        collect.install_http_timeouts(requests_module=fake)  # idempotent: never double-wrapped
+636112	        session.get("z")
+636113	        self.assertEqual(seen[-1], (15, 60))
+636114	        self.assertEqual(len(seen), 5)
+636115	    def test_real_requests_read_times_out_on_a_stalled_server(self):
+636116	            import requests
+636117	            self.skipTest("requests not installed")
+636118	        original = requests.Session.request
+636119	        self.addCleanup(setattr, requests.Session, "request", original)
+636120	        collect.install_http_timeouts(SHORT)
+636121	        with self.assertRaises(requests.exceptions.ReadTimeout) as caught:
+636122	            requests.Session().get(f"http://127.0.0.1:{self.server.port}/product", stream=True)
+636123	        self.assertEqual(collect.classify_download_error(caught.exception)[0], "transient")
+636124	    def test_search_products_installs_the_timeout_before_eumdac(self):
+636126	        with mock.patch.dict("os.environ", {"EUMETSAT_CONSUMER_KEY": "k", "EUMETSAT_CONSUMER_SECRET": "s"}), \
+636127	                mock.patch.object(collect, "install_http_timeouts", side_effect=lambda: calls.append("t")), \
+636128	                mock.patch.dict(sys.modules, {"eumdac": None}):
+636129	            with self.assertRaises(ImportError):
+636130	                collect.search_products(DAY0, DAY0 + timedelta(days=1))
+636131	        self.assertEqual(calls, ["t"])
+636132	class ShardWallClockTests(unittest.TestCase):
+636134	    def good(self, day, record, log, timeout=None):
+636135	        from test_backfill_parallel import FakeEumetsat
+636136	        FakeEumetsat().collector()(day, record, log)
+636137	    def test_defaults_match_the_workflow(self):
+636138	        self.assertEqual(bp.DEFAULT_SHARD_BUDGET_MINUTES, 170)
+636139	        self.assertEqual(bp.DEFAULT_SHARD_BUDGET_MINUTES + bp.HARD_STOP_GRACE_MINUTES, 190)
+636140	        self.assertIn('SHARD_BUDGET_MINUTES: "170"', text)
+636141	        self.assertIn('SHARD_HARD_STOP_MINUTES: "190"', text)
+636142	    def test_hanging_collect_subprocess_is_killed_and_earlier_records_kept(self):
+636143	        """A real child process that hangs (like a stalled read) is killed at the date limit."""
+636144	        hang = [sys.executable, "-c", "import time; time.sleep(120)"]
+636145	            if day == self.dates[1]:
+636146	                with mock.patch.object(bp, "collect_command", lambda d, r: hang):
+636147	                    return bp.collect_subprocess(day, record, log, timeout=timeout)
+636148	            return self.good(day, record, log)
+636149	        summary = bp.run_shard(3, self.dates, self.out, budget_minutes=170,
+636150	                               date_timeout_minutes=1.5 / 60, collector=collector)
+636151	        self.assertIn(self.dates[1], summary["error"])
+636152	        self.assertIn("unknown", summary["error"])
+636153	        self.assertEqual([c["date"] for c in summary["collected"]], [self.dates[0]])
+636154	        self.assertFalse((self.out / f"rb-{self.dates[1]}.json").exists())
+636155	        on_disk = json.loads((self.out / "shard-3.json").read_text())
+636156	        self.assertEqual(on_disk["stopped"], "time_budget")
+636157	    def test_date_limit_never_runs_past_the_hard_stop(self):
+636158	        clock, limits = [0.0], []
+636159	            limits.append(timeout)
+636160	            self.good(day, record, log)
+636161	            clock[0] += 80 * 60  # each date "takes" 80 minutes
+636162	        summary = bp.run_shard(1, self.dates, self.out, budget_minutes=170, collector=collector,
+636163	                               clock=lambda: clock[0])
+636164	        # starts at 0 and 80 (< 170), the third at 160 gets only 190 - 160 = 30 min
+636165	        self.assertEqual(limits, [45 * 60, 45 * 60, 30 * 60])
+636166	        self.assertEqual(summary["hard_stop_minutes"], 190)
+636167	    def test_no_new_date_after_the_budget(self):
+636168	        clock, calls = [0.0], []
+636169	            calls.append(day)
+636170	            clock[0] += 90 * 60
+636171	        self.assertEqual(calls, self.dates[:2])  # 0 and 90 min start; 180 >= 170 does not
+636172	    def test_cli_default_budget_is_170(self):
+636174	        def fake_run_shard(shard, dates, out_dir, **kw):
+636175	            seen.update(kw)
+636176	            return {"stopped": "completed", "collected": [], "dates": dates, "error": None}
+636177	        with mock.patch.object(bp, "run_shard", fake_run_shard), mock.patch("signal.signal"), \
+636178	                mock.patch.dict("os.environ", {}, clear=False):
+636179	            bp.main(["shard", "--shard", "1", "--dates", "2026-10-20", "--out-dir", str(self.out)])
+636180	        self.assertEqual(seen["budget_minutes"], 170)
+636181	        self.assertIsNone(seen["hard_stop_minutes"])
+636182	        self.assertEqual(seen["date_timeout_minutes"], 45)
+636183	class WorkflowTimeoutTests(unittest.TestCase):
+636184	        self.jobs = yaml.safe_load(WORKFLOW.read_text())["jobs"]
+636185	    def test_shard_job_and_step_timeouts_bound_the_shard(self):
+636186	        shard = self.jobs["shard"]
+636187	        self.assertEqual(shard["timeout-minutes"], 200)
+636188	        budget = int(shard["env"]["SHARD_BUDGET_MINUTES"])
+636189	        hard = int(shard["env"]["SHARD_HARD_STOP_MINUTES"])
+636190	        search = next(s for s in shard["steps"] if s.get("id") == "search")
+636191	        self.assertLess(budget, hard)
+636192	        self.assertLess(hard, search["timeout-minutes"])
+636193	        self.assertLess(search["timeout-minutes"], shard["timeout-minutes"])
+636194	        self.assertIn("--hard-stop-minutes", search["run"])
+636195	        upload = next(s for s in shard["steps"] if str(s.get("uses", "")).startswith("actions/upload-artifact"))
+636196	        self.assertEqual(upload["if"], "${{ always() }}")
+636197	    def test_finalize_runs_always_and_tolerates_missing_artifacts(self):
+636198	        fin = self.jobs["finalize"]
+636199	        self.assertTrue(fin["if"].startswith("${{ always()"))
+636200	        records = next(s for s in fin["steps"] if s.get("with", {}).get("pattern") == "backfill-shard-*")
+636201	        self.assertTrue(records["continue-on-error"])
+636202	        self.assertTrue(records["with"]["merge-multiple"])
 ```
