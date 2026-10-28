@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-388,318 unique lines, numbered 1 to 636,202. Generated 2026-10-28T00:44:14.939Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+388,602 unique lines, numbered 1 to 639,216. Generated 2026-10-28T07:22:56.520Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -388321,4 +388321,288 @@
 636200	        records = next(s for s in fin["steps"] if s.get("with", {}).get("pattern") == "backfill-shard-*")
 636201	        self.assertTrue(records["continue-on-error"])
 636202	        self.assertTrue(records["with"]["merge-multiple"])
+636554	    newer main after a rejected push is idempotent. A refused date (a gate of
+636555	    ``history.backfill_day``, a record that changed in transit, or any other
+636556	    error while ingesting it) is skipped ONLY: it stays never searched (unknown,
+636557	    not zero), its reason is recorded in ``refused_days`` and the stop becomes
+636558	    ``archive_refused``, while every other date is still ingested and committed.
+636559	    ``backfill_day`` stages its writes, so a refused date changes nothing.
+636583	    outside_by_day: dict[str, int] = {}
+636584	    refused: dict[str, str] = {}
+636590	            refused[day] = "record missing or sha256 differs from its shard summary"
+636591	            print(f"REFUSED {day}: {refused[day]} (date left unknown; continuing)", file=sys.stderr)
+636599	        except Exception as exc:  # noqa: BLE001 - one date must never cost the whole run
+636600	            refused[day] = str(exc) if isinstance(exc, ValueError) else f"{type(exc).__name__}: {exc}"
+636609	        if result.get("outside_day"):
+636610	            outside_by_day[day] = int(result["outside_day"])
+636617	        errors[:0] = [f"{day}: {reason}" for day, reason in refused.items()]
+636625	    new_status["backfill"].update(mode="parallel", shards=len(expected), skipped_already_searched_days=skipped,
+636626	                                  refused_days=dict(refused), outside_day_by_day=outside_by_day)
+636628	    return {"stopped": stopped, "error": error, "filled": filled, "skipped": skipped, "refused": dict(refused),
+636734	              f"refused={len(result['refused'])} "
+636800	# A flash belongs to the slot of ITS product (nominal sensing start/end in the
+636801	# product name), never to the slot its own timestamp falls in. Real LFL flashes
+636802	# sit up to about 0.4 s outside their product's nominal sensing period (observed:
+636803	# ..._OPE_20261023195009_... flash 322 at 19:50:08.639, 0.361 s early), so a
+636804	# flash within this many seconds of its product's nominal slot is genuine; one
+636805	# further out is an inconsistent record.
+636806	SLOT_EDGE_TOLERANCE_SECONDS = 60
+637122	    tolerance = timedelta(seconds=SLOT_EDGE_TOLERANCE_SECONDS)
+637148	        # Decode every flash of the product's own nominal slot (+- tolerance), not
+637149	        # only those inside the query window: callers then drop the ones outside
+637150	        # their window and COUNT them (split_by_window), instead of losing them silently.
+637152	        lo, hi = (min(start, slot[0] - tolerance), max(end, slot[1] + tolerance)) if slot else (start, end)
+637153	            features = decode_product(blob, name, lo, hi, body_decoder=body_decoder)
+637299	def flash_slot(feature) -> tuple[datetime, datetime] | None:
+637300	    """Nominal sensing slot of the product a flash came from (its id is
+637301	    ``<product name>:<index>``), or None when the id carries no product slot."""
+637302	    identifier = feature.get("id") if isinstance(feature, dict) else None
+637303	    if not isinstance(identifier, str):
+637304	    return product_slot(identifier.rsplit(":", 1)[0])
+637305	def flash_in_examined_slot(feature, examined_starts, spans, *,
+637306	                           tolerance_seconds: float = SLOT_EDGE_TOLERANCE_SECONDS) -> bool:
+637307	    """Is this flash consistent with what the search examined?
+637308	    With a product slot in its id: its product's nominal start must be one of
+637309	    ``examined_starts`` (``slots_examined_utc``) and its time must lie within
+637310	    ``tolerance_seconds`` of that slot. Without one (legacy ids): its time must
+637311	    lie in an examined span. Used by history.py's backfill/recover gates.
+637312	    moment = parse_utc(feature["properties"]["time_utc"])
+637313	    slot = flash_slot(feature)
+637314	    if slot is None:
+637315	        return any(s <= moment < e for s, e in spans)
+637316	    start, end = slot
+637317	    if start not in examined_starts:
+637319	    tolerance = timedelta(seconds=tolerance_seconds)
+637320	    return start - tolerance <= moment < end + tolerance
+637321	def split_by_window(features, start: datetime, end: datetime) -> tuple[list, int]:
+637322	    """(flashes timed inside [start, end), number of flashes outside it)."""
+637323	    inside, outside = [], 0
+637325	        if start <= parse_utc(feature["properties"]["time_utc"]) < end:
+637326	            inside.append(feature)
+637328	    return inside, outside
+637441	        # Flashes of an examined product timed outside the UTC date (e.g. the
+637442	        # previous day's tail of a product straddling midnight) are not this
+637443	        # date's observations: dropped from the record and counted.
+637444	        incoming, outside_day = split_by_window(incoming, start, end)
+637463	    record["outside_day"] = outside_day
+637469	          f"{record['products_unparsed']} unparsed product(s), {retries['retries']} download retries, "
+637470	          f"{outside_day} flash(es) outside the date dropped).", file=sys.stderr)
+637510	        incoming, outside_window = split_by_window(incoming, beginning, now)
+637518	        record["outside_window"] = outside_window
+637575	    LOOKBACK_MAX_HOURS, LOOKBACK_MIN_HOURS, PROVIDER, RUN_RECORD_SCHEMA, SLOT_EDGE_TOLERANCE_SECONDS, SLOT_SECONDS,
+637576	    SOURCE_URL, UK_BOUNDS, flash_in_examined_slot, flash_slot, inside_uk_view, parse_utc,
+637731	    10-minute slot of ITS product was examined. The slot is taken from the
+637732	    product's nominal start (collect.flash_slot), the same attribution collect.py
+637733	    and the backfill gate use, so an edge flash timed just before its product's
+637734	    start does not prove the previous slot; ids without a product slot fall back
+637735	    to the flash's own time."""
+637739	        slot = flash_slot(record)
+637740	        anchor = slot[0] if slot else moment
+637741	        day_start = datetime.combine(moment.date(), time.min, tzinfo=timezone.utc)
+637742	        seconds = int(math.floor((anchor - day_start).total_seconds())) - SLOT_PHASE_SECONDS
+638457	    examined = {parse_utc(s) for s in record.get("slots_examined_utc") or []}
+638458	    # A valid flash of the neighbouring UTC date (a product straddling midnight)
+638459	    # is not refused: it is dropped from this date and counted as outside_day.
+638460	    validity_cutoff = min(cutoff, date.fromisoformat(day) - timedelta(days=1))
+638462	    outside_day = 0
+638464	        valid = validate_feature(feature, now, validity_cutoff)
+638465	        if valid is None:
+638466	            raise ValueError(f"{rebuild_record}: invalid observation {feature.get('id') if isinstance(feature, dict) else feature!r}")
+638467	        if valid[0] != day:
+638468	            outside_day += 1
+638469	        # Attributed to its product's nominal slot: that product must have been
+638470	        # examined and the flash must lie within SLOT_EDGE_TOLERANCE_SECONDS of it.
+638471	        if not flash_in_examined_slot(feature, examined, spans):
+638472	            raise ValueError(f"{rebuild_record}: flash {feature['id']} lies outside the examined slots "
+638473	                             f"(its product's nominal slot +- {SLOT_EDGE_TOLERANCE_SECONDS} s)")
+638506	        # Flashes timed outside the date: dropped by collect.py (record "outside_day")
+638507	        # plus any still present in the record and dropped here.
+638508	        "outside_day": outside_day + int(record.get("outside_day") or 0),
+638509	        "outside_day_in_record": outside_day,
+638564	              f"count {row['count']}, {len(result['unscanned_ranges'])} unsearched gap(s) left unknown, "
+638565	              f"{result['outside_day']} flash(es) outside the date dropped; verify ok.")
+638807	        # only the refused date is skipped; the ingest continues with the older dates
+638808	        self.assertEqual(rows["2026-10-18"]["count"], 1)
+638809	        self.assertEqual(result["filled"], [d for d in self.plan if d != "2026-10-22"])
+638810	        status = json.loads(self.status.read_text())["backfill"]
+638811	        self.assertEqual(status["remaining_unknown_days"], ["2026-10-22"])
+638812	        self.assertIn("sha256", status["refused_days"]["2026-10-22"])
+639029	"""Slot-edge flashes: attribution to the product's nominal slot, outside-day drops,
+639030	and a finalize that never loses a whole run to one refused date.
+639031	Incident (parallel backfill run 40608108170): the rebuild of 2026-08-28 held
+639032	flash ``..._OPE_20260828000049_20260828001009_...:203``, timed just before its
+639033	product's nominal sensing start 00:00:49. The examined spans had a 40 s hole
+639034	(the previous product ends 00:00:09), so ``history.backfill_day`` refused the
+639035	date ("lies outside the examined slots") and finalize stopped, leaving six
+639036	other verified records un-ingested. Real LFL flashes sit up to about 0.4 s
+639037	before their product's nominal start (observed: 0.361 s); the genuineness
+639038	tolerance is +-60 s.
+639039	Synthetic features exist ONLY inside temporary directories (fake products,
+639040	fake decoder); nothing synthetic is ever published.
+639042	from test_unreadable_product import FakeProduct, fake_body, good_zip
+639045	EDGE = timedelta(seconds=0.361)  # observed: a flash 0.361 s before its product's nominal start
+639046	def product_name(start: datetime, end: datetime) -> str:
+639047	def iso(moment: datetime) -> str:
+639048	    return collect.iso_utc(moment)
+639049	class EdgeEumetsat:
+639050	    """A day laid out like the incident, through the REAL download/decode path.
+639051	    P0 = previous-day product 23:50:09-00:00:09, P1 = 00:00:49-00:10:09 (the
+639052	    incident's first product), then 10-minute products from 00:10:09 on. The
+639053	    examined spans therefore have a 40 s hole 00:00:09-00:00:49.
+639054	    ``flashes`` maps a product start to [(lon, lat, time)].
+639055	    def __init__(self, day: datetime, flashes: dict, skip=()):
+639056	        self.day, self.flashes, self.skip = day, flashes, set(skip)
+639057	    def slots(self):
+639058	        p0 = self.day - timedelta(seconds=591)                     # 23:50:09 of the previous day
+639059	        yield p0, self.day + timedelta(seconds=9)                  # -> 00:00:09
+639060	        yield self.day + timedelta(seconds=49), self.day + timedelta(minutes=10, seconds=9)
+639061	        cursor = self.day + timedelta(minutes=10, seconds=9)
+639062	        while cursor < self.day + timedelta(days=1):
+639063	            yield cursor, cursor + timedelta(minutes=10)
+639064	    def products(self):
+639065	        for start, end in self.slots():
+639066	            if start in self.skip:
+639067	            name = product_name(start, end)
+639068	            rows = [(lon, lat, iso(t)) for lon, lat, t in self.flashes.get(start, [])]
+639069	            yield FakeProduct(name, good_zip(name, rows))
+639070	        return collect.download_products(self.products(), start, end, body_decoder=fake_body)
+639071	def incident_flashes(day: datetime) -> dict:
+639072	    p0 = day - timedelta(seconds=591)
+639073	    p1 = day + timedelta(seconds=49)
+639074	    p5 = day + timedelta(hours=5, seconds=9)
+639075	        p0: [(-2.0, 52.0, day - timedelta(seconds=30)),     # previous UTC day: outside_day
+639076	             (-2.1, 52.1, day + timedelta(seconds=5))],     # in the day, attributed to P0
+639077	        p1: [(-2.2, 52.2, p1 - EDGE),                       # the incident: 0.361 s before P1
+639078	             (-2.3, 52.3, p1 + timedelta(minutes=4))],
+639079	        p5: [(-2.4, 52.4, p5 + timedelta(minutes=3))],
+639080	def make_archive(root: Path) -> None:
+639081	    hourly = datetime(2026, 10, 26, tzinfo=timezone.utc)
+639082	        root, [build_feature(-2.12, 51.11, hourly + timedelta(hours=3), "TEST-hourly", 0)],
+639083	        now=NOW - timedelta(hours=1),
+639084	        scanned_windows=[history.successful_scan((hourly + timedelta(hours=1)).isoformat(),
+639085	                                                 (hourly + timedelta(hours=7)).isoformat(), 36)],
+639086	def rows(root: Path) -> dict:
+639087	class SlotAttributionTests(unittest.TestCase):
+639088	    def test_flash_slot_is_its_products_nominal_slot(self):
+639089	        start = datetime(2026, 10, 23, 19, 50, 9, tzinfo=timezone.utc)
+639090	        feature = build_feature(-2.0, 52.0, start - EDGE, product_name(start, start + timedelta(minutes=10)), 322)
+639091	        self.assertEqual(collect.flash_slot(feature), (start, start + timedelta(minutes=10)))
+639092	        self.assertIsNone(collect.flash_slot(build_feature(-2.0, 52.0, start, "TEST-x", 0)))
+639093	    def test_flashes_prove_their_products_slot_not_the_slot_of_their_timestamp(self):
+639094	        name = product_name(start, start + timedelta(minutes=10))
+639095	        edge = build_feature(-2.0, 52.0, start - EDGE, name, 322)          # 19:50:08.639
+639096	        inner = build_feature(-2.0, 52.0, start + timedelta(minutes=5), name, 1)
+639097	        self.assertEqual(history.slots_proved_by_flashes([edge, inner]), 600)
+639098	    def test_edge_tolerance_is_the_documented_sixty_seconds(self):
+639099	        self.assertEqual(collect.SLOT_EDGE_TOLERANCE_SECONDS, 60)
+639100	class RebuildOutsideDayTests(unittest.TestCase):
+639101	        self.record = Path(self.temp.name) / "rb.json"
+639102	    def test_rebuild_drops_previous_day_flashes_and_counts_them_outside_day(self):
+639103	        collect.rebuild_day_record(TARGET, self.record, now=NOW, downloader=EdgeEumetsat(DAY0, incident_flashes(DAY0)))
+639104	        record = json.loads(self.record.read_text())
+639105	        times = sorted(f["properties"]["time_utc"] for f in record["features"])
+639106	        self.assertEqual(record["outside_day"], 1)
+639107	        self.assertTrue(all(t.startswith(TARGET) for t in times), times)
+639108	        self.assertEqual(len(times), 4)
+639109	        self.assertIn("2026-10-20T00:00:48.639Z", times)
+639110	class BackfillEdgeTests(unittest.TestCase):
+639113	        make_archive(self.root)
+639115	    def rebuild(self, flashes=None, skip=()):
+639116	        fake = EdgeEumetsat(DAY0, incident_flashes(DAY0) if flashes is None else flashes, skip=skip)
+639117	        collect.rebuild_day_record(TARGET, self.record, now=NOW, downloader=fake)
+639119	    def write(self, record):
+639120	        self.record.write_text(json.dumps(record))
+639121	    def backfill(self):
+639122	        return history.backfill_day(self.root, TARGET, now=NOW, rebuild_record=self.record)
+639123	    def test_incident_edge_flash_before_its_products_nominal_start_is_accepted(self):
+639126	        row = rows(self.root)[TARGET]
+639127	        self.assertEqual(row["count"], 4)
+639128	        self.assertEqual(row["coverage"], "partial")       # the 40 s hole stays unknown
+639129	        self.assertEqual(row["scanned_seconds"], 86400 - 40)
+639130	        self.assertEqual(result["outside_day"], 1)
+639131	    def test_previous_day_flash_inside_a_record_is_dropped_and_counted_not_refused(self):
+639132	        record = self.rebuild()
+639133	        p0 = DAY0 - timedelta(seconds=591)
+639134	        name = product_name(p0, DAY0 + timedelta(seconds=9))
+639135	        record["features"].append(build_feature(-2.5, 52.5, DAY0 - timedelta(seconds=0.2), name, 77))
+639136	        self.write(record)
+639137	        self.assertEqual(rows(self.root)[TARGET]["count"], 4)
+639138	        self.assertEqual(result["outside_day"], 2)          # 1 dropped by collect + 1 in the record
+639139	        self.assertEqual(result["outside_day_in_record"], 1)
+639140	    def test_next_day_flash_inside_a_record_is_dropped_and_counted(self):
+639141	        last = DAY0 + timedelta(hours=23, minutes=50, seconds=9)
+639142	        name = product_name(last, last + timedelta(minutes=10))
+639143	        record["features"].append(build_feature(-2.5, 52.5, DAY0 + timedelta(days=1, seconds=3), name, 5))
+639144	    def test_flash_two_minutes_outside_its_product_is_still_refused(self):
+639145	        p5 = DAY0 + timedelta(hours=5, seconds=9)
+639146	        name = product_name(p5, p5 + timedelta(minutes=10))
+639147	        # inside the examined spans (the 04:50:09 product), but 120 s before its own product
+639148	        record["features"].append(build_feature(-2.5, 52.5, p5 - timedelta(seconds=120), name, 9))
+639149	        before = (self.root / "index.json").read_bytes()
+639150	        with self.assertRaisesRegex(ValueError, "lies outside the examined slots"):
+639151	            self.backfill()
+639152	        self.assertEqual((self.root / "index.json").read_bytes(), before)
+639153	    def test_flash_of_a_product_that_was_not_examined_is_refused(self):
+639154	        record = self.rebuild(skip={p5})
+639155	        record["features"].append(build_feature(-2.5, 52.5, p5 + timedelta(minutes=2), name, 9))
+639156	    def test_flash_without_a_product_slot_still_needs_an_examined_span(self):
+639157	        record["features"].append(build_feature(-2.5, 52.5, DAY0 + timedelta(seconds=20), "TEST-noslot", 0))
+639158	        self.write(record)                                  # 00:00:20 lies in the 40 s hole
+639159	class FinalizeContinuesTests(unittest.TestCase):
+639160	    """One refused date is skipped (left unknown, reason recorded); the others are ingested."""
+639161	        self.status.write_text(json.dumps({"schema": "uk-lightning-status.v1", "health": "ok", "freshness": "ok"}))
+639162	        self.plan = ["2026-10-22", "2026-10-21", "2026-10-20", "2026-10-19"]
+639163	        def run(day, record, log, timeout=None):
+639164	            start = datetime.combine(date.fromisoformat(day), datetime.min.time(), tzinfo=timezone.utc)
+639165	            collect.rebuild_day_record(day, record, now=NOW, downloader=EdgeEumetsat(start, incident_flashes(start)))
+639166	        return run
+639167	    def shards(self, n=2):
+639168	        for m in bp.split_shards(self.plan, n):
+639169	            bp.run_shard(m["shard"], m["dates"].split(), self.records, budget_minutes=290, collector=self.collector())
+639170	    def tamper(self, day, mutate, resign=True):
+639171	        record = self.records / f"rb-{day}.json"
+639172	        mutate(data)
+639173	        if resign:  # the shard summary agrees: the record reaches history.backfill_day's own gates
+639174	            for summary_path in self.records.glob("shard-*.json"):
+639175	                summary = json.loads(summary_path.read_text())
+639176	                for item in summary["collected"]:
+639177	                    if item["date"] == day:
+639178	                        item["sha256"] = bp.sha256_file(record)
+639179	                summary_path.write_text(json.dumps(summary))
+639180	    def finalize(self, n=2):
+639181	    def test_incident_records_with_edge_flashes_are_all_ingested(self):
+639182	        self.assertEqual(status["refused_days"], {})
+639183	        self.assertEqual(status["outside_day_by_day"], {d: 1 for d in self.plan})
+639184	    def test_one_inconsistent_date_is_skipped_and_the_rest_are_ingested(self):
+639185	        def bad(data):
+639186	            p5 = datetime.combine(date(2026, 10, 21), datetime.min.time(), tzinfo=timezone.utc) + timedelta(hours=5, seconds=9)
+639187	            data["features"].append(build_feature(-2.5, 52.5, p5 - timedelta(seconds=120),
+639188	                                                  product_name(p5, p5 + timedelta(minutes=10)), 9))
+639189	        self.tamper("2026-10-21", bad)
+639190	        self.assertEqual(result["filled"], ["2026-10-22", "2026-10-20", "2026-10-19"])
+639191	        self.assertIn("2026-10-21", result["refused"])
+639192	        r = rows(self.root)
+639193	        self.assertEqual((r["2026-10-21"]["coverage"], r["2026-10-21"]["count"]), ("none", None))
+639194	        for d in ("2026-10-22", "2026-10-20", "2026-10-19"):
+639195	            self.assertEqual(r[d]["count"], 4, d)
+639196	        self.assertEqual(status["remaining_unknown_days"], ["2026-10-21"])
+639197	        self.assertIn("lies outside the examined slots", status["refused_days"]["2026-10-21"])
+639198	        self.assertIn("2026-10-21", status["error"])
+639199	    def test_a_record_changed_in_transit_is_skipped_and_later_dates_still_ingested(self):
+639200	        self.tamper("2026-10-22", lambda data: data.update(features=[]), resign=False)
+639201	        self.assertEqual(result["filled"], ["2026-10-21", "2026-10-20", "2026-10-19"])
+639202	        self.assertIn("sha256", json.loads(self.status.read_text())["backfill"]["refused_days"]["2026-10-22"])
+639203	        self.assertIsNone(rows(self.root)["2026-10-22"]["count"])
+639204	    def test_an_unexpected_ingest_error_is_contained_to_its_date(self):
+639205	        real = history.backfill_day
+639206	        def flaky(archive_dir, day, **kw):
+639207	            if day == "2026-10-20":
+639208	                raise OSError("disk hiccup")
+639209	            return real(archive_dir, day, **kw)
+639210	        bp.history.backfill_day = flaky
+639211	            result = self.finalize()
+639213	            bp.history.backfill_day = real
+639214	        self.assertEqual(result["filled"], ["2026-10-22", "2026-10-21", "2026-10-19"])
+639215	        self.assertIn("OSError", result["refused"]["2026-10-20"])
+639216	        self.assertIsNone(rows(self.root)["2026-10-20"]["count"])
 ```
