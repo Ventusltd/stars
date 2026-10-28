@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-10-27`
+# The Random star — 149 links by chance, seed `2026-10-28`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- Si(202609032246) —ENTANGLED_MAYBE (0.543)→ #4312 readText
-- #4282 assertContained —MIGHT_TOUCH (0.957)→ Ri REPD_IDS
-- #5403 nativeFetch —ENTANGLED_MAYBE (0.164)→ #3384 globalgrid2050/promise
-- #4315 readText —ENTANGLED_MAYBE (0.362)→ #3384 globalgrid2050/promise
-- #3610 testcode/onChange —REMINDS_OF (0.783)→ #3384 testcode/promise
-- #4466 words —ENTANGLED_MAYBE (0.787)→ Ss(202609080846)
-- Si(202609040046) —COULD_REPLACE (0.018)→ #3816 drawNewsV9_5_1
-- #1524 pipelinenews/promise —RHYMES_WITH (0.612)→ G2 grid_220kv
-- #1230 renderTechSummary —WHAT_IF (0.935)→ #1524 globalgrid2050/promise
-- Si(202609051525) —RHYMES_WITH (0.448)→ #3384 globalgrid2050/promise
-- #3610 gridatlas/onChange —REMINDS_OF (0.569)→ #1179 computeStats
-- #4052 globalgrid2050/handle —REMINDS_OF (0.057)→ #3610 gridatlas/onChange
-- #3610 gridatlas/onChange —WHAT_IF (0.862)→ #3384 testcode/promise
-- #4402 category —COULD_REPLACE (0.899)→ #5909 projects
-- #15 globalgrid2050/renderStats —REMINDS_OF (0.476)→ Ss sld-sandbox
-- Ss —RHYMES_WITH (0.098)→ #8492 isRetiredReceiver
-- sld-sandbox: Error: grid-scope requires the geodesy module —WHAT_IF (0.482)→ Sp streaming-parquet-bridge
-- #6847 cell —MIGHT_TOUCH (0.29)→ #1201 renderFinanceWarnings
-- #1524 pipelinenews/promise —COULD_REPLACE (0.877)→ #3405 ready
-- #4114 mountMapControlsLayout —COULD_REPLACE (0.326)→ #3805 validPayload
-- #15 globalgrid2050/renderStats —WHAT_IF (0.382)→ #3610 testcode/onChange
-- #537 query —MIGHT_TOUCH (0.647)→ #5889 authority
-- #1684 clearWider —REMINDS_OF (0.767)→ #3384 globalgrid2050/promise
-- #1524 globalgrid2050/promise —COULD_REPLACE (0.195)→ #3610 gridatlas/onChange
-- #4870 savePdf —WHAT_IF (0.926)→ #3610 gridatlas/onChange
-- #1567 select —MIGHT_TOUCH (0.808)→ #3384 testcode/promise
-- #5439 title —WHAT_IF (0.367)→ #3610 gridatlas/onChange
-- #1524 globalgrid2050/promise —COULD_REPLACE (0.584)→ #8099 mount
-- #1524 pipelinenews/promise —REMINDS_OF (0.189)→ #4 normaliseBurialDepthFieldOnBlur
-- repo data-federation-map-for-globalgrid2050-all-repos —RHYMES_WITH (0.013)→ #5909 projects
-- repo solar-electrical-topology-analysis-engine-text-based —ENTANGLED_MAYBE (0.724)→ #3807 fetchPayload
-- #19 drawFormation —ENTANGLED_MAYBE (0.267)→ repo crm
-- #1535 invariant —COULD_REPLACE (0.858)→ #3610 globalgrid2050/onChange
-- #1524 globalgrid2050/promise —COULD_REPLACE (0.409)→ #3360 sharedDuckDBRuntime
-- #3384 globalgrid2050/promise —REMINDS_OF (0.294)→ #3610 testcode/onChange
-- #3610 gridatlas/onChange —RHYMES_WITH (0.238)→ #3610 gridatlas/onChange
-- repo unnamed-01 —COULD_REPLACE (0.704)→ #1211 setText
-- repo youengineer-code-review —COULD_REPLACE (0.621)→ #3801 signalForProjectV9_2
-- #3821 loadNewsV9_5_1 —WHAT_IF (0.705)→ Si(202609051510)
-- Si(202609051529) —MIGHT_TOUCH (0.259)→ #3384 testcode/promise
+- Ss(202609050301) —REMINDS_OF (0.572)→ Si(202609020018)
+- Dt deeplink (the MAP button) —REMINDS_OF (0.713)→ Ss sld-sandbox
+- #1191 computeAndDraw —REMINDS_OF (0.505)→ #1533 selfTest
+- #3610 gridatlas/onChange —WHAT_IF (0.719)→ repo pipelinenews
+- #1476 invariant —MIGHT_TOUCH (0.667)→ #7851 available
+- #1524 globalgrid2050/promise —COULD_REPLACE (0.802)→ #3610 globalgrid2050/onChange
+- Sm SOLAR_MIN_EXCLUSIVE —REMINDS_OF (0.047)→ #4870 savePdf
+- #6688 releases —ENTANGLED_MAYBE (0.158)→ Gc geo-core.js
+- #3822 bindNewspaperV9_5_1 —MIGHT_TOUCH (0.741)→ #3384 testcode/promise
+- #5885 groupFor —MIGHT_TOUCH (0.77)→ #4076 reset
+- #3821 loadNewsV9_5_1 —REMINDS_OF (0.715)→ #1524 pipelinenews/promise
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.902)→ #8391 buildNavigationRegistry
+- #8 computeLayout —RHYMES_WITH (0.225)→ #3828 validPayload
+- #4052 globalgrid2050/handle —RHYMES_WITH (0.803)→ #1542 select
+- #5 normaliseIntegerFields —WHAT_IF (0.794)→ #15 globalgrid2050/renderStats
+- repo unnamed-01 —REMINDS_OF (0.672)→ #1524 pipelinenews/promise
+- #1468 renderRows —COULD_REPLACE (0.302)→ #1211 setText
+- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.857)→ #1524 globalgrid2050/promise
+- #1175 getCentralInverterDcMwdc —ENTANGLED_MAYBE (0.489)→ #3610 testcode/onChange
+- #3384 globalgrid2050/promise —MIGHT_TOUCH (0.959)→ #3800 signalLabel
+- #3405 ready —COULD_REPLACE (0.151)→ #1470 invariant
+- #1524 globalgrid2050/promise —WHAT_IF (0.398)→ #190 replay
+- #3409 physicalInputs —RHYMES_WITH (0.696)→ #3610 gridatlas/onChange
+- Si(202609050238) —RHYMES_WITH (0.835)→ #3610 globalgrid2050/onChange
+- #1205 pickProp —WHAT_IF (0.409)→ #401 head_sha
+- #6161 item —WHAT_IF (0.817)→ #3610 gridatlas/onChange
+- #3813 signalForProjectV9_5_1 —RHYMES_WITH (0.446)→ #3409 physicalInputs
+- repo ventus-grid-engine —MIGHT_TOUCH (0.282)→ repo teleprinter
+- #3384 testcode/promise —REMINDS_OF (0.712)→ Si(202609051510)
+- #1497 setButtonState —REMINDS_OF (0.355)→ Ss(202609012317)
+- #2141 scripts —ENTANGLED_MAYBE (0.137)→ #4711 waitForResolvedIdentity
+- Sp —COULD_REPLACE (0.968)→ Ss(202609080430)
+- #1524 pipelinenews/promise —WHAT_IF (0.595)→ #3738 classifyRegionalV9_7
+- #5556 sha256PublishedFile —RHYMES_WITH (0.895)→ #4076 reset
+- repo globalgrid2050 —ENTANGLED_MAYBE (0.74)→ #3384 globalgrid2050/promise
+- #8630 getLayerConfig —RHYMES_WITH (0.713)→ #5914 repoUrl
+- Ss(202609030128) —WHAT_IF (0.464)→ #1219 toggleAtlasV8GridLayer
+- #3610 globalgrid2050/onChange —REMINDS_OF (0.63)→ repo solar-electrical-topology-analysis-engine-text-based
+- #3384 testcode/promise —COULD_REPLACE (0.739)→ repo layout-tool
+- Si(202609030137) —COULD_REPLACE (0.884)→ #1524 pipelinenews/promise
 
 ## For the Spider
-`random/graph.json` — 166 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 171 nodes, 149 edges. Fly it when you want to get lost on purpose.
