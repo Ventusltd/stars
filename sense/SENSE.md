@@ -1,6 +1,6 @@
 # Sense of the code universe
 
-Generated 2026-10-29T13:42:15.940Z. 142 nodes, 574 edges, 90.0 KB.
+Generated 2026-10-29T19:14:11.381Z. 142 nodes, 574 edges, 90.0 KB.
 
 This graph is not a list of files. It is globalgrid2050 architecture development's code read in an order that makes sense, so the FOCUS list on the
 Spider dashboard reads as a narrative from the whole to the parts:
