@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-10-28 19:54 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (110 KB, 133 cards, 382 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-10-29 00:23 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (111 KB, 134 cards, 387 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (38)
+## Repositories (39)
 
 ```mermaid
 flowchart TD
@@ -75,6 +75,8 @@ flowchart TD
   estate --> n_Ventusltd_gridmachine1
   n_Ventusltd_kuiper_drawing_engine["kuiper-drawing-engine · 1 blocks"]:::ok
   estate --> n_Ventusltd_kuiper_drawing_engine
+  n_Ventusltd_lightning["lightning · 1 blocks"]:::ok
+  estate --> n_Ventusltd_lightning
   n_Ventusltd_sld["sld · 1 blocks"]:::ok
   estate --> n_Ventusltd_sld
   n_Ventusltd_solar_electrical_topology_analysis_engine_text_based["solar-electrical-topology-analysis-engine-text-based · 1 blocks"]:::ok
@@ -288,6 +290,9 @@ flowchart LR
   n_block_Em --> n_block_Tp
   n_block_Em --> n_block_Pr
   n_block_Em --> n_block_Gn
+  n_block_Pr --> n_block_Vn
+  n_block_Pr --> n_block_Ss
+  n_block_Pr --> n_block_Si
   n_block_Pr --> n_block_Dc
   n_block_Pr --> n_block_Dt
   n_block_Gn --> n_block_Dt

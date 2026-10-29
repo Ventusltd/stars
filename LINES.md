@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-389,484 unique lines, numbered 1 to 651,999. Generated 2026-10-28T19:54:00.689Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+392,765 unique lines, numbered 1 to 663,402. Generated 2026-10-29T00:23:25.632Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -389487,4 +389487,3285 @@
 651996	        # A 404/410/400 on ONE product is now an unparsed slot (test_download_retries:
 651997	        # test_one_product_the_store_will_not_serve_becomes_an_unparsed_slot).
 651999	                      PermissionError("denied")):
+658899	/* uk-lightning-overlay, generation 202610281950 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+658901	let MX=Math.max,MN=Math.min,AI=Array.isArray,DP=Date.parse,ap=(p,c)=>p.appendChild(c),gr=e=>e.getBoundingClientRect(),U='unknown, not zero',NS=(window.__GRIDATLAS_MODULES__=window.__GRIDATLAS_MODULES__||{});
+658903	let GEN='202610281950',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+658908	FOOTER=`Times UTC · Optical flashes seen by MTG Lightning Imager (EUMETSAT L2-LFL), not confirmed ground strikes · Missing days are ${U} · UK box −11.0,49.5 → 3.0,61.5`,
+658910	ymd=t=>new Date(t).toISOString().slice(0,10),ds=d=>DP(d+'T00:00:00Z'),Q=id=>document.getElementById(id),E=m=>{throw new TypeError(m)},
+658912	N=n=>Number(n).toLocaleString('en-GB'),pl=(n,w,s='s')=>N(n)+' '+w+(n==1?'':s),dm=t=>{let s=new Date(t).toUTCString(),y=s.slice(12,16);return+s.slice(5,7)+s.slice(7,11)+(y==new Date().getUTCFullYear()?'':' '+y)},hm=t=>T(t).slice(11,16),dt=t=>dm(t)+' '+hm(t),du=m=>(m=Math.round(m/6e4),(m>59?N(m/60|0)+' h ':'')+(m%60||m<60?m%60+' min':'')).trim(),hz=w=>!w.custom&&w.span<=2*DAY,de=(a,b)=>dm(a)==dm(b)?hm(b):dt(b),sv=(r,k,p)=>{let v=r.cov,w=r.w,a=k&&/READY|EMPTY/.test(k.st);return hz(w)?(a?'all ':(v.f>0?du(v.f*w.span):'0')+' of ')+w.label+' searched':(a?'all '+pl(v.d,'day'):`${v.k} of ${pl(v.d,'day')}`)+' searched'+(p&&v.pp?` (${v.pp} in part)`:'')},lr=(g,now,f)=>isFinite(g)?`collector last ran ${ymd(g)==ymd(now)?hm(g):dt(g)} UTC${f&&g-f>HOUR?`, searched to ${ymd(f)==ymd(now)?hm(f):dt(f)} UTC`:''}${g>now+9e5?' (device clock behind)':''}`:'collector last run unknown',F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,AGO=t=>t<0?'?':t<3e4?'<1 min':du(t),
+658913	ov=(a,b,c,d)=>MX(0,MN(b,d)-MX(a,c)),FC=f=>({type:'FeatureCollection',features:f||[]}),bx=(x,y)=>x===+x&&y===+y&&x>=-11&&x<=3&&y>=49.5&&y<=61.5,isFC=o=>o&&o.type==='FeatureCollection'&&AI(o.features),tm=f=>{let s=f.properties.time_utc+'';return DP(/T[\d:.]+$/.test(s)?s+'Z':s)},msg=e=>cs(e&&e.message||e),
+658915	mm=(t,k)=>{let d=new Date(t),day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()-k);d.setUTCDate(MN(day,new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate()));return d.getTime()},
+658919	gj=(u,cache,raw)=>{let c=new AbortController(),t=setTimeout(()=>c.abort(),TMO);S.requests++;
+658921	gx=u=>{S.requests++;return new Promise((res,rej)=>{let x=new XMLHttpRequest();x.open('GET',u);x.timeout=TMO;
+658924	lg=k=>{if(!lru.has(k))return;let v=lru.get(k);lru.delete(k);lru.set(k,v);return v},ls=(k,v)=>{lru.delete(k);lru.set(k,v);while(lru.size>RQ)lru.delete(lru.keys().next().value)},
+658925	vk=r=>{let n=r&&r.count,b=w=>E(`invalid index row ${r&&r.date}: ${w}`);if(!r||ymd(ds(r.date)||0)!=r.date)b('date');if(!['none','partial','full'].includes(r.coverage))b('coverage');
+658928	if(r.parts&&!(AI(r.parts)&&r.parts.length<=24&&r.parts.every(p=>p&&/^days\/\d{4}(\/\d\d){3}\.json$/.test(p.path)&&(p.count>>>0||-1)===p.count)))b('parts')},
+658929	ni=raw=>{if(!raw||typeof raw!=='object'||!AI(raw.days))E('not a lightning history index');
+658932	let gen=DP(raw.generated_utc);if(!isFinite(gen))E('index generated_utc missing');if(!DRE.test(raw.cutoff_date_utc||''))E('index cutoff_date_utc missing');
+658934	let sw=(raw.scan_windows||[]).map(w=>({s:DP(w.start_utc),e:DP(w.end_utc),n:Number(w.successful_runs)||1})).filter(w=>isFinite(w.s)&&isFinite(w.e)&&w.e>w.s).sort((a,b)=>a.s-b.s),
+658936	return{days:raw.days,by:new Map(raw.days.map(r=>[r.date,r])),sw,gen,cutoff,iv,nextDue:DP(raw.next_update_due_utc||'')||gen+(iv+1)*HOUR,lastScan:sw.length?sw.reduce((a,w)=>MX(a,w.e),-Infinity):null,
+658937	covStart:DP(raw.coverage_start_utc||'')||(sw.length?sw[0].s:cutoff),cutoffDate:raw.cutoff_date_utc,lost:new Set(raw.days.filter(r=>r.shard_lost).map(r=>r.date))}},
+658939	li=q=>{if(!S.ip){let p=S.ip=gj(AR+'index.json'+(q?'?'+q:''),'no-cache').then(ni).then(m=>{if(S.ip===p){for(let k of[...lru.keys()])if(!lru.get(k).sealed)lru.delete(k);S.idx=m;S.ie=null}return m}).catch(e=>{if(S.ip===p){S.ip=null;S.idx=null;S.ie=msg(e)}throw e})}return S.ip},
+658940	cv=(x,ws,we)=>{let win=we-ws,u=[];let r=0,a=null,b=null,sd=0,d=0,l=0,fs=null,lz,pp=0;
+658941	for(let w of x.sw){let o=ov(MX(ws,b),we,w.s,w.e);if(o<=0)continue;sd+=o;r+=w.n;let s=MX(ws,w.s),e=MN(we,w.e);a=a===null?s:MN(a,s);b=b===null?e:MX(b,e)}
+658942	for(let t=ds(ymd(ws));t<we;t+=DAY){if(ov(ws,we,t,t+DAY)<=0)continue;d++;let y=ymd(t),row=x.by.get(y);if(x.lost.has(y)){l++;let m=t;for(let w of x.sw)sd-=ov(MX(ws,m),MN(we,t+DAY),w.s,w.e),m=MX(m,w.e)}else if(!row||row.coverage==='none')u.push(y);else{fs??=t;lz=t;pp+=row.coverage==='partial'}}
+658943	return{f:win>0?MN(1,sd/win):0,r,a,b,d,u,l,fs,lz,pp,k:d-u.length-l,ny:x.lastScan===null?win:MX(0,we-MX(ws,x.lastScan)),bf:MX(0,MN(we,x.covStart)-ws)}},
+658944	wf=now=>{let P=PERIODS.find(p=>p[0]===S.period)||PERIODS[1],cu=S.period==='custom';let s,e,atLatest;
+658945	if(cu){s=ds(S.from);e=MN(ds(S.to)+DAY,now);atLatest=ds(S.to)+DAY>=now}else{e=S.end===null?now:MN(S.end,now);atLatest=S.end===null;s=P[2]<0?mm(e,-P[2]):e-P[2]}
+658948	:(row.parts||[]).filter(p=>{let h=ds(row.date)+p.path.slice(-7,-5)*HOUR;return h<we&&h+HOUR>ws}).map(p=>({...p,sealed:row.sealed})),
+658949	sh=(t,date)=>{let u=AR+t.path,c=lg(u);if(c)return c.p;
+658950	let p=gj(u,t.sealed?'default':'no-cache',1).then(async b=>{let o=b.byteLength>=0?await new Response(b).json():b,s=(window.crypto||0).subtle;
+658952	let bad=[o.features.length!==t.count&&'count',b.byteLength!==t.bytes&&'bytes',s&&[...new Uint8Array(await s.digest('SHA-256',b))].map(x=>(x|256).toString(16).slice(1)).join('')!==t.sha256&&'sha256'].filter(Boolean);
+658955	fr=async(rows,ws,we,sn)=>{let jobs=[];for(let row of rows)for(let t of tg(row,ws,we))jobs.push({row,t});let parts=new Array(jobs.length),fl=[];let pos=0;
+658956	await Promise.all(Array.from({length:MN(4,jobs.length)},async()=>{while(pos<jobs.length&&sn===S.serial){let i=pos++,{row,t}=jobs[i];try{parts[i]=await sh(t,row.date)}catch(e){parts[i]=[];fl.push({date:row.date,error:msg(e),t})}}}));
+658958	ok=f=>f&&f.type==='Feature'&&f.geometry&&f.geometry.type==='Point'&&(c=>AI(c)&&c.length<4&&bx(c[0],c[1]))(f.geometry.coordinates)&&f.properties&&FEED_SCHEMA.split('/')[1]===f.properties.observation_kind&&isFinite(tm(f))&&!(f.id&&typeof f.id=='object'),
+658959	co=(parts,ws,we)=>{let m=new Map();let k=0;for(let part of parts)for(let f of part){if(!ok(f)){k++;continue}let t=tm(f);if(t>=ws&&t<we)m.set(f.id==null?t+','+f.geometry.coordinates:JSON.stringify(f.id),f)}let a=[...m.values()].sort((a,b)=>tm(a)-tm(b));a.bad=k;return a},
+658961	let p=gj(u,'no-cache',1).then(async b=>{let o=b.byteLength>2e6?E('grid size'):b.byteLength>=0?await new Response(b).json():b;if(!o||o.schema!==GS||o.month!==mo||o.cols!==140||o.rows!==120||o.cell_deg!==.1||!AI(o.days)||o.days.length>31||!AI(o.cells)||o.cells.length>16800)E('invalid grid '+mo);let t=[];
+658962	for(let r of o.cells){if(!AI(r)||r.length%2<1||r.length<3||r.length>63||r[0]>>>0!==r[0]||r[0]>=16800)E('grid cell');for(let i=1;i<r.length;i+=2){let d=r[i],n=r[i+1];if(d>>>0!==d||d<1||d>31||n>>>0!==n||!n)E('grid count');t[d]=(t[d]||0)+n}}
+658963	for(let d of o.days)if(!d||!AI(d.sha256)||(d.date+'').slice(0,8)!==mo+'-'||(t[+d.date.slice(8)]||0)!==(d.count||0))E('grid sum '+mo);return o}).catch(e=>{lru.delete(u);throw e});ls(u,{p});return p},
+658964	LM=()=>{if(!LM.a){let a=LM.a=new Uint8Array(16800);let p=0,v=1;for(const c of'M3bCjeCie83C7rC6sC6r4583Bmr1a28BmAg26BaAqB7AsB6AsB5AtB3AuB4AtB4AsB5AsAw81AqAvB0AvAzAxB0AwB1AvB3AuB3AuB8ArB6AtB4AvB0AwAzAuAyAwAzAxAyAyAxB0AvB0AuB1AmBaAmBbAkBe82A7Bh47A5BrA4Av4e5aA3Am71b7a6A3Alo4b4A4Ajr3c2A5Agv3c1A5Agw3AfAhz3AbAkA0161A3AnB9AoB5AsB1AxAyAzAwB1l2A8B2AtB9AnBbAkBdAiBdAjBcAjBdAiBfAgBiAdBnA6Bh44A5Bh81A6BgAgBgAhBgAhBiAgBjAdBib1A3B872AgB692AfB6ArB5AsB6ArBcAkBdAjB973AcB9b1A9BaA793BeA6BrA7BoAaBmf1vBnd5rBp9dlBs2hmCcmCghChfCghCfhCgfCidCl9Cr2L07ChhCdkCckCdjCehCkdCkdCkcClbClaCp4Tj'.match(/[A-Z]?./g))a.fill(v^=1,p,p+=c[1]?(c.charCodeAt(0)-64)*36+parseInt(c[1],36):parseInt(c,36))}return LM.a},
+658965	gd=async(rows,sn)=>{let er,n=0,st=0,k=0;let gs=new Map(await Promise.all([...new Set(rows.filter(y=>y.count>0).map(y=>y.date.slice(0,7)))].map(async m=>[m,await gg(m).catch(e=>(er=e,{days:[],cells:[]}))]))),ok=new Set,c=new Map,f=[],v=[];
+658966	for(let y of rows)if(y.count>0){let d=gs.get(y.date.slice(0,7)).days.find(d=>d.date===y.date);if(d&&d.count===y.count&&d.coverage===y.coverage&&d.sha256+''==(y.path?[y.sha256]:y.parts.map(p=>p.sha256))+'')ok.add(y.date),n+=y.count;else st++}if(!n)throw er||Error('grid stale');
+658967	for(let[m,g]of gs)for(let r of g.cells)for(let i=1;i<r.length;i+=2)if(ok.has(m+'-'+(r[i]+'').padStart(2,0)))c.set(r[0],(c.get(r[0])||0)+r[i+1]);
+658968	for(let[q,x]of c)if(LM()[q]){let lon=-11+(q%140+.5)/10,lat=49.5+((q/140|0)+.5)/10;k+=x;v.push(x);f.push({type:'Feature',properties:{cell:q,n:x,lon,lat,s:sn},geometry:{type:'Point',coordinates:[lon,lat]}})}
+658969	v.sort((a,b)=>a-b);return{fc:FC(f),n,k,st,e:er&&msg(er),T:MX(30,v[v.length*.95|0]||0)}},
+658971	let f=await(S.fp||(S.fp=gx(FEED).catch(e=>{S.fp=null;throw e})));if(!isFC(f))E('invalid live feed');
+658972	let ev=co([f.features],w.s,w.e);
+658974	lw=async(now,sn,q)=>{let w=wf(now);let x=null,ie=null;try{x=await li(q)}catch(e){ie=msg(e)}
+658978	let rows=[...x.by.values()].filter(y=>{let f=ds(y.date);return f<w.e&&f+DAY>w.s}),known=rows.filter(y=>y.count!==null),
+658981	for(let row of tf)for(let t of tg(row,w.s,w.e)){nq++;count+=t.count||0;bytes+=t.bytes>0?t.bytes:(t.count||0)*530}
+658982	if(count>MN(BUDGET,cap())||bytes>32e6||nq>RQ){r.budget=`${N(count)} flashes, ${N(bytes)} bytes, ${N(nq)} files`;try{r.gd=await gd(rows,sn)}catch(e){r.ge=NA(msg(e))+': '+msg(e)}if(sn!==S.serial)return r;if(!S.consent){r.clp=true;return r}
+658983	let run=0,rb=0,rn=0;tf.sort((a,b)=>b.date.localeCompare(a.date));let keep=[];for(let y of tf){let ps=tg(y,w.s,w.e),c=ps.reduce((a,p)=>a+(p.count||0),0),b=ps.reduce((a,p)=>a+(p.bytes>0?p.bytes:(p.count||0)*530),0),q=ps.length;if(r.sk.length||run+c>BUDGET||rb+b>32e6||rn+q>RQ){r.sk.push(y.date);continue}keep.push(y);run+=c;rb+=b;rn+=q}if(!keep.length){r.clp=r.big=1;return r}tf=keep;count=run}
+658985	let got=await fr(tf,w.s,w.e,sn);for(let f of got.fl)if(/WebCrypto/.test(f.error))f.u=1;else if(!f.t.sealed&&/mismatch/.test(f.error)){if(!q){S.ip=null;return lw(now,sn,now)}f.error+='; archive updating, reload later';f.u=1}r.mode='detail';r.fl=got.fl;r.rq=got.rq;r.ev=co(got.parts,w.s,w.e);return r},
+658986	cf=(r,now)=>{let st;let rs=[];
+658989	else{let c=r.cov,f=c?c.f:0;if(r.mode==='feed'){st=r.ev.length?'PARTIAL':'UNKNOWN';rs.push('coverage unknown')}else if(!c||f<=0){st='UNKNOWN';rs.push('nothing searched')}
+658992	let g=r.idx?r.idx.gen:r.meta?DP(r.meta.query_end_utc):NaN,f=r.idx&&r.idx.lastScan||g;return{st,g,f,stale:!!(r.idx||r.meta)&&r.w.atLatest!==false&&stale(g,now,f),colour:COLOUR(st),rs}},
+658993	DN=r=>{let g=r.gd;return`map shows ${N(g.k)} in ${pl(g.fc.features.length,'≈10 km cell')} within 30 km of a REPD site; ${N(g.n-g.k)} further out counted, not drawn${g.st?` · ${pl(g.st,'day')} not yet mapped (unknown${g.e?'; '+g.e:''})`:''} · tap a cell for nearest substations`},
+658994	cp=(r,now,k)=>{let w=r.w,x=r.idx,v=r.cov,nz=` (${U})`,L={window:'',days:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER};
+658995	L.window=w.custom?`Window  UTC dates ${ymd(w.s)} to ${ymd(MX(w.s,w.e-1))} inclusive (${pl(Math.ceil(w.span/DAY),'day')}${w.atLatest?', to now':''})`:`Window  ${w.label} · ${dt(w.s)} → ${de(w.s,w.e)} UTC · ${w.atLatest?'latest':'earlier page'}`;
+658996	L.days=r.mode==='feed'?`${r.old?'Last 7 days only (live feed)':'Live 7-day feed'} · ${NA(r.ie)}${/404/.test(r.ie)?'':': '+r.ie} · ${r.old?'earlier days '+U:'hours searched unknown'}`:r.before?`Before the 1-year archive (from ${dm(x.cutoff)}): never searched${nz}`:!v?'':hz(w)?(v.f<=0?`None of the ${w.label} searched yet${nz}`:k&&/READY|EMPTY/.test(k.st)?`All ${w.label} searched (${dt(v.a)} → ${de(v.a,v.b)} UTC)`:`Searched ${du(v.f*w.span)} of ${w.label} (${dt(v.a)} → ${de(v.a,v.b)} UTC) · ${du(w.span*(1-v.f))} not searched${nz}`):!v.k?`None of the ${pl(v.d,'day')} searched yet${nz}`:`${v.k==v.d&&!v.pp?'All':v.k+' of'} ${pl(v.d,'day')} searched (${dm(v.fs)}${v.lz>v.fs?'–'+dm(v.lz):''}${v.pp?`, ${v.pp} in part`:''})${v.u.length?` · ${v.u.length} not yet searched`:''}${v.l?` · ${v.l} lost (integrity alert)`:''}${v.k<v.d?nz:''}`;
+658999	if(r.fail){L.warning=r.ie&&!x?`Archive unavailable: ${r.ie} — nothing shown (${U})`:r.fail;return L}
+659000	if(r.before){L.warning=`Window predates the archive (began ${T(x.covStart)}; retention from ${x.cutoffDate}) — ${U}`;return L}
+659001	r.out=0;try{let b=mh().getBounds();r.out=r.ev.filter(f=>!b.contains(f.geometry.coordinates)).length}catch(_){}
+659002	let n=r.ev.length,first=n?`Actual  first ${Ts(tm(r.ev[0]))} · last ${Ts(tm(r.ev[n-1]))}`:'',
+659004	if(r.mode==='feed'){let m=r.meta,P=(k,f=T)=>f(DP(m[k]));
+659005	L.refresh=`Refresh live feed ${P('query_end_utc')} (last collection window ${P('query_start_utc')} → ${P('query_end_utc')}; latest detection ${P('latest_detection_utc',Ts)}; 7-day retention; ${NA(r.ie)}: ${r.ie}; earlier hours ${U})`;
+659006	L.searched='Searched EUMETSAT unknown (live feed records only its last collection window)';if(r.old)L.warning=NA(r.ie)+': earlier coverage '+U
+659007	L.actual=first||`Actual  none seen in the 7-day feed (${U})`;L.flashes=`Flashes ${F7(r)}${drawn}`}
+659010	else{let o=r.rows.filter(y=>y.first_observation_utc),k=r.rows.length;
+659011	L.actual=o.length?`Actual  on the ${k} overlapping UTC dates: first ${Ts(DP(o[0].first_observation_utc))} · last ${Ts(DP(o[o.length-1].last_observation_utc))} (whole UTC days)`:`Actual  no archived flashes on the ${k} overlapping UTC dates`;
+659012	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · ${r.gd?`${DN(r)}${r.clp&&!r.big?` · LOAD POINTS adds the newest ${N(MN(BUDGET,r.arch))} flashes`:''}`:`none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})${r.ge?' · cell grid '+r.ge:''}`}`}
+659014	let c=r.mode!=='feed'&&r.cov;if(c){let warn=[];
+659015	L.searched=c.f>0?`Searched EUMETSAT ${du(c.f*w.span)} of ${du(w.span)}${c.a!==null?` · ${T(c.a)} → ${T(c.b)}`:''}`:c.l?'Searched EUMETSAT: shard lost (integrity alert), '+U:'Searched EUMETSAT none of this window — no collection run covers it';
+659016	if(c.ny>0)warn.push(`Not yet searched: last ${AGO(c.ny)} of window (${U})`);
+659017	if(c.bf>0&&x&&!c.u.length)warn.push(`Unknown: ${ymd(w.s)} to ${ymd(MN(w.e,x.covStart)-1)} precede archive start ${T(x.covStart)} (not zero)`);
+659018	if(c.l)warn.push(`${c.l} days lost from the archive (integrity alert), ${U}`);if(c.u.length)warn.push(`Unknown: ${c.u.length} of ${c.d} UTC dates have no collection run`);
+659020	let ub=(r.rows||[]).filter(y=>[y.first_observation_utc,y.last_observation_utc].some(t=>t!=null&&!isFinite(DP(t)))).length;if(ub)warn.push(`${N(ub)} archive entr${ub==1?'y':'ies'} unreadable (malformed timestamp; ${U})`);
+659025	mh=()=>{let m=window.__GRIDATLAS_V9_MAP__;return m&&typeof m.addSource==='function'?m:null},
+659026	sf=m=>{try{for(let l of m.getStyle().layers||[]){let f=l.type==='symbol'&&l.layout&&l.layout['text-font'];if(AI(f)&&f.length&&typeof f[0]==='string')return f}}catch(_){}return['Open Sans Regular']},
+659028	cs=v=>(v+'').replace(/\p{Cf}/gu,'').slice(0,200),el=(t,css,s)=>{let e=document.createElement(t);if(css)e.style.cssText=css;if(s!=null)e.textContent=s;return e},
+659029	cpos=()=>{let c=S.pp,m=mh();if(!c||!m)return;let k=gr(m.getContainer()),q=Q('gridatlas-menu-bar'),t=MX(0,(q?gr(q).bottom:0)-k.top)+8,w=MN(480,k.width-16),L=k.left+(k.width-w)/2,h=c.offsetHeight||0;let b=8;
+659030	for(let o of[Q('gridatlas-dash-toggle'),document.querySelector('.map-controls')]){let r=o&&gr(o);if(r&&r.height&&r.right>L&&r.left<L+w&&r.top<k.bottom&&r.bottom>k.top)b=MX(b,k.bottom-r.top+8)}
+659031	if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';c.style.maxHeight=MX(44,k.height-t-b)+'px'},
+659032	cx=()=>{let m=mh();pc();if(m)try{for(let l of[CNT,HIT,LAYER])if(m.getLayer(l))m.removeLayer(l);if(m.getSource(SRC))m.removeSource(SRC);dd()}catch(e){note(e)}S.mode=null},
+659034	dd=g=>{let m=mh();if(!m)return;for(let l of CL)if(m.getLayer(l))m.removeLayer(l);if(m.getSource(CS))m.removeSource(CS);if(!g||!g.fc.features.length)return;
+659035	let b=RP(m,1).find(l=>l!='l-subs')||(m.getLayer(LAYER)?LAYER:void 0),L=['log10',['get','n']],I=(x,...s)=>['interpolate',['linear'],x,...s],B=[0,.48,1,1.48,2,2.48],R=v=>I(L,...B.flatMap((k,i)=>[k,v[i]])),Z=(a,c,d)=>I(['zoom'],5,a,7,c,10,d),
+659040	dw=(fc,cl)=>{let m=mh(),K={'circle-stroke-width':1.5,'circle-stroke-color':'#1a1a1a'},Z=k=>['interpolate',['linear'],['zoom'],5,k(6),8,k(8),11,k(10)];if(!m)E('no map');let mode=cl?'cluster':'raw';if(S.mode&&S.mode!==mode)cx();
+659046	m.getSource(SRC).setData(fc);let v=fc.features.length?'visible':'none';for(let l of[LAYER,HIT,CNT])if(m.getLayer(l))m.setLayoutProperty(l,'visibility',v)},
+659047	tap=e=>{let m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;let px=e.point.x??e.point[0],py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];let f=null,dm=Infinity;
+659048	for(let q of Y(HIT)){let g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f){let rp=RP(m);if(rp.length&&m.queryRenderedFeatures(e.point,{layers:rp}).length)return;for(let q of Y(CEL)){let p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;if(d<dm){dm=d;f=p}}return f&&cc(m,f)}
+659049	let p=f.properties||{};if(p.cluster){let go=z=>m.easeTo({center:f.geometry.coordinates,zoom:z}),z=m.getSource(SRC).getClusterExpansionZoom(p.cluster_id,(err,z)=>err||go(z));if(z&&z.then)z.then(go,note);return}
+659050	let g=S.res&&p.s===S.res.s&&S.res.ev[p.i];if(!g)return;let[x,y]=g.geometry.coordinates,id=g.id==null?'(none)':cs(g.id);
+659052	cd=(m,x,y,lb,ti,su,de,wh)=>{let c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #2f6f75;border-radius:4px;box-shadow:0 0 14px rgba(95,189,194,.25);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+659054	B=(t,a,f)=>{let e=el('button','flex:none;width:44px;height:44px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:14px/1 monospace;cursor:pointer',t);e.type='button';e.setAttribute('aria-label',a);e.addEventListener('click',f);ap(bar,e);return e};
+659056	ap(bar,el('span','flex:1;min-width:0;color:#5fbdc2;font-weight:bold',ti));
+659057	let mn=B('−','Minimise',()=>{let o=bd.style.display=='none';bd.style.display=o?'':'none';mn.textContent=o?'−':'+';mn.setAttribute('aria-expanded',o);cpos()});mn.setAttribute('aria-expanded',true);B('×','Close',pc);
+659058	c.sm=el('summary','padding:14px 0 13px;line-height:17px;cursor:pointer;color:#bfe9ee',su);ap(d,c.sm);
+659059	ap(d,el('div','color:#8b9aa1;font-size:10px;overflow-wrap:anywhere',de));c.out=el('div','margin-top:4px;color:#9fb3ba');ap(d,c.out);ap(bd,d);
+659060	ap(bd,el('div','color:#8b9aa1;font-size:10px','EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));
+659061	ap(c,bar);ap(c,bd);S.pp=c;ap(m.getContainer(),c);cpos();nf(m,c,x,y,15)},
+659062	cb=p=>{let c=p.cell,w=-11+c%140/10,s=49.5+(c-c%140)/1400;return c>>>0===c&&c<16800&&Number.isSafeInteger(p.n)&&p.n>0&&p.lon>w&&p.lon<w+.1&&p.lat>s&&p.lat<s+.1&&S.res&&(p.s==null||p.s===S.res.s)?[w,s]:null},
+659063	cc=(m,p)=>{let[w,s]=cb(p),W=S.res.w,r=a=>a.toFixed(2)+'–'+(a+.1).toFixed(2);cd(m,p.lon,p.lat,'Lightning cell',pl(p.n,'optical flash','es')+' in this ≈10 km cell',`${ymd(W.s)} to ${ymd(MX(W.s,W.e-1))} UTC · centre lat ${p.lat.toFixed(3)}, lon ${p.lon.toFixed(3)}`,`Cell lat ${r(s)}, lon ${r(w)} (0.1°) · searched UTC days only; unsearched days ${U}`,'cell centre')},
+659064	sid=s=>{let r=/_\d{8}(\d\d)(\d\d)\d\d_\d{8}(\d\d)(\d\d)\d\d_N_.*:(\d+)$/.exec(s);return r?`${r[1]}:${r[2]}–${r[3]}:${r[4]} #${r[5]}`:s.length>24?s.slice(0,12)+'…'+s.slice(-8):s},
+659065	NP='gridatlas-lightning-neon',NI=['glow','core','flow','flow-b','node-ring','node','label','pin-halo','pin','p-core','p-node','p-label'].map(s=>NP+'-'+s),NSR=[NP+'-links',NP+'-nodes',NP+'-pin',NP+'-plinks',NP+'-pnodes'],
+659066	nc=()=>{let m=mh();if(S.raf){cancelAnimationFrame(S.raf);S.raf=null}if(m)try{for(let l of[...NI].reverse())if(m.getLayer(l))m.removeLayer(l);for(let s of NSR)if(m.getSource(s))m.removeSource(s)}catch(e){note(e)}},
+659067	nr=(m,c,x,y)=>{let L=window.__GRIDATLAS_NEON_LINKS__||{},M=L.measure||{},subs=Object.hasOwn(L,'substations')?L.substations:null,say=s=>ap(c.out,el('div','',s));c.out.textContent='';nc();
+659068	if(!AI(subs)||!subs.length||typeof M.nearestSubstations!=='function')return say('Substation data not loaded yet; trying again.'),0;
+659069	let k=M.nearestSubstations(x,y,subs),o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},
+659070	A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));S.fk=[o,...k.map(a=>a.at)];say(`Nearest substations to this ${c.wh} (straight-line km). Not evidence any asset was struck; faults can have other causes.`);
+659071	if(!k.length){let b=k.beyondRadiusNearest;say(`No substation within ${k.radiusKm||40} km`+(b?` (nearest: ${cs(b.name||'unnamed substation')}, ${(+b.km).toFixed(2)} km)`:''))}
+659072	for(let a of k)say(`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV · ${cs(a.name||'unnamed substation')}`);
+659073	let pd=say('REPD projects: loading…');RG(m,M).then(G=>{if(S.pp!==c)return;let P=G.map(([a,p])=>({a,p,km:M.distanceKm(x,y,...a)})).filter(r=>r.km<=40).sort((a,b)=>a.km-b.km).slice(0,10),L=r=>`${r.km.toFixed(2)} km · ${({solar:'Solar',solar_roof:'Rooftop solar'})[r.p.tech]||cs(r.p.raw_tech)}${r.p.capacity>0?` ${N(r.p.capacity)} MW`:''}`,F=g=>({type:'geojson',data:FC(P.map(r=>({type:'Feature',properties:{mw:+r.p.capacity||0,label:L(r)},geometry:g(r)})))}),C=['interpolate',['linear'],['get','mw'],0,'#ffaa00',50,'#ff4400',200,'#f00'];
+659074	pd.textContent=`${P.length?pl(P.length,'nearest REPD project'):'No REPD project'} within 40 km of this ${c.wh} (straight-line; all technologies and statuses). Not evidence any project was struck or affected.`;P.length&&(c.sm.textContent+=` · ${P.length} nearest projects`);
+659075	for(let r of P){let p=r.p,b=el('a','display:block;padding:14px 0 13px;border-top:1px solid #1d3238;color:#ffb27a',`${L(r)} · ${cs(p.status)} · ${cs(p.name)}`);b.href=location.pathname+'?'+new URLSearchParams({longitude:r.a[0],latitude:r.a[1],technology:p.tech,project:p.name,capacity_mw:p.capacity,status:p.status});ap(c.out,b)}
+659076	m.addSource(NSR[3],F(r=>({type:'LineString',coordinates:[o,r.a]})));m.addSource(NSR[4],F(r=>({type:'Point',coordinates:r.a})));
+659077	A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});A(10,'circle',NSR[4],{'circle-radius':Z(3,5),'circle-color':C,'circle-stroke-width':1});
+659078	try{A(11,'symbol',NSR[4],{'text-color':'#ffc48a','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)})}catch(e){note('neon labels: '+msg(e))}
+659079	cpos();S.fk.push(...P.map(r=>r.a));m.isMoving&&m.isMoving()||ck()}).catch(e=>{if(S.pp===c)pd.textContent='REPD projects unavailable: '+msg(e)});if(!k.length)return k;
+659080	m.addSource(NSR[0],{type:'geojson',data:FC(k.map((a,i)=>({type:'Feature',properties:{colour:TC,strength:MX(.2,.62-i*.1)},geometry:{type:'LineString',coordinates:[o,a.at]}})))});
+659093	if(rm){m.setPaintProperty(NI[2],'line-opacity',0);m.setPaintProperty(NI[3],'line-opacity',0)}else if(typeof requestAnimationFrame=='function'){let ph=0;let fd=typeof M.flowDash=='function'?M.flowDash:p=>{let s=Math.floor(p/1.5*24)%24/24*1.5;return[.001,MX(.001,s),.42,MX(.001,1.5-s)]},mo={},
+659094	set=(i,p)=>{let d=fd(p),j=d.join();if(mo[i]!==j){mo[i]=j;m.setPaintProperty(NI[i],'line-dasharray',d)}},st=()=>{ph=(ph+.055)%1.5;try{set(2,ph);set(3,(ph+.75)%1.5)}catch(_){S.raf=null;return}S.raf=requestAnimationFrame(st)};S.raf=requestAnimationFrame(st)}
+659097	if(AI(k)){c.sm.textContent+=k.length?` · ${k.length} nearest substations`:` · none within ${k.radiusKm||40} km`;if(k.length)nz(m,x,y);return}if(n)setTimeout(()=>nf(m,c,x,y,n-1),2e3)},
+659098	nz=(m,x,y)=>{try{m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});typeof m.once=='function'?m.once('moveend',ck):ck()}catch(e){note('camera: '+msg(e))}},
+659099	ck=()=>{try{let m=mh(),v=m&&m.getBounds&&m.getBounds(),k=S.fk;if(!v||!S.pp||k.every(a=>v.contains(a)))return;let[w,s]=k[0],[e,n]=k[0];for(let[a,o]of k){w=MN(w,a);e=MX(e,a);s=MN(s,o);n=MX(n,o)}
+659100	m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:(S.pp.bb+S.pp.offsetHeight||196)+24},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},
+659101	RG=(m,M)=>S.rg||(S.rg=(async()=>{let f;try{f=m.getSource('src-repd').serialize().data.features}catch(_){}if(!(f&&f.length)){let r=await fetch('/dist/repd_master.json');r.ok||E('HTTP '+r.status);f=(await r.json()).features}let o=f.map(x=>[M.representativePoint(x.geometry),x.properties||{}]).filter(([a,p])=>a&&M.isProjectTech(p.tech));return o.length?o:E('register empty')})().catch(e=>{S.rg=null;throw e})),
+659104	bg=key=>{let g=document.createElement('div');g.className='key-group';g.style.gridColumn='1/-1';g.dataset.lightningGroup=key;
+659113	let q=s=>g.querySelector(s),sf={key,group:g,toggle:q('[data-lightning-control]'),label:q('[data-lightning-label]'),ctl:q('[data-lightning-controls]'),custom:q('[data-lightning-custom]'),from:q('[data-lightning-date="from"]'),to:q('[data-lightning-date="to"]'),dot:q('[data-lightning-dot]'),stx:q('.status-dot').lastChild,caps:{},nav:{},chips:{}};
+659114	g.querySelectorAll('[data-cap],[data-lightning-nav],[data-lightning-period]').forEach(n=>{let d=n.dataset;if(d.cap)sf.caps[d.cap]=n;else if(d.lightningNav)sf.nav[d.lightningNav]=n;else sf.chips[d.lightningPeriod]=n});
+659115	g.addEventListener('click',ev=>{let b=ev.target.closest('button');if(!b||!g.contains(b))return;if(b.dataset.lightningPeriod)sp(b.dataset.lightningPeriod);else if(b.dataset.lightningNav)nv(b.dataset.lightningNav,sf)});
+659119	let n=fn(r);return`${BASE} [${r.mode==='feed'?(n?N(n):'none seen')+' | '+(r.old?'last 7 days only':'live feed'):/UNKNOWN|BEFORE/.test(c.st)?(r.before?'UNKNOWN':'not yet searched')+' | '+(r.before?'before archive':sv(r,c)):(n?N(n):'none found')+' | '+sv(r,c)}]`},fn=r=>r.mode==='overview'||r.mode==='detail'&&(r.sk.length||r.fl.length)?r.arch:r.ev.length,
+659120	sl=(r,c)=>{let st=c.st,n=fn(r),z=c.stale?' · '+lr(c.g,Date.now(),c.f).toUpperCase()+' · STALE':'';
+659122	pt=loading=>{S.busy=loading;let now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now,c):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null;
+659123	for(let sf of S.sfs){if(sf.toggle.checked!==S.on)sf.toggle.checked=S.on;txt(sf.label,text);sf.label.style.opacity=fail?'0.6':'1'}
+659124	for(let sf of S.sfs){flag(sf.ctl,'hidden',!S.on);if(!S.on)continue;
+659125	for(let k in sf.chips){let b=sf.chips[k],na=!S.idx&&!!S.ie&&LONG.includes(k);b.setAttribute('aria-pressed',b.classList.toggle('active',k===S.period));
+659126	if(LONG.includes(k)){let d=b.lastChild;if(!d||!d.tagName){d=document.createElement('span');d.style.opacity='.55';ap(b,d)}txt(d,na?' •':'');b.title=na?'7-day feed only: the archive is not available yet':''}}
+659127	let cu=S.period==='custom';sf.custom.style.display=cu?'flex':'none';if(S.idx)sf.from.min=sf.to.min=S.idx.cutoffDate;sf.from.max=sf.to.max=ymd(now);if(sf.from.value!==S.from)sf.from.value=S.from;if(sf.to.value!==S.to)sf.to.value=S.to;
+659129	sf.dot.style.background=loading?COLOUR('L'):c.colour;txt(sf.stx,loading?'LOADING':sl(r,c));if(!loading){for(let k in L)txt(sf.caps[k],L[k]);if(c)sf.caps.days.style.color=c.colour}}
+659132	fb=()=>{let e=S.res&&S.res.ev,m=mh();if(!e||!e.length||!m)return;let a=180,b=90,c=-180,d=-90;for(let f of e){let[x,y]=f.geometry.coordinates;a=MN(a,x);b=MN(b,y);c=MX(c,x);d=MX(d,y)}m.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})},
+659133	nv=(which,sf)=>{if(which==='fit')return fb();let now=Date.now(),w=wf(now);S.consent=which==='points';
+659134	if(which==='apply'){let f=sf.from.value,t=sf.to.value,good=DRE.test(f)&&DRE.test(t)&&f<=t&&t<=ymd(now);sf.from.style.borderColor=sf.to.style.borderColor=good?'':'#ff4444';
+659138	ld=refresh=>{if(!refresh)pc();let serial=++S.serial,now=Date.now();if(refresh)S.ip=S.fp=null;pt(true);
+659143	if(on){S.end=null;S.consent=false;S.res=null;let m=mh();if(m&&!S.ck&&typeof m.on==='function'){S.ck=1;m.on('click',tap);m.on('resize',cpos);m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})}
+659146	bt=c=>c.addEventListener('change',ev=>{let t=ev.target;if(t&&t.dataset&&t.dataset.lightningControl==='toggle')so(!!t.checked)}),
+659147	fit=()=>{let d=Q('gridatlas-dash-toggle'),b=d&&gr(d),v=b&&b.height;if(d&&d!==S.ro&&typeof ResizeObserver=='function'){if(S.rz)S.rz.disconnect();(S.rz=new ResizeObserver(fit)).observe(S.ro=d)}for(let sf of S.sfs){let s=sf.group.style;s.paddingBottom=(v?innerHeight-b.top+16:96)+'px';s.paddingRight=(v?MX(0,gr(sf.group).right-b.left+16):0)+'px'}},
+659149	let M=NS.menuBar,P=window.__GRIDATLAS_PIPELINE_LAYERS__,host=Q('scada-ui-container'),miss=[];
+659151	let main=bg('main');ap(host,main.group);bt(host);S.sfs.push(main);
+659152	let cur=Q('fs-curtain-keys');if(cur){let fs=bg('fs');ap(cur,fs.group);bt(cur);S.sfs.push(fs)}
+659153	S.installed=true;pt(!S.res);for(let e of['resize','orientationchange','click','transitionend'])addEventListener(e,fit);return true};
+659154	if(typeof setInterval==='function'&&typeof MutationObserver==='function'){let ob=new MutationObserver(()=>tick()),poll=setInterval(()=>tick(),250),
+659157	/* uk-lightning-overlay, generation 202610282100 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+659158	/* M2: a tap lists the nearest REPD project sites (straight-line, 40 km; co-located parts grouped; status and technology filters; 10 km / 40 km summary); a row flies to the project and draws its nearest-substation links, with "◀ back" to the lightning card. Distance only: never "affected". */
+659159	let GEN='202610282100',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+659160	return fetch(u,{cache,signal:c.signal}).then(r=>{if(!r.ok||r.redirected)throw new Error(r.ok?'redirected':'HTTP '+r.status);return raw&&r.arrayBuffer?r.arrayBuffer():r.json()}).catch(e=>{throw c.signal.aborted||e&&e.name==='AbortError'?new Error(TOE):e}).finally(()=>clearTimeout(t))},
+659161	cd=(m,x,y,lb,ti,su,de,wh,o={})=>{let c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #2f6f75;border-radius:4px;box-shadow:0 0 14px rgba(95,189,194,.25);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+659162	c.dataset.lightningCard='';c.setAttribute('role','dialog');c.setAttribute('aria-label',lb);c.wh=wh;c.o=o;c.re=open=>cd(m,x,y,lb,ti,su,de,wh,{...o,open});
+659163	ap(d,el('div','color:#8b9aa1;font-size:10px;overflow-wrap:anywhere',de));c.out=el('div','margin-top:4px;color:#9fb3ba');ap(d,c.out);if(o.back){let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));k.type='button';k.dataset.lightningBack='';k.addEventListener('click',o.back[1])}ap(bd,d);if(o.open)d.open=true;
+659164	ap(bd,el('div','color:#8b9aa1;font-size:10px',o.foot||'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));
+659165	A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));S.fk=[o,...k.map(a=>a.at)];say(c.o.np?'Nearest substations to this project (straight-line km; not its declared grid connection).':`Nearest substations to this ${c.wh} (straight-line km). Not evidence any asset was struck; faults can have other causes.`);
+659166	if(!c.o.np)Rp(m,c,x,y,M);if(!k.length)return k;
+659167	if(AI(k)){c.sm.textContent+=k.length?` · ${k.length} nearest substations`:` · none within ${k.radiusKm||40} km`;if(k.length||c.o.np)nz(m,x,y);return}if(n)setTimeout(()=>nf(m,c,x,y,n-1),2e3)},
+659168	m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:MN((S.pp.bb+S.pp.offsetHeight||196)+24,MX(0,(m.getContainer().clientHeight||1e4)-270))},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},
+659169	/* ---- REPD projects near a tap (M2) ----------------------------------------------------------------------------------
+659170	   The register the map already holds (the engine's src-repd data when a REPD layer has loaded it, else the engine URL
+659171	   /dist/repd_master.json through the untouched bridge), measured by straight-line distance from the flash or the cell
+659172	   centre with the original link.measure.distanceKm. Nearest by distance only: never a claim that a project was struck
+659173	   or affected. */
+659174	RG=(m,M)=>S.rg||(S.rg=(async()=>{
+659175	  let f;try{f=m.getSource('src-repd').serialize().data.features}catch(_){}
+659176	  // gj: the module's fetch helper (15 s timeout that also covers the body, redirect refusal, "HTTP n")
+659177	  if(!(f&&f.length))f=(await gj('/dist/repd_master.json')).features;
+659178	  let o=f.map(x=>[M.representativePoint(x.geometry),x.properties||{}]).filter(([a,p])=>a&&M.isProjectTech(p.tech));
+659179	  return o.length?o:E('register empty')})().catch(e=>{S.rg=null;throw e})),
+659180	// filter chips: status classes (operational | under or awaiting construction | application submitted) and technology
+659181	RpF={st:[['all','All'],['op','Operational'],['cc','Consented & construction'],['pl','Planning']],
+659182	  te:[['all','All'],['solar','Solar'],['wind','Wind'],['bess','BESS'],['other','Other']]},
+659183	RpS=s=>{s=String(s||'').toLowerCase();return s==='operational'?'op':/construction/.test(s)?'cc':/application|submitted|planning/.test(s)?'pl':'?'},
+659184	RpT=t=>/^solar/.test(t)?'solar':/^wind/.test(t)?'wind':/^bess/.test(t)?'bess':'other',
+659185	RpN=p=>({solar:'Solar',solar_roof:'Rooftop solar'})[p.tech]||cs(p.raw_tech),
+659186	RpW=ps=>ps.reduce((s,p)=>s+(p.capacity>0?+p.capacity:0),0),
+659187	RpMW=v=>v>0?` ${N(v)} MW`:'',
+659188	RpU=(ps,f)=>[...new Set(ps.map(f))],
+659189	// one label per site: co-located parts (e.g. solar + battery at one point) share one link, one node and one label
+659190	RpG=g=>`${g.km.toFixed(2)} km · ${RpU(g.parts,RpN).sort().join(' + ')}${RpMW(RpW(g.parts))}`,
+659191	Rp=(m,c,x,y,M)=>{
+659192	  let pd=ap(c.out,el('div','','REPD projects: loading…')),box=ap(c.out,el('div'));
+659193	  RG(m,M).then(G=>{
+659194	    if(S.pp!==c||!c.out.contains(pd))return;
+659195	    // every register row is measured once; exact duplicate rows (same point, same properties) count once
+659196	    let all=[],seen=new Set;
+659197	    for(let[a,p]of G){let km=M.distanceKm(x,y,...a);if(km<=40){let k=a+JSON.stringify(p);if(!seen.has(k)){seen.add(k);all.push({a,p,km})}}}
+659198	    c.rpAll=all;c.fk0=S.fk.slice();c.smb=c.sm.textContent;RpR(m,c,pd,box)
+659199	  }).catch(e=>{
+659200	    if(S.pp!==c)return;S.rgf=(S.rgf||0)+1;
+659201	    // the bridge keeps a failed DuckDB/manifest start for the page lifetime, so a retry can fail at once: say so
+659202	    pd.textContent=`REPD projects unavailable: ${msg(e)}. Tap again to retry`+(S.rgf>1?"; if it keeps failing, switch on a REPD layer or reload the page (the map's REPD loader keeps a failed start until the page is reloaded).":'.')})},
+659203	RpR=(m,c,pd,box)=>{
+659204	  let f=S.rf||(S.rf={st:'all',te:'all'}),o=c.fk0[0],
+659205	    sel=c.rpAll.filter(r=>(f.st==='all'||RpS(r.p.status)===f.st)&&(f.te==='all'||RpT(r.p.tech)===f.te)),groups=new Map;
+659206	  for(let r of sel){let k=r.a.join(),g=groups.get(k);if(!g)groups.set(k,g={a:r.a,km:r.km,parts:[]});g.parts.push(r.p)}
+659207	  // the nearest 10 sites within the filter, plus any site at exactly the 10th site's distance
+659208	  let P=[...groups.values()].sort((a,b)=>a.km-b.km).filter((g,i,a)=>i<10||g.km==a[9].km),parts=P.reduce((s,g)=>s+g.parts.length,0),
+659209	    nm=v=>(RpF.st.find(q=>q[0]===v)||RpF.te.find(q=>q[0]===v))[1],all=f.st==='all'&&f.te==='all',
+659210	    ft=all?'all technologies and statuses':'filter: '+[f.st,f.te].filter(v=>v!=='all').map(nm).join(' · '),
+659211	    n10=sel.filter(r=>r.km<=10),nc10=n10.filter(r=>!(r.p.capacity>0)).length;
+659212	  pd.textContent=`${P.length?(parts>P.length?`${pl(P.length,'nearest REPD site')} (${N(parts)} projects; co-located parts grouped)`:pl(P.length,'nearest REPD project')):'No REPD project'} within 40 km of this ${c.wh} (straight-line; ${ft}). Not evidence any project was struck or affected.`;
+659213	  box.textContent='';
+659214	  ap(box,el('div','margin-top:4px;color:#ffc48a',`${pl(n10.length,'REPD project')} within 10 km · ${N(sel.length)} within 40 km · total${RpMW(RpW(n10.map(r=>r.p)))||' 0 MW'} within 10 km`
+659215	    +`${nc10?` (${N(nc10)} without a stated capacity not counted)`:''}; registered capacity, straight-line distance only, not a measure of impact`));
+659216	  if(P.length&&P.length<10)ap(box,el('div','',`Only ${pl(P.length,'site')} within 40 km${all?'':' for this filter'}; the radius stays 40 km, so fewer than 10 are listed.`));
+659217	  for(let[k,defs,lb]of[['st',RpF.st,'Status'],['te',RpF.te,'Tech']]){
+659218	    let row=ap(box,el('div','display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 2px'));row.setAttribute('role','group');row.setAttribute('aria-label','REPD '+lb.toLowerCase()+' filter');
+659219	    ap(row,el('span','color:#8b9aa1;font-size:10px;min-width:40px',lb));
+659220	    for(let[v,t]of defs){let on=f[k]===v,b=ap(row,el('button',`min-height:44px;padding:0 10px;background:${on?'#2f6f75':'#050a0d'};border:1px solid #2f6f75;border-radius:3px;color:${on?'#e8f4f5':'#5fbdc2'};font:11px/1 monospace;cursor:pointer`,t));
+659221	      b.type='button';b.dataset.lightningRepdFilter=k+':'+v;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{if(f[k]!==v&&S.pp===c){f[k]=v;RpR(m,c,pd,box)}})}}
+659222	  for(let g of P){
+659223	    let p=g.parts[0],one=g.parts.length===1,st=RpU(g.parts,q=>cs(q.status)).join(' / '),nm2=RpU(g.parts,q=>cs(q.name)).join(' / '),
+659224	      b=ap(box,el('a','display:block;padding:14px 0 13px;border-top:1px solid #1d3238;color:#ffb27a',`${RpG(g)} · ${one?'':g.parts.length+' co-located · '}${st} · ${nm2}`));
+659225	    // the href keeps the original coordinate deep link (open in a new tab); a plain tap stays in this page
+659226	    b.href=location.pathname+'?'+new URLSearchParams({longitude:g.a[0],latitude:g.a[1],technology:p.tech,project:p.name,capacity_mw:p.capacity,status:p.status});
+659227	    b.addEventListener('click',e=>{if(e.preventDefault)e.preventDefault();RpV(m,c,g)});
+659228	    if(!one)for(let q of g.parts)ap(box,el('div','padding:0 0 8px 12px;color:#c9a27e;font-size:10px',`${RpN(q)}${RpMW(+q.capacity)} · ${cs(q.status)} · ${cs(q.name)}`))}
+659229	  c.sm.textContent=c.smb+(P.length?` · ${P.length} nearest projects`:'');
+659230	  let C=['interpolate',['linear'],['get','mw'],0,'#ffaa00',50,'#ff4400',200,'#f00'],Z=(a,b)=>['interpolate',['linear'],['zoom'],6,a,12,b],
+659231	    F=geo=>FC(P.map(g=>({type:'Feature',properties:{mw:RpW(g.parts),label:RpG(g)},geometry:geo(g)}))),
+659232	    A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{})),
+659233	    ln=F(g=>({type:'LineString',coordinates:[o,g.a]})),nd=F(g=>({type:'Point',coordinates:g.a}));
+659234	  if(m.getSource(NSR[3])&&m.getSource(NSR[4])){m.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(nd)}
+659235	  else{m.addSource(NSR[3],{type:'geojson',data:ln});m.addSource(NSR[4],{type:'geojson',data:nd});
+659236	    A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});A(10,'circle',NSR[4],{'circle-radius':Z(3,5),'circle-color':C,'circle-stroke-width':1});
+659237	    try{A(11,'symbol',NSR[4],{'text-color':'#ffc48a','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)})}catch(e){note('neon labels: '+msg(e))}}
+659238	  // frame origin, substations and the listed sites; a register that lands mid-move is framed when that move ends
+659239	  cpos();S.fk=[...c.fk0,...P.map(g=>g.a)];m.isMoving&&m.isMoving()?m.once('moveend',ck):ck()},
+659240	// a row tap stays in this page: fly to the site and draw the original engine's nearest-substation links from it
+659241	// (link.measure.nearestSubstations, as for a flash); "◀ back" restores the lightning card as at its tap (collapsed, so the
+659242	// camera can frame it), its links and the filter. Both cards arrive collapsed so the neon links stay visible.
+659243	RpV=(m,c,g)=>{
+659244	  let back=c.re,src=c.wh==='cell centre'?'cell':'flash',[x,y]=g.a,ps=g.parts;
+659245	  pc();
+659246	  cd(m,x,y,'REPD project',`REPD · ${RpU(ps,RpN).sort().join(' + ')}${RpMW(RpW(ps))}`,
+659247	    ps.length>1?`${ps.length} co-located projects · ${RpU(ps,q=>cs(q.name)).join(' / ')}`:`${cs(ps[0].name)} · ${cs(ps[0].status)}`,
+659248	    ps.map(q=>`${RpN(q)}${RpMW(+q.capacity)} · ${cs(q.status)} · ${cs(q.name)}`).join('; ')+` · lat ${y.toFixed(3)}, lon ${x.toFixed(3)} · ${g.km.toFixed(2)} km from the lightning ${src} (straight-line)`,
+659249	    'project',{np:1,foot:'REPD register as the map holds it · nearest substations by straight-line distance, not the declared grid connection · not evidence the project was struck or affected.',
+659250	      back:['◀ back to lightning '+src,()=>{pc();back()}]})},
+659251	/* uk-lightning-overlay, generation 202610282215 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+659252	/* M2: a tap lists the nearest REPD project sites (straight-line, 40 km; projects at one point grouped; status and technology filters; 10 km / 40 km summary); a row flies to the project and draws its nearest-substation links, with "◀ back" to the lightning card. Distance only: never "affected". */
+659253	/* M3: the original REPD map layers of the listed technologies are switched on through their own Layers checkboxes, and only those M3 switched on are switched off again on close, lightning OFF, a period change, LATEST or a new list. */
+659254	let GEN='202610282215',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+659255	if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';c.style.maxHeight=MX(44,MN(k.height-t-b,MX(240,k.height-b-320)))+'px'},
+659256	for(let q of Y(HIT)){let g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f){let rp=RP(m);if(rp.length&&m.queryRenderedFeatures(e.point,{layers:rp}).length)return;for(let q of Y(CEL)){let p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;if(d<dm){dm=d;f=p}}return f?cc(m,f):Ry()}
+659257	bar=el('div','display:flex;align-items:center;gap:6px;padding-left:8px;background:#0a1a1d;border-bottom:1px solid #1d3238'),bd=el('div','padding:0 8px 6px'),d=el('details'),rf=()=>{cpos();if(S.pp===c)ck(1)},
+659258	let mn=B('−','Minimise',()=>{let o=bd.style.display=='none';bd.style.display=o?'':'none';mn.textContent=o?'−':'+';mn.setAttribute('aria-expanded',o);rf()});d.addEventListener('toggle',rf);mn.setAttribute('aria-expanded',true);B('×','Close',()=>{pc();Ry()});
+659259	ap(d,el('div','color:#8b9aa1;font-size:11px;overflow-wrap:anywhere',de));c.out=el('div','margin-top:4px;color:#9fb3ba');ap(d,c.out);if(o.back){let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));k.type='button';k.dataset.lightningBack='';k.setAttribute('aria-label',o.back[0].slice(2));k.addEventListener('click',o.back[1])}ap(bd,d);if(o.open)d.open=true;
+659260	ap(bd,el('div','color:#8b9aa1;font-size:11px',o.foot||'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));
+659261	ap(c,bar);ap(c,bd);c.lv=ap(c,el('div','position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)'));c.lv.setAttribute('role','status');S.pp=c;ap(m.getContainer(),c);cpos();nf(m,c,x,y,15)},
+659262	if(AI(k)){c.sm.textContent+=k.length?` · ${k.length} nearest substations`:` · no substation within ${k.radiusKm||40} km`;if(k.length||c.o.np)nz(m,x,y);return}if(n)setTimeout(()=>nf(m,c,x,y,n-1),2e3)},
+659263	ck=f=>{try{let m=mh(),c=S.pp,k=S.fk,C=m&&m.getContainer(),H=C&&C.clientHeight||1e4,B=c&&(c.bb+c.offsetHeight||196)+24;if(!c||!k||f!==1&&k.every(a=>{let p=m.project(a);return p.x>=20&&p.x<=(C.clientWidth||1e4)-20&&p.y>=130&&p.y<=H-B}))return;let[w,s]=k[0],[e,n]=k[0];for(let[a,o]of k){w=MN(w,a);e=MX(e,a);s=MN(s,o);n=MX(n,o)}
+659264	m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:H-150>B?B:MX(0,H-270)},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},
+659265	/* ---- M3: the REPD map layers of the listed projects ---------------------------------------------------------------
+659266	   The owner (28 Oct 2026, 21:39 UTC): "auto activate the REPD layers of the targeted 10 nearest projects". Each register
+659267	   tech is the id of the original's own REPD layer (solar, solar_roof, wind, bess, biomass, …; engine config "REPD (GeoJSON)").
+659268	   A layer is switched exactly as a tap on its Layers checkbox would: the original #scada-ui-container input is ticked and
+659269	   a bubbling "change" is dispatched, so the engine's own delegated listener syncs the fullscreen-curtain copy and runs
+659270	   its handleLayerToggle (visibility + hydration), and the menu bar's document listener syncs its proxy. S.ly holds only
+659271	   the layers M3 itself switched on; a layer the user already had on is never touched, and a layer the user ticks or
+659272	   unticks while M3 holds it becomes the user's (bt below). */
+659273	RL='solar solar_roof wind bess biomass tidal hydrogen hydro flywheel act geothermal caes'.split(' '),
+659274	Ly=(id,on)=>{let h=Q('scada-ui-container'),b=h&&h.querySelector(`input[data-layer-id="${id}"]`);if(!b||b.disabled||!!b.checked===on)return 0;
+659275	  S.lyx=1;try{b.checked=on;b.dispatchEvent(new Event('change',{bubbles:true}))}catch(e){note('REPD layer '+id+': '+msg(e))}finally{S.lyx=0}return 1},
+659276	// switch on the layers `need` names that are off, and off every layer M3 switched on that `need` no longer names
+659277	Ry=(need=[])=>{let o=S.ly||(S.ly=new Set);for(let id of[...o])if(!need.includes(id)){o.delete(id);Ly(id,false)}
+659278	  for(let id of need)if(RL.includes(id)&&!o.has(id)&&Ly(id,true))o.add(id)},
+659279	/* ---- REPD projects near a tap (M2, M3) --------------------------------------------------------------------------------
+659280	   /dist/repd_master.json through the untouched bridge): REPD, DESNZ, April 2026 (Q1) extract, OGL v3.0. Measured by
+659281	   straight-line distance from the flash or the cell centre with the original link.measure.distanceKm. Nearest by distance
+659282	   only: never a claim that a project was struck or affected. */
+659283	  // a malformed row is skipped, never the whole register; numeric coordinates only; the search registry's Scilly
+659284	  // placeholder point is dropped should a register ever carry it (0 rows today)
+659285	  let o=f.map(x=>{try{let a=M.representativePoint(x.geometry);if(a[0]===+a[0]&&a[1]===+a[1]&&!(a[0]==-7.55716&&a[1]==49.766807))return[a,x.properties||{}]}catch(_){}return[]}).filter(([a,p])=>a&&M.isProjectTech(p.tech));
+659286	RpF={st:[['all','All'],['op','Operational'],['cc','Consented'],['pl','Planning']],
+659287	// an explicit table: a status the pinned register does not carry (refused, withdrawn, decommissioned…) is in no class
+659288	RpS=s=>({operational:'op','under construction':'cc','awaiting construction':'cc','application submitted':'pl'})[String(s||'').toLowerCase()]||'?',
+659289	// stated capacity of the parts at one point; repeated records of one scheme (same name, technology and capacity; only
+659290	// status or operator differ) count once. A capacity of 0 means "not stated".
+659291	RpW=ps=>RpU(ps,p=>p.name+'|'+p.raw_tech+'|'+(p.capacity>0?+p.capacity:0)).reduce((s,k)=>s+ +k.split('|').pop(),0),
+659292	RpC=ps=>RpW(ps)>0?'':' · capacity not stated',
+659293	// one label per site: projects at one point (e.g. solar + battery) share one link, one node and one label
+659294	// the card's polite status region (outside the closed <details>): one 99 ms delay keeps the messages in order
+659295	Ra=(c,s)=>setTimeout(()=>{if(c.lv)c.lv.textContent=s},99),
+659296	  let pd=ap(c.out,el('div','','REPD projects: loading…')),box=ap(c.out,el('div'));Ra(c,pd.textContent);
+659297	    if(S.pp!==c)return;Ry();S.rgf=(S.rgf||0)+1;
+659298	    pd.textContent=`REPD projects unavailable: ${msg(e)}. `+(S.rgf>1?'Switch on a REPD layer or reload the page, then tap again.':`Tap the ${c.wh=='cell centre'?'cell':'flash'} again to retry.`);
+659299	    c.sm.textContent+=' · REPD unavailable';Ra(c,pd.textContent)})},
+659300	  // one site per registered point: a row within about 10 m (2e-4° lon, 1e-4° lat) of a nearer row joins its site
+659301	  for(let r of[...sel].sort((a,b)=>a.km-b.km)){let g=[...groups.values()].find(g=>Math.abs(g.a[0]-r.a[0])<2e-4&&Math.abs(g.a[1]-r.a[1])<1e-4);if(!g)groups.set(r.a.join(),g={a:r.a,km:r.km,parts:[]});g.parts.push(r.p)}
+659302	    fa=all?'all statuses':[f.st,f.te].filter(v=>v!=='all').map(nm).join(' · '),
+659303	    n10=sel.filter(r=>r.km<=10),nc10=n10.filter(r=>!(r.p.capacity>0)).length,W=[...groups.values()].reduce((s,g)=>s+(g.km<=10?RpW(g.parts):0),0);
+659304	  pd.textContent=`${P.length?pl(P.length,'nearest REPD site')+(parts>P.length?` (${N(parts)} projects; those at one point grouped)`:''):'No REPD site'} within 40 km of this ${c.wh}, straight-line${all?'':` (${fa})`}. Not evidence any project was struck.`;
+659305	  // unknown is not zero: a project without a stated capacity is never summed as 0 MW
+659306	  if(sel.length)ap(box,el('div','margin-top:4px;color:#ffc48a',`Within 10 km: ${pl(n10.length,'project')}${n10.length?' · '+(W>0?`${N(W)} MW stated (${fa})`+(nc10?`, ${N(nc10)} not stated`:''):'capacity not stated'):''} · within 40 km: ${pl(sel.length,'project')} · straight-line distance only, not impact · REPD: DESNZ, April 2026, OGL v3.0`));
+659307	  let ol=P.length&&P.length<10?ap(box,el('div','',`Only ${pl(P.length,'site')} within the 40 km search radius${all?'':' for this filter'}.`)).textContent:'';
+659308	    ap(row,el('span','color:#8b9aa1;font-size:11px;min-width:40px',lb));
+659309	      // a press re-renders the chips: focus returns to the chip just pressed
+659310	      b.type='button';b.dataset.lightningRepdFilter=k+':'+v;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{if(f[k]!==v&&S.pp===c){f[k]=v;RpR(m,c,pd,box);box.querySelector(`[data-lightning-repd-filter="${k}:${v}"]`)?.focus?.()}})}}
+659311	    let p=g.parts[0],one=g.parts.length===1,
+659312	      b=ap(box,el('a','display:block;padding:14px 0 13px;border-top:1px solid #1d3238;color:#ffb27a',`${RpG(g)}${RpC(g.parts)} · ${one?cs(p.status)+' · '+cs(p.name):g.parts.length+' projects at this point:'}`));
+659313	    b.addEventListener('click',e=>{if(e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;if(e.preventDefault)e.preventDefault();RpV(m,c,g)});
+659314	    if(!one)for(let q of g.parts)ap(box,el('div','padding:0 0 8px 12px;color:#c9a27e;font-size:11px',`${RpN(q)}${RpMW(+q.capacity)}${RpC([q])} · ${cs(q.status)} · ${cs(q.name)}`))}
+659315	  c.sm.textContent=c.smb+' · '+(P.length?pl(P.length,'nearest REPD site'):'no REPD site within 40 km')+(all?'':` (${fa})`);Ra(c,pd.textContent+' '+ol);
+659316	  // M3: the original REPD layers of the listed technologies (within the filter) are on while this list is shown
+659317	  let lt=RpU(P.flatMap(g=>g.parts),q=>q.tech).filter(t=>RL.includes(t)),h=Q('scada-ui-container');Ry(lt);lt=lt.filter(t=>{let b=h&&h.querySelector(`input[data-layer-id="${t}"]`);return b&&b.checked});
+659318	  if(lt.length)ap(box,el('div','margin-top:6px;color:#8b9aa1;font-size:11px',`REPD map layers on for this list: ${lt.map(t=>{let q=Q('lbl-'+t);return q&&q.getAttribute('data-base-label')||t}).join(', ')}${S.ly.size?' (those switched on here go off when this card closes)':''}`));
+659319	  // a map error while drawing is noted (not shown as a register failure); a half-built set is rebuilt on the next render
+659320	  try{if(m.getLayer(NI[10])){m.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(nd)}
+659321	  else{for(let l of NI.slice(9))m.getLayer(l)&&m.removeLayer(l);for(let q of NSR.slice(3))m.getSource(q)&&m.removeSource(q);
+659322	    m.addSource(NSR[3],{type:'geojson',data:ln});m.addSource(NSR[4],{type:'geojson',data:nd});
+659323	    try{A(11,'symbol',NSR[4],{'text-color':'#ffc48a','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)})}catch(e){note('neon labels: '+msg(e))}}}catch(e){note('project lines: '+msg(e))}
+659324	// camera can frame it), its links and the filter. Both cards arrive collapsed so the neon links stay visible. Focus moves to
+659325	// "◀ back" on the project card, and to the restored card's summary after back. The REPD layers M3 switched on stay on.
+659326	    ps.length>1?`${ps.length} projects at this point · ${RpU(ps,q=>cs(q.name)).join(' / ')}`:`${cs(ps[0].name)} · ${cs(ps[0].status)}`,
+659327	    ps.map(q=>`${RpN(q)}${RpMW(+q.capacity)}${RpC([q])} · ${cs(q.status)} · ${cs(q.name)}`).join('; ')+` · lat ${y.toFixed(3)}, lon ${x.toFixed(3)} · ${g.km.toFixed(2)} km from the ${c.wh} (straight-line)`,
+659328	    'project',{np:1,foot:'REPD register (DESNZ, April 2026 · OGL v3.0) as loaded by the map · lightning = optical flashes, not necessarily ground strikes; not evidence the project was struck.',
+659329	      back:['◀ back to lightning '+src,()=>{pc();back();S.pp&&S.pp.sm.focus?.()}]});
+659330	  S.pp.querySelector('[data-lightning-back]')?.focus?.()},
+659331	else if(which==='latest'){S.end=null;S.h=[];pc();Ry();return ld(true)}else if(which==='prev')S.h.push(S.end),S.end=w.s;else if(which==='next')S.end=S.h.pop()||null;
+659332	ld=refresh=>{if(!refresh)pc(),Ry();let serial=++S.serial,now=Date.now();if(refresh)S.ip=S.fp=null;pt(true);
+659333	else{S.serial++;S.res=null;cx();Ry();if(S.rz){S.rz.disconnect();S.rz=S.ro=null}if(S.timer){clearInterval(S.timer);S.timer=null}pt(false)}},
+659334	bt=c=>c.addEventListener('change',ev=>{let t=ev.target,d=t&&t.dataset;if(!d)return;if(d.lightningControl==='toggle')so(!!t.checked);else if(!S.lyx&&S.ly)S.ly.delete(d.layerId)}),
+659335	/* uk-lightning-overlay, generation 202610262310 (UTC). EUMETSAT MTG LI (L2-LFL) optical flashes, OFF by default, appended
+659340	const GEN='202610262310',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',
+659352	if(r.parts&&!(Array.isArray(r.parts)&&r.parts.length<=24&&r.parts.every(p=>p&&/^days\/\d{4}(\/\d\d){3}\.json$/.test(p.path)&&(p.count>>>0||.5)===p.count)))b('parts')},
+659386	const got=await fr(tf,w.s,w.e,sn);for(const f of got.fl)if(/mismatch/.test(f.error)){if(!q){S.ip=null;return lw(now,sn,now)}f.error='archive updating, retrying next refresh';f.u=1}r.mode='detail';r.fl=got.fl;r.rq=got.rq;r.ev=co(got.parts,w.s,w.e);return r},
+659389	else if(f<1||c.ny>0||c.l||c.u.length||r.fl.length){st='PARTIAL';if(c.ny>0)rs.push('tail not yet ingested');if(c.bf>0)rs.push('head before archive start');if(c.u.length)rs.push(`${c.u.length} dates without a scan window`);if(!rs.length)rs.push('gaps in window')}
+659454	// minidom.mjs — just enough DOM for the lightning overlay under node:vm (harness: self-fixture, SYNTHETIC shell).
+659455	// Parses only the well-formed markup the overlay itself generates; selectors: tag, .class, [attr], [attr="v"], lists.
+659456	const VOID = new Set(['input']);
+659457	const kebab = k => k.replace(/[A-Z]/g, c => '-' + c.toLowerCase());
+659458	export class Text { constructor(t) { this.data = t; this.parentNode = null; } get textContent() { return this.data; } set textContent(v) { this.data = String(v); } }
+659459	export class El {
+659461	    this.tagName = tag.toUpperCase(); this.ownerDocument = doc; this.attrs = new Map(); this.children = []; this.parentNode = null;
+659462	    this.listeners = {}; this.checked = false; this.value = ''; this.min = ''; this.max = ''; this.scrollTop = 0;
+659463	    let css = ''; this.style = {}; Object.defineProperty(this.style, 'cssText', { get: () => css, set: v => { css = String(v); }, enumerable: false });
+659464	    const self = this;
+659465	    this.dataset = new Proxy({}, {
+659466	      get: (_, k) => self.attrs.get('data-' + kebab(String(k))),
+659467	      set: (_, k, v) => { self.attrs.set('data-' + kebab(String(k)), String(v)); return true; },
+659469	      contains: c => (self.attrs.get('class') || '').split(/\s+/).includes(c),
+659470	      toggle: (c, on) => { const s = new Set((self.attrs.get('class') || '').split(/\s+/).filter(Boolean)); if (on === undefined) on = !s.has(c); on ? s.add(c) : s.delete(c); self.attrs.set('class', [...s].join(' ')); return on; },
+659471	  get id() { return this.attrs.get('id') || ''; } set id(v) { this.attrs.set('id', v); }
+659472	  get className() { return this.attrs.get('class') || ''; } set className(v) { this.attrs.set('class', v); }
+659473	  get disabled() { return this.attrs.has('disabled'); } set disabled(v) { v ? this.attrs.set('disabled', '') : this.attrs.delete('disabled'); }
+659474	  get hidden() { return this.attrs.has('hidden'); } set hidden(v) { v ? this.attrs.set('hidden', '') : this.attrs.delete('hidden'); }
+659475	  setAttribute(a, v) { this.attrs.set(a, String(v)); } getAttribute(a) { return this.attrs.has(a) ? this.attrs.get(a) : null; }
+659476	  hasAttribute(a) { return this.attrs.has(a); } removeAttribute(a) { this.attrs.delete(a); }
+659477	  get lastChild() { return this.children[this.children.length - 1] || null; }
+659478	  get nextSibling() { const p = this.parentNode; if (!p) return null; return p.children[p.children.indexOf(this) + 1] || null; }
+659479	  appendChild(n) { if (n.parentNode) n.parentNode.removeChild(n); n.parentNode = this; this.children.push(n); return n; }
+659480	  insertBefore(n, ref) { if (!ref) return this.appendChild(n); if (n.parentNode) n.parentNode.removeChild(n); n.parentNode = this; this.children.splice(this.children.indexOf(ref), 0, n); return n; }
+659481	  removeChild(n) { const i = this.children.indexOf(n); if (i >= 0) this.children.splice(i, 1); n.parentNode = null; return n; }
+659482	  get textContent() { return this.children.map(c => c.textContent).join(''); }
+659483	  set textContent(v) { this.children = []; this.appendChild(new Text(String(v))); }
+659484	  set innerHTML(html) { this.children = []; parse(html, this, this.ownerDocument); }
+659485	  remove() { if (this.parentNode) this.parentNode.removeChild(this); }
+659486	  contains(n) { for (let x = n; x; x = x.parentNode) if (x === this) return true; return false; }
+659487	  closest(sel) { for (let x = this; x instanceof El; x = x.parentNode) if (matches(x, sel)) return x; return null; }
+659488	  *walk() { for (const c of this.children) if (c instanceof El) { yield c; yield* c.walk(); } }
+659489	  querySelectorAll(sel) { return [...this.walk()].filter(e => matches(e, sel)); }
+659490	  querySelector(sel) { for (const e of this.walk()) if (matches(e, sel)) return e; return null; }
+659491	  addEventListener(t, f) { (this.listeners[t] = this.listeners[t] || []).push(f); }
+659492	  getBoundingClientRect() { return this._rect || { top: 0, left: 0, right: 0, bottom: 0, width: 0, height: 0 }; }
+659494	function matchOne(e, s) {
+659495	  const m = s.trim().match(/^([a-z]+)?((?:\.[\w-]+|\[[\w-]+(?:="[^"]*")?\])*)$/i);
+659496	  if (!m) throw new Error('minidom: unsupported selector ' + s);
+659497	  if (m[1] && e.tagName !== m[1].toUpperCase()) return false;
+659498	  for (const p of m[2].match(/\.[\w-]+|\[[^\]]+\]/g) || []) {
+659499	    if (p[0] === '.') { if (!e.classList.contains(p.slice(1))) return false; continue; }
+659500	    const [, a, v] = p.match(/^\[([\w-]+)(?:="([^"]*)")?\]$/);
+659501	    if (!e.attrs.has(a) || (v !== undefined && e.attrs.get(a) !== v)) return false;
+659503	const matches = (e, sel) => sel.split(',').some(s => matchOne(e, s));
+659504	function parse(html, root, doc) {
+659505	  const re = /<(\/?)([a-z]+)([^>]*)>|([^<]+)/gi; let cur = root, m;
+659506	  while ((m = re.exec(html))) {
+659507	    if (m[4] !== undefined) { cur.appendChild(new Text(m[4])); continue; }
+659508	    if (m[1]) { cur = cur.parentNode; continue; }
+659509	    const el = new El(m[2], doc), ar = /([\w-]+)(?:="([^"]*)")?/g; let a;
+659510	    while ((a = ar.exec(m[3]))) el.attrs.set(a[1], a[2] === undefined ? '' : a[2]);
+659511	    cur.appendChild(el); if (!VOID.has(m[2].toLowerCase())) cur = el;
+659512	// event dispatch with bubbling; listener exceptions are caught and reported like a browser would
+659513	export function dispatch(target, type, errors) {
+659514	  let stopped = false; const ev = { type, target, stopPropagation: () => { stopped = true; } };
+659515	  for (let x = target; x && !stopped; x = x.parentNode) for (const f of (x.listeners && x.listeners[type]) || []) { try { f(ev); } catch (e) { errors.push(e); } }
+659516	export function makeDocument() {
+659517	  const doc = { };
+659518	  const html = new El('html', doc); doc.documentElement = html;
+659519	  doc.createElement = t => new El(t, doc);
+659520	  doc.getElementById = id => { for (const e of html.walk()) if (e.id === id) return e; return null; };
+659521	  doc.querySelector = s => html.querySelector(s);
+659524	// @gate-min-generation 202610282215
+659525	// Vendored from the hardening lanes' test-engine.mjs (Build M2, 202610282100: 176 tests, a superset of
+659526	// test-fixes.mjs), so the PR gate (tools/ci/pr-gate.mjs, docs/CI.md) runs the lightning engine, cell and REPD
+659527	// tests on every overlay module from 202610282100 on. Changes from the source, all mechanical:
+659528	//   - the module path is read from LIGHTNING_MODULE (the gate's variable) or MODULE;
+659529	//   - fixtures come from ./fixtures/ (provenance and SHA-256 in docs/CI.md); the REPD register is one gzip of
+659530	//     the repd_master_v8_oracle export that both REPD_REAL and REPD_IND pointed at (10,784 identical rows);
+659531	//   - a CI-additions section at the end (CI1, CI2) closes a gap a mutation run found.
+659532	//   - the six LIGHTNING_DATA tests still skip unless LIGHTNING_DATA points at a Ventusltd/lightning data/history
+659533	//     checkout (the gate has no network).
+659534	// M3 (202610282215): the expectations that M3 changes on purpose (the folded M2 review findings: wording, grouping within
+659535	//   about 10 m, unknown capacity never 0 MW, …) are updated in place, each tagged with its finding, and the M3 tests (REPD
+659536	//   layer auto-activation with an engine stand-in) and the review-fix tests are appended after CI1/CI2. The minimum
+659537	//   generation is therefore 202610282215: the suite is RED on 202610282100 by design (M2 wording).
+659538	// The tests below were written fail-first against earlier builds; do not relax an expectation to make a module pass.
+659539	// A new build that changes behaviour on purpose updates the affected test here, in the same PR, with the reason.
+659540	//   LIGHTNING_MODULE=atlas/modules/<gen>-uk-lightning-overlay.js node --test tools/ci/lightning/overlay-engine.test.mjs
+659541	// --- original header ---
+659542	// test-fixes.mjs — one fail-first test per defect for the 202610261949 uk-lightning overlay.
+659543	// Harness: self-fixture under node:vm with a minimal synthetic DOM (minidom.mjs) and SYNTHETIC index/feed/shard data
+659544	// built in this file; no network, no browser. Usage:  MODULE=<path to overlay .js> node --test test-fixes.mjs
+659545	// Expected: every test FAILS on the unmodified module (fda6b10) and PASSES on fixed-module.js.
+659550	import { gunzipSync } from 'node:zlib';
+659552	import { El, makeDocument, dispatch } from './minidom.mjs';
+659553	const MODULE = process.env.LIGHTNING_MODULE || process.env.MODULE;
+659554	if (!MODULE) throw new Error('set LIGHTNING_MODULE=<overlay path>');
+659555	const SRC = readFileSync(MODULE, 'utf8');
+659556	const SEAM = 'NS.ukLightning=Object.freeze(';
+659557	assert.equal(SRC.split(SEAM).length, 2, 'seam');
+659558	const PROBED = SRC.replace(SEAM, 'window.__PROBE__={ok,cf,cp,sh,S};' + SEAM);
+659559	const H = 36e5, D = 864e5;
+659560	// L3 (drain flake): count in-flight fetches, Response bodies and WebCrypto digests of the CURRENT boot only (__G);
+659561	// drain() keeps ticking while any is pending, but stops after 100 ticks with no settlement (a deliberately held promise).
+659562	globalThis.__G = 0; globalThis.__PEND = 0; globalThis.__PARK = 0; globalThis.__SET = 0;
+659563	const track = p => { const g = globalThis.__G; globalThis.__PEND++; return Promise.resolve(p).finally(() => { if (g === globalThis.__G) { globalThis.__PEND--; globalThis.__SET++; } }); };
+659564	class TResponse extends Response { arrayBuffer() { return track(super.arrayBuffer()); } json() { return track(super.json()); } }
+659565	const iso = t => new Date(t).toISOString();
+659566	const ymd = t => iso(t).slice(0, 10);
+659567	const enc = o => Buffer.from(JSON.stringify(o));
+659568	const flash = (t, id, coords = [-1.5, 52]) => ({ type: 'Feature', id, geometry: { type: 'Point', coordinates: coords }, properties: { time_utc: iso(t), observation_kind: 'optical_lightning_flash' } });
+659569	const feed = (features, ageH = 1, extra = {}) => ({ type: 'FeatureCollection', features, metadata: { query_start_utc: iso(Date.now() - (ageH + 3) * H), query_end_utc: iso(Date.now() - ageH * H), scan_end_utc: iso(Date.now() - ageH * H), latest_detection_utc: features.length ? features[features.length - 1].properties.time_utc : null, ...extra } });
+659570	const dayFile = (date, features) => ({ schema: 'uk-lightning-history-day.v1', type: 'FeatureCollection', metadata: { date_utc: date }, features });
+659571	// v2 index: every date from cutoff to today, fully scanned, count 0, unless overridden
+659572	function mkIndex(over = {}, top = {}, nowT = null) {
+659573	  const now = nowT ?? Date.now(), today = Date.parse(ymd(now) + 'T00:00:00Z'), cutoff = today - 365 * D, days = [];
+659574	  for (let t = cutoff; t <= today; t += D) {
+659576	    if (over[date] === null) continue;
+659577	    days.push(Object.assign({ date, coverage: 'full', scanned_seconds: 86400, count: 0, bytes: null, path: null, sealed: t < today - D, first_observation_utc: null, last_observation_utc: null, sha256: null }, over[date] || {}));
+659578	  return Object.assign({ schema: 'uk-lightning-history-index.v2', generated_utc: iso(now - 600e3), next_update_due_utc: iso(now + H), cutoff_date_utc: ymd(cutoff), collection_interval_hours: 1,
+659579	    observation: 'satellite optical lightning flashes, not ground strikes', coverage_start_utc: iso(cutoff), scan_windows: [{ start_utc: iso(cutoff), end_utc: iso(now), successful_runs: 999 }], days }, top);
+659580	function boot({ index = null, feedFn = () => feed([flash(Date.now() - 2 * H, 'f1')]), files = {}, noGrid = false, lazy = false, park = false, bounds = null, dash = null, innerHeight = 852, now = null, redirect = null, ro = false, noCrypto = false, phone = false } = {}) {
+659581	  globalThis.__G++; globalThis.__PEND = 0; globalThis.__PARK = 0; const doc = makeDocument(), html = doc.documentElement, body = doc.createElement('body'); html.appendChild(body);
+659582	  const host = doc.createElement('div'); host.id = 'scada-ui-container'; body.appendChild(host);
+659583	  const orig = doc.createElement('div'); orig.className = 'key-group'; host.appendChild(orig);
+659584	  const curtain = doc.createElement('div'); curtain.id = 'fs-curtain-keys'; body.appendChild(curtain);
+659585	  const bar = doc.createElement('div'); bar.id = 'gridatlas-menu-bar'; body.appendChild(bar);
+659586	  const grid = doc.createElement('div'); grid.className = 'gm-panel-grid'; bar.appendChild(grid);
+659587	  const pbody = doc.createElement('div'); pbody.className = 'gm-panel-body'; if (!noGrid) grid.appendChild(pbody);
+659588	  let dashEl = null; if (dash) { dashEl = doc.createElement('button'); dashEl.id = 'gridatlas-dash-toggle'; dashEl._rect = dash; body.appendChild(dashEl); }
+659589	  const sources = new Map(), layers = new Map(), camera = [];
+659590	  const map = { getLayer: id => layers.get(id), getSource: id => sources.get(id), addSource: (id, o) => sources.set(id, { ...o, setData(x) { this.data = x; } }), addLayer: x => layers.set(x.id, { ...x }),
+659591	    removeLayer: id => layers.delete(id), removeSource: id => sources.delete(id), setLayoutProperty(id, k, v) { const l = layers.get(id); if (l) { l.layout = l.layout || {}; l.layout[k] = v; } } };
+659592	  for (const k of ['fitBounds', 'flyTo', 'easeTo', 'jumpTo', 'setCenter', 'setZoom', 'panTo']) map[k] = (...a) => camera.push([k, a]);
+659593	  const handlers = []; let qrf = () => [];
+659594	  const mapEl = doc.createElement('div'); mapEl.id = 'map'; body.appendChild(mapEl); let proj = ll => ({ x: ll[0] * 10, y: ll[1] * 10 });
+659595	  map.getContainer = () => mapEl; map.project = ll => proj(ll); map.once = (t, f) => f(); // moveend after flyTo, immediately
+659596	  map.on = (t, a, b) => handlers.push({ t, layer: b ? a : null, f: b || a });
+659597	  map.queryRenderedFeatures = (pt, o) => (o && o.layers || []).flatMap(l => qrf(l, pt));
+659598	  const tapMap = (pt, hitsByLayer = {}) => { for (const q of hitsByLayer['gridatlas-lightning-hit'] || []) if (q.properties && !('s' in q.properties) && W.__GRIDATLAS_MODULES__.ukLightning.state.res) q.properties.s = W.__GRIDATLAS_MODULES__.ukLightning.state.res.s; qrf = l => hitsByLayer[l] || []; const e = { point: pt, lngLat: { lng: 0, lat: 0 } };
+659599	    for (const h of handlers.filter(h => h.t === 'click')) { if (h.layer) { if ((hitsByLayer[h.layer] || []).length) h.f(e); } else h.f(e); } };
+659600	  const popups = []; class Popup { constructor(o) { this.o = o; this.removed = false; popups.push(this); } setLngLat(l) { this.ll = l; return this; } setDOMContent(d) { this.dom = d; return this; } setHTML(h) { this.html = h; return this; } addTo() { return this; } remove() { this.removed = true; } }
+659601	  if (bounds) map.getBounds = () => ({ contains: ([x, y]) => x >= bounds[0] && y >= bounds[1] && x <= bounds[2] && y <= bounds[3] });
+659602	  const log = { fetch: [], xhr: [], intervals: [], errors: [] }, parked = [], winL = {};
+659603	  class XHR { open(m, u) { this.url = u; } send() { log.xhr.push(this.url); const d = feedFn(); setTimeout(() => { if (d && d.status) { this.status = d.status; this.onload(); return; } this.status = 200; this.responseURL = redirect === 'feed' ? 'https://evil.example/f.geojson' : this.url; this.responseText = typeof d === 'string' ? d : JSON.stringify(d); this.onload(); }, 0); } }
+659604	  let nIdx = 0;
+659605	  const fetch = url => track(fetch0(url)); const fetch0 = async url => {
+659606	    log.fetch.push(url); await null;
+659607	    if (url.split('?')[0].endsWith('/history/index.json')) {
+659608	      const v = typeof index === 'function' ? await index(++nIdx) : index;
+659609	      if (redirect === 'index') return { ok: true, status: 200, redirected: true, url: 'https://evil.example/index.json', json: async () => mkIndex() };
+659610	      return v == null ? new TResponse('nope', { status: 404 }) : new TResponse(typeof v === 'string' ? v : enc(v), { status: 200 });
+659611	    if (park) { const g = globalThis.__G; globalThis.__PARK++; await new Promise(r => parked.push(r)); if (g === globalThis.__G) globalThis.__PARK--; }
+659612	    const k = url.split('/history/')[1]; return files[k] ? new TResponse(files[k], { status: 200 }) : new TResponse('nope', { status: 404 });
+659613	  const W = { maplibregl: { Popup }, __GRIDATLAS_V9_MAP__: map, innerWidth: 1440, innerHeight, crypto: noCrypto ? undefined : { subtle: { digest: (a, b) => track(webcrypto.subtle.digest(a, b)) } }, __GRIDATLAS_MODULES__: { menuBar: { installed: true } }, __GRIDATLAS_PIPELINE_LAYERS__: { installed: true } };
+659614	  const addEventListener = (t, f) => (winL[t] = winL[t] || []).push(f);
+659615	  W.addEventListener = addEventListener;
+659616	  let D = Date;
+659617	  if (now !== null) D = class extends Date { constructor(...a) { a.length ? super(...a) : super(now); } static now() { return now; } };
+659618	  const sandbox = { window: W, document: doc, Date: D, AbortController, Map, XMLHttpRequest: XHR, fetch, Response: TResponse, TextDecoder, setTimeout, clearTimeout,
+659619	    setInterval: (f, ms) => { log.intervals.push({ f, ms }); return log.intervals.length; }, clearInterval: () => {}, matchMedia: () => ({ matches: phone }),
+659620	    MutationObserver: class { observe() {} disconnect() {} }, innerHeight, addEventListener, maplibregl: { Popup } };
+659621	  const robs = []; if (ro) sandbox.ResizeObserver = class { constructor(f) { this.f = f; this.off = 0; } observe(el) { robs.push({ el, f: this.f, o: this }); } disconnect() { this.off++; } };
+659622	  const code = globalThis.__SRC_OVERRIDE ? globalThis.__SRC_OVERRIDE.replace(SEAM, 'window.__PROBE__={ok,cf,cp,sh,S};' + SEAM) : PROBED;
+659623	  vm.runInNewContext(code, sandbox, { filename: MODULE, timeout: 5000 });
+659624	  const api = W.__GRIDATLAS_MODULES__.ukLightning, probe = W.__PROBE__;
+659625	  const installed = lazy ? false : api.install();
+659626	  if (!noGrid && !lazy) assert.equal(installed, true, 'install');
+659627	  const main = new Proxy({}, { get: (_, k) => probe.S.sfs[0][k] });
+659628	  const click = el => dispatch(el, 'click', log.errors);
+659629	  const toggle = on => { const t = main.toggle; t.checked = on; dispatch(t, 'change', log.errors); };
+659630	  const cap = k => main.caps[k].textContent;
+659631	  const fire = t => { sandbox.innerHeight = W.innerHeight; for (const f of winL[t] || []) f({ type: t }); };
+659632	  const release = () => { while (parked.length) parked.shift()(); };
+659633	  return { mapEl, setProj: f => { proj = f; }, handlers, tapMap, popups, map, robs, winL, installed, doc, grid, api, probe, S: probe.S, log, main, click, toggle, cap, host, orig, pbody, sources, layers, camera, dashEl, W, sandbox, fire, release, parked,
+659634	    chip: p => main.chips[p], nav: n => main.nav[n], status: () => main.stx.textContent, label: () => main.label.textContent };
+659635	const unhandled = [];
+659636	process.on('unhandledRejection', e => unhandled.push(e));
+659637	const drain = async () => { let idle = 0, last = -1; for (let k = 0; k < 30 || (globalThis.__PEND > globalThis.__PARK && idle < 100 && k < 5000); k++) { const sig = globalThis.__SET * 1e4 + globalThis.__PEND; idle = sig === last ? idle + 1 : 0; last = sig; await new Promise(r => setImmediate(r)); await new Promise(r => setTimeout(r, 1)); } };
+659639	// ---------------------------------------------------------------- ChatGPT findings
+659640	test('H01: OFF->ON revalidates the live feed (no cached promise)', async () => {
+659641	  let resp = feed([flash(Date.now() - 2 * H, 'old')]);
+659642	  const x = boot({ feedFn: () => resp });
+659643	  x.toggle(true); await drain();
+659644	  assert.equal(x.S.res.ev[0].id, 'old');
+659645	  x.toggle(false); resp = feed([flash(Date.now() - 0.5 * H, 'new')]);
+659646	  assert.equal(x.log.xhr.length, 2, 'second ON must request the feed again');
+659647	  assert.equal(x.S.res.ev.at(-1).id, 'new');
+659649	test('H01/F3: the 10-minute refresh re-requests the live feed, not only index.json', async () => {
+659650	  let n = 0; const x = boot({ feedFn: () => feed([flash(Date.now() - 2 * H, 'f' + (++n))]) });
+659651	  const tick = x.log.intervals.find(i => i.ms === 6e5); assert.ok(tick, 'refresh timer');
+659652	  tick.f(); await drain(); tick.f(); await drain();
+659653	  assert.equal(x.log.xhr.length, 3, 'feed requests after two refresh ticks');
+659654	  assert.equal(x.S.res.ev[0].id, 'f3');
+659655	test('H02/F4: a feed whose query_end_utc is 6 h old is STALE in state, label and status', async () => {
+659656	  const x = boot({ feedFn: () => feed([flash(Date.now() - 7 * H, 'a')], 6) });
+659657	  assert.equal(x.S.last.stale, true);
+659658	  assert.match(x.status(), /COLLECTOR LAST R[AU]N/); // J: kv-words (was /STALE/ on label and status)
+659659	test('H03: ok() rejects malformed and out-of-box coordinates; such a record is never drawn', async () => {
+659660	  const x = boot({ feedFn: () => feed([flash(Date.now() - 2 * H, 'in'), flash(Date.now() - 2 * H, 'out', [150, 10]), flash(Date.now() - 2 * H, 'nul', [null, 52])]) });
+659661	  assert.equal(x.probe.ok(flash(0, 'v', [-1.5, 52])), true);
+659662	  for (const bad of [[150, 10], [null, 52], ['bad', 52], [NaN, 52], [-1.5, 95], [], [0], null, 5, '1,52', [[-1.5, 52]], [Infinity, 52]])
+659663	    assert.equal(x.probe.ok(flash(0, 'b', bad)), false, 'accepted ' + JSON.stringify(bad));
+659664	  assert.equal(JSON.stringify(x.sources.get('gridatlas-lightning').data.features.map(f => f.id)), '["in"]');
+659665	test('H04: a shard is rejected when its count, bytes or sha256 differ from the index entry; a matching shard loads', async () => {
+659666	  const date = ymd(Date.now() - 2 * D), body = enc(dayFile(date, [flash(Date.parse(date + 'T12:00:00Z'), 'z')]));
+659667	  const good = { path: 'days/' + date.replace(/-/g, '/') + '.json', sealed: true, count: 1, bytes: body.length, sha256: sha(body) };
+659668	  const fresh = () => boot({ files: { [good.path]: body } }).probe; // fresh boot per case: sh() caches by URL
+659669	  assert.equal((await fresh().sh(good, date)).length, 1, 'matching shard must load');
+659670	  for (const [k, v] of [['count', 2], ['bytes', body.length + 1], ['sha256', '0'.repeat(64)]])
+659671	    await assert.rejects(fresh().sh({ ...good, [k]: v }, date), new RegExp(k), k + ' mismatch accepted');
+659672	test('H05: a sub-day budget caption never calls whole-day index sums "in window"', async () => {
+659673	  const x = boot(), now = Date.now(), w = { s: now - 12 * H, e: now, period: '12h', label: '12 hours', atLatest: true, custom: false, clamped: false };
+659674	  const r = { w, mode: 'detail', idx: { gen: now, iv: 1, nextDue: now + H }, ev: [flash(now - 2 * H, 'v')], arch: 50000, ld: ['d1'], sk: ['d0'], fl: [], rq: 2, cs: 'index', ic: 40000, cl: true, cov: { f: 1, r: 6, a: w.s, b: w.e, ny: 0, bf: 0, u: [], d: 2 } };
+659675	  const L = x.probe.cp(r, now);
+659676	  assert.doesNotMatch(L.flashes, /archived in window/);
+659677	  assert.match(L.flashes, /50,000 archived on the overlapping UTC dates \(index, whole days\)/);
+659678	// ---------------------------------------------------------------- overlay-code-review F1-F6
+659679	test('F2: CUSTOM clicked during the first LOADING neither throws nor paints the stale 24h result', async () => {
+659680	  const x = boot({ index: mkIndex() });
+659681	  x.toggle(true); x.click(x.chip('custom'));
+659682	  assert.deepEqual(x.log.errors.map(String), [], 'click handler threw');
+659683	  await drain();
+659684	  assert.equal(x.S.res.w.custom, true, 'result painted under the CUSTOM chip is not the custom window');
+659685	  assert.match(x.cap('window'), /^Window {2}UTC dates /);
+659686	test('F1: an unparsable feed timestamp does not wedge the UI (label leaves [LOAD], chips still load)', async () => {
+659687	  const x = boot({ feedFn: () => feed([flash(Date.now() - 2 * H, 'a')], 1, { query_end_utc: 'garbage', latest_detection_utc: 'nope' }) });
+659688	  assert.doesNotMatch(x.label(), /\[LOAD\]/); assert.notEqual(x.status(), 'LOADING');
+659689	  const before = x.log.xhr.length + x.log.fetch.length;
+659690	  x.click(x.chip('7d')); await drain();
+659691	  assert.deepEqual(x.log.errors.map(String), []);
+659692	  assert.ok(x.log.xhr.length + x.log.fetch.length > before, 'chip click started no load');
+659693	  assert.equal(x.S.last.period, '7d');
+659694	  assert.match(x.cap('refresh'), /Refresh live feed unknown/);
+659695	  assert.deepEqual(unhandled.filter(e => /Invalid time value/.test(String(e))).length, 0, 'RangeError escaped');
+659696	test('F5: PREV is disabled in feed-only mode', async () => {
+659697	  const x = boot();
+659698	  x.toggle(true); x.click(x.chip('48h')); await drain();
+659699	  assert.equal(x.S.res.mode, 'feed');
+659700	  assert.equal(x.nav('prev').disabled, true);
+659701	test('F6 / owner device 2: feed-mode coverage reads "unknown (live feed records only its last collection window)", never a percentage', async () => {
+659702	  x.toggle(true); x.click(x.chip('7d')); await drain();
+659703	  assert.equal(x.cap('searched'), 'Searched EUMETSAT unknown (live feed records only its last collection window)');
+659704	  assert.doesNotMatch(x.status(), /%/);
+659705	  assert.match(x.label(), /\[1 \| live feed\]/); // J: kv-words
+659706	test('F9: bytes:null is estimated, not counted as 0, in the 32 MB budget', async () => {
+659707	  const d1 = ymd(Date.now() - D), d2 = ymd(Date.now() - 2 * D), p = d => 'days/' + d.replace(/-/g, '/') + '.json';
+659708	  const x = boot({ index: mkIndex({ [d1]: { count: 10, bytes: 30e6, path: p(d1), sha256: 'x' }, [d2]: { count: 5000, bytes: null, path: p(d2), sha256: 'y' } }) });
+659709	  x.toggle(true); await drain(); const before = x.log.fetch.filter(u => u.includes('/days/')).length;
+659710	  assert.equal(x.S.res.clp, true, '30 MB + 5,000 flashes x 530 B must exceed 32 MB and ask before loading');
+659711	  assert.equal(x.log.fetch.filter(u => u.includes('/days/')).length, before, 'day files fetched without consent');
+659712	// ---------------------------------------------------------------- owner decision pack
+659713	test('R02: a v1 index reads "archive unavailable", not "archive not yet published"', async () => {
+659714	  const x = boot({ index: { schema: 'uk-lightning-history-index.v1', days: [] } });
+659715	  assert.match(x.cap('refresh'), /archive unavailable: unsupported index schema uk-lightning-history-index\.v1/);
+659716	  assert.doesNotMatch(x.cap('refresh'), /not yet published/);
+659717	test('R04: CUSTOM shows a custom-window caption at once, not the previous period until APPLY', async () => {
+659718	  x.toggle(true); x.click(x.chip('3m')); await drain();
+659719	  assert.match(x.cap('window'), /3 months/);
+659720	  x.click(x.chip('custom')); await drain();
+659721	  assert.doesNotMatch(x.cap('window'), /3 months/);
+659722	  assert.match(x.cap('window'), /^Window  UTC dates/); // J: kv-words
+659723	test('LP: LOAD POINTS stops before a day that would break 40,000 flashes or 32 MB', async () => {
+659724	  const p = d => 'days/' + d.replace(/-/g, '/') + '.json', dd = [1, 2, 3].map(k => ymd(Date.now() - k * D));
+659725	  const big = Object.fromEntries(dd.map(d => [d, { count: 30000, bytes: 1000, path: p(d), sha256: 'x' }]));
+659726	  let x = boot({ index: mkIndex(big) });
+659727	  assert.equal(x.S.res.clp, true); x.click(x.nav('points')); await drain();
+659728	  assert.ok(x.S.last.index_count <= 40000, `loaded ${x.S.last.index_count} > 40,000`);
+659729	  const heavy = Object.fromEntries(dd.map(d => [d, { count: 100, bytes: 20e6, path: p(d), sha256: 'x' }]));
+659730	  x = boot({ index: mkIndex(heavy) });
+659731	  assert.equal(x.S.res.ld.length, 1, `days loaded ${x.S.res.ld.length}: 32 MB ignored after consent`);
+659732	// ---------------------------------------------------------------- owner iPhone (2026-10-26 22:44 UTC)
+659733	test('Owner device 1: in feed fallback the 30D-12M chips respond with "archive not yet published: earlier coverage unknown, not zero"', async () => {
+659734	  for (const p of ['30d', '3m', '6m', '12m']) assert.equal(x.chip(p).disabled, false, p + ' chip disabled');
+659735	  x.click(x.chip('12m')); await drain();
+659736	  assert.notEqual(x.S.last.state, 'FAIL');
+659737	  assert.equal(x.cap('warning'), 'archive not yet published: earlier coverage unknown, not zero');
+659738	  assert.equal(x.S.last.drawn, 1);
+659739	test('Owner device 3: bottom padding is inline on the lightning main group only; no original node or selector touched', async () => {
+659740	  assert.ok(parseFloat(x.main.group.style.paddingBottom) >= 56, 'spacer ' + x.main.group.style.paddingBottom);
+659741	  assert.equal(x.host.style.paddingBottom, undefined); assert.equal(x.host.style.cssText, '');
+659742	  assert.equal(x.orig.style.paddingBottom, undefined);
+659743	  if (x.S.menu) assert.equal(x.S.menu.group.style.paddingBottom, undefined, 'Grid footer row');
+659744	// ---------------------------------------------------------------- variant C additions (fail-first against 202610262310)
+659745	const attrsWith = (root, re) => [root, ...root.walk()].filter(e => [...e.attrs.values()].some(v => re.test(v)));
+659746	test('P14: the lightning main group carries an inline bottom spacer of at least 56 px (44 px HIDE LAYERS + 12 px inset)', async () => {
+659747	  assert.ok(parseFloat(x.main.group.style.paddingBottom) >= 56, 'paddingBottom ' + x.main.group.style.paddingBottom);
+659748	test('A11Y P15-1: period chips expose aria-pressed and it follows the selected period', async () => {
+659749	  assert.equal(x.chip('24h').getAttribute('aria-pressed'), 'true');
+659750	  assert.equal(x.chip('7d').getAttribute('aria-pressed'), 'false');
+659751	  assert.equal(x.chip('7d').getAttribute('aria-pressed'), 'true');
+659752	  assert.equal(x.chip('24h').getAttribute('aria-pressed'), 'false');
+659753	test('A11Y P15-2: the custom From/To date inputs have accessible names', async () => {
+659754	  for (const k of ['from', 'to']) assert.match(x.main[k].getAttribute('aria-label') || '', new RegExp('^' + k + ' date \\(UTC\\)$'));
+659755	test('A11Y P15-3: no #555 text on lightning nodes; caption footer and status line are #888', async () => {
+659756	  assert.deepEqual(attrsWith(x.main.group, /#555/).map(e => e.tagName), [], '#555 still used');
+659757	  assert.match(x.main.caps.footer.getAttribute('style'), /color:#(888|[9a-f]{3})\b/);
+659758	  assert.match(x.main.group.querySelector('.status-dot').getAttribute('style') || '', /color:#(888|[9a-f]{3})\b/);
+659759	test('A11Y P15-4: FAIL-state label opacity is 0.6', async () => {
+659760	  const today = ymd(Date.now()), path = 'days/' + today.replace(/-/g, '/') + '.json';
+659761	  const x = boot({ index: mkIndex({ [today]: { count: 1, bytes: 10, path, sha256: 'x', sealed: false } }) });
+659762	  assert.equal(x.S.last.state, 'FAIL');
+659763	  assert.equal(x.main.label.style.opacity, '0.6');
+659764	test('R01/P02/P10: no Grid dropdown mirror is inserted; the original Grid panel keeps its children', async () => {
+659765	  assert.deepEqual(x.grid.children.map(c => c.className), ['gm-panel-body'], 'Grid panel children changed');
+659766	  assert.equal(x.doc.documentElement.querySelector('[data-lightning-group="menu"]'), null);
+659767	  assert.equal(x.S.menu, undefined);
+659768	test('R01: boot no longer waits for .gm-panel-body', async () => {
+659769	  const x = boot({ noGrid: true });
+659770	  assert.equal(x.installed, true, 'waiting_for ' + JSON.stringify(x.S.waiting_for));
+659771	test('R01: without the mirror, panel and curtain twins stay in sync both ways', async () => {
+659772	  const x = boot(), fs = x.S.sfs[1];
+659773	  fs.toggle.checked = true; dispatch(fs.toggle, 'change', x.log.errors); await drain();
+659774	  assert.equal(x.S.on, true); assert.equal(x.main.toggle.checked, true);
+659775	  assert.equal(fs.label.textContent, x.main.label.textContent);
+659776	  x.toggle(false); await drain();
+659777	  assert.equal(fs.toggle.checked, false); assert.match(fs.label.textContent, /\[WAIT\]/);
+659778	// ---------------------------------------------------------------- variant E (fail-first against fixed-module-D.js)
+659779	const P = d => 'days/' + d.replace(/-/g, '/') + '.json';
+659780	const shard = (date, n, t0) => { const fs = []; for (let i = 0; i < n; i++) fs.push(flash(t0 + i, date + '-' + i)); const b = enc(dayFile(date, fs)); return { b, row: { count: n, bytes: b.length, sha256: sha(b), path: P(date) } }; };
+659781	test('CR1: LOAD POINTS when the newest day alone exceeds the budget never reads EMPTY / "NO FLASHES DETECTED"', async () => {
+659782	  const today = ymd(Date.now()), y1 = ymd(Date.now() - D);
+659783	  const x = boot({ index: mkIndex({ [today]: { count: 45000, bytes: 1000, path: P(today), sha256: 'x', sealed: false }, [y1]: { count: 100, bytes: 1000, path: P(y1), sha256: 'y' } }) });
+659784	  assert.notEqual(x.S.last.state, 'EMPTY-COVERED'); assert.doesNotMatch(x.status(), /NO FLASHES/); assert.doesNotMatch(x.label(), /EMPTY/);
+659785	  assert.match(x.cap('flashes'), /newest day alone exceeds/);
+659786	  assert.equal(x.nav('points').hidden, true, 'LOAD POINTS offered again although it cannot draw anything');
+659787	test('CR2: a failed index reload clears S.idx (no stale archive state after fallback)', async () => {
+659788	  let ok = true; const x = boot({ index: () => ok ? mkIndex() : null, feedFn: () => ({ status: 503 }) });
+659789	  x.toggle(true); await drain(); assert.ok(x.S.idx, 'first index');
+659790	  x.toggle(false); ok = false; x.toggle(true); await drain();
+659791	  assert.equal(x.S.idx, null, 'S.idx kept from the earlier index');
+659792	  assert.match(x.cap('warning'), /Archive unavailable: HTTP 404/);
+659793	test('CR3: superseded shard workers issue no new requests after OFF', async () => {
+659794	  const files = {}, over = {};
+659795	  for (let k = 0; k < 8; k++) { const d = ymd(Date.now() - k * D), s = shard(d, 1, Date.parse(d + 'T00:00:01Z')); files[s.row.path] = s.b; over[d] = s.row; }
+659796	  const x = boot({ index: mkIndex(over), files, park: true });
+659797	  x.toggle(true); await drain(); x.click(x.chip('7d')); await drain();
+659798	  x.toggle(false); const atOff = x.log.fetch.length;
+659799	  for (let k = 0; k < 6; k++) { x.release(); await drain(); }
+659800	  assert.equal(x.log.fetch.length, atOff, `${x.log.fetch.length - atOff} shard requests issued after OFF`);
+659801	test('CR4: a late, older index response does not overwrite a newer S.idx', async () => {
+659802	  let rel; const older = mkIndex({}, { generated_utc: iso(Date.now() - 2 * H) }), newer = mkIndex({}, { generated_utc: iso(Date.now() - 60e3) });
+659803	  const x = boot({ index: n => n === 1 ? new Promise(r => { rel = () => r(older); }) : newer });
+659804	  x.toggle(true); await drain(); x.toggle(false); x.toggle(true); await drain();
+659805	  assert.equal(x.S.idx.gen, Date.parse(newer.generated_utc));
+659806	  rel(); await drain();
+659807	  assert.equal(x.S.idx.gen, Date.parse(newer.generated_utc), 'older index overwrote S.idx');
+659808	test('CR5/S4: index counts must be non-negative integers ("03" and 1e400 are rejected, archive fails closed)', async () => {
+659809	  const d = ymd(Date.now() - D);
+659810	  for (const bad of ['"03"', '1e400']) {
+659811	    const body = JSON.stringify(mkIndex({ [d]: { count: 777777, path: P(d), bytes: 10, sha256: 'x' } })).replace('777777', bad);
+659812	    const x = boot({ index: body }); x.toggle(true); await drain();
+659813	    assert.equal(x.S.idx, null, bad + ' accepted'); assert.match(x.S.ie || '', /count/);
+659814	test('CR6: a budget-truncated LOAD POINTS result is PARTIAL, not READY', async () => {
+659815	  const d8 = ymd(Date.now() - 8 * D), d9 = ymd(Date.now() - 9 * D), a = shard(d8, 30000, Date.parse(d8 + 'T10:00:00Z')), b = shard(d9, 30000, Date.parse(d9 + 'T10:00:00Z'));
+659816	  const x = boot({ index: mkIndex({ [d8]: a.row, [d9]: b.row }), files: { [a.row.path]: a.b, [b.row.path]: b.b } });
+659817	  x.toggle(true); x.click(x.chip('7d')); await drain(); x.click(x.nav('prev')); await drain();
+659818	  assert.equal(x.S.res.sk.length, 1); assert.equal(x.S.last.failures, 0);
+659819	  assert.equal(x.S.last.state, 'PARTIAL');
+659820	test('M01: group spans the grid; spacer = HIDE LAYERS rect + 16 px, right inset clears the button, both recomputed on resize/orientationchange', async () => {
+659821	  const x = boot({ dash: { top: 788, bottom: 832, left: 245, right: 377, width: 132, height: 44 }, innerHeight: 844 });
+659822	  assert.equal(x.main.group.style.gridColumn, '1/-1');
+659823	  assert.equal(x.main.group.style.paddingBottom, '72px');
+659824	  x.main.group._rect = { top: 400, bottom: 900, left: 8, right: 385, width: 377, height: 500 }; x.fire('resize');
+659825	  assert.equal(x.main.group.style.paddingRight, '156px');
+659826	  x.W.innerHeight = 393; x.dashEl._rect = { top: 337, bottom: 381, left: 708, right: 840, width: 132, height: 44 }; x.main.group._rect = { right: 600 }; x.fire('orientationchange');
+659827	  assert.equal(x.main.group.style.paddingBottom, '72px'); assert.equal(x.main.group.style.paddingRight, '0px');
+659828	  const y = boot(); assert.equal(y.main.group.style.paddingBottom, '96px', 'fallback without the button');
+659829	test('M02: feed fallback on a long period states "<n> seen in the available 7-day feed · <period> requested · older history unknown" near the chips, with oldest/latest UTC', async () => {
+659830	  const x = boot({ feedFn: () => feed([flash(Date.now() - 5 * D, 'a'), flash(Date.now() - 2 * D, 'b')]) });
+659831	  x.toggle(true); x.click(x.chip('12m')); await drain();
+659832	  const want = '2 seen in the available 7-day feed · ' + x.S.res.w.label + ' requested · older history unknown';
+659833	  assert.ok(x.status().includes(want) || x.cap('flashes').includes(want), 'status/flashes line: ' + x.status() + ' | ' + x.cap('flashes'));
+659834	  assert.match(x.cap('actual'), /first \d{4}-\d\d-\d\d \d\d:\d\d:\d\d UTC · last \d{4}-\d\d-\d\d \d\d:\d\d:\d\d UTC/);
+659835	  assert.match(x.cap('warning'), /archive not yet published: earlier coverage unknown, not zero/);
+659836	const tm0 = f => Date.parse(f.properties.time_utc);
+659837	test('M03: drawn flashes outside map.getBounds() are reported; the map is never moved', async () => {
+659838	  const t = Date.now() - 20 * H;
+659839	  const x = boot({ bounds: [-3, 50, 2, 53], feedFn: () => feed([flash(t, 'a', [-4.212, 55.3743]), flash(t + 1, 'b', [-5.4351, 55.3068]), flash(t + 2, 'c', [-4.4874, 55.1637]), flash(t + 3, 'd', [-1.5, 52])]) });
+659840	  assert.match(x.cap('flashes'), /3 of 4 outside the current view/);
+659841	  assert.deepEqual(x.camera, [], 'camera moved');
+659842	test('M04: caption 12 px, #bbb or brighter, disclaimer at least 11 px, normal wrapping', async () => {
+659843	  const x = boot(), st = x.main.group.querySelector('[data-lightning-caption]').getAttribute('style');
+659844	  assert.match(st, /font:12px/); assert.match(st, /color:#(bbb|[c-f]{3})\b/); assert.doesNotMatch(st, /overflow-wrap:anywhere/);
+659845	  assert.match(x.main.caps.footer.getAttribute('style'), /font-size:1[1-9]px/);
+659846	test('M05/H08: a feed result with a cov object keeps "Searched EUMETSAT unknown"', async () => {
+659847	  const x = boot(), now = Date.now(), w = { s: now - 7 * D, e: now, period: '7d', label: '7 days', atLatest: true, custom: false, clamped: false };
+659848	  const f = feed([flash(now - 2 * H, 'r')]);
+659849	  const L = x.probe.cp({ mode: 'feed', idx: null, ie: 'HTTP 404', meta: f.metadata, w, ev: f.features, fl: [], cs: 'live feed', ic: 1, cl: false, cov: { f: 0.02, ny: 0, bf: 0, u: [], d: 7, r: 1, a: now - 3 * H, b: now } }, now);
+659850	  assert.equal(L.searched, 'Searched EUMETSAT unknown (live feed records only its last collection window)');
+659851	test('SL: a shard_lost day is unknown coverage, never searched or zero, with the integrity warning', async () => {
+659852	  const d3 = ymd(Date.now() - 3 * D);
+659853	  const idx = mkIndex({ [d3]: { coverage: 'none', scanned_seconds: 0, count: null, shard_lost: true } },
+659854	    { integrity: { state: 'shard_lost', alert: 'INTEGRITY ALERT: 1 date lost', lost_days: [{ date: d3, reason: 'missing', detected_utc: iso(Date.now()), missing_paths: [P(d3)] }], recoveries: [] } });
+659855	  const x = boot({ index: idx });
+659856	  assert.match(x.cap('warning'), /1 days lost from the archive \(integrity alert\), unknown, not zero/);
+659857	  const pc = searchedPct(x.cap('searched')); // J: hours, not a bare percentage
+659858	  assert.ok(pc <= 88, `lost day counted as searched (${pc}%)`);
+659859	  assert.ok(!/READY|EMPTY/.test(x.S.last.state), x.S.last.state);
+659860	test('S5: parts[] paths outside days/YYYY/MM/DD/HH.json fail the index closed; nothing off-path is requested', async () => {
+659861	  const d = ymd(Date.now() - D), h = Number(iso(Date.now()).slice(11, 13));
+659862	  const bad = mkIndex({ [d]: { count: 3, path: null, parts: [{ hour: h, path: '../../../../evil-owner/evil-repo/main/x.json', count: 3, bytes: 10, sha256: 'x' }] } });
+659863	  const x = boot({ index: bad }); x.toggle(true); await drain();
+659864	  assert.deepEqual(x.log.fetch.filter(u => !u.includes('/Ventusltd/lightning/main/data/history/')), []);
+659865	  assert.equal(x.S.idx, null); assert.match(x.S.ie || '', /parts/);
+659866	  const good = mkIndex({ [d]: { count: 3, path: null, parts: [{ hour: 5, path: P(d).replace('.json', '/05.json'), count: 3, bytes: 10, sha256: 'x' }] } });
+659867	  const y = boot({ index: good }); y.toggle(true); await drain(); assert.ok(y.S.idx, 'valid hourly part rejected');
+659868	test('S6: more than 24 parts per day fails closed with a named reason, not thousands of requests', async () => {
+659869	  const d = ymd(Date.now()), parts = []; for (let k = 0; k < 2000; k++) parts.push({ hour: 0, path: P(d).replace('.json', '/00.json'), count: 1, bytes: 10, sha256: 'x' });
+659870	  const x = boot({ index: mkIndex({ [d]: { count: 2000, path: null, parts, sealed: false } }) }); x.toggle(true); await drain();
+659871	  assert.ok(x.log.fetch.filter(u => u.includes('/days/')).length <= 24, x.log.fetch.length + ' requests');
+659872	test('S8: a huge scan_windows list does not reject the archive', async () => {
+659873	  const now = Date.now(), sw = []; for (let k = 0; k < 150000; k++) sw.push({ start_utc: iso(now - 300 * D + k * 60e3), end_utc: iso(now - 300 * D + k * 60e3 + 30e3), successful_runs: 1 });
+659874	  const x = boot({ index: mkIndex({}, { scan_windows: sw }) }); x.toggle(true); await drain();
+659875	  assert.ok(x.S.idx, 'archive rejected: ' + x.S.ie);
+659876	test('S10: one record with a giant coordinates array is rejected alone; the feed still draws', async () => {
+659877	  const big = flash(Date.now() - 2 * H, 'huge'); big.geometry.coordinates = new Array(200000).fill(1);
+659878	  const x = boot({ feedFn: () => feed([big, flash(Date.now() - H, 'ok')]) }); x.toggle(true); await drain();
+659879	  assert.notEqual(x.S.last.state, 'FAIL'); assert.equal(x.S.last.drawn, 1);
+659880	  assert.match(x.cap('flashes'), /1 malformed records rejected/);
+659881	test('S10b: id-less flashes dedupe on time+lon+lat, not all into one', async () => {
+659882	  const fs = []; for (let k = 0; k < 50; k++) { const f = flash(Date.now() - H - k * 1000, null, [-1.5 + k / 100, 52]); delete f.id; fs.push(f); }
+659883	  const dup = JSON.parse(JSON.stringify(fs[0]));
+659884	  const x = boot({ feedFn: () => feed([...fs, dup]) }); x.toggle(true); await drain();
+659885	  assert.equal(x.S.last.drawn, 50);
+659886	test('T08: 3M PREV then NEXT returns to the latest window (calendar months)', async () => {
+659887	  x.click(x.nav('prev')); await drain(); x.click(x.nav('next')); await drain();
+659888	  assert.equal(x.S.res.w.atLatest, true, 'NEXT did not return to latest: ' + x.cap('window'));
+659889	test('T11: a feed without query_end_utc is STALE (age unknown)', async () => {
+659890	  const f = feed([flash(Date.now() - 2 * H, 'a')]); delete f.metadata.query_end_utc;
+659891	  const x = boot({ feedFn: () => f }); x.toggle(true); await drain();
+659892	  assert.equal(x.S.last.stale, true); assert.match(x.status(), /COLLECTOR LAST R[AU]N/); // J: kv-words
+659893	test('T12a: a sub-minute ingest gap reads "<1 min", not "0h 0min", and the searched % is floored (not 100%)', async () => {
+659894	  const now = Date.now(), cutoff = Date.parse(ymd(now) + 'T00:00:00Z') - 365 * D;
+659895	  const x = boot({ index: mkIndex({}, { scan_windows: [{ start_utc: iso(cutoff), end_utc: iso(now - 20e3), successful_runs: 9 }] }) });
+659896	  assert.match(x.cap('warning'), /Not yet searched: last <1 min of window/); // L3: LR-words W5/W6
+659897	  assert.doesNotMatch(x.cap('searched'), /100%/);
+659898	test('T13: a zone-less time_utc is read as UTC in America/New_York', async () => {
+659899	  const tz = process.env.TZ; process.env.TZ = 'America/New_York';
+659900	    const t = Date.now() - 2 * H, f = flash(t, 'z'); f.properties.time_utc = iso(t).slice(0, 19);
+659901	    const x = boot({ feedFn: () => feed([f]) }); x.toggle(true); x.click(x.chip('12h')); await drain();
+659902	    assert.equal(x.S.last.drawn, 1);
+659903	    assert.match(x.cap('actual'), new RegExp(iso(t).slice(0, 10) + ' ' + iso(t).slice(11, 19) + ' UTC'));
+659904	  } finally { if (tz === undefined) delete process.env.TZ; else process.env.TZ = tz; }
+659905	test('T14: a 30D window with a 40-min ingest tail is not 100% / READY / EMPTY-COVERED', async () => {
+659906	  const x = boot({ index: mkIndex({}, { scan_windows: [{ start_utc: iso(cutoff), end_utc: iso(now - 40 * 60e3), successful_runs: 9 }] }) });
+659907	  x.toggle(true); x.click(x.chip('30d')); await drain();
+659908	  assert.doesNotMatch(x.cap('searched'), /100%/); assert.equal(x.S.last.state, 'PARTIAL');
+659909	test('T15: CUSTOM at exactly 00:00:00.000 UTC never inverts the date range', async () => {
+659910	  const now = Date.parse(ymd(Date.now()) + 'T00:00:00.000Z'), today = ymd(now);
+659911	  const x = boot({ now, feedFn: () => feed([]) }); x.toggle(true); await drain(); x.click(x.chip('custom')); await drain();
+659912	  assert.match(x.cap('window'), new RegExp(`UTC dates ${today} to ${today} inclusive`));
+659913	// ---------------------------------------------------------------- data-contract parity (tools/proofs/202609012214-data-contract-parity.proof.mjs L55-75)
+659914	const parity = src => { const j = src.replace(/'\s*\n\s*\+\s*'/g, '').replace(/"\s*\n\s*\+\s*"/g, ''), out = {};
+659915	  for (const m of j.matchAll(/https:\/\/raw\.githubusercontent\.com\/Ventusltd\/([A-Za-z0-9._-]+)\/main\/([A-Za-z0-9._/-]+)/g)) { const k = m[1] + ':' + m[2]; if (k in out) continue;
+659916	    const s = j.slice(m.index, m.index + 600).match(/(?:REQUIRED_SCHEMA|GB_SCHEMA|ACCEPTS|SCHEMA)\s*=\s*'([^']+)'/); out[k] = s ? s[1] : null; } return out; };
+659917	test('PARITY: the bytes declare IX_SCHEMA for the archive URL and FEED_SCHEMA for the feed URL, and nothing else', () => {
+659918	  assert.deepEqual(parity(SRC), { 'lightning:data/history/': 'uk-lightning-history-index.v2', 'lightning:data/uk_lightning.geojson': 'FeatureCollection/optical_lightning_flash' });
+659919	test('IX_SCHEMA: the index loader enforces the declared constant (wrong, missing or v1 schema = archive unavailable)', async () => {
+659920	  const mutated = SRC.replace("IX_SCHEMA='uk-lightning-history-index.v2'", "IX_SCHEMA='uk-lightning-history-index.v9'");
+659921	  assert.notEqual(mutated, SRC, 'no IX_SCHEMA constant in the module');
+659922	  const run = async (src, index) => { const keep = globalThis.__SRC_OVERRIDE; globalThis.__SRC_OVERRIDE = src; try { const x = boot({ index }); x.toggle(true); await drain(); return x; } finally { globalThis.__SRC_OVERRIDE = keep; } };
+659923	  let x = await run(mutated, mkIndex());
+659924	  assert.equal(x.S.idx, null, 'a v2 index was accepted although IX_SCHEMA names v9');
+659925	  for (const schema of [undefined, 'uk-lightning-history-index.v1', 'nonsense']) {
+659926	    const idx = mkIndex(); if (schema === undefined) delete idx.schema; else idx.schema = schema;
+659927	    x = await run(SRC, idx);
+659928	    assert.equal(x.S.idx, null); assert.match(x.cap('refresh'), /archive unavailable: unsupported index schema/);
+659929	  x = await run(SRC, mkIndex()); assert.ok(x.S.idx, 'genuine v2 index rejected');
+659930	// ---------------------------------------------------------------- variant F (fail-first against fixed-module-E.js)
+659931	const LAYER_ID = 'l-gridatlas-lightning';
+659932	const partPath = (d, h) => P(d).replace('.json', '/' + String(h).padStart(2, '0') + '.json');
+659933	test('E1: a 60 s scan gap is not "NO FLASHES DETECTED · SEARCHED 100%"', async () => {
+659934	  const now = Date.now(), cutoff = Date.parse(ymd(now) + 'T00:00:00Z') - 365 * D, gap = now - 36 * H;
+659935	  const x = boot({ index: mkIndex({}, { scan_windows: [{ start_utc: iso(cutoff), end_utc: iso(gap), successful_runs: 9 }, { start_utc: iso(gap + 60e3), end_utc: iso(now), successful_runs: 9 }] }) });
+659936	  x.toggle(true); await drain(); x.click(x.nav('prev')); await drain();
+659937	  assert.notEqual(x.S.last.state, 'EMPTY-COVERED'); assert.doesNotMatch(x.status(), /SEARCHED 100%/);
+659938	test('E2/E02: 3M PREV then NEXT on 2026-05-31 returns exactly to the latest window (window-end stack)', async () => {
+659939	  const now = Date.parse('2026-05-31T12:00:00Z');
+659940	  const x = boot({ now, index: mkIndex({}, {}, now) });
+659941	  const latest = x.S.res.w.e; x.click(x.nav('prev')); await drain(); x.click(x.nav('next')); await drain();
+659942	  assert.equal(x.S.res.w.atLatest, true, x.cap('window')); assert.equal(x.S.res.w.e, latest);
+659943	test('E03: 12M PREV then NEXT on leap day 2028-02-29 keeps the leap day', async () => {
+659944	  const now = Date.parse('2028-02-29T12:00:00Z');
+659945	  assert.equal(x.S.res.w.atLatest, true, x.cap('window'));
+659946	test('E3: a part without "hour" is still fetched (hour from its path), never a silent zero', async () => {
+659947	  const d = ymd(Date.now() - D), t = Date.parse(d + 'T12:00:00Z'), fs = [0, 1, 2].map(i => flash(t + i, 'p' + i)), body = enc({ ...dayFile(d, fs) });
+659948	  const part = { path: partPath(d, 12), count: 3, bytes: body.length, sha256: sha(body) };
+659949	  const x = boot({ index: mkIndex({ [d]: { count: 3, path: null, parts: [part] } }), files: { [part.path]: body } });
+659950	  assert.equal(x.S.last.drawn, 3);
+659951	test('E4: a date with no index row inside full scan coverage is not EMPTY-COVERED', async () => {
+659952	  const x = boot({ index: mkIndex({ [ymd(Date.now() - 10 * D)]: null }) });
+659953	  assert.notEqual(x.S.last.state, 'EMPTY-COVERED'); assert.doesNotMatch(x.status(), /NO FLASHES/);
+659954	test('E5: setOn(true) before install does not break the install (fit listeners registered)', async () => {
+659955	  const x = boot({ lazy: true, index: () => new Promise(() => {}) });
+659956	  x.api.setOn(true);
+659957	  assert.doesNotThrow(() => x.api.install());
+659958	  assert.ok((x.winL.resize || []).length > 0, 'resize listener missing');
+659959	test('E6: observation_kind must be exactly the string (an array is rejected)', () => {
+659960	  const x = boot(), f = flash(Date.now(), 'k'); f.properties.observation_kind = ['optical_lightning_flash'];
+659961	  assert.equal(x.probe.ok(f), false);
+659962	test('E7: a budget-truncated PARTIAL carries a reason', async () => {
+659963	  x.toggle(true); x.click(x.chip('7d')); await drain(); x.click(x.nav('prev')); await drain(); x.click(x.nav('points')); await drain();
+659964	  assert.equal(x.S.last.state, 'PARTIAL'); assert.ok(x.S.last.reasons.some(r => /not loaded/.test(r)), JSON.stringify(x.S.last.reasons));
+659965	test('E06: an index generated 2 h in the future (device clock behind) is STALE', async () => {
+659966	  const x = boot({ index: mkIndex({}, { generated_utc: iso(Date.now() + 2 * H), next_update_due_utc: iso(Date.now() + 3 * H) }) });
+659967	test('F-A: negative or zero part counts reject the index (no budget bypass)', async () => {
+659968	  const d = ymd(Date.now());
+659969	  for (const c of [-10000000, 0]) {
+659970	    const x = boot({ index: mkIndex({ [d]: { count: 10000000, path: null, sealed: false, parts: [{ path: partPath(d, 1), count: 10000000, bytes: 1, sha256: 'x' }, { path: partPath(d, 2), count: c, bytes: 1, sha256: 'y' }] } }) });
+659971	    x.toggle(true); await drain();
+659972	    assert.equal(x.S.idx, null, 'part count ' + c + ' accepted'); assert.match(x.S.ie || '', /parts/);
+659973	test('F-B: duplicate index rows for one date are loaded and counted once', async () => {
+659974	  const d = ymd(Date.now() - D), s1 = shard(d, 2, Date.parse(d + 'T12:00:00Z')), idx = mkIndex({ [d]: s1.row });
+659975	  idx.days.push(...Array.from({ length: 5 }, () => ({ ...idx.days.find(r => r.date === d) })));
+659976	  const x = boot({ index: idx, files: { [s1.row.path]: s1.b } });
+659977	  assert.ok(x.log.fetch.filter(u => u.endsWith(s1.row.path)).length <= 1, 'duplicate rows fetched repeatedly');
+659978	  assert.equal(x.S.res.arch, 2);
+659979	test('F-C: listing every scan window twice does not raise Searched %', async () => {
+659980	  const now = Date.now(), w1 = { start_utc: iso(now - 10 * D), end_utc: iso(now - 3.5 * D), successful_runs: 1 };
+659981	  const x = boot({ index: mkIndex({}, { scan_windows: [w1, { ...w1 }] }) });
+659982	  const pc = searchedPct(x.cap('searched')); // J
+659983	  assert.ok(pc <= 51, pc + '%');
+659984	test('DATES: a rollover date such as 2026-02-30 rejects the index', async () => {
+659985	  const idx = mkIndex(); idx.days.push({ ...idx.days[0], date: '2026-02-30' });
+659986	  const x = boot({ index: idx }); x.toggle(true); await drain();
+659987	  assert.equal(x.S.idx, null); assert.match(x.S.ie || '', /date/);
+659988	test('F1: "Flashes 0 archived" never appears bare while UNKNOWN/PARTIAL; a lost day has its own Searched line', async () => {
+659990	  const x = boot({ index: mkIndex({}, { scan_windows: [{ start_utc: iso(now - 2 * D), end_utc: iso(now), successful_runs: 9 }] }) });
+659991	  assert.match(x.S.last.state, /UNKNOWN|PARTIAL/);
+659992	  assert.match(x.cap('flashes'), /^Flashes not yet searched \(unknown, not zero\)/); // J: kv-paging K1 (was 'Flashes 0 archived … (unknown, not zero)')
+659993	  const d3 = ymd(now - 3 * D), y = boot({ index: mkIndex({ [d3]: { coverage: 'none', scanned_seconds: 0, count: null, shard_lost: true } }) });
+659994	  y.toggle(true); await drain(); y.click(y.chip('custom')); await drain();
+659995	  y.main.from.value = d3; y.main.to.value = d3; y.click(y.nav('apply')); await drain();
+659996	  assert.doesNotMatch(y.cap('searched'), /no collection run/); assert.match(y.cap('searched'), /shard lost \(integrity alert\), unknown, not zero/);
+659997	test('F2: index/shard mismatch refetches the index once (cache-busted) and retries; if still inconsistent, PARTIAL "archive updating", never FAIL', async () => {
+659998	  const d = ymd(Date.now() - D), t = Date.parse(d + 'T12:00:00Z'), old = shard(d, 1, t), cur = shard(d, 2, t);
+659999	  let x = boot({ index: n => mkIndex({ [d]: n === 1 ? old.row : cur.row }), files: { [cur.row.path]: cur.b } });
+660000	  assert.ok(x.log.fetch.some(u => /index\.json\?/.test(u)), 'no cache-busted index refetch');
+660001	  assert.notEqual(x.S.last.state, 'FAIL'); assert.equal(x.S.last.drawn, 2);
+660002	  x = boot({ index: mkIndex({ [d]: old.row }), files: { [cur.row.path]: cur.b } });
+660003	  assert.equal(x.S.last.state, 'PARTIAL'); assert.match(x.cap('warning'), /archive updating, (retrying next refresh|reload later)/);
+660004	test('M01: the inset is re-measured after render/ON and on clicks (panel opened after install)', async () => {
+660005	  assert.equal(x.main.group.style.paddingRight, '0px');
+660006	  x.main.group._rect = { right: 385 }; x.toggle(true); await drain();
+660007	  assert.equal(x.main.group.style.paddingRight, '156px', 'not re-measured on ON/render');
+660008	  x.main.group._rect = { right: 300 }; x.fire('click');
+660009	  assert.equal(x.main.group.style.paddingRight, '71px', 'not re-measured on click');
+660010	test('DOTS: points are at least 4 px at low zoom with a dark 1 px stroke', async () => {
+660011	  const x = boot(); x.toggle(true); await drain();
+660012	  const p = x.layers.get(LAYER_ID).paint, rr = p['circle-radius'];
+660013	  assert.ok(rr[0] === 'interpolate' ? rr[4] >= 4 : rr[rr.length - 1] >= 4, JSON.stringify(rr));
+660014	  assert.ok(p['circle-stroke-width'] >= 1); assert.match(p['circle-stroke-color'], /^#[0-3][0-9a-f]{2}([0-9a-f]{3})?$/i);
+660015	test('NF1: when day files fail with the index up, Actual is "unknown (day files failed)" and Flashes shows index vs loaded, never "at least 0"', async () => {
+660016	  const d = ymd(Date.now() - D), x = boot({ index: mkIndex({ [d]: { count: 7, bytes: 100, path: P(d), sha256: 'x' } }) });
+660017	  assert.equal(x.cap('actual'), 'Actual  unknown (day files failed)');
+660018	  assert.match(x.cap('flashes'), /^Flashes 7 in index · 0 loaded/); assert.doesNotMatch(x.cap('flashes'), /at least 0/);
+660019	test('NF2: a redirected index (fetch) or feed (XHR responseURL off the requested URL) is rejected', async () => {
+660020	  let x = boot({ index: mkIndex(), redirect: 'index' }); x.toggle(true); await drain();
+660021	  assert.equal(x.S.idx, null, 'redirected index accepted'); assert.match(x.S.ie || '', /redirected/);
+660022	  x = boot({ redirect: 'feed' }); x.toggle(true); await drain();
+660023	  assert.equal(x.S.last.state, 'FAIL', 'redirected feed accepted'); assert.equal(x.S.last.drawn, 0);
+660024	test('RO: the right inset follows the HIDE LAYERS button live size (ResizeObserver), also after the button is replaced', async () => {
+660025	  const x = boot({ ro: true, dash: { top: 788, bottom: 832, left: 274, right: 377, width: 103, height: 44 }, innerHeight: 844 });
+660026	  assert.equal(x.main.group.style.paddingRight, '127px');
+660027	  assert.ok(x.robs.length >= 1, 'no ResizeObserver attached');
+660028	  x.dashEl._rect = { top: 788, bottom: 832, left: 234, right: 377, width: 143, height: 44 }; x.robs.at(-1).f();
+660029	  assert.equal(x.main.group.style.paddingRight, '167px');
+660030	  const nb = x.doc.createElement('button'); nb.id = 'gridatlas-dash-toggle'; nb._rect = { top: 788, bottom: 832, left: 254, right: 377, width: 123, height: 44 };
+660031	  x.dashEl.parentNode.removeChild(x.dashEl); x.doc.documentElement.children[0].appendChild(nb); x.fire('click');
+660032	  assert.equal(x.robs.at(-1).el, nb, 'observer not re-attached to the new button');
+660033	  assert.equal(x.main.group.style.paddingRight, '147px');
+660034	// ---------------------------------------------------------------- variant G (fail-first against fixed-module-F.js)
+660035	test('R1/CRF-1: a fractional part count (0.5) rejects the index', async () => {
+660036	  const x = boot({ index: mkIndex({ [d]: { count: 3, path: null, sealed: false, parts: [{ path: partPath(d, 1), count: 0.5, bytes: 1, sha256: 'x' }] } }) });
+660037	test('R2: a tampered SEALED shard is FAIL naming the mismatch, never "archive updating"', async () => {
+660038	  const d = ymd(Date.now() - 4 * D), s = shard(d, 2, Date.parse(d + 'T12:00:00Z'));
+660039	  const x = boot({ index: mkIndex({ [d]: { ...s.row, sha256: '0'.repeat(64), sealed: true } }), files: { [s.row.path]: s.b } });
+660040	  assert.match(x.cap('warning'), new RegExp(d + ' index mismatch: sha256'));
+660041	  assert.doesNotMatch(x.cap('warning'), /archive updating/);
+660042	test('T10/CRF-3b: after a failed retry the caption names date and field; status never SEARCHED n%; reason is not "gaps in window"', async () => {
+660043	  const x = boot({ index: mkIndex({ [d]: old.row }), files: { [cur.row.path]: cur.b } });
+660044	  assert.match(x.cap('warning'), new RegExp(d + ' index mismatch: count[^·]*archive updating, reload later'));
+660045	  assert.doesNotMatch(x.status(), /SEARCHED \d+%/);
+660046	  assert.ok(!x.S.last.reasons.includes('gaps in window'), JSON.stringify(x.S.last.reasons));
+660047	test('E06 (G): a future-dated index does not read "<1 min ago"', async () => {
+660048	  assert.doesNotMatch(x.cap('refresh'), /<1 min ago/); assert.match(x.cap('refresh'), /\(\? ago/);
+660049	test('REST: before ON there are no requests, map sources or map listeners; outside the hidden controls the group is identical to F', async () => {
+660050	  const x = boot(); await drain();
+660051	  assert.equal(x.log.fetch.length + x.log.xhr.length, 0); assert.equal(x.sources.size, 0); assert.equal(x.handlers.length, 0, 'map listener before ON');
+660052	  assert.equal(x.main.ctl.hidden, true, 'controls not hidden at rest');
+660053	  const ser = el => el.hasAttribute && el.hasAttribute('data-lightning-controls') ? '[controls hidden=' + el.hidden + ']' : el.tagName + JSON.stringify([...el.attrs]) + el.children.map(c => c.tagName ? ser(c) : c.textContent).join('');
+660054	  globalThis.__SRC_OVERRIDE = readFileSync(new URL('./fixtures/reference-module-F.js', import.meta.url), 'utf8');
+660055	  let y; try { y = boot(); } finally { globalThis.__SRC_OVERRIDE = undefined; }
+660056	  assert.equal(ser(x.main.group), ser(y.main.group));
+660057	  assert.equal(JSON.stringify(x.main.group.style), JSON.stringify(y.main.group.style));
+660058	test('I01: without WebCrypto, a shard with valid count/bytes but a false sha256 is not drawn as verified (PARTIAL "not verified (no WebCrypto)")', async () => {
+660059	  const x = boot({ noCrypto: true, index: mkIndex({ [d]: { ...s.row, sha256: 'f'.repeat(64) } }), files: { [s.row.path]: s.b } });
+660060	  assert.equal(x.S.last.drawn, 0, 'unverified shard drawn');
+660061	  assert.match(x.cap('warning'), new RegExp(d + ' not verified \\(no WebCrypto\\)'));
+660062	// ---------------------------------------------------------------- variant H (fail-first against fixed-module-G.js)
+660063	const NOTICE = 'Only the last 7 days are available yet. The 12-month archive is being collected and backfilled; earlier months are unknown, not zero.';
+660064	const LBASE = 'Lightning Flashes (Optical)';
+660065	test('H1: feed-only 12M reads "[n · last 7 days only]", never "≥n | 12m"; bold first caption line; 7-DAY FEED ONLY status', async () => {
+660066	  const x = boot(); x.toggle(true); x.click(x.chip('12m')); await drain();
+660067	  assert.equal(x.label(), `${LBASE} [1 | last 7 days only]`); // J: kv-words
+660068	  const capEl = x.main.group.querySelector('[data-lightning-caption]');
+660069	  assert.equal(capEl.children[1].dataset.cap, 'days'); assert.equal(x.cap('days'), 'Last 7 days only (live feed) · archive not yet published · earlier days unknown, not zero'); // J: kv-words
+660070	  assert.match(capEl.children[1].getAttribute('style'), /font-weight:bold/);
+660071	  assert.equal(x.status(), '1 FLASH · LAST 7 DAYS ONLY · OLDER NOT YET COLLECTED');
+660072	  for (const p of ['30d', '3m']) { x.click(x.chip(p)); await drain(); assert.match(x.label(), /\[1 \| last 7 days only\]/, p); }
+660073	  x.click(x.chip('7d')); await drain(); assert.doesNotMatch(x.cap('days'), /Last 7 days only/); assert.doesNotMatch(x.label(), /last 7 days only/);
+660074	test('H1: in feed fallback the 30D-12M chips carry a dim marker and stay tappable; with an archive they carry none', async () => {
+660075	  for (const p of ['30d', '3m', '6m', '12m']) { const b = x.chip(p); assert.equal(b.disabled, false); assert.equal(b.lastChild.textContent, ' •', p); assert.equal(b.lastChild.style.opacity, '.55'); assert.ok(b.title); }
+660076	  assert.equal(x.chip('7d').textContent, '7D');
+660077	  const y = boot({ index: mkIndex() }); y.toggle(true); await drain();
+660078	  for (const p of ['30d', '12m']) assert.ok(!/•/.test(y.chip(p).textContent), 'marker with an archive');
+660079	  y.click(y.chip('12m')); await drain(); assert.doesNotMatch(y.label(), /last 7 days only/); assert.doesNotMatch(y.cap('days'), /live feed/);
+660080	test('H2: dots 6/8/10 px at z5/z8/z11 with a 1.5 px dark stroke and light core, plus an invisible >=22 px hit layer', async () => {
+660081	  const p = x.layers.get('l-gridatlas-lightning').paint;
+660082	  assert.equal(JSON.stringify(p['circle-radius']), JSON.stringify(['interpolate', ['linear'], ['zoom'], 5, 6, 8, 8, 11, 10]));
+660083	  assert.equal(p['circle-stroke-width'], 1.5); assert.match(p['circle-stroke-color'], /^#[0-3][0-9a-f]{5}$/i);
+660084	  const hit = x.layers.get('gridatlas-lightning-hit'); assert.ok(hit, 'no hit layer');
+660085	  assert.ok(hit.paint['circle-radius'] >= 22); assert.equal(hit.paint['circle-opacity'], 0); assert.equal(hit.layout.visibility, 'visible');
+660086	  const pt = x.sources.get('gridatlas-lightning').data.features[0];
+660087	  assert.deepEqual([...pt.geometry.coordinates], [-1.5, 52], 'coordinates changed');
+660088	test('H2: above the phone cap clusters get count labels and a tap on a cluster zooms in', async () => {
+660089	  const fs = []; for (let k = 0; k < 10001; k++) fs.push(flash(Date.now() - H - k, 'c' + k, [-1.5 + (k % 100) / 1000, 52 + Math.floor(k / 100) / 1000]));
+660090	  const x = boot({ phone: true, feedFn: () => feed(fs) }); x.toggle(true); await drain();
+660091	  assert.ok(x.layers.get('l-gridatlas-lightning-count'), 'no cluster count layer');
+660092	  assert.equal(JSON.stringify(x.layers.get('l-gridatlas-lightning-count').layout['text-field']), '["get","point_count_abbreviated"]');
+660093	  x.sources.get('gridatlas-lightning').getClusterExpansionZoom = (id, cb) => cb(null, 9);
+660094	  x.tapMap([10, 10], { 'gridatlas-lightning-hit': [{ properties: { cluster: true, cluster_id: 7, point_count: 50 }, geometry: { coordinates: [-1.5, 52] } }] });
+660095	  assert.equal(x.camera.length, 1); assert.equal(x.camera[0][0], 'easeTo'); assert.equal(x.camera[0][1][0].zoom, 9);
+660096	test('H3/I1/J2: tapping a flash opens a Lightning-owned docked card (not maplibregl.Popup): bar "Flash <UTC>", lat/lon + short ID row, full ID, honesty line', async () => {
+660097	  const t = Date.parse('2026-10-25T11:15:58.149Z'), f = flash(t, 'abc-123', [-4.4874, 55.1637]);
+660098	  const x = boot({ feedFn: () => feed([f]) }); x.toggle(true); x.click(x.chip('7d')); await drain();
+660099	  x.tapMap([5, 5], { 'gridatlas-lightning-hit': [{ properties: { i: 0 }, geometry: { coordinates: [-4.49, 55.16] } }] });
+660100	  assert.equal(x.popups.length, 0, 'maplibregl.Popup used');
+660101	  const card = x.mapEl.querySelector('[data-lightning-card]'); assert.ok(card, 'no card in the map container');
+660102	  const txt = card.textContent;
+660103	  for (const s of ['Flash 2026-10-25 11:15:58 UTC', 'lat 55.164, lon -4.487 · ID abc-123', 'Flash ID abc-123', 'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.']) assert.ok(txt.includes(s), s);
+660104	  x.tapMap([200, 200], {}); assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null, 'card not closed on an empty tap');
+660105	  x.tapMap([5, 5], { 'gridatlas-lightning-hit': [{ properties: { i: 0 }, geometry: { coordinates: [0, 0] } }] });
+660106	  x.toggle(false); assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null, 'card not closed on OFF');
+660107	test('H3: an original layer click handler still fires when no flash is under the tap (and when one is)', async () => {
+660108	  const x = boot(); let fired = 0; x.map.on('click', 'orig-substations', () => fired++);
+660109	  x.tapMap([1, 1], { 'orig-substations': [{ properties: { name: 'X' } }] });
+660110	  assert.equal(fired, 1); assert.equal(x.popups.length, 0);
+660111	  x.tapMap([1, 1], { 'orig-substations': [{ properties: { name: 'X' } }], 'gridatlas-lightning-hit': [{ properties: { i: 0 }, geometry: { coordinates: [0, 0] } }] });
+660112	  assert.equal(fired, 2);
+660113	test('H4: FIT FLASHES fits the map to drawn flashes only when tapped; the outside-view count is recounted on moveend', async () => {
+660114	  let b = [-3, 50, 2, 53];
+660115	  const t = Date.now() - 20 * H, x = boot({ bounds: null, feedFn: () => feed([flash(t, 'a', [-4.2, 55.3]), flash(t + 1, 'b', [-1.5, 52])]) });
+660116	  x.map.getBounds = () => ({ contains: ([lo, la]) => lo >= b[0] && la >= b[1] && lo <= b[2] && la <= b[3] });
+660117	  assert.equal(x.nav('fit').hidden, false); assert.deepEqual(x.camera, []);
+660118	  assert.match(x.cap('flashes'), /1 of 2 outside the current view/);
+660119	  b = [-5, 50, 2, 56]; for (const h of x.handlers.filter(h => h.t === 'moveend')) h.f();
+660120	  assert.doesNotMatch(x.cap('flashes'), /outside the current view/);
+660121	  x.click(x.nav('fit'));
+660122	  assert.equal(x.camera.length, 1); assert.equal(x.camera[0][0], 'fitBounds');
+660123	  assert.equal(JSON.stringify(x.camera[0][1][0]), JSON.stringify([[-4.2, 52], [-1.5, 55.3]]));
+660124	test('H4: restored "12 months" period label and aria-live on the caption', async () => {
+660125	  const x = boot(); assert.equal(x.main.group.querySelector('[data-lightning-caption]').getAttribute('aria-live'), 'polite');
+660126	  x.toggle(true); x.click(x.chip('12m')); await drain(); assert.match(x.cap('window'), /12 months/);
+660127	test('H4 CRF-2/2b: a lost day is subtracted once even when scan windows overlap', async () => {
+660128	  const now = Date.now(), cutoff = Date.parse(ymd(now) + 'T00:00:00Z') - 365 * D, w1 = { start_utc: iso(cutoff), end_utc: iso(now), successful_runs: 9 };
+660129	  const d3 = ymd(now - 3 * D), lost = { [d3]: { coverage: 'none', scanned_seconds: 0, count: null, shard_lost: true } };
+660130	  const pct = async sw => { const x = boot({ index: mkIndex(lost, { scan_windows: sw }) }); x.toggle(true); x.click(x.chip('7d')); await drain(); return x.cap('searched'); };
+660131	  assert.equal(await pct([w1, { ...w1 }]), await pct([w1]));
+660132	test('H2b: the cluster label font comes from the basemap style (first symbol layer with text-font), else Open Sans Regular', async () => {
+660133	  const run = async style => { const x = boot({ phone: true, feedFn: () => feed(fs) }); x.map.getStyle = () => style; x.toggle(true); await drain(); return JSON.stringify(x.layers.get('l-gridatlas-lightning-count').layout['text-font']); };
+660134	  assert.equal(await run({ glyphs: 'g', layers: [{ type: 'fill', layout: {} }, { type: 'symbol', layout: { 'text-field': 'x' } }, { type: 'symbol', layout: { 'text-font': ['Montserrat Medium', 'Open Sans Bold'] } }, { type: 'symbol', layout: { 'text-font': ['Other'] } }] }), '["Montserrat Medium","Open Sans Bold"]');
+660135	  assert.equal(await run({ layers: [{ type: 'fill' }] }), '["Open Sans Regular"]');
+660136	  assert.equal(await run(undefined), '["Open Sans Regular"]');
+660137	// ---------------------------------------------------------------- variant I (fail-first against fixed-module-H.js)
+660138	const mins = s => { let m = 0; for (const [, v, u] of s.matchAll(/(\d+) (h|min)/g)) m += u === 'h' ? 60 * v : +v; return m; };
+660139	const searchedPct = t => { const r = /Searched EUMETSAT (.+?) of (.+?)( ·|$)/.exec(t); return r ? Math.floor(100 * mins(r[1]) / mins(r[2])) : (/none of this window/.test(t) ? 0 : 100); };
+660140	const tapFlash = (x, i = 0) => x.tapMap([5, 5], { 'gridatlas-lightning-hit': [{ properties: { i }, geometry: { coordinates: [0, 0] } }] });
+660141	const haversine = (lo1, la1, lo2, la2) => { const r = Math.PI / 180, a = Math.sin((la2 - la1) * r / 2) ** 2 + Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin((lo2 - lo1) * r / 2) ** 2; return 2 * 6371.0088 * Math.asin(Math.sqrt(a)); };
+660142	// the original's public measure, reproduced from sld-sandbox 202609241334 C:3509 (nearestSubstations) with its geodesy (R 6378.137 km)
+660143	const hav = (lo1, la1, lo2, la2) => { const r = Math.PI / 180, a = Math.sin((la2 - la1) * r / 2) ** 2 + Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin((lo2 - lo1) * r / 2) ** 2; return 2 * 6378.137 * Math.asin(Math.sqrt(a)); };
+660144	const origNearest = (lon, lat, subs) => { const sc = []; let beyond = null; for (const sub of subs) { const km = hav(lon, lat, sub.at[0], sub.at[1]); if (km > 40) { if (!beyond || km < beyond.km) beyond = { ...sub, km }; continue; } sc.push({ ...sub, km }); }
+660145	  sc.sort((a, b) => a.km - b.km); const res = sc.slice(0, 5); res.beyondRadiusNearest = res.length ? null : beyond; res.radiusKm = 40; return res; };
+660147	  { at: [-1.505, 52.002], kv: [33], name: 'Tiny 33kV' }, { at: [-1.6, 52.0], kv: [132], name: 'A 132' }, { at: [-1.5, 52.2], kv: [400, 132], name: 'B 400' },
+660148	  { at: [-1.7, 52.1], kv: [66], name: 'C 66' }, { at: [-1.4, 51.9], kv: [275], name: 'D 275' }, { at: [-1.3, 52.15], kv: [33], name: 'E 33' }, { at: [-4.0, 55.0], kv: [400], name: 'Far 400' }];
+660149	const installNeon = (x, subs) => { x.neonCalls = []; x.W.__GRIDATLAS_NEON_LINKS__ = { substations: subs, measure: { nearestSubstations: (lo, la, ss) => { x.neonCalls.push([lo, la, ss]); return origNearest(lo, la, ss); } } }; };
+660150	test('I1/J2: the card is docked at the bottom (bar 44 px − and ×), explicit inline colours, minimise keeps the bar, × closes; repositioned on resize, not on move', async () => {
+660151	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 700, width: 393, height: 700 }; x.toggle(true); await drain();
+660152	  tapFlash(x); const card = x.mapEl.querySelector('[data-lightning-card]'); assert.ok(card);
+660153	  const st = card.style.cssText; assert.match(st, /position:absolute/); assert.match(st, /background:#000/); assert.match(st, /color:#e8f4f5/); assert.match(st, /border:1px solid #2f6f75/);
+660154	  assert.equal(card.style.bottom, '8px'); assert.equal(card.style.top, undefined);
+660155	  const [mn, close] = card.querySelectorAll('button'); assert.equal(mn.getAttribute('aria-label'), 'Minimise'); assert.match(close.style.cssText, /width:44px;height:44px/); assert.equal(close.getAttribute('aria-label'), 'Close');
+660156	  dispatch(mn, 'click', x.log.errors); assert.equal(card.children[1].style.display, 'none'); assert.equal(mn.getAttribute('aria-expanded'), 'false');
+660157	  assert.ok(x.handlers.some(h => h.t === 'resize'), 'no resize listener'); assert.ok(!x.handlers.some(h => h.t === 'move'), 'card still follows move');
+660158	  dispatch(close, 'click', x.log.errors); assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null);
+660159	test('I2: 3M and 12M with 763 archived flashes load and draw points automatically', async () => {
+660160	  const files = {}, over = {}; let total = 0;
+660161	  for (let k = 1; k <= 18; k++) { const d = ymd(Date.now() - k * D), n = k === 18 ? 763 - total : 42; total += n; const s = shard(d, n, Date.parse(d + 'T10:00:00Z')); files[s.row.path] = s.b; over[d] = s.row; }
+660162	  for (const p of ['3m', '12m']) {
+660163	    const x = boot({ index: mkIndex(over), files }); x.toggle(true); x.click(x.chip(p)); await drain();
+660164	    assert.equal(x.S.res.mode, 'detail', p); assert.equal(x.S.last.drawn, 763, p); assert.equal(x.S.res.clp, undefined, p);
+660165	test('I2: 12M with 50,000 archived flashes still asks first (LOAD POINTS); a phone asks above its 10,000 cap', async () => {
+660166	  const d1 = ymd(Date.now() - 40 * D), d2 = ymd(Date.now() - 41 * D);
+660167	  let x = boot({ index: mkIndex({ [d1]: { count: 25000, bytes: 1000, path: P(d1), sha256: 'x' }, [d2]: { count: 25000, bytes: 1000, path: P(d2), sha256: 'y' } }) });
+660168	  assert.equal(x.S.res.clp, true); assert.equal(x.nav('points').hidden, false); assert.equal(x.log.fetch.filter(u => u.includes('/days/')).length, 0);
+660169	  x = boot({ phone: true, index: mkIndex({ [d1]: { count: 15000, bytes: 1000, path: P(d1), sha256: 'x' } }) });
+660170	  assert.equal(x.S.res.clp, true, 'phone loaded 15,000 points without asking');
+660171	test('I3/J1: tapping a flash fires the original nearestSubstations (>=33 kV, <=40 km, 5) and draws the neon arrival; no NEAREST button', async () => {
+660172	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installNeon(x, SUBS);
+660173	  x.toggle(true); await drain(); tapFlash(x);
+660174	  const card = x.mapEl.querySelector('[data-lightning-card]'); assert.equal(card.querySelector('[data-lightning-nearest]'), null, 'button still present');
+660175	  assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.5, 52]], 'original nearestSubstations not called with the flash');
+660176	  const src = x.sources.get('gridatlas-lightning-neon-links'); assert.ok(src, 'no neon links source');
+660177	  assert.equal(src.data.features.length, 5); assert.equal(src.data.features[0].properties.colour, '#d8c96a');
+660178	  assert.match(card.textContent, /0\.\d\d km · 33 kV · Tiny 33kV/); assert.doesNotMatch(card.textContent.split('REPD projects')[0], /Far 400|project/i); // M: projects follow the substation rows
+660179	  assert.match(card.textContent, /Nearest substations to this optical flash \(straight-line km\)\. Not evidence any asset was struck; faults can have other causes\./);
+660180	  dispatch(card.querySelectorAll('button')[1], 'click', x.log.errors);
+660181	  assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined); assert.equal(x.layers.get('gridatlas-lightning-neon-core'), undefined);
+660182	  tapFlash(x); assert.ok(x.sources.get('gridatlas-lightning-neon-links'));
+660183	  x.toggle(false); assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined, 'lines kept after OFF');
+660184	test('I3: the module never invents a repd_ref, never touches the URL', () => {
+660185	  assert.doesNotMatch(SRC, /repd_ref|location\.(href|search|hash|assign|replace)|history\.(push|replace)State/);
+660186	test('I1b: with overlapping hit circles, the tap opens the flash nearest the tap point', async () => {
+660187	  const t = Date.now() - H, x = boot({ feedFn: () => feed([flash(t, 'far', [-1.0, 52.0]), flash(t + 1, 'near', [-1.5, 52.0])]) });
+660188	  x.tapMap({ x: -14, y: 520 }, { 'gridatlas-lightning-hit': [{ properties: { i: 0 }, geometry: { coordinates: [0, 0] } }, { properties: { i: 1 }, geometry: { coordinates: [0, 0] } }] });
+660189	  assert.match(x.mapEl.querySelector('[data-lightning-card]').textContent, /Flash ID near/);
+660190	// ---------------------------------------------------------------- variant J (fail-first against fixed-module-I.js)
+660191	test('J1: a tap flies to zoom 12 over 1200 ms like the original arrival, and fitBounds (top 150, bottom clear of the card; LR-layout) only when a link end is off screen', async () => {
+660192	  let inView = true; const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installNeon(x, SUBS);
+660193	  x.mapEl.clientHeight = 659; x.mapEl.clientWidth = 393; x.setProj(() => inView ? { x: 200, y: 200 } : { x: 200, y: 600 });
+660194	  assert.equal(JSON.stringify(x.camera.map(c => c[0])), '["flyTo"]'); const fo = x.camera[0][1][0];
+660195	  assert.equal(fo.zoom, 12); assert.equal(fo.duration, 1200); assert.equal(JSON.stringify(fo.center), '[-1.5,52]');
+660196	  inView = false; x.camera.length = 0; tapFlash(x);
+660197	  assert.equal(JSON.stringify(x.camera.map(c => c[0])), '["flyTo","fitBounds"]');
+660198	  { const c0 = x.mapEl.querySelector('[data-lightning-card]'); assert.equal(JSON.stringify(x.camera[1][1][1].padding), JSON.stringify({ top: 150, left: 40, right: 40, bottom: (c0.bb + c0.offsetHeight || 196) + 24 })); } // L3: LR-layout
+660199	test('J1: the arrival layers match the original (glow, core, 2 flow, node ring, node, label, origin halo + ring); colour #d8c96a; labels "x.xx km · N kV"', async () => {
+660200	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installNeon(x, SUBS); x.map.getStyle = () => ({ glyphs: 'g', layers: [{ type: 'symbol', layout: { 'text-font': ['Montserrat Medium'] } }] });
+660201	  for (const id of ['glow', 'core', 'flow', 'flow-b', 'node-ring', 'node', 'label', 'pin-halo', 'pin']) assert.ok(x.layers.get('gridatlas-lightning-neon-' + id), id);
+660202	  assert.equal(JSON.stringify(x.layers.get('gridatlas-lightning-neon-glow').paint), JSON.stringify({ 'line-color': ['get', 'colour'], 'line-width': ['interpolate', ['linear'], ['zoom'], 6, 5, 12, 12], 'line-opacity': 0.1, 'line-blur': ['interpolate', ['linear'], ['zoom'], 6, 3, 12, 8] }));
+660203	  assert.equal(x.layers.get('gridatlas-lightning-neon-node').paint['circle-color'], '#5fbdc2'); assert.equal(x.layers.get('gridatlas-lightning-neon-pin-halo').paint['circle-stroke-color'], '#d8c96a');
+660204	  const labels = x.sources.get('gridatlas-lightning-neon-nodes').data.features.map(f => f.properties.label);
+660205	  assert.ok(labels.every(l => /^\d+\.\d\d km · \d+ kV$/.test(l)), JSON.stringify(labels)); assert.equal(labels.length, 5);
+660206	  assert.ok(!['gridatlas-lightning-neon-core', 'gridatlas-lightning-hit'].some(id => id.startsWith('l-')));
+660207	test('J1: with no substation within 40 km the card says so with the nearest beyond, and nothing is drawn; not-loaded and errors are honest', async () => {
+660208	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'sea', [-10.5, 50.0])]) }); installNeon(x, SUBS);
+660209	  assert.match(x.mapEl.querySelector('[data-lightning-card]').textContent, /No substation within 40 km \(nearest: C 66, \d+\.\d\d km\)/);
+660210	  assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined); assert.deepEqual(x.camera, []);
+660211	  const y = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); y.W.__GRIDATLAS_NEON_LINKS__ = Object.create({ substations: SUBS, measure: { nearestSubstations: origNearest } });
+660212	  y.toggle(true); await drain(); tapFlash(y); assert.match(y.mapEl.querySelector('[data-lightning-card]').textContent, /Substation data not loaded yet/, 'inherited substations used');
+660213	  const z = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); z.W.__GRIDATLAS_NEON_LINKS__ = { substations: SUBS, measure: { nearestSubstations: () => { throw new Error('boom'); } } };
+660214	  z.toggle(true); await drain(); tapFlash(z); assert.match(z.mapEl.querySelector('[data-lightning-card]').textContent, /Substation data unavailable\./); assert.equal(z.sources.get('gridatlas-lightning-neon-links'), undefined);
+660215	test('J1/R2: the card and lines close on PREV and on a period change, but survive the 10-minute refresh', async () => {
+660216	  const x = boot({ index: mkIndex({ [ymd(Date.now() - D)]: (() => { const d = ymd(Date.now() - D), sh = shard(d, 1, Date.now() - 20 * H); x0files[sh.row.path] = sh.b; sh.row.at = 0; return sh.row; })() }), files: x0files });
+660217	  installNeon(x, SUBS); x.toggle(true); x.click(x.chip('48h')); await drain(); tapFlash(x);
+660218	  assert.ok(x.sources.get('gridatlas-lightning-neon-links'));
+660219	  x.log.intervals.find(i => i.ms === 6e5).f(); await drain();
+660220	  assert.ok(x.mapEl.querySelector('[data-lightning-card]'), 'refresh closed the card');
+660221	  x.click(x.nav('prev')); await drain();
+660222	  assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null); assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined);
+660223	  x.click(x.nav('latest')); await drain(); tapFlash(x); x.click(x.chip('7d')); await drain();
+660224	  assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null, 'period change kept the card');
+660225	const x0files = {};
+660226	test('J2: the card shows a short ID and keeps the full ID; bidi/zero-width characters are stripped and IDs capped at 200; object ids are rejected; a stale tap opens nothing', async () => {
+660227	  const pid = 'W_XX-EUMETSAT-Darmstadt,IMG+SAT,MTI1+LI-2-LFL--FD--x-x--ARC-x_C_EUMT_20261022205024_L2PF_OPE_20261022204009_20261022205009_N__O_0125_0000:4458';
+660228	  let x = boot({ feedFn: () => feed([flash(Date.now() - H, pid, [-1.5, 52])]) }); x.toggle(true); await drain(); tapFlash(x);
+660229	  let t = x.mapEl.querySelector('[data-lightning-card]').textContent; assert.match(t, /ID 20:40–20:50 #4458/); assert.ok(t.includes('Flash ID ' + pid));
+660230	  x = boot({ feedFn: () => feed([flash(Date.now() - H, 'evil\u202Eid\u200B' + 'x'.repeat(400), [-1.5, 52])]) }); x.toggle(true); await drain(); tapFlash(x);
+660231	  t = x.mapEl.querySelector('[data-lightning-card]').textContent; assert.ok(!/[\u202E\u200B]/.test(t)); assert.ok(!t.includes('x'.repeat(201)));
+660232	  x = boot(); assert.equal(x.probe.ok({ ...flash(Date.now(), 'o'), id: { toString: () => 'x' } }), false);
+660233	  x = boot({ feedFn: () => feed([flash(Date.now() - H, 'a', [-1.5, 52])]) }); x.toggle(true); await drain();
+660234	  x.tapMap([5, 5], { 'gridatlas-lightning-hit': [{ properties: { i: 0, s: -1 }, geometry: { coordinates: [0, 0] } }] });
+660235	  assert.equal(x.mapEl.querySelector('[data-lightning-card]'), null, 'stale hit index opened a card');
+660236	test('J3: archive wording: "[1,480 | 29 of 31 days searched]"-style label, "N FLASHES · 29 OF 31 DAYS SEARCHED (k IN PART)" status, caption line 2; no "≥", no bare %', async () => {
+660237	  const over = {}, files = {}; for (const k of [1, 2]) { const d = ymd(Date.now() - k * D), sh = shard(d, 3, Date.parse(d + 'T10:00:00Z')); files[sh.row.path] = sh.b; over[d] = sh.row; }
+660238	  over[ymd(Date.now() - 3 * D)] = { coverage: 'partial', scanned_seconds: 3600 };
+660239	  for (const k of [20, 21]) over[ymd(Date.now() - k * D)] = { coverage: 'none', scanned_seconds: 0, count: null };
+660240	  const x = boot({ index: mkIndex(over), files }); x.toggle(true); x.click(x.chip('30d')); await drain();
+660241	  assert.equal(x.label(), `${LBASE} [6 | 29 of 31 days searched]`);
+660242	  assert.equal(x.status(), '6 FLASHES · 29 OF 31 DAYS SEARCHED (1 IN PART)');
+660243	  assert.match(x.cap('days'), /^29 of 31 days searched \(\d+ \w{3}–\d+ \w{3}, 1 in part\) · 2 not yet searched \(unknown, not zero\)$/);
+660244	  for (const s of [x.label(), x.status(), ...['window', 'days', 'actual', 'flashes', 'refresh', 'searched', 'warning'].map(k => x.cap(k))]) { assert.doesNotMatch(s, /≥/, s); assert.doesNotMatch(s, /\d%/, s); }
+660245	test('J3: STALE is the search frontier (not nextDue or a backfill-bumped generated_utc), shown as COLLECTOR LAST RAN …, on the latest page only', async () => {
+660246	  const idx = mkIndex({}, { generated_utc: iso(now - 600e3), next_update_due_utc: iso(now + H), scan_windows: [{ start_utc: iso(cutoff), end_utc: iso(now - 6 * H), successful_runs: 9 }] });
+660247	  const x = boot({ index: idx }); x.toggle(true); x.click(x.chip('7d')); await drain();
+660248	  assert.equal(x.S.last.stale, true, 'backfill-bumped generated_utc hid a 6 h old frontier'); assert.match(x.status(), /COLLECTOR LAST RAN \d\d:\d\d UTC, SEARCHED TO \d\d:\d\d UTC · STALE$/);
+660249	  x.click(x.nav('prev')); await drain(); assert.equal(x.S.last.stale, false, 'STALE printed on an earlier page');
+660250	  const y = boot({ index: mkIndex({}, { generated_utc: iso(now - 600e3), next_update_due_utc: iso(now - 60e3) }) }); y.toggle(true); await drain();
+660251	  assert.equal(y.S.last.stale, false, 'nextDue alone made it STALE');
+660252	test('J3: pages before the searched history read "not yet searched", never "0"; PREV stops at the archive start; a period change and LATEST reset paging; CUSTOM To after today is refused', async () => {
+660253	  const now = Date.now(), cs = ymd(now - 10 * D), over = {};
+660254	  for (let k = 11; k <= 365; k++) over[ymd(now - k * D)] = { coverage: 'none', scanned_seconds: 0, count: null };
+660255	  const x = boot({ index: mkIndex(over, { coverage_start_utc: cs + 'T00:00:00Z', scan_windows: [{ start_utc: cs + 'T00:00:00Z', end_utc: iso(now), successful_runs: 9 }] }) });
+660256	  x.toggle(true); x.click(x.chip('7d')); await drain(); x.click(x.nav('prev')); await drain(); x.click(x.nav('prev')); await drain();
+660257	  assert.match(x.cap('flashes'), /^Flashes not yet searched \(unknown, not zero\)$/); assert.match(x.label(), /\[not yet searched \| 0 of \d+ days searched\]/);
+660258	  assert.equal(x.nav('prev').disabled, true, 'PREV still offered before the archive start');
+660259	  x.click(x.chip('48h')); await drain(); assert.equal(x.S.res.w.atLatest, true, 'period change kept the old page');
+660260	  assert.equal(x.S.h.length, 0);
+660261	  x.click(x.chip('custom')); await drain(); x.main.from.value = ymd(now); x.main.to.value = ymd(now + 2 * D); x.click(x.nav('apply')); await drain();
+660262	  assert.match(x.cap('warning'), /Custom dates invalid/);
+660263	test('J4: the shard cache holds a long window (no re-download on refresh); the label keeps the index count when day files fail', async () => {
+660264	  const over = {}, files = {}; for (let k = 2; k <= 13; k++) { const d = ymd(Date.now() - k * D), sh = shard(d, 1, Date.parse(d + 'T10:00:00Z')); files[sh.row.path] = sh.b; over[d] = sh.row; }
+660265	  const n0 = x.log.fetch.filter(u => u.includes('/days/')).length; x.log.intervals.find(i => i.ms === 6e5).f(); await drain();
+660266	  assert.equal(x.log.fetch.filter(u => u.includes('/days/')).length, n0, 'sealed day files re-downloaded on the refresh');
+660267	  const d = ymd(Date.now() - D), y = boot({ index: mkIndex({ [d]: { count: 7, bytes: 10, path: P(d), sha256: 'x' } }) }); y.toggle(true); y.click(y.chip('48h')); await drain();
+660268	  assert.match(y.label(), /\[FAIL\]|\[7 \|/);
+660269	test('J5: a sub-day overview sums only the overlapping hourly parts; after consent the status reads "N OF M FLASHES"', async () => {
+660270	  const d = ymd(Date.now() - 40 * D), parts = [1, 2].map(h => ({ path: partPath(d, h), count: 30000, bytes: 1000, sha256: 'x' }));
+660271	  const x = boot({ phone: true, index: mkIndex({ [d]: { count: 60000, path: null, parts } }) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660272	  x.click(x.nav('points')); await drain();
+660273	  assert.match(x.status(), /OF 60,000 FLASHES|^FAIL/);
+660274	  const t = Date.now(), dd = ymd(t), hh = new Date(t).getUTCHours(), pp = [{ path: partPath(dd, (hh + 23) % 24), count: 5, bytes: 1, sha256: 'x' }, { path: partPath(dd, 0), count: 9, bytes: 1, sha256: 'y' }];
+660275	  if (hh >= 2) { const y = boot({ index: mkIndex({ [dd]: { count: 14, path: null, parts: pp, sealed: false } }) }); y.toggle(true); y.click(y.chip('12h')); await drain(); assert.ok(y.S.res.arch <= 14); }
+660276	test('J6 (kv-vogel a): a single ResizeObserver — the old one is disconnected when the button is replaced and on OFF; ON observes again', async () => {
+660277	  x.toggle(true); await drain(); const first = x.robs.at(-1).o;
+660278	  assert.equal(first.off, 1, 'old observer not disconnected'); const second = x.robs.at(-1).o; assert.notEqual(second, first);
+660279	  x.toggle(false); assert.equal(second.off, 1, 'observer kept after OFF');
+660280	  x.toggle(true); await drain(); assert.notEqual(x.robs.at(-1).o, second, 'not observed again after ON');
+660281	test('J7 (browser T4): a stale feed status ends with the collector phrase and "· STALE"', async () => {
+660282	  const x = boot({ feedFn: () => feed([flash(Date.now() - 7 * H, 'a')], 6) }); x.toggle(true); await drain();
+660283	  assert.match(x.status(), /COLLECTOR LAST RAN [^·]+ UTC · STALE$/);
+660284	test('J7 (browser T2): an unreadable index timestamp in the window is named in the 12M warning line', async () => {
+660285	  const d = ymd(Date.now() - 5 * D), sh = shard(d, 2, Date.parse(d + 'T10:00:00Z'));
+660286	  const x = boot({ index: mkIndex({ [d]: { ...sh.row, first_observation_utc: 'not-a-date', last_observation_utc: iso(Date.parse(d + 'T11:00:00Z')) } }), files: { [sh.row.path]: sh.b } });
+660287	  assert.match(x.cap('warning'), /1 archive entry unreadable \(malformed timestamp; unknown, not zero\)/);
+660288	  x.click(x.chip('7d')); await drain(); assert.match(x.cap('window'), /7 days/);
+660289	// ---------------------------------------------------------------- L-engine: a tap on a lightning CELL circle fires the same engine (fail-first against fixed-module-J.js)
+660290	const CELL = 'gridatlas-lightning-cell';
+660291	const cellF = (p, at) => ({ properties: { ...p }, geometry: { type: 'Point', coordinates: at || [p.lon, p.lat] } });
+660292	const C1 = { n: 1234, cell: 25 * 140 + 94, lon: -1.55, lat: 52.05 };
+660293	const bootCell = async (feedFlashes = [flash(Date.now() - H, 'z', [-1.5, 52])]) => {
+660294	  const x = boot({ feedFn: () => feed(feedFlashes) }); installNeon(x, SUBS); x.toggle(true); await drain();
+660295	  x.map.addLayer({ id: CELL, type: 'circle', source: 'gridatlas-lightning-cells' });
+660296	  // MapLibre throws on an unknown layer and on a NaN LngLat
+660297	  const q0 = x.map.queryRenderedFeatures; x.map.queryRenderedFeatures = (pt, o) => { for (const l of o.layers) if (!x.layers.has(l)) throw new Error(`layer ${l} does not exist`); return q0(pt, o); };
+660298	  x.setProj(ll => { if (!ll.every(Number.isFinite)) throw new Error('Invalid LngLat'); return { x: ll[0] * 10, y: ll[1] * 10 }; });
+660301	const card = x => x.mapEl.querySelector('[data-lightning-card]');
+660302	test('LE1: tapping a cell fires the original nearestSubstations from the cell centre, draws the neon arrival and frames the camera like a flash', async () => {
+660303	  const x = await bootCell(); x.camera.length = 0;
+660304	  x.tapMap([-15.5, 520.5], { [CELL]: [cellF(C1)] });
+660305	  assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.55, 52.05]], 'engine not fired from the cell centre');
+660306	  const src = x.sources.get('gridatlas-lightning-neon-links'); assert.ok(src, 'no neon links'); assert.equal(src.data.features.length, 5);
+660307	  assert.deepEqual([...src.data.features[0].geometry.coordinates[0]], [-1.55, 52.05], 'links do not start at the cell centre');
+660308	  assert.deepEqual([...x.sources.get("gridatlas-lightning-neon-pin").data.features[0].geometry.coordinates], [-1.55, 52.05]);
+660309	  const fly = x.camera.find(c => c[0] === 'flyTo'); assert.ok(fly); assert.deepEqual([...fly[1][0].center], [-1.55, 52.05]); assert.equal(fly[1][0].zoom, 12);
+660310	  assert.equal(x.popups.length, 0);
+660311	test('LE2: the cell card: title "N optical flashes in this ≈10 km cell", window dates, cell bounds, no flash ID or time, honesty kept', async () => {
+660312	  const x = await bootCell(); x.tapMap([-15.5, 520.5], { [CELL]: [cellF(C1)] });
+660313	  const c = card(x); assert.ok(c, 'no card'); const t = c.textContent, w = x.S.res.w;
+660314	  assert.equal(c.getAttribute('aria-label'), 'Lightning cell'); assert.equal(c.getAttribute('role'), 'dialog');
+660315	  assert.equal(c.children[0].children[0].textContent, '1,234 optical flashes in this ≈10 km cell');
+660316	  assert.ok(t.includes(`${ymd(w.s)} to ${ymd(w.e - 1)} UTC · centre lat 52.050, lon -1.550 · 5 nearest substations`), 'summary row');
+660317	  assert.ok(t.includes('Cell lat 52.00–52.10, lon -1.60–-1.50 (0.1°) · searched UTC days only; unsearched days unknown, not zero'), 'bounds row');
+660318	  assert.ok(t.includes('Nearest substations to this cell centre (straight-line km). Not evidence any asset was struck; faults can have other causes.'), 'engine honesty line');
+660319	  assert.ok(t.includes('EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'), 'footer');
+660320	  assert.doesNotMatch(t, /Flash ID|· ID |Flash \d|\d\d:\d\d|\(none\)|undefined|NaN|unknown UTC|strike[sd]? (at|on)|affected/i);
+660321	  const [, close] = c.querySelectorAll('button'); dispatch(close, 'click', x.log.errors);
+660322	  assert.equal(card(x), null); assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined, 'lines kept after ×');
+660323	test('LE3: when a flash and a cell are both under the tap, the flash wins (even if the cell centre is nearer)', async () => {
+660324	  const x = await bootCell();
+660325	  x.tapMap([-15.5, 520.5], { 'gridatlas-lightning-hit': [{ properties: { i: 0 }, geometry: { coordinates: [-1.5, 52] } }], [CELL]: [cellF(C1)] });
+660326	  assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.5, 52]]);
+660327	  assert.match(card(x).textContent, /^Flash \d{4}-\d\d-\d\d \d\d:\d\d:\d\d UTC/); assert.equal(card(x).getAttribute('aria-label'), 'Lightning flash');
+660328	  assert.match(card(x).textContent, /Nearest substations to this optical flash \(straight-line km\)/);
+660329	  // a cluster also wins over a cell
+660330	  x.camera.length = 0; x.neonCalls.length = 0; x.map.getSource('gridatlas-lightning').getClusterExpansionZoom = (id, cb) => cb(null, 9);
+660331	  x.tapMap([-15.5, 520.5], { 'gridatlas-lightning-hit': [{ properties: { cluster: true, cluster_id: 3 }, geometry: { coordinates: [-1.5, 52] } }], [CELL]: [cellF(C1)] });
+660332	  assert.equal(x.neonCalls.length, 0); assert.equal(card(x), null); assert.equal(x.camera[0][0], 'easeTo');
+660333	test('LE4: overlapping cell circles open the cell whose centre is nearest the tap; 1 flash is singular', async () => {
+660334	  const x = await bootCell(), C2 = { n: 1, cell: 25 * 140 + 95, lon: -1.45, lat: 52.05 };
+660335	  x.tapMap([-14.6, 520.5], { [CELL]: [cellF(C1), cellF(C2)] });
+660336	  assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.45, 52.05]]);
+660337	  assert.equal(card(x).children[0].children[0].textContent, '1 optical flash in this ≈10 km cell');
+660338	test('LE5: malformed, inconsistent or stale cells open nothing and never throw; an empty tap still closes the card', async () => {
+660339	  for (const p of [{}, { ...C1, n: 0 }, { ...C1, n: 1.5 }, { ...C1, n: '7' }, { ...C1, cell: -1 }, { ...C1, cell: 16800 }, { ...C1, lon: -1.65 }, { ...C1, lat: 52.15 }, { ...C1, lon: NaN }, { ...C1, lon: undefined }, { ...C1, s: -1 }]) {
+660340	    x.tapMap([-15.5, 520.5], { [CELL]: [cellF(p, [0, 0])] }); assert.equal(card(x), null, JSON.stringify(p));
+660341	  assert.equal(x.neonCalls.length, 0); assert.deepEqual(x.log.errors, []);
+660342	  x.tapMap([-15.5, 520.5], { [CELL]: [cellF({ ...C1, s: x.S.res.s })] }); assert.ok(card(x), 'current-serial cell refused');
+660343	  x.tapMap([0, 0], {}); assert.equal(card(x), null);
+660344	test('LE6: without a cell layer a tap never queries it (MapLibre would throw); without a flash layer a cell still fires', async () => {
+660345	  const x = await bootCell(); x.map.removeLayer(CELL);
+660346	  tapFlash(x); assert.ok(card(x), 'flash tap broken without a cell layer');
+660347	  const y = await bootCell(); for (const l of ['l-gridatlas-lightning', 'gridatlas-lightning-hit', 'l-gridatlas-lightning-count']) y.map.removeLayer(l);
+660348	  y.tapMap([-15.5, 520.5], { [CELL]: [cellF(C1)] }); assert.ok(card(y), 'cell needs the flash hit layer'); assert.equal(y.neonCalls.length, 1);
+660349	test('LE7: substations not loaded yet: the cell card retries the engine like a flash card', async () => {
+660350	  const x = await bootCell(); const L = x.W.__GRIDATLAS_NEON_LINKS__, subs = L.substations; L.substations = [];
+660351	  const st = x.sandbox.setTimeout, q = []; x.sandbox.setTimeout = (f, ms) => (ms === 2e3 ? q.push(f) : st(f, ms));
+660352	  x.tapMap([-15.5, 520.5], { [CELL]: [cellF(C1)] }); assert.match(card(x).textContent, /Substation data not loaded yet/); assert.equal(q.length, 1);
+660353	  L.substations = subs; q.shift()(); assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.55, 52.05]]); assert.match(card(x).textContent, /· 5 nearest substations/);
+660354	// ---------------------------------------------------------------- L-build: tappable cells above the cap (grid/YYYY-MM.json), land clip, projects win
+660355	const GC = (lon, lat) => Math.floor(Math.round((lat - 49.5) * 1e7) / 1e6) * 140 + Math.floor(Math.round((lon + 11) * 1e7) / 1e6);
+660356	const gday = (date, row, over = {}) => ({ date, coverage: row.coverage || 'full', count: row.count, sha256: row.path ? [row.sha256] : row.parts.map(p => p.sha256), ...over });
+660357	const mkGrids = (entries, tweak = g => g) => {
+660358	  const by = {};
+660359	  for (const e of entries) { const m = e.date.slice(0, 7), g = by[m] = by[m] || { days: [], cells: {} }; g.days.push(gday(e.date, e.row, e.day)); for (const [c, n] of Object.entries(e.cells)) (g.cells[c] = g.cells[c] || []).push(+e.date.slice(8), n); }
+660360	  return Object.fromEntries(Object.entries(by).map(([m, g]) => ['grid/' + m + '.json', (o => typeof o === 'string' ? o : enc(o))(tweak({ schema: 'uk-lightning-history-grid.v1', month: m, observation: 'satellite optical lightning flashes, not ground strikes', bounds_wsen: [-11, 49.5, 3, 61.5], cell_deg: 0.1, cols: 140, rows: 120, days: g.days, cells: Object.keys(g.cells).map(Number).sort((a, b) => a - b).map(c => [c, ...g.cells[c]]) }))]));
+660361	const KD = [40, 80].map(k => ymd(Date.now() - k * D));
+660362	const KROWS = { [KD[0]]: { count: 25000, bytes: 1000, path: P(KD[0]), sha256: 'x' }, [KD[1]]: { count: 25000, bytes: 1000, path: P(KD[1]), sha256: 'y' } };
+660363	const LC1 = GC(-1.5, 52), LC2 = GC(0.12, 51.5), SEA = GC(2.5, 56), EIRE = GC(-8.6, 53.1); // Midlands, London; North Sea, Galway
+660364	const KGRID = [{ date: KD[0], row: KROWS[KD[0]], cells: { [LC1]: 20000, [LC2]: 4000, [SEA]: 700, [EIRE]: 300 } }, { date: KD[1], row: KROWS[KD[1]], cells: { [LC1]: 25000 } }];
+660365	const cellsSrc = x => x.sources.get('gridatlas-lightning-cells');
+660366	const gridUrls = x => x.log.fetch.filter(u => u.includes('/grid/'));
+660367	const CLS = ['gridatlas-lightning-cell-glow', 'gridatlas-lightning-cell-core', 'gridatlas-lightning-cell'];
+660368	const cellHit = (x, f) => x.tapMap([f.properties.lon * 10, f.properties.lat * 10], { [CELL]: [f] });
+660369	test('L1: 12M above the cap draws tappable graduated cells (glow + core + 22 px hit), never a heatmap; only grid files fetched; honest caption', async () => {
+660370	  const full = { scan_windows: [{ start_utc: iso(Date.now() - 400 * D), end_utc: iso(Date.now() + 60e3), successful_runs: 999 }] };
+660371	  const x = boot({ index: mkIndex(KROWS, full), files: mkGrids(KGRID) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660372	  assert.equal(x.S.res.clp, true); assert.equal(x.S.last.state, 'READY·CELLS', x.S.last.reasons.join()); assert.equal(x.S.last.cells, 2);
+660373	  assert.equal(x.log.fetch.filter(u => u.includes('/days/')).length, 0, 'day files fetched without consent');
+660374	  for (const u of gridUrls(x)) assert.match(u, /^https:\/\/raw\.githubusercontent\.com\/Ventusltd\/lightning\/main\/data\/history\/grid\/\d{4}-\d\d\.json$/);
+660375	  assert.equal(new Set(gridUrls(x)).size, 2);
+660376	  const f = Object.fromEntries(cellsSrc(x).data.features.map(q => [q.properties.n, q]));
+660377	  assert.deepEqual(Object.keys(f).map(Number).sort((a, b) => a - b), [4000, 45000]);
+660378	  const p = f[45000].properties; assert.equal(p.cell, LC1); assert.equal(p.s, x.S.res.s); assert.ok(Math.abs(p.lon - -1.45) < 1e-9 && Math.abs(p.lat - 52.05) < 1e-9, `${p.lon},${p.lat}`);
+660379	  assert.deepEqual([...f[45000].geometry.coordinates], [p.lon, p.lat]);
+660380	  for (const l of CLS) { assert.equal(x.layers.get(l).type, 'circle', l); assert.equal(x.layers.get(l).source, 'gridatlas-lightning-cells'); }
+660381	  assert.ok([...x.layers.keys()].every(l => !/heat/.test(l) && x.layers.get(l).type !== 'heatmap'), 'heatmap layer present');
+660382	  assert.ok(CLS.every(l => !l.startsWith('l-')), 'cell ids must not use the original\'s interactive l- prefix');
+660383	  const hit = x.layers.get(CELL).paint; assert.equal(hit['circle-radius'], 22); assert.equal(hit['circle-opacity'], 0);
+660384	  const core = x.layers.get(CLS[1]); assert.deepEqual([...core.layout['circle-sort-key']], ['get', 'n']); assert.equal(x.layers.get(CLS[0]).filter[2], 45000, 'glow floor = max(30, p95 of drawn cells)');
+660385	  assert.equal(x.sources.get('gridatlas-lightning').data.features.length, 0, 'points drawn without consent');
+660386	  assert.match(x.cap('flashes'), /^Flashes 50,000 archived on \d+ overlapping UTC dates · map shows 49,000 in 2 ≈10 km cells within 30 km of a REPD site; 1,000 further out counted, not drawn · tap a cell for nearest substations · LOAD POINTS adds the newest 40,000 flashes$/);
+660387	  assert.equal(x.nav('points').hidden, false); assert.match(x.label(), /\[50,000 \| /);
+660388	test('L2: land clip is render-only: sea and Republic of Ireland cells are not drawn but stay in the totals', async () => {
+660389	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660390	  assert.equal(x.S.res.gd.n, 50000); assert.equal(x.S.res.gd.k, 49000);
+660391	  const cells = cellsSrc(x).data.features.map(q => q.properties.cell); assert.ok(!cells.includes(SEA) && !cells.includes(EIRE));
+660392	test('L3: tapping a cell fires the original nearestSubstations from the cell centre with the neon arrival and the cell card', async () => {
+660393	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); installNeon(x, SUBS); x.toggle(true); x.click(x.chip('12m')); await drain();
+660394	  const f = cellsSrc(x).data.features.find(q => q.properties.n === 45000); x.camera.length = 0; cellHit(x, f);
+660395	  assert.equal(x.neonCalls.length, 1); assert.ok(Math.abs(x.neonCalls[0][0] - -1.45) < 1e-9 && Math.abs(x.neonCalls[0][1] - 52.05) < 1e-9);
+660396	  assert.equal(x.sources.get('gridatlas-lightning-neon-links').data.features.length, 5);
+660397	  const c = card(x); assert.equal(c.getAttribute('aria-label'), 'Lightning cell'); assert.equal(c.children[0].children[0].textContent, '45,000 optical flashes in this ≈10 km cell');
+660398	  assert.match(c.textContent, /searched UTC days only; unsearched days unknown, not zero/); assert.ok(x.camera.find(k => k[0] === 'flyTo'));
+660399	test('L4: a project or substation of the original under the tap wins over a cell (no second engine, no card); hidden ones do not', async () => {
+660400	  const vis = { 'l-solar': 'visible', 'l-solar-glow': 'visible', 'l-subs': 'visible', 'l-wind': 'none' };
+660401	  x.map.getStyle = () => ({ layers: [{ id: 'l-solar-glow', source: 'src-repd' }, { id: 'l-solar', source: 'src-repd' }, { id: 'l-wind', source: 'src-repd' }, { id: 'l-subs', source: 'src-subs' }, ...[...x.layers.keys()].map(id => ({ id, source: x.layers.get(id).source }))] });
+660402	  x.map.getLayoutProperty = (id, k) => vis[id] || 'visible';
+660403	  const f = cellsSrc(x).data.features[0], at = [f.properties.lon * 10, f.properties.lat * 10];
+660404	  for (const l of ['l-solar', 'l-subs']) { x.tapMap(at, { [l]: [{ properties: { tech: 'solar' } }], [CELL]: [f] }); assert.equal(card(x), null, l); assert.equal(x.neonCalls.length, 0, l); }
+660405	  x.tapMap(at, { 'l-wind': [{ properties: {} }], [CELL]: [f] }); assert.ok(card(x), 'a hidden project layer blocked the cell'); assert.equal(x.neonCalls.length, 1);
+660406	test('L5: cells are inserted below the original\'s first REPD layer (projects stay on top), else below our points', async () => {
+660407	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); const add = x.map.addLayer, before = {};
+660408	  x.map.addLayer = (l, b) => { before[l.id] = b; return add(l, b); };
+660409	  x.map.getStyle = () => ({ layers: [{ id: 'base' }, { id: 'l-solar-glow', source: 'src-repd' }, { id: 'l-solar', source: 'src-repd' }] }); x.map.getLayoutProperty = () => 'none';
+660410	  for (const l of CLS) assert.equal(before[l], 'l-solar-glow', l);
+660411	  const y = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }), b2 = {}, a2 = y.map.addLayer; y.map.addLayer = (l, b) => { b2[l.id] = b; return a2(l, b); };
+660412	  y.toggle(true); y.click(y.chip('12m')); await drain(); for (const l of CLS) assert.equal(b2[l], 'l-gridatlas-lightning', l);
+660413	test('L6: stale (sha256/count differs) and never-searched grid days are not drawn and are named (unknown, not zero)', async () => {
+660414	  const g = [KGRID[0], { ...KGRID[1], day: { sha256: ['0'.repeat(64)] } }];
+660415	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(g) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660416	  assert.equal(x.S.res.gd.n, 25000); assert.equal(x.S.res.gd.st, 1);
+660417	  assert.deepEqual(Array.from(cellsSrc(x).data.features, q => q.properties.n).sort((a, b) => a - b), [4000, 20000]);
+660418	  assert.match(x.cap('flashes'), /· 1 day not yet mapped \(unknown\) ·/);
+660419	  const d3 = ymd(Date.now() - 41 * D), idx = mkIndex({ ...KROWS, [d3]: { coverage: 'none', scanned_seconds: 0, count: null } });
+660420	  const y = boot({ index: idx, files: mkGrids([...KGRID, { date: d3, row: { count: 7, path: P(d3), sha256: 'q' }, cells: { [LC2]: 7 } }]) }); y.toggle(true); y.click(y.chip('12m')); await drain();
+660421	  assert.equal(y.S.res.gd.n, 50000); assert.equal(cellsSrc(y).data.features.find(q => q.properties.cell === LC2).properties.n, 4000);
+660422	test('L7: an invalid or unpublished grid is refused; nothing is drawn, the caption says why, never FAIL', async () => {
+660423	  const bad = [g => ({ ...g, schema: 'uk-lightning-history-grid.v0' }), g => ({ ...g, month: '1999-01' }), g => ({ ...g, cols: 141 }), g => ({ ...g, cells: [[16800, 1, 1]] }),
+660424	    g => ({ ...g, cells: g.cells.map(r => [r[0], 32, r[2]]) }), g => ({ ...g, cells: g.cells.map(r => [r[0], r[1], 0]) }), g => ({ ...g, cells: g.cells.map(r => [r[0], r[1], String(r[2])]) }),
+660425	    g => ({ ...g, cells: g.cells.slice(1) }), g => ({ ...g, days: g.days.map(d => ({ ...d, sha256: d.sha256[0] })) }), g => ({ ...g, cells: ['<img src=x onerror=alert(1)>'] }),
+660426	    g => ({ ...g, cells: g.cells.map(r => [r[0] + 0.5, ...r.slice(1)]) }), g => ({ ...g, days: Array(32).fill(g.days[0]) }), () => '{not json'];
+660427	  for (const [i, t] of bad.entries()) {
+660428	    const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID, t) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660429	    assert.equal(x.S.res.gd, undefined, 'variant ' + i); assert.equal(cellsSrc(x), undefined, 'variant ' + i); assert.equal(x.S.last.cells, 0); assert.notEqual(x.S.last.state, 'FAIL');
+660430	    assert.match(x.cap('flashes'), /none drawn \(summary mode; .*\) · cell grid archive unavailable: /, 'variant ' + i);
+660431	  const x = boot({ index: mkIndex(KROWS), files: {} }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660432	  assert.match(x.cap('flashes'), /· cell grid archive not yet published: HTTP 404$/); assert.equal(x.log.errors.length, 0);
+660433	  const files = mkGrids(KGRID); delete files['grid/' + KD[1].slice(0, 7) + '.json'];
+660434	  const y = boot({ index: mkIndex(KROWS), files }); y.toggle(true); y.click(y.chip('12m')); await drain();
+660435	  assert.equal(y.S.res.gd.n, 25000); assert.match(y.cap('flashes'), /1 day not yet mapped \(unknown; HTTP 404\)/); // L3: LRB3 names the refused month
+660436	test('L8: phone over its 10,000 cap: cells by default; LOAD POINTS keeps them beneath tappable points; flash wins, cell still fires', async () => {
+660437	  const s1 = shard(KD[0], 6000, Date.parse(KD[0] + 'T10:00:00Z')), s2 = shard(KD[1], 6000, Date.parse(KD[1] + 'T10:00:00Z'));
+660438	  const rows = { [KD[0]]: s1.row, [KD[1]]: s2.row }, g = [{ date: KD[0], row: s1.row, cells: { [LC1]: 6000 } }, { date: KD[1], row: s2.row, cells: { [LC1]: 6000 } }];
+660439	  const x = boot({ phone: true, index: mkIndex(rows), files: { ...mkGrids(g), [s1.row.path]: s1.b, [s2.row.path]: s2.b } }); installNeon(x, SUBS); x.map.setPaintProperty = () => {};
+660440	  assert.equal(x.S.last.cells, 1); assert.equal(x.S.last.drawn, 0); const f = cellsSrc(x).data.features[0]; assert.equal(f.properties.n, 12000);
+660441	  cellHit(x, f); assert.equal(x.neonCalls.length, 1); assert.match(card(x).textContent, /^12,000 optical flashes in this ≈10 km cell/);
+660442	  assert.equal(x.S.res.mode, 'detail'); assert.equal(x.sources.get('gridatlas-lightning').data.features.length, 12000); assert.ok(cellsSrc(x), 'cells removed after LOAD POINTS');
+660443	  assert.match(x.cap('flashes'), /· map shows 12,000 in 1 ≈10 km cell within 30 km of a REPD site/);
+660444	  x.neonCalls.length = 0; tapFlash(x); assert.deepEqual(x.neonCalls.map(a => [a[0], a[1]]), [[-1.5, 52]]); assert.equal(card(x).getAttribute('aria-label'), 'Lightning flash');
+660445	  const g2 = cellsSrc(x).data.features[0]; x.neonCalls.length = 0; cellHit(x, g2); assert.equal(x.neonCalls.length, 1, 'cell under LOAD POINTS'); assert.equal(card(x).getAttribute('aria-label'), 'Lightning cell');
+660446	test('L9: short windows within the cap keep J\'s dots only: no grid request, no cell layer; OFF and short windows remove the cells', async () => {
+660447	  for (let k = 1; k <= 3; k++) { const d = ymd(Date.now() - k * D), s = shard(d, 42, Date.parse(d + 'T10:00:00Z')); files[s.row.path] = s.b; over[d] = s.row; }
+660448	  let x = boot({ index: mkIndex(over), files }); x.toggle(true); x.click(x.chip('7d')); await drain();
+660449	  assert.equal(x.S.res.mode, 'detail'); assert.equal(x.S.last.drawn, 126); assert.equal(gridUrls(x).length, 0); assert.equal(cellsSrc(x), undefined); for (const l of CLS) assert.equal(x.layers.get(l), undefined);
+660450	  x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); x.toggle(true); x.click(x.chip('12m')); await drain(); assert.ok(cellsSrc(x));
+660451	  x.click(x.chip('7d')); await drain(); assert.equal(cellsSrc(x), undefined, 'cells kept on a window within the cap');
+660452	  x.click(x.chip('12m')); await drain(); assert.ok(cellsSrc(x)); x.toggle(false);
+660453	  assert.equal(cellsSrc(x), undefined); for (const l of CLS) assert.equal(x.layers.get(l), undefined);
+660454	test('L10: budget and discipline: module <= 44,781 B, one innerHTML, GS constant, grid path only from YYYY-MM, no heatmap', () => {
+660455	  assert.ok(Buffer.byteLength(SRC) <= 64781, `${Buffer.byteLength(SRC)} B`); assert.ok(435218 + 1 + Buffer.byteLength(SRC) <= 500000); // M2: owner's 500 kB gate
+660456	  assert.equal(SRC.split('innerHTML').length, 2); assert.match(SRC, /GS='uk-lightning-history-grid\.v1'/); assert.doesNotMatch(SRC, /heatmap/);
+660457	  assert.match(SRC, /if\(!\/\^\\d\{4\}-\\d\\d\$\/\.test\(mo\)\)E\('grid path'\);const u=AR\+'grid\/'\+mo\+'\.json'/);
+660458	test('L11 (real data, LIGHTNING_DATA=<lightning checkout>/data/history): 12M cells sum to the index; REPD 30 km clip; a real cell fires the engine', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660459	  const dir = process.env.LIGHTNING_DATA, idx = JSON.parse(readFileSync(dir + '/index.json', 'utf8'));
+660460	  const files = new Proxy({}, { get: (_, k) => { try { return readFileSync(dir + '/' + String(k)); } catch { return undefined; } } });
+660461	  const x = boot({ phone: true, index: idx, files, now: Date.parse(idx.generated_utc) + 60e3 }); installNeon(x, SUBS); x.map.setPaintProperty = () => {}; x.toggle(true); x.click(x.chip('12m')); await drain();
+660462	  const want = idx.days.filter(r => r.count > 0 && Date.parse(r.date) >= x.S.res.w.s - D).reduce((a, r) => a + r.count, 0), fs = cellsSrc(x).data.features;
+660463	  assert.equal(x.S.res.gd.st, 0); assert.equal(x.S.res.gd.n, want); assert.equal(fs.reduce((a, f) => a + f.properties.n, 0), x.S.res.gd.k);
+660464	  console.log(`# L11 real 12M: ${want} flashes, ${fs.length} cells drawn holding ${x.S.res.gd.k} (glow floor ${x.S.res.gd.T}), ${new Set(gridUrls(x)).size} grid files · ${x.cap('flashes')}`);
+660465	  const big = fs.reduce((a, f) => f.properties.n > a.properties.n ? f : a); cellHit(x, big); assert.equal(x.neonCalls.length, 1); assert.ok(card(x));
+660466	  console.log(`# L11 tap cell ${big.properties.cell} n=${big.properties.n}: ${card(x).children[0].children[0].textContent}`);
+660467	  for (const p of ['7d', '30d', '3m', '6m']) { x.click(x.chip(p)); await drain(); console.log(`# L11 ${p}: ${x.S.last.state} cells ${x.S.last.cells} drawn ${x.S.last.drawn} · ${x.status()}`); }
+660468	// ================================================================ LR-bugs (evidence/LR-bugs/tests.part)
+660469	// ================================================================ LR-bugs: adversarial review of the L2 cell code
+660470	const BLOB = [-7.55716, 49.766807]; // REPD placeholder coordinate (OSGB 0,0) carried by 18 records with no real location
+660471	const kmTo = (lon, lat, [x, y]) => hav(lon, lat, x, y);
+660472	test('LRB1 (MAJOR): the land mask draws open-Atlantic cells ~100 km SW of Scilly as "within ≈30 km of UK land"', async () => {
+660473	  const SW = GC(-7.55, 49.75), FAR = GC(-7.3, 49.95);
+660474	  const g = [{ date: KD[0], row: KROWS[KD[0]], cells: { [LC1]: 24000, [SW]: 600, [FAR]: 400 } }, { date: KD[1], row: KROWS[KD[1]], cells: { [LC1]: 25000 } }];
+660475	  const sea = cellsSrc(x).data.features.filter(f => f.properties.lon < -6.6 && f.properties.lat < 50.3);
+660476	  assert.match(x.cap('flashes'), /within 30 km of a REPD site/); // L3 wording
+660477	  assert.equal(sea.length, 0, 'open-sea cells drawn under a "sea not drawn" caption: ' + JSON.stringify(sea.map(f => [f.properties.lon, f.properties.lat, f.properties.n])));
+660478	test('LRB1-real (MAJOR, LIGHTNING_DATA): real 12M draws cells around the REPD placeholder point in the Atlantic', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660479	  const x = boot({ phone: true, index: idx, files, now: Date.parse(idx.generated_utc) + 60e3 }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660480	  const sea = cellsSrc(x).data.features.filter(f => f.properties.lon < -6.6 && kmTo(f.properties.lon, f.properties.lat, BLOB) < 32);
+660481	  console.log(`# LRB1-real: ${sea.length} drawn cells, ${sea.reduce((a, f) => a + f.properties.n, 0)} flashes within 32 km of ${BLOB}: ${sea.map(f => f.properties.lon.toFixed(2) + ',' + f.properties.lat.toFixed(2) + ' n=' + f.properties.n).join('; ')}`);
+660482	  assert.equal(sea.length, 0);
+660483	test('LRB2 (MINOR): every grid day stale (no error) -> READY·CELLS with "0 of 0 in 0 cells … tap a cell", nothing drawn, no summary fallback', async () => {
+660484	  const g = KGRID.map(e => ({ ...e, day: { sha256: ['0'.repeat(64)] } }));
+660485	  const x = boot({ index: mkIndex(KROWS, full), files: mkGrids(g) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660486	  console.log('# LRB2 state ' + x.S.last.state + ' cells ' + x.S.last.cells + ' · ' + x.cap('flashes'));
+660487	  assert.equal(cellsSrc(x), undefined);
+660488	  assert.doesNotMatch(x.cap('flashes'), /0 of 0 in 0 cells/, 'empty grid reported as drawn cells');
+660489	  assert.doesNotMatch(x.cap('flashes'), /tap a cell/, 'invites a tap on nothing');
+660490	  assert.notEqual(x.S.last.state, 'READY·CELLS');
+660491	test('LRB3 (MINOR): one month grid refused (invalid / sha-type / timeout) while another loads -> named only as "not yet in the grid"; the error is swallowed', async () => {
+660492	  const files = mkGrids(KGRID), bad = 'grid/' + KD[1].slice(0, 7) + '.json'; files[bad] = enc({ schema: 'uk-lightning-history-grid.v0' });
+660493	  const x = boot({ index: mkIndex(KROWS), files }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660494	  console.log('# LRB3 ' + x.cap('flashes') + ' · errors ' + JSON.stringify(x.S.errors));
+660495	  assert.ok(cellsSrc(x));
+660496	  assert.match(x.cap('flashes'), /invalid grid|unavailable/, 'a refused grid is reported as an ordinary lag');
+660497	// whole-UTC-day edge: a window starting mid-day on an hourly-parts day (real: 2026-05-27, 06-25..27, 08-27)
+660498	const PT = Date.UTC(2026, 6, 26, 12), PD = '2026-06-26', OD = '2026-07-10';
+660499	const partsRow = (date, per) => ({ count: 24 * per, bytes: null, path: null, sha256: null, parts: Array.from({ length: 24 }, (_, h) => ({ path: P(date).replace('.json', '/' + String(h).padStart(2, '0') + '.json'), count: per, bytes: 100, sha256: 'p' + h })) });
+660500	test('LRB4 (MINOR): 30D starting mid-day on a parts day: cells sum the whole day, so "k of n" exceeds the caption\'s "N archived"', async () => {
+660501	  const rows = { [PD]: partsRow(PD, 500), [OD]: { count: 6000, bytes: 1000, path: P(OD), sha256: 'o' } };
+660502	  const g = [{ date: PD, row: rows[PD], cells: { [LC1]: 12000 } }, { date: OD, row: rows[OD], cells: { [LC1]: 6000 } }];
+660503	  const x = boot({ phone: true, now: PT, index: mkIndex(rows, {}, PT), files: mkGrids(g) }); x.toggle(true); x.click(x.chip('30d')); await drain();
+660504	  const arch = x.S.res.arch, n = x.S.res.gd && x.S.res.gd.n; console.log(`# LRB4 arch ${arch} gd.n ${n} · ${x.cap('flashes')}`);
+660505	  assert.ok(n <= arch, `cells total ${n} > archived ${arch} in the same caption`);
+660506	test('LRB4-real (MINOR, LIGHTNING_DATA): 3M on 2026-11-27 13:20 UTC starts mid-day on parts day 2026-08-27', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660507	  const now = Date.UTC(2026, 10, 27, 13, 20);
+660508	  const x = boot({ phone: true, index: idx, files, now }); x.toggle(true); x.click(x.chip('3m')); await drain();
+660509	  const r = x.S.res; console.log(`# LRB4-real 3M ${new Date(r.w.s).toISOString()}: arch ${r.arch} gd.n ${r.gd && r.gd.n} · ${x.cap('flashes')}`);
+660510	  assert.ok(r.gd.n <= r.arch, `cells total ${r.gd.n} > archived ${r.arch}`);
+660511	// ---------------------------------------------------------------- guards (expected PASS): races, 404, NaN, rapid taps
+660512	test('LRG1: toggle OFF while the grid fetch is in flight leaves no cell source/layer and no card', async () => {
+660513	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID), park: true }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660514	  x.toggle(false); x.release(); await drain(); x.release(); await drain();
+660515	  assert.equal(cellsSrc(x), undefined); for (const l of CLS) assert.equal(x.layers.get(l), undefined); assert.equal(x.S.res, null);
+660516	test('LRG2: 12M -> 7D while the grid fetch is in flight: the late 12M grid never paints cells over 7D', async () => {
+660517	  const s = shard(ymd(Date.now() - D), 5, Date.now() - D);
+660518	  const x = boot({ index: mkIndex({ ...KROWS, [ymd(Date.now() - D)]: s.row }), files: { ...mkGrids(KGRID), [s.row.path]: s.b }, park: true }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660519	  x.click(x.chip('7d')); for (let i = 0; i < 4; i++) { x.release(); await drain(); }
+660520	  assert.equal(x.S.res.w.period, '7d'); assert.equal(cellsSrc(x), undefined); assert.equal(x.S.last.drawn, 5);
+660521	test('LRG3: rapid taps on two cells leave exactly one card and one neon set (latest cell)', async () => {
+660522	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); installNeon(x, SUBS); x.map.setPaintProperty = () => {}; x.toggle(true); x.click(x.chip('12m')); await drain();
+660523	  const fs = cellsSrc(x).data.features; for (let i = 0; i < 6; i++) cellHit(x, fs[i % fs.length]);
+660524	  assert.equal(x.mapEl.querySelectorAll('[data-lightning-card]').length, 1); assert.equal(x.neonCalls.length, 6);
+660525	  const last = fs[5 % fs.length].properties; assert.deepEqual(x.neonCalls[5].slice(0, 2), [last.lon, last.lat]);
+660526	test('LRG4: all grid months 404 -> summary fallback, no throw, no cell layer; no error', async () => {
+660527	  assert.equal(cellsSrc(x), undefined); assert.match(x.cap('flashes'), /cell grid archive not yet published: HTTP 404/); assert.deepEqual(x.log.errors, []);
+660528	// ================================================================ LR-security (appended to a copy of L-build/test-engine.mjs)
+660529	const ctxEval = (x, js) => vm.runInContext(js, x.sandbox);
+660530	const ALLOW = /^https:\/\/raw\.githubusercontent\.com\/Ventusltd\/lightning\/main\/data\/history\/(index\.json(\?[\w=&.-]*)?|days\/\d{4}\/\d\d\/\d\d(\/\d\d)?\.json|grid\/\d{4}-\d\d\.json)$/;
+660531	const boot12 = async (files, extra = {}) => { const x = boot({ index: mkIndex(KROWS), files, ...extra }); installNeon(x, SUBS); x.toggle(true); x.click(x.chip('12m')); await drain(); return x; };
+660532	const wrapFetch = (x, f) => { const real = x.sandbox.fetch; x.sandbox.fetch = (u, o) => f(u, o, real); };
+660533	test('LRS1 allow-list: every request (index, days, grid) in every window matches the Ventusltd/lightning history allow-list; grid only YYYY-MM.json', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660534	  const x = boot({ phone: true, index: idx, files, now: Date.parse(idx.generated_utc) + 60e3 }); installNeon(x, SUBS); x.map.setPaintProperty = () => {}; x.toggle(true);
+660535	  for (const p of ['24h', '7d', '30d', '3m', '6m', '12m']) { x.click(x.chip(p)); await drain(); }
+660536	  const bad = x.log.fetch.filter(u => !ALLOW.test(u)); assert.deepEqual(bad, []);
+660537	  const g = x.log.fetch.filter(u => u.includes('/grid/')); assert.ok(g.length > 0);
+660538	  console.log(`# LRS1 ${x.log.fetch.length} fetches (${g.length} grid, ${new Set(g).size} distinct), ${x.log.xhr.length} xhr; all on the allow-list`);
+660539	test('LRS2 redirect: a grid response with redirected:true is refused (no cells drawn, never FAIL)', async () => {
+660540	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); installNeon(x, SUBS);
+660541	  wrapFetch(x, async (u, o, real) => { const r = await real(u, o); if (!u.includes('/grid/')) return r; const b = await r.arrayBuffer(); return { ok: true, status: 200, redirected: true, url: 'https://evil.example/g.json', json: async () => JSON.parse(Buffer.from(b)), arrayBuffer: async () => b }; });
+660542	  assert.equal(x.S.res.gd, undefined); assert.equal(cellsSrc(x), undefined); assert.notEqual(x.S.last.state, 'FAIL'); assert.match(x.cap('flashes'), /cell grid archive unavailable: redirected/);
+660543	test('LRS3 prototype pollution: __proto__/constructor keys in a grid never reach Object.prototype; a schema hidden under __proto__ is refused', async () => {
+660544	  const poison = '"__proto__":{"polluted":"yes","schema":"uk-lightning-history-grid.v1"},"constructor":{"prototype":{"polluted2":"yes"}}';
+660545	  // a valid grid with extra poison keys at top level and inside every day entry still loads, and nothing is polluted
+660546	  const files = mkGrids(KGRID); for (const k in files) { const s = files[k].toString(); files[k] = Buffer.from(s.replace(/^\{/, '{' + poison + ',').replace(/\{"date"/g, '{' + poison + ',"date"')); }
+660547	  const x = await boot12(files);
+660548	  assert.equal(x.S.res.gd.n, 50000); assert.equal(ctxEval(x, '({}).polluted===undefined&&({}).polluted2===undefined&&[].polluted===undefined'), true);
+660549	  // the only schema is under __proto__ (own key after JSON.parse): refused
+660550	  const g2 = mkGrids(KGRID, g => { const { schema, ...rest } = g; return '{' + poison + ',' + JSON.stringify(rest).slice(1); });
+660551	  const y = await boot12(g2); assert.equal(y.S.res.gd, undefined); assert.equal(ctxEval(y, '({}).schema'), undefined);
+660552	  // a cell row that is an object (with numeric keys / length) is refused, not iterated
+660553	  const z = await boot12(mkGrids(KGRID, g => ({ ...g, cells: g.cells.map(r => ({ ...r, length: r.length })) }))); assert.equal(z.S.res.gd, undefined);
+660554	test('LRS4 huge numbers: floats, negatives, 2^32, 1e308, 2^53+1 are refused; -0 is harmless', async () => {
+660555	  for (const v of [1.5, -1, 4294967296, 1e308, 9007199254740993, '7', null, true]) {
+660556	    const x = await boot12(mkGrids(KGRID, g => ({ ...g, cells: g.cells.map(r => [r[0], r[1], v]) }))); assert.equal(x.S.res.gd, undefined, String(v));
+660557	  const y = await boot12(mkGrids(KGRID, g => ({ ...g, cells: g.cells.map((r, i) => i ? r : [-0, ...r.slice(1)]) })));
+660558	  assert.ok(y.S.res.gd === undefined || y.S.res.gd.fc.features.every(f => f.properties.cell >= 0));
+660559	test('LRS5 [FIXED S2] a cell summing to >= 2^32 (two valid uint32 days) is drawn and its tap fires', async () => {
+660560	  const M = 4294967295, R = { [KD[0]]: { count: M, bytes: 1000, path: P(KD[0]), sha256: 'x' }, [KD[1]]: { count: M, bytes: 1000, path: P(KD[1]), sha256: 'y' } };
+660561	  const g = [{ date: KD[0], row: R[KD[0]], cells: { [LC1]: M } }, { date: KD[1], row: R[KD[1]], cells: { [LC1]: M } }];
+660562	  const x = boot({ index: mkIndex(R), files: mkGrids(g) }); installNeon(x, SUBS); x.toggle(true); x.click(x.chip('12m')); await drain();
+660563	  const f = cellsSrc(x).data.features[0]; assert.equal(f.properties.n, 2 * M, 'cell drawn with n = 2^33-2');
+660564	  cellHit(x, f);
+660565	  assert.equal(x.neonCalls.length, 1, 'tap dropped'); assert.ok(card(x));
+660566	  console.log('# LRS5 drawn n=' + f.properties.n + ', tap: 0 engine calls, no card');
+660567	test('LRS6 [FIXED S1] grid/YYYY-MM.json over 2 MB is refused before parsing; 1.9 MB still loads', async () => {
+660568	  const pad = 'x'.repeat(2.1e6); { const y = await boot12(mkGrids(KGRID, g => ({ ...g, pad: 'x'.repeat(1.9e6) }))); assert.equal(y.S.res.gd.n, 50000, '1.9 MB refused'); }
+660569	  const files = mkGrids(KGRID, g => ({ ...g, pad }));
+660570	  const t0 = Date.now(); const x = await boot12(files);
+660571	  assert.equal(x.S.res.gd, undefined, 'over-cap grid accepted'); assert.match(x.cap('flashes'), /cell grid archive unavailable: grid size/);
+660572	  console.log(`# LRS6 accepted ${Object.values(files).reduce((a, b) => a + b.length, 0)} B of grid JSON in ${Date.now() - t0} ms; day files are capped by index bytes+sha256, grid files by nothing`);
+660573	test('LRS7 innerHTML/attributes: grid text never becomes markup; the JSON error message reaches the caption as text only', async () => {
+660574	  const x = await boot12(mkGrids(KGRID, () => '<img src=x onerror=alert(1)>"‮'));
+660575	  const imgs = x.doc.documentElement.querySelectorAll('img').length; assert.equal(imgs, 0);
+660576	  const c = x.cap('flashes'); console.log('# LRS7 caption tail: ' + JSON.stringify(c.slice(c.indexOf('cell grid'))));
+660577	  assert.match(c, /cell grid archive unavailable: /);
+660578	  const b = await boot12(mkGrids(KGRID, () => '\u202e\u200bevil')); const cb2 = b.cap('flashes');
+660579	  assert.equal(/[\u202e\u200b]/.test(cb2), false, 'bidi/zero-width text reached the caption (S3)'); console.log('# LRS7 bidi in caption: ' + /[\u202e\u200b]/.test(cb2) + ' ' + JSON.stringify(cb2.slice(cb2.indexOf('cell grid'))));
+660580	  // the cell card is built from numbers re-derived and range-checked by cb(); feature properties are never interpolated as HTML
+660581	  const y = await boot12(mkGrids(KGRID)); const f = cellsSrc(y).data.features[0];
+660582	  cellHit(y, { properties: { ...f.properties, lat: '<b>x</b>' } }); assert.equal(card(y), null, 'string lat accepted');
+660583	  cellHit(y, { properties: { ...f.properties, n: '<b>' } }); assert.equal(card(y), null, 'string n accepted');
+660584	  cellHit(y, { properties: { ...f.properties, lon: f.properties.lon + 0.2 } }); assert.equal(card(y), null, 'centre outside its cell accepted');
+660585	  cellHit(y, { properties: { ...f.properties, s: -1 } }); assert.equal(card(y), null, 'stale serial accepted');
+660586	  cellHit(y, f); assert.ok(card(y)); assert.equal(card(y).querySelectorAll('img').length, 0);
+660587	test('LRS8 mask blob: decodes to exactly 16,800 cells, equals LR-bugs mask-30km.txt (placeholder point dropped), is a module-private constant not reachable from the API', () => {
+660588	  const m = SRC.match(/for\(const c of'([0-9A-Za-z]+)'\.match/); assert.ok(m); const s = m[1];
+660589	  assert.equal(s, readFileSync(new URL('./fixtures/mask-30km.txt', import.meta.url), 'utf8'));
+660590	  let p = 0; const runs = s.match(/[A-Z]?./g).map(c => c[1] ? (c.charCodeAt(0) - 64) * 36 + parseInt(c[1], 36) : parseInt(c, 36)); for (const r of runs) p += r;
+660591	  assert.equal(p, 16800, 'run lengths sum'); assert.ok(runs.every(Number.isInteger));
+660592	  assert.doesNotMatch(SRC.match(/NS\.ukLightning=Object\.freeze\(\{[^}]*\}/)[0], /LM|gd|gg/);
+660593	  assert.equal(SRC.split('LM()[').length, 2, 'mask indexed in one place'); assert.match(SRC, /r\[0\]>>>0!==r\[0\]\|\|r\[0\]>=16800/);
+660594	test('LRS9 caps: >16,800 cell rows, a row of 65 entries, 32 days are refused', async () => {
+660595	  for (const t of [g => ({ ...g, cells: Array(16801).fill(g.cells[0]) }), g => ({ ...g, cells: [[g.cells[0][0], ...Array(32).fill([1, 1]).flat()]] }), g => ({ ...g, days: Array(32).fill(g.days[0]) })]) {
+660596	    const x = await boot12(mkGrids(KGRID, t)); assert.equal(x.S.res.gd, undefined);
+660597	// ================================================================ LR-words (evidence/LR-words/harness.mjs WORDS dump)
+660598	const textOf = n => { const o = []; const w = e => { if (e.textContent !== undefined && !e.children?.length) o.push(e.textContent); for (const c of e.children || []) w(c); }; w(n); return o; };
+660599	const dumpAll = (x, tag) => { const o = [`=== ${tag}`, `LABEL  ${x.label()}`, `STATUS ${x.status()}`]; for (const k of ['window','days','actual','flashes','refresh','searched','warning','footer']) o.push(`CAP.${k.padEnd(8)} ${x.cap(k)}`); o.push(`STATE ${JSON.stringify(x.S.last)}`); return o.join('\n'); };
+660600	const dumpCard = (x, tag) => { const c = card(x); if (!c) return `--- ${tag}: NO CARD`; const o = [`--- CARD ${tag}`, `aria-label=${c.getAttribute('aria-label')} role=${c.getAttribute('role')}`];
+660601	  for (const b of c.querySelectorAll('button')) o.push(`button "${b.textContent}" aria-label=${b.getAttribute('aria-label')}`); o.push(...textOf(c).map(s => '  · ' + s)); return o.join('\n'); };
+660602	test('WORDS dump (real data)', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660603	  const fd = readFileSync(dir + '/../uk_lightning.geojson', 'utf8'); const out = [];
+660604	  for (const phone of [true, false]) {
+660605	    const x = boot({ phone, index: idx, files, feedFn: () => fd, now: Date.parse(idx.generated_utc) + 60e3 }); installNeon(x, SUBS); x.map.setPaintProperty = () => {}; x.toggle(true); await drain();
+660606	    out.push(dumpAll(x, `${phone ? 'PHONE' : 'DESKTOP'} 24h (default)`));
+660607	    for (const p of ['12h', '48h', '7d', '30d', '3m', '6m', '12m']) {
+660608	      x.click(x.chip(p)); await drain(); out.push(dumpAll(x, `${phone ? 'PHONE' : 'DESKTOP'} ${p}`));
+660609	      const cs = cellsSrc(x); const fs = cs && cs.data && cs.data.features || [];
+660610	      if (fs.length) { const big = fs.reduce((a, f) => f.properties.n > a.properties.n ? f : a), sm = fs.find(f => f.properties.n === 1);
+660611	        cellHit(x, big); out.push(dumpCard(x, `${p} big cell n=${big.properties.n}`)); if (sm) { cellHit(x, sm); out.push(dumpCard(x, `${p} n=1 cell`)); }
+660612	        if (phone && p === '12m') { x.click(x.nav('points')); await drain(); out.push(dumpAll(x, 'PHONE 12m after LOAD POINTS')); x.click(x.nav('prev')); await drain(); out.push(dumpAll(x, 'PHONE 12m PREV (after LOAD POINTS consent reset?)')); }
+660613	      } else if (x.S.res && x.S.res.ev.length) { tapFlash(x, x.S.res.ev.length - 1); out.push(dumpCard(x, `${p} flash`)); }
+660614	    x.click(x.chip('7d')); await drain(); installNeon(x, []); tapFlash(x, 0); out.push(dumpCard(x, '7d flash, substations not loaded'));
+660615	    if (phone) { x.click(x.chip('30d')); await drain(); x.click(x.nav('prev')); await drain(); out.push(dumpAll(x, 'PHONE 30d PREV')); }
+660616	  // grid unavailable
+660617	  const nog = new Proxy({}, { get: (_, k) => String(k).startsWith('grid/') ? undefined : (() => { try { return readFileSync(dir + '/' + String(k)); } catch { return undefined; } })() });
+660618	  const y = boot({ phone: true, index: idx, files: nog, feedFn: () => fd, now: Date.parse(idx.generated_utc) + 60e3 }); y.map.setPaintProperty = () => {}; y.toggle(true); await drain(); y.click(y.chip('12m')); await drain(); out.push(dumpAll(y, 'PHONE 12m grid 404'));
+660619	  // index 404 -> feed
+660620	  const z = boot({ phone: true, index: null, files: {}, feedFn: () => fd, now: Date.parse(idx.generated_utc) + 60e3 }); z.map.setPaintProperty = () => {}; z.toggle(true); await drain(); out.push(dumpAll(z, 'PHONE 24h index 404')); z.click(z.chip('12m')); await drain(); out.push(dumpAll(z, 'PHONE 12m index 404'));
+660621	  console.log(out.join('\n\n').split('\n').map(l => '#R ' + l).join('\n'));
+660622	  const all = out.join('\n'); // L3: LR-words assertions on the rendered words
+660623	  assert.doesNotMatch(all, /affected|Not yet ingested|\d+h \d+min|0 archived in window \(unknown, not zero\)|day-level|as tappable points|UK land|sea and abroad/i);
+660624	  for (const m of all.matchAll(/CAP\.flashes  (Flashes .*map shows.*)/g)) assert.ok(m[1].length <= 380, 'flashes line ' + m[1].length + ' chars: ' + m[1]);
+660625	  for (const m of all.matchAll(/--- CARD .*\n.*\n.*\n.*\n  · (.*)/g)) assert.ok(m[1].length <= 42, 'card title ' + m[1]);
+660626	  assert.match(all, /optical flashes in this ≈10 km cell/); assert.match(all, /Not evidence any asset was struck/);
+660627	// ================================================================ L3-build: LR-numbers, LR-layout (node), LR-regress m1/m2, LR-words W-checks
+660628	test('LRN (real data): whenever cells draw, the caption\'s "N archived" equals the grid total (whole UTC days), at index time and on parts day 2026-08-27', { skip: !process.env.LIGHTNING_DATA }, async () => {
+660629	  for (const now of [Date.parse(idx.generated_utc) + 60e3, Date.parse('2026-08-27T13:00:00Z'), Date.UTC(2026, 10, 27, 13, 20)]) {
+660630	    const x = boot({ phone: true, index: idx, files, now }); x.toggle(true); await drain();
+660631	    for (const p of ['30d', '3m', '6m', '12m']) {
+660632	      x.click(x.chip(p)); await drain(); const r = x.S.res; if (!r.gd) { console.log(`# LRN ${new Date(now).toISOString()} ${p}: ${r.mode} ${r.ev.length} points`); continue; }
+660633	      const g = r.gd, fs = cellsSrc(x).data.features;
+660634	      console.log(`# LRN ${new Date(now).toISOString()} ${p}: arch ${r.arch} grid n ${g.n} drawn ${g.k} in ${fs.length} cells (stale ${g.st})`);
+660635	      if (!g.st) assert.equal(g.n, r.arch, p + ' two totals in one caption');
+660636	      assert.equal(fs.reduce((a, f) => a + f.properties.n, 0), g.k); assert.match(x.cap('flashes'), new RegExp('archived on .* map shows ' + g.k.toLocaleString('en-GB') + ' in .* ' + (g.n - g.k).toLocaleString('en-GB') + ' further out counted, not drawn'));
+660637	test('LAY1 (LR-layout MAJOR): fitBounds keeps the origin and endpoints clear: top 150 (search bar + labels), bottom = card bottom offset + height + 24', async () => {
+660638	  const od = Object.getOwnPropertyDescriptor(El.prototype, 'offsetHeight');
+660639	  Object.defineProperty(El.prototype, 'offsetHeight', { configurable: true, get() { return 143; } });
+660640	    const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installNeon(x, SUBS);
+660641	    x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 659, width: 393, height: 659 }; x.map.getBounds = () => ({ contains: () => false });
+660642	    x.toggle(true); await drain(); tapFlash(x);
+660643	    const c = card(x), fb = x.camera.find(k => k[0] === 'fitBounds'); assert.ok(fb, 'fitBounds'); const pad = fb[1][1].padding;
+660644	    assert.equal(pad.top, 150); assert.equal(typeof c.bb, 'number'); assert.equal(pad.bottom, c.bb + 143 + 24); assert.ok(pad.bottom >= 175);
+660645	  } finally { if (od) Object.defineProperty(El.prototype, 'offsetHeight', od); else delete El.prototype.offsetHeight; }
+660646	test('LAY2 (LR-layout MINOR): the card title wraps instead of ellipsising; LR-words W3 title fits 40 characters for n < 10,000', async () => {
+660647	  cellHit(x, cellsSrc(x).data.features[0]); const t = card(x).children[0].children[0];
+660648	  assert.doesNotMatch(t.style.cssText, /nowrap|ellipsis|overflow:hidden/); assert.equal(pl9999(), true);
+660649	  function pl9999() { return '9,999 optical flashes in this ≈10 km cell'.length <= 41; }
+660650	test('m1 (LR-regress): a cell layer failure does not turn a good load into FAIL "map layer"; it is noted', async () => {
+660651	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); const a0 = x.map.addLayer;
+660652	  x.map.addLayer = (l, b) => { if (/lightning-cell/.test(l.id)) throw new Error('cell layer boom'); return a0(l, b); };
+660653	  assert.notEqual(x.S.last.state, 'FAIL'); assert.ok(x.S.errors.some(e => /cells: cell layer boom/.test(e)), JSON.stringify(x.S.errors));
+660654	test('m1b (LR-regress): if the points draw throws, the previous window\'s cells are still removed', async () => {
+660655	  const x = boot({ index: mkIndex({ ...KROWS, [ymd(Date.now() - D)]: s.row }), files: { ...mkGrids(KGRID), [s.row.path]: s.b } }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660656	  assert.ok(cellsSrc(x)); x.sources.get('gridatlas-lightning').setData = () => { throw new Error('setData boom'); };
+660657	  x.click(x.chip('7d')); await drain(); assert.equal(cellsSrc(x), undefined, 'stale 12M cells left on the map'); assert.equal(x.S.last.state, 'FAIL');
+660658	test('m2 (LR-regress): with no hit or cell layer a tap does nothing (no style scan, no card close), as in J', async () => {
+660659	  const x = boot(); installNeon(x, SUBS); x.toggle(true); await drain(); tapFlash(x); assert.ok(card(x));
+660660	  for (const l of ['gridatlas-lightning-hit', 'gridatlas-lightning-cell']) x.layers.delete(l);
+660661	  let scans = 0; x.map.getStyle = () => { scans++; return { layers: [] }; }; x.tapMap([1, 1], {});
+660662	  assert.equal(scans, 0); assert.ok(card(x), 'card closed by a tap that hit nothing');
+660663	test('LRT1 (LR-taps MAJOR): LATEST with a card open clears the card and the neon links', async () => {
+660664	  const x = boot({ phone: true, index: mkIndex(KROWS), files: mkGrids(KGRID) }); installNeon(x, SUBS); x.map.setPaintProperty = () => {}; x.toggle(true);
+660665	  x.click(x.chip('30d')); await drain(); x.click(x.nav('prev')); await drain(); assert.ok(cellsSrc(x), 'paged 30D has cells');
+660666	  cellHit(x, cellsSrc(x).data.features.find(q => q.properties.cell === LC1)); assert.ok(card(x)); assert.ok(x.sources.get('gridatlas-lightning-neon-links'));
+660667	  x.click(x.nav('latest')); await drain(); assert.ok(!card(x), 'stale card after LATEST'); assert.equal(x.sources.get('gridatlas-lightning-neon-links'), undefined);
+660668	test('LRT2 (LR-taps MINOR): a tap while a load is in flight is ignored (no stale card)', async () => {
+660669	  const f = cellsSrc(x).data.features[0]; x.S.busy = true; cellHit(x, f); assert.ok(!card(x)); assert.equal(x.neonCalls.length, 0);
+660670	  x.S.busy = false; cellHit(x, f); assert.ok(card(x)); assert.equal(x.neonCalls.length, 1);
+660671	test('LRT3 (LR-taps MINOR): the solar glow halo alone does not swallow a cell tap; the solar dot still wins', async () => {
+660672	  x.map.getStyle = () => ({ layers: [{ id: 'l-solar-glow', source: 'src-repd' }, { id: 'l-solar', source: 'src-repd' }, ...[...x.layers.keys()].map(id => ({ id, source: x.layers.get(id).source }))] });
+660673	  x.map.getLayoutProperty = () => 'visible'; const f = cellsSrc(x).data.features[0], at = [f.properties.lon * 10, f.properties.lat * 10];
+660674	  x.tapMap(at, { 'l-solar-glow': [{ properties: {} }], [CELL]: [f] }); assert.ok(card(x), 'glow swallowed the cell tap'); assert.equal(x.neonCalls.length, 1);
+660675	  x.tapMap(at, { 'l-solar-glow': [{ properties: {} }], 'l-solar': [{ properties: {} }], [CELL]: [f] }); assert.ok(!card(x)); assert.equal(x.neonCalls.length, 1);
+660676	  assert.equal(x.layers.get(CLS[0]) && true, true);
+660677	test('LRT4 (LR-taps MINOR): LOAD POINTS states the real number when the window holds fewer than 40,000', async () => {
+660678	  const x = boot({ phone: true, index: mkIndex(rows), files: mkGrids(g) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660679	  assert.match(x.cap('flashes'), /LOAD POINTS adds the newest 12,000 flashes$/);
+660680	// ---------------------------------------------------------------- M-build: the 10 nearest REPD projects on a lightning tap
+660681	// The original's public measure (sld-sandbox 202609241334 link.measure): distanceKm = GEODESY haversine (R 6378.137 km,
+660682	// reproduced as hav above), representativePoint (cartridge :3356) and isProjectTech (PROJECT_TECHS, cartridge :1683).
+660683	const PTECH = new Set(['solar', 'solar_operational', 'solar_roof', 'bess', 'bess_operational', 'wind', 'wind_onshore', 'wind_onshore_operational', 'wind_offshore', 'wind_offshore_operational', 'biomass', 'hydro', 'hydrogen', 'tidal', 'geothermal', 'flywheel', 'caes', 'act', 'other']);
+660684	const repPoint = g => { if (!g) return null; if (g.type === 'Point') return [g.coordinates[0], g.coordinates[1]]; const ring = g.type === 'Polygon' ? g.coordinates[0] : g.type === 'MultiPolygon' ? g.coordinates[0]?.[0] : null; if (!Array.isArray(ring) || !ring.length) return null; let a = 0, b = 0; for (const p of ring) { a += p[0]; b += p[1]; } return [a / ring.length, b / ring.length]; };
+660685	const REPD_FILE = new URL('./fixtures/repd-master-v8-oracle.json.gz', import.meta.url);
+660686	const REPD_RAW = gunzipSync(readFileSync(REPD_FILE)); // required in CI: never skip silently
+660687	// the export of the pinned repd_master_v8_oracle.parquet (sha256 a737d00d…) used by M-build, MR and M2-build
+660688	assert.equal(createHash('sha256').update(REPD_RAW).digest('hex'), '15cc89a79450711970b0d5be08c3c82542be2103f6e9165c56a92c7fac70f61c', 'REPD fixture bytes changed');
+660689	const REPD_REAL = JSON.parse(REPD_RAW.toString('utf8'));
+660690	const pf = (lon, lat, p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [lon, lat] }, properties: { name: 'P', tech: 'solar', raw_tech: 'Solar Photovoltaics', capacity: 10, status: 'operational', operator: '', mounting: 'nan', ...p } });
+660691	// installs the original's measure surface; repd = FeatureCollection; via 'source' (a REPD layer has loaded src-repd) or 'fetch'
+660692	const installRepd = (x, subs, repd, via = 'source', fetchImpl = null) => {
+660693	  installNeon(x, subs); x.sandbox.URLSearchParams = URLSearchParams; x.sandbox.location = { pathname: '/gridatlas/atlas/' }; const M = x.W.__GRIDATLAS_NEON_LINKS__.measure; x.distCalls = 0;
+660694	  Object.assign(M, { distanceKm: (a, b, c, d) => (x.distCalls++, hav(a, b, c, d)), representativePoint: repPoint, isProjectTech: t => PTECH.has(t), MAX_LINK_KM: 40 });
+660695	  x.repdFetch = []; const base = x.map.getSource;
+660696	  if (via === 'source') x.map.getSource = id => id === 'src-repd' ? { serialize: () => ({ type: 'geojson', data: repd }) } : base(id);
+660697	  const of = x.sandbox.fetch;
+660698	  x.sandbox.fetch = async (u, o) => { if (String(u).endsWith('/dist/repd_master.json')) { x.repdFetch.push(u); if (fetchImpl) return fetchImpl(u); return new Response(JSON.stringify(repd), { status: 200 }); } return of(u, o); };
+660699	const bruteTop = (repd, lon, lat) => repd.features.map(f => ({ f, a: repPoint(f.geometry) })).filter(r => r.a && PTECH.has(r.f.properties.tech)).map(r => ({ ...r, km: hav(lon, lat, r.a[0], r.a[1]) })).filter(r => r.km <= 40).sort((a, b) => a.km - b.km).slice(0, 10);
+660700	const prows = c => c.querySelectorAll('a');
+660701	const settle = async () => { for (let k = 0; k < 20; k++) await new Promise(r => setImmediate(r)); };
+660702	const NEWARK = [-0.81, 53.07];
+660703	// M2: co-located parts (same point) are one site row; exact duplicate rows count once; ties with the 10th site are kept.
+660704	// The independent brute force below reproduces that from the raw register (no module code).
+660705	const cf = v => String(v).replace(/\p{Cf}/gu, '').slice(0, 200);
+660706	const siteName = p => ({ solar: 'Solar', solar_roof: 'Rooftop solar' })[p.tech] || cf(p.raw_tech);
+660707	const bruteSites = (repd, lon, lat, keep = () => true) => {
+660708	  const seen = new Set(), m = new Map(), rows = [];
+660709	  for (const f of repd.features) {
+660710	    const a = repPoint(f.geometry), p = f.properties || {}; if (!a || !PTECH.has(p.tech) || !keep(p)) continue;
+660711	    const km = hav(lon, lat, a[0], a[1]); if (km > 40) continue;
+660712	    const k = a + JSON.stringify(p); if (seen.has(k)) continue; seen.add(k);
+660713	    rows.push({ a, km, p });
+660714	  for (const r of rows.sort((x, y) => x.km - y.km)) { let g = [...m.values()].find(g => Math.abs(g.a[0] - r.a[0]) < 2e-4 && Math.abs(g.a[1] - r.a[1]) < 1e-4); if (!g) m.set(r.a.join(), g = { a: r.a, km: r.km, parts: [] }); g.parts.push(r.p); }
+660715	  const s = [...m.values()].sort((x, y) => x.km - y.km); return s.filter((g, i) => i < 10 || g.km === s[9].km);
+660716	const siteMW = g => [...new Set(g.parts.map(p => p.name + '|' + p.raw_tech + '|' + (p.capacity > 0 ? +p.capacity : 0)))].reduce((t, k) => t + +k.split('|').pop(), 0);
+660717	const siteLabel = g => `${g.km.toFixed(2)} km · ${[...new Set(g.parts.map(siteName))].sort().join(' + ')}${siteMW(g) > 0 ? ' ' + siteMW(g).toLocaleString('en-GB') + ' MW' : ''}`;
+660718	const siteRow = g => `${siteLabel(g)}${siteMW(g) > 0 ? '' : ' · capacity not stated'} · ${g.parts.length > 1 ? g.parts.length + ' projects at this point:' : cf(g.parts[0].status) + ' · ' + cf(g.parts[0].name)}`;
+660719	test('REPD1 (real REPD, engine source; M2 grouping): a flash near Newark lists the 10 nearest REPD sites of the full register, ascending, as the brute force over all 10,784 rows', { skip: !REPD_REAL }, async () => {
+660720	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', NEWARK)]) }); installRepd(x, SUBS.map(q => ({ ...q, at: [q.at[0] + 0.69, q.at[1] + 1.07] })), REPD_REAL);
+660721	  x.toggle(true); await drain(); tapFlash(x); await settle();
+660722	  const c = card(x), rows = [...prows(c)].map(r => r.textContent), want = bruteSites(REPD_REAL, ...NEWARK);
+660723	  assert.equal(REPD_REAL.features.length, 10784); assert.equal(want.length, 10); assert.deepEqual(rows, want.map(siteRow));
+660724	  assert.ok(want.some(g => g.parts.length > 1), 'Newark has a co-located site (the M2 grouping case)');
+660725	  assert.equal(x.distCalls, 10784, 'every register row measured with the original distanceKm');
+660726	  assert.match(c.textContent, /10 nearest REPD sites \(\d+ projects; those at one point grouped\) within 40 km of this optical flash, straight-line\. Not evidence any project was struck\./);
+660727	  assert.match(c.children[0].children[0].textContent + c.textContent, / · 5 nearest substations · 10 nearest REPD sites/);
+660728	  const ln = x.sources.get('gridatlas-lightning-neon-plinks').data.features, nd = x.sources.get('gridatlas-lightning-neon-pnodes').data.features;
+660729	  assert.equal(ln.length, 10); assert.equal(nd.length, 10); for (const f of ln) assert.deepEqual([...f.geometry.coordinates[0]], NEWARK);
+660730	  assert.deepEqual(Array.from(nd, f => f.properties.label), want.map(siteLabel)); assert.deepEqual(Array.from(nd, f => f.properties.mw), want.map(siteMW));
+660731	  assert.equal(x.sources.get('gridatlas-lightning-neon-links').data.features.length, 5, 'the 5 substation links are kept');
+660732	  for (const id of ['p-core', 'p-node', 'p-label']) assert.ok(x.layers.get('gridatlas-lightning-neon-' + id), id);
+660733	  assert.notDeepEqual(x.layers.get('gridatlas-lightning-neon-p-core').paint['line-color'], '#d8c96a');
+660734	  assert.equal(x.repdFetch.length, 0, 'the engine source was used; no second fetch');
+660735	test('REPD2: labels read "2.14 km · Solar 49.9 MW"; unknown capacity shows no MW; every status and technology is eligible; rows deep-link the original way, never with a repd_ref', async () => {
+660736	  const repd = { type: 'FeatureCollection', features: [
+660737	    pf(-1.5, 52.0192, { name: 'Sun A', capacity: 49.9 }), pf(-1.5, 52.03, { name: 'Bat B', tech: 'bess', raw_tech: 'Battery', capacity: 0, status: 'application submitted' }),
+660738	    pf(-1.5, 52.04, { name: 'Wind C', tech: 'wind', raw_tech: 'Wind Onshore', capacity: 1200, status: 'awaiting construction' }), pf(-1.5, 52.05, { name: 'Roof D', tech: 'solar_roof', status: 'under construction' }),
+660739	    pf(-1.5, 52.06, { name: 'AD E', tech: 'biomass', raw_tech: 'Anaerobic Digestion', capacity: 2.5 }), pf(-1.5, 52.5, { name: 'Far F' }), pf(-1.5, 52.01, { name: 'Bad G', tech: 'nonsense' })] };
+660740	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(x, SUBS, repd, 'fetch');
+660741	  const rows = [...prows(card(x))].map(r => r.textContent);
+660742	  assert.deepEqual(rows, ['2.14 km · Solar 49.9 MW · operational · Sun A', '3.34 km · Battery · capacity not stated · application submitted · Bat B', '4.45 km · Wind Onshore 1,200 MW · awaiting construction · Wind C', '5.57 km · Rooftop solar 10 MW · under construction · Roof D', '6.68 km · Anaerobic Digestion 2.5 MW · operational · AD E']);
+660743	  assert.match(card(x).textContent, /5 nearest REPD sites within 40 km/);
+660744	  const a = prows(card(x))[0], q = new URLSearchParams(a.href.split('?')[1]); assert.ok(a.href.startsWith('/gridatlas/atlas/?'), 'the row opens the page route, not the shell base: ' + a.href);
+660745	  assert.deepEqual(Object.fromEntries(q), { longitude: '-1.5', latitude: '52.0192', technology: 'solar', project: 'Sun A', capacity_mw: '49.9', status: 'operational' });
+660746	  for (const r of prows(card(x))) assert.doesNotMatch(r.href, /repd_ref/);
+660747	  assert.equal(x.repdFetch.length, 1); assert.equal(x.repdFetch[0], '/dist/repd_master.json');
+660748	test('REPD3: the register is fetched once per page (engine URL through the bridge) and reused; a failed fetch says so, keeps the substations, and the next tap retries', async () => {
+660749	  let fail = true; const repd = { type: 'FeatureCollection', features: [pf(-1.5, 52.01, { name: 'Near' })] };
+660750	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) });
+660751	  installRepd(x, SUBS, repd, 'fetch', async () => fail ? Promise.reject(new Error('network error')) : new Response(JSON.stringify(repd), { status: 200 }));
+660752	  assert.match(card(x).textContent, /REPD projects unavailable: network error/); assert.equal(x.sources.get('gridatlas-lightning-neon-links').data.features.length, 5);
+660753	  assert.equal(x.sources.get('gridatlas-lightning-neon-plinks'), undefined);
+660754	  fail = false; tapFlash(x); await settle(); assert.equal(prows(card(x)).length, 1); tapFlash(x); await settle(); assert.equal(prows(card(x)).length, 1);
+660755	  assert.equal(x.repdFetch.length, 2, 'one failed + one good fetch; the third tap reuses the register');
+660756	  const y = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(y, SUBS, null, 'fetch', async () => new Response('x', { status: 503 }));
+660757	  y.toggle(true); await drain(); tapFlash(y); await settle(); assert.match(card(y).textContent, /REPD projects unavailable: HTTP 503/);
+660758	  const z = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(z, SUBS, { type: 'FeatureCollection', features: [] }, 'fetch');
+660759	  z.toggle(true); await drain(); tapFlash(z); await settle(); assert.match(card(z).textContent, /REPD projects unavailable: register empty/); assert.doesNotMatch(card(z).textContent, /No REPD site/);
+660760	test('REPD4: none within 40 km is stated; no project lines; the substation answer is unchanged', async () => {
+660761	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(x, SUBS, { type: 'FeatureCollection', features: [pf(-1.5, 53, { name: 'Far' })] });
+660762	  assert.match(card(x).textContent, /No REPD site within 40 km of this optical flash, straight-line\. Not evidence any project was struck\./); assert.equal(prows(card(x)).length, 0);
+660763	  assert.match(card(x).textContent, / · no REPD site within 40 km/); assert.doesNotMatch(card(x).textContent, /Within 10 km/); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks').data.features.length, 0);
+660764	test('REPD5: close, period switch, LATEST and OFF remove the project lines, nodes and labels; a register arriving after close draws nothing', async () => {
+660765	  const repd = { type: 'FeatureCollection', features: [pf(-1.5, 52.01, { name: 'Near' })] }, ids = ['p-core', 'p-node', 'p-label'].map(s => 'gridatlas-lightning-neon-' + s);
+660766	  const gone = x => { for (const id of ids) assert.equal(x.layers.get(id), undefined, id); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks'), undefined); assert.equal(x.sources.get('gridatlas-lightning-neon-pnodes'), undefined); };
+660767	  const x = boot({ phone: true, index: mkIndex(KROWS), files: mkGrids(KGRID) }); x.map.setPaintProperty = () => {}; x.toggle(true);
+660768	  x.click(x.chip('30d')); await drain(); x.click(x.nav('prev')); await drain();
+660769	  const f0 = cellsSrc(x).data.features.find(q => q.properties.cell === LC1); installRepd(x, SUBS, { type: 'FeatureCollection', features: [pf(f0.properties.lon + 0.05, f0.properties.lat, { name: 'Near' })] });
+660770	  const open = async () => { cellHit(x, cellsSrc(x).data.features.find(q => q.properties.cell === LC1)); await settle(); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks').data.features.length, 1, 'drawn'); };
+660771	  await open(); dispatch(card(x).querySelectorAll('button')[1], 'click', x.log.errors); gone(x);
+660772	  await open(); x.click(x.nav('latest')); gone(x); await drain();
+660773	  x.click(x.chip('12m')); await drain(); await open(); x.click(x.chip('6m')); gone(x); await drain();
+660774	  await open(); x.toggle(false); gone(x);
+660775	  let release; const y = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) });
+660776	  installRepd(y, SUBS, repd, 'fetch', () => new Promise(r => { release = () => r(new Response(JSON.stringify(repd), { status: 200 })); }));
+660777	  y.toggle(true); await drain(); tapFlash(y); await settle(); dispatch(card(y).querySelectorAll('button')[1], 'click', y.log.errors); release(); await settle(); gone(y);
+660778	  assert.deepEqual(y.log.errors.map(String), []);
+660779	test('REPD6: a cell tap measures projects from the cell centre; the camera frames origin, substations and projects (L3 padding)', async () => {
+660780	    const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); x.toggle(true); x.click(x.chip('12m')); await drain();
+660781	    const f = cellsSrc(x).data.features[0], [lon, lat] = f.geometry.coordinates;
+660782	    const repd = { type: 'FeatureCollection', features: [pf(lon + 0.3, lat, { name: 'East' }), pf(lon, lat - 0.2, { name: 'South' })] };
+660783	    installRepd(x, SUBS, repd); x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 659, width: 393, height: 659 }; x.map.getBounds = () => ({ contains: () => false });
+660784	    cellHit(x, f); await settle();
+660785	    assert.deepEqual(x.neonCalls.at(-1).slice(0, 2), [lon, lat]); assert.equal(prows(card(x)).length, 2);
+660786	    assert.match(card(x).textContent, /2 nearest REPD sites within 40 km of this cell centre/);
+660787	    const fb = x.camera.filter(k => k[0] === 'fitBounds').at(-1); assert.ok(fb); const [[w, s], [e, n]] = fb[1][0], pad = fb[1][1].padding;
+660788	    for (const [a, b] of [[lon, lat], [lon + 0.3, lat], [lon, lat - 0.2]]) assert.ok(a >= w && a <= e && b >= s && b <= n, 'bbox misses ' + a + ',' + b);
+660789	    assert.equal(pad.top, 150); assert.equal(pad.bottom, card(x).bb + 143 + 24); assert.equal(fb[1][1].maxZoom, 12);
+660790	test('REPD7: honest wording: never "affected" as a claim, never a strike on a site; the module never writes the URL', async () => {
+660791	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(x, SUBS, { type: 'FeatureCollection', features: [pf(-1.5, 52.01)] });
+660792	  x.toggle(true); await drain(); tapFlash(x); await settle(); const t = card(x).textContent;
+660793	  assert.match(t, /Not evidence any project was struck\./); assert.doesNotMatch(t, /(were|was|are|is) affected|strike on|struck the|hit the/i);
+660794	  assert.doesNotMatch(SRC, /repd_ref|location\.(href|search|hash|assign|replace)|history\.(push|replace)State|pushState/);
+660795	// ---------------------------------------------------------------- M2-build: MR1-MR4 + the comprehensive REPD feature; each fails on Build M
+660796	const REPD_IND = structuredClone(REPD_REAL); // MR's independent DuckDB export of the pinned parquet: the same 10,784 rows, in the same order
+660797	const flashAt = async (ll, repd = REPD_IND, via = 'source', fi = null) => { const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', ll)]) }); installRepd(x, SUBS.map(q => ({ ...q, at: [q.at[0] + 0.69, q.at[1] + 1.07] })), repd, via, fi); x.toggle(true); await drain(); tapFlash(x); await settle(); return x; };
+660798	const hangFetch = x => { const of = x.sandbox.fetch; x.sandbox.fetch = async (u, o) => { if (!String(u).endsWith('/dist/repd_master.json')) return of(u, o); x.repdFetch.push(u);
+660799	  return new Response(new ReadableStream({ start(c) { o && o.signal && o.signal.addEventListener('abort', () => c.error(new DOMException('Aborted', 'AbortError'))); } }), { status: 200 }); }; };
+660800	const FCx = f => ({ type: 'FeatureCollection', features: f });
+660801	const rowsOf = x => [...prows(card(x))].map(a => a.textContent);
+660802	const chip = (x, k) => card(x).querySelector(`[data-lightning-repd-filter="${k}"]`);
+660803	const press = (x, k) => dispatch(chip(x, k), 'click', x.log.errors);
+660804	const tapRow = (x, i = 0) => { const a = prows(card(x))[i]; let prevented = false; for (const f of a.listeners.click || []) f({ type: 'click', target: a, preventDefault: () => { prevented = true; }, stopPropagation() {} }); return prevented; };
+660805	const flash0 = () => boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) });
+660806	test('MR-A (M2 grouping): with the independent register, the rows equal the independent brute force (sites, co-located parts grouped) at 7 dense and sparse points', async () => {
+660807	  for (const ll of [[-0.81, 53.07], [-0.85, 52.75], [-0.35, 53.25], [0.15, 53.05], [-4.95, 57.95], [-5.15, 57.65], [-3.85, 58.45]]) {
+660808	    const x = await flashAt(ll); assert.deepEqual(rowsOf(x), bruteSites(REPD_IND, ...ll).map(siteRow), ll.join());
+660809	test('M2-MR1: a register body that never completes (stalled bridge) is reported after the 15 s timeout, the substations stay, and the next tap retries', async () => {
+660810	  const x = flash0(); installRepd(x, SUBS, null, 'fetch'); hangFetch(x);
+660811	  x.toggle(true); await drain(); tapFlash(x); await settle(); assert.match(card(x).textContent, /REPD projects: loading…/);
+660812	  await new Promise(r => setTimeout(r, 15500)); await settle();
+660813	  assert.match(card(x).textContent, /REPD projects unavailable: timeout after 15 s/); assert.doesNotMatch(card(x).textContent, /loading…/);
+660814	  assert.equal(x.sources.get('gridatlas-lightning-neon-links').data.features.length, 5, 'substation links kept');
+660815	  tapFlash(x); await settle(); assert.equal(x.repdFetch.length, 2, 'the next tap retries');
+660816	test('M2-MR1b: a redirected register response is refused like every other module fetch', async () => {
+660817	  const x = flash0();
+660818	  installRepd(x, SUBS, null, 'fetch', async () => { const r = new Response(JSON.stringify(FCx([pf(-1.5, 52.01)])), { status: 200 }); Object.defineProperty(r, 'redirected', { value: true }); return r; });
+660819	  x.toggle(true); await drain(); tapFlash(x); await settle(); assert.match(card(x).textContent, /REPD projects unavailable: redirected/); assert.equal(prows(card(x)).length, 0);
+660820	test('M2-MR1c (bridge keeps a failed start): the first failure says "tap again"; a repeated failure adds the switch-on-a-REPD-layer / reload advice', async () => {
+660821	  const x = flash0(); installRepd(x, SUBS, null, 'fetch', async () => Promise.reject(new Error('DuckDB start failed')));
+660822	  assert.match(card(x).textContent, /REPD projects unavailable: DuckDB start failed\. Tap the flash again to retry\./); assert.doesNotMatch(card(x).textContent, /reload/);
+660823	  assert.match(card(x).querySelector('summary').textContent, / · REPD unavailable$/, 'M2R-a11y: the collapsed card says so');
+660824	  tapFlash(x); await settle(); assert.match(card(x).textContent, /REPD projects unavailable: DuckDB start failed\. Switch on a REPD layer or reload the page, then tap again\./);
+660825	  assert.equal(x.repdFetch.length, 2);
+660826	test('M2-MR2: exact duplicate register rows are listed once (Kelvin Energy Recovery Facility, real register); same point with other properties is one grouped site', async () => {
+660827	  const x = await flashAt([-1.99, 52.51]), t = card(x).textContent; assert.equal(t.split('Kelvin Energy Recovery Facility').length - 1, 1, 'listed once');
+660828	  const d = pf(-1.5, 52.01, { name: 'Dup' }), y = await flashAt([-1.5, 52], FCx([d, structuredClone(d)]));
+660829	  assert.equal(rowsOf(y).length, 1); assert.doesNotMatch(rowsOf(y)[0], /co-located/); assert.match(card(y).textContent, /1 nearest REPD site within/);
+660830	  const z = await flashAt([-1.5, 52], FCx([d, structuredClone(d), pf(-1.5, 52.01, { name: 'Dup', tech: 'bess', raw_tech: 'Battery' })]));
+660831	  assert.equal(rowsOf(z).length, 1); assert.match(rowsOf(z)[0], / · Battery \+ Solar 20 MW · 2 projects at this point:$/);
+660832	test('M2-MR3: Steeple Renewables solar and its co-located BESS are one site; a different site tied with the 10th is kept; an 11th farther site is not', async () => {
+660833	  const x = await flashAt([-0.75, 53.35]), r = rowsOf(x).filter(s => /^4\.92 km · /.test(s));
+660834	  assert.equal(r.length, 1); assert.match(r[0], /Battery \+ Solar 1,100 MW · 3 projects at this point:$/); assert.equal(card(x).textContent.split('Steeple Renewables Project').length - 1, 2, 'its two listed parts (solar and BESS), named beneath the row');
+660835	  const f = [...Array(9)].map((_, i) => pf(-1.5, 52 + 0.01 * (i + 1), { name: 'R' + i })); f.push(pf(-1.34, 52, { name: 'TieE' }), pf(-1.66, 52, { name: 'TieW' }), pf(-1.5, 52.2, { name: 'Far' }));
+660836	  const y = await flashAt([-1.5, 52], FCx(f)), yr = rowsOf(y);
+660837	  assert.equal(yr.length, 11); assert.ok(yr.some(s => /TieE$/.test(s)) && yr.some(s => /TieW$/.test(s))); assert.ok(!yr.some(s => /Far$/.test(s)));
+660838	  assert.match(card(y).textContent, /11 nearest REPD sites within 40 km/); assert.equal(y.sources.get('gridatlas-lightning-neon-pnodes').data.features.length, 11);
+660839	test('M2-MR4: a register landing while the map is still moving is framed when that move ends', async () => {
+660840	  let release; const repd = FCx([pf(-1.5, 52.3, { name: 'FarNorth' })]), x = flash0();
+660841	  installRepd(x, SUBS, repd, 'fetch', () => new Promise(r => { release = () => r(new Response(JSON.stringify(repd), { status: 200 })); }));
+660842	  x.map.getBounds = () => ({ contains: ([a, b]) => b < 52.2 }); x.toggle(true); await drain(); tapFlash(x); await settle();
+660843	  const q = []; x.map.once = (t, f) => q.push([t, f]); x.map.isMoving = () => true; release(); await settle();
+660844	  assert.equal(prows(card(x)).length, 1); const n0 = x.camera.filter(k => k[0] === 'fitBounds').length;
+660845	  x.map.isMoving = () => false; for (const [t, f] of q.splice(0)) if (t === 'moveend') f(); await settle();
+660846	  const fb = x.camera.filter(k => k[0] === 'fitBounds'); assert.equal(fb.length, n0 + 1, 'reframed at moveend');
+660847	  const [[w, s], [e, n]] = fb.at(-1)[1][0]; assert.ok(n >= 52.3 && s <= 52 && w <= -1.5 && e >= -1.5, 'FarNorth and the origin are framed');
+660848	test('M2-MR4b: the moveend wait is harmless after close (no reframe, no throw)', async () => {
+660849	  dispatch(card(x).querySelectorAll('button')[1], 'click', x.log.errors); await settle(); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks'), undefined, 'closed');
+660850	  const n0 = x.camera.filter(k => k[0] === 'fitBounds').length; for (const [t, f] of q.splice(0)) if (t === 'moveend') f(); await settle();
+660851	  assert.equal(x.camera.filter(k => k[0] === 'fitBounds').length, n0); assert.deepEqual(x.log.errors.map(String), []);
+660852	test('M2-C1 co-located: solar + battery at one point are one link, one node and one label ("2.64 km · Battery + Solar 69.9 MW"), with every part listed in the card', async () => {
+660853	  const lat = 52 + 2.64 / 111.32, x = await flashAt([-1.5, 52], FCx([pf(-1.5, lat, { name: 'Sun Farm', capacity: 49.9 }), pf(-1.5, lat, { name: 'Sun Farm BESS', tech: 'bess', raw_tech: 'Battery', capacity: 20, status: 'awaiting construction' }), pf(-1.5, 52.1, { name: 'Other' })]));
+660854	  const km = hav(-1.5, 52, -1.5, lat).toFixed(2); assert.equal(km, '2.64');
+660855	  assert.deepEqual(rowsOf(x), ['2.64 km · Battery + Solar 69.9 MW · 2 projects at this point:', rowsOf(x)[1]]);
+660856	  const t = card(x).textContent; assert.match(t, /Solar 49\.9 MW · operational · Sun Farm/); assert.match(t, /Battery 20 MW · awaiting construction · Sun Farm BESS/);
+660857	  assert.match(t, /2 nearest REPD sites \(3 projects; those at one point grouped\) within 40 km/);
+660858	  const nd = x.sources.get('gridatlas-lightning-neon-pnodes').data.features, ln = x.sources.get('gridatlas-lightning-neon-plinks').data.features;
+660859	  assert.equal(nd.length, 2); assert.equal(ln.length, 2); assert.equal(nd[0].properties.label, '2.64 km · Battery + Solar 69.9 MW'); assert.equal(nd[0].properties.mw, 69.9);
+660860	test('M2-C2 filters: All / Operational / Consented & construction / Planning and All / Solar / Wind / BESS / Other; default All; the nearest 10 are re-ranked within the filter; lines follow', async () => {
+660861	  const f = [...Array(12)].map((_, i) => pf(-1.5, 52 + 0.01 * (i + 1), { name: 'Await' + i, status: 'awaiting construction' }));
+660862	  f.push(pf(-1.5, 52.3, { name: 'OpSolar' }), pf(-1.5, 52.31, { name: 'OpBess', tech: 'bess', raw_tech: 'Battery' }), pf(-1.5, 52.32, { name: 'UC Wind', tech: 'wind_onshore', raw_tech: 'Wind Onshore', status: 'under construction' }),
+660863	    pf(-1.5, 52.33, { name: 'Plan Hydro', tech: 'hydro', raw_tech: 'Small Hydro', status: 'application submitted' }));
+660864	  const x = await flashAt([-1.5, 52], FCx(f)), lines = () => x.sources.get('gridatlas-lightning-neon-plinks').data.features.length;
+660865	  for (const k of ['st:all', 'st:op', 'st:cc', 'st:pl', 'te:all', 'te:solar', 'te:wind', 'te:bess', 'te:other']) assert.ok(chip(x, k), k);
+660866	  assert.deepEqual(['Operational', 'Consented', 'Planning', 'Solar', 'Wind', 'BESS', 'Other'].map(t => card(x).querySelectorAll('button').some(b => b.textContent === t)), Array(7).fill(true));
+660867	  assert.equal(chip(x, 'st:all').getAttribute('aria-pressed'), 'true'); assert.equal(chip(x, 'te:all').getAttribute('aria-pressed'), 'true');
+660868	  assert.equal(rowsOf(x).length, 10); assert.ok(rowsOf(x).every(r => /Await/.test(r)));
+660869	  press(x, 'st:op'); assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['OpSolar', 'OpBess']); assert.equal(lines(), 2);
+660870	  assert.equal(chip(x, 'st:op').getAttribute('aria-pressed'), 'true'); assert.equal(chip(x, 'st:all').getAttribute('aria-pressed'), 'false');
+660871	  assert.match(card(x).textContent, /2 nearest REPD sites within 40 km of this optical flash, straight-line \(Operational\)\. Not evidence any project was struck\./);
+660872	  press(x, 'te:bess'); assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['OpBess']); assert.match(card(x).textContent, /straight-line \(Operational · BESS\)/); assert.match(card(x).querySelector('summary').textContent, / · 1 nearest REPD site \(Operational · BESS\)$/);
+660873	  press(x, 'st:cc'); press(x, 'te:all'); assert.equal(rowsOf(x).length, 10); assert.ok(rowsOf(x).every(r => /Await/.test(r)));
+660874	  press(x, 'te:wind'); assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['UC Wind']);
+660875	  press(x, 'st:pl'); press(x, 'te:other'); assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['Plan Hydro']);
+660876	  press(x, 'te:solar'); assert.match(card(x).textContent, /No REPD site within 40 km of this optical flash, straight-line \(Planning · Solar\)/); assert.equal(lines(), 0);
+660877	  press(x, 'st:all'); press(x, 'te:all'); assert.equal(rowsOf(x).length, 10); assert.equal(lines(), 10);
+660878	  press(x, 'st:op'); tapFlash(x); await settle(); assert.equal(chip(x, 'st:op').getAttribute('aria-pressed'), 'true', 'the filter is kept for the next tap'); assert.equal(rowsOf(x).length, 2);
+660879	test('M2-C3 summary: "N REPD projects within 10 km · M within 40 km · total X MW within 10 km", follows the filter, and states uncounted capacity honestly', async () => {
+660880	  const x = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.018, { capacity: 10, name: 'A' }), pf(-1.5, 52.045, { capacity: 0, name: 'B', status: 'application submitted' }), pf(-1.5, 52.18, { capacity: 100, name: 'C' }), pf(-1.5, 52.5, { name: 'Out' })]));
+660881	  assert.match(card(x).textContent, /Within 10 km: 2 projects · 10 MW stated \(all statuses\), 1 not stated · within 40 km: 3 projects · straight-line distance only, not impact · REPD: DESNZ, April 2026, OGL v3\.0/);
+660882	  press(x, 'st:op'); assert.match(card(x).textContent, /Within 10 km: 1 project · 10 MW stated \(Operational\) · within 40 km: 2 projects · /);
+660883	  const y = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.5)])); assert.doesNotMatch(card(y).textContent, /Within 10 km|0 MW/);
+660884	  const z = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01, { capacity: 0 }), pf(-1.5, 52.3, { capacity: 5 })])); assert.match(card(z).textContent, /Within 10 km: 1 project · capacity not stated · within 40 km: 2 projects/); assert.doesNotMatch(card(z).textContent, / 0 MW/);
+660885	test('M2-C4 fewer than 10: stated, with the radius kept at 40 km; not stated when 10 exist', async () => {
+660886	  const x = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01), pf(-1.5, 52.02), pf(-1.5, 52.03), pf(-1.5, 52.6)]));
+660887	  assert.match(card(x).textContent, /Only 3 sites within the 40 km search radius\./);
+660888	  const y = await flashAt([-1.5, 52], FCx([...Array(12)].map((_, i) => pf(-1.5, 52 + 0.01 * (i + 1))))); assert.doesNotMatch(card(y).textContent, /Only \d+ site/);
+660889	  press(y, 'st:op'); assert.doesNotMatch(card(y).textContent, /Only \d+ site/);
+660890	test('M2-C5 row tap stays in the page: no navigation; flies to the project and draws its nearest-substation links; "◀ back to lightning flash" restores the card, links and list', async () => {
+660891	  const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.45, 52.02, { name: 'Sun A', capacity: 49.9 }), pf(-1.45, 52.02, { name: 'Bat A', tech: 'bess', raw_tech: 'Battery', capacity: 20 }), pf(-1.5, 52.1, { name: 'B' })]), 'fetch');
+660892	  const href = prows(card(x))[0].href; assert.ok(href.startsWith('/gridatlas/atlas/?'), 'the deep link stays as the href (open in new tab)');
+660893	  x.camera.length = 0; const n0 = x.neonCalls.length; assert.equal(tapRow(x, 0), true, 'default navigation prevented'); await settle();
+660894	  const c = card(x); assert.equal(c.getAttribute('aria-label'), 'REPD project'); assert.equal(x.S.pp, c);
+660895	  assert.deepEqual(x.neonCalls.at(-1).slice(0, 2), [-1.45, 52.02]); assert.equal(x.neonCalls.length, n0 + 1);
+660896	  const fly = x.camera.find(k => k[0] === 'flyTo'); assert.deepEqual([...fly[1][0].center], [-1.45, 52.02]); assert.equal(fly[1][0].zoom, 12);
+660897	  assert.equal(x.sources.get('gridatlas-lightning-neon-links').data.features.length, 5, 'the 5 substation links from the project');
+660898	  assert.equal(x.sources.get('gridatlas-lightning-neon-plinks'), undefined, 'no project list in the project view');
+660899	  assert.match(c.textContent, /REPD · Battery \+ Solar 69\.9 MW/); assert.match(c.textContent, /2 projects at this point · Sun A \/ Bat A/);
+660900	  assert.match(c.textContent, /Solar 49\.9 MW · operational · Sun A; Battery 20 MW · operational · Bat A/);
+660901	  assert.match(c.textContent, /Nearest substations to this project \(straight-line km; not its declared grid connection\)\./);
+660902	  assert.match(c.textContent, /4\.09 km from the optical flash \(straight-line\)/); assert.match(c.textContent, /REPD register \(DESNZ, April 2026 · OGL v3\.0\) as loaded by the map · lightning = optical flashes, not necessarily ground strikes; not evidence the project was struck\./); assert.doesNotMatch(c.textContent, /(were|was|are|is) affected|strike on|struck the|hit the/i);
+660903	  const back = c.querySelector('[data-lightning-back]'); assert.equal(back.textContent, '◀ back to lightning flash'); assert.equal(c.querySelectorAll('button')[1].getAttribute('aria-label'), 'Close');
+660904	  dispatch(back, 'click', x.log.errors); await settle();
+660905	  const d = card(x); assert.equal(d.getAttribute('aria-label'), 'Lightning flash'); assert.deepEqual(x.neonCalls.at(-1).slice(0, 2), [-1.5, 52]);
+660906	  assert.equal(rowsOf(x).length, 2); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks').data.features.length, 2); assert.notEqual(d.querySelector('details').open, true, 'restored as at the tap (collapsed) so the camera frames the links');
+660907	  assert.equal(x.repdFetch.length, 1, 'the register is reused'); assert.deepEqual(x.log.errors.map(String), []);
+660908	test('M2-C6 row tap from a cell: "◀ back to lightning cell"; close, period switch and OFF clean the project view', async () => {
+660909	  const x = boot({ phone: true, index: mkIndex(KROWS), files: mkGrids(KGRID) }); x.map.setPaintProperty = () => {}; x.toggle(true); x.click(x.chip('12m')); await drain();
+660910	  const f0 = cellsSrc(x).data.features.find(q => q.properties.cell === LC1), lon = f0.properties.lon, lat = f0.properties.lat; installRepd(x, SUBS, FCx([pf(lon + 0.05, lat, { name: 'Near' })]));
+660911	  const open = async () => { cellHit(x, cellsSrc(x).data.features.find(q => q.properties.cell === LC1)); await settle(); tapRow(x, 0); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'REPD project'); };
+660912	  await open(); const back = card(x).querySelector('[data-lightning-back]'); assert.equal(back.textContent, '◀ back to lightning cell');
+660913	  dispatch(back, 'click', x.log.errors); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'Lightning cell'); assert.match(card(x).textContent, /1 nearest REPD site within 40 km of this cell centre/);
+660914	  const gone = () => { assert.equal(x.S.pp, null); for (const s of ['links', 'nodes', 'pin', 'plinks', 'pnodes']) assert.equal(x.sources.get('gridatlas-lightning-neon-' + s), undefined, s); };
+660915	  await open(); dispatch(card(x).querySelectorAll('button')[1], 'click', x.log.errors); gone();
+660916	  await open(); x.click(x.chip('6m')); gone(); await drain();
+660917	  await open(); x.toggle(false); gone(); assert.deepEqual(x.log.errors.map(String), []);
+660918	test('M2-C7 a project with no substation within 40 km is still flown to (zoom 12), states it, and keeps "◀ back"', async () => {
+660919	  const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.5, 52.3, { name: 'North' })]), 'fetch'); x.toggle(true); await drain(); tapFlash(x); await settle();
+660920	  x.W.__GRIDATLAS_NEON_LINKS__.substations = SUBS.map(q => ({ ...q, at: [q.at[0] - 3, q.at[1] - 3] })); x.camera.length = 0; tapRow(x, 0); await settle();
+660921	  assert.match(card(x).textContent, /No substation within 40 km/); const fly = x.camera.find(k => k[0] === 'flyTo'); assert.ok(fly, 'flown'); assert.deepEqual([...fly[1][0].center], [-1.5, 52.3]);
+660922	  assert.ok(card(x).querySelector('[data-lightning-back]'));
+660923	test('M2-C8 framing: a card taller than the room left by the 150 px top padding no longer blocks fitBounds (bottom padding clamped to height − 270)', async () => {
+660924	  const od = Object.getOwnPropertyDescriptor(El.prototype, 'offsetHeight'); Object.defineProperty(El.prototype, 'offsetHeight', { configurable: true, get() { return 521; } });
+660925	  try { const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.5, 52.3)])); x.mapEl.clientHeight = 659; x.map.getBounds = () => ({ contains: () => false }); x.toggle(true); await drain(); tapFlash(x); await settle();
+660926	    const fb = x.camera.filter(k => k[0] === 'fitBounds').at(-1); assert.equal(fb[1][1].padding.bottom, 659 - 270); assert.equal(fb[1][1].padding.top, 150);
+660927	test('M2-MR1d: a stalled register body whose stream errors with a non-Abort error after the 15 s abort is still reported as the timeout', async () => {
+660928	  const x = flash0(); installRepd(x, SUBS, null, 'fetch'); const of = x.sandbox.fetch;
+660929	  x.sandbox.fetch = async (u, o) => { if (!String(u).endsWith('/dist/repd_master.json')) return of(u, o); x.repdFetch.push(u);
+660930	    return new Response(new ReadableStream({ start(c) { o.signal.addEventListener('abort', () => c.error(new TypeError('Failed to fetch'))); } }), { status: 200 }); };
+660931	  x.toggle(true); await drain(); tapFlash(x); await settle(); await new Promise(r => setTimeout(r, 15500)); await settle();
+660932	  assert.match(card(x).textContent, /REPD projects unavailable: timeout after 15 s\. Tap the flash again to retry\./);
+660933	// ---------------------------------------------------------------- CI additions (tools/ci/pr-gate.mjs): mutants that the M2 suite let through
+660934	// Mutation run of 28 Oct 2026 (hardening lane M2R-ci): 18 single-point bugs in 202610282100; the M2 suite let two
+660935	// through. CI1 and CI2 catch "OFF leaves the dots layer behind". The other, "the tap-time cell index guard (< 16,800)
+660936	// is gone", is left: the grid parser already refuses such cells, and a test that taps a forged out-of-grid cell sends
+660937	// that mutant into a runaway allocation that kills the whole suite process rather than failing one test.
+660938	// MapLibre refuses to remove a source while a layer still uses it; the stub map in boot() did not, so a cleanup that
+660939	// forgot a layer still looked clean.
+660940	const strictRemoval = x => { x.map.removeSource = id => { for (const l of x.layers.values()) if (l.source === id) throw new Error(`Source "${id}" cannot be removed while layer "${l.id}" is using it.`); x.sources.delete(id); }; };
+660941	const lightningLeft = x => [...x.layers.keys(), ...x.sources.keys()].filter(id => /lightning/.test(id));
+660942	test('CI1: OFF after flashes, a flash card with REPD rows and a project view leaves no lightning layer or source (MapLibre removal rules)', async () => {
+660943	  const x = await flashAt([-0.81, 53.07]); strictRemoval(x);
+660944	  assert.ok(x.layers.has('l-gridatlas-lightning'), 'flash dots drawn'); assert.ok(prows(card(x)).length > 0, 'REPD rows listed');
+660945	  tapRow(x, 0); await settle(); assert.match(card(x).textContent, /◀ back to lightning flash/);
+660946	  assert.deepEqual(lightningLeft(x), [], 'left behind after OFF'); assert.equal(card(x), null, 'card closed'); assert.deepEqual(x.log.errors.map(String), []);
+660947	test('CI2: OFF after 12M cells and a cell card leaves no lightning layer or source (MapLibre removal rules)', async () => {
+660948	  const x = boot({ index: mkIndex(KROWS), files: mkGrids(KGRID) }); installNeon(x, SUBS); strictRemoval(x);
+660949	  assert.ok(cellsSrc(x) && cellsSrc(x).data.features.length > 0, 'cells drawn');
+660950	  cellHit(x, cellsSrc(x).data.features[0]); await settle(); assert.ok(card(x), 'cell card');
+660951	  assert.deepEqual(lightningLeft(x), [], 'left behind after OFF'); assert.deepEqual(x.log.errors.map(String), []);
+660952	// ---------------------------------------------------------------- M3-build: auto-activate the REPD layers of the listed projects
+660953	// Engine stand-in (original substation-intelligence cartridge, buildDOM/handleLayerToggle :1060-1190 and menuBar :4386-6080):
+660954	// the REPD group of #scada-ui-container (input[data-layer-id] + span#lbl-<id>[data-base-label]), its fullscreen-curtain copy,
+660955	// the container's delegated change listener (syncs the curtain copy, then handleLayerToggle -> layer visibility), and the
+660956	// menu bar's document-level change listener that syncs its proxy. Nothing here calls module code.
+660957	El.prototype.dispatchEvent = function (ev) { dispatch(this, ev.type, this.__errs || []); return true; };
+660958	const REPD_LAYERS = [['solar', 'Solar PV'], ['solar_operational', 'Solar PV (Operational Only)'], ['solar_roof', 'Solar Roof'], ['wind', 'Wind'], ['wind_onshore_operational', 'Onshore Wind (Operational Only)'], ['bess', 'Battery Storage'], ['biomass', 'Biomass & EfW'], ['tidal', 'Tidal & Wave'], ['hydrogen', 'Hydrogen'], ['hydro', 'Hydro & Pumped Storage'], ['flywheel', 'Flywheel'], ['act', 'Advanced Conversion'], ['geothermal', 'Geothermal'], ['caes', 'Compressed Air Storage']];
+660959	const installLayers = (x, { userOn = [], disabled = [] } = {}) => {
+660960	  x.sandbox.Event = class { constructor(t, o) { this.type = t; this.bubbles = !!(o && o.bubbles); } };
+660961	  const doc = x.doc, curtain = doc.getElementById('fs-curtain-keys'), E = { toggles: [], main: {}, fs: {}, proxy: {} };
+660962	  const group = (host, pre) => { const g = doc.createElement('div'); g.className = 'key-group'; const t = doc.createElement('div'); t.className = 'key-title'; t.textContent = 'REPD (GeoJSON)'; g.appendChild(t);
+660963	    for (const [id, lab] of REPD_LAYERS) { const l = doc.createElement('label'); l.className = 'key-item'; const i = doc.createElement('input'); i.type = 'checkbox'; i.setAttribute('data-layer-id', id);
+660964	      const s = doc.createElement('span'); s.id = pre + id; s.setAttribute('data-base-label', lab); s.textContent = lab + ' [WAIT]'; l.appendChild(i); l.appendChild(s); g.appendChild(l); (pre === 'lbl-' ? E.main : E.fs)[id] = i; }
+660965	    host.insertBefore(g, host.children[1] || null); };
+660966	  group(x.host, 'lbl-'); group(curtain, 'fs-lbl-');
+660967	  for (const [id] of REPD_LAYERS) { x.layers.set('l-' + id, { id: 'l-' + id, source: 'src-repd', layout: { visibility: 'none' } }); E.proxy[id] = { checked: false }; }
+660968	  const handleLayerToggle = (id, on) => { E.toggles.push([id, on]); x.map.setLayoutProperty('l-' + id, 'visibility', on ? 'visible' : 'none'); };
+660969	  x.host.addEventListener('change', e => { const id = e.target.getAttribute && e.target.getAttribute('data-layer-id'); if (!id) return; E.fs[id].checked = e.target.checked; handleLayerToggle(id, e.target.checked); });
+660970	  curtain.addEventListener('change', e => { const id = e.target.getAttribute && e.target.getAttribute('data-layer-id'); if (!id) return; E.main[id].checked = e.target.checked; handleLayerToggle(id, e.target.checked); });
+660971	  doc.documentElement.addEventListener('change', e => { const id = e.target.getAttribute && e.target.getAttribute('data-layer-id'); if (id) E.proxy[id].checked = !!E.main[id].checked; });
+660972	  x.map.getStyle = () => ({ layers: [...x.layers.values()].map(l => ({ id: l.id, type: l.type, source: l.source })) }); x.map.getLayoutProperty = (id, k) => ((x.layers.get(id) || {}).layout || {})[k];
+660973	  for (const id of disabled) E.main[id].disabled = true;
+660974	  for (const id of userOn) userTick(x, E, id, true);
+660975	  E.toggles.length = 0; x.E = E; return E;
+660976	// a reader's tap on the original checkbox (main panel or curtain): the browser flips `checked`, then "change" bubbles
+660977	const userTick = (x, E, id, on, where = 'main') => { const i = E[where][id]; i.checked = on; dispatch(i, 'change', x.log.errors); };
+660978	const onIds = E => REPD_LAYERS.map(r => r[0]).filter(id => E.main[id].checked);
+660979	const inSync = E => { for (const [id] of REPD_LAYERS) { const v = !!E.main[id].checked; assert.equal(!!E.fs[id].checked, v, 'curtain ' + id); assert.equal(E.proxy[id].checked, v, 'menu proxy ' + id); } };
+660980	const visible = x => REPD_LAYERS.map(r => r[0]).filter(id => x.layers.get('l-' + id).layout.visibility === 'visible');
+660981	const inspect = x => { const n = x.host.querySelectorAll('input[data-layer-id]').length; return n; };
+660982	const closeCard = x => dispatch(card(x).querySelectorAll('button')[1], 'click', x.log.errors);
+660983	const techsOf = sites => [...new Set(sites.flatMap(g => g.parts.map(p => p.tech)))].filter(t => REPD_LAYERS.some(r => r[0] === t)).sort();
+660984	const S3 = SUBS.map(q => ({ ...q, at: [q.at[0] + 0.45, q.at[1] + 1.45] })); // substations moved near Doncaster
+660985	const DONC = [-1.05, 53.45];
+660986	// two flashes (index 0 older, index 1 newer) so a second tap can land elsewhere on the same result
+660987	const boot3 = async (ll0, ll1, repd, opts = {}) => { const x = boot({ feedFn: () => feed([flash(Date.now() - 2 * H, 'a', ll0), flash(Date.now() - H, 'b', ll1 || ll0)]) });
+660988	  installRepd(x, S3, repd, opts.via || 'source', opts.fetchImpl || null); const E = installLayers(x, opts); x.toggle(true); await drain(); return { x, E }; };
+660989	const SYN = FCx([pf(-1.5, 52.01, { name: 'S1' }), pf(-1.5, 52.02, { name: 'B1', tech: 'bess', raw_tech: 'Battery' }), pf(-1.5, 52.03, { name: 'W1', tech: 'wind', raw_tech: 'Wind Onshore' }),
+660990	  pf(-3.0, 55.01, { name: 'H1', tech: 'hydro', raw_tech: 'Small Hydro' }), pf(-3.0, 55.02, { name: 'R1', tech: 'solar_roof' }), pf(-3.0, 55.03, { name: 'O1', tech: 'other', raw_tech: 'Unknown' })]);
+660991	test('M3-1: a tap switches on exactly the REPD layers of the listed technologies, through the original checkbox path; close switches them off again', async () => {
+660992	  const { x, E } = await boot3([-1.5, 52], null, SYN), n0 = inspect(x);
+660993	  assert.equal(E.toggles.length, 0, 'nothing switched before a tap'); assert.equal(x.S.ly, undefined);
+660994	  tapFlash(x, 0); await settle();
+660995	  assert.deepEqual(onIds(E), ['bess', 'solar', 'wind'].sort((a, b) => REPD_LAYERS.findIndex(r => r[0] === a) - REPD_LAYERS.findIndex(r => r[0] === b)));
+660996	  assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar', 'wind']); assert.deepEqual(E.toggles.map(t => t.join()).sort(), ['bess,true', 'solar,true', 'wind,true']);
+660997	  assert.deepEqual(visible(x).sort(), ['bess', 'solar', 'wind']); inSync(E); assert.equal(inspect(x), n0, 'no control added or removed');
+660998	  assert.match(card(x).textContent, /REPD map layers on for this list: Solar PV, Battery Storage, Wind \(those switched on here go off when this card closes\)/);
+660999	  E.toggles.length = 0; closeCard(x);
+661000	  assert.equal(card(x), null); assert.deepEqual(onIds(E), []); assert.deepEqual(visible(x), []); assert.equal(x.S.ly.size, 0); inSync(E);
+661001	  assert.deepEqual(E.toggles.map(t => t.join()).sort(), ['bess,false', 'solar,false', 'wind,false']); assert.equal(x.log.errors.length, 0);
+661002	test('M3-2: a layer the user had on already is never switched (on or off) by M3 and survives close; the rest of the user state is restored exactly', async () => {
+661003	  const { x, E } = await boot3([-1.5, 52], null, SYN, { userOn: ['solar', 'hydro', 'solar_operational'] });
+661004	  const before = onIds(E); tapFlash(x, 0); await settle();
+661005	  assert.deepEqual([...x.S.ly].sort(), ['bess', 'wind']); assert.ok(!E.toggles.some(t => t[0] === 'solar'), 'solar untouched');
+661006	  assert.match(card(x).textContent, /REPD map layers on for this list: Solar PV, Battery Storage, Wind \(those/);
+661007	  closeCard(x); assert.deepEqual(onIds(E), before); inSync(E); assert.deepEqual(visible(x).sort(), ['hydro', 'solar', 'solar_operational']);
+661008	test('M3-3: a new tap whose list needs other technologies switches off only what M3 switched on and is no longer needed; the same list toggles nothing', async () => {
+661009	  const { x, E } = await boot3([-1.5, 52], [-3.0, 55], SYN, { userOn: ['hydro'] });
+661010	  tapFlash(x, 0); await settle(); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar', 'wind']);
+661011	  E.toggles.length = 0; tapFlash(x, 1); await settle();
+661012	  assert.deepEqual([...x.S.ly].sort(), ['solar_roof'], 'hydro was the user\'s; other has no layer');
+661013	  assert.deepEqual(E.toggles.map(t => t.join()).sort(), ['bess,false', 'solar,false', 'solar_roof,true', 'wind,false']);
+661014	  assert.deepEqual(onIds(E).sort(), ['hydro', 'solar_roof']); inSync(E);
+661015	  E.toggles.length = 0; tapFlash(x, 1); await settle(); assert.deepEqual(E.toggles, [], 'same list: no toggles');
+661016	  closeCard(x); assert.deepEqual(onIds(E), ['hydro']);
+661017	test('M3-4: the layers follow the card filter (Tech: Solar drops Battery and Wind; All brings them back)', async () => {
+661018	  const { x, E } = await boot3([-1.5, 52], null, SYN); tapFlash(x, 0); await settle();
+661019	  press(x, 'te:solar'); assert.deepEqual([...x.S.ly], ['solar']); assert.deepEqual(onIds(E), ['solar']); inSync(E);
+661020	  press(x, 'te:all'); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar', 'wind']);
+661021	  press(x, 'st:pl'); assert.deepEqual(onIds(E), [], 'no planning project: no layer'); assert.doesNotMatch(card(x).textContent, /REPD map layers on/);
+661022	  press(x, 'st:all'); closeCard(x); assert.deepEqual(onIds(E), []);
+661023	test('M3-5: a row tap keeps the layers (the project\'s own dot stays drawn), back keeps them, close from the project view switches them off', async () => {
+661024	  const { x, E } = await boot3([-1.5, 52], null, SYN); tapFlash(x, 0); await settle(); E.toggles.length = 0;
+661025	  assert.equal(tapRow(x, 1), true); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'REPD project');
+661026	  assert.deepEqual(E.toggles, []); assert.ok(visible(x).includes('bess'), 'Battery row: its own layer is drawn');
+661027	  dispatch(card(x).querySelector('[data-lightning-back]'), 'click', x.log.errors); await settle();
+661028	  assert.equal(card(x).getAttribute('aria-label'), 'Lightning flash'); assert.deepEqual(E.toggles, []); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar', 'wind']);
+661029	  tapRow(x, 0); await settle(); closeCard(x); assert.deepEqual(onIds(E), []); assert.equal(x.S.ly.size, 0); inSync(E);
+661030	test('M3-6: lightning OFF, a period change, LATEST, prev and a tap on empty map each restore the user state; a tap on a drawn REPD dot keeps it', async () => {
+661031	  const run = async act => { const { x, E } = await boot3([-1.5, 52], null, SYN, { userOn: ['wind'] }); tapFlash(x, 0); await settle(); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar']); await act(x); await drain(); return { x, E }; };
+661032	  for (const [nm, act] of [['off', x => x.toggle(false)], ['period', x => x.click(x.chip('7d'))], ['empty map', x => x.tapMap([50, 50], {})], ['prev', x => x.click(x.nav('prev'))], ['latest', x => x.click(x.nav('latest'))], ['custom apply', x => { x.click(x.chip('custom')); }]]) {
+661033	    const { x, E } = await run(act); assert.deepEqual(onIds(E), ['wind'], nm); assert.equal(x.S.ly.size, 0, nm); inSync(E); }
+661034	  { const { x, E } = await run(x => x.tapMap([50, 50], { 'l-solar': [{ properties: { name: 'S1' } }] })); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar'], 'the engine owns this tap'); assert.equal(card(x), null);
+661035	    x.toggle(false); assert.deepEqual(onIds(E), ['wind']); }
+661036	test('M3-7: a layer M3 holds becomes the user\'s once the user unticks or re-ticks it (main panel or fullscreen curtain), and then survives close', async () => {
+661037	  userTick(x, E, 'bess', false); userTick(x, E, 'bess', true); userTick(x, E, 'wind', false, 'fs');
+661038	  assert.deepEqual([...x.S.ly], ['solar']); closeCard(x); assert.deepEqual(onIds(E), ['bess']); inSync(E);
+661039	  tapFlash(x, 0); await settle(); assert.deepEqual([...x.S.ly].sort(), ['solar', 'wind']); closeCard(x); assert.deepEqual(onIds(E), ['bess']);
+661040	test('M3-8: nothing is switched with lightning OFF or before a tap; a disabled control and a technology with no layer are skipped; a register failure on a new tap releases the held layers', async () => {
+661041	  { const x = boot({ feedFn: () => feed([]) }); installRepd(x, S3, SYN); const E = installLayers(x); await drain(); assert.deepEqual(E.toggles, []); x.toggle(true); await drain(); x.toggle(false); await drain();
+661042	    assert.deepEqual(E.toggles, []); assert.ok(!(x.S.ly && x.S.ly.size), 'OFF before any tap switches nothing'); }
+661043	  { const { x, E } = await boot3([-1.5, 52], null, SYN, { disabled: ['bess'] }); tapFlash(x, 0); await settle(); assert.deepEqual([...x.S.ly].sort(), ['solar', 'wind']); assert.equal(E.main.bess.checked, false); }
+661044	  { let fail = false; const { x, E } = await boot3([-1.5, 52], null, null, { via: 'fetch', fetchImpl: async () => fail ? Promise.reject(new Error('network error')) : new Response(JSON.stringify(SYN), { status: 200 }) });
+661045	    tapFlash(x, 0); await settle(); assert.equal(x.S.ly.size, 3); x.S.rg = null; fail = true; tapFlash(x, 0); await settle();
+661046	    assert.match(card(x).textContent, /REPD projects unavailable: network error/); assert.equal(x.S.ly.size, 0); assert.deepEqual(onIds(E), []); }
+661047	test('M3-9 (real register, the owner\'s Doncaster-area cell 53.45, -1.05): the layers switched on equal the technologies of the independent brute-force 10 nearest sites, and close restores all off', async () => {
+661048	  const { x, E } = await boot3(DONC, null, REPD_IND); tapFlash(x, 0); await settle();
+661049	  const want = techsOf(bruteSites(REPD_IND, ...DONC)); assert.ok(want.length >= 2, want.join());
+661050	  assert.deepEqual(onIds(E).sort(), want); assert.deepEqual([...x.S.ly].sort(), want); inSync(E);
+661051	  for (const [k, keep] of [['te:solar', p => /^solar/.test(p.tech)], ['st:op', p => p.status === 'operational']]) {
+661052	    press(x, k); assert.deepEqual(onIds(E).sort(), techsOf(bruteSites(REPD_IND, ...DONC, k === 'te:solar' ? keep : (p => /^solar/.test(p.tech) && keep(p)))), k); }
+661053	  closeCard(x); assert.deepEqual(onIds(E), []); inSync(E); assert.equal(x.log.errors.length, 0);
+661054	// ---------------------------------------------------------------- M3-build: the M2 review fixes folded into M3 (each fails on M2)
+661055	El.prototype.focus = function () { this.ownerDocument.activeElement = this; };
+661056	const live = x => card(x).children.find(e => e.getAttribute && e.getAttribute('role') === 'status');
+661057	const later = () => new Promise(r => setTimeout(r, 150));
+661058	test('M3R-a11y (M2R-a11y MAJOR-1..3, MINOR-1): a polite status outside the <details> announces loading, the list and a failure; focus follows chip, row and back; back is named without the glyph', async () => {
+661059	  const x = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01, { name: 'A' }), pf(-1.5, 52.02, { name: 'B', tech: 'bess', raw_tech: 'Battery' })]));
+661060	  const lv = live(x); assert.ok(lv, 'status region'); assert.ok(!card(x).querySelector('details').contains(lv), 'outside the closed details'); await later();
+661061	  assert.match(lv.textContent, /^2 nearest REPD sites within 40 km of this optical flash, straight-line\. Not evidence any project was struck\. Only 2 sites within the 40 km search radius\.$/);
+661062	  press(x, 'te:bess'); assert.equal(x.doc.activeElement, chip(x, 'te:bess'), 'focus stays on the pressed chip'); await later(); assert.match(lv.textContent, /^1 nearest REPD site .*\(BESS\)/);
+661063	  press(x, 'te:all'); tapRow(x, 0); await settle(); const back = card(x).querySelector('[data-lightning-back]');
+661064	  assert.equal(x.doc.activeElement, back); assert.equal(back.getAttribute('aria-label'), 'back to lightning flash');
+661065	  dispatch(back, 'click', x.log.errors); await settle(); assert.equal(x.doc.activeElement, card(x).querySelector('summary'));
+661066	  const y = flash0(); installRepd(y, SUBS, null, 'fetch', async () => Promise.reject(new Error('network error'))); y.toggle(true); await drain(); tapFlash(y); await settle(); await later();
+661067	  assert.match(live(y).textContent, /^REPD projects unavailable: network error\. Tap the flash again to retry\.$/); assert.match(card(y).querySelector('summary').textContent, / · REPD unavailable$/);
+661068	test('M3R-bugs (M2R-bugs M2RB1, M2RB2): a Ctrl/Cmd/Shift click keeps the browser default (new tab); a map error while drawing the project lines is noted, not shown as a register failure, and the next render rebuilds them', async () => {
+661069	  const x = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01, { name: 'A' })]));
+661070	  for (const k of ['ctrlKey', 'metaKey', 'shiftKey']) { const a = prows(card(x))[0]; let prevented = false; for (const f of a.listeners.click) f({ type: 'click', [k]: true, button: 0, target: a, preventDefault: () => { prevented = true; } }); assert.equal(prevented, false, k); assert.equal(card(x).getAttribute('aria-label'), 'Lightning flash', k); }
+661071	  const y = flash0(); installRepd(y, SUBS, FCx([pf(-1.5, 52.01, { name: 'A' }), pf(-1.5, 52.02, { name: 'B', tech: 'bess', raw_tech: 'Battery' })]), 'fetch'); y.toggle(true); await drain();
+661072	  const add = y.map.addLayer; let boom = true; y.map.addLayer = l => { if (boom && /neon-p-node$/.test(l.id)) throw new Error('Style is not done loading'); return add(l); };
+661073	  tapFlash(y); await settle(); assert.doesNotMatch(card(y).textContent, /unavailable/); assert.equal(prows(card(y)).length, 2); assert.ok(y.S.errors.some(e => /project lines: Style is not done loading/.test(e)));
+661074	  boom = false; press(y, 'te:bess'); assert.ok(y.layers.get('gridatlas-lightning-neon-p-node'), 'rebuilt'); assert.equal(y.sources.get('gridatlas-lightning-neon-pnodes').data.features.length, 1);
+661075	test('M3R-security (M2R-security SEC-M2-1/2, M2R-data D5): a malformed or string-coordinate row is skipped, never the whole register; the Scilly placeholder is dropped', async () => {
+661076	  const bad = [null, { type: 'Feature', geometry: { type: 'Point', coordinates: null }, properties: { tech: 'solar' } }, pf('-1.5', '52.02', { name: 'Str' }), pf(-7.55716, 49.766807, { name: 'Scilly' })];
+661077	  const x = await flashAt([-1.5, 52], FCx([...bad, pf(-1.5, 52.01, { name: 'Good' })]));
+661078	  assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['Good']); tapRow(x, 0); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'REPD project');
+661079	  const y = await flashAt([-7.5, 49.8], FCx([pf(-7.55716, 49.766807, { name: 'Scilly' }), pf(-1.5, 52)])); assert.match(card(y).textContent, /No REPD site within 40 km/);
+661080	test('M3R-repd (M2R-repd R1, R3; M2R-data D1, D2): rows within about 10 m are one site; statuses outside the 4 register classes are in no class; repeated records of one scheme count their MW once', async () => {
+661081	  const x = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01, { name: 'Roosecote', capacity: 49 }), pf(-1.500014, 52.01, { name: 'Roosecote 2', capacity: 50, tech: 'bess', raw_tech: 'Battery' }), pf(-1.5, 52.02, { name: 'Next' })]));
+661082	  assert.deepEqual(rowsOf(x), ['1.11 km · Battery + Solar 99 MW · 2 projects at this point:', '2.23 km · Solar 10 MW · operational · Next']);
+661083	  const y = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.01, { name: 'Refused', status: 'Application Refused' }), pf(-1.5, 52.02, { name: 'Granted', status: 'Planning Permission Granted' })]));
+661084	  for (const k of ['st:op', 'st:cc', 'st:pl']) { press(y, k); assert.deepEqual(rowsOf(y), [], k); }
+661085	  const fv = { name: 'Feldon Vale Solar Farm', capacity: 49.9 }, z = await flashAt([-1.5, 52], FCx([pf(-1.5, 52.05, { ...fv, status: 'awaiting construction' }), pf(-1.5, 52.05, { ...fv, operator: 'X' })]));
+661086	  assert.equal(rowsOf(z)[0], '5.57 km · Solar 49.9 MW · 2 projects at this point:'); assert.match(card(z).textContent, /Within 10 km: 2 projects · 49\.9 MW stated \(all statuses\)/);
+661087	  assert.equal(z.sources.get('gridatlas-lightning-neon-pnodes').data.features[0].properties.mw, 49.9);
+661088	test('M3R-diff (M2R-diff MD1): on a short map where L3 could frame clear of a collapsed card, the bottom padding is L3 padding; it is capped only when that fit is impossible', async () => {
+661089	  const od = Object.getOwnPropertyDescriptor(El.prototype, 'offsetHeight'); let h = 143; Object.defineProperty(El.prototype, 'offsetHeight', { configurable: true, get() { return h; } });
+661090	  try { for (const [H, hh, want] of [[340, 143, null], [659, 521, 389]]) { h = hh; const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.5, 52.3)])); x.mapEl.clientHeight = H; x.map.getBounds = () => ({ contains: () => false }); x.toggle(true); await drain(); tapFlash(x); await settle();
+661091	    const fb = x.camera.filter(k => k[0] === 'fitBounds').at(-1); assert.equal(fb[1][1].padding.bottom, want ?? card(x).bb + hh + 24, 'H=' + H); } }
+661092	  finally { if (od) Object.defineProperty(El.prototype, 'offsetHeight', od); else delete El.prototype.offsetHeight; }
+661093	test('M3R-layout (M2R-layout F1-F3): an open card stays below container top + 320 px; a point hidden under the card (though on the map) is reframed; expanding or collapsing the card reframes', async () => {
+661094	  const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.5, 52.3)])); x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 659, width: 393, height: 659 }; x.mapEl.clientHeight = 659; x.mapEl.clientWidth = 393;
+661095	  x.map.getBounds = () => ({ contains: () => true }); x.setProj(() => ({ x: 200, y: 600 })); // every end on the map, but under the card
+661096	  assert.equal(card(x).style.maxHeight, '331px', 'MX(240, 659 - 8 - 320)');
+661097	  assert.ok(x.camera.some(k => k[0] === 'fitBounds'), 'an end under the card is reframed');
+661098	  x.setProj(() => ({ x: 200, y: 200 })); x.camera.length = 0; dispatch(card(x).querySelector('details'), 'toggle', x.log.errors);
+661099	  assert.equal(x.camera.filter(k => k[0] === 'fitBounds').length, 1, 'the details toggle forces a reframe');
+661100	// Independent fail-first runtime regressions for GridAtlas lightning. Node built-ins only.
+661101	// Vendored unchanged (apart from this header) from the hardening lane's
+661102	// chatgpt-latest.test.mjs, the superset of chatgpt-lightning-regression.test.mjs,
+661103	// so the PR gate (tools/ci/pr-gate.mjs, docs/CI.md) can run it against the overlay
+661104	// module of every touched and live generation. It passes on 202610281340 and
+661105	// 202610281950; it was written RED against the original 202610261949 candidate.
+661106	// Do not adjust expectations to pass.
+661107	//   LIGHTNING_MODULE=atlas/modules/<gen>-uk-lightning-overlay.js node --test tools/ci/lightning/overlay-latest.test.mjs
+661109	const gen=process.env.LIGHTNING_TEST_GEN||'202610261949';
+661110	const path=process.env.LIGHTNING_MODULE||('atlas/modules/'+gen+'-uk-lightning-overlay.js');
+661111	const src=readFileSync(path,'utf8');
+661112	const seam='NS.ukLightning=Object.freeze(';
+661113	assert.equal(src.split(seam).length,2,'Test probe cannot locate the original module seam');
+661114	const observed=src.replace(seam,'window.__PROBE__={ok,cf,sh,cp,ff,state:S};'+seam);
+661115	const hoursAgo=h=>Date.now()-h*3600000;
+661116	const stamp=h=>new Date(hoursAgo(h)).toISOString();
+661117	const flash=(h,id,coords=[-1.5,52])=>({type:'Feature',id,
+661118	  geometry:{type:'Point',coordinates:coords},
+661119	  properties:{time_utc:stamp(h),observation_kind:'optical_lightning_flash'}});
+661120	const feed=(features,age=1)=>({type:'FeatureCollection',features,
+661121	  metadata:{query_start_utc:stamp(age+1),query_end_utc:stamp(age),
+661122	    scan_end_utc:stamp(age),published_at_utc:stamp(age)}});
+661123	function boot({getFeed=()=>feed([flash(2,'one')]),getJson=()=>({ok:false,status:404})}={}){
+661124	  const xhr=[],requests=[],sources=new Map(),layers=new Map();
+661125	  const map={
+661126	    getLayer:id=>layers.get(id),getSource:id=>sources.get(id),
+661127	    addSource:(id,opt)=>sources.set(id,{...opt,setData(x){this.data=x;}}),
+661128	    addLayer:x=>layers.set(x.id,{...x}),
+661129	    removeLayer:id=>layers.delete(id),removeSource:id=>sources.delete(id),
+661130	    setLayoutProperty(id,key,value){let x=layers.get(id);if(x){x.layout=x.layout||{};x.layout[key]=value;}}
+661131	  class XHR {
+661132	    open(method,url){this.url=url;}
+661133	    send(){xhr.push(this.url);const data=getFeed();
+661134	      if(data?.error){this.onerror?.();return;}
+661135	      this.status=data?.status||200;
+661136	      this.responseText=JSON.stringify(data?.json??data);this.onload?.();
+661137	  const sandbox={
+661138	    window:{__GRIDATLAS_V9_MAP__:map,innerWidth:1440},document:{},
+661139	    Date,AbortController,Map,XMLHttpRequest:XHR,
+661140	    fetch:async(url,opts)=>{requests.push(url);return getJson(url,opts);},
+661141	    matchMedia:()=>({matches:false}),setTimeout,clearTimeout,
+661142	    setInterval:()=>17,clearInterval:()=>{}
+661143	  vm.runInNewContext(observed,sandbox,{filename:path,timeout:2000});
+661144	  return {api:sandbox.window.__GRIDATLAS_MODULES__.ukLightning,
+661145	    probe:sandbox.window.__PROBE__,xhr,requests,sources,layers};
+661146	const drain=async()=>{for(let k=0;k<15;k++)await new Promise(resolve=>setImmediate(resolve));};
+661147	test('Sanity: lightning starts OFF with zero network and map work',async()=>{
+661148	  const x=boot();await drain();
+661149	  assert.equal(x.api.state.on,false);
+661150	  assert.equal(x.requests.length,0);
+661151	  assert.equal(x.xhr.length,0);
+661152	  assert.equal(x.sources.size,0);
+661153	test('H01: reactivating feed fetches newer observations, not a cached promise',async()=>{
+661154	  let response=feed([flash(2,'old')]);
+661155	  const x=boot({getFeed:()=>response});
+661156	  x.api.setOn(true);await drain();
+661157	  assert.equal(x.xhr.length,1);
+661158	  assert.equal(x.api.state.res?.ev?.[0]?.id,'old');
+661159	  x.api.setOn(false);
+661160	  response=feed([flash(0.5,'new')]);
+661161	  assert.equal(x.xhr.length,2,'refresh / OFF→ON must revalidate the live feed');
+661162	  assert.equal(x.api.state.res?.ev?.[0]?.id,'new');
+661163	test('H02: fallback feed older than 24h carries visible STALE state',()=>{
+661164	  const x=boot(),now=Date.now(),w={s:now-7*864e5,e:now,period:'7d'};
+661165	  const r={mode:'feed',idx:null,fl:[],ev:[flash(72,'stale')],w,
+661166	    meta:feed([flash(72,'stale')],72).metadata,
+661167	    cov:{f:0.1,ny:3*864e5,bf:0,u:[],r:1}};
+661168	  assert.equal(x.probe.cf(r,now).stale,true);
+661169	test('H03: geodesy rejects out-of-bounds and malformed coordinates',()=>{
+661170	  const x=boot();
+661171	  assert.equal(x.probe.ok(flash(1,'valid',[-1.5,52])),true);
+661172	  for(const bad of [[150,10],[null,52],['bad',52],[NaN,52],[-1.5,95],[],[0]]){
+661173	    assert.equal(x.probe.ok(flash(1,'invalid',bad)),false,'bad coordinate: '+JSON.stringify(bad));
+661174	test('H04: reject a dated shard whose index count, bytes and hash are wrong',async()=>{
+661175	  const x=boot({getJson:async()=>({ok:true,status:200,json:async()=>({
+661176	    schema:'uk-lightning-history-day.v1',type:'FeatureCollection',
+661177	    metadata:{date_utc:'2026-10-26'},features:[flash(2,'valid')]
+661178	  })})});
+661180	    x.probe.sh({path:'days/2026/10/26.json',sealed:true,
+661181	      count:999,bytes:123456,sha256:'0'.repeat(64)},'2026-10-26'),
+661182	    /integrity|mismatch|count|sha|bytes/i);
+661183	test('H05: do not call overlapping whole-day index counts exact in-window totals',()=>{
+661184	  const x=boot(),now=Date.now(),w={s:now-12*36e5,e:now,period:'12h',
+661185	    label:'12 hours',atLatest:true,custom:false,clamped:false};
+661186	  const r={w,mode:'detail',idx:{gen:now,iv:1,nextDue:now+36e5},
+661187	    ev:[flash(2,'valid')],arch:50000,ld:['2026-10-26'],sk:['2026-10-25'],
+661188	    fl:[],rq:2,cs:'index',ic:40000,cl:true,
+661189	    cov:{f:1,r:6,a:w.s,b:w.e,ny:0,bf:0,u:[],d:2}};
+661190	  const captions=x.probe.cp(r,now);
+661191	  assert.doesNotMatch(captions.flashes,/50,000 archived in window/i);
+661192	test('H07: 12-month selection remains usable with no archive, retaining only genuine feed events',async()=>{
+661193	  const x=boot({getFeed:()=>feed([flash(2,'genuine')])});
+661194	  const now=Date.now();
+661195	  const oneYear={s:now-365*864e5,e:now,label:'1 year',period:'12m',
+661196	    atLatest:true,custom:false,clamped:false,span:365*864e5};
+661197	  const r=await x.probe.ff(oneYear,now,'archive index HTTP 404');
+661198	  assert.equal(r.mode,'feed');
+661199	  assert.equal(r.ev.length,1,'No fake historical observations: only one genuine feed fixture point');
+661200	  assert.equal(r.ev[0].id,'genuine');
+661201	  assert.match(captions.window,/1 year|12m|2025/i);
+661202	  assert.match(captions.flashes+' '+captions.warning+' '+captions.refresh,
+661203	    /unknown|unavailable|not published/i,
+661204	    'Historical periods remain selectable but missing older coverage must be called UNKNOWN');
+661205	test('H08: live-feed last query window is NOT an evidence-backed 2% searched coverage claim',()=>{
+661206	  const x=boot(),now=Date.now(),w={s:now-7*864e5,e:now,
+661207	    period:'7d',label:'7 days',atLatest:true,custom:false,clamped:false};
+661208	  const f=feed([flash(2,'real')],1);
+661209	  const r={mode:'feed',idx:null,ie:'archive HTTP 404',meta:f.metadata,w,
+661210	    ev:f.features,fl:[],rq:1,cs:'live feed',ic:1,cl:false,ld:[],sk:[],
+661211	    cov:{f:0.02,ny:now-w.s,bf:0,u:[],d:7,r:1,a:now-3*36e5,b:now}};
+661212	  const lines=x.probe.cp(r,now);
+661213	  assert.doesNotMatch(lines.searched,/Searched EUMETSAT\s+\d+(?:\.\d+)?%\s+of window/i,
+661214	    'The most recent collection query does not prove seven-day cumulative search coverage');
+661215	  assert.match(lines.searched+' '+lines.warning,/unknown|unverified|not available/i,
+661216	    'Feed mode must explicitly state that full-window searched coverage is unknown');
+661217	 * The pull-request gate: every check that was run by hand before a cut,
+661218	 * run by the runner on every PR to main. Node built-ins only, no browser,
+661219	 * no network, no secrets. See docs/CI.md.
+661220	 *   node tools/ci/pr-gate.mjs                    # diff against origin/main
+661221	 *   node tools/ci/pr-gate.mjs --base <sha>       # diff against a given commit
+661222	 * Checks, in order; every check runs even after an earlier one fails, so one
+661223	 * run reports everything that is wrong:
+661224	 *   lint              node tools/scope/loop.mjs lint
+661225	 *   state-parity      node tools/scope/loop.mjs state --stdout == STATE.md
+661226	 *   generations       for every generation the PR touches, and the one
+661227	 *                     atlas/current.json points to: its pinned composition
+661228	 *                     (atlas/v/<gen>/current.json) hashes, and every
+661229	 *                     tools/proofs/<gen>-*.proof.mjs
+661230	 *   run-current       node tools/proofs/run-current.mjs
+661231	 *   verify-compose    node tools/scope/verify-compose.mjs
+661232	 *   loader-identity   every atlas/v/<gen>/index.html is byte-identical to
+661233	 *                     atlas/index.html
+661234	 *   lightning-suites  tools/ci/lightning/*.test.mjs against the live overlay
+661235	 *                     module, every overlay module the PR adds or edits, the
+661236	 *                     overlay of every pinned generation the PR adds, and,
+661237	 *                     when the PR changes a suite or this gate, the newest
+661238	 *                     pinned overlay; a suite marked
+661239	 *                     `@gate-min-generation <stamp>` skips older modules
+661240	 * A generation is "touched" when a changed path under atlas/ or tools/proofs/
+661241	 * carries its twelve-digit stamp as a path segment or a filename prefix.
+661242	 * A NEW pinned generation (atlas/v/<gen>/current.json added by the PR) with no
+661243	 * proof is a failure, as run-current already treats a composed cartridge with
+661244	 * no proof. Historical generations that never had a proof are reported, not
+661245	 * failed: nothing can be run for them.
+661251	// The same served-bytes digest every other verifier in this repository uses.
+661252	import { sha256PublishedFile as sha256Published } from '../scope/lib.mjs';
+661254	const STAMP = /^\d{12}$/;
+661255	const PROOF_TIMEOUT_MS = 180_000;
+661257	const baseFlag = args.indexOf('--base');
+661258	const BASE = baseFlag >= 0 ? args[baseFlag + 1] : 'origin/main';
+661260	function record(name, ok, detail = '') {
+661261	  results.push({ name, ok, detail });
+661262	  console.log(`${ok ? 'PASS' : 'FAIL'} ${name}${detail ? `  ${detail}` : ''}`);
+661263	  // An annotation shows on the PR itself, without opening the log.
+661264	  if (!ok && process.env.GITHUB_ACTIONS) console.log(`::error title=PR gate: ${name}::${String(detail).replace(/\r?\n/g, ' ')}`);
+661265	function run(argv, opts = {}) {
+661266	  const r = spawnSync(argv[0], argv.slice(1), {
+661267	    cwd: ROOT, encoding: 'utf8', timeout: PROOF_TIMEOUT_MS,
+661268	    maxBuffer: 64 * 1024 * 1024, ...opts
+661269	  return { code: r.status ?? (r.signal ? 124 : 1), stdout: r.stdout || '', stderr: r.stderr || '', error: r.error };
+661270	// The line that says what went wrong: the first Error/FAIL line if there is
+661271	// one (an assertion's stack ends in '}', which says nothing), else the last.
+661272	function tail(text, lines = 6) {
+661273	  const all = text.trim().split(/\r?\n/);
+661274	  const hit = all.find(l => /(Error|FAIL|mismatch|missing)\b/.test(l));
+661275	  return (hit ? [hit.trim()] : all.slice(-lines)).join(' ').slice(0, 400);
+661276	function group(title, fn) {
+661277	  if (process.env.GITHUB_ACTIONS) console.log(`::group::${title}`);
+661278	  try { return fn(); } finally { if (process.env.GITHUB_ACTIONS) console.log('::endgroup::'); }
+661279	function step(name, argv) {
+661280	  return group(name, () => {
+661281	    const r = run(argv);
+661282	    process.stdout.write(r.stdout);
+661283	    process.stderr.write(r.stderr);
+661284	    record(name, r.code === 0, r.code === 0 ? '' : `exit ${r.code}: ${tail(r.stderr || r.stdout, 3)}`);
+661286	// ---------------------------------------------------------------- the diff
+661287	const diff = run(['git', 'diff', '--name-only', '--no-renames', BASE]);
+661288	if (diff.code !== 0) {
+661289	  console.error(`cannot diff against ${BASE}: ${diff.stderr.trim()}`);
+661290	  console.error('fetch the base first (git fetch origin main) or pass --base <sha>');
+661292	const changed = diff.stdout.split('\n').map(s => s.trim()).filter(Boolean);
+661293	const baseHas = file => run(['git', 'cat-file', '-e', `${BASE}:${file}`]).code === 0;
+661294	console.log(`base ${BASE}; ${changed.length} changed path(s)`);
+661295	const current = JSON.parse(fs.readFileSync(path.join(ROOT, 'atlas', 'current.json'), 'utf8'));
+661296	const touched = new Set();
+661297	for (const file of changed) {
+661298	  if (!file.startsWith('atlas/') && !file.startsWith('tools/proofs/')) continue;
+661299	  if (file.startsWith('atlas/releases/')) continue; // immutable shells, not generations
+661300	  for (const segment of file.split('/')) {
+661301	    const stamp = segment.slice(0, 12);
+661302	    if (STAMP.test(stamp) && (segment.length === 12 || segment[12] === '-')) touched.add(stamp);
+661303	const generations = new Set([...touched, String(current.generation)]);
+661304	console.log(`generations under test: ${[...generations].sort().join(', ')}` +
+661305	  ` (touched: ${[...touched].sort().join(', ') || 'none'}; live: ${current.generation})`);
+661306	// ---------------------------------------------------------------- 1, 2
+661307	step('lint', ['node', 'tools/scope/loop.mjs', 'lint']);
+661308	group('state-parity', () => {
+661309	  const r = run(['node', 'tools/scope/loop.mjs', 'state', '--stdout']);
+661310	  const committed = fs.readFileSync(path.join(ROOT, 'STATE.md'), 'utf8');
+661311	  const ok = r.code === 0 && r.stdout === committed;
+661312	  record('state-parity', ok, ok ? '' : r.code !== 0
+661313	    ? `state --stdout exit ${r.code}: ${tail(r.stderr, 3)}`
+661314	    : 'STATE.md differs from `node tools/scope/loop.mjs state --stdout`; regenerate it in the same commit');
+661315	// ---------------------------------------------------------------- 3
+661316	const proofsDir = path.join(ROOT, 'tools', 'proofs');
+661317	const proofFiles = fs.readdirSync(proofsDir).filter(f => /^\d{12}-.+\.proof\.mjs$/.test(f));
+661318	for (const gen of [...generations].sort()) {
+661319	  group(`generation ${gen}`, () => {
+661320	    const pinned = path.join(ROOT, 'atlas', 'v', gen, 'current.json');
+661321	    const isLive = gen === String(current.generation);
+661322	    if (fs.existsSync(pinned)) {
+661323	      const failures = [];
+661324	      let composition;
+661325	      try { composition = JSON.parse(fs.readFileSync(pinned, 'utf8')); }
+661326	      catch (e) { failures.push(`unreadable: ${e.message}`); }
+661327	      if (composition) {
+661328	        if (String(composition.generation) !== gen) failures.push(`declares generation ${composition.generation}`);
+661329	        const byId = new Map((composition.cartridges || []).map(c => [c.id, c]));
+661330	        for (const id of composition.cartridge_order || []) {
+661331	          const c = byId.get(id);
+661332	          if (!c) { failures.push(`${id}: in cartridge_order but not in cartridges`); continue; }
+661333	          const file = path.resolve(path.dirname(pinned), c.path);
+661334	          if (!file.startsWith(path.join(ROOT, 'atlas') + path.sep)) { failures.push(`${id}: path escapes atlas/`); continue; }
+661335	          if (!fs.existsSync(file)) { failures.push(`${id}: ${path.relative(ROOT, file)} missing`); continue; }
+661336	          if (sha256Published(file) !== c.sha256) failures.push(`${id}: SHA-256 mismatch for ${path.relative(ROOT, file)}`);
+661337	      record(`composition ${gen}`, failures.length === 0, failures.join('; '));
+661338	    const proofs = proofFiles.filter(f => f.startsWith(`${gen}-`)).sort();
+661339	    if (!proofs.length) {
+661340	      const isNew = fs.existsSync(pinned) && !baseHas(`atlas/v/${gen}/current.json`);
+661341	      if (isNew || isLive) record(`proof ${gen}`, false, `no tools/proofs/${gen}-*.proof.mjs for a ${isLive ? 'live' : 'new pinned'} generation`);
+661342	      else console.log(`note  ${gen}: historical generation with no proof; nothing to run`);
+661343	    for (const proof of proofs) {
+661344	      const r = run(['node', path.join('tools', 'proofs', proof)]);
+661345	      process.stdout.write(r.stdout);
+661346	      process.stderr.write(r.stderr);
+661347	      record(`proof ${proof}`, r.code === 0, r.code === 0 ? '' : `exit ${r.code}: ${tail(r.stderr || r.stdout, 3)}`);
+661348	// ---------------------------------------------------------------- 4, 5
+661349	step('run-current', ['node', 'tools/proofs/run-current.mjs']);
+661350	step('verify-compose', ['node', 'tools/scope/verify-compose.mjs']);
+661351	// ---------------------------------------------------------------- 6
+661352	group('loader-identity', () => {
+661353	  const loader = fs.readFileSync(path.join(ROOT, 'atlas', 'index.html'));
+661354	  const vDir = path.join(ROOT, 'atlas', 'v');
+661355	  const dirs = fs.existsSync(vDir) ? fs.readdirSync(vDir).filter(d => STAMP.test(d)).sort() : [];
+661358	  for (const d of dirs) {
+661359	    const file = path.join(vDir, d, 'index.html');
+661360	    if (!fs.existsSync(file)) {
+661361	      if (fs.existsSync(path.join(vDir, d, 'current.json'))) bad.push(`atlas/v/${d}/index.html missing beside its current.json`);
+661364	    if (!loader.equals(fs.readFileSync(file))) bad.push(`atlas/v/${d}/index.html`);
+661365	  record('loader-identity', bad.length === 0,
+661366	    bad.length ? `not byte-identical to atlas/index.html: ${bad.join(', ')}` : `${checked} pinned loader(s) identical to atlas/index.html`);
+661367	// ---------------------------------------------------------------- 7
+661368	// Each suite may declare, in its first lines, `// @gate-min-generation <stamp>`:
+661369	// the first overlay generation it describes. It is run only against modules of
+661370	// that generation or later, because a suite that tests a newer feature (the
+661371	// REPD card of 202610282100) is RED by design on the modules before it.
+661372	const SUITE_TIMEOUT_MS = 240_000;
+661373	function runAsync(argv, opts = {}) {
+661375	    const child = spawn(argv[0], argv.slice(1), { cwd: ROOT, ...opts });
+661376	    let stdout = '', stderr = '', timedOut = false;
+661377	    child.stdout.on('data', d => { stdout += d; });
+661378	    child.stderr.on('data', d => { stderr += d; });
+661379	    const t = setTimeout(() => { timedOut = true; child.kill('SIGKILL'); }, SUITE_TIMEOUT_MS);
+661380	    child.on('close', (code, signal) => { clearTimeout(t); resolve({ code: timedOut ? 124 : code ?? (signal ? 1 : 0), stdout, stderr, timedOut }); });
+661381	const suiteDir = path.join(ROOT, 'tools', 'ci', 'lightning');
+661382	const suites = (fs.existsSync(suiteDir) ? fs.readdirSync(suiteDir).filter(f => f.endsWith('.test.mjs')).sort() : [])
+661383	  .map(name => {
+661384	    const head = fs.readFileSync(path.join(suiteDir, name), 'utf8').slice(0, 2048);
+661385	    const min = (head.match(/@gate-min-generation\s+(\d{12})\b/) || [])[1] || null;
+661386	    return { name, min };
+661388	const overlayFile = g => path.join('atlas', 'modules', `${g}-uk-lightning-overlay.js`);
+661389	// The live overlay, every overlay module the PR adds or edits, and the
+661390	// overlay of any pinned generation the PR adds. Not every touched
+661391	// generation: the suites were written RED against earlier candidates, so a
+661392	// PR that only edits an old proof must not be failed for a module it did
+661393	// not change. A PR that changes a suite, this gate or its workflow is also
+661394	// run against the newest pinned overlay (the candidate), so a suite edit is
+661395	// proven on the module it guards.
+661396	const gens = new Set();
+661397	if (sld) gens.add(String(sld.generation));
+661398	  const m = file.match(/^atlas\/modules\/(\d{12})-uk-lightning-overlay\.js$/)
+661399	    || file.match(/^atlas\/v\/(\d{12})\/current\.json$/);
+661400	  if (m && (file.startsWith('atlas/modules/') || !baseHas(file))) gens.add(m[1]);
+661401	const gateChanged = changed.some(f => f.startsWith('tools/ci/lightning/') || f === 'tools/ci/pr-gate.mjs'
+661402	  || f === '.github/workflows/pr-file-size-guard.yml');
+661403	if (gateChanged) {
+661404	  const pinned = (fs.existsSync(vDir) ? fs.readdirSync(vDir) : [])
+661405	    .filter(d => STAMP.test(d) && fs.existsSync(path.join(vDir, d, 'current.json')) && fs.existsSync(path.join(ROOT, overlayFile(d))))
+661407	  if (pinned.length) gens.add(pinned[pinned.length - 1]);
+661408	const modules = [...gens].sort().map(g => ({ g, file: overlayFile(g) })).filter(m => fs.existsSync(path.join(ROOT, m.file)));
+661409	if (!modules.length) console.log('note  no lightning overlay module in the live or touched generations');
+661410	else if (!suites.length) record('lightning-suites', false, 'tools/ci/lightning/*.test.mjs missing');
+661413	  for (const { g, file } of modules) {
+661414	    for (const suite of suites) {
+661415	      if (suite.min && g < suite.min) { console.log(`note  ${suite.name} starts at ${suite.min}; not run on ${g}`); continue; }
+661416	      jobs.push({ g, file, suite: suite.name });
+661417	  if (!jobs.length) record('lightning-suites', false, `no suite applies to ${modules.map(m => m.g).join(', ')}`);
+661418	  // The suites spend most of their time waiting on real timers (the 15 s
+661419	  // register timeout), not on the CPU, so they run side by side.
+661420	  const width = Math.max(2, Math.min(4, os.availableParallelism ? os.availableParallelism() : 2));
+661421	  const out = new Array(jobs.length);
+661423	  await Promise.all(Array.from({ length: Math.min(width, jobs.length) }, async () => {
+661424	    while (next < jobs.length) {
+661425	      const i = next++, { g, file, suite } = jobs[i], t0 = Date.now();
+661426	      const r = await runAsync(['node', '--test', '--test-reporter=tap', path.join('tools', 'ci', 'lightning', suite)], {
+661427	        env: { ...process.env, LIGHTNING_MODULE: file, LIGHTNING_TEST_GEN: g }
+661428	      out[i] = { ...r, seconds: ((Date.now() - t0) / 1000).toFixed(1) };
+661430	  jobs.forEach(({ g, suite }, i) => group(`lightning ${g} ${suite}`, () => {
+661431	    const r = out[i];
+661432	    const counts = (r.stdout.match(/^# (pass|fail|skipped) \d+$/gm) || []).join(' ').replace(/# /g, '');
+661433	    if (r.code !== 0) { process.stdout.write(r.stdout); process.stderr.write(r.stderr); }
+661434	    else console.log(`${suite} on ${g}: ${counts} in ${r.seconds} s`);
+661435	    record(`lightning ${g} ${suite}`, r.code === 0,
+661436	      `${counts} ${r.seconds} s` + (r.code === 0 ? '' : r.timedOut ? `  timed out after ${SUITE_TIMEOUT_MS / 1000} s` : `  exit ${r.code}`));
+661437	// ---------------------------------------------------------------- summary
+661438	const failed = results.filter(r => !r.ok);
+661440	  '## PR gate', '',
+661441	  `Base \`${BASE}\`, ${changed.length} changed path(s). Generations under test: ${[...generations].sort().map(g => `\`${g}\``).join(', ')}.`, '',
+661442	  '| check | result | detail |', '|---|---|---|',
+661443	  ...results.map(r => `| ${r.name} | ${r.ok ? 'PASS' : '**FAIL**'} | ${String(r.detail).replace(/\|/g, '\\|').replace(/\r?\n/g, ' ')} |`), '',
+661444	  `${results.length - failed.length}/${results.length} passed.`
+661446	if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, lines.join('\n') + '\n');
+661447	console.log(`\n${results.length - failed.length}/${results.length} checks passed`);
+661448	if (process.env.GITHUB_ACTIONS) {
+661449	  console.log(`::notice title=PR gate::${results.length - failed.length}/${results.length} passed; generations ${[...generations].sort().join(', ')}; ` +
+661450	    results.map(r => `${r.ok ? 'PASS' : 'FAIL'} ${r.name}`).join('; '));
+661452	  for (const f of failed) console.error(`  FAIL ${f.name}`);
+661457	const GEN='202610281950';
+661493	const GEN='202610282100';
+661494	assert.ok(Buffer.byteLength(module,'utf8')<=64781,'module exceeds the 64,781-byte budget');
+661495	assert.ok(Buffer.byteLength(source,'utf8')<=500000,'cartridge exceeds the 500 kB ceiling (raised from 480 kB by the owner, 28 Oct 2026)');
+661496	const GEN='202610282215';
+661497	const negatives=/ukConfig|initVentusMap|window\.fetch|data-pn-layer|data-gridatlas-layer-proxy|data-gridatlas-layer-key|prepend\(|name=["']bm|<style|createElement\(['"]style|localStorage|sessionStorage|document\.cookie/;
+661498	/* M3: the REPD layer checkboxes are read and ticked through the engine's own change path (owner request, 28 Oct 2026); the module never creates or names such a control or label. */
+661499	assert.deepEqual(module.match(/data-layer-id|lbl-/g),['data-layer-id','data-layer-id','lbl-'],'data-layer-id / lbl- only at the M3 read sites');
+661500	assert.equal((module.match(/input\[data-layer-id="\$\{(id|t)\}"\]/g)||[]).length,2,'data-layer-id only in the two input selectors');
+661501	assert.equal(/setAttribute\(['"](data-layer-id|id)['"]|dataset\.layerId\s*=[^=]|\.id\s*=[^=]/.test(module),false,'the module never names a layer control or label');
+661502	 * Shared helpers for tools/release/release-generation.mjs and
+661503	 * tools/release/rollback-generation.mjs.
+661504	 * Both scripts automate what was done by hand for the 202610270024 rehearsal
+661505	 * and the 202610281340 (Build L3) release, recorded in
+661506	 * docs/lightning/hardening-20261026/evidence/release-rehearsal-E/RELEASE-COMMANDS.md.
+661507	 * They never push, never open a PR and never touch atlas/releases/**. They
+661508	 * work in whatever checkout they live in, so run them from a worktree.
+661511	export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+661512	/* The manifest keys that describe the CUT rather than the composition. The
+661513	   rehearsal deleted exactly these six and wrote the rest with a one-space
+661514	   indent and a trailing newline; L3's live atlas/current.json is byte-identical
+661515	   to that derivation of its manifest. */
+661516	export const MANIFEST_ONLY_KEYS = Object.freeze([
+661517	  'parent_generation', 'version', 'cut_at_utc', 'note', 'acceptance', 'candidate_status'
+661519	/* The only two files a release (or its revert) may change. */
+661520	export const POINTER_FILES = Object.freeze(['atlas/current.json', 'STATE.md']);
+661521	/* The rows of 202609012214-data-contract-parity that fail on every commit
+661522	   since before Lightning. They are reported, never hidden: the gate is that a
+661523	   release adds no FAIL row that the pre-release tree did not already have. */
+661524	export const PARITY_PROOF = 'tools/proofs/202609012214-data-contract-parity.proof.mjs';
+661525	export function die(tool, message) {
+661526	  console.error(`${tool}: STOP: ${message}`);
+661528	export function parseArgs(argv, spec) {
+661530	  for (const [name, def] of Object.entries(spec)) out[name] = def.multi ? [] : (def.default ?? null);
+661531	  for (let i = 0; i < argv.length; i += 1) {
+661532	    const raw = argv[i];
+661533	    if (!raw.startsWith('--')) throw new Error(`unexpected argument ${raw}`);
+661534	    const name = raw.slice(2);
+661535	    const def = spec[name];
+661536	    if (!def) throw new Error(`unknown flag ${raw}`);
+661537	    if (def.bool) { out[name] = true; continue; }
+661538	    const value = argv[i + 1];
+661539	    if (value === undefined || value.startsWith('--')) throw new Error(`${raw} needs a value`);
+661540	    i += 1;
+661541	    if (def.multi) out[name].push(value); else out[name] = value;
+661543	export function run(cmd, args, { cwd = ROOT, allowFail = false, input } = {}) {
+661544	  const r = spawnSync(cmd, args, { cwd, encoding: 'utf8', maxBuffer: 256 * 1024 * 1024, input });
+661545	  if (r.error) throw r.error;
+661546	  if (r.status !== 0 && !allowFail) {
+661547	    throw new Error(`${cmd} ${args.join(' ')} exited ${r.status}\n${r.stdout}${r.stderr}`);
+661548	  return { status: r.status, stdout: r.stdout, stderr: r.stderr, out: `${r.stdout}${r.stderr}` };
+661549	export const git = (...args) => run('git', args).stdout.trim();
+661550	export const gitOk = (...args) => run('git', args, { allowFail: true }).status === 0;
+661551	export function gitBlob(rev, relative) {
+661552	  const r = spawnSync('git', ['show', `${rev}:${relative}`], { cwd: ROOT, encoding: 'buffer', maxBuffer: 256 * 1024 * 1024 });
+661553	  return r.status === 0 ? r.stdout : null;
+661554	export const sha256 = (buffer) => createHash('sha256').update(buffer).digest('hex');
+661555	export const sha256File = (relative) => sha256(fs.readFileSync(path.join(ROOT, relative)));
+661556	export const readText = (relative) => fs.readFileSync(path.join(ROOT, relative), 'utf8');
+661557	export const exists = (relative) => fs.existsSync(path.join(ROOT, relative));
+661558	/** atlas/current.json exactly as the rehearsal wrote it from G's manifest. */
+661559	export function deriveCurrent(manifestText) {
+661560	  const manifest = JSON.parse(manifestText);
+661561	  for (const key of MANIFEST_ONLY_KEYS) delete manifest[key];
+661562	  return `${JSON.stringify(manifest, null, 1)}\n`;
+661563	/** The pinned preview route atlas/v/G/current.json is the same composition
+661564	    with every "./" or "../" relative reference re-rooted two levels up. */
+661565	export function rerootForPreview(currentText) {
+661566	  return currentText.replace(/": "(\.\/|\.\.\/)/g, '": "../../');
+661567	export function cleanTree() {
+661568	  return run('git', ['status', '--porcelain=v1', '--untracked-files=all']).stdout.trim() === '';
+661569	export function changedPaths() {
+661570	  return run('git', ['status', '--porcelain=v1', '--untracked-files=all']).stdout
+661571	    .split('\n').filter(Boolean).map(line => line.slice(3)).sort();
+661572	export function isTracked(relative) {
+661573	  return gitOk('ls-files', '--error-unmatch', '--', relative);
+661574	/* ---------------------------------------------------------------- gates */
+661575	/** FAIL rows of the data-contract parity proof, parsed from its FAILURES
+661576	    block. A non-zero exit with no FAILURES block is itself a FAIL row, so a
+661577	    proof that crashes cannot read as "no new failures". */
+661578	export function parityFailRows() {
+661579	  const r = run('node', [PARITY_PROOF], { allowFail: true });
+661580	  const lines = r.out.split('\n');
+661581	  const start = lines.findIndex(l => l.trim() === 'FAILURES');
+661582	  let rows = start === -1 ? [] : lines.slice(start + 1).map(l => l.trim()).filter(Boolean);
+661583	  if (r.status !== 0 && rows.length === 0) rows = [`parity proof exited ${r.status} without a FAILURES block`];
+661584	  return { status: r.status, rows, out: r.out };
+661585	 * Every gate the hand release ran, in the same order. Returns rows of
+661586	 * { gate, ok, detail } and the full log text; never throws on a red gate.
+661587	 *   expectGeneration  verify-compose must report this generation
+661588	 *   proofs            generation-matched proofs to run directly
+661589	 *   parityBaseline    FAIL rows the pre-release tree already had
+661590	 *   rollbackTo        generation for `tools/rollback.mjs --dry-run` (null skips)
+661591	export function runGates({ expectGeneration, proofs = [], parityBaseline = [], rollbackTo = null }) {
+661593	  let log = '';
+661594	  const record = (gate, ok, detail, out) => {
+661595	    rows.push({ gate, ok, detail });
+661596	    log += `\n### ${gate}  ->  ${ok ? 'PASS' : 'FAIL'}  ${detail}\n${out ?? ''}`;
+661597	  const lint = run('node', ['tools/scope/loop.mjs', 'lint'], { allowFail: true });
+661598	  record('loop.mjs lint', lint.status === 0, lint.out.trim().split('\n').pop(), lint.out);
+661599	  const state = run('node', ['tools/scope/loop.mjs', 'state', '--stdout'], { allowFail: true });
+661600	  const stateOk = state.status === 0 && exists('STATE.md') && state.stdout === readText('STATE.md');
+661601	  record('loop.mjs state --stdout == STATE.md', stateOk, stateOk ? 'STATE_PARITY_OK' : 'STATE.md differs from the generator', state.stderr);
+661602	  const compose = run('node', ['tools/scope/verify-compose.mjs'], { allowFail: true });
+661603	  let composeOk = compose.status === 0;
+661604	  let composeDetail = `exit ${compose.status}`;
+661605	    const parsed = JSON.parse(compose.stdout.trim().split('\n').pop());
+661606	    composeOk = composeOk && parsed.composition === 'PASS' && parsed.generation === expectGeneration;
+661607	    composeDetail = `composition=${parsed.composition} generation=${parsed.generation}`;
+661608	  } catch { composeOk = false; }
+661609	  record('verify-compose', composeOk, composeDetail, compose.out);
+661610	  const current = run('node', ['tools/proofs/run-current.mjs'], { allowFail: true });
+661611	  record('run-current', current.status === 0, current.out.trim().split('\n').pop(), current.out);
+661612	  for (const proof of proofs) {
+661613	    const r = run('node', [proof], { allowFail: true });
+661614	    record(proof, r.status === 0, `exit ${r.status}`, r.out);
+661615	  const parity = parityFailRows();
+661616	  const added = parity.rows.filter(row => !parityBaseline.includes(row));
+661617	  record('data-contract parity (no new FAIL rows)', added.length === 0,
+661618	    `${parity.rows.length} FAIL row(s), ${added.length} new${added.length ? `: ${added.join(' | ')}` : ''}`, parity.out);
+661619	  if (rollbackTo) {
+661620	    const rb = run('node', ['tools/rollback.mjs', '--to', rollbackTo, '--reason', 'release readiness', '--dry-run'], { allowFail: true });
+661621	    record(`rollback.mjs --to ${rollbackTo} --dry-run`, rb.status === 0, `exit ${rb.status}`, rb.out);
+661622	  return { rows, log, parityRows: parity.rows };
+661623	export function printGates(rows) {
+661624	  const width = Math.max(...rows.map(r => r.gate.length));
+661625	  for (const r of rows) console.log(`  ${r.ok ? 'PASS' : 'FAIL'}  ${r.gate.padEnd(width)}  ${r.detail}`);
+661626	export function commitWithMessage(message) {
+661627	  run('git', ['commit', '-q', '-F', '-'], { input: message });
+661628	  return git('rev-parse', 'HEAD');
+661629	export function trailerBlock(trailers) {
+661630	  return trailers.length ? `\n\n${trailers.join('\n')}` : '';
+661631	 * Release a published preview generation G to the live route.
+661632	 *   node tools/release/release-generation.mjs --generation G --authorised-by "..." [options]
+661633	 * This is the hand procedure of RELEASE-COMMANDS.md (rehearsal E, then the
+661634	 * 202610281340 Build L3 release, PR #49) as one checked script. It works in
+661635	 * the checkout it lives in, so run it from a fresh worktree of main:
+661636	 *   git fetch origin && git worktree add --detach ../gridatlas-release origin/main
+661637	 *   cd ../gridatlas-release && node tools/release/release-generation.mjs --generation G ...
+661638	 * WHAT IT DOES, IN ORDER
+661639	 *   1. Preconditions, all against committed bytes, nothing written:
+661640	 *      - the tree is clean and HEAD is exactly --base (default origin/main);
+661641	 *      - live (atlas/current.json) is the expected predecessor: --expect-live,
+661642	 *        which must also be the manifest's previous_generation;
+661643	 *      - G's preview files are present and committed: the composition
+661644	 *        manifest, atlas/v/G/{current.json,index.html}, every cartridge the
+661645	 *        manifest names (sha256 of the committed blob = the recorded digest),
+661646	 *        and a proof tools/proofs/G-<id>.proof.mjs for every cartridge cut at G;
+661647	 *      - atlas/v/G/current.json is the derived pointer re-rooted to ../../,
+661648	 *        i.e. the preview people tested is the composition that will go live;
+661649	 *      - G's proofs pass;
+661650	 *      - the loader is identical: atlas/index.html == atlas/v/G/index.html.
+661651	 *   2. On a new branch, optional preparatory commits: --prep-commit <sha>
+661652	 *      (cherry-picked, e.g. retiring a workflow) and --prep-gate-kb <N> (raise
+661653	 *      the recorded cartridge ceiling in tools/scope/loop.mjs). Each must
+661654	 *      leave lint and STATE.md parity green and must not touch the pointer.
+661655	 *   3. atlas/current.json from G's manifest exactly as the rehearsal did
+661656	 *      (drop the six cut-only keys, JSON.stringify(m, null, 1) + "\n"), then
+661657	 *      `node tools/scope/loop.mjs state`. Only those two files may change.
+661658	 *   4. Every gate: lint, state parity, verify-compose (generation G),
+661659	 *      run-current, G's proofs, data-contract parity (no FAIL row the base
+661660	 *      did not already have), rollback.mjs --to <predecessor> --dry-run.
+661661	 *   5. The release commit (pointer + STATE.md only), then the hashes.
+661662	 * If live is already G, it is a NO-OP release: every precondition and gate
+661663	 * still runs, the derived pointer must equal the live one byte for byte, and
+661664	 * nothing is committed. That is how the tooling is rehearsed on main.
+661665	 * It never pushes, never opens a PR and never edits atlas/releases/**. The
+661666	 * owner's authorisation is recorded in the commit, not inferred.
+661667	 * Options
+661668	 *   --generation G          12-digit preview generation to release (required)
+661669	 *   --authorised-by TEXT    who authorised it and where (required to commit)
+661670	 *   --expect-live P         the generation that must be live now (default: G's previous_generation)
+661671	 *   --base REV              HEAD must equal this (default origin/main)
+661672	 *   --branch NAME           default release/G-gridatlas-<composition_version>
+661673	 *   --title TEXT            commit subject after "G-gridatlas-vX: "
+661674	 *   --prep-commit SHA       cherry-pick as a preparatory commit (repeatable)
+661675	 *   --prep-gate-kb N        raise the cartridge ceiling to N kB as a preparatory commit
+661676	 *   --prep-gate-reason TEXT required with --prep-gate-kb (who decided, when)
+661677	 *   --trailer TEXT          appended to every commit message (repeatable)
+661678	 *   --check                 preconditions only; write nothing
+661679	 *   --no-commit             leave the release staged-but-uncommitted for inspection
+661680	 *   --report FILE           write a JSON report (hashes, gates) to FILE
+661681	 *   --log FILE              write the full gate output to FILE
+661683	  ROOT, POINTER_FILES, die as dieWith, parseArgs, run, git, gitOk, gitBlob, sha256, sha256File,
+661684	  readText, exists, deriveCurrent, rerootForPreview, cleanTree, changedPaths, isTracked,
+661685	  runGates, printGates, parityFailRows, commitWithMessage, trailerBlock
+661687	const TOOL = 'release-generation';
+661688	const die = (m) => dieWith(TOOL, m);
+661689	const step = (m) => console.log(`\n== ${m}`);
+661690	const ok = (m) => console.log(`  OK    ${m}`);
+661691	let args;
+661693	  args = parseArgs(process.argv.slice(2), {
+661694	    generation: {}, 'authorised-by': {}, 'expect-live': {}, base: { default: 'origin/main' },
+661695	    branch: {}, title: {}, 'prep-commit': { multi: true }, 'prep-gate-kb': {}, 'prep-gate-reason': {},
+661696	    trailer: { multi: true }, check: { bool: true }, 'no-commit': { bool: true },
+661697	    report: {}, log: {}
+661698	} catch (error) { die(error.message); }
+661699	const G = args.generation;
+661700	if (!G || !/^\d{12}$/.test(G)) die('--generation must be a 12-digit generation');
+661701	if (args['prep-gate-kb'] && !/^\d{3}$/.test(args['prep-gate-kb'])) die('--prep-gate-kb must be a 3-digit kB figure');
+661702	if (args['prep-gate-kb'] && !args['prep-gate-reason']) die('--prep-gate-kb needs --prep-gate-reason (the owner decision it records)');
+661703	const report = { tool: TOOL, generation: G, root: ROOT, started_utc: new Date().toISOString() };
+661704	const finish = (code) => {
+661705	  report.finished_utc = new Date().toISOString();
+661706	  report.exit = code;
+661707	  if (args.report) fs.writeFileSync(path.resolve(args.report), `${JSON.stringify(report, null, 1)}\n`);
+661708	  process.exit(code);
+661709	/* ------------------------------------------------------- 1. preconditions */
+661710	step('preconditions');
+661711	if (!cleanTree()) die(`working tree is not clean:\n${changedPaths().join('\n')}`);
+661712	ok('working tree clean');
+661713	if (!gitOk('rev-parse', '--verify', '--quiet', `${args.base}^{commit}`)) die(`--base ${args.base} does not resolve`);
+661714	const baseSha = git('rev-parse', `${args.base}^{commit}`);
+661715	const headSha = git('rev-parse', 'HEAD');
+661716	if (baseSha !== headSha) die(`HEAD ${headSha} is not ${args.base} ${baseSha} (fetch, and start from a fresh worktree of it)`);
+661717	report.base = { ref: args.base, sha: baseSha };
+661718	ok(`HEAD = ${args.base} = ${baseSha}`);
+661719	const liveText = gitBlob('HEAD', 'atlas/current.json');
+661720	if (!liveText) die('atlas/current.json is not committed at HEAD');
+661721	const live = JSON.parse(liveText.toString('utf8'));
+661722	report.live_before = live.generation;
+661723	const manifestRel = `atlas/manifests/${G}-composition.json`;
+661724	const previewPointerRel = `atlas/v/${G}/current.json`;
+661725	const previewLoaderRel = `atlas/v/${G}/index.html`;
+661726	for (const rel of [manifestRel, previewPointerRel, previewLoaderRel]) {
+661727	  if (!exists(rel) || !isTracked(rel)) die(`preview file ${rel} is missing or not committed`);
+661728	ok(`preview files committed: ${manifestRel}, ${previewPointerRel}, ${previewLoaderRel}`);
+661729	const manifestText = gitBlob('HEAD', manifestRel).toString('utf8');
+661731	if (manifest.generation !== G) die(`${manifestRel} declares generation ${manifest.generation}`);
+661732	if (manifest.composition_manifest !== `./manifests/${G}-composition.json`) die(`${manifestRel} composition_manifest is ${manifest.composition_manifest}`);
+661733	const rejected = String(manifest.candidate_status || '').startsWith('REJECTED')
+661734	  || String(manifest.acceptance?.golden_browser_verification || '').startsWith('REJECTED');
+661735	if (rejected) die(`${G} is marked REJECTED in its manifest; it is not a release candidate`);
+661736	ok(`manifest identity: generation ${G}, ${manifest.composition_version}`);
+661737	const noop = live.generation === G;
+661738	const predecessor = noop ? live.previous_generation : live.generation;
+661739	if (noop) {
+661740	  if (args['expect-live'] && args['expect-live'] !== G) die(`live is ${G}, not --expect-live ${args['expect-live']}`);
+661741	  ok(`live is already ${G}: NO-OP release (verify everything, commit nothing)`);
+661743	  const expected = args['expect-live'] || manifest.previous_generation;
+661744	  if (live.generation !== expected) die(`live is ${live.generation}, expected predecessor ${expected}`);
+661745	  if (manifest.previous_generation !== live.generation) die(`${G}'s previous_generation is ${manifest.previous_generation} but live is ${live.generation}; the manifest was cut against a different predecessor`);
+661746	  ok(`live = expected predecessor = ${live.generation} = ${G}.previous_generation`);
+661747	  if (!args.check && !args['no-commit'] && !args['authorised-by']) die('--authorised-by is required to commit a release');
+661748	report.predecessor = predecessor;
+661749	const derived = deriveCurrent(manifestText);
+661750	const previewPointer = gitBlob('HEAD', previewPointerRel).toString('utf8');
+661751	if (rerootForPreview(derived) !== previewPointer) die(`${previewPointerRel} is not the derived pointer re-rooted to ../../; the preview that was tested is not what would go live`);
+661752	ok(`${previewPointerRel} == derived pointer re-rooted (the tested preview is the release)`);
+661753	if (noop && derived !== liveText.toString('utf8')) die('live is G but the pointer derived from its manifest is not byte-identical to atlas/current.json');
+661754	if (noop) ok('derived pointer is byte-identical to the live atlas/current.json');
+661755	const cutHere = [];
+661756	for (const cartridge of manifest.cartridges || []) {
+661757	  const rel = path.posix.join('atlas', cartridge.path);
+661758	  const blob = gitBlob('HEAD', rel);
+661759	  if (!blob) die(`${cartridge.id}: ${rel} is not committed`);
+661760	  if (sha256(blob) !== cartridge.sha256) die(`${cartridge.id}: committed ${rel} does not hash to ${cartridge.sha256}`);
+661761	  if (cartridge.generation === G) cutHere.push(cartridge.id);
+661762	ok(`${(manifest.cartridges || []).length} cartridges: committed blobs hash to the recorded sha256`);
+661763	if (!cutHere.length) die(`no cartridge in ${manifestRel} was cut at ${G}`);
+661764	const proofs = cutHere.map(id => `tools/proofs/${G}-${id}.proof.mjs`);
+661766	  if (!exists(proof) || !isTracked(proof)) die(`${proof} is missing or not committed`);
+661767	  const r = run('node', [proof], { allowFail: true });
+661768	  if (r.status !== 0) die(`${proof} fails on the preview route:\n${r.out}`);
+661769	  ok(`${proof} passes (preview route)`);
+661770	const loader = gitBlob('HEAD', 'atlas/index.html');
+661771	const previewLoader = gitBlob('HEAD', previewLoaderRel);
+661772	if (!loader || !previewLoader || Buffer.compare(loader, previewLoader) !== 0) die(`${previewLoaderRel} is not byte-identical to atlas/index.html (LOADER differs)`);
+661773	ok(`LOADER_IDENTICAL atlas/index.html == ${previewLoaderRel} (sha256 ${sha256(loader).slice(0, 16)}…)`);
+661774	const before = Object.fromEntries(POINTER_FILES.map(f => [f, sha256File(f)]));
+661775	report.before = before;
+661776	/* --prep-gate-kb is validated with the preconditions (so --check runs it too) and before any branch exists:
+661777	   a redundant or malformed ceiling must not leave a stray branch with HEAD on it. */
+661778	if (args['prep-gate-kb']) {
+661779	  const text = readText('tools/scope/loop.mjs');
+661780	  const sizes = [...text.matchAll(/fs\.statSync\(cartridgePath\)\.size <= (\d{3})_000/g)];
+661781	  if (sizes.length !== 1) die(`tools/scope/loop.mjs: expected exactly one cartridge ceiling, found ${sizes.length}`);
+661782	  if (Number(args['prep-gate-kb']) <= Number(sizes[0][1])) die(`--prep-gate-kb ${args['prep-gate-kb']} does not raise the current ${sizes[0][1]} kB ceiling`);
+661783	  if ([...text.matchAll(/exceeds the \d{3} kB recorded ceiling \([^)`]*\)/g)].length !== 1) die('tools/scope/loop.mjs: ceiling message not found exactly once');
+661784	  ok(`--prep-gate-kb ${args['prep-gate-kb']} raises the current ${sizes[0][1]} kB ceiling`);
+661785	if (args.check) {
+661786	  console.log(`\nCHECK PASS: ${G} is releasable on ${baseSha.slice(0, 7)} (live ${live.generation}). Nothing written.`);
+661787	  finish(0);
+661788	/* Parity FAIL rows on the untouched tree: the release must not add any. */
+661789	const parityBaseline = parityFailRows().rows;
+661790	report.parity_baseline = parityBaseline;
+661791	/* ------------------------------------------------------------- no-op path */
+661792	  step('gates (no-op: live tree as is)');
+661793	  const gates = runGates({ expectGeneration: G, proofs, parityBaseline, rollbackTo: predecessor });
+661794	  printGates(gates.rows);
+661795	  if (args.log) fs.writeFileSync(path.resolve(args.log), gates.log);
+661796	  report.gates = gates.rows;
+661797	  report.after = Object.fromEntries(POINTER_FILES.map(f => [f, sha256File(f)]));
+661798	  step('hashes');
+661799	  for (const f of POINTER_FILES) console.log(`  ${f.padEnd(20)} ${before[f]}  (unchanged)`);
+661800	  console.log(`  derived pointer      ${sha256(derived)}`);
+661801	  if (!cleanTree()) die('a gate wrote to the tree');
+661802	  const green = gates.rows.every(r => r.ok);
+661803	  console.log(green ? `\nNOOP PASS: ${G} is live and re-derives byte-exact; nothing committed.` : '\nNOOP FAIL: see gates above.');
+661804	  finish(green ? 0 : 1);
+661805	/* ---------------------------------------------------- 2. branch and prep */
+661806	const branch = args.branch || `release/${G}-gridatlas-${manifest.composition_version}`;
+661807	if (gitOk('rev-parse', '--verify', '--quiet', `refs/heads/${branch}`)) die(`branch ${branch} already exists`);
+661808	run('git', ['switch', '-q', '-c', branch]);
+661809	report.branch = branch;
+661810	step(`branch ${branch} at ${baseSha.slice(0, 7)}`);
+661811	const trailers = trailerBlock(args.trailer);
+661812	const prepCommits = [];
+661813	const checkPrep = (label) => {
+661814	  const touched = git('diff', '--name-only', 'HEAD^', 'HEAD').split('\n').filter(Boolean);
+661815	  const bad = touched.filter(f => POINTER_FILES.includes(f) || f.startsWith('atlas/releases/') || f === 'atlas/index.html');
+661816	  if (bad.length) die(`${label} touches ${bad.join(', ')}; a preparatory commit must leave the pointer, STATE.md, the loader and releases alone`);
+661817	  if (lint.status !== 0) die(`${label}: loop.mjs lint fails after it:\n${lint.out}`);
+661818	  if (state.status !== 0 || state.stdout !== readText('STATE.md')) die(`${label}: STATE.md no longer matches the generator after it`);
+661819	  const sha = git('rev-parse', 'HEAD');
+661820	  prepCommits.push({ label, sha, files: touched });
+661821	  ok(`${label} -> ${sha.slice(0, 7)} (${touched.join(', ')}); lint PASS, STATE.md unchanged`);
+661822	for (const sha of args['prep-commit']) {
+661823	  const r = run('git', ['cherry-pick', '-x', sha], { allowFail: true });
+661825	    run('git', ['cherry-pick', '--abort'], { allowFail: true });
+661826	    /* nothing is released on a failed preparation: leave no stray branch and put HEAD back where it was */
+661827	    run('git', ['switch', '-q', '--detach', baseSha], { allowFail: true }); run('git', ['branch', '-D', branch], { allowFail: true });
+661828	    die(`cherry-pick ${sha} failed (branch ${branch} removed; HEAD back at ${baseSha.slice(0, 7)}):\n${r.out}`);
+661829	  checkPrep(`prep cherry-pick ${sha.slice(0, 7)}`);
+661830	  const rel = 'tools/scope/loop.mjs';
+661831	  const text = readText(rel);
+661832	  const sizeRe = /fs\.statSync\(cartridgePath\)\.size <= (\d{3})_000/g;
+661833	  const sizes = [...text.matchAll(sizeRe)];
+661834	  if (sizes.length !== 1) die(`${rel}: expected exactly one cartridge ceiling, found ${sizes.length}`);
+661835	  const oldKb = sizes[0][1];
+661836	  const N = args['prep-gate-kb'];
+661837	  if (Number(N) <= Number(oldKb)) die(`--prep-gate-kb ${N} does not raise the current ${oldKb} kB ceiling`);
+661838	  const msgRe = /exceeds the \d{3} kB recorded ceiling \([^)`]*\)/g;
+661839	  if ([...text.matchAll(msgRe)].length !== 1) die(`${rel}: ceiling message not found exactly once`);
+661840	  const reason = args['prep-gate-reason'].replace(/[`$\\]/g, '');
+661841	  const next = text.replace(sizeRe, `fs.statSync(cartridgePath).size <= ${N}_000`)
+661842	    .replace(msgRe, `exceeds the ${N} kB recorded ceiling (400 kB target; raised from ${oldKb} kB: ${reason})`);
+661843	  fs.writeFileSync(path.join(ROOT, rel), next);
+661844	  run('git', ['add', '--', rel]);
+661845	  commitWithMessage(`gate: raise the recorded cartridge ceiling from ${oldKb} kB to ${N} kB (${reason})\n\nPreparatory commit for the ${G} release. Lint and STATE.md parity pass; live composition unchanged.${trailers}\n`);
+661846	  checkPrep(`prep gate ${oldKb} -> ${N} kB`);
+661847	report.prep_commits = prepCommits;
+661848	const releaseParent = git('rev-parse', 'HEAD');
+661849	/* ------------------------------------------- 3. pointer and STATE.md only */
+661850	step(`write atlas/current.json from ${manifestRel} and regenerate STATE.md`);
+661851	fs.writeFileSync(path.join(ROOT, 'atlas/current.json'), derived);
+661852	const state = run('node', ['tools/scope/loop.mjs', 'state'], { allowFail: true });
+661853	/* On any failure from here on: put the pointer back, and if no preparatory
+661854	   commit was made, leave HEAD where it started and drop the empty branch. */
+661855	const restore = () => {
+661856	  run('git', ['checkout', '--', ...POINTER_FILES], { allowFail: true });
+661857	  if (!prepCommits.length) {
+661858	    run('git', ['switch', '-q', '--detach', baseSha], { allowFail: true });
+661859	    run('git', ['branch', '-D', branch], { allowFail: true });
+661860	const HINT = 'If lint fails on the cartridge ceiling or the workflow budget, add the owner-approved preparatory commit (--prep-gate-kb N --prep-gate-reason "..." or --prep-commit <sha>) and run again.';
+661861	if (state.status !== 0) { restore(); die(`loop.mjs state failed with ${G}'s pointer in place; the pointer was restored.\n${HINT}\n${state.out}`); }
+661862	ok(state.out.trim().replace(/\n/g, '; '));
+661863	const changed = changedPaths();
+661864	if (JSON.stringify(changed) !== JSON.stringify([...POINTER_FILES].sort())) {
+661865	  restore(); die(`the release must change exactly ${POINTER_FILES.join(' and ')}; it changed: ${changed.join(', ')}`);
+661866	ok(`changed: ${changed.join(', ')}`);
+661867	/* ----------------------------------------------------------------- 4. gates */
+661868	step('gates');
+661869	const gates = runGates({ expectGeneration: G, proofs, parityBaseline, rollbackTo: predecessor });
+661870	printGates(gates.rows);
+661871	if (args.log) fs.writeFileSync(path.resolve(args.log), gates.log);
+661872	report.gates = gates.rows;
+661873	report.parity_after = gates.parityRows;
+661874	if (JSON.stringify(changedPaths()) !== JSON.stringify([...POINTER_FILES].sort())) { restore(); die('a gate wrote outside the pointer files'); }
+661875	if (!gates.rows.every(r => r.ok)) {
+661876	  restore();
+661877	  console.error(`\n${TOOL}: gates FAILED; the pointer was restored. ${prepCommits.length ? `Branch ${branch} holds ${prepCommits.length} prep commit(s) only.` : 'No branch kept.'}\n${HINT}`);
+661878	  finish(1);
+661879	const after = Object.fromEntries(POINTER_FILES.map(f => [f, sha256File(f)]));
+661880	report.after = after;
+661881	/* ---------------------------------------------------------- 5. the commit */
+661882	if (!args['no-commit']) {
+661883	  run('git', ['add', '--', ...POINTER_FILES]);
+661884	  const subject = `${G}-gridatlas-${manifest.composition_version}: ${args.title || `release composition ${G} to the live route`}`;
+661885	  const body = `Moves atlas/current.json and STATE.md from ${live.generation} to ${G}, written from ${manifestRel} by tools/release/release-generation.mjs. Nothing else changes.\nRollback: git revert this commit (tools/release/rollback-generation.mjs).\n\nAuthorised by: ${args['authorised-by']}`;
+661886	  const sha = commitWithMessage(`${subject}\n\n${body}${trailers}\n`);
+661887	  const touched = git('diff', '--name-only', 'HEAD^', 'HEAD').split('\n').filter(Boolean).sort();
+661888	  if (JSON.stringify(touched) !== JSON.stringify([...POINTER_FILES].sort())) die(`release commit touched ${touched.join(', ')}`);
+661889	  report.release_commit = sha;
+661890	  report.release_tree = git('rev-parse', 'HEAD^{tree}');
+661891	step('hashes');
+661892	for (const f of POINTER_FILES) console.log(`  ${f.padEnd(20)} before ${before[f]}\n  ${''.padEnd(20)} after  ${after[f]}`);
+661893	for (const p of prepCommits) console.log(`  prep commit          ${p.sha}  ${p.label}`);
+661894	if (report.release_commit) {
+661895	  console.log(`  release commit       ${report.release_commit}`);
+661896	  console.log(`  release tree         ${report.release_tree}`);
+661897	  console.log(`  parent of release    ${releaseParent}`);
+661898	  console.log(`\n${run('git', ['diff', '--stat', `${baseSha}..HEAD`]).stdout.trimEnd()}`);
+661899	  console.log(`\nRELEASE READY on branch ${branch} (not pushed). Next, by a person:
+661900	  git push -u origin ${branch}
+661901	  gh pr create --draft --base main --head ${branch}   # Rebase and merge, never squash: the release commit must stay separately revertable
+661902	  # after merge + Pages deploy: GRIDATLAS_BASE_URL=https://ventusltd.github.io/gridatlas/ node tools/scope/verify-live.mjs
+661903	  # rollback: node tools/release/rollback-generation.mjs --release-commit <merged sha of the release commit>`);
+661904	  console.log(`\nRELEASE STAGED (--no-commit) on branch ${branch}; inspect with git diff.`);
+661905	finish(0);
+661906	 * Roll a release back by reverting its release commit (route C of
+661907	 * RELEASE-COMMANDS.md) and prove the pointer is restored byte for byte.
+661908	 *   node tools/release/rollback-generation.mjs --release-commit SHA --reason "..." [options]
+661909	 * Route C versus tools/rollback.mjs (route B): rollback.mjs cuts a NEW
+661910	 * generation carrying an older composition, so its bytes differ from what was
+661911	 * live before by design. Reverting the release commit instead restores the
+661912	 * exact pre-release atlas/current.json and STATE.md, which is only possible
+661913	 * because release-generation.mjs keeps the release commit to those two files.
+661914	 * Preconditions, nothing written:
+661915	 *   - clean tree, HEAD exactly --base (default origin/main);
+661916	 *   - SHA is a single-parent ancestor of HEAD that changed exactly
+661917	 *     atlas/current.json and STATE.md;
+661918	 *   - the pointer has not moved since: HEAD:atlas/current.json is SHA's bytes.
+661919	 * Then, on a new branch: `git revert --no-commit SHA`, and
+661920	 *   - atlas/current.json sha256 == SHA^:atlas/current.json (byte-exact);
+661921	 *   - STATE.md sha256 == SHA^:STATE.md when nothing touched STATE.md since the
+661922	 *     release (otherwise it must still equal the generator; reported);
+661923	 *   - lint, state parity, verify-compose (the predecessor), run-current,
+661924	 *     data-contract parity (no new FAIL rows).
+661925	 * Then the revert commit. It never pushes.
+661926	 *   --release-commit SHA   the release commit to revert (required)
+661927	 *   --reason TEXT          why (required; recorded in the commit)
+661928	 *   --base REV             HEAD must equal this (default origin/main)
+661929	 *   --branch NAME          default rollback/<G>-to-<P>
+661930	 *   --trailer TEXT         appended to the commit message (repeatable)
+661931	 *   --no-commit            leave the revert uncommitted for inspection
+661932	 *   --report FILE / --log FILE
+661933	  cleanTree, changedPaths, runGates, printGates, parityFailRows, commitWithMessage, trailerBlock
+661934	const TOOL = 'rollback-generation';
+661935	    'release-commit': {}, reason: {}, base: { default: 'origin/main' }, branch: {},
+661936	    trailer: { multi: true }, 'no-commit': { bool: true }, report: {}, log: {}
+661937	if (!args['release-commit']) die('--release-commit is required');
+661938	if (!args.reason) die('--reason is required; an unexplained pointer move is not a rollback');
+661939	const report = { tool: TOOL, root: ROOT, started_utc: new Date().toISOString() };
+661940	if (git('rev-parse', 'HEAD') !== baseSha) die(`HEAD is not ${args.base} ${baseSha}`);
+661941	ok(`clean tree, HEAD = ${args.base} = ${baseSha}`);
+661942	if (!gitOk('rev-parse', '--verify', '--quiet', `${args['release-commit']}^{commit}`)) die(`${args['release-commit']} is not a commit`);
+661943	const R = git('rev-parse', `${args['release-commit']}^{commit}`);
+661944	if (!gitOk('merge-base', '--is-ancestor', R, 'HEAD')) die(`${R} is not an ancestor of HEAD`);
+661945	const parents = git('rev-list', '--parents', '-n', '1', R).split(' ').slice(1);
+661946	if (parents.length !== 1) die(`${R} has ${parents.length} parents; revert a single release commit, not a merge`);
+661947	const touched = git('diff', '--name-only', `${R}^`, R).split('\n').filter(Boolean).sort();
+661948	if (JSON.stringify(touched) !== JSON.stringify([...POINTER_FILES].sort())) die(`${R} changed ${touched.join(', ')}; a release commit changes exactly ${POINTER_FILES.join(' and ')}`);
+661949	ok(`${R.slice(0, 7)} is a single-parent release commit touching ${touched.join(', ')}`);
+661950	const releasedPointer = gitBlob(R, 'atlas/current.json');
+661951	const restoredPointer = gitBlob(`${R}^`, 'atlas/current.json');
+661952	const restoredState = gitBlob(`${R}^`, 'STATE.md');
+661953	const G = JSON.parse(releasedPointer.toString('utf8')).generation;
+661954	const P = JSON.parse(restoredPointer.toString('utf8')).generation;
+661955	const livePointer = gitBlob('HEAD', 'atlas/current.json');
+661956	if (Buffer.compare(livePointer, releasedPointer) !== 0) die(`atlas/current.json has moved since ${R.slice(0, 7)} (live is ${JSON.parse(livePointer).generation}); reverting would not restore a known state`);
+661957	const stateUntouchedSince = Buffer.compare(gitBlob('HEAD', 'STATE.md'), gitBlob(R, 'STATE.md')) === 0;
+661958	ok(`live is ${G} exactly as ${R.slice(0, 7)} wrote it; rollback restores ${P}`);
+661959	Object.assign(report, { release_commit: R, from: G, to: P, base: baseSha,
+661960	  expected: { 'atlas/current.json': sha256(restoredPointer), 'STATE.md': sha256(restoredState) },
+661961	  before: Object.fromEntries(POINTER_FILES.map(f => [f, sha256File(f)])) });
+661962	const branch = args.branch || `rollback/${G}-to-${P}`;
+661963	step(`branch ${branch}: git revert --no-commit ${R.slice(0, 7)}`);
+661964	const revert = run('git', ['revert', '--no-commit', R], { allowFail: true });
+661965	const abort = () => { run('git', ['revert', '--abort'], { allowFail: true }); run('git', ['switch', '-q', '--detach', baseSha]); run('git', ['branch', '-D', branch], { allowFail: true }); };
+661966	if (revert.status !== 0) { abort(); die(`git revert did not apply cleanly:\n${revert.out}`); }
+661967	if (after['atlas/current.json'] !== report.expected['atlas/current.json']) { abort(); die('atlas/current.json is NOT byte-exact to the pre-release pointer'); }
+661968	ok(`atlas/current.json byte-exact to ${R.slice(0, 7)}^ (${after['atlas/current.json']})`);
+661969	const stateExact = after['STATE.md'] === report.expected['STATE.md'];
+661970	if (stateUntouchedSince && !stateExact) { abort(); die('STATE.md is NOT byte-exact to the pre-release STATE.md'); }
+661971	ok(stateExact ? `STATE.md byte-exact to ${R.slice(0, 7)}^ (${after['STATE.md']})` : 'STATE.md changed after the release for another reason; checked against the generator instead');
+661972	report.byte_exact = { 'atlas/current.json': true, 'STATE.md': stateExact };
+661973	const gates = runGates({ expectGeneration: P, parityBaseline });
+661974	if (!gates.rows.every(r => r.ok)) { abort(); console.error(`\n${TOOL}: gates FAILED; nothing kept.`); finish(1); }
+661975	  const subject = git('log', '-1', '--format=%s', R);
+661976	  const msg = `Revert "${subject}"\n\nThis reverts commit ${R}.\n\nRolls the live route back from ${G} to ${P} by reverting the release commit\n(route C): atlas/current.json and STATE.md are byte-identical to ${R.slice(0, 7)}^.\nReason: ${args.reason}${trailerBlock(args.trailer)}\n`;
+661977	  report.revert_commit = commitWithMessage(msg);
+661978	  report.revert_tree = git('rev-parse', 'HEAD^{tree}');
+661979	for (const f of POINTER_FILES) console.log(`  ${f.padEnd(20)} released ${report.before[f]}\n  ${''.padEnd(20)} restored ${after[f]}${report.byte_exact[f] ? '  (byte-exact)' : ''}`);
+661980	if (report.revert_commit) console.log(`  revert commit        ${report.revert_commit}\n  revert tree          ${report.revert_tree}`);
+661981	console.log(`\nROLLBACK READY on branch ${branch} (not pushed): live would return to ${P}.`);
+662039	     no 12-digit prefix, like rollback-composition.yml.
+662040	     28 Oct 2026: it also carries the cartridge-gate job (tools/ci/pr-gate.mjs,
+662041	     docs/CI.md). Extended rather than added because it is the only entry here
+662042	     still enabled in the repository settings, so the budget stays at nine. */
+662323	      invariant(fs.statSync(cartridgePath).size <= 500_000, `${id}: cartridge exceeds the 500 kB recorded ceiling (400 kB target; raised from 460 kB by the owner on 27 Oct 2026 and to 500 kB on 28 Oct 2026 for the lightning overlay)`);
+662397	/* Byte-for-byte check that the public GitHub Pages site serves exactly what a
+662398	   commit declares. Dependency-free (Node >= 20 fetch), no browser.
+662399	   Compared paths, all relative to the repository root:
+662400	     - atlas/current.json and atlas/index.html
+662401	     - every path in atlas/current.json that names a committed file: each
+662402	       cartridge's `path` (mandatory), plus its contract, module, manifest and
+662403	       shell references when those resolve to a committed file
+662404	     - every committed file under atlas/v/<generation>/ (preview routes)
+662405	   Pages and its CDN lag a push by minutes, so mismatches are retried with
+662406	   cache-busting queries until --timeout-s expires. Exit 0 only when every path
+662407	   matches; exit 1 with a per-path report otherwise.
+662408	   Usage:
+662409	     node tools/scope/verify-live-bytes.mjs [--root DIR] [--base URL]
+662410	          [--timeout-s 900] [--interval-s 20] [--report FILE]
+662413	function argument(name, fallback) {
+662414	  const index = process.argv.indexOf(`--${name}`);
+662415	  return index > 0 && process.argv[index + 1] !== undefined ? process.argv[index + 1] : fallback;
+662416	const ROOT = path.resolve(argument('root', path.join(path.dirname(fileURLToPath(import.meta.url)), '..', '..')));
+662417	const BASE = String(argument('base', process.env.GRIDATLAS_BASE_URL || 'https://ventusltd.github.io/gridatlas/')).replace(/\/?$/, '/');
+662418	const TIMEOUT_MS = Number(argument('timeout-s', process.env.LIVE_BYTES_TIMEOUT_S || 900)) * 1000;
+662419	const INTERVAL_MS = Number(argument('interval-s', process.env.LIVE_BYTES_INTERVAL_S || 20)) * 1000;
+662420	const REPORT = argument('report', process.env.LIVE_BYTES_REPORT || '');
+662422	/* Committed bytes, not the working tree: a CRLF checkout or a stray edit must
+662423	   not decide what "committed" means. Falls back to the file when ROOT is not a
+662424	   Git checkout (e.g. an exported tree). */
+662426	    return execFileSync('git', ['-C', ROOT, 'show', `HEAD:${relative}`], { maxBuffer: 1 << 30 });
+662428	    return fs.readFileSync(path.join(ROOT, relative));
+662429	function committedFiles(prefix) {
+662430	    return execFileSync('git', ['-C', ROOT, 'ls-tree', '-r', '--name-only', 'HEAD', '--', prefix], { encoding: 'utf8' })
+662431	      .split('\n').filter(Boolean).sort();
+662433	      if (!fs.existsSync(path.join(ROOT, dir))) return;
+662434	      for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+662435	        const child = `${dir}/${entry.name}`;
+662436	        if (entry.isDirectory()) walk(child); else if (entry.isFile()) out.push(child);
+662437	    walk(prefix.replace(/\/$/, ''));
+662438	    return out.sort();
+662439	function isCommittedFile(relative) {
+662440	    execFileSync('git', ['-C', ROOT, 'cat-file', '-e', `HEAD:${relative}`], { stdio: 'ignore' });
+662441	    return execFileSync('git', ['-C', ROOT, 'cat-file', '-t', `HEAD:${relative}`], { encoding: 'utf8' }).trim() === 'blob';
+662442	    return fs.existsSync(path.join(ROOT, relative)) && fs.statSync(path.join(ROOT, relative)).isFile();
+662443	/* Resolve a current.json reference ("./cartridges/x.js", "../ui/y.mjs")
+662444	   against atlas/ and keep it only if it stays inside the repository. */
+662445	function resolveAtlasReference(value) {
+662446	  const joined = path.posix.normalize(path.posix.join('atlas', value));
+662447	  return joined.startsWith('../') || joined.startsWith('/') ? null : joined;
+662448	function collectTargets() {
+662449	  const current = JSON.parse(committedBytes('atlas/current.json').toString('utf8'));
+662450	  const targets = new Map();
+662451	  const add = (relative, why) => { if (!targets.has(relative)) targets.set(relative, why); };
+662452	  add('atlas/current.json', 'live pointer');
+662453	  add('atlas/index.html', 'live router');
+662455	  const cartridges = Array.isArray(current.cartridges) ? current.cartridges : [];
+662456	  if (!cartridges.length) problems.push('atlas/current.json declares no cartridges');
+662457	  for (const cartridge of cartridges) {
+662458	    const relative = typeof cartridge?.path === 'string' ? resolveAtlasReference(cartridge.path) : null;
+662459	    if (!relative || !isCommittedFile(relative)) {
+662460	      problems.push(`cartridge ${cartridge?.id}: path ${cartridge?.path} is not a committed file`);
+662461	    add(relative, `cartridge ${cartridge.id}`);
+662462	    if (cartridge.sha256) {
+662463	      const actual = sha256(committedBytes(relative));
+662464	      if (actual !== cartridge.sha256) problems.push(`cartridge ${cartridge.id}: committed ${relative} sha256 ${actual} != declared ${cartridge.sha256}`);
+662465	  // Every other relative reference that names a committed file.
+662466	  const walk = (value, where) => {
+662467	    if (typeof value === 'string') {
+662468	      if (!/^\.\.?\//.test(value)) return;
+662469	      const relative = resolveAtlasReference(value);
+662470	      if (relative && isCommittedFile(relative)) add(relative, `current.json ${where}`);
+662471	    } else if (Array.isArray(value)) value.forEach((item, i) => walk(item, `${where}[${i}]`));
+662472	    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) walk(v, where ? `${where}.${k}` : k);
+662473	  walk(current, '');
+662474	  const previews = committedFiles('atlas/v/').filter(file => /^atlas\/v\/[^/]+\/.+/.test(file));
+662475	  if (!previews.length) problems.push('no committed preview files under atlas/v/');
+662476	  for (const file of previews) add(file, `preview ${file.split('/')[2]}`);
+662477	  return { current, targets, problems };
+662478	async function fetchLive(relative, attempt) {
+662479	  const url = `${BASE}${relative}?live_bytes=${Date.now()}-${attempt}`;
+662480	    const response = await fetch(url, { headers: { 'Cache-Control': 'no-cache', Pragma: 'no-cache' }, redirect: 'follow' });
+662481	    const bytes = Buffer.from(await response.arrayBuffer());
+662482	    return { status: response.status, bytes, url };
+662483	    return { status: 0, bytes: null, url, error: String(error?.message || error) };
+662485	  const startedAt = new Date().toISOString();
+662486	  const { current, targets, problems } = collectTargets();
+662487	  const expected = new Map([...targets.keys()].map(relative => {
+662488	    const bytes = committedBytes(relative);
+662489	    return [relative, { bytes: bytes.length, sha256: sha256(bytes) }];
+662490	  let commit = null;
+662491	  try { commit = execFileSync('git', ['-C', ROOT, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); } catch {}
+662493	  const pending = new Set(targets.keys());
+662494	  const deadline = Date.now() + TIMEOUT_MS;
+662495	  let attempt = 0;
+662496	  while (pending.size) {
+662497	    attempt += 1;
+662498	    for (const relative of [...pending]) {
+662499	      const live = await fetchLive(relative, attempt);
+662500	      const want = expected.get(relative);
+662501	      const got = live.bytes ? { bytes: live.bytes.length, sha256: sha256(live.bytes) } : null;
+662502	      const match = live.status === 200 && got?.sha256 === want.sha256;
+662503	      results.set(relative, { path: relative, why: targets.get(relative), http: live.status, expected: want, live: got, match, attempts: attempt, error: live.error });
+662504	      if (match) pending.delete(relative);
+662505	    console.log(`attempt ${attempt}: ${targets.size - pending.size}/${targets.size} paths match`);
+662506	    if (!pending.size || Date.now() + INTERVAL_MS > deadline) break;
+662507	    await new Promise(resolve => setTimeout(resolve, INTERVAL_MS));
+662508	  const mismatches = [...results.values()].filter(row => !row.match);
+662510	    schema: 'gridatlas.live-bytes-verification.v1',
+662511	    base_url: BASE,
+662514	    composition_version: current.composition_version ?? null,
+662515	    started_at: startedAt,
+662516	    finished_at: new Date().toISOString(),
+662517	    attempts: attempt,
+662518	    paths_checked: targets.size,
+662519	    paths_matched: targets.size - mismatches.length,
+662520	    problems,
+662521	    status: mismatches.length || problems.length ? 'FAIL' : 'PASS',
+662522	    mismatches,
+662523	    results: [...results.values()].map(({ path: p, why, http, match, expected: e, attempts }) => ({ path: p, why, http, match, bytes: e.bytes, sha256: e.sha256, attempts }))
+662524	  if (REPORT) {
+662525	    fs.mkdirSync(path.dirname(path.resolve(REPORT)), { recursive: true });
+662526	    fs.writeFileSync(REPORT, `${JSON.stringify(report, null, 2)}\n`);
+662527	    console.log(`report=${REPORT}`);
+662528	  for (const problem of problems) console.error(`::error title=live-bytes::${problem}`);
+662529	  for (const row of mismatches) {
+662530	    const live = row.live ? `${row.live.bytes} B sha256 ${row.live.sha256}` : `no body (${row.error || 'fetch failed'})`;
+662531	    console.error(`::error title=live-bytes mismatch::${row.path} (${row.why}) HTTP ${row.http}: committed ${row.expected.bytes} B sha256 ${row.expected.sha256}, live ${live}`);
+662532	  console.log(`${report.status}: ${report.paths_matched}/${report.paths_checked} live paths byte-identical to ${commit || 'working tree'} (generation ${current.generation}) at ${BASE}`);
+662533	  if (report.status !== 'PASS') process.exitCode = 1;
+662536	"""Verify the committed data before it is pushed (quick) or after it landed (deep).
+662537	    python ci/verify_data.py [--data-dir data] [--staged] [--deep]
+662538	Checks, each only when its file exists:
+662539	- feed    ``uk_lightning.geojson``: JSON FeatureCollection, a features list of
+662540	          Point features, at most ``collect.MAX_RENDER_POINTS``, metadata object;
+662541	- status  ``status.json``: a JSON object of schema ``uk-lightning-status.*``;
+662542	- archive ``history/index.json``: ``history.verify_archive`` (index rows vs shard
+662543	          bytes, sha256 and counts; integrity block) - always blocking;
+662544	- grid    ``history/grid/``: ``grid.verify_grids``. Quick mode WARNS only,
+662545	          because the archive design lets a grid failure never block the
+662546	          archive (history.py ingest); ``--deep`` recounts every day from its
+662547	          shards and FAILS on any difference.
+662548	``--staged`` limits the checks to the parts with staged changes (``git diff
+662549	--cached``), which is how ``ci/push-with-replay.sh`` runs it before each
+662550	commit (PUSH_VERIFY): a feed-only commit never waits on the archive, and a
+662551	heartbeat-only commit is never blocked by an unrelated archive problem.
+662552	Exit 0 when every blocking check passes, 1 otherwise (``::error::`` lines).
+662562	import grid  # noqa: E402
+662563	import history  # noqa: E402
+662564	MAX_RENDER_POINTS = 40000  # collect.MAX_RENDER_POINTS (collect.py is not imported: no eumdac needed)
+662565	def check_feed(path: Path) -> str:
+662567	    if not isinstance(obj, dict) or obj.get("type") != "FeatureCollection":
+662568	        raise ValueError(f"{path}: not a GeoJSON FeatureCollection")
+662569	    features = obj.get("features")
+662571	        raise ValueError(f"{path}: features is not a list")
+662572	    if len(features) > MAX_RENDER_POINTS:
+662573	        raise ValueError(f"{path}: {len(features)} features exceed the {MAX_RENDER_POINTS} display cap")
+662574	    if not isinstance(obj.get("metadata"), dict):
+662575	        raise ValueError(f"{path}: metadata object missing")
+662576	    for i, feature in enumerate(features):
+662577	        geometry = (feature or {}).get("geometry") or {}
+662578	        coords = geometry.get("coordinates")
+662579	        if geometry.get("type") != "Point" or not isinstance(coords, list) or len(coords) != 2:
+662580	            raise ValueError(f"{path}: feature {i} is not a Point")
+662581	    return f"feed ok ({len(features)} features)"
+662582	def check_status(path: Path) -> str:
+662583	    if not isinstance(obj, dict) or not str(obj.get("schema", "")).startswith("uk-lightning-status."):
+662584	        raise ValueError(f"{path}: not a uk-lightning-status object")
+662585	    return f"status ok ({obj['schema']})"
+662586	def staged_parts(data_dir: Path) -> set[str]:
+662587	    out = subprocess.run(["git", "diff", "--cached", "--name-only", "--", str(data_dir)],
+662588	                         check=True, capture_output=True, text=True).stdout.split()
+662589	    prefix = data_dir.as_posix().rstrip("/") + "/"
+662590	    parts = set()
+662591	    for name in out:
+662592	        rel = name[len(prefix):] if name.startswith(prefix) else name
+662593	        if rel == "uk_lightning.geojson":
+662594	            parts.add("feed")
+662595	        elif rel == "status.json":
+662596	            parts.add("status")
+662597	        elif rel.startswith("history/"):
+662598	            parts.add("archive")
+662602	    parser.add_argument("--data-dir", type=Path, default=Path("data"))
+662603	    parser.add_argument("--staged", action="store_true", help="Only the parts with staged git changes")
+662604	    parser.add_argument("--deep", action="store_true", help="Recount grids from shards; a grid difference fails")
+662606	    data = args.data_dir
+662607	    parts = staged_parts(data) if args.staged else {"feed", "status", "archive"}
+662608	    archive_dir = data / "history"
+662609	    failed = False
+662610	    def run(label, check, *, blocking=True):
+662611	        nonlocal failed
+662613	            print(f"verify-data: {check()}")
+662614	        except Exception as error:  # noqa: BLE001 - reported, then exit 1
+662615	            if blocking:
+662616	                failed = True
+662617	                print(f"::error::verify-data {label}: {type(error).__name__}: {error}")
+662619	                print(f"::warning::verify-data {label} (not blocking): {type(error).__name__}: {error}")
+662620	    if "feed" in parts and (data / "uk_lightning.geojson").exists():
+662621	        run("feed", lambda: check_feed(data / "uk_lightning.geojson"))
+662622	    if "status" in parts and (data / "status.json").exists():
+662623	        run("status", lambda: check_status(data / "status.json"))
+662624	    if "archive" in parts and (archive_dir / "index.json").exists():
+662625	        run("archive", lambda: "archive ok " + json.dumps(history.verify_archive(archive_dir)))
+662626	        run("grid", lambda: f"grid ok ({'deep' if args.deep else 'quick'}) "
+662627	                            + json.dumps(grid.verify_grids(archive_dir, deep=args.deep)), blocking=args.deep)
+662628	    if not parts:
+662629	        print("verify-data: no data changes staged; nothing to verify")
+662630	    return 1 if failed else 0
+662946	        shutil.copytree(ROOT / "ci", self.repo / "ci")  # finalize runs ci/verify_data.py --staged
+663062	"""ci/verify_data.py, the PUSH_VERIFY gate of ci/push-with-replay.sh and the CI wiring.
+663063	No network. The archive fixtures are written by the real history.py.
+663066	from collect import build_feature  # noqa: E402
+663068	VERIFY = [sys.executable, str(ROOT / "ci" / "verify_data.py")]
+663069	def make_data(data: Path) -> None:
+663071	    start = datetime.combine(now.date() - timedelta(days=2), time.min, tzinfo=timezone.utc)
+663072	        data / "history", [build_feature(-2.0, 52.0, start + timedelta(hours=2), "TEST-hourly", 0)], now=now,
+663073	    (data / "status.json").write_text(json.dumps({"schema": "uk-lightning-status.v1"}) + "\n")
+663074	    (data / "uk_lightning.geojson").write_text(json.dumps({
+663075	        "type": "FeatureCollection", "metadata": {},
+663076	        "features": [build_feature(-2.0, 52.0, start + timedelta(hours=2), "TEST-hourly", 0)]}) + "\n")
+663077	def corrupt_a_shard(data: Path) -> None:
+663078	    index = json.loads((data / "history" / "index.json").read_text())
+663079	    row = next(r for r in index["days"] if r.get("path"))
+663080	    shard = data / "history" / row["path"]
+663081	    shard.write_text(shard.read_text().replace("TEST-hourly", "TEST-hourlx"))
+663082	class VerifyDataTests(unittest.TestCase):
+663084	        self.data = self.base / "data"
+663085	        make_data(self.data)
+663086	    def verify(self, *args):
+663087	        return subprocess.run([*VERIFY, "--data-dir", str(self.data), *args], cwd=self.base,
+663088	    def test_good_data_passes_quick_and_deep(self):
+663089	        for args in ((), ("--deep",)):
+663090	            done = self.verify(*args)
+663091	            self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+663092	            self.assertIn("archive ok", done.stdout)
+663093	            self.assertIn("grid ok", done.stdout)
+663094	    def test_a_shard_differing_from_its_index_row_fails(self):
+663095	        corrupt_a_shard(self.data)
+663096	        done = self.verify()
+663097	        self.assertEqual(done.returncode, 1)
+663098	        self.assertIn("::error::verify-data archive", done.stdout)
+663099	    def test_a_malformed_feed_or_status_fails(self):
+663100	        (self.data / "uk_lightning.geojson").write_text('{"features": []}\n')
+663101	        self.assertIn("::error::verify-data feed", done.stdout)
+663102	        (self.data / "status.json").write_text("{not json\n")
+663103	        self.assertIn("::error::verify-data status", self.verify().stdout)
+663104	    def test_a_grid_problem_warns_in_quick_mode_and_fails_deep(self):
+663105	        # history.py ingest never lets a grid failure block the archive; the deep
+663106	        # check on main turns it red instead.
+663107	        next((self.data / "history" / "grid").glob("*.json")).unlink()
+663108	        quick = self.verify()
+663109	        self.assertEqual(quick.returncode, 0, quick.stdout)
+663110	        self.assertIn("::warning::verify-data grid", quick.stdout)
+663111	        deep = self.verify("--deep")
+663112	        self.assertEqual(deep.returncode, 1)
+663113	        self.assertIn("::error::verify-data grid", deep.stdout)
+663114	class PushVerifyTests(unittest.TestCase):
+663115	    """push-with-replay.sh runs PUSH_VERIFY on the staged paths before every commit."""
+663116	        self.env = {**os.environ, "HOME": str(base), "GIT_CONFIG_NOSYSTEM": "1", "PYTHONDONTWRITEBYTECODE": "1",
+663117	                    "PATH": f"{bin_dir}{os.pathsep}{os.environ.get('PATH', '')}",
+663118	                    "PUSH_VERIFY": "python ci/verify_data.py --staged", "PUSH_RETRY_SLEEP": "0"}
+663119	        for name in ("history.py", "grid.py", "collect.py"):
+663121	        make_data(self.repo / "data")
+663123	        self.head = self.git("rev-parse", "HEAD").strip()
+663124	    def push(self, *paths):
+663125	        return subprocess.run(["bash", "ci/push-with-replay.sh", "data: test", "true", *paths], cwd=self.repo,
+663126	                              env=self.env, capture_output=True, text=True)
+663127	    def test_an_unverified_archive_is_never_committed_or_pushed(self):
+663128	        corrupt_a_shard(self.repo / "data")
+663129	        done = self.push("data/status.json", "data/history")
+663130	        self.assertEqual(done.returncode, 1, done.stdout + done.stderr)
+663131	        self.assertIn("PUSH_VERIFY failed", done.stdout)
+663132	        self.assertEqual(self.git("rev-parse", "HEAD").strip(), self.head)
+663133	        self.assertEqual(self.git("ls-remote", "origin", "main").split()[0], self.head)
+663134	        self.assertEqual(self.git("diff", "--cached", "--name-only"), "")
+663135	    def test_a_heartbeat_commit_is_not_blocked_by_an_unstaged_archive_problem(self):
+663136	        (self.repo / "data" / "status.json").write_text(json.dumps({"schema": "uk-lightning-status.v1", "n": 2}))
+663137	        done = self.push("data/status.json")
+663139	        self.assertNotEqual(self.git("ls-remote", "origin", "main").split()[0], self.head)
+663140	    def test_a_good_archive_change_is_pushed(self):
+663141	        (self.repo / "data" / "uk_lightning.geojson").write_text(
+663142	            json.dumps({"type": "FeatureCollection", "metadata": {"n": 2}, "features": []}) + "\n")
+663143	        done = self.push("data/uk_lightning.geojson")
+663144	        self.assertIn("verify-data: feed ok", done.stdout)
+663145	def step_block(path: Path, name: str) -> str:
+663146	    """The YAML text of one step, from its '- name:' line to the next step."""
+663147	    text = path.read_text()
+663148	    start = text.index(f"- name: {name}\n")
+663149	    nxt = text.find("\n      - ", start + 1)
+663150	    return text[start:] if nxt < 0 else text[start:nxt]
+663151	class CiWiringTests(unittest.TestCase):
+663152	    QUICK = "PUSH_VERIFY: python ci/verify_data.py --staged"
+663153	    def test_every_data_commit_runs_the_quick_verify_before_pushing(self):
+663154	        hourly = WORKFLOWS / "update-lightning.yml"
+663155	        self.assertIn(self.QUICK, step_block(hourly, "Commit latest public GeoJSON (feed commit)"))
+663156	        self.assertIn(self.QUICK, step_block(hourly, "Commit archive and status (archive commit)"))
+663157	        self.assertIn(self.QUICK, step_block(WORKFLOWS / "backfill-lightning.yml",
+663158	                                             "Verify and commit backfilled dates (one commit)"))
+663159	        finalize = step_block(WORKFLOWS / "backfill-parallel-lightning.yml", "Ingest, verify and commit (one commit)")
+663160	        self.assertLess(finalize.index("python ci/verify_data.py --staged"), finalize.index("git push"))
+663161	        for path in WORKFLOWS.glob("*.yml"):  # no data push bypasses the gate
+663162	            text = path.read_text()
+663163	            if "git push" in text or "push-with-replay.sh" in text:
+663164	                self.assertIn("ci/verify_data.py --staged", text, path.name)
+663165	    def test_test_job_installs_requirements_and_the_smoke_test_cannot_skip_there(self):
+663166	        text = (WORKFLOWS / "test-lightning.yml").read_text()
+663167	        self.assertIn("deps: [requirements, bare]", text)
+663168	        self.assertIn("run: pip install -r requirements.txt", text)
+663169	        self.assertIn("LIGHTNING_SMOKE_REQUIRE_DEPS: ${{ matrix.deps == 'requirements' && '1' || '0' }}", text)
+663170	        self.assertIn("pyflakes", text)
+663171	        for watched in ("requirements.txt", ".github/workflows/verify-lightning-data.yml"):
+663172	            self.assertEqual(text.count(f'- "{watched}"'), 2, watched)  # push and pull_request
+663173	    def test_deep_verify_runs_after_every_data_writer_and_human_data_push(self):
+663174	        text = (WORKFLOWS / "verify-lightning-data.yml").read_text()
+663175	        self.assertIn("python grid.py verify --deep --archive-dir data/history", text)
+663176	        self.assertIn("python history.py verify --archive-dir data/history", text)
+663177	        self.assertRegex(text, r'push:\n    branches: \[main\]\n    paths:\n      - "data/\*\*"')
+663178	        # workflow_run matches by workflow NAME: a renamed writer would silently
+663179	        # stop being verified, so the names must be the writers' real names.
+663180	        listed = re.findall(r'^      - "([^"]+)"$', text.split("workflow_run:", 1)[1].split("types:", 1)[0], re.M)
+663181	        writers = sorted(re.search(r"^name: (.+)$", p.read_text(), re.M).group(1)
+663182	                         for p in WORKFLOWS.glob("*.yml")
+663183	                         if "git push" in p.read_text() or "push-with-replay.sh" in p.read_text())
+663184	        self.assertEqual(sorted(listed), writers)
+663185	        group = re.search(r"concurrency:\n  group: (\S+)", text).group(1)
+663186	        self.assertNotIn(group, ("uk-lightning-update", "uk-lightning-backfill"))
+663187	"""Smoke test: the REAL entry points on their DEFAULT code paths, faked only at the network.
+663188	Every other test injects its collaborators (``sleep=``, ``rng=``, ``downloader=``,
+663189	``body_decoder=``, stub modules). That is how a ``NameError`` in a default
+663190	argument path (``rng or random.random`` without ``import random``, PR #15,
+663191	backfill run 40699133665) passed CI and reached the production backfill.
+663192	Here nothing is injected. ``collect.py``, ``history.py``, ``grid.py`` and
+663193	``status.py`` run as subprocesses, exactly as the workflows run them. The only
+663194	fake is a stand-in ``eumdac`` package placed first on ``PYTHONPATH`` (the
+663195	EUMETSAT Data Store is the network boundary): it lists product ZIPs from a
+663196	local folder and raises ``ReadTimeout`` on the first search and the first
+663197	product open, so the default retry, backoff (``random``) and sleep paths
+663198	really run (about 2-3 s each).
+663199	``requests``, ``netCDF4`` and ``numpy`` are the real packages when installed.
+663200	With ``LIGHTNING_SMOKE_REQUIRE_DEPS=1`` (the CI "with requirements" leg)
+663201	missing packages fail instead of skip, so the full pipeline can never be
+663202	skipped silently there. Without the requirements (the "bare" leg) the
+663203	search, retry and download defaults still run up to the NetCDF decode.
+663209	REQUIRE_DEPS = os.environ.get("LIGHTNING_SMOKE_REQUIRE_DEPS") == "1"
+663210	DEPS = ("requests", "netCDF4", "numpy")
+663211	MISSING = [name for name in DEPS if importlib.util.find_spec(name) is None]
+663212	# The network boundary only. Mirrors the eumdac surface collect.py uses:
+663213	# AccessToken, DataStore.get_collection(id).search(dtstart=, dtend=) with
+663214	# total_results, str(product), product.open() as a stream, product.datastore.token.
+663215	FAKE_EUMDAC = r'''
+663216	"""FAKE eumdac (tests only): serves product ZIPs from $FAKE_EUMDAC_PRODUCTS."""
+663218	_SLOT = re.compile(r"_OPE_(\d{14})_(\d{14})_")
+663219	_FAILS = {"search": int(os.environ.get("FAKE_EUMDAC_SEARCH_TIMEOUTS", "0")),
+663220	          "open": int(os.environ.get("FAKE_EUMDAC_OPEN_TIMEOUTS", "0"))}
+663221	CALLS = []
+663222	class ReadTimeout(Exception):  # classified as transient by class name, like requests'
+663224	def _maybe_fail(kind):
+663225	    CALLS.append(kind)
+663226	    if _FAILS[kind] > 0:
+663227	        _FAILS[kind] -= 1
+663228	        raise ReadTimeout(f"HTTPSConnectionPool(host='api.eumetsat.int', port=443): Read timed out. (fake {kind})")
+663229	class AccessToken:
+663230	    def __init__(self, credentials):
+663231	        key, secret = credentials
+663232	        assert key and secret
+663233	        self.credentials = credentials
+663234	    def _update_token_data(self):
+663236	class _Stream:
+663237	    def __init__(self, path):
+663238	        self.path = path
+663243	    def read(self):
+663244	        return self.path.read_bytes()
+663245	class _Product:
+663246	    def __init__(self, path, datastore):
+663247	        self.path, self.datastore = path, datastore
+663249	        return self.path.name
+663251	        _maybe_fail("open")
+663252	        return _Stream(self.path)
+663253	class _Results:
+663254	    def __init__(self, products):
+663255	        self.products = products
+663256	        self.total_results = len(products)
+663258	        return iter(self.products)
+663259	class _Collection:
+663260	    def __init__(self, datastore, collection_id):
+663261	        self.datastore, self.collection_id = datastore, collection_id
+663262	    def search(self, dtstart, dtend):
+663263	        _maybe_fail("search")
+663264	        assert dtstart.tzinfo is None and dtend.tzinfo is None  # collect.py passes naive UTC
+663265	        found = []
+663266	        for path in sorted(Path(os.environ["FAKE_EUMDAC_PRODUCTS"]).iterdir()):
+663267	            m = _SLOT.search(path.name)
+663268	            start, end = (datetime.strptime(x, "%Y%m%d%H%M%S") for x in m.groups())
+663269	            if start < dtend and end > dtstart:
+663270	                found.append(_Product(path, self.datastore))
+663271	        return _Results(found)
+663272	class DataStore:
+663273	    def __init__(self, token):
+663275	    def get_collection(self, collection_id):
+663276	        assert collection_id == "EO:EUM:DAT:0691"
+663277	        return _Collection(self, collection_id)
+663279	def product_name(start: datetime) -> str:
+663280	    stop = start + timedelta(minutes=10)
+663281	            f"{stop:%Y%m%d%H%M%S}_L2PF_OPE_{start:%Y%m%d%H%M%S}_{stop:%Y%m%d%H%M%S}_N__O_0001_0000")
+663282	def slot_floor(value: datetime) -> datetime:
+663283	    return value.replace(minute=value.minute - value.minute % 10, second=0, microsecond=0)
+663284	def body_netcdf(flashes) -> bytes:
+663285	    """A real LFL-like BODY NetCDF (longitude, latitude, flash_time) written with netCDF4."""
+663286	    from netCDF4 import Dataset
+663288	        path = Path(tmp) / "BODY.nc"
+663289	        with Dataset(path, "w") as ds:
+663290	            ds.createDimension("flashes", len(flashes))
+663291	            lon = ds.createVariable("longitude", "f4", ("flashes",))
+663292	            lat = ds.createVariable("latitude", "f4", ("flashes",))
+663293	            t = ds.createVariable("flash_time", "f8", ("flashes",))
+663294	            t.units = "seconds since 2000-01-01 00:00:00"
+663295	            t.calendar = "standard"
+663296	            epoch = datetime(2000, 1, 1, tzinfo=timezone.utc)
+663297	            lon[:] = [f[0] for f in flashes]
+663298	            lat[:] = [f[1] for f in flashes]
+663299	            t[:] = [(f[2] - epoch).total_seconds() for f in flashes]
+663300	        return path.read_bytes()
+663301	def product_zip(name: str, body: bytes) -> bytes:
+663303	    with zipfile.ZipFile(buf, "w") as archive:
+663304	        archive.writestr(f"{name}/{name}_BODY.nc", body)
+663305	        archive.writestr(f"{name}/EOPMetadata.xml", "<fake/>")
+663307	class SmokeBase(unittest.TestCase):
+663308	        fake = self.base / "fakes" / "eumdac"
+663309	        fake.mkdir(parents=True)
+663310	        (fake / "__init__.py").write_text(FAKE_EUMDAC)
+663311	        self.products = self.base / "products"
+663312	        self.products.mkdir()
+663313	        self.data.mkdir()
+663314	        self.env = {**os.environ, "PYTHONPATH": str(self.base / "fakes"), "PYTHONDONTWRITEBYTECODE": "1",
+663315	                    "EUMETSAT_CONSUMER_KEY": "fake-key", "EUMETSAT_CONSUMER_SECRET": "fake-secret",
+663316	                    "FAKE_EUMDAC_PRODUCTS": str(self.products)}
+663318	    def run_py(self, *args, extra_env=None, check=True):
+663319	        done = subprocess.run([sys.executable, *map(str, args)], cwd=self.base, capture_output=True, text=True,
+663320	                              env={**self.env, **(extra_env or {})}, timeout=180)
+663321	        if check:
+663322	            self.assertEqual(done.returncode, 0, f"{args}\nSTDOUT:\n{done.stdout}\nSTDERR:\n{done.stderr}")
+663324	    def assert_no_crash_of_our_own(self, done):
+663325	        for marker in ("NameError", "UnboundLocalError", "AttributeError: module", "ImportError: cannot import"):
+663326	            self.assertNotIn(marker, done.stderr, done.stderr)
+663327	class ImportSmokeTests(unittest.TestCase):
+663328	    def test_every_module_imports_in_a_fresh_interpreter(self):
+663329	        for name in ("collect", "history", "grid", "status", "backfill_parallel"):
+663330	            done = subprocess.run([sys.executable, "-c", f"import {name}"], cwd=ROOT, capture_output=True, text=True)
+663331	            self.assertEqual(done.returncode, 0, f"import {name}: {done.stderr}")
+663332	    def test_every_cli_answers_help(self):
+663333	        for script in ("collect.py", "history.py", "grid.py", "status.py", "backfill_parallel.py"):
+663334	            done = subprocess.run([sys.executable, str(ROOT / script), "--help"], cwd=ROOT,
+663335	                                  capture_output=True, text=True)
+663336	            self.assertEqual(done.returncode, 0, f"{script} --help: {done.stderr}")
+663337	class DefaultSearchAndDownloadSmokeTests(SmokeBase):
+663338	    """Runs with or without the requirements: the decode is never reached."""
+663339	    def test_rebuild_day_runs_default_search_retry_and_download_paths(self):
+663340	        day = (self.now - timedelta(days=3)).date()
+663341	        start = datetime.combine(day, datetime.min.time(), tzinfo=timezone.utc) + timedelta(hours=12)
+663342	        # Not a ZIP: decode fails with ValueError (no netCDF4 needed), every slot is
+663343	        # unparsed and collect.py stops with TooManyUnparsed AFTER the defaults ran.
+663344	        (self.products / product_name(start)).write_bytes(b"not a zip")
+663345	        record = self.base / "rb.json"
+663346	        done = self.run_py(ROOT / "collect.py", "--rebuild-day", day.isoformat(), "--run-record", record,
+663347	                           extra_env={"FAKE_EUMDAC_SEARCH_TIMEOUTS": "1", "FAKE_EUMDAC_OPEN_TIMEOUTS": "1"},
+663348	                           check=False)
+663349	        self.assert_no_crash_of_our_own(done)
+663350	        self.assertIn("RETRY search after attempt 1", done.stderr)
+663351	        self.assertIn("RETRY product", done.stderr)
+663353	        failure = json.loads(record.read_text())
+663354	        self.assertEqual(failure["outcome"], "failure")
+663355	        self.assertTrue(failure["error"].startswith("TooManyUnparsed"), failure["error"])
+663356	        self.assertEqual(failure["download_retries"]["retries"], 1)
+663357	class FullPipelineSmokeTests(SmokeBase):
+663358	    """collect -> history ingest -> verify -> grid verify --deep -> status, and a rebuild-day backfill."""
+663359	        if MISSING:
+663360	            if REQUIRE_DEPS:
+663361	                self.fail(f"LIGHTNING_SMOKE_REQUIRE_DEPS=1 but {MISSING} not installed (pip install -r requirements.txt)")
+663362	            self.skipTest(f"requirements not installed: {MISSING}")
+663363	        super().setUp()
+663364	    def add_product(self, start: datetime, flashes):
+663365	        name = product_name(start)
+663366	        (self.products / name).write_bytes(product_zip(name, body_netcdf(flashes)))
+663367	        return name
+663368	    def test_hourly_and_backfill_paths_end_to_end(self):
+663369	        # Hourly: three readable 10-minute products inside a 6 h window.
+663370	        slot = slot_floor(self.now - timedelta(hours=2))
+663371	        for i in range(3):
+663372	            s = slot + timedelta(minutes=10 * i)
+663373	            self.add_product(s, [(-2.0 + i * 0.1, 52.0, s + timedelta(minutes=3)),
+663374	                                 (20.0, 10.0, s + timedelta(minutes=4))])  # outside the UK view: dropped
+663375	        feed, status, history_dir = self.data / "uk_lightning.geojson", self.data / "status.json", self.data / "history"
+663376	        run = self.base / "run.json"
+663377	        done = self.run_py(ROOT / "collect.py", "--hours", "6", "--out", feed, "--status", status,
+663378	                           "--history-dir", history_dir, "--run-record", run,
+663379	                           extra_env={"FAKE_EUMDAC_SEARCH_TIMEOUTS": "1", "FAKE_EUMDAC_OPEN_TIMEOUTS": "1"})
+663380	        self.assertEqual(len(json.loads(feed.read_text())["features"]), 3)
+663381	        record = json.loads(run.read_text())
+663382	        self.assertEqual((record["outcome"], record["download_retries"]["retries"]), ("success", 1))
+663383	        result = self.base / "archive-result.json"
+663384	        self.run_py(ROOT / "history.py", "ingest", "--archive-dir", history_dir, "--run-record", run,
+663385	                    "--seed-scan-windows", self.base / "no-seed.json", "--result-out", result)
+663386	        self.run_py(ROOT / "history.py", "verify", "--archive-dir", history_dir)
+663387	        self.run_py(ROOT / "grid.py", "verify", "--deep", "--archive-dir", history_dir)
+663388	        self.run_py(ROOT / "status.py", "write", "--status", status, "--run-record", run, "--archive-result", result,
+663389	                    "--collect-outcome", "success", "--archive-outcome", "success", "--trigger", "schedule")
+663390	        self.assertEqual(json.loads(status.read_text())["last_attempt_outcome"], "success")
+663391	        # Backfill: a whole-day rebuild of a never-searched date, then its ingest.
+663392	        noon = datetime.combine(day, datetime.min.time(), tzinfo=timezone.utc) + timedelta(hours=12)
+663393	            s = noon + timedelta(minutes=10 * i)
+663394	            self.add_product(s, [(-1.0, 53.0, s + timedelta(minutes=5))])
+663395	        rb = self.base / "rb.json"
+663396	        done = self.run_py(ROOT / "collect.py", "--rebuild-day", day.isoformat(), "--run-record", rb)
+663397	        self.run_py(ROOT / "history.py", "backfill", "--archive-dir", history_dir, "--day", day.isoformat(),
+663398	                    "--rebuild-record", rb)
+663399	        rows = {r["date"]: r for r in json.loads((history_dir / "index.json").read_text())["days"]}
+663400	        self.assertEqual(rows[day.isoformat()]["count"], 3)
+663401	        # The same checks the data workflows run before every push.
+663402	        self.run_py(ROOT / "ci" / "verify_data.py", "--data-dir", self.data, "--deep")
 ```
