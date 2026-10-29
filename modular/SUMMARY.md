@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-10-29 00:21 UTC by GitHub Actions. It reads the current code of 89 Ventusltd repositories.
+Updated 2026-10-29 06:24 UTC by GitHub Actions. It reads the current code of 89 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,11 +8,11 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 392,765 |
-| File versions | 7,630 |
-| Elements (functions and classes) | 27,997 |
-| Families (same logic) | 26,815 |
-| Families written in two or more different files (duplicate work) | 6,871 |
+| Unique lines | 399,689 |
+| File versions | 7,733 |
+| Elements (functions and classes) | 28,467 |
+| Families (same logic) | 27,276 |
+| Families written in two or more different files (duplicate work) | 6,929 |
 | Families only copied between versions of one file | 2,254 |
 | Self-contained functions compiled into the library | 728 |
 
@@ -26,12 +26,12 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 45 | 488 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
+| #1586 | `invariant` | 46 | 496 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
 | #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
-| #975 | `sha256` | 67 | 94 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
-| #8285 | `sha256Hex` | 31 | 334 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
+| #975 | `sha256` | 67 | 98 | 5 | no | 2026-08-22 | [data-grid-gb/chatgpt/ingest_etys.py](https://github.com/Ventusltd/data-grid-gb/blob/5181de3423e4fe50c77c568b9f3066c61a1d9e41/chatgpt/ingest_etys.py#L43-L48) |
+| #8285 | `sha256Hex` | 32 | 342 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
 | #5168 | `escapeHTML` | 24 | 196 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
 | #5609 | `(anonymous)` | 20 | 192 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
 | #8328 | `(anonymous)` | 15 | 87 | 5 | no | 2026-08-30 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L776-L786) |
@@ -64,30 +64,30 @@ These names mean different things in different repositories, so check which vers
 | Name | Different versions | Repositories |
 |---|---|---|
 | `build` | 104 | 20 |
+| `check` | 58 | 19 |
 | `load` | 48 | 19 |
-| `check` | 54 | 18 |
 | `draw` | 114 | 16 |
-| `__init__` | 34 | 16 |
+| `__init__` | 36 | 16 |
 | `require` | 18 | 15 |
-| `classify` | 18 | 14 |
+| `classify` | 19 | 14 |
 | `verify` | 14 | 14 |
+| `fetch` | 19 | 13 |
 | `normalise` | 10 | 13 |
-| `setUp` | 40 | 12 |
+| `setUp` | 41 | 12 |
 | `validate` | 24 | 12 |
 | `walk` | 24 | 12 |
 | `step` | 42 | 11 |
 | `refresh` | 38 | 11 |
 | `measure` | 22 | 11 |
 | `write_json` | 18 | 11 |
-| `fetch` | 15 | 11 |
 | `close` | 24 | 10 |
-| `record` | 20 | 10 |
+| `record` | 21 | 10 |
 | `start` | 74 | 9 |
+| `place` | 53 | 9 |
+| `apply` | 52 | 9 |
 | `frame` | 44 | 9 |
 | `inspect` | 21 | 9 |
-| `sha256` | 19 | 9 |
-| `write` | 19 | 9 |
-| `describe` | 18 | 9 |
+| `sha256` | 20 | 9 |
 
 ## How to check for earlier work before writing code
 

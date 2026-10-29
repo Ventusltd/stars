@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-392,765 unique lines, numbered 1 to 663,402. Generated 2026-10-29T00:23:25.632Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+399,689 unique lines, numbered 1 to 681,127. Generated 2026-10-29T06:26:29.279Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -392768,4 +392768,6928 @@
 663400	        self.assertEqual(rows[day.isoformat()]["count"], 3)
 663401	        # The same checks the data workflows run before every push.
 663402	        self.run_py(ROOT / "ci" / "verify_data.py", "--data-dir", self.data, "--deep")
+663412	// for the page and, when storage allows, in this browser for 30 days (localStorage "pc:<POSTCODE>" = {t, v}). Older
+663413	// entries, and entries without a timestamp written by builds before 202610290235 on this origin, are deleted when this
+663414	// module loads. Typing "forget postcodes" (or "clear postcodes") in the find box deletes them all now. We land on the published grid reference (eastings,
+663431	  const FORGET = /^(?:forget|clear)\s+(?:postcodes?|addresses)$/i;
+663442	    if (FORGET.test(t)) return { kind: 'forget' };
+663465	  // The browser copy is a list of places this person looked up, so it is bounded: 30 days, then gone; and clearable.
+663467	  const PREFIX = 'pc:', KEEP_MS = 30 * 24 * 3600 * 1000;
+663469	    get(k) {
+663470	        const raw = localStorage.getItem(PREFIX + k); if (raw === null) return null;
+663471	        const o = JSON.parse(raw), now = Date.now();
+663472	        // untimed (pre-202610290235), expired, or stamped in the future: delete rather than trust
+663473	        if (!o || typeof o.t !== 'number' || !o.v || now - o.t > KEEP_MS || o.t > now + 60000) { localStorage.removeItem(PREFIX + k); return null; }
+663474	        return o.v;
+663475	      } catch (e) { try { localStorage.removeItem(PREFIX + k); } catch (x) { /* no storage */ } return null; }
+663477	    set(k, v) { try { localStorage.setItem(PREFIX + k, JSON.stringify({ t: Date.now(), v })); } catch (e) { /* no storage: page cache only */ } },
+663478	    keys() {
+663480	      try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k && k.startsWith(PREFIX)) out.push(k); } } catch (e) { /* no storage */ }
+663482	    sweep() { for (const k of store.keys()) store.get(k.slice(PREFIX.length)); },
+663483	    forget() {
+663484	      const keys = store.keys();
+663485	      for (const k of keys) { try { localStorage.removeItem(k); } catch (e) { /* no storage */ } }
+663486	      cache.clear();
+663487	      return keys.length;
+663489	  store.sweep();
+663527	    if (a.kind === 'forget') {
+663528	      const n = store.forget();
+663529	      S.info(`Forgot ${n} saved postcode lookup${n === 1 ? '' : 's'} in this browser.`);
+663530	      return n ? `Forgot ${n} saved postcode lookup${n === 1 ? '' : 's'}.` : 'No saved postcode lookups in this browser.';
+663545	      + ` · ${gap.toFixed(1)} m from the lat/lon postcodes.io publishes · a centroid, not a building. ${CREDIT_PC}`
+663546	      + ' Lookup kept in this browser for 30 days; type "forget postcodes" to clear.', 17);
+663562	    S.addresses = { go: t => go(S, t), classify: t => ready.then(() => classify(t)), gridToLatLon: (e, n) => ready.then(() => gridToLatLon(e, n)), last: () => last,
+663563	      forgetPostcodes: () => store.forget() };
+663568	<li><a href="202610290235/overlay.html">202610290235</a>: Candidate (latest/ still opens 202609282123). Postcode lookups saved in this browser now expire after 30 days, older saved lookups are deleted on load, and typing "forget postcodes" in the find box clears them</li>
+663647	<details id="gridatlas"><summary><span class="number">03</span><span class="title">GridAtlas<small>Explore the electricity network</small></span></summary><div class="inside"><p>Find sites, explore network layers and inspect the connections around them. Now with an optional UK lightning overlay (observed optical flashes, 12-month history) linked to nearest substations.</p><a class="launch" href="https://ventusltd.github.io/gridatlas/atlas/">Open GridAtlas &rarr;</a></div></details>
+663648	<tr data-entity-id="gridatlas"><th scope="row"><a href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas</a><small class="entity-key">gridatlas</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore electricity-network sites, layers and connections.</p><p>For: network researchers, project developers</p></details></td><td>Explore the electricity network</td><td><details class="table-versions"><summary>V9.172 - 28 October 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.156 - 24 September 2026</a><small class="entity-key">202609241334</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.172 - 28 October 2026</a><small class="entity-key">202610281340</small></div></details></td></tr>
+663652	  <title>GlobalGrid2050 | UK Renewables Pipeline 202610290230</title>
+663666	  <!-- Chart.js is pinned to one exact file and checked by Subresource Integrity.
+663667	       Until V9.11 this was https://cdn.jsdelivr.net/npm/chart.js, which resolves
+663668	       to whatever npm calls latest, so a dated release ran code that could change
+663669	       without any commit here. 4.5.1 is what that URL served while every V9.x
+663670	       page was built and tested (npm latest from 13 October 2025 to 22 October
+663671	       2026, when 4.6.1 replaced it).
+663672	       The hash is SHA-384 of dist/chart.umd.min.js in the npm tarball (registry
+663673	       integrity sha512-GIjfiT9d...E8/Pw==). If the CDN ever serves other bytes,
+663674	       the browser refuses the script and the gauges stay empty; the table, news
+663675	       and MAP links do not depend on it. -->
+663676	  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+663680	      <small>UK RENEWABLES PIPELINE · V9.11</small>
+663683	      <a class="active" href="#">V9.11 CANDIDATE</a>
+663684	      <a href="../202609082224/">V9.10 202609082224</a>
+663721	      <h1>UK RENEWABLES PIPELINE 202610290230</h1>
+663724	      <strong>V9.11 · CHART LIBRARY PINNED AND INTEGRITY-CHECKED · CANDIDATE · 29 October 2026</strong>
+663818	/* check_v9_11.mjs - the V9.10 proofs, unchanged, plus the V9.11 change: the
+663819	 * chart library is one exact file checked by Subresource Integrity.
+663820	 * Derived from check_v9_10.mjs; the interconnector and REPD-spine proofs are
+663821	 * that file's, the parent is now 202609082224, and the identity assertions at
+663822	 * the end move to V9.11.
+663824	 * Run: node tests/check_v9_11.mjs
+663833	const PARENT = join(RELEASE, "..", "202609082224");
+663933	assert.match(html, /UK RENEWABLES PIPELINE 202610290230/);
+663934	assert.match(html, /V9\.11 CANDIDATE/);
+663935	assert.doesNotMatch(html, /UK RENEWABLES PIPELINE 202609082224|app-v9-9\.js|app-v9-7\.js/);
+663936	// 4. V9.11: every external script is pinned to an exact version and carries SRI
+663938	const CHART_SRI = "sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ";
+663939	const scripts = [...html.matchAll(/<script\b[^>]*\bsrc="([^"]+)"[^>]*>/g)];
+663940	const external = scripts.filter((m) => /^(https?:)?\/\//.test(m[1]));
+663941	assert.equal(external.length, 1, "exactly one external script (Chart.js)");
+663942	const [tag, src] = external[0];
+663943	assert.equal(src, CHART_URL, "Chart.js is the exact pinned file");
+663944	assert.match(tag, new RegExp(`integrity="${CHART_SRI.replace(/[+/]/g, "\\$&")}"`), "Chart.js carries the pinned SRI hash");
+663945	assert.match(tag, /crossorigin="anonymous"/, "SRI on a cross-origin script needs CORS mode");
+663946	// Optional: prove the hash from the npm bytes. CHARTJS_PKG_DIR is the
+663947	// "package" directory of the extracted tarball (npm pack chart.js@4.5.1).
+663948	if (process.env.CHARTJS_PKG_DIR) {
+663949	  const bytes = await readFile(join(process.env.CHARTJS_PKG_DIR, "dist", "chart.umd.min.js"));
+663950	  const digest = "sha384-" + createHash("sha384").update(bytes).digest("base64");
+663951	  assert.equal(digest, CHART_SRI, "SRI hash is the SHA-384 of the npm file");
+663952	  console.log("check_v9_11: Chart.js SRI recomputed from the npm bytes");
+663953	console.log(`check_v9_11: ${partition.records.length} interconnectors (${manifest.operational} operational, ${manifest.future} future), `
+663954	  + `${linked} MAP links built, ${unlinked} honest NO MAP; REPD spine 7,680 untouched; Chart.js pinned with SRI`);
+663958	<footer><p><strong>Disclaimer:</strong> Content provided for general technical documentation and research purposes only.</p><p>Funded by VENTUS LTD. Built through open collaboration.</p>
+663959	<details id="privacy" class="privacy-notice"><summary>Privacy</summary><div class="privacy-body"><p>Updated 29 October 2026. This statement covers:</p><ul><li>GridAtlas (<code>ventusltd.github.io/gridatlas/</code>);</li><li>the www.globalgrid2050.com homepage;</li><li>Pipeline News;</li><li>the Energy Transition Simulator (Solar Design Studio).</li></ul><p>Other pages on globalgrid2050.com have not been checked yet, and this statement does not describe them.</p><h3>In short</h3><p><strong>We do not track you.</strong> There are:</p><ul><li>no analytics, tracking pixels or tag managers;</li><li>no advertising;</li><li>no cookies of our own;</li><li>no accounts, sign-ups or forms that send anything to us.</li></ul><p>We do not run a server. Every page is a static file served by <strong>GitHub Pages</strong>.</p><p><strong>Some things are still recorded.</strong></p><ul><li><strong>GitHub, our host, logs your IP address</strong> when you load a page, for security purposes. It does this on every GitHub Pages site, and we cannot switch it off. We do not see these logs.</li><li><strong>The pages load maps, code and data from the other services listed below.</strong> Each of those services receives the same basic request data. Each one handles it under its own privacy policy.</li></ul><h3>What every request carries</h3><p>A browser request to any service carries:</p><ul><li>your IP address;</li><li>your browser's user-agent;</li><li>the address of the file requested.</li></ul><p>It usually also carries the site you came from. That is normally just the origin, such as <code>https://ventusltd.github.io</code>, not the full page address.</p><p>For map tiles, the file address shows the area you are looking at. For searches, it includes the text you searched for.</p><h3>GridAtlas</h3><p><strong>On every visit</strong>, GridAtlas contacts:</p><ul><li><strong>GitHub</strong> (<code>ventusltd.github.io</code>, <code>raw.githubusercontent.com</code>), for the app and its data;</li><li><strong>jsDelivr</strong> (<code>cdn.jsdelivr.net</code>), for the MapLibre map library and the DuckDB database engine;</li><li><strong>DuckDB</strong> (<code>extensions.duckdb.org</code>), for the database engine's Parquet reader;</li><li><strong>CARTO</strong> (<code>basemaps.cartocdn.com</code>), for the dark basemap. Its map tiles show the area on screen.</li></ul><p><strong>Only when you use a feature:</strong></p><ul><li><strong>Search</strong> sends the text you type to <strong>postcodes.io</strong> (<code>api.postcodes.io</code>) as you type. When you press Enter or the search button, it also sends that text to the OpenStreetMap Foundation's <strong>Nominatim</strong> (<code>nominatim.openstreetmap.org</code>). Nominatim is not used when the text is a UK postcode.</li><li><strong>Satellite</strong> loads imagery tiles from <strong>Esri</strong> (<code>server.arcgisonline.com</code>).</li><li><strong>Lightning</strong> loads the lightning feed and history from <strong>GitHub</strong> (<code>raw.githubusercontent.com</code>).</li><li><strong>News and image links</strong> open Google in a new tab, with the project name in the search. Other links open GitHub, OpenStreetMap, Open Charge Map, or other GlobalGrid2050 pages.</li></ul><p><strong>On your device:</strong></p><ul><li>GridAtlas stores one setting, <code>gridatlas.dash.collapsed</code>, which records whether the layers panel is hidden.</li><li>It sets no cookies, and it does not use session storage, IndexedDB or a service worker.</li><li><strong>Files you download</strong> (CSV, PNG, PDF and "print source code") are made in your browser and are not sent anywhere. The source-code text file includes the page address and your browser's user-agent, so check it before you share it.</li></ul><h3>www.globalgrid2050.com homepage</h3><p>The homepage loads only files from globalgrid2050.com. It contacts no other service until you follow a link, and it stores nothing on your device.</p><h3>Pipeline News</h3><p><strong>On every visit</strong>, Pipeline News contacts:</p><ul><li><strong>jsDelivr</strong>, for the Chart.js charting library;</li><li><strong>GitHub</strong> (<code>raw.githubusercontent.com</code>, <code>ventusltd.github.io</code>), for the news file and the map-link contract.</li></ul><p><strong>Only when you click:</strong></p><ul><li><strong>NEWS</strong> opens a Google News search for the project name.</li><li>Headlines open the publisher's site.</li><li><strong>MAP</strong> opens GridAtlas.</li></ul><p>Pipeline News stores nothing on your device.</p><h3>Energy Transition Simulator</h3><p><strong>On every visit</strong>, the simulator contacts:</p><ul><li><strong>jsDelivr</strong>, for MapLibre;</li><li><strong>Esri</strong> (<code>server.arcgisonline.com</code>), for satellite imagery;</li><li><strong>Amazon Web Services</strong> (<code>s3.amazonaws.com</code>), for terrain;</li><li><strong>GitHub</strong> (<code>ventusltd.github.io</code>), for GridAtlas grid data.</li></ul><p>Imagery and terrain requests show the area on screen.</p><p><strong>Depending on what you do:</strong></p><ul><li><strong>Arriving at a place</strong> (Find/Go, Walk, Drone, Build here or Stream ground) asks the <strong>Environment Agency</strong> (<code>environment.data.gov.uk</code>) for LiDAR heights covering a 2 km square around that place.</li><li><strong>A postcode you type</strong> is sent to <strong>postcodes.io</strong>.</li><li><strong>Assess land</strong> sends a 2 km box to <strong>Esri ArcGIS Online</strong>, for the Natural England land-grade and Environment Agency flood layers.</li><li><strong>Rows</strong> sends the visible map area to the OpenStreetMap <strong>Overpass API</strong> (<code>overpass-api.de</code>).</li><li><strong>Connect here</strong>, with road routing, sends the site and substation coordinates to the public <strong>OSRM</strong> demonstration router (<code>router.project-osrm.org</code>).</li><li><strong>Dark</strong> loads the basemap from <strong>CARTO</strong>.</li></ul><p><strong>On your device</strong>, the simulator uses local storage for two things:</p><ul><li><strong>Postcode lookups</strong> (<code>pc:&lt;POSTCODE&gt;</code>) are saved so that postcodes.io is not asked twice. In the current version they stay until you clear site data for globalgrid2050.com. A candidate version keeps them for 30 days and adds a "forget postcodes" command.</li><li><strong><code>lidarStream.day</code></strong> holds today's date and a count, so the simulator can cap its daily LiDAR requests.</li></ul><h3>Links you share</h3><p>Addresses can contain a place or a project. Examples are the simulator's <code>?lat=…&amp;lon=…</code> and the GridAtlas deep links. Anyone you send such a link to can see that place.</p><h3>Clearing what is stored</h3><p>Clear site data for <code>globalgrid2050.com</code> or <code>ventusltd.github.io</code> in your browser's settings.</p><h3>Services and their policies</h3><ul><li>GitHub Pages, including what it logs: https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection</li><li>GitHub General Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement</li><li>The other services are jsDelivr, CARTO, Esri, Amazon Web Services, DuckDB, postcodes.io, OpenStreetMap Foundation (Nominatim), FOSSGIS (Overpass), the OSRM project, the Environment Agency, and Google, for links only. Each publishes its own privacy policy.</li></ul><h3>How this was checked, and its limits</h3><p>This statement comes from reading the code of the following versions:</p><ul><li>GridAtlas live generation 202610281340;</li><li>GridAtlas preview generations 202610290045 and 202610290050;</li><li>homepage owner bundle cb741ca;</li><li>Pipeline News 202609082224;</li><li>Energy Transition Simulator 202609282123.</li></ul><p>Most of it is a static reading of that code. Only the GridAtlas requests listed for every visit were also seen in an earlier browser network log. Behaviour inside the third-party libraries was checked by searching their published npm packages. It was not observed in those services.</p><p>The audit evidence and the full host-by-host inventory, with file and line references, are kept with the release hardening records. Update this statement whenever a release adds a service or a stored item.</p></div></details></footer>
+663960	"""One-command GridAtlas homepage release, plus the domain pin for globalgrid2050.
+663962	    python scripts/release_gridatlas.py release 202610281340 v9.172 \
+663963	        --published-at 2026-10-28T18:53:00Z \
+663964	        --description "Find sites ... Now with ..."      # optional
+663965	    python scripts/release_gridatlas.py pin [COMMIT]     # after the release PR merges
+663966	`release` reads the live GridAtlas pointer (atlas/current.json on gridatlas main)
+663967	and refuses unless its generation and composition_version match the arguments,
+663968	so the homepage can only advertise what the canonical route already serves. It
+663969	then appends one available release (label "V9.172 - 28 October 2026"), promotes
+663970	it with scripts/releases.py (keeping every earlier release and adding an audit
+663971	entry), and rebuilds the no-JavaScript fallback in index.html.
+663972	Availability is the owner's acceptance of that GridAtlas release, asserted by
+663973	whoever runs this command; this script does not test the app.
+663974	`pin` prints catalogue/homepage-owner.json for globalgrid2050: the commit plus
+663975	SHA-256 of the seven bundle files at that commit (read with `git show`).
+663988	import releases  # noqa: E402
+663989	ENTITY = "gridatlas"
+663990	REPO = "Ventusltd/gridatlas"
+663991	LIVE_ROUTE = "https://ventusltd.github.io/gridatlas/atlas/"
+663992	PINNED_ROUTE = LIVE_ROUTE + "v/{generation}/"
+663993	MANIFEST = LIVE_ROUTE + "manifests/{generation}-composition.json"
+663994	CURRENT_RAW = f"https://raw.githubusercontent.com/{REPO}/main/atlas/current.json"
+663995	BUNDLE = ("index.html", "assets/versioned-homepage.css", "assets/versioned-homepage.js",
+663996	          "data/homepage.json", "data/active-pages.json", "data/presentation.json", "data/entity-types.json")
+663997	def fetch(url, limit=5_000_000):
+663998	    request = urllib.request.Request(url, headers={"User-Agent": "globalgrid2050-homepage-release"})
+664000	        return response.read(limit)
+664001	def exists(url):
+664003	        fetch(url, 1)
+664007	def label(version, published_at):
+664008	    when = datetime.fromisoformat(published_at.replace("Z", "+00:00")).astimezone(timezone.utc)
+664009	    return f"{version.upper()} - {when.day} {when:%B %Y}"
+664010	def build_release(generation, version, published_at, source_ref, archive):
+664011	    release = {"id": generation, "label": label(version, published_at), "url": LIVE_ROUTE,
+664012	               "published_at": published_at, "status": "available", "source_ref": source_ref}
+664013	    if archive:
+664014	        release["archive_url"], release["archive_kind"] = archive
+664015	    return release
+664016	def apply(data, release, reason, description=None):
+664017	    entity = next(e for e in data["entities"] if e["id"] == ENTITY)
+664018	    releases.require(all(r["id"] != release["id"] for r in entity["releases"]), f"release {release['id']} already recorded")
+664019	    entity["releases"].append(release)
+664020	    if description:
+664021	        entity["description"] = description.strip()
+664022	    return releases.promote(data, ENTITY, release["id"], reason)
+664023	def release_command(args):
+664024	    releases.require(re.fullmatch(r"\d{12}", args.generation) is not None, "generation must be 12 digits (YYYYMMDDhhmm)")
+664025	    releases.require(re.fullmatch(r"v\d+(\.\d+)+", args.version) is not None, "version must look like v9.172")
+664026	    releases.iso_date(args.published_at, "--published-at", utc_only=True)
+664027	    source_ref, archive = args.source_ref, None
+664029	        current = json.loads(fetch(CURRENT_RAW))
+664030	        releases.require(current.get("generation") == args.generation,
+664031	                         f"live pointer serves {current.get('generation')}, not {args.generation}; release GridAtlas first")
+664032	        releases.require(current.get("composition_version") == args.version,
+664033	                         f"live pointer composition_version is {current.get('composition_version')}, not {args.version}")
+664034	        if not source_ref:
+664035	            commits = json.loads(fetch(f"https://api.github.com/repos/{REPO}/commits?path=atlas/current.json&per_page=1"))
+664036	            source_ref = f"https://github.com/{REPO}/commit/{commits[0]['sha']}"
+664037	        raw = f"https://raw.githubusercontent.com/{REPO}/main/atlas/"
+664038	        if exists(raw + f"v/{args.generation}/index.html"):
+664039	            archive = (PINNED_ROUTE.format(generation=args.generation), "app")
+664040	        elif exists(raw + f"manifests/{args.generation}-composition.json"):
+664041	            archive = (MANIFEST.format(generation=args.generation), "manifest")
+664042	    releases.require(bool(source_ref), "--source-ref is required with --offline")
+664043	    if args.archive_url:
+664044	        archive = (args.archive_url, args.archive_kind)
+664045	    data = releases.load(args.file)
+664046	    release = build_release(args.generation, args.version, args.published_at, source_ref, archive)
+664047	    reason = args.reason or f"GridAtlas {args.version} (generation {args.generation}) is live on the canonical route and accepted by the owner"
+664048	    data = apply(data, release, reason, args.description)
+664049	    releases.write_validated(args.file, data)
+664050	    subprocess.run([sys.executable, str(ROOT / "scripts/build_homepage_fallback.py")], check=True, cwd=ROOT)
+664051	    print(f"Promoted {ENTITY} to {release['id']} ({release['label']}); earlier releases retained.")
+664052	    print("Next: run the checks in docs/GRIDATLAS-RELEASE.md, open a PR, merge, then `python scripts/release_gridatlas.py pin`.")
+664054	def pin_command(args):
+664055	    commit = subprocess.run(["git", "rev-parse", args.commit], cwd=ROOT, check=True, capture_output=True, text=True).stdout.strip()
+664057	    for name in BUNDLE:
+664058	        blob = subprocess.run(["git", "show", f"{commit}:{name}"], cwd=ROOT, check=True, capture_output=True).stdout
+664059	        files[name] = hashlib.sha256(blob).hexdigest()
+664060	    print(json.dumps({"repository": "Ventusltd/globalgrid2050-homepage", "commit": commit, "files": files}, indent=2))
+664064	    rel = commands.add_parser("release", help="Record and promote a live GridAtlas generation")
+664065	    rel.add_argument("generation")
+664066	    rel.add_argument("version")
+664067	    rel.add_argument("--published-at", required=True, help="UTC time the generation went live, e.g. 2026-10-28T18:53:00Z")
+664068	    rel.add_argument("--description", help="Replace the GridAtlas description shown in its nest")
+664069	    rel.add_argument("--reason", help="Promotion audit reason")
+664070	    rel.add_argument("--source-ref", help="Default: the gridatlas commit that last changed atlas/current.json")
+664071	    rel.add_argument("--archive-url", help="Default: atlas/v/GENERATION/ if published, else its composition manifest")
+664072	    rel.add_argument("--archive-kind", choices=("app", "manifest"), default="app")
+664073	    rel.add_argument("--offline", action="store_true", help="Skip live-pointer checks (requires --source-ref)")
+664074	    rel.add_argument("--file", type=Path, default=releases.DEFAULT_FILE)
+664075	    pin = commands.add_parser("pin", help="Print catalogue/homepage-owner.json for globalgrid2050")
+664076	    pin.add_argument("commit", nargs="?", default="origin/main")
+664078	        return release_command(args) if args.command == "release" else pin_command(args)
+664079	    except (ValueError, OSError, subprocess.CalledProcessError) as exc:
+664126	            class RecentAPI(FakeAPI):
+664127	                # Keep the fixture commit inside the rolling activity window so the
+664128	                # probe (and its network failure) is reached whatever today's date is.
+664129	                def get(self, path, missing_ok=False):
+664130	                    result = super().get(path, missing_ok)
+664131	                    if isinstance(result, list) and result and "commit" in result[0]:
+664132	                        result[0]["commit"]["committer"]["date"] = module.stamp(datetime.now(timezone.utc))
+664133	                    return result
+664135	                module.refresh(self.config(), path, RecentAPI(), fail)
+664154	spec = importlib.util.spec_from_file_location("release_gridatlas", ROOT / "scripts/release_gridatlas.py")
+664155	class GridAtlasReleaseTests(unittest.TestCase):
+664157	        self.data = module.releases.load(ROOT / "data/homepage.json")
+664158	    def test_label_format(self):
+664159	        self.assertEqual(module.label("v9.172", "2026-10-28T18:53:00Z"), "V9.172 - 28 October 2026")
+664160	        self.assertEqual(module.label("v9.156", "2026-09-24T13:34:00Z"), "V9.156 - 24 September 2026")
+664161	    def test_next_release_is_promoted_and_history_retained(self):
+664162	        before = next(e for e in self.data["entities"] if e["id"] == "gridatlas")
+664163	        release = module.build_release("209912311200", "v9.999", "2099-12-31T12:00:00Z", "https://github.com/Ventusltd/gridatlas/commit/" + "0" * 40,
+664164	                                       ("https://ventusltd.github.io/gridatlas/atlas/v/209912311200/", "app"))
+664165	        result = module.apply(copy.deepcopy(self.data), release, "test promotion")
+664166	        after = next(e for e in result["entities"] if e["id"] == "gridatlas")
+664167	        self.assertEqual(after["operative_release_id"], "209912311200")
+664168	        self.assertEqual(after["releases"][:-1], before["releases"])
+664169	        self.assertEqual(after["description"], before["description"])
+664170	        self.assertEqual(result["promotions"][-1]["from_release_id"], before["operative_release_id"])
+664171	    def test_duplicate_release_refused(self):
+664172	        operative = next(e for e in self.data["entities"] if e["id"] == "gridatlas")["operative_release_id"]
+664173	        release = module.build_release(operative, "v1.0", "2026-01-01T00:00:00Z", "https://example.org/x", None)
+664174	            module.apply(copy.deepcopy(self.data), release, "repeat")
+671009	/* uk-lightning-overlay, generation 202610290045 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671011	/* M4: a module camera move never starts inside another (MapLibre fires moveend synchronously from stop()): the pending framing is dropped before each own move and otherwise runs after the stop that fired it, only when the map is not moving. */
+671016	let GEN='202610290045',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671142	cpos=()=>{let c=S.pp,m=mh();if(!c||!m)return;let k=gr(m.getContainer()),q=Q('gridatlas-menu-bar'),t=MX(0,(q?gr(q).bottom:0)-k.top)+8,w=MN(480,k.width-16),sd=c.sd=k.height<500&&k.width-w>=300,L=sd?k.right-8-w:k.left+(k.width-w)/2,h=c.offsetHeight||0;c.style.marginRight=sd?'0':'auto';let b=8;
+671161	for(let q of Y(HIT)){let g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f){let rp=RP(m),h=rp.length&&m.queryRenderedFeatures(e.point,{layers:rp});if(h&&h.length){for(let q of h)S.ly&&S.ly.delete(q.properties&&q.properties.tech);return Ry()}for(let q of Y(CEL)){let p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;if(d<dm){dm=d;f=p}}return f?cc(m,f):Ry()}
+671162	let p=f.properties||{};if(p.cluster){let go=z=>(cm(m),m.easeTo({center:f.geometry.coordinates,zoom:z})),z=m.getSource(SRC).getClusterExpansionZoom(p.cluster_id,(err,z)=>err||go(z));if(z&&z.then)z.then(go,note);return}
+671205	cw=()=>Promise.resolve().then(()=>{let m=mh();m&&!(m.isMoving&&m.isMoving())&&ck()}),cm=m=>m.off&&m.off('moveend',cw),
+671206	nz=(m,x,y)=>{try{cm(m);m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});typeof m.once=='function'?m.once('moveend',cw):ck()}catch(e){note('camera: '+msg(e))}},
+671207	ck=f=>{try{let m=mh(),c=S.pp,k=S.fk,C=m&&m.getContainer(),H=C&&C.clientHeight||1e4,d=c&&c.sd,B=d?100:c&&(c.bb+c.offsetHeight||196)+24,R=d?c.offsetWidth+32:40,T=d?60:150;if(!c||!k||f!==1&&k.every(a=>{let p=m.project(a);return p.x>=20&&p.x<=(C.clientWidth||1e4)-R+20&&p.y>=T-20&&p.y<=H-B}))return;let[w,s]=k[0],[e,n]=k[0];for(let[a,o]of k){w=MN(w,a);e=MX(e,a);s=MN(s,o);n=MX(n,o)}
+671208	cm(m);m.fitBounds([[w,s],[e,n]],{padding:{top:T,left:40,right:R,bottom:d?B:H-150>B?B:MX(0,H-270)},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},
+671309	  cpos();S.fk=[...c.fk0,...P.map(g=>g.a)];m.isMoving&&m.isMoving()?(cm(m),m.once('moveend',cw)):ck()},
+671353	fb=()=>{let e=S.res&&S.res.ev,m=mh();if(!e||!e.length||!m)return;let a=180,b=90,c=-180,d=-90;for(let f of e){let[x,y]=f.geometry.coordinates;a=MN(a,x);b=MN(b,y);c=MX(c,x);d=MX(d,y)}cm(m);m.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})},
+671378	/* uk-lightning-overlay, generation 202610290050 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671379	/* M4b: the listed REPD sites only are drawn as REPD-styled dots (the engine's glow + core paint); the Layers controls are never touched. */
+671380	let GEN='202610290050',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671381	tap=e=>{let m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;let rq=S.pp&&S.pp.ps&&m.getLayer(NI[13])&&m.queryRenderedFeatures(e.point,{layers:[NI[13]]})[0],rg=rq&&S.pp.ps[rq.properties.k];if(rg)return RpV(m,S.pp,rg);let px=e.point.x??e.point[0],py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];let f=null,dm=Infinity;
+671382	for(let q of Y(HIT)){let g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=q}}pc();if(!f){let rp=RP(m),h=rp.length&&m.queryRenderedFeatures(e.point,{layers:rp});if(h&&h.length)return;for(let q of Y(CEL)){let p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;if(d<dm){dm=d;f=p}}return f&&cc(m,f)}
+671383	let mn=B('−','Minimise',()=>{let o=bd.style.display=='none';bd.style.display=o?'':'none';mn.textContent=o?'−':'+';mn.setAttribute('aria-expanded',o);rf()});d.addEventListener('toggle',rf);mn.setAttribute('aria-expanded',true);B('×','Close',pc);
+671384	NP='gridatlas-lightning-neon',NI=['glow','core','flow','flow-b','node-ring','node','label','pin-halo','pin','p-core','p-node','p-label','p-glow','p-dot'].map(s=>NP+'-'+s),NSR=[NP+'-links',NP+'-nodes',NP+'-pin',NP+'-plinks',NP+'-pnodes',NP+'-pdots'],
+671385	if(!c.o.np)Rp(m,c,x,y,M);else if(c.o.g)RpD(m,[c.o.g]);if(!k.length)return k;
+671386	/* ---- M4b: the listed REPD sites, drawn in the original REPD style ----------------------------------------------------
+671387	   One dot per listed project at its site, with the engine's own paint (ventus-corev8engine.js:1305-1337): the solar and
+671388	   rooftop-solar glow by capacity, the capacity-graded core, and each other technology's own layer colour; stacked in the
+671389	   engine's REPD layer order. Only the sites on the card are drawn; the reader's Layers are never changed. A dot tap opens
+671390	   that site's project view, as its row does. */
+671391	RpO='solar solar_operational solar_roof wind wind_onshore_operational wind_offshore_operational bess bess_operational biomass tidal hydrogen hydro flywheel act geothermal caes'.split(' '),
+671392	RpD=(m,P)=>{let d=FC(P.flatMap((g,k)=>g.parts.map(p=>({type:'Feature',properties:{t:p.tech,c:+p.capacity>0?+p.capacity:0,k,o:RpO.indexOf(p.tech)},geometry:{type:'Point',coordinates:g.a}})))),
+671393	  T=['get','t'],I=(...a)=>['interpolate',['linear'],['get','c'],...a],R=(r,o)=>['match',T,'solar_roof',r,o];
+671394	  if(m.getSource(NSR[5]))return m.getSource(NSR[5]).setData(d);m.addSource(NSR[5],{type:'geojson',data:d});
+671395	  m.addLayer({id:NI[12],type:'circle',source:NSR[5],filter:['any',['all',['==',T,'solar'],['>=',['get','c'],4]],['all',['==',T,'solar_roof'],['>=',['get','c'],1]]],
+671396	    paint:{'circle-color':R(I(1,'#ff8c00',5,'#ff6600',10,'#ff4400'),I(4,'#ffff00',20,'#ffaa00',50,'#ff4400',200,'#ff0000')),'circle-radius':R(I(1,26,2,30,5,36,10,44),I(4,22,20,32,50,44,200,60,500,80)),
+671397	      'circle-opacity':R(.15,I(4,.12,20,.18,50,.25,200,.35)),'circle-blur':1,'circle-stroke-width':0}});
+671398	  m.addLayer({id:NI[13],type:'circle',source:NSR[5],layout:{'circle-sort-key':['get','o']},
+671399	    paint:{'circle-color':['match',T,'solar_roof',I(0,'#ffcc00',.99,'#ffcc00',1,'#ff8c00',5,'#ff6600',10,'#ff4400'),'solar',I(0,'#ffff00',20,'#ffcc00',50,'#ffaa00',200,'#ff6600',500,'#ff2200'),
+671400	      'wind','#00ffff','bess','#ffae00','biomass','#39ff14','tidal','#00bfff','hydrogen','#ffffff','hydro','#00aaff','flywheel','#ff69b4','act','#ff6600','geothermal','#ff3300','caes','#88aaff','#888888'],
+671401	      'circle-radius':R(I(0,7,.5,7,.99,8,1,16,2,18,5,22,10,28),I(0,8,10,10,50,13,200,17,500,22,1000,28)),'circle-stroke-width':R(I(0,1,.99,1,1,2),1.5),'circle-stroke-color':'#000','circle-opacity':R(.9,.85)}})},
+671403	  c.ps=P;if(P.length)ap(box,el('div','margin-top:6px;color:#8b9aa1;font-size:11px','Map: only these sites are drawn, in the REPD layer style; tap a dot for its project view. Your Layers are unchanged.'));
+671404	  try{if(m.getLayer(NI[10])){m.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(nd);RpD(m,P)}
+671405	    A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});RpD(m,P);A(10,'circle',NSR[4],{'circle-radius':Z(3,5),'circle-color':C,'circle-stroke-width':1});
+671406	// "◀ back" on the project card, and to the restored card's summary after back. The project view draws its own site in the REPD style.
+671407	    'project',{np:1,g,foot:'REPD register (DESNZ, April 2026 · OGL v3.0) as loaded by the map · lightning = optical flashes, not necessarily ground strikes; not evidence the project was struck.',
+671412	/* uk-lightning-overlay, generation 202610290246 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671413	/* M5: every listed REPD project shows its full REPD record (address, postcode, county, region, ref, operator, planning) from the pinned parquet the map's project search reads, joined only on an exact point, name, MW and type match; plus an Area summary. */
+671414	let GEN='202610290246',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671415	DN=r=>{let g=r.gd;return`map limited to ≤30 km of REPD sites, not a national density map: ${N(g.k)} in ${pl(g.fc.features.length,'0.1° cell')}; ${N(g.n-g.k)} counted, not drawn${g.st?` · ${pl(g.st,'day')} not yet mapped (unknown${g.e?'; '+g.e:''})`:''} · tap a cell for nearest substations`},
+671416	cc=(m,p)=>{let[w,s]=cb(p),W=S.res.w,r=a=>a.toFixed(2)+'–'+(a+.1).toFixed(2),x=11.156*Math.cos(p.lat*Math.PI/180);cd(m,p.lon,p.lat,'Lightning cell',pl(p.n,'optical flash','es')+' in this 0.1° cell',`${ymd(W.s)} to ${ymd(MX(W.s,W.e-1))} UTC · centre lat ${p.lat.toFixed(3)}, lon ${p.lon.toFixed(3)}`,`Cell lat ${r(s)}, lon ${r(w)}: 0.1°, ≈${x.toFixed(1)} km E–W × 11.1 km N–S, ≈${x*11.13+.5|0} km² here; the centre is not a flash location · searched UTC days only; unsearched days ${U}`,'cell centre')},
+671417	let k=c.k=M.nearestSubstations(x,y,subs),o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},
+671418	A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));S.fk=[o,...k.map(a=>a.at)];say(c.o.np?'Screening · nearest substations, straight line. Not its declared connection or capacity.':`Screening · nearest substations to this ${c.wh}, straight line. Proximity, not exposure or a current path; not evidence any asset was struck.`);
+671419	RU='https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet',RM='https://ventusltd.github.io/gridatlas/data/repd_v9_manifest_202608290716.json',RpE=1.000001e-6,RpP=new WeakMap,
+671420	RpQ=async pts=>{let C=S.rc||(S.rc=new Map),ks=RpU(pts.filter(a=>a&&a[0]===+a[0]&&a[1]===+a[1]&&!C.has(a+'')),a=>a+''),t,k;
+671421	  if(ks.length){let w=window.__GRIDATLAS_DUCKDB_RUNTIME__,R=p=>Promise.race([p,new Promise((_,j)=>t=setTimeout(()=>j(new Error(TOE)),TMO))]).finally(()=>clearTimeout(t));
+671422	    if(!w)E('the map search runtime has not started; reload the page');
+671423	    await R(S.rv||(S.rv=gj(RM,'no-store',1).then(async b=>{let o,h=[...new Uint8Array(await window.crypto.subtle.digest('SHA-256',b))].map(x=>(x|256).toString(16).slice(1)).join('');
+671424	      if(h!='8850567ff9f1d2b6996b4e0d9707320030f3466a0b821cdcfc5325322b8be8c8'||(o=JSON.parse(new TextDecoder().decode(b))).parquet.sha256!='174040c37f3d63742d6fdd7af722a8cfdf3fb53de3ff85ff1142d22fdac4866b')E('REPD manifest is not the pinned one')}).catch(e=>{S.rv=0;throw e})));
+671425	    k=await R(R(w.promise).then(d=>d.database.connect()));
+671426	    try{let r=(await R(k.query(`SELECT * FROM read_parquet('${RU}') WHERE ${ks.map(a=>a.split(',')).map(([x,y])=>`(abs(longitude-(${x}))<=${RpE} AND abs(latitude-(${y}))<=${RpE})`).join(' OR ')}`))).toArray().map(o=>o.toJSON?o.toJSON():o);
+671427	      for(let a of ks){let[x,y]=a.split(',');C.set(a,r.filter(o=>Math.abs(o.longitude-x)<=RpE&&Math.abs(o.latitude-y)<=RpE))}}finally{try{k.close()?.catch?.(()=>0)}catch(_){}}}
+671428	  return C},
+671429	RpZ=s=>((s||'')+'').replace(/[\x80-\x9f]/g,c=>new TextDecoder('windows-1252').decode(Uint8Array.of(c.charCodeAt()))).normalize('NFC').split(/\s+/).filter(Boolean).join(' '),
+671430	RpJ=(p,a,C)=>{let c=a&&C&&C.get&&C.get(a+''),n=v=>v>0?+v:0;if(!c)return;c=c.filter(o=>RpZ(o.name)==RpZ(p.name)&&Math.abs(n(o.capacity_mw)-n(p.capacity))<1e-6&&o.repd_technology===p.raw_tech);return c.length==1?c[0]:null},
+671431	RpB=(q,a,C,e)=>{let o=e?0:RpJ(q,a,C),b=el('div','padding:2px 0 10px 12px;font-size:11px;color:#9fb3ba;overflow-wrap:anywhere'),L=(s,c)=>ap(b,el('div',c,cs(s)));b.dataset.tier='record';
+671432	  if(e)L('REPD record unavailable: '+msg(e)+'. Tap again to retry.');else if(o===void 0)L('REPD record: loading…');else if(!o)L('Record · address not in register (no exact REPD match; no ref shown)');
+671433	  else{L([o.repd_address_display||'address not stated',o.repd_postcode||'no postcode',o.county,o.region].filter(Boolean).join(' · '),'color:#c9d6da');
+671434	    L(`Record · REPD ${o.repd_ref} · ${o.status}`+(o.status!=q.status?` (map register: ${q.status})`:''));
+671435	    L('Operator: '+(o.applicant_publication_state=='REPD_AS_PUBLISHED'&&o.repd_operator_or_applicant||'not shown (may name a person) or not stated'));
+671436	    L([o.planning_authority||'planning authority not stated',o.planning_application_reference,o.source_record_updated&&'record updated '+o.source_record_updated].filter(Boolean).join(' · '))}
+671437	  return b},
+671438	RpX=NS.repdRecords||(NS.repdRecords=Object.freeze({source:RU,manifest:RM,records:RpQ,join:RpJ,block:RpB})),
+671439	// fill record slots [[div, props]] now from the cache, then again when the rows at their points have arrived
+671440	RpH=(c,sl)=>{let F=(C,e)=>{if(S.pp==c)for(let[s,q]of sl){s.textContent='';ap(s,RpB(q,RpP.get(q),C,e))}};F(S.rc);RpQ(sl.map(v=>RpP.get(v[1]))).then(F,e=>F(0,e))},
+671441	// Area summary (Screening): every row within 40 km, all statuses and technologies, by technology and by status class
+671442	RpY=(c,box)=>{let h=ap(box,el('div','margin-top:8px;color:#5fbdc2','Area summary · Screening · straight line; all statuses and technologies')),g=ap(box,el('div','display:grid;grid-template-columns:auto auto auto;gap:2px 10px;font-size:11px;color:#c9d6da')),C=s=>ap(g,el('span','',s)),u=0,V=new Map;
+671443	  h.dataset.tier=g.dataset.tier='screening';['','≤10 km','≤40 km'].map(C);
+671444	  for(let[v,n]of[...RpF.te,...RpF.st])if(v!='all'){let K=d=>{let r=c.rpAll.filter(q=>q.km<=d&&(RpT(q.p.tech)==v||RpS(q.p.status)==v)),w=RpW(r.map(q=>q.p)),z=r.some(q=>!(q.p.capacity>0));u|=z;return r.length+(w>0?' · '+N(w)+' MW':'')+(z?'*':'')},a=K(40);if(a!='0'){C(n);C(K(10));C(a)}}
+671445	  for(let s of c.k||[])V.has(s.kv[0])||V.set(s.kv[0],s);
+671446	  if(V.size)ap(box,el('div','margin-top:4px;color:#c9d6da;font-size:11px','Nearest per voltage, of the substations above: '+[...V].sort((a,b)=>b[0]-a[0]).map(([v,s])=>`${v} kV ${(+s.km).toFixed(2)} km`).join(' · ')));
+671447	  ap(box,el('div','color:#8b9aa1;font-size:11px',(u?'* some capacities not stated: unknown, not zero. ':'')+'Counts and distances only: not capacity, connection feasibility or exposure.'))},
+671448	    for(let[a,p]of G){let km=M.distanceKm(x,y,...a);if(km<=40){let k=a+JSON.stringify(p);if(!seen.has(k)){seen.add(k);RpP.set(p,a);all.push({a,p,km})}}}
+671449	  pd.textContent=`Screening · ${P.length?pl(P.length,'nearest REPD site')+(parts>P.length?` (${N(parts)} projects; those at one point grouped)`:''):'No REPD site'} within 40 km of this ${c.wh}, straight line${all?'':` (${fa})`}. Proximity only, not impact; not evidence any project was struck.`;
+671450	  if(sel.length)ap(box,el('div','margin-top:4px;color:#ffc48a',`Within 10 km: ${pl(n10.length,'project')}${n10.length?' · '+(W>0?`${N(W)} MW stated, ${all?'mixed statuses':fa}`+(nc10?`, ${N(nc10)} not stated`:''):'capacity not stated'):''} · within 40 km: ${pl(sel.length,'project')}`));RpY(c,box);
+671451	  let sl=[];for(let g of P){
+671452	    for(let q of g.parts){one||ap(box,el('div','padding:0 0 2px 12px;color:#c9a27e;font-size:11px',`${RpN(q)}${RpMW(+q.capacity)}${RpC([q])} · ${cs(q.status)} · ${cs(q.name)}`));sl.push([ap(box,el('div')),q])}}
+671453	  ap(box,el('div','margin-top:6px;color:#8b9aa1;font-size:11px','Record · REPD (DESNZ, OGL v3.0): the map register is the Apr 2026 extract; address, ref, operator and planning fields are from the Jul 2026 extract the map\'s project search reads, shown only on an exact point, name, MW and type match. Status as registered, not as built.')).dataset.tier='record';RpH(c,sl);
+671454	    'project',{np:1,foot:'Record · REPD (DESNZ, Apr 2026, OGL v3.0). Status as registered, not as built. Lightning: optical flashes, not ground strikes; not evidence the project was struck.',
+671455	  let o=S.pp.out;RpH(S.pp,ps.map(q=>[o.parentNode.insertBefore(el('div'),o),q]));S.pp.querySelector('[data-lightning-back]')?.focus?.()},
+671456	/* uk-lightning-overlay, generation 202610290247 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671457	let GEN='202610290247',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671458	    'project',{np:1,g,foot:'Record · REPD (DESNZ, Apr 2026, OGL v3.0). Status as registered, not as built. Lightning: optical flashes, not ground strikes; not evidence the project was struck.',
+671459	/* uk-lightning-overlay, generation 202610290314 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671460	let GEN='202610290314',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671461	if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';c.style.maxHeight=MX(44,MN(k.height-t-b,MX(200,k.height*.45|0)))+'px'},
+671462	let T=()=>{c.u();if(d.open!=c.dO){c.dO=d.open;rf()}},mn=B('','',()=>{d.open=!d.open;T()});mn.style.width='auto';mn.style.padding='0 8px';mn.style.fontSize='12px';c.u=(t=d.open?'▾ Hide '+(o.np?'details':'list'):'▸ Show '+(c.n?pl(c.n,'site'):o.np?'details':'list'))=>{mn.textContent=t;mn.setAttribute('aria-label',t.slice(2));mn.setAttribute('aria-expanded',d.open)};d.addEventListener('toggle',T);B('×','Close',()=>{pc();Ry()});
+671463	c.out=el('div','margin-top:4px;color:#9fb3ba');ap(d,c.out);ap(d,el('div','color:#8b9aa1;font-size:11px;overflow-wrap:anywhere',de));if(o.back){let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));k.type='button';k.dataset.lightningBack='';k.setAttribute('aria-label',o.back[0].slice(2));k.addEventListener('click',o.back[1])}ap(bd,d);c.dO=d.open=o.open!==0;c.u();
+671464	RpB=(q,a,C,e)=>{let o=RpJ(q,a,C),b=el('div','padding:2px 0 10px 12px;font-size:11px;color:#9fb3ba;overflow-wrap:anywhere'),L=(s,c)=>ap(b,el('div',c,cs(s)));b.dataset.tier='record';
+671465	  if(o===void 0)L(e?`REPD record unavailable — tap to retry (${msg(e)})`:'loading REPD record…');else if(!o)L('Record · address not in register (no exact REPD match; no ref shown)');
+671466	RpH=(c,sl)=>{let t,F=(C,e)=>{clearTimeout(t);if(S.pp==c)for(let[s,q]of sl){s.textContent='';let b=ap(s,RpB(q,RpP.get(q),C,e));if(/^REPD record u/.test(b.textContent)){b.style.cursor='pointer';b.setAttribute('role','button');b.addEventListener('click',()=>RpH(c,sl))}}};F(S.rc);Promise.race([RpQ(sl.map(v=>RpP.get(v[1]))),new Promise((_,j)=>t=setTimeout(()=>j(Error(TOE)),TMO))]).then(F,e=>F(S.rc,e))},
+671467	  let pd=el('div','','REPD projects: loading…'),box=el('div'),o=c.out;o.insertBefore(box,o.insertBefore(pd,o.children[0]).nextSibling);c.b2=ap(o,el('div'));Ra(c,pd.textContent);
+671468	  let b2=c.b2;box.textContent=b2.textContent='';
+671469	  if(sel.length)ap(b2,el('div','margin-top:8px;color:#ffc48a',`Within 10 km: ${pl(n10.length,'project')}${n10.length?' · '+(W>0?`${N(W)} MW stated, ${all?'mixed statuses':fa}`+(nc10?`, ${N(nc10)} not stated`:''):'capacity not stated'):''} · within 40 km: ${pl(sel.length,'project')}`));RpY(c,b2);
+671470	    let row=ap(b2,el('div','display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 2px'));row.setAttribute('role','group');row.setAttribute('aria-label','REPD '+lb.toLowerCase()+' filter');
+671471	      b.type='button';b.dataset.lightningRepdFilter=k+':'+v;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{if(f[k]!==v&&S.pp===c){f[k]=v;RpR(m,c,pd,box);b2.querySelector(`[data-lightning-repd-filter="${k}:${v}"]`)?.focus?.()}})}}
+671472	  c.n=P.length;c.u();c.sm.textContent=c.smb+' · '+(P.length?pl(P.length,'nearest REPD site'):'no REPD site within 40 km')+(all?'':` (${fa})`);Ra(c,pd.textContent+' '+ol);
+671473	/* uk-lightning-overlay, generation 202610290315 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+671474	let GEN='202610290315',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+671475	let T=()=>{c.u();if(d.open!=c.dO){c.dO=d.open;rf()}},mn=B('','',()=>{d.open=!d.open;T()});mn.style.width='auto';mn.style.padding='0 8px';mn.style.fontSize='12px';c.u=(t=d.open?'▾ Hide '+(o.np?'details':'list'):'▸ Show '+(c.n?pl(c.n,'site'):o.np?'details':'list'))=>{mn.textContent=t;mn.setAttribute('aria-label',t.slice(2));mn.setAttribute('aria-expanded',d.open)};d.addEventListener('toggle',T);B('×','Close',pc);
+671476	/* uk-offtakers-overlay, generation 202610290400 (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+671477	/* A tap on a site: neon links to the 15 nearest REPD project sites (40 km; status and technology chips as in M2+; projects within about 10 m share one site; ties at the 15th kept) and the 5 nearest substations (the original link.measure.nearestSubstations); a docked card with each listed project's full REPD record (M5-build's exact join, copied unchanged), a 5 km area summary and a CSV vicinity sheet. */
+671478	let W=window,NS=(W.__GRIDATLAS_MODULES__=W.__GRIDATLAS_MODULES__||{});
+671479	if(NS.ukOfftakers||typeof document==='undefined')return;
+671480	let MX=Math.max,MN=Math.min,AI=Array.isArray,ap=(p,c)=>p.appendChild(c),gr=e=>e.getBoundingClientRect(),Q=id=>document.getElementById(id),E=m=>{throw new TypeError(m)},
+671481	GEN='202610290400',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+671482	DATA='https://ventusltd.github.io/gridatlas/data/offtakers_filtered_202610290317.geojson',DSHA='b31a369e51040aa86f5ca699a003c0fc8a7f43e71e9d74868c77e1db783121cb',
+671483	SRC='gridatlas-offtakers',LAYER='l-gridatlas-offtakers',GLOW=SRC+'-glow',HIT=SRC+'-hit',LINKS='l-gridatlas-offtakers-links',
+671484	CLS={a:['Industry','#e07b39','#3a1d0a',3,6,1],b:['Power stations','#f2c14e','#3a1d0a',3.5,7,1],c:['Data centres','#2ec4b6','#ffffff',3,6,1],d:['Water (large)','#4f86c6','rgba(0,0,0,0)',3,5,1],s:['Water (listed, small)','#4f86c6','rgba(0,0,0,0)',3,5,0],e:['Other large users','#a26769','#3a1d0a',3,5,1]},
+671485	CK='abcdse'.split(''),
+671486	BST={op:'Operating',cl:'Closing',cc:'Closed/converted',un:'Unknown'},BK=Object.keys(BST),
+671487	TITLE='Potential offtakers',BASE='Potential offtakers (open registers)',
+671488	FOOT='Sites listed in open registers (NAEI, GPPD) and OpenStreetMap. A listing is not electricity demand. Distances are straight lines. Vicinity screening only.',
+671489	LEG='Dot size: emission band (NAEI 2023) or installed MW (GPPD). Hollow ring: closed or closing station.',
+671490	HEAD='Potential offtaker (screening): not a confirmed demand, contract or connection.',
+671491	SCR='Screening · straight-line distance, not a cable route. Vicinity only.',
+671492	NOTSHOWN='Not shown here: electricity use, connection terms, TEC, consent, viability.',
+671493	N=n=>Number(n).toLocaleString('en-GB'),pl=(n,w,s='s')=>N(n)+' '+w+(n==1?'':s),k2=v=>(+v).toFixed(2),k1=v=>(+v).toFixed(1),
+671494	cs=v=>(v+'').replace(/\p{Cf}/gu,'').slice(0,200),msg=e=>cs(e&&e.message||e),FC=f=>({type:'FeatureCollection',features:f||[]}),
+671495	el=(t,css,s)=>{let e=document.createElement(t);if(css)e.style.cssText=css;if(s!=null)e.textContent=s;return e},
+671496	tier=(e,t)=>(e.dataset.tier=t,e),
+671497	unk=s=>!s||/^unknown/i.test((s+'').trim()),
+671498	S={schema:'gridatlas.module.uk-offtakers-overlay.v1',generation:GEN,installed:false,waiting_for:[],on:false,busy:false,requests:0,errors:[],serial:0,
+671499	 cls:Object.fromEntries(CK.map(k=>[k,!!CLS[k][5]])),bst:Object.fromEntries(BK.map(k=>[k,true])),data:null,err:null,cache:{},sfs:[],rf:{st:'all',te:'all'}},
+671500	mh=()=>{let m=W.__GRIDATLAS_V9_MAP__;return m&&typeof m.addSource==='function'?m:null},
+671501	 return fetch(u,{cache,signal:c.signal}).then(r=>{if(!r.ok||r.redirected)throw new Error(r.ok?'redirected':'HTTP '+r.status);return raw&&r.arrayBuffer?r.arrayBuffer():r.json()}).catch(e=>{throw c.signal.aborted||e&&e.name==='AbortError'?new Error(TOE):e}).finally(()=>clearTimeout(t))},
+671502	hex=b=>[...new Uint8Array(b)].map(x=>(x|256).toString(16).slice(1)).join(''),
+671503	gx=(u,h)=>new Promise((res,rej)=>{S.requests++;let x=new XMLHttpRequest();x.open('GET',u);x.responseType='arraybuffer';x.timeout=TMO;
+671504	 x.onload=()=>x.status>=200&&x.status<300?x.responseURL&&!x.responseURL.startsWith(u)?rej(new Error('redirected')):res(x.response):rej(new Error('HTTP '+x.status));
+671505	 x.onerror=()=>rej(new Error('network error'));x.ontimeout=()=>rej(new Error(TOE));x.send()})
+671506	 .then(async b=>{let s=W.crypto&&W.crypto.subtle;if(!s)E('data check failed (no WebCrypto)');if(hex(await s.digest('SHA-256',b))!==h)E('data check failed (SHA-256 differs from the pin)');return JSON.parse(new TextDecoder().decode(b))}),
+671507	rd=()=>S.cache.f||(S.cache.f=gx(DATA,DSHA).then(o=>(o&&o.type==='FeatureCollection'&&AI(o.features)||E('data check failed (not a feature collection)'),o)).catch(e=>{S.cache.f=null;throw new Error('offtakers data: '+msg(e))})),
+671508	okPt=c=>AI(c)&&c[0]===+c[0]&&c[1]===+c[1]&&c[0]>=-11&&c[0]<=3&&c[1]>=49.5&&c[1]<=61.5,
+671509	hv=(a,b)=>{let r=Math.PI/180,p1=a[1]*r,p2=b[1]*r,h=Math.sin((p2-p1)/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin((b[0]-a[0])*r/2)**2;return 2*6371.0088*Math.asin(Math.sqrt(h))},
+671510	KL=p=>({A:'a',B:'b',C:'c',E:'e'})[p.class]||(p.class==='D'?p.subclass==='water_wastewater_large'?'d':'s':null),
+671511	STG=p=>p.class!=='B'?'':/^operat/i.test(p.status)?'op':/^closing/i.test(p.status)?'cl':/^(closed|converted)/i.test(p.status)?'cc':'un',
+671512	MW=p=>{let m=p.size_metric||{};return/^MW/.test(m.unit||'')&&m.value>0?+m.value:0},
+671513	ZS=p=>{let w=MW(p),b=p.emission_band_naei_2023||'';return p.class==='B'&&w?w>=1e3?1.5:w>=100?1.25:1:/^>=100/.test(b)?1.5:/^(10-25|25-100)/.test(b)?1.25:1},
+671514	nm=fs=>{let dots=[],bad=0;for(let f of fs){let p=f&&f.properties,k=p&&KL(p),c=f&&f.geometry&&f.geometry.coordinates;
+671515	  if(!k||!f.geometry||f.geometry.type!=='Point'||!okPt(c)){bad++;continue}
+671516	  dots.push({i:dots.length,k,t:STG(p),z:ZS(p),n:p.name,op:p.operator,sub:(p.subclass||'').replace(/_/g,' '),a:c.slice(0,2),p})}
+671517	 return{dots,bad,counts:Object.fromEntries(CK.map(k=>[k,dots.filter(r=>r.k==k).length]))}},
+671518	NM=r=>unk(r.n)?'name not listed':cs(r.n),
+671519	SRCN=r=>{let q=(r.p.records||[])[0];return q?String(q.source).split(' ')[0]:'register'},
+671520	OP=r=>unk(r.op)?'operator not listed':`operator (${SRCN(r)}) ${cs(r.op)}`,
+671521	LIC=r=>(r.p.sources||[]).map(s=>`${cs(s.name)} (${cs(String(s.licence||'licence not stated').split(' (')[0])})`).join(' · ')||'source not stated',
+671522	SUBL=r=>cs(r.sub),
+671523	fl=()=>['all',['in',['get','k'],['literal',CK.filter(k=>S.cls[k])]],['any',['!=',['get','k'],'b'],['in',['get','t'],['literal',BK.filter(k=>S.bst[k])]]]],
+671524	MT=(i,d)=>['match',['get','k'],...CK.flatMap(k=>[k,CLS[k][i]]),d],RING=['in',['get','t'],['literal',['cl','cc']]],
+671525	CORE=SRC+'-centre',LY=[GLOW,LAYER,CORE,HIT],
+671526	dw=()=>{let m=mh();if(!m||!S.data)return;let fc=FC(S.data.dots.map(r=>({type:'Feature',id:r.i,properties:{k:r.k,t:r.t,z:r.z,i:r.i},geometry:{type:'Point',coordinates:r.a}}))),Z=(a,b)=>['interpolate',['linear'],['zoom'],6,['*',['get','z'],a],12,['*',['get','z'],b]],F=fl();
+671527	 if(!m.getSource(SRC)){m.addSource(SRC,{type:'geojson',data:fc});
+671528	  m.addLayer({id:GLOW,type:'circle',source:SRC,filter:F,paint:{'circle-radius':Z(['*',2.4,MT(3,3)],['*',2.4,MT(4,6)]),'circle-color':MT(1,'#e07b39'),'circle-opacity':['case',RING,0,['match',['get','k'],'d',.12,'s',0,.2]],'circle-blur':1}});
+671529	  m.addLayer({id:LAYER,type:'circle',source:SRC,filter:F,layout:{'circle-sort-key':['+',['match',['get','k'],'s',0,'e',1,'d',2,'c',3,'a',4,5],['get','z']]},paint:{'circle-radius':Z(MT(3,3),MT(4,6)),
+671530	   'circle-color':['case',RING,'rgba(0,0,0,0)',MT(1,'#e07b39')],'circle-opacity':['match',['get','k'],'d',.8,'s',.8,.95],
+671531	   'circle-stroke-color':['case',RING,CLS.b[1],MT(2,'#3a1d0a')],'circle-stroke-width':['case',RING,2,['match',['get','k'],'d',0,'s',0,1]]}});
+671532	  m.addLayer({id:CORE,type:'circle',source:SRC,filter:['all',F,['==',['get','k'],'b'],['!',RING]],paint:{'circle-radius':Z(1,2),'circle-color':'#3a1d0a'}});
+671533	  m.addLayer({id:HIT,type:'circle',source:SRC,filter:F,paint:{'circle-radius':12,'circle-opacity':0}})}
+671534	 else{m.getSource(SRC).setData(fc);rf()}},
+671535	rf=()=>{let m=mh(),F=fl();if(m)for(let l of LY)try{m.getLayer(l)&&m.setFilter(l,l===CORE?['all',F,['==',['get','k'],'b'],['!',RING]]:F)}catch(e){note(e)}},
+671536	top=()=>{let m=mh();if(m&&m.moveLayer)for(let l of[...LY,...NI])try{m.getLayer(l)&&m.moveLayer(l)}catch(_){}},
+671537	cx=()=>{let m=mh();pc();if(m)try{for(let l of[...LY].reverse())m.getLayer(l)&&m.removeLayer(l);m.getSource(SRC)&&m.removeSource(SRC)}catch(e){note(e)}},
+671538	NP='gridatlas-offtakers-neon',NI=[NP+'-glow',NP+'-core',NP+'-flow',NP+'-node',NP+'-label',NP+'-pin-halo',NP+'-pin',NP+'-p-glow',LINKS,NP+'-p-node',NP+'-p-label'],NSR=[NP+'-subs',NP+'-snodes',NP+'-pin',NP+'-plinks',NP+'-pnodes'],
+671539	nc=()=>{let m=mh();if(S.raf){cancelAnimationFrame(S.raf);S.raf=null}if(m)try{for(let l of[...NI].reverse())m.getLayer(l)&&m.removeLayer(l);for(let s of NSR)m.getSource(s)&&m.removeSource(s)}catch(e){note(e)}},
+671540	SC={op:'#00ff88',cc:'#ffcc00',pl:'#ff8a3d','?':'#ff4444'},
+671541	nl=(m,o,k,P)=>{let Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{})),TL='#5fbdc2';nc();
+671542	 m.addSource(NSR[2],{type:'geojson',data:FC([{type:'Feature',properties:{},geometry:{type:'Point',coordinates:o}}])});
+671543	 if(P&&P.length){m.addSource(NSR[3],{type:'geojson',data:FC(P.map(g=>({type:'Feature',properties:{c:SC[RpS(g.parts[0].status)]},geometry:{type:'LineString',coordinates:[o,g.a]}})))});
+671544	  m.addSource(NSR[4],{type:'geojson',data:FC(P.map(g=>({type:'Feature',properties:{c:SC[RpS(g.parts[0].status)],label:RpG(g)},geometry:{type:'Point',coordinates:g.a}})))});
+671545	  A(7,'line',NSR[3],{'line-color':['get','c'],'line-width':Z(4,9),'line-opacity':.1,'line-blur':Z(2,6)},RJ);A(8,'line',NSR[3],{'line-color':['get','c'],'line-width':Z(1,2),'line-opacity':.85,'line-dasharray':[2,2]});
+671546	  A(9,'circle',NSR[4],{'circle-radius':Z(3,5),'circle-color':['get','c'],'circle-stroke-width':1,'circle-stroke-color':'#000'});
+671547	  try{A(10,'symbol',NSR[4],{'text-color':'#d6e4ff','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)})}catch(e){note('labels: '+msg(e))}}
+671548	 if(k&&k.length){m.addSource(NSR[0],{type:'geojson',data:FC(k.map((a,i)=>({type:'Feature',properties:{s:MX(.25,.75-i*.1)},geometry:{type:'LineString',coordinates:[o,a.at]}})))});
+671549	  m.addSource(NSR[1],{type:'geojson',data:FC(k.map(a=>({type:'Feature',properties:{label:`${k2(a.km)} km · ${KV(a)} kV`},geometry:{type:'Point',coordinates:a.at}})))});
+671550	  A(0,'line',NSR[0],{'line-color':TL,'line-width':Z(5,12),'line-opacity':.12,'line-blur':Z(3,8)},RJ);A(1,'line',NSR[0],{'line-color':TL,'line-width':Z(.9,1.8),'line-opacity':['get','s']},RJ);
+671551	  A(2,'line',NSR[0],{'line-color':'#bfe9ee','line-width':Z(1.2,2.4),'line-opacity':.8,'line-dasharray':[.2,3.2]},{'line-cap':'round'});
+671552	  A(3,'circle',NSR[1],{'circle-radius':Z(2.2,4),'circle-color':TL,'circle-opacity':.85});
+671553	  try{A(4,'symbol',NSR[1],{'text-color':'#a9c4c9','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,-1.5],'text-anchor':'bottom','text-font':sf(m)})}catch(e){note('labels: '+msg(e))}
+671554	  let rm=false;try{rm=matchMedia('(prefers-reduced-motion: reduce)').matches===true}catch(_){}
+671555	  if(rm)m.setPaintProperty(NI[2],'line-opacity',0);else if(typeof requestAnimationFrame=='function'){let ph=0,M=(W.__GRIDATLAS_NEON_LINKS__||{}).measure||{},fd=typeof M.flowDash=='function'?M.flowDash:p=>{let s=Math.floor(p/1.5*24)%24/24*1.5;return[.001,MX(.001,s),.42,MX(.001,1.5-s)]},mo='',
+671556	   st=()=>{ph=(ph+.055)%1.5;try{let d=fd(ph),j=d.join();if(j!==mo){mo=j;m.setPaintProperty(NI[2],'line-dasharray',d)}}catch(_){S.raf=null;return}S.raf=requestAnimationFrame(st)};S.raf=requestAnimationFrame(st)}}
+671557	 A(5,'circle',NSR[2],{'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#3d7bff','circle-stroke-width':6,'circle-stroke-opacity':.18,'circle-blur':.4});
+671558	 A(6,'circle',NSR[2],{'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#8fb4ff','circle-stroke-width':1.8,'circle-stroke-opacity':.9})},
+671559	KV=a=>MX(...(AI(a.kv)&&a.kv.length?a.kv:[0])),
+671560	RG=(m,M)=>S.rg||(S.rg=(async()=>{let f;try{f=m.getSource('src-repd').serialize().data.features}catch(_){}
+671561	 if(!(f&&f.length))f=(await gj('/dist/repd_master.json')).features;
+671562	 let o=f.map(x=>{try{let a=M.representativePoint(x.geometry);if(a[0]===+a[0]&&a[1]===+a[1]&&!(a[0]==-7.55716&&a[1]==49.766807))return[a,x.properties||{}]}catch(_){}return[]}).filter(([a,p])=>a&&M.isProjectTech(p.tech));
+671563	 return o.length?o:E('register empty')})().catch(e=>{S.rg=null;throw e})),
+671564	RpF={st:[['all','All'],['op','Operational'],['cc','Consented'],['pl','Planning']],te:[['all','All'],['solar','Solar'],['wind','Wind'],['bess','BESS'],['other','Other']]},
+671565	RpMW=v=>v>0?` ${N(v)} MW`:'',RpC=ps=>RpW(ps)>0?'':' · MW not stated',
+671566	RpG=g=>`${k2(g.km)} km · ${RpU(g.parts,RpN).sort().join(' + ')}${RpMW(RpW(g.parts))}`,
+671567	sites=(all,f)=>{let sel=all.filter(r=>(f.st==='all'||RpS(r.p.status)===f.st)&&(f.te==='all'||RpT(r.p.tech)===f.te)),gs=[];
+671568	 for(let r of[...sel].sort((a,b)=>a.km-b.km)){let g=gs.find(g=>Math.abs(g.a[0]-r.a[0])<2e-4&&Math.abs(g.a[1]-r.a[1])<1e-4);if(!g)gs.push(g={a:r.a,km:r.km,parts:[]});g.parts.push(r.p)}
+671569	 return{sel,P:gs.filter((g,i,a)=>i<NR||g.km==a[NR-1].km)}},
+671570	near=(G,M,x,y)=>{let all=[],seen=new Set;for(let[a,p]of G){let km=M.distanceKm(x,y,...a);if(km<=R40){let k=a+JSON.stringify(p);if(!seen.has(k)){seen.add(k);RpP.set(p,a);all.push({a,p,km})}}}return all},
+671571	pc=()=>{if(S.pp){S.pp.remove();S.pp=null}nc()},
+671572	 for(let o of[Q('gridatlas-dash-toggle'),document.querySelector('.map-controls')]){let r=o&&gr(o);if(r&&r.height&&r.right>L&&r.left<L+w&&r.top<k.bottom&&r.bottom>k.top)b=MX(b,k.bottom-r.top+8)}
+671573	 if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';c.style.maxHeight=MX(44,MN(k.height-t-b,MX(240,k.height-b-320)))+'px'},
+671574	cd=(m,lb,ti,o={})=>{pc();let c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8eef9;border:1px solid #2f5fa8;border-radius:4px;box-shadow:0 0 14px rgba(61,123,255,.28);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+671575	 bar=el('div','display:flex;align-items:center;gap:6px;padding-left:8px;background:#08142b;border-bottom:1px solid #1d2f52'),bd=el('div','padding:0 8px 6px'),d=el('details'),rf=()=>{cpos();if(S.pp===c)ck(1)},
+671576	 B=(t,a,f)=>{let e=el('button','flex:none;width:44px;height:44px;background:#050a12;border:1px solid #2f5fa8;border-radius:3px;color:#8fb4ff;font:14px/1 monospace;cursor:pointer',t);e.type='button';e.setAttribute('aria-label',a);e.addEventListener('click',f);ap(bar,e);return e};
+671577	 c.dataset.offtakersCard='';c.setAttribute('role','dialog');c.setAttribute('aria-label',lb);c.o=o;
+671578	 ap(bar,el('span','flex:1;min-width:0;color:#8fb4ff;font-weight:bold;overflow-wrap:anywhere',ti.slice(0,90)));
+671579	 let mn=B('−','Minimise',()=>{let v=bd.style.display=='none';bd.style.display=v?'':'none';mn.textContent=v?'−':'+';mn.setAttribute('aria-expanded',v);rf()});d.addEventListener('toggle',rf);mn.setAttribute('aria-expanded',true);B('×','Close',()=>pc());
+671580	 c.addEventListener('keydown',e=>{if(e.key==='Escape')pc()});
+671581	 if(o.back){let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a12;border:1px solid #2f5fa8;border-radius:3px;color:#8fb4ff;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));k.type='button';k.dataset.offtakersBack='';k.setAttribute('aria-label',o.back[0].slice(2));k.addEventListener('click',o.back[1])}
+671582	 c.head=ap(bd,el('div'));c.sm=el('summary','padding:12px 0 11px;line-height:17px;cursor:pointer;color:#cfe0ff','');ap(d,c.sm);c.det=ap(d,el('div'));ap(bd,d);if(o.open)d.open=true;c.d=d;
+671583	 c.foot=ap(bd,tier(el('div','margin-top:6px;color:#8b9aa1;font-size:11px',o.foot||NOTSHOWN),o.foot?'record':'screening'));
+671584	 ap(c,bar);ap(c,bd);c.lv=ap(c,el('div','position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)'));c.lv.setAttribute('role','status');S.pp=c;ap(m.getContainer(),c);cpos();
+671585	 try{W.dispatchEvent(new CustomEvent('gridatlas:card-open',{detail:{owner:'offtakers'}}))}catch(_){}return c},
+671586	L=(p,s,css,t)=>tier(ap(p,el('div',css||'',s)),t||'screening'),
+671587	 cm(m);m.fitBounds([[w,s],[e,n]],{padding:{top:T,left:40,right:R,bottom:d?B:H-150>B?B:MX(0,H-270)},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},
+671588	oc=(m,r,n=15)=>{let[x,y]=r.a,p=r.p,c=cd(m,'Potential offtaker',HEAD),h=c.head,w=MW(p),bd=p.emission_band_naei_2023,rc=p.records||[],naei=rc.some(q=>q.source==='NAEI');c.r=r;c.re=()=>oc(m,r,0);S.fk=[r.a];
+671589	 L(h,`${NM(r)} · ${OP(r)} · ${SUBL(r)}`,'color:#f3e6da;font-weight:bold;margin-top:6px','record');
+671590	 L(h,(w?`${N(w)} MW installed (GPPD, DUKES-derived; installed, not connection capacity)`+(bd?' · ':''):'')+(bd?`Emission band ${cs(bd)} CO2e-approx, NAEI 2023 (band only; method under check)`:w?'':'No NAEI 2023 emission band'),'color:#9fb3ba','record');
+671591	 if(p.class==='B'||p.status_date)L(h,`Status: ${cs(p.status)}${p.status_date?' '+cs(p.status_date):''}${p.status_source?' · source '+cs(p.status_source):''}`,'color:#9fb3ba','record');
+671592	 c.smb=`${CLS[r.k][0]} · ${SUBL(r)}${rc.length>1?` · ${rc.length} records merged`:''}`;c.sm.textContent=c.smb+' · details';
+671593	 let dv=c.det;L(dv,`On-site combustion: ${cs(p.onsite_combustion_indicator||'unknown')}.${naei?' Source NAEI 2023.':''} Not a measure of generation capacity.`,'color:#c9d6da;margin-top:4px','record');
+671594	 if(rc.length>1)L(dv,`${rc.length} records merged: `+rc.map(q=>`${unk(q.name)?'name not listed':cs(q.name)} (${cs(q.source)}${q.mw?', '+N(q.mw)+' MW':''})`).join('; '),'color:#9fb3ba','record');
+671595	 L(dv,'Record · '+LIC(r),'color:#8b9aa1','record');
+671596	 let oc_=p.osm_corroboration||[],ds=S.data.dots.filter(q=>q!==r&&q.k!=r.k&&hv(r.a,q.a)<=.3).sort((a,b)=>hv(r.a,a.a)-hv(r.a,b.a)).slice(0,3);
+671597	 if(oc_.length)L(dv,'Also mapped in OpenStreetMap nearby: '+oc_.slice(0,4).map(q=>unk(q.name)?'name not listed':cs(q.name)).join('; '),'color:#c9d6f2;margin-top:4px','discovery');
+671598	 if(ds.length)L(dv,'Also listed within 300 m: '+ds.map(q=>`${NM(q)} (${CLS[q.k][0]}, ${SUBL(q)})`).join('; '),'color:#c9d6f2;margin-top:4px','discovery');
+671599	 if(oc_.length||ds.length)L(dv,'Discovery · nearby listing, not checked to be the same site','color:#8b9aa1','discovery');
+671600	 L(dv,'Discovery · listed site, not a confirmed electricity user','color:#8b9aa1','discovery');
+671601	 c.area=ap(dv,el('div'));L(dv,SCR,'color:#8b9aa1;margin-top:4px');c.box=ap(dv,el('div'));c.sub=ap(dv,el('div','margin-top:6px'));c.csv=ap(dv,el('div'));
+671602	 c.pd=L(c.box,'REPD projects: loading…','margin-top:4px');Ra(c,c.sm.textContent);
+671603	 sb(m,c,x,y,n);return c},
+671604	sb=(m,c,x,y,n)=>{if(S.pp!==c)return;let Lk=W.__GRIDATLAS_NEON_LINKS__||{},M=Lk.measure||{},subs=Object.hasOwn(Lk,'substations')?Lk.substations:null;c.sub.textContent='';
+671605	 if(!AI(subs)||!subs.length||typeof M.nearestSubstations!=='function'){L(c.sub,'Substation data not loaded yet; trying again.');nl(m,[x,y]);return n?setTimeout(()=>sb(m,c,x,y,n-1),2e3):0}
+671606	 let k;try{k=c.k=M.nearestSubstations(x,y,subs)}catch(e){note('nearest: '+msg(e));L(c.sub,'Substation data unavailable.');k=c.k=[]}
+671607	 L(c.sub,`Substations (${k.length} nearest, straight line; not a connection):`,'color:#5fbdc2');
+671608	 if(!k.length){let b=k.beyondRadiusNearest;L(c.sub,`No substation within ${k.radiusKm||40} km`+(b?` (nearest: ${cs(b.name||'unnamed substation')}, ${KV(b)} kV, ${k2(b.km)} km)`:''))}
+671609	 for(let a of k)L(c.sub,`${k2(a.km)} km · ${KV(a)} kV · ${cs(a.name||'unnamed substation')}`,'color:#c9d6da');
+671610	 S.fk=[[x,y],...k.map(a=>a.at)];nl(m,[x,y],k);cpos();nz(m,x,y);
+671611	 if(typeof M.distanceKm!='function'||typeof M.isProjectTech!='function'){c.pd.textContent='REPD projects unavailable: the map measure is not loaded yet. Tap the site again.';return}
+671612	 RG(m,M).then(G=>{if(S.pp!==c)return;c.all=near(G,M,x,y);c.fk0=S.fk.slice();rr(m,c)}).catch(e=>{if(S.pp!==c)return;c.pd.textContent=`REPD projects unavailable: ${msg(e)}. Tap the site again to retry.`;Ra(c,c.pd.textContent)})},
+671613	ar=c=>{let A=c.area,r=c.r,f=c.all.filter(q=>q.km<=5),t=[],z=0;A.textContent='';
+671614	 for(let[v,n]of RpF.st)if(v!='all'){let q=f.filter(o=>RpS(o.p.status)==v),w=RpW(q.map(o=>o.p)),u=q.filter(o=>!(o.p.capacity>0)).length;z+=u;if(q.length)t.push(`${n} ${q.length}${w>0?' · '+N(w)+' MW stated':''}${u?` (${u} not stated)`:''}`)}
+671615	 let o=CK.map(k=>[k,S.data.dots.filter(q=>q!==r&&q.k==k&&hv(r.a,q.a)<=5).length]).filter(v=>v[1]).map(([k,v])=>`${CLS[k][0]} ${v}`),s=c.k&&c.k[0];
+671616	 L(A,`Within 5 km: ${pl(f.length,'REPD project')}${t.length?' · '+t.join(' · '):''}`,'margin-top:6px;color:#cfe0ff');
+671617	 L(A,`Other listed sites within 5 km: ${o.length?o.join(' · '):'none'}${s?` · nearest substation ${KV(s)} kV, ${k1(s.km)} km`:''}`,'color:#c9d6da');
+671618	 if(z)L(A,'MW not stated is unknown, not zero.','color:#8b9aa1')},
+671619	rr=(m,c)=>{let f=S.rf,{sel,P}=sites(c.all,f),box=c.box,all=f.st==='all'&&f.te==='all',nmv=v=>(RpF.st.find(q=>q[0]===v)||RpF.te.find(q=>q[0]===v))[1],fa=all?'all statuses and technologies':[f.st,f.te].filter(v=>v!=='all').map(nmv).join(' · ');
+671620	 ar(c);box.textContent='';c.P=P;
+671621	 for(let[k,defs,lb]of[['st',RpF.st,'Status'],['te',RpF.te,'Tech']]){let row=ap(box,el('div','display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 2px'));row.setAttribute('role','group');row.setAttribute('aria-label','REPD '+lb.toLowerCase()+' filter');
+671622	  ap(row,el('span','color:#8b9aa1;font-size:11px;min-width:40px',lb));
+671623	  for(let[v,t]of defs){let on=f[k]===v,b=ap(row,el('button',`min-height:44px;padding:0 10px;background:${on?'#2f5fa8':'#050a12'};border:1px solid #2f5fa8;border-radius:3px;color:${on?'#e8eef9':'#8fb4ff'};font:11px/1 monospace;cursor:pointer`,t));
+671624	   b.type='button';b.dataset.offtakersRepdFilter=k+':'+v;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{if(f[k]!==v&&S.pp===c){f[k]=v;rr(m,c);box.querySelector(`[data-offtakers-repd-filter="${k}:${v}"]`)?.focus?.()}})}}
+671625	 let parts=P.reduce((s,g)=>s+g.parts.length,0),reach=P.length?P[P.length-1].km:0;
+671626	 c.pd=L(box,P.length?`${pl(P.length,'nearest REPD site')} (reach ${k1(reach)} km${parts>P.length?`; ${N(parts)} projects, those at one point grouped`:''}; ${fa}):`:`No REPD site within ${R40} km (${fa}).`,'margin-top:6px;color:#ffc48a');
+671627	 if(P.length&&P.length<NR)L(box,`Only ${pl(P.length,'REPD site')} within ${R40} km${all?'':' for this filter'}.`,'color:#ffc48a');
+671628	 let sl=[];P.forEach((g,i)=>{let p=g.parts[0],one=g.parts.length===1,b=tier(ap(box,el('a','display:block;padding:12px 0 6px;border-top:1px solid #1d2f52;color:#ffb27a;text-decoration:none',`${i+1}. ${RpG(g)}${RpC(g.parts)} · ${one?cs(p.status)+' · '+cs(p.name):g.parts.length+' projects at this point:'} ▸`)),'screening');
+671629	  b.href='#';b.setAttribute('role','button');b.addEventListener('click',e=>{if(e.preventDefault)e.preventDefault();pv(m,c,g)});
+671630	  for(let q of g.parts){one||ap(box,tier(el('div','padding:0 0 2px 12px;color:#c9a27e;font-size:11px',`${RpN(q)}${RpMW(+q.capacity)}${RpC([q])} · ${cs(q.status)} · ${cs(q.name)}`),'record'));sl.push([ap(box,el('div')),q])}});
+671631	 L(box,'Record · REPD (DESNZ, OGL v3.0). Status as registered, not as built. Address, ref, operator and planning fields only on an exact point, name, MW and type match.','margin-top:6px;color:#8b9aa1','record');
+671632	 RpH(c,sl);cv(c);
+671633	 c.sm.textContent=`${c.smb} · ${P.length?pl(P.length,'nearest REPD site'):'no REPD site'} · details`;Ra(c,c.pd.textContent);
+671634	 try{nl(m,c.fk0[0],c.k,P)}catch(e){note('links: '+msg(e))}top();
+671635	 cpos();S.fk=[...c.fk0,...P.map(g=>g.a)];m.isMoving&&m.isMoving()?(cm(m),m.once('moveend',cw)):ck()},
+671636	cq=v=>{let s=v==null?'':String(v);return/[",\n#]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s},
+671637	csv=c=>{let[x,y]=c.r.a,J=q=>{let o=S.rc&&RpJ(q,RpP.get(q),S.rc);return o||null},rows=[['kind','name','ref','technology','status','MW','km','lon','lat','source','licence','data date']];
+671638	 for(let g of c.P||[])for(let q of g.parts){let o=J(q),a=RpP.get(q)||g.a;rows.push(['REPD project',q.name,o?o.repd_ref:'',q.raw_tech||q.tech,q.status,q.capacity>0?+q.capacity:'not stated',k2(g.km),a[0],a[1],o?'REPD (DESNZ) Jul 2026 extract, exact match':'REPD (DESNZ) Apr 2026 map register','OGL v3.0',o?(o.source_record_updated||'record date not stated'):'Apr 2026 extract'])}
+671639	 for(let a of c.k||[])rows.push(['substation',a.name||'unnamed substation','','',KV(a)+' kV','',k2(a.km),a.at[0],a.at[1],'OpenStreetMap as loaded by the map','ODbL 1.0','not carried']);
+671640	 return[`# GridAtlas potential offtakers vicinity sheet · generation ${GEN} · tap point ${x},${y} (${NM(c.r)}) · ${new Date().toISOString()}`,'# '+SCR+' A listing is not electricity demand. '+NOTSHOWN,...rows.map(r=>r.map(cq).join(','))].join('\n')+'\n'},
+671641	cv=c=>{c.csv.textContent='';let b=ap(c.csv,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a12;border:1px solid #2f5fa8;border-radius:3px;color:#8fb4ff;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer','Download vicinity sheet (CSV)'));b.type='button';b.dataset.offtakersCsv='';
+671642	 b.addEventListener('click',()=>{try{let u=URL.createObjectURL(new Blob([csv(c)],{type:'text/csv'})),a=el('a');a.href=u;a.download=`offtaker-vicinity-${GEN}.csv`;ap(document.body,a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4e3)}catch(e){note('csv: '+msg(e))}})},
+671643	pv=(m,c,g)=>{let back=c.re,[x,y]=g.a,ps=g.parts;pc();
+671644	 let v=cd(m,'REPD project',`REPD · ${RpU(ps,RpN).sort().join(' + ')}${RpMW(RpW(ps))}`,{foot:'Record · REPD (DESNZ, OGL v3.0). Status as registered, not as built. '+NOTSHOWN,open:1,back:['◀ back to offtaker',()=>{pc();back();S.pp&&S.pp.sm.focus?.()}]});
+671645	 v.sm.textContent=`${k2(g.km)} km from ${NM(c.r)} (straight line) · details`;
+671646	 let sl=ps.map(q=>(L(v.det,`${RpN(q)}${RpMW(+q.capacity)}${RpC([q])} · ${cs(q.status)} · ${cs(q.name)}`,'color:#ffb27a;margin-top:6px'),[ap(v.det,el('div')),q]));RpH(v,sl);
+671647	 let Lk=W.__GRIDATLAS_NEON_LINKS__||{},M=Lk.measure||{},k=[];try{k=AI(Lk.substations)&&Lk.substations.length?M.nearestSubstations(x,y,Lk.substations):[]}catch(e){note('nearest: '+msg(e))}
+671648	 L(v.det,'Screening · nearest substations to this project, straight line. Not its declared connection.','color:#5fbdc2;margin-top:6px');for(let a of k)L(v.det,`${k2(a.km)} km · ${KV(a)} kV · ${cs(a.name||'unnamed substation')}`,'color:#c9d6da');
+671649	 v.k=k;S.fk=[[x,y],...k.map(a=>a.at)];try{nl(m,[x,y],k)}catch(e){note('links: '+msg(e))}cpos();nz(m,x,y);v.querySelector('[data-offtakers-back]')?.focus?.()},
+671650	tap=e=>{if(!S.on)return;setTimeout(()=>{try{tq(e)}catch(x){note('tap: '+msg(x))}},0)},
+671651	tq=e=>{let m=mh();if(!S.on||!m||!m.getLayer(HIT)||!S.data)return;let px=e.point.x??e.point[0],py=e.point.y??e.point[1],f=null,dm=1/0;
+671652	 for(let q of m.queryRenderedFeatures(e.point,{layers:[HIT]})){let r=S.data.dots[q.properties&&q.properties.i];if(!r||!S.cls[r.k]||r.k=='b'&&!S.bst[r.t])continue;let a=m.project(r.a),d=(a.x-px)**2+(a.y-py)**2;if(d<dm){dm=d;f=r}}
+671653	 if(!f){if(S.pp&&!S.pp.contains(e.originalEvent&&e.originalEvent.target))pc();return}
+671654	 oc(m,f);let lc=document.querySelector('[data-lightning-card]'),x=lc&&[...lc.querySelectorAll('button')].find(b=>b.getAttribute('aria-label')==='Close');x&&x.click()},
+671655	co=e=>{if(e&&e.detail&&e.detail.owner!=='offtakers')pc()},
+671656	BTN=(a,t)=>`<button type="button" class="map-ctrl-btn" ${a}>${t}</button>`,
+671657	bg=key=>{let g=document.createElement('div');g.className='key-group';g.style.gridColumn='1/-1';g.dataset.offtakersGroup=key;
+671658	 g.innerHTML=`<div class="key-title">${TITLE}</div><label class="key-item"><input type="checkbox" data-offtakers-control="toggle"> <span data-offtakers-label="${key}" style="color:#8fb4ff">${BASE}</span></label>`
+671659	 +`<div data-offtakers-controls="${key}" hidden><div role="group" aria-label="Offtaker classes" style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0">${BTN('data-offtakers-all','All')}${CK.map(k=>BTN(`data-offtakers-class="${k}" aria-pressed="false"`,CLS[k][0])).join('')}</div>`
+671660	 +`<div role="group" aria-label="Power station status" style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0">${BK.map(k=>BTN(`data-offtakers-bst="${k}" aria-pressed="true"`,BST[k])).join('')}</div>`
+671661	 +`<div data-offtakers-status role="status" aria-live="polite" style="font:12px/1.5 'Courier New',monospace;color:#bbb;overflow-wrap:break-word"></div><div data-offtakers-foot style="font-size:11px;color:#bbb">${LEG} ${FOOT}</div></div>`;
+671662	 g.querySelectorAll('.map-ctrl-btn').forEach(b=>{b.style.cssText+='min-height:44px;min-width:44px';let k=b.dataset.offtakersClass||(b.dataset.offtakersBst?'b':'');if(k)b.style.borderLeft='4px solid '+CLS[k][1]});
+671663	 let q=s=>g.querySelector(s),o={key,group:g,toggle:q('[data-offtakers-control]'),label:q('[data-offtakers-label]'),ctl:q('[data-offtakers-controls]'),st:q('[data-offtakers-status]'),chips:{}};
+671664	 o.bchips={};g.querySelectorAll('[data-offtakers-class]').forEach(b=>o.chips[b.dataset.offtakersClass]=b);g.querySelectorAll('[data-offtakers-bst]').forEach(b=>o.bchips[b.dataset.offtakersBst]=b);
+671665	 g.addEventListener('click',ev=>{let b=ev.target.closest('button');if(!b||!g.contains(b))return;let d=b.dataset;if(d.offtakersClass)S.cls[d.offtakersClass]=!S.cls[d.offtakersClass];else if(d.offtakersBst)S.bst[d.offtakersBst]=!S.bst[d.offtakersBst];else if(d.offtakersAll!=null){for(let k of CK)S.cls[k]=!!CLS[k][5];for(let k of BK)S.bst[k]=true}else return;
+671666	  rf();let r=S.pp&&S.pp.r;if(r&&(!S.cls[r.k]||r.k=='b'&&!S.bst[r.t]))pc();pt()});
+671667	 g.addEventListener('change',ev=>{let t=ev.target;if(t&&t.dataset&&t.dataset.offtakersControl==='toggle')so(!!t.checked)});return o},
+671668	txt=(n,s)=>{if(n&&n.textContent!==s)n.textContent=s},
+671669	pt=()=>{let d=S.data,n=d?d.dots.filter(r=>S.cls[r.k]&&(r.k!='b'||S.bst[r.t])).length:0,lab=!S.on?BASE:S.busy?BASE+' [LOAD]':S.err?BASE+' [FAIL]':`${BASE} [${N(n)} sites]`,
+671670	 st=!S.on?'':S.busy?'Loading the pinned open data…':S.err?'Nothing drawn: '+S.err:`${N(n)} sites drawn (${CK.filter(k=>S.cls[k]).map(k=>CLS[k][0]+' '+N(d.counts[k])).join(' · ')||'no class selected'}) · tap a site for the 15 nearest REPD sites and 5 substations`;
+671671	 for(let o of S.sfs){if(o.toggle.checked!==S.on)o.toggle.checked=S.on;txt(o.label,lab);o.label.style.opacity=S.err?'0.6':'1';o.ctl.hidden=!S.on;txt(o.st,st);
+671672	  for(let k in o.chips){let b=o.chips[k];b.setAttribute('aria-pressed',S.cls[k]);b.classList.toggle('active',S.cls[k])}
+671673	  for(let k in o.bchips){let b=o.bchips[k];b.setAttribute('aria-pressed',S.bst[k]);b.classList.toggle('active',S.bst[k])}}if(S.installed)fit()},
+671674	ld=async()=>{let sn=++S.serial;S.busy=true;S.err=null;pt();
+671675	 try{let o=await rd();if(sn!==S.serial||!S.on)return;S.data=S.data||nm(o.features);S.from=DATA;dw();top()}
+671676	 catch(e){if(sn!==S.serial)return;S.err=msg(e);note(e);cx()}finally{if(sn===S.serial){S.busy=false;pt()}}},
+671677	so=on=>{if(S.on===on)return;S.on=on;let m=mh();
+671678	 if(on){if(m&&typeof m.on==='function'){m.on('click',tap);m.on('resize',cpos)}W.addEventListener('gridatlas:card-open',co);ld()}
+671679	 else{S.serial++;S.busy=false;S.err=null;cx();if(m&&typeof m.off==='function'){m.off('click',tap);m.off('resize',cpos);m.off('moveend',cw)}W.removeEventListener('gridatlas:card-open',co);pt()}},
+671680	fit=()=>{let d=Q('gridatlas-dash-toggle'),b=d&&gr(d),v=b&&b.height;for(let o of S.sfs){let g=o.group,last=!g.nextElementSibling,s=g.style;s.paddingBottom=last?(v?innerHeight-b.top+16:96)+'px':'';s.paddingRight=last&&v?MX(0,gr(g).right-b.left+16)+'px':''}},
+671681	put=(host,o)=>{let lg=host.querySelector('[data-lightning-group]');lg?host.insertBefore(o.group,lg):ap(host,o.group);S.sfs.push(o)},
+671682	ins=()=>{if(S.installed)return true;let M=NS.menuBar,P=W.__GRIDATLAS_PIPELINE_LAYERS__,host=Q('scada-ui-container'),miss=[];
+671683	 if(!(M&&M.installed===true))miss.push('menuBar');if(!(P&&P.installed))miss.push('pipelineLayers');if(!mh())miss.push('map');if(!host||!host.querySelector('.key-group'))miss.push('groups');S.waiting_for=miss;if(miss.length)return false;
+671684	 put(host,bg('main'));let cur=Q('fs-curtain-keys');if(cur)put(cur,bg('fs'));S.installed=true;pt();for(let t of[0,1e3,5e3])setTimeout(fit,t);return true};
+671685	 tick=()=>{try{if(ins()){clearInterval(poll);ob.disconnect()}}catch(e){note('install: '+msg(e))}};ob.observe(document.documentElement,{childList:true,subtree:true})}
+671686	NS.ukOfftakers=Object.freeze({schema:S.schema,generation:GEN,state:S,install:ins,setOn:so});
+671725	      // Two slot types. 'replace-script' swaps one of the immutable shell's
+671726	      // script tags for a verified cartridge. 'after-cartridge' adds a verified
+671727	      // cartridge as its own script tag immediately after a cartridge composed
+671728	      // earlier in cartridge_order (after the last one already chained to it),
+671729	      // so it executes at exactly the point an appended module used to.
+671730	      const SLOTS = ['replace-script', 'after-cartridge'];
+671731	      const tailTag = new Map();
+671736	        invariant(SLOTS.includes(cartridge.slot), `${id}: unsupported cartridge slot`);
+671737	        if (cartridge.slot === 'replace-script') {
+671738	          invariant(typeof cartridge.replace_script === 'string' && cartridge.replace_script, `${id}: replace_script missing`);
+671739	          invariant(typeof cartridge.after === 'string' && tailTag.has(cartridge.after), `${id}: after-cartridge anchor ${cartridge.after} is not composed before it`);
+671747	        const tag = `<script data-gridatlas-cartridge="${escapeAttribute(id)}" src="${escapeAttribute(blobUrl)}">${SCRIPT_CLOSE}`;
+671748	          let replaced = false;
+671749	          html = html.replace(scriptTagPattern, (full, quote, src) => {
+671750	            if (replaced || String(src).split('/').pop() !== cartridge.replace_script) return full;
+671751	            replaced = true;
+671752	            return tag;
+671753	          invariant(replaced, `${id}: shell slot ${cartridge.replace_script} not found`);
+671754	          const anchor = tailTag.get(cartridge.after);
+671755	          const at = html.indexOf(anchor);
+671756	          invariant(at >= 0 && html.indexOf(anchor, at + 1) < 0, `${id}: anchor tag of ${cartridge.after} not found exactly once`);
+671757	          html = html.slice(0, at + anchor.length) + '\n' + tag + html.slice(at + anchor.length);
+671758	          tailTag.set(cartridge.after, tag);
+671759	        tailTag.set(id, tag);
+671778	// @gate-min-generation 202610290314
+671792	// M4 (202610290045) and M4b: the camera race fix (M2R-taps T1: the framing queued for the end of a flight runs after the stop that
+671793	//   fired moveend, so J1 and LAY1 yield one microtask before reading it) and M2R-camera fix C; the M4 tests (a MapLibre-like
+671794	//   stop() that fires moveend synchronously), the fix-C test and the M4b tests (run on M4b modules only, where the M3 layer
+671795	//   tests are skipped) are appended at the end. The minimum generation is therefore 202610290045: the suite is RED on M3 by design.
+671796	// M5 (202610290246) and M5b: the full REPD record of each listed project (exact join to the pinned parquet the engine's project search
+671797	//   reads), the Area summary, the V-tiers wording (F2, R1-R4) and the V-geometry cell wording; those expectations are updated
+671798	//   in place (I3, LE2-4, L1, L3, L8, LRB1, WORDS, L11, LAY2, REPD1, REPD4, REPD7, C2, C3, C5, a11y) and the M5 tests are appended.
+671799	//   The minimum generation is therefore 202610290246: the suite is RED on M4 by design (wording).
+671818	const M4B = SRC.includes('/* M4b:'); // M4b (owner option) draws the listed sites itself and switches no Layers control: the M3 layer tests run on M3/M4 only
+672418	  const [mn, close] = card.querySelectorAll('button'); assert.equal(mn.getAttribute('aria-label'), 'Hide list'); assert.equal(mn.textContent, '▾ Hide list'); /* M6: a toggle that says what it does (was '−' Minimise) */ assert.match(close.style.cssText, /width:44px;height:44px/); assert.equal(close.getAttribute('aria-label'), 'Close');
+672419	  dispatch(mn, 'click', x.log.errors); assert.equal(card.querySelector('details').open, false); assert.notEqual(card.children[1].style.display, 'none', 'M6: the bar, summary and footer stay'); assert.equal(mn.getAttribute('aria-expanded'), 'false'); assert.match(mn.textContent, /^▸ Show (\d+ sites?|list)$/);
+672442	  assert.match(card.textContent, /Screening · nearest substations to this optical flash, straight line\. Proximity, not exposure or a current path; not evidence any asset was struck\./);
+672448	  assert.doesNotMatch(SRC.replace(/\bo\.repd_ref\b/g, ''), /repd_ref|location\.(href|search|hash|assign|replace)|history\.(push|replace)State/); // M5: a shown record's own ref only
+672457	  x.toggle(true); await drain(); tapFlash(x); await Promise.resolve(); // M4: the in-view check also runs after the stop
+672460	  inView = false; x.camera.length = 0; tapFlash(x); await Promise.resolve(); // M4 (M2R-taps T1): the framing runs after the stop that fired moveend
+672512	  assert.equal(x.S.last.stale, true, 'backfill-bumped generated_utc hid a 6 h old frontier'); assert.match(x.status(), /COLLECTOR LAST RAN \d\d:\d\d UTC, SEARCHED TO (\d\d? [A-Z]{3} )?\d\d:\d\d UTC · STALE$/); // M4: the date is named when the frontier is on an earlier UTC day
+672575	test('LE2: the cell card: title "N optical flashes in this 0.1° cell", window dates, cell bounds, no flash ID or time, honesty kept', async () => {
+672579	  assert.equal(c.children[0].children[0].textContent, '1,234 optical flashes in this 0.1° cell');
+672581	  assert.ok(t.includes('Cell lat 52.00–52.10, lon -1.60–-1.50: 0.1°, ≈6.9 km E–W × 11.1 km N–S, ≈76 km² here; the centre is not a flash location · searched UTC days only; unsearched days unknown, not zero'), 'bounds row');
+672582	  assert.ok(t.includes('Screening · nearest substations to this cell centre, straight line. Proximity, not exposure or a current path; not evidence any asset was struck.'), 'engine honesty line');
+672592	  assert.match(card(x).textContent, /Screening · nearest substations to this optical flash, straight line/);
+672601	  assert.equal(card(x).children[0].children[0].textContent, '1 optical flash in this 0.1° cell');
+672650	  assert.match(x.cap('flashes'), /^Flashes 50,000 archived on \d+ overlapping UTC dates · map limited to ≤30 km of REPD sites, not a national density map: 49,000 in 2 0.1° cells; 1,000 counted, not drawn · tap a cell for nearest substations · LOAD POINTS adds the newest 40,000 flashes$/);
+672661	  const c = card(x); assert.equal(c.getAttribute('aria-label'), 'Lightning cell'); assert.equal(c.children[0].children[0].textContent, '45,000 optical flashes in this 0.1° cell');
+672705	  cellHit(x, f); assert.equal(x.neonCalls.length, 1); assert.match(card(x).textContent, /^12,000 optical flashes in this 0.1° cell/);
+672707	  assert.match(x.cap('flashes'), /· map limited to ≤30 km of REPD sites, not a national density map: 12,000 in 1 0.1° cell;/);
+672740	  assert.match(x.cap('flashes'), /limited to ≤30 km of REPD sites, not a national density map/); // V-geometry wording
+672890	  assert.match(all, /optical flashes in this 0.1° cell/); assert.match(all, /[Nn]ot evidence any asset was struck/); // M5: F2 wording
+672900	      assert.equal(fs.reduce((a, f) => a + f.properties.n, 0), g.k); assert.match(x.cap('flashes'), new RegExp('archived on .* not a national density map: ' + g.k.toLocaleString('en-GB') + ' in .* ' + (g.n - g.k).toLocaleString('en-GB') + ' counted, not drawn'));
+672906	    x.toggle(true); await drain(); tapFlash(x); await Promise.resolve(); // M4 (M2R-taps T1): deferred framing
+672913	  function pl9999() { return '9,999 optical flashes in this 0.1° cell'.length <= 41; }
+672990	  assert.match(c.textContent, /Screening · 10 nearest REPD sites \(\d+ projects; those at one point grouped\) within 40 km of this optical flash, straight line\. Proximity only, not impact; not evidence any project was struck\./);
+673026	  assert.match(card(x).textContent, /Screening · No REPD site within 40 km of this optical flash, straight line\. Proximity only, not impact; not evidence any project was struck\./); assert.equal(prows(card(x)).length, 0);
+673057	  assert.match(t, /[Nn]ot evidence any project was struck\./); assert.doesNotMatch(t, /(were|was|are|is) affected|strike on|struck the|hit the/i);
+673058	  assert.doesNotMatch(SRC.replace(/\bo\.repd_ref\b/g, ''), /repd_ref|location\.(href|search|hash|assign|replace)|history\.(push|replace)State|pushState/); // M5: a shown record's own ref only
+673135	  assert.match(card(x).textContent, /2 nearest REPD sites within 40 km of this optical flash, straight line \(Operational\)\. Proximity only, not impact; not evidence any project was struck\./);
+673136	  press(x, 'te:bess'); assert.deepEqual(rowsOf(x).map(r => r.split(' · ').pop()), ['OpBess']); assert.match(card(x).textContent, /straight line \(Operational · BESS\)/); assert.match(card(x).querySelector('summary').textContent, / · 1 nearest REPD site \(Operational · BESS\)$/);
+673140	  press(x, 'te:solar'); assert.match(card(x).textContent, /No REPD site within 40 km of this optical flash, straight line \(Planning · Solar\)/); assert.equal(lines(), 0);
+673145	  assert.match(card(x).textContent, /Within 10 km: 2 projects · 10 MW stated, mixed statuses, 1 not stated · within 40 km: 3 projects/);
+673146	  press(x, 'st:op'); assert.match(card(x).textContent, /Within 10 km: 1 project · 10 MW stated, Operational · within 40 km: 2 projects/);
+673165	  assert.match(c.textContent, /Screening · nearest substations, straight line\. Not its declared connection or capacity\./);
+673166	  assert.match(c.textContent, /4\.09 km from the optical flash \(straight-line\)/); assert.match(c.textContent, /Record · REPD \(DESNZ, Apr 2026, OGL v3\.0\)\. Status as registered, not as built\. Lightning: optical flashes, not ground strikes; not evidence the project was struck\./); assert.doesNotMatch(c.textContent, /(were|was|are|is) affected|strike on|struck the|hit the/i);
+673170	  assert.equal(rowsOf(x).length, 2); assert.equal(x.sources.get('gridatlas-lightning-neon-plinks').data.features.length, 2); assert.equal(d.querySelector('details').open, true, 'M6: restored as at the tap (open by default; the card is at most 45 % of the map, so the camera frames the links above it)');
+673255	(M4B ? test.skip : test)('M3-1: a tap switches on exactly the REPD layers of the listed technologies, through the original checkbox path; close switches them off again', async () => {
+673266	(M4B ? test.skip : test)('M3-2: a layer the user had on already is never switched (on or off) by M3 and survives close; the rest of the user state is restored exactly', async () => {
+673272	(M4B ? test.skip : test)('M3-3: a new tap whose list needs other technologies switches off only what M3 switched on and is no longer needed; the same list toggles nothing', async () => {
+673281	(M4B ? test.skip : test)('M3-4: the layers follow the card filter (Tech: Solar drops Battery and Wind; All brings them back)', async () => {
+673287	(M4B ? test.skip : test)('M3-5: a row tap keeps the layers (the project\'s own dot stays drawn), back keeps them, close from the project view switches them off', async () => {
+673294	(M4B ? test.skip : test)('M3-6: lightning OFF, a period change, LATEST, prev and a tap on empty map each restore the user state; a tap on a drawn REPD dot keeps it', async () => {
+673298	  { const { x, E } = await run(x => x.tapMap([50, 50], { 'l-solar': [{ properties: { name: 'S1', tech: 'solar' } }] })); assert.deepEqual([...x.S.ly], [], 'the engine owns this tap; M4 holds nothing after it (M2R-l3regress M3-L1)'); assert.equal(card(x), null);
+673299	    assert.deepEqual(onIds(E), ['solar', 'wind'], 'the tapped dot stays: Solar is now the reader\'s; Battery released'); inSync(E); x.toggle(false); assert.deepEqual(onIds(E), ['solar', 'wind']); }
+673300	(M4B ? test.skip : test)('M3-7: a layer M3 holds becomes the user\'s once the user unticks or re-ticks it (main panel or fullscreen curtain), and then survives close', async () => {
+673304	(M4B ? test.skip : test)('M3-8: nothing is switched with lightning OFF or before a tap; a disabled control and a technology with no layer are skipped; a register failure on a new tap releases the held layers', async () => {
+673311	(M4B ? test.skip : test)('M3-9 (real register, the owner\'s Doncaster-area cell 53.45, -1.05): the layers switched on equal the technologies of the independent brute-force 10 nearest sites, and close restores all off', async () => {
+673325	  assert.match(lv.textContent, /^Screening · 2 nearest REPD sites within 40 km of this optical flash, straight line\. Proximity only, not impact; not evidence any project was struck\. Only 2 sites within the 40 km search radius\.$/);
+673326	  press(x, 'te:bess'); assert.equal(x.doc.activeElement, chip(x, 'te:bess'), 'focus stays on the pressed chip'); await later(); assert.match(lv.textContent, /^Screening · 1 nearest REPD site .*\(BESS\)/);
+673337	  tapFlash(y); await settle(); assert.doesNotMatch(card(y).textContent, /REPD projects unavailable|REPD unavailable/); // M5: a record block without a search runtime says so on its own assert.equal(prows(card(y)).length, 2); assert.ok(y.S.errors.some(e => /project lines: Style is not done loading/.test(e)));
+673350	  assert.equal(rowsOf(z)[0], '5.57 km · Solar 49.9 MW · 2 projects at this point:'); assert.match(card(z).textContent, /Within 10 km: 2 projects · 49\.9 MW stated, mixed statuses/);
+673360	  assert.equal(card(x).style.maxHeight, '296px', 'M6: MX(200, 45 % of 659)');
+673362	  x.setProj(() => ({ x: 200, y: 200 })); x.camera.length = 0; { const dd = card(x).querySelector('details'); dd.open = !dd.open; dispatch(dd, 'toggle', x.log.errors); } /* M6: a real open/close change reframes; the default open does not */
+673364	// ---------------------------------------------------------------- M4-build: no camera move nested inside another (M2R-taps MAJOR M2R-T1)
+673365	// MapLibre 3.6.2 camera stand-in: a move stays in flight until finish(); every camera call first stop()s the move in flight,
+673366	// and stop() fires `moveend` SYNCHRONOUSLY (Camera._stop -> _onEaseEnd -> _afterEase -> fire), as a natural end does.
+673367	// A camera call made while that moveend is being dispatched is NESTED: in the browser it leaves an orphan render frame
+673368	// ("this._onEaseFrame is not a function", then "Attempting to run(), but is already running") and the map stops drawing.
+673369	// off() removes a once() listener, as MapLibre's Evented.off does for _oneTimeListeners.
+673370	const mlCam = x => {
+673371	  const once = [], st = { moving: false, inStop: 0, nested: [], moves: 0 };
+673372	  const emit = () => { const f = once.splice(0); for (const g of f) g({ type: 'moveend' }); for (const h of x.handlers.filter(h => h.t === 'moveend')) h.f({ type: 'moveend' }); };
+673373	  const stop = () => { if (!st.moving) return; st.moving = false; st.inStop++; try { emit(); } finally { st.inStop--; } };
+673374	  for (const k of ['fitBounds', 'flyTo', 'easeTo', 'jumpTo']) x.map[k] = (...a) => { if (st.inStop) st.nested.push(k); stop(); x.camera.push([k, a]); st.moves++; if (k === 'jumpTo') emit(); else st.moving = true; };
+673375	  x.map.stop = stop; x.map.isMoving = () => st.moving;
+673376	  x.map.once = (t, f) => { if (t === 'moveend' && !once.includes(f)) once.push(f); };
+673377	  x.map.off = (t, f) => { const i = t === 'moveend' ? once.indexOf(f) : -1; if (i >= 0) once.splice(i, 1); };
+673378	  st.pending = () => once.length;
+673379	  // a natural end (the last ease frame): moveend fires and no outer move follows, so a framing started there is not nested
+673380	  st.finish = async () => { if (st.moving) { st.moving = false; emit(); } await settle(); };
+673382	const backBtn = x => card(x).querySelector('[data-lightning-back]');
+673383	test('M4-1 (M2R-taps MAJOR): 8 fast row -> "◀ back" cycles (each before the previous flight ends) never start a camera move inside moveend', async () => {
+673384	  const x = await flashAt([-1.5, 52]), cam = mlCam(x); assert.ok(prows(card(x)).length > 1, 'rows');
+673385	  // the tap's own flight is in flight again (the stand-in replaced the camera after the tap)
+673386	  x.map.flyTo({ center: [-1.5, 52], zoom: 12 }); x.map.once('moveend', () => {});
+673387	  for (let i = 0; i < 8; i++) {
+673388	    tapRow(x, i % 3); await settle(); assert.ok(backBtn(x), 'project view ' + i);
+673389	    dispatch(backBtn(x), 'click', x.log.errors); await settle(); assert.ok(prows(card(x)).length > 1, 'lightning card ' + i);
+673390	  assert.deepEqual(cam.nested, [], 'no camera call inside a moveend dispatched by stop()');
+673391	  assert.ok(cam.pending() <= 1, 'at most one framing pending, got ' + cam.pending());
+673392	  // the last flight ends: the pending framing runs once, outside the stop
+673393	  const n0 = x.camera.length; await cam.finish(); await cam.finish();
+673394	  assert.deepEqual(cam.nested, []); assert.ok(x.camera.length >= n0, 'framing ran'); assert.deepEqual(x.log.errors.map(String), []);
+673395	test('M4-2: the suggested regression: a stub stop() that fires moveend synchronously sees no fitBounds inside it (row tap, back, re-tap, details toggle, fit, cluster)', async () => {
+673396	  const x = await flashAt([-1.5, 52]), cam = mlCam(x);
+673397	  const fly = () => { x.map.flyTo({ center: [-1.5, 52], zoom: 12 }); };
+673398	  // a framing is pending on every path below while a flight is in flight; then each path starts a new camera move
+673399	  const paths = {
+673400	    row: () => tapRow(x, 0),
+673401	    back: () => dispatch(backBtn(x), 'click', x.log.errors),
+673402	    retap: () => tapFlash(x),
+673403	    toggle: () => { const d = card(x).querySelector('details'); d.open = !d.open; dispatch(d, 'toggle', x.log.errors); },
+673404	    fit: () => x.click(x.nav('fit')),
+673405	    cluster: () => { x.sources.get('gridatlas-lightning').getClusterExpansionZoom = (id, cb) => cb(null, 9);
+673406	      x.tapMap([10, 10], { 'gridatlas-lightning-hit': [{ properties: { cluster: true, cluster_id: 7, point_count: 50 }, geometry: { coordinates: [-1.5, 52] } }] }); }
+673407	  for (const [k, f] of Object.entries(paths)) {
+673408	    if (k === 'back' && !backBtn(x)) { tapRow(x, 0); await settle(); }
+673409	    if (k === 'fit' || k === 'cluster') { tapFlash(x); await settle(); assert.equal(cam.pending(), 1, k + ': the tap armed its framing'); } else { fly(); x.map.once('moveend', () => {}); await settle(); }
+673410	    // re-arm the module's own framing: a register/back render while moving queues it (RpR) and nz queues one per flight
+673411	    const before = cam.nested.length, m0 = cam.moves; f(); await settle();
+673412	    assert.equal(cam.nested.length, before, k + ': nested ' + cam.nested.slice(before).join());
+673413	    if (k !== 'toggle') assert.ok(cam.moves > m0 || cam.pending() >= 1, k + ': a camera move was made or a framing queued');
+673414	  assert.deepEqual(cam.nested, []); assert.deepEqual(x.log.errors.map(String), []);
+673415	test('M4-3: a framing pending when someone else moves the camera (engine popup, search, a gesture stop) runs after that stop, never inside it, and not while the map moves', async () => {
+673416	  tapRow(x, 0); await settle(); assert.ok(cam.moving && cam.pending() >= 1, 'flight in flight, framing pending');
+673417	  // a foreign flyTo (not the module): its stop() fires the module's pending moveend synchronously
+673418	  const n0 = x.camera.length; x.map.flyTo({ center: [0, 51], zoom: 9 }); await settle();
+673419	  assert.deepEqual(cam.nested, [], 'no module camera call inside the foreign stop');
+673420	  assert.equal(x.camera.length, n0 + 1, 'the foreign move is not overridden while it runs');
+673421	  await cam.finish(); assert.deepEqual(cam.nested, []); assert.deepEqual(x.log.errors.map(String), []);
+673422	// ---------------------------------------------------------------- M4-build: M2R-camera fix C (landscape / short map dock)
+673423	test('M4R-camera (M2R-camera MAJOR-2, fix C): an 852x393 map docks the card right and frames the area to its left; portrait and desktop keep the centred card', async () => {
+673424	  const od = Object.getOwnPropertyDescriptor(El.prototype, 'offsetWidth');
+673425	  Object.defineProperty(El.prototype, 'offsetWidth', { configurable: true, get() { return 480; } });
+673426	    for (const [w, h, dock] of [[852, 393, true], [393, 659, false], [1280, 800, false]]) {
+673427	      let at = { x: 5, y: 5 }; const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installNeon(x, SUBS);
+673428	      x.mapEl._rect = { top: 0, left: 0, right: w, bottom: h, width: w, height: h }; x.mapEl.clientWidth = w; x.mapEl.clientHeight = h; x.setProj(() => at);
+673429	      x.toggle(true); await drain(); tapFlash(x); await Promise.resolve();
+673430	      const c = card(x); assert.equal(!!c.sd, dock, w + 'x' + h); assert.equal(c.style.marginRight, dock ? '0' : 'auto');
+673431	      const fb = x.camera.filter(k => k[0] === 'fitBounds').at(-1); assert.ok(fb, 'an end outside the free area is framed'); const p = fb[1][1].padding;
+673432	      if (dock) assert.deepEqual([p.top, p.right, p.bottom, p.left], [60, 512, 100, 40]); else assert.deepEqual([p.top, p.right, p.left], [150, 40, 40]);
+673433	      if (dock) {
+673434	        // an end in the free area left of the docked card needs no fit; an end under the docked card (x > W - 512 + 20) does
+673435	        at = { x: 200, y: 200 }; x.camera.length = 0; tapFlash(x); await Promise.resolve(); assert.equal(x.camera.filter(k => k[0] === 'fitBounds').length, 0, 'free area');
+673436	        at = { x: w - 300, y: 200 }; x.camera.length = 0; tapFlash(x); await Promise.resolve(); assert.equal(x.camera.filter(k => k[0] === 'fitBounds').length, 1, 'under the docked card');
+673437	      assert.deepEqual(x.log.errors.map(String), []);
+673438	  } finally { if (od) Object.defineProperty(El.prototype, 'offsetWidth', od); else delete El.prototype.offsetWidth; }
+673439	// ---------------------------------------------------------------- M4b (owner option): only the listed sites, as REPD-styled dots
+673440	// M4b draws the card's listed sites with the engine's glow + core paint (ventus-corev8engine.js:1305-1337) in its own
+673441	// gridatlas-lightning-neon-p-glow / -p-dot layers (source -pdots) and never touches a Layers control. These run on M4b
+673442	// modules only (the M3 layer tests above run on M3/M4 modules only).
+673443	const dots = x => [...(x.sources.get('gridatlas-lightning-neon-pdots') || { data: { features: [] } }).data.features];
+673444	const dotKey = f => f.geometry.coordinates.join() + '|' + f.properties.t + '|' + f.properties.c;
+673445	const wantDots = sites => sites.flatMap(g => g.parts.map(p => g.a.join() + '|' + p.tech + '|' + (+p.capacity > 0 ? +p.capacity : 0))).sort();
+673446	const B4 = M4B ? test : test.skip;
+673447	B4('M4b-1 (real register, Doncaster 53.45, -1.05): exactly the parts of the independent brute-force 10 nearest sites are drawn, in the engine REPD style; no Layers control changes', async () => {
+673448	  const { x, E } = await boot3(DONC, null, REPD_IND, { userOn: ['wind'] }); E.toggles.length = 0; tapFlash(x, 0); await settle();
+673449	  assert.deepEqual(dots(x).map(dotKey).sort(), wantDots(bruteSites(REPD_IND, ...DONC)));
+673450	  assert.deepEqual(E.toggles, [], 'no layer switched'); assert.deepEqual(onIds(E), ['wind'], 'the reader layer untouched'); inSync(E);
+673451	  const g = x.layers.get('gridatlas-lightning-neon-p-glow'), d = x.layers.get('gridatlas-lightning-neon-p-dot');
+673452	  assert.ok(g && d, 'glow + core'); assert.ok(!/^l-/.test(g.id) && !/^l-/.test(d.id), 'not engine-interactive ids');
+673453	  // engine paint: solar core ramp, solar glow ramp, blur 1, black 1.5 px stroke, the engine REPD order as sort key
+673454	  assert.ok(JSON.stringify(d.paint['circle-color']).includes('"solar",["interpolate",["linear"],["get","c"],0,"#ffff00",20,"#ffcc00",50,"#ffaa00",200,"#ff6600",500,"#ff2200"]'));
+673455	  assert.ok(JSON.stringify(g.paint['circle-radius']).includes('4,22,20,32,50,44,200,60,500,80')); assert.equal(g.paint['circle-blur'], 1);
+673456	  assert.equal(d.paint['circle-stroke-color'], '#000'); assert.equal(JSON.stringify(d.layout['circle-sort-key']), '["get","o"]');
+673457	  // the Tech filter redraws the dots for the filtered list
+673458	  press(x, 'te:solar'); assert.deepEqual(dots(x).map(dotKey).sort(), wantDots(bruteSites(REPD_IND, ...DONC, p => /^solar/.test(p.tech))));
+673459	  assert.match(card(x).textContent, /only these sites are drawn, in the REPD layer style/); assert.doesNotMatch(card(x).textContent, /REPD map layers on/);
+673460	  assert.deepEqual(E.toggles, []); assert.equal(x.log.errors.length, 0);
+673461	B4('M4b-2: a row tap draws only that site in the project view; back restores the list dots; close, OFF and a period change remove every dot layer and source', async () => {
+673462	  for (const end of ['close', 'off', 'period']) {
+673463	    const { x, E } = await boot3([-1.5, 52], null, SYN); tapFlash(x, 0); await settle(); const n = dots(x).length; assert.ok(n >= 3, 'list dots ' + n);
+673464	    tapRow(x, 1); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'REPD project');
+673465	    assert.equal(dots(x).length, 1, 'the project view draws its own site'); assert.equal(dots(x)[0].properties.t, 'bess');
+673466	    dispatch(card(x).querySelector('[data-lightning-back]'), 'click', x.log.errors); await settle(); assert.equal(dots(x).length, n, 'back');
+673467	    if (end === 'close') closeCard(x); else if (end === 'off') x.toggle(false); else x.click(x.chip('7d')); await drain();
+673468	    for (const id of ['p-glow', 'p-dot']) assert.equal(x.layers.get('gridatlas-lightning-neon-' + id), undefined, end + ' ' + id);
+673469	    assert.equal(x.sources.get('gridatlas-lightning-neon-pdots'), undefined, end); assert.deepEqual(E.toggles, []); assert.deepEqual(x.log.errors.map(String), []);
+673470	B4('M4b-3: a tap on a drawn site dot opens that site\'s project view (as its row); a tap elsewhere is the lightning tap as before', async () => {
+673471	  const { x } = await boot3([-1.5, 52], null, SYN); tapFlash(x, 0); await settle();
+673472	  const f = dots(x).find(q => q.properties.t === 'wind'); assert.ok(f);
+673473	  x.tapMap([5, 5], { 'gridatlas-lightning-neon-p-dot': [{ properties: { ...f.properties } }] }); await settle();
+673474	  assert.equal(card(x).getAttribute('aria-label'), 'REPD project'); assert.match(card(x).textContent, /W1/); assert.ok(card(x).querySelector('[data-lightning-back]'));
+673475	  tapFlash(x, 0); await settle(); assert.equal(card(x).getAttribute('aria-label'), 'Lightning flash'); assert.deepEqual(x.log.errors.map(String), []);
+673476	B4('M4b-4: the module names no Layers control (the proof\'s original static negative holds) and nothing is drawn before a tap', async () => {
+673477	  assert.equal(/data-layer-id|lbl-/.test(SRC), false);
+673478	  const x = boot({ feedFn: () => feed([]) }); installRepd(x, S3, SYN); const E = installLayers(x); x.toggle(true); await drain(); x.toggle(false); await drain();
+673479	  assert.deepEqual(E.toggles, []); assert.equal(dots(x).length, 0);
+673480	// ---------------------------------------------------------------- M5 / M5b: the full REPD record of each listed project
+673481	// Owner, 29 Oct 2026 02:21 UTC: list all 10 sites with names, distances and full REPD addresses, in the grid engine's card
+673482	// pattern (place-global-search 202609071213 :413-416: name, technology, MW, "address · postcode · county", "REPD <ref> · <status>").
+673483	// The records come from the SAME pinned file the engine's project search reads (repd_projects_202608290716.parquet, via
+673484	// the page's shared DuckDB runtime). Here a DuckDB stand-in answers the module's SQL from the repository's JSON twin of
+673485	// that parquet (data/repd_browser_registry_202608290716.json: same generation and manifest, 11,069 rows; checked
+673486	// row-for-row equal to the parquet with DuckDB in the M5-build lane). The register the list is built from carries no ref,
+673487	// so a record is shown only on an exact single match; otherwise "address not in register". A ref is never inferred.
+673488	const REC_RAW = readFileSync(new URL('../../../data/repd_browser_registry_202608290716.json', import.meta.url));
+673489	assert.equal(createHash('sha256').update(REC_RAW).digest('hex'), 'c8a5c59be878c52014a272eb0e4d09af06a0d301d10a8d6b5d0b116b5d1bb6bc', 'the manifest-pinned browser registry');
+673490	const RECS = JSON.parse(REC_RAW.toString('utf8')).records;
+673491	const MAN_RAW = readFileSync(new URL('../../../data/repd_v9_manifest_202608290716.json', import.meta.url));
+673492	const PQ_URL = 'https://ventusltd.github.io/gridatlas/data/repd_projects_202608290716.parquet', MAN_URL = 'https://ventusltd.github.io/gridatlas/data/repd_v9_manifest_202608290716.json';
+673493	const installRecords = (x, recs = RECS, o = {}) => {
+673494	  x.sql = []; x.manFetch = 0;
+673495	  const run = sql => {
+673496	    x.sql.push(sql); assert.ok(sql.startsWith(`SELECT * FROM read_parquet('${PQ_URL}') WHERE (abs(longitude-(`), 'the pinned parquet only, filtered by point');
+673497	    const pts = [...sql.matchAll(/\(abs\(longitude-\((-?[\d.]+)\)\)<=([\d.]+) AND abs\(latitude-\((-?[\d.]+)\)\)<=([\d.]+)\)/g)].map(m => [+m[1], +m[3], +m[2]]);
+673498	    assert.equal(sql.replace(/\(abs\(longitude-\((-?[\d.]+)\)\)<=([\d.]+) AND abs\(latitude-\((-?[\d.]+)\)\)<=([\d.]+)\)( OR )?/g, '').length, `SELECT * FROM read_parquet('${PQ_URL}') WHERE `.length, 'nothing but point clauses');
+673499	    return recs.filter(r => pts.some(([a, b, t]) => Math.abs(r.longitude - a) <= t && Math.abs(r.latitude - b) <= t)).map(r => ({ toJSON: () => ({ ...r }) }));
+673500	  if (!o.noRuntime) x.W.__GRIDATLAS_DUCKDB_RUNTIME__ = { module_url: 'stand-in', promise: Promise.resolve({ database: { connect: async () => ({ query: async sql => { if (o.hang) return new Promise(() => {}); const r = run(sql); return { toArray: () => r }; }, close: async () => {} }) } }) };
+673501	  x.sandbox.fetch = async (u, op) => { if (String(u) === MAN_URL) { x.manFetch++; return new Response(o.badManifest ? Buffer.concat([MAN_RAW, Buffer.from(' ')]) : MAN_RAW, { status: 200 }); } return of(u, op); };
+673502	// the test's own exact-join rule (written independently of the module): same point within 1e-6°, same name after cp1252
+673503	// C1 repair + NFC + whitespace collapse, same MW (0/absent = not stated), same REPD technology; exactly one record
+673504	const w1252 = new TextDecoder('windows-1252');
+673505	const nname = s => [...String(s ?? '')].map(c => { const k = c.codePointAt(0); return k >= 0x80 && k <= 0x9f ? w1252.decode(Buffer.from([k])) : c; }).join('').normalize('NFC').trim().split(/\s+/).filter(Boolean).join(' ');
+673506	const mwOf = v => (v > 0 ? Number(v) : 0);
+673507	const RGRID = new Map(); for (const r of RECS) if (r.longitude != null) { const k = Math.round(r.longitude * 1e3) + ':' + Math.round(r.latitude * 1e3); (RGRID.get(k) || RGRID.set(k, []).get(k)).push(r); }
+673508	const recsAt = (lon, lat) => { const out = []; for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (const r of RGRID.get((Math.round(lon * 1e3) + i) + ':' + (Math.round(lat * 1e3) + j)) || []) if (Math.abs(r.longitude - lon) <= 1.000001e-6 && Math.abs(r.latitude - lat) <= 1.000001e-6) out.push(r); return out; };
+673509	const wantRec = (p, a) => { const c = recsAt(a[0], a[1]).filter(r => nname(r.name) === nname(p.name) && Math.abs(mwOf(r.capacity_mw) - mwOf(p.capacity)) < 1e-6 && r.repd_technology === p.raw_tech); return c.length === 1 ? c[0] : null; };
+673510	const recBlocks = x => card(x).querySelectorAll('[data-tier="record"]').filter(b => b.style.cssText.includes('padding:2px 0 10px 12px'));
+673511	const recLines = r => [[r.repd_address_display || 'address not stated', r.repd_postcode || 'no postcode', r.county, r.region].filter(Boolean).join(' · '), `Record · REPD ${r.repd_ref} · ${r.status}`];
+673512	// the parts in card order with their own points, from the independent brute force
+673513	const partsOf = (repd, ll, keep) => { const pt = new Map(); for (const f of repd.features) pt.set(f.properties, repPoint(f.geometry)); return bruteSites(repd, ...ll, keep).flatMap(g => g.parts.map(p => [p, pt.get(p)])); };
+673514	const recTap = async (ll, subs, o = {}) => { const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', ll)]) }); installRepd(x, subs, REPD_IND); installRecords(x, RECS, o); x.toggle(true); await drain(); tapFlash(x); await settle(); await drain(); return x; };
+673515	const NEWARK_SUBS = SUBS.map(q => ({ ...q, at: [q.at[0] + 0.69, q.at[1] + 1.07] }));
+673516	test('M5-1 (real register + real records, Doncaster and Newark): every listed project carries its exact REPD record, or "address not in register"; refs only from an exact single match', async () => {
+673517	  for (const [ll, subs] of [[DONC, S3], [NEWARK, NEWARK_SUBS]]) {
+673518	    const x = await recTap(ll, subs), parts = partsOf(REPD_IND, ll), bl = recBlocks(x);
+673519	    assert.equal(x.manFetch, 1, 'the pinned manifest is checked once'); assert.equal(x.sql.length, 1, 'one query for the listed points');
+673520	    assert.equal(bl.length, parts.length, 'one record block per listed project (grouped sites expanded)');
+673521	    let joined = 0;
+673522	    parts.forEach(([p, a], i) => {
+673523	      const r = wantRec(p, a), t = bl[i].children.map(c => c.textContent);
+673524	      if (r) { joined++; assert.deepEqual(t.slice(0, 2).map((s, k) => k ? s.replace(/ \(map register: .*\)$/, '') : s), recLines(r), p.name); if (r.status !== p.status) assert.match(t[1], /\(map register: /); }
+673525	      else assert.deepEqual(t, ['Record · address not in register (no exact REPD match; no ref shown)'], p.name);
+673526	    assert.ok(joined >= parts.length - 2, 'nearly all listed projects join exactly (' + joined + '/' + parts.length + ')');
+673527	    const refs = [...card(x).textContent.matchAll(/REPD (\d+) · /g)].map(m => m[1]);
+673528	    assert.deepEqual(refs.sort(), parts.map(([p, a]) => wantRec(p, a)).filter(Boolean).map(r => r.repd_ref).sort(), 'no ref beyond the exact matches');
+673529	    for (const a of prows(card(x))) assert.doesNotMatch(a.href, /repd_ref/);
+673530	    assert.equal(x.log.errors.length, 0);
+673531	test('M5-2 (the owner\'s example): a flash at REPD 15149 shows the engine card\'s address line and "REPD 15149 · application submitted"', async () => {
+673532	  const x = await recTap([-0.813464, 53.138419], NEWARK_SUBS), t = card(x).textContent;
+673533	  assert.ok(t.includes('north west of Newark on Trent, west of A1 and north of A617, Newark · NG23 6HT · Nottinghamshire · East Midlands'));
+673534	  assert.ok(t.includes('Record · REPD 15149 · application submitted'));
+673535	  assert.ok(t.includes('The Planning Inspectorate - National Infrastructure · EN010162 · record updated 13/10/2025'));
+673536	  assert.ok(t.includes('Operator: not shown (may name a person) or not stated'), 'a withheld operator stays withheld');
+673537	test('M5-3 (whole register): the module\'s exported join pairs 10,503 of the 10,784 register rows with exactly one record and never one record with two rows', () => {
+673538	  const x = boot({ feedFn: () => feed([]) }), api = x.W.__GRIDATLAS_MODULES__.repdRecords;
+673539	  assert.equal(api.source, PQ_URL); assert.equal(api.manifest, MAN_URL); assert.equal(Object.isFrozen(api), true);
+673540	  const C = new Map(), hits = new Map(); let joined = 0;
+673541	  for (const f of REPD_IND.features) { const a = repPoint(f.geometry); C.set(a + '', recsAt(...a)); }
+673542	  for (const f of REPD_IND.features) {
+673543	    const a = repPoint(f.geometry), r = api.join(f.properties, a, C), w = wantRec(f.properties, a);
+673544	    assert.equal(r ? r.repd_ref : null, w ? w.repd_ref : null, f.id);
+673545	    if (r) { joined++; hits.set(r.repd_ref, (hits.get(r.repd_ref) || 0) + 1); }
+673546	  assert.equal(joined, 10503); assert.equal([...hits.values()].filter(v => v > 1).length, 0);
+673547	  assert.equal(api.join({ name: 'x' }, [0, 0], new Map()), undefined, 'not loaded is not "no match"');
+673548	test('M5-4: no invented refs: no record at the point, a changed MW, a different name, two identical records: each says "address not in register" and shows no ref', async () => {
+673549	  const P = (n, extra) => ({ repd_ref: String(n), name: 'Test Farm', repd_address_display: 'Somewhere', repd_postcode: 'AB1 2CD', county: 'Shire', region: 'East', planning_authority: 'Council', planning_application_reference: 'P/1', repd_operator_or_applicant: 'Op Ltd', applicant_publication_state: 'REPD_AS_PUBLISHED', repd_technology: 'Solar Photovoltaics', status: 'operational', capacity_mw: 10, longitude: -1.5, latitude: 52.01, source_record_updated: '01/01/2026', ...extra });
+673550	  const repd = FCx([pf(-1.5, 52.01, { name: 'Test Farm' }), pf(-1.5, 52.02, { name: 'MW Farm' }), pf(-1.5, 52.03, { name: 'Name Farm' }), pf(-1.5, 52.04, { name: 'Twin Farm' }), pf(-1.5, 52.05, { name: 'Lonely Farm' })]);
+673551	  const recs = [P(1), P(2, { name: 'MW Farm', latitude: 52.02, capacity_mw: 12 }), P(3, { name: 'Name Farm Extension', latitude: 52.03 }), P(4, { name: 'Twin Farm', latitude: 52.04 }), P(5, { name: 'Twin Farm', latitude: 52.04 })];
+673552	  const x = boot({ feedFn: () => feed([flash(Date.now() - H, 'z', [-1.5, 52])]) }); installRepd(x, SUBS, repd); installRecords(x, recs); x.toggle(true); await drain(); tapFlash(x); await settle(); await drain();
+673553	  const t = recBlocks(x).map(b => b.textContent);
+673554	  assert.equal(t.length, 5); assert.match(t[0], /Record · REPD 1 · operational/);
+673555	  for (const s of t.slice(1)) assert.equal(s, 'Record · address not in register (no exact REPD match; no ref shown)');
+673556	  assert.deepEqual([...card(x).textContent.matchAll(/REPD (\d+)/g)].map(m => m[1]), ['1']);
+673557	test('M5-5: missing fields are said, never filled: no address, no postcode, no planning fields, no update date; a withheld operator is not shown; a newer record status is shown beside the register status', async () => {
+673558	  const repd = FCx([pf(-1.5, 52.01, { name: 'Bare', status: 'application submitted' }), pf(-1.5, 52.02, { name: 'Full' })]);
+673559	  const recs = [{ repd_ref: '7', name: 'Bare', repd_address_display: null, repd_postcode: null, county: null, region: 'Wales', planning_authority: null, planning_application_reference: null, repd_operator_or_applicant: 'WITHHELD — POSSIBLE INDIVIDUAL', applicant_publication_state: 'WITHHELD_POSSIBLE_INDIVIDUAL', repd_technology: 'Solar Photovoltaics', status: 'awaiting construction', capacity_mw: 10, longitude: -1.5, latitude: 52.01, source_record_updated: null },
+673560	    { repd_ref: '8', name: 'Full', repd_address_display: 'Lane <b>&', repd_postcode: 'ZZ9 9ZZ', county: 'C', region: 'R', planning_authority: 'PA', planning_application_reference: 'X/1', repd_operator_or_applicant: 'Op Ltd', applicant_publication_state: 'REPD_AS_PUBLISHED', repd_technology: 'Solar Photovoltaics', status: 'operational', capacity_mw: 10, longitude: -1.5, latitude: 52.02, source_record_updated: '02/02/2026' }];
+673561	  const [a, b] = recBlocks(x).map(q => q.children.map(c => c.textContent));
+673562	  assert.deepEqual(a, ['address not stated · no postcode · Wales', 'Record · REPD 7 · awaiting construction (map register: application submitted)', 'Operator: not shown (may name a person) or not stated', 'planning authority not stated']);
+673563	  assert.deepEqual(b, ['Lane <b>& · ZZ9 9ZZ · C · R', 'Record · REPD 8 · operational', 'Operator: Op Ltd', 'PA · X/1 · record updated 02/02/2026']);
+673564	  assert.equal(recBlocks(x)[1].children[0].children.length, 1, 'text, never markup');
+673565	test('M5-6: rows per point are cached for the page: no point is ever queried twice (filter presses query only sites new to the list); a second tap at the same place sends no query', async () => {
+673566	  const x = await recTap(DONC, S3); assert.equal(x.sql.length, 1);
+673567	  const pts = () => x.sql.flatMap(q => [...q.matchAll(/longitude-\((-?[\d.]+)\)\)<=[\d.]+ AND abs\(latitude-\((-?[\d.]+)\)/g)].map(m => m[1] + ',' + m[2]));
+673568	  for (const k of ['te:solar', 'st:op', 'te:all', 'st:all']) { press(x, k); await settle(); await drain(); }
+673569	  const n = x.sql.length; tapFlash(x); await settle(); await drain(); assert.equal(x.sql.length, n, 'same tap: cached'); assert.equal(x.manFetch, 1);
+673570	  assert.equal(new Set(pts()).size, pts().length, 'no point queried twice');
+673571	  assert.ok(recBlocks(x).length >= 10); assert.ok(!card(x).textContent.includes('loading…'));
+673572	test('M5-7: failures are said and retried: no search runtime, a manifest that is not the pinned one, a query that never answers (timeout)', async () => {
+673573	  let x = await recTap(DONC, S3, { noRuntime: true });
+673574	  assert.match(recBlocks(x)[0].textContent, /^REPD record unavailable — tap to retry \(the map search runtime has not started; reload the page\)$/);
+673575	  assert.ok(prows(card(x)).length >= 10, 'the list itself stands');
+673576	  x = await recTap(DONC, S3, { badManifest: true }); assert.match(recBlocks(x)[0].textContent, /REPD record unavailable — tap to retry \(REPD manifest is not the pinned one\)/); assert.equal(x.sql.length, 0, 'no query without the pinned manifest');
+673577	  globalThis.__SRC_OVERRIDE = SRC.replace('TMO=15000', 'TMO=40');
+673578	  try { x = await recTap(DONC, S3, { hang: true }); await new Promise(r => setTimeout(r, 120)); await drain(); assert.match(recBlocks(x)[0].textContent, /REPD record unavailable — tap to retry \(timeout after 15 s\)/); }
+673579	  finally { delete globalThis.__SRC_OVERRIDE; }
+673580	  assert.ok(SRC.includes('TMO=15000'), 'the shipped timeout is 15 s');
+673581	test('M5-8 Area summary (Screening): counts and stated MW by technology and by status within 10 and 40 km equal the brute force; the nearest substation per voltage comes from the card\'s own 5', async () => {
+673582	  const x = await recTap(DONC, S3), c = card(x), g = c.querySelectorAll('[data-tier="screening"]').find(e => e.style.cssText.includes('grid'));
+673583	  assert.ok(g, 'summary grid'); const cells = g.children.map(e => e.textContent), rows = [];
+673584	  for (let i = 3; i < cells.length; i += 3) rows.push(cells.slice(i, i + 3));
+673585	  const seen = new Set(), all = [];
+673586	  for (const f of REPD_IND.features) { const a = repPoint(f.geometry), p = f.properties; if (!a || !PTECH.has(p.tech)) continue; const km = hav(...DONC, ...a); const k = a + JSON.stringify(p); if (km <= 40 && !seen.has(k)) { seen.add(k); all.push({ p, km }); } }
+673587	  const T = t => /^solar/.test(t) ? 'Solar' : /^wind/.test(t) ? 'Wind' : /^bess/.test(t) ? 'BESS' : 'Other', St = s => ({ operational: 'Operational', 'under construction': 'Consented', 'awaiting construction': 'Consented', 'application submitted': 'Planning' })[s];
+673588	  const cell = (lab, d) => { const r = all.filter(q => q.km <= d && (T(q.p.tech) === lab || St(q.p.status) === lab)), w = [...new Set(r.map(q => q.p.name + '|' + q.p.raw_tech + '|' + mwOf(q.p.capacity)))].reduce((s, k) => s + +k.split('|').pop(), 0); return r.length + (w > 0 ? ' · ' + w.toLocaleString('en-GB') + ' MW' : '') + (r.some(q => !(q.p.capacity > 0)) ? '*' : ''); };
+673589	  const want = ['Solar', 'Wind', 'BESS', 'Other', 'Operational', 'Consented', 'Planning'].filter(l => cell(l, 40) !== '0').map(l => [l, cell(l, 10), cell(l, 40)]);
+673590	  assert.deepEqual(rows, want);
+673591	  const k = origNearest(...DONC, S3), V = new Map(); for (const s of k) if (!V.has(s.kv[0])) V.set(s.kv[0], s);
+673592	  assert.ok(c.textContent.includes('Nearest per voltage, of the substations above: ' + [...V].sort((a, b) => b[0] - a[0]).map(([v, s]) => `${v} kV ${(+s.km).toFixed(2)} km`).join(' · ')));
+673593	  assert.ok(c.textContent.includes('Counts and distances only: not capacity, connection feasibility or exposure.'));
+673594	test('M5-9 tiers: record blocks are data-tier="record", the summary "screening"; no distance, count or sum is marked record; the banned words appear only negated', async () => {
+673595	  const x = await recTap(DONC, S3), c = card(x);
+673596	  for (const b of c.querySelectorAll('[data-tier="record"]')) assert.doesNotMatch(b.textContent, /\d km\b|within \d+ km/, 'a record block carries no distance');
+673597	  const scr = c.querySelectorAll('[data-tier="screening"]').map(e => e.textContent).join(' ') + ' ' + c.textContent.split('Record ·')[0];
+673598	  const bad = scr.replace(/not capacity, connection feasibility or exposure|Proximity, not exposure or a current path|Proximity only, not impact|not evidence any (asset|project) was struck|capacity not stated|some capacities not stated|MW not stated|Not its declared connection or capacity/g, '');
+673599	  assert.doesNotMatch(bad, /\brisk|exposure|exposed|struck|\bhit\b|impact|damage|\bsafe\b|capacity available|headroom|feasib|can connect|\broute\b/i);
+673600	  assert.match(c.textContent, /Screening · 10 nearest REPD sites \(\d+ projects; those at one point grouped\) within 40 km of this optical flash, straight line\. Proximity only, not impact/);
+673601	  assert.match(c.textContent, /Record · REPD \(DESNZ, OGL v3\.0\): the map register is the Apr 2026 extract; address, ref, operator and planning fields are from the Jul 2026 extract/);
+673602	test('M5-10 project view (row tap): the site\'s records are shown in the engine pattern; back restores the list with its records from the cache', async () => {
+673603	  const x = await recTap(NEWARK, NEWARK_SUBS), sites = bruteSites(REPD_IND, ...NEWARK), pt = new Map(REPD_IND.features.map(f => [f.properties, repPoint(f.geometry)]));
+673604	  const i = sites.findIndex(g => g.parts.length > 1); assert.ok(i >= 0); tapRow(x, i); await settle(); await drain();
+673605	  const c = card(x); assert.equal(c.getAttribute('aria-label'), 'REPD project');
+673606	  const bl = c.querySelectorAll('[data-tier="record"]'); assert.equal(bl.length, sites[i].parts.length);
+673607	  sites[i].parts.forEach((p, k) => { const r = wantRec(p, pt.get(p)); assert.ok(bl[k].textContent.includes(r ? `Record · REPD ${r.repd_ref}` : 'address not in register')); });
+673608	  assert.match(c.textContent, /Record · REPD \(DESNZ, Apr 2026, OGL v3\.0\)\. Status as registered, not as built\./);
+673609	  assert.equal(x.sql.length, 1, 'the project view reads the cache');
+673610	  dispatch(c.querySelector('[data-lightning-back]'), 'click', x.log.errors); await settle(); await drain();
+673611	  assert.equal(recBlocks(x).length, partsOf(REPD_IND, NEWARK).length); assert.equal(x.sql.length, 1); assert.equal(x.log.errors.length, 0);
+673612	test('M5-11 phone (393 px): record and summary blocks wrap (no fixed width, no nowrap); every line is short enough for two lines at 11 px monospace except addresses, which wrap anywhere', async () => {
+673613	  for (const b of [...recBlocks(x), ...c.querySelectorAll('[data-tier="screening"]')]) {
+673614	    assert.doesNotMatch(b.style.cssText, /(^|;)\s*(min-)?width:|nowrap|position:absolute/); }
+673615	  for (const b of recBlocks(x)) { assert.match(b.style.cssText, /overflow-wrap:anywhere/); assert.match(b.style.cssText, /font-size:11px/); }
+673616	  const g = c.querySelectorAll('[data-tier="screening"]').find(e => e.style.cssText.includes('grid'));
+673617	  assert.match(g.style.cssText, /grid-template-columns:auto auto auto/); for (const e of g.children) assert.ok(e.textContent.length <= 22, e.textContent);
+673618	  assert.ok(c.querySelector('details').open, 'M6: the card opens by default (the list is visible)');
+673619	// ---------------------------------------------------------------- M6-build: the 10-site list is visible by default (owner, iPhone 03:05 UTC)
+673620	test('M6-1: the card opens by default as a half-height panel: the sites come first (above the substations), the Area summary after them; "▾ Hide list" / "▸ Show 10 sites" reflects the real state; × closes', async () => {
+673621	  const x = await recTap(DONC, S3); x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 852, width: 393, height: 852 }; const c = card(x), d = c.querySelector('details');
+673622	  assert.equal(d.open, true, 'open by default');
+673623	  const [tg, close] = c.querySelectorAll('button'); assert.equal(tg.textContent, '▾ Hide list'); assert.equal(tg.getAttribute('aria-label'), 'Hide list'); assert.equal(tg.getAttribute('aria-expanded'), 'true'); assert.equal(close.getAttribute('aria-label'), 'Close');
+673624	  assert.equal(prows(c).length, 10); assert.ok(prows(c).every(a => d.contains(a)));
+673625	  const t = c.textContent, r = rowsOf(x); assert.ok(t.indexOf(r[0]) < t.indexOf('Screening · nearest substations'), 'sites first'); assert.ok(t.indexOf('Area summary') > t.indexOf(r[9]), 'Area summary after the sites');
+673626	  assert.ok(t.indexOf(r[9]) < t.indexOf('Cell lat') || !t.includes('Cell lat'));
+673627	  dispatch(tg, 'click', x.log.errors); assert.equal(d.open, false); assert.equal(tg.textContent, '▸ Show 10 sites'); assert.equal(tg.getAttribute('aria-label'), 'Show 10 sites'); assert.equal(tg.getAttribute('aria-expanded'), 'false');
+673628	  d.open = true; dispatch(d, 'toggle', x.log.errors); assert.equal(tg.textContent, '▾ Hide list', 'the summary tap updates the toggle too');
+673629	  dispatch(close, 'click', x.log.errors); assert.equal(card(x), null); assert.equal(x.log.errors.length, 0);
+673630	test('M6-2: the panel is at most 45 % of the map (393x852: 383 px) and scrolls inside', async () => {
+673631	  const x = flash0(); installRepd(x, SUBS, FCx([pf(-1.5, 52.3)])); x.mapEl._rect = { top: 0, left: 0, right: 393, bottom: 852, width: 393, height: 852 }; x.mapEl.clientHeight = 852; x.mapEl.clientWidth = 393;
+673632	  assert.equal(card(x).style.maxHeight, '383px'); assert.match(card(x).style.cssText, /overflow-y:auto/); assert.equal(card(x).querySelector('details').open, true);
+673633	test('M6-3: rows render from the map register even when the REPD record fetch fails or hangs: "loading REPD record…" at once, then "REPD record unavailable — tap to retry" within the 15 s budget; a tap on it retries; never an empty list', async () => {
+673634	    const x = await recTap(DONC, S3, { hang: true }); const c = card(x);
+673635	    assert.equal(prows(c).length, 10, 'the 10 rows stand'); for (const a of prows(c)) assert.match(a.textContent, /^\d+\.\d\d km · .+ · .+/);
+673636	    assert.ok(recBlocks(x).length >= 10); const api = x.W.__GRIDATLAS_MODULES__.repdRecords; assert.equal(api.block({ name: 'A' }, [1, 2], new Map).textContent, 'loading REPD record…', 'not loaded yet: loading'); assert.match(api.block({ name: 'A' }, [1, 2], new Map, new Error('x')).textContent, /^REPD record unavailable — tap to retry \(x\)$/);
+673637	    await new Promise(r => setTimeout(r, 120)); await drain();
+673638	    assert.ok(recBlocks(x).every(b => /^REPD record unavailable — tap to retry \(timeout after 15 s\)$/.test(b.textContent)));
+673639	    assert.equal(prows(c).length, 10, 'still 10 rows'); assert.equal(recBlocks(x)[0].getAttribute('role'), 'button');
+673640	  } finally { delete globalThis.__SRC_OVERRIDE; }
+673641	  const y = await recTap(DONC, S3, { noRuntime: true }); assert.equal(prows(card(y)).length, 10); assert.ok(recBlocks(y).every(b => b.textContent.startsWith('REPD record unavailable — tap to retry')));
+673642	  installRecords(y, RECS); dispatch(recBlocks(y)[0], 'click', y.log.errors); await settle(); await drain();
+673643	  assert.ok(!card(y).textContent.includes('unavailable'), 'the retry fills every slot'); assert.ok(recBlocks(y).some(b => /Record · REPD \d+/.test(b.textContent))); assert.equal(y.sql.length, 1);
+673644	  assert.equal(y.log.errors.length, 0);
+673645	/* Open, refresh or close the one GitHub issue labelled "live-bytes" from the
+673646	   result of the live-bytes job (202608301321-verify-live.yml).
+673647	     failure     the public Pages site does not serve the committed bytes (or
+673648	                 the verifier failed): open the issue, or refresh the open one
+673649	                 (body replaced, no notification; one comment per new commit)
+673650	     success     every path matched: close any open issue with a comment
+673651	     superseded  main moved during verification (the newer run decides),
+673652	     skipped, cancelled: leave the issue as it is
+673653	   Node built-ins only (fetch). Token from GH_TOKEN or GITHUB_TOKEN.
+673654	     node tools/ci/live-bytes-issue.mjs --report work/live-bytes.json \
+673655	          --outcome failure|success|superseded|skipped|cancelled \
+673656	          [--repo owner/name] [--run-url URL]
+673657	     node tools/ci/live-bytes-issue.mjs --self-test   # no network: in-memory fake API
+673661	export const LABEL = 'live-bytes';
+673662	const LABEL_COLOR = 'b60205';
+673663	const LABEL_DESCRIPTION = 'The public Pages site is not serving the committed bytes (verify-live.yml live-bytes job)';
+673664	const MAX_LISTED = 30;
+673665	function argument(argv, name, fallback) {
+673666	  const index = argv.indexOf(`--${name}`);
+673667	  return index >= 0 && argv[index + 1] !== undefined ? argv[index + 1] : fallback;
+673668	export function readReport(file) {
+673669	  try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch { return null; }
+673670	export function issueText(report, { runUrl = '', now = new Date() } = {}) {
+673671	  const r = report || {};
+673672	  const commit = r.commit || 'unknown';
+673673	  const short = String(commit).slice(0, 7);
+673674	  const title = `Live site does not serve the committed bytes (commit ${short}, generation ${r.generation || 'unknown'})`;
+673675	  const mismatches = Array.isArray(r.mismatches) ? r.mismatches : [];
+673676	  const problems = Array.isArray(r.problems) ? r.problems : [];
+673677	  const lines = mismatches.slice(0, MAX_LISTED).map(m =>
+673678	    `- \`${m.path}\` (${m.why}): HTTP ${m.http ?? 'none'}, committed ${m.expected?.bytes ?? '?'} B, live ${m.live?.bytes ?? 'none'} B`);
+673679	  if (mismatches.length > MAX_LISTED) lines.push(`- … and ${mismatches.length - MAX_LISTED} more (see the run's live-bytes artifact)`);
+673680	  const body = [
+673681	    report
+673682	      ? `**${r.paths_matched ?? '?'}/${r.paths_checked ?? '?'}** paths byte-identical at ${r.base_url || 'the public site'} for commit \`${commit}\` (generation ${r.generation || 'unknown'}) after ${r.attempts ?? '?'} attempt(s).`
+673683	      : '**The live-bytes verifier wrote no report** (it failed before comparing; see the run log).',
+673685	    ...(problems.length ? ['Problems:', ...problems.map(p => `- ${p}`), ''] : []),
+673686	    ...(lines.length ? ['Mismatches:', ...lines, ''] : []),
+673687	    `Run: ${runUrl || '(not given)'}`,
+673688	    'What to do: see `docs/OPERATIONS.md` ("live-bytes issue"). The next push to main whose live-bytes check passes closes this issue automatically.',
+673689	    `_Checked ${now.toISOString().replace(/\.\d+Z$/, 'Z')}._`
+673691	  return { title, body, marker: `<!-- live-bytes:commit=${commit} -->` };
+673692	/* One open issue per label. Returns a one-line description of what was done. */
+673693	export async function syncIssue(api, { outcome, report, runUrl = '', now = new Date() }) {
+673694	  if (!['failure', 'success'].includes(outcome)) return `outcome ${outcome}: issue left as it is`;
+673695	  const open = await api.openIssues(LABEL);
+673696	  if (outcome === 'success') {
+673697	    for (const issue of open) {
+673698	      await api.comment(issue.number, `Recovered: the live site serves the committed bytes of \`${report?.commit || 'unknown'}\` (generation ${report?.generation || 'unknown'}, ${report?.paths_matched ?? '?'}/${report?.paths_checked ?? '?'} paths). ${runUrl}`.trim());
+673699	      await api.update(issue.number, { state: 'closed', state_reason: 'completed' });
+673700	    return open.length ? `closed #${open.map(i => i.number).join(', #')}` : 'none open; nothing to do';
+673701	  const { title, body, marker } = issueText(report, { runUrl, now });
+673702	  const full = `${marker}\n${body}`;
+673703	  if (!open.length) {
+673704	    await api.ensureLabel(LABEL, LABEL_COLOR, LABEL_DESCRIPTION);
+673705	    const created = await api.create(title, full, LABEL);
+673706	    return `opened #${created.number}`;
+673707	  const [keep, ...extras] = open;
+673708	  const previous = keep.body || '';
+673709	  await api.update(keep.number, { title, body: full });
+673710	  let action = `updated #${keep.number}`;
+673711	  if (!previous.includes(marker)) {
+673712	    await api.comment(keep.number, `Still failing on a new commit.\n\n${body}`);
+673713	    action += ' (new commit; commented)';
+673714	  for (const extra of extras) {
+673715	    await api.comment(extra.number, `Duplicate of #${keep.number} (two checks raced).`);
+673716	    await api.update(extra.number, { state: 'closed', state_reason: 'not_planned' });
+673717	  return action;
+673718	export function githubApi(repo, token, base = 'https://api.github.com') {
+673719	  async function call(method, path, payload) {
+673720	    const response = await fetch(`${base.replace(/\/$/, '')}/repos/${repo}${path}`, {
+673721	      method,
+673723	        authorization: `Bearer ${token}`, accept: 'application/vnd.github+json',
+673724	        'x-github-api-version': '2022-11-28', 'user-agent': 'gridatlas-live-bytes-issue',
+673725	        ...(payload ? { 'content-type': 'application/json' } : {})
+673726	      body: payload ? JSON.stringify(payload) : undefined
+673727	    const text = await response.text();
+673729	      const error = new Error(`${method} ${path}: HTTP ${response.status} ${text.slice(0, 200)}`);
+673730	      error.status = response.status;
+673731	    return text ? JSON.parse(text) : null;
+673733	    async openIssues(label) {
+673734	      const rows = await call('GET', `/issues?state=open&labels=${encodeURIComponent(label)}&per_page=100&sort=created&direction=asc`);
+673735	      return (rows || []).filter(row => !row.pull_request);
+673736	    async ensureLabel(name, color, description) {
+673737	      try { await call('POST', '/labels', { name, color, description }); } catch (error) { if (error.status !== 422) throw error; }
+673738	    create: (title, body, label) => call('POST', '/issues', { title, body, labels: [label] }),
+673739	    update: (number, fields) => call('PATCH', `/issues/${number}`, fields),
+673740	    comment: (number, body) => call('POST', `/issues/${number}/comments`, { body })
+673741	function fakeApi(seed = []) {
+673742	  const issues = new Map(seed.map(i => [i.number, { state: 'open', ...i }]));
+673743	  const log = { comments: [], labels: [] };
+673744	  let next = 100;
+673745	    issues, log,
+673746	    async openIssues(label) { return [...issues.values()].filter(i => i.state === 'open' && i.labels.includes(label)).sort((a, b) => a.number - b.number).map(i => ({ ...i })); },
+673747	    async ensureLabel(name) { log.labels.push(name); },
+673748	    async create(title, body, label) { next += 1; issues.set(next, { number: next, title, body, labels: [label], state: 'open' }); return issues.get(next); },
+673749	    async update(number, fields) { Object.assign(issues.get(number), fields); return issues.get(number); },
+673750	    async comment(number, body) { log.comments.push([number, body]); }
+673751	async function selfTest() {
+673752	  const bad = { status: 'fail', commit: 'abc1234def', generation: '202610281340', base_url: 'https://x/', attempts: 60,
+673753	    paths_checked: 3, paths_matched: 2, problems: [], mismatches: [{ path: 'atlas/current.json', why: 'bytes differ', http: 200, expected: { bytes: 10 }, live: { bytes: 9 } }] };
+673754	  const good = { ...bad, status: 'pass', paths_matched: 3, mismatches: [] };
+673755	  const api = fakeApi([{ number: 5, labels: ['bug'] }]);
+673756	  assert.equal(await syncIssue(api, { outcome: 'success', report: good }), 'none open; nothing to do');
+673757	  assert.equal(await syncIssue(api, { outcome: 'failure', report: bad }), 'opened #101');
+673758	  assert.deepEqual(api.log.labels, [LABEL]);
+673759	  assert.match(api.issues.get(101).body, /2\/3\*\* paths/);
+673760	  assert.match(api.issues.get(101).body, /`atlas\/current.json` \(bytes differ\)/);
+673761	  assert.equal(await syncIssue(api, { outcome: 'failure', report: bad }), 'updated #101');
+673762	  assert.equal(api.log.comments.length, 0, 'same commit: refresh without a comment');
+673763	  assert.equal(await syncIssue(api, { outcome: 'failure', report: { ...bad, commit: 'fff0000' } }), 'updated #101 (new commit; commented)');
+673764	  assert.equal(await syncIssue(api, { outcome: 'superseded', report: good }), 'outcome superseded: issue left as it is');
+673765	  assert.equal(await syncIssue(api, { outcome: 'skipped', report: null }), 'outcome skipped: issue left as it is');
+673766	  assert.equal(api.issues.get(101).state, 'open');
+673767	  assert.equal(await syncIssue(api, { outcome: 'success', report: good }), 'closed #101');
+673768	  assert.equal(api.issues.get(101).state, 'closed');
+673769	  assert.equal(api.issues.get(5).state, 'open', 'other labels untouched');
+673770	  assert.match(issueText(null).body, /wrote no report/);
+673771	  const raced = fakeApi([{ number: 7, labels: [LABEL] }, { number: 9, labels: [LABEL] }]);
+673772	  await syncIssue(raced, { outcome: 'failure', report: bad });
+673773	  assert.equal(raced.issues.get(7).state, 'open');
+673774	  assert.equal(raced.issues.get(9).state, 'closed');
+673775	  const long = { ...bad, mismatches: Array.from({ length: 45 }, (_, i) => ({ path: `p${i}`, why: 'missing', http: 404, expected: { bytes: 1 } })) };
+673776	  assert.match(issueText(long).body, /and 15 more/);
+673777	  console.log('live-bytes-issue self-test: PASS');
+673778	async function main(argv) {
+673779	  if (argv.includes('--self-test')) return selfTest();
+673780	  const outcome = argument(argv, 'outcome', '');
+673781	  const report = readReport(argument(argv, 'report', 'work/live-bytes.json'));
+673782	  const repo = argument(argv, 'repo', process.env.GITHUB_REPOSITORY || 'Ventusltd/gridatlas');
+673783	  const runUrl = argument(argv, 'run-url', '');
+673784	  const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+673785	  if (!outcome) throw new Error('--outcome is required');
+673786	  if (!['failure', 'success'].includes(outcome)) { console.log(`live-bytes issue: outcome ${outcome}: left as it is`); return; }
+673787	  if (!token) throw new Error('GH_TOKEN or GITHUB_TOKEN is required');
+673788	  const action = await syncIssue(githubApi(repo, token, process.env.GITHUB_API_URL), { outcome, report, runUrl });
+673789	  console.log(`live-bytes issue: ${action}`);
+673790	  if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `\n- live-bytes issue: ${action}\n`);
+673791	if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+673792	  main(process.argv.slice(2)).catch(error => {
+673793	    console.log(`::error title=live-bytes issue::${String(error.message || error).replace(/\r?\n/g, ' ')}`);
+673795	// Vendored for the PR gate (tools/ci/pr-gate.mjs, "offtakers-suites") from the OT-build lane's tests/offtakers.test.mjs; the only
+673796	// change is the paths: the data file the module pins (data/offtakers_filtered_*.geojson), the REPD register from
+673797	// ../lightning/fixtures/, the record twin and substations from the repository.
+673798	// Potential-offtakers overlay: node tests (node:vm + minidom, no network, no browser). Spec: evidence/PW-design/OFFTAKERS-OVERLAY-SPEC.md §8.
+673799	//   OFFTAKERS_MODULE=<module.js> LIGHTNING_MODULE=<M4 lightning module> M5_MODULE=<built M5 module> node --test offtakers.test.mjs
+673800	// Fixtures: the three pinned globalgrid2050 files (sha256 checked here against the module's pins), the repo's REPD register fixture
+673801	// (tools/ci/lightning/fixtures/repd-master-v8-oracle.json.gz, 10,784 rows), the repo's REPD record twin
+673802	// (data/repd_browser_registry_202608290716.json, served for the parquet query) and the release's grid_substations.geojson.
+673803	import { El, makeDocument, dispatch } from '../lightning/minidom.mjs';
+673804	const HERE = new URL('./', import.meta.url).pathname, REPO = HERE + '../../../';
+673805	const MODULE = process.env.OFFTAKERS_MODULE, LMOD = process.env.LIGHTNING_MODULE || REPO + 'atlas/modules/202610290045-uk-lightning-overlay.js';
+673806	if (!MODULE) throw new Error('set OFFTAKERS_MODULE');
+673807	const SRC = fs.readFileSync(MODULE, 'utf8'), LSRC = fs.readFileSync(LMOD, 'utf8');
+673808	const SEAM = 'NS.ukOfftakers=Object.freeze(';
+673809	const PROBED = SRC.replace(SEAM, 'window.__OT__={S,nm,sites,near,csv,RpJ,hv};' + SEAM);
+673810	const DREL = (SRC.match(/DATA='https:\/\/ventusltd\.github\.io\/gridatlas\/(data\/offtakers_filtered_\d{12}\.geojson)'/) || [])[1];
+673811	if (!DREL) throw new Error('module names no data file');
+673812	const DURL = 'https://ventusltd.github.io/gridatlas/' + DREL, RAWD = fs.readFileSync(REPO + DREL), DATA = JSON.parse(RAWD);
+673813	const REG = JSON.parse(gunzipSync(fs.readFileSync(REPO + 'tools/ci/lightning/fixtures/repd-master-v8-oracle.json.gz')));
+673814	const RECS = JSON.parse(fs.readFileSync(REPO + 'data/repd_browser_registry_202608290716.json', 'utf8')).records;
+673815	const MANI = fs.readFileSync(REPO + 'data/repd_v9_manifest_202608290716.json');
+673816	const SUBF = JSON.parse(fs.readFileSync(REPO + 'atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson', 'utf8')).features;
+673817	// El additions the module uses in a browser (minidom lacks them)
+673818	Object.defineProperty(El.prototype, 'nextElementSibling', { get() { const p = this.parentNode; if (!p) return null; const c = p.children.filter(x => x instanceof El); return c[c.indexOf(this) + 1] || null; } });
+673819	El.prototype.click = function () { dispatch(this, 'click', globalThis.__ERR || []); };
+673820	El.prototype.focus = function () { globalThis.__FOCUS = this; };
+673821	Object.defineProperty(El.prototype, 'offsetHeight', { get() { return 200; } }); Object.defineProperty(El.prototype, 'offsetWidth', { get() { return 380; } });
+673822	// independent references: haversine (6378.137 km, the original's geodesy) and the original nearestSubstations (sld-sandbox 202609241334 :3513)
+673823	const kvOf = v => [...new Set(String(v ?? '').split(/[;,|:\s]+/).map(Number).filter(x => x > 0).map(x => x >= 1000 ? x / 1000 : x))].filter(x => x >= 32.5).sort((a, b) => b - a);
+673824	const SUBS = SUBF.map((f, i) => ({ at: f.geometry.coordinates, kv: kvOf(f.properties.voltage), name: f.properties.name || '' })).filter(s => s.kv.length);
+673825	const PTECH = new Set(['solar', 'solar_roof', 'wind', 'bess', 'biomass', 'tidal', 'hydrogen', 'hydro', 'flywheel', 'act', 'geothermal', 'caes', 'other']);
+673826	const unhandled = []; process.on('unhandledRejection', e => unhandled.push(e));
+673827	const drain = async (n = 60) => { for (let k = 0; k < n; k++) { await new Promise(r => setImmediate(r)); await new Promise(r => setTimeout(r, 1)); } };
+673828	function boot({ tamper = false, lightning = false, neon = true, register = REG.features, duck = true, offtakers = true, srcOverride = null } = {}) {
+673829	  const doc = makeDocument(), html = doc.documentElement, body = doc.createElement('body'); html.appendChild(body); const errs = globalThis.__ERR = [];
+673830	  const sources = new Map(), layers = new Map(), order = [], camera = [], handlers = [];
+673831	  const src = (id, o) => ({ ...o, setData(x) { this.data = x; }, serialize() { return { type: 'geojson', data: this.data }; } });
+673832	  const map = { getLayer: id => layers.get(id), getSource: id => sources.get(id), addSource: (id, o) => { if (sources.has(id)) throw new Error('source exists ' + id); sources.set(id, src(id, o)); },
+673833	    addLayer: (x, before) => { if (layers.has(x.id)) throw new Error('layer exists ' + x.id); if (x.source && !sources.has(x.source)) throw new Error('no source ' + x.source); layers.set(x.id, { ...x }); const i = before ? order.indexOf(before) : -1; i >= 0 ? order.splice(i, 0, x.id) : order.push(x.id); },
+673834	    removeLayer: id => { layers.delete(id); order.splice(order.indexOf(id), 1); }, removeSource: id => { if ([...layers.values()].some(l => l.source === id)) throw new Error('source in use ' + id); sources.delete(id); },
+673835	    moveLayer: id => { order.splice(order.indexOf(id), 1); order.push(id); }, setFilter: (id, f) => { layers.get(id).filter = f; },
+673836	    setPaintProperty: (id, k, v) => { const l = layers.get(id); l.paint = { ...l.paint, [k]: v }; }, setLayoutProperty(id, k, v) { const l = layers.get(id); if (l) { l.layout = l.layout || {}; l.layout[k] = v; } },
+673837	    getLayoutProperty: (id, k) => (layers.get(id)?.layout || {})[k], getStyle: () => ({ layers: order.map(id => ({ id, ...layers.get(id) })) }), isMoving: () => false, getZoom: () => 8 };
+673838	  for (const k of ['fitBounds', 'flyTo', 'easeTo', 'jumpTo']) map[k] = (...a) => camera.push([k, a]);
+673839	  const mapEl = doc.createElement('div'); mapEl.id = 'map'; mapEl._rect = { top: 0, left: 0, right: 393, bottom: 852, width: 393, height: 852 }; body.appendChild(mapEl);
+673840	  map.getContainer = () => mapEl; map.project = ll => ({ x: (ll[0] + 12) * 1000, y: (62 - ll[1]) * 1000 });
+673841	  map.once = (t, f) => f(); map.on = (t, a, b) => handlers.push({ t, layer: b ? a : null, f: b || a }); map.off = (t, f) => { const i = handlers.findIndex(h => h.t === t && h.f === f); if (i >= 0) handlers.splice(i, 1); };
+673842	  let qrf = () => []; map.queryRenderedFeatures = (pt, o) => (o && o.layers || []).flatMap(l => qrf(l, pt));
+673843	  const tapMap = (pt, hits = {}) => { qrf = l => hits[l] || []; const e = { point: pt, lngLat: { lng: 0, lat: 0 }, originalEvent: { target: mapEl } }; for (const h of handlers.filter(h => h.t === 'click')) h.f(e); };
+673844	  if (register) sources.set('src-repd', src('src-repd', { type: 'geojson', data: { type: 'FeatureCollection', features: register } }));
+673845	  const log = { xhr: [], fetch: [], winAdd: [], sql: [] }, winL = {};
+673846	  const feed = { type: 'FeatureCollection', features: [], metadata: { query_start_utc: new Date(Date.now() - 4 * 36e5).toISOString(), query_end_utc: new Date(Date.now() - 36e5).toISOString() } };
+673847	  class XHR { open(m, u) { this.url = u; } send() { log.xhr.push(this.url); setTimeout(() => {
+673848	    if (this.url === DURL) { let b = RAWD; if (tamper) { b = Buffer.from(b); b[10] ^= 1; } this.status = 200; this.responseURL = this.url; this.response = b.buffer.slice(b.byteOffset, b.byteOffset + b.length); this.onload(); return; }
+673849	    if (/uk_lightning\.geojson$/.test(this.url)) { this.status = 200; this.responseURL = this.url; this.responseText = JSON.stringify(W.__FEED__ || feed); this.onload(); return; }
+673850	    this.status = 404; this.onload(); }, 0); } }
+673851	  const fetch = async (u, o) => { log.fetch.push(String(u)); await null;
+673852	    if (String(u).endsWith('repd_v9_manifest_202608290716.json')) return new Response(MANI, { status: 200 });
+673853	    return new Response('nope', { status: 404 }); };
+673854	  const W = { __GRIDATLAS_V9_MAP__: map, innerWidth: 393, innerHeight: 852, crypto: { subtle: webcrypto.subtle }, __GRIDATLAS_MODULES__: { menuBar: { installed: true, inspect: () => ({ n: 60 }) } }, __GRIDATLAS_PIPELINE_LAYERS__: { installed: true } };
+673855	  W.addEventListener = (t, f) => { log.winAdd.push(t); (winL[t] = winL[t] || []).push(f); }; W.removeEventListener = (t, f) => { const a = winL[t] || []; const i = a.indexOf(f); if (i >= 0) a.splice(i, 1); };
+673856	  W.dispatchEvent = ev => { for (const f of [...(winL[ev.type] || [])]) f(ev); return true; };
+673857	  if (neon) W.__GRIDATLAS_NEON_LINKS__ = { substations: SUBS, measure: { distanceKm: hav, representativePoint: g => g && g.type === 'Point' ? g.coordinates.slice(0, 2) : null, isProjectTech: t => PTECH.has(t), nearestSubstations: (...a) => { (W.__NS__ = W.__NS__ || []).push(a.slice(0, 2)); return origNearest(...a); } } };
+673858	  if (duck) W.__GRIDATLAS_DUCKDB_RUNTIME__ = { promise: Promise.resolve({ database: { connect: async () => ({ query: async sql => { log.sql.push(sql); const pts = [...sql.matchAll(/abs\(longitude-\((-?[\d.e-]+)\)\)<=([\d.e-]+) AND abs\(latitude-\((-?[\d.e-]+)\)\)<=[\d.e-]+/g)].map(m => [+m[1], +m[3], +m[2]]);
+673859	    const rows = RECS.filter(r => r.longitude != null && pts.some(([x, y, e]) => Math.abs(r.longitude - x) <= e && Math.abs(r.latitude - y) <= e)); return { toArray: () => rows.map(r => ({ ...r })) }; }, close: async () => {} }) } }) };
+673860	  class CE { constructor(t, o) { this.type = t; this.detail = o && o.detail; } }
+673861	  const blobs = []; class Blob { constructor(p, o) { this.text = p.join(''); this.type = o && o.type; blobs.push(this); } }
+673862	  const URLx = { createObjectURL: b => 'blob:' + blobs.indexOf(b), revokeObjectURL: () => {} };
+673863	  let raf = 0; const rafs = new Set();
+673864	  const sandbox = { window: W, document: doc, Date, AbortController, Map, Set, WeakMap, Promise, XMLHttpRequest: XHR, fetch, Response, TextDecoder, Uint8Array, setTimeout, clearTimeout, URLSearchParams,
+673865	    setInterval: () => 1, clearInterval: () => {}, matchMedia: q => ({ matches: !/reduce/.test(q) }), MutationObserver: class { observe() {} disconnect() {} }, innerHeight: 852, addEventListener: W.addEventListener,
+673866	    CustomEvent: CE, Blob, URL: URLx, location: { pathname: '/gridatlas/atlas/' }, requestAnimationFrame: f => { raf++; rafs.add(raf); return raf; }, cancelAnimationFrame: i => rafs.delete(i), console };
+673867	  Object.assign(W, { CustomEvent: CE });
+673868	  const ctx = vm.createContext(sandbox);
+673869	  let L = null, O = null;
+673870	  if (lightning) { vm.runInContext(LSRC.replace('NS.ukLightning=Object.freeze(', 'window.__LP__={S};NS.ukLightning=Object.freeze('), ctx, { filename: 'lightning.js', timeout: 5000 }); L = W.__GRIDATLAS_MODULES__.ukLightning; assert.equal(L.install(), true); }
+673871	  if (offtakers) { try { vm.runInContext(srcOverride ? srcOverride : PROBED, ctx, { filename: MODULE, timeout: 5000 }); } catch (e) { if (!srcOverride) throw e; log.top = e; } O = W.__GRIDATLAS_MODULES__.ukOfftakers; }
+673872	  const P = W.__OT__;
+673873	  const group = () => host.querySelector('[data-offtakers-group]');
+673874	  const toggle = on => { const t = group().querySelector('[data-offtakers-control]'); t.checked = on; dispatch(t, 'change', errs); };
+673875	  const ltoggle = on => { const t = host.querySelector('[data-lightning-control]'); t.checked = on; dispatch(t, 'change', errs); };
+673876	  const card = () => mapEl.querySelector('[data-offtakers-card]'), lcard = () => mapEl.querySelector('[data-lightning-card]');
+673877	  const dot = pred => P.S.data.dots.find(pred);
+673878	  const tapDot = async r => { tapMap([0, 0], { 'gridatlas-offtakers-hit': [{ properties: { i: r.i }, geometry: { type: 'Point', coordinates: r.a } }] }); await drain(); };
+673879	  return { W, doc, host, curtain, map, layers, sources, order, camera, handlers, tapMap, log, winL, errs, mapEl, O, L, P, S: P && P.S, toggle, ltoggle, card, lcard, dot, tapDot, blobs, rafs, sandbox };
+673880	const text = e => e ? e.textContent : '';
+673881	const deq = (a, b, m) => assert.deepEqual(JSON.parse(JSON.stringify(a ?? null)), JSON.parse(JSON.stringify(b ?? null)), m);
+673882	const OTIDS = id => /offtakers/.test(id);
+673883	// ---------------------------------------------------------------- data and pins
+673884	test('P0: the module pins the committed OT-filter file (sha256)', () => {
+673885	  assert.ok(SRC.includes(`DSHA='${sha(RAWD)}'`), 'data pin'); assert.equal(DATA.type, 'FeatureCollection');
+673886	test('T3/T4: classes on the pinned OT-filter file; power stations kept (incl. closed); no small water by default; Offshore never', () => {
+673887	  const x = boot(); const r = x.P.nm(DATA.features);
+673888	  deq({ ...r.counts }, { a: 870, b: 366, c: 176, d: 8, s: 168, e: 57 }); assert.equal(r.bad, 0);
+673889	  assert.equal(r.dots.filter(d => d.k !== 's').length, 1477, 'default dots'); assert.equal(r.dots.length, 1645, 'with the small water tier');
+673890	  const b = r.dots.filter(d => d.k === 'b'); deq(Object.fromEntries(['op', 'cl', 'cc', 'un'].map(t => [t, b.filter(d => d.t === t).length])), { op: 269, cl: 4, cc: 18, un: 75 });
+673891	  assert.ok(b.some(d => /Ratcliffe/.test(d.n) && d.t === 'cc'), 'closed coal kept');
+673892	  assert.equal(r.dots.filter(d => (d.p.records || []).some(q => /offshore/i.test(q.sector || ''))).length, 0);
+673893	  for (const d of r.dots) assert.ok(d.a[0] >= -11 && d.a[0] <= 3 && d.a[1] >= 49.5 && d.a[1] <= 61.5);
+673894	  for (const d of r.dots.filter(d => d.k === 'd' || d.k === 's')) assert.ok(d.p.records.some(q => q.source === 'NAEI'), 'water only NAEI-listed');
+673895	// ---------------------------------------------------------------- arrival
+673896	test('T1: arrival identity: OFF adds no request, source, layer or listener; the group sits before lightning\'s; OFF by default', () => {
+673897	  const x = boot({ lightning: true }); const pre = { s: [...x.sources.keys()], l: [...x.layers.keys()], h: x.handlers.length, w: x.log.winAdd.length };
+673898	  assert.equal(x.O.install(), true);
+673899	  deq([...x.sources.keys()], pre.s); deq([...x.layers.keys()], pre.l); assert.equal(x.handlers.length, pre.h); assert.equal(x.log.winAdd.length, pre.w);
+673900	  assert.equal(x.log.xhr.length + x.log.fetch.length, 0); assert.equal(x.S.on, false); assert.equal(x.host.querySelector('[data-offtakers-control]').checked, false);
+673901	  const kids = x.host.children; assert.ok(kids.indexOf(x.host.querySelector('[data-offtakers-group]')) < kids.indexOf(x.host.querySelector('[data-lightning-group]')), 'before the lightning group');
+673902	  assert.ok(x.curtain.querySelector('[data-offtakers-group]'), 'fullscreen curtain copy');
+673903	  assert.equal(/data-layer-id|data-pn-layer|data-gridatlas-layer|lbl-|name=["']bm|localStorage|sessionStorage|document\.cookie|window\.fetch/.test(SRC), false, 'no engine/menu/storage contract');
+673904	// ---------------------------------------------------------------- switch-on
+673905	test('T2a: switch-on fetches exactly the pinned data file once; copper-to-teal palette; small water off; legend', async () => {
+673906	  const x = boot(); x.O.install(); x.toggle(true); await drain();
+673907	  deq(x.log.xhr, [DURL]); x.toggle(false); x.toggle(true); await drain(); deq(x.log.xhr, [DURL], 'cached for the page');
+673908	  assert.equal(x.sources.get('gridatlas-offtakers').data.features.length, 1645);
+673909	  const f = x.layers.get('l-gridatlas-offtakers').filter; deq(f[1][2][1], ['a', 'b', 'c', 'd', 'e'], 'small water off by default');
+673910	  assert.match(JSON.stringify(x.layers.get('l-gridatlas-offtakers').paint), /#e07b39.*#f2c14e.*#2ec4b6.*#4f86c6.*#a26769/);
+673911	  assert.match(text(x.host.querySelector('[data-offtakers-label]')), /\[1,477 sites\]/);
+673912	  assert.match(text(x.host.querySelector('[data-offtakers-foot]')), /Dot size: emission band \(NAEI 2023\) or installed MW \(GPPD\)\. Hollow ring: closed or closing station\..*A listing is not electricity demand\. Distances are straight lines\. Vicinity screening only\./);
+673913	test('T2b: a SHA-256 mismatch shows "data check failed" and draws nothing', async () => {
+673914	  const y = boot({ tamper: true }); y.O.install(); y.toggle(true); await drain();
+673915	  assert.match(text(y.host.querySelector('[data-offtakers-status]')), /data check failed/); assert.match(text(y.host.querySelector('[data-offtakers-label]')), /\[FAIL\]/);
+673916	  assert.equal([...y.sources.keys()].filter(OTIDS).length + [...y.layers.keys()].filter(OTIDS).length, 0, 'nothing drawn');
+673917	test('T2c: class and power-status chips filter the drawn and tappable layers; All resets; hollow ring for closed', async () => {
+673918	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const lab = () => text(x.host.querySelector('[data-offtakers-label]'));
+673919	  x.host.querySelector('[data-offtakers-class="s"]').click(); deq(x.layers.get('gridatlas-offtakers-hit').filter[1][2][1], ['a', 'b', 'c', 'd', 's', 'e']); assert.match(lab(), /\[1,645 sites\]/);
+673920	  x.host.querySelector('[data-offtakers-class="a"]').click(); assert.match(lab(), /\[775 sites\]/);
+673921	  const a = x.dot(r => r.k === 'a'); await x.tapDot(a); assert.equal(x.card(), null, 'a hidden class is not tappable');
+673922	  x.host.querySelector('[data-offtakers-bst="cc"]').click(); deq(x.layers.get('gridatlas-offtakers-hit').filter[2][2][2][1], ['op', 'cl', 'un']);
+673923	  const rat = x.dot(r => /Ratcliffe/.test(r.n)); await x.tapDot(rat); assert.equal(x.card(), null, 'a hidden status is not tappable');
+673924	  x.host.querySelector('[data-offtakers-all]').click(); assert.match(lab(), /\[1,477 sites\]/);
+673925	  const paint = JSON.stringify(x.layers.get('l-gridatlas-offtakers').paint); assert.match(paint, /"case",\["in",\["get","t"\],\["literal",\["cl","cc"\]\]\],"rgba\(0,0,0,0\)"/);
+673926	  assert.ok(x.layers.get('gridatlas-offtakers-centre'), 'operating power stations get a dark centre dot');
+673927	// ---------------------------------------------------------------- the tap
+673928	const indep = (r, f = { st: 'all', te: 'all' }) => { // independent of the module: haversine, M2 status/tech tables, ~10 m grouping, 15 + ties
+673929	  const S = s => ({ operational: 'op', 'under construction': 'cc', 'awaiting construction': 'cc', 'application submitted': 'pl' })[String(s || '').toLowerCase()] || '?';
+673930	  const T = t => /^solar/.test(t) ? 'solar' : /^wind/.test(t) ? 'wind' : /^bess/.test(t) ? 'bess' : 'other';
+673931	  const seen = new Set(), rows = [];
+673932	  for (const g of REG.features) { const a = g.geometry.coordinates, p = g.properties; if (!PTECH.has(p.tech)) continue; const km = hav(r.a[0], r.a[1], a[0], a[1]); if (km > 40) continue; const k = a + JSON.stringify(p); if (seen.has(k)) continue; seen.add(k);
+673933	    if ((f.st === 'all' || S(p.status) === f.st) && (f.te === 'all' || T(p.tech) === f.te)) rows.push({ a, p, km }); }
+673934	  rows.sort((a, b) => a.km - b.km); const gs = [];
+673935	  for (const q of rows) { let g = gs.find(g => Math.abs(g.a[0] - q.a[0]) < 2e-4 && Math.abs(g.a[1] - q.a[1]) < 1e-4); if (!g) gs.push(g = { a: q.a, km: q.km, parts: [] }); g.parts.push(q.p); }
+673936	  return gs.filter((g, i, a) => i < 15 || g.km === a[14].km);
+673937	const rowsOf = c => [...c.querySelectorAll('a')].map(a => text(a));
+673938	const bigSites = x => ({ refinery: x.dot(r => r.k === 'a' && /refinery/.test(r.sub)), steel: x.dot(r => r.k === 'a' && r.sub === 'steel' && /Port Talbot Blast Furnaces/.test(r.n)), naei: x.dot(r => /Ratcliffe/.test(r.n)), dc: x.dot(r => r.k === 'c' && !/^unknown/i.test(r.n)) });
+673939	test('T6a: a tap lists the 15 nearest REPD sites (≤40 km, ties kept), equal to an independent haversine reference, and draws 15 REPD links + 5 substation links', async () => {
+673940	  const picks = Object.values(bigSites(x)).filter(Boolean); assert.ok(picks.length >= 3, 'refinery / steel / data-centre fixtures present');
+673941	  for (const r of picks) {
+673942	    await x.tapDot(r); const c = x.card(); assert.ok(c, 'card'); const exp = indep(r), got = rowsOf(c);
+673943	    assert.equal(got.length, exp.length, r.n); assert.ok(exp.length >= 15);
+673944	    exp.forEach((g, i) => assert.ok(got[i].startsWith(`${i + 1}. ${g.km.toFixed(2)} km`), `${r.n} row ${i + 1}: ${got[i]} vs ${g.km.toFixed(2)}`));
+673945	    for (const g of exp) assert.ok(g.km <= 40);
+673946	    const pl = x.sources.get('gridatlas-offtakers-neon-plinks').data.features, sl = x.sources.get('gridatlas-offtakers-neon-subs').data.features;
+673947	    assert.equal(pl.length, exp.length); deq(pl.map(f => f.geometry.coordinates[1]), exp.map(g => g.a));
+673948	    const ns = origNearest(r.a[0], r.a[1], SUBS); assert.equal(sl.length, 5); deq(sl.map(f => f.geometry.coordinates[1]), ns.map(s => s.at));
+673949	    deq(x.W.__NS__.at(-1), r.a, 'nearestSubstations called at the site');
+673950	    assert.match(text(c), /Substations \(5 nearest, straight line; not a connection\)/);
+673951	    assert.ok(x.layers.get('l-gridatlas-offtakers-links'), 'links layer id');
+673952	test('T6b: ties at the 15th site distance are kept; "Only n REPD sites within 40 km" for a sparse point; chips re-rank; MW not stated is never 0', async () => {
+673953	  const at = [-1.0, 54.0], mk = (dx, p) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [at[0] + dx, at[1]] }, properties: { name: 'P' + dx, tech: 'solar', raw_tech: 'Solar Photovoltaics', status: 'operational', capacity: 5, ...p } });
+673954	  const reg = [...Array.from({ length: 14 }, (_, i) => mk(0.01 * (i + 1))), mk(0.25, { name: 'tieA' }), mk(-0.25, { name: 'tieB', status: 'application submitted', capacity: null, tech: 'wind', raw_tech: 'Wind Onshore' }), mk(0.3, { name: 'far' })];
+673955	  const x = boot({ register: reg }); x.O.install(); x.toggle(true); await drain(); const r = x.dot(r => r.k === 'a'); r.a = at; // a synthetic site
+673956	  await x.tapDot(r); let rows = rowsOf(x.card()); assert.equal(rows.length, 16, 'ties kept'); assert.ok(rows.some(t => /tieA/.test(t)) && rows.some(t => /tieB/.test(t)) && !rows.some(t => /far/.test(t)));
+673957	  assert.match(rows.find(t => /tieB/.test(t)), /MW not stated/); assert.equal(rows.some(t => / 0 MW/.test(t)), false);
+673958	  x.card().querySelector('[data-offtakers-repd-filter="st:pl"]').click(); rows = rowsOf(x.card()); assert.equal(rows.length, 1); assert.match(rows[0], /tieB/);
+673959	  assert.match(text(x.card()), /Only 1 REPD site within 40 km for this filter/);
+673960	  assert.equal(x.sources.get('gridatlas-offtakers-neon-plinks').data.features.length, 1, 'links follow the chips');
+673961	  x.card().querySelector('[data-offtakers-repd-filter="st:all"]').click(); x.card().querySelector('[data-offtakers-repd-filter="te:wind"]').click(); assert.equal(rowsOf(x.card()).length, 1);
+673962	  x.card().querySelector('[data-offtakers-repd-filter="te:all"]').click();
+673963	  assert.match(text(x.card()), /Within 5 km: 7 REPD projects · Operational 7 · 35 MW stated/); // 0.01° steps at 54° N: 7 within 5 km
+673964	test('T7: substations are exactly the 5 from nearestSubstations; beyondRadiusNearest is named when none lies within 40 km', async () => {
+673965	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const r = bigSites(x).refinery; await x.tapDot(r);
+673966	  const ns = origNearest(r.a[0], r.a[1], SUBS), lines = text(x.card()).match(/\d+\.\d\d km · \d+ kV · [^·]*?(?=\d+\.\d\d km|Download|$)/g) || [];
+673967	  for (const s of ns) assert.ok(text(x.card()).includes(`${s.km.toFixed(2)} km · ${Math.max(...s.kv)} kV`), 'substation ' + s.km);
+673968	  const y = boot({ neon: true }); y.W.__GRIDATLAS_NEON_LINKS__.substations = [{ at: [-4, 58.5], kv: [132], name: 'Far North' }]; y.O.install(); y.toggle(true); await drain();
+673969	  const q = y.dot(r => r.k === 'a' && r.a[1] < 51); await y.tapDot(q);
+673970	  assert.match(text(y.card()), /No substation within 40 km \(nearest: Far North, 132 kV, \d+\.\d\d km\)/);
+673971	test('T8: full REPD record (M5 join, copied unchanged): joined rows show ref, address, postcode; unjoined read "address not in register"', async () => {
+673972	  const m5p = process.env.M5_MODULE; if (m5p) { const m5 = fs.readFileSync(m5p, 'utf8'), a = m5.indexOf("RU='https://ventusltd.github.io/gridatlas/data/repd_projects_"), b = m5.indexOf('RpX='); assert.ok(SRC.includes(m5.slice(a, b).replace(/\n$/, '')), 'M5 join text byte-identical'); }
+673973	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const r = bigSites(x).refinery; await x.tapDot(r); await drain(); const c = x.card();
+673974	  const recs = [...c.querySelectorAll('[data-tier="record"]')].map(text).join('\n');
+673975	  assert.match(recs, /Record · REPD \d+ · /); assert.ok(x.log.sql.length >= 1 && /read_parquet\('https:\/\/ventusltd\.github\.io\/gridatlas\/data\/repd_projects_202608290716\.parquet'\)/.test(x.log.sql[0]));
+673976	  // every listed project: an exact single record ⇒ its ref; otherwise "address not in register" (independent join)
+673977	  const nz = s => ((s || '') + '').normalize('NFC').split(/\s+/).filter(Boolean).join(' ');
+673978	  for (const g of indep(r)) for (const p of g.parts) { const m = RECS.filter(o => o.longitude != null && Math.abs(o.longitude - g.a[0]) <= 1.000001e-6 && Math.abs(o.latitude - g.a[1]) <= 1.000001e-6 && nz(o.name) === nz(p.name) && Math.abs((o.capacity_mw > 0 ? +o.capacity_mw : 0) - (p.capacity > 0 ? +p.capacity : 0)) < 1e-6 && o.repd_technology === p.raw_tech);
+673979	    if (m.length === 1) { assert.ok(recs.includes(`Record · REPD ${m[0].repd_ref} · `), 'ref ' + m[0].repd_ref); if (m[0].repd_postcode) assert.ok(recs.includes(m[0].repd_postcode)); } }
+673980	  const y = boot({ register: [{ type: 'Feature', geometry: { type: 'Point', coordinates: [-1.3, 50.8] }, properties: { name: 'No Such Farm', tech: 'solar', raw_tech: 'Solar Photovoltaics', status: 'operational', capacity: 3 } }] }); y.O.install(); y.toggle(true); await drain();
+673981	  const q = y.dot(d => d.k === 'a'); q.a = [-1.31, 50.8]; await y.tapDot(q); await drain(); assert.match(text(y.card()), /Record · address not in register/);
+673982	test('T9: wording lint: banned words, no tCO2e and no "%" in the card; every text block tiered; no distance tiered Record; first line ≤ 90 chars; Unknown never a name', async () => {
+673983	  const x = boot(); x.O.install(); x.toggle(true); await drain(); x.host.querySelector('[data-offtakers-class="s"]').click();
+673984	  const lits = SRC.match(/'[^'\n]*'|`[^`\n]*`/g).join('\n').replace("'Not shown here: electricity use, connection terms, TEC, consent, viability.'", '');
+673985	  const BAN = /\b(viable|feasible|opportunity|offtake agreement|PPA|private wire|supply|capacity available|demand of|consumes|MWh|large user|best|recommended|suitable)\b/i;
+673986	  assert.equal(BAN.test(lits), false, 'banned word in a module literal: ' + (lits.match(BAN) || [])[0]);
+673987	  const unknownN = x.dot(r => r.k === 'c' && (!r.n || /^unknown/i.test(r.n))), unknownOp = x.dot(r => /^unknown/i.test(r.op || 'Unknown'));
+673988	  const picks = [...Object.values(bigSites(x)), unknownN, unknownOp, x.dot(r => r.k === 's'), x.dot(r => r.k === 'd'), x.dot(r => r.k === 'e'), x.dot(r => r.k === 'b' && r.t === 'un'), x.dot(r => r.p.records.length > 2)];
+673989	  assert.equal(picks.filter(Boolean).length, picks.length, 'every pick exists: ' + picks.map((p, i) => p ? '' : i).join(''));
+673990	    await x.tapDot(r); await drain(); const c = x.card(), t = text(c);
+673991	    assert.equal(/\b(viable|feasible|opportunity|PPA|MWh|recommended|suitable)\b/.test(t.replace(/Not shown here: [^.]*\./, '')), false, 'banned in card: ' + t.slice(0, 80)); const tn = t.replace(/source https?:\/\/\S+/g, ''); assert.equal(/tCO2e|tonnes|%/i.test(tn), false, 'no emission figure or %: ' + (tn.match(/.{30}(tCO2e|tonnes|%).{10}/i) || [])[0]);
+673992	    for (const m of tn.matchAll(/Emission band ([^ ]+ kt|[^ ]+) CO2e/g)) assert.ok(['<1 kt', '1-10 kt', '10-25 kt', '25-100 kt', '>=100 kt'].includes(m[1]), 'band only: ' + m[1]);
+673993	    assert.equal(/Unknown/.test(t.split('Substations')[0]), false, 'Unknown… never rendered as a name or operator');
+673994	    const title = c.children[0].children[0]; assert.ok(text(title).length <= 90);
+673995	    for (const e of c.walk()) { if (!['DIV', 'A'].includes(e.tagName) || !e.children.some(k => !(k instanceof El) && k.data.trim())) continue;
+673996	      let p = e; while (p && !p.dataset.tier && p !== c) p = p.parentNode; if (e.closest('[role="group"]') || e.closest('[role="status"]')) continue;
+673997	      assert.ok(p && p.dataset.tier, 'untiered block: ' + text(e).slice(0, 60));
+673998	      if (p.dataset.tier === 'record') assert.equal(/\d km\b/.test(text(e)), false, 'distance tiered Record: ' + text(e)); }
+673999	  assert.match(text(x.card() || x.host), /./);
+674000	  const u = unknownN; await x.tapDot(u); assert.match(text(x.card()), /name not listed · /); assert.match(text(x.card().children[0]), /^Potential offtaker \(screening\): not a confirmed demand, contract or connection\./);
+674001	test('T10: CSV vicinity sheet: header with generation and caveat; one row per listed project and substation; licence filled', async () => {
+674002	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const r = bigSites(x).steel || bigSites(x).refinery; await x.tapDot(r); await drain();
+674003	  x.card().querySelector('[data-offtakers-csv]').click(); const csv = x.blobs.at(-1).text, lines = csv.trim().split('\n');
+674004	  assert.match(lines[0], new RegExp('generation ' + x.O.generation)); assert.match(lines[1], /straight-line distance, not a cable route.*not electricity demand/);
+674005	  const parts = indep(r).reduce((s, g) => s + g.parts.length, 0); assert.equal(lines.length - 3, parts + 5);
+674006	  const rows = lines.slice(3).map(l => l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(v => v.replace(/,$/, ''))); for (const c of rows) assert.ok(c[10] && /OGL|ODbL/.test(c[10]), 'licence ' + c);
+674007	  assert.equal(x.blobs.at(-1).type, 'text/csv');
+674008	test('T12: cleanup: OFF removes every offtakers source, layer, card, map listener and animation; ON again redraws; repeated cycles leave nothing', async () => {
+674009	  const x = boot(); x.O.install(); const h0 = x.handlers.length;
+674011	    x.toggle(true); await drain(); await x.tapDot(bigSites(x).refinery); await drain(); assert.ok(x.card()); assert.ok(x.rafs.size >= 1);
+674012	    x.toggle(false); assert.equal(x.card(), null); assert.equal([...x.sources.keys()].filter(OTIDS).length, 0); assert.equal([...x.layers.keys()].filter(OTIDS).length, 0);
+674013	    assert.equal(x.handlers.length, h0, 'map listeners removed'); assert.equal(x.rafs.size, 0, 'animation cancelled'); assert.equal((x.winL['gridatlas:card-open'] || []).length, 0);
+674014	  assert.equal(x.errs.length, 0); assert.equal(x.S.errors.length, 0, x.S.errors.join('; '));
+674015	test('T13: both ON: no interference with the lightning overlay (ids disjoint, lightning layers untouched, one card at a time, offtakers above)', async () => {
+674016	  const x = boot({ lightning: true }); x.O.install(); x.W.__FEED__ = { type: 'FeatureCollection', features: [{ type: 'Feature', id: 'f1', geometry: { type: 'Point', coordinates: [-1.3, 50.8] }, properties: { time_utc: new Date(Date.now() - 36e5).toISOString(), observation_kind: 'optical_lightning_flash' } }], metadata: { query_start_utc: new Date(Date.now() - 4 * 36e5).toISOString(), query_end_utc: new Date(Date.now() - 30 * 6e4).toISOString() } };
+674017	  x.ltoggle(true); await drain(); const lIds = () => [...x.layers.keys()].filter(id => /lightning/.test(id)), lSrc = () => [...x.sources.keys()].filter(id => /lightning/.test(id));
+674018	  const before = { l: lIds(), s: lSrc(), d: JSON.stringify(x.sources.get('gridatlas-lightning')?.data) }; assert.ok(before.l.length, 'lightning drawn');
+674019	  deq(lIds(), before.l); deq(lSrc(), before.s); assert.equal(JSON.stringify(x.sources.get('gridatlas-lightning')?.data), before.d);
+674020	  for (const id of x.order.filter(OTIDS)) assert.equal(/lightning/.test(id), false);
+674021	  assert.ok(x.order.indexOf('l-gridatlas-offtakers') > x.order.indexOf('l-gridatlas-lightning'), 'offtakers above lightning');
+674022	  // a tap on an offtaker dot that ALSO hits a flash: the offtaker card wins, the lightning card is closed through its own Close
+674023	  const r = bigSites(x).refinery; x.W.__GRIDATLAS_NEON_LINKS__.substations = SUBS;
+674024	  x.tapMap([0, 0], { 'gridatlas-offtakers-hit': [{ properties: { i: r.i }, geometry: { type: 'Point', coordinates: r.a } }], 'gridatlas-lightning-hit': [{ properties: { i: 0, s: x.W.__LP__.S.res.s }, geometry: { type: 'Point', coordinates: [-1.3, 50.8] } }] });
+674025	  await drain(); assert.ok(x.card(), 'offtaker card'); assert.equal(x.lcard(), null, 'lightning card closed');
+674026	  assert.ok([...x.sources.keys()].some(s => /offtakers-neon/.test(s))); assert.equal([...x.sources.keys()].some(s => /lightning-neon/.test(s)), false, 'lightning links cleared by its own close');
+674027	  // a flash-only tap: the lightning card opens as before, and the offtaker card closes
+674028	  x.tapMap([0, 0], { 'gridatlas-lightning-hit': [{ properties: { i: 0, s: x.W.__LP__.S.res.s }, geometry: { type: 'Point', coordinates: [-1.3, 50.8] } }] }); await drain();
+674029	  assert.ok(x.lcard(), 'lightning card'); assert.equal(x.card(), null); assert.equal([...x.sources.keys()].some(s => /offtakers-neon/.test(s)), false);
+674030	  assert.match(text(x.lcard()), /Flash/);
+674031	  // offtakers OFF: lightning untouched and still tappable
+674032	  x.toggle(false); deq(lIds().filter(i => !/neon/.test(i)), before.l.filter(i => !/neon/.test(i))); assert.ok(x.lcard(), 'lightning card survives offtakers OFF');
+674033	  x.tapMap([0, 0], {}); await drain(); assert.equal(x.lcard(), null);
+674034	  x.tapMap([0, 0], { 'gridatlas-lightning-hit': [{ properties: { i: 0, s: x.W.__LP__.S.res.s }, geometry: { type: 'Point', coordinates: [-1.3, 50.8] } }] }); await drain(); assert.ok(x.lcard());
+674035	  assert.equal(x.errs.length, 0); assert.equal(x.W.__LP__.S.errors.filter(e => !/neon labels|count labels/.test(e)).length, 0, x.W.__LP__.S.errors.join('; '));
+674036	test('T11: isolation: an offtakers error (throwing measure, a top-level throw) leaves lightning installed and working', async () => {
+674037	  const x = boot({ lightning: true }); x.O.install(); x.toggle(true); await drain(); x.W.__GRIDATLAS_NEON_LINKS__.measure.nearestSubstations = () => { throw new Error('boom'); };
+674038	  await x.tapDot(bigSites(x).refinery); assert.match(text(x.card()), /Substation data unavailable/); x.ltoggle(true); await drain(); assert.equal(x.W.__LP__.S.on, true);
+674039	  const bad = SRC.replace("let MX=Math.max", "throw new Error('top-level');let MX=Math.max");
+674040	  const y = boot({ lightning: true, srcOverride: bad + '\n' }); assert.match(String(y.log.top), /top-level/); assert.ok(y.L && y.L.state.installed); y.ltoggle(true); await drain(); assert.equal(y.W.__LP__.S.on, true);
+674041	test('T14: a row flies to the REPD site with its own substations; ◀ back restores the offtaker card; Escape and × close', async () => {
+674042	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const r = bigSites(x).refinery; await x.tapDot(r); await drain();
+674043	  const a = x.card().querySelector('a'); a.click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'REPD project');
+674044	  const g = indep(r)[0]; deq(x.W.__NS__.at(-1), g.a); assert.equal(x.camera.filter(c => c[0] === 'flyTo').at(-1)[1][0].center.join(), g.a.join());
+674045	  x.card().querySelector('[data-offtakers-back]').click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'Potential offtaker');
+674046	  dispatch(x.card(), 'keydown', x.errs); // no key: stays
+674047	  x.card().listeners.keydown[0]({ key: 'Escape' }); assert.equal(x.card(), null);
+674048	  await x.tapDot(r); [...x.card().querySelectorAll('button')].find(b => b.getAttribute('aria-label') === 'Close').click(); assert.equal(x.card(), null);
+674049	  assert.equal([...x.sources.keys()].some(s => /offtakers-neon/.test(s)), false);
+674050	test('T15: power station card: closed coal (Ratcliffe) shows MW, the curated status with its source, the merged records and the combustion indicator', async () => {
+674051	  const x = boot(); x.O.install(); x.toggle(true); await drain(); const r = x.dot(r => /Ratcliffe on Soar/.test(r.n)); await x.tapDot(r); await drain(); const t = text(x.card());
+674052	  assert.match(t, /Ratcliffe on Soar Power Station · operator \(NAEI\) Uniper UK Ltd · coal/); assert.match(t, /2,000 MW installed \(GPPD, DUKES-derived; installed, not connection capacity\)/);
+674053	  assert.match(t, /Status: closed 2024-09-30 · source https:\/\/www\.uniper\.energy\/\S+ \(curated; not re-verified in session\)/);
+674054	  assert.match(t, /3 records merged: Ratcliffe on Soar Power Station \(NAEI\); Ratcliffe \(GPPD, 2,000 MW\); Ratcliffe GT \(GPPD, 34 MW\)/);
+674055	  assert.match(t, /On-site combustion: generator site \(listed as power producer\)\. Source NAEI 2023\. Not a measure of generation capacity\./);
+674056	  assert.match(t, /Record · NAEI \(OGL v3\.0\) · GPPD \(CC BY 4\.0\)/); assert.equal(r.t, 'cc'); assert.equal(r.z, 1.5);
+674057	  assert.match(t, /Not shown here: electricity use, connection terms, TEC, consent, viability\./);
+674058	test('Z: no unhandled rejections', async () => { await drain(); deq(unhandled.map(String), []); });
+674074	 *   loader-registry   atlas/index.html and every atlas/v/<gen>/index.html is
+674075	 *                     byte-identical to a registered loader
+674076	 *                     (tools/scope/lib.mjs ATLAS_LOADERS) that supports every
+674077	 *                     slot its own current.json uses; a loader that exists at
+674078	 *                     the base is never rewritten, and atlas/index.html
+674079	 *                     changes only with atlas/current.json, to the loader of
+674080	 *                     the generation going live (docs/LIGHTNING-CARTRIDGE.md)
+674081	 *   loader-equivalence  tools/proofs/loader-equivalence.proof.mjs
+674082	 *   lightning-source  node tools/lightning/build.mjs --check: the newest
+674083	 *                     lightning overlay generation is listed in
+674084	 *                     tools/lightning/generations.json, and every listed
+674085	 *                     generation rebuilds from tools/lightning/src byte for
+674086	 *                     byte (docs/LIGHTNING-SOURCE.md)
+674087	 *   offtakers-source  node tools/offtakers/build.mjs --check (the same, for the
+674088	 *                     potential-offtakers overlay; docs/OFFTAKERS-SOURCE.md)
+674095	 *   offtakers-suites  tools/ci/offtakers/*.test.mjs against the live, added or
+674096	 *                     edited potential-offtakers module (and the newest one when
+674097	 *                     the PR changes a suite, the source or this gate)
+674098	 *   release-tools     node --check of every tools/release/*.mjs and
+674099	 *                     node --test tools/release/*.test.mjs (offline)
+674111	import { sha256PublishedFile as sha256Published, registeredLoader, slotsUsed } from '../scope/lib.mjs';
+674211	group('loader-registry', () => {
+674215	  const count = {};
+674216	  const check = (indexRel, currentRel) => {
+674217	    const loader = registeredLoader(path.join(ROOT, indexRel));
+674218	    if (!loader) { bad.push(`${indexRel} is not a registered loader`); return; }
+674219	    count[loader.name] = (count[loader.name] || 0) + 1;
+674220	    let pointer;
+674221	    try { pointer = JSON.parse(fs.readFileSync(path.join(ROOT, currentRel), 'utf8')); } catch { return; }
+674222	    for (const slot of slotsUsed(pointer)) if (!loader.slots.includes(slot)) bad.push(`${indexRel} (loader ${loader.name}) cannot compose slot ${slot} of ${currentRel}`);
+674223	  check('atlas/index.html', 'atlas/current.json');
+674225	    const rel = `atlas/v/${d}/index.html`;
+674226	    if (!fs.existsSync(path.join(ROOT, rel))) {
+674227	      if (fs.existsSync(path.join(vDir, d, 'current.json'))) bad.push(`${rel} missing beside its current.json`);
+674229	    check(rel, `atlas/v/${d}/current.json`);
+674230	  // Existing generations keep the loader bytes they were cut with.
+674231	  for (const file of changed) {
+674232	    if (/^atlas\/v\/\d{12}\/index\.html$/.test(file) && baseHas(file)) bad.push(`${file} existed at the base and was changed or removed`);
+674233	  // The live loader moves only with the pointer, to the loader of the generation going live.
+674234	  if (changed.includes('atlas/index.html')) {
+674235	    const liveIndex = path.join(ROOT, 'atlas', 'v', String(current.generation), 'index.html');
+674236	    if (!changed.includes('atlas/current.json')) bad.push('atlas/index.html changed without atlas/current.json');
+674237	    else if (!fs.existsSync(liveIndex) || !fs.readFileSync(liveIndex).equals(fs.readFileSync(path.join(ROOT, 'atlas', 'index.html')))) {
+674238	      bad.push(`atlas/index.html changed but is not atlas/v/${current.generation}/index.html`);
+674239	  record('loader-registry', bad.length === 0, bad.length ? bad.join('; ')
+674240	    : `${1 + dirs.length} served loader(s) registered (${Object.entries(count).map(([k, v]) => `${k} ${v}`).join(', ')}); each supports its own composition`);
+674241	step('loader-equivalence', ['node', 'tools/proofs/loader-equivalence.proof.mjs']);
+674242	// ---------------------------------------------------------------- 6b
+674243	// The overlay modules are built from tools/lightning/src, not edited in
+674244	// atlas/modules/: the newest generation must rebuild from the committed
+674245	// source byte for byte, so the source in the repository is the source of
+674246	// the bytes that ship.
+674247	step('lightning-source', ['node', 'tools/lightning/build.mjs', '--check']);
+674248	// The same for the potential-offtakers overlay (tools/offtakers/src, docs/OFFTAKERS-SOURCE.md).
+674249	step('offtakers-source', ['node', 'tools/offtakers/build.mjs', '--check']);
+674271	/* The overlay module a composition serves: its own 'uk-lightning-overlay'
+674272	   cartridge (the module file itself, docs/LIGHTNING-CARTRIDGE.md), else the
+674273	   module appended to its sld-sandbox, named by the sld-sandbox generation. */
+674274	function overlayGenerationOf(pointer) {
+674275	  const own = (pointer.cartridges || []).find(c => c.id === 'uk-lightning-overlay');
+674276	  const m = own && String(own.path).match(/(\d{12})-uk-lightning-overlay\.js$/);
+674278	  const sldEntry = (pointer.cartridges || []).find(c => c.id === 'sld-sandbox');
+674279	  return sldEntry ? String(sldEntry.generation) : null;
+674288	const liveOverlay = overlayGenerationOf(current);
+674289	if (liveOverlay) gens.add(liveOverlay);
+674290	  const m = file.match(/^atlas\/modules\/(\d{12})-uk-lightning-overlay\.js$/);
+674291	  if (m) { gens.add(m[1]); continue; }
+674292	  const v = file.match(/^atlas\/v\/(\d{12})\/current\.json$/);
+674293	  if (v && !baseHas(file)) {
+674294	    gens.add(v[1]);
+674295	      const g = overlayGenerationOf(JSON.parse(fs.readFileSync(path.join(ROOT, file), 'utf8')));
+674296	      if (g) gens.add(g);
+674297	    } catch { /* the composition check above reports an unreadable pointer */ }
+674334	// ---------------------------------------------------------------- 8
+674335	// tools/ci/offtakers/*.test.mjs against the offtakers module of the live composition, every offtakers module the PR adds or
+674336	// edits, the one composed by every pinned generation the PR adds, and, when the PR changes a suite or this gate, the newest.
+674338	  const dir = path.join(ROOT, 'tools', 'ci', 'offtakers'), file = g => path.join('atlas', 'modules', `${g}-uk-offtakers-overlay.js`);
+674339	  const ofOf = p => { const e = (p.cartridges || []).find(c => c.id === 'uk-offtakers-overlay'); const m = e && String(e.path).match(/(\d{12})-uk-offtakers-overlay\.js$/); return m ? m[1] : null; };
+674340	  const og = new Set(); const lo = ofOf(current); if (lo) og.add(lo);
+674341	  for (const f of changed) {
+674342	    const m = f.match(/^atlas\/modules\/(\d{12})-uk-offtakers-overlay\.js$/); if (m) og.add(m[1]);
+674343	    const v = f.match(/^atlas\/v\/(\d{12})\/current\.json$/);
+674344	    if (v && !baseHas(f)) try { const g = ofOf(JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8'))); if (g) og.add(g); } catch { /* reported above */ }
+674345	  if (changed.some(f => f.startsWith('tools/ci/offtakers/') || f.startsWith('tools/offtakers/') || f === 'tools/ci/pr-gate.mjs')) {
+674346	    const all = fs.readdirSync(path.join(ROOT, 'atlas', 'modules')).map(n => (n.match(/^(\d{12})-uk-offtakers-overlay\.js$/) || [])[1]).filter(Boolean).sort();
+674347	    if (all.length) og.add(all.at(-1));
+674348	  const osuites = fs.existsSync(dir) ? fs.readdirSync(dir).filter(f => f.endsWith('.test.mjs')).sort() : [];
+674349	  if (!og.size) console.log('note  no offtakers overlay module in the live or touched generations');
+674350	  else if (!osuites.length) record('offtakers-suites', false, 'tools/ci/offtakers/*.test.mjs missing');
+674351	  else for (const g of [...og].sort()) for (const suite of osuites) group(`offtakers ${g} ${suite}`, () => {
+674352	    const t0 = Date.now(), r = run(['node', '--test', '--test-reporter=tap', path.join('tools', 'ci', 'offtakers', suite)], { env: { ...process.env, OFFTAKERS_MODULE: file(g) }, timeout: SUITE_TIMEOUT_MS });
+674353	    const counts = (r.stdout.match(/^# (pass|fail|skipped) \d+$/gm) || []).join(' ').replace(/# /g, ''), sec = ((Date.now() - t0) / 1000).toFixed(1);
+674354	    if (r.code !== 0) { process.stdout.write(r.stdout); process.stderr.write(r.stderr); } else console.log(`${suite} on ${g}: ${counts} in ${sec} s`);
+674355	    record(`offtakers ${g} ${suite}`, r.code === 0, `${counts} ${sec} s` + (r.code === 0 ? '' : `  exit ${r.code}`));
+674356	// The delivery-flow tooling (docs/RELEASE.md): its offline unit tests, and a
+674357	// syntax check of every script, so a broken release script fails the PR that
+674358	// broke it rather than the release that needs it.
+674359	group('release-tools', () => {
+674360	  const dir = path.join(ROOT, 'tools', 'release');
+674361	  if (!fs.existsSync(dir)) return;
+674362	  const scripts = fs.readdirSync(dir).filter(f => f.endsWith('.mjs')).sort();
+674363	  const bad = scripts.filter(f => run(['node', '--check', path.join('tools', 'release', f)]).code !== 0);
+674364	  const tests = scripts.filter(f => f.endsWith('.test.mjs')).map(f => path.join('tools', 'release', f));
+674365	  const t = tests.length ? run(['node', '--test', '--test-reporter=tap', ...tests]) : { code: 0, stdout: '' };
+674366	  const counts = (t.stdout.match(/^# (pass|fail) \d+$/gm) || []).join(' ').replace(/# /g, '');
+674367	  if (t.code !== 0) { process.stdout.write(t.stdout); process.stderr.write(t.stderr || ''); }
+674368	  record('release-tools', bad.length === 0 && t.code === 0,
+674369	    `${scripts.length} script(s) parse${bad.length ? `; SYNTAX ERROR in ${bad.join(', ')}` : ''}; ${tests.length} test file(s): ${counts || 'none'}`);
+674387	 * Build the UK lightning overlay module (atlas/modules/<GEN>-uk-lightning-overlay.js) from its readable source in
+674388	 * tools/lightning/src/. Node built-ins only. docs/LIGHTNING-SOURCE.md explains the source format and how to cut a
+674389	 * generation from it.
+674390	 *   node tools/lightning/build.mjs --gen 202610290050              # build the variant generations.json names; print size + sha256
+674391	 *   node tools/lightning/build.mjs --gen <GEN> --variant m4b --out <file>
+674392	 *   node tools/lightning/build.mjs --check                         # the CI check (tools/ci/pr-gate.mjs, "lightning-source")
+674393	 * The build is a deterministic text transform, not a minifier. The shipped bytes are the source with its source-only
+674394	 * layer taken out, in this order:
+674395	 *   1. the files src/*.js are concatenated in file-name order (each must end in "\n"; no CR anywhere);
+674396	 *   2. variant blocks: a line `///#if <variant>[,<variant>…]`, an optional `///#else` and `///#endif` (whole lines,
+674397	 *      not nested) keep the lines of the branch that names the variant being built and drop the others;
+674398	 *   3. every remaining line whose first non-blank characters are `///` is a source-only comment and is dropped;
+674399	 *   4. a line that ends in `///` continues on the next line: the three slashes, the line break and the next line's
+674400	 *      leading blanks are removed. This is how a long golfed line is laid out readably and stays byte-identical;
+674401	 *   5. every `@@GEN@@` becomes the generation stamp (the header comment and `GEN='…'`).
+674402	 * Nothing else changes: `//` and `/* … *\/` comments without a third slash ship as they are.
+674403	 * --check: the newest lightning generation in atlas/modules/ must be listed in tools/lightning/generations.json, and
+674404	 * every listed generation must rebuild from src/ byte for byte (sha256 of the raw bytes, which are LF-only). Exit 1
+674405	 * otherwise.
+674409	export const SRC_DIR = path.join(HERE, 'src');
+674410	export const GENERATIONS = path.join(HERE, 'generations.json');
+674411	const MODULE_RE = /^(\d{12})-uk-lightning-overlay\.js$/;
+674412	const sha256 = buf => createHash('sha256').update(buf).digest('hex');
+674413	export const modulePath = gen => path.join(ROOT, 'atlas', 'modules', `${gen}-uk-lightning-overlay.js`);
+674414	export function readGenerations(file = GENERATIONS) {
+674415	  const j = JSON.parse(fs.readFileSync(file, 'utf8'));
+674416	  if (!Array.isArray(j.variants) || !j.variants.length) throw new Error(`${path.relative(ROOT, file)}: "variants" must list the variant names`);
+674417	  for (const [g, e] of Object.entries(j.generations || {})) {
+674418	    if (!/^\d{12}$/.test(g)) throw new Error(`generations.json: bad generation ${g}`);
+674419	    if (!j.variants.includes(e.variant)) throw new Error(`generations.json: ${g} names unknown variant ${e.variant}`);
+674420	  return j;
+674421	/** The source files, in build order. */
+674422	export function sourceFiles(srcDir = SRC_DIR) {
+674423	  const names = fs.readdirSync(srcDir).filter(n => n.endsWith('.js')).sort();
+674424	  if (!names.length) throw new Error(`no *.js in ${srcDir}`);
+674425	  return names.map(n => path.join(srcDir, n));
+674426	/** Assemble the module text for one variant and generation stamp. Throws on any malformed source. */
+674427	export function assemble({ variant, gen, variants, srcDir = SRC_DIR }) {
+674428	  if (!/^\d{12}$/.test(gen)) throw new Error(`--gen must be YYYYMMDDHHMM, got ${gen}`);
+674429	  if (variants && !variants.includes(variant)) throw new Error(`unknown variant ${variant} (known: ${variants.join(', ')})`);
+674430	  const lines = [], where = [];
+674431	  for (const f of sourceFiles(srcDir)) {
+674432	    const t = fs.readFileSync(f, 'utf8');
+674433	    if (t.includes('\r')) throw new Error(`${path.basename(f)}: contains CR (the module is LF-only)`);
+674434	    if (!t.endsWith('\n')) throw new Error(`${path.basename(f)}: must end with a newline`);
+674435	    t.slice(0, -1).split('\n').forEach((l, i) => { lines.push(l); where.push(`${path.basename(f)}:${i + 1}`); });
+674437	  let block = null; // { on: boolean, seenElse: boolean, line: string }
+674439	    const t = line.trimStart(), at = where[i];
+674441	    if ((m = /^\/\/\/#if ([\w,]+)\s*$/.exec(t))) {
+674442	      if (block) throw new Error(`${at}: nested ///#if (block opened at ${block.line})`);
+674443	      const names = m[1].split(',');
+674444	      for (const n of names) if (variants && !variants.includes(n)) throw new Error(`${at}: ///#if names unknown variant ${n}`);
+674445	      block = { on: names.includes(variant), seenElse: false, line: at };
+674446	    } else if (/^\/\/\/#else\s*$/.test(t)) {
+674447	      if (!block || block.seenElse) throw new Error(`${at}: stray ///#else`);
+674448	      block.on = !block.on; block.seenElse = true;
+674449	    } else if (/^\/\/\/#endif\s*$/.test(t)) {
+674450	      if (!block) throw new Error(`${at}: stray ///#endif`);
+674451	      block = null;
+674452	    } else if (/^\/\/\/#/.test(t)) {
+674453	      throw new Error(`${at}: unknown directive ${t.slice(0, 40)}`);
+674454	    } else if (block && !block.on) {
+674455	      // the other variant's line
+674456	    } else if (t.startsWith('///')) {
+674457	      // source-only comment
+674458	    } else kept.push(line);
+674459	  if (block) throw new Error(`///#if at ${block.line} is never closed`);
+674460	  let out = '', cont = false;
+674461	  for (const line of kept) {
+674462	    const piece = cont ? line.trimStart() : line;
+674463	    if (piece.endsWith('///')) { out += piece.slice(0, -3); cont = true; } else { out += piece + '\n'; cont = false; }
+674464	  if (cont) throw new Error('the last line ends in a /// continuation');
+674465	  if (out.includes('@@') && out.split('@@GEN@@').join('').includes('@@')) throw new Error('a stray @@ placeholder remains');
+674466	  return out.split('@@GEN@@').join(gen);
+674467	/** The newest lightning overlay generation present in atlas/modules/. */
+674468	export function newestModule() {
+674469	  const gens = fs.readdirSync(path.join(ROOT, 'atlas', 'modules')).map(n => (MODULE_RE.exec(n) || [])[1]).filter(Boolean).sort();
+674470	  return gens[gens.length - 1] || null;
+674471	/** The CI check. Returns { ok, lines }. */
+674472	export function check() {
+674473	  const lines = [], bad = [];
+674475	  try { reg = readGenerations(); } catch (e) { return { ok: false, lines: [`FAIL ${e.message}`] }; }
+674476	  const listed = Object.keys(reg.generations || {}).sort();
+674477	  const newest = newestModule();
+674478	  if (!newest) bad.push('no lightning overlay module in atlas/modules/');
+674479	  else if (!listed.includes(newest)) bad.push(`the newest lightning generation ${newest} is not listed in tools/lightning/generations.json: ` +
+674480	    'cut it from tools/lightning/src with tools/lightning/make-generation.mjs (docs/LIGHTNING-SOURCE.md)');
+674481	  for (const g of listed) {
+674482	    const { variant } = reg.generations[g], file = modulePath(g);
+674483	    if (!fs.existsSync(file)) { bad.push(`${g}: ${path.relative(ROOT, file)} missing`); continue; }
+674484	    const want = fs.readFileSync(file);
+674485	    let got;
+674486	    try { got = Buffer.from(assemble({ variant, gen: g, variants: reg.variants }), 'utf8'); }
+674487	    catch (e) { bad.push(`${g} (${variant}): source does not assemble: ${e.message}`); continue; }
+674488	    if (got.equals(want)) lines.push(`ok   ${g} ${variant}: ${want.length} B sha256 ${sha256(want)} rebuilt byte for byte`);
+674489	      let i = 0; while (i < got.length && i < want.length && got[i] === want[i]) i++;
+674490	      const lineNo = want.subarray(0, i).toString('utf8').split('\n').length;
+674491	      bad.push(`${g} (${variant}): rebuild differs from the committed module at byte ${i} (module line ${lineNo}); ` +
+674492	        `built ${got.length} B ${sha256(got).slice(0, 12)}…, committed ${want.length} B ${sha256(want).slice(0, 12)}…`);
+674493	  for (const b of bad) lines.push(`FAIL ${b}`);
+674494	  return { ok: bad.length === 0, lines };
+674495	/* ---------------------------------------------------------------- CLI */
+674497	  const a = process.argv.slice(2), opt = {};
+674499	    if (a[i] === '--check') opt.check = true;
+674500	    else if (/^--(gen|variant|out)$/.test(a[i]) && a[i + 1] !== undefined) opt[a[i].slice(2)] = a[++i];
+674501	    else { console.error(`build.mjs: bad argument ${a[i]}`); process.exit(2); }
+674502	  if (opt.check) {
+674503	    const r = check();
+674504	    for (const l of r.lines) console.log(l);
+674505	    process.exit(r.ok ? 0 : 1);
+674506	  if (!opt.gen) { console.error('build.mjs: --gen <YYYYMMDDHHMM> or --check is required'); process.exit(2); }
+674507	  const reg = readGenerations();
+674508	  const variant = opt.variant || (reg.generations[opt.gen] || {}).variant;
+674509	  if (!variant) { console.error(`build.mjs: ${opt.gen} is not in generations.json; pass --variant (${reg.variants.join('|')})`); process.exit(2); }
+674510	  const buf = Buffer.from(assemble({ variant, gen: opt.gen, variants: reg.variants }), 'utf8');
+674511	  if (opt.out) fs.writeFileSync(opt.out, buf);
+674512	  const committed = fs.existsSync(modulePath(opt.gen)) ? fs.readFileSync(modulePath(opt.gen)) : null;
+674513	  console.log(JSON.stringify({ gen: opt.gen, variant, bytes: buf.length, sha256: sha256(buf), out: opt.out || null,
+674514	    matches_committed_module: committed ? committed.equals(buf) : null }));
+674515	// annotations.mjs: the source-only layer of tools/lightning/src: file sections and `///` comments, anchored to text in the
+674516	// M4 module ('A', variant layers) or, with in:'B', the M4b module (variant dots). Comment text is restored from the
+674517	// module's own history (the header and // comments stripped by build-M stage A1/A2 from L3 202610281340, the K
+674518	// 202610280950 comments trimmed in L) and from the build scripts that made each change (build-L3, build-M, build-M2,
+674519	// build-M3, build-M4, fixes-m4, build-M4b; lane reports named per change).
+674520	export const FILES = [
+674521	  { name: '00-header.js', at: null, head: `
+674522	UK lightning overlay: readable source. Build: node tools/lightning/build.mjs (docs/LIGHTNING-SOURCE.md).
+674523	Lines starting with /// (like this one) and the ///#if / ///#else / ///#endif variant blocks are source only; a line
+674524	ending in /// continues on the next line. Everything else ships byte for byte in atlas/modules/<GEN>-uk-lightning-overlay.js.
+674525	Variants: "layers" (M4 202610290045: the listed technologies' own REPD layers are switched on) and "dots" (M4b
+674526	202610290050: only the listed sites are drawn, as REPD-styled dots). @@GEN@@ is the generation stamp.
+674527	00 header: the shipped header comments, the IIFE, the aliases and the constants.` },
+674528	  { name: '01-helpers.js', at: "ymd=t=>new Date(t).toISOString()", head: `
+674529	01 helpers: date and number formatting, GeoJSON guards, the device cap, month arithmetic and the published state S.` },
+674530	  { name: '02-transport.js', at: 'note=m=>S.errors.push', head: `
+674531	02 transport: fetch for .json (no redirects, 15 s timeout that also covers the body), XMLHttpRequest for the live feed,
+674532	and the LRU of day/grid promises.` },
+674533	  { name: '03-index.js', at: 'vk=r=>{let n=r&&r.count', head: `
+674534	03 archive index v2 (Ventusltd/lightning data/history/index.json): every row validated; coverage from scan_windows.` },
+674535	  { name: '04-windows.js', at: 'wf=now=>{', head: `
+674536	04 windows and day files: UTC, end-anchored [start,end) windows; hourly or daily shard targets; a 4-wide fan-out.` },
+674537	  { name: '05-cells.js', at: "ok=f=>f&&f.type==='Feature'", head: `
+674538	05 flashes and cells: feature validation and de-duplication, month grids, the REPD land mask, the cell layer data.` },
+674539	  { name: '06-load.js', at: 'ff=async(w,now,reason)=>{', head: `
+674540	06 tiers: the live feed (7 days only), the archive overview (cells), the archive detail (points, budgeted).` },
+674541	  { name: '07-captions.js', at: 'cf=(r,now)=>{', head: `
+674542	07 state and captions: the state machine (cf) and the caption lines (cp). Unknown is never shown as zero.` },
+674543	  { name: '08-map.js', at: "mh=()=>{let m=window.__GRIDATLAS_V9_MAP__", head: `
+674544	08 map: the map handle, the card position, the cell layers, the point layers and the tap handler.` },
+674545	  { name: '09-card.js', at: "cd=(m,x,y,lb,ti,su,de,wh,o={})=>{", head: `
+674546	09 card: the docked card (flash, cell or REPD project), the cell card and the short flash ID.` },
+674547	  { name: '10-neon.js', at: "NP='gridatlas-lightning-neon'", head: `
+674548	10 nearest substations and the camera: the original's own measure drawn as its neon arrival in Lightning-owned layers,
+674549	and the framing rules (M2R-layout F1-F3, M2R-camera fix C, M2R-taps T1).` },
+674550	  { name: '11-repd-map.js', at: '/* ---- M4b: the listed REPD sites', in: 'B', head: `
+674551	11 REPD on the map, per variant: "layers" switches the listed technologies' own REPD layers on through their Layers
+674552	checkboxes (M3/M4); "dots" draws only the listed sites as REPD-styled dots and never touches a Layers control (M4b).` },
+674553	  { name: '12-repd.js', at: '/* ---- REPD projects near a tap (M2, M3)', head: `
+674554	12 REPD projects near a tap (M, M2, M3): the register, the filter chips, the list, the links and the project view.` },
+674555	  { name: '13-panel.js', at: 'BTN=(a,t,x)=>', head: `
+674556	13 panel: the Layers-panel group (main and fullscreen curtain), its label and status line, and the batched repaint pt.` },
+674557	  { name: '14-actions.js', at: 'sp=p=>{S.period=p;', head: `
+674558	14 actions: period, navigation, load, the ON/OFF switch, the toggle binding and the HIDE LAYERS clearance.` },
+674559	  { name: '15-install.js', at: 'ins=()=>{if(S.installed)return true;', head: `
+674560	15 install: after the menu bar, Pipeline News and the map exist; the public NS.ukLightning surface.` },
+674561	const N = (at, text, opt = {}) => ({ at, text, ...opt });
+674562	export const NOTES = [
+674563	  // ---------------------------------------------------------------- 00 header
+674564	  N('/* uk-lightning-overlay, generation', `
+674565	The L3 header, as written before build-M stage A1 shortened it to one line (generation 202610281340):
+674566	  EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes, OFF by default, appended last to the original Layers panel
+674567	  and fullscreen curtain; no request, source, layer or listener until switched on; never persisted. Optical flashes are
+674568	  NOT confirmed ground strikes; a day never searched is unknown, never zero. Above the device cap the window draws as
+674569	  tappable ≈10 km cells (data/history/grid) within 30 km of a REPD site.
+674570	Rules trimmed from lightning history-window.mjs (data-plane/hourly-lookback-index-v2 @ f7db76c). No engine, Pipeline
+674571	News or menu-proxy attribute. Name glossary: docs/lightning/CANDIDATE-202610261949.md.
+674572	The shipped header comments below are part of the module bytes (the generation proof reads them).`),
+674573	  N("let MX=Math.max", `
+674574	Aliases (build-M A3): Math.max/min, Array.isArray, Date.parse (static, no this), appendChild and getBoundingClientRect
+674575	helpers, and U, the phrase every unknown count carries. NS is the shared window.__GRIDATLAS_MODULES__ namespace, the only
+674576	global this module writes.`),
+674577	  N("let GEN='@@GEN@@'", `
+674578	Identity and sources. GEN is stamped by the build. AR: the archive (index, days, grid) on Ventusltd/lightning main;
+674579	FEED: the 7-day live feed. TMO: the 15 s request timeout; BUDGET: the most points ever drawn; RQ: the most day files per
+674580	window (and the LRU size). PERIODS: [key, label, ms] or [key, label, -months]; custom = CUSTOM UTC dates. LONG: periods
+674581	that need the archive. COLOUR: status dot colour by state letter (LOADING, PARTIAL, UNKNOWN, BEFORE-ARCHIVE, FAIL).`),
+674582	  // ---------------------------------------------------------------- 01 helpers
+674583	  N("ymd=t=>new Date(t).toISOString()", `
+674584	ymd: UTC date; ds: date -> ms; Q: getElementById; E: throw. T/Ts: UTC minute/second text, 'unknown' if not finite.`),
+674585	  N("N=n=>Number(n).toLocaleString('en-GB')", `
+674586	N: grouped number; pl: plural; dm/hm/dt: short date, hh:mm, both; du: duration in h/min (LR-words W8: hours grouped);
+674587	hz: a window of 48 h or less (hour clip); de: end text; sv: "x of y searched"; lr: when the collector last ran and how far
+674588	it searched; F7: the live-feed flash phrase; AGO: age, via du (LR-words W6).`),
+674589	  N('ov=(a,b,c,d)=>', `
+674590	ov: overlap of [a,b) and [c,d); FC: FeatureCollection; bx: inside the UK box; isFC; tm: a flash's time (Z added when
+674591	missing); msg: an error's text, sanitised by cs (LR-security S3).`),
+674592	  N("ph=()=>{try{return matchMedia", `
+674593	The device point cap: 10,000 on a phone (coarse pointer or <= 700 px), else 40,000. Above it a window draws as cells.`),
+674594	  N('mm=(t,k)=>{', `
+674595	mm: t minus k calendar months, the day clamped to the target month (3M, 6M, 12M).`),
+674596	  N("S={schema:'gridatlas.module.uk-lightning-overlay.v1'", `
+674597	State machine (published as NS.ukLightning.state): installed, waiting_for, on, requests, errors, last; period, end and h
+674598	(the PREV/NEXT stack of window ends), from/to (CUSTOM), consent (LOAD POINTS), serial (cancels stale loads), idx/ie (index
+674599	and its error), res (the drawn result), sfs (the panel groups). lru: url -> {p: promise, sealed}.`),
+674600	  // ---------------------------------------------------------------- 02 transport
+674601	  N('gj=(u,cache,raw)=>', `
+674602	gj: fetch JSON (or bytes with raw) with the 15 s timeout covering the body; a redirect is refused; "HTTP n" on error.
+674603	M2 (build-M2 gj-abort): once its own timer has aborted, any rejection (a body stream that errors on abort, as the
+674604	bridge's may) is reported as the timeout, not as "Failed to fetch".`),
+674605	  N('gx=u=>{S.requests++', `
+674606	gx: the live feed by XMLHttpRequest (same timeout; a redirect is refused through responseURL).`),
+674607	  N('lg=k=>{if(!lru.has(k))return', `
+674608	lg/ls: LRU get and set, at most RQ entries.`),
+674609	  // ---------------------------------------------------------------- 03 index
+674610	  N('vk=r=>{let n=r&&r.count', `
+674611	vk: one index v2 row; parts are hourly days/YYYY/MM/DD/HH.json with integer counts; a bad row throws with its date.`),
+674612	  N('ni=raw=>{', `
+674613	ni: normalise the index: schema, observation, generated_utc, cutoff and the scan windows; by = date -> row; lost
+674614	(shard_lost) days are unknown, never searched.`),
+674615	  N('stale=(g,now,f=g)=>', `
+674616	stale: the archive last searched more than 4 h ago, or its index is dated more than 15 min after the device clock.`),
+674617	  N("li=q=>{if(!S.ip)", `
+674618	li: load the index once (q busts the cache after a mismatch); unsealed LRU entries are dropped when it changes.`),
+674619	  N('cv=(x,ws,we)=>{', `
+674620	cv: coverage of [ws,we) from scan_windows (union): f fraction searched, r runs, a/b first/last scan, d dates, u unknown
+674621	dates, l lost days, ny not yet searched (ms at the end), bf before the archive (ms), k known days, pp partly searched days.`),
+674622	  // ---------------------------------------------------------------- 04 windows
+674623	  N('wf=now=>{', `
+674624	wf: the window {s, e, span, atLatest, period, label, clamped, custom}; S.end anchors PREV/NEXT, CUSTOM uses whole UTC dates.`),
+674625	  N('tg=(row,ws,we)=>', `
+674626	tg: the shard targets of one index row inside the window (a daily file, or the hourly parts that overlap it).`),
+674627	  N('sh=(t,date)=>{', `
+674628	sh: fetch one day file (the HTTP cache is used only for a sealed day), check schema, date, count, bytes and sha256 against its index row.`),
+674629	  N('fr=async(rows,ws,we,sn)=>', `
+674630	fr: fan out over the shard targets, 4 at a time, abandoned when S.serial moves on; failures are kept per day.`),
+674631	  // ---------------------------------------------------------------- 05 cells
+674632	  N("ok=f=>f&&f.type==='Feature'", `
+674633	ok: a valid optical-flash Point inside the UK box with a finite time and a scalar id. co: collect the features of the
+674634	window, de-duplicated by id (or time and position), sorted by time; a.bad counts the rejected ones.`),
+674635	  N("gg=mo=>{if(!/^\\d{4}-\\d\\d$/.test(mo))", `
+674636	Cells: month grids grid/YYYY-MM.json (0.1°, per UTC day); a day counts only if coverage, count and sha256 match its index
+674637	row. LR-security S1: 2 MB cap, checked on the raw bytes before parsing. The const below stays const: test-engine asserts
+674638	its text (build-M A5 KEEP).`),
+674639	  N("LM=()=>{if(!LM.a)", `
+674640	Land mask: cells whose centre is within 30 km of an onshore REPD site, as run lengths over the 140 x 120 grid; totals keep
+674641	every cell. L3 (LR-bugs LRB1) dropped the REPD placeholder 49.766807,-7.55716 (OSGB 0,0): 5,508 -> 5,472 cells. The
+674642	const in the loop below stays const (build-M A5 KEEP).`),
+674643	  N('gd=async(rows,sn)=>{', `
+674644	gd: the cell layer data for the window's known days: n flashes in all cells, k drawn inside the mask, st days not yet in a
+674645	grid, e the refused month's reason (LR-bugs LRB3), T the glow floor = max(30, p95 of drawn cells). LRB2: if every grid day
+674646	is stale, fall back to the summary.`),
+674647	  // ---------------------------------------------------------------- 06 load
+674648	  N('ff=async(w,now,reason)=>{', `
+674649	ff: the live feed tier (7 days only); reason names why the archive was not used.`),
+674650	  N('lw=async(now,sn,q)=>{', `
+674651	lw: load a window: the index, then BEFORE-ARCHIVE, overview (cells) or detail (points). Within the device cap, 32 MB and
+674652	RQ files, points load for any window; above, cells draw and LOAD POINTS asks first (S.consent). arch counts whole UTC
+674653	days above 48 h (LR-bugs LRB4 + LR-numbers F1), J's hour clip at 48 h or less.`),
+674654	  N('let got=await fr(tf,w.s,w.e,sn)', `
+674655	A sha256 mismatch on an unsealed day means the archive is being rewritten: reload the index once, then say so.`),
+674656	  // ---------------------------------------------------------------- 07 captions
+674657	  N('cf=(r,now)=>{', `
+674658	cf: classify a result: FAIL, BEFORE-ARCHIVE, PARTIAL, UNKNOWN, READY·DETAIL, READY·OVERVIEW or EMPTY, with reasons.`),
+674659	  N('DN=r=>{let g=r.gd;', `
+674660	DN: the cell caption (LR-words W1 with LRB3's reason): what the map shows, what is counted but not drawn.`),
+674661	  N('cp=(r,now,k)=>{', `
+674662	cp: the caption lines window, days, actual, flashes, refresh, searched, warning and footer. Every number is either
+674663	measured or named unknown; a day never searched is never zero (complexity 82: see reports/V-maintain.md).`),
+674664	  // ---------------------------------------------------------------- 08 map
+674665	  N("mh=()=>{let m=window.__GRIDATLAS_V9_MAP__", `
+674666	mh: the original's MapLibre map (window.__GRIDATLAS_V9_MAP__), or null. sf: the text font the style already uses.`),
+674667	  N("HIT=SRC+'-hit'", `
+674668	pc: close the card and its neon layers. cs: strip format characters (bidi) and cap at 200 (LR-security). el: element
+674669	with inline style and text (DOM: shell classes, inline styles on own nodes only).`),
+674670	  N('cpos=()=>{let c=S.pp', `
+674671	cpos: dock the card at the bottom of the map like the original's (kv-card), lifted clear of the original's bottom
+674672	controls, never over the menu bar. M2R-layout F1 (MAJOR-1): an open card never rises above the container top + 320 px.
+674673	M2R-camera fix C (fixes-m4): on a map under 500 px tall with at least 300 px beside the card, the card docks right (c.sd).`),
+674674	  N('cx=()=>{let m=mh();pc();', `
+674675	cx: remove every Lightning source and layer.`),
+674676	  N("CS=SRC+'-cells'", `
+674677	Cells: REPD-style graduated core (n <= 3 about 1 px, faint) and a glow for the top 5 %, violet ramp on log10 n
+674678	(1/3/10/30/100/300); ids avoid 'l-'. RP: the original's project and substation layers, which win a tap; *glow* layers
+674679	never do (LR-taps F3). Cells sit below the original's projects.`),
+674680	  N('dw=(fc,cl)=>{', `
+674681	dw: one source, a points layer, an invisible 44 px hit layer and (clustered) count labels; hidden until data.`),
+674682	  N('tap=e=>{let m=mh();if(!S.on||S.busy', `
+674683	tap: a flash (or cluster) under the tap wins, then the nearest cell unless a project or substation of the original is
+674684	hit. No work while loading or with no hit layer (LR-regress m2, LR-taps F2). Other click handlers always run.`),
+674685	  N("let p=f.properties||{};if(p.cluster){let go=z=>(cm(m)", `
+674686	A cluster tap zooms in; cm(m) first drops the module's pending framing (M4, M2R-taps T1).`),
+674687	  N("let rq=S.pp&&S.pp.ps&&m.getLayer(NI[13])", `
+674688	dots: a tap on a drawn listed site opens that site's project view, as its row does.`, { in: 'B' }),
+674689	  N('if(h&&h.length){for(let q of h)S.ly', `
+674690	layers: a tap on a drawn REPD dot belongs to the engine and closes the card (as L3); the tapped dot's technology is handed
+674691	to the reader and every other layer this module switched on is released (M2R-l3regress MINOR M3-L1, fixes-m4).`),
+674692	  // ---------------------------------------------------------------- 09 card
+674693	  N("cd=(m,x,y,lb,ti,su,de,wh,o={})=>{", `
+674694	cd: the card. lb aria label, ti title, su summary, de detail, wh what was tapped ("optical flash" | "cell centre" |
+674695	"project"); o: np (no REPD list: the project view), open, foot, back [label, action], g (dots: the site to draw).
+674696	c.re re-opens the same card (for "◀ back"); the title wraps (LR-layout). M2R-layout F3: re-frame on expand, collapse and
+674697	minimise. M2R-a11y MAJOR-1: one visually hidden polite status region per card, outside the closed <details>.`),
+674698	  N('cb=p=>{let c=p.cell', `
+674699	cb: a cell's south-west corner, only for a well-formed cell of the drawn result (LR-security S2: safe-integer n).
+674700	cc: the cell card (LR-words W3: "N optical flashes in this ≈10 km cell").`),
+674701	  N('sid=s=>{', `
+674702	sid: short ID = product sensing window + flash index (W_XX-..._<start>_<end>_N__..._0000:<index>); the full ID stays
+674703	in the detail line.`),
+674704	  // ---------------------------------------------------------------- 10 neon and camera
+674705	  N("NP='gridatlas-lightning-neon'", `
+674706	The neon layer and source ids; the REPD ones (p-*) join the set so close, period, LATEST and OFF remove them too (build-M
+674707	B1; dots adds p-glow, p-dot and the pdots source).`),
+674708	  N('nr=(m,c,x,y)=>{', `
+674709	nr: nearest substations: the original's own measure (__GRIDATLAS_NEON_LINKS__.measure.nearestSubstations: >= 33 kV,
+674710	<= 40 km, 5 links) drawn as its neon arrival (glow, core, two flow layers, teal nodes, labels, pale origin ring; kv-neon)
+674711	in Lightning-owned layers, in the technology colour #d8c96a. link.selectAt is not used: it treats its origin as a project
+674712	(stale project reference, cancelled arrivals, a false arrival record; kv-arrival-api). S.fk: the points to frame.`),
+674713	  N('if(!c.o.np)Rp(m,c,x,y,M);', `
+674714	The REPD list runs for lightning cards only, never in the project view (build-M2 nr-repd).`),
+674715	  N("let rm=false;try{rm=matchMedia('(prefers-reduced-motion", `
+674716	Flow: the cartridge's own 24 frozen dash patterns (measure.flowDash) when present; off under reduced motion.`),
+674717	  N('nf=(m,c,x,y,n)=>{', `
+674718	nf: fired on the tap; retried every 2 s (15 times) while the same card is open if the substation list is not loaded yet.
+674719	The project view always flies to the project, even with no substation within 40 km (build-M2 nf-fly).`),
+674720	  N('cw=()=>Promise.resolve()', `
+674721	M4 (M2R-taps MAJOR T1): MapLibre 3.6.2's stop() fires moveend synchronously, so a pending once('moveend', ck) ran its
+674722	fitBounds nested inside the next camera move, left an orphan render frame and froze redraws after fast row/back cycles.
+674723	cw: the pending framing runs in a microtask after the stop that fired it, only when the map is then not moving.
+674724	cm: every module camera move first drops the module's pending framing (nz, ck, RpR, the cluster zoom, the fit button).`),
+674725	  N('nz=(m,x,y)=>{try{cm(m)', `
+674726	nz: the original arrival's flyTo (zoom 12, 1200 ms), then frame at moveend.`),
+674727	  N('ck=f=>{try{let m=mh()', `
+674728	ck: frame S.fk when an end is outside the free area (screen pixels: x 20..W-R+20, y T-20..H-B), or always with f === 1
+674729	(M2R-layout F2). Padding: top 150, sides 40, bottom card + 24 capped at H-270 only when L3's fit is impossible
+674730	(M2R-diff MD1); docked card (c.sd, fix C): top 60, right card width + 32, bottom 100.`),
+674731	  // ---------------------------------------------------------------- 12 repd
+674732	  N('Rp=(m,c,x,y,M)=>{', `
+674733	Rp: the REPD list of a lightning card: every register row is measured once (all 10,784 rows), then RpR renders it.`),
+674734	  N('RpR=(m,c,pd,box)=>{', `
+674735	RpR: render the list for the current filter (MR3: ties with the 10th site are kept), the summary, the chips, the rows,
+674736	the links and the camera. Every filter press re-renders it.`),
+674737	  N("let lt=RpU(P.flatMap(g=>g.parts)", `
+674738	layers (M3): switch on the listed technologies' layers (Ry), name them on the card.`),
+674739	  N("c.ps=P;if(P.length)ap(box", `
+674740	dots (M4b): keep the drawn list for dot taps and say what the map shows.`, { in: 'B' }),
+674741	  N('RpV=(m,c,g)=>{', `
+674742	RpV: the project view of one site (a row or, with dots, a dot tap).`),
+674743	  // ---------------------------------------------------------------- 13 panel
+674744	  N('BTN=(a,t,x)=>', `
+674745	BTN/NAV/DATE: the panel controls, in the shell's own classes. bg: build one panel group (key = main | fs); the menu's
+674746	bubble-phase click closer never sees these controls.`),
+674747	  N('txt=(n,s)=>', `
+674748	txt/flag: write only on change. lt: the Layers label ("Lightning Flashes (Optical) [...]"); sl: the status line.`),
+674749	  N('pt=loading=>{', `
+674750	pt: one batched repaint of every group: toggle, label, chips, CUSTOM, PREV/NEXT/LATEST, status dot and captions; S.last
+674751	is the published summary.`),
+674752	  // ---------------------------------------------------------------- 14 actions
+674753	  N('sp=p=>{S.period=p;', `
+674754	sp: choose a period (resets the PREV/NEXT stack and the LOAD POINTS consent).`),
+674755	  N('fb=()=>{let e=S.res&&S.res.ev', `
+674756	fb: the fit button: frame every drawn flash (a camera move: cm first).`),
+674757	  N('nv=(which,sf)=>{', `
+674758	nv: PREV, NEXT, LATEST, FIT, LOAD POINTS and CUSTOM apply. LATEST closes the card and its links (LR-taps F1).`),
+674759	  N('ld=refresh=>{', `
+674760	ld: load and draw the current window; a newer load (S.serial) or OFF discards this one. The cell layer draws in its own
+674761	try, so a failed cell layer never marks the load FAIL (LR-regress m1). A period or page change closes the card.`),
+674762	  N('so=on=>{if(S.on===on)return;', `
+674763	so: switch ON (first request, map click listener, 10-minute refresh while at LATEST) or OFF (everything removed).`),
+674764	  N("bt=c=>c.addEventListener('change'", `
+674765	bt: the panel's change listener (toggle). layers: a reader's tick or untick of a layer this module holds makes it the
+674766	reader's (the module's own dispatch runs with S.lyx set).`),
+674767	  N('fit=()=>{let d=Q(', `
+674768	fit: keep Lightning-owned text clear of the shell's fixed HIDE LAYERS button (its live rect + 16 px; 96 px if absent).`),
+674769	  // ---------------------------------------------------------------- 15 install
+674770	  N('ins=()=>{if(S.installed)return true;', `
+674771	ins: install after the menu bar, Pipeline News and the map exist; appended last to the Layers panel and the fullscreen
+674772	curtain. Polled every 250 ms and on DOM mutations until it succeeds.`),
+674773	  N('NS.ukLightning=Object.freeze(', `
+674774	The public surface: schema, generation, state, install, setOn, load, windowFor.`),
+674775	// build-M.mjs: L3 live module (202610281340) -> M0 (byte savings only, zero behaviour change) -> M (adds REPD projects).
+674776	// Every replacement must match exactly once (or the stated count). Usage: node build-M.mjs <L3 module> <outdir> [GEN]
+674777	import { const2let } from './const2let.mjs';
+674778	// A5 (applied last to each output): const -> let where scope analysis proves no reassignment; two declarations whose
+674779	// exact text the suites assert (test-engine 1271 grid path, 1457 mask loop) stay const.
+674780	const KEEP = t => t.startsWith("const u=AR+'grid/'") || t === "const c of'";
+674781	const fin = t => { const r = const2let(t, KEEP); if (r.kept !== 2) throw new Error('const2let kept ' + r.kept); return r.out; };
+674782	const [,, SRC, OUT, GEN] = process.argv;
+674783	let s = fs.readFileSync(SRC, 'utf8');
+674784	const L3GEN = '202610281340';
+674785	const once = (from, to, n = 1) => { const k = s.split(from).length - 1; if (k !== n) throw new Error(`expected ${n} x ${JSON.stringify(from.slice(0, 80))}, found ${k}`); s = s.split(from).join(to); };
+674786	const all = (from, to) => once(from, to, s.split(from).length - 1);
+674787	/* ---------- stage A: savings ---------- */
+674788	// A1 header: 4 lines -> 1 shorter line, same facts (generation, OFF by default, never persisted, not ground strikes, unknown not zero, cells)
+674789	const hEnd = s.indexOf('*/') + 3;
+674790	if (!s.startsWith('/* uk-lightning-overlay, generation ' + L3GEN)) throw new Error('header');
+674791	s = `/* uk-lightning-overlay, generation ${L3GEN} (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */\n` + s.slice(hEnd);
+674792	// A2 whole-line // comments
+674793	const before = s.length; s = s.replace(/^\/\/.*\n/gm, ''); if (before - s.length < 1000) throw new Error('comments');
+674794	// A3 aliases: Math.max/min, Array.isArray, Date.parse (all static, no `this`), appendChild and getBoundingClientRect helpers,
+674795	//    and the phrase 'unknown, not zero'
+674796	once("const NS=(window", "const MX=Math.max,MN=Math.min,AI=Array.isArray,DP=Date.parse,ap=(p,c)=>p.appendChild(c),gr=e=>e.getBoundingClientRect(),U='unknown, not zero',NS=(window");
+674797	all('Math.max(', 'MX('); all('Math.min(', 'MN('); all('Array.isArray(', 'AI('); all('Date.parse(', 'DP(');
+674798	{ const n = s.split('.appendChild(').length - 1;
+674799	  s = s.replace(/([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*(?:\(\))?)\.appendChild\(/g, (m0, r) => r === 'p' ? m0 : `ap(${r},`);
+674800	  if (n < 10 || s.split('.appendChild(').length - 1 !== 1) throw new Error('ap'); }
+674801	{ s = s.replace(/([A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)*(?:\(\))?)\.getBoundingClientRect\(\)/g, (m0, r) => r === 'e' ? m0 : `gr(${r})`);
+674802	  if (s.split('.getBoundingClientRect()').length - 1 !== 1) throw new Error('gr'); }
+674803	once("FOOTER='Times UTC · Optical flashes seen by MTG Lightning Imager (EUMETSAT L2-LFL), not confirmed ground strikes · Missing days are unknown, not zero · UK box −11.0,49.5 → 3.0,61.5'",
+674804	  "FOOTER=`Times UTC · Optical flashes seen by MTG Lightning Imager (EUMETSAT L2-LFL), not confirmed ground strikes · Missing days are ${U} · UK box −11.0,49.5 → 3.0,61.5`");
+674805	once("nz=' (unknown, not zero)'", "nz=` (${U})`");
+674806	once("r.old?'earlier days unknown, not zero':", "r.old?'earlier days '+U:");
+674807	once("nothing shown (unknown, not zero)`", "nothing shown (${U})`");
+674808	once("${x.cutoffDate}) — unknown, not zero`", "${x.cutoffDate}) — ${U}`");
+674809	once("earlier hours unknown, not zero)`", "earlier hours ${U})`");
+674810	once("': earlier coverage unknown, not zero'", "': earlier coverage '+U");
+674811	once("'Actual  none seen in the 7-day feed (unknown, not zero)'", "`Actual  none seen in the 7-day feed (${U})`");
+674812	once("'Searched EUMETSAT: shard lost (integrity alert), unknown, not zero'", "'Searched EUMETSAT: shard lost (integrity alert), '+U");
+674813	once("of window (unknown, not zero)`", "of window (${U})`");
+674814	once("(integrity alert), unknown, not zero`", "(integrity alert), ${U}`");
+674815	once("(malformed timestamp; unknown, not zero)`", "(malformed timestamp; ${U})`");
+674816	once("unsearched days unknown, not zero`", "unsearched days ${U}`");
+674817	if (s.split('unknown, not zero').length !== 2) throw new Error('phrase left');
+674818	const M0 = fin(s);
+674819	fs.writeFileSync(`${OUT}/module-M0.js`, M0);
+674820	/* ---------- stage B: REPD projects ---------- */
+674821	if (GEN) {
+674822	  // B1 project layer and source ids join the L3 neon set, so nc() (close, period, LATEST, OFF) removes them too
+674823	  once("'pin-halo','pin']", "'pin-halo','pin','p-core','p-node','p-label']");
+674824	  once("NSR=[NP+'-links',NP+'-nodes',NP+'-pin']", "NSR=[NP+'-links',NP+'-nodes',NP+'-pin',NP+'-plinks',NP+'-pnodes']");
+674825	  // B2 nr: the drawing helpers move above the "no substation" return; the frame list is S.fk; the 10 nearest REPD projects
+674826	  once("const k=M.nearestSubstations(x,y,subs);say(", "const k=M.nearestSubstations(x,y,subs),o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},\nA=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));S.fk=[o,...k.map(a=>a.at)];say(");
+674827	  once(":''));return k}\nfor(const a of k)say(`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV · ${cs(a.name||'unnamed substation')}`);\n",
+674828	    ":''))}\nfor(const a of k)say(`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV · ${cs(a.name||'unnamed substation')}`);\n"
+674829	    + "const pd=say('REPD projects: loading…');RG(m,M).then(G=>{if(S.pp!==c)return;"
+674830	    + "const P=G.map(([a,p])=>({a,p,km:M.distanceKm(x,y,...a)})).filter(r=>r.km<=40).sort((a,b)=>a.km-b.km).slice(0,10),"
+674831	    + "L=r=>`${r.km.toFixed(2)} km · ${({solar:'Solar',solar_roof:'Rooftop solar'})[r.p.tech]||cs(r.p.raw_tech)}${r.p.capacity>0?` ${N(r.p.capacity)} MW`:''}`,"
+674832	    + "F=g=>({type:'geojson',data:FC(P.map(r=>({type:'Feature',properties:{mw:+r.p.capacity||0,label:L(r)},geometry:g(r)})))}),C=['interpolate',['linear'],['get','mw'],0,'#ffaa00',50,'#ff4400',200,'#f00'];\n"
+674833	    + "pd.textContent=`${P.length?pl(P.length,'nearest REPD project'):'No REPD project'} within 40 km of this ${c.wh} (straight-line; all technologies and statuses). Not evidence any project was struck or affected.`;P.length&&(c.sm.textContent+=` · ${P.length} nearest projects`);\n"
+674834	    + "for(const r of P){const p=r.p,b=el('a','display:block;padding:14px 0 13px;border-top:1px solid #1d3238;color:#ffb27a',`${L(r)} · ${cs(p.status)} · ${cs(p.name)}`);b.href=location.pathname+'?'+new URLSearchParams({longitude:r.a[0],latitude:r.a[1],technology:p.tech,project:p.name,capacity_mw:p.capacity,status:p.status});ap(c.out,b)}\n"
+674835	    + "m.addSource(NSR[3],F(r=>({type:'LineString',coordinates:[o,r.a]})));m.addSource(NSR[4],F(r=>({type:'Point',coordinates:r.a})));\n"
+674836	    + "A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});A(10,'circle',NSR[4],{'circle-radius':Z(3,5),'circle-color':C,'circle-stroke-width':1});\n"
+674837	    + "try{A(11,'symbol',NSR[4],{'text-color':'#ffc48a','text-halo-color':'#000c10','text-halo-width':1.5},{'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)})}catch(e){note('neon labels: '+msg(e))}\n"
+674838	    + "cpos();S.fk.push(...P.map(r=>r.a));m.isMoving&&m.isMoving()||ck()}).catch(e=>{if(S.pp===c)pd.textContent='REPD projects unavailable: '+msg(e)});if(!k.length)return k;\n");
+674839	  once("\nconst o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},\nA=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));\n", "\n");
+674840	  // B3 camera: one frame list S.fk (origin, substations, then projects), checked at moveend or when projects arrive
+674841	  once("if(k.length)nz(m,x,y,k);return}", "if(k.length)nz(m,x,y);return}");
+674842	  once("nz=(m,x,y,k)=>{try{m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});const ck=()=>{const v=m.getBounds&&m.getBounds();if(!v||S.pp===null||k.every(a=>v.contains(a.at)))return;let w=x,s=y,e=x,n=y;for(const[a,o]of k.map(a=>a.at)){w=MN(w,a);e=MX(e,a);s=MN(s,o);n=MX(n,o)}\n"
+674843	    + "m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:(S.pp.bb+S.pp.offsetHeight||196)+24},maxZoom:12,duration:900})};typeof m.once=='function'?m.once('moveend',ck):ck()}catch(e){note('camera: '+msg(e))}},",
+674844	    "nz=(m,x,y)=>{try{m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});typeof m.once=='function'?m.once('moveend',ck):ck()}catch(e){note('camera: '+msg(e))}},\n"
+674845	    + "ck=()=>{try{const m=mh(),v=m&&m.getBounds&&m.getBounds(),k=S.fk;if(!v||!S.pp||k.every(a=>v.contains(a)))return;let[w,s]=k[0],[e,n]=k[0];for(const[a,o]of k){w=MN(w,a);e=MX(e,a);s=MN(s,o);n=MX(n,o)}\n"
+674846	    + "m.fitBounds([[w,s],[e,n]],{padding:{top:150,left:40,right:40,bottom:(S.pp.bb+S.pp.offsetHeight||196)+24},maxZoom:12,duration:900})}catch(e){note('camera: '+msg(e))}},\n"
+674847	    // B4 the register: the engine's src-repd data once a REPD layer has loaded it, else the engine's own URL through the bridge
+674848	    + "RG=(m,M)=>S.rg||(S.rg=(async()=>{let f;try{f=m.getSource('src-repd').serialize().data.features}catch(_){}if(!(f&&f.length)){let r=await fetch('/dist/repd_master.json');r.ok||E('HTTP '+r.status);f=(await r.json()).features}"
+674849	    + "const o=f.map(x=>[M.representativePoint(x.geometry),x.properties||{}]).filter(([a,p])=>a&&M.isProjectTech(p.tech));return o.length?o:E('register empty')})().catch(e=>{S.rg=null;throw e})),");
+674850	  s = s.replace(`generation ${L3GEN}`, `generation ${GEN}`).replace(`GEN='${L3GEN}'`, `GEN='${GEN}'`);
+674851	  if (!s.includes(`GEN='${GEN}'`) || !s.includes(`generation ${GEN}`)) throw new Error('stamp');
+674852	  s = fin(s);
+674853	  fs.writeFileSync(`${OUT}/module-M.js`, s);
+674854	const b = x => Buffer.byteLength(x);
+674855	console.log(JSON.stringify({ L3: b(fs.readFileSync(SRC, 'utf8')), M0: b(M0), M: GEN ? b(s) : null, cap: 44781, cartridge_M: GEN ? 435218 + 1 + b(s) : null }));
+674856	// build-M2.mjs: Build M (202610281950) module -> M2 module (owner, 28 Oct 2026 20:51 UTC: "make the feature comprehensive";
+674857	// cartridge gate 500,000 B, module cap 64,781 B). Every replacement is exact-once against the M bytes.
+674858	//   MR1-MR4 (reports/MR.md) + the bridge failed-start note, and the comprehensive REPD block (tools/repd-m2.part.js):
+674859	//   in-page row tap with "◀ back", co-located sites grouped, status/technology filter chips with re-ranking,
+674860	//   a 10 km / 40 km summary line, and an explicit "fewer than 10" statement.
+674861	// usage: node build-M2.mjs <module-M.js> <out.js>
+674862	const [, , IN, OUT] = process.argv;
+674863	let s = fs.readFileSync(IN, 'utf8'); const b0 = Buffer.byteLength(s), log = [];
+674864	const once = (id, a, b) => { const k = s.split(a).length - 1; if (k !== 1) throw new Error(id + ' found ' + k); const n0 = Buffer.byteLength(s); s = s.replace(a, () => b); log.push([id, Buffer.byteLength(s) - n0]); };
+674865	const cut = (id, from, to, b) => { const i = s.indexOf(from), j = s.indexOf(to, i); if (i < 0 || j < 0 || s.indexOf(from, i + 1) >= 0) throw new Error(id); const n0 = Buffer.byteLength(s); s = s.slice(0, i) + b + s.slice(j); log.push([id, Buffer.byteLength(s) - n0]); };
+674866	// header: one more readable line for M2
+674867	once('header', 'Long periods: ≈10 km cells within 30 km of a REPD site. */',
+674868	  'Long periods: ≈10 km cells within 30 km of a REPD site. */\n/* M2: a tap lists the nearest REPD project sites (straight-line, 40 km; co-located parts grouped; status and technology filters; 10 km / 40 km summary); a row flies to the project and draws its nearest-substation links, with "◀ back" to the lightning card. Distance only: never "affected". */');
+674869	// card: options (np = no REPD list, open, foot, back) and a re-open closure for "◀ back"
+674870	once('cd-sig', 'cd=(m,x,y,lb,ti,su,de,wh)=>{', 'cd=(m,x,y,lb,ti,su,de,wh,o={})=>{');
+674871	once('cd-re', 'c.wh=wh;', 'c.wh=wh;c.o=o;c.re=open=>cd(m,x,y,lb,ti,su,de,wh,{...o,open});');
+674872	once('cd-back', 'ap(d,c.out);ap(bd,d);',
+674873	  "ap(d,c.out);if(o.back){let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));k.type='button';k.dataset.lightningBack='';k.addEventListener('click',o.back[1])}ap(bd,d);if(o.open)d.open=true;");
+674874	once('cd-foot', "ap(bd,el('div','color:#8b9aa1;font-size:10px','EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));",
+674875	  "ap(bd,el('div','color:#8b9aa1;font-size:10px',o.foot||'EUMETSAT MTG Lightning Imager · optical flash, not necessarily a ground strike.'));");
+674876	// nr: the project view states that nearest is not the declared connection; the REPD list runs only for lightning cards
+674877	once('nr-say', 'say(`Nearest substations to this ${c.wh} (straight-line km). Not evidence any asset was struck; faults can have other causes.`);',
+674878	  "say(c.o.np?'Nearest substations to this project (straight-line km; not its declared grid connection).':`Nearest substations to this ${c.wh} (straight-line km). Not evidence any asset was struck; faults can have other causes.`);");
+674879	// nf: the project view always flies to the project, even with no substation within 40 km
+674880	once('nf-fly', 'if(k.length)nz(m,x,y);return}', 'if(k.length||c.o.np)nz(m,x,y);return}');
+674881	cut('nr-repd', "let pd=say('REPD projects: loading…');", "if(!k.length)return k;", 'if(!c.o.np)Rp(m,c,x,y,M);');
+674882	// gj: once its own 15 s timer has aborted, any rejection (e.g. a body stream that errors on abort, as the bridge's may)
+674883	// is reported as the timeout, not as "Failed to fetch" (browser repro: evidence/M2-build/browser, repd-stall-7D)
+674884	once('gj-abort', ".catch(e=>{throw e&&e.name==='AbortError'?new Error(TOE):e})", ".catch(e=>{throw c.signal.aborted||e&&e.name==='AbortError'?new Error(TOE):e})");
+674885	// ck: a tall (expanded) card left no room for fitBounds, which then did nothing; keep at least 120 px of map between the
+674886	// 150 px top padding and the card. Unchanged whenever the card leaves that room (every L3 tap, which arrives collapsed).
+674887	once('ck-pad', 'bottom:(S.pp.bb+S.pp.offsetHeight||196)+24}', 'bottom:MN((S.pp.bb+S.pp.offsetHeight||196)+24,MX(0,(m.getContainer().clientHeight||1e4)-270))}');
+674888	// RG and the new REPD functions (readable block) replace M's RG
+674889	cut('rg+repd', 'RG=(m,M)=>', 'BTN=(a,t,x)=>', fs.readFileSync(new URL('repd-m2.part.js', import.meta.url), 'utf8'));
+674890	fs.writeFileSync(OUT, s);
+674891	const n = Buffer.byteLength(s);
+674892	console.log(JSON.stringify({ from: b0, to: n, deltas: log, cap: 64781, spare: 64781 - n, cartridge: 435219 + n, cartridgeSpare: 500000 - 435219 - n }));
+674893	// build-M3.mjs: Build M2 module (202610282100, as published on main) -> M3 module.
+674894	// Owner, 28 Oct 2026 21:39 UTC: "Can we auto activate the REPD layers of the targeted 10 nearest projects?"
+674895	// Every replacement is exact-once against the M2 bytes. The layer bookkeeping lives in tools/layers-m3.part.js.
+674896	// Review fixes from reports/M2R-*.md are applied by tools/fixes-m3.mjs (exported `fixes(once, cut)`), if present.
+674897	// usage: node build-M3.mjs <module-M2.js> <out.js>
+674898	once('header', 'with "◀ back" to the lightning card. Distance only: never "affected". */',
+674899	  'with "◀ back" to the lightning card. Distance only: never "affected". */\n/* M3: the original REPD map layers of the listed technologies are switched on through their own Layers checkboxes, and only those M3 switched on are switched off again on close, lightning OFF, a period change, LATEST or a new list. */');
+674900	// the REPD block (M2's RG … RpV) is replaced by the M3 block: the layer bookkeeping (tools/layers-m3.part.js) and the REPD
+674901	// card with the M2 review fixes folded in (tools/repd-m3.part.js; see reports/M3-build.md for each finding)
+674902	cut('repd', '/* ---- REPD projects near a tap (M2)', 'BTN=(a,t,x)=>', fs.readFileSync(new URL('layers-m3.part.js', import.meta.url), 'utf8') + fs.readFileSync(new URL('repd-m3.part.js', import.meta.url), 'utf8'));
+674903	// M2R-repd R2: the header says what the grouping does
+674904	once('hdr-group', '40 km; co-located parts grouped;', '40 km; projects at one point grouped;');
+674905	// M2R-a11y MAJOR-1: one visually hidden polite status region per card, outside the closed <details>
+674906	once('a11y-live', 'ap(c,bar);ap(c,bd);S.pp=c;', "ap(c,bar);ap(c,bd);c.lv=ap(c,el('div','position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)'));c.lv.setAttribute('role','status');S.pp=c;");
+674907	// M2R-a11y MINOR-1: the back control's name without the ◀ glyph
+674908	once('a11y-back', "k.dataset.lightningBack='';", "k.dataset.lightningBack='';k.setAttribute('aria-label',o.back[0].slice(2));");
+674909	// M2R-words W10: next to the REPD summary, say what is not within 40 km
+674910	once('w10', '` · none within ${k.radiusKm||40} km`', '` · no substation within ${k.radiusKm||40} km`');
+674911	// M2R-layout F1 (MAJOR-1): an open card never rises above the container top + 320 px (at least 240 px tall), so the origin
+674912	// band stays visible
+674913	once('layout-f1', "c.style.maxHeight=MX(44,k.height-t-b)+'px'", "c.style.maxHeight=MX(44,MN(k.height-t-b,MX(240,k.height-b-320)))+'px'");
+674914	// M2R-layout F2 (MAJOR-2, MINOR-3): refit when any point is outside the visible band (x 20..W-20, y 130..card top-24), not only
+674915	// outside the map, or when forced; M2R-diff MD1: the bottom padding is capped at H-270 only when L3's fit is impossible
+674916	once('layout-f2', 'ck=()=>{try{let m=mh(),v=m&&m.getBounds&&m.getBounds(),k=S.fk;if(!v||!S.pp||k.every(a=>v.contains(a)))return;',
+674917	  'ck=f=>{try{let m=mh(),c=S.pp,k=S.fk,C=m&&m.getContainer(),H=C&&C.clientHeight||1e4,B=c&&(c.bb+c.offsetHeight||196)+24;if(!c||!k||f!==1&&k.every(a=>{let p=m.project(a);return p.x>=20&&p.x<=(C.clientWidth||1e4)-20&&p.y>=130&&p.y<=H-B}))return;');
+674918	once('layout-f2b', 'bottom:MN((S.pp.bb+S.pp.offsetHeight||196)+24,MX(0,(m.getContainer().clientHeight||1e4)-270))}', 'bottom:H-150>B?B:MX(0,H-270)}');
+674919	// M2R-layout F3: re-frame when the card is expanded, collapsed or minimised
+674920	once('layout-f3', "bd=el('div','padding:0 8px 6px'),d=el('details'),", "bd=el('div','padding:0 8px 6px'),d=el('details'),rf=()=>{cpos();if(S.pp===c)ck(1)},");
+674921	once('layout-f3b', "mn.setAttribute('aria-expanded',o);cpos()});", "mn.setAttribute('aria-expanded',o);rf()});d.addEventListener('toggle',rf);");
+674922	// M2R-layout MINOR-4: 11 px, not 10 px (detail line, footer; the REPD block's chip labels and part lines in repd-m3.part.js)
+674923	once('layout-11a', "ap(d,el('div','color:#8b9aa1;font-size:10px;overflow-wrap:anywhere',de));", "ap(d,el('div','color:#8b9aa1;font-size:11px;overflow-wrap:anywhere',de));");
+674924	once('layout-11b', "ap(bd,el('div','color:#8b9aa1;font-size:10px',o.foot||", "ap(bd,el('div','color:#8b9aa1;font-size:11px',o.foot||");
+674925	// close (×), a tap on empty map, period / page / custom / LOAD POINTS (ld without refresh), LATEST, lightning OFF
+674926	once('close', "B('×','Close',pc)", "B('×','Close',()=>{pc();Ry()})");
+674927	once('tap-empty', 'return f&&cc(m,f)}', 'return f?cc(m,f):Ry()}');
+674928	once('ld', 'ld=refresh=>{if(!refresh)pc();', 'ld=refresh=>{if(!refresh)pc(),Ry();');
+674929	once('latest', 'S.end=null;S.h=[];pc();return ld(true)', 'S.end=null;S.h=[];pc();Ry();return ld(true)');
+674930	once('off', 'else{S.serial++;S.res=null;cx();', 'else{S.serial++;S.res=null;cx();Ry();');
+674931	// a user tick/untick of a layer M3 holds hands it to the user (M3's own dispatch runs with S.lyx set)
+674932	once('bt', "bt=c=>c.addEventListener('change',ev=>{let t=ev.target;if(t&&t.dataset&&t.dataset.lightningControl==='toggle')so(!!t.checked)})",
+674933	  "bt=c=>c.addEventListener('change',ev=>{let t=ev.target,d=t&&t.dataset;if(!d)return;if(d.lightningControl==='toggle')so(!!t.checked);else if(!S.lyx&&S.ly)S.ly.delete(d.layerId)})");
+674934	let fixesUrl = new URL('fixes-m3.mjs', import.meta.url);
+674935	if (fs.existsSync(fixesUrl)) { const { fixes } = await import(fixesUrl); fixes(once, cut); }
+674936	// build-M4.mjs: Build M3 module (202610282215, as on main) -> M4 module. Every replacement is exact-once against the M3 bytes.
+674937	// M2R-taps MAJOR M2R-T1: a camera move started while the previous one was still running made MapLibre's stop() fire the
+674938	// pending once('moveend',ck) synchronously, so ck's fitBounds ran NESTED inside the new move; the outer move then left an
+674939	// orphan render frame and the map stopped drawing after a few fast row -> back cycles (latent in L3 for quick re-taps).
+674940	// Fix: (1) every module camera move first drops the module's pending framing (cm: m.off('moveend',cw)): nz (tap, row,
+674941	// back), ck's own fitBounds (details toggle, minimise), RpR's register-lands-mid-move framing, the cluster easeTo, and the
+674942	// fit button; (2) the pending framing itself (cw) runs after the stop that fired it has returned (a microtask), and only
+674943	// when the map is then not moving, so a camera move by anyone else (engine popup, search, a gesture) is never nested or
+674944	// overridden either.
+674945	// Review fixes from reports/M2R-camera.md and reports/M2R-l3regress.md are applied by tools/fixes-m4.mjs if present.
+674946	// usage: node build-M4.mjs <module-M3.js> <out.js>
+674947	once('header', '/* M3: the original REPD map layers',
+674948	  '/* M4: a module camera move never starts inside another (MapLibre fires moveend synchronously from stop()): the pending framing is dropped before each own move and otherwise runs after the stop that fired it, only when the map is not moving. */\n/* M3: the original REPD map layers');
+674949	// (1) nz: drop the pending framing, fly, queue the deferred framing
+674950	once('nz', "nz=(m,x,y)=>{try{m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});typeof m.once=='function'?m.once('moveend',ck):ck()}",
+674951	  "cw=()=>Promise.resolve().then(()=>{let m=mh();m&&!(m.isMoving&&m.isMoving())&&ck()}),cm=m=>m.off&&m.off('moveend',cw),\nnz=(m,x,y)=>{try{cm(m);m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});typeof m.once=='function'?m.once('moveend',cw):ck()}");
+674952	// ck's own fitBounds (forced by the details toggle / minimise while a flight runs)
+674953	once('ck', 'm.fitBounds([[w,s],[e,n]],{padding:{top:150', 'cm(m);m.fitBounds([[w,s],[e,n]],{padding:{top:150');
+674954	// RpR: a register that lands mid-move is framed when that move ends (deferred, one pending at most)
+674955	once('rpr', "m.isMoving&&m.isMoving()?m.once('moveend',ck):ck()}", "m.isMoving&&m.isMoving()?(cm(m),m.once('moveend',cw)):ck()}");
+674956	// the cluster zoom and the fit button are camera moves too
+674957	once('cluster', 'let go=z=>m.easeTo({center:f.geometry.coordinates,zoom:z})', 'let go=z=>(cm(m),m.easeTo({center:f.geometry.coordinates,zoom:z}))');
+674958	once('fit', 'm.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})}', 'cm(m);m.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})}');
+674959	let fixesUrl = new URL('fixes-m4.mjs', import.meta.url);
+674960	if (fs.existsSync(fixesUrl)) { const { fixes } = await import(fixesUrl); fixes(once); }
+674961	if (/\bm\.once\('moveend',ck\)/.test(s)) throw new Error('an undeferred moveend framing remains');
+674962	// build-M4b.mjs: M4 module -> M4b module (owner option). Same as M4, but instead of switching on whole REPD layers (M3/M4
+674963	// lit 148 dots in view at Doncaster, burying the 10 listed sites) it draws ONLY the listed sites, as REPD-styled dots with
+674964	// the engine's own glow + core paint (atlas/releases/202608300453-atlas-v9/ventus-corev8engine.js:1305-1337; colours of
+674965	// the other techs from that shell's "REPD (GeoJSON)" config, index.html:243-259), and never touches the Layers controls.
+674966	// Every replacement is exact-once against the M4 bytes.  usage: node build-M4b.mjs <module-M4.js> <out.js>
+674967	cut('header', '/* M3: the original REPD map layers', '\n',
+674968	  '/* M4b: the listed REPD sites only are drawn as REPD-styled dots (the engine\'s glow + core paint); the Layers controls are never touched. */');
+674969	// the M3 layer bookkeeping (RL, Ly, Ry) is replaced by the dot layer of the listed sites
+674970	cut('layers', '/* ---- M3: the REPD map layers', '/* ---- REPD projects near a tap', `/* ---- M4b: the listed REPD sites, drawn in the original REPD style ----------------------------------------------------
+674972	once('ni', "'p-label'].map(s=>NP+'-'+s)", "'p-label','p-glow','p-dot'].map(s=>NP+'-'+s)");
+674973	once('nsr', "NP+'-pnodes']", "NP+'-pnodes',NP+'-pdots']");
+674974	// no layer is switched, so nothing is released (M3's Ry calls go) and the container listener is M2's again
+674975	once('close', "B('×','Close',()=>{pc();Ry()})", "B('×','Close',pc)");
+674976	once('tap-empty', 'return f?cc(m,f):Ry()}', 'return f&&cc(m,f)}');
+674977	once('ld', 'if(!refresh)pc(),Ry();', 'if(!refresh)pc();');
+674978	once('latest', 'pc();Ry();return ld(true)', 'pc();return ld(true)');
+674979	once('off', 'cx();Ry();', 'cx();');
+674980	// M4b holds no layer: a tap on a drawn REPD dot (the reader's own layers) just closes the card, as in L3 (pc removes the dots)
+674981	once('l3r-dot', 'if(h&&h.length){for(let q of h)S.ly&&S.ly.delete(q.properties&&q.properties.tech);return Ry()}', 'if(h&&h.length)return;');
+674982	once('rg-fail', 'if(S.pp!==c)return;Ry();', 'if(S.pp!==c)return;');
+674983	once('bt', "bt=c=>c.addEventListener('change',ev=>{let t=ev.target,d=t&&t.dataset;if(!d)return;if(d.lightningControl==='toggle')so(!!t.checked);else if(!S.lyx&&S.ly)S.ly.delete(d.layerId)})",
+674984	  "bt=c=>c.addEventListener('change',ev=>{let t=ev.target;if(t&&t.dataset&&t.dataset.lightningControl==='toggle')so(!!t.checked)})");
+674985	// RpR: the card says what the map shows instead of naming switched layers; the drawn list is kept for dot taps
+674986	cut('rpr-layers', '  // M3: the original REPD layers of the listed technologies', "  let C=['interpolate'",
+674987	  "  c.ps=P;if(P.length)ap(box,el('div','margin-top:6px;color:#8b9aa1;font-size:11px','Map: only these sites are drawn, in the REPD layer style; tap a dot for its project view. Your Layers are unchanged.'));\n");
+674988	once('rpr-set', 'm.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(nd)}', 'm.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(nd);RpD(m,P)}');
+674989	once('rpr-add', "A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});", "A(9,'line',NSR[3],{'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]});RpD(m,P);");
+674990	// a tap on a drawn site opens its project view (as its row); the project view draws its own site's dots
+674991	once('tap-dot', 'tap=e=>{let m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;',
+674992	  'tap=e=>{let m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;let rq=S.pp&&S.pp.ps&&m.getLayer(NI[13])&&m.queryRenderedFeatures(e.point,{layers:[NI[13]]})[0],rg=rq&&S.pp.ps[rq.properties.k];if(rg)return RpV(m,S.pp,rg);');
+674993	once('nr-dot', 'if(!c.o.np)Rp(m,c,x,y,M);', 'if(!c.o.np)Rp(m,c,x,y,M);else if(c.o.g)RpD(m,[c.o.g]);');
+674994	once('rpv-g', "'project',{np:1,foot:", "'project',{np:1,g,foot:");
+674995	once('rpv-cmt', 'The REPD layers M3 switched on stay on.', 'The project view draws its own site in the REPD style.');
+674996	for (const bad of [/data-layer-id/, /lbl-/, /\bRy\(/, /S\.ly\b/, /\bRL\b/, /\bLy\(/]) if (bad.test(s)) throw new Error('M4b still contains ' + bad);
+674997	// const2let: rewrite `const` declarations as `let` (2 bytes each) after proving, with scope resolution, that no binding a
+674998	// declaration creates is ever the target of an assignment, update or for-in/of head. For a binding that is never
+674999	// reassigned, const and let are identical at run time (same block scope, same TDZ, same per-iteration for-of binding).
+675000	import * as acorn from './deps/node_modules/acorn/dist/acorn.mjs';
+675001	import * as walk from './deps/node_modules/acorn-walk/dist/walk.mjs';
+675002	const FN = new Set(['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression']);
+675003	const names = (p, out) => { if (!p) return out; if (p.type === 'Identifier') out.push(p); else if (p.type === 'ObjectPattern') p.properties.forEach(q => names(q.type === 'RestElement' ? q.argument : q.value, out)); else if (p.type === 'ArrayPattern') p.elements.forEach(e => names(e, out)); else if (p.type === 'RestElement') names(p.argument, out); else if (p.type === 'AssignmentPattern') names(p.left, out); return out; };
+675004	export function const2let(src, keep = () => false) {
+675005	  const ast = acorn.parse(src, { ecmaVersion: 2022, sourceType: 'script' });
+675006	  const scopes = new Map(), bind = (scope, id, decl) => { if (!scopes.has(scope)) scopes.set(scope, new Map()); scopes.get(scope).set(id.name, decl); };
+675007	  const decls = [];
+675008	  // 1. declarations -> scope node
+675009	  walk.fullAncestor(ast, (n, _s, anc) => {
+675010	    const parent = anc[anc.length - 2];
+675011	    if (n.type === 'VariableDeclaration') {
+675012	      let scope;
+675013	      if (n.kind === 'var') scope = [...anc].reverse().find(a => FN.has(a.type) || a.type === 'Program');
+675014	      else scope = /^(For|ForIn|ForOf)Statement$/.test(parent.type) ? parent : parent.type === 'SwitchCase' ? anc[anc.length - 3] : parent;
+675015	      for (const d of n.declarations) for (const id of names(d.id, [])) bind(scope, id, n);
+675016	      if (n.kind === 'const') decls.push(n);
+675017	    if (FN.has(n.type)) { for (const p of n.params) for (const id of names(p, [])) bind(n, id, null); if (n.id && n.type === 'FunctionExpression') bind(n, n.id, null); }
+675018	    if (n.type === 'FunctionDeclaration' && n.id) bind(parent.type === 'SwitchCase' ? anc[anc.length - 3] : parent, n.id, null);
+675019	    if (n.type === 'CatchClause' && n.param) for (const id of names(n.param, [])) bind(n, id, null);
+675020	  // 2. assignment targets -> the declaration they resolve to
+675021	  const hit = new Set(), resolve = (id, anc) => { for (let i = anc.length - 1; i >= 0; i--) { const m = scopes.get(anc[i]); if (m && m.has(id.name)) return m.get(id.name); } return undefined; };
+675022	    let targets = [];
+675023	    if (n.type === 'AssignmentExpression') targets = names(n.left, []);
+675024	    else if (n.type === 'UpdateExpression') targets = names(n.argument, []);
+675025	    else if ((n.type === 'ForOfStatement' || n.type === 'ForInStatement') && n.left.type !== 'VariableDeclaration') targets = names(n.left, []);
+675026	    for (const id of targets) { const d = resolve(id, anc); if (d) hit.add(d); }
+675027	  const safe = decls.filter(d => !hit.has(d) && !keep(src.slice(d.start, d.end + 4)));
+675028	  let out = src;
+675029	  for (const d of safe.sort((a, b) => b.start - a.start)) {
+675030	    if (out.slice(d.start, d.start + 5) !== 'const') throw new Error('const2let: offset');
+675031	    out = out.slice(0, d.start) + 'let' + out.slice(d.start + 5);
+675032	  return { out, count: safe.length, kept: decls.length - safe.length };
+675033	// fixes-m4.mjs: review fixes folded into M4 (called by build-M4.mjs with its exact-once `once`).
+675034	export function fixes(once) {
+675035	  // M2R-camera MAJOR-2 (fix C, landscape / short map): with a map under 500 px tall and at least 300 px beside the card,
+675036	  // the card docks to the right edge (c.sd) and the camera frames the free area to its left (right padding = card width
+675037	  // + 32, top 60, bottom 100). Portrait and desktop are unchanged (M3 already carries L = M2R-layout F1-F3, i.e. MAJOR-1's
+675038	  // screen-pixel visibility test and the forced re-frame on toggle).
+675039	  once('cam-c-cpos', 'w=MN(480,k.width-16),L=k.left+(k.width-w)/2,h=c.offsetHeight||0;let b=8;',
+675040	    "w=MN(480,k.width-16),sd=c.sd=k.height<500&&k.width-w>=300,L=sd?k.right-8-w:k.left+(k.width-w)/2,h=c.offsetHeight||0;c.style.marginRight=sd?'0':'auto';let b=8;");
+675041	  once('cam-c-ck', 'H=C&&C.clientHeight||1e4,B=c&&(c.bb+c.offsetHeight||196)+24;if(!c||!k||f!==1&&k.every(a=>{let p=m.project(a);return p.x>=20&&p.x<=(C.clientWidth||1e4)-20&&p.y>=130&&p.y<=H-B}))return;',
+675042	    'H=C&&C.clientHeight||1e4,d=c&&c.sd,B=d?100:c&&(c.bb+c.offsetHeight||196)+24,R=d?c.offsetWidth+32:40,T=d?60:150;if(!c||!k||f!==1&&k.every(a=>{let p=m.project(a);return p.x>=20&&p.x<=(C.clientWidth||1e4)-R+20&&p.y>=T-20&&p.y<=H-B}))return;');
+675043	  once('cam-c-pad', 'padding:{top:150,left:40,right:40,bottom:H-150>B?B:MX(0,H-270)}', 'padding:{top:T,left:40,right:R,bottom:d?B:H-150>B?B:MX(0,H-270)}');
+675044	  // M2R-l3regress MINOR M3-L1: a tap on a drawn REPD dot belongs to the engine and closes the card (as L3), but M3 kept its
+675045	  // auto-switched layers on with no card. Now the tapped dot's technology is handed to the reader (it stays on, as the dot
+675046	  // the reader just engaged with) and every other layer M4 switched on is released.
+675047	  once('l3r-dot', 'if(!f){let rp=RP(m);if(rp.length&&m.queryRenderedFeatures(e.point,{layers:rp}).length)return;',
+675048	    'if(!f){let rp=RP(m),h=rp.length&&m.queryRenderedFeatures(e.point,{layers:rp});if(h&&h.length){for(let q of h)S.ly&&S.ly.delete(q.properties&&q.properties.tech);return Ry()}');
+675049	 * make-generation.mjs -- cut a NEW immutable candidate generation of the UK lightning implant (issue #32 §8 Step F, §12 E).
+675050	 * Author: opus-generation-scaffold (Claude lane); reused by L-build/L3-build; M-build adaptation: live is now L3
+675051	 * M4-build adaptation: the predecessor candidate is Build M3 (202610282215, merged on main 77fca87), live is still L3; --variant m4
+675052	 *   (M3 + the camera fixes; layers as M3) or m4b (owner option: only the listed sites drawn as REPD-styled dots, no Layers
+675053	 *   control touched, so the proof's original static negative for data-layer-id / lbl- is restored).
+675054	 * M3-build adaptation: the predecessor candidate is Build M2 (202610282100, published on main fa992a6), live is still L3;
+675055	 *   the M2 proof already carries the 64,781 B / 500 kB lines, so only GEN changes in the proof.
+675056	 * M2-build adaptation (500 kB gate, module cap 64,781 B): the predecessor candidate is Build M (202610281950) while the live pointer stays L3 (202610281340);
+675057	 * both lineages are proven (L3 cartridge = BASE + "\n" + L3 module, M cartridge = BASE + "\n" + M module).
+675058	 * (atlas/current.json = 202610281340), so CAND = LIVE_PTR = 202610281340 while the cartridge BASE bytes stay the original
+675059	 * 202609241334 sld-sandbox (the L3 cartridge is proven to be BASE + "\n" + L3 module before anything is written).
+675060	 *   node make-generation.mjs --repo <worktree> --module <fixed-module.js> --gen <YYYYMMDDHHMM> --version v9.159
+675061	 *                            [--proof-budget <24001..24781>]
+675062	 * --proof-budget is OPT-IN. The predecessor proof asserts module <= 24,000 bytes (proof line 23) while the real ceiling is
+675063	 * 24,781 (460,000 - 435,218 live sld-sandbox - 1 newline). The unmodified module is 23,973 bytes: 27 bytes of headroom
+675064	 * under the proof. Without the flag a module over 24,000 bytes is refused; with it, exactly that one proof line changes.
+675065	 * Writes SIX new files inside <worktree> and nothing else (every write uses flag 'wx', so an existing file is never
+675066	 * overwritten):
+675067	 *   atlas/modules/<GEN>-uk-lightning-overlay.js     the module (restamped 202610261949 -> GEN in its two identity tokens)
+675068	 *   atlas/cartridges/<GEN>-sld-sandbox-v9-8.js       LIVE 202609241334 sld-sandbox bytes + "\n" + module
+675069	 *   tools/proofs/<GEN>-sld-sandbox.proof.mjs         202610261949 proof with only `const GEN=` changed (module path follows GEN)
+675070	 *   atlas/manifests/<GEN>-composition.json           202610261949 manifest re-identified (see deriveComposition)
+675071	 *   atlas/v/<GEN>/index.html                         byte copy of atlas/index.html
+675072	 *   atlas/v/<GEN>/current.json                       202610261949 route current.json re-identified, ../../ paths
+675073	 * Deterministic: output depends only on the inputs (cut_at_utc is derived from GEN, not the clock).
+675074	 * Protected files (issue §2) and every 202610261949 file are hashed before and after; any change aborts with exit 1.
+675076	const CAND = '202610282215';            // M4-build: predecessor is the candidate Build M3 (not live)
+675077	const PREV_CAND = '202610282100';       // M3's own candidate_predecessor (Build M2)
+675078	const LIVE_PTR = '202610281340';        // atlas/current.json generation (live since 28 Oct 18:53 UTC)
+675079	const LIVE = '202609241334';            // the ORIGINAL sld-sandbox generation; its bytes stay the base
+675080	const LIVE_SLD = `atlas/cartridges/${LIVE}-sld-sandbox-v9-8.js`;
+675081	const LIVE_SLD_SHA = '7812953671d8bb22a566de5e98fd3137da2d23411c5aecd526df5afa111ca4ca';
+675082	const PROOF_BUDGET = 24000;             // asserted by tools/proofs/202610261949-sld-sandbox.proof.mjs:23
+675083	const HARD_CEILING = 64781;             // 500,000 - 435,218 - 1 (owner raised the cartridge gate to 500 kB, 28 Oct 2026 20:51 UTC)
+675084	const CARTRIDGE_CEILING = 500000;       // tools/scope/loop.mjs:194 (raised from 480 kB by the owner, 28 Oct 2026)
+675085	const die = (msg) => { console.error(`make-generation: FAIL ${msg}`); process.exit(1); };
+675086	const need = (ok, msg) => { if (!ok) die(msg); };
+675087	/* ---------- arguments ---------- */
+675088	const args = {};
+675089	for (let i = 2; i < process.argv.length; i += 2) {
+675090	  const k = process.argv[i], v = process.argv[i + 1];
+675091	  need(/^--(repo|module|gen|version|proof-budget|variant)$/.test(k) && v !== undefined, `bad argument ${k}`);
+675092	  args[k.slice(2)] = v;
+675093	for (const k of ['repo', 'module', 'gen', 'version']) need(args[k], `--${k} is required`);
+675094	const REPO = path.resolve(args.repo), GEN = args.gen, VERSION = args.version, VARIANT = args.variant || 'm4';
+675095	need(VARIANT === 'm4' || VARIANT === 'm4b', '--variant must be m4 or m4b');
+675096	need(/^\d{12}$/.test(GEN), `--gen must be YYYYMMDDHHMM, got ${GEN}`);
+675097	const cutAt = `${GEN.slice(0, 4)}-${GEN.slice(4, 6)}-${GEN.slice(6, 8)}T${GEN.slice(8, 10)}:${GEN.slice(10, 12)}:00.000Z`;
+675098	need(!Number.isNaN(Date.parse(cutAt)) && new Date(cutAt).toISOString() === cutAt, `--gen ${GEN} is not a real UTC minute`);
+675099	need(GEN > CAND, `--gen ${GEN} must advance beyond the predecessor candidate ${CAND}`);
+675100	need(/^v9\.\d+$/.test(VERSION), `--version must look like v9.N, got ${VERSION}`);
+675101	const MODULE_BUDGET = args['proof-budget'] === undefined ? PROOF_BUDGET : Number(args['proof-budget']);
+675102	need(Number.isInteger(MODULE_BUDGET) && MODULE_BUDGET >= PROOF_BUDGET && MODULE_BUDGET <= HARD_CEILING,
+675103	  `--proof-budget must be an integer in ${PROOF_BUDGET}..${HARD_CEILING}`);
+675104	const R = (p) => path.join(REPO, p);
+675105	const readBuf = (p) => fs.readFileSync(R(p));
+675106	const readText = (p) => fs.readFileSync(R(p), 'utf8');
+675107	const sha = (buf) => createHash('sha256').update(buf).digest('hex');
+675108	/* The loader and lint hash the PUBLISHED (LF) bytes: tools/scope/lib.mjs:195-203 sha256PublishedFile. */
+675109	const shaLF = (buf) => sha(Buffer.from(buf.toString('binary').replace(/\r\n/g, '\n'), 'binary'));
+675110	const json = (obj) => JSON.stringify(obj, null, 1) + '\n';   // the format of every 202610261949 JSON file (verified)
+675111	const countOf = (hay, needle) => hay.split(needle).length - 1;
+675112	need(fs.existsSync(R('atlas/current.json')) && fs.existsSync(R('tools/scope/loop.mjs')), `${REPO} is not a gridatlas worktree`);
+675113	/* ---------- version: must be unused anywhere in the composition record ---------- */
+675114	const versionFiles = [
+675115	  'atlas/current.json',
+675116	  ...fs.readdirSync(R('atlas/manifests')).filter(n => n.endsWith('-composition.json')).map(n => `atlas/manifests/${n}`),
+675117	  ...fs.readdirSync(R('atlas/v')).map(n => `atlas/v/${n}/current.json`).filter(p => fs.existsSync(R(p)))
+675118	const versionNum = (v) => Number(v.split('.')[1]);
+675119	let maxUsed = 0;
+675120	for (const p of versionFiles) {
+675121	  const text = readText(p);
+675122	  need(!new RegExp(`"${VERSION.replace('.', '\\.')}"`).test(text) && !text.includes(`-gridatlas-${VERSION}"`),
+675123	    `${VERSION} is already used in ${p}`);
+675124	  for (const m of text.matchAll(/"(?:composition_version|version)": "v9\.(\d+)"/g)) maxUsed = Math.max(maxUsed, Number(m[1]));
+675125	/* v9.157 was burned by the rolled-back V1 (atlas/manifests/202610221600-composition.json); it is caught by the scan. */
+675126	need(versionNum(VERSION) > maxUsed, `${VERSION} does not advance beyond the highest recorded version v9.${maxUsed}`);
+675127	/* ---------- outputs must not exist (immutability) ---------- */
+675128	const OUT = {
+675129	  module: `atlas/modules/${GEN}-uk-lightning-overlay.js`,
+675130	  cartridge: `atlas/cartridges/${GEN}-sld-sandbox-v9-8.js`,
+675131	  proof: `tools/proofs/${GEN}-sld-sandbox.proof.mjs`,
+675132	  manifest: `atlas/manifests/${GEN}-composition.json`,
+675133	  routeIndex: `atlas/v/${GEN}/index.html`,
+675134	  routeCurrent: `atlas/v/${GEN}/current.json`
+675135	for (const p of Object.values(OUT)) need(!fs.existsSync(R(p)), `${p} already exists; generations are immutable, pick a new --gen`);
+675136	/* ---------- protected set: hashed before, re-hashed after ---------- */
+675137	const live = JSON.parse(readText('atlas/current.json'));
+675138	need(live.generation === LIVE_PTR, `atlas/current.json generation is ${live.generation}, expected the live ${LIVE_PTR}`);
+675139	const liveSldEntry = live.cartridges.find(c => c.id === 'sld-sandbox');
+675140	need(liveSldEntry && liveSldEntry.path === `./cartridges/${LIVE_PTR}-sld-sandbox-v9-8.js` && liveSldEntry.generation === LIVE_PTR, `live sld-sandbox entry does not name the ${LIVE_PTR} cartridge`);
+675141	const PROTECTED = [
+675142	  'atlas/current.json', 'STATE.md', 'atlas/index.html', `atlas/manifests/${LIVE}-composition.json`, LIVE_SLD,
+675143	  'releases/current-v5.json', 'state/live-set.json',
+675144	  ...live.cartridge_order.map(id => 'atlas/' + live.cartridges.find(c => c.id === id).path.replace(/^\.\//, '')),
+675145	  `atlas/modules/${CAND}-uk-lightning-overlay.js`, `atlas/cartridges/${CAND}-sld-sandbox-v9-8.js`,
+675146	  `tools/proofs/${CAND}-sld-sandbox.proof.mjs`, `atlas/manifests/${CAND}-composition.json`,
+675147	  `atlas/v/${CAND}/index.html`, `atlas/v/${CAND}/current.json`,
+675148	  `atlas/modules/${LIVE_PTR}-uk-lightning-overlay.js`, `atlas/cartridges/${LIVE_PTR}-sld-sandbox-v9-8.js`,
+675149	  `tools/proofs/${LIVE_PTR}-sld-sandbox.proof.mjs`, `atlas/manifests/${LIVE_PTR}-composition.json`,
+675150	  `atlas/v/${LIVE_PTR}/index.html`, `atlas/v/${LIVE_PTR}/current.json`
+675151	const before = Object.fromEntries(PROTECTED.map(p => [p, sha(readBuf(p))]));
+675152	/* ---------- 1. module ---------- */
+675153	let moduleText = fs.readFileSync(path.resolve(args.module), 'utf8');
+675154	need(Buffer.from(moduleText, 'utf8').equals(fs.readFileSync(path.resolve(args.module))), 'module is not valid UTF-8');
+675155	need(!moduleText.includes('\r'), 'module contains CR; supply LF-only bytes (the proof hashes raw bytes, the loader hashes LF)');
+675156	const restamped = [];
+675157	for (const [from, to] of [[`generation ${CAND}`, `generation ${GEN}`], [`GEN='${CAND}'`, `GEN='${GEN}'`]]) {
+675158	  if (moduleText.includes(to)) continue;                            // already stamped by the caller
+675159	  need(countOf(moduleText, from) === 1, `module must carry exactly one ${JSON.stringify(from)} or ${JSON.stringify(to)}`);
+675161	  restamped.push(`${from} -> ${to}`);
+675162	const moduleBuf = Buffer.from(moduleText, 'utf8');
+675163	need(moduleBuf.length <= MODULE_BUDGET, `module is ${moduleBuf.length} bytes; the proof budget is ${MODULE_BUDGET}`
+675164	  + (MODULE_BUDGET === PROOF_BUDGET ? ` (pass --proof-budget <=${HARD_CEILING} to raise it in the new proof only)` : ''));
+675165	/* ---------- 2. cartridge = LIVE bytes + "\n" + module ---------- */
+675166	const baseBuf = readBuf(LIVE_SLD);
+675167	need(sha(baseBuf) === LIVE_SLD_SHA, `${LIVE_SLD} is not the pinned live bytes`);
+675168	/* lineage: the live L3 cartridge (sha in atlas/current.json) is exactly BASE + "\n" + the L3 module */
+675169	need(shaLF(readBuf(`atlas/cartridges/${LIVE_PTR}-sld-sandbox-v9-8.js`)) === liveSldEntry.sha256, 'live L3 cartridge does not match atlas/current.json');
+675170	for (const g of [LIVE_PTR, CAND]) need(readBuf(`atlas/cartridges/${g}-sld-sandbox-v9-8.js`).equals(Buffer.concat([baseBuf, Buffer.from('\n'), readBuf(`atlas/modules/${g}-uk-lightning-overlay.js`)])), `${g} cartridge is not BASE + \\n + its module`);
+675171	need(JSON.parse(readText(`atlas/v/${CAND}/current.json`)).cartridges.find(c => c.id === 'sld-sandbox').sha256 === shaLF(readBuf(`atlas/cartridges/${CAND}-sld-sandbox-v9-8.js`)), 'M route current.json does not pin the M cartridge');
+675172	need(!baseBuf.includes(13), `${LIVE_SLD} contains CR`);
+675173	const cartridgeBuf = Buffer.concat([baseBuf, Buffer.from('\n'), moduleBuf]);
+675174	need(cartridgeBuf.length <= CARTRIDGE_CEILING, `cartridge is ${cartridgeBuf.length} bytes; ceiling ${CARTRIDGE_CEILING}`);
+675175	const cartridgeSha = shaLF(cartridgeBuf);
+675176	need(cartridgeSha === sha(cartridgeBuf), 'raw and LF hashes differ (CR present)');
+675177	/* ---------- 3. proof: only `const GEN=` changes; the module path is 'atlas/modules/'+GEN+... ---------- */
+675178	const candProof = readText(`tools/proofs/${CAND}-sld-sandbox.proof.mjs`);
+675179	need(countOf(candProof, CAND) === 1 && countOf(candProof, `const GEN='${CAND}';`) === 1,
+675180	  'predecessor proof no longer has exactly one generation literal; re-derive by hand');
+675181	need(candProof.includes("'atlas/modules/'+GEN+'-uk-lightning-overlay.js'"), 'predecessor proof module path is not GEN-derived');
+675182	let proofText = candProof.replace(`const GEN='${CAND}';`, `const GEN='${GEN}';`);
+675183	const BUDGET_64 = "assert.ok(Buffer.byteLength(module,'utf8')<=64781,'module exceeds the 64,781-byte budget');";
+675184	const CART_500 = "assert.ok(Buffer.byteLength(source,'utf8')<=500000,'cartridge exceeds the 500 kB ceiling (raised from 480 kB by the owner, 28 Oct 2026)');";
+675185	need(countOf(proofText, BUDGET_64) === 1 && countOf(proofText, CART_500) === 1 && MODULE_BUDGET === HARD_CEILING, 'predecessor proof 64,781 B / 500 kB lines changed; re-derive by hand');
+675186	/* M4 keeps M3's proof as it is (the module still ticks the REPD layer checkboxes: the narrowed negative and the three
+675187	   read-site assertions). M4b names no such control, so its proof restores the original negative (data-layer-id and lbl-
+675188	   banned outright) and drops the M3 read-site comment and assertions. */
+675189	const NEG_OLD = "const negatives=/ukConfig|initVentusMap|window\\.fetch|data-layer-id|data-pn-layer|data-gridatlas-layer-proxy|data-gridatlas-layer-key|prepend\\(|lbl-|name=[\"']bm|<style|createElement\\(['\"]style|localStorage|sessionStorage|document\\.cookie/;";
+675190	const NEG_M3 = "const negatives=/ukConfig|initVentusMap|window\\.fetch|data-pn-layer|data-gridatlas-layer-proxy|data-gridatlas-layer-key|prepend\\(|name=[\"']bm|<style|createElement\\(['\"]style|localStorage|sessionStorage|document\\.cookie/;";
+675191	const M3_SITES = ["/* M3: the REPD layer checkboxes", "assert.deepEqual(module.match(/data-layer-id|lbl-/g)", "assert.equal((module.match(/input", "assert.equal(/setAttribute"];
+675192	need(countOf(proofText, NEG_M3) === 1 && M3_SITES.every(a => proofText.split('\n').filter(l => l.startsWith(a)).length === 1), 'predecessor (M3) proof negatives changed; re-derive by hand');
+675193	if (VARIANT === 'm4b') {
+675194	  proofText = proofText.split('\n').filter(l => !M3_SITES.some(a => l.startsWith(a))).join('\n').replace(NEG_M3, NEG_OLD);
+675195	  need(countOf(proofText, NEG_OLD) === 1 && !proofText.includes('M3: the REPD layer'), 'm4b proof: original negative not restored');
+675196	  need(!/data-layer-id|lbl-/.test(moduleText), 'm4b module names data-layer-id or lbl-');
+675197	/* ---------- 4/5. composition manifest and route current.json ---------- */
+675198	function deriveComposition(src, prefix, kind) {
+675199	  const c = structuredClone(src);
+675200	  const oldVersion = c.composition_version;
+675201	  need(c.generation === CAND && c.previous_generation === LIVE_PTR && c.candidate_predecessor === PREV_CAND, `${kind}: predecessor identity changed`);
+675202	  c.generation = GEN;
+675203	  c.previous_generation = LIVE_PTR;                   // the live pointer this candidate would replace (L3)
+675204	  c.composition_manifest = `${prefix}manifests/${GEN}-composition.json`;
+675205	  c.composition_version = VERSION;
+675206	  c.composition_id = `${GEN}-gridatlas-${VERSION}`;
+675207	  need(c.superseded_generation === LIVE_PTR, `${kind}: superseded_generation is not ${LIVE_PTR}`);
+675208	  c.superseded_generation = LIVE_PTR;
+675209	  c.candidate_predecessor = CAND;                     // honest lineage: built on candidate M2; it would replace the live L3
+675210	  if (typeof c.composition_note === 'string' && c.composition_note.startsWith(`${oldVersion}:`))
+675211	    c.composition_note = VERSION + c.composition_note.slice(oldVersion.length);
+675212	  for (const [a, b] of (VARIANT === 'm4b' ? NOTE : [])) { need(countOf(c.composition_note, a) === 1, `${kind}: note anchor ${a}`); c.composition_note = c.composition_note.replace(a, b); }
+675213	  const sld = c.cartridges.find(x => x.id === 'sld-sandbox');
+675214	  need(sld && sld.generation === CAND && sld.derived_from === `${prefix}cartridges/${LIVE}-sld-sandbox-v9-8.js`,
+675215	    `${kind}: sld-sandbox entry is not derived from the live ${LIVE} cartridge`);
+675216	  sld.generation = GEN;
+675217	  sld.version = VERSION;
+675218	  sld.path = `${prefix}cartridges/${GEN}-sld-sandbox-v9-8.js`;
+675219	  sld.sha256 = cartridgeSha;
+675220	  sld.bytes = cartridgeBuf.length;
+675221	  sld.uk_lightning.module = `${prefix}modules/${GEN}-uk-lightning-overlay.js`;
+675222	  sld.uk_lightning.module_bytes = moduleBuf.length;
+675223	  need(sld.uk_lightning.repd_projects === REPD_NOTE, 'repd_projects note changed (M3)');
+675224	  need(typeof sld.uk_lightning.transport === 'string' && sld.uk_lightning.transport.includes('same 15 s timeout'), 'transport');
+675225	  need(sld.uk_lightning.contract === M3_CONTRACT && sld.uk_lightning.repd_layers === REPD_LAYERS && typeof sld.uk_lightning.repd_source === 'object', 'M3 contract / repd_layers / repd_source changed');
+675226	  need(!('camera' in sld.uk_lightning) && !('repd_dots' in sld.uk_lightning), 'camera/repd_dots already present');
+675227	  sld.uk_lightning.camera = CAMERA;
+675228	  if (VARIANT === 'm4b') { sld.uk_lightning.contract = M2_CONTRACT; delete sld.uk_lightning.repd_layers; sld.uk_lightning.repd_dots = REPD_DOTS; }
+675229	  if (kind === 'manifest') {
+675230	    need(c.parent_generation === LIVE_PTR, 'manifest parent_generation changed');
+675231	    c.parent_generation = LIVE_PTR;                   // verify-candidate: parent is the live generation
+675232	    need(c.acceptance.scope.includes('M3 (' + CAND + '):'), 'M3 scope note missing'); c.acceptance.scope += ' ' + SCOPE_NOTE;
+675233	    c.version = VERSION;
+675234	    c.cut_at_utc = cutAt;
+675235	    c.acceptance.proof = `tools/proofs/${GEN}-sld-sandbox.proof.mjs`;
+675236	    /* Repository vocabulary for "pending": tools/recompose.mjs:417, tools/rollback.mjs:222. */
+675237	    c.acceptance.golden_browser_verification = 'PENDING_THIS_GENERATION';
+675238	    need(c.acceptance.full_application_copies_created === 0, 'manifest full_application_copies_created must be 0');
+675239	  const text = json(c);
+675240	  /* No stale identity may survive: the only 202610261949 left is candidate_predecessor, no old version anywhere. */
+675241	  const want = kind === 'manifest' ? 3 : 2;           // LIVE_PTR: previous_generation, superseded_generation (+ parent_generation)
+675242	  need(countOf(text, `"${LIVE_PTR}"`) === want && countOf(text, `"${CAND}"`) === 1 && countOf(text, CAND) === (kind === 'manifest' ? 2 : 1) && text.includes(`"candidate_predecessor": "${CAND}"`), `${kind}: stale ${CAND} remains (${countOf(text, CAND)})`);
+675243	  need(!text.includes(`"${oldVersion}"`) && !text.includes(`${oldVersion}:`) && !text.includes(`-${oldVersion}"`), `${kind}: stale ${oldVersion} remains`);
+675245	const REPD_NOTE = 'on a flash or cell tap, besides the 5 nearest substations: the 10 nearest REPD project sites within 40 km by straight-line distance (the original link.measure.distanceKm), a site being the projects at one registered point (rows within about 10 m of a nearer row join its site; e.g. solar + battery share one link, one label "<km> km · Battery + Solar <MW> MW" and one card row "<n> projects at this point:" with every project listed beneath), plus any site at exactly the 10th site\'s distance, re-ranked within the card\'s status filter (All / Operational / Consented / Planning; an explicit table of the register\'s four statuses) and technology filter (All / Solar / Wind / BESS / Other), with a summary line (projects within 10 km with their stated MW and how many have no stated capacity, never shown as 0 MW; projects within 40 km; repeated records of one scheme counted once) and an explicit statement when fewer than 10 sites lie within the fixed 40 km search radius, over every distinct, well-formed row of the register the map already holds (10,784 rows, of which 12 are exact duplicates counted once; all 13 technologies; operational, under construction, awaiting construction and application submitted), drawn as dashed orange-to-red links coloured by capacity (the engine REPD glow ramp), labelled "<km> km · <technology> <MW> MW", listed on the card; a row tap stays in the page (a Ctrl, Cmd or Shift click keeps the browser default): the map flies to the project (zoom 12) and draws the 5 nearest substations from it with the original link.measure.nearestSubstations (straight-line; not the declared connection), and ◀ back restores the lightning card, its links and the filter; the row href keeps the original coordinate deep link (longitude, latitude, technology, project, capacity_mw, status) for opening in a new tab; each card carries one polite status region that announces loading, the list and any failure, and focus follows chip, row and back. The register carries no repd_ref, so none is sent. Nearest by distance only: not affected, not struck.';
+675246	const REPD_LAYERS = 'while a REPD list is shown, the original REPD layer of each technology in that list (within the card filter; the register tech is the layer id: solar, solar_roof, wind, bess, biomass, tidal, hydrogen, hydro, flywheel, act, geothermal, caes) is switched on exactly as a reader tap would: the #scada-ui-container checkbox is ticked and a bubbling change is dispatched, so the engine\'s own listener syncs the fullscreen-curtain copy and runs handleLayerToggle, and the menu bar syncs its proxy; menuBar.inspect() is unchanged. Only layers the overlay switched on are recorded, and only those are switched off again on close, a tap on empty map, lightning OFF, a period or page change, LATEST, or a new list that no longer needs them; a layer the reader already had on is never touched, and one the reader ticks or unticks meanwhile becomes the reader\'s. Nothing is switched before a tap.';
+675247	const REPD_SOURCE = {
+675248	  register: 'Renewable Energy Planning Database (REPD), April 2026 (Q1 2026) quarterly extract',
+675249	  publisher: 'Department for Energy Security and Net Zero (DESNZ), compiled by Barbour ABI',
+675250	  published: '2026-05-06 (gov.uk update history: January 2026 files replaced with April 2026, Q1)',
+675251	  upstream_file: 'REPD_publication_Q1_2026.csv',
+675252	  licence: 'Open Government Licence v3.0; contains public sector information licensed under the Open Government Licence v3.0',
+675253	  served_as: 'partitions/repd_master_v8_oracle.parquet (sha256 a737d00d54dbee0ccb46be07f18277cb1c5c111acefbfda43f3d34ce3d53416c, 10,784 rows) in data-gridatlas manifest 3246dbda, from globalgrid2050 dist/repd_master.json (synced 2026-06-01; operational, under construction, awaiting construction, application submitted only)',
+675254	  currency: 'a snapshot: DESNZ has since published July 2026 (Q2, 3 Aug 2026); rows are not refreshed by this module'
+675255	const M2_CONTRACT = 'no data-layer-id, data-pn-layer, data-gridatlas-layer-proxy, data-gridatlas-layer-key, lbl-* id or name=bm; menuBar.inspect() stays {60,3,63,63,true}';
+675256	const M3_CONTRACT = 'creates no data-layer-id, data-pn-layer, data-gridatlas-layer-proxy or data-gridatlas-layer-key control, lbl-* id or name=bm; reads and ticks the original REPD layer checkboxes (input[data-layer-id]) through the engine\'s own change path only while a REPD list is shown (repd_layers); menuBar.inspect() stays {60,3,63,63,true}';
+675257	const NOTE = [["the original REPD map layers of the listed technologies are switched on through their own Layers checkboxes while the list is shown, and only those the overlay switched on are switched off again),",
+675258	  "only the listed sites are drawn on the map as REPD-styled dots (the engine's own glow and core paint), and the Layers controls are never touched),"]];
+675259	const CAMERA = 'a module camera move (tap, row, back, card toggle, cluster zoom, fit) first drops the module\'s pending framing, and the framing queued for the end of a flight runs after the stop that fired moveend and only when the map is not moving, so no camera move ever starts inside another (MapLibre 3.6.2 fires moveend synchronously from stop(); a nested fitBounds left an orphan render frame that froze map redraws after fast row/back cycles, M2R-taps T1); framing tests each end\'s screen pixel against the free area below the search bar and above the card; on a map under 500 px tall with at least 300 px beside the card, the card docks to the right edge and the camera frames the area to its left (M2R-camera fix C)';
+675260	const REPD_DOTS = 'while a REPD list is shown, each listed project (and, in the project view, that site\'s projects) is drawn at its site as a dot in the original engine REPD style (ventus-corev8engine.js:1305-1337: the solar and rooftop-solar glow by capacity, the capacity-graded core, every other technology in its own layer colour, stacked in the engine REPD layer order), in the overlay\'s own gridatlas-lightning-neon-p-glow / -p-dot layers (source -pdots, removed with the card); a tap on a dot opens that site\'s project view as its row does; no Layers control, REPD layer or src-repd data is changed. Nothing is drawn before a tap.';
+675261	const SCOPE_NOTE = (VARIANT === 'm4b' ? 'M4b (' : 'M4 (') + GEN + '): Build M3 with the camera race fixed (M2R-taps MAJOR T1: no camera move starts inside another; fast row/back cycles no longer freeze map redraws) and M2R-camera fix C (screen-pixel framing; the card docks right on short or landscape maps)'
+675262	  + (VARIANT === 'm4b' ? '; owner option M4b: instead of switching on whole REPD layers, only the listed sites are drawn as REPD-styled dots and the Layers controls are never touched' : '; the REPD layers of the listed technologies are switched on as in M3') + '; module cap 64,781 B under the 500 kB cartridge gate.';
+675263	const manifestText = deriveComposition(JSON.parse(readText(`atlas/manifests/${CAND}-composition.json`)), './', 'manifest');
+675264	const routeText = deriveComposition(JSON.parse(readText(`atlas/v/${CAND}/current.json`)), '../../', 'route');
+675265	const indexBuf = readBuf('atlas/index.html');
+675266	/* ---------- write (never overwrite) ---------- */
+675267	fs.mkdirSync(R(`atlas/v/${GEN}`));
+675268	const write = (p, data) => fs.writeFileSync(R(p), data, {flag: 'wx'});
+675269	write(OUT.module, moduleBuf);
+675270	write(OUT.cartridge, cartridgeBuf);
+675271	write(OUT.proof, proofText);
+675272	write(OUT.manifest, manifestText);
+675273	write(OUT.routeIndex, indexBuf);
+675274	write(OUT.routeCurrent, routeText);
+675275	/* ---------- post-checks ---------- */
+675276	for (const p of PROTECTED) need(sha(readBuf(p)) === before[p], `protected file changed: ${p}`);
+675277	need(readBuf(OUT.routeIndex).equals(readBuf('atlas/index.html')), 'route index.html differs from atlas/index.html');
+675278	need(readBuf(OUT.cartridge).equals(Buffer.concat([readBuf(LIVE_SLD), Buffer.from('\n'), readBuf(OUT.module)])), 'cartridge is not live + \\n + module');
+675279	const m = JSON.parse(readText(OUT.manifest)), rc = JSON.parse(readText(OUT.routeCurrent));
+675280	for (const [label, c, base] of [['manifest', m, R('atlas')], ['route', rc, R(`atlas/v/${GEN}`)]]) {
+675281	  for (const id of c.cartridge_order) {
+675282	    const e = c.cartridges.find(x => x.id === id);
+675283	    need(shaLF(fs.readFileSync(path.resolve(base, e.path))) === e.sha256, `${label}: ${id} sha256 does not match ${e.path}`);
+675284	need(JSON.stringify(m.cartridge_order) === JSON.stringify(rc.cartridge_order), 'manifest and route cartridge_order differ');
+675286	  result: 'WRITTEN', generation: GEN, version: VERSION, candidate_predecessor: CAND, parent_generation: LIVE_PTR,
+675287	  module: {path: OUT.module, bytes: moduleBuf.length, sha256: sha(moduleBuf), restamped,
+675288	    proof_budget: MODULE_BUDGET, headroom_to_proof_budget: MODULE_BUDGET - moduleBuf.length, headroom_to_24781: HARD_CEILING - moduleBuf.length},
+675289	  cartridge: {path: OUT.cartridge, bytes: cartridgeBuf.length, sha256_lf: cartridgeSha, base: LIVE_SLD},
+675290	  proof: OUT.proof, manifest: OUT.manifest, route: [OUT.routeIndex, OUT.routeCurrent],
+675291	  protected_unchanged: PROTECTED.length
+675293	// reconstruct.mjs (CD-source lane, 29 Oct 2026, one-off; kept as the provenance of tools/lightning/src): the committed M4
+675294	// and M4b module bytes -> tools/lightning/src/*.js (readable layout, the comments of annotations.mjs, ///#if variant
+675295	// blocks from a token-level diff of the two modules), then proves build.mjs reproduces both modules byte for byte.
+675296	// It needs acorn 8.11.3 (npm i --no-save acorn@8.11.3 in a scratch directory; the repository installs nothing). It is
+675297	// NOT how the source is maintained now: edit tools/lightning/src directly (docs/LIGHTNING-SOURCE.md).
+675298	// usage: node reconstruct.mjs <repo-worktree> [--dry]
+675299	import * as acorn from 'acorn';
+675300	import { FILES, NOTES } from './annotations.mjs';
+675301	const REPO = path.resolve(process.argv[2]);
+675302	const DRY = process.argv.includes('--dry');
+675303	const GA = '202610290045', GB = '202610290050', VA = 'layers', VB = 'dots';
+675304	const MAXW = 110;
+675305	const rd = g => fs.readFileSync(path.join(REPO, 'atlas/modules', `${g}-uk-lightning-overlay.js`), 'utf8');
+675306	const norm = (t, g) => { if (t.split(g).length !== 3) throw new Error('GEN count ' + g); return t.split(g).join('@@GEN@@'); };
+675307	const A = norm(rd(GA), GA), B = norm(rd(GB), GB);
+675308	/* ---------- token info per text: break candidates and depth ---------- */
+675309	function analyse(T) {
+675310	  const toks = [], comments = [];
+675311	  for (const t of acorn.tokenizer(T, { ecmaVersion: 2022, onComment: (b, x, s, e) => comments.push([s, e]) })) toks.push(t);
+675312	  const inTok = new Uint8Array(T.length + 1); // 1 = position strictly inside a token or comment
+675313	  for (const t of toks) for (let i = t.start + 1; i < t.end; i++) inTok[i] = 1;
+675314	  for (const [s, e] of comments) for (let i = s + 1; i < e; i++) inTok[i] = 1;
+675315	  const depthAt = new Int16Array(T.length + 1); // bracket depth (excluding templates) before position
+675316	  const brk = new Map(); // position -> {kind, depth}
+675318	  const match = new Map();
+675319	  { const st = []; toks.forEach((t, i) => { const l = t.type.label;
+675320	      if (l === '{' || l === '${') st.push(i); else if (l === '}') { const j = st.pop(); if (j !== undefined) match.set(j, i); } }); }
+675321	  let pos = 0;
+675322	  const depth = () => stack.filter(x => x !== '`' && x !== '${').length;
+675323	  const inTpl = () => stack.includes('`');
+675324	  toks.forEach((t, i) => {
+675325	    for (; pos <= t.start; pos++) depthAt[pos] = depth();
+675326	    const l = t.type.label;
+675327	    const next = toks[i + 1];
+675328	    if (l === '`') { if (stack[stack.length - 1] === '`') stack.pop(); else stack.push('`'); }
+675329	    else if (l === '${') stack.push('${');
+675330	    else if (l === '{' || l === '(' || l === '[') stack.push(l);
+675331	    else if (l === '}' || l === ')' || l === ']') stack.pop();
+675332	    for (; pos <= t.end; pos++) depthAt[pos] = depth();
+675333	    if (!next || next.start !== t.end || inTpl()) return;
+675334	    if (l === ';') brk.set(t.end, { kind: 'semi' });
+675335	    else if (l === ',') brk.set(t.end, { kind: 'comma' });
+675336	    else if (l === '{' && match.has(i) && toks[match.get(i)].start - t.end > 50) {
+675337	      brk.set(t.end, { kind: 'open' });
+675338	      const c = toks[match.get(i)];
+675339	      if (toks[match.get(i) - 1].end === c.start) brk.set(c.start, { kind: 'close' });
+675340	  for (; pos <= T.length; pos++) depthAt[pos] = depth();
+675341	  const bnd = new Uint8Array(T.length + 1); bnd[0] = bnd[T.length] = 1;
+675342	  for (const t of toks) bnd[t.start] = bnd[t.end] = 1;
+675343	  for (const [a, b] of comments) bnd[a] = bnd[b] = 1;
+675344	  for (let i = 0; i < T.length; i++) if (T[i] === '\n') bnd[i] = bnd[i + 1] = 1;
+675345	  return { T, inTok, depthAt, brk, bnd };
+675346	const IA = analyse(A), IB = analyse(B);
+675347	/* ---------- diff A/B into common and alternative segments ---------- */
+675348	function lineDiff(a, b) {
+675349	  const al = a.split('\n'), bl = b.split('\n'), n = al.length, m = bl.length;
+675350	  const L = Array.from({ length: n + 1 }, () => new Int32Array(m + 1));
+675351	  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i][j] = al[i] === bl[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+675352	  const ops = []; let i = 0, j = 0;
+675353	  while (i < n || j < m) {
+675354	    if (i < n && j < m && al[i] === bl[j]) { ops.push(['=', i, j]); i++; j++; }
+675355	    else if (j < m && (i === n || L[i][j + 1] >= L[i + 1][j])) { ops.push(['+', i, j]); j++; }
+675356	    else { ops.push(['-', i, j]); i++; }
+675357	  return { al, bl, ops };
+675358	const off = ls => { const o = [0]; for (const l of ls) o.push(o[o.length - 1] + l.length + 1); return o; };
+675359	function segments() {
+675360	  const { al, bl, ops } = lineDiff(A, B), oa = off(al), ob = off(bl);
+675361	  const hunks = []; // [aStart, aEnd, bStart, bEnd] char ranges
+675363	  while (k < ops.length) {
+675364	    if (ops[k][0] === '=') { k++; continue; }
+675365	    const i0 = ops[k][1], j0 = ops[k][2]; let i1 = i0, j1 = j0;
+675366	    while (k < ops.length && ops[k][0] !== '=') { if (ops[k][0] === '-') i1 = ops[k][1] + 1; else j1 = ops[k][2] + 1; k++; }
+675367	    let as = oa[i0], ae = oa[i1], bs = ob[j0], be = ob[j1];
+675368	    // char-level trim
+675369	    while (as < ae && bs < be && A[as] === B[bs]) { as++; bs++; }
+675370	    while (ae > as && be > bs && A[ae - 1] === B[be - 1]) { ae--; be--; }
+675371	    // snap outwards to positions outside tokens/comments in both texts
+675372	    while (!(IA.bnd[as] && IB.bnd[bs])) { as--; bs--; }
+675373	    while (!(IA.bnd[ae] && IB.bnd[be])) { ae++; be++; }
+675374	    // token-level LCS inside the block
+675375	    const P = (I, s, e) => { const o = []; let q = s; for (let i = s + 1; i <= e; i++) if (I.bnd[i]) { o.push([q, i]); q = i; } return o; };
+675376	    const pa = P(IA, as, ae), pb = P(IB, bs, be), ta = pa.map(([x, y]) => A.slice(x, y)), tb = pb.map(([x, y]) => B.slice(x, y));
+675377	    const n = ta.length, m = tb.length, L = Array.from({ length: n + 1 }, () => new Int32Array(m + 1));
+675378	    for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) L[i][j] = ta[i] === tb[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+675379	    const runs = []; let i = 0, j = 0, cur = null, same = 0;
+675380	    const posA = i => i < n ? pa[i][0] : ae, posB = j => j < m ? pb[j][0] : be;
+675381	    while (i < n || j < m) {
+675382	      if (i < n && j < m && ta[i] === tb[j]) { if (cur) { same++; if (same > 8 || /\n/.test(ta[i])) { runs.push(cur); cur = null; } } i++; j++; continue; }
+675383	      if (!cur) cur = { as: posA(i), bs: posB(j) };
+675384	      else if (same) { /* short common gap: absorb */ }
+675385	      same = 0;
+675386	      if (j < m && (i === n || L[i][j + 1] >= L[i + 1][j])) j++; else i++;
+675387	      cur.ae = posA(i); cur.be = posB(j);
+675388	    if (cur) runs.push(cur);
+675389	    // an unrelated rewrite (few shared tokens) stays one block
+675390	    if (L[0][0] < 0.5 * Math.min(n, m) && Math.min(n, m) > 20) runs.splice(0, runs.length, { as, ae, bs, be });
+675392	      let { as, ae, bs, be } = r;
+675393	      // trim the absorbed common tail back off
+675394	      while (ae > as && be > bs && A[ae - 1] === B[be - 1]) { ae--; be--; }
+675395	      while (!(IA.bnd[ae] && IB.bnd[be])) { ae++; be++; }
+675396	      const ws = c => c === ' ';
+675397	      while (as > 0 && A[as - 1] !== '\n' && (ws(A[as]) || ws(B[bs]))) { as--; bs--; while (!(IA.bnd[as] && IB.bnd[bs])) { as--; bs--; } }
+675398	      while (ae < A.length && ws(A[ae])) { ae++; be++; }
+675399	      // widen to whole statements or list items when they are near (inside common text, so A and B move together)
+675400	      { const ls = lineStart(A, as); let k = as; const pun = q => /[;,{}(]/.test(A[q - 1]) && IA.bnd[q] && IA.bnd[q - 1] && !IA.inTok[q - 1];
+675401	        while (k > ls && as - k <= 40 && !pun(k)) k--;
+675402	        if (k === ls || pun(k)) { if (as - k <= 40) { bs -= as - k; as = k; } } }
+675403	      { const le = lineEnd(A, ae); let k = ae; const pe = q => /[;,]/.test(A[q]) && IA.bnd[q] && IA.bnd[q + 1] && !IA.inTok[q];
+675404	        while (k < le && k - ae <= 40 && !pe(k)) k++;
+675405	        if (k < le && k - ae <= 40) { be += k + 1 - ae; ae = k + 1; } else if (k === le && k - ae <= 40) { be += k - ae; ae = k; } }
+675406	      if (/^ *$/.test(A.slice(lineStart(A, as), as)) && /^ *$/.test(B.slice(lineStart(B, bs), bs))) { const d = as - lineStart(A, as); if (bs - lineStart(B, bs) === d) { as -= d; bs -= d; } }
+675407	      hunks.push([as, ae, bs, be]);
+675408	  // merge overlapping / touching hunks
+675409	  const H = [];
+675410	  for (const h of hunks) { const p = H[H.length - 1]; if (p && h[0] <= p[1]) { p[1] = Math.max(p[1], h[1]); p[3] = Math.max(p[3], h[3]); } else H.push([...h]); }
+675411	  const segs = []; let pa = 0, pb = 0;
+675412	  for (const [as, ae, bs, be] of H) {
+675413	    if (A.slice(pa, as) !== B.slice(pb, bs)) throw new Error('common mismatch');
+675414	    if (as > pa) segs.push({ t: 'c', a: pa, b: pb, len: as - pa });
+675415	    segs.push({ t: 'x', as, ae, bs, be });
+675416	    pa = ae; pb = be;
+675417	  if (A.slice(pa) !== B.slice(pb)) throw new Error('tail mismatch');
+675418	  segs.push({ t: 'c', a: pa, b: pb, len: A.length - pa });
+675419	  return segs;
+675420	/* ---------- render ---------- */
+675421	const lineStart = (T, p) => T.lastIndexOf('\n', p - 1) + 1;
+675422	const lineEnd = (T, p) => { const e = T.indexOf('\n', p); return e < 0 ? T.length : e; };
+675423	// physical units: {text, cont, s, e, o ('A'|'B'), s2 (B pos for common)}
+675424	function pieces(I, s, e, extra) {
+675425	  const T = I.T, out = [];
+675426	  let p = s;
+675427	  while (p < e) {
+675428	    const le = Math.min(lineEnd(T, p), e), ls = lineStart(T, p), full = lineEnd(T, p) - ls;
+675429	    const atStart = p === ls;
+675430	    const lead = (T.slice(ls).match(/^ */) || [''])[0].length;
+675431	    const ind = q => ' '.repeat(Math.max(lead + 2, 2 + 2 * Math.max(0, I.depthAt[q] - 2)));
+675432	    const cuts = [];
+675433	    if (full > MAXW) {
+675434	      for (let q = p + 1; q < le; q++) {
+675435	        const b = I.brk.get(q); if (!b) continue;
+675436	        if (b.kind === 'comma' && I.depthAt[q] !== 2) continue;
+675437	        cuts.push(q);
+675438	    // second pass: still-long chunks get commas one level deeper
+675439	    const bounds = [p, ...cuts, le];
+675440	    const fin = [];
+675441	    for (let k = 0; k + 1 < bounds.length; k++) {
+675442	      const a = bounds[k], b = bounds[k + 1];
+675443	      fin.push(a);
+675444	      if (b - a > MAXW + 40) {
+675445	        const d0 = I.depthAt[a];
+675446	        for (let q = a + 1; q < b - 30; q++) { const x = I.brk.get(q); if (x && x.kind === 'comma' && I.depthAt[q] === d0 + 1 && q - fin[fin.length - 1] > 60) fin.push(q); }
+675447	    fin.push(le);
+675448	    for (let k = 0; k + 1 < fin.length; k++) {
+675449	      const a = fin[k], b = fin[k + 1];
+675450	      if (a === b) continue;
+675451	      const first = a === p;
+675452	      const close = I.brk.get(a) && I.brk.get(a).kind === 'close';
+675453	      let text = T.slice(a, b);
+675454	      if (!(first && atStart)) text = (close ? ind(a).slice(2) : ind(a)) + text;
+675455	      const last = k + 2 === fin.length;
+675456	      out.push({ text, cont: !(last && le < e) && !(last && le === e && (T[e] === '\n')), s: a, e: b, o: I === IA ? 'A' : 'B', ...extra(a) });
+675457	    if (le < e) p = le + 1; else p = e;
+675458	  // a piece that ends exactly at a newline inside [s,e) was handled by cont=false; one ending at e mid-line continues
+675461	  const segs = segments(), units = [];
+675462	  for (const g of segs) {
+675463	    if (g.t === 'c') units.push(...pieces(IA, g.a, g.a + g.len, a => ({ sb: a - g.a + g.b })));
+675464	      units.push({ dir: `///#if ${VB}` });
+675465	      units.push(...pieces(IB, g.bs, g.be, () => ({})));
+675466	      units.push({ dir: '///#else' });
+675467	      units.push(...pieces(IA, g.as, g.ae, () => ({})));
+675468	      units.push({ dir: '///#endif' });
+675469	  // fix cont: a unit continues when its text does not end at a real newline of its origin
+675470	  for (const u of units) if (!u.dir) { const T = u.o === 'A' ? A : B; u.cont = T[u.e] !== '\n';
+675471	    if (u.cont && !u.text.trim()) throw new Error('blank continued unit at ' + u.o + u.s);
+675472	    if (/^\s*\/\/\//.test(u.text)) throw new Error('unit starts with /// at ' + u.o + u.s); }
+675474	/* ---------- annotations and files ---------- */
+675475	function place(units) {
+675476	  const at = (u, o, p) => !u.dir && (u.o === o ? p >= u.s && p < u.e : (o === 'B' && u.sb !== undefined && p >= u.sb && p < u.sb + (u.e - u.s)));
+675477	  const find = (needle, where) => {
+675478	    const o = where || (A.split(needle).length === 2 ? 'A' : 'B'), T = o === 'A' ? A : B;
+675479	    if (T.split(needle).length !== 2) throw new Error(`anchor not unique in ${o}: ${needle.slice(0, 60)} (${T.split(needle).length - 1})`);
+675480	    const p = T.indexOf(needle);
+675481	    const i = units.findIndex(u => at(u, o, p));
+675482	    if (i < 0) throw new Error('anchor unit not found ' + needle.slice(0, 50));
+675484	  const pre = new Map(); // unit index -> comment lines
+675485	  for (const n of NOTES) {
+675486	    const i = find(n.at, n.in);
+675487	    const lead = units[i].text.match(/^ */)[0];
+675488	    const lines = n.text.trim().split('\n').map(l => lead + '/// ' + l.trim()).map(l => l.trimEnd());
+675489	    pre.set(i, [...(pre.get(i) || []), ...lines]);
+675490	  const fileAt = new Map();
+675491	  for (const f of FILES) {
+675492	    let i = f.at === null ? 0 : find(f.at, f.in || 'A');
+675493	    if (i && units[i - 1].dir && units[i - 1].dir.startsWith('///#if')) i--;
+675494	    if (i && units[i - 1].cont) throw new Error('file split inside a continued line: ' + f.name);
+675495	    fileAt.set(i, f);
+675496	  const files = []; let cur = null;
+675497	  units.forEach((u, i) => {
+675498	    if (fileAt.has(i)) { const f = fileAt.get(i); cur = { name: f.name, lines: f.head.trim().split('\n').map(l => ('/// ' + l.trim()).trimEnd()) }; cur.lines.push('///'); files.push(cur); }
+675499	    for (const l of pre.get(i) || []) cur.lines.push(l);
+675500	    cur.lines.push(u.dir || (u.text + (u.cont ? '///' : '')));
+675502	const units = render();
+675503	const files = place(units);
+675504	const outDir = DRY ? fs.mkdtempSync(path.join(os.tmpdir(), 'lightning-src-')) : path.join(REPO, 'tools/lightning/src');
+675505	for (const n of fs.readdirSync(outDir)) if (n.endsWith('.js')) fs.unlinkSync(path.join(outDir, n));
+675506	for (const f of files) fs.writeFileSync(path.join(outDir, f.name), f.lines.join('\n') + '\n');
+675507	const { assemble } = await import(path.join(REPO, 'tools/lightning/build.mjs'));
+675508	const ga = assemble({ variant: VA, gen: GA, variants: [VA, VB], srcDir: outDir }), gb = assemble({ variant: VB, gen: GB, variants: [VA, VB], srcDir: outDir });
+675509	const okA = ga === rd(GA), okB = gb === rd(GB);
+675510	const firstDiff = (x, y) => { let i = 0; while (i < x.length && x[i] === y[i]) i++; return i; };
+675511	console.log(JSON.stringify({ outDir, files: files.map(f => [f.name, f.lines.length]), okA, okB,
+675512	  diffA: okA ? null : [firstDiff(ga, rd(GA)), JSON.stringify(ga.slice(firstDiff(ga, rd(GA)) - 40, firstDiff(ga, rd(GA)) + 40)), JSON.stringify(rd(GA).slice(firstDiff(ga, rd(GA)) - 40, firstDiff(ga, rd(GA)) + 40))],
+675513	  diffB: okB ? null : [firstDiff(gb, rd(GB)), JSON.stringify(gb.slice(firstDiff(gb, rd(GB)) - 40, firstDiff(gb, rd(GB)) + 40)), JSON.stringify(rd(GB).slice(firstDiff(gb, rd(GB)) - 40, firstDiff(gb, rd(GB)) + 40))] }));
+675514	if (!okA || !okB) process.exit(1);
+675549	// verify-lineage.mjs: replay the M-series build scripts on the committed modules and show that each committed
+675550	// generation is exactly its predecessor plus that build step (after the generation restamp the scaffolder made).
+675551	// Node built-ins only, except build-M (L3 -> M), which needs acorn for const2let and is skipped without it.
+675552	// Not part of CI: the gate checks tools/lightning/src instead (build.mjs --check). docs/LIGHTNING-SOURCE.md.
+675553	//   node tools/lightning/lineage/verify-lineage.mjs
+675555	const HERE = path.dirname(fileURLToPath(import.meta.url)), ROOT = path.resolve(HERE, '..', '..', '..');
+675556	const mod = g => path.join(ROOT, 'atlas', 'modules', `${g}-uk-lightning-overlay.js`);
+675557	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'lightning-lineage-'));
+675558	const steps = [
+675559	  // [label, script, from, to, extra args]
+675560	  ['L3 -> M  (build-M.mjs, const2let)', 'build-M.mjs', '202610281340', '202610281950'],
+675561	  ['M  -> M2 (build-M2.mjs + repd-m2.part.js)', 'build-M2.mjs', '202610281950', '202610282100'],
+675562	  ['M2 -> M3 (build-M3.mjs + layers-m3/repd-m3.part.js)', 'build-M3.mjs', '202610282100', '202610282215'],
+675563	  ['M3 -> M4 (build-M4.mjs + fixes-m4.mjs)', 'build-M4.mjs', '202610282215', '202610290045'],
+675564	  ['M4 -> M4b (build-M4b.mjs)', 'build-M4b.mjs', '202610290045', '202610290050'],
+675566	for (const [label, script, from, to] of steps) {
+675567	  let out = path.join(tmp, `${to}.js`), argv;
+675568	  if (script === 'build-M.mjs') {
+675569	    if (!fs.existsSync(path.join(HERE, 'deps', 'node_modules', 'acorn'))) { console.log(`skip ${label}: needs tools/lightning/lineage/deps/node_modules/acorn (npm i --prefix deps acorn@8.11.3 acorn-walk)`); continue; }
+675570	    argv = [path.join(HERE, script), mod(from), tmp, to]; out = path.join(tmp, 'module-M.js');
+675571	  } else argv = [path.join(HERE, script), mod(from), out];
+675572	  const r = spawnSync(process.execPath, argv, { encoding: 'utf8' });
+675573	  if (r.status !== 0) { console.log(`FAIL ${label}: ${(r.stderr || r.stdout).trim().split('\n').pop()}`); bad++; continue; }
+675574	  const got = fs.readFileSync(out, 'utf8').split(from).join(to), want = fs.readFileSync(mod(to), 'utf8');
+675575	  if (got === want) console.log(`ok   ${label}: ${to} reproduced (${Buffer.byteLength(want)} B)`);
+675576	  else { console.log(`FAIL ${label}: output differs from ${path.relative(ROOT, mod(to))}`); bad++; }
+675577	fs.rmSync(tmp, { recursive: true, force: true });
+675579	 * make-generation.mjs: cut a NEW immutable candidate generation of the UK lightning overlay from tools/lightning/src.
+675580	 * It is the scaffolder the M-series builds used (make-generation-M4.mjs, kept in tools/lightning/lineage/), made
+675581	 * generic: the module is built from the source instead of being passed in, and the generation-specific prose is copied
+675582	 * from a template generation of the same variant instead of being written into the script. Node built-ins only.
+675583	 *   node tools/lightning/make-generation.mjs --gen 202610300900 --version v9.178 --variant dots \
+675584	 *        --scope "M5b (202610300900): <what changed, one sentence>" [--label M5b] [--predecessor <gen>] [--template <gen>] [--dry-run]
+675585	 *   --predecessor  the candidate this one is built on (manifest candidate_predecessor); default: the newest lightning
+675586	 *                  generation in atlas/modules/.
+675587	 *   --template     the generation whose proof, manifest and route current.json are re-identified; default: the newest
+675588	 *                  generation of the same variant in tools/lightning/generations.json. Its prose (composition_note,
+675589	 *                  uk_lightning.*) is copied as is: when the behaviour it describes changes, edit those strings in the
+675590	 *                  new manifest AND the new route current.json in the same commit (the proof and the gate check them).
+675591	 *   --scope        appended to acceptance.scope of the manifest: what this generation changes.
+675592	 * Writes the six generation files with flag 'wx' (an existing file is never overwritten) and adds the generation to
+675593	 * tools/lightning/generations.json, dropping from it every listed generation the edited source no longer rebuilds:
+675594	 *   atlas/modules/<GEN>-uk-lightning-overlay.js   node tools/lightning/build.mjs output for --variant, stamped <GEN>
+675595	 *   atlas/cartridges/<GEN>-sld-sandbox-v9-8.js    the template's base sld-sandbox bytes + "\n" + module
+675596	 *   tools/proofs/<GEN>-sld-sandbox.proof.mjs      the template proof with only `const GEN=` changed
+675597	 *   atlas/manifests/<GEN>-composition.json        the template manifest re-identified
+675598	 *   atlas/v/<GEN>/index.html                      byte copy of atlas/index.html
+675599	 *   atlas/v/<GEN>/current.json                    the template route current.json re-identified
+675600	 * Deterministic: cut_at_utc is derived from --gen, not the clock. atlas/current.json, STATE.md, atlas/index.html and
+675601	 * every file of the live, template and predecessor generations are hashed before and after; any change aborts.
+675602	 * It never moves the live pointer: that is tools/release/release-generation.mjs (docs/RELEASE.md).
+675603	import { assemble, readGenerations, newestModule, GENERATIONS } from './build.mjs';
+675604	const MODULE_CEILING = 64781;     // 500,000 - 435,218 base sld-sandbox bytes - 1 newline (owner, 28 Oct 2026)
+675605	const CARTRIDGE_CEILING = 500000; // tools/scope/loop.mjs (raised from 480 kB by the owner, 28 Oct 2026)
+675606	const die = msg => { console.error(`make-generation: FAIL ${msg}`); process.exit(1); };
+675607	const args = { 'dry-run': false };
+675608	for (let i = 2; i < process.argv.length; i++) {
+675609	  const k = process.argv[i];
+675610	  if (k === '--dry-run') { args['dry-run'] = true; continue; }
+675611	  need(/^--(gen|version|variant|scope|predecessor|template|label)$/.test(k) && process.argv[i + 1] !== undefined, `bad argument ${k}`);
+675612	  args[k.slice(2)] = process.argv[++i];
+675613	for (const k of ['gen', 'version', 'variant', 'scope']) need(args[k], `--${k} is required`);
+675614	const { gen: GEN, version: VERSION, variant: VARIANT } = args, DRY = args['dry-run'];
+675615	const R = p => path.join(ROOT, p);
+675616	const readBuf = p => fs.readFileSync(R(p));
+675617	const readText = p => fs.readFileSync(R(p), 'utf8');
+675618	const sha = buf => createHash('sha256').update(buf).digest('hex');
+675619	const shaLF = buf => sha(Buffer.from(buf.toString('binary').replace(/\r\n/g, '\n'), 'binary')); // tools/scope/lib.mjs sha256PublishedFile
+675620	const json = obj => JSON.stringify(obj, null, 1) + '\n';
+675621	const files = g => ({
+675622	  module: `atlas/modules/${g}-uk-lightning-overlay.js`, cartridge: `atlas/cartridges/${g}-sld-sandbox-v9-8.js`,
+675623	  proof: `tools/proofs/${g}-sld-sandbox.proof.mjs`, manifest: `atlas/manifests/${g}-composition.json`,
+675624	  routeIndex: `atlas/v/${g}/index.html`, routeCurrent: `atlas/v/${g}/current.json`
+675625	const reg = readGenerations();
+675626	need(reg.variants.includes(VARIANT), `--variant must be one of ${reg.variants.join(', ')}`);
+675627	const PRED = args.predecessor || newestModule();
+675628	const sameVariant = Object.keys(reg.generations).filter(g => reg.generations[g].variant === VARIANT).sort();
+675629	const TPL = args.template || sameVariant[sameVariant.length - 1];
+675630	need(TPL, `no generation of variant ${VARIANT} in generations.json to use as the template; pass --template <gen>`);
+675631	need(GEN > PRED && GEN > TPL && GEN > newestModule(), `--gen ${GEN} must advance beyond ${[PRED, TPL, newestModule()].sort().pop()}`);
+675632	for (const g of new Set([PRED, TPL])) for (const p of Object.values(files(g))) need(fs.existsSync(R(p)), `${p} missing (generation ${g})`);
+675633	/* ---------- version: unused anywhere in the composition record, and advancing ---------- */
+675634	const versionFiles = ['atlas/current.json',
+675635	  ...fs.readdirSync(R('atlas/v')).map(n => `atlas/v/${n}/current.json`).filter(p => fs.existsSync(R(p)))];
+675636	  need(!text.includes(`"${VERSION}"`) && !text.includes(`-gridatlas-${VERSION}"`), `${VERSION} is already used in ${p}`);
+675637	need(Number(VERSION.split('.')[1]) > maxUsed, `${VERSION} does not advance beyond the highest recorded version v9.${maxUsed}`);
+675638	/* ---------- outputs must not exist ---------- */
+675639	const OUT = files(GEN);
+675640	need(!reg.generations[GEN], `${GEN} is already in generations.json`);
+675641	/* ---------- protected set ---------- */
+675642	const LIVE_PTR = String(live.generation);
+675643	const PROTECTED = [...new Set(['atlas/current.json', 'STATE.md', 'atlas/index.html',
+675644	  ...[PRED, TPL].flatMap(g => Object.values(files(g))),
+675645	  ...(fs.existsSync(R(files(LIVE_PTR).module)) ? Object.values(files(LIVE_PTR)).filter(p => fs.existsSync(R(p))) : [])])];
+675646	/* ---------- 1. module, from the source ---------- */
+675647	const moduleBuf = Buffer.from(assemble({ variant: VARIANT, gen: GEN, variants: reg.variants }), 'utf8');
+675648	need(moduleBuf.length <= MODULE_CEILING, `module is ${moduleBuf.length} B; the ceiling is ${MODULE_CEILING} B`);
+675649	need(countOf(moduleBuf.toString('utf8'), GEN) === 2, 'the module must carry the generation exactly twice (header and GEN)');
+675650	/* ---------- 2. cartridge = base + "\n" + module, the lineage proven on the template and the predecessor ---------- */
+675651	const tplManifest = JSON.parse(readText(files(TPL).manifest));
+675652	const tplSld = tplManifest.cartridges.find(c => c.id === 'sld-sandbox');
+675653	need(tplSld && /^\.\/cartridges\/\d{12}-sld-sandbox-v9-8\.js$/.test(tplSld.derived_from || ''), 'template sld-sandbox entry has no derived_from base');
+675654	const BASE = 'atlas/' + tplSld.derived_from.slice(2), baseBuf = readBuf(BASE);
+675655	need(!baseBuf.includes(13), `${BASE} contains CR`);
+675656	for (const g of new Set([PRED, TPL])) need(readBuf(files(g).cartridge).equals(Buffer.concat([baseBuf, Buffer.from('\n'), readBuf(files(g).module)])),
+675657	  `${g} cartridge is not ${BASE} + \\n + its module`);
+675658	need(cartridgeBuf.length <= CARTRIDGE_CEILING, `cartridge is ${cartridgeBuf.length} B; the ceiling is ${CARTRIDGE_CEILING} B`);
+675659	/* ---------- 3. proof: only `const GEN=` changes ---------- */
+675660	const tplProof = readText(files(TPL).proof);
+675661	need(countOf(tplProof, TPL) === 1 && countOf(tplProof, `const GEN='${TPL}';`) === 1, `template proof ${files(TPL).proof} must carry its generation exactly once, as const GEN='${TPL}';`);
+675662	const proofText = tplProof.replace(`const GEN='${TPL}';`, `const GEN='${GEN}';`);
+675663	/* ---------- 4/5. manifest and route current.json ---------- */
+675664	function derive(src, prefix, kind) {
+675665	  const c = structuredClone(src), oldVersion = c.composition_version;
+675666	  need(c.generation === TPL, `${kind}: template generation is ${c.generation}`);
+675667	  c.previous_generation = LIVE_PTR;
+675668	  c.candidate_predecessor = PRED;
+675669	  if (typeof c.composition_note === 'string' && c.composition_note.startsWith(`${oldVersion}:`)) c.composition_note = VERSION + c.composition_note.slice(oldVersion.length);
+675670	  need(sld && sld.generation === TPL && sld.derived_from === `${prefix}cartridges/${path.basename(BASE)}`, `${kind}: sld-sandbox entry is not the template's`);
+675671	  Object.assign(sld, { generation: GEN, version: VERSION, path: `${prefix}cartridges/${GEN}-sld-sandbox-v9-8.js`, sha256: cartridgeSha, bytes: cartridgeBuf.length });
+675672	  need(sld.uk_lightning && sld.uk_lightning.module === `${prefix}modules/${TPL}-uk-lightning-overlay.js`, `${kind}: uk_lightning.module is not the template's`);
+675673	    c.parent_generation = LIVE_PTR;
+675674	    c.acceptance.scope += ' ' + args.scope;
+675675	  // no stale identity: the template generation survives only as a predecessor or in history prose, its paths and version never
+675676	  for (const bad of [`${TPL}-sld-sandbox`, `${TPL}-uk-lightning-overlay`, `${TPL}-composition`, `${TPL}-gridatlas`, `"${oldVersion}"`, `-${oldVersion}"`])
+675677	    need(!text.includes(bad), `${kind}: stale ${bad} remains`);
+675678	  need(countOf(text, `"${TPL}"`) === (PRED === TPL ? 1 : 0), `${kind}: the template generation remains as an identity value`);
+675679	const manifestText = derive(tplManifest, './', 'manifest');
+675680	const routeText = derive(JSON.parse(readText(files(TPL).routeCurrent)), '../../', 'route');
+675681	const summary = { result: DRY ? 'DRY-RUN (nothing written)' : 'WRITTEN', generation: GEN, version: VERSION, variant: VARIANT,
+675682	  candidate_predecessor: PRED, template: TPL, live: LIVE_PTR, cut_at_utc: cutAt,
+675683	  module: { path: OUT.module, bytes: moduleBuf.length, sha256: sha(moduleBuf), spare: MODULE_CEILING - moduleBuf.length },
+675684	  cartridge: { path: OUT.cartridge, bytes: cartridgeBuf.length, sha256_lf: cartridgeSha, base: BASE },
+675685	  proof: OUT.proof, manifest: OUT.manifest, route: [OUT.routeIndex, OUT.routeCurrent] };
+675686	if (DRY) { console.log(JSON.stringify(summary, null, 1)); process.exit(0); }
+675687	const write = (p, data) => fs.writeFileSync(R(p), data, { flag: 'wx' });
+675688	// register the new generation; a listed generation the edited source no longer rebuilds is dropped (its source is the
+675689	// commit that cut it), so build.mjs --check keeps passing
+675690	const regText = JSON.parse(fs.readFileSync(GENERATIONS, 'utf8'));
+675691	regText.generations[GEN] = { variant: VARIANT, label: args.label || args.scope.split(/[ :(]/)[0] };
+675692	const dropped = Object.keys(regText.generations).filter(g => g !== GEN && !readBuf(files(g).module)
+675693	  .equals(Buffer.from(assemble({ variant: regText.generations[g].variant, gen: g, variants: reg.variants }), 'utf8')));
+675694	for (const g of dropped) delete regText.generations[g];
+675695	fs.writeFileSync(GENERATIONS, json(regText));
+675696	need(readBuf(OUT.cartridge).equals(Buffer.concat([baseBuf, Buffer.from('\n'), readBuf(OUT.module)])), 'cartridge is not base + \\n + module');
+675697	for (const [label, p, base] of [['manifest', OUT.manifest, R('atlas')], ['route', OUT.routeCurrent, R(`atlas/v/${GEN}`)]]) {
+675698	  const c = JSON.parse(readText(p));
+675699	console.log(JSON.stringify({ ...summary, protected_unchanged: PROTECTED.length, generations_json_dropped: dropped }, null, 1));
+675700	/// UK lightning overlay: readable source. Build: node tools/lightning/build.mjs (docs/LIGHTNING-SOURCE.md).
+675701	/// Lines starting with /// (like this one) and the ///#if / ///#else / ///#endif variant blocks are source only; a line
+675702	/// ending in /// continues on the next line. Everything else ships byte for byte in atlas/modules/<GEN>-uk-lightning-overlay.js.
+675703	/// Variants: "layers" (M4 202610290045: the listed technologies' own REPD layers are switched on) and "dots" (M4b
+675704	/// 202610290050: only the listed sites are drawn, as REPD-styled dots). @@GEN@@ is the generation stamp.
+675705	///
+675706	/// 00 header: the shipped header comments, the IIFE, the aliases and the constants.
+675707	/// The L3 header, as written before build-M stage A1 shortened it to one line (generation 202610281340):
+675708	/// EUMETSAT MTG Lightning Imager (L2-LFL) optical flashes, OFF by default, appended last to the original Layers panel
+675709	/// and fullscreen curtain; no request, source, layer or listener until switched on; never persisted. Optical flashes are
+675710	/// NOT confirmed ground strikes; a day never searched is unknown, never zero. Above the device cap the window draws as
+675711	/// tappable ≈10 km cells (data/history/grid) within 30 km of a REPD site.
+675712	/// Rules trimmed from lightning history-window.mjs (data-plane/hourly-lookback-index-v2 @ f7db76c). No engine, Pipeline
+675713	/// News or menu-proxy attribute. Name glossary: docs/lightning/CANDIDATE-202610261949.md.
+675714	/// The shipped header comments below are part of the module bytes (the generation proof reads them).
+675715	/* uk-lightning-overlay, generation @@GEN@@ (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+675716	///#if dots
+675717	///#else
+675718	///#endif
+675719	/// Aliases (build-M A3): Math.max/min, Array.isArray, Date.parse (static, no this), appendChild and getBoundingClientRect
+675720	/// helpers, and U, the phrase every unknown count carries. NS is the shared window.__GRIDATLAS_MODULES__ namespace, the only
+675721	/// global this module writes.
+675722	let MX=Math.max,///
+675723	  MN=Math.min,///
+675724	  AI=Array.isArray,///
+675725	  DP=Date.parse,///
+675726	  ap=(p,c)=>p.appendChild(c),///
+675727	  gr=e=>e.getBoundingClientRect(),///
+675728	  U='unknown, not zero',///
+675729	  NS=(window.__GRIDATLAS_MODULES__=window.__GRIDATLAS_MODULES__||{});
+675730	/// Identity and sources. GEN is stamped by the build. AR: the archive (index, days, grid) on Ventusltd/lightning main;
+675731	/// FEED: the 7-day live feed. TMO: the 15 s request timeout; BUDGET: the most points ever drawn; RQ: the most day files per
+675732	/// window (and the LRU size). PERIODS: [key, label, ms] or [key, label, -months]; custom = CUSTOM UTC dates. LONG: periods
+675733	/// that need the archive. COLOUR: status dot colour by state letter (LOADING, PARTIAL, UNKNOWN, BEFORE-ARCHIVE, FAIL).
+675734	let GEN='@@GEN@@',///
+675735	  AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',///
+675736	  IX_SCHEMA='uk-lightning-history-index.v2',///
+675737	  GS='uk-lightning-history-grid.v1',
+675738	FEED='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/uk_lightning.geojson',///
+675739	  FEED_SCHEMA='FeatureCollection/optical_lightning_flash',
+675740	SRC='gridatlas-lightning',///
+675741	  LAYER='l-gridatlas-lightning',///
+675742	  DAY=864e5,///
+675743	  HOUR=36e5,///
+675744	  TMO=15000,///
+675745	  BUDGET=40000,///
+675746	  RQ=400,///
+675747	  DRE=/^\d{4}-\d{2}-\d{2}$/,///
+675748	  TOE='timeout after 15 s',///
+675749	  NA=e=>/HTTP 404/.test(e)?'archive not yet published':'archive unavailable',
+675750	PERIODS=[['12h','12 hours',12*HOUR],['24h','24 hours',DAY],['48h','48 hours',2*DAY],///
+675751	    ['7d','7 days',7*DAY],['30d','30 days',30*DAY],['3m','3 months',-3],///
+675752	    ['6m','6 months',-6],['12m','12 months',-12],['custom','Custom UTC dates',0]],
+675753	/// 01 helpers: date and number formatting, GeoJSON guards, the device cap, month arithmetic and the published state S.
+675754	/// ymd: UTC date; ds: date -> ms; Q: getElementById; E: throw. T/Ts: UTC minute/second text, 'unknown' if not finite.
+675755	ymd=t=>new Date(t).toISOString().slice(0,10),///
+675756	  ds=d=>DP(d+'T00:00:00Z'),///
+675757	  Q=id=>document.getElementById(id),///
+675758	  E=m=>{throw new TypeError(m)},
+675759	/// N: grouped number; pl: plural; dm/hm/dt: short date, hh:mm, both; du: duration in h/min (LR-words W8: hours grouped);
+675760	/// hz: a window of 48 h or less (hour clip); de: end text; sv: "x of y searched"; lr: when the collector last ran and how far
+675761	/// it searched; F7: the live-feed flash phrase; AGO: age, via du (LR-words W6).
+675762	N=n=>Number(n).toLocaleString('en-GB'),///
+675763	  pl=(n,w,s='s')=>N(n)+' '+w+(n==1?'':s),///
+675764	  dm=t=>{///
+675765	    let s=new Date(t).toUTCString(),y=s.slice(12,16);///
+675766	    return+s.slice(5,7)+s.slice(7,11)+(y==new Date().getUTCFullYear()?'':' '+y)///
+675767	  },///
+675768	  hm=t=>T(t).slice(11,16),///
+675769	  dt=t=>dm(t)+' '+hm(t),///
+675770	  du=m=>(m=Math.round(m/6e4),(m>59?N(m/60|0)+' h ':'')+(m%60||m<60?m%60+' min':'')).trim(),///
+675771	  hz=w=>!w.custom&&w.span<=2*DAY,///
+675772	  de=(a,b)=>dm(a)==dm(b)?hm(b):dt(b),///
+675773	  sv=(r,k,p)=>{///
+675774	    let v=r.cov,w=r.w,a=k&&/READY|EMPTY/.test(k.st);///
+675775	    return hz(w)?(a?'all ':(v.f>0?du(v.f*w.span):'0')+' of ')+w.label+' searched':(a?'all '+pl(v.d,'day'):`${v.k} of ${pl(v.d,'day')}`)+' searched'+(p&&v.pp?` (${v.pp} in part)`:'')///
+675776	  lr=(g,now,f)=>isFinite(g)?`collector last ran ${ymd(g)==ymd(now)?hm(g):dt(g)} UTC${f&&g-f>HOUR?`, searched to ${ymd(f)==ymd(now)?hm(f):dt(f)} UTC`:''}${g>now+9e5?' (device clock behind)':''}`:'collector last run unknown',///
+675777	  F7=r=>`${N(r.ev.length)} seen in the available 7-day feed · ${r.w.label} requested${r.old?' · older history unknown':''}`,///
+675778	  AGO=t=>t<0?'?':t<3e4?'<1 min':du(t),
+675779	/// ov: overlap of [a,b) and [c,d); FC: FeatureCollection; bx: inside the UK box; isFC; tm: a flash's time (Z added when
+675780	/// missing); msg: an error's text, sanitised by cs (LR-security S3).
+675781	ov=(a,b,c,d)=>MX(0,MN(b,d)-MX(a,c)),///
+675782	  FC=f=>({type:'FeatureCollection',features:f||[]}),///
+675783	  bx=(x,y)=>x===+x&&y===+y&&x>=-11&&x<=3&&y>=49.5&&y<=61.5,///
+675784	  isFC=o=>o&&o.type==='FeatureCollection'&&AI(o.features),///
+675785	  tm=f=>{///
+675786	    let s=f.properties.time_utc+'';///
+675787	    return DP(/T[\d:.]+$/.test(s)?s+'Z':s)///
+675788	  msg=e=>cs(e&&e.message||e),
+675789	/// The device point cap: 10,000 on a phone (coarse pointer or <= 700 px), else 40,000. Above it a window draws as cells.
+675790	ph=()=>{///
+675791	    try{///
+675792	      return matchMedia('(pointer: coarse)').matches||window.innerWidth<=700///
+675793	    }catch(_){return false}///
+675794	  cap=()=>ph()?10000:40000,
+675795	/// mm: t minus k calendar months, the day clamped to the target month (3M, 6M, 12M).
+675796	mm=(t,k)=>{///
+675797	    let d=new Date(t),day=d.getUTCDate();///
+675798	    d.setUTCDate(1);///
+675799	    d.setUTCMonth(d.getUTCMonth()-k);///
+675800	    d.setUTCDate(MN(day,new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate()));///
+675801	    return d.getTime()///
+675803	/// State machine (published as NS.ukLightning.state): installed, waiting_for, on, requests, errors, last; period, end and h
+675804	/// (the PREV/NEXT stack of window ends), from/to (CUSTOM), consent (LOAD POINTS), serial (cancels stale loads), idx/ie (index
+675805	/// and its error), res (the drawn result), sfs (the panel groups). lru: url -> {p: promise, sealed}.
+675806	S={///
+675807	    schema:'gridatlas.module.uk-lightning-overlay.v1',generation:GEN,installed:false,waiting_for:[],on:false,requests:0,errors:[],last:null,
+675808	period:'24h',end:null,h:[],from:'',to:'',consent:false,serial:0,idx:null,ie:null,res:null,sfs:[]///
+675809	  lru=new Map(),
+675810	/// 02 transport: fetch for .json (no redirects, 15 s timeout that also covers the body), XMLHttpRequest for the live feed,
+675811	/// and the LRU of day/grid promises.
+675812	/// gj: fetch JSON (or bytes with raw) with the 15 s timeout covering the body; a redirect is refused; "HTTP n" on error.
+675813	/// M2 (build-M2 gj-abort): once its own timer has aborted, any rejection (a body stream that errors on abort, as the
+675814	/// bridge's may) is reported as the timeout, not as "Failed to fetch".
+675815	return fetch(u,{cache,signal:c.signal}).then(r=>{///
+675816	        if(!r.ok||r.redirected)throw new Error(r.ok?'redirected':'HTTP '+r.status);///
+675817	        return raw&&r.arrayBuffer?r.arrayBuffer():r.json()///
+675818	      }).catch(e=>{///
+675819	        throw c.signal.aborted||e&&e.name==='AbortError'?new Error(TOE):e///
+675820	      }).finally(()=>clearTimeout(t))///
+675821	/// gx: the live feed by XMLHttpRequest (same timeout; a redirect is refused through responseURL).
+675822	x.onload=()=>{///
+675823	          if(x.status>=200&&x.status<300){///
+675824	            try{///
+675825	              if(x.responseURL&&!x.responseURL.startsWith(u))E('redirected');///
+675826	              res(JSON.parse(x.responseText))///
+675827	            }catch(e){rej(e)}///
+675828	          }else rej(new Error('HTTP '+x.status))///
+675829	/// lg/ls: LRU get and set, at most RQ entries.
+675830	lg=k=>{///
+675831	    if(!lru.has(k))return;///
+675832	    let v=lru.get(k);///
+675833	    lru.delete(k);///
+675834	    lru.set(k,v);///
+675835	    return v///
+675836	  ls=(k,v)=>{///
+675837	    while(lru.size>RQ)lru.delete(lru.keys().next().value)///
+675838	/// 03 archive index v2 (Ventusltd/lightning data/history/index.json): every row validated; coverage from scan_windows.
+675839	/// vk: one index v2 row; parts are hourly days/YYYY/MM/DD/HH.json with integer counts; a bad row throws with its date.
+675840	vk=r=>{///
+675841	    let n=r&&r.count,b=w=>E(`invalid index row ${r&&r.date}: ${w}`);///
+675842	    if(!r||ymd(ds(r.date)||0)!=r.date)b('date');///
+675843	    if(!['none','partial','full'].includes(r.coverage))b('coverage');
+675844	if(r.coverage==='none'?n!==null:n>>>0!==n)b('count');///
+675845	    if(n===0&&!(r.scanned_seconds>0))b('count 0 unscanned');///
+675846	    if(n>0&&!r.path&&!(r.parts&&r.parts.length))b('no path/parts');
+675847	if(r.path&&!/^days\/\d{4}\/\d{2}\/\d{2}\.json$/.test(r.path))b('path');///
+675848	    if(typeof r.sealed!=='boolean')b('sealed');
+675849	if(r.parts&&!(AI(r.parts)&&r.parts.length<=24&&r.parts.every(p=>p&&/^days\/\d{4}(\/\d\d){3}\.json$/.test(p.path)&&(p.count>>>0||-1)===p.count)))b('parts')///
+675850	/// ni: normalise the index: schema, observation, generated_utc, cutoff and the scan windows; by = date -> row; lost
+675851	/// (shard_lost) days are unknown, never searched.
+675852	let gen=DP(raw.generated_utc);///
+675853	    if(!isFinite(gen))E('index generated_utc missing');///
+675854	    if(!DRE.test(raw.cutoff_date_utc||''))E('index cutoff_date_utc missing');
+675855	let sw=(raw.scan_windows||[]).map(w=>({///
+675856	          s:DP(w.start_utc),e:DP(w.end_utc),n:Number(w.successful_runs)||1///
+675857	        })).filter(w=>isFinite(w.s)&&isFinite(w.e)&&w.e>w.s).sort((a,b)=>a.s-b.s),
+675858	return{///
+675859	      days:raw.days,by:new Map(raw.days.map(r=>[r.date,r])),sw,gen,cutoff,iv,nextDue:DP(raw.next_update_due_utc||'')||gen+(iv+1)*HOUR,lastScan:sw.length?sw.reduce((a,w)=>MX(a,w.e),-Infinity):null,
+675860	covStart:DP(raw.coverage_start_utc||'')||(sw.length?sw[0].s:cutoff),cutoffDate:raw.cutoff_date_utc,lost:new Set(raw.days.filter(r=>r.shard_lost).map(r=>r.date))///
+675861	    }///
+675862	/// stale: the archive last searched more than 4 h ago, or its index is dated more than 15 min after the device clock.
+675863	/// li: load the index once (q busts the cache after a mismatch); unsealed LRU entries are dropped when it changes.
+675864	li=q=>{///
+675865	    if(!S.ip){///
+675866	      let p=S.ip=gj(AR+'index.json'+(q?'?'+q:''),'no-cache').then(ni).then(m=>{///
+675867	          if(S.ip===p){///
+675868	            for(let k of[...lru.keys()])if(!lru.get(k).sealed)lru.delete(k);///
+675869	            S.idx=m;///
+675870	            S.ie=null///
+675871	          }return m///
+675872	        }).catch(e=>{///
+675873	          if(S.ip===p){S.ip=null;///
+675874	            S.idx=null;///
+675875	            S.ie=msg(e)}throw e///
+675876	        })///
+675877	    }return S.ip///
+675878	/// cv: coverage of [ws,we) from scan_windows (union): f fraction searched, r runs, a/b first/last scan, d dates, u unknown
+675879	/// dates, l lost days, ny not yet searched (ms at the end), bf before the archive (ms), k known days, pp partly searched days.
+675880	for(let w of x.sw){///
+675881	      let o=ov(MX(ws,b),we,w.s,w.e);///
+675882	      if(o<=0)continue;///
+675883	      sd+=o;///
+675884	      r+=w.n;///
+675885	      let s=MX(ws,w.s),e=MN(we,w.e);///
+675886	      a=a===null?s:MN(a,s);///
+675887	      b=b===null?e:MX(b,e)///
+675888	for(let t=ds(ymd(ws));///
+675889	      t<we;///
+675890	      t+=DAY){///
+675891	      if(ov(ws,we,t,t+DAY)<=0)continue;///
+675892	      d++;///
+675893	      let y=ymd(t),row=x.by.get(y);///
+675894	      if(x.lost.has(y)){///
+675895	        l++;///
+675896	        let m=t;///
+675897	        for(let w of x.sw)sd-=ov(MX(ws,m),MN(we,t+DAY),w.s,w.e),m=MX(m,w.e)///
+675898	      }else if(!row||row.coverage==='none')u.push(y);///
+675899	      else{fs??=t;///
+675900	        lz=t;///
+675901	        pp+=row.coverage==='partial'}///
+675902	      f:win>0?MN(1,sd/win):0,r,a,b,d,u,l,fs,lz,pp,k:d-u.length-l,ny:x.lastScan===null?win:MX(0,we-MX(ws,x.lastScan)),bf:MX(0,MN(we,x.covStart)-ws)///
+675903	/// 04 windows and day files: UTC, end-anchored [start,end) windows; hourly or daily shard targets; a 4-wide fan-out.
+675904	/// wf: the window {s, e, span, atLatest, period, label, clamped, custom}; S.end anchors PREV/NEXT, CUSTOM uses whole UTC dates.
+675905	if(cu){///
+675906	      s=ds(S.from);///
+675907	      e=MN(ds(S.to)+DAY,now);///
+675908	      atLatest=ds(S.to)+DAY>=now///
+675909	    }else{///
+675910	      e=S.end===null?now:MN(S.end,now);///
+675911	      atLatest=S.end===null;///
+675912	      s=P[2]<0?mm(e,-P[2]):e-P[2]///
+675913	/// tg: the shard targets of one index row inside the window (a daily file, or the hourly parts that overlap it).
+675914	:(row.parts||[]).filter(p=>{///
+675915	      let h=ds(row.date)+p.path.slice(-7,-5)*HOUR;///
+675916	      return h<we&&h+HOUR>ws///
+675917	    }).map(p=>({...p,sealed:row.sealed})),
+675918	/// sh: fetch one day file (the HTTP cache is used only for a sealed day), check schema, date, count, bytes and sha256 against its index row.
+675919	let p=gj(u,t.sealed?'default':'no-cache',1).then(async b=>{///
+675920	        let o=b.byteLength>=0?await new Response(b).json():b,s=(window.crypto||0).subtle;
+675921	let bad=[o.features.length!==t.count&&'count',b.byteLength!==t.bytes&&'bytes',///
+675922	          s&&[...new Uint8Array(await s.digest('SHA-256',b))].map(x=>(x|256).toString(16).slice(1)).join('')!==t.sha256&&'sha256'].filter(Boolean);
+675923	if(bad.length)E('index mismatch: '+bad.join(', '));///
+675924	        if(!s&&t.sha256)E('not verified (no WebCrypto)');///
+675925	        return o.features///
+675926	      }).catch(e=>{lru.delete(u);///
+675927	        throw e});
+675928	/// fr: fan out over the shard targets, 4 at a time, abandoned when S.serial moves on; failures are kept per day.
+675929	fr=async(rows,ws,we,sn)=>{///
+675930	    let jobs=[];///
+675931	    for(let row of rows)for(let t of tg(row,ws,we))jobs.push({row,t});///
+675932	    let parts=new Array(jobs.length),fl=[];///
+675933	    let pos=0;
+675934	await Promise.all(Array.from({length:MN(4,jobs.length)},async()=>{///
+675935	          while(pos<jobs.length&&sn===S.serial){///
+675936	            let i=pos++,{row,t}=jobs[i];///
+675937	            try{parts[i]=await sh(t,row.date)}catch(e){///
+675938	              parts[i]=[];///
+675939	              fl.push({date:row.date,error:msg(e),t})///
+675940	            }///
+675941	          }///
+675943	/// 05 flashes and cells: feature validation and de-duplication, month grids, the REPD land mask, the cell layer data.
+675944	/// ok: a valid optical-flash Point inside the UK box with a finite time and a scalar id. co: collect the features of the
+675945	/// window, de-duplicated by id (or time and position), sorted by time; a.bad counts the rejected ones.
+675946	co=(parts,ws,we)=>{///
+675947	    let m=new Map();///
+675948	    let k=0;///
+675949	    for(let part of parts)for(let f of part){///
+675950	      if(!ok(f)){k++;///
+675951	        continue}let t=tm(f);///
+675952	      if(t>=ws&&t<we)m.set(f.id==null?t+','+f.geometry.coordinates:JSON.stringify(f.id),f)///
+675953	    }let a=[...m.values()].sort((a,b)=>tm(a)-tm(b));///
+675954	    a.bad=k;///
+675955	    return a///
+675956	/// Cells: month grids grid/YYYY-MM.json (0.1°, per UTC day); a day counts only if coverage, count and sha256 match its index
+675957	/// row. LR-security S1: 2 MB cap, checked on the raw bytes before parsing. The const below stays const: test-engine asserts
+675958	/// its text (build-M A5 KEEP).
+675959	let p=gj(u,'no-cache',1).then(async b=>{///
+675960	        let o=b.byteLength>2e6?E('grid size'):b.byteLength>=0?await new Response(b).json():b;///
+675961	        if(!o||o.schema!==GS||o.month!==mo||o.cols!==140||o.rows!==120||o.cell_deg!==.1||!AI(o.days)||o.days.length>31||!AI(o.cells)||o.cells.length>16800)E('invalid grid '+mo);///
+675962	        let t=[];
+675963	for(let r of o.cells){///
+675964	          if(!AI(r)||r.length%2<1||r.length<3||r.length>63||r[0]>>>0!==r[0]||r[0]>=16800)E('grid cell');///
+675965	          for(let i=1;///
+675966	            i<r.length;///
+675967	            i+=2){///
+675968	            let d=r[i],n=r[i+1];///
+675969	            if(d>>>0!==d||d<1||d>31||n>>>0!==n||!n)E('grid count');///
+675970	            t[d]=(t[d]||0)+n///
+675971	for(let d of o.days)if(!d||!AI(d.sha256)||(d.date+'').slice(0,8)!==mo+'-'||(t[+d.date.slice(8)]||0)!==(d.count||0))E('grid sum '+mo);///
+675972	        return o///
+675973	        throw e});///
+675974	    ls(u,{p});///
+675975	    return p///
+675976	/// Land mask: cells whose centre is within 30 km of an onshore REPD site, as run lengths over the 140 x 120 grid; totals keep
+675977	/// every cell. L3 (LR-bugs LRB1) dropped the REPD placeholder 49.766807,-7.55716 (OSGB 0,0): 5,508 -> 5,472 cells. The
+675978	/// const in the loop below stays const (build-M A5 KEEP).
+675979	LM=()=>{///
+675980	    if(!LM.a){///
+675981	      let a=LM.a=new Uint8Array(16800);///
+675982	      let p=0,v=1;///
+675983	      for(const c of'M3bCjeCie83C7rC6sC6r4583Bmr1a28BmAg26BaAqB7AsB6AsB5AtB3AuB4AtB4AsB5AsAw81AqAvB0AvAzAxB0AwB1AvB3AuB3AuB8ArB6AtB4AvB0AwAzAuAyAwAzAxAyAyAxB0AvB0AuB1AmBaAmBbAkBe82A7Bh47A5BrA4Av4e5aA3Am71b7a6A3Alo4b4A4Ajr3c2A5Agv3c1A5Agw3AfAhz3AbAkA0161A3AnB9AoB5AsB1AxAyAzAwB1l2A8B2AtB9AnBbAkBdAiBdAjBcAjBdAiBfAgBiAdBnA6Bh44A5Bh81A6BgAgBgAhBgAhBiAgBjAdBib1A3B872AgB692AfB6ArB5AsB6ArBcAkBdAjB973AcB9b1A9BaA793BeA6BrA7BoAaBmf1vBnd5rBp9dlBs2hmCcmCghChfCghCfhCgfCidCl9Cr2L07ChhCdkCckCdjCehCkdCkdCkcClbClaCp4Tj'.match(/[A-Z]?./g))a.fill(v^=1,///
+675984	        p,p+=c[1]?(c.charCodeAt(0)-64)*36+parseInt(c[1],36):parseInt(c,36))///
+675985	    }return LM.a///
+675986	/// gd: the cell layer data for the window's known days: n flashes in all cells, k drawn inside the mask, st days not yet in a
+675987	/// grid, e the refused month's reason (LR-bugs LRB3), T the glow floor = max(30, p95 of drawn cells). LRB2: if every grid day
+675988	/// is stale, fall back to the summary.
+675989	gd=async(rows,sn)=>{///
+675990	    let er,n=0,st=0,k=0;///
+675991	    let gs=new Map(await Promise.all([...new Set(rows.filter(y=>y.count>0).map(y=>y.date.slice(0,7)))].map(async m=>[m,await gg(m).catch(e=>(er=e,{days:[],cells:[]}))]))),ok=new Set,c=new Map,f=[],v=[];
+675992	for(let y of rows)if(y.count>0){///
+675993	      let d=gs.get(y.date.slice(0,7)).days.find(d=>d.date===y.date);///
+675994	      if(d&&d.count===y.count&&d.coverage===y.coverage&&d.sha256+''==(y.path?[y.sha256]:y.parts.map(p=>p.sha256))+'')ok.add(y.date),n+=y.count;///
+675995	      else st++///
+675996	    }if(!n)throw er||Error('grid stale');
+675997	for(let[m,g]of gs)for(let r of g.cells)for(let i=1;///
+675998	      i<r.length;///
+675999	      i+=2)if(ok.has(m+'-'+(r[i]+'').padStart(2,0)))c.set(r[0],(c.get(r[0])||0)+r[i+1]);
+676000	for(let[q,x]of c)if(LM()[q]){///
+676001	      let lon=-11+(q%140+.5)/10,lat=49.5+((q/140|0)+.5)/10;///
+676002	      k+=x;///
+676003	      v.push(x);///
+676004	      f.push({///
+676005	          type:'Feature',properties:{cell:q,n:x,lon,lat,s:sn},geometry:{type:'Point',coordinates:[lon,lat]}///
+676006	/// 06 tiers: the live feed (7 days only), the archive overview (cells), the archive detail (points, budgeted).
+676007	/// ff: the live feed tier (7 days only); reason names why the archive was not used.
+676008	      mode:'feed',w,idx:null,ie:reason,meta:f.metadata||{},old:w.s<now-7*DAY,ev,fl:[],cs:'live feed',ic:ev.length,cl:ev.length>cap(),cov:null///
+676009	    }},
+676010	/// lw: load a window: the index, then BEFORE-ARCHIVE, overview (cells) or detail (points). Within the device cap, 32 MB and
+676011	/// RQ files, points load for any window; above, cells draw and LOAD POINTS asks first (S.consent). arch counts whole UTC
+676012	/// days above 48 h (LR-bugs LRB4 + LR-numbers F1), J's hour clip at 48 h or less.
+676013	let rows=[...x.by.values()].filter(y=>{let f=ds(y.date);///
+676014	        return f<w.e&&f+DAY>w.s}),known=rows.filter(y=>y.count!==null),
+676015	r={///
+676016	      mode:'overview',w,idx:x,before:false,rows,arch:known.reduce((n,y)=>n+(y.parts&&hz(w)?tg(y,w.s,w.e).reduce((a,p)=>a+p.count,0):y.count),///
+676017	        0),cov:cv(x,w.s,w.e),fl:[],ev:[],ld:[],sk:[]///
+676018	for(let row of tf)for(let t of tg(row,w.s,w.e)){///
+676019	      nq++;///
+676020	      count+=t.count||0;///
+676021	      bytes+=t.bytes>0?t.bytes:(t.count||0)*530///
+676022	if(count>MN(BUDGET,cap())||bytes>32e6||nq>RQ){///
+676023	      r.budget=`${N(count)} flashes, ${N(bytes)} bytes, ${N(nq)} files`;///
+676024	      try{r.gd=await gd(rows,sn)}catch(e){r.ge=NA(msg(e))+': '+msg(e)}if(sn!==S.serial)return r;///
+676025	      if(!S.consent){r.clp=true;///
+676026	        return r}
+676027	let run=0,rb=0,rn=0;///
+676028	      tf.sort((a,b)=>b.date.localeCompare(a.date));///
+676029	      let keep=[];///
+676030	      for(let y of tf){///
+676031	        let ps=tg(y,w.s,w.e),c=ps.reduce((a,p)=>a+(p.count||0),0),b=ps.reduce((a,p)=>a+(p.bytes>0?p.bytes:(p.count||0)*530),0),q=ps.length;///
+676032	        if(r.sk.length||run+c>BUDGET||rb+b>32e6||rn+q>RQ){r.sk.push(y.date);///
+676033	          continue}keep.push(y);///
+676034	        run+=c;///
+676035	        rb+=b;///
+676036	        rn+=q///
+676037	      }if(!keep.length){r.clp=r.big=1;///
+676038	        return r}tf=keep;///
+676039	      count=run///
+676040	/// A sha256 mismatch on an unsealed day means the archive is being rewritten: reload the index once, then say so.
+676041	let got=await fr(tf,w.s,w.e,sn);///
+676042	    for(let f of got.fl)if(/WebCrypto/.test(f.error))f.u=1;///
+676043	    else if(!f.t.sealed&&/mismatch/.test(f.error)){///
+676044	      if(!q){S.ip=null;///
+676045	        return lw(now,sn,now)}f.error+='; archive updating, reload later';///
+676046	      f.u=1///
+676047	    }r.mode='detail';///
+676048	    r.fl=got.fl;///
+676049	    r.rq=got.rq;///
+676050	    r.ev=co(got.parts,w.s,w.e);///
+676051	    return r///
+676052	/// 07 state and captions: the state machine (cf) and the caption lines (cp). Unknown is never shown as zero.
+676053	/// cf: classify a result: FAIL, BEFORE-ARCHIVE, PARTIAL, UNKNOWN, READY·DETAIL, READY·OVERVIEW or EMPTY, with reasons.
+676054	else{///
+676055	      let c=r.cov,f=c?c.f:0;///
+676056	      if(r.mode==='feed'){///
+676057	        st=r.ev.length?'PARTIAL':'UNKNOWN';///
+676058	        rs.push('coverage unknown')///
+676059	      }else if(!c||f<=0){st='UNKNOWN';///
+676060	        rs.push('nothing searched')}
+676061	else if(f<1||c.ny>0||c.l||c.u.length||r.fl.length){///
+676062	        st='PARTIAL';///
+676063	        if(c.ny>0)rs.push('tail unknown');///
+676064	        if(c.bf>0)rs.push('head unknown');///
+676065	        if(c.u.length)rs.push(`${c.u.length} unscanned dates`);///
+676066	        if(!rs.length)rs.push(r.fl.length?'unverified':'gaps in window')///
+676067	else if(r.mode!=='overview')st=r.sk.length?(rs.push('days not loaded'),'PARTIAL'):r.ev.length?'READY·DETAIL':'EMPTY-COVERED';///
+676068	      else st=r.arch>0?r.gd?'READY·CELLS':'READY·SUMMARY':'EMPTY-COVERED'///
+676069	let g=r.idx?r.idx.gen:r.meta?DP(r.meta.query_end_utc):NaN,f=r.idx&&r.idx.lastScan||g;///
+676070	    return{///
+676071	      st,g,f,stale:!!(r.idx||r.meta)&&r.w.atLatest!==false&&stale(g,now,f),colour:COLOUR(st),rs///
+676072	/// DN: the cell caption (LR-words W1 with LRB3's reason): what the map shows, what is counted but not drawn.
+676073	/// M5 (V-geometry G2): cells are 0.1° and drawn only near REPD sites, so the caption says it is not a national density map.
+676074	DN=r=>{///
+676075	    let g=r.gd;///
+676076	    return`map limited to ≤30 km of REPD sites, not a national density map: ${N(g.k)} in ${pl(g.fc.features.length,'0.1° cell')}; ${N(g.n-g.k)} counted, not drawn${g.st?` · ${pl(g.st,'day')} not yet mapped (unknown${g.e?'; '+g.e:''})`:''} · tap a cell for nearest substations`///
+676077	/// cp: the caption lines window, days, actual, flashes, refresh, searched, warning and footer. Every number is either
+676078	/// measured or named unknown; a day never searched is never zero (complexity 82: see reports/V-maintain.md).
+676079	cp=(r,now,k)=>{///
+676080	    let w=r.w,x=r.idx,v=r.cov,nz=` (${U})`,L={///
+676081	      window:'',days:'',actual:'',flashes:'',refresh:'',searched:'',warning:'',footer:FOOTER///
+676082	if(r.before){///
+676083	      L.warning=`Window predates the archive (began ${T(x.covStart)}; retention from ${x.cutoffDate}) — ${U}`;///
+676084	      return L///
+676085	L.searched='Searched EUMETSAT unknown (live feed records only its last collection window)';///
+676086	      if(r.old)L.warning=NA(r.ie)+': earlier coverage '+U
+676087	else if(r.mode==='detail'){///
+676088	      L.actual=r.fl.length?'Actual  unknown (day files failed)':first||'Actual  no archived flashes within this window';
+676089	L.flashes=(r.sk.length?`Flashes ${N(r.arch)} archived on the overlapping UTC dates (index, whole days) · ${N(n)} downloaded from the newest ${r.ld.length} of ${r.ld.length+r.sk.length} days (budget ${N(BUDGET)} flashes / 32 MB; ${r.sk.length} days not loaded)${drawn}`:`Flashes ${r.fl.length?`${N(r.ic)} in index · ${N(n)} loaded`:N(n)+' archived in window'}${drawn}`)+(r.gd?' · '+DN(r):'')///
+676090	L.flashes=`Flashes ${N(r.arch)} archived on ${k} overlapping UTC dates · ${r.gd?`${DN(r)}${r.clp&&!r.big?` · LOAD POINTS adds the newest ${N(MN(BUDGET,r.arch))} flashes`:''}`:`none drawn (summary mode; ${r.clp?`index sum ${r.budget} exceeds the budget; ${r.big?'newest day alone exceeds it; none drawn':`LOAD POINTS draws up to the newest ${N(BUDGET)}`}`:'points load automatically within the budget'})${r.ge?' · cell grid '+r.ge:''}`}`///
+676091	if(c.l)warn.push(`${c.l} days lost from the archive (integrity alert), ${U}`);///
+676092	      if(c.u.length)warn.push(`Unknown: ${c.u.length} of ${c.d} UTC dates have no collection run`);
+676093	let ub=(r.rows||[]).filter(y=>[y.first_observation_utc,y.last_observation_utc].some(t=>t!=null&&!isFinite(DP(t)))).length;///
+676094	      if(ub)warn.push(`${N(ub)} archive entr${ub==1?'y':'ies'} unreadable (malformed timestamp; ${U})`);
+676095	if(c.f<1&&!warn.length)warn.push('Unknown: gaps between collection runs inside this window (not zero)');///
+676096	      L.warning=warn.join(' · ')///
+676097	if(v&&v.f<=0&&!v.l&&r.mode!=='feed'&&!r.fl.length){///
+676098	      L.flashes='Flashes not yet searched'+nz;///
+676099	      L.actual='Actual  not yet searched'///
+676100	/// 08 map: the map handle, the card position, the cell layers, the point layers and the tap handler.
+676101	/// mh: the original's MapLibre map (window.__GRIDATLAS_V9_MAP__), or null. sf: the text font the style already uses.
+676102	sf=m=>{///
+676103	      for(let l of m.getStyle().layers||[]){///
+676104	        let f=l.type==='symbol'&&l.layout&&l.layout['text-font'];///
+676105	        if(AI(f)&&f.length&&typeof f[0]==='string')return f///
+676106	      }///
+676107	    }catch(_){}return['Open Sans Regular']///
+676108	/// pc: close the card and its neon layers. cs: strip format characters (bidi) and cap at 200 (LR-security). el: element
+676109	/// with inline style and text (DOM: shell classes, inline styles on own nodes only).
+676110	cs=v=>(v+'').replace(/\p{Cf}/gu,'').slice(0,200),///
+676111	  el=(t,css,s)=>{///
+676112	    let e=document.createElement(t);///
+676113	    if(css)e.style.cssText=css;///
+676114	    if(s!=null)e.textContent=s;///
+676115	    return e///
+676116	/// cpos: dock the card at the bottom of the map like the original's (kv-card), lifted clear of the original's bottom
+676117	/// controls, never over the menu bar. M2R-layout F1 (MAJOR-1): an open card never rises above the container top + 320 px.
+676118	/// M6: at most 45 % of the map height (at least 200 px), so the origin and the links stay in view above the open card.
+676119	/// M2R-camera fix C (fixes-m4): on a map under 500 px tall with at least 300 px beside the card, the card docks right (c.sd).
+676120	cpos=()=>{///
+676121	    let c=S.pp,m=mh();///
+676122	    if(!c||!m)return;///
+676123	    let k=gr(m.getContainer()),q=Q('gridatlas-menu-bar'),t=MX(0,(q?gr(q).bottom:0)-k.top)+8,w=MN(480,///
+676124	      k.width-16),sd=c.sd=k.height<500&&k.width-w>=300,L=sd?k.right-8-w:k.left+(k.width-w)/2,h=c.offsetHeight||0;///
+676125	    c.style.marginRight=sd?'0':'auto';///
+676126	    let b=8;
+676127	for(let o of[Q('gridatlas-dash-toggle'),document.querySelector('.map-controls')]){///
+676128	      let r=o&&gr(o);///
+676129	      if(r&&r.height&&r.right>L&&r.left<L+w&&r.top<k.bottom&&r.bottom>k.top)b=MX(b,k.bottom-r.top+8)///
+676130	if(b+h>k.height-t)b=8;///
+676131	    c.bb=b;///
+676132	    c.style.bottom=b+'px';///
+676133	    c.style.maxHeight=MX(44,MN(k.height-t-b,MX(200,k.height*.45|0)))+'px'///
+676134	/// cx: remove every Lightning source and layer.
+676135	cx=()=>{///
+676136	    let m=mh();///
+676137	    pc();///
+676138	    if(m)try{///
+676139	      for(let l of[CNT,HIT,LAYER])if(m.getLayer(l))m.removeLayer(l);///
+676140	      if(m.getSource(SRC))m.removeSource(SRC);///
+676141	      dd()///
+676142	    }catch(e){note(e)}S.mode=null///
+676143	/// Cells: REPD-style graduated core (n <= 3 about 1 px, faint) and a glow for the top 5 %, violet ramp on log10 n
+676144	/// (1/3/10/30/100/300); ids avoid 'l-'. RP: the original's project and substation layers, which win a tap; *glow* layers
+676145	/// never do (LR-taps F3). Cells sit below the original's projects.
+676146	CS=SRC+'-cells',///
+676147	  CL=[CEL+'-glow',CEL+'-core',CEL],///
+676148	  RP=(m,a)=>{///
+676149	      return m.getStyle().layers.filter(l=>(l.source=='src-repd'||l.id=='l-subs')&&(a||!/glow/.test(l.id)&&m.getLayoutProperty(l.id,'visibility')!='none')).map(l=>l.id)///
+676150	    }catch(_){return[]}///
+676151	dd=g=>{///
+676152	    if(!m)return;///
+676153	    for(let l of CL)if(m.getLayer(l))m.removeLayer(l);///
+676154	    if(m.getSource(CS))m.removeSource(CS);///
+676155	    if(!g||!g.fc.features.length)return;
+676156	let b=RP(m,1).find(l=>l!='l-subs')||(m.getLayer(LAYER)?LAYER:void 0),L=['log10',///
+676157	      ['get','n']],I=(x,...s)=>['interpolate',['linear'],x,...s],B=[0,///
+676158	      .48,1,1.48,2,2.48],R=v=>I(L,...B.flatMap((k,i)=>[k,v[i]])),Z=(a,///
+676159	      c,d)=>I(['zoom'],5,a,7,c,10,d),
+676160	C=R(['#5a5590','#6f68a8','#8d7fd0','#a066ff','#c23cff','#e01cff']),A=(i,p,x)=>m.addLayer({id:CL[i],type:'circle',source:CS,...x,paint:p},b);///
+676161	    m.addSource(CS,{type:'geojson',data:g.fc});
+676162	A(0,{///
+676163	        'circle-radius':Z(I(L,1.48,5,2.48,13),I(L,1.48,8,2.48,20),I(L,1.48,16,2.48,36)),'circle-color':C,'circle-opacity':I(L,///
+676164	          1.48,.15,2.48,.4),'circle-blur':1///
+676165	      },{filter:['>=',['get','n'],g.T]});
+676166	A(1,{///
+676167	        'circle-radius':Z(R([.8,1,1.2,1.7,3.2,6]),R([1,1.2,1.6,2.4,5,9]),///
+676168	          R([2,2.5,3.5,6,12,20])),'circle-color':C,'circle-opacity':R([.22,.3,.42,.6,.85,.95]),'circle-stroke-width':I(L,///
+676169	          1.48,0,2,.6),'circle-stroke-color':'#140a2a'///
+676170	      },{layout:{'circle-sort-key':['get','n']}});
+676171	/// dw: one source, a points layer, an invisible 44 px hit layer and (clustered) count labels; hidden until data.
+676172	dw=(fc,cl)=>{///
+676173	    let m=mh(),K={///
+676174	      'circle-stroke-width':1.5,'circle-stroke-color':'#1a1a1a'///
+676175	    },Z=k=>['interpolate',['linear'],['zoom'],5,k(6),8,k(8),11,k(10)];///
+676176	    if(!m)E('no map');///
+676177	    let mode=cl?'cluster':'raw';///
+676178	    if(S.mode&&S.mode!==mode)cx();
+676179	if(!m.getSource(SRC)){///
+676180	      m.addSource(SRC,Object.assign({type:'geojson',data:FC()},cl?{cluster:true,clusterRadius:40,clusterMaxZoom:10}:{}));
+676181	m.addLayer({///
+676182	          id:LAYER,type:'circle',source:SRC,layout:{visibility:'none'},paint:cl?{///
+676183	            'circle-radius':Z(x=>['case',['has','point_count'],['step',['get','point_count'],12,100,16,1000,20,10000,26],x]),...K,'circle-color':['case',///
+676184	              ['has','point_count'],'#ffb000','#fff3a0'],'circle-opacity':0.9///
+676185	          id:HIT,type:'circle',source:SRC,layout:{visibility:'none'},paint:{'circle-radius':22,'circle-opacity':0}///
+676186	if(cl)try{///
+676187	        m.addLayer({///
+676188	            id:CNT,type:'symbol',source:SRC,filter:['has','point_count'],layout:{///
+676189	              visibility:'none','text-field':['get','point_count_abbreviated'],'text-font':sf(m),'text-size':11///
+676190	            },paint:{'text-color':'#000'}///
+676191	          })///
+676192	      }catch(e){note('count labels: '+msg(e))}S.mode=mode///
+676193	m.getSource(SRC).setData(fc);///
+676194	    let v=fc.features.length?'visible':'none';///
+676195	    for(let l of[LAYER,HIT,CNT])if(m.getLayer(l))m.setLayoutProperty(l,'visibility',v)///
+676196	/// tap: a flash (or cluster) under the tap wins, then the nearest cell unless a project or substation of the original is
+676197	/// hit. No work while loading or with no hit layer (LR-regress m2, LR-taps F2). Other click handlers always run.
+676198	tap=e=>{///
+676199	    if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;///
+676200	    /// dots: a tap on a drawn listed site opens that site's project view, as its row does.
+676201	    let rq=S.pp&&S.pp.ps&&m.getLayer(NI[13])&&m.queryRenderedFeatures(e.point,{layers:[NI[13]]})[0],rg=rq&&S.pp.ps[rq.properties.k];///
+676202	    if(rg)return RpV(m,S.pp,rg);///
+676203	    let px=e.point.x??e.point[0],///
+676204	    py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];///
+676205	    let f=null,dm=Infinity;
+676206	for(let q of Y(HIT)){///
+676207	      let g=q.properties&&!q.properties.cluster&&S.res&&S.res.ev[q.properties.i],a=m.project((g||q).geometry.coordinates),d=(a.x-px)**2+(a.y-py)**2;///
+676208	      if(d<dm){dm=d;///
+676209	        f=q}///
+676210	    }pc();///
+676211	    if(!f){///
+676212	      let rp=RP(m),h=rp.length&&m.queryRenderedFeatures(e.point,{layers:rp});///
+676213	      /// layers: a tap on a drawn REPD dot belongs to the engine and closes the card (as L3); the tapped dot's technology is handed
+676214	      /// to the reader and every other layer this module switched on is released (M2R-l3regress MINOR M3-L1, fixes-m4).
+676215	      if(///
+676216	        h&&h.length)return;///
+676217	        h&&h.length){///
+676218	        for(let q of h)S.ly&&S.ly.delete(q.properties&&q.properties.tech);///
+676219	        return Ry()///
+676220	      for(let q of Y(CEL)){///
+676221	        let p=q.properties||{},k=cb(p),a=k&&m.project([p.lon,p.lat]),d=k?(a.x-px)**2+(a.y-py)**2:1/0;///
+676222	        if(d<dm){dm=d;///
+676223	          f=p}///
+676224	      return f&&cc(m,f)///
+676225	      return f?cc(m,f):Ry()///
+676226	/// A cluster tap zooms in; cm(m) first drops the module's pending framing (M4, M2R-taps T1).
+676227	let p=f.properties||{};///
+676228	    if(p.cluster){///
+676229	      let go=z=>(cm(m),m.easeTo({center:f.geometry.coordinates,zoom:z})),z=m.getSource(SRC).getClusterExpansionZoom(p.cluster_id,(err,z)=>err||go(z));///
+676230	      if(z&&z.then)z.then(go,note);///
+676231	      return///
+676232	let g=S.res&&p.s===S.res.s&&S.res.ev[p.i];///
+676233	    if(!g)return;///
+676234	    let[x,y]=g.geometry.coordinates,id=g.id==null?'(none)':cs(g.id);
+676235	cd(m,x,y,'Lightning flash','Flash '+Ts(tm(g)),`lat ${y.toFixed(3)}, lon ${x.toFixed(3)} · ID ${sid(id)}`,'Flash ID '+id,'optical flash')///
+676236	/// 09 card: the docked card (flash, cell or REPD project), the cell card and the short flash ID.
+676237	/// cd: the card. lb aria label, ti title, su summary, de detail, wh what was tapped ("optical flash" | "cell centre" |
+676238	/// "project"); o: np (no REPD list: the project view), open, foot, back [label, action], g (dots: the site to draw).
+676239	/// c.re re-opens the same card (for "◀ back"); the title wraps (LR-layout). M2R-layout F3: re-frame on expand, collapse and
+676240	/// minimise. M2R-a11y MAJOR-1: one visually hidden polite status region per card, outside the closed <details>.
+676241	/// M6 (owner, iPhone 03:05 UTC: "the list is not there"): the list was rendered but inside the collapsed <details>.
+676242	/// The card now opens by default (o.open===0 keeps it closed) as a half-height panel (cpos: max 45 % of the map) that
+676243	/// scrolls inside; the "−" minimise is replaced by a toggle that says what it does and reflects the real state
+676244	/// ("▾ Hide list" / "▸ Show 10 sites"; c.n is the number of listed sites, set by RpR). T: one handler for the button
+676245	/// and the details toggle event; it reframes only when the open state really changed (c.dO), so the default open
+676246	/// never adds a camera move to the arrival.
+676247	cd=(m,x,y,lb,ti,su,de,wh,o={})=>{///
+676248	    let c=el('div','position:absolute;left:8px;right:8px;z-index:21;max-width:480px;margin:0 auto;box-sizing:border-box;background:#000;color:#e8f4f5;border:1px solid #2f6f75;border-radius:4px;box-shadow:0 0 14px rgba(95,189,194,.25);font:11px/1.45 monospace;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain'),
+676249	bar=el('div','display:flex;align-items:center;gap:6px;padding-left:8px;background:#0a1a1d;border-bottom:1px solid #1d3238'),bd=el('div',///
+676250	      'padding:0 8px 6px'),d=el('details'),rf=()=>{cpos();///
+676251	      if(S.pp===c)ck(1)},
+676252	B=(t,a,f)=>{///
+676253	      let e=el('button','flex:none;width:44px;height:44px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:14px/1 monospace;cursor:pointer',t);///
+676254	      e.type='button';///
+676255	      e.setAttribute('aria-label',a);///
+676256	      e.addEventListener('click',f);///
+676257	      ap(bar,e);///
+676258	      return e///
+676259	c.dataset.lightningCard='';///
+676260	    c.setAttribute('role','dialog');///
+676261	    c.setAttribute('aria-label',lb);///
+676262	    c.wh=wh;///
+676263	    c.o=o;///
+676264	    c.re=open=>cd(m,x,y,lb,ti,su,de,wh,{...o,open});
+676265	let T=()=>{///
+676266	        c.u();///
+676267	        if(d.open!=c.dO){c.dO=d.open;///
+676268	          rf()}///
+676269	      },mn=B('','',()=>{///
+676270	        d.open=!d.open;///
+676271	        T()///
+676272	      });///
+676273	    mn.style.width='auto';///
+676274	    mn.style.padding='0 8px';///
+676275	    mn.style.fontSize='12px';///
+676276	    c.u=(t=d.open?'▾ Hide '+(o.np?'details':'list'):'▸ Show '+(c.n?pl(c.n,'site'):o.np?'details':'list'))=>{///
+676277	        mn.textContent=t;///
+676278	        mn.setAttribute('aria-label',t.slice(2));///
+676279	        mn.setAttribute('aria-expanded',d.open)///
+676280	      };///
+676281	    d.addEventListener('toggle',T);///
+676282	    B('×','Close',///
+676283	      pc);
+676284	      ()=>{pc();///
+676285	        Ry()});
+676286	c.out=el('div','margin-top:4px;color:#9fb3ba');///
+676287	    ap(d,c.out);///
+676288	    ap(d,el('div','color:#8b9aa1;font-size:11px;overflow-wrap:anywhere',de));///
+676289	    if(o.back){///
+676290	      let k=ap(bd,el('button','display:block;width:100%;min-height:44px;margin:8px 0 2px;background:#050a0d;border:1px solid #2f6f75;border-radius:3px;color:#5fbdc2;font:12px/1 monospace;text-align:left;padding:0 10px;cursor:pointer',o.back[0]));///
+676291	      k.type='button';///
+676292	      k.dataset.lightningBack='';///
+676293	      k.setAttribute('aria-label',o.back[0].slice(2));///
+676294	      k.addEventListener('click',o.back[1])///
+676295	    }ap(bd,d);///
+676296	    c.dO=d.open=o.open!==0;///
+676297	    c.u();
+676298	ap(c,bar);///
+676299	    ap(c,bd);///
+676300	    c.lv=ap(c,el('div','position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)'));///
+676301	    c.lv.setAttribute('role','status');///
+676302	    S.pp=c;///
+676303	    ap(m.getContainer(),c);///
+676304	    cpos();///
+676305	    nf(m,c,x,y,15)///
+676306	/// cb: a cell's south-west corner, only for a well-formed cell of the drawn result (LR-security S2: safe-integer n).
+676307	/// cc: the cell card (LR-words W3; M5 V-geometry G3-G4b: "N optical flashes in this 0.1° cell", and the real cell size at
+676308	/// this latitude: E–W = 11.156·cos(lat) km (WGS84, max error 2.3 m over the UK rows), N–S ≈ 11.1 km).
+676309	cb=p=>{///
+676310	    let c=p.cell,w=-11+c%140/10,s=49.5+(c-c%140)/1400;///
+676311	    return c>>>0===c&&c<16800&&Number.isSafeInteger(p.n)&&p.n>0&&p.lon>w&&p.lon<w+.1&&p.lat>s&&p.lat<s+.1&&S.res&&(p.s==null||p.s===S.res.s)?[w,s]:null///
+676312	cc=(m,p)=>{///
+676313	    let[w,s]=cb(p),W=S.res.w,r=a=>a.toFixed(2)+'–'+(a+.1).toFixed(2),///
+676314	      x=11.156*Math.cos(p.lat*Math.PI/180);///
+676315	    cd(m,p.lon,p.lat,'Lightning cell',pl(p.n,'optical flash','es')+' in this 0.1° cell',///
+676316	      `${ymd(W.s)} to ${ymd(MX(W.s,W.e-1))} UTC · centre lat ${p.lat.toFixed(3)}, lon ${p.lon.toFixed(3)}`,///
+676317	      `Cell lat ${r(s)}, lon ${r(w)}: 0.1°, ≈${x.toFixed(1)} km E–W × 11.1 km N–S, ≈${x*11.13+.5|0} km² here; the centre is not a flash location · searched UTC days only; unsearched days ${U}`,'cell centre')///
+676318	/// sid: short ID = product sensing window + flash index (W_XX-..._<start>_<end>_N__..._0000:<index>); the full ID stays
+676319	/// in the detail line.
+676320	sid=s=>{///
+676321	    let r=/_\d{8}(\d\d)(\d\d)\d\d_\d{8}(\d\d)(\d\d)\d\d_N_.*:(\d+)$/.exec(s);///
+676322	    return r?`${r[1]}:${r[2]}–${r[3]}:${r[4]} #${r[5]}`:s.length>24?s.slice(0,12)+'…'+s.slice(-8):s///
+676323	/// 10 nearest substations and the camera: the original's own measure drawn as its neon arrival in Lightning-owned layers,
+676324	/// and the framing rules (M2R-layout F1-F3, M2R-camera fix C, M2R-taps T1).
+676325	/// The neon layer and source ids; the REPD ones (p-*) join the set so close, period, LATEST and OFF remove them too (build-M
+676326	/// B1; dots adds p-glow, p-dot and the pdots source).
+676327	NP='gridatlas-lightning-neon',///
+676328	  NI=['glow','core','flow','flow-b','node-ring','node','label','pin-halo','pin','p-core','p-node',///
+676329	    'p-label','p-glow','p-dot'].map(s=>NP+'-'+s),///
+676330	    'p-label'].map(s=>NP+'-'+s),///
+676331	  NSR=[NP+'-links',NP+'-nodes',NP+'-pin',NP+'-plinks',///
+676332	    NP+'-pnodes',NP+'-pdots'],
+676333	    NP+'-pnodes'],
+676334	nc=()=>{///
+676335	    if(S.raf){cancelAnimationFrame(S.raf);///
+676336	      S.raf=null}if(m)try{///
+676337	      for(let l of[...NI].reverse())if(m.getLayer(l))m.removeLayer(l);///
+676338	      for(let s of NSR)if(m.getSource(s))m.removeSource(s)///
+676339	    }catch(e){note(e)}///
+676340	/// nr: nearest substations: the original's own measure (__GRIDATLAS_NEON_LINKS__.measure.nearestSubstations: >= 33 kV,
+676341	/// <= 40 km, 5 links) drawn as its neon arrival (glow, core, two flow layers, teal nodes, labels, pale origin ring; kv-neon)
+676342	/// in Lightning-owned layers, in the technology colour #d8c96a. link.selectAt is not used: it treats its origin as a project
+676343	/// (stale project reference, cancelled arrivals, a false arrival record; kv-arrival-api). S.fk: the points to frame.
+676344	nr=(m,c,x,y)=>{///
+676345	    let L=window.__GRIDATLAS_NEON_LINKS__||{},M=L.measure||{},subs=Object.hasOwn(L,'substations')?L.substations:null,say=s=>ap(c.out,el('div','',s));///
+676346	    c.out.textContent='';///
+676347	    nc();
+676348	let k=c.k=M.nearestSubstations(x,y,subs),o=[x,y],TC='#d8c96a',TL='#5fbdc2',FL='#bfe9ee',Z=(a,///
+676349	      b,h=12)=>['interpolate',['linear'],['zoom'],6,a,h,b],RJ={'line-cap':'round','line-join':'round'},
+676350	A=(i,type,source,paint,layout)=>m.addLayer(Object.assign({id:NI[i],type,source,paint},layout?{layout}:{}));///
+676351	    S.fk=[o,...k.map(a=>a.at)];///
+676352	    say(c.o.np?'Screening · nearest substations, straight line. Not its declared connection or capacity.':`Screening · nearest substations to this ${c.wh}, straight line. Proximity, not exposure or a current path; not evidence any asset was struck.`);
+676353	if(!k.length){///
+676354	      let b=k.beyondRadiusNearest;///
+676355	      say(`No substation within ${k.radiusKm||40} km`+(b?` (nearest: ${cs(b.name||'unnamed substation')}, ${(+b.km).toFixed(2)} km)`:''))///
+676356	/// The REPD list runs for lightning cards only, never in the project view (build-M2 nr-repd).
+676357	if(!c.o.np)Rp(m,c,x,y,M);///
+676358	    else if(c.o.g)RpD(m,[c.o.g]);if(!k.length)return k;
+676359	    if(!k.length)return k;
+676360	m.addSource(NSR[0],{///
+676361	        type:'geojson',data:FC(k.map((a,i)=>({///
+676362	                type:'Feature',properties:{colour:TC,strength:MX(.2,.62-i*.1)},geometry:{type:'LineString',coordinates:[o,a.at]}///
+676363	              })))///
+676364	m.addSource(NSR[1],{///
+676365	        type:'geojson',data:FC(k.map(a=>({///
+676366	                type:'Feature',properties:{label:`${(+a.km).toFixed(2)} km · ${a.kv[0]} kV`},geometry:{type:'Point',coordinates:a.at}///
+676367	A(0,'line',NSR[0],{///
+676368	        'line-color':['get','colour'],'line-width':Z(5,12),'line-opacity':.1,'line-blur':Z(3,8)///
+676369	      },RJ);
+676370	A(1,'line',NSR[0],{///
+676371	        'line-color':['get','colour'],'line-width':Z(.9,1.8),'line-opacity':['get','strength']///
+676372	A(2,'line',NSR[0],{///
+676373	        'line-color':FL,'line-width':Z(1.2,2.4),'line-opacity':.8,'line-dasharray':[.2,3.2]///
+676374	      },{'line-cap':'round'});
+676375	A(3,'line',NSR[0],{///
+676376	        'line-color':FL,'line-width':Z(.9,1.8),'line-opacity':.45,'line-dasharray':[.2,3.2]///
+676377	A(4,'circle',NSR[1],{///
+676378	        'circle-radius':Z(6,13),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':TL,'circle-stroke-width':1,'circle-stroke-opacity':.4///
+676379	try{///
+676380	      A(6,'symbol',NSR[1],{///
+676381	          'text-color':'#a9c4c9','text-halo-color':'#000c10','text-halo-width':1.5,'text-opacity':.9///
+676382	        },{///
+676383	          'text-field':['get','label'],'text-size':10,'text-offset':[0,-1.5],'text-anchor':'bottom','text-allow-overlap':false,'text-font':sf(m)///
+676384	    }catch(e){note('neon labels: '+msg(e))}
+676385	m.addSource(NSR[2],{///
+676386	        type:'geojson',data:FC([{///
+676387	              type:'Feature',properties:{},geometry:{type:'Point',coordinates:o}///
+676388	            }])///
+676389	A(7,'circle',NSR[2],{///
+676390	        'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':TC,'circle-stroke-width':6,'circle-stroke-opacity':.13,'circle-blur':.4///
+676391	A(8,'circle',NSR[2],{///
+676392	        'circle-radius':Z(11,26,14),'circle-color':'rgba(0,0,0,0)','circle-stroke-color':'#cfe9ed','circle-stroke-width':1.6,'circle-stroke-opacity':.85///
+676393	/// Flow: the cartridge's own 24 frozen dash patterns (measure.flowDash) when present; off under reduced motion.
+676394	if(rm){///
+676395	      m.setPaintProperty(NI[2],'line-opacity',0);///
+676396	      m.setPaintProperty(NI[3],'line-opacity',0)///
+676397	    }else if(typeof requestAnimationFrame=='function'){///
+676398	      let ph=0;///
+676399	      let fd=typeof M.flowDash=='function'?M.flowDash:p=>{///
+676400	        let s=Math.floor(p/1.5*24)%24/24*1.5;///
+676401	        return[.001,MX(.001,s),.42,MX(.001,1.5-s)]///
+676402	      },mo={},
+676403	set=(i,p)=>{///
+676404	        let d=fd(p),j=d.join();///
+676405	        if(mo[i]!==j){///
+676406	          mo[i]=j;///
+676407	          m.setPaintProperty(NI[i],'line-dasharray',d)///
+676408	        }///
+676409	      },st=()=>{///
+676410	        ph=(ph+.055)%1.5;///
+676411	        try{set(2,ph);///
+676412	          set(3,(ph+.75)%1.5)}catch(_){S.raf=null;///
+676413	          return}S.raf=requestAnimationFrame(st)///
+676414	      S.raf=requestAnimationFrame(st)///
+676415	/// nf: fired on the tap; retried every 2 s (15 times) while the same card is open if the substation list is not loaded yet.
+676416	/// The project view always flies to the project, even with no substation within 40 km (build-M2 nf-fly).
+676417	nf=(m,c,x,y,n)=>{///
+676418	    if(S.pp!==c)return;///
+676419	    let k;///
+676420	    try{k=nr(m,c,x,y)}catch(e){///
+676421	      note('nearest: '+msg(e));///
+676422	      nc();///
+676423	      c.out.textContent='Substation data unavailable.';///
+676424	      return cpos()///
+676425	    }cpos();
+676426	if(AI(k)){///
+676427	      c.sm.textContent+=k.length?` · ${k.length} nearest substations`:` · no substation within ${k.radiusKm||40} km`;///
+676428	      if(k.length||c.o.np)nz(m,x,y);///
+676429	    }if(n)setTimeout(()=>nf(m,c,x,y,n-1),2e3)///
+676430	/// M4 (M2R-taps MAJOR T1): MapLibre 3.6.2's stop() fires moveend synchronously, so a pending once('moveend', ck) ran its
+676431	/// fitBounds nested inside the next camera move, left an orphan render frame and froze redraws after fast row/back cycles.
+676432	/// cw: the pending framing runs in a microtask after the stop that fired it, only when the map is then not moving.
+676433	/// cm: every module camera move first drops the module's pending framing (nz, ck, RpR, the cluster zoom, the fit button).
+676434	cw=()=>Promise.resolve().then(()=>{let m=mh();///
+676435	      m&&!(m.isMoving&&m.isMoving())&&ck()}),///
+676436	  cm=m=>m.off&&m.off('moveend',cw),
+676437	/// nz: the original arrival's flyTo (zoom 12, 1200 ms), then frame at moveend.
+676438	nz=(m,x,y)=>{///
+676439	      cm(m);///
+676440	      m.flyTo({center:[x,y],zoom:12,duration:1200,essential:true});///
+676441	      typeof m.once=='function'?m.once('moveend',cw):ck()///
+676442	    }catch(e){note('camera: '+msg(e))}///
+676443	/// ck: frame S.fk when an end is outside the free area (screen pixels: x 20..W-R+20, y T-20..H-B), or always with f === 1
+676444	/// (M2R-layout F2). Padding: top 150, sides 40, bottom card + 24 capped at H-270 only when L3's fit is impossible
+676445	/// (M2R-diff MD1); docked card (c.sd, fix C): top 60, right card width + 32, bottom 100.
+676446	ck=f=>{///
+676447	      let m=mh(),c=S.pp,k=S.fk,C=m&&m.getContainer(),H=C&&C.clientHeight||1e4,d=c&&c.sd,B=d?100:c&&(c.bb+c.offsetHeight||196)+24,R=d?c.offsetWidth+32:40,T=d?60:150;///
+676448	      if(!c||!k||f!==1&&k.every(a=>{///
+676449	            let p=m.project(a);///
+676450	            return p.x>=20&&p.x<=(C.clientWidth||1e4)-R+20&&p.y>=T-20&&p.y<=H-B///
+676451	          }))return;///
+676452	      let[w,s]=k[0],[e,n]=k[0];///
+676453	      for(let[a,o]of k){w=MN(w,a);///
+676454	        e=MX(e,a);///
+676455	        s=MN(s,o);///
+676456	        n=MX(n,o)}
+676457	cm(m);///
+676458	      m.fitBounds([[w,s],[e,n]],{///
+676459	          padding:{///
+676460	            top:T,left:40,right:R,bottom:d?B:H-150>B?B:MX(0,H-270)///
+676461	          },maxZoom:12,duration:900///
+676462	/// 11 REPD on the map, per variant: "layers" switches the listed technologies' own REPD layers on through their Layers
+676463	/// checkboxes (M3/M4); "dots" draws only the listed sites as REPD-styled dots and never touches a Layers control (M4b).
+676464	RpD=(m,P)=>{///
+676465	    let d=FC(P.flatMap((g,k)=>g.parts.map(p=>({///
+676466	              type:'Feature',properties:{///
+676467	                t:p.tech,c:+p.capacity>0?+p.capacity:0,k,o:RpO.indexOf(p.tech)///
+676468	              },geometry:{type:'Point',coordinates:g.a}///
+676469	            })))),
+676470	  m.addLayer({///
+676471	        id:NI[12],type:'circle',source:NSR[5],filter:['any',['all',['==',T,'solar'],['>=',['get','c'],4]],['all',['==',T,'solar_roof'],['>=',['get','c'],1]]],
+676472	    paint:{///
+676473	          'circle-color':R(I(1,'#ff8c00',5,'#ff6600',10,'#ff4400'),I(4,'#ffff00',20,'#ffaa00',50,'#ff4400',200,'#ff0000')),'circle-radius':R(I(1,26,2,30,5,36,10,44),///
+676474	            I(4,22,20,32,50,44,200,60,500,80)),
+676475	          'circle-color':['match',T,'solar_roof',I(0,'#ffcc00',.99,'#ffcc00',1,'#ff8c00',5,'#ff6600',10,'#ff4400'),///
+676476	            'solar',I(0,'#ffff00',20,'#ffcc00',50,'#ffaa00',200,'#ff6600',500,'#ff2200'),
+676477	      'circle-radius':R(I(0,7,.5,7,.99,8,1,16,2,18,5,22,10,28),///
+676478	            I(0,8,10,10,50,13,200,17,500,22,1000,28)),'circle-stroke-width':R(I(0,1,.99,1,1,2),///
+676479	            1.5),'circle-stroke-color':'#000','circle-opacity':R(.9,.85)///
+676480	      })///
+676481	Ly=(id,on)=>{///
+676482	    let h=Q('scada-ui-container'),b=h&&h.querySelector(`input[data-layer-id="${id}"]`);///
+676483	    if(!b||b.disabled||!!b.checked===on)return 0;
+676484	  S.lyx=1;///
+676485	      b.checked=on;///
+676486	      b.dispatchEvent(new Event('change',{bubbles:true}))///
+676487	    }catch(e){note('REPD layer '+id+': '+msg(e))}finally{S.lyx=0}return 1///
+676488	Ry=(need=[])=>{///
+676489	    let o=S.ly||(S.ly=new Set);///
+676490	    for(let id of[...o])if(!need.includes(id)){o.delete(id);///
+676491	      Ly(id,false)}
+676492	/// 11b M5: the full REPD record of a listed project (owner, 29 Oct 2026 02:21 UTC: "list all 10 sites, their names and
+676493	/// distances and full addresses as per REPD following the pattern from the grid engine").
+676494	/// Source: the SAME file, read the SAME way, as the engine's own project search (atlas/cartridges/
+676495	/// 202609071213-place-global-search-v9-5.js:14-17 and :280-310, whose popup at :413-416 is the card pattern:
+676496	/// name, technology, MW, "<address> · <postcode> · <county>", "REPD <ref> · <status>"): the pinned
+676497	/// data/repd_projects_202608290716.parquet (REPD July 2026 / Q2 extract, DESNZ, published 3 Aug 2026, OGL v3.0;
+676498	/// 11,069 rows, one per REPD ref), queried through the page's shared DuckDB runtime (window.__GRIDATLAS_DUCKDB_RUNTIME__,
+676499	/// built by the streaming-parquet bridge, prewarmed after 400 kV), only after the pinned manifest's SHA-256 and its
+676500	/// parquet identity check out. Only the listed points are queried, on a tap, with the module's 15 s timeout (TMO);
+676501	/// rows are cached per point for the page (S.rc), so a filter press or a re-tap reads the cache.
+676502	/// The join: the map register (src-repd, April 2026) carries no REPD ref and no address. A register part gets a record
+676503	/// only when EXACTLY ONE record has: the same point (each axis within 1e-6°), the same name after whitespace collapse,
+676504	/// NFC and the cp1252 C1 repair only, the same MW (both <=0/absent = not stated) and the same REPD technology string.
+676505	/// Otherwise the card says "address not in register". A ref or an address is never inferred. Over the whole register
+676506	/// this joins 10,503 of 10,784 rows and never gives one record to two rows (suite M5-3; evidence/M5-build).
+676507	/// Reusable (the offtakers overlay): window.__GRIDATLAS_MODULES__.repdRecords = {source, manifest, records, join, block}:
+676508	///   records(points [[lon,lat]]) -> Promise<Map "lon,lat" -> record rows at that point>
+676509	///   join(registerProps, point, map) -> record | null (no exact single match) | undefined (not loaded yet)
+676510	///   block(registerProps, point, map, error) -> the card block (data-tier="record")
+676511	/// RpQ: fetch the record rows at the given points (uncached ones only); the SQL holds only numbers from the register.
+676512	/// RpZ: the name normalisation of the join (whitespace, NFC, cp1252 C1 characters); nothing else.
+676513	/// RpJ: the exact join (see above).
+676514	/// RpB: one project's record block in the engine card pattern; missing fields are said, never filled; an operator the
+676515	/// record marks as possibly a person (applicant_publication_state != REPD_AS_PUBLISHED) is not shown.
+676516	/// M6: a record already cached shows even when a later fetch fails; the failure line is a retry button (RpH).
+676517	/// RpX: export once, frozen.
+676518	/// M6: the rows never wait: each slot shows "loading REPD record…" at once, then the record, or within 15 s in all
+676519	/// (one deadline over manifest, runtime, connect and query) "REPD record unavailable — tap to retry"; a tap retries.
+676520	RpH=(c,sl)=>{let t,F=(C,e)=>{clearTimeout(t);///
+676521	      if(S.pp==c)for(let[s,q]of sl){s.textContent='';///
+676522	        let b=ap(s,RpB(q,RpP.get(q),C,e));///
+676523	        if(/^REPD record u/.test(b.textContent)){b.style.cursor='pointer';///
+676524	          b.setAttribute('role','button');///
+676525	          b.addEventListener('click',()=>RpH(c,sl))}}///
+676526	    };F(S.rc);///
+676527	    Promise.race([RpQ(sl.map(v=>RpP.get(v[1]))),new Promise((_,j)=>t=setTimeout(()=>j(Error(TOE)),TMO))]).then(F,e=>F(S.rc,e))},
+676528	/// RpY: the Area summary (V-tiers Screening): every register row within 40 km (all statuses and technologies; the
+676529	/// list's filters do not apply), counted and its stated MW summed per technology class and per status class at 10 and
+676530	/// 40 km (repeated records of one scheme once; * = some capacities not stated); then the nearest substation per voltage
+676531	/// among the card's own 5 (c.k from nr). Counts and distances only.
+676532	/// 12 REPD projects near a tap (M, M2, M3): the register, the filter chips, the list, the links and the project view.
+676533	  let o=f.map(x=>{///
+676534	              let a=M.representativePoint(x.geometry);///
+676535	              if(a[0]===+a[0]&&a[1]===+a[1]&&!(a[0]==-7.55716&&a[1]==49.766807))return[a,x.properties||{}]///
+676536	            }catch(_){}return[]///
+676537	          }).filter(([a,p])=>a&&M.isProjectTech(p.tech));
+676538	RpS=s=>({///
+676539	      operational:'op','under construction':'cc','awaiting construction':'cc','application submitted':'pl'///
+676540	    })[String(s||'').toLowerCase()]||'?',
+676541	/// Rp: the REPD list of a lightning card: every register row is measured once (all 10,784 rows), then RpR renders it.
+676542	  /// M6: the sites come first in the open card (above the substations); the Area summary and the chips go below (c.b2).
+676543	    for(let[a,p]of G){///
+676544	          let km=M.distanceKm(x,y,...a);///
+676545	          if(km<=40){///
+676546	            let k=a+JSON.stringify(p);///
+676547	            if(!seen.has(k)){seen.add(k);RpP.set(p,a);///
+676548	              all.push({a,p,km})}///
+676549	        S.rgf=(S.rgf||0)+1;
+676550	        Ry();S.rgf=(S.rgf||0)+1;
+676551	/// RpR: render the list for the current filter (MR3: ties with the 10th site are kept), the summary, the chips, the rows,
+676552	/// the links and the camera. Every filter press re-renders it.
+676553	  for(let r of[...sel].sort((a,b)=>a.km-b.km)){///
+676554	      let g=[...groups.values()].find(g=>Math.abs(g.a[0]-r.a[0])<2e-4&&Math.abs(g.a[1]-r.a[1])<1e-4);///
+676555	      if(!g)groups.set(r.a.join(),g={a:r.a,km:r.km,parts:[]});///
+676556	      g.parts.push(r.p)///
+676557	  /// M6: box holds the rows (first, right under the heading), b2 the 10 km line, the Area summary and the chips.
+676558	    let row=ap(b2,el('div','display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:6px 0 2px'));///
+676559	      row.setAttribute('role','group');///
+676560	      row.setAttribute('aria-label','REPD '+lb.toLowerCase()+' filter');
+676561	    for(let[v,t]of defs){///
+676562	        let on=f[k]===v,b=ap(row,el('button',`min-height:44px;padding:0 10px;background:${on?'#2f6f75':'#050a0d'};border:1px solid #2f6f75;border-radius:3px;color:${on?'#e8f4f5':'#5fbdc2'};font:11px/1 monospace;cursor:pointer`,t));
+676563	      b.type='button';///
+676564	        b.dataset.lightningRepdFilter=k+':'+v;///
+676565	        b.setAttribute('aria-pressed',on);///
+676566	        b.addEventListener('click',()=>{///
+676567	            if(f[k]!==v&&S.pp===c){///
+676568	              f[k]=v;///
+676569	              RpR(m,c,pd,box);///
+676570	              b2.querySelector(`[data-lightning-repd-filter="${k}:${v}"]`)?.focus?.()///
+676571	      }}
+676572	  /// M5: sl collects one record slot per listed project (grouped sites expanded), filled by RpH below.
+676573	    b.href=location.pathname+'?'+new URLSearchParams({///
+676574	          longitude:g.a[0],latitude:g.a[1],technology:p.tech,project:p.name,capacity_mw:p.capacity,status:p.status///
+676575	    b.addEventListener('click',e=>{///
+676576	          if(e.ctrlKey||e.metaKey||e.shiftKey||e.button)return;///
+676577	          if(e.preventDefault)e.preventDefault();///
+676578	          RpV(m,c,g)///
+676579	  /// M5: the Record source line (V-tiers R3 with the two extracts named), then fill the record slots.
+676580	  c.n=P.length;c.u();c.sm.textContent=c.smb+' · '+(P.length?pl(P.length,'nearest REPD site'):'no REPD site within 40 km')+(all?'':` (${fa})`);///
+676581	    Ra(c,pd.textContent+' '+ol);
+676582	  /// dots (M4b): keep the drawn list for dot taps and say what the map shows.
+676583	  c.ps=P;///
+676584	    if(P.length)ap(box,///
+676585	  /// layers (M3): switch on the listed technologies' layers (Ry), name them on the card.
+676586	  let lt=RpU(P.flatMap(g=>g.parts),q=>q.tech).filter(t=>RL.includes(t)),h=Q('scada-ui-container');///
+676587	    Ry(lt);///
+676588	    lt=lt.filter(t=>{///
+676589	        let b=h&&h.querySelector(`input[data-layer-id="${t}"]`);///
+676590	        return b&&b.checked///
+676591	  if(lt.length)ap(box,///
+676592	      el('div','margin-top:6px;color:#8b9aa1;font-size:11px',///
+676593	        'Map: only these sites are drawn, in the REPD layer style; tap a dot for its project view. Your Layers are unchanged.'));
+676594	        `REPD map layers on for this list: ${lt.map(t=>{let q=Q('lbl-'+t);return q&&q.getAttribute('data-base-label')||t}).join(', ')}${S.ly.size?' (those switched on here go off when this card closes)':''}`));
+676595	  try{if(m.getLayer(NI[10])){m.getSource(NSR[3]).setData(ln);m.getSource(NSR[4]).setData(///
+676596	          nd);RpD(m,P)}
+676597	          nd)}
+676598	  else{///
+676599	        for(let l of NI.slice(9))m.getLayer(l)&&m.removeLayer(l);///
+676600	        for(let q of NSR.slice(3))m.getSource(q)&&m.removeSource(q);
+676601	    A(9,'line',NSR[3],{///
+676602	            'line-color':C,'line-width':Z(1,2),'line-opacity':.8,'line-dasharray':[2,2]///
+676603	          });///
+676604	        RpD(m,P);///
+676605	        A(10,///
+676606	          'circle',NSR[4],{///
+676607	            'circle-radius':Z(3,5),'circle-color':C,'circle-stroke-width':1///
+676608	          A(11,'symbol',NSR[4],{///
+676609	              'text-color':'#ffc48a','text-halo-color':'#000c10','text-halo-width':1.5///
+676610	            },{///
+676611	              'text-field':['get','label'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-font':sf(m)///
+676612	            })///
+676613	        }catch(e){note('neon labels: '+msg(e))}///
+676614	    }catch(e){note('project lines: '+msg(e))}
+676615	/// RpV: the project view of one site (a row or, with dots, a dot tap).
+676616	    'project',{///
+676617	        np:1,///
+676618	        g,///
+676619	        foot:'Record · REPD (DESNZ, Apr 2026, OGL v3.0). Status as registered, not as built. Lightning: optical flashes, not ground strikes; not evidence the project was struck.',
+676620	  /// M5: the project view shows each part's record above the substation list (from the cache, or when it arrives).
+676621	/// 13 panel: the Layers-panel group (main and fullscreen curtain), its label and status line, and the batched repaint pt.
+676622	/// BTN/NAV/DATE: the panel controls, in the shell's own classes. bg: build one panel group (key = main | fs); the menu's
+676623	/// bubble-phase click closer never sees these controls.
+676624	BTN=(a,t,x)=>`<button type="button" class="map-ctrl-btn" ${a}${x||''}>${t}</button>`,///
+676625	  NAV=(k,t,x)=>BTN(`data-lightning-nav="${k}"`,t,x),///
+676626	  ROW='style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0"',
+676627	bg=key=>{///
+676628	    let g=document.createElement('div');///
+676629	    g.className='key-group';///
+676630	    g.style.gridColumn='1/-1';///
+676631	    g.dataset.lightningGroup=key;
+676632	+['window','days','actual','flashes','refresh','searched','warning',///
+676633	      'footer'].map(k=>`<div data-cap="${k}"${k==='days'?' style="font-weight:bold"':k==='warning'?' style="color:#ffcc00"':k==='footer'?' style="font-size:11px;color:#bbb"':''}></div>`).join('')+'</div></div>';
+676634	let q=s=>g.querySelector(s),sf={///
+676635	      key,group:g,toggle:q('[data-lightning-control]'),label:q('[data-lightning-label]'),ctl:q('[data-lightning-controls]'),custom:q('[data-lightning-custom]'),from:q('[data-lightning-date="from"]'),to:q('[data-lightning-date="to"]'),dot:q('[data-lightning-dot]'),stx:q('.status-dot').lastChild,caps:{},nav:{},chips:{}///
+676636	g.querySelectorAll('[data-cap],[data-lightning-nav],[data-lightning-period]').forEach(n=>{///
+676637	        let d=n.dataset;///
+676638	        if(d.cap)sf.caps[d.cap]=n;///
+676639	        else if(d.lightningNav)sf.nav[d.lightningNav]=n;///
+676640	        else sf.chips[d.lightningPeriod]=n///
+676641	g.addEventListener('click',ev=>{///
+676642	        let b=ev.target.closest('button');///
+676643	        if(!b||!g.contains(b))return;///
+676644	        if(b.dataset.lightningPeriod)sp(b.dataset.lightningPeriod);///
+676645	        else if(b.dataset.lightningNav)nv(b.dataset.lightningNav,sf)///
+676646	/// txt/flag: write only on change. lt: the Layers label ("Lightning Flashes (Optical) [...]"); sl: the status line.
+676647	txt=(n,s)=>{if(n&&n.textContent!==s)n.textContent=s},///
+676648	  flag=(n,a,on)=>{if(n)on?n.setAttribute(a,''):n.removeAttribute(a)},
+676649	lt=(r,c,loading)=>{///
+676650	    if(!S.on)return BASE+' [WAIT]';///
+676651	    if(loading)return BASE+' [LOAD]';///
+676652	    if(!r||c.st==='FAIL')return BASE+' [FAIL]';
+676653	let n=fn(r);///
+676654	    return`${BASE} [${r.mode==='feed'?(n?N(n):'none seen')+' | '+(r.old?'last 7 days only':'live feed'):/UNKNOWN|BEFORE/.test(c.st)?(r.before?'UNKNOWN':'not yet searched')+' | '+(r.before?'before archive':sv(r,c)):(n?N(n):'none found')+' | '+sv(r,c)}]`///
+676655	  fn=r=>r.mode==='overview'||r.mode==='detail'&&(r.sk.length||r.fl.length)?r.arch:r.ev.length,
+676656	return st==='FAIL'?'FAIL · '+c.rs.join('; ')+z:(r.mode==='feed'?`${pl(n,'flash','es')} · ${r.old?'last 7 days only · older not yet collected':'live 7-day feed · searched unknown'}`:/UNKNOWN|BEFORE/.test(st)?(r.before?'unknown':'not yet searched')+' · '+(r.before?'before archive (from '+dm(r.idx.cutoff)+')':sv(r,c)):`${n?(r.sk&&r.sk.length?N(r.ev.length)+' of ':'')+pl(n,'flash','es'):st==='EMPTY-COVERED'?'no flashes detected':'none found'} · ${sv(r,c,1)}`).toUpperCase()+z///
+676657	/// pt: one batched repaint of every group: toggle, label, chips, CUSTOM, PREV/NEXT/LATEST, status dot and captions; S.last
+676658	/// is the published summary.
+676659	pt=loading=>{///
+676660	    S.busy=loading;///
+676661	    let now=Date.now(),r=S.res,c=r?cf(r,now):null,L=r?cp(r,now,c):null,text=lt(r,c,loading),fail=!!(c&&c.st==='FAIL'),w=r?r.w:null;
+676662	for(let sf of S.sfs){///
+676663	      if(sf.toggle.checked!==S.on)sf.toggle.checked=S.on;///
+676664	      txt(sf.label,text);///
+676665	      sf.label.style.opacity=fail?'0.6':'1'///
+676666	for(let k in sf.chips){///
+676667	        let b=sf.chips[k],na=!S.idx&&!!S.ie&&LONG.includes(k);///
+676668	        b.setAttribute('aria-pressed',b.classList.toggle('active',k===S.period));
+676669	if(LONG.includes(k)){///
+676670	          let d=b.lastChild;///
+676671	          if(!d||!d.tagName){///
+676672	            d=document.createElement('span');///
+676673	            d.style.opacity='.55';///
+676674	            ap(b,d)///
+676675	          }txt(d,na?' •':'');///
+676676	          b.title=na?'7-day feed only: the archive is not available yet':''///
+676677	let cu=S.period==='custom';///
+676678	      sf.custom.style.display=cu?'flex':'none';///
+676679	      if(S.idx)sf.from.min=sf.to.min=S.idx.cutoffDate;///
+676680	      sf.from.max=sf.to.max=ymd(now);///
+676681	      if(sf.from.value!==S.from)sf.from.value=S.from;///
+676682	      if(sf.to.value!==S.to)sf.to.value=S.to;
+676683	sf.nav.prev.disabled=loading||cu||!S.idx||!w||w.s<=S.idx.covStart||w.s-w.span<S.idx.cutoff;///
+676684	      sf.nav.next.disabled=sf.nav.latest.disabled=loading||cu||!w||w.atLatest;///
+676685	      flag(sf.nav.points,'hidden',!(r&&r.clp&&!r.big));///
+676686	      flag(sf.nav.fit,'hidden',loading||!(r&&r.ev.length));
+676687	sf.dot.style.background=loading?COLOUR('L'):c.colour;///
+676688	      txt(sf.stx,loading?'LOADING':sl(r,c));///
+676689	      if(!loading){///
+676690	        for(let k in L)txt(sf.caps[k],L[k]);///
+676691	        if(c)sf.caps.days.style.color=c.colour///
+676692	if(r&&!loading)S.last={///
+676693	      state:c.st,stale:c.stale,mode:r.mode,period:w.period,drawn:r.ev.length,cluster:!!r.cl,cap:cap(),cap_source:r.cs||null,index_count:r.ic===undefined?null:r.ic,failures:r.fl.length,reasons:c.rs,cells:r.gd?r.gd.fc.features.length:0///
+676694	    };///
+676695	    if(S.installed)fit()///
+676696	/// 14 actions: period, navigation, load, the ON/OFF switch, the toggle binding and the HIDE LAYERS clearance.
+676697	/// sp: choose a period (resets the PREV/NEXT stack and the LOAD POINTS consent).
+676698	sp=p=>{///
+676699	    S.period=p;///
+676700	    S.consent=false;///
+676701	    S.end=null;///
+676702	    S.h=[];///
+676703	    if(p==='custom'&&!S.from)S.from=S.to=ymd(Date.now());///
+676704	    ld()///
+676705	/// fb: the fit button: frame every drawn flash (a camera move: cm first).
+676706	fb=()=>{///
+676707	    let e=S.res&&S.res.ev,m=mh();///
+676708	    if(!e||!e.length||!m)return;///
+676709	    let a=180,b=90,c=-180,d=-90;///
+676710	    for(let f of e){///
+676711	      let[x,y]=f.geometry.coordinates;///
+676712	      a=MN(a,x);///
+676713	      b=MN(b,y);///
+676714	      c=MX(c,x);///
+676715	      d=MX(d,y)///
+676716	    }cm(m);///
+676717	    m.fitBounds([[a,b],[c,d]],{padding:40,maxZoom:9})///
+676718	/// nv: PREV, NEXT, LATEST, FIT, LOAD POINTS and CUSTOM apply. LATEST closes the card and its links (LR-taps F1).
+676719	if(which==='apply'){///
+676720	      let f=sf.from.value,t=sf.to.value,good=DRE.test(f)&&DRE.test(t)&&f<=t&&t<=ymd(now);///
+676721	      sf.from.style.borderColor=sf.to.style.borderColor=good?'':'#ff4444';
+676722	else if(which==='latest'){S.end=null;///
+676723	      S.h=[];///
+676724	      pc();///
+676725	      Ry();///
+676726	      return ld(true)}else if(which==='prev')S.h.push(S.end),S.end=w.s;///
+676727	    else if(which==='next')S.end=S.h.pop()||null;
+676728	/// ld: load and draw the current window; a newer load (S.serial) or OFF discards this one. The cell layer draws in its own
+676729	/// try, so a failed cell layer never marks the load FAIL (LR-regress m1). A period or page change closes the card.
+676730	ld=refresh=>{if(!refresh)pc(///
+676731	      );///
+676732	      ),Ry();///
+676733	    let serial=++S.serial,now=Date.now();if(refresh)S.ip=S.fp=null;pt(true);
+676734	S.res=r;///
+676735	        r.s=serial;///
+676736	        try{///
+676737	          dw(FC(r.ev.map((f,i)=>({///
+676738	                    type:'Feature',id:f.id,geometry:f.geometry,properties:{i,s:serial}///
+676739	                  }))),!!r.cl)///
+676740	        }catch(err){///
+676741	          note('draw: '+err.message);///
+676742	          r.fail=r.fail||'map layer: '+err.message///
+676743	        }try{dd(r.gd)}catch(e){note('cells: '+msg(e))}pt(false)///
+676744	/// so: switch ON (first request, map click listener, 10-minute refresh while at LATEST) or OFF (everything removed).
+676745	if(on){///
+676746	      S.end=null;///
+676747	      S.consent=false;///
+676748	      S.res=null;///
+676749	      let m=mh();///
+676750	      if(m&&!S.ck&&typeof m.on==='function'){///
+676751	        S.ck=1;///
+676752	        m.on('click',tap);///
+676753	        m.on('resize',cpos);///
+676754	        m.on('moveend',()=>{if(S.on&&S.res&&!S.busy)pt(false)})///
+676755	      S.serial++;///
+676756	      cx();///
+676757	      if(S.rz){S.rz.disconnect();///
+676758	        S.rz=S.ro=null}if(S.timer){clearInterval(S.timer);///
+676759	        S.timer=null}pt(false)///
+676760	/// bt: the panel's change listener (toggle). layers: a reader's tick or untick of a layer this module holds makes it the
+676761	/// reader's (the module's own dispatch runs with S.lyx set).
+676762	bt=c=>c.addEventListener('change',ev=>{///
+676763	      let t=ev.target;///
+676764	      if(t&&t.dataset&&t.dataset///
+676765	      let t=ev.target,d=t&&t.dataset;///
+676766	      if(!d)return;///
+676767	      if(d///
+676768	        .lightningControl==='toggle')so(///
+676769	        !!t.checked)///
+676771	        !!t.checked);///
+676772	      else if(!S.lyx&&S.ly)S.ly.delete(d.layerId)///
+676773	/// fit: keep Lightning-owned text clear of the shell's fixed HIDE LAYERS button (its live rect + 16 px; 96 px if absent).
+676774	fit=()=>{///
+676775	    let d=Q('gridatlas-dash-toggle'),b=d&&gr(d),v=b&&b.height;///
+676776	    if(d&&d!==S.ro&&typeof ResizeObserver=='function'){///
+676777	      if(S.rz)S.rz.disconnect();///
+676778	      (S.rz=new ResizeObserver(fit)).observe(S.ro=d)///
+676779	    }for(let sf of S.sfs){///
+676780	      let s=sf.group.style;///
+676781	      s.paddingBottom=(v?innerHeight-b.top+16:96)+'px';///
+676782	      s.paddingRight=(v?MX(0,gr(sf.group).right-b.left+16):0)+'px'///
+676783	/// 15 install: after the menu bar, Pipeline News and the map exist; the public NS.ukLightning surface.
+676784	/// ins: install after the menu bar, Pipeline News and the map exist; appended last to the Layers panel and the fullscreen
+676785	/// curtain. Polled every 250 ms and on DOM mutations until it succeeds.
+676786	if(!(M&&M.installed===true))miss.push('menuBar');///
+676787	    if(!(P&&P.installed))miss.push('pipelineLayers');///
+676788	    if(!mh())miss.push('map');///
+676789	    if(!host||!host.querySelector('.key-group'))miss.push('groups');///
+676790	    S.waiting_for=miss;///
+676791	    if(miss.length)return false;
+676792	S.installed=true;///
+676793	    pt(!S.res);///
+676794	    for(let e of['resize','orientationchange','click','transitionend'])addEventListener(e,fit);///
+676795	    return true///
+676796	if(typeof setInterval==='function'&&typeof MutationObserver==='function'){///
+676797	    let ob=new MutationObserver(()=>tick()),poll=setInterval(()=>tick(),250),
+676798	tick=()=>{///
+676799	      try{if(ins()){clearInterval(poll);///
+676800	          ob.disconnect()}}catch(e){note('install: '+msg(e))}///
+676801	    ob.observe(document.documentElement,{childList:true,subtree:true})///
+676802	/// The public surface: schema, generation, state, install, setOn, load, windowFor.
+676803	NS.ukLightning=Object.freeze({///
+676804	      schema:S.schema,generation:GEN,state:S,install:ins,setOn:so,load:()=>ld(true),windowFor:wf///
+676805	 * Build the potential-offtakers overlay module (atlas/modules/<GEN>-uk-offtakers-overlay.js) from its readable source in
+676806	 * tools/offtakers/src/, with the same deterministic text transform as the lightning overlay (tools/lightning/build.mjs
+676807	 * assemble(): files concatenated in name order, `///` source-only lines dropped, `///` line continuations joined,
+676808	 * `@@GEN@@` stamped). One variant, "base". docs/OFFTAKERS-SOURCE.md.
+676809	 *   node tools/offtakers/build.mjs --gen <GEN> [--out <file>]    # build; print size + sha256
+676810	 *   node tools/offtakers/build.mjs --check                       # the CI check (tools/ci/pr-gate.mjs, "offtakers-source")
+676811	 * --check: the newest atlas/modules/*-uk-offtakers-overlay.js must be listed in tools/offtakers/generations.json, and every
+676812	 * listed generation must rebuild from src/ byte for byte. With no offtakers module and an empty list it passes.
+676813	import { assemble } from '../lightning/build.mjs';
+676814	const MODULE_RE = /^(\d{12})-uk-offtakers-overlay\.js$/, VARIANTS = ['base'];
+676815	const sha256 = b => createHash('sha256').update(b).digest('hex');
+676816	export const modulePath = gen => path.join(ROOT, 'atlas', 'modules', `${gen}-uk-offtakers-overlay.js`);
+676817	export const build = gen => assemble({ variant: 'base', gen, variants: VARIANTS, srcDir: SRC_DIR });
+676818	  const reg = JSON.parse(fs.readFileSync(GENERATIONS, 'utf8')), listed = Object.keys(reg.generations || {}).sort();
+676819	  const gens = fs.readdirSync(path.join(ROOT, 'atlas', 'modules')).map(n => (MODULE_RE.exec(n) || [])[1]).filter(Boolean).sort(), newest = gens.at(-1);
+676820	  if (newest && !listed.includes(newest)) bad.push(`the newest offtakers generation ${newest} is not listed in tools/offtakers/generations.json`);
+676821	    const file = modulePath(g);
+676822	    const want = fs.readFileSync(file); let got;
+676823	    try { got = Buffer.from(build(g), 'utf8'); } catch (e) { bad.push(`${g}: source does not assemble: ${e.message}`); continue; }
+676824	    if (got.equals(want)) lines.push(`ok   ${g}: ${want.length} B sha256 ${sha256(want)} rebuilt byte for byte`);
+676825	    else { let i = 0; while (i < got.length && i < want.length && got[i] === want[i]) i++; bad.push(`${g}: rebuild differs from the committed module at byte ${i}`); }
+676826	  if (!listed.length && !newest) lines.push('ok   no offtakers generation yet');
+676827	  return { ok: !bad.length, lines };
+676828	    else if (/^--(gen|out)$/.test(a[i]) && a[i + 1] !== undefined) opt[a[i].slice(2)] = a[++i];
+676829	  if (opt.check) { const r = check(); for (const l of r.lines) console.log(l); process.exit(r.ok ? 0 : 1); }
+676830	  const buf = Buffer.from(build(opt.gen), 'utf8');
+676831	  console.log(JSON.stringify({ gen: opt.gen, bytes: buf.length, sha256: sha256(buf), out: opt.out || null }));
+676833	Potential-offtakers filter (lane OT-filter), 29 Oct 2026.
+676834	Deterministic. Standard library only. Run with:  python3 -I ot_filter.py --data data --out out
+676835	Inputs (data/):
+676836	  heavy_emitters_uk.json       NAEI 2023 point sources (globalgrid2050 @ 4f0f3a9b), OGL v3
+676837	  manifest_heavy_emitters.json NAEI manifest (source URL, year, formula)
+676838	  industrial_offtakers.geojson OSM industrial (ODbL)
+676839	  datacentres.geojson          OSM data centres (ODbL)
+676840	  power_plants.geojson         OSM power=plant gas+nuclear (ODbL)
+676841	  gppd/gppd.csv                WRI Global Power Plant Database v1.3.0 (CC BY 4.0); GBR rows only
+676842	  status_curated.csv           curated power-station status overrides, each with a source URL
+676843	Optional (not fetchable in this session; loaders are header-driven and skipped when absent):
+676844	  dukes_5_11.xlsx              DUKES 5.11 power stations (OGL v3)      --dukes <path>  (needs openpyxl)
+676845	  tec_register.csv             NESO TEC register (NESO Open Licence)   --tec <path>
+676846	Outputs (out/): offtakers_filtered.geojson, excluded_counts.json, top20_per_class.md, counts.md, run_log.txt
+676847	import argparse, csv, hashlib, json, math, os, re, sys
+676848	from collections import Counter, defaultdict, OrderedDict
+676849	GENERATION = "OT-filter-2026-10-29"
+676850	NAEI_URL = "https://naei.energysecurity.gov.uk/data/maps/emissions-point-sources"
+676851	NAEI_LIC = "OGL v3.0 (NAEI site: 'published by Defra, DESNZ and the Devolved Governments under the Open Government Licence')"
+676852	OSM_LIC = "ODbL 1.0, (c) OpenStreetMap contributors (open, attribution + share-alike; not in the owner's OGL/CC-BY/CC0 list: owner to confirm)"
+676853	GPPD_URL = "https://github.com/wri/global-power-plant-database"
+676854	GPPD_LIC = "CC BY 4.0 (WRI Global Power Plant Database v1.3.0)"
+676855	GG_RAW = "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/4f0f3a9bf9fcd9560adf6ce2058adab4936fbe9f/"
+676856	WATER_TYPES = {"Wastewater Plant", "Water Works", "Water Treatment", "Sewage Plant", "Water", "Sewage"}
+676857	BBOX = (-11.0, 49.5, 3.0, 61.5)
+676858	# ---------- helpers ----------
+676861	    with open(path, "rb") as f:
+676862	        for chunk in iter(lambda: f.read(1 << 20), b""):
+676865	def hav_km(a, b):
+676866	    lon1, lat1 = map(math.radians, a); lon2, lat2 = map(math.radians, b)
+676867	    d = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+676868	    return 2 * 6371.0088 * math.asin(math.sqrt(d))
+676869	def in_bbox(c):
+676870	    return isinstance(c, (list, tuple)) and len(c) == 2 and all(isinstance(v, (int, float)) for v in c) \
+676871	        and BBOX[0] <= c[0] <= BBOX[2] and BBOX[1] <= c[1] <= BBOX[3]
+676872	def norm(s):
+676873	    s = (s or "").lower()
+676874	    s = re.sub(r"\b(ltd|limited|plc|llp|co|company|uk|the|power|station|generation|energy|centre|center|ccgt|chp|site|works|plant)\b", " ", s)
+676875	    s = re.sub(r"[^a-z0-9 ]", " ", s)
+676876	    return " ".join(s.split())
+676877	def tokens(s):
+676878	    return set(t for t in norm(s).split() if len(t) > 2)
+676879	def unknown(s):
+676880	    return (not s) or s.strip().lower().startswith("unknown") or s.strip().lower() in ("unnamed", "nan", "none")
+676881	def band(t):
+676882	    """Emission band from the NAEI-derived figure. Shown as a band, never as a number."""
+676883	    if t is None: return None
+676884	    if t >= 100000: return ">=100 kt"
+676885	    if t >= 25000: return "25-100 kt"
+676886	    if t >= 10000: return "10-25 kt"
+676887	    if t >= 1000: return "1-10 kt"
+676888	    return "<1 kt"
+676889	BAND_RANK = {None: -1, "<1 kt": 0, "1-10 kt": 1, "10-25 kt": 2, "25-100 kt": 3, ">=100 kt": 4}
+676890	# ---------- taxonomy ----------
+676891	# (A) energy-intensive industry subclass from NAEI sector, refined by name/operator keywords
+676892	MINERAL_KW = [
+676893	    ("glass", r"glass|pilkington|guardian industries|\bo-i\b|rockware|ardagh|encirc|quinn glass|beatson clark|stolzle"),
+676894	    ("bricks_clay", r"brick|ibstock|forterra|wienerberger|hanson building|clay|\btile|marley|plasmor|naylor|redland"),
+676895	    ("gypsum_board", r"gypsum|plasterboard|\bbpb\b|knauf|british gypsum|saint-gobain"),
+676896	    ("insulation", r"rockwool|knauf insulation|superglass|isover|armstrong world"),
+676897	    ("ceramics", r"ceramic|pottery|sanitary|wedgwood|churchill|steelite|norcros|imerys|prince minerals|unifrax"),
+676898	    ("aggregates_asphalt", r"quarry|asphalt|aggregate|tarmac|cemex|lafarge|hanson|breedon|roadstone|eurovia|civil and marine|mine\b|potash"),
+676900	SECTOR_MAP = {
+676901	    "Cement": ("A", "cement"),
+676902	    "Lime": ("A", "lime"),
+676903	    "Iron & steel industries": ("A", "steel"),
+676904	    "Non-ferrous metal industries": ("A", "metals_nonferrous"),
+676905	    "Paper, printing & publishing industries": ("A", "paper_pulp"),
+676906	    "Chemical industry": ("A", "chemicals"),
+676907	    "Processing & distribution of petroleum products": ("A", "refining_petroleum"),
+676908	    "Food, drink & tobacco industry": ("A", "food_drink"),
+676909	    "Other industries": ("A", "other_manufacturing"),
+676910	    "Vehicles": ("A", "other_manufacturing"),
+676911	    "Electrical engineering": ("A", "other_manufacturing"),
+676912	    "Mechanical engineering": ("A", "other_manufacturing"),
+676913	    "Textiles, clothing, leather & footwear": ("A", "other_manufacturing"),
+676914	    "Other fuel production": ("A", "other_manufacturing"),
+676915	    "Oil & gas exploration and production": ("A", "oil_gas_terminal"),
+676916	    "Processing & distribution of natural gas": ("A", "gas_processing_terminal"),
+676917	    "Other mineral industries": ("A", "minerals_other"),
+676918	    "Water & sewerage": ("D", "water_wastewater"),
+676919	    "Major power producers": ("B", None),
+676920	    "Minor power producers": ("B", None),
+676921	    "Waste collection, treatment & disposal": ("WASTE", None),
+676922	    "Public administration": ("E", "public_campus"),
+676923	    "Commercial": ("E", "commercial"),
+676924	    "Agriculture, forestry & fishing": ("X", "agriculture"),
+676925	    "Construction": ("X", "construction"),
+676926	    "Miscellaneous": ("X", "misc"),
+676927	EFW_KW = r"efw|energy from waste|energy recovery|\berf\b|resource recovery|incinerat|generating station|\bchp\b|power|energy works|waste to energy|recycling & energy|energy centre"
+676928	DC_KW = r"data ?cent(re|er)"
+676929	CAMPUS_KW = r"airport|naval base|port of|dockyard|university|hospital|infirmary|medical centre|nhs|awe\b|aldermaston|research|institute"
+676930	def power_subclass(name, operator, t):
+676931	    s = f"{name} {operator}".lower()
+676932	    if re.search(r"nuclear|hinkley|heysham|hartlepool|torness|sizewell|dungeness|hunterston|wylfa|oldbury|british energy|nnb generation|edf energy nuclear", s):
+676933	        return "nuclear"
+676934	    if re.search(r"biomass|renewable energy plant|steven's croft|markinch|lynemouth|drax|wood|pellet", s):
+676935	        return "biomass"
+676936	    if re.search(r"landfill|biogas|anaerobic|sewage gas", s):
+676937	        return "landfill_biogas"
+676938	    if re.search(r"efw|energy from waste|energy recovery|\berf\b|incinerat|waste", s):
+676939	        return "energy_from_waste"
+676940	    if re.search(r"\bchp\b|cogeneration|energy centre|heat (&|and) power|district|heat network|hospital|university|infirmary", s):
+676941	        return "chp_energy_centre"
+676942	    if re.search(r"peaking|reserve|\bstor\b|standby|velox|conrad|mercia power|rolls.royce power|plutus|statera|generation ltd|generation limited|flexible|ocgt|gas engine", s):
+676943	        return "peaking_reserve"
+676944	    if re.search(r"coal", s):
+676945	        return "coal"
+676946	    if t is not None and t >= 100000:
+676947	        return "gas_ccgt_large"
+676948	    return "thermal_unspecified"
+676949	# ---------- loaders ----------
+676950	def load_naei(path):
+676953	    for f in d["features"]:
+676954	        p = f["properties"]; c = f["geometry"]["coordinates"]
+676955	        out.append(dict(src="naei", id=p["id"], name=p["name"].strip(), operator=p["operator"].strip(),
+676956	                        sector=p["sector"], country=p["country"], datatype=p["datatype"],
+676957	                        t=float(p["emission_tco2e"]), lon=c[0], lat=c[1]))
+676959	def load_geojson(path, src):
+676960	    for i, f in enumerate(d["features"]):
+676961	        p = f.get("properties") or {}; g = f.get("geometry") or {}
+676962	        c = g.get("coordinates")
+676963	        if g.get("type") != "Point" or not in_bbox(c): continue
+676964	        out.append(dict(src=src, id=f"{src}-{i}", name=(p.get("name") or "").strip(), operator=(p.get("operator") or "").strip(),
+676965	                        type=p.get("type") or p.get("source") or "", lon=c[0], lat=c[1]))
+676966	def load_gppd(path):
+676967	    with open(path, encoding="utf-8", newline="") as fh:
+676968	        for r in csv.DictReader(fh):
+676969	            if r["country"] != "GBR": continue
+676970	            if r["primary_fuel"] not in ("Coal", "Gas", "Oil", "Nuclear", "Cogeneration"): continue
+676971	            try: mw = float(r["capacity_mw"])
+676972	            except ValueError: mw = None
+676973	            out.append(dict(src="gppd", id=r["gppd_idnr"], name=r["name"].strip(), operator=r["owner"].strip(),
+676974	                            fuel=r["primary_fuel"], mw=mw, lon=float(r["longitude"]), lat=float(r["latitude"]),
+676975	                            year=r["commissioning_year"], gppd_source=r["source"], cap_year=r["year_of_capacity_data"]))
+676976	def load_status(path):
+676979	            if line.startswith("#") or not line.strip(): continue
+676980	            rows.append(line)
+676981	    rd = csv.DictReader(rows)
+676982	    return [dict(rx=re.compile(r["match_regex"], re.I), status=r["status"], date=r["status_date"],
+676983	                 note=r["fuel_note"], url=r["source_url"], verified=r["verified_in_session"]) for r in rd]
+676984	def load_dukes(path):
+676985	    """DUKES 5.11 (OGL). Header-driven: finds the sheet with 'Station Name' and 'Installed Capacity'."""
+676986	    if not path or not os.path.exists(path): return []
+676987	    try: import openpyxl
+676988	    except ImportError:
+676989	        print("openpyxl missing: DUKES skipped", file=sys.stderr); return []
+676992	        hdr = None
+676993	        for row in ws.iter_rows(values_only=True):
+676994	            vals = [str(v).strip() if v is not None else "" for v in row]
+676995	            if hdr is None:
+676996	                if any("station name" in v.lower() for v in vals) and any("capacity" in v.lower() for v in vals):
+676997	                    hdr = [v.lower() for v in vals]
+676999	            rec = dict(zip(hdr, vals))
+677000	            name = next((rec[k] for k in hdr if "station name" in k), "")
+677001	            if not name: continue
+677002	            cap = next((rec[k] for k in hdr if "capacity" in k), "")
+677003	            out.append(dict(src="dukes", name=name, company=next((rec[k] for k in hdr if "company" in k), ""),
+677004	                            fuel=next((rec[k] for k in hdr if k.startswith("fuel") or "type" in k), ""),
+677005	                            mw=float(re.sub(r"[^0-9.]", "", cap) or 0) or None,
+677006	                            year=next((rec[k] for k in hdr if "year" in k), ""),
+677007	                            location=next((rec[k] for k in hdr if "location" in k or "region" in k), "")))
+677008	def load_tec(path):
+677009	    with open(path, encoding="utf-8-sig", newline="") as fh:
+677010	        rows = list(csv.DictReader(fh))
+677012	        k = {kk.lower().strip(): (vv or "").strip() for kk, vv in r.items()}
+677013	        name = k.get("project name") or k.get("project_name") or ""
+677014	        if not name: continue
+677015	        out.append(dict(name=name, customer=k.get("customer name", ""), site=k.get("connection site", ""),
+677016	                        mw=k.get("mw connected", ""), status=k.get("project status", ""), plant_type=k.get("plant type", ""),
+677017	                        host=k.get("host to", "")))
+677018	# ---------- classification ----------
+677019	def classify_naei(r):
+677020	    """Returns (cls, subclass, reason) for one NAEI row, or ('X', sub, reason) when excluded."""
+677021	    if r["country"] == "Offshore":
+677022	        return "X", "offshore", "Offshore country: not a land site"
+677023	    cls, sub = SECTOR_MAP.get(r["sector"], ("X", "unmapped_sector"))
+677024	    s = f"{r['name']} {r['operator']}".lower()
+677025	    t = r["t"]
+677026	    if cls == "A" and sub == "minerals_other":
+677027	        for k, pat in MINERAL_KW:
+677028	            if re.search(pat, s): sub = k; break
+677029	    if cls == "A" and sub == "refining_petroleum" and re.search(r"refiner|stanlow|fawley|pembroke|grangemouth|humber|lindsey", s):
+677030	        sub = "refinery"
+677031	    if cls == "B":
+677032	        return "B", power_subclass(r["name"], r["operator"], t), "NAEI power-producer sector"
+677033	    if cls == "WASTE":
+677034	        if re.search(EFW_KW, s) and t >= 10000:
+677035	            return "B", "energy_from_waste", "NAEI waste sector, EfW/ERF keyword and >=10 kt"
+677036	        return "X", "waste_landfill_other", "waste sector without generator keyword or <10 kt"
+677037	    if cls == "E":
+677038	        if re.search(DC_KW, s):
+677039	            return "C", "data_centre", "NAEI commercial sector, data-centre keyword"
+677040	        if t >= 10000 and (re.search(CAMPUS_KW, s) or re.search(r"\bchp\b|energy centre", s)):
+677041	            return "E", sub, "NAEI public/commercial, >=10 kt, campus or CHP keyword"
+677042	        return "X", f"small_{sub}", "public/commercial <10 kt or no campus keyword"
+677043	    if cls == "D":
+677044	        if t >= 1000:
+677045	            return "D", "water_wastewater_large", "NAEI water & sewerage point source, band >=1 kt (large works)"
+677046	        return "D", "water_wastewater_listed_small", "NAEI water & sewerage point source <1 kt (listed, usually a sewage-gas CHP; off by default)"
+677047	    if cls == "X":
+677048	        return "X", sub, "sector outside taxonomy"
+677049	    return cls, sub, "NAEI sector map"
+677050	def btm_flag(cls, sub, s_lower, t, sources):
+677051	    """Honest on-site-combustion indicator. Values: evidence strings, never a claim of capacity."""
+677052	    if cls == "B": return "generator site (listed as power producer)"
+677053	    if re.search(r"\bchp\b|cogeneration|energy centre|heat (&|and) power|combined heat", s_lower):
+677054	        return "CHP/energy centre named in record"
+677055	    if "naei" in sources and t is not None and t >= 10000:
+677056	        if sub in ("cement", "lime", "glass", "bricks_clay", "ceramics", "steel", "gypsum_board", "aggregates_asphalt", "minerals_other"):
+677057	            return "CO2 reported to NAEI (combustion and/or process emissions, not distinguished)"
+677058	        return "CO2 reported to NAEI >=10 kt (fuel combustion on site is the usual source; not distinguished)"
+677059	    if "naei" in sources: return "CO2 reported to NAEI (<10 kt)"
+677060	    return "unknown (no open site-level register found)"
+677061	def nation(country, lon, lat):
+677062	    if country in ("England", "Scotland", "Wales", "Northern Ireland"): return country
+677063	    # OSM/GPPD rows carry no nation: coarse geometric fallback, flagged as approximate
+677064	    if lon < -5.3 and lat > 53.9 and lat < 55.4: return "Northern Ireland (approx)"
+677065	    if lat > 55.0 and not (lon > -2.5 and lat < 55.82): return "Scotland (approx)"
+677066	    if lon < -2.65 and 51.35 < lat < 53.45 and not (lon < -4.6 and lat < 51.75): return "Wales (approx)"
+677067	    return "England (approx)"
+677068	# ---------- main ----------
+677071	    ap.add_argument("--data", default="data"); ap.add_argument("--out", default="out")
+677072	    ap.add_argument("--dukes", default=None); ap.add_argument("--tec", default=None)
+677075	    log = []
+677076	    def L(*x): s = " ".join(str(v) for v in x); log.append(s); print(s)
+677077	    inputs = {}
+677078	    for fn in ["heavy_emitters_uk.json", "manifest_heavy_emitters.json", "industrial_offtakers.geojson", "datacentres.geojson",
+677079	               "power_plants.geojson", "gppd/gppd.csv", "status_curated.csv"]:
+677080	        p = os.path.join(a.data, fn); inputs[fn] = sha256(p); L("input", fn, inputs[fn][:16])
+677081	    manifest = json.load(open(os.path.join(a.data, "manifest_heavy_emitters.json")))
+677082	    naei = load_naei(os.path.join(a.data, "heavy_emitters_uk.json"))
+677083	    osm_ind = load_geojson(os.path.join(a.data, "industrial_offtakers.geojson"), "osm_ind")
+677084	    osm_dc = load_geojson(os.path.join(a.data, "datacentres.geojson"), "osm_dc")
+677085	    osm_pp = load_geojson(os.path.join(a.data, "power_plants.geojson"), "osm_pp")
+677086	    gppd = load_gppd(os.path.join(a.data, "gppd", "gppd.csv"))
+677087	    status_rows = load_status(os.path.join(a.data, "status_curated.csv"))
+677088	    dukes = load_dukes(a.dukes); tec = load_tec(a.tec)
+677089	    L("rows naei", len(naei), "osm_ind", len(osm_ind), "osm_dc", len(osm_dc), "osm_pp", len(osm_pp), "gppd GBR thermal", len(gppd),
+677090	      "dukes", len(dukes), "tec", len(tec))
+677091	    def status_of(name):
+677092	        for st in status_rows:
+677093	            if st["rx"].search(name): return st["status"] + st["date"]
+677095	    excluded = Counter(); reasons = defaultdict(Counter)
+677096	    sites = []  # merged site dicts
+677097	    # 1. NAEI rows: classify, then group rows within 100 m of same class (same operator or either unknown)
+677099	    for r in sorted(naei, key=lambda r: (int(r["id"]))):
+677100	        cls, sub, why = classify_naei(r)
+677101	        if cls == "X":
+677102	            excluded[f"naei:{sub}"] += 1; reasons["naei"][why] += 1; continue
+677103	        kept.append((cls, sub, why, r))
+677104	    L("naei kept", len(kept), "excluded", sum(v for k, v in excluded.items() if k.startswith("naei:")))
+677105	    for cls, sub, why, r in kept:
+677106	        merged = None
+677107	        for s in sites:
+677108	            if s["class"] != cls or s["_primary"] != "naei": continue
+677109	            if hav_km((s["lon"], s["lat"]), (r["lon"], r["lat"])) <= 0.1 and (
+677110	                    norm(s["operator"]) == norm(r["operator"]) or tokens(s["name"]) & tokens(r["name"])):
+677111	                if cls == "B" and status_of(s["name"]) != status_of(r["name"]): continue
+677112	                merged = s; break
+677113	        if merged:
+677114	            merged["records"].append(dict(source="NAEI", id=r["id"], name=r["name"], operator=r["operator"], sector=r["sector"]))
+677115	            merged["t"] = (merged["t"] or 0) + r["t"]
+677116	            if BAND_RANK[band(r["t"])] > BAND_RANK[band(merged["_t_lead"])]: merged["_t_lead"] = r["t"]
+677118	        sites.append(dict(_primary="naei", class_=None, **{"class": cls}, subclass=sub, name=r["name"], operator=r["operator"],
+677119	                          lon=r["lon"], lat=r["lat"], country=r["country"], t=r["t"], _t_lead=r["t"], mw=None, fuel=None,
+677120	                          records=[dict(source="NAEI", id=r["id"], name=r["name"], operator=r["operator"], sector=r["sector"])],
+677121	                          sources={"naei"}, why=why, osm_corroboration=[]))
+677122	    L("naei sites after 100 m grouping", len(sites))
+677123	    # 2. Power stations from GPPD (CC BY) and OSM power=plant (ODbL): merge into NAEI B sites within 1 km with a shared name token,
+677124	    #    otherwise add as new B sites.
+677125	    def merge_into_B(rec, src_label, dist_km=2.5):
+677126	        """Merge a GPPD/OSM power-plant record into an existing B site when: within dist_km, a shared name token
+677127	        (or the record is unnamed and within 0.5 km), and the curated status table gives the same answer for both
+677128	        names (so a closed coal station is never folded into the CCGT next door). Best match = most shared tokens, then nearest."""
+677130	            if s["class"] != "B": continue
+677131	            d = hav_km((s["lon"], s["lat"]), (rec["lon"], rec["lat"]))
+677132	            shared = tokens(s["name"]) & tokens(rec["name"])
+677133	            if not ((d <= dist_km and shared) or (unknown(rec["name"]) and d <= 0.5)): continue
+677134	            if status_of(s["name"]) != status_of(rec["name"]): continue
+677135	            score = (len(shared), -d)
+677136	            if best is None or score > best[0]: best = (score, s)
+677137	        if best:
+677138	            s = best[1]; s["records"].append(dict(source=src_label, **{k: rec.get(k) for k in ("id", "name", "operator", "fuel", "mw", "year")}))
+677139	            s["sources"].add(rec["src"])
+677140	            if rec.get("mw") and not s["mw"]: s["mw"] = rec["mw"]; s["fuel"] = rec.get("fuel")
+677141	            fuel_sub = {"Coal": "coal", "Nuclear": "nuclear", "Oil": "oil"}.get(rec.get("fuel"))
+677142	            if fuel_sub and s["subclass"] in ("thermal_unspecified", "gas_ccgt_large", "gas_other"): s["subclass"] = fuel_sub
+677144	    for g in sorted(gppd, key=lambda g: g["id"]):
+677145	        if merge_into_B(g, "GPPD"): continue
+677146	        sub = {"Nuclear": "nuclear", "Coal": "coal", "Oil": "oil", "Cogeneration": "chp_energy_centre"}.get(g["fuel"])
+677147	        if not sub: sub = power_subclass(g["name"], g["operator"], None); sub = "gas_ccgt_large" if (sub == "thermal_unspecified" and (g["mw"] or 0) >= 300) else ("gas_other" if sub == "thermal_unspecified" else sub)
+677148	        sites.append(dict(_primary="gppd", **{"class": "B"}, subclass=sub, name=g["name"], operator=g["operator"], lon=g["lon"], lat=g["lat"],
+677149	                          country=None, t=None, _t_lead=None, mw=g["mw"], fuel=g["fuel"],
+677150	                          records=[dict(source="GPPD", id=g["id"], name=g["name"], operator=g["operator"], fuel=g["fuel"], mw=g["mw"], year=g["year"], gppd_source=g["gppd_source"])],
+677151	                          sources={"gppd"}, why="GPPD GBR thermal plant (DUKES-derived), not in NAEI 2023", osm_corroboration=[]))
+677152	    for o in sorted(osm_pp, key=lambda o: o["id"]):
+677153	        if merge_into_B(o, "OSM power=plant"): continue
+677154	        if unknown(o["name"]):
+677155	            excluded["osm_pp:unnamed_unmatched"] += 1; continue
+677156	        sub = "nuclear" if o["type"] == "nuclear" else power_subclass(o["name"], o["operator"], None)
+677157	        if sub == "thermal_unspecified": sub = "gas_other"
+677158	        sites.append(dict(_primary="osm_pp", **{"class": "B"}, subclass=sub, name=o["name"], operator=o["operator"], lon=o["lon"], lat=o["lat"],
+677159	                          country=None, t=None, _t_lead=None, mw=None, fuel=o["type"],
+677160	                          records=[dict(source="OSM power=plant", id=o["id"], name=o["name"], operator=o["operator"], fuel=o["type"])],
+677161	                          sources={"osm_pp"}, why="OSM power=plant (gas/nuclear), not matched to NAEI or GPPD", osm_corroboration=[]))
+677162	    L("B sites after GPPD+OSM", sum(1 for s in sites if s["class"] == "B"))
+677163	    # 3. OSM industrial: keep strong-keyword sites; corroborate NAEI sites within 500 m; drop the rest.
+677164	    STRONG = r"refiner|steelworks|steel works|paper mill|papermill|glass works|glassworks|cement|chemical works|chemical plant|smelter"
+677166	    for o in sorted(osm_ind, key=lambda o: o["id"]):
+677167	        key = (o["name"], round(o["lon"], 4), round(o["lat"], 4))
+677168	        if key in seen: excluded["osm_ind:exact_duplicate"] += 1; continue
+677170	        is_water = o["type"] in WATER_TYPES
+677171	        near = None
+677172	            if s["_primary"] != "naei": continue
+677173	            if (s["class"] == "D") != is_water: continue
+677174	            if hav_km((s["lon"], s["lat"]), (o["lon"], o["lat"])) <= 0.5: near = s; break
+677175	        if near:
+677176	            near["osm_corroboration"].append(dict(source="OSM", id=o["id"], name=o["name"], type=o["type"], operator=o["operator"]))
+677177	            near["sources"].add("osm_ind"); excluded[f"osm_ind:{'water' if is_water else 'industrial'}_merged_into_naei"] += 1; continue
+677178	        if is_water:
+677179	            excluded["osm_ind:water_not_large"] += 1; continue
+677180	        s_l = f"{o['name']} {o['type']}".lower()
+677181	        if re.search(STRONG, s_l):
+677182	            sub = ("refinery" if "refiner" in s_l else "steel" if "steel" in s_l else "paper_pulp" if "paper" in s_l else
+677183	                   "glass" if "glass" in s_l else "cement" if "cement" in s_l else "chemicals" if "chemical" in s_l else "metals_nonferrous")
+677184	            sites.append(dict(_primary="osm_ind", **{"class": "A"}, subclass=sub, name=o["name"], operator=o["operator"], lon=o["lon"], lat=o["lat"],
+677185	                              country=None, t=None, _t_lead=None, mw=None, fuel=None,
+677186	                              records=[dict(source="OSM", id=o["id"], name=o["name"], operator=o["operator"], type=o["type"])],
+677187	                              sources={"osm_ind"}, why="OSM industrial with strong keyword, no NAEI site within 500 m", osm_corroboration=[]))
+677188	        elif o["type"] in ("Oil", "Oil Storage", "Oil Field"):
+677189	            excluded["osm_ind:fuel_storage_depot_or_well"] += 1
+677191	            excluded["osm_ind:minor_industrial"] += 1
+677192	    # 4. OSM data centres: group within 250 m; corroborate NAEI C sites within 500 m.
+677193	    dc_groups = []
+677194	    for o in sorted(osm_dc, key=lambda o: o["id"]):
+677195	            if s["class"] == "C" and s["_primary"] == "naei" and hav_km((s["lon"], s["lat"]), (o["lon"], o["lat"])) <= 0.5: near = s; break
+677196	            near["osm_corroboration"].append(dict(source="OSM", id=o["id"], name=o["name"], operator=o["operator"])); near["sources"].add("osm_dc")
+677197	            excluded["osm_dc:merged_into_naei"] += 1; continue
+677198	        g = None
+677199	        for gg in dc_groups:
+677200	            if hav_km((gg["lon"], gg["lat"]), (o["lon"], o["lat"])) <= 0.25 and (
+677201	                    unknown(gg["operator"]) or unknown(o["operator"]) or norm(gg["operator"]) == norm(o["operator"])): g = gg; break
+677203	            g["records"].append(dict(source="OSM", id=o["id"], name=o["name"], operator=o["operator"]))
+677204	            if unknown(g["name"]) and not unknown(o["name"]): g["name"] = o["name"]
+677205	            if unknown(g["operator"]) and not unknown(o["operator"]): g["operator"] = o["operator"]
+677206	            dc_groups.append(dict(_primary="osm_dc", **{"class": "C"}, subclass="data_centre", name=o["name"], operator=o["operator"], lon=o["lon"], lat=o["lat"],
+677207	                                  country=None, t=None, _t_lead=None, mw=None, fuel=None,
+677208	                                  records=[dict(source="OSM", id=o["id"], name=o["name"], operator=o["operator"])], sources={"osm_dc"},
+677209	                                  why="OSM data centre (telecom/building=data_center)", osm_corroboration=[]))
+677210	    for g in dc_groups:
+677211	        g["subclass"] = "data_centre_campus" if len(g["records"]) >= 2 else "data_centre"
+677212	    sites.extend(dc_groups)
+677213	    # 5. Status for class B
+677214	    for s in sites:
+677215	        if s["class"] != "B":
+677216	            s["status"] = "listed site (status not tracked)"; s["status_date"] = None; s["status_source"] = None; continue
+677217	        nm = s["name"]; hit = None
+677218	            if st["rx"].search(nm): hit = st; break
+677220	            s["status"] = hit["status"]; s["status_date"] = hit["date"]
+677221	            s["status_source"] = hit["url"] + (" (curated; not re-verified in session)" if hit["verified"] == "no" else "")
+677222	        elif "naei" in s["sources"]:
+677223	            s["status"] = "operating 2023 (reported emissions to NAEI 2023)"; s["status_date"] = "2023"; s["status_source"] = NAEI_URL
+677224	            s["status"] = "status unknown: listed in GPPD/OSM, not in NAEI 2023 point sources (may be closed, mothballed or small)"
+677225	            s["status_date"] = None; s["status_source"] = GPPD_URL if "gppd" in s["sources"] else "https://www.openstreetmap.org/copyright"
+677226	        # DUKES 5.11 (if supplied): presence in the May 2026 list = operational per DUKES
+677227	        if dukes:
+677228	            m = [d for d in dukes if tokens(d["name"]) & tokens(nm) and len(tokens(d["name"]) & tokens(nm)) >= 1]
+677230	                s["dukes_5_11"] = dict(station=m[0]["name"], company=m[0]["company"], fuel=m[0]["fuel"], mw=m[0]["mw"], year=m[0]["year"])
+677231	                if not hit: s["status"] = "operational (listed in DUKES 5.11, May 2026)"; s["status_date"] = "2026-05"; s["status_source"] = "https://www.gov.uk/government/statistics/electricity-chapter-5-digest-of-united-kingdom-energy-statistics-dukes"
+677232	        if tec:
+677233	            m = [t for t in tec if norm(t["name"]) == norm(nm)]
+677234	            if m: s["tec_register"] = [dict(project=t["name"], mw_connected=t["mw"], status=t["status"], site=t["site"]) for t in m]
+677235	    # 6. Build features (deterministic order)
+677236	    def size_metric(s):
+677237	        if s["class"] == "B" and s["mw"]:
+677238	            return dict(value=s["mw"], unit="MW installed capacity", source="GPPD v1.3.0 (DUKES-derived, capacity year " + str(next((r.get("gppd_source") and "2018-19" for r in s["records"] if r["source"] == "GPPD"), "")) + ")", basis="published installed capacity, not connection capacity")
+677239	        if s["t"] is not None:
+677240	            return dict(value=None, unit="emission band, tCO2e-approx, NAEI 2023", band=band(s["_t_lead"]),
+677241	                        source=NAEI_URL, basis="band only: CO2 as-carbon x44/12 and N2O x298 per repo manifest; other gases at raw mass; units unverified against the 2024 workbook")
+677242	        if s["class"] == "C": return dict(value=len(s["records"]), unit="OSM data-centre objects grouped within 250 m", source="OpenStreetMap", basis="no open IT-load figure exists")
+677243	        return dict(value=None, unit=None, source=None, basis="no open size metric for this record")
+677244	    def licence_for(s):
+677246	        if "naei" in s["sources"]: parts.append(("NAEI", NAEI_URL, NAEI_LIC))
+677247	        if "gppd" in s["sources"]: parts.append(("GPPD", GPPD_URL, GPPD_LIC))
+677248	        if s["sources"] & {"osm_ind", "osm_dc", "osm_pp"}: parts.append(("OpenStreetMap", "https://www.openstreetmap.org/copyright", OSM_LIC))
+677249	        return parts
+677250	    order = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4}
+677251	    sites.sort(key=lambda s: (order[s["class"]], s["subclass"], s["name"].lower(), s["lon"], s["lat"]))
+677252	    features = []; rank_values = []
+677253	    for i, s in enumerate(sites):
+677254	        sm = size_metric(s); lic = licence_for(s)
+677255	        s_l = f"{s['name']} {s['operator']} {' '.join(r.get('name','') for r in s['records'])}".lower()
+677256	        props = OrderedDict([
+677257	            ("id", f"OT-{s['class']}-{i:04d}"),
+677258	            ("class", s["class"]),
+677259	            ("class_label", {"A": "Energy-intensive industry", "B": "Power station", "C": "Data centre", "D": "Large water/wastewater works", "E": "Other large energy user"}[s["class"]]),
+677260	            ("subclass", s["subclass"]),
+677261	            ("name", s["name"] if not unknown(s["name"]) else None),
+677262	            ("operator", s["operator"] if not unknown(s["operator"]) else None),
+677263	            ("nation", nation(s["country"], s["lon"], s["lat"])),
+677264	            ("size_metric", sm),
+677265	            ("emission_band_naei_2023", band(s["_t_lead"]) if s["t"] is not None else None),
+677266	            ("status", s["status"]), ("status_date", s["status_date"]), ("status_source", s["status_source"]),
+677267	            ("onsite_combustion_indicator", btm_flag(s["class"], s["subclass"], s_l, s["_t_lead"], s["sources"])),
+677268	            ("records", s["records"]), ("osm_corroboration", s["osm_corroboration"]),
+677269	            ("inclusion_rule", s["why"]),
+677270	            ("sources", [dict(name=n, url=u, licence=l) for n, u, l in lic]),
+677271	            ("screening_note", "potential offtaker (screening): not a confirmed demand, contract or connection"),
+677273	        for k in ("dukes_5_11", "tec_register"):
+677274	            if k in s: props[k] = s[k]
+677275	        feat = OrderedDict([("type", "Feature"), ("geometry", {"type": "Point", "coordinates": [round(s["lon"], 6), round(s["lat"], 6)]}), ("properties", props)])
+677276	        rank_values.append((s["mw"] or 0, s["_t_lead"] or 0))
+677277	        features.append(feat)
+677278	    fc = OrderedDict([("type", "FeatureCollection"),
+677279	                      ("generation", GENERATION),
+677280	                      ("inputs_sha256", inputs),
+677281	                      ("naei_manifest", manifest),
+677282	                      ("caveat", "Sites listed in open registers. A listing is not electricity demand, a contract or a grid connection. Vicinity screening only."),
+677283	                      ("features", features)])
+677284	    with open(os.path.join(a.out, "offtakers_filtered.geojson"), "w", encoding="utf-8") as fh:
+677285	        json.dump(fc, fh, ensure_ascii=False, separators=(",", ":"), sort_keys=False)
+677286	    # 7. Counts and top-20 lists
+677287	    by_class = Counter(f["properties"]["class"] for f in features)
+677288	    by_sub = Counter((f["properties"]["class"], f["properties"]["subclass"]) for f in features)
+677289	    by_nat = Counter((f["properties"]["class"], f["properties"]["nation"].replace(" (approx)", "")) for f in features)
+677290	    by_status = Counter(f["properties"]["status"].split(" (")[0].split(":")[0] for f in features if f["properties"]["class"] == "B")
+677291	    with open(os.path.join(a.out, "counts.md"), "w", encoding="utf-8") as fh:
+677292	        fh.write(f"# Counts ({GENERATION})\n\nTotal features: {len(features)}\n\n## Per class\n\n| class | n |\n|---|---:|\n")
+677293	        for k in "ABCDE": fh.write(f"| {k} | {by_class[k]} |\n")
+677294	        fh.write("\n## Per class and subclass\n\n| class | subclass | n |\n|---|---|---:|\n")
+677295	        for (c, s), n in sorted(by_sub.items()): fh.write(f"| {c} | {s} | {n} |\n")
+677296	        fh.write("\n## Per class and nation (nation is NAEI's field; '(approx)' rows are a coarse geometric fallback for OSM/GPPD rows)\n\n| class | England | Scotland | Wales | Northern Ireland |\n|---|---:|---:|---:|---:|\n")
+677297	        for c in "ABCDE": fh.write(f"| {c} | " + " | ".join(str(by_nat[(c, n)]) for n in ("England", "Scotland", "Wales", "Northern Ireland")) + " |\n")
+677298	        fh.write("\n## Class B status\n\n| status | n |\n|---|---:|\n")
+677299	        for k, n in sorted(by_status.items()): fh.write(f"| {k} | {n} |\n")
+677300	        fh.write("\n## Excluded (reason: rows)\n\n| reason | rows |\n|---|---:|\n")
+677301	        for k, n in sorted(excluded.items()): fh.write(f"| {k} | {n} |\n")
+677302	    json.dump(dict(excluded=dict(sorted(excluded.items())), naei_reasons=dict(reasons["naei"])), open(os.path.join(a.out, "excluded_counts.json"), "w"), indent=1)
+677303	    rank_of = {id(f): rv for f, rv in zip(features, rank_values)}
+677304	    def rank(f):
+677305	        return rank_of[id(f)] + (f["properties"]["name"] or "",)
+677306	    with open(os.path.join(a.out, "top20_per_class.md"), "w", encoding="utf-8") as fh:
+677307	        fh.write(f"# 20 largest per class ({GENERATION})\n\nRank key: MW where published (class B via GPPD), else the internal NAEI 2023 figure (displayed only as a band, see spec), then name.\n")
+677308	        for c in "ABCDE":
+677309	            fh.write(f"\n## Class {c}\n\n| # | name | operator | subclass | nation | size | status | sources |\n|---:|---|---|---|---|---|---|---|\n")
+677310	            rows = sorted([f for f in features if f["properties"]["class"] == c], key=rank, reverse=True)[:20]
+677311	            for j, f in enumerate(rows, 1):
+677312	                p = f["properties"]; sm = p["size_metric"]
+677313	                size = f"{sm['value']:.0f} MW" if sm.get("unit", "") and str(sm["unit"]).startswith("MW") else (sm.get("band") or (f"{sm['value']} OSM objects" if sm.get("value") else "n/a"))
+677314	                fh.write(f"| {j} | {p['name'] or 'name not listed'} | {p['operator'] or 'operator not listed'} | {p['subclass']} | {p['nation']} | {size} | {p['status'][:40]} | {','.join(x['name'] for x in p['sources'])} |\n")
+677315	    L("features", len(features), dict(by_class))
+677316	    L("output sha256", sha256(os.path.join(a.out, "offtakers_filtered.geojson")))
+677317	    open(os.path.join(a.out, "run_log.txt"), "w").write("\n".join(log) + "\n")
+677319	/* uk-offtakers-overlay, generation @@GEN@@ (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+677320	GEN='@@GEN@@',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+677321	/// the filtered, classified open-data file (hardening lane OT-filter, ot_filter.py; owner's rules of 29 Oct 2026 02:57 UTC), served
+677322	/// from this repository and checked against its SHA-256 before anything is drawn
+677323	/// class: [chip label, fill, stroke, radius z6, radius z12, on by default]; s = the NAEI-listed small water works (a sub-chip)
+677324	/// power-station status groups (chips): operating, closing, closed or converted (a hollow ring), unknown
+677325	/// guarded fetch, as lightning's: 15 s timeout covering the body, redirect refused, "HTTP n" (REPD register and the M5 record join)
+677326	/// the pinned open data: XMLHttpRequest (the original bridge does not hook it), same timeout and redirect rules, then SHA-256 against the pin
+677327	/// the data file, once per page (pinned and hashed); a failed read is retried on the next switch-on
+677328	/// class, power-station status group and size step of one feature (pure; the tests call it on the pinned file).
+677329	/// z: ×1 / 1.25 / 1.5 by installed MW (<100, 100–1000, ≥1000; power stations with a GPPD figure) or by NAEI band (<10, 10–100, ≥100 kt)
+677330	/// ---- map layers (added on the first switch-on only) ----
+677331	/// the class chips and, for power stations, the status chips; a ring (closed, closing or converted) is hollow
+677332	/// ---- neon links (own ids) ----
+677333	/// draw: substation links from o (k = nearestSubstations result), the azure pin at o, and REPD site links (P = sites) when given
+677334	/// ---- REPD register (the map's own, as M2+) ----
+677335	/// 04 the full REPD record of a listed project: M5-build's exact join (RU..RpB), copied byte for byte from the built M5 module
+677336	/// (evidence/M5-build/tools/build-M5.mjs; tests/offtakers.test.mjs T8 compares it with M5_MODULE). Do not edit it here: re-copy it.
+677337	/// ---- M5-build's exact REPD record join, copied unchanged (evidence/M5-build/tools/build-M5.mjs) ----
+677338	/// sites: register rows within 40 km (exact duplicate rows once), filtered by the chips, grouped within about 10 m; the 15 nearest, ties at the 15th kept
+677339	/// ---- the card (lightning's dock, width, collapse; Escape closes) ----
+677340	/// ---- camera: M4's fixes (no camera move starts inside another) ----
+677341	/// ---- a tap on a site ----
+677342	/// substations (5 nearest, the original measure) and then the REPD register; retried while the engine data is still loading
+677343	/// area summary within a fixed 5 km: REPD by status group (stated MW; not stated counted, never 0), other listed sites by class, nearest substation
+677344	/// the list: chips, the 15 nearest sites with each project's full REPD record, the REPD links
+677345	/// record slots [[div, props]]: filled from the cache now and again when the rows at their points arrive (M5's RpQ/RpB)
+677346	/// CSV vicinity sheet: one row per listed REPD project and per substation, generated in the page
+677347	/// a row: fly to the REPD site and draw its own 5 nearest substations; "◀ back" restores the offtaker card
+677348	/// map tap: decided after every click handler of this tap has run, so an offtaker hit wins over a lightning card opened by the same tap
+677349	/// ---- the Layers group ----
+677352	const GEN='202610290045';
+677392	const GEN='202610290050';
+677394	const GEN='202610290246';
+677395	const GEN='202610290247';
+677396	const GEN='202610290314';
+677397	const GEN='202610290315';
+677398	/** 202610290400: the UK lightning overlay as its own cartridge (module 202610290045); sld-sandbox is the original 202609241334. tools/proofs/lightning-cartridge.mjs */
+677399	import { proveLightningCartridge } from './lightning-cartridge.mjs';
+677400	await proveLightningCartridge('202610290400');
+677401	/** 202610290400: the potential-offtakers overlay as its own cartridge (module 202610290400, after uk-lightning-overlay). tools/proofs/offtakers-cartridge.mjs */
+677402	import { proveOfftakersCartridge } from './offtakers-cartridge.mjs';
+677403	await proveOfftakersCartridge('202610290400');
+677404	 * The proof of a modular lightning generation: the UK lightning overlay
+677405	 * composed as its OWN cartridge ('uk-lightning-overlay', slot after-cartridge,
+677406	 * after sld-sandbox), with sld-sandbox back to the original 202609241334
+677407	 * bytes. docs/LIGHTNING-CARTRIDGE.md. Each such generation has a two-line
+677408	 * tools/proofs/<G>-uk-lightning-overlay.proof.mjs that calls this with G.
+677409	 * It asserts, against the composition that names G (atlas/current.json once
+677410	 * released, atlas/v/G/current.json until then):
+677411	 *   identity   G, the order [..., sld-sandbox, uk-lightning-overlay], the
+677412	 *              slot, the anchor, and every hash;
+677413	 *   sld        sld-sandbox is the original 202609241334 cartridge, 435,218
+677414	 *              bytes, sha256 7812953671d8...; nothing of the overlay is in it;
+677415	 *   module     the overlay cartridge IS atlas/modules/<M>-uk-lightning-overlay.js
+677416	 *              (no copy), within its 64,781-byte budget, names generation M,
+677417	 *              parses, and is one strict IIFE with nothing else at top level,
+677418	 *              so it declares no global binding and its strictness does not
+677419	 *              depend on the script it used to share;
+677420	 *   loader     the route's served loader is registered and supports the slots;
+677421	 *   parity     against M's monolithic composition (sld-sandbox = original +
+677422	 *              '\n' + the same module), both composed by their own served
+677423	 *              loaders in node:vm: the same scripts run in the same order,
+677424	 *              sld-sandbox(M) == sld-sandbox(G) + '\n' + overlay(G) byte for
+677425	 *              byte, and the composed HTML is identical except for the one
+677426	 *              overlay tag directly after the sld-sandbox tag and the
+677427	 *              published composition state. That is arrival parity: the
+677428	 *              arrival code (sld-sandbox) is byte-identical, at the same place
+677429	 *              in the document, before the same overlay bytes.
+677430	import { compose, ROOT } from './loader-composition.mjs';
+677431	export const ORIGINAL_SLD = Object.freeze({
+677432	  generation: '202609241334',
+677433	  path: 'atlas/cartridges/202609241334-sld-sandbox-v9-8.js',
+677434	  sha256: '7812953671d8bb22a566de5e98fd3137da2d23411c5aecd526df5afa111ca4ca',
+677435	  bytes: 435218
+677436	export const OVERLAY_ID = 'uk-lightning-overlay';
+677437	export const OVERLAY_BUDGET = 64781;
+677439	const readJson = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+677440	/** The route ('atlas/' or 'atlas/v/G/') whose current.json composes G. */
+677441	export function routeOf(G) {
+677442	  const live = readJson('atlas/current.json');
+677443	  if (String(live.generation) === G) return 'atlas/';
+677444	  return `atlas/v/${G}/`;
+677445	export async function proveLightningCartridge(G) {
+677446	  process.chdir(ROOT); // tools/scope/lib.mjs resolves from the working directory
+677447	  const { registeredLoader, slotsUsed, CARTRIDGE_BYTE_BUDGETS } = await import('../scope/lib.mjs');
+677448	  const route = routeOf(G);
+677449	  const current = readJson(`${route}current.json`);
+677450	  const at = (p) => path.resolve(ROOT, route, p);
+677451	  /* identity */
+677452	  assert.equal(String(current.generation), G, `${route}current.json declares ${current.generation}`);
+677453	  const order = current.cartridge_order;
+677454	  const byId = new Map(current.cartridges.map(c => [c.id, c]));
+677455	  assert.equal(order.indexOf(OVERLAY_ID), order.indexOf('sld-sandbox') + 1, 'the overlay is ordered directly after sld-sandbox');
+677456	  assert.equal(order.filter(id => id === OVERLAY_ID).length, 1);
+677457	  const sld = byId.get('sld-sandbox');
+677458	  const overlay = byId.get(OVERLAY_ID);
+677459	  assert.ok(sld && overlay, 'sld-sandbox and the overlay are both composed');
+677460	  assert.equal(overlay.type, 'script');
+677461	  assert.equal(overlay.slot, 'after-cartridge');
+677462	  assert.equal(overlay.after, 'sld-sandbox');
+677463	  assert.equal(overlay.generation, G, 'the overlay cartridge is cut at G (run-current finds this proof by it)');
+677464	  /* sld: the original cartridge, untouched */
+677465	  assert.equal(sld.slot, 'replace-script');
+677466	  assert.equal(sld.generation, ORIGINAL_SLD.generation);
+677467	  assert.equal(at(sld.path), path.join(ROOT, ORIGINAL_SLD.path), 'sld-sandbox is the original file, not a copy');
+677468	  const sldBytes = fs.readFileSync(at(sld.path));
+677469	  assert.equal(sha(sldBytes), ORIGINAL_SLD.sha256, 'the original 202609241334 sld-sandbox bytes are unchanged');
+677470	  assert.equal(sld.sha256, ORIGINAL_SLD.sha256);
+677471	  assert.equal(sldBytes.length, ORIGINAL_SLD.bytes);
+677472	  assert.equal(sldBytes.includes('uk-lightning-overlay'), false, 'nothing of the overlay is inside sld-sandbox');
+677473	  /* module: the overlay cartridge is the module file itself */
+677474	  const M = String(overlay.module_generation || '');
+677475	  assert.match(M, /^\d{12}$/, 'module_generation names the module stamp');
+677476	  const modulePath = path.join(ROOT, 'atlas', 'modules', `${M}-uk-lightning-overlay.js`);
+677477	  assert.equal(at(overlay.path), modulePath, 'the overlay cartridge path is the module itself (no copy)');
+677478	  const module = fs.readFileSync(modulePath);
+677479	  assert.equal(sha(module), overlay.sha256, 'overlay SHA-256');
+677480	  assert.equal(module.length, overlay.bytes, 'overlay bytes');
+677481	  assert.ok(module.length <= OVERLAY_BUDGET && module.length <= CARTRIDGE_BYTE_BUDGETS[OVERLAY_ID], `overlay ${module.length} B exceeds the ${OVERLAY_BUDGET}-byte budget`);
+677482	  const text = module.toString('utf8');
+677483	  assert.ok(text.includes(`generation ${M}`), 'module header names its generation');
+677484	  new vm.Script(text, { filename: modulePath });
+677485	  const body = text.replace(/^(\s*\/\*[\s\S]*?\*\/)*\s*/, '');
+677486	  assert.ok(body.startsWith("(()=>{'use strict';"), 'top level is one strict arrow IIFE');
+677487	  assert.ok(/\}\)\(\);\s*$/.test(body), 'and ends with its call');
+677488	  assert.equal((text.match(/\(\(\)=>\{'use strict'/g) || []).length, 1, 'exactly one IIFE');
+677489	  // Wrapped in parentheses the top level parses only if it is ONE expression:
+677490	  // a second statement, or a top-level let/const/function, is a SyntaxError.
+677491	  new vm.Script(`(${body.trim().replace(/;\s*$/, '')}\n)`, { filename: `${modulePath}#single-expression` });
+677492	  /* loader */
+677493	  const loader = registeredLoader(path.join(ROOT, route, 'index.html'));
+677494	  assert.ok(loader, `${route}index.html is not a registered loader`);
+677495	  for (const slot of slotsUsed(current)) assert.ok(loader.slots.includes(slot), `${route}index.html (${loader.name}) does not support ${slot}`);
+677496	  /* parity with the monolithic composition of the same module */
+677497	  const R = String(overlay.parity_reference || M);
+677498	  const refRoute = `atlas/v/${R}/`;
+677499	  const ref = readJson(`${refRoute}current.json`);
+677500	  const refSld = ref.cartridges.find(c => c.id === 'sld-sandbox');
+677501	  const refLoader = registeredLoader(path.join(ROOT, refRoute, 'index.html'));
+677502	  assert.ok(refLoader, `${refRoute}index.html is not a registered loader`);
+677503	  const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
+677504	  const [g0, r] = await Promise.all([
+677505	    compose({ loaderHtml: read(path.join(route, 'index.html')), route }),
+677506	    compose({ loaderHtml: read(path.join(refRoute, 'index.html')), route: refRoute })
+677507	  // Further after-cartridge overlays chained after this one (e.g. uk-offtakers-overlay, after uk-lightning-overlay) carry
+677508	  // their own proofs; they are taken out here, tag and script, so this parity is about the lightning overlay alone.
+677509	  const extra = current.cartridges.filter(c => c.slot === 'after-cartridge' && c.id !== OVERLAY_ID).map(c => c.id);
+677510	  const g = { ...g0, scripts: g0.scripts.filter(s => !extra.includes(s.id)),
+677511	    html: extra.reduce((h, id) => h.replace(new RegExp(`\\n<script data-gridatlas-cartridge="${id}" src="blob:gridatlas\\/\\d+"><\\/script>`), ''), g0.html) };
+677512	  for (const id of extra) assert.equal(g0.scripts.filter(s => s.id === id).length, 1, `${id}: one tag`);
+677513	  assert.equal(g.failed, false, `${route}: ${g.message} ${g.errors.join(' ')}`);
+677514	  assert.equal(r.failed, false, `${refRoute}: ${r.message} ${r.errors.join(' ')}`);
+677515	  const gIds = g.scripts.map(s => s.id), rIds = r.scripts.map(s => s.id);
+677516	  const k = rIds.indexOf('sld-sandbox');
+677517	  assert.deepEqual(gIds, [...rIds.slice(0, k + 1), OVERLAY_ID, ...rIds.slice(k + 1)], 'the same scripts in the same order, the overlay straight after sld-sandbox');
+677518	  for (let i = 0; i < k; i += 1) assert.equal(sha(g.scripts[i].source), sha(r.scripts[i].source), `${rIds[i]} differs from ${R}`);
+677519	  const joined = Buffer.concat([g.scripts[k].source, Buffer.from('\n'), g.scripts[k + 1].source]);
+677520	  assert.equal(sha(joined), refSld.sha256, `sld-sandbox(${R}) == sld-sandbox(${G}) + '\\n' + overlay(${G}), byte for byte`);
+677521	  for (let i = k + 1; i < rIds.length; i += 1) assert.equal(sha(g.scripts[i + 1].source), sha(r.scripts[i].source), `${rIds[i]} differs from ${R}`);
+677522	  // HTML: drop the one inserted overlay tag and the published state script;
+677523	  // everything else, every blob URL included, is the same document.
+677524	  const overlayTag = g.html.match(/\n<script data-gridatlas-cartridge="uk-lightning-overlay" src="blob:gridatlas\/\d+"><\/script>/g);
+677525	  assert.equal(overlayTag?.length, 1, 'one overlay tag');
+677526	  const sldTag = g.html.match(/<script data-gridatlas-cartridge="sld-sandbox" src="blob:gridatlas\/\d+"><\/script>/)[0];
+677527	  assert.ok(g.html.includes(sldTag + overlayTag[0]), 'the overlay tag sits directly after the sld-sandbox tag');
+677528	  const state = /<script>window\.__GRIDATLAS_ATLAS__=[^\n]*?<\/script>/;
+677529	  const gHtml = g.html.replace(overlayTag[0], '').replace(state, '<STATE>');
+677530	  const rHtml = r.html.replace(state, '<STATE>');
+677531	  assert.equal(gHtml, rHtml, `the composed document equals ${R}'s apart from the overlay tag and the published state`);
+677532	  console.log(`${G} uk-lightning-overlay: sld-sandbox is the original ${ORIGINAL_SLD.generation} (${ORIGINAL_SLD.bytes} B); overlay = atlas/modules/${M}-uk-lightning-overlay.js (${module.length} B <= ${OVERLAY_BUDGET}); loader ${loader.name}; arrival parity with ${R}: ${gIds.length} scripts, sld+'\\n'+overlay == ${R} sld-sandbox, document identical but for the overlay tag. PASS`);
+677533	 * Run the GridAtlas composer (atlas/index.html) in Node, without a browser,
+677534	 * and return exactly what it would hand to document.write: the composed HTML
+677535	 * and, in document order, the source of every script tag it points at a
+677536	 * verified cartridge blob.
+677537	 *   import { compose } from './loader-composition.mjs';
+677538	 *   const out = await compose({ loaderHtml, route: 'atlas/v/<gen>/' });
+677539	 * The loader's own module script is executed verbatim in a vm context. Only
+677540	 * the platform is stubbed: fetch reads the repository working tree (the bytes
+677541	 * GitHub Pages serves for this tree), crypto.subtle is Node's WebCrypto, and
+677542	 * URL.createObjectURL returns deterministic blob:gridatlas/<n> URLs so two
+677543	 * runs, or two loaders, can be compared byte for byte.
+677546	const ORIGIN = 'https://ventusltd.github.io';
+677547	const SITE = '/gridatlas/';
+677548	function response(file, virtual) {
+677549	  if (virtual) file = null;
+677550	  const bytes = virtual ? Buffer.from(virtual) : null;
+677551	  if (!bytes && (!file || !fs.existsSync(file) || !fs.statSync(file).isFile())) {
+677552	    return { ok: false, status: 404, async json() { throw new Error('404'); }, async text() { return ''; }, async arrayBuffer() { return new ArrayBuffer(0); } };
+677553	  const body = bytes || fs.readFileSync(file);
+677554	    ok: true, status: 200,
+677555	    async json() { return JSON.parse(body.toString('utf8')); },
+677556	    async text() { return body.toString('utf8'); },
+677557	    async arrayBuffer() { return body.buffer.slice(body.byteOffset, body.byteOffset + body.byteLength); }
+677558	export function loaderScript(loaderHtml) {
+677559	  const m = String(loaderHtml).match(/<script type="module">([\s\S]*?)<\/script>/);
+677560	  if (!m) throw new Error('loader has no module script');
+677561	  return m[1];
+677562	/** route: the served directory of the pointer, 'atlas/' (live) or 'atlas/v/<gen>/'.
+677563	    files: optional virtual files, { 'atlas/v/x/current.json': text }, served in
+677564	    place of (or in addition to) the working tree; nothing is written to disk. */
+677565	export async function compose({ loaderHtml, route = 'atlas/', files = {} }) {
+677566	  const href = `${ORIGIN}${SITE}${route}`;
+677567	  const blobs = new Map();
+677568	  let serial = 0;
+677569	  class StubURL extends URL {}
+677570	  StubURL.createObjectURL = (blob) => {
+677571	    const url = `blob:gridatlas/${++serial}`;
+677572	    blobs.set(url, blob);
+677574	  const written = [];
+677575	  const loader = { innerHTML: '' };
+677578	    getElementById: (id) => (id === 'gridatlas-loader' ? loader : null),
+677579	    body: { dataset: {} },
+677580	    open() {}, write(s) { written.push(s); }, close() {}
+677581	  const fetch = async (input) => {
+677582	    const u = new URL(String(input), href);
+677583	    if (u.origin !== ORIGIN || !u.pathname.startsWith(SITE)) return response(null);
+677584	    const rel = decodeURIComponent(u.pathname.slice(SITE.length));
+677585	    return response(path.join(ROOT, rel), Object.hasOwn(files, rel) ? files[rel] : null);
+677587	    window: { location: { href } }, document, fetch, URL: StubURL, Blob, crypto: webcrypto,
+677588	    console: { error: (...a) => errors.push(a.map(String).join(' ')), log() {} }
+677589	  await vm.runInContext(`(async () => {${loaderScript(loaderHtml)}\n})()`, context);
+677590	  const html = written.join('');
+677591	  const scripts = [];
+677592	  for (const m of html.matchAll(/<script data-gridatlas-cartridge="([^"]+)" src="(blob:gridatlas\/\d+)"><\/script>/g)) {
+677593	    scripts.push({ id: m[1], url: m[2], source: Buffer.from(await blobs.get(m[2]).arrayBuffer()) });
+677594	  return { html, scripts, failed: document.body.dataset.gridatlasRouter === 'failed', message: loader.innerHTML, errors };
+677595	 * Loader v2 (tools/scope/payloads/atlas-loader-v2.html) adds one slot type,
+677596	 * 'after-cartridge': a verified cartridge as its own script tag straight after
+677597	 * a cartridge composed before it. docs/LIGHTNING-CARTRIDGE.md. This proves:
+677598	 * 1. Served loaders. atlas/index.html and every atlas/v/<gen>/index.html is
+677599	 *    byte-identical to a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)
+677600	 *    that supports every slot its own current.json uses.
+677601	 * 2. Equivalence. For atlas/current.json and every pinned composition that
+677602	 *    uses only 'replace-script', v2 writes byte-for-byte the HTML v1 writes,
+677603	 *    pointing at byte-identical cartridge blobs. So moving the live
+677604	 *    atlas/index.html from v1 to v2 changes nothing for any of them, and a
+677605	 *    rollback to any of them is safe under either loader.
+677606	 * 3. Fail-closed. v1 refuses a composition that uses 'after-cartridge' (its
+677607	 *    failure screen, nothing written). v2 refuses an after-cartridge entry
+677608	 *    whose anchor is missing or composed later, whose bytes do not hash to the
+677609	 *    record, whose file is missing, or whose slot is unknown.
+677610	 * 4. Order. An after-cartridge entry executes immediately after its anchor;
+677611	 *    two entries on one anchor keep cartridge_order.
+677612	 * The loaders' own module scripts run verbatim in node:vm
+677613	 * (tools/proofs/loader-composition.mjs); only fetch, WebCrypto and blob URLs
+677614	 * are platform stubs.
+677615	 *   node tools/proofs/loader-equivalence.proof.mjs
+677616	process.chdir(ROOT); // tools/scope/lib.mjs resolves from the working directory
+677617	const { ATLAS_LOADERS, registeredLoader, slotsUsed } = await import('../scope/lib.mjs');
+677619	const v1 = read(ATLAS_LOADERS.v1.payload);
+677620	const v2 = read(ATLAS_LOADERS.v2.payload);
+677621	assert.notEqual(sha(v1), sha(v2), 'v1 and v2 payloads must differ');
+677622	for (const marker of ['crypto.subtle.digest', 'cartridge_order', 'replace-script', 'after-cartridge', 'document.write']) {
+677623	  assert.ok(v2.includes(marker), `loader v2 missing ${marker}`);
+677624	/* ------------------------------------------------ 1 and 2: every route */
+677625	const routes = ['atlas/'];
+677626	const vDir = path.join(ROOT, 'atlas', 'v');
+677627	for (const d of fs.readdirSync(vDir).filter(d => /^\d{12}$/.test(d)).sort()) {
+677628	  if (fs.existsSync(path.join(vDir, d, 'current.json'))) routes.push(`atlas/v/${d}/`);
+677629	const served = { v1: 0, v2: 0 };
+677630	let equal = 0, modular = 0;
+677631	for (const route of routes) {
+677632	  const pointer = JSON.parse(read(`${route}current.json`));
+677633	  const slots = slotsUsed(pointer);
+677634	  assert.ok(loader, `${route}index.html is not byte-identical to a registered loader`);
+677635	  for (const slot of slots) assert.ok(loader.slots.includes(slot), `${route}index.html is loader ${loader.name}, which does not support ${slot}`);
+677636	  served[loader.name] += 1;
+677637	  const now = await compose({ loaderHtml: v2, route });
+677638	  assert.equal(now.failed, false, `${route}: loader v2 failed: ${now.message} ${now.errors.join(' ')}`);
+677639	  const before = await compose({ loaderHtml: v1, route });
+677640	  if (slots.every(s => s === 'replace-script')) {
+677641	    assert.equal(before.failed, false, `${route}: loader v1 failed: ${before.message}`);
+677642	    assert.equal(now.html, before.html, `${route}: v2 composes different HTML from v1`);
+677643	    assert.deepEqual(now.scripts.map(s => [s.id, sha(s.source)]), before.scripts.map(s => [s.id, sha(s.source)]), `${route}: cartridge blobs differ`);
+677644	    equal += 1;
+677645	    assert.equal(before.failed, true, `${route}: loader v1 must refuse a slot it does not know`);
+677646	    assert.match(before.message, /unsupported cartridge slot/);
+677647	    assert.equal(before.html, '', `${route}: v1 must write nothing`);
+677648	    modular += 1;
+677649	console.log(`served loaders: ${routes.length} route(s), v1 ${served.v1}, v2 ${served.v2}; each supports the slots of its own current.json`);
+677650	console.log(`equivalence: ${equal} replace-script-only composition(s) compose byte-identically under v1 and v2; ${modular} modular composition(s) refused by v1, as designed`);
+677651	/* --------------------------------------- 3 and 4: synthetic compositions */
+677652	// Served from memory beside the pinned routes; nothing is written to disk.
+677653	const tmpRoute = 'atlas/v/loader-proof/';
+677654	const live = JSON.parse(read('atlas/current.json'));
+677655	const extras = { [`${tmpRoute}a.js`]: '/* extra A */\n', [`${tmpRoute}b.js`]: '/* extra B */\n' };
+677656	const up = (p) => p.replace(/^\.\//, '../../');
+677657	const baseCartridges = live.cartridges.map(c => ({ ...c, path: up(c.path) }));
+677658	const anchor = live.cartridge_order[live.cartridge_order.length - 1];
+677659	const extra = (id, file, after, digest) => ({ id, type: 'script', slot: 'after-cartridge', after, path: `./${file}`,
+677660	  sha256: digest ?? sha(Buffer.from(extras[`${tmpRoute}${file}`])) });
+677661	const run = (loaderHtml, cartridges, order) => compose({ loaderHtml, route: tmpRoute, files: {
+677662	  ...extras,
+677663	  [`${tmpRoute}current.json`]: JSON.stringify({ ...live, shell: { ...live.shell, index: up(live.shell.index), base: up(live.shell.base) }, cartridges, cartridge_order: order })
+677665	const ok = await run(v2, [...baseCartridges, extra('a', 'a.js', anchor), extra('b', 'b.js', anchor)], [...live.cartridge_order, 'a', 'b']);
+677666	assert.equal(ok.failed, false, ok.message);
+677667	const ids = ok.scripts.map(s => s.id);
+677668	const at = ids.indexOf(anchor);
+677669	assert.deepEqual(ids.slice(at, at + 3), [anchor, 'a', 'b'], 'after-cartridge entries follow their anchor in cartridge_order');
+677670	assert.match(ok.html, new RegExp(`data-gridatlas-cartridge="${anchor}" src="blob:gridatlas/\\d+"></script>\\n<script data-gridatlas-cartridge="a" src="blob:gridatlas/\\d+"></script>\\n<script data-gridatlas-cartridge="b"`), 'A sits directly after the anchor tag, B directly after A');
+677671	assert.equal(ok.scripts.find(s => s.id === 'a').source.toString(), extras[`${tmpRoute}a.js`]);
+677672	const refusedByV1 = await run(v1, [...baseCartridges, extra('a', 'a.js', anchor)], [...live.cartridge_order, 'a']);
+677673	assert.equal(refusedByV1.failed, true, 'v1 must refuse after-cartridge');
+677674	assert.equal(refusedByV1.html, '', 'v1 must write nothing');
+677676	  ['anchor absent', [...baseCartridges, extra('a', 'a.js', 'no-such-cartridge')], [...live.cartridge_order, 'a'], /anchor no-such-cartridge is not composed before it/],
+677677	  ['anchor later in order', [...baseCartridges, extra('a', 'a.js', anchor)], ['a', ...live.cartridge_order], /is not composed before it/],
+677678	  ['digest mismatch', [...baseCartridges, extra('a', 'a.js', anchor, '0'.repeat(64))], [...live.cartridge_order, 'a'], /a: SHA-256 mismatch/],
+677679	  ['file missing', [...baseCartridges, { ...extra('a', 'a.js', anchor), path: './missing.js' }], [...live.cartridge_order, 'a'], /a: HTTP 404/],
+677680	  ['unknown slot', [...baseCartridges, { ...extra('a', 'a.js', anchor), slot: 'append-body' }], [...live.cartridge_order, 'a'], /a: unsupported cartridge slot/]
+677681	for (const [name, cartridges, order, pattern] of failures) {
+677682	  const r = await run(v2, cartridges, order);
+677683	  assert.equal(r.failed, true, `${name}: must fail closed`);
+677684	  assert.match(r.message, pattern, `${name}: ${r.message}`);
+677685	  assert.equal(r.html, '', `${name}: nothing may be written`);
+677686	console.log(`after-cartridge: order kept; v1 refuses it; ${failures.length} malformed compositions fail closed under v2 with nothing written`);
+677687	console.log('loader registry, equivalence and fail-closed PASS');
+677688	 * The proof of a generation that composes the potential-offtakers overlay as its OWN cartridge ('uk-offtakers-overlay',
+677689	 * slot after-cartridge, after uk-lightning-overlay). docs/OFFTAKERS-SOURCE.md. Each such generation has a two-line
+677690	 * tools/proofs/<G>-uk-offtakers-overlay.proof.mjs that calls this with G.
+677691	 *   identity  G, the slot, the anchor (directly after uk-lightning-overlay, last in cartridge_order), every hash;
+677692	 *   module    the cartridge IS atlas/modules/<M>-uk-offtakers-overlay.js (no copy), within its 40,000-byte budget, names
+677693	 *             generation M, rebuilds from tools/offtakers/src byte for byte while listed in generations.json, parses, one strict IIFE that is one expression;
+677694	 *   contract  static negatives (no engine, menu, layer-control, storage, lightning or place-search contract; no emission
+677695	 *             figure; the banned vicinity words) and positives (OFF by default, the pinned SHA-256s, the original measure);
+677696	 *   loader    the route's loader is registered and supports the slots, and composes it: the offtakers tag directly after
+677697	 *             the uk-lightning-overlay tag, its blob byte-identical to the module, every other script unchanged and in order.
+677698	export const OFFTAKERS_ID = 'uk-offtakers-overlay', ANCHOR = 'uk-lightning-overlay', BUDGET = 40000;
+677699	const readJson = rel => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+677700	const BANNED = /\b(viable|feasible|opportunity|offtake agreement|PPA|private wire|supply|capacity available|demand of|consumes|MWh|large user|best|recommended|suitable)\b/i;
+677701	export async function proveOfftakersCartridge(G) {
+677702	  process.chdir(ROOT);
+677703	  const { build } = await import('../offtakers/build.mjs');
+677704	  const live = readJson('atlas/current.json'), route = String(live.generation) === G ? 'atlas/' : `atlas/v/${G}/`;
+677705	  const current = readJson(`${route}current.json`), at = p => path.resolve(ROOT, route, p);
+677706	  assert.equal(String(current.generation), G);
+677707	  const order = current.cartridge_order, e = current.cartridges.find(c => c.id === OFFTAKERS_ID);
+677708	  assert.ok(e, 'the offtakers cartridge is composed');
+677709	  assert.equal(order.filter(id => id === OFFTAKERS_ID).length, 1);
+677710	  assert.equal(order.indexOf(OFFTAKERS_ID), order.indexOf(ANCHOR) + 1, 'directly after the lightning overlay');
+677711	  assert.equal(order.at(-1), OFFTAKERS_ID, 'last in cartridge_order');
+677712	  assert.equal(e.type, 'script'); assert.equal(e.slot, 'after-cartridge'); assert.equal(e.after, ANCHOR); assert.equal(e.generation, G);
+677713	  const M = String(e.module_generation || ''); assert.match(M, /^\d{12}$/);
+677714	  const modulePath = path.join(ROOT, 'atlas', 'modules', `${M}-uk-offtakers-overlay.js`);
+677715	  assert.equal(at(e.path), modulePath, 'the cartridge path is the module itself');
+677716	  const module = fs.readFileSync(modulePath), text = module.toString('utf8');
+677717	  assert.equal(sha(module), e.sha256); assert.equal(module.length, e.bytes);
+677718	  assert.ok(module.length <= BUDGET && module.length <= CARTRIDGE_BYTE_BUDGETS[OFFTAKERS_ID], `${module.length} B over the ${BUDGET}-byte budget`);
+677719	  assert.ok(text.startsWith(`/* uk-offtakers-overlay, generation ${M} (UTC).`), 'header names the generation');
+677720	  // while M is listed in tools/offtakers/generations.json, it must rebuild from the committed source (the PR gate's
+677721	  // offtakers-source step checks the same); a generation the source has moved past is pinned by its hash alone
+677722	  const listed = Object.hasOwn(JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/offtakers/generations.json'), 'utf8')).generations || {}, M);
+677723	  if (listed) assert.equal(build(M), text, 'rebuilds from tools/offtakers/src byte for byte');
+677724	  assert.ok(body.startsWith("(()=>{'use strict';") && /\}\)\(\);\s*$/.test(body), 'one strict arrow IIFE');
+677725	  assert.equal((text.match(/\(\(\)=>\{'use strict'/g) || []).length, 1);
+677726	  new vm.Script(`(${body.trim().replace(/;\s*$/, '')}\n)`, { filename: modulePath + '#single-expression' });
+677727	  assert.equal(/ukConfig|initVentusMap|window\.fetch|data-layer-id|data-pn-layer|data-gridatlas-layer|lbl-|prepend\(|name=["']bm|<style|createElement\(['"]style|localStorage|sessionStorage|document\.cookie|ukLightning|gridatlas-lightning|__GRIDATLAS_PLACE_SEARCH__/.test(text), false, 'touches another contract');
+677728	  assert.equal(/tCO2e|emission_tco2e/.test(text), false, 'no emission figure (method unverified)');
+677729	  assert.equal(BANNED.test(text.replace("'Not shown here: electricity use, connection terms, consent, viability.'", '')), false, 'banned wording: ' + (text.match(BANNED) || [])[0]);
+677730	  for (const needle of ['data-offtakers-control="toggle"', 'scada-ui-container', 'fs-curtain-keys', 'NS.ukOfftakers=Object.freeze(', "on:false", 'nearestSubstations', 'XMLHttpRequest', 'SHA-256',
+677731	    'A listing is not electricity demand', 'Vicinity only', 'not a cable route', 'address not in register', 'not a confirmed demand, contract or connection'])
+677732	    assert.ok(text.includes(needle), 'module must contain ' + JSON.stringify(needle));
+677733	  /* data: the module's one data URL is a file in this repository, and its pinned SHA-256 matches the committed bytes */
+677734	  const du = text.match(/DATA='https:\/\/ventusltd\.github\.io\/gridatlas\/(data\/offtakers_filtered_\d{12}\.geojson)',DSHA='([0-9a-f]{64})'/);
+677735	  assert.ok(du, 'one pinned data URL under https://ventusltd.github.io/gridatlas/data/ with its SHA-256');
+677736	  assert.equal(sha(fs.readFileSync(path.join(ROOT, du[1]))), du[2], du[1] + ' is committed and matches the pin');
+677737	  assert.equal((text.match(/https:\/\//g) || []).length, 3, 'three URLs only: the data file and the two REPD record files of the M5 join');
+677738	  for (const slot of slotsUsed(current)) assert.ok(loader.slots.includes(slot), `${loader.name} does not support ${slot}`);
+677739	  const g = await compose({ loaderHtml: fs.readFileSync(path.join(ROOT, route, 'index.html'), 'utf8'), route });
+677740	  const ids = g.scripts.map(s => s.id), k = ids.indexOf(ANCHOR);
+677741	  assert.equal(ids[k + 1], OFFTAKERS_ID, 'the offtakers script runs directly after the lightning overlay');
+677742	  assert.equal(sha(g.scripts[k + 1].source), e.sha256, 'composed blob == module');
+677743	  const tagL = g.html.match(/<script data-gridatlas-cartridge="uk-lightning-overlay" src="blob:gridatlas\/\d+"><\/script>/)[0];
+677744	  const tagO = g.html.match(/\n<script data-gridatlas-cartridge="uk-offtakers-overlay" src="blob:gridatlas\/\d+"><\/script>/g);
+677745	  assert.equal(tagO?.length, 1); assert.ok(g.html.includes(tagL + tagO[0]), 'tag directly after the lightning tag');
+677746	  for (const c of current.cartridges.filter(c => c.id !== OFFTAKERS_ID)) {
+677747	    const s = g.scripts.find(x => x.id === c.id); assert.ok(s, c.id + ' composed'); assert.equal(sha(s.source), c.sha256, c.id + ' unchanged');
+677748	  console.log(`${G} uk-offtakers-overlay: atlas/modules/${M}-uk-offtakers-overlay.js (${module.length} B <= ${BUDGET}), rebuilt from source; after ${ANCHOR}; loader ${loader.name}; ${ids.length} scripts composed, every other cartridge unchanged. PASS`);
+677749	 * Step 3 of the delivery flow: the owner's acceptance of a preview generation.
+677750	 *   node tools/release/acceptance.mjs --generation G [--json]      read it (exit 0 accepted, 3 none, 4 rejected)
+677751	 *   node tools/release/acceptance.mjs --generation G --how --pr N  print the owner's one-line commands
+677752	 *   node tools/release/acceptance.mjs --generation G --record --pr N --i-am-the-owner [--note TEXT]
+677753	 * HOW ACCEPTANCE IS RECORDED (by the owner, on GitHub, nowhere else)
+677754	 *   - a comment on the preview PR (or any gridatlas issue) whose FIRST line is
+677755	 *       ACCEPT <G>
+677756	 *     with anything the owner wants to add on later lines; or
+677757	 *   - the label  accepted:<G>  on the preview PR.
+677758	 *   `REJECT <G>` as a later comment, or removing the label, withdraws it.
+677759	 * WHAT COUNTS (tools/release/flow-lib.mjs decideAcceptance)
+677760	 *   - the author is an owner login (GRIDATLAS_OWNER_LOGINS, default Ventusltd);
+677761	 *   - it was not posted through a GitHub App (Codex and other connectors post
+677762	 *     as the owner with an app marker) and carries no agent signature
+677763	 *     (Claude-Session:, "Generated with [Claude Code]", ...);
+677764	 *   - it was made after G was cut (the manifest's cut_at_utc);
+677765	 *   - the latest qualifying verdict wins.
+677766	 * Agents work with the owner's token, so GitHub cannot tell an agent's comment
+677767	 * from the owner's by login alone. The rule is therefore procedural as well:
+677768	 * no agent and no script posts an ACCEPT line or the label. --record refuses
+677769	 * to run under Claude Code, Codex or CI, and needs --i-am-the-owner.
+677770	import { parseArgs } from './lib.mjs';
+677771	import { GRIDATLAS, readAcceptance, acceptLabel, runningAsAgent, gh, cutAtUtc, OWNER_LOGINS } from './flow-lib.mjs';
+677772	const TOOL = 'acceptance';
+677773	const die = (m, code = 1) => { console.error(`${TOOL}: STOP: ${m}`); process.exit(code); };
+677777	    generation: {}, json: { bool: true }, how: { bool: true }, record: { bool: true }, pr: {},
+677778	    'i-am-the-owner': { bool: true }, note: {}, label: { bool: true }
+677781	if (!G || !/^\d{12}$/.test(G)) die('--generation G (12 digits) is required');
+677782	const commentCmd = (pr) => `gh api -X POST repos/${GRIDATLAS}/issues/${pr}/comments -f body='ACCEPT ${G}'`;
+677783	const labelCmd = (pr) => `gh api -X POST repos/${GRIDATLAS}/issues/${pr}/labels -f 'labels[]=${acceptLabel(G)}'`;
+677784	if (args.how) {
+677785	  if (!args.pr) die('--how needs --pr N (the preview PR)');
+677786	  console.log(`Owner, to accept ${G} (either one; the first line of the comment must be exactly "ACCEPT ${G}"):\n` +
+677787	    `  on GitHub: comment "ACCEPT ${G}" on https://github.com/${GRIDATLAS}/pull/${args.pr}\n` +
+677788	    `  or:        ${commentCmd(args.pr)}\n  or:        ${labelCmd(args.pr)}\n` +
+677789	    `To withdraw: comment "REJECT ${G}" or remove the label.`);
+677791	if (args.record) {
+677792	  if (runningAsAgent()) die('refused: an agent or CI is running this. Only the owner records acceptance; run with --how and pass the command to the owner.');
+677793	  if (!args['i-am-the-owner']) die('--record needs --i-am-the-owner');
+677794	  if (!args.pr) die('--record needs --pr N');
+677795	  if (args.label) {
+677796	    gh(`repos/${GRIDATLAS}/issues/${args.pr}/labels`, { method: 'POST', input: JSON.stringify({ labels: [acceptLabel(G)] }) });
+677797	    console.log(`label ${acceptLabel(G)} added to #${args.pr}`);
+677798	    const c = gh(`repos/${GRIDATLAS}/issues/${args.pr}/comments`, { method: 'POST', input: JSON.stringify({ body: `ACCEPT ${G}${args.note ? `\n\n${args.note}` : ''}` }) });
+677799	    console.log(`acceptance recorded: ${c.html_url}`);
+677800	const since = cutAtUtc(G);
+677801	const a = readAcceptance(G, { since: since || undefined });
+677802	if (args.json) console.log(JSON.stringify({ generation: G, since, owner_logins: OWNER_LOGINS, ...a }, null, 1));
+677803	  console.log(`${G}: ${a.state.toUpperCase()}${a.url ? `  ${a.via} by ${a.by} at ${a.at}  ${a.url}` : ''}`);
+677804	  for (const i of a.ignored) console.log(`  ignored: ${i.url}  ${i.why}`);
+677805	  if (a.state === 'none') console.log(`  (looked for "ACCEPT ${G}" comments and the ${acceptLabel(G)} label since ${since || 'the beginning'})`);
+677806	process.exit(a.state === 'accepted' ? 0 : a.state === 'rejected' ? 4 : 3);
+677807	 * Step 5 of the delivery flow: prove the public Pages site serves the
+677808	 * committed bytes after a release (or a rollback) reached main.
+677809	 *   node tools/release/check-live.mjs [--generation G] [--sha SHA] [--wait] [--timeout-min 40]
+677810	 *   node tools/release/check-live.mjs --dispatch            re-run the live-bytes job on main now
+677811	 *   node tools/release/check-live.mjs --local               run the verifier from this machine instead
+677812	 * PRE-CONDITIONS
+677813	 *   - with --generation: gridatlas main's atlas/current.json names G (the release PR is merged);
+677814	 *   - the default commit is main's head; --sha picks another commit on main.
+677815	 * HOW
+677816	 *   The live-bytes job of .github/workflows/202608301321-verify-live.yml runs
+677817	 *   on every push to main: it waits for Pages and compares every file
+677818	 *   atlas/current.json references, the loader and every atlas/v/<gen>/ file
+677819	 *   byte for byte (tools/scope/verify-live-bytes.mjs). This script finds that
+677820	 *   run for the commit and reports its live-bytes job; --wait polls until it
+677821	 *   finishes. A run superseded by a later push to main passes with a warning,
+677822	 *   and the later run is authoritative, so --wait follows main's head.
+677823	 *   --local runs the same verifier here (needs network access to
+677824	 *   ventusltd.github.io; some sandboxes block it).
+677825	 * Exit 0 when live-bytes passed, 1 when it failed, 3 when it has not finished
+677826	 * (without --wait), 2 when it cannot be checked.
+677827	import { ROOT, parseArgs } from './lib.mjs';
+677828	import { GRIDATLAS, LIVE_BYTES_WORKFLOW, gh, ghFile, ghHeadSha, workflowRuns, dispatchWorkflow } from './flow-lib.mjs';
+677829	const TOOL = 'check-live';
+677830	const die = (m, code = 2) => { console.error(`${TOOL}: STOP: ${m}`); process.exit(code); };
+677831	    generation: {}, sha: {}, wait: { bool: true }, 'timeout-min': { default: '40' }, dispatch: { bool: true }, local: { bool: true }
+677832	const sleep = (s) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, s * 1000);
+677833	if (args.local) {
+677834	  const r = spawnSync('node', ['tools/scope/verify-live-bytes.mjs', '--root', ROOT, '--timeout-s', String(Number(args['timeout-min']) * 60)], { cwd: ROOT, stdio: 'inherit' });
+677835	  process.exit(r.status ?? 2);
+677836	const main = JSON.parse(ghFile(GRIDATLAS, 'main', 'atlas/current.json'));
+677837	if (args.generation && String(main.generation) !== args.generation)
+677838	  die(`gridatlas main serves ${main.generation}, not ${args.generation}: the release PR is not merged`, 1);
+677839	console.log(`gridatlas main: generation ${main.generation} (${main.composition_id})`);
+677840	if (args.dispatch) {
+677841	  dispatchWorkflow(GRIDATLAS, LIVE_BYTES_WORKFLOW, 'main', { mode: 'live-bytes', compare_ref: 'main' });
+677842	  console.log(`dispatched ${LIVE_BYTES_WORKFLOW} mode=live-bytes on main; run again with --wait to follow it`);
+677843	function liveBytesJob(sha) {
+677844	  const runs = workflowRuns(GRIDATLAS, LIVE_BYTES_WORKFLOW, { headSha: sha, perPage: 10 });
+677845	  for (const run of runs) {
+677846	    const jobs = gh(`repos/${GRIDATLAS}/actions/runs/${run.id}/jobs?per_page=50`).jobs || [];
+677847	    const job = jobs.find(j => j.name === 'live-bytes');
+677848	    if (job) return { run, job };
+677849	  return { run: runs[0] || null, job: null };
+677850	const deadline = Date.now() + Number(args['timeout-min']) * 60_000;
+677852	  const sha = args.sha || ghHeadSha(GRIDATLAS, 'main');
+677853	  const { run, job } = liveBytesJob(sha);
+677854	  const where = run ? `${run.html_url}` : 'no run yet';
+677855	  if (job && job.status === 'completed') {
+677856	    const pass = job.conclusion === 'success';
+677857	    console.log(`live-bytes ${pass ? 'PASS' : `FAIL (${job.conclusion})`} for ${sha.slice(0, 12)}  ${job.html_url || where}`);
+677858	    process.exit(pass ? 0 : 1);
+677859	  console.log(`live-bytes for ${sha.slice(0, 12)}: ${job ? job.status : run ? `run ${run.status}, job not started` : 'no run yet'}  ${where}`);
+677860	  if (!args.wait) process.exit(3);
+677861	  if (Date.now() > deadline) die(`timed out after ${args['timeout-min']} min`, 3);
+677862	  sleep(30);
+677863	 * Step 7 of the delivery flow: a served check of www.globalgrid2050.com.
+677864	 *   node tools/release/check-served.mjs [--generation G] [--timeout-s 900] [--interval-s 30] [--report FILE]
+677865	 *   - the domain pin PR is merged and deploy-pages.yml ran for globalgrid2050
+677866	 *     main (tools/release/homepage-bump.mjs deploy);
+677867	 *   - network access to www.globalgrid2050.com. Some sandboxes block it; then
+677868	 *     run it in CI instead (exactly the same script):
+677869	 *       gh api -X POST repos/Ventusltd/gridatlas/actions/workflows/202608301321-verify-live.yml/dispatches \
+677870	 *         -f ref=main -f 'inputs[mode]=served-homepage'
+677871	 * WHAT IT CHECKS (expected values all come from GitHub, served values from the domain)
+677872	 *   1. globalgrid2050 main's catalogue/homepage-owner.json pins a homepage commit;
+677873	 *      the pinned data/homepage.json makes G the operative GridAtlas release
+677874	 *      (G defaults to the generation gridatlas main serves: the homepage must
+677875	 *      advertise what is live);
+677876	 *   2. served homepage-shell/data/homepage.json and homepage-shell/assets/
+677877	 *      versioned-homepage.{css,js} are byte-identical to the pin's SHA-256s;
+677878	 *   3. the served homepage (/) carries the GridAtlas row with G's label
+677879	 *      (e.g. "V9.176 - 29 October 2026") and links the live route.
+677880	 * Retries with cache-busting queries until --timeout-s (Pages/CDN lag).
+677881	 * Exit 0 PASS, 1 FAIL, 2 cannot reach the domain.
+677882	import { GRIDATLAS, HOMEPAGE, DOMAIN, DOMAIN_BASE, PAGES_BASE, ghFile, writeJson } from './flow-lib.mjs';
+677883	const TOOL = 'check-served';
+677884	  args = parseArgs(process.argv.slice(2), { generation: {}, 'timeout-s': { default: '900' }, 'interval-s': { default: '30' }, report: {}, base: { default: DOMAIN_BASE } });
+677885	} catch (error) { console.error(`${TOOL}: ${error.message}`); process.exit(2); }
+677886	const BASE = args.base.replace(/\/?$/, '/');
+677887	const sha256 = (b) => createHash('sha256').update(b).digest('hex');
+677888	const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'served-'));
+677889	/** curl, because it honours HTTPS_PROXY where Node's fetch does not. */
+677890	function get(url) {
+677891	  const out = path.join(tmp, 'body');
+677892	  const r = spawnSync('curl', ['-sS', '-L', '--max-time', '30', '-H', 'Cache-Control: no-cache', '-o', out, '-w', '%{http_code}', url], { encoding: 'utf8' });
+677893	  const http = Number(r.stdout) || 0;
+677894	  return { http, body: http ? fs.readFileSync(out) : null, error: http ? null : (r.stderr || '').trim() };
+677895	/* ------------------------------------------------------------- expected */
+677896	const live = JSON.parse(ghFile(GRIDATLAS, 'main', 'atlas/current.json'));
+677897	const G = args.generation || String(live.generation);
+677898	const pin = JSON.parse(ghFile(DOMAIN, 'main', 'catalogue/homepage-owner.json'));
+677899	const pinnedHome = JSON.parse(ghFile(HOMEPAGE, pin.commit, 'data/homepage.json'));
+677900	const entity = pinnedHome.entities.find(e => e.id === 'gridatlas');
+677901	const release = entity.releases.find(r => r.id === entity.operative_release_id);
+677902	const report = { tool: TOOL, base: BASE, generation: G, gridatlas_live: String(live.generation), pin: pin.commit,
+677903	  operative_release: entity.operative_release_id, label: release?.label, problems: [], attempts: 0, checks: [] };
+677904	const finish = (status, code) => {
+677905	  report.status = status;
+677906	  if (args.report) writeJson(args.report, report);
+677907	  console.log(`${status}: ${report.problems.length ? report.problems.join('; ') : `${BASE} serves the pinned homepage with GridAtlas "${report.label}"`}`);
+677909	if (entity.operative_release_id !== G) { report.problems.push(`the pinned homepage (${pin.commit.slice(0, 12)}) makes ${entity.operative_release_id} operative, not ${G}`); finish('FAIL', 1); }
+677910	if (String(live.generation) !== G) report.problems.push(`note: gridatlas main serves ${live.generation}, not ${G}`);
+677911	console.log(`pin ${pin.commit.slice(0, 12)}: GridAtlas ${G} "${release.label}"`);
+677912	/* --------------------------------------------------------------- served */
+677913	const files = [['homepage-shell/data/homepage.json', 'data/homepage.json'],
+677914	  ['homepage-shell/assets/versioned-homepage.css', 'assets/versioned-homepage.css'],
+677915	  ['homepage-shell/assets/versioned-homepage.js', 'assets/versioned-homepage.js']];
+677916	const deadline = Date.now() + Number(args['timeout-s']) * 1000;
+677917	  report.attempts += 1;
+677918	  const q = `?served-check=${Date.now()}`;
+677920	  let unreachable = null;
+677921	  for (const [served, pinned] of files) {
+677922	    const r = get(`${BASE}${served}${q}`);
+677923	    if (!r.http) unreachable = r.error;
+677924	    const got = r.body ? sha256(r.body) : null;
+677925	    checks.push({ path: served, http: r.http, ok: r.http === 200 && got === pin.files[pinned], expected: pin.files[pinned], live: got });
+677926	  const home = get(`${BASE}${q}`);
+677927	  if (!home.http) unreachable = home.error;
+677928	  const html = home.body ? home.body.toString('utf8') : '';
+677929	  const row = (html.match(/<tr data-entity-id="gridatlas">[\s\S]*?<\/tr>/) || [''])[0];
+677930	  checks.push({ path: '/', http: home.http, ok: home.http === 200 && row.includes(release.label) && row.includes(`${PAGES_BASE}atlas/`),
+677931	    expected: `GridAtlas row with "${release.label}" linking ${PAGES_BASE}atlas/`, live: row ? row.slice(0, 120) : 'no GridAtlas row' });
+677932	  report.checks = checks;
+677933	  for (const c of checks) console.log(`  ${c.ok ? 'OK  ' : 'DIFF'}  ${c.path}  HTTP ${c.http}`);
+677934	  if (checks.every(c => c.ok)) finish('PASS', 0);
+677935	  if (unreachable && report.attempts === 1 && !checks.some(c => c.http)) {
+677936	    report.problems.push(`cannot reach ${BASE}: ${unreachable}; run it in CI (see the header)`);
+677937	    finish('BLOCKED', 2);
+677938	  if (Date.now() > deadline) {
+677939	    report.problems.push(...checks.filter(c => !c.ok).map(c => `${c.path}: expected ${c.expected}, served ${c.live} (HTTP ${c.http})`));
+677940	    finish('FAIL', 1);
+677941	  sleep(Number(args['interval-s']));
+677942	 * Shared helpers for the delivery-flow scripts in tools/release/ (cut,
+677943	 * preview, acceptance, release, live bytes, homepage label, served check,
+677944	 * status). See docs/RELEASE.md, "The delivery flow".
+677945	 * GitHub is read and written only through `gh api` on repository-scoped REST
+677946	 * endpoints. GraphQL (and so `gh pr create`, `gh pr list`) and the search API
+677947	 * are not available from every environment the flow runs in, so nothing here
+677948	 * depends on them.
+677949	import { ROOT, run } from './lib.mjs';
+677950	export const GRIDATLAS = process.env.GRIDATLAS_REPO || 'Ventusltd/gridatlas';
+677951	export const HOMEPAGE = process.env.GRIDATLAS_HOMEPAGE_REPO || 'Ventusltd/globalgrid2050-homepage';
+677952	export const DOMAIN = process.env.GRIDATLAS_DOMAIN_REPO || 'Ventusltd/globalgrid2050';
+677953	export const PAGES_BASE = 'https://ventusltd.github.io/gridatlas/';
+677954	export const DOMAIN_BASE = 'https://www.globalgrid2050.com/';
+677955	export const LIVE_BYTES_WORKFLOW = '202608301321-verify-live.yml';
+677956	export const PR_GATE_WORKFLOW = 'pr-file-size-guard.yml';
+677957	export const DOMAIN_DEPLOY_WORKFLOW = 'deploy-pages.yml';
+677958	/* Who may accept a generation. The owner's GitHub login; override with a
+677959	   comma-separated GRIDATLAS_OWNER_LOGINS. */
+677960	export const OWNER_LOGINS = (process.env.GRIDATLAS_OWNER_LOGINS || 'Ventusltd')
+677961	  .split(',').map(s => s.trim()).filter(Boolean);
+677962	export const STAMP = /^\d{12}$/;
+677963	/** The six files tools/lightning/make-generation.mjs writes for generation G. */
+677964	export function generationFiles(G) {
+677965	    module: `atlas/modules/${G}-uk-lightning-overlay.js`,
+677966	    cartridge: `atlas/cartridges/${G}-sld-sandbox-v9-8.js`,
+677967	    proof: `tools/proofs/${G}-sld-sandbox.proof.mjs`,
+677968	    manifest: `atlas/manifests/${G}-composition.json`,
+677969	    routeIndex: `atlas/v/${G}/index.html`,
+677970	    routeCurrent: `atlas/v/${G}/current.json`
+677971	/** The optional seventh: the candidate's progress note. */
+677972	export const PROGRESS_DOC = (G, name) => `docs/lightning/CANDIDATE-${G}-${name}-progress.md`;
+677973	export const PROGRESS_DOC_RE = /^docs\/lightning\/CANDIDATE-(\d{12})-[A-Za-z0-9._-]+-progress\.md$/;
+677974	/** True when an agent (Claude Code, CI) is running this process. */
+677975	export function runningAsAgent() {
+677976	  return Boolean(process.env.CLAUDECODE || process.env.CLAUDE_CODE_SESSION_ID || process.env.CODEX_SANDBOX
+677977	    || process.env.GITHUB_ACTIONS || process.env.CI);
+677978	/* ------------------------------------------------------------------ gh api */
+677979	export class GhError extends Error {}
+677980	/** `gh api` returning parsed JSON (or text with raw: true). */
+677981	export function gh(endpoint, { method = 'GET', fields = {}, raw = false, input } = {}) {
+677982	  const argv = ['api', '-X', method, endpoint];
+677983	  if (raw) argv.push('-H', 'Accept: application/vnd.github.raw');
+677984	  for (const [k, v] of Object.entries(fields)) argv.push(typeof v === 'string' ? '-f' : '-F', `${k}=${v}`);
+677985	  if (input !== undefined) argv.push('--input', '-');
+677986	  const r = spawnSync('gh', argv, { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024, input });
+677987	  if (r.error) throw new GhError(`gh not runnable: ${r.error.message}`);
+677988	  if (r.status !== 0) throw new GhError(`gh api ${method} ${endpoint}: ${(r.stderr || r.stdout).trim().split('\n').pop()}`);
+677989	  if (raw) return r.stdout;
+677990	  const text = r.stdout.trim();
+677993	/** Every page of a list endpoint. `gh --paginate` follows Link headers that
+677994	    use numeric repositories/{id} paths, which some proxies refuse, so pages
+677995	    are requested explicitly. */
+677996	export function ghAll(endpoint, { perPage = 100, maxPages = 30 } = {}) {
+677998	  const sep = endpoint.includes('?') ? (endpoint.endsWith('?') ? '' : '&') : '?';
+677999	  for (let page = 1; page <= maxPages; page += 1) {
+678000	    const rows = gh(`${endpoint}${sep}per_page=${perPage}&page=${page}`);
+678002	    out.push(...list);
+678003	    if (list.length < perPage) break;
+678004	/** A file at a ref of a repository, or null when it does not exist. */
+678005	export function ghFile(repo, ref, relative) {
+678006	  try { return gh(`repos/${repo}/contents/${relative}?ref=${encodeURIComponent(ref)}`, { raw: true }); }
+678007	  catch (error) { if (/Not Found|404/.test(error.message)) return null; throw error; }
+678008	export function ghHeadSha(repo, branch = 'main') {
+678009	  return gh(`repos/${repo}/commits/${branch}`).sha;
+678010	/* --------------------------------------------------------- PRs and comments */
+678011	/** Pull requests whose title, body or head branch names G (newest first). */
+678012	export function prsNaming(G, { pulls } = {}) {
+678013	  const all = pulls || gh(`repos/${GRIDATLAS}/pulls?state=all&per_page=100&sort=created&direction=desc`);
+678014	  return all.filter(p => [p.title, p.body || '', p.head?.ref || ''].some(t => t.includes(G)));
+678015	export function prFiles(number) {
+678016	  return ghAll(`repos/${GRIDATLAS}/pulls/${number}/files`);
+678017	/** Classify a PR for G: a preview adds atlas/v/G/current.json; a release is
+678018	    a release/G-* branch that changes atlas/current.json; a rollback likewise
+678019	    on rollback/G-*. */
+678020	export function classifyPr(pr, files, G) {
+678021	  const names = files.map(f => f.filename);
+678022	  if (files.some(f => f.filename === `atlas/v/${G}/current.json` && f.status === 'added')) return 'preview';
+678023	  const ref = pr.head?.ref || '';
+678024	  /* A release PR may carry preparatory commits (L3's retired a workflow) before the pointer commit. */
+678025	  if (ref.startsWith(`release/${G}`) && names.includes('atlas/current.json')) return 'release';
+678026	  if (ref.startsWith('rollback/') && ref.includes(G) && names.includes('atlas/current.json')) return 'rollback';
+678027	  return 'other';
+678028	/* ------------------------------------------------------------- acceptance */
+678030	 * An acceptance is ONE of:
+678031	 *   - a comment, anywhere in the gridatlas repository (issue or PR), whose
+678032	 *     first non-blank line is `ACCEPT <G>` (or `/accept <G>`), optionally
+678033	 *     followed by free text on later lines;
+678034	 *   - the label `accepted:<G>` on the preview PR.
+678035	 * It counts only when it was made by an OWNER_LOGINS account, not through a
+678036	 * GitHub App (Codex and other connectors post as the owner with an app
+678037	 * marker), and carries no agent signature. A later `REJECT <G>` comment, or
+678038	 * the removal of the label, withdraws it.
+678039	 * No script in tools/release/ writes either form. Agents running with the
+678040	 * owner's token must not post them; acceptance.mjs --record refuses to run
+678041	 * under an agent and only prints the owner's command.
+678042	export const AGENT_SIGNATURES = [/Claude-Session:/i, /Generated (?:with|by) \[Claude Code\]/i, /noreply@anthropic\.com/i, /chatgpt-codex/i];
+678043	export const acceptLabel = (G) => `accepted:${G}`;
+678044	export function parseVerdict(body, G) {
+678045	  const first = String(body || '').split(/\r?\n/).map(s => s.trim()).find(Boolean) || '';
+678046	  const m = first.match(/^\/?(ACCEPT|ACCEPTED|REJECT|REJECTED)\s+(\d{12})\b/i);
+678047	  if (!m || m[2] !== G) return null;
+678048	  return /^REJECT/i.test(m[1]) ? 'reject' : 'accept';
+678049	export function trustedActor(user, app, body = '') {
+678050	  if (!user || !OWNER_LOGINS.includes(user.login)) return { ok: false, why: `by ${user?.login ?? 'unknown'}, not an owner login (${OWNER_LOGINS.join(', ')})` };
+678051	  if (app) return { ok: false, why: `posted through the GitHub App ${app.slug || app.name}` };
+678052	  const sig = AGENT_SIGNATURES.find(re => re.test(body));
+678053	  if (sig) return { ok: false, why: `carries an agent signature (${sig})` };
+678054	  return { ok: true };
+678055	 * Decide acceptance of G from repository comments and label events.
+678056	 *   comments: GET repos/R/issues/comments (any order)
+678057	 *   events:   GET repos/R/issues/events  (labeled / unlabeled)
+678058	 * Returns { state: 'accepted'|'rejected'|'none', by, at, url, ignored: [...] }.
+678059	export function decideAcceptance(G, { comments = [], events = [] }) {
+678060	  const verdicts = [];
+678061	  const ignored = [];
+678062	  for (const c of comments) {
+678063	    const v = parseVerdict(c.body, G);
+678064	    if (!v) continue;
+678065	    const t = trustedActor(c.user, c.performed_via_github_app, c.body);
+678066	    if (!t.ok) { ignored.push({ url: c.html_url, why: t.why }); continue; }
+678067	    verdicts.push({ verdict: v, by: c.user.login, at: c.created_at, url: c.html_url, via: 'comment' });
+678068	  for (const e of events) {
+678069	    if (!['labeled', 'unlabeled'].includes(e.event) || e.label?.name !== acceptLabel(G)) continue;
+678070	    const t = trustedActor(e.actor, e.performed_via_github_app);
+678071	    if (!t.ok) { ignored.push({ url: e.issue?.html_url, why: `label ${e.event} ${t.why}` }); continue; }
+678072	    verdicts.push({ verdict: e.event === 'labeled' ? 'accept' : 'withdraw', by: e.actor.login, at: e.created_at,
+678073	      url: e.issue?.html_url, via: `label ${acceptLabel(G)}` });
+678074	  verdicts.sort((a, b) => a.at.localeCompare(b.at));
+678075	  const last = verdicts[verdicts.length - 1];
+678076	  if (!last) return { state: 'none', ignored, history: verdicts };
+678077	  const state = last.verdict === 'accept' ? 'accepted' : last.verdict === 'reject' ? 'rejected' : 'none';
+678078	  return { state, ...last, ignored, history: verdicts };
+678079	/** Acceptance of G read from GitHub: every repository comment since `since`,
+678080	    and the label events of the PRs that name G. */
+678081	export function readAcceptance(G, { since, pulls } = {}) {
+678082	  const q = since ? `&since=${encodeURIComponent(since)}` : '';
+678083	  const comments = ghAll(`repos/${GRIDATLAS}/issues/comments?sort=created${q}`);
+678084	  const events = prsNaming(G, { pulls })
+678085	    .flatMap(p => ghAll(`repos/${GRIDATLAS}/issues/${p.number}/events?`).map(e => ({ ...e, issue: { html_url: p.html_url } })))
+678086	    .filter(e => !since || e.created_at >= since);
+678087	  return decideAcceptance(G, { comments, events });
+678088	/** G's cut_at_utc, from the local checkout or gridatlas main. */
+678089	export function cutAtUtc(G) {
+678090	  const rel = generationFiles(G).manifest;
+678091	  const local = path.join(ROOT, rel);
+678092	  const text = fs.existsSync(local) ? fs.readFileSync(local, 'utf8') : ghFile(GRIDATLAS, 'main', rel);
+678093	  return text ? (JSON.parse(text).cut_at_utc || null) : null;
+678094	/* --------------------------------------------------------------- workflows */
+678095	export function workflowRuns(repo, workflow, { branch, headSha, event, perPage = 20 } = {}) {
+678096	  const q = [`per_page=${perPage}`];
+678097	  if (branch) q.push(`branch=${branch}`);
+678098	  if (headSha) q.push(`head_sha=${headSha}`);
+678099	  if (event) q.push(`event=${event}`);
+678100	  return gh(`repos/${repo}/actions/workflows/${workflow}/runs?${q.join('&')}`).workflow_runs || [];
+678101	export function checkRunsFor(repo, sha) {
+678102	  return gh(`repos/${repo}/commits/${sha}/check-runs?per_page=100`).check_runs || [];
+678103	export function dispatchWorkflow(repo, workflow, ref, inputs = {}) {
+678104	  const body = JSON.stringify({ ref, inputs });
+678105	  gh(`repos/${repo}/actions/workflows/${workflow}/dispatches`, { method: 'POST', input: body });
+678106	/** Open a DRAFT pull request through REST (gh pr create needs GraphQL). */
+678107	export function openDraftPr({ repo = GRIDATLAS, head, base = 'main', title, body }) {
+678108	  return gh(`repos/${repo}/pulls`, { method: 'POST', input: JSON.stringify({ head, base, title, body, draft: true }) });
+678109	/* ------------------------------------------------------------------ misc */
+678110	export function writeJson(file, data) {
+678111	  fs.mkdirSync(path.dirname(path.resolve(file)), { recursive: true });
+678112	  fs.writeFileSync(path.resolve(file), `${JSON.stringify(data, null, 1)}\n`);
+678113	export function readCommittedJson(rev, relative, cwd = ROOT) {
+678114	  const r = run('git', ['show', `${rev}:${relative}`], { cwd, allowFail: true });
+678115	  return r.status === 0 ? JSON.parse(r.stdout) : null;
+678116	export function pad(rows) {
+678117	  const widths = rows[0].map((_, i) => Math.max(...rows.map(r => String(r[i]).length)));
+678118	  return rows.map(r => r.map((c, i) => String(c).padEnd(widths[i])).join('  ').trimEnd()).join('\n');
+678119	 * Offline tests of the delivery-flow rules in flow-lib.mjs (run by
+678120	 * tools/ci/pr-gate.mjs, check release-tools). No network, no gh.
+678121	 *   node --test tools/release/flow.test.mjs
+678123	  parseVerdict, trustedActor, decideAcceptance, classifyPr, generationFiles, PROGRESS_DOC_RE, acceptLabel, OWNER_LOGINS
+678124	} from './flow-lib.mjs';
+678125	import { deriveCurrent, rerootForPreview } from './lib.mjs';
+678126	const G = '202610290045';
+678127	const owner = { login: OWNER_LOGINS[0] };
+678128	const comment = (body, at, extra = {}) => ({ body, created_at: at, user: owner, performed_via_github_app: null, html_url: `https://x/c/${at}`, ...extra });
+678129	test('parseVerdict reads only the first non-blank line, for exactly this generation', () => {
+678130	  assert.equal(parseVerdict(`ACCEPT ${G}`, G), 'accept');
+678131	  assert.equal(parseVerdict(`\n  /accept ${G}\nlooks good on the phone`, G), 'accept');
+678132	  assert.equal(parseVerdict(`accepted ${G}.`, G), 'accept');
+678133	  assert.equal(parseVerdict(`REJECT ${G}: the card overlaps`, G), 'reject');
+678134	  assert.equal(parseVerdict(`ACCEPT 202610290050`, G), null);
+678135	  assert.equal(parseVerdict(`ACCEPT ${G}0`, G), null);
+678136	  assert.equal(parseVerdict(`I would ACCEPT ${G}`, G), null);
+678137	  assert.equal(parseVerdict(`Looks fine\nACCEPT ${G}`, G), null);
+678138	  assert.equal(parseVerdict('', G), null);
+678139	test('trustedActor: owner login, no GitHub App, no agent signature', () => {
+678140	  assert.equal(trustedActor(owner, null, `ACCEPT ${G}`).ok, true);
+678141	  assert.equal(trustedActor({ login: 'someone-else' }, null).ok, false);
+678142	  assert.equal(trustedActor(owner, { slug: 'chatgpt-codex-connector' }).ok, false);
+678143	  assert.equal(trustedActor(owner, null, `ACCEPT ${G}\n\nClaude-Session: https://claude.ai/code/x`).ok, false);
+678144	  assert.equal(trustedActor(owner, null, `ACCEPT ${G}\n🤖 Generated with [Claude Code](https://claude.com/claude-code)`).ok, false);
+678145	  assert.equal(trustedActor(null, null).ok, false);
+678146	test('decideAcceptance: latest trusted verdict wins; untrusted ones are reported, not counted', () => {
+678147	  assert.equal(decideAcceptance(G, {}).state, 'none');
+678148	  const a = decideAcceptance(G, { comments: [comment(`ACCEPT ${G}`, '2026-10-29T03:00:00Z')] });
+678149	  assert.equal(a.state, 'accepted');
+678150	  assert.equal(a.by, owner.login);
+678151	  assert.equal(a.via, 'comment');
+678152	  const r = decideAcceptance(G, { comments: [comment(`ACCEPT ${G}`, '2026-10-29T03:00:00Z'), comment(`REJECT ${G}`, '2026-10-29T04:00:00Z')] });
+678153	  assert.equal(r.state, 'rejected');
+678154	  const back = decideAcceptance(G, { comments: [comment(`REJECT ${G}`, '2026-10-29T03:00:00Z'), comment(`ACCEPT ${G}`, '2026-10-29T04:00:00Z')] });
+678155	  assert.equal(back.state, 'accepted');
+678156	  const codex = decideAcceptance(G, { comments: [comment(`ACCEPT ${G}`, '2026-10-29T03:00:00Z', { performed_via_github_app: { slug: 'chatgpt-codex-connector' } })] });
+678157	  assert.equal(codex.state, 'none');
+678158	  assert.equal(codex.ignored.length, 1);
+678159	  const other = decideAcceptance(G, { comments: [comment(`ACCEPT ${G}`, '2026-10-29T03:00:00Z', { user: { login: 'mallory' } })] });
+678160	  assert.equal(other.state, 'none');
+678161	test('decideAcceptance: the accepted:<G> label, and its removal', () => {
+678162	  const ev = (event, at, actor = owner, app = null) => ({ event, created_at: at, actor, performed_via_github_app: app, label: { name: acceptLabel(G) }, issue: { html_url: 'https://x/pull/59' } });
+678163	  assert.equal(decideAcceptance(G, { events: [ev('labeled', '2026-10-29T03:00:00Z')] }).state, 'accepted');
+678164	  assert.equal(decideAcceptance(G, { events: [ev('labeled', '2026-10-29T03:00:00Z'), ev('unlabeled', '2026-10-29T03:05:00Z')] }).state, 'none');
+678165	  assert.equal(decideAcceptance(G, { events: [ev('labeled', '2026-10-29T03:00:00Z', owner, { slug: 'bot' })] }).state, 'none');
+678166	  assert.equal(decideAcceptance(G, { events: [{ ...ev('labeled', '2026-10-29T03:00:00Z'), label: { name: 'accepted:202610290050' } }] }).state, 'none');
+678167	test('classifyPr: preview, release (with prep commits), rollback, other', () => {
+678168	  const pr = (ref) => ({ head: { ref } });
+678169	  const f = (...names) => names.map(n => ({ filename: n, status: n.startsWith('atlas/v/') ? 'added' : 'modified' }));
+678170	  assert.equal(classifyPr(pr('claude/x'), f(`atlas/v/${G}/current.json`, `atlas/v/${G}/index.html`), G), 'preview');
+678171	  assert.equal(classifyPr(pr(`release/${G}-gridatlas-v9.176`), f('atlas/current.json', 'STATE.md'), G), 'release');
+678172	  assert.equal(classifyPr(pr(`release/${G}-gridatlas-v9.176`), f('.github/workflows/x.yml', 'tools/scope/lib.mjs', 'atlas/current.json', 'STATE.md'), G), 'release');
+678173	  assert.equal(classifyPr(pr(`rollback/${G}-to-202610281340`), f('atlas/current.json', 'STATE.md'), G), 'rollback');
+678174	  assert.equal(classifyPr(pr('docs/x'), f('docs/RELEASE.md'), G), 'other');
+678175	  assert.equal(classifyPr(pr(`release/${G}-x`), f('docs/RELEASE.md'), G), 'other');
+678176	test('the seven preview files', () => {
+678177	  assert.deepEqual(Object.values(generationFiles(G)).sort(), [
+678178	    `atlas/cartridges/${G}-sld-sandbox-v9-8.js`, `atlas/manifests/${G}-composition.json`, `atlas/modules/${G}-uk-lightning-overlay.js`,
+678179	    `atlas/v/${G}/current.json`, `atlas/v/${G}/index.html`, `tools/proofs/${G}-sld-sandbox.proof.mjs`]);
+678180	  assert.ok(PROGRESS_DOC_RE.test(`docs/lightning/CANDIDATE-${G}-M4-progress.md`));
+678181	  assert.ok(!PROGRESS_DOC_RE.test(`docs/lightning/CANDIDATE-${G}.md`));
+678182	test('the preview route is the release pointer re-rooted (checked by publish-preview)', () => {
+678183	  const manifest = JSON.stringify({ generation: G, composition_manifest: `./manifests/${G}-composition.json`, version: 'v9.176', cut_at_utc: 'x',
+678184	    cartridges: [{ id: 'a', path: './cartridges/a.js', contract: '../ui/a.mjs' }] }, null, 1) + '\n';
+678185	  const route = rerootForPreview(deriveCurrent(manifest));
+678186	  assert.match(route, /"path": "\.\.\/\.\.\/cartridges\/a\.js"/);
+678187	  assert.match(route, /"contract": "\.\.\/\.\.\/ui\/a\.mjs"/);
+678188	  assert.doesNotMatch(route, /cut_at_utc|"version"/);
+678189	 * Step 6 of the delivery flow: put the released GridAtlas on
+678190	 * www.globalgrid2050.com. Two repositories, two PRs, in this order:
+678191	 *   6a. label: Ventusltd/globalgrid2050-homepage, its one-command tool
+678192	 *       node tools/release/homepage-bump.mjs label --homepage DIR [--generation G]
+678193	 *            [--description TEXT] [--published-at ISO] [--push]   (--rehearsal: not-yet-live G, --offline, no push)
+678194	 *   6b. pin:   Ventusltd/globalgrid2050 (SPARSE clone; never check it out in full)
+678195	 *       node tools/release/homepage-bump.mjs pin --homepage DIR --domain DIR [--push]
+678196	 *   6c. deploy: after the pin PR merges, deploy-pages.yml imports the pinned bundle
+678197	 *       node tools/release/homepage-bump.mjs deploy [--dispatch]
+678198	 *   label:
+678199	 *     - gridatlas main's atlas/current.json names G (default: whatever is live);
+678200	 *     - the live-bytes job passed for the commit that moved the pointer
+678201	 *       (tools/release/check-live.mjs), so the homepage never advertises bytes
+678202	 *       Pages is not yet serving;
+678203	 *     - the owner accepted G (tools/release/acceptance.mjs), as the homepage
+678204	 *       tool itself requires ("Do it only after the owner has accepted");
+678205	 *     - DIR is a clean clone of the homepage repo at its origin/main, which does
+678206	 *       not yet record release G.
+678207	 *   pin:
+678208	 *     - the homepage repo's origin/main has G as gridatlas' operative release
+678209	 *       (the label PR is merged);
+678210	 *     - every one of the seven bundle files at that commit hashes to the pin
+678211	 *       (re-read through the GitHub API, the same check import_homepage_owner.py makes);
+678212	 *     - DOMAIN is a clean sparse clone of globalgrid2050 whose sparse set
+678213	 *       includes catalogue/, at its origin/main.
+678214	 *   label: branch gridatlas-<version>; `python scripts/release_gridatlas.py release
+678215	 *     G <version> --published-at <time the pointer moved>`; the homepage CI
+678216	 *     checks (validate, fallback rebuild idempotent, unittest, node --check,
+678217	 *     fetch_active_pages --check); one commit; --push: push and a DRAFT PR.
+678218	 *   pin: branch homepage-gridatlas-<version>; writes catalogue/homepage-owner.json
+678219	 *     from `python scripts/release_gridatlas.py pin origin/main`; one commit;
+678220	 *     --push: push and a DRAFT PR. The restore point (homepage_vNNN.html and its
+678221	 *     metrics, homepage_versions/README.md) is the domain's own rule: dispatch
+678222	 *     homepage-restore-point-check.yml and add the snapshot to the same branch
+678223	 *     before the PR leaves draft. The script prints the commands.
+678224	 *   deploy: reports deploy-pages.yml for globalgrid2050 main's head
+678225	 *     (merging the pin pushes catalogue/** to main, which triggers it);
+678226	 *     --dispatch starts it when it did not run.
+678227	 * Rollback of the label: in the homepage repo,
+678228	 *   python scripts/releases.py promote gridatlas <previous release id> --reason "..."
+678229	 * then pin again (6b) and deploy (6c). Earlier releases are never deleted.
+678230	  GRIDATLAS, HOMEPAGE, DOMAIN, DOMAIN_DEPLOY_WORKFLOW, LIVE_BYTES_WORKFLOW, gh, ghFile, ghHeadSha,
+678231	  workflowRuns, dispatchWorkflow, readAcceptance, cutAtUtc, openDraftPr
+678232	const TOOL = 'homepage-bump';
+678233	const die = (m) => { console.error(`${TOOL}: STOP: ${m}`); process.exit(1); };
+678235	const sub = process.argv[2];
+678236	if (!['label', 'pin', 'deploy'].includes(sub)) die('usage: homepage-bump.mjs label|pin|deploy [options] (see the header)');
+678237	  args = parseArgs(process.argv.slice(3), {
+678238	    homepage: {}, domain: {}, generation: {}, description: {}, 'published-at': {}, push: { bool: true },
+678239	    dispatch: { bool: true }, 'skip-acceptance': { bool: true }, rehearsal: { bool: true }
+678240	const sh = (cmd, argv, cwd, opts = {}) => {
+678241	  const r = spawnSync(cmd, argv, { cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, ...opts });
+678242	  if (r.error) die(`${cmd}: ${r.error.message}`);
+678243	  if (r.status !== 0 && !opts.allowFail) die(`${cmd} ${argv.join(' ')} (in ${cwd}) exit ${r.status}\n${r.stdout}${r.stderr}`);
+678245	const gitIn = (dir, ...a) => sh('git', a, dir).stdout.trim();
+678246	function cleanAtOriginMain(dir, name) {
+678247	  if (!dir || !fs.existsSync(path.join(dir, '.git'))) die(`--${name} must be a clone of the ${name} repository`);
+678248	  sh('git', ['fetch', '-q', 'origin', 'main'], dir);
+678249	  if (gitIn(dir, 'status', '--porcelain=v1')) die(`${dir} is not clean`);
+678250	  const head = gitIn(dir, 'rev-parse', 'HEAD'), main = gitIn(dir, 'rev-parse', 'origin/main');
+678251	  if (head !== main) die(`${dir} HEAD ${head.slice(0, 12)} is not origin/main ${main.slice(0, 12)} (git switch --detach origin/main)`);
+678252	  return main;
+678253	/** The gridatlas commit that last moved atlas/current.json, and when. */
+678254	function pointerCommit() {
+678255	  const [c] = gh(`repos/${GRIDATLAS}/commits?path=atlas/current.json&sha=main&per_page=1`);
+678256	  return { sha: c.sha, at: c.commit.committer.date };
+678257	function liveBytesPassed(sha) {
+678258	  for (const run of workflowRuns(GRIDATLAS, LIVE_BYTES_WORKFLOW, { headSha: sha, perPage: 10 })) {
+678259	    const job = (gh(`repos/${GRIDATLAS}/actions/runs/${run.id}/jobs?per_page=50`).jobs || []).find(j => j.name === 'live-bytes');
+678260	    if (job?.status === 'completed') return { ok: job.conclusion === 'success', url: job.html_url, conclusion: job.conclusion };
+678261	  return { ok: false, url: null, conclusion: 'not run' };
+678262	function homepageGridatlas(text) {
+678263	  return JSON.parse(text).entities.find(e => e.id === 'gridatlas');
+678264	/* ------------------------------------------------------------------ label */
+678265	if (sub === 'label') {
+678266	  let G, version, pc, headLb = { url: 'rehearsal' };
+678267	  if (args.rehearsal) {
+678268	    /* Everything below the gridatlas checks, for a generation that is not live yet: the homepage tool runs with
+678269	       --offline, nothing is pushed. */
+678270	    if (args.push) die('--rehearsal never pushes');
+678271	    G = args.generation || die('--rehearsal needs --generation');
+678272	    const m = JSON.parse(ghFile(GRIDATLAS, 'main', `atlas/manifests/${G}-composition.json`) || die(`${G} has no manifest on main`));
+678273	    version = m.composition_version;
+678274	    pc = { sha: ghHeadSha(GRIDATLAS, 'main'), at: new Date().toISOString() };
+678275	    console.log(`\n== REHEARSAL for ${G} (${version}): gridatlas live, live-bytes and acceptance NOT checked`);
+678276	    const live = JSON.parse(ghFile(GRIDATLAS, 'main', 'atlas/current.json'));
+678277	    G = args.generation || String(live.generation);
+678278	    version = live.composition_version;
+678279	    console.log(`\n== gridatlas: ${G}`);
+678280	    if (String(live.generation) !== G) die(`gridatlas main serves ${live.generation}, not ${G}`);
+678281	    ok(`main serves ${G} (${version})`);
+678282	    pc = pointerCommit();
+678283	    const lb = liveBytesPassed(pc.sha);
+678284	    // The live-bytes run of a later push also proves these bytes (the pointer has not moved since).
+678285	    headLb = lb.ok ? lb : liveBytesPassed(ghHeadSha(GRIDATLAS, 'main'));
+678286	    if (!headLb.ok) die(`live-bytes has not passed for ${pc.sha.slice(0, 12)} or main's head (${lb.conclusion}): node tools/release/check-live.mjs --wait`);
+678287	    ok(`live-bytes PASS ${headLb.url}`);
+678288	    if (!args['skip-acceptance']) {
+678289	      const a = readAcceptance(G, { since: cutAtUtc(G) || undefined });
+678290	      if (a.state !== 'accepted') die(`${G} has no owner acceptance on GitHub (${a.state}); pass --skip-acceptance only for a generation released before acceptance was recorded there`);
+678291	      ok(`accepted by ${a.by} ${a.url}`);
+678292	  console.log(`\n== ${HOMEPAGE}`);
+678293	  const dir = path.resolve(args.homepage || die('--homepage DIR is required'));
+678294	  cleanAtOriginMain(dir, 'homepage');
+678295	  const entity = homepageGridatlas(fs.readFileSync(path.join(dir, 'data/homepage.json'), 'utf8'));
+678296	  if (entity.releases.some(r => r.id === G)) die(`the homepage already records ${G} (operative: ${entity.operative_release_id})`);
+678297	  ok(`homepage operative release ${entity.operative_release_id}; ${G} not yet recorded`);
+678298	  const publishedAt = args['published-at'] || pc.at.replace(/:\d\d(\.\d+)?Z$/, ':00Z');
+678299	  const branch = args.rehearsal ? `rehearsal/gridatlas-${version}` : `gridatlas-${version}`;
+678300	  sh('git', ['switch', '-q', '-c', branch], dir);
+678301	  const rel = ['scripts/release_gridatlas.py', 'release', G, version, '--published-at', publishedAt, '--source-ref', `https://github.com/${GRIDATLAS}/commit/${pc.sha}`];
+678302	  if (args.description) rel.push('--description', args.description);
+678303	  if (args.rehearsal) rel.push('--offline', '--archive-url', `https://ventusltd.github.io/gridatlas/atlas/v/${G}/`);
+678304	  console.log(sh('python3', rel, dir).stdout.trim());
+678305	  const indexOnce = sha256(fs.readFileSync(path.join(dir, 'index.html')));
+678306	  for (const [cmd, a] of [['python3', ['scripts/releases.py', 'validate']], ['python3', ['scripts/build_homepage_fallback.py']],
+678307	    ['python3', ['-m', 'unittest', 'discover', '-s', 'tests']],
+678308	    ['node', ['--check', 'assets/versioned-homepage.js']], ['python3', ['scripts/fetch_active_pages.py', '--check']]]) {
+678309	    sh(cmd, a, dir); ok(`${cmd} ${a.join(' ')}`);
+678310	  if (sha256(fs.readFileSync(path.join(dir, 'index.html'))) !== indexOnce) die('build_homepage_fallback.py is not idempotent on the new data');
+678311	  ok('fallback index.html rebuild is idempotent');
+678312	  const after = homepageGridatlas(fs.readFileSync(path.join(dir, 'data/homepage.json'), 'utf8'));
+678313	  if (after.operative_release_id !== G) die(`after the tool, the operative release is ${after.operative_release_id}`);
+678314	  const label = after.releases.find(r => r.id === G).label;
+678315	  sh('git', ['add', '-A'], dir);
+678316	  sh('git', ['commit', '-q', '-m', `homepage: GridAtlas ${version} (${G}) is live: "${label}"`], dir);
+678317	  ok(`committed ${gitIn(dir, 'rev-parse', '--short', 'HEAD')} on ${branch}: ${gitIn(dir, 'diff', '--stat', 'origin/main', 'HEAD').split('\n').pop().trim()}`);
+678318	  if (args.push) {
+678319	    sh('git', ['push', '-u', 'origin', branch], dir);
+678320	    const pr = openDraftPr({ repo: HOMEPAGE, head: branch, title: `homepage: GridAtlas ${version} on the homepage (${label})`,
+678321	      body: `GridAtlas ${G} (${version}) is live on gridatlas main (${pc.sha}) and live-bytes passed (${headLb.url}).\n\nGenerated by tools/release/homepage-bump.mjs label in ${GRIDATLAS}. Merge once "Homepage PR checks" passes, then run \`homepage-bump.mjs pin\`.\n` });
+678322	    ok(`draft PR ${pr.html_url}`);
+678323	  } else console.log(`\nnot pushed: git -C ${dir} push -u origin ${branch}, then open a draft PR in ${HOMEPAGE}`);
+678324	/* -------------------------------------------------------------------- pin */
+678325	if (sub === 'pin') {
+678326	  const home = path.resolve(args.homepage || die('--homepage DIR is required'));
+678327	  const dom = path.resolve(args.domain || die('--domain DIR is required'));
+678328	  let pin, version;
+678329	    /* Pin the local label commit (HEAD of --homepage) instead of origin/main; it is not on GitHub, so the seven
+678330	       hashes are taken from the local blobs. Nothing is pushed. */
+678331	    if (gitIn(home, 'status', '--porcelain=v1')) die(`${home} is not clean`);
+678332	    const entity = homepageGridatlas(gitIn(home, 'show', 'HEAD:data/homepage.json'));
+678333	    const G = entity.operative_release_id;
+678334	    version = JSON.parse(ghFile(GRIDATLAS, 'main', `atlas/manifests/${G}-composition.json`)).composition_version;
+678335	    pin = JSON.parse(sh('python3', ['scripts/release_gridatlas.py', 'pin', 'HEAD'], home).stdout);
+678336	    console.log(`\n== REHEARSAL: pinning local ${pin.commit.slice(0, 12)} (operative ${G}); gridatlas live and GitHub re-read NOT checked`);
+678337	    const homeMain = cleanAtOriginMain(home, 'homepage');
+678338	    const entity = homepageGridatlas(gitIn(home, 'show', 'origin/main:data/homepage.json'));
+678339	    if (entity.operative_release_id !== String(live.generation))
+678340	      die(`homepage origin/main makes ${entity.operative_release_id} operative, but gridatlas serves ${live.generation}: merge the label PR first`);
+678341	    ok(`homepage ${homeMain.slice(0, 12)} makes ${live.generation} operative`);
+678342	    pin = JSON.parse(sh('python3', ['scripts/release_gridatlas.py', 'pin', 'origin/main'], home).stdout);
+678343	    for (const [name, digest] of Object.entries(pin.files)) {
+678344	      const served = ghFile(HOMEPAGE, pin.commit, name);
+678345	      if (served === null || sha256(Buffer.from(served, 'utf8')) !== digest) die(`${name} at ${pin.commit} does not hash to the pin`);
+678346	    ok(`pin ${pin.commit.slice(0, 12)}: 7 files re-read from GitHub and hash-identical`);
+678347	  const sparse = sh('git', ['sparse-checkout', 'list'], dom, { allowFail: true });
+678348	  if (sparse.status !== 0 || !/^\/?catalogue\/?$/m.test(sparse.stdout)) die(`${dom} must be a sparse clone of ${DOMAIN} whose sparse set includes catalogue/`);
+678349	  cleanAtOriginMain(dom, 'domain');
+678350	  const pinPath = path.join(dom, 'catalogue/homepage-owner.json');
+678351	  const old = JSON.parse(fs.readFileSync(pinPath, 'utf8'));
+678352	  if (old.commit === pin.commit) die(`the domain already pins ${pin.commit}`);
+678353	  const branch = `${args.rehearsal ? 'rehearsal/' : ''}homepage-gridatlas-${version}`;
+678354	  sh('git', ['switch', '-q', '-c', branch], dom);
+678355	  fs.writeFileSync(pinPath, `${JSON.stringify(pin, null, 2)}\n`);
+678356	  sh('git', ['add', 'catalogue/homepage-owner.json'], dom);
+678357	  sh('git', ['commit', '-q', '-m', `homepage: promote owner bundle with GridAtlas ${version}`], dom);
+678358	  ok(`committed the pin on ${branch} (${old.commit.slice(0, 12)} -> ${pin.commit.slice(0, 12)})`);
+678359	  console.log(`\nrestore point (homepage_versions/README.md), before the PR leaves draft:\n` +
+678360	    `  gh api -X POST repos/${DOMAIN}/actions/workflows/homepage-restore-point-check.yml/dispatches -f ref=main\n` +
+678361	    `  then add the next homepage_versions/homepage_vNNN.html + -metrics.json + README entry to ${branch}`);
+678362	    sh('git', ['push', '-u', 'origin', branch], dom);
+678363	    const pr = openDraftPr({ repo: DOMAIN, head: branch, title: `homepage: promote owner bundle with GridAtlas ${version}`,
+678364	      body: `Pins ${HOMEPAGE}@${pin.commit} (GridAtlas ${version} operative). The seven SHA-256s were re-read from GitHub.\n\nBefore merge: the restore-point snapshot. Merging pushes catalogue/** to main and triggers deploy-pages.yml.\n` });
+678365	/* ----------------------------------------------------------------- deploy */
+678366	const head = ghHeadSha(DOMAIN, 'main');
+678367	const pinText = ghFile(DOMAIN, 'main', 'catalogue/homepage-owner.json');
+678368	console.log(`globalgrid2050 main ${head.slice(0, 12)} pins ${JSON.parse(pinText).commit.slice(0, 12)}`);
+678369	const runs = workflowRuns(DOMAIN, DOMAIN_DEPLOY_WORKFLOW, { branch: 'main', perPage: 5 });
+678370	const forHead = runs.find(r => r.head_sha === head);
+678371	if (forHead) {
+678372	  console.log(`${DOMAIN_DEPLOY_WORKFLOW}: ${forHead.status} ${forHead.conclusion || ''} ${forHead.html_url}`);
+678373	  process.exit(forHead.conclusion === 'success' ? 0 : forHead.status === 'completed' ? 1 : 3);
+678374	console.log(`${DOMAIN_DEPLOY_WORKFLOW} has no run for main's head (latest: ${runs[0]?.head_sha?.slice(0, 12) || 'none'} ${runs[0]?.conclusion || ''})`);
+678375	if (args.dispatch) { dispatchWorkflow(DOMAIN, DOMAIN_DEPLOY_WORKFLOW, 'main'); console.log('dispatched'); }
+678376	process.exit(3);
+678384	import { ATLAS_LOADERS } from '../scope/lib.mjs';
+678392	/* The only two files a release (or its revert) may change... */
+678394	/* ...plus the live loader, when and only when the generation going live is
+678395	   served by a different registered loader than the live one (loader v2 for
+678396	   the modular lightning generations, docs/LIGHTNING-CARTRIDGE.md). The
+678397	   loader then moves in the release commit itself, so reverting that one
+678398	   commit restores all three files byte for byte. */
+678399	export const LOADER_FILE = 'atlas/index.html';
+678400	/** The name of the registered loader (tools/scope/lib.mjs ATLAS_LOADERS)
+678401	    whose payload is byte-identical to buffer, and the slots it supports. */
+678402	export function registeredLoaderOf(buffer) {
+678403	  if (!buffer) return null;
+678404	  const digest = sha256(Buffer.from(buffer.toString('binary').replace(/\r\n/g, '\n'), 'binary'));
+678405	  for (const [name, loader] of Object.entries(ATLAS_LOADERS)) {
+678406	    const payload = fs.readFileSync(path.join(ROOT, loader.payload));
+678407	    if (sha256(Buffer.from(payload.toString('binary').replace(/\r\n/g, '\n'), 'binary')) === digest) return { name, slots: loader.slots };
+678409	/** The slot types the ordered cartridges of a pointer use. */
+678410	export function pointerSlots(pointer) {
+678411	  const byId = new Map((pointer.cartridges || []).map(c => [c.id, c]));
+678412	  return [...new Set((pointer.cartridge_order || []).map(id => byId.get(id)?.slot))].filter(Boolean).sort();
+678522	 * Step 2 of the delivery flow: publish one or more generations cut by
+678523	 * tools/lightning/make-generation.mjs (step 1) as a preview PR. A preview is
+678524	 * ADDITIVE: it adds each generation's six files (and optionally its progress
+678525	 * note), carries the lightning source it was built from
+678526	 * (tools/lightning/src/*.js, tools/lightning/generations.json), and changes
+678527	 * nothing that is live.
+678528	 *   node tools/release/publish-preview.mjs --generation G [--generation G2 ...]
+678529	 *        [--base origin/main] [--branch NAME] [--allow PATH ...] [--subject G=TEXT ...]
+678530	 *        [--title TEXT] [--body-file FILE] [--trailer TEXT ...] [--push] [--report FILE]
+678531	 * PRE-CONDITIONS (all checked; nothing is committed if one fails)
+678532	 *   - HEAD is --base (cut files still uncommitted) or a branch descending from it;
+678533	 *   - against --base, the change set is exactly, per G, the six generation files
+678534	 *     ADDED, plus at most one docs/lightning/CANDIDATE-G-*-progress.md ADDED,
+678535	 *     plus the lightning source edit (tools/lightning/src/*.js, generations.json);
+678536	 *     any other path must be named with --allow (e.g. the vendored suite) and
+678537	 *     may never be atlas/current.json, STATE.md, atlas/index.html or atlas/releases/**;
+678538	 *   - none of G's files exist on --base;
+678539	 *   - per G: the manifest names G, its previous_generation is live on --base,
+678540	 *     atlas/v/G/current.json is the derived pointer re-rooted to ../../ (what
+678541	 *     release-generation.mjs will require), and the loader is byte-identical;
+678542	 *   - the PR gate passes locally: node tools/ci/pr-gate.mjs --base <base sha>
+678543	 *     (the same script CI runs on the PR).
+678544	 *   1. If the cut files are uncommitted, creates --branch (default
+678545	 *      preview/<G>-<version>) and makes one commit per generation, subject
+678546	 *      "<G> candidate (<version>): <--subject or the manifest's scope tail>";
+678547	 *      the source edit goes into the newest generation's commit (the commit
+678548	 *      that cut it is its source, docs/LIGHTNING-SOURCE.md).
+678549	 *   2. Runs the pre-conditions and the PR gate on the branch.
+678550	 *   3. --push: pushes the branch and opens a DRAFT PR through the REST API.
+678551	 *      Without --push it prints the exact commands instead.
+678552	 * After the PR is open, CI (pr-file-size-guard.yml: size-guard + cartridge-gate)
+678553	 * runs on it; `node tools/release/release-status.mjs --generation G` shows the
+678554	 * checks. The PR is merged with "Rebase and merge" once the owner wants the
+678555	 * preview on Pages; merging a preview never moves the live pointer.
+678556	import { ROOT, parseArgs, run, git, gitOk, cleanTree, deriveCurrent, rerootForPreview } from './lib.mjs';
+678557	import { generationFiles, PROGRESS_DOC_RE, GRIDATLAS, openDraftPr, writeJson } from './flow-lib.mjs';
+678558	const TOOL = 'publish-preview';
+678559	    generation: { multi: true }, base: { default: 'origin/main' }, branch: {}, allow: { multi: true },
+678560	    subject: { multi: true }, title: {}, 'body-file': {}, trailer: { multi: true }, push: { bool: true }, report: {}
+678561	const GENS = [...new Set(args.generation)].sort();
+678562	if (!GENS.length || GENS.some(g => !/^\d{12}$/.test(g))) die('--generation G (12 digits) is required, repeatable');
+678563	const subjects = Object.fromEntries(args.subject.map(s => { const i = s.indexOf('='); return [s.slice(0, i), s.slice(i + 1)]; }));
+678564	const FORBIDDEN = /^(atlas\/current\.json|STATE\.md|atlas\/index\.html|atlas\/releases\/)/;
+678565	const SOURCE = /^tools\/lightning\/(src\/[^/]+\.js|generations\.json)$/;
+678566	for (const a of args.allow) if (FORBIDDEN.test(a)) die(`--allow ${a}: a preview may never change ${a}`);
+678567	if (!gitOk('rev-parse', '--verify', '--quiet', `${args.base}^{commit}`)) die(`--base ${args.base} does not resolve (git fetch origin)`);
+678569	if (!gitOk('merge-base', '--is-ancestor', baseSha, 'HEAD')) die(`HEAD does not descend from ${args.base} ${baseSha}`);
+678570	const show = (rev, rel) => { const r = run('git', ['show', `${rev}:${rel}`], { allowFail: true }); return r.status === 0 ? r.stdout : null; };
+678571	const baseLive = JSON.parse(show(baseSha, 'atlas/current.json')).generation;
+678572	const report = { tool: TOOL, generations: GENS, base: baseSha, live_on_base: baseLive, checks: [] };
+678573	const check = (name, pass, detail = '') => { report.checks.push({ name, pass, detail }); if (!pass) die(`${name}: ${detail}`); ok(`${name}${detail ? `  ${detail}` : ''}`); };
+678574	/* ---------------------------------------------- the change set vs base */
+678575	function changeSet() {
+678576	  const committed = run('git', ['diff', '--name-status', '--no-renames', baseSha, 'HEAD']).stdout.split('\n').filter(Boolean)
+678577	    .map(l => { const [s, ...p] = l.split('\t'); return { status: s[0], path: p.join('\t') }; });
+678578	  const pending = run('git', ['status', '--porcelain=v1', '--untracked-files=all']).stdout.split('\n').filter(Boolean)
+678579	    .map(l => ({ status: l.startsWith('??') ? 'A' : l[1] === 'D' || l[0] === 'D' ? 'D' : (l[0] === 'A' ? 'A' : 'M'), path: l.slice(3) }));
+678580	  const byPath = new Map(committed.map(c => [c.path, c]));
+678581	  for (const p of pending) byPath.set(p.path, { status: byPath.get(p.path)?.status === 'A' ? 'A' : p.status, path: p.path });
+678582	  return { all: [...byPath.values()].sort((a, b) => a.path.localeCompare(b.path)), pending };
+678583	console.log(`\n== change set against ${args.base} ${baseSha.slice(0, 12)} (live ${baseLive})`);
+678584	const { all, pending } = changeSet();
+678585	const expected = new Map();
+678586	for (const G of GENS) for (const p of Object.values(generationFiles(G))) expected.set(p, G);
+678587	const problems = [];
+678588	const progressFor = {};
+678589	const sources = [];
+678590	for (const c of all) {
+678591	  if (expected.has(c.path)) { if (c.status !== 'A') problems.push(`${c.path} is ${c.status}, must be added`); continue; }
+678592	  const pm = PROGRESS_DOC_RE.exec(c.path);
+678593	  if (pm && GENS.includes(pm[1]) && c.status === 'A' && !progressFor[pm[1]]) { progressFor[pm[1]] = c.path; continue; }
+678594	  if (SOURCE.test(c.path) && (c.status !== 'D' || c.path.includes('/src/'))) { sources.push(c.path); continue; }
+678595	  if (args.allow.includes(c.path) && !FORBIDDEN.test(c.path) && c.status !== 'D') continue;
+678596	  problems.push(`${c.status} ${c.path} is not part of a preview of ${GENS.join(', ')} (name it with --allow if intended)`);
+678597	for (const p of expected.keys()) if (!all.some(c => c.path === p)) problems.push(`${p} is missing`);
+678598	check('additive change set', problems.length === 0, problems.length ? problems.join('; ') : `${all.length} path(s): ${GENS.length}×6 generation files` +
+678599	  `${Object.keys(progressFor).length ? ` + ${Object.keys(progressFor).length} progress note(s)` : ''}${sources.length ? ` + lightning source (${sources.join(', ')})` : ''}${args.allow.length ? ` + allowed ${args.allow.join(', ')}` : ''}`);
+678600	for (const p of expected.keys()) if (show(baseSha, p) !== null) die(`${p} already exists on ${args.base}`);
+678601	/* ------------------------------------------------------- per generation */
+678602	const meta = {};
+678603	for (const G of GENS) {
+678604	  const F = generationFiles(G);
+678605	  const manifestText = fs.readFileSync(path.join(ROOT, F.manifest), 'utf8');
+678606	  const m = JSON.parse(manifestText);
+678607	  meta[G] = m;
+678608	  check(`${G} manifest names ${G}`, m.generation === G && m.composition_manifest === `./manifests/${G}-composition.json`, m.composition_id);
+678609	  check(`${G} was cut against live ${baseLive}`, String(m.previous_generation) === String(baseLive),
+678610	    `previous_generation ${m.previous_generation}${String(m.previous_generation) !== String(baseLive) ? ' (re-cut against the current live)' : ''}`);
+678611	  check(`${G} preview route = derived pointer`, fs.readFileSync(path.join(ROOT, F.routeCurrent), 'utf8') === rerootForPreview(deriveCurrent(manifestText)));
+678612	  check(`${G} loader identical`, fs.readFileSync(path.join(ROOT, F.routeIndex)).equals(fs.readFileSync(path.join(ROOT, 'atlas/index.html'))));
+678613	/* ------------------------------------------------------------- commits */
+678614	const version = (G) => meta[G].composition_version;
+678615	const branch = args.branch || `preview/${GENS[0]}-gridatlas-${version(GENS[0])}`;
+678616	const trailers = args.trailer.length ? `\n\n${args.trailer.join('\n')}` : '';
+678617	if (pending.length) {
+678618	  const current = run('git', ['symbolic-ref', '--quiet', '--short', 'HEAD'], { allowFail: true }).stdout.trim();
+678619	  if (!current || git('rev-parse', 'HEAD') === baseSha) {
+678620	    if (gitOk('rev-parse', '--verify', '--quiet', `refs/heads/${branch}`)) die(`branch ${branch} already exists`);
+678621	    run('git', ['switch', '-q', '-c', branch]);
+678622	  for (const G of GENS) {
+678623	    const own = [...Object.values(generationFiles(G)), ...(progressFor[G] ? [progressFor[G]] : []), ...(G === GENS[GENS.length - 1] ? sources : [])];
+678624	    const paths = own.filter(p => pending.some(x => x.path === p || p.startsWith(x.path)));
+678625	    if (!paths.length) continue;
+678626	    run('git', ['add', '--', ...paths]);
+678627	    const scopeTail = (meta[G].acceptance?.scope || '').split(` ${G}): `).pop().split(';')[0].slice(0, 120);
+678628	    const subject = `${G} candidate (${version(G)}): ${subjects[G] || scopeTail || 'preview'}`;
+678629	    run('git', ['commit', '-q', '-F', '-'], { input: `${subject}\n\nPreview only: atlas/current.json and STATE.md are unchanged; live stays ${baseLive}.${trailers}\n` });
+678630	    ok(`committed ${G}: ${git('rev-parse', '--short', 'HEAD')} ${subject.slice(0, 90)}`);
+678631	  const rest = run('git', ['status', '--porcelain=v1', '--untracked-files=all']).stdout.split('\n').filter(Boolean).map(l => l.slice(3));
+678632	  const allowedLeft = rest.filter(p => args.allow.includes(p));
+678633	  if (allowedLeft.length) {
+678634	    run('git', ['add', '--', ...allowedLeft]);
+678635	    run('git', ['commit', '-q', '-F', '-'], { input: `preview ${GENS.join(', ')}: supporting changes (${allowedLeft.join(', ')})${trailers}\n` });
+678636	    ok(`committed supporting paths: ${allowedLeft.join(', ')}`);
+678637	if (!cleanTree()) die('working tree still has changes outside the preview; commit or remove them');
+678638	report.branch = run('git', ['symbolic-ref', '--quiet', '--short', 'HEAD'], { allowFail: true }).stdout.trim() || null;
+678639	report.head = git('rev-parse', 'HEAD');
+678640	report.commits = run('git', ['log', '--format=%H %s', `${baseSha}..HEAD`]).stdout.trim().split('\n').filter(Boolean);
+678641	if (!report.branch) die('HEAD is detached; pass --branch or switch to a branch');
+678642	/* ---------------------------------------------------------- the PR gate */
+678643	console.log(`\n== node tools/ci/pr-gate.mjs --base ${baseSha.slice(0, 12)} (what CI runs on the PR)`);
+678644	const gate = run('node', ['tools/ci/pr-gate.mjs', '--base', baseSha], { allowFail: true });
+678645	const gateLines = gate.out.split('\n').filter(l => /^(PASS|FAIL) /.test(l));
+678646	report.pr_gate = { exit: gate.status, rows: gateLines };
+678647	for (const l of gateLines) console.log(`  ${l.slice(0, 160)}`);
+678648	if (gate.status !== 0) die(`pr-gate exit ${gate.status}; fix before publishing`);
+678649	ok(`pr-gate ${gateLines.filter(l => l.startsWith('PASS')).length}/${gateLines.length} PASS`);
+678650	/* ------------------------------------------------------------- publish */
+678651	const title = args.title || `Publish preview ${GENS.map(g => `${g} (${version(g)})`).join(' and ')} (no live pointer switch)`;
+678652	const body = args['body-file'] ? fs.readFileSync(path.resolve(args['body-file']), 'utf8')
+678653	  : `Preview of ${GENS.join(', ')}; live stays ${baseLive}.\n\n${report.commits.map(c => `- ${c.slice(0, 12)} ${c.slice(41)}`).join('\n')}\n\n` +
+678654	    `Routes after merge: ${GENS.map(g => `https://ventusltd.github.io/gridatlas/atlas/v/${g}/`).join(' ')}\n\n` +
+678655	    `Local pr-gate: ${gateLines.filter(l => l.startsWith('PASS')).length}/${gateLines.length} PASS. Merge with **Rebase and merge**.\n` +
+678656	    `Owner acceptance: comment \`ACCEPT <generation>\` (first line) here, or add the label \`accepted:<generation>\`.\n`;
+678657	report.title = title;
+678658	if (args.push) {
+678659	  run('git', ['push', '-u', 'origin', report.branch]);
+678660	  const pr = openDraftPr({ head: report.branch, title, body });
+678661	  report.pr = { number: pr.number, url: pr.html_url };
+678662	  ok(`draft PR #${pr.number} ${pr.html_url}`);
+678664	  console.log(`\n== not pushed (pass --push). To publish:\n  git push -u origin ${report.branch}\n` +
+678665	    `  gh api -X POST repos/${GRIDATLAS}/pulls -f head=${report.branch} -f base=main -F draft=true -f title=${JSON.stringify(title)} -F body=@<body.md>`);
+678666	console.log(`\nnext: CI runs on the PR; then the owner checks ${GENS.map(g => `atlas/v/${g}/`).join(', ')} and records acceptance (tools/release/acceptance.mjs)`);
+678667	if (args.report) writeJson(args.report, report);
+678668	 * Step 4 of the delivery flow: release an ACCEPTED preview generation.
+678669	 *   node tools/release/release-accepted.mjs --generation G [--title TEXT] [--trailer TEXT ...]
+678670	 *        [--report FILE] [--log FILE] [--push] [--body-file FILE] [--base REV] [--branch NAME]
+678671	 *   node tools/release/release-accepted.mjs --generation G --rehearsal [...]   (no acceptance needed; never pushes)
+678672	 *   - the owner's acceptance of G is on GitHub (tools/release/acceptance.mjs: exit 0);
+678673	 *   - G's preview is merged: its files are on origin/main (release-generation.mjs
+678674	 *     re-checks every byte), and the preview PR's CI (pr-file-size-guard.yml) is green;
+678675	 *   - this checkout is a clean worktree whose HEAD is origin/main.
+678676	 *   1. Reads the acceptance and the preview PR's checks.
+678677	 *   2. Runs tools/release/release-generation.mjs with
+678678	 *      --authorised-by "owner (<login>) <comment or label URL>, <UTC time>"
+678679	 *      so the commit carries the acceptance record. All of that script's
+678680	 *      preconditions and gates apply unchanged (see docs/RELEASE.md).
+678681	 *   3. --push: pushes release/G-gridatlas-<version> and opens a DRAFT PR.
+678682	 *      CI (the PR gate) runs on it. The owner merges with REBASE AND MERGE:
+678683	 *        gh api -X PUT repos/Ventusltd/gridatlas/pulls/<N>/merge -f merge_method=rebase
+678684	 *      never squash (a squash folds preparatory commits into the release commit).
+678685	 * --rehearsal skips the acceptance read, writes the branch as
+678686	 * rehearsal/release-G and refuses --push: the whole release short of
+678687	 * publishing, on a local branch.
+678688	import { ROOT, parseArgs, run, git } from './lib.mjs';
+678689	import { GRIDATLAS, readAcceptance, cutAtUtc, prsNaming, prFiles, classifyPr, checkRunsFor, openDraftPr, gh } from './flow-lib.mjs';
+678690	const TOOL = 'release-accepted';
+678691	    generation: {}, title: {}, trailer: { multi: true }, report: {}, log: {}, push: { bool: true },
+678692	    'body-file': {}, rehearsal: { bool: true }, branch: {}, base: {}
+678693	if (args.rehearsal && args.push) die('--rehearsal never pushes');
+678694	console.log(`\n== acceptance and preview of ${G}`);
+678695	let authorisedBy;
+678696	const pulls = gh(`repos/${GRIDATLAS}/pulls?state=all&per_page=100&sort=created&direction=desc`);
+678697	const previews = prsNaming(G, { pulls }).filter(p => classifyPr(p, prFiles(p.number), G) === 'preview');
+678698	if (!previews.length) die(`no preview PR adds atlas/v/${G}/current.json`);
+678699	const preview = previews.find(p => p.merged_at) || previews[0];
+678700	if (!preview.merged_at) die(`preview PR #${preview.number} is not merged; merge it (rebase) first`);
+678701	ok(`preview PR #${preview.number} merged ${preview.merged_at}`);
+678702	const checks = checkRunsFor(GRIDATLAS, preview.head.sha);
+678703	const red = checks.filter(c => c.status === 'completed' && !['success', 'skipped', 'neutral'].includes(c.conclusion));
+678704	if (!checks.length) die(`preview PR #${preview.number} has no CI check runs on ${preview.head.sha}`);
+678705	if (red.length) die(`preview PR #${preview.number} CI is red: ${red.map(c => `${c.name}=${c.conclusion}`).join(', ')}`);
+678706	ok(`preview CI: ${checks.map(c => `${c.name}=${c.conclusion}`).join(', ')}`);
+678707	if (args.rehearsal) {
+678708	  authorisedBy = `REHEARSAL ONLY (no owner acceptance read; tools/release/release-accepted.mjs --rehearsal, ${new Date().toISOString()})`;
+678709	  console.log('  --     rehearsal: acceptance not required');
+678710	  const a = readAcceptance(G, { since: cutAtUtc(G) || undefined, pulls });
+678711	  if (a.state !== 'accepted') die(`${G} is not accepted (${a.state}). The owner records it: node tools/release/acceptance.mjs --generation ${G} --how --pr ${preview.number}`);
+678712	  authorisedBy = `owner (${a.by}), ${a.url}, ${a.at}`;
+678713	  ok(`accepted: ${authorisedBy}`);
+678714	const startSha = git('rev-parse', 'HEAD');
+678715	console.log('\n== tools/release/release-generation.mjs');
+678716	const branch = args.branch || (args.rehearsal ? `rehearsal/release-${G}` : undefined);
+678717	const argv = ['tools/release/release-generation.mjs', '--generation', G, '--authorised-by', authorisedBy];
+678718	if (branch) argv.push('--branch', branch);
+678719	if (args.base) argv.push('--base', args.base);
+678720	if (args.title) argv.push('--title', args.title);
+678721	for (const t of args.trailer) argv.push('--trailer', t);
+678722	if (args.report) argv.push('--report', path.resolve(args.report));
+678723	if (args.log) argv.push('--log', path.resolve(args.log));
+678724	const r = spawnSync('node', argv, { cwd: ROOT, stdio: 'inherit' });
+678725	if (r.status !== 0) die(`release-generation.mjs exit ${r.status}`);
+678727	const current = run('git', ['symbolic-ref', '--quiet', '--short', 'HEAD'], { allowFail: true }).stdout.trim();
+678728	if (!current || startSha === head) { console.log('nothing committed (no-op release)'); process.exit(0); }
+678729	if (!args.push) {
+678730	  console.log(`\n== not pushed. To publish:\n  git push -u origin ${current}\n` +
+678731	    `  gh api -X POST repos/${GRIDATLAS}/pulls -f head=${current} -f base=main -F draft=true -f title='...' -F body=@<body.md>\n` +
+678732	    `then, once CI is green and the owner merges with rebase: node tools/release/check-live.mjs --generation ${G} --wait`);
+678733	run('git', ['push', '-u', 'origin', current]);
+678734	const subject = git('log', '-1', '--format=%s');
+678735	  : `Release of ${G}, accepted by ${authorisedBy}.\n\nPreview: #${preview.number}. Only atlas/current.json and STATE.md change.\n\n` +
+678736	    `Merge with **Rebase and merge** (never squash). Rollback: \`node tools/release/rollback-generation.mjs --release-commit <sha on main>\`.\n`;
+678737	const pr = openDraftPr({ head: current, title: subject, body });
+678738	ok(`draft release PR #${pr.number} ${pr.html_url}`);
+678739	console.log(`next: CI on #${pr.number}; owner merges with rebase; then node tools/release/check-live.mjs --generation ${G} --wait`);
+678759	 *      - the loader: atlas/index.html == atlas/v/G/index.html, or G's own
+678760	 *        loader is a different REGISTERED loader that supports every slot G
+678761	 *        uses (loader v2 for a modular lightning generation); then the release
+678762	 *        commit also writes atlas/index.html := atlas/v/G/index.html.
+678794	  ROOT, POINTER_FILES, LOADER_FILE, registeredLoaderOf, pointerSlots, die as dieWith, parseArgs, run, git, gitOk, gitBlob, sha256, sha256File,
+678872	const loader = gitBlob('HEAD', LOADER_FILE);
+678874	if (!loader || !previewLoader) die(`${LOADER_FILE} or ${previewLoaderRel} is not committed`);
+678875	const previewRegistered = registeredLoaderOf(previewLoader);
+678876	if (!previewRegistered) die(`${previewLoaderRel} is not a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)`);
+678877	const missingSlots = pointerSlots(manifest).filter(slot => !previewRegistered.slots.includes(slot));
+678878	if (missingSlots.length) die(`${previewLoaderRel} (loader ${previewRegistered.name}) cannot compose slot(s) ${missingSlots.join(', ')} that ${G} uses`);
+678879	const loaderMoves = Buffer.compare(loader, previewLoader) !== 0;
+678880	const RELEASE_FILES = loaderMoves ? [...POINTER_FILES, LOADER_FILE] : [...POINTER_FILES];
+678881	report.loader = { live: registeredLoaderOf(loader)?.name || null, preview: previewRegistered.name, moves: loaderMoves };
+678882	if (loaderMoves && noop) die(`live is ${G} but ${LOADER_FILE} is not ${previewLoaderRel}`);
+678883	if (loaderMoves) ok(`LOADER_FOLLOWS ${LOADER_FILE} (${report.loader.live}) -> ${previewLoaderRel} (${previewRegistered.name}, sha256 ${sha256(previewLoader).slice(0, 16)}…) in the release commit`);
+678884	else ok(`LOADER_IDENTICAL ${LOADER_FILE} == ${previewLoaderRel} (${previewRegistered.name}, sha256 ${sha256(loader).slice(0, 16)}…)`);
+678885	const before = Object.fromEntries(RELEASE_FILES.map(f => [f, sha256File(f)]));
+678961	step(`write atlas/current.json from ${manifestRel}${loaderMoves ? `, ${LOADER_FILE} from ${previewLoaderRel}` : ''} and regenerate STATE.md`);
+678963	if (loaderMoves) fs.writeFileSync(path.join(ROOT, LOADER_FILE), previewLoader);
+678968	  run('git', ['checkout', '--', ...RELEASE_FILES], { allowFail: true });
+678976	if (JSON.stringify(changed) !== JSON.stringify([...RELEASE_FILES].sort())) {
+678977	  restore(); die(`the release must change exactly ${RELEASE_FILES.join(', ')}; it changed: ${changed.join(', ')}`);
+678986	if (JSON.stringify(changedPaths()) !== JSON.stringify([...RELEASE_FILES].sort())) { restore(); die('a gate wrote outside the release files'); }
+678991	const after = Object.fromEntries(RELEASE_FILES.map(f => [f, sha256File(f)]));
+678995	  run('git', ['add', '--', ...RELEASE_FILES]);
+678997	  const body = `Moves atlas/current.json and STATE.md${loaderMoves ? ` and the loader (${LOADER_FILE} := ${previewLoaderRel}, ${report.loader.live} -> ${previewRegistered.name})` : ''} from ${live.generation} to ${G}, written from ${manifestRel} by tools/release/release-generation.mjs. Nothing else changes.\nRollback: git revert this commit (tools/release/rollback-generation.mjs).\n\nAuthorised by: ${args['authorised-by']}`;
+679000	  if (JSON.stringify(touched) !== JSON.stringify([...RELEASE_FILES].sort())) die(`release commit touched ${touched.join(', ')}`);
+679004	for (const f of RELEASE_FILES) console.log(`  ${f.padEnd(20)} before ${before[f]}\n  ${''.padEnd(20)} after  ${after[f]}`);
+679018	 * Where every candidate is in the delivery flow (docs/RELEASE.md).
+679019	 *   node tools/release/release-status.mjs [--generation G ...] [--all] [--json] [--served]
+679020	 * Default candidates: the live generation and every generation newer than it
+679021	 * that is pinned on gridatlas main (atlas/v/G/current.json) or cut in this
+679022	 * checkout. --all lists every pinned lightning-line generation.
+679023	 * For each, read-only, from `gh api` (repository-scoped REST) and this checkout:
+679024	 *   cut        the six files exist here (local) / on main
+679025	 *   preview    the PR that adds atlas/v/G/current.json: number, state, CI
+679026	 *   accepted   owner acceptance (tools/release/acceptance.mjs rules)
+679027	 *   release    the release/G-* PR: number, state, CI
+679028	 *   live       gridatlas main's atlas/current.json names G; live-bytes job for main's head
+679029	 *   homepage   globalgrid2050-homepage main: G recorded / operative, with its label
+679030	 *   domain     globalgrid2050 main's catalogue/homepage-owner.json pins a homepage
+679031	 *              commit that makes G operative; deploy-pages.yml for main's head
+679032	 *   served     only with --served: tools/release/check-served.mjs once (needs network)
+679033	 * and the next step of the flow.
+679034	  GRIDATLAS, HOMEPAGE, DOMAIN, LIVE_BYTES_WORKFLOW, DOMAIN_DEPLOY_WORKFLOW, STAMP, gh, ghAll, ghFile, ghHeadSha,
+679035	  generationFiles, prsNaming, prFiles, classifyPr, checkRunsFor, decideAcceptance, workflowRuns, pad
+679036	try { args = parseArgs(process.argv.slice(2), { generation: { multi: true }, all: { bool: true }, json: { bool: true }, served: { bool: true } }); }
+679037	catch (error) { console.error(`release-status: ${error.message}`); process.exit(2); }
+679038	/* ------------------------------------------------------- shared reads */
+679039	const mainSha = ghHeadSha(GRIDATLAS, 'main');
+679040	const live = JSON.parse(ghFile(GRIDATLAS, mainSha, 'atlas/current.json'));
+679041	const LIVE = String(live.generation);
+679042	const pinnedOnMain = (gh(`repos/${GRIDATLAS}/contents/atlas/v?ref=${mainSha}`) || []).map(e => e.name).filter(n => STAMP.test(n)).sort();
+679043	const localCut = fs.existsSync(path.join(ROOT, 'atlas/v'))
+679044	  ? fs.readdirSync(path.join(ROOT, 'atlas/v')).filter(n => STAMP.test(n) && fs.existsSync(path.join(ROOT, generationFiles(n).manifest))) : [];
+679045	const isLine = (g) => g >= '202610261949';
+679046	let gens = args.generation.length ? args.generation
+679047	  : [...new Set([...pinnedOnMain, ...localCut])].filter(g => (args.all ? isLine(g) : g >= LIVE)).sort();
+679048	const oldestCut = gens.map(g => `${g.slice(0, 4)}-${g.slice(4, 6)}-${g.slice(6, 8)}T${g.slice(8, 10)}:${g.slice(10, 12)}:00Z`).sort()[0];
+679049	const comments = oldestCut ? ghAll(`repos/${GRIDATLAS}/issues/comments?sort=created&since=${oldestCut}`) : [];
+679050	const liveBytes = (() => {
+679051	  for (const run of workflowRuns(GRIDATLAS, LIVE_BYTES_WORKFLOW, { headSha: mainSha, perPage: 5 })) {
+679052	    if (job) return job.status === 'completed' ? job.conclusion : job.status;
+679053	  return 'no run';
+679054	const homepageMain = JSON.parse(ghFile(HOMEPAGE, 'main', 'data/homepage.json')).entities.find(e => e.id === 'gridatlas');
+679055	const pinnedHome = JSON.parse(ghFile(HOMEPAGE, pin.commit, 'data/homepage.json')).entities.find(e => e.id === 'gridatlas');
+679056	const domainSha = ghHeadSha(DOMAIN, 'main');
+679057	const deploy = workflowRuns(DOMAIN, DOMAIN_DEPLOY_WORKFLOW, { branch: 'main', perPage: 5 }).find(r => r.head_sha === domainSha);
+679058	/* G is superseded when a later pinned candidate names it as candidate_predecessor. */
+679059	const successors = {};
+679060	for (const g of pinnedOnMain.filter(x => gens.some(y => x > y))) {
+679061	    const m = JSON.parse(ghFile(GRIDATLAS, mainSha, generationFiles(g).manifest));
+679062	    if (m.candidate_predecessor && !successors[m.candidate_predecessor]) successors[m.candidate_predecessor] = g;
+679063	  } catch { /* not a lightning-line manifest */ }
+679064	const ci = (sha) => {
+679065	  const runs = checkRunsFor(GRIDATLAS, sha);
+679066	  if (!runs.length) return 'no CI';
+679067	  if (runs.some(r => r.status !== 'completed')) return 'CI running';
+679068	  const bad = runs.filter(r => !['success', 'skipped', 'neutral'].includes(r.conclusion));
+679069	  return bad.length ? `CI RED (${bad.map(r => r.name).join(',')})` : 'CI green';
+679070	const prState = (p) => (p.merged_at ? 'merged' : p.state === 'open' ? (p.draft ? 'draft' : 'open') : 'closed');
+679071	/* ------------------------------------------------------- per candidate */
+679073	for (const G of gens) {
+679074	  const onMain = pinnedOnMain.includes(G);
+679075	  const local = localCut.includes(G);
+679076	  let manifest = null;
+679077	  try { manifest = JSON.parse(onMain ? ghFile(GRIDATLAS, mainSha, F.manifest) : fs.readFileSync(path.join(ROOT, F.manifest), 'utf8')); } catch { /* none */ }
+679078	  const version = manifest?.composition_version || '?';
+679079	  const named = prsNaming(G, { pulls });
+679080	  const typed = named.map(p => ({ p, kind: classifyPr(p, prFiles(p.number), G) }));
+679081	  const preview = typed.filter(t => t.kind === 'preview').map(t => t.p)[0];
+679082	  const release = typed.filter(t => t.kind === 'release').map(t => t.p)[0];
+679083	  const rollback = typed.filter(t => t.kind === 'rollback').map(t => t.p)[0];
+679084	  const events = preview ? ghAll(`repos/${GRIDATLAS}/issues/${preview.number}/events?`).map(e => ({ ...e, issue: { html_url: preview.html_url } })) : [];
+679085	  const since = manifest?.cut_at_utc;
+679086	  const acc = decideAcceptance(G, { comments: comments.filter(c => !since || c.created_at >= since), events: events.filter(e => !since || e.created_at >= since) });
+679087	  const isLive = G === LIVE;
+679088	  const supersededBy = successors[G];
+679089	  const hpRel = homepageMain.releases.find(r => r.id === G);
+679091	    generation: G, version,
+679092	    cut: onMain ? 'on main' : local ? 'local only' : 'no',
+679093	    preview: preview ? `#${preview.number} ${prState(preview)}, ${ci(preview.head.sha)}` : (onMain ? 'on main (no PR found)' : 'none'),
+679094	    accepted: acc.state === 'accepted' ? `yes (${acc.by}, ${acc.via})` : acc.state === 'rejected' ? `REJECTED (${acc.by})` : (isLive ? 'n/a (released before GitHub acceptance)' : 'no'),
+679095	    acceptance_url: acc.url || null,
+679096	    release: release ? `#${release.number} ${prState(release)}, ${ci(release.head.sha)}` : 'none',
+679097	    live: isLive ? `LIVE, live-bytes ${liveBytes}` : (release?.merged_at ? `was live; now ${LIVE}` : 'no'),
+679098	    rollback: rollback ? `#${rollback.number} ${prState(rollback)}` : '-',
+679099	    homepage: hpRel ? `${homepageMain.operative_release_id === G ? 'OPERATIVE' : 'recorded'} "${hpRel.label}"` : 'no',
+679100	    domain: pinnedHome.operative_release_id === G ? `pinned ${pin.commit.slice(0, 7)}, deploy ${deploy ? (deploy.conclusion || deploy.status) : 'not run for head'}` : 'no'
+679101	  row.next = !onMain && local ? `publish-preview.mjs --generation ${G}`
+679102	    : !onMain ? `tools/lightning/make-generation.mjs --gen ${G} ...`
+679103	    : preview && !preview.merged_at ? `CI green, then rebase-merge preview #${preview.number}`
+679104	    : supersededBy && !isLive && !release && acc.state !== 'accepted' ? `superseded by ${supersededBy} (nothing to do)`
+679105	    : acc.state !== 'accepted' && !isLive && !release?.merged_at ? `owner: ACCEPT ${G} (acceptance.mjs --how --pr ${preview?.number ?? 'N'})`
+679106	    : !isLive && !release ? `release-accepted.mjs --generation ${G} --push`
+679107	    : !isLive && release && !release.merged_at ? `CI green, owner rebase-merges release #${release.number}`
+679108	    : !isLive ? '-'
+679109	    : liveBytes !== 'success' ? 'check-live.mjs --wait'
+679110	    : homepageMain.operative_release_id !== G ? 'homepage-bump.mjs label --homepage DIR --push'
+679111	    : pinnedHome.operative_release_id !== G ? 'homepage-bump.mjs pin --homepage DIR --domain DIR --push'
+679112	    : !deploy || deploy.conclusion !== 'success' ? 'homepage-bump.mjs deploy [--dispatch]'
+679113	    : 'check-served.mjs (done when it passes)';
+679115	let served = null;
+679116	if (args.served) {
+679117	  const r = spawnSync('node', [path.join(ROOT, 'tools/release/check-served.mjs'), '--timeout-s', '1'], { encoding: 'utf8' });
+679118	  served = { exit: r.status, line: (r.stdout || '').trim().split('\n').pop() };
+679119	const out = { gridatlas_main: mainSha, live: LIVE, live_bytes: liveBytes, homepage_operative: homepageMain.operative_release_id,
+679120	  domain_pin: pin.commit, domain_operative: pinnedHome.operative_release_id, domain_deploy: deploy ? (deploy.conclusion || deploy.status) : 'not run for head',
+679121	  served, candidates: rows };
+679122	if (args.json) { console.log(JSON.stringify(out, null, 1)); process.exit(0); }
+679123	console.log(`gridatlas main ${mainSha.slice(0, 12)}: live ${LIVE} (${live.composition_version}), live-bytes ${liveBytes}`);
+679124	console.log(`homepage: operative ${homepageMain.operative_release_id}; domain pin ${pin.commit.slice(0, 12)} makes ${pinnedHome.operative_release_id} operative; deploy ${out.domain_deploy}`);
+679125	if (served) console.log(`served: ${served.line}`);
+679127	const cols = ['generation', 'version', 'cut', 'preview', 'accepted', 'release', 'live', 'homepage', 'domain', 'next'];
+679128	console.log(pad([cols, ...rows.map(r => cols.map(c => r[c]))]));
+679140	 *     atlas/current.json and STATE.md, or those and atlas/index.html (a
+679141	 *     release that moved the loader with the pointer, docs/LIGHTNING-CARTRIDGE.md);
+679142	 *   - the pointer has not moved since: HEAD:atlas/current.json is SHA's bytes
+679143	 *     (and HEAD:atlas/index.html too, when SHA moved it).
+679158	  ROOT, POINTER_FILES, LOADER_FILE, die as dieWith, parseArgs, run, git, gitOk, gitBlob, sha256, sha256File,
+679174	const loaderMoved = touched.includes(LOADER_FILE);
+679175	const RELEASE_FILES = loaderMoved ? [...POINTER_FILES, LOADER_FILE] : [...POINTER_FILES];
+679176	if (JSON.stringify(touched) !== JSON.stringify([...RELEASE_FILES].sort())) die(`${R} changed ${touched.join(', ')}; a release commit changes exactly ${POINTER_FILES.join(' and ')} (and ${LOADER_FILE} when the loader moved)`);
+679185	if (loaderMoved && Buffer.compare(gitBlob('HEAD', LOADER_FILE), gitBlob(R, LOADER_FILE)) !== 0) die(`${LOADER_FILE} has moved since ${R.slice(0, 7)}; reverting would not restore a known state`);
+679189	  expected: { 'atlas/current.json': sha256(restoredPointer), 'STATE.md': sha256(restoredState),
+679190	    ...(loaderMoved ? { [LOADER_FILE]: sha256(gitBlob(`${R}^`, LOADER_FILE)) } : {}) },
+679191	  before: Object.fromEntries(RELEASE_FILES.map(f => [f, sha256File(f)])) });
+679199	if (loaderMoved) {
+679200	  if (after[LOADER_FILE] !== report.expected[LOADER_FILE]) { abort(); die(`${LOADER_FILE} is NOT byte-exact to the pre-release loader`); }
+679201	  ok(`${LOADER_FILE} byte-exact to ${R.slice(0, 7)}^ (${after[LOADER_FILE]})`);
+679205	report.byte_exact = { 'atlas/current.json': true, 'STATE.md': stateExact, ...(loaderMoved ? { [LOADER_FILE]: true } : {}) };
+679209	  const msg = `Revert "${subject}"\n\nThis reverts commit ${R}.\n\nRolls the live route back from ${G} to ${P} by reverting the release commit\n(route C): atlas/current.json${loaderMoved ? `, ${LOADER_FILE}` : ''} and STATE.md are byte-identical to ${R.slice(0, 7)}^.\nReason: ${args.reason}${trailerBlock(args.trailer)}\n`;
+679212	for (const f of RELEASE_FILES) console.log(`  ${f.padEnd(20)} released ${report.before[f]}\n  ${''.padEnd(20)} restored ${after[f]}${report.byte_exact[f] ? '  (byte-exact)' : ''}`);
+679215	 * Cut a MODULAR lightning generation G from a monolithic one R: the same
+679216	 * composition, with the UK lightning overlay as its own cartridge
+679217	 * ('uk-lightning-overlay', slot after-cartridge, after sld-sandbox) and
+679218	 * sld-sandbox back to the original 202609241334 cartridge (435,218 bytes).
+679219	 * docs/LIGHTNING-CARTRIDGE.md.
+679220	 *   node tools/release/split-lightning-cartridge.mjs --from R --generation G --version vX [--check]
+679221	 * R must be a pinned preview whose sld-sandbox is exactly
+679222	 *   original 202609241334 bytes + '\n' + atlas/modules/R-uk-lightning-overlay.js
+679223	 * (the shape every lightning generation since 202610261949 has). Nothing is
+679224	 * rebuilt: the overlay cartridge IS that module file, referenced by path and
+679225	 * hash, so no bytes are copied.
+679226	 * It writes only G's preview files:
+679227	 *   atlas/manifests/G-composition.json
+679228	 *   atlas/v/G/current.json   the derived pointer re-rooted to ../../ (tools/release/lib.mjs)
+679229	 *   atlas/v/G/index.html     loader v2 (tools/scope/payloads/atlas-loader-v2.html)
+679230	 *   tools/proofs/G-uk-lightning-overlay.proof.mjs
+679231	 * It never writes atlas/current.json, STATE.md, atlas/index.html or
+679232	 * atlas/releases/**, and never commits. previous_generation is the live
+679233	 * generation, so tools/release/release-generation.mjs can release G later.
+679234	import { ROOT, parseArgs, die as dieWith, sha256, deriveCurrent, rerootForPreview } from './lib.mjs';
+679235	const TOOL = 'split-lightning-cartridge';
+679236	const ORIGINAL = '202609241334';
+679237	const ORIGINAL_SHA = '7812953671d8bb22a566de5e98fd3137da2d23411c5aecd526df5afa111ca4ca';
+679238	const OVERLAY = 'uk-lightning-overlay';
+679239	const BUDGET = 64781;
+679240	const LOADER_V2 = 'tools/scope/payloads/atlas-loader-v2.html';
+679241	  args = parseArgs(process.argv.slice(2), { from: {}, generation: {}, version: {}, check: { bool: true } });
+679242	const R = args.from, G = args.generation, VERSION = args.version;
+679243	if (!/^\d{12}$/.test(R || '')) die('--from must be the 12-digit monolithic generation');
+679244	if (!/^\d{12}$/.test(G || '') || G <= R) die('--generation must be a 12-digit generation later than --from');
+679245	if (!/^v\d+\.\d+[a-z]*$/.test(VERSION || '')) die('--version must look like v9.178');
+679246	const rel = (...p) => path.posix.join(...p);
+679247	const abs = (p) => path.join(ROOT, p);
+679248	const readJson = (p) => JSON.parse(fs.readFileSync(abs(p), 'utf8'));
+679249	const outputs = [rel('atlas/manifests', `${G}-composition.json`), rel('atlas/v', G, 'current.json'), rel('atlas/v', G, 'index.html'), rel('tools/proofs', `${G}-${OVERLAY}.proof.mjs`)];
+679250	for (const o of outputs) if (fs.existsSync(abs(o))) die(`${o} already exists; a generation is cut once`);
+679251	const live = readJson('atlas/current.json');
+679252	const ref = readJson(`atlas/manifests/${R}-composition.json`);
+679253	const original = readJson(`atlas/manifests/${ORIGINAL}-composition.json`).cartridges.find(c => c.id === 'sld-sandbox');
+679254	const refSld = ref.cartridges.find(c => c.id === 'sld-sandbox');
+679255	if (!refSld || !original) die('sld-sandbox missing from a manifest');
+679256	if (ref.cartridge_order.includes(OVERLAY)) die(`${R} is already modular`);
+679257	if (original.sha256 !== ORIGINAL_SHA) die(`the ${ORIGINAL} manifest no longer records the original sld-sandbox`);
+679258	const moduleRel = `atlas/modules/${R}-uk-lightning-overlay.js`;
+679259	const moduleBytes = fs.readFileSync(abs(moduleRel));
+679260	const originalBytes = fs.readFileSync(abs(rel('atlas', original.path)));
+679261	const refBytes = fs.readFileSync(abs(rel('atlas', refSld.path)));
+679262	if (sha256(originalBytes) !== ORIGINAL_SHA) die(`${original.path} is not the original bytes`);
+679263	if (sha256(refBytes) !== refSld.sha256) die(`${refSld.path} does not hash to ${R}'s record`);
+679264	if (Buffer.compare(refBytes, Buffer.concat([originalBytes, Buffer.from('\n'), moduleBytes])) !== 0) {
+679265	  die(`${R}'s sld-sandbox is not original + '\\n' + ${moduleRel}; this tool splits only that shape`);
+679266	if (moduleBytes.length > BUDGET) die(`${moduleRel} is ${moduleBytes.length} B, over the ${BUDGET}-byte overlay budget`);
+679267	console.log(`OK    ${R} sld-sandbox (${refBytes.length} B) = original ${ORIGINAL} (${originalBytes.length} B) + '\\n' + ${moduleRel} (${moduleBytes.length} B)`);
+679268	const lightningCaps = refSld.capabilities.filter(x => !original.capabilities.includes(x));
+679269	const lightningSources = (refSld.data_sources || []).filter(x => !(original.data_sources || []).some(o => JSON.stringify(o) === JSON.stringify(x)));
+679270	const overlay = {
+679271	  id: OVERLAY,
+679272	  generation: G,
+679273	  version: VERSION,
+679274	  type: 'script',
+679275	  slot: 'after-cartridge',
+679276	  after: 'sld-sandbox',
+679277	  path: `./modules/${R}-uk-lightning-overlay.js`,
+679278	  sha256: sha256(moduleBytes),
+679279	  bytes: moduleBytes.length,
+679280	  byte_budget: BUDGET,
+679281	  module_generation: R,
+679282	  parity_reference: R,
+679283	  immutable_shell_modified: false,
+679284	  capabilities: lightningCaps,
+679285	  reads_at_runtime: {
+679286	    'window.__GRIDATLAS_MODULES__.menuBar': 'substation-intelligence; polled (MutationObserver + 250 ms) until installed',
+679287	    'window.__GRIDATLAS_PIPELINE_LAYERS__': 'substation-intelligence; polled until installed',
+679288	    'the MapLibre map': 'polled until present',
+679289	    '#scada-ui-container .key-group, #fs-curtain-keys': 'the immutable shell and engine; polled until present',
+679290	    'input[data-layer-id] (REPD layers)': 'the engine; read and ticked through its own change path on a tap'
+679291	  writes: ['window.__GRIDATLAS_MODULES__.ukLightning'],
+679292	  isolation: 'its own script element: a parse or top-level error in the overlay no longer stops sld-sandbox, and an sld-sandbox top-level throw no longer stops the overlay',
+679293	  data_sources: lightningSources,
+679294	  uk_lightning: { ...refSld.uk_lightning, module: `./modules/${R}-uk-lightning-overlay.js`,
+679295	    delta: `its own cartridge (after-cartridge, after sld-sandbox), the module file itself; sld-sandbox is the original ${ORIGINAL} bytes` }
+679297	  ...ref,
+679298	  previous_generation: String(live.generation),
+679299	  superseded_generation: String(live.generation),
+679300	  candidate_predecessor: R,
+679301	  composition_manifest: `./manifests/${G}-composition.json`,
+679302	  composition_version: VERSION,
+679303	  composition_id: `${G}-gridatlas-${VERSION}`,
+679304	  cartridge_order: [...ref.cartridge_order, OVERLAY],
+679305	  cartridges: [...ref.cartridges.map(c => (c.id === 'sld-sandbox' ? original : c)), overlay],
+679306	  composition_note: `${VERSION}: ${R} recomposed, behaviour unchanged. The lightning overlay is its own cartridge (slot after-cartridge, its own script tag directly after sld-sandbox, where the appended module ran), and sld-sandbox is the original ${ORIGINAL} cartridge again (${originalBytes.length} bytes). Served by loader v2.`,
+679307	  loader: 'v2',
+679308	  parent_generation: String(live.generation),
+679310	  candidate_status: 'PROTOTYPE_NOT_PUBLISHED',
+679311	  note: `Modular split of ${R} by tools/release/split-lightning-cartridge.mjs. atlas/current.json is untouched.`,
+679312	  acceptance: { ...ref.acceptance, scope: `Recompose ${R} with the lightning overlay as its own after-cartridge cartridge; sld-sandbox returns to ${ORIGINAL}.`, full_application_copies_created: 0 }
+679314	const pointerText = rerootForPreview(deriveCurrent(manifestText));
+679315	const proofText = `/** ${G}: the UK lightning overlay as its own cartridge (module ${R}); sld-sandbox is the original ${ORIGINAL}. tools/proofs/lightning-cartridge.mjs */\nimport { proveLightningCartridge } from './lightning-cartridge.mjs';\nawait proveLightningCartridge('${G}');\n`;
+679316	if (args.check) { console.log(`CHECK PASS: ${G} can be split from ${R}; nothing written.`); process.exit(0); }
+679317	fs.mkdirSync(abs(rel('atlas/v', G)), { recursive: true });
+679318	fs.writeFileSync(abs(outputs[0]), manifestText);
+679319	fs.writeFileSync(abs(outputs[1]), pointerText);
+679320	fs.copyFileSync(abs(LOADER_V2), abs(outputs[2]));
+679321	fs.writeFileSync(abs(outputs[3]), proofText);
+679322	for (const o of outputs) console.log(`WROTE ${o}  sha256 ${sha256(fs.readFileSync(abs(o))).slice(0, 16)}…`);
+679323	console.log(JSON.stringify({ G, from: R, overlay: { path: overlay.path, bytes: overlay.bytes, sha256: overlay.sha256 }, sld: { path: original.path, bytes: originalBytes.length, sha256: original.sha256 } }));
+679385	/* The registered composers (docs/LIGHTNING-CARTRIDGE.md). A served loader --
+679386	   atlas/index.html or any atlas/v/<gen>/index.html -- must be byte-identical
+679387	   to exactly one of these payloads, and must support every slot type its
+679388	   current.json uses.
+679389	     v1  the composer every generation up to 202610290050 is served by; the
+679390	         live atlas/index.html. It knows only 'replace-script'.
+679391	     v2  v1 plus 'after-cartridge': a verified cartridge as its own script tag
+679392	         straight after a cartridge composed before it. For every composition
+679393	         that uses only 'replace-script' it writes byte-for-byte what v1 writes
+679394	         (tools/proofs/loader-equivalence.proof.mjs).
+679395	   Existing loaders are never rewritten: a generation keeps the loader bytes it
+679396	   was cut with, and the live atlas/index.html changes only in the release
+679397	   commit of a generation whose own loader is v2 (tools/release). */
+679398	export const ATLAS_LOADERS = Object.freeze({
+679399	  v1: Object.freeze({ payload: 'tools/scope/payloads/atlas-loader.html', slots: Object.freeze(['replace-script']) }),
+679400	  v2: Object.freeze({ payload: 'tools/scope/payloads/atlas-loader-v2.html', slots: Object.freeze(['replace-script', 'after-cartridge']) })
+679401	/** The registered loader whose payload is byte-identical (served LF bytes)
+679402	    to the file at filePath, as { name, payload, slots }, or null. */
+679403	export function registeredLoader(filePath) {
+679404	  const digest = sha256PublishedFile(filePath);
+679405	    if (sha256PublishedFile(path.join(ROOT, loader.payload)) === digest) return { name, ...loader };
+679406	/** The slot types the ordered cartridges of a current.json use. */
+679407	export function slotsUsed(current) {
+679408	  const byId = new Map((current.cartridges || []).map(c => [c.id, c]));
+679409	  return [...new Set((current.cartridge_order || []).map(id => byId.get(id)?.slot))].filter(Boolean).sort();
+679410	/* Per-cartridge byte budgets, checked by `loop.mjs lint` IN ADDITION to the
+679411	   single recorded ceiling there (the one --prep-gate-kb edits). The lightning
+679412	   overlay is its own cartridge from the modular generations on, so it gets
+679413	   the room the owner gave it inside sld-sandbox, and no more:
+679414	   500,000 (ceiling, 28 Oct 2026) - 435,218 (sld-sandbox 202609241334) - 1
+679415	   (the joining newline) = 64,781 bytes, the module budget every
+679416	   <gen>-sld-sandbox proof already enforces. Changing a figure is an owner
+679417	   decision, recorded in the commit. */
+679418	export const CARTRIDGE_BYTE_BUDGETS = Object.freeze({
+679419	  'uk-lightning-overlay': 64_781,
+679420	  // the potential-offtakers overlay (docs/OFFTAKERS-SOURCE.md): PW-design spec, module <= 40,000 B
+679421	  'uk-offtakers-overlay': 40_000
+679556	  EXPECTED_RELEASES, ACTIVE_WORKFLOWS, CARTRIDGE_BYTE_BUDGETS, invariant, listScopeDocuments,
+679557	  registeredLoader, slotsUsed,
+679703	      if (Object.hasOwn(CARTRIDGE_BYTE_BUDGETS, id)) {
+679704	        invariant(fs.statSync(cartridgePath).size <= CARTRIDGE_BYTE_BUDGETS[id], `${id}: cartridge exceeds its own ${CARTRIDGE_BYTE_BUDGETS[id]}-byte budget (tools/scope/lib.mjs CARTRIDGE_BYTE_BUDGETS)`);
+679705	      if (cartridge.slot === 'after-cartridge') {
+679706	        const at = current.cartridge_order.indexOf(cartridge.after);
+679707	        invariant(at >= 0 && at < current.cartridge_order.indexOf(id), `${id}: after-cartridge anchor ${cartridge.after} must be composed before it`);
+679708	        invariant(cartridge.slot === 'replace-script', `${id}: unsupported slot ${cartridge.slot}`);
+679713	    /* The served composer is a registered one and knows every slot the live
+679714	       composition uses (docs/LIGHTNING-CARTRIDGE.md). */
+679715	    const loader = registeredLoader(atlasIndexPath);
+679716	    invariant(loader, 'atlas/index.html is not byte-identical to a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)');
+679717	    for (const slot of slotsUsed(current)) invariant(loader.slots.includes(slot), `atlas/index.html (loader ${loader.name}) does not support slot ${slot} used by atlas/current.json`);
+679787	  invariant, readJson, sha256PublishedFile, relativePosix, registeredLoader, slotsUsed
+679803	  const loader = registeredLoader(path.join(ROOT, 'atlas', 'index.html'));
+679804	  invariant(loader, 'atlas/index.html is not a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)');
+679805	  for (const slot of slotsUsed(current)) invariant(loader.slots.includes(slot), `atlas composer (loader ${loader.name}) does not support slot ${slot}`);
+679812	  const composed = new Set();
+679813	  const usedSlots = new Set();
+679821	    if (cartridge.slot === 'after-cartridge') {
+679822	      /* A cartridge of its own, executed straight after a cartridge already
+679823	         composed: it claims no shell script, so the shell needs no slot. */
+679824	      invariant(typeof cartridge.after === 'string' && composed.has(cartridge.after), `${id}: after-cartridge anchor ${cartridge.after} is not composed before it`);
+679825	      invariant(cartridge.slot === 'replace-script', `${id}: unsupported slot ${cartridge.slot}`);
+679826	      invariant(shell.includes(cartridge.replace_script), `${id}: replacement slot missing from immutable shell`);
+679827	      invariant(!usedSlots.has(cartridge.replace_script), `${id}: shell slot ${cartridge.replace_script} already claimed`);
+679828	      usedSlots.add(cartridge.replace_script);
+679829	    composed.add(id);
+679863	"""Collector health: open, update or close the "collector-stale" GitHub issue.
+679864	Reads the heartbeat that ``status.py write`` puts in ``data/status.json`` after
+679865	every hourly run and decides one of:
+679866	  ok        the heartbeat is on time and the collector is not failing
+679867	  late      now is past ``heartbeat.late_after_utc`` (no run for 90 min) but
+679868	            within the grace period: reported, no issue (GitHub's scheduler
+679869	            misses single slots every day; see docs/OPERATIONS.md)
+679870	  stale     now is past ``late_after_utc`` + grace (default 90 min, so no
+679871	            heartbeat for 3 h), or status.json is missing or unreadable:
+679872	            neither the cron nor the hourly nudge has started a run
+679873	  failing   runs happen but do not succeed: ``consecutive_failures`` >= 3, or
+679874	            ``freshness`` is stale/stopped/never (for example rejected
+679875	            EUMETSAT credentials)
+679876	``stale`` and ``failing`` open (or update) ONE open issue labelled
+679877	``collector-stale``; ``ok`` and ``late`` close it with a recovery comment.
+679878	``--raw`` adds the delivery probe used by the scheduled watchdog: the public
+679879	map reads raw.githubusercontent.com/Ventusltd/lightning/main/data/..., which
+679880	has no SLA. When that path fails, or serves a status.json more than an hour
+679881	older than the committed one, ONE issue labelled ``feed-delivery`` is opened;
+679882	it is closed when the probe passes again.
+679883	Standard library only (the watchdog runs it without setup-python or pip).
+679884	Exit 0 unless ``--fail-when-unhealthy`` is given and a check is unhealthy, or
+679885	the GitHub API cannot be reached with ``--issue`` (exit 2).
+679886	  python ci/collector_health.py --status data/status.json                 # report only
+679887	  python ci/collector_health.py --status data/status.json --issue         # + sync the issue
+679888	  python ci/collector_health.py --status data/status.json --issue --raw --fail-when-unhealthy
+679894	STALE_LABEL = "collector-stale"
+679895	DELIVERY_LABEL = "feed-delivery"
+679896	GRACE_MINUTES = 90          # late_after_utc (attempt + 90 min) + 90 min = no heartbeat for 3 h
+679897	LATE_AFTER_FALLBACK_MINUTES = 90  # status.py LATE_AFTER_MINUTES, for a heartbeat block that lacks it
+679898	MAX_FAILURES = 3
+679899	RAW_BASE = "https://raw.githubusercontent.com/Ventusltd/lightning/main/"
+679900	RAW_LAG_MINUTES = 60
+679901	MARKER = "<!-- collector-health:{label}:state={state} -->"
+679902	UNHEALTHY = ("stale", "failing")
+679903	RUNBOOK = "docs/OPERATIONS.md"
+679904	def parse_utc(value) -> datetime | None:
+679907	        parsed = datetime.fromisoformat(text)
+679909	    return parsed if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+679910	def iso(value: datetime | None) -> str | None:
+679911	    return value.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ") if value else None
+679912	def load_status(path: Path) -> dict | None:
+679916	def evaluate(status: dict | None, *, now: datetime, grace_minutes: int = GRACE_MINUTES,
+679917	             max_failures: int = MAX_FAILURES) -> dict:
+679918	    """The collector verdict from status.json alone (pure: no clock, no network)."""
+679919	    if not status:
+679920	        return {"state": "stale", "reasons": ["data/status.json is missing or unreadable"],
+679921	                "late_after_utc": None, "stale_after_utc": None, "last_attempt_utc": None,
+679922	                "last_attempt_outcome": None, "consecutive_failures": None, "freshness": None,
+679923	                "last_successful_scan_end_utc": None, "last_error": None, "minutes_since_attempt": None}
+679924	    heartbeat = status.get("heartbeat") if isinstance(status.get("heartbeat"), dict) else {}
+679925	    attempt = parse_utc(status.get("last_attempt_utc"))
+679926	    late_after = parse_utc(heartbeat.get("late_after_utc"))
+679927	    if late_after is None and attempt is not None:
+679928	        late_after = attempt + timedelta(minutes=LATE_AFTER_FALLBACK_MINUTES)
+679929	    stale_after = late_after + timedelta(minutes=grace_minutes) if late_after else None
+679930	    failures = status.get("consecutive_failures")
+679931	        failures = int(failures or 0)
+679933	        failures = 0
+679934	    freshness = status.get("freshness")
+679935	    last_end = status.get("last_successful_scan_end_utc")
+679936	    error = status.get("last_error")
+679938	    state = "ok"
+679939	    if late_after is None:
+679940	        state = "stale"
+679941	        reasons.append("status.json has no last_attempt_utc or heartbeat.late_after_utc")
+679942	    elif now > stale_after:
+679943	        reasons.append(f"no collector heartbeat since {iso(attempt) or 'unknown'}: now is past "
+679944	                       f"late_after_utc {iso(late_after)} + {grace_minutes} min grace. Neither the GitHub cron "
+679945	                       "nor the hourly nudge has started a run")
+679946	    if failures >= max_failures or freshness in ("stale", "stopped", "never"):
+679947	        if state == "ok":
+679948	            state = "failing"
+679949	        if failures >= max_failures:
+679950	            reasons.append(f"{failures} consecutive failed collector runs (threshold {max_failures})"
+679951	                           + (f"; last error: {str(error)[:300]}" if error else ""))
+679952	        if freshness in ("stale", "stopped", "never"):
+679953	            reasons.append(f"freshness={freshness}: last successful scan end {last_end or 'never'}")
+679954	    if state == "ok" and now > late_after:
+679955	        state = "late"
+679956	        reasons.append(f"heartbeat late: now is past late_after_utc {iso(late_after)} but within the "
+679957	                       f"{grace_minutes} min grace (a single dropped cron slot)")
+679958	        "state": state,
+679959	        "reasons": reasons,
+679960	        "late_after_utc": iso(late_after),
+679961	        "stale_after_utc": iso(stale_after),
+679962	        "last_attempt_utc": iso(attempt),
+679963	        "last_attempt_outcome": status.get("last_attempt_outcome"),
+679966	        "last_successful_scan_end_utc": last_end,
+679968	        "minutes_since_attempt": round((now - attempt).total_seconds() / 60, 1) if attempt else None,
+679969	# --- delivery probe (raw.githubusercontent.com) --------------------------------
+679970	def _fetch(url: str, *, method: str = "GET", timeout: int = 20, attempts: int = 3) -> tuple[int | None, bytes, str]:
+679971	    last = ""
+679973	        req = urllib.request.Request(url, method=method, headers={"Cache-Control": "no-cache",
+679974	                                                                  "User-Agent": "lightning-collector-health"})
+679976	            with urllib.request.urlopen(req, timeout=timeout) as resp:
+679977	                return resp.status, resp.read() if method == "GET" else b"", ""
+679979	            last = f"HTTP {exc.code}"
+679980	            if exc.code < 500 and exc.code != 429:
+679981	                return exc.code, b"", last
+679982	        except (urllib.error.URLError, OSError) as exc:
+679983	            last = f"{type(exc).__name__}: {exc}"
+679984	        if attempt + 1 < attempts:
+679985	            time.sleep(5 * (attempt + 1))
+679986	    return None, b"", last
+679987	def probe_raw(committed: dict | None, *, base: str = RAW_BASE, fetch=_fetch,
+679988	              lag_minutes: int = RAW_LAG_MINUTES) -> dict:
+679989	    """Is the public raw path serving the data the map reads, and not far behind main?"""
+679990	    stamp = int(time.time())
+679991	    code, body, err = fetch(f"{base}data/status.json?health={stamp}")
+679992	    served = None
+679993	    if code != 200:
+679994	        reasons.append(f"data/status.json: {err or f'HTTP {code}'}")
+679996	            served = json.loads(body.decode("utf-8"))
+679997	        except (UnicodeDecodeError, ValueError):
+679998	            reasons.append("data/status.json: served bytes are not JSON")
+679999	    for rel in ("data/uk_lightning.geojson", "data/history/index.json"):
+680000	        code, _, err = fetch(f"{base}{rel}?health={stamp}", method="HEAD")
+680001	        if code != 200:
+680002	            reasons.append(f"{rel}: {err or f'HTTP {code}'}")
+680003	    if isinstance(served, dict) and committed:
+680004	        mine, theirs = parse_utc(committed.get("last_attempt_utc")), parse_utc(served.get("last_attempt_utc"))
+680005	        if mine and theirs and (mine - theirs) > timedelta(minutes=lag_minutes):
+680006	            reasons.append(f"raw serves a status.json from {iso(theirs)}, {round((mine - theirs).total_seconds() / 60)} "
+680007	                           f"min behind main ({iso(mine)})")
+680008	    return {"state": "failing" if reasons else "ok", "reasons": reasons, "base": base}
+680009	# --- GitHub issues ------------------------------------------------------------
+680011	    """The four REST calls the issue sync needs (urllib, GITHUB_TOKEN/GH_TOKEN)."""
+680012	    def __init__(self, repo: str, token: str, api: str = "https://api.github.com"):
+680013	        self.repo, self.token, self.api = repo, token, api.rstrip("/")
+680014	    def call(self, method: str, path: str, payload: dict | None = None):
+680015	        data = json.dumps(payload).encode("utf-8") if payload is not None else None
+680016	        req = urllib.request.Request(f"{self.api}/repos/{self.repo}{path}", data=data, method=method, headers={
+680017	            "Authorization": f"Bearer {self.token}", "Accept": "application/vnd.github+json",
+680018	            "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "lightning-collector-health"})
+680019	        with urllib.request.urlopen(req, timeout=30) as resp:
+680020	            raw = resp.read()
+680021	        return json.loads(raw) if raw else None
+680022	    def open_issues(self, label: str) -> list[dict]:
+680023	        rows = self.call("GET", f"/issues?state=open&labels={label}&per_page=100&sort=created&direction=asc") or []
+680024	        return [row for row in rows if "pull_request" not in row]
+680025	    def ensure_label(self, label: str, color: str, description: str) -> None:
+680026	            self.call("POST", "/labels", {"name": label, "color": color, "description": description})
+680027	            if exc.code != 422:  # 422 = already exists
+680029	    def create_issue(self, title: str, body: str, label: str) -> dict:
+680030	        return self.call("POST", "/issues", {"title": title, "body": body, "labels": [label]})
+680031	    def update_issue(self, number: int, **fields) -> dict:
+680032	        return self.call("PATCH", f"/issues/{number}", fields)
+680033	    def comment(self, number: int, body: str) -> None:
+680034	        self.call("POST", f"/issues/{number}/comments", {"body": body})
+680035	LABELS = {
+680036	    STALE_LABEL: ("b60205", "Lightning collector: no heartbeat past late_after_utc + grace, or failing runs"),
+680037	    DELIVERY_LABEL: ("d93f0b", "Lightning data: raw.githubusercontent.com path failing or far behind main"),
+680038	def sync_issue(client, *, label: str, unhealthy: bool, state: str, title: str, body: str,
+680039	               recovery: str) -> str:
+680040	    """One open issue per label: open or refresh it while unhealthy, close it on recovery.
+680041	    The body is replaced on every unhealthy check (no notification); a comment
+680042	    is added only when the state changes (for example stale -> failing), so a
+680043	    long outage does not post one comment per check. Duplicates left by two
+680044	    checks racing are closed onto the oldest issue.
+680046	    marker = MARKER.format(label=label, state=state)
+680047	    issues = client.open_issues(label)
+680048	    if not unhealthy:
+680050	            client.comment(issue["number"], recovery)
+680051	            client.update_issue(issue["number"], state="closed", state_reason="completed")
+680052	        return f"closed #{', #'.join(str(i['number']) for i in issues)}" if issues else "none open; nothing to do"
+680053	    full = f"{marker}\n{body}"
+680054	    if not issues:
+680055	        color, description = LABELS.get(label, ("ededed", ""))
+680056	        client.ensure_label(label, color, description)
+680057	        created = client.create_issue(title, full, label)
+680058	        return f"opened #{created['number']}"
+680059	    keep, extras = issues[0], issues[1:]
+680060	    previous = keep.get("body") or ""
+680061	    client.update_issue(keep["number"], title=title, body=full)
+680062	    action = f"updated #{keep['number']}"
+680063	    if marker not in previous:
+680064	        client.comment(keep["number"], f"State is now **{state}**.\n\n{body}")
+680065	        action += " (state changed; commented)"
+680066	    for extra in extras:
+680067	        client.comment(extra["number"], f"Duplicate of #{keep['number']} (two health checks raced).")
+680068	        client.update_issue(extra["number"], state="closed", state_reason="not_planned")
+680069	    return action
+680070	def _bullets(reasons: list[str]) -> str:
+680071	    return "\n".join(f"- {r}" for r in reasons) or "- (none)"
+680072	def stale_issue(verdict: dict, *, source: str, now: datetime) -> tuple[str, str]:
+680073	    if verdict["state"] == "stale":
+680074	        title = f"Lightning collector stale: no heartbeat since {verdict['last_attempt_utc'] or 'unknown'}"
+680075	    elif (verdict["consecutive_failures"] or 0) > 0:
+680076	        title = f"Lightning collector failing: {verdict['consecutive_failures']} consecutive failed runs"
+680077	        title = (f"Lightning collector failing: no successful scan since "
+680078	                 f"{verdict['last_successful_scan_end_utc'] or 'ever'}")
+680079	    rows = [("state", verdict["state"]), ("last attempt", verdict["last_attempt_utc"]),
+680080	            ("last attempt outcome", verdict["last_attempt_outcome"]),
+680081	            ("late_after_utc", verdict["late_after_utc"]), ("stale after (late + grace)", verdict["stale_after_utc"]),
+680082	            ("consecutive failures", verdict["consecutive_failures"]), ("freshness", verdict["freshness"]),
+680083	            ("last successful scan end", verdict["last_successful_scan_end_utc"])]
+680084	    table = "\n".join(f"| {k} | `{v}` |" for k, v in rows)
+680085	    body = (f"**{verdict['state'].upper()}**: the UK lightning archive is not being kept current.\n\n"
+680086	            f"{_bullets(verdict['reasons'])}\n\n| field | value |\n|---|---|\n{table}\n\n"
+680087	            f"Flashes in the gap are unknown, not zero. What to do: see `{RUNBOOK}` (\"collector-stale\"). "
+680088	            "The next successful hourly run closes this issue automatically.\n\n"
+680089	            f"_Checked {iso(now)} by {source}._")
+680090	    return title, body
+680091	def delivery_issue(probe: dict, *, source: str, now: datetime) -> tuple[str, str]:
+680092	    title = "Lightning data delivery failing: raw.githubusercontent.com"
+680093	    body = (f"The public map reads `{probe['base']}data/...`. The delivery probe failed:\n\n"
+680094	            f"{_bullets(probe['reasons'])}\n\nThe committed data on main may be fine; this is the public path. "
+680095	            f"What to do: see `{RUNBOOK}` (\"feed-delivery\"). Closed automatically when the probe passes.\n\n"
+680097	    parser.add_argument("--status", type=Path, default=Path("data/status.json"))
+680098	    parser.add_argument("--now", default=None, help="UTC ISO time to evaluate at (tests); default: the clock")
+680099	    parser.add_argument("--grace-minutes", type=int, default=GRACE_MINUTES)
+680100	    parser.add_argument("--max-failures", type=int, default=MAX_FAILURES)
+680101	    parser.add_argument("--issue", action="store_true", help="Open/update/close the GitHub issue(s)")
+680102	    parser.add_argument("--raw", action="store_true", help="Also probe raw.githubusercontent.com (feed-delivery issue)")
+680103	    parser.add_argument("--repo", default=os.environ.get("GITHUB_REPOSITORY", "Ventusltd/lightning"))
+680104	    parser.add_argument("--source", default="a manual check")
+680105	    parser.add_argument("--summary", type=Path, default=None, help="Append a Markdown line (GITHUB_STEP_SUMMARY)")
+680106	    parser.add_argument("--fail-when-unhealthy", action="store_true")
+680108	    status = load_status(args.status)
+680109	    verdict = evaluate(status, now=now, grace_minutes=args.grace_minutes, max_failures=args.max_failures)
+680110	    unhealthy = verdict["state"] in UNHEALTHY
+680111	    print(f"collector: {verdict['state']} last_attempt={verdict['last_attempt_utc']} "
+680112	          f"late_after={verdict['late_after_utc']} stale_after={verdict['stale_after_utc']} "
+680113	          f"failures={verdict['consecutive_failures']} freshness={verdict['freshness']}")
+680114	    for reason in verdict["reasons"]:
+680115	        level = "error" if unhealthy else "warning"
+680116	        print(f"::{level} title=collector {verdict['state']}::{reason}")
+680117	    probe = probe_raw(status) if args.raw else None
+680118	    if probe:
+680119	        print(f"delivery: {probe['state']}")
+680120	        for reason in probe["reasons"]:
+680121	            print(f"::error title=feed-delivery::{reason}")
+680123	    if args.issue:
+680124	        token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
+680126	            print("::error::--issue needs GITHUB_TOKEN or GH_TOKEN", file=sys.stderr)
+680128	        client = GitHub(args.repo, token, os.environ.get("GITHUB_API_URL", "https://api.github.com"))
+680129	            title, body = stale_issue(verdict, source=args.source, now=now)
+680130	            recovery = (f"Recovered: collector is **{verdict['state']}** at {iso(now)} (last attempt "
+680131	                        f"{verdict['last_attempt_utc']}, outcome {verdict['last_attempt_outcome']}). Closed by {args.source}.")
+680132	            actions.append(f"{STALE_LABEL}: " + sync_issue(client, label=STALE_LABEL, unhealthy=unhealthy,
+680133	                                                           state=verdict["state"], title=title, body=body,
+680134	                                                           recovery=recovery))
+680135	            if probe:
+680136	                title, body = delivery_issue(probe, source=args.source, now=now)
+680137	                actions.append(f"{DELIVERY_LABEL}: " + sync_issue(
+680138	                    client, label=DELIVERY_LABEL, unhealthy=probe["state"] != "ok", state=probe["state"],
+680139	                    title=title, body=body, recovery=f"Recovered: the raw.githubusercontent.com probe passed at {iso(now)}."))
+680140	        except (urllib.error.URLError, OSError, ValueError) as exc:
+680141	            print(f"::error title=collector-health issue sync::{type(exc).__name__}: {exc}")
+680142	        for line in actions:
+680145	        with open(args.summary, "a", encoding="utf-8") as fh:
+680146	            fh.write(f"### Collector health: {verdict['state']}\n\n{_bullets(verdict['reasons'])}\n\n")
+680147	                fh.write(f"Delivery (raw): {probe['state']}\n\n{_bullets(probe['reasons'])}\n\n")
+680148	            for line in actions:
+680149	                fh.write(f"- issue {line}\n")
+680150	    if args.fail_when_unhealthy and (unhealthy or (probe and probe["state"] != "ok")):
+680152	"""Recompute the lightning archive's published numbers from the committed files alone.
+680153	    python reproduce.py check [--data-dir data] [--json OUT] [--expect SHA256]
+680154	    python reproduce.py compare-day --day YYYY-MM-DD --record RECORD.json [--data-dir data]
+680155	``check`` reads ``data/history`` (index, day shards, hourly parts, month grids)
+680156	and nothing else: no network, no EUMETSAT credentials, no third-party package
+680157	and no import of ``collect.py``, ``history.py`` or ``grid.py``. The archive
+680158	rules of docs/METHODS.md are re-implemented here independently, so a bug in
+680159	the writer is not silently repeated by the checker. It:
+680160	1. hashes every file under ``data/history`` (sha256) and derives a manifest
+680161	   digest over the sorted ``<sha256>  <path>`` lines;
+680162	2. re-reads every day shard and hourly part: schema, date, metadata, feature
+680163	   validity (Point inside the UK view rectangle, own UTC date, optical-flash
+680164	   kind), unique ids, canonical order and byte-canonical serialisation, and
+680165	   the 8 MiB split rule and 25 000 000-byte cap;
+680166	3. recomputes every index row (``scanned_seconds`` from ``scan_windows``,
+680167	   ``coverage``, ``count``, ``bytes``, ``sha256``, ``path``/``parts``,
+680168	   first/last observation, ``sealed``, ``shard_lost``) and every index total;
+680169	4. rebuilds every month grid from the shards (0.1-degree cell rule) and checks
+680170	   it byte for byte against the committed file;
+680171	5. derives the 12-month headline numbers (days searched, full/partial/none,
+680172	   flashes, searched hours, monthly totals) from the recomputed rows.
+680173	It prints a human summary and a canonical JSON summary whose ``summary_sha256``
+680174	is the sha256 of the canonical JSON of everything except that field and the
+680175	``run`` block (wall-clock time, Python version). Two people who run ``check``
+680176	on the same commit therefore get the same ``summary_sha256``; publishing that
+680177	digest next to the commit id is the "signature" of a reproduction. It is a
+680178	content hash, not a cryptographic identity signature (docs/METHODS.md shows
+680179	how to add one with ``ssh-keygen -Y sign``). Exit status 0 = every recomputed
+680180	value equals the committed value, 1 = at least one mismatch (listed), 2 =
+680181	unusable input.
+680182	``compare-day`` compares an independent re-download of one UTC date (a run
+680183	record written by ``python collect.py --rebuild-day D --run-record R`` with
+680184	your own EUMETSAT credentials) with the committed archive for that date. It
+680185	reports, never rewrites. See docs/METHODS.md, "Re-download a day".
+680186	An optical flash is not a ground strike, and a date that was never searched
+680187	is unknown, not zero: this script checks that the archive says so.
+680191	SCHEMA_SUMMARY = "uk-lightning-reproduction.v1"
+680192	SCHEMA_COMPARE = "uk-lightning-day-comparison.v1"
+680196	SCHEMA_RUN_RECORD = "uk-lightning-run-record.v1"
+680197	# Contract constants, restated (not imported) on purpose; see docs/METHODS.md.
+680199	SLOT_SECONDS = 600            # LI L2-LFL products are 10-minute sensing slots
+680200	SLOT_PHASE_SECONDS = 9        # slots run HH:M0:09 .. HH:(M+1)0:09 (flash-proof fallback only)
+680201	UK_BOUNDS = (-11.0, 49.5, 3.0, 61.5)  # west, south, east, north: a rectangle, not the UK border
+680203	GRID_COLS = 140
+680204	GRID_ROWS = 120
+680206	DAY_PATH = re.compile(r"^days/(\d{4})/(\d{2})/(\d{2})\.json$")
+680207	PART_PATH = re.compile(r"^days/(\d{4})/(\d{2})/(\d{2})/(\d{2})\.json$")
+680208	GRID_PATH = re.compile(r"^grid/(\d{4})-(\d{2})\.json$")
+680209	QUARANTINE_PATH = re.compile(r"^quarantine/(\d{4}-\d{2}-\d{2})\.json$")
+680210	MAX_REPORTED_MISMATCHES = 200
+680211	# --- small helpers ---------------------------------------------------------------------------
+680214	def canonical(obj) -> str:
+680215	    """The writer's serialisation: compact separators, UTF-8, one trailing newline."""
+680217	def summary_digest(summary: dict) -> str:
+680218	    body = {k: v for k, v in summary.items() if k not in ("summary_sha256", "run")}
+680219	    return sha256_bytes(json.dumps(body, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
+680221	    moment = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+680224	    return moment.astimezone(timezone.utc)
+680225	def fmt_utc(moment: datetime) -> str:
+680226	    return moment.astimezone(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
+680227	def day_start(day: date) -> datetime:
+680228	    return datetime.combine(day, time.min, tzinfo=timezone.utc)
+680231	    except ValueError:  # 29 February
+680233	def inside_view(lon: float, lat: float) -> bool:
+680235	    return math.isfinite(lon) and math.isfinite(lat) and w <= lon <= e and s <= lat <= n
+680237	    """0.1-degree cell: col = floor((lon - west) / 0.1), row = floor((lat - south) / 0.1), clamped.
+680238	    The quotient is rounded to 6 decimals first so exact 0.1 steps never fall into the cell below."""
+680239	    col = math.floor(round((lon - UK_BOUNDS[0]) / CELL_DEG, 6))
+680240	    row = math.floor(round((lat - UK_BOUNDS[1]) / CELL_DEG, 6))
+680241	    col = min(max(col, 0), GRID_COLS - 1)
+680242	    row = min(max(row, 0), GRID_ROWS - 1)
+680243	    return row * GRID_COLS + col
+680244	def product_start(feature_id: str) -> datetime | None:
+680245	    """Nominal sensing start in the product name of ``<product>:<index>``, or None."""
+680246	    match = PRODUCT_SLOT.search(str(feature_id).rsplit(":", 1)[0])
+680250	    if end <= start or end - start > timedelta(hours=1):
+680251	    return start
+680252	def merged_seconds_in(windows: list[tuple[datetime, datetime]], lo: datetime, hi: datetime) -> float:
+680254	    for start, end in windows:
+680255	        s, e = max(start, lo), min(end, hi)
+680257	            total += (e - s).total_seconds()
+680259	class Report:
+680260	    """Collects mismatches (blocking) and notes (informational)."""
+680262	        self.mismatches: list[str] = []
+680263	        self.mismatch_total = 0
+680264	    def bad(self, message: str) -> None:
+680265	        self.mismatch_total += 1
+680266	        if len(self.mismatches) < MAX_REPORTED_MISMATCHES:
+680267	            self.mismatches.append(message)
+680268	    def expect(self, label: str, recomputed, committed) -> None:
+680269	        if recomputed != committed:
+680270	            self.bad(f"{label}: recomputed {recomputed!r} != committed {committed!r}")
+680271	# --- step 1: inventory ---------------------------------------------------------------------
+680272	def inventory(history_dir: Path) -> tuple[dict[str, bytes], list[dict], str]:
+680273	    files: dict[str, bytes] = {}
+680274	    for path in sorted(history_dir.rglob("*")):
+680276	            rel = path.relative_to(history_dir).as_posix()
+680277	            if rel.endswith(".tmp") or "__pycache__" in rel:
+680278	            files[rel] = path.read_bytes()
+680279	    manifest = [{"path": rel, "bytes": len(data), "sha256": sha256_bytes(data)} for rel, data in sorted(files.items())]
+680280	    lines = "".join(f"{m['sha256']}  {m['path']}\n" for m in manifest)
+680281	    return files, manifest, sha256_bytes(lines.encode("utf-8"))
+680282	# --- step 2: shards ------------------------------------------------------------------------
+680283	def read_shard(rel: str, data: bytes, expected_day: str, report: Report, *, hour: str | None) -> list[dict] | None:
+680284	        text = data.decode("utf-8")
+680285	        obj = json.loads(text)
+680286	    except (UnicodeDecodeError, json.JSONDecodeError) as error:
+680287	        report.bad(f"{rel}: unreadable JSON ({error})")
+680288	    if not isinstance(obj, dict) or obj.get("schema") != SCHEMA_DAY or obj.get("type") != "FeatureCollection":
+680289	        report.bad(f"{rel}: not a {SCHEMA_DAY} FeatureCollection")
+680290	    meta = obj.get("metadata") if isinstance(obj.get("metadata"), dict) else {}
+680292	    if not isinstance(features, list) or not features:
+680293	        report.bad(f"{rel}: features missing or empty (an empty day has no file)")
+680294	    if meta.get("date_utc") != expected_day:
+680295	        report.bad(f"{rel}: metadata.date_utc {meta.get('date_utc')!r} != path date {expected_day}")
+680296	    seen, previous = set(), None
+680298	        label = f"{rel} feature {i}"
+680299	            fid = feature["id"]
+680300	            props = feature["properties"]
+680301	            geom = feature["geometry"]
+680302	            moment = parse_utc(props["time_utc"])
+680303	            lon, lat = (float(v) for v in geom["coordinates"][:2])
+680304	        except (KeyError, TypeError, ValueError, IndexError) as error:
+680305	            report.bad(f"{label}: malformed ({type(error).__name__}: {error})")
+680306	        if feature.get("type") != "Feature" or geom.get("type") != "Point" or len(geom["coordinates"]) != 2:
+680307	            report.bad(f"{label}: not a Point Feature")
+680308	        if not isinstance(fid, str) or not fid.strip():
+680309	            report.bad(f"{label}: empty id")
+680310	        if fid in seen:
+680311	            report.bad(f"{label}: duplicate id {fid}")
+680312	        seen.add(fid)
+680313	        if props.get("source_product") != "MTG LI L2-LFL" or props.get("observation_kind") != "optical_lightning_flash":
+680314	            report.bad(f"{label}: not an MTG LI L2-LFL optical flash")
+680315	        if not inside_view(lon, lat):
+680316	            report.bad(f"{label}: outside the UK view rectangle {UK_BOUNDS}")
+680317	        if moment.date().isoformat() != expected_day:
+680318	            report.bad(f"{label}: time {props['time_utc']} not on {expected_day} UTC")
+680319	        if hour is not None and f"{moment.hour:02d}" != hour:
+680320	            report.bad(f"{label}: time {props['time_utc']} not in hourly part {hour}")
+680321	        key = (props["time_utc"], fid)
+680322	        if previous is not None and key < previous:
+680323	            report.bad(f"{label}: not sorted by (time_utc, id)")
+680324	        previous = key
+680325	    expected_meta = {
+680326	        "date_utc": expected_day,
+680327	        "source": meta.get("source"),
+680328	        "observation": meta.get("observation"),
+680329	        "count": len(features),
+680330	        "first_observation_utc": min(f["properties"]["time_utc"] for f in features),
+680331	        "last_observation_utc": max(f["properties"]["time_utc"] for f in features),
+680333	        expected_meta.update({"hour_utc": hour, "part_of_day": True})
+680334	    report.expect(f"{rel} metadata", expected_meta, meta)
+680335	    if canonical(obj) != text:
+680336	        report.bad(f"{rel}: bytes are not the canonical serialisation of their content")
+680338	def flash_proof_seconds(features: list[dict]) -> int:
+680339	    """Lower bound of searched time for a day with flashes but no recorded window:
+680340	    each flash proves its product's 10-minute slot was examined."""
+680344	        anchor = product_start(feature.get("id", "")) or moment
+680345	        seconds = int(math.floor((anchor - day_start(moment.date())).total_seconds())) - SLOT_PHASE_SECONDS
+680348	# --- steps 3-5 -----------------------------------------------------------------------------
+680349	def check(data_dir: Path) -> dict:
+680350	    history_dir = Path(data_dir) / "history"
+680351	    if not (history_dir / "index.json").is_file():
+680352	        raise FileNotFoundError(f"{history_dir / 'index.json'} not found")
+680353	    report = Report()
+680354	    files, manifest, manifest_sha = inventory(history_dir)
+680355	    index_bytes = files["index.json"]
+680356	    index = json.loads(index_bytes.decode("utf-8"))
+680358	        raise ValueError(f"index schema {index.get('schema')!r} is not {SCHEMA_INDEX}")
+680359	    if canonical(index) != index_bytes.decode("utf-8"):
+680360	        report.bad("index.json: bytes are not the canonical serialisation of their content")
+680361	    generated = parse_utc(index["generated_utc"])
+680362	    today = generated.date()
+680364	    report.expect("index.cutoff_date_utc", cutoff.isoformat(), index.get("cutoff_date_utc"))
+680365	    report.expect("index.bounds_wsen", list(UK_BOUNDS), index.get("bounds_wsen"))
+680366	    lookback_max_h = float(index.get("collection_lookback_hours_max", 48))
+680367	    target_bytes = int(index.get("target_shard_bytes", 8 * 1024 * 1024))
+680368	    max_bytes = int(index.get("max_shard_bytes", 25_000_000))
+680369	    # Scan windows: merged, ordered, inside retention.
+680370	    windows: list[tuple[datetime, datetime]] = []
+680371	    for i, w in enumerate(index.get("scan_windows") or []):
+680372	        s, e = parse_utc(w["start_utc"]), parse_utc(w["end_utc"])
+680373	        if not s < e:
+680374	            report.bad(f"scan_windows[{i}]: empty or reversed")
+680375	        if windows and s <= windows[-1][1]:
+680376	            report.bad(f"scan_windows[{i}]: overlaps or touches the previous window (not merged)")
+680377	        if s < day_start(cutoff) or e > generated:
+680378	            report.bad(f"scan_windows[{i}]: outside [cutoff, generated_utc]")
+680379	        if int(w.get("successful_runs", 0)) < 1:
+680380	            report.bad(f"scan_windows[{i}]: successful_runs < 1")
+680381	        windows.append((s, e))
+680382	    # Shard files on disk, grouped by date.
+680383	    on_disk: dict[str, dict] = {}
+680385	        m = DAY_PATH.match(rel)
+680386	        p = PART_PATH.match(rel)
+680388	            on_disk.setdefault("-".join(m.groups()), {"file": None, "parts": {}})["file"] = rel
+680389	        elif p:
+680390	            on_disk.setdefault("-".join(p.groups()[:3]), {"file": None, "parts": {}})["parts"][p.group(4)] = rel
+680391	        elif not (rel == "index.json" or GRID_PATH.match(rel) or QUARANTINE_PATH.match(rel)):
+680392	            report.bad(f"{rel}: unexpected file in data/history")
+680393	    rows = index.get("days") or []
+680394	    lost_rows = sorted(r["date"] for r in rows if r.get("shard_lost"))
+680395	    expected_dates = []
+680396	    d = cutoff
+680397	    while d <= today:
+680398	        expected_dates.append(d.isoformat())
+680399	        d += timedelta(days=1)
+680400	    report.expect("index.days dates", expected_dates, [r.get("date") for r in rows])
+680401	    features_by_day: dict[str, list[dict]] = {}
+680402	    recomputed_rows: list[dict] = []
+680403	    same_place_time_other_id = 0
+680404	    legacy_ids = 0
+680406	        day = row.get("date")
+680407	        listed = on_disk.pop(day, None)
+680408	        features: list[dict] = []
+680409	        summary = None
+680410	        if listed and not row.get("shard_lost"):
+680411	            if listed["file"] and listed["parts"]:
+680412	                report.bad(f"{day}: both a whole-day file and hourly parts on disk")
+680413	            if listed["file"]:
+680414	                rel = listed["file"]
+680415	                got = read_shard(rel, files[rel], day, report, hour=None)
+680416	                if got is not None:
+680417	                    features = got
+680418	                    size = len(files[rel])
+680419	                    if size > target_bytes:
+680420	                        report.bad(f"{rel}: {size} bytes > target_shard_bytes {target_bytes} but not split")
+680421	                    summary = {"count": len(got), "bytes": size, "path": rel, "sha256": sha256_bytes(files[rel]),
+680422	                               "parts": None}
+680424	                parts = []
+680425	                for hour, rel in sorted(listed["parts"].items()):
+680426	                    got = read_shard(rel, files[rel], day, report, hour=hour) or []
+680427	                    features.extend(got)
+680428	                    if len(files[rel]) > max_bytes:
+680429	                        report.bad(f"{rel}: {len(files[rel])} bytes > max_shard_bytes {max_bytes}")
+680430	                    if got:
+680431	                        parts.append({"hour": hour, "path": rel, "count": len(got), "bytes": len(files[rel]),
+680432	                                      "sha256": sha256_bytes(files[rel]),
+680433	                                      "first_observation_utc": got[0]["properties"]["time_utc"],
+680434	                                      "last_observation_utc": got[-1]["properties"]["time_utc"]})
+680435	                whole = sum(len(files[p["path"]]) for p in parts)
+680436	                summary = {"count": len(features), "bytes": whole, "path": None, "sha256": None, "parts": parts}
+680437	                if parts:
+680438	                    # The writer splits a day only when its whole-day file would exceed target_shard_bytes.
+680439	                    first_meta = json.loads(files[parts[0]["path"]].decode("utf-8")).get("metadata") or {}
+680440	                    whole_day = canonical({"schema": SCHEMA_DAY, "type": "FeatureCollection", "metadata": {
+680441	                        "date_utc": day, "source": first_meta.get("source"),
+680442	                        "observation": first_meta.get("observation"), "count": len(features),
+680443	                        "first_observation_utc": parts[0]["first_observation_utc"],
+680444	                        "last_observation_utc": parts[-1]["last_observation_utc"]}, "features": features})
+680445	                    if len(whole_day.encode("utf-8")) <= target_bytes:
+680446	                        report.bad(f"{day}: split into hourly parts although the whole day fits {target_bytes} bytes")
+680447	            ids = [f["id"] for f in features]
+680448	            if len(ids) != len(set(ids)):
+680449	                report.bad(f"{day}: duplicate feature ids across its files")
+680450	            keys: dict[tuple, set] = {}
+680452	                keys.setdefault((f["properties"]["time_utc"], tuple(f["geometry"]["coordinates"])), set()).add(
+680453	                    str(f["id"]).rsplit(":", 1)[0])
+680454	                if product_start(f["id"]) is None:
+680455	                    legacy_ids += 1
+680456	            same_place_time_other_id += sum(len(v) - 1 for v in keys.values() if len(v) > 1)
+680457	        elif listed and row.get("shard_lost"):
+680458	            report.bad(f"{day}: shard_lost but files remain on disk (unlisted): {listed}")
+680459	        features_by_day[day] = features
+680460	        # Recompute the row.
+680461	        d = date.fromisoformat(day)
+680462	        scanned = int(round(merged_seconds_in(windows, day_start(d), day_start(d) + timedelta(days=1))))
+680463	        scanned = max(0, min(DAY_SECONDS, scanned))
+680464	        if summary and summary["count"] and scanned <= 0:
+680465	            scanned = max(SLOT_SECONDS, flash_proof_seconds(features))
+680466	        if row.get("shard_lost"):
+680468	        coverage = "none" if scanned <= 0 else ("full" if scanned >= DAY_SECONDS else "partial")
+680469	        count = None if coverage == "none" else (summary["count"] if summary and summary["count"] else 0)
+680470	        has = bool(summary and summary["count"])
+680471	        expect_row = {
+680472	            "date": day,
+680476	            "bytes": summary["bytes"] if has else None,
+680477	            "path": summary["path"] if has else None,
+680478	            "sealed": coverage == "full" or generated >= day_start(d) + timedelta(days=1, hours=lookback_max_h),
+680479	            "first_observation_utc": min(f["properties"]["time_utc"] for f in features) if has else None,
+680480	            "last_observation_utc": max(f["properties"]["time_utc"] for f in features) if has else None,
+680481	            "sha256": summary["sha256"] if has else None,
+680482	        if has and summary["parts"]:
+680483	            expect_row["parts"] = summary["parts"]
+680484	            expect_row["shard_lost"] = True
+680485	        report.expect(f"index row {day}", expect_row, row)
+680486	        recomputed_rows.append(expect_row)
+680487	    for day, listed in sorted(on_disk.items()):
+680488	        report.bad(f"{day}: shard file(s) on disk for a date with no index row: {listed}")
+680489	    # Index totals.
+680490	    with_flashes = [r for r in recomputed_rows if r["count"]]
+680491	    report.expect("index.archived_observations", sum(r["count"] for r in with_flashes), index.get("archived_observations"))
+680492	    report.expect("index.archived_days_with_flashes", len(with_flashes), index.get("archived_days_with_flashes"))
+680493	    report.expect("index.scanned_days", sum(1 for r in recomputed_rows if r["coverage"] != "none"), index.get("scanned_days"))
+680494	    report.expect("index.first_observation_utc",
+680495	                  min((r["first_observation_utc"] for r in with_flashes), default=None), index.get("first_observation_utc"))
+680496	    report.expect("index.last_observation_utc",
+680497	                  max((r["last_observation_utc"] for r in with_flashes), default=None), index.get("last_observation_utc"))
+680498	    report.expect("index.coverage_start_utc", fmt_utc(windows[0][0]) if windows else None, index.get("coverage_start_utc"))
+680499	    report.expect("index.last_successful_scan_end_utc", fmt_utc(max(e for _, e in windows)) if windows else None,
+680500	                  index.get("last_successful_scan_end_utc"))
+680501	    # Integrity block (sha256 per row is checked above; this is the shard_lost bookkeeping).
+680502	    integrity = index.get("integrity") or {}
+680503	    listed_lost = sorted(str(e.get("date")) for e in integrity.get("lost_days") or [])
+680504	    report.expect("integrity.lost_days", lost_rows, listed_lost)
+680505	    report.expect("integrity.state", "shard_lost" if lost_rows else "ok", integrity.get("state"))
+680506	    if lost_rows and not integrity.get("alert"):
+680507	        report.bad("integrity: shard_lost rows without an alert")
+680508	    if not lost_rows and integrity.get("alert"):
+680509	        report.bad("integrity: alert raised without shard_lost rows")
+680510	        q = QUARANTINE_PATH.match(rel)
+680511	        if q and q.group(1) not in lost_rows:
+680512	            report.bad(f"{rel}: quarantine file for a date that is not shard_lost")
+680513	    # Unknown is not zero: the row rules, stated as checks on the committed rows.
+680514	        if (r.get("count") is None) != (r.get("coverage") == "none"):
+680515	            report.bad(f"{r.get('date')}: count must be null iff coverage is none")
+680516	        if r.get("count") == 0 and not r.get("scanned_seconds"):
+680517	            report.bad(f"{r.get('date')}: count 0 without searched time")
+680518	    # Step 4: month grids, rebuilt from the shards and compared byte for byte.
+680519	    grids = {}
+680521	    for r in recomputed_rows:
+680522	        months.setdefault(r["date"][:7], []).append(r)
+680523	    for month, month_rows in sorted(months.items()):
+680524	        rel = f"grid/{month}.json"
+680525	        if rel not in files:
+680526	            report.bad(f"{rel}: missing")
+680527	        committed_text = files[rel].decode("utf-8")
+680528	        committed = json.loads(committed_text)
+680529	        entries = [{"date": r["date"], "coverage": r["coverage"], "count": r["count"],
+680530	                    "sha256": [r["sha256"] or ""] if r["path"] else [p["sha256"] or "" for p in r.get("parts") or []]}
+680531	                   for r in sorted(month_rows, key=lambda r: r["date"])]
+680532	        by_cell: dict[int, list[tuple[int, int]]] = {}
+680533	        for r in month_rows:
+680534	            if not r["count"]:
+680535	            counts: dict[int, int] = {}
+680536	            for f in features_by_day.get(r["date"], []):
+680537	                lon, lat = f["geometry"]["coordinates"][:2]
+680538	                c = cell_of(float(lon), float(lat))
+680539	                counts[c] = counts.get(c, 0) + 1
+680540	            for c, n in counts.items():
+680541	                by_cell.setdefault(c, []).append((int(r["date"][8:10]), n))
+680542	        cells = [[c] + [v for pair in sorted(by_cell[c]) for v in pair] for c in sorted(by_cell)]
+680543	        rebuilt = {
+680544	            "schema": SCHEMA_GRID,
+680546	            "observation": committed.get("observation"),
+680548	            "cell_deg": CELL_DEG,
+680549	            "cols": GRID_COLS,
+680550	            "rows": GRID_ROWS,
+680551	            "cell_rule": committed.get("cell_rule"),
+680552	            "note": committed.get("note"),
+680553	            "total": sum(e["count"] or 0 for e in entries),
+680554	            "days": entries,
+680555	            "cells": cells,
+680556	        for key in ("schema", "month", "bounds_wsen", "cell_deg", "cols", "rows", "total", "days"):
+680557	            report.expect(f"{rel} {key}", rebuilt[key], committed.get(key))
+680558	        if rebuilt["cells"] != committed.get("cells"):
+680559	            report.bad(f"{rel}: cells differ from a recount of the shards")
+680560	        rebuilt_text = canonical(rebuilt)
+680561	        if rebuilt_text != committed_text:
+680562	            report.bad(f"{rel}: bytes differ from the grid rebuilt from the shards")
+680563	        grids[month] = {"total": rebuilt["total"], "cells": len(cells), "sha256": sha256_bytes(rebuilt_text.encode("utf-8"))}
+680564	        g = GRID_PATH.match(rel)
+680565	        if g and f"{g.group(1)}-{g.group(2)}" not in months:
+680566	            report.bad(f"{rel}: grid month outside retention")
+680567	    # Step 5: headline numbers over every retained UTC date (cutoff .. generated date).
+680568	    searched = [r for r in recomputed_rows if r["coverage"] != "none"]
+680569	    searched_seconds = sum(r["scanned_seconds"] for r in recomputed_rows)
+680570	    window_seconds = len(recomputed_rows) * DAY_SECONDS
+680571	    busiest = max(with_flashes, key=lambda r: (r["count"], r["date"]), default=None)
+680573	        "window_utc": {"first_date": recomputed_rows[0]["date"] if recomputed_rows else None,
+680574	                       "last_date": recomputed_rows[-1]["date"] if recomputed_rows else None,
+680575	                       "last_date_in_progress": True,
+680576	                       "index_generated_utc": index["generated_utc"]},
+680577	        "days_in_window": len(recomputed_rows),
+680578	        "days_searched": len(searched),
+680579	        "days_full": sum(1 for r in recomputed_rows if r["coverage"] == "full"),
+680580	        "days_partial": sum(1 for r in recomputed_rows if r["coverage"] == "partial"),
+680581	        "days_never_searched": sum(1 for r in recomputed_rows if r["coverage"] == "none"),
+680582	        "days_shard_lost": len(lost_rows),
+680583	        "days_with_flashes": len(with_flashes),
+680584	        "days_searched_without_flashes": sum(1 for r in searched if r["count"] == 0),
+680585	        "optical_flashes": sum(r["count"] for r in with_flashes),
+680586	        "searched_seconds": searched_seconds,
+680587	        "unsearched_seconds": window_seconds - searched_seconds,
+680588	        "searched_fraction_of_window": round(searched_seconds / window_seconds, 6) if window_seconds else None,
+680589	        "busiest_day": {"date": busiest["date"], "count": busiest["count"]} if busiest else None,
+680590	        "split_days": sorted(r["date"] for r in recomputed_rows if r.get("parts")),
+680591	        "same_time_and_position_under_another_product": same_place_time_other_id,
+680592	        "flash_ids_without_product_slot": legacy_ids,
+680593	        "monthly": {m: {"flashes": sum(r["count"] or 0 for r in rs),
+680594	                        "days": len(rs),
+680595	                        "days_searched": sum(1 for r in rs if r["coverage"] != "none"),
+680596	                        "days_partial": sum(1 for r in rs if r["coverage"] == "partial"),
+680597	                        "searched_seconds": sum(r["scanned_seconds"] for r in rs)}
+680598	                    for m, rs in sorted(months.items())},
+680600	        "schema": SCHEMA_SUMMARY,
+680601	        "verdict": "reproduced" if report.mismatch_total == 0 else "mismatch",
+680602	        "mismatch_count": report.mismatch_total,
+680603	        "mismatches": report.mismatches,
+680605	            "history_files": len(manifest),
+680606	            "history_bytes": sum(m["bytes"] for m in manifest),
+680607	            "manifest_sha256": manifest_sha,
+680608	            "index_sha256": sha256_bytes(index_bytes),
+680609	            "index_generated_utc": index["generated_utc"],
+680610	        "checked": {
+680611	            "index_rows": len(rows),
+680612	            "shard_files": sum(1 for rel in files if DAY_PATH.match(rel) or PART_PATH.match(rel)),
+680613	            "grid_months": len(grids),
+680614	            "scan_windows": len(windows),
+680616	        "grids": grids,
+680618	    summary["summary_sha256"] = summary_digest(summary)
+680620	# --- compare-day ----------------------------------------------------------------------------
+680621	def _flash_key(feature: dict) -> tuple[str, float, float]:
+680622	    lon, lat = feature["geometry"]["coordinates"][:2]
+680623	    return (parse_utc(feature["properties"]["time_utc"]).isoformat(timespec="milliseconds"),
+680624	            round(float(lon), 6), round(float(lat), 6))
+680625	def compare_day(data_dir: Path, day: str, record_path: Path) -> dict:
+680626	    """Compare an independent whole-day re-download with the committed archive for ``day``."""
+680627	    index = json.loads((history_dir / "index.json").read_text(encoding="utf-8"))
+680630	        raise ValueError(f"{day} is outside the archive's retention (no index row)")
+680631	    record = json.loads(Path(record_path).read_text(encoding="utf-8"))
+680632	    if record.get("schema") != SCHEMA_RUN_RECORD:
+680633	        raise ValueError(f"{record_path}: not a {SCHEMA_RUN_RECORD}")
+680635	        raise ValueError(f"{record_path}: outcome {record.get('outcome')!r}, error {record.get('error')!r}")
+680636	    if record.get("rebuild_day_utc") not in (None, day):
+680637	        raise ValueError(f"{record_path}: record is for {record.get('rebuild_day_utc')}, not {day}")
+680638	    d = date.fromisoformat(day)
+680639	    lo, hi = day_start(d), day_start(d) + timedelta(days=1)
+680640	    ranges = [(parse_utc(r["start_utc"]), parse_utc(r["end_utc"])) for r in record.get("scanned_ranges") or []]
+680641	    record_seconds = int(round(merged_seconds_in(ranges, lo, hi)))
+680642	    archived: list[dict] = []
+680644	        archived.extend(json.loads((history_dir / rel).read_text(encoding="utf-8"))["features"])
+680645	    fresh = [f for f in record.get("features") or []
+680646	             if lo <= parse_utc(f["properties"]["time_utc"]) < hi and
+680647	             inside_view(*(float(v) for v in f["geometry"]["coordinates"][:2]))]
+680648	    a_keys = {_flash_key(f) for f in archived}
+680649	    r_keys = {_flash_key(f) for f in fresh}
+680650	    a_ids = {f["id"] for f in archived}
+680651	    r_ids = {f["id"] for f in fresh}
+680652	    only_archive = sorted(a_keys - r_keys)
+680653	    only_record = sorted(r_keys - a_keys)
+680654	    if row.get("count") is None:
+680655	        verdict = "archive_unknown"  # never searched (or shard_lost): nothing to compare against, not zero
+680656	    elif not only_archive and not only_record and record_seconds == row.get("scanned_seconds"):
+680657	        verdict = "identical"
+680658	    elif not only_archive and not only_record:
+680659	        verdict = "same_flashes_different_coverage"
+680660	        verdict = "differs"
+680661	        "schema": SCHEMA_COMPARE,
+680662	        "date": day,
+680664	        "archive": {"coverage": row.get("coverage"), "scanned_seconds": row.get("scanned_seconds"),
+680665	                    "count": row.get("count"), "distinct_time_position": len(a_keys),
+680666	                    "index_generated_utc": index.get("generated_utc")},
+680667	        "record": {"run_utc": record.get("run_utc"), "products_examined": record.get("products_examined"),
+680668	                   "slots_examined": record.get("slots_examined"), "products_unparsed": record.get("products_unparsed"),
+680669	                   "unparsed_slots_utc": record.get("unparsed_slots_utc"), "searched_seconds_in_day": record_seconds,
+680670	                   "flashes_in_day": len(fresh), "distinct_time_position": len(r_keys),
+680671	                   "outside_day_dropped": record.get("outside_day")},
+680672	        "matched_time_position": len(a_keys & r_keys),
+680673	        "matched_ids": len(a_ids & r_ids),
+680674	        "only_in_archive": len(only_archive),
+680675	        "only_in_record": len(only_record),
+680676	        "only_in_archive_sample": [list(k) for k in only_archive[:20]],
+680677	        "only_in_record_sample": [list(k) for k in only_record[:20]],
+680678	        "note": ("Flashes are matched on (time_utc to the millisecond, lon, lat to 6 decimals). The archive "
+680679	                 "keeps each flash once; an hourly-collected date is the union of several runs, so the "
+680680	                 "archive can hold flashes a later single search no longer returns, and the reverse when "
+680681	                 "products were missing or unparsed at collection time. Optical flashes, not ground strikes."),
+680682	# --- CLI ------------------------------------------------------------------------------------
+680683	def print_human(summary: dict, out=None) -> None:
+680685	    h = summary["headline"]
+680686	    w = h["window_utc"]
+680687	    pct = 100 * (h["searched_fraction_of_window"] or 0)
+680688	    print(f"Lightning archive reproduction ({summary['schema']})", file=out)
+680689	    print(f"  index generated {summary['inputs']['index_generated_utc']}, "
+680690	          f"{summary['inputs']['history_files']} files, {summary['inputs']['history_bytes']:,} bytes", file=out)
+680691	    print(f"  checked {summary['checked']['index_rows']} index rows, {summary['checked']['shard_files']} shard files, "
+680692	          f"{summary['checked']['grid_months']} month grids, {summary['checked']['scan_windows']} scan windows", file=out)
+680693	    print(f"  window {w['first_date']} .. {w['last_date']} UTC (last date still being collected)", file=out)
+680694	    print(f"  {h['days_searched']} of {h['days_in_window']} UTC days searched "
+680695	          f"({h['days_full']} full, {h['days_partial']} partial, {h['days_never_searched']} never searched, "
+680696	          f"{h['days_shard_lost']} shard_lost)", file=out)
+680697	    print(f"  {h['optical_flashes']:,} optical flashes (not ground strikes) on {h['days_with_flashes']} days; "
+680698	          f"{h['days_searched_without_flashes']} searched days with none", file=out)
+680699	    print(f"  searched {h['searched_seconds'] / 3600:,.2f} h = {pct:.2f} % of the window; "
+680700	          f"unsearched {h['unsearched_seconds'] / 3600:,.2f} h (unknown, not zero)", file=out)
+680701	    if h["busiest_day"]:
+680702	        print(f"  busiest day {h['busiest_day']['date']}: {h['busiest_day']['count']:,} flashes", file=out)
+680703	    print(f"  verdict: {summary['verdict'].upper()} ({summary['mismatch_count']} mismatch(es))", file=out)
+680704	    for line in summary["mismatches"]:
+680705	        print(f"    - {line}", file=out)
+680706	    print(f"  manifest_sha256 {summary['inputs']['manifest_sha256']}", file=out)
+680707	    print(f"  index_sha256    {summary['inputs']['index_sha256']}", file=out)
+680708	    print(f"  summary_sha256  {summary['summary_sha256']}", file=out)
+680709	    sub = parser.add_subparsers(dest="command")
+680710	    chk = sub.add_parser("check", help="Recompute every index total, coverage, grid and headline from the committed files")
+680711	    chk.add_argument("--data-dir", type=Path, default=Path("data"))
+680712	    chk.add_argument("--json", type=Path, default=None, help="Also write the full JSON summary here")
+680713	    chk.add_argument("--expect", default=None, metavar="SHA256", help="Fail unless summary_sha256 equals this")
+680714	    cmp_ = sub.add_parser("compare-day", help="Compare a fresh EUMETSAT re-download of one date with the archive")
+680715	    cmp_.add_argument("--day", required=True)
+680716	    cmp_.add_argument("--record", type=Path, required=True)
+680717	    cmp_.add_argument("--data-dir", type=Path, default=Path("data"))
+680718	    argv = list(sys.argv[1:] if argv is None else argv)
+680719	    if not argv or argv[0] not in ("check", "compare-day", "-h", "--help"):
+680720	        argv = ["check", *argv]  # "check" is the default command
+680721	        if args.command == "compare-day":
+680722	            print(json.dumps(compare_day(args.data_dir, args.day, args.record), indent=2))
+680724	        summary = check(args.data_dir)
+680725	    except (OSError, ValueError, KeyError, TypeError) as error:
+680726	        print(f"REPRODUCE FAILURE: {type(error).__name__}: {error}", file=sys.stderr)
+680728	    summary["run"] = {"python": platform.python_version(),
+680729	                      "run_utc": fmt_utc(datetime.now(timezone.utc)),
+680730	                      "note": "not part of summary_sha256"}
+680733	        args.json.write_text(json.dumps(summary, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+680734	    print_human(summary)
+680735	    if args.expect and args.expect != summary["summary_sha256"]:
+680736	        print(f"  EXPECTED summary_sha256 {args.expect}: does not match", file=sys.stderr)
+680737	    return 0 if summary["verdict"] == "reproduced" else 1
+680738	"""ci/collector_health.py: the collector-stale verdict, the issue sync and the workflow wiring.
+680739	No network and no GitHub: the issue sync runs against an in-memory fake of the
+680740	four REST calls, and the raw probe against a fake fetch.
+680742	from contextlib import redirect_stdout
+680743	sys.path.insert(0, str(ROOT / "ci"))
+680744	import collector_health as ch  # noqa: E402
+680746	NOW = datetime(2026, 10, 29, 12, 0, tzinfo=timezone.utc)
+680747	def status(attempt="2026-10-29T11:31:00Z", late_after="2026-10-29T13:01:00Z", outcome="success",
+680748	           failures=0, freshness="ok", error=None):
+680749	    return {"last_attempt_utc": attempt, "last_attempt_outcome": outcome, "consecutive_failures": failures,
+680750	            "freshness": freshness, "last_error": error, "last_successful_scan_end_utc": "2026-10-29T11:20:05Z",
+680751	            "heartbeat": {"late_after_utc": late_after}}
+680752	class FakeGitHub:
+680753	    def __init__(self, issues=None):
+680754	        self.issues = {i["number"]: dict(i) for i in (issues or [])}
+680755	        self.comments, self.labels, self.next = [], [], 100
+680756	    def open_issues(self, label):
+680757	        return [dict(i) for n, i in sorted(self.issues.items())
+680758	                if i.get("state", "open") == "open" and label in i.get("labels", [])]
+680759	    def ensure_label(self, label, color, description):
+680760	        self.labels.append(label)
+680761	    def create_issue(self, title, body, label):
+680762	        self.next += 1
+680763	        self.issues[self.next] = {"number": self.next, "title": title, "body": body, "labels": [label], "state": "open"}
+680764	        return self.issues[self.next]
+680765	    def update_issue(self, number, **fields):
+680766	        self.issues[number].update(fields)
+680767	        return self.issues[number]
+680768	    def comment(self, number, body):
+680769	        self.comments.append((number, body))
+680770	class EvaluateTests(unittest.TestCase):
+680771	    def test_on_time_heartbeat_is_ok(self):
+680772	        self.assertEqual(ch.evaluate(status(), now=NOW)["state"], "ok")
+680773	    def test_past_late_after_but_within_grace_is_late_not_an_issue(self):
+680774	        v = ch.evaluate(status(), now=datetime(2026, 10, 29, 13, 30, tzinfo=timezone.utc))
+680775	        self.assertEqual(v["state"], "late")
+680776	        self.assertNotIn(v["state"], ch.UNHEALTHY)
+680777	    def test_past_late_after_plus_grace_is_stale(self):
+680778	        v = ch.evaluate(status(), now=datetime(2026, 10, 29, 14, 32, tzinfo=timezone.utc))
+680779	        self.assertEqual(v["state"], "stale")
+680780	        self.assertEqual(v["stale_after_utc"], "2026-10-29T14:31:00Z")
+680781	        self.assertIn("late_after_utc 2026-10-29T13:01:00Z", v["reasons"][0])
+680782	    def test_grace_zero_alerts_exactly_at_late_after(self):
+680783	        v = ch.evaluate(status(), now=datetime(2026, 10, 29, 13, 2, tzinfo=timezone.utc), grace_minutes=0)
+680784	    def test_missing_or_unreadable_status_is_stale(self):
+680785	        self.assertEqual(ch.evaluate(None, now=NOW)["state"], "stale")
+680787	            bad = Path(tmp) / "status.json"
+680788	            bad.write_text("{not json")
+680789	            self.assertIsNone(ch.load_status(bad))
+680790	    def test_heartbeat_block_missing_falls_back_to_attempt_plus_90_min(self):
+680791	        s = status()
+680792	        del s["heartbeat"]
+680793	        self.assertEqual(ch.evaluate(s, now=NOW)["late_after_utc"], "2026-10-29T13:01:00Z")
+680794	    def test_repeated_failures_are_failing_even_with_a_fresh_heartbeat(self):
+680795	        v = ch.evaluate(status(outcome="failure", failures=3, error="401 invalid_client"), now=NOW)
+680796	        self.assertEqual(v["state"], "failing")
+680797	        self.assertIn("401 invalid_client", v["reasons"][0])
+680798	        self.assertEqual(ch.evaluate(status(outcome="failure", failures=2), now=NOW)["state"], "ok")
+680799	    def test_stale_freshness_is_failing(self):
+680800	        self.assertEqual(ch.evaluate(status(freshness="stopped"), now=NOW)["state"], "failing")
+680801	    def test_stale_wins_over_failing_and_keeps_both_reasons(self):
+680802	        v = ch.evaluate(status(failures=5), now=datetime(2026, 10, 30, tzinfo=timezone.utc))
+680803	        self.assertEqual(len(v["reasons"]), 2)
+680804	    def test_the_committed_status_json_is_readable(self):
+680805	        committed = ch.load_status(ROOT / "data" / "status.json")
+680806	        if committed is None:
+680807	            self.skipTest("no data/status.json in this checkout")
+680808	        v = ch.evaluate(committed, now=NOW)
+680809	        self.assertIsNotNone(v["late_after_utc"])
+680810	class SyncIssueTests(unittest.TestCase):
+680811	    def sync(self, gh, unhealthy, state="stale", body="b"):
+680812	        return ch.sync_issue(gh, label=ch.STALE_LABEL, unhealthy=unhealthy, state=state, title="t", body=body,
+680813	                             recovery="recovered")
+680814	    def test_opens_one_issue_with_the_label(self):
+680815	        gh = FakeGitHub()
+680816	        self.assertEqual(self.sync(gh, True), "opened #101")
+680817	        self.assertEqual(gh.labels, [ch.STALE_LABEL])
+680818	        self.assertEqual(gh.issues[101]["labels"], ["collector-stale"])
+680819	        self.assertIn("state=stale", gh.issues[101]["body"])
+680820	    def test_second_unhealthy_check_updates_without_a_comment(self):
+680821	        self.sync(gh, True, body="first")
+680822	        self.assertEqual(self.sync(gh, True, body="second"), "updated #101")
+680823	        self.assertEqual(len(gh.issues), 1)
+680824	        self.assertTrue(gh.issues[101]["body"].endswith("second"))
+680825	        self.assertEqual(gh.comments, [])
+680826	    def test_a_state_change_comments_once(self):
+680827	        self.sync(gh, True, state="failing")
+680828	        self.assertIn("commented", self.sync(gh, True, state="stale"))
+680829	        self.sync(gh, True, state="stale")
+680830	        self.assertEqual(len(gh.comments), 1)
+680831	    def test_recovery_closes_with_a_comment(self):
+680832	        self.sync(gh, True)
+680833	        self.assertEqual(self.sync(gh, False, state="ok"), "closed #101")
+680834	        self.assertEqual(gh.issues[101]["state"], "closed")
+680835	        self.assertEqual(gh.comments, [(101, "recovered")])
+680836	        self.assertEqual(self.sync(gh, False, state="ok"), "none open; nothing to do")
+680837	    def test_raced_duplicates_are_closed_onto_the_oldest(self):
+680838	        gh = FakeGitHub([{"number": 7, "labels": ["collector-stale"], "body": ""},
+680839	                         {"number": 9, "labels": ["collector-stale"], "body": ""},
+680840	                         {"number": 8, "labels": ["bug"], "body": ""}])
+680841	        self.assertEqual(gh.issues[7].get("state", "open"), "open")
+680842	        self.assertEqual(gh.issues[9]["state"], "closed")
+680843	        self.assertEqual(gh.issues[8].get("state", "open"), "open")  # other labels untouched
+680844	    def test_issue_text_names_the_threshold_and_runbook(self):
+680845	        v = ch.evaluate(status(), now=datetime(2026, 10, 29, 15, tzinfo=timezone.utc))
+680846	        title, body = ch.stale_issue(v, source="test", now=NOW)
+680847	        self.assertIn("no heartbeat since 2026-10-29T11:31:00Z", title)
+680848	        self.assertIn("late_after_utc", body)
+680849	        self.assertIn("docs/OPERATIONS.md", body)
+680850	class RawProbeTests(unittest.TestCase):
+680851	    def fetcher(self, served_status, codes=None):
+680852	        codes = codes or {}
+680853	        def fetch(url, method="GET", **_):
+680854	            rel = url.split(ch.RAW_BASE, 1)[1].split("?", 1)[0]
+680855	            code = codes.get(rel, 200)
+680856	            body = json.dumps(served_status).encode() if rel == "data/status.json" and code == 200 else b""
+680857	            return code, body, "" if code == 200 else f"HTTP {code}"
+680858	        return fetch
+680859	    def test_ok_when_raw_serves_current_bytes(self):
+680860	        self.assertEqual(ch.probe_raw(s, fetch=self.fetcher(s))["state"], "ok")
+680861	    def test_failing_on_http_errors(self):
+680862	        p = ch.probe_raw(s, fetch=self.fetcher(s, {"data/history/index.json": 429}))
+680863	        self.assertEqual(p["state"], "failing")
+680864	        self.assertIn("data/history/index.json: HTTP 429", p["reasons"])
+680865	    def test_failing_when_raw_is_far_behind_main(self):
+680866	        p = ch.probe_raw(status(), fetch=self.fetcher(status(attempt="2026-10-29T08:00:00Z")))
+680867	        self.assertIn("min behind main", p["reasons"][0])
+680868	class CliTests(unittest.TestCase):
+680869	    def test_report_only_exit_codes(self):
+680870	            path = Path(tmp) / "status.json"
+680871	            path.write_text(json.dumps(status()))
+680872	            out = io.StringIO()
+680873	            with redirect_stdout(out):
+680874	                self.assertEqual(ch.main(["--status", str(path), "--now", "2026-10-29T12:00:00Z",
+680875	                                          "--fail-when-unhealthy"]), 0)
+680876	                self.assertEqual(ch.main(["--status", str(path), "--now", "2026-10-29T18:00:00Z",
+680877	                                          "--fail-when-unhealthy"]), 1)
+680878	                self.assertEqual(ch.main(["--status", str(path), "--now", "2026-10-29T18:00:00Z"]), 0)
+680879	            self.assertIn("::error title=collector stale::", out.getvalue())
+680880	class WorkflowWiringTests(unittest.TestCase):
+680881	    """The check runs inside the existing workflows and the watchdog stays tiny."""
+680882	    def test_hourly_collector_syncs_the_issue_after_its_commit_without_changing_the_outcome(self):
+680883	        text = (WORKFLOWS / "update-lightning.yml").read_text()
+680884	        self.assertIn("issues: write", text.split("\nconcurrency:", 1)[0])
+680885	        step = text.split("- name: Collector health issue (collector-stale)", 1)[1].split("\n      - name:", 1)[0]
+680886	        self.assertIn("if: always()", step)
+680887	        self.assertIn("continue-on-error: true", step)
+680888	        self.assertIn("python ci/collector_health.py", step)
+680889	        self.assertIn("--issue", step)
+680890	        order = [text.index(n) for n in ("- name: Commit archive and status (archive commit)",
+680891	                                         "- name: Collector health issue (collector-stale)",
+680892	                                         "- name: Surface collection, archive or integrity failure")]
+680893	        self.assertEqual(order, sorted(order))
+680894	    def test_data_verifier_has_a_health_job_with_issue_write_only_there(self):
+680896	        top = text.split("\njobs:", 1)[0]
+680897	        self.assertNotIn("issues: write", top)
+680898	        health = text.split("\n  health:\n", 1)[1]
+680899	        self.assertIn("issues: write", health)
+680900	        self.assertIn("ci/collector_health.py", health)
+680901	        self.assertIn("--issue", health)
+680902	    def test_watchdog_is_read_only_scheduled_and_never_in_a_writer_group(self):
+680903	        text = (WORKFLOWS / "collector-watchdog.yml").read_text()
+680904	        self.assertIn("schedule:", text)
+680905	        self.assertIn("contents: read", text)
+680906	        self.assertIn("issues: write", text)
+680907	        self.assertNotIn("contents: write", text)
+680908	        for group in ("uk-lightning-update", "uk-lightning-backfill"):
+680909	            self.assertNotIn(group, text)
+680910	        self.assertIn("--fail-when-unhealthy", text)
+680911	        self.assertIn("--raw", text)
+680912	        self.assertIn("timeout-minutes: 5", text)
+680913	        self.assertNotIn("pip install", text)
+680914	"""reproduce.py: independent recomputation of the archive from its committed files; no network.
+680915	Every fixture archive is written by the production writer (history.archive_observations)
+680916	inside a temporary directory, then checked by reproduce.py, which shares no code with
+680917	the writer. Tampering with any shard, index value or grid cell must be reported, and
+680918	unknown (never searched) must never be counted as zero.
+680919	Synthetic features exist ONLY inside temporary directories created by these tests
+680920	(ids start with "TEST-" or carry a TEST product name); nothing synthetic is ever published.
+680921	from contextlib import redirect_stderr, redirect_stdout
+680925	import reproduce  # noqa: E402
+680927	from history import archive_observations, successful_scan  # noqa: E402
+680929	D24 = datetime(2026, 10, 24, tzinfo=timezone.utc)
+680930	D23 = datetime(2026, 10, 23, tzinfo=timezone.utc)
+680931	D20 = datetime(2026, 10, 20, tzinfo=timezone.utc)
+680932	D30 = datetime(2026, 9, 30, tzinfo=timezone.utc)
+680933	PRODUCT = ("TEST-LI-2-LFL_C_EUMT_20261024100009_L2PF_OPE_20261024100009_20261024101009_N__O_0061_0000")
+680938	class ReproduceTests(unittest.TestCase):
+680940	        self.data = Path(self.temp.name) / "data"
+680941	        self.root = self.data / "history"
+680944	    def seed(self, **kwargs):
+680945	        """24 Oct full (3 flashes), 23 Oct searched with no flash, 25 Oct half searched,
+680946	        30 Sep full (1 flash), every other retained date never searched."""
+680947	        flashes = [flash(D24 + timedelta(hours=3), "a", 0), flash(D24 + timedelta(hours=4), "b", 1, -2.11, 51.13),
+680948	                   flash(D24 + timedelta(hours=5), "c", 2, 0.5, 52.0), flash(D30 + timedelta(hours=9), "d", 0, -4.0, 55.0)]
+680949	        windows = [scan(D23, D24 + timedelta(days=1)), scan(D30, D30 + timedelta(days=1)),
+680950	                   scan(D24 + timedelta(days=1), D24 + timedelta(days=1, hours=12))]
+680951	        return archive_observations(self.root, flashes, now=NOW, scanned_windows=windows, **kwargs)
+680952	    def check(self):
+680953	        return reproduce.check(self.data)
+680956	    def write_index(self, index):
+680957	        (self.root / "index.json").write_text(reproduce.canonical(index))
+680958	    def rewrite_json(self, rel, change):
+680959	        path = self.root / rel
+680960	        obj = json.loads(path.read_text())
+680961	        change(obj)
+680962	        path.write_text(reproduce.canonical(obj))
+680963	    # --- a faithful archive reproduces --------------------------------------------------
+680964	    def test_writer_output_reproduces_with_no_mismatch_and_agrees_with_the_writers_own_verify(self):
+680968	        summary = self.check()
+680969	        self.assertEqual(summary["verdict"], "reproduced", summary["mismatches"])
+680970	        self.assertEqual(summary["mismatch_count"], 0)
+680971	        h = summary["headline"]
+680972	        self.assertEqual(h["days_in_window"], 366)  # 2025-10-26 .. 2026-10-26
+680973	        self.assertEqual(h["optical_flashes"], 4)
+680974	        self.assertEqual((h["days_full"], h["days_partial"]), (3, 1))  # 23, 24 Oct, 30 Sep full; 25 Oct partial
+680975	        self.assertEqual(h["days_searched"], 4)
+680976	        self.assertEqual(h["days_never_searched"], 362)
+680977	        self.assertEqual(h["days_with_flashes"], 2)
+680978	        self.assertEqual(h["days_searched_without_flashes"], 2)  # 23 Oct and 25 Oct: searched, count 0
+680979	        self.assertEqual(h["searched_seconds"], 3 * 86400 + 12 * 3600)
+680980	        self.assertEqual(h["busiest_day"], {"date": "2026-10-24", "count": 3})
+680981	        self.assertEqual(h["monthly"]["2026-10"]["flashes"], 3)
+680982	        self.assertEqual(summary["grids"]["2026-09"]["total"], 1)
+680983	        self.assertEqual(summary["inputs"]["history_files"], len([p for p in self.root.rglob("*") if p.is_file()]))
+680984	    def test_summary_digest_is_deterministic_and_moves_with_any_byte(self):
+680985	        first, second = self.check(), self.check()
+680986	        self.assertEqual(first["summary_sha256"], second["summary_sha256"])
+680987	        self.assertEqual(first["summary_sha256"], reproduce.summary_digest(first))
+680988	        self.assertRegex(first["summary_sha256"], r"^[0-9a-f]{64}$")
+680989	        archive_observations(self.root, [flash(D24 + timedelta(hours=6), "e", 3)], now=NOW)
+680990	        third = self.check()
+680991	        self.assertEqual(third["verdict"], "reproduced", third["mismatches"])
+680992	        self.assertNotEqual(third["inputs"]["manifest_sha256"], first["inputs"]["manifest_sha256"])
+680993	        self.assertNotEqual(third["summary_sha256"], first["summary_sha256"])
+680994	    def test_unknown_is_never_counted_as_zero(self):
+680995	        rows = {r["date"]: r for r in self.index()["days"]}
+680996	        self.assertEqual((rows["2026-10-22"]["coverage"], rows["2026-10-22"]["count"]), ("none", None))
+680997	        h = self.check()["headline"]
+680998	        self.assertEqual(h["days_searched_without_flashes"], 2)
+680999	        self.assertEqual(h["unsearched_seconds"], 366 * 86400 - h["searched_seconds"])
+681000	    def test_split_day_parts_reproduce(self):
+681001	        self.seed(target_shard_bytes=900)
+681002	        index = self.index()
+681003	        row = next(r for r in index["days"] if r["date"] == "2026-10-24")
+681005	        self.assertEqual(len(row["parts"]), 3)
+681006	        self.assertEqual(summary["headline"]["split_days"], ["2026-10-24"])
+681007	    def test_flash_proof_fallback_for_a_day_with_flashes_but_no_window(self):
+681008	        moment = datetime(2026, 10, 24, 10, 3, tzinfo=timezone.utc)
+681009	        archive_observations(self.root, [build_feature(-2.0, 52.0, moment, PRODUCT, 7),
+681010	                                         flash(D20 + timedelta(hours=1), "x", 0)], now=NOW)
+681011	        self.assertEqual((rows["2026-10-24"]["coverage"], rows["2026-10-24"]["scanned_seconds"]), ("partial", 600))
+681012	    def test_shard_lost_day_reproduces_as_unknown(self):
+681013	        (self.root / "days/2026/09/30.json").unlink()
+681015	        self.assertTrue(rows["2026-09-30"]["shard_lost"])
+681016	        self.assertEqual(summary["headline"]["days_shard_lost"], 1)
+681017	        self.assertEqual(summary["headline"]["optical_flashes"], 3)
+681018	    # --- tampering is reported -------------------------------------------------------------
+681019	    def assert_mismatch(self, pattern):
+681020	        self.assertEqual(summary["verdict"], "mismatch")
+681021	        self.assertTrue(any(re.search(pattern, m) for m in summary["mismatches"]),
+681022	                        summary["mismatches"])
+681024	    def test_moved_flash_breaks_sha256_and_grid(self):
+681025	        self.rewrite_json("days/2026/10/24.json",
+681026	                          lambda o: o["features"][0]["geometry"].__setitem__("coordinates", [-3.5, 53.0]))
+681027	        self.assert_mismatch(r"index row 2026-10-24")
+681028	        self.assert_mismatch(r"grid/2026-10\.json: cells differ")
+681029	    def test_index_total_and_row_count_edits_are_reported(self):
+681030	        index["archived_observations"] += 1
+681031	        self.write_index(index)
+681032	        self.assert_mismatch(r"index\.archived_observations")
+681033	        index["archived_observations"] -= 1
+681034	        next(r for r in index["days"] if r["date"] == "2026-10-24")["count"] = 2
+681035	    def test_never_searched_row_turned_into_zero_is_reported(self):
+681036	        row = next(r for r in index["days"] if r["date"] == "2026-10-22")
+681037	        row["count"] = 0
+681038	        self.assert_mismatch(r"count must be null iff coverage is none")
+681039	    def test_coverage_upgrade_without_a_scan_window_is_reported(self):
+681040	        row = next(r for r in index["days"] if r["date"] == "2026-10-25")
+681041	        row.update(coverage="full", scanned_seconds=86400, sealed=True)
+681042	        self.assert_mismatch(r"index row 2026-10-25")
+681043	    def test_grid_cell_edit_is_reported(self):
+681044	        self.rewrite_json("grid/2026-09.json", lambda o: o["cells"][0].__setitem__(2, 5))
+681045	        self.assert_mismatch(r"grid/2026-09\.json: cells differ")
+681046	    def test_missing_shard_unexpected_file_and_non_canonical_bytes_are_reported(self):
+681047	        path = self.root / "days/2026/10/24.json"
+681048	        path.write_text(json.dumps(json.loads(path.read_text()), indent=1))
+681049	        self.assert_mismatch(r"not the canonical serialisation")
+681050	        (self.root / "notes.txt").write_text("x")
+681051	        self.assert_mismatch(r"notes\.txt: unexpected file")
+681052	        self.assert_mismatch(r"index row 2026-09-30")
+681053	    def test_flash_outside_bounds_or_on_another_date_is_reported(self):
+681054	        self.rewrite_json("days/2026/09/30.json",
+681055	                          lambda o: o["features"][0]["geometry"].__setitem__("coordinates", [5.0, 55.0]))
+681056	        self.assert_mismatch(r"outside the UK view rectangle")
+681057	                          lambda o: o["features"][0]["properties"].__setitem__("time_utc", "2026-10-01T09:00:00.000Z"))
+681058	        self.assert_mismatch(r"not on 2026-09-30 UTC")
+681059	    # --- compare-day ------------------------------------------------------------------------
+681060	    def record(self, features, *, start=D24, seconds=86400, **extra):
+681061	        rec = {"schema": "uk-lightning-run-record.v1", "outcome": "success", "run_utc": "2026-10-29T00:00:00.000Z",
+681062	               "rebuild_day_utc": start.date().isoformat(), "products_examined": 144, "slots_examined": 144,
+681063	               "products_unparsed": 0, "unparsed_slots_utc": [], "outside_day": 0,
+681064	               "scanned_ranges": [{"start_utc": start.isoformat(), "end_utc": (start + timedelta(seconds=seconds)).isoformat()}],
+681065	               "features": features, **extra}
+681066	        path = Path(self.temp.name) / "record.json"
+681067	        path.write_text(json.dumps(rec))
+681069	    def test_compare_day_identical_differs_and_unknown(self):
+681070	        same = [flash(D24 + timedelta(hours=3), "a", 0), flash(D24 + timedelta(hours=4), "b", 1, -2.11, 51.13),
+681071	                flash(D24 + timedelta(hours=5), "c", 2, 0.5, 52.0)]
+681072	        result = reproduce.compare_day(self.data, "2026-10-24", self.record(same))
+681073	        self.assertEqual(result["verdict"], "identical")
+681074	        self.assertEqual(result["matched_time_position"], 3)
+681075	        extra = same + [flash(D24 + timedelta(hours=7), "z", 9, 1.0, 52.0),
+681076	                        flash(D24 - timedelta(minutes=1), "prev", 0)]  # previous date: ignored
+681077	        result = reproduce.compare_day(self.data, "2026-10-24", self.record(extra))
+681078	        self.assertEqual((result["verdict"], result["only_in_record"], result["only_in_archive"]), ("differs", 1, 0))
+681079	        result = reproduce.compare_day(self.data, "2026-10-24", self.record(same, seconds=86000))
+681080	        self.assertEqual(result["verdict"], "same_flashes_different_coverage")
+681081	        result = reproduce.compare_day(self.data, "2026-10-22", self.record([], start=D24 - timedelta(days=2)))
+681082	        self.assertEqual(result["verdict"], "archive_unknown")
+681083	    def test_compare_day_refuses_a_failed_or_wrong_day_record(self):
+681084	            reproduce.compare_day(self.data, "2026-10-24", self.record([], outcome="failure"))
+681085	            reproduce.compare_day(self.data, "2026-10-23", self.record([]))
+681086	    # --- CLI --------------------------------------------------------------------------------
+681087	    def run_cli(self, *argv):
+681088	        out, err = io.StringIO(), io.StringIO()
+681089	        with redirect_stdout(out), redirect_stderr(err):
+681090	            code = reproduce.main(list(argv))
+681091	        return code, out.getvalue(), err.getvalue()
+681092	    def test_cli_exit_codes_json_and_expect(self):
+681093	        target = Path(self.temp.name) / "out" / "summary.json"
+681094	        code, out, _ = self.run_cli("check", "--data-dir", str(self.data), "--json", str(target))
+681095	        self.assertEqual(code, 0, out)
+681096	        self.assertIn("verdict: REPRODUCED", out)
+681097	        written = json.loads(target.read_text())
+681098	        self.assertEqual(written["summary_sha256"], reproduce.summary_digest(written))
+681099	        self.assertIn(written["summary_sha256"], out)
+681100	        code, _, _ = self.run_cli("check", "--data-dir", str(self.data), "--expect", written["summary_sha256"])
+681102	        code, _, err = self.run_cli("check", "--data-dir", str(self.data), "--expect", "0" * 64)
+681103	        self.assertEqual(code, 1)
+681104	        self.assertIn("does not match", err)
+681105	        code, _, _ = self.run_cli("--data-dir", str(self.data))  # "check" is the default command
+681106	        index["scanned_days"] += 1
+681107	        code, out, _ = self.run_cli("check", "--data-dir", str(self.data))
+681108	        self.assertIn("index.scanned_days", out)
+681109	        code, _, err = self.run_cli("check", "--data-dir", str(Path(self.temp.name) / "nowhere"))
+681110	        self.assertEqual(code, 2)
+681111	        self.assertIn("REPRODUCE FAILURE", err)
+681112	    def test_ci_runs_the_reproduction_on_main_and_the_tests_on_changes(self):
+681113	        verify = (ROOT / ".github/workflows/verify-lightning-data.yml").read_text()
+681114	        self.assertIn("python reproduce.py check --json", verify)
+681115	        tests = (ROOT / ".github/workflows/test-lightning.yml").read_text()
+681116	        self.assertEqual(tests.count('- "reproduce.py"'), 2)  # push and pull_request
+681117	    def test_methods_doc_states_the_contract_reproduce_checks(self):
+681118	        text = (ROOT / "docs/METHODS.md").read_text()
+681119	        for needle in ("EO:EUM:DAT:0691", "(−11.0, 49.5, 3.0, 61.5)", "±60 s", "PR #13", "unknown, not zero",
+681120	                       "shard_lost", "0.1°", "reproduce.py check", "--rebuild-day", "How to cite",
+681121	                       "Only fully open data is used"):
+681122	            self.assertIn(needle, text)
+681123	        self.assertEqual(reproduce.UK_BOUNDS, (-11.0, 49.5, 3.0, 61.5))
+681124	    def test_reproduce_imports_no_writer_module(self):
+681125	        source = (ROOT / "reproduce.py").read_text()
+681126	        for name in ("collect", "history", "grid", "status"):
+681127	            self.assertNotRegex(source, rf"(?m)^\s*(import|from)\s+{name}\b")
 ```
