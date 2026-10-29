@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-399,689 unique lines, numbered 1 to 681,127. Generated 2026-10-29T06:26:29.279Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+400,349 unique lines, numbered 1 to 693,137. Generated 2026-10-29T13:42:28.066Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -399692,4 +399692,664 @@
 681125	        source = (ROOT / "reproduce.py").read_text()
 681126	        for name in ("collect", "history", "grid", "status"):
 681127	            self.assertNotRegex(source, rf"(?m)^\s*(import|from)\s+{name}\b")
+681197	<details id="gridatlas"><summary><span class="number">03</span><span class="title">GridAtlas<small>Explore the electricity network</small></span></summary><div class="inside"><p>Optional UK lightning overlay (observed optical flashes, 12-month history) with the nearest substations and REPD projects, plus a Potential offtakers layer (industry, power stations, data centres) linked to the 15 nearest REPD projects.</p><a class="launch" href="https://ventusltd.github.io/gridatlas/atlas/">Open GridAtlas &rarr;</a></div></details>
+681198	<tr data-entity-id="gridatlas"><th scope="row"><a href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas</a><small class="entity-key">gridatlas</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore electricity-network sites, layers and connections.</p><p>For: network researchers, project developers</p></details></td><td>Explore the electricity network</td><td><details class="table-versions"><summary>V9.186 - 29 October 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.156 - 24 September 2026</a><small class="entity-key">202609241334</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.172 - 28 October 2026</a><small class="entity-key">202610281340</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.186 - 29 October 2026</a><small class="entity-key">202610291044</small></div></details></td></tr>
+688051	/* uk-lightning-overlay, generation 202610290935 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+688059	let GEN='202610290935',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+688267	RpQ=async pts=>{let C=S.rc||(S.rc=new Map),ks=RpU(pts.filter(a=>a&&a[0]===+a[0]&&a[1]===+a[1]&&!C.has(a+'')),a=>a+''),k;
+688268	  if(ks.length){let w=window.__GRIDATLAS_DUCKDB_RUNTIME__,R=p=>{let t;return Promise.race([p,new Promise((_,j)=>t=setTimeout(()=>j(new Error(TOE)),TMO))]).finally(()=>clearTimeout(t))};
+688451	/* uk-lightning-overlay, generation 202610291043 (UTC). EUMETSAT MTG LI L2-LFL optical flashes, OFF by default, never persisted; NOT confirmed ground strikes; unsearched is unknown, never zero. Long periods: ≈10 km cells within 30 km of a REPD site. */
+688452	let GEN='202610291043',AR='https://raw.githubusercontent.com/Ventusltd/lightning/main/data/history/',IX_SCHEMA='uk-lightning-history-index.v2',GS='uk-lightning-history-grid.v1',
+688453	HIT=SRC+'-hit',OTH='gridatlas-offtakers-hit',CEL=SRC+'-cell',CNT=LAYER+'-count',pc=()=>{if(S.pp){S.pp.remove();S.pp=null}nc()},
+688454	tap=e=>{let m=mh();if(!S.on||S.busy||!m||!(m.getLayer(HIT)||m.getLayer(CEL)))return;if(e.gridatlasClaim||m.getLayer(OTH)&&m.queryRenderedFeatures(e.point,{layers:[OTH]}).length)return;let px=e.point.x??e.point[0],py=e.point.y??e.point[1],Y=l=>m.getLayer(l)?m.queryRenderedFeatures(e.point,{layers:[l]}):[];let f=null,dm=Infinity;
+688455	/* uk-offtakers-overlay, generation 202610290949 (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+688460	GEN='202610290949',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+688461	DATA='https://ventusltd.github.io/gridatlas/data/offtakers_filtered_202610290945.geojson',DSHA='6fc20e04fdcaadc55d723354848bcf77d3871e9d088a29cbf7ea3a76890b6730',
+688462	DCAP=5e6,
+688464	CLS={a:['Industry','#e07b39','#3a1d0a',3,6,1],b:['Power stations','#f2c14e','#3a1d0a',3.5,7,1],c:['Data centres','#2ec4b6','#ffffff',3,6,1],d:['Water (large)','#4f86c6','rgba(0,0,0,0)',3,5,1],s:['Water (listed, small)','#4f86c6','rgba(0,0,0,0)',3,5,0],e:['Campus/CHP sites','#a26769','#3a1d0a',3,5,0]},
+688466	BST={op:'Operating (2023)',cl:'Closing',cc:'Closed/converted',un:'Unknown'},BK=Object.keys(BST),
+688468	FOOT='Sites listed in open registers (NAEI, GPPD) and OpenStreetMap. A listing is not electricity demand. Distances are straight lines. Vicinity screening only. Contains OpenStreetMap data © OpenStreetMap contributors, ODbL 1.0 (openstreetmap.org/copyright).',
+688469	LEG='Dot size: emission band (NAEI 2023) or installed MW (GPPD). Hollow ring: closed, closing or converted station.',
+688485	 x.onerror=()=>rej(new Error('network error'));x.ontimeout=()=>rej(new Error(TOE));x.onprogress=e=>{if(e.loaded>DCAP){x.abort();rej(new Error('data check failed (size)'))}};x.send()})
+688486	 .then(async b=>{let s=W.crypto&&W.crypto.subtle;if(!(b.byteLength<=DCAP))E('data check failed (size)');if(!s)E('data check failed (no WebCrypto)');if(hex(await s.digest('SHA-256',b))!==h)E('data check failed (SHA-256 differs from the pin)');return JSON.parse(new TextDecoder().decode(b))}),
+688490	KL=p=>{let o={A:'a',B:'b',C:'c',E:'e',D:p.subclass==='water_wastewater_large'?'d':'s'};return Object.hasOwn(o,p.class)?o[p.class]:null},
+688491	ao=v=>v==null||AI(v)&&v.every(o=>o&&typeof o=='object'),okP=p=>ao(p.records)&&ao(p.sources)&&ao(p.osm_corroboration)&&(p.subclass==null||typeof p.subclass=='string'),
+688496	  if(!k||!okP(p)||!f.geometry||f.geometry.type!=='Point'||!okPt(c)){bad++;continue}
+688502	LIC=r=>(r.p.sources||[]).map(s=>`${cs(s.name)} (${cs(String(s.licence||'licence not stated').split(/ \(|, \(c\)/)[0])})`).join(' · ')||'source not stated',
+688503	SUBL=r=>cs(r.sub).replace(/\b(ccgt|ocgt|chp)\b/g,s=>s.toUpperCase()).replace(/^water wastewater (large|listed small)$/,'wastewater works'),
+688546	RpS=s=>{let o={operational:'op','under construction':'cc','awaiting construction':'cc','application submitted':'pl'},k=String(s||'').toLowerCase();return Object.hasOwn(o,k)?o[k]:'?'},
+688547	RpMW=v=>v>0?` ${N(v)} MW`:'',RpC=ps=>RpW(ps)>0?'':' · capacity not stated',
+688550	  if(e)L('REPD record unavailable — tap to retry ('+msg(e)+')');else if(o===void 0)L('REPD record: loading…');else if(!o)L('Record · address not in register (no exact REPD match; no ref shown)');
+688571	Ru=(c,s,a)=>{let t=c.sm.textContent.replace(/ · REPD[^·]* unavailable/,'');c.sm.textContent=s?t.replace(/ · details$/,` · ${s} · details`):t;a&&Ra(c,a)},
+688575	 L(h,(w?`${N(w)} MW installed (GPPD, DUKES-derived; installed, not connection capacity)`+(bd?' · ':''):'')+(bd?`Emission band ${cs(bd)} CO2e a year, NAEI 2023 (band only, approximate)`:w?'':'No NAEI 2023 emission band'),'color:#9fb3ba','record');
+688576	 if(p.class==='B'||p.status_date){let st=cs(p.status).replace(/^status /,''),sd=cs(p.status_date||'');L(h,`Status: ${st}${sd&&!st.includes(sd)?' '+sd:''}${p.status_source?' · source '+cs(p.status_source):''}`,'color:#9fb3ba','record')}
+688577	 if(r.t==='cl'||r.t==='cc')L(h,(r.t==='cl'?'Closing station':/^converted/i.test(p.status)?'Converted station (it may still generate on another fuel)':'Closed station')+': no grid connection, TEC or connection rights are implied.','color:#9fb3ba');
+688579	 let dv=c.det;L(dv,p.class==='B'?`Listed as a power producer${naei?' (NAEI 2023)':''}. Not a measure of its electricity use.`:`On-site combustion: ${cs(p.onsite_combustion_indicator||'unknown')}.${naei?' Source NAEI 2023.':''} Not on-site generation capacity.`,'color:#c9d6da;margin-top:4px','record');
+688593	 L(c.sub,`Screening · ${k.length} nearest substations, straight line. Not capacity or connection feasibility.`,'color:#5fbdc2');
+688598	 RG(m,M).then(G=>{if(S.pp!==c)return;c.all=near(G,M,x,y);c.fk0=S.fk.slice();rr(m,c)}).catch(e=>{if(S.pp!==c)return;c.pd.textContent=`REPD projects unavailable: ${msg(e)}. Tap the site again to retry.`;Ru(c,'REPD unavailable',c.pd.textContent)})},
+688604	 if(z)L(A,'Capacity not stated: unknown, not zero.','color:#8b9aa1')},
+688612	 c.pd=L(box,P.length?`Screening · ${pl(P.length,'nearest REPD site')}${parts>P.length?` (${N(parts)} projects; those at one point grouped)`:''}, all within ${k1(reach)} km, straight line (${fa}):`:`Screening · no REPD site within ${R40} km, straight line (${fa}).`,'margin-top:6px;color:#ffc48a');
+688615	  b.href='#';b.addEventListener('click',e=>{if(e.preventDefault)e.preventDefault();pv(m,c,g)});
+688617	 L(box,'Record · REPD (DESNZ, OGL v3.0): list from the Apr 2026 extract; address, ref, operator and planning fields from the Jul 2026 extract, only on an exact point, name, MW and type match. Status as registered, not as built.','margin-top:6px;color:#8b9aa1','record');
+688622	RpH=(c,sl)=>{let r=()=>{RpH(c,sl);c.sm.focus?.()},F=(C,e)=>{if(S.pp==c){for(let[s,q]of sl){s.textContent='';let b=ap(s,RpB(q,RpP.get(q),C,e));if(e){b.setAttribute('role','button');b.setAttribute('tabindex','0');b.style.cursor='pointer';b.addEventListener('click',r);b.addEventListener('keydown',k=>{if(k.key=='Enter'||k.key==' '){k.preventDefault?.();r()}})}}
+688623	  if(sl.length)Ru(c,e?'REPD records unavailable':'',e&&`REPD records unavailable: ${msg(e)}. Tap a record line to retry.`)}};F(S.rc);RpQ(sl.map(v=>RpP.get(v[1]))).then(F,e=>F(0,e))},
+688624	cq=v=>{let s=v==null?'':String(v).replace(/\p{Cf}/gu,'');if(typeof v!='number'&&/^[=+\-@\t\r]/.test(s))s="'"+s;return/[",\r\n#]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s},
+688628	 return[`# GridAtlas potential offtakers vicinity sheet · generation ${GEN} · tap point ${x},${y} (${NM(c.r).replace(/[\r\n]/g,' ')}) · ${new Date().toISOString()}`,'# '+SCR+' A listing is not electricity demand. '+NOTSHOWN,...rows.map(r=>r.map(cq).join(','))].join('\n')+'\n'},
+688632	 let v=cd(m,'REPD project',`REPD · ${RpU(ps,RpN).sort().join(' + ')}${RpMW(RpW(ps))}`,{foot:'Record · REPD (DESNZ, Apr 2026, OGL v3.0). Status as registered, not as built. '+NOTSHOWN,open:1,back:['◀ back to offtaker',()=>{pc();back();S.pp&&S.pp.sm.focus?.()}]});
+688636	 L(v.det,'Screening · nearest substations to this project, straight line. Not its declared connection or capacity.','color:#5fbdc2;margin-top:6px');for(let a of k)L(v.det,`${k2(a.km)} km · ${KV(a)} kV · ${cs(a.name||'unnamed substation')}`,'color:#c9d6da');
+688648	 +`<div role="group" aria-label="Power station status" style="display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin:4px 0"><span style="font-size:11px;color:#bbb">Power stations:</span>${BK.map(k=>BTN(`data-offtakers-bst="${k}" aria-pressed="true"`,BST[k])).join('')}</div>`
+688649	 +`</div><div data-offtakers-status role="status" aria-live="polite" style="font:12px/1.5 'Courier New',monospace;color:#bbb;overflow-wrap:break-word"></div><div data-offtakers-foot hidden style="font-size:11px;color:#bbb">${LEG} ${FOOT}</div>`;
+688651	 let q=s=>g.querySelector(s),o={key,group:g,toggle:q('[data-offtakers-control]'),label:q('[data-offtakers-label]'),ctl:q('[data-offtakers-controls]'),st:q('[data-offtakers-status]'),ft:q('[data-offtakers-foot]'),chips:{}};
+688658	 st=!S.on?'':S.busy?'Loading the pinned open data…':S.err?'Nothing drawn: '+S.err:`${N(n)} sites drawn (${CK.filter(k=>S.cls[k]).map(k=>CLS[k][0]+' '+N(d.counts[k])).join(' · ')||'no class selected'}) · tap a site for its 15 nearest REPD sites and 5 nearest substations (straight line)`;
+688659	 for(let o of S.sfs){if(o.toggle.checked!==S.on)o.toggle.checked=S.on;txt(o.label,lab);o.label.style.opacity=S.err?'0.8':'1';o.ctl.hidden=o.ft.hidden=!S.on;txt(o.st,st);
+688675	/* uk-offtakers-overlay, generation 202610291044 (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+688676	GEN='202610291044',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+688677	tap=e=>{if(!S.on)return;let f=th(e);if(f)try{e.gridatlasClaim='offtakers'}catch(_){}setTimeout(()=>{try{tq(e,f)}catch(x){note('tap: '+msg(x))}},0)},
+688678	th=e=>{let m=mh();if(!S.on||!m||!m.getLayer(HIT)||!S.data)return null;let px=e.point.x??e.point[0],py=e.point.y??e.point[1],f=null,dm=1/0;
+688679	 return f},
+688680	tq=(e,f)=>{let m=mh();if(!S.on||!m)return;
+688681	 oc(m,f);let lc=document.querySelector('[data-lightning-card]'),x=lc&&[...lc.querySelectorAll('button')].find(b=>b.getAttribute('aria-label')==='Close');x&&x.click();
+688682	 for(let b of (m.getContainer?.()||document).querySelectorAll('.maplibregl-popup-close-button'))b.click()},
+688706	// 202610290935 (M6 + the R-otsec ORS8 connect() timeout): test ORS8 is appended; it skips older modules.
+688707	// 202610291043 (M6t + the R-taps fix: a tap on a potential-offtakers dot or a claimed tap is not lightning's): TAPS1, skips older modules.
+690409	  if (!o.noRuntime) x.W.__GRIDATLAS_DUCKDB_RUNTIME__ = { module_url: 'stand-in', promise: Promise.resolve({ database: { connect: () => o.hangConnect ? new Promise(() => {}) : Promise.resolve({ query: async sql => { if (o.hang) return new Promise(() => {}); const r = run(sql); return { toArray: () => r }; }, close: async () => {} }) } }) };
+690480	  // R-cifix MINOR: under load the record join (WebCrypto digest of the manifest, then the query) can outlast drain(); wait for it,
+690481	  // up to 3 s, instead of a fixed tick count. The expectation is unchanged: every block ends loaded.
+690482	  assert.ok(recBlocks(x).length >= 10); const t0 = Date.now(); while (card(x).textContent.includes('loading…') && Date.now() - t0 < 3000) await new Promise(r => setTimeout(r, 5));
+690483	  assert.ok(!card(x).textContent.includes('loading…'));
+690557	// R-otsec ORS8 (from 202610290935, M6 + this fix): RpQ's R() keeps its own timer. With one shared timer,
+690558	// R(R(runtime).then(connect)) cleared the outer timer when the runtime resolved, so the exported records() never
+690559	// settled on a hung connect() (the card was saved only by its own outer deadline). Older modules skip this test.
+690560	const MODULE_GEN = (SRC.match(/GEN='(\d{12})'/) || [])[1] || '0';
+690561	test('ORS8: repdRecords.records() rejects with the timeout when connect() hangs (the card says so too)', { skip: MODULE_GEN < '202610290935' && `module ${MODULE_GEN} predates the fix` }, async () => {
+690562	    const x = await recTap(DONC, S3, { hangConnect: true }); await new Promise(r => setTimeout(r, 150)); await drain();
+690563	    assert.match(recBlocks(x)[0].textContent, /REPD record unavailable — tap to retry \(timeout after 15 s\)/);
+690564	    const api = x.W.__GRIDATLAS_MODULES__.repdRecords;
+690565	    const out = await Promise.race([api.records([[-1.25, 53.5]]).then(() => 'resolved', e => 'rejected: ' + e.message), new Promise(r => setTimeout(() => r('still pending'), 400))]);
+690566	    assert.equal(out, 'rejected: timeout after 15 s', 'a hung connect() must time out inside records() itself');
+690567	// R-taps MAJOR (from 202610291043 on): a tap that lands on a potential-offtakers dot, or that another overlay has claimed
+690568	// (e.gridatlasClaim), is not lightning's: the card stays, no cell or REPD-dot path runs, and no layer this module switched
+690569	// on is handed to the reader, so closing the card still releases it (Drax with both overlays on left bess ticked).
+690570	(M4B ? test.skip : test)('TAPS1: an offtakers dot or a claimed tap is not lightning\'s: no hand-over, no close, the layers are still released on close', { skip: MODULE_GEN < '202610291043' && `module ${MODULE_GEN} predates the fix` }, async () => {
+690571	  for (const how of ['offtakers dot', 'claimed']) {
+690572	    const { x, E } = await boot3([-1.5, 52], null, SYN, { userOn: ['wind'] }); tapFlash(x, 0); await settle(); assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar'], how);
+690573	    const c0 = card(x); assert.ok(c0, 'card open');
+690574	    if (how === 'offtakers dot') { x.layers.set('gridatlas-offtakers-hit', { id: 'gridatlas-offtakers-hit' }); x.tapMap([50, 50], { 'gridatlas-offtakers-hit': [{ properties: { i: 0 } }], 'l-bess': [{ properties: { name: 'B1', tech: 'bess' } }], 'gridatlas-lightning-cell': [{ properties: {} }] }); }
+690575	    else { const e = { point: [50, 50], lngLat: { lng: 0, lat: 0 }, gridatlasClaim: 'offtakers' }; for (const h of x.handlers.filter(h => h.t === 'click' && !h.layer)) h.f(e); }
+690576	    await drain();
+690577	    assert.deepEqual([...x.S.ly].sort(), ['bess', 'solar'], `${how}: nothing handed to the reader`); assert.equal(card(x), c0, `${how}: lightning's card untouched by a tap it does not own`);
+690578	    closeCard(x); assert.deepEqual(onIds(E), ['wind'], `${how}: closing releases every layer the module switched on`); assert.equal(x.S.ly.size, 0); inSync(E);
+690583	//   OFFTAKERS_MODULE=<module.js> LIGHTNING_MODULE=<the composition's lightning module; default M4 0045> M5_MODULE=<built M5 module> node --test offtakers.test.mjs
+690612	// fixed ticks, then (R-cifix MINOR: the async SHA-256 and parse raced the fixed count under load) more ticks while the module
+690613	// is still loading its data, up to 5 s, and a few after it settles
+690614	const tick = async () => { await new Promise(r => setImmediate(r)); await new Promise(r => setTimeout(r, 1)); };
+690615	const drain = async (n = 60) => { for (let k = 0; k < n; k++) await tick(); const t0 = Date.now(); let b = false; while (globalThis.__OTBUSY?.() && Date.now() - t0 < 5000) { b = true; await tick(); } if (b) for (let k = 0; k < 20; k++) await tick(); };
+690660	  const P = W.__OT__; globalThis.__OTBUSY = () => !!(P && P.S && P.S.busy);
+690676	  deq({ ...r.counts }, { a: 813, b: 358, c: 164, d: 8, s: 168, e: 57 }); assert.equal(r.bad, 0);
+690677	  assert.equal(r.dots.filter(d => d.k !== 's' && d.k !== 'e').length, 1343, 'default dots'); assert.equal(r.dots.length, 1568, 'with the small water and other-large-users tiers');
+690678	  const b = r.dots.filter(d => d.k === 'b'); deq(Object.fromEntries(['op', 'cl', 'cc', 'un'].map(t => [t, b.filter(d => d.t === t).length])), { op: 269, cl: 4, cc: 14, un: 71 });
+690696	  assert.equal(x.sources.get('gridatlas-offtakers').data.features.length, 1568);
+690697	  const f = x.layers.get('l-gridatlas-offtakers').filter; deq(f[1][2][1], ['a', 'b', 'c', 'd'], 'small water and other large users off by default');
+690699	  assert.match(text(x.host.querySelector('[data-offtakers-label]')), /\[1,343 sites\]/);
+690700	  assert.match(text(x.host.querySelector('[data-offtakers-foot]')), /Dot size: emission band \(NAEI 2023\) or installed MW \(GPPD\)\. Hollow ring: closed, closing or converted station\..*A listing is not electricity demand\. Distances are straight lines\. Vicinity screening only\. Contains OpenStreetMap data © OpenStreetMap contributors, ODbL 1\.0/);
+690707	  x.host.querySelector('[data-offtakers-class="s"]').click(); deq(x.layers.get('gridatlas-offtakers-hit').filter[1][2][1], ['a', 'b', 'c', 'd', 's']); assert.match(lab(), /\[1,511 sites\]/);
+690708	  x.host.querySelector('[data-offtakers-class="a"]').click(); assert.match(lab(), /\[698 sites\]/);
+690712	  x.host.querySelector('[data-offtakers-all]').click(); assert.match(lab(), /\[1,343 sites\]/);
+690726	const bigSites = x => ({ refinery: x.dot(r => r.k === 'a' && /refinery/.test(r.sub)), steel: x.dot(r => r.k === 'a' && r.sub === 'steel' && /^Port Talbot \(site: \d+ NAEI points\)/.test(r.n)), naei: x.dot(r => /Ratcliffe/.test(r.n)), dc: x.dot(r => r.k === 'c' && !/^unknown/i.test(r.n)) });
+690738	    assert.match(text(c), /Screening · 5 nearest substations, straight line\. Not capacity or connection feasibility\./);
+690745	  assert.match(rows.find(t => /tieB/.test(t)), /capacity not stated/); assert.equal(rows.some(t => / 0 MW/.test(t)), false);
+690771	  const x = boot(); x.O.install(); x.toggle(true); await drain(); x.host.querySelector('[data-offtakers-class="s"]').click(); x.host.querySelector('[data-offtakers-class="e"]').click();
+690841	  assert.match(t, /Status: closed 2024-09-30 · source https:\/\/en\.wikipedia\.org\/wiki\/Ratcliffe-on-Soar_Power_Station/);
+690843	  assert.match(t, /Listed as a power producer \(NAEI 2023\)\. Not a measure of its electricity use\./); assert.match(t, /Closed station: no grid connection, TEC or connection rights are implied\./);
+690847	// R-taps MAJOR: an offtaker hit claims the tap at once (e.gridatlasClaim = 'offtakers'), whichever overlay registered its click
+690848	// handler first; the lightning overlay then leaves the tap alone, and a map popup opened by the same tap (the engine's REPD dot
+690849	// under the site, e.g. Drax over a battery) is closed through its own Close button, so only the offtakers card stays.
+690850	const OT_GEN = (SRC.match(/GEN='(\d{12})'/) || [])[1] || '0';
+690851	test('T13b: both ON, in either handler order: the offtaker hit claims the tap, lightning ignores it, the same-tap map popup closes', { skip: OT_GEN < '202610291044' && `module ${OT_GEN} predates the fix` }, async () => {
+690852	  for (const first of ['offtakers', 'lightning']) {
+690853	    const x = boot({ lightning: true }); x.O.install(); x.W.__FEED__ = { type: 'FeatureCollection', features: [], metadata: { query_start_utc: new Date(Date.now() - 4 * 36e5).toISOString(), query_end_utc: new Date(Date.now() - 36e5).toISOString() } };
+690854	    if (first === 'offtakers') { x.toggle(true); await drain(); x.ltoggle(true); await drain(); } else { x.ltoggle(true); await drain(); x.toggle(true); await drain(); }
+690855	    let seen = null; x.handlers.push({ t: 'click', layer: null, f: e => { seen = e.gridatlasClaim; } });
+690856	    const lt = x.W.__LP__.S, lstate = () => JSON.stringify([!!lt.pp, lt.ly ? [...lt.ly] : null]), l0 = lstate();
+690857	    const pop = x.doc.createElement('div'); pop.className = 'maplibregl-popup'; const close = x.doc.createElement('button'); close.className = 'maplibregl-popup-close-button';
+690858	    let closed = 0; close.addEventListener('click', () => { closed++; pop.remove(); }); pop.appendChild(close); x.mapEl.appendChild(pop);
+690859	    const r = bigSites(x).refinery; x.W.__GRIDATLAS_NEON_LINKS__.substations = SUBS;
+690860	    x.tapMap([0, 0], { 'gridatlas-offtakers-hit': [{ properties: { i: r.i }, geometry: { type: 'Point', coordinates: r.a } }], 'gridatlas-lightning-cell': [{ properties: { lon: r.a[0], lat: r.a[1] } }] });
+690861	    assert.equal(seen, 'offtakers', `${first} first: claimed synchronously`); assert.equal(lstate(), l0, `${first} first: lightning did nothing with the tap`);
+690862	    await drain(); assert.ok(x.card(), 'offtakers card'); assert.equal(x.lcard(), null, 'no lightning card'); assert.equal(closed, 1, 'the same-tap popup closed through its own button');
+690863	    x.tapMap([0, 0], {}); seen = 'none'; x.tapMap([0, 0], {}); assert.equal(seen, undefined, 'a tap off the dots is not claimed');
+690884	 *                     changes with atlas/current.json, to the loader of
+690885	 *                     the generation going live (docs/LIGHTNING-CARTRIDGE.md),
+690886	 *                     or alone, to a registered loader proven to compose the
+690887	 *                     unchanged live pointer byte for byte as the base's
+690888	 *                     loader does (tools/release/loader-swap.mjs check)
+690903	 *   offtakers-suites  tools/ci/offtakers/*.test.mjs once per (offtakers module,
+690904	 *                     lightning module) pair composed by the live pointer, by a
+690905	 *                     pinned composition the PR adds or edits, or by one that
+690906	 *                     composes an overlay module the PR adds or edits (and the
+690907	 *                     newest such composition when the PR changes a suite, the
+690908	 *                     source or this gate), each with that composition's OWN
+690909	 *                     lightning module; an uncomposed module runs against
+690910	 *                     the suite's default lightning module
+691046	  // The live loader moves either with the pointer, to the loader of the generation going live, or ON ITS OWN
+691047	  // (step 1 of a two-step release, docs/RELEASE.md): then it must be a registered loader that composes the
+691048	  // unchanged live pointer byte for byte as the base's loader does (tools/release/loader-swap.mjs check).
+691051	    if (!changed.includes('atlas/current.json')) {
+691052	      const swap = run(['node', 'tools/release/loader-swap.mjs', 'check', '--base', BASE]);
+691053	      process.stdout.write(swap.stdout);
+691054	      process.stderr.write(swap.stderr);
+691055	      if (swap.code !== 0) bad.push(`atlas/index.html changed without atlas/current.json and is not a proven loader-only change: ${tail(swap.stdout || swap.stderr, 2)}`);
+691056	    } else if (!fs.existsSync(liveIndex) || !fs.readFileSync(liveIndex).equals(fs.readFileSync(path.join(ROOT, 'atlas', 'index.html')))) {
+691154	// tools/ci/offtakers/*.test.mjs, run once per (offtakers module, lightning module) PAIR that a composition actually ships:
+691155	// the suite boots both overlays side by side (T1, T11, T13), so it must boot the lightning module the composition pairs
+691156	// with the offtakers module, not a fixed reference. The compositions under test: the live one; every pinned composition
+691157	// (atlas/v/<gen>/current.json) the PR adds or edits; every pinned composition that composes an offtakers or lightning
+691158	// module the PR adds or edits; and, when the PR changes a suite, the offtakers source or this gate, the newest pinned
+691159	// composition that composes an offtakers module (older ones, e.g. 202610290400, are historical: the suite has moved on
+691160	// with the data and the class defaults, as the lightning suites skip modules below @gate-min-generation). An offtakers module the PR adds that no composition composes yet (and,
+691161	// on a suite/source/gate change, the newest module if it is uncomposed) runs against the suite's default lightning module
+691162	// (LIGHTNING_MODULE unset), and the check name says so. A composition with an offtakers cartridge but no
+691163	// uk-lightning-overlay cartridge also runs against the default, named as such.
+691165	  const dir = path.join(ROOT, 'tools', 'ci', 'offtakers'), vDir = path.join(ROOT, 'atlas', 'v');
+691166	  const OFF = /(\d{12})-uk-offtakers-overlay\.js$/, LIG = /(\d{12})-uk-lightning-overlay\.js$/;
+691167	  const offFile = g => path.join('atlas', 'modules', `${g}-uk-offtakers-overlay.js`), ligFile = g => path.join('atlas', 'modules', `${g}-uk-lightning-overlay.js`);
+691168	  const modOf = (p, id, re) => { const e = (p.cartridges || []).find(c => c.id === id); const m = e && String(e.path).match(re); return m ? m[1] : null; };
+691169	  // every composition on disk that ships an offtakers cartridge, with the lightning module it pairs it with
+691170	  const comps = [{ name: 'atlas/current.json', p: current }];
+691171	  for (const d of (fs.existsSync(vDir) ? fs.readdirSync(vDir) : []).filter(d => STAMP.test(d)).sort()) {
+691172	    const f = path.join('atlas', 'v', d, 'current.json');
+691173	    if (fs.existsSync(path.join(ROOT, f))) try { comps.push({ name: f, p: JSON.parse(fs.readFileSync(path.join(ROOT, f), 'utf8')) }); } catch { /* reported above */ }
+691174	  const composed = comps.map(c => ({ name: c.name, o: modOf(c.p, 'uk-offtakers-overlay', OFF), l: modOf(c.p, 'uk-lightning-overlay', LIG) })).filter(c => c.o);
+691175	  const newest = composed.filter(c => c.name !== 'atlas/current.json').map(c => c.name).sort().at(-1);
+691176	  const offChanged = new Set(), ligChanged = new Set(), compChanged = new Set();
+691178	    let m = f.match(/^atlas\/modules\/(\d{12})-uk-offtakers-overlay\.js$/); if (m) offChanged.add(m[1]);
+691179	    m = f.match(/^atlas\/modules\/(\d{12})-uk-lightning-overlay\.js$/); if (m) ligChanged.add(m[1]);
+691180	    if (/^atlas\/v\/\d{12}\/current\.json$/.test(f)) compChanged.add(f);
+691181	  const wide = changed.some(f => f.startsWith('tools/ci/offtakers/') || f.startsWith('tools/offtakers/') || f === 'tools/ci/pr-gate.mjs');
+691182	  const pairs = new Map(); // "o|l" -> { o, l, why: [composition names] }
+691183	  const add = (o, l, why) => { const k = `${o}|${l || ''}`; if (!pairs.has(k)) pairs.set(k, { o, l, why: [] }); if (!pairs.get(k).why.includes(why)) pairs.get(k).why.push(why); };
+691184	  for (const c of composed) {
+691185	    if (c.name === 'atlas/current.json' || compChanged.has(c.name) || offChanged.has(c.o) || (c.l && ligChanged.has(c.l)) || (wide && c.name === newest)) add(c.o, c.l, c.name);
+691186	  const uncomposed = new Set([...offChanged].filter(o => !composed.some(c => c.o === o)));
+691187	  if (wide) {
+691189	    if (all.length && !composed.some(c => c.o === all.at(-1))) uncomposed.add(all.at(-1));
+691190	  for (const o of uncomposed) add(o, null, 'no composition yet');
+691192	  if (!pairs.size) console.log('note  no offtakers overlay module in the live or touched compositions');
+691194	  else for (const { o, l, why } of [...pairs.values()].sort((a, b) => (a.o + (a.l || '')).localeCompare(b.o + (b.l || '')))) for (const suite of osuites) {
+691195	    const name = `offtakers ${o} + ${l ? `lightning ${l}` : 'default lightning'} ${suite}`;
+691196	    group(name, () => {
+691197	      if (!fs.existsSync(path.join(ROOT, offFile(o)))) return record(name, false, `${offFile(o)} missing (${why.join(', ')})`);
+691198	      if (l && !fs.existsSync(path.join(ROOT, ligFile(l)))) return record(name, false, `${ligFile(l)} missing (${why.join(', ')})`);
+691199	      const env = { ...process.env, OFFTAKERS_MODULE: offFile(o) };
+691200	      if (l) env.LIGHTNING_MODULE = path.join(ROOT, ligFile(l)); else delete env.LIGHTNING_MODULE;
+691201	      const t0 = Date.now(), r = run(['node', '--test', '--test-reporter=tap', path.join('tools', 'ci', 'offtakers', suite)], { env, timeout: SUITE_TIMEOUT_MS });
+691202	      const counts = (r.stdout.match(/^# (pass|fail|skipped) \d+$/gm) || []).join(' ').replace(/# /g, ''), sec = ((Date.now() - t0) / 1000).toFixed(1);
+691203	      if (r.code !== 0) { process.stdout.write(r.stdout); process.stderr.write(r.stderr); } else console.log(`${suite} on ${o} + ${l || 'default lightning'}: ${counts} in ${sec} s`);
+691204	      record(name, r.code === 0, `${counts} ${sec} s; ${why.join(', ')}` + (r.code === 0 ? '' : `  exit ${r.code}`));
+691339	    /// a tap another overlay owns (a potential-offtakers dot under it, or a tap it has claimed) is not this module's: no card
+691340	    /// change, no cell tap and no REPD layer hand-over, so a layer this module switched on is never given to the reader by a tap
+691341	    /// it did not handle (R-taps MAJOR: Drax with both overlays on left bess ticked after both were OFF).
+691342	    if(e.gridatlasClaim||m.getLayer(OTH)&&m.queryRenderedFeatures(e.point,{layers:[OTH]}).length)return;///
+691402	/// R() keeps its own timer (R-otsec ORS8): with one shared timer, R(R(runtime).then(connect)) cleared the outer timer
+691403	/// when the runtime resolved, so a hung connect() never timed out.
+691431	 * listed generation must rebuild from src/ byte for byte, except one marked {"historical": "<commit that cut it>"}: its source
+691432	 * is that commit (it is kept in the registry as a record, and its module must still exist). With no offtakers module and an
+691433	 * empty list it passes.
+691448	  if (newest && reg.generations?.[newest]?.historical) bad.push(`the newest offtakers generation ${newest} is marked historical; it must rebuild from the current source`);
+691453	    if (reg.generations[g].historical) { lines.push(`hist ${g}: historical, built from ${reg.generations[g].historical}; not rebuilt from the current source`); continue; }
+691490	GENERATION = "OT-filter-2026-10-29+R-otdata"
+691573	    if re.search(r"nuclear|hinkley|heysham|hartlepool|torness|sizewell|dungeness|hunterston|wylfa|oldbury-on-severn|british energy|nnb generation|edf energy nuclear", s) \
+691574	            and not re.search(r"\bchp\b|standby|\bstor\b", s):  # R-otdata: Fellside CHP (Sellafield) and Oldbury (W. Midlands) standby are not nuclear
+691580	    if re.search(r"efw|energy from waste|energy recovery|\berf\b|incinerat|waste|multifuel|\bmf[12]\b|\bmfe\b", s):  # R-otdata: Ferrybridge MF1/MF2 are multifuel EfW
+691624	    return [dict(rx=re.compile(r["match_regex"], re.I), status=r["status"], date=r["status_date"] or None,
+691735	            if st["rx"].search(name): return st["status"] + (st["date"] or "")
+691756	            merged["records"].append(dict(source="NAEI", id=r["id"], name=r["name"], operator=r["operator"], sector=r["sector"],
+691757	                                          lon=round(r["lon"], 6), lat=round(r["lat"], 6), band=band(r["t"])))
+691763	                          records=[dict(source="NAEI", id=r["id"], name=r["name"], operator=r["operator"], sector=r["sector"],
+691764	                                        lon=round(r["lon"], 6), lat=round(r["lat"], 6), band=band(r["t"]))],
+691767	    # 1b. R-otdata site-level merge (class A only). Integrated works are reported to NAEI as one point per process unit
+691768	    #     (Port Talbot: blast furnaces, sinter, coke ovens, BOS, rolling mills, power station, flaring). Rule: two class-A NAEI
+691769	    #     sites join when (i) same normalised operator after OPERATOR_ALIASES, (ii) they share a site-name token that is not
+691770	    #     a process/generic word, and (iii) some record of one lies within SITE_LINK_M of some record of the other (single
+691771	    #     linkage). Same subclass is not required inside one operator's works, but class must match. Every NAEI record is
+691772	    #     kept in records[] with its own coordinates and band; the point is the record with the largest NAEI figure.
+691773	    SITE_LINK_M = 1500
+691774	    PROCESS_WORDS = {"blast", "furnaces", "furnace", "sinter", "coke", "ovens", "oxygen", "rolling", "mill", "flaring", "bfg", "cog",
+691775	                     "integrated", "iron", "steel", "steelworks", "morfa", "appleby", "boiler", "house", "road", "park", "industrial",
+691776	                     "estate", "lane", "north", "south", "east", "west", "new", "old", "unit", "units", "terminal", "terminals", "refinery", "complex",
+691777	                     "brickworks", "factory", "quarry", "manufacturing", "processes", "sections", "package", "boilers", "pharmaceutical",
+691778	                     "cement", "oil", "gas", "sodium", "carbonate", "lime", "kiln", "kilns", "glassworks", "papermill", "mills"}
+691779	    OPERATOR_ALIASES = {"corus": "tata steel"}  # Tata Steel acquired Corus in 2007; NAEI still carries one Port Talbot row as Corus UK Ltd
+691780	    def opkey(o): k = norm(o); return OPERATOR_ALIASES.get(k, k)
+691781	    def sitetok(n): return tokens(n) - PROCESS_WORDS
+691783	        s["_pts"] = [(s["lon"], s["lat"])]
+691784	    merged_any = True; n_site_merges = 0
+691785	    while merged_any:
+691786	        merged_any = False
+691787	        A = [s for s in sites if s["class"] == "A" and s["_primary"] == "naei" and not unknown(s["operator"])]
+691788	        for i, sa in enumerate(A):
+691789	            for sb in A[i + 1:]:
+691790	                if opkey(sa["operator"]) != opkey(sb["operator"]): continue
+691791	                if not (set().union(*(sitetok(r["name"]) for r in sa["records"])) & set().union(*(sitetok(r["name"]) for r in sb["records"]))): continue
+691792	                if min(hav_km(p, q) for p in sa["_pts"] for q in sb["_pts"]) * 1000 > SITE_LINK_M: continue
+691793	                keep, drop = (sa, sb) if (sa["_t_lead"] or 0) >= (sb["_t_lead"] or 0) else (sb, sa)
+691794	                keep["records"].extend(drop["records"]); keep["_pts"].extend(drop["_pts"])
+691795	                keep["t"] = (keep["t"] or 0) + (drop["t"] or 0)
+691796	                keep["osm_corroboration"].extend(drop["osm_corroboration"])
+691797	                keep.setdefault("_merged_names", [keep["name"]]).extend(drop.get("_merged_names", [drop["name"]]))
+691798	                sites.remove(drop); merged_any = True; n_site_merges += 1
+691800	            if merged_any: break
+691801	        if len(s.get("_merged_names", [])) > 1:
+691802	            # site name: the record names if they are all the same, else their longest common leading words (e.g. "Port
+691803	            # Talbot"), else the anchor's name; then "(site: N NAEI points)" so the card says it is a merge
+691804	            nms = [r["name"] for r in s["records"]]
+691805	            if len(set(nms)) == 1: s["name"] = nms[0]
+691807	                ws = [n.replace(",", " ").split() for n in nms]; pre = []
+691808	                for col in zip(*ws):
+691809	                    if len({w.lower() for w in col}) == 1: pre.append(col[0])
+691810	                    else: break
+691811	                s["name"] = f"{' '.join(pre) if pre else s['name']} (site: {len(nms)} NAEI points)"
+691812	            s["operator"] = next((r["operator"] for r in s["records"] if opkey(r["operator"]) == opkey(s["operator"]) and norm(r["operator"]) not in OPERATOR_ALIASES), s["operator"])
+691813	            s["site_merge"] = dict(rule=f"R-otdata site merge: same operator (aliases {OPERATOR_ALIASES}), shared site-name token, "
+691814	                                        f"records linked within {SITE_LINK_M} m; point = record with the largest NAEI figure",
+691815	                                   n_records=len(s["records"]),
+691816	                                   max_spread_m=round(max(hav_km(p, q) for p in s["_pts"] for q in s["_pts"]) * 1000))
+691817	    L("R-otdata site-level merges (class A)", n_site_merges, "-> naei sites", len(sites))
+691832	        GENERIC = {"landfill", "road", "park", "industrial", "estate", "farm", "lane", "street", "stor", "reserve", "standby", "gas",
+691833	                   "biogas", "solar", "wind", "battery", "storage", "north", "south", "east", "west", "new", "ocgt", "peaking"}
+691834	        if not best and rec["src"] == "gppd" and not unknown(rec["name"]):
+691835	            # R-otdata: GPPD coordinates (GEODB/CARMA) can be 2.5-5 km off (Kilroot, Spalding, Burghfield, Chickerell, Slough,
+691836	            # Baglan Bay OCGT). Accept a farther match only when it is unambiguous: exactly one B site within OFFSET_KM shares a
+691837	            # name token, and the curated status agrees. The record keeps its own coordinates in records[].
+691838	            OFFSET_KM = 5.0
+691839	            cand = [s for s in sites if s["class"] == "B" and (tokens(s["name"]) & tokens(rec["name"])) - GENERIC
+691840	                    and hav_km((s["lon"], s["lat"]), (rec["lon"], rec["lat"])) <= OFFSET_KM]
+691841	            if len(cand) == 1 and status_of(cand[0]["name"]) == status_of(rec["name"]):
+691842	                best = ((0, 0), cand[0]); rec = dict(rec, merge_note=f"R-otdata offset merge, {hav_km((cand[0]['lon'], cand[0]['lat']), (rec['lon'], rec['lat'])):.2f} km")
+691843	        if not best and rec["src"] == "osm_pp" and status_of(rec["name"]) is None:
+691844	            # R-otdata: an OSM power=plant point with no curated status of its own (e.g. "Heysham Nuclear Power Station", which
+691845	            # covers Heysham 1 and 2) next to a curated site is corroboration, not a new site with "status unknown".
+691846	            near = [s for s in sites if s["class"] == "B" and (tokens(s["name"]) & tokens(rec["name"])) - GENERIC
+691847	                    and status_of(s["name"]) is not None and hav_km((s["lon"], s["lat"]), (rec["lon"], rec["lat"])) <= 0.5]
+691848	            if near:
+691849	                s = min(near, key=lambda s: hav_km((s["lon"], s["lat"]), (rec["lon"], rec["lat"])))
+691850	                s["osm_corroboration"].append(dict(source="OSM power=plant", id=rec["id"], name=rec["name"], operator=rec["operator"],
+691851	                                                   note="R-otdata: corroboration only; no curated status of its own"))
+691852	                s["sources"].add("osm_pp"); return True
+691854	            s = best[1]; s["records"].append(dict(source=src_label, **{k: rec.get(k) for k in ("id", "name", "operator", "fuel", "mw", "year")},
+691855	                                                  lon=round(rec["lon"], 6), lat=round(rec["lat"], 6), **({"merge_note": rec["merge_note"]} if rec.get("merge_note") else {})))
+691862	    # R-otdata: GPPD rows whose coordinates are wrong beyond any distance rule. Each is folded, as a record, into the named
+691863	    # NAEI site; the reason is kept in the record. Found by evidence/R-otdata/qa_points.py (Natural Earth 10 m land test).
+691864	    GPPD_RECORD_FIX = {
+691865	        "GBR1000412": ("Bowmore", "GPPD point 56.1833,-2.5667 lies 7 km out in the North Sea off Fife; Bowmore (Islay) is the NAEI site"),
+691866	    for g in list(gppd):
+691867	        fx = GPPD_RECORD_FIX.get(g["id"])
+691868	        if not fx: continue
+691869	        tgt = [s for s in sites if s["class"] == "B" and norm(s["name"]) == norm(fx[0]) and "naei" in s["sources"]]
+691870	        if len(tgt) == 1:
+691871	            tgt[0]["records"].append(dict(source="GPPD", id=g["id"], name=g["name"], operator=g["operator"], fuel=g["fuel"], mw=g["mw"],
+691872	                                          year=g["year"], lon=g["lon"], lat=g["lat"], merge_note="R-otdata: " + fx[1]))
+691873	            tgt[0]["sources"].add("gppd")
+691874	            if g["mw"] and not tgt[0]["mw"]: tgt[0]["mw"] = g["mw"]; tgt[0]["fuel"] = g["fuel"]
+691875	            fuel_sub = {"Coal": "coal", "Nuclear": "nuclear", "Oil": "oil"}.get(g["fuel"])
+691876	            if fuel_sub and tgt[0]["subclass"] in ("thermal_unspecified", "gas_ccgt_large", "gas_other"): tgt[0]["subclass"] = fuel_sub
+691877	            gppd.remove(g); excluded["gppd:bad_coordinates_folded_into_naei"] += 1
+691886	    # 2b. R-otdata: point corrections (before OSM power=plant matching, so OSM points meet the corrected point) where the NAEI coordinate is demonstrably off and an open (CC BY) coordinate of the same
+691887	    #     plant is in records[]. The original point stays in records[] (lon/lat) for provenance.
+691888	    POINT_FROM_RECORD = {
+691889	        "8981": ("GBR1000002", "NAEI Kilroot point is 3.5 km SW of the plant, at the shore of Belfast Lough; GPPD GBR1000002 "
+691890	                               "(54.7255,-5.7653) agrees with OSM and the published station location to about 0.1 km"),
+691891	        ids = {str(r.get("id")) for r in s["records"]}
+691892	        for naei_id, (rec_id, why_pt) in POINT_FROM_RECORD.items():
+691893	            if naei_id in ids and rec_id in ids:
+691894	                r = next(r for r in s["records"] if r.get("id") == rec_id)
+691895	                s["point_note"] = f"R-otdata: point taken from {r['source']} {rec_id}; {why_pt}"
+691896	                s["lon"], s["lat"] = r["lon"], r["lat"]
+691919	            pts = s.get("_pts") or [(s["lon"], s["lat"])]
+691920	            dmin = min(hav_km(p, (o["lon"], o["lat"])) for p in pts)
+691921	            # R-otdata: a strong-keyword OSM works polygon point inside a merged NAEI works (site_merge) corroborates it up to 2 km
+691922	            if dmin <= 0.5 or (s.get("site_merge") and dmin <= 2.0 and re.search(STRONG, f"{o['name']} {o['type']}".lower())
+691923	                               and tokens(o["name"]) & set().union(*(tokens(r["name"]) for r in s["records"]))): near = s; break
+691944	        if re.search(r"cable landing|landing station", o["name"], re.I):
+691945	            # R-otdata: submarine-cable landing stations are tagged telecom=data_center in OSM but are small repeater buildings
+691946	            excluded["osm_dc:cable_landing_station"] += 1; continue
+691965	    # 4b. R-otdata: one site listed twice under two classes (identical coordinates, same normalised operator), e.g. Queens
+691966	    #     Medical Centre CHP (NAEI "Processing & distribution of natural gas" <1 kt and "Public administration" 10-25 kt).
+691967	    #     The row with the larger NAEI figure keeps its class; the other becomes a record of it.
+691968	    by_pt = defaultdict(list)
+691969	    for s in sites: by_pt[(round(s["lon"], 6), round(s["lat"], 6))].append(s)
+691970	    for grp in by_pt.values():
+691971	        for sa in list(grp):
+691972	            for sb in list(grp):
+691973	                if sa is sb or sa not in sites or sb not in sites or sa["class"] == sb["class"]: continue
+691974	                if unknown(sa["operator"]) or norm(sa["operator"]) != norm(sb["operator"]): continue
+691975	                for r in drop["records"]: keep["records"].append(dict(r, merge_note=f"R-otdata: same site listed as class {drop['class']} ({drop['subclass']})"))
+691976	                keep["t"] = (keep["t"] or 0) + (drop["t"] or 0); keep["sources"] |= drop["sources"]
+691977	                sites.remove(drop); excluded[f"site:cross_class_duplicate_{drop['class']}_into_{keep['class']}"] += 1
+691978	    # 5. Status for class B (and R-otdata: a few verified industrial-site notes; NAEI 2023 predates them)
+691979	    A_STATUS = [
+691980	        (r"^port talbot \(site.*tata steel", "listed site (NAEI 2023); blast furnaces closed 2024 (last on 30 Sep 2024); electric arc furnace planned by Tata",
+691981	         "2024-09-30", "https://itv.com/news/wales/2024-09-30/steelmaking-in-wales-ends-for-now-as-port-talbot-plant-closes-final-furnace"),
+691984	            s["status"] = "listed site (status not tracked)"; s["status_date"] = None; s["status_source"] = None
+691985	            for rx, st_txt, st_date, st_url in A_STATUS:
+691986	                if re.search(rx, f"{s['name']} {s['operator']}", re.I):
+691987	                    s["status"] = st_txt; s["status_date"] = st_date; s["status_source"] = st_url; break
+691992	            s["status_source"] = hit["url"] + {"no": " (curated; not re-verified in session)", "partial": " (curated; date only to the precision shown)"}.get(hit["verified"], "")
+692044	        for k in ("dukes_5_11", "tec_register", "site_merge", "point_note"):
+692054	                      ("licence", "ODbL-1.0 (Open Database License) for this database as a whole: it contains and is derived from OpenStreetMap data, (c) OpenStreetMap contributors, https://www.openstreetmap.org/copyright. NAEI point sources: OGL v3.0, (c) Crown copyright, Defra/DESNZ. WRI Global Power Plant Database v1.3.0: CC BY 4.0. Per-feature sources[] give each record's licence."),
+692095	/// byte cap of the pinned data (about twice the 2,288,733 B file): the read is aborted past it and nothing is hashed or parsed (R-otsec ORS2)
+692103	/// list fields are absent or arrays of objects; subclass absent or a string (R-otsec ORS3)
+692107	/// One deliberate difference (R-otsec ORS8): R() keeps its own timer; the same fix is due in tools/lightning/src/11b-repd-records.js.
+692111	/// a REPD failure on the collapsed card: the summary carries it (s; '' clears it) and the live region announces a
+692119	/// a cell: Cf stripped; a text starting = + - @ TAB or CR gets a leading apostrophe (no formula), numbers stay numbers; quoted on " , CR LF # (R-otsec ORS5)
+692122	/// the hit is decided at once and the tap claimed (e.gridatlasClaim), so the lightning overlay leaves it alone (R-taps MAJOR);
+692123	/// the card is drawn after every click handler of this tap has run
+692124	/// an offtaker hit wins: the lightning card and a map popup opened by the same tap (a REPD dot under the site) close through
+692125	/// their own Close buttons
+692130	const GEN='202610290935';
+692170	/** 202610290949: the UK lightning overlay as its own cartridge (module 202610290935); sld-sandbox is the original 202609241334. tools/proofs/lightning-cartridge.mjs */
+692172	await proveLightningCartridge('202610290949');
+692173	/** 202610290949: the potential-offtakers overlay as its own cartridge (module 202610290949, after uk-lightning-overlay). tools/proofs/offtakers-cartridge.mjs */
+692175	await proveOfftakersCartridge('202610290949');
+692176	const GEN='202610291043';
+692177	/** 202610291044: the UK lightning overlay as its own cartridge (module 202610291043); sld-sandbox is the original 202609241334. tools/proofs/lightning-cartridge.mjs */
+692178	await proveLightningCartridge('202610291044');
+692179	/** 202610291044: the potential-offtakers overlay as its own cartridge (module 202610291044, after uk-lightning-overlay). tools/proofs/offtakers-cartridge.mjs */
+692180	await proveOfftakersCartridge('202610291044');
+692215	  // Files this site serves itself (data/...) are declared in site_data_sources: data_sources is read by the data-contract
+692216	  // parity proof (202609012214) as Ventusltd product repositories, and a same-site entry there crashed it once G was live.
+692217	  // Each one is named by the bytes; a declared SHA-256 is pinned in the bytes and is the hash of the file in this tree.
+692218	  if (G > '202610290400') assert.ok(Array.isArray(e.site_data_sources) && e.site_data_sources.length, 'site_data_sources declared');
+692219	  for (const d of e.data_sources || []) if (e.site_data_sources) assert.ok(d.repository && d.product, 'data_sources lists Ventusltd product repositories only; same-site files go in site_data_sources');
+692220	  for (const d of e.site_data_sources || []) {
+692221	    assert.match(d.url, /^https:\/\/ventusltd\.github\.io\/gridatlas\/data\//, 'a same-site data file');
+692222	    assert.ok(text.includes(d.url), `the bytes name ${d.url}`);
+692223	    if (d.sha256) {
+692224	      assert.ok(text.includes(d.sha256), `the bytes pin ${d.id || d.url} by its SHA-256`);
+692225	      assert.equal(sha(fs.readFileSync(path.join(ROOT, new URL(d.url).pathname.replace(/^\/gridatlas\//, '')))), d.sha256, `${d.url} in this tree hashes to the pin`);
+692228	  const regM = (JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/offtakers/generations.json'), 'utf8')).generations || {})[M], listed = !!regM && !regM.historical;
+692259	  console.log(`${G} uk-offtakers-overlay: atlas/modules/${M}-uk-offtakers-overlay.js (${module.length} B <= ${BUDGET}), ${listed ? 'rebuilt from source' : regM && regM.historical ? `historical (source: ${regM.historical})` : 'not listed, not rebuilt'}; after ${ANCHOR}; loader ${loader.name}; ${ids.length} scripts composed, every other cartridge unchanged. PASS`);
+692260	 * The live loader on its own: step 1 (and its rollback) of a two-step release
+692261	 * of a generation whose own loader differs from the live one (docs/RELEASE.md
+692262	 * "Loader first, then the pointer"; docs/LIGHTNING-CARTRIDGE.md "Cache window").
+692263	 * atlas/index.html may change WITHOUT atlas/current.json only when every one
+692264	 * of these holds against the pointer that stays live:
+692265	 *   - the new loader is a REGISTERED loader (tools/scope/lib.mjs ATLAS_LOADERS);
+692266	 *   - it supports every slot the live pointer uses (so a loader rollback is
+692267	 *     refused while a generation that needs the newer loader is live: roll the
+692268	 *     pointer back first, then the loader);
+692269	 *   - run verbatim in node:vm (tools/proofs/loader-composition.mjs), it writes
+692270	 *     byte-for-byte the HTML, and byte-identical cartridge blobs, that the
+692271	 *     loader it replaces writes for the live pointer, and neither fails.
+692272	 *   node tools/release/loader-swap.mjs check [--base REV]
+692273	 *       HEAD's working-tree atlas/index.html against REV's (default origin/main),
+692274	 *       for the working-tree atlas/current.json. Used by tools/ci/pr-gate.mjs
+692275	 *       (loader-registry) when a PR changes atlas/index.html alone.
+692276	 *   node tools/release/loader-swap.mjs release --to v2 --authorised-by TEXT
+692277	 *        [--base origin/main] [--branch release/loader-<to>-<live gen>]
+692278	 *        [--trailer TEXT ...] [--report FILE] [--log FILE]
+692279	 *       Step 1: clean tree at --base; prove the swap; write
+692280	 *       atlas/index.html := the registered payload; every release gate
+692281	 *       (lint, state parity, verify-compose of the unchanged live generation,
+692282	 *       run-current, data-contract parity, loader-equivalence); one commit that
+692283	 *       changes atlas/index.html only, on a new local branch. Never pushes.
+692284	 * Its revert is tools/release/rollback-generation.mjs --release-commit <sha>,
+692285	 * which accepts a loader-only commit under the same proof.
+692288	import { compose } from '../proofs/loader-composition.mjs';
+692290	  ROOT, LOADER_FILE, registeredLoaderOf, pointerSlots, parseArgs, run, git, gitOk, gitBlob, sha256,
+692293	/** Prove that `toLoader` may replace `fromLoader` while `pointerText` stays
+692294	    live. Pure apart from reading the working tree through compose(). */
+692295	export async function proveLoaderSwap({ fromLoader, toLoader, pointerText }) {
+692297	  const from = registeredLoaderOf(fromLoader);
+692298	  const to = registeredLoaderOf(toLoader);
+692299	  let pointer;
+692300	  try { pointer = JSON.parse(String(pointerText)); } catch (e) { return { ok: false, from, to, reasons: [`atlas/current.json unreadable: ${e.message}`] }; }
+692301	  if (!to) reasons.push(`the new ${LOADER_FILE} is not a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)`);
+692302	  const slots = pointerSlots(pointer);
+692303	  const missing = to ? slots.filter(s => !to.slots.includes(s)) : [];
+692304	  if (missing.length) reasons.push(`loader ${to.name} cannot compose slot(s) ${missing.join(', ')} of the live ${pointer.generation}; roll the pointer back first, then the loader`);
+692305	  let detail = '';
+692306	  if (!reasons.length) {
+692307	    const files = { 'atlas/current.json': String(pointerText) };
+692308	    const a = await compose({ loaderHtml: String(fromLoader), route: 'atlas/', files });
+692309	    const b = await compose({ loaderHtml: String(toLoader), route: 'atlas/', files });
+692310	    if (a.failed) reasons.push(`the replaced loader${from ? ` (${from.name})` : ''} does not compose the live ${pointer.generation}: ${a.message.replace(/<[^>]+>/g, ' ').trim().slice(0, 200)}`);
+692311	    if (b.failed) reasons.push(`loader ${to.name} does not compose the live ${pointer.generation}: ${b.message.replace(/<[^>]+>/g, ' ').trim().slice(0, 200)}`);
+692312	    if (!a.failed && !b.failed) {
+692313	      if (a.html !== b.html) reasons.push(`loader ${to.name} writes different HTML from ${from ? from.name : 'the replaced loader'} for the live ${pointer.generation}`);
+692314	      const same = a.scripts.length === b.scripts.length && a.scripts.every((s, i) => s.id === b.scripts[i].id && s.url === b.scripts[i].url && s.source.equals(b.scripts[i].source));
+692315	      if (!same) reasons.push(`loader ${to.name} hands different cartridge blobs from ${from ? from.name : 'the replaced loader'} for the live ${pointer.generation}`);
+692316	      detail = `${a.scripts.length} cartridge blob(s), HTML ${a.html.length} B, identical`;
+692317	  return { ok: reasons.length === 0, from, to, generation: pointer.generation, slots, reasons, detail };
+692318	const TOOL = 'loader-swap';
+692321	async function cliCheck(argv) {
+692322	  const args = parseArgs(argv, { base: { default: 'origin/main' } });
+692323	  if (!gitOk('rev-parse', '--verify', '--quiet', `${args.base}^{commit}`)) die(`--base ${args.base} does not resolve`);
+692324	  const fromLoader = gitBlob(args.base, LOADER_FILE);
+692325	  const toLoader = fs.readFileSync(path.join(ROOT, LOADER_FILE));
+692326	  const pointerText = fs.readFileSync(path.join(ROOT, 'atlas/current.json'), 'utf8');
+692327	  const r = await proveLoaderSwap({ fromLoader, toLoader, pointerText });
+692328	  const name = `${r.from?.name || 'unregistered'} -> ${r.to?.name || 'unregistered'}`;
+692329	  if (!r.ok) { console.log(`FAIL loader-only change ${name}: ${r.reasons.join('; ')}`); process.exit(1); }
+692330	  console.log(`PASS loader-only change ${name} for the live ${r.generation} (slots ${r.slots.join(', ')}): ${r.detail}`);
+692331	async function cliRelease(argv) {
+692332	  const args = parseArgs(argv, {
+692333	    to: {}, 'authorised-by': {}, base: { default: 'origin/main' }, branch: {}, trailer: { multi: true }, report: {}, log: {}
+692334	  if (!args.to || !Object.hasOwn(ATLAS_LOADERS, args.to)) die(`--to must name a registered loader (${Object.keys(ATLAS_LOADERS).join(', ')})`);
+692335	  if (!args['authorised-by']) die('--authorised-by is required');
+692336	  const report = { tool: TOOL, mode: 'release', to: args.to, started_utc: new Date().toISOString() };
+692337	  const finish = (code) => { report.exit = code; if (args.report) fs.writeFileSync(path.resolve(args.report), `${JSON.stringify(report, null, 1)}\n`); process.exit(code); };
+692338	  console.log('\n== preconditions');
+692339	  if (!cleanTree()) die(`working tree is not clean:\n${changedPaths().join('\n')}`);
+692340	  const baseSha = git('rev-parse', `${args.base}^{commit}`);
+692341	  if (git('rev-parse', 'HEAD') !== baseSha) die(`HEAD is not ${args.base} ${baseSha}`);
+692342	  ok(`clean tree, HEAD = ${args.base} = ${baseSha}`);
+692343	  const fromLoader = gitBlob('HEAD', LOADER_FILE);
+692344	  const toLoader = fs.readFileSync(path.join(ROOT, ATLAS_LOADERS[args.to].payload));
+692345	  if (Buffer.compare(fromLoader, toLoader) === 0) die(`${LOADER_FILE} is already loader ${args.to}`);
+692346	  const pointerText = gitBlob('HEAD', 'atlas/current.json').toString('utf8');
+692347	  const proof = await proveLoaderSwap({ fromLoader, toLoader, pointerText });
+692348	  Object.assign(report, { base: baseSha, live: proof.generation, from: proof.from?.name || null, proof });
+692349	  if (!proof.ok) die(proof.reasons.join('; '));
+692350	  ok(`${proof.from?.name} -> ${proof.to.name} composes the live ${proof.generation} byte for byte (${proof.detail})`);
+692351	  const parityBaseline = parityFailRows().rows;
+692352	  const branch = args.branch || `release/loader-${args.to}-${proof.generation}`;
+692353	  if (gitOk('rev-parse', '--verify', '--quiet', `refs/heads/${branch}`)) die(`branch ${branch} already exists`);
+692354	  run('git', ['switch', '-q', '-c', branch]);
+692355	  const abort = () => { run('git', ['checkout', '-q', '--', LOADER_FILE], { allowFail: true }); run('git', ['switch', '-q', '--detach', baseSha]); run('git', ['branch', '-D', branch], { allowFail: true }); };
+692356	  fs.writeFileSync(path.join(ROOT, LOADER_FILE), toLoader);
+692357	  const changed = changedPaths();
+692358	  if (JSON.stringify(changed) !== JSON.stringify([LOADER_FILE])) { abort(); die(`expected only ${LOADER_FILE} to change, got ${changed.join(', ')}`); }
+692359	  console.log('\n== gates');
+692360	  const gates = runGates({ expectGeneration: String(proof.generation), parityBaseline });
+692361	  const eq = run('node', ['tools/proofs/loader-equivalence.proof.mjs'], { allowFail: true });
+692362	  gates.rows.push({ gate: 'loader-equivalence', ok: eq.status === 0, detail: eq.out.trim().split('\n').pop() });
+692364	  if (args.log) fs.writeFileSync(path.resolve(args.log), `${gates.log}\n### loader-equivalence\n${eq.out}`);
+692366	  if (!gates.rows.every(r => r.ok)) { abort(); console.error(`\n${TOOL}: gates FAILED; nothing kept.`); finish(1); }
+692367	  run('git', ['add', '--', LOADER_FILE]);
+692368	  const msg = `live loader ${proof.from.name} -> ${proof.to.name} (atlas/index.html only; the pointer stays ${proof.generation})\n\n` +
+692369	    `Step 1 of a two-step release (docs/RELEASE.md "Loader first, then the pointer"): atlas/index.html := ${ATLAS_LOADERS[args.to].payload}.\n` +
+692370	    `For the live ${proof.generation} it writes byte-for-byte the HTML and cartridge blobs ${proof.from.name} writes (tools/release/loader-swap.mjs, ${proof.detail}).\n` +
+692371	    `Nothing else changes. Release the pointer only after check-served passes and at least 10 minutes have passed (the HTML cache window).\n` +
+692372	    `Rollback: git revert this commit (tools/release/rollback-generation.mjs --release-commit <sha>), only while the live pointer composes under ${proof.from.name}.\n\n` +
+692373	    `Authorised by: ${args['authorised-by']}${trailerBlock(args.trailer)}\n`;
+692374	  report.commit = commitWithMessage(msg);
+692375	  report.tree = git('rev-parse', 'HEAD^{tree}');
+692376	  report.hashes = { before: sha256(fromLoader), after: sha256(toLoader) };
+692377	  console.log(`\n  ${LOADER_FILE} ${report.hashes.before} -> ${report.hashes.after}\n  commit ${report.commit}\n\nLOADER RELEASE READY on branch ${branch} (not pushed).`);
+692379	if (import.meta.url === pathToFileURL(process.argv[1] || '').href) {
+692380	  const [mode, ...rest] = process.argv.slice(2);
+692381	    if (mode === 'check') await cliCheck(rest);
+692382	    else if (mode === 'release') await cliRelease(rest);
+692383	    else die('usage: loader-swap.mjs check [--base REV] | release --to v2 --authorised-by TEXT [--base REV] [--branch NAME]');
+692384	  } catch (e) { die(e.message); }
+692385	 * Offline tests of the loader-only step (tools/release/loader-swap.mjs), the
+692386	 * pr-gate rule that calls it, and the guarded loader rollback in
+692387	 * rollback-generation.mjs. Run by tools/ci/pr-gate.mjs (release-tools).
+692388	 * No network. The CLI cases run in a throwaway git worktree of HEAD with this
+692389	 * tree's tools/ copied in; nothing in the repository is changed.
+692390	 *   node --test tools/release/loader-swap.test.mjs
+692392	import { ROOT, deriveCurrent } from './lib.mjs';
+692393	import { proveLoaderSwap } from './loader-swap.mjs';
+692394	const V1 = fs.readFileSync(path.join(ROOT, ATLAS_LOADERS.v1.payload));
+692395	const V2 = fs.readFileSync(path.join(ROOT, ATLAS_LOADERS.v2.payload));
+692396	// The replace-script fixture is pinned to L3 (202610281340), derived exactly as its release wrote atlas/current.json,
+692397	// so these tests keep their coverage whatever is live (R-cifix MINOR).
+692398	const L3 = '202610281340';
+692399	const LIVE = deriveCurrent(fs.readFileSync(path.join(ROOT, `atlas/manifests/${L3}-composition.json`), 'utf8'));
+692400	// A modular generation's pointer (after-cartridge slots), derived as release-generation.mjs writes it.
+692401	const MODULAR = fs.readdirSync(path.join(ROOT, 'atlas/manifests')).filter(f => /^\d{12}-composition\.json$/.test(f)).sort().reverse()
+692402	  .map(f => fs.readFileSync(path.join(ROOT, 'atlas/manifests', f), 'utf8')).find(t => /"slot": "after-cartridge"/.test(t) && !/REJECTED/.test(t));
+692403	const MODULAR_POINTER = deriveCurrent(MODULAR);
+692404	test('v1 -> v2 is a proven loader-only change for a replace-script live pointer', async () => {
+692405	  const r = await proveLoaderSwap({ fromLoader: V1, toLoader: V2, pointerText: LIVE });
+692406	  assert.equal(r.ok, true, r.reasons.join('; '));
+692407	  assert.equal(r.from.name, 'v1');
+692408	  assert.equal(r.to.name, 'v2');
+692409	  assert.match(r.detail, /identical/);
+692410	test('v2 -> v1 (loader rollback) is allowed while a replace-script pointer is live', async () => {
+692411	  const r = await proveLoaderSwap({ fromLoader: V2, toLoader: V1, pointerText: LIVE });
+692412	test('v2 -> v1 is refused while a modular generation is live: pointer first, then the loader', async () => {
+692413	  assert.ok(MODULAR, 'no modular manifest to test with');
+692414	  const r = await proveLoaderSwap({ fromLoader: V2, toLoader: V1, pointerText: MODULAR_POINTER });
+692415	  assert.equal(r.ok, false);
+692416	  assert.match(r.reasons.join(' '), /cannot compose slot\(s\) after-cartridge .*roll the pointer back first/);
+692417	test('an unregistered loader is refused, even one byte off v2', async () => {
+692418	  const r = await proveLoaderSwap({ fromLoader: V1, toLoader: Buffer.concat([V2, Buffer.from('\n')]), pointerText: LIVE });
+692419	  assert.match(r.reasons.join(' '), /not a registered loader/);
+692420	test('a pointer neither loader can compose is refused (a cartridge hash off by one digit)', async () => {
+692421	  const p = JSON.parse(LIVE);
+692422	  const c = p.cartridges.find(x => x.id === p.cartridge_order[0]);
+692423	  c.sha256 = (c.sha256[0] === '0' ? '1' : '0') + c.sha256.slice(1);
+692424	  const r = await proveLoaderSwap({ fromLoader: V1, toLoader: V2, pointerText: `${JSON.stringify(p, null, 1)}\n` });
+692425	  assert.match(r.reasons.join(' '), /does not compose/);
+692426	/* ---------- the CLI the gate calls, and the rollback guard, in a throwaway worktree ---------- */
+692428	  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'loader-swap-'));
+692429	  const wt = path.join(dir, 'wt');
+692430	  const env = { ...process.env, GIT_AUTHOR_NAME: 'loader-swap test', GIT_AUTHOR_EMAIL: 'test@example.invalid', GIT_COMMITTER_NAME: 'loader-swap test', GIT_COMMITTER_EMAIL: 'test@example.invalid' };
+692431	  const g = (args, cwd = wt) => spawnSync('git', args, { cwd, encoding: 'utf8', env });
+692432	  const add = g(['worktree', 'add', '-q', '--detach', wt, 'HEAD'], ROOT);
+692433	  if (add.status !== 0) throw new Error(add.stderr);
+692434	  // this tree's tools (possibly uncommitted) over HEAD's
+692435	  fs.cpSync(path.join(ROOT, 'tools'), path.join(wt, 'tools'), { recursive: true });
+692436	  const commit = (msg) => { g(['add', '-A']); const r = g(['commit', '-q', '--no-verify', '--allow-empty', '-m', msg]); if (r.status !== 0) throw new Error(r.stderr); return g(['rev-parse', 'HEAD']).stdout.trim(); };
+692437	  const node = (args) => spawnSync('node', args, { cwd: wt, encoding: 'utf8' });
+692438	  const cleanup = () => { g(['worktree', 'remove', '--force', wt], ROOT); fs.rmSync(dir, { recursive: true, force: true }); };
+692439	  return { wt, g, commit, node, cleanup };
+692440	test('gate CLI: loader-only v1 -> v2 passes; v2 -> v1 under a modular live pointer fails', () => {
+692441	  const s = sandbox();
+692442	    fs.writeFileSync(path.join(s.wt, 'atlas/index.html'), V1); fs.writeFileSync(path.join(s.wt, 'atlas/current.json'), LIVE);
+692443	    const base = s.commit('base: v1 live loader, L3 live');
+692444	    fs.writeFileSync(path.join(s.wt, 'atlas/index.html'), V2);
+692445	    let r = s.node(['tools/release/loader-swap.mjs', 'check', '--base', base]);
+692446	    assert.equal(r.status, 0, r.stdout + r.stderr);
+692447	    assert.match(r.stdout, /^PASS loader-only change v1 -> v2/m);
+692448	    // an unregistered loader is refused by the same check
+692449	    fs.writeFileSync(path.join(s.wt, 'atlas/index.html'), Buffer.concat([V2, Buffer.from('<!-- x -->\n')]));
+692450	    r = s.node(['tools/release/loader-swap.mjs', 'check', '--base', base]);
+692451	    assert.equal(r.status, 1);
+692452	    assert.match(r.stdout, /^FAIL .*not a registered loader/m);
+692453	    // modular pointer live behind v2, loader back to v1 alone
+692454	    fs.writeFileSync(path.join(s.wt, 'atlas/current.json'), MODULAR_POINTER);
+692455	    const modularBase = s.commit('modular live behind v2');
+692456	    fs.writeFileSync(path.join(s.wt, 'atlas/index.html'), V1);
+692457	    r = s.node(['tools/release/loader-swap.mjs', 'check', '--base', modularBase]);
+692458	    assert.match(r.stdout, /roll the pointer back first/);
+692459	  } finally { s.cleanup(); }
+692460	test('rollback-generation refuses a loader-only revert while a generation needing the newer loader is live', () => {
+692461	    s.commit('base: v1 live loader, L3 live');
+692462	    const step1 = s.commit('step 1: loader v2 alone');
+692463	    const head = s.commit('step 2 (pointer only; STATE.md not regenerated in this fixture)');
+692464	    const r = s.node(['tools/release/rollback-generation.mjs', '--release-commit', step1, '--reason', 'test', '--base', head, '--no-commit']);
+692465	    assert.equal(r.status, 1, r.stdout + r.stderr);
+692466	    assert.match(r.stderr, /refusing the loader rollback v2 -> v1: .*roll the pointer back first, then the loader/);
+692467	    assert.equal(s.g(['rev-parse', 'HEAD']).stdout.trim(), head, 'nothing committed, HEAD unchanged');
+692468	    assert.equal(s.g(['status', '--porcelain']).stdout, '', 'nothing written');
+692469	test('rollback-generation refuses a loader-only revert when the loader has moved since', () => {
+692470	    s.commit('base');
+692471	    const step1 = s.commit('step 1');
+692472	    const head = s.commit('loader moved again');
+692473	    assert.match(r.stderr, /has moved since/);
+692474	test('release-generation refuses a one-step v1 -> v2 release of a modular generation unless --allow-loader-follows (R-cifix MAJOR)', () => {
+692475	  const G = JSON.parse(MODULAR).generation, s = sandbox();
+692476	    const head = s.commit('base: v1 live loader, L3 live');
+692477	    let r = s.node(['tools/release/release-generation.mjs', '--generation', G, '--base', head, '--expect-live', L3, '--check']);
+692478	    assert.match(r.stderr, /the live loader \(v1\) cannot compose slot\(s\) after-cartridge .*release the loader first/);
+692479	    r = s.node(['tools/release/release-generation.mjs', '--generation', G, '--base', head, '--expect-live', L3, '--check', '--allow-loader-follows']);
+692480	    assert.doesNotMatch(r.stderr, /cannot compose slot/, 'the explicit override passes this precondition');
+692481	    assert.match(r.stdout, /LOADER_FOLLOWS/);
+692482	    // loader first: with v2 live, the same release is LOADER_IDENTICAL and needs no override
+692483	    fs.writeFileSync(path.join(s.wt, 'atlas/index.html'), V2); const head2 = s.commit('step 1: loader v2');
+692484	    r = s.node(['tools/release/release-generation.mjs', '--generation', G, '--base', head2, '--expect-live', L3, '--check']);
+692485	    assert.match(r.stdout, /LOADER_IDENTICAL/, r.stdout + r.stderr); assert.doesNotMatch(r.stderr, /cannot compose slot/);
+692505	 *     release-generation.mjs will require), and its loader is a registered
+692506	 *     loader that supports the slots it uses (it need not equal the live one);
+692521	import { ROOT, parseArgs, run, git, gitOk, cleanTree, deriveCurrent, rerootForPreview, registeredLoaderOf, pointerSlots } from './lib.mjs';
+692581	  // Any REGISTERED loader that supports the preview's slots: after a loader-only step 1 (loader-swap.mjs) the live
+692582	  // loader is v2 while monolithic previews keep v1; release-generation.mjs moves the loader with the pointer if it differs.
+692583	  const routeLoader = registeredLoaderOf(fs.readFileSync(path.join(ROOT, F.routeIndex)));
+692584	  const missing = routeLoader ? pointerSlots(JSON.parse(fs.readFileSync(path.join(ROOT, F.routeCurrent), 'utf8'))).filter(s => !routeLoader.slots.includes(s)) : [];
+692585	  check(`${G} loader registered`, !!routeLoader && !missing.length, !routeLoader ? `${F.routeIndex} is not a registered loader (tools/scope/lib.mjs ATLAS_LOADERS)`
+692586	    : missing.length ? `${F.routeIndex} (loader ${routeLoader.name}) cannot compose slot(s) ${missing.join(', ')}`
+692587	    : `${routeLoader.name}${fs.readFileSync(path.join(ROOT, F.routeIndex)).equals(fs.readFileSync(path.join(ROOT, 'atlas/index.html'))) ? ' (= live loader)' : ' (differs from the live loader; it moves with the pointer at release)'}`);
+692694	 *   --allow-loader-follows  allow the loader to move in the release commit to one the live loader could not
+692695	 *                           stand in for (v1 -> v2): opens the HTML cache window; refused by default
+692708	    'allow-loader-follows': { bool: true }, report: {}, log: {}
+692789	// A loader that moves WITH the pointer to one the live loader could not compose (v1 -> v2 for a modular G) opens the HTML
+692790	// cache window (docs/RELEASE.md "Loader first, then the pointer"): a browser holding the cached old loader reads the new
+692791	// pointer and fails closed for up to ~10 minutes. Ship the loader first (tools/release/loader-swap.mjs release), wait,
+692792	// then release the pointer; a one-step release needs --allow-loader-follows (an explicit owner decision).
+692793	const liveRegistered = registeredLoaderOf(loader);
+692794	const liveMissing = liveRegistered ? pointerSlots(manifest).filter(slot => !liveRegistered.slots.includes(slot)) : pointerSlots(manifest);
+692795	report.loader.live_missing_slots = liveMissing;
+692796	if (loaderMoves && liveMissing.length && !args['allow-loader-follows']) {
+692797	  die(`the live loader (${report.loader.live || 'unregistered'}) cannot compose slot(s) ${liveMissing.join(', ')} that ${G} uses: release the loader first ` +
+692798	    `(node tools/release/loader-swap.mjs release --to ${previewRegistered.name} …), wait for check-served plus 10 minutes, then release ${G}; ` +
+692799	    'or pass --allow-loader-follows to accept the cache window (docs/RELEASE.md)');
+692946	 *     release that moved the loader with the pointer, docs/LIGHTNING-CARTRIDGE.md),
+692947	 *     or atlas/index.html alone (step 1 of a two-step release,
+692948	 *     tools/release/loader-swap.mjs): that revert is refused unless the live
+692949	 *     pointer composes under the restored loader byte for byte as under the
+692950	 *     current one, so while a generation needing the newer loader is live the
+692951	 *     pointer must be rolled back first, then the loader;
+692983	if (touched.length === 1 && touched[0] === LOADER_FILE) await rollbackLoaderOnly(R);
+693025	/* A loader-only commit: step 1 of a two-step release (tools/release/loader-swap.mjs release). It is
+693026	   reverted only while the live pointer composes under the loader being restored, byte for byte as under
+693027	   the current one; while a generation that needs the newer loader (an after-cartridge slot under v2) is
+693028	   live, it is refused: roll the pointer back first, then the loader. */
+693029	async function rollbackLoaderOnly(R) {
+693030	  ok(`${R.slice(0, 7)} is a single-parent loader-only commit (${LOADER_FILE})`);
+693031	  const released = gitBlob(R, LOADER_FILE);
+693032	  const restored = gitBlob(`${R}^`, LOADER_FILE);
+693033	  if (Buffer.compare(gitBlob('HEAD', LOADER_FILE), released) !== 0) die(`${LOADER_FILE} has moved since ${R.slice(0, 7)}; reverting would not restore a known state`);
+693034	  const proof = await proveLoaderSwap({ fromLoader: released, toLoader: restored, pointerText });
+693035	  const from = proof.from?.name || 'unregistered', to = proof.to?.name || 'unregistered';
+693036	  if (!proof.ok) die(`refusing the loader rollback ${from} -> ${to}: ${proof.reasons.join('; ')}`);
+693037	  ok(`${from} -> ${to} composes the live ${proof.generation} byte for byte (${proof.detail})`);
+693038	  Object.assign(report, { release_commit: R, mode: 'loader-only', from, to, live: proof.generation, base: baseSha,
+693039	    expected: { [LOADER_FILE]: sha256(restored) }, before: { [LOADER_FILE]: sha256File(LOADER_FILE) },
+693040	    pointer_unchanged: { 'atlas/current.json': sha256File('atlas/current.json'), 'STATE.md': sha256File('STATE.md') } });
+693041	  const branch = args.branch || `rollback/loader-${from}-to-${to}`;
+693042	  step(`branch ${branch}: git revert --no-commit ${R.slice(0, 7)}`);
+693043	  const revert = run('git', ['revert', '--no-commit', R], { allowFail: true });
+693044	  const abort = () => { run('git', ['revert', '--abort'], { allowFail: true }); run('git', ['switch', '-q', '--detach', baseSha]); run('git', ['branch', '-D', branch], { allowFail: true }); };
+693045	  if (revert.status !== 0) { abort(); die(`git revert did not apply cleanly:\n${revert.out}`); }
+693046	  report.after = { [LOADER_FILE]: sha256File(LOADER_FILE) };
+693047	  if (report.after[LOADER_FILE] !== report.expected[LOADER_FILE]) { abort(); die(`${LOADER_FILE} is NOT byte-exact to ${R.slice(0, 7)}^`); }
+693048	  for (const f of POINTER_FILES) if (sha256File(f) !== report.pointer_unchanged[f]) { abort(); die(`${f} changed in a loader-only revert`); }
+693049	  ok(`${LOADER_FILE} byte-exact to ${R.slice(0, 7)}^ (${report.after[LOADER_FILE]}); atlas/current.json and STATE.md unchanged`);
+693050	  report.byte_exact = { [LOADER_FILE]: true };
+693051	  step('gates');
+693052	  if (!args['no-commit']) {
+693053	    const subject = git('log', '-1', '--format=%s', R);
+693054	    const msg = `Revert "${subject}"\n\nThis reverts commit ${R}.\n\nRestores the live loader ${from} -> ${to} (${LOADER_FILE} byte-identical to ${R.slice(0, 7)}^); the pointer stays ${proof.generation}.\nReason: ${args.reason}${trailerBlock(args.trailer)}\n`;
+693055	    report.revert_commit = commitWithMessage(msg);
+693056	    report.revert_tree = git('rev-parse', 'HEAD^{tree}');
+693057	  console.log(`  ${LOADER_FILE.padEnd(20)} released ${report.before[LOADER_FILE]}\n  ${''.padEnd(20)} restored ${report.after[LOADER_FILE]}  (byte-exact)`);
+693058	  if (report.revert_commit) console.log(`  revert commit        ${report.revert_commit}\n  revert tree          ${report.revert_tree}`);
+693059	  console.log(`\nLOADER ROLLBACK READY on branch ${branch} (not pushed): the live loader would return to ${to}; live stays ${proof.generation}.`);
+693134	   was cut with, and the live atlas/index.html changes either in the release
+693135	   commit of a generation whose own loader differs (LOADER_FOLLOWS), or alone,
+693136	   to a registered loader proven to compose the unchanged live pointer byte for
+693137	   byte as the old one does (tools/release/loader-swap.mjs; docs/RELEASE.md). */
 ```
