@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-29T19:13:54.949Z",
+ "generated_utc": "2026-10-29T23:34:44.990Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -163,19 +163,6 @@
    "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
   },
   {
-   "folder": "data-grid-gb/chatgpt",
-   "title": "Chatgpt",
-   "repo": "Ventusltd/data-grid-gb",
-   "blocks": [
-    "Dc",
-    "Dt",
-    "Pn",
-    "Pr"
-   ],
-   "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-   "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
-  },
-  {
    "folder": "gridatlas/atlas/parts",
    "title": "Gridatlas",
    "repo": "Ventusltd/gridatlas",
@@ -274,6 +261,18 @@
    ],
    "live": "https://ventusltd.github.io/gridatlas/compiler/",
    "gh": "https://github.com/Ventusltd/gridatlas/tree/main/compiler"
+  },
+  {
+   "folder": "data-grid-gb/chatgpt",
+   "title": "Chatgpt",
+   "repo": "Ventusltd/data-grid-gb",
+   "blocks": [
+    "Dc",
+    "Dt",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
+   "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
   },
   {
    "folder": "pipelinenews/atman",
@@ -758,33 +757,6 @@
  "reactions": [
   {
    "a": "Dt",
-   "b": "Pn",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 13 app folders, never composition-tested",
-   "together": 13,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
-    },
-    {
-     "title": "Chatgpt",
-     "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-     "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dt",
    "b": "Pr",
    "probability": 0.9,
    "verdict": "seen together",
@@ -811,12 +783,12 @@
    "decay": null
   },
   {
-   "a": "Pn",
-   "b": "Pr",
+   "a": "Dt",
+   "b": "Pn",
    "probability": 0.9,
    "verdict": "seen together",
-   "basis": "already used together in 10 app folders, never composition-tested",
-   "together": 10,
+   "basis": "already used together in 12 app folders, never composition-tested",
+   "together": 12,
    "examples": [
     {
      "title": "Globalgrid2050",
@@ -829,9 +801,36 @@
      "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     },
     {
-     "title": "Chatgpt",
-     "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-     "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
+     "title": "Atman",
+     "live": "https://ventusltd.github.io/data-gridatlas/atman/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/atman"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Pn",
+   "b": "Pr",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 9 app folders, never composition-tested",
+   "together": 9,
+   "examples": [
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/scripts/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
+    },
+    {
+     "title": "Compiler",
+     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+    },
+    {
+     "title": "Atman",
+     "live": "https://ventusltd.github.io/data-gridatlas/atman/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/atman"
     }
    ],
    "tests": null,
@@ -883,9 +882,9 @@
      "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     },
     {
-     "title": "Chatgpt",
-     "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-     "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
     }
    ],
    "tests": null,
@@ -910,9 +909,9 @@
      "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
     },
     {
-     "title": "Chatgpt",
-     "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-     "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
+     "title": "Dt",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/code-generator/tree/main/apps/substation-finder/Dt"
     }
    ],
    "tests": null,
@@ -1594,33 +1593,6 @@
    "decay": null
   },
   {
-   "a": "Dc",
-   "b": "Pn",
-   "probability": 0.8,
-   "verdict": "seen together",
-   "basis": "already used together in 3 app folders, never composition-tested",
-   "together": 3,
-   "examples": [
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/scripts/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
-    },
-    {
-     "title": "Compiler",
-     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
-     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
-    },
-    {
-     "title": "Chatgpt",
-     "live": "https://ventusltd.github.io/data-grid-gb/chatgpt/",
-     "gh": "https://github.com/Ventusltd/data-grid-gb/tree/main/chatgpt"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
    "a": "Pr",
    "b": "Ps",
    "probability": 0.8,
@@ -1822,6 +1794,28 @@
     "total": 4216
    },
    "decay": "sld-sandbox: Error: sld-sandbox requires the sld-styles module"
+  },
+  {
+   "a": "Dc",
+   "b": "Pn",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/scripts/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/scripts"
+    },
+    {
+     "title": "Compiler",
+     "live": "https://ventusltd.github.io/data-gridatlas/compiler/",
+     "gh": "https://github.com/Ventusltd/data-gridatlas/tree/main/compiler"
+    }
+   ],
+   "tests": null,
+   "decay": null
   },
   {
    "a": "Pr",

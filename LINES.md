@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-400,349 unique lines, numbered 1 to 693,137. Generated 2026-10-29T19:14:20.841Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+405,737 unique lines, numbered 1 to 699,862. Generated 2026-10-29T23:35:09.951Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -400352,4 +400352,5392 @@
 693135	   commit of a generation whose own loader differs (LOADER_FOLLOWS), or alone,
 693136	   to a registered loader proven to compose the unchanged live pointer byte for
 693137	   byte as the old one does (tools/release/loader-swap.mjs; docs/RELEASE.md). */
+693297	"""Shared, standard-library-only machinery for the two asset pipelines.
+693299	    datacentres/   UK data-centre sites and pipeline entries (GridAtlas issue #73, steps 2-4)
+693300	    conventional/  UK conventional generation: gas, coal, oil, nuclear, biomass, EfW, diesel (step 5)
+693301	Each domain has the same shape:
+693302	    <domain>/sources.json        the source registry: URL, publisher, licence, licence URL,
+693303	                                 and whether the source is FULLY OPEN (yes / no / unverified)
+693304	    <domain>/fetchers/<id>.py    one module per source (see assetpipe.pipeline.FETCHER_CONTRACT)
+693305	    <domain>/raw/<id>/...        raw snapshots exactly as downloaded
+693306	    <domain>/raw/MANIFEST.json   url, bytes and sha256 of every raw file (the pin)
+693307	    <domain>/normalised/<id>.geojson   one deterministic FeatureCollection per source
+693308	    <domain>/normalised/INDEX.json     sha256, count and licence of every normalised output
+693309	Nothing in this package needs a third-party module. Spreadsheet sources may use
+693310	openpyxl through ``assetpipe.xlsx``, which says clearly when it is missing.
+693312	DOMAINS = ("datacentres", "conventional")
+693313	"""Vendored lane scripts: run them, pin every file they read or write, and check the pins.
+693314	The #73 work lanes (DC-A1, A3, A4, A6, A7) delivered standalone, standard-library
+693315	scripts, each with its own output schema. They are vendored here unchanged, except
+693316	for a marked path-redirect block in DC-A6. ``<domain>/lanes/lanes.json`` describes
+693317	how to run each one:
+693318	    fetch     commands that use the network (run by the manual fetch workflow)
+693319	    build     offline commands that turn the lane's raw snapshots into outputs
+693320	    selftest  offline commands that test the lane on synthetic fixtures
+693321	    inputs    pinned downloads (url + sha256) a build reads; "commit": false
+693322	              means the file is fetched at run time and never committed
+693323	    open      yes / no / unverified, with the same meaning as sources.json
+693324	Each command is ``[script, arg, ...]`` and runs as ``python -I script args`` with the
+693325	lane directory as the working directory. ``{today}`` is the UTC date of this run.
+693326	``{retrieved}`` is the date of the lane's last successful fetch, or "unspecified".
+693327	``{tmp}`` is a fresh scratch directory, deleted after the command (for self-tests).
+693328	``<domain>/lanes/MANIFEST.json`` pins the sha256 and size of every committed file in
+693329	every lane directory, and records each lane's last fetch: its date and each
+693330	command's exit code. A failed fetch is recorded as a failure and the previous
+693331	snapshot is kept. Unknown is never written as zero.
+693342	from .pipeline import ROOT, USER_AGENT, canonical_text, read_json, write_text
+693343	LANES_SCHEMA = "gb-asset-lanes.v1"
+693344	MANIFEST_SCHEMA = "gb-asset-lanes-manifest.v1"
+693345	IGNORED_PARTS = {"__pycache__", ".pytest_cache"}
+693346	COMMAND_TIMEOUT = 1800
+693347	class LaneError(RuntimeError):
+693349	def lanes_dir(domain: str, root: Path = ROOT) -> Path:
+693350	    return root / domain / "lanes"
+693351	def load_lanes(domain: str, root: Path = ROOT) -> dict:
+693352	    path = lanes_dir(domain, root) / "lanes.json"
+693353	    doc = read_json(path)
+693354	    if doc is None:
+693355	        return {"schema": LANES_SCHEMA, "domain": domain, "lanes": []}
+693356	    if doc.get("schema") != LANES_SCHEMA or doc.get("domain") != domain:
+693357	        raise LaneError(f"{domain}/lanes/lanes.json is not a {LANES_SCHEMA} file for {domain}")
+693358	    ids = [lane.get("id") for lane in doc.get("lanes", [])]
+693359	    if len(ids) != len(set(ids)) or not all(ids):
+693360	        raise LaneError(f"{domain}/lanes/lanes.json: missing or duplicate lane ids")
+693362	def allowed(lane: dict, include_unverified: bool) -> tuple[bool, str]:
+693363	    if lane.get("open") == "yes":
+693364	        return True, "fully open"
+693365	    if lane.get("open") == "unverified" and include_unverified:
+693366	        return True, "licence unverified: included for review only"
+693367	    if lane.get("open") == "unverified":
+693368	        return False, "licence unverified (use --include-unverified to snapshot it for review)"
+693369	    return False, f"not fully open (open: {lane.get('open')})"
+693370	def uncommitted_inputs(lane: dict) -> set:
+693371	    return {i["file"] for i in lane.get("inputs", []) if not i.get("commit", True)}
+693372	def tracked_files(ldir: Path, lane: dict) -> dict:
+693373	    """Every committed file in a lane directory: {relative path: (sha256, bytes)}."""
+693374	    skip = uncommitted_inputs(lane)
+693376	    if not ldir.exists():
+693378	    for path in sorted(ldir.rglob("*")):
+693379	        rel = path.relative_to(ldir).as_posix()
+693380	        if not path.is_file() or IGNORED_PARTS & set(path.relative_to(ldir).parts) or path.suffix == ".pyc":
+693382	        if rel in skip:
+693384	        out[rel] = (hashlib.sha256(data).hexdigest(), len(data))
+693386	def _expand(arg: str, today: str, retrieved: str, tmp: str) -> str:
+693387	    return arg.replace("{today}", today).replace("{retrieved}", retrieved).replace("{tmp}", tmp)
+693388	def run_commands(ldir: Path, lane: dict, commands: list, *, today: str, retrieved: str, log=print) -> list:
+693390	    for key, value in (lane.get("env") or {}).items():
+693391	        env[key] = str(ldir / value) if not os.path.isabs(value) else value
+693392	    codes = []
+693394	        script, *args = command
+693395	        if not (ldir / script).exists():
+693396	            raise LaneError(f"{lane['id']}: script {script} missing")
+693397	        tmp = tempfile.mkdtemp(prefix=f"lane-{lane['id']}-")
+693398	        argv = [sys.executable, "-I", script, *[_expand(a, today, retrieved, tmp) for a in args]]
+693399	        log(f"  [{lane['id']}] $ {' '.join(argv[2:])}")
+693401	            proc = subprocess.run(argv, cwd=ldir, env=env, capture_output=True, text=True, timeout=COMMAND_TIMEOUT)
+693402	            code = proc.returncode
+693403	            tail = (proc.stdout + proc.stderr).strip().splitlines()[-12:]
+693404	        except subprocess.TimeoutExpired:
+693405	            code, tail = 124, ["timed out"]
+693407	            shutil.rmtree(tmp, ignore_errors=True)
+693408	        for line in tail:
+693409	            log(f"    {line}")
+693410	        log(f"  [{lane['id']}] exit {code}")
+693411	        codes.append(code)
+693412	    return codes
+693413	def fetch_inputs(ldir: Path, lane: dict, *, opener=None, log=print) -> None:
+693414	    """Download pinned inputs that are not on disk; refuse bytes whose sha256 differs."""
+693415	    for item in lane.get("inputs", []):
+693416	        path = ldir / item["file"]
+693418	            if hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+693419	                raise LaneError(f"{lane['id']}: {item['file']} on disk is not the pinned bytes")
+693420	        if not item.get("url"):
+693421	            raise LaneError(f"{lane['id']}: {item['file']} is missing and has no URL")
+693422	        if opener is None:
+693423	            req = urllib.request.Request(item["url"], headers={"User-Agent": USER_AGENT})
+693424	            with urllib.request.urlopen(req, timeout=300) as response:  # noqa: S310 - pinned https URL
+693425	                data = response.read()
+693427	            data = opener(item["url"])
+693428	        digest = hashlib.sha256(data).hexdigest()
+693429	        if digest != item["sha256"]:
+693430	            raise LaneError(f"{lane['id']}: {item['url']} returned {digest[:12]}, pinned {item['sha256'][:12]}")
+693433	        log(f"  [{lane['id']}] input {item['file']} {len(data):,} bytes ok")
+693434	def inputs_present(ldir: Path, lane: dict) -> bool:
+693435	    return all((ldir / i["file"]).exists() for i in lane.get("inputs", []))
+693436	def read_manifest(domain: str, root: Path = ROOT) -> dict:
+693437	    return read_json(lanes_dir(domain, root) / "MANIFEST.json",
+693438	                     {"schema": MANIFEST_SCHEMA, "domain": domain, "lanes": {}})
+693439	def retrieved_for(manifest: dict, lane_id: str) -> str:
+693440	    last = (manifest.get("lanes", {}).get(lane_id) or {}).get("last_fetch") or {}
+693441	    return last.get("date") if last.get("ok") else "unspecified"
+693442	def write_manifest(domain: str, root: Path = ROOT, *, fetches: dict | None = None) -> dict:
+693443	    doc = load_lanes(domain, root)
+693444	    old = read_manifest(domain, root)
+693445	    out = {"schema": MANIFEST_SCHEMA, "domain": domain, "lanes": {}}
+693446	    for lane in doc["lanes"]:
+693447	        ldir = lanes_dir(domain, root) / lane["id"]
+693448	        files = tracked_files(ldir, lane)
+693449	        entry = {"files": {rel: {"sha256": h, "bytes": n} for rel, (h, n) in files.items()}}
+693450	        last = (fetches or {}).get(lane["id"]) or (old.get("lanes", {}).get(lane["id"]) or {}).get("last_fetch")
+693451	        if last:
+693452	            entry["last_fetch"] = last
+693453	        out["lanes"][lane["id"]] = entry
+693454	    write_text(lanes_dir(domain, root) / "MANIFEST.json", canonical_text(out))
+693455	def check_manifest(domain: str, root: Path = ROOT, *, strict_open: bool = True) -> list:
+693456	    """Problems with the committed lane files; empty when everything matches its pin."""
+693458	    if not doc["lanes"]:
+693460	    manifest = read_manifest(domain, root)
+693461	    if manifest.get("schema") != MANIFEST_SCHEMA:
+693462	        return [f"{domain}/lanes/MANIFEST.json missing or not {MANIFEST_SCHEMA}"]
+693463	    listed = set(manifest["lanes"])
+693464	    declared = {lane["id"] for lane in doc["lanes"]}
+693465	    if listed != declared:
+693466	        problems.append(f"MANIFEST lanes {sorted(listed)} != lanes.json {sorted(declared)}")
+693467	        lid = lane["id"]
+693468	        ldir = lanes_dir(domain, root) / lid
+693469	        if lane.get("open") not in ("yes", "no", "unverified"):
+693470	            problems.append(f"{lid}: open must be yes/no/unverified")
+693471	        if lane.get("open") == "no":
+693472	            problems.append(f"{lid}: a lane that is not fully open may not be vendored")
+693473	        for command in lane.get("fetch", []) + lane.get("build", []) + lane.get("selftest", []):
+693474	            if not (ldir / command[0]).exists():
+693475	                problems.append(f"{lid}: script {command[0]} missing")
+693476	        for item in lane.get("inputs", []):
+693477	            if item.get("url") and not item["url"].startswith("https://"):
+693478	                problems.append(f"{lid}: input {item['file']} URL is not https")
+693479	            path = ldir / item["file"]
+693480	            if path.exists() and hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+693481	                problems.append(f"{lid}: input {item['file']} is not the pinned bytes")
+693482	        pinned = (manifest["lanes"].get(lid) or {}).get("files", {})
+693483	        actual = tracked_files(ldir, lane)
+693484	        for rel in sorted(set(pinned) | set(actual)):
+693485	            if rel not in actual:
+693486	                problems.append(f"{lid}: {rel} is pinned but missing")
+693487	            elif rel not in pinned:
+693488	                problems.append(f"{lid}: {rel} is on disk without a pin")
+693489	            elif (pinned[rel]["sha256"], pinned[rel]["bytes"]) != actual[rel]:
+693490	                problems.append(f"{lid}: {rel} does not match its pinned sha256")
+693491	        if strict_open and lane.get("open") != "yes":
+693492	            present = [o for o in lane.get("outputs", []) if (ldir / o).exists()]
+693493	            if present:
+693494	                problems.append(f"{lid}: outputs {present} from a source whose licence is {lane.get('open')}; "
+693495	                                "confirm the licence (open: yes) before merging")
+693497	def today_utc() -> str:
+693498	    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+693499	def copy_tree(src: Path, dst: Path) -> None:
+693500	    shutil.copytree(src, dst, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+693501	"""Fetch, pin and normalise: the one code path every source goes through.
+693502	FETCHER_CONTRACT
+693504	A source module ``<domain>/fetchers/<module>.py`` defines:
+693505	    SOURCE_ID = "osm-datacentres"        # matches its entry in <domain>/sources.json
+693506	    LANE = "DC-A4"                        # the work lane that owns it (provenance only)
+693507	    STATUS = "ready"                      # "snapshot": fetch and pin raw bytes only (no normaliser yet);
+693508	                                          # "placeholder": skipped, never fails a run
+693509	    def raw_requests() -> list[dict]:
+693510	        # Pinned requests: [{"file": "uk.json", "url": "https://...",
+693511	        #                     "data": None | bytes (POST body), "headers": {}}]
+693512	        # The same list on every call: no "latest" links, no dates computed from today.
+693513	    def normalise(raw: dict[str, bytes]) -> list[dict]:
+693514	        # raw maps each requested file name to the exact bytes on disk.
+693515	        # Returns schema records (assetpipe.schema). Must be deterministic:
+693516	        # no network, no clock, no randomness, no dependence on dict/set order.
+693517	A source is fetched only when its registry entry says ``"open": "yes"``. A source
+693518	marked ``"no"`` is never fetched. ``"unverified"`` is fetched only with
+693519	``--include-unverified``, and its records are never written to normalised/ until
+693520	the registry says yes (ci/verify.py fails if one is).
+693521	Pinning: the first fetch of a file records its sha256 in raw/MANIFEST.json. A later
+693522	fetch that returns different bytes FAILS unless ``--update-pins`` is given, so a
+693523	silently changed upstream file is a visible decision in one diff, never a quiet
+693524	change in a map.
+693528	from . import DOMAINS
+693529	from .schema import SCHEMA_COLLECTION, VALIDATORS, record_to_feature
+693531	MANIFEST_SCHEMA = "gb-asset-raw-manifest.v1"
+693532	INDEX_SCHEMA = "gb-asset-normalised-index.v1"
+693533	REGISTRY_SCHEMA = "gb-asset-source-registry.v1"
+693534	USER_AGENT = "Ventus data-grid-gb asset pipeline (public open-data fetch; github.com/Ventusltd/data-grid-gb)"
+693535	MAX_RAW_COMMIT_BYTES = 25 * 1024 * 1024  # larger raw files are pinned by sha256 but not committed
+693536	HTTP_TIMEOUT = 120
+693537	class PipelineError(RuntimeError):
+693538	# --- serialisation -----------------------------------------------------------------------------
+693541	def canonical_text(obj) -> str:
+693542	    """Stable JSON: sorted keys, UTF-8, two-space indent, one trailing newline."""
+693543	    return json.dumps(obj, sort_keys=True, indent=2, ensure_ascii=False) + "\n"
+693544	def collection_text(obj: dict) -> str:
+693545	    """A FeatureCollection with one feature per line: stable, small diffs, still valid JSON."""
+693546	    head = {k: v for k, v in obj.items() if k != "features"}
+693547	    lines = [json.dumps(f, sort_keys=True, separators=(",", ":"), ensure_ascii=False) for f in obj["features"]]
+693548	    head_text = json.dumps(head, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+693549	    body = ",\n".join(lines)
+693550	    return head_text[:-1] + ',"features":[\n' + body + ("\n" if body else "") + "]}\n"
+693553	    with open(path, "w", encoding="utf-8", newline="\n") as handle:
+693554	        handle.write(text)
+693555	def read_json(path: Path, default=None):
+693559	# --- registry and modules ----------------------------------------------------------------------
+693560	def domain_dir(domain: str, root: Path = ROOT) -> Path:
+693561	    if domain not in DOMAINS:
+693562	        raise PipelineError(f"unknown domain {domain!r}; expected one of {DOMAINS}")
+693563	    return root / domain
+693564	def load_registry(domain: str, root: Path = ROOT) -> dict:
+693565	    registry = read_json(domain_dir(domain, root) / "sources.json")
+693566	    if not isinstance(registry, dict) or registry.get("schema") != REGISTRY_SCHEMA:
+693567	        raise PipelineError(f"{domain}/sources.json is not a {REGISTRY_SCHEMA} registry")
+693568	    ids = [s.get("id") for s in registry.get("sources", [])]
+693570	        raise PipelineError(f"{domain}/sources.json has duplicate source ids")
+693572	def load_module(domain: str, entry: dict, root: Path = ROOT):
+693573	    """Import <root>/<domain>/fetchers/<module>.py by path (so a test root never picks up the repo's)."""
+693574	    name = entry.get("module")
+693575	    if not name:
+693577	    path = domain_dir(domain, root) / "fetchers" / f"{name}.py"
+693578	        raise PipelineError(f"{domain}: fetcher module {path} missing")
+693579	    key = "assetfetch_" + sha256_bytes(str(path.resolve()).encode("utf-8"))[:16] + "_" + name
+693580	    module = sys.modules.get(key)
+693581	    if module is None or getattr(module, "__file__", None) != str(path):
+693582	        spec = importlib.util.spec_from_file_location(key, path)
+693583	        module = importlib.util.module_from_spec(spec)
+693584	        sys.modules[key] = module
+693585	        spec.loader.exec_module(module)
+693586	    if getattr(module, "SOURCE_ID", None) != entry["id"]:
+693587	        raise PipelineError(f"{name}: SOURCE_ID {getattr(module, 'SOURCE_ID', None)!r} != registry id {entry['id']!r}")
+693589	def http_get(request: dict) -> bytes:
+693590	    headers = {"User-Agent": USER_AGENT, **(request.get("headers") or {})}
+693591	    req = urllib.request.Request(request["url"], data=request.get("data"), headers=headers)
+693592	    with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as response:  # noqa: S310 - pinned https URLs
+693594	# --- fetch -------------------------------------------------------------------------------------
+693595	def _safe_file(name: str) -> str:
+693596	    if not name or name.startswith(("/", ".")) or ".." in name.split("/") or "\\" in name:
+693597	        raise PipelineError(f"unsafe raw file name {name!r}")
+693599	def fetch_domain(domain: str, *, root: Path = ROOT, only=None, include_unverified=False,
+693600	                 update_pins=False, opener=http_get, fetched_at=None, log=print) -> dict:
+693601	    """Download every ready, fully open source and pin it. Returns the updated manifest."""
+693602	    registry = load_registry(domain, root)
+693603	    stamp = fetched_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+693604	    raw_dir = domain_dir(domain, root) / "raw"
+693605	    manifest_path = raw_dir / "MANIFEST.json"
+693606	    manifest = read_json(manifest_path, {"schema": MANIFEST_SCHEMA, "domain": domain, "files": {}})
+693607	    failures: list = []
+693608	    for entry in registry["sources"]:
+693609	        sid = entry["id"]
+693610	        if only and sid not in only:
+693611	        if entry.get("open") == "no":
+693612	            log(f"  skip {sid}: not fully open ({entry.get('licence')})")
+693613	        if entry.get("open") != "yes" and not include_unverified:
+693614	            log(f"  skip {sid}: licence unverified (use --include-unverified to snapshot it for review)")
+693615	        module = load_module(domain, entry, root)
+693616	        if module is None or getattr(module, "STATUS", "placeholder") not in ("ready", "snapshot"):
+693617	            log(f"  skip {sid}: fetcher is a placeholder ({entry.get('lane', 'no lane')})")
+693618	        for request in module.raw_requests():
+693619	            rel = f"{sid}/{_safe_file(request['file'])}"
+693621	                payload = opener(request)
+693622	            except OSError as error:  # network failure: recorded, previous snapshot kept, run continues
+693623	                log(f"::warning::{domain}/{rel}: fetch failed ({type(error).__name__}: {error}); "
+693624	                    "the previous snapshot, if any, is kept; unknown, not zero")
+693625	                failures.append(rel)
+693627	            digest = sha256_bytes(payload)
+693628	            pinned = manifest["files"].get(rel)
+693629	            if pinned and pinned["sha256"] != digest and not update_pins:
+693630	                raise PipelineError(
+693631	                    f"{domain}/raw/{rel}: upstream bytes changed ({pinned['sha256'][:12]} -> {digest[:12]}); "
+693632	                    "review the change and rerun with --update-pins")
+693633	            committed = len(payload) <= MAX_RAW_COMMIT_BYTES
+693634	            target = raw_dir / rel
+693635	            if committed:
+693636	                target.parent.mkdir(parents=True, exist_ok=True)
+693637	                target.write_bytes(payload)
+693638	            manifest["files"][rel] = {
+693639	                "source_id": sid,
+693640	                "url": request["url"],
+693641	                "method": "POST" if request.get("data") is not None else "GET",
+693642	                "bytes": len(payload),
+693643	                "sha256": digest,
+693644	                "committed": committed,
+693645	                # An unchanged file keeps the time it was first seen, so a re-fetch that
+693646	                # changes nothing leaves no diff.
+693647	                "fetched_at": pinned["fetched_at"] if pinned and pinned["sha256"] == digest else stamp,
+693649	            log(f"  {rel:<48} {len(payload):>11,} bytes  {digest[:16]}{'' if committed else '  (not committed: too large)'}")
+693650	    manifest["files"] = dict(sorted(manifest["files"].items()))
+693651	    if manifest["files"] or manifest_path.exists():
+693652	        write_text(manifest_path, canonical_text(manifest))
+693653	    manifest["failures"] = failures  # reported to the caller, never written into the pins
+693655	# --- normalise ---------------------------------------------------------------------------------
+693656	def read_raw(domain: str, source_id: str, *, root: Path = ROOT) -> dict:
+693657	    """The raw bytes for one source, each checked against its pinned sha256."""
+693658	    manifest = read_json(raw_dir / "MANIFEST.json", {"files": {}})
+693659	    raw = {}
+693660	    for rel, meta in manifest["files"].items():
+693661	        if meta.get("source_id") != source_id:
+693662	        path = raw_dir / rel
+693664	            raise PipelineError(f"{domain}/raw/{rel} is pinned but not on disk; fetch it first")
+693665	        if sha256_bytes(data) != meta["sha256"]:
+693666	            raise PipelineError(f"{domain}/raw/{rel} does not match its pinned sha256")
+693667	        raw[rel.split("/", 1)[1]] = data
+693669	def build_collection(domain: str, entry: dict, records: list, raw_manifest: dict) -> dict:
+693670	    schema_name, validate = VALIDATORS[domain]
+693672	    for rec in records:
+693673	        for p in validate(rec):
+693674	            problems.append(f"{rec.get('id') if isinstance(rec, dict) else '?'}: {p}")
+693675	        if isinstance(rec, dict):
+693676	            if rec.get("id") in seen:
+693677	                problems.append(f"{rec.get('id')}: duplicate id")
+693678	            seen.add(rec.get("id"))
+693679	            src = rec.get("source") or {}
+693680	            if src.get("id") != entry["id"] or src.get("licence") != entry["licence"]:
+693681	                problems.append(f"{rec.get('id')}: source id/licence differ from the registry entry")
+693683	        shown = "\n  ".join(problems[:50])
+693684	        raise PipelineError(f"{domain}/{entry['id']}: {len(problems)} schema problem(s):\n  {shown}")
+693685	    raw_files = {rel: meta["sha256"] for rel, meta in raw_manifest["files"].items()
+693686	                 if meta.get("source_id") == entry["id"]}
+693690	            "schema": SCHEMA_COLLECTION,
+693691	            "record_schema": schema_name,
+693692	            "domain": domain,
+693693	            "source_id": entry["id"],
+693694	            "publisher": entry.get("publisher"),
+693695	            "licence": entry["licence"],
+693696	            "licence_url": entry["licence_url"],
+693697	            "attribution": entry.get("attribution"),
+693698	            "raw_sha256": dict(sorted(raw_files.items())),
+693699	            "count": len(records),
+693700	            "honesty": [
+693701	                "Proximity is not connection, capacity or feasibility.",
+693702	                "A pipeline entry is not a commitment.",
+693703	                "Unknown is null, not zero.",
+693706	        "features": [record_to_feature(r) for r in sorted(records, key=lambda r: r["id"])],
+693708	def normalise_domain(domain: str, *, root: Path = ROOT, only=None, log=print) -> dict:
+693709	    """Rebuild normalised/<id>.geojson for every fully open, ready source with raw files."""
+693710	    ddir = domain_dir(domain, root)
+693711	    raw_manifest = read_json(ddir / "raw" / "MANIFEST.json", {"files": {}})
+693712	    out_dir = ddir / "normalised"
+693713	    index = read_json(out_dir / "INDEX.json", {"schema": INDEX_SCHEMA, "domain": domain, "outputs": {}})
+693714	        if entry.get("open") != "yes":
+693715	            continue  # never publish a source that is not confirmed fully open
+693716	        if module is None or getattr(module, "STATUS", "placeholder") != "ready":
+693717	        raw = read_raw(domain, sid, root=root)
+693719	            log(f"  skip {sid}: no raw snapshot yet")
+693720	        collection = build_collection(domain, entry, module.normalise(raw), raw_manifest)
+693721	        text = collection_text(collection)
+693722	        rel = f"{sid}.geojson"
+693723	        write_text(out_dir / rel, text)
+693724	        index["outputs"][rel] = {
+693725	            "source_id": sid,
+693726	            "count": collection["metadata"]["count"],
+693727	            "sha256": sha256_bytes(text.encode("utf-8")),
+693728	            "share_alike": bool(entry.get("share_alike")),
+693730	        log(f"  {domain}/normalised/{rel:<40} {collection['metadata']['count']:>6} records")
+693731	    index["outputs"] = dict(sorted(index["outputs"].items()))
+693732	    licences = sorted({o["licence"] for o in index["outputs"].values()})
+693733	    index["combined_licence_note"] = (
+693734	        "Outputs are per source and keep their own licence. Any product that merges an ODbL "
+693735	        "source (share_alike: true) with others is itself an ODbL database." if licences else None)
+693736	    write_text(out_dir / "INDEX.json", canonical_text(index))
+693738	def domain_paths(root: Path = ROOT):
+693739	    for domain in DOMAINS:
+693740	        yield domain, domain_dir(domain, root)
+693741	def env_flag(name: str) -> bool:
+693742	    return os.environ.get(name, "").strip() in ("1", "true", "yes")
+693743	"""Record schemas for the two domains, and validators that return a list of problems.
+693744	The rules that matter most are written as code, not prose, so they cannot drift:
+693745	- IT load MW and grid connection MW are two separate fields and are never merged.
+693746	  A record that carries a bare ``mw``, ``capacity_mw`` or ``power_mw`` on a data
+693747	  centre is rejected: nobody downstream could tell which of the two it meant.
+693748	- Unknown is ``null``, never ``0``. A zero MW, a zero year or an empty string
+693749	  standing in for "not known" is rejected.
+693750	- Every record names its source, the source's licence and licence URL, and an
+693751	  evidence URL a person can open.
+693752	- A pipeline status is a stage in a public process, not a commitment; there is no
+693753	  "committed" or "confirmed" status to choose.
+693754	- Location precision is stated. A point placed at a postcode or a town centre
+693755	  says so, and a record with no location has ``precision: "unknown"`` and no point.
+693758	SCHEMA_DATACENTRE = "gb-datacentre-pipeline-record.v1"
+693759	SCHEMA_CONVENTIONAL = "gb-conventional-generation-record.v1"
+693760	SCHEMA_COLLECTION = "gb-asset-collection.v1"
+693761	DATACENTRE_STATUSES = (
+693762	    "operational",
+693763	    "under_construction",
+693764	    "consented",
+693765	    "in_planning",
+693766	    "connection_request",
+693767	    "announced",
+693770	CONVENTIONAL_STATUSES = (
+693771	    "mothballed",
+693772	    "closed",
+693773	CONVENTIONAL_FUELS = (
+693774	    "gas",
+693775	    "coal",
+693776	    "oil",
+693777	    "nuclear",
+693778	    "biomass",
+693779	    "efw",        # energy from waste
+693780	    "diesel",
+693781	    "gas_oil_dual",
+693782	    "other_thermal",
+693783	LOCATION_PRECISIONS = (
+693784	    "exact",       # a mapped building or site outline / its centroid
+693785	    "site",        # a published site point (e.g. a register's grid reference)
+693786	    "address",     # geocoded street address
+693787	    "postcode",    # postcode centroid
+693788	    "locality",    # town or village centre
+693789	    "region",      # local authority / region only
+693790	    "unknown",     # no location; geometry is null
+693791	OPEN_VALUES = ("yes", "no", "unverified")
+693792	# A rectangle round Great Britain, Northern Ireland and the islands, not the border.
+693793	GB_BOUNDS = (-11.0, 49.0, 2.5, 61.5)  # west, south, east, north
+693794	FORBIDDEN_DATACENTRE_MW_KEYS = ("mw", "capacity_mw", "power_mw", "load_mw", "demand_mw")
+693795	DATE_RE = re.compile(r"^\d{4}(-\d{2}(-\d{2})?)?$")  # year, year-month or full date
+693796	URL_RE = re.compile(r"^https://\S+$")
+693797	ID_RE = re.compile(r"^[a-z0-9][a-z0-9_.:-]*$")
+693798	DATACENTRE_DATE_KEYS = ("announced", "application", "consented", "connection_offer",
+693799	                        "energisation", "operational")
+693800	def _is_number(value) -> bool:
+693802	def _check_mw(rec: dict, key: str, problems: list) -> None:
+693803	    if key not in rec:
+693804	        problems.append(f"{key} missing (use null when unknown)")
+693806	    value = rec[key]
+693808	    if not _is_number(value):
+693809	        problems.append(f"{key} is not a number or null: {value!r}")
+693810	    elif value <= 0:
+693811	        problems.append(f"{key} is {value}: unknown is null, not zero or negative")
+693812	def _check_common(rec: dict, problems: list) -> None:
+693813	    if not isinstance(rec.get("id"), str) or not ID_RE.match(rec["id"]):
+693814	        problems.append(f"id missing or not a lower-case slug: {rec.get('id')!r}")
+693815	    for key in ("name", "operator"):
+693816	        if key not in rec:
+693817	            problems.append(f"{key} missing (use null when unknown)")
+693818	        elif rec[key] is not None and (not isinstance(rec[key], str) or not rec[key].strip()):
+693819	            problems.append(f"{key} is an empty string; unknown is null")
+693820	    source = rec.get("source")
+693821	    if not isinstance(source, dict):
+693822	        problems.append("source object missing")
+693824	        for key in ("id", "licence", "licence_url", "evidence_url"):
+693825	            if not isinstance(source.get(key), str) or not source[key].strip():
+693826	                problems.append(f"source.{key} missing")
+693827	        for key in ("licence_url", "evidence_url"):
+693828	            if isinstance(source.get(key), str) and not URL_RE.match(source[key]):
+693829	                problems.append(f"source.{key} is not an https URL: {source[key]!r}")
+693830	    location = rec.get("location")
+693831	    if not isinstance(location, dict):
+693832	        problems.append("location object missing")
+693833	    precision = location.get("precision")
+693834	    if precision not in LOCATION_PRECISIONS:
+693835	        problems.append(f"location.precision {precision!r} not in {LOCATION_PRECISIONS}")
+693836	    lon, lat = location.get("lon"), location.get("lat")
+693837	    if precision == "unknown":
+693838	        if lon is not None or lat is not None:
+693839	            problems.append("location.precision is unknown but a point is given")
+693840	        if not (_is_number(lon) and _is_number(lat)):
+693841	            problems.append("location.lon/lat missing for a located record")
+693842	            w, s, e, n = GB_BOUNDS
+693843	            if not (w <= lon <= e and s <= lat <= n):
+693844	                problems.append(f"location ({lon}, {lat}) is outside the GB/NI rectangle")
+693845	def validate_datacentre(rec) -> list:
+693846	    problems: list = []
+693847	    if not isinstance(rec, dict):
+693848	        return ["record is not an object"]
+693849	    _check_common(rec, problems)
+693850	    for key in FORBIDDEN_DATACENTRE_MW_KEYS:
+693851	        if key in rec:
+693852	            problems.append(f"{key} is ambiguous: use it_load_mw or grid_connection_mw, never both in one field")
+693853	    if rec.get("status") not in DATACENTRE_STATUSES:
+693854	        problems.append(f"status {rec.get('status')!r} not in {DATACENTRE_STATUSES}")
+693855	    _check_mw(rec, "it_load_mw", problems)
+693856	    _check_mw(rec, "grid_connection_mw", problems)
+693857	    dates = rec.get("dates")
+693858	    if not isinstance(dates, dict):
+693859	        problems.append("dates object missing (use {} when none are known)")
+693860	        for key, value in dates.items():
+693861	            if key not in DATACENTRE_DATE_KEYS:
+693862	                problems.append(f"dates.{key} is not one of {DATACENTRE_DATE_KEYS}")
+693863	            elif value is not None and (not isinstance(value, str) or not DATE_RE.match(value)):
+693864	                problems.append(f"dates.{key} is not YYYY[-MM[-DD]] or null: {value!r}")
+693865	def validate_conventional(rec) -> list:
+693866	    if rec.get("fuel") not in CONVENTIONAL_FUELS:
+693867	        problems.append(f"fuel {rec.get('fuel')!r} not in {CONVENTIONAL_FUELS}")
+693868	    if rec.get("status") not in CONVENTIONAL_STATUSES:
+693869	        problems.append(f"status {rec.get('status')!r} not in {CONVENTIONAL_STATUSES}")
+693870	    _check_mw(rec, "capacity_mw", problems)
+693871	    if rec.get("capacity_mw") is not None and not (isinstance(rec.get("capacity_basis"), str)
+693872	                                                   and rec["capacity_basis"].strip()):
+693873	        problems.append("capacity_basis missing: say what the MW is (e.g. 'DUKES installed capacity')")
+693874	    year = rec.get("commissioned_year")
+693875	    if year is not None and not (isinstance(year, int) and not isinstance(year, bool) and 1880 <= year <= 2100):
+693876	        problems.append(f"commissioned_year is not a plausible year or null: {year!r}")
+693877	VALIDATORS = {
+693878	    "datacentres": (SCHEMA_DATACENTRE, validate_datacentre),
+693879	    "conventional": (SCHEMA_CONVENTIONAL, validate_conventional),
+693881	def record_to_feature(rec: dict) -> dict:
+693882	    """A record as a GeoJSON Feature; the location block stays in properties too."""
+693883	    location = rec.get("location") or {}
+693884	    geometry = None
+693885	    if location.get("precision") != "unknown" and _is_number(location.get("lon")) and _is_number(location.get("lat")):
+693886	        geometry = {"type": "Point", "coordinates": [round(location["lon"], 6), round(location["lat"], 6)]}
+693887	    return {"type": "Feature", "id": rec["id"], "geometry": geometry, "properties": rec}
+693888	"""Read a worksheet from raw .xlsx bytes (DUKES 5.11 and similar government tables).
+693889	openpyxl is the only optional dependency of the asset pipelines (requirements.txt).
+693890	Fetching, pinning, verifying and reproducing never need it; only a normaliser that
+693891	reads a spreadsheet does, and it fails with a clear message when it is absent.
+693893	class MissingDependency(RuntimeError):
+693894	def available() -> bool:
+693896	        import openpyxl  # noqa: F401
+693900	def sheet_rows(data: bytes, sheet: str) -> list:
+693901	    """Every row of ``sheet`` as a list of plain values (str, int, float, None)."""
+693902	        import openpyxl
+693904	        raise MissingDependency("reading .xlsx sources needs openpyxl: pip install -r requirements.txt") from error
+693905	    book = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=True)
+693906	        if sheet not in book.sheetnames:
+693907	            raise KeyError(f"sheet {sheet!r} not in {book.sheetnames}")
+693908	        return [list(row) for row in book[sheet].iter_rows(values_only=True)]
+693911	"""CI helpers (ci/verify.py)."""
+693913	"""Verify the committed data-centre and conventional-generation data. Fails closed.
+693914	    python ci/verify.py [--root .] [--domain datacentres|conventional|all]
+693915	Checks, per domain, each only when its file exists:
+693916	- registry   ``sources.json`` and ``NOTICE``: schema, unique ids, open in yes/no/unverified, a NOTICE entry per source, a
+693917	             licence and licence URL for every open source, and no ready fetcher
+693918	             for a source that is not fully open;
+693919	- raw        ``raw/MANIFEST.json``: every committed file exists with the pinned
+693920	             bytes and sha256; no raw file sits on disk without a pin;
+693921	- outputs    ``normalised/*.geojson``: listed in ``INDEX.json`` with the same
+693922	             sha256 and count; from a registered source with ``open: "yes"``;
+693923	             licence equal to the registry's; ``raw_sha256`` equal to the pins;
+693924	             every feature a valid record (assetpipe.schema: IT load and grid
+693925	             connection MW separate, unknown is null not zero, licence and
+693926	             evidence URL present, location precision stated); unique ids;
+693927	             the three honesty sentences present.
+693928	- lanes      ``lanes/lanes.json`` + ``lanes/MANIFEST.json``: every committed file in
+693929	             every vendored lane directory matches its pin, nothing unpinned, no
+693930	             lane that is not fully open, pinned inputs intact, and no outputs
+693931	             from a lane whose licence is unverified (``--allow-unverified-lanes``
+693932	             relaxes only that last rule, for review branches).
+693933	Exit 0 when every check passes, 1 otherwise (``::error::`` lines), as
+693934	lightning's ci/verify_data.py does.
+693937	from assetpipe import DOMAINS  # noqa: E402
+693938	from assetpipe import lanes as lanelib  # noqa: E402
+693939	from assetpipe.schema import OPEN_VALUES, SCHEMA_COLLECTION, VALIDATORS  # noqa: E402
+693940	HONESTY = (
+693941	    "Proximity is not connection, capacity or feasibility.",
+693942	    "A pipeline entry is not a commitment.",
+693943	    "Unknown is null, not zero.",
+693944	STATUS_LINE = re.compile(r'^STATUS = "(\w+)"', re.M)
+693945	def fetcher_status(path: Path) -> str:
+693946	    match = STATUS_LINE.search(path.read_text(encoding="utf-8"))
+693947	    return match.group(1) if match else "missing"
+693948	IGNORED_RAW = {"MANIFEST.json", ".gitkeep", "README.md"}
+693951	def check_registry(ddir: Path, domain: str) -> tuple[str, dict]:
+693952	    reg = json.loads((ddir / "sources.json").read_text(encoding="utf-8"))
+693953	    if reg.get("schema") != "gb-asset-source-registry.v1" or reg.get("domain") != domain:
+693954	        raise ValueError("not a gb-asset-source-registry.v1 for this domain")
+693956	    for entry in reg.get("sources", []):
+693957	        sid = entry.get("id")
+693958	        if not sid or sid in by_id:
+693959	            raise ValueError(f"missing or duplicate source id {sid!r}")
+693960	        if entry.get("open") not in OPEN_VALUES:
+693961	            raise ValueError(f"{sid}: open must be one of {OPEN_VALUES}")
+693962	        if entry["open"] == "yes":
+693963	            for key in ("licence", "licence_url", "url", "publisher"):
+693964	                if not entry.get(key):
+693965	                    raise ValueError(f"{sid}: open source without {key}")
+693966	            if not str(entry["licence_url"]).startswith("https://"):
+693967	                raise ValueError(f"{sid}: licence_url is not https")
+693968	        module = entry.get("module")
+693969	        if module:
+693970	            path = ddir / "fetchers" / f"{module}.py"
+693971	            if not path.exists():
+693972	                raise ValueError(f"{sid}: fetcher {path.relative_to(ddir.parent)} missing")
+693974	            if f'SOURCE_ID = "{sid}"' not in text:
+693975	                raise ValueError(f"{sid}: {path.name} does not declare SOURCE_ID = \"{sid}\"")
+693976	            if fetcher_status(path) not in ("ready", "snapshot", "placeholder"):
+693977	                raise ValueError(f"{sid}: {path.name} has no STATUS = \"ready|snapshot|placeholder\" line")
+693978	            if entry["open"] == "no" and fetcher_status(path) != "placeholder":
+693979	                raise ValueError(f"{sid}: a source that is not fully open has a ready fetcher")
+693980	        by_id[sid] = entry
+693981	    notice = (ddir / "NOTICE").read_text(encoding="utf-8") if (ddir / "NOTICE").exists() else ""
+693982	    for sid, entry in by_id.items():
+693983	        if f"{sid}  (open: {entry['open']})" not in notice:
+693984	            raise ValueError(f"NOTICE has no entry '{sid}  (open: {entry['open']})' matching the registry")
+693985	    states = [fetcher_status(ddir / "fetchers" / f"{e['module']}.py") for e in by_id.values() if e.get("module")]
+693986	    return (f"registry ok ({len(by_id)} sources, {states.count('ready')} ready, "
+693987	            f"{states.count('snapshot')} snapshot-only)"), by_id
+693988	def check_raw(ddir: Path) -> tuple[str, dict]:
+693989	    raw_dir = ddir / "raw"
+693991	        stray = [p for p in raw_dir.rglob("*") if p.is_file() and p.name not in IGNORED_RAW] if raw_dir.exists() else []
+693992	        if stray:
+693993	            raise ValueError(f"raw files without a MANIFEST.json: {[str(p.relative_to(ddir)) for p in stray[:5]]}")
+693994	        return "raw ok (no snapshots yet)", {"files": {}}
+693996	    if manifest.get("schema") != "gb-asset-raw-manifest.v1":
+693997	        raise ValueError("raw/MANIFEST.json is not gb-asset-raw-manifest.v1")
+693998	        if not meta.get("committed", True):
+693999	            raise ValueError(f"raw/{rel} is pinned but missing")
+694000	        if len(data) != meta["bytes"] or hashlib.sha256(data).hexdigest() != meta["sha256"]:
+694001	            raise ValueError(f"raw/{rel} does not match its pinned bytes/sha256")
+694002	        if not str(meta.get("url", "")).startswith("https://"):
+694003	            raise ValueError(f"raw/{rel} was not fetched from an https URL")
+694004	    on_disk = {p.relative_to(raw_dir).as_posix() for p in raw_dir.rglob("*")
+694005	               if p.is_file() and p.name not in IGNORED_RAW}
+694006	    orphans = sorted(on_disk - set(manifest["files"]))
+694008	        raise ValueError(f"raw files without a pin: {orphans[:5]}")
+694009	    return f"raw ok ({len(manifest['files'])} pinned files)", manifest
+694010	def check_outputs(ddir: Path, domain: str, registry: dict, manifest: dict) -> str:
+694011	    files = sorted(p for p in out_dir.glob("*.geojson")) if out_dir.exists() else []
+694012	    index_path = out_dir / "INDEX.json"
+694013	    index = json.loads(index_path.read_text(encoding="utf-8")) if index_path.exists() else {"outputs": {}}
+694014	    listed = set(index.get("outputs", {}))
+694015	    present = {p.name for p in files}
+694016	    if listed != present:
+694017	        raise ValueError(f"INDEX.json lists {sorted(listed)} but normalised/ holds {sorted(present)}")
+694020	        meta_index = index["outputs"][path.name]
+694021	        if sha256_file(path) != meta_index["sha256"]:
+694022	            raise ValueError(f"{path.name}: sha256 differs from INDEX.json")
+694023	        obj = json.loads(path.read_text(encoding="utf-8"))
+694024	        meta = obj.get("metadata") or {}
+694025	        if obj.get("type") != "FeatureCollection" or meta.get("schema") != SCHEMA_COLLECTION:
+694026	            raise ValueError(f"{path.name}: not a {SCHEMA_COLLECTION} FeatureCollection")
+694027	        if meta.get("record_schema") != schema_name or meta.get("domain") != domain:
+694028	            raise ValueError(f"{path.name}: record_schema/domain mismatch")
+694029	        sid = meta.get("source_id")
+694030	        entry = registry.get(sid)
+694031	        if entry is None:
+694032	            raise ValueError(f"{path.name}: source {sid!r} is not in the registry")
+694033	        if entry["open"] != "yes":
+694034	            raise ValueError(f"{path.name}: source {sid} is not marked fully open (open: {entry['open']})")
+694035	        if meta.get("licence") != entry["licence"] or meta.get("licence_url") != entry["licence_url"]:
+694036	            raise ValueError(f"{path.name}: licence differs from the registry")
+694037	        pins = {rel: m["sha256"] for rel, m in manifest["files"].items() if m.get("source_id") == sid}
+694038	        if meta.get("raw_sha256") != pins or not pins:
+694039	            raise ValueError(f"{path.name}: raw_sha256 does not equal the raw pins for {sid}")
+694040	        if list(meta.get("honesty") or []) != list(HONESTY):
+694041	            raise ValueError(f"{path.name}: the honesty sentences are missing or altered")
+694042	        features = obj.get("features")
+694043	        if not isinstance(features, list) or len(features) != meta.get("count") or len(features) != meta_index["count"]:
+694044	            raise ValueError(f"{path.name}: feature count differs from metadata/INDEX")
+694046	        for i, feature in enumerate(features):
+694047	            props = (feature or {}).get("properties")
+694048	            problems = validate(props)
+694049	            if problems:
+694050	                raise ValueError(f"{path.name} feature {i}: {problems[0]}")
+694051	            if feature.get("id") != props["id"] or props["id"] in seen:
+694052	                raise ValueError(f"{path.name} feature {i}: id mismatch or duplicate {props['id']!r}")
+694053	            if (props.get("source") or {}).get("id") != sid:
+694054	                raise ValueError(f"{path.name} feature {i}: record source differs from the file's source")
+694055	            seen.add(props["id"])
+694056	            geometry = feature.get("geometry")
+694057	            if (props["location"]["precision"] == "unknown") != (geometry is None):
+694058	                raise ValueError(f"{path.name} feature {i}: geometry and location.precision disagree")
+694059	        total += len(features)
+694060	    return f"outputs ok ({len(files)} files, {total} records)"
+694064	    parser.add_argument("--domain", default="all", choices=(*DOMAINS, "all"))
+694065	    parser.add_argument("--allow-unverified-lanes", action="store_true",
+694066	                        help="accept lane outputs whose licence is unverified (review branches only; never main)")
+694069	    for domain in (DOMAINS if args.domain == "all" else (args.domain,)):
+694070	        ddir = args.root / domain
+694071	        if not (ddir / "sources.json").exists():
+694072	            print(f"::error::verify {domain}: sources.json missing")
+694073	            failed = True
+694074	            message, registry = check_registry(ddir, domain)
+694075	            print(f"verify {domain}: {message}")
+694076	            message, manifest = check_raw(ddir)
+694077	            print(f"verify {domain}: {check_outputs(ddir, domain, registry, manifest)}")
+694078	            problems = lanelib.check_manifest(domain, args.root, strict_open=not args.allow_unverified_lanes)
+694079	                raise ValueError("lanes: " + "; ".join(problems[:10]))
+694080	            n = len(lanelib.load_lanes(domain, args.root)["lanes"])
+694081	            print(f"verify {domain}: lanes ok ({n} vendored lanes, every file pinned)")
+694083	            print(f"::error::verify {domain}: {type(error).__name__}: {error}")
+694087	"""UK conventional generation: see conventional/README.md."""
+694088	"""One module per source; the contract is in assetpipe/pipeline.py (FETCHER_CONTRACT)."""
+694089	"""DUKES Table 5.11: Power stations in the United Kingdom (DESNZ, OGL v3.0).
+694090	SNAPSHOT. The fetch workflow downloads and pins the May 2026 edition. No normaliser
+694091	exists yet: the sandbox that built lane DC-A6 could not reach gov.uk, so nobody has
+694092	seen this edition's sheet layout. A parser written without seeing it would be a
+694093	guess. Once the snapshot is committed, DC-A6 (or a successor) writes ``normalise``
+694094	against the pinned bytes and sets STATUS = "ready". Its output then fills the fuel,
+694095	technology, status and installed capacity of the 167 "unstated" sites in
+694096	conventional/lanes/dc-a6.
+694097	Licence: "All content is available under the Open Government Licence v3.0" (GOV.UK
+694098	DUKES chapter 5 page, quoted by DC-A6 on 29 Oct 2026).
+694099	SOURCE_ID = "dukes-5-11"
+694100	LANE = "DC-A6"
+694101	STATUS = "snapshot"
+694102	# Pinned to one edition. A new DUKES edition is a new URL and a reviewed change here.
+694103	URL = "https://assets.publishing.service.gov.uk/media/6a6a365b0ddb7e4831c629f3/DUKES_5.11.xlsx"
+694104	def raw_requests():
+694105	    return [{"file": "DUKES_5.11-2026-05.xlsx", "url": URL}]
+694106	def normalise(raw):
+694107	    raise NotImplementedError("dukes-5-11: snapshot only; write the parser against the pinned bytes")
+694108	"""OpenStreetMap power=plant with a conventional plant:source.
+694109	PLACEHOLDER. Lane TBC (DC-A1..A6) owns this source; its fetcher replaces this file when it
+694110	lands, keeping the contract in assetpipe/pipeline.py (FETCHER_CONTRACT). Until then the
+694111	pipeline skips it and never fails because of it.
+694112	Registry entry: conventional/sources.json id "osm-power-plants" (open: yes, licence: ODbL-1.0).
+694113	SOURCE_ID = "osm-power-plants"
+694114	LANE = "TBC (DC-A1..A6)"
+694115	STATUS = "placeholder"
+694117	    raise NotImplementedError("osm-power-plants: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694118	"""WRI Global Power Plant Database, GB rows (v1.3.0).
+694119	Registry entry: conventional/sources.json id "wri-gppd" (open: yes, licence: CC-BY-4.0).
+694120	SOURCE_ID = "wri-gppd"
+694121	    raise NotImplementedError("wri-gppd: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694122	"""DC-A6 (issue #73 step 5): open UK CONVENTIONAL power assets for the Grid Engine's 30-nearest query.
+694123	Standard library only, deterministic (no clock, sorted output, fixed float rounding). Run with `python3 -I`.
+694124	Inputs (all pinned by sha256; the build refuses any other bytes):
+694125	  offtakers  GridAtlas data/offtakers_filtered_202610290945.geojson, class B "Power station" (358 sites).
+694126	             Built by OT-filter + R-otdata: NAEI 2023 point sources (OGL v3.0), OSM power=plant (ODbL 1.0),
+694127	             WRI GPPD v1.3.0 (CC BY 4.0), with R-otdata's verified closure/closing/conversion statuses.
+694128	  gppd       WRI Global Power Plant Database v1.3.0 CSV (CC BY 4.0). Only GBR rows whose `source` is NOT the
+694129	             UK REPD and whose fuel is thermal/nuclear are used (84 rows; 73 cite BEIS DUKES).
+694130	  status     R-otdata out/status_curated.csv (each row's page fetched 29 Oct 2026), applied to GPPD rows that
+694131	             the offtakers class does not already carry.
+694132	  repd       GridAtlas data/repd_browser_registry_202608290716.json (REPD Q2 2026, DESNZ, OGL v3.0), used ONLY
+694133	             for the exclusion rule below; no REPD row is ever copied into this set.
+694134	REPD rule (no double counting with the Grid Engine's 30-nearest REPD list):
+694135	  A site whose current fuel is renewable-scope (biomass, waste/EfW, landfill gas, biogas) is EXCLUDED when a REPD
+694136	  bioenergy/EfW record (Biomass (dedicated|co-firing), EfW Incineration, Landfill Gas, Anaerobic Digestion, Sewage
+694137	  Sludge Digestion, Advanced Conversion Technologies) lies within 1 km and is in the same technology group (thermal:
+694138	  biomass/EfW/ACT; gas: landfill/AD/sewage), or lies within 5 km and shares a distinctive name token (REPD points are
+694139	  often postcode-level, so a 2-3 km offset for the same plant is common). A record of the other group counts only within
+694140	  0.5 km with a shared name token (e.g. an NAEI 'EfW' row that is a REPD landfill-gas scheme of the same name). For a site that is operating/unknown/converted only an OPERATIONAL REPD record counts
+694141	  (a planned REPD project at the same place is a different asset). The excluded sites are listed with the REPD ref in excluded_repd.json. A renewable-scope site with no
+694142	  such REPD record is KEPT and flagged repd_rule="renewable-scope, no REPD match" (it may be below the REPD
+694143	  threshold, closed and so absent from the 4-status registry, or a coordinate miss). Fossil, nuclear and
+694144	  fossil-CHP sites are never excluded (REPD carries none).
+694145	import csv, hashlib, json, math, re, sys, os, collections
+694147	HARD = os.path.dirname(os.path.dirname(HERE))
+694148	GA = "/home/claude/gridatlas/data"
+694149	INPUTS = {
+694150	    "offtakers": (os.path.join(GA, "offtakers_filtered_202610290945.geojson"),
+694151	                  "6fc20e04fdcaadc55d723354848bcf77d3871e9d088a29cbf7ea3a76890b6730"),
+694152	    "gppd": (os.path.join(HARD, "evidence/OT-filter/data/gppd/gppd.csv"),
+694153	             "4b1f93e0fd93664f18684d9b05d0a52ed9658c6a8cf0d21ff2520791379ba7fc"),
+694154	    "status": (os.path.join(HARD, "evidence/R-otdata/out/status_curated.csv"),
+694155	               "04c8f83acd5f8e14a2e4f8a28bc04535b3951bf21e8ce13c11e74a23ecdf58a6"),
+694156	    "repd": (os.path.join(GA, "repd_browser_registry_202608290716.json"),
+694157	             "c8a5c59be878c52014a272eb0e4d09af06a0d301d10a8d6b5d0b116b5d1bb6bc"),
+694158	GENERATION = "DC-A6-202610292000"
+694159	OUT = os.path.join(HERE, "out")
+694160	# data-grid-gb vendoring (DC-A8): inputs and output dir may be redirected; the sha256 pins above are unchanged.
+694161	if os.environ.get("DC_A6_INPUT_DIR"):
+694162	    INPUTS = {k: (os.path.join(os.environ["DC_A6_INPUT_DIR"], os.path.basename(p)), h) for k, (p, h) in INPUTS.items()}
+694163	OUT = os.environ.get("DC_A6_OUT", OUT)
+694164	LIC = {
+694165	    "NAEI": ("NAEI point sources 2023 (Defra/DESNZ)", "https://naei.energysecurity.gov.uk/data/maps/emissions-point-sources",
+694166	             "OGL v3.0: 'published by Defra, DESNZ and the Devolved Governments under the Open Government Licence'"),
+694167	    "OSM": ("OpenStreetMap power=plant", "https://www.openstreetmap.org/copyright",
+694168	            "ODbL 1.0, (c) OpenStreetMap contributors (attribution + share-alike)"),
+694169	    "GPPD": ("WRI Global Power Plant Database v1.3.0", "https://github.com/wri/global-power-plant-database",
+694170	             "CC BY 4.0: 'available ... under a Creative Commons-Attribution 4.0 (CC BY 4.0) license'"),
+694171	    "STATUS": ("R-otdata verified status table (29 Oct 2026)", None, "facts cited from the per-row source URL"),
+694172	BIO_REPD = {"Biomass (dedicated)", "Biomass (co-firing)", "EfW Incineration", "Landfill Gas", "Anaerobic Digestion",
+694173	            "Sewage Sludge Digestion", "Advanced Conversion Technologies"}
+694174	RENEWABLE_SCOPE = {"biomass", "waste", "landfill_gas", "biogas"}
+694175	THERMAL_GROUP = {"Biomass (dedicated)", "Biomass (co-firing)", "EfW Incineration", "Advanced Conversion Technologies"}
+694176	GAS_GROUP = {"Landfill Gas", "Anaerobic Digestion", "Sewage Sludge Digestion"}
+694177	COMPAT = {"biomass": THERMAL_GROUP, "waste": THERMAL_GROUP, "landfill_gas": GAS_GROUP, "biogas": GAS_GROUP}
+694178	NEAR_KM, NAME_KM, CROSS_KM = 1.0, 5.0, 0.5
+694179	STOP = set("""power station stations plant plants energy biomass limited ltd renewable renewables works site generation
+694180	generating centre center facility road unit units phase the park recovery waste efw chp heat combined and of uk
+694181	plc company services service gas fired thermal electricity electric industrial estate lane street new north south
+694182	east west great green project scheme district facility""".split())
+694186	        for b in iter(lambda: fh.read(1 << 20), b""):
+694189	def hav_km(lat1, lon1, lat2, lon2):
+694190	    r = math.radians
+694191	    a = math.sin(r(lat2 - lat1) / 2) ** 2 + math.cos(r(lat1)) * math.cos(r(lat2)) * math.sin(r(lon2 - lon1) / 2) ** 2
+694192	    return 2 * 6371.0088 * math.asin(math.sqrt(a))
+694194	    return {t for t in re.findall(r"[a-z0-9]+", (s or "").lower()) if len(t) >= 4 and t not in STOP}
+694195	def fuel_tech(name, operator, subclass, gppd_fuels, osm_fuels):
+694196	    """Return (fuel, technology, basis). Never guesses a fuel the sources do not state."""
+694197	    n = (name or "").lower()
+694198	    g = [f.lower() for f in gppd_fuels]
+694199	    if subclass == "nuclear":
+694200	        if "hinkley point c" in n:
+694201	            return "nuclear", "nuclear (EPR, under construction)", "NAEI construction-site row; R-otdata"
+694202	        return "nuclear", ("nuclear (PWR)" if "sizewell b" in n else "nuclear (AGR)"), "subclass + site name"
+694203	    if subclass == "coal":
+694204	        return "coal", "coal steam", "GPPD fuel=Coal"
+694205	    if subclass == "oil":
+694206	        return "oil", "oil (GT/engine/diesel split not stated)", "GPPD fuel=Oil"
+694207	    if subclass == "biomass":
+694208	        return "biomass", "biomass steam", "subclass"
+694209	    if subclass == "energy_from_waste":
+694210	        return "waste", "EfW", "subclass"
+694211	    if subclass == "landfill_biogas":
+694212	        return ("biogas" if re.search(r"digest|biogas|sewage", n) else "landfill_gas"), "gas engines (landfill/biogas)", "subclass + name"
+694213	    if subclass == "chp_energy_centre":
+694214	        if "cogeneration" in g or "gas" in g or "gas" in osm_fuels:
+694215	            return "gas", "CHP", "subclass + GPPD/OSM fuel"
+694216	        return "unstated", "CHP (fuel not stated)", "subclass"
+694217	    if subclass == "gas_ccgt_large":
+694218	        return "gas", "CCGT", "subclass (NAEI/GPPD large gas)"
+694219	    if re.search(r"\bdiesel\b", n):
+694220	        return "diesel", "diesel engines", "name says diesel"
+694221	    if re.search(r"\bocgt\b|\bgt\b|gas turbine", n):
+694222	        return "gas", "OCGT", "name says GT/OCGT"
+694223	    if re.search(r"\bccgt\b", n):
+694224	        return "gas", "CCGT", "name says CCGT"
+694225	    if subclass == "peaking_reserve":
+694226	        if "gas" in g or "gas" in osm_fuels:
+694227	            return "gas", "peaking/reserve (engines or OCGT; type not stated)", "subclass + GPPD/OSM fuel=gas"
+694228	        return "unstated", "peaking/reserve (engines or OCGT; fuel not stated)", "subclass"
+694229	    if subclass == "gas_other":
+694230	        return "gas", "gas (CCGT/OCGT/engines not stated)", "GPPD/OSM fuel=gas"
+694231	    if subclass == "thermal_unspecified":
+694232	        if "gas" in g or "cogeneration" in g:
+694233	            return "gas", "gas (CCGT/OCGT/engines not stated)", "GPPD fuel"
+694234	        if "oil" in g:
+694235	            return "oil", "oil", "GPPD fuel"
+694236	        return "unstated", "thermal (fuel and type not stated)", "NAEI power-producer sector only"
+694237	    return "unstated", "thermal (fuel and type not stated)", "fallback"
+694238	def map_status(st, date):
+694239	    s = (st or "").lower()
+694240	    if s.startswith("operating 2023"):
+694241	        return "operational", "2023", "reported emissions to NAEI 2023 point sources; a later closure is not captured unless curated"
+694242	    if s.startswith("status unknown"):
+694243	        return "unknown", None, "listed in GPPD v1.3.0/OSM only, not in NAEI 2023 point sources; unknown is not zero and not closed"
+694244	    if s.startswith("construction"):
+694245	        return "construction", date, "NAEI 2023 construction-site row (R-otdata)"
+694246	    if s in ("closed", "closing", "converted"):
+694247	        return s, date, "R-otdata verified table (page fetched 29 Oct 2026)"
+694248	    return "unknown", None, "unmapped: " + st
+694250	    for k, (p, h) in INPUTS.items():
+694251	        got = sha256(p)
+694252	        if got != h:
+694253	            sys.exit(f"input {k} sha256 {got} != pinned {h}")
+694254	    ot = json.load(open(INPUTS["offtakers"][0]))
+694255	    B = [f for f in ot["features"] if f["properties"].get("class") == "B"]
+694256	    gppd = [r for r in csv.DictReader(open(INPUTS["gppd"][0], newline="", encoding="utf-8"))
+694257	            if r["country"] == "GBR" and r["source"] != "UK Renewable Energy Planning Database"
+694258	            and r["primary_fuel"] in ("Gas", "Coal", "Oil", "Nuclear", "Biomass", "Waste", "Cogeneration", "Petcoke", "Other")]
+694259	    gppd_by_id = {r["gppd_idnr"]: r for r in gppd}
+694260	    status_rows = [r for r in csv.DictReader(l for l in open(INPUTS["status"][0], newline="") if not l.startswith("#"))]
+694261	    repd = [r for r in json.load(open(INPUTS["repd"][0]))["records"] if r.get("repd_technology") in BIO_REPD
+694262	            and r.get("latitude") is not None and r.get("longitude") is not None]
+694264	    seen_gppd = set()
+694265	    for f in B:
+694267	        recs = p["records"]
+694269	        srcs = sorted({("OSM" if r["source"].startswith("OSM") else r["source"]) for r in recs})
+694270	        first = recs[0]["source"]
+694271	        prec = {"NAEI": "site point as reported to NAEI (single point per installation)",
+694272	                "GPPD": "GPPD point (geolocated by WRI from GEODB/CARMA/GEO matching; may be off by up to a few km)",
+694273	                }.get(first, "OSM power=plant node/centroid (site outline centre)")
+694274	        for r in recs:
+694275	            if r["source"] == "GPPD":
+694276	                seen_gppd.add(r["id"])
+694277	        sites.append(dict(id="CONV-" + p["id"], name=p["name"], operator=p.get("operator"), subclass=p["subclass"],
+694278	                          lat=lat, lon=lon, precision=prec, records=recs, srcs=srcs, status_raw=p["status"],
+694279	                          status_date=p.get("status_date"), status_source=p.get("status_source"),
+694280	                          origin="offtakers class B " + p["id"]))
+694281	    # GPPD (DUKES-derived) rows not carried by the offtakers class
+694282	    for gid in sorted(gppd_by_id):
+694283	        if gid in seen_gppd:
+694284	        r = gppd_by_id[gid]
+694285	        st, sd, ss = "status unknown", None, None
+694286	        for row in status_rows:
+694287	            if re.search(row["match_regex"], r["name"], re.I):
+694288	                st, sd, ss = row["status"], row["status_date"] or None, row["source_url"]
+694290	        sub = {"Gas": "gas_other", "Coal": "coal", "Oil": "oil", "Nuclear": "nuclear", "Biomass": "biomass",
+694291	               "Waste": "energy_from_waste", "Cogeneration": "chp_energy_centre"}.get(r["primary_fuel"], "thermal_unspecified")
+694292	        sites.append(dict(id="CONV-GPPD-" + gid, name=r["name"], operator=r["owner"] or None, subclass=sub,
+694293	                          lat=float(r["latitude"]), lon=float(r["longitude"]),
+694294	                          precision=f"GPPD point (geolocation_source={r['geolocation_source']}; may be off by up to a few km)",
+694295	                          records=[dict(source="GPPD", id=gid, name=r["name"], operator=r["owner"], fuel=r["primary_fuel"],
+694296	                                        mw=float(r["capacity_mw"]), lon=float(r["longitude"]), lat=float(r["latitude"]))],
+694297	                          srcs=["GPPD"], status_raw=st, status_date=sd, status_source=ss, origin="GPPD row not in offtakers class B"))
+694298	    features, excluded = [], []
+694300	        gf = [r.get("fuel") for r in s["records"] if r["source"] == "GPPD" and r.get("fuel")]
+694301	        of = {(r.get("fuel") or "").lower() for r in s["records"] if r["source"].startswith("OSM")}
+694302	        fuel, tech, fbasis = fuel_tech(s["name"], s["operator"], s["subclass"], gf, of)
+694303	        status, sdate, sbasis = map_status(s["status_raw"], s["status_date"])
+694304	        if s["status_raw"] == "converted":
+694305	            # converted coal sites: the current fuel is what the station burns now (R-otdata table fuel_note)
+694306	            nm = s["name"].lower()
+694307	            if "kilroot" in nm:
+694308	                fuel, tech, fbasis = "gas", "OCGT/gas engines (coal units closed 2023)", "R-otdata: coal closed Sep 2023, gas from 2024"
+694309	            elif "drax" in nm or "lynemouth" in nm or "ashington" in nm:
+694310	                fuel, tech, fbasis = "biomass", "biomass steam (converted from coal)", "R-otdata conversion row"
+694311	        if fuel in RENEWABLE_SCOPE and gf and set(gf) <= {"Gas", "Coal", "Oil"} and s["status_raw"] != "converted":
+694312	            fuel, tech, fbasis = gf[0].lower(), gf[0].lower() + " (type not stated)", (
+694313	                f"GPPD fuel={'/'.join(sorted(set(gf)))} overrides the offtakers subclass '{s['subclass']}' (reconciliation fix)")
+694314	        if "ashington" in s["name"].lower() and "lynemouth" in (s["operator"] or "").lower():
+694315	            fuel, tech, fbasis = "biomass", "biomass steam (converted from coal 2018)", "NAEI operator Lynemouth Power Ltd"
+694316	        mw_recs = [dict(gppd_id=r["id"], name=r["name"], fuel=r.get("fuel"), mw=r["mw"]) for r in s["records"]
+694317	                   if r["source"] == "GPPD" and r.get("mw") is not None]
+694318	        if status == "converted" and mw_recs:
+694319	            # count only the records of the fuel the site burns now (Kilroot: the closed coal units are not capacity)
+694320	            cur = [r for r in mw_recs if (r["fuel"] or "").lower() == fuel]
+694321	            for r in mw_recs:
+694322	                r["counted"] = r in cur
+694323	            mw_recs_counted = cur
+694324	                r["counted"] = True
+694325	            mw_recs_counted = mw_recs
+694326	        mw = round(sum(r["mw"] for r in mw_recs_counted), 3) if mw_recs_counted else None
+694327	        repd_hit = None
+694328	        if fuel in RENEWABLE_SCOPE:
+694329	            tk = tokens(s["name"]) | tokens(s["operator"])
+694330	            best = None
+694331	            for r in repd:
+694332	                if status in ("operational", "unknown", "converted") and r["status"] != "operational":
+694333	                    continue  # a planned REPD project at the same place is a different asset
+694334	                d = hav_km(s["lat"], s["lon"], r["latitude"], r["longitude"])
+694335	                if d > NAME_KM:
+694337	                shared = sorted(tk & tokens(r["name"]))
+694338	                same = r["repd_technology"] in COMPAT[fuel]
+694339	                if (same and (d <= NEAR_KM or shared)) or (shared and d <= CROSS_KM):
+694340	                    key = (0 if same else 1, 0 if shared else 1, d, int(r["repd_ref"]))
+694341	                    if best is None or key < best[0]:
+694342	                        best = (key, r, d, shared)
+694344	                _, r, d, shared = best
+694345	                repd_hit = dict(repd_ref=r["repd_ref"], repd_name=r["name"], repd_technology=r["repd_technology"],
+694346	                                repd_status=r["status"], distance_km=round(d, 3), shared_name_tokens=shared)
+694347	        sources = []
+694348	        for k in s["srcs"]:
+694349	            n, u, l = LIC[k]
+694350	            sources.append(dict(name=n, url=u, licence=l))
+694351	        if s["status_source"] and status in ("closed", "closing", "converted", "construction") and s["status_source"] not in [x["url"] for x in sources]:
+694352	            sources.append(dict(name="status evidence", url=s["status_source"], licence="cited fact (not redistributed data)"))
+694353	        props = dict(
+694354	            id=s["id"], name=s["name"], operator=s["operator"] or None, fuel=fuel, technology=tech, fuel_basis=fbasis,
+694355	            mw=mw, mw_basis=("installed capacity, sum of GPPD v1.3.0 records (GPPD cites BEIS DUKES 5.11; DUKES edition c. 2018-19, unverified). "
+694356	                             "Not DNC, not TEC, not a grid connection capacity. Closed sites keep their last listed capacity; converted sites count only "
+694357	                             "records of the current fuel (mw_records[].counted).") if mw is not None else "not stated in the open sources used (unknown, not zero)",
+694358	            mw_records=mw_recs, status=status, status_date=sdate, status_basis=sbasis,
+694359	            status_source=s["status_source"] if status != "unknown" else None,
+694360	            in_nearest_default=status != "closed",
+694361	            precision=s["precision"], origin=s["origin"], sources=sources,
+694362	            records=[{k: v for k, v in r.items() if k in ("source", "id", "name", "operator", "fuel", "mw", "sector")} for r in s["records"]],
+694363	            repd_rule=("renewable-scope, no REPD match (1 km same-group technology, or 5 km shared name token): kept" if fuel in RENEWABLE_SCOPE else "not renewable-scope: never excluded"),
+694364	            caveat="Listed in an open register. Proximity is not connection, capacity or feasibility.",
+694366	        feat = dict(type="Feature", geometry=dict(type="Point", coordinates=[round(s["lon"], 6), round(s["lat"], 6)]), properties=props)
+694367	        if repd_hit:
+694368	            excluded.append(dict(id=s["id"], name=s["name"], fuel=fuel, status=status, mw=mw, lat=round(s["lat"], 6), lon=round(s["lon"], 6),
+694369	                                 reason="in REPD (GridAtlas registry 202608290716): served by the 30-nearest REPD list", repd=repd_hit))
+694370	            features.append(feat)
+694371	    features.sort(key=lambda f: f["properties"]["id"])
+694372	    for a in features:
+694373	        ax, ay = a["geometry"]["coordinates"]
+694374	        a["properties"]["colocated_ids"] = [b["properties"]["id"] for b in features if b is not a
+694375	                                            and hav_km(ay, ax, b["geometry"]["coordinates"][1], b["geometry"]["coordinates"][0]) <= 0.1]
+694376	    excluded.sort(key=lambda e: e["id"])
+694377	    meta = dict(
+694378	        type="FeatureCollection", generation=GENERATION,
+694379	        title="UK conventional power assets (open data) for the Grid Engine 30-nearest query",
+694380	        inputs_sha256={k: v[1] for k, v in INPUTS.items()},
+694381	        licence=("ODbL 1.0 for the database as a whole (contains OpenStreetMap data, (c) OpenStreetMap contributors, "
+694382	                 "https://www.openstreetmap.org/copyright). NAEI point sources: OGL v3.0, (c) Crown copyright, Defra/DESNZ "
+694383	                 "(https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). WRI GPPD v1.3.0: CC BY 4.0 "
+694384	                 "(https://creativecommons.org/licenses/by/4.0/). REPD (OGL v3.0) used only to exclude. Per-feature sources[] give each licence."),
+694385	        repd_rule=__doc__.split("REPD rule")[1].split('"""')[0].strip(),
+694386	        status_vocabulary=["operational", "closing", "closed", "converted", "construction", "unknown"],
+694387	        not_included=("DUKES 5.11 May 2026 xlsx (OGL v3.0) and the NESO TEC register (NESO Open Data Licence) were not reachable "
+694388	                      "from this session (proxy CONNECT 403; WebFetch not allowlisted). MW therefore comes only from GPPD "
+694389	                      "(DUKES-derived, c. 2018-19) and is null for NAEI/OSM-only sites; no 'construction' gas projects beyond Hinkley Point C."),
+694390	        caveat="Proximity is not connection, capacity or feasibility. A null MW is unknown, not zero. Status 'operational' means reported to NAEI 2023.",
+694391	        features=features,
+694394	    gj = os.path.join(OUT, "conventional_power_uk.geojson")
+694395	    with open(gj, "w", encoding="utf-8", newline="\n") as fh:
+694396	        json.dump(meta, fh, ensure_ascii=False, sort_keys=False, separators=(",", ":"))
+694398	    with open(os.path.join(OUT, "excluded_repd.json"), "w", encoding="utf-8", newline="\n") as fh:
+694399	        json.dump(excluded, fh, ensure_ascii=False, indent=1)
+694400	    c_fs = collections.Counter((f["properties"]["fuel"], f["properties"]["status"]) for f in features)
+694401	    fuels = sorted({k[0] for k in c_fs})
+694402	    stats = meta["status_vocabulary"]
+694403	    mw_f = collections.defaultdict(float)
+694404	    mwn = collections.Counter()
+694406	        if p["mw"] is not None:
+694407	            mw_f[p["fuel"]] += p["mw"]; mwn[p["fuel"]] += 1
+694408	    lines = [f"# Counts ({GENERATION})", "", f"Features: {len(features)}. Excluded by the REPD rule: {len(excluded)}.", "",
+694409	             "| fuel | " + " | ".join(stats) + " | total | with MW | MW (GPPD installed, sum) |",
+694410	             "|---|" + "---:|" * (len(stats) + 3)]
+694411	    for fu in fuels:
+694412	        row = [c_fs.get((fu, st), 0) for st in stats]
+694413	        lines.append(f"| {fu} | " + " | ".join(map(str, row)) + f" | {sum(row)} | {mwn[fu]} | {mw_f[fu]:.1f} |")
+694414	    tot = [sum(c_fs.get((fu, st), 0) for fu in fuels) for st in stats]
+694415	    lines.append("| **all** | " + " | ".join(map(str, tot)) + f" | {sum(tot)} | {sum(mwn.values())} | {sum(mw_f.values()):.1f} |")
+694416	    tc = collections.Counter(f["properties"]["technology"] for f in features)
+694417	    lines += ["", "## Technology", "", "| technology | n |", "|---|---:|"] + [f"| {k} | {v} |" for k, v in sorted(tc.items())]
+694418	    lines += ["", "## Excluded by the REPD rule", "", "| id | name | fuel | REPD ref | REPD name | km |", "|---|---|---|---|---|---:|"]
+694419	    lines += [f"| {e['id']} | {e['name']} | {e['fuel']} | {e['repd']['repd_ref']} | {e['repd']['repd_name']} | {e['repd']['distance_km']} |" for e in excluded]
+694420	    with open(os.path.join(OUT, "counts.md"), "w", encoding="utf-8", newline="\n") as fh:
+694421	        fh.write("\n".join(lines) + "\n")
+694422	    with open(os.path.join(OUT, "counts.json"), "w", encoding="utf-8", newline="\n") as fh:
+694423	        json.dump(dict(generation=GENERATION, features=len(features), excluded_repd=len(excluded),
+694424	                       by_fuel_status={f"{a}|{b}": n for (a, b), n in sorted(c_fs.items())},
+694425	                       technology=dict(sorted(tc.items()))), fh, indent=1)
+694426	    shas = {n: sha256(os.path.join(OUT, n)) for n in sorted(os.listdir(OUT)) if n != "SHA256SUMS"}
+694427	    with open(os.path.join(OUT, "SHA256SUMS"), "w", newline="\n") as fh:
+694428	        fh.writelines(f"{v}  {k}\n" for k, v in shas.items())
+694429	    print(f"features={len(features)} excluded_repd={len(excluded)} geojson_sha256={shas['conventional_power_uk.geojson']}")
+694431	"""UK data-centre sites and pipeline entries: see datacentres/README.md."""
+694432	"""DNO embedded capacity registers (demand >= 1 MW where published).
+694433	Registry entry: datacentres/sources.json id "dno-ecr" (open: unverified, licence: unverified: varies by DNO).
+694434	SOURCE_ID = "dno-ecr"
+694435	    raise NotImplementedError("dno-ecr: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694436	"""DSIT AI Growth Zones announcements.
+694437	Registry entry: datacentres/sources.json id "dsit-ai-growth-zones" (open: unverified, licence: unverified: OGL-3.0 for GOV.UK text unless stated otherwise).
+694438	SOURCE_ID = "dsit-ai-growth-zones"
+694439	    raise NotImplementedError("dsit-ai-growth-zones: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694440	"""NESO Transmission Entry Capacity register and connection queue data (demand rows).
+694441	Registry entry: datacentres/sources.json id "neso-connections" (open: unverified, licence: unverified: NESO Open Data Licence).
+694442	SOURCE_ID = "neso-connections"
+694443	    raise NotImplementedError("neso-connections: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694444	"""OpenStreetMap features tagged as data centres (telecom=data_center, building=data_center and related).
+694445	PLACEHOLDER. Lane DC-A4 owns this source; its fetcher replaces this file when it
+694446	Registry entry: datacentres/sources.json id "osm-datacentres" (open: yes, licence: ODbL-1.0).
+694447	SOURCE_ID = "osm-datacentres"
+694448	LANE = "DC-A4"
+694449	    raise NotImplementedError("osm-datacentres: fetcher not yet delivered by lane DC-A4")
+694450	"""planning.data.gov.uk planning applications mentioning data centres.
+694451	Registry entry: datacentres/sources.json id "planning-data-gov-uk" (open: unverified, licence: unverified: OGL-3.0 stated for the platform; check each dataset's own licence).
+694452	SOURCE_ID = "planning-data-gov-uk"
+694453	    raise NotImplementedError("planning-data-gov-uk: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694454	"""Wikidata items that are instances of data center in the UK.
+694455	Registry entry: datacentres/sources.json id "wikidata-datacentres" (open: yes, licence: CC0-1.0).
+694456	SOURCE_ID = "wikidata-datacentres"
+694457	    raise NotImplementedError("wikidata-datacentres: fetcher not yet delivered by lane TBC (DC-A1..A6)")
+694458	"""DC-A1: fetch NESO connection registers and normalise data-centre-like rows.
+694459	Issue #73, steps 1-3 (NESO part). Standard library only.
+694460	WHAT THIS DOES
+694462	1. Resolves each pinned NESO CKAN resource (dataset id + resource id are
+694463	   pinned; the CSV filename is date-stamped and changes twice weekly, so the
+694464	   current download URL is read from `resource_show`).
+694465	2. Saves the raw bytes under <out>/raw/<source>/<sha256-prefix>-<filename>
+694466	   and records url, bytes, sha256 and fetch time in <out>/manifest.json.
+694467	3. Normalises EVERY row into the #73 step-3 record and flags rows that look
+694468	   like data centres (dc_match). Writes:
+694469	     <out>/neso_connections.normalised.json   all rows, step-3 schema
+694470	     <out>/neso_dc_like.normalised.json       only dc_match rows
+694471	     <out>/neso_dc_like.geojson               same, geometry null (see below)
+694472	     <out>/counts.json                        counts per source and rule
+694473	HONESTY RULES BAKED IN
+694475	* it_load_mw is ALWAYS null: no NESO source publishes IT load. The MW written
+694476	  is grid_connection_mw, with its basis (e.g. "TEC export capacity") and
+694477	  direction stated. They are never conflated.
+694478	* A register row is a connection agreement or application, not a commitment
+694479	  to build. Status keeps the raw NESO value in status_raw.
+694480	* No coordinates are invented. NESO gives a connection-site (substation) NAME
+694481	  only; location_precision is "connection_site_name" and geometry is null
+694482	  until a later step joins the name to a substation with evidence.
+694483	* dc_match is a name/type heuristic. A miss is "not identified", not "not a
+694484	  data centre"; a hit is "named like a data centre", not a confirmed one.
+694485	SOURCES (licence: NESO Open Data Licence, OGL v3-derived, attribution
+694486	"Supported by National Energy SO Open Data";
+694487	https://www.neso.energy/data-portal/neso-open-licence )
+694488	  TEC       Transmission Entry Capacity register (generation/storage/
+694489	            interconnectors; demand is NOT expected, rows are scanned anyway)
+694490	  EMBEDDED  Embedded Register (distribution-connected projects with a
+694491	            transmission impact; generation-focused)
+694492	Optional, OFF by default because its licence is UNVERIFIED (a NESO website
+694493	document, not a data-portal dataset):
+694494	  EA        Existing Agreements Register xlsx (Gate 2 applicants that consented
+694495	            to publication; Technology Type "Transmission Connected Demand";
+694496	            "Some Transmission Connected Demand projects have 'Data Centre' in
+694497	            their 'Project Name'" - NESO FOI/25/174). Enable with --include-ea.
+694499	  python3 -I fetch_neso.py --out DIR                 # live fetch
+694500	  python3 -I fetch_neso.py --out DIR --include-ea    # + EA register (unverified licence)
+694501	  python3 -I fetch_neso.py --out DIR --from-file TEC=path.csv --from-file EMBEDDED=path.csv
+694502	  python3 -I fetch_neso.py --selftest                # synthetic fixture, no network
+694503	Exit code: 0 ok, 2 if any source failed to fetch (partial output still written).
+694509	from xml.etree import ElementTree as ET
+694510	SCHEMA_VERSION = "dc-pipeline-record/0.1 (gridatlas#73 step 3)"
+694511	USER_AGENT = "gridatlas-dc-a1/0.1 (+https://github.com/Ventusltd/gridatlas/issues/73)"
+694512	CKAN = "https://api.neso.energy/api/3/action/"
+694513	NESO_LICENCE = {
+694514	    "name": "NESO Open Data Licence",
+694515	    "url": "https://www.neso.energy/data-portal/neso-open-licence",
+694516	    "basis": "based on version 3.0 of the Open Government Licence with specific amendments for NESO",
+694517	    "attribution": "Supported by National Energy SO Open Data",
+694518	    "fully_open": "yes (commercial use, attribution only); OGL-derived, not OGL v3 verbatim - owner to confirm",
+694519	SOURCES = {
+694520	    "TEC": {
+694521	        "title": "NESO Transmission Entry Capacity (TEC) register",
+694522	        "kind": "ckan",
+694523	        "dataset_id": "cbd45e54-e6e2-4a38-99f1-8de6fd96d7c1",
+694524	        "resource_id": "17becbab-e3e8-473f-b303-3806f43a6a10",
+694525	        "page": "https://www.neso.energy/data-portal/transmission-entry-capacity-tec-register",
+694526	        "fallback_url": "https://api.neso.energy/dataset/cbd45e54-e6e2-4a38-99f1-8de6fd96d7c1/resource/17becbab-e3e8-473f-b303-3806f43a6a10/download/tec-register-27-october-2026.csv",
+694527	        "licence": NESO_LICENCE,
+694528	        "cadence": "twice weekly",
+694529	        "mw_basis": "TEC (transmission entry capacity, export) - cumulative total capacity",
+694530	        "mw_direction": "export",
+694531	        "default": True,
+694533	    "EMBEDDED": {
+694534	        "title": "NESO Embedded Register",
+694535	        "dataset_id": "4b0e109c-aa23-45ac-86c1-0bda557d1aab",
+694536	        "resource_id": "68b6f3a1-e1bf-403b-9062-0269fc758d77",
+694537	        "page": "https://www.neso.energy/data-portal/embedded-register",
+694538	        "fallback_url": "https://api.neso.energy/dataset/4b0e109c-aa23-45ac-86c1-0bda557d1aab/resource/68b6f3a1-e1bf-403b-9062-0269fc758d77/download/embedded-register-27-october-2026.csv",
+694539	        "mw_basis": "Embedded register capacity (export) - cumulative total capacity",
+694540	    "EA": {
+694541	        "title": "NESO Existing Agreements (EA) Register (Gate 2 applicants, consented)",
+694542	        "kind": "document",
+694543	        "url": "https://www.neso.energy/document/373996/download",
+694544	        "page": "https://www.neso.energy/document/374976/download",  # FOI/25/174, which cites it
+694545	        "licence": {
+694546	            "name": "UNVERIFIED (NESO website document; no licence statement found)",
+694547	            "url": None,
+694548	            "fully_open": "unverified",
+694549	        "cadence": "irregular (republished as Gate 2 agreements change) - unverified",
+694550	        "mw_basis": "EA register capacity column as published (import for demand rows) - column meaning unverified",
+694551	        "mw_direction": "import (demand rows) / export (generation rows) - unverified",
+694552	        "default": False,
+694553	# ---------------------------------------------------------------- matching
+694554	DC_NAME = re.compile(
+694555	    r"data\s*-?\s*cent(?:re|er)s?|datacent|\bd\.?c\.?\s*campus|hyperscal|"
+694556	    r"\bai\s+(?:campus|growth\s+zone|factory|data)|digital\s+(?:park|campus|infrastructure)|"
+694557	    r"\bcompute\b|\bcloud\s+campus|\bcolocation\b|\bco-location\s+campus",
+694559	# Operators/developers whose core business is data centres. A customer-name hit
+694560	# on these is a weaker signal (they also hold BESS/generation agreements), so it
+694561	# is reported under its own rule and never merged with name/type hits.
+694562	DC_OPERATORS = re.compile(
+694563	    r"\b(equinix|digital\s+realty|global\s+switch|virtus|cyrusone|vantage\s+data|"
+694564	    r"ntt\s+(?:global\s+)?data|kao\s+data|pure\s*dc|yondr|qts\b|stack\s+infrastructure|"
+694565	    r"colt\s+(?:dcs|data)|ark\s+data|iron\s+mountain\s+data|nscale|coreweave|"
+694566	    r"latos\s+data|segro\s+data|green\s+mountain|echelon\s+data|edgeconnex|"
+694567	    r"princeton\s+digital|apto|blackstone\s+data|microsoft|google|amazon\s+data|aws\b|"
+694568	    r"meta\s+platforms|oracle\s+cloud|teraco|data4|cloudhq|novva|stratus\s+dc)\b",
+694569	DEMAND_TYPE = re.compile(r"\bdemand\b", re.I)
+694570	STATUS_MAP = [
+694571	    # (regex on raw status, step-3 status)
+694572	    (re.compile(r"^\s*built\b|^\s*energised|^\s*connected\b|operational", re.I), "operational"),
+694573	    (re.compile(r"under\s+construction|commissioning", re.I), "under construction"),
+694574	    (re.compile(r"consents?\s+approved|consented", re.I), "consented"),
+694575	    (re.compile(r"awaiting\s+consents?|in\s+planning|planning", re.I), "in planning"),
+694577	def map_status(raw: str | None) -> str:
+694578	    """Map a NESO project status to the #73 enum. Anything else in a NESO
+694579	    connection register is a connection agreement/application -> 'connection request'."""
+694580	    for rx, status in STATUS_MAP:
+694581	        if raw and rx.search(raw):
+694583	    return "connection request"
+694584	def to_mw(value) -> float | None:
+694585	    s = str(value).strip().replace(",", "")
+694586	    if s in ("", "-", "n/a", "N/A", "TBC", "tbc"):
+694587	        return round(float(s), 3)
+694589	def to_date(value) -> str | None:
+694590	    """Return ISO date or None. NESO uses dd/mm/yyyy or yyyy-mm-dd."""
+694591	    s = str(value).strip()
+694593	    for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y", "%Y-%m-%dT%H:%M:%S", "%d/%m/%y"):
+694594	            return dt.datetime.strptime(s[:19] if "T" in s else s, fmt).date().isoformat()
+694597	    if re.fullmatch(r"\d{5}(\.\d+)?", s):  # Excel serial
+694598	        return (dt.date(1899, 12, 30) + dt.timedelta(days=int(float(s)))).isoformat()
+694600	def pick(row: dict, *names: str):
+694601	    """Case/space-insensitive column lookup; first non-empty match wins."""
+694602	    norm = {re.sub(r"[^a-z0-9]", "", k.lower()): k for k in row if k}
+694604	        k = norm.get(re.sub(r"[^a-z0-9]", "", n.lower()))
+694605	        if k is not None and str(row[k]).strip() != "":
+694606	            return str(row[k]).strip()
+694607	def pick_like(row: dict, pattern: str):
+694608	    rx = re.compile(pattern, re.I)
+694609	    for k, v in row.items():
+694610	        if k and rx.search(k) and str(v).strip():
+694611	            return k, str(v).strip()
+694613	def dc_rules(name, customer, ptype) -> list[str]:
+694615	    if name and DC_NAME.search(name):
+694616	        rules.append("name")
+694617	    if ptype and DC_NAME.search(ptype):
+694618	        rules.append("type")
+694619	    if customer and DC_NAME.search(customer):
+694620	        rules.append("customer_name")
+694621	    if customer and DC_OPERATORS.search(customer):
+694622	        rules.append("customer_is_dc_operator")
+694624	def normalise_row(src_key: str, src: dict, row: dict, idx: int, snap: dict) -> dict:
+694625	    name = pick(row, "Project Name", "Project", "Name")
+694626	    customer = pick(row, "Customer Name", "Customer", "Developer")
+694627	    site = pick(row, "Connection Site", "Connection Site Name", "Substation", "GSP", "Grid Supply Point")
+694628	    ptype = pick(row, "Plant Type", "Technology Type", "Technology", "Type")
+694629	    raw_status = pick(row, "Project Status", "Status")
+694630	    project_id = pick(row, "Project ID", "Project Number", "Reference")
+694631	    stage = pick(row, "Stage")
+694632	    gate = pick(row, "Gate")
+694633	    host_to = pick(row, "HOST TO", "Host TO", "TO")
+694634	    agreement = pick(row, "Agreement Type")
+694635	    mw_total = to_mw(pick(row, "Cumulative Total Capacity (MW)", "Cumulative Total Capacity"))
+694636	    mw_connected = to_mw(pick(row, "MW Connected"))
+694637	    mw_delta = to_mw(pick(row, "MW Increase / Decrease", "MW Increase/Decrease"))
+694638	    mw_col = "Cumulative Total Capacity (MW)" if mw_total is not None else None
+694639	    if mw_total is None:  # EA register / unknown layout: first capacity-like column
+694640	        mw_col, val = pick_like(row, r"(capacity|\bmw\b|demand)")
+694641	        mw_total = to_mw(val)
+694642	    eff_from = to_date(pick(row, "MW Effective From", "Connection Date", "Contracted Connection Date"))
+694643	    rules = dc_rules(name, customer, ptype)
+694644	    is_demand = bool(ptype and DEMAND_TYPE.search(ptype))
+694645	    rid = f"neso-{src_key.lower()}-" + hashlib.sha256(
+694646	        json.dumps([src_key, project_id, name, site, stage, idx if not project_id else None],
+694647	                   sort_keys=True).encode()).hexdigest()[:16]
+694648	        "id": rid,
+694650	        "operator": customer,  # NESO 'Customer Name' = contracting party, not necessarily the operator
+694651	        "operator_basis": "NESO Customer Name (contract holder)",
+694652	        "status": map_status(raw_status),
+694653	        "status_raw": raw_status,
+694654	        "it_load_mw": None,  # never published by NESO; NEVER derived from grid MW
+694655	        "grid_connection_mw": mw_total,
+694656	        "grid_connection_mw_basis": src["mw_basis"] if mw_total is not None else None,
+694657	        "grid_connection_mw_direction": src["mw_direction"],
+694658	        "grid_connection_mw_column": mw_col,
+694659	        "grid_connection_mw_connected": mw_connected,
+694660	        "grid_connection_mw_change": mw_delta,
+694661	        "dates": {"mw_effective_from": eff_from},
+694662	        "connection": {
+694663	            "site_name": site, "host_to": host_to, "stage": stage, "gate": gate,
+694664	            "agreement_type": agreement, "plant_or_technology_type": ptype,
+694665	            "project_id": project_id,
+694666	        "location_precision": "connection_site_name" if site else "none",
+694667	        "geometry": None,
+694668	        "source": src["title"],
+694669	        "source_key": src_key,
+694670	        "source_row": idx,
+694671	        "licence": src["licence"]["name"],
+694672	        "licence_url": src["licence"].get("url"),
+694673	        "licence_fully_open": src["licence"]["fully_open"],
+694674	        "evidence_url": src.get("page"),
+694675	        "snapshot_sha256": snap.get("sha256"),
+694676	        "snapshot_url": snap.get("url"),
+694677	        "dc_match": {"is_dc_like": bool(set(rules) & {"name", "type", "customer_name"}),
+694678	                     "rules": rules},
+694679	        "large_demand": is_demand,
+694680	        "caveats": [
+694681	            "A connection-register row is an agreement or application, not a commitment to build.",
+694682	            "grid_connection_mw is contracted grid capacity, not IT load.",
+694685	def parse_csv(raw: bytes) -> list[dict]:
+694686	    text = raw.decode("utf-8-sig", errors="replace")
+694687	    return list(csv.DictReader(io.StringIO(text)))
+694688	def parse_xlsx(raw: bytes) -> list[dict]:
+694689	    """Minimal stdlib xlsx reader: first worksheet with a 'Project Name' header."""
+694690	    ns = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+694691	    z = zipfile.ZipFile(io.BytesIO(raw))
+694692	    shared = []
+694693	    if "xl/sharedStrings.xml" in z.namelist():
+694694	        for si in ET.fromstring(z.read("xl/sharedStrings.xml")).findall("m:si", ns):
+694695	            shared.append("".join(t.text or "" for t in si.iter(f"{{{ns['m']}}}t")))
+694696	    sheets = sorted(n for n in z.namelist() if re.fullmatch(r"xl/worksheets/sheet\d+\.xml", n))
+694697	    def col_index(ref: str) -> int:
+694698	        letters = re.match(r"[A-Z]+", ref).group(0)
+694700	        for ch in letters:
+694701	            n = n * 26 + ord(ch) - 64
+694702	        return n - 1
+694703	    for sheet in sheets:
+694705	        for r in ET.fromstring(z.read(sheet)).iter(f"{{{ns['m']}}}row"):
+694706	            vals = {}
+694707	            for c in r.findall("m:c", ns):
+694708	                v = c.find("m:v", ns)
+694709	                t = c.get("t")
+694710	                if t == "inlineStr":
+694711	                    val = "".join(x.text or "" for x in c.iter(f"{{{ns['m']}}}t"))
+694712	                elif v is None:
+694713	                elif t == "s":
+694714	                    val = shared[int(v.text)]
+694716	                    val = v.text
+694717	                vals[col_index(c.get("r"))] = val
+694718	            if vals:
+694719	                rows.append([vals.get(i, "") for i in range(max(vals) + 1)])
+694720	        for h, header in enumerate(rows[:30]):
+694721	            if any(re.sub(r"\s+", " ", str(x)).strip().lower() == "project name" for x in header):
+694722	                keys = [str(x).strip() for x in header]
+694723	                out = []
+694724	                for r in rows[h + 1:]:
+694725	                    if any(str(x).strip() for x in r):
+694726	                        out.append({keys[i] if i < len(keys) else f"col{i}": r[i] for i in range(len(r))})
+694727	                return out
+694729	def http_get(url: str, timeout: int = 90) -> bytes:
+694730	    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+694731	    with urllib.request.urlopen(req, timeout=timeout) as resp:
+694732	        return resp.read()
+694733	def resolve_url(src: dict) -> str:
+694734	    if src["kind"] != "ckan":
+694735	        return src["url"]
+694736	    q = urllib.parse.urlencode({"id": src["resource_id"]})
+694737	    meta = json.loads(http_get(CKAN + "resource_show?" + q, timeout=60))
+694738	    url = meta["result"]["url"]
+694739	    if src["resource_id"] not in url:
+694740	        raise RuntimeError(f"resource_show returned unexpected url {url}")
+694741	    return url
+694742	def snapshot(out: Path, key: str, raw: bytes, url: str, origin: str) -> dict:
+694743	    sha = hashlib.sha256(raw).hexdigest()
+694744	    fname = Path(urllib.parse.urlparse(url).path).name or f"{key.lower()}.bin"
+694745	    dest = out / "raw" / key / f"{sha[:12]}-{fname}"
+694746	    dest.parent.mkdir(parents=True, exist_ok=True)
+694747	    dest.write_bytes(raw)
+694748	    return {"source": key, "url": url, "origin": origin, "bytes": len(raw), "sha256": sha,
+694749	            "path": str(dest.relative_to(out)),
+694750	            "fetched_utc": dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()}
+694751	def run(out: Path, keys: list[str], from_files: dict[str, Path]) -> int:
+694753	    manifest = {"schema": SCHEMA_VERSION, "attribution": NESO_LICENCE["attribution"],
+694754	                "snapshots": [], "failures": []}
+694757	        src = SOURCES[key]
+694758	            if key in from_files:
+694759	                p = from_files[key]
+694760	                raw, url, origin = p.read_bytes(), p.name, f"local file {p}"
+694763	                    url = resolve_url(src)
+694764	                    origin = "ckan resource_show" if src["kind"] == "ckan" else "pinned url"
+694765	                except Exception as e:  # noqa: BLE001
+694766	                    url = src.get("fallback_url") or src["url"]
+694767	                    origin = f"pinned fallback url (resolve failed: {e.__class__.__name__}: {e})"
+694768	                raw = http_get(url)
+694769	        except (urllib.error.URLError, OSError, RuntimeError) as e:
+694770	            manifest["failures"].append({"source": key, "error": f"{e.__class__.__name__}: {e}"})
+694771	            print(f"[{key}] FETCH FAILED: {e}", file=sys.stderr)
+694772	        snap = snapshot(out, key, raw, url, origin)
+694773	        manifest["snapshots"].append(snap)
+694774	        is_xlsx = raw[:2] == b"PK"
+694775	        rows = parse_xlsx(raw) if is_xlsx else parse_csv(raw)
+694776	        snap["rows"] = len(rows)
+694777	        snap["columns"] = list(rows[0].keys()) if rows else []
+694778	        for i, row in enumerate(rows):
+694779	            records.append(normalise_row(key, src, row, i, snap))
+694780	        print(f"[{key}] {len(rows)} rows, sha256 {snap['sha256'][:16]}", file=sys.stderr)
+694781	    if not manifest["snapshots"]:
+694782	        # Nothing fetched: write only the manifest. Empty record files would read
+694783	        # as "zero data centres", and unknown is not zero.
+694784	        for stale in ("neso_connections.normalised.json", "neso_dc_like.normalised.json",
+694785	                      "neso_dc_like.geojson", "counts.json"):
+694786	            (out / stale).unlink(missing_ok=True)
+694787	        (out / "manifest.json").write_text(json.dumps(manifest, indent=1) + "\n", encoding="utf-8")
+694788	        print("no source fetched; counts UNKNOWN (not zero)", file=sys.stderr)
+694790	    records.sort(key=lambda r: (r["source_key"], r["source_row"]))
+694791	    dc = [r for r in records if r["dc_match"]["is_dc_like"]]
+694792	    dc_op = [r for r in records if "customer_is_dc_operator" in r["dc_match"]["rules"]
+694793	             and not r["dc_match"]["is_dc_like"]]
+694794	    counts = {"rows": {}, "dc_like": {}, "dc_like_mw": {}, "dc_operator_customer_only": {},
+694795	              "large_demand_rows": {}, "large_demand_mw": {}}
+694797	        k = r["source_key"]
+694798	        counts["rows"][k] = counts["rows"].get(k, 0) + 1
+694799	        if r["large_demand"]:
+694800	            counts["large_demand_rows"][k] = counts["large_demand_rows"].get(k, 0) + 1
+694801	            counts["large_demand_mw"][k] = round(counts["large_demand_mw"].get(k, 0) + (r["grid_connection_mw"] or 0), 3)
+694802	    for r in dc:
+694803	        counts["dc_like"][k] = counts["dc_like"].get(k, 0) + 1
+694804	        counts["dc_like_mw"][k] = round(counts["dc_like_mw"].get(k, 0) + (r["grid_connection_mw"] or 0), 3)
+694805	    for r in dc_op:
+694806	        counts["dc_operator_customer_only"][k] = counts["dc_operator_customer_only"].get(k, 0) + 1
+694807	    counts["note"] = ("dc_like_mw sums grid connection MW of dc-like rows as published; rows with "
+694808	                      "unknown MW add 0 here but are NOT zero. Multiple stages of one project can "
+694809	                      "appear as separate rows (NESO aggregates across stages), so this is not de-duplicated.")
+694810	    def dump(name, obj):
+694811	        (out / name).write_text(json.dumps(obj, indent=1, ensure_ascii=False, sort_keys=False) + "\n",
+694812	                                encoding="utf-8")
+694813	    dump("manifest.json", manifest)
+694814	    dump("neso_connections.normalised.json", {"schema": SCHEMA_VERSION, "records": records})
+694815	    dump("neso_dc_like.normalised.json", {"schema": SCHEMA_VERSION, "records": dc,
+694816	                                          "customer_is_dc_operator_only": dc_op})
+694817	    dump("neso_dc_like.geojson", {
+694818	        "note": "geometry null: NESO publishes a connection-site name only; no coordinates are invented",
+694819	        "features": [{"type": "Feature", "id": r["id"], "geometry": None,
+694820	                      "properties": {k: v for k, v in r.items() if k != "geometry"}} for r in dc]})
+694821	    dump("counts.json", counts)
+694822	    print(json.dumps(counts, indent=1), file=sys.stderr)
+694823	    return 2 if manifest["failures"] else 0
+694824	# ---------------------------------------------------------------- self-test
+694825	SELFTEST_CSV = """Project Name,Customer Name,Connection Site,Stage,MW Connected,MW Increase / Decrease,Cumulative Total Capacity (MW),MW Effective From,Project Status,Agreement Type,HOST TO,Plant Type,Project ID,Project Number,Gate
+694826	SYNTHETIC Solar Farm,SYNTHETIC Solar Ltd,Example 400kV,1,0,49.9,49.9,31/10/2029,Scoping,Directly Connected,NGET,PV Array (Photo Voltaic/solar),SYN001,1,2
+694827	SYNTHETIC Data Centre Campus BESS,SYNTHETIC Ltd,Example 275kV,1,0,100,100,2030-04-01,Awaiting Consents,Directly Connected,NGET,Energy Storage System,SYN002,2,2
+694828	SYNTHETIC Battery,Equinix (UK) Ltd,Example 132kV,1,10,0,10,01/01/2020,Built,Embedded,SPT,Energy Storage System,SYN003,3,
+694829	def selftest() -> int:
+694832	        d = Path(d)
+694833	        f = d / "tec-selftest.csv"
+694834	        f.write_text(SELFTEST_CSV, encoding="utf-8")
+694835	        rc = run(d / "out", ["TEC"], {"TEC": f})
+694836	        recs = json.loads((d / "out" / "neso_connections.normalised.json").read_text())["records"]
+694837	        assert rc == 0 and len(recs) == 3, (rc, len(recs))
+694838	        a, b, c = recs
+694839	        assert a["status"] == "connection request" and not a["dc_match"]["is_dc_like"]
+694840	        assert b["dc_match"]["is_dc_like"] and b["status"] == "in planning" and b["grid_connection_mw"] == 100.0
+694841	        assert b["it_load_mw"] is None and b["dates"]["mw_effective_from"] == "2030-04-01"
+694842	        assert c["status"] == "operational" and c["dc_match"]["rules"] == ["customer_is_dc_operator"]
+694843	        assert not c["dc_match"]["is_dc_like"]
+694844	        assert all(r["geometry"] is None and r["it_load_mw"] is None for r in recs)
+694845	        assert map_status("Under Construction/Commissioning") == "under construction"
+694846	        assert map_status("Consents Approved") == "consented"
+694847	        assert to_date("45000") == "2023-03-15"
+694848	    print("selftest OK (synthetic fixture only; not evidence)")
+694850	    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+694851	    ap.add_argument("--out", type=Path, default=Path(__file__).resolve().parent / "out")
+694852	    ap.add_argument("--include-ea", action="store_true",
+694853	                    help="also fetch the EA register (licence UNVERIFIED; kept separate in output fields)")
+694854	    ap.add_argument("--from-file", action="append", default=[], metavar="KEY=PATH",
+694855	                    help="use a local copy of a source instead of fetching (KEY: TEC, EMBEDDED, EA)")
+694856	    ap.add_argument("--selftest", action="store_true")
+694860	    keys = [k for k, s in SOURCES.items() if s["default"]] + (["EA"] if a.include_ea else [])
+694861	    ff = {}
+694862	    for spec in a.from_file:
+694863	        k, _, p = spec.partition("=")
+694864	        if k not in SOURCES or not p:
+694865	            ap.error(f"bad --from-file {spec}")
+694866	        ff[k] = Path(p)
+694867	        if k not in keys:
+694868	            keys.append(k)
+694869	    return run(a.out, keys, ff)
+694871	"""DC-A2: data-centre planning applications from FULLY OPEN planning sources.
+694872	Standard library only. Deterministic: pinned URLs, SHA-256 of every raw
+694873	snapshot, sorted output, no wall-clock values inside the GeoJSON.
+694874	    python3 -I dc_planning_fetch.py --out OUTDIR [--cafile PEM] [--offline]
+694875	    python3 -I dc_planning_fetch.py --out OUTDIR --verify   # re-hash raw/ against manifest
+694876	Honesty rules baked in:
+694877	  * a keyword hit in a planning description is a CANDIDATE, not a data centre;
+694878	  * MW is only filled when the text states it; IT-load MW, grid/connection
+694879	    MW (MW or MVA) and on-site generation MW are kept in separate fields;
+694880	    an unqualified "NN MW" goes to mw_unqualified and is never assumed to be
+694881	    either. Missing MW is null (unknown), never 0;
+694882	  * a source that cannot be reached is reported as unreachable, not empty.
+694883	import ssl
+694884	OGL3 = ("OGL-UK-3.0",
+694885	        "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/")
+694886	# Pinned sources. 'adapter' picks the row parser. 'licence_evidence' says where
+694887	# the licence statement was read (see reports/DC-A2.md).
+694890	        "id": "pdgu-planning-application",
+694891	        "title": "planning.data.gov.uk planning-application (England, national aggregate)",
+694892	        "url": "https://files.planning.data.gov.uk/dataset/planning-application.csv",
+694893	        "format": "csv", "adapter": "pdgu", "licence": OGL3,
+694894	        "licence_evidence": "dataset page: 'Licensed under the Open Government Licence v.3.0'; "
+694895	                            "specification content/dataset/planning-application.md licence: ogl3",
+694896	        "coverage_note": "alpha, environment=staging; page says 'incomplete and not yet ready for use'; "
+694897	                         "only 4 LPAs configured (Camden, Adur, Worthing, Doncaster)",
+694898	        "id": "pdgu-infrastructure-project",
+694899	        "title": "planning.data.gov.uk infrastructure-project (NSIPs, from PINS)",
+694900	        "url": "https://files.planning.data.gov.uk/dataset/infrastructure-project.csv",
+694901	        "format": "csv", "adapter": "pdgu_nsip", "licence": OGL3,
+694902	        "licence_evidence": "specification content/dataset/infrastructure-project.md licence: ogl3; "
+694903	                            "config source.csv licence ogl3",
+694904	        "coverage_note": "England + Wales NSIPs (Planning Act 2008)",
+694905	        "id": "pins-nsip-applications",
+694906	        "title": "Planning Inspectorate NSIP applications download",
+694907	        "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/api/applications-download",
+694908	        "format": "csv", "adapter": "pins", "licence": OGL3,
+694909	        "licence_evidence": "site footer: 'All content is available under the Open Government Licence v3.0, "
+694910	                            "except where otherwise stated'",
+694911	        "coverage_note": "all NSIPs incl. data centres directed in under s35 (since Jan 2026)",
+694912	        "id": "digital-land-nsip-snapshot",
+694913	        "title": "digital-land infrastructure-project-collection nsip.csv (GitHub snapshot)",
+694914	        "url": "https://raw.githubusercontent.com/digital-land/infrastructure-project-collection/main/data/nsip.csv",
+694915	        "licence_evidence": "derived from PINS (OGL v3); digital-land endpoint retired 2026-10-02 -> STALE",
+694916	        "coverage_note": "stale scrape of PINS projects map; superseded by pins-nsip-applications",
+694917	        "id": "doncaster-2024",
+694918	        "title": "Doncaster 2024 decided applications (digital-land planning-condition-data)",
+694919	        "url": "https://raw.githubusercontent.com/digital-land/planning-condition-data/refs/heads/main/data/doncaster-2024-planning-applications.csv",
+694920	        "licence_evidence": "digital-land config collection/planning-application/source.csv licence ogl3",
+694921	        "coverage_note": "one LPA, decided applications in 2024 only, no coordinates",
+694922	        "id": "doncaster-2023",
+694923	        "title": "Doncaster 2023 decided applications (digital-land planning-condition-data)",
+694924	        "url": "https://raw.githubusercontent.com/digital-land/planning-condition-data/refs/heads/main/data/doncaster-conditions-data-2023-planning-application.csv",
+694925	        "coverage_note": "one LPA, decided applications in 2023 only, no coordinates",
+694926	        "id": "adur",
+694927	        "title": "Adur DC planning applications (LPA open data feed)",
+694928	        "url": "https://www.adur-worthing.gov.uk/datasets/planning/adur-planning.csv",
+694929	        "format": "csv", "adapter": "lga", "licence": OGL3,
+694930	        "licence_evidence": "digital-land config source.csv licence ogl3 (publisher page not re-read: unverified)",
+694931	        "coverage_note": "one LPA",
+694932	        "id": "worthing",
+694933	        "title": "Worthing BC planning applications (LPA open data feed)",
+694934	        "url": "https://www.adur-worthing.gov.uk/datasets/planning/worthing-planning.csv",
+694935	        "id": "camden",
+694936	        "title": "Camden planning applications (Socrata open data)",
+694937	        "url": "https://opendata.camden.gov.uk/resource/2eiu-s2cw.csv?$limit=200000&$order=application_number",
+694938	        "format": "csv", "adapter": "camden", "licence": OGL3,
+694939	# Section 35 directions for data centres (gov.uk publications, OGL v3).
+694940	# Hand-curated because no machine-readable feed was reachable; no coordinates
+694941	# are invented: geometry stays null unless a source gives one.
+694942	S35_SEED = [
+694943	        "reference": "EN0110030", "name": "SDC M40 Campus (Wapseys Wood)",
+694944	        "lpa": "Buckinghamshire", "applicant": "Slough Holdings UK Limited",
+694945	        "route": "NSIP s35 direction", "stage_raw": "Pre-application (application expected Jan 2027)",
+694946	        "status": "in planning",
+694947	        "it_load_mw": 300.0, "grid_connection_mw": None, "facility_power_mw": None,
+694948	        "generation_mw": None, "mw_unqualified": None,
+694949	        "mw_note": "PINS page: IT load up to c.300MW; on-site gas energy centre c.250-350MW "
+694950	                   "generating capacity; gas connection up to c.900MW (gas, not electrical grid)",
+694951	        "evidence_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN0110030",
+694952	        "evidence_url_2": "https://www.gov.uk/government/publications/data-centre-campus-wapseys-wood-buckinghamshire-section-35-direction-planning-act-2008",
+694953	        "reference": "s35-2026-06-15-questpit", "name": "Data Centre Campus, Ampthill Road, Bedford",
+694954	        "lpa": "Central Bedfordshire", "applicant": "QuestPit Limited",
+694955	        "route": "NSIP s35 direction (15 Jun 2026)", "stage_raw": "s35 direction granted",
+694956	        "status": "in planning", "it_load_mw": 720.0, "grid_connection_mw": 200.0,
+694957	        "facility_power_mw": None, "generation_mw": None, "mw_unqualified": None,
+694958	        "mw_note": "Request statement s4.4.1 '1GW AI ready data centre (720MW IT load)' (Volterra s3.4: "
+694959	                   "'indicative and subject to revision'); s5.3 'an initial connection of 200MW'",
+694960	        "evidence_url_2": "https://assets.publishing.service.gov.uk/media/6a2fc930c39255c595b5084f/Request_Statement_on_behalf_of_Questpit_Limited.pdf",
+694961	        "evidence_url": "https://www.gov.uk/government/publications/data-centre-campus-ampthill-road-bedford-in-central-bedfordshire-section-35-direction-planning-act-2008",
+694962	        "reference": "s35-2026-07-01-cse52", "name": "Ebbsfleet Datacentre Campus, New Barn Road, Dartford",
+694963	        "lpa": "Dartford", "applicant": "CSE52 Limited",
+694964	        "route": "NSIP s35 direction (1 Jul 2026)", "stage_raw": "s35 direction granted",
+694965	        "status": "in planning", "it_load_mw": 240.0, "grid_connection_mw": None,
+694966	        "facility_power_mw": 300.0, "generation_mw": None, "mw_unqualified": None,
+694967	        "mw_note": "Response to additional information request: 'total power load of up to 300MW', "
+694968	                   "'IT load of up to 240MW'; total power load is facility demand, not a grid connection figure",
+694969	        "evidence_url_2": "https://assets.publishing.service.gov.uk/media/6a451766e50f952c9b89e2aa/Response_to_additional_information_request.pdf",
+694970	        "evidence_url": "https://www.gov.uk/government/publications/data-centre-campus-new-barn-road-dartford-section-35-direction-planning-act-2008",
+694971	# --------------------------------------------------------------- classify
+694972	DC_STRONG = re.compile(
+694973	    r"\bdata[\s\-]?cent(?:re|er)s?\b|\bdatacent(?:re|er)s?\b|\bhyper[\s\-]?scale\b|"
+694974	    r"\bdata[\s\-]?halls?\b|\bserver[\s\-]?halls?\b|\bdata[\s\-]?processing[\s\-]?(?:facility|centre|center)\b|"
+694975	    r"\bco[\s\-]?location[\s\-]?(?:facility|data)\b|\bAI[\s\-]?(?:campus|factory|compute)\b|"
+694976	    r"\bdigital[\s\-]?infrastructure[\s\-]?campus\b",
+694977	    re.I)
+694978	# A strong hit is dropped when the phrase is clearly minor/ancillary.
+694979	DC_NEGATIVE = re.compile(
+694980	    r"\b(?:comms?|telecom\w*|street|equipment)\s+cabinet|\bdata\s+cent(?:re|er)\s+(?:cabinet|room)\b|"
+694981	    r"\bserver\s+room\b|\bmobile\s+(?:phone\s+)?mast\b",
+694982	USE_CLASS = re.compile(r"\b(?:use\s+class\s+)?(B8|E\s?\(g\)(?:\s?\((?:i|ii|iii)\))?|B2|sui\s+generis)\b", re.I)
+694983	MW_RE = re.compile(r"(\d{1,4}(?:[.,]\d+)?)\s*(MW|MVA|megawatts?)\b", re.I)
+694984	IT_CTX = re.compile(r"\bIT\b|\bIT[\s\-]load\b|critical|compute|server", re.I)
+694985	GRID_CTX = re.compile(r"grid|connection|import|substation|\bkV\b|MVA|supply", re.I)
+694986	GEN_CTX = re.compile(r"generat|energy\s+centre|engines?|turbine|battery|BESS|solar|backup|standby", re.I)
+694989	    strong = sorted({m.group(0).lower() for m in DC_STRONG.finditer(t)})
+694990	    neg = bool(DC_NEGATIVE.search(t))
+694991	    uses = sorted({re.sub(r"\s+", "", m.group(1)).upper() for m in USE_CLASS.finditer(t)})
+694992	    if strong and not neg:
+694993	        conf = "keyword"
+694994	    elif strong and neg:
+694995	        conf = "keyword-ancillary"  # reported, excluded from candidate counts
+694996	        conf = None
+694997	    return conf, strong, uses
+694998	def extract_mw(text):
+694999	    """Return (it_load_mw, grid_mw, generation_mw, unqualified_mw, snippets)."""
+695000	    out = {"it": [], "grid": [], "gen": [], "unq": []}
+695001	    snippets = []
+695002	    for m in MW_RE.finditer(text or ""):
+695003	        val = float(m.group(1).replace(",", "."))
+695004	        unit = m.group(2).upper()
+695005	        a, b = max(0, m.start() - 60), min(len(text), m.end() + 40)
+695006	        ctx = text[a:b]
+695007	        snippets.append(ctx.strip())
+695008	        if unit == "MVA":
+695009	            out["grid"].append(val)
+695010	        # nearest qualifier wins: first the words just after the figure, then just before
+695011	        after = text[m.end():m.end() + 25]
+695012	        before = text[max(0, m.start() - 40):m.start()]
+695013	        for win in (after, before):
+695014	            hit = None
+695015	            for key, rx in (("it", IT_CTX), ("gen", GEN_CTX), ("grid", GRID_CTX)):
+695016	                mm = rx.search(win)
+695017	                if mm and (hit is None or (mm.start() < hit[1] if win is after else mm.start() > hit[1])):
+695018	                    hit = (key, mm.start())
+695020	                out[hit[0]].append(val)
+695021	            out["unq"].append(val)
+695022	    pick = lambda xs: max(xs) if xs else None  # noqa: E731
+695023	    return pick(out["it"]), pick(out["grid"]), pick(out["gen"]), pick(out["unq"]), snippets
+695024	# --------------------------------------------------------------- status
+695025	def map_status(*raw):
+695026	    """Map raw status / decision strings to the pipeline vocabulary."""
+695027	    s = " | ".join(x for x in raw if x).lower()
+695028	    if not s.strip():
+695030	    if "withdrawn" in s:
+695031	        return "withdrawn"
+695032	    if re.search(r"refus|reject|dismiss", s):
+695033	        return "refused"
+695034	    if re.search(r"grant|approv|permit|consent(?!ation)|allowed|conditions|prior approval not required", s):
+695035	        return "consented"
+695036	    if re.search(r"pending|registered|valid|received|under consideration|in progress|awaiting|"
+695037	                 r"pre[\s\-]?app|acceptance|pre[\s\-]?exam|examination|recommendation|"
+695038	                 r"current|consultation|appeal lodged", s):
+695039	        return "in planning"
+695040	    if s.strip() in ("decided", "decision", "determined", "closed", "finalised", "final"):
+695041	        return "decided (outcome not stated)"
+695043	# --------------------------------------------------------------- geometry
+695044	WKT_POINT = re.compile(r"POINT\s*\(\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)\s*\)", re.I)
+695045	def point_from(row):
+695046	    for k in ("point", "WKT", "wkt", "geometry", "the_geom"):
+695047	        v = row.get(k) or ""
+695048	        m = WKT_POINT.search(v)
+695050	            return [round(float(m.group(1)), 6), round(float(m.group(2)), 6)], "application point"
+695051	    lat = row.get("latitude") or row.get("lat") or row.get("Latitude")
+695052	    lon = row.get("longitude") or row.get("lon") or row.get("Longitude")
+695054	            return [round(float(lon), 6), round(float(lat), 6)], "application point"
+695056	    return None, "none"
+695057	# --------------------------------------------------------------- adapters
+695058	def g(row, *keys):
+695059	    low = {k.lower().strip(): v for k, v in row.items() if k}
+695061	        v = low.get(k.lower())
+695062	        if v:
+695063	            return v.strip()
+695065	def norm_pdgu(row):
+695066	        "reference": g(row, "reference"), "name": g(row, "name"),
+695067	        "description": g(row, "description"), "address": g(row, "address-text"),
+695068	        "organisation": g(row, "organisation"),
+695069	        "status_raw": [g(row, "planning-application-status"), g(row, "planning-decision")],
+695070	        "date_received": g(row, "start-date"), "date_decided": g(row, "decision-date"),
+695071	        "url": g(row, "documentation-url"), "row": row,
+695072	def norm_pdgu_nsip(row):
+695073	        "description": g(row, "description", "name"), "address": "",
+695074	        "organisation": g(row, "organisation") or "government-organisation:EA39",
+695075	        "status_raw": [g(row, "infrastructure-project-decision")],
+695076	        "type": g(row, "infrastructure-project-type"),
+695077	def norm_pins(row):
+695078	        "reference": g(row, "project reference", "reference", "caseReference"),
+695079	        "name": g(row, "project name", "name"),
+695080	        "description": " ".join(x for x in (g(row, "project name"), g(row, "summary", "description",
+695081	                                                                         "project description")) if x),
+695082	        "address": g(row, "location", "project location"),
+695083	        "organisation": "government-organisation:EA39",
+695084	        "status_raw": [g(row, "stage"), g(row, "decision")],
+695085	        "date_received": g(row, "date of application"), "date_decided": g(row, "date of decision"),
+695086	        "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/"
+695087	               + g(row, "project reference", "reference"),
+695088	        "row": row, "type": g(row, "application type"),
+695089	def norm_lga(row):
+695090	        "reference": g(row, "CaseReference"), "name": "",
+695091	        "description": g(row, "CaseText"), "address": g(row, "LocationText"),
+695092	        "organisation": g(row, "OrganisationLabel", "OrganisationURI"),
+695093	        "status_raw": [g(row, "Status"), g(row, "Decision")],
+695094	        "date_received": g(row, "CaseDate"), "date_decided": g(row, "DecisionDate"),
+695095	        "url": g(row, "CaseURL"), "row": row,
+695096	def norm_camden(row):
+695097	        "reference": g(row, "application_number"), "name": "",
+695098	        "description": g(row, "development_description"), "address": g(row, "development_address"),
+695099	        "organisation": "local-authority:CMD",
+695100	        "status_raw": [g(row, "system_status"), g(row, "decision_type")],
+695101	        "date_received": g(row, "registered_date"), "date_decided": g(row, "decision_date"),
+695102	        "url": g(row, "full_application"), "row": row,
+695103	ADAPTERS = {"pdgu": norm_pdgu, "pdgu_nsip": norm_pdgu_nsip, "pins": norm_pins,
+695104	            "lga": norm_lga, "camden": norm_camden}
+695105	# --------------------------------------------------------------- fetch
+695106	def fetch(url, cafile, timeout=120):
+695107	    ctx = ssl.create_default_context(cafile=cafile) if cafile else ssl.create_default_context()
+695108	    req = urllib.request.Request(url, headers={"User-Agent": "gridatlas-dc-a2/1 (+https://github.com/Ventusltd/gridatlas/issues/73)"})
+695109	    opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=ctx),
+695110	                                         urllib.request.ProxyHandler())
+695111	    with opener.open(req, timeout=timeout) as r:
+695112	        return r.read()
+695113	def sha256(b):
+695115	def run(args):
+695116	    out = os.path.abspath(args.out)
+695117	    raw_dir = os.path.join(out, "raw")
+695118	    os.makedirs(raw_dir, exist_ok=True)
+695119	    cafile = args.cafile or os.environ.get("SSL_CERT_FILE") or (
+695120	        "/root/.ccr/ca-bundle.crt" if os.path.exists("/root/.ccr/ca-bundle.crt") else None)
+695121	    manifest = {"schema": "dc-a2/1", "sources": []}
+695124	    for src in SOURCES:
+695125	        rawp = os.path.join(raw_dir, src["id"] + "." + src["format"])
+695126	        entry = {k: src[k] for k in ("id", "title", "url", "coverage_note", "licence_evidence")}
+695127	        entry["licence"], entry["licence_url"] = src["licence"]
+695129	        if args.offline:
+695130	            if os.path.exists(rawp):
+695131	                data = open(rawp, "rb").read()
+695132	                entry["fetch"] = "offline-cache"
+695133	                entry["fetch"] = "missing-offline"
+695134	                data = fetch(src["url"], cafile)
+695135	                with open(rawp, "wb") as f:
+695136	                    f.write(data)
+695137	                entry["fetch"] = "ok"
+695138	            except urllib.error.HTTPError as e:
+695139	                entry["fetch"] = "http-%d" % e.code
+695140	            except (urllib.error.URLError, OSError, ssl.SSLError) as e:
+695141	                msg = str(getattr(e, "reason", e))
+695142	                entry["fetch"] = "unreachable: " + msg[:160]
+695143	        c = {"rows": None, "candidates": 0, "ancillary_hits": 0, "use_class_only": 0,
+695144	             "with_location": 0, "with_any_mw": 0, "by_status": {}}
+695145	        if data is not None:
+695146	            entry["sha256"] = sha256(data)
+695147	            entry["bytes"] = len(data)
+695148	            text = data.decode("utf-8-sig", errors="replace")
+695149	            # Planning descriptions can legitimately exceed Python's default 128 KiB CSV cell cap.
+695150	            # Keep a finite 4 MiB ceiling; oversized/untrusted data still fails closed.
+695151	            csv.field_size_limit(4 * 1024 * 1024)
+695152	            rows = list(csv.DictReader(io.StringIO(text)))
+695153	            c["rows"] = len(rows)
+695155	                n = ADAPTERS[src["adapter"]](row)
+695156	                blob = " ".join(x for x in (n["name"], n["description"]) if x)
+695157	                conf, kws, uses = classify(blob)
+695158	                if conf is None:
+695159	                    if uses and re.search(r"\bsui\s+generis\b", blob, re.I) and re.search(r"\bserver|digital|comput", blob, re.I):
+695160	                        c["use_class_only"] += 1
+695161	                if conf == "keyword-ancillary":
+695162	                    c["ancillary_hits"] += 1
+695163	                it, grid, gen, unq, snips = extract_mw(blob)
+695164	                coords, precision = point_from(row)
+695165	                status = map_status(*n["status_raw"])
+695166	                c["candidates"] += 1
+695167	                c["by_status"][status] = c["by_status"].get(status, 0) + 1
+695168	                c["with_location"] += coords is not None
+695169	                c["with_any_mw"] += any(v is not None for v in (it, grid, gen, unq))
+695172	                    "geometry": {"type": "Point", "coordinates": coords} if coords else None,
+695174	                        "id": "dc-a2:%s:%s" % (src["id"], n["reference"]),
+695175	                        "name": n["name"] or (n["description"][:120] if n["description"] else n["reference"]),
+695176	                        "operator": None, "applicant": None,
+695177	                        "status": status, "status_raw": " | ".join(x for x in n["status_raw"] if x) or None,
+695178	                        "route": "NSIP" if src["adapter"] in ("pins", "pdgu_nsip") else "TCPA",
+695179	                        "it_load_mw": it, "grid_connection_mw": grid, "facility_power_mw": None,
+695180	                        "onsite_generation_mw": gen, "mw_unqualified": unq,
+695181	                        "mw_evidence": snips or None,
+695182	                        "date_received": n["date_received"] or None, "date_decided": n["date_decided"] or None,
+695183	                        "organisation": n["organisation"] or None, "address": n["address"] or None,
+695184	                        "description": n["description"] or None,
+695185	                        "keywords": kws, "use_classes": uses, "match": conf,
+695186	                        "location_precision": precision,
+695187	                        "source": src["id"], "licence": src["licence"][0], "licence_url": src["licence"][1],
+695188	                        "evidence_url": n["url"] or src["url"],
+695191	        entry["counts"] = c
+695192	        counts[src["id"]] = c
+695193	        manifest["sources"].append(entry)
+695194	    # s35 seed (not fetched; gov.uk/PINS pages read during research)
+695195	    seed_counts = {"candidates": 0, "by_status": {}, "with_location": 0, "with_any_mw": 0}
+695196	    for s in S35_SEED:
+695197	        seed_counts["candidates"] += 1
+695198	        seed_counts["by_status"][s["status"]] = seed_counts["by_status"].get(s["status"], 0) + 1
+695199	        seed_counts["with_any_mw"] += any(s[k] is not None for k in ("it_load_mw", "grid_connection_mw", "facility_power_mw"))
+695200	        features.append({"type": "Feature", "geometry": None, "properties": {
+695201	            "id": "dc-a2:s35:" + s["reference"], "name": s["name"], "operator": None,
+695202	            "applicant": s["applicant"], "status": s["status"], "status_raw": s["stage_raw"],
+695203	            "route": s["route"], "it_load_mw": s["it_load_mw"], "grid_connection_mw": s["grid_connection_mw"],
+695204	            "facility_power_mw": s["facility_power_mw"],
+695205	            "onsite_generation_mw": s["generation_mw"], "mw_unqualified": s["mw_unqualified"],
+695206	            "mw_evidence": [s["mw_note"]], "date_received": None, "date_decided": None,
+695207	            "organisation": s["lpa"], "address": None, "description": None, "keywords": ["data centre"],
+695208	            "use_classes": [], "match": "s35-direction", "location_precision": "named site (no coordinates)",
+695209	            "source": "s35-seed", "licence": OGL3[0], "licence_url": OGL3[1],
+695210	            "evidence_url": s["evidence_url"], "evidence_url_2": s.get("evidence_url_2")}})
+695211	    counts["s35-seed"] = seed_counts
+695212	    manifest["sources"].append({"id": "s35-seed", "title": "Data-centre s35 directions (hand-curated from gov.uk / PINS pages)",
+695213	                                "fetch": "curated", "licence": OGL3[0], "licence_url": OGL3[1],
+695214	                                "counts": seed_counts})
+695215	    total = {"candidates": 0, "by_status": {}}
+695216	    for k, c in counts.items():
+695217	        total["candidates"] += c["candidates"]
+695218	        for s, v in c["by_status"].items():
+695219	            total["by_status"][s] = total["by_status"].get(s, 0) + v
+695220	    manifest["totals"] = total
+695221	    with open(os.path.join(out, "dc_planning.geojson"), "w") as f:
+695222	        json.dump({"type": "FeatureCollection", "features": features}, f, indent=1, sort_keys=True)
+695223	        f.write("\n")
+695224	    with open(os.path.join(out, "manifest.json"), "w") as f:
+695225	        json.dump(manifest, f, indent=1, sort_keys=True)
+695226	def verify(args):
+695227	    m = json.load(open(os.path.join(out, "manifest.json")))
+695228	    bad = 0
+695229	    for s in m["sources"]:
+695230	        if "sha256" not in s:
+695231	        p = os.path.join(out, "raw", s["id"] + ".csv")
+695232	        ok = os.path.exists(p) and sha256(open(p, "rb").read()) == s["sha256"]
+695233	        print(("OK  " if ok else "BAD ") + s["id"])
+695234	        bad += not ok
+695237	    assert classify("Erection of a data centre (Use Class B8) with substation")[0] == "keyword"
+695238	    assert classify("Installation of telecoms cabinet to serve data centre")[0] == "keyword-ancillary"
+695239	    assert classify("Erection of 3 dwellings")[0] is None
+695240	    it, grid, gen, unq, _ = extract_mw("data centre with 90MW IT load and a 132kV substation of 150 MVA")
+695241	    assert it == 90.0 and grid == 150.0 and gen is None, (it, grid, gen)
+695242	    it, grid, gen, unq, _ = extract_mw("hyperscale data centre of 40 MW")
+695243	    assert unq == 40.0 and it is None and grid is None
+695244	    it, grid, gen, unq, _ = extract_mw("data centre with 20MW of standby generators")
+695245	    assert gen == 20.0
+695246	    assert map_status("Decided", "Application Permitted") == "consented"
+695247	    assert map_status("Withdrawn") == "withdrawn"
+695248	    assert map_status("Refused") == "refused"
+695249	    assert map_status("Pre Application") == "in planning"
+695250	    assert map_status("Decided") == "decided (outcome not stated)"
+695251	    assert map_status("") == "unknown"
+695252	    print("selftest ok")
+695254	    ap.add_argument("--out", default="out")
+695255	    ap.add_argument("--cafile")
+695257	    ap.add_argument("--verify", action="store_true")
+695259	        selftest()
+695260	        sys.exit(0)
+695261	    if a.verify:
+695262	        sys.exit(1 if verify(a) else 0)
+695263	    m = run(a)
+695264	        c = s["counts"]
+695265	        print("%-28s %-40s rows=%-7s cand=%-4s %s" % (s["id"], s["fetch"][:40], c.get("rows"),
+695266	                                                     c["candidates"], json.dumps(c["by_status"], sort_keys=True)))
+695267	    print("TOTAL", json.dumps(m["totals"], sort_keys=True))
+695268	"""DC-A3: government-published UK data-centre sites (issue #73, step 3 schema).
+695269	Standard library only. Three modes:
+695270	  build   write gov_sites.json (and gov_sites.geojson) from the RECORDS below, deterministically
+695271	  check   validate gov_sites.json against the #73 step-3 rules (enums, IT vs connection
+695272	          kept apart, licence present, citation on an OGL government domain)
+695273	  fetch   snapshot every cited source. GOV.UK pages go through the machine-readable
+695274	          Content API (https://www.gov.uk/api/content/<path>); other sources are fetched as raw bytes.
+695275	          Writes raw/<sha256>.<ext> plus raw/manifest.json with the URL, HTTP status, SHA-256,
+695276	          bytes and GOV.UK public_updated_at. With --verify it also reports whether each
+695277	          record's quoted strings still appear in the fetched text.
+695278	Facts only: every MW, date and status value is what the cited page says, as of the
+695279	date in status_as_of. Stated targets go in 'stated_targets' and are NEVER commitments.
+695280	Coordinates come from DC-A3, never from the source, unless location_precision == "exact"
+695281	(then they come from a grid reference that the source prints).
+695282	Usage:  python3 -I gov_sites.py build|check|fetch [--verify]
+695283	OUT_JSON = os.path.join(HERE, "gov_sites.json")
+695284	OUT_GEOJSON = os.path.join(HERE, "gov_sites.geojson")
+695285	RAW = os.path.join(HERE, "raw")
+695286	OGL3 = {
+695287	    "id": "OGL-UK-3.0",
+695288	    "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+695289	STATUS = {"operational", "under construction", "consented", "in planning",
+695290	          "connection request", "announced", None}
+695291	PRECISION = {"exact", "town", "region"}
+695292	OGL_DOMAINS = ("www.gov.uk", "assets.publishing.service.gov.uk", "www.gov.scot",
+695293	               "www.gov.wales", "businesswales.gov.wales",
+695294	               "national-infrastructure-consenting.planninginspectorate.gov.uk",
+695295	               "www.find-tender.service.gov.uk")
+695296	LICENCE_NOTES = {
+695297	    "www.gov.uk": "GOV.UK: 'All content is available under the Open Government Licence v3.0, except where otherwise stated'",
+695298	    "assets.publishing.service.gov.uk": "GOV.UK attachment; OGL v3.0 as printed on the document's copyright page where checked, otherwise 'unverified'",
+695299	    "www.gov.scot": "gov.scot footer: 'All content is available under the Open Government Licence v3.0, except for graphic assets and where otherwise stated.' https://www.gov.scot/crown-copyright/",
+695300	    "www.gov.wales": "gov.wales copyright statement: 'under the terms of the Open Government Licence' linking to OGL v3 https://www.gov.wales/copyright-statement",
+695301	    "businesswales.gov.wales": "Welsh Government service; OGL v3 assumed from gov.wales copyright statement: unverified",
+695302	    "national-infrastructure-consenting.planninginspectorate.gov.uk": "Planning Inspectorate service; OGL v3: unverified",
+695303	    "www.find-tender.service.gov.uk": "Find a Tender (Cabinet Office); OGL v3: unverified",
+695304	# --- OSGB36 grid reference to WGS84 (OS 'Guide to coordinate systems', Helmert ~ +/-5 m) ---
+695305	def osgb_to_wgs84(E, N):
+695306	    a, b = 6377563.396, 6356256.909
+695307	    F0, lat0, lon0 = 0.9996012717, math.radians(49), math.radians(-2)
+695308	    N0, E0 = -100000, 400000
+695311	    lat, M = lat0, 0.0
+695313	        lat = (N - N0 - M) / (a * F0) + lat
+695314	        Ma = (1 + n + 1.25 * n**2 + 1.25 * n**3) * (lat - lat0)
+695315	        Mb = (3 * n + 3 * n**2 + 21 / 8 * n**3) * math.sin(lat - lat0) * math.cos(lat + lat0)
+695316	        Mc = (15 / 8 * n**2 + 15 / 8 * n**3) * math.sin(2 * (lat - lat0)) * math.cos(2 * (lat + lat0))
+695317	        Md = 35 / 24 * n**3 * math.sin(3 * (lat - lat0)) * math.cos(3 * (lat + lat0))
+695318	        M = b * F0 * (Ma - Mb + Mc - Md)
+695319	        if abs(N - N0 - M) < 0.00001:
+695321	    s, c, t = math.sin(lat), math.cos(lat), math.tan(lat)
+695322	    nu = a * F0 / math.sqrt(1 - e2 * s * s)
+695323	    rho = a * F0 * (1 - e2) / (1 - e2 * s * s) ** 1.5
+695325	    VII = t / (2 * rho * nu)
+695326	    VIII = t / (24 * rho * nu**3) * (5 + 3 * t * t + eta2 - 9 * t * t * eta2)
+695327	    IX = t / (720 * rho * nu**5) * (61 + 90 * t * t + 45 * t**4)
+695328	    X = 1 / (c * nu)
+695329	    XI = 1 / (6 * c * nu**3) * (nu / rho + 2 * t * t)
+695330	    XII = 1 / (120 * c * nu**5) * (5 + 28 * t * t + 24 * t**4)
+695331	    XIIA = 1 / (5040 * c * nu**7) * (61 + 662 * t * t + 1320 * t**4 + 720 * t**6)
+695332	    dE = E - E0
+695333	    phi = lat - VII * dE**2 + VIII * dE**4 - IX * dE**6
+695334	    lam = lon0 + X * dE - XI * dE**3 + XII * dE**5 - XIIA * dE**7
+695335	    # OSGB36 -> cartesian -> Helmert -> WGS84
+695336	    s, c = math.sin(phi), math.cos(phi)
+695337	    nu = a / math.sqrt(1 - e2 * s * s)
+695338	    x, y, z = nu * c * math.cos(lam), nu * c * math.sin(lam), (1 - e2) * nu * s
+695339	    tx, ty, tz, sc = 446.448, -125.157, 542.060, -20.4894e-6
+695341	    x2 = tx + (1 + sc) * x - rz * y + ry * z
+695342	    y2 = ty + rz * x + (1 + sc) * y - rx * z
+695343	    z2 = tz - ry * x + rx * y + (1 + sc) * z
+695344	    a2, b2 = 6378137.000, 6356752.3142
+695347	    phi2 = math.atan2(z2, p * (1 - e22))
+695348	    for _ in range(10):
+695349	        nu2 = a2 / math.sqrt(1 - e22 * math.sin(phi2) ** 2)
+695350	        phi2 = math.atan2(z2 + e22 * nu2 * math.sin(phi2), p)
+695351	    return round(math.degrees(phi2), 5), round(math.degrees(math.atan2(y2, x2)), 5)
+695352	def mw(value, measure, quote, url, approx=False, qualifier=None):
+695353	    d = {"value": value, "measure": measure, "quote": quote, "evidence_url": url}
+695354	    if approx:
+695355	        d["approximate"] = True
+695356	    if qualifier:
+695357	        d["qualifier"] = qualifier
+695359	G = "https://www.gov.uk/government/"
+695360	A = "https://assets.publishing.service.gov.uk/media/"
+695361	U_COVENANT = G + "publications/data-centre-covenant/the-data-centre-covenant"
+695362	U_COLLECTION = G + "collections/ai-growth-zones"
+695363	U_BLUEPRINT = G + "news/prime-minister-sets-out-blueprint-to-turbocharge-ai"
+695364	U_CULHAM_APR25 = G + "news/investors-and-local-authorities-gear-up-as-ai-growth-zone-delivery-gathers-speed"
+695365	U_CULHAM_PIN = "https://www.find-tender.service.gov.uk/Notice/005218-2025/PDF"
+695366	U_UKAEA = G + "publications/ukaea-strategy/uk-atomic-energy-authority-strategy-2026-to-2030"
+695367	U_NE = G + "news/north-east-england-set-for-billions-in-investment-and-thousands-of-jobs-as-uk-and-us-ink-tech-partnership"
+695368	U_NW = G + "news/ai-growth-zones-to-create-thousands-of-jobs-and-unlock-up-to-100-billion-in-investment-as-new-site-confirmed-for-north-wales"
+695369	U_NW_WG = "https://www.gov.wales/written-statement-wylfa-announced-site-uks-first-small-modular-reactor-smr-nuclear-power-station"
+695370	U_SW = G + "news/ai-to-power-national-renewal-as-government-announces-billions-of-additional-investment-and-new-plans-to-boost-uk-businesses-jobs-and-innovation"
+695371	U_SW_WG = "https://businesswales.gov.wales/news-and-blog/second-ai-growth-zone-wales-announced"
+695372	U_LAN = G + "news/more-than-3400-jobs-and-targeted-support-for-local-communities-to-help-tackle-the-cost-of-living-as-lanarkshire-named-latest-ai-growth-zone"
+695373	U_ANNEX = A + "69d8dae9d3e08b8871b66599/compute-evidence-annex-final.pdf"
+695374	U_ROADMAP = G + "publications/uk-compute-roadmap/uk-compute-roadmap"
+695375	U_ONEYEAR = A + "697a36873c71d838df6bd400/ai_opportunities_action_plan-one-year-on.pdf"
+695376	U_WW_PAGE = G + "publications/data-centre-campus-wapseys-wood-buckinghamshire-section-35-direction-planning-act-2008"
+695377	U_WW_REQ = A + "69b7ece3ba47c264e6c8cfba/Request_Document_-_SDC_M40_Campus_-_Section_35_Direction.pdf"
+695378	U_WW_DL = A + "69b7e853b84f01b2be53a27c/MHCLG_Decision_Letter_Data_Centre_Campus.pdf"
+695379	U_WW_PINS = "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN0110030"
+695380	U_QP = A + "6a2fcaea15f2a70fac7e5f54/260615_QuestPit_Data_Centre_Campus_s35_Direction.pdf"
+695381	U_QP_REQ = A + "6a2fc930c39255c595b5084f/Request_Statement_on_behalf_of_Questpit_Limited.pdf"
+695382	U_AL_PAGE = G + "publications/recovered-appeal-land-off-bedmond-road-abbots-langley-ref-3346061-12-may-2025"
+695383	U_AL = A + "6821f977c66deec8488f7f42/Recovered_appeal_-_land_off_Bedmond_Road__Abbots_Langley.pdf"
+695384	U_CL = A + "6752d28020bcf083762a6c99/Recovered_appeal_decision_-_Court_Lane_Industrial_Estate_Court_Lane_Iver_SL0_9HL.pdf"
+695385	U_WP_PAGE = G + "publications/recovered-appeal-woodlands-park-landfill-site-land-south-of-slough-road-iver-buckinghamshire-ref-3347353-9-july-2025"
+695386	U_MF_PAGE = G + "publications/recovered-appeal-land-at-manor-farm-and-land-north-of-wraysbury-reservoir-poyle-road-slough-ref-3366043-10-june-2026"
+695387	U_MF = A + "6a292d6edb0592d809052b94/260610_Combined_DL_IR_RtoC_-_Manor_Farm_Slough_-_3366043.pdf"
+695388	U_CNI = G + "news/data-centres-to-be-given-massive-boost-and-protections-from-cyber-criminals-and-it-blackouts"
+695389	U_FDI = G + "news/tech-secretary-welcomes-foreign-investment-in-uk-data-centres-which-will-spur-economic-growth-and-ai-innovation-in-britain"
+695390	U_SCOT_DIR = "https://www.gov.scot/news/data-centre-planning-direction/"
+695391	WW_LAT, WW_LON = osgb_to_wgs84(497300, 188500)
+695392	# Each record: #73 step-3 fields + provenance. it_load_mw / grid_connection_mw hold ONLY
+695393	# figures the source labels as IT load / grid connection. Anything else goes in other_mw.
+695394	RECORDS = [
+695395	    # ---------------- DSIT AI Growth Zones (5 designated; Covenant: "five AI Growth Zones across England, Scotland and Wales") ----
+695396	    dict(id="gov-aigz-culham", name="Culham AI Growth Zone (Culham Campus)", operator="UK Atomic Energy Authority (site owner); no commercial partner named",
+695397	         kind="AI Growth Zone", gov_designation="AI Growth Zone (first; announced 13 Jan 2025)", status="announced",
+695398	         status_note="Designated AIGZ. UKAEA PIN (Feb 2025) is 'Prior information only'; no partner contract is published. UKAEA strategy lists delivery 'By September 2026' as a target, not a completion.",
+695399	         status_as_of="2026-04-28", country="England", place="Culham, Abingdon, Oxfordshire",
+695400	         lat=51.6585, lon=-1.2286, location_precision="town",
+695401	         it_load_mw=None, grid_connection_mw=None,
+695402	         other_mw=[mw(100, "site power available to a planned AI data centre ('steady state, dual resilient power'); basis IT vs connection not stated",
+695403	                      "initially deliver approximately 100MW of steady state, dual resilient power", U_CULHAM_PIN, approx=True)],
+695404	         stated_targets=["UKAEA PIN: zones scale 'up to 500MW in collaboration with network operators' (a programme-wide target, not Culham-specific)",
+695405	                         "UKAEA strategy 2026-2030: 'By September 2026: Deliver the Government's first AI Growth Zone (AIGZ) at Culham'"],
+695406	         dates={"announced": "2025-01-13", "aigz_programme_press": "2025-04-30"},
+695407	         evidence_url=U_BLUEPRINT, evidence_urls=[U_BLUEPRINT, U_CULHAM_APR25, U_COLLECTION, U_UKAEA, U_CULHAM_PIN],
+695408	         quotes=["The first of these will be in Culham, Oxfordshire"],
+695409	         publisher="DSIT / Prime Minister's Office; UKAEA"),
+695410	    dict(id="gov-aigz-north-east", name="North East AI Growth Zone", operator="Multiple (Blackstone/QTS at Blyth-Cambois; Nscale at Cobalt Park)",
+695411	         kind="AI Growth Zone", gov_designation="AI Growth Zone (announced 16 Sep 2025)", status="announced",
+695412	         status_note="Zone-level record; component sites follow as separate records.",
+695413	         status_as_of="2025-09-16", country="England", place="Blyth (Northumberland) and Cobalt Park (North Tyneside)",
+695414	         lat=55.09, lon=-1.52, location_precision="region",
+695415	         other_mw=[mw(1100, "zone-wide power capacity ambition; IT vs connection not stated", "increase its energy capacity to 1.1GW in the next 6 years", U_NE,
+695416	                      qualifier="stated ambition over six years; not secured power")],
+695417	         stated_targets=["1.1 GW zone capacity within six years (ambition)"],
+695418	         dates={"announced": "2025-09-16"}, evidence_url=U_NE, evidence_urls=[U_NE, U_COLLECTION],
+695419	         quotes=["1.1GW"], publisher="DSIT"),
+695420	    dict(id="gov-ne-blyth-cambois", name="QTS Cambois Data Centre Campus (Blyth)", operator="QTS (Blackstone)",
+695421	         kind="data centre campus", gov_designation="component of North East AI Growth Zone", status="announced",
+695422	         status_note="gov.uk: Blackstone has committed GBP 10bn and 'work to develop the site is underway'; the Mayor says it is 'due to open in 2028'. No MW is given.",
+695423	         status_as_of="2025-09-16", country="England", place="Cambois, Blyth, Northumberland",
+695424	         lat=55.155, lon=-1.53, location_precision="town",
+695425	         it_load_mw=None, grid_connection_mw=None, other_mw=[],
+695426	         stated_targets=["opening 2028 (as quoted from the Mayor)"],
+695427	         dates={"announced": "2025-09-16"}, evidence_url=U_NE, evidence_urls=[U_NE, U_FDI], quotes=["Blyth"], publisher="DSIT"),
+695428	    dict(id="gov-ne-cobalt-park", name="Cobalt Park Data Centres", operator="Cobalt Park Data Centres; Nscale (GPU deployment); Stargate UK",
+695429	         kind="data centre campus", gov_designation="component of North East AI Growth Zone", status="operational",
+695430	         status_note="gov.uk release quotes the Mayor that Cobalt Park Data Centres are 'already established'. The Nscale/Stargate UK GPU rollout is planned. No MW is given.",
+695431	         status_as_of="2025-09-16", country="England", place="Cobalt Park, Wallsend, North Tyneside",
+695432	         lat=55.02, lon=-1.51, location_precision="town",
+695433	         stated_targets=["Stargate UK phase one: OpenAI to take 'up to 8,000 GPUs', possible growth to ~31,000 GPUs"],
+695434	         dates={"announced": "2025-09-16"}, evidence_url=U_NE, evidence_urls=[U_NE], quotes=["Cobalt Park"], publisher="DSIT"),
+695435	    dict(id="gov-aigz-north-wales", name="North Wales AI Growth Zone", operator="Consortium incl. Stena Line, Isle of Anglesey County Council, Bangor University; investment partner not yet secured",
+695436	         kind="AI Growth Zone", gov_designation="AI Growth Zone (announced 13 Nov 2025)", status="announced",
+695437	         status_note="gov.uk: 'Work is underway to secure an investment partner'; construction starts once a deal is confirmed. No MW is given.",
+695438	         status_as_of="2025-11-13", country="Wales", place="Straddles the Menai Strait: Prosperity Parc (Anglesey) and Trawsfynydd (Gwynedd)",
+695439	         lat=53.0, lon=-4.2, location_precision="region",
+695440	         it_load_mw=None, grid_connection_mw=None, other_mw=[], stated_targets=[],
+695441	         dates={"announced": "2025-11-13"}, evidence_url=U_NW, evidence_urls=[U_NW, U_NW_WG, U_COLLECTION],
+695442	         quotes=["Menai Strait", "Trawsfynydd"], publisher="DSIT / Wales Office / No 10; Welsh Government written statement"),
+695443	    dict(id="gov-nw-prosperity-parc", name="Prosperity Parc, Anglesey (North Wales AIGZ base)", operator="Stena Line-led consortium",
+695444	         kind="AI Growth Zone site", gov_designation="component of North Wales AI Growth Zone", status="announced",
+695445	         status_note="Named in the gov.uk release as one base of the zone. Not named in the Welsh Government written statement.",
+695446	         status_as_of="2025-11-13", country="Wales", place="Holyhead, Anglesey",
+695447	         lat=53.30, lon=-4.60, location_precision="town",
+695448	         dates={"announced": "2025-11-13"}, evidence_url=U_NW, evidence_urls=[U_NW], quotes=["Prosperity Parc"], publisher="DSIT"),
+695449	    dict(id="gov-nw-trawsfynydd", name="Trawsfynydd (North Wales AIGZ base)", operator=None,
+695450	         status_note="The Welsh Government statement says only that the zone 'has the potential to widen AI investment across the region, including at Trawsfynydd'.",
+695451	         status_as_of="2025-11-13", country="Wales", place="Trawsfynydd, Gwynedd",
+695452	         lat=52.92, lon=-3.95, location_precision="town",
+695453	         dates={"announced": "2025-11-13"}, evidence_url=U_NW, evidence_urls=[U_NW, U_NW_WG], quotes=["Trawsfynydd"], publisher="DSIT; Welsh Government"),
+695454	    dict(id="gov-aigz-south-wales", name="South Wales AI Growth Zone (M4 corridor, Newport to Bridgend)", operator="Vantage Data Centers and Microsoft named as joining; investor not yet secured",
+695455	         kind="AI Growth Zone", gov_designation="AI Growth Zone (announced 20 Nov 2025; fourth announced)", status="announced",
+695456	         status_note="gov.uk: 'Work is now underway to secure an investor to help deliver the South Wales Growth Zone site'.",
+695457	         status_as_of="2025-11-20", country="Wales", place="M4 corridor from Newport to Bridgend",
+695458	         lat=51.55, lon=-3.25, location_precision="region",
+695459	         other_mw=[mw(1000, "potential power; IT vs connection not stated", "has the potential to harness over 1GW by early 2030s", U_SW,
+695460	                      qualifier="'over'; potential, not secured")],
+695461	         stated_targets=["'over 1GW by early 2030s' (potential)"],
+695462	         dates={"announced": "2025-11-20"}, evidence_url=U_SW, evidence_urls=[U_SW, U_SW_WG, U_COLLECTION],
+695463	         quotes=["from Newport to Bridgend"], publisher="DSIT / HM Treasury / Wales Office; Business Wales"),
+695464	    dict(id="gov-sw-ford-bridgend", name="Former Ford Bridgend Engine Plant (South Wales AIGZ)", operator=None,
+695465	         kind="AI Growth Zone site", gov_designation="component of South Wales AI Growth Zone", status="announced",
+695466	         status_note="Named in the gov.uk release as included in the zone. No operator or MW is given.",
+695467	         status_as_of="2025-11-20", country="Wales", place="Bridgend",
+695468	         lat=51.51, lon=-3.55, location_precision="town",
+695469	         dates={"announced": "2025-11-20"}, evidence_url=U_SW, evidence_urls=[U_SW], quotes=["former Ford Bridgend Engine Plant"], publisher="DSIT"),
+695470	    dict(id="gov-aigz-lanarkshire", name="Lanarkshire AI Growth Zone (DataVita, Airdrie)", operator="DataVita (HFD Group); CoreWeave as backer",
+695471	         kind="AI Growth Zone", gov_designation="AI Growth Zone (announced 29 Jan 2026)", status="announced",
+695472	         status_note="gov.uk: 'AI Growth Zone status is conditional on delivery against agreed milestones'. Investment/jobs figures were 'supplied by DataVita'.",
+695473	         status_as_of="2026-02-03", country="Scotland", place="Airdrie, North Lanarkshire",
+695474	         lat=55.866, lon=-3.98, location_precision="town",
+695475	         other_mw=[mw(500, "on-site power generation (renewables); not IT load, not grid connection", "generation of more than 500MW of on-site power", U_LAN,
+695476	                      qualifier="'more than'; planned 'in the next 4 years'")],
+695477	         stated_targets=[">500 MW on-site generation 'in the next 4 years'"],
+695478	         dates={"announced": "2026-01-29", "page_updated": "2026-02-03"}, evidence_url=U_LAN, evidence_urls=[U_LAN, U_COLLECTION],
+695479	         quotes=["Airdrie"], publisher="DSIT / Scotland Office"),
+695480	    # ---------------- Planning Act 2008 s35 directions (MHCLG) ----------------
+695481	    dict(id="gov-s35-wapseys-wood", name="SDC M40 Campus (Wapseys Wood)", operator="Slough Holdings UK Limited (SDC Capital Partners)",
+695482	         kind="data centre campus + energy centre", gov_designation="s35 direction: to be treated as NSIP (MHCLG, 16 Mar 2026)", status="in planning",
+695483	         status_note="PINS: 'This project is at the pre-application stage'; application 'expected to be submitted January 2027'.",
+695484	         status_as_of="2026-10-29", country="England", place="Wapseys Wood landfill site, north of the M40, south of the A40, Buckinghamshire",
+695485	         lat=WW_LAT, lon=WW_LON, location_precision="exact",
+695486	         location_note="OSGB 497300E 188500N as printed in the request (it locates building 'DC 02', not the campus boundary); converted to WGS84 by DC-A3 (Helmert, about 5 m).",
+695487	         it_load_mw=mw(300, "IT load", "designed for an IT load of up to c.300MW across the three buildings (c.100 MW each)", U_WW_REQ, approx=True, qualifier="up to"),
+695488	         grid_connection_mw=None,
+695489	         other_mw=[mw(350, "energy centre generating capacity (upper bound of the range)", "a generating capacity of c.270MW to 350MW", U_WW_REQ, approx=True, qualifier="range 270-350 (request); PINS page says 250-350"),
+695490	                   mw(900, "GAS connection capacity (not electrical)", "indicative gas connection capacity of up to c.900MW", U_WW_REQ, approx=True, qualifier="up to")],
+695491	         stated_targets=["DCO application expected January 2027 (PINS)"],
+695492	         conflicts=["Energy-centre generating capacity: the request says c.270-350 MW, the PINS project page says approximately 250-350 MW."],
+695493	         dates={"s35_request": "2026-01-21", "s35_direction": "2026-03-16"}, evidence_url=U_WW_PAGE, evidence_urls=[U_WW_PAGE, U_WW_DL, U_WW_REQ, U_WW_PINS],
+695494	         quotes=["Wapseys Wood"], publisher="MHCLG; Planning Inspectorate"),
+695495	    dict(id="gov-s35-questpit-bedford", name="QuestPit data centre campus, Ampthill Road", operator="Questpit Limited",
+695496	         kind="data centre campus", gov_designation="s35 direction: development consent required (MHCLG, 15 Jun 2026)", status="in planning",
+695497	         status_note="A direction is given; no DCO application found. Source gives no connection figure.",
+695498	         status_as_of="2026-06-15", country="England", place="Ampthill Road, Bedford, Central Bedfordshire",
+695499	         lat=52.09, lon=-0.49, location_precision="town",
+695500	         it_load_mw=mw(720, "IT load", "a proposed IT load of up to c.720MW across the four buildings", U_QP, approx=True, qualifier="up to"),
+695501	         grid_connection_mw=None, other_mw=[], stated_targets=[],
+695502	         dates={"s35_request": "2026-04-24", "s35_direction": "2026-06-15"}, evidence_url=U_QP, evidence_urls=[U_QP, U_QP_REQ],
+695503	         quotes=["AMPTHILL ROAD, BEDFORD"], publisher="MHCLG"),
+695504	    # ---------------- Recovered appeals decided by the Secretary of State (MHCLG) ----------------
+695505	    dict(id="gov-appeal-abbots-langley", name="Land off Bedmond Road, Abbots Langley", operator="Greystoke Land Ltd (appellant)",
+695506	         kind="data centre", gov_designation="recovered appeal ALLOWED; outline permission (APP/P1940/W/24/3346061)", status="consented",
+695507	         status_note="Outline permission for 'a data centre of up to 84,000 sqm (GEA)'.",
+695508	         status_as_of="2025-05-12", country="England", place="Abbots Langley, Three Rivers, Hertfordshire",
+695509	         lat=51.709, lon=-0.41, location_precision="town",
+695510	         other_mw=[mw(96, "unspecified ('capacity'; IT vs connection not stated; Inspector's summary of the Council's case)", "96 MW of capacity", U_AL)],
+695511	         stated_targets=[], dates={"decision": "2025-05-12"}, evidence_url=U_AL_PAGE, evidence_urls=[U_AL_PAGE, U_AL],
+695512	         quotes=["Bedmond Road"], publisher="MHCLG"),
+695513	    dict(id="gov-appeal-court-lane-iver", name="Court Lane Industrial Estate, Iver (SL0 9HL)", operator="Affinius Capital LLC (appellant)",
+695514	         kind="data centre", gov_designation="recovered appeal ALLOWED; outline permission", status="consented",
+695515	         status_note="Outline permission for a data centre 'of up to 65,000sqm (GEA)'.",
+695516	         status_as_of="2024-12-06", country="England", place="Iver, Buckinghamshire",
+695517	         lat=51.515, lon=-0.505, location_precision="town",
+695518	         it_load_mw=None,
+695519	         grid_connection_mw=mw(140, "grid connection (reserved)", "The proposed development has a 140MW grid connection reserved.", U_CL),
+695520	         other_mw=[mw(103, "contribution to data-centre need (Inspector's report); basis not stated", "the 103 MW proposed here", U_CL)],
+695521	         stated_targets=[], dates={"decision": "2024-12-06"}, evidence_url=U_CL, evidence_urls=[U_CL],
+695522	         quotes=["COURT LANE INDUSTRIAL ESTATE"], publisher="MHCLG"),
+695523	    dict(id="gov-appeal-woodlands-park-iver", name="Woodlands Park landfill site, land south of Slough Road, Iver", operator="Greystoke Land Ltd (per secondary reports; not confirmed from gov.uk)",
+695524	         kind="data centre", gov_designation="recovered appeal decision 9 Jul 2025 (approval; see conflict)", status=None,
+695525	         status_note="gov.uk publishes the 9 Jul 2025 decision ('up to 72,000 sqm (GEA) delivered across 2 buildings'). Secondary press (The Register, 23 Jan 2026) reports that the government conceded the approval should be quashed after a legal challenge. Current status UNKNOWN.",
+695526	         status_as_of="2026-10-29", country="England", place="Iver, Buckinghamshire",
+695527	         lat=51.52, lon=-0.52, location_precision="town",
+695528	         conflicts=["gov.uk decision (approval, 9 Jul 2025) vs reported concession to quash (Jan 2026, non-OGL secondary source). The gov.uk page metadata updated 2026-10-01; re-check."],
+695529	         dates={"decision": "2025-07-09"}, evidence_url=U_WP_PAGE, evidence_urls=[U_WP_PAGE],
+695530	         quotes=["72,000 sqm"], publisher="MHCLG"),
+695531	    dict(id="gov-appeal-manor-farm-slough", name="Land at Manor Farm and north of Wraysbury Reservoir, Poyle Road, Slough", operator="Manor Farm Propco Limited (appellant)",
+695532	         kind="data centre + BESS", gov_designation="recovered appeal ALLOWED; permission granted (ref 3366043)", status="consented",
+695533	         status_note="Data centre (Use Class B8) plus BESS; GIA about 36,368 sqm (Inspector's report).",
+695534	         status_as_of="2026-06-10", country="England", place="Poyle, Slough (SL3 0AA)",
+695535	         lat=51.474, lon=-0.515, location_precision="town",
+695536	         it_load_mw=mw(72, "IT load (design IT capacity)", "deliver an IT capacity of around 72 MW", U_MF, approx=True),
+695537	         other_mw=[mw(100, "battery energy storage capacity (BESS); not data-centre load", "a 100 MW capacity system to store electricity", U_MF)],
+695538	         stated_targets=[], dates={"decision": "2026-06-10"}, evidence_url=U_MF_PAGE, evidence_urls=[U_MF_PAGE, U_MF],
+695539	         quotes=["Manor Farm"], publisher="MHCLG"),
+695540	    # ---------------- DSIT announcements naming specific sites ----------------
+695541	    dict(id="gov-dsit-dc01uk-hertsmere", name="DC01UK data centre, Hertsmere", operator="DC01UK",
+695542	         kind="data centre", gov_designation="named in CNI designation release", status="in planning",
+695543	         status_note="As of 12 Sep 2024: 'plans have been submitted to Hertsmere Borough Council'. Later status was not checked against an OGL source.",
+695544	         status_as_of="2024-09-12", country="England", place="Hertsmere, Hertfordshire",
+695545	         lat=51.69, lon=-0.22, location_precision="region",
+695546	         conflicts=["Investment given as 'GBP 3.75 billion' and 'nearly GBP 4 billion' in the same release."],
+695547	         dates={"announced": "2024-09-12"}, evidence_url=U_CNI, evidence_urls=[U_CNI], quotes=["DC01UK"], publisher="DSIT"),
+695548	    dict(id="gov-dsit-cloudhq-didcot", name="CloudHQ data centre, Didcot", operator="CloudHQ",
+695549	         kind="data centre", gov_designation=None, status="consented",
+695550	         status_note="As of 14 Oct 2024: 'currently in development' with planning permission secured. No MW is given.",
+695551	         status_as_of="2024-10-14", country="England", place="Didcot, Oxfordshire",
+695552	         lat=51.61, lon=-1.24, location_precision="town",
+695553	         dates={"announced": "2024-10-14"}, evidence_url=U_FDI, evidence_urls=[U_FDI], quotes=["Didcot"], publisher="DSIT"),
+695554	    dict(id="gov-dsit-nscale-loughton", name="Nscale sovereign AI data centre, Loughton", operator="Nscale",
+695555	         kind="data centre", gov_designation=None, status="announced",
+695556	         status_note="As of 13 Jan 2025: 'signed a contract to build the largest UK sovereign AI data centre in Loughton, Essex by 2026'. No MW is given.",
+695557	         status_as_of="2025-01-13", country="England", place="Loughton, Essex",
+695558	         lat=51.65, lon=0.07, location_precision="town",
+695559	         it_load_mw=None, grid_connection_mw=None, other_mw=[], stated_targets=["build 'by 2026' (stated)"],
+695560	         dates={"announced": "2025-01-13"}, evidence_url=U_BLUEPRINT, evidence_urls=[U_BLUEPRINT], quotes=["Loughton"], publisher="DSIT / No 10"),
+695561	    dict(id="gov-dsit-equinix-herts", name="Equinix high-performance data centre campus, Hertfordshire", operator="Equinix",
+695562	         kind="data centre campus", gov_designation=None, status="announced",
+695563	         status_note="gov.uk (20 Nov 2025) refers to 'Equinix's recent GBP 4 billion commitment'. No site or MW is given.",
+695564	         status_as_of="2025-11-20", country="England", place="Hertfordshire",
+695565	         lat=51.80, lon=-0.20, location_precision="region",
+695566	         dates={"announced": "2025-11-20"}, evidence_url=U_SW, evidence_urls=[U_SW], quotes=["Hertfordshire"], publisher="DSIT"),
+695567	    dict(id="gov-dsit-google-waltham-cross", name="Google data centre, Waltham Cross", operator="Google",
+695568	         kind="data centre", gov_designation=None, status="operational",
+695569	         status_note="Described in the gov.uk release (13 Nov 2025) as recently opened, in a quote from Google. No MW is given.",
+695570	         status_as_of="2025-11-13", country="England", place="Waltham Cross, Hertfordshire",
+695571	         lat=51.69, lon=-0.03, location_precision="town",
+695572	         dates={"announced": "2025-11-13"}, evidence_url=U_NW, evidence_urls=[U_NW], quotes=["Waltham Cross"], publisher="DSIT"),
+695573	    # ---------------- Compute Roadmap / evidence annex / One Year On (public compute) ----------------
+695574	    dict(id="gov-compute-isambard-ai", name="Isambard-AI supercomputer (AIRR)", operator="University of Bristol",
+695575	         kind="public AI supercomputer", gov_designation="AI Research Resource", status="operational",
+695576	         status_note="Launched July 2025 (One Year On). Evidence annex: 'Isambard-AI and Dawn currently provide less than 0.01GW of sustained compute' (combined; IT-load basis).",
+695577	         status_as_of="2026-01-29", country="England", place="Bristol",
+695578	         lat=51.45, lon=-2.59, location_precision="town",
+695579	         other_mw=[mw(10, "COMBINED Isambard-AI + Dawn sustained compute, IT-load basis; upper bound ('less than'); not per-site", "less than 0.01GW of sustained compute", U_ANNEX, qualifier="< (upper bound, combined)")],
+695580	         stated_targets=[], dates={"launched": "2025-07"}, evidence_url=U_ONEYEAR, evidence_urls=[U_ONEYEAR, U_ANNEX, U_ROADMAP],
+695581	         quotes=["Isambard-AI"], publisher="DSIT"),
+695582	    dict(id="gov-compute-dawn", name="DAWN supercomputer (AIRR)", operator="University of Cambridge",
+695583	         status_note="One Year On: capacity at Cambridge to increase 'sixfold by Spring 2026' (target). See the Isambard-AI note for the combined <0.01 GW.",
+695584	         status_as_of="2026-01-29", country="England", place="Cambridge",
+695585	         lat=52.21, lon=0.12, location_precision="town",
+695586	         stated_targets=["sixfold capacity increase by Spring 2026"], dates={}, evidence_url=U_ONEYEAR, evidence_urls=[U_ONEYEAR, U_ANNEX, U_ROADMAP],
+695587	         quotes=["DAWN"], publisher="DSIT"),
+695588	    dict(id="gov-compute-edinburgh-national", name="Next national supercomputer, Edinburgh (EPCC)", operator="Edinburgh Parallel Computing Centre, University of Edinburgh",
+695589	         kind="public supercomputer", gov_designation="EPCC designated first National Supercomputing Centre", status="announced",
+695590	         status_note="Up to GBP 750m of funding; replaces ARCHER2 (operational). Planned for 2027. No MW is given.",
+695591	         status_as_of="2026-04-23", country="Scotland", place="Edinburgh",
+695592	         lat=55.95, lon=-3.19, location_precision="town",
+695593	         it_load_mw=None, grid_connection_mw=None, other_mw=[], stated_targets=["early 2027 (Compute Roadmap)"],
+695594	         dates={}, evidence_url=U_ROADMAP, evidence_urls=[U_ROADMAP, U_ONEYEAR], quotes=["Edinburgh"], publisher="DSIT / UKRI"),
+695595	    # ---------------- Scottish Government ----------------
+695596	    dict(id="scot-eia-wester-hermiston", name="Wester Hermiston Data Centre Campus", operator=None,
+695597	         kind="data centre campus", gov_designation="Scottish Ministers' EIA direction (Aug 2026)", status="in planning",
+695598	         status_note="EIA required by Ministerial direction. No MW is given.", status_as_of="2026-08-17", country="Scotland", place="Wester Hermiston, Edinburgh",
+695599	         lat=55.92, lon=-3.33, location_precision="town",
+695600	         dates={"direction_news": "2026-08-17"}, evidence_url=U_SCOT_DIR, evidence_urls=[U_SCOT_DIR, "https://www.dpea.scotland.gov.uk/CaseDetails.aspx?ID=128694"],
+695601	         quotes=["Wester Hermiston"], publisher="Scottish Government"),
+695602	    dict(id="scot-eia-auchtertool", name="Auchtertool data centre", operator=None,
+695603	         kind="data centre", gov_designation="Scottish Ministers' EIA direction (Aug 2026)", status="in planning",
+695604	         status_note="EIA required by Ministerial direction. No MW is given.", status_as_of="2026-08-17", country="Scotland", place="Auchtertool, Fife",
+695605	         lat=56.13, lon=-3.27, location_precision="town",
+695606	         dates={"direction_news": "2026-08-17"}, evidence_url=U_SCOT_DIR, evidence_urls=[U_SCOT_DIR, "https://www.dpea.scotland.gov.uk/CaseDetails.aspx?ID=128778"],
+695607	         quotes=["Auchtertool"], publisher="Scottish Government"),
+695608	    dict(id="scot-recall-redheughs", name="Redheughs Avenue green data centre", operator=None,
+695609	         kind="data centre", gov_designation="planning appeal recalled by Scottish Ministers (Aug 2026)", status="in planning",
+695610	         status_note="Ministers, not a Reporter, will decide the appeal. No MW is given.", status_as_of="2026-08-17", country="Scotland", place="Redheughs Avenue, Edinburgh",
+695611	         lat=55.93, lon=-3.30, location_precision="town",
+695612	         dates={"direction_news": "2026-08-17"}, evidence_url=U_SCOT_DIR, evidence_urls=[U_SCOT_DIR, "https://www.dpea.scotland.gov.uk/CaseDetails.aspx?ID=128582"],
+695613	         quotes=["Redheughs Avenue"], publisher="Scottish Government"),
+695614	CONTEXT = {
+695615	    "data_centre_covenant": {
+695616	        "url": U_COVENANT, "publisher": "HM Treasury", "published": "2026-10-28", "annexes": "none (publication page lists one HTML document)",
+695617	        "named_sites": "none", "facts": [
+695618	            "'6 GW of AI data centre capacity by 2030': 'capacity' is not defined as IT load or grid connection.",
+695619	            "'five AI Growth Zones across England, Scotland and Wales' (matches the 5 AIGZ records here).",
+695620	            "New facilities designed for 'a Power Usage Effectiveness of 1.3 or better'."]},
+695621	    "compute_evidence_annex": {
+695622	        "url": U_ANNEX, "publisher": "DSIT", "licence": "OGL v3.0 (printed p.2)", "named_sites": "no individual data-centre sites with capacity; Isambard-AI, Dawn, ARCHER2 named",
+695623	        "facts": ["Units: 'measured here in gigawatts (GW) of IT load' (p.9).",
+695624	                  "'Around 1.8GW of UK's IT load (power capacity) is currently used to power around 330 data centres' (p.12).",
+695625	                  "AIGZs 'capable of delivering at least 6GW of AI-ready capacity by 2030' (p.8): a target, not a commitment."]},
+695626	    "compute_roadmap": {"url": U_ROADMAP, "publisher": "DSIT/UKRI", "published": "2025-07-17", "updated": "2026-04-23",
+695627	                        "facts": ["Each AIGZ core site to serve 'at least 500MW of demand by 2030', at least one 'scaling to more than 1GW by 2030' (targets)."]},
+695628	    "critical_national_infrastructure": {"url": U_CNI, "published": "2024-09-12", "facts": [
+695629	        "'Data centres powering the economy will be designated as Critical National Infrastructure': a sector designation. No list of designated sites is published (security-sensitive); none can be recorded."]},
+695630	    "aigz_collection": {"url": U_COLLECTION, "facts": ["Announcements: Oxfordshire 30 Apr 2025 (Culham first named 13 Jan 2025), North East 16 Sep 2025, North Wales 13 Nov 2025, South Wales 20 Nov 2025, Scotland 29 Jan 2026. One Year On (Jan 2026): 'five AI Growth Zones across Great Britain, including 2 in Wales and one in Scotland'."]},
+695631	    "desnz_strategic_demand_consultation": {"url": A + "69b2aa5bc8010d37b34e0070/accelerating-electricity-network-connections-for-strategic-demand.pdf", "published": "2026-03-11",
+695632	        "facts": ["'~140 data centres in the queue at transmission alone, representing approximately 50GW': connection requests, not sites. No sites are named, and Annex D examples are hypothetical."]},
+695633	    "scotland_green_dc_site_studies": {"urls": ["https://digitalconnectivity.campaign.gov.scot/publications/2023/06/short-list-of-datacentre-site-development-report",
+695634	                                                "https://digitalconnectivity.campaign.gov.scot/publications/2023/11/long-list-of-datacentre-site-development-report"],
+695635	        "licence": "OGL v3.0 (page footer)", "facts": ["Government-commissioned candidate-site studies (150-page PDF). NOT ingested: candidate sites are not projects. PDF not reachable from this sandbox."]},
+695636	EXCLUDED = [
+695637	    {"what": "Investments with no stated location (CyrusOne GBP 2.5bn, ServiceNow, CoreWeave GBP 750m, AWS GBP 8bn, Zoom, Groq 'London')", "url": U_FDI,
+695638	     "reason": "No site, or only a city; not mappable as a site. Groq (London) and AI Pathfinder (Northamptonshire, GBP 150m GPU deployment) could be added at region precision if wanted."},
+695639	    {"what": "Vantage 'one of Europe's largest data centre campuses in Wales'", "url": U_BLUEPRINT, "reason": "gov.uk names no site; likely overlaps the South Wales AIGZ (see that record's operator)."},
+695640	    {"what": "North East Combined Authority / council pages (Newcastle, Northumberland, North Lincolnshire, York & N Yorks, Havering LDO, Rushcliffe Ratcliffe-on-Soar LDO, Hertsmere)",
+695641	     "reason": "Footer '(c) North East Mayoral Strategic Authority 2026', with no OGL statement; council licences are not stated. Not fully open: excluded under the owner's data rule. All NECA facts are duplicated on gov.uk."},
+695642	    {"what": "West London Technology Park, Iver (150 MW): appeal dismissed by SoS (Gove era)", "reason": "Only a secondary source (DCD) was found; no gov.uk citation was retrieved. Dismissed, so it is not pipeline."},
+695644	    recs = sorted(RECORDS, key=lambda r: r["id"])
+695645	    for r in recs:
+695646	        host = urllib.parse.urlparse(r["evidence_url"]).hostname
+695647	        r["source"] = r.pop("publisher")
+695648	        r["licence"] = dict(OGL3, note=LICENCE_NOTES.get(host, "unverified"))
+695649	        r["coordinates_source"] = ("grid reference printed in source" if r["location_precision"] == "exact"
+695650	                                   else "DC-A3 approximate centroid of the named place; NOT from the source")
+695651	        r.setdefault("conflicts", [])
+695653	        "schema": "gridatlas#73 step-3 data-centre pipeline record (DC-A3 lane)",
+695654	        "generated": "2026-10-29",
+695655	        "lane": "DC-A3",
+695656	        "rules": ["Facts only, as stated by the cited page on status_as_of.",
+695657	                  "it_load_mw and grid_connection_mw hold ONLY figures the source labels as such; every other MW figure is in other_mw with its measure.",
+695658	                  "null means unknown, never zero. A pipeline entry is not a commitment. stated_targets are not commitments.",
+695659	                  "Proximity is not connection, capacity or feasibility."],
+695660	        "status_enum": sorted(s for s in STATUS if s) + [None],
+695661	        "location_precision_enum": sorted(PRECISION),
+695662	        "records": recs,
+695663	        "context": CONTEXT,
+695664	        "excluded": EXCLUDED,
+695665	    with open(OUT_JSON, "w", encoding="utf-8") as f:
+695666	        json.dump(doc, f, indent=1, ensure_ascii=False, sort_keys=False)
+695667	    feats = [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [r["lon"], r["lat"]]},
+695668	              "properties": {k: v for k, v in r.items() if k not in ("lat", "lon")}} for r in recs]
+695669	    with open(OUT_GEOJSON, "w", encoding="utf-8") as f:
+695670	        json.dump({"type": "FeatureCollection", "features": feats}, f, indent=1, ensure_ascii=False)
+695671	    print(f"wrote {len(recs)} records -> {OUT_JSON}; sha256 {sha(OUT_JSON)}")
+695674	        h.update(f.read())
+695676	    doc = json.load(open(OUT_JSON, encoding="utf-8"))
+695677	    errs, ids = [], set()
+695678	    for r in doc["records"]:
+695679	        i = r["id"]
+695680	        if i in ids: errs.append(f"{i}: duplicate id")
+695681	        ids.add(i)
+695682	        for k in ("name", "status", "it_load_mw", "grid_connection_mw", "dates", "source", "licence", "evidence_url", "location_precision", "lat", "lon"):
+695683	            if k not in r: errs.append(f"{i}: missing {k}")
+695684	        if r["status"] not in STATUS: errs.append(f"{i}: bad status {r['status']}")
+695685	        if r["location_precision"] not in PRECISION: errs.append(f"{i}: bad precision")
+695686	        if not (49.8 < r["lat"] < 60.9 and -8.7 < r["lon"] < 1.8): errs.append(f"{i}: outside UK bbox")
+695687	        for u in [r["evidence_url"]] + r.get("evidence_urls", []):
+695688	            h = urllib.parse.urlparse(u).hostname or ""
+695689	            if not (h in OGL_DOMAINS or h.endswith(".scotland.gov.uk")): errs.append(f"{i}: non-government citation {u}")
+695690	        if not r["evidence_url"].startswith(("https://www.gov.uk/", "https://assets.publishing.service.gov.uk/", "https://www.gov.scot/", "https://www.gov.wales/", "https://businesswales.gov.wales/")):
+695691	            errs.append(f"{i}: primary evidence_url is not gov.uk/gov.scot/gov.wales")
+695692	        for k, label in (("it_load_mw", "IT load"), ("grid_connection_mw", "grid connection")):
+695693	            v = r[k]
+695694	            if v is not None:
+695695	                if label not in v["measure"]: errs.append(f"{i}: {k} measure is '{v['measure']}', not labelled {label}")
+695696	                if not isinstance(v["value"], (int, float)) or v["value"] <= 0: errs.append(f"{i}: {k} non-positive")
+695697	        for o in r.get("other_mw", []):
+695698	            m = o["measure"].lower()
+695699	            if m.startswith("it load") or m.startswith("grid connection"):
+695700	                errs.append(f"{i}: other_mw labelled as IT/connection; move it to the dedicated field")
+695701	        if r["it_load_mw"] and r["grid_connection_mw"] and r["it_load_mw"]["value"] == r["grid_connection_mw"]["value"]:
+695702	            errs.append(f"{i}: IT == connection; check for conflation")
+695703	        if r["location_precision"] == "exact" and "grid reference" not in r.get("coordinates_source", ""):
+695704	            errs.append(f"{i}: exact precision without a source grid reference")
+695705	    print(f"{len(doc['records'])} records; {len(errs)} errors")
+695706	    for e in errs: print("  ERR", e)
+695708	def all_urls(doc):
+695709	    us = set()
+695710	        us.add(r["evidence_url"]); us.update(r.get("evidence_urls", []))
+695711	        for k in ("it_load_mw", "grid_connection_mw"):
+695712	            if r[k]: us.add(r[k]["evidence_url"])
+695713	        for o in r.get("other_mw", []): us.add(o["evidence_url"])
+695714	    return sorted(us)
+695715	def fetch(verify=False):
+695716	    os.makedirs(RAW, exist_ok=True)
+695717	    manifest, texts = [], {}
+695718	    for u in all_urls(doc):
+695719	        p = urllib.parse.urlparse(u)
+695720	        api = f"https://www.gov.uk/api/content{p.path}" if p.hostname == "www.gov.uk" else u
+695721	        ent = {"url": u, "fetched_url": api}
+695722	            req = urllib.request.Request(api, headers={"User-Agent": "gridatlas-dc-a3/1 (+https://github.com/Ventusltd/gridatlas/issues/73)"})
+695723	            with urllib.request.urlopen(req, timeout=60) as resp:
+695724	                body = resp.read(); ent["http"] = resp.status; ctype = resp.headers.get("Content-Type", "")
+695725	            digest = hashlib.sha256(body).hexdigest()
+695726	            ext = "json" if "json" in ctype else ("pdf" if "pdf" in ctype or u.endswith(".pdf") else "html")
+695727	            with open(os.path.join(RAW, f"{digest}.{ext}"), "wb") as f: f.write(body)
+695728	            ent.update(sha256=digest, bytes=len(body), content_type=ctype)
+695729	            if ext == "json":
+695730	                j = json.loads(body)
+695731	                ent.update(public_updated_at=j.get("public_updated_at"), first_published_at=j.get("first_published_at"))
+695732	                texts[u] = json.dumps(j.get("details", {}), ensure_ascii=False)
+695733	            elif ext == "html":
+695734	                texts[u] = body.decode("utf-8", "replace")
+695735	        except Exception as e:  # record failure; never invent
+695736	            ent["error"] = f"{type(e).__name__}: {e}"
+695737	        manifest.append(ent)
+695738	        print(ent.get("http", "ERR"), ent.get("sha256", ent.get("error"))[:64], u)
+695739	    with open(os.path.join(RAW, "manifest.json"), "w", encoding="utf-8") as f:
+695740	        json.dump(manifest, f, indent=1); f.write("\n")
+695741	    if verify:
+695742	        miss = 0
+695743	        for r in doc["records"]:
+695744	            for q in r.get("quotes", []):
+695745	                t = texts.get(r["evidence_url"])
+695746	                if t is None: print(f"  SKIP {r['id']}: primary is PDF or unfetched"); break
+695747	                if q.lower() not in t.lower(): miss += 1; print(f"  MISS {r['id']}: {q!r}")
+695748	        print(f"quote verification: {miss} missing")
+695749	    return 0 if all("sha256" in m for m in manifest) else 2
+695750	    cmd = sys.argv[1] if len(sys.argv) > 1 else "check"
+695751	    if cmd == "build": build(); sys.exit(check())
+695752	    if cmd == "check": sys.exit(check())
+695753	    if cmd == "fetch": sys.exit(fetch("--verify" in sys.argv))
+695754	    print(__doc__); sys.exit(64)
+695755	"""DC-A4: operational UK data centres from OpenStreetMap (ODbL) and Wikidata (CC0).
+695756	Standard library only. Subcommands:
+695757	  fetch-osm       POST the pinned Overpass query to the pinned endpoint; store the raw JSON + SHA-256.
+695758	  fetch-wikidata  GET the pinned SPARQL query from query.wikidata.org; store the raw JSON + SHA-256.
+695759	  build           Normalise whatever raw snapshots exist (live Overpass, legacy globalgrid2050
+695760	                  datacentres.geojson, Wikidata), de-duplicate into sites, reconcile against the
+695761	                  GridAtlas offtakers class C, and write dc_operational.json + dc_operational.geojson
+695762	                  + counts.json. Deterministic: same inputs -> byte-identical outputs (no wall clock).
+695763	  selftest        Run the build pipeline on small synthetic Overpass + Wikidata fixtures.
+695764	  * status is "operational" only in the sense "mapped as an existing data centre"; status_basis says so.
+695765	  * IT load MW and grid connection MW are separate fields and are null unless a source states which one it
+695766	    is. Neither OSM nor Wikidata says which, so any MW found goes to mw_unclassified with its raw tag/property.
+695767	  * unknown is null, never 0. OSM placeholder strings ("Unknown Data Centre", "Unknown Operator") become null.
+695768	import argparse, hashlib, json, math, os, re, sys, urllib.parse, urllib.request
+695769	from collections import Counter, OrderedDict
+695770	# ---------------------------------------------------------------- pinned sources
+695772	# UK = OSM relation 62149 -> Overpass area 3600062149 (same area as globalgrid2050 scripts/fetch_datacentres.py).
+695773	OVERPASS_QUERY = """[out:json][timeout:300];
+695774	area(id:3600062149)->.uk;
+695776	  nwr["telecom"="data_center"](area.uk);
+695777	  nwr["building"~"^data_cent(er|re)$"](area.uk);
+695778	  nwr["building:use"~"^data_cent(er|re)$"](area.uk);
+695779	  nwr["industrial"~"^data_cent(er|re)$"](area.uk);
+695782	WIKIDATA_URL = "https://query.wikidata.org/sparql"
+695783	# Q671224 = data center (class); P31/P279* takes every subclass. Q145 = United Kingdom.
+695784	# P2109 = nominal power output, P2791 = power consumed (property semantics for data centres: unverified).
+695785	WIKIDATA_QUERY = """SELECT ?item ?itemLabel ?class ?classLabel ?coord ?operator ?operatorLabel ?owner ?ownerLabel
+695786	       ?inception ?dissolved ?stateOfUse ?stateOfUseLabel ?website
+695787	       ?powerOut ?powerOutUnit ?powerUse ?powerUseUnit WHERE {
+695788	  ?item wdt:P31 ?class . ?class wdt:P279* wd:Q671224 .
+695789	  ?item wdt:P17 wd:Q145 .
+695790	  OPTIONAL { ?item wdt:P625 ?coord }
+695791	  OPTIONAL { ?item wdt:P137 ?operator }
+695792	  OPTIONAL { ?item wdt:P127 ?owner }
+695793	  OPTIONAL { ?item wdt:P571 ?inception }
+695794	  OPTIONAL { ?item wdt:P576 ?dissolved }
+695795	  OPTIONAL { ?item wdt:P5817 ?stateOfUse }
+695796	  OPTIONAL { ?item wdt:P856 ?website }
+695797	  OPTIONAL { ?item p:P2109/psv:P2109 [ wikibase:quantityAmount ?powerOut ; wikibase:quantityUnit ?powerOutUnit ] }
+695798	  OPTIONAL { ?item p:P2791/psv:P2791 [ wikibase:quantityAmount ?powerUse ; wikibase:quantityUnit ?powerUseUnit ] }
+695799	  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+695800	ORDER BY ?item"""
+695801	USER_AGENT = "GridAtlas-DC-pipeline/0.1 (https://github.com/Ventusltd/gridatlas/issues/73)"
+695802	LEGACY_GG2050 = dict(repo="https://github.com/Ventusltd/globalgrid2050", path="datacentres.geojson",
+695803	                     sha256="a686a2e00253bbf30c9f5262439bc2332524e8d5cb34481529c6a711c73acab4",
+695804	                     builder="scripts/fetch_datacentres.py (Overpass: telecom|building=data_center in area 3600062149, out center)",
+695805	                     snapshot_date="unknown; present in globalgrid2050 history at da7d8f6e (2026-10-13)")
+695806	OSM_LICENCE = dict(name="ODbL 1.0", url="https://opendatacommons.org/licenses/odbl/1-0/",
+695807	                   attribution="© OpenStreetMap contributors", attribution_url="https://www.openstreetmap.org/copyright",
+695808	                   share_alike="Derived databases must be offered under ODbL; produced works must carry the attribution.",
+695809	                   fully_open="yes (ODbL with attribution is on the owner's list)")
+695810	WD_LICENCE = dict(name="CC0 1.0", url="https://creativecommons.org/publicdomain/zero/1.0/",
+695811	                  attribution="Wikidata (CC0; attribution not required, given as courtesy)",
+695812	                  attribution_url="https://www.wikidata.org/wiki/Wikidata:Licensing", fully_open="yes")
+695813	UNIT_TO_MW = {"http://www.wikidata.org/entity/Q6982035": 1.0,       # megawatt
+695814	              "http://www.wikidata.org/entity/Q25250": 1e-6}        # watt
+695815	UK_BBOX = (-8.75, 49.8, 1.9, 61.0)
+695816	SITE_RADIUS_M = 250      # same grouping radius as the offtakers filter (ot_filter.py step 4)
+695817	XSRC_RADIUS_M = 500      # OSM <-> Wikidata match radius
+695818	PLACEHOLDER = re.compile(r"^\s*(unknown( data cent(er|re)| operator)?|n/?a|none|-)?\s*$", re.I)
+695819	CABLE = re.compile(r"cable landing|landing station", re.I)
+695820	MW_TAG = re.compile(r"(^|:)(power|capacity|electricity|output|it_load|load)(:|$)", re.I)
+695821	# ---------------------------------------------------------------- helpers
+695822	def sha256_bytes(b): return hashlib.sha256(b).hexdigest()
+695823	def sha256_file(p):
+695824	    with open(p, "rb") as fh: return sha256_bytes(fh.read())
+695826	    if s is None: return None
+695827	    s = str(s).strip()
+695828	    return None if PLACEHOLDER.match(s) else s
+695829	def norm(s): return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
+695830	def tokens(s): return {t for t in norm(s).split() if t not in {"data", "centre", "center", "ltd", "limited", "the", "dc", "uk", "plc"} and len(t) > 1}
+695831	def hav_m(a, b):
+695832	    lon1, lat1, lon2, lat2 = map(math.radians, (a[0], a[1], b[0], b[1]))
+695833	    h = math.sin((lat2 - lat1) / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+695834	    return 2 * 6371008.8 * math.asin(math.sqrt(h))
+695835	def in_uk(lon, lat): return UK_BBOX[0] <= lon <= UK_BBOX[2] and UK_BBOX[1] <= lat <= UK_BBOX[3]
+695836	def dump(obj, path):
+695837	    data = (json.dumps(obj, ensure_ascii=False, indent=1, sort_keys=False) + "\n").encode("utf-8")
+695838	    with open(path, "wb") as fh: fh.write(data)
+695839	    return sha256_bytes(data)
+695840	def nation(lon, lat):
+695841	    # coarse geometric fallback, always flagged approximate (same rule as ot_filter.py)
+695842	    if lon < -5.3 and 53.9 < lat < 55.4: return "Northern Ireland (approx)"
+695846	# ---------------------------------------------------------------- fetchers
+695847	def _http(req, out_dir, stem, meta):
+695848	    os.makedirs(out_dir, exist_ok=True)
+695849	        with urllib.request.urlopen(req, timeout=360) as r: body = r.read(); status = r.status
+695850	    except Exception as e:  # recorded, not hidden
+695851	        meta.update(ok=False, error=f"{type(e).__name__}: {e}")
+695852	        dump(meta, os.path.join(out_dir, stem + ".fetch.json")); print("FETCH FAILED:", meta["error"]); return 2
+695853	    p = os.path.join(out_dir, stem + ".json")
+695854	    with open(p, "wb") as fh: fh.write(body)
+695855	    meta.update(ok=status == 200, http_status=status, bytes=len(body), sha256=sha256_bytes(body), raw=os.path.basename(p))
+695856	    dump(meta, os.path.join(out_dir, stem + ".fetch.json")); print("saved", p, meta["sha256"]); return 0
+695857	def fetch_osm(a):
+695858	    body = urllib.parse.urlencode({"data": OVERPASS_QUERY}).encode()
+695859	    req = urllib.request.Request(OVERPASS_URL, data=body, headers={"User-Agent": USER_AGENT})
+695860	    meta = OrderedDict(source="OpenStreetMap via Overpass", endpoint=OVERPASS_URL, query=OVERPASS_QUERY,
+695861	                       query_sha256=sha256_bytes(OVERPASS_QUERY.encode()), licence=OSM_LICENCE, retrieved=a.retrieved)
+695862	    return _http(req, a.raw, "osm_overpass", meta)
+695863	def fetch_wikidata(a):
+695864	    url = WIKIDATA_URL + "?" + urllib.parse.urlencode({"query": WIKIDATA_QUERY, "format": "json"})
+695865	    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/sparql-results+json"})
+695866	    meta = OrderedDict(source="Wikidata Query Service", endpoint=WIKIDATA_URL, query=WIKIDATA_QUERY,
+695867	                       query_sha256=sha256_bytes(WIKIDATA_QUERY.encode()), licence=WD_LICENCE, retrieved=a.retrieved)
+695868	    return _http(req, a.raw, "wikidata_sparql", meta)
+695869	# ---------------------------------------------------------------- loaders -> source records
+695870	def osm_records(raw_path, retrieved):
+695871	    d = json.load(open(raw_path, encoding="utf-8"))
+695873	    for e in d.get("elements", []):
+695874	        t = e.get("tags") or {}
+695875	        if e["type"] == "node": lon, lat, prec = e.get("lon"), e.get("lat"), "point: OSM node"
+695876	        elif "center" in e: lon, lat, prec = e["center"]["lon"], e["center"]["lat"], f"centroid of OSM {e['type']} (Overpass out center; footprint not kept)"
+695878	        if lon is None or not in_uk(lon, lat): continue
+695879	        mw = [dict(tag=k, raw=v, flag="unclassified: OSM tag does not say IT load or grid connection")
+695880	              for k, v in sorted(t.items()) if MW_TAG.search(k) and re.search(r"\d", v) and re.search(r"w\b|watt", v, re.I)]
+695881	        matched = sorted(k + "=" + t[k] for k in ("telecom", "building", "building:use", "industrial") if k in t and re.match(r"data_cent", t[k]))
+695882	        lifecycle = sorted(k for k in t if re.match(r"(disused|abandoned|demolished|construction|proposed|was|razed)(:|$)", k)
+695883	                           or (k in ("disused", "abandoned") and t[k] == "yes"))
+695884	        out.append(dict(src="osm", sid=f"osm:{e['type']}/{e['id']}", name=clean(t.get("name")),
+695885	                        operator=clean(t.get("operator")), brand=clean(t.get("brand")), lon=round(lon, 7), lat=round(lat, 7),
+695886	                        precision=prec, evidence_url=f"https://www.openstreetmap.org/{e['type']}/{e['id']}",
+695887	                        start_date=t.get("start_date"), mw=mw, matched_tags=matched, lifecycle_tags=lifecycle,
+695888	                        website=t.get("website") or t.get("contact:website"), retrieved=retrieved))
+695889	def legacy_records(path):
+695890	    h = sha256_file(path)
+695893	        p = f.get("properties") or {}; c = (f.get("geometry") or {}).get("coordinates")
+695894	        if not c or not in_uk(c[0], c[1]): continue
+695895	        out.append(dict(src="osm_legacy", sid=f"gg2050-dc-{i}", offtakers_ref=f"osm_dc-{i}", name=clean(p.get("name")),
+695896	                        operator=clean(p.get("operator")), brand=None, lon=round(c[0], 7), lat=round(c[1], 7),
+695897	                        precision="point: OSM node or footprint centre (element type and id not kept by the globalgrid2050 builder)",
+695898	                        evidence_url=None, start_date=None, mw=[], matched_tags=["telecom|building=data_center (builder query; per-element tag not kept)"],
+695899	                        lifecycle_tags=[], website=None, retrieved=LEGACY_GG2050["snapshot_date"], file_sha256=h))
+695900	def wd_records(raw_path, retrieved):
+695901	    items = OrderedDict()
+695902	    for b in d["results"]["bindings"]:
+695903	        v = {k: x["value"] for k, x in b.items()}
+695904	        q = v["item"].rsplit("/", 1)[-1]
+695905	        it = items.setdefault(q, dict(src="wikidata", sid=f"wd:{q}", name=None, operator=set(), owner=set(), classes=set(),
+695906	                                      coords=set(), inception=set(), dissolved=set(), state=set(), website=set(), mw=[], _seen=set()))
+695907	        if v.get("itemLabel") and v["itemLabel"] != q: it["name"] = v["itemLabel"]
+695908	        for k, key in (("operatorLabel", "operator"), ("ownerLabel", "owner"), ("classLabel", "classes"), ("coord", "coords"),
+695909	                       ("inception", "inception"), ("dissolved", "dissolved"), ("stateOfUseLabel", "state"), ("website", "website")):
+695910	            if v.get(k): it[key].add(v[k])
+695911	        for amt, unit, prop in (("powerOut", "powerOutUnit", "P2109 nominal power output"), ("powerUse", "powerUseUnit", "P2791 power consumed")):
+695912	            if v.get(amt):
+695913	                key = (prop, v[amt], v.get(unit))
+695914	                if key in it["_seen"]: continue
+695915	                it["_seen"].add(key)
+695916	                f = UNIT_TO_MW.get(v.get(unit))
+695917	                it["mw"].append(dict(property=prop, raw=v[amt], unit=v.get(unit), mw=(float(v[amt]) * f if f else None),
+695918	                                     flag="unclassified: Wikidata does not say IT load or grid connection"))
+695919	    for q, it in items.items():
+695920	        pts = []
+695921	        for c in sorted(it["coords"]):
+695922	            m = re.match(r"Point\(([-\d.eE]+) ([-\d.eE]+)\)", c)
+695923	            if m: pts.append((float(m.group(1)), float(m.group(2))))
+695924	        lon, lat = pts[0] if pts else (None, None)
+695925	        out.append(dict(src="wikidata", sid=it["sid"], name=clean(it["name"]),
+695926	                        operator=clean("; ".join(sorted(it["operator"]))) if it["operator"] else None, brand=None,
+695927	                        owner=sorted(it["owner"]), classes=sorted(it["classes"]), lon=lon, lat=lat,
+695928	                        coord_conflict=len(pts) > 1,
+695929	                        precision="point: Wikidata P625 (precision as entered; often approximate)" if pts else "none: no P625 coordinate",
+695930	                        evidence_url=f"https://www.wikidata.org/wiki/{q}", start_date=min(it["inception"]) if it["inception"] else None,
+695931	                        dissolved=sorted(it["dissolved"]), state_of_use=sorted(it["state"]), mw=it["mw"],
+695932	                        website=min(it["website"]) if it["website"] else None, lifecycle_tags=[], retrieved=retrieved))
+695933	# ---------------------------------------------------------------- de-duplication
+695934	def op_compatible(a, b):
+695935	    """Known operators require exact canonical identity: a shared token is not an identity."""
+695936	    if not a or not b:
+695937	    suffixes = {"ltd", "limited", "plc", "llp", "llc", "inc", "the", "uk"}
+695938	    canon = lambda v: " ".join(t for t in norm(v).split() if t not in suffixes)
+695939	    return bool(canon(a) and canon(a) == canon(b))
+695940	def site_compatible(members, incoming):
+695941	    """Never bridge different known operators, including across an unknown intermediate.
+695942	    An unknown operator supplies no authority to merge nearby *different named sites*.
+695944	    for prev in members:
+695945	        a, b = prev.get("operator"), incoming.get("operator")
+695946	        if a and b:
+695947	            if not op_compatible(a, b):
+695949	        elif not (prev.get("name") and incoming.get("name")
+695950	                  and norm(prev["name"]) == norm(incoming["name"])):
+695952	def assert_single_operator(sites):
+695953	    """Fail closed: a site containing distinct known operators is invalid, not a conflict to hide."""
+695954	        ops = [m["operator"] for m in s["members"] if m.get("operator")]
+695955	        if any(not op_compatible(ops[0], x) for x in ops[1:]):
+695956	            raise ValueError("cross-operator data-centre merge: " + repr(ops))
+695957	def group_osm(recs):
+695958	    """Group only colocated records compatible with *every* member of the site.
+695959	    Absence of an operator is not permission to join different named facilities.
+695960	    for r in sorted(recs, key=lambda r: (r["src"], r["sid"] if r["src"] == "osm" else int(r["sid"].rsplit("-", 1)[1]))):
+695963	            if hav_m((s["lon"], s["lat"]), (r["lon"], r["lat"])) <= SITE_RADIUS_M and site_compatible(s["members"], r):
+695964	                g = s; break
+695965	        if g is None:
+695966	            sites.append(dict(lon=r["lon"], lat=r["lat"], name=r["name"], operator=r["operator"], members=[r]))
+695967	            g["members"].append(r)
+695968	            if g["name"] is None and r["name"]: g["name"] = r["name"]
+695969	            if g["operator"] is None and r["operator"]: g["operator"] = r["operator"]
+695970	    assert_single_operator(sites)
+695971	    return sites
+695972	def match_wikidata(sites, wds):
+695973	    """Attach each Wikidata item to the nearest OSM site within XSRC_RADIUS_M whose name or operator shares a token;
+695974	    otherwise it becomes its own site. Wikidata items without coordinates are listed, never placed."""
+695975	    unplaced, added = [], []
+695976	    for w in wds:
+695977	        if w["lon"] is None: unplaced.append(w); continue
+695979	            d = hav_m((s["lon"], s["lat"]), (w["lon"], w["lat"]))
+695980	            if d > XSRC_RADIUS_M: continue
+695981	            if not site_compatible(s["members"], w):
+695982	            names = {x["name"] for x in s["members"] if x["name"]} | {x["operator"] for x in s["members"] if x["operator"]}
+695983	            ok = any(tokens(n) & (tokens(w["name"]) | tokens(w["operator"])) for n in names)
+695984	            if ok and (best is None or d < best[0]): best = (d, s)
+695985	        if best: best[1]["members"].append(dict(w, match_distance_m=round(best[0], 1)))
+695986	        else: added.append(dict(lon=w["lon"], lat=w["lat"], name=w["name"], operator=w["operator"], members=[w]))
+695987	    assert_single_operator(sites + added)
+695988	    return sites + added, unplaced
+695989	# ---------------------------------------------------------------- normalise to the #73 schema
+695990	def source_entry(m):
+695991	    lic = WD_LICENCE if m["src"] == "wikidata" else OSM_LICENCE
+695992	    e = OrderedDict(source={"osm": "OpenStreetMap (Overpass)", "osm_legacy": "OpenStreetMap via globalgrid2050 datacentres.geojson",
+695993	                            "wikidata": "Wikidata"}[m["src"]],
+695994	                    source_id=m["sid"], name=m["name"], operator=m["operator"], lon=m["lon"], lat=m["lat"],
+695995	                    location_precision=m["precision"], evidence_url=m["evidence_url"], retrieved=m["retrieved"],
+695996	                    licence=lic["name"], licence_url=lic["url"], attribution=lic["attribution"], attribution_url=lic["attribution_url"])
+695997	    if m["src"] == "osm_legacy": e.update(offtakers_ref=m["offtakers_ref"], snapshot_file=LEGACY_GG2050["repo"] + "/blob/main/" + LEGACY_GG2050["path"], snapshot_sha256=m["file_sha256"])
+695998	    if m.get("match_distance_m") is not None: e["match_distance_m"] = m["match_distance_m"]
+695999	    if m["src"] == "osm": e["matched_tags"] = m["matched_tags"]
+696001	def build_site(s, idx):
+696002	    ms = s["members"]
+696003	    srcs = sorted({m["src"] for m in ms})
+696004	    names = sorted({m["name"] for m in ms if m["name"]}); ops = sorted({m["operator"] for m in ms if m["operator"]})
+696005	    conflicts = []
+696006	    if len({norm(n) for n in names}) > 1: conflicts.append(dict(field="name", values=names,
+696007	        note="several names inside one grouped site: a multi-building campus, or two operators merged because one operator is unknown; check"))
+696008	    if len({norm(o) for o in ops}) > 1: conflicts.append(dict(field="operator", values=ops))
+696009	    lifecycle = sorted({t for m in ms for t in m.get("lifecycle_tags", [])})
+696010	    dissolved = sorted({d for m in ms for d in m.get("dissolved", [])}); state = sorted({x for m in ms for x in m.get("state_of_use", [])})
+696011	    if lifecycle: conflicts.append(dict(field="status", values=["OSM lifecycle tags: " + ", ".join(lifecycle)]))
+696012	    if dissolved or state: conflicts.append(dict(field="status", values=[f"Wikidata dissolved={dissolved} state_of_use={state}"]))
+696013	    for m in ms:
+696014	        if m.get("coord_conflict"): conflicts.append(dict(field="location", values=[f"{m['sid']} has several P625 values"]))
+696015	    cable = any(CABLE.search(m["name"] or "") for m in ms)
+696016	    mw = [dict(m2, source_id=m["sid"]) for m in ms for m2 in m["mw"]]
+696017	    lon = round(sum(m["lon"] for m in ms if m["lon"] is not None) / sum(1 for m in ms if m["lon"] is not None), 6)
+696018	    lat = round(sum(m["lat"] for m in ms if m["lat"] is not None) / sum(1 for m in ms if m["lat"] is not None), 6)
+696019	    precs = sorted({m["precision"] for m in ms})
+696020	    kind = "cable_landing_station" if cable else ("data_centre_campus" if sum(1 for m in ms if m["src"] != "wikidata") >= 2 else "data_centre")
+696021	    return OrderedDict(
+696022	        id=f"DC-OW-{idx:04d}",
+696023	        name=s["name"], operator=s["operator"], operator_alternatives=[o for o in ops if o != s["operator"]],
+696024	        site_kind=kind,
+696025	        status="operational",
+696026	        status_basis=("mapped in OpenStreetMap/Wikidata as an existing data centre; not independently verified, "
+696027	                      "no commissioning or energisation evidence; not a pipeline entry"),
+696028	        it_load_mw=OrderedDict(value=None, basis="unknown: no open source states IT load for this site"),
+696029	        grid_connection_mw=OrderedDict(value=None, basis="unknown: no open source states a grid connection capacity for this site"),
+696030	        mw_unclassified=mw,
+696031	        dates=OrderedDict(status_date=None, start_date=min((m["start_date"] for m in ms if m.get("start_date")), default=None),
+696032	                          first_seen_in_source=None),
+696033	        lon=lon, lat=lat, nation=nation(lon, lat),
+696034	        location_precision=("site = %d source object(s) within %d m; " % (len(ms), SITE_RADIUS_M)) + " | ".join(precs),
+696035	        evidence_url=next((m["evidence_url"] for m in ms if m["evidence_url"]), None),
+696036	        sources=[source_entry(m) for m in sorted(ms, key=lambda m: (m["src"], m["sid"]))],
+696037	        source_names=srcs,
+696038	        licence="ODbL 1.0 (OSM-derived database; share-alike)" if any(x.startswith("osm") for x in srcs) else "CC0 1.0",
+696039	        attribution="© OpenStreetMap contributors (ODbL)" if any(x.startswith("osm") for x in srcs) else "Wikidata (CC0)",
+696040	        conflicts=conflicts,
+696041	        offtakers_reconciliation=None,
+696042	        screening_note="operational-site list from open data: not a demand, contract, capacity or connection statement",
+696043	# ---------------------------------------------------------------- reconciliation with GridAtlas offtakers class C
+696044	def reconcile(sites, offtakers_path, legacy_used):
+696045	    d = json.load(open(offtakers_path, encoding="utf-8"))
+696046	    C = [f for f in d["features"] if f["properties"]["class"] == "C"]
+696047	    ref_to_ot = {}
+696048	    for f in C:
+696049	        for r in p.get("records", []) + p.get("osm_corroboration", []):
+696050	            if r.get("source") == "OSM": ref_to_ot[r["id"]] = p["id"]
+696051	    ot_by_id = {f["properties"]["id"]: f for f in C}
+696052	    hit_ot = Counter()
+696053	        refs = sorted({src["source_id"].replace("gg2050-dc-", "osm_dc-") for src in s["sources"] if src["source_id"].startswith("gg2050-dc-")})
+696054	        ots = sorted({ref_to_ot[r] for r in refs if r in ref_to_ot})
+696055	        how = "exact legacy ref (osm_dc-N = feature N of the same globalgrid2050 file)"
+696056	        if not ots:  # live OSM or Wikidata: nearest class C within 250 m
+696057	            best = min(((hav_m((s["lon"], s["lat"]), f["geometry"]["coordinates"]), f["properties"]["id"]) for f in C), default=None)
+696058	            if best and best[0] <= SITE_RADIUS_M: ots = [best[1]]; how = f"nearest class C within {SITE_RADIUS_M} m ({best[0]:.0f} m)"
+696059	        for o in ots: hit_ot[o] += 1
+696060	        if ots:
+696061	            s["offtakers_reconciliation"] = OrderedDict(offtakers_ids=ots, match=how,
+696062	                                                        offtakers_primary=[("NAEI" if ot_by_id[o]["properties"]["records"][0]["source"] == "NAEI" else "OSM") for o in ots])
+696063	            s["offtakers_reconciliation"] = OrderedDict(offtakers_ids=[], match="not in offtakers class C" + (
+696064	                " (cable landing station: excluded by ot_filter.py)" if s["site_kind"] == "cable_landing_station" else ""))
+696066	        if p["id"] not in hit_ot:
+696067	            missing.append(OrderedDict(offtakers_id=p["id"], name=p["name"], primary=p["records"][0]["source"],
+696068	                                       has_osm=bool([r for r in p["records"] + p.get("osm_corroboration", []) if r["source"] == "OSM"])))
+696069	    split = {o: n for o, n in hit_ot.items() if n > 1}
+696070	    return dict(offtakers_file=os.path.basename(offtakers_path), offtakers_sha256=sha256_file(offtakers_path),
+696071	                offtakers_class_c=len(C),
+696072	                class_c_osm_primary=sum(1 for f in C if f["properties"]["records"][0]["source"] == "OSM"),
+696073	                class_c_naei_primary=sum(1 for f in C if f["properties"]["records"][0]["source"] == "NAEI"),
+696074	                class_c_matched=len(hit_ot), class_c_unmatched=missing,
+696075	                class_c_split_across_sites=split)
+696076	# ---------------------------------------------------------------- build
+696077	def build(a):
+696078	    recs, inputs = [], OrderedDict()
+696079	    osm_raw = os.path.join(a.raw, "osm_overpass.json")
+696080	    if os.path.exists(osm_raw):
+696081	        recs += osm_records(osm_raw, a.retrieved); inputs["osm_overpass"] = sha256_file(osm_raw); legacy = False
+696082	        if not a.legacy or not os.path.exists(a.legacy): sys.exit("no live Overpass snapshot and no --legacy file")
+696083	        h = sha256_file(a.legacy)
+696084	        if h != LEGACY_GG2050["sha256"]: print("WARNING: legacy file hash differs from pinned", h)
+696085	        recs += legacy_records(a.legacy); inputs["gg2050_datacentres.geojson"] = h; legacy = True
+696086	    wd_raw = os.path.join(a.raw, "wikidata_sparql.json")
+696087	    wds = []
+696088	    if os.path.exists(wd_raw): wds = wd_records(wd_raw, a.retrieved); inputs["wikidata_sparql"] = sha256_file(wd_raw)
+696089	    n_in = len(recs)
+696090	    sites = group_osm(recs)
+696091	    sites, wd_unplaced = match_wikidata(sites, wds)
+696092	    sites.sort(key=lambda s: (round(s["lat"], 6), round(s["lon"], 6), s["members"][0]["sid"]))
+696093	    out = [build_site(s, i) for i, s in enumerate(sites)]
+696094	    rec = reconcile(out, a.offtakers, legacy) if a.offtakers else None
+696095	    if a.offtakers: inputs[os.path.basename(a.offtakers)] = rec["offtakers_sha256"]
+696096	    kinds = Counter(s["site_kind"] for s in out)
+696097	    counts = OrderedDict(
+696098	        inputs=inputs, mode="legacy globalgrid2050 snapshot (Overpass and Wikidata unreachable from this session)" if legacy else "live Overpass",
+696099	        source_objects=OrderedDict(osm=sum(1 for r in recs if r["src"] in ("osm", "osm_legacy")), wikidata_items=len(wds),
+696100	                                   wikidata_without_coords=len(wd_unplaced)),
+696101	        sites_total=len(out), sites_by_kind=dict(sorted(kinds.items())),
+696102	        operational_data_centre_sites_excl_cable_landing=sum(n for k, n in kinds.items() if k != "cable_landing_station"),
+696103	        duplicates_merged=n_in + len(wds) - len(wd_unplaced) - len(out),
+696104	        sites_multi_source=sum(1 for s in out if len(s["source_names"]) > 1),
+696105	        sites_with_conflicts=sum(1 for s in out if s["conflicts"]),
+696106	        sites_with_name=sum(1 for s in out if s["name"]), sites_with_operator=sum(1 for s in out if s["operator"]),
+696107	        sites_with_it_load_mw=sum(1 for s in out if s["it_load_mw"]["value"] is not None),
+696108	        sites_with_grid_connection_mw=sum(1 for s in out if s["grid_connection_mw"]["value"] is not None),
+696109	        sites_with_unclassified_mw=sum(1 for s in out if s["mw_unclassified"]),
+696110	        reconciliation=rec, params=dict(site_radius_m=SITE_RADIUS_M, cross_source_radius_m=XSRC_RADIUS_M))
+696112	    doc = OrderedDict(schema="gridatlas-dc-pipeline/0.1 (issue #73 step 3)", generated_from=inputs,
+696113	                      licence=OSM_LICENCE if any(r["src"].startswith("osm") for r in recs) else WD_LICENCE,
+696114	                      notes=["status 'operational' = mapped as existing; not verified, not a commitment",
+696115	                             "it_load_mw and grid_connection_mw are never derived from each other; null = unknown, not zero",
+696116	                             "Wikidata items without coordinates are listed in wikidata_unplaced, not mapped"],
+696117	                      records=out, wikidata_unplaced=[source_entry(w) for w in wd_unplaced])
+696118	    h1 = dump(doc, os.path.join(a.out, "dc_operational.json"))
+696119	    gj = dict(type="FeatureCollection", attribution="© OpenStreetMap contributors (ODbL); Wikidata (CC0)", features=[
+696120	        dict(type="Feature", geometry=dict(type="Point", coordinates=[s["lon"], s["lat"]]),
+696121	             properties={k: v for k, v in s.items() if k not in ("lon", "lat")}) for s in out])
+696122	    h2 = dump(gj, os.path.join(a.out, "dc_operational.geojson"))
+696123	    counts["outputs"] = {"dc_operational.json": h1, "dc_operational.geojson": h2}
+696124	    dump(counts, os.path.join(a.out, "counts.json"))
+696125	    print(json.dumps({k: v for k, v in counts.items() if k != "reconciliation"}, indent=1))
+696126	    if rec: print(json.dumps({k: (v if not isinstance(v, list) else len(v)) for k, v in rec.items()}, indent=1))
+696127	# ---------------------------------------------------------------- selftest
+696128	def selftest(a):
+696129	    os.makedirs(a.out, exist_ok=True); t = tempfile.mkdtemp(prefix="dca4-selftest-", dir=a.out); raw = os.path.join(t, "raw"); os.makedirs(raw)
+696130	    json.dump({"elements": [
+696131	        {"type": "way", "id": 2, "center": {"lat": 51.5000, "lon": -0.0100}, "tags": {"building": "data_center", "operator": "Equinix", "name": "LD8"}},
+696132	        {"type": "node", "id": 1, "lat": 51.5005, "lon": -0.0102, "tags": {"telecom": "data_center", "operator": "Equinix", "name": "LD8 Docklands", "power": "40 MW"}},
+696133	        {"type": "way", "id": 3, "center": {"lat": 51.5010, "lon": -0.0110}, "tags": {"building": "data_centre", "operator": "Telehouse"}},
+696134	        {"type": "node", "id": 4, "lat": 50.1, "lon": -5.6, "tags": {"telecom": "data_center", "name": "Porthcurno Cable Landing Station"}},
+696135	        {"type": "node", "id": 5, "lat": 40.0, "lon": -3.0, "tags": {"telecom": "data_center"}}]}, open(os.path.join(raw, "osm_overpass.json"), "w"))
+696136	    json.dump({"results": {"bindings": [
+696137	        {"item": {"value": "http://www.wikidata.org/entity/Q1"}, "itemLabel": {"value": "Equinix LD8"}, "coord": {"value": "Point(-0.0105 51.5003)"},
+696138	         "operatorLabel": {"value": "Equinix"}, "powerOut": {"value": "40"}, "powerOutUnit": {"value": "http://www.wikidata.org/entity/Q6982035"}},
+696139	        {"item": {"value": "http://www.wikidata.org/entity/Q2"}, "itemLabel": {"value": "Far DC"}, "coord": {"value": "Point(-2 53)"}},
+696140	        {"item": {"value": "http://www.wikidata.org/entity/Q3"}, "itemLabel": {"value": "No coords DC"}}]}}, open(os.path.join(raw, "wikidata_sparql.json"), "w"))
+696141	    ns = argparse.Namespace(raw=raw, out=os.path.join(t, "out"), legacy=None, offtakers=None, retrieved="selftest")
+696142	    build(ns)
+696143	    d = json.load(open(os.path.join(t, "out", "dc_operational.json")))
+696144	    R = d["records"]
+696145	    eq = [r for r in R if r["operator"] == "Equinix"]
+696146	    assert len(eq) == 1 and len(eq[0]["sources"]) == 3, eq                       # way + node + wikidata merged
+696147	    assert eq[0]["it_load_mw"]["value"] is None and eq[0]["grid_connection_mw"]["value"] is None
+696148	    assert len(eq[0]["mw_unclassified"]) == 2 and all("unclassified" in m["flag"] for m in eq[0]["mw_unclassified"])
+696149	    assert any(c["field"] == "name" for c in eq[0]["conflicts"])
+696150	    assert any(r["operator"] == "Telehouse" for r in R)                          # different operator, 100 m away: kept apart
+696151	    assert sum(1 for r in R if r["site_kind"] == "cable_landing_station") == 1
+696152	    assert not any(r["lat"] < 49 for r in R)                                      # out-of-UK dropped
+696153	    assert len(d["wikidata_unplaced"]) == 1 and len(R) == 4
+696154	    # Same 250 m, different operators: never one site, even through an unknown member.
+696155	    sl = [
+696156	        dict(src="osm_legacy", sid="gg2050-dc-133", name="Digital Realty LHR26",
+696157	             operator="Digital Realty", lon=-0.617916, lat=51.516456),
+696158	        dict(src="osm_legacy", sid="gg2050-dc-237", name="Global Technical Realty London GB One",
+696159	             operator="Global Technical Realty", lon=-0.618361, lat=51.517670),
+696160	        dict(src="osm_legacy", sid="gg2050-dc-135", name="Digital Realty LHR27",
+696161	             operator="Digital Realty", lon=-0.618850, lat=51.516715),
+696162	        dict(src="osm_legacy", sid="gg2050-dc-193", name="China Mobile Slough",
+696163	             operator=None, lon=-0.628276, lat=51.519482),
+696164	        dict(src="osm_legacy", sid="gg2050-dc-231", name="VIRTUS London 11",
+696165	             operator=None, lon=-0.626252, lat=51.518958),
+696167	    sg = group_osm(sl)
+696168	    assert len(sg) == 4, [(x["name"], [r["name"] for r in x["members"]]) for x in sg]
+696169	    assert all(not ({"Digital Realty", "Global Technical Realty"} <=
+696170	                    {r.get("operator") for r in x["members"]}) for x in sg)
+696171	    assert all(not ({"China Mobile Slough", "VIRTUS London 11"} <=
+696172	                    {r.get("name") for r in x["members"]}) for x in sg)
+696173	    assert not op_compatible("Digital Realty", "Global Technical Realty")
+696174	    assert op_compatible("Equinix (UK) Ltd", "EQUINIX")
+696175	    h = sha256_file(os.path.join(t, "out", "dc_operational.json")); build(ns)
+696176	    assert h == sha256_file(os.path.join(t, "out", "dc_operational.json")), "not deterministic"
+696177	    print("SELFTEST OK", t); return 0
+696179	    ap.add_argument("cmd", choices=["fetch-osm", "fetch-wikidata", "build", "selftest"])
+696180	    ap.add_argument("--raw", default="raw"); ap.add_argument("--out", default="out")
+696181	    ap.add_argument("--legacy", default=None, help="globalgrid2050 datacentres.geojson (fallback when Overpass is unreachable)")
+696182	    ap.add_argument("--offtakers", default=None, help="gridatlas data/offtakers_filtered_*.geojson for class C reconciliation")
+696183	    ap.add_argument("--retrieved", default="unspecified", help="retrieval date stamp written into records (kept out of the clock for determinism)")
+696184	    return {"fetch-osm": fetch_osm, "fetch-wikidata": fetch_wikidata, "build": build, "selftest": selftest}[a.cmd](a)
+696185	"""DC-A5: DNO open-data fetcher for demand / data-centre evidence (standard library only).
+696186	What it does
+696187	  * Downloads pinned DNO open-data resources (raw snapshot + SHA-256 into manifest.json).
+696188	  * Parses CSV resources and screens Embedded Capacity Register (ECR) rows for
+696189	    data-centre operator / "data centre" names in customer_name / customer_site.
+696190	  * Writes normalised GeoJSON of the screened ECR rows (Record tier: a name match
+696191	    is a CANDIDATE, not a confirmed data centre; ECR scope is generation, storage
+696192	    and DSR >= 50 kW, so absence from the ECR says nothing about a site).
+696193	  * Prints counts per source.
+696194	Licence gate
+696195	  Only sources whose licence is verified as fully open (CC BY 4.0, OGL v3 or an
+696196	  OGL-v3-derived DNO licence) AND which need no login are in OPEN_SOURCES.
+696197	  Login-gated sources (UKPN, SPEN, ENWL, NPg records-gated) are listed in
+696198	  GATED_SOURCES and are fetched only if the matching API-key env var is set and
+696199	  --include-gated is passed. They are NOT fully open under the GridAtlas rule
+696200	  until their dataset-level licence is verified.
+696201	Usage
+696202	  python3 -I dno_fetch.py --out DIR            # fetch open sources
+696203	  python3 -I dno_fetch.py --out DIR --verify   # re-fetch and compare SHA-256 to manifest
+696204	  python3 -I dno_fetch.py --selftest           # offline parser test (no network)
+696205	Honesty: proximity is not connection; an ECR import capacity is a connection
+696206	figure (MW/MVA), never IT load; unknown is not zero.
+696208	UA = "gridatlas-dc-a5/1.0 (+https://github.com/Ventusltd/gridatlas/issues/73)"
+696209	# ---------------------------------------------------------------- sources ---
+696210	# Each source: id, dno, licence (verbatim name + URL), kind, url(s), notes.
+696211	# kind "csv" = direct pinned file; "ckan_latest_csv" = resolve the newest CSV
+696212	# resource of a CKAN package whose name matches a regex (URL recorded in manifest).
+696213	OPEN_SOURCES = [
+696214	        "id": "ssen_ecr_part1_1mw",
+696215	        "dno": "SSEN Distribution",
+696216	        "licence": "Creative Commons Attribution 4.0 (https://creativecommons.org/licenses/by/4.0/)",
+696217	        "licence_evidence": "https://data-api.ssen.co.uk/dataset/embedded_capacity_register",
+696218	        "kind": "csv",
+696219	        "url": "https://data-api.ssen.co.uk/dataset/655eb750-7b3f-4c55-93b6-9bc4c26a57ab/resource/bbae6797-364a-4b2d-a01a-8395e21bee76/download/ssen_ecr_part_1_1mw_august_2026_csv.csv",
+696220	        "ecr": True,
+696221	        "id": "ssen_ecr_part1_50kw",
+696222	        "url": "https://data-api.ssen.co.uk/dataset/655eb750-7b3f-4c55-93b6-9bc4c26a57ab/resource/d258bd7b-22db-4d32-9450-b3783591b66d/download/ssen_ecr_part_1_50kw_august_2026_csv.csv",
+696223	        "id": "ssen_ecr_attributes",
+696224	        "url": "https://data-api.ssen.co.uk/dataset/655eb750-7b3f-4c55-93b6-9bc4c26a57ab/resource/16bc7142-6f53-4b5e-8c2c-2a1168519ffe/download/embedded-capacity-register-attributes.csv",
+696225	        "ecr": False,
+696226	        "id": "ssen_heatmap_package",
+696227	        "licence": "Creative Commons Attribution 4.0 (resource-level; dataset-level field blank: UNVERIFIED for every resource)",
+696228	        "licence_evidence": "https://data-api.ssen.co.uk/dataset/93f6890a-4bd4-4b75-9955-6deace56decb/resource/106e7230-9b2d-445b-a010-be255416968c",
+696229	        "kind": "ckan_package",
+696230	        "api": "https://data-api.ssen.co.uk/api/3/action/package_show?id=93f6890a-4bd4-4b75-9955-6deace56decb",
+696231	        "resource_name_re": r"(Demand Heat ?Map|Primary Substation|BSP|GSP)",
+696232	        "id": "nged_ecr_latest",
+696233	        "dno": "National Grid Electricity Distribution",
+696234	        "licence": "NGED Open Data Licence (OGL v3.0-derived; WPD Open Data Licence Dec 2020 text) - dataset-level Rights field UNVERIFIED",
+696235	        "licence_evidence": "https://open.windriver.com/info/uni-license-list/licenses/ogl-wpd-3.0.html",
+696236	        "kind": "ckan_latest_csv",
+696237	        "api": "https://connecteddata.nationalgrid.co.uk/api/3/action/package_show?id=embedded-capacity-register",
+696238	        "resource_name_re": r"(ECR|Embedded Capacity Register)",
+696239	        "id": "nged_connections_reform_register",
+696240	        "licence": "NGED Open Data Licence (Rights field on dataset page)",
+696241	        "licence_evidence": "https://connecteddata.nationalgrid.co.uk/dataset/nged-connections-reform-register",
+696242	        "url": "https://connecteddata.nationalgrid.co.uk/dataset/a1b2a409-3c43-4551-b623-311c5ca7b665/resource/88906436-9c30-465f-a5f5-6800263e8d05/download/251212_cdpdata_nged-connections-reform-register.csv",
+696243	        "id": "nged_clearview_queue",
+696244	        "licence": "WPD Open Data Licence (Rights field; Data Classification: Open)",
+696245	        "licence_evidence": "https://connecteddata.nationalgrid.co.uk/eu/dataset/clearview-connect-queue-positions",
+696246	        "url": "https://connecteddata.nationalgrid.co.uk/dataset/2fbdb63c-999e-417d-b255-609cd3c79ebe/resource/0933c369-9b05-4afc-982d-26f07fc5c4d6/download/clearviewconnect_connection_pipeline_data_2025_05.csv",
+696247	        "id": "npg_ndp_demand_headroom",
+696248	        "dno": "Northern Powergrid",
+696249	        "licence": "Northern Powergrid Open Data Licence v1.0 (text at /p/opendatalicence/ NOT read: UNVERIFIED)",
+696250	        "licence_evidence": "https://northernpowergrid.opendatasoft.com/explore/dataset/npg_ndp_generation_headroom",
+696251	        "kind": "ods_export",
+696252	        "url": "https://northernpowergrid.opendatasoft.com/api/explore/v2.1/catalog/datasets/npg_ndp_demand_headroom/exports/csv?delimiter=%2C",
+696253	# Login-gated: fetched only with --include-gated and an API key. NOT fully open.
+696254	GATED_SOURCES = [
+696255	    {"id": "ukpn_data_centres_by_local_authority", "dno": "UK Power Networks", "env": "UKPN_API_KEY",
+696256	     "url": "https://ukpowernetworks.opendatasoft.com/api/explore/v2.1/catalog/datasets/ukpn-data-centres-by-local-authority/exports/csv?delimiter=%2C",
+696257	     "licence": "UNVERIFIED (portal offers CC BY / OGL / Shared Dataset Agreement per dataset); login required", "ecr": False},
+696258	    {"id": "ukpn_large_demand_list", "dno": "UK Power Networks", "env": "UKPN_API_KEY",
+696259	     "url": "https://ukpowernetworks.opendatasoft.com/api/explore/v2.1/catalog/datasets/ukpn-large-demand-list/exports/csv?delimiter=%2C",
+696260	     "licence": "UNVERIFIED; login required", "ecr": False},
+696261	    {"id": "ukpn_data_centre_demand_profiles", "dno": "UK Power Networks", "env": "UKPN_API_KEY",
+696262	     "url": "https://ukpowernetworks.opendatasoft.com/api/explore/v2.1/catalog/datasets/ukpn-data-centre-demand-profiles/exports/csv?delimiter=%2C",
+696263	    {"id": "ukpn_ecr_1mw_plus", "dno": "UK Power Networks", "env": "UKPN_API_KEY",
+696264	     "url": "https://ukpowernetworks.opendatasoft.com/api/explore/v2.1/catalog/datasets/ukpn-embedded-capacity-register-1-1mw-and-above/exports/csv?delimiter=%2C",
+696265	     "licence": "CC BY 4.0 (2021 statement; dataset id and current licence UNVERIFIED); login required", "ecr": True},
+696266	    {"id": "enwl_gsp_connection_queue", "dno": "Electricity North West (SP Electricity North West)", "env": "ENWL_API_KEY",
+696267	     "url": "https://electricitynorthwest.opendatasoft.com/api/explore/v2.1/catalog/datasets/enwl-gsp-connection-queue/exports/csv?delimiter=%2C",
+696268	     "licence": "Portal default CC BY 4.0 'unless otherwise stated'; registered users only", "ecr": False},
+696269	    {"id": "enwl_ecr_part3_dsr", "dno": "Electricity North West (SP Electricity North West)", "env": "ENWL_API_KEY",
+696270	     "url": "https://electricitynorthwest.opendatasoft.com/api/explore/v2.1/catalog/datasets/enwl-embedded-capacity-register-3-dsr/exports/csv?delimiter=%2C",
+696271	     "licence": "Portal default CC BY 4.0; registered users only; dataset id UNVERIFIED", "ecr": True},
+696272	# ------------------------------------------------------- data-centre screen ---
+696273	DC_PATTERNS = [
+696274	    r"\bdata ?cent(re|er)s?\b", r"\bdatacent(re|er)s?\b", r"\bequinix\b", r"\bdigital realty\b",
+696275	    r"\bvirtus\b", r"\bark data\b", r"\bpure ?dc\b", r"\bkao data\b", r"\bcyrusone\b",
+696276	    r"\bvantage data\b", r"\bntt\b", r"\bglobal switch\b", r"\btelehouse\b", r"\biron mountain\b",
+696277	    r"\byondr\b", r"\bechelon\b", r"\bserverfarm\b", r"\blatos\b", r"\bnscale\b", r"\bcoreweave\b",
+696278	    r"\bproximity data\b", r"\bcolt (dcs|data)\b", r"\bnext ?gen(eration)? data\b", r"\bpulsant\b",
+696279	    r"\bcentersquare\b", r"\bstack infrastructure\b", r"\bblackstone\b.*\bdata\b", r"\bqts\b",
+696280	    r"\bmicrosoft\b", r"\bgoogle\b", r"\bamazon data\b", r"\bamazon web services\b", r"\baws\b",
+696281	    r"\bmeta platforms\b", r"\boracle\b", r"\bdatum\b", r"\b4d data\b", r"\bnorthern data\b",
+696282	DC_RE = re.compile("|".join(DC_PATTERNS), re.I)
+696283	NAME_FIELDS_RE = re.compile(r"customer[_ ]?(name|site)|site[_ ]?name|project[_ ]?name", re.I)
+696284	def dc_hits(row):
+696285	        if k and v and NAME_FIELDS_RE.search(k):
+696286	            m = DC_RE.search(v)
+696288	                out.append((k, m.group(0)))
+696289	# --------------------------------------------------------- OSGB36 -> WGS84 ---
+696290	    """Ordnance Survey National Grid E/N -> WGS84 lon/lat (Helmert, ~5 m)."""
+696291	    lat, M = lat0, 0
+696292	    while N - N0 - M >= 1e-5:
+696293	    XI = 1 / (c * 6 * nu**3) * (nu / rho + 2 * t * t)
+696294	    XII = 1 / (c * 120 * nu**5) * (5 + 28 * t * t + 24 * t**4)
+696295	    XIIA = 1 / (c * 5040 * nu**7) * (61 + 662 * t * t + 1320 * t**4 + 720 * t**6)
+696296	    lat = lat - VII * dE**2 + VIII * dE**4 - IX * dE**6
+696297	    lon = lon0 + X * dE - XI * dE**3 + XII * dE**5 - XIIA * dE**7
+696298	    # Airy 1830 -> GRS80 via Helmert
+696299	    nu = a / math.sqrt(1 - e2 * math.sin(lat) ** 2)
+696300	    x = nu * math.cos(lat) * math.cos(lon)
+696301	    y = nu * math.cos(lat) * math.sin(lon)
+696302	    z = (1 - e2) * nu * math.sin(lat)
+696304	    sc = -20.4894e-6
+696308	        lat2 = math.atan2(z2 + e22 * nu2 * math.sin(lat2), p)
+696309	    return round(math.degrees(math.atan2(y2, x2)), 6), round(math.degrees(lat2), 6)
+696310	def _num(v):
+696311	        f = float(str(v).replace(",", "").strip())
+696312	        return f if math.isfinite(f) else None
+696314	def _pick(row, *needles):
+696315	        kl = (k or "").lower()
+696316	        if all(n in kl for n in needles):
+696318	def row_point(row):
+696319	    lon, lat = _num(_pick(row, "lon")), _num(_pick(row, "lat"))
+696320	    if lon is not None and lat is not None and -9 < lon < 3 and 49 < lat < 61:
+696321	        return [lon, lat], "lonlat"
+696322	    E = _num(_pick(row, "x-coordinate")) or _num(_pick(row, "easting"))
+696323	    N = _num(_pick(row, "y-coordinate")) or _num(_pick(row, "northing"))
+696324	    if E and N and 0 < E < 700000 and 0 < N < 1300000:
+696325	        return list(osgb_to_wgs84(E, N)), "osgb_en"
+696326	# ----------------------------------------------------------------- network ---
+696327	def http_get(url, headers=None, timeout=90):
+696328	    req = urllib.request.Request(url, headers={"User-Agent": UA, **(headers or {})})
+696329	    with urllib.request.urlopen(req, timeout=timeout) as r:  # follows 302 (SSEN -> R2)
+696330	        return r.read(), r.geturl()
+696331	def resolve(src):
+696332	    """Return list of (name, url) for the source."""
+696333	    if src["kind"] in ("csv", "ods_export"):
+696334	        return [(src["id"], src["url"])]
+696335	    body, _ = http_get(src["api"])
+696336	    pkg = json.loads(body)["result"]
+696337	    rx = re.compile(src["resource_name_re"], re.I)
+696338	    res = [r for r in pkg.get("resources", []) if rx.search(r.get("name") or "")
+696339	           and (r.get("format") or "").upper() in ("CSV", "XLSX")]
+696340	    if src["kind"] == "ckan_latest_csv":
+696341	        res = [r for r in res if (r.get("format") or "").upper() == "CSV"]
+696342	        res.sort(key=lambda r: r.get("last_modified") or r.get("created") or "", reverse=True)
+696343	        res = res[:1]
+696344	    return [(r.get("name") or r["id"], r["url"]) for r in res]
+696345	def safe_name(s):
+696346	    return re.sub(r"[^A-Za-z0-9._-]+", "_", s)[:120]
+696347	def parse_csv_bytes(b):
+696348	    text = b.decode("utf-8-sig", errors="replace")
+696349	def process(src, files, outdir):
+696350	    """files: list of (fname, bytes). Returns stats + features."""
+696351	    stats = {"rows": 0, "dc_name_candidates": 0, "with_import_capacity": 0, "files": len(files)}
+696352	    feats = []
+696353	    for fname, b in files:
+696354	        if not fname.lower().endswith(".csv") and not b[:200].count(b","):
+696355	        rows = parse_csv_bytes(b)
+696356	        stats["rows"] += len(rows)
+696357	        if not src.get("ecr"):
+696358	            imp = _num(_pick(row, "import", "capacity", "mw"))
+696359	            if imp:
+696360	                stats["with_import_capacity"] += 1
+696361	            hits = dc_hits(row)
+696362	            if not hits:
+696363	            stats["dc_name_candidates"] += 1
+696364	            pt, how = row_point(row)
+696365	            feats.append({
+696367	                "geometry": {"type": "Point", "coordinates": pt} if pt else None,
+696369	                    "source_id": src["id"], "dno": src["dno"], "file": fname, "row": i,
+696370	                    "customer_name": _pick(row, "customer", "name"),
+696371	                    "customer_site": _pick(row, "customer", "site"),
+696372	                    "match": "; ".join(f"{k}~{m}" for k, m in hits),
+696373	                    "energy_source_1": _pick(row, "energy", "source", "1"),
+696374	                    "connection_status": _pick(row, "status"),
+696375	                    "import_capacity_mw_connection": imp,
+696376	                    "grid_connection_mw_note": "ECR import capacity is a grid connection figure, NOT IT load",
+696377	                    "location_method": how,
+696378	                    "tier": "Record (name match = candidate only)",
+696379	                    "licence": src["licence"],
+696382	    return stats, feats
+696383	    os.makedirs(os.path.join(out, "raw"), exist_ok=True)
+696384	    man_path = os.path.join(out, "manifest.json")
+696385	    old = {}
+696386	    if os.path.exists(man_path):
+696387	        with open(man_path) as f:
+696388	            old = {e["url"]: e for s in json.load(f)["sources"] for e in s.get("files", [])}
+696389	    sources = list(OPEN_SOURCES)
+696390	    if args.include_gated:
+696391	        for g in GATED_SOURCES:
+696392	            if os.environ.get(g["env"]):
+696393	                sources.append({**g, "kind": "ods_export", "gated": True})
+696394	    manifest = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "sources": []}
+696395	    all_feats, summary, mismatches = [], {}, []
+696396	    for src in sources:
+696397	        entry = {"id": src["id"], "dno": src["dno"], "licence": src["licence"], "files": []}
+696398	            targets = resolve(src)
+696399	            files = []
+696400	            for name, url in targets:
+696401	                hdr = {}
+696402	                if src.get("gated"):
+696403	                    hdr = {"Authorization": "Apikey " + os.environ[src["env"]]}
+696404	                b, final = http_get(url, hdr)
+696405	                sha = hashlib.sha256(b).hexdigest()
+696406	                fname = safe_name(os.path.basename(urllib.parse.urlparse(url).path) or name)
+696407	                d = os.path.join(out, "raw", src["id"])
+696408	                os.makedirs(d, exist_ok=True)
+696409	                with open(os.path.join(d, fname), "wb") as f:
+696410	                    f.write(b)
+696411	                entry["files"].append({"url": url, "file": f"raw/{src['id']}/{fname}", "bytes": len(b), "sha256": sha})
+696412	                if args.verify and url in old and old[url]["sha256"] != sha:
+696413	                    mismatches.append(url)
+696414	                files.append((fname, b))
+696415	            stats, feats = process(src, files, out)
+696416	            entry["stats"] = stats
+696417	            all_feats.extend(feats)
+696418	            summary[src["id"]] = stats
+696419	        except (urllib.error.URLError, OSError, ValueError, KeyError) as e:
+696420	            entry["error"] = f"{type(e).__name__}: {e}"
+696421	            summary[src["id"]] = {"error": entry["error"]}
+696422	    all_feats.sort(key=lambda f: (f["properties"]["source_id"], f["properties"]["row"]))
+696423	    with open(os.path.join(out, "dno_ecr_dc_candidates.geojson"), "w") as f:
+696424	        json.dump({"type": "FeatureCollection", "features": all_feats}, f, indent=1, sort_keys=True)
+696425	    with open(man_path, "w") as f:
+696426	    print(json.dumps(summary, indent=1, sort_keys=True))
+696427	    if mismatches:
+696428	        print("SHA-256 changed for:", *mismatches, sep="\n  ")
+696429	# ---------------------------------------------------------------- selftest ---
+696430	FIXTURE = (
+696431	    "customer_name,customer_site,energy_source_1,connection_status,"
+696432	    "connected_maximum_import_capacity(mw),location(x-coordinate):_eastings_(where_data_is_held),"
+696433	    "location(y-coordinate):_northings_(where_data_is_held)\n"
+696434	    "Example Data Centre Ltd,Slough Campus,Fossil - Gas oil,Connected,40,497000,180000\n"
+696435	    "Farm Solar Ltd,Field A,Solar,Accepted not yet connected,0.1,400000,300000\n"
+696436	    "NTT Global Data Centers EMEA UK,Dagenham,Storage,Connected,,548000,183000\n"
+696437	    src = {"id": "fixture", "dno": "test", "licence": "n/a", "ecr": True}
+696438	    stats, feats = process(src, [("fixture.csv", FIXTURE.encode())], None)
+696439	    assert stats == {"rows": 3, "dc_name_candidates": 2, "with_import_capacity": 2, "files": 1}, stats
+696440	    lon, lat = feats[0]["geometry"]["coordinates"]
+696441	    assert abs(lon - (-0.6)) < 0.05 and abs(lat - 51.5) < 0.05, (lon, lat)
+696442	    # OS worked example (Caister water tower): E 651409.903 N 313177.270 is OSGB36
+696443	    # 52d39'27.2531"N 1d43'4.5177"E (52.657570, 1.717922); the Helmert shift to
+696444	    # WGS84 is about +0.0004 lat / -0.0019 lon -> ~52.65798, 1.71605.
+696445	    lon2, lat2 = osgb_to_wgs84(651409.903, 313177.270)
+696446	    assert abs(lon2 - 1.71605) < 0.0002 and abs(lat2 - 52.65798) < 0.0002, (lon2, lat2)
+696447	    assert not DC_RE.search("Farm Solar Ltd")
+696448	    print("selftest ok", stats)
+696449	    ap.add_argument("--include-gated", action="store_true")
+696450	    return selftest() if a.selftest else run(a)
+696451	"""Ingest lane outputs (hardening/evidence/DC-A1..A5/*.json|*.geojson), normalise to
+696452	dc_pipeline.schema.json, validate, merge, and write uk_datacentre_pipeline.geojson.
+696453	Lane formats are not fixed, so the adapter is tolerant but conservative:
+696454	  * accepts a FeatureCollection, a list of records, or {records|sites|items|features: [...]};
+696455	  * reads licence / url / dataset from the record, else from file-level metadata;
+696456	  * a record with no fully-open licence, no URL, or no name is REJECTED (logged), never guessed;
+696457	  * a bare "mw"/"capacity_mw" with no IT-vs-grid label goes to unclassified_mw, never to either;
+696458	  * unknown status -> 'unknown'; unknown MW -> null (never 0).
+696459	Usage: python3 dcingest.py [--lanes DIR ...] [--out FILE]
+696462	import dcmerge  # noqa: E402
+696463	import dcschema  # noqa: E402
+696464	EVIDENCE = os.path.dirname(HERE)
+696465	DEFAULT_LANES = [os.path.join(EVIDENCE, "DC-A%d" % i) for i in range(1, 6)]
+696466	SKIP_DIRS = {"raw", "wt", "worktree", "node_modules", ".git", "fixtures", "tmp"}
+696467	DEFAULT_OUT = os.path.join(HERE, "uk_datacentre_pipeline.geojson")
+696468	LICENCES = {
+696469	    "ogl": "OGL-UK-3.0", "ogl-uk-3.0": "OGL-UK-3.0", "ogl v3": "OGL-UK-3.0", "ogl3": "OGL-UK-3.0",
+696470	    "open government licence": "OGL-UK-3.0", "open government licence v3.0": "OGL-UK-3.0",
+696471	    "cc-by-4.0": "CC-BY-4.0", "cc by 4.0": "CC-BY-4.0", "cc-by": "CC-BY-4.0", "cc by": "CC-BY-4.0",
+696472	    "cc-by-3.0": "CC-BY-3.0", "cc0": "CC0-1.0", "cc0-1.0": "CC0-1.0", "cc0 1.0": "CC0-1.0",
+696473	    "pddl": "PDDL-1.0", "pddl-1.0": "PDDL-1.0", "public domain": "public-domain", "pd": "public-domain",
+696474	    "public-domain": "public-domain", "odbl": "ODbL-1.0", "odbl-1.0": "ODbL-1.0", "odbl 1.0": "ODbL-1.0",
+696475	    "neso open data licence": "NESO-Open-Data-Licence", "neso open licence": "NESO-Open-Data-Licence",
+696476	    "neso-open-data-licence": "NESO-Open-Data-Licence",
+696477	    "open parliament licence": "Open-Parliament-Licence-3.0", "open-parliament-licence-3.0": "Open-Parliament-Licence-3.0",
+696478	LICENCE_URLS = {
+696479	    "OGL-UK-3.0": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+696480	    "CC-BY-4.0": "https://creativecommons.org/licenses/by/4.0/",
+696481	    "CC-BY-3.0": "https://creativecommons.org/licenses/by/3.0/",
+696482	    "CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/",
+696483	    "PDDL-1.0": "https://opendatacommons.org/licenses/pddl/1-0/",
+696484	    "public-domain": "https://creativecommons.org/publicdomain/mark/1.0/",
+696485	    "ODbL-1.0": "https://opendatacommons.org/licenses/odbl/1-0/",
+696486	    "NESO-Open-Data-Licence": "https://www.neso.energy/data-portal/neso-open-licence",
+696487	    "Open-Parliament-Licence-3.0": "https://www.parliament.uk/site-information/copyright-parliament/open-parliament-licence/",
+696488	    (r"refus|withdraw|cancel|abandon|dismiss", "refused_or_withdrawn"),
+696489	    (r"under.?construction|construct|building|being built", "under_construction"),
+696490	    (r"operat|live|existing|open|in.?service|energi[sz]ed|connected|built", "operational"),
+696491	    (r"consent|approv|granted|permitted|permission", "consented"),
+696492	    (r"planning|submitted|application|pending|validated|scoping|pre.?app|eia", "in_planning"),
+696493	    (r"connection|queue|tec|contracted|offer", "connection_request"),
+696494	    (r"announc|proposed|propos|plan(ned)?|concept|ai growth zone|aigz|pipeline", "announced"),
+696495	PRECISION_MAP = {
+696496	    "exact": "exact_site", "exact_site": "exact_site", "site": "exact_site", "building": "exact_site",
+696497	    "polygon": "exact_site", "centroid": "exact_site", "osm": "exact_site",
+696498	    "address": "address", "planning_site": "planning_site", "planning": "planning_site",
+696499	    "postcode": "postcode", "settlement": "settlement", "town": "settlement", "city": "settlement",
+696500	    "village": "settlement", "local_authority": "local_authority", "la": "local_authority",
+696501	    "lpa": "local_authority", "district": "local_authority", "region": "region", "county": "region",
+696502	    "unknown": "unknown", "approx": "settlement", "approximate": "settlement",
+696503	IT_KEYS = ["it_load_mw", "it_mw", "it_capacity_mw", "critical_it_mw", "it_load"]
+696504	GRID_KEYS = ["grid_connection_mw", "connection_mw", "grid_mw", "import_capacity_mw", "tec_mw",
+696505	             "connection_capacity_mw", "mw_connection", "demand_mw", "max_import_mw"]
+696506	UNCL_KEYS = ["unclassified_mw", "mw_unclassified", "other_mw", "mw_unqualified", "facility_power_mw", "mw", "capacity_mw", "capacity", "power_mw", "size_mw"]
+696507	def _get(d, keys):
+696508	        if k in d and d[k] not in (None, "", []):
+696509	            return d[k], k
+696510	    if isinstance(v, list):  # e.g. [{"mw": 12.0, "raw": ..., "source_id": ...}]: first stated MW
+696511	        v = next((x for x in v if isinstance(x, dict) and _num(x.get("mw", x.get("value"))) is not None), None)
+696512	        return _num(v.get("mw", v.get("value"))) if v else None
+696513	    if isinstance(v, dict):
+696514	        v = v.get("value")
+696515	    if v is None or isinstance(v, bool):
+696516	    if isinstance(v, (int, float)):
+696517	        return float(v)
+696518	    m = re.search(r"-?\d+(\.\d+)?", str(v).replace(",", ""))
+696519	    return float(m.group(0)) if m else None
+696520	def _mw_src(v):
+696521	    if isinstance(v, list):
+696522	    return v.get("source_id") if isinstance(v, dict) else None
+696523	def norm_licence(s):
+696524	    if isinstance(s, dict):
+696525	        s = s.get("id") or s.get("name") or s.get("licence")
+696526	    key = str(s).strip().lower()
+696527	    if re.search(r"(^|[^a-z])(nc|nd|sa)([^a-z]|$)|non.?commercial|no.?deriv|share.?alike|by-sa", key) and "odbl" not in key:
+696528	        return None  # not fully open under the owner rule (ODbL is the one allowed share-alike)
+696529	    if key in LICENCES:
+696530	        return LICENCES[key]
+696531	    for k, v in sorted(LICENCES.items(), key=lambda kv: -len(kv[0])):
+696532	        if len(k) > 3 and k in key:
+696533	    if str(s) in LICENCE_URLS:
+696534	        return str(s)
+696535	def norm_status(s):
+696536	    s = str(s).strip().lower()
+696537	    if s in dcmerge.STATUS_ORDER:
+696539	    s2 = s.replace(" ", "_")
+696540	    if s2 in dcmerge.STATUS_ORDER:
+696541	        return s2
+696542	    for pat, st in STATUS_MAP:
+696543	        if re.search(pat, s):
+696544	            return st
+696545	PRECISION_KEYWORDS = [
+696546	    ("exact_site", ("exact", "osm node", "footprint", "building", "polygon", "way centre", "centroid")),
+696547	    ("address", ("address",)),
+696548	    ("planning_site", ("planning", "red line", "application site")),
+696549	    ("postcode", ("postcode",)),
+696550	    ("settlement", ("settlement", "town", "city", "village", "approx", "wikidata", "p625")),
+696551	    ("local_authority", ("local authority", "local_authority", "district", "lpa", "council")),
+696552	    ("region", ("region", "county", "nation")),
+696553	def norm_precision(v):
+696554	    if not v:
+696555	    k = str(v).strip().lower()
+696556	    if k in PRECISION_MAP:
+696557	        return PRECISION_MAP[k]
+696558	    for prec, keys in PRECISION_KEYWORDS:
+696559	        if any(x in k for x in keys):
+696560	            return prec
+696562	    m = re.match(r"^(\d{4})(-\d{2})?(-\d{2})?", str(v))
+696563	    return "".join(g for g in m.groups() if g) if m else None
+696564	def _records_from(doc):
+696565	    """Yield (record_dict, geometry_or_None, file_meta)."""
+696566	    meta = {}
+696567	    if isinstance(doc, dict):
+696568	        meta = {k: v for k, v in doc.items() if k not in ("features", "records", "sites", "items")}
+696569	        for k in ("metadata", "meta", "source", "provenance"):
+696570	            if isinstance(doc.get(k), dict):
+696571	                meta.update(doc[k])
+696572	        if doc.get("type") == "FeatureCollection" or "features" in doc:
+696573	            for f in doc.get("features") or []:
+696574	                yield dict(f.get("properties") or {}), f.get("geometry"), meta, f.get("id")
+696576	        for k in ("records", "sites", "items", "data"):
+696577	            if isinstance(doc.get(k), list):
+696578	                for r in doc[k]:
+696579	                    if isinstance(r, dict):
+696580	                        yield r, r.get("geometry"), meta, None
+696582	    if isinstance(doc, list):
+696583	        for r in doc:
+696584	            if isinstance(r, dict):
+696585	                if r.get("type") == "Feature":
+696586	                    yield dict(r.get("properties") or {}), r.get("geometry"), meta, r.get("id")
+696587	                    yield r, r.get("geometry"), meta, None
+696588	def _point_of(r, geom):
+696589	    if geom and geom.get("type") == "Point":
+696590	        c = geom.get("coordinates") or []
+696591	        if len(c) >= 2:
+696592	            return float(c[1]), float(c[0])
+696593	    if geom and geom.get("type") in ("Polygon", "MultiPolygon"):
+696594	        ring = geom["coordinates"][0] if geom["type"] == "Polygon" else geom["coordinates"][0][0]
+696595	        xs = [p[0] for p in ring]
+696596	        ys = [p[1] for p in ring]
+696597	        return sum(ys) / len(ys), sum(xs) / len(xs)
+696598	    loc = r.get("location") if isinstance(r.get("location"), dict) else {}
+696599	    lat, _ = _get({**r, **loc}, ["lat", "latitude", "y"])
+696600	    lon, _ = _get({**r, **loc}, ["lon", "lng", "longitude", "x"])
+696601	    if lat is not None and lon is not None:
+696602	            return float(lat), float(lon)
+696605	def normalise(raw, geom, meta, fid, lane, fname, file_sha):
+696606	    """One raw lane record -> (schema record, None) or (None, reason)."""
+696607	    r = raw
+696608	    name, _ = _get(r, ["name", "site_name", "title", "project_name", "project"])
+696609	    dcm = r.get("dc_match")
+696610	    if isinstance(dcm, dict) and dcm.get("is_dc_like") is False:
+696611	        return None, "lane heuristic: not data-centre-like"
+696612	    if str(r.get("licence_fully_open", "")).lower().startswith("no"):
+696613	        return None, "lane says licence not fully open"
+696614	    if isinstance(r.get("site_kind"), str) and "cable_landing" in r["site_kind"]:
+696615	        return None, "cable landing station, not a data centre (excluded as ot_filter.py does)"
+696616	        if r.get("operator") or _point_of(r, geom):
+696617	            name = "Unnamed data centre"  # 'unnamed' is a stop word: never name-matches
+696618	            return None, "no name"
+696619	    src_in = r.get("sources") if isinstance(r.get("sources"), list) and r.get("sources") else None
+696620	    src_in = src_in or ([r["source"]] if isinstance(r.get("source"), dict) else None)
+696621	    lic_raw = None
+696622	    srcs = []
+696623	    for s in (src_in or [{}]):
+696624	        s = s if isinstance(s, dict) else {}
+696625	        lic_raw = s.get("licence") or s.get("license") or r.get("licence") or r.get("license") \
+696626	            or meta.get("licence") or meta.get("license")
+696627	        lic = norm_licence(lic_raw)
+696628	        if not lic:
+696629	            return None, "licence not fully open or missing (%r)" % (lic_raw,)
+696630	        url = s.get("url") or s.get("evidence_url") or s.get("snapshot_file") or r.get("evidence_url") or r.get("url") \
+696631	            or r.get("source_url") or meta.get("url") or meta.get("source_url")
+696632	        if not url or not str(url).startswith(("http://", "https://")):
+696633	            return None, "no source URL"
+696634	        dataset = s.get("dataset") or (s.get("source") if isinstance(s.get("source"), str) else None) or r.get("dataset") or \
+696635	            (r.get("source") if isinstance(r.get("source"), str) else None) or meta.get("dataset") or \
+696636	            meta.get("name") or os.path.splitext(fname)[0]
+696637	        ref = s.get("record_ref") or s.get("source_id") or s.get("ref") or \
+696638	            (None if src_in and len(src_in) > 1 else (r.get("record_ref") or r.get("ref") or r.get("osm_id") or \
+696639	            r.get("wikidata") or r.get("qid") or fid or r.get("id")))
+696640	        if ref is None:
+696641	            ref = hashlib.sha256(json.dumps([raw, s], sort_keys=True, default=str).encode()).hexdigest()[:12]
+696642	        lic_url = s.get("licence_url") or s.get("license_url") or r.get("licence_url") or \
+696643	            (lic_raw.get("url") if isinstance(lic_raw, dict) else None) or \
+696644	            meta.get("licence_url") or meta.get("license_url") or LICENCE_URLS[lic]
+696645	        status_v = s.get("licence_status") or r.get("licence_status") or meta.get("licence_status")
+696646	        sha = s.get("sha256") or s.get("snapshot_sha256") or r.get("sha256") or meta.get("sha256")
+696647	        if not (isinstance(sha, str) and re.fullmatch(r"[0-9a-f]{64}", sha)):
+696648	            sha = None
+696649	        srcs.append({
+696650	            "id": "%s:%s:%s" % (lane, dataset, ref), "lane": lane, "dataset": str(dataset),
+696651	            "record_ref": str(ref), "url": str(url), "licence": lic, "licence_url": str(lic_url),
+696652	            "licence_status": "verified" if status_v == "verified" else "unverified",
+696653	            "attribution": s.get("attribution") or r.get("attribution") or meta.get("attribution"),
+696654	            "retrieved": norm_date(s.get("retrieved") or r.get("retrieved") or meta.get("retrieved")
+696655	                                   or meta.get("fetched") or meta.get("generated")),
+696656	            "sha256": sha,
+696658	    sid = srcs[0]["id"]
+696659	    member_names = {str(x.get("name")) for x in (src_in or []) if isinstance(x, dict) and x.get("name")}
+696660	    notes = r.get("notes") if isinstance(r.get("notes"), list) else [r["notes"]] if r.get("notes") else []
+696661	    for k in ("status_basis", "screening_note"):
+696662	        if r.get(k):
+696663	            notes.append("%s: %s" % (k, r[k]))
+696664	    for c in r.get("conflicts") or []:  # lane-level flags kept verbatim as notes
+696665	        notes.append("lane flag: " + json.dumps(c, sort_keys=True, ensure_ascii=False))
+696666	    for k in ("mw_evidence", "onsite_generation_mw", "stated_targets"):  # context only; never an IT or grid figure
+696667	            notes.append("%s: %s" % (k, json.dumps(r[k], ensure_ascii=False)))
+696668	    def mw(keys):
+696669	        v, k = _get(r, keys)
+696670	        n = _num(v)
+696671	        if n is None or n < 0 or n > 10000:
+696672	            return {"value": None, "source_id": None, "label": None}
+696673	        s = _mw_src(v)
+696674	        first = v
+696675	        if isinstance(v, list):
+696676	            first = next((x for x in v if isinstance(x, dict) and _num(x.get("mw", x.get("value"))) is not None), {})
+696677	        extra = ()
+696678	        if isinstance(first, dict):
+696679	            q = first.get("quote") or first.get("raw")
+696680	            extra = (first.get("measure") or first.get("property"), first.get("qualifier"),
+696681	                     q and "quote: \"%s\"" % q, first.get("evidence_url"))
+696682	        label = " | ".join(str(x) for x in (k, r.get(k + "_basis"), r.get(k + "_direction") and
+696683	                                            "direction: %s" % r.get(k + "_direction")) + extra if x)
+696684	        return {"value": n, "source_id": s if s in {x["id"] for x in srcs} else sid, "label": label}
+696685	    for k in ("other_mw", "mw_unclassified"):  # on-site generation / gas is not site demand: notes only
+696686	        if isinstance(r.get(k), list):
+696687	            gen = [x for x in r[k] if isinstance(x, dict) and re.search(r"generat|\bgas\b|export", str(x.get("measure") or x.get("property") or ""), re.I)]
+696688	            if gen:
+696689	                r = dict(r, **{k: [x for x in r[k] if x not in gen]})
+696690	                notes.append("%s excluded (generation, not demand): %s" % (k, json.dumps(gen, ensure_ascii=False)))
+696691	    it = mw(IT_KEYS)
+696692	    grid = mw(GRID_KEYS)
+696693	    uncl = mw(UNCL_KEYS)
+696694	    pt = _point_of(r, geom)
+696695	    loc_in = r.get("location") if isinstance(r.get("location"), dict) else {}
+696696	    prec_raw = loc_in.get("precision") or r.get("location_precision") or r.get("precision")
+696697	    prec = norm_precision(prec_raw)
+696698	    if pt and not (49.0 <= pt[0] <= 61.5 and -9.0 <= pt[1] <= 2.5):
+696699	        return None, "point outside UK bounds"
+696700	    if pt is None:
+696701	        prec = "unknown"
+696702	    elif prec in (None, "unknown"):
+696703	        prec = "exact_site" if geom and geom.get("type") in ("Polygon", "MultiPolygon") else "settlement"
+696704	    dates_in = r.get("dates") if isinstance(r.get("dates"), dict) else {}
+696705	    dates = {}
+696706	    aliases = {"announced": ["announced", "announced_date", "date_announced"],
+696707	               "planning_submitted": ["planning_submitted", "submitted", "application_date", "received"],
+696708	               "consented": ["consented", "decision_date", "consent_date", "approved"],
+696709	               "construction_start": ["construction_start"],
+696710	               "operational": ["operational", "operational_date", "opened", "commissioned", "launched"],
+696711	               "connection_date": ["connection_date", "mw_effective_from", "connection_year"]}
+696712	    for f, keys in aliases.items():
+696713	        v, _ = _get({**r, **dates_in}, keys)
+696714	        dates[f] = norm_date(v)
+696715	    status_raw, _ = _get(r, ["status", "stage", "development_status", "planning_status", "decision"])
+696716	    if not dates["operational"] and norm_status(status_raw) == "operational":
+696717	        # OSM start_date on an existing facility = when it came into use
+696718	        dates["operational"] = norm_date(_get({**r, **dates_in}, ["start_date"])[0])
+696719	    st_norm = norm_status(status_raw)
+696720	    if not dates["consented"] and st_norm == "consented":
+696721	        dates["consented"] = norm_date(_get({**r, **dates_in}, ["decision"])[0])
+696722	    used = {k for ks in aliases.values() for k in ks} | {"start_date", "decision"}
+696723	    for k, v in sorted(dates_in.items()):
+696724	        if v and (k not in used or (k == "decision" and st_norm != "consented")):
+696725	            notes.append("lane date %s: %s" % (k, v))
+696726	    for k in ("status_note", "status_raw", "status_as_of", "coordinates_source", "location_note", "place", "route",
+696727	              "operator_basis"):
+696728	    prefs = []
+696729	    for p in r.get("planning_refs") or []:
+696730	        if isinstance(p, dict) and p.get("authority") and p.get("reference"):
+696731	            prefs.append({"authority": str(p["authority"]), "reference": str(p["reference"]), "url": p.get("url")})
+696732	    pr, _ = _get(r, ["planning_ref", "planning_reference", "application_ref", "reference"])
+696733	    pa, _ = _get(r, ["planning_authority", "lpa", "local_planning_authority", "organisation", "authority"])
+696734	    if pr and pa:
+696735	        prefs.append({"authority": str(pa), "reference": str(pr), "url": None})
+696736	    conns = [str(c) for c in (r.get("connection_refs") or []) if c]
+696737	    conn_in = r.get("connection") if isinstance(r.get("connection"), dict) else {}
+696738	    cr, _ = _get({**r, **conn_in}, ["connection_ref", "project_id", "tec_ref", "queue_ref"])
+696739	    if conn_in.get("site_name"):
+696740	        notes.append("connection site (name only, not a location): %s" % conn_in["site_name"])
+696741	    if cr:
+696742	        conns.append(str(cr))
+696743	    rec = {
+696744	        "name": str(name).strip(),
+696745	        "aliases": sorted(({str(a) for a in (r.get("aliases") or []) if a} | member_names) - {str(name).strip()}),
+696746	        "operator": (str(_get(r, ["operator", "developer", "owner", "applicant", "company"])[0]).strip() or None)
+696747	        if _get(r, ["operator", "developer", "owner", "applicant", "company"])[0] else None,
+696748	        "status": norm_status(status_raw),
+696749	        "status_source_id": sid if status_raw else None,
+696750	        "it_load_mw": it, "grid_connection_mw": grid, "unclassified_mw": uncl,
+696751	        "dates": dates,
+696752	        "location": {"lat": round(pt[0], 6) if pt else None, "lon": round(pt[1], 6) if pt else None,
+696753	                     "precision": prec, "source_id": sid if pt else None,
+696754	                     "local_authority": loc_in.get("local_authority") or r.get("local_authority") or r.get("la"),
+696755	                     "postcode": loc_in.get("postcode") or r.get("postcode")},
+696756	        "planning_refs": prefs, "connection_refs": sorted(set(conns)),
+696757	        "evidence_urls": sorted({str(u) for u in ([r.get("evidence_url"), r.get("evidence_url_2")]
+696758	                                                  + list(r.get("evidence_urls") or [])
+696759	                                                  + [x.get("evidence_url") for x in (src_in or []) if isinstance(x, dict)])
+696760	                                 if isinstance(u, str) and u.startswith(("http://", "https://"))}),
+696761	        "sources": srcs, "conflicts": [],
+696762	        "notes": sorted({str(n) for n in notes}),
+696763	    if uncl["value"] is not None and uncl["value"] in (it["value"], grid["value"]):
+696764	        # the bare figure repeats a labelled one; keep only the labelled one
+696765	        rec["unclassified_mw"] = {"value": None, "source_id": None, "label": None}
+696766	    rec["site_key"] = dcmerge.geo_key(rec)
+696767	    rec["id"] = dcschema.site_id(rec["site_key"])
+696768	    errs = dcschema.validate(rec)
+696769	    if errs:
+696770	        return None, "schema: " + "; ".join(errs[:3])
+696771	    return rec, None
+696772	def load_lanes(dirs):
+696773	    recs, rejects, inputs = [], [], []
+696774	    for d in dirs:
+696775	        lane = os.path.basename(d.rstrip("/"))
+696776	        files = sorted(p for p in glob.glob(os.path.join(d, "**", "*"), recursive=True)
+696777	                       if p.endswith((".json", ".geojson")) and os.path.isfile(p)
+696778	                       and not set(os.path.relpath(p, d).split(os.sep)[:-1]) & SKIP_DIRS)
+696779	        stems = {os.path.splitext(p)[0] for p in files if p.endswith(".json")}
+696780	        files = [p for p in files if not (p.endswith(".geojson") and os.path.splitext(p)[0] in stems)]  # X.json wins over X.geojson
+696782	            with open(path, "rb") as f:
+696783	                raw = f.read()
+696784	            sha = hashlib.sha256(raw).hexdigest()
+696785	            fname = os.path.relpath(path, d)
+696786	                doc = json.loads(raw)
+696788	                rejects.append({"file": "%s/%s" % (lane, fname), "reason": "invalid JSON: %s" % e})
+696789	            n_ok = n_bad = 0
+696790	            for r, geom, meta, fid in _records_from(doc):
+696791	                rec, why = normalise(r, geom, meta, fid, lane, fname, sha)
+696792	                key = tuple(sorted(x["id"] for x in rec["sources"])) if rec else None
+696793	                if rec and key in seen:
+696794	                    n_dup = 1  # same lane record already read from a sibling file (e.g. X.json + X.geojson)
+696795	                    rejects.append({"file": "%s/%s" % (lane, fname), "reason": "duplicate of a record already read from this lane",
+696796	                                    "name": rec["name"][:80], "duplicate": True})
+696797	                if rec:
+696799	                    recs.append(rec)
+696800	                    n_ok += 1
+696801	                    n_bad += 1
+696802	                    rejects.append({"file": "%s/%s" % (lane, fname), "reason": why,
+696803	                                    "name": str(r.get("name") or r.get("site_name") or "")[:80]})
+696804	            inputs.append({"file": "%s/%s" % (lane, fname), "sha256": sha, "accepted": n_ok, "rejected": n_bad})
+696805	    return recs, rejects, inputs
+696806	def _round(o):
+696807	    if isinstance(o, float):
+696808	        return round(o, 6)
+696809	    if isinstance(o, dict):
+696810	        return {k: _round(v) for k, v in o.items()}
+696811	    if isinstance(o, list):
+696812	        return [_round(v) for v in o]
+696814	def _reasons(rejects):
+696815	    c = {}
+696816	    for x in rejects:
+696817	        k = re.sub(r"\(.*\)$", "", x["reason"]).strip()
+696818	        c[k] = c.get(k, 0) + 1
+696819	    return dict(sorted(c.items()))
+696820	def build(dirs, out):
+696821	    recs, rejects, inputs = load_lanes(dirs)
+696822	    merged = dcmerge.merge(recs)
+696823	    feats = [_round(dcmerge.to_feature(m)) for m in merged]
+696824	    for f in feats:
+696825	        f["properties"] = _round(f["properties"])
+696826	    by_status, by_source, by_lic, conflicts = {}, {}, {}, {}
+696827	    for m in merged:
+696828	        by_status[m["status"]] = by_status.get(m["status"], 0) + 1
+696829	        for ds in sorted({s["lane"] + ":" + s["dataset"] for s in m["sources"]}):
+696830	            by_source[ds] = by_source.get(ds, 0) + 1
+696831	        for lic in sorted({s["licence"] for s in m["sources"]}):
+696832	            by_lic[lic] = by_lic.get(lic, 0) + 1
+696833	        for c in m["conflicts"]:
+696834	            conflicts[c["kind"]] = conflicts.get(c["kind"], 0) + 1
+696836	        "input_records": len(recs), "rejected_records": sum(1 for x in rejects if not x.get("duplicate")),
+696837	        "duplicate_lane_records_skipped": sum(1 for x in rejects if x.get("duplicate")),
+696838	        "rejects_by_reason": _reasons(rejects), "sites": len(merged),
+696839	        "sites_from_several_datasets": sum(1 for m in merged if len({s["dataset"] for s in m["sources"]}) > 1),
+696840	        "sites_from_several_lanes": sum(1 for m in merged if len({s["lane"] for s in m["sources"]}) > 1),
+696841	        "sites_merged_from_several_input_records": sum(1 for m in merged if m["match"]),
+696842	        "by_status": dict(sorted(by_status.items())), "by_source": dict(sorted(by_source.items())),
+696843	        "by_licence": dict(sorted(by_lic.items())), "conflicts_by_kind": dict(sorted(conflicts.items())),
+696844	        "it_load_mw_known": sum(1 for m in merged if m["it_load_mw"]["value"] is not None),
+696845	        "grid_connection_mw_known": sum(1 for m in merged if m["grid_connection_mw"]["value"] is not None),
+696846	        "unclassified_mw_known": sum(1 for m in merged if m["unclassified_mw"]["value"] is not None),
+696847	        "sum_it_load_mw_known": round(sum(m["it_load_mw"]["value"] or 0 for m in merged), 3),
+696848	        "sum_grid_connection_mw_known": round(sum(m["grid_connection_mw"]["value"] or 0 for m in merged), 3),
+696849	    fc = {
+696850	            "title": "UK data-centre pipeline (merged, GridAtlas #73 steps 3-4)",
+696851	            "schema": "dc_pipeline.schema.json",
+696852	            "caveats": ["A pipeline entry is not a commitment.", "Unknown MW is null, not zero.",
+696853	                        "IT load MW and grid connection MW are separate and never derived from each other.",
+696854	                        "unclassified_mw is a source figure that does not say which it is.",
+696855	                        "Location is not connection, capacity or feasibility.",
+696856	                        "Licences marked 'unverified' have not been checked against the publisher's terms."],
+696857	            "inputs": inputs, "summary": summary,
+696858	        "features": feats,
+696859	    with open(out, "w", encoding="utf-8") as f:
+696860	        json.dump(fc, f, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+696861	    with open(os.path.splitext(out)[0] + ".rejects.json", "w", encoding="utf-8") as f:
+696862	        json.dump(sorted(rejects, key=lambda x: (x["file"], x.get("name", ""), x["reason"])), f,
+696863	                  indent=1, sort_keys=True, ensure_ascii=False)
+696864	    return fc, rejects
+696865	    ap.add_argument("--lanes", nargs="*", default=DEFAULT_LANES)
+696866	    ap.add_argument("--out", default=DEFAULT_OUT)
+696867	    fc, rejects = build(a.lanes, a.out)
+696868	    print(json.dumps(fc["metadata"]["summary"], indent=1))
+696869	    errs = dcschema.validate_file(a.out)
+696870	    print("validation errors:", len(errs))
+696871	    for e in errs[:20]:
+696872	        print(" ", e)
+696873	"""Dedupe / merge engine for the UK data-centre pipeline (GridAtlas #73 step 4).
+696874	Input: a list of source-level records (dc_pipeline.schema.json, usually one source each).
+696875	Output: merged site records, one per physical site, sorted by stable id, with every
+696876	source kept and every disagreement flagged in conflicts[].
+696877	Matching rules (pairwise, strongest first):
+696878	  R1 planning_ref     same normalised (authority, reference)
+696879	  R2 connection_ref   same normalised queue/register reference
+696880	  R3 name_distance    within the distance threshold and name similarity >= 0.85
+696881	  R4 operator_distance within the threshold, same operator, name similarity >= 0.50
+696882	  R5 name_operator_exact  identical normalised name AND operator (for coarse/no location)
+696883	Distance threshold = that of the COARSER precision of the pair (THRESHOLD_KM);
+696884	'region'/'unknown' precision never matches on distance.
+696885	Guards (cannot-link, applied to whole clusters, so no chaining across them):
+696886	  * names carrying different designators with digits (LD4 vs LD5, "Building 2" vs "3");
+696887	  * two records from the same dataset need R1/R2 or name similarity >= 0.95.
+696888	Links are applied strongest-first in a fixed order, so the output is deterministic.
+696889	Never: compare IT load with grid connection MW; turn unknown into zero; treat a
+696890	pipeline entry as a commitment.
+696892	STATUS_ORDER = ["operational", "under_construction", "consented", "in_planning",
+696893	                "connection_request", "announced", "refused_or_withdrawn", "unknown"]
+696894	PRECISION_ORDER = ["exact_site", "address", "planning_site", "postcode", "settlement",
+696895	                   "local_authority", "region", "unknown"]
+696896	THRESHOLD_KM = {"exact_site": 0.5, "address": 1.0, "planning_site": 1.0, "postcode": 2.0,
+696897	                "settlement": 5.0, "local_authority": 15.0, "region": None, "unknown": None}
+696898	NAME_SIM_STRONG = 0.85
+696899	NAME_SIM_WEAK = 0.50
+696900	NAME_SIM_SAME_SOURCE = 0.95
+696901	RULE_RANK = {"planning_ref": 0, "connection_ref": 1, "evidence_document": 2, "name_distance": 3,
+696902	             "operator_distance": 4, "name_operator_exact": 5}
+696903	URL_KEY_MAX_RECORDS = 2  # a URL is a site key only if at most this many input records cite it
+696904	DATE_FIELDS = ["announced", "planning_submitted", "consented", "construction_start",
+696905	               "operational", "connection_date"]
+696906	MW_FIELDS = ["it_load_mw", "grid_connection_mw", "unclassified_mw"]
+696907	_NAME_STOP = {"data", "centre", "center", "centres", "centers", "datacentre", "datacenter",
+696908	              "datacentres", "datacenters", "dc", "campus", "ltd", "limited", "plc", "llp",
+696909	              "llc", "inc", "the", "uk", "site", "facility", "of", "and", "unnamed"}
+696910	_OP_STOP = {"ltd", "limited", "plc", "llp", "llc", "inc", "uk", "group", "holdings", "holding",
+696911	            "europe", "emea", "data", "centre", "centres", "center", "centers", "services",
+696912	            "the", "co", "company", "gb", "international", "and"}
+696913	_AUTH_STOP = {"council", "borough", "district", "city", "county", "of", "the", "metropolitan",
+696914	              "royal", "and", "lpa", "planning", "authority"}
+696915	# Source tiers (lower = more authoritative for status / MW / dates). Matched on
+696916	# lower-cased dataset + url; first hit wins.
+696917	TIERS = [
+696918	    (1, ("neso", "national grid eso", "tec register", "transmission entry", "connection register",
+696919	         "connections register", "queue", "embedded capacity", "ecr", "ukpn", "ssen", "nged",
+696920	         "northern powergrid", "enwl", "electricity north west", "spen", "sp energy")),
+696921	    (2, ("planning", "planit", "nsip", "pins", "dco")),
+696922	    (3, ("dsit", "gov.uk", "ai growth zone", "treasury", "desnz", "parliament")),
+696923	    (4, ("company", "disclosure", "press", "investor", "annual report")),
+696924	    (5, ("wikidata",)),
+696925	    (6, ("openstreetmap", "osm", "overpass")),
+696926	def source_tier(src):
+696927	    hay = ("%s %s" % (src.get("dataset", ""), src.get("url", ""))).lower()
+696928	    for tier, keys in TIERS:
+696929	        if any(k in hay for k in keys):
+696930	            return tier
+696931	    return 7
+696932	# ---------------------------------------------------------------- normalisers
+696933	def _tokens(s):
+696934	    s = (s or "").lower().replace("&", " and ")
+696935	    s = re.sub(r"[^a-z0-9]+", " ", s)
+696936	    return s.split()
+696937	def norm_name(s):
+696938	    return " ".join(t for t in _tokens(s) if t not in _NAME_STOP)
+696939	def norm_operator(s):
+696940	    return " ".join(t for t in _tokens(s) if t not in _OP_STOP)
+696941	def norm_authority(s):
+696942	    return " ".join(t for t in _tokens(s) if t not in _AUTH_STOP)
+696943	def norm_ref(s):
+696944	    return re.sub(r"\s+", "", (s or "").upper())
+696945	def designators(name):
+696946	    """Tokens that carry a digit (LD4, 2, phase2) -- distinguish neighbouring buildings."""
+696947	    toks = _tokens(name)
+696950	        if any(c.isdigit() for c in t):
+696951	            prev = toks[i - 1] if i else ""
+696952	            out.add(t if not t.isdigit() or not prev or prev in _NAME_STOP else prev + t)
+696953	    return frozenset(out)
+696954	def name_similarity(a, b):
+696955	    na, nb = norm_name(a), norm_name(b)
+696956	    if not na or not nb:
+696958	    if na == nb:
+696960	    ta, tb = set(na.split()), set(nb.split())
+696961	    jac = len(ta & tb) / len(ta | tb)
+696962	    seq = difflib.SequenceMatcher(None, " ".join(sorted(ta)), " ".join(sorted(tb))).ratio()
+696963	    return round(max(jac, seq), 4)
+696964	def operator_match(a, b):
+696965	    na, nb = norm_operator(a), norm_operator(b)
+696966	        return None  # unknown
+696967	    # Subset matching is unsafe: Digital Realty must not match Global Digital
+696968	    # Realty simply because both share words. Remove corporate suffixes only.
+696969	    return na == nb
+696971	    r = 6371.0088
+696974	    h = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
+696975	    return 2 * r * math.asin(min(1.0, math.sqrt(h)))
+696976	def coarser(p1, p2):
+696977	    return PRECISION_ORDER[max(PRECISION_ORDER.index(p1), PRECISION_ORDER.index(p2))]
+696978	def site_id(site_key):
+696979	    return "dcuk-" + hashlib.sha256(site_key.encode("utf-8")).hexdigest()[:16]
+696980	# ---------------------------------------------------------------- record helpers
+696981	def rec_key(r):
+696982	    """Deterministic identity of an input record: its sorted source ids."""
+696983	    return "|".join(sorted(s["id"] for s in r["sources"]))
+696984	def rec_tier(r):
+696985	    return min(source_tier(s) for s in r["sources"])
+696986	def rec_datasets(r):
+696987	    return {s.get("dataset") for s in r["sources"]}
+696988	def _point(r):
+696989	    loc = r.get("location") or {}
+696990	    if loc.get("lat") is None or loc.get("lon") is None:
+696991	    return loc["lat"], loc["lon"]
+696992	def _precision(r):
+696993	    return (r.get("location") or {}).get("precision") or "unknown"
+696994	def plan_keys(r):
+696995	    return {"plan:%s:%s" % (norm_authority(p["authority"]), norm_ref(p["reference"]))
+696996	            for p in r.get("planning_refs") or []}
+696997	def conn_keys(r):
+696998	    return {"conn:%s" % norm_ref(c) for c in r.get("connection_refs") or []}
+696999	def norm_url(u):
+697000	    u = (u or "").strip().split("#")[0].split("?")[0].rstrip("/")
+697001	    return re.sub(r"^https?://(www\.)?", "", u).lower()
+697002	def raw_url_keys(r):
+697003	    """Candidate document URLs: specific paths only (>= 2 path segments)."""
+697004	    for u in list(r.get("evidence_urls") or []) + [s.get("url") for s in r["sources"]]:
+697005	        n = norm_url(u)
+697006	        if n.count("/") >= 2:
+697007	            out.add("url:" + n)
+697008	_URL_OK = None  # set by merge(): URL keys cited by <= URL_KEY_MAX_RECORDS input records
+697009	def url_keys(r):
+697010	    ks = raw_url_keys(r)
+697011	    return ks & _URL_OK if _URL_OK is not None else set()
+697012	URL_MAX_KM = 25.0
+697013	def _lanes(r):
+697014	    return {s.get("lane") for s in r["sources"]}
+697015	def url_link(a, b, dist):
+697016	    """Shared document URL counts only across DIFFERENT lanes (a lane has already de-duplicated
+697017	    itself, so two of its records citing one press release are two sites), and never when both
+697018	    points are placed (finer than region) more than URL_MAX_KM apart."""
+697019	    if not (url_keys(a) & url_keys(b)) or (_lanes(a) & _lanes(b)):
+697020	    if dist is not None and dist > URL_MAX_KM and THRESHOLD_KM[coarser(_precision(a), _precision(b))] is not None:
+697021	def geo_key(r):
+697022	    pt = _point(r)
+697023	    lat = "%.3f" % pt[0] if pt else "na"
+697024	    lon = "%.3f" % pt[1] if pt else "na"
+697025	    return "geo:%s|%s|%s|%s" % (norm_name(r.get("name")), norm_operator(r.get("operator")), lat, lon)
+697026	# ---------------------------------------------------------------- pair logic
+697028	    """Return (rule, name_sim, distance_km) if a and b are the same site, else None."""
+697029	    sim = name_similarity(a.get("name"), b.get("name"))
+697030	    pa, pb = _point(a), _point(b)
+697031	    dist = round(haversine_km(pa[0], pa[1], pb[0], pb[1]), 4) if pa and pb else None
+697032	    same_source = bool(rec_datasets(a) & rec_datasets(b))
+697033	    # Hard guard BEFORE planning refs, connection refs or shared URLs. Even a
+697034	    # shared government document can name unrelated operators at nearby sites.
+697035	    if operator_match(a.get("operator"), b.get("operator")) is False:
+697036	    if plan_keys(a) & plan_keys(b):
+697037	        return "planning_ref", sim, dist
+697038	    if conn_keys(a) & conn_keys(b):
+697039	        return "connection_ref", sim, dist
+697040	    if url_link(a, b, dist):
+697041	        return "evidence_document", sim, dist
+697042	    da, db = designators(a.get("name")), designators(b.get("name"))
+697043	    if da and db and da != db:
+697044	    if same_source and sim < NAME_SIM_SAME_SOURCE:
+697045	    thr = THRESHOLD_KM[coarser(_precision(a), _precision(b))]
+697046	    if dist is not None and thr is not None and dist <= thr:
+697047	        if sim >= NAME_SIM_STRONG:
+697048	            return "name_distance", sim, dist
+697049	        if operator_match(a.get("operator"), b.get("operator")) and sim >= NAME_SIM_WEAK:
+697050	            return "operator_distance", sim, dist
+697051	    if (dist is None or thr is None) and sim == 1.0 and operator_match(a.get("operator"), b.get("operator")):
+697052	        return "name_operator_exact", sim, dist
+697053	def cannot_link(a, b):
+697054	    """Hard separation regardless of other links (prevents transitive chaining)."""
+697055	    dist = haversine_km(pa[0], pa[1], pb[0], pb[1]) if pa and pb else None
+697056	    # This is cluster-wide: no transitive bridge through an unknown-operator record.
+697058	    if plan_keys(a) & plan_keys(b) or conn_keys(a) & conn_keys(b) or url_link(a, b, dist):
+697059	    if rec_datasets(a) & rec_datasets(b) and name_similarity(a.get("name"), b.get("name")) < NAME_SIM_SAME_SOURCE:
+697061	def candidate_pairs(recs):
+697062	    """Blocking: shared refs, shared exact name, or neighbouring 0.2-degree cells."""
+697065	    for i, r in enumerate(recs):
+697066	        keys = set(plan_keys(r)) | set(conn_keys(r)) | url_keys(r)
+697067	        nm = norm_name(r.get("name"))
+697068	        if nm:
+697069	            keys.add("name:" + nm)
+697070	        pt = _point(r)
+697071	        if pt and THRESHOLD_KM[_precision(r)] is not None:
+697072	            keys.add("cell:%d:%d" % (math.floor(pt[0] / 0.2), math.floor(pt[1] / 0.2)))
+697073	        for k in keys:
+697074	            index.setdefault(k, []).append(i)
+697075	    for k, members in index.items():
+697076	        if k.startswith("cell:"):
+697077	            _, cy, cx = k.split(":")
+697078	            cy, cx = int(cy), int(cx)
+697079	            neigh = []
+697081	                for dx in (-1, 0, 1):
+697082	                    neigh += index.get("cell:%d:%d" % (cy + dy, cx + dx), [])
+697083	            for i in members:
+697084	                for j in neigh:
+697085	                    if i < j:
+697086	                        pairs.add((i, j))
+697087	            for x in range(len(members)):
+697088	                for y in range(x + 1, len(members)):
+697089	                    i, j = members[x], members[y]
+697090	                    pairs.add((min(i, j), max(i, j)))
+697091	    return sorted(pairs)
+697092	# ---------------------------------------------------------------- clustering
+697093	def cluster(recs):
+697095	    for i, j in candidate_pairs(recs):
+697096	        res = compare(recs[i], recs[j])
+697097	        if res:
+697098	            rule, sim, dist = res
+697099	            links.append((RULE_RANK[rule], dist if dist is not None else 1e9, i, j, rule, sim, dist))
+697100	    links.sort()
+697101	    parent = list(range(len(recs)))
+697102	    members = {i: [i] for i in range(len(recs))}
+697103	    def find(x):
+697104	        while parent[x] != x:
+697105	            parent[x] = parent[parent[x]]
+697106	            x = parent[x]
+697107	        return x
+697108	    used = {}
+697109	    for _, _, i, j, rule, sim, dist in links:
+697110	        ri, rj = find(i), find(j)
+697111	        if ri == rj:
+697112	            used.setdefault(ri, []).append((i, j, rule, sim, dist))
+697113	        if any(cannot_link(recs[x], recs[y]) for x in members[ri] for y in members[rj]):
+697114	        lo, hi = min(ri, rj), max(ri, rj)
+697115	        parent[hi] = lo
+697116	        members[lo] += members.pop(hi)
+697117	        used.setdefault(lo, []).extend(used.pop(hi, []))
+697118	        used[lo].append((i, j, rule, sim, dist))
+697120	    for i in range(len(recs)):
+697121	        groups.setdefault(find(i), []).append(i)
+697122	    return [(sorted(g), used.get(root, [])) for root, g in sorted(groups.items())]
+697123	# ---------------------------------------------------------------- merge
+697124	def _order(recs):
+697125	    """Members by authority: tier, then location precision, then record key."""
+697126	    return sorted(recs, key=lambda r: (rec_tier(r), PRECISION_ORDER.index(_precision(r)), rec_key(r)))
+697127	def _first_src(r):
+697128	    return sorted(r["sources"], key=lambda s: (source_tier(s), s["id"]))[0]["id"]
+697129	def _mw_differ(a, b):
+697130	    return abs(a - b) > max(0.5, 0.05 * max(a, b))
+697131	def _dates_compatible(a, b):
+697132	    return a.startswith(b) or b.startswith(a)
+697133	def merge_group(recs, links):
+697134	    ordered = _order(recs)
+697135	    top = ordered[0]
+697136	        conflicts.extend(r.get("conflicts") or [])
+697137	    # sources
+697138	    srcs = {}
+697139	        for s in r["sources"]:
+697140	            srcs.setdefault(s["id"], s)
+697141	    out["sources"] = [srcs[k] for k in sorted(srcs)]
+697142	    # name / aliases
+697143	    out["name"] = top["name"]
+697145	        names.add(r["name"])
+697146	        names.update(r.get("aliases") or [])
+697147	    out["aliases"] = sorted(n for n in names if n != out["name"])
+697148	    # operator
+697149	    ops = [(r.get("operator"), _first_src(r)) for r in ordered if r.get("operator")]
+697150	    out["operator"] = ops[0][0] if ops else None
+697151	    distinct = []
+697152	    for op, sid in ops:
+697153	        if not any(operator_match(op, d[0]) for d in distinct):
+697154	            distinct.append((op, sid))
+697155	    if len(distinct) > 1:
+697156	        conflicts.append({"field": "operator", "kind": "operator_disagreement",
+697157	                          "values": [{"value": v, "source_id": s} for v, s in ops],
+697158	                          "chosen": out["operator"], "note": "highest-tier source chosen; may be a change of owner"})
+697159	    # status
+697160	    sts = [(r["status"], r.get("status_source_id") or _first_src(r)) for r in ordered if r.get("status") not in (None, "unknown")]
+697161	    out["status"] = sts[0][0] if sts else "unknown"
+697162	    out["status_source_id"] = sts[0][1] if sts else None
+697163	    if len({v for v, _ in sts}) > 1:
+697164	        conflicts.append({"field": "status", "kind": "status_disagreement",
+697165	                          "values": [{"value": v, "source_id": s} for v, s in sts],
+697166	                          "chosen": out["status"], "note": "highest-tier source chosen; other statuses kept here"})
+697167	    # MW: each field on its own; never across fields
+697168	    for f in MW_FIELDS:
+697169	        vals = [(r[f]["value"], r[f]["source_id"], r[f].get("label")) for r in ordered
+697170	                if isinstance(r.get(f), dict) and r[f].get("value") is not None]
+697171	        if vals:
+697172	            out[f] = {"value": vals[0][0], "source_id": vals[0][1], "label": vals[0][2]}
+697173	            if any(_mw_differ(vals[0][0], v[0]) for v in vals[1:]):
+697174	                conflicts.append({"field": f, "kind": "mw_disagreement",
+697175	                                  "values": [{"value": v, "source_id": s} for v, s, _ in vals],
+697176	                                  "chosen": vals[0][0], "note": "highest-tier source chosen"})
+697177	            out[f] = {"value": None, "source_id": None, "label": None}
+697178	    # dates: choose highest tier; widen to a more specific compatible value
+697179	    out["dates"] = {}
+697180	    for f in DATE_FIELDS:
+697181	        vals = [((r.get("dates") or {}).get(f), _first_src(r)) for r in ordered]
+697182	        vals = [v for v in vals if v[0]]
+697183	        if not vals:
+697184	            out["dates"][f] = None
+697185	        chosen = vals[0][0]
+697186	        for v, _ in vals[1:]:
+697187	            if _dates_compatible(chosen, v) and len(v) > len(chosen):
+697188	                chosen = v
+697189	        out["dates"][f] = chosen
+697190	        if any(not _dates_compatible(vals[0][0], v) for v, _ in vals[1:]):
+697191	            conflicts.append({"field": "dates." + f, "kind": "date_disagreement",
+697192	                              "values": [{"value": v, "source_id": s} for v, s in vals],
+697193	                              "chosen": chosen, "note": None})
+697194	    # location: best precision, then tier
+697195	    by_prec = sorted(recs, key=lambda r: (PRECISION_ORDER.index(_precision(r)), rec_tier(r), rec_key(r)))
+697196	    best = by_prec[0]
+697197	    loc = dict(best.get("location") or {})
+697198	    if loc.get("lat") is not None and not loc.get("source_id"):
+697199	        loc["source_id"] = _first_src(best)
+697200	    for k in ("local_authority", "postcode"):
+697201	        if not loc.get(k):
+697202	            loc[k] = next(((r.get("location") or {}).get(k) for r in by_prec if (r.get("location") or {}).get(k)), None)
+697203	    loc = {"lat": loc.get("lat"), "lon": loc.get("lon"), "precision": loc.get("precision") or "unknown",
+697204	           "source_id": loc.get("source_id"), "local_authority": loc.get("local_authority"),
+697205	           "postcode": loc.get("postcode")}
+697206	    out["location"] = loc
+697207	    pts = [(r, _point(r)) for r in by_prec if _point(r)]
+697208	    far = []
+697209	    for r, p in pts[1:]:
+697210	        thr = THRESHOLD_KM[coarser(_precision(best), _precision(r))]
+697211	        d = haversine_km(pts[0][1][0], pts[0][1][1], p[0], p[1])
+697212	        if thr is not None and d > thr:
+697213	            far.append((r, d))
+697214	    if far:
+697215	        conflicts.append({"field": "location", "kind": "location_disagreement",
+697216	                          "values": [{"value": [round(pts[0][1][1], 6), round(pts[0][1][0], 6)], "source_id": _first_src(pts[0][0])}]
+697217	                          + [{"value": [round(_point(r)[1], 6), round(_point(r)[0], 6)], "source_id": _first_src(r)} for r, _ in far],
+697218	                          "chosen": [loc["lon"], loc["lat"]],
+697219	                          "note": "matched by reference but points are %.2f km apart (max)" % max(d for _, d in far)})
+697220	    # refs
+697221	    prefs = {}
+697222	        for p in r.get("planning_refs") or []:
+697223	            k = (norm_authority(p["authority"]), norm_ref(p["reference"]))
+697224	            prefs.setdefault(k, {"authority": p["authority"], "reference": p["reference"], "url": p.get("url")})
+697225	    out["planning_refs"] = [prefs[k] for k in sorted(prefs)]
+697226	    out["connection_refs"] = sorted({c for r in recs for c in r.get("connection_refs") or []})
+697227	    out["evidence_urls"] = sorted({u for r in recs for u in r.get("evidence_urls") or []})
+697228	    # same-source duplicates (two records of one dataset merged by reference)
+697229	    by_ds = {}  # dataset -> ids of the INPUT records from it (a lane's own multi-member site counts once)
+697230	        for ds in sorted(rec_datasets(r)):
+697231	            by_ds.setdefault(ds, []).append(_first_src(r))
+697232	    for ds, ids in sorted(by_ds.items()):
+697233	        if len(set(ids)) > 1:
+697234	            conflicts.append({"field": "sources", "kind": "same_source_duplicate",
+697235	                              "values": [{"value": ds, "source_id": i} for i in sorted(set(ids))],
+697236	                              "chosen": None, "note": "one dataset lists this site more than once"})
+697237	    # dedupe conflicts deterministically
+697239	    for c in conflicts:
+697240	        seen.setdefault(_canon(c), c)
+697241	    out["conflicts"] = [seen[k] for k in sorted(seen)]
+697242	    keys = sorted(set().union(*[plan_keys(r) for r in recs]))
+697243	    keys = keys or sorted(set().union(*[conn_keys(r) for r in recs]))
+697244	    keys = keys or sorted(geo_key(r) for r in recs)
+697245	    out["site_key"] = keys[0]
+697246	    out["match"] = [{"a": rec_key(recs_a), "b": rec_key(recs_b), "rule": rule,
+697247	                     "name_similarity": sim, "distance_km": dist}
+697248	                    for recs_a, recs_b, rule, sim, dist in links]
+697249	    out["match"].sort(key=lambda m: (m["a"], m["b"], m["rule"]))
+697250	    out["notes"] = sorted({n for r in recs for n in r.get("notes") or []})
+697251	def _canon(obj):
+697252	    import json
+697253	    return json.dumps(obj, sort_keys=True, separators=(",", ":"), default=str)
+697254	def merge(records):
+697255	    """records -> merged records sorted by id. Input order does not matter."""
+697256	    global _URL_OK
+697257	    recs = sorted(records, key=rec_key)
+697258	    freq = {}
+697259	        for k in raw_url_keys(r):
+697260	            freq[k] = freq.get(k, 0) + 1
+697261	    _URL_OK = {k for k, n in freq.items() if n <= URL_KEY_MAX_RECORDS}
+697262	    for idxs, links in cluster(recs):
+697263	        group = [recs[i] for i in idxs]
+697264	        lk = [(recs[i], recs[j], rule, sim, dist) for i, j, rule, sim, dist in links]
+697265	        out.append(merge_group(group, lk))
+697266	    # stable ids; disambiguate identical keys deterministically
+697267	    out.sort(key=lambda m: (m["site_key"], rec_key(m)))
+697268	    for m in out:
+697269	        k = m["site_key"]
+697270	        counts[k] = counts.get(k, 0) + 1
+697271	        if counts[k] > 1:
+697272	            m["site_key"] = "%s#%d" % (k, counts[k])
+697273	        m["id"] = site_id(m["site_key"])
+697274	    out.sort(key=lambda m: m["id"])
+697275	    return [_ordered_record(m) for m in out]
+697276	FIELD_ORDER = ["id", "site_key", "name", "aliases", "operator", "status", "status_source_id",
+697277	               "it_load_mw", "grid_connection_mw", "unclassified_mw", "dates", "location",
+697278	               "planning_refs", "connection_refs", "evidence_urls", "sources", "conflicts", "match", "notes"]
+697279	def _ordered_record(m):
+697280	    return {k: m[k] for k in FIELD_ORDER if k in m}
+697281	def to_feature(m):
+697282	    loc = m["location"]
+697283	    geom = None
+697284	    if loc.get("lat") is not None:
+697285	        geom = {"type": "Point", "coordinates": [loc["lon"], loc["lat"]]}
+697286	    return {"type": "Feature", "id": m["id"], "geometry": geom, "properties": m}
+697287	"""Standard-library validator for dc_pipeline.schema.json (GridAtlas #73 step 3).
+697288	Implements the JSON Schema subset the schema uses (type, enum, const, required,
+697289	properties, additionalProperties, items, minItems, minLength, pattern, minimum,
+697290	maximum, local $ref) plus semantic rules JSON Schema cannot express cleanly:
+697291	  * an MW value that is set must name a source_id, and that id must be in sources[];
+697292	  * every *source_id referenced anywhere must be in sources[];
+697293	  * lat and lon are both null or both set; a set point cannot have precision 'unknown';
+697294	  * id must equal dcuk-<sha256(site_key)[:16]> when site_key is present;
+697295	  * conflicts[].values[].source_id must be in sources[].
+697296	If the optional `jsonschema` package is installed, validate(..., cross_check=True)
+697297	also runs it and reports any disagreement (tests run with and without it).
+697298	Usage: python3 dcschema.py FILE.json|FILE.geojson   (exit 1 on any error)
+697299	SCHEMA_PATH = os.path.join(HERE, "dc_pipeline.schema.json")
+697300	_TYPES = {
+697301	    "object": lambda v: isinstance(v, dict),
+697302	    "array": lambda v: isinstance(v, list),
+697303	    "string": lambda v: isinstance(v, str),
+697304	    "number": lambda v: isinstance(v, (int, float)) and not isinstance(v, bool),
+697305	    "integer": lambda v: isinstance(v, int) and not isinstance(v, bool),
+697306	    "boolean": lambda v: isinstance(v, bool),
+697307	    "null": lambda v: v is None,
+697308	def load_schema(path=SCHEMA_PATH):
+697309	    with open(path, encoding="utf-8") as f:
+697310	        return json.load(f)
+697311	def _resolve(root, ref):
+697312	    if not ref.startswith("#/"):
+697313	        raise ValueError("only local $ref supported: %s" % ref)
+697314	    node = root
+697315	    for part in ref[2:].split("/"):
+697316	        node = node[part]
+697317	    return node
+697318	def _check(node, value, root, path, errors):
+697320	        _check(_resolve(root, node["$ref"]), value, root, path, errors)
+697321	        node = {k: v for k, v in node.items() if k != "$ref"}
+697322	    t = node.get("type")
+697323	    if t is not None:
+697324	        types = t if isinstance(t, list) else [t]
+697325	        if not any(_TYPES[x](value) for x in types):
+697326	            errors.append("%s: expected %s, got %s" % (path, "/".join(types), type(value).__name__))
+697327	    if "enum" in node and value not in node["enum"]:
+697328	        errors.append("%s: %r not in enum %s" % (path, value, node["enum"]))
+697329	    if "const" in node and value != node["const"]:
+697330	        errors.append("%s: %r != const %r" % (path, value, node["const"]))
+697332	        if "minLength" in node and len(value) < node["minLength"]:
+697333	            errors.append("%s: shorter than %d" % (path, node["minLength"]))
+697334	        if "pattern" in node and not re.search(node["pattern"], value):
+697335	            errors.append("%s: %r does not match %s" % (path, value, node["pattern"]))
+697336	    if _TYPES["number"](value):
+697337	        if "minimum" in node and value < node["minimum"]:
+697338	            errors.append("%s: %r < minimum %r" % (path, value, node["minimum"]))
+697339	        if "maximum" in node and value > node["maximum"]:
+697340	            errors.append("%s: %r > maximum %r" % (path, value, node["maximum"]))
+697342	        props = node.get("properties", {})
+697343	        for k in node.get("required", []):
+697344	            if k not in value:
+697345	                errors.append("%s: missing required '%s'" % (path, k))
+697346	        for k, v in value.items():
+697347	            if k in props:
+697348	                _check(props[k], v, root, "%s.%s" % (path, k), errors)
+697349	            elif node.get("additionalProperties") is False:
+697350	                errors.append("%s: unexpected property '%s'" % (path, k))
+697352	        if "minItems" in node and len(value) < node["minItems"]:
+697353	            errors.append("%s: fewer than %d items" % (path, node["minItems"]))
+697354	        if "items" in node:
+697355	            for i, v in enumerate(value):
+697356	                _check(node["items"], v, root, "%s[%d]" % (path, i), errors)
+697357	def semantic_errors(rec, path="$"):
+697358	    errs = []
+697359	        return errs
+697360	    src_ids = {s.get("id") for s in rec.get("sources", []) if isinstance(s, dict)}
+697361	    for f in ("it_load_mw", "grid_connection_mw", "unclassified_mw"):
+697362	        m = rec.get(f)
+697363	        if isinstance(m, dict):
+697364	            if m.get("value") is not None and not m.get("source_id"):
+697365	                errs.append("%s.%s: value set without source_id" % (path, f))
+697366	            if m.get("source_id") and m["source_id"] not in src_ids:
+697367	                errs.append("%s.%s: source_id %r not in sources[]" % (path, f, m["source_id"]))
+697368	    for f in ("status_source_id",):
+697369	        if rec.get(f) and rec[f] not in src_ids:
+697370	            errs.append("%s.%s: %r not in sources[]" % (path, f, rec[f]))
+697371	    loc = rec.get("location")
+697372	    if isinstance(loc, dict):
+697373	        if (loc.get("lat") is None) != (loc.get("lon") is None):
+697374	            errs.append("%s.location: lat and lon must both be set or both null" % path)
+697375	        if loc.get("lat") is not None and loc.get("precision") == "unknown":
+697376	            errs.append("%s.location: a point with precision 'unknown'" % path)
+697377	        if loc.get("source_id") and loc["source_id"] not in src_ids:
+697378	            errs.append("%s.location.source_id: %r not in sources[]" % (path, loc["source_id"]))
+697379	    if rec.get("site_key") and rec.get("id") and site_id(rec["site_key"]) != rec["id"]:
+697380	        errs.append("%s.id: does not equal hash of site_key" % path)
+697381	    for i, c in enumerate(rec.get("conflicts", []) or []):
+697382	        for v in (c.get("values") or []) if isinstance(c, dict) else []:
+697383	            if isinstance(v, dict) and v.get("source_id") not in src_ids:
+697384	                errs.append("%s.conflicts[%d]: source_id %r not in sources[]" % (path, i, v.get("source_id")))
+697385	    ids = [s.get("id") for s in rec.get("sources", []) if isinstance(s, dict)]
+697386	        errs.append("%s.sources: duplicate source ids" % path)
+697388	def validate(rec, schema=None, cross_check=False, path="$"):
+697389	    """Return a list of error strings (empty = valid)."""
+697390	    schema = schema or load_schema()
+697392	    _check(schema, rec, schema, path, errors)
+697393	    errors += semantic_errors(rec, path)
+697394	    if cross_check:
+697395	            import jsonschema  # optional
+697397	            return errors
+697398	        lib_ok = jsonschema.Draft202012Validator(schema).is_valid(rec)
+697399	        ours_ok = not [e for e in errors if " not in sources[]" not in e and "without source_id" not in e
+697400	                       and "lat and lon" not in e and "precision 'unknown'" not in e and "hash of site_key" not in e
+697401	                       and "duplicate source ids" not in e]
+697402	        if lib_ok != ours_ok:
+697403	            errors.append("%s: stdlib validator and jsonschema disagree (lib_ok=%s)" % (path, lib_ok))
+697405	def feature_to_record(feat):
+697406	    """GeoJSON Feature -> record: the record is the properties; geometry must agree with location."""
+697407	    return feat.get("properties") or {}
+697408	def validate_file(path, cross_check=True):
+697409	        doc = json.load(f)
+697410	    schema = load_schema()
+697411	    if isinstance(doc, dict) and doc.get("type") == "FeatureCollection":
+697412	        for i, feat in enumerate(doc.get("features", [])):
+697413	            rec = feature_to_record(feat)
+697414	            p = "features[%d]" % i
+697415	            errors += validate(rec, schema, cross_check, p)
+697416	            loc = rec.get("location") or {}
+697417	            g = feat.get("geometry")
+697418	            if loc.get("lat") is None and g is not None:
+697419	                errors.append("%s: geometry set but location null" % p)
+697420	            if loc.get("lat") is not None:
+697421	                if not g or g.get("type") != "Point" or g.get("coordinates") != [loc["lon"], loc["lat"]]:
+697422	                    errors.append("%s: geometry does not equal location" % p)
+697423	            if feat.get("id") != rec.get("id"):
+697424	                errors.append("%s: feature id != properties.id" % p)
+697425	    elif isinstance(doc, list):
+697426	        for i, rec in enumerate(doc):
+697427	            errors += validate(rec, schema, cross_check, "[%d]" % i)
+697428	        errors += validate(doc, schema, cross_check)
+697429	    if len(sys.argv) != 2:
+697430	        sys.exit(__doc__)
+697431	    errs = validate_file(sys.argv[1])
+697432	    for e in errs[:200]:
+697433	        print(e)
+697434	    print("%d error(s)" % len(errs))
+697435	    sys.exit(1 if errs else 0)
+697436	"""Synthetic unit tests for dcschema / dcmerge / dcingest (stdlib unittest).
+697437	Run: python3 -m unittest -v test_dcmerge   (from this directory)
+697438	     DC_NO_JSONSCHEMA=1 ... hides the optional jsonschema package.
+697442	if os.environ.get("DC_NO_JSONSCHEMA"):
+697443	    sys.modules["jsonschema"] = None  # import -> ImportError
+697444	import dcingest  # noqa: E402
+697445	LIC = {"OGL-UK-3.0": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+697446	       "ODbL-1.0": "https://opendatacommons.org/licenses/odbl/1-0/",
+697447	       "CC0-1.0": "https://creativecommons.org/publicdomain/zero/1.0/"}
+697448	def mk(lane, dataset, ref, name, lat=None, lon=None, precision="exact_site", operator=None,
+697449	       status="unknown", it=None, grid=None, uncl=None, plan=None, conn=None, licence="OGL-UK-3.0",
+697450	       url="https://example.org/x", dates=None):
+697451	    sid = "%s:%s:%s" % (lane, dataset, ref)
+697452	    r = {
+697453	        "name": name, "aliases": [], "operator": operator, "status": status,
+697454	        "status_source_id": sid if status != "unknown" else None,
+697455	        "it_load_mw": {"value": it, "source_id": sid if it is not None else None, "label": None},
+697456	        "grid_connection_mw": {"value": grid, "source_id": sid if grid is not None else None, "label": None},
+697457	        "unclassified_mw": {"value": uncl, "source_id": sid if uncl is not None else None, "label": None},
+697458	        "dates": dict({f: None for f in dcmerge.DATE_FIELDS}, **(dates or {})),
+697459	        "location": {"lat": lat, "lon": lon, "precision": precision if lat is not None else "unknown",
+697460	                     "source_id": sid if lat is not None else None, "local_authority": None, "postcode": None},
+697461	        "planning_refs": [{"authority": a, "reference": b, "url": None} for a, b in (plan or [])],
+697462	        "connection_refs": list(conn or []),
+697463	        "sources": [{"id": sid, "lane": lane, "dataset": dataset, "record_ref": ref, "url": url,
+697464	                     "licence": licence, "licence_url": LIC.get(licence, "https://example.org/l"),
+697465	                     "licence_status": "unverified", "attribution": None, "retrieved": "2026-10-29",
+697466	                     "sha256": None}],
+697467	        "conflicts": [], "notes": [],
+697468	    r["site_key"] = dcmerge.geo_key(r)
+697469	    r["id"] = dcmerge.site_id(r["site_key"])
+697471	# Slough-ish coordinates
+697472	SL = (51.5230, -0.6290)
+697473	class SchemaTests(unittest.TestCase):
+697474	    def test_valid_record(self):
+697475	        r = mk("DC-A1", "osm", "w1", "Alpha DC", *SL, it=10)
+697476	        self.assertEqual(dcschema.validate(r, cross_check=True), [])
+697477	    def test_status_enum(self):
+697478	        r = mk("DC-A1", "osm", "w1", "Alpha DC", *SL)
+697479	        r["status"] = "maybe"
+697480	        self.assertTrue(any("enum" in e for e in dcschema.validate(r)))
+697481	    def test_mw_needs_source(self):
+697482	        r["grid_connection_mw"] = {"value": 50, "source_id": None, "label": None}
+697483	        self.assertTrue(any("without source_id" in e for e in dcschema.validate(r)))
+697484	    def test_mw_source_must_exist(self):
+697485	        r["it_load_mw"] = {"value": 5, "source_id": "nope", "label": None}
+697486	        self.assertTrue(any("not in sources" in e for e in dcschema.validate(r)))
+697487	    def test_non_open_licence_rejected(self):
+697488	        r = mk("DC-A1", "x", "1", "Alpha DC", *SL)
+697489	        r["sources"][0]["licence"] = "CC-BY-NC-4.0"
+697490	    def test_dates_and_precision(self):
+697491	        r = mk("DC-A1", "x", "1", "Alpha DC", *SL, dates={"consented": "2026-13"})
+697492	        r["dates"]["consented"] = "26/10/2026"
+697493	        r["location"]["precision"] = "vague"
+697494	        errs = dcschema.validate(r)
+697495	        self.assertTrue(any("dates.consented" in e for e in errs))
+697496	        self.assertTrue(any("precision" in e for e in errs))
+697497	    def test_half_point(self):
+697498	        r["location"]["lon"] = None
+697499	        self.assertTrue(any("both" in e for e in dcschema.validate(r)))
+697500	    def test_id_must_hash_key(self):
+697501	        r["id"] = "dcuk-0000000000000000"
+697502	        self.assertTrue(any("hash of site_key" in e for e in dcschema.validate(r)))
+697503	    def test_jsonschema_agrees_on_structure(self):
+697504	            import jsonschema
+697505	            self.skipTest("jsonschema not installed")
+697506	        schema = dcschema.load_schema()
+697507	        good = mk("DC-A1", "x", "1", "Alpha DC", *SL, it=3)
+697508	        bad = copy.deepcopy(good)
+697509	        bad["status"] = "nope"
+697510	        v = jsonschema.Draft202012Validator(schema)
+697511	        self.assertTrue(v.is_valid(good))
+697512	        self.assertFalse(v.is_valid(bad))
+697513	class NormaliserTests(unittest.TestCase):
+697514	    def test_name_similarity(self):
+697515	        self.assertEqual(dcmerge.name_similarity("Alpha Data Centre", "ALPHA datacenter"), 1.0)
+697516	        self.assertGreaterEqual(dcmerge.name_similarity("Blackwall Yard DC", "Blackwall Yard Data Center Campus"), 0.85)
+697517	        self.assertLess(dcmerge.name_similarity("Alpha", "Omega"), 0.5)
+697518	        self.assertEqual(dcmerge.name_similarity("Data Centre", "Data Centre"), 0.0)  # uninformative
+697519	    def test_operator_match(self):
+697520	        self.assertTrue(dcmerge.operator_match("Equinix (UK) Ltd", "EQUINIX"))
+697521	        self.assertFalse(dcmerge.operator_match("Equinix", "Digital Realty"))
+697522	        self.assertFalse(dcmerge.operator_match("Digital Realty", "Global Digital Realty"))
+697523	        self.assertIsNone(dcmerge.operator_match(None, "Equinix"))
+697524	    def test_designators(self):
+697525	        self.assertNotEqual(dcmerge.designators("Equinix LD4"), dcmerge.designators("Equinix LD5"))
+697526	        self.assertEqual(dcmerge.designators("Building 2"), frozenset({"building2"}))
+697527	    def test_haversine(self):
+697528	        self.assertAlmostEqual(dcmerge.haversine_km(51.5, 0, 51.5, 0), 0)
+697529	        self.assertAlmostEqual(dcmerge.haversine_km(51.0, 0, 52.0, 0), 111.19, delta=0.1)
+697530	    def test_licence_mapping(self):
+697531	        f = dcingest.norm_licence
+697532	        self.assertEqual(f("OGL v3"), "OGL-UK-3.0")
+697533	        self.assertEqual(f("ODbL"), "ODbL-1.0")
+697534	        self.assertIsNone(f("CC-BY-NC-4.0"))
+697535	        self.assertIsNone(f("CC BY-SA 4.0"))
+697536	        self.assertIsNone(f("Open Government Licence (non-commercial)"))
+697537	        self.assertIsNone(f("proprietary"))
+697538	    def test_status_mapping(self):
+697539	        f = dcingest.norm_status
+697540	        self.assertEqual(f("Planning permission granted"), "consented")
+697541	        self.assertEqual(f("Under Construction"), "under_construction")
+697542	        self.assertEqual(f("Refused"), "refused_or_withdrawn")
+697543	        self.assertEqual(f("Application submitted"), "in_planning")
+697544	        self.assertEqual(f(None), "unknown")
+697545	class MergeTests(unittest.TestCase):
+697546	    def test_cross_operator_name_and_location_never_merge(self):
+697547	        a = mk("DC-A4", "osm", "133", "Digital Realty LHR26", 51.516456, -0.617916,
+697548	               operator="Digital Realty")
+697549	        b = mk("DC-A3", "wikidata", "237", "Digital Realty LHR26", 51.517670, -0.618361,
+697550	               operator="Global Technical Realty")
+697551	        self.assertEqual(len(dcmerge.merge([a, b])), 2)
+697552	    def test_cross_operator_shared_document_and_ref_never_merge(self):
+697553	        url = "https://assets.publishing.service.gov.uk/media/abcd/shared.pdf"
+697554	        a = mk("DC-A2", "planning", "1", "Slough Campus", 51.517, -0.618,
+697555	               operator="Digital Realty", plan=[("Slough", "P/999")])
+697556	        b = mk("DC-A3", "government", "2", "Slough Campus", 51.517, -0.618,
+697557	               operator="Global Technical Realty", plan=[("Slough", "P/999")])
+697558	        a["evidence_urls"] = [url]
+697559	        b["evidence_urls"] = [url]
+697560	        a["connection_refs"] = b["connection_refs"] = ["same-ref"]
+697561	    def test_cross_operator_cannot_chain_through_unknown(self):
+697562	        a = mk("DC-A4", "osm", "133", "Slough DC", 51.5165, -0.6180,
+697563	        middle = mk("DC-A3", "government", "u", "Slough DC", 51.5166, -0.6180)
+697564	        b = mk("DC-A5", "wikidata", "237", "Slough DC", 51.5167, -0.6180,
+697565	        for order in ([a, middle, b], [b, middle, a]):
+697566	            out = dcmerge.merge(order)
+697567	            self.assertEqual(len(out), 2)
+697568	            self.assertTrue(all(not ({"Digital Realty", "Global Technical Realty"} <=
+697569	                          {z["operator"] for z in order if
+697570	                           any(q["id"] in {u["id"] for u in f["sources"]} for q in z["sources"])})
+697571	                          for f in out))
+697572	    def test_same_name_close_points_merge(self):
+697573	        a = mk("DC-A1", "osm", "w1", "Alpha Data Centre", 51.5230, -0.6290, operator="Alphaco")
+697574	        b = mk("DC-A2", "wikidata", "Q1", "Alpha DC", 51.5250, -0.6290, operator="Alphaco Ltd")
+697575	        out = dcmerge.merge([a, b])
+697576	        self.assertEqual(len(out), 1)
+697577	        self.assertEqual(len(out[0]["sources"]), 2)
+697578	        self.assertEqual(out[0]["match"][0]["rule"], "name_distance")
+697579	    def test_same_name_far_apart_do_not_merge(self):
+697580	        a = mk("DC-A1", "osm", "w1", "Alpha DC", 51.5230, -0.6290)
+697581	        b = mk("DC-A2", "wikidata", "Q1", "Alpha DC", 53.48, -2.24)
+697582	    def test_threshold_depends_on_precision(self):
+697583	        # 3 km apart: no merge at exact_site, merge when one is settlement-level
+697584	        a = mk("DC-A1", "osm", "w1", "Gamma DC", 51.5230, -0.6290)
+697585	        b = mk("DC-A2", "wikidata", "Q1", "Gamma DC", 51.5500, -0.6290)
+697586	        b2 = mk("DC-A2", "wikidata", "Q1", "Gamma DC", 51.5500, -0.6290, precision="settlement")
+697587	        self.assertEqual(len(dcmerge.merge([a, b2])), 1)
+697588	    def test_region_precision_never_distance_matches(self):
+697589	        a = mk("DC-A1", "osm", "w1", "Gamma Campus", 51.5230, -0.6290, operator="G")
+697590	        b = mk("DC-A3", "dsit", "1", "Gamma Campus Expansion", 51.5230, -0.6290, precision="region", operator="H")
+697591	    def test_operator_rule(self):
+697592	        a = mk("DC-A1", "osm", "w1", "Slough Trading Estate", 51.5230, -0.6290, operator="Equinix")
+697593	        b = mk("DC-A4", "company", "e1", "Slough Estate Campus", 51.5235, -0.6292, operator="Equinix UK Ltd")
+697594	        self.assertEqual(out[0]["match"][0]["rule"], "operator_distance")
+697595	    def test_designators_block_adjacent_buildings(self):
+697596	        a = mk("DC-A1", "osm", "w1", "Equinix LD4", 51.5230, -0.6290, operator="Equinix")
+697597	        b = mk("DC-A2", "wikidata", "Q5", "Equinix LD5", 51.5232, -0.6291, operator="Equinix")
+697598	    def test_planning_ref_merges_despite_names(self):
+697599	        a = mk("DC-A3", "planning.data.gov.uk", "p1", "Land north of Foo Lane", 51.70, -0.40,
+697600	               precision="planning_site", plan=[("Three Rivers District Council", "23/0001/FUL")])
+697601	        b = mk("DC-A4", "company", "c1", "Project Kestrel", 51.70, -0.40, precision="settlement",
+697602	               plan=[("three rivers", "23/0001/ ful")])
+697603	        self.assertEqual(out[0]["site_key"], "plan:three rivers:23/0001/FUL")
+697604	        self.assertIn("Project Kestrel", out[0]["aliases"] + [out[0]["name"]])
+697605	    def test_connection_ref_merge(self):
+697606	        a = mk("DC-A2", "NESO TEC register", "t1", "Foo Demand", conn=["TEC-123"])
+697607	        b = mk("DC-A4", "company", "c1", "Foo Campus", 52.0, -1.0, precision="settlement", conn=["tec-123"])
+697608	        self.assertEqual(out[0]["match"][0]["rule"], "connection_ref")
+697609	    def test_no_location_exact_name_and_operator(self):
+697610	        a = mk("DC-A2", "NESO TEC register", "t1", "Zeta DC", operator="ZetaCo")
+697611	        b = mk("DC-A4", "company", "c1", "Zeta Data Centre", 52.0, -1.0, operator="ZetaCo Ltd")
+697612	        c = mk("DC-A5", "wikidata", "Q9", "Zeta DC", 53.0, -2.0, operator="Other")
+697613	        out = dcmerge.merge([a, b, c])
+697614	        self.assertEqual(sorted(len(m["sources"]) for m in out), [1, 2])
+697615	    def test_same_source_needs_strong_evidence(self):
+697616	        a = mk("DC-A1", "osm", "w1", "Kappa North", 51.5230, -0.6290, operator="K")
+697617	        b = mk("DC-A1", "osm", "w2", "Kappa South", 51.5233, -0.6290, operator="K")
+697618	    def test_same_source_duplicate_flagged(self):
+697619	        a = mk("DC-A3", "planning", "p1", "X", 51.6, -0.5, plan=[("Slough", "P/1")])
+697620	        b = mk("DC-A3", "planning", "p2", "Y", 51.6, -0.5, plan=[("Slough", "P/1")])
+697621	        self.assertIn("same_source_duplicate", [c["kind"] for c in out[0]["conflicts"]])
+697622	    def test_no_transitive_chain_through_guard(self):
+697623	        # A~B (operator), B~C (operator), but A and C are distinct buildings LD4/LD5
+697624	        b = mk("DC-A4", "company", "c1", "Equinix Slough", 51.5231, -0.6290, operator="Equinix")
+697625	        c = mk("DC-A5", "wikidata", "Q1", "Equinix LD5", 51.5232, -0.6290, operator="Equinix")
+697626	        for m in out:
+697627	            names = [m["name"]] + m["aliases"]
+697628	            self.assertFalse("Equinix LD4" in names and "Equinix LD5" in names)
+697629	class EvidenceUrlTests(unittest.TestCase):
+697630	    def test_shared_document_url_merges(self):
+697631	        doc = "https://assets.publishing.service.gov.uk/media/abc/Request_Statement.pdf"
+697632	        a = mk("DC-A2", "s35-seed", "1", "Data Centre Campus, Ampthill Road, Bedford", operator="QuestPit Limited")
+697633	        a["evidence_urls"] = [doc]
+697634	        b = mk("DC-A3", "MHCLG", "2", "QuestPit data centre campus", 52.09, -0.49, precision="settlement", it=720)
+697635	        b["evidence_urls"] = [doc, "https://www.gov.uk/government/collections/ai-growth-zones"]
+697636	        self.assertEqual(out[0]["match"][0]["rule"], "evidence_document")
+697637	        self.assertEqual(dcschema.validate(out[0]), [])
+697638	    def test_same_lane_shared_press_release_does_not_merge(self):
+697639	        pr = "https://www.gov.uk/government/news/some-release"
+697640	        a = mk("DC-A3", "DSIT", "1", "CloudHQ Didcot", 51.61, -1.24, precision="settlement", operator="CloudHQ")
+697641	        b = mk("DC-A3", "DSIT", "2", "QTS Cambois", 55.15, -1.53, precision="settlement", operator="QTS")
+697642	        a["evidence_urls"] = b["evidence_urls"] = [pr]
+697643	    def test_shared_url_far_apart_does_not_merge(self):
+697644	        a = mk("DC-A3", "DSIT", "1", "Nscale Loughton", 51.65, 0.07, precision="settlement")
+697645	        b = mk("DC-A4", "osm", "2", "Culham Campus", 51.66, -1.23)
+697646	    def test_widely_cited_url_is_not_a_key(self):
+697647	        coll = "https://www.gov.uk/government/collections/ai-growth-zones"
+697648	        recs = []
+697649	        for i, nm in enumerate(["North", "South", "East"]):
+697650	            r = mk("DC-A3", "DSIT", str(i), nm + " Zone", 51 + i, -1.0, precision="region")
+697651	            r["evidence_urls"] = [coll]
+697652	            recs.append(r)
+697653	        self.assertEqual(len(dcmerge.merge(recs)), 3)
+697654	class ConflictTests(unittest.TestCase):
+697655	    def test_mw_disagreement_within_field_only(self):
+697656	        a = mk("DC-A2", "NESO TEC register", "t1", "Delta DC", 51.5, -1.0, grid=100, conn=["T1"])
+697657	        b = mk("DC-A4", "company", "c1", "Delta DC", 51.5, -1.0, grid=150, it=60, conn=["T1"])
+697658	        out = dcmerge.merge([a, b])[0]
+697659	        kinds = {(c["kind"], c["field"]) for c in out["conflicts"]}
+697660	        self.assertIn(("mw_disagreement", "grid_connection_mw"), kinds)
+697661	        self.assertNotIn(("mw_disagreement", "it_load_mw"), kinds)
+697662	        self.assertEqual(out["grid_connection_mw"]["value"], 100)  # tier 1 wins
+697663	        self.assertEqual(out["it_load_mw"]["value"], 60)  # only source; never derived from grid
+697664	        self.assertEqual(out["it_load_mw"]["source_id"], "DC-A4:company:c1")
+697665	    def test_it_and_grid_never_cross_compared(self):
+697666	        a = mk("DC-A2", "NESO TEC register", "t1", "Eps DC", 51.5, -1.0, grid=100, conn=["T2"])
+697667	        b = mk("DC-A4", "company", "c1", "Eps DC", 51.5, -1.0, it=40, conn=["T2"])
+697668	        self.assertEqual(out["conflicts"], [])
+697669	        self.assertEqual((out["it_load_mw"]["value"], out["grid_connection_mw"]["value"]), (40, 100))
+697670	    def test_small_mw_difference_is_not_conflict(self):
+697671	        a = mk("DC-A2", "NESO TEC register", "t1", "Eta", 51.5, -1.0, grid=100, conn=["T3"])
+697672	        b = mk("DC-A4", "company", "c1", "Eta", 51.5, -1.0, grid=103, conn=["T3"])
+697673	        self.assertEqual(dcmerge.merge([a, b])[0]["conflicts"], [])
+697674	    def test_unknown_mw_stays_null(self):
+697675	        a = mk("DC-A1", "osm", "w1", "Theta", 51.5, -1.0)
+697676	        b = mk("DC-A5", "wikidata", "Q1", "Theta", 51.5, -1.0)
+697677	        self.assertIsNone(out["it_load_mw"]["value"])
+697678	        self.assertIsNone(out["grid_connection_mw"]["value"])
+697679	    def test_status_disagreement(self):
+697680	        a = mk("DC-A3", "planning.data.gov.uk", "p1", "Iota", 51.5, -1.0, status="consented", plan=[("X", "1")])
+697681	        b = mk("DC-A1", "osm", "w1", "Iota", 51.5, -1.0, status="operational", plan=[("X", "1")])
+697682	        self.assertEqual(out["status"], "consented")  # planning (tier 2) over OSM (tier 6)
+697683	        c = [c for c in out["conflicts"] if c["kind"] == "status_disagreement"][0]
+697684	        self.assertEqual({v["value"] for v in c["values"]}, {"consented", "operational"})
+697685	    def test_unknown_status_is_not_conflict(self):
+697686	        a = mk("DC-A3", "planning", "p1", "Iota", 51.5, -1.0, status="unknown", plan=[("X", "1")])
+697687	        self.assertEqual(out["status"], "operational")
+697688	    def test_operator_and_date_disagreement(self):
+697689	        a = mk("DC-A3", "planning", "p1", "Kap", 51.5, -1.0, operator="A Corp", plan=[("X", "2")],
+697690	               dates={"consented": "2025-03-01"})
+697691	        b = mk("DC-A4", "company", "c1", "Kap", 51.5, -1.0, operator="B Corp", plan=[("X", "2")],
+697692	               dates={"consented": "2024"})
+697693	        # An operator disagreement is a separation, not merely a note on a false-merged site.
+697694	    def test_compatible_dates_refine(self):
+697695	        a = mk("DC-A3", "planning", "p1", "Lam", 51.5, -1.0, plan=[("X", "3")], dates={"consented": "2025"})
+697696	        b = mk("DC-A4", "company", "c1", "Lam", 51.5, -1.0, plan=[("X", "3")], dates={"consented": "2025-06-30"})
+697697	        self.assertEqual(out["dates"]["consented"], "2025-06-30")
+697698	    def test_location_disagreement_on_ref_match(self):
+697699	        a = mk("DC-A3", "planning", "p1", "Mu", 51.50, -1.00, plan=[("X", "4")])
+697700	        b = mk("DC-A1", "osm", "w1", "Mu", 51.60, -1.00, plan=[("X", "4")])
+697701	        self.assertIn("location_disagreement", [c["kind"] for c in out["conflicts"]])
+697702	    def test_best_precision_location_wins(self):
+697703	        a = mk("DC-A3", "dsit", "1", "Nu Campus", 51.50, -1.00, precision="settlement")
+697704	        b = mk("DC-A1", "osm", "w1", "Nu Campus", 51.51, -1.00, precision="exact_site")
+697705	        self.assertEqual(out["location"]["precision"], "exact_site")
+697706	        self.assertEqual(out["location"]["lat"], 51.51)
+697707	class DeterminismTests(unittest.TestCase):
+697708	    def _corpus(self):
+697709	        rng = random.Random(73)
+697710	        for i in range(60):
+697711	            lat, lon = 51.0 + rng.random() * 2, -2.0 + rng.random() * 2
+697712	            nm = "Site %s" % "".join(rng.choice("abcdefgh") for _ in range(5))
+697713	            recs.append(mk("DC-A1", "osm", "w%d" % i, nm, lat, lon, operator=rng.choice(["A", "B", None])))
+697714	            if i % 3 == 0:
+697715	                recs.append(mk("DC-A5", "wikidata", "Q%d" % i, nm + " Data Centre", lat + 0.001, lon,
+697716	                               it=rng.choice([None, 10, 20]), status="operational"))
+697717	            if i % 5 == 0:
+697718	                recs.append(mk("DC-A3", "planning", "p%d" % i, "Land at " + nm, lat, lon, precision="planning_site",
+697719	                               plan=[("LPA%d" % i, "R/%d" % i)], status="in_planning", grid=rng.choice([None, 50])))
+697720	        return recs
+697721	    def test_order_independent_and_stable(self):
+697722	        recs = self._corpus()
+697723	        out1 = json.dumps(dcmerge.merge(recs), sort_keys=True)
+697724	        for seed in range(5):
+697725	            shuffled = recs[:]
+697726	            random.Random(seed).shuffle(shuffled)
+697727	            self.assertEqual(json.dumps(dcmerge.merge(shuffled), sort_keys=True), out1)
+697728	    def test_ids_unique_and_valid(self):
+697729	        out = dcmerge.merge(self._corpus())
+697730	        ids = [m["id"] for m in out]
+697731	        self.assertEqual(len(ids), len(set(ids)))
+697732	        self.assertEqual(ids, sorted(ids))
+697733	            self.assertEqual(dcschema.validate(m, cross_check=True), [], m["name"])
+697734	        self.assertEqual(sum(len(m["sources"]) for m in out), len(self._corpus()))
+697735	    def test_id_is_hash_of_site_key(self):
+697736	        a = mk("DC-A1", "osm", "w1", "Omicron", 51.5, -1.0)
+697737	        m = dcmerge.merge([a])[0]
+697738	        self.assertEqual(m["id"], dcschema.site_id("geo:omicron||51.500|-1.000"))
+697739	    def test_colliding_keys_disambiguated(self):
+697740	        a = mk("DC-A1", "osm", "w1", "Pi", 51.5, -1.0)
+697741	        b = mk("DC-A1", "osm", "w2", "Pi 2", 51.5, -1.0)
+697742	        c = mk("DC-A1", "osm", "w3", "Pi 3", 51.5, -1.0)
+697743	        ids = [m["id"] for m in dcmerge.merge([a, b, c])]
+697744	        self.assertEqual(len(set(ids)), 3)
+697745	class IngestTests(unittest.TestCase):
+697746	    def test_end_to_end(self):
+697748	            l1, l3 = os.path.join(d, "DC-A1"), os.path.join(d, "DC-A3")
+697749	            os.makedirs(l1)
+697750	            os.makedirs(l3)
+697751	            with open(os.path.join(l1, "osm.geojson"), "w") as f:
+697752	                json.dump({"type": "FeatureCollection", "metadata": {"licence": "ODbL-1.0",
+697753	                           "url": "https://www.openstreetmap.org/"}, "features": [
+697754	                    {"type": "Feature", "id": "way/1", "geometry": {"type": "Point", "coordinates": [-0.629, 51.523]},
+697755	                     "properties": {"name": "Alpha Data Centre", "operator": "AlphaCo", "capacity_mw": "12 MW"}},
+697756	                    {"type": "Feature", "id": "way/2", "geometry": {"type": "Point", "coordinates": [10.0, 51.0]},
+697757	                     "properties": {"name": "Not UK"}},
+697758	                    {"type": "Feature", "id": "way/3", "geometry": None, "properties": {"operator": "nameless"}},
+697759	                ]}, f)
+697760	            with open(os.path.join(l3, "plan.json"), "w") as f:
+697761	                json.dump({"records": [
+697762	                    {"name": "Alpha DC expansion", "lat": 51.5231, "lon": -0.6291, "precision": "planning_site",
+697763	                     "planning_ref": "P/123", "planning_authority": "Slough Borough Council", "status": "Approved",
+697764	                     "it_load_mw": 30, "grid_connection_mw": {"value": 45}, "licence": "OGL v3",
+697765	                     "evidence_url": "https://www.planning.data.gov.uk/entity/1", "operator": "AlphaCo Ltd"},
+697766	                    {"name": "Paywalled", "lat": 51.5, "lon": -1, "licence": "CC-BY-NC-4.0", "url": "https://x.org"},
+697767	            out = os.path.join(d, "out.geojson")
+697768	            fc, rejects = dcingest.build([l1, l3], out)
+697769	            s = fc["metadata"]["summary"]
+697770	            self.assertEqual(s["input_records"], 3)  # nameless-with-operator kept as "Unnamed data centre"
+697771	            self.assertEqual(s["rejected_records"], 2)  # outside UK; non-open licence
+697772	            self.assertEqual(s["sites"], 2)
+697773	            p = [f["properties"] for f in fc["features"] if f["properties"]["planning_refs"]][0]
+697774	            self.assertEqual(p["status"], "consented")
+697775	            self.assertEqual(p["it_load_mw"]["value"], 30)
+697776	            self.assertEqual(p["grid_connection_mw"]["value"], 45)
+697777	            self.assertEqual(p["unclassified_mw"]["value"], 12)  # bare "capacity_mw" never becomes IT or grid
+697778	            self.assertEqual(dcschema.validate_file(out), [])
+697779	            b1 = open(out, "rb").read()
+697780	            dcingest.build([l1, l3], out)
+697781	            self.assertEqual(open(out, "rb").read(), b1)  # byte-identical rebuild
+697782	class LaneShapeTests(unittest.TestCase):
+697783	    def _neso(self, dc_like, mw):
+697784	        return {"id": "neso-tec-1", "name": "Foo Data Centre", "operator": "FooCo", "status": "connection request",
+697785	                "it_load_mw": None, "grid_connection_mw": mw, "grid_connection_mw_basis": "TEC export",
+697786	                "grid_connection_mw_direction": "export", "dates": {"mw_effective_from": "2030-04-01"},
+697787	                "connection": {"site_name": "Barking 400kV", "project_id": "PRJ-9"},
+697788	                "location_precision": "connection_site_name", "geometry": None,
+697789	                "source": "NESO TEC register", "licence": "NESO Open Data Licence",
+697790	                "licence_url": "https://www.neso.energy/data-portal/neso-open-licence",
+697791	                "evidence_url": "https://www.neso.energy/data-portal/x", "dc_match": {"is_dc_like": dc_like}}
+697792	    def test_neso_row(self):
+697793	        rec, why = dcingest.normalise(self._neso(True, 120.0), None, {}, None, "DC-A1", "x.json", "0" * 64)
+697795	        self.assertEqual(rec["grid_connection_mw"]["value"], 120.0)
+697796	        self.assertIn("direction: export", rec["grid_connection_mw"]["label"])
+697797	        self.assertIsNone(rec["it_load_mw"]["value"])
+697798	        self.assertEqual(rec["connection_refs"], ["PRJ-9"])
+697799	        self.assertEqual(rec["status"], "connection_request")
+697800	        self.assertEqual(rec["dates"]["connection_date"], "2030-04-01")
+697801	        self.assertEqual(rec["sources"][0]["licence"], "NESO-Open-Data-Licence")
+697802	        self.assertEqual(rec["sources"][0]["licence_status"], "unverified")
+697803	        self.assertEqual(rec["location"]["precision"], "unknown")
+697804	    def test_neso_non_dc_row_rejected(self):
+697805	        rec, why = dcingest.normalise(self._neso(False, 50.0), None, {}, None, "DC-A1", "x.json", "0" * 64)
+697806	        self.assertIsNone(rec)
+697807	        self.assertIn("not data-centre-like", why)
+697808	    def test_grouped_site_members(self):
+697809	        r = {"name": "Virtus London6", "status": "operational", "lat": 51.5, "lon": -0.4,
+697810	             "location_precision": "site = 3 source object(s); point: OSM node or footprint centre",
+697811	             "mw_unclassified": [{"property": "P2109", "raw": "12", "mw": 12.0, "source_id": "osm-1"}],
+697812	             "sources": [{"source": "OSM", "source_id": "osm-1", "name": "Virtus London5", "licence": "ODbL 1.0",
+697813	                          "evidence_url": "https://www.openstreetmap.org/way/1"},
+697814	                         {"source": "OSM", "source_id": "osm-2", "name": "Virtus London6", "licence": "ODbL 1.0",
+697815	                          "evidence_url": "https://www.openstreetmap.org/way/2"}]}
+697816	        rec, why = dcingest.normalise(r, None, {}, None, "DC-A4", "x.json", "0" * 64)
+697817	        self.assertEqual(len(rec["sources"]), 2)
+697818	        self.assertEqual(rec["aliases"], ["Virtus London5"])
+697819	        self.assertEqual(rec["location"]["precision"], "exact_site")
+697820	        self.assertEqual(rec["unclassified_mw"]["value"], 12.0)
+697822	"""Fetch, pin and normalise the data-centre and conventional-generation sources.
+697823	    python pipelines/fetch_assets.py fetch     [datacentres|conventional|all] [--source ID ...]
+697824	                                               [--include-unverified] [--update-pins]
+697825	    python pipelines/fetch_assets.py normalise [datacentres|conventional|all] [--source ID ...]
+697826	    python pipelines/fetch_assets.py list      [datacentres|conventional|all]
+697827	``fetch`` downloads every source that is FULLY OPEN (``open: "yes"`` in
+697828	``<domain>/sources.json``) and whose fetcher is ready, writes the raw bytes under
+697829	``<domain>/raw/<source>/`` and pins each file's sha256 in ``<domain>/raw/MANIFEST.json``.
+697830	A pinned file whose upstream bytes changed fails the run until ``--update-pins``.
+697831	``normalise`` needs no network: it re-reads the pinned raw bytes (checking each
+697832	sha256), runs each source's deterministic normaliser and writes
+697833	``<domain>/normalised/<source>.geojson`` plus ``normalised/INDEX.json``.
+697834	Standard library only. A spreadsheet normaliser needs openpyxl (requirements.txt).
+697835	from assetpipe.pipeline import (PipelineError, fetch_domain, load_module,  # noqa: E402
+697836	                                load_registry, normalise_domain)
+697837	def cmd_list(domains) -> int:
+697838	    for domain in domains:
+697839	        print(f"{domain}:")
+697840	        for entry in load_registry(domain)["sources"]:
+697841	            module = load_module(domain, entry) if entry.get("module") else None
+697842	            status = getattr(module, "STATUS", "no fetcher") if module else "no fetcher"
+697843	            print(f"  {entry['id']:<26} open={entry['open']:<10} {status:<12} {entry['licence']:<10} lane={entry.get('lane')}")
+697844	    parser.add_argument("command", choices=("fetch", "normalise", "list"))
+697845	    parser.add_argument("domain", nargs="?", default="all", choices=(*DOMAINS, "all"))
+697846	    parser.add_argument("--source", action="append", help="limit to this source id (repeatable)")
+697847	    parser.add_argument("--include-unverified", action="store_true",
+697848	                        help="also snapshot sources whose licence is unverified (never normalised)")
+697849	    parser.add_argument("--update-pins", action="store_true", help="accept changed upstream bytes")
+697850	    domains = DOMAINS if args.domain == "all" else (args.domain,)
+697851	        if args.command == "list":
+697852	            return cmd_list(domains)
+697853	        for domain in domains:
+697854	            print(f"{args.command} {domain}")
+697855	            if args.command == "fetch":
+697856	                fetch_domain(domain, only=args.source, include_unverified=args.include_unverified,
+697857	                             update_pins=args.update_pins)
+697858	                normalise_domain(domain, only=args.source)
+697859	    except PipelineError as error:
+697860	        print(f"::error::{error}")
+697862	"""Run the vendored #73 lane scripts and pin what they produce.
+697863	    python pipelines/run_lanes.py fetch    [all|datacentres|conventional] [--lane ID ...] [--include-unverified]
+697864	    python pipelines/run_lanes.py inputs   [domain] [--lane ID ...]      # pinned downloads (url + sha256)
+697865	    python pipelines/run_lanes.py build    [domain] [--lane ID ...]      # offline
+697866	    python pipelines/run_lanes.py selftest [domain] [--lane ID ...]      # offline, synthetic fixtures
+697867	    python pipelines/run_lanes.py manifest [domain]                      # re-pin every committed lane file
+697868	    python pipelines/run_lanes.py summary  [domain]                      # markdown summary for a PR body
+697869	``fetch`` runs each permitted lane's network commands. A lane is permitted when
+697870	``open`` is "yes", or when it is "unverified" and ``--include-unverified`` is given.
+697871	A command that fails is recorded in MANIFEST.json (``last_fetch.codes``), and the
+697872	run carries on with the next lane. The previous snapshot stays in place, and a
+697873	failure never empties an output. ``build`` then rebuilds every lane offline, in
+697874	lanes.json order, so the merge lane (DC-A7) runs last. ``manifest`` re-pins the
+697875	files.
+697876	The exit status is 0 when every build command succeeds. A failed fetch does not
+697877	change the exit status: it is reported in the summary, where an unreachable source
+697878	shows as unknown, not zero. Any other failure exits 1.
+697879	from assetpipe.lanes import (LaneError, allowed, fetch_inputs, lanes_dir, load_lanes,  # noqa: E402
+697880	                             read_manifest, retrieved_for, run_commands, today_utc, write_manifest)
+697881	def selected(doc: dict, only):
+697882	    return [lane for lane in doc["lanes"] if not only or lane["id"] in only]
+697883	def cmd_fetch(domain, only, include_unverified) -> int:
+697884	    doc = load_lanes(domain)
+697885	    fetches = {}
+697886	    today = today_utc()
+697887	    for lane in selected(doc, only):
+697888	        ok, why = allowed(lane, include_unverified)
+697889	        if not lane.get("fetch"):
+697891	            print(f"  skip {lane['id']}: {why}")
+697892	        codes = run_commands(lanes_dir(domain) / lane["id"], lane, lane["fetch"], today=today,
+697893	                             retrieved=today)
+697894	        fetches[lane["id"]] = {"date": today, "codes": codes, "ok": all(c == 0 for c in codes),
+697895	                               "licence_gate": why}
+697896	    write_manifest(domain, fetches=fetches)
+697897	def cmd_inputs(domain, only) -> int:
+697898	    for lane in selected(load_lanes(domain), only):
+697899	        fetch_inputs(lanes_dir(domain) / lane["id"], lane)
+697900	def cmd_build(domain, only, include_unverified) -> int:
+697901	    manifest = read_manifest(domain)
+697902	        if not lane.get("build"):
+697903	        ldir = lanes_dir(domain) / lane["id"]
+697904	        fetch_inputs(ldir, lane)
+697905	        codes = run_commands(ldir, lane, lane["build"], today=today_utc(),
+697906	                             retrieved=retrieved_for(manifest, lane["id"]))
+697907	        failed |= any(codes)
+697908	    write_manifest(domain)
+697909	def cmd_selftest(domain, only) -> int:
+697910	        if lane.get("selftest"):
+697911	            failed |= any(run_commands(lanes_dir(domain) / lane["id"], lane, lane["selftest"],
+697912	                                       today=today_utc(), retrieved="selftest"))
+697913	def summary_lines(domain) -> list:
+697914	    lines = [f"### {domain}", "", "| lane | open | last fetch | exit codes | outputs |", "|---|---|---|---|---|"]
+697915	        entry = manifest.get("lanes", {}).get(lane["id"], {})
+697916	        last = entry.get("last_fetch") or {}
+697917	        outs = []
+697918	        for rel in lane.get("outputs", []):
+697919	            pin = entry.get("files", {}).get(rel)
+697920	            outs.append(f"`{rel}` {pin['sha256'][:12]}" if pin else f"`{rel}` (none)")
+697921	        fetched = last.get("date", "never") + ("" if last.get("ok", True) else " **FAILED: unknown, not zero**")
+697922	        lines.append(f"| {lane['id']} ({lane['lane']}) | {lane['open']} | {fetched} | "
+697923	                     f"{last.get('codes', '-')} | {'<br>'.join(outs)} |")
+697924	    return lines + [""]
+697925	    parser.add_argument("command", choices=("fetch", "inputs", "build", "selftest", "manifest", "summary"))
+697926	    parser.add_argument("--lane", action="append", help="limit to this lane id (repeatable)")
+697927	    parser.add_argument("--include-unverified", action="store_true")
+697928	    status = 0
+697929	            if args.command == "summary":
+697930	                print("\n".join(summary_lines(domain)))
+697931	                status |= cmd_fetch(domain, args.lane, args.include_unverified)
+697932	            elif args.command == "inputs":
+697933	                status |= cmd_inputs(domain, args.lane)
+697934	            elif args.command == "build":
+697935	                status |= cmd_build(domain, args.lane, args.include_unverified)
+697936	            elif args.command == "selftest":
+697937	                status |= cmd_selftest(domain, args.lane)
+697938	                write_manifest(domain)
+697939	                print(json.dumps({k: len(v["files"]) for k, v in read_manifest(domain)["lanes"].items()}))
+697940	    except LaneError as error:
+697942	"""Recompute the asset pipelines' published files and numbers from the committed raw snapshots.
+697943	    python reproduce.py check [--root .] [--json OUT] [--expect SHA256]
+697944	Scope: ``datacentres/`` and ``conventional/`` only (the ETYS network products have
+697945	their own verifiers under ``derived/``).
+697946	``check`` uses no network and no credentials. For each domain it:
+697947	1. hashes every committed file under ``<domain>/raw`` and ``<domain>/normalised``
+697948	   (sha256) and derives a manifest digest over the sorted ``<sha256>  <path>`` lines;
+697949	2. checks every raw file against its pin in ``raw/MANIFEST.json``;
+697950	3. re-runs every ready normaliser on the pinned raw bytes and compares the result
+697951	   byte for byte with the committed ``normalised/<source>.geojson``: a normaliser
+697952	   that depends on the clock, the network or dict order fails here;
+697953	4. re-derives the headline numbers from the committed outputs, with the counting
+697954	   rules restated below rather than imported, so a writer bug is not repeated:
+697955	   records by status (and by fuel), and - kept apart, never added together -
+697956	   IT load MW and grid connection MW, each with how many records know it and
+697957	   how many do not. Unknown is counted as unknown, never as zero.
+697958	5. for the vendored lane scripts (``<domain>/lanes``): checks every file against
+697959	   ``lanes/MANIFEST.json``, then rebuilds each fully open lane offline in a scratch
+697960	   copy, in lanes.json order, and compares every declared output with its pin.
+697961	   A lane whose pinned inputs are not on disk is ``skipped_missing_input`` (an
+697962	   error when ``ASSETS_REQUIRE_INPUTS=1``; ``python pipelines/run_lanes.py inputs``
+697963	   downloads them by URL and sha256).
+697964	It prints a human summary and a canonical JSON summary whose ``summary_sha256`` is
+697965	the sha256 of the canonical JSON of everything except that field and the ``run``
+697966	block. Two people who run ``check`` on the same commit get the same digest; it is a
+697967	content hash, not an identity signature. Exit 0 = everything reproduced, 1 = at
+697968	least one mismatch (listed), 2 = unusable input. Normalisers that read .xlsx need
+697969	openpyxl; without it those sources are reported as ``skipped_missing_dependency``
+697970	and the run exits 1 when ``ASSETS_REQUIRE_DEPS=1``.
+697973	from assetpipe.pipeline import load_module  # noqa: E402  (fetchers are loaded by path)
+697974	SCHEMA_SUMMARY = "gb-asset-reproduction.v1"
+697975	DOMAINS = ("datacentres", "conventional")  # restated, not imported
+697979	def mw_block(values) -> dict:
+697980	    known = [v for v in values if isinstance(v, (int, float)) and not isinstance(v, bool)]
+697981	    return {"known": len(known), "unknown": len(values) - len(known), "sum_of_known": round(sum(known), 3)}
+697982	def headline(domain: str, features: list) -> dict:
+697983	    props = [f.get("properties") or {} for f in features]
+697984	    by_status: dict = {}
+697985	    for p in props:
+697986	        by_status[p.get("status")] = by_status.get(p.get("status"), 0) + 1
+697987	    out = {"records": len(props), "by_status": dict(sorted(by_status.items(), key=lambda kv: str(kv[0])))}
+697988	    if domain == "datacentres":
+697989	        # Two separate quantities. Adding them would be the conflation the schema forbids.
+697990	        out["it_load_mw"] = mw_block([p.get("it_load_mw") for p in props])
+697991	        out["grid_connection_mw"] = mw_block([p.get("grid_connection_mw") for p in props])
+697992	        by_fuel: dict = {}
+697993	        for p in props:
+697994	            by_fuel[p.get("fuel")] = by_fuel.get(p.get("fuel"), 0) + 1
+697995	        out["by_fuel"] = dict(sorted(by_fuel.items(), key=lambda kv: str(kv[0])))
+697996	        out["capacity_mw"] = mw_block([p.get("capacity_mw") for p in props])
+697997	    out["location_precision"] = {}
+697998	        key = (p.get("location") or {}).get("precision")
+697999	        out["location_precision"][key] = out["location_precision"].get(key, 0) + 1
+698000	    out["location_precision"] = dict(sorted(out["location_precision"].items(), key=lambda kv: str(kv[0])))
+698001	def check_domain(root: Path, domain: str, mismatches: list) -> dict:
+698002	    ddir = root / domain
+698003	    registry = json.loads((ddir / "sources.json").read_text(encoding="utf-8"))
+698004	    manifest_path = ddir / "raw" / "MANIFEST.json"
+698005	    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {"files": {}}
+698007	    for sub in ("raw", "normalised"):
+698008	        base = ddir / sub
+698010	            for path in sorted(p for p in base.rglob("*") if p.is_file() and p.name != ".gitkeep"):
+698011	                lines.append(f"{sha256_bytes(path.read_bytes())}  {path.relative_to(root).as_posix()}")
+698012	    files_digest = sha256_bytes(("\n".join(lines) + "\n").encode("utf-8")) if lines else None
+698013	        path = ddir / "raw" / rel
+698014	        if meta.get("committed", True) and (not path.exists() or sha256_bytes(path.read_bytes()) != meta["sha256"]):
+698015	            mismatches.append(f"{domain}/raw/{rel}: missing or not the pinned bytes")
+698016	    sources = {}
+698017	        sid, module_name = entry["id"], entry.get("module")
+698018	        out_path = ddir / "normalised" / f"{sid}.geojson"
+698019	        result = {"open": entry.get("open"), "licence": entry.get("licence")}
+698020	        module = load_module(domain, entry, root) if module_name else None
+698021	        ready = module is not None and getattr(module, "STATUS", "placeholder") == "ready"
+698022	        result["fetcher"] = getattr(module, "STATUS", "placeholder") if module else "none"
+698023	        if out_path.exists():
+698024	            committed = out_path.read_bytes()
+698025	            obj = json.loads(committed.decode("utf-8"))
+698026	            result["output_sha256"] = sha256_bytes(committed)
+698027	            result["headline"] = headline(domain, obj.get("features") or [])
+698028	            if ready and entry.get("open") == "yes":
+698029	                from assetpipe.pipeline import PipelineError, build_collection, collection_text, read_raw
+698030	                from assetpipe.xlsx import MissingDependency
+698031	                    raw = read_raw(domain, sid, root=root)
+698032	                    rebuilt = collection_text(build_collection(domain, entry, module.normalise(raw), manifest)).encode("utf-8")
+698033	                    result["rebuilt"] = "identical" if rebuilt == committed else "DIFFERENT"
+698034	                    if rebuilt != committed:
+698035	                        mismatches.append(f"{domain}/normalised/{sid}.geojson: rebuild from raw is not byte-identical")
+698036	                except MissingDependency:
+698037	                    result["rebuilt"] = "skipped_missing_dependency"
+698038	                    if os.environ.get("ASSETS_REQUIRE_DEPS") == "1":
+698039	                        mismatches.append(f"{domain}/{sid}: openpyxl missing but ASSETS_REQUIRE_DEPS=1")
+698040	                except PipelineError as error:
+698041	                    result["rebuilt"] = "error"
+698042	                    mismatches.append(f"{domain}/{sid}: {error}")
+698043	                mismatches.append(f"{domain}/normalised/{sid}.geojson exists but its source is not open+ready")
+698044	        sources[sid] = result
+698045	    return {"files_sha256": files_digest, "file_count": len(lines), "sources": sources}
+698046	def check_lanes(root: Path, domain: str, mismatches: list) -> dict:
+698047	    """Rebuild every fully open lane offline in a scratch copy and compare its outputs with the pins."""
+698048	    doc = lanelib.load_lanes(domain, root)
+698050	    manifest = lanelib.read_manifest(domain, root)
+698051	    for problem in lanelib.check_manifest(domain, root, strict_open=False):
+698052	        mismatches.append(f"{domain}/lanes: {problem}")
+698054	    scratch = Path(tempfile.mkdtemp(prefix="reproduce-lanes-"))
+698055	        work = scratch / "lanes"
+698056	        lanelib.copy_tree(lanelib.lanes_dir(domain, root), work)
+698057	        for lane in doc["lanes"]:
+698058	            lid = lane["id"]
+698059	            pins = (manifest["lanes"].get(lid) or {}).get("files", {})
+698060	            res = {"open": lane.get("open"), "outputs": {rel: (pins.get(rel) or {}).get("sha256") for rel in lane.get("outputs", [])}}
+698061	            ldir = work / lid
+698062	            if not lane.get("build"):
+698063	                res["rebuilt"] = "no offline build (fetch and build are one step)"
+698064	            elif lane.get("open") != "yes":
+698065	                res["rebuilt"] = "skipped: licence not confirmed"
+698066	            elif not lanelib.inputs_present(ldir, lane):
+698067	                res["rebuilt"] = "skipped_missing_input"
+698068	                if os.environ.get("ASSETS_REQUIRE_INPUTS") == "1":
+698069	                    mismatches.append(f"{domain}/{lid}: pinned inputs missing but ASSETS_REQUIRE_INPUTS=1")
+698070	                for rel in lane.get("outputs", []):
+698071	                    if (ldir / rel).exists():
+698072	                        (ldir / rel).unlink()
+698073	                codes = lanelib.run_commands(ldir, lane, lane["build"], today="reproduce",
+698074	                                             retrieved=lanelib.retrieved_for(manifest, lid), log=lambda *_: None)
+698075	                rebuilt = {rel: sha256_bytes((ldir / rel).read_bytes()) if (ldir / rel).exists() else None
+698076	                           for rel in lane.get("outputs", [])}
+698077	                same = not any(codes) and rebuilt == res["outputs"]
+698078	                res["rebuilt"] = "identical" if same else "DIFFERENT"
+698079	                if not same:
+698080	                    diff = [rel for rel in rebuilt if rebuilt[rel] != res["outputs"].get(rel)]
+698081	                    mismatches.append(f"{domain}/lanes/{lid}: rebuild differs from the pins ({diff or codes})")
+698082	            result[lid] = res
+698083	        shutil.rmtree(scratch, ignore_errors=True)
+698085	def cmd_check(args) -> int:
+698087	        if not (root / domain / "sources.json").exists():
+698088	            print(f"reproduce: {domain}/sources.json missing", file=sys.stderr)
+698090	    mismatches: list = []
+698091	    summary = {"schema": SCHEMA_SUMMARY, "domains": {d: check_domain(root, d, mismatches) for d in DOMAINS}}
+698092	    for d in DOMAINS:
+698093	        summary["domains"][d]["lanes"] = check_lanes(root, d, mismatches)
+698094	    summary["mismatches"] = mismatches
+698095	    summary["run"] = {"at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+698096	                      "python": platform.python_version()}
+698098	    for domain, block in summary["domains"].items():
+698099	        print(f"{domain}: {block['file_count']} committed data files")
+698100	        for sid, res in block["sources"].items():
+698101	            extra = ""
+698102	            if "headline" in res:
+698103	                h = res["headline"]
+698104	                extra = f" records={h['records']} rebuilt={res.get('rebuilt', '-')}"
+698105	            print(f"  {sid:<26} open={res['open']:<10} fetcher={res['fetcher']:<11}{extra}")
+698106	        for lid, res in block.get("lanes", {}).items():
+698107	            print(f"  lane {lid:<21} open={res['open']:<10} rebuilt={res['rebuilt']}")
+698108	    for line in mismatches:
+698109	        print(f"::error::reproduce {line}")
+698110	    print(f"summary_sha256 {summary['summary_sha256']}")
+698112	        Path(args.json).write_text(json.dumps(summary, sort_keys=True, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+698114	        print(f"::error::reproduce summary_sha256 {summary['summary_sha256']} != expected {args.expect}")
+698115	    return 1 if mismatches else 0
+698117	    check = sub.add_parser("check", help="recompute from the committed files")
+698118	    check.add_argument("--root", type=Path, default=ROOT)
+698119	    check.add_argument("--json", help="write the canonical summary here")
+698120	    check.add_argument("--expect", help="fail unless summary_sha256 equals this")
+698121	    return cmd_check(args)
+698122	"""Tests for the data-centre and conventional-generation pipelines (assetpipe, ci/verify.py, reproduce.py).
+698123	Run with ``python -m unittest discover -s tests -v``. Standard library only; the one
+698124	test that needs openpyxl skips without it, unless ASSETS_REQUIRE_DEPS=1 (the
+698125	requirements leg of CI), where a skip would hide a broken install and fails instead.
+698128	from assetpipe import pipeline, schema, xlsx  # noqa: E402
+698129	from ci import verify  # noqa: E402
+698130	REQUIRE_DEPS = os.environ.get("ASSETS_REQUIRE_DEPS") == "1"
+698131	def good_datacentre(**over) -> dict:
+698132	        "id": "fake-src:site-1",
+698133	        "name": "Example Data Centre",
+698134	        "operator": None,
+698135	        "status": "in_planning",
+698136	        "it_load_mw": None,
+698137	        "grid_connection_mw": 90,
+698138	        "dates": {"application": "2026-03"},
+698139	        "source": {"id": "fake-src", "licence": "OGL-3.0",
+698140	                   "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+698141	                   "evidence_url": "https://example.org/application/1"},
+698142	        "location": {"lon": -1.5, "lat": 52.5, "precision": "site"},
+698143	    rec.update(over)
+698145	FAKE_FETCHER = '''
+698146	SOURCE_ID = "fake-src"
+698147	LANE = "TEST"
+698148	STATUS = "ready"
+698149	    return [{"file": "sites.json", "url": "https://example.org/sites.json"}]
+698150	    rows = json.loads(raw["sites.json"])
+698153	            "id": "fake-src:" + row["ref"], "name": row["name"], "operator": None,
+698154	            "status": row["status"], "it_load_mw": row.get("it"), "grid_connection_mw": row.get("grid"),
+698155	            "dates": {},
+698156	            "source": {"id": "fake-src", "licence": "OGL-3.0",
+698157	                       "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+698158	                       "evidence_url": "https://example.org/sites/" + row["ref"]},
+698159	            "location": {"lon": row["lon"], "lat": row["lat"], "precision": "site"},
+698161	FAKE_ROWS = [
+698162	    {"ref": "b", "name": "Site B", "status": "consented", "it": 40, "grid": 60, "lon": -0.4, "lat": 51.5},
+698163	    {"ref": "a", "name": "Site A", "status": "announced", "it": None, "grid": None, "lon": -2.2, "lat": 53.4},
+698164	def make_root(tmp: Path, *, open_value="yes", fetcher=FAKE_FETCHER) -> Path:
+698165	    for domain in ("datacentres", "conventional"):
+698166	        (tmp / domain / "fetchers").mkdir(parents=True)
+698167	        if domain == "datacentres":
+698168	            sources = [
+698169	                {"id": "fake-src", "title": "Fake", "publisher": "Test", "url": "https://example.org/",
+698170	                 "licence": "OGL-3.0",
+698171	                 "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+698172	                 "open": open_value, "module": "fake_src", "lane": "TEST"},
+698173	                {"id": "closed-src", "title": "Closed", "publisher": "Test", "url": "https://example.org/c",
+698174	                 "licence": "proprietary", "licence_url": None, "open": "no", "module": None},
+698176	            (tmp / domain / "fetchers" / "fake_src.py").write_text(fetcher, encoding="utf-8")
+698177	        (tmp / domain / "NOTICE").write_text(
+698178	            "".join(f"{e['id']}  (open: {e['open']})\n" for e in sources), encoding="utf-8")
+698179	        (tmp / domain / "sources.json").write_text(json.dumps(
+698180	            {"schema": "gb-asset-source-registry.v1", "domain": domain, "sources": sources}), encoding="utf-8")
+698181	    return tmp
+698182	def opener_for(payload: bytes):
+698183	    calls = []
+698184	    def opener(request):
+698185	        calls.append(request["url"])
+698187	    opener.calls = calls
+698188	    return opener
+698189	def quiet(fn, *args, **kwargs):
+698190	    with contextlib.redirect_stdout(io.StringIO()) as out:
+698191	        result = fn(*args, **kwargs)
+698192	    return result, out.getvalue()
+698193	    def test_good_record_passes(self):
+698194	        self.assertEqual(schema.validate_datacentre(good_datacentre()), [])
+698195	    def test_ambiguous_mw_field_is_rejected(self):
+698196	        for key in schema.FORBIDDEN_DATACENTRE_MW_KEYS:
+698197	            problems = schema.validate_datacentre(good_datacentre(**{key: 50}))
+698198	            self.assertTrue(any("ambiguous" in p for p in problems), key)
+698199	    def test_it_load_and_grid_connection_both_required_as_keys(self):
+698200	        rec = good_datacentre()
+698201	        del rec["it_load_mw"]
+698202	        self.assertTrue(any("it_load_mw missing" in p for p in schema.validate_datacentre(rec)))
+698203	    def test_unknown_is_null_not_zero(self):
+698204	        self.assertTrue(schema.validate_datacentre(good_datacentre(it_load_mw=0)))
+698205	        self.assertTrue(schema.validate_datacentre(good_datacentre(name="")))
+698206	    def test_no_commitment_status(self):
+698207	        self.assertTrue(schema.validate_datacentre(good_datacentre(status="committed")))
+698208	    def test_location_precision_rules(self):
+698209	        self.assertTrue(schema.validate_datacentre(good_datacentre(
+698210	            location={"lon": -1, "lat": 52, "precision": "unknown"})))
+698211	        self.assertEqual(schema.validate_datacentre(good_datacentre(
+698212	            location={"lon": None, "lat": None, "precision": "unknown"})), [])
+698213	            location={"lon": 10.0, "lat": 52, "precision": "site"})))
+698214	    def test_evidence_url_must_be_https(self):
+698215	        rec["source"]["evidence_url"] = "http://example.org/x"
+698216	        self.assertTrue(schema.validate_datacentre(rec))
+698217	    def test_conventional_capacity_needs_a_basis(self):
+698218	        for key in ("it_load_mw", "grid_connection_mw", "dates"):
+698219	            rec.pop(key)
+698220	        rec.update({"fuel": "gas", "status": "operational", "capacity_mw": 1200})
+698221	        self.assertTrue(any("capacity_basis" in p for p in schema.validate_conventional(rec)))
+698222	        rec["capacity_basis"] = "DUKES 5.11 installed capacity"
+698223	        self.assertEqual(schema.validate_conventional(rec), [])
+698224	        self.assertTrue(schema.validate_conventional({**rec, "fuel": "wind"}))
+698225	    def test_feature_has_null_geometry_when_location_unknown(self):
+698226	        feature = schema.record_to_feature(good_datacentre(
+698227	            location={"lon": None, "lat": None, "precision": "unknown"}))
+698228	        self.assertIsNone(feature["geometry"])
+698229	class PipelineTests(unittest.TestCase):
+698231	        self.tmp = Path(tempfile.mkdtemp(prefix="assets-test-"))
+698232	        self.payload = json.dumps(FAKE_ROWS).encode("utf-8")
+698234	        shutil.rmtree(self.tmp, ignore_errors=True)
+698235	    def fetch(self, root, payload=None, **kw):
+698236	        opener = opener_for(payload or self.payload)
+698237	        quiet(pipeline.fetch_domain, "datacentres", root=root, opener=opener,
+698238	              fetched_at="2026-10-29T00:00:00Z", **kw)
+698239	        return opener
+698240	    def test_fetch_pins_and_refetch_is_stable(self):
+698241	        root = make_root(self.tmp)
+698242	        opener = self.fetch(root)
+698243	        self.assertEqual(opener.calls, ["https://example.org/sites.json"])  # the closed source is never requested
+698244	        manifest_path = root / "datacentres/raw/MANIFEST.json"
+698245	        first = manifest_path.read_bytes()
+698246	        meta = json.loads(first)["files"]["fake-src/sites.json"]
+698247	        self.assertEqual(meta["sha256"], pipeline.sha256_bytes(self.payload))
+698248	        quiet(pipeline.fetch_domain, "datacentres", root=root, opener=opener_for(self.payload),
+698249	              fetched_at="2026-10-30T00:00:00Z")
+698250	        self.assertEqual(manifest_path.read_bytes(), first, "an unchanged re-fetch must leave no diff")
+698251	    def test_changed_upstream_fails_until_update_pins(self):
+698252	        self.fetch(root)
+698253	        changed = json.dumps(FAKE_ROWS[:1]).encode("utf-8")
+698254	        with self.assertRaises(pipeline.PipelineError):
+698255	            self.fetch(root, changed)
+698256	        self.fetch(root, changed, update_pins=True)
+698257	        meta = json.loads((root / "datacentres/raw/MANIFEST.json").read_text())["files"]["fake-src/sites.json"]
+698258	        self.assertEqual(meta["sha256"], pipeline.sha256_bytes(changed))
+698259	    def test_unverified_source_is_not_fetched_by_default_and_never_normalised(self):
+698260	        root = make_root(self.tmp, open_value="unverified")
+698261	        self.assertEqual(opener.calls, [])
+698262	        self.fetch(root, include_unverified=True)
+698263	        index, _ = quiet(pipeline.normalise_domain, "datacentres", root=root)
+698264	        self.assertEqual(index["outputs"], {})
+698265	    def test_normalise_verify_reproduce_round_trip(self):
+698266	        quiet(pipeline.normalise_domain, "datacentres", root=root)
+698267	        out = root / "datacentres/normalised/fake-src.geojson"
+698268	        obj = json.loads(out.read_text())
+698269	        self.assertEqual([f["id"] for f in obj["features"]], ["fake-src:a", "fake-src:b"])  # sorted
+698270	        self.assertEqual(obj["metadata"]["licence"], "OGL-3.0")
+698271	        rc, text = quiet(verify.main, ["--root", str(root)])
+698272	        self.assertEqual(rc, 0, text)
+698273	        rc, text = quiet(reproduce.main, ["check", "--root", str(root), "--json", str(self.tmp / "s1.json")])
+698274	        summary = json.loads((self.tmp / "s1.json").read_text())
+698275	        src = summary["domains"]["datacentres"]["sources"]["fake-src"]
+698276	        self.assertEqual(src["rebuilt"], "identical")
+698277	        head = src["headline"]
+698278	        self.assertEqual(head["it_load_mw"], {"known": 1, "unknown": 1, "sum_of_known": 40})
+698279	        self.assertEqual(head["grid_connection_mw"], {"known": 1, "unknown": 1, "sum_of_known": 60})
+698280	        rc, _ = quiet(reproduce.main, ["check", "--root", str(root), "--expect", summary["summary_sha256"]])
+698281	        self.assertEqual(rc, 0, "the same commit must give the same summary_sha256")
+698282	    def test_verify_fails_on_tampered_raw_output_or_licence(self):
+698283	        pristine = self.tmp.parent / (self.tmp.name + "-copy")
+698284	        shutil.copytree(root, pristine)
+698285	            cases = {
+698286	                "raw": lambda r: (r / "datacentres/raw/fake-src/sites.json").write_bytes(b"[]"),
+698287	                "output": lambda r: (r / "datacentres/normalised/fake-src.geojson").write_text(
+698288	                    (r / "datacentres/normalised/fake-src.geojson").read_text().replace("Site A", "Site Z")),
+698289	                "orphan": lambda r: (r / "datacentres/raw/fake-src/extra.bin").write_bytes(b"x"),
+698290	                "notice": lambda r: (r / "datacentres/NOTICE").write_text("closed-src  (open: no)\n"),
+698291	                # registry and NOTICE agree that the source is unverified: the published output must fail
+698292	                "licence": lambda r: ((r / "datacentres/sources.json").write_text(
+698293	                    (r / "datacentres/sources.json").read_text().replace('"open": "yes"', '"open": "unverified"')),
+698294	                    (r / "datacentres/NOTICE").write_text(
+698295	                        (r / "datacentres/NOTICE").read_text().replace("(open: yes)", "(open: unverified)"))),
+698296	            for name, damage in cases.items():
+698297	                work = self.tmp.parent / (self.tmp.name + "-" + name)
+698298	                shutil.copytree(pristine, work)
+698299	                    damage(work)
+698300	                    rc, text = quiet(verify.main, ["--root", str(work)])
+698301	                    self.assertEqual(rc, 1, f"{name}: verify passed a damaged tree\n{text}")
+698302	                    if name == "licence":
+698303	                        self.assertIn("not marked fully open", text)
+698304	                finally:
+698305	                    shutil.rmtree(work, ignore_errors=True)
+698306	            shutil.rmtree(pristine, ignore_errors=True)
+698307	    def test_nondeterministic_normaliser_is_caught_by_reproduce(self):
+698308	        flaky = FAKE_FETCHER.replace('"name": row["name"]', '"name": row["name"] + " " + str(id(row))')
+698309	        root = make_root(self.tmp, fetcher=flaky)
+698310	        rc, text = quiet(reproduce.main, ["check", "--root", str(root)])
+698311	        self.assertEqual(rc, 1, text)
+698312	        self.assertIn("not byte-identical", text)
+698313	    def test_schema_problem_blocks_normalised_output(self):
+698314	        bad = FAKE_FETCHER.replace('"grid_connection_mw": row.get("grid")', '"mw": row.get("grid")')
+698315	        root = make_root(self.tmp, fetcher=bad)
+698316	            quiet(pipeline.normalise_domain, "datacentres", root=root)
+698317	        self.assertFalse((root / "datacentres/normalised/fake-src.geojson").exists())
+698318	    def test_network_failure_is_reported_and_keeps_previous_snapshot(self):
+698319	        before = (root / "datacentres/raw/MANIFEST.json").read_bytes()
+698320	        def blocked(request):
+698321	            raise OSError("Tunnel connection failed: 403 Forbidden")
+698322	        manifest, out = quiet(pipeline.fetch_domain, "datacentres", root=root, opener=blocked)
+698323	        self.assertEqual(manifest["failures"], ["fake-src/sites.json"])
+698324	        self.assertIn("unknown, not zero", out)
+698325	        self.assertEqual((root / "datacentres/raw/MANIFEST.json").read_bytes(), before)
+698326	    def test_unsafe_raw_file_name_is_refused(self):
+698327	        evil = FAKE_FETCHER.replace('"file": "sites.json"', '"file": "../../escape.json"')
+698328	        root = make_root(self.tmp, fetcher=evil)
+698329	            self.fetch(root)
+698330	class RepositoryTests(unittest.TestCase):
+698331	    def test_committed_tree_verifies(self):
+698332	        rc, text = quiet(verify.main, ["--root", str(ROOT)])
+698333	    def test_committed_tree_reproduces(self):
+698334	        rc, text = quiet(reproduce.main, ["check", "--root", str(ROOT)])
+698335	    def test_every_registered_fetcher_loads_and_placeholders_do_not_pretend(self):
+698336	        for domain in ("datacentres", "conventional"):
+698337	            for entry in pipeline.load_registry(domain)["sources"]:
+698338	                module = pipeline.load_module(domain, entry)
+698339	                if module is None:
+698340	                    self.assertEqual(entry["open"], "no", entry["id"])
+698341	                self.assertIn(module.STATUS, ("ready", "snapshot", "placeholder"))
+698342	                if module.STATUS in ("placeholder", "snapshot"):
+698343	                    if module.STATUS == "placeholder":
+698344	                        self.assertEqual(module.raw_requests(), [])
+698345	                    with self.assertRaises(NotImplementedError):
+698346	                        module.normalise({})
+698347	                if module.STATUS != "placeholder":
+698348	                    self.assertNotEqual(entry["open"], "no", f"{entry['id']}: fetcher on a source that is not open")
+698349	                    if module.STATUS == "ready":
+698350	                        self.assertEqual(entry["open"], "yes", f"{entry['id']}: ready fetcher on a source not fully open")
+698351	                    for request in module.raw_requests():
+698352	                        self.assertTrue(request["url"].startswith("https://"), request["url"])
+698353	    def test_pinned_data_is_exempt_from_line_ending_conversion(self):
+698354	        text = (ROOT / ".gitattributes").read_text(encoding="utf-8")
+698355	            self.assertIn(f"{domain}/** -text", text, "eol=lf would rewrite CRLF snapshots and break their pins")
+698356	    def test_fetch_workflow_is_manual_only(self):
+698357	        text = (ROOT / ".github/workflows/fetch-assets.yml").read_text(encoding="utf-8")
+698358	        self.assertIn("workflow_dispatch:", text)
+698359	        self.assertNotIn("schedule:", text)
+698360	        self.assertNotIn("git push origin main", text)
+698361	    def test_test_workflow_runs_with_and_without_requirements(self):
+698362	        text = (ROOT / ".github/workflows/test-assets.yml").read_text(encoding="utf-8")
+698364	        self.assertIn("ASSETS_REQUIRE_DEPS", text)
+698365	class XlsxTests(unittest.TestCase):
+698366	    def test_sheet_rows_round_trip(self):
+698367	        if not xlsx.available():
+698369	                self.fail("openpyxl is missing but ASSETS_REQUIRE_DEPS=1 (the requirements leg)")
+698370	            with self.assertRaises(xlsx.MissingDependency):
+698371	                xlsx.sheet_rows(b"not a workbook", "5.11")
+698372	            self.skipTest("openpyxl not installed (bare leg)")
+698373	        book = openpyxl.Workbook()
+698374	        sheet = book.active
+698375	        sheet.title = "5.11"
+698376	        sheet.append(["Station", "Fuel", "Installed Capacity (MW)"])
+698377	        sheet.append(["Example", "CCGT", 1200])
+698378	        buffer = io.BytesIO()
+698379	        book.save(buffer)
+698380	        rows = xlsx.sheet_rows(buffer.getvalue(), "5.11")
+698381	        self.assertEqual(rows[1], ["Example", "CCGT", 1200])
+698382	        with self.assertRaises(KeyError):
+698383	            xlsx.sheet_rows(buffer.getvalue(), "missing")
+698384	"""Tests for the vendored-lane machinery (assetpipe.lanes, pipelines/run_lanes.py, the lane part of reproduce.py)."""
+698385	from assetpipe import lanes  # noqa: E402
+698386	BUILD = '''import json, os, sys
+698387	src = open("raw/in.txt", encoding="utf-8").read().split()
+698388	os.makedirs("out", exist_ok=True)
+698389	extra = {"noise": os.getpid()} if os.environ.get("LANE_NOISE") else {}
+698390	with open("out/result.json", "w", encoding="utf-8", newline="\\n") as fh:
+698391	    json.dump({"words": sorted(src), "retrieved": sys.argv[1] if len(sys.argv) > 1 else None, **extra}, fh, sort_keys=True)
+698392	FETCH_BLOCKED = 'import sys\nprint("Tunnel connection failed: 403 Forbidden")\nsys.exit(2)\n'
+698393	def make_lane_root(tmp: Path, *, open_value="yes", env=None) -> Path:
+698394	        (tmp / domain / "lanes").mkdir(parents=True)
+698395	        doc = {"schema": lanes.LANES_SCHEMA, "domain": domain, "lanes": []}
+698396	            ldir = tmp / domain / "lanes" / "fake-lane"
+698397	            (ldir / "raw").mkdir(parents=True)
+698398	            (ldir / "raw" / "in.txt").write_text("b a c", encoding="utf-8")
+698399	            (ldir / "build.py").write_text(BUILD, encoding="utf-8")
+698400	            (ldir / "fetch.py").write_text(FETCH_BLOCKED, encoding="utf-8")
+698401	            doc["lanes"].append({"id": "fake-lane", "lane": "TEST", "open": open_value, "licence": "OGL-3.0",
+698402	                                 "licence_url": "https://example.org/ogl", "fetch": [["fetch.py"]],
+698403	                                 "build": [["build.py", "{retrieved}"]], "outputs": ["out/result.json"],
+698404	                                 "env": env or {}})
+698405	        (tmp / domain / "lanes" / "lanes.json").write_text(json.dumps(doc), encoding="utf-8")
+698406	class LaneTests(unittest.TestCase):
+698407	        self.tmp = Path(tempfile.mkdtemp(prefix="lanes-test-"))
+698408	    def build(self, root):
+698409	        lane = lanes.load_lanes("datacentres", root)["lanes"][0]
+698410	        ldir = lanes.lanes_dir("datacentres", root) / lane["id"]
+698411	        codes = lanes.run_commands(ldir, lane, lane["build"], today="2026-10-29", retrieved="unspecified",
+698412	                                   log=lambda *_: None)
+698413	        lanes.write_manifest("datacentres", root)
+698414	        lanes.write_manifest("conventional", root)
+698416	    def test_build_pin_and_check(self):
+698417	        root = make_lane_root(self.tmp)
+698418	        self.assertEqual(self.build(root), [0])
+698419	        self.assertEqual(lanes.check_manifest("datacentres", root), [])
+698420	        out = root / "datacentres/lanes/fake-lane/out/result.json"
+698421	        self.assertEqual(json.loads(out.read_text())["words"], ["a", "b", "c"])
+698422	    def test_tampered_or_unpinned_file_is_caught(self):
+698423	        self.build(root)
+698424	        out.write_text("{}", encoding="utf-8")
+698425	        self.assertTrue(any("does not match" in p for p in lanes.check_manifest("datacentres", root)))
+698426	        (root / "datacentres/lanes/fake-lane/out/stray.json").write_text("{}", encoding="utf-8")
+698427	        self.assertTrue(any("without a pin" in p for p in lanes.check_manifest("datacentres", root)))
+698428	    def test_unverified_lane_outputs_fail_strict_check_only(self):
+698429	        root = make_lane_root(self.tmp, open_value="unverified")
+698430	        self.assertTrue(lanes.check_manifest("datacentres", root, strict_open=True))
+698431	        self.assertEqual(lanes.check_manifest("datacentres", root, strict_open=False), [])
+698432	        self.assertEqual(lanes.allowed({"open": "unverified"}, False)[0], False)
+698433	        self.assertEqual(lanes.allowed({"open": "unverified"}, True)[0], True)
+698434	        self.assertEqual(lanes.allowed({"open": "no"}, True)[0], False)
+698435	    def test_closed_lane_may_not_be_vendored(self):
+698436	        root = make_lane_root(self.tmp, open_value="no")
+698437	        self.assertTrue(any("not fully open" in p for p in lanes.check_manifest("datacentres", root)))
+698438	    def test_blocked_fetch_is_recorded_as_failure_not_zero(self):
+698439	        ldir = lanes.lanes_dir("datacentres", root) / "fake-lane"
+698440	        codes = lanes.run_commands(ldir, lane, lane["fetch"], today="2026-10-29", retrieved="x", log=lambda *_: None)
+698441	        self.assertEqual(codes, [2])
+698442	        manifest = lanes.write_manifest("datacentres", root, fetches={
+698443	            "fake-lane": {"date": "2026-10-29", "codes": codes, "ok": False}})
+698444	        self.assertFalse(manifest["lanes"]["fake-lane"]["last_fetch"]["ok"])
+698445	        self.assertEqual(lanes.retrieved_for(manifest, "fake-lane"), "unspecified")
+698446	    def test_pinned_input_with_wrong_bytes_is_refused(self):
+698447	        lane = {"id": "x", "inputs": [{"file": "inputs/a.bin", "url": "https://example.org/a",
+698448	                                        "sha256": hashlib.sha256(b"right").hexdigest(), "commit": False}]}
+698449	        ldir = root / "x"
+698450	        with self.assertRaises(lanes.LaneError):
+698451	            lanes.fetch_inputs(ldir, lane, opener=lambda url: b"wrong", log=lambda *_: None)
+698452	        lanes.fetch_inputs(ldir, lane, opener=lambda url: b"right", log=lambda *_: None)
+698453	        self.assertTrue(lanes.inputs_present(ldir, lane))
+698454	        self.assertEqual(lanes.tracked_files(ldir, lane), {}, "an uncommitted input is never pinned as a file")
+698455	    def test_reproduce_rebuilds_lanes_and_catches_nondeterminism(self):
+698456	            (root / domain / "sources.json").write_text(json.dumps(
+698457	                {"schema": "gb-asset-source-registry.v1", "domain": domain, "sources": []}), encoding="utf-8")
+698458	        mismatches = []
+698459	        lanes_result = reproduce.check_lanes(root, "datacentres", mismatches)
+698460	        self.assertEqual(mismatches, [])
+698461	        self.assertEqual(lanes_result["fake-lane"]["rebuilt"], "identical")
+698462	        noisy = make_lane_root(Path(tempfile.mkdtemp(prefix="lanes-noisy-")), env={})
+698463	            self.build(noisy)
+698464	            lanes_json = noisy / "datacentres/lanes/lanes.json"
+698465	            doc = json.loads(lanes_json.read_text())
+698466	            doc["lanes"][0]["env"] = {"LANE_NOISE": "/1"}  # absolute values pass through unchanged
+698467	            lanes_json.write_text(json.dumps(doc), encoding="utf-8")
+698468	            mismatches = []
+698469	            result = reproduce.check_lanes(noisy, "datacentres", mismatches)
+698470	            self.assertEqual(result["fake-lane"]["rebuilt"], "DIFFERENT")
+698471	            self.assertTrue(mismatches)
+698472	            shutil.rmtree(noisy, ignore_errors=True)
+698473	class VendoredLaneTests(unittest.TestCase):
+698474	    def test_lane_selftests_pass(self):
+698475	        proc = subprocess.run([sys.executable, str(ROOT / "pipelines/run_lanes.py"), "selftest"],
+698476	                              capture_output=True, text=True, timeout=600)
+698477	        self.assertEqual(proc.returncode, 0, proc.stdout[-3000:] + proc.stderr[-3000:])
+698478	    def test_every_lane_is_open_or_explicitly_unverified(self):
+698479	            for lane in lanes.load_lanes(domain)["lanes"]:
+698480	                self.assertIn(lane["open"], ("yes", "unverified"), lane["id"])
+698481	                self.assertTrue(lane.get("licence") and lane.get("licence_url", "").startswith("https://"), lane["id"])
+698482	    def test_fetch_never_runs_in_tests_or_verify(self):
+698483	        self.assertNotIn("run_lanes.py fetch", text)
+698484	/* uk-offtakers-overlay, generation 202610292044 (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+698486	/* Data centres (#73 steps 7-8): their own class (violet, status ring, sized by stated MW), from a pinned open file; a tap fires the Grid Engine 30/30/30: the 30 nearest substations (the engine's gridScope; the original nearestSubstations for the first 5), 30 REPD sites (40 km) and the 30 nearest conventional power sites (lines up to 100 km), in tabs with an area summary. IT load and grid connection are never conflated; a pipeline entry is not a commitment; proximity is not connection. */
+698491	GEN='202610292044',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+698492	N3=30,R100=100,DL=5,
+698493	DATA='https://ventusltd.github.io/gridatlas/data/offtakers_filtered_202610292000.geojson',DSHA='16dca56003e7a222e7a74025b9b61db3c1929ac7e34adc38daeb343074e68139',
+698495	DCF='https://ventusltd.github.io/gridatlas/data/uk_datacentre_pipeline_202610292136.geojson',DCFSHA='176c1b2e894943618c1dd866b3a96c9f3e00bcded8c6e88a5263b0048ae22d89',
+698496	CVF='https://ventusltd.github.io/gridatlas/data/conventional_power_uk_202610292000.geojson',CVFSHA='44b577a12d714d934ce90ce39b44951fb2a641f32ccc20d45a5e2461b145ec98',PCAP=4e6,PMAX=5e3,
+698497	AL=u=>/^https:\/\/ventusltd\.github\.io\/gridatlas\/data\/[\w.-]+\.(geo)?json$/.test(u)||E('URL not allow-listed'),
+698499	CLS={a:['Industry','#e07b39','#3a1d0a',3,6,1],b:['Power stations','#f2c14e','#3a1d0a',3.5,7,1],c:['Data centres','#b07cff','#ffffff',3.5,6.5,1],d:['Water (large)','#4f86c6','rgba(0,0,0,0)',3,5,1],s:['Water (listed, small)','#4f86c6','rgba(0,0,0,0)',3,5,0],e:['Campus/CHP sites','#a26769','#3a1d0a',3,5,0]},
+698502	DST={op:['Operational','#39d98a'],uc:['Under construction','#ffc400'],co:['Consented','#40c4ff'],pl:['In planning','#ff8a3d'],cr:['Connection request','#ff4fd8'],an:['Announced','#e6e6e6'],rw:['Refused/withdrawn','#a05252'],un:['Status not stated','#6b7a8f']},DK=Object.keys(DST),
+698503	DSK=s=>{let o={operational:'op',under_construction:'uc',consented:'co',in_planning:'pl',connection_request:'cr',announced:'an',refused_or_withdrawn:'rw'};return Object.hasOwn(o,s)?o[s]:'un'},
+698504	DLEG='Data centres (violet): dot size by the stated IT load, else the stated grid connection (faint = neither stated); ring colour = status. A pipeline entry is not a commitment.',
+698515	unk=s=>!s||/^(unknown|unnamed\b)/i.test((s+'').trim()),
+698524	gx=(u,h,cap=DCAP)=>new Promise((res,rej)=>{AL(u);S.requests++;let x=new XMLHttpRequest();x.open('GET',u);x.responseType='arraybuffer';x.timeout=TMO;
+698526	 x.onerror=()=>rej(new Error('network error'));x.ontimeout=()=>rej(new Error(TOE));x.onprogress=e=>{if(e.loaded>cap){x.abort();rej(new Error('data check failed (size)'))}};x.send()})
+698527	 .then(async b=>{let s=W.crypto&&W.crypto.subtle;if(!(b.byteLength<=cap))E('data check failed (size)');if(!s)E('data check failed (no WebCrypto)');if(hex(await s.digest('SHA-256',b))!==h)E('data check failed (SHA-256 differs from the pin)');return JSON.parse(new TextDecoder().decode(b))}),
+698535	DMW=p=>{let v=o=>o&&typeof o=='object'&&typeof o.value=='number'&&o.value>0&&o.value<=1e4?o.value:null;return{it:v(p.it_load_mw),gc:v(p.grid_connection_mw),un:v(p.unclassified_mw)??v(AI(p.mw_unclassified)&&p.mw_unclassified[0])}},
+698536	DZ=w=>{let v=w.it??w.gc;return v==null?1:v>=200?2:v>=50?1.6:v>=10?1.25:1},
+698537	ZS=p=>{let w=MW(p),b=p.emission_band_naei_2023||'';return p.class==='C'?DZ(DMW(p)):p.class==='B'&&w?w>=1e3?1.5:w>=100?1.25:1:/^>=100/.test(b)?1.5:/^(10-25|25-100)/.test(b)?1.25:1},
+698540	  dots.push({i:dots.length,k,t:k=='c'?DSK(p.status):STG(p),z:ZS(p),n:p.name,op:p.operator,sub:(p.subclass||'').replace(/_/g,' '),a:c.slice(0,2),p})}
+698542	OPL=/^(OGL|ODbL|CC[ -]?BY|CC0|PDDL|public[ -]domain|Open[ -]Parliament|cited fact)/i,
+698543	SRCS=p=>AI(p.sources)&&p.sources.length&&p.sources.length<=50&&p.sources.every(s=>s&&typeof s=='object'&&OPL.test(s.licence)&&!/\b(NC|ND)\b|non-?commercial|no.?deriv/i.test(s.licence)),
+698544	OKR=(p,c)=>p&&typeof p=='object'&&(p.name==null||typeof p.name=='string')&&/^[\w-]{1,40}$/.test(p.id)&&SRCS(p)&&okPt(c),
+698545	dn=fs=>{let o=[],bad=MX(0,fs.length-PMAX),cl=0;for(let f of fs.slice(0,PMAX)){let p=f&&f.properties,l=p&&p.location||{},g=f&&f.geometry,c=g&&g.type==='Point'?g.coordinates:[l.lon,l.lat];
+698546	  if(p&&p.site_kind==='cable_landing_station'){cl++;continue}if(!OKR(p,c)||typeof p.status!='string'){bad++;continue}
+698547	  o.push({k:'c',t:DSK(p.status),z:DZ(DMW(p)),n:p.name,op:typeof p.operator=='string'?p.operator:null,sub:'data centre',a:c.slice(0,2),p,dc:1})}
+698548	 return{o,bad,cl}},
+698549	CST={operational:'operating',closing:'closing',closed:'closed',converted:'converted',construction:'under construction'},
+698550	cn=fs=>{let o=[],bad=MX(0,fs.length-PMAX);for(let f of fs.slice(0,PMAX)){let p=f&&f.properties,g=f&&f.geometry,c=g&&g.type==='Point'&&g.coordinates;
+698551	  if(!OKR(p,c)){bad++;continue}if(p.in_nearest_default===false)continue;
+698552	  o.push({id:p.id,a:c.slice(0,2),n:unk(p.name)?'name not listed':cs(p.name),op:p.operator,f:typeof p.fuel=='string'&&p.fuel!='unstated'?cs(p.fuel):'fuel not stated',te:typeof p.technology=='string'?p.technology:'',mw:typeof p.mw=='number'&&p.mw>0&&p.mw<=1e4?p.mw:null,st:Object.hasOwn(CST,p.status)?CST[p.status]:'status unknown',p})}
+698553	 return{o,bad}},
+698561	IC=['==',['get','k'],'c'],DRC=['match',['get','t'],...DK.flatMap(k=>[k,DST[k][1]]),DST.un[1]],
+698563	dw=()=>{let m=mh();if(!m||!S.data)return;let fc=FC(S.data.dots.map(r=>({type:'Feature',id:r.i,properties:{k:r.k,t:r.t,z:r.z,i:r.i,u:r.k=='c'&&(w=>w.it??w.gc)(DMW(r.p))==null?1:0},geometry:{type:'Point',coordinates:r.a}}))),Z=(a,b)=>['interpolate',['linear'],['zoom'],6,['*',['get','z'],a],12,['*',['get','z'],b]],F=fl();
+698566	  m.addLayer({id:LAYER,type:'circle',source:SRC,filter:F,layout:{'circle-sort-key':['+',['match',['get','k'],'s',0,'e',1,'d',2,'a',4,'c',7,5],['get','z']]},paint:{'circle-radius':Z(MT(3,3),MT(4,6)),
+698567	   'circle-color':['case',RING,'rgba(0,0,0,0)',MT(1,'#e07b39')],'circle-opacity':['match',['get','k'],'d',.8,'s',.8,'c',['case',['==',['get','u'],1],.45,.95],.95],
+698568	   'circle-stroke-color':['case',RING,CLS.b[1],IC,DRC,MT(2,'#3a1d0a')],'circle-stroke-width':['case',RING,2,IC,2.5,['match',['get','k'],'d',0,'s',0,1]]}});
+698575	NP='gridatlas-offtakers-neon',/// DI/DS: the data-centre 30/30/30 links (one line source for all three sets, one node source)
+698576	DI=['ring','glow','core-s','core-r','core-v','node','label','ring-label'].map(s=>NP+'-dc-'+s),DS=[NP+'-dc-l',NP+'-dc-n',NP+'-dc-rings'],
+698577	NI=[NP+'-glow',NP+'-core',NP+'-flow',NP+'-node',NP+'-label',NP+'-pin-halo',NP+'-pin',NP+'-p-glow',LINKS,NP+'-p-node',NP+'-p-label',...DI],NSR=[NP+'-subs',NP+'-snodes',NP+'-pin',NP+'-plinks',NP+'-pnodes',...DS],
+698630	sites=(all,f,n=NR)=>{let sel=all.filter(r=>(f.st==='all'||RpS(r.p.status)===f.st)&&(f.te==='all'||RpT(r.p.tech)===f.te)),gs=[];
+698632	 return{sel,P:gs.filter((g,i,a)=>i<n||g.km==a[n-1].km)}},
+698637	 if(b+h>k.height-t)b=8;c.bb=b;c.style.bottom=b+'px';/// a data-centre card (o.hh) opens as M6's half-height panel: at most 45 % of the map, scrolling inside
+698638	 c.style.maxHeight=MX(44,MN(k.height-t-b,c.o&&c.o.hh?MX(200,k.height*.45|0):MX(240,k.height-b-320)))+'px'},
+698713	 for(let{q,km}of c.cv||[])rows.push(['conventional power site',NM(q),'',SUBL(q),BST[q.t],MW(q.p)||'not stated',k2(km),q.a[0],q.a[1],(q.p.sources||[]).map(s=>s.name).join('; ')||'not stated',(q.p.sources||[]).map(s=>String(s.licence||'').split(/ \(|, \(c\)/)[0]).join('; ')||'licence not stated','listed site']);
+698717	pv=(m,c,g,bl='◀ back to offtaker')=>{let back=c.re,[x,y]=g.a,ps=g.parts;pc();
+698718	 let v=cd(m,'REPD project',`REPD · ${RpU(ps,RpN).sort().join(' + ')}${RpMW(RpW(ps))}`,{foot:'Record · REPD (DESNZ, Apr 2026, OGL v3.0). Status as registered, not as built. '+NOTSHOWN,open:1,back:[bl,()=>{pc();back();S.pp&&S.pp.sm.focus?.()}]});
+698730	 (f.k=='c'?dcc:oc)(m,f);let lc=document.querySelector('[data-lightning-card]'),x=lc&&[...lc.querySelectorAll('button')].find(b=>b.getAttribute('aria-label')==='Close');x&&x.click();
+698733	VB=[['all','All'],['400','400'],['275','275'],['132','132'],['33','33–66 kV']],
+698734	VK=(v,b)=>b=='all'||(b=='400'?v>=399.5:b=='275'?v>=274.5&&v<399.5:b=='132'?v>=131.5&&v<274.5:v<131.5),
+698735	LC={s:'#ffccee',r:'#88aa00',v:'#999988'},TC={s:'#ffccee',r:'#c6dd7a',v:'#c9c9bb'},
+698736	TB=[['a','Area'],['s','Substations'],['r','REPD'],['v','Conventional']],SN={s:'Substations',r:'REPD sites',v:'Conventional power sites'},
+698737	D10=10,KM3=[5,10,20],
+698738	DHEAD='A listing or pipeline entry (screening): not a confirmed demand, contract, commitment or connection.',
+698739	PN=()=>typeof performance=='object'&&performance.now?performance.now():Date.now(),
+698740	RMo=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches===true}catch(_){return false}},
+698741	lcv=()=>S.cv||(S.cv=(CVF?gx(CVF,CVFSHA,PCAP).then(o=>(o&&o.type==='FeatureCollection'&&AI(o.features)||E('data check failed (not a feature collection)'),cn(o.features))):Promise.reject(Error('not published')))
+698742	 .catch(e=>(S.cve=msg(e),note('conventional: '+S.cve),S.cv=null,{o:S.data.dots.filter(q=>q.k=='b'&&q.t!='cc').map(q=>({id:q.p.id,a:q.a,n:NM(q),op:q.op,f:SUBL(q),te:'',mw:MW(q.p)||null,st:BST[q.t].toLowerCase(),p:q.p})),bad:0,fb:1}))),
+698743	CT=v=>(/^(CCGT|OCGT|CHP|EfW)\b/.exec(v.te)||[v.f=='fuel not stated'?'Power site':v.f[0].toUpperCase()+v.f.slice(1)])[0],
+698744	KA=v=>(AI(v.kva)?v.kva:[v.kv]).filter(x=>x>0),
+698745	MWL=w=>w.it!=null&&w.gc!=null?`IT load ${N(w.it)} MW · grid connection ${N(w.gc)} MW`:w.it!=null?`IT load ${N(w.it)} MW · grid connection not stated`:w.gc!=null?`Grid connection ${N(w.gc)} MW · IT load not stated`:'IT load and grid connection not stated',
+698746	dcc=(m,r,n=15,o={})=>{let p=r.p,w=DMW(p),c=cd(m,'Data centre','Data centre (screening)',{open:1,hh:1,foot:'Not shown here: electricity use, connection terms, TEC, queue position, consent, viability.'}),h=c.head,dv=c.det,st=DST[r.t],sr=p.sources||[];
+698747	 Object.assign(c,{r,tab:o.tab||'a',sh:o.sh||{},vb:o.vb||'all',rst:o.rst||'all'});S.fk=null;c.foot.dataset.tier='screening';
+698748	 L(h,`${NM(r)} · ${unk(r.op)?'operator not listed':cs(r.op)}`,'color:#e9dcff;font-weight:bold;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis','record');
+698749	 L(h,MWL(w),'color:#9fb3ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis','record');
+698750	 c.tl=tier(ap(h,el('div')),'screening');c.pn=ap(h,el('div'));c.csv=ap(h,el('div'));
+698751	 L(dv,DHEAD,'color:#c9b3ff;margin-top:4px');
+698752	 if(w.un!=null)L(dv,`Also stated: ${N(w.un)} MW, not said to be IT load or grid connection${(o=>o&&typeof o.label=='string'?' ('+cs(o.label.split('|')[1]||'').trim()+')':'')(p.unclassified_mw||(p.mw_unclassified||[])[0])}; not added to either.`,'color:#9fb3ba','record');
+698753	 L(dv,`Status: ${r.dc?st[0].toLowerCase():'not tracked'} · ${cs(p.status_basis||p.status_source_id||(r.dc?'source not stated':'OpenStreetMap listing'))}`,'color:#9fb3ba','record');
+698754	 if(r.t!='op')L(dv,'A pipeline entry is not a commitment: plans change, stall or are withdrawn.','color:#9fb3ba');
+698755	 L(dv,'IT load is what the computing equipment draws. Grid connection is the import capacity agreed with the network operator, which also covers cooling and losses. Neither is derived from the other here.','color:#8b9aa1');
+698756	 if(w.it==null||w.gc==null)L(dv,'Not stated is unknown, not zero.','color:#8b9aa1');
+698757	 if(!r.dc||sr.every(s=>/openstreetmap/i.test(s.source||s.dataset||s.name)))L(dv,'Listed in OpenStreetMap; no open IT-load or connection figure found.','color:#8b9aa1');
+698758	 let ds=p.dates&&typeof p.dates=='object'?Object.entries(p.dates).filter(([,v])=>typeof v=='string'&&v):[],pr=AI(p.planning_refs)?p.planning_refs:[],qr=AI(p.connection_refs)?p.connection_refs:[];
+698759	 if(ds.length)L(dv,'Dates: '+ds.slice(0,6).map(([k,v])=>cs(k).replace(/_/g,' ')+' '+cs(v)).join(' · '),'color:#9fb3ba','record');
+698760	 if(pr.length)L(dv,'Planning: '+pr.slice(0,3).map(o=>cs(o&&o.authority)+' '+cs(o&&o.reference)).join('; '),'color:#9fb3ba','record');
+698761	 if(qr.length)L(dv,'Connection queue refs: '+qr.slice(0,3).map(cs).join('; ')+' (a queue entry is not a connection)','color:#9fb3ba','record');
+698762	 if(AI(p.conflicts)&&p.conflicts.length)L(dv,`${pl(p.conflicts.length,'conflict')} between sources: `+p.conflicts.slice(0,4).map(o=>cs(o&&o.field)).join(', '),'color:#ffc48a','record');
+698763	 for(let s of r.dc?sr.slice(0,6):[])L(dv,`Record · ${cs(s.source||s.dataset||s.name)} (${cs(String(s.licence||'licence not stated').split(/,|:/)[0])}${s.licence_status=='unverified'?', licence unverified':''})`,'color:#8b9aa1','record');
+698764	 if(AI(p.operator_alternatives)&&p.operator_alternatives.length)L(dv,'Also listed under operator: '+p.operator_alternatives.slice(0,3).map(cs).join('; ')+' (merged by the source as one site; not checked)','color:#ffc48a','record');
+698765	 r.dc||L(dv,'Record · '+LIC(r),'color:#8b9aa1','record');
+698766	 c.cam=o.cam;c.row=o.row;dg(m,c,n);return c},
+698767	dg=(m,c,n)=>{if(S.pp!==c)return;let[x,y]=c.r.a,Lk=W.__GRIDATLAS_NEON_LINKS__||{},M=Lk.measure||{},subs=Object.hasOwn(Lk,'substations')?Lk.substations:null,GS=NS.gridScope;c.ks=0;
+698768	 if(!AI(subs)||!subs.length||typeof M.nearestSubstations!='function'||typeof M.distanceKm!='function'||!GS||typeof GS.scope!='function'){c.ks='Substation data not loaded yet; trying again.';c.sc=[];dt(m,c);nl(m,[x,y]);return n?setTimeout(()=>dg(m,c,n-1),2e3):0}
+698769	 let t0=PN(),mp=S.kas===subs?S.kam:(S.kas=subs,S.kam=new Map(subs.map(s=>[s.at,s])));
+698770	 try{c.sc=GS.scope([x,y],subs,{bandsKm:[40],nearestCount:subs.length}).nearest;for(let e of c.sc)e.kva=(mp.get(e.at)||{}).kv}catch(e){note('scope: '+msg(e));c.sc=[];c.ks='Substation data unavailable.'}
+698771	 try{let o=M.nearestSubstations(x,y,subs);c.by=o.beyondRadiusNearest;if(o.some((a,i)=>!c.sc[i]||a.km!==c.sc[i].km||a.at!==c.sc[i].at))note('scope head differs from nearestSubstations')}catch(e){note('nearest: '+msg(e))}
+698772	 c.ms={search:0};dt(m,c);S.pend=(S.pend||0)+1;
+698773	 Promise.all([lcv().then(v=>{if(S.pp!==c)return;c.cvs=v;c.cva=v.o.map(q=>({q,km:M.distanceKm(x,y,...q.a)})).sort((a,b)=>a.km-b.km)}),
+698774	  typeof M.isProjectTech=='function'?RG(m,M).then(G=>{if(S.pp===c)c.all=near(G,M,x,y)},e=>{c.pe=`REPD projects unavailable: ${msg(e)}. Tap the site again to retry.`;Ru(c,'REPD unavailable',c.pe)}):(c.pe='REPD projects unavailable: the map measure is not loaded yet. Tap the site again.',0)])
+698775	 .then(()=>{if(S.pp!==c)return;c.ms.search=+(PN()-t0).toFixed(1);dt(m,c);dl3(m,c);if(c.cam)try{m.jumpTo(c.cam)}catch(_){}else dcam(m,c);
+698776	  if(c.row!=null)c.pn.querySelector(`[data-offtakers-row="${c.row}"]`)?.focus?.()}).catch(e=>note('dc: '+msg(e))).finally(()=>S.pend--)},
+698777	sets=c=>{c.k=(c.sc||[]).filter(e=>VK(e.kv,c.vb)).slice(0,N3);c.P=c.all?sites(c.all,{st:c.rst,te:'all'},N3).P:null;c.cv=c.cva?c.cva.slice(0,N3):null;
+698778	 let D=(v,q)=>q?c.sh[v]?q.length:MN(D10,q.length):0;c.nd={s:D('s',c.k),r:D('r',c.P),v:c.cv?c.cv.slice(0,D('v',c.cv)).filter(o=>o.km<=R100).length:0}},
+698779	TBL=(v,q,c)=>v=='a'?'5·10·20 km':v=='s'&&c.ks?'…':v=='r'&&c.pe?'unavailable':!q?'…':!q.length?'none ≤40 km':`${q.length} · ≤${k1(q.at(-1).km)} km`,
+698780	dt=(m,c)=>{sets(c);let T=c.tl,row=el('div','display:flex;gap:3px;margin:6px 0');T.textContent='';ap(T,row);row.setAttribute('role','tablist');row.setAttribute('aria-label','Data-centre vicinity sets');
+698781	 for(let[v,t]of TB){let on=c.tab==v,q={s:c.k,r:c.P,v:c.cv}[v],b=ap(row,el('button',`flex:1;min-width:0;min-height:52px;padding:2px;background:${on?'#1c1430':'#050a12'};border:1px solid ${on?'#b07cff':'#2f5fa8'};border-bottom:3px solid ${v=='a'?'#b07cff':LC[v]};border-radius:3px;color:${on?'#f1e9ff':'#c9d6f2'};font:11px/1.3 monospace;cursor:pointer;text-align:center`));
+698782	  ap(b,el('div','',t));ap(b,el('div','color:#9fb3ba',TBL(v,q,c)));b.type='button';b.id='gridatlas-offtakers-dc-tab-'+v;b.setAttribute('role','tab');b.setAttribute('aria-selected',on);b.setAttribute('aria-controls','gridatlas-offtakers-dc-panel');b.tabIndex=on?0:-1;b.dataset.offtakersTab=v;
+698783	  b.addEventListener('click',()=>stab(m,c,v))}
+698784	 row.addEventListener('keydown',e=>{let i=TB.findIndex(t=>t[0]==c.tab),j={ArrowRight:i+1,ArrowLeft:i-1,Home:0,End:3}[e.key];if(j==null)return;e.preventDefault?.();stab(m,c,TB[(j+4)%4][0]);T.querySelector('[aria-selected="true"]')?.focus?.()});
+698785	 let P=c.pn;P.textContent='';P.id='gridatlas-offtakers-dc-panel';P.setAttribute('role','tabpanel');P.setAttribute('aria-labelledby','gridatlas-offtakers-dc-tab-'+c.tab);P.dataset.offtakersPanel=c.tab;
+698786	 (c.tab=='a'?pa:pls)(m,c,P);dcsv(c);
+698787	 c.sm.textContent=`Data centre · ${c.k?pl(c.k.length,'substation'):'…'}, ${c.P?pl(c.P.length,'REPD site'):'…'} within 40 km, ${c.cv?c.cv.length:'…'} conventional listed · details`;cpos()},
+698788	stab=(m,c,v)=>{if(S.pp!==c||c.tab==v)return;c.tab=v;dt(m,c);dlab(m,c);let q={s:c.k,r:c.P,v:c.cv}[v];if(q&&q.length)Ra(c,`${SN[v]}: ${c.nd[v]} of ${q.length} shown on the map, nearest ${k2(q[0].km)} km.`)},
+698789	RW=(P,i,a,b,f,col)=>{let e=tier(ap(P,el('a',`display:block;min-height:44px;padding:9px 0 6px;border-top:1px solid #1d2f52;color:${col};text-decoration:none`)),'screening');ap(e,el('div','',a));ap(e,el('div','color:#9fb3ba',b+' ▸'));e.href='#';e.dataset.offtakersRow=i;e.addEventListener('click',x=>{x.preventDefault?.();f()});return e},
+698790	BT=(P,t,f,k)=>{let b=ap(P,el('button','display:block;width:100%;min-height:44px;margin:6px 0 2px;background:#050a12;border:1px solid #2f5fa8;border-radius:3px;color:#8fb4ff;font:12px/1.2 monospace;text-align:left;padding:0 10px;cursor:pointer',t));b.type='button';if(k)b.dataset[k]='';b.addEventListener('click',f);return b},
+698791	CH=(P,lb,defs,cur,f,k)=>{let row=ap(P,el('div','display:flex;flex-wrap:wrap;gap:4px;margin:6px 0'));row.setAttribute('role','group');row.setAttribute('aria-label',lb);
+698792	 for(let[v,t]of defs){let on=cur==v,b=ap(row,el('button',`min-height:44px;min-width:44px;padding:0 8px;background:${on?'#2f5fa8':'#050a12'};border:1px solid #2f5fa8;border-radius:3px;color:${on?'#e8eef9':'#8fb4ff'};font:11px/1 monospace;cursor:pointer`,t));b.type='button';b.dataset[k]=v;b.setAttribute('aria-pressed',on);b.addEventListener('click',()=>{if(cur!=v)f(v)})}},
+698793	rst=(m,c,i)=>{let cam;try{let z=m.getCenter&&m.getCenter();cam=z&&{center:[z.lng,z.lat],zoom:m.getZoom()}}catch(_){}c.re=()=>dcc(m,c.r,0,{tab:c.tab,sh:c.sh,vb:c.vb,rst:c.rst,cam,row:i})},
+698794	pls=(m,c,P)=>{let v=c.tab,q={s:c.k,r:c.P,v:c.cv}[v],nn=q?c.sh[v]?q.length:MN(D10,q.length):0,X=(t,s)=>L(P,t,'color:'+(s||'#9fb3ba'));
+698795	 if(v=='s'&&c.ks)return X(c.ks);if(v=='r'&&c.pe)return X(c.pe);if(!q)return X(`${SN[v]}: loading…`);
+698796	 if(v=='s'){X(`Screening · ${pl(q.length,'nearest substation')} ≥33 kV (straight line)`,TC.s);CH(P,'Voltage band',VB,c.vb,b=>{c.vb=b;dt(m,c);dl3(m,c)},'offtakersVolt')}
+698797	 if(v=='r'){let n=q.reduce((s,g)=>s+g.parts.length,0);X(`Screening · ${pl(q.length,'nearest REPD site')}${n>q.length?` (${N(n)} projects; those at one point grouped)`:''}, straight line`,TC.r);CH(P,'REPD status filter',RpF.st,c.rst,b=>{c.rst=b;dt(m,c);dl3(m,c)},'offtakersRepdFilter')}
+698798	 if(v=='v'){let d=q.filter(o=>o.km<=R100).length;X(`Screening · ${pl(q.length,'nearest conventional power site')}, straight line`,TC.v);X(`Lines drawn for ${d} of ${q.length} (≤${R100} km); the nearest ${N3} are listed at any distance${q.length?`, out to ${k1(q.at(-1).km)} km`:''}.`);
+698799	  if(c.cvs&&c.cvs.fb)X(`From the offtakers power-station class (the conventional dataset is not loaded: ${S.cve}).`,'#ffc48a')}
+698800	 else if(q.length<N3){if(q.length)X(`Only ${q.length} ${v=='s'?'substations ≥33 kV':'REPD sites'} within ${R40} km of this site${v=='s'&&c.vb!='all'||v=='r'&&c.rst!='all'?' for this filter':''}; all are listed.`);
+698801	  else X(`None within ${R40} km.`+(v=='s'&&c.by?` Nearest: ${cs(c.by.name||'unnamed substation')}, ${k2(c.by.km)} km (not drawn).`:''))}
+698802	 q.slice(0,nn).forEach((o,i)=>{let g=v=='r'&&o,s=v=='s'&&o,w=v=='v'&&o.q,p0=g&&g.parts[0],one=g&&g.parts.length==1,ka=s&&KA(s);
+698803	  v=='s'?RW(P,i,`${i+1}. ${k2(s.km)} km · ${s.kv} kV · ${cs(s.name||'unnamed substation')}`,`${ka.length>1?'also '+ka.filter(x=>x!=s.kv).join(', ')+' kV':'single voltage'} · OSM`,()=>{rst(m,c,i);sk(m,c,'s',s)},TC.s)
+698804	  :v=='r'?RW(P,i,`${i+1}. ${k2(g.km)} km · ${RpU(g.parts,RpN).sort().join(' + ')}${RpMW(RpW(g.parts))} · ${one?cs(p0.status):g.parts.length+' projects'}`,`${one?cs(p0.name):g.parts.map(q=>cs(q.name)).join('; ')}${RpC(g.parts)}`,()=>{rst(m,c,i);pv(m,c,g,'◀ back to data centre')},TC.r)
+698805	  :RW(P,i,`${i+1}. ${k2(o.km)} km · ${cs(w.te||w.f)} · ${w.mw?N(w.mw)+' MW':'MW not stated'} · ${w.st}`,`${w.n} · ${cs(String(((w.p.sources||[])[0]||{}).name||'source not stated').split(' ')[0])}${/clos|convert/.test(w.st)?' · no connection rights implied':''}${o.km>R100?' · not drawn':''}`,()=>{rst(m,c,i);sk(m,c,'v',w,o.km)},TC.v)});
+698806	 if(q.length>D10)BT(P,c.sh[v]?'Show nearest 10 only':`Show all ${q.length} on the map and in this list`,()=>{c.sh[v]=!c.sh[v];dt(m,c);dl3(m,c);c.sh[v]&&dcam(m,c,v);P.querySelector('[data-offtakers-reveal]')?.focus?.();Ra(c,`${SN[v]}: ${c.nd[v]} of ${q.length} shown on the map.`)},'offtakersReveal');
+698807	 L(P,v=='s'?'Mapped substations (OpenStreetMap, ODbL 1.0). Not capacity, headroom or a connection point.':v=='r'?'REPD (DESNZ, OGL v3.0). Status as registered, not as built. MW is installed capacity as registered, not export or connection capacity.'
+698808	  :`${c.cvs&&!c.cvs.fb?'UK conventional power assets (NAEI 2023 OGL v3.0, GPPD v1.3.0 CC BY 4.0, OpenStreetMap ODbL 1.0)':'NAEI 2023, GPPD v1.3.0, OpenStreetMap'}. MW is installed capacity as stated by the source, not export or connection capacity. Proximity to a power station is not access to its output or its grid connection.`,'margin-top:6px;color:#8b9aa1','record')},
+698809	pa=(m,c,P)=>{let g=ap(P,el('div','display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:1px 8px;margin-top:6px;font-size:11px;color:#c9d6da;text-align:right')),C=(s,l)=>ap(g,el('span',l?'text-align:left':'',s)),sc=c.sc||[],al=c.all,cv=c.cva,
+698810	  W3=f=>KM3.map(f),R=(l,f,on)=>{C(l,1);for(let d of KM3)C(on?f(d):'…')},rw=d=>al.filter(q=>q.km<=d).map(q=>q.p),cw_=d=>cv.filter(o=>o.km<=d),Mw=v=>v>0?N(v)+' MW':'–';
+698811	 g.dataset.tier='screening';C('Within (straight line)',1);W3(d=>C(d+' km'));
+698812	 R('Substations ≥33 kV',d=>sc.filter(e=>e.km<=d).length,!c.ks);R('  of which ≥275 kV',d=>sc.filter(e=>e.km<=d&&e.kv>=274.5).length,!c.ks);
+698813	 R('REPD projects',d=>rw(d).length,!!al);R('  MW stated',d=>Mw(RpW(rw(d))),!!al);R('  not stated',d=>rw(d).filter(p=>!(p.capacity>0)).length,!!al);
+698814	 R('Conventional sites',d=>cw_(d).length,!!cv);R('  MW stated',d=>Mw(cw_(d).reduce((s,o)=>s+(o.q.mw||0),0)),!!cv);R('  not stated',d=>cw_(d).filter(o=>!o.q.mw).length,!!cv);
+698815	 if(al)L(P,'REPD at 20 km: '+RpF.st.slice(1).map(([v,t])=>`${t.toLowerCase()} ${Mw(RpW(rw(20).filter(p=>RpS(p.status)==v)))}`).join(' · '),'color:#c9d6da;margin-top:4px');
+698816	 if(cv){let a=cw_(20),s=f=>Mw(a.filter(o=>f.test(o.q.st)).reduce((t,o)=>t+(o.q.mw||0),0));L(P,`Conventional at 20 km: operating ${s(/^operat/)} · closing/closed ${s(/clos/)}`,'color:#c9d6da')}
+698817	 for(let[b]of VB.slice(1)){let e=sc.find(e=>VK(e.kv,b));L(P,`Nearest ${b=='33'?'33–66':b} kV `+(e?`${k2(e.km)} km · ${cs(e.name||'unnamed substation')}`:`none ≤${R40} km`),'color:#ffccee')}
+698818	 for(let v of'srv')L(P,`${{s:'━',r:'╍',v:'┈'}[v]} ${SN[v]} (${{s:'rose, solid',r:'olive, dashed',v:'grey, dotted'}[v]})`,'color:'+TC[v]);L(P,'◯ 5 · 10 · 20 km rings','color:#8b9aa1');
+698819	 for(let t of['Counts within straight-line circles around the site point. Not cable routes, capacity, headroom or connection offers.','MW is installed capacity as each register states it, not export or connection capacity. Generation MW is never added to the site\'s MW.','Not stated is unknown, not zero.'])L(P,t,'color:#8b9aa1;margin-top:4px');
+698820	 let n=(c.k||[]).length+(c.P||[]).length+(c.cv||[]).filter(o=>o.km<=R100).length;if(n>c.nd.s+c.nd.r+c.nd.v)BT(P,`Draw all ${n} links`,()=>{c.sh={s:1,r:1,v:1};dt(m,c);dl3(m,c);dcam(m,c,'s')},'offtakersDrawAll')},
+698821	dcam=(m,c,v)=>{try{let C=m.getContainer(),Wd=C.clientWidth||393,H=C.clientHeight||852,B=(c.bb||8)+(c.offsetHeight||188)+24,f=(q,i)=>q&&q.length?q[MN(i,q.length-1)].km:0,
+698822	  r=MX(f(c.k,D10-1),f(c.P,D10-1),f(c.cv,0));if(v){let q={s:c.k,r:c.P,v:(c.cv||[]).filter(o=>o.km<=R100)}[v];r=MX(r,f(q,99))}r=MN(R40,MX(2,r));
+698823	  let hs=MX(40,MN(Wd-80,H-150-B)/2),z=MX(7.5,MN(13,Math.log2(78271.517*Math.cos(c.r.a[1]*Math.PI/180)*hs/(r*1e3)))),go=()=>{cm(m);m.easeTo({center:c.r.a,zoom:z,offset:[0,(150-MN(B,H-200))/2],duration:RMo()?0:900})};
+698824	  m.isMoving&&m.isMoving()?m.once('moveend',go):go()}catch(e){note('camera: '+msg(e))}},
+698825	dl3=(m,c)=>{let o=c.r.a,t0=PN(),F=[],G=[],Z=(a,b)=>['interpolate',['linear'],['zoom'],6,a,12,b],I=s=>['==',['get','s'],s],
+698826	  add=(s,a,i,km,l)=>{F.push({type:'Feature',properties:{s,k:i},geometry:{type:'LineString',coordinates:[o,a]}});G.push({type:'Feature',properties:{s,k:i,id:s+i,l,km},geometry:{type:'Point',coordinates:a}})};
+698827	 c.k.slice(0,c.nd.s).forEach((e,i)=>add('s',e.at,i,e.km,`${e.kv} kV · ${k2(e.km)} km`));(c.P||[]).slice(0,c.nd.r).forEach((g,i)=>add('r',g.a,i,g.km,`${RpU(g.parts,RpN).sort()[0]}${RpMW(RpW(g.parts))} · ${k2(g.km)} km`));
+698828	 (c.cv||[]).slice(0,c.sh.v?N3:D10).forEach((v,i)=>v.km<=R100&&add('v',v.q.a,i,v.km,`${CT(v.q)}${v.q.mw?' '+N(v.q.mw)+' MW':''} · ${k2(v.km)} km`));c.G=G;
+698829	 try{if(m.getSource(DS[0])){m.getSource(DS[0]).setData(FC(F));m.getSource(DS[1]).setData(FC(G))}else{nl(m,o);let K=Math.cos(o[1]*Math.PI/180);
+698830	  m.addSource(DS[0],{type:'geojson',data:FC(F)});m.addSource(DS[1],{type:'geojson',data:FC(G)});
+698831	  m.addSource(DS[2],{type:'geojson',data:FC(KM3.map(d=>({type:'Feature',properties:{l:d+' km'},geometry:{type:'LineString',coordinates:Array.from({length:65},(_,i)=>[o[0]+d/111.32/K*Math.sin(i*Math.PI/32),o[1]+d/111.32*Math.cos(i*Math.PI/32)])}})))});
+698832	  m.addLayer({id:DI[0],type:'line',source:DS[2],paint:{'line-color':'#8b9aa1','line-opacity':.45,'line-width':1,'line-dasharray':[3,3]}});
+698833	  m.addLayer({id:DI[1],type:'line',source:DS[0],paint:{'line-color':['match',['get','s'],'s',LC.s,'r',LC.r,LC.v],'line-width':Z(4,9),'line-opacity':.1,'line-blur':Z(2,6)},layout:{'line-cap':'round'}});
+698834	  [['s',null],['r',[2,2]],['v',[.5,2]]].forEach(([s,d],j)=>m.addLayer({id:DI[2+j],type:'line',source:DS[0],filter:I(s),paint:Object.assign({'line-color':LC[s],'line-width':Z(1,2),'line-opacity':.7},d?{'line-dasharray':d}:{}),layout:{'line-cap':'round'}}));
+698835	  m.addLayer({id:DI[5],type:'circle',source:DS[1],paint:{'circle-radius':Z(2.5,4.5),'circle-color':['case',I('v'),'rgba(0,0,0,0)',['match',['get','s'],'s',LC.s,LC.r]],'circle-stroke-width':['case',I('v'),2,1],'circle-stroke-color':['case',I('v'),LC.v,'#000']}});
+698836	  try{m.addLayer({id:DI[6],type:'symbol',source:DS[1],filter:['in',['get','id'],['literal',[]]],layout:{'text-field':['get','l'],'text-size':10,'text-offset':[0,1],'text-anchor':'top','text-allow-overlap':false,'symbol-sort-key':['get','k'],'text-font':sf(m)},paint:{'text-color':['match',['get','s'],'s',TC.s,'r',TC.r,TC.v],'text-halo-color':'#000c10','text-halo-width':1.5}});
+698837	   m.addLayer({id:DI[7],type:'symbol',source:DS[2],layout:{'text-field':['get','l'],'text-size':10,'text-font':sf(m)},paint:{'text-color':'#8b9aa1','text-halo-color':'#000c10','text-halo-width':1.5}})}catch(e){note('labels: '+msg(e))}}
+698838	  dlab(m,c)}catch(e){note('links: '+msg(e))}
+698839	 top();S.perf={links:F.length,ms:+(PN()-t0).toFixed(1),search_ms:c.ms&&c.ms.search}},
+698840	dlab=(m,c)=>{let t=c.tab,G=c.G||[],ids=t=='a'?['s0','r0','v0']:G.filter(f=>f.properties.s==t&&f.properties.k<3).map(f=>f.properties.id);
+698841	 if(t=='s')for(let b of['400','275','132']){let i=(c.k||[]).slice(0,c.nd.s).findIndex(e=>VK(e.kv,b));i>2&&ids.push('s'+i)}
+698842	 if(t=='r'||t=='v'){let q=(t=='r'?(c.P||[]).map(g=>RpW(g.parts)):(c.cv||[]).map(o=>o.km<=R100?o.q.mw||0:0)).slice(0,t=='r'?c.nd.r:c.sh.v?N3:D10),i=q.indexOf(MX(0,...q));q[i]>0&&i>2&&ids.push(t+i)}
+698843	 try{m.getLayer(DI[6])&&m.setFilter(DI[6],['in',['get','id'],['literal',ids.slice(0,6)]]);for(let[j,s]of['s','r','v'].entries())m.getLayer(DI[2+j])&&m.setPaintProperty(DI[2+j],'line-opacity',t=='a'?.7:t==s?.9:.3)}catch(e){note('labels: '+msg(e))}},
+698844	sk=(m,c,t,v,km)=>{let back=c.re,o=t=='s'?v.at:v.a,[x,y]=o,Lk=W.__GRIDATLAS_NEON_LINKS__||{},M=Lk.measure||{},p=v.p||{};pc();
+698845	 let d=cd(m,t=='s'?'Substation':'Conventional power site',t=='s'?`Substation · ${v.kv} kV`:`Power site · ${cs(v.te||v.f)}`,{open:1,foot:NOTSHOWN,back:['◀ back to data centre',()=>{pc();back()}]}),X=(s,col,ti)=>L(d.det,s,'margin-top:4px;color:'+(col||'#9fb3ba'),ti);
+698846	 d.sm.textContent=`${k2(t=='s'?v.km:km)} km from ${NM(c.r)} (straight line) · details`;S.fk=[o];nl(m,o);
+698847	 if(t=='s'){X(`${cs(v.name||'unnamed substation')} · ${KA(v).join(', ')} kV${v.operator?' · operator '+cs(v.operator):''}`,TC.s,'record');X('Record · OpenStreetMap as loaded by the map (ODbL 1.0). Not capacity, headroom or a connection point.','#8b9aa1','record');
+698848	  RG(m,M).then(G=>{if(S.pp!==d)return;let P=sites(near(G,M,x,y),{st:'all',te:'all'},5).P;X('Screening · 5 nearest REPD sites to this substation, straight line. Not its connections.',TC.r);
+698849	   P.forEach((g,i)=>X(`${i+1}. ${RpG(g)}${RpC(g.parts)} · ${cs(g.parts[0].status)} · ${cs(g.parts[0].name)}`,'#c9d6da'));S.fk=[o,...P.map(g=>g.a)];nl(m,o,null,P);ck()}).catch(e=>X('REPD projects unavailable: '+msg(e)))}
+698850	 else{X(`${v.n} · ${unk(v.op)?'operator not listed':cs(v.op)}`,TC.v,'record');X(`${v.f} · ${cs(v.te||'type not stated')} · ${v.mw?N(v.mw)+' MW installed (as stated; not connection capacity)':'MW not stated (unknown, not zero)'}`,0,'record');
+698851	  X(`Status: ${v.st}${p.status_basis?' · '+cs(p.status_basis):''}`,0,'record');X('Record · '+((p.sources||[]).map(s=>`${cs(String(s.name||'').split(' (')[0])} (${cs(String(s.licence||'licence not stated').split(/[:,]/)[0])})`).join(' · ')||'source not stated'),'#8b9aa1','record');
+698852	  let k=[];try{k=AI(Lk.substations)&&Lk.substations.length?M.nearestSubstations(x,y,Lk.substations):[]}catch(e){note('nearest: '+msg(e))}
+698853	  X('Screening · nearest substations to this site, straight line. Not its declared connection or capacity.',TC.s);for(let a of k)X(`${k2(a.km)} km · ${KV(a)} kV · ${cs(a.name||'unnamed substation')}`,'#c9d6da');S.fk=[o,...k.map(a=>a.at)];try{nl(m,o,k)}catch(e){note('links: '+msg(e))}}
+698854	 cpos();nz(m,x,y);d.querySelector('[data-offtakers-back]')?.focus?.()},
+698855	dcsv=c=>{c.csv.textContent='';let n=(c.k||[]).length+(c.P||[]).reduce((s,g)=>s+g.parts.length,0)+(c.cv||[]).length,b=BT(c.csv,`Download all ${n} as CSV (vicinity sheet)`,()=>{if(b.busy)return;b.busy=1;b.textContent='Preparing… (joining REPD records)';
+698856	  let ps=(c.P||[]).flatMap(g=>g.parts),T,go=()=>{clearTimeout(T);if(!b.busy)return;b.busy=0;b.textContent=`Download all ${n} as CSV (vicinity sheet)`;
+698857	   try{let u=URL.createObjectURL(new Blob([dsv(c)],{type:'text/csv'})),a=el('a');a.href=u;a.download=`datacentre-vicinity-${GEN}-${String(c.r.p.id||'site').replace(/[^A-Za-z0-9_-]/g,'').slice(0,40)}.csv`;ap(document.body,a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4e3)}catch(e){note('csv: '+msg(e))}};
+698858	  T=setTimeout(go,TMO);RpQ(ps.map(q=>RpP.get(q))).then(go,go)},'offtakersCsv')},
+698859	dsv=c=>{let r=c.r,[x,y]=r.a,w=DMW(r.p),M=v=>v==null?'not stated':v,J=q=>S.rc&&RpJ(q,RpP.get(q),S.rc)||null,id=r.p.id||'',sl=r.dc?DST[r.t][0]:'not tracked',rows=[
+698860	  ['data centre',0,NM(r),id,'data centre',sl,'','',M(w.it),'IT load',0,x,y,'site',r.dc?'data-centre dataset':'OpenStreetMap','ODbL 1.0','']];
+698861	 if(w.gc!=null)rows.push(['data centre',0,NM(r),id,'data centre',sl,'','',w.gc,'grid connection',0,x,y,'site','data-centre dataset','ODbL 1.0','']);
+698862	 (c.k||[]).forEach((e,i)=>rows.push(['substation',i+1,e.name||'unnamed substation','',e.kv+' kV','',e.kv,KA(e).join(';'),'','',k2(e.km),e.at[0],e.at[1],i<c.nd.s?'yes':'no','OpenStreetMap as loaded by the map','ODbL 1.0','not carried']));
+698863	 (c.P||[]).forEach((g,i)=>{for(let q of g.parts){let o=J(q),a=RpP.get(q)||g.a;rows.push(['REPD project',i+1,q.name,o?o.repd_ref:'',q.raw_tech||q.tech,q.status,'','',q.capacity>0?+q.capacity:'not stated','installed (REPD)',k2(g.km),a[0],a[1],i<c.nd.r?'yes':'no',o?'REPD (DESNZ) Jul 2026 extract, exact match':'REPD (DESNZ) Apr 2026 map register','OGL v3.0',o?(o.source_record_updated||'record date not stated'):'Apr 2026 extract'])}});
+698864	 (c.cv||[]).forEach(({q,km},i)=>rows.push(['conventional',i+1,q.n,q.id||q.p.id||'',`${q.f} ${q.te}`.trim(),q.st,'','',q.mw||'not stated',`installed (${q.mw?'GPPD':'not stated'})`,k2(km),q.a[0],q.a[1],km<=R100&&i<(c.sh.v?N3:D10)?'yes':'no',(q.p.sources||[]).map(s=>String(s.name||'').split(' (')[0]).join('; ')||'not stated',(q.p.sources||[]).map(s=>String(s.licence||'').split(/[:,]/)[0]).join('; ')||'licence not stated',cs(q.p.status_date||'')]));
+698865	 let s=[`# GridAtlas data-centre vicinity sheet · generation ${GEN} · site ${id} ${NM(r).replace(/[\r\n]/g,' ')} · point ${x},${y} · ${new Date().toISOString()}`,'# Straight-line distances from the site point. Not cable routes, capacity, headroom, connection offers or feasibility.',
+698866	  `# Site: IT load ${w.it!=null?w.it+' MW':'not stated'} · grid connection ${w.gc!=null?w.gc+' MW':'not stated'}. Never added together. A pipeline entry is not a commitment.`,'# MW columns are installed capacity as each source states it, not export or connection capacity. "not stated" is unknown, not zero.',
+698867	  'set,rank,name,ref,type_or_voltage,status,kv_max,kv_all,mw_stated,mw_basis,km_straight_line,lon,lat,drawn_on_map,source,licence,data_date'].join('\n')+'\n',k=0;
+698868	 for(let o of rows){let l=o.map(cq).join(',')+'\n';if(++k>400||s.length+l.length>256e3){s+=`# truncated at ${k>400?'400 rows':'256 kB'}\n`;break}s+=l}return s},
+698872	 +`<div data-offtakers-controls="${key}" hidden><div role="group" aria-label="Offtaker classes" style="display:flex;flex-wrap:wrap;gap:4px;margin:4px 0">${BTN('data-offtakers-all','All')}${CK.filter(k=>k!='c').map(k=>BTN(`data-offtakers-class="${k}" aria-pressed="false"`,CLS[k][0])).join('')}</div>`
+698873	 +`<div role="group" aria-label="Data centres" data-offtakers-dc style="display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;margin:4px 0;padding:4px;border:1px solid #6f4fc2;border-radius:3px">${BTN('data-offtakers-class="c" aria-pressed="false"',CLS.c[0]+' · 30/30/30')}${DK.map(k=>`<span style="font-size:11px;color:#ccc;white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${CLS.c[1]};border:2px solid ${DST[k][1]};margin-right:3px;vertical-align:middle"></span>${DST[k][0]}</span>`).join('')}</div>`
+698875	 +`</div><div data-offtakers-status role="status" aria-live="polite" style="font:12px/1.5 'Courier New',monospace;color:#bbb;overflow-wrap:break-word"></div><div data-offtakers-foot hidden style="font-size:11px;color:#bbb">${LEG} ${DLEG} ${FOOT}</div>`;
+698884	 st=!S.on?'':S.busy?'Loading the pinned open data…':S.err?'Nothing drawn: '+S.err:`${N(n)} sites drawn (${CK.filter(k=>S.cls[k]).map(k=>CLS[k][0]+' '+N(d.counts[k])).join(' · ')||'no class selected'}) · tap a site for its 15 nearest REPD sites and 5 nearest substations, a data centre for 30 substations, 30 REPD sites and 30 conventional power sites (straight line) · data centres: ${d.pl?`${N(d.pl.o.length)} from the open pipeline (${DK.map(k=>[k,d.pl.o.filter(r=>r.t==k).length]).filter(v=>v[1]).map(([k,n])=>DST[k][0].toLowerCase()+' '+N(n)).join(', ')})${d.pl.bad?`, ${N(d.pl.bad)} skipped`:''}`:S.pe?'the offtakers listing (data-centre file not loaded: '+S.pe+')':'loading…'}`;
+698889	 try{let o=await rd();if(sn!==S.serial||!S.on)return;S.data=S.data||nm(o.features);S.from=DATA;dw();top();lp(sn)}
+698891	lp=sn=>{let d=S.data;if(!DCF||d.pl)return;if(!d.c0){d.c0=d.dots.filter(r=>r.k=='c');sw(d,[])}
+698892	 (S.cache.p||(S.cache.p=gx(DCF,DCFSHA,PCAP).then(o=>(o&&o.type==='FeatureCollection'&&AI(o.features)||E('data check failed (not a feature collection)'),dn(o.features))).catch(e=>{S.cache.p=null;throw e})))
+698893	 .then(v=>{if(sn!==S.serial||!S.on||d.pl)return;S.pe=null;d.pl=v;sw(d,v.o)},e=>{if(sn===S.serial){S.pe=msg(e);note('data centres: '+S.pe);sw(d,d.c0)}})},
+698894	sw=(d,a)=>{d.dots=[...d.dots.filter(r=>r.k!='c'),...a];d.dots.forEach((r,i)=>r.i=i);d.counts.c=a.length;if(S.pp&&S.pp.r&&S.pp.r.k=='c'&&!a.includes(S.pp.r))pc();dw();top();pt()},
+698909	 * Issue #73 real-Chromium screening smoke test for a draft preview.
+698910	 * Serves only committed files; replaces GitHub Pages data requests with local
+698911	 * SHA-pinned PR files. No credentials, no writes to live, no external APIs.
+698920	const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+698921	const G = process.env.DC_SMOKE_GENERATION || '202610292044';
+698922	const OUT = path.join(process.env.RUNNER_TEMP || '/tmp', 'gridatlas-dc-browser');
+698924	const FIXTURE = JSON.parse(gunzipSync(fs.readFileSync(path.join(ROOT, 'tools/ci/lightning/fixtures/repd-master-v8-oracle.json.gz'))));
+698925	const MIME = {'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.geojson':'application/geo+json','.css':'text/css','.svg':'image/svg+xml','.wasm':'application/wasm'};
+698926	const errors = [], observations = [];
+698927	const server = http.createServer((req,res)=>{
+698928	  let u; try {u = decodeURIComponent(new URL(req.url,'http://localhost').pathname)} catch {res.writeHead(400);return res.end();}
+698929	  if(!u.startsWith('/gridatlas/')){res.writeHead(404);return res.end();}
+698930	  const rel = u.slice('/gridatlas/'.length), loc=path.resolve(ROOT,rel);
+698931	  if(loc!==ROOT&&!loc.startsWith(ROOT+path.sep)){res.writeHead(403);return res.end();}
+698932	  try { const f=fs.statSync(loc).isDirectory()?path.join(loc,'index.html'):loc;const data=fs.readFileSync(f);
+698933	    res.writeHead(200,{'content-type':MIME[path.extname(f)]||'application/octet-stream','cache-control':'no-store','access-control-allow-origin':'*'}); res.end(data);
+698934	  }catch{res.writeHead(404);res.end('not found');}
+698937	const port=server.address().port;
+698939	async function run(width,height){
+698940	  const ctx=await browser.newContext({viewport:{width,height},acceptDownloads:true,deviceScaleFactor:1,hasTouch:width<500,isMobile:width<500,locale:'en-GB',timezoneId:'Europe/London'});
+698941	  const page=await ctx.newPage();
+698942	  page.on('pageerror',e=>errors.push(width+' pageerror '+e.message));
+698943	  page.on('console',m=>{if(m.type()==='error'&&/offtakers|TypeError|ReferenceError/.test(m.text()))errors.push(width+' console '+m.text().slice(0,250));});
+698944	  await page.route(/https:\/\/ventusltd\.github\.io\/gridatlas\/data\/[\w.-]+\.geojson$/,async route=>{
+698945	    const base=route.request().url().split('/').pop(),f=path.join(ROOT,'data',base);
+698946	    if(!fs.existsSync(f))return route.fulfill({status:404,body:'not found'});
+698947	    return route.fulfill({status:200,body:fs.readFileSync(f),headers:{'content-type':'application/geo+json','access-control-allow-origin':'*'}});
+698949	  await page.route(/\/dist\/repd_master\.json(?:\?.*)?$/,route=>route.fulfill({status:200,body:JSON.stringify(FIXTURE),headers:{'content-type':'application/json','access-control-allow-origin':'*'}}));
+698950	  const route=`http://127.0.0.1:${port}/gridatlas/atlas/v/${G}/`;
+698951	  await page.goto(route,{waitUntil:'domcontentloaded',timeout:90000});
+698952	  await page.waitForFunction(g=>document.documentElement.dataset.gridatlasGeneration===g&&window.__GRIDATLAS_MODULES__?.ukOfftakers&&window.__GRIDATLAS_V9_MAP__,G,{timeout:90000});
+698953	  await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__?.menuBar?.inspect?.().complete===true,null,{timeout:90000});
+698954	  const init=await page.evaluate(()=>({gen:document.documentElement.dataset.gridatlasGeneration,lightning:window.__GRIDATLAS_MODULES__.ukLightning?.generation,installed:window.__GRIDATLAS_MODULES__.menuBar.inspect()}));
+698955	  assert.equal(init.gen,G);assert.equal(init.lightning,'202610291043');
+698956	  assert.equal(init.installed.complete,true);
+698957	  await page.waitForSelector('[data-offtakers-control="toggle"]',{state:'attached',timeout:45000});
+698958	  await page.evaluate(()=>{const el=[...document.querySelectorAll('[data-offtakers-control="toggle"]')].find(x=>x.closest('#scada-ui-container'))||document.querySelector('[data-offtakers-control="toggle"]');el.checked=true;el.dispatchEvent(new Event('change',{bubbles:true}));});
+698960	    await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.ukOfftakers?.state?.data?.dots?.filter(d=>d.k==='c').length>=225,{timeout:45000});
+698962	    const diagnosis=await page.evaluate(()=>{
+698963	      const x=window.__GRIDATLAS_MODULES__.ukOfftakers,S=x?.state;
+698964	      return {gen:x?.generation,on:S?.on,serial:S?.serial,busy:S?.busy,err:S?.err,pe:S?.pe,
+698965	        waiting_for:x?.state?.waiting_for,counts:S?.data?.counts,pl:S?.data?.pl&&{count:S.data.pl.o.length,bad:S.data.pl.bad},
+698966	        dots:S?.data?.dots?.length,c:S?.data?.dots?.filter(d=>d.k==='c').length,
+698967	        waiting:document.querySelectorAll('[data-offtakers-control="toggle"]').length};
+698969	    throw new Error(String(error)+'; DC state '+JSON.stringify(diagnosis));
+698971	  const n=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.data.dots.filter(d=>d.k==='c').length);
+698972	  assert.equal(n,225,'227 source records, of which two planning sites have unknown coordinates and must not be mapped');
+698973	  await page.evaluate(()=>{const S=window.__GRIDATLAS_MODULES__.ukOfftakers.state,m=window.__GRIDATLAS_V9_MAP__;
+698974	    const d=S.data.dots.find(x=>x.k==='c'&&/Digital Realty LHR26/.test(x.n))||S.data.dots.find(x=>x.k==='c'&&/Slough/.test(x.n));
+698975	    if(!d)throw Error('No Slough data centre');window.__DC_SMOKE_SITE__=d;m.jumpTo({center:d.a,zoom:15});});
+698976	  await page.waitForTimeout(1500);
+698977	  const point=await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__,d=window.__DC_SMOKE_SITE__,c=m.getContainer().getBoundingClientRect(),p=m.project(d.a);return [c.left+p.x,c.top+p.y]});
+698978	  await page.mouse.click(...point);
+698979	  await page.waitForSelector('[data-offtakers-card][aria-label="Data centre"]',{timeout:30000});
+698980	  const tabs=await page.locator('[data-offtakers-card] [role="tab"]').count();
+698981	  assert.equal(tabs,4);
+698982	  const info={viewport:[width,height],site:(await page.locator('[data-offtakers-card]').innerText()).slice(0,400),tabs,
+698983	    initial:await page.evaluate(()=>{const S=window.__GRIDATLAS_MODULES__.ukOfftakers.state;return {links:S.perf?.links,search_ms:S.perf?.search_ms,errors:S.errors.slice(-8)}})};
+698984	  for(const value of ['s','r','v','a']){
+698985	    const t=page.locator(`[data-offtakers-card] [data-offtakers-tab="${value}"]`);
+698986	    await t.click();
+698988	    assert.equal(await t.getAttribute('aria-selected'),'true','tab '+value);
+698989	    info['tab_'+value]=(await page.locator('[data-offtakers-card]').innerText()).slice(0,260);
+698990	  const s=page.locator('[data-offtakers-card] [data-offtakers-tab="s"]');await s.click();
+698991	  await page.waitForTimeout(400);
+698992	  const reveal=page.locator('[data-offtakers-card] [data-offtakers-reveal]');
+698993	  if(await reveal.count())await reveal.first().click();
+698994	  const csv=page.locator('[data-offtakers-card] [data-offtakers-csv]');
+698995	  assert.ok(await csv.count(),'CSV control');
+698996	  const [download]=await Promise.all([page.waitForEvent('download',{timeout:45000}),csv.click()]);
+698997	  const csvPath=await download.path();const rows=fs.readFileSync(csvPath,'utf8');
+698998	  assert.ok(rows.includes('set,rank,name,ref,type_or_voltage,status'),'CSV columns');
+698999	  assert.ok(rows.includes('grid connection'),'IT/connection distinction');
+699000	  assert.ok(rows.length<=256000+500,'CSV is capped');
+699001	  info.csv_bytes=rows.length;
+699002	  await page.screenshot({path:path.join(OUT,`dc-${width}x${height}.png`),fullPage:false});
+699003	  // Tap two further locations, including a consented project, on both screen sizes.
+699004	  info.additional_taps=[];
+699005	  for(const wanted of ['Court Lane Industrial Estate','Cobalt Park Data Centres']){
+699006	    await page.locator('[data-offtakers-card] button[aria-label="Close"]').click();
+699007	    const other=await page.evaluate(label=>{
+699008	      const m=window.__GRIDATLAS_V9_MAP__,S=window.__GRIDATLAS_MODULES__.ukOfftakers.state;
+699009	      const d=S.data.dots.find(x=>x.k==='c'&&x.n?.includes(label));
+699010	      if(!d)throw Error('missing second screening origin: '+label);
+699011	      m.jumpTo({center:d.a,zoom:15});
+699012	      return {name:d.n,point:d.a};
+699013	    },wanted);
+699015	    const pos=await page.evaluate(ll=>{const m=window.__GRIDATLAS_V9_MAP__,p=m.project(ll),r=m.getContainer().getBoundingClientRect();return [r.left+p.x,r.top+p.y]},other.point);
+699016	    await page.mouse.click(...pos);
+699017	    await page.waitForSelector('[data-offtakers-card][aria-label="Data centre"]',{timeout:15000});
+699018	    const body=await page.locator('[data-offtakers-card]').innerText();
+699019	    assert.ok(body.includes(wanted),'the intended data centre was tapped: '+wanted);
+699020	    assert.equal(await page.locator('[data-offtakers-card] [role="tab"]').count(),4);
+699021	    info.additional_taps.push({name:other.name,tab_count:4,has_unknown_statement:body.includes('not stated')});
+699022	  observations.push(info);
+699025	  for(const vp of [[393,852],[1280,800]])await run(...vp);
+699026	  assert.deepEqual(errors,[],'uncaught UI errors');
+699027	  console.log('BROWSER DC SMOKE PASS '+JSON.stringify({observations,errors}));
+699028	}catch(e){
+699029	  console.error('BROWSER DC SMOKE FAIL '+String(e));
+699030	  console.error(JSON.stringify({observations,errors},null,2));
+699031	  process.exitCode=1;
+699032	}finally{
+699033	  await browser.close();await new Promise(resolve=>server.close(resolve));
+699052	// DC-B1 (#73 steps 7-8): a module with a data-centre file (DCF) has the data-centre category and the Grid Engine 30/30/30;
+699053	// older modules (the live 202610291044 among them) keep their expectations
+699054	const DCB = /DCF='https:/.test(SRC);
+699055	const PROBED = SRC.replace(SEAM, 'window.__OT__={S,nm,sites,near,csv,RpJ,hv' + (DCB ? ',dn,cn,AL,dsv' : '') + '};' + SEAM);
+699060	const DCREL = (SRC.match(/DCF='https:\/\/ventusltd\.github\.io\/gridatlas\/(data\/[\w.-]+)'/) || [])[1], CVREL = (SRC.match(/CVF='https:\/\/ventusltd\.github\.io\/gridatlas\/(data\/[\w.-]+)'/) || [])[1];
+699061	const DCURL = DCREL && 'https://ventusltd.github.io/gridatlas/' + DCREL, DCD = DCREL && JSON.parse(fs.readFileSync(REPO + DCREL, 'utf8')), CVD = CVREL && JSON.parse(fs.readFileSync(REPO + CVREL, 'utf8'));
+699062	// the data centres drawn: the DC file's sites without cable landing stations replace the offtakers file's 164
+699063	const DCD_MAPPABLE = DCB ? DCD.features.filter(f => f.properties.site_kind !== 'cable_landing_station' && f.geometry?.type === 'Point' && Array.isArray(f.geometry.coordinates)) : [];
+699064	const DCD_DELTA = DCB ? DCD_MAPPABLE.length - 164 : 0;
+699076	// the engine's own geodesy module and Grid Finding Scope (sld-sandbox 202609241334 :45-186), byte for byte from the repository
+699077	const GEOSRC = fs.readFileSync(REPO + 'atlas/modules/202609011950-geodesy.js', 'utf8');
+699078	const SLD = fs.readFileSync(REPO + 'atlas/cartridges/202609241334-sld-sandbox-v9-8.js', 'utf8');
+699079	const GSSRC = (() => { const b = SLD.indexOf('if (NS.gridScope) return;'), a = SLD.lastIndexOf('(() => {', b), e = SLD.indexOf('})();', SLD.indexOf('NS.gridScope = Object.freeze', b)) + 5; return SLD.slice(a, e); })();
+699080	const GEO = (() => { const w = {}; vm.runInNewContext(GEOSRC, { window: w, Math, Number, Array, Object, Error }); return w.__GRIDATLAS_MODULES__.geodesy; })();
+699081	const origNearest = (lon, lat, subs) => { const sc = []; let beyond = null; for (const sub of subs) { const km = (DCB ? GEO.distanceKm : hav)(lon, lat, sub.at[0], sub.at[1]); if (km > 40) { if (!beyond || km < beyond.km) beyond = { ...sub, km }; continue; } sc.push({ ...sub, km }); }
+699091	function boot({ tamper = false, lightning = false, neon = true, register = REG.features, duck = true, offtakers = true, srcOverride = null, gridScope = true } = {}) {
+699115	    const dm = /^https:\/\/ventusltd\.github\.io\/gridatlas\/(data\/[\w.-]+)$/.exec(this.url);
+699116	    if (dm && fs.existsSync(REPO + dm[1])) { let b = fs.readFileSync(REPO + dm[1]); if (tamper === true ? this.url === DURL : tamper && this.url.endsWith(tamper)) { b = Buffer.from(b); b[10] ^= 1; } this.status = 200; this.responseURL = this.url; this.response = b.buffer.slice(b.byteOffset, b.byteOffset + b.length); this.onload(); return; }
+699125	  if (neon) W.__GRIDATLAS_NEON_LINKS__ = { substations: SUBS, measure: { MAX_LINK_KM: 40, distanceKm: DCB ? GEO.distanceKm : hav, representativePoint: g => g && g.type === 'Point' ? g.coordinates.slice(0, 2) : null, isProjectTech: t => PTECH.has(t), nearestSubstations: (...a) => { (W.__NS__ = W.__NS__ || []).push(a.slice(0, 2)); return origNearest(...a); } } };
+699137	  if (DCB && gridScope) { vm.runInContext(GEOSRC, ctx); vm.runInContext(GSSRC, ctx); }
+699141	  const P = W.__OT__; globalThis.__OTBUSY = () => !!(P && P.S && (P.S.busy || P.S.pend));
+699176	  const X0 = DCB ? [DURL, DCURL] : [DURL]; deq(x.log.xhr, X0); x.toggle(false); x.toggle(true); await drain(); deq(x.log.xhr, X0, 'cached for the page');
+699177	  assert.equal(x.sources.get('gridatlas-offtakers').data.features.length, 1568 + DCD_DELTA);
+699179	  assert.match(JSON.stringify(x.layers.get('l-gridatlas-offtakers').paint), DCB ? /#e07b39.*#f2c14e.*#b07cff.*#4f86c6.*#a26769/ : /#e07b39.*#f2c14e.*#2ec4b6.*#4f86c6.*#a26769/);
+699180	  assert.match(text(x.host.querySelector('[data-offtakers-label]')), new RegExp(`\\[${(1343 + DCD_DELTA).toLocaleString('en-GB')} sites\\]`));
+699188	  const nl = n => new RegExp(`\\[${(n + DCD_DELTA).toLocaleString('en-GB')} sites\\]`);
+699189	  x.host.querySelector('[data-offtakers-class="s"]').click(); deq(x.layers.get('gridatlas-offtakers-hit').filter[1][2][1], ['a', 'b', 'c', 'd', 's']); assert.match(lab(), nl(1511));
+699190	  x.host.querySelector('[data-offtakers-class="a"]').click(); assert.match(lab(), nl(698));
+699194	  x.host.querySelector('[data-offtakers-all]').click(); assert.match(lab(), nl(1343));
+699198	const indep = (r, f = { st: 'all', te: 'all' }, n = 15) => { // independent of the module: haversine, M2 status/tech tables, ~10 m grouping, 15 + ties
+699206	  return gs.filter((g, i, a) => i < n || g.km === a[n - 1].km);
+699211	  const picks = Object.entries(bigSites(x)).filter(([k, v]) => v && !(DCB && k === 'dc')).map(e => e[1]); assert.ok(picks.length >= 3, 'refinery / steel / data-centre fixtures present');
+699258	  const unknownN = x.dot(r => r.k === 'c' && (!r.n || /^(unknown|unnamed\b)/i.test(r.n))), unknownOp = x.dot(r => /^unknown/i.test(r.op || 'Unknown'));
+699271	  const u = unknownN; await x.tapDot(u); assert.match(text(x.card()), /name not listed · /); assert.match(text(x.card().children[0]), DCB ? /^Data centre \(screening\)/ : /^Potential offtaker \(screening\): not a confirmed demand, contract or connection\./);
+699348	// ---------------------------------------------------------------- DC-B1 (#73 steps 7-8): data centres and the Grid Engine 30/30/30
+699349	// Independent references: haversine (hav, asin form; not the engine's geodesy), the pinned DC-A6 conventional file, the
+699350	// repository's substations and REPD register fixture. Specs: evidence/DC-B2/CARD-SPEC.md, evidence/DC-B3/ENGINE.md.
+699351	const DSKIP = !DCB && 'module has no data-centre file (before DC-B1)';
+699352	const SL = [-0.62, 51.523];
+699353	const iSubs = o => SUBS.map(s => ({ s, km: hav(o[0], o[1], s.at[0], s.at[1]) })).filter(v => v.km <= 40).sort((a, b) => a.km - b.km).slice(0, 30);
+699354	const iCV = o => (CVD ? CVD.features : []).filter(f => f.properties.in_nearest_default !== false).map(f => ({ f, km: hav(o[0], o[1], ...f.geometry.coordinates) })).sort((a, b) => a.km - b.km).slice(0, 30);
+699355	const dcBoot = async o => { const x = boot(o); x.O.install(); x.toggle(true); await drain(); return x; };
+699356	const tabOf = (x, v) => x.card().querySelector(`[data-offtakers-tab="${v}"]`);
+699357	const panel = x => x.card().querySelector('[data-offtakers-panel]'), prow = x => [...panel(x).querySelectorAll('a')].map(text);
+699358	const openTab = async (x, v) => { tabOf(x, v).click(); await drain(5); };
+699359	const reveal = async x => { x.card().querySelector('[data-offtakers-reveal]').click(); await drain(5); };
+699360	const lines = x => x.sources.get('gridatlas-offtakers-neon-dc-l').data.features, bySet = (x, s) => lines(x).filter(f => f.properties.s === s);
+699361	const sloughDC = x => x.S.data.dots.filter(d => d.k === 'c').sort((a, b) => hav(...SL, ...a.a) - hav(...SL, ...b.a))[0];
+699362	test('DC1: data centres: the pinned pipeline file once, every site that passes the schema checks, one operator per origin; Slough ≥16 origins within 3 km', { skip: DSKIP }, async () => {
+699363	  const x = await dcBoot(); const dc = x.S.data.dots.filter(d => d.k === 'c');
+699364	  assert.equal(x.log.xhr.filter(u => u === DCURL).length, 1); assert.ok(SRC.includes(`DCFSHA='${sha(fs.readFileSync(REPO + DCREL))}'`), 'DC file pin');
+699365	  assert.equal(dc.length, DCD_MAPPABLE.length); assert.equal(DCD.features.length - DCD_MAPPABLE.length, 2, 'two unplaced planning records (SDC M40 and Ebbsfleet) remain in the source, never drawn'); assert.ok(dc.length >= 178, 'at least the operational OSM sites');
+699366	  assert.ok(dc.every(d => d.dc && d.p.site_kind !== 'cable_landing_station'));
+699367	  // one operator per origin: a single operator string (or none); a source naming another operator must be flagged by the file
+699368	  // (operator_alternatives, or an operator_disagreement conflict). The pipeline's members trace to DC-A4, where one origin merges two
+699369	  // operators (Digital Realty LHR26 / Global Technical Realty; evidence/DC-B1/out/cross-operator.txt), reported to the lead
+699370	  for (const d of dc) { assert.ok(d.p.operator == null || typeof d.p.operator === 'string', d.p.id);
+699371	    const ops = new Set((d.p.sources || []).map(s => (s.operator || '').toLowerCase()).filter(Boolean)); if (ops.size > 1) assert.ok((d.p.operator_alternatives || []).length || (d.p.conflicts || []).some(c => c.kind === 'operator_disagreement'), 'cross-operator merge not flagged: ' + d.p.id); }
+699372	  // #73: source refs for different Slough operators must never share one map origin.
+699373	  const byRef = id => dc.find(d => (d.p.sources || []).some(s => s.record_ref === 'gg2050-dc-' + id));
+699374	  for (const [a,b] of [[133,237],[193,231],[56,196],[56,57]]) {
+699375	    const x=byRef(a),y=byRef(b);
+699376	    assert.ok(x&&y,'Slough records '+a+'/'+b+' present');
+699377	    assert.notEqual(x.p.id,y.p.id,'cross-operator source merge '+a+'/'+b);
+699378	  const sl = dc.filter(d => hav(...SL, ...d.a) <= 3); assert.ok(sl.length >= 16, 'Slough origins ' + sl.length); assert.ok(new Set(sl.map(d => d.a + '')).size >= 16, 'distinct points');
+699379	  assert.match(text(x.host.querySelector('[data-offtakers-status]')), new RegExp(`data centres: ${dc.length} from the open pipeline \\(operational ${dc.filter(d => d.t === 'op').length}`));
+699380	  assert.ok(x.host.querySelector('[data-offtakers-dc]').querySelector('[data-offtakers-class="c"]'), 'own chip row'); assert.match(text(x.host.querySelector('[data-offtakers-foot]')), /Data centres \(violet\)/);
+699381	  assert.match(JSON.stringify(x.layers.get('l-gridatlas-offtakers').paint['circle-stroke-color']), /#39d98a/, 'status ring');
+699382	test('DC2: a Slough tap: 30 substations = gridScope = independent haversine, first 5 = nearestSubstations; 30 REPD; 30 conventional; nearest 10 drawn, Show all, Draw all; labels ≤ 6', { skip: DSKIP }, async () => {
+699383	  const x = await dcBoot(); const r = sloughDC(x); await x.tapDot(r); await drain(); const c = x.card();
+699384	  assert.equal(c.getAttribute('aria-label'), 'Data centre'); assert.equal(tabOf(x, 'a').getAttribute('aria-selected'), 'true', 'Area by default');
+699385	  assert.equal(c.querySelectorAll('[role="tab"]').length, 4); deq(x.W.__NS__.at(-1), r.a, 'the original nearestSubstations is called at the site');
+699386	  assert.equal(x.S.errors.filter(e => /differs/.test(e)).length, 0, 'scope head = nearestSubstations');
+699387	  const is = iSubs(r.a), ns = origNearest(r.a[0], r.a[1], SUBS); assert.equal(is.length, 30);
+699388	  await openTab(x, 's'); let rows = prow(x); assert.equal(rows.length, 10);
+699389	  await reveal(x); rows = prow(x); assert.equal(rows.length, 30);
+699390	  is.forEach((v, i) => assert.ok(rows[i].startsWith(`${i + 1}. ${v.km.toFixed(2)} km · ${Math.max(...v.s.kv)} kV`), `sub ${i + 1}: ${rows[i]} vs ${v.km.toFixed(2)}`));
+699391	  ns.forEach((v, i) => assert.ok(rows[i].startsWith(`${i + 1}. ${v.km.toFixed(2)} km`), 'head = original ' + i));
+699392	  assert.equal(bySet(x, 's').length, 30); deq(bySet(x, 's').map(f => f.geometry.coordinates[1]), is.map(v => v.s.at));
+699393	  // a voltage chip re-ranks within its band from the whole 40 km scope (not from the 30): 275 kV here
+699394	  panel(x).querySelector('[data-offtakers-volt="275"]').click(); await drain(5); const i275 = SUBS.map(q => ({ q, km: hav(r.a[0], r.a[1], q.at[0], q.at[1]) })).filter(v => v.km <= 40 && Math.max(...v.q.kv) >= 274.5 && Math.max(...v.q.kv) < 399.5).sort((a, b) => a.km - b.km);
+699395	  rows = prow(x); assert.ok(i275.length > 0); assert.equal(rows.length, Math.min(30, i275.length)); i275.slice(0, 30).forEach((v, i) => assert.ok(rows[i].startsWith(`${i + 1}. ${v.km.toFixed(2)} km · ${Math.max(...v.q.kv)} kV`), `275 ${i + 1}: ${rows[i]}`));
+699396	  assert.ok(i275[0].km > is[29].km || !is.some(v => Math.max(...v.s.kv) >= 274.5 && Math.max(...v.s.kv) < 399.5), 'the band reaches past the 30 of All');
+699397	  panel(x).querySelector('[data-offtakers-volt="all"]').click(); await drain(5);
+699398	  await openTab(x, 'r'); const ir = indep(r, { st: 'all', te: 'all' }, 30); rows = prow(x); assert.equal(rows.length, 10); await reveal(x); rows = prow(x);
+699399	  assert.equal(rows.length, ir.length); assert.ok(ir.length >= 30); ir.forEach((g, i) => assert.ok(rows[i].startsWith(`${i + 1}. ${g.km.toFixed(2)} km`), `repd ${i + 1}: ${rows[i]}`));
+699400	  await openTab(x, 'v'); const ic = iCV(r.a); rows = prow(x); assert.equal(rows.length, 10); await reveal(x); rows = prow(x); assert.equal(rows.length, 30);
+699401	  ic.forEach((v, i) => assert.ok(rows[i].startsWith(`${i + 1}. ${v.km.toFixed(2)} km`), `conv ${i + 1}: ${rows[i]} vs ${v.km.toFixed(2)}`));
+699402	  const d = ic.filter(v => v.km <= 100).length; assert.match(text(c), new RegExp(`Lines drawn for ${d} of 30 \\(≤100 km\\)`)); assert.equal(bySet(x, 'v').length, d);
+699403	  for (const v of ['a', 's', 'r', 'v']) { await openTab(x, v); const f = x.layers.get('gridatlas-offtakers-neon-dc-label').filter; assert.ok(f[2][1].length <= 6, 'labels ≤ 6 on ' + v); }
+699404	  assert.ok(x.S.perf.links >= 60 && x.S.perf.links <= 90 && x.S.perf.ms >= 0, JSON.stringify(x.S.perf));
+699405	  await openTab(x, 'a'); assert.match(text(x.card()), /Nearest 400 kV /); assert.match(text(x.card()), /Within \(straight line\)/); assert.match(text(x.card()), /IT load and grid connection not stated/);
+699406	  const eases = x.camera.filter(q => q[0] === 'easeTo'); assert.ok(eases.length >= 1); for (const [, [o]] of eases) { assert.equal(o.padding, undefined, 'no persistent padding'); assert.ok(o.offset[1] < 0, 'the site sits in the band above the card'); assert.ok(o.zoom >= 7.5 && o.zoom <= 13); }
+699407	  const k = x.layers.get('gridatlas-offtakers-neon-dc-core-r').paint['line-dasharray']; deq(k, [2, 2]); assert.equal(x.layers.get('gridatlas-offtakers-neon-dc-core-s').paint['line-color'], '#ffccee');
+699408	test('DC3: default: nearest 10 of each set drawn; "Draw all" draws every listed link within reach; tab keys move the selection', { skip: DSKIP }, async () => {
+699409	  const x = await dcBoot(); const r = sloughDC(x); await x.tapDot(r); await drain();
+699410	  assert.equal(bySet(x, 's').length, 10); assert.equal(bySet(x, 'r').length, 10); assert.equal(bySet(x, 'v').length, iCV(r.a).slice(0, 10).filter(v => v.km <= 100).length);
+699411	  x.card().querySelector('[data-offtakers-draw-all]').click(); await drain(5);
+699412	  assert.equal(bySet(x, 's').length, 30); assert.equal(bySet(x, 'r').length, indep(r, { st: 'all', te: 'all' }, 30).length); assert.equal(bySet(x, 'v').length, iCV(r.a).filter(v => v.km <= 100).length);
+699413	  const tl = x.card().querySelector('[role="tablist"]'); tl.listeners.keydown[0]({ key: 'End' }); assert.equal(tabOf(x, 'v').getAttribute('aria-selected'), 'true');
+699414	  x.card().querySelector('[role="tablist"]').listeners.keydown[0]({ key: 'ArrowRight' }); assert.equal(tabOf(x, 'a').getAttribute('aria-selected'), 'true');
+699415	test('DC4: a remote site: conventional always lists 30 (any distance) and draws only ≤100 km; short substation and REPD sets say so', { skip: DSKIP }, async () => {
+699416	  const x = await dcBoot(); const r = x.S.data.dots.find(d => d.k === 'c'); r.a = [-1.2, 60.3]; await x.tapDot(r); await drain();
+699417	  await openTab(x, 'v'); await reveal(x); const ic = iCV(r.a), rows = prow(x); assert.equal(rows.length, 30); assert.ok(ic[29].km > 100);
+699418	  assert.equal(bySet(x, 'v').length, ic.filter(v => v.km <= 100).length); assert.ok(rows.some(t => / · not drawn/.test(t)));
+699419	  await openTab(x, 's'); const t = text(x.card()); assert.ok(/Only \d+ substations ≥33 kV within 40 km/.test(t) || /None within 40 km\. Nearest: /.test(t), t.slice(0, 200));
+699420	test('DC5: CSV: four comment lines and the header; the site, every listed substation, REPD project and conventional site; licences; drawn flag; no formula cells', { skip: DSKIP }, async () => {
+699421	  x.card().querySelector('[data-offtakers-csv]').click(); await drain(); const csv = x.blobs.at(-1).text, L = csv.trim().split('\n');
+699422	  assert.match(L[0], new RegExp(`^# GridAtlas data-centre vicinity sheet · generation ${x.O.generation} · site ${r.p.id}`)); assert.match(L[1], /Not cable routes, capacity, headroom, connection offers or feasibility/);
+699423	  assert.match(L[2], /IT load not stated · grid connection not stated\. Never added together/); assert.equal(L[4], 'set,rank,name,ref,type_or_voltage,status,kv_max,kv_all,mw_stated,mw_basis,km_straight_line,lon,lat,drawn_on_map,source,licence,data_date');
+699424	  const rows = L.slice(5).map(l => l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(v => v.replace(/,$/, ''))), n = s => rows.filter(c => c[0] === s).length;
+699425	  const parts = indep(r, { st: 'all', te: 'all' }, 30).reduce((s, g) => s + g.parts.length, 0);
+699426	  assert.equal(n('data centre'), 1); assert.equal(n('substation'), 30); assert.equal(n('REPD project'), parts); assert.equal(n('conventional'), 30);
+699427	  for (const c of rows) { assert.ok(c[15], 'licence ' + c); assert.ok(!/^[=+\-@]/.test(c[2]), 'no formula'); }
+699428	  assert.equal(rows.filter(c => c[0] === 'substation' && c[13] === 'yes').length, 10, 'drawn flag follows the map');
+699429	  assert.equal(rows.find(c => c[0] === 'data centre')[8], 'not stated', 'IT load not stated, never 0');
+699430	test('DC6: cleanup: OFF removes every data-centre source, layer, ring and card; cycles leave nothing; no error noted', { skip: DSKIP }, async () => {
+699431	  for (let k = 0; k < 3; k++) { x.toggle(true); await drain(); await x.tapDot(sloughDC(x)); await drain(); assert.ok(x.sources.get('gridatlas-offtakers-neon-dc-rings'));
+699432	    x.toggle(false); assert.equal(x.card(), null); assert.equal([...x.sources.keys()].filter(OTIDS).length, 0); assert.equal([...x.layers.keys()].filter(OTIDS).length, 0); assert.equal(x.handlers.length, h0); assert.equal(x.rafs.size, 0); }
+699433	test('DC7: a failed data-centre file keeps the offtakers data centres and says why; a failed conventional file falls back to the power-station class and says so', { skip: DSKIP }, async () => {
+699434	  const x = await dcBoot({ tamper: DCREL.split('/').pop() }); assert.equal(x.S.data.dots.filter(d => d.k === 'c').length, 164);
+699435	  assert.match(text(x.host.querySelector('[data-offtakers-status]')), /data-centre file not loaded: data check failed/);
+699436	  const r = x.S.data.dots.find(d => d.k === 'c'); await x.tapDot(r); await drain(); assert.match(text(x.card()), /Status: not tracked/);
+699437	  const y = await dcBoot({ tamper: CVREL.split('/').pop() }); await y.tapDot(sloughDC(y)); await drain(); await openTab(y, 'v');
+699438	  assert.match(text(y.card()), /From the offtakers power-station class \(the conventional dataset is not loaded: data check failed/); assert.equal(prow(y).length, 10);
+699439	test('DC8: isolation: no gridScope → "not loaded yet" (no throw); lightning stays installed and working; non-data-centre taps keep 15 REPD + 5 substations', { skip: DSKIP }, async () => {
+699440	  const x = await dcBoot({ gridScope: false, lightning: true }); await x.tapDot(sloughDC(x)); await drain(); await openTab(x, 's');
+699441	  assert.match(text(x.card()), /Substation data not loaded yet; trying again\./); x.ltoggle(true); await drain(); assert.equal(x.W.__LP__.S.on, true);
+699442	  const y = await dcBoot(); const rf = bigSites(y).refinery; await y.tapDot(rf); await drain();
+699443	  assert.equal(y.sources.get('gridatlas-offtakers-neon-subs').data.features.length, 5); assert.equal(rowsOf(y.card()).length, indep(rf).length); assert.equal(y.sources.get('gridatlas-offtakers-neon-dc-l'), undefined);
+699444	test('DC9: rows open their own card; ◀ back to data centre restores the tab', { skip: DSKIP }, async () => {
+699445	  const x = await dcBoot(); await x.tapDot(sloughDC(x)); await drain(); await openTab(x, 'r');
+699446	  panel(x).querySelector('a').click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'REPD project'); assert.match(text(x.card()), /◀ back to data centre/);
+699447	  x.card().querySelector('[data-offtakers-back]').click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'Data centre'); assert.equal(tabOf(x, 'r').getAttribute('aria-selected'), 'true');
+699448	  await openTab(x, 's'); panel(x).querySelector('a').click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'Substation');
+699449	  assert.match(text(x.card()), /5 nearest REPD sites to this substation/); x.card().querySelector('[data-offtakers-back]').click(); await drain(); assert.equal(tabOf(x, 's').getAttribute('aria-selected'), 'true');
+699450	  await openTab(x, 'v'); panel(x).querySelector('a').click(); await drain(); assert.equal(x.card().getAttribute('aria-label'), 'Conventional power site'); assert.match(text(x.card()), /nearest substations to this site/);
+699451	test('DC10: schema checks and the URL allow-list: bad records are skipped and counted, never repaired; Marchwood is gas', { skip: DSKIP }, async () => {
+699452	  const x = await dcBoot(); const P = x.P, ok = { id: 'DC-X-1', name: 'A', status: 'operational', sources: [{ licence: 'ODbL 1.0' }] }, pt = (p, c = [-0.6, 51.5]) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: c }, properties: p });
+699453	  const r = P.dn([pt(ok), pt({ ...ok, sources: [{ licence: 'CC BY-NC 4.0' }] }), pt({ ...ok, sources: [{ licence: 'CC BY-ND 4.0' }] }), pt(ok, [5, 40]), pt({ ...ok, id: 'x y' }), pt({ ...ok, sources: 'x' }), pt({ ...ok, site_kind: 'cable_landing_station' }), null]);
+699454	  assert.equal(r.o.length, 1); assert.equal(r.bad, 6); assert.equal(r.cl, 1);
+699455	  const q = P.cn([pt({ ...ok, mw: -3, fuel: 'unstated', status: 'odd' }), pt({ ...ok, in_nearest_default: false }), pt({ ...ok, mw: 1e9 })]);
+699456	  assert.equal(q.o.length, 2); assert.equal(q.o[0].mw, null); assert.equal(q.o[0].f, 'fuel not stated'); assert.equal(q.o[0].st, 'status unknown'); assert.equal(q.o[1].mw, null);
+699457	  assert.throws(() => P.AL('https://example.com/x.geojson'), /not allow-listed/); assert.throws(() => P.AL('https://ventusltd.github.io/gridatlas/data/../x.js'), /not allow-listed/);
+699458	  const m = x.S.data.dots.find(d => d.p.id === 'OT-B-0823'); assert.equal(m.p.subclass, 'gas_ccgt_large'); await x.tapDot(m); await drain(); assert.match(text(x.card()), /Marchwood .*gas CCGT large/); assert.equal(/biomass/.test(text(x.card()).split('Within 5 km')[0]), false);
+699459	  assert.ok(!/https:\/\/(?!ventusltd\.github\.io\/gridatlas\/data\/)/.test(SRC.replace(/\/\*[\s\S]*?\*\//g, '')), 'no other host in the bytes');
+699460	test('DC11: MW wording: IT load and grid connection apart, never derived or added; an unlabelled MW is quoted with its own label and never sizes the dot', { skip: DSKIP }, async () => {
+699461	  const x = await dcBoot(), D = n => x.S.data.dots.find(d => d.k === 'c' && new RegExp(n).test([d.p.name,...(d.p.aliases||[])].join(' ')));
+699462	  const q = D('QuestPit'), c = D('Court Lane'), mf = D('Manor Farm');
+699463	  assert.ok(q && c && mf, 'the pinned pipeline has the DC-A3 sites QuestPit, Court Lane (Iver) and Manor Farm (Slough)');
+699464	  await x.tapDot(q); await drain(); assert.match(text(x.card()), /IT load 720 MW · grid connection 200 MW/); assert.equal(q.z, 2);
+699465	  await x.tapDot(c); await drain(); assert.match(text(x.card()), /Grid connection 140 MW · IT load not stated/);
+699466	  await x.tapDot(mf); await drain(); const t = text(x.card()); assert.match(t, /IT load 72 MW · grid connection not stated/); assert.match(t, /Also stated: 100 MW, not said to be IT load or grid connection \(battery energy storage capacity \(BESS\); not data-centre load\); not added to either\./);
+699467	  assert.equal(mf.z, 1.6, 'sized by the 72 MW IT load, not the 100 MW battery');
+699468	  const un = x.S.data.dots.filter(d => d.k === 'c' && d.p.unclassified_mw && d.p.unclassified_mw.value > 0 && !(d.p.it_load_mw && d.p.it_load_mw.value) && !(d.p.grid_connection_mw && d.p.grid_connection_mw.value));
+699469	  assert.ok(un.length >= 1, 'a site with only an unlabelled MW'); for (const d of un) assert.equal(d.z, 1, 'an unlabelled MW never sizes the dot: ' + d.n); assert.match(t, /A pipeline entry is not a commitment/);
+699470	  assert.equal(/\b(172|212|243) MW\b/.test(t), false, 'never summed');
+699473	/// DC-B1 (#73 steps 7-8): a data-centre tap lists 30 substations, 30 REPD sites and 30 conventional power sites (R100 km);
+699474	/// labels on the map only for the nearest DL of each set
+699477	/// DC-B1: 202610292000 = 202610290945 with one correction (Marchwood OT-B-0823 gas CCGT, not biomass; DC-A6), see its "corrections"
+699479	/// the data centres (#73 step 7): the open UK data-centre pipeline (hardening DC-A7, dc_pipeline.schema.json: DC-A4's
+699480	/// OpenStreetMap sites, DC-A3's government-published sites, merged with provenance; status, IT load, grid connection and an
+699481	/// unlabelled MW kept apart), read after the other sites are drawn; it replaces the offtakers file's data centres, which
+699482	/// come back if it fails. The conventional power sites (#73 step 5, DC-A6) are read on the first data-centre tap.
+699483	/// Both are committed verbatim, pinned by SHA-256 and capped (PCAP bytes, PMAX features).
+699484	/// the only URLs this module reads: files of this site's data/ folder (and /dist/repd_master.json, the engine's register)
+699487	/// data centres: their own palette (violet), chip row and legend; the ring is the status (pipeline vocabulary, #73 step 3)
+699488	/// "Unknown …" and the pipeline's "Unnamed data centre" are not names
+699495	/// a data centre's MW figures, kept apart (IT load, grid connection, unlabelled); null = not stated, never 0
+699496	/// size: IT load, else grid connection; never an unlabelled MW (it may be a battery or an energy centre)
+699497	/// schema checks (DC-A4 / DC-A7 data centres, DC-A6 conventional sites), at most PMAX each: an id, a name or none, a UK point (the
+699498	/// geometry, else location lon/lat) and 1-50 sources, each under a fully open licence (#73 rule) or a cited fact;
+699499	/// anything else is skipped and counted, never repaired. Cable landing stations are not data centres here (DC-B3).
+699500	/// (non-commercial or no-derivatives terms are not fully open, whatever the prefix)
+699503	/// a data centre: the status ring (DST colours) and, with no MW stated (u), a faint fill
+699510	/// sites: register rows within 40 km (exact duplicate rows once), filtered by the chips, grouped within about 10 m; the n nearest
+699511	/// (15; 30 for a data centre), ties at the n-th kept
+699528	/// ---- DC-B1 (#73 steps 7-8): a data-centre tap fires the Grid Engine 30/30/30 (card and map: DC-B2 CARD-SPEC.md) ----
+699529	/// Substations: the original link.measure.nearestSubstations returns LINK_COUNT = 5, a closure constant with no limit
+699530	/// argument (sld-sandbox 202609241334 :1664, :3513), so the 30 come from the engine's own Grid Finding Scope
+699531	/// (__GRIDATLAS_MODULES__.gridScope.scope, same cartridge :45-186: same list link.substations, same geodesy) with its count
+699532	/// and its 40 km radius as parameters (DC-B3 ENGINE.md). The original is still called on every tap: its 5 must be the
+699533	/// head of the scope's list (else noted in S.errors), and it names the nearest beyond 40 km when none is within.
+699534	/// REPD: the same register and grouping as the 15 (RG, near, sites), 30 within 40 km, ties kept.
+699535	/// Conventional (owner via lead, 29 Oct 20:05 UTC): ALWAYS the nearest 30, any distance, listed with km; lines are
+699536	/// drawn only up to R100 km and the card says so.
+699537	/// the conventional list: the pinned DC-A6 file (read on the first data-centre tap), else the offtakers power-station
+699538	/// class without closed or converted stations (and the card says which)
+699539	/// the site record (DC-B2 §7): IT load and grid connection apart, never summed or derived; unknown is not zero
+699540	/// the three sets; substations and conventional first, REPD when the register is read (retried while the engine loads)
+699541	/// the lists for the chips: substations by voltage band (re-ranked from the whole scope), REPD by status
+699542	/// the tablist (DC-B2 §2): Area · Substations · REPD · Conventional; arrows, Home and End move and select
+699543	/// a row: rank and distance first, a second line, and ▸ (it opens the item's own card; ◀ back returns here)
+699544	/// re-open state for ◀ back: tab, reveal, chips, camera and the row that opened the item
+699545	/// the Area tab (DC-B2 §5): counts and stated MW in 5, 10 and 20 km circles from the full scans (never capped at 30)
+699546	/// the camera (DC-B2 §6): ease to the site at the zoom that fits radius r in the free band above the card; r0 = the 10th
+699547	/// substation, the 10th REPD site or the nearest conventional site, whichever is farther (2 to 40 km); after "Show all"
+699548	/// it may widen to that set's farthest drawn item; never inside another move. An offset, not padding: MapLibre keeps an
+699549	/// easeTo padding for every later camera move of the page
+699550	/// the links (DC-B2 §6): one line source and one node source for the three sets, rings at 5/10/20 km, the azure pin;
+699551	/// a set draws its nearest 10 (all after "Show all"), conventional only up to R100 km; S.perf = links and ms
+699552	/// labels (DC-B2 §6): the open tab's set only, ranks 1-3 plus the nearest drawn 400/275/132 kV (substations) or the
+699553	/// largest stated MW (REPD, conventional), at most 6; the Area tab: rank 1 of each set; a tab press is one setFilter and
+699554	/// paint opacities (selected 0.9, others 0.3, Area 0.7), no source rebuild
+699555	/// a substation's or a conventional site's own card: its record; for a substation, its 5 nearest REPD sites; for a power
+699556	/// site, its 5 nearest substations (the original nearestSubstations); ◀ back restores the data-centre card as it was
+699557	/// the vicinity sheet (DC-B2 §8): every listed row of the three sets, whatever is drawn; REPD records joined at the click
+699558	/// (15 s at most; the export never waits longer); 400 rows and 256 kB at most; cells through cq() (no formulas)
+699560	/// the data-centre pipeline, read after the sites are drawn (lazily, once per page, pinned and hashed, capped); its records
+699561	/// replace the OpenStreetMap data centres; a failure keeps those and says why
+699562	/// swap the data-centre dots (re-indexed; a data-centre card open on a removed dot closes)
+699563	/** 202610292044: the UK lightning overlay as its own cartridge (module 202610291043); sld-sandbox is the original 202609241334. tools/proofs/lightning-cartridge.mjs */
+699565	await proveLightningCartridge('202610292044');
+699566	/** 202610292044: the potential-offtakers overlay as its own cartridge (module 202610292044, after uk-lightning-overlay), with the data-centre category and Grid Engine 30/30/30 (#73 steps 7-8). tools/proofs/offtakers-cartridge.mjs */
+699568	await proveOfftakersCartridge('202610292044');
+699574	 *   module    the cartridge IS atlas/modules/<M>-uk-offtakers-overlay.js (no copy), within its owner-approved 80,000-byte budget, names
+699582	export const OFFTAKERS_ID = 'uk-offtakers-overlay', ANCHOR = 'uk-lightning-overlay', BUDGET = 80000; // Owner-approved 80,000 bytes, 29 Oct 2026, issue #73 (tools/scope/lib.mjs)
+699635	  // the URLs in the bytes: the data file and the two REPD record files of the M5 join, plus (from #73 steps 7-8) only
+699636	  // same-site data files declared in site_data_sources with a SHA-256 pinned in the bytes (checked above)
+699637	  const pinned = new Set((e.site_data_sources || []).filter(d => d.sha256).map(d => d.url)), urls = text.match(/https:\/\/[^'"`\s)]+/g) || [];
+699638	  assert.equal(urls.filter(u => !pinned.has(u) || u === 'https://ventusltd.github.io/gridatlas/' + du[1]).length, 3, 'three URLs besides pinned same-site data files: the data file and the two REPD record files of the M5 join');
+699670	// A modular generation's pointer (after-cartridge slots), derived as release-generation.mjs writes it: the newest one cut
+699671	// against L3, so the sandbox's L3 live pointer is its predecessor (a later modular cut against a later live, e.g.
+699672	// 202610292014 against 202610291044, would otherwise become the fixture and fail the predecessor check)
+699674	  .map(f => fs.readFileSync(path.join(ROOT, 'atlas/manifests', f), 'utf8')).find(t => /"slot": "after-cartridge"/.test(t) && !/REJECTED/.test(t) && JSON.parse(t).previous_generation === L3);
+699860	  // Owner approval, 29 Oct 2026, issue #73: raise the potential-offtakers
+699861	  // module budget to 80,000 B for the data-centre 30/30/30 engine.
+699862	  'uk-offtakers-overlay': 80_000
 ```

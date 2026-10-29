@@ -1,5 +1,5 @@
 {
- "next": 2010,
+ "next": 2011,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1946,6 +1946,7 @@
   "lightning:tests/test_collector_health.py": 2006,
   "lightning:tests/test_reproduce.py": 2007,
   "gridatlas:tools/release/loader-swap.mjs": 2008,
-  "gridatlas:tools/release/rollback-generation.mjs": 2009
+  "gridatlas:tools/release/rollback-generation.mjs": 2009,
+  "gridatlas:tools/ci/offtakers/browser-dc-smoke.mjs": 2010
  }
 }

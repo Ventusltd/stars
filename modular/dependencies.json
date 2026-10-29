@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-10-29T19:12:36.250Z",
+ "generated_utc": "2026-10-29T23:33:22.843Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 10801,
+ "families_with_uses": 10837,
  "hubs": [
   {
    "family": 1318,
@@ -11,7 +11,7 @@
   {
    "family": 70873,
    "name": "assert",
-   "used_by": 487
+   "used_by": 499
   },
   {
    "family": 134305,
@@ -41,12 +41,12 @@
   {
    "family": 146349,
    "name": "path",
-   "used_by": 349
+   "used_by": 352
   },
   {
    "family": 146501,
    "name": "path",
-   "used_by": 329
+   "used_by": 332
   },
   {
    "family": 70695,
@@ -134,29 +134,29 @@
    "used_by": 199
   },
   {
+   "family": 1595,
+   "name": "drain",
+   "used_by": 190
+  },
+  {
    "family": 77548,
    "name": "fmt",
    "used_by": 185
   },
   {
-   "family": 1595,
-   "name": "drain",
-   "used_by": 180
-  },
-  {
    "family": 8597,
    "name": "boot",
-   "used_by": 179
+   "used_by": 180
   },
   {
    "family": 32941,
    "name": "boot",
-   "used_by": 179
+   "used_by": 180
   },
   {
    "family": 64628,
    "name": "boot",
-   "used_by": 179
+   "used_by": 180
   },
   {
    "family": 164912,
@@ -201,7 +201,7 @@
   {
    "family": 164893,
    "name": "cx",
-   "used_by": 150
+   "used_by": 151
   },
   {
    "family": 155195,
@@ -294,14 +294,14 @@
    "used_by": 123
   },
   {
+   "family": 8912,
+   "name": "note",
+   "used_by": 123
+  },
+  {
    "family": 131439,
    "name": "process",
    "used_by": 119
-  },
-  {
-   "family": 1807,
-   "name": "draw",
-   "used_by": 117
   }
  ]
 }
