@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-405,737 unique lines, numbered 1 to 699,862. Generated 2026-10-31T18:45:48.670Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+405,757 unique lines, numbered 1 to 700,576. Generated 2026-10-31T22:49:30.973Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -405740,4 +405740,24 @@
 699860	  // Owner approval, 29 Oct 2026, issue #73: raise the potential-offtakers
 699861	  // module budget to 80,000 B for the data-centre 30/30/30 engine.
 699862	  'uk-offtakers-overlay': 80_000
+700095	def _op_core(s):
+700096	    # A parenthesised tail is a gloss on one operator ("Slough Holdings UK Limited (SDC Capital
+700097	    # Partners)", "X Ltd (appellant)"), not a second operator: drop it before comparing.
+700098	    return re.sub(r"\([^)]*\)", " ", s or "")
+700100	    na, nb = norm_operator(_op_core(a)), norm_operator(_op_core(b))
+700561	    def test_parenthesised_operator_gloss_is_not_a_split(self):
+700562	        # False-split guard (Wapseys Wood, PINS EN0110030): one operator written with and without a
+700563	        # parenthesised gloss is one operator; the cross-operator guard above must still hold.
+700564	        a = mk("DC-A3", "government", "s35-wapseys", "SDC M40 Campus (Wapseys Wood)", 51.58696, -0.59697,
+700565	               operator="Slough Holdings UK Limited (SDC Capital Partners)", it=300)
+700566	        b = mk("DC-A2", "planning", "EN0110030", "SDC M40 Campus (Wapseys Wood)",
+700567	               operator="Slough Holdings UK Limited", it=300)
+700568	        self.assertTrue(dcmerge.operator_match(a["operator"], b["operator"]))
+700569	        self.assertFalse(dcmerge.operator_match("Digital Realty", "Global Technical Realty"))
+700570	        for order in ([a, b], [b, a]):
+700572	            self.assertEqual(len(out), 1)
+700573	            self.assertEqual(len(out[0]["sources"]), 2)
+700574	            self.assertEqual(out[0]["location"]["precision"], "exact_site")
+700575	            self.assertEqual(out[0]["it_load_mw"]["value"], 300)
+700576	            self.assertFalse([c for c in out[0]["conflicts"] if c["kind"] == "operator_disagreement"])
 ```
