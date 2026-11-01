@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-405,757 unique lines, numbered 1 to 700,576. Generated 2026-10-31T22:49:30.973Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+406,186 unique lines, numbered 1 to 702,993. Generated 2026-11-01T02:33:37.672Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -405760,4 +405760,433 @@
 700574	            self.assertEqual(out[0]["location"]["precision"], "exact_site")
 700575	            self.assertEqual(out[0]["it_load_mw"]["value"], 300)
 700576	            self.assertFalse([c for c in out[0]["conflicts"] if c["kind"] == "operator_disagreement"])
+700916	<tr data-entity-id="gridatlas"><th scope="row"><a href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas</a><small class="entity-key">gridatlas</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore electricity-network sites, layers and connections.</p><p>For: network researchers, project developers</p></details></td><td>Explore the electricity network</td><td><details class="table-versions"><summary>V9.188 - 31 October 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.156 - 24 September 2026</a><small class="entity-key">202609241334</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.172 - 28 October 2026</a><small class="entity-key">202610281340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.186 - 29 October 2026</a><small class="entity-key">202610291044</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.188 - 31 October 2026</a><small class="entity-key">202610312138</small></div></details></td></tr>
+700919	/* uk-offtakers-overlay, generation 202610312138 (UTC). Potential offtakers: sites listed in open registers (NAEI 2023 point sources, GPPD) and OpenStreetMap, classified by the OT-filter rules (energy-intensive industry, power stations incl. closed and closing, data centres, large water works, other large users). OFF by default, never persisted. A listing is not electricity demand; distances are straight lines; vicinity screening only. Separate from the lightning overlay: own ids (gridatlas-offtakers*), copper-to-teal palette, own card. */
+700926	GEN='202610312138',TMO=15000,TOE='timeout after 15 s',R40=40,NR=15,
+700930	DCF='https://ventusltd.github.io/gridatlas/data/uk_datacentre_pipeline_202610312133.geojson',DCFSHA='87337db5d3bf7959f7f605d3abd029dd4196ab24a79107ceb95210c5b7751654',
+701356	const G = process.env.DC_SMOKE_GENERATION || '202610312138';
+701407	  assert.equal(n,225,'226 source records, of which one planning site (Ebbsfleet) has unknown coordinates and must not be mapped');
+701801	  assert.equal(dc.length, DCD_MAPPABLE.length);
+701802	  // NL-007 P7b: the unplaced records (null geometry) are counted in the file whose sha256 equals the module's DCFSHA, not written as
+701803	  // a literal, so the test holds for every pin (the live 202610292044 pins a file with two, 202610312138 one); Ebbsfleet is one of them
+701804	  const PINNED = SRC.match(/DCFSHA='([0-9a-f]{64})'/)[1], PFILE = fs.readdirSync(REPO + 'data').filter(n => /\.geojson$/.test(n)).find(n => sha(fs.readFileSync(REPO + 'data/' + n)) === PINNED);
+701805	  assert.ok(PFILE, 'a file under data/ matches DCFSHA ' + PINNED); const UNPLACED = JSON.parse(fs.readFileSync(REPO + 'data/' + PFILE, 'utf8')).features.filter(f => f.geometry == null);
+701806	  assert.ok(UNPLACED.length > 0, 'the pinned file keeps its unplaced planning records'); assert.equal(x.S.data.pl.bad, UNPLACED.length, 'the module skips exactly the unplaced records of ' + PFILE);
+701807	  assert.equal(DCD.features.length - DCD_MAPPABLE.length, UNPLACED.length, 'every unplaced record remains in the source, never drawn');
+701808	  assert.ok(UNPLACED.some(f => /Ebbsfleet/.test(f.properties.name)), 'Ebbsfleet is among the unplaced'); assert.ok(!dc.some(d => UNPLACED.some(f => f.properties.id === d.p.id)), 'no unplaced record is drawn');
+701809	  assert.ok(dc.length >= 178, 'at least the operational OSM sites');
+701944	/** 202610312138: the UK lightning overlay as its own cartridge (module 202610291043, unchanged), re-identified at 202610312138; sld-sandbox is the original 202609241334. tools/proofs/lightning-cartridge.mjs */
+701946	await proveLightningCartridge('202610312138');
+701947	/** 202610312138: the potential-offtakers overlay as its own cartridge (module 202610312138, after uk-lightning-overlay), re-pinned to the 226-record data-centre pipeline file 202610312133 (data-grid-gb 01a4491; DC baseline 226/225, NL-007). tools/proofs/offtakers-cartridge.mjs */
+701949	await proveOfftakersCartridge('202610312138');
+701952	<title>Kuiper edition 202610311905: the estate's best lines on the belt</title>
+701954	html,body{margin:0;height:100%;background:#05060a;color:#e8e6df;font:14px/1.4 ui-monospace,Menlo,Consolas,monospace}
+701955	#c{display:block;width:100vw;height:100vh;touch-action:none}
+701956	#card{position:fixed;left:0;right:0;bottom:0;max-height:46vh;overflow:auto;background:rgba(10,12,18,.96);border-top:1px solid #2a2f3a;padding:10px 14px;display:none}
+701957	#card b{color:#ffd166}#card a{color:#8ecae6}#card pre{white-space:pre-wrap;color:#cde;margin:6px 0;border-left:2px solid #3a4150;padding-left:8px}
+701958	#hud{position:fixed;top:8px;left:10px;color:#9aa3b2;font-size:12px;pointer-events:none}
+701959	#hud b{color:#e8e6df}
+701961	<canvas id="c"></canvas><div id="hud">loading…</div><div id="card"></div>
+701963	// Viewer for belt/belt.json + belt/bodies.json. Stations are [x, y, key, copies] centred on zero, exactly
+701964	// as written by tools/edition_belt.py. The viewer computes no position of its own: a body's place
+701965	// is the file's, and the file is reproducible from the register and the law printed in rules.txt.
+701966	const cv=document.getElementById('c'),ctx=cv.getContext('2d'),hud=document.getElementById('hud'),card=document.getElementById('card');
+701967	let belt=null,bodies=[],byId={},view={z:1,ox:0,oy:0},sel=null,dpr=1;
+701968	const COL={focus:'#ffd166',estate:'#8ecae6',kuiper:'#c77dff',history:'#90be6d'};
+701970	  belt=await (await fetch('belt.json')).json();
+701971	  bodies=await (await fetch('bodies.json')).json();
+701972	  for(const b of bodies) byId[b.id]=b;
+701973	  hud.innerHTML=`<b>${belt.name}</b> · ${belt.counts.bodies} bodies (${belt.counts.focus} gridatlas/datacentre) · ${belt.counts.unresolved} unresolved · asof ${belt.asof}<br>${belt.law}`;
+701974	  resize(); draw();
+701975	function resize(){dpr=window.devicePixelRatio||1;cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;cv.style.width=innerWidth+'px';cv.style.height=innerHeight+'px';}
+701976	function toScreen(x,y){const s=Math.min(innerWidth,innerHeight)*view.z*0.5;return[innerWidth/2+x*s+view.ox,innerHeight/2-y*s+view.oy];} // y up, as the wafer draws it
+701978	  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.fillStyle='#05060a';ctx.fillRect(0,0,innerWidth,innerHeight);
+701979	  const [cx,cy]=toScreen(0,0),s=Math.min(innerWidth,innerHeight)*view.z*0.5;
+701980	  ctx.strokeStyle='#161a24';ctx.lineWidth=1;for(const r of [0.16,0.92]){ctx.beginPath();ctx.arc(cx,cy,r*s,0,7);ctx.stroke();}
+701981	  for(const st of belt.stations){const id=st[2],b=byId[id];const [x,y]=toScreen(st[0],st[1]);
+701982	    ctx.fillStyle=COL[b&&b.class]||'#aaa';ctx.globalAlpha=b&&b.open?1:.35;ctx.beginPath();ctx.arc(x,y,sel===id?6:3.2,0,7);ctx.fill();
+701983	    if(sel===id){ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();}}
+701985	function pick(px,py){let best=null,bd=14*14;for(const st of belt.stations){const [x,y]=toScreen(st[0],st[1]);const d=(x-px)**2+(y-py)**2;if(d<bd){bd=d;best=st[2];}}return best;}
+701986	function show(id){const b=byId[id];if(!b){card.style.display='none';return;}
+701987	  card.style.display='block';
+701988	  card.innerHTML=`<b>${esc(b.title)}</b> <span style="color:#9aa3b2">[${esc(b.worker)} ${esc(b.finding)} · class ${esc(b.class)} · body k=${b.k}]</span><br>
+701989	  <code>${esc(b.repo)}@${b.commit.slice(0,12)} ${esc(b.path)}:${b.line}${b.line_end&&b.line_end!=String(b.line)?'-'+esc(b.line_end):''}</code><br>
+701990	  ${b.quote?`<pre>${esc(b.quote)}</pre>`:''}${b.pattern?`pattern: ${esc(b.pattern)}<br>`:''}
+701991	  key <code>${b.id}</code><br><a href="${b.destination}" target="_blank" rel="noopener">open the line on GitHub at that commit</a>`;}
+701992	function esc(s){return String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+701993	let drag=null;
+701994	cv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,ox:view.ox,oy:view.oy,moved:false};cv.setPointerCapture(e.pointerId);});
+701995	cv.addEventListener('pointermove',e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>4)drag.moved=true;view.ox=drag.ox+dx;view.oy=drag.oy+dy;draw();});
+701996	cv.addEventListener('pointerup',e=>{if(drag&&!drag.moved){sel=pick(e.clientX,e.clientY);show(sel);draw();}drag=null;});
+701997	cv.addEventListener('wheel',e=>{e.preventDefault();view.z=Math.max(.5,Math.min(40,view.z*(e.deltaY<0?1.15:1/1.15)));draw();},{passive:false});
+701998	addEventListener('resize',()=>{resize();draw();});
+702002	"""edition_belt.py: place the verified keyed findings of a Kuiper edition on the belt.
+702003	Law (kuiper-belt/README.md, estate-network.json "law"): one body per key;
+702004	r = a_min + (a_max - a_min) * sqrt((k + 0.5) / n), k the body ordinal among sorted keys;
+702005	theta = 2*pi*((k*2654435769) mod 2^32)/2^32, the 32-bit odometer of the live wafer (+222.492236 deg per key);
+702006	class is a property and never a position; no edges, because an unmeasured edge would be a claim
+702007	without a key.
+702008	Input : register.tsv  (worker, finding, repo, commit, path, line_start, line_end, title, pattern, verified)
+702009	Output: belt/belt.json  {name, source, law, counts, stations:[[x,y,key,copies]], edges:[]} as the wafer reads it
+702010	        belt/bodies.json one record per body, key beside the human fields
+702011	        belt/rules.txt   every constant used
+702012	        proof/<run-id>-belt.json  SHA-256 of every output, counts, the exact command line
+702013	The key of a body is the git blob SHA of the file at the commit, joined with the line number:
+702014	"<blob-sha>:<line>". It is resolved with `git rev-parse <commit>:<path>` in the local clone named
+702015	by --roots. A finding whose blob cannot be resolved is not placed; it is counted as `unresolved`.
+702017	import argparse, csv, hashlib, json, math, os, subprocess, sys, datetime
+702018	# The shipped law (kuiper-belt index.html:250, learn-the-kuiper/*/kuiper-law.js, maths/10): the angle is
+702019	# the exact 32-bit odometer, theta = 2*pi * ((k * 2654435769) mod 2**32) / 2**32, which turns +222.492236
+702020	# degrees per key (0.6180339887 of a turn). estate.py turns the mirror +137.5 as a float; this edition
+702021	# follows the live wafer, and prints which in rules.txt.
+702022	ESTATE_A_MIN, ESTATE_A_MAX = 0.16, 0.92   # kuiper-belt tools/estate.py:20 A_MIN, A_MAX
+702023	MULT = 2654435769                       # floor(2**32 / phi), hex 9E3779B9, Knuth TAOCP vol 3 s6.4
+702024	TWO32 = 2 ** 32
+702025	# Centred on zero, as estate.py:159-163 measured from the live files ("the renderer multiplies straight
+702026	# through with no centring"; SPEC.md's "unit square" was inferred from prose and was wrong). The annulus
+702027	# is estate.py's, so this belt draws at the same scale as the estate belt.
+702028	A_MIN, A_MAX = ESTATE_A_MIN, ESTATE_A_MAX
+702029	def sh(cmd, cwd=None):
+702030	    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+702031	def blob_sha(roots, repo, commit, path):
+702033	        clone = os.path.join(root, repo)
+702034	        if os.path.isdir(os.path.join(clone, ".git")):
+702035	            r = sh(["git", "-C", clone, "rev-parse", "--verify", "-q", f"{commit}:{path}"])
+702036	            if r.returncode == 0:
+702037	                return r.stdout.strip(), clone
+702038	            return None, clone
+702042	    ap.add_argument("--register", required=True)
+702043	    ap.add_argument("--roots", required=True, help="comma separated clone roots")
+702044	    ap.add_argument("--out", required=True, help="edition folder")
+702045	    ap.add_argument("--run-id", required=True)
+702046	    ap.add_argument("--asof", default=None)
+702048	    asof = args.asof or datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+702049	    roots = args.roots.split(",")
+702050	    rows = list(csv.DictReader(open(args.register, newline=""), delimiter="\t"))
+702051	    bodies, unresolved, skipped = [], [], 0
+702053	        if row.get("verified", "").strip().upper() not in ("CONFIRMED", "VERIFIED", "PASS"):
+702056	        repo, commit, path = row["repo"].strip(), row["commit"].strip(), row["path"].strip()
+702058	            line = int(str(row["line_start"]).strip())
+702060	            unresolved.append({**row, "reason": "line not an integer"}); continue
+702061	        b, clone = blob_sha(roots, repo, commit, path)
+702063	            unresolved.append({**row, "reason": "blob not resolvable in clone" if clone else "clone not found"}); continue
+702064	        key = f"{b}:{line}"
+702065	        bodies.append({
+702066	            "id": key, "blob": b, "line": line, "repo": repo, "commit": commit, "path": path,
+702067	            "line_end": row.get("line_end", "").strip() or str(line),
+702068	            "title": row.get("title", "").strip(), "pattern": row.get("pattern", "").strip(),
+702069	            "worker": row.get("worker", "").strip(), "finding": row.get("finding", "").strip(),
+702070	            "quote": row.get("quote", "").strip()[:160],
+702071	            "class": row.get("cls", "").strip() or ("focus" if repo in ("gridatlas", "data-grid-gb", "data-centres-gb") else "estate"),
+702072	            "destination": f"https://github.com/Ventusltd/{repo}/blob/{commit}/{path}#L{line}",
+702073	            "open": True,
+702075	    # one body per key: a line cited twice is one body
+702076	    seen, uniq = set(), []
+702077	    for b in bodies:
+702078	        if b["id"] in seen: continue
+702079	        seen.add(b["id"]); uniq.append(b)
+702080	    uniq.sort(key=lambda b: b["id"])
+702081	    n = len(uniq)
+702083	    for k, b in enumerate(uniq):
+702084	        r = A_MIN + (A_MAX - A_MIN) * math.sqrt((k + 0.5) / n)
+702085	        th = 2 * math.pi * ((k * MULT) % TWO32) / TWO32
+702086	        x, y = round(r * math.cos(th), 6), round(r * math.sin(th), 6)
+702087	        b["k"], b["x"], b["y"], b["r"], b["theta"] = k, x, y, round(r, 6), round(th % (2 * math.pi), 6)
+702088	        # The renderer's contract (estate.py:167-168, pilot.mjs:285-288): stations are [x, y, key(, copies)].
+702089	        stations.append([x, y, b["id"], 1])
+702090	    belt = {
+702091	        "name": f"kuiper-edition-{args.run_id}",
+702092	        "source": "verified keyed findings of the swarm; key = git blob SHA of the file at the cited commit, joined with the line",
+702093	        "attribution": "content identifiers issued by git; quotes are the estate's own lines",
+702094	        "law": "one body per key; r = a_min + (a_max - a_min) * sqrt((k + 0.5) / n) with k the body ordinal among sorted keys; theta = 2*pi*((k*2654435769) mod 2^32)/2^32, the live wafer's 32-bit odometer, +222.492236 degrees per key; class is a property and never a position; no edges, because an unmeasured edge would be a claim without a key",
+702095	        "asof": asof,
+702096	        "counts": {"register_rows": len(rows), "not_verified_skipped": skipped, "unresolved": len(unresolved), "bodies": n,
+702097	                   "dim": 0, "focus": sum(1 for b in uniq if b["class"] == "focus")},
+702098	        "stations": stations, "edges": [],
+702100	    os.makedirs(os.path.join(args.out, "belt"), exist_ok=True)
+702101	    os.makedirs(os.path.join(args.out, "proof"), exist_ok=True)
+702102	    outs = {}
+702103	    def write(rel, text):
+702104	        p = os.path.join(args.out, rel); open(p, "w").write(text); outs[rel] = hashlib.sha256(text.encode()).hexdigest()
+702105	    write("belt/belt.json", json.dumps(belt, separators=(",", ":")))
+702106	    write("belt/bodies.json", json.dumps(uniq, indent=0))
+702107	    write("belt/unresolved.json", json.dumps(unresolved, indent=1))
+702108	    git = sh(["git", "--version"]).stdout.strip()
+702109	    write("belt/rules.txt", "\n".join([
+702110	        f"asof {asof}", f"run-id {args.run_id}", f"a_min {A_MIN}", f"a_max {A_MAX}",
+702111	        f"theta_law 2*pi*((k*{MULT}) mod 2^32)/2^32  (+222.492236 deg per key; the mirror of estate.py's float +137.507764)", "radius_law sqrt((k+0.5)/n) scaled to the annulus",
+702112	        "order sorted key, key = <blob sha>:<line>", "frame centred on zero, as estate.py measured", "stations [x, y, key, copies]", "edges none (unmeasured)", f"n {n}", f"git {git}",
+702113	        "command " + " ".join(sys.argv), ""]))
+702114	    proof = {"run_id": args.run_id, "asof": asof, "sha256": outs, "counts": belt["counts"], "command": " ".join(sys.argv)}
+702115	    open(os.path.join(args.out, "proof", f"{args.run_id}-belt.json"), "w").write(json.dumps(proof, indent=1))
+702116	    print(json.dumps(belt["counts"]))
+702117	    print(json.dumps(outs, indent=1))
+702121	<title>Kuiper Edition 2</title>
+702178	    data-k="/">find</button><button data-k="e">next verified line</button><button data-k="Backspace">whole wafer</button></div>
+702179	  <span class="long"><b>KUIPER EDITION 2</b>: the verified lines of Edition 1 drawn as green sparks at their own keys on this wafer; <b>e</b> steps through them, tap one for its line and its GitHub link &middot; <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
+702278	Promise.all([tsv('../../cosmos/repos.tsv'), tsv('../../cosmos/wafer.tsv')]).then(([rr, ww]) => {
+702296	  home(); dirty = true; loadEdition();
+702317	}).catch(() => { hud.textContent = '../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });
+702671	// ============================================================ KUIPER EDITION 2: the verified lines
+702672	// Edition 1 (../202610311905/) verified 354 keyed findings of the estate and placed 346 distinct lines
+702673	// on a belt of their own. Edition 2 draws the same lines where they already are on THIS wafer: each
+702674	// line's key was computed by tools/edition_keys.py with key.py's walk (ls-tree order, lines_of), so a
+702675	// spark here is a key that python tools/key.py would resolve to that very line. Lines whose commit is
+702676	// not on the wafer are counted and named, never placed: the seventh law.
+702677	let ED = [], edPlaced = [], edSel = -1, edMeta = null;
+702678	const EDPATH = 'keys.json';
+702679	async function loadEdition(){
+702680	  try { const r = await fetch(EDPATH); if (!r.ok) throw new Error(EDPATH); const j = await r.json();
+702681	    edMeta = j.summary || {}; ED = j.bodies || j; }
+702682	  catch (e) { ED = []; edMeta = { error: 'keys.json did not load' }; }
+702683	  edPlaced = ED.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && b.key < SPACE)
+702684	               .map(b => { const p = keyPlace(b.key); return Object.assign({}, b, { x:p[0], y:p[1] }); });
+702685	  big.textContent = 'Kuiper Edition 2 · ' + fmt(edPlaced.length) + ' verified lines lit';
+702686	  sub.textContent = 'Edition 1 verified ' + fmt(ED.length) + ' lines of the estate (354 keyed findings, 495 keys re-resolved; see ../202610311905/). '
+702687	    + 'Here each is a green spark at its own key on the one wafer: ' + sub.textContent;
+702689	function edScreen(b){ return [(b.x - cx)*zoom + ov.width/2, ov.height/2 - (b.y - cy)*zoom]; }
+702690	function drawEdition(){
+702691	  if (!edPlaced.length) { if (edMeta) hud.textContent += '\nEDITION 2 · ' + (edMeta.error || 'no lines placed'); return; }
+702692	  let onScreen = 0;
+702693	  for (let i = 0; i < edPlaced.length; i++) { const b = edPlaced[i], [x, y] = edScreen(b);
+702694	    if (x < -8 || y < -8 || x > ov.width + 8 || y > ov.height + 8) continue; onScreen++;
+702695	    const sel = i === edSel, focus = b.class === 'focus';
+702696	    o2.beginPath(); o2.arc(x, y, sel ? 6 : (focus ? 3.2 : 2.6), 0, 6.2832);
+702697	    o2.fillStyle = sel ? 'rgba(255,43,214,.95)' : (focus ? 'rgba(34,238,119,.95)' : 'rgba(34,238,119,.70)'); o2.fill();
+702698	    if (sel) { o2.strokeStyle = 'rgba(255,43,214,.9)'; o2.lineWidth = 1.5; o2.beginPath(); o2.arc(x, y, 14, 0, 6.2832); o2.stroke(); } }
+702699	  const notOn = ED.length - edPlaced.length;
+702700	  hud.textContent += '\nEDITION 2 · ' + fmt(edPlaced.length) + ' verified lines on this wafer, ' + fmt(onScreen) + ' in view'
+702701	    + (notOn ? ' · ' + fmt(notOn) + ' not on the wafer (named in keys.json), counted, not placed' : '')
+702702	    + ' · bright green: gridatlas and the data-centre repositories · green: the rest of the estate';
+702703	{ const _draw = draw; draw = function(){ _draw(); drawEdition(); }; }
+702704	function edCard(i){
+702705	  const b = edPlaced[i], a = address(b.key);
+702707	  card.innerHTML = 'KUIPER EDITION 2 · verified line ' + fmt(i + 1) + ' of ' + fmt(edPlaced.length) + ' · ' + esc(b.worker) + ' ' + esc(b.finding)
+702708	    + '\n<b>' + esc(b.title) + '</b>'
+702709	    + '\n' + esc(b.repo) + '@' + esc(String(b.commit).slice(0,12)) + '  ' + esc(b.path) + ':' + b.line
+702710	    + (b.quote ? '\n| ' + esc(b.quote) : '')
+702711	    + (b.pattern ? '\npattern: ' + esc(b.pattern) : '')
+702712	    + '\n<a href="' + esc(b.destination) + '" target="_blank" rel="noopener">open the line on GitHub at that commit</a>'
+702713	    + '\n' + describe(a);
+702714	  if (a && !a.silent) litRepo = a.c.repo;
+702715	  target = { x:b.x, y:b.y }; edSel = i; dirty = true;
+702716	function esc(v){ return String(v == null ? '' : v).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+702717	function edNext(step){ if (!edPlaced.length) return; edSel = (edSel + step + edPlaced.length) % edPlaced.length;
+702718	  const b = edPlaced[edSel]; atHome = false; flyTo(b.x, b.y, 14); edCard(edSel); }
+702719	// a tap within 9 px of a spark opens that line (runs after the engine's own tap handler)
+702720	  if (!edPlaced.length || moved >= 4 || pts.size > 0) return;
+702721	  let best = -1, bd = 81;
+702722	  for (let i = 0; i < edPlaced.length; i++) { const [x, y] = edScreen(edPlaced[i]); const d = (x - e.clientX)**2 + (y - e.clientY)**2; if (d < bd) { bd = d; best = i; } }
+702723	  if (best >= 0) edCard(best);
+702724	  if (e.key === 'e') edNext(1); else if (e.key === 'E') edNext(-1); else if (e.key === 'Backspace') edSel = -1; });
+702727	<title>Kuiper editions</title>
+702728	<meta http-equiv="refresh" content="0; url=202611010114/belt/">
+702730	<main>Opening the latest Kuiper edition. <a href="202611010114/belt/">Tap here if it does not open.</a></main>
+702731	<script>location.replace('202611010114/belt/' + location.hash);</script>
+702732	"""tools/edition_keys.py - give every verified line of an edition its key on the wafer, by the wafer's own law.
+702733	    python3 tools/edition_keys.py --bodies <bodies.json> --roots /home/user/estate,/home/user --out <keys.json>
+702734	For each body (repo, commit, path, line):
+702735	    commit -> wafer row      the row of cosmos/wafer.tsv whose sha12 is commit[:12]
+702736	    row    -> k0             cumulative gap_before + lines over the whole wafer, in order (key.py load())
+702737	    path   -> lines_before   walking `git ls-tree -r <commit>` in git's own order, summing lines_of()
+702738	                             for every blob entry (symlinks included, as key.py does; submodules skipped)
+702739	    key    =  k0 + lines_before + (line - 1)
+702740	The walk is always finished, and the commit's measured total must equal the wafer row's `lines`. If it
+702741	does not, the body is `verified: false` with both numbers; nothing is invented. The body's own blob is
+702742	always read for real, its count compared, and `line <= its count` confirmed; that line's text is kept so
+702743	it can be compared with the body's quote.
+702744	data/blob-lines-history.tsv is used as a cache exactly as key.py uses it (sha -> lines), when present.
+702745	Every blob not in it is counted from git's own bytes with one streaming `git cat-file --batch` per repo.
+702746	Bodies in the same commit share one walk.
+702758	CACHE_PATH = os.path.join(HERE, '..', 'data', 'blob-lines-history.tsv')
+702762	def lines_of(body):                                   # key.py, byte for byte
+702766	CACHE = {}           # from blob-lines-history.tsv, as key.py
+702767	MEASURED = {}        # (repo dir, sha) -> lines, counted here from git's bytes
+702769	    if os.path.exists(CACHE_PATH):
+702770	        for l in io.open(CACHE_PATH, encoding='utf-8'):
+702776	def load_wafer():
+702777	    """key.py load(), plus an index sha12 -> rows."""
+702779	    by_sha, k = {}, 0
+702780	    for i, p in enumerate(rows(os.path.join(COSMOS, 'wafer.tsv'))):
+702782	        c = {'row': i, 'unix': int(p[0]), 'lines': int(p[1]), 'repo_index': int(p[2]),
+702783	             'name': names[int(p[2])], 'sha': p[3], 'k0': k}
+702785	        by_sha.setdefault(p[3], []).append(c)
+702786	    return by_sha, k
+702788	    """for comparing an edition's quote with git's line: quote marks dropped, whitespace collapsed"""
+702789	    return re.sub(r'\s+', ' ', re.sub('["\'`]', '', s)).strip()
+702790	def quote_check(q, text):
+702791	    if q == text:
+702792	        return 'exact'
+702793	    if q.strip() == text.strip():
+702794	        return 'exact after trimming whitespace'
+702795	    a, b = norm(q), norm(text)
+702796	    if a and a == b:
+702797	        return 'equal after dropping quote marks and collapsing whitespace'
+702798	    if a and a in b:
+702799	        return 'quote is a fragment of the line (after normalising)'
+702801	def find_clone(roots, name):
+702805	    for root in roots:                                 # case-insensitive fallback (Kuiper-belt)
+702807	            for n in sorted(os.listdir(root)):
+702808	                if n.lower() == name.lower() and os.path.isdir(os.path.join(root, n, '.git')):
+702809	                    return os.path.join(root, n)
+702810	def batch_read(d, shas, sink):
+702811	    """Stream `git cat-file --batch` over shas; call sink(sha, body) for each, in order."""
+702814	    p = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=d, stdin=subprocess.PIPE,
+702815	                         stdout=subprocess.PIPE, bufsize=1 << 20)
+702817	            for s in shas:
+702818	                p.stdin.write(s.encode() + b'\n')
+702819	            p.stdin.close()
+702820	        except BrokenPipeError:
+702822	    t = threading.Thread(target=feed, daemon=True)
+702823	    t.start()
+702824	    out = p.stdout
+702825	    for s in shas:
+702826	        hdr = out.readline().split()
+702828	            raise RuntimeError('cat-file could not read %s in %s: %r' % (s, d, hdr))
+702830	        body = out.read(size)
+702831	        out.read(1)
+702832	        sink(s, body)
+702833	    t.join()
+702835	def walk_commit(d, commit):
+702836	    """git ls-tree -r <commit> in git's own order -> [(path, sha, lines)] using cache/measurement."""
+702837	    r = subprocess.run(['git', 'ls-tree', '-r', '-z', commit], cwd=d, capture_output=True)
+702839	        return None, r.stderr.decode('utf-8', 'replace').strip()
+702841	    for entry in r.stdout.split(b'\x00'):
+702846	        entries.append((path.decode('utf-8', 'surrogateescape'), f[2].decode()))
+702847	    need, seen = [], set()
+702848	    for _, s in entries:
+702849	        if s not in CACHE and (d, s) not in MEASURED and s not in seen:
+702850	            seen.add(s)
+702851	            need.append(s)
+702852	    def sink(s, body):
+702853	        MEASURED[(d, s)] = lines_of(body)
+702854	    batch_read(d, need, sink)
+702855	    return [(p, s, CACHE[s] if s in CACHE else MEASURED[(d, s)]) for p, s in entries], None
+702856	    ap.add_argument('--bodies', required=True)
+702857	    ap.add_argument('--roots', required=True, help='comma separated directories holding the clones')
+702861	    roots = [r for r in a.roots.split(',') if r]
+702862	    cache_present = load_cache()
+702863	    by_sha, space = load_wafer()
+702864	    bodies = json.load(io.open(a.bodies, encoding='utf-8'))
+702865	    walks = {}                                         # (dir, commit) -> (index, total, error)
+702867	        rec = dict(b)
+702868	        rec.update({'key': None, 'k0': None, 'lines_before': None, 'commit_lines_measured': None,
+702869	                    'commit_lines_wafer': None, 'on_wafer': False, 'verified': False,
+702870	                    'repo_on_wafer': None, 'wafer_row': None, 'blob_lines': None,
+702871	                    'blob_at_path': None, 'blob_matches_body': None, 'line_text': None,
+702872	                    'quote_matches': None, 'quote_check': None, 'reason': None})
+702873	        cands = by_sha.get(b['commit'][:12], [])
+702875	            rec['reason'] = 'commit not on the wafer'
+702876	            out.append(rec)
+702877	        same = [c for c in cands if c['name'] == b['repo']] or \
+702878	               [c for c in cands if c['name'].lower() == b['repo'].lower()] or cands
+702879	        c = same[0]
+702880	        if len(cands) > 1:
+702881	            rec['wafer_rows_same_sha12'] = [{'row': x['row'], 'repo': x['name']} for x in cands]
+702882	        rec.update({'on_wafer': True, 'repo_on_wafer': c['name'], 'k0': c['k0'],
+702883	                    'commit_lines_wafer': c['lines'], 'wafer_row': c['row']})
+702884	        if c['name'] != b['repo']:
+702885	            rec['repo_name_differs'] = {'body': b['repo'], 'wafer': c['name']}
+702886	        d = find_clone(roots, b['repo']) or find_clone(roots, c['name'])
+702887	        if not d:
+702888	            rec['reason'] = 'no local clone for %s under %s' % (b['repo'], ','.join(roots))
+702889	        wk = (d, b['commit'])
+702890	        if wk not in walks:
+702891	            t1 = time.time()
+702892	            ents, err = walk_commit(d, b['commit'])
+702893	            if ents is None:
+702894	                walks[wk] = (None, None, err)
+702896	                idx, cum = {}, 0
+702897	                for p, s, n in ents:
+702898	                    if p not in idx:
+702899	                        idx[p] = (cum, s, n)
+702900	                    if n > 0:
+702901	                        cum += n
+702902	                walks[wk] = (idx, cum, None)
+702903	            print('  walked %-34s %s %9.1fs %s' % (os.path.basename(d), b['commit'][:12],
+702904	                  time.time() - t1, 'files=%d lines=%s' % (len(ents), format(walks[wk][1], ','))
+702905	                  if ents is not None else err), file=sys.stderr)
+702906	        idx, total, err = walks[wk]
+702907	        if idx is None:
+702908	            rec['reason'] = 'git ls-tree failed: %s' % err
+702909	        rec['commit_lines_measured'] = total
+702910	        if b['path'] not in idx:
+702911	            rec['reason'] = 'path not in the commit tree'
+702912	        before, sha, n = idx[b['path']]
+702913	        rec['lines_before'] = before
+702914	        rec['blob_at_path'] = sha
+702915	        if 'blob' in b:
+702916	            rec['blob_matches_body'] = (sha == b['blob'])
+702917	        # the body's own blob, always read for real
+702919	        batch_read(d, [sha], lambda s, body: got.__setitem__(s, body))
+702920	        body = got[sha]
+702921	        real = lines_of(body)
+702922	        rec['blob_lines'] = real
+702923	        problems = []
+702924	        if real != n:
+702925	            problems.append('the walk says %d lines for blob %s and git says %d' % (n, sha[:12], real))
+702926	        line = int(b['line'])
+702927	        if real <= 0:
+702928	            problems.append('blob %s holds no text lines (%d); a key cannot land in it' % (sha[:12], real))
+702929	        elif not 1 <= line <= real:
+702930	            problems.append('line %d is outside 1..%d' % (line, real))
+702932	            rec['key'] = c['k0'] + before + (line - 1)
+702933	            text = body.split(b'\n')[line - 1].decode('utf-8', 'replace').rstrip('\r')
+702934	            rec['line_text'] = text
+702935	            q = (b.get('quote') or '').split('\n')[0].rstrip('\r')
+702936	            if q:
+702937	                how = quote_check(q, text)
+702938	                rec['quote_matches'] = how is not None
+702939	                rec['quote_check'] = how
+702940	                if how is None:                      # where in the blob is the quote, then?
+702941	                    ls = body.split(b'\n')
+702942	                    hits = [i + 1 for i, l in enumerate(ls)
+702943	                            if quote_check(q, l.decode('utf-8', 'replace').rstrip('\r'))]
+702944	                    if hits:
+702945	                        near = min(hits, key=lambda h: (abs(h - line), h))
+702946	                        rec['quote_check'] = ('quote first line not at line %d; found at line %d'
+702947	                                              % (line, near))
+702948	                        rec['quote_line'] = near
+702949	                        rec['quote_key'] = c['k0'] + before + (near - 1)
+702951	                        rec['quote_check'] = 'quote first line not found in the blob'
+702952	        if total != c['lines']:
+702953	            problems.append('the walk measured %d lines in the commit, the wafer row says %d'
+702954	                            % (total, c['lines']))
+702955	        if rec['blob_matches_body'] is False:
+702956	            problems.append('blob at path is %s, the body says %s' % (sha[:12], b['blob'][:12]))
+702957	        if problems:
+702958	            rec['reason'] = '; '.join(problems)
+702959	            rec['verified'] = True
+702961	    summary = {'bodies': len(out),
+702962	               'on_wafer': sum(r['on_wafer'] for r in out),
+702963	               'verified': sum(r['verified'] for r in out),
+702964	               'keyed': sum(r['key'] is not None for r in out),
+702965	               'quote_matches': sum(r['quote_matches'] is True for r in out),
+702966	               'quote_not_at_line': [{'id': r.get('id'), 'repo': r['repo'], 'path': r['path'],
+702967	                                      'line': r['line'], 'key': r['key'],
+702968	                                      'quote_line': r.get('quote_line'),
+702969	                                      'quote_key': r.get('quote_key'), 'check': r['quote_check']}
+702970	                                     for r in out if r['quote_matches'] is False],
+702971	               'not_on_wafer': [{'id': r.get('id'), 'repo': r['repo'], 'commit': r['commit'],
+702972	                                 'reason': r['reason']} for r in out if not r['on_wafer']],
+702973	               'not_verified': [{'id': r.get('id'), 'repo': r['repo'], 'commit': r['commit'],
+702974	                                 'path': r['path'], 'line': r['line'], 'reason': r['reason']}
+702975	                                for r in out if r['on_wafer'] and not r['verified']],
+702976	               'commits_walked': len(walks),
+702977	               'cache': ('data/blob-lines-history.tsv, %d blobs' % len(CACHE)) if cache_present
+702978	               else 'data/blob-lines-history.tsv absent: every blob counted from git',
+702979	               'wafer_address_space': space,
+702980	               'law': 'key = k0(row) + lines before path in `git ls-tree -r <commit>` + (line - 1); '
+702981	                      'k0 = sum over wafer rows before it of (gap_before + lines) + its own gap_before',
+702982	               'seconds': round(time.time() - t0, 1),
+702983	               'command': ' '.join(['python3', 'tools/edition_keys.py'] + sys.argv[1:])}
+702984	    with io.open(a.out, 'w', encoding='utf-8', newline='\n') as f:
+702985	        json.dump({'summary': summary, 'bodies': out}, f, indent=1, ensure_ascii=False)
+702987	    print(json.dumps({k: v for k, v in summary.items() if k not in ('not_verified',)}, indent=1))
+702988	    if summary['not_verified']:
+702989	        print('not verified:', file=sys.stderr)
+702990	        for r in summary['not_verified']:
+702991	            print('  %s %s %s:%s  %s' % (r['repo'], r['commit'][:12], r['path'], r['line'],
+702992	                                         r['reason']), file=sys.stderr)
+702993	    return 0 if summary['verified'] == summary['on_wafer'] else 1
 ```
