@@ -1,5 +1,5 @@
 {
- "next": 2015,
+ "next": 2016,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1951,6 +1951,7 @@
   "kuiper-belt:editions/{stamp}/belt/index.html": 2011,
   "kuiper-belt:editions/{stamp}/tools/edition_belt.py": 2012,
   "kuiper-belt:editions/{stamp}/index.html": 2013,
-  "kuiper-belt:tools/edition_keys.py": 2014
+  "kuiper-belt:tools/edition_keys.py": 2014,
+  "neural-link-between-agents:FIXES/NL-009/android-journey.cjs": 2015
  }
 }

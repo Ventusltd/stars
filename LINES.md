@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-406,186 unique lines, numbered 1 to 702,993. Generated 2026-11-01T16:24:39.445Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+406,575 unique lines, numbered 1 to 704,024. Generated 2026-11-01T20:50:01.987Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -406189,4 +406189,393 @@
 702991	            print('  %s %s %s:%s  %s' % (r['repo'], r['commit'][:12], r['path'], r['line'],
 702992	                                         r['reason']), file=sys.stderr)
 702993	    return 0 if summary['verified'] == summary['on_wafer'] else 1
+703001	<title>Kuiper Edition 3</title>
+703052	  /* EDITION 3: the bar is the only thing on screen at rest; every panel is a layer under it */
+703053	  #bar{position:fixed;top:0;left:0;right:0;z-index:12;display:flex;gap:4px;align-items:center;padding:6px 8px;
+703054	    background:#090c13e6;border-bottom:1px solid #12414a;overflow-x:auto;white-space:nowrap}
+703055	  #barname{color:var(--cy);letter-spacing:.14em;font-size:12px;margin-right:8px;text-transform:uppercase}
+703056	  #bar .gm-title{appearance:none;border:1px solid #12414a;background:transparent;color:#8fb3bd;font:inherit;
+703057	    text-transform:uppercase;letter-spacing:.08em;padding:6px 10px;cursor:pointer;touch-action:manipulation}
+703058	  #bar .gm-title:hover,#bar .gm-title.gm-on{background:rgba(80,220,240,.16);color:#fff;border-color:var(--cy)}
+703059	  #top,#hud,#foot,#lines{display:none}
+703060	  #top.gm-open,#hud.gm-open,#foot.gm-open,#lines.gm-open{display:block}
+703061	  #top,#hud,#foot,#lines{position:fixed;top:40px;left:0;right:auto;bottom:auto;max-width:min(680px,96vw);max-height:60vh;overflow:auto;
+703062	    z-index:11;background:#090c13f2;border:1px solid #1d6470;border-radius:0 0 6px 6px;padding:10px 12px;pointer-events:auto;text-align:left}
+703063	  #hud{right:0;left:auto;max-width:min(560px,96vw)} #foot{border-top:1px solid #1d6470}
+703064	  #top #sub{max-height:none;overflow:visible;margin-top:4px}
+703065	  #lines{left:0;right:0;max-width:none;width:min(720px,96vw)}
+703066	  #linesctl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+703067	  #linesctl label{color:#8fb3bd} #linesctl input[type=text],#linesctl #lyFind{flex:1 1 180px;background:var(--bg);color:var(--ink);border:1px solid #12414a;padding:5px 8px;font:inherit}
+703068	  #linesctl button{background:#0b1a20;color:#8fb3bd;border:1px solid #12414a;padding:5px 9px;font:inherit;text-transform:uppercase;cursor:pointer}
+703069	  #lineslist .ln{padding:5px 6px;border-top:1px solid #121a26;cursor:pointer;color:var(--dim)} #lineslist .ln b{color:var(--ink);font-weight:600}
+703070	  #lineslist .ln.focus b{color:var(--gn)} #lineslist .ln.sel{background:rgba(255,43,214,.12)} #lineslist .ln:hover{background:rgba(80,220,240,.10)}
+703071	  #card{bottom:12px!important;z-index:13}
+703072	  @media (max-width:640px){ #bar{flex-wrap:wrap;white-space:normal;overflow:visible} #barname{font-size:11px;margin-right:4px} #bar .gm-title{padding:5px 8px}
+703073	    #top,#hud,#foot,#lines{top:calc(var(--barh,46px) + 0px);left:0;right:0;max-width:none;max-height:62vh} #hud{text-align:left} }
+703085	  <span class="long"><b>KUIPER EDITION 3</b>: the verified lines of Edition 1 drawn as green sparks at their own keys on this wafer; <b>e</b> steps through them, tap one for its line and its GitHub link &middot; <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
+703595	  big.textContent = 'Kuiper Edition 3 · ' + fmt(edPlaced.length) + ' verified lines lit';
+703601	  if (!edPlaced.length) { if (edMeta) hud.textContent += '\nEDITION 3 · ' + (edMeta.error || 'no lines placed'); return; }
+703617	  card.innerHTML = 'KUIPER EDITION 3 · verified line ' + fmt(i + 1) + ' of ' + fmt(edPlaced.length) + ' · ' + esc(b.worker) + ' ' + esc(b.finding)
+703635	// ============================================================ EDITION 3: the menu bar, panels at rest hidden
+703636	// Borrowed in spirit from gridatlas atlas/modules/202609031958-menu-bar.js: one row of titles, every panel
+703637	// hidden until its title is tapped, one open at a time, closed by the same tap, by Escape, or by a tap on the
+703638	// wafer. The wafer gets the whole screen; the readout, the commands and the edition's own text are layers.
+703639	const bar = document.createElement('div'); bar.id = 'bar';
+703640	bar.innerHTML = '<span id="barname">KUIPER EDITION 3</span>'
+703641	  + '<button class="gm-title" data-panel="top">edition</button>'
+703642	  + '<button class="gm-title" data-panel="hud">readout</button>'
+703643	  + '<button class="gm-title" data-panel="lines">lines</button>'
+703644	  + '<button class="gm-title" data-panel="foot">commands</button>';
+703645	document.body.appendChild(bar);
+703646	const linesPanel = document.createElement('div'); linesPanel.id = 'lines'; linesPanel.className = 'gm-panel';
+703647	linesPanel.innerHTML = '<div id="linesctl"><label><input type="checkbox" id="lyAll" checked> verified lines layer</label>'
+703648	  + '<label><input type="checkbox" id="lyFocus"> gridatlas + data centres only</label>'
+703649	  + '<button data-k="e">next</button><button data-k="E">previous</button><input id="lyFind" placeholder="filter: repository, file or title"></div><div id="lineslist"></div>';
+703650	document.body.appendChild(linesPanel);
+703651	const PANELS = { top: elTop, hud: hud, lines: linesPanel, foot: elFoot };
+703652	let openPanel = null;
+703653	function placePanels(){ const h = bar.getBoundingClientRect().height; for (const el of Object.values(PANELS)) el.style.top = (h + 2) + 'px'; }
+703654	addEventListener('resize', placePanels);
+703655	function setPanel(name){ placePanels();
+703656	  openPanel = (openPanel === name) ? null : name;
+703657	  for (const [k, el] of Object.entries(PANELS)) el.classList.toggle('gm-open', k === openPanel);
+703658	  for (const b of bar.querySelectorAll('.gm-title')) b.classList.toggle('gm-on', b.dataset.panel === openPanel);
+703659	  if (openPanel === 'lines') fillLines();
+703660	bar.addEventListener('click', e => { const b = e.target.closest('.gm-title'); if (b) { e.stopPropagation(); setPanel(b.dataset.panel); } });
+703661	addEventListener('keydown', e => { if (e.key === 'Escape' && openPanel) setPanel(openPanel); });
+703662	cv.addEventListener('pointerdown', () => { if (openPanel) setPanel(openPanel); });
+703663	elTop.classList.add('open');                                   // the long subtitle is readable once the panel is open
+703664	// the safe rectangle now starts under the bar, and the hidden panels take no room
+703665	{ const _safe = safeBox; safeBox = function(){ const s = _safe(); s.y0 = Math.max(s.y0, bar.getBoundingClientRect().bottom + 8); s.y1 = Math.max(s.y0 + 24, innerHeight - 8); return s; }; }
+703666	// the lines layer: on/off and focus-only, the list, the filter
+703667	let lyOn = true, lyFocus = false, lyQuery = '';
+703668	document.getElementById('lyAll').addEventListener('change', e => { lyOn = e.target.checked; dirty = true; });
+703669	document.getElementById('lyFocus').addEventListener('change', e => { lyFocus = e.target.checked; dirty = true; fillLines(); });
+703670	document.getElementById('lyFind').addEventListener('input', e => { lyQuery = e.target.value.trim().toLowerCase(); fillLines(); });
+703671	document.getElementById('lyFind').addEventListener('keydown', e => e.stopPropagation());
+703672	linesPanel.addEventListener('click', e => { const k = e.target.getAttribute('data-k'); if (k) { e.stopPropagation(); dispatchEvent(new KeyboardEvent('keydown', { key:k })); return; }
+703673	  const row = e.target.closest('[data-i]'); if (row) { e.stopPropagation(); const i = +row.dataset.i; const b = edPlaced[i]; atHome = false; flyTo(b.x, b.y, 14); edCard(i); } });
+703674	function visibleLine(b){ return lyOn && (!lyFocus || b.class === 'focus'); }
+703675	function fillLines(){
+703676	  const list = document.getElementById('lineslist'); if (!list) return;
+703678	  edPlaced.forEach((b, i) => { if (!visibleLine(b)) return;
+703679	    const hay = (b.repo + ' ' + b.path + ' ' + b.title).toLowerCase(); if (lyQuery && !hay.includes(lyQuery)) return;
+703680	    rows.push('<div class="ln' + (i === edSel ? ' sel' : '') + (b.class === 'focus' ? ' focus' : '') + '" data-i="' + i + '"><b>' + esc(b.repo) + '</b> ' + esc(b.path) + ':' + b.line + '<br>' + esc(b.title) + '</div>'); });
+703681	  list.innerHTML = rows.join('') || '<div class="ln">no line matches</div>';
+703682	// the sparks obey the layer switches
+703683	{ const _drawEd = drawEdition; drawEdition = function(){ if (!lyOn) { hud.textContent += '\nEDITION 3 · verified lines layer off'; return; }
+703684	    const keep = edPlaced; if (lyFocus) edPlaced = keep.filter(b => b.class === 'focus'); try { _drawEd(); } finally { edPlaced = keep; } }; }
+703685	{ const _edNext = edNext; edNext = function(step){ if (!edPlaced.length) return; let i = edSel, n = edPlaced.length;
+703686	    for (let t = 0; t < n; t++) { i = (i + step + n) % n; if (visibleLine(edPlaced[i])) break; }
+703687	    edSel = i; const b = edPlaced[edSel]; atHome = false; flyTo(b.x, b.y, 14); edCard(edSel); }; }
+703692	<title>Kuiper Edition 4</title>
+703693	  #card{bottom:12px!important;z-index:13;max-height:30vh;overflow:auto;padding:8px 36px 8px 12px;position:fixed}
+703694	  #card .cx{position:absolute;right:6px;top:4px;width:26px;height:26px;border:1px solid #12414a;color:#8fb3bd;background:transparent;font:inherit;cursor:pointer;touch-action:manipulation}
+703695	  #card .cq{color:#cde;border-left:2px solid #3a4150;padding-left:8px;margin:4px 0;white-space:pre-wrap}
+703696	  #card .cd{display:none;color:var(--dim);margin-top:6px;border-top:1px solid #121a26;padding-top:6px}
+703697	  #card.open .cd{display:block}
+703698	  #card .ct{color:var(--cy);cursor:pointer;text-decoration:underline dotted}
+703699	  @media (max-width:640px){ #card{left:6px;right:6px;bottom:6px!important;max-height:34vh;font-size:11px} }
+703700	  <span class="long"><b>KUIPER EDITION 4</b>: the verified lines of Edition 1 drawn as green sparks at their own keys on this wafer; <b>e</b> steps through them, tap one for its line and its GitHub link &middot; <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
+703701	  big.textContent = 'Kuiper Edition 4 · ' + fmt(edPlaced.length) + ' verified lines lit';
+703702	  if (!edPlaced.length) { if (edMeta) hud.textContent += '\nEDITION 4 · ' + (edMeta.error || 'no lines placed'); return; }
+703703	  card.style.display = 'block'; card.classList.remove('open');
+703704	  card.innerHTML = '<button class="cx" aria-label="close">×</button>'
+703705	    + '<b>' + esc(b.title) + '</b>  <span style="color:var(--dim)">' + fmt(i + 1) + ' of ' + fmt(edPlaced.length) + '</span>'
+703706	    + '\n' + esc(b.repo) + '  ' + esc(b.path) + ':' + b.line
+703707	    + (b.quote ? '<div class="cq">' + esc(b.quote) + '</div>' : '')
+703708	    + '<a href="' + esc(b.destination) + '" target="_blank" rel="noopener">open on GitHub at ' + esc(String(b.commit).slice(0,7)) + '</a>'
+703709	    + '  ·  <span class="ct">details</span>'
+703710	    + '<div class="cd">' + (b.pattern ? 'pattern: ' + esc(b.pattern) + '\n' : '') + 'found by ' + esc(b.worker) + ' ' + esc(b.finding) + ', verified by a controller\n' + describe(a) + '</div>';
+703711	// the card toggles its details, closes on ×, and never swallows the link
+703713	  if (e.target.closest('.cx')) { card.style.display = 'none'; edSel = -1; target = null; dirty = true; e.stopPropagation(); return; }
+703714	  if (e.target.closest('.ct')) { card.classList.toggle('open'); e.stopPropagation(); return; }
+703715	  if (e.target.closest('a')) { e.stopPropagation(); return; }
+703716	  e.stopPropagation();                                           // a tap on the card body keeps it open
+703718	// fly so that the spark lands in the clear space: under the bar, above the card
+703719	function edFly(b){
+703720	  const z = 14, s = safeBox(); const cardH = card.style.display === 'block' ? card.getBoundingClientRect().height + 12 : 0;
+703721	  const mx = (s.x0 + s.x1)/2, my = (s.y0 + Math.max(s.y0 + 40, s.y1 - cardH))/2;
+703722	  atHome = false; flyTo(b.x - (mx - innerWidth/2)/z, b.y + (my - innerHeight/2)/z, z);
+703723	  const b = edPlaced[edSel]; edCard(edSel); edFly(b); }
+703724	  if (best >= 0) { edCard(best); edFly(edPlaced[best]); }
+703725	bar.innerHTML = '<span id="barname">KUIPER EDITION 4</span>'
+703726	  const row = e.target.closest('[data-i]'); if (row) { e.stopPropagation(); const i = +row.dataset.i; const b = edPlaced[i]; if (openPanel) setPanel(openPanel); edCard(i); edFly(b); } });
+703727	{ const _drawEd = drawEdition; drawEdition = function(){ if (!lyOn) { hud.textContent += '\nEDITION 4 · verified lines layer off'; return; }
+703728	    edSel = i; const b = edPlaced[edSel]; edCard(edSel); edFly(b); }; }
+703731	<meta http-equiv="refresh" content="0; url=202611012027/">
+703733	<main>Opening the latest Kuiper edition. <a href="202611012027/">Tap here if it does not open.</a></main>
+703734	<script>location.replace('202611012027/' + location.hash);</script>
+703736	// android-journey.cjs — the Android end-to-end journey of a Kuiper edition, measured, not eyeballed.
+703737	//   node android-journey.cjs <url> <outdir> [--device "Pixel 7"] [--all] [--devices "Pixel 7,Galaxy S24"]
+703738	// Runs on Pixel 7 by default; --all adds Galaxy S24 and Pixel 7 landscape. Real touch only
+703739	// (page.touchscreen.tap for taps, CDP Input.dispatchTouchEvent for pinch, drag and in-panel scroll;
+703740	// the keyboard is used only for the three presses of "e" and for typing the filter). Every step
+703741	// takes a screenshot into <outdir>/<device>/NN-<step>.png and records a measured assertion. The JSON
+703742	// report goes to stdout and to <outdir>/report.json. Exit code 0 when every step of every device
+703743	// passed, 1 otherwise, 2 on a harness error.
+703744	// Element ids and texts the script relies on (keep them in later editions or update this list):
+703745	//   #bar with .gm-title buttons carrying data-panel="top" (text EDITION), "hud" (READOUT), "lines" (LINES),
+703746	//     "foot" (COMMANDS); a SEE THROUGH control is any <button> or <a> in #bar whose text matches /see ?through/i
+703747	//     or whose href contains "see-through"; the open title carries class gm-on
+703748	//   panels: #top (EDITION, with #big and #sub inside), #hud, #lines, #foot; an open panel carries class gm-open
+703749	//   #lines: #lyFind (filter input), #lineslist with rows .ln[data-i]
+703750	//   #foot: #keys button[data-k="Backspace"] (text WHOLE WAFER)
+703751	//   #card: shown with style display:block; title line "<b>title</b> <span>n of N</span>"; .ct toggles details
+703752	//     (class open on #card, .cd becomes visible); .cx closes
+703753	//   canvases: #c (WebGL wafer), #o (2d overlay where the sparks are drawn: green rgba(34,238,119), the selected
+703754	//     spark magenta rgba(255,43,214) with a 14 px ring); #o.width === innerWidth (1 canvas px = 1 CSS px)
+703755	//   keys.json next to the page: bodies[] with key, on_wafer, verified, in the order the page uses (edPlaced)
+703756	//   #big text contains "verified lines lit" once keys.json has loaded
+703758	const { chromium, devices } = require('playwright');
+703761	const positional = argv.filter(a => !a.startsWith('--'));
+703762	const flag = (n) => { const i = argv.indexOf(n); return i >= 0 ? (argv[i + 1] || true) : null; };
+703763	if (positional.length < 2) { console.error('usage: node android-journey.cjs <url> <outdir> [--device NAME] [--all] [--devices A,B]'); process.exit(2); }
+703764	const URL0 = positional[0], OUT = path.resolve(positional[1]);
+703765	let DEVICES = ['Pixel 7'];
+703766	if (flag('--all')) DEVICES = ['Pixel 7', 'Galaxy S24', 'Pixel 7 landscape'];
+703767	if (flag('--device')) DEVICES = [String(flag('--device'))];
+703768	if (flag('--devices')) DEVICES = String(flag('--devices')).split(',').map(s => s.trim()).filter(Boolean);
+703769	const SETTLE_MAX = 10000, FIXED_WAIT = 6500, MARGIN = 10;   // px margin for "clear space"
+703770	const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+703772	// ------------------------------------------------------------------ in-page probes (self-contained)
+703773	function probeFn() {
+703774	  const R = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { left: +r.left.toFixed(1), top: +r.top.toFixed(1), right: +r.right.toFixed(1), bottom: +r.bottom.toFixed(1), width: +r.width.toFixed(1), height: +r.height.toFixed(1) }; };
+703775	  const vis = el => !!el && getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().height > 0;
+703776	  const q = s => document.querySelector(s);
+703777	  const bar = q('#bar'), card = q('#card');
+703778	  const titles = [...document.querySelectorAll('#bar .gm-title')].map(b => ({ text: b.textContent.trim(), panel: b.dataset.panel, on: b.classList.contains('gm-on'), rect: R(b) }));
+703779	  const barname = q('#barname');
+703780	  // the overlay canvas: magenta = selected spark, green = sparks
+703781	  let magenta = null, greens = [], overlayOk = false;
+703782	  const ov = q('#o');
+703783	  if (ov && ov.width > 0) {
+703785	      const ctx = ov.getContext('2d'); const W = ov.width, H = ov.height; const d = ctx.getImageData(0, 0, W, H).data;
+703786	      let sx = 0, sy = 0, n = 0, minx = 1e9, miny = 1e9, maxx = -1, maxy = -1; const gp = [];
+703787	      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3];
+703788	        if (a < 60) continue;
+703789	        if (r > 180 && g < 110 && b > 140) { sx += x; sy += y; n++; if (x < minx) minx = x; if (y < miny) miny = y; if (x > maxx) maxx = x; if (y > maxy) maxy = y; }
+703790	        else if (g > 150 && r < 120 && b < 170 && a > 120) gp.push([x, y]); }
+703791	      overlayOk = true;
+703792	      if (n > 0) magenta = { x: +(sx / n).toFixed(1), y: +(sy / n).toFixed(1), px: n, bbox: [minx, miny, maxx, maxy] };
+703793	      // greedy clustering of green pixels into sparks
+703794	      const cl = [];
+703795	      for (const [x, y] of gp) { let hit = null; for (const c of cl) { if (Math.abs(c.cx - x) <= 7 && Math.abs(c.cy - y) <= 7) { hit = c; break; } }
+703796	        if (hit) { hit.sx += x; hit.sy += y; hit.n++; hit.cx = hit.sx / hit.n; hit.cy = hit.sy / hit.n; } else cl.push({ sx: x, sy: y, n: 1, cx: x, cy: y }); }
+703797	      greens = cl.filter(c => c.n >= 6).map(c => ({ x: +c.cx.toFixed(1), y: +c.cy.toFixed(1), px: c.n }));
+703798	    } catch (e) { overlayOk = false; }
+703799	  const cardOpen = vis(card);
+703800	  let cardIndex = null, cardTotal = null;
+703801	  if (cardOpen) { const m = card.textContent.match(/(\d[\d,]*)\s+of\s+(\d[\d,]*)/); if (m) { cardIndex = +m[1].replace(/,/g, ''); cardTotal = +m[2].replace(/,/g, ''); } }
+703802	  const cs = cardOpen ? getComputedStyle(card) : null;
+703803	  const hitAt = (x, y) => { const el = document.elementFromPoint(x, y); return el ? (el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className ? '.' + String(el.className).split(' ')[0] : '')) : null; };
+703805	    viewport: { w: innerWidth, h: innerHeight, dpr: devicePixelRatio, scrollX: scrollX, scrollY: scrollY, vvScale: visualViewport ? visualViewport.scale : null, vvOffset: visualViewport ? [visualViewport.offsetLeft, visualViewport.offsetTop] : null },
+703806	    bar: R(bar), barScroll: bar ? { scrollWidth: bar.scrollWidth, clientWidth: bar.clientWidth } : null, barname: barname ? { text: barname.textContent.trim(), rect: R(barname) } : null, titles,
+703807	    panels: Object.fromEntries(['top', 'hud', 'lines', 'foot'].map(id => { const el = q('#' + id); return [id, el ? { visible: vis(el), open: el.classList.contains('gm-open'), rect: R(el), overflowY: getComputedStyle(el).overflowY, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight, scrollTop: el.scrollTop } : null]; })),
+703808	    sub: q('#sub') ? { scrollHeight: q('#sub').scrollHeight, clientHeight: q('#sub').clientHeight, scrollTop: q('#sub').scrollTop, overflowY: getComputedStyle(q('#sub')).overflowY } : null,
+703809	    card: { open: cardOpen, rect: cardOpen ? R(card) : null, maxHeight: cs ? cs.maxHeight : null, height: cardOpen ? card.getBoundingClientRect().height : 0, scrollHeight: card.scrollHeight, detailsOpen: card.classList.contains('open'), index: cardIndex, total: cardTotal, title: cardOpen ? (card.querySelector('b') ? card.querySelector('b').textContent : card.textContent.slice(0, 80)) : null, hasClose: !!card.querySelector('.cx'), hasDetails: !!card.querySelector('.ct'), detailsVisible: vis(card.querySelector('.cd')), closeRect: R(card.querySelector('.cx')), detailsRect: R(card.querySelector('.ct')) },
+703810	    lines: { rows: document.querySelectorAll('#lineslist .ln[data-i]').length, firstRow: R(q('#lineslist .ln[data-i]')), firstRowText: q('#lineslist .ln[data-i]') ? q('#lineslist .ln[data-i]').textContent.trim().slice(0, 120) : null, allRowsMatch: null, find: R(q('#lyFind')), findValue: q('#lyFind') ? q('#lyFind').value : null },
+703811	    big: q('#big') ? q('#big').textContent : null,
+703812	    overlayOk, magenta, greens, greensCount: greens.length,
+703813	    hitAtMagenta: magenta ? hitAt(magenta.x, magenta.y) : null,
+703814	    seeThrough: (() => { const els = [...document.querySelectorAll('#bar button, #bar a')]; const el = els.find(e => /see\s*-?\s*through/i.test(e.textContent) || /see-through/i.test(e.getAttribute('href') || '')); return el ? { text: el.textContent.trim(), tag: el.tagName.toLowerCase(), href: el.getAttribute('href'), target: el.getAttribute('target'), rect: R(el) } : null; })(),
+703815	    activeElement: document.activeElement ? (document.activeElement.id || document.activeElement.tagName) : null,
+703817	// screenshot analysis: paint the PNG onto a canvas sized like the viewport and measure the lit pixels under the bar
+703818	async function waferFromPng(page, b64, yFrom) {
+703819	  return page.evaluate(async ({ b64, yFrom }) => {
+703820	    const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode();
+703821	    const W = innerWidth, H = innerHeight, c = document.createElement('canvas'); c.width = W; c.height = H;
+703822	    const g = c.getContext('2d'); g.drawImage(img, 0, 0, W, H); const d = g.getImageData(0, 0, W, H).data;
+703823	    let lit = 0, tot = 0, minx = 1e9, miny = 1e9, maxx = -1, maxy = -1;
+703824	    for (let y = Math.max(0, Math.floor(yFrom)); y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4; tot++;
+703825	      const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+703826	      if (lum > 34) { lit++; if (x < minx) minx = x; if (y < miny) miny = y; if (x > maxx) maxx = x; if (y > maxy) maxy = y; } }
+703827	    return { litFraction: +(lit / Math.max(1, tot)).toFixed(4), litPx: lit, bbox: lit ? [minx, miny, maxx, maxy] : null, bboxW: lit ? maxx - minx + 1 : 0, bboxH: lit ? maxy - miny + 1 : 0 };
+703828	  }, { b64, yFrom });
+703829	// the placement law, the same arithmetic as the page: used only to predict which spark is nearest to a tap
+703830	const G32 = 2654435769;
+703831	function keyPlace(k) { const m = Math.imul((k % 4294967296) >>> 0, G32) >>> 0, th = 2 * Math.PI * m / 4294967296, r = Math.sqrt(k + 0.5); return [r * Math.cos(th), r * Math.sin(th)]; }
+703832	// ------------------------------------------------------------------ one device run
+703833	async function runDevice(browser, deviceName) {
+703834	  const dev = devices[deviceName];
+703835	  if (!dev) throw new Error('unknown Playwright device: ' + deviceName);
+703836	  const dir = path.join(OUT, slug(deviceName)); fs.mkdirSync(dir, { recursive: true });
+703837	  const context = await browser.newContext({ ...dev, locale: 'en-GB' });
+703838	  const page = await context.newPage(); page.setDefaultTimeout(180000);
+703840	  page.on('console', m => { if (m.type() === 'error') errors.push({ kind: 'console', text: m.text().slice(0, 300) }); });
+703841	  page.on('pageerror', e => errors.push({ kind: 'pageerror', text: String(e.message || e).slice(0, 300) }));
+703842	  page.on('requestfailed', r => { const f = r.failure(); if (f && !/aborted|ERR_ABORTED/i.test(f.errorText)) errors.push({ kind: 'request', text: r.url().slice(0, 200) + ' ' + f.errorText }); });
+703844	  const steps = []; let n = 0;
+703845	  const probe = () => page.evaluate(probeFn);
+703846	  const shot = async (id) => { const f = path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png'); await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); return path.relative(OUT, f); };
+703847	  const record = (id, name, pass, measured, note) => { const s = { id, name, pass: !!pass, measured, note: note || '' }; steps.push(s); process.stderr.write(`[${deviceName}] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}\n`); return s; };
+703848	  const tapAt = (x, y) => page.touchscreen.tap(Math.round(x), Math.round(y));
+703849	  const tapRect = async (r) => { if (!r) throw new Error('no rect to tap'); await tapAt((r.left + r.right) / 2, (r.top + r.bottom) / 2); };
+703850	  const touch = async (type, points) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: points.map((p, i) => ({ x: p[0], y: p[1], id: i + 1, radiusX: 4, radiusY: 4, force: 1 })) });
+703851	  const settle = async (opts = {}) => {              // wait until the selected spark stops moving (the fly ended and was drawn), or FIXED_WAIT when there is none
+703852	    const t0 = Date.now(); let last = null, stable = 0;
+703853	    while (Date.now() - t0 < SETTLE_MAX) { await sleep(400); const p = await probe();
+703854	      if (!p.magenta) { if (opts.noSpark && Date.now() - t0 >= FIXED_WAIT) return p; if (!opts.noSpark && Date.now() - t0 >= SETTLE_MAX - 400) return p; continue; }
+703855	      if (last && Math.hypot(p.magenta.x - last.x, p.magenta.y - last.y) < 0.6) stable++; else stable = 0; last = p.magenta;
+703856	      if (stable >= 3 && Date.now() - t0 >= 1600) return p; }
+703857	    return probe();
+703858	  const clearSpace = (p) => {                          // the spark must sit between the bar and the card, with margins, and the hit test must land on the wafer
+703859	    if (!p.magenta) return { ok: false, why: 'no selected spark drawn on #o' };
+703860	    const top = p.bar.bottom + MARGIN, bot = (p.card.open ? p.card.rect.top : p.viewport.h) - MARGIN;
+703861	    const okY = p.magenta.y >= top && p.magenta.y <= bot, okX = p.magenta.x >= MARGIN && p.magenta.x <= p.viewport.w - MARGIN;
+703862	    const okHit = p.hitAtMagenta === '#c' || p.hitAtMagenta === '#o' || p.hitAtMagenta === 'canvas';
+703863	    return { ok: okY && okX && okHit, sparkY: p.magenta.y, sparkX: p.magenta.x, barBottom: p.bar.bottom, cardTop: p.card.open ? p.card.rect.top : null, windowY: [top, bot], hitTest: p.hitAtMagenta, why: okY && okX ? (okHit ? '' : 'spark covered by ' + p.hitAtMagenta) : 'spark at y=' + p.magenta.y + ' outside [' + top + ',' + bot + ']' };
+703864	  const cardCapPx = (p) => { const mh = p.card.maxHeight || ''; const m = mh.match(/([\d.]+)(vh|px)/); if (!m) return null; return m[2] === 'vh' ? +m[1] / 100 * p.viewport.h : +m[1]; };
+703865	  const cardUnderCap = (p) => { const cap = cardCapPx(p); return { cap: cap && +cap.toFixed(1), height: p.card.height, ok: !p.card.open || (cap == null ? p.card.rect.bottom <= p.viewport.h + 1 : p.card.height <= cap + 1 && p.card.rect.bottom <= p.viewport.h + 1) }; };
+703866	  let bodies = [], placed = [];  // keys.json, for the nearest-spark prediction
+703867	  const report = { device: deviceName, viewport: dev.viewport, dpr: dev.deviceScaleFactor, url: URL0, startedAt: new Date().toISOString(), steps, consoleErrors: errors, pass: false };
+703869	    // 1 load
+703871	    await page.goto(URL0, { waitUntil: 'load', timeout: 120000 });
+703872	    await page.waitForFunction(() => /verified lines lit/.test((document.getElementById('big') || {}).textContent || ''), null, { timeout: 60000 }).catch(() => {});
+703873	    await sleep(FIXED_WAIT);
+703874	    const frames = await page.evaluate(() => new Promise(res => { const t = []; let last = performance.now(); const f = () => { const now = performance.now(); t.push(now - last); last = now; if (t.length < 12) requestAnimationFrame(f); else res(t); }; requestAnimationFrame(f); setTimeout(() => res(t), 6000); }));
+703875	    let p = await probe();
+703876	    const png = await page.screenshot({ type: 'png', scale: 'css', timeout: 180000 });
+703877	    const wafer = await waferFromPng(page, png.toString('base64'), p.bar ? p.bar.bottom : 0);
+703878	    const tops = [p.barname && p.barname.rect ? p.barname.rect.top : null, ...p.titles.map(t => t.rect.top)].filter(v => v != null);
+703879	    const oneRow = p.bar && tops.length && Math.max(...tops) - Math.min(...tops) < 4 && p.bar.height < 2 * Math.min(...p.titles.map(t => t.rect.height)) && p.barScroll.scrollWidth <= p.barScroll.clientWidth + 1;
+703880	    const fr = frames.slice(1).sort((a, b) => a - b);
+703881	    const waferOk = wafer.litFraction > 0.03 && wafer.bbox && wafer.bboxW > 0.4 * p.viewport.w && Math.abs(wafer.bboxW / wafer.bboxH - 1) < 0.25;
+703882	    record('load', 'load: zero console errors, wafer drawn, bar one row', errors.length === 0 && waferOk && oneRow,
+703883	      { loadMs: Date.now() - t0, consoleErrors: errors.slice(), big: p.big, wafer, bar: p.bar, barTitles: p.titles.map(t => t.text), titleTops: tops, barScroll: p.barScroll, oneRow: !!oneRow, sparksVisible: p.greensCount, frameMs: fr.length ? { median: +fr[fr.length >> 1].toFixed(0), max: +fr[fr.length - 1].toFixed(0) } : null, screenshot: await shot('load') },
+703884	      [errors.length ? errors.length + ' console error(s)' : '', waferOk ? '' : 'wafer not detected as a disc under the bar', oneRow ? '' : 'bar is not one row (tops ' + tops.join('/') + ', height ' + (p.bar && p.bar.height) + ')'].filter(Boolean).join('; '));
+703885	    try { const j = await page.evaluate(async () => (await (await fetch('keys.json')).json())); bodies = j.bodies || j; placed = bodies.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0).map(b => { const [x, y] = keyPlace(b.key); return { key: b.key, x, y, title: b.title, repo: b.repo }; }); } catch (e) { placed = []; }
+703886	    // 2 EDITION opens
+703887	    const titleRect = (panel) => { const t = p.titles.find(t => t.panel === panel); return t && t.rect; };
+703888	    await tapRect(titleRect('top')); await sleep(600); p = await probe();
+703889	    const tp = p.panels.top; let scrolled = null;
+703890	    if (tp && tp.visible) {
+703891	      const sh = Math.max(tp.scrollHeight - tp.clientHeight, p.sub ? p.sub.scrollHeight - p.sub.clientHeight : 0);
+703892	      if (sh > 8) {   // a one-finger drag upward inside the panel must scroll the panel, not the page
+703893	        const x = (tp.rect.left + tp.rect.right) / 2, y0 = tp.rect.bottom - 30, y1 = Math.max(tp.rect.top + 20, y0 - 160);
+703894	        await touch('touchStart', [[x, y0]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x, y0 + (y1 - y0) * i / 10]]); await sleep(25); } await touch('touchEnd', []); await sleep(500);
+703895	        const q = await probe(); scrolled = { panelScrollTop: q.panels.top.scrollTop, subScrollTop: q.sub ? q.sub.scrollTop : null, pageScrollY: q.viewport.scrollY, scrollable: sh };
+703896	        scrolled.ok = (scrolled.panelScrollTop > 4 || (scrolled.subScrollTop || 0) > 4) && q.viewport.scrollY === 0;
+703897	      } else scrolled = { scrollable: sh, ok: true, note: 'panel content fits, nothing to scroll' };
+703899	    const underBar = tp && tp.visible && tp.rect.top >= p.bar.bottom - 1 && tp.rect.bottom <= p.viewport.h + 1 && /auto|scroll/.test(tp.overflowY);
+703900	    record('edition-open', 'tap EDITION: panel opens under the bar and scrolls inside', tp && tp.visible && underBar && scrolled && scrolled.ok,
+703901	      { panel: tp, barBottom: p.bar.bottom, titleOn: (p.titles.find(t => t.panel === 'top') || {}).on, scroll: scrolled, screenshot: await shot('edition-open') },
+703902	      !tp || !tp.visible ? 'EDITION panel did not open' : (!underBar ? 'panel top ' + tp.rect.top + ' vs bar bottom ' + p.bar.bottom + ', bottom ' + tp.rect.bottom + ', overflow ' + tp.overflowY : (scrolled && !scrolled.ok ? 'drag inside the panel did not scroll it (scrollTop ' + scrolled.panelScrollTop + '/' + scrolled.subScrollTop + ')' : '')));
+703903	    // 3 EDITION closes
+703904	    await tapRect(titleRect('top')); await sleep(500); p = await probe();
+703905	    record('edition-close', 'tap EDITION again: panel closes', !p.panels.top.visible && !(p.titles.find(t => t.panel === 'top') || {}).on, { panel: p.panels.top, screenshot: await shot('edition-close') }, p.panels.top.visible ? 'panel still visible' : '');
+703906	    // 4 LINES
+703907	    await tapRect(titleRect('lines')); await sleep(800); p = await probe();
+703908	    const lp = p.panels.lines;
+703909	    record('lines-open', 'tap LINES: panel opens under the bar with the rows', lp.visible && lp.rect.top >= p.bar.bottom - 1 && lp.rect.bottom <= p.viewport.h + 1 && p.lines.rows > 0,
+703910	      { panel: lp, rows: p.lines.rows, firstRow: p.lines.firstRow, find: p.lines.find, screenshot: await shot('lines-open') }, lp.visible ? (p.lines.rows ? '' : 'no rows') : 'LINES did not open');
+703911	    // 5 filter "acceptance"
+703912	    if (p.lines.find) { await tapRect(p.lines.find); await sleep(300); await page.keyboard.type('acceptance', { delay: 30 }); await sleep(600); }
+703913	    p = await probe();
+703914	    const rowsMatch = await page.evaluate(() => [...document.querySelectorAll('#lineslist .ln[data-i]')].every(r => /acceptance/i.test(r.textContent)));
+703915	    const findVisible = p.lines.find && p.lines.find.bottom <= p.viewport.h && p.lines.firstRow && p.lines.firstRow.bottom <= p.viewport.h;
+703916	    record('lines-filter', 'type "acceptance": the list narrows to matching rows, input and first row on screen', p.lines.rows > 0 && rowsMatch && p.lines.findValue === 'acceptance' && findVisible,
+703917	      { rows: p.lines.rows, allRowsMatch: rowsMatch, findValue: p.lines.findValue, firstRow: p.lines.firstRow, firstRowText: p.lines.firstRowText, pageScrollY: p.viewport.scrollY, activeElement: p.activeElement, screenshot: await shot('lines-filter') },
+703918	      p.lines.rows ? (rowsMatch ? (findVisible ? '' : 'filter input or first row off screen (keyboard/visual viewport)') : 'rows do not all match') : 'no rows match');
+703919	    // 6 tap the first row
+703920	    const before = p;
+703921	    if (p.lines.firstRow) await tapRect(p.lines.firstRow);
+703922	    await sleep(150); const early = await probe(); p = await settle();
+703923	    const cs6 = clearSpace(p), cap6 = cardUnderCap(p);
+703924	    const flew = early.magenta && p.magenta ? +Math.hypot(early.magenta.x - p.magenta.x, early.magenta.y - p.magenta.y).toFixed(1) : null;
+703925	    record('lines-pick', 'tap the first row: LINES closes, camera flies, card opens, spark in the clear space', !p.panels.lines.visible && p.card.open && cs6.ok && cap6.ok,
+703926	      { linesVisible: p.panels.lines.visible, card: { open: p.card.open, rect: p.card.rect, index: p.card.index, total: p.card.total, title: p.card.title, ...cap6 }, clear: cs6, sparkMovedAfterTapPx: flew, rowTapped: before.lines.firstRowText, screenshot: await shot('lines-pick') },
+703927	      [p.panels.lines.visible ? 'LINES still open' : '', p.card.open ? '' : 'no card', cs6.ok ? '' : cs6.why, cap6.ok ? '' : 'card over its cap'].filter(Boolean).join('; '));
+703928	    // 7 details
+703929	    const h1 = p.card.height; if (p.card.detailsRect) await tapRect(p.card.detailsRect); await sleep(700); p = await probe();
+703930	    const cap7 = cardUnderCap(p), cs7 = clearSpace(p);
+703931	    record('card-details', 'tap details: the card grows, stays under its cap and on screen', p.card.open && p.card.detailsOpen && p.card.detailsVisible && p.card.height > h1 && cap7.ok,
+703932	      { heightBefore: h1, heightAfter: p.card.height, ...cap7, cardRect: p.card.rect, cardScrollHeight: p.card.scrollHeight, detailsOpen: p.card.detailsOpen, sparkStillClear: cs7.ok, clear: cs7, screenshot: await shot('card-details') },
+703933	      [p.card.detailsOpen ? '' : 'details did not open', p.card.height > h1 ? '' : 'card did not grow', cap7.ok ? '' : 'card ' + p.card.height + ' px over cap ' + cap7.cap, cs7.ok ? '' : 'spark no longer clear: ' + cs7.why].filter(Boolean).join('; '));
+703934	    // 8 ×
+703935	    const xr = p.card.closeRect; if (xr) await tapRect(xr); await sleep(600); p = await probe();
+703936	    record('card-close', 'tap ×: the card closes and the selection clears', !p.card.open && !p.magenta, { closeRect: xr, closeSize: xr ? [xr.width, xr.height] : null, cardOpen: p.card.open, magenta: p.magenta, screenshot: await shot('card-close') }, p.card.open ? 'card still open' : (p.magenta ? 'spark still selected' : (xr && (xr.width < 24 || xr.height < 24) ? 'note: × is ' + xr.width + 'x' + xr.height + ' px (under 24)' : '')));
+703937	    // 9 e × 3
+703938	    let prevIndex = null;
+703939	    for (let k = 1; k <= 3; k++) {
+703940	      await page.evaluate(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+703941	      await page.keyboard.press('e'); p = await settle();
+703942	      const cs = clearSpace(p), cap = cardUnderCap(p);
+703943	      const seq = prevIndex == null || p.card.index == null ? true : (p.card.index === prevIndex + 1 || (p.card.index === 1 && prevIndex === p.card.total));
+703944	      record('key-e-' + k, 'press e (' + k + '): next line, card open, spark in the clear space', p.card.open && cs.ok && cap.ok && seq,
+703945	        { card: { index: p.card.index, total: p.card.total, title: p.card.title, rect: p.card.rect, ...cap }, clear: cs, screenshot: await shot('key-e-' + k) },
+703946	        [p.card.open ? '' : 'no card', cs.ok ? '' : cs.why, cap.ok ? '' : 'card over cap', seq ? '' : 'index did not advance'].filter(Boolean).join('; '));
+703947	      prevIndex = p.card.index;
+703948	    // 10 tap a spark directly. The camera is known: zoom 14 after a fly, cx/cy solved from the selected spark.
+703949	    let cam = null; const solve = (p, zoom) => { if (!p.magenta || p.card.index == null || !placed[p.card.index - 1]) return null; const b = placed[p.card.index - 1]; return { zoom, cx: b.x - (p.magenta.x - p.viewport.w / 2) / zoom, cy: b.y - (p.viewport.h / 2 - p.magenta.y) / zoom }; };
+703950	    const toScreen = (c, b, p) => [(b.x - c.cx) * c.zoom + p.viewport.w / 2, p.viewport.h / 2 - (b.y - c.cy) * c.zoom];
+703951	    cam = solve(p, 14);
+703952	    const pickCandidate = (p) => { const top = p.bar.bottom + 24, bot = (p.card.open ? p.card.rect.top : p.viewport.h) - 24;
+703953	      return p.greens.filter(g => g.y > top && g.y < bot && g.x > 24 && g.x < p.viewport.w - 24 && (!p.magenta || Math.hypot(g.x - p.magenta.x, g.y - p.magenta.y) > 30)
+703954	        && p.greens.every(o => o === g || Math.hypot(o.x - g.x, o.y - g.y) > 22)).sort((a, b) => b.px - a.px)[0]; };
+703955	    let cand = pickCandidate(p), zoomedOutToFind = null;
+703956	    if (!cand && p.magenta) {   // nothing else in view at zoom 14: pinch out once (measured below again) to bring neighbours in
+703957	      const mx = p.viewport.w / 2, my = (p.bar.bottom + (p.card.open ? p.card.rect.top : p.viewport.h)) / 2, d0 = Math.min(200, p.viewport.w - 80), d1 = d0 / 4;
+703958	      await touch('touchStart', [[mx - d0 / 2, my], [mx + d0 / 2, my]]); for (let i = 1; i <= 10; i++) { const d = d0 + (d1 - d0) * i / 10; await touch('touchMove', [[mx - d / 2, my], [mx + d / 2, my]]); await sleep(30); } await touch('touchEnd', []); await sleep(1500);
+703959	      p = await probe(); cam = solve(p, 14 * d1 / d0); cand = pickCandidate(p); zoomedOutToFind = { zoom: cam && cam.zoom, greensInView: p.greensCount };
+703960	    let predicted = null, predictedDist = null;
+703961	    if (cand && cam && placed.length) { let best = -1, bd = 1e18; placed.forEach((b, i) => { const [x, y] = toScreen(cam, b, p); const d = (x - cand.x) ** 2 + (y - cand.y) ** 2; if (d < bd) { bd = d; best = i; } }); predicted = best; predictedDist = +Math.sqrt(bd).toFixed(1); }
+703962	    const prevCardIndex = p.card.index;
+703963	    if (cand) { await tapAt(cand.x, cand.y); p = await settle(); }
+703964	    const csS = clearSpace(p);
+703965	    const gotNearest = cand && p.card.open && p.card.index != null && (predicted == null || p.card.index === predicted + 1);
+703966	    record('spark-tap', 'tap a green spark: the card for the nearest spark opens and the camera places it clear', !!gotNearest && csS.ok,
+703967	      { tapped: cand || null, greensInView: p.greensCount, zoomedOutToFind, predictedIndex: predicted == null ? null : predicted + 1, predictedDistanceFromTapPx: predictedDist, cardIndex: p.card.index, previousCardIndex: prevCardIndex, cardTitle: p.card.title, clear: csS, screenshot: await shot('spark-tap') },
+703968	      !cand ? 'no second spark in view to tap (greens in view: ' + p.greensCount + ')' : (!p.card.open || p.card.index == null ? 'tap did not open a line card (card text: ' + (p.card.title || 'none') + ')' : (gotNearest ? (csS.ok ? '' : csS.why) : 'card shows ' + p.card.index + ', nearest by the law is ' + (predicted + 1))));
+703969	    // 11 pinch out, then drag: the camera moves, the page does not scroll or zoom
+703970	    p = await probe(); const P0 = p.magenta, vv0 = p.viewport;
+703971	    let pinch = null, drag = null;
+703972	    if (P0) {
+703973	      const mx = p.viewport.w / 2, my = Math.max(p.bar.bottom + 40, Math.min((p.card.open ? p.card.rect.top : p.viewport.h) - 40, P0.y + 120)), d0 = Math.min(220, p.viewport.w - 60), d1 = d0 / 2;
+703974	      const q = await probe(); const r0 = Math.hypot(P0.x - mx, P0.y - my), r1 = q.magenta ? Math.hypot(q.magenta.x - mx, q.magenta.y - my) : null;
+703975	      pinch = { centre: [mx, my], fingerDistance: [d0, d1], sparkDistanceFromCentre: [+r0.toFixed(1), r1 && +r1.toFixed(1)], ratio: r1 != null ? +(r1 / r0).toFixed(3) : null, expected: 0.5, pageScroll: [q.viewport.scrollX, q.viewport.scrollY], vvScale: q.viewport.vvScale, innerWidth: q.viewport.w };
+703976	      pinch.ok = pinch.ratio != null && Math.abs(pinch.ratio - 0.5) < 0.12 && q.viewport.scrollX === 0 && q.viewport.scrollY === 0 && Math.abs((q.viewport.vvScale || 1) - 1) < 0.01 && q.viewport.w === vv0.w;
+703977	      const P1 = q.magenta; if (P1) {
+703978	        const ax = p.viewport.w / 2, ay = my, dx = -90, dy = 70;
+703979	        await touch('touchStart', [[ax, ay]]); for (let i = 1; i <= 12; i++) { await touch('touchMove', [[ax + dx * i / 12, ay + dy * i / 12]]); await sleep(25); } await touch('touchEnd', []); await sleep(1200);
+703980	        const s = await probe(); drag = { finger: [dx, dy], sparkMoved: s.magenta ? [+(s.magenta.x - P1.x).toFixed(1), +(s.magenta.y - P1.y).toFixed(1)] : null, pageScroll: [s.viewport.scrollX, s.viewport.scrollY], vvScale: s.viewport.vvScale, vvOffset: s.viewport.vvOffset, cardOpen: s.card.open };
+703981	        drag.ok = !!drag.sparkMoved && Math.abs(drag.sparkMoved[0] - dx) <= 12 && Math.abs(drag.sparkMoved[1] - dy) <= 12 && s.viewport.scrollX === 0 && s.viewport.scrollY === 0 && Math.abs((s.viewport.vvScale || 1) - 1) < 0.01;
+703983	    record('pinch-drag', 'pinch out then drag: the wafer zooms and pans, the page neither scrolls nor zooms', pinch && pinch.ok && drag && drag.ok, { pinch, drag, screenshot: await shot('pinch-drag') },
+703984	      !P0 ? 'no selected spark to measure against' : [pinch && !pinch.ok ? 'pinch ratio ' + pinch.ratio + ' (expected 0.5) or page moved' : '', drag ? (drag.ok ? '' : 'drag moved spark by ' + JSON.stringify(drag.sparkMoved) + ' for finger ' + JSON.stringify(drag.finger)) : 'no drag measured'].filter(Boolean).join('; '));
+703985	    // 12 COMMANDS → WHOLE WAFER
+703986	    p = await probe(); await tapRect(titleRect('foot')); await sleep(700); p = await probe();
+703987	    const fp = p.panels.foot; const ww = await page.evaluate(() => { const b = document.querySelector('#foot button[data-k="Backspace"]'); if (!b) return null; const r = b.getBoundingClientRect(); return { text: b.textContent.trim(), left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height }; });
+703988	    const cmdOpen = fp.visible && fp.rect.top >= p.bar.bottom - 1 && ww && ww.bottom <= p.viewport.h;
+703989	    if (ww) await tapRect(ww); p = await settle({ noSpark: true });
+703990	    const panelStillOpen = p.panels.foot.visible;
+703991	    if (panelStillOpen) { await tapAt(p.viewport.w - 4, p.viewport.h - 4); await sleep(800); p = await probe(); }   // a tap on the empty corner of the wafer closes the layer
+703992	    const png12 = await page.screenshot({ type: 'png', scale: 'css', timeout: 180000 }); const wafer12 = await waferFromPng(page, png12.toString('base64'), p.bar.bottom);
+703993	    const whole = wafer12.bbox && wafer12.bboxW > 0.4 * p.viewport.w && Math.abs(wafer12.bboxW / wafer12.bboxH - 1) < 0.25 && wafer12.bbox[1] >= p.bar.bottom - 1 && wafer12.bbox[3] <= p.viewport.h;
+703994	    record('whole-wafer', 'tap COMMANDS then WHOLE WAFER: the card closes and the whole wafer is on screen under the bar', cmdOpen && !p.card.open && !p.magenta && !p.panels.foot.visible && whole,
+703995	      { commandsPanel: fp, wholeWaferButton: ww, commandsOpenedUnderBar: !!cmdOpen, panelStayedOpenAfterTap: panelStillOpen, cardOpen: p.card.open, magenta: p.magenta, wafer: wafer12, screenshot: await shot('whole-wafer') },
+703996	      [cmdOpen ? '' : 'COMMANDS did not open under the bar or WHOLE WAFER off screen', p.card.open ? 'card still open' : '', p.panels.foot.visible ? 'COMMANDS still open' : '', whole ? '' : 'wafer not whole on screen: ' + JSON.stringify(wafer12.bbox)].filter(Boolean).join('; '));
+703997	    // 13 SEE THROUGH
+703998	    p = await probe(); let st = null;
+703999	    if (p.seeThrough) {
+704000	      const newPage = context.waitForEvent('page', { timeout: 10000 }).catch(() => null);
+704001	      const nav = page.waitForURL(/see-through/, { timeout: 10000 }).then(() => 'same-tab').catch(() => null);
+704002	      await tapRect(p.seeThrough.rect);
+704003	      const np = await newPage; let how = null, url = null;
+704004	      if (np) { how = 'new-tab'; await np.waitForURL(/see-through\/(\d{12}\/)?/, { timeout: 20000 }).catch(() => {}); url = np.url(); await np.close().catch(() => {}); }
+704005	      else if (await nav) { how = 'same-tab'; await page.waitForURL(/see-through\/(\d{12}\/)?/, { timeout: 20000 }).catch(() => {}); url = page.url(); }
+704006	      st = { control: p.seeThrough, how, url, ok: !!how && /\/see-through\//.test(url || '') };
+704007	    record('see-through', 'tap SEE THROUGH: ../../see-through/ opens (new tab or navigation)', st && st.ok, { ...(st || { control: null }), screenshot: await shot('see-through') }, !p.seeThrough ? 'no SEE THROUGH control in #bar' : (st.ok ? st.how + ' → ' + st.url : 'tap did not open see-through (url ' + st.url + ')'));
+704009	    record('harness', 'harness error', false, { error: String(e && e.stack || e) }, String(e && e.message || e));
+704010	  report.consoleErrors = errors.slice(); report.pass = steps.every(s => s.pass); report.passed = steps.filter(s => s.pass).length; report.failed = steps.filter(s => !s.pass).length;
+704011	  report.finishedAt = new Date().toISOString();
+704015	  fs.mkdirSync(OUT, { recursive: true });
+704016	  const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+704017	  const out = { url: URL0, outdir: OUT, generatedAt: new Date().toISOString(), devices: [] };
+704018	  try { for (const d of DEVICES) out.devices.push(await runDevice(browser, d)); }
+704019	  finally { await browser.close(); }
+704020	  out.pass = out.devices.every(d => d.pass);
+704021	  out.summary = out.devices.map(d => ({ device: d.device, passed: d.passed, failed: d.failed, failedSteps: d.steps.filter(s => !s.pass).map(s => s.id), consoleErrors: d.consoleErrors.length }));
+704022	  fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1));
+704023	  console.log(JSON.stringify(out, null, 1));
+704024	  process.exit(out.pass ? 0 : 1);
 ```
