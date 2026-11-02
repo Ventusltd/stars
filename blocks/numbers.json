@@ -1,5 +1,5 @@
 {
- "next": 2093,
+ "next": 2105,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2029,6 +2029,18 @@
   "neural-link-between-agents:FIXES/NL-010/tools/evidence/nl010/team-4/drift.py": 2089,
   "neural-link-between-agents:FIXES/NL-010/tools/journey/journey-5.cjs": 2090,
   "neural-link-between-agents:FIXES/NL-011/01-protocol.py": 2091,
-  "neural-link-between-agents:SESSIONS/state/inflight/team-1-shell-rev3/{stamp}-kuiper-shell.js": 2092
+  "neural-link-between-agents:SESSIONS/state/inflight/team-1-shell-rev3/{stamp}-kuiper-shell.js": 2092,
+  "neural-link-between-agents:FIXES/NL-010/evidence/controller-4/touch-pixel7/file-touch-c4.cjs": 2093,
+  "neural-link-between-agents:FIXES/NL-010/evidence/controller-5/see-through-c5.cjs": 2094,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e10-apps.cjs": 2095,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e10-check.cjs": 2096,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e10-layers.cjs": 2097,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e11-404.cjs": 2098,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e11-apps.cjs": 2099,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e11-check.cjs": 2100,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e11-layers.cjs": 2101,
+  "neural-link-between-agents:FIXES/NL-010/tools/release/e11-touch.cjs": 2102,
+  "neural-link-between-agents:FIXES/NL-011/build_kuiper_map.py": 2103,
+  "neural-link-between-agents:FIXES/NL-011/build_link_graph.py": 2104
  }
 }

@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-419,393 unique lines, numbered 1 to 726,163. Generated 2026-11-02T08:15:36.623Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+420,301 unique lines, numbered 1 to 729,994. Generated 2026-11-02T18:50:04.366Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -419396,4 +419396,912 @@
 726161	print(sum('TYPE:' in r.get('tstr','') or False for r in R) or sum(1 for n in [6,7,8,9,10] for c in json.load(open(f'c/i{n}.json')) if 'TYPE:' in c['body'].split('\n')[0]),'headers carrying TYPE on line 1')
 726162	 * Revision 3 (2 Nov 2026, same generation): a panel reopened while the shell's own back() is on its way gets a fresh
 726163	 *  entry when that pop arrives (pendingBack), so the next back gesture closes it and never leaves the page.
+726403	  /* The Kuiper editions (kuiper-belt, NL-010, 1-2 November 2026): one dated folder per edition under editions/, the
+726404	     pointer editions/index.html, a page whose KY_EDITION must equal the manifest's edition and every data file's, module
+726405	     records whose reads/writes are literals, GREEN.md rows naming the manifest a release may ship, and git history
+726406	     saying whether a folder changed after the pointer named it. All precomputed here; antibodies open nothing. */
+726407	  const kuiper = (() => {
+726408	    const EDS = 'editions';
+726409	    if (!exists(EDS)) return null;
+726410	    const pointerText = exists(`${EDS}/index.html`) && size(`${EDS}/index.html`) <= 65536 ? read(`${EDS}/index.html`) : '';
+726411	    const pointerStamps = [...pointerText.matchAll(/(?:url=|href="|replace\(')(\d{12})\//g)].map(m => m[1]);
+726412	    const folders = list(EDS).filter(f => /^\d{12}$/.test(f) && statSync(join(root, EDS, f)).isDirectory()).sort();
+726413	    const editions = folders.map(stamp => {
+726414	      const d = `${EDS}/${stamp}`;
+726415	      const page = exists(`${d}/index.html`) && size(`${d}/index.html`) <= 4 * 1024 * 1024 ? read(`${d}/index.html`) : '';
+726416	      const kyEdition = (page.match(/const KY_EDITION = '(\d{12})'/) || [])[1] || null;
+726417	      const mp = `${d}/modules.json`;
+726418	      const manifest = exists(mp) && size(mp) <= 4 * 1024 * 1024 ? j(mp) : null;
+726419	      const manifestSha = exists(mp) ? sha256(readFileSync(join(root, mp))) : null;
+726420	      const records = manifest && Array.isArray(manifest.modules) ? manifest.modules.filter(r => r && typeof r === 'object')
+726421	        .map(r => ({ id: String(r.id), reads: Array.isArray(r.reads) ? r.reads.map(String) : [], writes: Array.isArray(r.writes) ? r.writes.map(String) : [] })) : [];
+726422	      const dataStamps = list(`${d}/data`).filter(f => f.endsWith('.json')).sort().map(f => {
+726423	        const o = size(`${d}/data/${f}`) <= 16 * 1024 * 1024 ? j(`${d}/data/${f}`) : null;
+726424	        return { file: `data/${f}`, edition: o && typeof o === 'object' && o.edition != null ? String(o.edition) : null };
+726426	      const greenPath = [`${d}/GREEN.md`, `${d}/handoff/10-integration/GREEN.md`].find(exists) || null;
+726427	      const greenHashes = greenPath && size(greenPath) <= 1024 * 1024 ? [...read(greenPath).matchAll(/`([0-9a-f]{12,64})/g)].map(m => m[1]) : [];
+726428	      let release = null;   // the first commit whose pointer named this folder, and every later commit that touched it
+726429	      if (gitAvailable && !shallow) {
+726430	        const first = (sh(`git log --format=%H --reverse -S"url=${stamp}/" -- ${EDS}/index.html`) || '').split('\n')[0];
+726431	        if (first) { const later = sh(`git log --format=%h%x09%s ${first}..HEAD -- ${d}`) || ''; release = { commit: first.slice(0, 7), later: later ? later.split('\n').map(l => l.split('\t')) : [] }; }
+726432	      return { stamp, kyEdition, manifestEdition: manifest && manifest.edition != null ? String(manifest.edition) : null, manifestSha, records, dataStamps,
+726433	        green: greenPath ? { path: greenPath, hashes: greenHashes } : null, release };
+726434	    return { pointerStamps, editions };
+726435	  /* K1, the not-public names (kuiper-belt tools/check_proof.py leaks(), LINK-RULE.md 5). The digests come from the
+726436	     target's own list; every token of every tracked text file is hashed as leaks() hashes it (whole, without trailing
+726437	     dots, after its last slash, lower-cased, sha256 cut to 24 hex). LOCATIONS ONLY leave this builder: neither the
+726438	     context nor any finding carries a matched token. */
+726439	  const k1 = (() => {
+726440	    let digests = null, source = null;
+726441	    if (exists('.cvaa/not-public.digests')) { source = '.cvaa/not-public.digests'; digests = new Set(read(source).split('\n').map(s => s.trim()).filter(s => /^[0-9a-f]{24}$/.test(s))); }
+726442	    else if (exists('tools/check_proof.py')) { const m = read('tools/check_proof.py').match(/NOT_PUBLIC\s*=\s*\{([\s\S]*?)\}/); if (m) { source = 'tools/check_proof.py'; digests = new Set([...m[1].matchAll(/'([0-9a-f]{24})'/g)].map(x => x[1])); } }
+726443	    if (!digests || !digests.size) return null;
+726444	    const BINARY = /\.(png|jpe?g|gif|webp|ico|pdf|zip|gz|tgz|tar|7z|woff2?|ttf|otf|eot|mp4|mp3|wav|wasm|pyc|exe|dll|so|dylib|parquet|duckdb|db|sqlite3?|pack|idx|bin|npy|npz)$/i;
+726445	    const SKIP = /(^|\/)(\.git|node_modules|__pycache__)(\/|$)/;
+726446	    let files = gitAvailable ? (sh('git ls-files -z') || '').split('\0').filter(Boolean) : null;
+726447	    if (!files) { files = []; const walk = dir => { for (const f of list(dir || '.')) { const rel = dir ? `${dir}/${f}` : f; if (SKIP.test(rel)) continue; try { statSync(join(root, rel)).isDirectory() ? walk(rel) : files.push(rel); } catch {} } }; walk(''); }
+726448	    const memo = new Map();
+726449	    const hit = tok => { if (memo.has(tok)) return memo.get(tok); let r = false; for (const t of new Set([tok, tok.replace(/\.+$/, ''), tok.slice(tok.lastIndexOf('/') + 1)])) if (digests.has(sha256(t.toLowerCase()).slice(0, 24))) { r = true; break; } memo.set(tok, r); return r; };
+726450	    const hits = []; let scanned = 0, skipped = [];
+726451	    for (const rel of files) {
+726452	      if (BINARY.test(rel) || SKIP.test(rel)) continue;
+726453	      let st; try { st = statSync(join(root, rel)); } catch { continue; }
+726454	      if (!st.isFile()) continue;
+726455	      if (st.size > 8 * 1024 * 1024) { skipped.push(rel); continue; }
+726456	      const lines = readFileSync(join(root, rel), 'utf8').split('\n'); scanned++;
+726457	      for (let i = 0; i < lines.length && hits.length < 200; i++) { let found = false; for (const tok of new Set(lines[i].match(/[A-Za-z0-9_][A-Za-z0-9_.-]*/g) || [])) if (hit(tok)) { found = true; break; } if (found) hits.push({ path: rel, line: i + 1 }); }
+726458	    return { source, digests: digests.size, scanned, skipped, hits };
+726459	  /* The posting flag (neural-link PROTOCOL.md, LINK-RULE.md 1): a gh api comment post whose body flag is lower-case
+726460	     sends the literal text "@file". Lines in text and script sources that carry the lower-case form and not the
+726461	     upper-case one, as locations. */
+726462	  const postFlag = (() => {
+726463	    const LOWER = /\bgh api\b[^\n]*\s-f\s+body=@/, UPPER = /\s-F\s+body=@/;
+726464	    const out = []; const sources = { ...loops.sources };
+726465	    const SKIP = /(^|\/)(\.git|node_modules|__pycache__|\.venv|venv|dist|build|vendor)(\/|$)/;
+726466	    const walk = dir => { for (const f of list(dir || '.')) { const rel = dir ? `${dir}/${f}` : f; if (SKIP.test(rel)) continue; let st; try { st = statSync(join(root, rel)); } catch { continue; } if (st.isDirectory()) walk(rel); else if (/\.(sh|bash|cjs|mjs)$/.test(f) && st.size <= 192 * 1024 && !(rel in sources)) { try { sources[rel] = read(rel); } catch {} } } };
+726467	    for (const [rel, text] of Object.entries(sources)) { const ls = text.split('\n'); for (let i = 0; i < ls.length && out.length < 200; i++) if (LOWER.test(ls[i]) && !UPPER.test(ls[i])) out.push({ path: rel, line: i + 1 }); }
+726471	  return { scopes, workflows, controlContracts, gpuReuse, pointer, pointerPath, liveSet, rollbackDrills, memoryManifest, rootDirs, config, checksums, cartridgeHashes, stateFresh, files, star, cells, loops, kuiper, k1, postFlag, registry, commits, shallow, gitAvailable, commitCount, exists: null };
+726719	  // A live-mutation contract whose runtime receipt says the live page was never measured, yet asks to claim success.
+726720	  'observed-before-asserted': r => w(r, '.cvaa/contracts/observed-before-asserted.json', JSON.stringify({
+726721	    schema: 'cvaa.observed-before-asserted.v1', target: 'https://example.invalid/', expected_identity: 'v1',
+726722	    runtime_receipt: { measured: false }, claim_allowed: true,
+726723	  // The Kuiper editions (2 November 2026). A folder whose GREEN.md names one manifest while the folder carries another:
+726724	  // the a432b43 state, where the live tree had moved past the last green row before the release read it.
+726725	  'kuiper-belt-manifest-on-a-green-row': r => {
+726726	    w(r, 'editions/202611012135/modules.json', '{"schema":"kuiper.modules.v1","edition":"202611012135","order":["hello","line-card","see-through"],"modules":[]}\n');
+726727	    w(r, 'editions/202611012135/GREEN.md', '| G2 (row 3) | hello, line-card | `418ae14ca39bc92be028f852825da196fd634ec12bb48f8f538d0cf739564d05` | `be99c8a126ce691805e3b8deffb849f09ffdba49478c787cb217b03297e75752` |\n');
+726728	  // A brief that teaches the lower-case flag. Assembled from parts so this file never carries the line itself.
+726729	  'neural-link-post-reads-the-file': r => w(r, 'BRIEF.md', 'Post with `gh api repos/o/r/issues/1/comments ' + '-' + 'f body=@file`.\n'),
+726730	  // A not-public list naming one made-up token, and a README that carries the token. The token is a fixture word.
+726731	  'kuiper-belt-no-private-names': r => {
+726732	    const tok = 'fixture-not-public-name', digest = createHash('sha256').update(tok).digest('hex').slice(0, 24);
+726733	    w(r, 'tools/check_proof.py', "NOT_PUBLIC = {'" + digest + "'}\n");
+726734	    w(r, 'README.md', '# clean\nthe register of ' + tok + ' is kept here\n');
+726735	  // A pointer that named a folder in one commit, and a later commit that edited the folder.
+726736	  'kuiper-belt-released-folder-frozen': r => {
+726737	    w(r, 'editions/index.html', '<meta http-equiv="refresh" content="0; url=202611012135/">\n');
+726738	    w(r, 'editions/202611012135/index.html', "const KY_EDITION = '202611012135';\n");
+726739	    gitify(r, '202611012135');
+726740	    w(r, 'editions/202611012135/index.html', "const KY_EDITION = '202611012135'; // edited after release\n");
+726741	    execSync('git add . && git commit -q -m "edit a released folder"', { cwd: r, stdio: 'pipe' });
+726742	  // A page stamped for the new folder whose drift.json still carries the previous edition's stamp.
+726743	  'kuiper-belt-data-stamp-is-the-page-stamp': r => {
+726744	    w(r, 'editions/202611020326/index.html', "const KY_EDITION = '202611020326';\n");
+726745	    w(r, 'editions/202611020326/modules.json', '{"schema":"kuiper.modules.v1","edition":"202611020326","order":[],"modules":[]}\n');
+726746	    w(r, 'editions/202611020326/data/drift.json', '{"schema":"kuiper.drift.v1","edition":"202611012135"}\n');
+726747	  // A record whose writes entry is a sentence.
+726748	  'kuiper-belt-record-paths-not-prose': r => w(r, 'editions/202611020528/modules.json', JSON.stringify({
+726749	    schema: 'kuiper.modules.v1', edition: '202611020528', order: ['drift'],
+726750	    modules: [{ id: 'drift', reads: ['data/drift.json'], writes: ['#ky-drift', '#hud (one DRIFT line per frame, appended)'] }],
+726751	  }) + '\n'),
+726919	<title>Kuiper Edition 10</title>
+727542	  big.textContent = 'Kuiper Edition 10 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+727714	const KY_EDITION = '202611020825';
+727830	/* kuiper module layers, generation 202611020637 (UTC), Apache-2.0 (kuiper-belt code)
+727831	   Revision of 202611020304-layers.js (refused 04:24Z by the night controller, unchanged), built on Kuiper Edition 9
+727832	   (202611020629), whose page still draws the verified lines itself (index.html loadEdition, edCard, edFly, the spark
+727833	   picker, e/E, the LINES panel the shell moves into WAFER). Two changes:
+727834	   (1) THE SPARK TAP. The refused file kept its tap bookkeeping (down, moved) in a bubble-phase pointerup on window; the
+727835	       shell stops pointerup on its bar and strip (kuiper-shell.js, bar/strip pointerup stopPropagation), so after one tap
+727836	       on a menu title an entry stayed in `down` forever and every later pointerdown set moved = 99: a tap 1.6 px from
+727837	       line 323 never reached the picker and the engine's key card stayed (journey spark-tap, Pixel 7, 04:24Z). Now the
+727838	       bookkeeping runs in the capture phase (it always sees the up), a primary pointerdown starts a fresh gesture, and
+727839	       the pick itself still runs in the bubble phase, after the engine's key card, so the line's card wins.
+727840	   (2) ENGINE LINES. On a page whose engine owns the verified lines (#lyAll and #lineslist exist: Edition 9, uncut) the
+727841	       module does not draw, list, pick or step lines a second time: the engine's layer is the lines layer, its switch
+727842	       #lyAll follows the registry's lines row both ways, and the registry still verifies keys-min.json against its
+727843	       sha256 (a FAIL switches the engine's lines off). The rows sit inside the engine's LINES block, after its filter
+727844	       and before its list, and fold away while the filter is in use. On a cut page (no #lyAll) the module owns the
+727845	       lines as 202611020304 did.
+727846	   Earlier: revision of 202611012141-layers.js (unchanged; 202611020240 was cut, tested and never admitted): while the filter is in
+727847	   use the layer rows fold away so the list keeps room on a 360 x 780 phone with the keyboard up (journey lines-filter); and taps inside #card never reach the page's close-on-click
+727848	   (index.html:603), as Edition 4's card listener ensured before the cut (REVIEW issuecomment-6567442274).
+727868	  var ID = 'layers', GEN = '202611020637';
+727870	  // every file this module may fetch (its MODULE.json `reads`, edition_check E7); a record naming any other is refused
+727871	  var READS = ['data/layers.json', 'data/editions.json', 'keys-min.json', 'keys.json'];
+727872	  var ENGINE = false;           // true when the page's engine owns the verified lines (#lyAll, #lineslist): see the header
+727921	      manifest: manifestWhy, lines_owner: ENGINE ? 'engine' : 'module' };
+727937	      var f = document.getElementById('lyFocus'), q = document.getElementById('lyFind');
+727938	      if (ENGINE) {                                                  // the engine's own controls, through their own events
+727939	        if (f && f.checked !== lines.focus) { f.checked = lines.focus; f.dispatchEvent(new Event('change', { bubbles: true })); }
+727940	        if (q && q.value.trim().toLowerCase() !== lines.query) { q.value = lines.query; q.dispatchEvent(new Event('input', { bubbles: true })); }
+727942	        if (f) f.checked = lines.focus;
+727943	        if (q && q.value.trim().toLowerCase() !== lines.query) q.value = lines.query;
+727944	        fillLines();
+728008	    if (READS.indexOf(file) < 0) return Promise.reject(new Error(file + ' is not in the module\'s reads, refused'));
+728057	    + '#layers.ky-typing .ky-ly-rows{display:none}'
+728058	    + '#layers.ky-engine{display:flex;position:static;border:0;padding:0;margin:4px 0;background:transparent;max-height:none;height:auto;min-height:0}'
+728059	    + '#layers.ky-engine .ky-ly-rows{overflow:visible;min-height:0}#layers.ky-engine.ky-typing{display:none}'
+728111	    var elist = ENGINE ? document.getElementById('lineslist') : null;
+728112	    if (elist) {                                                     // the engine's LINES block: after its filter, before its list
+728113	      panel.classList.remove('gm-panel'); panel.classList.add('ky-engine'); elist.parentNode.insertBefore(panel, elist); panelName = 'engine';
+728114	    } else if (host) { panel.classList.remove('gm-panel'); panel.classList.add('ky-in-shell'); host.appendChild(panel); panelName = 'shell'; }   // never gm-open itself: an open panel is the shell's, and line-card hides the card only while one is open
+728127	    if (panelName === 'engine') return;                              // the engine's block sizes itself; its rows are its own
+728172	      if (id === 'lines' && !ENGINE) html.push(LINES_CTL);
+728175	    if (ENGINE) wireEngineLines(); else wireLines();
+728189	    if (id === 'lines') { if (ENGINE) engineLines(on); else { if (!on) { lines.sel = -1; } fillLines(); } }
+728193	  // ENGINE LINES (Edition 9): the page's #lyAll is the engine's switch of the same layer; the row and it follow each
+728194	  // other, and a layer whose data failed its sha256 is not drawn by the engine either
+728195	  function engineLines(on) {
+728196	    var all = document.getElementById('lyAll'); if (!all) return;
+728197	    var want = !!on && !(rt.lines && rt.lines.status === 'FAIL');
+728198	    if (all.checked !== want) { all.checked = want; all.dispatchEvent(new Event('change', { bubbles: true })); }
+728199	  function wireEngineLines() {
+728200	    var all = document.getElementById('lyAll'), q = document.getElementById('lyFind');
+728201	    if (all) all.addEventListener('change', function () {
+728202	      var r = rt.lines; if (!r) return;
+728203	      if (all.checked && r.status === 'FAIL') { engineLines(false); return; }
+728204	      if (r.on === all.checked) return;
+728205	      r.on = all.checked; paintRow('lines'); writeURL();
+728206	    // the filter is the engine's: while it has the focus (the keyboard is up) the rows fold away so the list keeps the
+728207	    // room it has in Edition 9; they return 350 ms after it loses the focus, so a row tapped after typing does not move
+728208	    // under the finger before its click (05-lines F5), and a query left in the field never hides the rows
+728209	    if (q) {
+728210	      var typing = function () { panel.classList.toggle('ky-typing', document.activeElement === q); };
+728211	      q.addEventListener('focus', typing);
+728212	      q.addEventListener('blur', function () { setTimeout(typing, 350); });
+728225	    // while the filter is in use (focused, or holding a query) the seven layer rows fold away, so the controls and the list
+728226	    // have the panel; they return when the field is empty and left. No reflow under a finger: a row tapped after typing
+728227	    // keeps the fold, because the query is still there (05-lines F5; journey lines-filter at 360 x 780)
+728228	    function typing() { panel.classList.toggle('ky-typing', document.activeElement === q || !!q.value.trim()); }
+728229	    q.addEventListener('focus', typing); q.addEventListener('blur', function () { setTimeout(typing, 0); });
+728230	    q.addEventListener('input', function () { lines.query = q.value.trim().toLowerCase(); rt.lines.value = { focus: lines.focus, query: lines.query }; typing(); fillLines(); });
+728232	      if (e.key === 'Escape') { if (q.value) { q.value = ''; lines.query = ''; typing(); fillLines(); } else q.blur(); e.preventDefault(); }
+728234	    c.addEventListener('click', function (e) { e.stopPropagation(); q.value = ''; lines.query = ''; rt.lines.value = { focus: lines.focus, query: '' }; q.blur(); typing(); fillLines(); });
+728288	      if (ENGINE) { engineLines(r.on); KY.redraw(); return; }       // the engine names and draws them (index.html loadEdition)
+728293	    }).catch(function (e) { lines.ED = []; lines.placed = []; r.loaded = true; setState('lines', 'FAIL', String(e.message || e));
+728294	      if (ENGINE) engineLines(false); else fillLines(); KY.redraw(); });
+728335	    // its controls are answered by guardCard()
+728368	    if (ENGINE) { dispatchEvent(new KeyboardEvent('keydown', { key: dir < 0 ? 'E' : 'e' })); return; }   // the engine's e / E
+728373	  // The page closes the card on any click on it (index.html:603 `card.addEventListener('click', () => { card.style.display =
+728374	  // 'none' …`). Edition 4's capture listener on #card (index.html:668-674, cut by delete-moved.py) stopped that; this is it,
+728375	  // moved: a click inside #card (line-card's .lc-* controls included) never reaches the page's close or any pick. Line-card
+728376	  // hears the click first (its listener is on window, capture phase) and does details, × and the link itself.
+728377	  function guardCard() {
+728378	    H.card.addEventListener('click', function (e) {
+728379	      if (!e.target || !H.card.contains(e.target)) return;
+728380	      var lc = KY.modules && KY.modules['line-card'];
+728381	      if (!lc) {                                                     // the Edition 4 fallback card: its own controls
+728382	        if (e.target.closest('.cx')) { H.card.style.display = 'none'; lines.sel = -1; KY.sel.target = null; KY.redraw(); e.stopImmediatePropagation(); return; }
+728383	        if (e.target.closest('.ct')) { var on = H.card.classList.toggle('open'); e.target.closest('.ct').setAttribute('aria-expanded', on ? 'true' : 'false'); }
+728384	      e.stopImmediatePropagation();                                  // a link keeps its default (a new tab); nothing else closes the card
+728387	    guardCard();
+728395	    // The bookkeeping is in the CAPTURE phase: the shell stops pointerup on its bar and strip, and a bubble-phase listener
+728396	    // never saw those ups, so their pointers stayed in `down` and every later tap counted as a drag (refusal 04:24Z,
+728397	    // spark-tap). A primary pointerdown begins a new gesture, so nothing left from an earlier one can count.
+728398	    var down = {}, moved = 0, tap = null;
+728399	    addEventListener('pointerdown', function (e) { if (e.isPrimary) down = {};
+728400	      if (Object.keys(down).length) moved = 99; else moved = e.target === H.cv ? 0 : 99;   // tapUp: began on the canvas
+728401	      down[e.pointerId] = [e.clientX, e.clientY]; tap = null; }, true);
+728403	    addEventListener('pointercancel', function (e) { delete down[e.pointerId]; tap = null; }, true);
+728407	      tap = was && e.target === H.cv && moved <= 10 && Object.keys(down).length === 0 ? e.pointerId : null;
+728408	    addEventListener('pointerup', function (e) {                       // bubble: after the engine's key card, so the line's card wins
+728409	      if (tap === null || tap !== e.pointerId) return; tap = null;
+728510	    ENGINE = !!(document.getElementById('lyAll') && document.getElementById('lineslist'));
+728512	    if (!ENGINE) wireInput();
+728517	        if (id === 'lines') { if (!ENGINE) drawLines(o2); } else if (id === 'editions') drawEditions(o2); else if (r.draw) r.draw(o2, KY); });
+728529	      if (ENGINE) engineLines(rt.lines && rt.lines.on);
+728552	    step: step, open: function (i) {
+728553	      if (ENGINE) { var row = document.querySelector('#lineslist [data-i="' + (i | 0) + '"]'); if (!row) return false; row.click(); return true; }
+728554	      openLine(i); fly(lines.placed[i]); return true; },
+728560	<title>Kuiper Edition 11</title>
+728561	  big.textContent = 'Kuiper Edition 11 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+728562	const KY_EDITION = '202611021017';
+728563	/* kuiper module file, generation 202611020832 (UTC), Apache-2.0 (kuiper-belt)
+728577	 *        data/editions.json (on opening `Open an edition`), HEAD of the seven EVIDENCE files (on opening FILE):
+728578	 *        keys.json keys-min.json proof/edition-sha256.txt modules.json data/layers.json NOTICE.md README.md,
+728587	 * Revision 202611020832 (Kuiper Edition 10, main 35ef064): the seven rows name the files the integrator writes into every
+728588	 * edition folder since Edition 10 (README.md, NOTICE.md, modules.json, keys.json, keys-min.json, data/layers.json and
+728589	 * the cut proof/edition-sha256.txt), in place of proof/keys-summary.json, LICENCES.md and proof/android-journey.json,
+728590	 * which no edition since Edition 5 ships (check E'); and openIndex() builds the engine's #lineslist through #lyFind's
+728591	 * input event when layers' open(i) finds no row (Edition 9+, engine-owned lines); #ky-file-css gives FILE's rows the
+728592	 * shell's 44 px row look, which the shell's rev 3 keeps for a panel's direct children; nothing else changed.
+728594	  var ID = 'file', GEN = '202611020832', SCHEMA = 'kuiper.file.v1';
+728597	  var EVIDENCE = ['keys.json', 'keys-min.json', 'proof/edition-sha256.txt', 'modules.json', 'data/layers.json',
+728598	    'NOTICE.md', 'README.md'];
+728599	  var EVIDENCE_WHAT = { 'keys.json': 'the register of verified lines', 'keys-min.json': 'the register the page loads',
+728600	    'proof/edition-sha256.txt': 'sha256 of every file but itself', 'modules.json': 'the admitted modules and their hashes',
+728601	    'data/layers.json': 'the layers, each with its key and licence', 'NOTICE.md': 'the licences of this folder', 'README.md': 'this edition' };
+728728	    var b = bodies && bodies[i], ok = L.open(i);
+728729	    // Edition 9+: the engine owns the lines (layers.js ENGINE) and builds #lineslist only when its panel opens, so
+728730	    // layers' open(i) finds no row and returns false; build the list from the input the filter drives (the shell's own
+728731	    // onOpen.wafer does the same, kuiper-shell.js:520), then open again; a filter that hides the row: fly to its key
+728732	    if (ok === false) { var q = document.getElementById('lyFind'); if (q && document.getElementById('lineslist')) { q.dispatchEvent(new Event('input')); ok = L.open(i); } }
+728733	    if (ok === false && b) { H.goKey(b.key); say('line ' + b.id + ' is hidden by the lines filter: flown to its key ' + b.key); }
+729082	      // the shell's rev 3 (202611020243) gives its row look to a panel's direct children only, so FILE's rows inside its
+729083	      // group carry the same look here (kuiper-shell.js:139-148 values), and GO keeps a 44 px target
+729084	      P + '#ky-file button.gm-row,' + P + '#ky-file a.gm-row{display:flex;align-items:center;width:100%;min-height:44px;box-sizing:border-box;',
+729085	      'margin:0 0 3px;padding:7px 10px;border:0;border-radius:2px;background:transparent;color:#cfeef6;',
+729086	      'font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:left;letter-spacing:.03em;text-transform:none;cursor:pointer;text-decoration:none}',
+729087	      '@media (hover:hover){' + P + '#ky-file button.gm-row:hover,' + P + '#ky-file a.gm-row:hover{background:rgba(80,220,240,.14);color:#fff}}',
+729088	      P + '#ky-file .ky-file-form button.ky-go{display:flex;align-items:center;min-height:44px;box-sizing:border-box;background:transparent;color:#cfeef6;font:inherit;cursor:pointer;border-radius:2px}',
+729272	<title>Kuiper Edition 12</title>
+729273	  big.textContent = 'Kuiper Edition 12 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+729274	const KY_EDITION = '202611021201';
+729275	/* kuiper module see-through, generation 202611021026 (UTC), Apache-2.0 (kuiper-belt code; no See Through code in this file)
+729276	   Opus team 5 (OPUS-5 lead), NL-010 roadmap step 5 "See Through, the star player", on Kuiper Edition 11 (202611021017).
+729277	   Revision of 202611012141-see-through.js (sha256 87a88e48..., REFUSED by its tester, withdrawn 01:53Z by the controller:
+729278	   on Pixel 7 the journey's card-details turned red because the module's two card rows, "see this line among the stars"
+729279	   and "its stars in See Through", filled the line card to its 34dvh cap before details opened; REVIEW issuecomment-
+729280	   6567342104 item 1). This revision writes NOTHING into #card, makes no entry of its own and moves no node: the shell's
+729281	   own See Through entry (kuiper-shell.js defaultStar, a title from 434 px, the bottom-left 44 px strip narrower) stays
+729282	   the way into the app, untouched. What it adds is the layer the registry already lists and could not fill:
+729283	     (1) the layer "See Through stars" (data/layers.json record see-through, module_registers): registered once through
+729284	         KY.modules.layers.api.register({id, module, load, draw}); load() fetches data/see-through.json, checks its
+729285	         sha256 and bytes against DATA below before a byte is parsed, refuses a file cut for another edition or another
+729286	         SPACE, and places each of the 5,800 Point keys with the engine's keyPlace and nothing else (code-feature-
+729287	         collection.v1: geometry carries keys, never coordinates). The row then reads OK · 5,800 of 5,800.
+729288	     (2) with the layer on, the 5,800 stars are drawn cyan (#2ee6e6, PALETTE.md: the instrument), and a tap within
+729289	         9 px of one shows one chip under the bar, a#ky-st-chip, the star's substation name and a link into See Through
+729290	         at that star, ../../see-through/#key=<k>&space=<SPACE>&sub=<name>, the grammar See Through 202611020012 reads
+729291	         (descent.js readLink: key with space is the identity). Same tab, same host, through the stable pointer. A tap
+729292	         elsewhere hides the chip. With the layer off (the default) the tap listener returns at once.
+729293	     (3) api.link(fields) for the File module's "Open an app" row (file.js appLink): repo, key (+space), sub.
+729294	   The keys are cut by handoff/05-see-through/202611021026-build-see-through-json.py (CERN-OHL-S-2.0: it evaluates See
+729295	   Through's star-key rule); this file only reads them, so it carries no See Through code and stays Apache-2.0.
+729296	   Substation names shown in the chip are (c) OpenStreetMap contributors, ODbL 1.0 (see-through/202611020012/NOTICE.md).
+729297	   requires: keyPlace, SPACE, wafer, cam, o2, fmt, esc, redraw, draw, layers
+729298	   provides: see-through */
+729299	  var ID = 'see-through', GEN = '202611021026', EDITION = '202611021201';
+729300	  var POINTER = '../../see-through/';
+729301	  var DATA = { file: 'data/see-through.json', bytes: 666705, sha256: '1b91c2d5116a1bef531b99ad91b0b041a8bd7b402fe3d854d36209f02666661c', features: 5800 };
+729302	  var REQUIRES = ['keyPlace', 'SPACE', 'wafer', 'cam', 'o2', 'fmt', 'esc', 'redraw', 'draw', 'layers'];
+729303	  var CYAN = '#2ee6e6', HIT = 9, TIMEOUT_MS = 60000;
+729304	  var CSS = '#ky-st-chip{position:fixed;left:8px;z-index:60;display:flex;align-items:center;gap:10px;box-sizing:border-box;'
+729305	    + 'min-height:44px;max-width:calc(100vw - 16px);padding:0 14px;background:rgba(4,20,24,.92);border:1px solid ' + CYAN + ';'
+729306	    + 'color:#fff;font:12px/1.2 ui-monospace,Consolas,monospace;text-decoration:none;letter-spacing:.04em}'
+729307	    + '#ky-st-chip b{color:' + CYAN + ';font-weight:600;white-space:nowrap}#ky-st-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}';
+729308	  var st = { status: 'WAIT', why: 'waiting for the wafer', registered: 'no', placed: 0, total: 0, space: 0, wafer: 0,
+729309	    sha256: null, bytes: 0, edition: null, see_through: null, named: 0, taps: 0, chip: null, errors: [] };
+729310	  var stars = [];               // { j, key, name, x, y } for each admitted feature
+729311	  function layersApi() { var m = KY && KY.modules && KY.modules.layers; return m && m.api && typeof m.api.register === 'function' ? m.api : null; }
+729312	  function layerOn() { var L = layersApi(), r = L && L.get ? L.get('see-through') : null; return !!(r && r.on && r.status === 'OK'); }
+729313	  // ------------------------------------------------------------------ links out (See Through 202611020012 descent.js readLink)
+729316	    if (f.repo) p.push('repo=' + encodeURIComponent(String(f.repo)));
+729317	    if (f.key != null && /^\d{1,15}$/.test(String(f.key))) { p.push('key=' + f.key); if (f.space != null && /^\d{1,15}$/.test(String(f.space))) p.push('space=' + f.space); }
+729320	  function starLink(s) { return link({ key: s.key, space: st.space, sub: s.name || null }); }
+729321	  // ------------------------------------------------------------------ the layer's load: fetch, hash, refuse, place
+729322	    return fetch('data/see-through.json', { cache: 'no-store', signal: ctl ? ctl.signal : undefined }).then(function (res) {
+729323	      if (!res.ok) throw new Error(file + ' HTTP ' + res.status);
+729324	    }, function (e) { throw new Error(file + (e && e.name === 'AbortError' ? ' timed out' : ' did not load (network)')); })
+729326	    st.status = 'LOAD'; st.why = DATA.file;
+729328	      st.wafer = H.SPACE;
+729329	      if (!(window.crypto && crypto.subtle)) throw new Error('crypto.subtle unavailable, unhashed data refused');
+729330	      return fetchBytes(DATA.file);
+729333	        st.sha256 = hex(d);
+729334	        if (st.sha256 !== DATA.sha256) throw new Error(DATA.file + ' sha256 mismatch');
+729335	        if (buf.byteLength !== DATA.bytes) throw new Error(DATA.file + ' bytes ' + buf.byteLength + ' ≠ ' + DATA.bytes);
+729336	        return JSON.parse(new TextDecoder('utf-8').decode(buf));
+729338	      st.edition = j.edition; st.see_through = j.see_through; st.space = +j.space;
+729339	      if (j.format !== 'code-feature-collection.v1') throw new Error('format ' + j.format + ' not admitted');
+729340	      if (j.edition !== EDITION || j.edition !== KY.edition) throw new Error('data cut for edition ' + j.edition + ', page ' + KY.edition);
+729341	      if (st.space !== H.SPACE) throw new Error('SPACE ' + H.fmt(st.space) + ' ≠ wafer ' + H.fmt(H.SPACE));
+729342	      var fs = j.features || [];
+729343	      if (fs.length !== DATA.features) throw new Error('features ' + fs.length + ' ≠ ' + DATA.features);
+729344	      stars = []; var bad = 0, named = 0;
+729345	      fs.forEach(function (f) {
+729346	        var g = f && f.geometry, k = g && g.key, pr = (f && f.properties) || {};
+729347	        if (!g || g.type !== 'Point' || typeof k !== 'number' || !(k >= 0 && k < H.SPACE) || Math.floor(k) !== k) { bad++; return; }
+729348	        var p = H.keyPlace(k); if (pr.name) named++;
+729349	        stars.push({ j: pr.sub, key: k, name: pr.name || '', x: p[0], y: p[1] });
+729350	      st.placed = stars.length; st.total = fs.length; st.named = named;
+729351	      st.status = stars.length ? 'OK' : 'EMPTY'; st.why = H.fmt(stars.length) + ' of ' + H.fmt(fs.length) + (bad ? ', ' + H.fmt(bad) + ' refused' : '');
+729352	      return { placed: stars.length, total: fs.length, why: stars.length ? '' : 'no star admitted' };
+729353	    }).catch(function (e) { st.status = 'FAIL'; st.why = String(e && e.message || e); st.errors.push(st.why); stars = []; throw e; });
+729354	  // ------------------------------------------------------------------ drawing (only while the registry has the layer on)
+729355	  function scr(s, o) { var c = KY.cam; return [(s.x - c.x) * c.zoom + o.width / 2, o.height / 2 - (s.y - c.y) * c.zoom]; }
+729356	  function draw(o2) {
+729357	    if (!stars.length) return;
+729358	    var o = o2.canvas, w = o.width, h = o.height, chosen = st.chip ? st.chip.j : -1, cp = null;
+729359	    o2.save(); o2.fillStyle = CYAN; o2.globalAlpha = 0.85; o2.beginPath();
+729360	    for (var i = 0; i < stars.length; i++) { var p = scr(stars[i], o);
+729361	      if (p[0] < -3 || p[1] < -3 || p[0] > w + 3 || p[1] > h + 3) continue;
+729362	      if (stars[i].j === chosen) cp = p;
+729363	      o2.moveTo(p[0] + 1.8, p[1]); o2.arc(p[0], p[1], 1.8, 0, 6.2832); }
+729364	    o2.fill();
+729365	    if (cp) { o2.globalAlpha = 1; o2.strokeStyle = CYAN; o2.lineWidth = 1.5; o2.beginPath(); o2.arc(cp[0], cp[1], 10, 0, 6.2832); o2.stroke(); }
+729366	  // ------------------------------------------------------------------ the tap: the nearest star within 9 px, then the chip
+729367	  function nearest(cx, cy) {
+729368	    var o = H.o2.canvas, r = o.getBoundingClientRect(), sx = o.width / (r.width || 1), x = (cx - r.left) * sx, y = (cy - r.top) * sx;
+729369	    var best = null, bd = HIT * HIT * sx * sx;
+729370	    for (var i = 0; i < stars.length; i++) { var p = scr(stars[i], o), dx = p[0] - x, dy = p[1] - y, d = dx * dx + dy * dy;
+729371	      if (d <= bd) { bd = d; best = stars[i]; } }
+729373	  function chipTop() {
+729375	    var r = b && b.getBoundingClientRect(); return Math.round((r && r.height ? r.bottom : 0) + 8);
+729376	  function showChip(s) {
+729377	    var a = document.getElementById('ky-st-chip');
+729378	    if (!a) { a = document.createElement('a'); a.id = 'ky-st-chip'; a.setAttribute('data-owner', ID); document.body.appendChild(a);
+729379	      a.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+729380	      a.addEventListener('click', function (e) { e.stopPropagation(); }); }
+729381	    var nm = s.name || ('substation ' + s.j + ', no name in the public file');
+729382	    a.href = starLink(s); a.style.top = chipTop() + 'px';
+729383	    a.title = 'See Through: the star that lands on ' + nm;
+729384	    a.setAttribute('aria-label', 'Open See Through at the star that lands on ' + nm);
+729385	    a.innerHTML = '<b>SEE THROUGH ›</b><span>' + H.esc(nm) + ' · key ' + H.esc(H.fmt(s.key)) + '</span>';
+729386	    st.chip = { j: s.j, key: s.key, name: s.name, href: a.getAttribute('href') }; st.taps++;
+729388	  function hideChip() { var a = document.getElementById('ky-st-chip'); if (a) a.remove(); if (st.chip) { st.chip = null; KY.redraw(); } }
+729389	  var down = null;
+729390	  function onDown(e) { if (e.isPrimary === false) { down = null; return; } down = { x: e.clientX, y: e.clientY, id: e.pointerId }; }
+729391	  function onUp(e) {
+729392	    var d = down; down = null;
+729393	    if (!d || d.id !== e.pointerId || !stars.length) return;
+729394	    if (!layerOn()) { if (st.chip) hideChip(); return; }
+729395	    if (Math.abs(e.clientX - d.x) > 6 || Math.abs(e.clientY - d.y) > 6) return;      // a drag or a pinch, not a tap
+729396	    var t = e.target; if (!t || t.tagName !== 'CANVAS') return;                         // taps on the bar, panels and card are theirs
+729397	    var s = nearest(e.clientX, e.clientY);
+729398	    if (s) showChip(s); else hideChip();
+729399	  // ------------------------------------------------------------------ registration with the layer registry
+729400	  function registerLayer() {
+729402	      var L = layersApi();
+729403	      if (L && typeof L.get === 'function' && L.get('see-through')) {
+729404	        try { L.register({ id: 'see-through', module: ID, load: load, draw: function (o2) { draw(o2); } }); st.registered = 'yes'; }
+729405	        catch (e) { st.registered = 'refused: ' + (e && e.message || e); st.errors.push(st.registered); }
+729406	      if (++tries < 240) { setTimeout(wait, 125); return; }
+729407	      st.registered = 'no: ' + (L ? 'the registry has no see-through record' : 'no layer registry'); st.why = st.registered;
+729409	    addEventListener('pointerdown', onDown, true);
+729410	    addEventListener('pointerup', onUp, false);
+729411	    addEventListener('pointercancel', function () { down = null; }, true);
+729412	    registerLayer();
+729413	  function inspect() { var o = JSON.parse(JSON.stringify(st)); o.on = layerOn(); return o; }
+729414	  var api = Object.freeze({ schema: 'kuiper.see-through.v1', generation: GEN, link: link, inspect: inspect,
+729415	    star: function (j) { for (var i = 0; i < stars.length; i++) if (stars[i].j === j) { var s = stars[i];
+729416	      var p = scr(s, H.o2.canvas), r = H.o2.canvas.getBoundingClientRect(), k = (r.width || 1) / H.o2.canvas.width;
+729417	      return { j: s.j, key: s.key, name: s.name, href: starLink(s), client: [r.left + p[0] * k, r.top + p[1] * k] }; } return null; },
+729418	    stars: function () { return stars.length; } });
+729419	    window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN, requires: REQUIRES, provides: ['see-through'],
+729422	<meta http-equiv="refresh" content="0; url=202611021201/">
+729424	<main>Opening the latest Kuiper edition. <a href="202611021201/">Tap here if it does not open.</a></main>
+729425	<script>location.replace('202611021201/' + location.search + location.hash);</script>
+729426	// file-touch-c4.cjs <url> <outdir> [--device "Pixel 7"] (OPUS-CONTROLLER-4, 2026-11-02): the controller's own touch check of
+729427	// FILE on a frozen snapshot: real taps only (page.touchscreen.tap), SwiftShader flags as journey-6.cjs. Measures:
+729428	//   T1 FILE opens from the bar title (data-open=file, #ky-file visible);
+729429	//   T2 every visible tap target in #ky-file (button, a, input) is >= 44 px tall;
+729430	//   T3 Open a key <KEY0> + GO opens the line card (line-card inspect().open, #card shown, header = that line);
+729431	//   T4 Open a line <LINE0> + GO opens the line card on that line (the openIndex / #lyFind path for engine-owned lines).
+729432	// Page errors are counted. Report JSON to stdout and <outdir>/touch.json; screenshots <outdir>/NN-*.png.
+729437	const di = argv.indexOf('--device'), DEV = di >= 0 ? argv[di + 1] : 'Pixel 7';
+729438	const URL0 = pos[0], OUT = path.resolve(pos[1]); fs.mkdirSync(OUT, { recursive: true });
+729439	const KEY0 = 36064705400, LINE0 = process.env.LINE1;   // LINE1: a different placed line than KEY0's, so T4 changes the card
+729441	  const R = { device: DEV, url: URL0, start: new Date().toISOString(), steps: [], pageerrors: [], console_errors: [] };
+729442	  const step = (id, pass, m) => { R.steps.push({ id, pass: !!pass, m }); console.error('[' + DEV + '] ' + (pass ? 'PASS' : 'FAIL') + ' ' + id + ' ' + JSON.stringify(m)); };
+729444	  const ctx = await browser.newContext({ ...devices[DEV] });
+729445	  await ctx.route(u => !u.href.startsWith('http://127.0.0.1:8590/'), r => r.abort());
+729446	  const p = await ctx.newPage();
+729447	  p.on('pageerror', e => R.pageerrors.push(String(e && e.message || e)));
+729448	  p.on('console', m => { if (m.type() === 'error') R.console_errors.push(m.text()); });
+729449	  const shot = n => p.screenshot({ path: path.join(OUT, n + '.png'), timeout: 120000 }).catch(e => (R.shot_errors = R.shot_errors || []).push(n + ': ' + e.message.split('\n')[0]));
+729450	  const tapSel = async sel => { const el = p.locator(sel).first(); await el.scrollIntoViewIfNeeded(); const b = await el.boundingBox(); if (!b) throw new Error('no box ' + sel); await p.touchscreen.tap(b.x + b.width / 2, b.y + Math.min(b.height / 2, 22)); return b; };
+729451	  const card = () => p.evaluate(() => { const lc = KY.modules['line-card'].api.inspect(); const h = document.querySelector('#card .lc-h code'); const c = document.getElementById('card');
+729452	    return { open: lc.open, index: lc.index, header: h ? h.textContent : null, display: c ? getComputedStyle(c).display : null, hash: location.hash }; });
+729454	    await p.goto(URL0, { timeout: 180000 });
+729455	    await p.waitForFunction(() => { try { return window.__KUIPER_EDITION__ && __KUIPER_EDITION__.admitted.some(a => a.id === 'file') && KY.modules.layers.api.get('lines').status === 'OK' && document.getElementById('ky-file'); } catch (e) { return false; } }, null, { timeout: 300000, polling: 500 });
+729456	    await p.waitForTimeout(6500);
+729457	    R.admitted = await p.evaluate(() => ({ admitted: __KUIPER_EDITION__.admitted.map(a => a.id), refused: __KUIPER_EDITION__.refused }));
+729458	    const bodies = JSON.parse(fs.readFileSync(process.env.KEYS, 'utf8')).bodies;
+729459	    const b0 = bodies.find(b => b.key === KEY0), bl = bodies.find(b => b.id === LINE0 || (b.blob + ':' + b.line) === LINE0);
+729460	    R.expect = { key: b0 && { id: b0.id, line_text: b0.line_text }, line: bl && { id: bl.id, key: bl.key, line_text: bl.line_text } };
+729461	    // T1
+729462	    await tapSel('#kuiper-menu-bar .gm-menu[data-menu="file"] > .gm-title'); await p.waitForTimeout(1200);
+729463	    const t1 = await p.evaluate(() => { const b = document.getElementById('kuiper-menu-bar'), f = document.getElementById('ky-file'), r = f && f.getBoundingClientRect(); return { open: b.getAttribute('data-open'), w: r && Math.round(r.width), h: r && Math.round(r.height) }; });
+729464	    step('T1 FILE opens by touch', t1.open === 'file' && t1.w > 0 && t1.h > 0, t1); await shot('01-file-open');
+729465	    // T2
+729466	    const t2 = await p.evaluate(() => [...document.querySelectorAll('#ky-file button, #ky-file a, #ky-file input')].filter(e => { const r = e.getBoundingClientRect(), s = getComputedStyle(e); return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && s.display !== 'none'; })
+729467	      .map(e => ({ t: ((e.querySelector && e.querySelector('.ky-file-label')) || e).textContent.trim().slice(0, 40) || e.id || e.tagName, tag: e.tagName, h: Math.round(e.getBoundingClientRect().height * 10) / 10 })));
+729468	    const minH = Math.min(...t2.map(x => x.h)); R.rows = t2;
+729469	    step('T2 every visible FILE target >= 44 px', t2.length > 0 && minH >= 44, { targets: t2.length, min_h: minH, below: t2.filter(x => x.h < 44) });
+729470	    // T3
+729471	    await tapSel('#ky-file-key-in'); await p.keyboard.type(String(KEY0)); await tapSel('#ky-file-key .ky-go'); await p.waitForTimeout(9000);
+729472	    const t3 = await card(); await shot('02-open-key');
+729473	    step('T3 Open a key opens the line card', t3.open && t3.display !== 'none' && b0 && t3.header === b0.line_text, t3);
+729474	    // T4
+729475	    const open = await p.evaluate(() => document.getElementById('kuiper-menu-bar').getAttribute('data-open'));
+729476	    if (open !== 'file') { await tapSel('#kuiper-menu-bar .gm-menu[data-menu="file"] > .gm-title'); await p.waitForTimeout(1200); }
+729477	    await p.locator('#ky-file-line-in').fill(''); await tapSel('#ky-file-line-in'); await p.keyboard.type(LINE0); await tapSel('#ky-file-line .ky-go'); await p.waitForTimeout(9000);
+729478	    const t4 = await card(); await shot('03-open-line');
+729479	    step('T4 Open a line opens the line card on that line', t4.open && t4.display !== 'none' && bl && t4.header === bl.line_text, t4);
+729480	  } catch (e) { R.harness_error = String(e && e.stack || e); console.error('HARNESS ' + R.harness_error); }
+729481	  R.end = new Date().toISOString(); R.pass = !R.harness_error && R.steps.length === 4 && R.steps.every(s => s.pass) && R.pageerrors.length === 0;
+729482	  fs.writeFileSync(path.join(OUT, 'touch.json'), JSON.stringify(R, null, 1)); console.log(JSON.stringify(R, null, 1));
+729483	  await browser.close(); process.exit(R.pass ? 0 : 1);
+729484	// see-through-c5.cjs <url> <outdir> [--device "Pixel 7"] (OPUS-CONTROLLER-5, 2026-11-02): the controller's own check of the
+729485	// see-through module on a frozen snapshot, SwiftShader flags as journey-6.cjs. Measures:
+729486	//   S1 loader: every modules.json order entry admitted, none refused, see-through among them;
+729487	//   S2 the layers row "See Through stars" reads OK (label.ky-ly[data-id=see-through] .st, layers.api.get('see-through'));
+729488	//   S3 stars keyed to real data: data/see-through.json fetched in the page; every feature key == floor((j+0.5)*SPACE/20000)
+729489	//      (BigInt), every key < SPACE, features == placed == total, and the bytes' sha256, size and count == the modules.json record (data.files[0]);
+729490	//   S4 the layer draws: switched on through its original input, the overlay gains pixels of the layer's colour;
+729491	//   S5 nothing goes off-origin at load: every request URL starts with the snapshot origin (off-origin ones are aborted and listed);
+729492	//   S6 the shell's See Through entry: exactly one a[data-star=see-through] (kuiper-shell defaultStar), to ../../see-through/ on this origin, same tab.
+729493	// Page errors and console errors are counted. Report JSON to stdout and <outdir>/check.json; screenshots <outdir>/NN-*.png.
+729494	const ORIGIN = new URL(URL0).origin + '/';
+729495	  const R = { device: DEV, url: URL0, start: new Date().toISOString(), steps: [], pageerrors: [], console_errors: [], off_origin: [], requests: 0 };
+729496	  const step = (id, pass, m) => { R.steps.push({ id, pass: !!pass, m }); console.error('[' + DEV + '] ' + (pass ? 'PASS' : 'FAIL') + ' ' + id + ' ' + JSON.stringify(m).slice(0, 600)); };
+729497	  await ctx.route(u => !u.href.startsWith(ORIGIN), r => { R.off_origin.push(r.request().url().slice(0, 200)); return r.abort(); });
+729498	  p.on('request', () => R.requests++);
+729499	  p.on('console', m => { if (m.type() === 'error') R.console_errors.push(m.text().slice(0, 300)); });
+729500	    await p.waitForFunction(() => { try { const E = window.__KUIPER_EDITION__; const L = KY.modules.layers.api; const g = L.get('see-through');
+729501	      return E && E.admitted.some(a => a.id === 'see-through') && g && g.status !== 'WAIT' && g.status !== 'LOAD' && L.get('lines').status === 'OK'; } catch (e) { return false; } }, null, { timeout: 300000, polling: 500 });
+729502	    const offAtLoad = R.off_origin.slice();
+729503	    // S1
+729504	    const s1 = await p.evaluate(async () => { const E = __KUIPER_EDITION__; const mj = await (await fetch('modules.json', { cache: 'no-store' })).json();
+729505	      return { order: mj.order, admitted: E.admitted.map(a => a.id), refused: E.refused.map(r => r.id || r), loader_admitted_in_order: JSON.stringify(mj.order) === JSON.stringify(E.admitted.map(a => a.id)) }; });
+729506	    step('S1 loader: every order entry admitted, none refused, see-through among them', s1.loader_admitted_in_order && s1.refused.length === 0 && s1.admitted.includes('see-through'), s1);
+729507	    // S2
+729508	    const s2 = await p.evaluate(() => { const L = KY.modules.layers.api, g = L.get('see-through'); const lab = document.querySelector('#layers label.ky-ly[data-id="see-through"]'); const st = lab && lab.querySelector('.st');
+729509	      return { status: g.status, why: g.why, tag: g.tag, placed: g.placed, total: g.total, loaded_sha256: g.loaded_sha256, label: g.label, rec_module: g.module, record_source: g.source, history: g.history,
+729510	        row_text: lab ? lab.textContent.trim().replace(/\s+/g, ' ') : null, st_text: st ? st.textContent : null, st_data_s: st && st.getAttribute('data-s'), aria: lab && lab.getAttribute('aria-label'), input_disabled: !!(lab && lab.querySelector('input').disabled),
+729511	        st_inspect: KY.modules['see-through'] && KY.modules['see-through'].api.inspect() }; });
+729512	    step('S2 layers row "See Through stars" reads OK', s2.status === 'OK' && s2.st_data_s === 'OK' && /^OK · /.test(s2.st_text || '') && s2.label === 'See Through stars' && s2.placed > 0 && s2.placed === s2.total, s2);
+729513	    await shot('01-wafer-panel-closed');
+729514	    // S3
+729515	    const s3 = await p.evaluate(async () => { const H = KY.hooks, SPACE = BigInt(H.SPACE); const g = KY.modules.layers.api.get('see-through');
+729516	      const mj = await (await fetch('modules.json', { cache: 'no-store' })).json(); const mrec = mj.modules.find(m => m.id === 'see-through'); const drec = (mrec && mrec.data && mrec.data.files && mrec.data.files[0]) || {};
+729517	      const res = await fetch('data/see-through.json', { cache: 'no-store' }); const buf = await res.arrayBuffer();
+729518	      const hex = [...new Uint8Array(await crypto.subtle.digest('SHA-256', buf))].map(b => (b < 16 ? '0' : '') + b.toString(16)).join('');
+729519	      const j = JSON.parse(new TextDecoder().decode(buf)); const fs = j.features || []; let badKey = 0, beyond = 0, notPoint = 0, named = 0; const js = new Set();
+729520	      for (const f of fs) { const gm = f.geometry || {}; if (gm.type !== 'Point') { notPoint++; continue; } const jj = f.properties && (f.properties.j ?? f.properties.star_j ?? f.properties.sub); if (jj == null) { badKey++; continue; } js.add(jj);
+729521	        const want = ((BigInt(jj) * 2n + 1n) * SPACE) / 40000n; if (BigInt(gm.key) !== want) badKey++; if (BigInt(gm.key) >= SPACE) beyond++; if (f.properties && f.properties.name) named++; }
+729522	      return { bytes: buf.byteLength, sha256: hex, record_sha256: drec.sha256, record_bytes: drec.bytes, record_features: drec.features, record_from: 'modules.json see-through data.files[0]', layers_json_source: g.source, features: fs.length, distinct_j: js.size, bad_key: badKey, beyond_space: beyond, not_point: notPoint, named, space: String(SPACE), data_space: j.space || (j.properties && j.properties.space) || null, placed: g.placed, total: g.total, schema: j.schema || j.type }; });
+729523	    step('S3 stars keyed to real data (key_j = floor((j+0.5)*SPACE/20000), sha256 = record)', s3.features > 0 && s3.bad_key === 0 && s3.beyond_space === 0 && s3.not_point === 0 && s3.distinct_j === s3.features && s3.features === s3.placed && s3.placed === s3.total && s3.sha256 === s3.record_sha256 && s3.bytes === s3.record_bytes && s3.features === s3.record_features, s3);
+729524	    // S4: switch the layer on through its original and count pixels of its colour on the overlay
+729525	    const s4 = await p.evaluate(async () => { const L = KY.modules.layers.api; const g = L.get('see-through'); const col = g.colour; const before = count(); L.set('see-through', true); await new Promise(r => setTimeout(r, 1500)); KY.redraw && KY.redraw(); await new Promise(r => setTimeout(r, 1500));
+729526	      const after = count(); return { colour: col, on: L.get('see-through').on, before, after };
+729527	      function count() { const o = document.getElementById('o'); if (!o || !o.width) return -1; const d = o.getContext('2d').getImageData(0, 0, o.width, o.height).data; let n = 0; const rc = parseInt(col.slice(1, 3), 16), gc = parseInt(col.slice(3, 5), 16), bc = parseInt(col.slice(5, 7), 16);
+729528	        for (let i = 0; i < d.length; i += 4) { if (d[i + 3] > 60 && Math.abs(d[i] - rc) < 40 && Math.abs(d[i + 1] - gc) < 40 && Math.abs(d[i + 2] - bc) < 40) n++; } return n; } });
+729529	    step('S4 the layer draws when switched on (overlay pixels of its colour)', s4.on === true && s4.after > s4.before && s4.after > 100, s4);
+729530	    await shot('02-layer-on');
+729531	    // S5
+729532	    step('S5 nothing off-origin at load', offAtLoad.length === 0, { origin: ORIGIN, requests: R.requests, off_origin_at_load: offAtLoad });
+729533	    // S6
+729534	    const s6 = await p.evaluate(() => { const els = [...document.querySelectorAll('a[data-star="see-through"], #kuiper-star')]; const a = els[0]; const r = a && a.getBoundingClientRect(); const cs = a && getComputedStyle(a);
+729535	      return { count: els.length, tag: a && a.tagName, href: a && a.getAttribute('href'), resolved: a && new URL(a.getAttribute('href'), location.href).href, same_origin: a && new URL(a.getAttribute('href'), location.href).origin === location.origin, target: a && a.getAttribute('target'), text: a && a.textContent.trim(), aria: a && (a.getAttribute('aria-label') || a.getAttribute('title')), parent: a && a.parentElement && (a.parentElement.id || a.parentElement.className), rect: r && { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }, display: cs && cs.display, visible: !!(r && r.width > 0 && r.height > 0) }; });
+729536	    step('S6 shell See Through entry: one a[data-star=see-through] to ../../see-through/, same origin, same tab, visible', s6.count === 1 && s6.tag === 'A' && s6.href === '../../see-through/' && s6.same_origin && !s6.target && s6.visible, s6);
+729537	    await shot('03-entry');
+729538	  R.end = new Date().toISOString(); R.pass = !R.harness_error && R.steps.length === 6 && R.steps.every(s => s.pass) && R.pageerrors.length === 0;
+729539	  fs.writeFileSync(path.join(OUT, 'check.json'), JSON.stringify(R, null, 1)); console.log(JSON.stringify(R, null, 1));
+729541	 const c = await b.newContext({ ...devices['Pixel 7'] }); const p = await c.newPage(); const cons=[]; p.on('console', m => { if (m.type()==='error') cons.push(m.text()); });
+729542	 await p.goto('http://127.0.0.1:8796/editions/202611020825/', { waitUntil: 'load', timeout: 180000 }); await p.waitForTimeout(15000);
+729543	 const drift = await p.evaluate(() => (document.querySelector('#ky-drift')||{}).textContent?.trim().slice(0,80));
+729544	 const opened = await p.evaluate(() => { const b=[...document.querySelectorAll('button,a,[role=menuitem]')].find(e => /Open an app/.test(e.textContent)); if(!b) return 'no item'; b.click(); return 'clicked'; });
+729545	 await p.waitForTimeout(2500);
+729546	 const apps = await p.evaluate(() => { const a=document.querySelector('#ky-apps'); if(!a) return null; const r=a.getBoundingClientRect(); return { visible: r.height>0 && getComputedStyle(a).display!=='none', top: Math.round(r.top), text: a.textContent.trim().slice(0,160) }; });
+729547	 console.log(JSON.stringify({drift, opened, apps})); await p.screenshot({ path: '/tmp/e10-apps.png', timeout: 300000, animations: 'disabled' }).catch(e=>console.log('shot timeout'));
+729548	 console.log('console errors', cons.length, cons.slice(0,2).join(' | ')); await b.close(); })();
+729550	  for (const [name, dev] of [['pixel7', devices['Pixel 7']], ['s24', devices['Galaxy S24']]]) {
+729551	    const c = await b.newContext({ ...dev }); const p = await c.newPage(); const errs=[];
+729552	    p.on('pageerror', e => errs.push(e.message));
+729553	    await p.goto('http://127.0.0.1:8796/editions/202611020825/', { waitUntil: 'load', timeout: 180000 });
+729554	    await p.waitForTimeout(14000);
+729555	    const st = await p.evaluate(() => { const s = window.__KUIPER_EDITION__ || {}; const bar = document.querySelector('#gridatlas-menu-bar, nav[id*="menu"], #bar'); const r = bar && bar.getBoundingClientRect();
+729556	      const titles=[...document.querySelectorAll('.gm-title, nav button')].map(e=>e.textContent.trim()).filter(Boolean).slice(0,10);
+729557	      return { admitted: s.admitted, refused: s.refused, bar: r && [Math.round(r.top), Math.round(r.height), Math.round(r.width)], titles, wordmark: !!document.querySelector('.ventus-main') }; });
+729558	    console.log(name, JSON.stringify(st), 'pageerrors', errs.length, errs.slice(0,2).join(' | '));
+729559	    if (name==='pixel7') await p.screenshot({ path: '/tmp/e10-pixel7.png', timeout: 300000, animations: 'disabled' });
+729560	    await c.close();
+729562	})().catch(e => { console.log('ERR', e.message.split('\n')[0]); process.exit(1); });
+729563	 await p.goto('http://127.0.0.1:8796/editions/202611020825/', { waitUntil: 'load', timeout: 180000 }); await p.waitForTimeout(16000);
+729564	 const t = await p.evaluate(() => { const e=[...document.querySelectorAll('.ky-ly-rows')]; return e.slice(0,3).map(x => x.textContent.replace(/\s+/g,' ').trim().slice(0,700)); });
+729565	 console.log(t.join('\n')); console.log('console errors', cons.length, cons.slice(0,2).join(' | ')); await b.close(); })();
+729566	 const c = await b.newContext({ ...devices['Pixel 7'] }); const p = await c.newPage(); p.on('response', r => { if (r.status() >= 400) console.log(r.status(), r.url()); });
+729567	 await p.goto('http://127.0.0.1:8797/editions/202611021017/', { waitUntil: 'load', timeout: 180000 }); await p.waitForTimeout(12000);
+729568	 await p.locator('#kuiper-menu-bar .gm-menu[data-menu="file"] > .gm-title').first().tap(); await p.waitForTimeout(5000); await b.close(); })();
+729569	 await p.goto('http://127.0.0.1:8797/editions/202611021017/', { waitUntil: 'load', timeout: 180000 }); await p.waitForTimeout(15000);
+729570	 console.log(JSON.stringify({drift, opened, apps})); await p.screenshot({ path: '/tmp/e11-apps.png', timeout: 300000, animations: 'disabled' }).catch(e=>console.log('shot timeout'));
+729571	    await p.goto('http://127.0.0.1:8797/editions/202611021017/', { waitUntil: 'load', timeout: 180000 });
+729572	    if (name==='pixel7') await p.screenshot({ path: '/tmp/e11-pixel7.png', timeout: 300000, animations: 'disabled' });
+729573	 await p.goto('http://127.0.0.1:8797/editions/202611021017/', { waitUntil: 'load', timeout: 180000 }); await p.waitForTimeout(16000);
+729574	  await ctx.route(u => !u.href.startsWith('http://127.0.0.1:8797/'), r => r.abort());
+729576	"""Build FIXES/NL-011/KUIPER-MAP.md: the neural link keyed the way the Kuiper keys lines.
+729577	One row per key. A file key is `nl@<commit> <path>:<line>`: the commit is the one that wrote the line (git blame),
+729578	the line number is the line's number in that commit's version of the file, and the text is re-read from that commit
+729579	with `git show` and compared to the working tree before the row is written (a row whose text differs is marked).
+729580	A comment key is `#<issue>/c<id>` (GitHub issue comment id); its time is GitHub's created_at.
+729581	Usage (from the repository root):
+729582	    python3 FIXES/NL-011/build_kuiper_map.py --comments-dir <dir with c9.json c10-*.json c11.json> [--out FIXES/NL-011/KUIPER-MAP.md]
+729583	Without --comments-dir the comments are fetched with `gh api` (REST, paged by &page=N).
+729584	Written by FABLE-FIN-3, 2 Nov 2026. Types: RULE, RULING, DECISION, HANDOFF, REVISION, REVIEW, FINDING, and the
+729585	envelope's own REQUEST, ACK, BLOCKER where a comment carries them (DECISION-PROPOSAL is written DECISION).
+729587	import argparse, glob, json, os, re, subprocess, sys, datetime, collections
+729588	REPO = 'Ventusltd/neural-link-between-agents'
+729589	ISSUES = (9, 10, 11)
+729590	def sh(*cmd, text=True):
+729591	    return subprocess.run(cmd, check=True, capture_output=True, text=text).stdout
+729592	def utc(ts):
+729593	    return datetime.datetime.fromtimestamp(int(ts), datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')
+729594	# ---------------------------------------------------------------------------------------------------------------
+729595	# 1. File rows: which lines of which files are keys, and how they are typed.
+729596	#    (path, selector, type, who, note). selector: list of line numbers, or a regex matched against the line text,
+729597	#    or ('range', a, b). type may be a callable(line_text) -> type.
+729598	def overnight_type(t):
+729599	    s = t.lower()
+729600	    if 'correction' in s: return 'REVISION'
+729601	    if 'rule from now' in s or 'ruling' in s or 'rulings' in s: return 'RULING'
+729602	    if re.search(r'shipped|published|merged|done\.|merge|moved to', s): return 'HANDOFF'
+729603	    return 'FINDING'
+729604	def overnight_who(t):
+729605	    if 'Watcher A' in t: return 'WATCHER-A (Fable)'
+729606	    if t.startswith('- 2026-11-01 23:3') or t.startswith('- 2026-11-01 23:5') or t.startswith('- 2026-11-02 00:05 UTC · (Watcher A') or t.startswith('- 2026-11-02 00:07 UTC · Watcher A'):
+729607	        return 'WATCHER-A (Fable)'
+729608	    return 'HARNESS'
+729609	def decisions_row(t):
+729610	    # | D001 | time | who | authority | what | key | link | status |
+729611	    cells = [c.strip() for c in t.strip().strip('|').split('|')]
+729612	    if len(cells) < 8: return None
+729613	    what = cells[4]
+729614	    w = what.lower()
+729615	    typ = 'DECISION'
+729616	    if w.startswith('ruling') or 'ruling:' in w[:40]: typ = 'RULING'
+729617	    elif w.startswith('refuses') or w.startswith('"verdict: fail') or w.startswith('fail:'): typ = 'REVIEW'
+729618	    elif w.startswith('hands off') or w.startswith('handoff'): typ = 'HANDOFF'
+729619	    elif w.startswith('revision'): typ = 'REVISION'
+729620	    elif w.startswith('admits'): typ = 'REVIEW'
+729621	    elif w.startswith('discloses') or w.startswith('finding'): typ = 'FINDING'
+729622	    status = cells[7]
+729623	    sup = ''
+729624	    m = re.search(r'(superseded by|resolved by|overrides|supersedes|replaces) (D\d+[a-z]?(?:[,/ ]+D\d+[a-z]?)*)', status + ' ' + what, re.I)
+729625	    if m: sup = m.group(0)
+729626	    return dict(id=cells[0], when=cells[1], who=cells[2], typ=typ, summary=what[:160], superseded=sup)
+729627	FILE_SPECS = [
+729628	    ('LINK-RULE.md', re.compile(r'^\d\. '), 'RULE', 'OWNER (relayed by HARNESS)', 'the link is the medium of exchange'),
+729629	    ('LINK-RULE.md', [1], 'RULE', 'OWNER (relayed by HARNESS)', 'title and date of the rule'),
+729630	    ('PROTOCOL.md', [5, 7, 15, 16, 20, 25, 30, 31, 33, 37, 41, 45, 47], 'RULE', 'Agent F (protocol v1 author)', 'protocol v1'),
+729631	    ('AGENTS.md', re.compile(r'^(\d\. |- )'), 'RULE', 'Agent F (protocol v1 author)', 'mailbox rules'),
+729632	    ('SESSIONS/202611012145-kuiper-edition-harness-notes.md', ('range', 39, 66, re.compile(r'^- ')), 'RULE', 'HARNESS', 'rules that bind every edition'),
+729633	    ('FIXES/NL-010/BRIEF.md', [5, 72], 'DECISION', 'OWNER (quoted by HARNESS)', "owner's words: the roadmap brief and Addendum 1"),
+729634	    ('FIXES/NL-010/OVERNIGHT.md', [3], 'DECISION', 'OWNER (quoted by HARNESS)', "owner's ACCEPT and overnight instruction"),
+729635	    ('FIXES/NL-010/OVERNIGHT.md', ('range', 13, 22, re.compile(r'^- R')), 'DECISION', 'HARNESS', 'the small steps R0-R4'),
+729636	    ('FIXES/NL-010/OVERNIGHT.md', ('range', 36, 400, re.compile(r'^- ')), overnight_type, overnight_who, 'overnight log entry'),
+729637	    ('FIXES/NL-010/ROADMAP.md', ('range', 27, 39, re.compile(r'^\d\. ')), 'RULE', 'FABLE-T5B (consolidator)', 'the law the roadmap is written under'),
+729638	    ('FIXES/NL-010/ROADMAP.md', re.compile(r'^### Step \d+\.'), 'DECISION', 'FABLE-T5B (consolidator)', 'a roadmap step'),
+729639	    ('FIXES/NL-010/ROADMAP.md', re.compile(r'^- \*\*Q\d '), 'DECISION', 'FABLE-T5B (consolidator) to OWNER', 'open question for the owner (OPEN)'),
+729640	    ('FIXES/NL-010/ROADMAP.md', re.compile(r'^## Phase 2'), 'DECISION', 'FABLE-T5B (consolidator)', 'Phase 2 gated on owner acceptance of steps 1-10'),
+729641	    ('FIXES/NL-010/OPUS-BRIEF.md', re.compile(r'ACCEPT|-F body=@file|may touch|REQUEST comment'), 'RULE', 'HARNESS', 'Opus team rule'),
+729642	    ('FIXES/NL-011/DECISIONS.md', re.compile(r'^\| D\d'), None, None, 'NL-011 decision log row (LINK-09)'),
+729643	    ('FIXES/NL-011/PROTOCOL-v2-proposal.md', re.compile(r'^\| \d+ \| \*\*'), 'DECISION', 'NL-011 STUDY-06 (proposal to OWNER, NOT ADOPTED)', 'protocol v2 hunk (OPEN)'),
+729644	    ('FIXES/NL-011/LEDGER.md', re.compile(r'^\| (Q\d|OW-)'), 'DECISION', 'OPUS LINK-08 (ledger) to OWNER', 'owner ask in the ledger'),
+729645	    ('FIXES/NL-011/SYNTHESIS.md', ('range', 11, 15, re.compile(r'^\d\. ')), 'FINDING', 'NL-011 STUDY-06', 'the synthesis answer, five sentences'),
+729647	def blame(path):
+729648	    """Return {final_line: (sha, orig_line, author, committer_time)}."""
+729649	    out = sh('git', 'blame', '--line-porcelain', '--', path)
+729651	    sha = orig = final = None; author = ''; ctime = 0
+729652	    for ln in out.splitlines():
+729653	        m = re.match(r'^([0-9a-f]{40}) (\d+) (\d+)(?: (\d+))?$', ln)
+729655	            sha, orig, final = m.group(1), int(m.group(2)), int(m.group(3)); continue
+729656	        if ln.startswith('author '): author = ln[7:]
+729657	        elif ln.startswith('committer-time '): ctime = int(ln[15:])
+729658	        elif ln.startswith('\t'):
+729659	            res[final] = (sha, orig, author, ctime)
+729661	_show_cache = {}
+729662	def line_at(sha, path, n):
+729663	    key = (sha, path)
+729664	    if key not in _show_cache:
+729665	        _show_cache[key] = sh('git', 'show', f'{sha}:{path}').splitlines()
+729666	    lines = _show_cache[key]
+729667	    return lines[n - 1] if 0 < n <= len(lines) else None
+729668	def select_lines(lines, selector):
+729669	    if isinstance(selector, list): return [n for n in selector if n <= len(lines)]
+729670	    if isinstance(selector, tuple):
+729671	        _, a, b, rx = selector
+729672	        return [n for n in range(a, min(b, len(lines)) + 1) if rx.search(lines[n - 1])]
+729673	    return [n for n, t in enumerate(lines, 1) if selector.search(t)]
+729674	def file_rows():
+729676	    for path, selector, typ, who, note in FILE_SPECS:
+729677	        if not os.path.exists(path): continue
+729678	        lines = open(path, encoding='utf-8').read().split('\n')
+729679	        bl = blame(path)
+729680	        for n in select_lines(lines, selector):
+729681	            text = lines[n - 1]
+729682	            sha, orig, author, ctime = bl[n]
+729683	            at_commit = line_at(sha, path, orig)
+729684	            verified = (at_commit is not None and at_commit.rstrip() == text.rstrip())
+729685	            row_typ = typ(text) if callable(typ) else typ
+729686	            row_who = who(text) if callable(who) else who
+729687	            summary = re.sub(r'\s+', ' ', text.strip())[:170]
+729688	            sup = ''
+729689	            if path.endswith('DECISIONS.md'):
+729690	                d = decisions_row(text)
+729691	                if d is None: continue
+729692	                row_typ, row_who, summary, sup = d['typ'], d['who'], f"{d['id']} ({d['when']}): {d['summary']}", d['superseded']
+729693	            if 'CORRECTION of times' in text: sup = 'corrects the three log stamps above it (01:05Z, 01:12Z, 01:25Z)'
+729694	            if 'CORRECTION SHIPPED' in text: sup = 'supersedes the Edition 5 release a432b43 (OVERNIGHT.md R2 entry)'
+729695	            rows.append(dict(key=f'nl@{sha[:7]} {path}:{orig}', when=utc(ctime), who=row_who, typ=row_typ, note=note,
+729696	                             summary=summary, superseded=sup, verified=verified, cur_line=n, path=path, sha=sha[:7]))
+729698	# 2. Comment rows.
+729699	# Curated supersession: new comment id -> (old comment id, why). Everything else is derived from TYPE/IN-REPLY-TO.
+729700	SUPERSEDES = {
+729701	    6567437030: (6566796733, 'delegation renewed and widened to See Through folders'),
+729702	    6567953002: (6567194090, 'Edition 5 manifest corrected: be99c8a1 restored in place of 4e6b4031'),
+729703	    6568373074: (6567953002, 'the pointer moved from Edition 5 to Edition 6'),
+729704	    6569312507: (6568373074, 'the pointer moved from Edition 6 to Edition 7'),
+729705	    6569860419: (6569312507, 'the pointer moved from Edition 7 to Edition 8'),
+729706	    6570717660: (6569860419, 'the pointer moved from Edition 8 to Edition 9'),
+729707	    6572568222: (6570717660, 'the pointer moved from Edition 9 to Edition 10'),
+729708	    6574744989: (6572568222, 'the pointer moved from Edition 10 to Edition 11'),
+729709	    6566485658: (6565195261, 'kuiper-shell rev 2 replaces rev 1 (refused 6565858587)'),
+729710	    6568299280: (6566485658, 'kuiper-shell rev 3 (2045c51a) replaces rev 2 (withdrawn 6567109868)'),
+729711	    6567112212: (6565667126, 'layers re-handed off with the four behaviours'),
+729712	    6568555984: (6567112212, 'layers revision 202611020304 (b16716bd)'),
+729713	    6571928537: (6568555984, 'layers revision 202611020637 (c8fccccf) after b16716bd was refused 6569024455'),
+729714	    6566504289: (6565879640, 'drift revision 49/49'),
+729715	    6568883224: (6566504289, 'drift revision 202611020240 (f03b7835) after the withdrawal 6567584787'),
+729716	    6573876435: (6568231803, 'File revision 202611020832 (5fc4e307) replaces 3ae05df7'),
+729717	    6567574981: (6565550370, 'line-card landscape revision 8ec117f9 replaces e2baeaaa'),
+729718	    6566812411: (6565556866, 'POINTER-READY redefined without layers; admission order 5, 8, 6, 7, 3, 9'),
+729719	    6566977283: (6566873489, 'D020 answered on the link: K1 blobs stay in branch history, main never carried them'),
+729720	    6568437190: (6568425579, 'whole-wafer HARNESS-LIMITED ruling; controller 2 takes over from controller 1'),
+729721	    6570675769: (6568425579, 'controller 2 hands over the queue; controller 1 handover superseded'),
+729722	    6568425579: (6566567995, 'controller 1 end-of-run handover replaces its running REVIEW state'),
+729723	ADMIT_WORDS = re.compile(r'\bADMITTED\b|\badmitted\b', re.I)
+729724	REFUSE_WORDS = re.compile(r'\bREFUSED\b|\bwithdrawn\b|\bwithdraws\b', re.I)
+729725	def load_comments(cdir):
+729726	    if cdir:
+729727	        files = sorted(glob.glob(os.path.join(cdir, 'c*.json')))
+729729	            n = int(re.search(r'c(\d+)', os.path.basename(f)).group(1))
+729730	            for r in json.load(open(f)):
+729731	                r['_issue'] = n; rows.append(r)
+729733	        for n in ISSUES:
+729734	            page = 1
+729736	                data = json.loads(sh('gh', 'api', f'repos/{REPO}/issues/{n}/comments?per_page=100&page={page}'))
+729737	                for r in data: r['_issue'] = n; rows.append(r)
+729738	                if len(data) < 100: break
+729739	                page += 1
+729740	    seen = set(); out = []
+729742	        if r['id'] in seen: continue
+729743	        seen.add(r['id']); out.append(r)
+729744	    return sorted(out, key=lambda r: (r['_issue'], r['created_at']))
+729745	def parse_comment(r):
+729746	    body = r['body'] or ''
+729747	    first = body.strip().splitlines()[0] if body.strip() else ''
+729748	    m = re.match(r'\s*\[([^\]]+?)\s*(?:→|->)\s*([^\]]*)\]\s*\[([^\]]*)\]\s*\[([^\]]*)\]', body)
+729750	        frm, to, stamp = m.group(1).strip(), m.group(2).strip(), m.group(4).strip()
+729751	        m2 = re.match(r'\s*(\w[\w\-]*) · (\w+) · (\S+) ·', body)
+729752	        frm = (m2.group(2).upper() if m2 else 'unknown'); to = 'ALL'; stamp = (m2.group(3) if m2 else '')
+729753	    t = re.search(r'TYPE:\s*([A-Z][A-Z\-]+)', body)
+729754	    typ = t.group(1) if t else (re.match(r'\s*([A-Z]+) ·', body).group(1) if re.match(r'\s*([A-Z]+) ·', body) else '?')
+729755	    if typ == 'DECISION-PROPOSAL': typ = 'DECISION'
+729756	    irt = re.search(r'IN-REPLY-TO:\s*(\S+)', body)
+729757	    irt_id = None
+729758	    if irt:
+729759	        mm = re.search(r'issuecomment-(\d+)', irt.group(1))
+729760	        irt_id = int(mm.group(1)) if mm else None
+729761	    scope = re.search(r'SCOPE:\s*(.+)', body)
+729762	    status = re.search(r'STATUS:\s*(.+)', body)
+729763	    summary = (scope.group(1) if scope else first.split('·', 3)[-1] if '·' in first else first)
+729764	    summary = re.sub(r'\s+', ' ', summary.strip())[:150]
+729765	    corrected = 'time corrected' in first
+729766	    return dict(id=r['id'], issue=r['_issue'], when=r['created_at'].replace('T', ' ').replace('Z', 'Z'), who=frm, to=to,
+729767	                typ=typ, irt=irt_id, status=(status.group(1).strip()[:60] if status else ''), summary=summary,
+729768	                stamp=stamp, corrected=corrected, updated=r['updated_at'] != r['created_at'], body=body)
+729769	def comment_rows(raw):
+729770	    parsed = [parse_comment(r) for r in raw]
+729771	    by = {p['id']: p for p in parsed}
+729772	    for p in parsed:
+729773	        sup = ''
+729774	        if p['id'] in SUPERSEDES:
+729775	            old, why = SUPERSEDES[p['id']]
+729776	            sup = f'#{by[old]["issue"] if old in by else "?"}/c{old}: {why}'
+729777	        elif p['typ'] == 'REVISION' and p['irt'] in by:
+729778	            sup = f'#{by[p["irt"]]["issue"]}/c{p["irt"]}: revision of that hand-off'
+729779	        if p['corrected']:
+729780	            sup = (sup + '; ' if sup else '') + 'its own envelope time, corrected in place to GitHub\'s'
+729781	        p['superseded'] = sup
+729782	        rel = ''
+729783	        if p['typ'] == 'REVIEW' and p['irt'] in by:
+729784	            if REFUSE_WORDS.search(p['status']) or REFUSE_WORDS.search(p['body'][:600]): rel = 'refused'
+729785	            if ADMIT_WORDS.search(p['status']): rel = 'admitted'
+729786	        p['relation'] = rel
+729788	# 3. Write the map.
+729789	def model_of(label):
+729790	    u = label.upper()
+729791	    if u.startswith('FABLE') or u.startswith('WATCHER'): return 'Fable'
+729792	    if u.startswith('OPUS') or 'LINK-' in u: return 'Opus'
+729793	    if u.startswith('HARNESS'): return 'harness (Fable session)'
+729794	    if u.startswith('NL-011'): return 'Opus'
+729795	    return 'unstated'
+729796	def norm_label(label):
+729797	    s = re.sub(r'\s*\(.*?\)\s*', ' ', label).strip()
+729798	    s = re.sub(r'\s+(lead|builder|tester|evidence|architect|consolidator|integrator).*$', '', s, flags=re.I)
+729799	    s = re.sub(r'\s+(shell/evidence|layers|law-and-proof|bar|card|camera|touch|lines|seethrough|perf|type|robust|journey|index|persistence|decision log|resume kit|live reviewer|integration controller)$', '', s, flags=re.I)
+729800	    return s.strip() or label
+729801	def esc(s):
+729802	    return str(s).replace('|', '\\|')
+729805	    ap.add_argument('--comments-dir')
+729806	    ap.add_argument('--out', default='FIXES/NL-011/KUIPER-MAP.md')
+729808	    head = sh('git', 'rev-parse', '--short', 'HEAD').strip()
+729809	    now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+729810	    frows = file_rows()
+729811	    crows = comment_rows(load_comments(a.comments_dir))
+729812	    unverified = [r for r in frows if not r['verified']]
+729813	    agents = collections.OrderedDict()
+729814	    for p in crows:
+729815	        k = norm_label(p['who'])
+729816	        a_ = agents.setdefault(k, dict(model=model_of(k), n=0, roles=set(), first=p['when'], last=p['when'], issues=set()))
+729817	        a_['n'] += 1; a_['last'] = max(a_['last'], p['when']); a_['first'] = min(a_['first'], p['when']); a_['issues'].add(p['issue'])
+729818	        role = re.search(r'\b(lead|builder|tester|evidence|architect|consolidator)\b', p['who'], re.I)
+729819	        if role: a_['roles'].add(role.group(1).lower())
+729821	    L.append('# KUIPER-MAP: the neural link keyed the way the Kuiper keys lines')
+729823	    L.append(f'Built by FIXES/NL-011/build_kuiper_map.py at {now} (clock read with `date -u`) on neural-link-between-agents '
+729824	             f'`{head}`. One row per key. A file key `nl@<commit> <path>:<line>` names the commit that wrote the line '
+729825	             f'(git blame) and the line number in that commit\'s version of the file; each line was re-read from that commit '
+729826	             f'with `git show` and compared with the working tree ({len(frows) - len(unverified)} of {len(frows)} equal; '
+729827	             f'a row marked `~` differs in whitespace only or has moved). A comment key `#<issue>/c<id>` is the GitHub issue '
+729828	             f'comment; its time is GitHub\'s `created_at`, never the self-written stamp. "Supersedes" names the key a row '
+729829	             f'replaced, from the envelope (REVISION, IN-REPLY-TO) or the builder\'s curated list, which is itself in the script.')
+729830	    L.append('Types: RULE (binds agents), RULING (a harness or controller decision on a case), DECISION (a proposal, a plan or an '
+729831	             'owner question; DECISION-PROPOSAL envelopes are written DECISION), HANDOFF, REVISION, REVIEW, FINDING; the envelope\'s '
+729832	             'REQUEST, ACK and BLOCKER are kept where a comment carries them.')
+729833	    L.append(f'Counts: {len(frows)} file keys, {len(crows)} comment keys (#9 {sum(1 for p in crows if p["issue"]==9)}, '
+729834	             f'#10 {sum(1 for p in crows if p["issue"]==10)}, #11 {sum(1 for p in crows if p["issue"]==11)}), {len(agents)} agent labels.')
+729835	    # agents
+729836	    L.append('## A. Agents (every FROM label on #9, #10, #11, normalised to the agent; role words kept in the comment rows)')
+729837	    L.append('| agent | model | comments | issues | first (UTC) | last (UTC) |')
+729838	    L.append('|---|---|---|---|---|---|')
+729839	    for k, v in sorted(agents.items(), key=lambda kv: (kv[1]['model'], kv[0])):
+729840	        L.append(f'| {esc(k)} | {v["model"]} | {v["n"]} | {", ".join("#"+str(i) for i in sorted(v["issues"]))} | {v["first"]} | {v["last"]} |')
+729841	    by_model = collections.Counter(v['model'] for v in agents.values())
+729842	    L.append('Distinct labels by model: ' + ', '.join(f'{m} {n}' for m, n in sorted(by_model.items())) + '.')
+729843	    # file rows
+729844	    L.append('## B. Rules, rulings and decisions written in this repository (keyed by the commit that wrote the line)')
+729845	    L.append('| key | written (UTC, commit time) | who | type | supersedes | text (first 170 chars) |')
+729846	    for r in frows:
+729847	        mark = '' if r['verified'] else ' ~'
+729848	        L.append(f'| `{r["key"]}`{mark} | {r["when"]} | {esc(r["who"])} | {r["typ"]} | {esc(r["superseded"])} | {esc(r["summary"])} |')
+729849	    # comments
+729850	    for n in ISSUES:
+729851	        L.append(f'## C{n}. Issue #{n} comments')
+729853	        L.append('| key | created (UTC) | from | to | type | in reply to | supersedes | relation | scope / first line |')
+729854	        L.append('|---|---|---|---|---|---|---|---|---|')
+729855	        for p in crows:
+729856	            if p['issue'] != n: continue
+729857	            irt = f'c{p["irt"]}' if p['irt'] else ('NEW' if 'IN-REPLY-TO: NEW' in p['body'] else '')
+729858	            L.append(f'| `#{n}/c{p["id"]}` | {p["when"]} | {esc(p["who"])} | {esc(p["to"][:60])} | {p["typ"]} | {irt} | {esc(p["superseded"])} | {p["relation"]} | {esc(p["summary"])} |')
+729859	    L.append('## Limits')
+729860	    L.append('- A file key is only as fine as a line: a decision spread over several lines is keyed by its first line.')
+729861	    L.append('- The "supersedes" column is complete for the chains the builder lists (editions, delegation, module revisions, '
+729862	             'controller handovers) and for REVISION envelopes; other supersessions live in the DECISIONS.md rows\' status column.')
+729863	    L.append('- "relation" is read from a REVIEW\'s STATUS line and first 600 characters (admitted / refused); a REVIEW that '
+729864	             'both refuses one module and admits another is written by its STATUS word.')
+729865	    L.append('- Comment bodies are not copied; the row keeps the SCOPE line (or the first line) only, so the K1 check runs on less text.')
+729866	    L.append('---')
+729867	    L.append('_Generated by [Claude Code](https://claude.ai/code)_')
+729868	    open(a.out, 'w', encoding='utf-8').write('\n'.join(L) + '\n')
+729869	    print(f'wrote {a.out}: {len(frows)} file keys ({len(unverified)} unverified), {len(crows)} comment keys, {len(agents)} agents')
+729872	"""Build FIXES/NL-011/link-graph.json from FIXES/NL-011/KUIPER-MAP.md, in the ventus-grid-engine genome graph format.
+729873	Format followed: ventus-grid-engine commit 96a800eb01825748936b5a193ce396a960f9302f, genome/engine-graph.json as written
+729874	by genome/build-graph.mjs: a JSON object {schema, label, generated_utc, note, focus_default, kind_labels, nodes,
+729875	node_ids, edges, edge_kind_counts}; nodes are {label, type, rag, reason, gh}; node_ids is the parallel list of stable
+729876	ids; edges are {from, to, type, evidence:{file, lines, method}} with from/to as indices into nodes. The spider
+729877	receiver (spider-sandbox.html, normaliseGenericGraph) reads exactly these fields: label, type, rag, reason, gh, and
+729878	edges by index or id, so this file can be listed in spider/manifest.json and drawn with no change to the page.
+729879	Nodes: the three issues, every agent label, every file key and every comment key of the map.
+729880	Edges: wrote (agent -> comment), on (comment -> issue), replied_to (comment -> the comment its IN-REPLY-TO names),
+729881	superseded (new -> old, from the map's supersedes column), admitted / refused (a controller REVIEW -> the hand-off it
+729882	judged), governs (a RULE -> the issues it binds).
+729883	Usage: python3 FIXES/NL-011/build_link_graph.py [--map FIXES/NL-011/KUIPER-MAP.md] [--out FIXES/NL-011/link-graph.json]
+729884	Written by FABLE-FIN-3, 2 Nov 2026.
+729885	import argparse, collections, datetime, json, re
+729886	NL = 'https://github.com/Ventusltd/neural-link-between-agents'
+729887	KIND_LABELS = collections.OrderedDict([
+729888	    ('wrote', 'wrote'), ('on', 'posted on'), ('replied_to', 'replied to'), ('superseded', 'superseded'),
+729889	    ('admitted', 'admitted'), ('refused', 'refused'), ('governs', 'governs'),
+729891	def cells(line):
+729892	    return [c.strip() for c in line.strip().strip('|').split('|')]
+729893	def unesc(s):
+729894	    return s.replace('\\|', '|')
+729895	def parse_map(path):
+729896	    text = open(path, encoding='utf-8').read().split('\n')
+729897	    section = None
+729898	    agents, files, comments = [], [], []
+729899	    for ln in text:
+729900	        if ln.startswith('## A.'): section = 'A'; continue
+729901	        if ln.startswith('## B.'): section = 'B'; continue
+729902	        m = re.match(r'## C(\d+)\.', ln)
+729903	        if m: section = 'C' + m.group(1); continue
+729904	        if ln.startswith('## Limits'): section = None; continue
+729905	        if not ln.startswith('| ') or ln.startswith('|---') or ln.startswith('| key') or ln.startswith('| agent'): continue
+729906	        c = [unesc(x) for x in cells(ln)]
+729907	        if section == 'A' and len(c) >= 6:
+729908	            agents.append(dict(label=c[0], model=c[1], n=int(c[2]), issues=c[3], first=c[4], last=c[5]))
+729909	        elif section == 'B' and len(c) >= 6:
+729910	            key = c[0].strip('`').replace('` ~', '').strip()
+729911	            m2 = re.match(r'nl@([0-9a-f]+) (\S+):(\d+)', key)
+729912	            if not m2: continue
+729913	            files.append(dict(key=key, sha=m2.group(1), path=m2.group(2), line=int(m2.group(3)), when=c[1], who=c[2], typ=c[3], superseded=c[4], text=c[5]))
+729914	        elif section and section.startswith('C') and len(c) >= 9:
+729915	            key = c[0].strip('`')
+729916	            m2 = re.match(r'#(\d+)/c(\d+)', key)
+729917	            comments.append(dict(key=key, issue=int(m2.group(1)), id=int(m2.group(2)), when=c[1], frm=c[2], to=c[3], typ=c[4],
+729918	                                 irt=c[5], superseded=c[6], relation=c[7], summary=c[8]))
+729919	    return agents, files, comments
+729920	    ap.add_argument('--map', default='FIXES/NL-011/KUIPER-MAP.md')
+729921	    ap.add_argument('--out', default='FIXES/NL-011/link-graph.json')
+729922	    agents, files, comments = parse_map(a.map)
+729923	    nodes, node_ids, index = [], [], {}
+729924	    def add(nid, label, typ, rag, reason, gh):
+729925	        if nid in index: return index[nid]
+729926	        index[nid] = len(nodes); nodes.append(dict(label=label, type=typ, rag=rag, reason=reason, gh=gh)); node_ids.append(nid); return index[nid]
+729927	    titles = {9: 'NL-009: Kuiper Edition 5, mobile UI fixed by ten Fable agents, See Through as a button (Android)',
+729928	              10: 'NL-010: the ten-step roadmap, GridAtlas lessons into the Kuiper (OS of the estate), See Through the star player',
+729929	              11: 'NL-011: twelve Opus agents study and run the neural link; the link is the medium of exchange'}
+729930	    for n in (9, 10, 11):
+729931	        add(f'issue-{n}', f'issue #{n}', 'issue', 'green', titles[n], f'{NL}/issues/{n}')
+729932	    for ag in agents:
+729933	        add('agent:' + ag['label'], ag['label'], 'agent', 'green',
+729934	            f"{ag['model']}; {ag['n']} comment(s) on {ag['issues']}; first {ag['first']}, last {ag['last']}", None)
+729935	    comment_by_id = {c['id']: c for c in comments}
+729936	    superseded_ids = set()
+729937	    for c in comments:
+729938	        m = re.match(r'#\d+/c(\d+)', c['superseded'])
+729939	        if m: superseded_ids.add(int(m.group(1)))
+729940	        rag = 'green'
+729941	        if c['id'] in superseded_ids: rag = 'grey'
+729942	        elif c['relation'] == 'refused': rag = 'red'
+729943	        elif c['typ'] == 'DECISION' and 'OWNER' in c['to'].upper(): rag = 'amber'
+729944	        elif c['typ'] in ('REQUEST', 'BLOCKER'): rag = 'amber'
+729945	        add(c['key'], f"{c['typ']} {c['key']}", c['typ'].lower(), rag,
+729946	            f"{c['when']} · {c['frm']} → {c['to']} · {c['summary']}", f"{NL}/issues/{c['issue']}#issuecomment-{c['id']}")
+729948	        if f['typ'] == 'DECISION' and ('OPEN' in f['text'].upper()[:10] or 'to OWNER' in f['who'] or 'NOT ADOPTED' in f['who']): rag = 'amber'
+729949	        if re.search(r'superseded by', f['superseded'], re.I): rag = 'grey'
+729950	        if f['typ'] == 'REVIEW': rag = 'red' if re.search(r'refus|fail', f['text'], re.I) else 'green'
+729951	        add(f['key'], f"{f['typ']} {f['path']}:{f['line']}", f['typ'].lower(), rag,
+729952	            f"{f['when']} · {f['who']} · {f['text']}", f'{NL}/blob/{f["sha"]}/{f["path"]}#L{f["line"]}')
+729954	    def edge(src, dst, typ, file, lines, method):
+729955	        if src in index and dst in index:
+729956	            edges.append(dict(**{'from': index[src], 'to': index[dst]}, type=typ, evidence=dict(file=file, lines=lines, method=method)))
+729957	        edge('agent:' + norm_label(c['frm']), c['key'], 'wrote', 'FIXES/NL-011/KUIPER-MAP.md', c['key'], 'FROM label of the envelope, normalised to the agent')
+729958	        edge(c['key'], f"issue-{c['issue']}", 'on', 'FIXES/NL-011/KUIPER-MAP.md', c['key'], 'the issue the comment is on')
+729959	        m = re.match(r'c(\d+)', c['irt'])
+729960	        if m and int(m.group(1)) in comment_by_id:
+729961	            t = comment_by_id[int(m.group(1))]
+729962	            edge(c['key'], t['key'], 'replied_to', 'FIXES/NL-011/KUIPER-MAP.md', c['key'], 'IN-REPLY-TO field of the envelope')
+729963	            if c['relation'] in ('admitted', 'refused'):
+729964	                edge(c['key'], t['key'], c['relation'], 'FIXES/NL-011/KUIPER-MAP.md', c['key'], "REVIEW's STATUS line (admitted / refused)")
+729965	            edge(c['key'], comment_by_id[int(m.group(1))]['key'], 'superseded', 'FIXES/NL-011/KUIPER-MAP.md', c['key'], c['superseded'])
+729966	        if f['typ'] == 'RULE':
+729967	            targets = {'LINK-RULE.md': (10, 11), 'PROTOCOL.md': (9, 10, 11), 'AGENTS.md': (9, 10, 11),
+729968	                       'SESSIONS/202611012145-kuiper-edition-harness-notes.md': (9, 10), 'FIXES/NL-010/ROADMAP.md': (10,),
+729969	                       'FIXES/NL-010/OPUS-BRIEF.md': (10,)}.get(f['path'], ())
+729970	            for n in targets:
+729971	                edge(f['key'], f'issue-{n}', 'governs', 'FIXES/NL-011/KUIPER-MAP.md', f['key'], 'the rule binds the agents of that issue (LINK-RULE.md:1, BRIEF/OPUS-BRIEF channel lines)')
+729972	        m = re.search(r'(D\d+[a-z]?)', f['superseded'])
+729973	        if m and re.search(r'superseded by|resolved by', f['superseded'], re.I):
+729974	            # D-row to D-row: find the row whose text starts with that D id
+729975	            for g in files:
+729976	                if g['path'].endswith('DECISIONS.md') and g['text'].startswith(m.group(1) + ' '):
+729977	                    edge(g['key'], f['key'], 'superseded', 'FIXES/NL-011/KUIPER-MAP.md', f['key'], f"DECISIONS.md status column: {f['superseded']}")
+729979	    counts = collections.Counter(e['type'] for e in edges)
+729980	    graph = collections.OrderedDict([
+729981	        ('schema', 'neural-link.kuiper-map.v1'),
+729982	        ('label', 'neural link between agents · agents, issues, rules and hand-offs keyed as the Kuiper keys lines'),
+729983	        ('generated_utc', datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds').replace('+00:00', 'Z')),
+729984	        ('note', 'Same shape as ventus-grid-engine genome/engine-graph.json (ventus-grid-engine@96a800eb01825748936b5a193ce396a960f9302f, '
+729985	                 'written by genome/build-graph.mjs): nodes {label,type,rag,reason,gh}, node_ids parallel to nodes, edges {from,to,type,evidence} '
+729986	                 'by index, kind_labels and edge_kind_counts. Read by spider-sandbox.html normaliseGenericGraph() unchanged. Built from '
+729987	                 'FIXES/NL-011/KUIPER-MAP.md by FIXES/NL-011/build_link_graph.py. rag: green in force, grey superseded, amber open or asked, red refused.'),
+729988	        ('focus_default', index.get('issue-10', 0)),
+729989	        ('kind_labels', KIND_LABELS),
+729990	        ('nodes', nodes), ('node_ids', node_ids), ('edges', edges),
+729991	        ('edge_kind_counts', dict(counts)),
+729993	    json.dump(graph, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+729994	    print(f'wrote {a.out}: {len(nodes)} nodes, {len(edges)} edges, kinds {dict(counts)}')
 ```
