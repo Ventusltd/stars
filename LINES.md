@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-406,575 unique lines, numbered 1 to 704,024. Generated 2026-11-01T20:50:01.987Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+415,213 unique lines, numbered 1 to 713,954. Generated 2026-11-02T01:02:32.569Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -406578,4 +406578,8642 @@
 704022	  fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1));
 704023	  console.log(JSON.stringify(out, null, 1));
 704024	  process.exit(out.pass ? 0 : 1);
+704095	<meta http-equiv="refresh" content="0; url=https://ventusltd.github.io/kuiper-belt/editions/">
+704097	<style>html,body{margin:0;background:#0b0d12;color:#d8dee9;font:14px/1.6 ui-monospace,Menlo,Consolas,monospace}main{max-width:40rem;margin:18vh auto;padding:0 20px}a{color:#5ec8f2;font-weight:600}small{color:#8b93a7}</style>
+704098	<p><strong>KUIPER EDITIONS</strong><br>Opening the newest Kuiper edition: every line of every commit of the estate on one wafer, with the verified lines lit.</p>
+704099	<p><a href="https://ventusltd.github.io/kuiper-belt/editions/">Tap here if it does not open.</a></p>
+704100	<p><small>The door on this domain; the editions themselves are served from the kuiper-belt repository, each dated folder kept as history. See Through: <a href="https://ventusltd.github.io/kuiper-belt/see-through/">from the stars to one substation</a>. Provided as is, without warranty of any kind; a chart, not a design.</small></p>
+704101	<script>location.replace('https://ventusltd.github.io/kuiper-belt/editions/' + location.search + location.hash);</script>
+704104	<details id="kuiper"><summary><span class="number">02</span><span class="title">Kuiper<small>The animated universe of code</small></span></summary><div class="inside"><p>Explore patterns across code, text and mathematics, with intended adaptations for drawing and proposal work.</p><a class="launch" href="https://globalgrid2050.com/kuiper/">Enter Kuiper &rarr;</a><details id="what-is-kuiper"><summary><span class="number">&#8611;</span><span class="title">What is the Kuiper?<small>Why the code estate became a mathematical address space</small></span></summary><div class="inside"><p>A plain-English explanation of why Kuiper exists, what a Key means, how the placement law works, and how the visualisation is becoming a procedural computational engine.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/what-is-kuiper.html">Read What is the Kuiper? &rarr;</a></div></details><details id="learn-the-kuiper"><summary><span class="number">&#8611;</span><span class="title">Learn the Kuiper<small>One circle, one dot, two numbers</small></span></summary><div class="inside"><p>Move one dot by changing two numbers: one sets the distance through a square root, the other sets the angle through MOD. Slide or type the numbers to steer the dot onto targets, then link them into one key. Six circle sizes, ending with the Kuiper&#x27;s own constants. The main screen runs offline.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610050609/">Open Learn the Kuiper &rarr;</a></div></details><details id="kuiper-editions"><summary><span class="number">&#8611;</span><span class="title">Kuiper editions<small>The estate&#x27;s verified lines of code, lit on the Kuiper wafer</small></span></summary><div class="inside"><p>Every line of every commit of the estate on one wafer, with the verified lines lit as green sparks at their own keys. Tap a spark or pick a row in LINES to read the line and open it on GitHub at its commit, file and line. Each change is a new dated edition; earlier editions stay as they were. See Through, from the same family, has its own entry just below.</p><a class="launch" href="https://globalgrid2050.com/kuiper-editions/">Open the Kuiper editions &rarr;</a></div></details><details id="see-through"><summary><span class="number">&#8611;</span><span class="title">See to grid connection probabilities iteratively<small>See Through: from the stars to one substation in 3D</small></span></summary><div class="inside"><p>Type the name of a UK substation and press GO. The stars gather into the grid, the real map and satellite view appear inside the circle, and an illustrative 3D model of the substation rises on the real ground, combining mapped features with estimates. About 5,800 mapped substations. An early step toward comparing connection options site by site; no connection probability is calculated today. Needs the internet.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/see-through/202610050609/">Open See Through &rarr;</a></div></details><details id="kuiper-diary"><summary><span class="number">&#8611;</span><span class="title">Kuiper diary<small>What it is, what it could become, and why it matters now</small></span></summary><div class="inside"><p>A short note for anyone meeting the Kuiper for the first time: the two rules behind it, the two things you can open today, where it could go, and how it may help with grid connection in the UK.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/diary/20261005.html">Read the diary &rarr;</a></div></details></div></details>
+704105	<tr data-entity-id="kuiper-editions"><th scope="row"><a href="https://globalgrid2050.com/kuiper-editions/">Kuiper editions</a><small class="entity-key">kuiper-editions</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Find the estate&#x27;s verified lines of code on the Kuiper wafer, each placed at its own key and linked to its repository, commit, file and line, with every dated edition kept unchanged as history.</p><p>For: developers, grid researchers, learners</p></details></td><td>The estate&#x27;s verified lines of code, lit on the Kuiper wafer</td><td><details class="table-versions"><summary>Edition 4 - 1 November 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/kuiper-belt/editions/202610311905/belt/">Edition 1 - 31 October 2026</a><small class="entity-key">202610311905</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/kuiper-belt/editions/202611010114/">Edition 2 - 1 November 2026</a><small class="entity-key">202611010114</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/kuiper-belt/editions/202611012022/">Edition 3 - 1 November 2026</a><small class="entity-key">202611012022</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/kuiper-editions/">Edition 4 - 1 November 2026</a><small class="entity-key">202611012027</small></div></details></td></tr>
+704109	// handoff/00-stub/stub-serve.cjs: the integrator's loader stub (Opus team 10, NL-010 step 10). Apache-2.0 (kuiper-belt).
+704111	//   node stub-serve.cjs <port> [--add modules/<stamp>-<name>.js ...] [--only]
+704112	// Serves the kuiper-belt root (two folders up from editions/202611012135/) on 127.0.0.1:<port>, exactly as the
+704113	// integrator's journey does, with two substitutions so a team can test its module against the page AS INTEGRATED NOW:
+704114	//   1. editions/202611012135/index.html is the integrated page on disk. If the page on disk does not yet build
+704115	//      window.KY (Opus 4 not yet admitted), it is served with handoff/04-loader/index.html.patch applied in memory.
+704116	//   2. editions/202611012135/modules.json is the integrated manifest on disk (or handoff/04-loader/modules.json when
+704117	//      the disk one has no "hooks" field), plus one record per --add, built from the file AT EACH REQUEST: sha256,
+704118	//      bytes, generation and id from line 1 of the module, requires/provides from handoff/*/MODULE.json when a record
+704119	//      there names the same path, else from the first `requires: [...]` / `provides: [...]` literal in the file.
+704120	//      --only drops every record already in the manifest except hello and the --add ones.
+704121	// Nothing on disk is written. A pass under the stub is a pre-admission pass, never the admission: the integrator
+704122	// admits only what is in modules.json and runs the journey on the page as served without this script.
+704124	const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto'), os = require('os');
+704125	const { execFileSync } = require('child_process');
+704126	const ED = path.resolve(__dirname, '..', '..'), ROOT = path.resolve(ED, '..', '..'), STAMP = path.basename(ED);
+704127	const argv = process.argv.slice(2), port = +argv[0];
+704128	if (!port) { console.error('usage: node stub-serve.cjs <port> [--add modules/<file>.js ...] [--only]'); process.exit(2); }
+704129	const adds = []; argv.forEach((a, i) => { if (a === '--add' && argv[i + 1]) adds.push(argv[i + 1]); });
+704130	const only = argv.includes('--only');
+704131	const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.cjs': 'text/javascript', '.json': 'application/json',
+704132	  '.tsv': 'text/tab-separated-values', '.png': 'image/png', '.svg': 'image/svg+xml', '.css': 'text/css', '.md': 'text/markdown', '.txt': 'text/plain' };
+704133	function page() {
+704134	  const disk = fs.readFileSync(path.join(ED, 'index.html'), 'utf8');
+704135	  if (disk.includes('window.KY = KY')) return disk;
+704136	  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ky-stub-')), d = path.join(tmp, 'editions', STAMP);
+704137	  fs.mkdirSync(d, { recursive: true }); fs.writeFileSync(path.join(d, 'index.html'), disk);
+704138	  execFileSync('patch', ['-p1', '-s', '-i', path.join(ED, 'handoff/04-loader/index.html.patch')], { cwd: tmp });
+704139	  const out = fs.readFileSync(path.join(d, 'index.html'), 'utf8'); fs.rmSync(tmp, { recursive: true, force: true }); return out;
+704141	function listLit(src, name) { const m = src.match(new RegExp(name + "\\s*:\\s*\\[([^\\]]*)\\]")); return m ? (m[1].match(/'([^']+)'|"([^"]+)"/g) || []).map(s => s.slice(1, -1)) : []; }
+704142	function recordFor(rel) {
+704143	  const buf = fs.readFileSync(path.join(ED, rel)), src = buf.toString('utf8');
+704144	  const head = src.split('\n')[0].match(/^\/\* kuiper module ([a-z0-9-]+), generation (\d{12}) \(UTC\), ([^*]*)/);
+704145	  if (!head) throw new Error(rel + ': line 1 is not "/* kuiper module <id>, generation <stamp> (UTC), <licence>"');
+704146	  let given = null;
+704147	  for (const dir of fs.readdirSync(path.join(ED, 'handoff'))) { const f = path.join(ED, 'handoff', dir, 'MODULE.json');
+704148	    if (fs.existsSync(f)) { try { const j = JSON.parse(fs.readFileSync(f, 'utf8')); if (j.path === rel) given = j; } catch (e) { /* not JSON yet */ } } }
+704149	  return Object.assign({ id: head[1], generation: head[2], path: rel, requires: listLit(src, 'requires'), provides: listLit(src, 'provides'),
+704150	    licence: head[3].trim() || 'Apache-2.0', reads: [], writes: [], creates_controls: 'stub', team: 'stub', step: 0, proof: 'stub' }, given || {},
+704151	    { sha256: crypto.createHash('sha256').update(buf).digest('hex'), bytes: buf.length, byte_budget: Math.max((given && given.byte_budget) || 0, buf.length) });
+704152	function manifest() {
+704153	  let m = JSON.parse(fs.readFileSync(path.join(ED, 'modules.json'), 'utf8'));
+704154	  if (!m.hooks) m = JSON.parse(fs.readFileSync(path.join(ED, 'handoff/04-loader/modules.json'), 'utf8'));
+704155	  if (only) { m.order = m.order.filter(id => id === 'hello'); m.modules = m.modules.filter(r => r.id === 'hello'); }
+704156	  for (const rel of adds) { const r = recordFor(rel); m.modules = m.modules.filter(x => x.id !== r.id).concat([r]); if (!m.order.includes(r.id)) m.order.push(r.id); }
+704157	  return JSON.stringify(m, null, 1) + '\n';
+704158	http.createServer((req, res) => {
+704159	  const u = decodeURIComponent(req.url.split('?')[0].split('#')[0]);
+704161	    if (u === '/editions/' + STAMP + '/' || u === '/editions/' + STAMP + '/index.html') { res.writeHead(200, { 'content-type': TYPES['.html'], 'cache-control': 'no-store' }); return res.end(page()); }
+704162	    if (u === '/editions/' + STAMP + '/modules.json') { res.writeHead(200, { 'content-type': TYPES['.json'], 'cache-control': 'no-store' }); return res.end(manifest()); }
+704163	    let f = path.join(ROOT, path.normalize(u)); if (!f.startsWith(ROOT)) { res.writeHead(403); return res.end(); }
+704164	    if (fs.existsSync(f) && fs.statSync(f).isDirectory()) f = path.join(f, 'index.html');
+704165	    if (!fs.existsSync(f)) { res.writeHead(404); return res.end('404'); }
+704166	    res.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(res);
+704167	  } catch (e) { res.writeHead(500, { 'content-type': 'text/plain' }); res.end(String(e && e.message || e)); }
+704168	}).listen(port, '127.0.0.1', () => console.log('stub: http://127.0.0.1:' + port + '/editions/' + STAMP + '/ (adds: ' + (adds.join(', ') || 'none') + (only ? ', --only' : '') + ')'));
+704169	// test.cjs — Opus team 1, roadmap step 1 "the shell contract": acceptance A1–A9, measured, never estimated.
+704170	//   node test.cjs [--port 8412] [--ga-port 8512] [--out DIR] [--write] [--module FILE] [--html FILE]
+704171	//                 [--devices "Pixel 7,Galaxy S24,Pixel 7 landscape,360x740"] [--extra] [--no-ga] [--no-a8] [--loader] [--also-loader]
+704172	// What it does, in the form of FIXES/NL-009/android-journey.cjs (Playwright Chromium, SwiftShader flags, real touch:
+704173	// page.touchscreen.tap for every tap, the keyboard only for Escape):
+704174	//   * serves the kuiper-belt root on --port (the tester's port 8412) and /home/user/estate/gridatlas on --ga-port
+704175	//     (port + 100) with `python3 -m http.server`, unless something already answers there;
+704176	//   * A9 first, per device: opens GridAtlas /atlas/ with the CDN stubbed exactly as team 1 measured it
+704177	//     (FIXES/NL-010/team-1/STEPS.md:20-29: maplibre-gl@3.6.2 answered from kuiper-belt see-through/202610050513/vendor/,
+704178	//     the Carto style answered as an empty style with one background layer, every other external request aborted)
+704179	//     and measures #gridatlas-menu-bar;
+704180	//   * then the same measurements on the Kuiper edition for #kuiper-menu-bar, compared number to number;
+704181	//   * A8 (the admission rule) on Pixel 7 with #keys removed after the engine has run;
+704182	//   * writes report.json, the four images and TEST.md (with --write, into this folder's img/ and TEST.md).
+704183	// Devices: Pixel 7 (412x839), Galaxy S24 (360x780), Pixel 7 landscape (863x360), 360x740 (Pixel 7 at 360x740);
+704184	// --extra adds Pixel 7 at 393 and 430 px and a 1280x800 desktop (no touch), as ROADMAP step 1 lists them.
+704185	// How the module reaches the page (reported as `mode` in TEST.md):
+704186	//   page          index.html or modules.json already names *-kuiper-shell.js (team 10's script tag / manifest)
+704187	//   inject        neither does yet: the test serves index.html with one `<script defer src="modules/<file>">` before
+704188	//                 </body>, standing in for the one script tag team 1 may add (ROADMAP "The ten Opus teams", row 1)
+704189	//   --html FILE   serve FILE in place of index.html (for a loader-patched copy before team 10 lands it)
+704190	//   --loader      loader-preview: team 4's handoff/04-loader/index.html.patch applied to a copy and modules.json served as
+704191	//                 team 4's manifest plus a kuiper-shell record (sha256, bytes, requires read from the module's KY.register)
+704192	//   --also-loader after the inject run of Pixel 7 and Galaxy S24, the same device again in loader-preview (extra columns)
+704193	// Exit 0 when every assertion on every device passed (the hand-off may go), 1 otherwise, 2 on a harness error.
+704194	// Element ids, classes and probes the test relies on (C1–C10 of team-1/STEPS.md:115-199):
+704195	//   nav#kuiper-menu-bar · .gm-side-left / .gm-brand-slot / .gm-side-right · button.gm-title (six) · optional star entry
+704196	//   a.gm-title[href*="see-through"] · .hud-header > .ventus-brand > .ventus-main + .ventus-sub · .gm-panel (one open)
+704197	//   #kuiper-menu-bar-failure[role=alert] · state {schema:'kuiper.menu-bar.v1', installed, failure, controls_moved,
+704198	//   panel_counts} at window.__KUIPER_MODULES__.menuBar, or the inspect() of the KY.modules entry whose state carries
+704199	//   that schema · Edition 4's #c #o #goto #card #keys #top #hud #foot #lines #bar.
+704201	const fs = require('fs'), path = require('path'), http = require('http'), crypto = require('crypto');
+704202	const { spawn, spawnSync } = require('child_process');
+704203	// ------------------------------------------------------------------ arguments and paths
+704205	const flag = (n) => { const i = argv.indexOf(n); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : null; };
+704206	const HERE = __dirname;                                             // editions/<stamp>/handoff/01-shell
+704207	const EDITION_DIR = path.resolve(HERE, '..', '..');
+704208	const STAMP = path.basename(EDITION_DIR);
+704209	const ROOT = path.resolve(EDITION_DIR, '..', '..');                // kuiper-belt root
+704210	const GA_ROOT = String(flag('--ga-root') || '/home/user/estate/gridatlas');
+704211	const VENDOR = path.join(ROOT, 'see-through/202610050513/vendor/');
+704212	const PORT = +(flag('--port') || 8412), GA_PORT = +(flag('--ga-port') || PORT + 100);
+704213	const OUT = path.resolve(String(flag('--out') || '/tmp/nl010-opus/team-1/tester/run'));
+704214	const WRITE = !!flag('--write');
+704215	const IMG_DIR = WRITE ? path.join(HERE, 'img') : path.join(OUT, 'img');
+704216	const KURL = `http://127.0.0.1:${PORT}/editions/${STAMP}/`;
+704217	const GAURL = `http://127.0.0.1:${GA_PORT}/atlas/`;
+704218	const ARGS = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
+704219	const SETTLE = 7000, INSTALL_MAX = 60000, MARGIN = 10;
+704220	// the star entry may be a bar title only from this width (lead's measurement, FINDING issue #10 comment 6564447092: a ~74 px title
+704221	// fits the left side beside a centred 77.6 px brand only at W >= 433.2 px; team 1's 381 px counted the total, not the side)
+704222	const STAR_MIN = 434;
+704223	const SIX = ['FILE', 'EDIT', 'VIEW', 'SCOPE', 'WAFER', 'ABOUT'];
+704224	const GA_SIX = ['FILE', 'EDIT', 'VIEW', 'SCOPE', 'GRID', 'ABOUT'];
+704225	// GridAtlas's measured values, team-1/STEPS.md:39-82 (gridatlas@5ec7f62, served and measured 1 Nov 2026):
+704226	// bar 34 px at max-width:700px else 36 (menu-bar.js:166, :372); .ventus-main 11/14 px 800 #fff; .ventus-sub 4.5/5.5 px #888
+704227	// (:195-205, :374-378); .ventus-brand 73.6x16.3 on Pixel 7 and at 360 px, 90.0x20.5 at 1280x800 and in landscape.
+704228	const REF = (vw) => vw <= 700
+704229	  ? { barH: 34, mainFs: '11px', subFs: '4.5px', brandW: 73.6, brandH: 16.3, titleFs: '9px' }
+704230	  : { barH: 36, mainFs: '14px', subFs: '5.5px', brandW: 90.0, brandH: 20.5, titleFs: '11px' };
+704231	const DEVICE_SETS = {
+704232	  'Pixel 7': () => ({ ...devices['Pixel 7'] }),
+704233	  'Galaxy S24': () => ({ ...devices['Galaxy S24'] }),
+704234	  'Pixel 7 landscape': () => ({ ...devices['Pixel 7 landscape'] }),
+704235	  '360x740': () => ({ ...devices['Pixel 7'], viewport: { width: 360, height: 740 } }),
+704236	  'Pixel 7 @393': () => ({ ...devices['Pixel 7'], viewport: { width: 393, height: 851 } }),
+704237	  'Pixel 7 @430': () => ({ ...devices['Pixel 7'], viewport: { width: 430, height: 932 } }),
+704238	  '1280x800': () => ({ viewport: { width: 1280, height: 800 } }),
+704240	let DEVICES = ['Pixel 7', 'Galaxy S24', 'Pixel 7 landscape', '360x740'];
+704241	if (flag('--extra')) DEVICES = DEVICES.concat(['Pixel 7 @393', 'Pixel 7 @430', '1280x800']);
+704245	const near = (a, b, tol) => typeof a === 'number' && typeof b === 'number' && Math.abs(a - b) <= tol;
+704246	const sha256 = f => crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+704247	const log = (...a) => process.stderr.write(a.join(' ') + '\n');
+704248	// ------------------------------------------------------------------ the module under test
+704249	function findModule() {
+704250	  if (flag('--module')) return path.resolve(String(flag('--module')));
+704251	  const dir = path.join(EDITION_DIR, 'modules');
+704252	  const c = fs.readdirSync(dir).filter(f => /^\d{12}-kuiper-shell\.js$/.test(f)).sort();
+704253	  return c.length ? path.join(dir, c[c.length - 1]) : null;
+704254	// ------------------------------------------------------------------ servers
+704255	function answers(url) { return new Promise(res => { const r = http.get(url, x => { x.resume(); res(x.statusCode < 500); }); r.on('error', () => res(false)); r.setTimeout(3000, () => { r.destroy(); res(false); }); }); }
+704256	const children = [];
+704257	async function ensureServer(port, root, probeUrl) {
+704258	  if (await answers(probeUrl)) return 'already serving';
+704259	  const ch = spawn('python3', ['-m', 'http.server', String(port), '--bind', '127.0.0.1'], { cwd: root, stdio: 'ignore' });
+704260	  children.push(ch);
+704261	  for (let i = 0; i < 40; i++) { await sleep(250); if (await answers(probeUrl)) return 'started by test.cjs (pid ' + ch.pid + ')'; }
+704262	  throw new Error('could not serve ' + root + ' on ' + port);
+704263	process.on('exit', () => children.forEach(c => { try { c.kill(); } catch (e) {} }));
+704264	// ------------------------------------------------------------------ in-page probes (self-contained, run in the page)
+704265	function shellProbe(cfg) {
+704266	  const R = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { x: +r.x.toFixed(1), y: +r.y.toFixed(1), w: +r.width.toFixed(1), h: +r.height.toFixed(1), right: +r.right.toFixed(1), bottom: +r.bottom.toFixed(1) }; };
+704267	  const vis = el => { if (!el) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); };
+704268	  const css = (el, ps) => { if (!el) return null; const s = getComputedStyle(el); const o = {}; ps.forEach(p => o[p] = s.getPropertyValue(p)); return o; };
+704269	  // the state probe: window.__KUIPER_MODULES__.menuBar, or any registry entry whose state carries the schema
+704271	  const tryState = x => { try { if (!x || typeof x !== 'object') return null; if (x.schema === cfg.schema) return x;
+704272	    for (const f of [x.inspect, x.api && x.api.inspect]) if (typeof f === 'function') { const s = f(); if (s && s.schema === cfg.schema) return s; }
+704273	    if (x.api && x.api.schema === cfg.schema) return x.api; if (x.state && x.state.schema === cfg.schema) return x.state; } catch (e) { return { probeError: String(e) }; } return null; };
+704274	  for (const ns of cfg.ns) { const reg = window[ns]; if (!reg) continue; state = tryState(reg.menuBar) || null;
+704275	    if (!state) for (const k of Object.keys(reg)) { const s = tryState(reg[k]); if (s) { state = s; break; } } if (state) break; }
+704276	  if (!state && window.KY && window.KY.modules) for (const k of Object.keys(window.KY.modules)) { const s = tryState(window.KY.modules[k]); if (s) { state = s; break; } }
+704277	  const st = state ? JSON.parse(JSON.stringify(state, (k, v) => (v instanceof Element ? '[el]' : v))) : null;
+704278	  const fail = document.getElementById(cfg.failId);
+704279	  const base = { viewport: { w: innerWidth, h: innerHeight, dpr: devicePixelRatio }, coarse: matchMedia('(pointer: coarse)').matches,
+704280	    state: st, ky: !!window.KY, failure: fail ? { visible: vis(fail), text: fail.textContent.replace(/\s+/g, ' ').trim().slice(0, 300), role: fail.getAttribute('role') } : null,
+704281	    refuse: (() => { const r = document.getElementById('refuse'); return r ? { visible: vis(r), text: r.textContent.replace(/\s+/g, ' ').trim().slice(0, 300) } : null; })() };
+704282	  const bar = document.getElementById(cfg.barId);
+704283	  if (!bar) return { ...base, bar: null };
+704284	  const isStar = t => /see[\s-]*through/i.test(t.textContent) || /see-through/i.test(t.getAttribute('href') || '');
+704285	  const titles = [...bar.querySelectorAll('.gm-title')].map((t, i) => { const s = getComputedStyle(t), a = getComputedStyle(t, '::after');
+704286	    return { i, tag: t.tagName.toLowerCase(), text: (t.innerText || t.textContent).replace(/\s+/g, ' ').trim(), star: isStar(t), visible: vis(t),
+704287	      side: t.closest('.gm-side-left') ? 'left' : t.closest('.gm-side-right') ? 'right' : '?', rect: R(t),
+704288	      fontSize: s.fontSize, letterSpacing: s.letterSpacing, padding: s.padding, color: s.color, fontFamily: s.fontFamily, textTransform: s.textTransform,
+704289	      haspopup: t.getAttribute('aria-haspopup'), expanded: t.getAttribute('aria-expanded'), controls: t.getAttribute('aria-controls'), href: t.getAttribute('href'),
+704290	      after: { content: a.content, display: a.display, position: a.position, height: a.height, bottom: a.bottom } }; });
+704291	  const q = s => bar.querySelector(s);
+704292	  const vb = q('.ventus-brand'), vm = q('.ventus-main'), vs = q('.ventus-sub');
+704293	  const panels = [...document.querySelectorAll('.gm-panel')].filter(p => bar.contains(p) || (p.id || '').startsWith(cfg.barId)).map(p => ({ id: p.id, visible: vis(p), rect: vis(p) ? R(p) : null, position: getComputedStyle(p).position, labelledby: p.getAttribute('aria-labelledby') }));
+704294	  return { ...base,
+704295	    bar: R(bar), barCss: css(bar, ['position', 'height', 'background-color', 'border-bottom', 'backdrop-filter', 'font-family', 'font-size', 'z-index', 'overflow-x']), ariaLabel: bar.getAttribute('aria-label'), tag: bar.tagName.toLowerCase(),
+704296	    scroll: { scrollWidth: bar.scrollWidth, clientWidth: bar.clientWidth },
+704297	    sideLeft: R(q('.gm-side-left')), slot: R(q('.gm-brand-slot')), sideRight: R(q('.gm-side-right')),
+704298	    hudHeader: R(q('.hud-header')), hudChildren: q('.hud-header') ? [...q('.hud-header').children].map(c => ({ cls: c.className, display: getComputedStyle(c).display, rect: R(c) })) : null,
+704299	    brand: R(vb), brandIsLink: vm ? !!vm.closest('a') : null, brandOnClick: vb ? !!(vb.onclick || (vb.parentElement && vb.parentElement.onclick)) : null,
+704300	    main: vm ? { text: vm.textContent, rect: R(vm), style: css(vm, ['font-size', 'font-weight', 'letter-spacing', 'text-transform', 'color', 'line-height', 'font-family']) } : null,
+704301	    sub: vs ? { text: vs.textContent, rect: R(vs), style: css(vs, ['font-size', 'font-weight', 'letter-spacing', 'text-transform', 'color', 'line-height']) } : null,
+704302	    titles, panels, openPanels: panels.filter(p => p.visible).map(p => p.id) };
+704303	// the rows of one panel: every interactive row, outermost only
+704304	function panelRows(panelId) {
+704305	  const p = document.getElementById(panelId); if (!p) return null;
+704306	  const vis = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); };
+704307	  const SEL = 'button, a[href], a[role], label, input:not([type=hidden]), select, textarea, [role=menuitem], [role=menuitemcheckbox], [role=menuitemradio], [role=button], [role=option], .gm-row, .ln[data-i]';
+704308	  // a link inside a sentence (display:inline, in running text) is prose, not a command row: WCAG 2.5.8's inline exception
+704309	  const inlineInProse = el => el.tagName === 'A' && !el.classList.contains('gm-row') && getComputedStyle(el).display === 'inline';
+704310	  const all = [...p.querySelectorAll(SEL)].filter(vis).filter(el => !inlineInProse(el));
+704311	  const outer = all.filter(el => { let a = el.parentElement; while (a && a !== p) { if (all.includes(a)) return false; a = a.parentElement; } return true; });
+704312	  return outer.map(el => { const r = el.getBoundingClientRect(); return { tag: el.tagName.toLowerCase(), text: (el.innerText || el.value || el.placeholder || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim().slice(0, 48), h: +r.height.toFixed(1), w: +r.width.toFixed(1), x: +r.x.toFixed(1), y: +r.y.toFixed(1), dataK: el.getAttribute('data-k') }; });
+704313	// A4: what is drawn over the wafer at rest, outside the bar
+704314	function restScan(cfg) {
+704315	  const bar = document.getElementById(cfg.barId); const bb = bar ? bar.getBoundingClientRect().bottom : 0;
+704316	  const W = innerWidth, H = innerHeight;
+704317	  const allowSel = ['#c', '#o', '#goto', '[data-kuiper-find]', '.kuiper-find', '#card', 'a[href*="see-through"]', '[data-star-slot]'];
+704318	  const allowed = allowSel.flatMap(s => [...document.querySelectorAll(s)]).filter(el => !(bar && bar.contains(el)) && vis(el));
+704319	  const name = el => el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : '');
+704320	  const off = [];
+704321	  for (const el of document.body.querySelectorAll('*')) {
+704322	    if (/^(SCRIPT|STYLE|LINK|META|TEMPLATE|NOSCRIPT|BR)$/.test(el.tagName)) continue;
+704323	    if (bar && (bar === el || bar.contains(el))) continue;
+704324	    if (allowed.some(a => a === el || a.contains(el))) continue;
+704325	    if (allowed.some(a => el.contains(a)) || (bar && el.contains(bar))) continue;   // a wrapper of an allowed node
+704326	    if (!vis(el)) continue;
+704327	    const r = el.getBoundingClientRect(); if (r.bottom <= bb + 0.5 || r.top >= H || r.right <= 0 || r.left >= W) continue;
+704328	    off.push({ el: name(el), rect: [+r.x.toFixed(1), +r.y.toFixed(1), +r.width.toFixed(1), +r.height.toFixed(1)], text: (el.innerText || '').replace(/\s+/g, ' ').trim().slice(0, 40) });
+704330	  const named = Object.fromEntries(['#keys', '#top', '#hud', '#foot', '#lines', '#bar'].map(s => { const el = document.querySelector(s); return [s, el ? (vis(el) ? 'VISIBLE' : 'hidden') : 'absent']; }));
+704331	  const g = document.querySelector('[data-kuiper-find]') || document.getElementById('goto');
+704332	  const gr = g && vis(g) ? g.getBoundingClientRect() : null;
+704333	  return { barBottom: +bb.toFixed(1), offenders: off.slice(0, 30), offenderCount: off.length, named, allowedVisible: allowed.map(name),
+704334	    find: gr ? { x: +gr.x.toFixed(1), y: +gr.y.toFixed(1), w: +gr.width.toFixed(1), h: +gr.height.toFixed(1), right: +gr.right.toFixed(1) } : null };
+704335	// the overlay: the selected spark is magenta on #o (Edition 4; android-journey.cjs probeFn)
+704336	function sparkProbe(barId) {
+704337	  const ov = document.getElementById('o'), card = document.getElementById('card'), bar = document.getElementById(barId) || document.getElementById('bar');
+704338	  let magenta = null;
+704339	  try { const ctx = ov.getContext('2d'), W = ov.width, H = ov.height, d = ctx.getImageData(0, 0, W, H).data; const sx = W / innerWidth, sy = H / innerHeight;
+704340	    let ax = 0, ay = 0, n = 0;
+704341	    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4; if (d[i + 3] < 60) continue; if (d[i] > 180 && d[i + 1] < 110 && d[i + 2] > 140) { ax += x; ay += y; n++; } }
+704342	    if (n) magenta = { x: +(ax / n / sx).toFixed(1), y: +(ay / n / sy).toFixed(1), px: n };
+704343	  } catch (e) { magenta = { error: String(e) }; }
+704344	  const cs = card ? getComputedStyle(card) : null, open = !!card && cs.display !== 'none' && card.getBoundingClientRect().height > 0;
+704345	  const r = open ? card.getBoundingClientRect() : null;
+704346	  return { magenta, card: open ? { top: +r.top.toFixed(1), bottom: +r.bottom.toFixed(1), text: card.textContent.replace(/\s+/g, ' ').slice(0, 100) } : null,
+704347	    barBottom: bar ? +bar.getBoundingClientRect().bottom.toFixed(1) : null, frames: window.__fr || 0 };
+704348	// ------------------------------------------------------------------ one context
+704349	async function openPage(browser, devName, kind, opts = {}) {
+704350	  const ctx = await browser.newContext({ ...DEVICE_SETS[devName](), locale: 'en-GB' });
+704351	  const page = await ctx.newPage(); page.setDefaultTimeout(180000);
+704352	  await page.addInitScript(() => { let n = 0; const f = () => { n++; window.__fr = n; requestAnimationFrame(f); }; requestAnimationFrame(f); });
+704353	  const errors = [], sandboxNet = [];
+704354	  const local = u => /^(http:\/\/127\.0\.0\.1|data:|blob:|about:)/.test(u || '');
+704355	  page.on('console', m => { if (m.type() !== 'error') return; const loc = (m.location() || {}).url || '';
+704356	    if (/^Failed to load resource/.test(m.text()) && loc && !local(loc)) sandboxNet.push(loc.slice(0, 160)); else errors.push({ kind: 'console', text: m.text().slice(0, 300), at: loc.slice(0, 160) }); });
+704358	  page.on('requestfailed', r => { const f = r.failure(), u = r.url(); if (!f || /ERR_ABORTED|blockedbyclient|ERR_BLOCKED_BY_CLIENT/i.test(f.errorText)) return;
+704359	    if (local(u)) errors.push({ kind: 'request', text: u.slice(0, 200) + ' ' + f.errorText }); else sandboxNet.push(u.slice(0, 160) + ' ' + f.errorText); });
+704360	  if (kind === 'ga') await page.route('**/*', async (route) => {
+704361	    const u = route.request().url();
+704362	    if (u.startsWith(`http://127.0.0.1:${GA_PORT}/`)) return route.continue();
+704363	    if (u.includes('maplibre-gl@3.6.2/dist/maplibre-gl.js')) return route.fulfill({ status: 200, contentType: 'application/javascript', body: fs.readFileSync(VENDOR + 'maplibre-gl.js') });
+704364	    if (u.includes('maplibre-gl@3.6.2/dist/maplibre-gl.css')) return route.fulfill({ status: 200, contentType: 'text/css', body: fs.readFileSync(VENDOR + 'maplibre-gl.css') });
+704365	    if (u.includes('basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json')) return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ version: 8, name: 'stub-dark', sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#0b0e14' } }] }) });
+704366	    return route.abort('blockedbyclient');
+704368	  if (kind === 'kuiper' && opts.rewrite) await page.route(KURL + '{,index.html}', async (route) => {
+704369	    let html;
+704370	    if (opts.htmlFile) html = fs.readFileSync(opts.htmlFile, 'utf8');
+704371	    else { const resp = await route.fetch(); html = await resp.text(); }
+704372	    html = opts.rewrite(html);
+704373	    return route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: html });
+704374	  // the module is served from the bytes read when the run started, so every device tests the one sha256 TEST.md names,
+704375	  // even while the lead and the builder keep editing the file
+704376	  if (kind === 'kuiper' && SNAPSHOT) await page.route(KURL + 'modules/' + SNAPSHOT.name, route => route.fulfill({ status: 200, contentType: 'application/javascript', headers: { 'cache-control': 'no-store' }, body: SNAPSHOT.bytes }));
+704377	  if (kind === 'kuiper' && opts.manifest) await page.route(KURL + 'modules.json', route => route.fulfill({ status: 200, contentType: 'application/json', headers: { 'cache-control': 'no-store' }, body: opts.manifest }));
+704378	  return { ctx, page, errors, sandboxNet };
+704379	async function until(page, fn, arg, ms = 5000, every = 150) { const t0 = Date.now(); let v; while (Date.now() - t0 < ms) { v = await page.evaluate(fn, arg); if (v) return v; await sleep(every); } return v; }
+704380	async function shot(page, file, clip) {
+704381	  fs.mkdirSync(path.dirname(file), { recursive: true });
+704382	  for (let a = 0; a < 2; a++) { try { await page.screenshot({ path: file, scale: 'css', timeout: 180000, ...(clip ? { clip } : {}) }); return file; } catch (e) { if (a) return 'FAILED ' + String(e.message || e).split('\n')[0]; } }
+704383	async function shotB64(page, clip) { try { return (await page.screenshot({ scale: 'css', timeout: 180000, ...(clip ? { clip } : {}) })).toString('base64'); } catch (e) { return null; } }
+704384	let SNAPSHOT = null;   // {name, bytes} of the module under test, read once at the start
+704385	const KCFG = { barId: 'kuiper-menu-bar', failId: 'kuiper-menu-bar-failure', schema: 'kuiper.menu-bar.v1', ns: ['__KUIPER_MODULES__'] };
+704386	const GCFG = { barId: 'gridatlas-menu-bar', failId: 'gridatlas-menu-bar-failure', schema: 'gridatlas.menu-bar.v2', ns: ['__GRIDATLAS_MODULES__'] };
+704387	// ------------------------------------------------------------------ A9: GridAtlas, the reference measured live
+704388	async function runGA(browser, devName) {
+704389	  const { ctx, page, errors, sandboxNet } = await openPage(browser, devName, 'ga');
+704390	  let p = null, err = null, strip = null;
+704391	    await page.goto(GAURL, { waitUntil: 'load', timeout: 120000 });
+704392	    await until(page, () => { const s = window.__GRIDATLAS_MODULES__ && window.__GRIDATLAS_MODULES__.menuBar; return !!(s && s.installed); }, null, INSTALL_MAX, 1000);
+704394	    p = await page.evaluate(shellProbe, GCFG);
+704395	    const st = await page.evaluate(() => { const s = (window.__GRIDATLAS_MODULES__ || {}).menuBar; return s ? { schema: s.schema, installed: s.installed, failure: s.failure, controls_moved: s.controls_moved, panel_counts: s.panel_counts } : null; });
+704396	    p.state = st;
+704397	    strip = await shotB64(page, { x: 0, y: 0, width: p.viewport.w, height: 50 });
+704398	  } catch (e) { err = String(e.message || e).split('\n')[0]; }
+704400	  return { device: devName, url: GAURL, probe: p, error: err, errors, sandboxNet, strip };
+704401	// ------------------------------------------------------------------ the Kuiper run on one device
+704402	async function runKuiper(browser, devName, mod, ga, label) {
+704403	  label = label || devName; const touch = !!DEVICE_SETS[devName]().hasTouch;
+704404	  const A = {};   // id -> {pass, measured, note}
+704405	  const rec = (id, pass, measured, note) => { A[id] = { pass: !!pass, measured, note: note || '' }; log(`[${label}] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}`); };
+704406	  const imgs = {};
+704407	  const { ctx, page, errors, sandboxNet } = await openPage(browser, devName, 'kuiper', mod.pageOpts);
+704408	  const tap = (x, y) => touch ? page.touchscreen.tap(Math.round(x), Math.round(y)) : page.mouse.click(Math.round(x), Math.round(y));   // real touch on every phone; the 1280x800 desktop has no touch screen
+704409	  const tapR = r => tap(r.x + r.w / 2, r.y + r.h / 2);
+704410	    await page.goto(KURL, { waitUntil: 'load', timeout: 120000 });
+704412	    await until(page, (cfg) => { const b = document.getElementById(cfg.barId); const f = document.getElementById(cfg.failId); return !!(b && b.querySelector('.gm-title')) || !!f; }, KCFG, INSTALL_MAX, 500);
+704413	    await sleep(SETTLE);
+704414	    let p = await page.evaluate(shellProbe, KCFG);
+704415	    const vw = p.viewport.w, ref = REF(vw), gp = ga && ga.probe && ga.probe.bar ? ga.probe : null;
+704416	    const installMs = Date.now() - t0 - SETTLE;
+704417	    // A1 the bar
+704419	      const b = p.bar, st = p.state || {};
+704420	      const ok = !!b && near(b.x, 0, 0.5) && near(b.y, 0, 0.5) && near(b.w, vw, 0.5) && near(b.h, ref.barH, 0.5) && st.installed === true && (st.failure === null || st.failure === undefined) && st.schema === 'kuiper.menu-bar.v1' && !(p.failure && p.failure.visible);
+704421	      rec('A1', ok, { rect: b, expectH: ref.barH, gaH: gp ? gp.bar.h : null, tag: p.tag, ariaLabel: p.ariaLabel, position: p.barCss && p.barCss.position, state: st && { schema: st.schema, installed: st.installed, failure: st.failure, controls_moved: st.controls_moved, panel_counts: st.panel_counts }, ky: p.ky, failureStrip: p.failure, refuse: p.refuse, waitedMs: installMs },
+704422	        !b ? 'no #kuiper-menu-bar in the page' + (p.failure ? ' — failure strip: ' + p.failure.text : '') + (p.ky ? '' : ' — window.KY absent') : (st.installed !== true ? 'state.installed is ' + JSON.stringify(st.installed) : ''));
+704424	    // A2 one row, the six names, no horizontal scroll
+704425	    let six = [];
+704426	      const ts = p.titles || [], nonStar = ts.filter(t => !t.star), star = ts.find(t => t.star) || null; six = nonStar;
+704427	      const names = nonStar.map(t => t.text.toUpperCase());
+704428	      const ys = new Set(ts.filter(t => t.visible).map(t => Math.round(t.rect.y)));
+704429	      const sides = nonStar.map(t => t.side).join(',');
+704430	      const brandInBar = p.brand && p.bar && p.brand.y >= p.bar.y - 0.5 && p.brand.bottom <= p.bar.bottom + 0.5;
+704431	      const titlesInBar = ts.every(t => !t.visible || (t.rect.y >= p.bar.y - 0.5 && t.rect.bottom <= p.bar.bottom + 0.5));
+704432	      const lastRight = ts.length ? Math.max(...ts.map(t => t.rect.right)) : null;
+704433	      const noScroll = p.scroll && p.scroll.scrollWidth === p.scroll.clientWidth;
+704434	      const starOk = !star || (vw >= STAR_MIN ? (star.side === 'left' && ts.indexOf(star) < ts.findIndex(t => t.text.toUpperCase() === 'FILE')) : false);
+704435	      const ok = !!p.bar && JSON.stringify(names) === JSON.stringify(SIX) && sides === 'left,left,left,right,right,right' && ys.size === 1 && brandInBar && titlesInBar && lastRight <= vw + 0.5 && noScroll && starOk
+704436	        && nonStar.every(t => t.tag === 'button' && t.haspopup === 'menu' && t.controls && t.expanded === 'false');
+704437	      rec('A2', ok, { names, sides, rowsY: [...ys], titleRects: ts.map(t => [t.text, t.rect && t.rect.x, t.rect && t.rect.w]), titleSum: +nonStar.reduce((s, t) => s + (t.rect ? t.rect.w : 0), 0).toFixed(1), slot: p.slot, slack: p.bar && p.slot ? +(vw - nonStar.reduce((s, t) => s + t.rect.w, 0) - p.slot.w - (star ? star.rect.w : 0)).toFixed(1) : null, lastRight, scroll: p.scroll, star: star && { text: star.text, side: star.side, rect: star.rect, href: star.href }, aria: nonStar.map(t => [t.tag, t.haspopup, t.expanded, t.controls]), titleFont: nonStar[0] && [nonStar[0].fontSize, nonStar[0].letterSpacing, nonStar[0].padding, nonStar[0].color] },
+704438	        JSON.stringify(names) !== JSON.stringify(SIX) ? 'names ' + names.join(' ') : ys.size !== 1 ? 'titles on ' + ys.size + ' rows' : !noScroll ? 'bar scrolls horizontally' : !starOk ? 'star entry violates the width rule' : '');
+704439	    // A3 the wordmark
+704440	      const m = p.main, s = p.sub, b = p.brand;
+704441	      const ms = m && m.style, ss = s && s.style;
+704442	      const cx = b ? b.x + b.w / 2 : null, cy = b ? b.y + b.h / 2 : null, barCy = p.bar ? p.bar.y + p.bar.h / 2 : null;
+704443	      const gb = gp && gp.brand ? gp.brand : null;
+704444	      const checks = {
+704445	        mainText: m && /^ventus$/i.test(m.text.trim()), subText: s && /cables\s*&\s*connectivity®/i.test(s.text),
+704446	        mainSize: ms && ms['font-size'] === ref.mainFs, mainWeight: ms && ms['font-weight'] === '800', mainColour: ms && ms.color === 'rgb(255, 255, 255)', mainUpper: ms && ms['text-transform'] === 'uppercase',
+704447	        subSize: ss && ss['font-size'] === ref.subFs, subColour: ss && ss.color === 'rgb(136, 136, 136)', subUpper: ss && ss['text-transform'] === 'uppercase',
+704448	        // centred within 1 px, or (with the desktop flanks, where GridAtlas's own wordmark sits off centre) at GridAtlas's offset within 1 px
+704449	        centreX: near(cx, vw / 2, 1) || !!(gb && gp.bar && near(cx - vw / 2, (gb.x + gb.w / 2) - (gp.bar.x + gp.bar.w / 2), 1)), centreY: near(cy, barCy, 1), slotCentred: !!(p.slot && near(p.slot.x + p.slot.w / 2, vw / 2, 1)), notLink: p.brandIsLink === false && p.brandOnClick === false,
+704450	        boxVsTable: b && near(b.w, ref.brandW, 1) && near(b.h, ref.brandH, 1),
+704451	        boxVsGridAtlasLive: !!(b && gb && near(b.w, gb.w, 1) && near(b.h, gb.h, 1)),
+704453	      const ok = Object.values(checks).every(Boolean);
+704454	      rec('A3', ok, { brand: b, table: [ref.brandW, ref.brandH], gridatlasLive: gb ? [gb.w, gb.h] : null, centre: [cx && +cx.toFixed(2), cy && +cy.toFixed(2)], viewportCentre: vw / 2, barCentreY: barCy, main: m, sub: s, checks },
+704455	        ok ? '' : 'failed: ' + Object.entries(checks).filter(([, v]) => !v).map(([k]) => k).join(', ') + (gb ? '' : ' (GridAtlas live box unavailable)'));
+704456	    // A4 at rest nothing over the wafer but the bar, the canvases, the find box (and the star chip at <=380 px)
+704457	      const r = await page.evaluate(restScan, KCFG);
+704458	      const namedOk = ['#keys', '#top', '#hud', '#foot', '#lines', '#bar'].every(k => r.named[k] !== 'VISIBLE');
+704459	      const findOk = !r.find || (near(r.find.y, r.barBottom + 36, 1) && r.find.right <= vw + 0.5 && (!p.coarse || r.find.h >= 44 - 0.5));
+704460	      const ok = !!p.bar && r.offenderCount === 0 && namedOk && findOk && (p.openPanels || []).length === 0;
+704461	      rec('A4', ok, { ...r, openAtRest: p.openPanels, findExpectTop: r.barBottom + 36 }, ok ? '' : (r.offenderCount ? r.offenderCount + ' element(s) over the wafer: ' + r.offenders.slice(0, 4).map(o => o.el).join(' ') : '') + (namedOk ? '' : ' named still visible: ' + Object.entries(r.named).filter(([, v]) => v === 'VISIBLE').map(([k]) => k).join(' ')) + (findOk ? '' : ' find box misplaced ' + JSON.stringify(r.find)));
+704462	    if (!fs.existsSync(path.join(OUT, slug(label)))) fs.mkdirSync(path.join(OUT, slug(label)), { recursive: true });
+704463	    imgs.rest = await shot(page, path.join(OUT, slug(label), '01-rest.png'));
+704464	    imgs.strip = await shotB64(page, { x: 0, y: 0, width: vw, height: 50 });
+704465	    // A6 (closed): the 44 px hit box below the bar on a coarse pointer
+704466	    const a6 = { coarse: p.coarse, closed: [], open: null };
+704467	    if (p.bar && six.length) for (const t of six) { const x = t.rect.x + t.rect.w / 2;
+704468	      const hit = await page.evaluate(({ x, i }) => { const el = document.elementFromPoint(x, 40); const t = document.querySelectorAll('#kuiper-menu-bar .gm-title')[i]; return { hitsTitle: !!(el && t && (el === t || t.contains(el))), el: el ? (el.id ? '#' + el.id : el.tagName.toLowerCase() + '.' + String(el.className).split(' ')[0]) : null }; }, { x, i: t.i });
+704469	      a6.closed.push({ t: t.text, x: +x.toFixed(1), ...hit }); }
+704470	    // A5 every title: tap opens exactly one panel under the bar, second tap / Escape / back close it; rows >= 44 px
+704471	    const a5 = { titles: [], rowsUnder44: [], rowCount: 0, wafer: null, next: null };
+704472	    const openState = () => page.evaluate((cfg) => { const bar = document.getElementById(cfg.barId); const vis = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && el.checkVisibility({ opacityProperty: true, visibilityProperty: true }); };
+704473	      const ps = [...document.querySelectorAll('.gm-panel')].filter(p => bar.contains(p) || (p.id || '').startsWith(cfg.barId)).filter(vis);
+704474	      return { open: ps.map(p => { const r = p.getBoundingClientRect(); return { id: p.id, top: +r.top.toFixed(1), right: +r.right.toFixed(1), left: +r.left.toFixed(1), bottom: +r.bottom.toFixed(1), position: getComputedStyle(p).position }; }), barBottom: +bar.getBoundingClientRect().bottom.toFixed(1), histLen: history.length, href: location.href, marker: window.__tester_marker === 1,
+704475	        expanded: [...bar.querySelectorAll('.gm-title')].map(t => t.getAttribute('aria-expanded')) }; }, KCFG);
+704476	    const titleRect = i => page.evaluate(i => { const r = document.querySelectorAll('#kuiper-menu-bar .gm-title')[i].getBoundingClientRect(); return { x: r.x, y: r.y, w: r.width, h: r.height }; }, i);
+704477	    const waitOpen = (n) => until(page, ({ cfg, n }) => { const bar = document.getElementById(cfg.barId); const ps = [...document.querySelectorAll('.gm-panel')].filter(p => (bar.contains(p) || (p.id || '').startsWith(cfg.barId)) && p.getBoundingClientRect().height > 0 && p.checkVisibility({ visibilityProperty: true, opacityProperty: true })); return ps.length === n; }, { cfg: KCFG, n }, 4000);
+704478	    if (p.bar && six.length) {
+704479	      await page.evaluate(() => { window.__tester_marker = 1; });
+704480	      for (const t of six) {
+704481	        const r = { t: t.text };
+704482	        await tapR(await titleRect(t.i)); await waitOpen(1); let s = await openState();
+704483	        r.open1 = s.open.length; r.panel = s.open[0] || null; r.expanded = s.expanded[t.i];
+704484	        r.underBar = !!r.panel && r.panel.top >= s.barBottom - 0.5; r.inside = !!r.panel && r.panel.right <= vw + 0.5 && r.panel.left >= -0.5;
+704485	        if (r.panel) { const rows = await page.evaluate(panelRows, r.panel.id); r.rows = rows.length; a5.rowCount += rows.length; rows.filter(x => x.h < 44 - 0.05).forEach(x => a5.rowsUnder44.push({ panel: t.text, ...x }));
+704486	          if (t.text.toUpperCase() === 'VIEW' || (!a5.viewShot && t === six[0])) { const f = await shot(page, path.join(OUT, slug(label), `02-panel-${slug(t.text)}.png`)); if (t.text.toUpperCase() === 'VIEW') { imgs.view = f; a5.viewShot = true; } else imgs.firstPanel = f; } }
+704487	        await tapR(await titleRect(t.i)); await waitOpen(0); s = await openState(); r.closedBySecondTap = s.open.length === 0;
+704488	        await tapR(await titleRect(t.i)); await waitOpen(1);
+704489	        await page.keyboard.press('Escape'); await waitOpen(0); s = await openState(); r.closedByEscape = s.open.length === 0;
+704490	        await tapR(await titleRect(t.i)); await waitOpen(1); const before = await openState(); r.histBefore = before.histLen;
+704491	        try { await page.goBack({ waitUntil: 'commit', timeout: 8000 }); } catch (e) { r.goBackNote = String(e.message || e).split('\n')[0].slice(0, 80); }
+704492	        await sleep(600); await waitOpen(0);
+704493	        let after; try { after = await openState(); } catch (e) { after = null; }
+704494	        r.closedByBack = !!after && after.open.length === 0; r.stayedOnPage = !!after && after.marker && after.href === before.href;
+704495	        if (!r.stayedOnPage) {   // back left the page: no history entry was pushed. Restore and carry on, recording the failure.
+704496	          try { await page.goto(KURL, { waitUntil: 'load', timeout: 120000 }); await sleep(SETTLE); await page.evaluate(() => { window.__tester_marker = 1; }); } catch (e) {}
+704498	        s = await openState(); if (s.open.length) { await page.keyboard.press('Escape'); await waitOpen(0); }
+704499	        a5.titles.push(r);
+704501	      // a tap on the wafer closes an open panel (C7), at a point outside the panel and the bar
+704502	      { await tapR(await titleRect(six[0].i)); await waitOpen(1); const s = await openState(); const pn = s.open[0];
+704503	        let pt = null; if (pn) { for (const [x, y] of [[vw / 2, p.viewport.h - 30], [vw - 30, p.viewport.h - 30], [30, p.viewport.h - 120]]) if (y > pn.bottom + 4 || x > pn.right + 4 || x < pn.left - 4) { pt = [x, y]; break; } }
+704504	        if (pt) { await tap(pt[0], pt[1]); await waitOpen(0); const s2 = await openState(); a5.wafer = { tappedAt: pt, closed: s2.open.length === 0 }; } else a5.wafer = { tappedAt: null, closed: null, note: 'the open panel covers the wafer; no free point to tap' };
+704505	        const s3 = await openState(); if (s3.open.length) { await page.keyboard.press('Escape'); await waitOpen(0); } }
+704506	      // A6 (open): with the first panel open, the point 4 px into its first row is that row, not the title above
+704507	      { await tapR(await titleRect(six[0].i)); await waitOpen(1); const s = await openState();
+704508	        if (s.open[0]) { const rows = await page.evaluate(panelRows, s.open[0].id); const row = rows[0];
+704509	          if (row) { const x = Math.min(row.x + row.w / 2, six[0].rect.x + six[0].rect.w / 2 > row.x && six[0].rect.x + six[0].rect.w / 2 < row.x + row.w ? six[0].rect.x + six[0].rect.w / 2 : row.x + row.w / 2);
+704510	            a6.open = await page.evaluate(({ x, y, id, i }) => { const el = document.elementFromPoint(x, y); const p = document.getElementById(id); const t = document.querySelectorAll('#kuiper-menu-bar .gm-title')[i];
+704511	              return { x, y, el: el ? (el.id ? '#' + el.id : el.tagName.toLowerCase() + '.' + String(el.className).split(' ')[0]) : null, inPanel: !!(el && p.contains(el)), isTitle: !!(el && t && (el === t || t.contains(el))) }; }, { x: Math.round(x), y: Math.round(row.y + 4), id: s.open[0].id, i: six[0].i }); }
+704512	          else a6.open = { note: 'first panel has no rows' }; }
+704513	        await page.keyboard.press('Escape'); await waitOpen(0); }
+704514	      // A5 "next verified line": the VIEW row lands the spark between the bar and the card (Edition 4 edFly law)
+704515	      { const vi = six.find(t => t.text.toUpperCase() === 'VIEW');
+704516	        let found = null;
+704517	        for (const t of [vi, ...six.filter(x => x !== vi)].filter(Boolean)) {
+704518	          await tapR(await titleRect(t.i)); await waitOpen(1); const s = await openState(); if (!s.open[0]) continue;
+704519	          const rows = await page.evaluate(panelRows, s.open[0].id); const row = rows.find(x => /next verified line/i.test(x.text) || x.dataK === 'e');
+704520	          if (row) { found = { panel: t.text, row }; await tap(row.x + row.w / 2, row.y + row.h / 2); break; }
+704521	          await page.keyboard.press('Escape'); await waitOpen(0);
+704522	        if (found) {
+704523	          let sp = null, last = null; const tS = Date.now();
+704524	          while (Date.now() - tS < 90000) { await sleep(400); sp = await page.evaluate(sparkProbe, KCFG.barId);
+704525	            if (sp.magenta && sp.magenta.x != null && sp.card) { if (last && Math.hypot(sp.magenta.x - last.x, sp.magenta.y - last.y) < 0.6 && sp.frames - last.frames >= 2) break; last = { ...sp.magenta, frames: sp.frames }; } }
+704526	          await sleep(1500); sp = await page.evaluate(sparkProbe, KCFG.barId); const s = await openState();
+704527	          const between = !!(sp.magenta && sp.magenta.x != null && sp.card && sp.magenta.y >= sp.barBottom + MARGIN && sp.magenta.y <= sp.card.top - MARGIN && sp.magenta.x >= MARGIN && sp.magenta.x <= vw - MARGIN);
+704528	          a5.next = { found, spark: sp.magenta, card: sp.card, barBottom: sp.barBottom, between, panelsOpenAfter: s.open.length };
+704529	          imgs.next = await shot(page, path.join(OUT, slug(label), '03-next-line.png'));
+704530	          if (s.open.length) { await page.keyboard.press('Escape'); await waitOpen(0); }
+704531	        } else a5.next = { found: null, between: false, note: 'no row "next verified line" (data-k="e") in any panel' };
+704532	      const ts = a5.titles;
+704533	      const ok = ts.length === 6 && ts.every(r => r.open1 === 1 && r.underBar && r.inside && r.expanded === 'true' && r.closedBySecondTap && r.closedByEscape && r.closedByBack && r.stayedOnPage)
+704534	        && a5.rowsUnder44.length === 0 && a5.rowCount > 0 && a5.next && a5.next.between && (!a5.wafer || a5.wafer.closed !== false);
+704535	      const why = [];
+704536	      ts.forEach(r => { const f = ['open1', 'underBar', 'inside', 'closedBySecondTap', 'closedByEscape', 'closedByBack', 'stayedOnPage'].filter(k => k === 'open1' ? r.open1 !== 1 : !r[k]); if (r.expanded !== 'true') f.push('aria-expanded'); if (f.length) why.push(r.t + ': ' + f.join('/')); });
+704537	      if (a5.rowsUnder44.length) why.push(a5.rowsUnder44.length + ' row(s) under 44 px');
+704538	      if (!a5.rowCount) why.push('no panel rows');
+704539	      if (!a5.next || !a5.next.between) why.push('next verified line: ' + (a5.next && a5.next.found ? 'spark not between bar and card' : 'row not found'));
+704540	      if (a5.wafer && a5.wafer.closed === false) why.push('wafer tap did not close');
+704541	      if (ts.length !== 6) why.push(ts.length + ' titles exercised');
+704542	      rec('A5', ok, a5, why.join('; '));
+704543	      const closedOk = a6.closed.length === 6 && a6.closed.every(c => c.hitsTitle);
+704544	      const openOk = !!(a6.open && a6.open.inPanel && !a6.open.isTitle);
+704545	      const ok = p.coarse ? closedOk && openOk : openOk;
+704546	      rec('A6', ok, a6, ok ? '' : (!p.coarse ? 'pointer not coarse; ' : '') + (closedOk ? '' : 'closed: ' + a6.closed.filter(c => !c.hitsTitle).map(c => c.t + '→' + c.el).join(' ')) + (openOk ? '' : ' open: ' + JSON.stringify(a6.open)));
+704547	    // A2b: a 1.3x system font scale on the titles and the wordmark (01-bar's method) — one row still; scroll reaches the last title
+704548	    if (devName === '360x740' && p.bar && six.length) {
+704549	      await page.evaluate(() => { const bar = document.getElementById('kuiper-menu-bar');
+704550	        for (const el of bar.querySelectorAll('.gm-title, .ventus-main, .ventus-sub')) el.style.setProperty('font-size', (parseFloat(getComputedStyle(el).fontSize) * 1.3).toFixed(2) + 'px', 'important'); });
+704551	      await sleep(300);                                            // a real font-scale change relayouts before the next frame; let it
+704552	      const r = await page.evaluate(() => { const bar = document.getElementById('kuiper-menu-bar');
+704553	        const ts = [...bar.querySelectorAll('.gm-title')]; return { rows: new Set(ts.map(t => Math.round(t.getBoundingClientRect().y))).size, barH: +bar.getBoundingClientRect().height.toFixed(1), scrollWidth: bar.scrollWidth, clientWidth: bar.clientWidth, overflowX: getComputedStyle(bar).overflowX }; });
+704554	      let reach = null;
+704555	      if (r.scrollWidth > r.clientWidth) { const last = six[six.length - 1];
+704556	        await page.evaluate(i => document.querySelectorAll('#kuiper-menu-bar .gm-title')[i].scrollIntoView({ inline: 'end', block: 'nearest' }), last.i); await sleep(300);
+704557	        const tr = await titleRect(last.i); reach = { rect: tr, onScreen: tr.x >= 0 && tr.x + tr.w <= p.viewport.w + 0.5 };
+704558	        if (reach.onScreen) { await tapR(tr); await waitOpen(1); const s = await openState(); reach.opened = s.open.length === 1; if (s.open.length) { await page.keyboard.press('Escape'); await waitOpen(0); } } }
+704559	      await page.evaluate(() => { for (const el of document.querySelectorAll('#kuiper-menu-bar .gm-title, #kuiper-menu-bar .ventus-main, #kuiper-menu-bar .ventus-sub')) el.style.removeProperty('font-size'); });
+704560	      const ok = r.rows === 1 && near(r.barH, REF(p.viewport.w).barH, 0.5) && (r.scrollWidth <= r.clientWidth || (/(auto|scroll)/.test(r.overflowX) && reach && reach.onScreen && reach.opened));
+704561	      rec('A2b', ok, { ...r, reach }, ok ? '' : 'at 1.3x: ' + JSON.stringify(r));
+704562	    // A7 zero page errors, zero console errors, node --check of the module
+704563	      const snapFile = path.join(OUT, 'module-under-test.js'); if (SNAPSHOT) fs.writeFileSync(snapFile, SNAPSHOT.bytes);
+704564	      const chk = SNAPSHOT ? spawnSync(process.execPath, ['--check', snapFile], { encoding: 'utf8' }) : { status: -1, stderr: 'no module file' };
+704565	      const ok = errors.length === 0 && chk.status === 0;
+704566	      rec('A7', ok, { errors, nodeCheck: chk.status === 0 ? 'ok' : String(chk.stderr).slice(0, 300), sandboxNetworkDenied: sandboxNet.slice(0, 10) }, ok ? '' : (errors.length ? errors.length + ' error(s): ' + errors[0].text.slice(0, 120) : 'node --check failed'));
+704567	    // A9 per device: the same table for both shells, number to number
+704568	      const k = p, g = gp; const rows = [];
+704569	      const add = (what, kv, gv, pass) => rows.push({ what, kuiper: kv, gridatlas: gv, pass: !!pass });
+704570	      if (!g) rows.push({ what: 'GridAtlas measured', kuiper: '-', gridatlas: ga && ga.error ? ga.error : 'menu bar not installed: ' + JSON.stringify(ga && ga.probe && ga.probe.failure), pass: false });
+704572	        add('bar height px', k.bar && k.bar.h, g.bar.h, k.bar && near(k.bar.h, g.bar.h, 0.5));
+704573	        add('bar background', k.barCss && k.barCss['background-color'], g.barCss['background-color'], k.barCss && k.barCss['background-color'] === g.barCss['background-color']);
+704574	        add('bar rule', k.barCss && k.barCss['border-bottom'], g.barCss['border-bottom'], k.barCss && k.barCss['border-bottom'] === g.barCss['border-bottom']);
+704575	        add('bar blur', k.barCss && k.barCss['backdrop-filter'], g.barCss['backdrop-filter'], k.barCss && k.barCss['backdrop-filter'] === g.barCss['backdrop-filter']);
+704576	        add('bar font', k.barCss && k.barCss['font-family'], g.barCss['font-family'], k.barCss && k.barCss['font-family'] === g.barCss['font-family']);
+704577	        const kt = (k.titles || []).filter(t => !t.star), gt = (g.titles || []);
+704578	        add('title rows', new Set(kt.map(t => Math.round(t.rect.y))).size, new Set(gt.map(t => Math.round(t.rect.y))).size, new Set(kt.map(t => Math.round(t.rect.y))).size === 1 && new Set(gt.map(t => Math.round(t.rect.y))).size === 1);
+704579	        add('title names', kt.map(t => t.text.toUpperCase()).join(' '), gt.map(t => t.text.toUpperCase()).join(' '), JSON.stringify(kt.map(t => t.text.toUpperCase())) === JSON.stringify(SIX) && JSON.stringify(gt.map(t => t.text.toUpperCase())) === JSON.stringify(GA_SIX));
+704580	        add('title height px', kt[0] && kt[0].rect.h, gt[0] && gt[0].rect.h, kt[0] && gt[0] && near(kt[0].rect.h, gt[0].rect.h, 0.5));
+704581	        for (const prop of ['fontSize', 'letterSpacing', 'padding', 'color', 'fontFamily', 'textTransform']) add('title ' + prop, kt[0] && kt[0][prop], gt[0] && gt[0][prop], kt[0] && gt[0] && kt[0][prop] === gt[0][prop]);
+704582	        for (let i = 0; i < 6; i++) { if (i === 4) continue; const a = kt[i], b = gt[i]; add('title width ' + (b ? b.text.toUpperCase() : i), a && a.rect.w, b && b.rect.w, a && b && near(a.rect.w, b.rect.w, 1)); }
+704583	        add('brand slot w x h', k.slot && [k.slot.w, k.slot.h].join(' x '), g.slot && [g.slot.w, g.slot.h].join(' x '), k.slot && g.slot && near(k.slot.w, g.slot.w, 1) && near(k.slot.h, g.slot.h, 1));
+704584	        add('wordmark box w x h', k.brand && [k.brand.w, k.brand.h].join(' x '), g.brand && [g.brand.w, g.brand.h].join(' x '), k.brand && g.brand && near(k.brand.w, g.brand.w, 1) && near(k.brand.h, g.brand.h, 1));
+704585	        add('wordmark centre - bar centre (x, y)', k.brand && k.bar && [+(k.brand.x + k.brand.w / 2 - k.bar.x - k.bar.w / 2).toFixed(2), +(k.brand.y + k.brand.h / 2 - k.bar.y - k.bar.h / 2).toFixed(2)].join(', '), g.brand && [+(g.brand.x + g.brand.w / 2 - g.bar.x - g.bar.w / 2).toFixed(2), +(g.brand.y + g.brand.h / 2 - g.bar.y - g.bar.h / 2).toFixed(2)].join(', '),
+704586	          k.brand && k.bar && g.brand && near(k.brand.x + k.brand.w / 2 - k.bar.x - k.bar.w / 2, g.brand.x + g.brand.w / 2 - g.bar.x - g.bar.w / 2, 1) && near(k.brand.y + k.brand.h / 2 - k.bar.y - k.bar.h / 2, g.brand.y + g.brand.h / 2 - g.bar.y - g.bar.h / 2, 1));
+704587	        for (const prop of ['font-size', 'font-weight', 'letter-spacing', 'text-transform', 'color', 'font-family', 'line-height']) add('.ventus-main ' + prop, k.main && k.main.style[prop], g.main && g.main.style[prop], k.main && g.main && k.main.style[prop] === g.main.style[prop]);
+704588	        for (const prop of ['font-size', 'letter-spacing', 'text-transform', 'color', 'line-height']) add('.ventus-sub ' + prop, k.sub && k.sub.style[prop], g.sub && g.sub.style[prop], k.sub && g.sub && k.sub.style[prop] === g.sub.style[prop]);
+704589	        add('.ventus-main box w x h', k.main && [k.main.rect.w, k.main.rect.h].join(' x '), g.main && [g.main.rect.w, g.main.rect.h].join(' x '), k.main && g.main && near(k.main.rect.w, g.main.rect.w, 1) && near(k.main.rect.h, g.main.rect.h, 1));
+704590	        add('.ventus-sub box w x h', k.sub && [k.sub.rect.w, k.sub.rect.h].join(' x '), g.sub && [g.sub.rect.w, g.sub.rect.h].join(' x '), k.sub && g.sub && near(k.sub.rect.w, g.sub.rect.w, 1) && near(k.sub.rect.h, g.sub.rect.h, 1));
+704591	        add('lockup flanks shown', k.hudChildren && k.hudChildren.filter(c => c.display !== 'none').length, g.hudChildren && g.hudChildren.filter(c => c.display !== 'none').length, k.hudChildren && g.hudChildren && k.hudChildren.filter(c => c.display !== 'none').length === g.hudChildren.filter(c => c.display !== 'none').length);
+704592	        add('wordmark is a link', k.brandIsLink, g.brandIsLink, k.brandIsLink === false && g.brandIsLink === false);
+704593	        add('horizontal scroll', k.scroll && k.scroll.scrollWidth > k.scroll.clientWidth, g.scroll.scrollWidth > g.scroll.clientWidth, k.scroll && k.scroll.scrollWidth === k.scroll.clientWidth && g.scroll.scrollWidth === g.scroll.clientWidth);
+704594	        add('panel position (phone fixed / wide absolute)', k.panels && [...new Set(k.panels.map(x => x.position))].join(','), g.panels && [...new Set(g.panels.map(x => x.position))].join(','), k.panels && g.panels && [...new Set(k.panels.map(x => x.position))].join(',') === [...new Set(g.panels.map(x => x.position))].join(','));
+704595	      const ok = rows.length > 0 && rows.every(r => r.pass);
+704596	      rec('A9', ok, { rows, gaState: g && g.state, gaErrors: ga && ga.errors }, ok ? '' : rows.filter(r => !r.pass).map(r => r.what).slice(0, 8).join('; '));
+704598	    rec('HARNESS', false, { error: String(e.stack || e).slice(0, 600) }, String(e.message || e).split('\n')[0]);
+704599	  return { device: label, base: devName, mode: mod.mode, A, imgs, errors, sandboxNet };
+704600	// ------------------------------------------------------------------ A8: the admission rule (#keys gone after the engine ran)
+704601	async function runA8(browser, mod) {
+704602	  const devName = 'Pixel 7';
+704603	  // Removing #keys from the HTML would make the engine itself throw at index.html:600 (getElementById('keys').addEventListener)
+704604	  // before Edition 4's bar exists, so nothing could be "still clickable". The test removes #keys after the engine's module script
+704605	  // has run: a module script inserted right after it, and again at DOMContentLoaded (capture), before the shell can look.
+704606	  const removal = `<script type="module">{const k=document.getElementById('keys'); if(k) k.remove(); window.__a8_removed=(window.__a8_removed||0)+1;}</script>`;
+704607	  const baseRewrite = mod.pageOpts.rewrite || (h => h);
+704608	  const rewrite = (html) => { html = baseRewrite(html); const i = html.indexOf('<script type="module">'); const j = i >= 0 ? html.indexOf('</script>', i) : -1;
+704609	    return j >= 0 ? html.slice(0, j + 9) + '\n' + removal + html.slice(j + 9) : html.replace('</body>', removal + '</body>'); };
+704610	  const { ctx, page, errors } = await openPage(browser, devName, 'kuiper', { ...mod.pageOpts, rewrite });
+704611	  await page.addInitScript(() => document.addEventListener('DOMContentLoaded', () => { const k = document.getElementById('keys'); if (k) k.remove(); window.__a8_dcl = 1; }, { capture: true }));
+704612	  let m = {}, ok = false, note = '', img = null;
+704613	    await until(page, () => !!document.getElementById('kuiper-menu-bar-failure'), null, INSTALL_MAX, 500);
+704614	    const p = await page.evaluate(shellProbe, KCFG);
+704615	    const old = await page.evaluate(() => { const b = document.getElementById('bar'); if (!b) return null; const r = b.getBoundingClientRect(); const t = b.querySelector('.gm-title[data-panel="foot"]') || b.querySelector('.gm-title'); const tr = t ? t.getBoundingClientRect() : null;
+704616	      return { rect: [r.x, r.y, r.width, r.height], visible: r.height > 0 && b.checkVisibility(), title: t ? { text: t.textContent, panel: t.dataset.panel, x: tr.x + tr.width / 2, y: tr.y + tr.height / 2 } : null, hit: tr ? (() => { const e = document.elementFromPoint(tr.x + tr.width / 2, tr.y + tr.height / 2); return e === t || (t && t.contains(e)); })() : false, keysPresent: !!document.getElementById('keys') }; });
+704617	    let clicked = null;
+704618	    if (old && old.title) { await page.touchscreen.tap(Math.round(old.title.x), Math.round(old.title.y)); await sleep(800);
+704619	      clicked = await page.evaluate(id => { const el = document.getElementById(id); return !!el && (el.classList.contains('gm-open') || (el.getBoundingClientRect().height > 0 && el.checkVisibility())); }, old.title.panel); }
+704620	    img = await shot(page, path.join(OUT, 'a8-pixel-7-refused.png'));
+704621	    const st = p.state || {};
+704622	    const strip = p.failure;
+704623	    m = { state: st, failureStrip: strip, oldBar: old, oldBarTapOpened: clicked, keysRemoved: old ? !old.keysPresent : null, errors };
+704624	    ok = st.installed === false && !!strip && strip.visible && /#keys|\bkeys\b/.test(strip.text) && strip.role === 'alert' && !!old && old.visible && old.hit && clicked === true;
+704625	    note = ok ? '' : [st.installed !== false ? 'state.installed=' + JSON.stringify(st.installed) : '', !strip ? 'no #kuiper-menu-bar-failure' : (!strip.visible ? 'strip hidden' : (!/keys/.test(strip.text) ? 'strip does not name #keys' : '')), strip && strip.role !== 'alert' ? 'strip role ' + strip.role : '', !old ? 'Edition 4 #bar absent' : (!old.visible ? '#bar hidden' : (!old.hit ? '#bar title covered' : (clicked !== true ? '#bar title tap opened nothing' : '')))].filter(Boolean).join('; ');
+704626	  } catch (e) { note = 'harness: ' + String(e.message || e).split('\n')[0]; }
+704627	  log(`[A8 ${devName}] ${ok ? 'PASS' : 'FAIL'} ${note}`);
+704628	  return { device: devName, pass: ok, measured: m, note, img };
+704629	// ------------------------------------------------------------------ composite image: the two bars, strip over strip, per device
+704630	async function composite(browser, rows, file) {
+704631	  const ctx = await browser.newContext({ viewport: { width: 900, height: 600 }, deviceScaleFactor: 1 });
+704633	  const b64 = await page.evaluate(async (rows) => {
+704634	    const imgs = []; for (const r of rows) for (const k of ['k', 'g']) if (r[k]) { const im = new Image(); im.src = 'data:image/png;base64,' + r[k]; await im.decode(); imgs.push([r, k, im]); }
+704635	    const W = Math.max(400, ...imgs.map(x => x[2].width)) , LH = 14, rowH = 50 + LH;
+704636	    const c = document.createElement('canvas'); c.width = W; c.height = rows.length * 2 * rowH; const g = c.getContext('2d');
+704637	    g.fillStyle = '#05080b'; g.fillRect(0, 0, c.width, c.height); g.font = '11px monospace'; let y = 0;
+704638	    for (const r of rows) for (const k of ['k', 'g']) { g.fillStyle = k === 'k' ? '#7fe' : '#fc6'; g.fillText((k === 'k' ? 'KUIPER  ' : 'GRIDATLAS  ') + r.label, 4, y + 11);
+704639	      const it = imgs.find(x => x[0] === r && x[1] === k); if (it) g.drawImage(it[2], 0, y + LH); else { g.fillStyle = '#f55'; g.fillText('not measured', 4, y + LH + 20); } y += rowH; }
+704640	    return c.toDataURL('image/png').split(',')[1];
+704641	  }, rows);
+704642	  fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, Buffer.from(b64, 'base64'));
+704643	  await ctx.close(); return file;
+704644	function placeImg(src, dst) { if (!src || /^FAILED/.test(src) || !fs.existsSync(src)) return null; fs.mkdirSync(path.dirname(dst), { recursive: true }); fs.copyFileSync(src, dst); return dst; }
+704645	// ------------------------------------------------------------------ TEST.md
+704646	const ASSERT_TEXT = {
+704647	  A1: '`#kuiper-menu-bar` at x=0 y=0, full width, height 34 px (≤700 px) / 36 px; state `installed:true`, `failure:null`, schema `kuiper.menu-bar.v1`',
+704648	  A2: 'six `button.gm-title[aria-haspopup=menu]` FILE EDIT VIEW (left) SCOPE WAFER ABOUT (right) on one rounded y, inside the bar, last right edge ≤ viewport, `scrollWidth === clientWidth`; star entry (if any) is a bar title only at ≥ 434 px (the lead\'s measured breakpoint, FINDING #10 6564447092), first on the left',
+704649	  A2b: '360 px with a 1.3× font scale on titles and wordmark (01-bar method): still one row, bar height kept; if it overflows, `overflow-x:auto` and the last title reachable by scroll and opens on tap',
+704650	  A3: 'wordmark: `.ventus-main` "Ventus" 11/14 px 800 `rgb(255,255,255)` uppercase; `.ventus-sub` 4.5/5.5 px `rgb(136,136,136)`; centred within 1 px (x on the viewport, y on the bar); not a link; box within 1 px of the team-1 table AND of GridAtlas measured live in this run',
+704651	  A4: 'at rest nothing over the wafer outside the bar but `#c`, `#o`, the find box (top = bar bottom + 36, right-aligned, 44 px on touch) and the star chip; `#keys #top #hud #foot #lines #bar` hidden; no panel open',
+704652	  A5: 'each title: real tap opens exactly one panel under the bar inside the viewport (`aria-expanded=true`), second tap, Escape and `page.goBack()` (the Android back gesture) close it and stay on the page; every panel row ≥ 44 px; a wafer tap closes; VIEW "next verified line" lands the spark between bar bottom and card top (10 px margins)',
+704653	  A6: '`elementFromPoint(titleCentreX, 40)` is the title on a coarse pointer, all closed (44 px hit box); with FILE open, 4 px into its first row is the row, not the title',
+704654	  A7: 'zero `pageerror`, zero console errors, zero failed local requests during the device run; `node --check` of the module',
+704655	  A8: 'admission rule (Pixel 7): `#keys` removed after the engine ran → `installed:false`, `#kuiper-menu-bar-failure[role=alert]` visible naming `#keys`, Edition 4 `#bar` visible and a real tap on its title opens its panel',
+704656	  A9: 'the same table measured on GridAtlas `/atlas/` (gridatlas@5ec7f62 served on port+100, CDN stubbed as team 1 did) — bar, title face, wordmark style and box compared number to number (box tolerance 1 px, styles exact)',
+704657	function writeTestMd(rep, file) {
+704658	  const devs = rep.devices.map(d => d.device);
+704660	  L.push('# handoff/01-shell/TEST.md: step 1 "the shell contract", acceptance A1–A9', '');
+704661	  L.push(`Tester OPUS-1 (Opus team 1). Written by \`test.cjs\` at ${rep.finished} UTC; every cell below is a measurement from that run, never an estimate.`, '');
+704662	  L.push(`**Verdict: ${rep.pass ? 'PASS — the hand-off may go.' : 'FAIL — HAND-OFF REFUSED by the tester until every cell reads PASS.'}**`, '');
+704663	  if (rep.alsoLoaderSkipped) L.push(`Loader preview: ${rep.alsoLoaderSkipped}.`, '');
+704664	  if (rep.alsoLoader) L.push(`Loader preview (Opus 4's patch, not gating team 1's hand-off, reported for the integrator): **${rep.loaderPreviewPass ? 'PASS' : 'FAIL'}**.`, '');
+704665	  L.push('| run | value |', '|---|---|');
+704666	  L.push(`| module | ${rep.module.file ? '`modules/' + path.basename(rep.module.file) + '`' : 'NOT FOUND (no `modules/<stamp>-kuiper-shell.js`)'} |`);
+704667	  L.push(`| module sha256 | ${rep.module.sha256 ? '`' + rep.module.sha256 + '`' : '-'} (${rep.module.bytes || 0} bytes) |`);
+704668	  L.push(`| how the module reached the page | \`${rep.module.mode}\` ${rep.module.modeNote || ''} |`);
+704669	  L.push(`| test.cjs sha256 | \`${rep.testSha256}\` |`);
+704670	  L.push(`| Kuiper | ${KURL} (kuiper-belt \`${rep.heads.kuiper}\`, branch \`${rep.heads.kuiperBranch}\`, working tree) — server ${rep.servers.kuiper} |`);
+704671	  L.push(`| GridAtlas | ${GAURL} (gridatlas \`${rep.heads.gridatlas}\`) — server ${rep.servers.gridatlas}; maplibre-gl@3.6.2 from \`see-through/202610050513/vendor/\`, Carto style = one background layer, all other external requests aborted (team-1/STEPS.md:20-29) |`);
+704672	  L.push(`| browser | Playwright Chromium ${rep.browserVersion}, \`${ARGS.join(' ')}\`, real touch (\`touchscreen.tap\`), ${SETTLE / 1000} s settle |`);
+704673	  L.push(`| devices | ${rep.devices.map(d => d.device + ' ' + (DEVICE_SETS[d.base]().viewport.width + '×' + DEVICE_SETS[d.base]().viewport.height) + (DEVICE_SETS[d.base]().hasTouch ? ' touch' : ' mouse')).join(' · ')} |`, '');
+704674	  if (rep.alsoLoader) L.push(`Columns marked (loader) are the same device with the module admitted by Opus 4's loader instead of the stand-in script tag: ${rep.alsoLoader}`, '');
+704675	  L.push('## Pass / fail per assertion', '');
+704676	  L.push('| id | assertion | ' + devs.join(' | ') + ' |', '|---|---|' + devs.map(() => '---').join('|') + '|');
+704677	  for (const id of ['A1', 'A2', 'A2b', 'A3', 'A4', 'A5', 'A6', 'A7', 'A9', 'HARNESS']) {
+704678	    if (!rep.devices.some(d => d.A[id])) continue;
+704679	    L.push(`| ${id} | ${ASSERT_TEXT[id] || 'harness error'} | ` + rep.devices.map(d => d.A[id] ? (d.A[id].pass ? 'PASS' : 'FAIL') + (d.A[id].note ? ': ' + d.A[id].note.replace(/\|/g, '/').slice(0, 160) : '') : 'n/a').join(' | ') + ' |');
+704680	  if (rep.a8) L.push(`| A8 | ${ASSERT_TEXT.A8} | ` + devs.map(d => d === rep.a8.device ? (rep.a8.pass ? 'PASS' : 'FAIL') + (rep.a8.note ? ': ' + rep.a8.note.replace(/\|/g, '/').slice(0, 160) : '') : '—').join(' | ') + ' |');
+704681	  L.push('');
+704682	  L.push('## Key measurements per device', '');
+704683	  L.push('| device | bar (x,y,w×h) | titles (sum w) / slot w / slack | wordmark box | GridAtlas box (live) | find box | rows <44 px | console errors |', '|---|---|---|---|---|---|---|---|');
+704684	  for (const d of rep.devices) { const a1 = d.A.A1 && d.A.A1.measured, a2 = d.A.A2 && d.A.A2.measured, a3 = d.A.A3 && d.A.A3.measured, a4 = d.A.A4 && d.A.A4.measured, a5 = d.A.A5 && d.A.A5.measured;
+704685	    L.push(`| ${d.device} | ${a1 && a1.rect ? `${a1.rect.x},${a1.rect.y},${a1.rect.w}×${a1.rect.h}` : '-'} | ${a2 ? `${a2.titleSum} / ${a2.slot ? a2.slot.w : '-'} / ${a2.slack}` : '-'} | ${a3 && a3.brand ? a3.brand.w + '×' + a3.brand.h : '-'} | ${a3 && a3.gridatlasLive ? a3.gridatlasLive.join('×') : '-'} | ${a4 && a4.find ? `${a4.find.x},${a4.find.y} ${a4.find.w}×${a4.find.h}` : '-'} | ${a5 ? a5.rowsUnder44.length + ' of ' + a5.rowCount : '-'} | ${d.errors.length} |`); }
+704686	  L.push('## A9: the two shells, number to number', '');
+704687	  for (const d of rep.devices) { const a9 = d.A.A9; if (!a9) continue;
+704688	    L.push(`### ${d.device}`, '', '| measure | Kuiper | GridAtlas | pass |', '|---|---|---|---|');
+704689	    for (const r of a9.measured.rows) L.push(`| ${r.what} | ${String(r.kuiper).replace(/\|/g, '/')} | ${String(r.gridatlas).replace(/\|/g, '/')} | ${r.pass ? 'PASS' : 'FAIL'} |`);
+704690	    L.push(''); }
+704691	  const errs = rep.devices.flatMap(d => d.errors.map(e => `- ${d.device}: ${e.kind} — ${e.text.replace(/\n/g, ' ')}${e.at ? ' (' + e.at + ')' : ''}`));
+704692	  L.push('## Console and page errors (A7)', '', errs.length ? errs.slice(0, 40).join('\n') : 'None on any device.', '');
+704693	  const sn = [...new Set(rep.devices.flatMap(d => d.sandboxNet))];
+704694	  if (sn.length) L.push('External requests the sandbox proxy denied (not counted as page errors; a phone on the open network fetches them):', '', sn.slice(0, 12).map(s => '- ' + s).join('\n'), '');
+704695	  L.push('## Images (img/)', '', (rep.images.length ? rep.images.map(i => `- \`img/${path.basename(i.file)}\` ${i.kb} KB: ${i.what}`).join('\n') : 'none written'), '');
+704696	  L.push('## Method notes', '');
+704697	  for (const n of NOTES) L.push('- ' + n);
+704698	  fs.writeFileSync(file, L.join('\n'));
+704699	const NOTES = [
+704700	  'A8 removes `#keys` after the engine has run (a module script right after the engine\'s, and at DOMContentLoaded), not from the HTML: removed from the HTML, the engine itself throws at `index.html:600` (`document.getElementById(\'keys\').addEventListener`) before it creates Edition 4\'s `#bar`, so "Edition 4\'s bar still clickable" could never hold. Measured on the Edition 4 copy at kuiper-belt `editions/202611012135/index.html:600`.',
+704701	  'The back gesture is `page.goBack()`: on Android Chrome the system back gesture is history back. A panel that pushes no history entry makes back leave the page; the test records that as FAIL (`stayedOnPage`), reloads and continues.',
+704702	  'Box tolerance is 1 px on width and height, as ROADMAP step 1 A3 states; positions differ by design (GridAtlas\'s bar sits at (5,5) inside its 1 px bordered map container, the Kuiper\'s at (0,0) on the window), so centres are compared relative to each bar.',
+704703	  'The module is read once when the run starts and served from those bytes for every device (a `page.route` on its URL), so the sha256 at the top of this file is the one every cell measured, even while the file is being edited; `node --check` runs on the same bytes.',
+704704	  'Console errors from external hosts the sandbox proxy refuses are listed separately and not counted; every local 4xx/5xx and every page error is counted.',
+704705	  'A3 centre, measured adjustment (builder FINDING and lead, PLAN.md 22:12; tester agreed and added the slot check): above 700 px GridAtlas\'s own wordmark sits +4.66 px right of its bar centre because the SYSTEM TIME flank (66 px) is wider than 2050 TARGET (57 px) (team-1 table: brand (599.7,12.3) 90×20.5 at 1280, centre 644.7 vs 640). "Centred within 1 px" and "box within 1 px of GridAtlas" cannot both hold there with the flanks copied, so A3 passes centreX when the wordmark is centred within 1 px OR sits at GridAtlas\'s live offset within 1 px, and additionally requires `.gm-brand-slot` centred within 1 px on every device.',
+704706	  'A2b waits 300 ms after the 1.3× scale before measuring (a real font-scale change relayouts first; lead edit, kept). A5 `top ≥ bar bottom` is strict (0.5 px): the first run found the landscape panels at y=35 on the bar\'s 1 px rule (GridAtlas\'s `top:100%` does the same inside its own bar); the module now uses `top:calc(100% + 1px)`.',
+704707	  'A4 accepts the find box absent at rest (lead\'s measured decision, PLAN.md: Edition 4\'s keydown ignores every key while `#goto` is shown, index.html:613); if it is shown at rest it must sit at bar bottom + 36 px, right-aligned, 44 px tall on touch.',
+704708	  'Pixel 7 landscape is 863 px wide, over GridAtlas\'s 700 px phone rule, so both shells show the 36 px desktop bar and the full lockup there (team-1/STEPS.md:84-86); the expected box is 90.0×20.5.',
+704710	// integration preview: team 4's loader patch applied to a copy of index.html, the shell admitted by the manifest
+704711	function loaderMod(mod) {
+704712	  const name = path.basename(mod.file);
+704713	  const L4 = path.join(EDITION_DIR, 'handoff', '04-loader'), tmp = path.join(OUT, 'loader-preview'); fs.mkdirSync(tmp, { recursive: true });
+704714	  const out = path.join(tmp, 'index.html'); const pr = spawnSync('patch', ['-s', '-o', out, path.join(EDITION_DIR, 'index.html'), path.join(L4, 'index.html.patch')], { encoding: 'utf8' });
+704715	  if (pr.status !== 0) throw new Error('team 4 index.html.patch did not apply: ' + pr.stdout + pr.stderr);
+704716	  const man = JSON.parse(fs.readFileSync(path.join(L4, 'modules.json'), 'utf8')); const src = SNAPSHOT.bytes.toString('utf8');
+704717	  const reqs = ((src.match(/KY\.register\(\{[\s\S]*?requires:\s*\[([^\]]*)\]/) || [])[1] || '').split(',').map(x => x.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
+704718	  const provs = ((src.match(/KY\.register\(\{[\s\S]*?provides:\s*\[([^\]]*)\]/) || [])[1] || '').split(',').map(x => x.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean).map(x => x === 'ID' ? 'kuiper-shell' : x);
+704719	  man.order = man.order.filter(x => x !== 'kuiper-shell').concat(['kuiper-shell']);
+704720	  man.modules = man.modules.filter(x => x.id !== 'kuiper-shell').concat([{ id: 'kuiper-shell', generation: name.slice(0, 12), path: 'modules/' + name, sha256: mod.sha256, bytes: mod.bytes, byte_budget: Math.ceil(mod.bytes / 4096) * 4096 + 4096,
+704721	    requires: reqs, provides: provs, reads: [], writes: ['window.__KUIPER_MODULES__.menuBar', '#kuiper-menu-bar'], creates_controls: 'bar', licence: 'Apache-2.0', team: '01', step: 1, proof: 'handoff/01-shell/' }]);
+704722	  fs.writeFileSync(path.join(tmp, 'modules.json'), JSON.stringify(man, null, 1));
+704723	  return { mode: 'loader-preview', modeNote: `(team 4's handoff/04-loader/index.html.patch applied to a scratch copy; modules.json = team 4's plus a kuiper-shell record with this sha256, order ${JSON.stringify(man.order)}; requires ${JSON.stringify(reqs)})`,
+704724	    pageOpts: { htmlFile: out, rewrite: h => h, manifest: JSON.stringify(man) } };
+704725	// ------------------------------------------------------------------ main
+704728	  const modFile = findModule();
+704729	  if (modFile) SNAPSHOT = { name: path.basename(modFile), bytes: fs.readFileSync(modFile) };
+704730	  const mod = { file: modFile, sha256: modFile ? crypto.createHash('sha256').update(SNAPSHOT.bytes).digest('hex') : null, bytes: modFile ? SNAPSHOT.bytes.length : 0, mode: 'none', pageOpts: {} };
+704731	  const servers = { kuiper: await ensureServer(PORT, ROOT, KURL + 'index.html'), gridatlas: flag('--no-ga') ? 'skipped' : await ensureServer(GA_PORT, GA_ROOT, GAURL) };
+704732	  if (modFile) {
+704733	    const name = path.basename(modFile);
+704734	    const html = flag('--html') ? fs.readFileSync(String(flag('--html')), 'utf8') : fs.readFileSync(path.join(EDITION_DIR, 'index.html'), 'utf8');
+704735	    const manifest = fs.readFileSync(path.join(EDITION_DIR, 'modules.json'), 'utf8');
+704736	    if (html.includes('kuiper-shell') || manifest.includes('kuiper-shell')) { mod.mode = 'page'; mod.modeNote = html.includes('kuiper-shell') ? '(index.html names it)' : '(modules.json names it; the loader admits it)'; if (flag('--html')) mod.pageOpts = { htmlFile: String(flag('--html')), rewrite: h => h }; }
+704737	    else { mod.mode = 'inject'; mod.modeNote = `(neither index.html nor modules.json names it yet; served with \`<script defer src="modules/${name}"></script>\` before \`</body>\`, standing in for team 1's one script tag)`;
+704738	      mod.pageOpts = { ...(flag('--html') ? { htmlFile: String(flag('--html')) } : {}), rewrite: h => h.replace(/<\/body>/i, `<script defer src="modules/${name}"></script>\n</body>`) }; }
+704739	    // page mode through the manifest: when the integrator's record still carries an earlier sha256 of this module (a
+704740	    // revision not yet re-recorded), serve modules.json with this file's sha256 and bytes, the one-line update the
+704741	    // integrator makes, and say so; every other record is served as committed.
+704742	    if (mod.mode === 'page' && !html.includes('kuiper-shell')) { try { const man = JSON.parse(manifest), rec = (man.modules || []).find(m => m && m.id === 'kuiper-shell');
+704743	      if (rec && rec.sha256 !== mod.sha256) { const was = rec.sha256; rec.sha256 = mod.sha256; rec.bytes = mod.bytes; mod.pageOpts = { ...mod.pageOpts, manifest: JSON.stringify(man) };
+704744	        mod.modeNote += ` — modules.json served with kuiper-shell sha256 ${mod.sha256.slice(0, 12)} (committed record ${was.slice(0, 12)}, an earlier revision)`; } } catch (e) {} }
+704745	    if (flag('--html')) mod.modeNote += ' — index.html replaced by ' + flag('--html');
+704746	    if (flag('--loader') && mod.mode !== 'page') Object.assign(mod, loaderMod(mod));
+704747	  } else mod.modeNote = '— no module file yet; every Kuiper assertion fails';
+704748	  log('module:', modFile || 'NONE', mod.mode);
+704749	  let alsoLoader = null, alsoLoaderSkipped = null;
+704750	  if (flag('--also-loader') && modFile && mod.mode === 'inject') { try { alsoLoader = { ...mod, ...loaderMod(mod) }; } catch (e) { alsoLoaderSkipped = 'loader preview not run: ' + String(e.message || e).split('\n')[0].slice(0, 200) + ' (the edition index.html moved under the patch; Opus 4 rebases it)'; log(alsoLoaderSkipped); } }
+704751	  const browser = await chromium.launch({ args: ARGS });
+704752	  const rep = { started: new Date().toISOString().slice(0, 16).replace('T', ' '), module: { file: modFile, sha256: mod.sha256, bytes: mod.bytes, mode: mod.mode, modeNote: mod.modeNote }, servers, devices: [], ga: [], images: [],
+704753	    heads: { kuiper: spawnSync('git', ['-C', ROOT, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim(), kuiperBranch: spawnSync('git', ['-C', ROOT, 'branch', '--show-current'], { encoding: 'utf8' }).stdout.trim(), gridatlas: spawnSync('git', ['-C', GA_ROOT, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).stdout.trim() },
+704754	    testSha256: sha256(__filename), browserVersion: browser.version(), alsoLoader: alsoLoader ? alsoLoader.modeNote : null, alsoLoaderSkipped };
+704755	  for (const d of DEVICES) {
+704756	    const ga = flag('--no-ga') ? null : await runGA(browser, d);
+704757	    if (ga) { log(`[GA ${d}] bar ${JSON.stringify(ga.probe && ga.probe.bar)} brand ${JSON.stringify(ga.probe && ga.probe.brand)} installed ${ga.probe && ga.probe.state && ga.probe.state.installed}${ga.error ? ' ERROR ' + ga.error : ''}`); rep.ga.push({ device: d, probe: ga.probe, error: ga.error, errors: ga.errors }); }
+704758	    const k = await runKuiper(browser, d, mod, ga);
+704759	    k.gaStrip = ga && ga.strip; rep.devices.push(k);
+704760	    if (alsoLoader && ['Pixel 7', 'Galaxy S24'].includes(d)) { const kl = await runKuiper(browser, d, alsoLoader, ga, d + ' (loader)'); rep.devices.push(kl); }
+704761	  rep.a8 = flag('--no-a8') ? null : await runA8(browser, mod);
+704762	  // images: at most four PNG, each under 300 KB
+704763	  const want = [
+704764	    ['01-pixel7-rest.png', rep.devices.find(d => d.device === 'Pixel 7'), 'rest', 'Kuiper on Pixel 7 at rest: one bar, the wordmark, nothing else over the wafer'],
+704765	    ['02-galaxy-s24-view-open.png', rep.devices.find(d => d.device === 'Galaxy S24'), 'view', 'Galaxy S24 (360 px): the VIEW panel open under the bar'],
+704766	    ['04-pixel7-next-line.png', rep.devices.find(d => d.device === 'Pixel 7'), 'next', 'Pixel 7: VIEW → "next verified line", the spark between the bar and the card'],
+704768	  for (const [name, d, key, what] of want) { if (!d) continue; const f = placeImg(d.imgs[key], path.join(IMG_DIR, name)); if (f) rep.images.push({ file: f, what }); }
+704769	  try { const f = await composite(browser, rep.devices.map(d => ({ label: d.device, k: d.imgs.strip, g: d.gaStrip })), path.join(IMG_DIR, '03-bars-kuiper-over-gridatlas.png')); rep.images.push({ file: f, what: 'the top 50 px of both shells on every device, Kuiper over GridAtlas, same scale' }); } catch (e) { log('composite failed', e.message); }
+704770	  for (const im of rep.images) { im.kb = Math.round(fs.statSync(im.file).size / 1024);
+704771	    if (im.kb >= 300) { // too heavy: keep the top of the page (the bar is what is under test)
+704772	      const tmp = im.file + '.tmp.png'; const ctx = await browser.newContext({ viewport: { width: 900, height: 900 } }); const pg = await ctx.newPage();
+704773	      const b64 = await pg.evaluate(async (b) => { const im = new Image(); im.src = 'data:image/png;base64,' + b; await im.decode(); let h = im.height, s = 1, out;
+704774	        for (let k = 0; k < 6; k++) { const c = document.createElement('canvas'); c.width = Math.round(im.width * s); c.height = Math.round(h * s); c.getContext('2d').drawImage(im, 0, 0, im.width, h, 0, 0, c.width, c.height); out = c.toDataURL('image/png').split(',')[1]; if (out.length * 0.75 < 290 * 1024) break; h = Math.round(h * 0.75); if (k >= 2) s *= 0.8; } return out; }, fs.readFileSync(im.file).toString('base64'));
+704775	      fs.writeFileSync(im.file, Buffer.from(b64, 'base64')); await ctx.close(); im.kb = Math.round(fs.statSync(im.file).size / 1024); im.what += ' (cropped to stay under 300 KB)'; void tmp; } }
+704777	  rep.finished = new Date().toISOString().slice(0, 16).replace('T', ' ');
+704778	  const gating = rep.devices.filter(d => d.mode !== 'loader-preview' || rep.module.mode === 'loader-preview');
+704779	  rep.loaderPreviewPass = rep.alsoLoader ? rep.devices.filter(d => d.mode === 'loader-preview').every(d => Object.values(d.A).every(a => a.pass)) : null;
+704780	  rep.pass = gating.length > 0 && gating.every(d => Object.values(d.A).length > 0 && Object.values(d.A).every(a => a.pass)) && (!rep.a8 || rep.a8.pass) && !flag('--no-ga') && !flag('--no-a8');
+704781	  const slim = JSON.parse(JSON.stringify(rep, (k, v) => (k === 'strip' || k === 'gaStrip' ? undefined : v)));
+704782	  fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(slim, null, 1));
+704783	  const md = WRITE ? path.join(HERE, 'TEST.md') : path.join(OUT, 'TEST.md');
+704784	  writeTestMd(rep, md);
+704785	  // summary to stdout
+704786	  const ids = ['A1', 'A2', 'A2b', 'A3', 'A4', 'A5', 'A6', 'A7', 'A9'];
+704787	  console.log(['device', ...ids].join('\t'));
+704788	  for (const d of rep.devices) console.log([d.device, ...ids.map(i => d.A[i] ? (d.A[i].pass ? 'PASS' : 'FAIL') : '-')].join('\t'));
+704789	  if (rep.a8) console.log('A8 (' + rep.a8.device + ')\t' + (rep.a8.pass ? 'PASS' : 'FAIL') + '\t' + rep.a8.note);
+704790	  console.log((rep.pass ? 'PASS' : 'FAIL') + ' — report ' + path.join(OUT, 'report.json') + ' — ' + md);
+704791	  process.exit(rep.pass ? 0 : 1);
+704793	// test.cjs — Opus team 2, ROADMAP step 2 "the card law": the line of code is the header. B1–B7 on Android, measured,
+704794	// not eyeballed, in the form of neural-link FIXES/NL-009/android-journey.cjs. Owner: OPUS-2 tester. Merged from the
+704795	// tester's version and the version another team-2 agent wrote to this path at 21:52 UTC (its NL-009 checks F4–F7, the
+704796	// --with-shell option and README-card-law.md are kept). No page globals are used: the page script is
+704797	// <script type="module">, so every body is reached through the UI (touch, and "e" for the walk over all 344).
+704798	//   node test.cjs [url] [outdir] [--devices "Pixel 7,Galaxy S24"] [--with-shell] [--no-patch] [--label L] [--handoff]
+704799	//   url        default http://127.0.0.1:8422/editions/202611012135/  (serve the kuiper-belt root on the team-2 tester port)
+704800	//   outdir     default /tmp/nl010-opus/team-2/tester/run-<label>     (screenshots per device, report.json)
+704801	//   --no-patch serve index.html and modules.json exactly as committed (the "before" run: Edition 4's card)
+704802	//              Otherwise, until the integrator has applied them, Opus 4's handoff/04-loader/index.html.patch and our
+704803	//              handoff/02-card/index.patch are applied to the served index.html through page.route (the file on disk is
+704804	//              never edited) and modules.json is served with the line-card record (kuiper-shell first with --with-shell)
+704805	//              when the committed manifest does not list it. Every substitution is printed in the report.
+704806	//   --handoff  write TEST.md (pass/fail per assertion) into handoff/02-card/ from the run
+704807	// Real touch for every tap (page.touchscreen.tap; CDP Input.dispatchTouchEvent for the swipe). The keyboard is used only for
+704808	// "e" in the walk over all 344 placed bodies and for Escape, as the journey does. github.com is routed to a stub page.
+704809	// The expected values come from keys.json; the body a card shows is identified by its link to the body's destination.
+704810	// Exit 0 when every gating assertion passed on every device, 1 otherwise, 2 on a harness error.
+704811	//   S0  K0 keys.json byte-identical to Edition 2's            S1  one modules/<stamp>-line-card.js, line-1 header, stamps agree
+704812	//   S2  node --check; exactly one KY.register(                 S3  handoff MODULE.sha256 = sha256 of the module
+704813	//   S4  B4 the K3 sentence byte-identical in the README paragraph (edition README "## The card law", else
+704814	//       handoff/02-card/README-card-law.md), LAWS-L11.patch and the module's head comment; the patch carries the L11 heading
+704815	//       and the Falsified-by line, applies to LAWS.md, and puts L11 right after L10
+704816	//   S5  B7 python3 tools/ci_check.py prints RESULT: PASS
+704817	//   per device:
+704818	//   D1  load: zero console errors so far; line-card admitted by the loader, nothing refused
+704819	//   D2  B4 the K3 sentence on the page: ABOUT panel first paragraph when the panel exists (shell), else api.law / slot
+704820	//   D3  B6 every LINES row: first text node = line_text (empty: "empty line at key"); text, then key, then title
+704821	//   D4  touch a LINES row: B1 + B2 + B3 (≤ 34 % of the viewport, the spark between the bar and the card after the fly)
+704822	//   D5  details: button[aria-expanded] true/false by touch; details shown/hidden; ≤ 34 % with details open; ≥ 44 px tall
+704823	//   D6  the GitHub link (href = destination) opens a tab on a touch tap; ≥ 44 px tall; the card stays on the same line
+704824	//   D7  × effective touch target ≥ 44 × 44 px; × closes the card and clears the selected spark
+704825	//   D8  touch the spark where the selection was: its card opens, B1 + B2 + B3
+704826	//   D9  touch COMMANDS → "next verified line": the next body's card, B1 + B2 + B3
+704827	//   N1  NL-009 02-card F6: 12 px type on a phone          N2  F4 the card steps behind an open panel and returns
+704828	//   N3  F5 a 24 px bottom inset adds ≥ 24 px of padding   N4  F7 a swipe down closes and clears the spark; Escape closes
+704829	//   D10 B1/B2/B3 over all 344 placed bodies (walk with e): first visible text node = line_text byte for byte (the × control
+704830	//       excepted), key second (repo@commit7 path:line, inside the card without scrolling), title only after the key row,
+704831	//       ≤ 34 % of the viewport; the 4 empty lines say "empty line at key" inside the header
+704832	//   D10i info: K2 aria-label/aria-live, key number and destination link in row 2, header first element, register-quote rows
+704833	//   D11 B5 a body without line_text (keys.json mutated through page.route) shows "no text at key" in the header
+704834	//   D12 B7 zero console errors, page errors, failed requests and HTTP errors over the whole device run
+704835	const fs = require('fs'), path = require('path'), crypto = require('crypto'), os = require('os');
+704836	const { execFileSync, spawnSync } = require('child_process');
+704837	const HERE = path.basename(__dirname) === '02-card' ? __dirname : '/home/user/estate/kuiper-belt/editions/202611012135/handoff/02-card';
+704838	const EDITION = path.resolve(HERE, '..', '..'), REPO = path.resolve(EDITION, '..', '..'), STAMP = path.basename(EDITION);
+704839	const VALUED = ['--devices', '--label'];
+704840	const positional = argv.filter((a, i) => !a.startsWith('--') && !(i > 0 && VALUED.includes(argv[i - 1])));
+704841	const flag = (n) => { const i = argv.indexOf(n); return i < 0 ? null : (VALUED.includes(n) ? (argv[i + 1] || null) : true); };
+704842	const NO_PATCH = !!flag('--no-patch'), WITH_SHELL = !!flag('--with-shell'), WRITE_HANDOFF = !!flag('--handoff');
+704843	const LABEL = String(flag('--label') || (NO_PATCH ? 'before' : 'after'));
+704844	const URL0 = (positional[0] || `http://127.0.0.1:8422/editions/${STAMP}/`).replace(/\/?$/, '/');
+704845	const OUT = path.resolve(positional[1] || `/tmp/nl010-opus/team-2/tester/run-${LABEL}`);
+704846	const DEVICES = flag('--devices') ? String(flag('--devices')).split(',').map(s => s.trim()).filter(Boolean) : ['Pixel 7', 'Galaxy S24'];
+704847	const SETTLE_MAX = 90000, FIXED_WAIT = 7000, MARGIN = 10, CAP = 0.34;
+704848	const LAW = 'The line of code is the header. Every card opens with the line itself, verbatim from the key; the key is the second row; every name a person gave the line comes after.';
+704849	const L11_HEAD = '## L11. The line of code is the header';
+704850	const FALSIFIED = '**Falsified by:** a card whose first visible row differs from the text at its key; a card that shows a line without its key on the next row; or a quote shown as the header when the quote is not the line at the key.';
+704851	const EDITION2_KEYS_SHA = '1c293c337b4c3c8442c12746ce3cd08d920c763344f18333f75e73aa9fc7242b';   // editions/202611010114/keys.json
+704852	const sha256 = b => crypto.createHash('sha256').update(b).digest('hex');
+704853	const norm = s => String(s).replace(/\s+/g, ' ').trim();          // a markdown soft wrap renders as one space
+704854	// ------------------------------------------------------------------ static checks (once)
+704855	function staticChecks() {
+704856	  const S = [];
+704857	  const rec = (id, name, pass, measured, note, info) => { S.push({ id, name, pass: !!pass, info: !!info, measured, note: note || '' }); process.stderr.write(`[static] ${info ? 'INFO' : pass ? 'PASS' : 'FAIL'} ${id} ${name}${note ? ' — ' + note : ''}\n`); };
+704858	  const keysSha = sha256(fs.readFileSync(path.join(EDITION, 'keys.json')));
+704859	  rec('S0', 'K0 keys.json byte-identical to Edition 2', keysSha === EDITION2_KEYS_SHA, { sha256: keysSha, edition2: EDITION2_KEYS_SHA });
+704860	  // the page may load a compact copy first (keys-min.json, team 10 perf): the card shows what it loads, so every placed
+704861	  // body's line_text, destination, repo, commit, path, line and key there must equal keys.json's, byte for byte
+704862	  const minFile = path.join(EDITION, 'keys-min.json');
+704863	  if (fs.existsSync(minFile)) {
+704864	    const full = JSON.parse(fs.readFileSync(path.join(EDITION, 'keys.json'), 'utf8')), mini = JSON.parse(fs.readFileSync(minFile, 'utf8'));
+704865	    const P = (j) => (j.bodies || j).filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0);
+704866	    const A = P(full), B = P(mini); const F = ['line_text', 'destination', 'repo', 'commit', 'path', 'line', 'key', 'title', 'quote'];
+704867	    let diff = 0, first = null; for (let i = 0; i < Math.max(A.length, B.length); i++) { const a = A[i], b = B[i]; const bad = !a || !b ? ['missing'] : F.filter(f => a[f] !== b[f] && !(f === 'quote' && !(f in b)));
+704868	      if (bad.length) { diff++; if (!first) first = { i, fields: bad }; } }
+704869	    rec('S0b', 'keys-min.json (what the page loads first): every placed body\'s line_text, key, destination, repo, commit, path, line, title equal keys.json\'s', A.length === B.length && diff === 0,
+704870	      { placedFull: A.length, placedMin: B.length, differing: diff, first, sha256: sha256(fs.readFileSync(minFile)) }, diff ? diff + ' bodies differ; first ' + JSON.stringify(first) : '');
+704871	  const mods = fs.readdirSync(path.join(EDITION, 'modules')).filter(f => /^\d{12}-line-card\.js$/.test(f));
+704872	  let modFile = null, modText = '', modSha = null;
+704873	  if (mods.length === 1) { modFile = mods[0]; const buf = fs.readFileSync(path.join(EDITION, 'modules', modFile)); modText = buf.toString('utf8'); modSha = sha256(buf); }
+704874	  const line1 = modText.split('\n')[0];
+704875	  const m1 = line1.match(/^\/\* kuiper module line-card, generation (\d{12}) \(UTC\), (.+?) \*\/\s*$/);
+704876	  const fileStamp = modFile ? modFile.slice(0, 12) : null;
+704877	  const gen = modText.match(/generation\s*:\s*['"](\d{12})['"]/) || (/generation\s*:\s*STAMP\b/.test(modText) && modText.match(/\bSTAMP\s*=\s*['"](\d{12})['"]/));
+704878	  rec('S1', 'one modules/<stamp>-line-card.js; line 1 "/* kuiper module line-card, generation <stamp> (UTC), <licence> */"; file stamp = header = generation; Apache-2.0',
+704879	    mods.length === 1 && m1 && m1[1] === fileStamp && gen && gen[1] === fileStamp && /Apache-2\.0/.test(m1[2]),
+704880	    { files: mods, headerStamp: m1 && m1[1], fileStamp, generation: gen && gen[1], licence: m1 && m1[2], bytes: Buffer.byteLength(modText), sha256: modSha },
+704881	    mods.length !== 1 ? mods.length + ' line-card module files' : (!m1 ? 'line 1 is not the module header' : (gen && gen[1] === fileStamp ? '' : 'generation ' + (gen && gen[1]) + ' ≠ file ' + fileStamp)));
+704882	  let checkOk = false, checkErr = '';
+704883	  if (modFile) { const r = spawnSync(process.execPath, ['--check', path.join(EDITION, 'modules', modFile)], { encoding: 'utf8' }); checkOk = r.status === 0; checkErr = (r.stderr || '').split('\n').slice(0, 4).join(' | '); }
+704884	  const nReg = (modText.match(/KY\.register\(/g) || []).length;
+704885	  rec('S2', 'node --check passes; exactly one KY.register(', checkOk && nReg === 1, { nodeCheck: checkOk, registerCalls: nReg }, checkOk ? (nReg === 1 ? '' : nReg + ' KY.register( calls') : 'node --check: ' + checkErr);
+704886	  const shaFile = path.join(HERE, 'MODULE.sha256'), shaText = fs.existsSync(shaFile) ? fs.readFileSync(shaFile, 'utf8') : '';
+704887	  const shaRec = (shaText.match(/[0-9a-f]{64}/) || [null])[0];
+704888	  rec('S3', 'handoff MODULE.sha256 equals the module file sha256', !!modSha && shaRec === modSha, { recorded: shaRec, measured: modSha }, !shaText ? 'MODULE.sha256 missing' : (shaRec === modSha ? '' : 'recorded ' + shaRec + ' measured ' + modSha));
+704889	  // the record the integrator is asked to add (REQUESTS.md 2): it must carry the file's own sha256 and bytes
+704890	  let hoRec = null, hoName = null;
+704891	  for (const f of ['MODULE.json', 'module-record.json']) { if (hoRec) break; try { hoRec = JSON.parse(fs.readFileSync(path.join(HERE, f), 'utf8')); hoName = f; } catch (e) {} }
+704892	  const modBytes = modFile ? fs.statSync(path.join(EDITION, 'modules', modFile)).size : null;
+704893	  rec('S3r', 'handoff MODULE.json (the record for modules.json): id line-card, path = the module, sha256 and bytes = the file, licence set, bytes ≤ byte_budget', !!hoRec && hoRec.id === 'line-card' && hoRec.path === 'modules/' + modFile && hoRec.sha256 === modSha && hoRec.bytes === modBytes && !!String(hoRec.licence || '').trim() && (!hoRec.byte_budget || modBytes <= hoRec.byte_budget),
+704894	    { file: hoName, path: hoRec && hoRec.path, recorded: hoRec && hoRec.sha256, measured: modSha, bytes: hoRec && hoRec.bytes, measuredBytes: modBytes, byte_budget: hoRec && hoRec.byte_budget },
+704895	    !hoRec ? 'MODULE.json missing' : (hoRec.sha256 === modSha && hoRec.bytes === modBytes ? '' : 'record sha256 ' + String(hoRec.sha256).slice(0, 12) + '/' + hoRec.bytes + ' B, file ' + String(modSha).slice(0, 12) + '/' + modBytes + ' B'));
+704896	  let manifest = null; try { manifest = JSON.parse(fs.readFileSync(path.join(EDITION, 'modules.json'), 'utf8')); } catch (e) {}
+704897	  const mrec = manifest && (manifest.modules || []).find(r => r.id === 'line-card');
+704898	  rec('S3m', 'modules.json lists line-card with the module sha256 (integrator, team 10)', mrec && mrec.sha256 === modSha, { listed: !!mrec, recorded: mrec && mrec.sha256, inOrder: !!(manifest && (manifest.order || []).includes('line-card')) }, mrec ? (mrec.sha256 === modSha ? '' : 'manifest sha256 differs') : 'not listed yet (served through page.route)', true);
+704899	  const readme = fs.readFileSync(path.join(EDITION, 'README.md'), 'utf8');
+704900	  const secOf = (t) => t.split(/\n(?=## )/).find(s => s.split('\n')[0].trim() === '## The card law');
+704901	  const firstPara = (sec) => { if (!sec) return null; const ps = sec.split('\n').slice(1).join('\n').split(/\n\s*\n/).map(p => p.trim()).filter(Boolean); return ps.length ? norm(ps[0]) : null; };
+704902	  const edSec = secOf('\n' + readme);
+704903	  const hoFile = path.join(HERE, 'README-card-law.md'), hoText = fs.existsSync(hoFile) ? fs.readFileSync(hoFile, 'utf8') : '';
+704904	  const hoSec = secOf('\n' + hoText);
+704905	  const sec = edSec || hoSec, readmeSrc = edSec ? 'editions/' + STAMP + '/README.md' : (hoSec ? 'handoff/02-card/README-card-law.md' : null);
+704906	  const readmeFirst = firstPara(sec);
+704907	  const patchFile = path.join(HERE, 'LAWS-L11.patch'), patch = fs.existsSync(patchFile) ? fs.readFileSync(patchFile, 'utf8') : '';
+704908	  const added = patch.split('\n').filter(l => l.startsWith('+') && !l.startsWith('+++')).map(l => l.slice(1)).join('\n');
+704909	  const addedParas = added.split(/\n\s*\n/).map(p => norm(p));
+704910	  const patchHasLaw = addedParas.includes(LAW), patchHead = added.split('\n').some(l => l.trim() === L11_HEAD), patchFals = addedParas.some(p => p.includes(norm(FALSIFIED)));
+704911	  const readmeFals = norm(sec || '').includes(norm(FALSIFIED));
+704912	  const modHead = modText.split('\n').slice(0, 40).map(l => l.replace(/^\s*\/\/ ?/, '')).join('\n').includes(LAW);
+704913	  let applies = false, afterL10 = false, applyMsg = '';
+704914	  if (patch) {
+704915	    const r = spawnSync('git', ['apply', '--check', patchFile], { cwd: REPO, encoding: 'utf8' }); applies = r.status === 0; applyMsg = (r.stderr || '').trim().split('\n')[0] || '';
+704916	    if (applies) { const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'l11-')); fs.copyFileSync(path.join(REPO, 'LAWS.md'), path.join(tmp, 'LAWS.md')); spawnSync('git', ['init', '-q'], { cwd: tmp });
+704917	      if (spawnSync('git', ['apply', patchFile], { cwd: tmp }).status === 0) { const t = fs.readFileSync(path.join(tmp, 'LAWS.md'), 'utf8'); const i10 = t.indexOf('\n## L10.'), i11 = t.indexOf('\n' + L11_HEAD); afterL10 = i10 >= 0 && i11 > i10 && !/\n## L/.test(t.slice(i10 + 8, i11)); }
+704918	      fs.rmSync(tmp, { recursive: true, force: true }); }
+704919	  const ok4 = readmeFirst === LAW && readmeFals && patchHasLaw && patchHead && patchFals && applies && afterL10 && modHead;
+704920	  rec('S4', 'B4 the K3 sentence identical: README "## The card law" first paragraph, LAWS-L11.patch, module head; L11 heading + Falsified-by; patch applies after L10', ok4,
+704921	    { readme: readmeSrc, readmeFirstParagraphEqual: readmeFirst === LAW, readmeFalsifiedBy: readmeFals, editionReadmeSection: !!edSec, handoffReadmeSection: !!hoSec, patchHasLaw, patchL11Heading: patchHead, patchFalsifiedBy: patchFals, gitApplyCheck: applies, l11AfterL10: afterL10, moduleHeadCarriesLaw: modHead },
+704922	    [!sec ? 'no "## The card law" section (edition README or handoff/02-card/README-card-law.md)' : (readmeFirst === LAW ? '' : readmeSrc + ' first paragraph differs from the K3 sentence'), sec && !readmeFals ? readmeSrc + ' lacks the Falsified-by line' : '',
+704923	      !patch ? 'LAWS-L11.patch missing' : '', patch && !patchHasLaw ? 'patch lacks the K3 sentence' : '', patch && !patchHead ? 'patch lacks the L11 heading' : '', patch && !patchFals ? 'patch lacks the Falsified-by line' : '',
+704924	      patch && !applies ? 'git apply --check: ' + applyMsg : '', patch && applies && !afterL10 ? 'L11 not right after L10' : '', modHead ? '' : 'module head comment lacks the sentence'].filter(Boolean).join('; ') || (edSec ? '' : 'README paragraph read from handoff/02-card/README-card-law.md (the edition README section is team 10\'s to merge)'));
+704925	  // B7 ci_check: the gate is that no check names a file of this team (handoff/02-card/, the line-card module, the card's
+704926	  // README section); the whole-repository result is reported beside it, with the files each failing check names
+704927	  let ci = { status: null, last: '', fails: [] };
+704928	  try { const r = spawnSync('python3', ['tools/ci_check.py'], { cwd: REPO, encoding: 'utf8', timeout: 600000 }); const lines = (r.stdout || '').trim().split('\n');
+704929	    ci = { status: r.status, last: lines.slice(-1)[0], fails: lines.filter(l => /^FAIL /.test(l)).map(l => l.slice(0, 400)) }; } catch (e) { ci.last = String(e); }
+704930	  const ours = ci.fails.filter(l => /handoff\/02-card\/|line-card/.test(l));
+704931	  const ciPass = /RESULT: PASS/.test(ci.last);
+704932	  rec('S5', 'B7 tools/ci_check.py: no failing check names a team-2 file (handoff/02-card/, the line-card module)', !!ci.last && (ciPass || (ours.length === 0 && ci.fails.length > 0)), { ...ci, teamTwoFails: ours },
+704933	    ciPass ? 'RESULT: PASS' : (ours.length ? 'ci_check fails on team-2 files: ' + ours.join(' | ') : 'RESULT: FAIL outside team 2: ' + ci.fails.join(' | ')));
+704934	  rec('S5r', 'B7 tools/ci_check.py prints RESULT: PASS for the whole repository (all teams; the integrator gates on it)', ciPass, ci, ciPass ? '' : ci.fails.join(' | '), true);
+704935	  return { S, modFile, modText, modSha, manifest, mrec, hoRec };
+704936	// ------------------------------------------------------------------ the served page
+704937	function buildServed(st) {
+704938	  const subs = [];
+704939	  if (NO_PATCH) return { html: null, manifest: null, subs: ['none (--no-patch): index.html and modules.json as committed'] };
+704940	  let html = fs.readFileSync(path.join(EDITION, 'index.html'), 'utf8');
+704941	  const lpFile = path.join(EDITION, 'handoff', '04-loader', 'index.html.patch'), ipFile = path.join(HERE, 'index.patch');
+704942	  const appliesTo = (text, files) => { const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'card-try-')), d = path.join(tmp, 'editions', STAMP); fs.mkdirSync(d, { recursive: true });
+704943	    fs.writeFileSync(path.join(d, 'index.html'), text); spawnSync('git', ['init', '-q'], { cwd: tmp }); let ok = true;
+704944	    for (const f of files) if (spawnSync('git', ['apply', '--include=editions/' + STAMP + '/index.html', f], { cwd: tmp }).status !== 0) { ok = false; break; }
+704945	    fs.rmSync(tmp, { recursive: true, force: true }); return ok; };
+704946	  if (!/window\.KY\s*=|kuiper\.hooks\.v1/.test(html) && fs.existsSync(lpFile) && fs.existsSync(ipFile) && !appliesTo(html, [lpFile, ipFile])) {
+704947	    // the committed page moved on (the integrator's base edits) and the patches no longer apply: serve the newest committed
+704948	    // revision of index.html they apply to, and say so (the rebase is Opus 4's and Opus 10's)
+704949	    const revs = (spawnSync('git', ['log', '--format=%h', '--', 'editions/' + STAMP + '/index.html'], { cwd: REPO, encoding: 'utf8' }).stdout || '').trim().split('\n').filter(Boolean);
+704950	    const cur = sha256(Buffer.from(html)).slice(0, 8); let used = null;
+704951	    for (const r of revs) { const t = spawnSync('git', ['show', r + ':editions/' + STAMP + '/index.html'], { cwd: REPO, encoding: 'utf8', maxBuffer: 1 << 26 }).stdout; if (t && appliesTo(t, [lpFile, ipFile])) { html = t; used = r + ' (index.html sha256 ' + sha256(Buffer.from(t)).slice(0, 8) + ')'; break; } }
+704952	    subs.push(used ? 'the patches do not apply to the committed index.html (sha256 ' + cur + '); served the newest committed revision they apply to: ' + used : 'the patches apply to no committed revision of index.html');
+704953	  const apply = (patchFile, why) => {
+704954	    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'card-served-')), d = path.join(tmp, 'editions', STAMP); fs.mkdirSync(d, { recursive: true });
+704955	    fs.writeFileSync(path.join(d, 'index.html'), html); spawnSync('git', ['init', '-q'], { cwd: tmp });
+704956	    let r = spawnSync('git', ['apply', '--include=editions/' + STAMP + '/index.html', patchFile], { cwd: tmp, encoding: 'utf8' });
+704957	    // the integrator's base moves (handoff/10-integration/BASE.md: NL-009 07-perf, 03-camera; Opus 4's hunk 12 is applied
+704958	    // there by hand): when git apply refuses, fall back to patch(1) and say how many hunks it rejected (lead, 22:44 UTC)
+704959	    let how = '';
+704960	    if (r.status !== 0) { const p = spawnSync('patch', ['-p1', '--no-backup-if-mismatch', '-r', '-', '-i', patchFile], { cwd: tmp, encoding: 'utf8' });
+704961	      const t = fs.readFileSync(path.join(d, 'index.html'), 'utf8'), rej = ((p.stdout || '').match(/FAILED at \d+/g) || []);
+704962	      const landed = /04-loader/.test(patchFile) ? /window\.KY\s*=/.test(t) : /modules\['line-card'\]/.test(t);
+704963	      if (landed) { r = { status: 0 }; how = ' by patch(1)' + (rej.length ? ', ' + rej.length + ' hunk(s) rejected: ' + rej.join(', ') : ''); } }
+704964	    if (r.status === 0) { html = fs.readFileSync(path.join(d, 'index.html'), 'utf8'); subs.push('applied ' + path.relative(EDITION, patchFile) + how + ' (' + why + ')'); }
+704965	    else subs.push('FAILED to apply ' + path.relative(EDITION, patchFile) + ': ' + (r.stderr || '').trim().split('\n')[0]);
+704966	    fs.rmSync(tmp, { recursive: true, force: true });
+704968	  if (!/window\.KY\s*=|kuiper\.hooks\.v1/.test(html)) {
+704969	    const lp = path.join(EDITION, 'handoff', '04-loader', 'index.html.patch');
+704970	    if (fs.existsSync(lp)) apply(lp, 'hook table and loader not in the committed page yet'); else subs.push('no hook table in the page and no handoff/04-loader/index.html.patch');
+704971	  const ip = path.join(HERE, 'index.patch');
+704972	  if (fs.existsSync(ip) && !/modules\['line-card'\]/.test(html)) apply(ip, 'card delegation not in the committed page yet');
+704974	  const reqOf = (t) => { const m = t.match(/requires\s*:\s*\[([^\]]*)\]/); return m ? (m[1].match(/['"]([^'"]+)['"]/g) || []).map(s => s.slice(1, -1)) : []; };
+704975	  const recOf = (id, file, extra) => { const buf = fs.readFileSync(path.join(EDITION, 'modules', file)), t = buf.toString('utf8');
+704976	    return Object.assign({ id, generation: file.slice(0, 12), path: 'modules/' + file, sha256: sha256(buf), bytes: buf.length, byte_budget: Math.max(65536, buf.length), requires: reqOf(t), provides: [id],
+704977	      reads: [], writes: [], creates_controls: 'none', licence: 'Apache-2.0' }, extra || {}); };
+704978	  const shellFile = fs.readdirSync(path.join(EDITION, 'modules')).filter(f => /^\d{12}-kuiper-shell\.js$/.test(f)).sort().pop();
+704979	  const base = st.manifest || { schema: 'kuiper.modules.v1', edition: STAMP, order: [], modules: [] };
+704980	  const needCard = st.modFile && !st.mrec, needShell = WITH_SHELL && shellFile && !(base.order || []).includes('kuiper-shell');
+704981	  if (needCard || needShell) {
+704982	    const order = (base.order || []).filter(x => x !== 'line-card' && x !== 'kuiper-shell'), modules = (base.modules || []).filter(r => r.id !== 'line-card' && r.id !== 'kuiper-shell');
+704983	    if (WITH_SHELL && shellFile) { order.push('kuiper-shell'); modules.push((base.modules || []).find(r => r.id === 'kuiper-shell') || recOf('kuiper-shell', shellFile)); }
+704984	    order.push('line-card'); modules.push(st.mrec || st.hoRec || recOf('line-card', st.modFile, { team: '02', step: 2, proof: 'handoff/02-card/test.cjs' }));
+704985	    manifest = Object.assign({ hooks: 'kuiper.hooks.v1' }, base, { order, modules });
+704986	    subs.push('modules.json served with order [' + order.join(', ') + '] (line-card record ' + (st.mrec ? 'from modules.json' : st.hoRec ? 'from handoff/02-card/MODULE.json, verbatim' : 'built from the file on disk') + ')');
+704987	  // rebuilt from disk at every request, so a page load never meets a stale sha256; S6 fails the run if the module moved
+704988	  const rebuild = () => { if (!manifest) return null; const m = JSON.parse(JSON.stringify(manifest));
+704989	    for (const r of m.modules) { try { const buf = fs.readFileSync(path.join(EDITION, r.path)); if (r.id === 'line-card' && !st.mrec && !st.hoRec) { r.sha256 = sha256(buf); r.bytes = buf.length; } } catch (e) {} }
+704990	    return JSON.stringify(m, null, 1); };
+704991	  return { html, manifest: manifest && JSON.stringify(manifest, null, 1), rebuild, subs };
+704992	// ------------------------------------------------------------------ in-page probes (no page globals used)
+704995	  const card = document.getElementById('card'), cs = getComputedStyle(card);
+704996	  const bar = ['kuiper-menu-bar', 'bar'].map(id => document.getElementById(id)).filter(b => b && b.getBoundingClientRect().height > 0 && getComputedStyle(b).display !== 'none').sort((a, b) => b.getBoundingClientRect().bottom - a.getBoundingClientRect().bottom)[0] || null;
+704997	  const open = cs.display !== 'none' && cs.visibility !== 'hidden' && card.getBoundingClientRect().height > 0;
+704998	  let magenta = null, greens = [];
+704999	  try { const ov = document.getElementById('o'), k = ov.width / innerWidth, W = ov.width, H = ov.height, d = ov.getContext('2d').getImageData(0, 0, W, H).data;
+705000	    let sx = 0, sy = 0, n = 0; const gp = [];
+705001	    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3]; if (a < 60) continue;
+705002	      if (r > 180 && g < 110 && b > 140) { sx += x; sy += y; n++; } else if (g > 150 && r < 120 && b < 170 && a > 120) gp.push([x, y]); }
+705003	    if (n > 0) magenta = { x: +(sx / n / k).toFixed(1), y: +(sy / n / k).toFixed(1), px: n };
+705004	    const cl = []; for (const [x, y] of gp) { let hit = null; for (const c of cl) if (Math.abs(c.cx - x) <= 7 && Math.abs(c.cy - y) <= 7) { hit = c; break; }
+705005	      if (hit) { hit.sx += x; hit.sy += y; hit.n++; hit.cx = hit.sx / hit.n; hit.cy = hit.sy / hit.n; } else cl.push({ sx: x, sy: y, n: 1, cx: x, cy: y }); }
+705006	    greens = cl.filter(c => c.n >= 4).map(c => ({ x: +(c.cx / k).toFixed(1), y: +(c.cy / k).toFixed(1), px: c.n }));
+705007	  } catch (e) {}
+705008	  const el = magenta && document.elementFromPoint(magenta.x, magenta.y);
+705009	  return { viewport: { w: innerWidth, h: innerHeight, scrollY }, bar: R(bar), card: { open, rect: open ? R(card) : null, height: open ? card.getBoundingClientRect().height : 0, visibility: cs.visibility, display: cs.display, fontSize: cs.fontSize },
+705010	    magenta, greens, hitAtMagenta: el ? (el.id ? '#' + el.id : el.tagName.toLowerCase()) : null, panelOpen: !!document.querySelector('.gm-open'),
+705011	    titles: [...document.querySelectorAll('#kuiper-menu-bar .gm-title, #bar .gm-title, #bar [data-panel]')].filter(b => b.getBoundingClientRect().width > 0).map(b => ({ text: b.textContent.trim(), panel: b.dataset.panel || (b.parentNode && b.parentNode.getAttribute && b.parentNode.getAttribute('data-menu')) || '', rect: R(b) })), frames: window.__fr || 0 };
+705012	// the card as the law reads it: which body (by the link to its destination), its first visible text, its rows
+705013	function cardFn(args) {
+705014	  const T = window.__T, card = document.getElementById('card'), cap = args.cap;
+705015	  const cs = getComputedStyle(card), cr = card.getBoundingClientRect();
+705016	  const open = cs.display !== 'none' && cs.visibility !== 'hidden' && cr.height > 0;
+705017	  const out = { open, ok: false, fails: [] };
+705018	  if (!open) { out.fails.push('card not open'); return out; }
+705019	  let b = null; for (const a of card.querySelectorAll('a[href]')) { const hit = T.byDest[a.getAttribute('href')]; if (hit != null) { b = T.placed[hit]; out.index = hit; break; } }
+705020	  if (!b) { out.fails.push('no link to a placed body\'s destination in the card'); out.text = card.textContent.slice(0, 160); return out; }
+705021	  out.key = b.key; out.dest = b.destination; out.empty = b.line_text === '';
+705022	  const visEl = e => { for (let x = e; x && x !== card.parentNode; x = x.parentElement) { const s = getComputedStyle(x); if (s.display === 'none' || s.visibility === 'hidden' || +s.opacity === 0) return false; } return true; };
+705023	  const isClose = e => !!(e && e.closest && e.closest('#card .cx, #card [aria-label="close"], #card [aria-label="Close"]'));
+705024	  const tw = document.createTreeWalker(card, NodeFilter.SHOW_TEXT); const nodes = []; let n;
+705025	  while ((n = tw.nextNode())) {
+705026	    if (!n.data.length || (!n.data.trim() && !(n.parentElement && n.parentElement.closest('code')))) continue;
+705027	    if (isClose(n.parentElement) || !visEl(n.parentElement)) continue;
+705028	    const rg = document.createRange(); rg.selectNodeContents(n); const rr = rg.getClientRects(); if (!rr.length) continue;
+705029	    nodes.push({ n, top: rr[0].top }); if (nodes.length > 400) break;
+705030	  const header = card.querySelector('header'), code = header && header.querySelector('code');
+705031	  const rowBox = (header && header.parentElement && card.contains(header.parentElement)) ? header.parentElement : card;   // rows are the children of the header's container
+705032	  const rowOf = (x) => { let e = x.nodeType === 3 ? x.parentElement : x; while (e && e.parentElement !== rowBox && e !== card) e = e.parentElement; return e; };
+705033	  const first = nodes[0];
+705034	  out.firstText = first ? (first.n.data.length > 120 ? first.n.data.slice(0, 120) + '…(' + first.n.data.length + ' chars)' : first.n.data) : null;
+705035	  out.firstLen = first ? first.n.data.length : 0;
+705036	  out.headerFirstChild = !!header && (() => { for (const c of rowBox.children) { if (c === header) return true; if (isClose(c)) continue; if (c.textContent.trim()) return false; } return false; })();
+705037	  out.codeEqual = !!code && code.textContent === b.line_text;
+705038	  let b1 = b.line_text === '' ? (out.codeEqual && !!first && header.contains(first.n) && /empty line at key/.test(first.n.data)) : (!!first && first.n.data === b.line_text && out.codeEqual);
+705039	  out.firstVisibleInCard = !!first && first.top >= cr.top - 1 && first.top < cr.bottom;
+705040	  b1 = b1 && out.firstVisibleInCard;
+705041	  if (!b1) out.fails.push('B1 first visible text "' + String(out.firstText).slice(0, 60) + '" ≠ line_text "' + b.line_text.slice(0, 60) + '"' + (out.codeEqual ? '' : ' (header code differs)'));
+705042	  const row1 = first ? rowOf(first.n) : null; let row2 = null;
+705043	  for (const x of nodes) { const r = rowOf(x.n); if (r !== row1) { row2 = r; break; } }
+705044	  const r2t = row2 ? row2.textContent : '', c7 = String(b.commit).slice(0, 7);
+705045	  out.row2 = r2t.length > 160 ? r2t.slice(0, 160) + '…' : r2t;
+705046	  const reRepo = new RegExp('(^|\\s)' + b.repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '@' + c7 + '[0-9a-f]*(\\s|$)');
+705047	  const hasRepoCommit = reRepo.test(r2t), hasPathLine = r2t.includes(b.path + ':' + b.line);
+705048	  out.row2HasKeyNumber = r2t.includes(String(b.key)) || r2t.includes(Number(b.key).toLocaleString('en-GB'));
+705049	  const r2a = row2 && (row2.matches('a[href]') ? row2 : row2.querySelector('a[href]'));
+705050	  out.row2LinkIsDestination = !!r2a && r2a.getAttribute('href') === b.destination;
+705051	  const r2r = row2 ? row2.getBoundingClientRect() : null;
+705052	  out.row2InsideCard = !!r2r && r2r.height > 0 && r2r.top >= cr.top - 1 && r2r.top < cr.bottom - 4;
+705053	  const b2 = !!row2 && hasRepoCommit && hasPathLine && out.row2InsideCard;
+705054	  if (!b2) out.fails.push('B2 second row "' + out.row2.slice(0, 80) + '"' + (hasRepoCommit ? '' : ' lacks ' + b.repo + '@' + c7) + (hasPathLine ? '' : ' lacks ' + b.path + ':' + b.line) + (out.row2InsideCard ? '' : ' (not inside the card without scrolling)'));
+705055	  const all = []; const tw2 = document.createTreeWalker(card, NodeFilter.SHOW_TEXT); while ((n = tw2.nextNode())) all.push(n);
+705056	  // a title quoted inside the line itself (4 bodies: 20, 125, 216, 311) is the line, not the name: skip rows 1 and 2
+705057	  const iTitle = b.title ? all.findIndex(x => x.data.includes(b.title) && !(row1 && row1.contains(x)) && !(row2 && row2.contains(x))) : -1;  const iRow2Last = row2 ? all.reduce((m, x, i) => row2.contains(x) ? i : m, -1) : -1;
+705058	  out.titleAfterKey = iTitle < 0 || (iRow2Last >= 0 && iTitle > iRow2Last);
+705059	  if (!out.titleAfterKey) out.fails.push('title appears before the key row ends');
+705060	  out.height = +cr.height.toFixed(1); out.capPx = +(cap * innerHeight).toFixed(1);
+705061	  out.underCap = cr.height <= cap * innerHeight + 1 && cr.bottom <= innerHeight + 1;
+705062	  if (!out.underCap) out.fails.push('B3 card ' + out.height + ' px over cap ' + out.capPx);
+705063	  const al = card.getAttribute('aria-label');
+705064	  out.ariaLabelIsHeader = al === b.line_text || (b.line_text === '' && /empty line at key/.test(al || ''));
+705065	  out.ariaLive = card.getAttribute('aria-live');
+705066	  out.registerQuote = b.quote && b.quote !== b.line_text ? /register quote/.test(card.textContent) : null;
+705067	  out.b1 = !!b1; out.b2 = !!b2; out.ok = out.b1 && out.b2 && out.titleAfterKey && out.underCap;
+705069	// every LINES row: first text node = line_text, then the key, then the title
+705070	function linesFn() {
+705071	  const T = window.__T, rows = [...document.querySelectorAll('#lineslist [data-i]')];
+705072	  const res = { rows: rows.length, ok: 0, fails: [] };
+705074	    const i = +r.dataset.i, b = T.placed[i]; if (!b) { res.fails.push({ i, why: 'no placed body ' + i }); continue; }
+705075	    const tw = document.createTreeWalker(r, NodeFilter.SHOW_TEXT); let n, first = null;
+705076	    while ((n = tw.nextNode())) if (n.data.trim() || (n.parentElement && n.parentElement.closest('code') && n.data.length)) { first = n; break; }
+705077	    const t = r.textContent;
+705078	    const okFirst = b.line_text === '' ? !!first && /empty line at key/.test(first.data) : !!first && first.data === b.line_text;
+705079	    const iText = b.line_text === '' ? t.indexOf('empty line at key') : t.indexOf(b.line_text);
+705080	    const textLen = b.line_text === '' ? 'empty line at key'.length : b.line_text.length;
+705081	    const iKey = t.indexOf(b.repo + '@' + String(b.commit).slice(0, 7), iText + textLen);
+705082	    const iPath = t.indexOf(b.path + ':' + b.line, Math.max(iKey, 0));
+705083	    const iTitle = t.indexOf(b.title, Math.max(iPath, 0) + 1);
+705084	    const ok = okFirst && iText >= 0 && !t.slice(0, iText).trim() && iKey > iText && iPath >= iKey && iTitle > iPath;
+705085	    if (ok) res.ok++; else if (res.fails.length < 12) res.fails.push({ i, key: b.key, first: first ? first.data.slice(0, 60) : null, line_text: b.line_text.slice(0, 60), iText, iKey, iPath, iTitle });
+705087	// ------------------------------------------------------------------ one device
+705088	async function runDevice(browser, deviceName, served) {
+705089	  const dev = devices[deviceName]; if (!dev) throw new Error('unknown Playwright device: ' + deviceName);
+705092	  await context.route(/^https:\/\/github\.com\//, r => r.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><title>stub</title>github stub' }));
+705093	  const pageUrl = new URL(URL0);
+705094	  if (served.html) await context.route(u => u.origin === pageUrl.origin && (u.pathname === pageUrl.pathname || u.pathname === pageUrl.pathname + 'index.html'), r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: served.html }));
+705095	  if (served.manifest) await context.route(u => u.origin === pageUrl.origin && u.pathname === pageUrl.pathname + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: served.rebuild() }));
+705099	  const watch = (pg) => {
+705100	    pg.on('console', m => { if (m.type() === 'error') errors.push({ kind: 'console', text: m.text().slice(0, 300) }); });
+705101	    pg.on('pageerror', e => errors.push({ kind: 'pageerror', text: String(e.message || e).slice(0, 300) }));
+705102	    pg.on('requestfailed', r => { const f = r.failure(); if (f && !/aborted|ERR_ABORTED/i.test(f.errorText)) errors.push({ kind: 'request', text: r.url().slice(0, 200) + ' ' + f.errorText }); });
+705103	    pg.on('response', r => { if (r.status() >= 400 && r.url().startsWith(pageUrl.origin)) errors.push({ kind: 'http', text: r.status() + ' ' + r.url().slice(0, 200) }); });
+705104	  watch(page);
+705105	  const steps = []; let n = 0, t0 = Date.now();
+705106	  const shot = async (id, pg) => { const f = path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png');
+705107	    for (let a = 0; a < 2; a++) { try { await (pg || page).screenshot({ path: f, scale: 'css', timeout: 180000 }); return path.relative(OUT, f); } catch (e) { if (a) return 'FAILED: ' + String(e.message || e).split('\n')[0]; } } };
+705108	  const record = (id, name, pass, measured, note, info) => { steps.push({ id, name, pass: !!pass, info: !!info, ms: Date.now() - t0, measured, note: note || '' }); t0 = Date.now(); process.stderr.write(`[${deviceName}] ${info ? 'INFO' : pass ? 'PASS' : 'FAIL'} ${id} ${name}${note ? ' — ' + note : ''}\n`); };
+705110	  const cardNow = () => page.evaluate(cardFn, { cap: CAP });
+705112	  const tapRect = (r) => tapAt((r.left + r.right) / 2, (r.top + r.bottom) / 2);
+705113	  const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map((p, i) => ({ x: p[0], y: p[1], id: i + 1, radiusX: 4, radiusY: 4, force: 1 })) });
+705114	  const rectOf = (sel) => page.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const r = e.getBoundingClientRect(); return r.height > 0 ? { left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height } : null; }, sel);
+705115	  const mark = (js, attr, arg) => page.evaluate(({ js, attr, arg }) => { document.querySelectorAll('[' + attr + ']').forEach(e => e.removeAttribute(attr)); const e = (new Function('arg', js))(arg); if (!e) return null; e.setAttribute(attr, '1'); return '[' + attr + ']'; }, { js, attr, arg });
+705116	  const settle = async () => { const s0 = Date.now(); let last = null, seen = 0;
+705117	    while (true) { await sleep(300); const p = await probe(); const t = Date.now() - s0;
+705118	      if (!p.magenta) { if (t >= SETTLE_MAX) return p; continue; }
+705119	      if (!seen) seen = Date.now();
+705120	      if (last && Math.hypot(p.magenta.x - last.x, p.magenta.y - last.y) < 0.6 && p.frames - last.frames >= 2 && t >= FIXED_WAIT) return p;
+705121	      if (!last || Math.hypot(p.magenta.x - last.x, p.magenta.y - last.y) >= 0.6) last = { x: p.magenta.x, y: p.magenta.y, frames: p.frames };
+705122	      if (Date.now() - seen >= SETTLE_MAX) return p; } };
+705123	  const clearSpace = (p) => { if (!p.magenta) return { ok: false, why: 'no selected spark drawn on #o' };
+705124	    const topY = (p.bar ? p.bar.bottom : 0) + MARGIN, bot = (p.card.open ? p.card.rect.top : p.viewport.h) - MARGIN;
+705125	    const ok = p.magenta.y >= topY && p.magenta.y <= bot && p.magenta.x >= MARGIN && p.magenta.x <= p.viewport.w - MARGIN && (p.hitAtMagenta === '#c' || p.hitAtMagenta === '#o' || p.hitAtMagenta === 'canvas');
+705126	    return { ok, spark: [p.magenta.x, p.magenta.y], window: [topY, bot], hit: p.hitAtMagenta, why: ok ? '' : 'spark at ' + p.magenta.x + ',' + p.magenta.y + ' outside [' + topY + ',' + bot + '] or covered by ' + p.hitAtMagenta }; };
+705127	  const effTarget = (sel) => page.evaluate(s => { const el = document.querySelector(s); if (!el) return null; const r = el.getBoundingClientRect(), cx = r.x + r.width / 2, cy = r.y + r.height / 2; let a = 1e9, b = -1e9, c = 1e9, d = -1e9;
+705128	    for (let dx = -40; dx <= 40; dx++) for (let dy = -40; dy <= 40; dy++) { const t = document.elementFromPoint(cx + dx, cy + dy); if (t && (t === el || el.contains(t))) { a = Math.min(a, dx); b = Math.max(b, dx); c = Math.min(c, dy); d = Math.max(d, dy); } }
+705129	    return b < a ? [0, 0] : [b - a + 1, d - c + 1]; }, sel);
+705130	  const visibleSel = (sel) => page.evaluate(s => { const e = document.querySelector(s); if (!e) return false; const r = e.getBoundingClientRect(); if (!(r.width > 0 && r.height > 0)) return false;
+705131	    for (let x = e; x; x = x.parentElement) { const c = getComputedStyle(x); if (c.display === 'none' || c.visibility === 'hidden') return false; } return r.bottom > 0 && r.top < innerHeight; }, sel);
+705132	  // open whichever bar title shows the element, by touch (Edition 4's titles, or the shell's six menus)
+705133	  const reveal = async (sel) => {
+705134	    if (await visibleSel(sel)) return { ok: true, title: null };
+705135	    const names = await page.evaluate(() => { const ts = [...document.querySelectorAll('#kuiper-menu-bar .gm-menu > .gm-title, #bar:not(.kmb-superseded) .gm-title')].filter(b => b.getBoundingClientRect().width > 0 && b.tagName === 'BUTTON');
+705136	      document.querySelectorAll('[data-t-title]').forEach(b => b.removeAttribute('data-t-title')); ts.forEach((b, i) => b.setAttribute('data-t-title', String(i))); return ts.map(b => b.textContent.trim()); });
+705137	    for (let i = 0; i < names.length; i++) { const r = await rectOf('[data-t-title="' + i + '"]'); if (!r) continue; await tapRect(r); await sleep(800);
+705138	      if (await visibleSel(sel)) return { ok: true, title: names[i], sel: '[data-t-title="' + i + '"]' }; const r2 = await rectOf('[data-t-title="' + i + '"]'); if (r2) await tapRect(r2); await sleep(400); }
+705139	    return { ok: false, tried: names };
+705140	  const closeOpen = async (rv) => { if (rv && rv.sel && await page.evaluate(() => !!document.querySelector('.gm-open'))) { const r = await rectOf(rv.sel); if (r) { await tapRect(r); await sleep(700); } } };
+705141	  const titleRect = async (re) => { const p = await probe(); const t = p.titles.find(t => re.test(t.panel) || re.test(t.text)); return t && t.rect; };
+705142	  const pickCheck = async (id, name, expectKey) => {
+705143	    const p = await settle(); const c = await cardNow(); const cl = clearSpace(p); const same = expectKey == null || c.key === expectKey;
+705144	    record(id, name, c.ok && cl.ok && same, { card: c, clear: cl, screenshot: await shot(id) }, [...(c.fails || []), cl.ok ? '' : cl.why, same ? '' : 'card shows key ' + c.key + ', expected ' + expectKey].filter(Boolean).join('; '));
+705145	    return { p, c };
+705146	  const report = { device: deviceName, viewport: dev.viewport, dpr: dev.deviceScaleFactor, url: URL0, served: served.subs, startedAt: new Date().toISOString(), steps, consoleErrors: errors, pass: false };
+705147	    // D1 load
+705149	    await page.waitForFunction(() => /verified lines lit/.test((document.getElementById('big') || {}).textContent || ''), null, { timeout: 120000 }).catch(() => {});
+705150	    if (!NO_PATCH) await page.waitForFunction(() => (window.KY && window.KY.modules && window.KY.modules['line-card']) || (window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.done), null, { timeout: 120000 }).catch(() => {});
+705152	    const adm = await page.evaluate(() => { const E = window.__KUIPER_EDITION__; const ids = a => (a || []).map(x => typeof x === 'string' ? x : (x.id || JSON.stringify(x)));
+705153	      return { ky: !!window.KY, frozen: window.KY ? Object.isFrozen(window.KY) : null, admitted: E ? ids(E.admitted) : null, refused: E ? E.refused : null, lineCard: !!(window.KY && window.KY.modules && window.KY.modules['line-card']) }; });
+705154	    await page.evaluate(async () => { const j = await (await fetch('keys.json', { cache: 'no-store' })).json(); const B = j.bodies || j; const SP = window.KY && window.KY.hooks && window.KY.hooks.SPACE;
+705155	      const placed = B.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && (!SP || b.key < SP)); const byDest = {}; placed.forEach((b, i) => { byDest[b.destination] = i; }); window.__T = { placed, byDest }; });
+705156	    const nPlaced = await page.evaluate(() => window.__T.placed.length);
+705157	    const e1 = errors.length, refusedN = adm.refused ? adm.refused.length : 0;
+705158	    record('D1', 'load: zero console errors; line-card admitted by the loader, nothing refused', e1 === 0 && adm.lineCard && refusedN === 0, { admission: adm, placed: nPlaced, errors: errors.slice(), screenshot: await shot('load') },
+705159	      [e1 ? e1 + ' console error(s): ' + errors.map(e => e.text).join(' | ').slice(0, 300) : '', adm.lineCard ? '' : 'KY.modules["line-card"] absent (' + (adm.ky ? 'KY present' : 'no window.KY') + ')', refusedN ? 'refused ' + JSON.stringify(adm.refused).slice(0, 200) : ''].filter(Boolean).join('; '));
+705160	    // D2 the sentence on the page
+705161	    const onPage = await page.evaluate((LAW) => {
+705162	      const panels = [...document.querySelectorAll('.gm-panel, #about, [id*="about" i]')];
+705163	      const menu = document.querySelector('[data-menu="about"]');
+705164	      const ab = (menu && menu.querySelector('.gm-panel')) || panels.find(p => /about/i.test((p.id || '') + ' ' + (p.getAttribute('aria-label') || '') + ' ' + (p.dataset.panel || '') + ' ' + (p.dataset.menu || '')));
+705165	      const firstP = ab ? [...ab.querySelectorAll('p, .gm-prose, [data-law]')].find(e => e.textContent.trim()) : null;
+705166	      const slot = document.querySelector('[data-owner="line-card"][data-law="L11"]');
+705167	      const lc = window.KY && window.KY.modules && window.KY.modules['line-card'];
+705168	      return { aboutPanel: !!ab, aboutFirst: firstP ? firstP.textContent.trim() : null, slot: slot ? slot.textContent.trim() : null, apiLaw: lc && lc.api ? lc.api.law : null,
+705169	        anywhere: [...document.querySelectorAll('body *')].some(e => e.textContent.trim() === LAW) }; }, LAW);
+705170	    const d2 = onPage.aboutPanel ? onPage.aboutFirst === LAW : (onPage.apiLaw === LAW || onPage.slot === LAW || onPage.anywhere);
+705171	    record('D2', 'B4 the K3 sentence on the page, byte for byte' + (onPage.aboutPanel ? ' (ABOUT panel, first paragraph)' : ' (no ABOUT panel in this run: api.law / slot)'), d2,
+705172	      { aboutPanel: onPage.aboutPanel, aboutFirstEqual: onPage.aboutFirst === null ? null : onPage.aboutFirst === LAW, aboutFirst: onPage.aboutFirst && onPage.aboutFirst.slice(0, 200), slotEqual: onPage.slot === null ? null : onPage.slot === LAW, apiLawEqual: onPage.apiLaw === LAW, anywhere: onPage.anywhere },
+705173	      d2 ? (onPage.aboutPanel ? '' : 'ABOUT panel (team 1 shell) not in this run; --with-shell checks the panel') : 'sentence not on the page byte for byte' + (onPage.aboutPanel ? ': ABOUT first paragraph reads "' + String(onPage.aboutFirst).slice(0, 80) + '"' : ''));
+705174	    // D3 LINES rows (opened by touch)
+705175	    const rvL = await reveal('#lineslist [data-i]'); const lt = rvL.ok; await sleep(600);
+705176	    const L = await page.evaluate(linesFn);
+705177	    record('D3', 'B6 every LINES row reads the line text first, then the key, then the title', !!lt && L.rows === nPlaced && L.ok === L.rows, { ...L, expectedRows: nPlaced, openedBy: rvL.title, screenshot: await shot('lines') },
+705178	      !lt ? 'no bar title shows the LINES rows (tried ' + JSON.stringify(rvL.tried) + ')' : (L.ok === L.rows && L.rows === nPlaced ? '' : L.ok + ' of ' + L.rows + ' rows in order (expected ' + nPlaced + '); first fails ' + JSON.stringify(L.fails.slice(0, 2)).slice(0, 300)));
+705179	    // D4 touch a LINES row
+705180	    const row = await page.evaluate(() => { for (const e of document.querySelectorAll('#lineslist [data-i]')) { const b = e.getBoundingClientRect(); const x = b.left + b.width / 2, y = b.top + Math.min(b.height / 2, 10);
+705181	      if (b.top > 0 && b.bottom < innerHeight && e.contains(document.elementFromPoint(x, y))) return { i: +e.dataset.i, key: window.__T.placed[+e.dataset.i].key, x, y }; } return null; });
+705182	    if (row) await tapAt(row.x, row.y);
+705183	    const pk = await pickCheck('D4', 'touch a LINES row: B1 header = line_text, B2 key second, B3 ≤ 34 % and the spark in the clear space', row ? row.key : -1);
+705184	    if (!pk.c.open) { await closeOpen(rvL); await page.keyboard.press('e'); await settle(); pk.c = await cardNow(); }   // keep measuring the rest on a card opened with e
+705185	    // D5 details by touch
+705186	    const ctSel = await mark("return document.querySelector('#card button[aria-expanded]')", 'data-t-details');
+705187	    let d5 = { found: !!ctSel };
+705188	    if (ctSel) {
+705189	      d5.target = await effTarget(ctSel); const h0 = (await probe()).card.height;
+705190	      const detState = () => page.evaluate((s) => { const c = document.getElementById('card'), b = document.querySelector(s);
+705191	        const det = [...c.querySelectorAll('div,section,details,p')].filter(e => /(^|\s)(lc-d|cd|details)(\s|$)/.test(e.className || ''));
+705192	        const r = c.getBoundingClientRect(); return { expanded: b.getAttribute('aria-expanded'), shown: det.some(e => getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0), height: r.height, bottom: r.bottom, ih: innerHeight, open: getComputedStyle(c).display !== 'none' }; }, ctSel);
+705193	      const rD = await rectOf(ctSel); if (!rD) throw new Error('details button not on screen (card closed?)');
+705194	      await tapRect(rD); await sleep(900); const s1 = await detState(); d5.screenshot = await shot('details-open');
+705195	      const rD2 = await rectOf(ctSel); if (rD2) await tapRect(rD2); await sleep(900); const s2 = await detState();
+705196	      d5 = { ...d5, heightBefore: h0, open: s1, closed: s2, capPx: +(CAP * s1.ih).toFixed(1) };
+705197	      d5.ok = s1.expanded === 'true' && s1.shown && s1.height <= CAP * s1.ih + 1 && s1.bottom <= s1.ih + 1 && s2.expanded === 'false' && !s2.shown && s2.open && d5.target[1] >= 44;
+705198	    record('D5', 'details by touch: button[aria-expanded] opens and closes the details, ≤ 34 % open, ≥ 44 px tall (NL-009 F2)', d5.ok, d5,
+705199	      !ctSel ? 'no button[aria-expanded] in the card' : (d5.ok ? '' : 'expanded ' + d5.open.expanded + '/' + d5.closed.expanded + ', shown ' + d5.open.shown + '/' + d5.closed.shown + ', height ' + d5.open.height + ' (cap ' + d5.capPx + '), target ' + d5.target.join('×')));
+705200	    // D6 the GitHub link (the action-row link; the key row's link is checked in D10i)
+705201	    const c6 = await cardNow();
+705202	    const linkSel = await mark("const c = document.getElementById('card'); c.scrollTop = 0; return [...c.querySelectorAll('a[href]')].reverse().find(a => a.getAttribute('href') === arg)", 'data-t-link', c6.dest || '');
+705203	    let d6 = { found: !!linkSel };
+705204	    if (linkSel) {
+705205	      const r = await rectOf(linkSel); d6.target = await effTarget(linkSel); d6.text = await page.evaluate(s => document.querySelector(s).textContent.slice(0, 80), linkSel);
+705206	      const np = context.waitForEvent('page', { timeout: 15000 }).catch(() => null);
+705207	      await tapAt(r.left + Math.min(30, r.width / 2), (r.top + r.bottom) / 2);
+705208	      const p2 = await np; d6.newTab = p2 ? p2.url() : null; if (p2) await p2.close().catch(() => {});
+705209	      d6.navigatedAway = !page.url().startsWith(pageUrl.origin); if (d6.navigatedAway) await page.goBack().catch(() => {});
+705210	      await sleep(600); const c6b = await cardNow(); d6.cardStillOpen = c6b.open; d6.sameLine = c6b.key === c6.key;
+705211	      d6.ok = d6.newTab === c6.dest && d6.cardStillOpen && d6.sameLine && !d6.navigatedAway && d6.target[1] >= 44;
+705212	    record('D6', 'the GitHub link (href = destination) opens a tab on a touch tap, ≥ 44 px tall; the card stays open on the same line', d6.ok, d6,
+705213	      !linkSel ? 'no link to the destination in the card' : (d6.ok ? '' : 'new tab ' + d6.newTab + ', card open ' + d6.cardStillOpen + ', same line ' + d6.sameLine + ', target ' + d6.target.join('×')));
+705214	    // D7 ×
+705215	    const cxSel = await mark("return document.querySelector('#card .cx, #card [aria-label=\"close\"], #card [aria-label=\"Close\"]')", 'data-t-close');
+705216	    let d7 = { found: !!cxSel }; const before7 = await probe();
+705217	    if (cxSel) { d7.target = await effTarget(cxSel); d7.rect = await rectOf(cxSel); await tapRect(d7.rect); await sleep(1500); const p7 = await probe();
+705218	      d7.cardOpen = p7.card.open; d7.magentaPx = p7.magenta ? p7.magenta.px : 0; d7.ok = d7.target[0] >= 44 && d7.target[1] >= 44 && !p7.card.open && !p7.magenta; }
+705219	    record('D7', '× is a ≥ 44 × 44 px touch target; × closes the card and clears the selected spark', d7.ok, { ...d7, screenshot: await shot('closed') },
+705220	      !cxSel ? 'no × in the card' : (d7.ok ? '' : '× effective target ' + d7.target.join('×') + ' px, card open ' + d7.cardOpen + ', magenta px ' + d7.magentaPx));
+705221	    // D8 touch the spark where the selection was (now green)
+705222	    let d8note = '';
+705223	    if (before7.magenta) { const p8 = await probe(); const g = p8.greens.map(g => ({ g, d: Math.hypot(g.x - before7.magenta.x, g.y - before7.magenta.y) })).sort((a, b) => a.d - b.d)[0];
+705224	      if (g && g.d < 8) { await tapAt(g.g.x, g.g.y); await pickCheck('D8', 'touch the spark: its card opens, B1 + B2 + B3', pk.c.key); } else d8note = 'no green spark within 8 px of the closed selection (nearest ' + (g ? g.d.toFixed(1) : 'none') + ' px)'; }
+705225	    else d8note = 'no selected spark before ×';
+705226	    if (d8note) record('D8', 'touch the spark: its card opens, B1 + B2 + B3', false, { screenshot: await shot('spark') }, d8note);
+705227	    // D9 COMMANDS → next verified line, by touch
+705228	    const c8 = await cardNow();
+705229	    const expect9 = c8.index != null ? await page.evaluate((i) => window.__T.placed[(i + 1) % window.__T.placed.length].key, c8.index) : null;
+705230	    let d9note = '';
+705231	    const eSel = await mark("return [...document.querySelectorAll('button[data-k=\"e\"]')].find(b => !b.closest('#linesctl'))", 'data-t-next');
+705232	    const rvE = eSel ? await reveal(eSel) : { ok: false };
+705233	    if (rvE.ok) { const er = await rectOf(eSel); await tapRect(er); await sleep(600); await closeOpen(rvE);
+705234	      await pickCheck('D9', 'touch ' + (rvE.title || 'the bar') + ' → next verified line: the next body\'s card, B1 + B2 + B3', expect9); }
+705235	    else d9note = eSel ? 'no bar title shows "next verified line"' : 'no "next verified line" button';
+705236	    if (d9note) record('D9', 'touch COMMANDS → next verified line', false, {}, d9note);
+705237	    // N1 12 px type (NL-009 02-card F6)
+705238	    const pN = await probe();
+705239	    record('N1', 'NL-009 02-card F6: 12 px card type on a phone', pN.card.fontSize === '12px', { fontSize: pN.card.fontSize }, pN.card.fontSize === '12px' ? '' : 'font-size ' + pN.card.fontSize);
+705240	    // N2 behind an open panel (F4)
+705241	    const rvN = await reveal('#lineslist [data-i]'); const n2 = { openedBy: rvN.title };
+705242	    if (rvN.ok && rvN.sel) { await sleep(500); n2.whileOpen = (await probe()).card.visibility; await closeOpen(rvN); await sleep(400); const q = await probe(); n2.after = q.card.visibility; n2.panelClosed = !q.panelOpen; n2.cardOpen = q.card.open; }
+705243	    n2.ok = n2.whileOpen === 'hidden' && n2.after === 'visible' && n2.panelClosed && n2.cardOpen;
+705244	    record('N2', 'NL-009 02-card F4: the card steps behind an open panel and returns when it closes', n2.ok, n2, n2.ok ? '' : 'visibility while LINES open ' + n2.whileOpen + ', after ' + n2.after + ', card open ' + n2.cardOpen);
+705245	    // N3 the gesture-bar inset (F5)
+705246	    const padOf = () => page.evaluate(() => { const c = document.getElementById('card'); const pb = e => e ? parseFloat(getComputedStyle(e).paddingBottom) || 0 : 0; return pb(c) + pb(c.firstElementChild); });
+705247	    const pad0 = await padOf(); let pad1 = null;
+705248	    try { await cdp.send('Emulation.setSafeAreaInsetsOverride', { insets: { bottom: 24 } }); await sleep(400); pad1 = await padOf(); await cdp.send('Emulation.setSafeAreaInsetsOverride', { insets: {} }); } catch (e) { pad1 = null; }
+705249	    record('N3', 'NL-009 02-card F5: a 24 px bottom safe-area inset adds ≥ 24 px of card padding', pad1 != null && pad1 - pad0 >= 23.5, { paddingWithout: pad0, paddingWith24: pad1 }, pad1 == null ? 'CDP safe-area override unavailable' : (pad1 - pad0 >= 23.5 ? '' : 'padding ' + pad0 + ' → ' + pad1));
+705250	    // N4 swipe down closes; Escape closes (F7)
+705251	    const c4 = (await probe()).card.rect; const n4 = {};
+705252	    if (c4) { await page.evaluate(() => { document.getElementById('card').scrollTop = 0; }); const sx = c4.left + c4.width / 2;
+705253	      await touch('touchStart', [[sx, c4.top + 14]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[sx, c4.top + 14 + i * 12]]); await sleep(16); } await touch('touchEnd', []); await sleep(1800);
+705254	      const q = await probe(); n4.swipeClosed = !q.card.open; n4.swipeMagenta = q.magenta ? q.magenta.px : 0; }
+705255	    await page.evaluate(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+705256	    await page.keyboard.press('e'); await sleep(2500); n4.reopened = (await probe()).card.open;
+705257	    await page.keyboard.press('Escape'); await sleep(1200); n4.escapeClosed = !(await probe()).card.open;
+705258	    n4.ok = !!n4.swipeClosed && !n4.swipeMagenta && n4.reopened && n4.escapeClosed;
+705259	    record('N4', 'NL-009 02-card F7: a swipe down closes the card and clears the spark; Escape closes it', n4.ok, n4, n4.ok ? '' : JSON.stringify(n4));
+705260	    // D10 the walk over every placed body with e
+705261	    const seen = new Map(); let presses = 0, prevKey = null, stuck = 0, longShot = false;
+705262	    const tally = { b1: 0, b2: 0, title: 0, cap: 0, all: 0, empty: 0, emptyOk: 0, ariaLabel: 0, ariaLive: 0, registerQuote: [0, 0], row2KeyNumber: 0, row2Link: 0, headerFirstChild: 0 };
+705263	    const fails10 = []; let maxH = 0;
+705264	    const tWalk = Date.now();
+705265	    while (seen.size < nPlaced && presses < nPlaced + 40 && stuck < 6) {
+705266	      await page.keyboard.press('e'); presses++;
+705267	      let c = null; for (let w = 0; w < 60; w++) { c = await cardNow(); if (c.open && c.key != null && c.key !== prevKey) break; await sleep(150); }
+705268	      if (!c || c.key == null || c.key === prevKey) { stuck++; continue; } stuck = 0; prevKey = c.key;
+705269	      if (seen.has(c.key)) continue; seen.set(c.key, c.ok);
+705270	      if (c.b1) tally.b1++; if (c.b2) tally.b2++; if (c.titleAfterKey) tally.title++; if (c.underCap) tally.cap++; if (c.ok) tally.all++;
+705271	      if (c.empty) { tally.empty++; if (c.b1) tally.emptyOk++; }
+705272	      if (c.ariaLabelIsHeader) tally.ariaLabel++; if (c.ariaLive === 'polite') tally.ariaLive++; if (c.row2HasKeyNumber) tally.row2KeyNumber++; if (c.row2LinkIsDestination) tally.row2Link++; if (c.headerFirstChild) tally.headerFirstChild++;
+705273	      if (c.registerQuote != null) { tally.registerQuote[1]++; if (c.registerQuote) tally.registerQuote[0]++; }
+705274	      maxH = Math.max(maxH, c.height || 0);
+705275	      if (!c.ok && fails10.length < 20) fails10.push({ index: c.index, key: c.key, fails: c.fails });
+705276	      if (!longShot && c.firstLen > 1e6) { longShot = true; await shot('walk-longest-line'); }   // the 1,240,449-character line
+705277	    const ok10 = seen.size === nPlaced && tally.all === nPlaced && tally.empty === tally.emptyOk;
+705278	    record('D10', 'B1/B2/B3 over all ' + nPlaced + ' placed bodies: first visible text = line_text, key second, title after, ≤ 34 %', ok10,
+705279	      { bodies: seen.size, presses, ms: Date.now() - tWalk, maxCardHeight: +maxH.toFixed(1), tally, fails: fails10, screenshot: await shot('walk-end') },
+705280	      ok10 ? 'all ' + seen.size + ' bodies pass; ' + tally.empty + ' empty lines say "empty line at key"; tallest card ' + maxH.toFixed(1) + ' px' : 'distinct bodies ' + seen.size + '/' + nPlaced + '; B1 ' + tally.b1 + ', B2 ' + tally.b2 + ', title-after ' + tally.title + ', cap ' + tally.cap + '; first fail ' + JSON.stringify(fails10[0] || null).slice(0, 300));
+705281	    record('D10i', 'K2 aria-label = header and aria-live=polite; key number and destination link in row 2; header first element; register-quote rows (info)', true,
+705282	      { ariaLabelIsHeader: tally.ariaLabel, ariaLivePolite: tally.ariaLive, row2KeyNumber: tally.row2KeyNumber, row2LinkIsDestination: tally.row2Link, headerFirstElementChild: tally.headerFirstChild, registerQuoteRows: tally.registerQuote[0] + ' of ' + tally.registerQuote[1], of: seen.size }, '', true);
+705283	    // D11 B5 a body without line_text
+705284	    const page5 = await context.newPage(); watch(page5); page5.setDefaultTimeout(180000);
+705285	    const firstDest = await page.evaluate(() => window.__T.placed[0].destination);
+705286	    await page5.route(u => u.origin === pageUrl.origin && (u.pathname === pageUrl.pathname + 'keys.json' || u.pathname === pageUrl.pathname + 'keys-min.json'), async r => { const resp = await r.fetch(); const j = await resp.json(); const b = (j.bodies || j).find(x => x.destination === firstDest); if (b) delete b.line_text; await r.fulfill({ response: resp, body: JSON.stringify(j) }); });
+705287	    await page5.goto(URL0, { waitUntil: 'load', timeout: 120000 });
+705288	    await page5.waitForFunction(() => /verified lines lit/.test((document.getElementById('big') || {}).textContent || ''), null, { timeout: 120000 }).catch(() => {});
+705289	    if (!NO_PATCH) await page5.waitForFunction(() => window.KY && window.KY.modules && window.KY.modules['line-card'], null, { timeout: 120000 }).catch(() => {});
+705290	    await sleep(FIXED_WAIT); await page5.keyboard.press('e'); await sleep(3000);
+705291	    const b5 = await page5.evaluate((dest) => { const c = document.getElementById('card'), h = c.querySelector('header');
+705292	      return { open: getComputedStyle(c).display !== 'none', isThatBody: [...c.querySelectorAll('a[href]')].some(a => a.getAttribute('href') === dest), headerText: h ? h.textContent.slice(0, 120) : null, headerSays: !!h && /no text at key/.test(h.textContent), ariaLabel: c.getAttribute('aria-label'), lineCardAdmitted: !!(window.KY && window.KY.modules && window.KY.modules['line-card']) }; }, firstDest);
+705293	    const s5 = await shot('no-text-at-key', page5); await page5.close();
+705294	    record('D11', 'B5 a body without line_text shows "no text at key" in the header (keys.json mutated through page.route)', b5.open && b5.isThatBody && b5.headerSays, { ...b5, screenshot: s5 }, b5.headerSays ? '' : 'header reads "' + b5.headerText + '"');
+705296	  record('D12', 'B7 zero console errors, page errors, failed requests and HTTP errors over the whole run', errors.length === 0, { errors: errors.slice(0, 20), count: errors.length }, errors.length ? errors.length + ': ' + errors.map(e => e.kind + ' ' + e.text).join(' | ').slice(0, 300) : '');
+705297	  report.consoleErrors = errors.slice(); report.pass = steps.filter(s => !s.info).every(s => s.pass);
+705298	  report.passed = steps.filter(s => !s.info && s.pass).length; report.failed = steps.filter(s => !s.info && !s.pass).length; report.finishedAt = new Date().toISOString();
+705301	function summarize(m) { if (!m) return ''; const o = {};
+705302	  for (const [k, v] of Object.entries(m)) { if (['screenshot', 'errors', 'fails'].includes(k)) continue;
+705303	    if (v && typeof v === 'object') { if (k === 'card') { o.key = v.key; o.height = v.height; o.cap = v.capPx; } else if (k === 'clear') o.spark = v.spark; else if (k === 'tally') Object.assign(o, v); else if (Array.isArray(v) && v.length <= 4 && v.every(x => typeof x !== 'object')) o[k] = v; else continue; }
+705304	    else o[k] = v; }
+705305	  return JSON.stringify(o).slice(0, 380); }
+705306	function writeTestMd(out) {
+705307	  const esc = s => String(s).replace(/\|/g, '\\|').replace(/\n/g, ' ').slice(0, 420);
+705308	  const row = s => `| ${s.id} | ${s.name} | ${s.info ? 'INFO' : s.pass ? 'PASS' : '**FAIL**'} | ${esc(s.note || summarize(s.measured))} |`;
+705309	  const L = ['# handoff/02-card TEST — ROADMAP step 2 "the card law", B1–B7 on Android', '',
+705310	    `Run ${out.generatedAt} (label \`${out.label}\`) by OPUS-2 tester: \`node editions/${STAMP}/handoff/02-card/test.cjs ${out.url} ${out.outdir}${out.withShell ? ' --with-shell' : ''}${out.label === 'before' ? ' --no-patch' : ''}\`. Playwright ${require('playwright/package.json').version}, Chromium with SwiftShader, devices['Pixel 7'] and devices['Galaxy S24'], real touch. Module \`${out.module || 'none'}\`${out.moduleSha ? ' sha256 `' + out.moduleSha + '`' : ''}; kuiper-belt \`edition/${STAMP}\` @ \`${out.head || '?'}\`.`, '',
+705311	    `**RESULT: ${out.pass ? 'PASS' : 'FAIL'}** — ${out.pass ? 'the tester releases the hand-off.' : 'the tester REFUSES the hand-off until every gating row reads PASS on both devices with zero console errors.'}`, '',
+705312	    'Served page: ' + out.served.map(s => '`' + s + '`').join('; ') + '.', '',
+705313	    '## Static (once)', '', '| id | assertion | result | measured / note |', '|---|---|---|---|', ...out.static.map(row)];
+705314	  for (const d of out.devices) L.push('', `## ${d.device} (${d.viewport.width}×${d.viewport.height} @${d.dpr}) — ${d.pass ? 'PASS' : 'FAIL'}: ${d.passed} pass, ${d.failed} fail, ${d.consoleErrors.length} console errors`, '', '| id | assertion | result | measured / note |', '|---|---|---|---|', ...d.steps.map(row));
+705315	  L.push('', '## Reading the table', '', 'Gating: every row not marked INFO. B1 = D4, D8, D9, D10 (the first visible text node of the card, the × control excepted, equals `keys.json` `line_text` byte for byte; the 4 empty lines show "empty line at key" inside the header); B2 = the next row carries `repo@commit7` and `path:line` and sits inside the card without scrolling; B3 = card height ≤ 34 % of the viewport and the selected spark between the bar and the card after the fly; B4 = S4 + D2; B5 = D11; B6 = D3; B7 = S5 + D12. N1–N4 are the NL-009 round-1 02-card fixes folded into the module. Screenshots of every step are in `' + out.outdir + '/<device>/`, the full measurements in `' + out.outdir + '/report.json`; img/ holds the before/after pair.', '',
+705316	    '## Rerun', '', '```', 'cd /home/user/estate/kuiper-belt && python3 -m http.server 8422 --bind 127.0.0.1 &', `node editions/${STAMP}/handoff/02-card/test.cjs http://127.0.0.1:8422/editions/${STAMP}/ /tmp/nl010-opus/team-2/tester/run-after --handoff`, '```', '');
+705317	  fs.writeFileSync(path.join(HERE, 'TEST.md'), L.join('\n'));
+705318	  const st = staticChecks(), served = buildServed(st);
+705319	  let head = null; try { head = execFileSync('git', ['rev-parse', '--short=7', 'HEAD'], { cwd: REPO, encoding: 'utf8' }).trim(); } catch (e) {}
+705320	  const out = { schema: 'kuiper.card.accept.v1', step: 2, url: URL0, outdir: OUT, label: LABEL, withShell: WITH_SHELL, generatedAt: new Date().toISOString(), head, module: st.modFile, moduleSha: st.modSha, served: served.subs, static: st.S, devices: [] };
+705322	  try { for (const d of DEVICES) { out.devices.push(await runDevice(browser, d, served)); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); } }
+705324	  const endSha = st.modFile ? sha256(fs.readFileSync(path.join(EDITION, 'modules', st.modFile))) : null;
+705325	  const s6 = { id: 'S6', name: 'the module did not change while the run ran (sha256 at start = at end)', pass: endSha === st.modSha, info: false, measured: { start: st.modSha, end: endSha }, note: endSha === st.modSha ? '' : 'module changed during the run: results are void, rerun' };
+705326	  st.S.push(s6); process.stderr.write(`[static] ${s6.pass ? 'PASS' : 'FAIL'} S6 ${s6.name}${s6.note ? ' — ' + s6.note : ''}\n`);
+705327	  out.pass = st.S.filter(s => !s.info).every(s => s.pass) && out.devices.length === DEVICES.length && out.devices.every(d => d.pass);
+705328	  out.RESULT = out.pass ? 'PASS' : 'FAIL';
+705329	  out.summary = { static: st.S.filter(s => !s.info && !s.pass).map(s => s.id), devices: out.devices.map(d => ({ device: d.device, passed: d.passed, failed: d.failed, failedSteps: d.steps.filter(s => !s.info && !s.pass).map(s => s.id), consoleErrors: d.consoleErrors.length })) };
+705331	  if (WRITE_HANDOFF) writeTestMd(out);
+705332	  console.log(JSON.stringify({ RESULT: out.RESULT, served: out.served, summary: out.summary }, null, 1));
+705334	# Opus team 3: delete from an index.html exactly what moved into modules/202611012141-layers.js, by content, so the
+705335	# cut can be re-made against any base (the Edition 4 copy, or the integrator's base with team 4's patch applied).
+705336	#   python3 delete-moved.py <in index.html> <out index.html>     (prints what it removed; exits non-zero if an anchor is missing)
+705337	# Apache-2.0 (kuiper-belt code).
+705339	src = open(sys.argv[1]).read().split('\n')
+705340	out = []; i = 0; n = len(src); log = []
+705341	def starts(l, p): return l.lstrip().startswith(p) if p.startswith(' ') is False else l.startswith(p)
+705342	def cut_until(start_pred, stop_pred, inclusive_stop, name):
+705344	def find(pred, frm=0):
+705345	    for j in range(frm, n):
+705346	        if pred(src[j]): return j
+705347	    raise SystemExit('not found: %s' % pred)
+705348	drop = set()
+705349	def rng(a, b, name): drop.update(range(a, b + 1)); log.append('%s: lines %d-%d' % (name, a + 1, b + 1))
+705350	# CSS of the Edition 3 LINES panel
+705351	a = find(lambda l: l.startswith('  #lines{left:0;right:0'))
+705352	b = find(lambda l: l.startswith('  #lineslist .ln.focus b'), a); rng(a, b, 'css #lines/#linesctl/#lineslist')
+705353	# Edition 2 block: loadEdition .. edFly (esc stays: it is a hook)
+705354	a = find(lambda l: l.startswith('// ============================================================ KUIPER EDITION 2'))
+705355	b = find(lambda l: l.startswith('function esc(v)'), a) - 1; rng(a, b, 'edition 2 lines layer')
+705356	a = find(lambda l: l.startswith('function edNext(step)'), b)
+705357	b = find(lambda l: l.startswith('// ============================================================ EDITION 3'), a) - 1
+705358	while src[b].strip() == '': b -= 1
+705359	rng(a, b, 'edNext/pointerup/e-E')
+705360	a = find(lambda l: l.startswith('const linesPanel = document.createElement'))
+705361	b = find(lambda l: l.startswith('document.body.appendChild(linesPanel);'), a); rng(a, b, 'LINES panel')
+705362	a = find(lambda l: l.strip() == "if (openPanel === 'lines') fillLines();"); rng(a, a, 'fillLines on open')
+705363	a = find(lambda l: l.startswith('// the lines layer: on/off'))
+705364	b = find(lambda l: 'edSel = i; const b = edPlaced[edSel]; edCard(edSel); edFly(b); }; }' in l, a); rng(a, b, 'ly* switches, fillLines, wraps')
+705365	for j, l in enumerate(src):
+705366	    if j in drop: continue
+705367	    if 'home(); dirty = true; loadEdition();' in l: l = l.replace(' loadEdition();', ''); log.append('token loadEdition(); line %d' % (j + 1))
+705368	    if l.startswith('const PANELS = {') and 'lines: linesPanel, ' in l: l = l.replace('lines: linesPanel, ', ''); log.append('token lines: linesPanel line %d' % (j + 1))
+705369	    out.append(l)
+705370	open(sys.argv[2], 'w').write('\n'.join(out))
+705371	print('\n'.join(log), file=sys.stderr)
+705372	// test.cjs — Opus team 3, NL-010 roadmap step 3 "the Kuiper layer registry": the acceptance test on Android, measured.
+705373	//   node test.cjs <root-url> <outdir> [--devices "Pixel 7,Galaxy S24"] [--handoff] [--index FILE] [--manifest FILE]
+705374	//   <root-url>  the kuiper-belt repository root as served, e.g. http://127.0.0.1:8432/ (python3 -m http.server 8432
+705375	//               --bind 127.0.0.1 from /home/user/estate/kuiper-belt). The edition is <root-url>editions/202611012135/.
+705376	//   <outdir>    per-device screenshots <outdir>/<device>/NN-<step>.png and <outdir>/report.json (keep it outside the repo).
+705377	//   --handoff   also write img/WAIT.png, img/OK.png, img/FAIL.png, img/REFUSED.png (first device, each < 300 KB) and
+705378	//               TEST.md (one row per assertion, both devices) next to this file.
+705379	//   --index F / --manifest F   PRE-INTEGRATION ONLY: serve file F in place of editions/202611012135/index.html /
+705380	//               modules.json (the integrator has not yet applied the step 4 hook table or listed this module). The
+705381	//               report and TEST.md say so on their first line; a hand-off pass is a pass WITHOUT these flags. In such a
+705382	//               manifest a module record may carry "sha256": "live": it is hashed from disk at each request (and with
+705383	//               "live_record": "handoff/NN-x/MODULE.json" the record itself is re-read from that file).
+705384	// Governing text: neural-link FIXES/NL-010/ROADMAP.md step 3 "Acceptance test on Android" 1-9 and team-2/STEPS.md 3.1-3.8
+705385	// (tests at :248-287). Form: neural-link FIXES/NL-009/android-journey.cjs (Playwright, real touch via
+705386	// page.touchscreen.tap, harness GL flags, 6.5 s after load, screenshot timeout 180 s). Exit 0 when every gated assertion
+705387	// of every device passed, 1 otherwise, 2 on a harness error.
+705388	// What the script relies on (the contract with the module; keep it or update this list):
+705389	//   the registry api: KY.modules.layers.api (KY is frozen by the step 4 loader), else window.__KUIPER_LAYERS__, else KY.layers;
+705390	//     {inspect,get,set,value} (team-2/STEPS.md 3.3); inspect() -> {layers, unique, complete, on, states}
+705391	//   #ky-layers (else #layers): the WAFER panel host; #layers: the rows, one ORIGINAL <input type=checkbox data-ky-layer="layer:<id>"> per record, inside its row
+705392	//     (the row is input.closest('label'), else the input's parent); the row's text carries the state tag
+705393	//     "<WAIT|LOAD|OK|EMPTY|FAIL|REFUSED>[ · <why>]"
+705394	//   the lines list inside the panel host: rows [data-i] (or #lineslist); a filter input (#lyFind, else input[type=search],
+705395	//     else the first non-checkbox input in #layers); a clear control (button with aria-label or text "clear" / "×");
+705396	//     a count line "<shown> of <total> rows[ …]"; "the largest label" compares text outside buttons and inputs
+705397	//   the WAFER title: a button whose text is WAFER in team 1's #kuiper-menu-bar (else #bar), or #bar [data-panel=wafer|layers]; before the shell
+705398	//     is admitted the module takes over the Edition 4 LINES title (#bar [data-panel=lines]) and t2-title is NOT EVALUATED
+705399	//   #refuse[role=alert] (the refusal strip), #big (the heading), #hud (the readout), #o (2d overlay, 1 canvas px = 1 CSS px)
+705400	//   KY.cam {x, y, zoom} (step 4 hook table, handoff/04-loader/HOOKS.md), else the page's globals cx, cy, zoom
+705401	//   the URL: the ticked layers as "layers=<id>,<id>" in the hash (R3, the hash wins) or the query (team-2 3.6)
+705402	const fs = require('fs'), path = require('path'), crypto = require('crypto'), cp = require('child_process');
+705403	const STAMP = '202611012135';
+705404	const IDS = ['periods', 'repos', 'editions', 'lines', 'see-through', 'elements', 'spider'];
+705405	const APPS = ['see-through', 'elements', 'spider'];
+705406	const positional = []; const flags = {};
+705407	for (let i = 0; i < argv.length; i++) { const a = argv[i]; if (a.startsWith('--')) { const nx = argv[i + 1]; if (nx != null && !nx.startsWith('--') && !['--handoff'].includes(a)) { flags[a] = nx; i++; } else flags[a] = true; } else positional.push(a); }
+705408	if (positional.length < 2) { console.error('usage: node test.cjs <root-url> <outdir> [--devices "Pixel 7,Galaxy S24"] [--handoff] [--index FILE] [--manifest FILE]'); process.exit(2); }
+705409	const ROOT = positional[0].replace(/\/?$/, '/'), OUT = path.resolve(positional[1]);
+705410	const ED_URL = ROOT + 'editions/' + STAMP + '/';
+705411	const DEVICES = (flags['--devices'] ? String(flags['--devices']) : 'Pixel 7,Galaxy S24').split(',').map(s => s.trim()).filter(Boolean);
+705412	const HERE = __dirname, ED_DIR = path.resolve(HERE, '../..'), REPO = path.resolve(ED_DIR, '../..');
+705413	const OVR_INDEX = flags['--index'] ? fs.readFileSync(path.resolve(String(flags['--index']))) : null;
+705414	const OVR_MANIFEST = flags['--manifest'] ? fs.readFileSync(path.resolve(String(flags['--manifest']))) : null;
+705415	const PRE = !!(OVR_INDEX || OVR_MANIFEST);
+705416	// pre-integration only: a record whose sha256 is "live" is hashed from disk at each request, because the module is edited while it is tested
+705417	function liveManifest() { let m; try { m = JSON.parse(OVR_MANIFEST.toString('utf8')); } catch (e) { return OVR_MANIFEST; }
+705418	  m.modules = (m.modules || []).map(r => { if (!r || r.sha256 !== 'live') return r;
+705419	    if (r.live_record) { try { r = Object.assign(JSON.parse(fs.readFileSync(path.join(ED_DIR, r.live_record), 'utf8')), { live_record: r.live_record }); } catch (e) {} }   // the team's MODULE.json as it is now
+705420	    const b = fs.readFileSync(path.join(ED_DIR, r.path)); r.sha256 = sha256(b); r.bytes = b.length; delete r.live_record; return r; });
+705421	  return JSON.stringify(m); }
+705422	const FIXED_WAIT = 6500, STATE_MAX = 90000;
+705423	// ------------------------------------------------------------------ the data the test measures against, from disk
+705424	const KEYS_BYTES = fs.readFileSync(path.join(ED_DIR, 'keys.json'));
+705425	const KEYS = JSON.parse(KEYS_BYTES.toString('utf8'));
+705426	const META = JSON.parse(fs.readFileSync(path.join(REPO, 'cosmos/wafer-meta.json'), 'utf8'));
+705427	const BODIES = KEYS.bodies || KEYS;
+705428	// the edition's own admission predicate (index.html:632 at kuiper-belt@96736f5): verified, on the wafer, finite, inside SPACE
+705429	const FILTER_EXPECT = BODIES.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && b.key < META.address_space && (b.repo + ' ' + b.path + ' ' + b.title).toLowerCase().includes('gridatlas')).length;
+705430	const PLACED_KEYS = BODIES.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && b.key < META.address_space).map(b => b.key);
+705431	// one byte changed, the length kept, the JSON still valid: only the sha256 can catch it
+705432	const FIRST_KEYS = (() => { try { const r = JSON.parse(fs.readFileSync(path.join(ED_DIR, 'data/layers.json'), 'utf8')).layers.find(x => x.id === 'lines'); return r && r.source && r.source.file || 'keys.json'; } catch (e) { return 'keys.json'; } })();   // lead: the record's first file
+705433	const FIRST_BYTES = fs.readFileSync(path.join(ED_DIR, FIRST_KEYS));
+705434	const TAMPERED = (() => { const KEYS_BYTES = FIRST_BYTES; const s = KEYS_BYTES.toString('latin1'); const t = s.indexOf('"title"'); let i = s.indexOf('"', s.indexOf(':', t) + 1) + 1;
+705435	  while (!/[A-Za-z]/.test(s[i])) i++; const c = s[i], d = c === c.toLowerCase() ? c.toUpperCase() : c.toLowerCase();
+705436	  const buf = Buffer.from(KEYS_BYTES); buf[i] = d.charCodeAt(0); return { buf, offset: i, from: c, to: d, sha: sha256(buf), shaOriginal: sha256(KEYS_BYTES) }; })();
+705437	// ------------------------------------------------------------------ in-page probe (self-contained)
+705438	  const vis = el => { if (!el) return false; const cs = getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden' || el.hidden) return false; const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+705440	  const norm = s => String(s || '').replace(/\s+/g, ' ').trim();
+705441	  const STATE = /(?<![A-Z])(WAIT|LOAD|OK|EMPTY|FAIL|REFUSED)\b(?:\s*·\s*([^\n]*))?/;
+705442	  const textOf = el => { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); const a = []; while (w.nextNode()) a.push(w.currentNode.textContent); return norm(a.join(' ')); };   // text nodes joined by a space: 'periods' + 'WAIT' never reads 'periodsWAIT'
+705443	  const KY = window.KY, L = (KY && KY.modules && KY.modules.layers && KY.modules.layers.api) || window.__KUIPER_LAYERS__ || (KY && KY.layers);
+705444	  let inspect = null, inspectErr = null; try { inspect = L && L.inspect ? JSON.parse(JSON.stringify(L.inspect())) : null; } catch (e) { inspectErr = String(e && e.message || e); }
+705445	  const get = id => { try { const g = L && L.get ? L.get(id) : null; return g ? { on: g.on, value: g.value, status: g.status, why: g.why, placed: g.placed, total: g.total, group: g.group || (g.record && g.record.group) || null } : null; } catch (e) { return { error: String(e && e.message || e) }; } };
+705446	  const rowsRoot = q('#layers'), panel = q('#ky-layers') || (rowsRoot && rowsRoot.closest('[id^="kmb-panel-"]')) || rowsRoot;   // inside team 1's shell the panel is its WAFER menu panel   // #ky-layers: the panel host (rows, filter, count, list); #layers: the seven rows
+705447	  const fontPx = el => parseFloat(getComputedStyle(el).fontSize) || 0;
+705448	  const maxFont = root => { let m = 0; if (!root) return 0; const all = [root, ...root.querySelectorAll('*')]; for (const el of all) { if (el.tagName === 'INPUT' || el.closest('button, [role=button]')) continue; if ([...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) m = Math.max(m, fontPx(el)); } return m; };
+705449	  const inputs = [...document.querySelectorAll('input[data-ky-layer]')];
+705450	  const rows = inputs.map(inp => { const row = inp.closest('label') || inp.parentElement; const text = textOf(row); const tag = row.querySelector('.st, [data-state]'); const m = (tag ? textOf(tag) : text).match(STATE) || text.match(STATE);
+705451	    const id = String(inp.getAttribute('data-ky-layer')).replace(/^layer:/, '');
+705452	    return { id, key: inp.getAttribute('data-ky-layer'), inPanel: !!(rowsRoot && rowsRoot.contains(inp)), checked: inp.checked, disabled: inp.disabled, text: text.slice(0, 200), status: m ? m[1] : null, why: m && m[2] ? m[2].trim() : '', rect: R(row), inputRect: R(inp), visible: vis(row), maxFont: maxFont(row), get: get(id) }; });
+705453	  const panelVis = vis(panel);
+705454	  // the lines list, the filter, the clear control and the count line, all inside #layers
+705455	  let list = panel && (panel.querySelector('#lineslist') || (panel.querySelector('[data-i]') ? panel.querySelector('[data-i]').parentElement : null));
+705456	  const lineRows = panel ? panel.querySelectorAll('[data-i]').length : 0;
+705457	  const find = panel && (panel.querySelector('#lyFind') || panel.querySelector('input[type=search]') || [...panel.querySelectorAll('input')].find(i => i.type !== 'checkbox' && !i.hasAttribute('data-ky-layer')));
+705458	  const clear = panel && [...panel.querySelectorAll('button, [role=button]')].find(b => /clear/i.test(b.getAttribute('aria-label') || '') || /^(×|✕|clear)$/i.test(b.textContent.trim()));
+705459	  let countLine = null; if (panel) { for (const el of panel.querySelectorAll('*')) { const own = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(''); const t = norm(el.children.length ? own : el.textContent); const m = t.match(/^([\d,]+) of ([\d,]+) rows?\b/); if (m) { countLine = { text: t, shown: +m[1].replace(/,/g, ''), total: +m[2].replace(/,/g, '') }; break; } } }
+705460	  const refuse = q('#refuse');
+705461	  const shellBar = q('#kuiper-menu-bar'), bar = vis(shellBar) ? shellBar : q('#bar');   // team 1's bar (kuiper-shell.js:34 BAR_ID) supersedes Edition 4's #bar
+705462	  const titleEl = (() => { if (!bar) return null; const b = [...bar.querySelectorAll('button, a, [role=button]')].find(e => /^wafer$/i.test(norm(e.textContent))); return b || bar.querySelector('[data-panel="wafer"], [data-panel="layers"]') || bar.querySelector('[data-panel="lines"]'); })();   // pre-shell: the module takes over the Edition 4 LINES title
+705463	  const hp = new URLSearchParams(location.hash.replace(/^#/, '')), sp = new URLSearchParams(location.search);
+705464	  const layersParam = hp.has('layers') ? hp.get('layers') : (sp.has('layers') ? sp.get('layers') : null);
+705465	  let cam = null; try { cam = KY && KY.cam ? { x: KY.cam.x, y: KY.cam.y, zoom: KY.cam.zoom } : null; } catch (e) {}
+705466	  if (!cam || !Number.isFinite(cam.zoom)) { try { cam = { x: cx, y: cy, zoom: zoom, from: 'globals' }; } catch (e) { cam = null; } }   // eslint-disable-line no-undef
+705467	  let SP = null; try { SP = KY && KY.hooks ? KY.hooks.SPACE : null; } catch (e) {} if (!SP) { try { SP = SPACE; } catch (e) {} }        // eslint-disable-line no-undef
+705469	    viewport: { w: innerWidth, h: innerHeight }, hasKY: !!KY, hasLayers: !!L, inspect, inspectErr,
+705470	    modules: KY && KY.modules ? Object.keys(KY.modules) : [], refused: (window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.refused) || null,
+705471	    rows, panel: panel ? { visible: panelVis, rect: R(panel), scrollHeight: panel.scrollHeight, clientHeight: panel.clientHeight, maxFont: maxFont(panel) } : null,
+705472	    list: list ? { rect: R(list), scrollHeight: list.scrollHeight, clientHeight: list.clientHeight, overflowY: getComputedStyle(list).overflowY } : null, lineRows,
+705473	    find: find ? { rect: R(find), value: find.value, fontPx: fontPx(find) } : null, clear: clear ? { rect: R(clear), text: clear.textContent.trim() || clear.getAttribute('aria-label') } : null, countLine,
+705474	    legacy: document.querySelectorAll('[data-layer-id], [data-pn-layer]').length,
+705475	    refuse: refuse ? { role: refuse.getAttribute('role'), visible: vis(refuse), rect: R(refuse), text: norm(refuse.textContent).slice(0, 300) } : null,
+705476	    big: q('#big') ? norm(q('#big').textContent) : null, hud: q('#hud') ? q('#hud').textContent : '',
+705477	    bar: R(bar), title: titleEl ? { text: norm(titleEl.textContent), rect: R(titleEl) } : null,
+705478	    url: { href: location.href, search: location.search, hash: location.hash, layers: layersParam }, historyLength: history.length, marker: window.__t3marker || null,
+705479	    cam, SPACE: SP, card: q('#card') ? vis(q('#card')) : false, selftest: window.__selftest ? JSON.parse(JSON.stringify(window.__selftest)) : null,
+705480	// the overlay pixels at the screen place of every admitted key: green = G > 120 and G > R + 40 (the step's own test) and
+705481	// G > B + 60, so the cyan of the instrument (#2ee6e6, PALETTE.md:10: date labels drawn on #o) is not counted as a spark (#22ee77, :11)
+705482	function sparksFn(keys) {
+705483	  const G32 = 2654435769; const place = k => { const m = Math.imul((k % 4294967296) >>> 0, G32) >>> 0, th = 2 * Math.PI * m / 4294967296, r = Math.sqrt(k + 0.5); return [r * Math.cos(th), r * Math.sin(th)]; };
+705484	  let c = null; try { c = window.KY && KY.cam ? { x: KY.cam.x, y: KY.cam.y, zoom: KY.cam.zoom } : null; } catch (e) {}
+705485	  if (!c || !Number.isFinite(c.zoom)) { try { c = { x: cx, y: cy, zoom: zoom }; } catch (e) { return { error: 'no camera (KY.cam nor globals)' }; } }   // eslint-disable-line no-undef
+705486	  const ov = document.getElementById('o'); if (!ov) return { error: 'no #o' };
+705487	  const W = ov.width, H = ov.height, d = ov.getContext('2d').getImageData(0, 0, W, H).data;
+705488	  const greenAt = (sx, sy) => { let n = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const x = Math.round(sx) + dx, y = Math.round(sy) + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; const i = (y * W + x) * 4; if (d[i + 3] > 60 && d[i + 1] > 120 && d[i + 1] > d[i] + 40 && d[i + 1] > d[i + 2] + 60) n++; } return n; };
+705489	  let green = 0, onCanvas = 0, first = null;
+705490	  keys.forEach((k, j) => { const [x, y] = place(k), sx = (x - c.x) * c.zoom + W / 2, sy = H / 2 - (y - c.y) * c.zoom;
+705491	    const on = sx >= 0 && sy >= 0 && sx < W && sy < H; if (on) onCanvas++; const g = on ? greenAt(sx, sy) : 0; if (g) green++;
+705492	    if (j === 0) { const i = (Math.round(sy) * W + Math.round(sx)) * 4; first = { key: k, sx: +sx.toFixed(1), sy: +sy.toFixed(1), greenPx: g, rgba: on ? [d[i], d[i + 1], d[i + 2], d[i + 3]] : null }; } });
+705493	  return { total: keys.length, onCanvas, green, first, cam: { x: +c.x.toFixed(3), y: +c.y.toFixed(3), zoom: c.zoom } };
+705494	// the wafer from a screenshot: lit pixels (luminance > 34) inside the wafer's disc, below yMin (bar, alert strip)
+705495	async function engineShot(S) {   // the engine's own pixels: hide the DOM layers above the canvases for one screenshot, then restore them
+705496	  await S.page.evaluate(() => { window.__t3hid = [...document.querySelectorAll('body > *:not(canvas):not(script):not(style)')].filter(e => getComputedStyle(e).visibility !== 'hidden').map(e => { e.style.setProperty('visibility', 'hidden', 'important'); return e; }); });
+705497	  const png = await S.png(); await S.page.evaluate(() => { (window.__t3hid || []).forEach(e => e.style.removeProperty('visibility')); window.__t3hid = null; }); return png; }
+705498	async function alertCover(page) {   // the share of the wafer's disc that #refuse covers on screen (measured, reported, not gated: team-2 test 4 asks only that it is visible)
+705499	  return page.evaluate(() => { let c = null; try { c = window.KY && KY.cam ? { x: KY.cam.x, y: KY.cam.y, zoom: KY.cam.zoom } : null; } catch (e) {} let SP = null; try { SP = KY.hooks.SPACE; } catch (e) {}
+705500	    const el = document.getElementById('refuse'); if (!c || !SP || !el) return null; const r = el.getBoundingClientRect(); const ox = -c.x * c.zoom + innerWidth / 2, oy = innerHeight / 2 + c.y * c.zoom, R = Math.sqrt(SP) * c.zoom;
+705501	    let tot = 0, cov = 0; for (let y = Math.floor(oy - R); y <= oy + R; y += 2) for (let x = Math.floor(ox - R); x <= ox + R; x += 2) { if ((x - ox) ** 2 + (y - oy) ** 2 > R * R) continue; tot++; if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) cov++; }
+705502	    return { refuseRect: [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)], discCoveredFraction: +(cov / Math.max(1, tot)).toFixed(3) }; }); }
+705503	async function waferDisc(page, png, yMin) {
+705504	  return page.evaluate(async ({ b64, yMin }) => {
+705505	    let c = null; try { c = window.KY && KY.cam ? { x: KY.cam.x, y: KY.cam.y, zoom: KY.cam.zoom } : null; } catch (e) {}
+705506	    if (!c || !Number.isFinite(c.zoom)) { try { c = { x: cx, y: cy, zoom: zoom }; } catch (e) { return { error: 'no camera' }; } }   // eslint-disable-line no-undef
+705507	    let SP = null; try { SP = window.KY && KY.hooks ? KY.hooks.SPACE : null; } catch (e) {} if (!SP) { try { SP = SPACE; } catch (e) {} }   // eslint-disable-line no-undef
+705508	    if (!SP) return { error: 'SPACE is 0: the wafer did not admit its keys' };
+705510	    const W = innerWidth, H = innerHeight, cv = document.createElement('canvas'); cv.width = W; cv.height = H; const g = cv.getContext('2d'); g.drawImage(img, 0, 0, W, H);
+705511	    const d = g.getImageData(0, 0, W, H).data; const ox = -c.x * c.zoom + W / 2, oy = H / 2 + c.y * c.zoom, Rr = Math.sqrt(SP) * c.zoom;
+705512	    let lit = 0, tot = 0;
+705513	    for (let y = Math.max(0, Math.ceil(Number.isFinite(+yMin) ? +yMin : 0)); y < H; y++) for (let x = 0; x < W; x++) { if ((x - ox) ** 2 + (y - oy) ** 2 > Rr * Rr) continue; tot++; const i = (y * W + x) * 4; if (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2] > 34) lit++; }
+705514	    return { yMin: yMin, centre: [+ox.toFixed(1), +oy.toFixed(1)], radius: +Rr.toFixed(1), pixels: tot, lit, litFraction: +(lit / Math.max(1, tot)).toFixed(4) };
+705515	  }, { b64: png.toString('base64'), yMin });
+705516	async function runDevice(browser, deviceName, shots) {
+705517	  const steps = []; let n = 0, stepT0 = Date.now();
+705518	  const seen = new Set();                                   // every state any row showed, across the scenarios
+705519	  const report = { device: deviceName, viewport: dev.viewport, dpr: dev.deviceScaleFactor, url: ED_URL, preIntegration: PRE, startedAt: new Date().toISOString(), steps, scenarios: {}, pass: false };
+705520	  const record = (id, name, pass, measured, note) => { const s = { id, name, pass: pass === null ? null : !!pass, status: pass === null ? 'NOT EVALUATED' : (pass ? 'PASS' : 'FAIL'), ms: Date.now() - stepT0, measured, note: note || '' }; stepT0 = Date.now(); steps.push(s);
+705521	    process.stderr.write(`[${deviceName}] ${s.status} ${id}${note ? ' — ' + note : ''}\n`); return s; };
+705522	  const why = (...parts) => parts.filter(Boolean).join('; ');
+705523	  // a fresh context per scenario: routes are the only way a failure is served; the files on disk are never touched
+705524	  async function open(scenario, url, opts = {}) {
+705525	    const context = await browser.newContext({ ...dev, locale: 'en-GB' });
+705526	    const page = await context.newPage(); page.setDefaultTimeout(180000);
+705527	    const errors = [], allowed = [], requests = {};
+705528	    const allow = opts.allow || [];
+705529	    page.on('console', m => { if (m.type() !== 'error') return; const loc = (m.location && m.location().url) || ''; const e = { kind: 'console', text: m.text().slice(0, 300), url: loc };
+705530	      if (/Failed to load resource/i.test(e.text) && allow.some(re => re.test(loc))) allowed.push(e); else errors.push(e); });
+705531	    page.on('pageerror', e => errors.push({ kind: 'pageerror', text: String(e.message || e).slice(0, 300) }));
+705532	    page.on('requestfailed', r => { const f = r.failure(); if (f && !/aborted|ERR_ABORTED/i.test(f.errorText)) errors.push({ kind: 'request', text: r.url().slice(0, 200) + ' ' + f.errorText }); });
+705533	    page.on('request', r => { const u = r.url().replace(ROOT, ''); requests[u] = (requests[u] || 0) + 1; });
+705534	    if (OVR_INDEX) await page.route(new RegExp('/editions/' + STAMP + '/(index\\.html)?(\\?[^#]*)?$'), r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: OVR_INDEX }));
+705535	    if (OVR_MANIFEST) await page.route(new RegExp('/editions/' + STAMP + '/modules\\.json(\\?.*)?$'), r => r.fulfill({ status: 200, contentType: 'application/json', body: liveManifest() }));
+705536	    for (const [re, fn] of (opts.routes || [])) await page.route(re, fn);
+705537	    await page.addInitScript(() => { window.__t3marker = String(Math.random()); });
+705538	    const t0 = Date.now(); await page.goto(url, { waitUntil: 'load', timeout: 120000 });
+705539	    const S = { scenario, url, context, page, errors, allowed, requests, loadMs: Date.now() - t0 };
+705540	    S.probe = async () => { const p = await page.evaluate(probeFn); for (const r of p.rows) if (r.status) seen.add(r.status); return p; };
+705541	    S.shot = async (id) => { const f = path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png'); for (let a = 0; a < 2; a++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); return f; } catch (e) { if (a) return null; } } };
+705542	    S.png = async () => { try { return await page.screenshot({ type: 'png', scale: 'css', timeout: 180000 }); } catch (e) { return null; } };
+705543	    S.tap = async (r) => { if (!r) throw new Error('nothing to tap'); await page.touchscreen.tap(Math.round((r.left + r.right) / 2), Math.round((r.top + r.bottom) / 2)); };
+705544	    S.until = async (pred, max = STATE_MAX) => { const t = Date.now(); let p; while (true) { p = await S.probe(); if (pred(p) || Date.now() - t > max) return p; await sleep(300); } };
+705545	    S.row = (p, id) => p.rows.find(r => r.id === id) || null;
+705546	    S.settled = (p) => { const r = S.row(p, 'lines'); return !!r && !!r.status && r.status !== 'WAIT' && r.status !== 'LOAD'; };
+705547	    // open the WAFER panel: by a tap on its title when team 1's shell put one in #bar; otherwise through KY.panels.set
+705548	    S.openPanel = async () => { let p = await S.probe(); if (p.panel && p.panel.visible) return { p, how: 'already open' };
+705549	      if (p.title) { await S.tap(p.title.rect); await sleep(700); return { p: await S.probe(), how: 'tap ' + p.title.text }; }
+705550	      await page.evaluate(() => { try { window.KY.panels.set('wafer'); } catch (e) {} }); await sleep(700); return { p: await S.probe(), how: 'KY.panels.set(wafer): no WAFER title in #bar' }; };
+705551	    S.closePanel = async () => { const p = await S.probe(); if (p.panel && p.panel.visible) { if (p.title) await S.tap(p.title.rect); else await page.evaluate(() => { try { window.KY.panels.set('wafer'); } catch (e) {} }); await sleep(600); } };
+705552	    S.intoView = async (id) => page.evaluate((id) => { const i = document.querySelector('input[data-ky-layer="layer:' + id + '"]'); if (!i) return false; const row = i.closest('label') || i.parentElement; const r = row.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight || document.elementFromPoint((r.left + r.right) / 2, (r.top + r.bottom) / 2) !== i) row.scrollIntoView({ block: 'center' }); return true; }, id);
+705553	    S.tapRow = async (id) => { await S.intoView(id); await sleep(250); const p = await S.probe(); const r = S.row(p, id); if (!r) throw new Error('no row ' + id); await S.tap(r.rect); await sleep(900); return S.probe(); };
+705554	    S.close = async () => { report.scenarios[scenario] = { url, loadMs: S.loadMs, consoleErrors: errors.slice(), allowedErrors: allowed.slice(), requests }; await context.close(); };
+705555	    return S;
+705556	  const keysRe = new RegExp('/editions/' + STAMP + '/keys(-min)?\\.json(\\?.*)?$')   /* lead: keys-min.json first, keys.json the fallback; both held / refused */, waferRe = /\/cosmos\/wafer\.tsv(\?.*)?$/;
+705557	  const errFree = (S, extra) => ({ consoleErrors: S.errors.slice(0, 8), allowed: S.allowed.length, ...(extra || {}) });
+705558	    // ============================================================ A: the normal page, the wafer and keys.json held to show WAIT and LOAD
+705559	    let relWafer, relKeys; const holdW = new Promise(r => { relWafer = r; }), holdK = new Promise(r => { relKeys = r; });
+705560	    const A = await open('A-normal', ED_URL, { routes: [[waferRe, async r => { await holdW; await r.continue(); }], [keysRe, async r => { await holdK; await r.continue(); }]] });
+705561	    let p = await A.until(q => q.hasLayers && q.rows.length >= 7, 60000);
+705562	    let op = await A.openPanel(); p = op.p;
+705563	    const lw = A.row(p, 'lines');
+705564	    const waitRows = p.rows.filter(r => ['periods', 'repos', 'editions', 'lines'].includes(r.id));
+705565	    const waitOk = waitRows.length === 4 && waitRows.every(r => r.status === 'WAIT') && /wafer/i.test(lw ? lw.why : '') && p.rows.every(r => r.status);
+705566	    shots.WAIT = shots.WAIT || await A.shot('wait');
+705567	    record('state-wait', '3.4/3.5 until the wafer settles every wafer-bound row reads WAIT · wafer (cosmos/wafer.tsv held)', p.hasLayers && waitOk,
+705568	      { rows: p.rows.map(r => [r.id, r.status, r.why]), panelOpenedBy: op.how },
+705569	      !p.hasLayers ? 'window.KY.layers absent (module not admitted)' : (waitOk ? '' : 'rows: ' + p.rows.map(r => r.id + '=' + r.text).join(' | ')));
+705570	    relWafer();
+705571	    p = await A.until(q => { const r = A.row(q, 'lines'); return !r || (r.status && r.status !== 'WAIT'); }, 60000);
+705572	    const ll = A.row(p, 'lines');
+705573	    record('state-load', '3.4 while keys.json is fetched the lines row reads LOAD (keys.json held after the wafer admitted)', !!ll && ll.status === 'LOAD',
+705574	      { lines: ll && [ll.status, ll.why], keysRequests: Object.entries(A.requests).filter(([u]) => /keys\.json/.test(u)) }, ll ? (ll.status === 'LOAD' ? '' : 'lines row reads ' + ll.text) : 'no lines row');
+705575	    relKeys();
+705576	    p = await A.until(A.settled, STATE_MAX); await sleep(FIXED_WAIT); p = await A.probe();
+705577	    // test 1: seven records, unique, complete, one original per layer, no legacy controls
+705578	    const ins = p.inspect || {};
+705579	    const keysAll = p.rows.map(r => r.key);
+705580	    const onePer = IDS.map(id => [id, p.rows.filter(r => r.id === id).length]);
+705581	    const t1 = ins.layers === 7 && ins.unique === 7 && ins.complete === true && p.rows.length === 7 && new Set(keysAll).size === 7 && keysAll.every(k => /^layer:[a-z][a-z-]*$/.test(k))
+705582	      && onePer.every(([, c]) => c === 1) && p.rows.every(r => r.inPanel) && p.legacy === 0;
+705583	    record('t1-inspect', 'test 1: inspect() -> layers 7, unique 7, complete; 7 input[data-ky-layer] in #layers, one original per layer, no [data-layer-id]/[data-pn-layer]', t1,
+705584	      { inspect: ins, inspectErr: p.inspectErr, inputs: keysAll, onePerLayer: onePer, allInPanel: p.rows.every(r => r.inPanel), legacy: p.legacy, modules: p.modules, refused: p.refused },
+705585	      t1 ? '' : why(ins.layers !== 7 && 'inspect().layers ' + ins.layers, ins.complete !== true && 'complete ' + ins.complete, p.rows.length !== 7 && p.rows.length + ' inputs', onePer.some(([, c]) => c !== 1) && 'originals ' + JSON.stringify(onePer), p.legacy && p.legacy + ' legacy controls', p.rows.some(r => !r.inPanel) && 'an original outside #layers'));
+705586	    // test 2: the WAFER panel under the bar, full width, rows >= 44 px with the input over the row, state tags, lines OK · 344 of 346
+705587	    op = await A.openPanel(); p = op.p;
+705588	    const titleGate = p.modules.some(m => /shell/.test(m)) || !!(p.title && /^wafer$/i.test(p.title.text));
+705589	    record('t2-title', 'test 2: the WAFER title is in #bar and a tap on it opens #layers', titleGate ? !!(p.title && /^wafer$/i.test(p.title.text)) && !!(p.panel && p.panel.visible) : null,
+705590	      { title: p.title, panelOpenedBy: op.how, modules: p.modules }, titleGate ? (p.title ? '' : 'team 1 shell admitted but no WAFER title') : 'team 1 shell (kuiper-shell) not admitted; panel opened by ' + op.how);
+705591	    const pr = p.panel ? p.panel.rect : null;
+705592	    const rowsMeasured = p.rows.map(r => ({ id: r.id, h: r.rect && r.rect.height, covers: !!(r.inputRect && r.rect && r.inputRect.left <= r.rect.left + 1 && r.inputRect.top <= r.rect.top + 1 && r.inputRect.right >= r.rect.right - 1 && r.inputRect.bottom >= r.rect.bottom - 1), state: r.status, text: r.text }));
+705593	    const ln = A.row(p, 'lines'), edr = A.row(p, 'editions');
+705594	    const linesText = ln ? ln.text : '';
+705595	    const edOk = edr && /OK · \d+ of \d+ placed, \d+ beyond the rim/.test(edr.text);
+705596	    const t2 = !!(p.panel && p.panel.visible) && pr.top >= p.bar.bottom - 1 && pr.left <= 0.5 && pr.right >= p.viewport.w - 0.5
+705597	      && rowsMeasured.length === 7 && rowsMeasured.every(r => r.h >= 44 && r.covers && r.state) && /OK · 344 of 346/.test(linesText) && edOk;
+705598	    shots.OK = shots.OK || await A.shot('ok');
+705599	    record('t2-panel', 'test 2: #layers under the bar, full width, every row >= 44 px with its input over it and a state tag; lines OK · 344 of 346; editions OK · n of m placed, k beyond the rim', t2,
+705600	      { panel: p.panel, barBottom: p.bar && p.bar.bottom, viewportW: p.viewport.w, rows: rowsMeasured, lines: linesText, editions: edr && edr.text },
+705601	      t2 ? '' : why(!(p.panel && p.panel.visible) && 'panel not visible', pr && pr.top < p.bar.bottom - 1 && 'panel top ' + pr.top + ' above bar bottom ' + p.bar.bottom, pr && (pr.left > 0.5 || pr.right < p.viewport.w - 0.5) && 'panel ' + pr.left + '..' + pr.right + ' not full width ' + p.viewport.w,
+705602	        rowsMeasured.filter(r => !(r.h >= 44)).map(r => r.id + ' ' + r.h + ' px').join(', '), rowsMeasured.filter(r => !r.covers).map(r => r.id + ' input does not cover row').join(', '),
+705603	        !/OK · 344 of 346/.test(linesText) && 'lines row: ' + linesText, !edOk && 'editions row: ' + (edr && edr.text)));
+705604	    // test 2 continued: the list scrolls inside the panel; the count line; the filter and its clear control
+705605	    const scrollIn = p.panel && p.list && Math.abs(p.panel.scrollHeight - p.panel.clientHeight) <= 1 && p.list.scrollHeight > p.list.clientHeight + 1;
+705606	    const count0 = p.countLine;
+705607	    let filtered = null, cleared = null;
+705608	    if (p.find) { await A.page.evaluate(() => { const f = document.getElementById('lyFind') || document.querySelector('#ky-layers input[type=search], #layers input[type=search]'); if (f) f.scrollIntoView({ block: 'center' }); });
+705609	      await sleep(200); let q = await A.probe(); await A.tap(q.find.rect); await sleep(300); await A.page.keyboard.type('gridatlas', { delay: 25 }); await sleep(800); q = await A.probe();
+705610	      const all = q.countLine ? q.countLine.shown === FILTER_EXPECT : false;   // rows are grouped under their repository's header, so a row need not repeat the name
+705611	      filtered = { value: q.find.value, countLine: q.countLine, rows: q.lineRows, expected: FILTER_EXPECT, allMatch: all };
+705612	      if (q.clear) { await A.tap(q.clear.rect); await sleep(700); q = await A.probe(); cleared = { value: q.find.value, countLine: q.countLine, rows: q.lineRows }; } }
+705613	    const t2b = !!scrollIn && count0 && count0.shown === 344 && count0.total === 344 && filtered && filtered.countLine && filtered.countLine.shown > 0 && filtered.countLine.shown < 344 && filtered.countLine.shown === filtered.rows && filtered.allMatch
+705614	      && cleared && cleared.value === '' && cleared.countLine && cleared.countLine.shown === 344;
+705615	    record('t2-list', 'test 2: the lines list scrolls inside the panel (panel scrollHeight = clientHeight, list overflows), "344 of 344 rows", filter "gridatlas" shows exactly the Edition 4 predicate\'s count over keys.json (repo + path + title, index.html:741), clear restores 344', t2b,
+705616	      { panel: p.panel && { scrollHeight: p.panel.scrollHeight, clientHeight: p.panel.clientHeight }, list: p.list, rows: p.lineRows, countLine: count0, find: p.find, clear: p.clear, filtered, cleared },
+705617	      t2b ? '' : why(!p.list && 'no lines list ([data-i] rows) in #layers', p.list && !scrollIn && 'panel ' + p.panel.scrollHeight + '/' + p.panel.clientHeight + ', list ' + p.list.scrollHeight + '/' + p.list.clientHeight, !(count0 && count0.shown === 344 && count0.total === 344) && 'count line ' + JSON.stringify(count0), !p.find && 'no filter input', p.find && !p.clear && 'no clear control', filtered && !(filtered.countLine && filtered.countLine.shown === filtered.rows && filtered.allMatch) && 'filtered ' + JSON.stringify(filtered), cleared && !(cleared.value === '' && cleared.countLine && cleared.countLine.shown === 344) && 'cleared ' + JSON.stringify(cleared)));
+705618	    // test 3: a tap on the lines row turns the layer off (no green at edScreen(edPlaced[0])) and on again; repos with no value: OK · none lit
+705619	    await A.page.evaluate(() => { const l = document.querySelector('#ky-layers') || document.querySelector('#layers'); if (l) l.scrollTop = 0; const s = document.getElementById('lineslist'); if (s) s.scrollTop = 0; });
+705620	    const before = await A.page.evaluate(sparksFn, PLACED_KEYS); const h0 = await A.probe();
+705621	    p = await A.tapRow('lines'); await sleep(1200); p = await A.probe();
+705622	    const off = await A.page.evaluate(sparksFn, PLACED_KEYS); const lOff = A.row(p, 'lines');
+705623	    const hudOff = p.hud || '', offUrl = p.url.layers, offOn = (p.inspect || {}).on;
+705624	    const on = await A.page.evaluate(sparksFn, PLACED_KEYS); const lOn = A.row(p, 'lines');
+705625	    const t3all = !!(before.first && before.first.greenPx > 0 && lOff && lOff.get && lOff.get.on === false && /verified lines layer off/i.test(hudOff)
+705626	      && off.first && off.first.greenPx === 0 && off.green === 0 && lOn && lOn.get && lOn.get.on === true && /OK/.test(lOn.status || '') && on.first && on.first.greenPx > 0);
+705627	    record('t3-toggle', 'test 3: tap the lines row: get(lines).on false, readout "verified lines layer off", no green at edScreen(edPlaced[0]); tap again: OK and green returns', t3all,
+705628	      { before: before, off: { on: lOff && lOff.get && lOff.get.on, row: lOff && lOff.text, sparks: off, url: offUrl, inspectOn: offOn }, readoutHasOff: /verified lines layer off/i.test(hudOff), on: { on: lOn && lOn.get && lOn.get.on, row: lOn && lOn.text, sparks: on } },
+705629	      t3all ? '' : why(!(before.first && before.first.greenPx > 0) && 'no green at the first spark before the tap ' + JSON.stringify(before.first || before.error), lOff && lOff.get && lOff.get.on !== false && 'get(lines).on after tap = ' + (lOff.get && lOff.get.on), off.first && off.first.greenPx !== 0 && 'first spark still green when off', off.green && off.green + ' sparks still green when off', !/verified lines layer off/i.test(hudOff) && 'readout lacks "verified lines layer off"', !(lOn && lOn.get && lOn.get.on === true && /OK/.test(lOn.status || '')) && 'after second tap: ' + (lOn && lOn.text), !(on.first && on.first.greenPx > 0) && 'green did not return at the first spark'));
+705630	    const e0 = A.errors.length;
+705631	    p = await A.tapRow('repos'); await sleep(1000); p = await A.probe(); const rp = A.row(p, 'repos');
+705632	    const sparksRepo = await A.page.evaluate(sparksFn, PLACED_KEYS);
+705633	    const t3r = rp && rp.get && rp.get.on === true && /OK · none lit/.test(rp.text) && A.errors.length === e0 && sparksRepo.green === on.green;
+705634	    record('t3-repos', 'test 3: tap the repos row with no value: OK · none lit, nothing new drawn, no error', t3r,
+705635	      { row: rp && rp.text, on: rp && rp.get && rp.get.on, value: rp && rp.get && rp.get.value, newErrors: A.errors.slice(e0), greenBefore: on.green, greenAfter: sparksRepo.green },
+705636	      t3r ? '' : why(!(rp && /OK · none lit/.test(rp.text)) && 'repos row: ' + (rp && rp.text), A.errors.length !== e0 && (A.errors.length - e0) + ' new error(s)', sparksRepo.green !== on.green && 'green sparks ' + on.green + ' -> ' + sparksRepo.green));
+705637	    // test 6 (part): every toggle above was written to the URL by history.replaceState: no reload, no history entry
+705638	    const urlNow = p.url.layers, onNow = (p.inspect || {}).on || [];
+705639	    const urlEq = (param, onList) => (param == null || param === '' ? [] : param.split(',')).join(',') === (onList || []).join(',');
+705640	    const t6w = urlEq(offUrl, offOn) && urlEq(urlNow, onNow) && p.marker === h0.marker && p.historyLength === h0.historyLength && !(offUrl || '').split(',').includes('lines') && (urlNow || '').split(',').includes('repos');
+705641	    record('t6-written', 'test 6: each toggle is written to the URL (layers=<on ids, in order>) with history.replaceState: same document, history.length unchanged', t6w,
+705642	      { afterLinesOff: { url: offUrl, on: offOn }, afterReposOn: { url: urlNow, on: onNow, href: p.url.href }, historyLength: [h0.historyLength, p.historyLength], sameDocument: p.marker === h0.marker },
+705643	      t6w ? '' : why(!urlEq(offUrl, offOn) && 'after lines off the URL says ' + offUrl + ', inspect().on ' + JSON.stringify(offOn), !urlEq(urlNow, onNow) && 'after repos on the URL says ' + urlNow + ', on ' + JSON.stringify(onNow), p.marker !== h0.marker && 'the page reloaded', p.historyLength !== h0.historyLength && 'history.length ' + h0.historyLength + ' -> ' + p.historyLength));
+705644	    p = await A.tapRow('repos'); await sleep(600);
+705645	    // test 8: the app rows: present, EMPTY/REFUSED with a why; see-through first of THE APPS and the largest label in the panel
+705646	    p = await A.probe();
+705647	    const apps = APPS.map(id => A.row(p, id));
+705648	    const order = p.rows.map(r => r.id);
+705649	    const firstApp = order.find(id => { const r = A.row(p, id); const g = r && r.get && r.get.group; return g ? /apps/i.test(g) : APPS.includes(id); });
+705650	    const st = A.row(p, 'see-through');
+705651	    const otherMax = Math.max(...p.rows.filter(r => r.id !== 'see-through').map(r => r.maxFont));
+705652	    const appOk = r => !!r && ((r.status === 'EMPTY' || r.status === 'REFUSED') && r.why.length > 0 || (r.id === 'see-through' && r.status === 'OK'));
+705653	    const elementsRefused = apps[1] && apps[1].status === 'REFUSED' && /licence/i.test(apps[1].why);
+705654	    const t8 = apps.every(appOk) && p.rows.every(r => r.text && r.status) && firstApp === 'see-through' && st && st.maxFont > otherMax && st.maxFont >= p.panel.maxFont && elementsRefused;
+705655	    record('t8-apps', 'test 8: see-through, elements, spider rows present with EMPTY/REFUSED and a why (elements REFUSED · licence unsettled, Q1); see-through first of THE APPS and the largest label in the panel', t8,
+705656	      { rows: apps.map(r => r && [r.id, r.status, r.why]), order, firstOfApps: firstApp, fontPx: { seeThrough: st && st.maxFont, largestOtherRow: otherMax, largestInPanel: p.panel && p.panel.maxFont } },
+705657	      t8 ? '' : why(apps.some(r => !appOk(r)) && 'app rows: ' + apps.map(r => r ? r.id + '=' + r.text : 'missing').join(' | '), !elementsRefused && 'elements row is not REFUSED · licence…', firstApp !== 'see-through' && 'first of THE APPS is ' + firstApp, st && !(st.maxFont > otherMax) && 'see-through label ' + st.maxFont + ' px, another row ' + otherMax + ' px', st && p.panel && st.maxFont < p.panel.maxFont && 'something in the panel is larger: ' + p.panel.maxFont + ' px'));
+705658	    await A.closePanel();
+705659	    record('a-console', 'scenario A: zero console errors, zero page errors, zero failed requests', A.errors.length === 0, errFree(A, { keysJsonRequests: Object.entries(A.requests).filter(([u]) => /keys\.json/.test(u)) }), A.errors.length ? A.errors.length + ' error(s): ' + A.errors[0].text : '');
+705660	    await A.close();
+705661	    // ============================================================ B, C, D: the link restores the layers (hash, query, through the pointer)
+705662	    const pointerSrc = fs.readFileSync(path.join(REPO, 'editions/index.html'), 'utf8');
+705663	    const target = (pointerSrc.match(/location\.replace\('(\d{12})\//) || [])[1];
+705664	    const substituted = pointerSrc.split(target).join(STAMP), nSub = pointerSrc.split(target).length - 1;
+705666	      ['t6-hash', 'test 6: editions/' + STAMP + '/#layers=lines,periods restores on = [periods, lines]; untick periods writes layers=lines, no reload', ED_URL + '#layers=lines,periods', []],
+705667	      ['t6-query', 'test 6: editions/' + STAMP + '/?layers=lines,periods restores on = [periods, lines]; untick periods writes layers=lines, no reload', ED_URL + '?layers=lines,periods', []],
+705668	      ['t6-pointer', 'test 6: through the pointer editions/#layers=lines,periods (pointer stamp ' + target + ' moved to ' + STAMP + ', as the integrator moves it; editions/index.html:7,:11,:12) restores the layers', ROOT + 'editions/#layers=lines,periods',
+705669	        target === STAMP ? [] : [[new RegExp('/editions/(index\\.html)?(\\?[^#]*)?$'), r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: substituted })]]],
+705671	    for (const [id, name, url, routes] of links) {
+705672	      const S = await open(id, url, { routes });
+705673	      p = await S.until(q => q.hasLayers && S.settled(q), STATE_MAX); await sleep(FIXED_WAIT); p = await S.probe();
+705674	      const on0 = (p.inspect || {}).on, landed = p.url.href, h1 = p;
+705675	      let after = null;
+705676	      let h1b = h1; if (p.hasLayers) { await S.openPanel(); await sleep(2500); h1b = await S.probe();   /* lead 22:55: the page's back-gesture entry (04 patch edSync) is pushed on the next drawn frame; measure after it */ after = await S.tapRow('periods'); await sleep(800); after = await S.probe(); }   // h1b: after the panel opened (opening it may push the back-gesture entry)
+705677	      const ok = JSON.stringify(on0) === JSON.stringify(['periods', 'lines']) && after && after.url.layers === 'lines' && JSON.stringify((after.inspect || {}).on) === JSON.stringify(['lines']) && after.marker === h1.marker && after.historyLength === h1b.historyLength && S.errors.length === 0;
+705678	      record(id, name, ok, { opened: url, landed, pointer: id === 't6-pointer' ? { liveTarget: target, substitutions: nSub } : undefined, onAtLoad: on0, afterUntick: after && { url: after.url.layers, href: after.url.href, on: (after.inspect || {}).on }, sameDocument: after && after.marker === h1.marker, historyLength: after && { atLoad: h1.historyLength, panelOpen: h1b.historyLength, afterUntick: after.historyLength }, ...errFree(S) },
+705679	        ok ? (id === 't6-pointer' && target !== STAMP ? 'pointer still names ' + target + ' (Edition 4); measured with the stamp moved' : '') : why(!p.hasLayers && 'KY.layers absent at ' + landed, JSON.stringify(on0) !== '["periods","lines"]' && 'on at load ' + JSON.stringify(on0), after && after.url.layers !== 'lines' && 'after untick the URL says layers=' + after.url.layers, after && after.marker !== h1.marker && 'reloaded', after && after.historyLength !== h1b.historyLength && 'history.length ' + h1b.historyLength + ' -> ' + after.historyLength + ' on the untick (a push, not replaceState)', after && JSON.stringify((after.inspect || {}).on) !== '["lines"]' && 'on after untick ' + JSON.stringify((after.inspect || {}).on), S.errors.length && S.errors.length + ' console error(s): ' + S.errors[0].text));
+705680	      await S.close();
+705681	    // ============================================================ E: ?selftest=repo:gridatlas, then "/" gridatlas Enter, then set('repos', true)
+705682	      const E = await open('E-selftest', ED_URL + '?selftest=repo:gridatlas');
+705683	      p = await E.until(q => q.selftest && 'PASS' in q.selftest, STATE_MAX); const st0 = p.selftest;
+705684	      p = await E.until(E.settled, STATE_MAX); await sleep(1500);
+705685	      await E.page.evaluate(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+705686	      await E.page.keyboard.press('/'); await sleep(300); await E.page.keyboard.type('gridatlas', { delay: 25 }); await E.page.keyboard.press('Enter'); await sleep(2500);
+705687	      p = await E.probe(); const r1 = E.row(p, 'repos');
+705688	      const setRes = await E.page.evaluate(() => { try { ((window.KY.modules.layers && window.KY.modules.layers.api) || window.__KUIPER_LAYERS__).set('repos', true); return 'ok'; } catch (e) { return 'threw ' + e.message; } }); await sleep(2000);
+705689	      p = await E.probe(); const r2 = E.row(p, 'repos');
+705690	      const t7 = st0 && st0.PASS === true && r1 && /OK · gridatlas/.test(r1.text) && r1.get && r1.get.on === true && r1.get.value === 'gridatlas' && setRes === 'ok' && r2 && /OK · gridatlas/.test(r2.text) && p.selftest && p.selftest.PASS === true && E.errors.length === 0;
+705691	      const scope = await E.page.evaluate(() => { const el = document.querySelector('#scope, [data-panel-name="scope"]'); return el ? (el.textContent || '').replace(/\s+/g, ' ').slice(0, 200) : null; });
+705692	      record('t7-repos', 'test 7: ?selftest=repo:gridatlas PASS; "/" gridatlas Enter -> repos row OK · gridatlas (value gridatlas, on); KY.layers.set(repos, true) keeps PASS', t7,
+705693	        { selftestAtLoad: st0 && { PASS: st0.PASS }, afterSlash: r1 && { row: r1.text, on: r1.get && r1.get.on, value: r1.get && r1.get.value }, set: setRes, afterSet: r2 && r2.text, selftestAfter: p.selftest && p.selftest.PASS, scopePanel: scope || 'no SCOPE panel (team 1 shell not admitted): not evaluated', ...errFree(E) },
+705694	        t7 ? '' : why(!(st0 && st0.PASS === true) && 'selftest ' + JSON.stringify(st0 && { PASS: st0.PASS, error: st0.error }), !(r1 && /OK · gridatlas/.test(r1.text)) && 'after "/" the repos row reads ' + (r1 && r1.text), r1 && r1.get && r1.get.value !== 'gridatlas' && 'value ' + r1.get.value, setRes !== 'ok' && 'set ' + setRes, E.errors.length && E.errors.length + ' error(s): ' + E.errors[0].text));
+705695	      await E.close();
+705696	    // ============================================================ F: keys.json served as HTTP 404
+705697	      const F = await open('F-keys-404', ED_URL, { routes: [[keysRe, r => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not found' })]], allow: [/keys(-min)?\.json/] });
+705698	      p = await F.until(F.settled, STATE_MAX); await sleep(FIXED_WAIT); p = await F.probe();
+705699	      const lr = F.row(p, 'lines');
+705700	      const png = await engineShot(F); const disc = png ? await waferDisc(F.page, png, p.bar ? p.bar.bottom : 0) : { error: 'screenshot failed' }; const cover = await alertCover(F.page);
+705701	      const cam0 = p.cam; await F.page.evaluate(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+705702	      await F.page.keyboard.press('e'); await sleep(2500); const pe = await F.probe();
+705703	      const noFly = cam0 && pe.cam && Math.abs(cam0.x - pe.cam.x) < 1e-6 && Math.abs(cam0.y - pe.cam.y) < 1e-6 && cam0.zoom === pe.cam.zoom && !pe.card;
+705704	      const alertOk = p.refuse && p.refuse.role === 'alert' && p.refuse.visible && p.refuse.rect.top >= 0 && p.refuse.rect.bottom <= p.viewport.h;
+705705	      const pageErrors = F.errors.filter(e => e.kind === 'pageerror').length;
+705706	      const t4 = lr && /FAIL · keys\.json HTTP 404/.test(lr.text) && /KEYS\.JSON DID NOT LOAD/.test((p.big || '').toUpperCase()) && alertOk && disc.litFraction > 0.03 && pageErrors === 0 && F.errors.length === 0 && noFly;
+705707	      await F.openPanel(); await F.intoView('lines'); await sleep(400); shots.FAIL = shots.FAIL || await F.shot('fail-keys-404'); const pf = await F.probe();
+705708	      record('t4-keys-404', 'test 4: keys.json HTTP 404 -> lines row FAIL · keys.json HTTP 404, #big KEYS.JSON DID NOT LOAD, #refuse[role=alert] visible, wafer still drawn (engine pixels, DOM layers hidden for the shot), pageerror 0, e does not fly', t4,
+705709	        { row: lr && lr.text, big: p.big, refuse: p.refuse, alertCoversWafer: cover, wafer: disc, camBefore: cam0, camAfterE: pe.cam, cardAfterE: pe.card, pageErrors, ...errFree(F), allowedErrors: F.allowed.map(e => e.text + ' ' + e.url) },
+705710	        t4 ? '' : why(!(lr && /FAIL · keys\.json HTTP 404/.test(lr.text)) && 'lines row: ' + (lr && lr.text), !/KEYS\.JSON DID NOT LOAD/.test((p.big || '').toUpperCase()) && '#big: ' + p.big, !alertOk && '#refuse: ' + JSON.stringify(p.refuse), !(disc.litFraction > 0.03) && 'wafer not drawn: ' + JSON.stringify(disc), pageErrors && pageErrors + ' pageerror(s)', F.errors.length && F.errors.length + ' unexpected console error(s): ' + F.errors[0].text, !noFly && 'e moved the camera or opened a card'));
+705711	      for (const r of pf.rows) if (r.status) seen.add(r.status);
+705712	      await F.close();
+705713	    // ============================================================ G: keys.json with one byte changed
+705714	      const G = await open('G-keys-tampered', ED_URL, { routes: [[keysRe, r => r.fulfill({ status: 200, contentType: 'application/json', body: TAMPERED.buf })]] });
+705715	      p = await G.until(G.settled, STATE_MAX); await sleep(FIXED_WAIT); p = await G.probe();
+705716	      const lr = G.row(p, 'lines'); const sp = await G.page.evaluate(sparksFn, PLACED_KEYS);
+705717	      const png = await engineShot(G); const disc = png ? await waferDisc(G.page, png, p.bar ? p.bar.bottom : 0) : { error: 'screenshot failed' }; const cover = await alertCover(G.page);
+705718	      const t5 = lr && /FAIL · sha256 mismatch/.test(lr.text) && sp.green === 0 && sp.onCanvas > 0 && alertOk && disc.litFraction > 0.03 && G.errors.length === 0;
+705719	      record('t5-keys-tampered', 'test 5: keys.json with one byte changed (same length, valid JSON) -> FAIL · sha256 mismatch, zero sparks at the 344 places, alert visible, wafer still drawn, zero console errors', t5,
+705720	        { tamper: { offset: TAMPERED.offset, from: TAMPERED.from, to: TAMPERED.to, sha256Served: TAMPERED.sha, sha256Original: TAMPERED.shaOriginal }, row: lr && lr.text, sparks: sp, refuse: p.refuse, alertCoversWafer: cover, big: p.big, wafer: disc, ...errFree(G) },
+705721	        t5 ? '' : why(!(lr && /FAIL · sha256 mismatch/.test(lr.text)) && 'lines row: ' + (lr && lr.text), sp.green && sp.green + ' green sparks drawn from tampered data', !alertOk && '#refuse: ' + JSON.stringify(p.refuse), !(disc.litFraction > 0.03) && 'wafer not drawn: ' + JSON.stringify(disc), G.errors.length && G.errors.length + ' console error(s): ' + G.errors[0].text));
+705722	      await G.close();
+705723	    // ============================================================ H: cosmos/wafer.tsv served as HTTP 404 (test 7b)
+705724	      const H = await open('H-wafer-404', ED_URL, { routes: [[waferRe, r => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not found' })]], allow: [/wafer\.tsv/] });
+705725	      p = await H.until(q => q.hasLayers && q.rows.length >= 7 && q.rows.every(r => r.status && r.status !== 'WAIT' && r.status !== 'LOAD'), 60000); await sleep(FIXED_WAIT); p = await H.probe();
+705726	      await H.openPanel(); await sleep(300); shots.REFUSED = shots.REFUSED || await H.shot('refused-wafer-404'); const ph = await H.probe();
+705727	      const allRef = p.rows.length === 7 && p.rows.every(r => r.status === 'REFUSED' && /the wafer refused: \.\.\/\.\.\/cosmos\/wafer\.tsv did not load/.test(r.why));
+705728	      const pageErrors = H.errors.filter(e => e.kind === 'pageerror').length;
+705729	      const t7b = allRef && !!p.bar && p.refuse && p.refuse.role === 'alert' && p.refuse.visible && pageErrors === 0 && H.errors.length === 0;
+705730	      record('t7b-wafer-404', 'test 7b: cosmos/wafer.tsv HTTP 404 -> every row REFUSED · the wafer refused: ../../cosmos/wafer.tsv did not load…, bar and alert present, pageerror 0', t7b,
+705731	        { rows: p.rows.map(r => [r.id, r.status, r.why]), bar: p.bar, refuse: p.refuse, panelAfter: ph.panel && ph.panel.visible, pageErrors, ...errFree(H), allowedErrors: H.allowed.map(e => e.text + ' ' + e.url) },
+705732	        t7b ? '' : why(!allRef && 'rows: ' + p.rows.map(r => r.id + '=' + r.text).join(' | '), !(p.refuse && p.refuse.visible) && '#refuse not visible', pageErrors && pageErrors + ' pageerror(s)', H.errors.length && H.errors.length + ' unexpected error(s): ' + H.errors[0].text));
+705733	      await H.close();
+705734	    // every state the registry knows was shown in a row on this device
+705735	    const want = ['WAIT', 'LOAD', 'OK', 'EMPTY', 'FAIL', 'REFUSED'];
+705736	    record('states-shown', '3.4: WAIT, LOAD, OK, EMPTY, FAIL and REFUSED were each shown in a row (across the scenarios)', want.every(s => seen.has(s)), { seen: [...seen] }, want.filter(s => !seen.has(s)).length ? 'never shown: ' + want.filter(s => !seen.has(s)).join(', ') : '');
+705737	  report.pass = steps.every(s => s.pass !== false); report.passed = steps.filter(s => s.pass === true).length; report.failed = steps.filter(s => s.pass === false).length; report.notEvaluated = steps.filter(s => s.pass === null).length;
+705739	// ------------------------------------------------------------------ test 9: device-independent, from disk
+705740	  const steps = []; const rec = (id, name, pass, measured, note) => { steps.push({ id, name, pass: !!pass, status: pass ? 'PASS' : 'FAIL', measured, note: note || '' }); process.stderr.write(`[static] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}\n`); };
+705741	  let ci = null, tries = 0;
+705742	  while (tries++ < 4) { try { ci = cp.execFileSync('python3', ['tools/ci_check.py'], { cwd: REPO, encoding: 'utf8', timeout: 300000, stdio: ['ignore', 'pipe', 'pipe'] }); } catch (e) { ci = String(e.stdout || '') + String(e.stderr || '') + ' (exit ' + e.status + ')'; }
+705743	    if (!/FileNotFoundError[^\n]*\.ci-|FileExistsError[^\n]*\.ci-/.test(ci)) break; cp.execFileSync('sleep', [String(5 + Math.floor(Math.random() * 20))]); }   // another run's temp file at the repo root (tools/ci_check.py:77)
+705744	  rec('t9-ci', 'test 9: python3 tools/ci_check.py prints RESULT: PASS', /RESULT: PASS/.test(ci), { tail: ci.trim().split('\n').slice(-5), tries }, /RESULT: PASS/.test(ci) ? '' : ci.trim().split('\n').slice(-1)[0]);
+705745	  const mods = fs.readdirSync(path.join(ED_DIR, 'modules')).filter(f => /^\d{12}-layers\.js$/.test(f));
+705746	  let nc = null; if (mods.length === 1) { try { cp.execFileSync(process.execPath, ['--check', path.join(ED_DIR, 'modules', mods[0])], { stdio: 'pipe' }); nc = 'exit 0'; } catch (e) { nc = String(e.stderr || e.message).split('\n').slice(0, 4).join(' '); } }
+705747	  const modBytes = mods.length === 1 ? fs.readFileSync(path.join(ED_DIR, 'modules', mods[0])) : null;
+705748	  const regs = modBytes ? (modBytes.toString('utf8').match(/KY\.register\(/g) || []).length : 0;
+705749	  rec('t9-module', 'test 9: exactly one modules/<stamp>-layers.js, node --check exits 0, exactly one KY.register(', mods.length === 1 && nc === 'exit 0' && regs === 1, { files: mods, nodeCheck: nc, registers: regs, sha256: modBytes && sha256(modBytes), bytes: modBytes && modBytes.length },
+705750	    mods.length !== 1 ? mods.length + ' layers modules' : (nc !== 'exit 0' ? nc : (regs !== 1 ? regs + ' KY.register( calls' : '')));
+705751	  let man = null, manErr = null; try { man = JSON.parse(fs.readFileSync(path.join(ED_DIR, 'data/layers.json'), 'utf8')); } catch (e) { manErr = e.message; }
+705752	  const palette = (fs.readFileSync(path.join(REPO, 'PALETTE.md'), 'utf8').match(/#[0-9a-fA-F]{6}\b/g) || []).map(s => s.toLowerCase());
+705753	  const L = man && Array.isArray(man.layers) ? man.layers : [];
+705754	  const recIds = L.map(r => r.id);
+705755	  const schemaOk = man && man.schema === 'kuiper.layers.v1' && L.length === 7 && JSON.stringify(man.order) === JSON.stringify(IDS) && IDS.every(id => recIds.filter(x => x === id).length === 1)
+705756	    && L.every(r => r.key === 'layer:' + r.id && r.label && r.group && palette.includes(String(r.colour).toLowerCase()) && r.meaning && r.licence && r.source);
+705757	  rec('t9-records', 'test 9: data/layers.json kuiper.layers.v1: seven records, order periods..spider, key layer:<id>, label, group, colour from PALETTE.md with its meaning, licence, source', !!schemaOk,
+705758	    { error: manErr, schema: man && man.schema, order: man && man.order, records: L.map(r => ({ id: r.id, key: r.key, group: r.group, colour: r.colour, licence: !!r.licence, source: r.source })), palette },
+705759	    schemaOk ? '' : (manErr || 'records: ' + JSON.stringify(L.map(r => [r.id, r.key, r.colour, !!r.licence, !!r.meaning]))));
+705760	  const NOT_LAYER_DATA = ['apps.json', 'drift.json'];   // lead: step 7's launcher registry and step 8's drift data are not among the seven records (test 1); a new layer joins by a REQUEST to Opus 3
+705761	  const hashes = []; let hashOk = L.length > 0;
+705762	  for (const r of L) for (const src of [r.source, r.source && r.source.fallback].filter(Boolean)) { const f = src.file; if (!f) continue; const fp = path.resolve(ED_DIR, f); let b = null; try { b = fs.readFileSync(fp); } catch (e) {}
+705763	    const h = b && sha256(b), ok = !!b && h === src.sha256 && (src.bytes == null || src.bytes === b.length); if (!ok) hashOk = false;
+705764	    hashes.push({ id: r.id, file: f, exists: !!b, sha256: h, record: src.sha256, bytes: b && b.length, recordBytes: src.bytes, ok }); }
+705765	  const dataFiles = fs.existsSync(path.join(ED_DIR, 'data')) ? fs.readdirSync(path.join(ED_DIR, 'data')).filter(f => f.endsWith('.json') && f !== 'layers.json' && !NOT_LAYER_DATA.includes(f)) : [];
+705766	  // lead: data files of other steps that are not layer sources (ROADMAP step 7 files: apps.json is the launcher registry)
+705767	  const unrecorded = dataFiles.filter(f => !L.some(r => r.source && r.source.file && path.resolve(ED_DIR, r.source.file) === path.join(ED_DIR, 'data', f)));
+705768	  // data files other steps own (apps.json step 7, drift.json step 8, …) are not layers of the seven records: listed, not gated
+705769	  rec('t9-hashes', 'test 9: every data file a record names (editions.json, keys.json, see-through.json, …) hashes to the record\'s sha256 and bytes; data/*.json no record names are listed', hashOk && L.some(r => r.source && r.source.file), { hashes, dataFiles, unrecorded },
+705770	    why2(!hashOk && 'mismatch: ' + JSON.stringify(hashes.filter(h => !h.ok).map(h => [h.id, h.file, h.exists ? 'sha ' + String(h.sha256).slice(0, 12) + ' vs ' + String(h.record).slice(0, 12) + ', bytes ' + h.bytes + ' vs ' + h.recordBytes : 'missing'])), unrecorded.length && 'listed, not a layer source: data/' + unrecorded.join(', data/')));
+705771	  const msf = path.join(HERE, 'MODULE.sha256'); let ms = null; if (fs.existsSync(msf)) ms = fs.readFileSync(msf, 'utf8');
+705772	  const msOk = ms && modBytes && ms.includes(sha256(modBytes)) && ms.includes(mods[0]);
+705773	  rec('t9-module-sha', 'hand-off: MODULE.sha256 names the module file and its measured sha256', !!msOk, { file: ms && ms.trim(), measured: modBytes && sha256(modBytes) }, ms ? (msOk ? '' : 'MODULE.sha256 does not match the module bytes') : 'no MODULE.sha256 in handoff/03-layers/');
+705775	function why2(...a) { return a.filter(Boolean).join('; '); }
+705776	// ------------------------------------------------------------------ hand-off artefacts: img/ (<= 4 PNG, each < 300 KB) and TEST.md
+705777	function writeImages(shots) {
+705778	  const img = path.join(HERE, 'img'); fs.mkdirSync(img, { recursive: true }); const out = {};
+705779	  for (const k of ['WAIT', 'OK', 'FAIL', 'REFUSED']) { const src = shots[k]; if (!src || !fs.existsSync(src)) { out[k] = 'missing'; continue; }
+705780	    const dst = path.join(img, k + '.png'); fs.copyFileSync(src, dst);
+705781	    if (fs.statSync(dst).size >= 300 * 1024) { try { cp.execFileSync('python3', ['-I', '-c', 'import sys\nfrom PIL import Image\nim=Image.open(sys.argv[1]).convert("RGB").quantize(colors=128)\nim.save(sys.argv[1],optimize=True)', dst], { stdio: 'pipe' }); } catch (e) {} }
+705782	    out[k] = fs.statSync(dst).size; }
+705783	  const devs = out.devices.map(d => d.device);
+705784	  const ids = []; for (const d of out.devices) for (const s of d.steps) if (!ids.find(x => x.id === s.id)) ids.push({ id: s.id, name: s.name });
+705785	  const cell = (d, id) => { const s = d.steps.find(x => x.id === id); return s ? s.status + (s.note ? ': ' + s.note.replace(/\|/g, '/').slice(0, 220) : '') : 'not run'; };
+705786	  L.push('# Opus team 3, step 3 the layer registry: TEST.md');
+705787	  L.push((out.preIntegration ? '**PRE-INTEGRATION RUN** (served with ' + [OVR_INDEX && '--index ' + flags['--index'], OVR_MANIFEST && '--manifest ' + flags['--manifest']].filter(Boolean).join(', ') + '): not a hand-off pass. ' : '') + 'Verdict: **' + (out.pass ? 'PASS' : 'FAIL') + '** — written by `test.cjs` at ' + out.generatedAt + ' from ' + out.url + ' (kuiper-belt ' + out.head + ').');
+705788	  L.push('Run: `node editions/' + STAMP + '/handoff/03-layers/test.cjs http://127.0.0.1:8432/ /tmp/nl010-opus/team-3/tester/out --handoff` from the repository root served by `python3 -m http.server 8432 --bind 127.0.0.1`. Playwright, harness GL flags, `devices[\'Pixel 7\']` and `devices[\'Galaxy S24\']`, real touch (`page.touchscreen.tap`), 6.5 s after load. Failures are served by Playwright routes only (keys.json 404, keys.json with byte ' + TAMPERED.offset + ' changed `' + TAMPERED.from + '`→`' + TAMPERED.to + '` (sha256 ' + TAMPERED.sha.slice(0, 12) + '… against ' + TAMPERED.shaOriginal.slice(0, 12) + '…), cosmos/wafer.tsv 404, cosmos/wafer.tsv and keys.json held to show WAIT and LOAD); no file on disk is changed. The one allowed console line in F and H is Chromium\'s own `Failed to load resource … 404` for the file served 404.');
+705789	  L.push('Governing text: neural-link FIXES/NL-010/ROADMAP.md step 3 "Acceptance test on Android" 1–9; team-2/STEPS.md 3.1–3.8 and its tests (:248-287).');
+705790	  L.push('| assertion | what is measured | ' + devs.join(' | ') + ' |');
+705791	  L.push('|---|---|' + devs.map(() => '---|').join(''));
+705792	  for (const { id, name } of ids) L.push('| `' + id + '` | ' + name.replace(/\|/g, '/') + ' | ' + out.devices.map(d => cell(d, id)).join(' | ') + ' |');
+705793	  L.push('Device-independent (test 9 and the hand-off):');
+705794	  L.push('| assertion | what is measured | result |');
+705795	  L.push('|---|---|---|');
+705796	  for (const s of out.static) L.push('| `' + s.id + '` | ' + s.name.replace(/\|/g, '/') + ' | ' + s.status + (s.note ? ': ' + s.note.replace(/\|/g, '/').slice(0, 300) : '') + ' |');
+705797	  L.push('Console errors per device and scenario: ' + out.devices.map(d => d.device + ' ' + Object.entries(d.scenarios).map(([k, v]) => k + ' ' + v.consoleErrors.length).join(', ')).join('; ') + '.');
+705798	  L.push('Screenshots (first device): ' + Object.entries(out.images || {}).map(([k, v]) => '`img/' + k + '.png` ' + (typeof v === 'number' ? (v / 1024).toFixed(0) + ' KB' : v)).join(', ') + '. Every device\'s screenshots and `report.json` are in ' + out.outdir + '.');
+705799	  L.push('The tester refuses the hand-off until every row reads PASS on both devices in a run without `--index`/`--manifest`; a NOT EVALUATED row names the other team whose module it waits for.');
+705800	  fs.writeFileSync(path.join(HERE, 'TEST.md'), L.join('\n') + '\n');
+705801	  let head = null; try { head = cp.execFileSync('git', ['rev-parse', '--short', 'HEAD'], { cwd: REPO, encoding: 'utf8' }).trim(); } catch (e) {}
+705802	  const out = { url: ED_URL, outdir: OUT, head, preIntegration: PRE, generatedAt: new Date().toISOString(), devices: [], static: [] };
+705803	  const shots = {};
+705804	  try { for (const d of DEVICES) { const s = d === DEVICES[0] ? shots : {}; out.devices.push(await runDevice(browser, d, s)); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); } }
+705805	  out.static = staticChecks();
+705806	  if (flags['--handoff']) out.images = writeImages(shots);
+705807	  out.pass = !PRE && out.devices.every(d => d.pass && d.notEvaluated === 0) && out.static.every(s => s.pass);
+705808	  out.summary = out.devices.map(d => ({ device: d.device, passed: d.passed, failed: d.failed, notEvaluated: d.notEvaluated, failedSteps: d.steps.filter(s => s.pass === false).map(s => s.id), notEvaluatedSteps: d.steps.filter(s => s.pass === null).map(s => s.id) })).concat([{ device: 'static', failedSteps: out.static.filter(s => !s.pass).map(s => s.id) }]);
+705809	  if (flags['--handoff']) writeTestMd(out);
+705810	  console.log(JSON.stringify(out.summary, null, 1));
+705811	  console.log('RESULT: ' + (out.pass ? 'PASS' : 'FAIL') + (PRE ? ' (pre-integration run: never a hand-off pass)' : ''));
+705812	// test.cjs: NL-010 step 4 "the Kuiper cartridge law", tests 1-9, with the NL-009 round-1 probes the loader patch folds in.
+705813	// Opus team 4 tester (ROADMAP.md step 4; team-2/STEPS.md step 4 "Acceptance test on Android"; OPUS-BRIEF.md "Testing").
+705814	//   node test.cjs [--devices "Pixel 7,Galaxy S24"] [--patch FILE | --html FILE] [--port 8442]
+705815	//                 [--scratch DIR] [--out DIR] [--only c1,c2,...] [--skip-probes] [--base FILE] [--with-committed]
+705816	// Apache-2.0 (kuiper-belt), kuiper-belt README.md:157.
+705817	// 1. A scratch copy, never the repository: <scratch>/root/editions/<stamp>/ is a copy of the edition folder (handoff/
+705818	//    left out), ../../cosmos is a symlink to the repository's cosmos/, its index.html is the edition page with
+705819	//    handoff/04-loader/index.html.patch applied (--html takes an already patched page; an edition page that already
+705820	//    carries the hook table is used as is), its modules/ adds four test modules (probe-a, probe-b, probe-c,
+705821	//    probe-wafer), and its modules.json lists team 4's first record set (hello) and the probes, in that order
+705822	//    (--with-committed puts the committed manifest's records first: an integration run, reported apart). The scratch root is served with python3 -m http.server on 127.0.0.1:<port> (team 4 tester: 8442).
+705823	// 2. Cases, each in a fresh context on each device (Pixel 7 412 px, Galaxy S24 360 px; real touch through
+705824	//    page.touchscreen.tap and CDP Input.dispatchTouchEvent; mutations are served through page.route, nothing written):
+705825	//    c0  MODULE.sha256 matches the files; the loader reference ≡ the patched page between its marker lines
+705826	//    c1  test 1: every order entry admitted in order with the manifest's sha256, refused [], no alert, one readout line
+705827	//        per module (READOUT opened by touch), one blob <script data-ky-module> each, nothing under modules/ fetched
+705828	//        outside order, the admitted modules draw, the wafer is drawn
+705829	//    c2  test 2: one byte changed in the served hello → 'sha256 mismatch', the rest admitted and drawing,
+705830	//        #refuse[role=alert] inside the viewport (360 px on the S24), wafer drawn, bar present
+705831	//    c3  test 3: probe-a requires 'noSuchHook' → 'missing hook noSuchHook', #ky-probe-a absent, probe-b (requires
+705832	//        probe-a) → 'missing hook probe-a', the rest admitted
+705833	//    c4  test 4: probe-a served as 202611012201-probe-a.js (generation 202611012200) → refused '… generation
+705834	//        202611012200, file name 202611012201'; served as probe-a.js (no leading digits) → admitted
+705835	//    c5  test 5: hello's install throws Error('test') → 'install threw test', the rest admitted
+705836	//    c6  test 6: hello served as HTTP 404 → 'HTTP 404', the rest admitted
+705837	//    c7  test 7: modules.json emptied → wafer and bar present, admitted [], refused [], no alert, KY and its members
+705838	//        frozen, Object.keys(KY.hooks) = the 28 names of HOOKS.md in order, __KUIPER_MODULES__ === KY.modules
+705839	//    c7b test 7, second half: ../../cosmos/wafer.tsv held, then 404 → the loader finished while the wafer was pending,
+705840	//        hello and probe-wafer admitted, KY.hooks.wafer rejects with the engine's words, the page shows them
+705841	//    c8  test 8: tools/edition_check.py (from handoff/04-loader/edition_check.py.patch while the tool is not in the
+705842	//        repository) E1-E8 PASS on a copy of the folder with team 4's records, FAIL (exit 1) on each mutation
+705843	//    c9  test 9: load → last admitted (ms) and Σ bytes against Σ byte_budget, recorded, no threshold
+705844	//    c10 the builder's five (loader rev 2, OPUS-4 builder's request; builder/proto-test.cjs): a module with a syntax
+705845	//        error, a module that registers then throws at top level, requires as a string (in the record, and in the
+705846	//        registration), a null record in modules, an id listed twice in order; each refused in words (or, for the
+705847	//        null record, skipped) with the rest admitted and zero pageerrors
+705848	//    T*  NL-009 round1 04-touch (04-touch.md TEST; 04-touch-harness.cjs): T1 T2 T2b T2c T3 T4 T5a T5b T5e T6a T6b T6d
+705849	//        T6f T6g T7, on the page with the full manifest and the harness's probe appended to the served copy
+705850	//    R*  NL-009 round1 09-robust (09-robust.md TEST 1-8): R1 R2 R3 R4 R5 R6 R7 R8
+705851	// 3. Console errors and pageerrors: zero in every case, except the browser's own "Failed to load resource … 404" line
+705852	//    for the one URL a case serves as 404 on purpose (c6 hello, c7b wafer.tsv, R5 keys.json) and the engine's
+705853	//    deliberate 'WebGL2 is not available' throw in R6 (09-robust.md:21-25); those are counted and reported.
+705854	// Output: <out>/report.json and <out>/<device>/NN-<case>.png. Exit 0 when every check on every device passed, 1
+705855	// otherwise, 2 on a harness error. Licence: Apache-2.0 (kuiper-belt code, kuiper-belt README.md:157).
+705856	const fs = require('fs'), path = require('path'), crypto = require('crypto'), cp = require('child_process'), http = require('http');
+705857	const HERE = flag('--handoff') ? path.resolve(String(flag('--handoff'))) : __dirname;
+705858	const REPO = path.resolve(EDITION_DIR, '..', '..');
+705859	const PORT = +(flag('--port') || 8442);
+705860	const SCRATCH = path.resolve(String(flag('--scratch') || '/tmp/nl010-opus/team-4/tester/run'));
+705861	const OUT = path.resolve(String(flag('--out') || path.join('/tmp/nl010-opus/team-4/tester/out', new Date().toISOString().replace(/[:.]/g, '-'))));
+705862	const DEVICES = String(flag('--devices') || 'Pixel 7,Galaxy S24').split(',').map(s => s.trim()).filter(Boolean);
+705863	const ONLY = flag('--only') ? String(flag('--only')).split(',').map(s => s.trim()) : null;
+705864	const want = (id) => !ONLY || ONLY.includes(id);
+705865	const SKIP_PROBES = !!flag('--skip-probes');
+705866	const FIXED_WAIT = 6500;
+705867	const sha = b => crypto.createHash('sha256').update(b).digest('hex');
+705868	const LAUNCH = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
+705869	// handoff/04-loader/HOOKS.md and team-2/STEPS.md 4.2: Object.keys(KY.hooks), in this order (28 names)
+705870	const HOOK_NAMES = ['keyPlace', 'address', 'describe', 'findBy', 'flyTo', 'home', 'homeCamera', 'safeBox', 'lightTime', 'showNew', 'goKey', 'fmt',
+705871	  'words', 'esc', 'cv', 'ov', 'o2', 'hud', 'big', 'sub', 'card', 'gbox', 'gin', 'SPACE', 'N', 'repos', 'commits', 'wafer'];
+705872	const KY_EXTRA = ['cam', 'lit', 'sel', 'redraw', 'draw', 'panels', 'refuse'];   // HOOKS.md: 35 names since rev 3
+705873	const PROBE_GEN = '202611012200';
+705874	// ------------------------------------------------------------------ 1. the scratch copy
+705875	// --base FILE patches that page instead of the edition's current index.html (e.g. the skeleton's page at 96736f5, the
+705876	// base the patch was cut against, when the integrator has since changed the page and the patch no longer applies)
+705877	function patchedPage() {
+705878	  const baseFile = flag('--base') ? path.resolve(String(flag('--base'))) : path.join(EDITION_DIR, 'index.html');
+705879	  const original = fs.readFileSync(baseFile, 'utf8');
+705880	  if (flag('--html')) { const f = path.resolve(String(flag('--html'))); return { html: fs.readFileSync(f, 'utf8'), base: flag('--base') ? original : null, patchText: '', how: 'html ' + f }; }
+705881	  let p = flag('--patch') ? path.resolve(String(flag('--patch'))) : null;
+705882	  if (!p && !flag('--base') && /kuiper\.hooks\.v1/.test(original)) {   // the integrator has applied the patch: test the page as committed
+705883	    const pf = path.join(HERE, 'index.html.patch'), rv = fs.existsSync(pf) ? cp.spawnSync('patch', ['-R', '--dry-run', '-s', '-o', '/dev/null', baseFile, pf], { encoding: 'utf8' }) : null;
+705884	    return { html: original, integrated: { patch_sha256: fs.existsSync(pf) ? sha(fs.readFileSync(pf)) : null, reverses_cleanly: !!rv && rv.status === 0, out: rv ? (rv.stdout + rv.stderr).trim().slice(0, 300) : 'no index.html.patch' },
+705885	      how: 'the edition page as committed, which carries the hook table (' + path.relative(REPO, baseFile) + ', sha256 ' + sha(original) + ')' };
+705886	  if (!p && fs.existsSync(path.join(HERE, 'index.html.patch'))) p = path.join(HERE, 'index.html.patch');
+705888	    const o = path.join(SCRATCH, 'index.patched.html');
+705889	    const r = cp.spawnSync('patch', ['-s', '-o', o, baseFile, p], { encoding: 'utf8' });
+705890	    if (r.status !== 0) throw new Error('the patch does not apply: ' + p + ' (sha256 ' + sha(fs.readFileSync(p)) + ') on ' + baseFile + ' (sha256 ' + sha(original) + ')\n' + r.stdout + r.stderr);
+705891	    return { html: fs.readFileSync(o, 'utf8'), base: original, patchText: fs.readFileSync(p, 'utf8'), how: 'patch ' + p + ' (sha256 ' + sha(fs.readFileSync(p)) + ') on ' + path.relative(REPO, baseFile) + ' (sha256 ' + sha(original) + ')' };
+705892	  if (/kuiper\.hooks\.v1/.test(original)) return { html: original, how: 'the edition page, which already carries the hook table' };
+705893	  throw new Error('no patch: expected ' + path.join(HERE, 'index.html.patch') + ' (or --patch / --html)');
+705894	function prepareScratch() {
+705895	  const root = path.join(SCRATCH, 'root'), ed = path.join(root, 'editions', STAMP);
+705896	  fs.rmSync(SCRATCH, { recursive: true, force: true });
+705897	  fs.mkdirSync(path.join(root, 'editions'), { recursive: true });
+705898	  fs.symlinkSync(path.join(REPO, 'cosmos'), path.join(root, 'cosmos'));
+705899	  fs.cpSync(EDITION_DIR, ed, { recursive: true, filter: s => s !== path.join(EDITION_DIR, 'handoff') && !s.startsWith(path.join(EDITION_DIR, 'handoff') + path.sep) });
+705900	  const { html, how, base, patchText, integrated } = patchedPage();
+705901	  if (!/^<!doctype html>/i.test(html.trimStart()) || !/kuiper\.hooks\.v1/.test(html) || !/window\.KY\s*=/.test(html)) throw new Error('the patched page has no window.KY hook table');
+705902	  fs.writeFileSync(path.join(ed, 'index.html'), html);
+705903	  // the base: team 4's first record set (handoff/04-loader/modules.json); with --with-committed, the committed
+705904	  // manifest's records first (the integrator's order: other teams' modules, whose UI the NL-009 probes do not know)
+705905	  const recs = [], order = [], bases = [];
+705906	  for (const f of [...(flag('--with-committed') ? [path.join(EDITION_DIR, 'modules.json')] : []), path.join(HERE, 'modules.json')]) {
+705907	    if (!fs.existsSync(f)) continue; const m = JSON.parse(fs.readFileSync(f, 'utf8')); bases.push({ file: path.relative(REPO, f), order: m.order || [] });
+705908	    for (const id of m.order || []) { const r = (m.modules || []).find(x => x.id === id); if (r && !order.includes(id)) { recs.push(r); order.push(id); } } }
+705909	  if (!order.includes('hello')) throw new Error('no hello record in modules.json or handoff/04-loader/modules.json');
+705910	  for (const id of ['probe-a', 'probe-b', 'probe-c', 'probe-wafer']) {
+705911	    const src = probeSource(id), f = 'modules/' + PROBE_GEN + '-' + id + '.js';
+705912	    fs.writeFileSync(path.join(ed, f), src); recs.push(probeRecord(id, f, Buffer.from(src))); order.push(id);
+705913	  const manifest = { schema: 'kuiper.modules.v1', edition: STAMP, hooks: 'kuiper.hooks.v1', order, modules: recs,
+705914	    contracts: { module_sha256_required: true, order_explicit: true, engine_mutation_forbidden: true, stamp_in_name_equals_generation: true, hooks_frozen: true } };
+705915	  fs.writeFileSync(path.join(ed, 'modules.json'), JSON.stringify(manifest, null, 1));
+705916	  return { root, ed, manifest, how, html, htmlSha: sha(html), bases, base, patchText, integrated };
+705917	const PROBE_REQ = { 'probe-a': ['keyPlace', 'cam', 'draw', 'redraw'], 'probe-b': ['probe-a', 'cam'], 'probe-c': ['fmt', 'draw'], 'probe-wafer': ['wafer', 'N'] };
+705918	function probeRecord(id, p, bytes, requires) {
+705919	  return { id, generation: PROBE_GEN, path: p, sha256: sha(bytes), bytes: bytes.length, byte_budget: 4096, requires: requires || PROBE_REQ[id], provides: [id],
+705920	    reads: [], writes: ['window.KY.modules.' + id, '#ky-' + id], creates_controls: 'none', licence: 'Apache-2.0', team: '04', step: 4, proof: 'handoff/04-loader/' };
+705921	// the test modules (scratch copy only): each registers once, builds its host #ky-<id>, and reports through inspect()
+705922	function probeSource(id, o = {}) {
+705923	  const req = o.requires || PROBE_REQ[id];
+705924	  const body = id === 'probe-wafer'
+705925	    ? "KY.hooks.wafer.then(function (w) { st.state = 'resolved'; st.N = w && w.N; }, function (e) { st.state = 'refused'; st.why = String(e && e.message || e); }); return st;"
+705926	    : id === 'probe-b' ? "st.sawA = !!(KY.modules['probe-a'] && KY.modules['probe-a'].api); return st;"
+705927	      : "KY.draw.add(function () { st.frames++; }, 950); KY.redraw(); return st;";
+705928	  return `/* kuiper module ${id}, generation ${PROBE_GEN} (UTC), Apache-2.0 (kuiper-belt) */
+705929	// test module of handoff/04-loader/test.cjs: written into the scratch copy only, never into the repository
+705932	  var st = { frames: 0, state: 'pending' };
+705933	  KY.register({ schema: 'kuiper.module.v1', id: '${id}', generation: '${PROBE_GEN}', requires: ${JSON.stringify(req).replace(/"/g, "'")}, provides: ['${id}'],
+705934	    install: function (KY) {
+705935	      var h = document.createElement('div'); h.id = 'ky-${id}'; h.hidden = true; document.body.appendChild(h);
+705936	      ${body}
+705938	    inspect: function () { return st; } });
+705941	// ------------------------------------------------------------------ 2. the server
+705942	function serve(root) {
+705944	    const child = cp.spawn('python3', ['-m', 'http.server', String(PORT), '--bind', '127.0.0.1'], { cwd: root, stdio: ['ignore', 'ignore', 'pipe'] });
+705945	    let log = '', up = false; child.stderr.on('data', d => { log = (log + d).slice(-4000); });
+705946	    child.on('exit', c => { if (!up) reject(new Error('http.server exited ' + c + ': ' + log.slice(-400))); });
+705947	    const poll = () => http.get(`http://127.0.0.1:${PORT}/editions/${STAMP}/modules.json`, r => { r.resume(); up = true; resolve(child); })
+705948	      .on('error', () => { if (Date.now() - t0 > 15000) reject(new Error('http.server did not answer on ' + PORT)); else setTimeout(poll, 250); });
+705949	    setTimeout(poll, 300);
+705950	// ------------------------------------------------------------------ in-page measurements
+705951	function pageState() {
+705952	  const vis = el => !!el && getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden' && el.getBoundingClientRect().height > 0;
+705953	  const KY = window.KY, rf = document.getElementById('refuse'), bar = document.getElementById('bar');
+705954	  const mods = {}; try { if (KY && KY.modules) for (const k of Object.keys(KY.modules)) { const m = KY.modules[k]; mods[k] = { frozen: Object.isFrozen(m), generation: m.generation, sha256: m.sha256, state: m.inspect ? JSON.parse(JSON.stringify(m.inspect() || null)) : null }; } } catch (e) { mods.__error = String(e); }
+705955	  let ed = null; try { ed = KY && KY.inspect ? KY.inspect() : JSON.parse(JSON.stringify(window.__KUIPER_EDITION__ || null)); } catch (e) { ed = { error: String(e) }; }
+705956	    vw: innerWidth, vh: innerHeight, ed,
+705957	    refuse: rf ? { visible: vis(rf), role: rf.getAttribute('role'), text: rf.textContent, rect: R(rf) } : null,
+705958	    bar: bar ? { visible: vis(bar), rect: R(bar), titles: [...bar.querySelectorAll('.gm-title')].map(b => b.textContent.trim()) } : null,
+705959	    hosts: [...document.querySelectorAll('[id^="ky-"]')].map(e => e.id),
+705960	    scripts: [...document.querySelectorAll('script[data-ky-module]')].map(s => ({ id: s.getAttribute('data-ky-module'), blob: /^blob:/.test(s.src) })),
+705961	    modules: mods,
+705962	    hud: document.getElementById('hud') ? document.getElementById('hud').textContent : null,
+705963	    t: { load: Math.round((performance.getEntriesByType('navigation')[0] || {}).loadEventEnd || 0) || null,
+705964	      wafer: Math.round((performance.getEntriesByType('resource').find(e => /cosmos\/wafer\.tsv/.test(e.name)) || {}).responseEnd || 0) || null },
+705965	async function waferFromPng(page, b64, yFrom, skip) {   // the journey's measurement (FIXES/NL-009/android-journey.cjs:92-102), the refusal strip left out
+705966	  return page.evaluate(async ({ b64, yFrom, skip }) => {
+705968	    const g = c.getContext('2d', { willReadFrequently: true }); g.drawImage(img, 0, 0, W, H); const d = g.getImageData(0, 0, W, H).data;
+705969	    let lit = 0, tot = 0, minx = 1e9, maxx = -1;
+705970	    for (let y = Math.max(0, Math.ceil(yFrom)); y < H; y++) for (let x = 0; x < W; x++) {
+705971	      if (skip && x >= skip.left && x <= skip.right && y >= skip.top && y <= skip.bottom) continue;
+705972	      const i = (y * W + x) * 4; tot++; const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+705973	      if (lum > 34) { lit++; if (x < minx) minx = x; if (x > maxx) maxx = x; } }
+705974	    return { litFraction: +(lit / Math.max(1, tot)).toFixed(4), bboxW: lit ? maxx - minx + 1 : 0 };
+705975	  }, { b64, yFrom, skip });
+705976	// ------------------------------------------------------------------ the NL-009 round-1 probe (04-touch-harness.cjs:7-17), appended to the served copy only
+705977	const PROBE = `
+705978	window.__k = { get:()=>({cx,cy,zoom,moved:(typeof moved!=='undefined'?moved:null),openPanel,card:card.style.display,cardOpen:card.classList.contains('open'),edSel,edN:edPlaced.length,W:innerWidth,H:innerHeight}),
+705979	  set:(o)=>{ if ('cx' in o) cx=o.cx; if ('cy' in o) cy=o.cy; if ('zoom' in o) zoom=o.zoom; tween=null; atHome=false; dirty=true; draw(); },
+705980	  spark:(i)=>({x:edPlaced[i].x,y:edPlaced[i].y,s:edScreen(edPlaced[i])}), toWorld, key:(k)=>dispatchEvent(new KeyboardEvent('keydown',{key:k})) };
+705981	window.edCard = (i)=>edCard(i); Object.defineProperty(window,'edSel',{set:v=>{edSel=v;},get:()=>edSel}); Object.defineProperty(window,'litRepo',{set:v=>{litRepo=v;},get:()=>litRepo});
+705982	window.__ev = { cancel:0, ctx:0, ctxPrevented:0, ups:[], clicks:[] };
+705983	addEventListener('pointercancel', ()=>__ev.cancel++, true);
+705984	addEventListener('contextmenu', e=>{ __ev.ctx++; setTimeout(()=>{ if (e.defaultPrevented) __ev.ctxPrevented++; },0); }, true);
+705985	addEventListener('pointerup', e=>__ev.ups.push([performance.now(), e.target.id||e.target.tagName]), true);
+705986	addEventListener('click', e=>__ev.clicks.push([performance.now(), e.target.id||e.target.tagName]), true);
+705987	function withProbe(html) {
+705988	  const a = 'requestAnimationFrame(frame);', i = html.lastIndexOf(a);
+705989	  if (i < 0) throw new Error('probe anchor requestAnimationFrame(frame); not found');
+705990	  return html.slice(0, i) + PROBE + html.slice(i);
+705991	async function runDevice(browser, deviceName, S) {
+705992	  const dev = devices[deviceName]; if (!dev) throw new Error('unknown device ' + deviceName);
+705993	  const BASE = `http://127.0.0.1:${PORT}/editions/${STAMP}/`;
+705994	  const checks = []; let shotN = 0;
+705995	  const check = (id, name, pass, measured, note) => { const c = { id, name, pass: !!pass, measured, note: note || '' }; checks.push(c); process.stderr.write(`[${deviceName}] ${pass ? 'PASS' : 'FAIL'} ${id} ${name}${note ? ' — ' + note : ''}\n`); return c; };
+705996	  const M = S.manifest, rec = id => M.modules.find(m => m.id === id), clone = o => JSON.parse(JSON.stringify(o));
+705997	  const result = { device: deviceName, viewport: dev.viewport, checks, measured: {}, shots: {} };
+705998	  async function open(caseId, { manifest = null, files = {}, status = {}, ctxOpts = {}, probe = false, hold = null, expect404 = [], waitDone = true } = {}) {
+705999	    const context = await browser.newContext({ ...dev, locale: 'en-GB', ...ctxOpts });
+706000	    const errors = [], expected = [], requests = [];
+706001	    const isExp = u => expect404.some(r => r.test(u));
+706002	    page.on('console', m => { if (m.type() !== 'error') return; const t = m.text(), loc = (m.location() || {}).url || '';
+706003	      if (/Failed to load resource: the server responded with a status of 404/.test(t) && isExp(loc)) { expected.push({ kind: 'console', text: t.slice(0, 160), url: loc }); return; }
+706004	      errors.push({ kind: 'console', text: t.slice(0, 300), url: loc }); });
+706005	    page.on('request', r => requests.push(r.url()));
+706006	    if (manifest) await page.route(BASE + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(manifest) }));
+706007	    for (const [p, body] of Object.entries(files)) await page.route(BASE + p, r => r.fulfill({ status: 200, contentType: 'text/javascript', body }));
+706008	    for (const [p, st] of Object.entries(status)) await page.route(BASE + p, r => r.fulfill({ status: st, contentType: 'text/plain', body: 'not found' }));
+706009	    if (probe) { const h = withProbe(S.html); for (const u of [BASE, BASE + 'index.html']) await page.route(u, r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: h })); }
+706010	    let release = null, heldAt = null, released = false;
+706011	    if (hold) { const gate = new Promise(r => { release = r; }); await page.route(hold.url, async r => { heldAt = Date.now(); await gate; released = true; await r.fulfill({ status: hold.status, contentType: 'text/plain', body: 'not found' }); }); }
+706012	    await page.goto(BASE, { waitUntil: 'load', timeout: 180000 });
+706013	    if (waitDone) { let ok = true; await page.waitForFunction(() => window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.done === true, null, { timeout: 120000 }).catch(() => { ok = false; });
+706014	      if (!ok) check(caseId + '.done', 'the loader finished (window.__KUIPER_EDITION__.done) within 120 s', false, { ed: await page.evaluate(() => JSON.parse(JSON.stringify(window.__KUIPER_EDITION__ || null))).catch(() => null) }); }
+706015	    return { context, page, errors, expected, requests, release: () => release && release(), heldAt: () => heldAt, released: () => released };
+706016	  const state = page => page.evaluate(pageState);
+706017	  const shot = async (page, id) => { const f = path.join(dir, String(++shotN).padStart(2, '0') + '-' + id + '.png');
+706018	    for (let a = 0; a < 2; a++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); result.shots[id] = path.relative(OUT, f); return; } catch (e) { if (a) result.shots[id] = 'FAILED: ' + String(e.message || e).split('\n')[0]; } } };
+706019	  const wafer = async (page, s) => { try { const png = await page.screenshot({ type: 'png', scale: 'css', timeout: 180000 });
+706020	    return await waferFromPng(page, png.toString('base64'), s.bar ? s.bar.rect.bottom + 2 : 0, s.refuse && s.refuse.visible ? s.refuse.rect : null); } catch (e) { return { error: String(e.message || e).split('\n')[0], litFraction: 0 }; } };
+706021	  const waferOk = w => !!w && w.litFraction > 0.03 && w.bboxW > 100;
+706022	  const inside = s => !!(s.refuse && s.refuse.visible && s.refuse.role === 'alert' && s.refuse.rect.left >= 0 && s.refuse.rect.top >= 0 && s.refuse.rect.right <= s.vw + 0.5 && s.refuse.rect.bottom <= s.vh + 0.5);
+706023	  const noAlert = s => !s.refuse || !s.refuse.visible;
+706024	  const ids = s => ((s.ed && s.ed.admitted) || []).map(a => a.id);
+706025	  const why = (s, id) => (((s.ed && s.ed.refused) || []).find(x => x.id === id) || {}).why || null;
+706026	  const others = except => M.order.filter(id => !except.includes(id));
+706027	  const errOk = (h, cid) => check(cid + '.errors', 'zero console errors and pageerrors' + (h.expected.length ? ' (' + h.expected.length + ' deliberate 404 line(s) reported, not counted)' : ''), h.errors.length === 0, { errors: h.errors, expected: h.expected });
+706028	  const frames = (s, id) => s.modules[id] && s.modules[id].state ? (s.modules[id].state.frames != null ? s.modules[id].state.frames : s.modules[id].state.frames_drawn) : null;
+706029	  const running = async (page, id) => { const a = frames(await state(page), id); for (let i = 0; i < 3; i++) { await page.evaluate(() => window.KY.redraw()); await sleep(700); } const b = frames(await state(page), id); return { id, before: a, after: b, running: a != null && b > a }; };
+706030	  const tapSel = async (page, sel) => { const bb = await page.locator(sel).first().boundingBox(); if (!bb) throw new Error('nothing to tap: ' + sel); await page.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); };
+706031	  const readout = s => (s.hud || '').split('\n').map(l => l.replace(/^MODULES · /, '')).filter(l => / admitted · [0-9a-f]{12}$| refused: /.test(l));
+706032	  // ---------------------------------------------------------------- c1 / test 1
+706033	  if (want('c1')) {
+706034	    const h = await open('c1'); await sleep(FIXED_WAIT);
+706035	    const s = await state(h.page);
+706036	    const exp = M.order.map(id => ({ id, sha256: rec(id).sha256 }));
+706037	    check('c1.admitted', 'every order entry admitted, in order, each sha256 = the manifest', JSON.stringify(ids(s).map(id => ({ id, sha256: s.ed.admitted.find(a => a.id === id).sha256 }))) === JSON.stringify(exp), { admitted: s.ed && s.ed.admitted, order: M.order });
+706038	    check('c1.refused', 'refused is empty, no failures, no alert', s.ed && s.ed.refused.length === 0 && !(s.ed.failures || []).length && noAlert(s), { refused: s.ed && s.ed.refused, failures: s.ed && s.ed.failures, refuse: s.refuse });
+706039	    const lines = M.order.map(id => id + ' admitted · ' + rec(id).sha256.slice(0, 12));
+706040	    check('c1.readout', 'the readout has one "<id> admitted · <sha256 first 12>" line per module and nothing else', lines.every(l => readout(s).includes(l)) && readout(s).length === M.order.length, { readout: readout(s) });
+706041	    check('c1.isolation', 'one blob-URL <script data-ky-module> per module; each KY.modules entry frozen with the manifest sha256', s.scripts.length === M.order.length && s.scripts.every(x => x.blob) && M.order.every(id => s.modules[id] && s.modules[id].frozen && s.modules[id].sha256 === rec(id).sha256), { scripts: s.scripts, modules: Object.keys(s.modules) });
+706042	    const modReq = h.requests.filter(u => u.startsWith(BASE + 'modules/')).map(u => u.slice(BASE.length));
+706043	    check('c1.fetch', 'nothing under modules/ fetched outside order; each module fetched once (the loader reference never)', modReq.length === M.order.length && M.order.every(id => modReq.includes(rec(id).path)), { fetched: modReq });
+706044	    const w = await wafer(h.page, s); check('c1.wafer', 'the wafer is drawn under the bar', waferOk(w), w);
+706045	    const rh = await running(h.page, 'hello'), ra = await running(h.page, 'probe-a');
+706046	    check('c1.running', 'the admitted modules draw (hello ring and probe-a painter counts grow)', rh.running && ra.running, { hello: rh, probe_a: ra });
+706047	    check('c1.wafer-hook', 'probe-wafer saw KY.hooks.wafer resolve with N > 0', ((s.modules['probe-wafer'] || {}).state || {}).state === 'resolved' && s.modules['probe-wafer'].state.N > 0, { probe_wafer: s.modules['probe-wafer'] });
+706048	    let hud = null;
+706049	    try { await tapSel(h.page, '#bar .gm-title[data-panel="hud"]'); await sleep(2500);
+706050	      hud = await h.page.evaluate(() => { const e = document.getElementById('hud'), r = e.getBoundingClientRect(); return { text: e.textContent, open: getComputedStyle(e).display !== 'none' && r.height > 0 }; }); } catch (e) { hud = { error: String(e.message || e) }; }
+706051	    check('c1.readout-panel', 'READOUT opened by a touch tap shows every admitted line', !!(hud && hud.open && lines.every(l => (hud.text || '').includes(l))), hud && { open: hud.open, tail: (hud.text || hud.error || '').split('\n').slice(-8) });
+706052	    await shot(h.page, 'c1-readout-admitted');
+706053	    await h.page.keyboard.press('Escape'); await sleep(1500);
+706054	    await shot(h.page, 'c1-all-admitted');
+706055	    // c9 / test 9 measured here, no threshold
+706056	    const tm = s.ed.timings || {};
+706057	    result.measured.c9 = { load_event_end_ms: s.t.load, loader_start_ms: tm.loader_start_ms, last_admitted_ms: tm.last_admitted_ms, loader_end_ms: tm.loader_end_ms,
+706058	      load_to_last_admitted_ms: tm.last_admitted_ms != null && s.t.load ? tm.last_admitted_ms - s.t.load : null, wafer_tsv_response_end_ms: s.t.wafer,
+706059	      per_module_t_ms: (s.ed.admitted || []).map(a => [a.id, a.t_ms]), sum_bytes: M.modules.reduce((a, m) => a + m.bytes, 0), sum_byte_budget: M.modules.reduce((a, m) => a + m.byte_budget, 0),
+706060	      page_reported: { bytes: s.ed.bytes, byte_budget: s.ed.byte_budget }, modules: M.order.length,
+706061	      note: 'Playwright Chromium, SwiftShader, served from 127.0.0.1; a negative load_to_last_admitted means the last module was admitted before the load event' };
+706062	    check('c9.measured', 'load → last admitted and Σ bytes / Σ byte_budget recorded and equal to the page\'s own sums (no threshold)', tm.last_admitted_ms != null && s.ed.bytes === result.measured.c9.sum_bytes && s.ed.byte_budget === result.measured.c9.sum_byte_budget, result.measured.c9);
+706063	    errOk(h, 'c1'); await h.context.close();
+706064	  // ---------------------------------------------------------------- c2 / test 2: one byte changed in the served hello
+706065	  if (want('c2')) {
+706066	    const hp = rec('hello').path, m = Buffer.from(fs.readFileSync(path.join(S.ed, hp)));
+706067	    let at = m.indexOf(Buffer.from('cyan')); if (at < 0) at = 10; m[at] = m[at] === 0x41 ? 0x42 : 0x41;   // one byte, inside a comment
+706068	    const h = await open('c2', { files: { [hp]: m } }); await sleep(FIXED_WAIT);
+706069	    check('c2.refused', "hello refused 'sha256 mismatch', nothing else refused", why(s, 'hello') === 'sha256 mismatch' && s.ed.refused.length === 1, { refused: s.ed && s.ed.refused, byte_changed_at: at });
+706070	    check('c2.rest', 'every other module admitted, in order', JSON.stringify(ids(s)) === JSON.stringify(others(['hello'])), { admitted: ids(s) });
+706071	    check('c2.alert', '#refuse[role=alert] visible inside the viewport, naming hello and the reason', inside(s) && /hello/.test(s.refuse.text) && /sha256 mismatch/.test(s.refuse.text), { refuse: s.refuse, viewport: [s.vw, s.vh] });
+706072	    check('c2.nothing', 'the refused bytes never ran: no script, no #ky-hello, no KY.modules.hello', !s.scripts.some(x => x.id === 'hello') && !s.hosts.includes('ky-hello') && !s.modules.hello, { hosts: s.hosts, scripts: s.scripts });
+706073	    const w = await wafer(h.page, s); check('c2.wafer', 'the wafer is drawn and the bar present', waferOk(w) && s.bar && s.bar.visible, { wafer: w, bar: s.bar });
+706074	    const ra = await running(h.page, 'probe-a'); check('c2.running', 'the rest keeps running (probe-a painter count grows)', ra.running, ra);
+706075	    await shot(h.page, 'c2-sha256-mismatch');
+706076	    errOk(h, 'c2'); await h.context.close();
+706077	  // ---------------------------------------------------------------- c3 / test 3: missing hook
+706078	  if (want('c3')) {
+706079	    const man = clone(M), src = probeSource('probe-a', { requires: ['noSuchHook', 'cam'] }), r = man.modules.find(x => x.id === 'probe-a');
+706080	    Object.assign(r, { requires: ['noSuchHook', 'cam'], sha256: sha(src), bytes: Buffer.byteLength(src) });
+706081	    const h = await open('c3', { manifest: man, files: { [r.path]: src } }); await sleep(1500);
+706082	    check('c3.refused', "probe-a refused 'missing hook noSuchHook'", why(s, 'probe-a') === 'missing hook noSuchHook', { refused: s.ed && s.ed.refused });
+706083	    check('c3.unhosted', '#ky-probe-a absent', !s.hosts.includes('ky-probe-a'), { hosts: s.hosts });
+706084	    check('c3.dependent', "probe-b, which requires probe-a, refused 'missing hook probe-a'", why(s, 'probe-b') === 'missing hook probe-a', { why: why(s, 'probe-b') });
+706085	    check('c3.rest', 'the modules that do not need it admitted', JSON.stringify(ids(s)) === JSON.stringify(others(['probe-a', 'probe-b'])), { admitted: ids(s) });
+706086	    check('c3.alert', '#refuse[role=alert] inside the viewport names both', inside(s) && /probe-a/.test(s.refuse.text) && /probe-b/.test(s.refuse.text), { refuse: s.refuse });
+706087	    errOk(h, 'c3'); await h.context.close();
+706088	  // ---------------------------------------------------------------- c4 / test 4: stamp mismatch; no stamp in the name
+706089	  if (want('c4')) {
+706090	    const body = fs.readFileSync(path.join(S.ed, rec('probe-a').path));
+706091	    for (const [sub, np] of [['c4a', 'modules/202611012201-probe-a.js'], ['c4b', 'modules/probe-a.js']]) {
+706092	      const man = clone(M); man.modules.find(x => x.id === 'probe-a').path = np;
+706093	      const h = await open(sub, { manifest: man, files: { [np]: body } }); await sleep(1500);
+706094	      const s = await state(h.page);
+706095	      if (sub === 'c4a') {
+706096	        check('c4a.refused', "served as 202611012201-probe-a.js with generation 202611012200 → refused, the stamp named in words", /stamp mismatch: generation 202611012200, file name 202611012201/.test(why(s, 'probe-a') || ''), { refused: s.ed && s.ed.refused });
+706097	        check('c4a.rest', 'the rest admitted, except probe-b which requires probe-a', JSON.stringify(ids(s)) === JSON.stringify(others(['probe-a', 'probe-b'])), { admitted: ids(s) });
+706098	        check('c4a.alert', '#refuse[role=alert] inside the viewport names the stamp', inside(s) && /stamp/.test(s.refuse.text), { refuse: s.refuse });
+706099	      } else check('c4b.admitted', 'served as probe-a.js (no leading digits) → admitted: identity is generation + sha256', JSON.stringify(ids(s)) === JSON.stringify(M.order) && s.ed.refused.length === 0, { admitted: ids(s), refused: s.ed && s.ed.refused });
+706100	      errOk(h, sub); await h.context.close();
+706101	  // ---------------------------------------------------------------- c5 / test 5: hello's install throws
+706102	  if (want('c5')) {
+706103	    const hp = rec('hello').path, src = fs.readFileSync(path.join(S.ed, hp), 'utf8');
+706104	    const thr = src.replace(/install\s*(?::\s*function\s*)?\(KY\)\s*\{/, m => m + " throw new Error('test');");
+706105	    const man = clone(M); Object.assign(man.modules.find(x => x.id === 'hello'), { sha256: sha(thr), bytes: Buffer.byteLength(thr) });
+706106	    const h = await open('c5', { manifest: man, files: { [hp]: thr } }); await sleep(1500);
+706107	    check('c5.refused', "hello refused 'install threw test'", thr !== src && why(s, 'hello') === 'install threw test', { refused: s.ed && s.ed.refused });
+706108	    check('c5.rest', 'every other module admitted', JSON.stringify(ids(s)) === JSON.stringify(others(['hello'])), { admitted: ids(s) });
+706109	    check('c5.alert', '#refuse[role=alert] inside the viewport', inside(s) && /install threw test/.test(s.refuse.text), { refuse: s.refuse });
+706110	    errOk(h, 'c5'); await h.context.close();
+706111	  // ---------------------------------------------------------------- c6 / test 6: 404
+706112	  if (want('c6')) {
+706113	    const hp = rec('hello').path;
+706114	    const h = await open('c6', { status: { [hp]: 404 }, expect404: [new RegExp(hp.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '$')] }); await sleep(1500);
+706115	    check('c6.refused', "hello refused 'HTTP 404'", why(s, 'hello') === 'HTTP 404', { refused: s.ed && s.ed.refused });
+706116	    check('c6.rest', 'every other module admitted', JSON.stringify(ids(s)) === JSON.stringify(others(['hello'])), { admitted: ids(s) });
+706117	    check('c6.alert', '#refuse[role=alert] inside the viewport', inside(s) && /HTTP 404/.test(s.refuse.text), { refuse: s.refuse });
+706118	    errOk(h, 'c6'); await h.context.close();
+706119	  // ---------------------------------------------------------------- c7 / test 7: the empty manifest
+706120	  if (want('c7')) {
+706121	    const man = clone(M); man.order = []; man.modules = [];
+706122	    const h = await open('c7', { manifest: man }); await sleep(FIXED_WAIT);
+706123	    check('c7.empty', 'admitted [] and refused [], no alert', s.ed && s.ed.admitted.length === 0 && s.ed.refused.length === 0 && noAlert(s), { ed: s.ed, refuse: s.refuse });
+706124	    const fr = await h.page.evaluate(() => { const K = window.KY; return { KY: Object.isFrozen(K), hooks: Object.isFrozen(K.hooks), names: Object.isFrozen(K.names), cam: Object.isFrozen(K.cam), lit: Object.isFrozen(K.lit), sel: Object.isFrozen(K.sel), draw: Object.isFrozen(K.draw), panels: Object.isFrozen(K.panels),
+706125	      keys: Object.keys(K.hooks), names_list: Array.from(K.names || []), alias: window.__KUIPER_MODULES__ === K.modules, schema: K.schema, edition: K.edition,
+706126	      writes_refused: (() => { try { K.hooks.flyTo = null; } catch (e) {} try { K.injected = 1; } catch (e) {} try { K.modules.x = 1; } catch (e) {} return typeof K.hooks.flyTo === 'function' && !('injected' in K); })() }; });
+706127	    check('c7.frozen', 'Object.isFrozen(window.KY) and of hooks, names, cam, lit, sel, draw, panels; writes do not land', ['KY', 'hooks', 'names', 'cam', 'lit', 'sel', 'draw', 'panels'].every(k => fr[k]) && fr.writes_refused, fr);
+706128	    check('c7.hooks', 'Object.keys(KY.hooks) = the 28 names of HOOKS.md in order; KY.names = those + cam lit sel redraw draw panels refuse (35)', JSON.stringify(fr.keys) === JSON.stringify(HOOK_NAMES) && JSON.stringify(fr.names_list) === JSON.stringify([...HOOK_NAMES, ...KY_EXTRA]), { keys: fr.keys, names: fr.names_list });
+706129	    check('c7.alias', "window.__KUIPER_MODULES__ === KY.modules; KY.schema 'kuiper.hooks.v1'; KY.edition = the stamp", fr.alias && fr.schema === 'kuiper.hooks.v1' && fr.edition === STAMP, { alias: fr.alias, schema: fr.schema, edition: fr.edition });
+706130	    const kr = await h.page.evaluate(async () => { const K = window.KY, rf = () => { const d = document.getElementById('refuse'); return d && getComputedStyle(d).display !== 'none' && d.getBoundingClientRect().height > 0 ? d.textContent : null; };
+706131	      const o = { has: typeof K.refuse === 'function' }; if (!o.has) return o;
+706132	      K.refuse('probe words', 'probe-x'); await new Promise(r => setTimeout(r, 300)); o.shown = rf();
+706133	      K.refuse('', 'probe-x'); await new Promise(r => setTimeout(r, 300)); o.cleared = rf();
+706134	      for (const slot of ['engine', 'modules']) { try { K.refuse('x', slot); o[slot] = 'no throw'; } catch (e) { o[slot] = e instanceof TypeError ? 'TypeError' : String(e); } }
+706135	      const z = K.cam.atHome; try { K.cam.atHome = false; o.atHomeSet = K.cam.atHome === false; K.cam.atHome = z; } catch (e) { o.atHomeSet = 'threw ' + e; }
+706136	      return o; });
+706137	    check('c7.refuse', 'rev 3: KY.refuse(text, slot) shows its line in #refuse and clears it with empty text; slots engine and modules throw TypeError; KY.cam.atHome is settable', kr.has && /probe words/.test(kr.shown || '') && kr.cleared === null && kr.engine === 'TypeError' && kr.modules === 'TypeError' && kr.atHomeSet === true, kr);
+706138	    const w = await wafer(h.page, s); check('c7.wafer', 'a whole wafer without modules: the wafer drawn, the bar present', waferOk(w) && s.bar && s.bar.visible, { wafer: w, bar: s.bar && s.bar.titles });
+706139	    await shot(h.page, 'c7-empty-manifest');
+706140	    errOk(h, 'c7'); await h.context.close();
+706141	  // ---------------------------------------------------------------- c7b / test 7 second half: wafer.tsv held, then 404
+706142	  if (want('c7b')) {
+706143	    const h = await open('c7b', { hold: { url: '**/cosmos/wafer.tsv', status: 404 }, expect404: [/cosmos\/wafer\.tsv$/] });
+706144	    const s0 = await state(h.page), pending = h.heldAt() !== null && !h.released();
+706145	    const pw0 = (s0.modules['probe-wafer'] || {}).state || {};
+706146	    check('c7b.nowait', 'the loader finished while ../../cosmos/wafer.tsv was still pending; hello and probe-wafer admitted, the wafer promise pending', pending && ids(s0).includes('hello') && ids(s0).includes('probe-wafer') && pw0.state === 'pending',
+706147	      { wafer_pending: pending, admitted: ids(s0), probe_wafer: pw0, timings: s0.ed && s0.ed.timings });
+706148	    result.measured.c7b = { wafer_pending_when_loader_done: pending, loader_end_ms: s0.ed && s0.ed.timings && s0.ed.timings.loader_end_ms, hello_admitted_ms: ((s0.ed && s0.ed.admitted || []).find(a => a.id === 'hello') || {}).t_ms };
+706149	    await sleep(1500); h.release(); await sleep(3500);
+706150	    const s = await state(h.page), words = 'did not load. The wafer will not invent its keys.', pw = (s.modules['probe-wafer'] || {}).state || {};
+706151	    check('c7b.words', "the page says the engine's words and KY.hooks.wafer rejects with them", pw.state === 'refused' && (pw.why || '').includes(words) && ((s.refuse && s.refuse.visible && s.refuse.text.includes(words)) || (s.hud || '').includes(words)), { probe_wafer: pw, refuse: s.refuse });
+706152	    check('c7b.rest', 'every module stays admitted', JSON.stringify(ids(s)) === JSON.stringify(M.order), { admitted: ids(s) });
+706153	    errOk(h, 'c7b'); await h.context.close();
+706154	  // ---------------------------------------------------------------- c10 the builder's five
+706155	  if (want('c10')) {
+706156	    const pc = rec('probe-c'), head = '/* kuiper module probe-c, generation ' + PROBE_GEN + ' (UTC), Apache-2.0 (kuiper-belt) */\n';
+706157	    const variant = (src, recPatch) => { const man = clone(M); Object.assign(man.modules.find(x => x.id === 'probe-c'), { sha256: sha(src), bytes: Buffer.byteLength(src) }, recPatch || {}); return { manifest: man, files: { [pc.path]: src } }; };
+706158	    const cases = [
+706159	      ['c10a', 'a module with a syntax error → refused "script error: …", never admitted', variant(head + "(function () { KY.register({ ;\n"), s => /^script error: .*SyntaxError|^script error: .*Unexpected/.test(why(s, 'probe-c') || '')],
+706160	      ['c10b', 'a module that registers, then throws at top level → refused "script error: …", not admitted, no #ky-probe-c', variant(probeSource('probe-c').replace("inspect: function () { return st; } });", "inspect: function () { return st; } });\n  throw new Error('after');")), s => /^script error: .*after/.test(why(s, 'probe-c') || '') && !s.hosts.includes('ky-probe-c')],
+706161	      ['c10c', 'requires as a string in the record → refused "requires is not a list"', (() => { const man = clone(M); man.modules.find(x => x.id === 'probe-c').requires = 'fmt'; return { manifest: man }; })(), s => why(s, 'probe-c') === 'requires is not a list'],
+706162	      ['c10d', 'requires as a string in the registration → refused "registration requires is not a list"', variant(probeSource('probe-c').replace("requires: ['fmt','draw']", "requires: 'fmt'")), s => why(s, 'probe-c') === 'registration requires is not a list'],
+706163	    for (const [cid, name, o, ok] of cases) {
+706164	      const h = await open(cid, o); await sleep(1500); const s = await state(h.page);
+706165	      check(cid + '.refused', name, ok(s) && !ids(s).includes('probe-c') && !s.modules['probe-c'], { refused: s.ed && s.ed.refused, admitted: ids(s) });
+706166	      check(cid + '.rest', 'every other module admitted; #refuse[role=alert] inside the viewport', JSON.stringify(ids(s)) === JSON.stringify(others(['probe-c'])) && inside(s), { admitted: ids(s), refuse: s.refuse });
+706167	      errOk(h, cid); await h.context.close();
+706168	    { const man = clone(M); man.modules.splice(2, 0, null);
+706169	      const h = await open('c10e', { manifest: man }); await sleep(1500); const s = await state(h.page);
+706170	      check('c10e.null', 'a null record in modules is skipped: every order entry admitted, refused [], no alert, the sums still computed', s.ed && s.ed.done && JSON.stringify(ids(s)) === JSON.stringify(M.order) && s.ed.refused.length === 0 && noAlert(s) && s.ed.bytes === M.modules.reduce((a, m) => a + m.bytes, 0), { admitted: ids(s), refused: s.ed && s.ed.refused, bytes: s.ed && s.ed.bytes });
+706171	      errOk(h, 'c10e'); await h.context.close(); }
+706172	    { const man = clone(M); man.order.splice(2, 0, 'probe-a');
+706173	      const h = await open('c10f', { manifest: man }); await sleep(1500); const s = await state(h.page);
+706174	      const fetched = h.requests.filter(u => u === BASE + rec('probe-a').path).length;
+706175	      check('c10f.twice', "an id listed twice in order: admitted once, the second refused 'in order twice', fetched once, the rest admitted", JSON.stringify(ids(s)) === JSON.stringify(M.order) && s.ed.refused.length === 1 && why(s, 'probe-a') === 'in order twice' && fetched === 1 && inside(s), { admitted: ids(s), refused: s.ed && s.ed.refused, probe_a_fetches: fetched });
+706176	      errOk(h, 'c10f'); await h.context.close(); }
+706177	  if (!SKIP_PROBES && want('T')) await touchProbes();
+706178	  if (!SKIP_PROBES && want('R')) await robustProbes();
+706180	  // ---------------------------------------------------------------- NL-009 round1 04-touch
+706181	  async function ready(h) { await h.page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout: 120000 }); await sleep(7000); }
+706182	  async function touchProbes() {
+706183	    const h = await open('T', { probe: true }); const { page } = h; await ready(h);
+706184	    const cdp = await h.context.newCDPSession(page);
+706185	    const G = () => page.evaluate(() => window.__k.get());
+706186	    const VV = () => page.evaluate(() => ({ scale: visualViewport.scale, scrollY, scrollX }));
+706187	    const pts = p => p.map((q, i) => ({ x: q[0], y: q[1], id: i, radiusX: 8, radiusY: 8 }));
+706188	    const touch = (type, p) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts(p) });
+706189	    const seq = async steps => { const t0 = Date.now() / 1000; for (const [type, p, dt] of steps) await cdp.send('Input.dispatchTouchEvent', { type, timestamp: t0 + dt / 1000, touchPoints: pts(p) }); };
+706190	    const settle = async () => { const fr = () => page.evaluate(() => new Promise(r => requestAnimationFrame(a => requestAnimationFrame(b => r(b - a))))); for (let i = 0; i < 60; i++) { if (await fr() < 120 && await fr() < 120) return i; } return -1; };
+706191	    const key = k => page.evaluate(k => window.__k.key(k), k);
+706192	    const pinch = async (x, y, d0, step) => { await touch('touchStart', [[x - d0, y]]); await touch('touchStart', [[x - d0, y], [x + d0, y]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x - d0 - step * i, y], [x + d0 + step * i, y]]); await sleep(16); } await touch('touchEnd', [[x + d0 + 10 * step, y]]); await touch('touchEnd', []); await sleep(400); };
+706193	    const { W, H } = await G();
+706195	      { const a = await G(), x0 = Math.round(W * 0.5), y0 = Math.round(H * 0.55);
+706196	        await touch('touchStart', [[x0, y0]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x0 + 10 * i, y0 + 6 * i]]); await sleep(16); } await touch('touchEnd', []); await sleep(300);
+706197	        const b = await G(), v = await VV(), cancel = await page.evaluate(() => __ev.cancel), dx = +((a.cx - b.cx) * a.zoom).toFixed(2), dy = +((b.cy - a.cy) * a.zoom).toFixed(2);
+706198	        check('T1', '04-touch T1 a one-finger drag moves the camera 100 × 60 px; no pointercancel, no page scroll', Math.abs(dx - 100) < 2 && Math.abs(dy - 60) < 2 && cancel === 0 && v.scale === 1 && v.scrollY === 0, { dx, dy, cancel, vv: v }); }
+706199	      { const a = await G(), x = Math.round(W * 0.5), y = Math.round(H * 0.55), w0 = await page.evaluate(([x, y]) => window.__k.toWorld(x, y), [x, y]);
+706200	        await pinch(x, y, 50, 5); const b = await G(), w1 = await page.evaluate(([x, y]) => window.__k.toWorld(x, y), [x, y]), v = await VV();
+706201	        const ratio = +(b.zoom / a.zoom).toFixed(3), drift = +(Math.hypot(w1[0] - w0[0], w1[1] - w0[1]) * b.zoom).toFixed(3);
+706202	        check('T2', '04-touch T2 a pinch on the wafer zooms × 2.000 about the fingers; page scale 1', Math.abs(ratio - 2) < 0.05 && drift < 2 && v.scale === 1, { ratio, centre_drift_px: drift, vv: v }); }
+706203	      { const br = await page.$eval('#bar', e => { const r = e.getBoundingClientRect(); return r.top + r.height / 2; }); await pinch(Math.round(W * 0.5), Math.round(br), 40, 8);
+706204	        const v1 = await VV(); check('T2b', '04-touch T2b a pinch on the bar does not zoom the page', v1.scale === 1, { vv: v1 });
+706205	        await cdp.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1 }).catch(() => {}); await key('Escape');
+706206	        await tapSel(page, '#bar .gm-title[data-panel="lines"]'); await sleep(500);
+706207	        const ly = await page.$eval('#lines', e => { const r = e.getBoundingClientRect(); return r.top + Math.min(r.height / 2, 200); }); await pinch(Math.round(W * 0.5), Math.round(ly), 40, 8);
+706208	        const v2 = await VV(), g = await G(); check('T2c', '04-touch T2c a pinch on the open LINES panel does not zoom the page', v2.scale === 1 && g.openPanel === 'lines', { vv: v2, openPanel: g.openPanel });
+706209	        await cdp.send('Emulation.setPageScaleFactor', { pageScaleFactor: 1 }).catch(() => {}); await key('Escape'); await sleep(300); }
+706210	      { const clear = async () => { await page.evaluate(() => { card.style.display = 'none'; __k.key('Backspace'); }); await sleep(1500); await settle(); };
+706211	        const x = Math.round(W * 0.5), y = Math.round(H * 0.5);
+706212	        await clear(); await seq([['touchStart', [[x, y]], 0], ['touchEnd', [], 60]]); await sleep(300); const clean = (await G()).card;
+706213	        await clear(); await seq([['touchStart', [[x, y]], 0], ['touchEnd', [], 900]]); await sleep(300); const held = (await G()).card;
+706214	        await clear(); await seq([['touchStart', [[x, y]], 0], ['touchMove', [[x + 3, y + 2]], 20], ['touchMove', [[x + 5, y + 5]], 40], ['touchMove', [[x + 6, y + 6]], 60], ['touchEnd', [], 80]]); await sleep(300); const jit = (await G()).card;
+706215	        await clear(); await seq([['touchStart', [[x, y]], 0], ...[1, 2, 3, 4, 5, 6].map(i => ['touchMove', [[x + 5 * i, y]], 16 * i]), ['touchEnd', [], 120]]); await sleep(300); const drag = (await G()).card;
+706216	        check('T3', '04-touch T3 a 60 ms tap opens the card, a 900 ms hold does not, a 6 px jittered tap does, a 30 px drag does not', clean === 'block' && held !== 'block' && jit === 'block' && drag !== 'block', { clean, held, jitter: jit, drag30: drag }); }
+706217	      { await page.evaluate(() => { card.style.display = 'none'; }); const x = Math.round(W * 0.5), y = Math.round(H * 0.6);
+706218	        await touch('touchStart', [[x, y]]); await sleep(50); await touch('touchEnd', []); await sleep(120); await touch('touchStart', [[x, y]]); await sleep(50); await touch('touchEnd', []); await sleep(600);
+706219	        const v = await VV(); await page.evaluate(() => { __ev.ups = []; __ev.clicks = []; }); await tapSel(page, '#bar .gm-title[data-panel="hud"]'); await sleep(500);
+706220	        const lat = await page.evaluate(() => __ev.clicks.length && __ev.ups.length ? +(__ev.clicks[0][0] - __ev.ups[0][0]).toFixed(1) : null);
+706221	        check('T4', '04-touch T4 a double tap does not zoom the page; a bar tap clicks at once (< 100 ms)', v.scale === 1 && lat !== null && lat < 100, { vv: v, pointerup_to_click_ms: lat });
+706222	        await key('Escape'); await sleep(300); }
+706223	      { const put = (i, sx, sy) => page.evaluate(([i, sx, sy]) => { const b = __k.spark(i), g = __k.get(); __k.set({ zoom: 14, cx: b.x - (sx - g.W / 2) / 14, cy: b.y + (sy - g.H / 2) / 14 }); return __k.spark(i).s; }, [i, sx, sy]);
+706224	        await page.evaluate(() => { card.style.display = 'none'; edSel = -1; });
+706225	        const bb = await page.locator('#bar .gm-title[data-panel="lines"]').boundingBox(), bx = bb.x + bb.width / 2, by = bb.y + bb.height / 2;
+706226	        await put(5, bx, by); await sleep(300); await settle(); await page.touchscreen.tap(bx, by); await sleep(1500);
+706227	        const g1 = await G(); check('T5a', '04-touch T5a a bar tap over a spark opens the panel, not the spark', g1.openPanel === 'lines' && g1.edSel !== 5, { openPanel: g1.openPanel, edSel: g1.edSel });
+706228	        if (g1.openPanel) await key('Escape');
+706229	        await page.evaluate(() => { card.style.display = 'none'; edSel = -1; edCard(3); }); await sleep(300);
+706230	        const xb = await page.locator('#card .cx').boundingBox(), xx = xb.x + xb.width / 2, xy = xb.y + xb.height / 2;
+706231	        await put(7, xx, xy); await sleep(300); await settle(); await page.touchscreen.tap(xx, xy); await sleep(1500);
+706232	        const g2 = await G(); check('T5b', "04-touch T5b the card's × over a spark closes the card and does not reopen it", g2.card !== 'block', { card: g2.card, edSel: g2.edSel });
+706233	        await page.evaluate(() => { card.style.display = 'none'; edSel = -1; litRepo = -1; }); await tapSel(page, '#bar .gm-title[data-panel="hud"]'); await sleep(400);
+706234	        await page.touchscreen.tap(Math.round(W * 0.5), Math.round(H * 0.75)); await sleep(600);
+706235	        const g5 = await G(); check('T5e', '04-touch T5e a wafer tap with a panel open only dismisses the panel', !g5.openPanel && g5.card !== 'block', { openPanel: g5.openPanel, card: g5.card }); }
+706236	      { const back = async () => { await page.goBack({ waitUntil: 'commit' }).catch(() => {}); await sleep(900); return page.evaluate(() => !!window.__k).catch(() => false); };
+706237	        const armed = async () => { const t0 = Date.now(); await page.waitForFunction(() => !!(history.state && history.state.kuiper), null, { timeout: 15000 }).catch(() => {}); return Date.now() - t0; };   // the entry is armed on the next drawn frame (04-touch.md LIMITS); under SwiftShader that can take seconds
+706238	        const recover = async () => { await page.goForward({ waitUntil: 'commit' }).catch(() => {}); await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout: 120000 }).catch(() => {}); await sleep(6000); };
+706239	        await page.evaluate(() => { card.style.display = 'none'; }); await tapSel(page, '#bar .gm-title[data-panel="lines"]'); await sleep(400);
+706240	        let wa = await armed(), al = await back(), g = al ? await G() : null;
+706241	        check('T6a', '04-touch T6a back with a panel open closes the panel and stays on the page', al && !g.openPanel, { alive: al, openPanel: g && g.openPanel, armed_after_ms: wa }); if (!al) await recover();
+706242	        await page.evaluate(() => edCard(2)); await sleep(300); wa = await armed(); al = await back(); g = al ? await G() : null;
+706243	        check('T6b', '04-touch T6b back with the card open closes the card', al && g.card !== 'block', { alive: al, card: g && g.card, armed_after_ms: wa }); if (!al) await recover();
+706244	        await page.evaluate(() => edCard(4)); await sleep(200); await page.keyboard.press('Escape'); await sleep(300);
+706245	        g = await G(); check('T6d', '04-touch T6d Escape closes the card', g.card !== 'block', { card: g.card });
+706246	        await tapSel(page, '#bar .gm-title[data-panel="lines"]'); await sleep(400); await page.evaluate(() => { __k.key('Escape'); edCard(6); }); await sleep(1500);
+706247	        g = await G(); check('T6f', "04-touch T6f a panel closed and a card opened in one task: the card survives the page's own back()", g.card === 'block', { card: g.card, edSel: g.edSel });
+706248	        wa = await armed(); al = await back(); g = al ? await G() : null; check('T6g', '04-touch T6g a user back after that race closes the card', al && g.card !== 'block', { alive: al, card: g && g.card }); if (!al) await recover(); }
+706249	      { await page.evaluate(() => { card.style.display = 'none'; }); await settle(); const x = Math.round(W * 0.5), y = Math.round(H * 0.65);
+706250	        await touch('touchStart', [[x, y]]); await sleep(900); await touch('touchEnd', []); await sleep(300);
+706251	        const c1 = await page.evaluate(() => ({ card: __k.get().card, selection: getSelection().toString().length }));
+706252	        const syn = await page.evaluate(() => ({ canvas: !document.getElementById('c').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true, clientX: 200, clientY: 500 })),
+706253	          bar: !document.querySelector('#bar .gm-title').dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true })) }));
+706254	        check('T7', '04-touch T7 a 900 ms press opens nothing; contextmenu is prevented on the wafer and the bar', c1.card !== 'block' && c1.selection === 0 && syn.canvas && syn.bar, { press: c1, contextmenu_prevented: syn }); }
+706255	    } catch (e) { check('T.harness', '04-touch probes ran to the end', false, { error: String(e.stack || e).slice(0, 600) }); }
+706256	    await shot(page, 'T-touch-probes');
+706257	    errOk(h, 'T'); await h.context.close();
+706258	  // ---------------------------------------------------------------- NL-009 round1 09-robust
+706259	  async function robustProbes() {
+706260	    const G2 = page => page.evaluate(() => window.__k.get());
+706261	    { const h = await open('R', { probe: true }); const { page } = h; await ready(h);
+706263	        await tapSel(page, '#bar .gm-title[data-panel="hud"]'); await sleep(400); await page.keyboard.press('e'); await sleep(7000);
+706264	        const hud = await page.$eval('#hud', e => ({ top: e.style.top, y: +e.getBoundingClientRect().y.toFixed(1) })), barB = await page.$eval('#bar', e => +e.getBoundingClientRect().bottom.toFixed(1));
+706265	        check('R1', '09-robust R1 READOUT after a pick sits under the bar, not at 0', parseFloat(hud.top) >= barB - 1 && hud.y >= barB - 1, { hud, bar_bottom: barB });
+706266	        const aria = await page.evaluate(() => { const q = s => document.querySelector(s), t = [...document.querySelectorAll('#bar .gm-title')];
+706267	          return { bar: q('#bar').getAttribute('role'), titles: t.map(b => ({ panel: b.dataset.panel, controls: b.getAttribute('aria-controls'), expanded: b.getAttribute('aria-expanded'), target: !!(b.getAttribute('aria-controls') && document.getElementById(b.getAttribute('aria-controls'))) })),
+706268	            panels: ['top', 'hud', 'lines', 'foot'].map(id => { const e = q('#' + id); return e ? [id, e.getAttribute('role'), e.getAttribute('aria-label')] : [id, null, null]; }),
+706269	            card: [q('#card').getAttribute('role'), q('#card').getAttribute('aria-live')], ct: q('#card .ct') ? [q('#card .ct').tagName, q('#card .ct').getAttribute('aria-expanded')] : null }; });
+706270	        await page.keyboard.press('Escape'); await sleep(300);
+706271	        const rows = await page.evaluate(() => { const r = [...document.querySelectorAll('#lineslist [data-i]')]; return { n: r.length, tabindex0: r.filter(e => e.getAttribute('tabindex') === '0').length }; });
+706272	        await page.focus('#lineslist [data-i]'); await page.keyboard.press('Enter'); await sleep(1200);
+706273	        const after = await G2(page);
+706274	        const titlesOk = aria.titles.filter(t => ['top', 'hud', 'lines', 'foot'].includes(t.panel));
+706275	        check('R8', '09-robust R8 toolbar, aria-controls/aria-expanded (READOUT true when open), named regions, card live region, details button, rows focusable, Enter opens a row',
+706276	          aria.bar === 'toolbar' && titlesOk.length === 4 && titlesOk.every(t => t.target && (t.expanded === 'true' || t.expanded === 'false')) && titlesOk.find(t => t.panel === 'hud').expanded === 'true'
+706277	          && aria.panels.every(p => p[1] === 'region' && p[2]) && aria.card[0] === 'region' && aria.card[1] === 'polite' && aria.ct && aria.ct[0] === 'BUTTON' && aria.ct[1] !== null
+706278	          && rows.n > 0 && rows.tabindex0 === rows.n && after.card === 'block' && !after.openPanel, { aria, rows, after_enter: { card: after.card, openPanel: after.openPanel, edSel: after.edSel } });
+706279	        await tapSel(page, '#bar .gm-title[data-panel="hud"]'); await sleep(400);
+706280	        await page.keyboard.press('Escape'); await sleep(300); const e1 = await G2(page); await page.keyboard.press('Escape'); await sleep(300); const e2 = await G2(page);
+706281	        check('R3', '09-robust R3 Escape closes the panel, then the card', !e1.openPanel && e1.card === 'block' && e2.card !== 'block', { first: { openPanel: e1.openPanel, card: e1.card }, second: { openPanel: e2.openPanel, card: e2.card } });
+706282	        const vp = dev.viewport, geo = [];
+706283	        // the canvas follows on the next resize event, which Chromium dispatches with a frame; under SwiftShader on a shared
+706284	        // machine a frame can take seconds, so wait (up to 30 s) for the canvas to follow and record how long it took
+706285	        for (const [w, hh] of [[vp.height, vp.width], [vp.width, vp.height], [vp.width, vp.height - 56]]) { const t0 = Date.now(); await page.setViewportSize({ width: w, height: hh });
+706286	          await page.waitForFunction(([w, hh]) => document.getElementById('c').width === w && document.getElementById('c').height === hh, [w, hh], { timeout: 30000 }).catch(() => {}); const followMs = Date.now() - t0; await sleep(2000);
+706287	          geo.push(Object.assign(await page.evaluate(() => { const c = document.getElementById('c'), p = document.querySelector('.gm-open'), b = document.getElementById('bar').getBoundingClientRect(); return { w: innerWidth, h: innerHeight, cw: c.width, ch: c.height, panelTop: p ? parseFloat(p.style.top) : null, barBottom: +b.bottom.toFixed(1) }; }), { follow_ms: followMs })); }
+706288	        await page.setViewportSize(vp); await sleep(2000);
+706289	        check('R2', '09-robust R2 rotation and the toolbar: the canvas follows the window, the open panel sits under the bar', geo.every(g => g.cw === g.w && g.ch === g.h && g.panelTop !== null && g.panelTop >= g.barBottom - 1 && g.panelTop <= g.barBottom + 6), { geo });
+706290	      } catch (e) { check('R.harness', '09-robust R1 R2 R3 R8 ran to the end', false, { error: String(e.stack || e).slice(0, 600) }); }
+706291	      errOk(h, 'R'); await h.context.close(); }
+706292	    { const h = await open('R4', { probe: true, ctxOpts: { reducedMotion: 'reduce' } }); const { page } = h; await ready(h);
+706293	      const z = await page.evaluate(() => new Promise(res => { const seen = []; let n = 0; const f = () => { seen.push(+window.KY.cam.zoom.toFixed(4)); if (++n < 60) requestAnimationFrame(f); else res(seen); }; window.__k.key('e'); requestAnimationFrame(f); }));
+706294	      const distinct = [...new Set(z)];
+706295	      check('R4', '09-robust R4 prefers-reduced-motion: the camera lands in one step after e (one zoom value)', distinct.length === 1, { distinct: distinct.slice(0, 40), frames: z.length });
+706296	      errOk(h, 'R4'); await h.context.close(); }
+706297	    { const h = await open('R5', { status: { 'keys.json': 404, 'keys-min.json': 404 }, expect404: [/keys(-min)?\.json$/] }); const { page } = h; await sleep(FIXED_WAIT);
+706298	      await tapSel(page, '#bar .gm-title[data-panel="lines"]'); await sleep(1500);
+706299	      const t = await page.evaluate(() => ({ big: document.getElementById('big').textContent, lines: (document.getElementById('lineslist') || {}).textContent || '' }));
+706300	      check('R5', '09-robust R5 keys.json 404 is said in EDITION and LINES', /keys\.json did not load/i.test(t.big) && /keys\.json did not load/i.test(t.lines), t);
+706301	      errOk(h, 'R5'); await h.context.close(); }
+706302	    { const context = await browser.newContext({ ...dev, javaScriptEnabled: false }); const page = await context.newPage();
+706303	      await page.goto(BASE, { waitUntil: 'load' }); const t = await page.evaluate(() => document.body.innerText).catch(() => ''), c = await page.content();
+706304	      check('R7', '09-robust R7 with JavaScript off the <noscript> sentence renders', /<noscript>/i.test(c) && t.trim().length > 20, { innerText: t.trim().slice(0, 200) });
+706305	      await context.close(); }
+706306	    { const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-webgl2'] }); const context = await b2.newContext({ ...dev }); const page = await context.newPage();
+706307	      const errs = [], exp = []; page.on('pageerror', e => { const t = String(e.message || e); (/WebGL2 is not available/.test(t) ? exp : errs).push(t); }); page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+706308	      await page.goto(BASE, { waitUntil: 'load' }); await sleep(3000);
+706309	      const r = await page.evaluate(() => { const d = document.getElementById('refuse'); return d ? { role: d.getAttribute('role'), text: d.textContent, visible: getComputedStyle(d).display !== 'none' && d.getBoundingClientRect().height > 0 } : null; });
+706310	      check('R6', "09-robust R6 WebGL off: #refuse[role=alert] says WebGL2 in words; the engine's throw names itself 'WebGL2 is not available'", !!r && r.role === 'alert' && r.visible && /WebGL2/.test(r.text) && exp.length >= 1, { refuse: r, deliberate_pageerror: exp });
+706311	      check('R6.errors', 'no other console error or pageerror with WebGL off', errs.length === 0, { errors: errs });
+706312	      await b2.close(); }
+706313	// ------------------------------------------------------------------ c0 the hand-off's hashes and the reference copy
+706314	function handoffCheck(S) {
+706315	  const out = { runs: [] }, f = path.join(HERE, 'MODULE.sha256');
+706316	  if (!fs.existsSync(f)) return { pass: false, runs: [], note: 'no MODULE.sha256' };
+706317	  for (const line of fs.readFileSync(f, 'utf8').split('\n').filter(l => l.trim())) { const [h, p] = line.trim().split(/\s+/);
+706318	    const abs = [path.join(EDITION_DIR, p), path.join(HERE, p)].find(x => fs.existsSync(x)), got = abs ? sha(fs.readFileSync(abs)) : null;
+706319	    out.runs.push({ check: 'MODULE.sha256 ' + p, recorded: h, measured: got, ok: got === h }); }
+706320	  const ref = fs.readdirSync(path.join(EDITION_DIR, 'modules')).filter(x => /^\d{12}-loader\.js$/.test(x)).sort().pop();
+706321	  if (ref) { const mark = /\/\/ =+ KUIPER HOOK TABLE AND LOADER kuiper\.hooks\.v1 · begin[^\n]*\n[\s\S]*?\/\/ =+ KUIPER HOOK TABLE AND LOADER kuiper\.hooks\.v1 · end/;
+706322	    const a = (fs.readFileSync(path.join(EDITION_DIR, 'modules', ref), 'utf8').match(mark) || [])[0], b = (S.html.match(mark) || [])[0];
+706323	    out.runs.push({ check: 'modules/' + ref + ' ≡ the patched page between the marker lines', bytes: a ? Buffer.byteLength(a) : null, ok: !!a && a === b }); }
+706324	  // the patch keeps what the integrator added to the page since the skeleton: every line of the base page that is not in
+706325	  // the skeleton's page must be in the patched page, unless the patch names it as a removed ('-') line (rev 3 lost 48)
+706326	  if (S.base && S.patchText != null) { const first = cp.spawnSync('git', ['-C', REPO, 'log', '--diff-filter=A', '--format=%H', '--', path.relative(REPO, path.join(EDITION_DIR, 'index.html'))], { encoding: 'utf8' }).stdout.trim().split('\n').pop();
+706327	    const skel = first ? cp.spawnSync('git', ['-C', REPO, 'show', first + ':' + path.relative(REPO, path.join(EDITION_DIR, 'index.html'))], { encoding: 'utf8', maxBuffer: 1 << 26 }).stdout : null;
+706328	    if (skel) { const sk = new Set(skel.split('\n')), out_ = new Set(S.html.split('\n')), minus = new Set(S.patchText.split('\n').filter(l => l.startsWith('-') && !l.startsWith('---')).map(l => l.slice(1)));
+706329	      const added = S.base.split('\n').filter(l => l.trim() && !sk.has(l)), lost = added.filter(l => !out_.has(l)), unnamed = lost.filter(l => !minus.has(l));
+706330	      out.runs.push({ check: 'the integrator\'s ' + added.length + ' lines since ' + first.slice(0, 7) + ' kept in the patched page (removals only where the patch names them)', removed_by_patch: lost.map(l => l.trim().slice(0, 160)), removed_unnamed: unnamed.map(l => l.trim().slice(0, 160)), ok: unnamed.length === 0 }); } }
+706331	  if (S.integrated) out.runs.push({ check: 'the committed page is index.html.patch applied (patch -R --dry-run is clean)', patch_sha256: S.integrated.patch_sha256, out: S.integrated.out, ok: S.integrated.reverses_cleanly });
+706332	  const hello = S.manifest.modules.find(m => m.id === 'hello'), hb = fs.readFileSync(path.join(S.ed, hello.path));
+706333	  out.runs.push({ check: hello.path + ' = its record (sha256, bytes, generation = file name)', ok: sha(hb) === hello.sha256 && hb.length === hello.bytes && path.basename(hello.path).startsWith(hello.generation + '-') });
+706334	  out.pass = out.runs.every(r => r.ok); return out;
+706335	// ------------------------------------------------------------------ c8 / test 8: edition_check.py E1-E8 on a copy, and on each mutation
+706336	// The folder layout and the mutations follow the first draft of this test by the team 4 lead (21:52 UTC).
+706337	function editionCheck(S) {
+706338	  const first = JSON.parse(fs.readFileSync(path.join(HERE, 'modules.json'), 'utf8')), hello = first.modules.find(m => m.id === 'hello');
+706339	  const tmp = path.join(SCRATCH, 'c8'); fs.rmSync(tmp, { recursive: true, force: true }); fs.mkdirSync(tmp, { recursive: true });
+706340	  const tool = path.join(REPO, 'tools', 'edition_check.py'), toolFrom = fs.existsSync(tool) ? 'tools/edition_check.py' : 'handoff/04-loader/edition_check.py.patch';
+706341	  const prev = fs.readdirSync(path.join(REPO, 'editions')).filter(f => /^\d{12}$/.test(f) && f < STAMP).sort().pop();
+706342	  const mk = name => { const d = path.join(tmp, name), e = path.join(d, 'editions', STAMP);
+706343	    fs.mkdirSync(path.join(e, 'modules'), { recursive: true }); fs.mkdirSync(path.join(d, 'tools'));
+706344	    fs.copyFileSync(path.join(REPO, 'editions', 'index.html'), path.join(d, 'editions', 'index.html'));
+706345	    if (prev) fs.cpSync(path.join(REPO, 'editions', prev), path.join(d, 'editions', prev), { recursive: true });
+706346	    for (const f of ['keys.json', 'README.md']) fs.copyFileSync(path.join(EDITION_DIR, f), path.join(e, f));
+706347	    fs.writeFileSync(path.join(e, 'index.html'), S.html);   // the same patched page the browser cases use
+706348	    for (const f of [hello.path, ...(first.references || []).map(r => r.file)]) fs.copyFileSync(path.join(EDITION_DIR, f), path.join(e, f));
+706349	    fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(first, null, 1));
+706350	    if (fs.existsSync(tool)) fs.copyFileSync(tool, path.join(d, 'tools', 'edition_check.py'));
+706351	    else cp.execFileSync('patch', ['-p1', '-s', '-i', path.join(HERE, 'edition_check.py.patch')], { cwd: d });
+706352	    return { d, e }; };
+706353	  const proof = e => { const lines = []; const walk = p => { for (const f of fs.readdirSync(p).sort()) { const q = path.join(p, f);
+706354	      if (fs.statSync(q).isDirectory()) { if (f !== 'handoff') walk(q); } else if (!q.endsWith('edition-sha256.txt')) lines.push(sha(fs.readFileSync(q)) + '  ./' + path.relative(e, q)); } };
+706355	    walk(e); fs.mkdirSync(path.join(e, 'proof'), { recursive: true }); fs.writeFileSync(path.join(e, 'proof', 'edition-sha256.txt'), lines.join('\n') + '\n'); };
+706356	  const run = d => { const r = cp.spawnSync('python3', ['tools/edition_check.py', 'editions/' + STAMP], { cwd: d, encoding: 'utf8', timeout: 300000 }); return { exit: r.status, out: (r.stdout + r.stderr).trim().split('\n') }; };
+706357	  const J = e => JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))), W = (e, m) => fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m, null, 1));
+706358	  const mut = {
+706359	    hash: e => { const p = path.join(e, hello.path), b = fs.readFileSync(p); b[b.indexOf('cyan')] ^= 1; fs.writeFileSync(p, b); },
+706360	    stamp: e => { const np = 'modules/202611012146-hello.js'; fs.renameSync(path.join(e, hello.path), path.join(e, np)); const m = J(e); m.modules[0].path = np; W(e, m); },
+706361	    requires: e => { const m = J(e); m.modules[0].requires.push('noSuchHook'); W(e, m); },
+706362	    stray: e => fs.writeFileSync(path.join(e, 'modules', '202611012150-stray.js'), '/* stray */\n'),
+706363	    writes: e => { const m = J(e); m.modules[0].writes.push('#ky-nowhere'); W(e, m); },
+706364	    register_twice: e => { const p = path.join(e, hello.path), t = fs.readFileSync(p, 'utf8') + '// KY.register( again\n'; fs.writeFileSync(p, t); const m = J(e); Object.assign(m.modules[0], { sha256: sha(Buffer.from(t)), bytes: Buffer.byteLength(t) }); W(e, m); },
+706365	    no_licence: e => { const m = J(e); m.modules[0].licence = ''; W(e, m); } };
+706366	  const out = { tool: toolFrom, previous_edition: prev, runs: [] };
+706367	  const c = mk('committed'); proof(c.e); const r0 = run(c.d);
+706368	  const e18 = ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'].map(k => [k, r0.out.some(l => l.startsWith(k + ' PASS'))]);
+706369	  out.runs.push({ case: 'copy of the folder with team 4\'s records', expect: 'PASS, E1-E8 each PASS', exit: r0.exit, e1_e8: Object.fromEntries(e18), ok: r0.exit === 0 && e18.every(x => x[1]), out: r0.out });
+706370	  for (const [k, f] of Object.entries(mut)) { const m = mk(k); f(m.e); proof(m.e); const r = run(m.d);
+706371	    out.runs.push({ case: 'mutation ' + k, expect: 'FAIL (exit 1)', exit: r.exit, ok: r.exit === 1, fails: r.out.filter(l => / FAIL/.test(l)).slice(0, 4) }); }
+706372	  const S = prepareScratch();
+706373	  process.stderr.write(`scratch ${S.root}\npage: ${S.how}\norder: ${S.manifest.order.join(', ')}\nout ${OUT}\n`);
+706374	  const report = { schema: 'opus4.loader-test.v1', stamp: STAMP, started: new Date().toISOString(), url: `http://127.0.0.1:${PORT}/editions/${STAMP}/`, scratch: S.root, page: S.how, page_sha256: S.htmlSha,
+706375	    bases: S.bases, manifest: S.manifest, c0: null, c8: null, devices: [] };
+706376	  if (want('c0')) { report.c0 = handoffCheck(S); process.stderr.write(`[all] ${report.c0.pass ? 'PASS' : 'FAIL'} c0 MODULE.sha256 and the loader reference\n`); }
+706377	  if (want('c8')) { try { report.c8 = editionCheck(S); } catch (e) { report.c8 = { pass: false, error: String(e.stack || e).slice(0, 800) }; } process.stderr.write(`[all] ${report.c8.pass ? 'PASS' : 'FAIL'} c8 edition_check.py E1-E8 and its mutations\n`); }
+706378	  const server = await serve(S.root);
+706379	  let browser;
+706380	  try { browser = await chromium.launch({ args: LAUNCH }); for (const d of DEVICES) report.devices.push(await runDevice(browser, d, S)); }
+706381	  finally { if (browser) await browser.close().catch(() => {}); server.kill(); }
+706382	  const fails = [];
+706383	  for (const d of report.devices) for (const c of d.checks) if (!c.pass) fails.push(d.device + ' ' + c.id);
+706384	  if (report.c0 && !report.c0.pass) fails.push('c0'); if (report.c8 && !report.c8.pass) fails.push('c8');
+706385	  report.pass = fails.length === 0; report.fails = fails; report.finished = new Date().toISOString();
+706386	  fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 1));
+706387	  process.stderr.write(`\n${report.pass ? 'PASS' : 'FAIL'} · ${report.devices.map(d => d.device + ' ' + d.checks.filter(c => c.pass).length + '/' + d.checks.length).join(' · ')}${fails.length ? ' · failing: ' + fails.join(', ') : ''}\nreport ${path.join(OUT, 'report.json')}\n`);
+706388	  process.exit(report.pass ? 0 : 1);
+706389	})().catch(e => { process.stderr.write('HARNESS ERROR ' + (e.stack || e) + '\n'); process.exit(2); });
+706391	"""build-see-through-json.py  Opus team 5, NL-010 step 5.6: the 5,800 See Through star keys as a Kuiper layer.
+706392	Writes editions/<stamp>/data/see-through.json, a code-feature-collection.v1 (galaxies-wafers@fff6fc6 README.md:11-18;
+706393	team-2/STEPS.md 3.2): geometry carries keys, never coordinates; the Kuiper places each key with keyPlace and nothing else.
+706394	The law, quoted (kuiper-belt see-through/202610050609/descent.js):
+706395	  :19   var NRULE = 20000;   // grid.js N: particle i carries key floor((i + 0.5) * SPACE / NRULE)
+706396	  :963  key = Math.floor((ki + 0.5) * S.SPACE / NRULE)
+706397	  :965  if (c === 0) S.subKey[p] = key;            -> star j < 5800 is the star that lands on substation j
+706398	The SPACE remap (ROADMAP step 5.6): See Through freezes SPACE 59,637,070,538 (kuiper-law.js:36); the wafer today is
+706399	cosmos/wafer-meta.json:4 address_space. This layer is cut with the WAFER's address_space, so the sky and the wafer agree;
+706400	the old star key of substation j under the frozen sky is recomputed by the remap formula in law.remap (not stored).
+706401	Names: see-through/202610050609/grid-data.js KGGridData.substations.names (OpenStreetMap contributors, ODbL 1.0).
+706402	Integer arithmetic: floor((2j+1) * SPACE / 40000) == floor((j+0.5)*SPACE/20000) exactly; the script also checks that
+706403	the float64 expression See Through evaluates gives the same integer for every j (asserted below).
+706404	Usage, from the kuiper-belt root:  python3 editions/202611012135/handoff/05-see-through/build-see-through-json.py
+706405	(CERN-OHL-S v2, as the module: it quotes and evaluates See Through's star-key rule above, ROADMAP 9.8. Names are ODbL 1.0 data.)
+706407	import hashlib, json, os, re, subprocess, sys
+706408	EDITION = '202611012135'
+706409	ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..', '..'))
+706410	ST = 'see-through/202610050609'
+706411	NRULE, NSUB, FROZEN = 20000, 5800, 59637070538          # descent.js:19, :20; kuiper-law.js:36
+706412	def rd(p):
+706413	    with open(os.path.join(ROOT, p), 'rb') as f:
+706414	        return f.read()
+706415	def sha(b):
+706419	        return subprocess.check_output(['git', '-C', ROOT, 'rev-parse', 'HEAD'], text=True).strip()
+706421	        return 'UNKNOWN'
+706422	def star_key(j, space):
+706423	    return ((2 * j + 1) * space) // (2 * NRULE)
+706425	    meta_b = rd('cosmos/wafer-meta.json'); meta = json.loads(meta_b)
+706426	    space = int(meta['address_space'])
+706427	    # re-sum, never trust one number: lines + gap_before over cosmos/wafer.tsv (index.html:203-208)
+706428	    wafer_b = rd('cosmos/wafer.tsv'); k = 0
+706429	    for line in wafer_b.decode().split('\n'):
+706430	        if not line or line[0] == '#':
+706432	        p = line.split('\t'); k += int(p[4]) + int(p[1])
+706433	    if k != space:
+706434	        sys.exit('REFUSED: cosmos/wafer.tsv sums to %d, wafer-meta.json says %d' % (k, space))
+706435	    gd_b = rd(ST + '/grid-data.js'); gd = gd_b.decode()
+706436	    m = re.search(r'\(window\.KGGridData = (\{.*\})\);\s*$', gd, re.S)
+706438	        sys.exit('REFUSED: grid-data.js shape not recognised')
+706439	    G = json.loads(m.group(1)); subs = G['substations']
+706440	    if int(subs['n']) != NSUB:
+706441	        sys.exit('REFUSED: grid-data.js substations.n %s != %d' % (subs['n'], NSUB))
+706442	    names = subs.get('names') or {}
+706443	    feats, named = [], 0
+706444	    for j in range(NSUB):
+706445	        key = star_key(j, space)
+706446	        assert key == int(((j + 0.5) * space) // NRULE) == int(__import__('math').floor((j + 0.5) * space / NRULE)), j
+706447	        assert 0 <= key < space
+706448	        nm = names.get(str(j)) if isinstance(names, dict) else (names[j] if j < len(names) else None)
+706449	        nm = nm or ''
+706450	        named += 1 if nm else 0
+706451	        props = {'sub': j}
+706453	            props['name'] = nm                     # 1,340 substations have no name in the public file; nameOf says so
+706454	        feats.append({'type': 'Feature', 'geometry': {'type': 'Point', 'key': key}, 'properties': props})
+706456	        'type': 'CodeFeatureCollection', 'format': 'code-feature-collection.v1', 'substrate': 'kuiper.wafer.v1',
+706457	        'layer': {'id': 'see-through', 'key': 'layer:see-through', 'label': 'See Through stars', 'group': 'THE APPS',
+706458	                  'colour': '#2ee6e6', 'meaning': 'the instrument',
+706459	                  'note': 'The 5,800 stars of See Through that land on the 5,800 UK substations: star j carries key '
+706460	                          'floor((j + 0.5) * SPACE / 20000), placed here by keyPlace, the same law See Through uses. '
+706461	                          'A star is a line of code, not a substation; tap one to fall to its substation in See Through.'},
+706462	        'licence': 'ODbL 1.0: a derived database of 4,460 OpenStreetMap substation names (c) OpenStreetMap contributors; '
+706463	                   'the star keys are arithmetic of See Through\'s rule (CERN-OHL-S v2, see-through/202610050609/LICENSE.md:3-6)',
+706464	        'attribution': 'Substation names (c) OpenStreetMap contributors, ODbL 1.0 (see-through/202610050609/NOTICE.md:22-25; grid-data.js:7)',
+706465	        'law': {'nrule': NRULE, 'nsub': NSUB, 'formula': 'key_j = floor((j + 0.5) * space / nrule), j < nsub',
+706466	                'source': 'kuiper-belt see-through/202610050609/descent.js:19, :963, :965',
+706467	                'space': space, 'space_source': 'cosmos/wafer-meta.json:4 address_space',
+706468	                'space_frozen': FROZEN, 'space_frozen_source': 'see-through/202610050609/kuiper-law.js:36',
+706469	                'remap': 'j = floor(key * nrule / space_old); valid when floor((j + 0.5) * space_old / nrule) == key; '
+706470	                         'then key_new = floor((j + 0.5) * space_new / nrule)'},
+706471	        'see_through': '202610050609', 'edition': EDITION, 'space': space,
+706472	        'provenance': {'kuiper': git_head(), 'sources': [
+706473	            {'path': 'cosmos/wafer-meta.json', 'sha256': sha(meta_b)},
+706474	            {'path': 'cosmos/wafer.tsv', 'sha256': sha(wafer_b)},
+706475	            {'path': ST + '/grid-data.js', 'sha256': sha(gd_b)}],
+706476	            'tool': 'editions/' + EDITION + '/handoff/05-see-through/build-see-through-json.py'},
+706477	        'stats': {'features': NSUB, 'named': named, 'unnamed': NSUB - named,
+706478	                  'min_key': feats[0]['geometry']['key'], 'max_key': feats[-1]['geometry']['key']},
+706479	        'features': feats}
+706480	    dst = os.path.join(ROOT, 'editions', EDITION, 'data', 'see-through.json')
+706481	    b = (json.dumps(out, ensure_ascii=False, separators=(',', ':')) + '\n').encode()
+706482	    with open(dst, 'wb') as f:
+706483	        f.write(b)
+706484	    print(json.dumps({'file': os.path.relpath(dst, ROOT), 'bytes': len(b), 'sha256': sha(b), 'features': NSUB,
+706485	                      'named': named, 'space': space, 'min_key': out['stats']['min_key'], 'max_key': out['stats']['max_key']}))
+706488	// test.cjs — Opus team 5, NL-010 roadmap step 5 "See Through, the star player": the hand-off test, measured, not eyeballed.
+706489	// Written by OPUS-5 tester in the form of FIXES/NL-009/android-journey.cjs (Playwright, real touch, a JSON report,
+706490	// exit 0 only when every step of every device passed).
+706491	//   node test.cjs [baseUrl] [outdir] [--devices "Pixel 7 @393,Galaxy S24"] [--all] [--mode auto|integrated|manifest|preview|shim]
+706492	//                 [--with kuiper-shell,line-card,...] [--img <dir>] [--module <file>]
+706493	//   baseUrl  the kuiper-belt repository root as served (default http://127.0.0.1:8452/, team 5 tester's port)
+706494	//   outdir   screenshots and report.json (default /tmp/nl010-opus/team-5/tester/run)
+706495	//   --img    also write the four hand-off screenshots (each PNG < 300 KB) into this folder (handoff/05-see-through/img)
+706496	//   --title-min <px>  the width from which the entry must be a bar title (default 381, ROADMAP R7/Q7; team 1's shell uses 434)
+706497	//   --all    adds Pixel 7 at its native 412 px, Pixel 7 at 430 px, Pixel 7 landscape and a 1280x800 desktop
+706498	// Devices (default): "Pixel 7 @393" = devices['Pixel 7'] with the viewport 393 x 839 (the 393 px class the roadmap names,
+706499	// ROADMAP.md step 5 A1; Playwright's own Pixel 7 is 412 px wide); "Galaxy S24" = devices['Galaxy S24'] 360 x 780.
+706500	// How the module gets into the page (report.mode says which one ran; TEST.md states it):
+706501	//   integrated  the page itself carries the hook table (index.html contains 'kuiper.hooks.v1') and modules.json lists
+706502	//               id 'see-through': nothing is changed, this is the edition as it will ship.
+706503	//   manifest    the page carries the hook table and the loader, but modules.json does not list see-through yet: the test
+706504	//               serves modules.json with one record appended (sha256 and bytes measured from the file on disk), so the
+706505	//               edition's own loader admits the module.
+706506	//   preview     (auto, when index.html has no hook table yet but handoff/04-loader/index.html.patch exists) the test builds,
+706507	//               in <outdir>/preview only, index.html + team 4's loader patch (+ handoff/02-card/index.patch when line-card is
+706508	//               included, + handoff/03-layers/index.html.after-04-loader.patch when layers is; each patch all hunks or none)
+706509	//               and a modules.json of the modules on disk in the roadmap's integration order (kuiper-shell, line-card,
+706510	//               layers, file, see-through, apps, drift; --with a,b narrows it), and serves those two files by route.
+706511	//   shim        the page has no hook table yet (Edition 4 copy): the test serves index.html with a minimal hook table
+706512	//               built from handoff/04-loader/HOOKS.md (kuiper.hooks.v1, the 28 hooks plus cam lit sel redraw draw panels)
+706513	//               and a minimal loader that hashes, admits or refuses the module in words. Nothing on disk is changed.
+706514	// What is asserted (the caller's list; ROADMAP.md step 5 A1, A2, A4, A5, A8; team-3/STEPS.md step 5):
+706515	//   static   the module file: header line 1 names the licence, CERN-OHL-S-2.0 whenever the body carries See Through code
+706516	//            (ROADMAP step 9's register: such a module cannot be Apache-2.0),
+706517	//            generation in the header = file name stamp = registration; one KY.register; node --check; MODULE.sha256
+706518	//            data/see-through.json: 5,800 features, key_j = floor((j + 0.5) * SPACE / 20000) recomputed with BigInt,
+706519	//            all < SPACE, space = cosmos/wafer-meta.json address_space, 0 remap failures (j = floor(key * 20000 / space)
+706520	//            gives back j and the key), every point placed by the law, the ODbL attribution in the file
+706521	//   load     the module admitted, zero console errors
+706522	//   entry    "#kuiper-star" exists exactly once, an <a> to ../../see-through/ (same origin, same tab), aria-label/title the
+706523	//            homepage sentence; >= 381 px: in the bar, first and leftmost title, the widest .gm-title, on the titles' y,
+706524	//            lit at rest, bar one row; <= 380 px: the same node inside #kuiper-star-strip, x 8, bottom innerHeight - 8,
+706525	//            44 px tall, >= 100 px wide, the bar still one row; the entry is not covered (hit test at its centre)
+706526	//   layer    in the page: KY.hooks.keyPlace(key) equals the law for all 5,800 keys; the module's inspect() reports
+706527	//            5,800 records, 5,800 placed, 0 remap failures; KY.layers row 'OK' when the registry is admitted
+706528	//   tap      a real touch on the entry navigates in the same tab to /see-through/ on the same host (through the pointer),
+706529	//            title "See Through"; page.goBack() returns to the edition with the entry once, no panel open
+706530	//   spark    the card of a spark (keyboard 'e', as the journey does) carries an <a> to ../../see-through/#key=<key>
+706531	//            (ROADMAP 5.7; team-3/STEPS.md 5.7 adds &space=<SPACE>, accepted only with the wafer's SPACE); a real touch on
+706532	//            it lands on See Through with exactly that hash; back returns to the edition
+706533	//   errors   zero console errors, page errors and failed requests on every page of every device
+706534	const fs = require('fs'), path = require('path'), crypto = require('crypto'), http = require('http'), cp = require('child_process');
+706535	const positional = []; for (let i = 0; i < argv.length; i++) { if (argv[i].startsWith('--')) { if (!['--all'].includes(argv[i])) i++; } else positional.push(argv[i]); }
+706536	const BASE = (positional[0] || 'http://127.0.0.1:8452/').replace(/\/?$/, '/');
+706537	const OUT = path.resolve(positional[1] || '/tmp/nl010-opus/team-5/tester/run');
+706538	const IMG = flag('--img') ? path.resolve(String(flag('--img'))) : null;
+706539	const MODE_ARG = String(flag('--mode') || 'auto');
+706540	const EDDIR = path.resolve(__dirname, '..', '..');            // editions/<stamp>/
+706541	const ROOT = path.resolve(EDDIR, '..', '..');                 // the kuiper-belt repository root
+706542	const STAMP = path.basename(EDDIR);
+706543	const EDURL = BASE + 'editions/' + STAMP + '/';
+706544	const SENTENCE = 'See Through: from the stars to one substation in 3D';   // gg@c66759f homepage_versions/homepage_v134.html:35
+706545	const DEVSPEC = {
+706546	  'Pixel 7 @393': { base: 'Pixel 7', viewport: { width: 393, height: 839 } },
+706547	  'Pixel 7': { base: 'Pixel 7' },
+706548	  'Pixel 7 @430': { base: 'Pixel 7', viewport: { width: 430, height: 932 } },
+706549	  'Pixel 7 landscape': { base: 'Pixel 7', viewport: { width: 839, height: 412 } },
+706550	  'Galaxy S24': { base: 'Galaxy S24' },
+706551	  'Desktop 1280x800': { desktop: true, viewport: { width: 1280, height: 800 } },
+706552	let DEVICES = ['Pixel 7 @393', 'Galaxy S24'];
+706553	if (flag('--all')) DEVICES = ['Pixel 7 @393', 'Galaxy S24', 'Pixel 7', 'Pixel 7 @430', 'Pixel 7 landscape', 'Desktop 1280x800'];
+706554	const FIXED_WAIT = 6500, ADMIT_MAX = 90000;
+706555	// the width from which the entry must be a bar title: ROADMAP.md R7 and Q7 (381 px; "A Pixel 7 (393 px) shows the title").
+706556	// Team 1 measured 434 px for its shell (handoff/01-shell/EVIDENCE.md §5 item 2; FINDING issue #10 comment 6564447092);
+706557	// the default stays the governing document's until the owner answers Q7 or the harness rules: --title-min 434 runs the other rule.
+706558	const TITLE_MIN = +(flag('--title-min') || 381);
+706559	const get = (u) => new Promise((res) => { http.get(u, r => { const ch = []; r.on('data', c => ch.push(c)); r.on('end', () => res({ status: r.statusCode, body: Buffer.concat(ch) })); }).on('error', e => res({ status: 0, body: Buffer.from(String(e)) })); });
+706560	// ------------------------------------------------------------------ the law, the same arithmetic as the page (index.html:278)
+706563	const starKey = (j, space) => Number((BigInt(2 * j + 1) * BigInt(space)) / 40000n);   // floor((j + 0.5) * SPACE / 20000), exact
+706564	// ------------------------------------------------------------------ static checks (run once, Node side)
+706565	  const dir = path.join(EDDIR, 'modules'); if (!fs.existsSync(dir)) return null;
+706566	  const f = fs.readdirSync(dir).filter(n => /^\d{12}-see-through\.js$/.test(n)).sort(); return f.length ? path.join(dir, f[f.length - 1]) : null;
+706567	  const out = { module: null, data: null };
+706568	  const file = findModule();
+706569	  if (!file || !fs.existsSync(file)) { out.module = { pass: false, note: 'no modules/<stamp>-see-through.js in ' + path.join(EDDIR, 'modules') }; }
+706571	    const src = fs.readFileSync(file), text = src.toString('utf8'), name = path.basename(file);
+706572	    const header = (text.match(/^\s*\/\*[\s\S]*?\*\//) || [''])[0];
+706573	    const fileStamp = name.slice(0, 12);
+706574	    const hdrGen = (header.match(/kuiper module see-through, generation (\d{12}) \(UTC\)/) || [])[1] || null;
+706575	    const regGen = (text.match(/GEN\s*=\s*'(\d{12})'/) || text.match(/generation:\s*'(\d{12})'/) || [])[1] || null;
+706576	    const registers = (text.match(/\bKY\.register\s*\(/g) || []).length;
+706577	    // the licence rule (ROADMAP.md step 9, the register: copying See Through code makes the module CERN-OHL-S v2 and it cannot be
+706578	    // relicensed Apache-2.0; step 4, 4.3: the licence is on the header's first line): the first line names exactly one of the two,
+706579	    // and CERN-OHL-S-2.0 whenever the body carries See Through code
+706580	    const line1 = header.split('\n')[0];
+706581	    const l1Licence = (line1.match(/\(UTC\),\s*(CERN-OHL-S-2\.0|Apache-2\.0)/) || [])[1] || null;
+706582	    const copiesCern = /CERN-OHL-S|SEE-THROUGH-CERN/.test(text.slice(header.length));
+706583	    const apache = !!l1Licence;                              // a licence is named on line 1
+706584	    const cernNamed = copiesCern ? l1Licence === 'CERN-OHL-S-2.0' : true;
+706585	    let nodeCheck = null; try { cp.execFileSync(process.execPath, ['--check', file], { stdio: 'pipe' }); nodeCheck = 'ok'; } catch (e) { nodeCheck = String(e.stderr || e.message).split('\n').slice(0, 3).join(' '); }
+706586	    const shaFile = path.join(__dirname, 'MODULE.sha256');
+706587	    const shaRecorded = fs.existsSync(shaFile) ? (fs.readFileSync(shaFile, 'utf8').match(/[0-9a-f]{64}/) || [null])[0] : null;
+706588	    const sha = sha256(src);
+706589	    const pass = apache && (!copiesCern || cernNamed) && hdrGen === fileStamp && regGen === fileStamp && registers === 1 && nodeCheck === 'ok' && (shaRecorded === null || shaRecorded === sha);
+706590	    out.module = { pass, file: path.relative(ROOT, file), bytes: src.length, sha256: sha, moduleSha256File: shaRecorded, headerFirstLine: line1, licence: l1Licence, licenceInHeader: { namedOnLine1: apache, copiesSeeThroughCode: copiesCern, cernWhenCopied: cernNamed }, generation: { fileName: fileStamp, header: hdrGen, registration: regGen }, kyRegisterCalls: registers, nodeCheck,
+706591	      note: [apache ? '' : 'header line 1 names no licence (CERN-OHL-S-2.0 or Apache-2.0 after "(UTC),")', copiesCern && !cernNamed ? 'the body carries See Through code (CERN-OHL-S) but line 1 says ' + l1Licence : '', hdrGen === fileStamp ? '' : 'header generation ' + hdrGen + ' ≠ file name ' + fileStamp, regGen === fileStamp ? '' : 'registration generation ' + regGen + ' ≠ file name ' + fileStamp, registers === 1 ? '' : registers + ' KY.register calls (want 1)', nodeCheck === 'ok' ? '' : 'node --check: ' + nodeCheck, shaRecorded === null || shaRecorded === sha ? '' : 'MODULE.sha256 ' + shaRecorded.slice(0, 12) + ' ≠ file ' + sha.slice(0, 12)].filter(Boolean).join('; ') };
+706592	  // data/see-through.json
+706593	  const meta = JSON.parse(fs.readFileSync(path.join(ROOT, 'cosmos', 'wafer-meta.json'), 'utf8'));
+706594	  const SPACE = meta.address_space;
+706595	  const dfile = path.join(EDDIR, 'data', 'see-through.json');
+706596	  if (!fs.existsSync(dfile)) { out.data = { pass: false, waferSpace: SPACE, note: 'no ' + path.relative(ROOT, dfile) }; return out; }
+706597	  const raw = fs.readFileSync(dfile); let j;
+706598	  try { j = JSON.parse(raw.toString('utf8')); } catch (e) { out.data = { pass: false, note: 'not JSON: ' + e.message }; return out; }
+706599	  const feats = Array.isArray(j) ? j : (j.features || []);
+706600	  const fileSpace = j.space != null ? j.space : (j.address_space != null ? j.address_space : (feats[0] && feats[0].properties && feats[0].properties.space));
+706601	  const keyOf = f => f.key != null ? f.key : (f.properties && f.properties.key != null ? f.properties.key : (f.geometry && f.geometry.key != null ? f.geometry.key : null));
+706602	  const jOf = (f, i) => f.properties && Number.isInteger(f.properties.sub) ? f.properties.sub : (f.properties && Number.isInteger(f.properties.j) ? f.properties.j : i);
+706603	  let keyMismatch = 0, beyond = 0, remapFail = 0, placeFail = 0, placeChecked = 0, spaceMismatch = 0; const firstBad = [];
+706604	  feats.forEach((f, i) => {
+706605	    const k = keyOf(f), jj = jOf(f, i), want = starKey(jj, SPACE);
+706606	    if (k !== want) { keyMismatch++; if (firstBad.length < 3) firstBad.push({ i, j: jj, key: k, want }); }
+706607	    if (!(k >= 0 && k < SPACE)) beyond++;
+706608	    const sp = (f.properties && f.properties.space != null) ? f.properties.space : fileSpace;
+706609	    if (sp !== SPACE) spaceMismatch++;
+706610	    const j2 = Number((BigInt(k) * 20000n) / BigInt(sp || SPACE));                     // the remap formula of team-3/STEPS.md 5.5 `space`
+706611	    if (j2 !== jj || starKey(j2, sp || SPACE) !== k) remapFail++;
+706612	    const c = f.coordinates || (f.geometry && f.geometry.coordinates);
+706613	    if (Array.isArray(c) && c.length >= 2) { placeChecked++; const [x, y] = keyPlace(k); if (Math.abs(c[0] - x) > 1e-6 * Math.max(1, Math.abs(x)) || Math.abs(c[1] - y) > 1e-6 * Math.max(1, Math.abs(y))) placeFail++; }
+706614	  const distinctJ = new Set(feats.map((f, i) => jOf(f, i))).size;
+706615	  const odbl = /ODbL/.test(raw.toString('utf8')) && /OpenStreetMap/.test(raw.toString('utf8'));
+706616	  const pass = feats.length === 5800 && distinctJ === 5800 && keyMismatch === 0 && beyond === 0 && remapFail === 0 && placeFail === 0 && spaceMismatch === 0 && fileSpace === SPACE && odbl;
+706617	  out.data = { pass, file: path.relative(ROOT, dfile), bytes: raw.length, sha256: sha256(raw), features: feats.length, distinctJ, waferSpace: SPACE, fileSpace, keyMismatches: keyMismatch, firstBad, beyondSpace: beyond, remapFailures: remapFail, spaceMismatches: spaceMismatch, coordinatesChecked: placeChecked, placementFailures: placeFail, odblAttribution: odbl,
+706618	    note: [feats.length === 5800 ? '' : feats.length + ' features (want 5,800)', distinctJ === 5800 ? '' : distinctJ + ' distinct j', keyMismatch ? keyMismatch + ' keys ≠ floor((j+0.5)·SPACE/20000)' : '', beyond ? beyond + ' keys outside [0, SPACE)' : '', remapFail ? remapFail + ' remap failures' : '', placeFail ? placeFail + ' points not where the law puts them' : '', fileSpace === SPACE && !spaceMismatch ? '' : 'space ' + fileSpace + ' ≠ wafer ' + SPACE, odbl ? '' : 'no OpenStreetMap / ODbL attribution in the file'].filter(Boolean).join('; ') };
+706619	  out.keys = feats.map(keyOf);
+706620	// ------------------------------------------------------------------ the shim (mode 'shim' only): hook table + loader, from handoff/04-loader/HOOKS.md
+706621	function shimSource(modulePath, sha) {
+706623	// ===== OPUS-5 TEST SHIM: not shipped; served by handoff/05-see-through/test.cjs only (the hook table of handoff/04-loader/HOOKS.md) =====
+706624	{ const drawFns = [], refused = [], admitted = [], modules = {}, provided = new Set();
+706625	  const F = Object.freeze;
+706626	  const hooks = { keyPlace: k => keyPlace(k), address: k => address(k), describe: a => describe(a), findBy: (f, v) => findBy(f, v),
+706627	    flyTo: (x, y, z) => flyTo(x, y, z), home: () => home(), homeCamera: () => homeCamera(), safeBox: () => safeBox(),
+706628	    lightTime: (y, m, d) => lightTime(y, m, d), showNew: h => showNew(h), goKey: k => goKey(k), fmt: n => fmt(n), words: n => words(n),
+706629	    esc: v => esc(v), cv, ov, o2, hud, big, sub, card, gbox, gin,
+706630	    get SPACE(){ return SPACE; }, get N(){ return N; }, get repos(){ return repos; }, get commits(){ return commits; },
+706631	    wafer: new Promise(res => { const t = setInterval(() => { if (N && SPACE) { clearInterval(t); res({ N, SPACE }); } }, 50); }) };
+706632	  const names = F(Object.keys(hooks).concat(['cam', 'lit', 'sel', 'redraw', 'draw', 'panels']));
+706633	  { const _d = draw; draw = function(){ _d(); for (const e of drawFns.slice()) { try { e.fn(o2, KYo); } catch (err) { drawFns.splice(drawFns.indexOf(e), 1); hud.textContent += '\\nmodule draw removed: ' + err.message; } } }; }
+706634	  let admitting = null;
+706635	  const KYo = { schema: 'kuiper.hooks.v1', edition: '${STAMP}', shim: true, hooks: F(hooks), names,
+706636	    cam: F({ get x(){ return cx; }, get y(){ return cy; }, get zoom(){ return zoom; }, get atHome(){ return atHome; } }),
+706637	    lit: F({ get repo(){ return litRepo; }, set repo(v){ litRepo = v; dirty = true; }, get K(){ return litK; }, get Ci(){ return litCi; }, set period(v){ if (v == null) { litK = [-1, -1]; litCi = null; dirty = true; } } }),
+706638	    sel: F({ get target(){ return target; }, set target(v){ target = v; dirty = true; } }),
+706639	    redraw: () => { dirty = true; },
+706640	    draw: F({ add(fn, order){ drawFns.push({ fn, order: +order || 0 }); drawFns.sort((a, b) => a.order - b.order); dirty = true; } }),
+706641	    panels: F({ add(name, el, title){ PANELS[name] = el; }, set(name){ setPanel(name); }, place(){ placePanels(); } }),
+706642	    register(m){ const why = (() => { if (!m || m.schema !== 'kuiper.module.v1') return 'no registration';
+706643	        if (m.id !== admitting.id) return 'id ' + m.id + ' ≠ ' + admitting.id;
+706644	        if (m.generation !== admitting.generation) return 'generation ' + m.generation + ', file name ' + admitting.generation;
+706645	        for (const r of (m.requires || [])) if (!names.includes(r) && !provided.has(r)) return 'missing hook ' + r; return null; })();
+706646	      if (why) { refused.push({ id: admitting.id, why }); hud.textContent += '\\n' + admitting.id + ' refused: ' + why; return; }
+706647	      let api; try { api = m.install(KYo); } catch (e) { refused.push({ id: m.id, why: 'install threw ' + e.message }); hud.textContent += '\\n' + m.id + ' refused: install threw ' + e.message; return; }
+706648	      modules[m.id] = F({ id: m.id, generation: m.generation, sha256: admitting.sha256, api, inspect: m.inspect }); (m.provides || []).concat([m.id]).forEach(p => provided.add(p));
+706649	      admitted.push({ id: m.id, sha256: admitting.sha256 }); admitting.done = true; },
+706650	    modules, inspect: () => window.__KUIPER_EDITION__ };
+706651	  window.KY = F(KYo); window.__KUIPER_MODULES__ = modules; window.__KUIPER_EDITION__ = { mode: 'shim', admitted, refused };
+706652	  (async () => { const p = ${JSON.stringify(modulePath)}; admitting = { id: 'see-through', generation: p.match(/(\\d{12})-see-through\\.js$/)[1], sha256: null };
+706653	    const r = await fetch(p, { cache: 'no-store' }); if (!r.ok) { refused.push({ id: 'see-through', why: 'HTTP ' + r.status }); return; }
+706654	    const b = await r.arrayBuffer(); const h = [...new Uint8Array(await crypto.subtle.digest('SHA-256', b))].map(x => x.toString(16).padStart(2, '0')).join('');
+706655	    admitting.sha256 = h; if (h !== ${JSON.stringify(sha)}) { refused.push({ id: 'see-through', why: 'sha256 mismatch' }); return; }
+706656	    const s = document.createElement('script'); s.dataset.kyModule = 'see-through'; s.src = URL.createObjectURL(new Blob([b], { type: 'text/javascript' }));
+706657	    s.onload = () => { if (!admitting.done && !refused.some(x => x.id === 'see-through')) refused.push({ id: 'see-through', why: 'no registration' }); };
+706658	    document.head.appendChild(s); })();
+706659	// ===== end of the test shim =====
+706660	// ------------------------------------------------------------------ in-page probe
+706661	function probeFn(sentence) {
+706662	  const all = [...document.querySelectorAll('#kuiper-star')];
+706663	  const el = all[0] || null, bar = document.getElementById('kuiper-menu-bar') || document.getElementById('bar');   // team 1's shell bar, else Edition 4's
+706664	  const titles = bar ? [...bar.querySelectorAll('.gm-title')].filter(t => t.getBoundingClientRect().width > 0) : [];
+706665	  const others = titles.filter(t => t !== el);
+706666	  const strip = document.getElementById('kuiper-star-strip');
+706667	  const side = document.querySelector('.gm-side-left');
+706668	  let entry = null;
+706669	  if (el) {
+706670	    const cs = getComputedStyle(el), r = el.getBoundingClientRect();
+706671	    const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+706672	    entry = { tag: el.tagName.toLowerCase(), cls: el.className, text: el.textContent.trim(), hrefAttr: el.getAttribute('href'), hrefResolved: el.href, target: el.getAttribute('target'), role: el.getAttribute('role'),
+706673	      title: el.getAttribute('title'), ariaLabel: el.getAttribute('aria-label'), sentenceOk: el.getAttribute('aria-label') === sentence || el.getAttribute('title') === sentence,
+706674	      rect: R(el), background: cs.backgroundColor, color: cs.color, fontSize: cs.fontSize, fontWeight: cs.fontWeight, textTransform: cs.textTransform,
+706675	      parentId: el.parentElement && el.parentElement.id, parentClass: el.parentElement && el.parentElement.className,
+706676	      inBar: !!(bar && bar.contains(el)), inStrip: !!(strip && strip.contains(el)), firstOfSideLeft: !!(side && side.firstElementChild && (side.firstElementChild === el || side.firstElementChild.contains(el)) && side.querySelector('.gm-title') === el), firstTitleInBar: titles[0] === el,
+706677	      hitOk: !!hit && (hit === el || el.contains(hit)), hitAt: hit ? (hit.id ? '#' + hit.id : hit.tagName.toLowerCase()) : null };
+706678	  return { viewport: { w: innerWidth, h: innerHeight, dpr: devicePixelRatio }, count: all.length, entry, barId: bar ? bar.id : null,
+706679	    sideLeft: !!side, strip: strip ? { rect: R(strip), position: getComputedStyle(strip).position, children: strip.children.length } : null,
+706680	    bar: bar ? { rect: R(bar), scrollWidth: bar.scrollWidth, clientWidth: bar.clientWidth } : null,
+706681	    titles: titles.map(t => ({ text: t.textContent.trim(), star: t === el, rect: R(t) })),
+706682	    otherMaxWidth: others.length ? Math.max(...others.map(t => +t.getBoundingClientRect().width.toFixed(1))) : 0,
+706683	    otherMinLeft: others.length ? Math.min(...others.map(t => +t.getBoundingClientRect().left.toFixed(1))) : null,
+706684	    openPanels: [...document.querySelectorAll('.gm-open, [id^="kmb-panel-"]:not([hidden])')].filter(p => { const r = p.getBoundingClientRect();   // open = shown on screen, not a class
+706685	      return r.width > 0 && r.height > 0 && (typeof p.checkVisibility !== 'function' || p.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })); }).map(p => p.id || p.className),
+706686	    card: (() => { const c = document.getElementById('card'); if (!c || getComputedStyle(c).display === 'none') return null; const m = c.textContent.match(/(\d[\d,]*)\s+of\s+(\d[\d,]*)/);
+706687	      const links = [...c.querySelectorAll('a')].filter(a => /see-through/.test(a.getAttribute('href') || '')).map(a => { const r = a.getBoundingClientRect(), h = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+706688	        return { text: a.textContent.trim(), hrefAttr: a.getAttribute('href'), hrefResolved: a.href, target: a.getAttribute('target'), rect: R(a), hitOk: !!h && (h === a || a.contains(h)), hitAt: h ? (h.id ? '#' + h.id : h.tagName.toLowerCase()) : null }; });
+706689	      return { visibility: getComputedStyle(c).visibility, index: m ? +m[1].replace(/,/g, '') : null, total: m ? +m[2].replace(/,/g, '') : null, first: c.textContent.trim().slice(0, 100), links, rect: R(c) }; })(),
+706690	    ky: (() => { const K = window.KY; if (!K) return null; const m = K.modules && K.modules['see-through'];
+706691	      let ins = null; try { ins = m && typeof m.inspect === 'function' ? m.inspect() : null; } catch (e) { ins = { error: String(e.message || e) }; }
+706692	      let layers = null; try { if (K.layers && typeof K.layers.inspect === 'function') { const li = K.layers.inspect(); layers = { state: li && li.states ? li.states['see-through'] : null, row: li && li.rows ? li.rows['see-through'] : null }; } } catch (e) { layers = { error: String(e.message || e) }; }
+706693	      const ed = window.__KUIPER_EDITION__ || (K.inspect && K.inspect()) || null;
+706694	      return { schema: K.schema, shim: !!K.shim, frozen: Object.isFrozen(K), admitted: !!m, generation: m && m.generation, sha256: m && m.sha256, apiKeys: m && m.api ? Object.keys(m.api) : [], inspect: ins, layers,
+706695	        refused: ed && ed.refused ? ed.refused : null, admittedIds: ed && ed.admitted ? ed.admitted.map(a => a.id || a) : null }; })(),
+706696	// ------------------------------------------------------------------ PNG size discipline for img/ (each < 300 KB)
+706697	function fitPng(src, dst) {
+706698	  fs.copyFileSync(src, dst); if (fs.statSync(dst).size < 300 * 1024) return fs.statSync(dst).size;
+706699	  const py = 'import sys\nfrom PIL import Image\nim=Image.open(sys.argv[1]).convert("RGB")\nfor n in (256,128,64,32):\n  im.quantize(colors=n, method=Image.Quantize.MEDIANCUT).save(sys.argv[2], optimize=True)\n  import os\n  if os.path.getsize(sys.argv[2]) < 300*1024: break\n';
+706700	  try { cp.execFileSync('python3', ['-I', '-c', py, src, dst], { stdio: 'pipe' }); } catch (e) { /* the size check below records it */ }
+706701	  return fs.statSync(dst).size;
+706703	async function runDevice(browser, name, ctx) {
+706704	  const spec = DEVSPEC[name]; if (!spec) throw new Error('unknown device ' + name + ' (known: ' + Object.keys(DEVSPEC).join(', ') + ')');
+706705	  const dev = spec.desktop ? { viewport: spec.viewport, deviceScaleFactor: 1, isMobile: false, hasTouch: true } : { ...devices[spec.base], ...(spec.viewport ? { viewport: spec.viewport } : {}) };
+706706	  const dir = path.join(OUT, slug(name)); fs.mkdirSync(dir, { recursive: true });
+706707	  // how the module reaches the page
+706708	  if (ctx.mode === 'shim') {
+706709	    await context.route(u => { const p = new URL(u).pathname; return p === '/editions/' + STAMP + '/' || p === '/editions/' + STAMP + '/index.html'; }, async (route) => {
+706710	      const r = await route.fetch(); let body = await r.text(); const i = body.lastIndexOf('</script>');
+706711	      body = body.slice(0, i) + shimSource(ctx.modulePathFromEdition, ctx.static.module.sha256) + body.slice(i);
+706712	      await route.fulfill({ response: r, body, headers: { ...r.headers(), 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
+706714	  } else if (ctx.mode === 'preview') {
+706715	    await context.route(u => new URL(u).pathname in ctx.preview.bytes, async (route) => {
+706716	      await route.fulfill({ status: 200, body: ctx.preview.bytes[new URL(route.request().url()).pathname], headers: { 'content-type': 'text/javascript', 'cache-control': 'no-store' } });
+706717	    await context.route(u => { const p = new URL(u).pathname; return p === '/editions/' + STAMP + '/' || p === '/editions/' + STAMP + '/index.html' || p === '/editions/' + STAMP + '/modules.json'; }, async (route) => {
+706718	      const isMan = new URL(route.request().url()).pathname.endsWith('/modules.json');
+706719	      await route.fulfill({ status: 200, body: isMan ? JSON.stringify(ctx.preview.manifest) : ctx.preview.html, headers: { 'content-type': isMan ? 'application/json' : 'text/html; charset=utf-8', 'cache-control': 'no-store' } });
+706720	  } else if (ctx.mode === 'manifest') {
+706721	    await context.route(u => new URL(u).pathname === '/editions/' + STAMP + '/modules.json', async (route) => {
+706722	      const r = await route.fetch(); const j = await r.json(); j.order = (j.order || []).concat(['see-through']); j.modules = (j.modules || []).concat([ctx.record]);
+706723	      await route.fulfill({ response: r, body: JSON.stringify(j), headers: { ...r.headers(), 'content-type': 'application/json', 'cache-control': 'no-store' } });
+706724	  // A request to ANOTHER host that this sandbox's egress proxy refuses (See Through's MapLibre style at basemaps.cartocdn.com,
+706725	  // net::ERR_TUNNEL_CONNECTION_FAILED) is not an error of the edition or of the module: it is recorded in `external`, named in
+706726	  // TEST.md, and does not fail the step; its echo "Failed to load resource: <same net error>" is paired with it. Every
+706727	  // same-origin failure, every page error and every other console error fails.
+706728	  const external = [], EGRESS = /ERR_TUNNEL_CONNECTION_FAILED|ERR_PROXY_CONNECTION_FAILED|ERR_NAME_NOT_RESOLVED|ERR_INTERNET_DISCONNECTED|ERR_CONNECTION_REFUSED/;
+706729	  const origin0 = new URL(EDURL).origin;
+706730	  const watch = (pg, where) => {
+706731	    pg.on('console', m => { if (m.type() !== 'error') return; const t = m.text(), loc = (m.location() || {}).url || '';
+706732	      const ext = /^Failed to load resource: net::/.test(t) && EGRESS.test(t) && loc && !loc.startsWith(origin0);
+706733	      (ext ? external : errors).push({ where, kind: 'console', url: pg.url(), resource: loc.slice(0, 200), text: t.slice(0, 300) }); });
+706734	    pg.on('pageerror', e => errors.push({ where, kind: 'pageerror', url: pg.url(), text: String(e.message || e).slice(0, 300) }));
+706735	    pg.on('requestfailed', r => { const f = r.failure(); if (!f || /aborted|ERR_ABORTED/i.test(f.errorText)) return;
+706736	      const ext = !r.url().startsWith(origin0) && EGRESS.test(f.errorText);
+706737	      (ext ? external : errors).push({ where, kind: 'request', url: r.url().slice(0, 200), text: f.errorText }); });
+706738	  watch(page, 'tab');
+706739	  let newTabs = 0; context.on('page', p => { if (p !== page) { newTabs++; watch(p, 'new-tab'); } });
+706740	  const shot = async (id) => { const f = path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png');
+706741	    for (let a = 0; a < 2; a++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); shots[id] = f; return path.relative(OUT, f); } catch (e) { if (a) return 'FAILED: ' + String(e.message || e).split('\n')[0]; } } };
+706742	  const record = (id, title, pass, measured, note) => { steps.push({ id, name: title, pass: !!pass, ms: Date.now() - t0, measured, note: note || '' }); t0 = Date.now(); process.stderr.write(`[${name}] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}\n`); };
+706743	  const probe = () => page.evaluate(probeFn, SENTENCE);
+706744	  const tapRect = (r) => page.touchscreen.tap(Math.round((r.left + r.right) / 2), Math.round((r.top + r.bottom) / 2));
+706745	  const waitAdmitted = async () => { const s = Date.now(); while (Date.now() - s < ADMIT_MAX) { const ok = await page.evaluate(() => { const K = window.KY, ed = window.__KUIPER_EDITION__;
+706746	      return !!(K && K.modules && K.modules['see-through']) || !!(ed && ed.refused && ed.refused.some(r => (r.id || '') === 'see-through')); }).catch(() => false); if (ok) return true; await sleep(250); } return false; };
+706747	  const loadEdition = async (url) => { await page.goto(url, { waitUntil: 'load', timeout: 120000 });
+706749	    await waitAdmitted(); await sleep(FIXED_WAIT); };
+706750	  const report = { device: name, viewport: dev.viewport, dpr: dev.deviceScaleFactor, mode: ctx.mode, url: EDURL, startedAt: new Date().toISOString(), steps, consoleErrors: errors, externalUnreachable: external, pass: false };
+706751	  const SPACE = ctx.static.data.waferSpace;
+706752	    // 1 load: the module admitted, zero errors so far
+706753	    await loadEdition(EDURL);
+706755	    record('load', 'load the edition: the see-through module admitted, zero console errors', p.ky && p.ky.admitted && errors.length === 0,
+706756	      { ky: p.ky, consoleErrors: errors.slice(), viewport: p.viewport },
+706757	      [!p.ky ? 'no window.KY on the page' : (!p.ky.admitted ? 'see-through not admitted' + (p.ky.refused && p.ky.refused.length ? ' (refused: ' + JSON.stringify(p.ky.refused) + ')' : '') : ''), errors.length ? errors.length + ' console error(s): ' + errors[0].text : ''].filter(Boolean).join('; '));
+706758	    // 2 the entry: first and largest at >= 381 px, the chip at <= 380 px
+706759	    p = await probe(); const e = p.entry; const wide = p.viewport.w >= TITLE_MIN;
+706760	    let why = [];
+706761	    if (p.count !== 1) why.push('#kuiper-star count ' + p.count + ' (want 1)');
+706763	      if (e.tag !== 'a') why.push('entry is <' + e.tag + '>, want <a>');
+706764	      if (e.hrefAttr !== '../../see-through/') why.push('href "' + e.hrefAttr + '", want "../../see-through/"');
+706765	      if (new URL(e.hrefResolved).origin !== new URL(EDURL).origin || new URL(e.hrefResolved).pathname !== '/see-through/') why.push('resolves to ' + e.hrefResolved);
+706766	      if (e.target && e.target !== '_self') why.push('target ' + e.target + ' (same tab wanted)');
+706767	      if (!/^see through$/i.test(e.text)) why.push('text "' + e.text + '"');
+706768	      if (!e.sentenceOk) why.push('aria-label/title is not the homepage sentence');
+706769	      if (!e.hitOk) why.push('entry covered at its centre by ' + e.hitAt);
+706770	      const tops = p.titles.filter(t => !t.star).map(t => t.rect.top);
+706771	      const oneRow = p.bar && tops.length && Math.max(...tops) - Math.min(...tops) < 4 && p.bar.scrollWidth <= p.bar.clientWidth + 1;
+706772	      if (!oneRow) why.push('bar not one row (title tops ' + tops.join('/') + ', scrollWidth ' + (p.bar && p.bar.scrollWidth) + '/' + (p.bar && p.bar.clientWidth) + ')');
+706773	      if (wide) {
+706774	        if (!e.inBar || e.inStrip) why.push('at ' + p.viewport.w + ' px the entry is not a bar title');
+706775	        if (p.sideLeft ? !e.firstOfSideLeft : !e.firstTitleInBar) why.push(p.sideLeft ? 'not the first child of .gm-side-left' : 'not the first .gm-title of #bar');
+706776	        if (p.otherMinLeft != null && e.rect.left > p.otherMinLeft + 0.5) why.push('not leftmost (x ' + e.rect.left + ' > ' + p.otherMinLeft + ')');
+706777	        if (!(e.rect.width >= p.otherMaxWidth)) why.push('not the largest title (' + e.rect.width + ' px < ' + p.otherMaxWidth + ' px)');
+706778	        if (tops.length && Math.abs(e.rect.top - tops[0]) > 2) why.push('not on the titles\' y (' + e.rect.top + ' vs ' + tops[0] + ')');
+706779	        if (!/rgba\(80, 220, 240, 0\.16\)/.test(e.background)) why.push('not lit at rest (background ' + e.background + ')');
+706780	        if (e.color !== 'rgb(255, 255, 255)') why.push('colour ' + e.color + ' (want rgb(255, 255, 255))');
+706782	        if (!e.inStrip || e.parentId !== 'kuiper-star-strip') why.push('at ' + p.viewport.w + ' px the entry is not inside #kuiper-star-strip');
+706783	        if (!p.strip || p.strip.position !== 'fixed') why.push('#kuiper-star-strip is not position:fixed');
+706784	        const sr = p.strip ? p.strip.rect : e.rect;
+706785	        if (Math.abs(sr.left - 8) > 0.6) why.push('chip x ' + sr.left + ' (want 8)');
+706786	        if (Math.abs(sr.bottom - (p.viewport.h - 8)) > 1) why.push('chip bottom ' + sr.bottom + ' (want ' + (p.viewport.h - 8) + ')');
+706787	        if (Math.abs(sr.height - 44) > 0.6 || e.rect.height < 43.4) why.push('chip height ' + sr.height + ' / entry ' + e.rect.height + ' (want 44)');
+706788	        if (e.rect.width < 100) why.push('chip width ' + e.rect.width + ' (want ≥ 100)');
+706789	        if (e.inBar) why.push('entry also in the bar');
+706790	    } else why.push('no #kuiper-star');
+706791	    record('entry', wide ? 'the entry: first and largest bar title, lit at rest, one row' : 'the entry: the 44 px chip bottom-left, the bar one row', why.length === 0,
+706792	      { form: e ? (e.inStrip ? 'strip' : (e.inBar ? 'title' : 'elsewhere')) : null, entry: e, count: p.count, sideLeft: p.sideLeft, strip: p.strip, bar: p.bar, titles: p.titles, otherMaxWidth: p.otherMaxWidth, screenshot: await shot('entry') }, why.join('; '));
+706793	    // 3 the layer in the page: placed by the law, 5,800 records, 0 remap failures
+706794	    const keys = ctx.static.keys || [];
+706795	    const lawCheck = await page.evaluate((keys) => { const K = window.KY; if (!K || !K.hooks || typeof K.hooks.keyPlace !== 'function') return null;
+706796	      return keys.map(k => K.hooks.keyPlace(k)); }, keys).catch(() => null);
+706797	    // the remap, in the page, through the module's own api: every star key cut under See Through 202610050609's sky
+706798	    // (SPACE 59,637,070,538, see-through/202610050609/kuiper-law.js:36) must come back as star j under the wafer's sky
+706799	    const OLD = 59637070538;
+706800	    const oldKeys = keys.map((k, j) => starKey(j, OLD)), newKeys = keys.map((k, j) => starKey(j, SPACE));
+706801	    const remapRes = await page.evaluate(({ oldKeys, newKeys, OLD, SPACE }) => { const m = window.KY && window.KY.modules && window.KY.modules['see-through'];
+706802	      if (!m || !m.api || typeof m.api.remap !== 'function') return null; let fail = 0, same = 0, star = 0; const bad = [];
+706803	      for (let j = 0; j < oldKeys.length; j++) { const r = m.api.remap(oldKeys[j], OLD, SPACE); if (!r || r.j !== j || r.key !== newKeys[j]) { fail++; if (bad.length < 3) bad.push({ j, old: oldKeys[j], got: r }); }
+706804	        const r2 = m.api.remap(newKeys[j], SPACE, SPACE); if (!r2 || r2.j !== j || r2.key !== newKeys[j]) same++;
+706805	        if (typeof m.api.starKey === 'function' && m.api.starKey(j, SPACE) !== newKeys[j]) star++; }
+706806	      return { checked: oldKeys.length, remapFailures: fail, identityFailures: same, starKeyMismatches: star, firstBad: bad }; }, { oldKeys, newKeys, OLD, SPACE }).catch(e => ({ error: String(e.message || e) }));
+706807	    let lawMismatch = null; if (lawCheck) { lawMismatch = 0; keys.forEach((k, i) => { const [x, y] = keyPlace(k), q = lawCheck[i]; if (!q || Math.abs(q[0] - x) > 1e-9 * Math.max(1, Math.abs(x)) || Math.abs(q[1] - y) > 1e-9 * Math.max(1, Math.abs(y))) lawMismatch++; }); }
+706808	    p = await probe(); const ins = p.ky && p.ky.inspect; const L = ins && (ins.layer || ins.stars || ins);
+706809	    const recs = L && (L.total != null ? L.total : (L.records != null ? L.records : L.features));
+706810	    const placedN = L && (L.placed != null ? L.placed : null);
+706811	    const remapF = remapRes && remapRes.remapFailures != null ? remapRes.remapFailures + remapRes.identityFailures + remapRes.starKeyMismatches : null;
+706812	    why = [];
+706813	    if (!ctx.static.data.pass) why.push('data/see-through.json: ' + (ctx.static.data.note || 'FAIL'));
+706814	    if (lawMismatch == null) why.push('KY.hooks.keyPlace not callable'); else if (lawMismatch) why.push(lawMismatch + ' keys placed off the law by KY.hooks.keyPlace');
+706815	    if (recs !== 5800) why.push('module inspect().layer.total ' + recs + ' (want 5800)');
+706816	    if (placedN !== 5800) why.push('module inspect().layer.placed ' + placedN + ' (want 5800)');
+706817	    if (L && L.status !== 'OK') why.push('layer status ' + (L && L.status) + (L && L.why ? ' (' + L.why + ')' : ''));
+706818	    if (L && (L.space !== SPACE || L.wafer !== SPACE)) why.push('layer space ' + (L && L.space) + ' / wafer ' + (L && L.wafer) + ' (want ' + SPACE + ')');
+706819	    if (remapF !== 0) why.push('remap failures ' + (remapRes ? JSON.stringify(remapRes) : 'api.remap missing') + ' (want 0)');
+706820	    if (p.ky && p.ky.layers && p.ky.layers.state != null && p.ky.layers.state !== 'OK') why.push('KY.layers row state ' + p.ky.layers.state);
+706821	    record('layer', 'the stars layer: 5,800 records placed by the law, 0 remap failures', why.length === 0,
+706822	      { data: ctx.static.data, keysCheckedInPage: lawCheck ? keys.length : 0, lawMismatches: lawMismatch, remap: remapRes, layer: L, row: L && L.row, registry: p.ky && p.ky.layers }, why.join('; '));
+706823	    // 4 a real touch on the entry: same tab, same host, through the pointer; back returns
+706824	    p = await probe(); let tap = null;
+706825	    if (p.entry) {
+706826	      const nav = page.waitForURL(/\/see-through\/(\d{12}\/)?(#.*)?$/, { timeout: 30000 }).then(() => true).catch(() => false);
+706827	      const tabs0 = newTabs; await tapRect(p.entry.rect); const navOk = await nav; await sleep(FIXED_WAIT);
+706828	      const url = page.url(), title = await page.title().catch(() => null);
+706829	      const shotLanding = await shot('landing');
+706830	      await page.goBack({ waitUntil: 'load', timeout: 120000 }).catch(() => {});
+706831	      await page.waitForFunction(() => /verified lines lit/.test((document.getElementById('big') || {}).textContent || ''), null, { timeout: 60000 }).catch(() => {});
+706832	      await waitAdmitted(); await sleep(FIXED_WAIT);
+706833	      const back = await probe();
+706834	      tap = { navigated: navOk, sameTab: newTabs === tabs0, url, sameHost: new URL(url).origin === new URL(EDURL).origin, title, landing: shotLanding,
+706835	        backUrl: page.url(), backIsEdition: new URL(page.url()).pathname === '/editions/' + STAMP + '/', backEntryCount: back.count, backOpenPanels: back.openPanels, backAdmitted: !!(back.ky && back.ky.admitted) };
+706836	    if (!tap) why.push('no entry to tap'); else {
+706837	      if (!tap.navigated) why.push('the tap did not navigate to /see-through/ (url ' + tap.url + ')');
+706838	      if (!tap.sameTab) why.push('opened a new tab'); if (!tap.sameHost) why.push('left the host: ' + tap.url);
+706839	      if (tap.title !== 'See Through') why.push('landing title "' + tap.title + '"');
+706840	      if (!tap.backIsEdition) why.push('back went to ' + tap.backUrl);
+706841	      if (tap.backEntryCount !== 1) why.push('after back #kuiper-star count ' + tap.backEntryCount);
+706842	      if (tap.backOpenPanels.length) why.push('after back a panel is open: ' + tap.backOpenPanels.join(','));
+706843	    record('tap', 'tap the entry: See Through opens in the same tab on the same host; back returns to the edition', why.length === 0, { ...(tap || {}), screenshot: await shot('back') }, why.join('; '));
+706844	    // 5 a deep link from a spark: the card's row carries the documented hash, and a touch lands on it
+706845	    await page.keyboard.press('e'); await sleep(2500);
+706846	    p = await probe(); let deep = null; why = [];
+706847	    if (!p.card) why.push('the card did not open on "e"');
+706849	      const body = ctx.placed[(p.card.index || 0) - 1];
+706850	      const link = p.card.links.find(l => /#key=/.test(l.hrefAttr || '')) || p.card.links[0];
+706851	      if (!body) why.push('card index ' + p.card.index + ' not in keys.json placed list');
+706852	      if (!link) why.push('the card has no <a> to see-through');
+706853	      if (body && link) {
+706854	        const u = new URL(link.hrefResolved), hm = u.hash.match(/^#key=(\d+)(?:&space=(\d+))?$/);
+706855	        const hashOk = !!hm && +hm[1] === body.key && (hm[2] == null || +hm[2] === SPACE);
+706856	        const pathOk = u.origin === new URL(EDURL).origin && u.pathname === '/see-through/' && /^\.\.\/\.\.\/see-through\/#key=/.test(link.hrefAttr);
+706857	        if (!hashOk) why.push('hash "' + u.hash + '", documented "#key=' + body.key + '" (or with &space=' + SPACE + ')');
+706858	        if (!pathOk) why.push('href "' + link.hrefAttr + '" is not ../../see-through/ on this host');
+706859	        if (link.target && link.target !== '_self') why.push('target ' + link.target);
+706860	        if (p.card.visibility !== 'visible') why.push('#card is visibility:' + p.card.visibility + ' (the card is not on screen)');
+706861	        if (!link.hitOk) why.push('the row is not touchable: the hit test at its centre lands on ' + link.hitAt);
+706862	        let apiLink = null; try { apiLink = await page.evaluate((k) => { const m = window.KY.modules['see-through']; return m && m.api && typeof m.api.link === 'function' ? m.api.link({ key: k }) : null; }, body.key); } catch (err) { apiLink = 'threw ' + err.message; }
+706863	        const shotCard = await shot('spark-card');
+706864	        const nav = page.waitForURL(/\/see-through\/(\d{12}\/)?#key=/, { timeout: 30000 }).then(() => true).catch(() => false);
+706865	        const tabs0 = newTabs; if (link.rect && link.rect.height > 0) await tapRect(link.rect); const navOk = await nav; await sleep(FIXED_WAIT);
+706866	        const landed = page.url(), landedHash = new URL(landed).hash;
+706867	        const shotDeep = await shot('deep-link-landing');
+706868	        if (!navOk) why.push('the touch on the row did not land on See Through with a #key (url ' + landed + ')');
+706869	        else if (landedHash !== u.hash) why.push('landed with hash "' + landedHash + '", the link said "' + u.hash + '"');
+706870	        if (newTabs !== tabs0) why.push('opened a new tab');
+706871	        await page.goBack({ waitUntil: 'load', timeout: 120000 }).catch(() => {}); await sleep(1500);
+706872	        const backOk = new URL(page.url()).pathname === '/editions/' + STAMP + '/'; if (!backOk) why.push('back went to ' + page.url());
+706873	        deep = { cardIndex: p.card.index, body: { key: body.key, title: body.title, repo: body.repo }, link, documented: '../../see-through/#key=' + body.key, apiLink, landed, landedHash, backUrl: page.url(), screenshots: { card: shotCard, landing: shotDeep } };
+706874	    record('spark', 'a deep link from a spark: the card row is ../../see-through/#key=<key>; a touch lands there with that hash; back returns', why.length === 0, deep || { card: p.card }, why.join('; '));
+706875	    // 6 zero console errors across every page this device opened
+706876	    record('errors', 'zero console errors, page errors and failed requests on every page', errors.length === 0, { errors: errors.slice(), externalUnreachable: external.slice() }, errors.length ? errors.length + ' error(s); first: [' + errors[0].kind + '] ' + errors[0].text + ' @ ' + errors[0].url : '');
+706878	    record('harness', 'harness error', false, { error: String(err && err.stack || err) }, String(err && err.message || err));
+706879	  report.pass = steps.length > 0 && steps.every(s => s.pass); report.passed = steps.filter(s => s.pass).length; report.failed = steps.filter(s => !s.pass).length;
+706880	  report.finishedAt = new Date().toISOString(); report.shots = shots;
+706881	// ------------------------------------------------------------------ preview (mode 'preview'): the edition as the integrator will assemble it,
+706882	// built in the scratch outdir only: index.html + team 4's loader patch (+ team 2's card patch and team 3's deletions when
+706883	// those modules are included), and a modules.json listing the chosen modules in the roadmap's integration order
+706884	// (ROADMAP.md "Integration order": loader, shell, card, layers, file, see-through, apps, drift).
+706885	const ORDER = ['kuiper-shell', 'line-card', 'layers', 'file', 'see-through', 'apps', 'drift'];
+706886	const PATCHES = { '': '04-loader/index.html.patch', 'line-card': '02-card/index.patch', 'layers': '03-layers/index.html.after-04-loader.patch' };
+706887	function buildPreview() {
+706888	  const vm = require('vm');
+706889	  const modDir = path.join(EDDIR, 'modules'), latest = {};
+706890	  for (const f of fs.readdirSync(modDir).sort()) { const m = f.match(/^(\d{12})-([a-z0-9-]+)\.js$/); if (m) latest[m[2]] = f; }
+706891	  const wanted = flag('--with') ? String(flag('--with')).split(',').map(x => x.trim()) : ORDER.filter(id => latest[id]);
+706892	  if (!wanted.includes('see-through')) wanted.push('see-through');
+706893	  const ids = ORDER.filter(id => wanted.includes(id) && latest[id]).concat(wanted.filter(id => !ORDER.includes(id) && latest[id]));
+706894	  const dir = path.join(OUT, 'preview'); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
+706895	  fs.copyFileSync(path.join(EDDIR, 'index.html'), path.join(dir, 'index.html'));
+706896	  const applied = []; let base = 'index.html on disk';
+706897	  // the loader patch is cut against the skeleton (kuiper-belt@96736f5); when index.html has moved on and refuses it, the preview
+706898	  // uses the skeleton's index.html (git show) and says so in report.preview.base
+706899	  try { cp.execFileSync('patch', ['--dry-run', '-s', '--forward', '-p3', '-d', dir, '-i', path.join(__dirname, '..', PATCHES[''])], { stdio: 'pipe' }); }
+706900	  catch (e) { try { fs.writeFileSync(path.join(dir, 'index.html'), cp.execFileSync('git', ['-C', ROOT, 'show', '96736f5:editions/' + STAMP + '/index.html'])); base = 'kuiper-belt@96736f5 editions/' + STAMP + '/index.html (the file on disk refused the loader patch)'; } catch (e2) { /* the patch below records the refusal */ } }
+706901	  for (const key of ['', 'line-card', 'layers']) { if (key && !ids.includes(key)) continue; const pf = path.join(__dirname, '..', PATCHES[key]);
+706902	    if (!fs.existsSync(pf)) { applied.push({ patch: PATCHES[key], ok: false, why: 'missing' }); continue; }
+706903	    try { const args = ['-s', '--forward', '--no-backup-if-mismatch', '-r', '-', '-p3', '-d', dir, '-i', pf];   // all hunks or none: a dry run first
+706904	      cp.execFileSync('patch', ['--dry-run'].concat(args), { stdio: 'pipe' }); cp.execFileSync('patch', args, { stdio: 'pipe' }); applied.push({ patch: PATCHES[key], ok: true }); }
+706905	    catch (e) { applied.push({ patch: PATCHES[key], ok: false, why: String(e.stdout || '') + String(e.stderr || '') }); } }
+706906	  const bytes = {};   // the modules are snapshotted at the start: other teams edit them live, and a manifest must match the bytes it serves
+706907	  const modules = ids.map(id => { const f = latest[id], b = fs.readFileSync(path.join(modDir, f)); bytes['/editions/' + STAMP + '/modules/' + f] = b; let reg = null;
+706908	    try { const sb = { window: {}, document: { readyState: 'loading', addEventListener() {}, getElementById() { return null; }, querySelector() { return null; }, createElement() { return { style: {}, setAttribute() {}, appendChild() {} }; } }, console: { log() {}, warn() {}, error() {} }, setTimeout() {}, addEventListener() {} };
+706909	      sb.window = sb; sb.window.KY = { register: x => { reg = x; } }; sb.KY = sb.window.KY; vm.runInNewContext(b.toString('utf8'), sb, { timeout: 2000 }); } catch (e) { /* the registration may need a live page; the regex below reads it */ }
+706910	    const t = b.toString('utf8'); const arr = re => { const m = t.match(re); return m ? (m[1].match(/'([^']+)'/g) || []).map(x => x.slice(1, -1)) : []; };
+706911	    return { id, generation: f.slice(0, 12), path: 'modules/' + f, sha256: sha256(b), bytes: b.length, byte_budget: Math.max(65536, b.length),
+706912	      requires: reg && reg.requires ? reg.requires : arr(/requires:\s*\[([^\]]*)\]/), provides: reg && reg.provides ? reg.provides : (arr(/provides:\s*\[([^\]]*)\]/).length ? arr(/provides:\s*\[([^\]]*)\]/) : [id]),
+706913	      reads: [], writes: [], creates_controls: 'none', licence: ((t.split('\n')[0].match(/\(UTC\),\s*(CERN-OHL-S-2\.0|Apache-2\.0)/) || [])[1]) || 'Apache-2.0', team: '', step: 0, proof: '' }; });
+706914	  const manifest = { schema: 'kuiper.modules.v1', edition: STAMP, hooks: 'kuiper.hooks.v1', order: ids, modules };
+706915	  fs.writeFileSync(path.join(dir, 'modules.json'), JSON.stringify(manifest, null, 1));
+706916	  for (const [u, b] of Object.entries(bytes)) fs.writeFileSync(path.join(dir, path.basename(u)), b);
+706917	  return { html: fs.readFileSync(path.join(dir, 'index.html'), 'utf8'), manifest, bytes, applied, ids, base, loaderPatched: applied[0] && applied[0].ok };
+706918	  const st = staticChecks();
+706919	  const keysJson = JSON.parse(fs.readFileSync(path.join(EDDIR, 'keys.json'), 'utf8')); const bodies = keysJson.bodies || keysJson;
+706920	  const SPACE = st.data.waferSpace || JSON.parse(fs.readFileSync(path.join(ROOT, 'cosmos', 'wafer-meta.json'), 'utf8')).address_space;
+706921	  const placed = bodies.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && b.key < SPACE);   // index.html:632, the page's own predicate
+706922	  // which mode
+706923	  const idx = await get(EDURL), man = await get(EDURL + 'modules.json');
+706924	  if (idx.status !== 200) { console.error('cannot GET ' + EDURL + ' (status ' + idx.status + '): serve the kuiper-belt root first'); process.exit(2); }
+706925	  const hasLoader = /kuiper\.hooks\.v1/.test(idx.body.toString('utf8'));
+706926	  let manifest = null; try { manifest = JSON.parse(man.body.toString('utf8')); } catch (e) { manifest = null; }
+706927	  const listed = !!(manifest && (manifest.order || []).includes('see-through'));
+706928	  const loaderPatch = fs.existsSync(path.join(__dirname, '..', PATCHES['']));
+706929	  let mode = MODE_ARG === 'auto' ? (hasLoader ? (listed ? 'integrated' : 'manifest') : (loaderPatch ? 'preview' : 'shim')) : MODE_ARG;
+706930	  const modFile = st.module && st.module.file ? path.join(ROOT, st.module.file) : null;
+706931	  const ctx = { mode, static: st, placed, modulePathFromEdition: modFile ? path.relative(EDDIR, modFile).split(path.sep).join('/') : null };
+706932	  if (modFile) { const genStamp = path.basename(modFile).slice(0, 12);
+706933	    ctx.record = { id: 'see-through', file: path.basename(modFile), generation: genStamp, path: ctx.modulePathFromEdition, sha256: st.module.sha256, bytes: st.module.bytes, byte_budget: Math.max(65536, st.module.bytes),
+706934	      requires: [], provides: ['see-through'], reads: ['data/see-through.json'], writes: [], creates_controls: ['#kuiper-star', '#kuiper-star-strip'], licence: st.module.licence || 'CERN-OHL-S-2.0', team: 5, step: 5, proof: 'handoff/05-see-through/test.cjs' }; }
+706935	  if (mode === 'preview') { ctx.preview = buildPreview(); if (!ctx.preview.loaderPatched) { process.stderr.write('[mode] preview: the loader patch did not apply; falling back to shim\n'); mode = ctx.mode = 'shim'; } }
+706936	  const out = { base: BASE, edition: EDURL, stamp: STAMP, titleMinPx: TITLE_MIN, mode, preview: ctx.preview ? { base: ctx.preview.base, ids: ctx.preview.ids, patches: ctx.preview.applied, manifest: ctx.preview.manifest.modules.map(m => ({ id: m.id, path: m.path, sha256: m.sha256, requires: m.requires, provides: m.provides })) } : null, hasLoader, manifestListsSeeThrough: listed, outdir: OUT, generatedAt: new Date().toISOString(), static: { module: st.module, data: st.data }, devices: [] };
+706937	  for (const [k, v] of Object.entries({ module: st.module, data: st.data })) process.stderr.write(`[static] ${v && v.pass ? 'PASS' : 'FAIL'} ${k}${v && v.note ? ' — ' + v.note : ''}\n`);
+706938	  process.stderr.write(`[mode] ${mode}${mode === 'shim' ? ' (no hook table in index.html yet: the test serves a minimal one, nothing on disk changes)' : ''}${mode === 'preview' ? ' base ' + ctx.preview.base + ' · modules ' + ctx.preview.ids.join(',') + ' · patches ' + ctx.preview.applied.map(a => a.patch + (a.ok ? ' ok' : ' FAILED')).join(', ') : ''}\n`);
+706939	  if (!modFile) { out.pass = false; fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); console.log(JSON.stringify(out, null, 1)); process.exit(1); }
+706940	  try { for (const d of DEVICES) { out.devices.push(await runDevice(browser, d, ctx)); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); } }
+706941	  out.pass = !!(st.module.pass && st.data.pass && out.devices.length && out.devices.every(d => d.pass));
+706942	  out.summary = out.devices.map(d => ({ device: d.device, viewport: d.viewport, passed: d.passed, failed: d.failed, failedSteps: d.steps.filter(s => !s.pass).map(s => s.id), consoleErrors: d.consoleErrors.length, form: (d.steps.find(s => s.id === 'entry') || {}).measured ? d.steps.find(s => s.id === 'entry').measured.form : null }));
+706943	  if (IMG) {   // the hand-off's four screenshots: the entry as a title (>= 381 px), the entry as the chip (<= 380 px), the landing, the deep-link landing
+706944	    fs.mkdirSync(IMG, { recursive: true }); const pick = []; const wideD = out.devices.find(d => d.viewport.width >= TITLE_MIN), narrowD = out.devices.find(d => d.viewport.width < TITLE_MIN);
+706945	    const formOf = d => { const e = d.steps.find(s => s.id === 'entry'); return (e && e.measured && e.measured.form) || 'none'; };   // named by the form measured, not the form wanted
+706946	    if (wideD && wideD.shots.entry) pick.push([wideD.shots.entry, '01-entry-' + formOf(wideD) + '-' + slug(wideD.device) + '.png']);
+706947	    if (narrowD && narrowD.shots.entry) pick.push([narrowD.shots.entry, '02-entry-' + formOf(narrowD) + '-' + slug(narrowD.device) + '.png']);
+706948	    const any = wideD || narrowD; if (any && any.shots.landing) pick.push([any.shots.landing, '03-landing-see-through-' + slug(any.device) + '.png']);
+706949	    if (any && any.shots['deep-link-landing']) pick.push([any.shots['deep-link-landing'], '04-deep-link-key-' + slug(any.device) + '.png']);
+706950	    out.img = pick.map(([s, d]) => { const size = fitPng(s, path.join(IMG, d)); return { file: d, bytes: size, under300KB: size < 300 * 1024 }; });
+706951	    if (out.img.some(i => !i.under300KB)) out.pass = false;
+706952	  console.log(JSON.stringify({ pass: out.pass, mode: out.mode, static: { module: st.module.pass, data: st.data.pass, moduleNote: st.module.note, dataNote: st.data.note }, summary: out.summary, img: out.img }, null, 1));
+706953	// test.cjs: the acceptance test of Opus team 6's module `file` (ROADMAP step 6, A1-A8; team-3/STEPS.md 6.1-6.5),
+706954	// in the form of FIXES/NL-009/android-journey.cjs: real touch (page.touchscreen.tap), measured assertions, one JSON
+706955	// report. Apache-2.0 (kuiper-belt), kuiper-belt README.md:157. Opus team 6 lead; the A6/A7 flows follow the builder's
+706956	// smoke-touch.cjs (OPUS-6 builder, 22:49 UTC). The G gates are the tester's (OPUS-6 tester, 23:06 UTC):
+706957	//   G1 every GRAMMAR.md example round-trips parse -> serialise -> parse byte-identical, in the page, through the module's
+706958	//      own link.read and its serialiser (link.format when the module exposes it, else link.set + link.hashText on a hash
+706959	//      that holds only the example's own `layers`, because hashText() re-reads `layers` from location.hash);
+706960	//   G2 the REAL pointer editions/index.html (not routed) forwards each example's hash byte for byte, and the routed
+706961	//      pointer lands on this edition with the hash byte for byte before the page has read it;
+706962	//   G3 Open an edition by touch: the row lands on ../<stamp>/#<the copied link's hash>, byte for byte;
+706963	//   G4 Open an app by touch: See Through lands on ../../see-through/#key=<the open key>;
+706964	//   G5 Copy a link to this view with the clipboard denied: the link (= link.url()) in a selected read-only 44 px field.
+706965	// Pages that are not this edition (Edition 2, Edition 1, the published 202611012027, See Through) are answered with a
+706966	// one-line page through ctx.route: the test asserts the URL the Kuiper sends the person to, not another page's console.
+706967	// Console errors are counted strictly: a 404 of an EVIDENCE file the integrator has not written yet is a FAIL unless
+706968	// --allow-missing-evidence is given, which turns it into NOT EVALUATED (never a pass).
+706969	//   node test.cjs <edition url> <outdir> [--device "Pixel 7"] [--devices "Pixel 7,Galaxy S24"] [--shots <dir>]
+706970	// <edition url> is http://127.0.0.1:<port>/editions/202611012135/ on a server of the kuiper-belt root (or a scratch
+706971	// copy of it). "Through the pointer" means <root>/editions/#<hash>: the pointer on disk opens the newest PUBLISHED
+706972	// edition (editions/index.html:12 -> 202611012027), so the test serves the pointer's own two lines with this edition's
+706973	// stamp through page.route (the same location.replace(stamp + '/' + location.hash), nothing else changed); stated in
+706974	// the report as `pointer: routed`.
+706975	// Exit 0 when every gate of every device passed, 1 otherwise, 2 on a harness error. NOT EVALUATED is never a pass.
+706976	const fs = require('fs'), path = require('path'), crypto = require('crypto');
+706977	const argv = process.argv.slice(2), pos = argv.filter(a => !a.startsWith('--'));
+706978	const flag = n => { const i = argv.indexOf(n); return i >= 0 ? (argv[i + 1] || true) : null; };
+706979	if (pos.length < 2) { console.error('usage: node test.cjs <edition url> <outdir> [--device NAME] [--devices A,B] [--shots DIR]'); process.exit(2); }
+706980	const URL0 = pos[0].replace(/\/?$/, '/'), OUT = path.resolve(pos[1]), SHOTS = flag('--shots') ? path.resolve(String(flag('--shots'))) : null;
+706981	let DEVICES = ['Pixel 7', 'Galaxy S24'];
+706983	const STAMP = (URL0.match(/editions\/(\d{12})\//) || [])[1];
+706984	const ROOT = URL0.replace(/editions\/\d{12}\/$/, ''), POINTER = ROOT + 'editions/';
+706985	const EVIDENCE = ['keys.json', 'proof/edition-sha256.txt', 'proof/keys-summary.json', 'modules.json', 'LICENCES.md', 'proof/android-journey.json', 'README.md'];
+706986	const ROWS = ['Open', 'Open a key…', 'python tools/key.py', 'Open a line…', 'Open an edition ▸', 'Open an app ▸', 'Link', 'Copy a link to this view',
+706987	  'Copy the key', 'Copy python tools/key.py', 'Evidence'].concat(EVIDENCE).concat(['Export', '⤓ Save an image of this view', '⎙ Print']);
+706988	const LINE0 = '0048802883266c68d5bdb6f5add0074e8b5b729d:5', KEY0 = 36064705400;
+706989	const ALLOW404 = argv.includes('--allow-missing-evidence');
+706990	// GRAMMAR.md "Examples" (and ROADMAP step 6.3), byte for byte
+706991	const EXAMPLES = ['#key=36064705400', '#line=0048802883266c68d5bdb6f5add0074e8b5b729d:5', '#repo=gridatlas&period=2026-07',
+706992	  '#layers=lines,see-through&key=63035688574', '#edition=202611010114&key=36064705400', '#app=see-through&sub=Drax'];
+706993	const FOREIGN = u => /\/editions\/(202611010114|202611012027|202610311905)\//.test(u.pathname) || /\/see-through\//.test(u.pathname);
+706994	const LANDED = '<!DOCTYPE html><meta charset="utf-8"><title>landed</title><p>not this edition: the test asserts the URL only</p>';
+706996	  const keys = await (await fetch(URL0 + 'keys.json')).json();
+706997	  const bodies = keys.bodies || keys;
+706998	  const report = { url: URL0, stamp: STAMP, pointer: 'routed', started: new Date().toISOString(), devices: {} };
+706999	  let allPass = true;
+707000	  for (const DEV of DEVICES) {
+707001	    const R = report.devices[DEV] = { steps: [], errors: [], expected_404: [], other_console: [] };
+707002	    const step = (id, pass, measured) => { R.steps.push({ id, result: pass === null ? 'NOT EVALUATED' : (pass ? 'PASS' : 'FAIL'), measured }); if (pass === false) allPass = false; };
+707003	    const slug = DEV.replace(/[^A-Za-z0-9]+/g, '_');
+707004	    async function newPage(opts) {
+707005	      const ctx = await browser.newContext({ ...devices[DEV], acceptDownloads: true });
+707006	      if (!opts || opts.clip !== false) await ctx.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: new URL(URL0).origin });
+707007	      await ctx.route(FOREIGN, r => r.fulfill({ status: 200, contentType: 'text/html', body: LANDED }));
+707008	      if (!opts || !opts.realPointer) await ctx.route(POINTER, r => r.fulfill({ status: 200, contentType: 'text/html', body: '<!DOCTYPE html><meta charset="utf-8"><script>location.replace(' + JSON.stringify(STAMP + '/') + ' + location.hash);</script>' }));
+707009	      const p = await ctx.newPage();
+707010	      p.on('pageerror', e => R.errors.push(String(e)));
+707011	      p.on('console', m => { if (m.type() !== 'error') return; const u = (m.location() || {}).url || '', t = m.text();
+707012	        if (/status of 404/.test(t) && EVIDENCE.some(f => u === URL0 + f)) { if (!R.expected_404.includes(u)) R.expected_404.push(u); } else R.other_console.push(t + ' @ ' + u); });
+707014	    async function ready(p) {
+707015	      try { await readyInner(p); } catch (e) {
+707016	        const snap = await p.evaluate(() => { try { const s = window.__KUIPER_EDITION__ || {}; const L = window.KY && KY.modules.layers && KY.modules.layers.api;
+707017	          return { url: location.href, admitted: (s.admitted || []).map(a => a.id), refused: s.refused, lines: L ? L.get('lines').status + ' ' + (L.get('lines').why || '') : null, kyfile: !!document.getElementById('ky-file') }; } catch (x) { return String(x); } }).catch(x => String(x));
+707018	        throw new Error('not ready: ' + e.message.split('\n')[0] + ' · ' + JSON.stringify(snap));
+707019	    async function readyInner(p) {
+707020	      await p.waitForFunction(() => { const s = window.__KUIPER_EDITION__; return s && s.admitted && s.admitted.some(a => a.id === 'file') && window.KY && KY.hooks.N > 0; }, null, { timeout: 240000, polling: 500 });
+707021	      await p.waitForFunction(() => { try { return KY.modules.layers.api.get('lines').status === 'OK' && document.getElementById('ky-file') && document.querySelector('#ky-file > .gm-layer-group'); } catch (e) { return false; } }, null, { timeout: 240000, polling: 500 });
+707022	      await p.waitForTimeout(6500);
+707023	    async function settle(p, ms) { await p.waitForTimeout(ms || 7000); await p.waitForFunction(() => !KY.cam || true, null, { timeout: 5000 }).catch(() => {}); }
+707024	    const tapSel = async (p, sel) => { const el = p.locator(sel).first(); await el.scrollIntoViewIfNeeded(); const b = await el.boundingBox(); if (!b) throw new Error('no box for ' + sel); await p.touchscreen.tap(b.x + b.width / 2, b.y + Math.min(b.height / 2, 22)); return b; };
+707025	    const openMenu = async (p, n) => { const open = await p.evaluate(m => { const b = document.getElementById('kuiper-menu-bar'); return b && b.getAttribute('data-open') === m; }, n); if (!open) { await tapSel(p, '#kuiper-menu-bar .gm-menu[data-menu="' + n + '"] > .gm-title'); await p.waitForTimeout(900); } };
+707026	    const shot = async (p, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { recursive: true }); await p.screenshot({ path: path.join(SHOTS, slug + '-' + name + '.png'), scale: 'css', timeout: 180000 }).catch(e => R.errors.push('screenshot ' + name + ': ' + e.message)); };
+707027	    const sel = p => p.evaluate(() => { const lc = KY.modules['line-card'].api.inspect(); const h = document.querySelector('#card .lc-h code');
+707028	      return { open: lc.open, index: lc.index, header: h ? h.textContent : null, hash: location.hash, zoom: KY.cam.zoom, card: KY.hooks.card.style.display }; });
+707029	    const placed = bodies.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0);
+707030	      // ------------------------------------------------------------------ page 1: arrival, A1, A3, A2, A6, A7
+707031	      let p = await newPage(); await p.goto(URL0, { timeout: 180000 }); await ready(p);
+707032	      const ed = await p.evaluate(() => ({ admitted: __KUIPER_EDITION__.admitted.map(a => a.id), refused: __KUIPER_EDITION__.refused, SPACE: KY.hooks.SPACE }));
+707033	      step('M admitted', ed.admitted.includes('file') && ed.refused.length === 0, ed);
+707034	      const SPACE = ed.SPACE, P = placed.filter(b => b.key < SPACE);
+707035	      // A1 the panel
+707036	      await openMenu(p, 'file');
+707037	      await tapSel(p, '#ky-file-open-edition'); await p.waitForFunction(() => document.querySelector('#ky-file-editions[data-filled="ok"]'), null, { timeout: 60000 }).catch(() => {});
+707038	      await tapSel(p, '#ky-file-open-app'); await p.waitForTimeout(600);
+707039	      await p.waitForFunction(() => Object.keys(KY.modules.file.api.inspect().evidence).length === 7, null, { timeout: 60000 }).catch(() => {});
+707040	      const a1 = await p.evaluate(() => {
+707041	        const bar = document.getElementById('kuiper-menu-bar').getBoundingClientRect(), panel = document.querySelector('#kuiper-menu-bar .gm-menu[data-menu="file"] .gm-panel');
+707042	        const g = document.getElementById('ky-file'), items = [];
+707043	        g.querySelectorAll(':scope > .gm-layer-group, :scope > button, :scope > a, :scope > div > .ky-file-form').forEach(e => { const r = e.getBoundingClientRect();
+707044	          items.push({ t: (e.querySelector('.ky-file-label') || e).textContent.trim(), h: Math.round(r.height * 10) / 10, heading: e.classList.contains('gm-layer-group') }); });
+707045	        const sub = [...document.querySelectorAll('#ky-file-editions > *, #ky-file-apps > *')].map(e => ({ ed: e.getAttribute('data-ky-edition'), app: e.getAttribute('data-ky-app'), lit: e.classList.contains('ky-lit'), inert: e.getAttribute('aria-disabled') === 'true', h: Math.round(e.getBoundingClientRect().height) }));
+707046	        return { barBottom: bar.bottom, panelTop: panel.getBoundingClientRect().top, items, sub };
+707048	      const eds = (await (await fetch(URL0 + 'data/editions.json')).json()).editions.map(e => e.stamp);
+707049	      const rowsOk = a1.items.filter(i => !i.heading).every(i => i.h >= 44) && a1.sub.every(s => s.h >= 44);
+707050	      const order = a1.items.map(i => i.t), orderOk = ROWS.every((w, i) => (order[i] || '').startsWith(w));
+707051	      const edList = a1.sub.filter(s => s.ed).map(s => s.ed), apps = a1.sub.filter(s => s.app);
+707052	      step('A1 one panel under the bar, rows >= 44 px, 6.1 order, four headings', a1.panelTop >= a1.barBottom - 0.5 && rowsOk && orderOk
+707053	        && a1.items.filter(i => i.heading).map(i => i.t).join() === 'Open,Link,Evidence,Export', { panelTop: a1.panelTop, barBottom: a1.barBottom, order, heights: a1.items.map(i => i.h), sub_rows: a1.sub, under_44: a1.items.filter(i => !i.heading && i.h < 44).concat(a1.sub.filter(x => x.h < 44)) });
+707054	      step('A1 editions: every stamp newest first, the pointer last, this one inert', JSON.stringify(edList) === JSON.stringify(eds.slice().sort().reverse().concat(['pointer']))
+707055	        && a1.sub.find(s => s.ed === STAMP).inert, { edList });
+707056	      step('A1 apps: See Through first and lit', apps.length > 0 && apps[0].app === 'see-through' && apps[0].lit, { apps });
+707057	      await shot(p, '01-file-panel');
+707058	      // A3 evidence
+707059	      const ev = await p.evaluate(() => [...document.querySelectorAll('#ky-file a[data-ky-evidence]')].map(a => ({ p: a.getAttribute('data-ky-evidence'), bytes: a.getAttribute('data-ky-bytes'), dl: a.hasAttribute('download'), hint: a.querySelector('.gm-hint').textContent })));
+707060	      const a3 = [];
+707061	      for (const e of ev) { const r = await fetch(URL0 + e.p, { method: 'HEAD' }); a3.push({ p: e.p, status: r.status, len: r.headers.get('content-length'), row: e.bytes, hint: e.hint, download: e.dl }); }
+707062	      const present = a3.filter(x => x.status === 200), missing = a3.filter(x => x.status !== 200);
+707063	      step('A3 every present EVIDENCE file 200 with content-length = the row', present.every(x => x.len === x.row && x.download) && missing.every(x => /missing · HTTP 404/.test(x.hint)), { a3 });
+707064	      if (missing.length) step('A3 all seven files present', null, { missing: missing.map(x => x.p), why: 'written by the integrator (proof/*) and Opus 9 (LICENCES.md) at assembly' });
+707065	      const shaTxt = await fetch(URL0 + 'proof/edition-sha256.txt');
+707066	      if (shaTxt.ok) { const t = await shaTxt.text(), m = t.match(/^([0-9a-f]{64})\s+\*?(?:\.\/)?keys\.json$/m), srv = crypto.createHash('sha256').update(Buffer.from(await (await fetch(URL0 + 'keys.json')).arrayBuffer())).digest('hex');
+707067	        step('A3 sha256(keys.json) = edition-sha256.txt', !!m && m[1] === srv, { listed: m && m[1], served: srv }); }
+707068	      else step('A3 sha256(keys.json) = edition-sha256.txt', null, { why: 'proof/edition-sha256.txt HTTP ' + shaTxt.status });
+707069	      // A2 open a key
+707070	      await tapSel(p, '#ky-file-key-in'); await p.keyboard.type(String(KEY0)); await tapSel(p, '#ky-file-key .ky-go'); await settle(p, 8000);
+707071	      const a2 = await sel(p), spark = await p.evaluate(i => { const s = KY.modules.layers.api.edScreen(i), bar = document.getElementById('kuiper-menu-bar').getBoundingClientRect(), c = KY.hooks.card.getBoundingClientRect(); return { s, barBottom: bar.bottom, cardTop: c.top, w: innerWidth }; }, a2.index);
+707072	      step('A2 Open a key: hash, header = bodies[0].line_text, zoom 14, spark in the clear space', /(^#|&)key=36064705400(&|$)/.test(a2.hash) && a2.header === bodies[0].line_text && Math.abs(a2.zoom - 14) < 0.01
+707073	        && spark.s && spark.s[1] > spark.barBottom && spark.s[1] < spark.cardTop && spark.s[0] > 0 && spark.s[0] < spark.w,
+707074	        { hash: a2.hash, header_equal: a2.header === bodies[0].line_text, zoom: a2.zoom, spark: spark.s, barBottom: spark.barBottom, cardTop: spark.cardTop, band_centre_dy: spark.s ? Math.round((spark.s[1] - (spark.barBottom + spark.cardTop) / 2) * 10) / 10 : null });
+707075	      await shot(p, '02-open-key');
+707076	      const cam0 = await p.evaluate(() => [KY.cam.x, KY.cam.y, KY.cam.zoom]);
+707077	      await openMenu(p, 'file'); await p.locator('#ky-file-key-in').fill(''); await tapSel(p, '#ky-file-key-in'); await p.keyboard.type(String(SPACE)); await tapSel(p, '#ky-file-key .ky-go'); await p.waitForTimeout(1500);
+707078	      const refusal = await p.evaluate(() => document.querySelector('#ky-file-key-in').closest('div').parentNode.querySelector('.ky-file-why').textContent);
+707079	      const cam1 = await p.evaluate(() => [KY.cam.x, KY.cam.y, KY.cam.zoom]);
+707080	      step('A2 SPACE refused in words, camera unchanged', refusal === 'key ' + SPACE + ' is not on this wafer (SPACE ' + SPACE + ')' && JSON.stringify(cam0) === JSON.stringify(cam1), { refusal, cam0, cam1 });
+707081	      await tapSel(p, '#ky-file-copy-cmd'); await p.waitForTimeout(1200);
+707082	      const clip = await p.evaluate(() => navigator.clipboard.readText().catch(e => 'ERR ' + e.message));
+707083	      step('A2 Copy python tools/key.py <k> -> clipboard', clip === 'python tools/key.py ' + KEY0, { clip });
+707084	      // A6 save an image
+707085	      const dlP = p.waitForEvent('download', { timeout: 120000 }); await tapSel(p, '#kuiper-export-image'); const dl = await dlP;
+707086	      const fp = path.join(OUT, slug + '-' + dl.suggestedFilename()); await dl.saveAs(fp);
+707087	      const png = fs.readFileSync(fp), isPng = png.slice(1, 4).toString() === 'PNG';
+707088	      const a6 = await p.evaluate(async ({ b64 }) => {
+707089	        const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0)), bmp = await createImageBitmap(new Blob([bin], { type: 'image/png' }));
+707090	        const c = document.createElement('canvas'); c.width = bmp.width; c.height = bmp.height; const x = c.getContext('2d'); x.drawImage(bmp, 0, 0);
+707091	        const rec = KY.modules.file.api.inspect().c.exports.slice(-1)[0], vh = rec.view_height, fh = bmp.height - vh;
+707092	        const d = x.getImageData(0, 0, bmp.width, vh).data; let colours = new Set(); for (let i = 0; i < d.length && colours.size < 3; i += 4 * 97) colours.add(d[i] + ',' + d[i + 1] + ',' + d[i + 2] + ',' + d[i + 3]);
+707093	        const count = (data) => { let n = 0; for (let i = 0; i < data.length; i += 4) if (Math.abs(data[i] - 5) + Math.abs(data[i + 1] - 7) + Math.abs(data[i + 2] - 12) > 60) n++; return n; };
+707094	        const foot = count(x.getImageData(0, vh, bmp.width, fh).data);
+707095	        // the reference: the same foot drawn again with the same lines (the builder's stamped(): 11/16/8 px x scale)
+707096	        const s = Math.min(devicePixelRatio || 1, 2), r = document.createElement('canvas'); r.width = bmp.width; r.height = fh; const o = r.getContext('2d');
+707097	        o.fillStyle = '#05070c'; o.fillRect(0, 0, r.width, fh); o.fillStyle = '#2ee6e6'; o.fillRect(0, 0, r.width, Math.max(1, Math.round(s)));
+707098	        o.font = Math.round(11 * s) + 'px ui-monospace, Menlo, Consolas, monospace'; o.textBaseline = 'top'; o.fillStyle = '#c9d3e6';
+707099	        rec.foot.forEach((t, i) => o.fillText(t, Math.round(8 * s), Math.round(8 * s) + i * Math.round(16 * s), r.width - 2 * Math.round(8 * s)));
+707100	        const ref = count(o.getImageData(0, 0, r.width, fh).data);
+707101	        return { w: bmp.width, h: bmp.height, expectW: Math.round(innerWidth * Math.min(devicePixelRatio, 2)), colours: colours.size, foot, ref, lines: rec.foot };
+707102	      }, { b64: png.toString('base64') });
+707103	      step('A6 Save an image: PNG, not one colour, innerWidth x min(dpr,2) wide, the stamp strip within 5 %', isPng && a6.colours > 1 && a6.w === a6.expectW && a6.ref > 0 && Math.abs(a6.foot - a6.ref) / a6.ref <= 0.05
+707104	        && /Apache-2\.0, text and data CC BY 4\.0/.test(a6.lines.join('\n')) && a6.lines[0].indexOf(STAMP) >= 0, Object.assign({ file: path.basename(fp), bytes: png.length }, a6));
+707105	      await p.evaluate(() => { KY.draw.add(() => { if (!window.__blank) return; const gl = KY.hooks.cv.getContext('webgl2'); gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT); }, 1e8); window.__blank = 1; });
+707106	      let got = false; const onDl = () => { got = true; }; p.on('download', onDl);
+707107	      await openMenu(p, 'file'); await tapSel(p, '#kuiper-export-image'); await p.waitForTimeout(7000); p.off('download', onDl);
+707108	      const blankRow = await p.evaluate(() => (document.querySelector('#kuiper-export-image .ky-file-why') || {}).textContent);
+707109	      step('A6 a cleared #c is refused in words, no file', blankRow === 'the image came back blank; try again after the wafer has drawn' && !got, { row: blankRow, download: got });
+707110	      await p.evaluate(() => { window.__blank = 0; });
+707111	      // A7 EDIT: paste a Kuiper link, Backspace
+707112	      if (await p.evaluate(() => !!document.getElementById('kuiper-menu-bar').getAttribute('data-open'))) await p.evaluate(() => KY.modules['kuiper-shell'].api.close());
+707113	      await p.waitForTimeout(800);
+707114	      await openMenu(p, 'edit'); await tapSel(p, '#ky-edit-paste'); await p.waitForTimeout(700);
+707115	      await p.keyboard.type('https://ventusltd.github.io/kuiper-belt/editions/202611012027/#line=' + LINE0); await p.keyboard.press('Enter'); await settle(p, 9000);
+707116	      const a7 = await sel(p), i0 = P.findIndex(b => b.id === LINE0);
+707117	      step('A7 a pasted Kuiper link -> the line', a7.open && a7.index === i0 && a7.header === bodies[0].line_text && /line=0048802883266c68d5bdb6f5add0074e8b5b729d:5/.test(a7.hash), a7);
+707118	      const kb = await p.evaluate(() => { const t = KY.hooks.card; return t.getBoundingClientRect().height; });
+707119	      await p.keyboard.press('Backspace'); await p.waitForTimeout(2500);
+707120	      const bs = await p.evaluate(() => location.hash);
+707121	      step('A7 Backspace clears key line repo period, keeps layers', !/(^#|&)(key|line|repo|period)=/.test(bs) && /(^#|&)layers=/.test(bs), { hash: bs });
+707122	      // A4 direct (hashchange on the open page)
+707123	      const direct = {};
+707124	      await p.evaluate(() => { location.hash = '#repo=gridatlas&period=2026-07'; }); await settle(p, 6000);
+707125	      direct.repoPeriod = await p.evaluate(() => { const r = KY.hooks.repos[KY.lit.repo]; return { repo: r && r.name, K: KY.lit.K, hash: location.hash }; });
+707126	      await p.evaluate(k => { location.hash = '#key=' + k; }, KEY0); await settle(p, 8000);
+707127	      direct.key = await sel(p);
+707128	      step('A4 direct: repo&period lights gridatlas over July 2026; key opens the line', direct.repoPeriod.repo === 'gridatlas' && direct.repoPeriod.K && direct.repoPeriod.K[0] >= 0
+707129	        && direct.key.header === bodies[0].line_text && Math.abs(direct.key.zoom - 14) < 0.01, direct);
+707130	      await shot(p, '03-pasted-line');
+707131	      // A7 a pasted See Through link -> navigation
+707132	      await p.keyboard.type('https://ventusltd.github.io/kuiper-belt/see-through/#sub=Drax'); await p.keyboard.press('Enter');
+707133	      await p.waitForURL(/\/see-through\//, { timeout: 60000 }).catch(() => {});
+707134	      step('A7 a pasted See Through link -> navigation to See Through, the hash kept', /\/see-through\/.*#sub=Drax$/.test(p.url()), { url: p.url() });
+707135	      await p.context().close();
+707136	      // ------------------------------------------------------------------ A4 through the pointer, A5 round trip
+707137	      const forwarded = [];
+707138	      const viaPointer = async (hash, wantNav) => { const q = await newPage(); await q.goto(POINTER + hash, { timeout: 180000 });
+707139	        if (!wantNav) { await q.waitForURL(u => u.pathname.indexOf('/editions/' + STAMP + '/') >= 0, { timeout: 120000, waitUntil: 'commit' }).catch(() => {}); forwarded.push({ hash, landed: q.url(), ok: q.url() === URL0 + hash }); }
+707140	        if (wantNav) { await q.waitForURL(wantNav, { timeout: 120000 }).catch(() => {}); return q; } await ready(q); await settle(q, 8000); return q; };
+707141	      let q = await viaPointer('#key=' + KEY0);
+707142	      const pk = await sel(q); step('A4 pointer #key: zoom 14 at the key, the card', pk.header === bodies[0].line_text && Math.abs(pk.zoom - 14) < 0.01, pk); await q.context().close();
+707143	      q = await viaPointer('#line=' + LINE0);
+707144	      const pl = await sel(q), plS = await q.evaluate(i => { const s = KY.modules.layers.api.edScreen(i), c = KY.hooks.card.getBoundingClientRect(), b = document.getElementById('kuiper-menu-bar').getBoundingClientRect(); return { s, top: b.bottom, bot: c.top }; }, pl.index);
+707145	      step('A4 pointer #line: that body, the spark between the bar and the card', pl.index === P.findIndex(b => b.id === LINE0) && plS.s && plS.s[1] > plS.top && plS.s[1] < plS.bot, Object.assign({}, pl, plS)); await q.context().close();
+707146	      q = await viaPointer('#repo=gridatlas&period=2026-07');
+707147	      const pr = await q.evaluate(() => { const r = KY.hooks.repos[KY.lit.repo]; return { repo: r && r.name, K: KY.lit.K }; });
+707148	      step('A4 pointer #repo&period: gridatlas lit, July 2026 lit', pr.repo === 'gridatlas' && pr.K && pr.K[0] >= 0, pr); await q.context().close();
+707149	      q = await viaPointer('#layers=lines,see-through&key=63035688574');
+707150	      const py = await q.evaluate(() => ({ on: KY.modules.layers.api.inspect().on, zoom: KY.cam.zoom, hash: location.hash, states: KY.modules.layers.api.inspect().states, lit_repo: KY.lit.repo }));
+707151	      const stAdmitted = await q.evaluate(() => !!KY.modules['see-through']);
+707152	      const asked = ['lines', 'see-through'], extras = py.on.filter(x => asked.indexOf(x) < 0);
+707153	      // extras allowed: `repos`, mirrored on by layers.js:539 when the key's repository is lit (Opus 3's rule); nothing else
+707154	      step('A4 pointer #layers=lines,see-through&key=…: the asked layers on, no other layer but a mirrored repos, camera at the key',
+707155	        asked.every(x => py.on.indexOf(x) >= 0) && extras.every(x => x === 'repos' && py.lit_repo >= 0) && Math.abs(py.zoom - 14) < 0.01,
+707156	        Object.assign({ see_through_admitted: stAdmitted, extras }, py));
+707157	      await q.context().close();
+707158	      q = await viaPointer('#edition=202611010114&key=' + KEY0, u => /\/editions\/202611010114\/$/.test(u.pathname));
+707159	      step('A4 pointer #edition=…&key=…: the URL is that edition with the rest of the hash', /editions\/202611010114\/#key=36064705400$/.test(q.url()), { url: q.url() }); await q.context().close();
+707160	      q = await viaPointer('#app=see-through&sub=Drax', u => /\/see-through\//.test(u.pathname));
+707161	      step('A4 pointer #app=see-through&sub=Drax: the URL is See Through with #sub=Drax', /\/see-through\/(\d{12}\/)?#sub=Drax$/.test(q.url()), { url: q.url() }); await q.context().close();
+707162	      step('G2 the routed pointer lands on this edition with the hash byte for byte', forwarded.length === 4 && forwarded.every(f => f.ok), { forwarded });
+707163	      // A5 the round trip: e, then two random verified lines
+707164	      const picks = ['e', Math.floor(Math.random() * P.length), Math.floor(Math.random() * P.length)];
+707165	      for (const pick of picks) { try {
+707166	        p = await newPage(); await p.goto(URL0, { timeout: 180000 }); await ready(p);
+707167	        if (pick === 'e') { await openMenu(p, 'view'); await tapSel(p, '#kuiper-menu-bar [data-k="e"]'); }
+707168	        else await p.evaluate(i => KY.modules.layers.api.open(i), pick);
+707169	        await settle(p, 7000);
+707170	        const s0 = await sel(p);
+707171	        await openMenu(p, 'file'); await tapSel(p, '#ky-file-copy-link'); await p.waitForTimeout(1200);
+707172	        const link = await p.evaluate(() => navigator.clipboard.readText());
+707173	        if (pick === picks[0] || pick === picks[1]) {
+707174	          await openMenu(p, 'file');
+707175	          const isFirst = pick === picks[0];
+707176	          if (isFirst) {                              // G3 Open an edition by touch: Edition 2's row carries the hash
+707177	            if (!(await p.evaluate(() => document.getElementById('ky-file-editions').classList.contains('ky-open')))) await tapSel(p, '#ky-file-open-edition');
+707178	            await p.waitForFunction(() => document.querySelector('#ky-file-editions[data-filled="ok"]'), null, { timeout: 60000 }).catch(() => {});
+707179	            const h = await p.evaluate(() => KY.modules.file.api.link.hashText());
+707180	            const r = await tapSel(p, '#ky-file-editions [data-ky-edition="202611010114"]');
+707181	            await p.waitForURL(/\/editions\/202611010114\//, { timeout: 60000 }).catch(() => {});
+707182	            const want = ROOT + 'editions/202611010114/#' + h;
+707183	            step('G3 Open an edition by touch: ../202611010114/#<hash>, the copied link\'s hash byte for byte', p.url() === want && link.slice(link.indexOf('#')) === '#' + h && r.height >= 44,
+707184	              { landed: p.url(), want, copied_hash: link.slice(link.indexOf('#')), row_h: Math.round(r.height) });
+707185	          } else {                                    // G4 Open an app by touch: See Through, first and lit, carries the key
+707186	            if (await p.evaluate(() => !!(KY.modules.apps && KY.modules.apps.api))) step('G4 Open an app by touch', null, { why: 'the apps module is admitted: Open an app opens its launcher (step 7 tests it)' });
+707188	              if (!(await p.evaluate(() => document.getElementById('ky-file-apps').classList.contains('ky-open')))) await tapSel(p, '#ky-file-open-app');
+707189	              await p.waitForTimeout(600);
+707190	              const k = await p.evaluate(() => KY.modules.file.api.link.inspect().fields.key);
+707191	              const first = await p.evaluate(() => { const e = document.querySelector('#ky-file-apps > *'); return e && { app: e.getAttribute('data-ky-app'), lit: e.classList.contains('ky-lit') }; });
+707192	              const r = await tapSel(p, '#ky-file-apps [data-ky-app="see-through"]');
+707193	              await p.waitForURL(/\/see-through\//, { timeout: 60000 }).catch(() => {});
+707194	              const want = ROOT + 'see-through/#key=' + k;
+707195	              step('G4 Open an app by touch: See Through first and lit, lands on ../../see-through/#key=<the open key>', p.url() === want && first && first.app === 'see-through' && first.lit && r.height >= 44,
+707196	                { landed: p.url(), want, first, row_h: Math.round(r.height) });
+707199	        await p.context().close();
+707200	        const hash = link.slice(link.indexOf('#'));
+707201	        q = await viaPointer(hash); const s1 = await sel(q); await q.context().close();
+707202	        step('A5 round trip (' + (pick === 'e' ? 'e' : 'edPlaced[' + pick + ']') + ')', s0.index >= 0 && s1.index === s0.index && s1.header === s0.header && /line=[0-9a-f]{40}:\d+/.test(hash) && /key=\d+/.test(hash),
+707203	          { link, before: s0.index, after: s1.index, header_equal: s1.header === s0.header });
+707204	      } catch (e) { step('A5 round trip (' + pick + ') harness', false, String(e && e.stack || e).slice(0, 1500)); await p.context().close().catch(() => {}); if (q) await q.context().close().catch(() => {}); } }
+707205	      // ------------------------------------------------------------------ clipboard refused, A8 history
+707206	      p = await newPage({ clip: false }); await p.goto('about:blank'); await p.goto(URL0, { timeout: 180000 }); await ready(p);
+707207	      await p.evaluate(() => { Object.defineProperty(navigator.clipboard ? Object.getPrototypeOf(navigator.clipboard) : {}, 'writeText', { value: () => Promise.reject(new Error('denied by the test')), configurable: true }); });
+707208	      await openMenu(p, 'file'); await tapSel(p, '#ky-file-copy-cmd'); await p.waitForTimeout(1200);
+707209	      const fb = await p.evaluate(() => { const f = document.querySelector('input.ky-file-payload[data-for="ky-file-copy-cmd"]'); if (!f) return null; const r = f.getBoundingClientRect();
+707210	        return { value: f.value, readOnly: f.readOnly, selected: f.selectionStart === 0 && f.selectionEnd === f.value.length, focused: document.activeElement === f, h: Math.round(r.height) }; });
+707211	      step('A2 clipboard refused -> the command in a selected read-only field', !!fb && fb.value === 'python tools/key.py ' + KEY0 && fb.readOnly && fb.selected && fb.h >= 44, fb);
+707212	      await openMenu(p, 'file'); await tapSel(p, '#ky-file-copy-link'); await p.waitForTimeout(1500);
+707213	      const fl = await p.evaluate(() => { const f = document.querySelector('input.ky-file-payload[data-for="ky-file-copy-link"]'); if (!f) return null; const r = f.getBoundingClientRect();
+707214	        return { value: f.value, url: KY.modules.file.api.link.url(), readOnly: f.readOnly, selected: f.selectionStart === 0 && f.selectionEnd === f.value.length, focused: document.activeElement === f, h: Math.round(r.height),
+707215	          why: (document.querySelector('#ky-file-copy-link .ky-file-why') || {}).textContent || null, open: document.getElementById('kuiper-menu-bar').getAttribute('data-open') }; });
+707216	      step('G5 Copy a link to this view, clipboard denied -> the link in a selected read-only 44 px field, never silent', !!fl && fl.value === fl.url && /#key=36064705400(&|$)/.test(fl.value)
+707217	        && fl.readOnly && fl.selected && fl.h >= 44, fl);
+707218	      await shot(p, '04-copy-fallback');
+707219	      await p.evaluate(() => KY.modules['kuiper-shell'].api.close()); await p.waitForTimeout(800);
+707220	      // three link changes on one page (no card left open), then back leaves the page in one step
+707221	      await p.evaluate(() => { location.hash = '#repo=gridatlas'; }); await settle(p, 3000);
+707222	      await p.evaluate(() => { location.hash = '#period=2026-07'; }); await settle(p, 3000);
+707223	      await p.evaluate(() => { location.hash = '#repo=kuiper-belt'; }); await settle(p, 3000);
+707224	      // a hash typed in the address bar is a navigation (one entry each); the module's own writes are replaceState:
+707225	      // the measured history length before and after the module wrote proves it adds none
+707226	      const hl = await p.evaluate(() => ({ len: history.length, writes: KY.modules.file.api.inspect().writes }));
+707227	      await openMenu(p, 'scope'); const openBefore = await p.evaluate(() => document.getElementById('kuiper-menu-bar').getAttribute('data-open'));
+707228	      await p.goBack().catch(() => {}); await p.waitForTimeout(1500);
+707229	      const afterPanel = await p.evaluate(() => ({ open: document.getElementById('kuiper-menu-bar').getAttribute('data-open'), url: location.href }));
+707230	      step('A8 back with a panel open closes the panel, stays on the page', openBefore === 'scope' && !afterPanel.open && afterPanel.url.indexOf(STAMP) >= 0, { openBefore, afterPanel });
+707231	      const lenBefore = await p.evaluate(() => history.length);
+707232	      await p.evaluate(k => { KY.modules.file.api.link.set('key', String(k)); KY.modules.file.api.link.flush(); KY.modules.file.api.link.set('repo', 'gridatlas'); KY.modules.file.api.link.flush(); KY.modules.file.api.link.set('period', '2026-07'); KY.modules.file.api.link.flush(); }, KEY0);
+707233	      const lenAfter = await p.evaluate(() => ({ len: history.length, hash: location.hash }));
+707234	      step('A8 three module link writes add no history entry (replaceState)', lenAfter.len === lenBefore && /period=2026-07/.test(lenAfter.hash), { lenBefore, lenAfter, hl });
+707235	      // G1 parse -> serialise -> parse, byte-identical, for every GRAMMAR.md example
+707236	      await p.waitForTimeout(600);
+707237	      const g1 = await p.evaluate(exs => {
+707238	        const L = KY.modules.file.api.link, W = ['key', 'line', 'repo', 'period', 'layers'], pure = typeof L.format === 'function', saved = location.pathname + location.hash;
+707239	        const pick = f => { const o = {}; W.forEach(k => { if (f[k] != null) o[k] = f[k]; }); return o; };
+707240	        const ser = f => { if (pure) return L.format(f);
+707241	          history.replaceState(history.state, '', location.pathname + (f.layers != null ? '#layers=' + f.layers : ''));
+707242	          L.clear([]); let ok = true; W.forEach(k => { if (f[k] != null) ok = L.set(k, f[k]) && ok; }); const h = L.hashText(); return ok ? h : 'SET REFUSED ' + h; };
+707243	        const out = exs.map(ex => {
+707244	          const r1 = L.read(ex), f1 = r1.fields, s1 = ser(pick(f1)), r2 = L.read('#' + s1), f2 = r2.fields, s2 = ser(f2), r3 = L.read('#' + s2);
+707245	          const nav = Object.keys(f1).filter(k => W.indexOf(k) < 0);
+707246	          return { ex, f1, s1, f2, s2, nav, refused: r1.refused.concat(r2.refused), canonical: '#' + s1 === ex,
+707247	            identical: JSON.stringify(pick(f1)) === JSON.stringify(f2) && JSON.stringify(f2) === JSON.stringify(r3.fields) && s1 === s2 };
+707249	        L.clear([]); history.replaceState(history.state, '', saved); L.flush();
+707250	        return { serialiser: pure ? 'link.format (pure)' : 'link.set + link.hashText (format not exposed)', out };
+707251	      }, EXAMPLES);
+707252	      step('G1 every grammar example: parse -> serialise -> parse byte-identical, nothing refused', g1.out.length === EXAMPLES.length && g1.out.every(o => o.identical && o.refused.length === 0 && Object.keys(o.f1).length > 0), g1);
+707253	      // ------------------------------------------------------------------ G2 the real pointer forwards the hash byte for byte
+707254	      p = await newPage({ realPointer: true });
+707255	      const g2 = [];
+707256	      for (const ex of EXAMPLES) {
+707257	        await p.goto(POINTER + ex, { timeout: 180000 }); await p.waitForURL(/\/editions\/\d{12}\//, { timeout: 120000 }).catch(() => {});
+707258	        const ptrSrc = g2.length ? null : await (await fetch(POINTER)).text();
+707259	        const m = ptrSrc && ptrSrc.match(/location\.replace\('(\d{12})\/' \+ location\.hash\)/);
+707260	        if (m) g2.target = m[1];
+707261	        g2.push({ ex, landed: p.url(), ok: p.url() === POINTER + (g2.target || '') + '/' + ex });
+707262	      step('G2 the real pointer editions/index.html forwards every example\'s hash byte for byte', !!g2.target && g2.every(x => x.ok), { pointer_target: g2.target, results: g2 });
+707263	    } catch (e) { step('harness', false, String(e && e.stack || e)); }
+707264	    step('zero pageerror', R.errors.length === 0, R.errors);
+707265	    step('zero console errors (strict)', R.other_console.length === 0 && (R.expected_404.length === 0 || (ALLOW404 ? null : false)), { other: R.other_console, evidence_404: R.expected_404, allow_missing_evidence: ALLOW404 });
+707266	    R.pass = R.steps.every(s => s.result !== 'FAIL');
+707267	  report.finished = new Date().toISOString(); report.pass = allPass;
+707268	  console.log(JSON.stringify(report, null, 1));
+707269	  await browser.close(); process.exit(allPass ? 0 : 1);
+707270	})().catch(e => { console.error('HARNESS', e); process.exit(2); });
+707271	// test.cjs: the acceptance test of Opus team 7's module `apps` (NL-010 ROADMAP step 7, A1-A6; team-4/STEPS.md 7.1-7.5),
+707272	// report and a TEST.md written from it. Apache-2.0 (kuiper-belt code). Opus team 7 tester (OPUS-7 tester), 2026-11-01.
+707273	//   node test.cjs <edition url> <outdir> [--device NAME] [--devices "Pixel 7,Galaxy S24"] [--shots DIR] [--testmd FILE]
+707274	//                 [--edition-dir DIR] [--estate DIR] [--roots A:B:C] [--skip-keypy]
+707275	// <edition url> is http://127.0.0.1:<port>/editions/202611012135/ on a server of the kuiper-belt root, or of a scratch
+707276	// copy of it (until the integrator admits the module: /tmp/nl010-opus/team-7/tester/site, made by mksite.py there, team
+707277	// 6's method: loader + layers patch in a copy of index.html, modules shell, line-card, layers, file, see-through, apps).
+707278	// Devices run ONE AT A TIME (the machine is loaded). Exit 0 when every gate of every device passed, 1 otherwise, 2 on a
+707279	// harness error. NOT EVALUATED is never a pass.
+707280	// What is a gate (ROADMAP step 7 "Acceptance test on Android"; Opus table row 7):
+707281	//   S  (once, by script, no browser) A1: data/apps.json has 34 records; every key matches
+707282	//      ^(block:[A-Za-z0-9]+|surface:https://); the 7 block: keys equal elements@f7a92fb APPS.md:7-13 in order; the 25
+707283	//      homepage ids equal the data-entity-id set of globalgrid2050@c66759f homepage_versions/homepage_v134.html:32-56,
+707284	//      and each row's source line, link, name, kind and purpose equal that line's own words; rows that share a key name
+707285	//      each other in same_as (7.1); no APPS.md title or description is copied (Q1); the two graphs in data/graphs/ are
+707286	//      the only files there and hash as the spider row records (Q5). A4 data: data/elements.json lists the catalogue's
+707287	//      244 symbols in order, 221 placed with a key inside the wafer row of their commit (cosmos/wafer.tsv), 23 named
+707288	//      with a reason and no files in the catalogue; no catalogue title or description copied (Q1); python tools/key.py
+707289	//      on three sampled elements returns the recorded repository, commit and path.
+707290	//   M  the loader admitted `apps`, nothing refused.
+707291	//   A2 the bar keeps step 1's six titles (FILE EDIT VIEW SCOPE WAFER ABOUT), none names apps; FILE > Open an app (real
+707292	//      tap) opens #ky-apps under the bar; 34 rows, each >= 44 px, each row's first visible line is its key; the first
+707293	//      row's header is a key; a row with a failed link says FAIL and is never hidden.
+707294	//   A3 the See Through row navigates in the same tab to ../../see-through/ (200, title "See Through"); goBack() returns
+707295	//      to the edition with no panel open.
+707296	//   A4 the readout says "221 elements placed, 23 counted, not placed" (and "606 in the live register, 244 catalogued");
+707297	//      inspect() agrees; while Q1 is open (layers.json elements licence UNSETTLED) the WAFER row of `elements` reads
+707298	//      REFUSED · licence unsettled and its control is disabled; the card from the periodic-table panel (if the module has
+707299	//      one): first line = the element's line_text, second = block:<Sym>.
+707300	//   A5 the spider row opens its dashboard link (that one URL is answered by a stub; the test asserts the URL); the spider
+707301	//      layer, switched on by a real tap, is OK and draws the overview's 15 edges; the readout names the periodic-table
+707302	//      nodes with no key; with data/graphs/* answered 404 (routed; nothing deleted) the row is FAIL naming the file and
+707303	//      the wafer still draws.
+707304	//   A6 the whole device run, every step above, runs with every off-origin request blocked (ctx.route abort); the
+707305	//      blocked requests are listed.
+707306	//   E  zero pageerrors, zero console errors and zero failed same-origin requests on the edition during the device run
+707307	//      (the only allowed ones are the 404s of the routed data/graphs negative case; See Through's own console is listed,
+707308	//      not counted, it is not this module's page).
+707309	const argv = process.argv.slice(2), VALUED = ['--device', '--devices', '--shots', '--testmd', '--edition-dir', '--estate', '--roots'];
+707310	const pos = argv.filter((a, i) => !a.startsWith('--') && !(i > 0 && VALUED.includes(argv[i - 1])));
+707311	if (pos.length < 2) { console.error('usage: node test.cjs <edition url> <outdir> [--device NAME] [--devices A,B] [--shots DIR] [--testmd FILE]'); process.exit(2); }
+707312	const URL0 = pos[0].replace(/\/?$/, '/'), OUT = path.resolve(pos[1]);
+707313	const SHOTS = flag('--shots') ? path.resolve(String(flag('--shots'))) : null, TESTMD = flag('--testmd') ? path.resolve(String(flag('--testmd'))) : null;
+707314	const ORIGIN = new URL(URL0).origin;
+707315	const KB = '/home/user/estate/kuiper-belt';
+707316	const ED = path.resolve(String(flag('--edition-dir') || (KB + '/editions/' + STAMP)));
+707317	const ESTATE = path.resolve(String(flag('--estate') || '/home/user/estate'));
+707318	const ROOTS = String(flag('--roots') || '/tmp/nl010-opus/team-7/builder/clones:/home/user/estate:/home/user').split(':').filter(Boolean);
+707319	const SETTLE = 7000, LONG = 300000;
+707320	const KEY_RE = /^(block:[A-Za-z0-9]+|surface:https:\/\/)/;
+707321	const SRC = { elements: 'f7a92fb085c38dcbbd5cb469a66cd5ca61fb95bf', homepage: 'c66759f0d7ac3489df9158da6eaa1330a37c069f', testcode: 'd09c185c8dacbc5c73afb2b0d0d8dad40745a544' };
+707322	const SEE_THROUGH_KEY = 'surface:https://ventusltd.github.io/kuiper-belt/see-through/';
+707323	const README_606 = '606 in the live register, 244 catalogued', README_221 = '221 elements placed, 23 counted, not placed';
+707324	// file.js's EVIDENCE rows (Opus team 6) HEAD these; the integrator writes the missing ones at assembly (ROADMAP step 6, 10)
+707325	const ALLOW_EVIDENCE = argv.includes('--allow-missing-evidence');
+707326	const STUB = '<!DOCTYPE html><meta charset="utf-8"><title>stub</title><p>off-origin dashboard: the test asserts the URL only</p>';
+707327	const git = (repo, ...a) => cp.execFileSync('git', ['-C', repo, ...a], { maxBuffer: 1 << 28 }).toString('utf8');
+707328	const dec = s => s.replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))).replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d))
+707329	  .replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&');
+707330	const short = (v, n) => { const s = typeof v === 'string' ? v : JSON.stringify(v); return s && s.length > (n || 400) ? s.slice(0, n || 400) + '…' : s; };
+707331	const report = { test: 'handoff/07-apps/test.cjs', url: URL0, stamp: STAMP, started: new Date().toISOString(), edition_dir: ED, script: [], devices: {}, files: {} };
+707332	let allPass = true;
+707333	const sstep = (id, pass, measured) => { report.script.push({ id, result: pass === null ? 'NOT EVALUATED' : (pass ? 'PASS' : 'FAIL'), measured }); if (pass !== true) allPass = false; };
+707334	// ======================================================================== S: by script, against the sources (A1, A4 data)
+707335	async function scriptChecks() {
+707336	  const get = async f => { const r = await fetch(URL0 + f, { cache: 'no-store' }); if (!r.ok) throw new Error(f + ' HTTP ' + r.status); return Buffer.from(await r.arrayBuffer()); };
+707337	  for (const f of ['index.html', 'modules.json', 'modules/202611012309-apps.js', 'data/apps.json', 'data/elements.json', 'data/graphs/overview.json', 'data/graphs/periodic-table.json']) {
+707338	    try { const b = await get(f); report.files[f] = { sha256: sha256(b), bytes: b.length }; } catch (e) { report.files[f] = { error: e.message }; } }
+707339	  // ---- A1 apps.json
+707340	  let A; try { A = JSON.parse(await get('data/apps.json')); } catch (e) { sstep('A1 data/apps.json served and parses', false, e.message); return; }
+707341	  const rows = A.apps || [];
+707342	  const bad = rows.filter(r => !KEY_RE.test(String(r.key)));
+707343	  const ids = rows.map(r => r.id), dupIds = ids.filter((x, i) => ids.indexOf(x) !== i);
+707344	  sstep('A1 34 records, every key matches ^(block:[A-Za-z0-9]+|surface:https://), ids unique', rows.length === 34 && bad.length === 0 && dupIds.length === 0 && (A.counts || {}).total === 34,
+707345	    { records: rows.length, counts: A.counts, bad_keys: bad.map(r => r.key), duplicate_ids: dupIds });
+707346	  // block rows against APPS.md:7-13
+707347	  const appsMd = git(ESTATE + '/elements', 'show', SRC.elements + ':APPS.md').split('\n');
+707348	  const mdKeys = appsMd.slice(6, 13).map(l => (l.match(/^\|\s*`(block:[A-Za-z0-9]+)`/) || [])[1]);
+707349	  const blockRows = rows.filter(r => /^block:/.test(r.key));
+707350	  const blockOk = blockRows.length === 7 && blockRows.every((r, i) => r.key === mdKeys[i] && r.source === 'elements@f7a92fb APPS.md:' + (7 + i));
+707351	  sstep('A1 the 7 block: keys equal elements@f7a92fb APPS.md:7-13 (order, source line)', blockOk, { apps_md: mdKeys, rows: blockRows.map(r => [r.key, r.source]) });
+707352	  // Q1: nothing of APPS.md but the key
+707353	  const appsText = JSON.stringify(A);
+707354	  const mdCells = appsMd.slice(6, 13).map(l => l.split('|').map(c => c.trim())).map(c => ({ title: c[2], description: c[7] }));
+707355	  const leaked = mdCells.filter(c => (c.title && appsText.includes(c.title)) || (c.description && appsText.includes(c.description)));
+707356	  sstep('A1 Q1: no APPS.md title or description copied into apps.json', leaked.length === 0, { leaked: leaked.map(c => c.title) });
+707357	  // homepage rows against homepage_v134.html:32-56
+707358	  const hp = git(ESTATE + '/globalgrid2050', 'show', SRC.homepage + ':homepage_versions/homepage_v134.html').split('\n');
+707359	  const hpRows = [];
+707360	  for (let n = 32; n <= 56; n++) { const l = hp[n - 1] || ''; const id = (l.match(/data-entity-id="([^"]+)"/) || [])[1]; if (!id) continue;
+707361	    const a = l.match(/<th[^>]*>\s*<a href="([^"]+)">([\s\S]*?)<\/a>/) || [];
+707362	    hpRows.push({ line: n, id, link: dec(a[1] || ''), name: dec((a[2] || '').replace(/<[^>]+>/g, '')).trim(), kind: dec((l.match(/<summary>([^<]*)<\/summary>/) || [])[1] || ''),
+707363	      purpose: dec(((l.match(/<p>Intended purpose: ([\s\S]*?)<\/p>/) || [])[1] || '').replace(/<[^>]+>/g, '')).trim() }); }
+707364	  const hpIds = new Set(hpRows.map(h => h.id)), homeRows = rows.filter(r => r.key_source === 'homepage' || hpIds.has(r.id));
+707365	  const setEq = homeRows.length === 25 && hpRows.length === 25 && homeRows.every(r => hpIds.has(r.id)) && new Set(homeRows.map(r => r.id)).size === 25;
+707366	  sstep('A1 the 25 homepage ids equal the data-entity-id set of homepage_v134.html:32-56', setEq, { homepage_ids: hpRows.length, rows: homeRows.length, missing: [...hpIds].filter(i => !homeRows.some(r => r.id === i)), extra: homeRows.filter(r => !hpIds.has(r.id)).map(r => r.id) });
+707367	  const diffs = [], linkNotes = [];
+707368	  for (const h of hpRows) { const r = rows.find(x => x.id === h.id); if (!r) continue;
+707369	    // the link is the source's href, or (recorded as source_href) the stable folder above a 12-digit version folder (7.1
+707370	    // "its stable link"), or withheld under K1 (a folder named like a repository that is not public; the URL is not printed)
+707371	    let link = h.link, how = 'href';
+707372	    if (r.source_href === h.link && h.link.startsWith(r.link) && /^\d{12}\/$/.test(h.link.slice(r.link.length))) { link = r.link; how = 'stable folder of source_href'; }
+707373	    else if (r.link_withheld && r.link === 'https://globalgrid2050.com/not-public/' && r.link !== h.link) { link = r.link; how = 'withheld (K1): ' + short(r.link_withheld, 80); }
+707374	    if (how !== 'href') linkNotes.push({ id: h.id, how });
+707375	    const want = { key: 'surface:' + link, link, name: h.name, kind: h.kind, purpose: h.purpose, source: 'globalgrid2050@c66759f homepage_versions/homepage_v134.html:' + h.line };
+707376	    for (const k of Object.keys(want)) if (r[k] !== want[k]) diffs.push({ id: h.id, field: k, row: short(r[k], 120), source: k === 'key' || k === 'link' ? '(the source href)' : short(want[k], 120) }); }
+707377	  sstep('A1 each homepage row = its source line (key surface:<link>, link = href or its stable folder or K1-withheld, name, kind, purpose, source line)', diffs.length === 0, { differences: diffs.slice(0, 20), count: diffs.length, link_notes: linkNotes });
+707378	  // same_as for shared keys
+707379	  const byKey = {}; rows.forEach(r => { (byKey[r.key] = byKey[r.key] || []).push(r); });
+707380	  const shared = Object.values(byKey).filter(g => g.length > 1);
+707381	  const sameOk = shared.every(g => g.every(r => g.filter(o => o !== r).every(o => (r.same_as || []).some(s => s === o.id || s === o.key || (s && (s.id === o.id || s.key === o.key))))));
+707382	  sstep('A1 rows that share a key cross-reference each other in same_as (7.1), never merged', sameOk, { shared: shared.map(g => ({ key: g[0].key, ids: g.map(r => r.id), same_as: g.map(r => r.same_as) })) });
+707383	  // the two issued rows
+707384	  const sp = rows.find(r => r.id === 'spider-sandbox'), pt = rows.find(r => r.id === 'periodic-table');
+707385	  const idx = git(ESTATE + '/testcode', 'show', SRC.testcode + ':spider/INDEX.md').split('\n')[12] || '';
+707386	  const v5 = (idx.match(/`([^`]*v5[^`]*)`/) || [])[1];
+707387	  sstep('A1 spider-sandbox row = testcode@d09c185 spider/INDEX.md:13 (v5), periodic-table row key surface:https://ventusltd.github.io/stars/blocks/',
+707388	    !!sp && !!pt && !!v5 && sp.source === 'testcode@d09c185 spider/INDEX.md:13' && String(sp.link).includes(v5) && pt.key === 'surface:https://ventusltd.github.io/stars/blocks/',
+707389	    { spider: sp && { key: sp.key, link: sp.link, source: sp.source }, v5, periodic: pt && { key: pt.key, source: pt.source } });
+707390	  // Q5 graphs
+707391	  let gfiles = []; try { gfiles = fs.readdirSync(ED + '/data/graphs').sort(); } catch (e) { gfiles = ['ERR ' + e.message]; }
+707392	  const rec = (sp && sp.graphs) || [];
+707393	  const gOk = JSON.stringify(gfiles) === JSON.stringify(['overview.json', 'periodic-table.json']) && rec.length === 2
+707394	    && rec.every(g => report.files[g.file] && report.files[g.file].sha256 === g.sha256 && report.files[g.file].bytes === g.bytes);
+707395	  let ov = null; try { ov = JSON.parse(await get('data/graphs/overview.json')); } catch (e) {}
+707396	  const ovN = ov ? (ov.nodes || []).length : null, ovE = ov ? (ov.edges || ov.links || []).length : null;
+707397	  sstep('A1 Q5: data/graphs holds exactly the two DISCLOSED graphs, each hashing as the spider row records; overview 16 nodes 15 edges',
+707398	    gOk && ovN === 16 && ovE === 15, { files: gfiles, recorded: rec.map(g => ({ file: g.file, sha256: g.sha256, bytes: g.bytes, status: g.status })), served: { overview: report.files['data/graphs/overview.json'], periodic: report.files['data/graphs/periodic-table.json'] }, overview: { nodes: ovN, edges: ovE } });
+707399	  // ---- A4 data: elements.json against the catalogue and the wafer
+707400	  let E; try { E = JSON.parse(await get('data/elements.json')); } catch (e) { sstep('A4 data/elements.json served and parses', false, e.message); return; }
+707401	  const cat = JSON.parse(git(ESTATE + '/elements', 'show', SRC.elements + ':catalogue/elements.json'));
+707402	  const files0 = c => { let f = c.files; if (typeof f === 'string') { try { f = JSON.parse(f.replace(/'/g, '"')); } catch (e) { f = f === '[]' ? [] : [f]; } } return Array.isArray(f) ? f : []; };
+707403	  const els = E.elements || [];
+707404	  const symsEq = els.length === cat.length && els.every((e, i) => e.sym === cat[i].key);
+707405	  const placed = els.filter(e => e.placed === true && Number.isFinite(e.key)), named = els.filter(e => !(e.placed === true && Number.isFinite(e.key)));
+707406	  const namedNoFiles = named.every(e => { const c = cat.find(x => x.key === e.sym); return c && files0(c).length === 0 && e.why; });
+707407	  const byKind = {}; named.forEach(e => { const c = cat.find(x => x.key === e.sym); byKind[c.kind] = (byKind[c.kind] || 0) + 1; });
+707408	  sstep('A4 elements.json: the catalogue\'s 244 symbols in order; 221 placed; 23 named with a reason, none with files in the catalogue',
+707409	    symsEq && placed.length === 221 && named.length === 23 && namedNoFiles && E.counts && E.counts.placed === 221 && E.counts.named === 23 && E.readout === README_221,
+707410	    { total: els.length, catalogue: cat.length, placed: placed.length, named: named.length, by_kind_unplaced: byKind, counts: E.counts, readout: E.readout, named_syms: named.map(e => e.sym) });
+707411	  // every placed key inside the wafer row of its commit
+707412	  const wafer = fs.readFileSync(KB + '/cosmos/wafer.tsv', 'utf8').split('\n').filter(l => l.trim() && !l.startsWith('#')).map(l => l.split('\t'));
+707413	  const names = Object.fromEntries(fs.readFileSync(KB + '/cosmos/repos.tsv', 'utf8').split('\n').filter(l => l.trim() && !l.startsWith('#')).map(l => l.split('\t')).map(p => [+p[0], p[1]]));
+707414	  let k = 0; const rowsW = wafer.map(p => { k += +p[4]; const r = { lines: +p[1], name: names[+p[2]], sha12: p[3], k0: k }; k += r.lines; return r; });
+707415	  const SPACE = k, offWafer = [];
+707416	  for (const e of placed) { const w = rowsW[e.wafer_row]; if (!w || w.name !== e.repo || !String(e.commit).startsWith(w.sha12) || w.k0 !== e.k0 || !(e.key >= w.k0 && e.key < w.k0 + w.lines) || !(e.key < SPACE)) offWafer.push(e.sym); }
+707417	  sstep('A4 every placed key lies inside the cosmos/wafer.tsv row of its recorded repository and commit', offWafer.length === 0, { placed: placed.length, outside: offWafer.slice(0, 20), address_space: SPACE });
+707418	  // the code line (line_text), its path and its GitHub address are the code's own words, licensed by its repository: excluded
+707419	  const elText = JSON.stringify(Object.assign({}, E, { elements: els.map(e => { const o = Object.assign({}, e); delete o.line_text; delete o.path; delete o.github; return o; }), checks: null, checks_keypy: null })), leakedE = cat.filter(c => (c.title && c.title.length >= 16 && elText.includes(c.title)) || (c.description && c.description.length >= 24 && elText.includes(c.description)));
+707420	  sstep('A4 Q1: no catalogue title or description copied into elements.json', leakedE.length === 0, { leaked: leakedE.slice(0, 10).map(c => c.key + ' ' + c.title) });
+707421	  // python tools/key.py on three sampled elements (ROOTS patched to a folder of links; key.py itself untouched)
+707422	  if (argv.includes('--skip-keypy')) { sstep('A4 python tools/key.py on three sampled elements', null, 'skipped by --skip-keypy'); return; }
+707423	  const rootDir = path.join(OUT, 'roots'); fs.mkdirSync(rootDir, { recursive: true });
+707424	  const hasCommit = (d, sha) => { try { cp.execFileSync('git', ['-C', d, 'cat-file', '-e', sha + '^{commit}'], { stdio: 'ignore' }); return true; } catch (e) { return false; } };
+707425	  const linkRepo = (name, sha) => { for (const r of ROOTS) { const d = path.join(r, name); if (fs.existsSync(path.join(d, '.git')) && hasCommit(d, sha)) { const l = path.join(rootDir, name); try { fs.unlinkSync(l); } catch (e) {} fs.symlinkSync(d, l); return d; } } return null; };
+707426	  const cand = [0, Math.floor(placed.length / 2), placed.length - 1].concat(placed.map((_, i) => i)), picked = [], seenRepo = new Set();
+707427	  for (const i of cand) { const e = placed[i]; if (!e || picked.includes(e) || seenRepo.has(e.repo)) continue; if (linkRepo(e.repo, e.commit)) { picked.push(e); seenRepo.add(e.repo); } if (picked.length === 3) break; }
+707428	  const kp = [];
+707429	  for (const e of picked) {
+707430	    let out = '', code = 0;
+707431	    try { out = cp.execFileSync('python3', ['-c', 'import sys; sys.path.insert(0, sys.argv[1]); import key; key.ROOTS = sys.argv[2]; sys.argv = ["key.py", sys.argv[3]]; sys.exit(key.main())', KB + '/tools', rootDir, String(e.key)], { cwd: KB, maxBuffer: 1 << 26, timeout: 900000 }).toString(); }
+707432	    catch (x) { out = String((x.stdout || '') + (x.stderr || '')); code = x.status || 1; }
+707433	    const m = out.match(/key [\d,]+ -> (\S+) \/ ([0-9a-f]{12}) \/ line[\s\S]*?\n\s+(.+?) : (\d+)\s+\(blob/);
+707434	    kp.push({ sym: e.sym, key: e.key, exit: code, repo: m && m[1], sha12: m && m[2], path: m && m[3], line: m && +m[4], ok: !!m && code === 0 && m[1] === e.repo && e.commit.startsWith(m[2]) && m[3] === e.path && +m[4] === 1, out: short(out.split('\n').slice(1).join(' | '), 300) });
+707435	  sstep('A4 python tools/key.py on three sampled elements returns the recorded repository, commit and path (line 1)', kp.length === 3 && kp.every(x => x.ok), { samples: kp, roots: ROOTS });
+707436	// ======================================================================== in-page probes
+707437	function launcherProbe() {
+707438	  const R = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { top: +r.top.toFixed(1), bottom: +r.bottom.toFixed(1), left: +r.left.toFixed(1), right: +r.right.toFixed(1), height: +r.height.toFixed(1) }; };
+707439	  const bar = document.getElementById('kuiper-menu-bar'), L = document.getElementById('ky-apps');
+707440	  const rows = L ? [...L.querySelectorAll('[data-key]')] : [];
+707441	  const firstLine = el => { const t = (el.innerText || el.textContent || '').split('\n').map(s => s.trim()).filter(Boolean); return t[0] || ''; };
+707442	  return { open: vis(L), bar: R(bar), launcher: R(L), rows: rows.map(r => ({ key: r.getAttribute('data-key'), id: r.getAttribute('data-id'), header: firstLine(r), h: +r.getBoundingClientRect().height.toFixed(1),
+707443	    st: r.querySelector('[data-st]') ? r.querySelector('[data-st]').textContent.trim() : null, hidden: getComputedStyle(r).display === 'none' || getComputedStyle(r).visibility === 'hidden' })) };
+707444	function readoutText() {
+707445	  let t = ''; try { t += (KY.hooks.hud && KY.hooks.hud.textContent || '') + '\n'; } catch (e) {}
+707446	  return t + (document.body.innerText || '') + '\n' + [...document.querySelectorAll('#hud, #big, #sub, #ky-apps')].map(e => e.textContent).join('\n');
+707447	async function waferLit(page) {
+707448	  const b64 = (await page.screenshot({ timeout: 180000, scale: 'css' })).toString('base64');
+707449	  return page.evaluate(async ({ b64 }) => {
+707450	    const W = innerWidth, H = innerHeight, c = document.createElement('canvas'); c.width = W; c.height = H; const g = c.getContext('2d'); g.drawImage(img, 0, 0, W, H);
+707451	    const bar = document.getElementById('kuiper-menu-bar'), y0 = Math.ceil(bar ? bar.getBoundingClientRect().bottom : 0) + 2, d = g.getImageData(0, y0, W, H - y0).data;
+707452	    let lit = 0; for (let i = 0; i < d.length; i += 4) if (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2] > 34) lit++;
+707453	    return { litFraction: +(lit / (d.length / 4)).toFixed(4), litPx: lit };
+707454	  }, { b64 });
+707455	// ======================================================================== one device
+707456	async function runDevice(browser, DEV) {
+707457	  const R = report.devices[DEV] = { steps: [], errors: [], console_errors: [], failed_local: [], expected_404: [], blocked_offorigin: [], see_through_console: [], shots: [], evidence_404: [], aborted_local: [] };
+707458	  const step = (id, pass, measured) => { R.steps.push({ id, result: pass === null ? 'NOT EVALUATED' : (pass ? 'PASS' : 'FAIL'), measured }); if (pass !== true) allPass = false; console.error('[' + DEV + '] ' + (pass === null ? 'NOT EVALUATED' : pass ? 'PASS' : 'FAIL') + '  ' + id); };
+707459	  const slug = DEV.replace(/[^A-Za-z0-9]+/g, '-').toLowerCase();
+707460	  let spiderLink = null, allow404 = null;
+707461	  async function newPage() {
+707462	    const ctx = await browser.newContext({ ...devices[DEV], locale: 'en-GB' });
+707463	    await ctx.route('**/*', route => { const u = route.request().url();
+707464	      if (u.startsWith(ORIGIN + '/') || u.startsWith('data:') || u.startsWith('blob:')) { if (allow404 && allow404.test(u)) { if (!R.expected_404.includes(u)) R.expected_404.push(u); return route.fulfill({ status: 404, contentType: 'text/plain', body: 'routed 404 (test A5 negative case)' }); } return route.continue(); }
+707465	      if (spiderLink && u === spiderLink && route.request().isNavigationRequest()) return route.fulfill({ status: 200, contentType: 'text/html', body: STUB });
+707466	      R.blocked_offorigin.push(route.request().method() + ' ' + u.slice(0, 200)); return route.abort('blockedbyclient'); });
+707467	    const p = await ctx.newPage(); p.setDefaultTimeout(LONG);
+707468	    const onEd = () => p.url().startsWith(URL0);
+707469	    p.on('pageerror', e => { (onEd() ? R.errors : R.see_through_console).push('pageerror ' + String(e.message || e).slice(0, 300)); });
+707470	    p.on('console', m => { if (m.type() !== 'error') return; const t = m.text().slice(0, 300), u = (m.location() || {}).url || '';
+707471	      if (!onEd()) { R.see_through_console.push(t + ' @ ' + u); return; }
+707472	      if (/status of 404/.test(t) && allow404 && allow404.test(u)) return;          // the routed negative case, listed in expected_404
+707473	      if (/status of 404/.test(t) && EVIDENCE.some(f => u === URL0 + f)) { if (!R.evidence_404.includes(u)) R.evidence_404.push(u); return; }   // team 6's rows, the integrator's files
+707474	      R.console_errors.push(t + (u ? ' @ ' + u : '')); });
+707475	    p.on('requestfailed', q => { const u = q.url(); if (!u.startsWith(ORIGIN + '/')) return; const f = q.failure(); if (f && /ERR_ABORTED/.test(f.errorText) && q.isNavigationRequest()) return; (f && /ERR_ABORTED/.test(f.errorText) ? R.aborted_local : R.failed_local).push(u + ' ' + (f && f.errorText)); });
+707476	    p.on('response', r => { const u = r.url(); if (u.startsWith(ORIGIN + '/') && r.status() >= 400 && !(allow404 && allow404.test(u)) && !(r.status() === 404 && EVIDENCE.some(f => u === URL0 + f)) && onEd()) R.failed_local.push(u + ' HTTP ' + r.status()); });
+707478	  async function ready(p) {
+707479	    await p.waitForFunction(() => { const s = window.__KUIPER_EDITION__; return s && s.done && window.KY && KY.hooks && KY.hooks.N > 0; }, null, { timeout: LONG, polling: 1000 });
+707480	    await p.waitForFunction(() => { try { const l = KY.modules.layers.api.get('lines'); return l && l.status === 'OK' && document.getElementById('kuiper-menu-bar'); } catch (e) { return false; } }, null, { timeout: LONG, polling: 1000 }).catch(() => {});
+707481	  const tapSel = async (p, sel) => { const el = p.locator(sel).first(); await el.scrollIntoViewIfNeeded({ timeout: 60000 }); const b = await el.boundingBox(); if (!b) throw new Error('no box for ' + sel); await p.touchscreen.tap(b.x + b.width / 2, b.y + Math.min(b.height / 2, 22)); return b; };
+707482	  const openMenu = async (p, n) => { const open = await p.evaluate(m => { const b = document.getElementById('kuiper-menu-bar'); return !!b && b.getAttribute('data-open') === m; }, n); if (!open) { await tapSel(p, '#kuiper-menu-bar .gm-menu[data-menu="' + n + '"] > .gm-title'); await sleep(1200); } };
+707483	  const closeMenus = async p => { await p.evaluate(() => { try { const s = KY.modules['kuiper-shell'] && KY.modules['kuiper-shell'].api; if (s && s.close) s.close(); } catch (e) {} }); await sleep(800); };
+707484	  const shot = async (p, name) => { const dir = SHOTS && DEV === 'Pixel 7' ? SHOTS : path.join(OUT, slug); fs.mkdirSync(dir, { recursive: true });
+707485	    const f = path.join(dir, (SHOTS && DEV === 'Pixel 7' ? '' : slug + '-') + name + '.png');
+707486	    try { await p.screenshot({ path: f, scale: 'css', timeout: 180000 }); R.shots.push({ file: f, bytes: fs.statSync(f).size }); } catch (e) { R.errors.push('screenshot ' + name + ': ' + e.message); } };
+707487	  const launcherOpen = p => p.evaluate(() => { const L = document.getElementById('ky-apps'); return !!L && getComputedStyle(L).display !== 'none' && L.getBoundingClientRect().height > 0; });
+707488	  const closeLauncher = async p => { if (await launcherOpen(p)) { await tapSel(p, '#ky-apps button.ky-x'); await sleep(1200); } };
+707489	  const inspect = p => p.evaluate(() => { try { return KY.modules.apps.api.inspect(); } catch (e) { return { error: String(e) }; } });
+707490	  const layer = (p, id) => p.evaluate(i => { try { const g = KY.modules.layers.api.get(i); const lab = document.querySelector('label.ky-ly[data-id="' + i + '"]');
+707491	    return { status: g && g.status, why: g && g.why, row: lab ? lab.querySelector('.st').textContent.trim() : null, disabled: lab ? lab.querySelector('input').disabled : null, checked: lab ? lab.querySelector('input').checked : null }; } catch (e) { return { error: String(e) }; } }, id);
+707492	  const layersJson = JSON.parse(fs.readFileSync(ED + '/data/layers.json', 'utf8'));
+707493	  const elRec = (layersJson.layers || layersJson.records || []).find(l => l.id === 'elements') || {};
+707494	  const Q1open = !elRec.licence || /^UNSETTLED/i.test(elRec.licence);
+707495	  const apps = JSON.parse(fs.readFileSync(ED + '/data/apps.json', 'utf8')).apps;
+707496	  spiderLink = (apps.find(a => a.id === 'spider-sandbox') || {}).link || null;
+707497	  const elements = JSON.parse(fs.readFileSync(ED + '/data/elements.json', 'utf8')).elements || [];
+707499	    // ------------------------------------------------------------------ arrival
+707500	    p = await newPage(); const t0 = Date.now(); await p.goto(URL0, { timeout: LONG }); await ready(p);
+707501	    const ed = await p.evaluate(() => ({ admitted: (__KUIPER_EDITION__.admitted || []).map(a => a.id || a), refused: __KUIPER_EDITION__.refused || [] }));
+707502	    step('M the loader admitted apps, nothing refused', ed.admitted.includes('apps') && ed.refused.length === 0, Object.assign({ ready_s: Math.round((Date.now() - t0) / 1000) }, ed));
+707503	    // ------------------------------------------------------------------ A2
+707504	    const bar = await p.evaluate(() => ({ buttons: [...document.querySelectorAll('#kuiper-menu-bar button.gm-title')].map(b => b.textContent.trim()), all: [...document.querySelectorAll('#kuiper-menu-bar .gm-title')].map(b => b.textContent.trim()) }));
+707505	    step('A2 the bar keeps step 1\'s six titles; no bar title names apps', JSON.stringify(bar.buttons.map(s => s.toUpperCase())) === JSON.stringify(['FILE', 'EDIT', 'VIEW', 'SCOPE', 'WAFER', 'ABOUT']) && !bar.all.some(s => /app|launch|periodic|spider/i.test(s)), bar);
+707506	    await openMenu(p, 'file'); await tapSel(p, '#ky-file-open-app');
+707507	    await p.waitForFunction(() => { const L = document.getElementById('ky-apps'); return L && getComputedStyle(L).display !== 'none' && L.querySelectorAll('[data-key]').length > 0; }, null, { timeout: 120000, polling: 500 }).catch(() => {});
+707508	    await sleep(4000);
+707509	    const L1 = await p.evaluate(launcherProbe);
+707510	    const keys = apps.map(a => a.key), rowKeys = L1.rows.map(r => r.key);
+707511	    const headerOk = L1.rows.length > 0 && L1.rows.every(r => r.header === r.key);
+707512	    step('A2 FILE > Open an app (real tap) opens #ky-apps under the bar', L1.open && L1.launcher && L1.bar && L1.launcher.top >= L1.bar.bottom - 0.5, { bar: L1.bar, launcher: L1.launcher });
+707513	    step('A2 34 rows, one per apps.json record (FAIL rows never hidden), every row >= 44 px', L1.rows.length === 34 && apps.every(a => L1.rows.some(r => r.key === a.key && (r.id == null || r.id === a.id))) && L1.rows.every(r => r.h >= 44 && !r.hidden),
+707514	      { rows: L1.rows.length, min_h: L1.rows.length ? Math.min(...L1.rows.map(r => r.h)) : null, under44: L1.rows.filter(r => r.h < 44).map(r => r.id || r.key), hidden: L1.rows.filter(r => r.hidden).map(r => r.id), states: L1.rows.reduce((o, r) => { const s = (r.st || 'none').split(/[\s·:]/)[0]; o[s] = (o[s] || 0) + 1; return o; }, {}) });
+707515	    step('A2 each row\'s first visible line is its key; the first row\'s header is a key', headerOk && KEY_RE.test(L1.rows[0].header) && keys.includes(L1.rows[0].header),
+707516	      { first_row: L1.rows[0], mismatches: L1.rows.filter(r => r.header !== r.key).slice(0, 5) });
+707517	    await shot(p, 'launcher');
+707518	    // one panel at a time (step 1: a real tap opens exactly one panel): WAFER tapped while the launcher is open closes it
+707519	    await tapSel(p, '#kuiper-menu-bar .gm-menu[data-menu="wafer"] > .gm-title'); await sleep(1500);
+707520	    const one = await p.evaluate(() => { const L = document.getElementById('ky-apps'), b = document.getElementById('kuiper-menu-bar');
+707521	      return { launcherOpen: !!L && getComputedStyle(L).display !== 'none' && L.getBoundingClientRect().height > 0, menuOpen: b && b.getAttribute('data-open') }; });
+707522	    step('A2 one panel at a time: a real tap on WAFER while the launcher is open closes the launcher', !one.launcherOpen && one.menuOpen === 'wafer', one);
+707523	    await closeLauncher(p);
+707524	    // ------------------------------------------------------------------ A4 readout, elements row, inspect
+707525	    const txt = await p.evaluate(readoutText), ins = await inspect(p);
+707526	    const ie = ins.elements || {};
+707527	    step('A4 the readout says "' + README_221 + '" and "' + README_606 + '"; inspect() 221 / 23 / 244', txt.includes(README_221) && txt.includes(README_606) && ie.placed === 221 && ie.named === 23 && ie.total === 244,
+707528	      { has221: txt.includes(README_221), has606: txt.includes(README_606), inspect_elements: ie });
+707529	    await closeLauncher(p); await closeMenus(p); await openMenu(p, 'wafer'); await sleep(1500);
+707530	    const el = await layer(p, 'elements');
+707531	    if (Q1open) step('A4 Q1 open: the elements row reads REFUSED · licence unsettled, its control disabled', el.status === 'REFUSED' && /REFUSED/.test(el.row || '') && /licence unsettled/.test(el.row || '') && el.disabled === true, el);
+707532	    else step('A4 Q1 answered: the elements layer loads, 221 of 244', el.status === 'OK' && /221/.test(el.row || ''), el);
+707533	    await p.evaluate(() => { const lab = document.querySelector('label.ky-ly[data-id="elements"]'); if (lab) lab.scrollIntoView({ block: 'center' }); });
+707534	    await sleep(800); await shot(p, 'table-layer');
+707535	    // ------------------------------------------------------------------ A5 spider layer by a real tap
+707536	    const ovPx = () => p.evaluate(() => { const o = document.getElementById('o'); if (!o || !o.width) return null; const d = o.getContext('2d').getImageData(0, 0, o.width, o.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 40) n++; return n; });
+707537	    const px0 = await ovPx();
+707538	    await p.evaluate(() => { const lab = document.querySelector('label.ky-ly[data-id="spider"]'); if (lab) lab.scrollIntoView({ block: 'center' }); }); await sleep(600);
+707539	    await tapSel(p, 'label.ky-ly[data-id="spider"]');
+707540	    await p.waitForFunction(() => { try { const s = KY.modules.layers.api.get('spider').status; return s === 'OK' || s === 'FAIL' || s === 'EMPTY' || s === 'REFUSED'; } catch (e) { return false; } }, null, { timeout: LONG, polling: 1000 }).catch(() => {});
+707541	    const sl = await layer(p, 'spider'), ins2 = await inspect(p), g = (ins2.spider && ins2.spider.graphs) || {}, go = g.overview || {}, gp = g['periodic-table'] || {};
+707542	    const noKey = Number.isFinite(gp.no_key) ? gp.no_key : gp.nokey;
+707543	    const txt2 = await p.evaluate(readoutText), px1 = await ovPx();
+707544	    const nokeyLine = (txt2.split('\n').find(l => /periodic/i.test(l) && /no key/i.test(l)) || null);
+707545	    step('A5 the spider layer (real tap) is OK and draws the overview\'s 15 edges (inspect: 16 nodes, 15 edges, 15 drawn)', sl.status === 'OK' && sl.checked === true && go.nodes === 16 && go.edges === 15 && go.drawn === 15,
+707546	      { layer: sl, overview: go, overlay_px_off: px0, overlay_px_on: px1 });
+707547	    step('A5 the readout names how many periodic-table nodes had no key (663 nodes, 2,481 edges)', !!nokeyLine && gp.nodes === 663 && gp.edges === 2481 && Number.isFinite(noKey) && nokeyLine.replace(/,/g, '').includes(String(noKey)),
+707548	      { line: nokeyLine, periodic: gp });
+707549	    await shot(p, 'spider-layer');
+707550	    // ------------------------------------------------------------------ A4 card from the periodic-table panel (if any)
+707551	    await closeLauncher(p); await closeMenus(p);
+707552	    await openMenu(p, 'file'); await tapSel(p, '#ky-file-open-app'); await sleep(3000);
+707553	    const ptRow = '#ky-apps [data-id="periodic-table"] button.ky-app-w';   // "keys ▸": the panel; the row's link would leave the page
+707554	    if (await p.locator(ptRow).count()) { await tapSel(p, ptRow); await sleep(3000); }
+707555	    const nEl = await p.locator('#ky-apps-elements [data-sym]').count();
+707556	    if (!nEl) step('A4 card from the periodic-table panel: first line = line_text, second = block:<Sym>', null, { why: 'no #ky-apps-elements [data-sym] rows after tapping the periodic-table row (and the REFUSED layer draws no sparks while Q1 holds)' });
+707557	      const cards = [];
+707558	      const symsOnPage = await p.evaluate(() => [...document.querySelectorAll('#ky-apps-elements [data-sym]')].map(e => e.getAttribute('data-sym')));
+707559	      const want = elements.filter(e => e.placed && symsOnPage.includes(e.sym)); const pick = [want[0], want[Math.floor(want.length / 2)], want[want.length - 1]].filter(Boolean);
+707560	      for (const e of pick) {
+707561	        if (!(await p.evaluate(() => { const L = document.getElementById('ky-apps'); return L && getComputedStyle(L).display !== 'none'; }))) { await openMenu(p, 'file'); await tapSel(p, '#ky-file-open-app'); await sleep(2500); if (await p.locator(ptRow).count()) { await tapSel(p, ptRow); await sleep(2500); } }
+707562	        await tapSel(p, '#ky-apps-elements [data-sym="' + e.sym + '"]'); await sleep(SETTLE);
+707563	        // the first visible text node of the card is the header (the card law), its text = line_text; the next = block:<Sym>
+707564	        const c = await p.evaluate(() => { const c = document.getElementById('card'); if (!c || getComputedStyle(c).display === 'none') return { open: false };
+707565	          const w = document.createTreeWalker(c, NodeFilter.SHOW_TEXT), t = []; let n;
+707566	          while ((n = w.nextNode()) && t.length < 6) { const el = n.parentElement; if (!n.textContent.trim() || !el || el.closest('style,script') || !el.getClientRects().length || getComputedStyle(el).visibility === 'hidden') continue;
+707567	            const blk = el.closest('.ky-ec-h, .ky-ec-s, .lc-h, div, p, li') || el; if (t.length && t[t.length - 1].blk === blk) { t[t.length - 1].text += n.textContent; continue; } t.push({ blk, text: n.textContent }); }
+707568	          const h = c.querySelector('.ky-ec-h code, .ky-ec-h'), sy = c.querySelector('.ky-ec-s'), it = (c.innerText || '').split('\n').map(x => x.trim()).filter(Boolean);
+707569	          return { open: true, w1: t[0] ? t[0].text.trim() : null, w2: t[1] ? t[1].text.trim() : null, i1: it[0] || null, i2: it[1] || null, header: h ? h.textContent : null, sym: sy ? sy.textContent.trim() : null, rect: c.getBoundingClientRect().height }; });
+707570	        const lt = String(e.line_text);
+707571	        // the first visible line is the line at the key (text-node walk or rendered text), the next begins with block:<Sym>
+707572	        const first = c.w1 === lt.trim() || c.i1 === lt.trim(), second = c.w2 === e.sym || (c.i2 || '').split(/\s/)[0] === e.sym;
+707573	        cards.push({ sym: e.sym, open: c.open, first, second, header_equal: c.header === lt, sym_span: c.sym, w1: short(c.w1, 80), w2: short(c.w2, 60), i1: short(c.i1, 80), i2: short(c.i2, 60), h: c.rect, ok: c.open && first && second && c.header === lt && c.sym === e.sym });
+707574	      step('A4 card from the periodic-table panel: first line = line_text, second = block:<Sym> (3 elements)', cards.length === 3 && cards.every(c => c.ok), { rows: nEl, cards });
+707575	    // ------------------------------------------------------------------ A5 the spider row opens its dashboard
+707576	    const spSel = '#ky-apps [data-id="spider-sandbox"] a.ky-app-a';
+707577	    if (!(await p.locator(spSel).count())) step('A5 the spider row opens the dashboard', false, { why: 'no row ' + spSel });
+707578	      await tapSel(p, spSel);
+707579	      await p.waitForURL(u => !String(u).startsWith(URL0), { timeout: 120000 }).catch(() => {});
+707580	      await sleep(3000);
+707581	      // p.url() can lag a navigation answered by route.fulfill; the document's own location is the measurement
+707582	      const there = await p.evaluate(() => ({ href: location.href, title: document.title, history: history.length })).catch(e => ({ error: e.message })), landed = there.href || p.url();
+707583	      step('A5 the spider row opens the dashboard (same tab, its link)', landed === spiderLink, { landed, link: spiderLink, page: there });
+707584	      if (landed !== URL0 && !landed.startsWith(URL0)) { await p.goBack({ timeout: LONG }).catch(e => R.errors.push('goBack ' + e.message)); await ready(p); }
+707585	    // ------------------------------------------------------------------ A3 See Through, same tab, back
+707586	    const stSel = '#ky-apps [data-key="' + SEE_THROUGH_KEY + '"] a.ky-app-a';
+707587	    const navs = []; const onReq = q => { if (q.isNavigationRequest() && q.frame() === p.mainFrame()) navs.push(q.url()); }; p.on('request', onReq);
+707588	    if (!(await p.locator(stSel).count())) step('A3 the See Through row navigates in the same tab to ../../see-through/', false, { why: 'no row ' + stSel });
+707589	      const pagesBefore = p.context().pages().length;
+707590	      await tapSel(p, stSel);
+707591	      await p.waitForURL(u => /\/see-through\//.test(String(u)), { timeout: LONG }).catch(() => {});
+707592	      await p.waitForLoadState('domcontentloaded', { timeout: LONG }).catch(() => {});
+707593	      const stUrl = p.url(), want = new URL('../../see-through/', URL0).href;
+707594	      const head = await fetch(want).then(r => r.status).catch(e => 'ERR ' + e.message);
+707595	      const title = await p.title().catch(() => null);
+707596	      p.off('request', onReq);
+707597	      step('A3 the See Through row navigates in the same tab to ../../see-through/ (200, title "See Through")', navs[0] && navs[0].split('#')[0] === want && stUrl.startsWith(want) && head === 200 && /^See Through/.test(title || '') && p.context().pages().length === pagesBefore,
+707598	        { requested: navs, landed: stUrl, want, status: head, title, tabs: p.context().pages().length });
+707599	      await p.goBack({ timeout: LONG }).catch(e => R.errors.push('goBack ' + e.message));
+707600	      await p.waitForURL(u => String(u).startsWith(URL0), { timeout: LONG }).catch(() => {});
+707601	      await ready(p);
+707602	      const back = await p.evaluate(() => { const L = document.getElementById('ky-apps'), b = document.getElementById('kuiper-menu-bar');
+707603	        return { url: location.href, launcherOpen: !!L && getComputedStyle(L).display !== 'none' && L.getBoundingClientRect().height > 0, menuOpen: b ? (b.getAttribute('data-open') || '') : null, card: (document.getElementById('card') || { style: {} }).style.display }; });
+707604	      step('A3 goBack() returns to the edition with no panel open', back.url.startsWith(URL0) && !back.launcherOpen && !back.menuOpen, back);
+707605	    await p.context().close(); p = null;
+707606	    // ------------------------------------------------------------------ A5 negative: data/graphs answered 404
+707607	    allow404 = /\/data\/graphs\//;
+707608	    p = await newPage(); await p.goto(URL0, { timeout: LONG }); await ready(p);
+707609	    await openMenu(p, 'wafer'); await sleep(1200);
+707610	    await p.waitForFunction(() => { try { const s = KY.modules.layers.api.get('spider').status; return s === 'FAIL' || s === 'OK' || s === 'EMPTY'; } catch (e) { return false; } }, null, { timeout: LONG, polling: 1000 }).catch(() => {});
+707612	    const neg = await layer(p, 'spider'), lines = await layer(p, 'lines');
+707613	    await closeMenus(p); await sleep(SETTLE);
+707614	    const lit = await waferLit(p);
+707615	    step('A5 with data/graphs/* answered 404 the spider row is FAIL naming the file; lines OK; the wafer still draws', neg.status === 'FAIL' && /data\/graphs\//.test((neg.why || '') + ' ' + (neg.row || '')) && lines.status === 'OK' && lit.litFraction > 0.002,
+707616	      { spider: neg, lines: lines.status, wafer: lit, routed_404: R.expected_404 });
+707617	    await p.context().close(); p = null; allow404 = null;
+707618	    step('harness', false, String(e && e.stack || e).slice(0, 800));
+707619	    if (p) await p.context().close().catch(() => {});
+707620	  // ------------------------------------------------------------------ A6 and E
+707621	  const offDash = R.blocked_offorigin;
+707622	  step('A6 every step above ran with every off-origin request blocked (listed)', R.steps.filter(s => /^A[2-5]/.test(s.id)).length >= 14 && !R.steps.some(s => s.id === 'harness') && R.steps.filter(s => /^A[2-5]/.test(s.id)).every(s => s.result === 'PASS'),
+707623	    { blocked: offDash.length, sample: offDash.slice(0, 12) });
+707624	  step('E zero pageerrors, zero console errors, zero failed same-origin requests on the edition', R.errors.length === 0 && R.console_errors.length === 0 && R.failed_local.length === 0,
+707625	    { pageerrors: R.errors.slice(0, 10), console: R.console_errors.slice(0, 10), failed_local: R.failed_local.slice(0, 10), see_through_console_listed_not_counted: R.see_through_console.length,
+707626	      aborted_listed: R.aborted_local.length, evidence_404_listed: R.evidence_404 });
+707627	  if (R.evidence_404.length) step('E\' the EVIDENCE files file.js rows HEAD are present (written by the integrator at assembly)', ALLOW_EVIDENCE ? null : false,
+707628	    { missing: R.evidence_404, why: ALLOW_EVIDENCE ? '--allow-missing-evidence: NOT EVALUATED (never a pass); team 6\'s rows, the integrator\'s files' : 'console 404s on the edition' });
+707629	// ======================================================================== TEST.md
+707630	function writeTestMd(file) {
+707631	  const devs = Object.keys(report.devices), ids = [];
+707632	  devs.forEach(d => report.devices[d].steps.forEach(s => { if (!ids.includes(s.id)) ids.push(s.id); }));
+707633	  L.push('# handoff/07-apps/TEST.md: step 7 "the OS of the estate, baby step one", acceptance A1-A6');
+707634	  L.push('Tester OPUS-7 (Opus team 7). Written by `test.cjs` at ' + report.finished + '; every cell is a measurement of that run, never an estimate.');
+707635	  const nonPass = [].concat(report.script.filter(s => s.result !== 'PASS').map(s => s.id), ...Object.values(report.devices).map(d => d.steps.filter(s => s.result !== 'PASS').map(s => s.id)));
+707636	  const onlyEvidence = !report.pass && nonPass.length > 0 && nonPass.every(id => /^E'/.test(id)) && Object.values(report.devices).every(d => d.steps.filter(s => /^E'/.test(s.id)).every(s => s.result === 'NOT EVALUATED'));
+707637	  L.push('**Verdict: ' + (report.pass ? 'PASS: the hand-off may go.' : onlyEvidence ? 'PASS for every team-7 gate; NOT EVALUATED: E\' (the EVIDENCE files of file.js that the integrator writes at assembly). Not a full pass until the integrator\'s run shows them present.' : 'FAIL: the hand-off is refused until every gate below reads PASS on both devices.') + '**');
+707638	  L.push('| run | value |'); L.push('|---|---|');
+707639	  L.push('| edition | ' + URL0 + ' |');
+707640	  for (const f of ['index.html', 'modules.json']) L.push('| served ' + f + ' | sha256 `' + ((report.files[f] || {}).sha256 || '-') + '` (' + ((report.files[f] || {}).bytes || '-') + ' bytes) |');
+707641	  L.push('| module | `modules/202611012309-apps.js` sha256 `' + ((report.files['modules/202611012309-apps.js'] || {}).sha256 || '-') + '` (' + ((report.files['modules/202611012309-apps.js'] || {}).bytes || '-') + ' bytes) |');
+707642	  for (const f of ['data/apps.json', 'data/elements.json', 'data/graphs/overview.json', 'data/graphs/periodic-table.json']) L.push('| ' + f + ' | sha256 `' + ((report.files[f] || {}).sha256 || '-') + '` (' + ((report.files[f] || {}).bytes || '-') + ' bytes) |');
+707643	  L.push('| test.cjs | sha256 `' + sha256(fs.readFileSync(__filename)) + '` |');
+707644	  L.push('| browser | Playwright Chromium ' + report.browser + ', `' + ARGS.join(' ') + '`, real touch (`touchscreen.tap`), ' + (SETTLE / 1000) + ' s settle, one device at a time |');
+707645	  L.push('| network | every off-origin request aborted for the whole device run (A6); the spider dashboard link answered by a stub page (the URL is asserted) |');
+707646	  L.push('## By script, against the sources (once)'); L.push('');
+707647	  L.push('| gate | result | measured |'); L.push('|---|---|---|');
+707648	  report.script.forEach(s => L.push('| ' + s.id.replace(/\|/g, '\\|') + ' | ' + s.result + ' | ' + short(s.measured, 360).replace(/\|/g, '\\|') + ' |'));
+707649	  L.push(''); L.push('## On the devices'); L.push('');
+707650	  L.push('| gate | ' + devs.join(' | ') + ' |'); L.push('|---|' + devs.map(() => '---').join('|') + '|');
+707651	  ids.forEach(id => L.push('| ' + id.replace(/\|/g, '\\|') + ' | ' + devs.map(d => { const s = report.devices[d].steps.find(x => x.id === id); return s ? s.result : '-'; }).join(' | ') + ' |'));
+707652	  L.push(''); L.push('## Measurements per device'); L.push('');
+707653	  devs.forEach(d => { L.push('### ' + d); L.push('');
+707654	    report.devices[d].steps.forEach(s => L.push('- ' + s.result + ' ' + s.id + ': `' + short(s.measured, 600).replace(/`/g, "'") + '`'));
+707655	    L.push('- screenshots: ' + report.devices[d].shots.map(x => path.basename(x.file) + ' (' + x.bytes + ' B)').join(', '));
+707656	    L.push(''); });
+707657	  fs.writeFileSync(file, L.join('\n') + '\n');
+707658	  try { await scriptChecks(); } catch (e) { sstep('script harness', false, String(e && e.stack || e).slice(0, 800)); }
+707659	  const browser = await chromium.launch({ args: ARGS }); report.browser = browser.version();
+707660	  if (argv.includes('--script-only')) DEVICES = [];
+707661	  for (const DEV of DEVICES) { await runDevice(browser, DEV); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(report, null, 1)); }
+707662	  writeTestMd(path.join(OUT, 'TEST.md')); if (TESTMD) writeTestMd(TESTMD);
+707663	  console.log(JSON.stringify({ pass: allPass, script: report.script.map(s => s.result + ' ' + s.id), devices: Object.fromEntries(Object.entries(report.devices).map(([d, r]) => [d, r.steps.map(s => s.result + ' ' + s.id)])) }, null, 1));
+707664	  process.exit(allPass ? 0 : 1);
+707665	"""drift_test.py: the tester's independent check of tools/drift.py and data/drift.json (Opus team 8, step 8). Apache-2.0.
+707666	ROADMAP.md step 8 "Acceptance test", the parts that live off the page (P4's page half is test.cjs):
+707667	  P1 determinism   two runs against the recorded heads, under two different PYTHONHASHSEEDs, write byte-identical
+707668	                   files, and both equal data/drift.json byte for byte.
+707669	  P2 refusal       (a) every repository of keys.json without a clone is UNVERIFIED in data/drift.json, never SAME;
+707670	                   (b) a clone removed (an estate of symlinks without it) makes every one of its rows UNVERIFIED,
+707671	                   leaves every other row byte-identical, drops the denominator by exactly its verified rows, and the
+707672	                   tool prints REFUSED; (c) heads emptied: exit non-zero and nothing written.
+707673	  P3 ground truth  re-derived here, not through the tool: every row's head is the clone's refs/remotes/origin/HEAD
+707674	                   now; every SAME row's `git show <head>:<path>` holds line_text at `line`; every MOVED row's at
+707675	                   `head_line` (its first occurrence, delta = head_line - line, and no longer at `line`); every GONE
+707676	                   row's `git grep -F -x` is empty; every FILE_GONE row's `git cat-file -e` fails; every UNVERIFIED
+707677	                   row's reason is true, and no row that could be verified is UNVERIFIED. Each row is classified
+707678	                   again from `git show` and the class must agree.
+707679	  P4 the counts    summary.counts are the class counts of rows; the share and its denominator follow; the README
+707680	                   paragraph (handoff/08-drift/README.md) prints the same five counts and share.
+707681	  P5 the law       drift.json names no repository outside cosmos/repos.tsv and no key outside keys.json, rows are
+707682	                   the bodies one to one in order, and no line text is quoted; and the tool READS nothing else:
+707683	                   (i) under strace every file it opens under /home/user is repos.tsv, keys.json, the tool, the heads
+707684	                   file, its output, or inside a clone, and it opens no socket; (ii) from a root that holds only
+707685	                   cosmos/repos.tsv, editions/<stamp>/keys.json and tools/drift.py it writes the same bytes.
+707686	  python3 drift_test.py [--root KB] [--estate DIR] [--scratch DIR] [--json OUT]      exit 0 only when all pass
+707697	CLASSES = ['SAME', 'MOVED', 'GONE', 'FILE_GONE', 'UNVERIFIED']
+707698	def sh(args, cwd=None, env=None):
+707699	    r = subprocess.run(args, cwd=cwd, capture_output=True, env=env)
+707700	    return r.returncode, r.stdout, r.stderr
+707701	def decode(raw):                       # the edition's own rule, tools/edition_keys.py:250
+707702	    return raw.decode('utf-8', 'replace').rstrip('\r')
+707704	    ap.add_argument('--root', default=os.path.abspath(os.path.join(HERE, '..', '..', '..', '..')))
+707705	    ap.add_argument('--edition', default=os.path.basename(os.path.abspath(os.path.join(HERE, '..', '..'))))
+707706	    ap.add_argument('--estate', default=None)
+707707	    ap.add_argument('--scratch', default='/tmp/nl010-opus/team-8/tester')
+707708	    ap.add_argument('--json', default=None, help='write the results as JSON here')
+707710	    root = os.path.abspath(a.root)
+707711	    estate = os.path.abspath(a.estate or os.path.dirname(root))
+707712	    ed = a.edition
+707713	    tool = os.path.join(root, 'tools', 'drift.py')
+707714	    target = os.path.join(root, 'editions', ed, 'data', 'drift.json')
+707715	    keys_path = os.path.join(root, 'editions', ed, 'keys.json')
+707716	    tsv_path = os.path.join(root, 'cosmos', 'repos.tsv')
+707717	    os.makedirs(a.scratch, exist_ok=True)
+707718	    tmp = tempfile.mkdtemp(prefix='drift-test-', dir=a.scratch)
+707720	    def ok(name, cond, detail):
+707721	        results.append({'test': name, 'pass': bool(cond), 'detail': detail})
+707722	        print('%s %-34s %s' % ('PASS' if cond else 'FAIL', name, detail), flush=True)
+707723	    for p in (tool, target, keys_path, tsv_path):
+707725	            print('REFUSED: %s does not exist; nothing tested' % p)
+707727	    base = open(target, 'rb').read()
+707728	    D = json.loads(base)
+707729	    bodies = json.load(open(keys_path, encoding='utf-8'))['bodies']
+707730	    tsv = [l.rstrip('\n').split('\t')[1] for l in open(tsv_path, encoding='utf-8') if l.strip() and not l.startswith('#')]
+707731	    def clone(repo):
+707732	        d = os.path.join(estate, repo)
+707733	        return d if os.path.isdir(os.path.join(d, '.git')) else None
+707734	    def run_tool(extra, env_extra=None, prefix=None, r=root):
+707735	        env = dict(os.environ)
+707736	        env.update(env_extra or {})
+707737	        return sh((prefix or []) + [sys.executable, os.path.join(r, 'tools', 'drift.py'), '--root', r,
+707738	                                    '--edition', ed] + extra, env=env)
+707739	    # ---------------------------------------------------------------- P1 determinism
+707740	    outs = []
+707741	    for seed in ('1', '4242'):
+707742	        o = os.path.join(tmp, 'p1-seed%s.json' % seed)
+707743	        rc, so, se = run_tool(['--estate', estate, '--heads', target, '--out', o], {'PYTHONHASHSEED': seed})
+707744	        outs.append((rc, open(o, 'rb').read() if os.path.exists(o) else b''))
+707745	    (r1, b1), (r2, b2) = outs
+707746	    ok('P1 two runs byte-identical', r1 == 0 and r2 == 0 and b1 and b1 == b2,
+707747	       'PYTHONHASHSEED 1 / 4242: exit %d / %d, %d / %d bytes, sha256 %s / %s' % (
+707748	           r1, r2, len(b1), len(b2), sha(b1)[:16], sha(b2)[:16]))
+707749	    ok('P1 re-run equals data/drift.json', b1 == base,
+707750	       'data/drift.json %d bytes sha256 %s; re-run %s' % (len(base), sha(base), 'identical' if b1 == base else
+707751	                                                           'DIFFERS at byte %s' % next((i for i in range(min(len(b1), len(base))) if b1[i] != base[i]), min(len(b1), len(base)))))
+707752	    # ---------------------------------------------------------------- P2 refusal
+707753	    repos = sorted({b['repo'] for b in bodies})
+707754	    absent = [r for r in repos if not clone(r)]
+707755	    bad_abs = [r['id'] for r in D['rows'] if r['repo'] in absent and r['class'] != 'UNVERIFIED']
+707756	    ok('P2a no clone -> UNVERIFIED', not bad_abs and all(D['heads'][r].get('sha') is None for r in absent),
+707757	       'repositories of keys.json without a clone in %s: %s; their %d rows all UNVERIFIED, head null%s' % (
+707758	           estate, absent or 'none', sum(1 for r in D['rows'] if r['repo'] in absent),
+707759	           (' (NOT: %s)' % bad_abs[:3]) if bad_abs else ''))
+707760	    per = collections.Counter(r['repo'] for r in D['rows'] if r['class'] != 'UNVERIFIED')
+707761	    for victim in [per.most_common(1)[0][0], 'data-grid-gb' if 'data-grid-gb' in per else per.most_common(2)[1][0]]:
+707762	        est2 = os.path.join(tmp, 'estate-without-' + victim)
+707763	        os.makedirs(est2)
+707764	        for n in sorted(os.listdir(estate)):
+707765	            if n != victim and os.path.isdir(os.path.join(estate, n, '.git')):
+707766	                os.symlink(os.path.join(estate, n), os.path.join(est2, n))
+707767	        o = os.path.join(tmp, 'p2-without-%s.json' % victim)
+707768	        rc, so, se = run_tool(['--estate', est2, '--heads', target, '--out', o])
+707769	        W = json.load(open(o)) if os.path.exists(o) else None
+707770	        lost = per[victim]
+707771	        allun = W is not None and all(r['class'] == 'UNVERIFIED' and r.get('reason') for r in W['rows'] if r['repo'] == victim)
+707772	        others = W is not None and all(x == y for x, y in zip(D['rows'], W['rows']) if x['repo'] != victim) \
+707773	            and len(W['rows']) == len(D['rows'])
+707774	        den = W and W['summary']['denominator']
+707775	        ok('P2b clone %s removed' % victim, rc == 0 and allun and others and den == D['summary']['denominator'] - lost
+707776	           and ('REFUSED: no clone of %s' % victim).encode() in so,
+707777	           'exit %d; its %d rows UNVERIFIED: %s; other rows unchanged: %s; denominator %d -> %s (drop %d expected); '
+707778	           'printed "%s"' % (rc, sum(1 for r in D['rows'] if r['repo'] == victim), allun, others,
+707779	                             D['summary']['denominator'], den, lost,
+707780	                             next((l for l in so.decode().splitlines() if victim in l and 'REFUSED' in l), 'no REFUSED line')))
+707781	    for label, body in (('{"heads": {}}', '{"heads": {}}\n'), ('{}', '{}\n')):
+707782	        e = os.path.join(tmp, 'empty-heads.json')
+707783	        open(e, 'w').write(body)
+707784	        o = os.path.join(tmp, 'never.json')
+707785	        rc, so, se = run_tool(['--estate', estate, '--heads', e, '--out', o])
+707786	        ok('P2c heads emptied %s' % label, rc != 0 and not os.path.exists(o) and not os.path.exists(o + '.tmp'),
+707787	           'exit %d, file written: %s; "%s"' % (rc, os.path.exists(o), (so + se).decode().strip().splitlines()[-1:]))
+707788	    # ---------------------------------------------------------------- P3 ground truth, independently
+707789	    keyed = {b['id']: b for b in bodies}
+707790	    shows, bad, n = {}, [], collections.Counter()
+707791	    heads_now = {}
+707793	        d = clone(repo)
+707794	        if d:
+707795	            rc, out, _ = sh(['git', 'rev-parse', '-q', '--verify', 'refs/remotes/origin/HEAD^{commit}'], cwd=d)
+707796	            heads_now[repo] = out.decode().strip() if rc == 0 else None
+707797	    for repo, h in D['heads'].items():
+707798	        if h.get('sha') and heads_now.get(repo) != h['sha']:
+707799	            bad.append((repo, 'head %s in drift.json, clone origin/HEAD now %s' % (h['sha'][:12], (heads_now.get(repo) or '-')[:12])))
+707800	    def show(d, spec):
+707801	        if spec not in shows:
+707802	            rc, out, _ = sh(['git', 'show', spec], cwd=d)
+707803	            shows[spec] = out if rc == 0 else None
+707804	        return shows[spec]
+707805	    for r in D['rows']:
+707806	        k = keyed.get(r['id'])
+707807	        if k is None:
+707808	            bad.append((r['id'], 'not in keys.json'))
+707809	        cl, d, text = r['class'], clone(r['repo']), k.get('line_text')
+707810	        n[cl] += 1
+707811	        verifiable = bool(d and heads_now.get(r['repo']) and text and k.get('on_wafer') is not False
+707812	                          and k.get('key') is not None and r['repo'] in tsv)
+707813	        if cl == 'UNVERIFIED':
+707814	            why = r.get('reason') or ''
+707815	            if verifiable:
+707816	                bad.append((r['id'], 'UNVERIFIED (%s) but clone, head, text and key all exist' % why))
+707817	            elif why.startswith('no clone') and d:
+707818	                bad.append((r['id'], 'reason "no clone" but %s has a clone' % r['repo']))
+707819	            elif why == 'empty line_text' and text:
+707820	                bad.append((r['id'], 'reason "empty line_text" but keys.json has text'))
+707821	            elif why.startswith('key not on the wafer') and k.get('on_wafer') is not False and k.get('key') is not None:
+707822	                bad.append((r['id'], 'reason "not on the wafer" but keys.json says on_wafer'))
+707823	            elif not why:
+707824	                bad.append((r['id'], 'UNVERIFIED without a reason'))
+707825	            if r.get('head') and not d:
+707826	                bad.append((r['id'], 'a head without a clone'))
+707827	        if not verifiable:
+707828	            bad.append((r['id'], '%s claimed for an unverifiable row' % cl))
+707829	        spec = '%s:%s' % (r['head'], r['path'])
+707830	        body = show(d, spec)
+707831	        rc_e, _, _ = sh(['git', 'cat-file', '-e', spec], cwd=d) if body is None or cl == 'FILE_GONE' else (0, b'', b'')
+707832	        if body is None:
+707833	            mine = 'FILE_GONE' if rc_e != 0 else '?'
+707835	            ls = [decode(x) for x in body.split(b'\n')]
+707836	            hits = [i + 1 for i, x in enumerate(ls) if x == text]
+707837	            mine = 'SAME' if r['line'] <= len(ls) and ls[r['line'] - 1] == text else ('MOVED' if hits else 'GONE')
+707838	        if mine != cl:
+707839	            bad.append((r['id'], 'tool says %s, git show says %s' % (cl, mine)))
+707840	        if cl == 'MOVED':
+707841	            if r.get('head_line') != hits[0] or r.get('delta') != hits[0] - r['line'] or r.get('occurrences') != len(hits):
+707842	                bad.append((r['id'], 'MOVED head_line/delta/occurrences %s/%s/%s, git show %s/%s/%s' % (
+707843	                    r.get('head_line'), r.get('delta'), r.get('occurrences'), hits[0], hits[0] - r['line'], len(hits))))
+707844	        if cl == 'GONE':
+707845	            pf = os.path.join(tmp, 'pat')
+707846	            open(pf, 'wb').write(text.encode('utf-8') + b'\n' + text.encode('utf-8') + b'\r\n')
+707847	            rc, out, _ = sh(['git', 'grep', '-F', '-x', '-f', pf, r['head'], '--', r['path']], cwd=d)
+707848	            if out.strip():
+707849	                bad.append((r['id'], 'GONE but git grep -F -x finds %s' % out[:80]))
+707850	        if cl == 'FILE_GONE' and rc_e == 0:
+707851	            bad.append((r['id'], 'FILE_GONE but git cat-file -e finds the path'))
+707852	    ok('P3 ground truth by git show', not bad and sum(n.values()) == len(bodies),
+707853	       '%s re-derived from %d `git show` blobs at the heads (each head = the clone\'s origin/HEAD now); %d disagreements%s' % (
+707854	           dict(n), len(shows), len(bad), (': ' + '; '.join('%s %s' % x for x in bad[:4])) if bad else ''))
+707855	    # ---------------------------------------------------------------- P4 the five counts (data half)
+707856	    c = collections.Counter(r['class'] for r in D['rows'])
+707857	    s = D['summary']
+707858	    den = len(D['rows']) - c['UNVERIFIED']
+707859	    st = '%d SAME / %d (rows %d - UNVERIFIED %d)' % (c['SAME'], den, len(D['rows']), c['UNVERIFIED'])
+707860	    ok('P4 summary = rows', all(s['counts'][k] == c[k] for k in CLASSES) and s['rows'] == len(D['rows'])
+707861	       and s['denominator'] == den and s['share_text'] == st and set(c) <= set(CLASSES),
+707862	       ' / '.join('%d %s' % (c[k], k) for k in CLASSES) + '; ' + st)
+707863	    readme = os.path.join(HERE, 'README.md')
+707864	    if os.path.exists(readme):
+707865	        t = open(readme, encoding='utf-8').read()
+707866	        want = '%d SAME, %d MOVED, %d GONE, %d FILE_GONE, %d UNVERIFIED' % tuple(c[k] for k in CLASSES)
+707867	        sh_txt = '%d SAME / %d (rows %d − UNVERIFIED %d)' % (c['SAME'], den, len(D['rows']), c['UNVERIFIED'])
+707868	        ok('P4 README paragraph = drift.json', want in t and sh_txt in t, '"%s" %s; "%s" %s' % (
+707869	            want, 'present' if want in t else 'ABSENT', sh_txt, 'present' if sh_txt in t else 'ABSENT'))
+707870	    # ---------------------------------------------------------------- P5 the law
+707871	    stray_repo = sorted(x for x in ({r['repo'] for r in D['rows']} | set(D['heads'])) if x not in tsv)
+707872	    order = [b['id'] for b in bodies] == [r['id'] for r in D['rows']]
+707873	    stray_key = [r['id'] for r in D['rows'] if r['id'] not in keyed or keyed[r['id']].get('key') != r['key']
+707874	                 or keyed[r['id']]['path'] != r['path'] or int(keyed[r['id']]['line']) != r['line']
+707875	                 or keyed[r['id']]['commit'] != r['edition_commit'] or keyed[r['id']]['repo'] != r['repo']]
+707876	    texts = {b.get('line_text') for b in bodies if b.get('line_text') and len(b['line_text']) >= 12} | \
+707877	            {b.get('quote') for b in bodies if b.get('quote') and len(b['quote']) >= 12}
+707878	    strings = set()
+707879	    def walk(x):
+707880	        if isinstance(x, dict):
+707881	            for v in x.values():
+707883	        elif isinstance(x, list):
+707884	            for v in x:
+707885	        elif isinstance(x, str):
+707886	            strings.add(x)
+707887	    walk(D)
+707888	    quoted = sorted(strings & texts)
+707889	    textkeys = [k for r in D['rows'] for k in r if k in ('line_text', 'quote', 'text')]
+707890	    ok('P5 drift.json inside the law', not stray_repo and not stray_key and order and len(D['rows']) == len(bodies)
+707891	       and not quoted and not textkeys,
+707892	       '%d rows = %d bodies in keys.json order: %s; repositories outside repos.tsv: %s; keys outside keys.json: %s; '
+707893	       'line texts quoted: %d' % (len(D['rows']), len(bodies), order, stray_repo or 'none', stray_key[:3] or 'none',
+707894	                                  len(quoted) + len(textkeys)))
+707895	    # (i) what the tool opens, under strace (observe mode, the mode that cuts an edition, and --heads mode)
+707896	    allowed_files = {os.path.realpath(p) for p in (tsv_path, keys_path, tool, target)}
+707897	    clone_dirs = [os.path.realpath(os.path.join(estate, x)) for x in os.listdir(estate)
+707898	                  if os.path.isdir(os.path.join(estate, x, '.git'))]
+707899	    if shutil.which('strace'):
+707900	        for mode, extra in (('observe', []), ('--heads', ['--heads', target])):
+707901	            o = os.path.join(tmp, 'p5-%s.json' % mode.strip('-'))
+707902	            tr = os.path.join(tmp, 'p5-%s.strace' % mode.strip('-'))
+707903	            rc, so, se = run_tool(['--estate', estate, '--out', o] + extra,
+707904	                                  prefix=['strace', '-f', '-qq', '-e', 'trace=open,openat,openat2,connect,socket',
+707905	                                          '-o', tr])
+707906	            here_home, sockets, sysfiles = set(), [], set()
+707907	            for line in open(tr, errors='replace'):
+707908	                if re.search(r'\b(socket|connect)\(', line) and ' = -1' not in line:
+707909	                    if 'AF_UNIX' not in line or 'connect(' in line:
+707910	                        sockets.append(line.strip()[:120])
+707911	                m = re.search(r'open(?:at2?)?\((?:[^,]*, )?"([^"]*)"', line)
+707912	                if not m or ' = -1 ' in line:
+707914	                p = m.group(1)
+707915	                if not p.startswith('/'):
+707916	                    continue                     # relative opens are resolved by git inside its clone (cwd)
+707917	                rp = os.path.realpath(p)
+707918	                if rp.startswith('/home/user'):
+707919	                    here_home.add(rp)
+707921	                    sysfiles.add(rp.split('/')[1])
+707922	            out_real = os.path.realpath(o)
+707923	            stray = sorted(p for p in here_home if p not in allowed_files and not p.startswith(out_real)
+707924	                           and not any(p == cd or p.startswith(cd + '/') for cd in clone_dirs)
+707925	                           and not p.startswith(os.path.realpath(tmp)))
+707926	            in_clones = sorted({cd for cd in clone_dirs if any(p.startswith(cd + '/') for p in here_home)})
+707927	            ok('P5 reads (%s, strace)' % mode, rc == 0 and not stray and not sockets,
+707928	               'exit %d; opened under /home/user: %d files = repos.tsv, keys.json, tools/drift.py%s + %d clones; '
+707929	               'outside it only system dirs %s; sockets: %d; stray: %s' % (
+707930	                   rc, len(here_home), ', data/drift.json (the recorded heads)' if extra else '', len(in_clones),
+707931	                   sorted(sysfiles), len(sockets), stray[:5] or 'none'))
+707932	            if mode == 'observe' and os.path.exists(o):
+707933	                ob = open(o, 'rb').read()
+707934	                print('INFO observe-now vs data/drift.json: %s (the clones %s been fetched since the cut)' % (
+707935	                    'byte-identical' if ob == base else 'differ', 'have not' if ob == base else 'may have'), flush=True)
+707937	        ok('P5 reads (strace)', False, 'strace not installed: the read trace was not measured')
+707938	    # (ii) a root that holds only the three inputs writes the same bytes
+707939	    mini = os.path.join(tmp, 'mini-root')
+707940	    for rel in ('cosmos/repos.tsv', 'editions/%s/keys.json' % ed, 'tools/drift.py'):
+707941	        os.makedirs(os.path.dirname(os.path.join(mini, rel)), exist_ok=True)
+707942	        shutil.copyfile(os.path.join(root, rel), os.path.join(mini, rel))
+707943	    hp = os.path.join(tmp, 'recorded-heads.json')
+707944	    shutil.copyfile(target, hp)
+707945	    o = os.path.join(tmp, 'p5-mini.json')
+707946	    rc, so, se = run_tool(['--estate', estate, '--heads', hp, '--out', o], r=mini)
+707947	    mb = open(o, 'rb').read() if os.path.exists(o) else b''
+707948	    ok('P5 minimal root, same bytes', rc == 0 and mb == base,
+707949	       'root = repos.tsv + keys.json + tools/drift.py only (%s): exit %d, %d bytes, %s data/drift.json' % (
+707950	           mini, rc, len(mb), 'identical to' if mb == base else 'DIFFERENT from'))
+707951	    shutil.rmtree(tmp, ignore_errors=True)
+707952	    fails = [x for x in results if not x['pass']]
+707953	    summary = {'drift_json_sha256': sha(base), 'tool_sha256': sha(open(tool, 'rb').read()),
+707954	               'keys_json_sha256': sha(open(keys_path, 'rb').read()), 'counts': dict(c), 'results': results,
+707955	               'result': 'FAIL' if fails else 'PASS'}
+707957	        with open(a.json, 'w') as f:
+707958	            json.dump(summary, f, indent=1)
+707959	    print('RESULT: %s (%d of %d)' % (summary['result'], len(results) - len(fails), len(results)))
+707962	// test.cjs — Opus team 8, step 8 the drift: P4 on Android (ROADMAP.md step 8 "Acceptance test on Android"), in the
+707963	// form of FIXES/NL-009/android-journey.cjs: Playwright, devices['Pixel 7'] and devices['Galaxy S24'] (360 px), real
+707964	// touch (page.touchscreen.tap), zero console errors, a measured assertion per step, report.json, exit 0 only when every
+707965	// step on every device passed.
+707966	//   node test.cjs <edition-url> <outdir> [--handoff]
+707967	//   e.g. node test.cjs http://127.0.0.1:8480/editions/202611012135/ /tmp/nl010-opus/team-8/tester/out1
+707968	// The manifest: when modules.json already admits `drift` the page is tested as served. Until then (pre-integration)
+707969	// the test routes modules.json to the served one plus line-card (handoff/02-card/MODULE.json) and drift (sha256 and
+707970	// bytes measured from the file on disk at the start), and says "pre-integration" in the report.
+707971	// Scenarios per device: A no drift module (the baseline wafer), B drift admitted, C drift admitted and data/drift.json
+707972	// answering 404. --handoff writes ../img/*.png (CSS-pixel PNGs) and ../TEST.md.
+707973	if (pos.length < 2) { console.error('usage: node test.cjs <edition-url> <outdir> [--handoff]'); process.exit(2); }
+707974	const URL0 = pos[0].replace(/\/?$/, '/'), OUT = path.resolve(pos[1]), HANDOFF = argv.includes('--handoff');
+707975	const HERE = __dirname, ED = path.resolve(HERE, '..', '..');
+707976	const DEVICES = ['Pixel 7', 'Galaxy S24'];
+707977	const served = JSON.parse(fs.readFileSync(path.join(ED, 'modules.json'), 'utf8'));
+707978	const DRIFT = JSON.parse(fs.readFileSync(path.join(ED, 'data', 'drift.json'), 'utf8'));
+707979	const modFile = fs.readdirSync(path.join(ED, 'modules')).filter(f => /^\d{12}-drift\.js$/.test(f)).sort().pop();
+707980	const modBytes = fs.readFileSync(path.join(ED, 'modules', modFile));
+707981	const modSha = crypto.createHash('sha256').update(modBytes).digest('hex');
+707982	const src = modBytes.toString('utf8');
+707983	const REQ = (src.match(/var REQUIRES = \[([^\]]*)\]/) || [, ''])[1].split(',').map(s => s.trim().replace(/'/g, '')).filter(Boolean);
+707984	const PRE = !(served.order || []).includes('drift');
+707985	function manifest(withDrift) {
+707986	  const m = JSON.parse(JSON.stringify(served));
+707987	  if (!PRE) { if (!withDrift) { m.order = m.order.filter(x => x !== 'drift'); m.modules = m.modules.filter(x => x.id !== 'drift'); } return m; }
+707988	  // pre-integration: other teams' modules are re-hashed from disk (they are being revised while we test; their
+707989	  // admission is the integrator's test, not ours)
+707990	  m.modules.forEach(x => { try { const b = fs.readFileSync(path.join(ED, x.path)); x.sha256 = crypto.createHash('sha256').update(b).digest('hex'); x.bytes = b.length; if (x.byte_budget < b.length) x.byte_budget = b.length; } catch (e) {} });
+707991	  if (!m.order.includes('line-card')) {
+707992	    const lc = JSON.parse(fs.readFileSync(path.join(ED, 'handoff', '02-card', 'MODULE.json'), 'utf8'));
+707993	    m.modules.push(lc); m.order.push('line-card');
+707994	  if (withDrift) {
+707995	    m.modules.push({ id: 'drift', generation: modFile.slice(0, 12), path: 'modules/' + modFile, sha256: modSha, bytes: modBytes.length,
+707996	      byte_budget: 65536, requires: REQ, provides: ['drift'], reads: ['data/drift.json', 'keys-min.json', 'keys.json'],
+707997	      writes: ['#ky-drift', '#ky-drift-css', '#card .ky-drift-cl'], creates_controls: 'the drift section of the WAFER panel: five class filters and its list',
+707998	      licence: 'Apache-2.0', team: '08', step: 8, proof: 'handoff/08-drift/' });
+707999	    m.order.push('drift');
+708001	const MOVED = DRIFT.rows.filter(r => r.class === 'MOVED');
+708002	const C = DRIFT.summary.counts;
+708003	async function overlay(page, x, y, rad) {   // classify overlay pixels in a box (or the whole canvas)
+708004	  return page.evaluate(([x, y, rad]) => {
+708005	    const ov = document.querySelector('#o'), ctx = ov.getContext('2d');
+708006	    const x0 = rad ? Math.max(0, Math.round(x - rad)) : 0, y0 = rad ? Math.max(0, Math.round(y - rad)) : 0;
+708007	    const w = rad ? Math.min(ov.width - x0, 2 * rad + 1) : ov.width, h = rad ? Math.min(ov.height - y0, 2 * rad + 1) : ov.height;
+708008	    const d = ctx.getImageData(x0, y0, w, h).data; let amber = 0, green = 0;
+708009	    for (let i = 0; i < d.length; i += 4) { const r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3]; if (a < 60) continue;
+708010	      if (r > 200 && g > 120 && g < 200 && b < 70) amber++; else if (g > 180 && r < 90 && b < 150 && g > b + 60) green++; }
+708011	    return { amber, green, w: ov.width, cssW: innerWidth };
+708012	  }, [x, y, rad || 0]);
+708013	async function run(devName, scen) {
+708014	  const ctx = await browser.newContext({ ...devices[devName] });
+708015	  const errors = [], steps = [];
+708017	  page.on('pageerror', e => errors.push('pageerror ' + e.message));
+708018	  await page.route('**/editions/202611012135/modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(manifest(scen !== 'A')) }));
+708019	  if (scen === 'C') await page.route('**/editions/202611012135/data/drift.json', r => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not found' }));
+708020	  const ok = (name, pass, detail) => { steps.push({ device: devName, scenario: scen, step: name, pass: !!pass, detail }); console.log((pass ? 'PASS ' : 'FAIL ') + devName + ' ' + scen + ' ' + name + ' · ' + detail); };
+708021	  await page.goto(URL0, { waitUntil: 'load', timeout: 180000 });
+708022	  await page.waitForFunction(() => window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.done !== false && document.querySelector('#big') && /verified lines lit/.test(document.querySelector('#big').textContent), null, { timeout: 180000 }).catch(() => {});
+708023	  if (scen !== 'A') await page.waitForFunction(() => { const m = window.KY && KY.modules && KY.modules.drift; const s = m && m.api && m.api.inspect(); return s && (s.status === 'OK' || s.status === 'REFUSED'); }, null, { timeout: 180000 }).catch(() => {});
+708024	  await sleep(7000);
+708025	  const ins = () => page.evaluate(() => { const m = window.KY && KY.modules && KY.modules.drift; return m && m.api ? m.api.inspect() : null; });
+708026	  const base = await overlay(page);
+708027	  const bar = await page.evaluate(() => { const ts = [...document.querySelectorAll('#kuiper-menu-bar .gm-menu>.gm-title')]; const tops = new Set(ts.map(t => Math.round(t.getBoundingClientRect().top)));
+708028	    const b = document.querySelector('#kuiper-menu-bar'); return { titles: ts.map(t => t.textContent.trim()), rows: tops.size, h: b ? Math.round(b.getBoundingClientRect().height) : null, sw: b ? b.scrollWidth : 0, cw: b ? b.clientWidth : 0 }; });
+708029	  const res = { device: devName, scenario: scen, base, bar };
+708030	  if (scen === 'A') { ok('baseline wafer', base.green > 0, base.green + ' green overlay px, no drift module'); }
+708031	  if (scen === 'B') {
+708032	    let s = await ins();
+708033	    const hud = await page.evaluate(() => document.querySelector('#hud').textContent);
+708034	    const want = ['SAME', 'MOVED', 'GONE', 'FILE_GONE', 'UNVERIFIED'].map(k => C[k] + ' ' + k);
+708035	    ok('admitted', s && s.status === 'OK', s ? 'status ' + s.status + ' registry ' + s.registry + ' marks ' + s.marks : 'drift not in KY.modules: ' + JSON.stringify(await page.evaluate(() => window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.refused)));
+708036	    ok('readout five counts', want.every(w => hud.includes(w)) && hud.includes(DRIFT.summary.share_text), (hud.split('\n').find(l => /^DRIFT/.test(l)) || 'no DRIFT line'));
+708037	    ok('bar one row', bar.rows === 1 && bar.sw <= bar.cw + 1, JSON.stringify(bar));
+708038	    // the amber spark at its new key, and its card
+708039	    const mv = (s && s.moved || []).find(m => m.atNew);
+708040	    ok('MOVED placed at a new key', !!mv && s.moved.filter(m => m.atNew).length >= 1, s ? s.moved.filter(m => m.atNew).length + ' of ' + MOVED.length + ' MOVED at their new keys; ' + s.moved.filter(m => !m.atNew).map(m => m.repo + ': ' + m.note).join('; ') : '');
+708041	    if (mv) {
+708042	      const row = MOVED.find(r => r.id === mv.id && r.repo === mv.repo);
+708043	      await page.evaluate(id => KY.modules.drift.api.open(id), mv.id); await sleep(8000);
+708044	      const card = await page.evaluate(() => { const c = document.querySelector('#card'); const d = c.querySelector('.ky-drift-cl'); return { open: c.style.display === 'block', drift: d ? d.textContent : null, first: (c.querySelector('header code') || {}).textContent }; });
+708045	      const line = 'at head ' + row.head.slice(0, 7) + ': MOVED to line ' + row.head_line + ' (' + (row.delta > 0 ? '+' : '') + row.delta + ')';
+708046	      ok('card names head and new line', card.open && card.drift && card.drift.includes(line), JSON.stringify(card.drift));
+708047	      let p = await page.evaluate(id => KY.modules.drift.api.screen(id), mv.id);
+708048	      const px = await overlay(page, p[0], p[1], 4);
+708049	      ok('MOVED spark amber', px.amber >= 4, 'at (' + p.map(v => v.toFixed(1)).join(', ') + '): ' + px.amber + ' amber px in a 9x9 box');
+708050	      if (HANDOFF && devName === 'Pixel 7') await page.screenshot({ path: path.join(HERE, 'img', '1-moved-card-Pixel_7.png'), scale: 'css', timeout: 180000 });
+708051	      // close the card, then tap within 9 px of the amber spark with a finger
+708052	      await page.evaluate(() => { const c = document.querySelector('#card'); const x = c.querySelector('.lc-x,.cx'); if (x) x.click(); }); await sleep(2500);
+708053	      p = await page.evaluate(id => KY.modules.drift.api.screen(id), mv.id);
+708054	      const before = (await ins()).taps;
+708055	      await page.touchscreen.tap(p[0] + 6, p[1] + 6); await sleep(4000);
+708056	      s = await ins();
+708057	      const card2 = await page.evaluate(() => { const c = document.querySelector('#card'); const d = c.querySelector('.ky-drift-cl'); return { open: c.style.display === 'block', drift: d ? d.textContent : null }; });
+708058	      ok('tap within 9 px opens its card', s.taps === before + 1 && card2.open && card2.drift && card2.drift.includes(line), 'tap at +6,+6 (8.5 px): taps ' + before + '→' + s.taps + ', ' + JSON.stringify(card2.drift));
+708059	      await page.evaluate(() => { const c = document.querySelector('#card'); const x = c.querySelector('.lc-x,.cx'); if (x) x.click(); }); await sleep(1500);
+708060	    // the LINES filter "moved": the WAFER panel, real taps
+708061	    const w = await page.evaluate(() => { const t = [...document.querySelectorAll('#kuiper-menu-bar .gm-title')].find(b => b.textContent.trim().toUpperCase() === 'WAFER'); if (!t) return null; const r = t.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+708062	    if (w) { await page.touchscreen.tap(w[0], w[1]); await sleep(2500); }
+708063	    else await page.evaluate(() => KY.panels.set('wafer'));
+708064	    await page.evaluate(() => { const d = document.querySelector('#ky-drift'); if (d) d.scrollIntoView({ block: 'start' }); }); await sleep(800);
+708065	    const chip = await page.evaluate(() => { const b = document.querySelector('#ky-drift .kd-c button[data-class=MOVED]'); if (!b) return null; const r = b.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r.height]; });
+708066	    if (chip) { await page.evaluate(() => KY.modules.drift.api.filter('SAME')); await sleep(300);
+708067	      const c2 = await page.evaluate(() => { const r = document.querySelector('#ky-drift .kd-c button[data-class=MOVED]').getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+708068	      await page.touchscreen.tap(c2[0], c2[1]); await sleep(1500); }
+708069	    const listed = await page.evaluate(() => [...document.querySelectorAll('#ky-drift .kd-l [data-row]')].map(b => ({ row: +b.dataset.row, cls: b.dataset.class })));
+708070	    const wantRows = DRIFT.rows.map((r, i) => r.class === 'MOVED' ? i : -1).filter(i => i >= 0);
+708071	    ok('filter "moved" lists exactly the MOVED rows', chip && chip[2] >= 44 && listed.length === wantRows.length && listed.every((x, i) => x.cls === 'MOVED' && x.row === wantRows[i]),
+708072	      'chip ' + (chip ? chip[2].toFixed(0) + ' px tall' : 'missing') + '; listed ' + listed.length + ' rows, drift.json MOVED ' + wantRows.length);
+708073	    if (HANDOFF && devName === 'Galaxy S24') await page.screenshot({ path: path.join(HERE, 'img', '2-filter-moved-Galaxy_S24.png'), scale: 'css', timeout: 180000 });
+708074	    const bar2 = await page.evaluate(() => { const ts = [...document.querySelectorAll('#kuiper-menu-bar .gm-menu>.gm-title')]; return new Set(ts.map(t => Math.round(t.getBoundingClientRect().top))).size; });
+708075	    ok('bar one row with the panel open', bar2 === 1, bar2 + ' row(s)');
+708076	  if (scen === 'C') {
+708077	    const s = await ins();
+708078	    ok('drift.json missing: refused in words', s && s.status === 'REFUSED' && hud.includes('data/drift.json did not load. The wafer will not invent a head.'), (hud.split('\n').find(l => /^DRIFT/.test(l)) || 'no DRIFT line'));
+708079	    ok('drift.json missing: no amber drawn by drift', s && s.marks === 0, 'marks ' + (s && s.marks));
+708080	    res.hud = hud;
+708081	    if (HANDOFF && devName === 'Galaxy S24') await page.screenshot({ path: path.join(HERE, 'img', '3-drift-missing-Galaxy_S24.png'), scale: 'css', timeout: 180000 });
+708082	  const errs = scen === 'C' ? errors.filter(e => !/404/.test(e) || !/Failed to load resource/.test(e)) : errors;
+708083	  ok('zero console errors', errs.length === 0, errs.length ? errs.slice(0, 3).join(' | ') : '0' + (scen === 'C' ? ' (the deliberate 404 of data/drift.json excluded: ' + (errors.length - errs.length) + ')' : ''));
+708084	  res.steps = steps;
+708085	  const all = [];
+708086	    const A = await run(d, 'A'), B = await run(d, 'B'), Cc = await run(d, 'C');
+708087	    // with drift.json missing the wafer and the green sparks are unchanged (the overlay at home, same viewport)
+708088	    const same = Cc.base.green === A.base.green;
+708089	    const st = { device: d, scenario: 'A/C', step: 'drift.json missing: green sparks unchanged', pass: same && A.base.green > 0, detail: 'green overlay px at home: no module ' + A.base.green + ', drift.json 404 ' + Cc.base.green };
+708090	    console.log((st.pass ? 'PASS ' : 'FAIL ') + d + ' A/C ' + st.step + ' · ' + st.detail);
+708091	    all.push(...A.steps, ...B.steps, ...Cc.steps, st);
+708092	  const fails = all.filter(s => !s.pass);
+708093	  const report = { when: new Date().toISOString(), url: URL0, pre_integration: PRE, module: { file: modFile, sha256: modSha, bytes: modBytes.length },
+708094	    drift: { sha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(ED, 'data', 'drift.json'))).digest('hex'), counts: C }, steps: all,
+708095	    result: fails.length ? 'FAIL' : 'PASS' };
+708096	  if (HANDOFF) {
+708097	    const t = ['# TEST.md — Opus team 8, step 8 the drift (P4 on Android)', '',
+708098	      'Run ' + report.when + ' · ' + URL0 + (PRE ? ' · **pre-integration** (modules.json routed: served records re-hashed from disk + line-card + drift)' : ' · as served'),
+708099	      'Module `modules/' + modFile + '` sha256 `' + modSha + '` (' + modBytes.length + ' bytes); data/drift.json sha256 `' + report.drift.sha256 + '`.', '',
+708100	      '| device | scenario | step | result | measured |', '|---|---|---|---|---|',
+708101	      ...all.map(s => '| ' + s.device + ' | ' + s.scenario + ' | ' + s.step + ' | ' + (s.pass ? 'PASS' : 'FAIL') + ' | ' + String(s.detail).replace(/\|/g, '\\|').slice(0, 300) + ' |'), '',
+708102	      'RESULT: ' + report.result + ' (' + (all.length - fails.length) + ' of ' + all.length + ')', ''];
+708103	    fs.writeFileSync(path.join(HERE, 'TEST.md'), t.join('\n'));
+708104	  console.log('RESULT: ' + report.result + ' (' + (all.length - fails.length) + ' of ' + all.length + ')' + (PRE ? ' pre-integration' : ''));
+708105	  process.exit(fails.length ? 1 : 0);
+708106	})().catch(e => { console.error('harness error', e); process.exit(2); });
+708128	// NL-010 (Opus team 10 tester, 2026-11-01): the same journey on Edition 5's assembled page. When the Opus 1 shell is
+708129	// installed (nav#kuiper-menu-bar; Edition 4's #bar stays in the DOM with class kmb-superseded, hidden) the script
+708130	// reads the new bar and maps Edition 4's four titles onto the shell's six:
+708131	//   EDITION  data-panel="top"   -> ABOUT  #kmb-title-about / #kmb-panel-about (holds #top, #big, #sub)
+708132	//   LINES    data-panel="lines" -> WAFER  #kmb-title-wafer / #kmb-panel-wafer (holds #lines, #lyFind, #lineslist)
+708133	//   COMMANDS data-panel="foot"  -> VIEW   #kmb-title-view  / #kmb-panel-view  (holds [data-k="Backspace"] WHOLE WAFER)
+708134	//   READOUT  data-panel="hud"   -> VIEW   (holds #hud)
+708135	//   an open shell panel is .gm-menu.gm-open with its .gm-panel not [hidden]; the bar's lockup is .ventus-brand
+708136	//   SEE THROUGH: a[data-star] / any see-through link in #kuiper-menu-bar or in the bottom-left #kuiper-star-strip
+708137	// The Opus 2 card (#card.lc): details .lc-t, body .lc-d, open class lc-open, close .lc-x, header .lc-h code (the line
+708138	// of code, compared with keys.json line_text), "n of N" read from .lc-d. Edition 4's ids are still used when absent.
+708139	// Added steps: panel-dismiss (a wafer tap and the back gesture close an open panel; ROADMAP 9.4 (c)) and modules
+708140	// (every modules.json order entry admitted by the loader, refused empty, zero page errors; ROADMAP 9.4 (o)).
+708148	const SETTLE_MAX = 90000, APPEAR_MAX = 90000, FIXED_WAIT = 6500, MARGIN = 10;   // px margin for "clear space"
+708150	  const vis = el => !!el && getComputedStyle(el).display !== 'none' && getComputedStyle(el).visibility !== 'hidden' && el.getBoundingClientRect().height > 0;   // NL-010: a card with visibility:hidden (line-card lc-behind) is not open on screen
+708151	  const shell = q('#kuiper-menu-bar');
+708152	  const MAP = { top: 'about', hud: 'view', lines: 'wafer', foot: 'view' }, BACK = { about: 'top', wafer: 'lines', view: 'foot' };
+708153	  const bar = shell || q('#bar'), card = q('#card');
+708154	  const titles = shell
+708155	    ? [...shell.querySelectorAll('.gm-title')].filter(b => b.getBoundingClientRect().height > 0).map(b => { const m = b.parentNode && b.parentNode.getAttribute && b.parentNode.getAttribute('data-menu'); return { text: b.textContent.trim(), panel: m ? (BACK[m] || m) : null, menu: m, on: !!m && b.parentNode.classList.contains('gm-open'), rect: R(b) }; })
+708156	    : [...document.querySelectorAll('#bar .gm-title')].map(b => ({ text: b.textContent.trim(), panel: b.dataset.panel, on: b.classList.contains('gm-on'), rect: R(b) }));
+708157	  const barname = shell ? shell.querySelector('.ventus-brand') : q('#barname');
+708158	  const panelEl = id => shell ? q('#kmb-panel-' + MAP[id]) : q('#' + id);
+708159	  const panelOpen = (id, el) => shell ? !el.hidden && el.parentNode.classList.contains('gm-open') : el.classList.contains('gm-open');
+708180	  const lc = card && card.classList.contains('lc');
+708181	  const cq = s => card && card.querySelector(s);
+708182	  if (cardOpen) { const src = (lc && cq('.lc-d')) ? cq('.lc-d').textContent : card.textContent; const m = src.match(/(\d[\d,]*)\s+of\s+(\d[\d,]*)/); if (m) { cardIndex = +m[1].replace(/,/g, ''); cardTotal = +m[2].replace(/,/g, ''); } }
+708187	    shell: shell ? { installed: !!(window.__KUIPER_MODULES__ && window.__KUIPER_MODULES__.menuBar && window.__KUIPER_MODULES__.menuBar.installed), open: shell.getAttribute('data-open'), oldBarSuperseded: !!(q('#bar') && q('#bar').classList.contains('kmb-superseded')) } : null,
+708188	    panels: Object.fromEntries(['top', 'hud', 'lines', 'foot'].map(id => { const el = panelEl(id); return [id, el ? { el: el.id, visible: vis(el), open: panelOpen(id, el), rect: R(el), overflowY: getComputedStyle(el).overflowY, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight, scrollTop: el.scrollTop } : null]; })),
+708190	    card: { open: cardOpen, lineCard: !!lc, rect: cardOpen ? R(card) : null, maxHeight: cs ? cs.maxHeight : null, height: cardOpen ? card.getBoundingClientRect().height : 0, scrollHeight: card.scrollHeight, detailsOpen: card.classList.contains('open') || card.classList.contains('lc-open'), index: cardIndex, total: cardTotal, title: cardOpen ? (cq('.lc-title') ? cq('.lc-title').textContent : (cq('b') ? cq('b').textContent : card.textContent.slice(0, 80))) : null, header: cardOpen && cq('.lc-h code') ? cq('.lc-h code').textContent : null, headerIsFirst: cardOpen && lc ? (() => { const w = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, { acceptNode: n => n.textContent.trim() ? 1 : 3 }); const f = w.nextNode(); return !!f && !!cq('.lc-h code') && cq('.lc-h code').contains(f); })() : null, hasClose: !!cq('.cx, .lc-x'), hasDetails: !!cq('.ct, .lc-t'), detailsVisible: vis(cq('.cd, .lc-d')), closeRect: R(cq('.cx, .lc-x')), detailsRect: R(cq('.ct, .lc-t')) },
+708195	    seeThrough: (() => { const els = [...document.querySelectorAll('#bar button, #bar a, #kuiper-menu-bar button, #kuiper-menu-bar a, #kuiper-star-strip button, #kuiper-star-strip a')].filter(e => e.getBoundingClientRect().height > 0 && getComputedStyle(e).visibility !== 'hidden' && !e.closest('.gm-panel')); const el = els.find(e => /see\s*-?\s*through/i.test(e.textContent) || /see-through/i.test(e.getAttribute('href') || '')); return el ? { text: el.textContent.trim(), tag: el.tagName.toLowerCase(), href: el.getAttribute('href'), target: el.getAttribute('target'), form: el.closest('#kuiper-star-strip') ? 'strip' : 'bar', rect: R(el) } : null; })(),
+708197	    frames: window.__fr || 0,
+708201	    // UI that is not the wafer and sits over it at rest: the Opus 1 shell's bottom-left star strip (shell contract R7). Its box is skipped.
+708202	    const ex = [...document.querySelectorAll('#kuiper-star-strip')].map(e => e.getBoundingClientRect()).filter(r => r.height > 0 && r.width > 0);
+708205	    for (let y = Math.max(0, Math.floor(yFrom)); y < H; y++) for (let x = 0; x < W; x++) { if (ex.some(r => x >= r.left - 1 && x <= r.right + 1 && y >= r.top - 1 && y <= r.bottom + 1)) continue; const i = (y * W + x) * 4; tot++;
+708208	    return { excluded: ex.map(r => [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)]), litFraction: +(lit / Math.max(1, tot)).toFixed(4), litPx: lit, bbox: lit ? [minx, miny, maxx, maxy] : null, bboxW: lit ? maxx - minx + 1 : 0, bboxH: lit ? maxy - miny + 1 : 0 };
+708214	  await page.addInitScript(() => { let n = 0; const f = () => { n++; window.__fr = n; requestAnimationFrame(f); }; requestAnimationFrame(f); });   // counts drawn frames, so "settled" means unchanged across frames, not across wall time
+708215	  // NL-010: errors raised after the journey has left the edition (the SEE THROUGH step navigates to ../../see-through/, another
+708216	  // app, whose basemap fetch fails in this sandbox) are kept apart in offPageErrors; consoleErrors are the edition's own.
+708217	  const errors = [], offPageErrors = []; let leftEdition = false;
+708218	  const errPush = (e) => (leftEdition ? offPageErrors : errors).push({ ...e, url: page.url().slice(0, 120) });
+708219	  page.on('console', m => { if (m.type() === 'error') errPush({ kind: 'console', text: m.text().slice(0, 300) }); });
+708220	  page.on('pageerror', e => errPush({ kind: 'pageerror', text: String(e.message || e).slice(0, 300) }));
+708221	  page.on('requestfailed', r => { const f = r.failure(); if (f && !/aborted|ERR_ABORTED/i.test(f.errorText)) errPush({ kind: 'request', text: r.url().slice(0, 200) + ' ' + f.errorText }); });
+708222	  // a screenshot waits for a frame, and a frame at zoom 14 under SwiftShader on a loaded machine can take minutes: it is
+708223	  // retried once and never aborts the journey. The steps that measure the wafer analyse this same file, so the evidence
+708224	  // image and the measurement are one capture.
+708225	  const shotTo = async (f) => { for (let attempt = 0; attempt < 2; attempt++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); return path.relative(OUT, f); } catch (e) { if (attempt) return 'FAILED: ' + String(e.message || e).split('\n')[0]; } } };
+708226	  const shotName = (id) => path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png');
+708227	  const shot = (id) => shotTo(shotName(id));
+708228	  const waferFromFile = async (file, yFrom) => { try { return await waferFromPng(page, fs.readFileSync(file).toString('base64'), yFrom); } catch (e) { return { error: 'screenshot failed: ' + String(e.message || e).split('\n')[0], litFraction: 0, bbox: null }; } };
+708229	  const record = (id, name, pass, measured, note) => { const s = { id, name, pass: !!pass, ms: Date.now() - stepT0, measured, note: note || '' }; stepT0 = Date.now(); steps.push(s); process.stderr.write(`[${deviceName}] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}\n`); return s; };
+708232	  const settle = async (opts = {}) => {
+708233	    // Under SwiftShader on a loaded machine a frame can take seconds, and a position that is unchanged for a second of wall
+708234	    // time may be one stale frame from the middle of a fly. So "settled" is: the selected spark is drawn, and its position is
+708235	    // unchanged across at least two further frames (the rAF counter advanced by 2). The measurement is the final position.
+708236	    const t0 = Date.now(); let last = null, seen = 0, f0 = -1;
+708237	    while (true) { await sleep(300); const p = await probe(); const t = Date.now() - t0;
+708238	      if (!p.magenta) { if (opts.noSpark) { if (f0 < 0) f0 = p.frames; if (t >= FIXED_WAIT && p.frames - f0 >= 2) return p; if (t >= SETTLE_MAX) return p; continue; }
+708239	        if (t >= APPEAR_MAX) return p; continue; }
+708240	      if (last && Math.hypot(p.magenta.x - last.x, p.magenta.y - last.y) < 0.6) { if (p.frames - last.frames >= 2) return p; }
+708241	      else last = { x: p.magenta.x, y: p.magenta.y, frames: p.frames };
+708242	      if (Date.now() - seen >= SETTLE_MAX) return p; }
+708243	  const framesPass = async (k, max = 60000) => { const f0 = await page.evaluate(() => window.__fr || 0), t0 = Date.now(); while (Date.now() - t0 < max) { await sleep(250); if ((await page.evaluate(() => window.__fr || 0)) - f0 >= k) return true; } return false; };
+708256	    // the first frames under SwiftShader can take long: the wafer check is retried across drawn frames before it counts as absent
+708257	    let wafer = null, waferOk = false, waferTries = 0; const loadFile = shotName('load');
+708258	    for (; waferTries < 4 && !waferOk; waferTries++) {
+708259	      if (waferTries) await framesPass(2, 40000);
+708260	      p = await probe(); const got = await shotTo(loadFile);
+708261	      wafer = got.startsWith('FAILED') ? { error: got, litFraction: 0, bbox: null } : await waferFromFile(loadFile, p.bar ? p.bar.bottom : 0);
+708262	      const clearMin = Math.min(p.viewport.w, p.viewport.h - (p.bar ? p.bar.bottom : 0));
+708263	      waferOk = wafer.litFraction > 0.03 && !!wafer.bbox && wafer.bboxW > 0.4 * clearMin && Math.abs(wafer.bboxW / wafer.bboxH - 1) < 0.25;
+708264	    const tops = p.titles.map(t => t.rect.top);   // the buttons' tops: one row means they all share one, the bar is under two button heights, and nothing is clipped off the right
+708265	    const nameInRow = !p.barname || !p.barname.rect || (p.barname.rect.bottom <= Math.max(...p.titles.map(t => t.rect.bottom)) + 4 && p.barname.rect.top >= Math.min(...tops) - 4);
+708266	    const oneRow = p.bar && tops.length && Math.max(...tops) - Math.min(...tops) < 4 && nameInRow && p.bar.height < 2 * Math.min(...p.titles.map(t => t.rect.height)) && p.barScroll.scrollWidth <= p.barScroll.clientWidth + 1;
+708269	      { loadMs: Date.now() - t0, consoleErrors: errors.slice(), big: p.big, wafer, waferTries, bar: p.bar, barTitles: p.titles.map(t => t.text), titleTops: tops, barScroll: p.barScroll, oneRow: !!oneRow, sparksVisible: p.greensCount, frameMs: fr.length ? { median: +fr[fr.length >> 1].toFixed(0), max: +fr[fr.length - 1].toFixed(0) } : null, screenshot: path.relative(OUT, loadFile) },
+708270	      [errors.length ? errors.length + ' console error(s)' : '', waferOk ? '' : 'wafer not detected as a disc under the bar', oneRow ? '' : 'bar is not one row (button tops ' + tops.join('/') + ', bar height ' + (p.bar && p.bar.height) + ', scrollWidth ' + p.barScroll.scrollWidth + '/' + p.barScroll.clientWidth + ')'].filter(Boolean).join('; '));
+708271	    try { const j = await page.evaluate(async () => (await (await fetch('keys.json')).json())); bodies = j.bodies || j; placed = bodies.filter(b => b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0).map(b => { const [x, y] = keyPlace(b.key); return { key: b.key, x, y, title: b.title, repo: b.repo, line_text: b.line_text }; }); } catch (e) { placed = []; }
+708274	    await tapRect(titleRect('top')); await framesPass(1); p = await probe();
+708280	        await touch('touchStart', [[x, y0]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x, y0 + (y1 - y0) * i / 10]]); await sleep(25); } await touch('touchEnd', []); await framesPass(2);
+708290	    // 3b a wafer tap and the back gesture close an open panel (ROADMAP 9.4 (c); shell contract C7)
+708291	      const dm = { wafer: null, back: null };
+708292	      const openPanel = () => page.evaluate(() => { const sh = document.getElementById('kuiper-menu-bar');
+708293	        const el = sh ? sh.querySelector('.gm-menu.gm-open > .gm-panel:not([hidden])') : ['top', 'hud', 'lines', 'foot'].map(i => document.getElementById(i)).find(e => e && e.classList.contains('gm-open'));
+708294	        if (!el) return null; const r = el.getBoundingClientRect(); return { id: el.id, top: r.top, bottom: r.bottom, left: r.left, right: r.right }; });
+708295	      const hitAt = (x, y) => page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : null; }, [x, y]);
+708296	      // the panel to test the wafer tap on: EDITION/ABOUT first, then every other title, the first that leaves wafer visible below it
+708297	      const cands = ['top', ...p.titles.filter(t => t.panel && t.panel !== 'top').map(t => t.panel)].filter((v, i, a) => a.indexOf(v) === i);
+708298	      const tried = [];
+708299	      for (const c of cands) {
+708300	        const tr = titleRect(c); if (!tr) continue;
+708301	        await tapRect(tr); await framesPass(1); await sleep(300); let q = await probe(); const op = await openPanel();
+708302	        if (!op) { tried.push({ panel: c, opened: false }); continue; }
+708303	        const x = Math.round(q.viewport.w - 8), y = Math.round(Math.min(q.viewport.h - 8, op.bottom + (q.viewport.h - op.bottom) / 2));
+708304	        const hit = op.bottom < q.viewport.h - 16 ? await hitAt(x, y) : null;
+708305	        tried.push({ panel: c, el: op.id, panelBottom: +op.bottom.toFixed(1), hit });
+708306	        if (hit === '#c' || hit === '#o' || hit === 'canvas') {
+708307	          await tapAt(x, y); await framesPass(1); await sleep(500); q = await probe(); const after = await openPanel();
+708308	          dm.wafer = { panel: c, el: op.id, tappedAt: [x, y], hit, closed: !after, cardOpened: q.card.open, ok: !after && !q.card.open, tried };
+708309	          if (q.card.open && q.card.closeRect) { await tapRect(q.card.closeRect); await sleep(500); }
+708310	          if (after) { await tapRect(titleRect(c)); await framesPass(1); }
+708312	        await tapRect(tr); await framesPass(1); await sleep(300);   // close it by its own title and try the next
+708313	      if (!dm.wafer) dm.wafer = { status: 'NOT EVALUATED', why: 'no open panel leaves wafer visible to tap (viewport ' + p.viewport.w + 'x' + p.viewport.h + ')', tried };
+708314	      let q = await probe();
+708315	      // the back gesture: opening must create a history entry (length or state changes), history.back() closes and the URL stays
+708316	      const urlBefore = page.url(), h0 = await page.evaluate(() => ({ len: history.length, state: JSON.stringify(history.state) }));
+708317	      await tapRect(titleRect('top')); await framesPass(1); await sleep(300); q = await probe();
+708318	      const h1 = await page.evaluate(() => ({ len: history.length, state: JSON.stringify(history.state) }));
+708319	      const entry = h1.len > h0.len || h1.state !== h0.state;
+708320	      if (!q.panels.top.visible) dm.back = { ok: false, why: 'EDITION/ABOUT did not open' };
+708321	      else if (!entry) dm.back = { ok: false, history: [h0, h1], why: 'opening pushed no history entry: the Android back gesture would leave the page' };
+708322	        await page.evaluate(() => history.back()); await sleep(1500); await framesPass(1); q = await probe();
+708323	        dm.back = { history: [h0, h1], closed: !q.panels.top.visible, urlBefore, urlAfter: page.url(), ok: !q.panels.top.visible && page.url() === urlBefore };
+708324	      if (q.panels.top.visible) { await tapRect(titleRect('top')); await framesPass(1); q = await probe(); }
+708325	      const evald = [dm.wafer, dm.back].filter(d => d && d.status !== 'NOT EVALUATED');
+708326	      record('panel-dismiss', 'open a panel, tap the wafer: it closes; open EDITION/ABOUT, back gesture: it closes and the page stays', evald.length > 0 && evald.every(d => d.ok),
+708327	        { ...dm, panelClosedAfter: !q.panels.top.visible, screenshot: await shot('panel-dismiss') },
+708328	        [dm.wafer && dm.wafer.status ? 'wafer tap NOT EVALUATED: ' + dm.wafer.why : (dm.wafer && !dm.wafer.ok ? 'wafer tap on ' + dm.wafer.panel + ': ' + (dm.wafer.closed ? 'a card opened' : 'panel stayed open') : ''), dm.back && !dm.back.ok ? 'back: ' + (dm.back.why || (dm.back.closed ? 'url changed to ' + dm.back.urlAfter : 'panel stayed open')) : ''].filter(Boolean).join('; '));
+708329	      p = q;
+708349	    const lb6 = p.card.index != null ? placed[p.card.index - 1] : null;
+708350	    const hdr6 = !p.card.lineCard ? { checked: false, why: 'Edition 4 card (no #card.lc)' } : { checked: true, header: p.card.header == null ? null : p.card.header.slice(0, 160), headerLength: p.card.header == null ? null : p.card.header.length, lineTextLength: lb6 && lb6.line_text != null ? lb6.line_text.length : null, equalsLineText: !!lb6 && p.card.header === lb6.line_text, headerIsFirstText: p.card.headerIsFirst };
+708351	    hdr6.ok = !hdr6.checked || (hdr6.equalsLineText && hdr6.headerIsFirstText);
+708352	    record('lines-pick', 'tap the first row: LINES closes, camera flies, card opens, spark in the clear space, the header is the line of code', !p.panels.lines.visible && p.card.open && cs6.ok && cap6.ok && hdr6.ok,
+708353	      { linesVisible: p.panels.lines.visible, card: { open: p.card.open, rect: p.card.rect, index: p.card.index, total: p.card.total, title: p.card.title, ...cap6 }, cardHeader: hdr6, clear: cs6, sparkMovedAfterTapPx: flew, rowTapped: before.lines.firstRowText, screenshot: await shot('lines-pick') },
+708354	      [p.panels.lines.visible ? 'LINES still open' : '', p.card.open ? '' : 'no card', cs6.ok ? '' : cs6.why, cap6.ok ? '' : 'card over its cap', hdr6.ok ? '' : 'card header is not the line of code (equals line_text ' + hdr6.equalsLineText + ', first text ' + hdr6.headerIsFirstText + ')'].filter(Boolean).join('; '));
+708375	    // 10 pinch out, then drag: the camera moves, the page neither scrolls nor zooms. The camera stays known
+708376	    // throughout: zoom 14 after a fly, then zoom × (finger distance ratio) per pinch, cx/cy solved from the selected spark.
+708377	    const solve = (p, zoom) => { if (!p.magenta || p.card.index == null || !placed[p.card.index - 1]) return null; const b = placed[p.card.index - 1]; return { zoom, cx: b.x - (p.magenta.x - p.viewport.w / 2) / zoom, cy: b.y - (p.viewport.h / 2 - p.magenta.y) / zoom }; };
+708379	    const pinchAt = async (mx, my, d0, d1, horizontal = true) => { const pts = d => horizontal ? [[mx - d / 2, my], [mx + d / 2, my]] : [[mx, my - d / 2], [mx, my + d / 2]];
+708380	      await touch('touchStart', pts(d0)); for (let i = 1; i <= 10; i++) { await touch('touchMove', pts(d0 + (d1 - d0) * i / 10)); await sleep(30); } await touch('touchEnd', []); return settle(); };
+708381	    let zoomNow = 14, cam = solve(p, zoomNow);
+708382	    const P0 = p.magenta, vv0 = p.viewport; let pinch = null, drag = null, zoomOut = [];
+708384	      // the fingers' midpoint must be well away from the spark (edFly puts the spark at the centre of the clear space, so the
+708385	      // centre is the one place not to pinch: the spark would stay put and the ratio would be noise); go 100 px up or down,
+708386	      // whichever side of the spark has more clear room
+708387	      const bandTop = p.bar.bottom + 30, bandBot = (p.card.open ? p.card.rect.top : p.viewport.h) - 30;
+708388	      const off = Math.min(100, Math.max(20, Math.max(P0.y - bandTop, bandBot - P0.y) - 10));
+708389	      const mx = p.viewport.w / 2, my = (bandBot - P0.y >= P0.y - bandTop) ? Math.min(bandBot, P0.y + off) : Math.max(bandTop, P0.y - off), d0 = Math.min(220, p.viewport.w - 60), d1 = d0 / 2;
+708390	      const q = await pinchAt(mx, my, d0, d1);   // pinchAt settles, so the last drawn frame is the finished pinch, not one from the middle of it
+708391	      const r0 = Math.hypot(P0.x - mx, P0.y - my), r1 = q.magenta ? Math.hypot(q.magenta.x - mx, q.magenta.y - my) : null;
+708392	      pinch = { centre: [mx, +my.toFixed(1)], sparkBefore: [P0.x, P0.y], fingerDistance: [d0, d1], sparkDistanceFromCentre: [+r0.toFixed(1), r1 && +r1.toFixed(1)], ratio: r1 != null ? +(r1 / r0).toFixed(3) : null, expected: 0.5, pageScroll: [q.viewport.scrollX, q.viewport.scrollY], vvScale: q.viewport.vvScale, innerWidth: q.viewport.w };
+708393	      pinch.ok = pinch.ratio != null && r0 >= 25 && Math.abs(pinch.ratio - 0.5) < 0.12 && q.viewport.scrollX === 0 && q.viewport.scrollY === 0 && Math.abs((q.viewport.vvScale || 1) - 1) < 0.01 && q.viewport.w === vv0.w;
+708394	      if (pinch.ok) zoomNow *= d1 / d0;
+708397	        await touch('touchStart', [[ax, ay]]); for (let i = 1; i <= 12; i++) { await touch('touchMove', [[ax + dx * i / 12, ay + dy * i / 12]]); await sleep(25); } await touch('touchEnd', []);
+708398	        const s = await settle(); drag = { finger: [dx, dy], sparkMoved: s.magenta ? [+(s.magenta.x - P1.x).toFixed(1), +(s.magenta.y - P1.y).toFixed(1)] : null, pageScroll: [s.viewport.scrollX, s.viewport.scrollY], vvScale: s.viewport.vvScale, vvOffset: s.viewport.vvOffset, cardOpen: s.card.open };
+708400	        p = s;
+708401	      // zoom out until the whole belt of sparks is in view (the engine clamps zoom at 1e-4): the selected spark, under the
+708402	      // midpoint of the fingers, must stay put, which is the pinch law measured a second time at a large ratio
+708403	      if (pinch.ok && drag && drag.ok && p.magenta && placed.length) {
+708404	        const rmax = Math.max(...placed.map(b => Math.hypot(b.x, b.y)));
+708405	        const clearH = (p.card.open ? p.card.rect.top : p.viewport.h) - p.bar.bottom;
+708406	        const target = Math.max(1.2e-4, 0.40 * Math.min(p.viewport.w, clearH) / rmax);
+708407	        for (let k = 0; k < 7 && zoomNow > target * 1.05; k++) {
+708408	          // fingers centred on the selected spark (it must not move), on whichever axis has more room, and never off the
+708409	          // screen: a touch point outside the viewport is dropped by Chromium and the pinch degrades into a one-finger drag
+708410	          const M = p.magenta; const mx2 = M.x, my2 = M.y;
+708411	          const roomX = 2 * Math.min(mx2, p.viewport.w - mx2) - 16, roomY = 2 * Math.min(my2 - p.bar.bottom, (p.card.open ? p.card.rect.top : p.viewport.h) - my2) - 16;
+708412	          const horizontal = roomX >= roomY, D0 = Math.min(300, Math.max(40, horizontal ? roomX : roomY));
+708413	          const ratio = Math.min(D0 / 12, zoomNow / target), D1 = D0 / ratio;
+708414	          const q2 = await pinchAt(mx2, my2, D0, D1, horizontal);
+708415	          const moved = q2.magenta ? +Math.hypot(q2.magenta.x - mx2, q2.magenta.y - my2).toFixed(1) : null;
+708416	          const ok = moved != null && moved <= 3 && q2.viewport.scrollY === 0 && Math.abs((q2.viewport.vvScale || 1) - 1) < 0.01;
+708417	          zoomOut.push({ centre: [mx2, my2], axis: horizontal ? 'x' : 'y', fingerDistance: [D0, +D1.toFixed(2)], ratio: +(1 / ratio).toFixed(5), zoomAfter: +(zoomNow / ratio).toExponential(3), selectedSparkMovedPx: moved, greensInView: [p.greensCount, q2.greensCount], ok });
+708418	          if (!ok) break; zoomNow /= ratio; p = q2;
+708419	        cam = solve(p, zoomNow);
+708420	    record('pinch-drag', 'pinch out then drag: the wafer zooms and pans, the page neither scrolls nor zooms', pinch && pinch.ok && drag && drag.ok && zoomOut.length > 0 && zoomOut.every(z => z.ok), { pinch, drag, zoomOut, zoomNow: +zoomNow.toExponential(3), screenshot: await shot('pinch-drag') },
+708421	      !P0 ? 'no selected spark to measure against' : [pinch && !pinch.ok ? 'pinch ratio ' + pinch.ratio + ' (expected 0.5) or page moved' : '', drag ? (drag.ok ? '' : 'drag moved spark by ' + JSON.stringify(drag.sparkMoved) + ' for finger ' + JSON.stringify(drag.finger)) : 'no drag measured', zoomOut.length && zoomOut.every(z => z.ok) ? '' : 'zoom-out pinch failed: ' + JSON.stringify(zoomOut.slice(-1))].filter(Boolean).join('; '));
+708422	    // 11 tap a spark directly: the nearest spark by the law must be the one the card shows
+708423	    let cand = null, predicted = null, predictedDist = null, secondDist = null;
+708424	    if (cam && placed.length && p.greens.length) {
+708425	      const top = p.bar.bottom + 20, bot = (p.card.open ? p.card.rect.top : p.viewport.h) - 20;
+708426	      const pos = placed.map(b => toScreen(cam, b, p));
+708427	      const scored = p.greens.filter(g => g.y > top && g.y < bot && g.x > 20 && g.x < p.viewport.w - 20 && (!p.magenta || Math.hypot(g.x - p.magenta.x, g.y - p.magenta.y) > 30)).map(g => {
+708428	        let b1 = -1, d1 = 1e18, d2 = 1e18; pos.forEach(([x, y], i) => { const d = (x - g.x) ** 2 + (y - g.y) ** 2; if (d < d1) { d2 = d1; d1 = d; b1 = i; } else if (d < d2) d2 = d; });
+708429	        return { g, b1, d1: Math.sqrt(d1), d2: Math.sqrt(d2) }; }).filter(s => s.d1 <= 2.5 && s.d2 - s.d1 >= 6).sort((a, b) => (b.d2 - b.d1) - (a.d2 - a.d1));
+708430	      if (scored.length) { cand = scored[0].g; predicted = scored[0].b1; predictedDist = +scored[0].d1.toFixed(1); secondDist = +scored[0].d2.toFixed(1); }
+708434	    const gotNearest = cand && p.card.open && p.card.index != null && p.card.index === predicted + 1;
+708436	      { tapped: cand || null, greensInView: p.greensCount, cameraKnown: !!cam, predictedIndex: predicted == null ? null : predicted + 1, predictedTitle: predicted == null ? null : placed[predicted].title, predictedDistanceFromTapPx: predictedDist, secondNearestPx: secondDist, cardIndex: p.card.index, previousCardIndex: prevCardIndex, cardTitle: p.card.title, clear: csS, screenshot: await shot('spark-tap') },
+708437	      !cand ? 'no unambiguous spark to tap (camera known: ' + !!cam + ', greens in view: ' + p.greensCount + ')' : (!p.card.open || p.card.index == null ? 'tap did not open a line card (card text: ' + (p.card.title || 'none') + ')' : (gotNearest ? (csS.ok ? '' : csS.why) : 'card shows ' + p.card.index + ', nearest by the law is ' + (predicted + 1))));
+708440	    const fp = p.panels.foot; const ww = await page.evaluate(() => { const b = [...document.querySelectorAll('#foot button[data-k="Backspace"], #kuiper-menu-bar [data-k="Backspace"]')].find(e => e.getBoundingClientRect().height > 0); if (!b) return null; const r = b.getBoundingClientRect(); return { text: b.textContent.trim(), left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height }; });
+708445	    const wwFile = shotName('whole-wafer'); const got12 = await shotTo(wwFile);
+708446	    const wafer12 = got12.startsWith('FAILED') ? { error: got12, bbox: null } : await waferFromFile(wwFile, p.bar.bottom);
+708447	    const whole = wafer12.bbox && wafer12.bboxW > 0.4 * Math.min(p.viewport.w, p.viewport.h - p.bar.bottom) && Math.abs(wafer12.bboxW / wafer12.bboxH - 1) < 0.25 && wafer12.bbox[1] >= p.bar.bottom - 1 && wafer12.bbox[3] <= p.viewport.h;
+708449	      { commandsPanel: fp, wholeWaferButton: ww, commandsOpenedUnderBar: !!cmdOpen, panelStayedOpenAfterTap: panelStillOpen, cardOpen: p.card.open, magenta: p.magenta, wafer: wafer12, screenshot: path.relative(OUT, wwFile) },
+708451	    // 12b the modules: every modules.json order entry admitted by the loader, refused empty, zero page errors (ROADMAP 9.4 (o))
+708452	      const m = await page.evaluate(async () => {
+708453	        let manifest = null; try { manifest = await (await fetch('modules.json', { cache: 'no-store' })).json(); } catch (e) { manifest = { error: String(e) }; }
+708454	        let E = null; const t1 = Date.now();   // the loader publishes done when every record is admitted or refused (handoff/04-loader/HOOKS.md :100); wait up to 60 s
+708455	        while (Date.now() - t1 < 60000) { E = window.__KUIPER_EDITION__ || (window.KY && typeof window.KY.inspect === 'function' ? window.KY.inspect() : null); if (!E || E.done) break; await new Promise(r => setTimeout(r, 500)); }
+708456	        const ids = a => (a || []).map(x => typeof x === 'string' ? x : (x && (x.id || x.name)) || JSON.stringify(x));
+708457	        return { order: manifest && manifest.order || [], manifestError: manifest && manifest.error || null, loader: !!E, admitted: E ? ids(E.admitted) : null, refused: E ? (E.refused || []) : null, failures: E ? (E.failures || []) : null, done: E ? !!E.done : null, whole: E ? (E.whole || null) : null };
+708458	      const pageErrors = errors.filter(e => e.kind === 'pageerror').length;
+708459	      const missingIds = m.order.filter(id => !(m.admitted || []).includes(id));
+708460	      const ok = !m.manifestError && (m.order.length === 0 ? true : m.loader && m.done && !m.whole && missingIds.length === 0) && (!m.refused || m.refused.length === 0) && (!m.failures || m.failures.length === 0) && pageErrors === 0;
+708461	      record('modules', 'every module in modules.json order is admitted, none refused, zero page errors', ok, { ...m, notAdmitted: missingIds, pageErrors },
+708462	        [m.manifestError ? 'modules.json: ' + m.manifestError : '', m.order.length && !m.loader ? 'no loader state (window.__KUIPER_EDITION__) with ' + m.order.length + ' module(s) in order' : '', missingIds.length && m.loader ? 'not admitted: ' + missingIds.join(', ') : '', m.refused && m.refused.length ? 'refused: ' + JSON.stringify(m.refused).slice(0, 200) : '', m.failures && m.failures.length ? 'failures: ' + JSON.stringify(m.failures).slice(0, 200) : '', pageErrors ? pageErrors + ' page error(s)' : '', m.order.length === 0 ? 'note: modules.json order is empty' : ''].filter(Boolean).join('; '));
+708468	      leftEdition = true; await tapRect(p.seeThrough.rect);
+708474	    // 14 the whole journey on the edition: zero console errors, page errors and failed requests (off-edition ones reported apart)
+708475	    record('console', 'zero console errors on the edition across the whole journey', errors.length === 0, { consoleErrors: errors.slice(), offPageErrors: offPageErrors.slice() },
+708476	      [errors.length ? errors.length + ' error(s): ' + errors.slice(0, 3).map(e => e.kind + ' ' + e.text.slice(0, 100)).join(' | ') : '', offPageErrors.length ? 'note: ' + offPageErrors.length + ' error(s) after leaving the edition (not counted)' : ''].filter(Boolean).join('; '));
+708477	  report.consoleErrors = errors.slice(); report.offPageErrors = offPageErrors.slice(); report.pass = steps.every(s => s.pass); report.passed = steps.filter(s => s.pass).length; report.failed = steps.filter(s => !s.pass).length;
+708479	  try { for (const d of DEVICES) { out.devices.push(await runDevice(browser, d)); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); } }
+708483	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+708484	<title>Kuiper Edition 5</title>
+708551	  #lineslist .ln{padding:5px 6px;border-top:1px solid #121a26;cursor:pointer;color:var(--dim);content-visibility:auto;contain-intrinsic-size:auto 44px} /* EDITION 5 (perf): rows out of view are not laid out */ #lineslist .ln b{color:var(--ink);font-weight:600}
+708560	  /* EDITION 5 (robust): a refusal is said on screen, not only in a hidden panel; the details toggle is a button */
+708561	  #refuse,noscript .refuse{position:fixed;left:12px;right:12px;top:36%;z-index:30;background:#090c13f2;border:1px solid var(--am);color:var(--ink);
+708562	    padding:12px 14px;font-size:13px;white-space:pre-line;max-width:min(640px,96vw);margin:0 auto}
+708563	  #card button.ct{appearance:none;background:none;border:0;padding:0;margin:0;font:inherit;color:var(--cy);cursor:pointer;text-decoration:underline dotted}
+708564	  @media (prefers-reduced-motion:reduce){ #top.open #sub,#top #sub{transition:none} }
+708567	  /* EDITION 5, TOUCH: the wafer owns every gesture on the canvas (touch-action:none, above); everything else may
+708568	     pan but never pinch-zoom or double-tap-zoom the page, so the browser's zoom cannot wreck the layout. The
+708569	     canvas and the bar are not text: no selection handles, no callout, no context menu on a long press. */
+708570	  html,body{touch-action:pan-x pan-y}
+708571	  #bar,#top,#hud,#foot,#lines,#card,#goto,#bar .gm-title,#keys button,#linesctl button,#card .cx{touch-action:pan-x pan-y}
+708572	  canvas,#bar{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+708574	<noscript><div class="refuse" role="alert">KUIPER EDITION 5 needs JavaScript and WebGL2 to draw the wafer. Nothing is drawn without them; the verified lines are listed in keys.json and README.md in this folder.</div></noscript>
+708583	  <span class="long"><b>KUIPER EDITION 5</b>: the verified lines of Edition 1 drawn as green sparks at their own keys on this wafer; <b>e</b> steps through them, tap one for its line and its GitHub link &middot; <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
+708612	function refuse(m, slot){ slot = slot || 'engine'; if (slot === 'engine') hud.textContent = m; const said = refuse.said = refuse.said || {};
+708613	  if (m) said[slot] = m; else delete said[slot]; let d = document.getElementById('refuse'); const t = Object.values(said).join('\n');
+708614	  if (!t) { if (d) d.remove(); return; } if (!d) { d = document.createElement('div'); d.id = 'refuse'; d.setAttribute('role', 'alert'); document.body.appendChild(d); } d.textContent = t; }
+708615	if (!gl) { refuse('WebGL2 is not available in this browser. Refusing rather than drawing a fraction of the wafer. The verified lines are in keys.json and README.md in this folder.'); throw new Error('WebGL2 is not available'); }
+708677	  refuse('CONTEXT LOST. Nothing on screen is a count. Reload.'); });
+708682	let kyWaferOk, kyWaferNo; const kyWafer = new Promise((ok, no) => { kyWaferOk = ok; kyWaferNo = no; }); kyWafer.catch(() => {});   // KY.hooks.wafer (step 4)
+708691	  if (bad) { refuse('REFUSED: the commits of ' + bad.name + ' sum to ' + fmt(bad.seen) + ', the belt says ' + fmt(bad.lines)); kyWaferNo(new Error(hud.textContent)); return; }
+708692	  N = issued; SPACE = k; kyWaferOk({ N, SPACE });
+708724	}).catch(() => { refuse('../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.'); kyWaferNo(new Error('../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.')); });
+709032	// TAP OR DRAG (Edition 5): a finger jitters, so a tap is movement under a slop (10 px for touch, Android's
+709033	// own, 4 px for a mouse) measured from the point it went down, and for touch a press shorter than 700 ms, so
+709034	// a long press is not a tap. tapUp is the verdict of the last pointerup, read by the edition layer.
+709035	let down = null, slop = 4, tapUp = false;
+709036	function isTap(e){ return !!down && moved < slop && (e.pointerType !== 'touch' || e.timeStamp - down[2] < 700); }
+709043	  else if (pts.size === 1) { drag = [e.clientX, e.clientY]; down = [e.clientX, e.clientY, e.timeStamp]; slop = e.pointerType === 'touch' ? 10 : 4; moved = 0; }
+709051	  if (!drag) return; moved = Math.max(moved, Math.hypot(e.clientX-down[0], e.clientY-down[1]));
+709056	  tapUp = !!drag && isTap(e);
+709057	  if (tapUp && N) { const [wx, wy] = toWorld(e.clientX, e.clientY), r = Math.hypot(wx, wy);
+709092	const EDPATH = 'keys-min.json', EDFULL = 'keys.json';
+709093	// EDITION 5 (perf, NL-009 07): the page draws 17 of the 36 fields of each record, so it loads keys-min.json
+709094	// (1,558,451 bytes, written from keys.json by tools/edition_min.py, which records the sha256 of its source). The
+709095	// card law keeps line_text whole, so 07's 233 kB is not reached: one record's line_text is 1,240,449 bytes.
+709096	// keys.json (1,709,129 bytes) stays in the folder as the evidence. Without the compact file the full one loads.
+709098	  try { let r = await fetch(EDPATH); if (!r.ok) r = await fetch(EDFULL); if (!r.ok) throw new Error(EDFULL); const j = await r.json();
+709103	  big.textContent = 'Kuiper Edition 5 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+709109	  if (!edPlaced.length) { if (edMeta) hud.textContent += '\nEDITION 5 · ' + (edMeta.error || 'no lines placed'); return; }
+709118	  hud.textContent += '\nEDITION 5 · ' + fmt(edPlaced.length) + ' verified lines on this wafer, ' + fmt(onScreen) + ' in view'
+709124	  // EDITION 5, the card law (Opus 2, step 2): the line-card module renders the card; the line of code is the header
+709125	  const LC = window.KY && KY.modules && KY.modules['line-card'];
+709126	  if (LC) { edSel = i; LC.api.show(b, { index:i, of:edPlaced.length, onclose: () => { edSel = -1; dirty = true; } }); return; }
+709128	  card.setAttribute('role', 'region'); card.setAttribute('aria-label', 'verified line'); card.setAttribute('aria-live', 'polite');
+709134	    + '  ·  <button class="ct" aria-expanded="false">details</button>'
+709141	  if (e.target.closest('.ct')) { const on = card.classList.toggle('open'); e.target.closest('.ct').setAttribute('aria-expanded', on ? 'true' : 'false'); e.stopPropagation(); return; }
+709143	  e.stopImmediatePropagation();                                  // a tap on the card body keeps it open (also from the engine's own close-on-click)
+709145	// fly so that the spark lands in the clear band: under the bar and any open panel, above the card. The band is
+709146	// measured from the live rectangles, measured again on the next frame (the card has been laid out and painted by
+709147	// then) and whenever the card changes height (details, a long quote, a turned phone), so the spark never ends under
+709148	// the card or the bar. A panel that would cover the band is closed by the pick, as a LINES row already does.
+709149	const ED_Z = 14, ED_MARGIN = 8, ED_MINBAND = 96;
+709150	function edBand(){
+709151	  const s = safeBox(); let top = s.y0, bot = innerHeight - ED_MARGIN;
+709152	  for (const el of document.querySelectorAll('.gm-open')) { const r = el.getBoundingClientRect(); if (r.height > 0 && r.top < innerHeight/2) top = Math.max(top, r.bottom + ED_MARGIN); }
+709153	  if (card.style.display === 'block') { const r = card.getBoundingClientRect(); if (r.height > 0) bot = Math.min(bot, r.top - ED_MARGIN); }
+709154	  if (bot < top + 24) bot = top + 24;
+709155	  return { x0:s.x0, x1:s.x1, y0:top, y1:bot };
+709156	function edAim(b, z){ const a = edBand(), mx = (a.x0 + a.x1)/2, my = (a.y0 + a.y1)/2;
+709157	  return { x:b.x - (mx - innerWidth/2)/z, y:b.y + (my - innerHeight/2)/z, z }; }
+709158	let edFlown = null;
+709160	  const g = edBand(); if (openPanel && g.y1 - g.y0 < ED_MINBAND) setPanel(openPanel);
+709161	  const z = ED_Z, [sx, sy] = edScreen(b), far = Math.hypot(sx - innerWidth/2, sy - innerHeight/2) + Math.abs(Math.log2(z/zoom))*120;
+709162	  const t = edAim(b, z); atHome = false; edFlown = b; flyTo(t.x, t.y, z);
+709163	  tween.dur = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : Math.max(300, Math.min(900, 300 + far*0.6));   // a short hop is quick, home to spark takes the full 900 ms
+709164	  requestAnimationFrame(() => { if (edFlown !== b || !tween) return; const u = edAim(b, z); tween.x1 = u.x; tween.y1 = u.y; });   // aim again once the card is laid out
+709165	// the card grew or shrank, or the phone was turned, after the fly: keep the spark inside the band
+709166	function edKeep(){ if (tween || edSel < 0 || !edFlown || card.style.display !== 'block' || document.querySelector('.gm-open')) return;
+709167	  const b = edPlaced[edSel]; if (!b) return; const a = edBand(), [sx, sy] = edScreen(b);
+709168	  if (sx >= a.x0 + 12 && sx <= a.x1 - 12 && sy >= a.y0 + 12 && sy <= a.y1 - 12) return;
+709169	  const t = edAim(b, zoom); flyTo(t.x, t.y, zoom); tween.dur = 350; }
+709170	if (typeof ResizeObserver === 'function') new ResizeObserver(() => edKeep()).observe(card);
+709171	addEventListener('resize', () => requestAnimationFrame(edKeep));
+709175	// a tap on the wafer opens the nearest spark within reach: 24 px for a finger (Android's touch target), 9 px for a
+709176	// mouse. A tap is one pointer that went down on the canvas and came up within 10 px of where it went down, however
+709177	// long it stayed (a finger's wobble is not a drag, a slow press is still a tap); a drag, a pinch, or a tap on the
+709178	// bar, the card or a panel never picks a spark, and sparks of a layer that is switched off are not hit. Runs after
+709179	// the engine's own tap handler.
+709180	const ED_TAP_TOUCH = 24, ED_TAP_MOUSE = 9, ED_SLOP = 10;
+709181	let edDown = null;
+709182	cv.addEventListener('pointerdown', e => { edDown = pts.size === 1 ? { id:e.pointerId, x:e.clientX, y:e.clientY } : null; });
+709183	addEventListener('pointercancel', () => { edDown = null; });
+709184	  const d = edDown; edDown = null;
+709185	  if (!d || d.id !== e.pointerId || e.target !== cv || !tapUp || !edPlaced.length || pts.size > 0) return;   // tapUp: NL-009 04-touch's verdict (10 px slop, 700 ms)
+709186	  if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > ED_SLOP) return;
+709187	  const R = e.pointerType === 'mouse' ? ED_TAP_MOUSE : ED_TAP_TOUCH; let best = -1, bd = R*R;
+709188	  for (let i = 0; i < edPlaced.length; i++) { if (!visibleLine(edPlaced[i])) continue; const [x, y] = edScreen(edPlaced[i]); const q = (x - e.clientX)**2 + (y - e.clientY)**2; if (q < bd) { bd = q; best = i; } }
+709195	const bar = document.createElement('div'); bar.id = 'bar'; bar.setAttribute('role', 'toolbar'); bar.setAttribute('aria-label', 'Kuiper Edition menu');
+709196	bar.innerHTML = '<span id="barname">KUIPER EDITION 5</span>'
+709197	  + '<button class="gm-title" data-panel="top" aria-controls="top" aria-expanded="false">edition</button>'
+709198	  + '<button class="gm-title" data-panel="hud" aria-controls="hud" aria-expanded="false">readout</button>'
+709199	  + '<button class="gm-title" data-panel="lines" aria-controls="lines" aria-expanded="false">lines</button>'
+709200	  + '<button class="gm-title" data-panel="foot" aria-controls="foot" aria-expanded="false">commands</button>';
+709201	document.body.prepend(bar);
+709205	  + '<button data-k="e">next</button><button data-k="E">previous</button><input id="lyFind" aria-label="filter lines" placeholder="filter: repository, file or title"></div><div id="lineslist"></div>';
+709208	for (const [k, el] of Object.entries(PANELS)) { el.setAttribute('role', 'region'); el.setAttribute('aria-label', { top:'edition', hud:'readout', lines:'lines', foot:'commands' }[k]); }
+709215	  for (const b of bar.querySelectorAll('.gm-title')) { const on = b.dataset.panel === openPanel; b.classList.toggle('gm-on', on); b.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+709218	addEventListener('keydown', e => { if (e.key !== 'Escape' || gbox.style.display === 'block') return;
+709219	  if (openPanel) setPanel(openPanel); else if (card.style.display === 'block') { card.style.display = 'none'; edSel = -1; target = null; dirty = true; } });
+709220	cv.addEventListener('pointerdown', () => { if (openPanel) { setPanel(openPanel); moved = 99; } });   // the dismissing tap does nothing else
+709221	for (const el of [cv, ov, bar]) el.addEventListener('contextmenu', e => e.preventDefault());        // a long press on the wafer or the bar is not a menu
+709222	// ANDROID BACK (Edition 5). While a panel or the card is open the page holds one extra history entry, so the
+709223	// back gesture closes the layer instead of leaving the page; with nothing open, back leaves as it should. The
+709224	// entry follows the state on every redraw (every open or close sets dirty), so no close path is forgotten.
+709225	let edHist = false, edPopping = false;
+709226	function edSync(){ const open = !!openPanel || card.style.display === 'block';
+709227	  if (open && !edHist) { try { history.pushState({ kuiper:1 }, ''); } catch (e) {} edHist = true; }
+709228	  else if (!open && edHist) { edHist = false; if (history.state && history.state.kuiper) { edPopping = true; history.back(); } } }
+709229	addEventListener('popstate', () => {
+709230	  if (edPopping) { edPopping = false; edHist = !!(history.state && history.state.kuiper); edSync(); return; }   // our own back(): close nothing, re-arm if a layer opened meanwhile
+709231	  edHist = false; if (openPanel) setPanel(openPanel); if (card.style.display === 'block') { card.style.display = 'none'; edSel = -1; target = null; dirty = true; } });
+709232	{ const _draw = draw; draw = function(){ _draw(); edSync(); }; }
+709235	{ const _safe = safeBox; safeBox = function(){ const s = _safe(); placePanels(); s.y0 = Math.max(s.y0, bar.getBoundingClientRect().bottom + 8); s.y1 = Math.max(s.y0 + 24, innerHeight - 8); return s; }; }
+709236	// prefers-reduced-motion: the camera lands at once instead of flying for 900 ms
+709237	{ const _fly = flyTo, rm = matchMedia('(prefers-reduced-motion: reduce)'); flyTo = function(x, y, z){ _fly(x, y, z); if (rm.matches && tween) tween.t0 -= tween.dur; }; }
+709244	linesPanel.addEventListener('keydown', e => { const row = e.target.closest('[data-i]'); if (row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopPropagation(); row.click(); } });
+709250	  const rows = [], LC = window.KY && KY.modules && KY.modules['line-card'];   // EDITION 5: a row reads line, key, title (step 2 K6)
+709253	    if (LC) { rows.push(LC.api.row(b, i, (i === edSel ? 'sel' : '') + (b.class === 'focus' ? ' focus' : ''))); return; }
+709254	    rows.push('<div class="ln' + (i === edSel ? ' sel' : '') + (b.class === 'focus' ? ' focus' : '') + '" data-i="' + i + '" role="button" tabindex="0"><b>' + esc(b.repo) + '</b> ' + esc(b.path) + ':' + b.line + '<br>' + esc(b.title) + '</div>'); });
+709255	  list.innerHTML = rows.join('') || '<div class="ln">' + (edMeta && edMeta.error ? esc(edMeta.error) : 'no line matches') + '</div>';
+709257	{ const _drawEd = drawEdition; drawEdition = function(){ if (!lyOn) { hud.textContent += '\nEDITION 5 · verified lines layer off'; return; }
+709262	// ======================================== KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · begin (Opus team 4, step 4)
+709263	// Engine lines this patch changes: the wafer promise (one line after `let N = 0`, and kyWaferOk/kyWaferNo at the belt
+709264	// check, after `N = issued` and in the wafer.tsv catch), and the NL-009 round-1 fixes folded in by team 4: 09-robust
+709265	// (refuse() for the WebGL, context-lost, belt and wafer.tsv refusals, given slots here) and 04-touch (viewport, tap slop
+709266	// and tapUp). Nothing else above is changed. Everything a module
+709267	// may reach is in window.KY, built here after every wrap of the edition layer and frozen; the loader admits the
+709268	// modules of modules.json in `order`, each only when its bytes hash as recorded and every hook it requires exists,
+709269	// and refuses in words while the rest runs. Apache-2.0 (kuiper-belt). The same bytes, between the same two marker
+709270	// lines, are modules/202611012145-loader.js (the reviewable reference; it is never fetched). Lessons, cited:
+709271	// gridatlas@5ec7f62 atlas/index.html:39-44 (no-store, schema), :65-67 (missing id refused), :78-81 (hash in the
+709272	// browser), :82-83 (one blob script per cartridge), :104-114 (one published state); menu-bar.js:37-38 (never twice);
+709273	// atlas/modules/202610291043-uk-lightning-overlay.js:393-400 (one frozen API). The anti-lesson: learn-the-kuiper
+709274	// modes.html:16-24 skips a missing module silently; this loader says why, on screen.
+709275	const KY_EDITION = '202611012135';
+709276	const KY_NAMES = Object.freeze(['keyPlace', 'address', 'describe', 'findBy', 'flyTo', 'home', 'homeCamera', 'safeBox',
+709277	  'lightTime', 'showNew', 'goKey', 'fmt', 'words', 'esc', 'cv', 'ov', 'o2', 'hud', 'big', 'sub', 'card', 'gbox', 'gin',
+709278	  'SPACE', 'N', 'repos', 'commits', 'wafer', 'cam', 'lit', 'sel', 'redraw', 'draw', 'panels', 'refuse']);
+709279	const kyDraw = [], kyLines = [];
+709280	let kyAdmitting = null, kyInstalling = null;
+709281	function kyLine(t){ kyLines.push(t); if (!N) hud.textContent += '\n' + t; dirty = true; }
+709282	// the one wrap of draw: module painters run after the engine's and the edition's overlay, in ascending order;
+709283	// a painter that throws is taken out and named, the frame goes on
+709284	{ const _draw = draw; draw = function(){ _draw();
+709285	    if (kyLines.length) hud.textContent += '\nMODULES · ' + kyLines.join('\n');
+709286	    for (const d of kyDraw.slice()) { try { d.fn(o2, KY); }
+709287	      catch (e) { kyDraw.splice(kyDraw.indexOf(d), 1); kyLine(d.id + ' draw threw ' + (e && e.message || e) + ' · painter removed'); } } }; }
+709288	const KY_STATE = { schema: 'kuiper.modules.v1', edition: KY_EDITION, hooks: 'kuiper.hooks.v1', order: [], admitted: [],
+709289	  refused: [], failures: [], done: false, timings: { loader_start_ms: Math.round(performance.now()) } };
+709290	const KY_MODULES = {};
+709291	const KY = Object.freeze({
+709292	  schema: 'kuiper.hooks.v1', edition: KY_EDITION,
+709293	  hooks: Object.freeze({
+709294	    keyPlace, address, describe, findBy, flyTo, home, homeCamera, safeBox, lightTime, showNew, goKey, fmt, words, esc,
+709295	    cv, ov, o2, hud, big, sub, card, gbox, gin,
+709296	    wafer: kyWafer }),
+709297	  cam: Object.freeze({ get x(){ return cx; }, get y(){ return cy; }, get zoom(){ return zoom; }, get atHome(){ return atHome; }, set atHome(v){ atHome = !!v; } }),
+709298	  lit: Object.freeze({ get repo(){ return litRepo; }, set repo(v){ litRepo = v; dirty = true; },
+709299	    get K(){ return litK; }, get Ci(){ return litCi; },
+709300	    set period(p){ if (p == null) { litK = [-1, -1]; litCi = null; dirty = true; } else lightTime(+p.y, +p.m || 0, +p.d || 0); } }),
+709301	  sel: Object.freeze({ get target(){ return target; }, set target(t){ target = t; dirty = true; } }),
+709302	  redraw(){ dirty = true; },
+709303	  draw: Object.freeze({ add(fn, order){ if (typeof fn !== 'function') throw new TypeError('KY.draw.add needs a function');
+709304	    kyDraw.push({ fn, order: +order || 0, id: kyInstalling || 'module' }); kyDraw.sort((a, b) => a.order - b.order); dirty = true; } }),
+709305	  // once the shell (team 1, id kuiper-shell) is admitted the bar and its panels are its own: add() forwards into the
+709306	  // shell's panel of that name (handoff/01-shell/REQUESTS.md item 2); a name the shell does not have falls back here
+709307	  panels: Object.freeze({ add(name, el, title){ const sh = KY_MODULES['kuiper-shell'], sp = sh && sh.api && typeof sh.api.panel === 'function' ? sh.api.panel(name) : null;
+709308	      if (sp) { sp.appendChild(el); KY.redraw(); return el; }
+709309	      if (PANELS[name]) throw new Error('panel ' + name + ' exists');
+709310	      el.classList.add('gm-panel'); el.setAttribute('role', 'region'); el.setAttribute('aria-label', String(title || name));
+709311	      if (!el.isConnected) document.body.appendChild(el); PANELS[name] = el; placePanels(); return el; },
+709312	    set: setPanel, place: placePanels }),
+709313	  refuse(text, slot){ if (typeof slot !== 'string' || !/^[a-z0-9-]+$/.test(slot) || slot === 'engine' || slot === 'modules')
+709314	      throw new TypeError('KY.refuse(text, slot): slot is the module id; engine and modules are the page\'s'); refuse(String(text || ''), slot); },
+709315	  names: KY_NAMES,
+709316	  register(m){ if (!kyAdmitting) { kyLine('a registration outside admission ignored: ' + (m && m.id)); return false; }
+709317	    if (kyAdmitting.reg) { kyAdmitting.twice = true; return false; } kyAdmitting.reg = m; return true; },
+709318	  modules: KY_MODULES,
+709319	  inspect(){ return JSON.parse(JSON.stringify(KY_STATE)); } });
+709320	window.KY = KY; window.__KUIPER_MODULES__ = KY_MODULES; window.__KUIPER_EDITION__ = KY_STATE;
+709321	// one strip, role=alert, for refused modules; the engine's own refusals keep their slot in the same strip
+709322	function kyRefuse(t){ refuse(t, 'modules'); }
+709323	const kyHex = b => [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join('');
+709324	function kyInject(id, buf){ return new Promise(ok => { const s = document.createElement('script'), u = URL.createObjectURL(new Blob([buf], { type: 'text/javascript' })), st = { loaded: false, error: null };
+709325	  const se = e => { if (e.filename === u) { st.error = st.error || String(e.message || 'error').replace(/^Uncaught /, ''); e.preventDefault(); } }, fin = l => { removeEventListener('error', se, true); URL.revokeObjectURL(u); st.loaded = l; ok(st); };
+709326	  addEventListener('error', se, true); s.dataset.kyModule = id; s.src = u; s.onload = () => fin(true); s.onerror = () => fin(false); document.head.appendChild(s); }); }   // a module's own script error is its refusal, not the page's error
+709327	async function kyAdmit(id, rec, provided){
+709328	  if (!rec) return 'in order but not in modules';
+709329	  const path = String(rec.path || ''), file = path.split('/').pop();
+709330	  if (!/^modules\/[a-z0-9][a-z0-9.-]*\.js$/.test(path) || path.includes('..')) return 'bad path ' + path;
+709331	  if (!/^\d{12}$/.test(rec.generation || '')) return 'generation ' + rec.generation + ' is not twelve digits';
+709332	  const fd = file.match(/^(\d{12})-/); if (fd && fd[1] !== rec.generation) return 'stamp mismatch: generation ' + rec.generation + ', file name ' + fd[1];
+709333	  if (!/^[0-9a-f]{64}$/.test(rec.sha256 || '')) return 'sha256 is not 64 hex';
+709334	  if (!String(rec.licence || '').trim()) return 'no licence'; for (const f of ['requires', 'provides']) if (rec[f] != null && !Array.isArray(rec[f])) return f + ' is not a list';
+709335	  for (const r of rec.requires || []) if (!provided.has(r)) return 'missing hook ' + r;
+709336	  let res; try { res = await fetch(path, { cache: 'no-store' }); } catch (e) { return 'fetch failed ' + (e && e.message || e); }
+709337	  if (!res.ok) return 'HTTP ' + res.status;
+709338	  const buf = await res.arrayBuffer(), sha = kyHex(await crypto.subtle.digest('SHA-256', buf));
+709339	  if (sha !== rec.sha256) return 'sha256 mismatch';
+709340	  if (buf.byteLength !== rec.bytes) return 'bytes ' + buf.byteLength + ' ≠ manifest ' + rec.bytes;
+709341	  if (rec.byte_budget && buf.byteLength > rec.byte_budget) return 'over byte_budget ' + buf.byteLength + ' > ' + rec.byte_budget;
+709342	  const head = new TextDecoder().decode(buf.slice(0, 200)).split('\n')[0].match(/^\/\* kuiper module ([a-z0-9-]+), generation (\d{12}) \(UTC\),/);
+709343	  if (!head) return 'no header line'; if (head[1] !== id) return 'header names ' + head[1] + ' ≠ ' + id;
+709344	  if (head[2] !== rec.generation) return 'stamp mismatch: generation ' + rec.generation + ', header ' + head[2];
+709345	  kyAdmitting = { id }; let reg, twice;
+709346	  let inj; try { inj = await kyInject(id, buf); } finally { reg = kyAdmitting.reg; twice = kyAdmitting.twice; kyAdmitting = null; } if (!inj.loaded) return 'script did not load'; if (inj.error) return 'script error: ' + inj.error;
+709347	  if (!reg) return 'no registration';
+709348	  if (twice) return 'registered twice';
+709349	  if (reg.schema !== 'kuiper.module.v1') return 'schema ' + reg.schema;
+709350	  if (reg.id !== id) return 'id ' + reg.id + ' ≠ ' + id; for (const f of ['requires', 'provides']) if (reg[f] != null && !Array.isArray(reg[f])) return 'registration ' + f + ' is not a list';
+709351	  if (reg.generation !== rec.generation) return 'stamp mismatch: generation ' + rec.generation + ', registration ' + reg.generation;
+709352	  for (const r of reg.requires || []) { if (!(rec.requires || []).includes(r)) return 'requires ' + r + ' not in the manifest'; if (!provided.has(r)) return 'missing hook ' + r; }
+709353	  if (typeof reg.install !== 'function') return 'no install';
+709354	  let api; kyInstalling = id;
+709355	  try { api = reg.install(KY); } catch (e) { return 'install threw ' + (e && e.message || e); } finally { kyInstalling = null; }
+709356	  const ready = Promise.resolve(api);
+709357	  ready.catch(e => { KY_STATE.failures.push({ id, why: 'install rejected ' + (e && e.message || e) }); kyLine(id + ' install rejected: ' + (e && e.message || e)); });
+709358	  Object.defineProperty(KY_MODULES, id, { enumerable: true, value: Object.freeze({ id, generation: rec.generation, sha256: sha,
+709359	    api: (api && typeof api.then === 'function') ? undefined : api, ready, inspect: typeof reg.inspect === 'function' ? reg.inspect : () => ({}) }) });
+709360	  for (const p of [id, ...(reg.provides || []), ...(rec.provides || [])]) provided.add(p);
+709362	(async function kyLoad(){
+709364	  try { const r = await fetch('modules.json', { cache: 'no-store' }); if (!r.ok) throw new Error('modules.json HTTP ' + r.status); m = await r.json(); if (!m || typeof m !== 'object') throw new Error('modules.json is not an object'); }
+709365	  catch (e) { m = { error: e && e.message || String(e) }; }
+709366	  const shape = m.error ? m.error : m.schema !== 'kuiper.modules.v1' ? 'schema ' + m.schema : m.hooks !== 'kuiper.hooks.v1' ? 'hooks ' + m.hooks
+709367	    : m.edition !== KY_EDITION ? 'edition ' + m.edition + ' ≠ page ' + KY_EDITION : !Array.isArray(m.order) || !Array.isArray(m.modules) ? 'order and modules must be lists'
+709368	    : !crypto.subtle ? 'no crypto.subtle (not a secure context)' : null;
+709369	  if (shape) { KY_STATE.whole = shape; KY_STATE.done = true; kyRefuse('MODULES NOT ADMITTED: ' + shape + ' · the wafer is unchanged'); kyLine('modules not admitted: ' + shape); return; }
+709370	  KY_STATE.order = m.order.slice();
+709371	  const provided = new Set(KY_NAMES), seen = new Set();
+709372	  for (const id of m.order) {
+709373	    let why; try { why = seen.has(id) ? 'in order twice' : await kyAdmit(id, m.modules.find(x => x && x.id === id), provided); } catch (e) { kyAdmitting = kyInstalling = null; why = 'loader error ' + (e && e.message || e); }
+709374	    const t = Math.round(performance.now()); seen.add(id);
+709375	    if (why) { KY_STATE.refused.push({ id, why, t_ms: t }); kyLine(id + ' refused: ' + why); }
+709376	    else { KY_STATE.admitted.push({ id, sha256: KY_MODULES[id].sha256, t_ms: t }); kyLine(id + ' admitted · ' + KY_MODULES[id].sha256.slice(0, 12)); }
+709377	  KY_STATE.timings.last_admitted_ms = KY_STATE.admitted.length ? KY_STATE.admitted[KY_STATE.admitted.length - 1].t_ms : null;
+709378	  KY_STATE.timings.loader_end_ms = Math.round(performance.now());
+709379	  KY_STATE.bytes = m.modules.filter(x => x && KY_MODULES[x.id]).reduce((a, x) => a + (x.bytes || 0), 0);
+709380	  KY_STATE.byte_budget = m.modules.filter(x => x && KY_MODULES[x.id]).reduce((a, x) => a + (x.byte_budget || 0), 0);
+709381	  KY_STATE.done = true; for (const k of ['order', 'admitted', 'refused', 'timings']) Object.freeze(KY_STATE[k]);   // KY.modules stays open: the shell publishes .menuBar there (01-shell REQUESTS 2)
+709382	  if (KY_STATE.refused.length) kyRefuse(KY_STATE.refused.length + ' module' + (KY_STATE.refused.length > 1 ? 's' : '') + ' refused: '
+709383	    + KY_STATE.refused.map(x => x.id + ' (' + x.why + ')').join('; ') + ' · the wafer, the bar and every admitted module keep working');
+709384	// ======================================== KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · end
+709387	/* kuiper module layers, generation 202611012141 (UTC), Apache-2.0 (kuiper-belt code)
+709388	   Opus team 3, NL-010 roadmap step 3 "the Kuiper layer registry" (neural-link FIXES/NL-010/ROADMAP.md step 3;
+709389	   FIXES/NL-010/team-2/STEPS.md 3.1-3.8). Reference layers are records in data/layers.json (kuiper.layers.v1); each
+709390	   layer has ONE original control, input[data-ky-layer="layer:<id>"] in the WAFER panel (#layers); every other surface
+709391	   (keys e/E, the readout, the URL, the File menu, SCOPE/EDIT, the apps) proxies it through KY.modules.layers.api.
+709392	   Folds in NL-009 round 1 patch 05-lines (FIXES/NL-009/round1/05-lines.md, findings 1-10): the Edition 4 LINES panel
+709393	   becomes the verified-lines layer's control inside the WAFER panel.
+709394	   Moved here from the page (Edition 4 copy, editions/202611012135/index.html at kuiper-belt@96736f5):
+709395	   :626-654 loadEdition/edScreen/drawEdition and the draw wrap, :655-674 edCard and its card listener (fallback only;
+709396	   the card is Opus team 2's line-card module when admitted), :676-692 edFly/edNext/pointerup/e-E, :705-709 the LINES
+709397	   panel, :718 fillLines on open, :728-749 the ly* switches, fillLines and the two wraps.
+709398	   GridAtlas lessons: one original, many proxies (gridatlas@5ec7f62 atlas/modules/202609031958-menu-bar.js:12-13,
+709399	   :419-432, :1451-1462); the live state in the label (:91-98); install-then-inventory (:107-139); the whole row is the
+709400	   hit target (:1414-1425); galaxies-wafers@fff6fc6 layers-panel.mjs:117-118 (states), :325-330 (refuse on the row).
+709401	   requires: wafer, keyPlace, address, describe, findBy, flyTo, safeBox, fmt, esc, cv, o2, hud, big, sub, card, gbox,
+709402	             repos, commits, N, SPACE, lightTime, cam, lit, sel, redraw, draw, panels, refuse
+709403	   optional (used when admitted earlier, never required): line-card (api.show), see-through/apps (api via register)
+709404	   provides: layers */
+709405	  var ID = 'layers', GEN = '202611012141';
+709406	  var SCHEMA = 'kuiper.layers.v1', MANIFEST = 'data/layers.json', TIMEOUT_MS = 60000;
+709407	  var REQUIRES = ['wafer', 'keyPlace', 'address', 'describe', 'findBy', 'flyTo', 'safeBox', 'fmt', 'esc', 'cv', 'o2',
+709408	    'hud', 'big', 'sub', 'card', 'gbox', 'repos', 'commits', 'N', 'SPACE', 'lightTime', 'cam', 'lit', 'sel', 'redraw', 'draw', 'panels', 'refuse'];
+709409	  var STATES = ['WAIT', 'LOAD', 'OK', 'EMPTY', 'FAIL', 'REFUSED'];
+709410	  // kuiper-belt PALETTE.md:9-14, one colour one meaning; a layer may not invent a sixth (PALETTE.md:19)
+709411	  var PALETTE = { '#c9d3e6': 'the record', '#ffffff': 'the record', '#2ee6e6': 'the instrument', '#22ee77': 'energised',
+709412	    '#ffb000': 'attention', '#ff2bd6': 'selected' };
+709413	  var FORMATS = ['edition-keys.v1', 'code-feature-collection.v1', 'kuiper.editions.v1', 'engine'];
+709414	  var KY = null, H = null;
+709415	  var M = null;                 // the manifest, data/layers.json
+709416	  var rt = {};                  // id -> runtime { rec, on, value, status, why, placed, total, loaded_sha256, draw, ... }
+709417	  var panel = null, panelName = '', manifestWhy = 'WAIT · data/layers.json';
+709418	  var lines = { ED: [], placed: [], sel: -1, meta: null, focus: false, query: '', folded: {} };
+709419	  var lastRepo = -1, lastK0 = -1, booting = true;
+709420	  function edName() { return 'Kuiper edition ' + (KY && KY.edition ? KY.edition : '?'); }
+709421	  function esc(v) { return H ? H.esc(v) : String(v == null ? '' : v); }
+709422	  function fmt(n) { return H.fmt(n); }
+709423	  // ======================================================================== SECTION 1: the registry
+709424	  function rec(id) { return rt[id] ? rt[id].rec : null; }
+709425	  // THE STATE MACHINE of a row (team-2/STEPS.md 3.4; the state is the label's suffix, menu-bar.js:91-98): the legal
+709426	  // moves below and nothing else; REFUSED is terminal (only a later refusal, the wafer's, may restate its reason);
+709427	  // EMPTY, FAIL and REFUSED never carry an empty why; each move is kept (last 24) so a test can prove the path
+709428	  // WAIT -> LOAD -> OK | FAIL, not only the end. An illegal move changes nothing and returns false. (builder)
+709429	  var MOVES = { WAIT: STATES, LOAD: STATES, OK: STATES, EMPTY: STATES,
+709430	    FAIL: ['WAIT', 'LOAD', 'FAIL', 'REFUSED'], REFUSED: ['REFUSED'] };
+709431	  function setState(id, status, why) {
+709432	    var r = rt[id]; if (!r) return false;
+709433	    if (STATES.indexOf(status) < 0) { why = 'unknown state ' + status; status = 'FAIL'; }
+709434	    if (MOVES[r.status] && MOVES[r.status].indexOf(status) < 0) return false;
+709435	    why = why == null ? '' : String(why);
+709436	    if (!why && (status === 'EMPTY' || status === 'FAIL' || status === 'REFUSED')) why = 'no reason given';
+709437	    r.status = status; r.why = why;
+709438	    (r.history = r.history || []).push([status, why, Math.round(performance.now())]); if (r.history.length > 24) r.history.shift();
+709439	    paintRow(id);
+709440	    if (r.rec.preload && (status === 'FAIL' || status === 'REFUSED')) loud(id);
+709442	  function tagText(id) {
+709443	    var r = rt[id]; if (!r) return '';
+709444	    return r.status + (r.why ? ' · ' + r.why : '');
+709445	  function inspect() {
+709446	    var inputs = panel ? panel.querySelectorAll('input[data-ky-layer]') : [];
+709447	    var vals = {}, keyless = 0;
+709448	    for (var i = 0; i < inputs.length; i++) { var v = inputs[i].getAttribute('data-ky-layer');
+709449	      if (!v || !/^layer:[a-z0-9-]+$/.test(v)) keyless++; vals[v] = 1; }
+709450	    var n = inputs.length, u = Object.keys(vals).length, want = M ? M.layers.length : -1;
+709451	    var states = {}, on = [];
+709452	    (M ? M.order : []).forEach(function (id) { if (!rt[id]) return; states[id] = rt[id].status; if (rt[id].on) on.push(id); });
+709453	    return { schema: SCHEMA, generation: GEN, layers: n, unique: u, complete: n === u && n === want && keyless === 0,
+709454	      on: on, states: states, tags: (M ? M.order : []).reduce(function (o, id) { o[id] = tagText(id); return o; }, {}),
+709455	      manifest: manifestWhy };
+709456	  function get(id) {
+709457	    var r = rt[id]; if (!r) return null;
+709458	    var out = JSON.parse(JSON.stringify(r.rec));
+709459	    out.on = r.on; out.value = r.value; out.status = r.status; out.why = r.why; out.placed = r.placed; out.total = r.total;
+709460	    out.loaded_sha256 = r.loaded_sha256; out.tag = tagText(id); out.history = (r.history || []).slice();
+709462	  function original(id) { return panel ? panel.querySelector('input[data-ky-layer="layer:' + id + '"]') : null; }
+709463	  // the ONLY way a layer flips: click its original (menu-bar.js:1451-1462); the delegated change listener does the rest
+709464	  function set(id, on) {
+709465	    var el = original(id); if (!el) return false;
+709466	    if (el.disabled) return false;
+709467	    if (el.checked !== !!on) el.click();
+709468	  function value(id, v) {
+709469	    if (id === 'lines') {
+709470	      if (v && typeof v === 'object') { if ('focus' in v) lines.focus = !!v.focus; if ('query' in v) lines.query = String(v.query || '').trim().toLowerCase(); }
+709471	      r.value = { focus: lines.focus, query: lines.query };
+709472	      var f = document.getElementById('lyFocus'); if (f) f.checked = lines.focus;
+709473	      var q = document.getElementById('lyFind'); if (q && q.value.trim().toLowerCase() !== lines.query) q.value = lines.query;
+709474	      fillLines();
+709475	    } else if (id === 'repos') {
+709476	      var ri = -1;
+709477	      if (typeof v === 'number') ri = v;
+709478	      else if (v) { var s = String(v).toLowerCase(), rs = H.repos;
+709479	        var hit = rs.find(function (x) { return x.name.toLowerCase() === s; }) || rs.find(function (x) { return x.name.toLowerCase().indexOf(s) >= 0; });
+709480	        ri = hit ? hit.i : -1; }
+709481	      r.value = ri >= 0 ? H.repos[ri].name : null;
+709482	      if (r.on) { KY.lit.repo = ri; lastRepo = ri; }
+709483	    } else if (id === 'periods') {
+709484	      r.value = v ? String(v) : null;
+709485	      if (r.on) applyPeriod(r.value);
+709487	      r.value = v == null ? null : v;
+709488	    paintRow(id); KY.redraw();
+709489	  // a layer that arrives with a later module (See Through step 5, elements and spider step 7)
+709490	  function register(layer) {
+709491	    if (!layer || !layer.id) throw new Error('layers.register: no id');
+709492	    var r = rt[layer.id];
+709493	    if (!r) throw new Error('layer ' + layer.id + ' not in layers.json');
+709494	    var want = moduleId(r.rec.module);
+709495	    if (layer.module && want && layer.module !== want) throw new Error('layer ' + layer.id + ' belongs to module ' + want + ', not ' + layer.module);
+709496	    if (r.registered) throw new Error('layer ' + layer.id + ' registered twice');
+709497	    r.registered = true;
+709498	    if (typeof layer.draw === 'function') r.draw = layer.draw;
+709499	    if (r.status === 'REFUSED') return api;          // a refusal (licence, format, colour) is never lifted by registering
+709500	    if (typeof layer.load === 'function') {
+709501	      setState(layer.id, 'LOAD', 'module ' + (layer.module || want));
+709502	      Promise.resolve().then(function () { return layer.load(KY); }).then(function (res) {
+709503	        res = res || {}; r.placed = res.placed || 0; r.total = res.total || 0;
+709504	        if (r.placed) setState(layer.id, 'OK', fmt(r.placed) + ' of ' + fmt(r.total)); else setState(layer.id, 'EMPTY', res.why || 'nothing to place');
+709505	        KY.redraw();
+709506	      }, function (e) { setState(layer.id, 'FAIL', String(e && e.message || e)); });
+709507	    } else if (r.rec.source && r.rec.source.file) { loadSource(layer.id); }
+709509	  function moduleId(file) { if (!file) return ''; var m = String(file).match(/^(?:\d{12}-)?([a-z0-9-]+?)(?:\.js)?$/); return m ? m[1] : ''; }
+709510	  // ======================================================================== SECTION 2: loading, hashing, refusing
+709511	  function hex(buf) { var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += (b[i] < 16 ? '0' : '') + b[i].toString(16); return s; }
+709512	  function fetchBytes(file) {
+709513	    var ctl = typeof AbortController === 'function' ? new AbortController() : null;
+709514	    var t = setTimeout(function () { if (ctl) ctl.abort(); }, TIMEOUT_MS);
+709515	    return fetch(file, { cache: 'no-store', signal: ctl ? ctl.signal : undefined }).then(function (res) {
+709516	      if (!res.ok) { var e = new Error(file + ' HTTP ' + res.status); e.http = res.status; throw e; }
+709517	      return res.arrayBuffer();
+709518	    }).catch(function (e) { if (e && e.http) throw e;
+709519	      var x = new Error(file + (e && e.name === 'AbortError' ? ' timed out after ' + (TIMEOUT_MS / 1000) + ' s' : ' did not load (network)')); x.http = 0; throw x; })
+709520	      .finally(function () { clearTimeout(t); });
+709521	  // fetch, then hash, bytes and feature count against the record (gridatlas@5ec7f62 atlas/index.html:75-81 for data)
+709522	  // A recorded hash nobody checks is decoration (team-2/STEPS.md 3.1, galaxies-wafers@fff6fc6: a sha256 per layer file
+709523	  // that no root module verifies): a record without a 64-hex sha256, or a browser without crypto.subtle (an insecure
+709524	  // origin), is FAIL before a byte is fetched, never an unchecked admission. The digest is compared first, so one
+709525	  // changed byte reads "sha256 mismatch" whatever the length; then bytes; then the parse. (builder)
+709526	  // A record may name a fallback (the lines record: keys-min.json, NL-009 07 perf, then keys.json, as the base page
+709527	  // loads them, index.html loadEdition at kuiper-belt@a72c175). The fallback is tried only when the first file did not
+709528	  // load (HTTP, network); a file that loaded and hashed wrong is refused, never replaced by another.
+709529	  function verified(id) {
+709530	    var r = rt[id], src = r.rec.source;
+709531	    return verifiedOne(id, src).catch(function (e) {
+709532	      if (!src.fallback || e.http === undefined) throw e;
+709533	      return verifiedOne(id, src.fallback).catch(function (e2) { var x = new Error(e2.message + ' (' + e.message + ')'); x.http = e2.http; throw x; });
+709534	  function verifiedOne(id, src) {
+709535	    var r = rt[id], file = src.file, want = String(src.sha256 || '').toLowerCase();
+709536	    r.lastFile = file;
+709537	    setState(id, 'LOAD', file);
+709538	    if (!/^[0-9a-f]{64}$/.test(want)) return Promise.reject(new Error('record has no sha256 for ' + file + ', unhashed data refused'));
+709539	    if (!(window.crypto && crypto.subtle && typeof crypto.subtle.digest === 'function'))
+709540	      return Promise.reject(new Error('crypto.subtle unavailable (not a secure context), unhashed data refused'));
+709541	    return fetchBytes(file).then(function (buf) {
+709542	      return crypto.subtle.digest('SHA-256', buf).then(function (d) {
+709543	        var sha = hex(d); r.loaded_sha256 = sha;
+709544	        if (sha !== want) throw new Error('sha256 mismatch');
+709545	        if (typeof src.bytes === 'number' && buf.byteLength !== src.bytes) throw new Error('bytes ' + buf.byteLength + ' ≠ record ' + src.bytes);
+709546	        var j; try { j = JSON.parse(new TextDecoder('utf-8').decode(buf)); } catch (e) { throw new Error(file + ' is not JSON'); }
+709547	        return j;
+709548	  function admissible(k) { return Number.isFinite(k) && k >= 0 && k < H.SPACE; }   // index.html:632, the edition's predicate
+709549	  // a generic code-feature-collection.v1 layer: geometry carries keys, never coordinates (galaxies-wafers README.md:11-18)
+709550	  function loadSource(id) {
+709551	    var r = rt[id];
+709552	    return verified(id).then(function (j) {
+709553	      var fs = (j && j.features) || [];
+709554	      if (r.rec.source.features && fs.length !== r.rec.source.features) throw new Error('features ' + fs.length + ' ≠ record ' + r.rec.source.features);
+709555	      var pts = [], segs = [], bad = 0;
+709556	      fs.forEach(function (f) { var g = f && f.geometry; if (!g) { bad++; return; }
+709557	        if (g.type === 'Point' && admissible(g.key)) pts.push(H.keyPlace(g.key));
+709558	        else if (g.type === 'LineString' && g.keys && g.keys.length === 2 && admissible(g.keys[0]) && admissible(g.keys[1])) segs.push([H.keyPlace(g.keys[0]), H.keyPlace(g.keys[1])]);
+709559	        else bad++; });
+709560	      r.placed = pts.length + segs.length; r.total = fs.length;
+709561	      if (!r.draw) r.draw = function (o2) { drawFeatures(o2, r.rec.colour, pts, segs); };
+709562	      if (r.placed) setState(id, 'OK', fmt(r.placed) + ' of ' + fmt(r.total) + (bad ? ', ' + fmt(bad) + ' outside SPACE, counted, not placed' : ''));
+709563	      else setState(id, 'EMPTY', fs.length ? 'no feature admitted (' + fmt(bad) + ' outside SPACE)' : 'the file holds no features');
+709564	      KY.redraw();
+709565	    }).catch(function (e) { setState(id, 'FAIL', String(e.message || e)); });
+709566	  function scr(p) { var c = KY.cam, o = H.o2.canvas; return [(p[0] - c.x) * c.zoom + o.width / 2, o.height / 2 - (p[1] - c.y) * c.zoom]; }
+709567	  function drawFeatures(o2, colour, pts, segs) {
+709568	    o2.strokeStyle = colour; o2.fillStyle = colour; o2.lineWidth = 1; o2.globalAlpha = 0.8;
+709569	    segs.forEach(function (s) { var a = scr(s[0]), b = scr(s[1]); o2.beginPath(); o2.moveTo(a[0], a[1]); o2.lineTo(b[0], b[1]); o2.stroke(); });
+709570	    pts.forEach(function (p) { var x = scr(p); o2.beginPath(); o2.arc(x[0], x[1], 2.6, 0, 6.2832); o2.fill(); });
+709571	    o2.globalAlpha = 1;
+709572	  // a preload layer that fails says so in the row, the heading and an alert (09-robust.md:25-29); the wafer draws on
+709573	  function loud(id) {
+709574	    var r = rt[id], file = r.lastFile || (r.rec.source && r.rec.source.file) || r.rec.label;
+709575	    var http = r.status === 'FAIL' && /HTTP \d+|did not load|timed out/.test(r.why);   // a refusal is not a failed load
+709576	    H.big.textContent = String(file).toUpperCase() + (http ? ' DID NOT LOAD' : ' REFUSED') + ' · ' + r.status + ' · ' + r.why;
+709577	    alertLine(r.rec.label + ' layer ' + r.status + ' · ' + r.why + ' · the wafer still draws; nothing of this layer is placed');
+709578	  // the shared #refuse[role=alert] strip, one line under our own slot (KY.refuse, hook table rev 3, HOOKS.md)
+709579	  function alertLine(text) { KY.refuse('LAYERS · ' + text, ID); }
+709580	  // ======================================================================== SECTION 3: the WAFER panel
+709581	  var CSS = ''
+709582	    + '#layers{display:none;position:fixed;left:0;right:0;width:auto;max-width:none;z-index:11;background:#090c13f2;border:1px solid #1d6470;'
+709583	    + 'border-radius:0 0 6px 6px;padding:6px 10px 8px;pointer-events:auto;text-align:left;overscroll-behavior:contain;'
+709584	    + 'max-height:var(--ky-layers-max,80vh);overflow:hidden;flex-direction:column}'
+709585	    + '#layers.gm-open,#layers.ky-in-shell{display:flex}'
+709586	    + '#layers.ky-in-shell{position:static;border:0;padding:0;background:transparent;max-height:none}#layers.ky-in-shell #lineslist{max-height:45vh}'
+709587	    + '@media (min-width:641px){#layers{right:auto;width:min(720px,96vw)}}'
+709588	    + '#layers .ky-ly-rows{flex:none;min-height:88px;overflow-y:auto;overscroll-behavior:contain}'
+709589	    + '#layers .ky-ly-g{color:#2ee6e6;letter-spacing:.12em;text-transform:uppercase;font-size:10px;padding:4px 2px 0;line-height:16px}'
+709590	    + '#layers label.ky-ly{position:relative;display:flex;align-items:center;gap:8px;min-height:44px;padding:0 4px;border:0;box-shadow:inset 0 1px #121a26;'
+709591	    + 'color:#8fb3bd;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}'
+709592	    + '#layers label.ky-ly input[data-ky-layer]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:1}'
+709593	    + '#layers label.ky-ly .bx{flex:none;width:20px;height:20px;border:1px solid #12414a;border-radius:3px;background:#090c13}'
+709594	    + '#layers label.ky-ly input:checked ~ .bx{background:#22ee77;border-color:#22ee77;box-shadow:inset 0 0 0 3px #090c13}'
+709595	    + '#layers label.ky-ly input:disabled ~ .bx{border-style:dashed;opacity:.5}'
+709596	    + '#layers label.ky-ly:has(input:checked){color:#d5dcea}'
+709597	    + '#layers label.ky-ly .sw{flex:none;width:10px;height:10px;border-radius:50%}'
+709598	    + '#layers label.ky-ly .tx{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;padding:4px 0;line-height:1.3}'
+709599	    + '#layers label.ky-ly .nm{white-space:normal;overflow-wrap:anywhere}'
+709600	    + '#layers label.ky-ly .st{color:#7d8799;font-size:11px;white-space:normal;overflow-wrap:anywhere}'
+709601	    + '#layers label.ky-ly .st[data-s=OK]{color:#22ee77}#layers label.ky-ly .st[data-s=FAIL],#layers label.ky-ly .st[data-s=REFUSED]{color:#ffb000}'
+709602	    + '#layers label.ky-ly .st[data-s=LOAD],#layers label.ky-ly .st[data-s=WAIT]{color:#2ee6e6}'
+709603	    + '#layers label.ky-ly.star .nm{font-size:16px;letter-spacing:.06em;color:#2ee6e6;text-transform:uppercase}'
+709604	    + '#layers .ky-ly-why{color:#ffb000;padding:6px 2px;white-space:pre-wrap}'
+709605	    // NL-009 05-lines: the controls stay put, only the list scrolls inside itself (finding 1); 44 px targets (2);
+709606	    // 16 px filter (3); a clear control and Escape (4); a count line (6); grouped by repository, sticky, foldable (7)
+709607	    + '#linesctl{flex:none;display:flex;flex-direction:column;gap:2px;margin-top:4px;border-top:1px solid #12414a;padding-top:4px}'
+709608	    + '#linesctl .lyrow{display:flex;gap:6px;align-items:center;flex-wrap:nowrap}'
+709609	    + '#linesctl label{display:flex;align-items:center;gap:6px;min-height:44px;padding:0 4px 0 2px;color:#8fb3bd;cursor:pointer;user-select:none;flex:1 1 auto;min-width:0}'
+709610	    + '#linesctl label:has(input:checked){color:#d5dcea}'
+709611	    + '#linesctl input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:#22ee77;flex:none}'
+709612	    + '#linesctl #lyFind{flex:1 1 120px;min-width:0;min-height:44px;background:#090c13;color:#d5dcea;border:1px solid #12414a;padding:8px 10px;font:inherit;font-size:16px;border-radius:0;appearance:none}'
+709613	    + '#linesctl #lyFind:focus{outline:none;border-color:#2ee6e6}'
+709614	    + '#linesctl button{min-height:44px;min-width:44px;background:#0b1a20;color:#8fb3bd;border:1px solid #12414a;padding:0 10px;font:inherit;text-transform:uppercase;cursor:pointer;touch-action:manipulation;flex:none}'
+709615	    + '#linesctl button:active{border-color:#2ee6e6;color:#2ee6e6}'
+709616	    + '#lyClear{display:none!important;font-size:20px;line-height:1;padding:0}#lyClear.on{display:inline-block!important}'
+709617	    + '#lycount{color:#7d8799;padding:2px 2px 0;line-height:1.4}'
+709618	    // a short screen (landscape, 360 px tall): the rows shrink and scroll themselves so every row stays reachable (builder)
+709619	    + '@media (max-height:600px){#layers .ky-ly-rows{flex:0 1 auto}#layers #lineslist{flex:1 1 0;min-height:44px}}'
+709620	    + '#lineslist{flex:1 1 auto;min-height:88px;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}'
+709621	    + '#lineslist .lg{position:sticky;top:0;z-index:1;display:flex;align-items:center;gap:8px;min-height:44px;padding:4px 8px;background:#0b1a20;color:#2ee6e6;'
+709622	    + 'border-top:1px solid #12414a;cursor:pointer;text-transform:uppercase;letter-spacing:.06em;touch-action:manipulation;user-select:none}'
+709623	    + '#lineslist .lg .n{color:#7d8799;letter-spacing:0;text-transform:none}#lineslist .lg.focus{color:#22ee77}#lineslist .lg .ch{width:12px;color:#7d8799}'
+709624	    + '#lineslist .ln{min-height:44px;padding:5px 8px;border-top:1px solid #121a26;cursor:pointer;color:#7d8799;font-size:12px;overflow-wrap:anywhere}'
+709625	    + '#lineslist .ln code{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:#ffffff;white-space:pre-wrap;font:inherit;font-weight:600}'
+709626	    + '#lineslist .ln b{color:#d5dcea;font-weight:600}#lineslist .ln.focus b{color:#22ee77}#lineslist .ln.sel{background:rgba(255,43,214,.12)}'
+709627	    + '#lineslist .ln .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}';
+709629	    panel = document.createElement('div'); panel.id = 'layers'; panel.className = 'gm-panel ky-layers';
+709630	    panel.setAttribute('aria-label', 'WAFER: the layer registry');
+709631	    var st = document.createElement('style'); st.id = 'ky-layers-style'; st.textContent = CSS; panel.appendChild(st);
+709632	    var rows = document.createElement('div'); rows.className = 'ky-ly-rows'; rows.innerHTML = '<div class="ky-ly-why">' + esc(manifestWhy) + '</div>';
+709633	    panel.appendChild(rows);
+709634	    var host = document.querySelector('.gm-group[data-group="layers"]');   // team 1's shell: WAFER > layers group
+709635	    if (host) { panel.classList.remove('gm-panel'); panel.classList.add('ky-in-shell'); host.appendChild(panel); panelName = 'shell'; }   // never gm-open itself: an open panel is the shell's, and line-card hides the card only while one is open
+709636	      document.body.appendChild(panel);
+709637	      // without the shell, the Edition 4 LINES title (index.html:702) opens the WAFER panel once the page's #lines is
+709638	      // deleted (handoff/03-layers patch); the title's words stay team 1's (R2). No such title: a panel named wafer.
+709639	      var t = document.querySelector('#bar .gm-title[data-panel="lines"]');
+709640	      try { if (!t) throw 0; KY.panels.add('lines', panel, 'WAFER'); panelName = 'lines'; }
+709641	      catch (e) { KY.panels.add('wafer', panel, 'WAFER'); panelName = 'wafer'; }
+709642	    // one delegated change listener: the single implementation of on/off (menu-bar.js:1451-1462, :1723-1726)
+709643	    panel.addEventListener('change', function (e) {
+709644	      var t = e.target; if (!t || !t.matches('input[data-ky-layer]')) return;
+709645	      apply(t.getAttribute('data-ky-layer').slice(6), t.checked);
+709646	    panel.addEventListener('keydown', function (e) { if (e.target && e.target.id !== 'lyFind') return; e.stopPropagation(); });
+709647	    // the panel height comes from the real viewport, keyboard included (05-lines finding 5)
+709648	    sizePanel(); addEventListener('resize', sizePanel);
+709649	    if (window.visualViewport) visualViewport.addEventListener('resize', sizePanel);
+709650	    // when the panel opens, show where you are (05-lines finding 7); no wrap of setPanel (ROADMAP 4.8)
+709651	    var opener = panelName === 'shell' ? (panel.closest('.gm-panel') || panel) : panel;   // the element whose gm-open means "shown"
+709652	    new MutationObserver(function () { if (opener.classList.contains('gm-open')) { sizePanel(); fillLines(true); } })
+709653	      .observe(opener, { attributes: true, attributeFilter: ['class'] });
+709654	    // rows answer Enter and Space as a button does (NL-009 04 touch, as team 4's patch gave the Edition 4 rows)
+709655	    panel.addEventListener('keydown', function (e) { var row = e.target.closest && e.target.closest('#lineslist [data-i], #lineslist [data-g]');
+709656	      if (row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.stopPropagation(); row.click(); } });
+709657	  function closePanel() {
+709658	    if (panelName === 'shell') { var sh = (KY.modules['kuiper-shell'] && KY.modules['kuiper-shell'].api) || window.__KUIPER_SHELL__; if (sh && typeof sh.close === 'function') sh.close(); return; }
+709659	    if (panel.classList.contains('gm-open')) KY.panels.set(panelName);
+709660	  function sizePanel() {
+709662	    var vh = Math.min(innerHeight, window.visualViewport ? visualViewport.height : innerHeight);
+709663	    var top = parseFloat(panel.style.top) || 46, avail = Math.max(160, vh - top - 4);
+709664	    panel.style.setProperty('--ky-layers-max', Math.round(innerWidth <= 640 ? avail : Math.min(avail, vh * 0.8)) + 'px');
+709665	  function fillRows() {
+709666	    var host = panel.querySelector('.ky-ly-rows'), html = [], group = null;
+709667	    M.order.forEach(function (id) {
+709668	      var r = rt[id].rec;
+709669	      if (r.group !== group) { group = r.group; html.push('<div class="ky-ly-g">' + esc(group) + '</div>'); }
+709670	      html.push('<label class="ky-ly' + (r.star ? ' star' : '') + '" data-id="' + esc(id) + '">'
+709671	        + '<input type="checkbox" data-ky-layer="' + esc(r.key) + '" aria-label="' + esc(r.label) + '">'
+709672	        + '<span class="bx" aria-hidden="true"></span><span class="sw" style="background:' + esc(r.colour) + '" title="' + esc(r.meaning) + '"></span>'
+709673	        + '<span class="tx"><span class="nm">' + esc(r.label) + '</span><span class="st" data-s="WAIT">WAIT</span></span></label>');
+709674	      if (id === 'lines') html.push(LINES_CTL);
+709675	    host.innerHTML = html.join('');
+709676	    M.order.forEach(function (id) { var el = original(id); el.checked = !!rt[id].on; paintRow(id); });
+709677	    wireLines();
+709678	  function paintRow(id) {
+709679	    var r = rt[id]; if (!panel || !r) return;
+709680	    var lab = panel.querySelector('label.ky-ly[data-id="' + id + '"]'); if (!lab) return;
+709681	    var st = lab.querySelector('.st'); st.setAttribute('data-s', r.status);
+709682	    st.textContent = tagText(id);
+709683	    var inp = lab.querySelector('input'); inp.checked = !!r.on; inp.disabled = r.status === 'REFUSED';
+709684	    lab.setAttribute('aria-label', r.rec.label + ' · ' + tagText(id));
+709685	  // apply an on/off that came through the original
+709686	  function apply(id, on) {
+709687	    var r = rt[id]; if (!r) return;
+709688	    r.on = !!on;
+709689	    if (id === 'repos') { if (!on) { KY.lit.repo = -1; lastRepo = -1; } else if (r.value) value('repos', r.value); }
+709690	    if (id === 'periods') { if (!on) { KY.lit.period = null; lastK0 = -1; } else if (r.value) applyPeriod(r.value); }
+709691	    if (id === 'lines') { if (!on) { lines.sel = -1; } fillLines(); }
+709692	    if (on && !r.loaded && !r.rec.preload && r.status !== 'REFUSED') load(id);
+709693	    refreshWaferTags(); paintRow(id); writeURL(); KY.redraw();
+709694	  // ======================================================================== SECTION 4: the verified-lines layer
+709695	  var LINES_CTL = '<div id="linesctl">'
+709696	    + '<div class="lyrow"><label><input type="checkbox" id="lyFocus"> gridatlas + data centres only</label>'
+709697	    + '<button type="button" data-ky-step="1" aria-label="next verified line">next</button><button type="button" data-ky-step="-1" aria-label="previous verified line">prev</button></div>'
+709698	    + '<div class="lyrow"><input id="lyFind" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="filter: repository, file or title" aria-label="filter the verified lines">'
+709699	    + '<button type="button" id="lyClear" aria-label="clear the filter">×</button></div>'
+709700	    + '<div id="lycount" aria-live="polite"></div></div><div id="lineslist"></div>';
+709701	  function wireLines() {
+709702	    var f = document.getElementById('lyFocus'), q = document.getElementById('lyFind'), c = document.getElementById('lyClear');
+709703	    var ctl = document.getElementById('linesctl'), list = document.getElementById('lineslist');
+709704	    // the controls and the list are inside .ky-ly-rows, but the list must be the one scroller: move them after it
+709705	    panel.appendChild(ctl); panel.appendChild(list);
+709706	    f.addEventListener('change', function () { value('lines', { focus: f.checked }); KY.redraw(); });
+709707	    q.addEventListener('input', function () { lines.query = q.value.trim().toLowerCase(); rt.lines.value = { focus: lines.focus, query: lines.query }; fillLines(); });
+709708	    q.addEventListener('keydown', function (e) { e.stopPropagation();
+709709	      if (e.key === 'Escape') { if (q.value) { q.value = ''; lines.query = ''; fillLines(); } else q.blur(); e.preventDefault(); }
+709710	      else if (e.key === 'Enter') q.blur(); });
+709711	    c.addEventListener('click', function (e) { e.stopPropagation(); q.value = ''; lines.query = ''; rt.lines.value = { focus: lines.focus, query: '' }; fillLines(); });
+709712	    ctl.addEventListener('click', function (e) { var b = e.target.closest('[data-ky-step]'); if (!b) return; e.stopPropagation(); step(+b.getAttribute('data-ky-step')); });
+709713	    list.addEventListener('click', function (e) {
+709714	      var g = e.target.closest('[data-g]');
+709715	      if (g) { e.stopPropagation(); if (!lines.query) { var n = g.getAttribute('data-g'); lines.folded[n] = !lines.folded[n]; fillLines(); } return; }
+709716	      var row = e.target.closest('[data-i]'); if (!row) return;
+709717	      e.stopPropagation(); var i = +row.getAttribute('data-i');
+709718	      closePanel();                                                     // LINES closes on pick (Edition 4)
+709719	      openLine(i); fly(lines.placed[i]);
+709720	  // the list row shows the line's first 600 characters verbatim and says how many follow: one keys.json line is
+709721	  // 1,240,449 characters (a minified JSON line), which rendered whole made a 723,252 px row on a Galaxy S24 and 1.2 MB of
+709722	  // DOM text on every filter keystroke; the card keeps the whole line (builder, measured 22:05 UTC)
+709723	  function clipLine(t) { t = t == null ? '' : String(t); return t.length > 600 ? t.slice(0, 600) + ' … (+' + fmt(t.length - 600) + ' characters, the whole line is on its card)' : t; }
+709724	  function visibleLine(b) { return rt.lines.on && (!lines.focus || b.class === 'focus'); }
+709725	  function fillLines(scrollSel) {
+709726	    var list = document.getElementById('lineslist'), cnt = document.getElementById('lycount'), clr = document.getElementById('lyClear');
+709727	    if (!list || !rt.lines) return;
+709728	    if (clr) clr.classList.toggle('on', !!lines.query);
+709729	    var P = lines.placed, total = P.length, groups = {}, shown = 0, repos = {};
+709730	    P.forEach(function (b, i) { repos[b.repo] = 1; if (!visibleLine(b)) return;
+709731	      var hay = (b.repo + ' ' + b.path + ' ' + b.title + ' ' + (b.line_text || '')).toLowerCase();
+709732	      if (lines.query && hay.indexOf(lines.query) < 0) return;
+709733	      (groups[b.repo] = groups[b.repo] || []).push(i); shown++; });
+709734	    var names = Object.keys(groups).sort(function (a, b) { return groups[b].length - groups[a].length || (a < b ? -1 : 1); });
+709735	    var card = KY.modules && KY.modules['line-card'] && KY.modules['line-card'].api, html = [];
+709736	    names.forEach(function (n) {
+709737	      var idx = groups[n].sort(function (a, b) { var x = P[a], y = P[b]; return x.path < y.path ? -1 : x.path > y.path ? 1 : x.line - y.line; });
+709738	      var focus = P[idx[0]].class === 'focus', folded = !lines.query && lines.folded[n] && !(scrollSel && idx.indexOf(lines.sel) >= 0);
+709739	      if (scrollSel && idx.indexOf(lines.sel) >= 0) lines.folded[n] = false;
+709740	      html.push('<div class="lg' + (focus ? ' focus' : '') + '" data-g="' + esc(n) + '" role="button" tabindex="0" aria-expanded="' + (folded ? 'false' : 'true') + '"><span class="ch">' + (folded ? '▸' : '▾') + '</span>' + esc(n) + ' <span class="n">' + idx.length + '</span></div>');
+709741	      if (folded) return;
+709742	      idx.forEach(function (i) { var b = P[i], cls = 'ln' + (i === lines.sel ? ' sel' : '') + (b.class === 'focus' ? ' focus' : '');
+709743	        if (card && typeof card.rowInner === 'function') { html.push('<div class="' + cls + ' lc-row" data-i="' + i + '" role="button" tabindex="0">' + card.rowInner(b) + '</div>'); return; }   // Opus 2's row content, our .ln[data-i]
+709744	        // the line of code is the header (ROADMAP law 2): line_text first, verbatim; the key follows; the names after
+709745	        html.push('<div class="' + cls + '" data-i="' + i + '" role="button" tabindex="0"><code>' + esc(clipLine(b.line_text)) + '</code><b>' + esc(b.path) + ':' + b.line + '</b> · key ' + fmt(b.key)
+709746	          + '<div class="t">' + esc(b.title) + '</div></div>'); });
+709747	    list.innerHTML = html.join('') || '<div class="ln">' + (rt.lines.on ? (total ? 'no line matches' : esc(tagText('lines'))) : 'layer off') + '</div>';
+709748	    if (cnt) cnt.textContent = !rt.lines.on ? '0 of ' + fmt(total) + ' rows · layer off · ' + fmt(total) + ' lines hidden'
+709749	      : fmt(shown) + ' of ' + fmt(total) + ' rows' + (lines.query ? ' match "' + lines.query + '"' : '') + (lines.focus ? ' · gridatlas + data centres only' : '')
+709750	        + (!lines.query && !lines.focus ? ' · ' + Object.keys(repos).length + ' repositories' : '');
+709751	    if (scrollSel && lines.sel >= 0) { var s = list.querySelector('[data-i="' + lines.sel + '"]'); if (s) s.scrollIntoView({ block: 'center' }); }
+709752	  function loadLines() {
+709753	    var r = rt.lines;
+709754	    return verified('lines').then(function (j) {
+709755	      var bodies = j.bodies || j, summary = j.summary || {};
+709756	      if (!Array.isArray(bodies)) throw new Error('keys.json has no bodies');
+709757	      if (r.rec.source.features && bodies.length !== r.rec.source.features) throw new Error('features ' + bodies.length + ' ≠ record ' + r.rec.source.features);
+709758	      lines.ED = bodies; lines.meta = summary;
+709759	      // the edition's admission predicate, unchanged (index.html:632-633); placed by keyPlace and nothing else
+709760	      lines.placed = bodies.filter(function (b) { return b.on_wafer && b.verified && admissible(b.key); })
+709761	        .map(function (b) { var p = H.keyPlace(b.key); return Object.assign({}, b, { x: p[0], y: p[1] }); });
+709762	      r.placed = lines.placed.length; r.total = bodies.length; r.loaded = true;
+709763	      if (!r.placed) setState('lines', 'EMPTY', 'no body admitted of ' + fmt(bodies.length));
+709764	      else setState('lines', 'OK', fmt(r.placed) + ' of ' + fmt(r.total));
+709765	      H.big.textContent = edName() + ' · ' + fmt(r.placed) + ' verified lines lit';
+709766	      H.sub.textContent = 'Edition 1 verified ' + fmt(bodies.length) + ' lines of the estate (354 keyed findings, 495 keys re-resolved; see ../202610311905/). '
+709767	        + 'Here each is a green spark at its own key on the one wafer: ' + H.sub.textContent;
+709768	      fillLines(); KY.redraw();
+709769	    }).catch(function (e) { lines.ED = []; lines.placed = []; r.loaded = true; setState('lines', 'FAIL', String(e.message || e)); fillLines(); KY.redraw(); });
+709770	  function edScreen(b) { return scr([b.x, b.y]); }
+709771	  function drawLines(o2) {
+709772	    var hud = H.hud, P = lines.placed;
+709773	    if (!rt.lines.on) { hud.textContent += '\n' + edName() + ' · verified lines layer off'; return; }
+709774	    if (!P.length) { hud.textContent += '\n' + edName() + ' · ' + tagText('lines'); return; }
+709775	    var on = 0, W = o2.canvas.width, Hh = o2.canvas.height;
+709776	    for (var i = 0; i < P.length; i++) { var b = P[i]; if (lines.focus && b.class !== 'focus') continue;
+709777	      var p = edScreen(b), x = p[0], y = p[1];
+709778	      if (x < -8 || y < -8 || x > W + 8 || y > Hh + 8) continue; on++;
+709779	      var sel = i === lines.sel, focus = b.class === 'focus';
+709780	      o2.beginPath(); o2.arc(x, y, sel ? 6 : (focus ? 3.2 : 2.6), 0, 6.2832);
+709781	      o2.fillStyle = sel ? 'rgba(255,43,214,.95)' : (focus ? 'rgba(34,238,119,.95)' : 'rgba(34,238,119,.70)'); o2.fill();
+709782	      if (sel) { o2.strokeStyle = 'rgba(255,43,214,.9)'; o2.lineWidth = 1.5; o2.beginPath(); o2.arc(x, y, 14, 0, 6.2832); o2.stroke(); } }
+709783	    var notOn = lines.ED.length - P.length;
+709784	    hud.textContent += '\n' + edName() + ' · ' + fmt(P.length) + ' verified lines on this wafer, ' + fmt(on) + ' in view'
+709785	      + (notOn ? ' · ' + fmt(notOn) + ' not on the wafer (named in keys.json), counted, not placed' : '')
+709786	      + ' · bright green: gridatlas and the data-centre repositories · green: the rest of the estate';
+709787	  // the card is Opus team 2's (line-card); the Edition 4 card (index.html:655-674) is the fallback when it is absent
+709788	  function openLine(i) {
+709789	    var b = lines.placed[i]; if (!b) return;
+709790	    var a = H.address(b.key), lc = KY.modules && KY.modules['line-card'] && KY.modules['line-card'].api;
+709791	    lines.sel = i;
+709792	    if (lc && typeof lc.show === 'function') lc.show(b, { index: i, of: lines.placed.length, onclose: function () { lines.sel = -1; KY.sel.target = null; } });
+709793	    else fallbackCard(b, i, a);
+709794	    if (a && !a.silent && rt.repos && rt.repos.on) { KY.lit.repo = a.c.repo; lastRepo = a.c.repo; }
+709795	    else if (a && !a.silent) KY.lit.repo = a.c.repo;
+709796	    KY.sel.target = { x: b.x, y: b.y }; KY.redraw();
+709797	  var cardWired = false;
+709798	  function fallbackCard(b, i, a) {
+709799	    var card = H.card;
+709800	    card.style.display = 'block'; card.classList.remove('open');
+709801	    card.setAttribute('role', 'region'); card.setAttribute('aria-label', 'verified line'); card.setAttribute('aria-live', 'polite');
+709802	    card.innerHTML = '<button class="cx" aria-label="close">×</button>'
+709803	      + (b.line_text != null ? '<code style="display:block;color:#fff;white-space:pre-wrap;font-weight:600">' + esc(b.line_text) + '</code>' : '')
+709804	      + esc(b.repo) + '@' + esc(String(b.commit).slice(0, 7)) + ' ' + esc(b.path) + ':' + b.line + ' · key ' + fmt(b.key)
+709805	      + '\n<b>' + esc(b.title) + '</b>  <span style="color:var(--dim)">' + fmt(i + 1) + ' of ' + fmt(lines.placed.length) + '</span>'
+709806	      + (b.quote ? '<div class="cq">' + esc(b.quote) + '</div>' : '')
+709807	      + '<a href="' + esc(b.destination) + '" target="_blank" rel="noopener">open on GitHub at ' + esc(String(b.commit).slice(0, 7)) + '</a>'
+709808	      + '  ·  <button class="ct" aria-expanded="false">details</button>'
+709809	      + '<div class="cd">' + (b.pattern ? 'pattern: ' + esc(b.pattern) + '\n' : '') + 'found by ' + esc(b.worker) + ' ' + esc(b.finding) + ', verified by a controller\n' + H.describe(a) + '</div>';
+709810	    if (!cardWired) { cardWired = true;
+709811	      card.addEventListener('click', function (e) {
+709812	        if (KY.modules && KY.modules['line-card']) return;
+709813	        if (e.target.closest('.cx')) { card.style.display = 'none'; lines.sel = -1; KY.sel.target = null; KY.redraw(); e.stopPropagation(); return; }
+709814	        if (e.target.closest('.ct')) { var on = card.classList.toggle('open'); e.target.closest('.ct').setAttribute('aria-expanded', on ? 'true' : 'false'); e.stopPropagation(); return; }
+709815	        if (e.target.closest('a')) { e.stopPropagation(); return; }
+709816	        e.stopImmediatePropagation();                               // a tap on the card body keeps it open (index.html:603 would close it)
+709817	      }, true); }
+709818	  // fly so the spark lands in the clear space: under the bar, above the card (index.html:676-680)
+709819	  // NL-009 03 camera, as the integrator's base gives it (index.html edBand/edAim at kuiper-belt@a72c175): the clear band is
+709820	  // under the bar and any open panel in the top half, above the card; aimed again on the next frame, once the card is laid out
+709821	  function band() {
+709822	    var s = H.safeBox(), top = s.y0, bot = innerHeight - 8, card = H.card, open = document.querySelectorAll('.gm-open');
+709823	    for (var i = 0; i < open.length; i++) { var r = open[i].getBoundingClientRect(); if (r.height > 0 && r.top < innerHeight / 2) top = Math.max(top, r.bottom + 8); }
+709824	    if (card.style.display === 'block') { var c = card.getBoundingClientRect(); if (c.height > 0) bot = Math.min(bot, c.top - 8); }
+709825	    if (bot < top + 24) bot = top + 24;
+709826	    return { x0: s.x0, x1: s.x1, y0: top, y1: bot };
+709827	  function aim(b, z) { var a = band(), mx = (a.x0 + a.x1) / 2, my = (a.y0 + a.y1) / 2; return [b.x - (mx - innerWidth / 2) / z, b.y + (my - innerHeight / 2) / z]; }
+709828	  var flown = null;
+709829	  function fly(b) {
+709831	    var z = 14, t = aim(b, z); flown = b;
+709832	    KY.cam.atHome = false;                                          // a resize must not re-home after a spark fly (IX:248, :679)
+709833	    H.flyTo(t[0], t[1], z);
+709834	    requestAnimationFrame(function () { if (flown !== b) return; var u = aim(b, z); H.flyTo(u[0], u[1], z); });
+709835	  function step(dir) {
+709836	    var P = lines.placed, n = P.length; if (!n || !rt.lines.on) return;
+709837	    var i = lines.sel;
+709838	    for (var t = 0; t < n; t++) { i = (i + dir + n) % n; if (visibleLine(P[i])) break; }
+709839	    openLine(i); fly(P[i]); fillLines();
+709840	  function wireInput() {
+709841	    addEventListener('keydown', function (e) {
+709842	      if (H.gbox.style.display === 'block') return;
+709843	      if (e.target && e.target.id === 'lyFind') return;
+709844	      if (e.key === 'e') step(1); else if (e.key === 'E') step(-1); else if (e.key === 'Backspace') lines.sel = -1;
+709845	    // a tap within 9 px of a spark opens that line; only a tap on the wafer itself (05-lines finding 9)
+709846	    var down = {}, moved = 0;
+709847	    addEventListener('pointerdown', function (e) { if (Object.keys(down).length) moved = 99; else moved = e.target === H.cv ? 0 : 99;   // tapUp: began on the canvas
+709848	      down[e.pointerId] = [e.clientX, e.clientY]; }, true);
+709849	    addEventListener('pointermove', function (e) { var d = down[e.pointerId]; if (d) moved = Math.max(moved, Math.hypot(e.clientX - d[0], e.clientY - d[1])); }, true);
+709850	    addEventListener('pointercancel', function (e) { delete down[e.pointerId]; }, true);
+709851	    addEventListener('pointerup', function (e) {
+709852	      var was = down[e.pointerId]; delete down[e.pointerId];
+709853	      // a tap: one pointer, down on the canvas, up within 10 px; reach 24 px for a finger, 9 px for a mouse (NL-009 04, base a72c175)
+709854	      if (!was || e.target !== H.cv || moved > 10 || Object.keys(down).length > 0) return;
+709855	      var P = lines.placed; if (!P.length || !rt.lines.on) return;
+709856	      var R = e.pointerType === 'mouse' ? 9 : 24, best = -1, bd = R * R;
+709857	      for (var i = 0; i < P.length; i++) { if (!visibleLine(P[i])) continue; var p = edScreen(P[i]), d = (p[0] - e.clientX) * (p[0] - e.clientX) + (p[1] - e.clientY) * (p[1] - e.clientY); if (d < bd) { bd = d; best = i; } }
+709858	      if (best >= 0) { openLine(best); fly(P[best]); }
+709859	  // ======================================================================== SECTION 5: wafer layers and app rows
+709860	  function applyPeriod(v) {
+709861	    var m = v && String(v).match(/^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/);
+709862	    if (!m) { KY.lit.period = null; return; }
+709863	    H.lightTime(+m[1], m[2] ? +m[2] : 0, m[3] ? +m[3] : 0);
+709864	    lastK0 = KY.lit.K ? KY.lit.K[0] : -1;
+709865	  function day(u) { return new Date(u * 1000).toISOString().slice(0, 10); }
+709866	  // the engine's own controls (tap, /, keys) light a repository or a period; the original follows the engine, never back
+709867	  function refreshWaferTags() {
+709868	    if (!rt.repos || !N()) return;
+709869	    var lr = KY.lit.repo;
+709870	    if (lr >= 0 && lr !== lastRepo && !rt.repos.on && !booting) { lastRepo = lr; mirrorOn('repos'); }
+709871	    lastRepo = lr;
+709872	    if (rt.repos.status === 'OK' || rt.repos.status === 'WAIT' || rt.repos.status === 'LOAD') {
+709873	      var name = lr >= 0 && H.repos[lr] ? H.repos[lr].name : null; rt.repos.value = name || rt.repos.value;
+709874	      setQuiet('repos', 'OK', !rt.repos.on ? 'off' : (name ? name : 'none lit'));
+709875	    var K = KY.lit.K, ci = KY.lit.Ci, k0 = K ? K[0] : -1;
+709876	    if (k0 >= 0 && k0 !== lastK0 && !rt.periods.on && !booting) { lastK0 = k0; mirrorOn('periods'); }
+709877	    lastK0 = k0;
+709878	    if (rt.periods.status === 'OK' || rt.periods.status === 'WAIT' || rt.periods.status === 'LOAD') {
+709879	      var c = H.commits, txt = 'none lit';
+709880	      if (k0 >= 0 && ci && c[ci[0]] && c[ci[1] - 1]) txt = (rt.periods.value ? rt.periods.value + ' · ' : '') + fmt(ci[1] - ci[0]) + ' commits, ' + day(c[ci[0]].unix) + ' to ' + day(c[ci[1] - 1].unix);
+709881	      setQuiet('periods', 'OK', !rt.periods.on ? 'off' : txt);
+709882	  function mirrorOn(id) { rt[id].on = true; var el = original(id); if (el) el.checked = true; writeURL(); }
+709883	  function setQuiet(id, s, why) { var r = rt[id]; if (r.status === s && r.why === why) return; r.status = s; r.why = why; paintRow(id); }
+709884	  function N() { return H.N > 0 && H.SPACE > 0; }
+709885	  // editions: one amber ring at the radius of the first commit at or after each cut stamp; beyond the rim, counted
+709886	  var eds = { placed: [], beyond: [] };
+709887	  function stampUnix(s) { return Date.UTC(+s.slice(0, 4), +s.slice(4, 6) - 1, +s.slice(6, 8), +s.slice(8, 10), +s.slice(10, 12)) / 1000; }
+709888	  function loadEditions() {
+709889	    var r = rt.editions;
+709890	    return verified('editions').then(function (j) {
+709891	      if (!j || j.schema !== 'kuiper.editions.v1' || !Array.isArray(j.editions)) throw new Error('editions.json schema is not kuiper.editions.v1');
+709892	      if (r.rec.source.features && j.editions.length !== r.rec.source.features) throw new Error('features ' + j.editions.length + ' ≠ record ' + r.rec.source.features);
+709893	      var c = H.commits, last = c[c.length - 1].unix;
+709894	      eds.placed = []; eds.beyond = [];
+709895	      j.editions.forEach(function (e) {
+709896	        var u = stampUnix(e.stamp);
+709897	        if (u > last) { eds.beyond.push(e); return; }
+709898	        var i = Math.min(c.length - 1, H.findBy('unix', u - 1) + 1);
+709899	        eds.placed.push({ e: e, k: c[i].k0, r: Math.sqrt(c[i].k0) });
+709900	      r.placed = eds.placed.length; r.total = j.editions.length; r.loaded = true;
+709901	      setState('editions', 'OK', fmt(r.placed) + ' of ' + fmt(r.total) + ' placed' + (eds.beyond.length ? ', ' + fmt(eds.beyond.length) + ' beyond the rim' : ''));
+709902	    }).catch(function (e) { r.loaded = true; setState('editions', 'FAIL', String(e.message || e)); });
+709903	  function drawEditions(o2) {
+709904	    var c = KY.cam, W = o2.canvas.width, Hh = o2.canvas.height, x0 = (0 - c.x) * c.zoom + W / 2, y0 = Hh / 2 + c.y * c.zoom;
+709905	    o2.save(); o2.font = '11px ui-monospace,Consolas,monospace'; o2.lineWidth = 1.5;
+709906	    eds.placed.forEach(function (p) { var rp = p.r * c.zoom; if (rp > 30000 || rp < 2) return;
+709907	      o2.strokeStyle = 'rgba(255,176,0,.75)'; o2.beginPath(); o2.arc(x0, y0, rp, 0, 6.2832); o2.stroke();
+709908	      o2.fillStyle = 'rgba(255,176,0,1)'; o2.fillText('E' + p.e.number, x0 - rp * 0.707 - 18, y0 + rp * 0.707 + 12); });
+709909	    if (eds.beyond.length) { var R = Math.sqrt(H.SPACE) * c.zoom; if (R < 30000) {
+709910	      o2.strokeStyle = 'rgba(255,176,0,1)'; o2.beginPath(); o2.moveTo(x0 + R, y0); o2.lineTo(x0 + R + 10, y0); o2.stroke();
+709911	      o2.fillStyle = 'rgba(255,176,0,1)'; o2.fillText(eds.beyond.map(function (e) { return 'E' + e.number; }).join(' ') + ' beyond the wafer’s last commit', x0 + R + 14, y0 + 4); } }
+709912	    o2.restore();
+709914	    if (id === 'lines') return loadLines();
+709915	    if (id === 'editions') return loadEditions();
+709916	    if (r.rec.format === 'engine') { r.loaded = true; refreshWaferTags(); return Promise.resolve(); }
+709917	    if (r.rec.source && r.rec.source.file && !r.rec.module_registers) return loadSource(id);
+709918	    return Promise.resolve();
+709919	  // the record is checked before anything loads: licence, format, colour, substrate (team-2/STEPS.md 3.1, 3.4)
+709920	  function admitRecord(r) {
+709921	    if (!r.licence || /^UNSETTLED/i.test(r.licence)) return ['REFUSED', 'licence unsettled' + (r.licence ? ' (' + r.licence.replace(/^UNSETTLED:?\s*/i, '') + ')' : '')];
+709922	    if (FORMATS.indexOf(r.format) < 0) return ['REFUSED', 'format ' + r.format + ' not admitted'];
+709923	    if (!PALETTE[String(r.colour).toLowerCase()]) return ['REFUSED', 'colour ' + r.colour + ' not in PALETTE.md'];
+709924	    if (r.substrate && M.substrate && r.substrate !== M.substrate) return ['REFUSED', 'substrate ' + r.substrate + ' ≠ ' + M.substrate];
+709925	    if (r.key !== 'layer:' + r.id) return ['REFUSED', 'key ' + r.key + ' ≠ layer:' + r.id];
+709927	  // ======================================================================== SECTION 6: the URL (R3: hash written, query read)
+709928	  function hashFields() {
+709929	    var h = location.hash.replace(/^#/, ''), out = [];
+709930	    if (!h) return out;
+709931	    h.split('&').forEach(function (kv) { if (!kv) return; var i = kv.indexOf('='); out.push(i < 0 ? [kv, null] : [kv.slice(0, i), kv.slice(i + 1)]); });
+709932	  function linkLayers() {
+709933	    var hv = null; hashFields().forEach(function (f) { if (f[0] === 'layers') hv = f[1] == null ? '' : f[1]; });
+709934	    if (hv !== null) return { from: 'hash', ids: decodeURIComponent(hv).split(',').filter(Boolean) };
+709935	    var q = new URLSearchParams(location.search).get('layers');
+709936	    if (q !== null) return { from: 'query', ids: q.split(',').filter(Boolean) };
+709937	  function onList() { return M.order.filter(function (id) { return rt[id] && rt[id].on; }); }
+709938	  function writeURL() {
+709939	    if (booting || !M) return;
+709940	    var f = hashFields().filter(function (x) { return x[0] !== 'layers'; });
+709941	    f.push(['layers', onList().join(',')]);
+709942	    var q = new URLSearchParams(location.search); q.delete('layers');
+709943	    var qs = q.toString();
+709944	    var url = location.pathname + (qs ? '?' + qs : '') + '#' + f.map(function (x) { return x[1] == null ? x[0] : x[0] + '=' + x[1]; }).join('&');
+709945	    try { history.replaceState(history.state, '', url); } catch (e) { /* a sandboxed frame may refuse; the layers still work */ }
+709946	  function applyLink() {
+709947	    var L = linkLayers(); if (!L) return;
+709948	    var want = {}; L.ids.forEach(function (id) { want[id] = 1; });
+709949	    M.order.forEach(function (id) { var r = rt[id]; if (!r || r.status === 'REFUSED') return;
+709950	      var on = !!want[id]; if (r.on === on) return;
+709951	      if (booting) { r.on = on; var el = original(id); if (el) el.checked = on; } else set(id, on); });
+709952	  // ======================================================================== install
+709953	  function install(K) {
+709954	    KY = K; H = K.hooks;
+709955	    buildPanel();
+709956	    wireInput();
+709957	    KY.draw.add(function (o2) {
+709958	      if (!M) return;
+709959	      refreshWaferTags();
+709960	      M.order.forEach(function (id) { var r = rt[id]; if (!r || (!r.on && id !== 'lines') || r.status === 'REFUSED') return;   // drawLines writes 'verified lines layer off' itself (test 3; builder)
+709961	        if (id === 'lines') drawLines(o2); else if (id === 'editions') drawEditions(o2); else if (r.draw) r.draw(o2, KY); });
+709962	    }, 30);
+709963	    fetchBytes(MANIFEST).then(function (buf) {
+709964	      var j = JSON.parse(new TextDecoder('utf-8').decode(buf));
+709965	      if (j.schema !== SCHEMA) throw new Error(MANIFEST + ' schema ' + j.schema + ' is not ' + SCHEMA);
+709966	      var ids = {}; j.layers.forEach(function (r) { ids[r.id] = r; });
+709967	      j.order.forEach(function (id) { if (!ids[id]) throw new Error('order names ' + id + ', which has no record'); });
+709968	      M = j;
+709969	      j.order.forEach(function (id) { var r = ids[id]; rt[id] = { rec: r, on: !!r.on, value: null, status: 'WAIT', why: 'wafer', placed: 0, total: 0, loaded_sha256: null, draw: null, loaded: false }; });
+709970	      manifestWhy = 'OK · ' + j.layers.length + ' records';
+709971	      fillRows();
+709972	      applyLink();
+709973	      j.order.forEach(function (id) { var r = rt[id], no = admitRecord(r.rec);
+709974	        if (no) { r.on = false; setState(id, no[0], no[1]); return; }
+709975	        if (r.rec.state && r.rec.state.status) setState(id, r.rec.state.status, r.rec.state.why); else setState(id, 'WAIT', 'wafer'); });
+709976	      return H.wafer.then(function () {
+709977	        booting = false;
+709978	        j.order.forEach(function (id) { var r = rt[id];
+709979	          if (r.status === 'REFUSED' || (r.rec.state && r.rec.state.status)) return;
+709980	          if (r.rec.preload || r.on) load(id); else setState(id, 'WAIT', 'not asked for'); });
+709981	        refreshWaferTags();
+709982	        // a listed layer whose module was admitted but never registered says so (team-2/STEPS.md 3.3)
+709983	        setTimeout(function () { j.order.forEach(function (id) { var r = rt[id], mid = moduleId(r.rec.module);
+709984	          if (mid && mid !== ID && KY.modules && KY.modules[mid] && !r.registered && r.status !== 'REFUSED') setState(id, 'WAIT', 'module ' + mid + ' did not register'); }); }, 8000);
+709985	        addEventListener('hashchange', function () { applyLink(); });
+709986	      }, function (why) {
+709987	        var words = String(why && why.message || why || 'the wafer refused');
+709988	        j.order.forEach(function (id) { rt[id].on = false; setState(id, 'REFUSED', 'the wafer refused: ' + words); });
+709989	        alertLine('every layer REFUSED · the wafer refused: ' + words);
+709990	    }).catch(function (e) {
+709991	      manifestWhy = 'FAIL · ' + String(e.message || e);
+709992	      var w = panel.querySelector('.ky-ly-why'); if (w) w.textContent = manifestWhy;
+709993	      alertLine('the layer registry did not load: ' + manifestWhy);
+709994	  var api = { schema: SCHEMA, generation: GEN, inspect: inspect, get: get, set: set, value: value, register: register,
+709995	    step: step, open: function (i) { openLine(i); fly(lines.placed[i]); },
+709996	    edScreen: function (i) { var b = lines.placed[i]; return b ? edScreen(b) : null; },
+709997	    placed: function () { return lines.placed.length; } };
+709998	  if (window.KY && typeof window.KY.register === 'function') {
+709999	    window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN, requires: REQUIRES, provides: ['layers'],
+710000	      install: install, inspect: inspect });
+710001	/* kuiper module see-through, generation 202611012141 (UTC), CERN-OHL-S-2.0 (the whole file; ROADMAP 9.8: never Apache-2.0)
+710002	   Opus team 5, NL-010 roadmap step 5 "See Through, the star player" (FIXES/NL-010/ROADMAP.md step 5; team-3/STEPS.md 5.1-5.8).
+710003	   Licence: CERN-OHL-S v2 for this whole file (see-through/202610050609/LICENSE.md:3-7, licences/globalgrid2050-CERN-OHL-S-2.0.txt).
+710004	   The block marked "CERN-OHL-S-2.0" copies See Through's star-key rule (descent.js:19, :963, :965; from Learn the Kuiper grid.js:36-38,
+710005	   CERN-OHL-S v2 by its NOTICE.md:8-10), so the module cannot be Apache-2.0; the Apache-2.0 kuiper-belt engine is only called.
+710006	   Substation names drawn from data/see-through.json are (c) OpenStreetMap contributors, ODbL 1.0.
+710007	   Folds in NL-009 round 1 06-seethrough (FIXES/NL-009/round1/06-seethrough.md): the SEE THROUGH entry in the bar's face,
+710008	   same tab, through the stable pointer ../../see-through/, and the "family" panel text (#edapps).
+710009	   requires: wafer, keyPlace, address, describe, goKey, fmt, esc, cv, ov, o2, hud, card, gin, repos, SPACE, cam, sel, redraw, draw
+710010	   optional (used when admitted earlier): kuiper-shell (api.mountStar, api.panel('about')), layers (KY.layers), file (step 6)
+710011	   provides: see-through
+710012	   Public api: KY.modules['see-through'].api = { link(fields), starKey(j, space), remap(key, spaceOld), inspect() } */
+710013	  var ID = 'see-through', GEN = '202611012141';
+710014	  var POINTER = '../../see-through/';                        // the stable pointer (NL-009 06 decision (c); see-through/index.html:7,:11,:12)
+710015	  var SENTENCE = 'See Through: from the stars to one substation in 3D';   // globalgrid2050@c66759f homepage_versions/homepage_v134.html:35
+710016	  var DATA = 'data/see-through.json';
+710017	  // the entry's form (title or bottom-left strip) is the shell's rule alone (ROADMAP R7; team 1 FINDING issuecomment-6564447092:
+710018	  // title from 434 px, the 44 px strip narrower; kuiper-shell.js:41); this module never makes a strip of its own
+710019	  var HIT2 = 81;                                             // 9 px tap radius, Edition 4's spark rule (index.html:688-693)
+710020	  var CYAN = 'rgba(46,230,230,', AMBER = '#ffb000';          // PALETTE.md: cyan #2ee6e6 the instrument; amber attention
+710021	  var st = { form: 'none', status: 'WAIT', why: 'waiting for the wafer', placed: 0, total: 0, space: 0, wafer: 0,
+710022	             keys: null, xy: null, names: null, linkRead: null, rowsAdded: 0, starTap: null, errors: [] };
+710023	  // ------------------------------------------------------------------ CERN-OHL-S-2.0 (See Through's star-key rule)
+710024	  // see-through/202610050609/descent.js:19  var NRULE = 20000;  // particle i carries key floor((i + 0.5) * SPACE / NRULE)
+710025	  // descent.js:963  key = Math.floor((ki + 0.5) * S.SPACE / NRULE);  :965  if (c === 0) S.subKey[p] = key;  (j < 5800)
+710026	  var NRULE = 20000, NSUB = 5800;
+710027	  function starKey(j, space) { return Math.floor((j + 0.5) * space / NRULE); }
+710028	  // ------------------------------------------------------------------ end CERN-OHL-S-2.0
+710029	  // The SPACE remap (ROADMAP 5.6): a star key cut under an older sky names star j; under the wafer's sky star j has a new
+710030	  // key. j = floor(key * NRULE / spaceOld) is accepted only when starKey(j, spaceOld) === key; otherwise null.
+710031	  function remap(key, spaceOld, spaceNew) {
+710032	    spaceNew = spaceNew || st.wafer;
+710033	    if (!(spaceOld > 0) || !(key >= 0)) return null;
+710034	    var j = Math.floor(key * NRULE / spaceOld);
+710035	    for (var d = -1; d <= 1; d++) { var jj = j + d; if (jj >= 0 && jj < NSUB && starKey(jj, spaceOld) === key) return { j: jj, key: starKey(jj, spaceNew) }; }
+710036	  // ------------------------------------------------------------------ SECTION 2: links out by the hash grammar (5.5, 5.7)
+710037	  // Field order on the way out is the order See Through resolves them: repo, key (+space), sub, view.
+710038	  function link(f) {
+710039	    f = f || {}; var p = [];
+710040	    if (f.repo) p.push('repo=' + encodeURIComponent(f.repo));
+710041	    // space travels only when the caller names the sky a STAR key was cut for (a layer star); a line's key is the wafer's
+710042	    // own address and goes out bare, #key=<k> (ROADMAP 5.7(a); A5: the card of bodies[0] ends /see-through/#key=36064705400)
+710043	    if (f.key != null && /^\d{1,15}$/.test(String(f.key))) { p.push('key=' + f.key); if (f.space && /^\d{1,15}$/.test(String(f.space))) p.push('space=' + f.space); }
+710044	    if (f.sub) p.push('sub=' + encodeURIComponent(String(f.sub).slice(0, 80)));
+710045	    if (f.view && /^(kuiper|map|sat|3d)$/.test(f.view)) p.push('view=' + f.view);
+710046	    return POINTER + (p.length ? '#' + p.join('&') : '');
+710047	  // ------------------------------------------------------------------ SECTION 1: the entry, two forms, one node (5.1, 5.2)
+710048	  var LIT = 'background:rgba(80,220,240,.16);color:#fff;text-decoration:none';     // the shell's lit face (menu-bar.js:177-178)
+710049	    + '#kuiper-menu-bar #kuiper-star.gm-title,#bar #kuiper-star.gm-title{' + LIT + ';border-color:var(--cy,#2ee6e6);flex:0 0 auto}'
+710050	    + '#kuiper-star-strip #kuiper-star.gm-title{' + LIT + ';min-height:44px;height:44px;padding:0 14px;font-size:11px;'
+710051	    + 'letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(80,220,240,.5);box-sizing:border-box;display:flex;align-items:center}'
+710052	    + 'html.kuiper-star-strip #card{bottom:calc(60px + env(safe-area-inset-bottom))!important}'
+710053	    + '#card .ky-st{display:block;min-height:44px;line-height:44px;color:var(--cy,#2ee6e6);text-decoration:none;border-top:1px solid #12414a;margin-top:6px}'
+710054	    + '#card .ky-st+.ky-st{margin-top:0}'
+710055	    + '#ky-st-apps{margin-top:6px;color:var(--dim,#8fb3bd)} #ky-st-apps a{color:#66ccff}';
+710056	  // team 1's shell owns the star slot and its rule (R7; modules/202611012143-kuiper-shell.js api.mountStar); without it,
+710057	  // this module places the same node itself by ROADMAP R7's breakpoint
+710058	  function shell() {
+710059	    var m = KY && KY.modules && KY.modules['kuiper-shell'];
+710060	    return (m && m.api && typeof m.api.mountStar === 'function') ? m.api
+710061	      : (window.__KUIPER_SHELL__ && typeof window.__KUIPER_SHELL__.mountStar === 'function' ? window.__KUIPER_SHELL__ : null);
+710062	  function mountEntry() {
+710063	    if (document.getElementById('kuiper-star')) return;     // never two copies
+710064	    var s = document.createElement('style'); s.id = 'ky-see-through-css'; s.textContent = CSS; document.head.appendChild(s);
+710066	    a.id = 'kuiper-star'; a.className = 'gm-title'; a.href = POINTER; a.textContent = 'SEE THROUGH';
+710067	    a.title = SENTENCE; a.setAttribute('aria-label', SENTENCE); a.setAttribute('role', 'button');
+710068	    a.setAttribute('data-star', 'see-through'); a.setAttribute('data-ky-app', 'see-through');
+710069	    // Edition 4's bar delegates clicks on .gm-title to its panels (index.html:721); the star is a link, so its click
+710070	    // stops here and the browser follows the href in the same tab (NL-009 06 decision (a))
+710071	    a.addEventListener('click', function (e) { e.stopPropagation(); });
+710072	    st.a = a;
+710073	    function own() {                                        // no shell admitted: Edition 4's bar, first title; no strip
+710074	      var bar = document.getElementById('bar'), name = document.getElementById('barname');
+710075	      if (bar) { var ref = name && name.parentNode === bar ? name.nextSibling : bar.firstChild; if (ref !== a) bar.insertBefore(a, ref); }
+710076	      return bar ? 'title-fallback' : 'none';
+710078	      var sh = shell();
+710079	      if (sh) {
+710080	        if (!st.mounted) { sh.mountStar(a, ID + ' ' + GEN); st.mounted = 'kuiper-shell'; }
+710081	        var f = null; try { f = sh.inspect().star.form; } catch (e) {}
+710082	        st.form = f || (a.closest('#kuiper-star-strip') ? 'strip' : 'title');
+710083	      } else { st.form = own(); st.mounted = 'own'; }
+710084	      document.documentElement.classList.toggle('kuiper-star-strip', st.form === 'strip');
+710085	    st.place = place; place();
+710086	    function later() { setTimeout(place, 0); }               // after the shell's own matchMedia listener has moved the node
+710087	    var mq = window.matchMedia ? window.matchMedia('(min-width: 434px)') : null;   // only to re-read the shell's form after its move
+710088	    if (mq) { if (mq.addEventListener) mq.addEventListener('change', later); else if (mq.addListener) mq.addListener(later); }
+710089	    addEventListener('resize', later);
+710090	    if (!shell() && window.MutationObserver) {               // a shell installed after this module takes the node over
+710091	      var mo = new MutationObserver(function () { if (shell()) { mo.disconnect(); st.mounted = null; place(); } });
+710092	      mo.observe(document.body, { childList: true });
+710093	  // The family text (NL-009 06 #edapps), in ABOUT when team 1's shell provides it, else in the EDITION panel (#top).
+710094	  function mountAbout() {
+710095	    if (document.getElementById('ky-st-apps')) return;
+710096	    var sh = shell(), host = null;
+710097	    try { host = sh && sh.panel ? sh.panel('about') : null; } catch (e) {}
+710098	    host = host || document.getElementById('top');
+710100	    var d = document.createElement('div'); d.id = 'ky-st-apps';
+710101	    d.innerHTML = 'The apps: <a href="' + POINTER + '">See Through</a>, from the stars to one substation in 3D (any of 5,800 UK '
+710102	      + 'substations rising on the real satellite ground with its pylons, drawn by rule from open map data; CERN-OHL-S v2; the SEE THROUGH '
+710103	      + 'entry above), and <a href="../../learn-the-kuiper/">Learn the Kuiper</a>, a small game about the one rule that places every dot '
+710104	      + 'here, one dot and two numbers (code Apache-2.0, text CC BY 4.0). Both gather their stars by the placement law of this wafer, '
+710105	      + 'r = \u221a(key + 0.5), \u03b8 = 2\u03c0 \u00b7 frac(key \u00d7 2654435769 / 2\u00b3\u00b2) (cosmos/wafer-meta.json:12; index.html:278), and both stay on this host: see-through/ and learn-the-kuiper/ always open the newest dated folder.';
+710106	    d.addEventListener('click', function (e) { if (e.target.closest('a')) e.stopPropagation(); });
+710107	    // ABOUT: first after the card law's sentence, which Opus 2 holds as ABOUT's first child (kuiper-shell.js:459-462)
+710108	    if (host.id === 'top') host.appendChild(d);
+710109	    else { var law = host.querySelector(':scope > [data-owner="line-card"]'); host.insertBefore(d, law ? law.nextSibling : host.firstChild); }
+710110	  // ------------------------------------------------------------------ SECTION 3: the Kuiper layer of See Through's stars (5.6)
+710111	  function layersApi() { return KY && KY.layers ? KY.layers : (KY && KY.modules && KY.modules.layers && KY.modules.layers.api) || null; }
+710112	  function layerOn() {
+710113	    var L = layersApi();
+710114	    if (L && typeof L.get === 'function') { try { var r = L.get('see-through'); if (r && typeof r.on === 'boolean') return r.on; } catch (e) {} }
+710115	  function setState(status, why) {
+710116	    st.status = status; st.why = why || '';
+710117	    if (KY) KY.redraw();
+710118	  function row() {
+710119	    // ROADMAP 5.6's row; the folder the pointer opens today (202610050609) still draws its frozen sky 59,637,070,538 until
+710120	    // see-through-hash-reader.patch ships in a later folder, and the row says so; the names carry their ODbL credit
+710121	    if (st.status === 'OK') return 'OK \u00b7 ' + H.fmt(st.placed) + ' of ' + H.fmt(st.total) + ' \u00b7 See Through 202610050609 (its sky 59,637,070,538 until the patch) \u00b7 SPACE ' + H.fmt(st.space)
+710122	      + ' \u00b7 names \u00a9 OpenStreetMap contributors, ODbL';
+710123	    if (st.status === 'FAIL' && st.space && st.wafer && st.space !== st.wafer) return 'FAIL · SPACE ' + H.fmt(st.space) + ' ≠ wafer ' + H.fmt(st.wafer);
+710124	    return st.status + (st.why ? ' · ' + st.why : '');
+710125	  function admit(j) {
+710126	    // the layer's own predicate (team-2/STEPS.md 3.2): a code-feature-collection.v1, 5,800 Point keys, each the star key
+710127	    // of its substation under the file's space, the file's space equal to the wafer's; otherwise nothing is drawn
+710128	    if (!j || j.format !== 'code-feature-collection.v1' || !Array.isArray(j.features)) return 'format ' + (j && j.format) + ' not admitted';
+710129	    st.space = +j.space; st.total = j.features.length;
+710130	    if (st.space !== st.wafer) return null;               // FAIL by SPACE, worded by row()
+710131	    if (st.total !== NSUB) return 'features ' + st.total + ' ≠ ' + NSUB;
+710132	    var keys = new Float64Array(NSUB), names = new Array(NSUB);
+710133	    for (var i = 0; i < NSUB; i++) {
+710134	      var f = j.features[i], g = f && f.geometry, p = (f && f.properties) || {};
+710135	      if (!g || g.type !== 'Point' || p.sub !== i) return 'feature ' + i + ' is not substation ' + i;
+710136	      if (g.key !== starKey(i, st.space)) return 'feature ' + i + ' key ' + g.key + ' ≠ law ' + starKey(i, st.space);
+710137	      if (!(g.key >= 0 && g.key < st.wafer)) return 'feature ' + i + ' key beyond the wafer';
+710138	      keys[i] = g.key; names[i] = p.name || '';
+710139	    var xy = new Float64Array(2 * NSUB);
+710140	    for (var k = 0; k < NSUB; k++) { var q = H.keyPlace(keys[k]); xy[2 * k] = q[0]; xy[2 * k + 1] = q[1]; }   // keyPlace and nothing else
+710141	    st.keys = keys; st.names = names; st.xy = xy; st.placed = NSUB;
+710143	  function hex(buf) { var b = new Uint8Array(buf), out = ''; for (var i = 0; i < b.length; i++) out += (b[i] < 16 ? '0' : '') + b[i].toString(16); return out; }
+710144	  // one fetch; the bytes are hashed against the registry's record (data/layers.json source.sha256) when it names one,
+710145	  // then the layer's own predicate (admit). Resolves {placed, total}; rejects with the words the row shows.
+710146	  function loadLayer() {
+710147	    setState('LOAD', DATA);
+710148	    var L = layersApi(), rec = null; try { rec = L && L.get ? L.get('see-through') : null; } catch (e) {}
+710149	    var want = rec && rec.source && /^[0-9a-f]{64}$/.test(rec.source.sha256 || '') ? rec.source.sha256 : '';
+710150	    return fetch(DATA, { cache: 'no-store' }).then(function (r) {
+710151	      if (!r.ok) throw new Error(DATA + ' HTTP ' + r.status);
+710152	      return r.arrayBuffer();
+710153	    }).then(function (buf) {
+710154	      st.bytes = buf.byteLength;
+710155	      var check = (want && window.crypto && crypto.subtle) ? crypto.subtle.digest('SHA-256', buf).then(function (d) {
+710156	        st.sha256 = hex(d); if (st.sha256 !== want) throw new Error(DATA + ' sha256 mismatch');
+710157	      }) : Promise.resolve();
+710158	      return check.then(function () { return JSON.parse(new TextDecoder().decode(buf)); });
+710159	    }).then(function (j) {
+710160	      var why = admit(j);
+710161	      if (why === null) throw new Error('SPACE ' + H.fmt(st.space) + ' \u2260 wafer ' + H.fmt(st.wafer));
+710162	      if (why) throw new Error(why);
+710163	      setState('OK', ''); return { placed: st.placed, total: st.total };
+710164	    }).catch(function (e) { st.placed = 0; st.xy = null; setState('FAIL', e.message); throw e; });
+710165	  // the registry (Opus 3, modules/202611012141-layers.js register(layer)) runs load() and shows its result in the WAFER
+710166	  // row; the stars are drawn by KY.draw.add(drawStars) alone (no draw is handed over, so nothing is drawn twice)
+710167	  function startLayer() {
+710168	    if (L && typeof L.register === 'function') {
+710169	      return new Promise(function (done) {
+710170	        var called = false;
+710171	        function run() { called = true; var p = loadLayer(); p.then(done, done); return p; }
+710172	        try { L.register({ id: 'see-through', module: ID, load: run }); st.registered = 'layers'; }
+710173	        catch (e) { st.errors.push('layers.register: ' + e.message); st.registered = 'own'; run().catch(function () {}); }
+710174	        // a registry that refuses the row (REFUSED is terminal there) never calls load: nothing is drawn, the link still reads
+710175	        setTimeout(function () { if (!called) { st.errors.push('the layer registry did not call load'); setState('WAIT', 'the WAFER registry holds this layer'); done(); } }, 6000);
+710176	    st.registered = 'own';
+710177	    return loadLayer().catch(function () {});
+710178	  function toScreen(x, y) {
+710179	    var c = KY.cam; return [(x - c.x) * c.zoom + H.ov.width / 2, H.ov.height / 2 - (y - c.y) * c.zoom];
+710180	  function drawStars(o2) {
+710181	    o2 = o2 || H.o2;
+710182	    var on = layerOn(), line = '\nSEE THROUGH · ' + (on ? row() : 'stars layer off');
+710183	    if (on && st.status === 'OK' && st.xy) {
+710184	      var c = KY.cam, w = H.ov.width, h = H.ov.height, n = 0, z = c.zoom, cx = c.x, cy = c.y, xy = st.xy;
+710185	      o2.fillStyle = CYAN + '.85)'; o2.beginPath();
+710186	      for (var i = 0; i < NSUB; i++) {
+710187	        var x = (xy[2 * i] - cx) * z + w / 2, y = h / 2 - (xy[2 * i + 1] - cy) * z;
+710188	        if (x < -4 || y < -4 || x > w + 4 || y > h + 4) continue;
+710189	        o2.moveTo(x + 1.6, y); o2.arc(x, y, 1.6, 0, 6.2832); n++;
+710190	      o2.fill(); st.inView = n;
+710191	      line += ' · ' + H.fmt(n) + ' in view';
+710192	    if (st.ring) {                                         // the key a link arrived with (5.8), amber, attention
+710193	      var p = toScreen(st.ring[0], st.ring[1]);
+710194	      o2.strokeStyle = AMBER; o2.lineWidth = 1.5; o2.beginPath(); o2.arc(p[0], p[1], 12, 0, 6.2832); o2.stroke();
+710195	    try { H.hud.textContent += line; } catch (e) {}
+710196	  // a tap within 9 px of a star: the card for the line of code at that key, with the row down into See Through
+710198	    if (!layerOn() || st.status !== 'OK' || !st.xy) return -1;
+710199	    var best = -1, bd = HIT2;
+710200	    for (var i = 0; i < NSUB; i++) { var p = toScreen(st.xy[2 * i], st.xy[2 * i + 1]), d = (p[0] - px) * (p[0] - px) + (p[1] - py) * (p[1] - py); if (d < bd) { bd = d; best = i; } }
+710202	  function mountTap() {
+710204	    H.cv.addEventListener('pointerdown', function (e) { down = { x: e.clientX, y: e.clientY, id: e.pointerId, n: (down && down.live) ? 2 : 1, live: true }; });
+710205	      if (!down || down.id !== e.pointerId) return; var d0 = down; down = null;
+710206	      if (Math.abs(e.clientX - d0.x) + Math.abs(e.clientY - d0.y) >= 4 || d0.n > 1) return;
+710207	      var j = starAt(e.clientX, e.clientY); if (j < 0) return;
+710208	      setTimeout(function () {                             // after the engine's and the edition's own tap handlers
+710209	        var card = H.card, spark = card.style.display === 'block' && card.querySelector('.cq, a[target="_blank"]');
+710210	        st.starTap = { j: j, key: st.keys[j], spark: !!spark };
+710211	        if (!spark) {                                      // a spark wins its own card; a star gets the card of its key
+710212	          var k = st.keys[j], a = H.address(k);
+710213	          // the card law (team-1/STEPS.md K0, K1): row 1 is the line at the key; the edition holds no text for a star's key,
+710214	          // so an issued key opens with the card law's own refusal "no text at key", then the key (describe); a silent key
+710215	          // has no line at all and opens with describe's own "was never issued"
+710216	          // wrapped in line-card's .lc-in so the sheet keeps its padding when line-card is admitted (#card.lc has padding 0)
+710217	          card.style.display = 'block'; card.innerHTML = '<div class="lc-in"><button class="cx" aria-label="close">×</button>'
+710218	            + (a && !a.silent ? '<header class="lc-h"><code></code><span class="lc-none" style="color:var(--am)">no text at key</span></header>' : '')
+710219	            + H.describe(a) + '</div>';
+710220	          card.setAttribute('aria-label', a && !a.silent ? 'no text at key' : 'key ' + H.fmt(k) + ' was never issued');
+710221	          try { KY.sel.target = { x: st.xy[2 * j], y: st.xy[2 * j + 1] }; } catch (err) {}
+710222	        addRows(); KY.redraw();
+710223	      }, 0);
+710224	  // ------------------------------------------------------------------ SECTION 2b: the card rows (5.7 a, b, d)
+710225	  function cardKey() {
+710226	    var card = H.card, el = card.querySelector('[data-key]');
+710227	    if (el && /^\d{1,15}$/.test(el.getAttribute('data-key'))) return +el.getAttribute('data-key');
+710228	    // the line-card's key row (modules/202611012143-line-card.js:95-98, '… · key 36,064,705,400'), else describe()'s
+710229	    // 'key <b>36,064,705,400</b>' (index.html:288); never a number found inside the line of code itself
+710230	    var lk = card.querySelector('.lc-k'), m = lk ? /\bkey ([\d,]{1,20})\s*$/.exec(lk.textContent) : null;
+710231	    if (!m) m = /\bkey <b>([\d,]{1,20})<\/b>/.exec(card.innerHTML);
+710232	    return m ? +m[1].replace(/,/g, '') : -1;
+710233	  function starIndexOfKey(k) {
+710234	    if (!st.keys) return -1; var j = Math.floor(k * NRULE / st.space);
+710235	    for (var d = -1; d <= 1; d++) if (j + d >= 0 && j + d < NSUB && st.keys[j + d] === k) return j + d;
+710237	  function addRows() {
+710238	    var card = H.card; if (!card || card.style.display === 'none' || card.querySelector('.ky-st')) return;
+710239	    var k = cardKey(); if (!(k >= 0)) return;
+710240	    var html = '', j = starIndexOfKey(k);
+710241	    if (j >= 0) {
+710242	      var nm = st.names[j] || ('SUBSTATION ' + j + ' (NO NAME IN THE PUBLIC FILE)');
+710243	      html += '<a class="ky-st" data-ky-st="star" href="' + H.esc(link({ key: k, space: st.space })) + '">see this star fall to ' + H.esc(nm.toUpperCase()) + '</a>';
+710244	      html += '<a class="ky-st" data-ky-st="key" href="' + H.esc(link({ key: k })) + '">see this line among the stars</a>';
+710245	    var a = H.address(k);
+710246	    if (a && !a.silent && H.repos[a.c.repo]) {
+710247	      var name = H.repos[a.c.repo].name;
+710248	      html += '<a class="ky-st" data-ky-st="repo" href="' + H.esc(link({ repo: name })) + '">its stars in See Through: ' + H.esc(name) + '</a>';
+710249	    (card.querySelector('.lc-in') || card).insertAdjacentHTML('beforeend', html); st.rowsAdded++;
+710250	  function mountCardRows() {
+710251	    if (!window.MutationObserver) return;
+710252	    var busy = false;
+710253	    new MutationObserver(function () { if (busy) return; busy = true; try { addRows(); } finally { busy = false; } })
+710254	      .observe(H.card, { childList: true, attributes: true, attributeFilter: ['style'] });
+710255	  // 5.7 (c): the find box's text that is no key, no period, no "new" and no repository is a substation name for See Through
+710256	  function mountFindFallback() {
+710257	    H.gin.addEventListener('keydown', function (e) {
+710258	      if (e.key !== 'Enter') return;
+710259	      var raw = H.gin.value.trim(), q = raw.replace(/[ ,_]/g, ''), low = raw.toLowerCase();
+710260	      if (!raw || /^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/.test(raw) || /^(?:show\s+)?new(?:\s+code)?(?:\s+(\d+)\s*h?)?$/.test(low) || /^\d+$/.test(q)) return;
+710261	      if (H.repos.some(function (r) { return r.name.toLowerCase().indexOf(low) >= 0; })) return;   // the engine's own repository match
+710263	        var card = H.card; card.style.display = 'block';
+710264	        card.innerHTML = '<button class="cx" aria-label="close">×</button>no key, period or repository called <b>' + H.esc(raw.slice(0, 80)) + '</b> on this wafer'
+710265	          + '<a class="ky-st" data-ky-st="sub" href="' + H.esc(link({ sub: raw })) + '">find ' + H.esc(raw.slice(0, 80)) + ' in See Through</a>';
+710266	  // ------------------------------------------------------------------ SECTION 4: the way back by key (5.8, read side)
+710267	  // See Through's patched folder links home as ../../editions/#key=<k> (handoff/05-see-through/see-through-hash-reader.patch).
+710268	  // Step 6's KY.link (module "file") owns the grammar; this reader runs only when that module was not admitted.
+710270	    var h = (location.hash || '').replace(/^#/, ''), f = {};
+710271	    h.split('&').forEach(function (kv) { var i = kv.indexOf('='); if (i > 0) { try { f[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); } catch (e) {} } });
+710272	    return f;
+710273	  function wayBack() {
+710274	    if (KY.modules && (KY.modules.file || KY.modules.link)) { st.linkRead = 'file'; return; }
+710275	    var f = readHash(); if (!f.key || !/^\d{1,15}$/.test(f.key)) { st.linkRead = 'none'; return; }
+710276	    var k = +f.key, note = '';
+710277	    if (f.space && /^\d{1,15}$/.test(f.space) && +f.space !== st.wafer) {
+710278	      var r = remap(k, +f.space);
+710279	      if (r) { note = 'STAR KEY REMAPPED · SKY ' + H.fmt(+f.space) + ' → ' + H.fmt(st.wafer); k = r.key; }
+710280	    if (!(k < st.wafer)) { st.linkRead = 'beyond'; st.note = 'KEY ' + H.fmt(k) + ' IS BEYOND THIS WAFER (SPACE ' + H.fmt(st.wafer) + ')'; H.hud.textContent += '\n' + st.note; return; }
+710281	    var p = H.keyPlace(k); st.ring = p; st.linkRead = 'key'; st.linkKey = k; st.note = note;
+710282	    H.goKey(k);
+710283	    if (note) H.card.insertAdjacentHTML('afterbegin', '<div class="ky-st-note">' + H.esc(note) + '</div>');
+710284	  // ------------------------------------------------------------------ install
+710285	    var a = st.a, r = a ? a.getBoundingClientRect() : null;
+710286	    return { id: ID, generation: GEN, form: st.form, parent: a && a.parentNode ? (a.parentNode.id || a.parentNode.className) : null,
+710287	      entry: r ? { x: r.x, y: r.y, w: r.width, h: r.height } : null, href: a ? a.getAttribute('href') : null,
+710288	      layer: { status: st.status, why: st.why, row: H ? row() : '', placed: st.placed, total: st.total, space: st.space, wafer: st.wafer, inView: st.inView || 0, on: layerOn() },
+710289	      mounted: st.mounted || null, registered: st.registered || null, bytes: st.bytes || 0, sha256: st.sha256 || '', linkRead: st.linkRead, linkKey: st.linkKey, note: st.note || '', rowsAdded: st.rowsAdded, starTap: st.starTap, errors: st.errors.slice() };
+710290	  function install(ky) {
+710291	    KY = ky; H = ky.hooks;
+710292	    mountEntry(); mountAbout();
+710293	    ky.draw.add(drawStars, 50);
+710294	    mountCardRows(); mountFindFallback(); mountTap();
+710295	    H.wafer.then(function (w) {
+710296	      st.wafer = (w && w.SPACE) || H.SPACE;
+710297	      return startLayer();
+710298	    }).then(function () { wayBack(); }, function (e) { setState('FAIL', 'the wafer refused: ' + (e && e.message || e)); });
+710299	    return { link: link, starKey: starKey, remap: remap, inspect: inspect, readHash: readHash };
+710300	    window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN,
+710301	      requires: ['wafer', 'keyPlace', 'address', 'describe', 'goKey', 'fmt', 'esc', 'cv', 'ov', 'o2', 'hud', 'card', 'gin',
+710302	                 'repos', 'SPACE', 'cam', 'sel', 'redraw', 'draw'],
+710303	      provides: ['see-through'], install: install, inspect: inspect });
+710304	/* kuiper module kuiper-shell, generation 202611012143 (UTC), Apache-2.0 (kuiper-belt).
+710305	 * NOTICE: the bar's CSS values and the menu structure are copied from GridAtlas, Copyright 2026 Ventus Ltd,
+710306	 * Apache-2.0 (gridatlas@5ec7f62 LICENSE:1-4, NOTICE:1-12), atlas/modules/202609031958-menu-bar.js, keys beside
+710307	 * each value below. "Ventus" and "Cables & Connectivity(R)" are the mark of Ventus Ltd, used by its owner's
+710308	 * instruction of 1 Nov 2026; the Apache-2.0 licence of this code does not license the mark (LICENSE:139, s.6).
+710310	 * requires (C8): DOM #c #o #top #hud #foot #keys (five [data-k]: n r / e Backspace) #card #bar #goto #gotoin, each
+710311	 *   present once (rev 2: #lines #lyAll #lyFocus #lyFind #lineslist are optional; Opus 3's layers module owns them); through window.KY when the loader exists (ROADMAP step 4,
+710312	 *   team-2/STEPS.md 4.2): safeBox card hud big sub cv gbox gin redraw. Engine functions edCard edFly edNext setPanel
+710313	 *   are module-scoped in index.html (type="module"), so the shell reaches them only through their own DOM controls
+710314	 *   (the #keys buttons and #lines rows, moved as the same nodes with their listeners) and the engine's keydown table.
+710315	 * THE SHELL CONTRACT (FIXES/NL-010/team-1/STEPS.md C1-C10, ROADMAP.md step 1; measured on gridatlas@5ec7f62 on
+710316	 * 1 Nov 2026 by FABLE-T1A/T1B; folded in: NL-009 round 1 01-bar, 06-seethrough (the bar entry), 08-type):
+710317	 *  C1 one bar nav#kuiper-menu-bar, fixed at the window's top, 36 px (34 px at max-width:700px), GridAtlas's chrome.
+710318	 *  C2 three zones: two flex:1 1 0 sides and a brand slot between them, so the brand is centred whatever the titles weigh.
+710319	 *  C3 the VENTUS wordmark as GridAtlas renders it (text, not an image; not a link), flanked above 700 px by SYSTEM
+710320	 *     TIME and 2050 TARGET as the v8 masthead is.
+710321	 *  C4 button.gm-title in GridAtlas's face; a 44 px hit box on a coarse pointer by an invisible ::after.
+710322	 *  C5 FILE EDIT VIEW . VENTUS . SCOPE WAFER ABOUT (GridAtlas's GRID becomes WAFER, R2).
+710323	 *  C6 every command a 44 px row inside a panel; at rest nothing over the wafer but the bar.
+710324	 *  C7 panels at top:100%, one open at a time, closed by the same title, Escape, a wafer tap and the back gesture.
+710325	 *  C8 admission: install nothing until every hook exists once; otherwise a loud strip and Edition 4's bar stays.
+710326	 *  C9 one row at 360, 393, 412, 430 px and in landscape.
+710327	 *  C10 this block.
+710328	 * The star slot (R7, Q7): reserved for See Through (owner: Opus team 5, schema kuiper.see-through.v1). The shell owns
+710329	 * the rule (title in the bar when it fits beside a centred brand, else the bottom-left 44 px strip); step 5 owns the
+710330	 * words and the target. Until step 5 mounts its node, the slot carries NL-009 06's entry: a.gm-title "See Through"
+710331	 * -> ../../see-through/ in the same tab.
+710333	  var ID = 'kuiper-shell', GEN = '202611012143', SCHEMA = 'kuiper.menu-bar.v1';
+710334	  var BAR_ID = 'kuiper-menu-bar', STYLE_ID = 'kuiper-menu-bar-css', FAIL_ID = 'kuiper-menu-bar-failure';
+710335	  var STRIP_ID = 'kuiper-star-strip';
+710336	  // the six names (C5; gridatlas@5ec7f62 menu-bar.js:31 ['File','Edit','View','Scope','Grid','About'])
+710337	  var MENUS = [['file', 'File'], ['edit', 'Edit'], ['view', 'View'], ['scope', 'Scope'], ['wafer', 'Wafer'], ['about', 'About']];
+710338	  // GridAtlas's retry clock: every 250 ms, at most 160 times (menu-bar.js:35, :1770-1797)
+710339	  var RETRY_MS = 250, RETRY_MAX = 160;
+710340	  // the star entry is a title only when it fits in the left side beside a centred brand (MEASURED: see PLAN.md / EVIDENCE.md)
+710341	  var STAR_TITLE_MQ = '(min-width: 434px)';
+710343	    schema: SCHEMA, id: ID, generation: GEN, installed: false, failure: null, controls_moved: 0,
+710344	    panel_counts: {}, closed_at_rest: true, open: null, attempts: 0, mode: null, keys: 'waiting',
+710345	    star: { owner: 'see-through (Opus 5, kuiper.see-through.v1)', form: null, mounted_by: null },
+710346	    groups: {}
+710347	  var bar = null, menus = {}, starNode = null, starHome = null, strip = null, historyDepth = 0, mqStar = null;
+710348	  function publish() {
+710349	    try { var m = window.__KUIPER_MODULES__ = window.__KUIPER_MODULES__ || {}; if (!Object.isFrozen(m)) m.menuBar = state; } catch (e) { /* frozen table: the KY api carries it */ }
+710350	  function $(sel) { return document.querySelectorAll(sel); }
+710351	  // ---------------------------------------------------------------- C8 the admission rule (LEAD)
+710352	  // rev 2 (Opus 3 REQUEST, handoff/03-layers/REQUESTS.md item 2): Edition 4's LINES nodes are not required; the layers
+710353	  // module deletes or moves them. They are used when present and never judged.
+710354	  var REQUIRED = ['#c', '#o', '#top', '#hud', '#foot', '#keys', '#card', '#bar', '#goto', '#gotoin'];
+710355	  var KEYS = ['n', 'r', '/', 'e', 'Backspace'];
+710356	  function missing() {
+710358	    REQUIRED.forEach(function (s) { var n = $(s).length; if (n !== 1) out.push(s + (n ? ' (x' + n + ')' : '')); });
+710359	    KEYS.forEach(function (k) { if ($('#keys [data-k="' + k + '"]').length !== 1) out.push('#keys [data-k="' + k + '"]'); });
+710360	    var KY = window.KY;
+710361	    if (KY && KY.hooks) ['safeBox', 'card', 'hud', 'big', 'sub', 'cv', 'gbox', 'gin'].forEach(function (h) { if (!(h in KY.hooks)) out.push('KY.hooks.' + h); });
+710362	  function loudFailure(words) {
+710363	    state.failure = words; state.installed = false; publish();
+710364	    var s = document.getElementById(FAIL_ID);
+710365	    if (!s) { s = document.createElement('div'); s.id = FAIL_ID; s.setAttribute('role', 'alert'); document.body.appendChild(s); }
+710366	    s.style.cssText = 'position:fixed;left:8px;right:8px;bottom:8px;z-index:10030;padding:8px 10px;background:rgba(40,6,10,.96);'
+710367	      + 'border:1px solid #ff5a6a;color:#ffd7dc;font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace';
+710368	    s.textContent = 'kuiper shell not installed: ' + words + '. Edition 4\'s bar is unchanged and still works.';
+710369	  // ---------------------------------------------------------------- C1-C4, C7, C9 the style (LEAD)
+710370	  // Every value is GridAtlas's, key beside it (gridatlas@5ec7f62 atlas/modules/202609031958-menu-bar.js = MB).
+710371	  // Departures, each named: position fixed at the window's top (the Kuiper has no .map-container, C1); the top safe
+710372	  // inset (NL-009 01 F5); hover only under (hover:hover) (NL-009 01 F4); the coarse-pointer ::after (C4, NL-009 01 F2).
+710373	  function installStyle() {
+710374	    if (document.getElementById(STYLE_ID)) return;
+710375	    var B = '#' + BAR_ID, st = document.createElement('style');
+710376	    st.id = STYLE_ID;
+710377	    st.textContent = [
+710378	      // C1 the strip: MB:166-172
+710379	      B + '{position:fixed;top:0;left:0;right:0;height:calc(36px + env(safe-area-inset-top,0px));z-index:10020;',
+710380	      'display:flex;align-items:stretch;gap:0;padding-top:env(safe-area-inset-top,0px);',
+710381	      'padding-left:env(safe-area-inset-left,0px);padding-right:env(safe-area-inset-right,0px);box-sizing:border-box;',
+710384	      '-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);isolation:isolate;pointer-events:auto;',
+710385	      '-webkit-text-size-adjust:100%;text-size-adjust:100%}',
+710386	      B + ' .gm-menu{position:relative;min-width:0;display:flex}',
+710387	      // C4 titles: MB:174-176; hover/open MB:177-178 (hover gated, NL-009 01 F4); focus MB:179-180
+710388	      B + ' .gm-title{appearance:none;border:0;background:transparent;color:#cfeef6;display:flex;align-items:center;',
+710390	      'text-transform:uppercase;white-space:nowrap;text-decoration:none;box-sizing:border-box;position:relative;',
+710391	      'touch-action:manipulation;-webkit-tap-highlight-color:transparent}',
+710392	      '@media (hover:hover){' + B + ' .gm-title:hover{background:rgba(80,220,240,.16);color:#fff}}',
+710393	      B + ' .gm-title:focus-visible,' + B + ' .gm-menu.gm-open>.gm-title{background:rgba(80,220,240,.16);color:#fff}',
+710394	      B + ' .gm-title:focus-visible,' + B + ' .gm-panel :focus-visible{outline:2px solid #6bebff;outline-offset:-2px}',
+710395	      // C2 zones: MB:181-183
+710396	      B + ' .gm-side{display:flex;align-items:stretch;flex:1 1 0;min-width:0}',
+710397	      B + ' .gm-side-left{justify-content:flex-start}',
+710398	      B + ' .gm-side-right{justify-content:flex-end}',
+710399	      // C3 the brand: MB:192-205 over ventusv8.css:4,6-8 (base classes copied so the Kuiper page has them)
+710400	      B + ' .gm-brand-slot{flex:0 1 auto;min-width:0;max-width:64%;display:flex;align-items:center;',
+710401	      'justify-content:center;overflow:hidden;padding:0 6px;text-align:center}',
+710402	      B + ' .hud-header{display:flex;position:static;width:auto;align-items:center;justify-content:center;',
+710403	      'gap:11px;margin:0;padding:0;background:none;border:0;color:#fff}',
+710404	      B + ' .hud-header>div{flex:0 0 auto;line-height:1.05}',
+710405	      B + ' .hud-header small{font-size:6.5px;white-space:nowrap;color:#888}',
+710406	      B + ' .hud-header .hud-val{font-size:10.5px;font-weight:bold;color:#00ffff;text-shadow:none}',
+710407	      B + ' .hud-header .kmb-date{font-size:11px;color:#888}',
+710408	      B + ' .ventus-brand{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}',
+710409	      B + ' .ventus-main{font-family:-apple-system,sans-serif;font-size:14px;font-weight:800;color:#fff;',
+710410	      'letter-spacing:.2em;text-transform:uppercase;margin:0}',
+710411	      B + ' .ventus-sub{font-family:-apple-system,sans-serif;font-size:5.5px;color:#888;letter-spacing:.14em;text-transform:uppercase}',
+710412	      // C7 panels: MB:206-211, right group MB:219, rows MB:220-227, headings MB:245-247
+710413	      // top: one px below MB's 100% so the panel starts under the bar's 1 px rule, not on it (measured: 35 vs bar bottom 36)
+710414	      B + ' .gm-panel{position:absolute;top:calc(100% + 1px);left:0;min-width:240px;max-width:min(92vw,420px);',
+710415	      'max-height:min(72dvh,620px);overflow:auto;overscroll-behavior:contain;padding:6px;background:rgba(4,10,13,.98);',
+710416	      'border:1px solid rgba(80,220,240,.32);border-top:0;box-shadow:0 12px 34px rgba(0,0,0,.68);box-sizing:border-box;',
+710417	      'text-align:left;color:#cfeef6;font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;z-index:2}',
+710418	      B + ' .gm-panel[hidden]{display:none!important}',
+710419	      B + ' .gm-side-right .gm-panel{left:auto;right:0}',
+710420	      B + ' .gm-panel button,' + B + ' .gm-panel [role="button"],' + B + ' .gm-panel a.gm-row{',
+710425	      'letter-spacing:.03em;text-transform:none;cursor:pointer;text-decoration:none}',
+710426	      '@media (hover:hover){' + B + ' .gm-panel button:hover,' + B + ' .gm-panel [role="button"]:hover,' + B + ' .gm-panel a.gm-row:hover{',
+710427	      'background:rgba(80,220,240,.14);color:#fff}}',
+710428	      B + ' .gm-panel .gm-hint{margin-left:auto;padding-left:10px;color:#6fa2ae}',
+710429	      B + ' .gm-layer-group{margin:5px 0 2px;padding:6px 8px 3px;border-top:1px solid #19343b;color:#6fa2ae;',
+710430	      'font-size:10px;letter-spacing:.08em;text-transform:uppercase}',
+710431	      B + ' .gm-group:empty{display:none}',
+710432	      // prose moved into panels: NL-009 08-type scale (desktop 12/11 px, phone 13/12 px, line-height 1.55/1.45)
+710433	      B + ' .gm-prose{font-size:12px;line-height:1.55;padding:6px 8px;color:#d5dcea;white-space:normal}',
+710434	      B + ' .gm-prose.gm-small{font-size:11px;color:#8fb3bd}',
+710435	      // Edition 4's layers become panel blocks (they keep their ids and listeners; index.html:64-70 is overridden here)
+710436	      B + ' .gm-panel #top,' + B + ' .gm-panel #hud,' + B + ' .gm-panel #lines,' + B + ' .gm-panel #foot{display:block!important;',
+710437	      'position:static!important;inset:auto!important;max-width:none!important;max-height:none!important;width:auto!important;',
+710438	      'border:0!important;border-radius:0!important;background:transparent!important;padding:6px 8px!important;',
+710439	      'margin:0!important;box-shadow:none!important;pointer-events:auto!important;text-align:left!important}',
+710440	      B + ' .gm-panel #hud{white-space:pre-line;color:#8fb3bd;font-size:11px;line-height:1.55}',
+710441	      B + ' .gm-panel #top #sub{max-height:none!important;overflow:visible!important;margin-top:4px}',
+710442	      B + ' .gm-panel #foot .long{display:inline!important}',
+710443	      B + ' .gm-panel #linesctl{display:flex;flex-direction:column;align-items:stretch;gap:3px}',
+710444	      B + ' .gm-panel #linesctl label{display:flex;align-items:center;gap:10px;min-height:44px;padding:7px 10px;cursor:pointer}',
+710445	      B + ' .gm-panel #linesctl input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:#2ee6e6}',
+710446	      B + ' .gm-panel #lyFind{min-height:44px;box-sizing:border-box;width:100%;font:12px ui-monospace,monospace}',
+710447	      B + ' .gm-panel #lineslist .ln{min-height:44px;box-sizing:border-box}',
+710448	      // the star strip, bottom-left, 44 px (GridAtlas's phone chips: chipStaysOnMap MB:1521-1552; live twin in the cartridge from :5870)
+710449	      '#' + STRIP_ID + '{position:fixed;left:calc(8px + env(safe-area-inset-left,0px));bottom:calc(8px + env(safe-area-inset-bottom,0px));',
+710450	      'z-index:10019;display:flex;height:44px;box-sizing:border-box;background:rgba(4,10,13,.95);border:1px solid rgba(80,220,240,.3);',
+710451	      'font:11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}',
+710452	      '#' + STRIP_ID + ':empty{display:none}',
+710453	      '#' + STRIP_ID + ' .gm-title{appearance:none;border:0;background:transparent;color:#cfeef6;display:flex;align-items:center;',
+710454	      'min-height:42px;padding:0 12px;font:inherit;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;text-decoration:none}',
+710455	      // Edition 4's bar, superseded: kept in the DOM at the shell's height so the engine's safeBox wrap (index.html:726),
+710456	      // which measures it, still starts the safe rectangle under the bar; invisible and untouchable.
+710457	      '#bar.kmb-superseded{visibility:hidden!important;pointer-events:none!important;height:var(--kmb-h,36px)!important;',
+710458	      'padding:0!important;border:0!important;overflow:hidden!important;flex-wrap:nowrap!important}',
+710459	      // #goto (the find box) opens right-aligned directly under the bar, 44 px, as GridAtlas's search (C6, cartridge 202609062358-substation-intelligence-v9-63.js:6011-6016)
+710460	      'body.kmb-installed #goto{left:auto!important;right:calc(10px + env(safe-area-inset-right,0px))!important;transform:none!important;',
+710461	      'top:calc(var(--kmb-h,36px) + 6px)!important;width:min(82vw,390px);min-width:0!important;min-height:44px;box-sizing:border-box;',
+710462	      'background:rgba(4,10,13,.98)!important;border:1px solid rgba(80,220,240,.32)!important;z-index:10018!important}',
+710463	      // C4 the 44 px hit box on a coarse pointer, removed while a panel is open (A6)
+710464	      '@media (pointer:coarse){' + B + ' .gm-title::after{content:"";position:absolute;left:0;right:0;top:0;height:44px}',
+710465	      B + '[data-open] .gm-title::after{display:none}}',
+710466	      // phone rule MB:372-382 (max-width:700px)
+710467	      '@media (max-width:700px){' + B + '{height:calc(34px + env(safe-area-inset-top,0px))}',
+710468	      B + ' .gm-title{min-height:34px;padding:0 6px;font-size:9px;letter-spacing:.025em}',
+710469	      B + ' .gm-brand-slot{max-width:48%;padding:0 2px}',
+710470	      B + ' .hud-header>div:first-child,' + B + ' .hud-header>div:last-child{display:none}',
+710471	      B + ' .ventus-main{font-size:11px;letter-spacing:.14em}',
+710472	      B + ' .ventus-sub{font-size:4.5px}',
+710473	      B + ' .gm-panel{position:fixed;top:calc(34px + env(safe-area-inset-top,0px));left:4px!important;right:4px!important;',
+710474	      'width:auto;max-width:none;max-height:calc(100dvh - 40px);padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}',
+710475	      B + ' .gm-prose{font-size:13px;line-height:1.45}' + B + ' .gm-prose.gm-small,' + B + ' .gm-panel #hud{font-size:12px;line-height:1.45}}',
+710476	      // last resort for a large system font: the bar scrolls sideways rather than wrapping (C9)
+710477	      B + '[data-overflow]:not([data-open]){overflow-x:auto;overflow-y:hidden;scrollbar-width:none}'
+710479	    (document.head || document.documentElement).appendChild(st);
+710480	  // ---------------------------------------------------------------- C1-C5 the bar, the brand, the titles (LEAD)
+710481	  function el(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
+710482	  function buildBar() {
+710483	    bar = el('nav'); bar.id = BAR_ID; bar.setAttribute('aria-label', 'Kuiper menu');
+710484	    var left = el('div', 'gm-side gm-side-left'), slot = el('div', 'gm-brand-slot'), right = el('div', 'gm-side gm-side-right');
+710485	    // the star slot: first in the left group (R7); its owner's schema name on it; empty until a node is mounted
+710486	    starHome = el('div', 'gm-group gm-star-slot'); starHome.setAttribute('data-owner', state.star.owner); left.appendChild(starHome);
+710487	    // C3: GridAtlas's masthead (shell atlas/releases/202608300453-atlas-v9/index.html:23-34), the same classes
+710488	    var hh = el('div', 'hud-header');
+710489	    var lf = el('div'); lf.innerHTML = '<small>SYSTEM TIME</small><br><span class="hud-val kmb-clock">--:--:--</span><br><span class="kmb-date">--/--/----</span>';
+710490	    var vb = el('div', 'ventus-brand'); vb.appendChild(el('div', 'ventus-main', 'Ventus')); vb.appendChild(el('div', 'ventus-sub', 'Cables & Connectivity®'));
+710491	    var rt = el('div'); rt.style.textAlign = 'right'; rt.innerHTML = '<small>2050 TARGET</small><br><span class="hud-val kmb-days" style="color:#ff9d00">-- DAYS</span>';
+710492	    hh.appendChild(lf); hh.appendChild(vb); hh.appendChild(rt); slot.appendChild(hh);
+710493	    MENUS.forEach(function (m, i) {
+710494	      var name = m[0], menu = el('div', 'gm-menu'), t = el('button', 'gm-title', m[1]), p = el('div', 'gm-panel');
+710495	      menu.setAttribute('data-menu', name);
+710496	      t.type = 'button'; t.id = 'kmb-title-' + name; t.setAttribute('aria-haspopup', 'menu'); t.setAttribute('aria-expanded', 'false');
+710497	      t.setAttribute('aria-controls', 'kmb-panel-' + name);
+710498	      p.id = 'kmb-panel-' + name; p.setAttribute('role', 'group'); p.setAttribute('aria-labelledby', t.id); p.hidden = true;
+710499	      menu.appendChild(t); menu.appendChild(p);
+710500	      (i < 3 ? left : right).appendChild(menu);                 // MB:544 index < 3 ? left : right
+710501	      menus[name] = { menu: menu, title: t, panel: p };
+710502	    bar.appendChild(left); bar.appendChild(slot); bar.appendChild(right);
+710503	    strip = el('div'); strip.id = STRIP_ID; strip.setAttribute('data-owner', state.star.owner);
+710504	    // the clock and the days to 2050-01-01 UTC: the engine's own arithmetic (ventus-corev8engine.js:602-608)
+710505	    function tick() {
+710506	      var now = new Date(), target = new Date(Date.UTC(2050, 0, 1, 0, 0, 0));
+710507	      bar.querySelector('.kmb-clock').textContent = now.toLocaleTimeString('en-GB');
+710508	      bar.querySelector('.kmb-date').textContent = now.toLocaleDateString('en-GB');
+710509	      bar.querySelector('.kmb-days').textContent = Math.floor((target - now) / 86400000) + ' DAYS';
+710510	    tick(); setInterval(tick, 1000);
+710511	  // ---------------------------------------------------------------- C7 open / close / back gesture (LEAD)
+710512	  function setOpenState(name) {
+710513	    Object.keys(menus).forEach(function (k) {
+710514	      var on = k === name, m = menus[k];
+710515	      m.menu.classList.toggle('gm-open', on); m.title.setAttribute('aria-expanded', on ? 'true' : 'false'); m.panel.hidden = !on;
+710516	    state.open = name || null; state.closed_at_rest = !name;
+710517	    if (name) bar.setAttribute('data-open', name); else bar.removeAttribute('data-open');
+710518	    measure(); publish();
+710519	    var KY = window.KY; if (KY && typeof KY.redraw === 'function') KY.redraw();
+710520	  function openMenu(name) {
+710521	    if (!menus[name]) return;
+710522	    if (state.open === name) { closeAll(false); return; }
+710523	    var had = !!state.open;
+710524	    setOpenState(name);
+710525	    // the Android back gesture closes the panel: one history entry per open panel (C7); same URL, hash kept
+710526	    if (!had && !(history.state && history.state.kmb)) { try { history.pushState({ kmb: name }, ''); historyDepth = 1; } catch (e) { historyDepth = 0; } }
+710527	    else if (!had) { try { history.replaceState({ kmb: name }, ''); historyDepth = 1; } catch (e) {} }   // re-use our own entry, never stack two
+710528	    else { try { history.replaceState({ kmb: name }, ''); } catch (e) {} }
+710529	    var hook = onOpen[name]; if (hook) try { hook(menus[name].panel); } catch (e) {}
+710530	  // rev 2, the one owner of history (BLOCKER via the harness, 1 Nov 2026): the page's ANDROID BACK listener
+710531	  // (index.html, NL-009 04-touch, Opus 4) reads every popstate as a back gesture and hides the card. The shell's own
+710532	  // history.back() on a programmatic close is therefore flagged and swallowed in the capture phase before the page
+710533	  // sees it (04-touch's edPopping idea, made reachable from a separate file); the page keeps owning the card's entry.
+710534	  // Only our own {kmb} entry is ever popped; if the page pushed its entry above ours meanwhile, ours is handed to it.
+710535	  function closeAll(fromPop) {
+710536	    if (!state.open) return;
+710537	    setOpenState(null);
+710538	    if (!fromPop && historyDepth && history.state && history.state.kmb) {
+710539	      selfPopUntil = Date.now() + 1500; try { history.back(); } catch (e) { selfPopUntil = 0; }
+710540	    } else if (!fromPop && historyDepth) {
+710541	      // the page's {kuiper} entry is above ours: leave the history to the page, and give it ours to clean up
+710542	      handOver = true;
+710543	    historyDepth = 0;
+710544	  var onOpen = {}, selfPopUntil = 0, handOver = false;
+710545	  function onPop(e) {
+710546	    if (selfPopUntil && Date.now() < selfPopUntil) {
+710547	      selfPopUntil = 0; e.stopImmediatePropagation();
+710548	      // the page pushed its entry before our back() ran (Chrome queues the traversal): we landed on our own entry;
+710549	      // re-label it as the page's, so the page's own clean-up (edPopping, re-arm) removes it with the card
+710550	      if (history.state && history.state.kmb) { try { history.replaceState({ kuiper: 1 }, ''); } catch (x) {} }
+710551	      try { dispatchEvent(new CustomEvent('kuiper-shell:closed', { detail: { self: true } })); } catch (x) {}
+710553	    selfPopUntil = 0;
+710554	    if (handOver && history.state && history.state.kmb) { handOver = false; try { history.replaceState({ kuiper: 1 }, ''); } catch (x) {} }
+710555	    // a back gesture that popped our entry closes the panel and nothing under it (an open card stays)
+710556	    if (state.open && historyDepth) { historyDepth = 0; closeAll(true); e.stopImmediatePropagation(); }
+710557	  function wire() {
+710558	    bar.addEventListener('click', function (e) {
+710559	      var t = e.target.closest('.gm-title'); if (!t || !bar.contains(t)) return;
+710560	      var menu = t.parentNode && t.parentNode.getAttribute && t.parentNode.getAttribute('data-menu');
+710561	      if (!menu) return;                                             // the star entry is a link: let it navigate
+710562	      e.stopPropagation(); e.preventDefault(); openMenu(menu);
+710563	    // keyboard as GridAtlas: ArrowLeft/Right, Home/End between titles, ArrowDown opens (MB:554-583)
+710564	    bar.addEventListener('keydown', function (e) {
+710565	      var ts = [].slice.call(bar.querySelectorAll('.gm-menu>.gm-title')), i = ts.indexOf(document.activeElement);
+710566	      if (i < 0) return; var j = -1;
+710567	      if (e.key === 'ArrowRight') j = (i + 1) % ts.length; else if (e.key === 'ArrowLeft') j = (i - 1 + ts.length) % ts.length;
+710568	      else if (e.key === 'Home') j = 0; else if (e.key === 'End') j = ts.length - 1;
+710569	      else if (e.key === 'ArrowDown') { e.preventDefault(); var n = ts[i].parentNode.getAttribute('data-menu'); if (state.open !== n) openMenu(n); return; }
+710570	      if (j >= 0) { e.preventDefault(); ts[j].focus(); if (state.open) openMenu(ts[j].parentNode.getAttribute('data-menu')); }
+710571	      e.stopPropagation();                                          // the engine's single-key commands do not fire from the bar
+710572	    // Escape closes (capture, before the engine and the card see it)
+710573	    addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.open) { e.stopPropagation(); closeAll(false); } }, true);
+710574	    // a tap on the wafer closes
+710575	    var cv = document.getElementById('c');
+710576	    cv.addEventListener('pointerdown', function () { if (state.open) closeAll(false); });
+710577	    // the back gesture
+710578	    addEventListener('popstate', onPop, true);                     // capture: Chrome runs it before the page's listener
+710579	    addEventListener('resize', measure);
+710580	    // a system font scale changes the titles' size without a resize: the overflow rule follows the measured widths
+710581	    try { var ro = new ResizeObserver(function () { measure(); }); [].forEach.call(bar.querySelectorAll('.gm-title,.ventus-brand'), function (n) { ro.observe(n); }); } catch (e) {}
+710582	    // a tap on the bar, a panel or the strip never reaches Edition 4's window pointerup spark-picker (index.html:685-689)
+710583	    bar.addEventListener('pointerup', function (e) { e.stopPropagation(); });
+710584	    strip.addEventListener('pointerup', function (e) { e.stopPropagation(); });
+710585	    // the strip stands above the card when a card is open, so the card's own text is never under it
+710586	    var card = document.getElementById('card');
+710587	    function lift() {
+710588	      var r = card.getBoundingClientRect(), on = getComputedStyle(card).display !== 'none' && r.height > 0 && r.left < 130;
+710589	      strip.style.bottom = on ? (innerHeight - r.top + 6) + 'px' : '';
+710590	    try { new MutationObserver(lift).observe(card, { attributes: true, childList: true, subtree: true }); } catch (e) {}
+710591	    addEventListener('resize', lift);
+710592	  // the measured height drives the panels, the find box and Edition 4's safeBox bridge
+710595	    var h = bar.getBoundingClientRect().height;
+710596	    document.documentElement.style.setProperty('--kmb-h', h + 'px');
+710597	    if (bar.scrollWidth > bar.clientWidth + 1) bar.setAttribute('data-overflow', ''); else bar.removeAttribute('data-overflow');
+710598	    state.bar_height = h;
+710599	  // ---------------------------------------------------------------- star slot (LEAD)
+710600	  // The rule (R7, measured): a title in the left group when the left side can hold it beside the centred brand
+710601	  // (STAR_TITLE_MQ), otherwise the bottom-left 44 px strip. One node, moved; the shell never clones it.
+710602	  function placeStar() {
+710603	    if (!starNode) { state.star.form = null; return; }
+710604	    var asTitle = mqStar ? mqStar.matches : true;
+710605	    var home = asTitle ? starHome : strip;
+710606	    if (starNode.parentNode !== home) home.appendChild(starNode);
+710607	    state.star.form = asTitle ? 'title' : 'strip';
+710608	  function mountStar(node, by) {
+710609	    if (!node || node.nodeType !== 1) return false;
+710610	    if (starNode && starNode !== node && starNode.parentNode) starNode.parentNode.removeChild(starNode);
+710611	    starNode = node; if (!node.classList.contains('gm-title')) node.classList.add('gm-title');
+710612	    state.star.mounted_by = by || 'unknown';
+710613	    placeStar(); return true;
+710614	  function defaultStar() {
+710615	    // NL-009 round 1 06-seethrough, the bar entry: a link to the stable pointer, same tab (decision 5a), not a panel
+710616	    var a = el('a', 'gm-title', 'See Through'); a.href = '../../see-through/';
+710617	    a.title = 'See Through: from the stars to one substation in 3D'; a.setAttribute('data-star', 'see-through');
+710618	    a.setAttribute('data-default', 'nl009-06');
+710619	    mountStar(a, 'kuiper-shell (NL-009 06 default; Opus 5 replaces it through api.mountStar)');
+710620	  // ---------------------------------------------------------------- panel helpers for the builder (LEAD)
+710621	  // row(label, onTap, hint): a 44 px <button> row; onTap runs, then the panel closes unless onTap returns true.
+710622	  // key(k): an onTap that sends the engine's own keydown (exactly what Edition 4's #keys buttons do, index.html:600-601).
+710623	  // link(label, href): an <a class="gm-row">; same tab on this host, target=_blank only for another host.
+710624	  // group(panel, title, owner): a heading and an empty .gm-group (data-owner) a later module fills; returned.
+710625	  // moveNode(panel, node): moves an Edition 4 node as the SAME node (listeners kept); counts it; returns it.
+710626	  var movedCount = 0;
+710627	  function row(label, onTap, hint) {
+710628	    var b = el('button', 'gm-row'); b.type = 'button'; b.appendChild(el('span', null, label));
+710629	    if (hint) b.appendChild(el('span', 'gm-hint', hint));
+710630	    b.addEventListener('click', function (e) { e.stopPropagation(); var keep = false; try { keep = onTap && onTap(e) === true; } finally { if (!keep) closeAll(false); } });
+710632	  function key(k) { return function () { closeAll(false); dispatchEvent(new KeyboardEvent('keydown', { key: k })); return true; }; }
+710633	  function link(label, href, hint) {
+710634	    var a = el('a', 'gm-row'); a.href = href; a.appendChild(el('span', null, label)); if (hint) a.appendChild(el('span', 'gm-hint', hint));
+710635	    try { if (new URL(href, location.href).host !== location.host) { a.target = '_blank'; a.rel = 'noopener'; } } catch (e) {}
+710637	  function group(panel, title, owner) {
+710638	    if (title) panel.appendChild(el('div', 'gm-layer-group', title));
+710639	    var g = el('div', 'gm-group'); if (owner) { g.setAttribute('data-owner', owner); state.groups[owner] = panel.id; }
+710640	    panel.appendChild(g); return g;
+710641	  function moveNode(panel, node) { if (!node) return null; panel.appendChild(node); movedCount++; return node; }
+710642	  function prose(text, small) { var d = el('div', 'gm-prose' + (small ? ' gm-small' : '')); d.textContent = text; return d; }
+710643	  // ---------------------------------------------------------------- C5/C6 the panels' contents (BUILDER)
+710644	  // fillPanels(P) receives P = {file, edit, view, scope, wafer, about}, each the .gm-panel element, and helpers
+710645	  // row(), group(), moveNode(); it moves Edition 4's nodes as the same nodes (listeners kept) and returns the count moved.
+710646	  function fillPanels(P) {
+710647	    // BUILDER (OPUS-1 builder, 21:5x UTC). Keys: kuiper-belt editions/202611012135/index.html = IX (the Edition 4 copy).
+710648	    // Every Edition 4 control is MOVED as the same node: ids, classes and the listeners bound to the node itself stay
+710649	    // (#lyAll/#lyFocus change IX:729-730, #lyFind input/keydown IX:731-732, the #lines row/command delegation IX:733-734,
+710650	    // #top's own toggle IX:602). The five #keys buttons carry no listener of their own: #keys delegates
+710651	    // (IX:600-601 "dispatchEvent(new KeyboardEvent('keydown', { key:k }))"), so a moved button is answered by the same
+710652	    // one-line delegation on its panel, and the engine's keydown table (IX:614-618, :692) stays the only implementation.
+710654	    function row(label, onTap, hint) {                           // a 44 px command row (GridAtlas MB:220-225)
+710655	      var b = el('button', 'gm-row', label); b.type = 'button';
+710656	      if (hint) b.appendChild(el('span', 'gm-hint', hint));
+710657	      if (onTap) b.addEventListener('click', function (e) { e.stopPropagation(); onTap(e); });
+710659	    function link(label, href, hint) {                           // a real link in the row's look (MB:228-233)
+710660	      var a = el('a', 'gm-row', label); a.href = href; a.setAttribute('role', 'button');
+710661	      if (/^https?:/.test(href)) { a.target = '_blank'; a.rel = 'noopener'; }   // _blank only off-host (step 4.8)
+710662	      if (hint) a.appendChild(el('span', 'gm-hint', hint));
+710664	    function heading(panel, title) { var h = el('div', 'gm-layer-group', title); panel.appendChild(h); return h; }   // MB:245-247
+710665	    function group(panel, name, owner) {                         // a named, empty group its owner fills (STEPS.md C5, brief)
+710666	      var g = el('div', 'gm-group'); g.setAttribute('data-group', name); g.setAttribute('data-owner', owner);
+710667	      panel.appendChild(g); state.groups[name] = owner; return g;
+710668	    function prose(panel, text, small) { var p = el('div', 'gm-prose' + (small ? ' gm-small' : ''), text); panel.appendChild(p); return p; }
+710669	    function moveNode(panel, node) { panel.appendChild(node); moved++; return node; }
+710670	    function key(k) { return document.querySelector('#keys [data-k="' + k + '"]'); }
+710671	    function run(k) { closeAll(false); dispatchEvent(new KeyboardEvent('keydown', { key: k })); }   // IX:601, panel closed first
+710672	    function hinted(node, hint) { node.appendChild(el('span', 'gm-hint', hint)); return node; }
+710673	    // the panels take the #keys delegation (IX:600-601); a command closes its panel before it runs, so safeBox()
+710674	    // (IX:262-268, which measures #top and #hud) sees them hidden and edFly lands the spark in the clear space (A5).
+710675	    // (Taps in a panel are kept from IX:685-689's spark picker by the bar's own pointerup stop in wire().)
+710676	    Object.keys(P).forEach(function (name) {
+710677	      P[name].addEventListener('click', function (e) {
+710678	        var b = e.target.closest('[data-k]'); if (!b || !P[name].contains(b)) return;
+710679	        if (b.closest('#lines')) return;                          // #lines answers its own (IX:733)
+710680	        e.stopPropagation(); run(b.getAttribute('data-k'));
+710681	    // ---- FILE: find, the edition's files, step 6's group (STEPS.md C5 FILE; GridAtlas File MB:1662-1663)
+710682	    moveNode(P.file, hinted(key('/'), '/'));                     // "find": a key, a repository, a period (IX:617)
+710683	    heading(P.file, 'This edition');
+710684	    P.file.appendChild(link('README', 'README.md'));
+710685	    P.file.appendChild(link('keys.json · the verified lines', 'keys.json'));
+710686	    P.file.appendChild(link('proof', 'proof/'));
+710687	    group(P.file, 'file', 'file (Opus 6, step 6: open a key, an edition, an app, copy a link)');
+710688	    // ---- EDIT: what the colours mean and what is lit (STEPS.md C5 EDIT; GridAtlas Edit = Status Colours MB:1664)
+710689	    heading(P.edit, 'Colours (PALETTE.md)');
+710690	    [['#c9d3e6', 'grey', 'the record, as measured'], ['#2ee6e6', 'cyan', 'the instrument'],
+710691	     ['#22ee77', 'green', 'energised: lit by a query'], ['#ffb000', 'amber', 'attention: new code'],
+710692	     ['#ff2bd6', 'magenta', 'selected: the thing under the hand']].forEach(function (c) {   // PALETTE.md:9-13, IX:27-28
+710693	      var d = el('div', 'gm-prose gm-legend');
+710694	      var sw = el('span'); sw.style.cssText = 'display:inline-block;width:12px;height:12px;margin-right:10px;vertical-align:-1px;background:' + c[0];
+710695	      d.appendChild(sw); d.appendChild(document.createTextNode(c[1] + ' · ' + c[2])); P.edit.appendChild(d);
+710696	    heading(P.edit, 'Selection');
+710697	    P.edit.appendChild(row('filter the verified lines', function () {
+710698	      openMenu('wafer'); var f = document.getElementById('lyFind'); if (f) f.focus();
+710699	    }, 'WAFER'));
+710700	    P.edit.appendChild(row('clear the selection', function () { run('Backspace'); }, '⌫'));   // IX:618, :692
+710701	    // ---- VIEW: the readout, the camera (STEPS.md C5 VIEW; GridAtlas View MB:1665, :1556-1558)
+710702	    heading(P.view, 'Camera');
+710703	    moveNode(P.view, hinted(key('e'), 'e'));                     // next verified line (IX:692 edNext(1))
+710704	    P.view.appendChild(row('previous verified line', function () { run('E'); }, 'E'));
+710705	    moveNode(P.view, hinted(key('Backspace'), '⌫'));             // whole wafer (IX:618)
+710706	    P.view.appendChild(row('full screen', function () {
+710707	      closeAll(false);
+710708	      var d = document, r = d.documentElement;
+710709	        var p = d.fullscreenElement ? d.exitFullscreen() : (r.requestFullscreen ? r.requestFullscreen() : null);
+710710	        if (p && p.catch) p.catch(function () {});               // refused (iframe, iOS): nothing breaks, nothing logged
+710711	      } catch (e) {}
+710713	    heading(P.view, 'Readout');
+710714	    moveNode(P.view, document.getElementById('hud'));            // live: draw() rewrites it every frame (IX:332 ff.)
+710715	    heading(P.view, 'Learn');
+710716	    P.view.appendChild(link('Learn the Kuiper', '../../learn-the-kuiper/'));
+710717	    // ---- SCOPE: the focus (STEPS.md C5 SCOPE; GridAtlas Scope MB:1666-1669)
+710718	    // rev 2: a proxy, not a moved node (Opus 3 owns #lyFocus). One tap toggles whichever #lyFocus exists, Edition 4's or
+710719	    // the layers module's, through its own change listener; the row shows the state each time SCOPE opens.
+710720	    var focusRow = row('[ ] gridatlas + data centres only', function () {
+710721	      var f = document.getElementById('lyFocus'); if (f) f.click(); return true;   // keep SCOPE open to show the new state
+710722	    function focusLabel() { var f = document.getElementById('lyFocus'); focusRow.firstChild.nodeValue = (f && f.checked ? '[x]' : '[ ]') + ' gridatlas + data centres only'; focusRow.disabled = !f; }
+710723	    focusRow.addEventListener('click', function () { setTimeout(focusLabel, 0); });
+710724	    P.scope.appendChild(focusRow); onOpen.scope = focusLabel;
+710725	    moveNode(P.scope, hinted(key('n'), 'n'));                    // new code (IX:616)
+710726	    moveNode(P.scope, hinted(key('r'), 'r'));                    // random line (IX:615)
+710727	    P.scope.appendChild(row('one repository or one period', function () { run('/'); }, '/'));   // IX:604-613
+710728	    // ---- WAFER: the verified-lines layer, whole (its row delegation lives on #lines, IX:733-734); step 3's group
+710729	    group(P.wafer, 'layers', 'layers (Opus 3, kuiper.layers.v1)');
+710730	    var lines = document.getElementById('lines');                // rev 2: optional (Opus 3's patch deletes it)
+710731	    if (lines) { lines.classList.remove('gm-panel'); moveNode(P.wafer, lines); }
+710732	    // a picked row or a next/previous closes the panel first (capture: before #lines' own handler stops the event)
+710733	    P.wafer.addEventListener('click', function (e) {
+710734	      if (e.target.closest('#lines [data-i], #lines [data-k]')) closeAll(false);
+710736	    // the list is rebuilt on every open, from the same input the filter drives (IX:731 -> fillLines)
+710737	    onOpen.wafer = function () { var f = document.getElementById('lyFind'); if (f) f.dispatchEvent(new Event('input')); };
+710738	    // ---- ABOUT: the card law first (Opus 2), the edition, the law, the estate, the licence (STEPS.md C5 ABOUT)
+710739	    // the card law first, byte for byte as Opus 2 asked on #10 (OPUS-2 lead REQUEST 21:50 UTC; ROADMAP step 2 K3)
+710740	    var law = el('p', 'gm-prose', 'The line of code is the header. Every card opens with the line itself, verbatim from the key; '
+710741	      + 'the key is the second row; every name a person gave the line comes after.');
+710742	    law.setAttribute('data-owner', 'line-card'); law.setAttribute('data-law', 'L11'); law.style.margin = '0';
+710743	    P.about.appendChild(law); state.groups['line-card'] = 'line-card (Opus 2): the card law sentence';
+710744	    moveNode(P.about, document.getElementById('top'));           // #big the edition's name + count, #sub the subtitle
+710745	    var long = document.querySelector('#foot .long');
+710746	    long.classList.add('gm-prose', 'gm-small'); moveNode(P.about, long);   // the law sentence, on a phone too (NL-009 08 F2)
+710747	    heading(P.about, 'Estate');
+710748	    // its one inline link (IX:100 "the laws") is a 14 px target inside prose: the same node becomes a 44 px row here,
+710749	    // and the sentence keeps the words
+710750	    var laws = long.querySelector('a');
+710751	    if (laws) {
+710752	      long.replaceChild(document.createTextNode(laws.textContent), laws);
+710753	      laws.className = 'gm-row'; laws.setAttribute('role', 'button'); laws.target = '_blank'; laws.rel = 'noopener';
+710754	      laws.appendChild(el('span', 'gm-hint', '↗')); P.about.appendChild(laws); moved++;
+710755	    P.about.appendChild(link('See Through', '../../see-through/'));
+710756	    P.about.appendChild(link('Learn the Kuiper', '../../learn-the-kuiper/'));
+710757	    P.about.appendChild(link('the wafer', '../../'));
+710758	    P.about.appendChild(link('editions', '../'));
+710759	    P.about.appendChild(link('kuiper-belt on GitHub', 'https://github.com/Ventusltd/kuiper-belt', '↗'));
+710760	    heading(P.about, 'Licence');
+710761	    prose(P.about, 'Code Apache-2.0; text and data CC BY 4.0 (kuiper-belt README). The bar, its CSS and its menus are '
+710762	      + 'copied from GridAtlas, Copyright 2026 Ventus Ltd, Apache-2.0. "Ventus" and "Cables & Connectivity®" are the '
+710763	      + 'mark of Ventus Ltd, used by its owner; the Apache-2.0 licence of this code does not license the mark.', true);
+710764	    // BUILDER CSS: one rule the lead's sheet does not carry, appended to the same <style id="kuiper-menu-bar-css">.
+710765	    // The focus switch left #linesctl, so it takes the #linesctl label look (lead's rule above) under its own class.
+710766	    var st = document.getElementById(STYLE_ID), B = '#' + BAR_ID;
+710767	    if (st) st.textContent += B + ' .gm-panel label.gm-check{display:flex;align-items:center;gap:10px;min-height:44px;'
+710768	      + 'padding:7px 10px;cursor:pointer;box-sizing:border-box}'
+710769	      + B + ' .gm-panel label.gm-check input{width:20px;height:20px;margin:0;accent-color:#2ee6e6}'
+710770	      + B + ' .gm-panel .long.gm-prose{display:block!important}' + B + ' .gm-legend{padding:4px 8px}';
+710772	  // ---------------------------------------------------------------- install (LEAD)
+710773	  function install(KY) {
+710774	    if (state.installed) return api();
+710775	    var miss = missing();
+710776	    if (miss.length) { loudFailure('missing ' + miss.join(', ')); throw new Error('kuiper-shell: missing ' + miss.join(', ')); }
+710777	    installStyle(); buildBar();
+710778	    var P = {}; MENUS.forEach(function (m) { P[m[0]] = menus[m[0]].panel; });
+710779	    try { moved = fillPanels(P) || 0; } catch (e) { loudFailure('panels did not build: ' + e.message); throw e; }
+710780	    document.body.appendChild(bar); document.body.appendChild(strip);
+710781	    // Edition 4's bar steps down only now, after the complete inventory is built (C8)
+710782	    var old = document.getElementById('bar'); old.classList.add('kmb-superseded'); old.setAttribute('aria-hidden', 'true');
+710783	    [].forEach.call(old.querySelectorAll('button,a'), function (b) { b.tabIndex = -1; });
+710784	    document.body.classList.add('kmb-installed');
+710785	    wire();
+710786	    mqStar = window.matchMedia ? window.matchMedia(STAR_TITLE_MQ) : null;
+710787	    if (mqStar) { var f = function () { placeStar(); }; if (mqStar.addEventListener) mqStar.addEventListener('change', f); else mqStar.addListener(f); }
+710788	    defaultStar();
+710789	    var f2 = document.getElementById(FAIL_ID); if (f2) f2.parentNode.removeChild(f2);
+710790	    state.controls_moved = moved; state.installed = true; state.failure = null; state.mode = KY ? 'KY' : 'standalone';
+710791	    MENUS.forEach(function (m) { state.panel_counts[m[1]] = menus[m[0]].panel.querySelectorAll('button,a,[role="button"],label,input').length; });
+710792	    // keys.json is awaited, not failed on (C8): Edition 4's loadEdition rewrites #big when it has loaded or failed
+710793	    var big = document.getElementById('big');
+710794	    function keysState() { var t = big.textContent || ''; state.keys = /verified lines lit/.test(t) ? 'loaded' : (/did not load/.test(document.getElementById('hud').textContent) ? 'error: keys.json did not load' : 'waiting'); publish(); }
+710795	    keysState(); try { new MutationObserver(keysState).observe(big, { childList: true, characterData: true, subtree: true }); } catch (e) {}
+710796	    var a = api(); window.__KUIPER_SHELL__ = a;
+710797	  function api() {
+710799	      open: function (n) { openMenu(n); }, close: function () { closeAll(false); },
+710800	      panel: function (n) { return menus[n] ? menus[n].panel : null; },
+710801	      mountStar: function (node, by) { return mountStar(node, by); },
+710802	      inspect: function () { return JSON.parse(JSON.stringify(state)); }
+710803	  // ---------------------------------------------------------------- registration (LEAD)
+710804	  // With the loader (ROADMAP step 4): one KY.register call, installed by the loader. Without it (until Opus 4's
+710805	  // hook table lands in index.html): the module waits for the engine on GridAtlas's clock and installs itself.
+710807	    publish();
+710808	    if (KY && typeof KY.register === 'function') {
+710809	      KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN,
+710810	        requires: ['safeBox', 'card', 'hud', 'big', 'sub', 'cv', 'gbox', 'gin', 'redraw'],
+710811	        provides: [ID, 'menuBar'],
+710812	        install: function (K) { return whenEngine(function () { return install(K); }); },
+710813	        inspect: function () { return JSON.parse(JSON.stringify(state)); } });
+710814	    whenEngine(function () { try { install(null); } catch (e) { /* the strip already says why */ } });
+710815	  // The engine's synchronous part ends by building Edition 4's #bar (index.html:698-704); until then nothing is
+710816	  // judged. After the limit the failure names what never came.
+710817	  function whenEngine(go) {
+710818	    if (document.getElementById('bar')) return go();
+710819	    var t = setInterval(function () {
+710820	      state.attempts++;
+710821	      if (document.getElementById('bar')) { clearInterval(t); go(); return; }
+710822	      if (state.attempts >= RETRY_MAX) { clearInterval(t); loudFailure('the engine never built #bar (' + RETRY_MAX + ' tries every ' + RETRY_MS + ' ms): missing ' + missing().join(', ')); }
+710823	    }, RETRY_MS);
+710824	    return undefined;
+710826	/* kuiper module line-card, generation 202611012143 (UTC), Apache-2.0 (kuiper-belt) */
+710827	// requires: card esc fmt address describe sel lit redraw gbox · provides: line-card · schema kuiper.card.v1
+710828	// reads: nothing fetched (bodies are handed in by the page or a module) · writes: #card (its content, classes, aria),
+710829	//   #ky-line-card-style, the empty [data-owner="line-card"] slot of the ABOUT panel, window.KY.modules.line-card
+710830	// The line of code is the header. Every card opens with the line itself, verbatim from the key; the key is the second row; every name a person gave the line comes after.
+710831	// Roadmap step 2 (neural-link FIXES/NL-010/ROADMAP.md "Step 2", team-1/STEPS.md:255-345), K0-K6:
+710832	//   row 1  <header class="lc-h"><code>  = body.line_text, escaped, pre-wrap, mono, #fff, 600; nothing before it.
+710833	//          Empty line at the key: the code is empty and the dim words "empty line at key" follow it.
+710834	//          No line_text field: the card refuses with "no text at key" (never the title, never the quote).
+710835	//   row 2  the key: repo@commit7 path:line · key N, a link to body.destination.
+710836	//   row 2b "register quote", only when quote !== line_text (with quote_key and "quoted one line below" when present).
+710837	//   then   the action row (open on GitHub, details) and, behind details, every name: title, n of N, pattern, finder,
+710838	//          the wafer position (describe(address(key))).
+710839	// NL-009 round 1 patch 02-card (FABLE-02) folded in: bottom sheet on a phone, 44 px targets, 12 px type, 34dvh cap,
+710840	//   safe-area padding, swipe-down / Escape / × close, scroll contained, steps behind an open panel.
+710841	// The module never wraps an engine function: the page (or a module) calls api.show(body, {index, of, onclose}).
+710842	  var LAW = 'The line of code is the header. Every card opens with the line itself, verbatim from the key; the key is the second row; every name a person gave the line comes after.';
+710843	  var STAMP = '202611012143';
+710844	  // a line longer than this is laid out unwrapped and scrolls sideways inside the header; every byte stays in it.
+710845	  // Measured for the 1,240,449-character line (kuiper-belt estate-network.json:1, key 63,013,167,769), Pixel 7 and
+710846	  // Galaxy S24 emulation in one container: wrapped 9,313 ms (lead, once); unwrapped 1.4-3.6 s to show and lay out at
+710847	  // load average 86-95 (evidence officer, handoff/02-card/EVIDENCE.md F-c). Not phone numbers.
+710848	  var LONG = 2000;
+710849	  if (!window.KY || typeof window.KY.register !== 'function') return;   // no hook table: the page keeps its own card
+710850	  var CSS = [
+710851	    /* the card is a box on a desktop and a bottom sheet on a phone (NL-009 02-card F5-F7) */
+710852	    '#card.lc{padding:0!important;bottom:12px!important;z-index:13;max-height:30vh;max-height:30dvh;overflow:auto;',
+710853	    '  overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch;scrollbar-width:thin;position:fixed;white-space:normal}',
+710854	    '#card.lc .lc-in{position:relative;padding:8px 48px 8px 12px}',
+710855	    /* row 1, the header: the line itself */
+710856	    '#card.lc .lc-h{display:block;margin:0 0 4px;max-height:7.5em;overflow:auto;overscroll-behavior:contain}',
+710857	    '#card.lc .lc-h code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;color:#fff;font-weight:600;',
+710858	    '  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:inherit;line-height:1.45;tab-size:4}',
+710859	    '#card.lc .lc-h.lc-long code{white-space:pre;overflow-wrap:normal;word-break:normal}',
+710860	    '#card.lc .lc-h .lc-e,#card.lc .lc-h .lc-none{display:block;color:var(--dim);font-weight:400}',
+710861	    '#card.lc .lc-h .lc-none{color:var(--am)}',
+710862	    /* row 2, the key */
+710863	    '#card.lc .lc-k{display:block;color:#cde;white-space:pre-wrap;overflow-wrap:anywhere;text-decoration:none;margin:0 0 2px}',
+710864	    '#card.lc .lc-k:hover{text-decoration:underline}',
+710865	    '#card.lc .lc-q{color:#cde;border-left:2px solid #3a4150;padding-left:8px;margin:4px 0;white-space:pre-wrap;overflow-wrap:anywhere}',
+710866	    '#card.lc .lc-q i{color:var(--dim);font-style:normal}',
+710867	    /* the action row and the close: 44 px targets on a phone (F1, F2) */
+710868	    '#card.lc .lc-x{position:absolute;right:0;top:0;width:44px;height:44px;border:0;color:#8fb3bd;background:transparent;padding:0;',
+710869	    '  font:18px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;touch-action:manipulation}',
+710870	    '#card.lc .lc-x:hover,#card.lc .lc-x:active{color:#fff}',
+710871	    '#card.lc .lc-a{display:flex;flex-wrap:wrap;align-items:center;gap:0 2px;margin:0 0 -4px -8px;color:var(--dim)}',
+710872	    '#card.lc .lc-a a,#card.lc .lc-t{display:inline-flex;align-items:center;min-height:32px;padding:0 8px;touch-action:manipulation}',
+710873	    '#card.lc .lc-t{appearance:none;border:0;background:transparent;color:var(--cy);cursor:pointer;font:inherit;text-decoration:underline dotted}',
+710874	    '#card.lc .lc-d{display:none;color:var(--dim);margin-top:6px;border-top:1px solid #121a26;padding-top:6px;white-space:pre-wrap;overflow-wrap:anywhere}',
+710875	    '#card.lc .lc-d .lc-title{color:var(--am);font-weight:600}',
+710876	    '#card.lc.lc-open .lc-d{display:block}',
+710877	    '#card.lc.lc-behind{visibility:hidden}',
+710878	    '#card.lc .lc-grip{display:none}',
+710879	    /* K6, the LINES rows: the line, then the key, then the title */
+710880	    '#lineslist .lc-rt{display:block;white-space:pre;overflow:hidden;text-overflow:ellipsis;color:#fff;font-weight:600;',
+710881	    '  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}',
+710882	    '#lineslist .lc-rk{display:block;color:#cde}',
+710883	    '#lineslist .lc-rn{display:block}',
+710884	    '#lineslist .lc-rt ~ i{color:var(--dim);font-style:normal}',
+710885	    '#lineslist .lc-rt ~ i.lc-none{color:var(--am)}',
+710886	    '@media (max-width:640px){',
+710887	    '  #card.lc{left:0;right:0;bottom:0!important;max-width:none;max-height:34vh;max-height:34dvh;font-size:12px;line-height:1.5;',
+710888	    '    border-left:0;border-right:0;border-bottom:0;border-radius:12px 12px 0 0}',
+710889	    '  #card.lc .lc-in{padding:4px 48px calc(8px + env(safe-area-inset-bottom,0px)) 12px}',
+710890	    '  #card.lc .lc-grip{display:block;position:absolute;left:50%;top:4px;width:36px;height:4px;margin-left:-18px;border-radius:2px;background:#2a5560}',
+710891	    '  #card.lc .lc-h{margin-top:8px}',
+710892	    '  #card.lc .lc-x{height:48px}',
+710893	    '  #card.lc .lc-a a,#card.lc .lc-t{min-height:44px}',
+710894	    '  #card.lc .lc-d{font-size:11px}',
+710895	    '}'
+710897	  function hasText(b) { return b && typeof b.line_text === 'string'; }
+710898	  window.KY.register({
+710899	    schema: 'kuiper.module.v1', id: 'line-card', generation: STAMP,
+710900	    requires: ['card', 'esc', 'fmt', 'address', 'describe', 'sel', 'lit', 'redraw', 'gbox'],
+710901	    provides: ['line-card'],
+710902	      var H = KY.hooks, card = H.card, esc = H.esc, fmt = H.fmt;
+710903	      var state = { shown: null, index: -1, of: 0, onclose: null, opened: 0, refused: 0, last: null };
+710904	      var st = document.createElement('style'); st.id = 'ky-line-card-style'; st.textContent = CSS;
+710905	      document.head.appendChild(st);
+710906	      card.classList.add('lc');
+710907	      card.setAttribute('aria-live', 'polite');
+710908	      // the header text: the line at the key, or the refusal (K0)
+710909	      function header(b) { return hasText(b) ? b.line_text : 'no text at key'; }
+710910	      function keyText(b) {
+710911	        return String(b.repo) + '@' + String(b.commit || '').slice(0, 7) + ' ' + String(b.path) + ':' + b.line
+710912	          + (Number.isFinite(b.key) ? ' · key ' + fmt(b.key) : '');
+710913	      // K1, in this order and no other
+710914	      function render(b, o) {
+710915	        var h = hasText(b)
+710916	          ? '<header class="lc-h' + (b.line_text.length > LONG ? ' lc-long' : '') + '"><code>' + esc(b.line_text) + '</code>'
+710917	            + (b.line_text === '' ? '<span class="lc-e">empty line at key</span>' : '')
+710918	            + (b.line_text.length > LONG ? '<span class="lc-e">one line of ' + fmt(b.line_text.length) + ' characters, verbatim; it scrolls sideways</span>' : '') + '</header>'
+710919	          : '<header class="lc-h"><code></code><span class="lc-none">no text at key</span></header>';
+710920	        var k = '<a class="lc-k" href="' + esc(b.destination) + '" target="_blank" rel="noopener">' + esc(keyText(b)) + '</a>';
+710921	        var q = '';
+710922	        if (b.quote && (!hasText(b) || b.quote !== b.line_text)) {
+710923	          q = '<div class="lc-q"><i>register quote' + (b.quote_key ? ', quoted one line below · key ' + esc(fmt(b.quote_key)) : '')
+710924	            + '</i>\n' + esc(b.quote) + '</div>';
+710925	        var a = '<div class="lc-a"><a href="' + esc(b.destination) + '" target="_blank" rel="noopener">open on GitHub at '
+710926	          + esc(String(b.commit || '').slice(0, 7)) + '</a>·<button class="lc-t" type="button" aria-expanded="false">details</button></div>';
+710927	        var addr = Number.isFinite(b.key) ? H.address(b.key) : null;
+710928	        var d = '<div class="lc-d"><span class="lc-title">' + esc(b.title) + '</span>'
+710929	          + (o && o.of ? '  ' + fmt((o.index | 0) + 1) + ' of ' + fmt(o.of) : '')
+710930	          + (b.pattern ? '\npattern: ' + esc(b.pattern) : '')
+710931	          + (b.worker || b.finding ? '\nfound by ' + esc(b.worker) + ' ' + esc(b.finding) + ', verified by a controller' : '')
+710932	          + (b.quote_check ? '\nquote check: ' + esc(b.quote_check) : '')
+710933	          + (addr ? '\n' + H.describe(addr) : '') + '</div>';
+710934	        // the header is the first element and the first text; the close and the grip come after it in the DOM
+710935	        return '<div class="lc-in">' + h + k + q + a + d
+710936	          + '<span class="lc-grip" aria-hidden="true"></span><button class="lc-x" type="button" aria-label="close">×</button></div>';
+710937	      function show(b, o) {
+710938	        o = o || {};
+710939	        if (!b) return false;
+710940	        state.shown = b; state.index = o.index == null ? -1 : o.index; state.of = o.of || 0;
+710941	        state.onclose = typeof o.onclose === 'function' ? o.onclose : null;
+710942	        state.opened++; if (!hasText(b)) state.refused++;
+710943	        card.classList.remove('lc-open');
+710944	        card.innerHTML = render(b, o);
+710945	        card.setAttribute('aria-label', header(b));
+710946	        card.style.display = 'block'; card.scrollTop = 0;
+710947	        behind();
+710948	        if (Number.isFinite(b.key)) { var a = H.address(b.key); if (a && !a.silent) KY.lit.repo = a.c.repo; }
+710949	        if (Number.isFinite(b.x) && Number.isFinite(b.y)) KY.sel.target = { x: b.x, y: b.y };
+710950	        state.last = { header: header(b), key: keyText(b), k: b.key };
+710952	      function close() {
+710953	        var cb = state.onclose;
+710954	        card.style.display = 'none'; card.classList.remove('lc-open');
+710955	        state.shown = null; state.onclose = null;
+710956	        KY.sel.target = null; KY.redraw();
+710957	        if (cb) { try { cb(); } catch (e) { /* the caller's callback; the card is closed either way */ } }
+710958	      // K6: a LINES row reads the line, then the key, then the title. rowInner(b) is the row's content only, for a
+710959	      // module that wraps it in its own .ln[data-i] (Opus 3, #10 issuecomment-6564782359 item 3); row(b, i, cls) is the
+710960	      // whole row the page's fillLines uses until then
+710961	      function rowInner(b) {
+710962	        var t = hasText(b) ? b.line_text : '';
+710963	        return '<code class="lc-rt">' + esc(t) + '</code>'
+710964	          + (hasText(b) ? (t === '' ? '<i>empty line at key</i>' : '') : '<i class="lc-none">no text at key</i>')
+710965	          + '<span class="lc-rk">' + esc(keyText(b)) + '</span>'
+710966	          + '<span class="lc-rn">' + esc(b.title) + '</span>';
+710967	      function row(b, i, cls) {
+710968	        return '<div class="ln lc-row' + (cls ? ' ' + cls : '') + '" data-i="' + (i | 0) + '" role="button" tabindex="0">' + rowInner(b) + '</div>';
+710969	      // the card steps behind any open panel (visibility, so the page can still measure it) and returns when it closes
+710970	      function behind() { card.classList.toggle('lc-behind', !!document.querySelector('.gm-open')); }
+710971	      new MutationObserver(behind).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['class'] });
+710972	      // clicks: × closes, details toggles, the link keeps its default (a new tab), a tap on the body keeps it open.
+710973	      // Heard on window in the capture phase, before the page's own capture handler on #card, which stops the event.
+710974	      window.addEventListener('click', function (e) {
+710975	        if (!state.shown || !e.target || !e.target.closest || !card.contains(e.target)) return;
+710976	        if (e.target.closest('.lc-x')) { e.preventDefault(); close(); return; }
+710977	        var t = e.target.closest('.lc-t');
+710978	        if (t) t.setAttribute('aria-expanded', String(card.classList.toggle('lc-open')));
+710979	      }, true);
+710980	      // a swipe down from the top of the sheet closes it (02-card F7)
+710981	      var sw = null;
+710982	      card.addEventListener('touchstart', function (e) {
+710983	        var t = e.touches[0]; sw = (e.touches.length === 1 && card.scrollTop <= 0) ? { x: t.clientX, y: t.clientY } : null;
+710984	      }, { passive: true });
+710985	      card.addEventListener('touchmove', function (e) {
+710986	        if (!sw) return; var t = e.touches[0], dx = t.clientX - sw.x, dy = t.clientY - sw.y;
+710987	        if (dy > 56 && dy > 2 * Math.abs(dx)) { sw = null; close(); } else if (dy < -8 || Math.abs(dx) > 24) sw = null;
+710988	      card.addEventListener('touchend', function () { sw = null; });
+710989	      // Escape closes the card only when no panel and no finder is open (capture, so an open panel is seen before it closes)
+710990	      window.addEventListener('keydown', function (e) {
+710991	        if (e.key !== 'Escape' || card.style.display !== 'block' || !state.shown) return;
+710992	        if (document.querySelector('.gm-open') || H.gbox.style.display === 'block') return;
+710993	        close();
+710994	      // K3: the shell's ABOUT panel keeps a slot for the law (data-owner="line-card"); the card fills it only when empty
+710995	      function aboutLaw() {
+710996	        var p = document.querySelector('[data-owner="line-card"][data-law="L11"]');
+710997	        if (p && !p.textContent.trim()) p.textContent = LAW;
+710998	        return p ? p.textContent : null;
+710999	      aboutLaw();
+711000	      function inspect() {
+711001	        return { schema: 'kuiper.card.v1', law: LAW, open: card.style.display === 'block' && !!state.shown,
+711002	          index: state.index, of: state.of, opened: state.opened, refused: state.refused, last: state.last, about: aboutLaw() };
+711003	      return Object.freeze({ law: LAW, header: header, show: show, close: close, row: row, rowInner: rowInner, inspect: inspect });
+711004	    inspect: function () { return { schema: 'kuiper.card.v1', law: LAW }; }
+711005	/* kuiper module hello, generation 202611012145 (UTC), Apache-2.0 (kuiper-belt) */
+711006	// The loader's proof (Opus team 4, NL-010 step 4): registers once, draws one cyan ring at keyPlace(0), the first key
+711007	// on the wafer, and exposes inspect(). requires: keyPlace, cam, draw, redraw. provides: hello. Removed from `order`
+711008	// before PR A; its sha256 stays in handoff/04-loader/MODULE.sha256. Hooks: kuiper.hooks.v1 (handoff/04-loader/HOOKS.md).
+711009	  let frames = 0, host = null;
+711010	  KY.register({ schema: 'kuiper.module.v1', id: 'hello', generation: '202611012145',
+711011	    requires: ['keyPlace', 'cam', 'draw', 'redraw'], provides: ['hello'],
+711012	    install(KY) {
+711013	      host = document.createElement('div'); host.id = 'ky-hello'; host.hidden = true; document.body.appendChild(host);
+711014	      const p = KY.hooks.keyPlace(0);
+711015	      KY.draw.add(function (o2) { const c = KY.cam, x = (p[0] - c.x) * c.zoom + o2.canvas.width / 2, y = o2.canvas.height / 2 - (p[1] - c.y) * c.zoom;
+711016	        o2.strokeStyle = '#2ee6e6'; o2.lineWidth = 2; o2.beginPath(); o2.arc(x, y, 18, 0, 6.2832); o2.stroke(); frames++; }, 100);
+711017	      return { key: 0, place: p };
+711018	    inspect() { return { id: 'hello', ring_at_key: 0, frames_drawn: frames, host: !!host && host.isConnected }; } });
+711019	/* kuiper loader reference, generation 202611012145 (UTC), Apache-2.0 (kuiper-belt) */
+711020	// NOT A MODULE and never fetched: the reviewable copy of the hook table and loader that Opus team 4 hands to the
+711021	// integrator as handoff/04-loader/index.html.patch. The bytes between the two marker lines below are byte-identical
+711022	// to the block the patch inserts in editions/202611012135/index.html before requestAnimationFrame(frame); the block
+711023	// runs only inside that page script, where the engine names it closes over (cx, litRepo, PANELS, refuse, kyWafer, ...)
+711024	// are in scope. Listed in modules.json under "references", not in "order" (E6 checks the two copies agree).
+711025	  'SPACE', 'N', 'repos', 'commits', 'wafer', 'cam', 'lit', 'sel', 'redraw', 'draw', 'panels', 'refuse', 'nav']);
+711026	// ONE OWNER OF HISTORY (rev 5): every layer that holds a history entry for the Android back gesture pushes it through
+711027	// KY.nav (the edition's card and panels as owner 'edition', the shell as 'kuiper-shell'). A back the page starts is
+711028	// marked self (event.kuiperSelf) and never read as the user's gesture; a user's back calls the handler of the owner
+711029	// whose entry it removed, and nobody else's. An entry is ours when its state carries kuiperDepth; a foreign state is
+711030	// left alone (never reconciled), so a module still pushing its own entries degrades to the Edition 4 behaviour.
+711031	const kyNav = { stack: [], self: 0, pending: [], handlers: {} };
+711032	function kyDepth(){ const s = history.state; return s == null ? 0 : (typeof s.kuiperDepth === 'number' ? s.kuiperDepth : null); }
+711033	function kyNavReconcile(){ const d = kyDepth(), lost = []; if (d === null) return lost;
+711034	  while (kyNav.stack.length && kyNav.stack[kyNav.stack.length - 1].depth > d) lost.push(kyNav.stack.pop()); return lost; }
+711035	function kyNavPush(owner){ if (kyNav.self > 0) { if (!kyNav.pending.includes(owner)) kyNav.pending.push(owner); return true; }
+711036	  kyNavReconcile(); const top = kyNav.stack[kyNav.stack.length - 1], depth = Math.max(top ? top.depth : 0, kyDepth() || 0) + 1;
+711037	  try { history.pushState({ kuiper: 1, kuiperDepth: depth, owner }, ''); } catch (e) { return false; }
+711038	  kyNav.stack.push({ owner, depth, live: true }); return true; }
+711039	function kyNavTrim(){ const top = kyNav.stack[kyNav.stack.length - 1];
+711040	  if (top && !top.live && kyNav.self === 0 && kyDepth() === top.depth) { kyNav.self++; history.back(); } }
+711041	function kyNavBack(owner){ const i = kyNav.pending.indexOf(owner); if (i >= 0) { kyNav.pending.splice(i, 1); return; }
+711042	  for (let j = kyNav.stack.length - 1; j >= 0; j--) if (kyNav.stack[j].owner === owner && kyNav.stack[j].live) { kyNav.stack[j].live = false; break; }
+711043	  kyNavTrim(); }
+711044	function kyNavHas(owner){ kyNavReconcile(); return kyNav.pending.includes(owner) || kyNav.stack.some(x => x.live && x.owner === owner); }
+711045	kyNav.handlers.edition = edBack;
+711046	addEventListener('popstate', e => { const gone = kyNavReconcile();
+711047	  if (kyNav.self > 0) { kyNav.self--; e.kuiperSelf = true;                 // our own back(): close nothing; re-arm what it took by accident
+711048	    for (const o of gone.filter(g => g.live).map(g => g.owner).concat(kyNav.pending.splice(0))) kyNavPush(o); }
+711049	  else for (const g of gone) if (g.live && kyNav.handlers[g.owner]) { try { kyNav.handlers[g.owner](e); } catch (x) { kyLine(g.owner + ' back handler threw ' + (x && x.message || x)); } }
+711050	  kyNavTrim(); });
+711051	const kyOwner = o => { if (typeof o !== 'string' || !/^[a-z0-9-]+$/.test(o) || o === 'edition') throw new TypeError('KY.nav: the owner is the module id'); return o; };
+711052	  nav: Object.freeze({ push(owner){ return kyNavPush(kyOwner(owner)); }, back(owner){ kyNavBack(kyOwner(owner)); },
+711053	    onBack(owner, fn){ if (typeof fn !== 'function') throw new TypeError('KY.nav.onBack needs a function'); kyNav.handlers[kyOwner(owner)] = fn; },
+711054	    has(owner){ return kyNavHas(kyOwner(owner)); }, isSelf(e){ return !!(e && e.kuiperSelf); }, get depth(){ return kyDepth(); } }),
+711055	/* kuiper module file, generation 202611012231 (UTC), Apache-2.0 (kuiper-belt)
+711056	 * Opus team 6, NL-010 roadmap step 6 "the File menu of an OS, and the hash deep-link grammar"
+711057	 * (neural-link FIXES/NL-010/ROADMAP.md step 6; team-3/STEPS.md 6.1-6.5; ROADMAP "Resolved between teams" R3).
+711058	 * NOTICE: the copy-or-show clipboard pattern, the export's blank check and the stamp that travels with the artefact are
+711059	 * GridAtlas's method, Copyright 2026 Ventus Ltd, Apache-2.0 (gridatlas@5ec7f62 LICENSE, NOTICE;
+711060	 * atlas/modules/202609031958-menu-bar.js:707-733, :794-834, :1082-1097, :1120-1137, :1354-1365). No GridAtlas bytes
+711061	 * are copied verbatim but the words of two row labels. Code Apache-2.0; text and data CC BY 4.0 (kuiper-belt README).
+711062	 * requires: keyPlace address describe goKey lightTime home flyTo safeBox fmt card gbox gin SPACE N repos wafer cv ov hud
+711063	 *           big panels draw redraw cam lit sel layers
+711064	 * optional (used when admitted earlier, never required): kuiper-shell (the FILE/EDIT/ABOUT panels), line-card (the
+711065	 *           selected index), see-through (its link()), apps (the launcher, data/apps.json)
+711066	 * provides: file, link (KY.modules.file.api.link is the grammar: read, read(text), hashText, set, clear, inspect)
+711067	 * reads: location (search + hash); lazily, never at install: keys.json (only to resolve or write a `line`),
+711068	 *        data/editions.json (on opening `Open an edition`), HEAD of the seven EVIDENCE files (on opening FILE),
+711069	 *        data/apps.json (only when the apps module is admitted)
+711070	 * writes: location.hash by history.replaceState (400 ms debounce), the shell's FILE group [data-group="file"], one EDIT
+711071	 *        row, one ABOUT sentence, #ky-file-css, a downloaded PNG, #ky-file-print for print.
+711072	 * Departures, each named: (1) the roadmap's requires list names edCard edFly card menuBar, which are not hooks
+711073	 * (handoff/04-loader/HOOKS.md: 28 hooks + cam lit sel redraw draw panels); edCard/edFly/edPlaced moved into Opus 3's
+711074	 * layers module (layers.js:8-11), so a line is opened through KY.modules.layers.api.open(i) and the shell is optional.
+711075	 * (2) Byte counts of the EVIDENCE rows are measured by HEAD when FILE opens, not baked in, because six of the seven files
+711076	 * are written by the integrator after this module is cut; a missing file reads "missing · HTTP 404" in its row.
+711077	  var ID = 'file', GEN = '202611012231', SCHEMA = 'kuiper.file.v1';
+711078	  if (!window.KY || typeof window.KY.register !== 'function') return;   // no hook table: Edition 4's page is unchanged
+711079	  var ABOUT_SENTENCE = 'A link to this page is its hash: key, line, repo, period, layers; copy it from File, paste it in Edit; the pointer keeps it.';
+711080	  var EVIDENCE = ['keys.json', 'proof/edition-sha256.txt', 'proof/keys-summary.json', 'modules.json', 'LICENCES.md',
+711081	    'proof/android-journey.json', 'README.md'];
+711082	  var EVIDENCE_WHAT = { 'keys.json': 'the register of verified lines', 'proof/edition-sha256.txt': 'sha256 of every file but itself',
+711083	    'proof/keys-summary.json': 'the key.py round trips', 'modules.json': 'the admitted modules and their hashes',
+711084	    'LICENCES.md': 'the licence register', 'proof/android-journey.json': 'the Android journey', 'README.md': 'this edition' };
+711085	  var FALLBACK_APPS = [                                  // used only when no apps module (Opus 7) is admitted; the shell's own estate links
+711086	    { id: 'see-through', name: 'See Through', link: '../../see-through/', star: true },
+711087	    { id: 'learn-the-kuiper', name: 'Learn the Kuiper', link: '../../learn-the-kuiper/' }];
+711088	  var st = { schema: SCHEMA, id: ID, generation: GEN, installed: false, panel: null, rows: 0, groups: [],
+711089	    fields: {}, last_read: null, last_written: null, refused: [], said: [], writes: 0, reads: 0, deferred: 0,
+711090	    bodies: 'not loaded', evidence: {}, editions: 'not loaded', sub: null, opened: [] };
+711091	  function mk(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+711092	  function shell() { try { var m = KY.modules['kuiper-shell']; return m && m.api ? m.api : (window.__KUIPER_SHELL__ || null); } catch (e) { return null; } }
+711093	  function closePanel() { var s = shell(); if (s && s.close) s.close(); }
+711094	  // closeThen(fn): close the open panel and run fn after the shell's history.back() has landed (kuiper-shell.js closeAll);
+711095	  // the page's own popstate (index.html ANDROID BACK) closes an open card, so a card must open after that popstate
+711096	  function closeThen(fn) {
+711097	    var s = shell(), open = s && s.inspect ? !!s.inspect().open : false;
+711098	    if (!open) { fn(); return; }
+711099	    var done = false, go = function () { if (done) return; done = true; removeEventListener('popstate', pop); setTimeout(fn, 30); };
+711100	    var pop = function () { go(); };
+711101	    addEventListener('popstate', pop); s.close(); setTimeout(go, 600);
+711102	  function layersApi() { var m = KY && KY.modules && KY.modules.layers; return m && m.api ? m.api : null; }
+711103	  function cardApi() { var m = KY && KY.modules && KY.modules['line-card']; return m && m.api ? m.api : null; }
+711104	  // ======================================================================== SECTION A: KY.link, the hash grammar (6.3, 6.4) (LEAD)
+711105	  // The field table, in its order; hashText() writes only the first five (edition, app, sub, space are never written by
+711106	  // this page, team-3/STEPS.md 6.3 "writes when").
+711107	  var FIELDS = ['key', 'line', 'repo', 'period', 'layers', 'edition', 'app', 'sub', 'space'];
+711108	  var WRITTEN = ['key', 'line', 'repo', 'period', 'layers'];
+711109	  var RULES = {
+711110	    key: function (v) { return /^\d{1,15}$/.test(v) && +v < H.SPACE; },
+711111	    line: function (v) { return /^[0-9a-f]{40}:\d+$/.test(v); },
+711112	    repo: function (v) { return v.length > 0 && v.length <= 100 && !/[\s&#]/.test(v); },
+711113	    period: function (v) { return /^20\d\d(-\d\d){0,2}$/.test(v); },
+711114	    layers: function (v) { return /^([a-z0-9-]+(,[a-z0-9-]+)*)?$/.test(v); },
+711115	    edition: function (v) { return /^\d{12}$/.test(v); },
+711116	    app: function (v) { return /^[a-z0-9-]{1,64}$/.test(v); },
+711117	    sub: function (v) { return v.length > 0 && v.length <= 200; },
+711118	    space: function (v) { return /^\d{1,16}$/.test(v); }
+711119	  function pairs(s) {
+711120	    String(s || '').split('&').forEach(function (kv) {
+711121	      if (!kv) return; var i = kv.indexOf('='), k = i < 0 ? kv : kv.slice(0, i), v = i < 0 ? '' : kv.slice(i + 1);
+711122	      try { k = decodeURIComponent(k); v = decodeURIComponent(v.replace(/\+/g, ' ')); } catch (e) { out.push([k, null]); return; }
+711123	      out.push([k, v]);
+711124	  // parse(search, hash): the merge rule (Learn the Kuiper one.js:468): search first, then hash; the hash wins a duplicate.
+711125	  // A field that fails its rule, and a name that is not in the table, is ignored and named once (`link: <f> not understood`).
+711126	  function parse(search, hash) {
+711127	    var f = {}, bad = [];
+711128	    pairs(String(search || '').replace(/^\?/, '') + '&' + String(hash || '').replace(/^#/, '')).forEach(function (p) {
+711129	      var k = p[0], v = p[1];
+711130	      if (!RULES.hasOwnProperty(k) || v == null || !RULES[k](v)) { if (bad.indexOf(k) < 0) bad.push(k); delete f[k]; return; }
+711131	      f[k] = v; var j = bad.indexOf(k); if (j >= 0) bad.splice(j, 1);
+711132	    return { fields: f, refused: bad };
+711133	  // read(text): a pasted Kuiper or See Through link, or a bare hash -> {fields, refused, target, url}
+711134	  function readText(text) {
+711135	    var t = String(text || '').trim(), u = null;
+711137	    if (/^[#?]?[a-z]+=/.test(t)) { var r0 = parse('', t.replace(/^[#?]/, '')); r0.target = 'kuiper'; return r0; }
+711138	    try { u = new URL(t, location.href); } catch (e) { return null; }
+711139	    var r = parse(u.search, u.hash);
+711140	    if (/\/see-through\//.test(u.pathname)) {        // a See Through link: navigation to the same host's See Through, its hash kept
+711141	      r.target = 'see-through'; r.url = new URL('../../see-through/' + u.hash, location.href).href; return r;
+711142	    r.target = 'kuiper'; return r;
+711143	  // values are encodeURIComponent'd, then ':' and ',' are written back as themselves (they are legal in a fragment,
+711144	  // RFC 3986 3.5), so a written link reads as the grammar's examples do: #line=<40 hex>:5, #layers=lines,see-through
+711145	  function enc(v) { return encodeURIComponent(v).replace(/%3A/gi, ':').replace(/%2C/gi, ','); }
+711146	  function hashText(f) {
+711147	    f = f || st.fields; var out = [];
+711148	    WRITTEN.forEach(function (k) { if (f[k] != null && f[k] !== '') out.push(k + '=' + enc(f[k])); });
+711149	    return out.join('&');
+711150	  // `layers` belongs to Opus 3's registry, which writes it into the hash itself (layers.js writeURL): read it back from
+711151	  // the hash so this writer never drops it
+711152	  function syncLayers() {
+711153	    var p = parse('', location.hash).fields; if ('layers' in p) st.fields.layers = p.layers;
+711154	    var L = layersApi(); if (!('layers' in p) && L && L.inspect) { /* not in the hash: the registry has not written yet */ }
+711155	  var wTimer = null;
+711156	  function writeSoon() { clearTimeout(wTimer); wTimer = setTimeout(writeNow, 400); }       // 400 ms (lesson.js:336)
+711157	  function writeNow() {
+711158	    clearTimeout(wTimer); wTimer = null;
+711159	    syncLayers();
+711160	    var h = hashText(), url = location.pathname + location.search + (h ? '#' + h : '');
+711161	    if (location.hash.replace(/^#/, '') === h) { st.last_written = h; mine(h); return; }
+711162	    try { history.replaceState(history.state, '', url); st.writes++; st.last_written = h; mine(h); lastSeen = h; }
+711163	    catch (e) { say('link: the browser refused to write the hash (' + (e && e.message || e) + ')'); }
+711164	  function setField(k, v) { if (v == null || v === '') delete st.fields[k]; else st.fields[k] = String(v); }
+711165	  function setFields(o) { Object.keys(o).forEach(function (k) { setField(k, o[k]); }); writeSoon(); }
+711166	  function clear(keep) { keep = keep || []; Object.keys(st.fields).forEach(function (k) { if (keep.indexOf(k) < 0) delete st.fields[k]; }); writeSoon(); }
+711167	  // the readout line: every refusal is named once in #hud (appended after the engine rewrites it each frame)
+711168	  function say(words) { st.said.push(words); if (st.said.length > 4) st.said.shift(); KY.redraw(); }
+711169	  function refuse(words) { if (st.refused.indexOf(words) < 0) st.refused.push(words); say(words); }
+711170	  // ---- the verified lines' bodies, in the layer's own order (layers.js loadLines predicate, index.html:632-633)
+711171	  var bodiesP = null, bodies = null;
+711172	  // the lines layer must have placed its bodies before an index means anything (layers.js loadLines)
+711173	  function linesReady() {
+711174	    var L = layersApi(); if (!L || !L.get) return Promise.reject(new Error('the layer registry is not admitted'));
+711175	    return new Promise(function (res, rej) {
+711176	      var t0 = Date.now(), asked = false;
+711177	      (function poll() {
+711178	        var g = L.get('lines');
+711179	        if (g && g.status === 'OK' && L.placed() > 0) return res(L.placed());
+711180	        if (g && (g.status === 'FAIL' || g.status === 'REFUSED' || g.status === 'EMPTY')) return rej(new Error('the lines layer is ' + g.status + ' · ' + g.why));
+711181	        if (g && !g.on && !asked && /^OK/.test(String(L.inspect().manifest || ''))) { asked = true; L.set('lines', true); }
+711182	        if (Date.now() - t0 > 60000) return rej(new Error('the lines layer did not load in 60 s'));
+711183	        setTimeout(poll, 150);
+711185	  function loadBodies() {
+711186	    if (bodiesP) return bodiesP;
+711187	    st.bodies = 'loading';
+711188	    bodiesP = Promise.all([fetch('keys.json').then(function (r) { if (!r.ok) throw new Error('keys.json HTTP ' + r.status); return r.json(); }), linesReady()])
+711189	      .then(function (both) { var j = both[0];
+711190	        var all = j.bodies || j;
+711191	        bodies = all.filter(function (b) { return b.on_wafer && b.verified && Number.isFinite(b.key) && b.key >= 0 && b.key < H.SPACE; });
+711192	        var L = layersApi(), n = L && L.placed ? L.placed() : bodies.length;
+711193	        st.bodies = bodies.length === n ? 'OK · ' + bodies.length : 'MISMATCH · ' + bodies.length + ' ≠ layer ' + n;
+711194	        if (bodies.length !== n) throw new Error('keys.json gives ' + bodies.length + ' placed bodies, the lines layer ' + n);
+711195	        return bodies;
+711196	    bodiesP.catch(function (e) { st.bodies = 'FAIL · ' + (e && e.message || e); bodiesP = null; });
+711197	    return bodiesP;
+711198	  function indexOfId(id) { if (!bodies) return -1; for (var i = 0; i < bodies.length; i++) if (bodies[i].id === id) return i; return -1; }
+711199	  function indexOfKey(k) { if (!bodies) return -1; for (var i = 0; i < bodies.length; i++) if (bodies[i].key === k) return i; return -1; }
+711200	  function openIndex(i) {
+711201	    var L = layersApi(); if (!L || typeof L.open !== 'function') return false;
+711202	    if (L.get) { var g = L.get('lines'); if (g && !g.on) L.set('lines', true); }
+711203	    L.open(i); var b = bodies && bodies[i];
+711204	    if (b) setFields({ line: b.id, key: String(b.key), repo: null, period: null });
+711205	  // ---- applying fields, in the resolution order: edition, app, layers, period, repo, line, key (the last camera wins)
+711206	  function findRepo(name) {
+711207	    var R = H.repos || [], low = String(name).toLowerCase(), r = null;
+711208	    for (var i = 0; i < R.length && !r; i++) if (R[i].name.toLowerCase() === low) r = R[i];
+711209	    for (var j = 0; j < R.length && !r; j++) if (R[j].name.toLowerCase().indexOf(low) >= 0) r = R[j];
+711211	  function editionTarget(stamp, rest) {
+711212	    var path = stamp === '202610311905' ? '../202610311905/belt/' : '../' + stamp + '/';   // editions/README.md:22
+711213	    return path + (rest ? '#' + rest : '');
+711214	  function restOf(f, drop) {
+711215	    var o = []; FIELDS.forEach(function (k) { if (drop.indexOf(k) < 0 && f[k] != null) o.push(k + '=' + enc(f[k])); });
+711216	    return o.join('&');
+711217	  function appLink(id, f) {
+711218	    var a = null, apps = appsList();
+711219	    for (var i = 0; i < apps.length; i++) if (apps[i].id === id) a = apps[i];
+711221	    if (id === 'see-through') {
+711222	      var S = KY.modules['see-through'] && KY.modules['see-through'].api;
+711223	      var carry = { key: f.key, space: f.space, repo: f.repo, sub: f.sub };
+711224	      if (S && typeof S.link === 'function') return new URL(S.link(carry), location.href).href;
+711225	      var p = []; ['repo', 'key', 'space', 'sub'].forEach(function (k) { if (carry[k] != null) p.push(k + '=' + encodeURIComponent(carry[k])); });
+711226	      return new URL(a.link + (p.length ? '#' + p.join('&') : ''), location.href).href;
+711227	    var q = restOf(f, ['app', 'edition', 'layers']);
+711228	    return new URL(a.link + (q ? '#' + q : ''), location.href).href;
+711229	  var appsCache = null;
+711230	  function appsList() {
+711231	    if (appsCache) return appsCache;
+711232	    var A = KY.modules.apps && KY.modules.apps.api;
+711233	    var list = A && typeof A.list === 'function' ? A.list() : null;
+711234	    if (Array.isArray(list) && list.length) {
+711235	      appsCache = list.map(function (x) { return { id: x.id, name: x.name || x.title || x.id, link: x.link || x.href || x.url, star: x.id === 'see-through' }; })
+711236	        .filter(function (x) { return x.id && x.link; });
+711237	      appsCache.sort(function (a, b) { return (b.star ? 1 : 0) - (a.star ? 1 : 0); });
+711238	      return appsCache;
+711239	    return FALLBACK_APPS;
+711240	  function layersReady() {
+711241	    var L = layersApi(); if (!L || !L.inspect) return Promise.resolve(false);
+711242	    return new Promise(function (res) {
+711243	      var t0 = Date.now();
+711244	      (function poll() { var m = String(L.inspect().manifest || ''); if (/^OK/.test(m)) return res(true); if (/^FAIL/.test(m) || Date.now() - t0 > 30000) return res(false); setTimeout(poll, 150); })();
+711245	  function apply(f, how) {
+711246	    how = how || {}; st.reads++; st.last_read = { fields: JSON.parse(JSON.stringify(f)), from: how.from || 'hash', at: new Date().toISOString() };
+711247	    if (f.edition && f.edition !== KY.edition) {                     // navigate, stop (never kept in this page's hash)
+711248	      location.href = editionTarget(f.edition, restOf(f, ['edition'])); return Promise.resolve('edition');
+711249	    if (f.app) {
+711250	      var u = appLink(f.app, f);
+711251	      if (!u) refuse('no app called ' + f.app); else { location.href = u; return Promise.resolve('app'); }
+711252	    var chain = Promise.resolve();
+711253	    if ('layers' in f && how.from !== 'hash') {                       // on arrival Opus 3 applies its own field (layers.js applyLink)
+711254	      chain = chain.then(layersReady).then(function (ok) {
+711255	        var L = layersApi(); if (!ok || !L) return;
+711256	        var want = {}; f.layers.split(',').filter(Boolean).forEach(function (id) { want[id] = 1; });
+711257	        var states = L.inspect().states || {};
+711258	        Object.keys(states).forEach(function (id) { if (states[id] !== 'REFUSED') L.set(id, !!want[id]); });
+711259	        st.fields.layers = f.layers;
+711260	    var cam = { period: null, repo: null, line: null, key: null };
+711261	    if (f.period) chain = chain.then(function () {
+711262	      var m = f.period.match(/^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/);
+711263	      H.lightTime(+m[1], m[2] ? +m[2] : 0, m[3] ? +m[3] : 0); cam.period = f.period;
+711264	    if (f.repo) chain = chain.then(function () {
+711265	      var r = findRepo(f.repo);
+711266	      if (!r) { refuse('no repository called ' + f.repo); return; }
+711267	      KY.lit.repo = r.i; KY.sel.target = null; if (!f.period) H.card.style.display = 'none'; H.home(); KY.redraw(); cam.repo = r.name;
+711268	    if (f.line) chain = chain.then(function () {
+711269	      return loadBodies().then(function () {
+711270	        var i = indexOfId(f.line);
+711271	        if (i < 0) { refuse('line ' + f.line + ' is not in this edition\'s keys.json'); return; }
+711272	        openIndex(i); cam.line = f.line; cam.key = String(bodies[i].key);
+711273	      }, function (e) { refuse('line ' + f.line + ': ' + (e && e.message || e)); });
+711274	    if (f.key) chain = chain.then(function () {
+711275	      if (cam.key === f.key) return;                                  // the line already put the camera on this key
+711276	      return openKey(+f.key, true).then(function (ok) { if (ok) cam.key = f.key; });
+711277	    return chain.then(function () {
+711278	      var nf = {}; if ('layers' in st.fields) nf.layers = st.fields.layers;
+711279	      if (cam.period) nf.period = cam.period; if (cam.repo) nf.repo = cam.repo;
+711280	      if (cam.line) nf.line = cam.line; if (cam.key) nf.key = cam.key;
+711281	      st.fields = nf; writeSoon(); return 'applied';
+711282	  // a key: when it is a placed verified line, its card (the line is the header) lands in the clear space; else goKey
+711283	  function openKey(k, fromLink) {
+711284	    if (!(k >= 0 && k < H.SPACE)) { refuse('key ' + k + ' is not on this wafer (SPACE ' + H.SPACE + ')'); return Promise.resolve(false); }
+711285	    return loadBodies().then(function () { return indexOfKey(k); }, function () { return -1; }).then(function (i) {
+711286	      if (i >= 0 && openIndex(i)) return true;
+711287	      H.goKey(k); setFields({ key: String(k), line: null, repo: null, period: null }); return true;
+711288	  function readLocation(from) {
+711289	    var p = parse(location.search, location.hash);
+711290	    p.refused.forEach(function (k) { refuse('link: ' + k + ' not understood'); });
+711291	    return apply(p.fields, { from: from || 'hash' });
+711292	  // ---- what the person does writes the hash (6.3 "writes when"; 6.5 VIEW)
+711293	  function watchCard() {
+711294	    var card = H.card, lastSig = '';
+711295	    function look() {
+711296	      if (card.style.display !== 'block') { lastSig = ''; return; }
+711297	      var lc = cardApi(), info = lc && lc.inspect ? lc.inspect() : null;
+711298	      if (info && info.open && info.index >= 0) {                     // a verified line (e/E, a spark tap, a LINES row, Open a line)
+711299	        var sig = 'i' + info.index; if (sig === lastSig) return; lastSig = sig;
+711300	        loadBodies().then(function () { var b = bodies[info.index]; if (b) setFields({ line: b.id, key: String(b.key), repo: null, period: null }); }, function () {});
+711302	      var m = String(card.textContent || '').match(/^\s*key ([\d,]+)/);   // describe(): "key <b>N</b> ..." (index.html:284-288)
+711303	      if (m) { var k = m[1].replace(/,/g, ''), s2 = 'k' + k; if (s2 === lastSig) return; lastSig = s2; setFields({ key: k, line: null, repo: null, period: null }); }
+711304	    try { new MutationObserver(look).observe(card, { attributes: true, attributeFilter: ['style'], childList: true, subtree: false }); } catch (e) {}
+711305	  function watchFind() {
+711306	    var gin = H.gin, gbox = H.gbox;
+711307	    // after the engine's own Enter (index.html:605-613) has run, the hash records what it lit; text it did not match is
+711308	    // kept for `Open an app → See Through` as #sub=<text> (team-3/STEPS.md 5.7c)
+711309	    gbox.addEventListener('keydown', function (e) {
+711310	      if (e.key !== 'Enter' || e.target !== gin) return;
+711311	      var raw = gin.value.trim(), q = raw.replace(/[ ,_]/g, ''), mt = raw.match(/^(20\d\d)(?:-(\d\d))?(?:-(\d\d))?$/);
+711312	      if (!raw) return;
+711313	      if (mt) { setFields({ period: raw, key: null, line: null, repo: null }); st.sub = null; return; }
+711314	      if (/^(?:show\s+)?new(?:\s+code)?(?:\s+(\d+)\s*h?)?$/i.test(raw)) { st.sub = null; return; }
+711315	      if (/^\d+$/.test(q)) { st.sub = null; return; }                  // the card observer writes the key
+711316	      var r = findRepo(raw);
+711317	      if (r) { setFields({ repo: r.name, key: null, line: null }); st.sub = null; }
+711318	      else st.sub = raw.slice(0, 80);
+711319	  // An open panel (kuiper-shell.js openMenu) or an open card (index.html ANDROID BACK, edSync) holds one pushed history
+711320	  // entry; this writer writes into whichever entry is current, and the back() that closes the panel or the card returns to
+711321	  // the entry below, whose hash is older. So after every history traversal the hash is written again from the fields,
+711322	  // and the hashchange that traversal fires is not read as a new link (it is our own older text, not the person's).
+711323	  // Which hash is ours: every text this writer wrote (the last 64) and the hash the page arrived with. A traversal that
+711324	  // lands on one of them is our own older text and is written over; any other hash is a new link (typed, pasted, or a
+711325	  // location.hash assignment, which Chrome also reports as a popstate) and is read.
+711326	  var written = [], lastSeen = location.hash.replace(/^#/, '');
+711327	  function mine(h) { if (written.indexOf(h) < 0) { written.push(h); if (written.length > 64) written.shift(); } }
+711328	  function wireHashchange() {
+711329	    mine(location.hash.replace(/^#/, ''));
+711330	    function seen() {
+711331	      var h = location.hash.replace(/^#/, '');
+711332	      if (h === lastSeen) return;                                     // popstate and hashchange both report one change
+711333	      lastSeen = h;
+711334	      if (h === st.last_written) return;
+711335	      if (written.indexOf(h) >= 0) { st.deferred++; setTimeout(writeNow, 0); return; }
+711336	      mine(h); readLocation('hashchange');
+711337	    addEventListener('popstate', seen);
+711338	    addEventListener('hashchange', seen);
+711339	  var link = Object.freeze({
+711340	    schema: 'kuiper.link.v1', fields: FIELDS.slice(),
+711341	    read: function (text) { return text == null ? parse(location.search, location.hash) : readText(text); },
+711342	    apply: function (f, how) { return apply(f || {}, how || { from: 'api' }); },
+711343	    hashText: function () { syncLayers(); return hashText(); },
+711344	    format: function (f) { return hashText(f || {}); },              // the pure serialiser: no state, no layers sync (tester G1)
+711345	    parse: function (search, hash) { return parse(search, hash); },
+711346	    set: function (k, v) { if (FIELDS.indexOf(k) < 0) return false; if (v != null && !RULES[k](String(v))) return false; setField(k, v); writeSoon(); return true; },
+711347	    clear: function (keep) { clear(keep); }, flush: function () { writeNow(); },
+711348	    url: function () { syncLayers(); var h = hashText(); return location.origin + location.pathname + (h ? '#' + h : ''); },
+711349	    inspect: function () { return { fields: JSON.parse(JSON.stringify(st.fields)), last_read: st.last_read, last_written: st.last_written, refused: st.refused.slice() }; }
+711350	  // ==== SECTION C begin (OPUS-6 builder): EXPORT, the EDIT paste field, the Backspace rule, copy-or-show
+711351	  // Keys: GridAtlas's export and clipboard method, gridatlas@5ec7f62 atlas/modules/202609031958-menu-bar.js:707-733
+711352	  // (copy, else show the payload in full), :794-811 (export this view; the image is checked before it is offered),
+711353	  // :817-820 exportStamp (UTC to the minute), :1082-1097 looksBlank (sample a 40x40 probe), :1120-1137 capture INSIDE a
+711354	  // render frame, :1354-1365 every export control named by id and data-*-export. The Kuiper's WebGL context is
+711355	  // {antialias:false, alpha:false} with no preserveDrawingBuffer (editions/202611012135/index.html:122), so a read outside
+711356	  // the frame is opaque black, not transparent: the blank test here is "every probe pixel one colour" (alpha 0 included),
+711357	  // GridAtlas's sample taken one step further for an opaque canvas. The capture runs as the last painter of KY.draw.add,
+711358	  // after the engine's wafer (index.html:332-363) and overlay (:384 ff.) in the same task.
+711359	  var C = (function () {
+711360	    var KYc = null, Hc = null, Lk = null, st = { exports: [], copies: [], pastes: [], backspace: 0, capture: null };
+711361	    var COPIED_MS = 4000, CAPTURE_ORDER = 1e9, CAPTURE_WAIT_MS = 4000;
+711362	    var LICENCE_LINE = 'code Apache-2.0, text and data CC BY 4.0';           // editions/README.md:27
+711363	    var BLANK_WORDS = 'the image came back blank; try again after the wafer has drawn';
+711364	    function mk(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+711365	    // ---- copy, never silent (6.1 LINK; 6.L1). rowEl: the row that asked; text: the payload.
+711366	    function payloadField(rowEl) { return rowEl.parentNode ? rowEl.parentNode.querySelector('input.ky-file-payload[data-for="' + rowEl.id + '"]') : null; }
+711367	    var PAYLOAD_CSS = 'ky-file-payload-css';
+711368	    function payloadStyle() {                                         // a 44 px field in the shell's face (MB:221 rows >= 44 px)
+711369	      if (document.getElementById(PAYLOAD_CSS)) return; var c = mk('style'); c.id = PAYLOAD_CSS;
+711370	      c.textContent = 'input.ky-file-payload{display:block;box-sizing:border-box;width:100%;min-height:44px;margin:0;padding:10px 12px;'
+711371	        + 'font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;color:#fff;background:#05070c;border:1px solid #2ee6e6;border-radius:0;'
+711372	        + '-webkit-user-select:text;user-select:text}';
+711373	      document.head.appendChild(c);
+711374	    function showPayload(rowEl, text, why) {
+711375	      payloadStyle();
+711376	      var f = payloadField(rowEl);
+711377	      if (!f) { f = mk('input', 'ky-file-payload'); f.type = 'text'; f.readOnly = true; f.setAttribute('data-for', rowEl.id);
+711378	        f.setAttribute('aria-label', 'the clipboard is not available here: select and copy this by hand');
+711379	        f.addEventListener('click', function (e) { e.stopPropagation(); f.select(); });
+711380	        f.addEventListener('focus', function () { f.select(); });
+711381	        rowEl.parentNode.insertBefore(f, rowEl.nextSibling); }
+711382	      f.value = text; f.title = why;
+711383	      try { f.focus({ preventScroll: true }); } catch (e) { try { f.focus(); } catch (e2) {} }
+711384	      try { f.select(); f.setSelectionRange(0, text.length); } catch (e) {}
+711385	      st.copies.push({ row: rowEl.id, ok: false, why: why, text: text });
+711387	    function copyText(rowEl, text) {
+711388	      var label = rowEl.querySelector('.ky-file-label') || rowEl.firstChild || rowEl;
+711389	      if (!rowEl.hasAttribute('data-label')) rowEl.setAttribute('data-label', label.textContent);
+711390	      var was = rowEl.getAttribute('data-label'), clip = navigator.clipboard;
+711391	      if (!clip || typeof clip.writeText !== 'function') return Promise.resolve(showPayload(rowEl, text, 'navigator.clipboard is not available on this page'));
+711392	      var p; try { p = clip.writeText(text); } catch (e) { return Promise.resolve(showPayload(rowEl, text, 'the clipboard refused: ' + (e && e.message || e))); }
+711393	      return Promise.resolve(p).then(function () {
+711394	        var f = payloadField(rowEl); if (f) f.remove();
+711395	        label.textContent = '✓ Copied'; st.copies.push({ row: rowEl.id, ok: true, text: text });
+711396	        clearTimeout(rowEl._kyCopied); rowEl._kyCopied = setTimeout(function () { label.textContent = was; }, COPIED_MS);
+711397	      }, function (e) { return showPayload(rowEl, text, 'the clipboard refused: ' + (e && e.message || e)); });
+711398	    // ---- EXPORT (6.1): the capture, the blank test, the stamp
+711399	    function looksBlank(canvas) {                                    // GridAtlas :1082 generalised for an opaque canvas
+711400	        var probe = mk('canvas'); probe.width = 160; probe.height = 160;   // 160, not 40: a zoomed wafer is sparse (lead)
+711401	        var c = probe.getContext('2d'); c.drawImage(canvas, 0, 0, 160, 160);
+711402	        var d = c.getImageData(0, 0, 160, 160).data, r = d[0], g = d[1], b = d[2], a = d[3], anyAlpha = false;
+711403	        for (var i = 0; i < d.length; i += 4) { if (d[i + 3] !== 0) anyAlpha = true; if (d[i] !== r || d[i + 1] !== g || d[i + 2] !== b || d[i + 3] !== a) return false; }
+711404	        return true;                                                   // one colour (or wholly transparent)
+711405	      } catch (e) { return false; }                                    // a tainted canvas is not blank (GridAtlas :1090-1094)
+711406	    function utcStamp(now) { return now.toISOString().replace('T', ' ').slice(0, 16) + ' UTC'; }      // GridAtlas :817-820
+711407	    function editionName() {
+711408	      // the page's own name when #big carries one ("Kuiper Edition 5 · …", index.html:638); layers.js writes
+711409	      // "Kuiper edition <stamp>" instead, so a twelve-digit stamp is never read as an edition number
+711410	      var m = String(Hc.big && Hc.big.textContent || '').match(/Kuiper Edition (\d{1,3})(?!\d)/i);
+711411	      return m ? 'Kuiper Edition ' + m[1] + ' · ' + KYc.edition : 'Kuiper edition ' + KYc.edition;
+711412	    function viewLink() {
+711413	      try { if (Lk && typeof Lk.hashText === 'function') { var h = Lk.hashText(); return location.origin + location.pathname + (h ? '#' + h : ''); } } catch (e) {}
+711414	      return location.origin + location.pathname + location.hash;
+711415	    // the foot every exported artefact carries: edition, stamp, UTC time, licence, and the link that reopens the view
+711416	    function footLines(now) { return [editionName() + ' · ' + utcStamp(now), LICENCE_LINE, viewLink()]; }
+711417	    var pending = null;
+711418	    function capturePainter() {                                       // runs inside draw(), after the wafer and the overlay
+711419	      if (!pending) return; var p = pending; pending = null; clearTimeout(p.timer);
+711420	        var cv = Hc.cv, ov = Hc.ov, W = cv.width, Hh = cv.height;
+711421	        if (!W || !Hh) { p.done(null, 'the wafer has no size to capture'); return; }
+711422	        var blank = looksBlank(cv);                                   // the wafer itself, read inside its own frame (lead)
+711423	        var view = mk('canvas'); view.width = W; view.height = Hh;
+711424	        var v = view.getContext('2d'); v.drawImage(cv, 0, 0); v.drawImage(ov, 0, 0, W, Hh);
+711425	        p.done(view, null, blank);
+711426	      } catch (e) { p.done(null, 'the capture failed: ' + (e && e.message || e)); }
+711427	    function capture() {                                              // -> Promise<{view} | {refused}>
+711428	      return new Promise(function (res) {
+711429	        if (pending) { clearTimeout(pending.timer); pending.done(null, 'a newer capture was asked for'); }
+711430	        pending = { done: function (view, why, blank) { res(view ? { view: view, blank: !!blank } : { refused: why }); },
+711431	          timer: setTimeout(function () { if (pending) { pending = null; res({ refused: BLANK_WORDS }); } }, CAPTURE_WAIT_MS) };
+711432	        KYc.redraw();
+711433	    function stamped(view, now) {                                     // innerWidth x min(dpr, 2) wide, the foot below the view
+711434	      var s = Math.min(window.devicePixelRatio || 1, 2), W = Math.round(innerWidth * s), Hv = Math.round(innerHeight * s);
+711435	      var lines = footLines(now), fs = Math.round(11 * s), lh = Math.round(16 * s), pad = Math.round(8 * s), footH = pad * 2 + lh * lines.length;
+711436	      var out = mk('canvas'); out.width = W; out.height = Hv + footH;
+711437	      var o = out.getContext('2d'); o.imageSmoothingEnabled = true;
+711438	      o.fillStyle = '#000'; o.fillRect(0, 0, W, Hv); o.drawImage(view, 0, 0, W, Hv);
+711439	      o.fillStyle = '#05070c'; o.fillRect(0, Hv, W, footH);
+711440	      o.fillStyle = '#2ee6e6'; o.fillRect(0, Hv, W, Math.max(1, Math.round(s)));          // the instrument's line (PALETTE.md)
+711441	      o.font = fs + 'px ui-monospace, Menlo, Consolas, monospace'; o.textBaseline = 'top'; o.fillStyle = '#c9d3e6';
+711442	      lines.forEach(function (t, i) { o.fillText(t, pad, Hv + pad + i * lh, W - 2 * pad); });
+711443	      return { canvas: out, foot: { lines: lines, height: footH, scale: s } };
+711444	    function say(rowEl, words) {                                      // the row's own second line says what happened
+711445	      var h = rowEl.querySelector('.ky-file-why'); if (!h) { h = mk('span', 'gm-hint ky-file-why'); rowEl.appendChild(h); }
+711446	      h.textContent = words; rowEl.setAttribute('data-ky-state', words === '' ? '' : words.slice(0, 40));
+711447	    function fileName(now) { return 'kuiper-' + KYc.edition + '-' + now.toISOString().slice(0, 16).replace(/[-:]/g, '') + 'Z.png'; }
+711448	    function exportImage(rowEl) {
+711449	      var now = new Date(); say(rowEl, 'capturing inside the next frame…');
+711450	      return capture().then(function (r) {
+711451	        if (r.refused) { st.exports.push({ kind: 'image', ok: false, why: r.refused, at: now.toISOString() }); say(rowEl, r.refused); return null; }
+711452	        if (r.blank) { st.exports.push({ kind: 'image', ok: false, why: BLANK_WORDS, at: now.toISOString() }); say(rowEl, BLANK_WORDS); return null; }
+711453	        var s = stamped(r.view, now);
+711454	        return new Promise(function (res) {
+711455	          s.canvas.toBlob(function (blob) {
+711456	            if (!blob) { say(rowEl, BLANK_WORDS); st.exports.push({ kind: 'image', ok: false, why: 'toBlob returned nothing' }); res(null); return; }
+711457	            var url = URL.createObjectURL(blob), a = mk('a'); a.href = url; a.download = fileName(now); a.style.display = 'none';
+711458	            document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+711459	            var rec = { kind: 'image', ok: true, file: a.download, bytes: blob.size, width: s.canvas.width, height: s.canvas.height,
+711460	              view_height: s.canvas.height - s.foot.height, foot: s.foot.lines, at: now.toISOString() };
+711461	            st.exports.push(rec); say(rowEl, '✓ saved ' + a.download + ' · ' + blob.size + ' bytes'); res(rec);
+711462	          }, 'image/png');
+711463	    // Print: the same image and foot in a print stylesheet; the browser's print-to-PDF is the PDF (no PDF writer copied)
+711464	    var PRINT_ID = 'ky-file-print', PRINT_CSS = 'ky-file-print-css';
+711465	    function printView(rowEl) {
+711466	        var why = r.refused || (r.blank ? BLANK_WORDS : null);
+711467	        if (why) { st.exports.push({ kind: 'print', ok: false, why: why, at: now.toISOString() }); say(rowEl, why); return null; }
+711468	        var s = stamped(r.view, now), old = document.getElementById(PRINT_ID); if (old) old.remove();
+711469	        if (!document.getElementById(PRINT_CSS)) { var css = mk('style'); css.id = PRINT_CSS;
+711470	          css.textContent = '#' + PRINT_ID + '{display:none}@media print{body>*:not(#' + PRINT_ID + '){display:none!important}'
+711471	            + '#' + PRINT_ID + '{display:block!important;position:static;background:#fff;color:#000}#' + PRINT_ID + ' img{width:100%;height:auto;display:block}'
+711472	            + '@page{margin:10mm}}'; document.head.appendChild(css); }
+711473	        var box = mk('div'); box.id = PRINT_ID; box.setAttribute('aria-hidden', 'true');
+711474	        var img = mk('img'); img.alt = s.foot.lines[0]; img.src = s.canvas.toDataURL('image/png'); box.appendChild(img);
+711475	        document.body.appendChild(box);
+711476	        var rec = { kind: 'print', ok: true, width: s.canvas.width, height: s.canvas.height, foot: s.foot.lines, at: now.toISOString() };
+711477	        st.exports.push(rec); say(rowEl, '✓ sent to the browser’s print · ' + s.foot.lines[0]);
+711478	        var go = function () { try { window.print(); } catch (e) { say(rowEl, 'this browser refused to print: ' + (e && e.message || e)); } };
+711479	        if (img.complete) go(); else img.onload = go;
+711480	        return rec;
+711481	    function exportRows(group, row) {                                 // row(label, onTap, id): the lead's row factory
+711482	      var img = row('⤓ Save an image of this view', function (el) { exportImage(el); return true; }, 'kuiper-export-image');
+711483	      img.setAttribute('data-ky-export', 'image');
+711484	      var pr = row('⎙ Print', function (el) { printView(el); return true; }, 'kuiper-export-print');
+711485	      pr.setAttribute('data-ky-export', 'print');
+711486	      group.appendChild(img); group.appendChild(pr); return [img, pr];
+711487	    // ---- EDIT (6.5): the find box also takes a pasted Kuiper or See Through link; `Paste a link…` opens the same field
+711488	    var PLACEHOLDER_LINK = 'a key, a repository, a period, or a pasted link';
+711489	    function looksLikeLink(t) { return /^(https?:\/\/|\.{0,2}\/|[#?])/i.test(t) || /^(key|line|repo|period|layers|edition|app|sub|space)=/.test(t); }
+711490	    function takePaste(text) {                                        // true when the text was a link and was handled
+711491	      var t = String(text || '').trim(); if (!t || !looksLikeLink(t) || !Lk || typeof Lk.read !== 'function') return false;
+711492	      var r = Lk.read(t);
+711493	      if (!r) { st.pastes.push({ text: t, ok: false, why: 'not a link' }); return false; }
+711494	      st.pastes.push({ text: t, ok: true, target: r.target || 'kuiper', fields: r.fields, refused: r.refused });
+711495	      if (r.target === 'see-through' || r.target === 'other') { location.href = r.url; return true; }   // navigation, same tab
+711496	      if (typeof Lk.apply === 'function') Lk.apply(r.fields, { from: 'paste' });
+711498	    function wireFind() {
+711499	      var gin = Hc.gin, gbox = Hc.gbox;
+711500	      // capture phase on #goto runs before the engine's own keydown on #gotoin (index.html:605)
+711501	      gbox.addEventListener('keydown', function (e) {
+711502	        if (e.key !== 'Enter' || e.target !== gin) return;
+711503	        var t = gin.value.trim(); if (!looksLikeLink(t)) return;      // the find grammar (index.html:606-613) stays the engine's
+711504	        e.preventDefault(); e.stopImmediatePropagation(); e.stopPropagation();
+711505	        gbox.style.display = 'none'; takePaste(t);
+711506	      if (gin.placeholder !== PLACEHOLDER_LINK) { st.placeholder_was = gin.placeholder; gin.placeholder = PLACEHOLDER_LINK; }
+711507	    function openPaste() {                                            // `Paste a link…`: the find box, named for a link
+711508	      var gbox = Hc.gbox, gin = Hc.gin;
+711509	      try { var sh = KYc.modules && KYc.modules['kuiper-shell'] && KYc.modules['kuiper-shell'].api; if (sh && sh.close) sh.close(); } catch (e) {}
+711510	      gbox.style.display = 'block'; gin.value = ''; gin.setAttribute('enterkeyhint', 'go');
+711511	      try { gin.focus(); } catch (e) {}
+711512	    function pasteRow(editPanel, row) {
+711513	      if (!editPanel) return null;
+711514	      var r = row('Paste a link…', function () { openPaste(); return true; }, 'ky-edit-paste');
+711515	      r.setAttribute('data-ky-edit', 'paste');
+711516	      editPanel.appendChild(r); return r;
+711517	    // ---- Backspace (whole wafer) clears every field but `layers` (6.3, 6.5)
+711518	    function wireBackspace() {
+711519	      addEventListener('keydown', function (e) {
+711520	        if (e.key !== 'Backspace' || Hc.gbox.style.display === 'block') return;
+711521	        var t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+711522	        st.backspace++;
+711523	        if (Lk && typeof Lk.clear === 'function') Lk.clear(['layers']);
+711525	      install: function (K, link) { KYc = K; Hc = K.hooks; Lk = link; K.draw.add(capturePainter, CAPTURE_ORDER); wireFind(); wireBackspace(); },
+711526	      exportRows: exportRows, pasteRow: pasteRow, copyText: copyText, exportImage: exportImage, printView: printView,
+711527	      takePaste: takePaste, looksBlank: looksBlank, footLines: footLines,
+711528	      inspect: function () { return JSON.parse(JSON.stringify(st)); },
+711529	      strings: { blank: BLANK_WORDS, licence: LICENCE_LINE, placeholder: PLACEHOLDER_LINK }
+711532	  // ==== SECTION C end
+711533	  // ======================================================================== SECTION B: the FILE rows (6.1, 6.2) (LEAD)
+711534	  var CSS_ID = 'ky-file-css';
+711536	    var P = '#kuiper-menu-bar .gm-panel ', s = mk('style'); s.id = CSS_ID;
+711537	    s.textContent = [
+711538	      P + '.ky-file-form{display:flex;align-items:center;gap:6px;min-height:44px;margin:0 0 3px;padding:0 0 0 10px;box-sizing:border-box;flex-wrap:wrap}',
+711539	      P + '.ky-file-form .ky-file-label{flex:0 0 auto;white-space:nowrap}',
+711540	      P + '.ky-file-form input,' + P + 'input.ky-file-payload{flex:1 1 120px;min-width:0;height:44px;box-sizing:border-box;background:#02080b;color:#cfeef6;',
+711541	      'border:1px solid rgba(80,220,240,.32);border-radius:2px;font:inherit;padding:0 8px}',
+711542	      P + 'input.ky-file-payload{display:block;width:100%;margin:0 0 3px;color:#fff;border-color:#2ee6e6}',
+711543	      P + '.ky-file-form button.ky-go{width:56px;flex:0 0 56px;justify-content:center;margin:0;border:1px solid rgba(80,220,240,.32)}',
+711544	      P + '.ky-file-why{display:block;color:#ffb000;padding:2px 10px 4px;white-space:normal;overflow-wrap:anywhere}',
+711545	      P + '.ky-file-why:empty{display:none}',
+711546	      P + '.gm-row .gm-hint.ky-file-why{color:#ffb000;margin-left:8px}',
+711547	      P + '.ky-sub{display:none;margin:0 0 3px 12px;border-left:1px solid rgba(80,220,240,.25)}',
+711548	      P + '.ky-sub.ky-open{display:block}',
+711549	      P + '.ky-row2{display:flex;flex-direction:column;align-items:flex-start!important;justify-content:center}',
+711550	      P + '.ky-row2 .gm-hint{margin:2px 0 0;opacity:.75;font-size:10px}',
+711551	      P + '.ky-lit{background:rgba(80,220,240,.16)!important;color:#fff!important}',
+711552	      P + '[aria-disabled="true"]{opacity:.55;cursor:default}',
+711553	      P + '.ky-missing .gm-hint{color:#ffb000!important;opacity:1}'
+711556	  // row(label, onTap, id, hint): a 44 px <button> row in the shell's face. onTap(el) runs; the panel closes unless it
+711557	  // returns true (kuiper-shell.js row() keeps the same rule).
+711558	  function row(label, onTap, id, hint) {
+711559	    var b = mk('button', 'gm-row'); b.type = 'button'; if (id) b.id = id;
+711560	    b.appendChild(mk('span', 'ky-file-label', label)); if (hint) b.appendChild(mk('span', 'gm-hint', hint));
+711561	    b.addEventListener('click', function (e) { e.stopPropagation(); var keep = false; try { keep = onTap && onTap(b, e) === true; } finally { if (!keep) closePanel(); } });
+711562	    st.rows++; return b;
+711563	  function heading(parent, text) { var h = mk('div', 'gm-layer-group', text); h.setAttribute('data-ky-file-group', text); parent.appendChild(h); st.groups.push(text); return h; }
+711564	  function form(label, id, attrs, onGo) {
+711565	    var f = mk('div', 'ky-file-form'); f.id = id;
+711566	    var l = mk('label', 'ky-file-label', label), i = mk('input'), g = mk('button', 'ky-go', 'GO'), why = mk('span', 'ky-file-why');
+711567	    i.type = 'text'; i.id = id + '-in'; l.htmlFor = i.id; i.autocomplete = 'off'; i.spellcheck = false; i.setAttribute('autocapitalize', 'off');
+711568	    Object.keys(attrs).forEach(function (k) { i.setAttribute(k, attrs[k]); });
+711569	    g.type = 'button'; g.setAttribute('aria-label', label.replace(/…$/, '') + ': go');
+711570	    function go() { why.textContent = ''; onGo(i.value.trim(), why); }
+711571	    g.addEventListener('click', function (e) { e.stopPropagation(); go(); });
+711572	    // the engine's single-key commands (r n e / Backspace, index.html:614-618) never fire from these fields
+711573	    i.addEventListener('keydown', function (e) { e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); go(); } else if (e.key === 'Escape') closePanel(); });
+711574	    f.appendChild(l); f.appendChild(i); f.appendChild(g);
+711575	    var wrap = mk('div'); wrap.appendChild(f); wrap.appendChild(why); st.rows++;
+711576	    return { el: wrap, input: i, why: why };
+711577	  function keyNow() { return st.fields.key || null; }
+711578	  function cmd(k) { return 'python tools/key.py ' + k; }
+711579	  var refs = {};
+711580	  function buildFile(group) {
+711581	    // ---- OPEN
+711582	    heading(group, 'Open');
+711583	    var ok = form('Open a key…', 'ky-file-key', { inputmode: 'numeric', enterkeyhint: 'go', pattern: '[0-9]*', placeholder: 'a key, digits only' }, function (v, why) {
+711584	      var d = v.replace(/[ ,_]/g, '');
+711585	      if (!/^\d{1,15}$/.test(d)) { why.textContent = v ? 'key ' + v + ' is not on this wafer (SPACE ' + H.SPACE + ')' : 'type a key: digits only'; return; }
+711586	      var k = +d;
+711587	      if (k >= H.SPACE) { why.textContent = 'key ' + d + ' is not on this wafer (SPACE ' + H.SPACE + ')'; st.refused.push(why.textContent); return; }
+711588	      st.opened.push('key ' + d); closeThen(function () { openKey(k); });
+711589	    group.appendChild(ok.el); refs.keyForm = ok;
+711590	    // its second line: the command that gives the bytes from a clone (GridAtlas's one runnable command, menu-bar.js:707-733)
+711591	    refs.keyCmd = row(cmd('<k>'), function (el) { var k = ok.input.value.replace(/[ ,_]/g, '') || keyNow(); if (!/^\d{1,15}$/.test(k || '')) { C.copyText(el, cmd('<k>')); return true; } C.copyText(el, cmd(k)); return true; }, 'ky-file-key-cmd', '⧉ copy');
+711592	    ok.input.addEventListener('input', function () { var k = ok.input.value.replace(/[ ,_]/g, ''); refs.keyCmd.querySelector('.ky-file-label').textContent = cmd(/^\d{1,15}$/.test(k) ? k : (keyNow() || '<k>')); });
+711593	    group.appendChild(refs.keyCmd);
+711594	    var ol = form('Open a line…', 'ky-file-line', { inputmode: 'text', enterkeyhint: 'go', placeholder: 'blob:line, e.g. 0048802…729d:5' }, function (v, why) {
+711595	      if (!/^[0-9a-f]{40}:\d+$/.test(v)) { why.textContent = 'line ' + (v || '…') + ' is not in this edition\'s keys.json'; return; }
+711596	      why.textContent = 'opening…';
+711597	      loadBodies().then(function () {
+711598	        var i = indexOfId(v);
+711599	        if (i < 0) { why.textContent = 'line ' + v + ' is not in this edition\'s keys.json'; return; }
+711600	        why.textContent = ''; st.opened.push('line ' + v); closeThen(function () { openIndex(i); });
+711601	      }, function (e) { why.textContent = 'line ' + v + ': ' + (e && e.message || e); });
+711602	    group.appendChild(ol.el); refs.lineForm = ol;
+711603	    var eds = mk('div', 'ky-sub'); eds.id = 'ky-file-editions';
+711604	    refs.editionsRow = row('Open an edition ▸', function () { var on = eds.classList.toggle('ky-open'); if (on) fillEditions(eds); refs.editionsRow.setAttribute('aria-expanded', String(on)); return true; }, 'ky-file-open-edition');
+711605	    refs.editionsRow.setAttribute('aria-expanded', 'false'); refs.editionsRow.setAttribute('aria-controls', eds.id);
+711606	    group.appendChild(refs.editionsRow); group.appendChild(eds);
+711607	    var apps = mk('div', 'ky-sub'); apps.id = 'ky-file-apps';
+711608	    refs.appsRow = row('Open an app ▸', function () {
+711609	      var A = KY.modules.apps && KY.modules.apps.api;
+711610	      if (A && typeof A.open === 'function') { closePanel(); A.open(); st.opened.push('apps launcher'); return true; }   // step 7's launcher
+711611	      var on = apps.classList.toggle('ky-open'); if (on) fillApps(apps); refs.appsRow.setAttribute('aria-expanded', String(on)); return true;
+711612	    }, 'ky-file-open-app');
+711613	    refs.appsRow.setAttribute('aria-expanded', 'false'); refs.appsRow.setAttribute('aria-controls', apps.id);
+711614	    group.appendChild(refs.appsRow); group.appendChild(apps);
+711615	    // ---- LINK
+711616	    heading(group, 'Link');
+711617	    group.appendChild(row('Copy a link to this view', function (el) { writeNow(); C.copyText(el, link.url()); return true; }, 'ky-file-copy-link'));
+711618	    refs.copyKey = row('Copy the key', function (el) { var k = keyNow(); if (!k) { sayRow(el, 'no key is open: open a key first'); return true; } C.copyText(el, k); return true; }, 'ky-file-copy-key');
+711619	    group.appendChild(refs.copyKey);
+711620	    refs.copyCmd = row('Copy ' + cmd('<k>'), function (el) { var k = keyNow(); if (!k) { sayRow(el, 'no key is open: open a key first'); return true; } C.copyText(el, cmd(k)); return true; }, 'ky-file-copy-cmd');
+711621	    group.appendChild(refs.copyCmd);
+711622	    // ---- EVIDENCE: every row an <a download> to this edition's own file, same origin; the byte count is measured
+711623	    heading(group, 'Evidence');
+711624	    refs.evidence = EVIDENCE.map(function (p) {
+711625	      var a = mk('a', 'gm-row ky-row2'); a.href = p; a.setAttribute('download', p.split('/').pop()); a.setAttribute('data-ky-evidence', p);
+711626	      a.appendChild(mk('span', 'ky-file-label', p + ' · ' + EVIDENCE_WHAT[p]));
+711627	      var h = mk('span', 'gm-hint', 'bytes: measured when FILE opens'); a.appendChild(h);
+711628	      a.addEventListener('click', function (e) { e.stopPropagation(); if (a.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+711629	      group.appendChild(a); st.rows++; return a;
+711630	    // ---- EXPORT (the builder's SECTION C)
+711631	    heading(group, 'Export');
+711632	    C.exportRows(group, row);
+711633	  function sayRow(el, words) { var h = el.querySelector('.ky-file-why'); if (!h) { h = mk('span', 'gm-hint ky-file-why'); el.appendChild(h); } h.textContent = words; }
+711634	  // the editions, from data/editions.json (Opus 3's data), read when the row is opened; newest first; this one inert
+711635	  function fillEditions(box) {
+711636	    if (box.getAttribute('data-filled')) return;
+711637	    box.setAttribute('data-filled', 'loading'); box.textContent = '';
+711638	    fetch('data/editions.json').then(function (r) { if (!r.ok) throw new Error('data/editions.json HTTP ' + r.status); return r.json(); }).then(function (j) {
+711639	      var list = (j.editions || []).slice().sort(function (a, b) { return String(b.stamp).localeCompare(String(a.stamp)); });
+711640	      st.editions = 'OK · ' + list.length;
+711641	      list.forEach(function (e) {
+711642	        var label = 'Kuiper Edition ' + e.number + ' · ' + e.stamp;
+711643	        if (e.stamp === KY.edition) {
+711644	          var cur = mk('button', 'gm-row', label + ' · this edition'); cur.type = 'button'; cur.disabled = true;   // inert, 44 px like its neighbours
+711645	          cur.setAttribute('aria-disabled', 'true'); cur.setAttribute('aria-current', 'page');
+711646	          cur.setAttribute('data-ky-edition', e.stamp); box.appendChild(cur); return;
+711647	        var a = mk('a', 'gm-row', label); a.setAttribute('data-ky-edition', e.stamp); a.href = editionTarget(e.stamp, '');
+711648	        a.addEventListener('click', function (ev) { ev.stopPropagation(); writeNow(); var h = hashText(); a.href = editionTarget(e.stamp, e.stamp === '202610311905' ? '' : h); st.opened.push('edition ' + e.stamp); });
+711649	        box.appendChild(a);
+711650	      var ptr = mk('a', 'gm-row', 'editions/ · the newest edition'); ptr.setAttribute('data-ky-edition', 'pointer'); ptr.href = '../';
+711651	      ptr.addEventListener('click', function (ev) { ev.stopPropagation(); writeNow(); var h = hashText(); ptr.href = '../' + (h ? '#' + h : ''); });
+711652	      box.appendChild(ptr); box.setAttribute('data-filled', 'ok');
+711653	      st.editions = 'FAIL · ' + (e && e.message || e); box.setAttribute('data-filled', '');
+711654	      var w = mk('div', 'ky-file-why', 'the editions list did not load: ' + (e && e.message || e)); box.appendChild(w);
+711655	  function fillApps(box) {
+711657	    appsList().forEach(function (a) {
+711658	      var el = mk('a', 'gm-row' + (a.star ? ' ky-lit' : ''), a.name); el.setAttribute('data-ky-app', a.id); el.href = a.link;
+711659	      el.addEventListener('click', function (ev) {
+711660	        ev.stopPropagation();
+711661	        var f = {}; if (a.id === 'see-through') { if (st.sub) f.sub = st.sub; else if (st.fields.key) f.key = st.fields.key; }
+711662	        else if (st.fields.key) f.key = st.fields.key;
+711663	        el.href = appLink(a.id, f) || a.link; st.opened.push('app ' + a.id);
+711664	      box.appendChild(el);
+711665	  // HEAD each evidence file once, when FILE first opens (no fetch at install, 6.2); a missing file is said in its row
+711666	  var evidenceAsked = false;
+711667	  function measureEvidence() {
+711668	    if (evidenceAsked) return; evidenceAsked = true;
+711669	    refs.evidence.forEach(function (a) {
+711670	      var p = a.getAttribute('data-ky-evidence'), h = a.querySelector('.gm-hint');
+711671	      fetch(p, { method: 'HEAD', cache: 'no-store' }).then(function (r) {
+711672	        var n = r.headers.get('content-length');
+711673	        if (!r.ok) { a.classList.add('ky-missing'); a.setAttribute('aria-disabled', 'true'); h.textContent = 'missing · HTTP ' + r.status; st.evidence[p] = { status: r.status }; return; }
+711674	        h.textContent = (n != null ? fmt(+n) + ' bytes' : 'size not given'); a.setAttribute('data-ky-bytes', n == null ? '' : n);
+711675	        st.evidence[p] = { status: r.status, bytes: n == null ? null : +n };
+711676	      }).catch(function (e) { a.classList.add('ky-missing'); h.textContent = 'missing · ' + (e && e.message || e); st.evidence[p] = { error: String(e && e.message || e) }; });
+711677	  function onFileOpen() {
+711678	    measureEvidence();
+711679	    var k = keyNow();
+711680	    refs.copyCmd.querySelector('.ky-file-label').textContent = 'Copy ' + cmd(k || '<k>');
+711681	    refs.copyKey.querySelector('.ky-file-label').textContent = 'Copy the key' + (k ? ' · ' + k : '');
+711682	    if (!refs.keyForm.input.value) refs.keyCmd.querySelector('.ky-file-label').textContent = cmd(k || '<k>');
+711684	    var sh = shell(), filePanel = sh && sh.panel ? sh.panel('file') : null;
+711685	    var group = filePanel ? filePanel.querySelector('.gm-group[data-group="file"]') : null;
+711686	    if (!group && filePanel) { group = mk('div', 'gm-group'); group.setAttribute('data-group', 'file'); filePanel.appendChild(group); }
+711687	    if (!group) {                                                     // no shell: FILE is a panel of Edition 4's own (KY.panels)
+711688	      filePanel = mk('div'); filePanel.id = 'ky-file-panel'; group = mk('div', 'gm-group'); filePanel.appendChild(group);
+711689	      KY.panels.add('file', filePanel, 'File'); st.panel = 'KY.panels (no shell)';
+711690	    } else st.panel = 'kuiper-shell FILE';
+711691	    group.id = 'ky-file';
+711692	    buildFile(group);
+711693	    // FILE opened: measure the evidence, refresh the key rows (the shell toggles the panel's hidden attribute)
+711694	    try { new MutationObserver(function () { if (!filePanel.hidden && filePanel.offsetParent !== null) onFileOpen(); })
+711695	      .observe(filePanel, { attributes: true, attributeFilter: ['hidden', 'class'] }); } catch (e) {}
+711696	    // EDIT: `Paste a link…` (6.5); ABOUT: the one sentence (6.4)
+711697	    var edit = sh && sh.panel ? sh.panel('edit') : null; if (edit) C.pasteRow(edit, row);
+711698	    var about = sh && sh.panel ? sh.panel('about') : null;
+711699	    if (about) { var p = mk('p', 'gm-prose', ABOUT_SENTENCE); p.setAttribute('data-owner', 'file'); p.style.margin = '6px 0 0'; about.appendChild(p); }
+711700	  // the readout: refusals named once, in #hud after the engine's own text (draw rewrites it each frame)
+711701	  function readout() { if (st.said.length) H.hud.textContent += '\n' + st.said.join('\n'); }
+711702	  // ======================================================================== install, registration (LEAD)
+711703	    C.install(K, link);                                   // SECTION C first: its find-box link intercept runs before watchFind
+711704	    installStyle(); watchCard(); watchFind(); wireHashchange();
+711705	    // the shell installs when the engine has built Edition 4's #bar (kuiper-shell.js whenEngine, 250 ms x 160): FILE waits
+711706	    // for it on the same clock, then builds once; without a shell after 40 s, FILE is a panel of Edition 4's own
+711708	    (function waitShell() {
+711709	      var s = shell(); if (s && s.panel && s.panel('file')) { build(); return; }
+711710	      if (++tries >= 160) { build(); return; }
+711711	      setTimeout(waitShell, 250);
+711713	    K.draw.add(readout, 40);
+711714	    st.installed = true;
+711715	    // arrival: after the wafer admitted its data (index.html:208, the wafer promise), the reader runs once
+711716	    H.wafer.then(function () { return readLocation('arrival'); }).catch(function (e) { st.last_read = { error: String(e && e.message || e) }; });
+711717	    var o = JSON.parse(JSON.stringify(st)); o.link = link.inspect(); o.c = C.inspect(); o.hash = location.hash; return o;
+711718	  var api = Object.freeze({ schema: SCHEMA, generation: GEN, link: link, inspect: inspect,
+711719	    openKey: function (k) { return openKey(+k); }, openLine: function (id) { return apply({ line: String(id) }, { from: 'api' }); },
+711720	    exportImage: function () { return C.exportImage(document.getElementById('kuiper-export-image')); },
+711721	    looksBlank: C.looksBlank, footLines: C.footLines, strings: C.strings, about: ABOUT_SENTENCE });
+711722	  window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN,
+711723	    requires: ['keyPlace', 'address', 'describe', 'goKey', 'lightTime', 'home', 'flyTo', 'safeBox', 'fmt', 'card', 'gbox', 'gin',
+711724	      'SPACE', 'N', 'repos', 'wafer', 'cv', 'ov', 'hud', 'big', 'panels', 'draw', 'redraw', 'cam', 'lit', 'sel', 'layers'],
+711725	    provides: ['file', 'link'],
+711726	    install: install, inspect: inspect });
+711727	/* kuiper module apps, generation 202611012309 (UTC), Apache-2.0 (kuiper-belt code)
+711728	   Opus team 7, NL-010 roadmap step 7 "the OS of the estate, baby step one" (neural-link FIXES/NL-010/ROADMAP.md
+711729	   step 7; FIXES/NL-010/team-4/STEPS.md 7.1-7.5). The app registry (data/apps.json, 34 rows), the launcher (a panel
+711730	   under the bar opened from FILE > "Open an app", rows 44 px, the key is the header; no window manager: one app at a
+711731	   time, by same-tab navigation, the back gesture is the way home), the periodic table as a layer (data/elements.json:
+711732	   the elements keyed on the wafer, the 23 without register files named, not placed) and as an app, and the spider
+711733	   sandbox as an app row and a graph layer (data/graphs/overview.json, data/graphs/periodic-table.json, the only two
+711734	   graphs copied, DISCLOSED). Never a bar title (the bar is Opus 1's budget, NL-009 06-seethrough.md:24-30).
+711735	   Owner questions honoured: Q1 (elements@f7a92fb states no licence: only keys block:<Sym> and register file addresses
+711736	   are copied, never a title, a description or a category; the elements layer row reads REFUSED · licence unsettled,
+711737	   which layers.js decides from data/layers.json, layers.js:598, and registering never lifts, layers.js:128) and Q5 (no
+711738	   spider graph JSON beyond the two DISCLOSED graphs). Nothing is fetched off-origin at load; the launcher checks each
+711739	   link with fetch(HEAD) only when it is opened, and a failed link reads FAIL in its row, never hidden.
+711740	   GridAtlas lessons: a thing enters only through a registry record (gridatlas@5ec7f62 atlas/current.json:5, :14-21);
+711741	   install nothing until the hooks exist, and count what was found (atlas/modules/202609031958-menu-bar.js:8-17, :34);
+711742	   the estate's apps as one entity table with a key, a type, a purpose (globalgrid2050@c66759f homepage_v134.html:31-56).
+711743	   requires: wafer, keyPlace, flyTo, esc, fmt, cv, o2, hud, card, repos, commits, SPACE, cam, sel, redraw, draw
+711744	   optional (used when admitted earlier, never required): kuiper-shell (FILE panel, close), layers (register, get),
+711745	             file (its FILE row "Open an app" calls api.open() and api.list()), line-card (closed before our card)
+711746	   provides: apps */
+711747	  var ID = 'apps', GEN = '202611012309', SCHEMA = 'kuiper.apps.v1';
+711748	  var REQUIRES = ['wafer', 'keyPlace', 'flyTo', 'esc', 'fmt', 'cv', 'o2', 'hud', 'card', 'repos',
+711749	    'commits', 'SPACE', 'cam', 'sel', 'redraw', 'draw'];   // every name used below, and no other
+711750	  var FILES = { apps: 'data/apps.json', elements: 'data/elements.json',
+711751	    graphs: ['data/graphs/overview.json', 'data/graphs/periodic-table.json'] };
+711752	  var HEAD_TIMEOUT_MS = 8000, HEAD_PARALLEL = 4;
+711753	  // kuiper-belt PALETTE.md:9-13: record grey-blue, instrument cyan, energised green, attention amber, selected magenta
+711754	  var C_RECORD = '#c9d3e6', C_INSTR = '#2ee6e6', C_OK = '#22ee77', C_ATTN = '#ffb000', C_SEL = '#ff2bd6';
+711755	  var st = { schema: SCHEMA, id: ID, generation: GEN, installed: false, open: false, view: 'apps', pushed: false,
+711756	    apps: { status: 'WAIT', why: '', rows: 0 }, elements: { status: 'WAIT', why: '', placed: 0, named: 0, total: 0, not_computed: 0 },
+711757	    spider: { status: 'WAIT', why: '', graphs: {} }, heads: {}, navigated: [], said: [], card: null, entry: 'none' };
+711758	  var REG = null, EL = null, GR = {};
+711759	  var panel = null, list = null, elsBox = null, headEl = null;
+711760	  var appsP = null, elsP = null;
+711761	  function mod(id) { try { var m = KY.modules[id]; return m && m.api ? m.api : null; } catch (e) { return null; } }
+711762	  function shell() { return mod('kuiper-shell') || window.__KUIPER_SHELL__ || null; }
+711763	  function fmt(n) { return H && H.fmt ? H.fmt(n) : String(n); }
+711764	  function esc(v) { return H && H.esc ? H.esc(v) : String(v == null ? '' : v); }
+711765	  // ======================================================================== SECTION A: data (LEAD)
+711766	  // same origin, no-store, as the edition loads keys.json; an HTTP failure is said in words, never swallowed
+711767	  function getJSON(file) {
+711768	    return fetch(file, { cache: 'no-store' }).then(function (r) {
+711769	      if (!r.ok) { var e = new Error(file + ' HTTP ' + r.status); e.http = r.status; throw e; }
+711770	      return r.json().catch(function () { throw new Error(file + ' is not JSON'); });
+711771	    }, function (e) { throw new Error(file + ' did not load (' + (e && e.message || 'network') + ')'); });
+711772	  function loadApps() {
+711773	    if (appsP) return appsP;
+711774	    st.apps.status = 'LOAD'; st.apps.why = FILES.apps;
+711775	    appsP = getJSON(FILES.apps).then(function (j) {
+711776	      if (!j || j.schema !== 'kuiper.apps.v1' || !Array.isArray(j.apps)) throw new Error(FILES.apps + ' schema ' + (j && j.schema) + ' is not kuiper.apps.v1');
+711777	      REG = j; st.apps.rows = j.apps.length; st.apps.status = 'OK'; st.apps.why = fmt(j.apps.length) + ' apps';
+711778	      return j;
+711779	    }).catch(function (e) { st.apps.status = 'FAIL'; st.apps.why = String(e.message || e); REG = null; throw e; });
+711780	    return appsP;
+711781	  function loadElements() {
+711782	    if (elsP) return elsP;
+711783	    st.elements.status = 'LOAD'; st.elements.why = FILES.elements;
+711784	    elsP = getJSON(FILES.elements).then(function (j) {
+711785	      if (!j || !Array.isArray(j.elements)) throw new Error(FILES.elements + ' holds no elements list');
+711786	      EL = j; var placed = 0, named = 0, nc = 0;
+711787	      j.elements.forEach(function (e) {
+711788	        if (Number.isFinite(e.key) && e.key >= 0 && e.key < H.SPACE) placed++;
+711789	        else if (e.files_listed === 0 || /lists no files|no register files/.test(e.why || '')) named++; else nc++;
+711790	      st.elements.placed = placed; st.elements.named = named; st.elements.not_computed = nc; st.elements.total = j.elements.length;
+711791	      st.elements.status = 'OK'; st.elements.why = fmt(placed) + ' placed';
+711792	    }).catch(function (e) { st.elements.status = 'FAIL'; st.elements.why = String(e.message || e); elsP = null; throw e; });
+711793	    return elsP;
+711794	  function elementsLine() {
+711795	    var E = st.elements;
+711796	    if (E.status !== 'OK') return 'periodic table · ' + E.status + (E.why ? ' · ' + E.why : '');
+711797	    return fmt(E.placed) + ' elements placed, ' + fmt(E.named) + ' counted, not placed'
+711798	      + (E.not_computed ? ', ' + fmt(E.not_computed) + ' not computed (no clone)' : '')
+711799	      + (EL && EL.counts && Number.isFinite(EL.counts.live_register) ? ' · ' + fmt(EL.counts.live_register) + ' in the live register, ' + fmt(E.total) + ' catalogued' : ' · ' + fmt(E.total) + ' catalogued, the live register not counted');
+711800	  function layerTag(id) {
+711801	    var L = mod('layers'); if (!L || !L.get) return '';
+711802	    var r = L.get(id); return r ? r.status + (r.why ? ' · ' + r.why : '') : '';
+711803	  // ======================================================================== SECTION B: the launcher panel (LEAD)
+711804	    + '#ky-apps{position:fixed;left:4px;right:4px;top:40px;z-index:10025;display:none;flex-direction:column;box-sizing:border-box;'
+711805	    + 'max-height:calc(100dvh - 48px);background:rgba(4,10,13,.98);border:1px solid rgba(80,220,240,.32);border-top:0;'
+711806	    + 'box-shadow:0 12px 34px rgba(0,0,0,.68);color:#cfeef6;font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;text-align:left;'
+711807	    + 'padding:0 6px calc(6px + env(safe-area-inset-bottom,0px));pointer-events:auto;overscroll-behavior:contain}'
+711808	    + '#ky-apps.ky-open{display:flex}'
+711809	    + '@media (min-width:641px){#ky-apps{right:auto;width:min(560px,96vw)}}'
+711810	    + '#ky-apps .ky-apps-h{display:flex;align-items:center;gap:8px;min-height:44px;flex:none;border-bottom:1px solid #12414a}'
+711811	    + '#ky-apps .ky-apps-t{flex:1;color:#2ee6e6;letter-spacing:.12em;text-transform:uppercase;font-size:10px;line-height:1.4}'
+711812	    + '#ky-apps .ky-apps-t small{display:block;color:#6fa2ae;letter-spacing:.03em;text-transform:none;font-size:10px}'
+711813	    + '#ky-apps button.ky-x,#ky-apps button.ky-back{flex:none;min-width:44px;min-height:44px;border:0;background:transparent;color:#cfeef6;font:16px/1 ui-monospace,monospace;cursor:pointer}'
+711814	    + '#ky-apps .ky-apps-list{flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}'
+711815	    + '#ky-apps .ky-app{display:flex;align-items:stretch;min-height:44px;box-shadow:inset 0 -1px #121a26}'
+711816	    + '#ky-apps a.ky-app-a{flex:1;display:block;min-height:44px;box-sizing:border-box;padding:6px 6px;color:#cfeef6;text-decoration:none;-webkit-tap-highlight-color:transparent;min-width:0}'
+711817	    + '#ky-apps .ky-app-k{display:block;color:#fff;font-weight:600;white-space:normal;overflow-wrap:anywhere;word-break:break-all}'
+711818	    + '#ky-apps .ky-app-n{display:block;color:#d5dcea}'
+711819	    + '#ky-apps .ky-app-p{display:block;color:#8fb3bd;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}'
+711820	    + '#ky-apps .ky-app-l{display:block;color:#6fa2ae;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
+711821	    + '#ky-apps .ky-app-s{margin-left:6px;color:#6fa2ae}#ky-apps .ky-app-s[data-s=OK]{color:#22ee77}#ky-apps .ky-app-s[data-s=FAIL]{color:#ffb000}'
+711822	    + '#ky-apps button.ky-app-w{flex:none;width:52px;min-height:44px;border:0;border-left:1px solid #121a26;background:transparent;color:#2ee6e6;font:10px/1.2 ui-monospace,monospace;cursor:pointer}'
+711823	    + '#ky-apps .ky-app[data-star] .ky-app-n{color:#2ee6e6;font-size:13px}'
+711824	    + '#ky-apps .ky-el{display:flex;align-items:center;min-height:44px;width:100%;box-sizing:border-box;padding:4px 6px;border:0;box-shadow:inset 0 -1px #121a26;'
+711825	    + 'background:transparent;color:#cfeef6;font:11px/1.35 ui-monospace,monospace;text-align:left;cursor:pointer}'
+711826	    + '#ky-apps .ky-el b{color:#fff;min-width:6em}#ky-apps .ky-el span{color:#8fb3bd;margin-left:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
+711827	    + '#ky-apps .ky-el:disabled{cursor:default;color:#6fa2ae}#ky-apps .ky-el:disabled b{color:#8fb3bd}'
+711828	    + '#ky-apps .ky-note{padding:6px 4px;color:#8fb3bd;font-size:11px;line-height:1.45}#ky-apps .ky-note[data-s=REFUSED],#ky-apps .ky-note[data-s=FAIL]{color:#ffb000}'
+711829	    + '#card.ky-el-card{display:block}#card .ky-ec-h code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;color:#fff;font-weight:600;font-family:ui-monospace,monospace;max-height:7.5em;overflow:auto}'
+711830	    + '#card .ky-ec-s{display:block;color:#2ee6e6;margin:2px 0}#card .ky-ec-d{display:block;color:#8fb3bd;white-space:pre-wrap}'
+711831	    + '#card .ky-ec-x{position:absolute;top:0;right:0;min-width:44px;min-height:44px;border:0;background:transparent;color:#cfeef6;font:18px/1 ui-monospace,monospace}';
+711832	    if (document.getElementById('ky-apps-css')) return;
+711833	    var s = mk('style'); s.id = 'ky-apps-css'; s.textContent = CSS; (document.head || document.documentElement).appendChild(s);
+711834	  function barBottom() {
+711835	    var b = document.getElementById('kuiper-menu-bar') || document.getElementById('bar');
+711836	    if (!b) return 0; var r = b.getBoundingClientRect(); return r.height ? Math.round(r.bottom) : 0;
+711837	  function place() { if (panel) panel.style.top = (barBottom() + 1) + 'px'; }
+711838	    if (panel) return;
+711839	    panel = mk('div'); panel.id = 'ky-apps'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-label', 'Open an app');
+711840	    var h = mk('div', 'ky-apps-h');
+711841	    var back = mk('button', 'ky-back', '‹'); back.type = 'button'; back.setAttribute('aria-label', 'back to the apps'); back.hidden = true;
+711842	    headEl = mk('div', 'ky-apps-t'); headEl.textContent = 'Open an app';
+711843	    var x = mk('button', 'ky-x', '×'); x.type = 'button'; x.setAttribute('aria-label', 'close the launcher');
+711844	    h.appendChild(back); h.appendChild(headEl); h.appendChild(x); panel.appendChild(h);
+711845	    list = mk('div', 'ky-apps-list'); panel.appendChild(list);
+711846	    elsBox = mk('div', 'ky-apps-list'); elsBox.id = 'ky-apps-elements'; elsBox.hidden = true; panel.appendChild(elsBox);
+711847	    x.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+711848	    back.addEventListener('click', function (e) { e.stopPropagation(); showView('apps'); });
+711849	    panel.__back = back;
+711850	    // a tap inside the launcher never reaches the wafer's spark picker (the page listens for pointerup on the window)
+711851	    ['pointerup', 'pointerdown', 'click', 'touchend'].forEach(function (t) { panel.addEventListener(t, function (e) { e.stopPropagation(); }); });
+711853	  function showView(v) {
+711854	    st.view = v;
+711855	    var els = v === 'elements';
+711856	    list.hidden = els; elsBox.hidden = !els; panel.__back.hidden = !els;
+711857	    if (els) fillElements(); else fillHead();
+711858	  function fillHead() {
+711859	    if (!REG) { headEl.innerHTML = 'Open an app<small>' + esc(st.apps.status + (st.apps.why ? ' · ' + st.apps.why : '')) + '</small>'; return; }
+711860	    headEl.innerHTML = 'Open an app · ' + fmt(REG.apps.length) + '<small>registry data/apps.json · one app at a time, same tab; back returns here</small>';
+711861	  function hrefOf(a) { return a.local || a.link; }
+711862	  function sameOrigin(u) { try { return new URL(u, location.href).origin === location.origin; } catch (e) { return false; } }
+711863	  function hostOf(u) { try { var x = new URL(u, location.href); return x.origin === location.origin ? 'this host ' + x.pathname : x.host; } catch (e) { return u; } }
+711864	  function fillApps() {
+711866	    if (!REG) { var n = mk('div', 'ky-note', 'apps · ' + st.apps.status + ' · ' + st.apps.why); n.setAttribute('data-s', st.apps.status); list.appendChild(n); return; }
+711867	    var rows = REG.apps.slice();
+711868	    rows.sort(function (a, b) { return (b.id === 'see-through' ? 1 : 0) - (a.id === 'see-through' ? 1 : 0); });   // the star player first
+711869	    rows.forEach(function (a) {
+711870	      var row = mk('div', 'ky-app'); row.setAttribute('data-app', a.id); row.setAttribute('data-id', a.id); row.setAttribute('data-key', a.key);
+711871	      if (a.id === 'see-through') row.setAttribute('data-star', '');
+711872	      var link = mk('a', 'ky-app-a'); link.href = hrefOf(a);
+711873	      // the card law: the header of the row is the key line; then name, purpose, licence, link
+711874	      link.appendChild(mk('span', 'ky-app-k', a.key));
+711875	      // a register row's name is its key (Q1: the title is not copied), so it is not written twice
+711876	      if (a.name !== a.key) link.appendChild(mk('span', 'ky-app-n', a.name + (a.key_source === 'issued-here' ? ' · issued here' : '')));
+711877	      link.appendChild(mk('span', 'ky-app-p', a.purpose));
+711878	      var l = mk('span', 'ky-app-l', 'licence ' + a.licence + ' · ' + hostOf(hrefOf(a)));
+711879	      var s = mk('span', 'ky-app-s', ''); s.setAttribute('data-s', 'WAIT'); s.setAttribute('data-st', ''); l.appendChild(s);
+711880	      link.appendChild(l);
+711881	      if (a.link_withheld) { link.removeAttribute('href'); link.setAttribute('aria-disabled', 'true'); s.setAttribute('data-s', 'WITHHELD'); s.textContent = ' · link withheld (K1)'; st.heads[a.id] = 'WITHHELD · K1'; }
+711882	      link.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); if (!a.link_withheld) navigate(a); });
+711883	      row.appendChild(link);
+711884	      if (a.id === 'periodic-table') {
+711885	        var w = mk('button', 'ky-app-w', 'keys ▸'); w.type = 'button'; w.setAttribute('aria-label', 'the elements by key');
+711886	        w.addEventListener('click', function (e) { e.stopPropagation(); showView('elements'); });
+711887	        row.appendChild(w);
+711888	      } else if (a.wafer) {
+711889	        var f = mk('button', 'ky-app-w', 'wafer'); f.type = 'button'; f.setAttribute('aria-label', 'fly to ' + a.key + ' on the wafer');
+711890	        f.addEventListener('click', function (e) { e.stopPropagation(); flyToApp(a, f); });
+711891	        row.appendChild(f);
+711892	      list.appendChild(row);
+711893	      a.__state = s;
+711894	    // same-origin links are checked when the launcher opens; links to other hosts only on this row's tap, so that
+711895	    // opening the launcher never sends a request off-origin (A6) and a phone offline is not filled with errors
+711896	    var others = rows.filter(function (a) { return !sameOrigin(hrefOf(a)) && !a.link_withheld; });
+711897	    var chk = mk('button', 'ky-el ky-check', 'check the ' + fmt(others.length) + ' links to other hosts (fetch HEAD)'); chk.type = 'button';
+711898	    chk.addEventListener('click', function (e) { e.stopPropagation(); chk.disabled = true; chk.textContent = 'checking ' + fmt(others.length) + ' links to other hosts…'; st.checked_others = true; checkLinks(others); });
+711899	    list.appendChild(chk);
+711900	    rows.forEach(function (a) { if (!sameOrigin(hrefOf(a)) && !a.link_withheld && !st.heads[a.id] && a.__state) { a.__state.setAttribute('data-s', 'OFF'); a.__state.textContent = ' · not checked (other host)'; } });
+711901	    checkLinks(rows.filter(function (a) { return sameOrigin(hrefOf(a)); }));
+711902	  // fetch(HEAD) when the launcher opens (never at load: A6); same origin reads the status, another origin is an
+711903	  // opaque reach (no-cors); a failed link reads FAIL in its row, never hidden (team-4/STEPS.md 7.2)
+711904	  function checkLinks(rows) {
+711905	    var q = rows.slice(), running = 0;
+711906	    function say(a, s, why) { st.heads[a.id] = s + (why ? ' · ' + why : ''); if (a.__state) { a.__state.setAttribute('data-s', s); a.__state.textContent = ' · ' + s + (why ? ' · ' + why : ''); } }
+711907	    function next() {
+711908	      while (running < HEAD_PARALLEL && q.length) {
+711909	        var a = q.shift(); if (st.heads[a.id]) { say(a, st.heads[a.id].split(' · ')[0], st.heads[a.id].split(' · ').slice(1).join(' · ')); continue; }
+711910	        running++; (function (a) {
+711911	          var u = hrefOf(a), same = sameOrigin(u), ctl = typeof AbortController === 'function' ? new AbortController() : null;
+711912	          var t = setTimeout(function () { if (ctl) ctl.abort(); }, HEAD_TIMEOUT_MS);
+711913	          say(a, 'WAIT', 'HEAD');
+711914	          fetch(u, { method: 'HEAD', mode: same ? 'same-origin' : 'no-cors', cache: 'no-store', redirect: 'follow', signal: ctl ? ctl.signal : undefined })
+711915	            .then(function (r) { if (same) { if (r.ok) say(a, 'OK', 'HTTP ' + r.status); else say(a, 'FAIL', 'HTTP ' + r.status); } else say(a, 'OK', 'reached'); },
+711916	              function (e) { say(a, 'FAIL', e && e.name === 'AbortError' ? 'no answer in ' + (HEAD_TIMEOUT_MS / 1000) + ' s' : 'unreachable'); })
+711917	            .then(function () { clearTimeout(t); running--; next(); });
+711918	        })(a);
+711919	    next();
+711920	  function fillElements() {
+711921	    var tag = layerTag('elements');
+711922	    headEl.innerHTML = 'Periodic table<small>' + esc(st.elements.status === 'OK' ? elementsLine() : st.elements.status + ' · ' + st.elements.why) + '</small>';
+711923	    elsBox.textContent = '';
+711924	    var note = mk('div', 'ky-note'); note.setAttribute('data-s', /^REFUSED/.test(tag) ? 'REFUSED' : 'OK');
+711925	    note.textContent = 'layer elements · ' + (tag || 'no layer registry admitted') + '. Keys only are copied from elements@f7a92fb (owner question Q1): '
+711926	      + 'block:<Sym> and the register file it is keyed by; titles and descriptions stay in the catalogue (linked). Tap a key to fly to it.';
+711927	    elsBox.appendChild(note);
+711928	    loadElements().then(function () {
+711929	      headEl.innerHTML = 'Periodic table<small>' + esc(elementsLine()) + '</small>';
+711930	      var frag = document.createDocumentFragment();
+711931	      EL.elements.forEach(function (e, i) {
+711932	        var b = mk('button', 'ky-el'); b.type = 'button'; b.setAttribute('data-sym', e.sym);
+711933	        b.appendChild(mk('b', '', e.sym));
+711934	        var ok = Number.isFinite(e.key) && e.key >= 0 && e.key < H.SPACE;
+711935	        b.appendChild(mk('span', '', ok ? 'key ' + fmt(e.key) + ' · ' + e.repo + ' ' + e.path : (e.why || 'not placed')));
+711936	        if (!ok) b.disabled = true;
+711937	        else b.addEventListener('click', function (ev) { ev.stopPropagation(); openElement(i, true); });
+711938	        frag.appendChild(b);
+711939	      elsBox.appendChild(frag);
+711940	    }, function (e) { var n = mk('div', 'ky-note', 'periodic table · FAIL · ' + (e.message || e)); n.setAttribute('data-s', 'FAIL'); elsBox.appendChild(n); });
+711941	  // the element card (A4): header = the line at its key, verbatim; second row block:<Sym>; then the address and the links
+711942	  function openElement(i, fromPanel) {
+711943	    var e = EL && EL.elements[i]; if (!e || !Number.isFinite(e.key)) return false;
+711945	      var p = H.keyPlace(e.key); KY.cam.atHome = false; H.flyTo(p[0], p[1], 14);
+711946	      var lc = mod('line-card'); if (lc && lc.close) { try { lc.close(); } catch (x) { /* its own card */ } }
+711947	      var c = H.card, txt = typeof e.line_text === 'string' ? e.line_text : null;
+711948	      var gh = 'https://github.com/Ventusltd/' + e.repo + '/blob/' + e.commit + '/' + e.path + '#L1';
+711949	      var cat = 'https://github.com/Ventusltd/elements/blob/f7a92fb085c38dcbbd5cb469a66cd5ca61fb95bf/ELEMENTS.md';
+711950	      c.className = (c.className.replace(/\bky-el-card\b/g, '') + ' lc ky-el-card').trim();
+711951	      c.innerHTML = '<div class="lc-in" style="position:relative;padding:8px 48px 8px 12px">'
+711952	        + '<header class="lc-h ky-ec-h"><code>' + (txt == null ? '' : esc(txt)) + '</code>' + (txt == null ? '<span class="lc-none">no text at key</span>' : '') + '</header>'
+711953	        + '<span class="ky-ec-s">' + esc(e.sym) + '</span>'
+711954	        + '<span class="ky-ec-d">' + esc(e.repo + '@' + String(e.commit).slice(0, 7) + ' ' + e.path + ':1 · key ' + fmt(e.key)) + '\n'
+711955	        + '<a href="' + esc(gh) + '" target="_blank" rel="noopener">open on GitHub at ' + esc(String(e.commit).slice(0, 7)) + '</a> · '
+711956	        + '<a href="' + esc(cat) + '" target="_blank" rel="noopener">title and description in the catalogue (linked, not copied: Q1)</a></span>'
+711957	        + '<button class="ky-ec-x" type="button" aria-label="close">×</button></div>';
+711958	      c.style.display = 'block';
+711959	      c.querySelector('.ky-ec-x').addEventListener('click', function (ev) { ev.stopPropagation(); closeCard(); });
+711960	      KY.sel.target = { x: p[0], y: p[1] }; KY.redraw();
+711961	      st.card = { sym: e.sym, key: e.key, header: txt, second: e.sym };
+711962	    if (fromPanel && st.open) closeThen(go); else go();
+711963	  function closeCard() { var c = H.card; c.style.display = 'none'; c.className = c.className.replace(/\bky-el-card\b/g, '').trim(); st.card = null; KY.sel.target = null; KY.redraw(); }
+711964	  function flyToApp(a, btn) {
+711965	    var w = a.wafer; if (!w) return;
+711966	    // the app's first register file on the wafer: its element key when data/elements.json holds that file
+711967	      var i = -1; EL.elements.forEach(function (e, j) { if (i < 0 && e.sym === a.key && Number.isFinite(e.key)) i = j; });
+711968	      if (i >= 0) openElement(i, true); else if (btn) btn.textContent = 'no key';
+711969	    }, function () { if (btn) btn.textContent = 'FAIL'; });
+711970	  // one app at a time: the launcher closes (its history entry popped), then the page navigates in the same tab
+711971	  // (NL-009 06-seethrough.md:51-57: a _blank tab is invisible on Android Chrome); the back gesture is the way home
+711972	  function navigate(a) {
+711973	    var u = new URL(hrefOf(a), location.href).href;
+711974	    st.navigated.push({ id: a.id, url: u });
+711975	    closeThen(function () { location.assign(u); });
+711976	    if (!st.open) { fn(); return; }
+711978	    var go = function () { if (done) return; done = true; removeEventListener('popstate', pop); setTimeout(fn, 30); };
+711979	    if (st.pushed) { addEventListener('popstate', pop); close(); setTimeout(go, 700); } else { close(); go(); }
+711980	  // the shell's FILE panel holds one history entry ({kmb}); file.js closes it (history.back(), asynchronous) and calls
+711981	  // open() at once, so the launcher waits for that popstate before it pushes its own entry (measured: without the wait
+711982	  // the shell's back popped the launcher's entry and closed it, Galaxy S24, 23:20 UTC)
+711984	    var hs = history.state, s = shell();
+711985	    if (!st.open && hs && hs.kmb && !(s && s.inspect && s.inspect().open)) {
+711986	      if (st.waiting) return true;
+711987	      st.waiting = true;
+711988	      var done = false, go = function () { if (done) return; done = true; removeEventListener('popstate', pop); st.waiting = false; openNow(); };
+711989	      var pop = function () { setTimeout(go, 0); };
+711990	      addEventListener('popstate', pop); setTimeout(go, 700);
+711991	    return openNow();
+711992	  function openNow() {
+711993	    buildPanel(); place();
+711994	    if (!st.open) {
+711995	      st.open = true; panel.classList.add('ky-open');
+711996	      try { history.pushState({ kyApps: 1 }, ''); st.pushed = true; } catch (e) { st.pushed = false; }
+711997	    showView('apps'); list.scrollTop = 0; elsBox.scrollTop = 0;   // every open starts at the star player (measured: a kept scroll hid the first row)
+711998	    loadApps().then(function () { if (st.open) { fillHead(); fillApps(); } }, function () { if (st.open) { fillHead(); fillApps(); } });
+712000	    if (!st.open) return false;
+712001	    st.open = false; panel.classList.remove('ky-open');
+712002	    if (st.pushed) { st.pushed = false; st.ignorePop = true; try { history.back(); } catch (e) { st.ignorePop = false; } }
+712003	  // one panel at a time (step 1 A5): a touch on the bar while the launcher is open hides it at once. Its history entry
+712004	  // cannot be popped there (the shell pushes its own entry in the same gesture, and an asynchronous back would pop the
+712005	  // shell's), so the entry is marked and skipped when the back gesture lands on it (measured by the tester: the launcher
+712006	  // covered the WAFER panel and the next tap left the page)
+712007	  function onBarDown(e) {
+712008	    if (!st.open) return;
+712009	    var bar = document.getElementById('kuiper-menu-bar') || document.getElementById('bar');
+712010	    if (!bar || !bar.contains(e.target)) return;
+712011	    if (st.pushed) { st.pushed = false; try { history.replaceState({ kyAppsClosed: 1 }, ''); } catch (x) { /* nothing to mark */ } }
+712012	    st.bar_dismissed = (st.bar_dismissed || 0) + 1;
+712013	  function onPop() {
+712014	    if (history.state && history.state.kyAppsClosed && !st.open) { st.skipped = (st.skipped || 0) + 1; setTimeout(function () { if (history.state && history.state.kyAppsClosed) history.back(); }, 0); return; }
+712015	    if (st.ignorePop) { st.ignorePop = false; return; }
+712016	    if (st.open) { st.open = false; st.pushed = false; panel.classList.remove('ky-open'); }   // the back gesture closes the launcher
+712017	  // a page restored from the back-forward cache comes back with no panel open (A3)
+712018	  function onShow(e) { if (e && e.persisted && st.open) { st.open = false; st.pushed = false; if (panel) panel.classList.remove('ky-open'); } }
+712019	  function onKey(e) { if (st.open && e.key === 'Escape') { e.stopPropagation(); close(); } }
+712020	  // the FILE entry: Opus 6's module owns "Open an app ▸" (file.js calls api.open()); without it, one row of our own
+712021	  // in the shell's FILE panel; never a bar title
+712022	    if (mod('file')) { st.entry = 'file module (Open an app)'; return; }
+712023	    (function wait() {
+712024	      var s = shell(), p = s && s.panel ? s.panel('file') : null;
+712025	      if (p) {
+712026	        var g = mk('div', 'gm-group'); g.setAttribute('data-group', 'apps'); g.setAttribute('data-owner', 'apps (Opus 7, step 7)');
+712027	        var b = mk('button', 'gm-row', 'Open an app ▸'); b.type = 'button'; b.setAttribute('data-ky-apps-entry', '');
+712028	        b.addEventListener('click', function (e) { e.stopPropagation(); if (s.close) s.close(); setTimeout(open, 60); });
+712029	        g.appendChild(b); p.appendChild(g); st.entry = 'own row in FILE';
+712030	      if (++tries < 160) setTimeout(wait, 250); else st.entry = 'none (no shell): KY.modules.apps.api.open()';
+712031	  // ======================================================================== SECTION C: layers (BUILDER)
+712032	  // C1 elements: data/elements.json (tools/element_keys.py: each element at the key of line 1 of its register file
+712033	  //    files[0], the tools/edition_keys.py walk) -> one spark per placed element at keyPlace(key); registered with
+712034	  //    Opus 3's registry as layer `elements` (data/layers.json). A refusal there (licence UNSETTLED, owner Q1) is never
+712035	  //    lifted by registering (layers.js register(): REFUSED returns before load), so the sparks draw only when the
+712036	  //    registry draws the layer; the launcher's periodic-table view still flies to every key.
+712037	  // C2 spider: the two graphs copied byte for byte (DISCLOSED, owner Q5), sha256 checked before a byte is parsed;
+712038	  //    a node gets a key only by a rule the estate already has, else it is counted and not drawn:
+712039	  //      block:<Sym>            -> its element key (C1), or none when the element is not placed
+712040	  //      repo:<owner>/<name>    -> the first key of that repository's first commit on the wafer (k0)
+712041	  //      category:*             -> none (a word of the catalogue, no code)
+712042	  //      any other node         -> its `gh` repository, else its served folder https://ventusltd.github.io/<name>/
+712043	  //                                (`ext`, elements README.md:15 the surface grammar) -> that repository's first k0
+712044	  //    an edge is a chord between two keyed nodes (galaxies-wafers README.md:13-16, a LineString of keys); an edge
+712045	  //    whose two ends share one key is drawn as a ring at that place and counted as such.
+712046	  var GRAPHS = [   // sha256 of the edition copies, 2026-11-01 23:29 UTC (handoff/07-apps/PLAN.md, builder status)
+712047	    { id: 'overview', file: 'data/graphs/overview.json', bytes: 6125,
+712048	      sha256: '124aa35e3eabafe15f3c90f82d1a38b7132fb7cdf23aba836a9757a84202df09',
+712049	      source: 'testcode@d09c185 spider/20260914T143049Z-v5-linkify-frontdoor-brandfaithful/spider/overview-graph.json' },
+712050	    // K1: the source holds one folder name (2 occurrences) that equals a repository that is not public; the copy
+712051	    // replaces that token alone by `not-public` (tools/element_keys.py --copy-graph), every other byte the source's.
+712052	    // source sha256 72349730a0207a689061f88b7e83d25a843b37512b708fe1e949123ff709749e, 509,649 bytes
+712053	    { id: 'periodic-table', file: 'data/graphs/periodic-table.json', bytes: 509639,
+712054	      sha256: 'b84820447a0f8d18687f48f409e2a5442bc66c7f8b71d7ff1a171ecc7dc53a0e',
+712055	      source: 'stars@cbca125 blocks/graph.json (K1-redacted copy: 2 tokens)' }];
+712056	  var C = { elDrawn: false, spots: [], bySym: {}, firstK0: null, graphsP: null, segs: [], rings: [], dots: [], reg: {} };
+712057	  function cAdmissible(k) { return typeof k === 'number' && isFinite(k) && k >= 0 && k < H.SPACE; }
+712058	  function cScr(x, y) { var c = KY.cam, o = H.o2.canvas; return [(x - c.x) * c.zoom + o.width / 2, o.height / 2 - (y - c.y) * c.zoom]; }
+712059	  function cSay(prefix, text) {   // one readout line per prefix, replaced, never stacked
+712060	    st.said = st.said.filter(function (l) { return l.indexOf(prefix) !== 0; });
+712061	    if (text) st.said.push(prefix + text);
+712062	  function cHex(buf) { var b = new Uint8Array(buf), s = ''; for (var i = 0; i < b.length; i++) s += (b[i] < 16 ? '0' : '') + b[i].toString(16); return s; }
+712063	  // C1 ------------------------------------------------------------------ the elements
+712064	  function elementSpots() {
+712065	    return loadElements().then(function () {
+712066	      if (!C.spots.length) EL.elements.forEach(function (e, i) {
+712067	        if (!cAdmissible(e.key)) return;
+712068	        var p = H.keyPlace(e.key), s = { i: i, sym: e.sym, key: e.key, x: p[0], y: p[1] };
+712069	        C.spots.push(s); C.bySym[e.sym] = s;
+712070	      return C.spots;
+712071	  function loadElementsLayer() {
+712072	    return elementSpots().then(function (sp) {
+712073	      return { placed: sp.length, total: EL.elements.length, why: sp.length ? '' : 'no element has a key below SPACE' };
+712074	  function drawElements(o2) {
+712075	    C.elDrawn = true;
+712076	    var sel = st.card && st.card.sym, w = o2.canvas.width, h = o2.canvas.height;
+712077	    o2.fillStyle = C_RECORD; o2.globalAlpha = 0.9;
+712078	    for (var i = 0; i < C.spots.length; i++) { var s = C.spots[i], p = cScr(s.x, s.y);
+712079	      if (p[0] < -4 || p[1] < -4 || p[0] > w + 4 || p[1] > h + 4 || s.sym === sel) continue;
+712080	      o2.beginPath(); o2.arc(p[0], p[1], 2.6, 0, 6.2832); o2.fill(); }
+712081	    if (sel && C.bySym[sel]) { var q = cScr(C.bySym[sel].x, C.bySym[sel].y);
+712082	      o2.strokeStyle = C_SEL; o2.fillStyle = C_SEL; o2.lineWidth = 2;
+712083	      o2.beginPath(); o2.arc(q[0], q[1], 3.5, 0, 6.2832); o2.fill(); o2.beginPath(); o2.arc(q[0], q[1], 9, 0, 6.2832); o2.stroke(); }
+712084	  // a tap within 9 px (mouse) or 24 px (finger, NL-009 04) of a drawn element spark opens its card (A4); only a tap
+712085	  // that began on the wafer canvas, one pointer, moved under 10 px, and only while the layer was drawn this frame
+712086	  function elementTaps() {
+712087	    addEventListener('pointerdown', function (e) { moved = Object.keys(down).length || e.target !== H.cv ? 99 : 0; down[e.pointerId] = [e.clientX, e.clientY]; }, true);
+712088	      if (!was || e.target !== H.cv || moved > 10 || Object.keys(down).length || !C.elDrawn || !C.spots.length) return;
+712089	      var R = e.pointerType === 'mouse' ? 9 : 24, best = null, bd = R * R;
+712090	      C.spots.forEach(function (s) { var p = cScr(s.x, s.y), d = (p[0] - e.clientX) * (p[0] - e.clientX) + (p[1] - e.clientY) * (p[1] - e.clientY); if (d < bd) { bd = d; best = s; } });
+712091	      if (best) openElement(best.i, false);
+712092	  // C2 ------------------------------------------------------------------ the spider graphs
+712093	  function firstK0(name) {
+712094	    if (!C.firstK0) { C.firstK0 = {}; var rs = H.repos, cs = H.commits;
+712095	      for (var i = 0; i < cs.length; i++) { var n = String(rs[cs[i].repo].name).toLowerCase(); if (!(n in C.firstK0)) C.firstK0[n] = cs[i].k0; } }
+712096	    var k = C.firstK0[String(name || '').toLowerCase()];
+712097	    return k == null ? null : k;
+712098	  function nodeKey(n) {
+712099	    var id = String(n && n.id || ''), m;
+712100	    if (/^block:/.test(id)) { var s = C.bySym[id]; return s ? { key: s.key, by: 'element' } : null; }
+712101	    if (/^repo:/.test(id)) { m = id.match(/^repo:(?:[^\/]+\/)?([^\/]+)$/); var r = m ? firstK0(m[1]) : null; return r == null ? null : { key: r, by: 'repository' }; }
+712102	    if (/^category:/.test(id)) return null;
+712103	    m = String(n.gh || '').match(/^https:\/\/github\.com\/[^\/]+\/([^\/?#]+)/);
+712104	    if (m && firstK0(m[1]) != null) return { key: firstK0(m[1]), by: 'repository (gh)' };
+712105	    m = String(n.ext || '').match(/^https:\/\/ventusltd\.github\.io\/([^\/?#]+)\//i);
+712106	    if (m && firstK0(m[1]) != null) return { key: firstK0(m[1]), by: 'served folder ' + m[1] };
+712107	  function loadGraph(g) {
+712108	    if (!(window.crypto && crypto.subtle && crypto.subtle.digest)) return Promise.reject(new Error('crypto.subtle unavailable, unhashed data refused'));
+712109	    return fetch(g.file, { cache: 'no-store' }).then(function (r) {
+712110	      if (!r.ok) throw new Error(g.file + ' HTTP ' + r.status); return r.arrayBuffer();
+712111	    }, function () { throw new Error(g.file + ' did not load (network)'); }).then(function (buf) {
+712112	        if (cHex(d) !== g.sha256) throw new Error(g.file + ' sha256 mismatch');
+712113	        if (buf.byteLength !== g.bytes) throw new Error(g.file + ' bytes ' + buf.byteLength + ' ≠ ' + g.bytes);
+712114	        var j; try { j = JSON.parse(new TextDecoder('utf-8').decode(buf)); } catch (e) { throw new Error(g.file + ' is not JSON'); }
+712115	        if (!j || !Array.isArray(j.nodes) || !Array.isArray(j.edges)) throw new Error(g.file + ' has no nodes and edges');
+712116	        var keyOf = {}, keyed = 0, by = {}, segs = [], rings = {}, drawn = 0, ringN = 0, dots = {};
+712117	        j.nodes.forEach(function (n) { var k = nodeKey(n); if (k) { keyOf[n.id] = k.key; keyed++; by[k.by] = (by[k.by] || 0) + 1; dots[k.key] = 1; } });
+712118	        j.edges.forEach(function (e) { var a = keyOf[e.from], b = keyOf[e.to];
+712119	          if (a == null || b == null) return; drawn++;
+712120	          if (a === b) { ringN++; rings[a] = (rings[a] || 0) + 1; return; }
+712121	          var p = H.keyPlace(a), q = H.keyPlace(b); segs.push([p[0], p[1], q[0], q[1]]); });
+712122	        var out = { id: g.id, file: g.file, source: g.source, sha256: g.sha256, nodes: j.nodes.length, keyed: keyed,
+712123	          no_key: j.nodes.length - keyed, keyed_by: by, edges: j.edges.length, drawn: drawn, rings: ringN,
+712124	          segs: segs, ringAt: Object.keys(rings).map(Number), dotAt: Object.keys(dots).map(Number) };
+712126	  function loadSpider() {
+712127	    if (C.graphsP) return C.graphsP;
+712128	    st.spider.status = 'LOAD'; st.spider.why = 'data/graphs/';
+712129	    C.graphsP = elementSpots().catch(function () { return []; }).then(function () {   // block nodes need C1's keys; without them they are counted unkeyed
+712130	      return Promise.all(GRAPHS.map(loadGraph));
+712131	    }).then(function (gs) {
+712132	      C.segs = []; C.rings = []; C.dots = []; var placed = 0, total = 0, words = [];
+712133	      gs.forEach(function (g) {
+712134	        Array.prototype.push.apply(C.segs, g.segs);
+712135	        g.ringAt.forEach(function (k) { var p = H.keyPlace(k); C.rings.push([p[0], p[1]]); });
+712136	        g.dotAt.forEach(function (k) { var p = H.keyPlace(k); C.dots.push([p[0], p[1]]); });
+712137	        placed += g.drawn; total += g.edges;
+712138	        st.spider.graphs[g.id] = { nodes: g.nodes, keyed: g.keyed, no_key: g.no_key, keyed_by: g.keyed_by, edges: g.edges,
+712139	          drawn: g.drawn, rings: g.rings, sha256: g.sha256, source: g.source };
+712140	        words.push(g.id + ' ' + fmt(g.drawn) + ' of ' + fmt(g.edges) + ' edges drawn'
+712141	          + (g.rings ? ' (' + fmt(g.rings) + ' as rings: both ends at one key)' : '')
+712142	          + ', ' + fmt(g.no_key) + ' of ' + fmt(g.nodes) + ' nodes had no key');
+712143	      st.spider.status = 'OK'; st.spider.why = words.join(' · ');
+712144	      cSay('spider graphs: ', words.join(' · '));
+712145	      return { placed: placed, total: total };
+712146	    }, function (e) {
+712147	      var why = String(e && e.message || e);
+712148	      st.spider.status = 'FAIL'; st.spider.why = why; C.graphsP = null;
+712149	      cSay('spider graphs: ', 'FAIL · ' + why + ' · the wafer draws on');
+712150	      throw e;
+712151	    return C.graphsP;
+712152	  function drawSpider(o2) {
+712153	    o2.strokeStyle = C_RECORD; o2.fillStyle = C_RECORD; o2.lineWidth = 1; o2.globalAlpha = 0.45;
+712154	    o2.beginPath();
+712155	    for (var i = 0; i < C.segs.length; i++) { var s = C.segs[i], a = cScr(s[0], s[1]), b = cScr(s[2], s[3]); o2.moveTo(a[0], a[1]); o2.lineTo(b[0], b[1]); }
+712156	    o2.stroke(); o2.globalAlpha = 0.9;
+712157	    C.rings.forEach(function (r) { var p = cScr(r[0], r[1]); o2.beginPath(); o2.arc(p[0], p[1], 7, 0, 6.2832); o2.stroke(); });
+712158	    C.dots.forEach(function (d) { var p = cScr(d[0], d[1]); o2.beginPath(); o2.arc(p[0], p[1], 2.2, 0, 6.2832); o2.fill(); });
+712159	  // registration: data/layers.json is fetched by layers.js after its install, so wait (up to 30 s) until the
+712160	  // registry holds both records; without the layers module both still load for inspect(), and nothing is drawn
+712161	  function registerLayers() {
+712162	    if (C.started) return; C.started = true;
+712163	    KY.draw.add(function () { C.elDrawn = false; }, 29);   // before layers.js (30) calls drawElements this frame
+712164	    elementTaps();
+712165	      var L = mod('layers');
+712166	      if (L && L.get && L.register && L.get('elements') && L.get('spider')) {
+712167	        [['elements', loadElementsLayer, drawElements], ['spider', loadSpider, drawSpider]].forEach(function (x) {
+712168	          try { L.register({ id: x[0], module: ID, load: x[1], draw: x[2] }); C.reg[x[0]] = 'registered · ' + (L.get(x[0]) || {}).status; }
+712169	          catch (e) { C.reg[x[0]] = 'not registered: ' + (e.message || e); }
+712170	        st.layers = C.reg; return;
+712171	      if (++tries < 120) { setTimeout(wait, 250); return; }
+712172	      st.layers = { elements: 'no layer registry (layers module ' + (L ? 'has no records' : 'not admitted') + ')', spider: 'same' };
+712173	      loadSpider().catch(function () { /* said in the readout */ });
+712174	  // ======================================================================== SECTION D: readout (LEAD)
+712176	    if (st.elements.status === 'OK') out.push('periodic table: ' + elementsLine() + (layerTag('elements') ? ' · layer ' + layerTag('elements') : ''));
+712177	    if (st.said.length) out = out.concat(st.said);
+712178	    if (out.length) H.hud.textContent += '\n' + out.join('\n');
+712179	    installStyle(); buildPanel();
+712180	    addEventListener('popstate', onPop); addEventListener('pageshow', onShow); addEventListener('keydown', onKey, true);
+712181	    document.addEventListener('pointerdown', onBarDown, true);
+712183	    K.draw.add(readout, 50);
+712184	    mountEntry();
+712185	    // after the wafer admitted its own data (the wafer promise): the registry, then the two layers
+712186	    H.wafer.then(function () {
+712187	      loadApps().catch(function () { /* said in the launcher and in inspect() */ });
+712188	      loadElements().catch(function () { /* said in the readout */ });
+712189	      registerLayers();
+712190	    }).catch(function (e) { st.apps.status = 'REFUSED'; st.apps.why = 'the wafer refused: ' + String(e && e.message || e); });
+712191	  function inspect() { return JSON.parse(JSON.stringify(st)); }
+712192	  function listApps() { return REG && REG.apps ? REG.apps.map(function (a) { return { id: a.id, key: a.key, name: a.name, link: hrefOf(a), licence: a.licence }; }) : []; }
+712193	  var api = Object.freeze({ schema: SCHEMA, generation: GEN, list: listApps, open: open, close: close, inspect: inspect,
+712194	    openElement: function (sym) { if (!EL) return false; for (var i = 0; i < EL.elements.length; i++) if (EL.elements[i].sym === sym) return openElement(i, false); return false; },
+712195	    elements: function () { return loadElements().then(function () { return JSON.parse(JSON.stringify(st.elements)); }); },
+712196	    registry: function () { return loadApps(); } });
+712197	    window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN, requires: REQUIRES, provides: ['apps'],
+712198	/* kuiper module drift, generation 202611012325 (UTC), Apache-2.0 (kuiper-belt code)
+712199	   Opus team 8, NL-010 roadmap step 8 "the first intelligent algorithm: the drift of an edition from the live heads"
+712200	   (neural-link FIXES/NL-010/ROADMAP.md step 8; FIXES/NL-010/team-4/STEPS.md step 8, :233-352).
+712201	   The module ONLY READS data/drift.json (kuiper.drift.v1, written by tools/drift.py at the cut); it never classifies a
+712202	   line itself. It reads keys-min.json (else keys.json) for the line text of a card or a row, as the page does
+712203	   (index.html loadEdition, EDPATH/EDFULL); the line of code stays the header of every card (step 2, line-card).
+712204	   Draws, inside the palette (kuiper-belt PALETTE.md:9-14): MOVED an amber spark at its NEW key (the head commit's
+712205	   k0 on the wafer + head_lines_before + head_line - 1, the key law of tools/edition_keys.py:12, applied at the head);
+712206	   GONE and FILE_GONE an amber ring with no fill at the edition's key; UNVERIFIED a grey-blue ring at the edition's key;
+712207	   SAME adds nothing (the edition's own green spark is the record, lit).
+712208	   Refuses in words, draws nothing, and leaves the wafer and the green sparks as they were when drift.json is missing,
+712209	   is not JSON, is not kuiper.drift.v1, or names another edition: "data/drift.json did not load. The wafer will not
+712210	   invent a head." (the engine's idiom, index.html:256 "... did not load. The wafer will not invent its keys.").
+712211	   Adds: the readout line (five counts, the share with its denominator), two lines on every card of a keyed line
+712212	   ("at head <sha7>: SAME" / "MOVED to line N (+d)" / "GONE" / "FILE_GONE" / "UNVERIFIED · <why>", then the key at the
+712213	   head or the observation), and a filter by class in the WAFER panel (no new bar title). Registers the layer record
+712214	   `drift` with the layer registry (Opus 3) when that record exists; otherwise draws on its own and says so.
+712215	   requires: wafer, keyPlace, o2, ov, cv, card, esc, fmt, commits, repos, SPACE, hud, flyTo, cam, sel, draw, redraw, panels
+712216	   optional (never required): layers (api.register/get), line-card (api.show, inspect().last.k)
+712217	   provides: drift */
+712218	  var ID = 'drift', GEN = '202611012325', DATA = 'data/drift.json', SCHEMA = 'kuiper.drift.v1';
+712219	  var REQUIRES = ['wafer', 'keyPlace', 'o2', 'ov', 'cv', 'card', 'esc', 'fmt', 'commits', 'repos', 'SPACE', 'hud', 'flyTo',
+712220	    'cam', 'sel', 'draw', 'redraw', 'panels'];
+712221	  var CLASSES = ['SAME', 'MOVED', 'GONE', 'FILE_GONE', 'UNVERIFIED'];
+712222	  // PALETTE.md:9-14: green energised (the record, lit), amber attention (a boundary moved), grey-blue the record not
+712223	  // yet measured. No sixth colour (PALETTE.md:19).
+712224	  var INK = { SAME: '#22ee77', MOVED: '#ffb000', GONE: '#ffb000', FILE_GONE: '#ffb000', UNVERIFIED: '#c9d3e6' };
+712225	  var NOLOAD = DATA + ' did not load. The wafer will not invent a head.';
+712226	  var TAP_TOUCH = 24, TAP_MOUSE = 9, SLOP = 10, FLY_Z = 14;   // index.html ED_TAP_TOUCH/ED_TAP_MOUSE/ED_SLOP, ED_Z
+712227	  var KY = null, H = null, panel = null, list = null, chips = null;
+712228	  var st = { status: 'WAIT', why: 'waiting for the wafer', data: null, counts: null, denominator: 0, share: '',
+712229	    rows: [], byKey: {}, marks: [], bodies: null, bodyById: {}, edSparks: [], filter: 'MOVED', pending: null,
+712230	    registry: 'none', cards: 0, cardLast: null, taps: 0, errors: [] };
+712231	  function esc(v) { return H.esc(v); }
+712232	  function sha7(s) { return String(s || '').slice(0, 7); }
+712233	  function toScreen(x, y) { var c = KY.cam; return [(x - c.x) * c.zoom + H.ov.width / 2, H.ov.height / 2 - (y - c.y) * c.zoom]; }
+712234	    var L = KY.modules && KY.modules.layers && KY.modules.layers.api;
+712235	    if (!L || typeof L.get !== 'function') return true;
+712236	    try { var r = L.get(ID); return !r || r.on !== false; } catch (e) { return true; }
+712237	  // ============================================================ SECTION 1: load and refuse (lead)
+712238	  function fetchJson(file, noStore) {
+712239	    return fetch(file, noStore ? { cache: 'no-store' } : undefined).then(function (r) {
+712240	      if (!r.ok) throw new Error(file + ' HTTP ' + r.status);
+712242	    if (!j || typeof j !== 'object') return 'not an object';
+712243	    if (j.schema !== SCHEMA) return 'schema ' + j.schema + ' ≠ ' + SCHEMA;
+712244	    if (j.edition !== KY.edition) return 'edition ' + j.edition + ' ≠ page ' + KY.edition;
+712245	    if (!Array.isArray(j.rows) || !j.summary || !j.summary.counts) return 'no rows or no summary';
+712246	    var sum = 0;
+712247	    for (var i = 0; i < CLASSES.length; i++) sum += j.summary.counts[CLASSES[i]] | 0;
+712248	    if (sum !== j.rows.length) return 'the five counts sum to ' + sum + ', rows ' + j.rows.length;
+712249	  function refuse(why) {
+712250	    st.status = 'REFUSED'; st.why = why; st.marks = []; st.counts = null;
+712251	    paint(); KY.redraw();
+712253	    return fetchJson(DATA, true).then(function (j) {
+712254	      if (why) { refuse(NOLOAD + ' (' + why + ')'); return { placed: 0, total: 0, why: why }; }
+712255	      st.data = j; st.rows = j.rows; st.counts = j.summary.counts; st.denominator = j.summary.denominator;
+712256	      st.share = j.summary.share_text || '';
+712257	      st.byKey = {};
+712258	      j.rows.forEach(function (r) { if (r.key != null && !st.byKey[r.key]) st.byKey[r.key] = r; });
+712259	      place();
+712260	      st.status = 'OK'; st.why = '';
+712261	      paint(); KY.redraw();
+712262	      return { placed: st.marks.length, total: j.rows.length };
+712263	      refuse(NOLOAD + ' (' + String(e && e.message || e) + ')');
+712264	      return { placed: 0, total: 0, why: String(e && e.message || e) };
+712265	  // the line text of a card or a row: the page's own file (index.html EDPATH keys-min.json, EDFULL keys.json)
+712266	    return fetchJson('keys-min.json').catch(function () { return fetchJson('keys.json'); }).then(function (j) {
+712267	      var b = (j && j.bodies) || j || [];
+712268	      st.bodies = b; st.bodyById = {};
+712269	      b.forEach(function (x) { st.bodyById[x.id + '|' + x.repo] = x; });
+712270	      st.edSparks = b.filter(function (x) { return x.on_wafer && x.verified && Number.isFinite(x.key) && x.key >= 0 && x.key < H.SPACE; })
+712271	        .map(function (x) { var p = H.keyPlace(x.key); return [p[0], p[1]]; });
+712272	      fillList();
+712273	    }, function (e) { st.errors.push('keys-min.json and keys.json did not load: ' + (e && e.message)); });
+712274	  // ============================================================ SECTION 3: placing the sparks (new keys for MOVED)
+712275	  // The head commit is found on the wafer by its 12-hex sha and its repository's name (cosmos/wafer.tsv sha12, the
+712276	  // page's commits[]); the new key is k0 + head_lines_before + head_line - 1 and must fall inside [k0, k1) of that
+712277	  // commit. A head that is not on the wafer (kuiper-belt is not on it) leaves the spark at the edition's key, amber,
+712278	  // and the card says so: nothing is placed where no key exists.
+712279	  var headAt = {};
+712280	  function headCommit(repo, sha) {
+712281	    var k = repo + '@' + sha;
+712282	    if (k in headAt) return headAt[k];
+712283	    var s12 = String(sha || '').slice(0, 12), cs = H.commits, rs = H.repos, hit = null;
+712284	    if (s12.length === 12) for (var i = 0; i < cs.length; i++) {
+712285	      if (cs[i].sha === s12 && rs[cs[i].repo] && rs[cs[i].repo].name.toLowerCase() === String(repo).toLowerCase()) { hit = cs[i]; break; }
+712286	    headAt[k] = hit; return hit;
+712288	    st.marks = [];
+712289	    st.rows.forEach(function (r) {
+712290	      if (r.class === 'SAME' || !Number.isFinite(r.key) || r.key < 0 || r.key >= H.SPACE) return;
+712291	      var m = { row: r, cls: r.class, k: r.key, atNew: false, note: '' };
+712292	      if (r.class === 'MOVED') {
+712293	        var c = headCommit(r.repo, r.head);
+712294	        if (c && Number.isFinite(r.head_lines_before)) {
+712295	          var nk = c.k0 + r.head_lines_before + r.head_line - 1;
+712296	          if (nk >= c.k0 && nk < c.k1) { m.k = nk; m.atNew = true; }
+712297	          else m.note = 'the new key ' + fmt(nk) + ' falls outside the head commit on the wafer; drawn at the edition’s key';
+712298	        } else m.note = 'head ' + sha7(r.head) + ' is not on the wafer; drawn at the edition’s key';
+712299	      var p = H.keyPlace(m.k); m.x = p[0]; m.y = p[1];
+712300	      st.marks.push(m);
+712301	  function drawMarks(o2) {
+712302	    var hud = H.hud;
+712303	    if (st.status !== 'OK') {
+712304	      if (st.status === 'REFUSED') hud.textContent += '\nDRIFT · ' + st.why;
+712305	    var on = layerOn(), c = st.counts;
+712306	    hud.textContent += '\nDRIFT since the cut ' + KY.edition + ' · ' + CLASSES.map(function (k) { return fmt(c[k]) + ' ' + k; }).join(' · ')
+712307	      + ' · ' + st.share + (on ? '' : ' · drift layer off');
+712309	    var W = H.ov.width, Hh = H.ov.height;
+712310	    for (var i = 0; i < st.marks.length; i++) {
+712311	      var m = st.marks[i], s = toScreen(m.x, m.y), x = s[0], y = s[1];
+712312	      if (x < -10 || y < -10 || x > W + 10 || y > Hh + 10) continue;
+712314	      if (m.cls === 'MOVED') {
+712315	        o2.arc(x, y, 3.6, 0, 6.2832); o2.fillStyle = 'rgba(255,176,0,.95)'; o2.fill();
+712316	      } else if (m.cls === 'GONE' || m.cls === 'FILE_GONE') {
+712317	        o2.arc(x, y, 5.5, 0, 6.2832); o2.strokeStyle = 'rgba(255,176,0,.95)'; o2.lineWidth = 1.6; o2.stroke();
+712318	        o2.arc(x, y, 4.5, 0, 6.2832); o2.strokeStyle = 'rgba(201,211,230,.75)'; o2.lineWidth = 1; o2.stroke();
+712319	  // ============================================================ SECTION 4: the card's two lines
+712320	  function cardLines(r, m) {
+712321	    var h = r.head ? 'at head ' + sha7(r.head) + ': ' : 'at head (none): ', l1, l2;
+712322	    if (r.class === 'SAME') { l1 = h + 'SAME'; l2 = r.repo + '@' + sha7(r.head) + ' ' + r.path + ':' + r.line; }
+712323	    else if (r.class === 'MOVED') {
+712324	      l1 = h + 'MOVED to line ' + r.head_line + ' (' + (r.delta > 0 ? '+' : '') + r.delta + ')';
+712325	      l2 = r.repo + '@' + sha7(r.head) + ' ' + r.path + ':' + r.head_line
+712326	        + (m && m.atNew ? ' · key ' + fmt(m.k) : (m && m.note ? ' · ' + m.note : ''));
+712327	    } else if (r.class === 'UNVERIFIED') { l1 = h + 'UNVERIFIED · ' + (r.reason || ''); l2 = 'nothing is claimed for this line'; }
+712328	    else { l1 = h + r.class; l2 = r.class === 'GONE' ? 'no line of ' + r.path + ' at ' + sha7(r.head) + ' equals the line' : (r.reason || 'no file at the path'); }
+712329	    var hd = st.data && st.data.heads && st.data.heads[r.repo];
+712330	    if (hd && hd.observed_at) l2 += ' · head observed ' + hd.observed_at;
+712331	    return '<div class="ky-drift-cl" data-drift="' + esc(r.class) + '"><b style="color:' + INK[r.class] + '">' + esc(l1)
+712332	      + '</b>\n<span>' + esc(l2) + '</span></div>';
+712333	  function markFor(r) { for (var i = 0; i < st.marks.length; i++) if (st.marks[i].row === r) return st.marks[i]; return null; }
+712334	  function onCard() {
+712335	    if (st.status !== 'OK' || card.style.display !== 'block' || card.querySelector('.ky-drift-cl')) return;
+712336	    var r = null;
+712337	    if (st.pending) { r = st.pending; st.pending = null; }
+712338	    if (!r) {
+712339	      var LC = KY.modules && KY.modules['line-card'];
+712340	      var last = LC && typeof LC.inspect === 'function' ? (LC.inspect() || {}).last : null;
+712341	      if (last && Number.isFinite(last.k)) r = st.byKey[last.k] || null;
+712342	    if (!r) {   // the page's own card (no line-card admitted): "repo  path:line"
+712343	      var t = card.textContent || '', mm = t.match(/\n?(\S+)  (\S+):(\d+)/);
+712344	      if (mm) for (var i = 0; i < st.rows.length; i++) { var x = st.rows[i]; if (x.repo === mm[1] && x.path === mm[2] && x.line === +mm[3]) { r = x; break; } }
+712346	    var html = cardLines(r, markFor(r)), k = card.querySelector('.lc-q') || card.querySelector('.lc-k');
+712347	    if (k) k.insertAdjacentHTML('afterend', html); else card.insertAdjacentHTML('beforeend', html);
+712348	    st.cards++; st.cardLast = { id: r.id, class: r.class, text: card.querySelector('.ky-drift-cl').textContent };
+712349	  // ============================================================ SECTION 5: open a row (from a tap or the filter)
+712350	  function bodyFor(r, m) {
+712351	    var b = st.bodyById[r.id + '|' + r.repo];
+712353	    var o = {}; for (var k in b) o[k] = b[k];
+712354	    if (m) { o.x = m.x; o.y = m.y; } else if (Number.isFinite(b.key)) { var p = H.keyPlace(b.key); o.x = p[0]; o.y = p[1]; }
+712356	  function open(r, fly) {
+712357	    var m = markFor(r), b = bodyFor(r, m);
+712358	    if (!b) return false;
+712359	    st.pending = r;
+712360	    var LC = KY.modules && KY.modules['line-card'] && KY.modules['line-card'].api;
+712361	    if (LC && typeof LC.show === 'function') LC.show(b, { index: st.rows.indexOf(r), of: st.rows.length });
+712362	    else {     // no line-card: the line of code is still the header
+712363	      var c = H.card;
+712364	      c.innerHTML = '<button class="cx" aria-label="close">×</button><code style="white-space:pre-wrap;color:#fff">'
+712365	        + esc(String(b.line_text || '').slice(0, 2000)) + '</code>\n<span class="lc-k">' + esc(b.repo + '@' + sha7(b.commit) + ' ' + b.path + ':' + b.line + ' · key ' + fmt(b.key)) + '</span>';
+712366	      if (Number.isFinite(b.x)) KY.sel.target = { x: b.x, y: b.y };
+712367	    onCard();
+712368	    if (fly && Number.isFinite(b.x)) { try { KY.cam.atHome = false; } catch (e) { /* rev < 3 */ } H.flyTo(b.x, b.y, Math.max(FLY_Z, KY.cam.zoom)); }
+712369	    KY.redraw();
+712370	  // a tap on an amber spark at its new key opens its card: the page's own reach (24 px finger, 9 px mouse), one
+712371	  // pointer, within 10 px of where it went down; it wins only when it is nearer than every green spark (the page's
+712372	  // own hit test, which runs first, has already opened that one's card otherwise)
+712373	  var down = null, live = {};
+712374	  function wireTaps() {
+712375	    H.cv.addEventListener('pointerdown', function (e) { live[e.pointerId] = 1; down = Object.keys(live).length === 1 ? { id: e.pointerId, x: e.clientX, y: e.clientY } : null; });
+712376	    addEventListener('pointercancel', function (e) { delete live[e.pointerId]; down = null; });
+712377	      delete live[e.pointerId];
+712378	      var d = down; down = null;
+712379	      if (!d || d.id !== e.pointerId || e.target !== H.cv || st.status !== 'OK' || !layerOn() || Object.keys(live).length) return;
+712380	      if (Math.hypot(e.clientX - d.x, e.clientY - d.y) > SLOP) return;
+712381	      var R = e.pointerType === 'mouse' ? TAP_MOUSE : TAP_TOUCH, best = null, bd = R * R;
+712382	      st.marks.forEach(function (m) { if (!m.atNew) return; var s = toScreen(m.x, m.y), q = Math.pow(s[0] - e.clientX, 2) + Math.pow(s[1] - e.clientY, 2); if (q < bd) { bd = q; best = m; } });
+712383	      if (!best) return;
+712384	      for (var i = 0; i < st.edSparks.length; i++) { var s = toScreen(st.edSparks[i][0], st.edSparks[i][1]); if (Math.pow(s[0] - e.clientX, 2) + Math.pow(s[1] - e.clientY, 2) < bd) return; }
+712385	      st.taps++; open(best.row, false);
+712386	  // ============================================================ SECTION 2: the readout and the filter (WAFER panel)
+712387	  var CSS = '#ky-drift{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;color:#c9d3e6;padding:6px 0 4px;border-top:1px solid rgba(46,230,230,.25)}'
+712388	    + '#ky-drift .kd-h{color:#2ee6e6;letter-spacing:.08em;font-size:11px;margin:4px 0}'
+712389	    + '#ky-drift .kd-s{white-space:pre-line}'
+712390	    + '#ky-drift .kd-c{display:flex;flex-wrap:wrap;gap:4px}'
+712391	    + '#ky-drift .kd-c button{display:inline-flex!important;align-items:center;width:auto!important;flex:0 0 auto;min-height:44px;min-width:44px;padding:0 8px;background:transparent;border:1px solid rgba(201,211,230,.35);color:inherit;font:inherit;border-radius:3px}'
+712392	    + '#ky-drift .kd-c button[aria-pressed=true]{border-color:#2ee6e6;color:#fff}'
+712393	    + '#ky-drift .kd-l{max-height:30vh;overflow:auto;overscroll-behavior:contain;margin-top:4px}'
+712394	    + '#ky-drift .kd-r{display:block!important;width:100%!important;text-align:left;min-height:44px;padding:4px 2px;background:transparent;border:0;border-bottom:1px solid rgba(201,211,230,.12);color:inherit;font:inherit}'
+712395	    + '#ky-drift .kd-r code{display:block;color:#fff;white-space:pre-wrap;word-break:break-all;max-height:4.2em;overflow:hidden}'
+712396	    + '#ky-drift .kd-r>span{display:block;white-space:normal;word-break:break-all}'
+712397	    + '#ky-drift .kd-w{color:#ffb000}'
+712398	    + '#card .ky-drift-cl{white-space:pre-wrap;margin:4px 0;font-size:12px}';
+712399	    if (!document.getElementById('ky-drift-css')) { var s = document.createElement('style'); s.id = 'ky-drift-css'; s.textContent = CSS; document.head.appendChild(s); }
+712400	    panel = document.createElement('section'); panel.id = 'ky-drift'; panel.setAttribute('aria-label', 'drift since the cut');
+712401	    panel.innerHTML = '<div class="kd-h">DRIFT SINCE THE CUT</div><div class="kd-s" role="status"></div><div class="kd-c" role="group" aria-label="filter by class"></div><div class="kd-l" role="list"></div>';
+712402	    chips = panel.querySelector('.kd-c'); list = panel.querySelector('.kd-l');
+712403	    chips.addEventListener('click', function (e) { var b = e.target.closest('button[data-class]'); if (!b) return; st.filter = b.dataset.class; paint(); });
+712404	    list.addEventListener('click', function (e) { var b = e.target.closest('[data-row]'); if (!b) return; var r = st.rows[+b.dataset.row]; if (r) open(r, true); });
+712405	    try { KY.panels.add('wafer', panel, 'drift'); } catch (e) { st.errors.push('panels.add: ' + e.message); }
+712406	    if (!panel.isConnected) {   // no shell and no WAFER panel: the section waits detached, the readout still speaks
+712407	      st.errors.push('no WAFER panel to hold the filter');
+712408	    } else {                    // the filter sits just above the verified-lines list it filters, not after 20,000 px of it
+712409	      var host = panel.parentNode, ln = host.querySelector('#layers, #lines');
+712410	      while (ln && ln.parentNode !== host) ln = ln.parentNode;
+712411	      host.insertBefore(panel, ln && ln !== panel ? ln : host.firstChild);
+712412	  function paint() {
+712413	    var s = panel.querySelector('.kd-s');
+712414	    if (st.status !== 'OK') { s.textContent = st.status === 'REFUSED' ? st.why : 'WAIT · ' + st.why; s.className = 'kd-s kd-w'; chips.innerHTML = ''; list.innerHTML = ''; return; }
+712415	    var d = st.data, sm = d.summary;
+712416	    s.className = 'kd-s';
+712417	    s.textContent = CLASSES.map(function (k) { return fmt(st.counts[k]) + ' ' + k; }).join(' · ') + '\n' + st.share
+712418	      + '\n' + sm.heads_observed + ' of ' + sm.repositories + ' heads observed · cut ' + d.cut_at + (st.registry.indexOf('own') === 0 ? '\nlayer: ' + st.registry : '');
+712419	    chips.innerHTML = CLASSES.map(function (k) {
+712420	      return '<button type="button" data-class="' + k + '" aria-pressed="' + (st.filter === k) + '"><span style="color:' + INK[k] + '">●</span> ' + k.toLowerCase().replace('_', ' ') + ' ' + fmt(st.counts[k]) + '</button>';
+712422	    fillList();
+712423	  function fillList() {
+712424	    if (!list || st.status !== 'OK') return;
+712425	    var out = [], n = 0;
+712426	    st.rows.forEach(function (r, i) {
+712427	      if (r.class !== st.filter) return; n++;
+712428	      var b = st.bodyById[r.id + '|' + r.repo], t = b && typeof b.line_text === 'string' ? b.line_text : '';
+712429	      var tt = t.length > 300 ? t.slice(0, 300) + '… (+' + fmt(t.length - 300) + ' characters, the whole line is on its card)' : t;
+712430	      var w = r.class === 'MOVED' ? 'MOVED to line ' + r.head_line + ' (' + (r.delta > 0 ? '+' : '') + r.delta + ')' : r.class === 'UNVERIFIED' ? 'UNVERIFIED · ' + r.reason : r.class;
+712431	      out.push('<button type="button" class="kd-r" role="listitem" data-row="' + i + '" data-class="' + r.class + '"><code>' + esc(tt) + '</code><span class="kd-k">'
+712432	        + esc(r.repo + '@' + sha7(r.edition_commit) + ' ' + r.path + ':' + r.line + (r.key != null ? ' · key ' + fmt(r.key) : '')) + '</span><span style="color:' + INK[r.class] + '">' + esc(w) + '</span></button>');
+712433	    list.innerHTML = out.join('') || '<div class="kd-r">no ' + esc(st.filter) + ' rows</div>';
+712434	    list.dataset.count = String(n);
+712435	  // ============================================================ install
+712436	    buildPanel(); paint();
+712437	    new MutationObserver(function () { onCard(); }).observe(H.card, { childList: true });
+712438	    wireTaps();
+712439	    KY.draw.add(function (o2) { drawMarks(o2); }, 80);
+712440	    return H.wafer.then(function () {
+712441	      st.why = 'loading ' + DATA; paint();
+712442	      var L = KY.modules && KY.modules.layers && KY.modules.layers.api, p;
+712443	      if (L && typeof L.register === 'function') {
+712444	        p = new Promise(function (done) {
+712445	          try { L.register({ id: ID, module: ID, load: function () { var q = load(); q.then(done, done); return q; } }); st.registry = 'layers'; }
+712446	          catch (e) { st.registry = 'own (' + e.message + ')'; load().then(done, done); }
+712447	      } else { st.registry = 'own (no layer registry admitted)'; p = load(); }
+712448	      loadBodies();
+712449	    }, function (e) { refuse('the wafer refused, nothing to place: ' + (e && e.message || e)); });
+712450	    return { id: ID, generation: GEN, status: st.status, why: st.why, counts: st.counts, denominator: st.denominator,
+712451	      share: st.share, rows: st.rows.length, marks: st.marks.length,
+712452	      moved: st.marks.filter(function (m) { return m.cls === 'MOVED'; }).map(function (m) { return { id: m.row.id, repo: m.row.repo, k: m.k, atNew: m.atNew, x: m.x, y: m.y, note: m.note }; }),
+712453	      filter: st.filter, listed: list ? +(list.dataset.count || 0) : 0, registry: st.registry, cards: st.cards, cardLast: st.cardLast,
+712454	      taps: st.taps, panel: !!(panel && panel.isConnected), errors: st.errors.slice() };
+712455	  var api = { schema: SCHEMA, generation: GEN, inspect: inspect, open: function (id) { var r = st.rows.find(function (x) { return x.id === id; }); return r ? open(r, true) : false; },
+712456	    filter: function (k) { if (CLASSES.indexOf(k) < 0) return false; st.filter = k; paint(); return true; },
+712457	    screen: function (id) { var r = st.rows.find(function (x) { return x.id === id; }), m = r && markFor(r); return m ? toScreen(m.x, m.y) : null; } };
+712458	  if (window.KY && typeof window.KY.register === 'function')
+712459	    window.KY.register({ schema: 'kuiper.module.v1', id: ID, generation: GEN, requires: REQUIRES, provides: [ID],
+712460	      install: function (ky) { var p = install(ky); api.ready = p; return api; }, inspect: inspect });
+712461	"""tools/apps_registry.py - write editions/<stamp>/data/apps.json, the app registry of the estate (NL-010 step 7.1).
+712462	    python3 tools/apps_registry.py --edition editions/202611012135 [--roots /home/user/estate,/home/user]
+712463	    python3 tools/apps_registry.py --edition editions/202611012135 --check      # acceptance A1, by script
+712464	Two keyed sources and nothing else, plus two rows issued here:
+712465	  elements@f7a92fb APPS.md:7-13            7 rows, key block:<Sym>   (Q1: the key is copied, never the title or text)
+712466	  globalgrid2050@c66759f homepage_versions/homepage_v134.html:32-56   25 rows, id = data-entity-id
+712467	  testcode@d09c185 spider/INDEX.md:13      the spider sandbox, v5          (id spider-sandbox, issued here)
+712468	  elements@f7a92fb CATALOGUE.md:1          the periodic table itself       (id periodic-table, issued here)
+712469	Every licence is read from a file in a clone and quoted by key (repo@sha12 path:line); `not stated` when the clone
+712470	holds no LICENSE/NOTICE/licence sentence; `NOT EVALUATED: no clone of <repo>` when no clone is on this machine.
+712471	Nothing is fetched from the network. Apache-2.0 (kuiper-belt code); the output is data, CC BY 4.0.
+712472	import argparse, hashlib, html, io, json, os, re, subprocess, sys
+712474	from element_keys import redact   # noqa: E402  K1 (tools/ci_check.py): a non-public repository name is never written
+712475	SRC = {
+712476	    'elements': {'repo': 'elements', 'commit': 'f7a92fb085c38dcbbd5cb469a66cd5ca61fb95bf'},
+712477	    'homepage': {'repo': 'globalgrid2050', 'commit': 'c66759f0d7ac3489df9158da6eaa1330a37c069f',
+712478	                 'path': 'homepage_versions/homepage_v134.html', 'lines': (32, 56)},
+712479	    'spider': {'repo': 'testcode', 'commit': 'd09c185c8dacbc5c73afb2b0d0d8dad40745a544', 'path': 'spider/INDEX.md', 'line': 13},
+712480	APPS_LINES = (7, 13)
+712481	V5 = '20260914T143049Z-v5-linkify-frontdoor-brandfaithful'
+712482	GRAPHS = [  # the only two spider graphs copied into the edition (ROADMAP Q5: DISCLOSED); byte copies
+712483	    {'file': 'data/graphs/overview.json', 'repo': 'testcode', 'commit': 'd09c185c8dacbc5c73afb2b0d0d8dad40745a544',
+712484	     'path': 'spider/%s/spider/overview-graph.json' % V5},
+712485	    {'file': 'data/graphs/periodic-table.json', 'repo': 'stars', 'commit': 'cbca125bb5eeb7d0ffb02f4546d60eb5d47dadc9',
+712486	     'path': 'blocks/graph.json'},
+712488	# a link to a dated folder whose repository keeps a pointer above it: the pointer is the stable link (team-4 7.1)
+712489	POINTERS = {'https://ventusltd.github.io/kuiper-belt/see-through/202610050609/': 'https://ventusltd.github.io/kuiper-belt/see-through/',
+712490	            'https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610050609/': 'https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/'}
+712491	KB_HOST = 'https://ventusltd.github.io/kuiper-belt/'
+712492	SAME_AS = {'block:Pn': 'pipeline-news'}   # team-4/STEPS.md 7.1 names this pair; nothing is merged
+712493	KEY_RE = re.compile(r'^(block:[A-Za-z0-9]+|surface:https://)')
+712494	LICENCE_FILES = ('LICENSE', 'LICENSE.md', 'LICENSE.txt', 'LICENCE', 'LICENCE.md', 'NOTICE', 'NOTICE.md')
+712495	LICENCE_NAMES = [(re.compile(r'CERN[- ]O(pen )?H(ardware )?L(icence)?[- ]?(Version 2|v2)?[^\n]*Strongly Reciprocal|CERN[- ]OHL-S', re.I), 'CERN-OHL-S-2.0'),
+712496	                 (re.compile(r'Apache License|Apache-2\.0|Apache License, Version 2\.0', re.I), 'Apache-2.0'),
+712497	                 (re.compile(r'\bMIT License\b', re.I), 'MIT'),
+712498	                 (re.compile(r'CC BY 4\.0|Creative Commons Attribution 4\.0', re.I), 'CC-BY-4.0')]
+712500	    r = subprocess.run(['git'] + list(a), cwd=d, capture_output=True)
+712502	        raise RuntimeError('git %s in %s: %s' % (' '.join(a), d, r.stderr.decode('utf-8', 'replace').strip()))
+712510	def show(d, commit, path):
+712511	    return git(d, 'show', '%s:%s' % (commit, path))
+712513	def repo_of(url):
+712514	    """the repository a served link lands in, by the estate's hosting rules"""
+712515	    m = re.match(r'^https://globalgrid2050\.com/(.*)$', url)
+712517	        return 'globalgrid2050', m.group(1)
+712518	    m = re.match(r'^https://ventusltd\.github\.io/([^/]+)/?(.*)$', url)
+712519	        return m.group(1), m.group(2)
+712520	    m = re.match(r'^https://github\.com/Ventusltd/([^/]+)/tree/[0-9a-f]+/(.*)$', url)
+712522	def licence_of(roots, url):
+712523	    """quote the licence of the folder the link lands in, nearest file first, then the repository root"""
+712524	    repo, sub = repo_of(url)
+712525	    if not repo:
+712526	        return {'licence': 'NOT EVALUATED: no repository rule for %s' % url, 'licence_key': None}
+712527	    d = find_clone(roots, repo)
+712529	        return {'licence': 'NOT EVALUATED: no clone of %s on this machine' % repo, 'licence_key': None}
+712530	    head = git(d, 'rev-parse', 'HEAD').decode().strip()
+712531	    tracked = set(git(d, 'ls-files').decode('utf-8', 'replace').split('\n'))
+712532	    parts = [p for p in sub.split('#')[0].split('?')[0].split('/') if p]
+712533	    if parts and '.' in parts[-1]:
+712534	        parts = parts[:-1]
+712535	    dirs = ['/'.join(parts[:i]) for i in range(len(parts), -1, -1)]
+712536	    for folder in dirs:
+712537	        for f in LICENCE_FILES:
+712538	            p = (folder + '/' + f) if folder else f
+712539	            if p not in tracked:
+712541	            text = show(d, head, p).decode('utf-8', 'replace').split('\n')
+712542	            for i, line in enumerate(text[:40], 1):
+712543	                for rx, name in LICENCE_NAMES:
+712544	                    if rx.search(line):
+712545	                        return {'licence': name, 'licence_key': '%s@%s %s:%d' % (repo, head[:7], p, i),
+712546	                                'licence_line': line.strip()}
+712547	    return {'licence': 'not stated', 'licence_key': '%s@%s (no LICENSE, NOTICE or licence sentence tracked)' % (repo, head[:7])}
+712548	def build(roots, edition):
+712549	    el = find_clone(roots, 'elements')
+712550	    hp = find_clone(roots, 'globalgrid2050')
+712551	    tc = find_clone(roots, 'testcode')
+712552	    if not (el and hp and tc):
+712553	        sys.exit('REFUSED: a source clone is missing (elements, globalgrid2050, testcode)')
+712554	    E = SRC['elements']['commit']
+712555	    apps_md = show(el, E, 'APPS.md')
+712556	    cat_apps = json.loads(show(el, E, 'catalogue/apps.json'))
+712557	    by_key = {a['key']: a for a in cat_apps}
+712558	    homepage = show(hp, SRC['homepage']['commit'], SRC['homepage']['path'])
+712559	    index_md = show(tc, SRC['spider']['commit'], SRC['spider']['path'])
+712560	    catalogue_md = show(el, E, 'CATALOGUE.md')
+712561	    wafer = set()
+712562	    for l in io.open(os.path.join(edition, '..', '..', 'cosmos', 'wafer.tsv'), encoding='utf-8'):
+712563	        if l.strip() and not l.startswith('#'):
+712564	            wafer.add(l.split('\t')[3])
+712566	    # ---- 7 register rows (keys only: Q1)
+712567	    lines = apps_md.decode('utf-8').split('\n')
+712568	    for n in range(APPS_LINES[0], APPS_LINES[1] + 1):
+712569	        m = re.match(r'^\| `(block:[A-Za-z0-9]+)` \|', lines[n - 1])
+712571	            sys.exit('REFUSED: APPS.md:%d is not a block row' % n)
+712572	        k = m.group(1)
+712573	        a = by_key[k]
+712574	        link = a['live'][0]
+712575	        w = None
+712576	        for f in a.get('files', []):
+712577	            if f['commit'][:12] in wafer:
+712578	                w = {'repo': f['repo'].split('/')[-1], 'commit': f['commit'], 'path': f['path']}
+712580	        cat = 'https://github.com/Ventusltd/elements/blob/%s/APPS.md#L%d' % (E, n)
+712581	        r = {'key': k, 'id': k, 'key_source': 'register', 'name': k, 'kind': 'app',
+712582	             'purpose': 'not copied: elements@f7a92fb states no licence (owner question Q1); read it at the catalogue link',
+712583	             'catalogue': cat, 'link': link}
+712584	        r.update(licence_of(roots, link))
+712585	        r.update({'source': 'elements@f7a92fb APPS.md:%d' % n,
+712586	                  'wafer': w, 'wafer_why': None if w else 'no register file of this app has its commit on cosmos/wafer.tsv',
+712587	                  'same_as': [SAME_AS[k]] if k in SAME_AS else [], 'copied': 'linked (key only, Q1)'})
+712589	    # ---- 25 homepage rows
+712590	    hl = homepage.decode('utf-8').split('\n')
+712591	    rx = re.compile(r'^<tr data-entity-id="([^"]+)"><th scope="row"><a href="([^"]+)">(.*?)</a><small class="entity-key">([^<]+)</small>'
+712592	                    r'</th><td><details class="entity-type"><summary>([^<]+)</summary><p>Intended purpose: (.*?)</p>')
+712593	    for n in range(SRC['homepage']['lines'][0], SRC['homepage']['lines'][1] + 1):
+712594	        m = rx.match(hl[n - 1])
+712595	            sys.exit('REFUSED: homepage_v134.html:%d is not an entity row' % n)
+712596	        eid, href, name, ekey, kind, purpose = [html.unescape(x) for x in m.groups()]
+712597	        if eid != ekey:
+712598	            sys.exit('REFUSED: homepage_v134.html:%d data-entity-id %s != entity-key %s' % (n, eid, ekey))
+712599	        link = POINTERS.get(href, href)
+712600	        r = {'key': 'surface:' + link, 'id': eid, 'key_source': 'homepage', 'name': name, 'kind': kind,
+712601	             'purpose': purpose, 'link': link}
+712602	        if link != href:
+712603	            r['source_href'] = href
+712604	        if link.startswith(KB_HOST):
+712605	            r['local'] = '../../' + link[len(KB_HOST):]      # the same repository: open it on the served host
+712606	        r.update(licence_of(roots, href))
+712607	        r.update({'source': 'globalgrid2050@c66759f homepage_versions/homepage_v134.html:%d' % n, 'wafer': None,
+712608	                  'wafer_why': 'a homepage entity is a served page with a version; no register file names it',
+712609	                  'same_as': [k for k, v in SAME_AS.items() if v == eid], 'copied': 'linked'})
+712610	    # ---- the spider sandbox (issued here)
+712611	    il = index_md.decode('utf-8').split('\n')
+712612	    if V5 not in il[SRC['spider']['line'] - 1]:
+712613	        sys.exit('REFUSED: spider/INDEX.md:13 does not name v5')
+712614	    link = 'https://github.com/Ventusltd/testcode/tree/%s/spider/%s/' % (SRC['spider']['commit'], V5)
+712615	    graphs = []
+712616	    for g in GRAPHS:
+712617	        d = find_clone(roots, g['repo'])
+712618	        raw = show(d, g['commit'], g['path'])
+712619	        text, nred = redact(raw.decode('utf-8'))
+712620	        b = text.encode('utf-8')
+712621	        j = json.loads(b)
+712622	        dst = os.path.join(edition, g['file'])
+712623	        here = open(dst, 'rb').read() if os.path.exists(dst) else None
+712624	        graphs.append({'file': g['file'], 'source': '%s@%s %s' % (g['repo'], g['commit'][:7], g['path']),
+712625	                       'source_sha256': sha256(raw), 'source_bytes': len(raw), 'k1_redacted_tokens': nred,
+712626	                       'sha256': sha256(b), 'bytes': len(b), 'nodes': len(j.get('nodes', [])), 'edges': len(j.get('edges', [])),
+712627	                       'copy_matches_source': (here == b) if here is not None else 'not copied yet',
+712628	                       'licence': licence_of(roots, 'https://ventusltd.github.io/%s/' % g['repo'])['licence'],
+712629	                       'status': 'DISCLOSED (owner question Q5): copied with its sha256 and source address, byte for byte'
+712630	                                 + ('' if not nred else ' except %d token(s) naming a non-public repository, replaced by not-public (K1)' % nred)})
+712631	    r = {'key': 'surface:' + link, 'id': 'spider-sandbox', 'key_source': 'issued-here', 'issued_by': 'data/apps.json',
+712632	         'name': il[0].lstrip('# ').strip(), 'kind': 'application',
+712633	         'purpose': re.split(r'\s*\|\s*', il[SRC['spider']['line'] - 1].strip('| '))[2],
+712634	         'link': link, 'link_note': 'GitHub tree at the recorded commit: no served address of the spider is keyed (elements SURFACES.md records none; UNVERIFIED)'}
+712635	    r.update(licence_of(roots, link))
+712636	    r.update({'source': 'testcode@d09c185 spider/INDEX.md:13', 'wafer': None,
+712637	              'wafer_why': 'the spider is a folder of testcode, not a register block',
+712638	              'same_as': [], 'copied': 'linked; 2 graphs copied (DISCLOSED, Q5)', 'graphs': graphs})
+712639	    rows.append(r)
+712640	    # ---- the periodic table itself (issued here)
+712641	    if not catalogue_md.decode('utf-8').startswith('# Catalogue of elements'):
+712642	        sys.exit('REFUSED: CATALOGUE.md:1 is not the catalogue heading')
+712643	    link = 'https://ventusltd.github.io/stars/blocks/'
+712644	    r = {'key': 'surface:' + link, 'id': 'periodic-table', 'key_source': 'issued-here', 'issued_by': 'data/apps.json',
+712645	         'name': 'Periodic table', 'kind': 'catalogue',
+712646	         'purpose': "the owner's words: \"bring in periodic table\" (neural-link FIXES/NL-010/BRIEF.md:9); the catalogue's own text is not copied (Q1)",
+712647	         'catalogue': 'https://github.com/Ventusltd/elements/blob/%s/CATALOGUE.md' % E, 'link': link}
+712648	    r.update({'source': 'elements@f7a92fb CATALOGUE.md:1', 'wafer': None,
+712649	              'wafer_why': 'the catalogue is a register of blocks; its 244 elements are the layer, data/elements.json',
+712650	              'same_as': [], 'copied': 'linked; keys only copied (data/elements.json, Q1)'})
+712651	    # K1: a link whose folder name equals a repository that is not public cannot be written; the row stays, its
+712652	    # link reads not-public and says so (the homepage line in `source` still carries it)
+712654	        if redact(r['link'])[1]:
+712655	            r['link_withheld'] = 'K1 (tools/ci_check.py): the folder name equals a repository that is not public; written as not-public, see the source line'
+712656	    # rows whose stable link is the same address cross-reference each other (7.1: same_as, never merged)
+712657	    by_link = {}
+712658	        by_link.setdefault(r['link'], []).append(r['id'])
+712659	        for other in by_link[r['link']]:
+712660	            if other != r['id'] and other not in r['same_as']:
+712661	                r['same_as'].append(other)
+712662	    out = {'schema': 'kuiper.apps.v1', 'edition': os.path.basename(os.path.normpath(edition)),
+712663	           'built_by': 'tools/apps_registry.py', 'licence': 'CC BY 4.0 (kuiper-belt data); each row carries its target\'s own licence',
+712664	           'provenance': {'sources': [
+712665	               {'repo': 'elements', 'commit': E, 'path': 'APPS.md', 'lines': '7-13', 'sha256': sha256(apps_md)},
+712666	               {'repo': 'elements', 'commit': E, 'path': 'catalogue/apps.json', 'use': 'live[0], files[] only', 'sha256': sha256(show(el, E, 'catalogue/apps.json'))},
+712667	               {'repo': 'globalgrid2050', 'commit': SRC['homepage']['commit'], 'path': SRC['homepage']['path'], 'lines': '32-56', 'sha256': sha256(homepage)},
+712668	               {'repo': 'testcode', 'commit': SRC['spider']['commit'], 'path': SRC['spider']['path'], 'lines': '13', 'sha256': sha256(index_md)},
+712669	               {'repo': 'elements', 'commit': E, 'path': 'CATALOGUE.md', 'lines': '1', 'sha256': sha256(catalogue_md)}]},
+712670	           'counts': {'register': 7, 'homepage': 25, 'issued': 2, 'total': len(rows)},
+712671	           'apps': rows}
+712672	    return out, apps_md, homepage
+712673	def check(edition, roots):
+712674	    """acceptance A1: compare data/apps.json with its two sources, by script"""
+712675	    j = json.load(open(os.path.join(edition, 'data', 'apps.json')))
+712676	    A = j['apps']
+712678	    def ok(c, m):
+712679	        print(('PASS ' if c else 'FAIL ') + m)
+712680	        if not c:
+712681	            fails.append(m)
+712682	    ok(len(A) == 34, 'A1 34 records (%d)' % len(A))
+712683	    for f in ('key', 'id', 'name', 'purpose', 'link', 'licence', 'source', 'key_source', 'copied'):
+712684	        ok(all(isinstance(a.get(f), str) and a[f] for a in A), 'A1 every record has a non-empty %s' % f)
+712685	    ok(all(KEY_RE.match(a['key']) for a in A), 'A1 every key matches ^(block:[A-Za-z0-9]+|surface:https://)')
+712686	    dup = {}
+712687	    for a in A:
+712688	        dup.setdefault(a['key'], []).append(a)
+712689	    ok(all(all(set(x['id'] for x in g) - {y['id']} <= set(y['same_as']) for y in g) for g in dup.values()),
+712690	       'A1 %d unique keys; rows that share a key name each other in same_as' % len(dup))
+712691	    ok(len(set(a['id'] for a in A)) == 34, 'A1 34 unique ids')
+712692	    el = find_clone(roots, 'elements'); hp = find_clone(roots, 'globalgrid2050')
+712693	    md = show(el, SRC['elements']['commit'], 'APPS.md').decode('utf-8').split('\n')
+712694	    want_b = [re.match(r'^\| `(block:[A-Za-z0-9]+)`', md[n - 1]).group(1) for n in range(7, 14)]
+712695	    got_b = [a['key'] for a in A if a['key_source'] == 'register']
+712696	    ok(got_b == want_b, 'A1 the 7 register keys equal elements@f7a92fb APPS.md:7-13 %s' % want_b)
+712697	    hl = show(hp, SRC['homepage']['commit'], SRC['homepage']['path']).decode('utf-8').split('\n')
+712698	    want_h = set(re.findall(r'<tr data-entity-id="([^"]+)"', '\n'.join(hl[31:56])))
+712699	    allh = set(re.findall(r'<tr data-entity-id="([^"]+)"', '\n'.join(hl)))
+712700	    got_h = set(a['id'] for a in A if a['key_source'] == 'homepage')
+712701	    ok(len(want_h) == 25 and got_h == want_h and allh == want_h, 'A1 the 25 homepage ids equal the data-entity-id set of homepage_v134.html (%d)' % len(got_h))
+712702	    ok(sorted(a['id'] for a in A if a['key_source'] == 'issued-here') == ['periodic-table', 'spider-sandbox'], 'A1 issued-here ids are spider-sandbox and periodic-table only')
+712703	    cat = json.loads(show(el, SRC['elements']['commit'], 'catalogue/apps.json'))
+712704	    leaked = [a['key'] for a in A if a['key_source'] == 'register' for c in cat if c['key'] == a['key']
+712705	              and (c['title'] in json.dumps(a) or c['description'] in json.dumps(a))]
+712706	    ok(not leaked, 'Q1 no register title or description copied %s' % leaked)
+712707	    ok(all(a['licence'] == 'not stated' for a in A if a['id'] == 'periodic-table'), 'Q1 the periodic table licence reads not stated')
+712708	    sp = [a for a in A if a['id'] == 'spider-sandbox'][0]
+712709	    for g in sp['graphs']:
+712710	        p = os.path.join(edition, g['file'])
+712711	        b = open(p, 'rb').read() if os.path.exists(p) else b''
+712712	        ok(sha256(b) == g['sha256'] and len(b) == g['bytes'] and g['copy_matches_source'] is True,
+712713	           'Q5 %s is the copy of %s (sha256 %s; source %s; K1 tokens replaced %d)' % (g['file'], g['source'], g['sha256'][:12], g['source_sha256'][:12], g['k1_redacted_tokens']))
+712714	    gfiles = sorted(os.listdir(os.path.join(edition, 'data', 'graphs')))
+712715	    ok(gfiles == ['overview.json', 'periodic-table.json'], 'Q5 data/graphs holds only the two DISCLOSED graphs %s' % gfiles)
+712716	    txt = open(os.path.join(edition, 'data', 'apps.json'), encoding='utf-8').read()
+712717	    ok(redact(txt)[1] == 0, 'K1 data/apps.json names no non-public repository')
+712718	    print('RESULT: %s' % ('PASS' if not fails else 'FAIL (%d)' % len(fails)))
+712719	    return 0 if not fails else 1
+712720	    ap.add_argument('--edition', required=True)
+712721	    ap.add_argument('--roots', default='/home/user/estate,/home/user')
+712722	    ap.add_argument('--check', action='store_true')
+712723	    ap.add_argument('--copy-graphs', action='store_true', help='write the two DISCLOSED graphs, byte for byte')
+712724	    roots = a.roots.split(',')
+712726	        sys.exit(check(a.edition, roots))
+712727	    if a.copy_graphs:
+712728	        os.makedirs(os.path.join(a.edition, 'data', 'graphs'), exist_ok=True)
+712729	        for g in GRAPHS:
+712730	            b = redact(show(find_clone(roots, g['repo']), g['commit'], g['path']).decode('utf-8'))[0].encode('utf-8')
+712731	            open(os.path.join(a.edition, g['file']), 'wb').write(b)
+712732	            print('copied %s <- %s@%s %s (%d bytes, sha256 %s)' % (g['file'], g['repo'], g['commit'][:7], g['path'], len(b), sha256(b)))
+712733	    out, _, _ = build(roots, a.edition)
+712734	    p = os.path.join(a.edition, 'data', 'apps.json')
+712735	    s, nred = redact(json.dumps(out, indent=1, ensure_ascii=False) + '\n')
+712736	    if nred:
+712737	        print('K1: %d token(s) in the registry named a non-public repository; replaced by not-public' % nred)
+712738	    open(p, 'w', encoding='utf-8').write(s)
+712739	    print('wrote %s: %d records, %d bytes, sha256 %s' % (p, len(out['apps']), len(s.encode()), sha256(s.encode())))
+712740	"""Build and check the Kuiper layer registry of one edition (NL-010 roadmap step 3, Opus team 3).
+712741	    python3 tools/build_layers.py --edition 202611012135          # write data/editions.json, then measure layers.json
+712742	    python3 tools/build_layers.py --edition 202611012135 --check  # change nothing; exit 1 on any difference or refusal
+712743	What it writes (and nothing else):
+712744	  editions/<stamp>/data/editions.json  schema kuiper.editions.v1, one record per edition, built from editions/README.md
+712745	                                       (the "- **Kuiper Edition N** (`stamp`, published date)" lines), the edition's own
+712746	                                       README.md title and the pointer editions/index.html (location.replace target).
+712747	  editions/<stamp>/data/layers.json    schema kuiper.layers.v1; for every record whose source names a file it writes
+712748	                                       source.bytes, source.features and source.sha256 measured from that file.
+712749	What it refuses (exit 1, the reason printed, nothing written), as galaxies-wafers' builder "refuses to write a key the
+712750	numbered database does not contain" (galaxies-wafers@fff6fc6 README.md:18):
+712751	  - a colour that is not one of PALETTE.md's hexes (kuiper-belt PALETTE.md:9-14, :19);
+712752	  - a key outside SPACE (cosmos/wafer-meta.json "address_space"), for a keys.json body placed on the wafer or for any
+712753	    geometry key of a code-feature-collection.v1 file;
+712754	  - a record whose `requires` is not within the `requires` of the module it names (team-2/STEPS.md 3.1);
+712755	  - a record whose key is not `layer:<id>`, an id twice, an `order` that does not name every record exactly once,
+712756	    an empty licence, a format the registry does not admit.
+712757	Licence: Apache-2.0 (kuiper-belt code). The files it writes are CC BY 4.0 (kuiper-belt data, README.md:156-157).
+712760	FORMATS = {"edition-keys.v1", "code-feature-collection.v1", "kuiper.editions.v1", "engine"}
+712764	def palette():
+712765	    text = open(os.path.join(ROOT, "PALETTE.md"), encoding="utf-8").read()
+712766	    hexes = set()
+712768	        if line.startswith("|") and "`#" in line and "near-black" not in line:
+712769	            hexes.update(h.lower() for h in re.findall(r"`(#[0-9a-fA-F]{6})`", line))
+712770	    return hexes
+712771	def space():
+712772	    meta = json.load(open(os.path.join(ROOT, "cosmos", "wafer-meta.json"), encoding="utf-8"))
+712773	    return int(meta["address_space"])
+712774	def module_requires(edition_dir, module):
+712775	    """The `requires` the module file itself declares (the list the loader checks, ROADMAP 4.4)."""
+712776	    if not module:
+712777	        return None, "no module named"
+712778	    path = os.path.join(edition_dir, "modules", module)
+712779	    if not module.endswith(".js"):
+712780	        cands = sorted(glob.glob(os.path.join(edition_dir, "modules", "*-" + module + ".js")))
+712782	            return None, "module " + module + " not yet cut"
+712783	        path = cands[-1]
+712785	        return None, "module file " + module + " not yet cut"
+712786	    src = open(path, encoding="utf-8").read()
+712787	    m = re.search(r"REQUIRES\s*=\s*\[([^\]]*)\]", src) or re.search(r"requires\s*:\s*\[([^\]]*)\]", src)
+712788	        return None, "module " + os.path.basename(path) + " declares no requires"
+712789	    return set(re.findall(r"['\"]([A-Za-z0-9_-]+)['\"]", m.group(1))), os.path.basename(path)
+712790	def build_editions(edition, edition_dir):
+712791	    readme = os.path.join(ROOT, "editions", "README.md")
+712792	    pat = re.compile(r"^- \*\*Kuiper Edition (\d+)\*\* \(`(\d{12})`, published (\d{4}-\d\d-\d\d)\)")
+712793	    for n, line in enumerate(open(readme, encoding="utf-8"), 1):
+712794	        m = pat.match(line)
+712796	            rows.append({"number": int(m.group(1)), "stamp": m.group(2), "published": m.group(3),
+712797	                         "status": "published", "evidence": "editions/README.md:%d" % n})
+712798	    own = os.path.join(edition_dir, "README.md")
+712799	    first = open(own, encoding="utf-8").readline()
+712800	    m = re.match(r"^# Kuiper Edition (\d+) \((\d{12})\)", first)
+712801	    if m and m.group(2) == edition and not any(r["stamp"] == edition for r in rows):
+712802	        rows.append({"number": int(m.group(1)), "stamp": edition, "published": None,
+712803	                     "status": "under construction", "evidence": "editions/%s/README.md:1" % edition})
+712804	    ptr = open(os.path.join(ROOT, "editions", "index.html"), encoding="utf-8").read()
+712805	    pm = re.search(r"location\.replace\('(\d{12})/'", ptr)
+712806	    pointer = pm.group(1) if pm else None
+712807	    rows.sort(key=lambda r: r["number"])
+712808	        s = r["stamp"]
+712809	        r["key"] = "edition:" + s
+712810	        r["cut_utc"] = "%s-%s-%sT%s:%s:00Z" % (s[0:4], s[4:6], s[6:8], s[8:10], s[10:12])
+712811	        r["path"] = "../" + s + "/"
+712812	        r["pointer"] = s == pointer
+712813	    return {"schema": "kuiper.editions.v1", "edition": edition,
+712814	            "licence": "CC BY 4.0 (kuiper-belt data, README.md:156-157)",
+712815	            "built_by": "tools/build_layers.py",
+712816	            "sources": ["editions/README.md", "editions/%s/README.md:1" % edition, "editions/index.html (location.replace)"],
+712817	            "pointer": pointer, "editions": rows}
+712818	def features_of(fmt, data, path, SPACE, refuse):
+712819	    if fmt == "kuiper.editions.v1":
+712820	        return len(data["editions"])
+712821	    if fmt == "kuiper.elements.v1":
+712822	        return len(data.get("elements", []))
+712823	    if fmt == "edition-keys.v1":
+712824	        bodies = data.get("bodies", data) if isinstance(data, dict) else data
+712825	        for b in bodies:
+712826	            if b.get("on_wafer") and b.get("verified"):
+712827	                k = b.get("key")
+712828	                if not isinstance(k, int) or not (0 <= k < SPACE):
+712829	                    refuse("%s: key %r of %s outside SPACE %d" % (path, k, b.get("id"), SPACE))
+712830	        return len(bodies)
+712831	    if fmt == "code-feature-collection.v1":
+712832	        fs = data.get("features", [])
+712833	        for f in fs:
+712834	            g = f.get("geometry") or {}
+712835	            keys = [g["key"]] if "key" in g else list(g.get("keys", []))
+712836	            for k in keys:
+712837	                    refuse("%s: geometry key %r outside SPACE %d" % (path, k, SPACE))
+712838	        return len(fs)
+712840	def measure(f, r, edir, etext, editions, SPACE, refuse):
+712841	    """bytes, features and sha256 of one source file of record r (None when the record names no file)."""
+712842	    if not f:
+712844	    if f == "data/editions.json":
+712845	        raw, data = etext.encode("utf-8"), editions
+712846	        p = os.path.join(edir, f)
+712847	            refuse("%s: source file %s does not exist" % (r["id"], f))
+712849	        raw = open(p, "rb").read()
+712850	        data = json.loads(raw.decode("utf-8"))
+712851	    return {"bytes": len(raw), "features": features_of(r["format"], data, f, SPACE, refuse),
+712852	            "sha256": hashlib.sha256(raw).hexdigest()}
+712853	def dump(obj):
+712854	    return json.dumps(obj, indent=1, ensure_ascii=False) + "\n"
+712856	    ap.add_argument("--edition", required=True)
+712857	    ap.add_argument("--check", action="store_true", help="write nothing; exit 1 if any file would change")
+712858	    edir = os.path.join(ROOT, "editions", a.edition)
+712859	    lpath = os.path.join(edir, "data", "layers.json")
+712860	    epath = os.path.join(edir, "data", "editions.json")
+712862	    refuse = reasons.append
+712863	    PAL, SPACE = palette(), space()
+712864	    editions = build_editions(a.edition, edir)
+712865	    etext = dump(editions)
+712866	    L = json.load(open(lpath, encoding="utf-8"))
+712867	    if L.get("schema") != "kuiper.layers.v1":
+712868	        refuse("layers.json schema %r is not kuiper.layers.v1" % L.get("schema"))
+712869	    ids = [r["id"] for r in L["layers"]]
+712870	    if len(set(ids)) != len(ids):
+712871	        refuse("an id appears twice: %s" % ids)
+712872	    if sorted(L["order"]) != sorted(ids) or len(set(L["order"])) != len(L["order"]):
+712873	        refuse("order %s does not name every record exactly once %s" % (L["order"], ids))
+712874	    pending = {}
+712875	    for r in L["layers"]:
+712876	        rid = r["id"]
+712877	        if r.get("key") != "layer:" + rid:
+712878	            refuse("%s: key %r is not layer:%s" % (rid, r.get("key"), rid))
+712879	        if str(r.get("colour", "")).lower() not in PAL:
+712880	            refuse("%s: colour %s is not in PALETTE.md %s" % (rid, r.get("colour"), sorted(PAL)))
+712881	        if not r.get("licence"):
+712882	            refuse("%s: empty licence" % rid)
+712883	        if r.get("format") not in FORMATS:
+712884	            if str(r.get("licence", "")).upper().startswith("UNSETTLED"):
+712885	                print("note  %-11s format %s not admitted; the record is REFUSED at run time for its licence first" % (rid, r.get("format")))
+712887	                refuse("%s: format %r not admitted" % (rid, r.get("format")))
+712888	        for f in ("label", "group", "meaning", "draws", "source", "requires", "module"):
+712889	            if f not in r:
+712890	                refuse("%s: field %s missing" % (rid, f))
+712891	        mreq, mname = module_requires(edir, r.get("module"))
+712892	        if mreq is None:
+712893	            print("note  %-11s requires not checked: %s" % (rid, mname))
+712894	            extra = set(r.get("requires", [])) - mreq
+712895	            if extra:
+712896	                refuse("%s: requires %s not within module %s requires" % (rid, sorted(extra), mname))
+712897	        src = r.get("source", {})
+712898	        for key, part in (("", src), ("fallback", src.get("fallback") or {})):
+712899	            m = measure(part.get("file"), r, edir, etext, editions, SPACE, refuse)
+712901	                pending[(rid, key)] = m
+712902	    if reasons:
+712903	        for x in reasons:
+712904	            print("REFUSED " + x)
+712905	        print("RESULT: REFUSED (%d)" % len(reasons))
+712908	        for key in ("", "fallback"):
+712909	            if (r["id"], key) not in pending:
+712910	            tgt = r["source"] if not key else r["source"]["fallback"]
+712911	            for k, v in pending[(r["id"], key)].items():
+712912	                if tgt.get(k) != v:
+712913	                    changed.append("%s.source%s.%s %r -> %r" % (r["id"], "." + key if key else "", k, tgt.get(k), v))
+712914	                    tgt[k] = v
+712915	    ltext = dump(L)
+712916	    old_e = open(epath, encoding="utf-8").read() if os.path.exists(epath) else None
+712917	    old_l = open(lpath, encoding="utf-8").read()
+712918	    if old_e != etext:
+712919	        changed.append("data/editions.json")
+712920	    if old_l != ltext and not changed:
+712921	        changed.append("data/layers.json (format)")
+712922	        s = r["source"]
+712923	        print("layer %-11s %-26s %-8s %s" % (r["id"], s.get("file") or s.get("engine") or "-",
+712924	                                            s.get("features", ""), (s.get("sha256") or "")[:12]))
+712925	        for c in changed:
+712926	            print("DIFF  " + c)
+712927	        print("RESULT: " + ("PASS" if not changed else "FAIL (%d differences)" % len(changed)))
+712928	        return 0 if not changed else 1
+712929	    os.makedirs(os.path.dirname(epath), exist_ok=True)
+712930	    with open(epath, "w", encoding="utf-8") as fh:
+712931	        fh.write(etext)
+712932	    with open(lpath, "w", encoding="utf-8") as fh:
+712933	        fh.write(ltext)
+712934	    for c in changed:
+712935	        print("wrote " + c)
+712936	    print("RESULT: PASS (written)")
+712938	"""The drift of an edition from the live heads (NL-010 roadmap step 8, Opus team 8). Apache-2.0 (kuiper-belt code).
+712939	For every body of editions/<stamp>/keys.json, is the line the edition quotes still at the head of its repository?
+712940	  SAME        the head's file at `path` holds `line_text` at `line`
+712941	  MOVED       the head's file holds `line_text` at another line: the first occurrence, head_line, delta = head_line - line
+712942	  GONE        the head has a file at `path` and no line of it equals `line_text`
+712943	  FILE_GONE   the head has no file (no blob) at `path`
+712944	  UNVERIFIED  nothing is claimed, and the row says why: no clone, no head, a recorded head the clone does not hold,
+712945	              an empty `line_text`, a key not on the wafer, a repository not in cosmos/repos.tsv
+712946	Inputs, and nothing else: cosmos/repos.tsv, editions/<stamp>/keys.json, and the git objects (never a working tree) of
+712947	the clones under the estate directory (default: the directory that holds this repository, /home/user/estate).
+712948	The head of a repository is `refs/remotes/origin/HEAD` of its clone, its default branch as the clone last saw it on
+712949	the host; it is observed when the remote ref was written (the clone's FETCH_HEAD when it names that sha, else the
+712950	ref's reflog), with its offset. A checked-out branch is not the head (`--ref HEAD` measures one anyway, for a
+712951	comparison).
+712952	Text rule, as tools/edition_keys.py wrote `line_text` (:250): body.split(b'\\n')[i].decode('utf-8', 'replace')
+712953	.rstrip('\\r'); equality is byte-for-byte of that string. The tool writes no line text into drift.json.
+712954	Refusals: a repository without a clone or a head makes every one of its rows UNVERIFIED, never SAME, and prints
+712955	`REFUSED: ...` (README.md:40 "A check that examines nothing refuses. It does not pass"; tools/key.py:49 "Never
+712956	trusted blind"). `--heads` with no heads exits 2 and writes nothing. A head observed more than CAP_SECONDS before the
+712957	cut exits 3 and writes nothing: a stale drift is worse than none.
+712958	  python3 tools/drift.py                       observe the heads, classify, write editions/<stamp>/data/drift.json
+712959	  python3 tools/drift.py --heads FILE          re-run against recorded heads (a drift.json, or {repo: {sha, ...}})
+712960	  python3 tools/drift.py --check               P1 determinism, P2 refusal, P3 ground truth by git show, P5 the law
+712965	SCHEMA = 'kuiper.drift.v1'
+712966	CAP_SECONDS = 14 * 86400          # the wafer's own cap, tools/wafer_keys.py:34 `CAP_SECONDS = 14 * 86400`
+712967	CAP_KEY = 'kuiper-belt@018b46a tools/wafer_keys.py:34'
+712971	        for chunk in iter(lambda: f.read(1 << 20), b''):
+712974	def git(d, args, text=True):
+712975	    r = subprocess.run(['git'] + args, cwd=d, capture_output=True)
+712976	    out = r.stdout.decode('utf-8', 'replace') if text else r.stdout
+712977	    return r.returncode, out
+712978	def repo_names(root):
+712980	    for l in io.open(os.path.join(root, 'cosmos', 'repos.tsv'), encoding='utf-8'):
+712981	            names.append(l.rstrip('\n').split('\t')[1])
+712983	def tsv_name(names, repo):
+712985	        if n == repo:
+712986	            return n
+712987	        if n.lower() == repo.lower():
+712988	def find_clone(estate, name):
+712989	    d = os.path.join(estate, name)
+712990	    if os.path.isdir(os.path.join(d, '.git')):
+712992	    if os.path.isdir(estate):
+712993	            if n.lower() == name.lower() and os.path.isdir(os.path.join(estate, n, '.git')):
+712994	                return os.path.join(estate, n)
+712995	def iso(ts, offset_seconds=0):
+712996	    tz = datetime.timezone(datetime.timedelta(seconds=offset_seconds))
+712997	    return datetime.datetime.fromtimestamp(int(ts), tz).isoformat()
+712998	def parse_iso(s):
+712999	    return datetime.datetime.fromisoformat(s)
+713000	def observe(d, ref):
+713001	    """-> {sha, ref, observed_at, observed_by} or {sha: None, why}"""
+713002	    rc, sha = git(d, ['rev-parse', '-q', '--verify', ref + '^{commit}'])
+713003	    sha = sha.strip()
+713004	    if rc or len(sha) != 40:
+713005	        return {'sha': None, 'ref': ref, 'why': 'no head: %s does not resolve in the clone' % ref}
+713006	    full = ref
+713007	    rc, sym = git(d, ['symbolic-ref', '-q', ref if ref.startswith('refs/') else 'refs/remotes/' + ref])
+713008	    if ref == 'origin/HEAD' or ref == 'refs/remotes/origin/HEAD':
+713009	        full = sym.strip() if not rc and sym.strip() else 'refs/remotes/origin/HEAD'
+713010	    gitdir = os.path.join(d, '.git')
+713011	    fh = os.path.join(gitdir, 'FETCH_HEAD')
+713012	    if os.path.exists(fh) and full.startswith('refs/remotes/'):
+713013	        with open(fh, 'rb') as f:
+713014	            if sha.encode() in f.read():
+713015	                return {'sha': sha, 'ref': full, 'observed_at': iso(os.path.getmtime(fh)),
+713016	                        'observed_by': 'FETCH_HEAD names the sha (its mtime)'}
+713017	    log = os.path.join(gitdir, 'logs', *full.split('/'))
+713018	    if os.path.exists(log):
+713020	        with open(log, 'rb') as f:
+713021	            for l in f:
+713022	                if l.strip():
+713023	                    last = l
+713025	            meta = last.split(b'\t')[0].split()
+713026	            if len(meta) >= 4 and meta[1].decode() == sha:
+713027	                tz = meta[-1].decode()
+713028	                off = (1 if tz[0] == '+' else -1) * (int(tz[1:3]) * 3600 + int(tz[3:5]) * 60)
+713029	                return {'sha': sha, 'ref': full, 'observed_at': iso(int(meta[-2]), off),
+713030	                        'observed_by': 'reflog of %s' % full}
+713031	    if not full.startswith('refs/remotes/'):
+713032	        return {'sha': sha, 'ref': full, 'observed_at': None,
+713033	                'observed_by': 'a local ref, not a fetch: no observation of the host'}
+713034	    return {'sha': sha, 'ref': full, 'observed_at': None, 'observed_by': 'no FETCH_HEAD or reflog names the sha'}
+713035	class Batch:
+713036	    """one `git cat-file --batch` per clone, fed one request at a time"""
+713037	    def __init__(self, d):
+713038	        self.p = subprocess.Popen(['git', 'cat-file', '--batch'], cwd=d, stdin=subprocess.PIPE,
+713039	                                  stdout=subprocess.PIPE, bufsize=1 << 20)
+713040	    def get(self, spec):
+713041	        self.p.stdin.write(spec.encode('utf-8', 'surrogateescape') + b'\n')
+713042	        self.p.stdin.flush()
+713043	        hdr = self.p.stdout.readline()
+713044	        f = hdr.split()
+713045	        if len(f) < 3 or f[-1] == b'missing' or f[1] == b'missing':
+713047	        size = int(f[2])
+713048	        body = self.p.stdout.read(size)
+713049	        self.p.stdout.read(1)
+713050	        return f[1].decode(), body
+713053	            self.p.stdin.close()
+713056	        self.p.wait()
+713057	def line_at(lines, i):
+713058	    return lines[i].decode('utf-8', 'replace').rstrip('\r')
+713059	def lines_of(body):                                   # key.py / edition_keys.py:43-46, byte for byte
+713063	def lines_before(d, head, path):
+713064	    """lines of the blobs before `path` in `git ls-tree -r <head>` (edition_keys.py:136-160, :207-213): the
+713065	    lines_before the wafer's key law uses, at the head; streamed, nothing held."""
+713066	    rc, out = git(d, ['ls-tree', '-r', '-z', head], text=False)
+713068	    shas = []
+713069	    for entry in out.split(b'\x00'):
+713071	        meta, _, p = entry.partition(b'\t')
+713074	        p = p.decode('utf-8', 'surrogateescape')
+713075	        if p == path:
+713077	        shas.append(f[2].decode())
+713078	    cache, total = {}, 0
+713079	    b = Batch(d)
+713080	        for s in shas:
+713081	            if s not in cache:
+713082	                _, body = b.get(s)
+713083	                cache[s] = lines_of(body) if body is not None else 0
+713084	            if cache[s] > 0:
+713085	                total += cache[s]
+713089	def load_heads(path):
+713090	    with open(path, encoding='utf-8') as f:
+713091	        j = json.load(f)
+713092	    h = j.get('heads') if isinstance(j, dict) and 'heads' in j else j
+713094	    for repo, v in (h or {}).items():
+713096	            v = {'sha': v}
+713097	        if v and v.get('sha'):
+713098	            out[repo] = {k: v.get(k) for k in ('sha', 'ref', 'observed_at', 'observed_by')}
+713101	    root = os.path.abspath(args.root)
+713102	    ed = args.edition
+713103	    names = repo_names(root)
+713104	    cut_at = datetime.datetime.strptime(ed, '%Y%m%d%H%M').replace(tzinfo=datetime.timezone.utc)
+713105	    estate = os.path.abspath(args.estate or os.path.dirname(root))
+713106	    # 1. record every head before classifying anything (team-4/STEPS.md step 8: "records every head first")
+713107	    recorded = None
+713108	    if args.heads:
+713109	        recorded = load_heads(args.heads)
+713110	        if not recorded:
+713111	            print('REFUSED: no heads recorded in %s; drift.json not written' % args.heads)
+713112	            return 2, None
+713113	    heads, clones = {}, {}
+713114	        d = find_clone(estate, repo)
+713115	        if recorded is not None:
+713116	            if not d:
+713117	                heads[repo] = {'sha': None, 'why': 'no clone of %s in the estate' % repo}
+713118	                if repo in recorded:
+713119	                    heads[repo]['recorded'] = recorded[repo]['sha']
+713120	            if repo not in recorded:
+713121	                heads[repo] = {'sha': None, 'why': 'no head recorded for %s' % repo}
+713122	            h = dict(recorded[repo])
+713123	            rc, _ = git(d, ['cat-file', '-e', h['sha'] + '^{commit}'])
+713124	            if rc:
+713125	                heads[repo] = {'sha': None, 'recorded': h['sha'],
+713126	                               'why': 'the clone does not hold the recorded head %s' % h['sha'][:12]}
+713127	            heads[repo] = h
+713128	            clones[repo] = d
+713130	            heads[repo] = {'sha': None, 'why': 'no clone of %s in the estate' % repo}
+713131	        h = observe(d, args.ref)
+713132	        heads[repo] = h
+713133	        if h.get('sha'):
+713134	        h = heads[repo]
+713135	        if h.get('sha') and h.get('observed_at'):
+713136	            age = (cut_at - parse_iso(h['observed_at'])).total_seconds()
+713137	            if age > CAP_SECONDS:
+713138	                print('REFUSED: head of %s observed %s, older than the cut %s by %.1f h (cap %d h, %s); '
+713139	                      'drift.json not written' % (repo, h['observed_at'], cut_at.isoformat(), age / 3600,
+713140	                                                  CAP_SECONDS // 3600, CAP_KEY))
+713141	                return 3, None
+713142	    # 2. classify, in keys.json order
+713143	    rows, batches = [], {}
+713145	        repo = b['repo']
+713146	        row = collections.OrderedDict()
+713147	        row['id'] = b['id']
+713148	        row['key'] = b.get('key')
+713149	        row['repo'] = repo
+713150	        row['path'] = b['path']
+713151	        row['line'] = int(b['line'])
+713152	        row['edition_commit'] = b['commit']
+713153	        row['head'] = h.get('sha')
+713154	        why = None
+713155	        if not tsv_name(names, repo):
+713156	            why = 'repository not in cosmos/repos.tsv'
+713157	        elif not h.get('sha'):
+713158	            why = h['why']
+713159	        elif b.get('on_wafer') is False or b.get('key') is None:
+713160	            why = 'key not on the wafer (on_wafer: false)'
+713161	        elif not b.get('line_text'):
+713162	            why = 'empty line_text'
+713163	        elif not h.get('observed_at'):
+713164	            why = 'head %s has no observation time (%s)' % (h['sha'][:12], h.get('observed_by'))
+713165	        if why:
+713166	            row['class'] = 'UNVERIFIED'
+713167	            row['reason'] = why
+713169	        d = clones[repo]
+713170	        if repo not in batches:
+713171	            batches[repo] = Batch(d)
+713172	        kind, body = batches[repo].get('%s:%s' % (h['sha'], b['path']))
+713173	        if body is None or kind != 'blob':
+713174	            row['class'] = 'FILE_GONE'
+713175	            row['reason'] = 'no blob at the path in the head' if body is None else 'the path is a %s at the head' % kind
+713176	        text = b['line_text']
+713177	        ls = body.split(b'\n')
+713178	        i = row['line'] - 1
+713179	        if i < len(ls) and line_at(ls, i) == text:
+713180	            row['class'] = 'SAME'
+713181	        hits = [j + 1 for j in range(len(ls)) if line_at(ls, j) == text]
+713183	            row['class'] = 'MOVED'
+713184	            row['head_line'] = hits[0]
+713185	            row['delta'] = hits[0] - row['line']
+713186	            row['occurrences'] = len(hits)
+713187	            row['head_lines_before'] = lines_before(d, h['sha'], b['path'])
+713188	            row['class'] = 'GONE'
+713190	    for bt in batches.values():
+713191	        bt.close()
+713192	        if not heads[repo].get('sha'):
+713193	            n = sum(1 for r in rows if r['repo'] == repo)
+713194	            print('REFUSED: %s; %d lines UNVERIFIED' % (heads[repo]['why'], n))
+713195	    # 3. summary
+713196	    count = collections.Counter(r['class'] for r in rows)
+713197	    per = collections.OrderedDict()
+713198	        c = collections.Counter(r['class'] for r in rows if r['repo'] == repo)
+713199	        per[repo] = collections.OrderedDict((k, c[k]) for k in CLASSES if c[k])
+713200	    reasons = collections.Counter(r['reason'] for r in rows if r['class'] == 'UNVERIFIED')
+713201	    den = len(rows) - count['UNVERIFIED']
+713202	    summary = collections.OrderedDict()
+713203	    summary['rows'] = len(rows)
+713204	    summary['counts'] = collections.OrderedDict((k, count[k]) for k in CLASSES)
+713205	    summary['denominator'] = den
+713206	    summary['share_same'] = round(count['SAME'] / den, 6) if den else None
+713207	    summary['share_text'] = ('%d SAME / %d (rows %d - UNVERIFIED %d)' % (count['SAME'], den, len(rows),
+713208	                                                                         count['UNVERIFIED']))
+713209	    summary['heads_observed'] = sum(1 for r in repos if heads[r].get('sha'))
+713210	    summary['repositories'] = len(repos)
+713211	    summary['unverified_reasons'] = collections.OrderedDict(sorted(reasons.items()))
+713212	    summary['per_repo'] = per
+713213	    out = collections.OrderedDict()
+713214	    out['schema'] = SCHEMA
+713215	    out['edition'] = ed
+713216	    out['cut_at'] = cut_at.isoformat()
+713217	    out['tool'] = 'tools/drift.py'
+713218	    out['licence'] = 'CC BY 4.0 (kuiper-belt data); quotes no line text'
+713219	    out['law'] = ('per body of keys.json: git show <head>:<path>; SAME if line `line` equals line_text, MOVED if '
+713220	                  'another line does (first occurrence), GONE if none does, FILE_GONE if no blob, UNVERIFIED with '
+713221	                  'its reason when no head, no clone, empty line_text or not on the wafer; share = SAME / (rows - '
+713222	                  'UNVERIFIED)')
+713223	    out['inputs'] = collections.OrderedDict([
+713224	        ('keys.json', collections.OrderedDict([('path', 'editions/%s/keys.json' % ed),
+713225	                                               ('sha256', sha256_file(keys_path))])),
+713226	        ('repos.tsv', collections.OrderedDict([('path', 'cosmos/repos.tsv'),
+713227	                                               ('sha256', sha256_file(os.path.join(root, 'cosmos', 'repos.tsv')))])),
+713229	    out['head_rule'] = ('heads[repo] = the sha of the ref named, read from the clone under the estate, and when '
+713230	                        'that ref was observed from the host; recorded once, re-used by --heads')
+713231	    out['cap_seconds'] = CAP_SECONDS
+713232	    out['cap_key'] = CAP_KEY
+713233	    out['heads'] = collections.OrderedDict((r, heads[r]) for r in repos)
+713234	    out['rows'] = rows
+713235	    out['summary'] = summary
+713236	    data = (json.dumps(out, indent=1, ensure_ascii=False) + '\n').encode('utf-8')
+713237	    return 0, data
+713239	    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+713241	    with open(tmp, 'wb') as f:
+713242	        f.write(data)
+713244	def main_run(argv):
+713245	    args = parse(argv)
+713246	    rc, data = run(args)
+713247	        return rc
+713248	    out = args.out or os.path.join(args.root, 'editions', args.edition, 'data', 'drift.json')
+713249	    write(out, data)
+713250	    s = json.loads(data)['summary']
+713251	    print('drift: %d bodies -> %s; %s; %d of %d heads observed; wrote %s (%d bytes, sha256 %s)' % (
+713252	        s['rows'], ' / '.join('%d %s' % (v, k) for k, v in s['counts'].items()), s['share_text'],
+713253	        s['heads_observed'], s['repositories'], os.path.relpath(out, args.root) if out.startswith(args.root) else out,
+713254	        len(data), hashlib.sha256(data).hexdigest()))
+713255	# ------------------------------------------------------------------------------------------------ the test file
+713256	def check(args):
+713257	    """P1 determinism, P2 refusal, P3 ground truth by `git show` (an independent path), P5 the law."""
+713258	    target = args.out or os.path.join(root, 'editions', args.edition, 'data', 'drift.json')
+713259	    if not os.path.exists(target):
+713260	        print('REFUSED: %s does not exist; nothing to check' % target)
+713263	    tmp = tempfile.mkdtemp(prefix='drift-check-', dir=args.scratch)
+713264	    res = []
+713265	        res.append((name, bool(cond), detail))
+713266	        print('%s %-28s %s' % ('PASS' if cond else 'FAIL', name, detail))
+713267	    def tool(*extra):
+713268	        r = subprocess.run([sys.executable, me, '--root', root, '--edition', args.edition] + list(extra),
+713270	        return r.returncode, r.stdout + r.stderr
+713271	    # P1
+713272	    a, b = os.path.join(tmp, 'a.json'), os.path.join(tmp, 'b.json')
+713273	    ra, _ = tool('--estate', estate, '--heads', target, '--out', a)
+713274	    rb, _ = tool('--estate', estate, '--heads', target, '--out', b)
+713275	    ba = open(a, 'rb').read() if os.path.exists(a) else b''
+713276	    bb = open(b, 'rb').read() if os.path.exists(b) else b''
+713277	    ok('P1 determinism', ra == 0 and rb == 0 and ba == bb, 'two runs against the recorded heads: %s / %s bytes, '
+713278	       'sha256 %s / %s' % (len(ba), len(bb), hashlib.sha256(ba).hexdigest()[:16], hashlib.sha256(bb).hexdigest()[:16]))
+713279	    ok('P1 re-run = the file', bool(ba) and ba == base,
+713280	       'the re-run against the file\'s own recorded heads equals %s byte for byte (E9)' % os.path.relpath(target, root))
+713281	    # P2a: one clone removed (an estate of symlinks without it)
+713282	    victim = args.victim
+713283	    if not victim:
+713284	        per = collections.Counter(r['repo'] for r in D['rows'] if r['class'] != 'UNVERIFIED')
+713285	        victim = per.most_common(1)[0][0]
+713286	    est2 = os.path.join(tmp, 'estate-without-' + victim)
+713287	    os.makedirs(est2)
+713288	    for n in sorted(os.listdir(estate)):
+713289	        if n.lower() != victim.lower() and os.path.isdir(os.path.join(estate, n, '.git')):
+713290	            os.symlink(os.path.join(estate, n), os.path.join(est2, n))
+713291	    c = os.path.join(tmp, 'without.json')
+713292	    rc2, out2 = tool('--estate', est2, '--heads', target, '--out', c)
+713293	    C = json.loads(open(c, 'rb').read()) if os.path.exists(c) else None
+713294	    lost = sum(1 for r in D['rows'] if r['repo'] == victim and r['class'] != 'UNVERIFIED')
+713295	    ok('P2 one clone removed', C is not None and all(r['class'] == 'UNVERIFIED' for r in C['rows'] if r['repo'] == victim)
+713296	       and C['summary']['denominator'] == D['summary']['denominator'] - lost
+713297	       and ('REFUSED: no clone of %s' % victim) in out2,
+713298	       '%s removed: its %d rows UNVERIFIED, denominator %s -> %s (drop %d), tool printed REFUSED' % (
+713299	           victim, sum(1 for r in D['rows'] if r['repo'] == victim), D['summary']['denominator'],
+713300	           C['summary']['denominator'] if C else '?', lost))
+713301	    # P2b: heads emptied
+713302	    e = os.path.join(tmp, 'empty-heads.json')
+713303	    open(e, 'w').write('{"heads": {}}\n')
+713304	    o = os.path.join(tmp, 'never.json')
+713305	    rc3, out3 = tool('--estate', estate, '--heads', e, '--out', o)
+713306	    ok('P2 heads emptied', rc3 != 0 and not os.path.exists(o), 'exit %d, nothing written: %s' % (rc3, out3.strip()))
+713307	    # P2c: stale heads
+713308	    s = json.loads(base)
+713309	    for v in s['heads'].values():
+713310	        if v.get('sha'):
+713311	            v['observed_at'] = '2026-10-01T00:00:00+00:00'
+713312	    sp = os.path.join(tmp, 'stale-heads.json')
+713313	    open(sp, 'w').write(json.dumps(s))
+713314	    o2 = os.path.join(tmp, 'never2.json')
+713315	    rc4, out4 = tool('--estate', estate, '--heads', sp, '--out', o2)
+713316	    ok('P2 stale heads refuse', rc4 == 3 and not os.path.exists(o2), 'exit %d, nothing written: %s' % (
+713317	        rc4, out4.strip().splitlines()[0] if out4.strip() else ''))
+713318	    # P3: ground truth through `git show` and `git grep`, not through the tool's cat-file path
+713319	    keys = {k['id']: k for k in json.load(open(os.path.join(root, 'editions', args.edition, 'keys.json'),
+713320	                                                encoding='utf-8'))['bodies']}
+713321	    bad, n = [], collections.Counter()
+713322	    shows = {}
+713323	        k = keys.get(r['id'])
+713324	        cl = r['class']
+713325	            n[cl] += 1
+713326	            if not r.get('reason'):
+713327	        d = find_clone(estate, r['repo'])
+713328	            p = subprocess.run(['git', 'show', spec], cwd=d, capture_output=True)
+713329	            shows[spec] = p.stdout if p.returncode == 0 else None
+713330	        body = shows[spec]
+713331	        text = k['line_text']
+713332	        if cl == 'FILE_GONE':
+713333	            rc, _ = git(d, ['cat-file', '-e', spec])
+713334	            if body is not None and rc == 0:
+713335	                bad.append((r['id'], 'FILE_GONE but git show finds the path'))
+713336	            bad.append((r['id'], '%s but git show fails' % cl))
+713337	        if cl == 'SAME':
+713338	            if not (r['line'] <= len(ls) and line_at(ls, r['line'] - 1) == text):
+713339	                bad.append((r['id'], 'SAME but the line differs'))
+713340	        elif cl == 'MOVED':
+713341	            hl = r['head_line']
+713342	            if not (hl <= len(ls) and line_at(ls, hl - 1) == text):
+713343	                bad.append((r['id'], 'MOVED but head_line differs'))
+713344	            if any(line_at(ls, j) == text for j in range(hl - 1)):
+713345	                bad.append((r['id'], 'MOVED but not the first occurrence'))
+713346	            if r['line'] <= len(ls) and line_at(ls, r['line'] - 1) == text:
+713347	                bad.append((r['id'], 'MOVED but the text is still at line'))
+713348	            if r['delta'] != hl - r['line']:
+713349	                bad.append((r['id'], 'delta wrong'))
+713350	        elif cl == 'GONE':
+713351	            with open(pf, 'wb') as f:
+713352	                f.write(text.encode('utf-8') + b'\n' + text.encode('utf-8') + b'\r\n')
+713353	            p = subprocess.run(['git', 'grep', '-F', '-x', '-f', pf, r['head'], '--', r['path']], cwd=d,
+713354	                               capture_output=True)
+713355	            if p.stdout.strip():
+713356	                bad.append((r['id'], 'GONE but git grep -F -x finds it'))
+713357	    # the walk that places a MOVED line's new key, run at the edition's own commit, must give the lines_before that
+713358	    # tools/edition_keys.py recorded in keys.json for that body (the same rule, measured independently there)
+713359	    walked = 0
+713360	        if r['class'] == 'MOVED':
+713361	            k = keys[r['id']]
+713362	            got = lines_before(find_clone(estate, r['repo']), r['edition_commit'], r['path'])
+713363	            walked += 1
+713364	            if got != k.get('lines_before'):
+713365	                bad.append((r['id'], 'lines_before at the edition commit %s, keys.json %s' % (got, k.get('lines_before'))))
+713366	    n['lines_before re-walked'] = walked
+713367	    ok('P3 ground truth (git show)', not bad, '%s checked; %d disagreements%s' % (
+713368	        dict(n), len(bad), (': ' + '; '.join('%s %s' % x for x in bad[:5])) if bad else ''))
+713369	    # P5: the law
+713370	    stray_repo = sorted({r['repo'] for r in D['rows']} | set(D['heads']))
+713371	    stray_repo = [x for x in stray_repo if not tsv_name(names, x)]
+713372	    stray_key = [r['id'] for r in D['rows'] if r['id'] not in keys or keys[r['id']].get('key') != r['key']
+713373	                 or keys[r['id']]['path'] != r['path'] or int(keys[r['id']]['line']) != r['line']
+713374	                 or keys[r['id']]['commit'] != r['edition_commit']]
+713375	    ok('P5 the law', not stray_repo and not stray_key and len(D['rows']) == len(keys),
+713376	       '%d rows = %d bodies; repositories outside cosmos/repos.tsv: %s; keys outside keys.json: %s' % (
+713377	           len(D['rows']), len(keys), stray_repo or 'none', stray_key[:5] or 'none'))
+713378	    fails = [x for x in res if not x[1]]
+713379	    print('RESULT: %s (%d of %d)' % ('PASS' if not fails else 'FAIL', len(res) - len(fails), len(res)))
+713380	def parse(argv):
+713381	    ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
+713382	    ap.add_argument('--root', default=ROOT, help='the kuiper-belt checkout (default: this tool\'s repository)')
+713383	    ap.add_argument('--edition', default=EDITION)
+713384	    ap.add_argument('--estate', default=None, help='the directory of clones (default: the parent of --root)')
+713385	    ap.add_argument('--ref', default='origin/HEAD', help='the head ref of each clone (default origin/HEAD)')
+713386	    ap.add_argument('--heads', default=None, help='recorded heads: a drift.json or {repo: {sha, observed_at}}')
+713388	    ap.add_argument('--victim', default=None, help='--check: the clone P2 removes (default: the largest)')
+713389	    ap.add_argument('--scratch', default=None, help='--check: where its temporary files go')
+713391	    a = parse(sys.argv[1:])
+713392	    sys.exit(check(a) if a.check else main_run(sys.argv[1:]))
+713393	"""keys-min.json: only the fields the edition page draws, taken from keys.json, which stays as the evidence.
+713394	keys.json (1.7 MB) carries 36 fields per record and one record whose line_text is a 1.24 MB one-line file;
+713395	the page reads 14 fields, and from Edition 5 the card law reads line_text and quote_check too. This writes them, in a fixed order, minified, LF-terminated, with the sha256 of
+713396	the keys.json it came from, so the proof can tie the two together.
+713397	usage: python3 tools/edition_min.py editions/<stamp>          writes editions/<stamp>/keys-min.json
+713398	       python3 tools/edition_min.py editions/<stamp> --check  verifies an existing keys-min.json against keys.json
+713399	import hashlib, json, os, sys
+713400	FIELDS = ('id', 'key', 'on_wafer', 'verified', 'class', 'title', 'repo', 'path', 'line',
+713401	          'quote', 'destination', 'commit', 'pattern', 'worker', 'finding',
+713402	          # EDITION 5 (integrator, Opus team 10): the card law (ROADMAP step 2, L11) makes line_text the header of
+713403	          # every card, verbatim, so it is kept whole; quote_check is read by the card's "register quote" row.
+713404	          'line_text', 'quote_check')
+713405	def build(folder):
+713406	    raw = open(os.path.join(folder, 'keys.json'), 'rb').read()
+713407	    j = json.loads(raw)
+713408	    summary = dict(j.get('summary') or {})
+713409	    summary.update(source='keys.json', source_sha256=hashlib.sha256(raw).hexdigest(), fields=list(FIELDS))
+713410	    bodies = [{k: b[k] for k in FIELDS if k in b} for b in j['bodies']]
+713411	    return {'summary': summary, 'bodies': bodies}
+713412	def text(obj):
+713413	    return json.dumps(obj, separators=(',', ':'), ensure_ascii=False) + '\n'
+713415	    folder = argv[1]
+713416	    dst = os.path.join(folder, 'keys-min.json')
+713417	    want = text(build(folder))
+713418	    if '--check' in argv:
+713419	        have = open(dst, 'rb').read().decode('utf-8')
+713420	        ok = have == want
+713421	        print('keys-min.json %s (%d bytes)' % ('matches keys.json' if ok else 'DIFFERS from keys.json', len(have.encode())))
+713423	    with open(dst, 'w', encoding='utf-8', newline='\n') as f:
+713424	        f.write(want)
+713425	    print('wrote %s: %d records, %d fields each, %d bytes (keys.json %d bytes)' % (
+713426	        dst, len(json.loads(want)['bodies']), len(FIELDS), len(want.encode()), os.path.getsize(os.path.join(folder, 'keys.json'))))
+713428	"""tools/element_keys.py - give every element of the periodic table its key on the wafer, by the wafer's own law.
+713429	    python3 tools/element_keys.py --elements <elements clone> --roots /home/user/estate,/home/user[,<more>] \\
+713430	        --out editions/202611012135/data/elements.json [--check 3]
+713431	The key of an element is the key of line 1 of the first file the register lists for it (`files[0]`), at the
+713432	register's recorded commit (NL-010 ROADMAP step 7, 7.3; team-4/STEPS.md 7.3). It is computed exactly as
+713433	tools/edition_keys.py computes a verified line's key, with that tool's own functions (imported, not copied):
+713434	    commit -> wafer row      the row of cosmos/wafer.tsv whose sha12 is commit[:12] (same repository preferred)
+713436	    path   -> lines_before   walking `git ls-tree -r <commit>` in git's own order, summing lines_of() per blob
+713437	    key    =  k0 + lines_before + (1 - 1)
+713438	The walk is always finished and must land where the wafer row says the commit ends; the file's own blob is read for
+713439	real and must hold at least one text line. Otherwise the element is `placed: false` with the reason (`why`), and it is
+713440	not placed. An element whose register lists no files is counted and named, never placed (the seventh law,
+713441	editions/202611012027/README.md:34-35). `--check N` resolves N keyed elements back the other way, as
+713442	tools/key.py resolve() does (key -> wafer row by k0 -> walk -> path, line), and refuses on any disagreement.
+713443	What is copied from the catalogue: only `block:<Sym>` (as `sym`), the catalogue `number`, and the register's file
+713444	address (repo, commit, path). Never a title, a description or a category word: the elements repository states no
+713445	licence (ROADMAP "Open questions" Q1: copy only keys until the owner answers; handoff/07-apps/PLAN.md).
+713446	A clone is any directory, bare or not, that holds the commit; `--roots` lists directories whose children are clones.
+713447	import bisect
+713450	import edition_keys as EK                                   # noqa: E402  the walk, the cache, the wafer: one law
+713451	from check_proof import NOT_PUBLIC                          # noqa: E402  K1's digests (tools/ci_check.py K1)
+713452	TOKEN = re.compile(r'[A-Za-z0-9_][A-Za-z0-9_.-]*')          # check_proof.leaks()'s own token rule
+713453	REDACTED = 'not-public'
+713454	def private(tok):
+713455	    return any(hashlib.sha256(t.lower().encode()).hexdigest()[:24] in NOT_PUBLIC
+713456	               for t in {tok, tok.rstrip('.'), tok.split('/')[-1]})
+713458	    """K1: a token whose digest names a repository that is not public is replaced, never written. A folder can
+713459	    carry such a name inside a public repository; its key is still computed from the real path, and only the
+713460	    written text is redacted. Returns (text, how many tokens were replaced)."""
+713461	    n = [0]
+713462	    def sub(m):
+713463	        t = m.group(0)
+713464	        if private(t):
+713465	            n[0] += 1
+713466	            return REDACTED + ('.' if t.endswith('.') else '')
+713467	        return t
+713468	    return TOKEN.sub(sub, text), n[0]
+713469	def copy_graph(src, dst):
+713470	    """a spider graph into the edition: byte for byte, unless K1 finds a non-public name in it; then that token
+713471	    alone is replaced (bytes otherwise identical) and both digests are printed for the record"""
+713472	    raw = open(src, 'rb').read()
+713473	    text, n = redact(raw.decode('utf-8'))
+713474	    out = text.encode('utf-8')
+713475	    json.loads(text)
+713476	        f.write(out)
+713477	    return {'source': src, 'source_sha256': hashlib.sha256(raw).hexdigest(), 'source_bytes': len(raw),
+713478	            'copy': dst, 'copy_sha256': hashlib.sha256(out).hexdigest(), 'copy_bytes': len(out),
+713479	            'redacted_tokens': n, 'byte_for_byte': n == 0}
+713481	def live_register(roots, commit='cbca125bb5eeb7d0ffb02f4546d60eb5d47dadc9', path='blocks/blocks.json'):
+713482	    """count the blocks of the live register (stars) at the recorded commit, from git's bytes; None without a clone"""
+713483	        d = os.path.join(root, 'stars')
+713484	            r = subprocess.run(['git', 'show', '%s:%s' % (commit, path)], cwd=d, capture_output=True)
+713486	                j = json.loads(r.stdout)
+713487	                return {'blocks': len(j['blocks']), 'source': 'stars@%s %s (generated_utc %s, sha256 %s)'
+713488	                        % (commit[:7], path, j.get('generated_utc'), hashlib.sha256(r.stdout).hexdigest())}
+713489	        for b in iter(lambda: f.read(1 << 20), b''):
+713492	    r = subprocess.run(['git'] + list(args), cwd=d, capture_output=True)
+713493	    return r.stdout.decode('utf-8', 'replace').strip() if r.returncode == 0 else None
+713494	def holders(roots, name):
+713495	    """every directory under the roots named like the repository (exact, then case-insensitive), bare or not"""
+713499	            if n == name or n.lower() == name.lower():
+713500	                d = os.path.join(root, n)
+713501	                if os.path.isdir(os.path.join(d, '.git')) or os.path.isfile(os.path.join(d, 'HEAD')):
+713502	                    out.append(d)
+713503	def clone_with(roots, name, commit):
+713504	    for d in holders(roots, name):
+713505	        if subprocess.run(['git', 'cat-file', '-e', commit + '^{commit}'], cwd=d,
+713506	                          stderr=subprocess.DEVNULL).returncode == 0:
+713507	            return d, None
+713508	    h = holders(roots, name)
+713509	    return None, ('a clone of %s exists (%s) but does not hold commit %s' % (name, ', '.join(h), commit[:12])
+713510	                  if h else 'no clone of %s under %s' % (name, ', '.join(roots)))
+713511	def load_rows():
+713512	    """key.py load() order, as a list, for the reverse check"""
+713513	    names = {int(p[0]): p[1] for p in EK.rows(os.path.join(COSMOS, 'repos.tsv'))}
+713514	    out, k = [], 0
+713515	    for p in EK.rows(os.path.join(COSMOS, 'wafer.tsv')):
+713517	        out.append({'name': names[int(p[2])], 'sha': p[3], 'lines': int(p[1]), 'k0': k})
+713518	        k += int(p[1])
+713519	    if len(sys.argv) > 1 and sys.argv[1] == '--copy-graph':
+713520	        if len(sys.argv) != 4:
+713521	            print('usage: element_keys.py --copy-graph <source graph.json> <edition data/graphs/x.json>')
+713522	        print(json.dumps(copy_graph(sys.argv[2], sys.argv[3]), indent=1))
+713524	    ap.add_argument('--elements', required=True, help='the elements clone (reads catalogue/elements.json)')
+713527	    ap.add_argument('--edition', default='202611012135')
+713528	    ap.add_argument('--check', type=int, default=3, help='resolve this many keys back (key.py direction)')
+713529	    ap.add_argument('--keypy-root', default='', help='a directory of working clones: run tools/key.py itself, its '
+713530	                    'ROOTS set to this directory, on --check placed elements (smallest commits first)')
+713533	    src = os.path.join(a.elements, 'catalogue', 'elements.json')
+713534	    head = git(a.elements, 'rev-parse', 'HEAD')
+713535	    tracked = git(a.elements, 'ls-files', '--error-unmatch', 'catalogue/elements.json') is not None
+713536	    E = json.load(io.open(src, encoding='utf-8'))
+713537	    cache_present = EK.load_cache()
+713538	    by_sha, space = EK.load_wafer()
+713539	    walks = {}
+713540	    for e in E:
+713541	        rec = {'sym': e['key'], 'number': e.get('number'), 'key': None, 'placed': False, 'repo': None,
+713542	               'commit': None, 'path': None, 'line': None, 'line_text': None, 'k0': None, 'wafer_row': None,
+713543	               'lines_before': None, 'commit_lines_measured': None, 'commit_lines_wafer': None, 'blob': None,
+713544	               'files_listed': len(e.get('files') or []), 'github': None, 'why': None}
+713545	        if not e.get('files'):
+713546	            rec['why'] = 'no register files: counted and named, not placed'
+713548	        f = e['files'][0]
+713549	        name = f['repo'].split('/')[-1]
+713550	        rec.update({'repo': name, 'commit': f['commit'], 'path': f['path'], 'line': 1,
+713551	                    'github': 'https://github.com/%s/blob/%s/%s' % (f['repo'], f['commit'], f['path'])})
+713552	        cands = by_sha.get(f['commit'][:12], [])
+713553	            rec['why'] = 'commit not on the wafer'
+713554	        same = [c for c in cands if c['name'] == name] or \
+713555	               [c for c in cands if c['name'].lower() == name.lower()] or cands
+713557	        rec.update({'k0': c['k0'], 'wafer_row': c['row'], 'commit_lines_wafer': c['lines']})
+713558	        if c['name'] != name:
+713559	            rec['repo_on_wafer'] = c['name']
+713560	        d, why = clone_with(roots, name, f['commit'])
+713561	            rec['why'] = 'on the wafer (row %d) but not walked: %s' % (c['row'], why)
+713562	        wk = (d, f['commit'])
+713565	            ents, err = EK.walk_commit(d, f['commit'])
+713575	            print('  walked %-34s %s %8.1fs %s' % (name, f['commit'][:12], time.time() - t1,
+713576	                  'lines=%s' % format(walks[wk][1], ',') if ents is not None else err), file=sys.stderr)
+713579	            rec['why'] = 'git ls-tree failed: %s' % err
+713581	        if f['path'] not in idx:
+713582	            rec['why'] = 'path not in the commit tree'
+713583	        before, sha, n = idx[f['path']]
+713584	        rec.update({'lines_before': before, 'blob': sha})
+713586	        EK.batch_read(d, [sha], lambda s, body: got.__setitem__(s, body))
+713587	        real = EK.lines_of(got[sha])
+713593	            rec['line_text'] = got[sha].split(b'\n')[0].decode('utf-8', 'replace').rstrip('\r')
+713595	            problems.append('the walk measured %d lines in the commit, the wafer row says %d' % (total, c['lines']))
+713597	            rec['why'] = '; '.join(problems)
+713598	            rec['key'] = c['k0'] + before
+713599	            rec['placed'] = True
+713601	    # the other direction, as tools/key.py resolve(): key -> row by k0 -> walk -> path and line
+713602	    rows = load_rows()
+713603	    k0s = [r['k0'] for r in rows]
+713604	    keyed = [r for r in out if r['placed']]
+713605	    step = max(1, len(keyed) // max(1, a.check)) if a.check else 0
+713607	    for r in (keyed[::step][:a.check] if a.check else []):
+713608	        k = r['key']
+713609	        row = rows[max(0, bisect.bisect_right(k0s, k) - 1)]
+713610	        m = k - row['k0']
+713611	        res = {'sym': r['sym'], 'key': k, 'row_repo': row['name'], 'row_sha12': row['sha'],
+713612	               'line_in_commit': m + 1}
+713613	        d, _ = clone_with(roots, r['repo'], r['commit'])
+713614	        seen, landed = 0, None
+713615	        for p, s, n in EK.walk_commit(d, r['commit'])[0]:
+713616	            if n <= 0:
+713617	            if m < seen + n:
+713618	                landed = (p, m - seen + 1)
+713619	            seen += n
+713620	        res['landed'] = landed
+713621	        res['ok'] = (row['sha'] == r['commit'][:12] and landed == (r['path'], 1)
+713622	                     and row['k0'] <= k < row['k0'] + row['lines'])
+713623	        checks.append(res)
+713624	        print('  check %s %s -> %s / %s / %s:%s %s' % (r['sym'], format(k, ','), row['name'], row['sha'],
+713625	              landed and landed[0], landed and landed[1], 'OK' if res['ok'] else 'REFUSED'), file=sys.stderr)
+713626	    # tools/key.py itself, unmodified, its ROOTS (a Windows path in the file) set to --keypy-root at import
+713627	    keypy = []
+713628	    if a.keypy_root and a.check:
+713629	        picks, used = [], set()
+713630	        for r in sorted(keyed, key=lambda r: (r['commit_lines_wafer'], r['number'])):
+713631	            d = os.path.join(a.keypy_root, r['repo'])
+713632	            if r['repo'] in used or not os.path.isdir(os.path.join(d, '.git')):
+713633	            if subprocess.run(['git', 'cat-file', '-e', r['commit'] + '^{commit}'], cwd=d,
+713634	                              stderr=subprocess.DEVNULL).returncode:
+713635	            used.add(r['repo'])
+713636	            picks.append(r)
+713637	            if len(picks) == a.check:
+713638	        for r in picks:
+713639	            code = ('import sys; sys.path.insert(0, %r); import key; key.ROOTS = %r; sys.argv = ["key.py", "%d"]; '
+713640	                    'sys.exit(key.main())' % (HERE, a.keypy_root, r['key']))
+713641	            pr = subprocess.run([sys.executable, '-B', '-c', code], capture_output=True, text=True)
+713642	            want = '%s / %s / ' % (r['repo'], r['commit'][:12])
+713643	            ok = pr.returncode == 0 and want in pr.stdout and ('\n  %s : 1 ' % r['path']) in pr.stdout
+713644	            keypy.append({'sym': r['sym'], 'key': r['key'], 'command': 'python tools/key.py %d' % r['key'],
+713645	                          'roots': a.keypy_root, 'exit': pr.returncode, 'output': pr.stdout.strip().split('\n'),
+713646	                          'ok': ok})
+713647	            print('  key.py %s %d -> exit %d %s' % (r['sym'], r['key'], pr.returncode, 'OK' if ok else 'REFUSED'),
+713649	    # K1 before a byte is written: path, github and line_text are redacted token by token; keys are untouched
+713651	        hit = []
+713652	        for f in ('path', 'github', 'line_text'):
+713653	            if isinstance(r.get(f), str):
+713654	                r[f], n = redact(r[f])
+713655	                if n:
+713656	                    hit.append(f)
+713658	            r['redacted'] = hit
+713659	            r['redacted_why'] = 'K1: a token naming a repository that is not public, replaced by `%s`' % REDACTED
+713661	    unplaced = [r for r in out if not r['placed']]
+713662	    no_files = [r for r in unplaced if r['files_listed'] == 0]
+713663	    kinds = {e['key']: e.get('kind') for e in E}
+713665	        'total': len(out),
+713666	        'with_files': len(out) - len(no_files),
+713667	        'placeable': sum(r['k0'] is not None for r in out),
+713668	        'placed': sum(r['placed'] for r in out),
+713669	        'named': len(unplaced),
+713670	        'no_files': len(no_files),
+713671	        'by_kind_unplaced': dict(Counter(kinds[r['sym']] for r in unplaced)),
+713672	        'distinct_commits_walked': len(walks),
+713673	        'redacted_records': sum(1 for r in out if r.get('redacted')),
+713674	    # the live register, measured (the launcher's readout "<n> in the live register, 244 catalogued"; lead, 23:57)
+713675	    lr = live_register(roots)
+713676	    if lr:
+713677	        counts['live_register'] = lr['blocks']
+713678	        counts['live_register_source'] = lr['source']
+713679	    readout = '%d elements placed, %d counted, not placed' % (counts['placed'], counts['named'])
+713681	        'schema': 'kuiper.elements.v1',
+713682	        'edition': a.edition,
+713683	        'built_by': 'tools/element_keys.py',
+713684	        'source': {'repo': 'elements', 'commit': head or 'UNKNOWN', 'path': 'catalogue/elements.json',
+713685	                   'tracked': tracked, 'sha256': sha256_file(src)},
+713686	        'licence_note': 'keys only (Q1): elements@%s states no licence (no LICENSE or NOTICE file), so only '
+713687	                        '`block:<Sym>`, the catalogue number and the register\'s file address (repo, commit, path) are '
+713688	                        'carried; never a title, a description or a category word. line_text is line 1 of that file '
+713689	                        'at that commit, licensed by its own repository, as keys.json carries line_text.'
+713690	                        % ((head or 'UNKNOWN')[:7]),
+713691	        'register_note': 'the catalogue is pinned to the register of 2026-09-15 (244 blocks, elements CATALOGUE.md:3); '
+713692	                         'the live register holds 606 (stars@cbca125 blocks/blocks.json:2)',
+713693	        'law': 'key = k0(wafer row of files[0].commit) + lines before files[0].path in `git ls-tree -r <commit>` + '
+713694	               '(1 - 1), by tools/edition_keys.py walk_commit(); placed only when the walk lands on the wafer '
+713695	               'row\'s lines and the file holds a text line',
+713696	        'wafer': {'wafer_tsv_sha256': sha256_file(os.path.join(COSMOS, 'wafer.tsv')),
+713697	                  'repos_tsv_sha256': sha256_file(os.path.join(COSMOS, 'repos.tsv')),
+713698	                  'address_space': space,
+713699	                  'cache': ('data/blob-lines-history.tsv, %d blobs' % len(EK.CACHE)) if cache_present
+713700	                  else 'data/blob-lines-history.tsv absent: every blob counted from git'},
+713701	        'counts': counts,
+713702	        'readout': readout,
+713704	        'checks_ok': all(c['ok'] for c in checks) if checks else None,
+713705	        'checks_keypy': keypy,
+713706	        'checks_keypy_ok': all(c['ok'] for c in keypy) if keypy else None,
+713707	        'command': ' '.join(['python3', 'tools/element_keys.py'] + sys.argv[1:]),
+713708	        'built_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+713710	        'elements': out,
+713711	    with io.open(a.out, 'w', encoding='utf-8', newline='\n') as fh:
+713712	        json.dump(doc, fh, indent=1, ensure_ascii=False)
+713714	    print(json.dumps(counts, indent=1))
+713715	    print(readout)
+713716	    for r in unplaced:
+713717	        print('  not placed: %-9s %s' % (r['sym'], r['why']), file=sys.stderr)
+713718	    return 0 if doc['checks_ok'] is not False and doc['checks_keypy_ok'] is not False else 2
+713727	// (starting 2 px below the bar's bottom edge, so its 1 px border row, which is brighter than the background, is not counted)
+713728	    for (let y = Math.max(0, Math.ceil(yFrom) + 2); y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4; tot++;
+713732	  const shotTo = async (f) => { for (let attempt = 0; attempt < 3; attempt++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); return path.relative(OUT, f); } catch (e) { if (attempt === 2) return 'FAILED: ' + String(e.message || e).split('\n')[0]; } } };
+713737	        const ax = p.viewport.w / 2, ay = my, dx = -90, dy = (P1.y + 70 < bandBot - 10) ? 70 : -70;   // keep the spark in the clear band (landscape has little room below)
+713738	          let M = p.magenta; const bTop = p.bar.bottom + 12, bBot = (p.card.open ? p.card.rect.top : p.viewport.h) - 12;
+713739	          if (M.y < bTop || M.y > bBot || M.x < 12 || M.x > p.viewport.w - 12) {   // pan the spark back into the clear band with one finger on the canvas, then re-measure
+713740	            const fx = p.viewport.w / 2, fy = (bTop + bBot) / 2, tx = Math.min(p.viewport.w - 40, Math.max(40, M.x)), ty = Math.min(bBot - 20, Math.max(bTop + 20, M.y));
+713741	            const ddx = Math.min(p.viewport.w / 2 - 20, Math.max(20 - p.viewport.w / 2, fx - M.x)), ddy = fy - M.y;
+713742	            await touch('touchStart', [[fx, fy]]); for (let i = 1; i <= 12; i++) { await touch('touchMove', [[fx + ddx * i / 12, fy + ddy * i / 12]]); await sleep(25); } await touch('touchEnd', []);
+713743	            p = await settle(); M = p.magenta; if (!M) break; zoomOut.push({ pannedSparkBack: [ddx, +ddy.toFixed(1)], sparkNow: [M.x, M.y], ok: true });
+713744	          const mx2 = M.x, my2 = M.y;
+713745	          zoomOut.push({ centre: [mx2, my2], centreHit: await page.evaluate(([x, y]) => { const el = document.elementFromPoint(x, y); return el ? (el.id || el.tagName) : null; }, [mx2, my2]), axis: horizontal ? 'x' : 'y', fingerDistance: [D0, +D1.toFixed(2)], ratio: +(1 / ratio).toFixed(5), zoomAfter: +(zoomNow / ratio).toExponential(3), selectedSparkMovedPx: moved, greensInView: [p.greensCount, q2.greensCount], ok });
+713747	    const whole = wafer12.bbox && wafer12.bboxW > 0.4 * Math.min(p.viewport.w, p.viewport.h - p.bar.bottom) && Math.abs(wafer12.bboxW / wafer12.bboxH - 1) < 0.25 && wafer12.bbox[1] >= p.bar.bottom && wafer12.bbox[3] <= p.viewport.h;
+713750	// FABLE-04 touch harness. node touch.cjs <before|after> [device]
+713751	const fs = require('fs');
+713752	const S = __dirname;
+713753	const mode = process.argv[2] || 'before', devName = process.argv[3] || 'Pixel 7';
+713754	const htmlPath = mode === 'before' ? S + '/index.orig.html' : S + '/index.html';
+713755	const HOOK = `
+713756	window.__k = { get:()=>({cx,cy,zoom,moved,openPanel,card:card.style.display,cardOpen:card.classList.contains('open'),pts:pts.size,edSel,edN:edPlaced.length,drag:!!drag,pinch:!!pinch,W:innerWidth,H:innerHeight}),
+713757	  spark:(i)=>({x:edPlaced[i].x,y:edPlaced[i].y,s:edScreen(edPlaced[i])}), toWorld, key:(k)=>dispatchEvent(new KeyboardEvent('keydown',{key:k})), draw:()=>{dirty=true;draw();} };
+713758	</script>`;
+713759	  const html = fs.readFileSync(htmlPath, 'utf8').replace('requestAnimationFrame(frame);\n</script>', HOOK);
+713760	  if (!html.includes('window.__k')) throw new Error('hook not injected');
+713761	  const browser = await chromium.launch({ args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+713762	  const errors = []; page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); }); page.on('pageerror', e => errors.push(String(e)));
+713763	  await page.route('**/editions/202611012027/', r => r.fulfill({ status:200, contentType:'text/html', body:html }));
+713764	  const cdp = await ctx.newCDPSession(page);
+713765	  const touch = (type, pts) => cdp.send('Input.dispatchTouchEvent', { type, touchPoints: pts.map((p, i) => ({ x:p[0], y:p[1], id:i, radiusX:8, radiusY:8 })) });
+713766	  const touchT = (type, pts, t) => cdp.send('Input.dispatchTouchEvent', { type, timestamp:t, touchPoints: pts.map((p, i) => ({ x:p[0], y:p[1], id:i, radiusX:8, radiusY:8 })) });
+713767	  const seq = async (steps) => { const t0 = Date.now()/1000; for (const [type, pts, dt] of steps) await touchT(type, pts, t0 + dt/1000); };
+713768	  const R = { mode, device:devName, results:{} };
+713769	  const rec = (k, v) => { R.results[k] = v; console.log(k, JSON.stringify(v)); };
+713770	  await page.goto('about:blank'); await page.goto('http://127.0.0.1:8104/editions/202611012027/');
+713771	  await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout:60000 }); await sleep(7000);
+713772	  const G = () => page.evaluate(() => window.__k.get());
+713773	  const settle = async () => { const fr = () => page.evaluate(() => new Promise(r => requestAnimationFrame(t0 => requestAnimationFrame(t1 => r(t1 - t0)))));
+713774	    for (let i = 0; i < 60; i++) { if (await fr() < 120 && await fr() < 120) return i; } return -1; };
+713775	  const VV = () => page.evaluate(() => ({ scale:visualViewport.scale, pageTop:visualViewport.pageTop, offsetTop:visualViewport.offsetTop, scrollY:scrollY, scrollX:scrollX }));
+713776	  const st = await G(); const W = st.W, H = st.H;
+713777	  rec('viewport', { W, H, meta: await page.evaluate(() => document.querySelector('meta[name=viewport]').content) });
+713778	  rec('touch_action', await page.evaluate(() => { const g = s => { const el = document.querySelector(s); return el ? getComputedStyle(el).touchAction + ' | user-select=' + getComputedStyle(el).userSelect : 'n/a'; };
+713779	    return { canvas:g('#c'), overlay:g('#o'), bar:g('#bar'), barBtn:g('#bar .gm-title'), lines:g('#lines'), top:g('#top'), card:g('#card'), html:g('html') }; }));
+713780	  // ---- T1 one finger drag
+713781	  { const a = await G(), v0 = await VV(); const x0 = Math.round(W*0.5), y0 = Math.round(H*0.55);
+713782	    await touch('touchStart', [[x0, y0]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x0 + 10*i, y0 + 6*i]]); await sleep(16); } await touch('touchEnd', []); await sleep(300);
+713783	    const b = await G(), v1 = await VV();
+713784	    rec('T1_drag', { dcx_px: +((a.cx - b.cx)*a.zoom).toFixed(2), dcy_px: +((b.cy - a.cy)*a.zoom).toFixed(2), expected:[100, 60], cancel: await page.evaluate(() => __ev.cancel), vv_before:v0, vv_after:v1, card_after:b.card, pts:b.pts }); }
+713785	  // ---- T2 pinch on canvas
+713786	  { const a = await G(); const cxs = Math.round(W*0.5), cys = Math.round(H*0.55); const w0 = await page.evaluate(([x,y]) => window.__k.toWorld(x,y), [cxs, cys]);
+713787	    await touch('touchStart', [[cxs-50, cys]]); await touch('touchStart', [[cxs-50, cys],[cxs+50, cys]]);
+713788	    for (let i = 1; i <= 10; i++) { await touch('touchMove', [[cxs-50-5*i, cys],[cxs+50+5*i, cys]]); await sleep(16); }
+713789	    await touch('touchEnd', [[cxs+100, cys]]); await touch('touchEnd', []); await sleep(300);
+713790	    const b = await G(); const w1 = await page.evaluate(([x,y]) => window.__k.toWorld(x,y), [cxs, cys]);
+713791	    rec('T2_pinch_canvas', { zoom_ratio:+(b.zoom/a.zoom).toFixed(3), expected:2, centre_world_drift:+Math.hypot(w1[0]-w0[0], w1[1]-w0[1]).toFixed(6), vv: await VV(), pts:b.pts, pinch:b.pinch }); }
+713792	  // ---- T2b pinch on the bar and on an open panel (page zoom?)
+713793	  { const br = await page.$eval('#bar', e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; });
+713794	    const y = Math.round(br[1] + br[3]/2), x = Math.round(W*0.5);
+713795	    await touch('touchStart', [[x-40, y]]); await touch('touchStart', [[x-40, y],[x+40, y]]);
+713796	    for (let i = 1; i <= 10; i++) { await touch('touchMove', [[x-40-8*i, y],[x+40+8*i, y]]); await sleep(16); }
+713797	    await touch('touchEnd', []); await sleep(400);
+713798	    rec('T2b_pinch_bar', { vv: await VV(), state:(await G()).zoom });
+713799	    await page.evaluate(() => { if (visualViewport.scale !== 1) {} });
+713800	    await page.evaluate(() => window.__k.key('Escape'));
+713801	    await page.$eval('#bar [data-panel=lines]', b => b.click()); await sleep(300);
+713802	    const lr = await page.$eval('#lines', e => { const r = e.getBoundingClientRect(); return [r.left, r.top, r.width, r.height]; });
+713803	    const py = Math.round(lr[1] + Math.min(lr[3]/2, 200)), px = Math.round(W*0.5);
+713804	    await touch('touchStart', [[px-40, py]]); await touch('touchStart', [[px-40, py],[px+40, py]]);
+713805	    for (let i = 1; i <= 10; i++) { await touch('touchMove', [[px-40-8*i, py],[px+40+8*i, py]]); await sleep(16); }
+713806	    rec('T2c_pinch_lines_panel', { lines_rect:lr.map(Math.round), vv: await VV(), openPanel:(await G()).openPanel });
+713807	    await page.screenshot({ path:S + '/img/' + mode + '-T2c.png', scale:'css', timeout:180000 });
+713808	    await cdp.send('Emulation.setPageScaleFactor', { pageScaleFactor:1 }).catch(()=>{});
+713809	    await page.evaluate(() => window.__k.key('Escape')); }
+713810	  // ---- T3 tap discrimination
+713811	  { const clear = async () => { await page.evaluate(() => { card.style.display = 'none'; __k.key('Backspace'); }); await sleep(1500); await settle(); };
+713812	    await page.evaluate(() => { __ev.t = []; addEventListener('pointerdown', e => __ev.t.push(['d', e.timeStamp]), true); addEventListener('pointerup', e => __ev.t.push(['u', e.timeStamp]), true); });
+713813	    const dtLast = () => page.evaluate(() => { const t = __ev.t; const u = t.filter(v => v[0] === 'u').pop(), d = t.filter(v => v[0] === 'd').pop(); return u && d ? +(u[1] - d[1]).toFixed(1) : null; });
+713814	    await clear();
+713815	    const x = Math.round(W*0.5), y = Math.round(H*0.5);
+713816	    await seq([['touchStart', [[x, y]], 0], ['touchEnd', [], 60]]); await sleep(200);
+713817	    const clean = (await G()).card, cleanDt = await dtLast();
+713818	    await seq([['touchStart', [[x, y]], 0], ['touchEnd', [], 900]]); await sleep(200);
+713819	    const held = (await G()).card, heldDt = await dtLast();
+713820	    await seq([['touchStart', [[x, y]], 0], ['touchMove', [[x+3, y+2]], 20], ['touchMove', [[x+5, y+5]], 40], ['touchMove', [[x+6, y+6]], 60], ['touchEnd', [], 80]]); await sleep(200);
+713821	    const jitter = await G(); const jitterDt = await dtLast();
+713822	    await seq([['touchStart', [[x, y]], 0], ...[1,2,3,4,5,6].map(i => ['touchMove', [[x+5*i, y]], 16*i]), ['touchEnd', [], 120]]); await sleep(200);
+713823	    const drag30 = await G();
+713824	    rec('T3_tap_vs_drag', { clean_tap_opens_card: clean === 'block', clean_down_to_up_ms:cleanDt, held_900ms_opens_card: held === 'block', held_down_to_up_ms:heldDt, jittered_tap_6px_opens_card: jitter.card === 'block', jitter_moved:+jitter.moved.toFixed(2), jitter_down_to_up_ms:jitterDt, drag_30px_opens_card: drag30.card === 'block', drag_moved:+drag30.moved.toFixed(2) }); }
+713825	  // ---- T4 double tap: page zoom and click delay
+713826	  { await page.evaluate(() => { card.style.display = 'none'; }); const x = Math.round(W*0.5), y = Math.round(H*0.6);
+713827	    await touch('touchStart', [[x, y]]); await sleep(50); await touch('touchEnd', []); await sleep(120); await touch('touchStart', [[x, y]]); await sleep(50); await touch('touchEnd', []); await sleep(600);
+713828	    const vvc = await VV();
+713829	    await page.$eval('#bar [data-panel=top]', b => b.click()); await sleep(200);
+713830	    const tr = await page.$eval('#top', e => { const r = e.getBoundingClientRect(); return [r.left + r.width/2, r.top + Math.min(r.height/2, 80)]; });
+713831	    await touch('touchStart', [[tr[0], tr[1]]]); await sleep(50); await touch('touchEnd', []); await sleep(120); await touch('touchStart', [[tr[0], tr[1]]]); await sleep(50); await touch('touchEnd', []); await sleep(600);
+713832	    const vvp = await VV();
+713833	    await page.evaluate(() => { __ev.ups = []; __ev.clicks = []; });
+713834	    const b = await page.$('#bar [data-panel=hud]'); const bb = await b.boundingBox();
+713835	    await page.touchscreen.tap(bb.x + bb.width/2, bb.y + bb.height/2); await sleep(500);
+713836	    const lat = await page.evaluate(() => ({ ups:__ev.ups, clicks:__ev.clicks, delay_ms: __ev.clicks.length && __ev.ups.length ? +(__ev.clicks[0][0] - __ev.ups[0][0]).toFixed(1) : null }));
+713837	    rec('T4_double_tap', { vv_after_double_tap_canvas:vvc, vv_after_double_tap_panel:vvp, pointerup_to_click_ms:lat.delay_ms, targets:{ up:lat.ups[0], click:lat.clicks[0] }, openPanel:(await G()).openPanel });
+713838	  // ---- T5 a tap on the bar / the card's x / the wafer-with-panel-open reaching the canvas
+713839	  { const put = async (i, sx, sy) => page.evaluate(([i, sx, sy]) => { const b = __k.spark(i), g = __k.get(); __k.set({ zoom:14, cx: b.x - (sx - g.W/2)/14, cy: b.y + (sy - g.H/2)/14 }); return __k.spark(i).s; }, [i, sx, sy]);
+713840	    await page.evaluate(() => { card.style.display = 'none'; edSel = -1; });
+713841	    const bb = await (await page.$('#bar [data-panel=lines]')).boundingBox(); const bx = bb.x + bb.width/2, by = bb.y + bb.height/2;
+713842	    const s = await put(5, bx, by); await sleep(300); await settle();
+713843	    await page.touchscreen.tap(bx, by); await sleep(1500);
+713844	    const g1 = await G();
+713845	    rec('T5a_tap_bar_button_over_spark', { spark_screen:s.map(v => +v.toFixed(1)), button_centre:[+bx.toFixed(1), +by.toFixed(1)], panel_opened:g1.openPanel, card_opened_by_spark: g1.card === 'block', edSel:g1.edSel, verdict: g1.edSel === 5 ? 'BUG: bar tap reached the canvas' : 'ok' });
+713846	    await page.screenshot({ path:S + '/img/' + mode + '-T5a.png', scale:'css', timeout:180000 });
+713847	    if (g1.openPanel) await page.evaluate(() => window.__k.key('Escape'));
+713848	    // the card's x
+713849	    await page.evaluate(() => { card.style.display = 'none'; edSel = -1; }); await page.evaluate(() => { edCard(3); }); await sleep(300);
+713850	    const xb = await (await page.$('#card .cx')).boundingBox(); const xx = xb.x + xb.width/2, xy = xb.y + xb.height/2;
+713851	    const s2 = await put(7, xx, xy); await sleep(300); await settle();
+713852	    await page.touchscreen.tap(xx, xy); await sleep(1500);
+713853	    const g2 = await G();
+713854	    rec('T5b_tap_card_close_over_spark', { spark_screen:s2.map(v => +v.toFixed(1)), x_centre:[+xx.toFixed(1), +xy.toFixed(1)], card_after:g2.card, edSel_after:g2.edSel, verdict: g2.card === 'block' ? 'BUG: x close reopened another line' : 'ok' });
+713855	    await page.screenshot({ path:S + '/img/' + mode + '-T5b.png', scale:'css', timeout:180000 });
+713856	    // details toggle on the card: does the card survive?
+713857	    await page.evaluate(() => { card.style.display = 'none'; edSel = -1; edCard(9); }); await sleep(300);
+713858	    const db = await (await page.$('#card .ct')).boundingBox(); await page.touchscreen.tap(db.x + db.width/2, db.y + db.height/2); await sleep(400);
+713859	    const g3 = await G();
+713860	    rec('T5c_tap_details', { card_after:g3.card, details_open:g3.cardOpen, verdict: g3.card === 'block' && g3.cardOpen ? 'ok' : 'BUG: details tap closed the card' });
+713861	    // tap on the card body
+713862	    const cb = await (await page.$('#card .cq')).boundingBox(); await page.touchscreen.tap(cb.x + 20, cb.y + 8); await sleep(400);
+713863	    rec('T5d_tap_card_body', { card_after:(await G()).card });
+713864	    // tap on the card's own padding (target is #card itself)
+713865	    const cr = await (await page.$('#card')).boundingBox(); await page.touchscreen.tap(cr.x + cr.width - 12, cr.y + cr.height - 6); await sleep(400);
+713866	    rec('T5f_tap_card_padding', { card_after:(await G()).card, verdict:(await G()).card === 'block' ? 'ok' : 'BUG: tap on the card padding closed the card' });
+713867	    // wafer tap with a panel open: closes the panel; does it also act on the wafer?
+713868	    await page.evaluate(() => { card.style.display = 'none'; edSel = -1; litRepo = -1; }); await page.$eval('#bar [data-panel=hud]', b => b.click()); await sleep(300);
+713869	    await page.touchscreen.tap(Math.round(W*0.5), Math.round(H*0.75)); await sleep(500);
+713870	    const g5 = await G();
+713871	    rec('T5e_tap_wafer_with_panel_open', { panel_after:g5.openPanel, card_after:g5.card, verdict: g5.openPanel ? 'BUG: panel stayed open' : (g5.card === 'block' ? 'tap also acted on the wafer (card opened)' : 'ok: dismiss only') }); }
+713872	  // ---- T6 back gesture and Escape
+713873	  { await page.evaluate(() => { card.style.display = 'none'; }); const len0 = await page.evaluate(() => history.length);
+713874	    const len1 = await page.evaluate(() => history.length);
+713875	    await page.goBack({ waitUntil:'commit' }).catch(e => rec('T6_goback_error', String(e))); await sleep(800);
+713876	    const url = page.url(); const alive = await page.evaluate(() => !!window.__k).catch(() => false);
+713877	    const after = alive ? await G() : null;
+713878	    rec('T6a_back_with_panel_open', { history_before:len0, history_after_open:len1, url_after_back:url, page_alive:alive, openPanel_after:after && after.openPanel, verdict: alive && !after.openPanel ? 'ok: back closed the panel' : 'BUG: back left the page' });
+713879	    if (!alive) { await page.goForward({ waitUntil:'commit' }).catch(()=>{}); await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout:60000 }); await sleep(6000); }
+713880	    // back with the card open
+713881	    await page.evaluate(() => { edCard(2); }); await sleep(200); await page.goBack({ waitUntil:'commit' }).catch(()=>{}); await sleep(800);
+713882	    const alive2 = await page.evaluate(() => !!window.__k).catch(() => false); const g6 = alive2 ? await G() : null;
+713883	    rec('T6b_back_with_card_open', { page_alive:alive2, card_after:g6 && g6.card, verdict: alive2 && g6.card !== 'block' ? 'ok' : 'BUG' });
+713884	    if (!alive2) { await page.goForward({ waitUntil:'commit' }).catch(()=>{}); await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout:60000 }); await sleep(6000); }
+713885	    // back with nothing open leaves the page (must still work)
+713886	    const g6c0 = await G(); await page.goBack({ waitUntil:'commit' }).catch(()=>{}); await sleep(800); const alive3 = await page.evaluate(() => !!window.__k).catch(() => false);
+713887	    rec('T6c_back_with_nothing_open', { openPanel:g6c0.openPanel, card:g6c0.card, page_left:!alive3, verdict: !alive3 ? 'ok: back leaves the page' : 'BUG: back trapped' });
+713888	    if (!alive3) { await page.goForward({ waitUntil:'commit' }).catch(()=>{}); await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout:60000 }); await sleep(6000); }
+713889	    await page.evaluate(() => { edCard(4); }); await sleep(200); await page.keyboard.press('Escape'); await sleep(200);
+713890	    const g7 = await G(); rec('T6d_escape_with_card_open', { card_after:g7.card, verdict: g7.card === 'block' ? 'BUG: Escape does not close the card' : 'ok' });
+713891	    await page.evaluate(() => { card.style.display = 'none'; }); await page.$eval('#bar [data-panel=foot]', b => b.click()); await sleep(200); await page.keyboard.press('Escape'); await sleep(200);
+713892	    rec('T6e_escape_with_panel_open', { openPanel_after:(await G()).openPanel });
+713893	    // the race: close a layer and open another before the popstate from history.back() arrives
+713894	    await page.evaluate(() => { __k.key('Escape'); edCard(6); }); await sleep(1500);
+713895	    const g8 = await G(); rec('T6f_close_then_open_at_once', { openPanel:g8.openPanel, card_after:g8.card, edSel:g8.edSel, state_kuiper: await page.evaluate(() => !!(history.state && history.state.kuiper)), verdict: g8.card === 'block' ? 'ok: the new card survived our own back()' : 'BUG: our own popstate closed the new card' });
+713896	    await page.goBack({ waitUntil:'commit' }).catch(()=>{}); await sleep(800);
+713897	    const alive8 = await page.evaluate(() => !!window.__k).catch(() => false); const g9 = alive8 ? await G() : null;
+713898	    rec('T6g_back_after_race', { page_alive:alive8, card_after:g9 && g9.card, verdict: alive8 && g9.card !== 'block' ? 'ok' : 'BUG' });
+713899	    if (!alive8) { await page.goForward({ waitUntil:'commit' }).catch(()=>{}); await page.waitForFunction(() => window.__k && window.__k.get().edN > 0, null, { timeout:60000 }); await sleep(6000); } }
+713900	  // ---- T7 long press
+713901	  { await page.evaluate(() => { card.style.display = 'none'; __ev.ctx = 0; __ev.ctxPrevented = 0; }); await settle();
+713902	    const x = Math.round(W*0.5), y = Math.round(H*0.65);
+713903	    await touch('touchStart', [[x, y]]); await sleep(900); await touch('touchEnd', []); await sleep(300);
+713904	    const c1 = await page.evaluate(() => ({ ctx:__ev.ctx, prevented:__ev.ctxPrevented, sel:getSelection().toString().length, card:__k.get().card }));
+713905	    const bb = await (await page.$('#bar [data-panel=top]')).boundingBox(); await page.evaluate(() => { __ev.ctx = 0; __ev.ctxPrevented = 0; });
+713906	    await touch('touchStart', [[bb.x + bb.width/2, bb.y + bb.height/2]]); await sleep(900); await touch('touchEnd', []); await sleep(300);
+713907	    const c2 = await page.evaluate(() => ({ ctx:__ev.ctx, prevented:__ev.ctxPrevented, sel:getSelection().toString().length, openPanel:__k.get().openPanel }));
+713908	    const synth = await page.evaluate(() => { const ev = new MouseEvent('contextmenu', { bubbles:true, cancelable:true, clientX:200, clientY:500 }); return { canvas_contextmenu_prevented: !document.getElementById('c').dispatchEvent(ev),
+713909	      bar_contextmenu_prevented: !document.querySelector('#bar .gm-title').dispatchEvent(new MouseEvent('contextmenu', { bubbles:true, cancelable:true })) }; });
+713910	    rec('T7_long_press', { canvas:c1, bar_button:c2, synthetic:synth }); }
+713911	  rec('console_errors', errors);
+713912	  await page.evaluate(() => { card.style.display = 'none'; if (__k.get().openPanel) __k.key('Escape'); });
+713913	  fs.writeFileSync(S + '/results-' + mode + '-' + devName.replace(/\s+/g, '_') + '.json', JSON.stringify(R, null, 1));
+713914	})().catch(e => { console.error('HARNESS ERROR', e); process.exit(1); });
+713915	the page reads 14 fields. This writes them, in a fixed order, minified, LF-terminated, with the sha256 of
+713916	          'quote', 'destination', 'commit', 'pattern', 'worker', 'finding')
+713917	const {chromium,devices}=require('playwright');
+713918	const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
+713919	const root=process.argv[2], out=process.argv[3];
+713920	const server=http.createServer((req,res)=>{let p=new URL(req.url,'http://x').pathname;const f=path.resolve(root,'.'+(p.endsWith('/')?p+'index.html':p));if(!f.startsWith(root)||!fs.existsSync(f)||!fs.statSync(f).isFile()){res.writeHead(404).end();return;}res.setHeader('Content-Type',({'.html':'text/html; charset=utf-8','.js':'text/javascript','.css':'text/css','.json':'application/json'})[path.extname(f)]||'application/octet-stream');fs.createReadStream(f).pipe(res);});
+713921	(async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port+'/';
+713922	const browser=await chromium.launch();const ctx=await browser.newContext({...devices['Pixel 7']});const page=await ctx.newPage();
+713923	const errors=[];page.on('pageerror',e=>errors.push('pageerror '+e.message));page.on('console',m=>{if(m.type()==='error')errors.push('console '+m.text());});
+713924	// external requests (fonts, active pages etc) are blocked: local render only
+713925	await page.route(/^https?:\/\/(?!127\.0\.0\.1)/,r=>r.abort());
+713926	await page.goto(base);await page.waitForSelector('#searchControls:not([hidden])',{state:'attached',timeout:20000}).catch(()=>{});
+713927	await page.waitForTimeout(1500);
+713928	const r={device:'Pixel 7',viewport:page.viewportSize()};
+713929	await page.locator('#kuiper > summary').tap();await page.waitForTimeout(400);
+713930	const card=page.locator('#kuiper-editions');
+713931	r.card_count=await card.count();
+713932	r.card_visible=await card.isVisible();
+713933	r.card_title=(await card.locator(':scope > summary').innerText()).replace(/\s+/g,' ');
+713934	await card.locator(':scope > summary').tap();await page.waitForTimeout(400);
+713935	r.card_open=await card.evaluate(e=>e.open);
+713936	r.launch_href=await card.locator(':scope > .inside > .launch').getAttribute('href');
+713937	r.launch_text=await card.locator(':scope > .inside > .launch').innerText();
+713938	r.description=await card.locator(':scope > .inside > p').first().innerText();
+713939	r.see_through_href=await page.locator('#see-through > .inside > .launch').getAttribute('href');
+713940	r.kuiper_children=await page.locator('#kuiper > .inside > details').evaluateAll(es=>es.map(e=>e.id));
+713941	r.doc_overflow_px=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+713942	const bb=await card.boundingBox();r.card_box=bb;
+713943	await card.scrollIntoViewIfNeeded();await page.waitForTimeout(200);
+713944	await page.screenshot({path:out+'/pixel7-kuiper-editions-card.png',timeout:180000});
+713945	await page.locator('#catalogueArchive').evaluate(e=>{e.open=true;});
+713946	const search=page.locator('#catalogueSearch, input[type=search]').first();
+713947	if(await search.count()){await search.fill('kuiper editions');await page.waitForTimeout(400);r.search_rows=await page.locator('#catalogueRows tr:visible').evaluateAll(rs=>rs.map(x=>x.dataset.entityId));
+713948	 const row=page.locator('#catalogueRows tr[data-entity-id="kuiper-editions"]');if(await row.count()){await row.scrollIntoViewIfNeeded();await page.screenshot({path:out+'/pixel7-catalogue-row.png',timeout:180000});r.row_versions=await row.locator('.table-versions > summary').innerText();}}
+713949	r.errors=errors;
+713950	// no-JS fallback
+713951	const nojs=await browser.newContext({...devices['Pixel 7'],javaScriptEnabled:false});const p2=await nojs.newPage();await p2.route(/^https?:\/\/(?!127\.0\.0\.1)/,x=>x.abort());await p2.goto(base);
+713952	r.nojs_launch=await p2.locator('#kuiper-editions > .inside > .launch').getAttribute('href');
+713953	r.nojs_row=await p2.locator('#catalogueRows tr[data-entity-id="kuiper-editions"]').count();
+713954	console.log(JSON.stringify(r,null,2));await browser.close();server.close();})().catch(e=>{console.error(e);process.exit(1);});
 ```

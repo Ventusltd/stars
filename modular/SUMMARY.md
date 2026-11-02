@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-01 20:48 UTC by GitHub Actions. It reads the current code of 91 Ventusltd repositories.
+Updated 2026-11-02 01:00 UTC by GitHub Actions. It reads the current code of 91 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,12 +8,12 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 406,575 |
-| File versions | 7,836 |
-| Elements (functions and classes) | 28,910 |
-| Families (same logic) | 27,723 |
-| Families written in two or more different files (duplicate work) | 6,953 |
-| Families only copied between versions of one file | 2,270 |
+| Unique lines | 415,213 |
+| File versions | 7,871 |
+| Elements (functions and classes) | 29,501 |
+| Families (same logic) | 28,318 |
+| Families written in two or more different files (duplicate work) | 6,965 |
+| Families only copied between versions of one file | 2,271 |
 | Self-contained functions compiled into the library | 728 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
@@ -63,31 +63,31 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `build` | 108 | 20 |
-| `check` | 59 | 19 |
-| `load` | 49 | 19 |
-| `draw` | 115 | 16 |
-| `__init__` | 36 | 16 |
+| `build` | 111 | 21 |
+| `check` | 61 | 19 |
+| `load` | 51 | 19 |
+| `__init__` | 37 | 17 |
+| `draw` | 116 | 16 |
 | `classify` | 20 | 15 |
 | `require` | 18 | 15 |
 | `verify` | 15 | 15 |
 | `fetch` | 22 | 14 |
 | `setUp` | 42 | 13 |
 | `validate` | 25 | 13 |
+| `walk` | 25 | 13 |
 | `normalise` | 11 | 13 |
-| `walk` | 24 | 12 |
-| `step` | 42 | 11 |
+| `step` | 43 | 11 |
 | `refresh` | 38 | 11 |
-| `measure` | 22 | 11 |
+| `measure` | 24 | 11 |
 | `write_json` | 18 | 11 |
-| `close` | 24 | 10 |
+| `start` | 75 | 10 |
+| `close` | 27 | 10 |
+| `inspect` | 26 | 10 |
+| `sha256` | 22 | 10 |
 | `record` | 21 | 10 |
-| `start` | 74 | 9 |
-| `place` | 53 | 9 |
-| `apply` | 52 | 9 |
+| `apply` | 55 | 9 |
+| `place` | 55 | 9 |
 | `frame` | 44 | 9 |
-| `inspect` | 21 | 9 |
-| `sha256` | 21 | 9 |
 
 ## How to check for earlier work before writing code
 

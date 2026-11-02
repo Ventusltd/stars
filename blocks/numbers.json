@@ -1,5 +1,5 @@
 {
- "next": 2016,
+ "next": 2044,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -1952,6 +1952,34 @@
   "kuiper-belt:editions/{stamp}/tools/edition_belt.py": 2012,
   "kuiper-belt:editions/{stamp}/index.html": 2013,
   "kuiper-belt:tools/edition_keys.py": 2014,
-  "neural-link-between-agents:FIXES/NL-009/android-journey.cjs": 2015
+  "neural-link-between-agents:FIXES/NL-009/android-journey.cjs": 2015,
+  "kuiper-belt:editions/{stamp}/handoff/10-integration/android-journey.cjs": 2016,
+  "kuiper-belt:editions/{stamp}/handoff/00-stub/stub-serve.cjs": 2017,
+  "kuiper-belt:editions/{stamp}/handoff/01-shell/test.cjs": 2018,
+  "kuiper-belt:editions/{stamp}/handoff/02-card/test.cjs": 2019,
+  "kuiper-belt:editions/{stamp}/handoff/03-layers/delete-moved.py": 2020,
+  "kuiper-belt:editions/{stamp}/handoff/03-layers/test.cjs": 2021,
+  "kuiper-belt:editions/{stamp}/handoff/04-loader/test.cjs": 2022,
+  "kuiper-belt:editions/{stamp}/handoff/05-see-through/build-see-through-json.py": 2023,
+  "kuiper-belt:editions/{stamp}/handoff/05-see-through/test.cjs": 2024,
+  "kuiper-belt:editions/{stamp}/handoff/06-file/test.cjs": 2025,
+  "kuiper-belt:editions/{stamp}/handoff/07-apps/test.cjs": 2026,
+  "kuiper-belt:editions/{stamp}/handoff/08-drift/test.cjs": 2027,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-layers.js": 2028,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-see-through.js": 2029,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-kuiper-shell.js": 2030,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-line-card.js": 2031,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-hello.js": 2032,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-loader.js": 2033,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-file.js": 2034,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-apps.js": 2035,
+  "kuiper-belt:editions/{stamp}/modules/{stamp}-drift.js": 2036,
+  "kuiper-belt:tools/apps_registry.py": 2037,
+  "kuiper-belt:tools/build_layers.py": 2038,
+  "kuiper-belt:tools/drift.py": 2039,
+  "kuiper-belt:tools/edition_min.py": 2040,
+  "kuiper-belt:tools/element_keys.py": 2041,
+  "neural-link-between-agents:FIXES/NL-009/round1/04-touch-harness.cjs": 2042,
+  "neural-link-between-agents:FIXES/NL-010/team-11/render-pixel7.cjs": 2043
  }
 }

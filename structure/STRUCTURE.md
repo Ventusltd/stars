@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-01 20:50 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (114 KB, 134 cards, 402 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-02 01:02 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (115 KB, 135 cards, 404 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (39)
+## Repositories (40)
 
 ```mermaid
 flowchart TD
@@ -75,6 +75,8 @@ flowchart TD
   estate --> n_Ventusltd_graphics_engines_open_source
   n_Ventusltd_gridmachine1["gridmachine1 · 1 blocks"]:::ok
   estate --> n_Ventusltd_gridmachine1
+  n_Ventusltd_kuiper_belt["kuiper-belt · 1 blocks"]:::ok
+  estate --> n_Ventusltd_kuiper_belt
   n_Ventusltd_kuiper_drawing_engine["kuiper-drawing-engine · 1 blocks"]:::ok
   estate --> n_Ventusltd_kuiper_drawing_engine
   n_Ventusltd_sld["sld · 1 blocks"]:::ok
