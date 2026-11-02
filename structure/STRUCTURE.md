@@ -1,9 +1,9 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-02 01:02 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (115 KB, 135 cards, 404 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-02 08:15 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (117 KB, 136 cards, 407 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
-## Repositories (40)
+## Repositories (41)
 
 ```mermaid
 flowchart TD
@@ -47,6 +47,8 @@ flowchart TD
   estate --> n_Ventusltd_grid_distance_maths
   n_Ventusltd_lightning["lightning · 2 blocks"]:::ok
   estate --> n_Ventusltd_lightning
+  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 2 blocks"]:::ok
+  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_teleprinter["teleprinter · 2 blocks"]:::ok
   estate --> n_Ventusltd_teleprinter
   n_Ventusltd_youengineer_code_review["youengineer-code-review · 2 blocks"]:::ok

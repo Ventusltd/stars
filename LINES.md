@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-415,213 unique lines, numbered 1 to 713,954. Generated 2026-11-02T01:02:32.569Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+419,393 unique lines, numbered 1 to 726,163. Generated 2026-11-02T08:15:36.623Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -415216,4 +415216,4184 @@
 713952	r.nojs_launch=await p2.locator('#kuiper-editions > .inside > .launch').getAttribute('href');
 713953	r.nojs_row=await p2.locator('#catalogueRows tr[data-entity-id="kuiper-editions"]').count();
 713954	console.log(JSON.stringify(r,null,2));await browser.close();server.close();})().catch(e=>{console.error(e);process.exit(1);});
+714024	<details id="kuiper"><summary><span class="number">02</span><span class="title">Kuiper<small>The animated universe of code</small></span></summary><div class="inside"><p>Explore patterns across code, text and mathematics, with intended adaptations for drawing and proposal work.</p><a class="launch" href="https://globalgrid2050.com/kuiper/">Enter Kuiper &rarr;</a><details id="what-is-kuiper"><summary><span class="number">&#8611;</span><span class="title">What is the Kuiper?<small>Why the code estate became a mathematical address space</small></span></summary><div class="inside"><p>A plain-English explanation of why Kuiper exists, what a Key means, how the placement law works, and how the visualisation is becoming a procedural computational engine.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/what-is-kuiper.html">Read What is the Kuiper? &rarr;</a></div></details><details id="learn-the-kuiper"><summary><span class="number">&#8611;</span><span class="title">Learn the Kuiper<small>One circle, one dot, two numbers</small></span></summary><div class="inside"><p>Move one dot by changing two numbers: one sets the distance through a square root, the other sets the angle through MOD. Slide or type the numbers to steer the dot onto targets, then link them into one key. Six circle sizes, ending with the Kuiper&#x27;s own constants. The main screen runs offline.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/learn-the-kuiper/202610050609/">Open Learn the Kuiper &rarr;</a></div></details><details id="kuiper-editions"><summary><span class="number">&#8611;</span><span class="title">Kuiper editions<small>The estate&#x27;s verified lines of code, lit on the Kuiper wafer</small></span></summary><div class="inside"><p>Every line of every commit of the estate on one wafer, with the verified lines lit as green sparks at their own keys. Tap a spark or pick a row in LINES to read the line and open it on GitHub at its commit, file and line. Each change is a new dated edition; earlier editions stay as they were. See Through, from the same family, has its own entry just below.</p><a class="launch" href="https://globalgrid2050.com/kuiper-editions/">Open the Kuiper editions &rarr;</a></div></details><details id="see-through"><summary><span class="number">&#8611;</span><span class="title">See to grid connection probabilities iteratively<small>See Through: from the stars to one substation in 3D</small></span></summary><div class="inside"><p>Type the name of a UK substation and press GO. The stars gather into the grid, the real map and satellite view appear inside the circle, and an illustrative 3D model of the substation rises on the real ground, combining mapped features with estimates. About 5,800 mapped substations. An early step toward comparing connection options site by site; no connection probability is calculated today. It now also opens from a Kuiper card&#x27;s link, straight to the right star. Needs the internet.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/see-through/">Open See Through &rarr;</a></div></details><details id="kuiper-diary"><summary><span class="number">&#8611;</span><span class="title">Kuiper diary<small>What it is, what it could become, and why it matters now</small></span></summary><div class="inside"><p>A short note for anyone meeting the Kuiper for the first time: the two rules behind it, the two things you can open today, where it could go, and how it may help with grid connection in the UK.</p><a class="launch" href="https://ventusltd.github.io/kuiper-belt/diary/20261005.html">Read the diary &rarr;</a></div></details></div></details>
+714025	<tr data-entity-id="see-through"><th scope="row"><a href="https://ventusltd.github.io/kuiper-belt/see-through/">See to grid connection probabilities iteratively</a><small class="entity-key">see-through</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore mapped substation records through illustrative 3D models that distinguish mapped features from estimated equipment, supporting questions about connection options without calculating their probability or feasibility.</p><p>For: grid researchers, developers, learners</p></details></td><td>See Through: from the stars to one substation in 3D</td><td><details class="table-versions"><summary>2 November 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/kuiper-belt/see-through/202610050609/">5 October 2026</a><small class="entity-key">20261005-0609</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/kuiper-belt/see-through/">2 November 2026</a><small class="entity-key">202611020012</small></div></details></td></tr>
+714032	//                 [--devices "Pixel 7,Galaxy S24,Pixel 7 landscape,360x740"] [--extra] [--no-ga] [--no-a8] [--admit] [--loader] [--also-loader]
+714396	      // A5 pick (rev 2, the integrator's journey steps lines-pick and card-details): a row picked in WAFER opens the card
+714397	      // and the card stays (no popstate from the shell hides it); its details toggle keeps it; one back gesture closes
+714398	      // the card and the page stays.
+714399	      { const cardOn = () => page.evaluate(() => { const c = document.getElementById('card'); return !!c && getComputedStyle(c).display !== 'none' && c.getBoundingClientRect().height > 0; });
+714400	        const wi = six.find(t => t.text.toUpperCase() === 'WAFER'); const pk = { row: false };
+714401	        if (wi) { await tapR(await titleRect(wi.i)); await waitOpen(1);
+714402	          const r = await page.evaluate(() => { const e = document.querySelector('#kuiper-menu-bar .gm-panel:not([hidden]) #lineslist [data-i]'); if (!e) return null; e.scrollIntoView({ block: 'nearest' }); const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+714403	          if (r) { pk.row = true; await tap(r.x + r.w / 2, r.y + Math.min(r.h, 44) / 2); await sleep(2500); pk.cardAfterPick = await cardOn(); pk.panelsOpen = (await openState()).open.length;
+714404	            const d = await page.evaluate(() => { const e = document.querySelector('#card .lc-t, #card .ct'); if (!e) return null; const b = e.getBoundingClientRect(); return { x: b.x, y: b.y, w: b.width, h: b.height }; });
+714405	            if (d) { await tap(d.x + d.w / 2, d.y + d.h / 2); await sleep(1500); pk.cardAfterDetails = await cardOn(); } else pk.cardAfterDetails = null;
+714406	            const u0 = page.url(); await page.goBack({ waitUntil: 'commit', timeout: 5000 }).catch(() => {}); await sleep(1500);
+714407	            pk.cardAfterBack = await cardOn(); pk.stayed = page.url() === u0 && !!(await page.$('#kuiper-menu-bar'));
+714408	          } else { pk.note = 'no #lineslist row in the WAFER panel'; await page.keyboard.press('Escape'); await waitOpen(0); } }
+714409	        pk.ok = !wi || !pk.row ? !!pk.note : (pk.cardAfterPick === true && pk.panelsOpen === 0 && pk.cardAfterDetails !== false && pk.cardAfterBack === false && pk.stayed === true);
+714410	        a5.pick = pk; }
+714413	        && a5.rowsUnder44.length === 0 && a5.rowCount > 0 && a5.next && a5.next.between && (!a5.wafer || a5.wafer.closed !== false) && (!a5.pick || a5.pick.ok);
+714420	      if (a5.pick && !a5.pick.ok) why.push('WAFER pick: ' + JSON.stringify(a5.pick));
+714616	    if (/<script[^>]+kuiper-shell\.js/.test(html) || /"id"\s*:\s*"kuiper-shell"/.test(manifest)) { mod.mode = 'page'; mod.modeNote = /<script[^>]+kuiper-shell\.js/.test(html) ? '(index.html names it)' : '(modules.json names it; the loader admits it)'; if (flag('--html')) mod.pageOpts = { htmlFile: String(flag('--html')), rewrite: h => h }; }
+714622	    // --admit: the integrator's manifest does not list the shell (yet, or again after a revision): serve modules.json
+714623	    // with handoff/01-shell/MODULE.json (this team's record) inserted after 'hello', this file's sha256 and bytes in it,
+714624	    // so the shell is admitted by the real loader on the real page; the note says so.
+714625	    if (flag('--admit') && mod.mode === 'inject' && /KY_NAMES/.test(html)) { try { const man = JSON.parse(manifest), rec = JSON.parse(fs.readFileSync(path.join(HERE, 'MODULE.json'), 'utf8'));
+714626	      rec.sha256 = mod.sha256; rec.bytes = mod.bytes; man.modules = man.modules.filter(m => m.id !== 'kuiper-shell'); man.modules.splice(1, 0, rec);
+714627	      man.order = man.order.filter(x => x !== 'kuiper-shell'); const h = man.order.indexOf('hello'); man.order.splice(h + 1, 0, 'kuiper-shell');
+714628	      mod.mode = 'page'; mod.pageOpts = { ...(flag('--html') ? { htmlFile: String(flag('--html')) } : {}), rewrite: x => x, manifest: JSON.stringify(man) };
+714629	      mod.modeNote = `(--admit: modules.json served with handoff/01-shell/MODULE.json inserted, sha256 ${mod.sha256.slice(0, 12)}, order ${JSON.stringify(man.order)}; the page's loader admits it)`; } catch (e) { log('--admit failed: ' + e.message); } }
+714630	    if (mod.mode === 'page' && !/<script[^>]+kuiper-shell\.js/.test(html)) { try { const man = JSON.parse(manifest), rec = (man.modules || []).find(m => m && m.id === 'kuiper-shell');
+714703	# keep the page's selection variables: the page's Escape and Android-back handlers still assign edSel (harness, run 9)
+714704	keep = find(lambda l: l.startswith('let ED = [], edPlaced = [], edSel = -1'), a); drop.discard(keep); log.append('kept line %d (let ED, edPlaced, edSel, edMeta)' % (keep + 1))
+714952	    const shellInset = p.modules.some(m => /shell/.test(m)) ? 4.5 : 0.5;   // harness ruling: the shell's 4 px inset is the shell's design, accepted
+714953	    const t2 = !!(p.panel && p.panel.visible) && pr.top >= p.bar.bottom - 1 && pr.left <= shellInset && pr.right >= p.viewport.w - shellInset
+714958	      t2 ? '' : why(!(p.panel && p.panel.visible) && 'panel not visible', pr && pr.top < p.bar.bottom - 1 && 'panel top ' + pr.top + ' above bar bottom ' + p.bar.bottom, pr && (pr.left > shellInset || pr.right < p.viewport.w - shellInset) && 'panel ' + pr.left + '..' + pr.right + ' not full width ' + p.viewport.w,
+715016	    { const e1 = A.errors.length, h = await A.probe();
+715017	      await A.page.evaluate(() => { if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+715018	      await A.page.keyboard.press('e'); await sleep(2500); const withCard = (await A.probe()).card;
+715019	      await A.page.keyboard.press('Escape'); await sleep(800);
+715020	      await A.page.keyboard.press('e'); await sleep(2500);
+715021	      await A.page.evaluate(() => history.back()); await sleep(1500); const after = await A.probe();
+715022	      const ok = withCard && A.errors.length === e1 && after.marker === h.marker && /\/editions\/202611012135\//.test(after.url.href);
+715023	      record('a-escape-back', 'REVIEW 6566289513: e opens a card; Escape, e and one back gesture (history.back) on the cut page: no page error, the page stays', ok,
+715024	        { cardAfterE: withCard, newErrors: A.errors.slice(e1), sameDocument: after.marker === h.marker, href: after.url.href },
+715025	        ok ? '' : why(!withCard && 'e opened no card', A.errors.length !== e1 && (A.errors.length - e1) + ' new error(s): ' + A.errors[e1].text, after.marker !== h.marker && 'the page was left or reloaded: ' + after.url.href)); }
+715141	  { const page = OVR_INDEX ? OVR_INDEX.toString('utf8') : fs.readFileSync(path.join(ED_DIR, 'index.html'), 'utf8'), mod = modBytes ? modBytes.toString('utf8') : '';
+715142	    const has = re => ({ module: re.test(mod), page: re.test(page) });
+715143	    const want = { band96: has(/MINBAND\s*=\s*96\b|minBand\s*[:=]\s*96\b|\b96\b[^\n]{0,80}band|band[^\n]{0,80}\b96\b/i), keeper: has(/ResizeObserver/), flyDuration: has(/tween\.dur\s*=|\.dur\s*=\s*|\bdur(ation)?\s*:\s*[^,}\n]*(dist|reduce)/i), contentVisibility: has(/#lineslist\s*\.ln\s*\{[^}]*content-visibility\s*:\s*auto/) };
+715144	    const ok = Object.values(want).every(w => w.module || w.page);
+715145	    rec('t9-carried', 'REVIEW 6566289513 (admission 4): the 96 px band rule, the card-resize keeper (ResizeObserver), the fly duration by distance and 07-perf content-visibility on #lineslist .ln survive the cut, in layers.js or the served page (found by pattern, as the REVIEW measured)', ok,
+715146	      { found: want, page: OVR_INDEX ? '--index ' + flags['--index'] : 'index.html on disk' }, ok ? '' : 'missing: ' + Object.entries(want).filter(([, w]) => !(w.module || w.page)).map(([k]) => k).join(', ')); }
+715165	  L.push((out.preIntegration ? '**PRE-INTEGRATION RUN** (served with ' + (out.overrides || []).join(', ') + '): not a hand-off pass. ' : '') + 'Verdict: **' + (out.pass ? 'PASS' : 'FAIL') + '** — written by `test.cjs` at ' + out.generatedAt + ' from ' + out.url + ' (kuiper-belt ' + out.head + ').');
+715179	// --md-only: rewrite TEST.md and img/ from an earlier run's <outdir>/report.json and screenshots, without running again
+715180	if (flags['--md-only']) {
+715181	  const out = JSON.parse(fs.readFileSync(path.join(OUT, 'report.json'), 'utf8')); const d0 = path.join(OUT, slug(out.devices[0].device));
+715182	  const pick = re => { const f = fs.existsSync(d0) ? fs.readdirSync(d0).find(x => re.test(x)) : null; return f ? path.join(d0, f) : null; };
+715183	  out.images = writeImages({ WAIT: pick(/-wait\.png$/), OK: pick(/-ok\.png$/), FAIL: pick(/-fail-keys-404\.png$/), REFUSED: pick(/-refused-wafer-404\.png$/) });
+715184	  if (out.preIntegration && !OVR_INDEX && !OVR_MANIFEST) { flags['--index'] = '(see report.json)'; }
+715185	  writeTestMd(out); console.log('TEST.md written from ' + path.join(OUT, 'report.json')); process.exit(0);
+715187	  const out = { url: ED_URL, outdir: OUT, head, preIntegration: PRE, overrides: [flags['--index'] && '--index ' + flags['--index'], flags['--manifest'] && '--manifest ' + flags['--manifest']].filter(Boolean), generatedAt: new Date().toISOString(), devices: [], static: [] };
+715201	/* kuiper loader reference, generation 202611020103 (UTC), Apache-2.0 (kuiper-belt) */
+715202	// NOT A MODULE and never fetched: rev 5 (optional) of the hook table and loader that Opus team 4 hands to the integrator
+715203	// as handoff/04-loader/rev5/index.html.delta.patch. The bytes between the two marker lines below are byte-identical to
+715204	// the block that patch writes into editions/202611012135/index.html; rev 4 stays modules/202611012145-loader.js, never
+715205	// edited. The block runs only inside the page script, where the engine names it closes over are in scope. Listed in
+715206	// modules.json under "references" when admitted (record: rev5/record.json), never in "order".
+715215	// lines, are modules/202611020103-loader.js (the reviewable reference; it is never fetched). Lessons, cited:
+715421	// KY.names beyond the 28: read from the published contract (HOOKS.md: "the 28 hooks + `cam lit sel redraw draw panels refuse`"),
+715422	// so the test follows the revision the hand-off names (rev 4: 35 names; rev 5 adds nav)
+715423	const KY_EXTRA = (() => { try { const m = /the 28 hooks \+ `([^`]+)`/.exec(fs.readFileSync(path.join(HERE, 'HOOKS.md'), 'utf8')); if (m) return m[1].trim().split(/\s+/); } catch (e) {} return ['cam', 'lit', 'sel', 'redraw', 'draw', 'panels', 'refuse']; })();
+715678	    check('c7.hooks', 'Object.keys(KY.hooks) = the 28 names of HOOKS.md in order; KY.names = those + the extras HOOKS.md lists (' + KY_EXTRA.join(' ') + ': ' + (28 + KY_EXTRA.length) + ')', JSON.stringify(fr.keys) === JSON.stringify(HOOK_NAMES) && JSON.stringify(fr.names_list) === JSON.stringify([...HOOK_NAMES, ...KY_EXTRA]), { keys: fr.keys, names: fr.names_list });
+715688	    // rev 5: KY.nav, the one owner of history for the Android back gesture (HOOKS.md)
+715689	    if (KY_EXTRA.includes('nav')) { const nav = { api: await h.page.evaluate(() => { const n = window.KY.nav; if (!n) return null; let ed; try { n.push('edition'); ed = 'no throw'; } catch (e) { ed = e instanceof TypeError ? 'TypeError' : String(e); }
+715690	      return { fns: ['push', 'back', 'onBack', 'has', 'isSelf'].filter(k => typeof n[k] === 'function'), edition: ed, frozen: Object.isFrozen(n) }; }) };
+715691	    if (nav.api) {
+715692	      nav.push = await h.page.evaluate(() => { window.__navCalls = 0; const n = window.KY.nav, d0 = n.depth; n.onBack('probe-x', () => { window.__navCalls++; }); n.push('probe-x'); return { d0, d1: n.depth, has: n.has('probe-x'), state: history.state }; });
+715693	      await h.page.evaluate(() => window.KY.nav.back('probe-x')); await sleep(1500);
+715694	      nav.selfBack = await h.page.evaluate(() => ({ has: window.KY.nav.has('probe-x'), calls: window.__navCalls, depth: window.KY.nav.depth, url: location.href }));
+715695	      await h.page.evaluate(() => window.KY.nav.push('probe-x')); await sleep(800);
+715696	      await h.page.goBack({ waitUntil: 'commit' }).catch(() => {}); await sleep(1500);
+715697	      nav.personBack = await h.page.evaluate(() => ({ alive: true, has: window.KY.nav.has('probe-x'), calls: window.__navCalls })).catch(() => ({ alive: false }));
+715698	    check('c7.nav', "rev 5: KY.nav push/back/onBack/has/isSelf; 'edition' reserved (TypeError); a self back calls no handler; a person's back calls the owner's handler once and stays on the page",
+715699	      !!nav.api && nav.api.fns.length === 5 && nav.api.edition === 'TypeError' && nav.push.has && nav.push.d1 === nav.push.d0 + 1 && !nav.selfBack.has && nav.selfBack.calls === 0 && nav.personBack.alive && !nav.personBack.has && nav.personBack.calls === 1, nav); }
+715781	        // pointerup → click on a bar title, three taps, the median: one sample can land on a seconds-long SwiftShader frame
+715782	        const v = await VV(), lats = [];
+715783	        for (let i = 0; i < 3; i++) { await page.evaluate(() => { __ev.ups = []; __ev.clicks = []; }); await tapSel(page, '#bar .gm-title[data-panel="hud"]'); await sleep(600);
+715784	          lats.push(await page.evaluate(() => __ev.clicks.length && __ev.ups.length ? +(__ev.clicks[0][0] - __ev.ups[0][0]).toFixed(1) : null)); }
+715785	        const lat = lats.includes(null) ? null : [...lats].sort((a, b) => a - b)[1];
+715786	        check('T4', '04-touch T4 a double tap does not zoom the page; a bar tap clicks at once (median of 3 < 100 ms)', v.scale === 1 && lat !== null && lat < 100, { vv: v, pointerup_to_click_ms: lats, median_ms: lat });
+715896	  if (S.integrated) {   // the committed page may carry later teams' hunks too; the patch must apply cleanly to a page the integrator committed
+715897	    const rel = path.relative(REPO, path.join(EDITION_DIR, 'index.html')), pf = path.join(HERE, 'index.html.patch'), hits = [];
+715898	    for (const c of cp.spawnSync('git', ['-C', REPO, 'log', '--format=%h', '--', rel], { encoding: 'utf8' }).stdout.trim().split('\n').filter(Boolean)) {
+715899	      const t = path.join(SCRATCH, 'base-' + c + '.html'); fs.writeFileSync(t, cp.spawnSync('git', ['-C', REPO, 'show', c + ':' + rel], { encoding: 'utf8', maxBuffer: 1 << 26 }).stdout);
+715900	      if (cp.spawnSync('patch', ['--dry-run', '-s', '-o', '/dev/null', t, pf]).status === 0) hits.push(c + ' (' + sha(fs.readFileSync(t)).slice(0, 12) + ')'); }
+715901	    out.runs.push({ check: 'index.html.patch applies cleanly to a page the integrator committed; the committed page carries its loader block (row above)', applies_to: hits, reverse_on_committed_page: S.integrated.reverses_cleanly ? 'clean' : S.integrated.out, ok: hits.length > 0 }); }
+716377	  // the integrator has landed the hook table and loader in index.html: the page on disk is the base, no patch is applied
+716378	  const integrated = fs.readFileSync(path.join(EDDIR, 'index.html'), 'utf8').includes('kuiper.hooks.v1');
+716379	  if (integrated) { fs.copyFileSync(path.join(EDDIR, 'index.html'), path.join(dir, 'index.html')); base = 'index.html on disk (hook table and loader already integrated)'; applied.push({ patch: 'none (integrated)', ok: true }); }
+716380	  for (const key of (integrated ? [] : ['', 'line-card', 'layers'])) { if (key && !ids.includes(key)) continue; const pf = path.join(__dirname, '..', PATCHES[key]);
+716481	    const blk = async (name, fn) => { try { await fn(); } catch (e) { step(name + ' (block threw)', false, String(e && e.message || e).split('\n').slice(0, 3).join(' ')); } };
+716482	    const step = (id, pass, measured) => { R.steps.push({ id, result: pass === null ? 'NOT EVALUATED' : (pass ? 'PASS' : 'FAIL'), measured }); if (pass === false) allPass = false;
+716483	      try { fs.writeFileSync(path.join(OUT, 'report.partial.json'), JSON.stringify(report, null, 1)); } catch (e) {} };   // a killed run keeps what it measured
+716507	    const shot = async (p, name) => { if (!SHOTS) return; fs.mkdirSync(SHOTS, { recursive: true }); await p.screenshot({ path: path.join(SHOTS, slug + '-' + name + '.png'), scale: 'css', timeout: 180000 }).catch(e => (R.shot_errors = R.shot_errors || []).push('screenshot ' + name + ': ' + e.message.split('\n')[0])); };
+716516	      await blk('A1', async () => {
+716540	      }); await blk('A3', async () => {
+716552	      }); await blk('A2', async () => {
+716568	      }); await blk('A6', async () => {
+716569	      // A6 save an image (a step of its own: a timeout under load is measured, not a harness abort)
+716570	      const dlP = p.waitForEvent('download', { timeout: 300000 }); await tapSel(p, '#kuiper-export-image'); const dl = await dlP;
+716590	      } catch (e) { const row = await p.evaluate(() => (document.querySelector('#kuiper-export-image .ky-file-why') || {}).textContent || null).catch(() => null);
+716591	        step('A6 Save an image: PNG, not one colour, innerWidth x min(dpr,2) wide, the stamp strip within 5 %', false, { error: String(e.message || e).split('\n')[0], row, exports: await p.evaluate(() => KY.modules.file.api.inspect().c).catch(() => null) }); }
+716592	      }); await blk('A6 negative', async () => {
+716599	      }); await blk('A7', async () => {
+716611	      }); await blk('A4 direct', async () => {
+716621	      }); await blk('A7 See Through paste', async () => {
+716683	              const hit = await p.evaluate(() => { const e = document.querySelector('#ky-file-apps [data-ky-app="see-through"]'); e.scrollIntoView({ block: 'center' }); const b = e.getBoundingClientRect(), x = b.left + b.width / 2, y = b.top + Math.min(b.height / 2, 22), h = document.elementFromPoint(x, y);
+716684	                return { x, y, on_row: !!h && (h === e || e.contains(h)), hit: h ? h.tagName + '#' + h.id + '.' + h.className : null }; });
+716687	              const opened = p.url().indexOf('/see-through/') < 0 ? await p.evaluate(() => (KY.modules.file.api.inspect().opened || []).slice(-3)).catch(e => String(e)) : 'navigated';
+716688	              const want = ROOT + 'see-through/#key=' + k;   // or ROOT + 'see-through/<stamp>/#key=' + k when See Through's own pointer has forwarded it
+716689	              const landedOk = p.url() === want || new RegExp('^' + ROOT.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + 'see-through/\\d{12}/#key=' + k + '$').test(p.url());
+716690	              step('G4 Open an app by touch: See Through first and lit, lands on ../../see-through/#key=<the open key>', landedOk && first && first.app === 'see-through' && first.lit && r.height >= 44,
+716691	                { landed: p.url(), want, first, row_h: Math.round(r.height), hit, opened });
+716702	      await blk('A2/G5 clipboard refused', async () => {
+716716	      }); await blk('A8', async () => {
+716732	      }); await blk('G1', async () => {
+717047	    await closeMenus(p); await sleep(SETTLE); await shot(p, 'spider-layer');   // the wafer with the chords, no panel over it
+717071	        if (!cards.length) await shot(p, 'element-card');
+717223	    results, infos = [], []
+717224	    def info(msg):
+717225	        infos.append(msg)
+717226	        print('INFO ' + msg, flush=True)
+717237	    tsv_raw = [l.rstrip('\n').split('\t')[1] for l in open(tsv_path, encoding='utf-8') if l.strip() and not l.startswith('#')]
+717238	    tsv = {x.lower() for x in tsv_raw}         # GitHub repository names are case-insensitive (repos.tsv: Kuiper-belt)
+717239	    case_only = sorted({b['repo'] for b in bodies if b['repo'] not in tsv_raw and b['repo'].lower() in tsv})
+717300	    held, moved_since = {}, []         # the recorded head, held by the clone; and where origin/HEAD is now
+717302	        d, h = clone(repo), (D['heads'].get(repo) or {}).get('sha')
+717303	        if d and h:
+717304	            rc, _, _ = sh(['git', 'cat-file', '-e', h + '^{commit}'], cwd=d)
+717305	            held[repo] = h if rc == 0 else None
+717307	            now = out.decode().strip()
+717308	            if now != h:
+717309	                moved_since.append('%s %s -> %s' % (repo, h[:12], now[:12]))
+717310	                rc, out, _ = sh(['git', 'merge-base', '--is-ancestor', h, now], cwd=d)
+717311	                if rc != 0:
+717312	                    bad.append((repo, 'recorded head %s is not an ancestor of origin/HEAD %s' % (h[:12], now[:12])))
+717313	        elif h:
+717314	            bad.append((repo, 'a head recorded without a clone'))
+717327	        verifiable = bool(d and held.get(r['repo']) and r.get('head') == held.get(r['repo']) and text and k.get('on_wafer') is not False
+717328	                          and k.get('key') is not None and r['repo'].lower() in tsv)
+717369	       '%s re-derived from %d `git show` blobs at the recorded heads (each held by its clone and an ancestor of its '
+717370	       'origin/HEAD); %d disagreements%s' % (dict(n), len(shows), len(bad),
+717371	                                            (': ' + '; '.join('%s %s' % x for x in bad[:4])) if bad else ''))
+717372	    info('heads moved since drift.json was written (fetched later; the drift is as of its recorded heads): %s'
+717373	         % ('; '.join(moved_since) or 'none'))
+717384	        t = re.sub(r'\s+', ' ', open(readme, encoding='utf-8').read())
+717390	    stray_repo = sorted(x for x in ({r['repo'] for r in D['rows']} | set(D['heads'])) if x.lower() not in tsv)
+717411	       '%d rows = %d bodies in keys.json order: %s; repositories outside repos.tsv: %s (matched by case only: %s); '
+717412	       'keys outside keys.json: %s; line texts quoted: %d' % (len(D['rows']), len(bodies), order, stray_repo or 'none',
+717413	                                                              case_only or 'none', stray_key[:3] or 'none',
+717414	                                                              len(quoted) + len(textkeys)))
+717426	            here_home, sockets, sysfiles, listed = set(), [], set(), set()
+717439	                    if 'O_DIRECTORY' in line and rp in (os.path.realpath(estate), os.path.dirname(os.path.realpath(tool))):
+717440	                        listed.add(rp)
+717442	                        here_home.add(rp)
+717446	            allowed = allowed_files if extra else allowed_files - {os.path.realpath(target)}
+717447	            stray = sorted(p for p in here_home if p not in allowed and not p.startswith(out_real)
+717453	               'directories listed: %s; outside /home/user only system dirs %s; sockets: %d; stray: %s' % (
+717455	                   sorted(listed) or 'none', sorted(sysfiles), len(sockets), stray[:5] or 'none'))
+717458	                O = json.loads(ob)
+717459	                diff = [(x['id'][:12], x['repo'], x['class'], y['class']) for x, y in zip(D['rows'], O['rows'])
+717460	                        if x['class'] != y['class']]
+717461	                info('observing the heads now instead of the recorded ones: %s; counts now %s; rows whose class '
+717462	                     'would change: %d %s' % ('byte-identical' if ob == base else 'differs',
+717463	                                              ' / '.join('%d %s' % (v, k) for k, v in O['summary']['counts'].items()),
+717464	                                              len(diff), diff[:6]))
+717483	               'keys_json_sha256': sha(open(keys_path, 'rb').read()), 'counts': dict(c), 'results': results, 'info': infos,
+717492	// Apache-2.0 (kuiper-belt code), kuiper-belt@018b46a README.md:156-157; the LICENCES.md row is handoff/08-drift/LICENCE.txt.
+717497	//   node test.cjs <edition-url> <outdir> [--handoff] [--device "Pixel 7"|"Galaxy S24"] [--no-py]
+717498	//   e.g. node test.cjs http://127.0.0.1:8482/editions/202611012135/ /tmp/nl010-opus/team-8/tester/out1
+717499	//   --device runs one device (a loaded machine: one device at a time); each device's steps go to
+717500	//   <outdir>/steps-<device>.json and TEST.md / report.json are written from every device file present in <outdir>.
+717501	//   P1, P2, P3, P5 and the data half of P4 are drift_test.py (run here first unless --no-py; its JSON is folded into
+717502	//   report.json and TEST.md), so one RESULT covers P1-P5.
+717508	const argv = process.argv.slice(2), pos = argv.filter((a, i) => !a.startsWith('--') && argv[i - 1] !== '--device');
+717512	const ALL_DEVICES = ['Pixel 7', 'Galaxy S24'];
+717513	const devArg = argv.indexOf('--device') >= 0 ? process.argv[process.argv.indexOf('--device') + 1] : null;
+717514	const DEVICES = devArg ? [devArg] : ALL_DEVICES;
+717515	if (devArg && !ALL_DEVICES.includes(devArg)) { console.error('unknown device ' + devArg); process.exit(2); }
+717541	const BASEBAR = {};
+717567	  const barOf = () => page.evaluate(() => { const shell = !!document.querySelector('#kuiper-menu-bar');
+717568	    const ts = shell ? [...document.querySelectorAll('#kuiper-menu-bar .gm-menu>.gm-title')] : [...document.querySelectorAll('#bar > *')].filter(e => e.getBoundingClientRect().width > 0);
+717569	    const tops = new Set(ts.map(t => Math.round(t.getBoundingClientRect().top)));
+717570	    const b = document.querySelector(shell ? '#kuiper-menu-bar' : '#bar'); return { bar: shell ? '#kuiper-menu-bar (the shell)' : '#bar (the page, no shell admitted)', shell, titles: ts.map(t => t.textContent.trim()), rows: tops.size, h: b ? Math.round(b.getBoundingClientRect().height) : null, sw: b ? b.scrollWidth : 0, cw: b ? b.clientWidth : 0 }; });
+717571	  const bar = await barOf();
+717573	  if (scen === 'A') { BASEBAR[devName] = bar; ok('baseline wafer', base.green > 0, base.green + ' green overlay px, no drift module; bar ' + bar.bar + ' ' + bar.rows + ' row(s): ' + bar.titles.join('|')); }
+717577	    const dl = hud.split('\n').find(l => /^DRIFT since the cut/.test(l)) || '';
+717578	    const got = {}; for (const m of dl.matchAll(/(?:^|· )([\d,]+) (SAME|MOVED|GONE|FILE_GONE|UNVERIFIED)\b/g)) got[m[2]] = +m[1].replace(/,/g, '');
+717579	    const want = ['SAME', 'MOVED', 'GONE', 'FILE_GONE', 'UNVERIFIED'];
+717581	    ok('readout five counts = drift.json', want.every(k => got[k] === C[k]) && Object.keys(got).length === 5 && dl.includes(DRIFT.summary.share_text),
+717582	      (dl || 'no DRIFT line') + ' · page ' + JSON.stringify(got) + ' · drift.json ' + JSON.stringify(C));
+717583	    // the drift adds no bar title and does not change the bar (ROADMAP step 8 "no new bar title"; "the bar stays one
+717584	    // row"): B's bar equals A's bar; with the shell admitted it is one row. Without the shell the page's own bar is two
+717585	    // rows at 360-412 px before any module (ADMISSIONS.md row 0, NL-009 01-bar, team 1's to fix), so equality is the test.
+717586	    const A0 = BASEBAR[devName];
+717587	    ok('bar unchanged by drift' + (bar.shell ? ', one row' : ''), A0 && JSON.stringify(A0.titles) === JSON.stringify(bar.titles) && A0.rows === bar.rows && bar.sw <= bar.cw + 1 && (!bar.shell || bar.rows === 1),
+717588	      'with drift ' + JSON.stringify(bar) + ' · without (A) ' + JSON.stringify(A0 && { titles: A0.titles, rows: A0.rows }));
+717589	    // every MOVED spark: amber in a 9x9 box of the overlay, and nothing of the page drawn over it (elementFromPoint)
+717590	      const all = [];
+717591	      for (const m of (s && s.moved || [])) {
+717592	        const p = await page.evaluate(id => KY.modules.drift.api.screen(id), m.id);
+717593	        if (!p) { all.push({ id: m.id, on: false }); continue; }
+717594	        const vis = await page.evaluate(([x, y]) => { if (x < 0 || y < 0 || x >= innerWidth || y >= innerHeight) return 'off-screen';
+717595	          const e = document.elementFromPoint(x, y); return e ? (e.id ? '#' + e.id : e.tagName.toLowerCase()) : 'none'; }, p);
+717596	        const px = vis === 'off-screen' ? { amber: 0 } : await overlay(page, p[0], p[1], 4);
+717597	        all.push({ id: m.id, repo: m.repo, at: p.map(v => Math.round(v)), top: vis, amber: px.amber });
+717598	      const onScreen = all.filter(x => x.top && x.top !== 'off-screen');
+717599	      const good = onScreen.filter(x => x.amber >= 4 && /^#(o|c|gl|cv)$|^canvas$/.test(x.top));
+717600	      ok('every MOVED spark amber and visible', all.length === MOVED.length && onScreen.length >= 1 && good.length === onScreen.length,
+717601	        good.length + ' of ' + onScreen.length + ' on-screen MOVED sparks amber (>=4 px in 9x9) with a canvas on top; ' + (all.length - onScreen.length) + ' off-screen; ' +
+717602	        all.map(x => x.repo + ' ' + (x.at ? x.at.join(',') : '-') + ' ' + x.top + ' ' + x.amber + 'px').join('; '));
+717603	      res.moved = all;
+717604	      if (HANDOFF && devName === 'Pixel 7') await page.screenshot({ path: path.join(HERE, 'img', '4-moved-sparks-Pixel_7.png'), scale: 'css', timeout: 180000 });
+717627	    // the LINES filter "moved", reached the way a finger reaches it: the shell's WAFER title when the shell is admitted,
+717628	    // else the page's own LINES button (ROADMAP step 8: "LINES gains a filter by class"); no programmatic panel opening
+717629	    const w = await page.evaluate(() => { const t = document.querySelector('#kuiper-menu-bar') ? [...document.querySelectorAll('#kuiper-menu-bar .gm-title')].find(b => b.textContent.trim().toUpperCase() === 'WAFER')
+717630	        : [...document.querySelectorAll('#bar button, #bar a, #bar [role=button]')].find(b => b.textContent.trim().toUpperCase() === 'LINES');
+717631	      if (!t) return null; const r = t.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, t.textContent.trim()]; });
+717634	    const chip = await page.evaluate(() => { const b = document.querySelector('#ky-drift .kd-c button[data-class=MOVED]'); if (!b) return null; const r = b.getBoundingClientRect(); const x = r.left + r.width / 2, y = r.top + r.height / 2;
+717635	      const e = document.elementFromPoint(x, y); return [x, y, r.height, !!(e && b.contains(e)), e ? (e.id || e.className || e.tagName) : 'none', (b.closest('.gm-panel,[id]:not(#ky-drift)') || {}).id || ''];
+717641	    ok('filter "moved" lists exactly the MOVED rows', chip && chip[2] >= 44 && chip[3] && listed.length === wantRows.length && listed.every((x, i) => x.cls === 'MOVED' && x.row === wantRows[i]),
+717642	      'opened by a tap on ' + (w ? '"' + w[2] + '"' : 'NOTHING (no WAFER title, no LINES button)') + '; chip ' + (chip ? chip[2].toFixed(0) + ' px tall, ' + (chip[3] ? 'on top' : 'COVERED by ' + chip[4]) + ', in ' + (chip[5] || 'body') : 'missing') + '; listed ' + listed.length + ' rows, drift.json MOVED ' + wantRows.length);
+717644	    const bar2 = await barOf();
+717645	    ok('bar unchanged with the panel open', bar2.rows === bar.rows && (!bar2.shell || bar2.rows === 1), bar2.bar + ' ' + bar2.rows + ' row(s)');
+717656	  let py = null;
+717657	  if (!argv.includes('--no-py')) {
+717658	    const { spawnSync } = require('child_process');
+717659	    const pj = path.join(OUT, 'drift_test.json');
+717660	    console.log('drift_test.py (P1, P2, P3, P4 data, P5) ...');
+717661	    const r = spawnSync('python3', [path.join(HERE, 'drift_test.py'), '--json', pj, '--scratch', path.join(OUT, 'py-scratch')], { encoding: 'utf8', timeout: 1800000 });
+717662	    process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '');
+717663	    try { py = JSON.parse(fs.readFileSync(pj, 'utf8')); } catch (e) { py = { result: 'FAIL', results: [{ test: 'drift_test.py ran', pass: false, detail: 'exit ' + r.status + ', no JSON' }] }; }
+717664	  } else { try { py = JSON.parse(fs.readFileSync(path.join(OUT, 'drift_test.json'), 'utf8')); } catch (e) {} }
+717671	    const mine = [...A.steps, ...B.steps, ...Cc.steps, st];
+717672	    fs.writeFileSync(path.join(OUT, 'steps-' + d.replace(/ /g, '_') + '.json'), JSON.stringify({ when: new Date().toISOString(), module_sha256: modSha, steps: mine }, null, 1));
+717673	  // every device run so far for THIS module (a device file of another module hash is stale and is dropped)
+717675	  for (const d of ALL_DEVICES) {
+717676	    const f = path.join(OUT, 'steps-' + d.replace(/ /g, '_') + '.json');
+717677	    let j = null; try { j = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) {}
+717678	    if (j && j.module_sha256 === modSha) all.push(...j.steps); else missing.push(d);
+717679	  missing.forEach(d => all.push({ device: d, scenario: '-', step: 'device run for this module', pass: false, detail: 'no run of module ' + modSha.slice(0, 12) + ' on ' + d + ' in ' + OUT }));
+717680	  (py ? py.results : [{ test: 'drift_test.py', pass: false, detail: 'not run' }]).forEach(t => all.push({ device: 'python', scenario: 'P' + (t.test.match(/^P(\d)/) || [, '?'])[1], step: t.test, pass: t.pass, detail: t.detail }));
+717682	    const imgs = fs.readdirSync(path.join(HERE, 'img')).filter(f => /\.png$/.test(f));
+717683	    const big = imgs.filter(f => fs.statSync(path.join(HERE, 'img', f)).size >= 300 * 1024);
+717684	    all.push({ device: 'files', scenario: '-', step: 'img/ at most 4 PNG, each < 300 KB', pass: imgs.length <= 4 && !big.length,
+717685	      detail: imgs.map(f => f + ' ' + Math.round(fs.statSync(path.join(HERE, 'img', f)).size / 1024) + ' KB').join(', ') });
+717690	    const t = ['# TEST.md — Opus team 8, step 8 the drift (P1-P5: drift_test.py and P4 on Android)', '',
+717691	      'Written by `handoff/08-drift/test.cjs` (OPUS-8 tester). P1 determinism, P2 refusal, P3 ground truth by `git show`, the data half of P4 and P5 are `drift_test.py` (device `python`, independent of `tools/drift.py --check`); P4 on the page is Playwright with real touch on Pixel 7 and Galaxy S24, scenario A no drift module, B drift admitted, C drift admitted and data/drift.json answering 404.', '',
+717692	      'tools/drift.py sha256 `' + (py && py.tool_sha256 || '?') + '`; keys.json sha256 `' + (py && py.keys_json_sha256 || '?') + '`.', '',
+717697	      'RESULT: ' + report.result + ' (' + (all.length - fails.length) + ' of ' + all.length + ')', '',
+717698	      ...((py && py.info || []).length ? ['Measured, not pass/fail (drift_test.py):', '', ...py.info.map(x => '- ' + x), ''] : [])];
+717700	  console.log('RESULT: ' + report.result + ' (' + (all.length - fails.length) + ' of ' + all.length + ')' + (PRE ? ' pre-integration' : '') + (fails.length ? ' · failing: ' + fails.map(f => f.device + ' ' + f.step).join('; ') : ''));
+717737	// NL-010 step 9 (Opus team 9, 2026-11-02): THE GATE. This file is team 10's copy (handoff/10-integration/android-journey.cjs,
+717738	// sha256 ecde2f34...e911, itself FIXES/NL-009/android-journey.cjs with the selector changes above) adopted as the release
+717739	// law's Android journey (editions/LAW.md 9.4) so the gate and the integrator's runs are one script. Added, nothing removed:
+717740	//   --proof <file>   writes the law-shaped record to <file>; the integrator passes editions/<stamp>/proof/android-journey.json
+717741	//   --merge <proof> <report.json>...  combines saved per-device report.json files (one device per process, as the
+717742	//                    integrator runs) and any run's --law extras into one record, written to <proof>
+717743	//   (b) is read from the --law pass at 360 and 393 px: Playwright's 'Pixel 7' is 412x839 and 'Galaxy S24' 360x780.
+717744	//   --law            also runs the law's extra measurements (9.4 (k) bar one row at 360/393/412/430 px, (l) every bar
+717745	//                    title at least 44 px tall, (m) "see through" named on the page and its control on the bar row,
+717746	//                    (o) with --disable-webgl --disable-webgl2 the page shows a sentence, not a blank screen), one
+717747	//                    context at a time.
+717748	//   The record maps every journey step to the law's letters (a)-(o); a law step no measurement covers is written
+717749	//   NOT EVALUATED with the reason (LAWS.md:156); MINOR steps are reported and do not block. gate = PASS only when every
+717750	//   non-MINOR step was measured and passed; FAIL when one failed; otherwise NOT EVALUATED, never PASS (LAW.md 9.4).
+717752	const positional = argv.filter((a, i) => !a.startsWith('--') && !['--device', '--devices', '--proof', '--merge'].includes(argv[i - 1]));
+717754	if (positional.length < (argv.includes('--merge') ? 1 : 2)) { console.error('usage: node android-journey.cjs <url> <outdir> [--device NAME] [--all] [--devices A,B] [--law] [--proof FILE]\n       node android-journey.cjs --merge <proof.json> <report.json> [<report.json> ...]   (one report per device process; any run with --law adds its extras)'); process.exit(2); }
+717755	const URL0 = positional[0], OUT = path.resolve(positional[1] || ".");
+718094	// ------------------------------------------------------------------ NL-010 step 9: the law's extra measurements and the record
+718095	const LAW_WIDTHS = [360, 393, 412, 430];
+718096	async function lawExtras(browser) {
+718097	  const res = { widths: [], noWebgl: null };
+718098	  for (const w of LAW_WIDTHS) {                      // one context at a time (the machine is shared)
+718099	    const base = w === 360 ? devices['Galaxy S24'] : devices['Pixel 7'];
+718100	    const ctx = await browser.newContext({ ...base, viewport: { width: w, height: base.viewport.height }, locale: 'en-GB' });
+718101	    const page = await ctx.newPage(); page.setDefaultTimeout(180000);
+718102	    const errs = []; page.on('pageerror', e => errs.push(String(e.message || e).slice(0, 200)));
+718103	    page.on('console', m => { if (m.type() === 'error') errs.push(m.text().slice(0, 200)); });
+718104	      await page.goto(URL0, { waitUntil: 'load', timeout: 120000 }); await sleep(FIXED_WAIT);
+718105	      const m = await page.evaluate(() => {
+718106	        const shell = document.querySelector('#kuiper-menu-bar'), bar = shell || document.querySelector('#bar');
+718107	        const R = el => { const r = el.getBoundingClientRect(); return { left: +r.left.toFixed(1), top: +r.top.toFixed(1), width: +r.width.toFixed(1), height: +r.height.toFixed(1) }; };
+718108	        const vis = el => { const r = el.getBoundingClientRect(), cs = getComputedStyle(el); return r.height > 0 && r.width > 0 && cs.display !== 'none' && cs.visibility !== 'hidden'; };
+718109	        const titles = bar ? [...bar.querySelectorAll('.gm-title')].filter(vis) : [];
+718110	        // the hit box, measured by elementFromPoint along the title's vertical centre line (a padded ::before counts)
+718111	        const hit = t => { const r = t.getBoundingClientRect(), x = (r.left + r.right) / 2, c = (r.top + r.bottom) / 2; let up = 0, dn = 0;
+718112	          for (let y = c; y >= Math.max(0, c - 40); y--) { const e = document.elementFromPoint(x, y); if (e && (e === t || t.contains(e))) up = c - y; else break; }
+718113	          for (let y = c; y <= c + 40; y++) { const e = document.elementFromPoint(x, y); if (e && (e === t || t.contains(e))) dn = y - c; else break; }
+718114	          return +(up + dn + 1).toFixed(1); };
+718115	        const tops = [...new Set(titles.map(t => Math.round(t.getBoundingClientRect().top / 4) * 4))];
+718116	        const st = [...document.querySelectorAll('a, button')].filter(vis).filter(el => /see ?through/i.test(el.textContent) || /see-through/.test(el.getAttribute('href') || ''));
+718117	        const bR = bar ? bar.getBoundingClientRect() : null;
+718118	        return { bar: bar ? R(bar) : null, barId: bar ? (bar.id || bar.tagName) : null, titleCount: titles.length, titleRows: tops.length,
+718119	          titles: titles.map(t => ({ text: t.textContent.trim().slice(0, 24), rect: R(t), hitHeight: hit(t) })),
+718120	          minHitHeight: titles.length ? Math.min(...titles.map(hit)) : null,
+718121	          seeThroughTextCount: ((document.body.innerText || '').match(/see.through/gi) || []).length,
+718122	          seeThroughControls: st.map(el => ({ text: el.textContent.trim().slice(0, 24), rect: R(el), onBarRow: !!bR && el.getBoundingClientRect().top >= bR.top - 1 && el.getBoundingClientRect().bottom <= bR.bottom + 1 })),
+718123	          lockup: (() => { const l = (shell && shell.querySelector('.ventus-brand')) || document.querySelector('#barname'); if (!l || !vis(l)) return null; const r = l.getBoundingClientRect(); return { text: l.textContent.trim().slice(0, 60), rect: R(l), inBar: !!bR && r.top >= bR.top - 1 && r.bottom <= bR.bottom + 1, atTop: r.top < 60 }; })(),
+718124	          docScrollWidth: document.documentElement.scrollWidth, innerWidth };
+718125	      res.widths.push({ width: w, ...m, pageErrors: errs });
+718126	    } catch (e) { res.widths.push({ width: w, error: String(e.message || e).split('\n')[0], pageErrors: errs }); }
+718128	  const b2 = await chromium.launch({ args: ['--disable-webgl', '--disable-webgl2'] });   // 9.4 (o), NL-009 09-robust.md:18
+718129	    const ctx = await b2.newContext({ ...devices['Pixel 7'], locale: 'en-GB' }); const page = await ctx.newPage(); page.setDefaultTimeout(180000);
+718130	    await page.goto(URL0, { waitUntil: 'load', timeout: 120000 }); await sleep(FIXED_WAIT);
+718131	    res.noWebgl = await page.evaluate(() => { const t = (document.body.innerText || '').trim(); const gl = !!document.createElement('canvas').getContext('webgl');
+718132	      return { webglAvailable: gl, visibleWords: t.split(/\s+/).filter(Boolean).length, says: /webgl|graphics|cannot draw|can.t draw|not supported|unavailable/i.test(t), sample: t.slice(0, 200) }; });
+718133	    res.noWebgl.screenshot = await page.screenshot({ path: path.join(OUT, 'law-no-webgl.png'), scale: 'css', timeout: 180000 }).then(() => 'law-no-webgl.png').catch(e => 'FAILED: ' + String(e.message || e).split('\n')[0]);
+718134	  } catch (e) { res.noWebgl = { error: String(e.message || e).split('\n')[0] }; } finally { await b2.close(); }
+718135	// the law's journey (editions/LAW.md 9.4) mapped onto the measured steps; [letter, text, step ids or a function, MINOR]
+718136	function lawRecord(out, extras) {
+718137	  const all = []; for (const d of out.devices) for (const s of d.steps) all.push({ device: d.device, ...s });
+718138	  const pick = (ids, devs) => all.filter(s => (!devs || devs.includes(s.device)) && ids.some(i => i.endsWith('-') ? s.id.startsWith(i) : s.id === i));
+718139	  const verdict = (found, why) => !found.length ? { status: 'NOT EVALUATED', reason: why } :
+718140	    { status: found.every(s => s.pass) ? 'PASS' : 'FAIL', measured: found.map(s => ({ device: s.device, id: s.id, pass: s.pass, note: s.note })) };
+718141	  const ran = out.devices.map(d => d.device);
+718142	  const W = w => extras && extras.widths.find(x => x.width === w);
+718143	  const ex = (f, why) => { if (!extras) return { status: 'NOT EVALUATED', reason: 'run with --law for this measurement' };
+718144	    try { return f(); } catch (e) { return { status: 'NOT EVALUATED', reason: why + ': ' + String(e.message || e) }; } };
+718145	  const steps = [
+718146	    ['a', 'load editions/<stamp>/ with zero console errors', verdict(pick(['load', 'console']), 'no device ran')],
+718147	    ['b', 'the bar is one row at 360 px and 393 px wide and the Ventus lockup is at the top', ex(() => { const m = [360, 393].map(w => ({ width: w, rows: W(w).titleRows, bar: W(w).bar, lockup: W(w).lockup, error: W(w).error }));
+718148	      return { status: m.every(x => !x.error && x.rows === 1 && x.lockup && x.lockup.atTop) ? 'PASS' : 'FAIL', measured: m, note: "read from the --law pass at 360 and 393 px (Playwright's Pixel 7 is 412 px wide, Galaxy S24 360 px)" }; }, 'measurement failed')],
+718149	    ['c', 'each menu title opens, the same tap closes it, a wafer tap closes it, the back gesture closes it', verdict(pick(['edition-open', 'edition-close', 'lines-open', 'panel-dismiss']), 'no device ran')],
+718150	    ['d', 'SEE THROUGH opens ../../see-through/ on the same host', verdict(pick(['see-through']), 'no device ran')],
+718151	    ['e', 'LINES pick closes the panel; the card header is the line of code; the spark is in clear space', verdict(pick(['lines-filter', 'lines-pick', 'card-details', 'card-close']), 'no device ran')],
+718152	    ['f', 'NEXT VERIFIED LINE three times: the same holds each time', verdict(pick(['key-e-']), 'no device ran')],
+718153	    ['g', 'pinch zooms the wafer, not the page; a drag pans, not scrolls', verdict(pick(['pinch-drag']), 'no device ran')],
+718154	    ['h', 'a 4 px spark is hit, or the page says what it hit', verdict(pick(['spark-tap']), 'no device ran')],
+718155	    ['i', 'landscape and font scale 1.3: the bar one row or wrapping by design', (() => { const v = verdict(pick(['load'], ['Pixel 7 landscape']), 'Pixel 7 landscape not run (use --all)');
+718156	      v.reason = (v.reason ? v.reason + '; ' : '') + 'font scale 1.3 NOT EVALUATED: Playwright emulates no Android font scale'; if (v.status === 'PASS') v.status = 'PASS (landscape only)'; return v; })()],
+718157	    ['j', 'every module of modules.json reports admitted, none refused', verdict(pick(['modules']), 'no device ran')],
+718158	    ['k', 'bar one row at 360, 393, 412 and 430 px (NL-009 01-bar.md:13, BLOCKER)', ex(() => { const m = LAW_WIDTHS.map(w => ({ width: w, rows: W(w).titleRows, bar: W(w).bar, error: W(w).error }));
+718159	      return { status: m.every(x => !x.error && x.rows === 1) ? 'PASS' : 'FAIL', measured: m }; }, 'measurement failed')],
+718160	    ['l', 'every bar title has a hit box at least 44 px tall (01-bar.md:18, MAJOR)', ex(() => { const m = LAW_WIDTHS.map(w => ({ width: w, minHitHeight: W(w).minHitHeight, titles: (W(w).titles || []).map(t => t.text + ' ' + t.hitHeight) }));
+718161	      return { status: m.every(x => x.minHitHeight != null && x.minHitHeight >= 44) ? 'PASS' : 'FAIL', measured: m }; }, 'measurement failed')],
+718162	    ['m', 'SEE THROUGH named on the page and reachable on the one row (06-seethrough.md:11 BLOCKER; 01-bar.md:20, 06-seethrough.md:24-32 MAJOR)', ex(() => { const m = LAW_WIDTHS.map(w => ({ width: w, text: W(w).seeThroughTextCount, controls: W(w).seeThroughControls, rows: W(w).titleRows }));
+718163	      return { status: m.every(x => x.text > 0 && (x.controls || []).length > 0 && x.rows === 1) ? 'PASS' : 'FAIL', measured: m, note: 'below 381 px the bottom-left chip is the shell\'s rule (ROADMAP Q7); a control off the bar row is reported, not failed' }; }, 'measurement failed')],
+718164	    ['n', 'after a pick with READOUT open, READOUT is not under the bar (09-robust.md:11, MAJOR)', { status: 'NOT EVALUATED', reason: 'no step of this script opens READOUT (in Edition 5, #hud inside VIEW) before a pick; the integrator names the selector and the step is added' }],
+718165	    ['o', 'with --disable-webgl --disable-webgl2 the page shows a sentence, not a blank screen (09-robust.md:18, MAJOR)', ex(() => { const n = extras.noWebgl; if (n.error) return { status: 'NOT EVALUATED', reason: n.error };
+718166	      if (n.webglAvailable) return { status: 'NOT EVALUATED', reason: 'WebGL still available with the flags', measured: n }; return { status: n.says ? 'PASS' : 'FAIL', measured: n }; }, 'measurement failed')],
+718167	  ].map(([letter, text, v]) => ({ step: letter, text, minor: false, ...v }));
+718168	  const extra = verdict(pick(['whole-wafer', 'harness']), 'not run');
+718169	  if (extra.status !== 'NOT EVALUATED') steps.push({ step: 'nl009', text: 'NL-009 steps outside (a)-(o): WHOLE WAFER, harness', minor: false, ...extra });
+718170	  const MINORS = ['sticky hover (01-bar.md:27-33)', 'safe-area insets (01-bar.md:27-33)', 'dvh (01-bar.md:27-33)', 'landscape scroll in the EDITION panel (06-seethrough.md:33)',
+718171	    'noscript (09-robust.md:23-36)', 'keys.json 404 said in the open (09-robust.md:23-36)', 'Escape closes the card (09-robust.md:23-36)', 'reduced motion (09-robust.md:23-36)', 'ARIA (09-robust.md:23-36)'];
+718172	  for (const t of MINORS) steps.push({ step: 'minor', text: t, minor: true, status: 'NOT EVALUATED', reason: 'MINOR: not measured by this script; reported, does not block ACCEPT' });
+718173	  const blocking = steps.filter(s => !s.minor && s.status === 'FAIL');
+718174	  const notEval = steps.filter(s => s.status === 'NOT EVALUATED' || /\(.*only\)/.test(s.status));
+718175	  const unmeasured = steps.filter(s => !s.minor && s.status !== 'PASS');   // a required step not measured is never a PASS
+718176	  const gate = blocking.length ? 'FAIL' : unmeasured.length ? 'NOT EVALUATED' : 'PASS';
+718177	  return { schema: 'kuiper.android-journey.v1', law: 'editions/LAW.md 9.4', url: out.url, generatedAt: out.generatedAt, finishedAt: new Date().toISOString(),
+718178	    script: { file: 'android-journey.cjs', bytes: fs.statSync(__filename).size, sha256: require('crypto').createHash('sha256').update(fs.readFileSync(__filename)).digest('hex') },
+718179	    devices: out.summary, steps, gate, failed: blocking.map(s => s.step), not_evaluated: notEval.map(s => s.step + ': ' + (s.reason || s.status)),
+718180	    rule: 'gate PASS only when every non-MINOR step was measured and is PASS; FAIL when one failed; otherwise NOT EVALUATED, never PASS; the NOT EVALUATED list goes in PR A\'s body; agents never post ACCEPT' };
+718181	  if (flag('--merge')) {                              // one device per process: combine the saved report.json files
+718182	    const pf = path.resolve(String(flag('--merge')));
+718183	    const out = { url: null, outdir: null, generatedAt: null, devices: [], merged_from: [] }; let extras = null;
+718184	    for (const f of positional) {
+718185	      const r = JSON.parse(fs.readFileSync(f, 'utf8'));
+718186	      if (out.url && r.url !== out.url) throw new Error('reports name different urls: ' + out.url + ' and ' + r.url);
+718187	      out.url = r.url; out.generatedAt = out.generatedAt && out.generatedAt < r.generatedAt ? out.generatedAt : r.generatedAt;
+718188	      for (const d of r.devices || []) { if (out.devices.some(x => x.device === d.device)) throw new Error('device twice: ' + d.device); out.devices.push(d); }
+718189	      if (r.law_extras) { if (extras) throw new Error('two --law passes in the merge'); extras = r.law_extras; }
+718190	      out.merged_from.push({ file: path.resolve(f), sha256: require('crypto').createHash('sha256').update(fs.readFileSync(f)).digest('hex'), devices: (r.devices || []).map(d => d.device), law: !!r.law_extras });
+718191	    out.summary = out.devices.map(d => ({ device: d.device, passed: d.passed, failed: d.failed, failedSteps: d.steps.filter(s => !s.pass).map(s => s.id), consoleErrors: (d.consoleErrors || []).length }));
+718192	    const law = lawRecord(out, extras); law.merged_from = out.merged_from;
+718193	    fs.mkdirSync(path.dirname(pf), { recursive: true }); fs.writeFileSync(pf, JSON.stringify(law, null, 1) + '\n');
+718194	    console.log('LAW GATE: ' + law.gate + (law.failed.length ? ' (failed: ' + law.failed.join(', ') + ')' : '') + '; NOT EVALUATED: ' + law.not_evaluated.length + '; wrote ' + pf);
+718195	    process.exit(law.gate === 'PASS' ? 0 : 1);
+718197	  let extras = null;
+718198	    for (const d of DEVICES) { out.devices.push(await runDevice(browser, d)); fs.writeFileSync(path.join(OUT, 'report.json'), JSON.stringify(out, null, 1)); }
+718199	    if (flag('--law')) { extras = await lawExtras(browser); out.law_extras = extras; }
+718203	  const law = lawRecord(out, extras); out.law = { gate: law.gate, failed: law.failed, not_evaluated: law.not_evaluated };
+718204	  if (flag('--proof')) { const pf = path.resolve(String(flag('--proof'))); fs.mkdirSync(path.dirname(pf), { recursive: true }); fs.writeFileSync(pf, JSON.stringify(law, null, 1) + '\n'); }
+718205	  console.log(JSON.stringify(out.summary, null, 1)); console.log('LAW GATE: ' + law.gate + (law.failed.length ? ' (failed: ' + law.failed.join(', ') + ')' : '') + '; NOT EVALUATED: ' + law.not_evaluated.length);
+718206	  process.exit(out.pass && law.gate === 'PASS' ? 0 : 1);
+718207	"""test_edition_check.py: the negative tests of tools/edition_check.py (editions/LAW.md 9.3; NL-010 roadmap step 9).
+718208	Apache-2.0 (kuiper-belt code), kuiper-belt README.md:156-157. Written by Opus team 9 (builder).
+718209	ROADMAP step 9, the Opus team 9 brief: "Write tools/edition_check.py with E1-E9 and a negative test for each".
+718210	Every test below builds a small synthetic repository (two edition folders, a pointer, a hook table, two modules, a
+718211	loader reference, a drift layer and a stub tools/drift.py), checks that the untouched copy prints `RESULT: PASS` with
+718212	E1-E9 each PASS (also under --strict), then breaks exactly one thing the law forbids and asserts:
+718213	  - the check that guards it prints FAIL (or NOT EVALUATED where the law says so),
+718214	  - the failure names what was broken (the words the law asks for, e.g. `refused: sha256 mismatch`),
+718215	  - no other check changes its verdict (the expected set of failing checks is written per test),
+718216	  - `RESULT: FAIL` and exit code 1.
+718217	The fixture is synthetic so the suite runs on a GitHub runner with no estate clones and no browser; `--real` adds
+718218	mutations of a copy of this repository's own newest Edition 5 folder (E1-E4 only; E9 is skipped there with
+718219	--estate pointing nowhere).
+718220	  python3 editions/<stamp>/handoff/09-law/test_edition_check.py            the synthetic suite
+718221	  python3 editions/<stamp>/handoff/09-law/test_edition_check.py --real     plus the copy of the real folder
+718222	  EDITION_CHECK=/path/to/edition_check.py ...                              test another copy of the tool
+718223	import hashlib, io, json, os, re, shutil, subprocess, sys, tempfile, unittest
+718224	REAL = '--real' in sys.argv
+718225	if REAL:
+718226	    sys.argv.remove('--real')
+718227	def find_root():
+718228	    d = HERE
+718229	    for _ in range(8):
+718230	        if os.path.isfile(os.path.join(d, 'tools', 'edition_check.py')):
+718232	        d = os.path.dirname(d)
+718234	ROOT = find_root()
+718235	TOOL = os.environ.get('EDITION_CHECK') or (ROOT and os.path.join(ROOT, 'tools', 'edition_check.py'))
+718236	OLD, NEW, THIRD = '202601010000', '202601020000', '202601030000'
+718237	G_REF, G_HELLO, G_GREET = '202601020000', '202601020001', '202601020002'
+718238	BEGIN = '// ======================================== KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · begin (fixture)'
+718239	END = '// ======================================== KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · end'
+718240	BLOCK = BEGIN + "\nconst KY_NAMES = Object.freeze(['keyPlace', 'address', 'card', 'redraw']);\n" + END
+718241	CODES = ['E%d' % i for i in range(1, 10)]
+718242	def write(p, s):
+718244	    with io.open(p, 'wb') as f:
+718245	        f.write(s.encode('utf-8') if isinstance(s, str) else s)
+718247	    with io.open(p, 'r', encoding='utf-8') as f:
+718250	    with io.open(p, 'rb') as f:
+718252	def module_src(mid, gen, requires, body):
+718253	    return ('/* kuiper module %s, generation %s (UTC), Apache-2.0 (kuiper-belt) */\n'
+718254	            '(function () {\n  \'use strict\';\n'
+718255	            '  window.KY.register({ id: \'%s\', requires: %s, install: function (ky) {\n%s\n  } });\n})();\n'
+718256	            % (mid, gen, mid, json.dumps(requires), body))
+718257	HELLO = module_src('hello', G_HELLO, ['keyPlace', 'redraw'],
+718258	                   "    var d = document.createElement('div'); d.id = 'ky-hello'; document.body.appendChild(d); ky.redraw();")
+718259	GREET = module_src('greet', G_GREET, ['hello', 'card'],
+718260	                   "    var s = document.createElement('style'); s.id = 'ky-greet-style'; document.head.appendChild(s);")
+718261	REF = ('/* kuiper loader reference, generation %s (UTC), Apache-2.0 (kuiper-belt) */\n'
+718262	       '// fixture: the reviewable copy of the hook-table block of index.html\n%s\n' % (G_REF, BLOCK))
+718263	PAGE_NEW = ('<!doctype html>\n<html><head><meta charset="utf-8"><title>Fixture Edition 5</title></head>\n<body>\n'
+718264	            '<canvas id="c"></canvas>\n<script type="application/json" id="cfg">{"not": "javascript"}</script>\n'
+718265	            '<script>\nconst cx = 1;\n%s\nwindow.KY = Object.freeze({ names: KY_NAMES });\n</script>\n</body></html>\n' % BLOCK)
+718266	PAGE_OLD = ('<!doctype html>\n<html><head><meta charset="utf-8"><title>Fixture Edition 4</title></head>\n<body>\n'
+718267	            '<script>\nfunction edCard(i) { return i + 1; }\n</script>\n</body></html>\n')
+718268	KEYS = '{"bodies": [{"key": 1, "line_text": "const a = 1;", "verified": true}]}\n'
+718269	def pointer(stamp, tail=" + location.search + location.hash", extra=''):
+718270	    return ('<!doctype html>\n<html><head><meta charset="utf-8">\n'
+718271	            '<meta http-equiv="refresh" content="0; url=%s/">\n<title>Kuiper editions</title></head>\n<body>\n'
+718272	            '<p><a href="%s/">the current edition</a></p>%s\n'
+718273	            "<script>location.replace('%s/'%s)</script>\n</body></html>\n" % (stamp, stamp, extra, stamp, tail))
+718274	# the stub drift: re-computes data/drift.json from the clones it is pointed at, deterministically (the real tool is
+718275	# tools/drift.py, team 8; E9 only compares bytes, so the stub proves the comparison, not the drift)
+718276	DRIFT_STUB = r'''import json, os, sys
+718277	a = sys.argv[1:]; o = {a[i]: a[i + 1] for i in range(0, len(a) - 1, 2)}
+718278	heads = json.load(open(o['--heads']))['heads']
+718279	count = {r: len([n for n in os.listdir(os.path.join(o['--estate'], r)) if n != '.git']) for r in sorted(heads)}
+718280	json.dump({'edition': o['--edition'], 'heads': heads, 'files': count}, open(o['--out'], 'w'), indent=1, sort_keys=True)
+718281	open(o['--out'], 'a').write('\n')
+718283	def cut_proof(ed):
+718285	    for dp, dn, fn in os.walk(ed):
+718286	        for f in fn:
+718287	            rel = os.path.relpath(os.path.join(dp, f), ed).replace(os.sep, '/')
+718288	            if rel != 'proof/edition-sha256.txt':
+718289	                rows.append('%s  %s' % (sha(os.path.join(dp, f)), rel))
+718290	    write(os.path.join(ed, 'proof', 'edition-sha256.txt'), '\n'.join(sorted(rows, key=lambda r: r[66:])) + '\n')
+718292	    """a synthetic repository under a temporary folder: <tmp>/repo (the root) and <tmp>/estate (the clones E9 reads)"""
+718293	    template = None
+718295	    def build_template(cls):
+718296	        t = tempfile.mkdtemp(prefix='edition-check-fixture-')
+718297	        root, estate = os.path.join(t, 'repo'), os.path.join(t, 'estate')
+718298	        old, new = os.path.join(root, 'editions', OLD), os.path.join(root, 'editions', NEW)
+718299	        write(os.path.join(old, 'index.html'), PAGE_OLD)
+718300	        write(os.path.join(old, 'keys.json'), KEYS)
+718301	        write(os.path.join(old, 'README.md'), '# Fixture Edition 4\n')
+718302	        cut_proof(old)
+718303	        write(os.path.join(new, 'index.html'), PAGE_NEW)
+718304	        write(os.path.join(new, 'keys.json'), KEYS)
+718305	        write(os.path.join(new, 'README.md'), '# Fixture Edition 5\n\nWhat changed from Edition 4: two modules.\n')
+718306	        write(os.path.join(new, 'modules', G_HELLO + '-hello.js'), HELLO)
+718307	        write(os.path.join(new, 'modules', G_GREET + '-greet.js'), GREET)
+718308	        write(os.path.join(new, 'modules', G_REF + '-loader.js'), REF)
+718309	        write(os.path.join(new, 'handoff', '09-law', 'PLAN.md'), '# fixture hand-off\n')
+718310	        for r, n in (('repoa', 2), ('repob', 3)):
+718311	            os.makedirs(os.path.join(estate, r, '.git'))
+718312	            for k in range(n):
+718313	                write(os.path.join(estate, r, 'f%d.txt' % k), 'x%d\n' % k)
+718314	        write(os.path.join(root, 'tools', 'drift.py'), DRIFT_STUB)
+718315	        heads = {'repoa': {'sha': 'a' * 40}, 'repob': {'sha': 'b' * 40}}
+718316	        write(os.path.join(new, 'data', 'drift.json'), json.dumps({'heads': heads}))
+718317	        out = os.path.join(t, 'drift.out')
+718318	        subprocess.run([sys.executable, os.path.join(root, 'tools', 'drift.py'), '--root', root, '--edition', NEW,
+718319	                        '--estate', estate, '--heads', os.path.join(new, 'data', 'drift.json'), '--out', out], check=True)
+718320	        shutil.move(out, os.path.join(new, 'data', 'drift.json'))
+718321	        man = {'schema': 'kuiper.modules.v1', 'edition': NEW, 'hooks': 'kuiper.hooks.v1', 'order': ['hello', 'greet'],
+718322	               'modules': [
+718323	                   {'id': 'hello', 'generation': G_HELLO, 'path': 'modules/%s-hello.js' % G_HELLO, 'requires': ['keyPlace', 'redraw'],
+718324	                    'provides': ['hello'], 'reads': [], 'writes': ['window.KY.modules.hello', '#ky-hello'], 'licence': 'Apache-2.0', 'team': '04'},
+718325	                   {'id': 'greet', 'generation': G_GREET, 'path': 'modules/%s-greet.js' % G_GREET, 'requires': ['hello', 'card'],
+718326	                    'provides': ['greet'], 'reads': [], 'writes': ['window.KY.modules.greet', '#ky-greet-style'], 'licence': 'Apache-2.0', 'team': '09'}],
+718327	               'references': [{'file': 'modules/%s-loader.js' % G_REF, 'generation': G_REF, 'licence': 'Apache-2.0', 'team': '04'}]}
+718328	        write(os.path.join(new, 'modules.json'), json.dumps(man, indent=1))
+718329	        write(os.path.join(root, 'editions', 'index.html'), pointer(NEW))
+718330	        f = cls.__new__(cls); f.tmp, f.root, f.estate = t, root, estate
+718331	        f.rehash()
+718332	        cls.template = t
+718334	        if Fixture.template is None:
+718335	            Fixture.build_template()
+718336	        self.tmp = tempfile.mkdtemp(prefix='edition-check-case-')
+718337	        shutil.rmtree(self.tmp)
+718338	        shutil.copytree(Fixture.template, self.tmp, symlinks=True)
+718339	        self.root, self.estate = os.path.join(self.tmp, 'repo'), os.path.join(self.tmp, 'estate')
+718340	    def ed(self, stamp=NEW):
+718341	        return os.path.join(self.root, 'editions', stamp)
+718342	    def p(self, rel, stamp=NEW):
+718343	        return os.path.join(self.ed(stamp), rel)
+718344	    def manifest(self):
+718345	        return json.loads(read(self.p('modules.json')))
+718346	    def set_manifest(self, man, rehash=True):
+718347	        write(self.p('modules.json'), json.dumps(man, indent=1))
+718348	        if rehash:
+718349	            self.recut()
+718350	    def rehash(self):
+718351	        """record every module's and reference's sha256 and bytes in modules.json, then re-cut the new folder's proof"""
+718352	        man = self.manifest()
+718353	        for r in man['modules']:
+718354	            q = self.p(r['path'])
+718355	            if os.path.isfile(q):
+718356	                r['sha256'], r['bytes'] = sha(q), os.path.getsize(q)
+718357	        for r in man.get('references', []):
+718358	            q = self.p(r['file'])
+718359	        self.recut()
+718360	    def recut(self, stamp=NEW):
+718361	        cut_proof(self.ed(stamp))
+718362	    def edit(self, rel, old, new, stamp=NEW, count=1):
+718363	        t = read(self.p(rel, stamp))
+718364	        assert old in t, (rel, old)
+718365	        write(self.p(rel, stamp), t.replace(old, new, count))
+718366	    def run(self, *flags, folder=True):
+718367	        args = [sys.executable, TOOL, '--root', self.root, '--estate', self.estate] + list(flags)
+718368	        if folder:
+718369	            args.append(self.ed())
+718370	        r = subprocess.run(args, capture_output=True, text=True, cwd=self.tmp)
+718371	        return Result(r)
+718374	class Result:
+718375	    LINE = re.compile(r'^(E\d) (PASS|FAIL|NOT EVALUATED)(?::\s?(.*))?$')
+718376	    def __init__(self, r):
+718377	        self.code, self.out = r.returncode, r.stdout + r.stderr
+718378	        self.status, self.text, self.skips = {}, {}, []
+718379	        for ln in r.stdout.splitlines():
+718380	            m = self.LINE.match(ln)
+718382	                self.status[m.group(1)], self.text[m.group(1)] = m.group(2), m.group(3) or ''
+718383	            elif ln.startswith('  - E'):
+718384	                self.skips.append(ln[4:])
+718385	        m = re.search(r'^RESULT: (PASS|FAIL)$', r.stdout, re.M)
+718386	        self.result = m.group(1) if m else None
+718387	    def failing(self):
+718388	        return set(c for c, s in self.status.items() if s == 'FAIL')
+718389	@unittest.skipIf(not TOOL or not os.path.isfile(TOOL), 'tools/edition_check.py not found (set EDITION_CHECK)')
+718392	        self.f = Fixture()
+718394	        self.f.close()
+718395	    def assertFails(self, r, expected, words=(), code=None):
+718396	        """the checks in `expected` FAIL, every other check of E1-E9 does not, RESULT: FAIL, exit 1, and `words` appear in
+718397	        the FAIL line of `code` (default: the first of expected)"""
+718398	        msg = '\n' + r.out
+718399	        self.assertEqual(sorted(r.status), CODES, 'every check prints one line' + msg)
+718400	        self.assertEqual(r.failing(), set(expected), 'failing checks' + msg)
+718401	        self.assertEqual(r.result, 'FAIL', msg)
+718402	        self.assertEqual(r.code, 1, msg)
+718403	        c = code or sorted(expected)[0]
+718404	        for w in words:
+718405	            self.assertIn(w, r.text[c], '%s FAIL line names %r%s' % (c, w, msg))
+718406	    def assertPasses(self, r):
+718407	        self.assertEqual(sorted(r.status), CODES, msg)
+718408	        self.assertEqual(r.failing(), set(), msg)
+718409	        self.assertEqual(r.result, 'PASS', msg)
+718410	        self.assertEqual(r.code, 0, msg)
+718411	class T0Baseline(Base):
+718412	    def test_untouched_fixture_passes_every_check(self):
+718413	        r = self.f.run()
+718414	        self.assertPasses(r)
+718415	        self.assertEqual(set(r.status.values()), {'PASS'}, r.out)
+718416	        self.assertEqual(r.skips, [], r.out)
+718417	    def test_untouched_fixture_passes_strict(self):
+718418	        self.assertPasses(self.f.run('--strict'))
+718419	    def test_default_selection_finds_the_folder_with_modules_json(self):
+718420	        r = self.f.run(folder=False)
+718421	        self.assertIn('editions/' + NEW, r.out)
+718422	        self.assertNotIn('editions/%s,' % OLD, r.out)
+718423	class T1Parse(Base):
+718424	    """E1 every <script> block of every editions/*/index.html and every modules/*.js pass node --check"""
+718425	    def test_module_syntax_error(self):
+718426	        self.f.edit('modules/%s-greet.js' % G_GREET, "document.head.appendChild(s);", "document.head.appendChild(s;")
+718427	        self.f.rehash()
+718428	        self.assertFails(self.f.run(), {'E1', 'E8'}, ['modules/%s-greet.js' % G_GREET, 'SyntaxError'])
+718429	    def test_older_edition_page_script_syntax_error(self):
+718430	        # every editions/*/index.html, not only the folder checked (ci_check.py:68 parses root pages only)
+718431	        self.f.edit('index.html', 'return i + 1;', 'return i + ;', stamp=OLD)
+718432	        self.f.recut(OLD)
+718433	        self.assertFails(self.f.run(), {'E1'}, ['editions/%s/index.html script' % OLD])
+718434	    def test_unreferenced_js_in_modules_is_parsed(self):
+718435	        # the loader reference is in no `modules` record (E7/E8 never read it) and its hook-table block is untouched (E6)
+718436	        self.f.edit('modules/%s-loader.js' % G_REF, '// fixture: the reviewable copy', '(; // fixture: the reviewable copy')
+718437	        self.assertFails(self.f.run(), {'E1'}, ['modules/%s-loader.js' % G_REF, 'SyntaxError'])
+718438	    def test_json_script_block_is_not_parsed_as_javascript(self):
+718439	        # one JavaScript block per page; the application/json block of the new page is not handed to node --check
+718440	        self.assertIn('2 script blocks in 2 editions/*/index.html', r.text['E1'])
+718441	class T2Manifest(Base):
+718442	    """E2 every record exists, hashes as recorded and has its bytes; every order id has a record; no stray file"""
+718443	    def test_one_altered_byte_is_refused_sha256_mismatch(self):
+718444	        p = self.f.p('modules/%s-hello.js' % G_HELLO)
+718445	        b = bytearray(open(p, 'rb').read()); i = b.index(b"'use strict'"); b[i + 5] = ord('S')   # 'use Strict': parses, same length
+718446	        write(p, bytes(b)); self.f.recut()           # same length; the proof re-cut so only the manifest can see it
+718447	        self.assertFails(self.f.run(), {'E2'}, ['hello refused: sha256 mismatch'])
+718448	    def test_bytes_disagree(self):
+718449	        man = self.f.manifest(); man['modules'][0]['bytes'] += 1
+718450	        self.f.set_manifest(man)
+718451	        self.assertFails(self.f.run(), {'E2'}, ['hello: bytes'])
+718452	    def test_record_whose_file_is_missing(self):
+718453	        os.remove(self.f.p('modules/%s-greet.js' % G_GREET)); self.f.recut()
+718454	        self.assertFails(self.f.run(), {'E2'}, ['greet: modules/%s-greet.js missing' % G_GREET])
+718455	    def test_path_outside_modules(self):
+718456	        man = self.f.manifest(); man['modules'][1]['path'] = '../%s/greet.js' % OLD
+718457	        # greet's own file is now named by no record: E2 also reports it as a stray file
+718458	        self.assertFails(self.f.run(), {'E2'}, ['greet: path', 'is not inside modules/', 'stray file'])
+718459	    def test_path_outside_modules_to_an_existing_file(self):
+718460	        # a record that escapes modules/ is refused by E2; E6-E8 still read the file it names (here the older
+718461	        # folder's keys.json) and fail on it too, so the verdict is FAIL either way
+718462	        man = self.f.manifest(); man['modules'][1]['path'] = '../%s/keys.json' % OLD
+718463	        self.assertFails(self.f.run(), {'E2', 'E6', 'E7', 'E8'}, ['is not inside modules/'])
+718464	    def test_stray_file_named_by_nobody(self):
+718465	        write(self.f.p('modules/202601020003-stray.js'), '/* stray */\nvar s = 1;\n'); self.f.recut()
+718466	        self.assertFails(self.f.run(), {'E2'}, ['modules/202601020003-stray.js', 'stray file'])
+718467	    def test_order_names_an_id_with_no_record(self):
+718468	        man = self.f.manifest(); man['order'].append('ghost')
+718469	        self.assertFails(self.f.run(), {'E2'}, ['order names ghost, no record'])
+718470	    def test_duplicate_id(self):
+718471	        man = self.f.manifest(); dup = dict(man['modules'][1]); man['modules'].append(dup)
+718472	        self.assertIn('E2', r.failing(), r.out)
+718473	        self.assertIn('id greet has 2 records', r.text['E2'], r.out)
+718474	    def test_wrong_schema_and_edition(self):
+718475	        man = self.f.manifest(); man['schema'] = 'kuiper.modules.v0'; man['edition'] = OLD
+718476	        self.assertIn("modules.json schema 'kuiper.modules.v0'", r.text['E2'], r.out)
+718477	        self.assertIn("modules.json edition '%s'" % OLD, r.text['E2'], r.out)
+718478	    def test_unreadable_manifest(self):
+718479	        write(self.f.p('modules.json'), '{"schema": '); self.f.recut()
+718480	        self.assertIn('modules.json:', r.text['E2'], r.out)
+718481	        self.assertEqual(r.result, 'FAIL', r.out)
+718482	    def test_file_named_by_a_handoff_is_pending_not_evaluated_and_strict_fails(self):
+718483	        write(self.f.p('modules/202601020004-pending.js'), '/* pending */\nvar p = 1;\n')
+718484	        write(self.f.p('handoff/09-law/MODULE.sha256'), '%s  modules/202601020004-pending.js\n' % sha(self.f.p('modules/202601020004-pending.js')))
+718485	        self.f.recut()
+718486	        self.assertTrue(any(s.startswith('E2: ') and '202601020004-pending.js' in s for s in r.skips), r.out)
+718487	        r = self.f.run('--strict')
+718488	        self.assertEqual(r.code, 1, r.out)
+718489	        self.assertIn('NOT EVALUATED', r.out)
+718490	class T3Proof(Base):
+718491	    """E3 proof/edition-sha256.txt of every folder matches every file and lists every file but itself"""
+718492	    def test_earlier_folder_edited(self):
+718493	        self.f.edit('README.md', 'Edition 4', 'Edition 4 (edited)', stamp=OLD)
+718494	        self.assertFails(self.f.run(), {'E3'}, ['editions/%s: README.md sha256' % OLD])
+718495	    def test_file_added_and_not_listed(self):
+718496	        write(self.f.p('data/extra.json'), '{}\n')
+718497	        self.assertFails(self.f.run(), {'E3'}, ['data/extra.json not in proof/edition-sha256.txt'])
+718498	    def test_listed_file_missing(self):
+718499	        os.remove(self.f.p('README.md', OLD))
+718500	        self.assertFails(self.f.run(), {'E3'}, ['README.md listed, missing'])
+718501	    def test_unreadable_line(self):
+718502	        with open(self.f.p('proof/edition-sha256.txt'), 'a') as fh:
+718503	            fh.write('not a sha line\n')
+718504	        self.assertFails(self.f.run(), {'E3'}, ['unreadable line'])
+718505	    def test_no_proof_yet_is_not_evaluated_strict_fails_pre_cut_allows(self):
+718506	        os.remove(self.f.p('proof/edition-sha256.txt'))
+718507	        # the pointer must name a folder with a proof (E4): point it at the older folder while this one is uncut
+718508	        write(os.path.join(self.f.root, 'editions', 'index.html'), pointer(OLD, ' + location.hash'))
+718509	        self.assertTrue(any(s.startswith('E3: ') and 'no proof/edition-sha256.txt yet' in s for s in r.skips), r.out)
+718510	        self.assertEqual((r.result, r.code), ('FAIL', 1), r.out)
+718511	        self.assertIn('NOT EVALUATED:', r.out)
+718512	        r = self.f.run('--strict', '--pre-cut')
+718513	        self.assertIn('(allowed by --pre-cut)', r.out)
+718514	    def test_pre_cut_allows_nothing_else(self):
+718515	        os.makedirs(os.path.join(self.f.estate, 'gone'))     # not a clone: harmless
+718516	        shutil.rmtree(os.path.join(self.f.estate, 'repob'))  # E9 now NOT EVALUATED, which --pre-cut must not excuse
+718517	class T4Pointer(Base):
+718518	    """E4 the pointer names one stamp in exactly three places, never /belt/, a folder with a proof, and from Edition 5
+718519	    forwards location.search + location.hash"""
+718520	    def ptr(self, text):
+718521	        write(os.path.join(self.f.root, 'editions', 'index.html'), text)
+718522	    def test_stamps_disagree(self):
+718523	        self.ptr(pointer(NEW).replace('<a href="%s/">' % NEW, '<a href="%s/">' % OLD))
+718524	        self.assertFails(self.f.run(), {'E4'}, ['pointer stamps disagree'])
+718525	    def test_a_fourth_stamp(self):
+718526	        self.ptr(pointer(NEW, extra='\n<!-- previous: %s -->' % OLD))
+718527	        self.assertFails(self.f.run(), {'E4'}, ['twelve-digit stamps, not 3'])
+718528	    def test_a_place_missing(self):
+718529	        self.ptr(re.sub(r'<meta http-equiv="refresh"[^>]*>\n', '', pointer(NEW)))
+718530	        self.assertFails(self.f.run(), {'E4'}, ['meta refresh 0, link 1, location.replace 1'])
+718531	    def test_belt_in_the_pointer(self):
+718532	        self.ptr(pointer(NEW).replace('<title>', '<link rel="prev" href="/belt/"><title>'))
+718533	        self.assertFails(self.f.run(), {'E4'}, ['/belt/'])
+718534	    def test_names_a_folder_without_proof(self):
+718535	        write(os.path.join(self.f.ed(THIRD), 'index.html'), PAGE_OLD)
+718536	        self.ptr(pointer(THIRD, ' + location.hash'))
+718537	        self.assertFails(self.f.run(), {'E4'}, ['editions/%s/proof/edition-sha256.txt missing' % THIRD])
+718538	    def test_names_a_folder_that_does_not_exist(self):
+718539	        self.ptr(pointer('202612312359'))
+718540	        self.assertFails(self.f.run(), {'E4'}, ['proof/edition-sha256.txt missing'])
+718541	    def test_edition5_pointer_forwarding_hash_only(self):
+718542	        self.ptr(pointer(NEW, ' + location.hash'))
+718543	        self.assertFails(self.f.run(), {'E4'}, ['Edition 5 or later', 'forwards location.hash'])
+718544	    def test_edition5_pointer_forwarding_nothing(self):
+718545	        self.ptr(pointer(NEW, ''))
+718546	        self.assertFails(self.f.run(), {'E4'}, ['forwards nothing'])
+718547	    def test_control_edition4_pointer_may_forward_hash_only(self):
+718548	        self.ptr(pointer(OLD, ' + location.hash'))
+718549	        self.assertIn('search not forwarded', r.text['E4'])
+718550	    def test_no_pointer(self):
+718551	        os.remove(os.path.join(self.f.root, 'editions', 'index.html'))
+718552	        self.assertFails(self.f.run(), {'E4'}, ['no editions/index.html'])
+718553	class T5Keys(Base):
+718554	    """E5 keys.json byte-identical to the previous edition's unless README.md says the findings changed"""
+718555	    def test_keys_changed_silently(self):
+718556	        self.f.edit('keys.json', '"const a = 1;"', '"const a = 2;"'); self.f.recut()
+718557	        self.assertFails(self.f.run(), {'E5'}, ['differs from editions/%s' % OLD, 'names no change to the findings'])
+718558	    def test_one_byte_appended(self):
+718559	        with open(self.f.p('keys.json'), 'a') as fh:
+718560	            fh.write(' ')
+718561	        self.assertFails(self.f.run(), {'E5'}, ['keys.json'])
+718562	    def test_keys_missing(self):
+718563	        os.remove(self.f.p('keys.json')); self.f.recut()
+718564	        self.assertFails(self.f.run(), {'E5'}, ['no keys.json'])
+718565	    def test_control_change_named_in_readme_passes(self):
+718566	        self.f.edit('keys.json', '"const a = 1;"', '"const a = 2;"')
+718567	        self.f.edit('README.md', 'two modules.', 'two modules; the findings changed (one line re-verified).')
+718568	        self.assertIn('README.md says the findings changed', r.text['E5'])
+718569	class T6Stamps(Base):
+718570	    """E6 stamp = file name = header = manifest; licence present; requires within the hook table plus earlier provides;
+718571	    references hash as recorded and carry the page's hook-table block (Opus team 4's check)"""
+718572	    def test_manifest_generation_differs_from_file_name(self):
+718573	        man = self.f.manifest(); man['modules'][0]['generation'] = '202601020009'
+718574	        self.assertFails(self.f.run(), {'E6'}, ['hello refused: stamp mismatch'])
+718575	    def test_header_stamp_differs(self):
+718576	        self.f.edit('modules/%s-hello.js' % G_HELLO, 'generation %s (UTC)' % G_HELLO, 'generation 202601020009 (UTC)')
+718577	        self.assertFails(self.f.run(), {'E6'}, ['hello refused: stamp mismatch: generation %s, header 202601020009' % G_HELLO])
+718578	    def test_header_line_missing(self):
+718579	        self.f.edit('modules/%s-hello.js' % G_HELLO, '/* kuiper module hello,', '/* a module hello,')
+718580	        self.assertFails(self.f.run(), {'E6'}, ['hello: no header line'])
+718581	    def test_header_names_another_module(self):
+718582	        self.f.edit('modules/%s-hello.js' % G_HELLO, '/* kuiper module hello,', '/* kuiper module hallo,')
+718583	        self.assertFails(self.f.run(), {'E6'}, ['hello: header names hallo'])
+718584	    def test_requires_a_hook_that_does_not_exist(self):
+718585	        man = self.f.manifest(); man['modules'][0]['requires'].append('noSuchHook')
+718586	        self.assertFails(self.f.run(), {'E6'}, ['hello refused: missing hook noSuchHook'])
+718587	    def test_requires_a_module_later_in_order(self):
+718588	        man = self.f.manifest(); man['order'] = ['greet', 'hello']
+718589	        self.assertFails(self.f.run(), {'E6'}, ['greet refused: missing hook hello'])
+718590	    def test_no_licence(self):
+718591	        man = self.f.manifest(); man['modules'][1]['licence'] = ' '
+718592	        self.assertFails(self.f.run(), {'E6'}, ['greet: no licence'])
+718593	    def test_generation_not_twelve_digits(self):
+718594	        man = self.f.manifest(); man['modules'][1]['generation'] = '2026010200'
+718595	        self.assertFails(self.f.run(), {'E6'}, ['generation', 'is not twelve digits'])
+718596	    def test_reference_sha256_differs(self):
+718597	        self.f.edit('modules/%s-loader.js' % G_REF, '// fixture:', '// fixture (edited):'); self.f.recut()
+718598	        self.assertFails(self.f.run(), {'E6'}, ['reference modules/%s-loader.js sha256' % G_REF])
+718599	    def test_reference_block_differs_from_the_page(self):
+718600	        self.f.edit('modules/%s-loader.js' % G_REF, "'redraw']);", "'redraw', 'extra']);")
+718601	        self.assertFails(self.f.run(), {'E6'}, ['hook-table block differs from index.html'])
+718602	    def test_page_lost_its_hook_table(self):
+718603	        self.f.edit('index.html', BLOCK, "const KY_NAMES = Object.freeze(['keyPlace']);")
+718604	        self.assertFails(self.f.run(), {'E6'}, ['index.html has no hook table but order is not empty'])
+718605	class T7Literals(Base):
+718606	    """E7 every reads/writes entry has its literal in the file; every fetch( literal is in reads (Opus team 4's check)"""
+718607	    def test_writes_without_literal(self):
+718608	        man = self.f.manifest(); man['modules'][0]['writes'].append('#ky-nowhere')
+718609	        self.assertFails(self.f.run(), {'E7'}, ['hello: writes #ky-nowhere, no literal in the file'])
+718610	    def test_reads_without_literal(self):
+718611	        man = self.f.manifest(); man['modules'][1]['reads'].append('data/never.json')
+718612	        self.assertFails(self.f.run(), {'E7'}, ['greet: reads data/never.json, no literal in the file'])
+718613	    def test_fetch_outside_reads(self):
+718614	        self.f.edit('modules/%s-greet.js' % G_GREET, "document.head.appendChild(s);",
+718615	                    "document.head.appendChild(s); fetch('data/secret.json');")
+718616	        self.assertFails(self.f.run(), {'E7'}, ['greet: fetch(data/secret.json) not in reads'])
+718617	    def test_control_fetch_inside_reads(self):
+718618	                    "document.head.appendChild(s); fetch('data/drift.json');")
+718619	        man = self.f.manifest(); man['modules'][1]['reads'] = ['data/drift.json']
+718620	        self.f.set_manifest(man, rehash=False); self.f.rehash()
+718621	        self.assertPasses(self.f.run())
+718622	class T8Register(Base):
+718623	    """E8 every admitted module passes node --check and holds KY.register( exactly once (Opus team 4's check)"""
+718624	    def test_registers_twice(self):
+718625	        self.f.edit('modules/%s-hello.js' % G_HELLO, 'ky.redraw();', "ky.redraw(); window.KY.register({ id: 'hello-2' });")
+718626	        self.assertFails(self.f.run(), {'E8'}, ['hello: KY.register( appears 2 times'])
+718627	    def test_never_registers(self):
+718628	        self.f.edit('modules/%s-greet.js' % G_GREET, 'window.KY.register(', 'window.KY.enrol(')
+718629	        self.assertFails(self.f.run(), {'E8'}, ['greet: KY.register( appears 0 times'])
+718630	class T9Drift(Base):
+718631	    """E9 data/drift.json, when present, is re-computed byte-identical by tools/drift.py --heads <itself>"""
+718632	    def test_drift_edited_by_hand(self):
+718633	        self.f.edit('data/drift.json', '"repob": 3', '"repob": 4'); self.f.recut()
+718634	        self.assertFails(self.f.run(), {'E9'}, ['data/drift.json sha256', 're-computed'])
+718635	    def test_the_clones_moved_since(self):
+718636	        write(os.path.join(self.f.estate, 'repoa', 'f9.txt'), 'new\n')
+718637	        self.assertFails(self.f.run(), {'E9'}, ['re-computed'])
+718638	    def test_one_trailing_byte(self):
+718639	        with open(self.f.p('data/drift.json'), 'a') as fh:
+718640	            fh.write('\n')
+718641	    def test_drift_tool_missing(self):
+718642	        os.remove(os.path.join(self.f.root, 'tools', 'drift.py'))
+718643	        self.assertFails(self.f.run(), {'E9'}, ['tools/drift.py missing'])
+718644	    def test_drift_tool_crashes(self):
+718645	        write(os.path.join(self.f.root, 'tools', 'drift.py'), 'raise SystemExit("heads unreadable")\n')
+718646	        self.assertFails(self.f.run(), {'E9'}, ['tools/drift.py --heads exited 1'])
+718647	    def test_drift_unreadable(self):
+718648	        write(self.f.p('data/drift.json'), '{"heads": '); self.f.recut()
+718649	        self.assertFails(self.f.run(), {'E9'}, ['data/drift.json unreadable'])
+718650	    def test_clone_missing_is_not_evaluated_and_strict_fails(self):
+718651	        shutil.rmtree(os.path.join(self.f.estate, 'repob'))
+718652	        self.assertEqual(r.status['E9'], 'NOT EVALUATED', r.out)
+718653	        self.assertIn('repob', r.text['E9'])
+718654	@unittest.skipIf(not REAL, 'pass --real to mutate a copy of this repository\'s Edition 5 folder')
+718655	@unittest.skipIf(not ROOT, 'repository root not found')
+718656	class TRealCopy(unittest.TestCase):
+718657	    """the same negative cases on a copy of this repository's newest folder that holds modules.json (E1-E4); the
+718658	    copy's own baseline verdict is recorded first, so a check already failing on the folder as it stands is reported,
+718659	    not hidden"""
+718661	        eds = os.path.join(ROOT, 'editions')
+718662	        cands = sorted(n for n in os.listdir(eds) if re.match(r'^\d{12}$', n) and os.path.isfile(os.path.join(eds, n, 'modules.json')))
+718664	            raise unittest.SkipTest('no Edition 5 folder')
+718665	        cls.stamp = cands[-1]
+718666	        cls.tmp = tempfile.mkdtemp(prefix='edition-check-real-')
+718667	        cls.root = os.path.join(cls.tmp, 'repo')
+718668	        os.makedirs(os.path.join(cls.root, 'tools'))
+718669	        shutil.copy2(TOOL, os.path.join(cls.root, 'tools', 'edition_check.py'))
+718670	        if os.path.isfile(os.path.join(ROOT, 'tools', 'drift.py')):     # E9 then reads NOT EVALUATED (no estate), not FAIL
+718671	            shutil.copy2(os.path.join(ROOT, 'tools', 'drift.py'), os.path.join(cls.root, 'tools', 'drift.py'))
+718672	        shutil.copytree(eds, os.path.join(cls.root, 'editions'))
+718673	        cls.base = cls.run_copy()
+718674	        cls.man = json.loads(read(os.path.join(cls.root, 'editions', cls.stamp, 'modules.json')))
+718675	    def tearDownClass(cls):
+718676	        shutil.rmtree(cls.tmp, ignore_errors=True)
+718677	    def run_copy(cls):
+718678	        r = subprocess.run([sys.executable, os.path.join(cls.root, 'tools', 'edition_check.py'), '--root', cls.root,
+718679	                            '--estate', os.path.join(cls.tmp, 'no-estate'), os.path.join(cls.root, 'editions', cls.stamp)],
+718681	    def mutate(self, rel, fn):
+718682	        p = os.path.join(self.root, 'editions', rel)
+718683	        keep = open(p, 'rb').read()
+718685	            write(p, fn(keep))
+718686	            return self.run_copy()
+718688	            write(p, keep)
+718689	    def test_baseline_printed(self):
+718690	        sys.stderr.write('\n[real copy of editions/%s] baseline: %s; RESULT %s\n' % (
+718691	            self.stamp, ', '.join('%s %s' % (c, self.base.status.get(c)) for c in CODES), self.base.result))
+718692	        self.assertEqual(sorted(self.base.status), CODES, self.base.out)
+718693	    def test_E1_module_syntax(self):
+718694	        rec = self.man['modules'][0]
+718695	        r = self.mutate('%s/%s' % (self.stamp, rec['path']), lambda b: b + b'\n(;\n')
+718696	        self.assertEqual(r.status['E1'], 'FAIL', r.out)
+718697	        self.assertIn(os.path.basename(rec['path']), r.text['E1'])
+718698	    def test_E2_altered_byte(self):
+718699	        rec = self.man['modules'][-1]
+718700	        def flip(b):
+718701	            b = bytearray(b); i = b.rfind(b'e'); b[i] = ord('E'); return bytes(b)
+718702	        r = self.mutate('%s/%s' % (self.stamp, rec['path']), flip)
+718703	        self.assertEqual(r.status['E2'], 'FAIL', r.out)
+718704	        self.assertIn('%s refused: sha256 mismatch' % rec['id'], r.text['E2'])
+718705	    def test_E3_earlier_folder_edited(self):
+718706	        olds = [s for s in sorted(os.listdir(os.path.join(self.root, 'editions')))
+718707	                if re.match(r'^\d{12}$', s) and s < self.stamp and os.path.isfile(os.path.join(self.root, 'editions', s, 'proof', 'edition-sha256.txt'))]
+718708	        self.assertTrue(olds)
+718709	        r = self.mutate('%s/index.html' % olds[-1], lambda b: b + b'\n')
+718710	        self.assertEqual(r.status['E3'], 'FAIL', r.out)
+718711	        self.assertIn('editions/%s: index.html sha256' % olds[-1], r.text['E3'])
+718712	    def test_E4_stamps_disagree(self):
+718713	        def bend(b):
+718714	            t = b.decode('utf-8'); m = re.search(r'<a href="(\d{12})/">', t)
+718715	            return t.replace(m.group(0), '<a href="%s/">' % ('199901010000')).encode('utf-8')
+718716	        r = self.mutate('index.html', bend)
+718717	        self.assertEqual(r.status['E4'], 'FAIL', r.out)
+718719	"""test_real_folder.py: negative tests of tools/edition_check.py on a copy of the REAL repository (Opus team 9 lead,
+718720	NL-010 step 9). Apache-2.0 (kuiper-belt code), kuiper-belt README.md:156-157. The builder's test_edition_check.py runs
+718721	the same law on a synthetic repository (for a GitHub runner); this file runs it on the real folders, with the real
+718722	tools/drift.py re-run against the estate's clones for E9.
+718723	  python3 editions/202611012135/handoff/09-law/test_real_folder.py [--scratch DIR] [--estate DIR] [--write]
+718724	Builds a fixture repository from the real one (every editions/<stamp>/ without handoff/, the pointer, cosmos/repos.tsv,
+718725	tools/drift.py and tools/edition_check.py), made clean on purpose: only the admitted modules stay in modules/, the
+718726	`references` record is dropped (E6 then reads KY_NAMES from the page), and proof/edition-sha256.txt is cut for the
+718727	newest folder. The clean fixture must print RESULT: PASS under --strict with nothing NOT EVALUATED. Then each case
+718728	copies the fixture, makes ONE change, and must make its check FAIL (exit 1, the check's line `En FAIL`, and the named
+718729	words in it). The last case applies handoff/09-law/pointer.patch and moves the pointer to Edition 5: E4 must PASS.
+718730	Exit 0 only when every case behaves as written. --write saves TEST-REAL-RESULTS.json beside this file.
+718731	import hashlib, json, os, re, shutil, subprocess, sys, tempfile, time
+718732	ED = os.path.dirname(os.path.dirname(HERE))                  # editions/<stamp>
+718733	ROOT = os.path.dirname(os.path.dirname(ED))                  # the repository
+718734	STAMP = os.path.basename(ED)
+718735	def arg(name, default):
+718736	    return sys.argv[sys.argv.index(name) + 1] if name in sys.argv else default
+718737	SCRATCH = arg('--scratch', '/tmp/nl010-opus/team-9/lead')
+718738	ESTATE = arg('--estate', os.path.dirname(ROOT))
+718739	POINTER = os.path.join('editions', 'index.html')
+718740	    return hashlib.sha256(open(p, 'rb').read()).hexdigest()
+718741	                rows.append('%s  ./%s' % (sha(os.path.join(ed, rel)), rel))
+718742	    os.makedirs(os.path.join(ed, 'proof'), exist_ok=True)
+718743	    open(os.path.join(ed, 'proof', 'edition-sha256.txt'), 'w').write('\n'.join(sorted(rows, key=lambda r: r[66:])) + '\n')
+718744	def estate_of_record(work, ed):
+718745	    """the estate as drift.json recorded it: a folder of symlinks to every clone, leaving out each repository whose head
+718746	    drift.json records as absent (sha null), so a clone made after the cut (pipelinenews at 00:56) does not change the
+718747	    replay. The real folder's E9 is still judged against today's estate by tools/edition_check.py itself."""
+718748	    D = json.load(open(os.path.join(ed, 'data', 'drift.json')))
+718749	    absent = set(r.lower() for r, h in D.get('heads', {}).items() if isinstance(h, dict) and not h.get('sha'))
+718750	    est = os.path.join(work, 'estate-of-record')
+718751	    os.makedirs(est)
+718752	    left = []
+718753	    for n in sorted(os.listdir(ESTATE)):
+718754	        if os.path.isdir(os.path.join(ESTATE, n, '.git')):
+718755	            if n.lower() in absent:
+718756	                left.append(n)
+718758	                os.symlink(os.path.join(ESTATE, n), os.path.join(est, n))
+718759	    return est, left
+718760	def build(base):
+718761	    for d in ('editions', 'cosmos', 'tools'):
+718762	        os.makedirs(os.path.join(base, d))
+718763	    for n in os.listdir(os.path.join(ROOT, 'editions')):
+718764	        s = os.path.join(ROOT, 'editions', n)
+718765	        if os.path.isdir(s):
+718766	            shutil.copytree(s, os.path.join(base, 'editions', n), ignore=shutil.ignore_patterns('handoff') if n == STAMP else None)
+718767	            shutil.copy2(s, os.path.join(base, 'editions', n))
+718768	    shutil.copy2(os.path.join(ROOT, 'cosmos', 'repos.tsv'), os.path.join(base, 'cosmos', 'repos.tsv'))
+718769	    for t in ('drift.py', 'edition_check.py'):
+718770	        shutil.copy2(os.path.join(ROOT, 'tools', t), os.path.join(base, 'tools', t))
+718771	    ed = os.path.join(base, 'editions', STAMP)
+718772	    man = json.load(open(os.path.join(ed, 'modules.json')))
+718773	    keep = set(os.path.basename(r['path']) for r in man['modules'])
+718774	    for f in os.listdir(os.path.join(ed, 'modules')):
+718775	        if f not in keep:
+718776	            os.remove(os.path.join(ed, 'modules', f))
+718777	    man.pop('references', None)
+718778	    json.dump(man, open(os.path.join(ed, 'modules.json'), 'w'), indent=1)
+718779	    cut_proof(ed)
+718780	    return ed
+718781	RUN_ESTATE = [ESTATE]
+718782	def run(base, *extra):
+718783	    t = time.time()
+718784	    r = subprocess.run([sys.executable, os.path.join(base, 'tools', 'edition_check.py'), '--root', base, '--estate', RUN_ESTATE[0]] + list(extra),
+718786	    return r.returncode, r.stdout + r.stderr, round(time.time() - t, 1)
+718787	def man_edit(ed, fn):
+718788	    p = os.path.join(ed, 'modules.json'); m = json.load(open(p)); fn(m); json.dump(m, open(p, 'w'), indent=1)
+718789	def first(ed, key):
+718790	    return json.load(open(os.path.join(ed, 'modules.json')))['modules'][0][key]
+718791	def sub(p, a, b, count=1):
+718792	    t = open(p, encoding='utf-8').read()
+718793	    assert a in t, (p, a)
+718794	    t = t.replace(a, b, count)
+718795	    open(p, 'w', encoding='utf-8').write(t)
+718796	def append(p, text, mode='a'):
+718797	    with open(p, mode) as f:
+718798	        f.write(text)
+718799	def resync(ed, path):
+718800	    """after a deliberate edit of a module, re-record its sha256 and bytes so only the check under test can fail"""
+718801	    q = os.path.join(ed, path)
+718802	    man_edit(ed, lambda m: [r.update(sha256=sha(q), bytes=os.path.getsize(q)) for r in m['modules'] if r['path'] == path])
+718803	def cases(prev):
+718804	    P = lambda b: os.path.join(b, POINTER)
+718805	    E = lambda b: os.path.join(b, 'editions', STAMP)
+718806	    M = lambda b: os.path.join(E(b), first(E(b), 'path'))
+718808	        ('E1 a script that does not parse', 'E1', 'SyntaxError', [],
+718809	         lambda b: sub(os.path.join(E(b), 'index.html'), '<script type="module">', '<script type="module">\nconst = ;\n')),
+718810	        ('E2 one altered byte in a module', 'E2', 'refused: sha256 mismatch', [],
+718811	         lambda b: append(M(b), b' ', 'ab')),
+718812	        ('E2 a module file in no record and no hand-off (stray)', 'E2', 'stray file', [],
+718813	         lambda b: append(os.path.join(E(b), 'modules', '202611020000-stray.js'), '/* stray */\n', 'w')),
+718814	        ('E2 order names an id with no record', 'E2', 'no record', [],
+718815	         lambda b: man_edit(E(b), lambda m: m['order'].append('ghost'))),
+718816	        ('E3 an earlier edition folder edited', 'E3', 'sha256', [],
+718817	         lambda b: append(os.path.join(b, 'editions', prev, 'README.md'), 'edited\n')),
+718818	        ('E3 a file added after the cut', 'E3', 'not in proof/edition-sha256.txt', [],
+718819	         lambda b: append(os.path.join(E(b), 'data', 'late.json'), '{}\n', 'w')),
+718820	        ('E4 the pointer\'s three stamps disagree', 'E4', 'disagree', [],
+718821	         lambda b: sub(P(b), '<a href="%s/">' % prev, '<a href="202611012022/">')),
+718822	        ('E4 a fourth place names a stamp', 'E4', 'not 3', [],
+718823	         lambda b: sub(P(b), '<title>Kuiper editions</title>', '<title>Kuiper editions 202611012022/</title>')),
+718824	        ('E4 pointer moved to Edition 5 forwarding only the hash', 'E4', 'location.search + location.hash', [],
+718825	         lambda b: sub(P(b), prev, STAMP, 3)),
+718826	        ('E5 keys.json changed and README silent', 'E5', 'names no change', [],
+718827	         lambda b: append(os.path.join(E(b), 'keys.json'), '\n')),
+718828	        ('E6 generation differs from the file name and header', 'E6', 'stamp mismatch', [],
+718829	         lambda b: man_edit(E(b), lambda m: m['modules'][0].update(generation='202611020001'))),
+718830	        ('E6 a requires name that is not a hook', 'E6', 'refused: missing hook noSuchHook', [],
+718831	         lambda b: man_edit(E(b), lambda m: m['modules'][0]['requires'].append('noSuchHook'))),
+718832	        ('E6 no licence', 'E6', 'no licence', [],
+718833	         lambda b: man_edit(E(b), lambda m: m['modules'][0].update(licence=''))),
+718834	        ('E7 a writes entry with no literal in the file', 'E7', 'no literal', [],
+718835	         lambda b: man_edit(E(b), lambda m: m['modules'][0]['writes'].append('#no-such-node-anywhere'))),
+718836	        ('E7 a fetch( outside reads', 'E7', 'not in reads', [],
+718837	         lambda b: (append(M(b), "\n;fetch('data/secret.json');\n"), resync(E(b), first(E(b), 'path')))),
+718838	        ('E8 KY.register( twice', 'E8', 'appears 2 times', [],
+718839	         lambda b: (append(M(b), '\n// KY.register( again\n'), resync(E(b), first(E(b), 'path')))),
+718840	        ('E9 drift.json not what the tool re-computes', 'E9', 're-computed', [],
+718841	         lambda b: sub(os.path.join(E(b), 'data', 'drift.json'), '"cap_seconds": 1209600', '"cap_seconds": 1209601')),
+718842	        ('strict: a pending module counts as FAIL', 'E2', 'pending admission', ['--strict'],
+718843	         lambda b: (os.makedirs(os.path.join(E(b), 'handoff', '99-x')),
+718844	                    append(os.path.join(E(b), 'modules', '202611020000-pending.js'), '/* pending */\n', 'w'),
+718845	                    append(os.path.join(E(b), 'handoff', '99-x', 'PLAN.md'), 'modules/202611020000-pending.js\n', 'w'))),
+718847	    os.makedirs(SCRATCH, exist_ok=True)
+718848	    work = tempfile.mkdtemp(prefix='edition-check-real-', dir=SCRATCH)
+718849	    fixture = os.path.join(work, 'fixture')
+718850	    build(fixture)
+718851	    RUN_ESTATE[0], left = estate_of_record(work, os.path.join(fixture, 'editions', STAMP))
+718852	    print('estate of record: %s clones linked, left out as recorded absent: %s' % (len(os.listdir(RUN_ESTATE[0])), ', '.join(left) or 'none'))
+718853	    prev = re.search(r"location\.replace\('(\d{12})/", open(os.path.join(fixture, POINTER)).read()).group(1)
+718854	    results, bad = [], 0
+718855	    rc, out, dt = run(fixture, '--strict')
+718856	    good = rc == 0 and 'RESULT: PASS' in out and 'NOT EVALUATED' not in out
+718857	    results.append({'case': 'clean fixture, --strict', 'expect': 'PASS', 'exit': rc, 'ok': good, 'seconds': dt, 'output': out.strip().split('\n')})
+718858	    print('%s clean fixture --strict: exit %d (%ss)' % ('PASS' if good else 'FAIL', rc, dt))
+718859	    if not good:
+718860	        print(out); bad += 1
+718861	    for name, code, words, extra, mutate in cases(prev):
+718862	        b = os.path.join(work, re.sub(r'[^a-z0-9]+', '-', name.lower()).strip('-'))
+718863	        shutil.copytree(fixture, b, symlinks=True)
+718864	        mutate(b)
+718865	        rc, out, dt = run(b, *extra)
+718866	        line = next((l for l in out.split('\n') if l.startswith(code + ' ')), '')
+718867	        hit = rc == 1 and 'RESULT: FAIL' in out and words in out and (line.startswith(code + ' FAIL') or bool(extra))
+718868	        results.append({'case': name, 'check': code, 'expect': 'FAIL with "%s"' % words, 'exit': rc, 'ok': bool(hit), 'seconds': dt, 'line': line})
+718869	        print('%s %s: exit %d; %s (%ss)' % ('PASS' if hit else 'FAIL', name, rc, line[:150], dt))
+718870	        if not hit:
+718871	            print(out); bad += 1
+718872	        shutil.rmtree(b, ignore_errors=True)
+718873	    # the pointer patch, positive: Edition 5 named in three places, search and hash forwarded
+718874	    b = os.path.join(work, 'pointer-patch')
+718875	    shutil.copytree(fixture, b, symlinks=True)
+718876	    patch = os.path.join(HERE, 'pointer.patch')
+718877	    r = subprocess.run(['patch', '-p1', '-d', b, '-i', patch], capture_output=True, text=True)
+718878	    applied = r.returncode == 0
+718879	    if applied:
+718880	        sub(os.path.join(b, POINTER), prev, STAMP, 3)
+718881	    rc, out, dt = run(b, '--strict')
+718882	    line = next((l for l in out.split('\n') if l.startswith('E4 ')), '')
+718883	    good = applied and rc == 0 and line.startswith('E4 PASS') and 'location.search + location.hash' in line
+718884	    results.append({'case': 'pointer.patch applied, pointer moved to Edition 5', 'check': 'E4', 'expect': 'PASS', 'exit': rc, 'ok': good, 'seconds': dt, 'line': line})
+718885	    print('%s pointer.patch applied and moved to %s: exit %d; %s (%ss)' % ('PASS' if good else 'FAIL', STAMP, rc, line[:150], dt))
+718886	        print(r.stdout + r.stderr + out); bad += 1
+718887	    shutil.rmtree(work, ignore_errors=True)
+718888	    print('RESULT: %s (%d of %d cases as written)' % ('PASS' if not bad else 'FAIL', len(results) - bad, len(results)))
+718889	    if '--write' in sys.argv:
+718890	        json.dump({'tool': 'tools/edition_check.py', 'tool_sha256': sha(os.path.join(ROOT, 'tools', 'edition_check.py')),
+718891	                   'run_at_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'cases': results,
+718892	                   'result': 'PASS' if not bad else 'FAIL'}, open(os.path.join(HERE, 'TEST-REAL-RESULTS.json'), 'w'), indent=1)
+718893	    return 1 if bad else 0
+718897	    // NL-010: ceil, so the bar's own 1 px bottom rule (row 45 when the bar ends at 45.6) is not counted as wafer
+718898	    for (let y = Math.max(0, Math.ceil(yFrom)); y < H; y++) for (let x = 0; x < W; x++) { if (ex.some(r => x >= r.left - 1 && x <= r.right + 1 && y >= r.top - 1 && y <= r.bottom + 1)) continue; const i = (y * W + x) * 4; tot++;
+718899	    // NL-010: a control is tapped where a person can see it: the part of its box inside #card's visible box and the viewport
+718900	    const visPart = (r, p) => { if (!r || !p.card.rect) return null; const t = Math.max(r.top, p.card.rect.top), b = Math.min(r.bottom, p.card.rect.bottom, p.viewport.h), l = Math.max(r.left, p.card.rect.left, 0), rr = Math.min(r.right, p.card.rect.right, p.viewport.w); return { left: l, top: t, right: rr, bottom: b, width: +(rr - l).toFixed(1), height: +(b - t).toFixed(1), fraction: +(Math.max(0, b - t) / Math.max(1, r.height)).toFixed(2) }; };
+718901	    const dv = visPart(p.card.detailsRect, p), detailsReach = dv && dv.height >= 8 && dv.width >= 8;
+718902	    const h1 = p.card.height; if (detailsReach) await tapRect(dv); await sleep(700); p = await probe();
+718903	      { detailsVisiblePart: dv, detailsReachable: !!detailsReach, heightBefore: h1, heightAfter: p.card.height, ...cap7, cardRect: p.card.rect, cardScrollHeight: p.card.scrollHeight, detailsOpen: p.card.detailsOpen, sparkStillClear: cs7.ok, clear: cs7, screenshot: await shot('card-details') },
+718904	      [detailsReach ? '' : 'details control not visible on the card (visible part ' + JSON.stringify(dv) + ')', p.card.detailsOpen ? '' : 'details did not open', p.card.height > h1 ? '' : 'card did not grow', cap7.ok ? '' : 'card ' + p.card.height + ' px over cap ' + cap7.cap, cs7.ok ? '' : 'spark no longer clear: ' + cs7.why].filter(Boolean).join('; '));
+718905	    const xr = p.card.closeRect, xv = visPart(xr, p); if (xv && xv.height >= 8 && xv.width >= 8) await tapRect(xv); await sleep(600); p = await probe();
+718906	    record('card-close', 'tap ×: the card closes and the selection clears', !p.card.open && !p.magenta, { closeRect: xr, closeVisiblePart: xv, closeSize: xr ? [xr.width, xr.height] : null, cardOpen: p.card.open, magenta: p.magenta, screenshot: await shot('card-close') }, p.card.open ? 'card still open' : (p.magenta ? 'spark still selected' : (xr && (xr.width < 24 || xr.height < 24) ? 'note: × is ' + xr.width + 'x' + xr.height + ' px (under 24)' : '')));
+718909	// test.cjs  Opus team 12 "See Through hash reader": every hash form of see-through/202611020012/ on Pixel 7, through the
+718910	// stable pointer see-through/ served from the kuiper-belt root. Real touch for taps. Zero console errors apart from the
+718911	// sandbox's blocked map hosts (listed in IGNORE). Usage: node test.cjs [base=http://127.0.0.1:8601] [outdir]
+718912	const BASE = process.argv[2] || 'http://127.0.0.1:8601';
+718913	const OUT = path.resolve(process.argv[3] || '/tmp/nl010-opus/team-12/tester/out');
+718914	const ROOT = process.env.KB_ROOT || '/home/user/estate/kuiper-belt';
+718915	const STAMP = '202611020012', NRULE = 20000, NSUB = 5800;
+718916	const IGNORE = /basemaps\.cartocdn\.com/;
+718917	const meta = JSON.parse(fs.readFileSync(path.join(ROOT, 'cosmos/wafer-meta.json'), 'utf8'));
+718918	const SPACE = meta.address_space;
+718919	const fmt = n => Number(n).toLocaleString('en-US');
+718920	const key = (j, sp) => Math.floor((j + 0.5) * sp / NRULE);
+718921	// independent count for #repo=gridatlas: walk cosmos/wafer.tsv as the engine does, count the phone's 12,900 star keys inside
+718922	function repoCount(name, np) {
+718923	  const rows = f => fs.readFileSync(path.join(ROOT, 'cosmos', f), 'utf8').split('\n').filter(l => l && l[0] !== '#').map(l => l.split('\t'));
+718924	  const ri = +rows('repos.tsv').find(r => r[1].toLowerCase() === name)[0];
+718925	  const ranges = []; let k = 0;
+718926	  for (const p of rows('wafer.tsv')) { k += +p[4]; const k0 = k; k += +p[1]; if (+p[2] === ri) ranges.push([k0, k]); }
+718928	  for (let q = 0; q < np; q++) { const ki = (np < NRULE && q >= NSUB) ? NSUB + 2 * (q - NSUB) : q, kk = key(ki, SPACE); if (ranges.some(r => kk >= r[0] && kk < r[1])) n++; }
+718930	const results = []; const errors = [];
+718931	function check(name, ok, got) { results.push({ name, ok: !!ok, got }); console.log((ok ? 'PASS ' : 'FAIL ') + name + '  ' + JSON.stringify(got)); }
+718932	  // one browser per case: the 3D rise of an arrival keeps SwiftShader's GPU process busy for minutes, and that process is
+718933	  // shared by every page of a browser, so a fresh browser keeps one case from stalling the next
+718934	    const browser = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+718935	    const ctx = await browser.newContext({ ...devices['Pixel 7'] });
+718936	    const page = await ctx.newPage(); page.__b = browser; return page;
+718937	  const done = async page => { await page.__b.close().catch(() => {}); };
+718938	  async function open(hash, opts = {}) {
+718939	    const page = await newPage();
+718940	    page.on('console', m => { if (m.type() === 'error' && !IGNORE.test(m.text() + ' ' + JSON.stringify(m.location()))) errors.push({ hash, text: m.text(), url: m.location().url }); });
+718941	    page.on('pageerror', e => errors.push({ hash, text: 'pageerror ' + e.message }));
+718942	    page.on('requestfailed', r => { if (!IGNORE.test(r.url())) errors.push({ hash, text: 'requestfailed ' + r.url() + ' ' + (r.failure() || {}).errorText, soft: true }); });
+718943	    if (opts.route) await opts.route(page);
+718944	    await page.goto(BASE + (opts.path || '/see-through/') + hash, { waitUntil: 'load' });
+718945	    await page.waitForFunction(() => window.__descent && window.__descent.state(), null, { timeout: 30000 });
+718946	    await sleep(opts.wait || 7000);
+718947	    return page;
+718948	  const st = p => p.evaluate(() => window.__descent.state());
+718949	  async function shot(page, name) {     // CDP capture: Playwright's own screenshot waits on a frame the 3D WebGL rise may hold for minutes under SwiftShader
+718950	    try { await page.screenshot({ path: path.join(OUT, name + '.png'), timeout: 60000 }); return; } catch (e) { console.log('playwright screenshot slow, CDP: ' + name); }
+718951	    try { const c = await page.context().newCDPSession(page);
+718952	      const r = await Promise.race([c.send('Page.captureScreenshot', { format: 'png' }), sleep(90000).then(() => null)]);
+718953	      if (r) fs.writeFileSync(path.join(OUT, name + '.png'), Buffer.from(r.data, 'base64')); else console.log('screenshot timed out: ' + name);
+718954	      await c.detach().catch(() => {});
+718955	    } catch (e) { console.log('screenshot failed: ' + name + ' ' + e.message); }
+718956	  async function waitArrive(page, t = 120000) { try { await page.waitForFunction(() => { const s = window.__descent.state(); return s.T >= 0 && s.D > 7.99 && !s.flight; }, null, { timeout: t }); } catch (e) {} }
+718957	  const k1182 = key(1182, SPACE), k1368 = key(1368, SPACE), old1182 = key(1182, 59637070538);
+718958	  // pointer: forwards search and hash to the stamp
+718959	  let p = await open('#sub=Drax', { wait: 1500 });
+718960	  await waitArrive(p);
+718961	  let s = await st(p);
+718962	  check('#sub=Drax flies to 1182 Drax, D 8', s.T === 1182 && s.name === 'Drax' && s.D > 7.99, { T: s.T, name: s.name, D: s.D });
+718963	  const wantHash = '#key=' + k1182 + '&space=' + SPACE + '&sub=Drax';
+718964	  const h = await p.evaluate(() => location.hash), lk = await p.evaluate(() => window.__descent.link());
+718965	  check('arrival writes ' + wantHash, h === wantHash && lk === wantHash, { hash: h, link: lk, space: s.space, spaceSource: s.spaceSource });
+718966	  check('spaceSource wafer-meta, space = cosmos address_space', s.spaceSource === 'wafer-meta' && s.space === SPACE, { space: s.space, src: s.spaceSource });
+718967	  await done(p);
+718968	  // the STAR KEY row (with view=kuiper, so the page stays in the 2D kuiper view instead of rising into 3D, whose WebGL under
+718969	  // SwiftShader holds the renderer for minutes; the rise is unchanged from 202610050609)
+718970	  p = await open('#sub=Drax&view=kuiper', { path: '/see-through/?from=test', wait: 1500 });
+718971	  check('pointer forwards search+hash to ' + STAMP, p.url().includes('/see-through/' + STAMP + '/?from=test#sub=Drax&view=kuiper'), p.url());
+718972	  await waitArrive(p); await sleep(2500);
+718973	  s = await st(p);
+718974	  check('#sub=Drax&view=kuiper: arrives at 1182 in the kuiper view', s.T === 1182 && s.view === 'kuiper' && !s.in3d, { T: s.T, view: s.view, in3d: s.in3d });
+718975	  const row = await p.evaluate(() => { const a = document.querySelector('a[data-st="kuiper-key"]'); if (!a) return null; const r = a.getBoundingClientRect(); return { text: a.textContent, href: a.getAttribute('href'), h: r.height, x: r.left + r.width / 2, y: r.top + r.height / 2, vis: getComputedStyle(a).display !== 'none' }; });
+718976	  check('STAR KEY row: text, href ../../editions/#key=<k>, >= 44 px', row && row.vis && row.text === 'STAR KEY ' + fmt(k1182) + ' · OPEN IT ON THE KUIPER' && row.href === '../../editions/#key=' + k1182 && row.h >= 44, row);
+718977	  await shot(p, '01-sub-drax-star-key-row');
+718979	    await p.touchscreen.tap(row.x, row.y);
+718980	    await p.waitForURL(/\/editions\/\d{12}\/#key=/, { timeout: 90000 }).catch(() => {});
+718981	    check('tap on the row opens the Kuiper at #key=<k> through the editions pointer', /\/editions\/\d{12}\/#key=(\d+)$/.test(p.url()) && p.url().endsWith('#key=' + k1182), p.url());
+718982	    await p.goBack({ timeout: 90000 }).catch(e => console.log('goBack: ' + e.message.split('\n')[0])); await sleep(4000);
+718983	    check('back returns to See Through', p.url().includes('/see-through/' + STAMP + '/'), p.url());
+718984	  for (const [hash, test, label] of [
+718985	    ['#sub=xyzzy', s => s.T === -1 && s.note === 'NO SUBSTATION NAME HERE CONTAINS THAT. TRY ANOTHER NAME', '#sub=xyzzy refusal words, no flight'],
+718986	    ['#sub=Hinkley', s => s.T === 1892, '#sub=Hinkley first substring match 1892'],
+718987	    ['#sub=Cowley', s => s.T === 201, '#sub=Cowley 201'],
+718988	  ]) { p = await open(hash, { wait: 3000 }); await sleep(1500); s = await st(p); check(label, test(s), { T: s.T, name: s.name, note: s.note }); await done(p); }
+718989	  // key: a line of code, one amber ring at KuiperLaw.place(k)
+718990	  p = await open('#key=36064705400');
+718991	  const ring = await p.evaluate(() => {
+718992	    const d = window.__descent, s = d.state(), Rw = Math.sqrt(s.space + 0.5), ks = s.Rpx / Rw;
+718993	    const a = window.KuiperLaw.place(d.subKey(0)), sa = d.screenOf(0), cx = sa[0] - a.x * ks, cy = sa[1] + a.y * ks;
+718994	    const b = window.KuiperLaw.place(d.subKey(1)), sb = d.screenOf(1);
+718995	    const k = window.KuiperLaw.place(36064705400), r = d.ring();
+718996	    return { ring: r, want: { x: cx + k.x * ks, y: cy - k.y * ks }, starCheck: Math.hypot(sb[0] - (cx + b.x * ks), sb[1] - (cy - b.y * ks)) };
+718997	  const rd = ring.ring ? Math.hypot(ring.ring.x - ring.want.x, ring.ring.y - ring.want.y) : 99;
+718998	  check('#key=36064705400: note, T -1, D 0, ring within 1 px of KuiperLaw.place(k)', s.T === -1 && s.D < 0.01 && s.note === 'KEY 36,064,705,400 · A LINE OF CODE, NOT A SUBSTATION' && rd <= 1 && ring.starCheck <= 1, { note: s.note, D: s.D, ringPx: +rd.toFixed(3), star1Px: +ring.starCheck.toFixed(3) });
+718999	  await shot(p, '02-key-line-of-code-amber-ring');
+719000	  p = await open('#key=' + k1182); s = await st(p);
+719001	  let box = await p.evaluate(() => document.querySelector('input').value);
+719002	  check('#key=<subKey 1182>: box Drax, THE STAR THAT LANDS ON DRAX', box === 'Drax' && s.note.startsWith('THE STAR THAT LANDS ON DRAX') && s.T === -1, { box, note: s.note });
+719003	  p = await open('#key=' + SPACE); s = await st(p);
+719004	  check('#key=<SPACE>: IS BEYOND THIS SKY', /^KEY [\d,]+ IS BEYOND THIS SKY/.test(s.note), { note: s.note });
+719005	  p = await open('#key=' + old1182 + '&space=59637070538'); s = await st(p);
+719006	  box = await p.evaluate(() => document.querySelector('input').value);
+719007	  check('#key=<old key>&space=59637070538: SPACE remap to the star of Drax', box === 'Drax' && s.note.startsWith('STAR KEY REMAPPED · SKY 59,637,070,538 → ' + fmt(SPACE)), { box, note: s.note });
+719008	  await shot(p, '03-key-space-remap');
+719009	  p = await open('#key=' + k1368 + '&space=' + SPACE + '&sub=Drax', { wait: 2000 }); await waitArrive(p); s = await st(p);
+719010	  check('#key=<subKey 1368>&space&sub=Drax: identity wins, flies to 1368 (the second Drax)', s.T === 1368 && s.name === 'Drax', { T: s.T, name: s.name });
+719011	  const want = repoCount('gridatlas', 12900);
+719012	  p = await open('#repo=gridatlas', { wait: 9000 }); s = await st(p);
+719013	  const lit = await p.evaluate(() => window.__descent.repoLit());
+719014	  check('#repo=gridatlas: note count equals the count from wafer.tsv (' + want + ')', s.note === 'GRIDATLAS · ' + fmt(want) + ' OF 12,900 STARS' && lit === want && s.NP === 12900, { note: s.note, lit });
+719015	  await shot(p, '04-repo-gridatlas-lit');
+719016	  p = await open('#repo=nosuchrepo', { wait: 9000 }); s = await st(p);
+719017	  check('#repo=nosuchrepo refusal', s.note === 'NO REPOSITORY CALLED NOSUCHREPO', { note: s.note }); await done(p);
+719018	  p = await open('#sub=Cowley&view=sat', { wait: 2000 }); await waitArrive(p); await sleep(1500); s = await st(p);
+719019	  check('#sub=Cowley&view=sat: view after the flight', s.T === 201 && s.view === 'sat', { T: s.T, view: s.view }); await done(p);
+719020	  p = await open('#bogus=1'); s = await st(p);
+719021	  check('#bogus=1: LINK FIELD BOGUS NOT UNDERSTOOD', s.note === 'LINK FIELD BOGUS NOT UNDERSTOOD', { note: s.note }); await done(p);
+719022	  // hashchange on a loaded page
+719023	  p = await open(''); await p.evaluate(() => { location.hash = '#sub=Drax'; }); await waitArrive(p); s = await st(p);
+719024	  check('hashchange #sub=Drax on an open page flies', s.T === 1182, { T: s.T }); await done(p);
+719025	  // the sky: adopted from wafer-meta when it differs; frozen when it cannot be read
+719026	  p = await open('', { route: pg => pg.route('**/cosmos/wafer-meta.json', r => r.fulfill({ contentType: 'application/json', body: JSON.stringify({ ...meta, address_space: SPACE + 1000 }) })) });
+719027	  s = await st(p); let sk = await p.evaluate(() => window.__descent.subKey(1182));
+719028	  check('wafer-meta address_space adopted at run time', s.space === SPACE + 1000 && s.spaceSource === 'wafer-meta' && sk === key(1182, SPACE + 1000), { space: s.space, src: s.spaceSource, k1182: sk });
+719029	  p = await open('', { route: pg => pg.route('**/cosmos/wafer-meta.json', r => r.abort()) });
+719030	  check('wafer-meta blocked: frozen sky', s.space === 63340120796 && s.spaceSource === 'frozen', { space: s.space, src: s.spaceSource });
+719031	  errors.splice(0, errors.length, ...errors.filter(e => !(e.hash === '' && /wafer-meta/.test(e.text + ' ' + (e.url || '')))));   // the deliberate abort above
+719032	  // the X at the stars stage: opened directly -> the editions pointer; from the Kuiper -> history.back()
+719033	  p = await open('');
+719034	  const xl = await p.evaluate(() => { const b = [...document.querySelectorAll('button')].find(b => b.textContent === 'X'); const r = b.getBoundingClientRect(); return { label: b.getAttribute('aria-label'), x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+719035	  await p.touchscreen.tap(xl.x, xl.y);
+719036	  await p.waitForURL(/\/editions\/\d{12}\//, { timeout: 90000 }).catch(() => {});
+719037	  check('X at the stars (opened directly): aria-label "back to the Kuiper", lands on editions/', xl.label === 'back to the Kuiper' && /\/editions\/\d{12}\//.test(p.url()), { label: xl.label, url: p.url() });
+719038	  p = await newPage();
+719039	  p.on('pageerror', e => errors.push({ hash: 'X-referrer', text: 'pageerror ' + e.message }));
+719040	  await p.goto(BASE + '/editions/202611012135/', { waitUntil: 'load' }); await sleep(3000);
+719041	  await p.evaluate(u => { location.href = u; }, BASE + '/see-through/');
+719042	  await p.waitForFunction(() => window.__descent && window.__descent.state(), null, { timeout: 30000 }); await sleep(5000);
+719043	  const xb = await p.evaluate(() => { const b = [...document.querySelectorAll('button')].find(b => b.textContent === 'X'); const r = b.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+719044	  await p.touchscreen.tap(xb.x, xb.y);
+719045	  await p.waitForURL(/\/editions\/202611012135\//, { timeout: 90000 }).catch(() => {});
+719046	  check('X at the stars (from the Kuiper): history.back() to the edition', p.url().endsWith('/editions/202611012135/'), p.url());
+719047	  const hard = errors.filter(e => !e.soft);
+719048	  check('zero console errors apart from ' + IGNORE.source, hard.length === 0, hard.slice(0, 6));
+719049	  const report = { device: 'Pixel 7', base: BASE, stamp: STAMP, space: SPACE, when: new Date().toISOString(), pass: results.every(r => r.ok), n: results.length, failed: results.filter(r => !r.ok).length, results, softRequestFailures: errors.filter(e => e.soft) };
+719050	  console.log('RESULT ' + (report.pass ? 'PASS' : 'FAIL') + ' ' + (report.n - report.failed) + '/' + report.n);
+719051	// rerun.cjs: the four steps of test.cjs run 1 that failed on time under load 40-60 (round trip by the STAR KEY row, #view=sat
+719052	// after the flight, the X at the stars both ways), with long waits; same assertions as test.cjs. Pixel 7, real touch.
+719054	const BASE = 'http://127.0.0.1:8601', STAMP = '202611020012', IGNORE = /basemaps\.cartocdn\.com/;
+719055	const SPACE = JSON.parse(fs.readFileSync('/home/user/estate/kuiper-belt/cosmos/wafer-meta.json', 'utf8')).address_space;
+719056	const k1182 = Math.floor(1182.5 * SPACE / 20000);
+719057	const results = [], errors = [];
+719058	const check = (n, ok, got) => { results.push({ name: n, ok: !!ok, got }); console.log((ok ? 'PASS ' : 'FAIL ') + n + '  ' + JSON.stringify(got)); };
+719059	async function newPage(tag) {
+719060	  const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+719061	  const p = await (await b.newContext({ ...devices['Pixel 7'] })).newPage(); p.__b = b;
+719062	  p.on('console', m => { if (m.type() === 'error' && !IGNORE.test(m.text() + ' ' + m.location().url)) errors.push({ tag, text: m.text(), url: m.location().url }); });
+719063	  p.on('pageerror', e => errors.push({ tag, text: 'pageerror ' + e.message }));
+719065	const ready = p => p.waitForFunction(() => window.__descent && window.__descent.state(), null, { timeout: 120000 });
+719066	const arrived = p => p.waitForFunction(() => { const s = window.__descent.state(); return s.T >= 0 && s.D > 7.99 && !s.flight; }, null, { timeout: 180000 });
+719067	const xbtn = p => p.evaluate(() => { const b = [...document.querySelectorAll('button')].find(b => b.textContent === 'X'); const r = b.getBoundingClientRect(); return { label: b.getAttribute('aria-label'), x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+719068	  let p = await newPage('roundtrip');
+719069	  await p.goto(BASE + '/see-through/#sub=Drax&view=kuiper'); await ready(p); await arrived(p); await sleep(2500);
+719070	  const row = await p.evaluate(() => { const a = document.querySelector('a[data-st="kuiper-key"]'); const r = a.getBoundingClientRect(); return { text: a.textContent, href: a.getAttribute('href'), h: r.height, x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+719071	  await p.touchscreen.tap(row.x, row.y);
+719072	  await p.waitForURL(/\/editions\/\d{12}\/#key=/, { timeout: 180000 }).catch(() => {});
+719073	  check('tap on STAR KEY row opens the Kuiper at #key=' + k1182 + ' through the editions pointer', /\/editions\/\d{12}\/#key=\d+$/.test(p.url()) && p.url().endsWith('#key=' + k1182), { row, url: p.url() });
+719074	  await sleep(5000);
+719075	  await p.goBack({ timeout: 180000 }).catch(e => console.log('goBack: ' + e.message.split('\n')[0]));
+719076	  await p.waitForURL(/\/see-through\/202611020012\//, { timeout: 120000 }).catch(() => {});
+719077	  check('back returns to See Through', p.url().includes('/see-through/' + STAMP + '/'), p.url());
+719078	  await p.__b.close();
+719079	  p = await newPage('sat');
+719080	  await p.goto(BASE + '/see-through/#sub=Cowley&view=sat'); await ready(p); await arrived(p); await sleep(1500);
+719081	  let s = await p.evaluate(() => window.__descent.state());
+719082	  check('#sub=Cowley&view=sat: view after the flight', s.T === 201 && s.view === 'sat', { T: s.T, view: s.view });
+719083	  p = await newPage('x-direct');
+719084	  await p.goto(BASE + '/see-through/'); await ready(p); await sleep(8000);
+719085	  let x = await xbtn(p); await p.touchscreen.tap(x.x, x.y);
+719086	  await p.waitForURL(/\/editions\/\d{12}\//, { timeout: 120000 }).catch(() => {});
+719087	  check('X at the stars (opened directly): aria-label "back to the Kuiper", lands on editions/', x.label === 'back to the Kuiper' && /\/editions\/\d{12}\//.test(p.url()), { label: x.label, url: p.url() });
+719088	  p = await newPage('x-referrer');
+719089	  await p.goto(BASE + '/editions/202611012135/'); await sleep(5000);
+719090	  await p.waitForURL(/\/see-through\/202611020012\//, { timeout: 120000 }); await ready(p); await sleep(8000);
+719091	  x = await xbtn(p); await p.touchscreen.tap(x.x, x.y);
+719092	  await p.waitForURL(/\/editions\/202611012135\//, { timeout: 120000 }).catch(() => {});
+719093	  check('zero console errors on See Through pages apart from ' + IGNORE.source, errors.filter(e => /see-through/.test(e.url || '') || /pageerror/.test(e.text)).length === 0, errors.slice(0, 8));
+719094	  fs.writeFileSync('/tmp/nl010-opus/team-12/tester/out/report-rerun.json', JSON.stringify({ when: new Date().toISOString(), results, errors }, null, 1));
+719095	  console.log('RESULT ' + (results.every(r => r.ok) ? 'PASS' : 'FAIL') + ' ' + results.filter(r => r.ok).length + '/' + results.length);
+719096	// shots.cjs: the four hand-off screenshots (Pixel 7, CSS scale), one browser each; harness flags as test.cjs
+719098	const OUT = process.argv[2] || '/tmp/nl010-opus/team-12/tester/shots'; fs.mkdirSync(OUT, { recursive: true });
+719099	const BASE = 'http://127.0.0.1:8601/see-through/';
+719101	  ['01-sub-drax-star-key-row', '#sub=Drax&view=kuiper', 'arrive'],
+719102	  ['02-key-line-of-code-amber-ring', '#key=36064705400', 'stars'],
+719103	  ['03-key-space-remap', '#key=' + Math.floor(1182.5 * 59637070538 / 20000) + '&space=59637070538', 'stars'],
+719104	  ['04-repo-gridatlas-lit', '#repo=gridatlas', 'stars'],
+719105	  for (const [name, hash, mode] of cases) {
+719106	    const b = await chromium.launch({ args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+719107	    const p = await (await b.newContext({ ...devices['Pixel 7'] })).newPage();
+719108	    await p.goto(BASE + hash);
+719109	    await p.waitForFunction(() => window.__descent && window.__descent.state(), null, { timeout: 60000 });
+719110	    if (mode === 'arrive') await p.waitForFunction(() => { const s = window.__descent.state(); return s.T >= 0 && s.D > 7.99 && !s.flight; }, null, { timeout: 90000 }).catch(() => {});
+719111	    await sleep(mode === 'arrive' ? 3000 : 9000);
+719112	    const s = await p.evaluate(() => window.__descent.state());
+719114	    for (let a = 0; a < 3 && !ok; a++) { try { await p.screenshot({ path: path.join(OUT, name + '.png'), scale: 'css', timeout: 120000 }); ok = true; } catch (e) { console.log(name, 'retry', a); } }
+719115	    console.log(name, ok ? 'OK' : 'FAILED', JSON.stringify({ T: s.T, note: s.note, view: s.view }));
+719116	    await b.close();
+719117	// test.cjs  Opus team 12 "See Through hash reader" (NL-010): the hand-off test of see-through/<stamp>/, measured, not
+719118	// eyeballed. Written by OPUS-12 tester in the form of FIXES/NL-009/android-journey.cjs (Playwright, real touch for taps,
+719119	// a JSON report, exit 0 only when every check passed), building on the lead's draft (/tmp/nl010-opus/team-12/tester).
+719120	//   node test.cjs [baseUrl] [outdir] [--img <dir>] [--devices "Pixel 7,Galaxy S24"]
+719121	//   baseUrl  the kuiper-belt repository root as served (default http://127.0.0.1:8611/, OPUS-12 tester's port:
+719122	//            python3 -m http.server 8611 --bind 127.0.0.1 from /home/user/estate/kuiper-belt)
+719123	//   outdir   screenshots and report.json (default /tmp/nl010-opus/team-12/tester/run)
+719124	//   --img    also write the four hand-off screenshots (PNG, CSS-pixel scale, each < 300 KB) into this folder
+719125	//   --devices default "Pixel 7" (one device at a time, sequentially; the machine is shared)
+719126	// The grammar is FIXES/NL-010/team-3/STEPS.md step 5.5 (the table) with acceptance A3 and the 5.8 b row; the folder and
+719127	// the pointer are handoff/12-see-through-reader/PLAN.md. The stamp is read from the pointer see-through/index.html.
+719128	// Cases (each a fresh browser: the 3D rise after an arrival holds SwiftShader's GPU process, shared by a browser's pages):
+719129	//   C1 <stamp>/#sub=Drax                     the typed name: box "Drax", flight to 1182, D 8, name Drax; the link written on
+719130	//                                            arrival (#key=<subKey 1182>&space=<SPACE>&sub=Drax) = __descent.link();
+719131	//                                            the row "STAR KEY <k> · OPEN IT ON THE KUIPER", an <a> to ../../editions/#key=<k>,
+719132	//                                            >= 44 px, visible, resolving to <base>editions/#key=<k> (HEAD 200)
+719133	//   C2 <stamp>/#key=<subKey 1182>&space=63340120796
+719134	//                                            the selected star: T -1, D 0 (nothing moves), box "Drax", note
+719135	//                                            "THE STAR THAT LANDS ON DRAX. PRESS GO"; sky = wafer-meta address_space
+719136	//   C3 <stamp>/#key=<subKey 201>             a star key in See Through's own sky without &space: box "Cowley Substation",
+719137	//                                            note "THE STAR THAT LANDS ON COWLEY SUBSTATION. PRESS GO"; then, on the same page by
+719138	//                                            hashchange: #key=36064705400 (a line of code: note, one amber ring within 1 px
+719139	//                                            of KuiperLaw.place, measured from the canvas pixels), #key=<SPACE> (beyond the
+719140	//                                            sky), #key=<old key of 1182>&space=59637070538 (remap to Drax), #sub=xyzzy
+719141	//                                            (refusal, no flight), #repo=nosuchrepo, #bogus=1 (field named)
+719142	//   C4 <stamp>/#repo=gridatlas               the lit repository: note "GRIDATLAS · <n> OF 12,900 STARS" with n equal to the
+719143	//                                            count recomputed here from cosmos/wafer.tsv + repos.tsv, __descent.repoLit() = n,
+719144	//                                            lit marks measured on the canvas
+719145	//   C5 <stamp>/#view=3d                      the view: no target, so the existing caption "CHOOSE A SUBSTATION FIRST", view
+719146	//                                            not 3d, T -1
+719147	//   C6 see-through/?via=pointer#sub=Drax&view=map
+719148	//                                            the pointer forwards search + hash to <stamp>/ unchanged; arrival at 1182 in the
+719149	//                                            map view; a real touch on the STAR KEY row opens ../../editions/#key=<k>
+719150	//   static the pointer's three places (meta refresh, <a href>, location.replace with search + hash) name <stamp>, and
+719151	//          <stamp>/index.html exists
+719152	//   errors zero console errors and page errors on See Through, apart from the sandbox's blocked map host
+719153	//          basemaps.cartocdn.com, which is logged separately (report.blocked); failed requests are logged (report.requests)
+719154	const fs = require('fs'), path = require('path'), http = require('http');
+719155	const positional = []; for (let i = 0; i < argv.length; i++) { if (argv[i].startsWith('--')) i++; else positional.push(argv[i]); }
+719156	const flag = n => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : null; };
+719157	const BASE = (positional[0] || 'http://127.0.0.1:8611/').replace(/\/?$/, '/');
+719158	const OUT = path.resolve(positional[1] || '/tmp/nl010-opus/team-12/tester/run');
+719159	const IMG = flag('--img') ? path.resolve(flag('--img')) : null;
+719160	const DEVICES = String(flag('--devices') || 'Pixel 7').split(',').map(s => s.trim()).filter(Boolean);
+719161	const ROOT = process.env.KB_ROOT || path.resolve(__dirname, '../../../..');
+719162	const BLOCKED = /basemaps\.cartocdn\.com/;
+719163	const NRULE = 20000, NSUB = 5800, OLD_SPACE = 59637070538;
+719165	const keyOf = (j, sp) => Number(((2n * BigInt(j) + 1n) * BigInt(sp)) / (2n * BigInt(NRULE)));   // floor((j + 0.5) * sp / 20000), exact
+719166	fs.mkdirSync(OUT, { recursive: true }); if (IMG) fs.mkdirSync(IMG, { recursive: true });
+719167	// ---------------------------------------------------------------- static facts from the repository (measured here)
+719168	const pointer = fs.readFileSync(path.join(ROOT, 'see-through/index.html'), 'utf8');
+719169	const stamps = [(pointer.match(/url=(\d{12})\//) || [])[1], (pointer.match(/href="(\d{12})\/"/) || [])[1], (pointer.match(/location\.replace\('(\d{12})\/' \+ location\.search \+ location\.hash\)/) || [])[1]];
+719170	const STAMP = stamps[0];
+719171	const SPACE = JSON.parse(fs.readFileSync(path.join(ROOT, 'cosmos/wafer-meta.json'), 'utf8')).address_space;
+719172	const FROZEN = +((fs.readFileSync(path.join(ROOT, 'see-through', String(STAMP), 'kuiper-law.js'), 'utf8').match(/const SPACE = (\d+);/) || [])[1]);
+719173	function repoCount(name, np, sp) {   // the engine's walk (kuiper-belt editions/202611012027/index.html:203-208), independently
+719174	  for (const p of rows('wafer.tsv')) { k += +p[4]; const k0 = k; k += +p[1]; if (+p[2] === ri && k > k0) ranges.push([k0, k]); }
+719175	  for (let q = 0; q < np; q++) { const ki = (np < NRULE && q >= NSUB) ? NSUB + 2 * (q - NSUB) : q, kk = keyOf(ki, sp); if (ranges.some(r => kk >= r[0] && kk < r[1])) n++; }
+719176	  return { n, ranges: ranges.length };
+719177	const head = u => new Promise(res => { const r = http.request(u, { method: 'HEAD' }, x => { res(x.statusCode); x.resume(); }); r.on('error', () => res(0)); r.end(); });
+719178	// ---------------------------------------------------------------- in-page probes
+719179	function probe() {
+719180	  const d = window.__descent, s = d.state(), inp = document.querySelector('input');
+719181	  const a = document.querySelector('a[data-st="kuiper-key"]');
+719182	  let row = null;
+719183	  if (a) { const r = a.getBoundingClientRect(), cs = getComputedStyle(a);
+719184	    row = { text: a.textContent, href: a.getAttribute('href'), abs: a.href, h: +r.height.toFixed(1), w: +r.width.toFixed(1), x: r.left + r.width / 2, y: r.top + r.height / 2,
+719185	      vis: cs.display !== 'none' && r.height > 0 && r.top >= 0 && r.bottom <= innerHeight, hit: (() => { const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2); return e === a || a.contains(e); })() }; }
+719186	  return { T: s.T, D: s.D, name: s.name, view: s.view, in3d: s.in3d, NP: s.NP, note: s.note, cap: s.cap, space: s.space, spaceSource: s.spaceSource,
+719187	    noteFit: (() => { if (!s.note) return null; const e = [...document.querySelectorAll('div,span')].find(x => x.children.length === 0 && x.textContent === s.note); if (!e) return null;
+719188	      const r = e.getBoundingClientRect(), rg = document.createRange(); rg.selectNodeContents(e); const t = rg.getBoundingClientRect();
+719189	      return { textRight: +t.right.toFixed(1), boxRight: +r.right.toFixed(1), innerWidth, fits: t.right <= Math.min(innerWidth, r.right) + 0.5 && t.left >= 0 }; })(),
+719190	    box: inp ? inp.value : null, hash: location.hash, href: location.href, link: d.link(), ring: d.ring(), lit: d.repoLit(), row, mapState: s.mapState };
+719191	// amber (#ffb000) pixels on the See Through canvas inside a box around (x, y) CSS px; centroid in CSS px
+719192	function amberAt(arg) {
+719193	  const cv = document.querySelector('canvas[aria-label="See through the universe to one substation"]'); const r = cv.getBoundingClientRect(), sc = cv.width / r.width;
+719194	  const g = cv.getContext('2d'), half = arg.half;
+719195	  const x0 = Math.max(0, Math.round((arg.x - half - r.left) * sc)), y0 = Math.max(0, Math.round((arg.y - half - r.top) * sc));
+719196	  const w = Math.min(cv.width - x0, Math.round(2 * half * sc)), h = Math.min(cv.height - y0, Math.round(2 * half * sc));
+719197	  const px = g.getImageData(x0, y0, w, h).data; let n = 0, sx = 0, sy = 0;
+719198	  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4; if (px[i] > 200 && px[i + 1] > 120 && px[i + 1] < 210 && px[i + 2] < 90) { n++; sx += x; sy += y; } }
+719199	  const cx = n ? x0 + sx / n : 0, cy = n ? y0 + sy / n : 0; let rs = 0;   // mean distance of the amber pixels from their centroid
+719200	  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const i = (y * w + x) * 4; if (px[i] > 200 && px[i + 1] > 120 && px[i + 1] < 210 && px[i + 2] < 90) rs += Math.hypot(x - (cx - x0), y - (cy - y0)); }
+719201	  return { n, x: n ? r.left + cx / sc : null, y: n ? r.top + cy / sc : null, radius: n ? +(rs / n / sc).toFixed(2) : null, scale: sc };
+719202	// the expected screen position of KuiperLaw.place(k) at the stars stage, from two substations' own screen positions
+719203	function lawAt(k) {
+719204	  const d = window.__descent, s = d.state(), ks = s.Rpx / Math.sqrt(s.space + 0.5);
+719205	  const a = window.KuiperLaw.place(d.subKey(0)), sa = d.screenOf(0), cx = sa[0] - a.x * ks, cy = sa[1] + a.y * ks;
+719206	  const b = window.KuiperLaw.place(d.subKey(1)), sb = d.screenOf(1), p = window.KuiperLaw.place(k);
+719207	  return { x: cx + p.x * ks, y: cy - p.y * ks, star1: Math.hypot(sb[0] - (cx + b.x * ks), sb[1] - (cy - b.y * ks)) };
+719208	// ---------------------------------------------------------------- run
+719209	  const report = { base: BASE, stamp: STAMP, space: SPACE, frozen: FROZEN, when: new Date().toISOString(), devices: {} };
+719210	    const results = [], errors = [], blocked = [], requests = [], timings = {};
+719211	    const check = (name, ok, got) => { results.push({ name, ok: !!ok, got }); console.log('[' + DEV + '] ' + (ok ? 'PASS ' : 'FAIL ') + name + '  ' + JSON.stringify(got)); };
+719212	    let live = true;   // false once a page has left See Through on purpose (the row's tap): the edition's console is not this team's
+719213	    async function open(urlPath, ready, tag) {
+719214	      const browser = await chromium.launch({ args: ARGS });
+719215	      const ctx = await browser.newContext({ ...devices[DEV] });
+719216	      const page = await ctx.newPage(); page.__b = browser; live = true; page.__navs = [];
+719217	      page.on('framenavigated', f => { if (f === page.mainFrame()) page.__navs.push(f.url()); });
+719218	      page.on('console', m => { if (m.type() !== 'error') return; const e = { tag, text: m.text().slice(0, 300), url: m.location().url };
+719219	        if (BLOCKED.test(e.text + ' ' + e.url)) blocked.push(e); else if (live) errors.push(e); else requests.push({ ...e, afterLeaving: true }); });
+719220	      page.on('pageerror', e => { if (live) errors.push({ tag, text: 'pageerror ' + e.message }); });
+719221	      page.on('requestfailed', r => { const e = { tag, url: r.url().slice(0, 200), err: (r.failure() || {}).errorText }; if (BLOCKED.test(e.url)) blocked.push(e); else requests.push(e); });
+719222	      const t0 = Date.now();
+719223	      await page.goto(BASE + urlPath, { waitUntil: 'load', timeout: 180000 });
+719224	      await page.waitForFunction(() => window.__descent && window.__descent.state(), null, { timeout: 120000 });
+719225	      await page.waitForFunction(ready, null, { timeout: 150000, polling: 500 }).catch(() => console.log('[' + DEV + '] ready condition not met: ' + tag));
+719226	      timings[tag] = Date.now() - t0;
+719227	      await sleep(7000);   // settle
+719228	      return page;
+719229	    const done = async p => { await p.__b.close().catch(() => {}); };
+719230	    async function shot(page, name, toImg = true) {   // CSS-pixel PNG; CDP fallback when the WebGL renderer holds Playwright's frame wait
+719231	      const file = path.join(OUT, slug(DEV) + '-' + name + '.png');
+719232	      try { await page.screenshot({ path: file, scale: 'css', timeout: 180000 }); }
+719233	      catch (e) { try { const c = await page.context().newCDPSession(page); const r = await Promise.race([c.send('Page.captureScreenshot', { format: 'png' }), sleep(180000).then(() => null)]); if (r) fs.writeFileSync(file, Buffer.from(r.data, 'base64')); else console.log('screenshot timed out ' + name); await c.detach().catch(() => {}); } catch (e2) { console.log('screenshot failed ' + name); return; } }
+719234	      if (toImg && IMG && DEV === DEVICES[0] && fs.existsSync(file)) fs.copyFileSync(file, path.join(IMG, name + '.png'));
+719235	    const P = p => p.evaluate(probe);
+719236	    const setHash = async (p, h, ready) => { await p.evaluate(x => { location.hash = x; }, h); await p.waitForFunction(ready, null, { timeout: 60000, polling: 300 }).catch(() => {}); await sleep(2500); return P(p); };
+719237	    const k1182 = keyOf(1182, SPACE), k201 = keyOf(201, SPACE), old1182 = keyOf(1182, OLD_SPACE);
+719238	    const arrived = () => { const s = window.__descent.state(); return s.T >= 0 && s.D > 7.99 && !s.flight; };
+719239	    // static: the pointer
+719240	    check('pointer see-through/index.html names one stamp in its three places, forwarding search + hash; ' + STAMP + '/index.html exists',
+719241	      stamps.every(x => x && x === STAMP) && fs.existsSync(path.join(ROOT, 'see-through', STAMP, 'index.html')), { stamps });
+719242	    check('the sky: frozen SPACE of ' + STAMP + '/kuiper-law.js equals cosmos/wafer-meta.json address_space', FROZEN === SPACE, { frozen: FROZEN, wafer: SPACE });
+719243	    // C1 #sub=Drax: the typed name
+719244	    let p = await open('see-through/' + STAMP + '/#sub=Drax', arrived, 'C1 #sub=Drax');
+719245	    let s = await P(p);
+719246	    const want1 = '#key=' + k1182 + '&space=' + SPACE + '&sub=Drax';
+719247	    check('C1 #sub=Drax: box "Drax", flight to 1182 Drax, D 8 (' + timings['C1 #sub=Drax'] + ' ms from goto)', s.box === 'Drax' && s.T === 1182 && s.name === 'Drax' && s.D > 7.99, { box: s.box, T: s.T, name: s.name, D: s.D, view: s.view });
+719248	    check('C1 arrival writes ' + want1 + ' (= __descent.link())', s.hash === want1 && s.link === want1, { hash: s.hash, link: s.link });
+719249	    check('C1 sky: space = address_space, spaceSource wafer-meta', s.space === SPACE && s.spaceSource === 'wafer-meta', { space: s.space, src: s.spaceSource });
+719250	    const rowText = 'STAR KEY ' + fmt(k1182) + ' · OPEN IT ON THE KUIPER', rowAbs = BASE + 'editions/#key=' + k1182;
+719251	    check('C1 row "' + rowText + '": <a href="../../editions/#key=' + k1182 + '">, visible, >= 44 px, not covered', s.row && s.row.text === rowText && s.row.href === '../../editions/#key=' + k1182 && s.row.abs === rowAbs && s.row.vis && s.row.hit && s.row.h >= 44, s.row);
+719252	    check('C1 the row resolves to ' + rowAbs + ', HEAD 200', (await head(BASE + 'editions/')) === 200, { abs: s.row && s.row.abs });
+719253	    await shot(p, 'c1-sub-drax-landing', false);   // after the auto 3D rise SwiftShader may hold the frame; the hand-off image is C6's
+719254	    await done(p);
+719255	    // C2 #key=<subKey 1182>&space=<SPACE>: the selected star
+719256	    p = await open('see-through/' + STAMP + '/#key=' + k1182 + '&space=' + SPACE, () => !!window.__descent.state().note, 'C2 #key&space');
+719257	    s = await P(p);
+719258	    check('C2 #key=' + k1182 + '&space=' + SPACE + ': nothing moves (T -1, D 0), box "Drax", note "THE STAR THAT LANDS ON DRAX. PRESS GO"',
+719259	      s.T === -1 && s.D < 0.01 && s.box === 'Drax' && s.note === 'THE STAR THAT LANDS ON DRAX. PRESS GO' && s.space === SPACE && s.spaceSource === 'wafer-meta', { T: s.T, D: s.D, box: s.box, note: s.note, space: s.space, src: s.spaceSource, ring: s.ring });
+719260	    const law2 = await p.evaluate(lawAt, k1182), amb2 = await p.evaluate(amberAt, { x: law2.x, y: law2.y, half: 16 });
+719261	    report.findingRingOnStarKey = report.findingRingOnStarKey || { device: DEV, ring: s.ring, amberPx: amb2.n, note: 'STEPS 5.5 table: "one amber ring is drawn at KuiperLaw.place(key)" for any key at D 0; A3 asserts box and note only' };
+719262	    await shot(p, '02-key-space-selected-star');
+719263	    // C3 #key=<subKey 201> without &space, then the refusals by hashchange on the same page
+719264	    p = await open('see-through/' + STAMP + '/#key=' + k201, () => !!window.__descent.state().note, 'C3 #key own sky');
+719265	    const n201 = await p.evaluate(() => window.__descent.sub(201).name);
+719266	    check('C3 #key=' + k201 + ' (no &space): T -1, D 0, box "Cowley Substation", note "THE STAR THAT LANDS ON COWLEY SUBSTATION. PRESS GO"',
+719267	      n201 === 'Cowley Substation' && s.T === -1 && s.D < 0.01 && s.box === 'Cowley Substation' && s.note === 'THE STAR THAT LANDS ON COWLEY SUBSTATION. PRESS GO', { name201: n201, T: s.T, box: s.box, note: s.note });
+719268	    s = await setHash(p, '#key=36064705400', () => /LINE OF CODE/.test(window.__descent.state().note));
+719269	    const law3 = await p.evaluate(lawAt, 36064705400);
+719270	    let amb3 = { n: 0 };   // the canvas repaints on the page's own frame; under load the first repaint after the hashchange can lag
+719271	    for (let t = 0; t < 20 && amb3.n < 20; t++) { amb3 = await p.evaluate(amberAt, { x: law3.x, y: law3.y, half: 16 }); if (amb3.n < 20) await sleep(1500); }
+719272	    const rd = s.ring ? Math.hypot(s.ring.x - law3.x, s.ring.y - law3.y) : 99, pd = amb3.n ? Math.hypot(amb3.x - law3.x, amb3.y - law3.y) : 99;
+719273	    check('C3 hashchange #key=36064705400: note "KEY 36,064,705,400 · A LINE OF CODE, NOT A SUBSTATION", T -1, D 0, one amber ring within 1 px of KuiperLaw.place(k) (__descent.ring()); on the canvas an amber ring of radius 10 px centred within 2 px of it (pixel centroid; anti-aliasing against the cyan stars moves a thresholded centroid by up to ~2 px)',
+719274	      s.note === 'KEY 36,064,705,400 · A LINE OF CODE, NOT A SUBSTATION' && s.T === -1 && s.D < 0.01 && rd <= 1 && pd <= 2 && Math.abs(amb3.radius - 10) <= 1.5 && law3.star1 <= 1 && amb3.n >= 20,
+719275	      { note: s.note, noteFit: s.noteFit, ringStatePx: +rd.toFixed(3), ringCanvasPx: +pd.toFixed(3), ringRadiusPx: amb3.radius, amberPx: amb3.n, starCheckPx: +law3.star1.toFixed(3) });
+719276	    await shot(p, '03-key-own-sky-amber-ring');
+719277	    s = await setHash(p, '#key=' + SPACE, () => /BEYOND/.test(window.__descent.state().note));
+719278	    check('C3 hashchange #key=<SPACE>: "KEY ' + fmt(SPACE) + ' IS BEYOND THIS SKY"', s.note === 'KEY ' + fmt(SPACE) + ' IS BEYOND THIS SKY', { note: s.note });
+719279	    s = await setHash(p, '#key=' + old1182 + '&space=' + OLD_SPACE, () => /REMAPPED/.test(window.__descent.state().note));
+719280	    check('C3 hashchange #key=' + old1182 + '&space=' + OLD_SPACE + ': remapped to the star of Drax', s.box === 'Drax' && s.note === 'STAR KEY REMAPPED · SKY ' + fmt(OLD_SPACE) + ' → ' + fmt(SPACE) + ' · THE STAR THAT LANDS ON DRAX. PRESS GO', { box: s.box, note: s.note });
+719281	    s = await setHash(p, '#sub=xyzzy', () => /NO SUBSTATION/.test(window.__descent.state().note));
+719282	    check('C3 hashchange #sub=xyzzy: refusal words, no flight', s.T === -1 && s.D < 0.01 && s.note === 'NO SUBSTATION NAME HERE CONTAINS THAT. TRY ANOTHER NAME', { T: s.T, note: s.note });
+719283	    s = await setHash(p, '#repo=nosuchrepo', () => /NO REPOSITORY/.test(window.__descent.state().note));
+719284	    check('C3 hashchange #repo=nosuchrepo: "NO REPOSITORY CALLED NOSUCHREPO"', s.note === 'NO REPOSITORY CALLED NOSUCHREPO', { note: s.note });
+719285	    s = await setHash(p, '#bogus=1', () => /LINK FIELD/.test(window.__descent.state().note));
+719286	    check('C3 hashchange #bogus=1 (after #repo=nosuchrepo on the same page): "LINK FIELD BOGUS NOT UNDERSTOOD" (a re-read link replaces the earlier note)', s.note === 'LINK FIELD BOGUS NOT UNDERSTOOD', { note: s.note });
+719287	    // C4 #repo=gridatlas: the lit repository
+719288	    p = await open('see-through/' + STAMP + '/#repo=gridatlas', () => !!window.__descent.state().note, 'C4 #repo=gridatlas');
+719289	    const rc = repoCount('gridatlas', s.NP, SPACE);
+719290	    const marks = await p.evaluate(() => { const d = window.__descent, s = d.state(); let lit = 0, tot = 0;   // amber 3 px marks at lit stars
+719291	      const cv = document.querySelector('canvas[aria-label="See through the universe to one substation"]'), r = cv.getBoundingClientRect(), sc = cv.width / r.width, g = cv.getContext('2d'), px = g.getImageData(0, 0, cv.width, cv.height).data;
+719292	      for (let y = 0; y < cv.height; y++) for (let x = 0; x < cv.width; x++) { const i = (y * cv.width + x) * 4; if (px[i] > 200 && px[i + 1] > 120 && px[i + 1] < 210 && px[i + 2] < 90) lit++; }
+719293	      return { amberPx: lit, NP: s.NP }; });
+719294	    check('C4 #repo=gridatlas: note "GRIDATLAS · ' + fmt(rc.n) + ' OF ' + fmt(s.NP) + ' STARS", n = the count from cosmos/wafer.tsv (' + rc.ranges + ' ranges), repoLit() = n, marks drawn',
+719295	      s.NP === 12900 && s.note === 'GRIDATLAS · ' + fmt(rc.n) + ' OF 12,900 STARS' && s.lit === rc.n && rc.n > 0 && marks.amberPx > rc.n && s.T === -1, { note: s.note, lit: s.lit, want: rc.n, amberPx: marks.amberPx });
+719296	    await shot(p, '04-repo-gridatlas-lit');
+719297	    // C5 #view=3d: the view, before a target
+719298	    p = await open('see-through/' + STAMP + '/#view=3d', () => window.__descent.state().cap === 'CHOOSE A SUBSTATION FIRST', 'C5 #view=3d');
+719299	    check('C5 #view=3d without a target: caption "CHOOSE A SUBSTATION FIRST", view not 3d, T -1, D 0, no "LINK FIELD" note',
+719300	      s.cap === 'CHOOSE A SUBSTATION FIRST' && s.view !== '3d' && !s.in3d && s.T === -1 && s.D < 0.01 && !/LINK FIELD/.test(s.note), { cap: s.cap, view: s.view, in3d: s.in3d, T: s.T, note: s.note });
+719301	    // C6 the pointer forwards search + hash; the row's real touch leads home by key
+719302	    const fwd = 'see-through/' + STAMP + '/?via=pointer#sub=Drax&view=map';
+719303	    p = await open('see-through/?via=pointer#sub=Drax&view=map', arrived, 'C6 pointer');
+719304	    const pnavs = p.__navs.slice();
+719305	    check('C6 pointer see-through/?via=pointer#sub=Drax&view=map forwards to ' + fwd + ' (search and hash kept; the hash then rewritten on arrival)',
+719306	      pnavs.includes(BASE + fwd) && s.href === BASE + 'see-through/' + STAMP + '/?via=pointer' + want1, { navs: pnavs, now: s.href });
+719307	    check('C6 arrival at 1182 in the map view (view field after the flight)', s.T === 1182 && s.view === 'map' && !s.in3d, { T: s.T, view: s.view, in3d: s.in3d });
+719308	    await shot(p, '01-sub-drax-landing-star-key-row');
+719309	    if (s.row && s.row.vis) {
+719310	      const n0 = p.__navs.length; live = false;
+719311	      await p.touchscreen.tap(s.row.x, s.row.y);
+719312	      await p.waitForURL(/\/editions\/\d{12}\/#key=\d+$/, { timeout: 60000, waitUntil: 'commit' }).catch(() => {});
+719313	      const navs = p.__navs.slice(n0);
+719314	      check('C6 a real touch on the STAR KEY row opens ' + rowAbs + ' (then the editions pointer forwards the hash)', navs[0] === rowAbs && p.url().endsWith('#key=' + k1182), { navs, url: p.url() });
+719315	    } else check('C6 a real touch on the STAR KEY row', false, { row: s.row });
+719316	    check('zero console errors and page errors on See Through apart from ' + BLOCKED.source + ' (' + blocked.length + ' blocked, logged)', errors.length === 0, errors.slice(0, 8));
+719317	    report.devices[DEV] = { pass: results.every(r => r.ok), n: results.length, failed: results.filter(r => !r.ok).length, timings, results, errors, blocked, requests };
+719318	  report.pass = Object.values(report.devices).every(d => d.pass);
+719319	  console.log('RESULT ' + (report.pass ? 'PASS' : 'FAIL') + ' ' + Object.entries(report.devices).map(([d, r]) => d + ' ' + (r.n - r.failed) + '/' + r.n).join(', '));
+719320	function slug(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+719520	    + '#layers.ky-in-shell{position:static;border:0;padding:0;background:transparent;max-height:none;height:var(--ky-layers-fit,auto);min-height:240px}'
+719558	    + '#lineslist .ln{content-visibility:auto;contain-intrinsic-size:auto 62px;min-height:44px;padding:5px 8px;border-top:1px solid #121a26;cursor:pointer;color:#7d8799;font-size:12px;overflow-wrap:anywhere}'
+719565	    var st = document.createElement('style'); st.id = 'ky-layers-style';
+719566	    // scoped above the shell's own '#kuiper-menu-bar .gm-panel #linesctl…' rules (kuiper-shell.js:156-160), so ours win
+719567	    st.textContent = CSS.replace(/(^|[},])(#linesctl|#lineslist|#lyClear|#lycount)/g, '$1body #layers.ky-layers $2'); panel.appendChild(st);
+719588	    new MutationObserver(function () { if (opener.classList.contains('gm-open')) { sizePanel(); requestAnimationFrame(sizePanel); fillLines(true); } })
+719590	    // the shell shows its panel by its own rule (not always a gm-open on the panel itself): watch it being laid out
+719591	    if (panelName === 'shell' && typeof ResizeObserver === 'function') {
+719592	      var shown = false;
+719593	      new ResizeObserver(function () { var h = opener.getBoundingClientRect().height;
+719594	        if (h && !shown) { sizePanel(); requestAnimationFrame(sizePanel); fillLines(true); } shown = !!h; }).observe(opener);
+719603	    if (panelName === 'shell') {                 // the shell's panel must not scroll as well: fill exactly what it has left
+719604	      var sp = panel.closest('.gm-panel'); if (!sp) return;
+719605	      var pr = sp.getBoundingClientRect(), lr = panel.getBoundingClientRect();
+719606	      if (!pr.height) return;                                        // measured only while the shell panel is shown
+719607	      var pad = parseFloat(getComputedStyle(sp).paddingBottom) || 0;
+719608	      var vh0 = Math.min(innerHeight, window.visualViewport ? visualViewport.height : innerHeight);
+719609	      var maxH = Math.min(parseFloat(getComputedStyle(sp).maxHeight) || vh0, vh0 - pr.top);
+719610	      var fit = Math.max(240, Math.floor(maxH - (lr.top - pr.top + sp.scrollTop) - pad - 2));
+719611	      panel.style.setProperty('--ky-layers-fit', fit + 'px');
+719612	      var over = sp.scrollHeight - sp.clientHeight;                 // borders, margins, rounding: measured, then taken off
+719613	      if (over > 0) panel.style.setProperty('--ky-layers-fit', Math.max(240, fit - over) + 'px');
+719781	  // as the base page's edFly (kuiper-belt@a72c175 index.html, ED_MINBAND, tween.dur, edKeep): a panel that leaves a band
+719782	  // under 96 px is closed by the pick; a short hop is quick (300-900 ms by screen distance, 1 ms for reduced motion);
+719783	  // the spark is kept inside the band when the card resizes or the phone turns. The duration is passed as flyTo's
+719784	  // fourth argument: the engine's flyTo (index.html:269) takes three today, so until the hook table forwards it the fly
+719785	  // lasts the engine's 900 ms (REQUEST to Opus 4/10 on #10).
+719786	  var MINBAND = 96, flown = null, flyingUntil = 0;
+719787	  function hop(b, z) {
+719788	    var p = edScreen(b), far = Math.hypot(p[0] - innerWidth / 2, p[1] - innerHeight / 2) + Math.abs(Math.log2(z / KY.cam.zoom)) * 120;
+719789	    return matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : Math.max(300, Math.min(900, 300 + far * 0.6));
+719790	  function go(x, y, z, dur) { KY.cam.atHome = false; flyingUntil = performance.now() + Math.max(dur, 900) + 50; H.flyTo(x, y, z, dur); }
+719793	    var g = band(); if (g.y1 - g.y0 < MINBAND && document.querySelector('.gm-open')) closePanel();
+719794	    var z = 14, t = aim(b, z), dur = hop(b, z); flown = b;
+719795	    go(t[0], t[1], z, dur);                                         // atHome false first: a resize must not re-home (IX:248, :679)
+719796	    requestAnimationFrame(function () { if (flown !== b) return; var u = aim(b, z); go(u[0], u[1], z, dur); });
+719797	  function keep() {
+719798	    if (performance.now() < flyingUntil || lines.sel < 0 || !flown || H.card.style.display !== 'block' || document.querySelector('.gm-open')) return;
+719799	    var b = lines.placed[lines.sel]; if (!b) return; var a = band(), p = edScreen(b);
+719800	    if (p[0] >= a.x0 + 12 && p[0] <= a.x1 - 12 && p[1] >= a.y0 + 12 && p[1] <= a.y1 - 12) return;
+719801	    var z = KY.cam.zoom, t = aim(b, z); go(t[0], t[1], z, 350);
+719808	    if (typeof ResizeObserver === 'function') new ResizeObserver(function () { keep(); }).observe(H.card);
+719809	    addEventListener('resize', function () { requestAnimationFrame(keep); });
+719994	 * Revision 2 (2 Nov 2026, same generation, not yet admitted; BLOCKER from the integrator's journey and Opus 3's REQUEST):
+719995	 *  history has one owner per entry. The page owns the card's entry; the shell never causes a popstate while a card is
+719996	 *  shown and steps over its own dead entries (closeAll, stepOver, onPop). Edition 4's #lines #lyAll #lyFocus #lyFind
+719997	 *  are no longer required; SCOPE's focus is a proxy for whichever #lyFocus exists.
+720196	    // rev 2: over an open card the page's own {kuiper} entry is on top; the panel shares it (one back closes both)
+720197	    // rather than stacking an entry the page cannot see past
+720198	    if (!had && history.state && history.state.kuiper && cardShown()) { historyDepth = 0; }
+720199	    else if (!had && !(history.state && history.state.kmb)) { try { history.pushState({ kmb: name }, ''); historyDepth = 1; } catch (e) { historyDepth = 0; } }
+720203	  // rev 2, one owner of history (BLOCKER via the harness, 1 Nov 2026). The page's ANDROID BACK listener (index.html,
+720204	  // NL-009 04-touch, Opus 4) owns the card's history entry and reads every popstate it did not cause as a back gesture,
+720205	  // closing the card. It is registered before any module and runs first (measured: Chromium runs window popstate
+720206	  // listeners in registration order, capture or not), so the shell never causes a popstate while a card is open:
+720207	  //  - a programmatic close pops the shell's own {kmb} entry only when, after the command that closed it has run, the
+720208	  //    entry is still on top and no card is shown; otherwise the entry stays, and
+720209	  //  - whenever history lands on a {kmb} entry with no panel and no card open (a back gesture over it, or the page's
+720210	  //    own back() after its card closed), the shell steps over it, so no back gesture is ever spent on nothing.
+720211	  function cardShown() { var c = document.getElementById('card'); return !!c && getComputedStyle(c).display !== 'none' && c.getBoundingClientRect().height > 0; }
+720212	  function stepOver() { if (history.state && history.state.kmb && !state.open && !cardShown()) { try { history.back(); } catch (e) {} return true; } return false; }
+720217	    if (!fromPop) setTimeout(stepOver, 0);                         // after the row's command (a pick opens the card synchronously)
+720218	  var onOpen = {};
+720220	    if (state.open && history.state && history.state.kmb) return;   // a forward step back onto our own entry: nothing to do
+720221	    if (state.open) { historyDepth = 0; closeAll(true); return; }   // the back gesture popped our entry: the panel closes
+720222	    stepOver();
+720244	    addEventListener('popstate', onPop);
+720602	  // leave(url): the page is navigating away; the hash is written once, now, and nothing writes after it (a replaceState
+720603	  // or popstate rewrite during a pending navigation can cancel it in Chromium: measured, Open an app tap on Pixel 7 that
+720604	  // stayed on the page at 00:5x while the same tap navigated when no write was pending)
+720605	  var leaving = false;
+720606	  function leave(url) { writeNow(); leaving = true; clearTimeout(wTimer); st.left = url; location.assign(url); }
+720609	    if (leaving) return;
+720699	      leave(editionTarget(f.edition, restOf(f, ['edition']))); return Promise.resolve('edition');
+720702	      if (!u) refuse('no app called ' + f.app); else { leave(u); return Promise.resolve('app'); }
+720727	      return openKey(+f.key, true).then(function (ok) {
+720728	        if (!ok) return; cam.key = f.key;
+720729	        var j = st.fields.line ? indexOfId(st.fields.line) : -1;       // a key that is a verified line writes its line too
+720730	        if (j >= 0 && String(bodies[j].key) === f.key) cam.line = st.fields.line;
+720785	      if (leaving) return;
+720802	    clear: function (keep) { clear(keep); }, flush: function () { writeNow(); }, go: function (url) { leave(String(url)); },
+720816	    var COPIED_MS = 4000, CAPTURE_ORDER = 1e9, CAPTURE_WAIT_MS = 30000;   // 30 s: SwiftShader at load 70 drew no frame in 4 s (lead, run-p7c)
+720819	    var NOFRAME_WORDS = 'the wafer drew no frame in 30 s, so no image was taken; try again';   // not blank: never drawn (lead)
+720888	          timer: setTimeout(function () { if (pending) { pending = null; res({ refused: NOFRAME_WORDS }); } }, CAPTURE_WAIT_MS) };
+720952	      if (r.target === 'see-through' || r.target === 'other') { if (typeof Lk.go === 'function') Lk.go(r.url); else location.href = r.url; return true; }   // navigation, same tab (lead: through link.go, so no write cancels it)
+721106	        a.addEventListener('click', function (ev) { ev.stopPropagation(); ev.preventDefault(); syncLayers(); var h = hashText(); a.href = editionTarget(e.stamp, e.stamp === '202610311905' ? '' : h); st.opened.push('edition ' + e.stamp); leave(a.href); });
+721109	      ptr.addEventListener('click', function (ev) { ev.stopPropagation(); ev.preventDefault(); syncLayers(); var h = hashText(); ptr.href = '../' + (h ? '#' + h : ''); leave(ptr.href); });
+721121	        ev.preventDefault(); el.href = appLink(a.id, f) || a.link; st.opened.push('app ' + a.id); leave(el.href);
+721399	    var shm = KY.modules && KY.modules['kuiper-shell'], swp = shm && shm.api && typeof shm.api.panel === 'function' ? shm.api.panel('wafer') : null, lsl = document.getElementById('lineslist');
+721400	    if (!swp && lsl) { lsl.parentNode.insertBefore(panel, lsl); return; }   // no shell: the page's own LINES panel holds the filter (ROADMAP step 8)
+721461	<title>Kuiper Edition 6</title>
+721551	<noscript><div class="refuse" role="alert">KUIPER EDITION 6 needs JavaScript and WebGL2 to draw the wafer. Nothing is drawn without them; the verified lines are listed in keys.json and README.md in this folder.</div></noscript>
+721560	  <span class="long"><b>KUIPER EDITION 6</b>: the verified lines of Edition 1 drawn as green sparks at their own keys on this wafer; <b>e</b> steps through them, tap one for its line and its GitHub link &middot; <b>n</b> show new code &middot; <b>r</b> random line &middot; <b>/</b> a key, a repository, or a period like 2026-07 &middot; <b>click</b> lights the repository under the
+722080	  big.textContent = 'Kuiper Edition 6 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+722173	bar.innerHTML = '<span id="barname">KUIPER EDITION 6</span>'
+722239	const KY_EDITION = '202611020326';
+722242	/* kuiper module kuiper-shell, generation 202611020243 (UTC), Apache-2.0 (kuiper-belt).
+722243	 * Generation 202611020220 (2 Nov 2026) = revision 3 of 202611012143, a new stamped file because 202611012143 was published
+722244	 * with Edition 5's files; the earlier file is never edited. (Earlier cuts 202611020154 and 202611020220 were never handed off or listed.)
+722245	 * Revision 3: a panel reopened while the shell's own back() is on its way gets a fresh
+722246	 *  entry when that pop arrives (pendingBack), so the next back gesture closes it and never leaves the page. The star
+722247	 *  strip steps aside while a card is shown (it sat under a pinch's finger when lifted above the card), and the clock of
+722248	 *  the flanks does no work while the flanks are hidden.
+722249	  var ID = 'kuiper-shell', GEN = '202611020243', SCHEMA = 'kuiper.menu-bar.v1';
+722250	      // rev 3: the row look applies to the shell's own rows only (direct children of a panel), never to a module's
+722251	      // content mounted in a named group (Opus 3's #layers rows are div.ln[role=button]; measured: flexed into columns)
+722252	      B + ' .gm-panel>button,' + B + ' .gm-panel>[role="button"],' + B + ' .gm-panel>a.gm-row{',
+722253	      '@media (hover:hover){' + B + ' .gm-panel>button:hover,' + B + ' .gm-panel>[role="button"]:hover,' + B + ' .gm-panel>a.gm-row:hover{',
+722254	      B + ' .gm-panel #lines #linesctl{display:flex;flex-direction:column;align-items:stretch;gap:3px}',
+722255	      B + ' .gm-panel #lines #linesctl label{display:flex;align-items:center;gap:10px;min-height:44px;padding:7px 10px;cursor:pointer}',
+722256	      B + ' .gm-panel #lines #linesctl input[type=checkbox]{width:20px;height:20px;margin:0;accent-color:#2ee6e6}',
+722257	      B + ' .gm-panel #lines #lyFind{min-height:44px;box-sizing:border-box;width:100%;font:12px ui-monospace,monospace}',
+722258	      B + ' .gm-panel #lines #lineslist .ln{min-height:44px;box-sizing:border-box}',
+722259	      // Edition 4's NEXT / PREVIOUS inside the moved #lines: 44 px rows (they lost the panel-wide row rule in rev 3)
+722260	      B + ' .gm-panel #lines #linesctl button{display:flex;align-items:center;width:100%;min-height:44px;box-sizing:border-box;margin:0 0 3px;',
+722261	      'padding:7px 10px;border:0;border-radius:2px;background:transparent;color:#cfeef6;font:11px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;',
+722262	      'text-align:left;letter-spacing:.03em;cursor:pointer}',
+722263	      if (!lf.offsetParent) return;                                // rev 3: the flanks are hidden at max-width:700px; no work then
+722264	    if (!had && pendingBack) { historyDepth = 1; }                // rev 3: our entry is being popped; onPop re-arms it on arrival
+722265	    else if (!had && history.state && history.state.kuiper && cardShown()) { historyDepth = 0; }
+722266	  function stepOver() { if (!pendingBack && history.state && history.state.kmb && !state.open && !cardShown()) { pendingBack = true; setTimeout(function () { pendingBack = false; }, 2000); try { history.back(); } catch (e) { pendingBack = false; } return true; } return false; }
+722267	  var onOpen = {}, pendingBack = false;
+722268	    // rev 3 (Pixel 7 landscape A5): the pop the shell asked for has arrived. If a panel was reopened while it was on its
+722269	    // way, the reopened panel gets a fresh entry, so the next back gesture closes it instead of leaving the page.
+722270	    if (pendingBack) { pendingBack = false;
+722271	      if (state.open) { try { history.pushState({ kmb: state.open }, ''); historyDepth = 1; } catch (e) { historyDepth = 0; } }
+722273	    // rev 3: a text field focused inside a panel (the WAFER filter) is scrolled to the panel's top, so the field and the
+722274	    // first rows under it are on screen (the on-screen keyboard takes the bottom; journey step lines-filter)
+722275	    bar.addEventListener('focusin', function (e) {
+722276	      var t = e.target, p = t && t.closest && t.closest('.gm-panel');
+722277	      if (!p || !/^(INPUT|TEXTAREA)$/.test(t.tagName) || /^(checkbox|radio|button)$/i.test(t.type || '')) return;
+722278	      setTimeout(function () { var pr = p.getBoundingClientRect(), r = t.getBoundingClientRect(); if (r.top - pr.top > 8) p.scrollTop += r.top - pr.top - 8; }, 0);
+722279	    // rev 3: the strip steps aside while a card is shown (it no longer lifts above the card): lifted, it sat where a
+722280	    // pinch's lower finger lands (integrator's journey, Galaxy S24 pinch-drag at 89.5,589; ADMISSIONS.md row 4)
+722281	      var r = card.getBoundingClientRect(), on = getComputedStyle(card).display !== 'none' && r.height > 0;
+722282	      strip.style.display = on ? 'none' : '';
+722283	    // rev 3: while a finger that started on the wafer is down, the strip lets every other touch through to the wafer,
+722284	    // so a pinch whose second finger lands on the strip stays a pinch (Galaxy S24 pinch-drag, ADMISSIONS.md row 4)
+722285	    var cvEl = document.getElementById('c'), onWafer = new Set();
+722286	    function passThrough() { strip.style.pointerEvents = onWafer.size ? 'none' : ''; }
+722287	    addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse' && e.target === cvEl) { onWafer.add(e.pointerId); passThrough(); } }, true);
+722288	    function lifted(e) { if (onWafer.delete(e.pointerId)) passThrough(); }
+722289	    addEventListener('pointerup', lifted, true); addEventListener('pointercancel', lifted, true);
+722290	<title>Kuiper Edition 7</title>
+722291	  big.textContent = 'Kuiper Edition 7 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+722292	const KY_EDITION = '202611020446';
+722293	/* kuiper module line-card, generation 202611020212 (UTC), Apache-2.0 (kuiper-belt) */
+722309	// Revision 202611020212 (Edition 6) of 202611012143 (admitted in Edition 5, kuiper-belt main a432b43), one defect fixed:
+722310	//   in Pixel 7 landscape (863x360) the card was capped at 30dvh = 108 px, already full before details opened, so the
+722311	//   action row was cut and "details" half visible (handoff/10-integration/TEST.md runs 3-4, card-details). Now, on a
+722312	//   short landscape screen, the cap is min(50dvh, the viewport minus the bar minus a 140 px band for the spark), and
+722313	//   the action row (open on GitHub, details) is sticky to the card's visible top and bottom, so it stays whole however
+722314	//   the card is scrolled, details open or closed; on a
+722315	//   coarse pointer the action targets are 44 px at every width. Nothing else changed.
+722317	  var STAMP = '202611020212';
+722345	    '#card.lc .lc-a{display:flex;flex-wrap:wrap;align-items:center;gap:0 2px;margin:0 0 0 -8px;color:var(--dim);',
+722346	    '  position:sticky;top:0;bottom:0;z-index:1;background:#090c13}',
+722361	    '@media (pointer:coarse){ #card.lc .lc-a a,#card.lc .lc-t{min-height:44px} }',
+722371	    '}',
+722372	    /* last, so it also wins over the phone rules on a narrow phone on its side. A short landscape screen: cap by the height that is there, keep a band for the spark */
+722373	    '@media (orientation:landscape) and (max-height:500px){',
+722374	    '  #card.lc{bottom:0!important;max-height:min(50vh,calc(100vh - var(--barh,46px) - 140px));',
+722375	    '    max-height:min(50dvh,calc(100dvh - var(--barh,46px) - 140px))}',
+722376	    '  #card.lc .lc-in{padding-bottom:env(safe-area-inset-bottom,0px)}',
+722377	    '  #card.lc .lc-h{max-height:4.5em}',
+722486	<title>Kuiper Edition 8</title>
+722487	  big.textContent = 'Kuiper Edition 8 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+722488	const KY_EDITION = '202611020528';
+722489	/* kuiper module drift, generation 202611020240 (UTC), Apache-2.0 (kuiper-belt code)
+722490	   Revision 202611020240 (supersedes 202611012325, withdrawn at 02:25 UTC, issue #10 comment 6567584787): the drift
+722491	   section is one collapsed 44 px row placed AFTER #lineslist, so the LINES filter, its first rows and their tap targets
+722492	   are where they are without the module; the WAFER panel (shell) is used only when the page has no #lineslist.
+722493	  var ID = 'drift', GEN = '202611020240', DATA = 'data/drift.json', SCHEMA = 'kuiper.drift.v1';
+722494	    + '#ky-drift .kd-h{color:#2ee6e6;letter-spacing:.08em;font-size:11px;margin:0;min-height:44px;display:flex;align-items:center;gap:6px;cursor:pointer;list-style:none}'
+722495	    + '#ky-drift .kd-h::-webkit-details-marker{display:none}#ky-drift .kd-h::before{content:"\\25b8"}#ky-drift details[open]>.kd-h::before{content:"\\25be"}'
+722496	    + '#ky-drift .kd-sum{color:#c9d3e6;letter-spacing:0}'
+722497	    panel.innerHTML = '<details class="kd-d"><summary class="kd-h">DRIFT SINCE THE CUT <span class="kd-sum"></span></summary><div class="kd-s" role="status"></div><div class="kd-c" role="group" aria-label="filter by class"></div><div class="kd-l" role="list"></div></details>';
+722498	    // after the verified-lines list, never between its filter and its rows (issue #10 comment 6567584787)
+722499	    var lsl = document.getElementById('lineslist');
+722500	    if (lsl && lsl.parentNode) { lsl.parentNode.insertBefore(panel, lsl.nextSibling); return; }
+722501	    if (!panel.isConnected) st.errors.push('no #lineslist and no WAFER panel to hold the filter');   // the readout still speaks
+722502	    if (st.status !== 'OK') { panel.querySelector('.kd-sum').textContent = st.status; s.textContent = st.status === 'REFUSED' ? st.why : 'WAIT · ' + st.why; s.className = 'kd-s kd-w'; chips.innerHTML = ''; list.innerHTML = ''; return; }
+722503	    panel.querySelector('.kd-sum').textContent = fmt(st.counts.MOVED) + ' moved \u00b7 ' + fmt(st.counts.GONE + st.counts.FILE_GONE) + ' gone \u00b7 ' + fmt(st.counts.UNVERIFIED) + ' unverified';
+722504	<title>Kuiper Edition 9</title>
+722505	  big.textContent = 'Kuiper Edition 9 · ' + (edMeta && edMeta.error ? edMeta.error + ' · no verified lines lit' : fmt(edPlaced.length) + ' verified lines lit');
+722506	const KY_EDITION = '202611020629';
+722508	<meta http-equiv="refresh" content="0; url=202611020629/">
+722510	<main>Opening the latest Kuiper edition. <a href="202611020629/">Tap here if it does not open.</a></main>
+722511	<script>location.replace('202611020629/' + location.search + location.hash);</script>
+722523	// NL-010 step 5 (CERN-OHL-S v2, as the rest of this file): the deep link in (#repo, #key with #space, #sub, #view, read after
+722524	// the names load and on hashchange), the link written on arrival, and the way home to the Kuiper by key (the X at the stars
+722525	// stage, the STAR KEY row, the credit line). Grammar: FIXES/NL-010/ROADMAP.md step 5.5 and team-3/STEPS.md 5.5.
+722526	// NL-010 Opus team 12 (see-through/202611020012, same licence): the link is read once the names are in AND the sky is
+722527	// settled; the sky is re-cut from ../../cosmos/wafer-meta.json address_space while nothing is chosen (ROADMAP 5.6); a #key
+722528	// that names a substation wins over #sub (identity, not search); #repo matches as the Kuiper's find box does (exact, then
+722529	// contains) and uses team 3's refusal words.
+722552	  var KUIPER_URL = '../../editions/';           // the Kuiper's pointer (kuiper-belt editions/index.html:7, :11, :12), same host
+722553	  var KUIPER_LAW_SHA = '96736f55c2137defcf02c898f8f2b0d04374d74b';
+722737	    if (S.homeA) { if (S.cardOn && !S.in3d && S.T >= 0) homeRow(); else S.homeA.style.display = 'none'; }   // NL-010 5.8 b
+722899	    if (S.T < 0 && S.D < 0.01 && !S.input.value) { goHome(); return; }
+722904	    S.cv.style.visibility = 'visible'; S.ring = null; S.repoLit = null;
+722905	    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+722962	    var xl = (M.standalone && S.T < 0 && S.D < 0.01 && !S.input.value) ? 'back to the Kuiper' : 'back';
+722963	    if (S.xLab !== xl) { S.xLab = xl; S.xbtn.setAttribute('aria-label', xl); }
+723025	    if (D < 1 && (S.ring || S.repoLit)) {        // NL-010 5.5: amber is attention (kuiper-belt PALETTE.md)
+723026	      g.save(); g.globalAlpha = 1 - D; g.strokeStyle = C.amber; g.fillStyle = C.amber; g.lineWidth = 1.5;
+723027	      if (S.ring) { g.beginPath(); g.arc(cx + S.ring.x * ks, cy - S.ring.y * ks, 10, 0, 2 * Math.PI); g.stroke(); }
+723028	      if (S.repoLit) { g.beginPath(); for (var rl = 0; rl < S.repoLit.length; rl++) { var rq = S.repoLit[rl]; g.rect(sx[rq] - 1.5, sy[rq] - 1.5, 3, 3); } g.fill(); }
+723029	      g.restore();
+723220	    if (S.D < 1) t.push('Stars placed by the Kuiper law (kuiper-belt@' + KUIPER_LAW_SHA.slice(0, 7) + ', SPACE ' + fmt(S.SPACE) + ')');
+723234	    homeRow();
+723235	  // NL-010 5.8 b: the way home by key, a 44 px row of its own directly above the one-line card (the card is an st-edge,
+723236	  // 24 px high, plain.css:28, so the row cannot live inside it). Made once and only re-labelled, so a tap is never lost
+723237	  // to a redraw; placed from the card's own box on every showCard.
+723238	  function homeRow() {
+723239	    if (!S.homeA) {
+723240	      S.homeA = el('a', 'position:absolute;display:none;box-sizing:border-box;min-height:44px;line-height:44px;padding:0 12px;background:#000;color:' + C.cyan
+723241	        + ';border:1px solid rgba(0,255,255,0.5);border-radius:6px;font:400 14px/42px ' + FONT + ';text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:auto', '', S.ui);
+723242	      S.homeA.setAttribute('data-st', 'kuiper-key');
+723243	      S.homeA.addEventListener('pointerdown', function (e) { e.stopPropagation(); });
+723244	    var a = S.homeA, hl = 'STAR KEY ' + fmt(keyOfSub(S.T)) + ' · OPEN IT ON THE KUIPER', hh = KUIPER_URL + '#key=' + keyOfSub(S.T);
+723245	    if (a.textContent !== hl) a.textContent = hl;
+723246	    if (a.getAttribute('href') !== hh) a.setAttribute('href', hh);
+723247	    var cs = getComputedStyle(S.card), ub = S.ui.getBoundingClientRect(), cb = S.card.getBoundingClientRect();
+723248	    a.style.left = (cb.left - ub.left) + 'px'; a.style.width = cb.width + 'px';
+723249	    a.style.bottom = (ub.bottom - cb.top + 6) + 'px'; a.style.display = cs.display === 'none' ? 'none' : 'block';
+723250	  function hideCard() { if (S) { S.card.style.display = 'none'; S.cardOn = false; S.cardDirty = S.T >= 0; if (S.homeA) S.homeA.style.display = 'none'; } }
+723255	    writeLink();
+723256	    if (S.linkView) { var lv = S.linkView; S.linkView = null; S.auto3d = 0; setView(lv, true); }
+723257	  // ---------------- the deep link (NL-010 step 5.5): read once the names are loaded, and on hashchange ----------------
+723258	  // key with space is the identity (every substation j has one star key, keyOfSub(j)); sub is a search that lands on the
+723259	  // first named match; repo lights the stars inside a repository's key ranges; view picks the view after the flight.
+723260	  function linkText() { return S && S.T >= 0 ? '#key=' + keyOfSub(S.T) + '&space=' + S.SPACE + '&sub=' + encodeURIComponent(D0.names[S.T] || '') : ''; }
+723261	  function writeLink() { try { if (S && S.T >= 0) history.replaceState(null, '', location.pathname + location.search + linkText()); } catch (e) {} }
+723262	  function linkFields() {
+723263	    var h = (location.hash || '').replace(/^#/, ''), f = { bad: [] };
+723265	      try { v = decodeURIComponent(v.replace(/\+/g, ' ')); } catch (e) {}
+723266	      if (/^(sub|key|space|repo|view)$/.test(k)) f[k] = v; else f.bad.push(k);
+723268	  function readLink() {
+723269	    var f = linkFields(); S.linkIn = f; S.ring = null; S.repoLit = null; S.repoN = -1; S.linkSub = -1;
+723270	    S.note.textContent = ''; if (S.T < 0) S.input.value = '';     // a re-read (hashchange) starts clean; every branch that names a substation fills the box again
+723271	    if (f.repo) linkRepo(f.repo, f);
+723272	    if (f.key != null) linkKey(f.key, f.space);
+723273	    // NL-010 team 12: key with space is the identity, sub is a search. When the key names a substation (the link this page
+723274	    // writes on arrival, #key=..&space=..&sub=..), that substation is flown to, so a name used twice ('Drax' is 1182 and
+723275	    // 1368) round-trips to the same one; otherwise sub types the name into the box and presses GO.
+723276	    if (f.sub && S.linkSub >= 0) { S.input.value = D0.names[S.linkSub] || String(f.sub).slice(0, 80); S.note.textContent = ''; S.input.blur(); flyTo(S.linkSub); }
+723277	    else if (f.sub) { S.input.value = String(f.sub).slice(0, 80); goSearch(); }
+723278	    if (f.view) { if (!/^(kuiper|map|sat|3d)$/.test(f.view)) f.bad.push('view'); else if (S.flight) S.linkView = f.view; else setView(f.view, true); }
+723279	    if (f.bad.length && !S.note.textContent) S.note.textContent = 'LINK FIELD ' + String(f.bad[0]).toUpperCase().slice(0, 20) + ' NOT UNDERSTOOD';
+723280	  function linkKey(kv, sv) {
+723281	    if (!/^\d{1,15}$/.test(kv)) { S.note.textContent = 'LINK FIELD KEY NOT UNDERSTOOD'; return; }
+723282	    var k = +kv, pre = '';
+723283	    if (sv != null && !/^\d{1,15}$/.test(sv)) pre = 'LINK FIELD SPACE NOT UNDERSTOOD · ';   // named, then ignored (STEPS 5.5)
+723284	    else if (sv != null && +sv !== S.SPACE && +sv > 0) {     // the SPACE remap: any of the 20,000 DRAW THE GRID keys cut under another sky
+723285	      var sp = +sv, j = Math.floor(k * NRULE / sp), hit = -1;
+723286	      for (var d = -1; d <= 1; d++) if (j + d >= 0 && j + d < NRULE && Math.floor((j + d + 0.5) * sp / NRULE) === k) hit = j + d;
+723287	      if (hit >= 0) { pre = 'STAR KEY REMAPPED · SKY ' + fmt(sp) + ' → ' + fmt(S.SPACE) + ' · '; k = Math.floor((hit + 0.5) * S.SPACE / NRULE); }
+723288	    if (k >= S.SPACE) { S.note.textContent = pre + 'KEY ' + fmt(k) + ' IS BEYOND THIS SKY (SPACE ' + fmt(S.SPACE) + ')'; return; }
+723289	    S.ring = window.KuiperLaw.place(k);          // one amber ring at the key's place, for every key on this sky (STEPS 5.5)
+723290	    for (var i = 0; i < NSUB; i++) if (S.subKey[i] === k) {
+723291	      S.input.value = D0.names[i] || ''; S.linkSub = i;
+723292	      S.note.textContent = pre + 'THE STAR THAT LANDS ON ' + nameOf(i).toUpperCase() + '. PRESS GO'; return;
+723293	    S.note.textContent = pre + 'KEY ' + fmt(k) + ' · A LINE OF CODE, NOT A SUBSTATION';
+723294	  function linkRepo(name, f) {
+723295	    var want = String(name).toLowerCase();
+723296	    Promise.all(['../../cosmos/repos.tsv', '../../cosmos/wafer.tsv'].map(function (u) {
+723297	      return fetch(u).then(function (r) { if (!r.ok) throw new Error(u + ' HTTP ' + r.status); return r.text(); });
+723298	    })).then(function (t) {
+723299	      if (!S || S.linkIn !== f) return;          // a newer link has arrived meanwhile
+723300	      var rows = function (x) { return x.split('\n').filter(function (l) { return l && l[0] !== '#'; }).map(function (l) { return l.split('\t'); }); };
+723301	      var rr = rows(t[0]), ri = -1, nm = '';
+723302	      for (var a = 0; a < rr.length; a++) if (rr[a][1].toLowerCase() === want) { ri = +rr[a][0]; nm = rr[a][1]; }
+723303	      // then the first name that contains it, as the Kuiper's find box does (editions/202611012027/index.html:612-613)
+723304	      if (ri < 0 && want) for (a = 0; a < rr.length; a++) if (rr[a][1].toLowerCase().indexOf(want) >= 0) { ri = +rr[a][0]; nm = rr[a][1]; break; }
+723305	      if (ri < 0) { S.note.textContent = 'NO REPOSITORY CALLED ' + String(name).toUpperCase().slice(0, 40); return; }
+723306	      var ranges = [], k = 0;                        // the engine's own walk (kuiper-belt editions/202611012027/index.html:203-208)
+723307	      rows(t[1]).forEach(function (p) { k += +p[4]; var k0 = k; k += +p[1]; if (+p[2] === ri && k > k0) ranges.push([k0, k]); });
+723308	      var lit = [], n = S.NP, phoneNow = n < NRULE;
+723309	      for (var q = 0; q < n; q++) {
+723310	        var ki = (phoneNow && q >= NSUB) ? NSUB + 2 * (q - NSUB) : q, key = Math.floor((ki + 0.5) * S.SPACE / NRULE);
+723311	        var lo = 0, hi = ranges.length - 1; while (lo <= hi) { var m = (lo + hi) >> 1; if (key < ranges[m][0]) hi = m - 1; else if (key >= ranges[m][1]) lo = m + 1; else { lit.push(q); break; } }
+723312	      S.repoLit = lit.length ? lit : null; S.repoN = lit.length;
+723313	      S.note.textContent = lit.length ? nm.toUpperCase() + ' · ' + fmt(lit.length) + ' OF ' + fmt(n) + ' STARS' : 'NO STAR OF THIS SKY FALLS IN ' + nm.toUpperCase();
+723314	    }).catch(function () { if (S && S.linkIn === f) S.note.textContent = 'REPOSITORY RANGES NEED ../../cosmos/wafer.tsv'; });
+723315	  // the DRAW THE GRID keys under one sky (unchanged arithmetic, moved here from open() so the sky can be re-cut once):
+723316	  // particle p carries key floor((ki + 0.5) * space / NRULE); substation j's STAR KEY is the key of particle j
+723317	  function cutStars(space) {
+723318	    var L = window.KuiperLaw, n = S.NP, phoneNow = S.phoneStars;
+723319	    S.SPACE = space;
+723326	    S.starKey = ''; S.bucketsOK = false;
+723327	    if (S.cv && S.W) layout();
+723328	  // the Kuiper's address space today, read at run time (ROADMAP step 5.6): the wafer grows every day the engine measures
+723329	  // it (cosmos/wafer-meta.json address_space), so the sky is re-cut from it while the person is still among the stars and
+723330	  // nothing has been chosen; the frozen constant of kuiper-law.js is kept when the file cannot be read, or arrives late.
+723331	  // Calls done() once either way, so the deep link is read under the sky the page will keep.
+723332	  function readSky(done) {
+723333	    var once = function () { if (done) { var d = done; done = null; d(); } };
+723334	    S.spaceSource = 'frozen';
+723335	    var tm = setTimeout(once, 4000);
+723336	    fetch('../../cosmos/wafer-meta.json', { cache: 'no-store' }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+723337	      .then(function (m) {
+723338	        if (!S) return;
+723339	        var w = +m.address_space; S.waferSpace = w;
+723340	        if (w === S.SPACE) S.spaceSource = 'wafer-meta';
+723341	        else if (/^\d{1,15}$/.test(String(m.address_space)) && w > 0 && done && S.T < 0 && !S.flight && S.D < 0.01) { cutStars(w); S.spaceSource = 'wafer-meta'; }
+723342	        else S.spaceSource = 'frozen (wafer ' + fmt(w) + ')';
+723343	        S.attDirty = true;
+723345	      .catch(function () {})
+723346	      .then(function () { clearTimeout(tm); once(); });
+723347	  function goHome() {               // the X at the stars stage: back to the Kuiper that opened this page, else its pointer
+723348	    // the stable link see-through/ is a hop of its own, so the referrer is then the pointer; the pointer keeps the page
+723349	    // before it in sessionStorage ('seeThroughFrom'). Back only to a same-origin page that is not See Through itself.
+723350	    var from = document.referrer || '', same = false;
+723351	    try { if (from && /\/see-through\/(index\.html)?$/.test(new URL(from).pathname)) from = sessionStorage.getItem('seeThroughFrom') || ''; } catch (e) { from = ''; }
+723352	    try { var fu = new URL(from); same = fu.origin === location.origin && fu.pathname.indexOf('/see-through/') < 0; } catch (e) {}
+723353	    if (same && history.length > 1) history.back(); else location.href = KUIPER_URL;
+723443	    S.phoneStars = phoneNow; cutStars(S.SPACE);
+723500	        spider: S.spider && { kind: S.spider.kind, n: S.spider.arrows.length, labels: S.spider.arrows.map(function (a) { return a.name + ' ' + a.label; }) }, lite: S.lite, grid: S.grid, subs: S.subs, in3d: !!S.in3d,
+723501	        space: S.SPACE, spaceSource: S.spaceSource, link: linkText() }; },
+723513	      mapReady: function () { return !!(S.map && S.mapState === 'ready' && S.map.loaded() && S.map.areTilesLoaded()); },
+723514	      link: function () { return linkText(); },
+723515	      subKey: function (i) { return keyOfSub(i); },
+723516	      ring: function () { return S.ring ? { x: S.cx + S.ring.x * S.Rpx / S.Rw, y: S.cy - S.ring.y * S.Rpx / S.Rw, key: S.ring.key } : null; },
+723517	      sky: function () { return { space: S.SPACE, spaceSource: S.spaceSource, wafer: S.waferSpace || null }; },
+723518	      repoLit: function () { return S.repoLit ? S.repoLit.length : (S.repoN === 0 ? 0 : -1); }
+723519	    S.linkWait = 2;   // the link is read once the names are in and the sky is settled
+723524	      if (--S.linkWait === 0) readLink();
+723525	    on(window, 'hashchange', function () { if (S && S.linkWait <= 0 && location.hash !== linkText()) readLink(); });
+723526	    readSky(function () { if (S && --S.linkWait === 0) readLink(); });
+723570	  // RE-LIFTED (NL-010 step 5.6): the law above is unchanged at kuiper-belt@96736f5 (index.html:92, :250-251); only the sky
+723571	  // grew. SPACE is the address_space of kuiper-belt@96736f5 cosmos/wafer-meta.json:4, re-summed from cosmos/wafer.tsv
+723572	  // (lines + gap_before over 13,344 rows = 63,340,120,796). Was 59,637,070,538 at 7a65dd3. descent.js also reads
+723573	  // ../../cosmos/wafer-meta.json at run time and uses it while nothing is chosen (this value when it cannot).
+723574	  const SPACE = 63340120796;
+723634	    source: 'kuiper-belt@7a65dd315b0c60b1baf9a7090206c900b2cfd0a1 index.html:92,143-148,250-251,333-335,357; SPACE re-lifted at kuiper-belt@96736f55c2137defcf02c898f8f2b0d04374d74b cosmos/wafer-meta.json:4',
+723641	<meta http-equiv="refresh" content="0; url=202611020012/">
+723643	<main>Opening See Through. <a href="202611020012/">Tap here if it does not open.</a></main>
+723644	<script>try { sessionStorage.setItem('seeThroughFrom', document.referrer); } catch (e) {} location.replace('202611020012/' + location.search + location.hash);</script>
+723645	// drift-probe.cjs <url>: OPUS-CONTROLLER-2. Pixel 7, SwiftShader flags. After load, report what the drift module shows:
+723646	// the #ky-drift section text (first 300 chars), any refusal text in #refuse, and the HUD's DRIFT line.
+723647	  const p = await (await b.newContext({ ...devices['Pixel 7'] })).newPage();
+723648	  await p.goto(process.argv[2], { waitUntil: 'load' }); await p.waitForTimeout(15000);
+723649	  const r = await p.evaluate(() => ({
+723650	    admitted: (window.KY && KY.state && KY.state.admitted || []).map(m => m.id || m),
+723651	    drift: (document.querySelector('#ky-drift') || {}).textContent ? document.querySelector('#ky-drift').textContent.replace(/\s+/g, ' ').slice(0, 300) : null,
+723652	    refuse: (document.querySelector('#refuse') || {}).textContent || null,
+723653	    hudDrift: ((document.querySelector('#hud') || {}).textContent || '').split('\n').filter(l => /DRIFT/i.test(l)).slice(0, 2),
+723655	  console.log(JSON.stringify(r)); await b.close();
+723657	function flyTo(x, y, z, dur){ tween = { t0:performance.now(), x0:cx, y0:cy, z0:zoom, x1:x, y1:y, z1:z, dur:dur || 900 }; }
+723658	const PANELS = { top: elTop, hud: hud, foot: elFoot };
+723659	# frame.py <png> <W> <H> <barBottom>: the journey's wafer rule (lum > 34 under the bar) on a saved step frame
+723661	p, W, H, yb = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), float(sys.argv[4])
+723662	# optional mask x0,y0,x1,y1 (the SEE THROUGH strip, chrome not wafer, as the script masks #kuiper-star-strip)
+723663	M = [int(v) for v in sys.argv[5].split(',')] if len(sys.argv) > 5 else None
+723664	im = Image.open(p).convert('RGB'); print('png', im.size)
+723665	im = im.resize((W, H), Image.BILINEAR); d = im.load()
+723666	lit = tot = 0; minx = miny = 10**9; maxx = maxy = -1
+723667	for y in range(max(0, int(yb)), H):
+723668	    for x in range(W):
+723669	        if M and M[0] <= x <= M[2] and M[1] <= y <= M[3]: continue
+723670	        r, g, b = d[x, y]; tot += 1
+723671	        if 0.299*r + 0.587*g + 0.114*b > 34:
+723672	            lit += 1; minx = min(minx, x); miny = min(miny, y); maxx = max(maxx, x); maxy = max(maxy, y)
+723673	bw, bh = maxx-minx+1, maxy-miny+1
+723674	whole = bw > 0.4*min(W, H-yb) and abs(bw/bh-1) < 0.25 and miny >= yb-1 and maxy <= H
+723675	print({'bbox': [minx, miny, maxx, maxy], 'bboxW': bw, 'bboxH': bh, 'ratio': round(min(bw, bh)/max(bw, bh), 3), 'litFraction': round(lit/tot, 4), 'whole_by_script_rule': whole})
+723676	// journey-6.cjs (OPUS-CONTROLLER, 2026-11-02): journey-5.cjs plus one selector change, no threshold changed: on a page
+723677	//   without the shell where Edition 4's #lines was cut by Opus 3 (delete-moved.py), the LINES title's panel is #layers,
+723678	//   the element layers.js:285 registers for that title through KY.panels.add('lines', panel, 'WAFER').
+723679	// journey-5.cjs — FIXES/NL-009/android-journey.cjs adapted by the Edition 5 integrator (Opus team 10, NL-010 step 10).
+723680	// Same steps, same measurements, same pass rules. Changes, all in the probe and the selectors, none in a threshold:
+723681	//   (1) the bar is #kuiper-menu-bar (Opus 1's shell) when it is shown, else Edition 4's #bar; a title's logical panel is
+723682	//       its data-panel (Edition 4) or, in the shell, ABOUT=top (the edition text), WAFER=lines, VIEW=foot and hud; a
+723683	//       panel is the element its title's aria-controls names; open = gm-on or aria-expanded=true;
+723684	//   (2) the card's controls are Edition 4's (.cx .ct .cd, class open) or line-card's (.lc-x .lc-t .lc-d, class lc-open);
+723685	//   (3) WHOLE WAFER is the visible [data-k=Backspace] wherever the shell moved it; SEE THROUGH is searched in the bar,
+723686	//       #kuiper-star and #kuiper-star-strip;
+723687	//   (5) the wafer-disc measurement masks the star strip (#kuiper-star-strip / #kuiper-star below the bar): chrome, not wafer;
+723688	//   (4) one new step, 'modules': every modules.json order entry admitted, refused empty (ROADMAP 9.4 'every module
+723689	//       admitted'); on a page without the loader it records PASS with the note 'no loader on this page'.
+723690	// Original header follows.
+723692	  const kmb = q('#kuiper-menu-bar'), shell = !!kmb && vis(kmb), bar = shell ? kmb : q('#bar'), card = q('#card');
+723693	  const SHELLMAP = { ABOUT: 'top', WAFER: 'lines', VIEW: 'foot' };
+723694	  const titleEls = bar ? [...bar.querySelectorAll('.gm-title')] : [];
+723695	  const titles = titleEls.map(b => ({ text: b.textContent.trim(), panel: shell ? (SHELLMAP[b.textContent.trim().toUpperCase()] || b.textContent.trim().toLowerCase()) : b.dataset.panel, on: b.classList.contains('gm-on') || b.getAttribute('aria-expanded') === 'true', rect: R(b) }));
+723696	  const panelEl = id => { if (!shell) return q('#' + id) || (id === 'lines' ? q('#layers') : null); const t = titleEls.find(b => (SHELLMAP[b.textContent.trim().toUpperCase()] || '') === (id === 'hud' ? 'foot' : id)); return t && t.getAttribute('aria-controls') ? document.getElementById(t.getAttribute('aria-controls')) : null; };
+723697	  const barname = shell ? bar.querySelector('.gm-brand-slot') : q('#barname');
+723699	    shell, panels: Object.fromEntries(['top', 'hud', 'lines', 'foot'].map(id => { const el = panelEl(id); return [id, el ? { visible: vis(el), open: el.classList.contains('gm-open'), rect: R(el), overflowY: getComputedStyle(el).overflowY, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight, scrollTop: el.scrollTop } : null]; })),
+723700	    card: { open: cardOpen, rect: cardOpen ? R(card) : null, maxHeight: cs ? cs.maxHeight : null, height: cardOpen ? card.getBoundingClientRect().height : 0, scrollHeight: card.scrollHeight, detailsOpen: card.classList.contains('open') || card.classList.contains('lc-open'), index: cardIndex, total: cardTotal, title: cardOpen ? (card.querySelector('.lc-title, b') ? card.querySelector('.lc-title, b').textContent : card.textContent.slice(0, 80)) : null, hasClose: !!card.querySelector('.cx, .lc-x'), hasDetails: !!card.querySelector('.ct, .lc-t'), detailsVisible: vis(card.querySelector('.cd, .lc-d')), closeRect: R(card.querySelector('.cx, .lc-x')), detailsRect: R(card.querySelector('.ct, .lc-t')) },
+723701	    seeThrough: (() => { const els = [...document.querySelectorAll('#kuiper-star, #kuiper-star-strip a, #kuiper-star-strip button, ' + (bar && bar.id ? '#' + bar.id : '#bar') + ' button, ' + (bar && bar.id ? '#' + bar.id : '#bar') + ' a')].filter(vis); const el = els.find(e => /see\s*-?\s*through/i.test(e.textContent) || /see-through/i.test(e.getAttribute('href') || '')); return el ? { text: el.textContent.trim(), tag: el.tagName.toLowerCase(), href: el.getAttribute('href'), target: el.getAttribute('target'), rect: R(el) } : null; })(),
+723702	    // Edition 5: the star entry's bottom-left strip (Opus 1/5, GridAtlas's phone chip) is chrome, not wafer: masked
+723703	    const mask = [...document.querySelectorAll('#kuiper-star-strip, #kuiper-star')].map(e => e.getBoundingClientRect()).filter(r => r.height > 0 && r.top > yFrom);
+723704	    const masked = (x, y) => mask.some(r => x >= r.left - 2 && x <= r.right + 2 && y >= r.top - 2 && y <= r.bottom + 2);
+723705	    for (let y = Math.max(0, Math.floor(yFrom)); y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4; if (masked(x, y)) continue; tot++;
+723709	  const shot = async (id) => {   // a screenshot waits for a frame, and a frame at zoom 14 under SwiftShader on a loaded machine can take minutes: never let it abort the journey
+723710	    const f = path.join(dir, String(++n).padStart(2, '0') + '-' + id + '.png');
+723711	    for (let attempt = 0; attempt < 2; attempt++) { try { await page.screenshot({ path: f, scale: 'css', timeout: 180000 }); return path.relative(OUT, f); } catch (e) { if (attempt) return 'FAILED: ' + String(e.message || e).split('\n')[0]; } }
+723712	  const shotPng = async () => { try { return await page.screenshot({ type: 'png', scale: 'css', timeout: 180000 }); } catch (e) { return null; } };
+723713	    let png = null, wafer = null, waferOk = false, waferTries = 0;
+723714	      p = await probe(); png = await shotPng();
+723715	      wafer = png ? await waferFromPng(page, png.toString('base64'), p.bar ? p.bar.bottom : 0) : { error: 'screenshot timed out', litFraction: 0, bbox: null };
+723716	      { loadMs: Date.now() - t0, consoleErrors: errors.slice(), big: p.big, wafer, waferTries, bar: p.bar, barTitles: p.titles.map(t => t.text), titleTops: tops, barScroll: p.barScroll, oneRow: !!oneRow, sparksVisible: p.greensCount, frameMs: fr.length ? { median: +fr[fr.length >> 1].toFixed(0), max: +fr[fr.length - 1].toFixed(0) } : null, screenshot: await shot('load') },
+723717	    { const t1 = Date.now(); let ms = null; while (Date.now() - t1 < 60000) { ms = await page.evaluate(() => { const s = window.__KUIPER_EDITION__; return s ? { done: !!s.done, order: s.order, admitted: (s.admitted || []).map(a => a.id), refused: s.refused, failures: s.failures, whole: s.whole || null, timings: s.timings, bytes: s.bytes, byte_budget: s.byte_budget } : null; }); if (!ms || ms.done) break; await sleep(500); }
+723718	      const okM = !ms || (ms.done && !ms.whole && ms.refused.length === 0 && (ms.failures || []).length === 0 && JSON.stringify(ms.admitted) === JSON.stringify(ms.order));
+723719	      record('modules', 'every modules.json order entry admitted in order, none refused', okM, { modules: ms, consoleErrorsSoFar: errors.length },
+723720	        !ms ? 'no loader on this page' : (okM ? ms.admitted.length + ' admitted: ' + ms.admitted.join(', ') : 'admitted ' + JSON.stringify(ms.admitted) + ' of ' + JSON.stringify(ms.order) + '; refused ' + JSON.stringify(ms.refused) + (ms.whole ? '; whole set refused: ' + ms.whole : '') + ((ms.failures || []).length ? '; failures ' + JSON.stringify(ms.failures) : ''))); }
+723725	    const fp = p.panels.foot; const ww = await page.evaluate(() => { const b = [...document.querySelectorAll('button[data-k="Backspace"]')].find(e => getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0); if (!b) return null; const r = b.getBoundingClientRect(); return { text: b.textContent.trim(), left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height }; });
+723726	    const png12 = await shotPng(); const wafer12 = png12 ? await waferFromPng(page, png12.toString('base64'), p.bar.bottom) : { error: 'screenshot timed out', bbox: null };
+723730	sys.path.insert(0, '/home/user/estate/kuiper-belt/tools')
+723732	bad=[f for f in sys.argv[1:] if leaks(open(f,encoding='utf-8',errors='replace').read())]
+723733	print('K1', len(sys.argv)-1, 'files,', len(bad), 'leak:', ' '.join(bad)); sys.exit(1 if bad else 0)
+723734	// usage: node measure.cjs <url> <device> <outpng|-> [widthxheight override] [fontScale]
+723735	const [,, url, devName, out, patched, wh, fs] = process.argv;
+723736	const fsmod = require('fs');
+723737	const PROBE = "\n;Object.defineProperty(window,'__probe',{value:{safeBox:()=>safeBox(),placePanels:()=>placePanels(),panels:()=>PANELS,setPanel:n=>setPanel(n),open:()=>openPanel}});\n";
+723738	  const browser = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+723739	  const dev = Object.assign({}, devices[devName]);
+723740	  if (wh) { const [w, h] = wh.split('x').map(Number); dev.viewport = { width: w, height: h }; }
+723741	  const ctx = await browser.newContext(dev);
+723743	  await page.route(u => /\/editions\/202611012027\/(index\.html)?$/.test(u.pathname), async route => {
+723744	    let body = (patched && patched !== '-') ? fsmod.readFileSync(patched, 'utf8') : await (await route.fetch()).text();
+723745	    body = body.replace('</script>', PROBE + '</script>');
+723746	    route.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body });
+723747	  await page.goto(url, { waitUntil: 'load', timeout: 120000 });
+723748	  if (fs) await page.addStyleTag({ content: `#bar{font-size:calc(1em*${fs})} #barname{font-size:calc(1em*${fs})}` });
+723749	  await page.waitForTimeout(7000);
+723750	  const m = await page.evaluate(() => {
+723751	    const r = el => { const b = el.getBoundingClientRect(); return { x: +b.x.toFixed(1), y: +b.y.toFixed(1), w: +b.width.toFixed(1), h: +b.height.toFixed(1), bottom: +b.bottom.toFixed(1), right: +b.right.toFixed(1) }; };
+723752	    const bar = document.getElementById('bar'), bn = document.getElementById('barname');
+723753	    const cs = getComputedStyle(bar), bncs = getComputedStyle(bn);
+723754	    const btns = [...bar.querySelectorAll('.gm-title')].map(b => { const c = getComputedStyle(b); return { text: b.textContent, rect: r(b), font: c.fontSize, ls: c.letterSpacing, pad: c.padding, minH: c.minHeight, lh: c.lineHeight }; });
+723755	    const rows = [...new Set(btns.map(b => Math.round(b.rect.y)))];
+723756	    const P = window.__probe; const sb = P.safeBox();
+723757	    P.placePanels();
+723758	    const tops = Object.fromEntries(Object.entries(P.panels()).map(([k, el]) => [k, el.style.top]));
+723759	    const last = btns[btns.length - 1];
+723760	      inner: [innerWidth, innerHeight], dpr: devicePixelRatio, coarse: matchMedia('(pointer:coarse)').matches,
+723761	      bar: { rect: r(bar), pad: cs.padding, gap: cs.gap, wrap: cs.flexWrap, ovx: cs.overflowX, scrollW: bar.scrollWidth, clientW: bar.clientWidth, font: cs.fontSize },
+723762	      barname: { text: bn.textContent, rect: r(bn), font: bncs.fontSize, ls: bncs.letterSpacing, visibleText: bn.innerText },
+723763	      buttons: btns, rows, rowCount: rows.length,
+723764	      slack: +(bar.clientWidth - parseFloat(cs.paddingRight) - last.rect.right).toFixed(1),
+723765	      safeBox: sb, safeStartsUnderBar: sb.y0 >= bar.getBoundingClientRect().bottom + 8 - 0.01,
+723766	      panelTops: tops, panelTopOK: Object.values(tops).every(t => parseFloat(t) >= bar.getBoundingClientRect().height + 2 - 0.01),
+723767	      vhUnits: { card: getComputedStyle(document.getElementById('card')).maxHeight, lines: getComputedStyle(document.getElementById('lines')).maxHeight, vh100: innerHeight, docH: document.documentElement.clientHeight },
+723768	      fontFamily: getComputedStyle(document.body).fontFamily,
+723769	  // open a panel and check it starts under the bar, then close it
+723770	  const pan = await page.evaluate(() => { const P = window.__probe; P.setPanel('top'); const t = document.getElementById('top').getBoundingClientRect(); const b = document.getElementById('bar').getBoundingClientRect(); P.setPanel('top'); return { panelTop: +t.top.toFixed(1), barBottom: +b.bottom.toFixed(1), ok: t.top >= b.bottom }; });
+723771	  m.openedPanel = pan;
+723772	  // touch tap the last button and see that the right panel opens (foot = commands)
+723773	  const tap = await page.evaluate(() => { const b = document.querySelector('#bar .gm-title[data-panel="foot"]').getBoundingClientRect(); return [b.x + b.width/2, b.y + b.height/2]; });
+723774	  await page.touchscreen.tap(tap[0], tap[1]);
+723776	  m.tapOpensCommands = await page.evaluate(() => window.__probe.open() === 'foot' && getComputedStyle(document.getElementById('foot')).display === 'block');
+723777	  await page.evaluate(() => { const P = window.__probe; if (P.open()) P.setPanel(P.open()); });
+723778	  await page.waitForTimeout(600);
+723779	  m.errors = errors;
+723780	  console.log(JSON.stringify(m, null, 1));
+723781	  if (out && out !== '-') { await page.screenshot({ path: out, scale: 'css', timeout: 180000 }); }
+723783	  const url = 'http://127.0.0.1:8106/editions/202611012027/';
+723785	  for (const dev of (process.argv[2] ? [process.argv[2]] : ['Pixel 7', 'Galaxy S24', 'Pixel 7 landscape'])) {
+723786	    const ctx = await browser.newContext({ ...devices[dev] });
+723789	    page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
+723790	    page.on('pageerror', e => errors.push('pageerror: ' + e.message));
+723792	    await page.waitForTimeout(7000);
+723794	      const bar = document.getElementById('bar'); const r = bar.getBoundingClientRect();
+723795	      const items = [...bar.children].map(el => { const b = el.getBoundingClientRect(); const cs = getComputedStyle(el); return { tag: el.tagName, text: el.textContent.trim(), x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), font: cs.fontSize, pad: cs.padding, border: cs.borderTopColor, deco: cs.textDecorationLine }; });
+723796	      const btnRows = new Set(items.filter(i => i.tag !== 'SPAN').map(i => i.y)).size;
+723797	      const a = bar.querySelector('a.gm-title');
+723798	      const resolved = new URL(a.getAttribute('href'), location.href).href;
+723799	      const pages = new URL(a.getAttribute('href'), 'https://ventusltd.github.io/kuiper-belt/editions/202611012027/').href;
+723800	      const pagesFromPointer = new URL(a.getAttribute('href'), 'https://ventusltd.github.io/kuiper-belt/editions/202611019999/index.html').href;
+723801	      const ap = [...document.querySelectorAll('#edapps a')].map(x => ({ text: x.textContent, href: x.getAttribute('href'), local: new URL(x.getAttribute('href'), location.href).href, pages: new URL(x.getAttribute('href'), 'https://ventusltd.github.io/kuiper-belt/editions/202611012027/').href }));
+723802	      return { vw: innerWidth, vh: innerHeight, barH: Math.round(r.height), btnRows, items, sumW: items.reduce((s, i) => s + i.w, 0) + 4 * (items.length - 1) + 16, seeThrough: { target: a.getAttribute('target'), href: a.getAttribute('href'), resolved, pages, pagesFromPointer }, edapps: ap, edappsText: document.getElementById('edapps').textContent };
+723803	    // HEAD the resolved links through the page (same origin)
+723804	    m.linkStatus = await page.evaluate(async (urls) => { const o = {}; for (const u of urls) { try { const r = await fetch(u, { method: 'GET', redirect: 'follow' }); o[u] = r.status; } catch (e) { o[u] = String(e); } } return o; }, [m.seeThrough.resolved, ...m.edapps.map(x => x.local)]);
+723805	    const safe = dev.replace(/ /g, '_');
+723806	    await page.screenshot({ path: `/tmp/nl009/06/after-bar-${safe}.png`, clip: { x: 0, y: 0, width: m.vw, height: Math.min(m.vh, 260) }, timeout: 180000 });
+723807	    // open the EDITION panel by touch and record the apps paragraph
+723808	    const ed = m.items.find(i => i.text === 'edition');
+723809	    await page.touchscreen.tap(ed.x + ed.w / 2, ed.y + ed.h / 2);
+723811	    m.panel = await page.evaluate(() => { const t = document.getElementById('top'); const e = document.getElementById('edapps'); const tr = t.getBoundingClientRect(), er = e.getBoundingClientRect(); return { open: t.classList.contains('gm-open'), panel: { y: Math.round(tr.y), h: Math.round(tr.height), scrollH: t.scrollHeight, clientH: t.clientHeight }, edapps: { y: Math.round(er.y), h: Math.round(er.height), bottom: Math.round(er.bottom) }, visibleWithoutScroll: er.bottom <= tr.bottom + 1 }; });
+723812	    if (dev === 'Pixel 7') await page.screenshot({ path: `/tmp/nl009/06/after-panel-${safe}.png`, clip: { x: 0, y: 0, width: m.vw, height: Math.min(m.vh, 620) }, timeout: 180000 });
+723813	    // the panel must not be toggled by the link; tap SEE THROUGH with the panel open and follow it
+723814	    const st = m.items.find(i => i.text === 'see through');
+723815	    const nav = page.waitForNavigation({ waitUntil: 'load', timeout: 60000 }).catch(e => 'no navigation: ' + e.message);
+723816	    await page.touchscreen.tap(st.x + st.w / 2, st.y + st.h / 2);
+723817	    const navRes = await nav;
+723819	    m.afterTap = { navigation: typeof navRes === 'string' ? navRes : 'navigated', href: page.url(), title: await page.title() };
+723820	    // and the back gesture (history back) returns to the edition
+723821	    await page.goBack({ waitUntil: 'load' }).catch(e => { m.back = 'goBack failed: ' + e.message; });
+723823	    m.back = Object.assign(m.back || {}, await page.evaluate(() => ({ href: location.href, barItems: document.querySelectorAll('#bar .gm-title').length, openPanel: !!document.querySelector('.gm-open'), big: document.getElementById('big').textContent })));
+723824	    m.errors = errors;
+723825	    out[dev] = m;
+723826	// FABLE-08 type audit: measure text sizes, line lengths, panel rects on Android emulation.
+723827	// usage: node measure.cjs <variant orig|patched> <device pixel7|s360> [shots-prefix]
+723828	const variant = process.argv[2] || 'orig', dev = process.argv[3] || 'pixel7', shots = process.argv[4] || '';
+723829	const URL = 'http://127.0.0.1:8108/editions/' + variant + '/';
+723830	const ctxOpts = dev === 'pixel7' ? { ...devices['Pixel 7'] }
+723831	  : { viewport: { width: 360, height: 640 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true,
+723832	      userAgent: devices['Pixel 7'].userAgent };
+723833	  const ctx = await browser.newContext(ctxOpts);
+723834	  await page.goto(URL, { waitUntil: 'load', timeout: 180000 });
+723836	  const out = { variant, dev, viewport: ctxOpts.viewport, dsf: ctxOpts.deviceScaleFactor, errors };
+723837	  // generic measurer, run in page
+723838	  const measure = await page.evaluateHandle(() => {
+723839	    const dsf = devicePixelRatio;
+723840	    function charW(el) { const cs = getComputedStyle(el); const c = document.createElement('canvas').getContext('2d'); c.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily; return c.measureText('x'.repeat(100)).width / 100; }
+723841	    function sizes(root) {
+723842	      const seen = new Map();
+723843	      const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+723844	      let n;
+723845	      while ((n = walk.nextNode())) { if (!n.textContent.trim()) continue; const el = n.parentElement; const cs = getComputedStyle(el);
+723846	        if (cs.display === 'none') continue; const r = el.getBoundingClientRect(); if (!r.width && !r.height) continue;
+723847	        const key = el.tagName.toLowerCase() + (el.id ? '#' + el.id : '') + (el.className && typeof el.className === 'string' ? '.' + el.className.split(' ').filter(Boolean).join('.') : '');
+723848	        const fs = parseFloat(cs.fontSize);
+723849	        const rec = seen.get(key) || { sel: key, fontPx: fs, devPx: +(fs * dsf).toFixed(1), lineH: cs.lineHeight, color: cs.color, chars: 0, sample: n.textContent.trim().slice(0, 40) };
+723850	        rec.chars += n.textContent.trim().length; seen.set(key, rec); }
+723851	      return [...seen.values()];
+723852	    function panel(sel) { const el = document.querySelector(sel); const r = el.getBoundingClientRect(); const cs = getComputedStyle(el);
+723853	      const cw = r.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight); const ch = charW(el);
+723854	      const text = el.innerText || el.textContent;
+723855	      return { sel, rect: { x: +r.x.toFixed(1), y: +r.y.toFixed(1), w: +r.width.toFixed(1), h: +r.height.toFixed(1) }, pctOfScreen: +(100 * r.height / innerHeight).toFixed(1),
+723856	        fontPx: parseFloat(cs.fontSize), devPx: +(parseFloat(cs.fontSize) * dsf).toFixed(1), lineHeight: cs.lineHeight, charWidthPx: +ch.toFixed(2), charsPerLine: Math.floor(cw / ch),
+723857	        textChars: text.replace(/\s+/g, ' ').trim().length, words: text.trim().split(/\s+/).length, scrollH: el.scrollHeight, clientH: el.clientHeight, overflow: el.scrollHeight > el.clientHeight + 1,
+723858	        fontFamily: cs.fontFamily, textSizeAdjust: cs.webkitTextSizeAdjust || cs.textSizeAdjust, sizes: sizes(el) }; }
+723859	    return { panel, sizes, charW };
+723860	  const P = async sel => page.evaluate(([m, s]) => m.panel(s), [measure, sel]);
+723861	  out.html = await page.evaluate(() => ({ fontSize: getComputedStyle(document.documentElement).fontSize, bodyFont: getComputedStyle(document.body).font,
+723862	    textSizeAdjust: getComputedStyle(document.documentElement).webkitTextSizeAdjust, inner: [innerWidth, innerHeight], dsf: devicePixelRatio }));
+723863	  // the bar
+723864	  out.bar = await P('#bar');
+723865	  out.bar.buttons = await page.evaluate(() => [...document.querySelectorAll('#bar .gm-title, #barname')].map(b => { const r = b.getBoundingClientRect(); const cs = getComputedStyle(b); return { t: b.textContent, x: +r.x.toFixed(0), y: +r.y.toFixed(0), w: +r.width.toFixed(0), h: +r.height.toFixed(0), fontPx: parseFloat(cs.fontSize), color: cs.color }; }));
+723866	  out.bar.rows = new Set(out.bar.buttons.map(b => b.y)).size;
+723867	  const tapBar = async name => { const r = await page.evaluate(n => { const b = document.querySelector('#bar [data-panel=' + n + ']'); const q = b.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2]; }, name); await page.touchscreen.tap(r[0], r[1]); await sleep(400); };
+723868	  const shot = async (name, clip) => { if (!shots) return; await page.screenshot({ path: shots + '-' + name + '.png', timeout: 180000, clip }); };
+723869	  // panels
+723870	  const map = { top: 'edition', hud: 'readout', lines: 'lines', foot: 'commands' };
+723871	  out.panels = {};
+723872	  for (const [id, name] of Object.entries(map)) {
+723873	    await tapBar(id); const p = await P('#' + id); p.open = await page.evaluate(i => document.getElementById(i).classList.contains('gm-open'), id);
+723874	    if (id === 'lines') { p.rows = await page.evaluate(() => { const rows = [...document.querySelectorAll('#lineslist .ln')]; const r0 = rows[0] && rows[0].getBoundingClientRect(); return { count: rows.length, firstRowH: r0 && +r0.height.toFixed(1), rowText: rows[0] && rows[0].innerText.slice(0, 80) }; }); }
+723875	    out.panels[name] = p;
+723876	    await shot(name);
+723877	    await tapBar(id);
+723878	  // the card after "next verified line"
+723879	  await page.keyboard.press('e'); await sleep(7000);
+723880	  out.card = await P('#card');
+723881	  out.card.link = await page.evaluate(() => { const a = document.querySelector('#card a'); const r = a.getBoundingClientRect(); const cs = getComputedStyle(a); return { h: +r.height.toFixed(1), fontPx: parseFloat(cs.fontSize), color: cs.color }; });
+723882	const sparkPos = () => page.evaluate(() => { const o = document.getElementById('o'); const g = o.getContext('2d'); const d = g.getImageData(0, 0, o.width, o.height).data; let sx = 0, sy = 0, n = 0;
+723883	    for (let i = 0; i < d.length; i += 4) { if (d[i] > 200 && d[i + 1] < 90 && d[i + 2] > 170 && d[i + 3] > 80) { const p = i / 4; sx += p % o.width; sy += Math.floor(p / o.width); n++; } }
+723884	    const k = innerWidth / o.width; const c = document.getElementById('card').getBoundingClientRect(); const bar = document.getElementById('bar').getBoundingClientRect();
+723885	    if (!n) return { found: false }; const x = sx / n * k, y = sy / n * k; return { found: true, x: +x.toFixed(0), y: +y.toFixed(0), underCard: y > c.top, underBar: y < bar.bottom }; });
+723886	  out.card.spark = await sparkPos();
+723887	  await shot('card');
+723888	  // details open
+723889	  await page.evaluate(() => document.querySelector('#card .ct').dispatchEvent(new MouseEvent('click', { bubbles: true })));
+723890	  await sleep(300);
+723891	  out.cardDetails = await P('#card');
+723892	  await shot('card-details');
+723893	  // platform fonts actually used (this Linux Chromium; Android reasoning in the report)
+723895	  await cdp.send('DOM.enable'); await cdp.send('CSS.enable');
+723896	  const doc = await cdp.send('DOM.getDocument', { depth: -1 });
+723897	  const q = await cdp.send('DOM.querySelector', { nodeId: doc.root.nodeId, selector: '#barname' });
+723898	  out.platformFonts = (await cdp.send('CSS.getPlatformFontsForNode', { nodeId: q.nodeId })).fonts;
+723899	  // font scaling: 125 % via text-size-adjust (needs Blink's text autosizer) and via zoom on the text containers
+723900	  const probe = () => page.evaluate(() => { const b = document.querySelector('#bar .gm-title'); const c = document.getElementById('card'); const bar = document.getElementById('bar').getBoundingClientRect(); return { btnH: +b.getBoundingClientRect().height.toFixed(1), barH: +bar.height.toFixed(1), barRows: new Set([...document.querySelectorAll('#bar .gm-title, #barname')].map(x => Math.round(x.getBoundingClientRect().y))).size, cardH: +c.getBoundingClientRect().height.toFixed(1), cardPct: +(100 * c.getBoundingClientRect().height / innerHeight).toFixed(1), cardOverflow: c.scrollHeight > c.clientHeight + 1 }; });
+723901	  out.scale100 = await probe();
+723902	  await page.addStyleTag({ content: 'html{-webkit-text-size-adjust:125%!important;text-size-adjust:125%!important}' });
+723903	  await sleep(500); out.scaleTSA125 = await probe();
+723904	  await page.addStyleTag({ content: '#bar,#top,#hud,#foot,#lines,#card{zoom:1.25}' });
+723905	  await sleep(500); out.scaleZoom125 = await probe();
+723906	  out.scaleZoom125.spark = await sparkPos();
+723907	  await shot('card-125');
+723908	  await page.evaluate(() => document.querySelector('#card .cx').dispatchEvent(new MouseEvent('click', { bubbles: true })));
+723909	  await tapBar('top'); await sleep(300);
+723910	  out.scaleZoom125.edition = await P('#top');
+723911	  await shot('edition-125');
+723912	  fs.writeFileSync('/tmp/nl009/08/measure-' + variant + '-' + dev + '.json', JSON.stringify(out, null, 1));
+723913	// FABLE-09 robust audit of Kuiper Edition 4 on Pixel 7. Usage: node audit.cjs <orig|patched> [outdir]
+723914	const variant = process.argv[2] || 'orig';
+723915	const out = process.argv[3] || ('/tmp/nl009/09/out-' + variant);
+723917	const PAGE = fs.readFileSync(variant === 'orig' ? '/tmp/nl009/09/index.orig.html' : '/tmp/nl009/09/index.html', 'utf8');
+723918	const URL = 'http://127.0.0.1:8109/editions/202611012027/';
+723919	const R = { variant, scenarios: {} };
+723920	const note = (k, v) => { R.scenarios[k] = v; console.log(k, JSON.stringify(v)); };
+723921	async function serve(ctx, opts = {}) {
+723922	  await ctx.route(u => /editions\/202611012027\/(index\.html)?$/.test(u.pathname), r => r.fulfill({ status: 200, contentType: 'text/html', body: PAGE }));
+723923	  if (opts.keys404) await ctx.route(/keys\.json$/, r => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not here' }));
+723924	function wire(page, log) {
+723925	  page.on('console', m => { if (m.type() === 'error' || m.type() === 'warning') log.push(m.type() + ': ' + m.text().slice(0, 160)); });
+723926	  page.on('pageerror', e => log.push('pageerror: ' + String(e && e.message || e).slice(0, 160)));
+723927	// what the browser laid out: rectangles, the magenta spark on the overlay, the panel and bar
+723928	const MEASURE = () => {
+723929	  const rect = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { x: +r.x.toFixed(1), y: +r.y.toFixed(1), w: +r.width.toFixed(1), h: +r.height.toFixed(1), vis: getComputedStyle(el).display !== 'none' && r.width > 0 && r.height > 0 }; };
+723930	  const cv = q('#c'), ov = q('#o');
+723931	  let spark = null; try {
+723932	    const ctx = ov.getContext('2d'); const d = ctx.getImageData(0, 0, ov.width, ov.height).data; let n = 0, sx = 0, sy = 0;
+723933	    for (let i = 0; i < d.length; i += 4) { if (d[i] > 200 && d[i + 1] < 90 && d[i + 2] > 170 && d[i + 3] > 150) { const p = i / 4; sx += p % ov.width; sy += Math.floor(p / ov.width); n++; } }
+723934	    if (n) spark = { x: +(sx / n).toFixed(1), y: +(sy / n).toFixed(1), px: n };
+723935	  } catch (e) { spark = { err: String(e) }; }
+723936	  const open = document.querySelector('.gm-open');
+723937	  return { inner: [innerWidth, innerHeight], cvBuf: [cv.width, cv.height], cvCss: rect(cv), bar: rect(q('#bar')), card: rect(q('#card')),
+723938	    openPanel: open ? open.id : null, panelRect: rect(open), panelTop: open ? open.style.top : null, spark,
+723939	    big: (q('#big') || {}).textContent, hudLines: (q('#hud') || {}).textContent.split('\n').filter(l => /EDITION|keys\.json|WebGL|CONTEXT|did not load/.test(l)) };
+723940	function clear(m) { // is the spark in the clear space: under the bar, above the card, inside the screen
+723941	  if (!m.spark || m.spark.err) return 'no spark pixels on the overlay';
+723942	  const top = m.bar ? m.bar.y + m.bar.h : 0, bot = m.card && m.card.vis ? m.card.y : m.inner[1];
+723943	  const ok = m.spark.x > 0 && m.spark.x < m.inner[0] && m.spark.y > top && m.spark.y < bot;
+723944	  return (ok ? 'IN CLEAR' : 'NOT CLEAR') + ' spark(' + m.spark.x + ',' + m.spark.y + ') bar.bottom=' + top.toFixed(0) + ' card.top=' + (m.card && m.card.vis ? m.card.y : 'none') + ' inner=' + m.inner.join('x');
+723945	async function tapButton(page, sel) { const b = await page.$(sel); const r = await b.boundingBox(); await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); }
+723946	  // ---------------------------------------------------------------- 1. portrait, panel + card, rotate, toolbar
+723948	    const log = []; const ctx = await browser.newContext({ ...devices['Pixel 7'] }); await serve(ctx);
+723949	    const page = await ctx.newPage(); wire(page, log);
+723950	    await page.goto(URL); await sleep(8000);
+723951	    // aria and structure
+723952	    const aria = await page.evaluate(() => {
+723953	      const q = s => document.querySelector(s), qa = s => [...document.querySelectorAll(s)];
+723954	      const at = el => el ? Object.fromEntries([...el.attributes].filter(a => /^(role|aria-|id$|tabindex|type)/.test(a.name)).map(a => [a.name, a.value])) : null;
+723955	      return { noscript: !!q('noscript'), bar: at(q('#bar')), barButtons: qa('#bar .gm-title').map(b => ({ text: b.textContent, ...at(b) })),
+723956	        panels: ['#top', '#hud', '#lines', '#foot'].map(s => ({ s, ...at(q(s)) })), card: at(q('#card')), lyFind: at(q('#lyFind')),
+723957	        detailsToggle: (() => { const t = q('#card .ct'); return t ? { tag: t.tagName, ...at(t) } : 'card closed'; })(),
+723958	        linesRowsFocusable: qa('#lineslist [data-i]').filter(r => r.tabIndex >= 0).length, linesRows: qa('#lineslist [data-i]').length,
+723959	        barDomIndex: [...document.body.children].findIndex(e => e.id === 'bar'), bodyChildren: [...document.body.children].map(e => e.tagName.toLowerCase() + (e.id ? '#' + e.id : '')) };
+723960	    note('aria_rest', aria);
+723961	    // focus order: Tab from the document
+723962	    const order = []; for (let i = 0; i < 7; i++) { await page.keyboard.press('Tab'); order.push(await page.evaluate(() => { const a = document.activeElement; if (!a || a === document.body) return 'body'; const cs = getComputedStyle(a); return (a.tagName.toLowerCase() + (a.id ? '#' + a.id : '') + (a.className ? '.' + String(a.className).split(' ')[0] : '') + '[' + (a.textContent || '').trim().slice(0, 14) + '] outline=' + cs.outlineStyle + '/' + cs.outlineWidth + ' fv=' + a.matches(':focus-visible')); })); }
+723963	    note('focus_order', order);
+723964	    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+723965	    // open READOUT and pick a line
+723966	    await tapButton(page, '#bar [data-panel="hud"]'); await sleep(300);
+723967	    await page.keyboard.press('e'); await sleep(7000);
+723968	    const m0 = await page.evaluate(MEASURE); note('portrait_panel_card', { ...m0, clear: clear(m0) });
+723969	    const ariaOpen = await page.evaluate(() => { const b = document.querySelector('#bar .gm-on'); const t = document.querySelector('#card .ct'), x = document.querySelector('#card .cx');
+723970	      return { onButton: b ? Object.fromEntries([...b.attributes].map(a => [a.name, a.value])) : null, details: t ? { tag: t.tagName, tabIndex: t.tabIndex, role: t.getAttribute('role'), expanded: t.getAttribute('aria-expanded') } : null,
+723971	        close: x ? { tag: x.tagName, label: x.getAttribute('aria-label'), w: x.getBoundingClientRect().width, h: x.getBoundingClientRect().height } : null,
+723972	        cardAttrs: Object.fromEntries([...document.getElementById('card').attributes].map(a => [a.name, a.value])) }; });
+723973	    note('aria_open', ariaOpen);
+723974	    await page.screenshot({ path: out + '/portrait.png', scale: 'css', timeout: 180000 });
+723975	    // rotate to landscape (same device, swapped)
+723976	    await page.setViewportSize({ width: 839, height: 412 }); await sleep(6000);
+723977	    const m1 = await page.evaluate(MEASURE); note('landscape', { ...m1, clear: clear(m1) });
+723978	    await page.screenshot({ path: out + '/landscape.png', scale: 'css', timeout: 180000 });
+723979	    // back to portrait
+723980	    await page.setViewportSize({ width: 412, height: 839 }); await sleep(6000);
+723981	    const m2 = await page.evaluate(MEASURE); note('portrait_again', { ...m2, clear: clear(m2) });
+723982	    // Android dynamic toolbar: the viewport loses 56 px
+723983	    await page.setViewportSize({ width: 412, height: 783 }); await sleep(6000);
+723984	    const m3 = await page.evaluate(MEASURE); note('toolbar_minus56', { ...m3, clear: clear(m3) });
+723985	    await page.setViewportSize({ width: 412, height: 839 }); await sleep(4000);
+723986	    // Escape: first closes the panel, then (patched) the card
+723987	    await page.keyboard.press('Escape'); await sleep(300);
+723988	    const e1 = await page.evaluate(() => ({ panel: !!document.querySelector('.gm-open'), card: getComputedStyle(document.getElementById('card')).display }));
+723989	    const e2 = await page.evaluate(() => ({ panel: !!document.querySelector('.gm-open'), card: getComputedStyle(document.getElementById('card')).display }));
+723990	    note('escape', { afterFirst: e1, afterSecond: e2 });
+723991	    // hash deep link (does the engine read location.hash at all?)
+723992	    note('console_main', log);
+723993	  // ---------------------------------------------------------------- 2. reduced motion: is the fly instant?
+723994	    const log = []; const ctx = await browser.newContext({ ...devices['Pixel 7'], reducedMotion: 'reduce' }); await serve(ctx);
+723995	    await page.evaluate(() => { window.__zooms = []; const h = document.getElementById('hud'); new MutationObserver(() => { const m = h.textContent.match(/zoom ([\d.]+) px per key|zoom 1 px = ([^\n]+)/); if (m) { const v = m[1] ? +m[1] : ('1px=' + m[2]); if (window.__zooms[window.__zooms.length - 1] !== v) window.__zooms.push(v); } }).observe(h, { childList: true, characterData: true, subtree: true }); });
+723996	    const z = await page.evaluate(() => ({ matches: matchMedia('(prefers-reduced-motion: reduce)').matches, zooms: window.__zooms.slice(0, 12), n: window.__zooms.length }));
+723997	    note('reduced_motion', { ...z, console: log });
+723998	  // ---------------------------------------------------------------- 3. keys.json 404
+723999	    const log = []; const ctx = await browser.newContext({ ...devices['Pixel 7'] }); await serve(ctx, { keys404: true });
+724000	    await tapButton(page, '#bar [data-panel="hud"]'); await sleep(500);
+724001	    const hud = await page.evaluate(() => document.getElementById('hud').innerText);
+724002	    await tapButton(page, '#bar [data-panel="top"]'); await sleep(500);
+724003	    const top = await page.evaluate(() => document.getElementById('top').innerText.slice(0, 200));
+724004	    await tapButton(page, '#bar [data-panel="lines"]'); await sleep(500);
+724005	    const lines = await page.evaluate(() => document.getElementById('lineslist').innerText.slice(0, 200));
+724006	    await page.keyboard.press('Escape'); await page.keyboard.press('e'); await sleep(500);
+724007	    const card = await page.evaluate(() => getComputedStyle(document.getElementById('card')).display);
+724008	    note('keys404', { hudEditionLines: hud.split('\n').filter(l => /EDITION|keys/.test(l)), editionPanel: top, linesPanel: lines, cardAfterE: card, console: log });
+724009	  // ---------------------------------------------------------------- 4. no JavaScript
+724010	    const ctx = await browser.newContext({ ...devices['Pixel 7'], javaScriptEnabled: false }); await serve(ctx);
+724011	    const page = await ctx.newPage(); await page.goto(URL); await sleep(1500);
+724012	    const t = await page.evaluate(() => ({ text: document.body.innerText.trim().slice(0, 300), visible: [...document.body.querySelectorAll('*')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && e.textContent.trim() && getComputedStyle(e).display !== 'none' && e.children.length === 0; }).map(e => e.tagName + ':' + e.textContent.trim().slice(0, 60)).slice(0, 6) })).catch(e => ({ err: String(e) }));
+724013	    // evaluate needs JS; fall back to content()
+724014	    const html = await page.content();
+724015	    note('no_js', { evaluated: t, noscriptInHtml: /<noscript/i.test(html) });
+724016	  // ---------------------------------------------------------------- 5. hash deep link
+724017	    await page.goto(URL + '#1000000'); await sleep(8000);
+724018	    const h = await page.evaluate(() => ({ hash: location.hash, card: getComputedStyle(document.getElementById('card')).display, hud: document.getElementById('hud').textContent.split('\n')[0].slice(0, 80), big: document.getElementById('big').textContent, bar: !!document.getElementById('bar') }));
+724019	    note('hash', { ...h, engineReadsHash: /location\.hash/.test(PAGE), console: log });
+724020	  // ---------------------------------------------------------------- 6. WebGL unavailable
+724021	    const b2 = await chromium.launch({ args: [...ARGS, '--disable-webgl', '--disable-webgl2', '--disable-3d-apis'] });
+724022	    const log = []; const ctx = await b2.newContext({ ...devices['Pixel 7'] }); await serve(ctx);
+724023	    await page.goto(URL); await sleep(3000);
+724024	    const t = await page.evaluate(() => ({ gl2: !!document.createElement('canvas').getContext('webgl2'), bar: !!document.getElementById('bar'),
+724025	      visibleText: [...document.body.querySelectorAll('*')].filter(e => { const r = e.getBoundingClientRect(); const cs = getComputedStyle(e); return r.width > 0 && r.height > 0 && cs.display !== 'none' && cs.visibility !== 'hidden' && e.children.length === 0 && e.textContent.trim(); }).map(e => e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + ':' + e.textContent.trim().slice(0, 90)).slice(0, 8),
+724026	      hudText: document.getElementById('hud').textContent, hudDisplay: getComputedStyle(document.getElementById('hud')).display }));
+724027	    note('no_webgl', { ...t, console: log });
+724028	    await page.screenshot({ path: out + '/nowebgl.png', scale: 'css', timeout: 180000 });
+724029	    await ctx.close(); await b2.close();
+724030	  fs.writeFileSync(out + '/result.json', JSON.stringify(R, null, 1));
+724031	  console.log('written', out + '/result.json');
+724032	})().catch(e => { console.error('FATAL', e); process.exit(1); });
+724033	const { chromium, devices } = require('playwright'); const fs = require('fs');
+724034	const PAGE = fs.readFileSync('/tmp/nl009/09/index.html', 'utf8'); const URL = 'http://127.0.0.1:8109/editions/202611012027/';
+724035	  const ctx = await browser.newContext({ ...devices['Pixel 7'], reducedMotion: 'reduce' });
+724036	  const page = await ctx.newPage(); const log = []; page.on('pageerror', e => log.push(String(e.message))); page.on('console', m => { if (m.type() === 'error') log.push(m.text()); });
+724037	  await page.goto(URL); await sleep(8000);
+724038	  await page.evaluate(() => { window.__zooms = []; const h = document.getElementById('hud'); new MutationObserver(() => { const m = h.textContent.match(/zoom ([\d.]+) px per key|zoom 1 px = ([^\n]+)/); if (m) { const v = m[1] ? +m[1] : ('1px=' + m[2]); if (window.__zooms[window.__zooms.length - 1] !== v) window.__zooms.push(v); } }).observe(h, { childList: true, characterData: true, subtree: true }); });
+724039	  await page.keyboard.press('e'); await sleep(6000);
+724040	  console.log('reduced_motion zooms', JSON.stringify(await page.evaluate(() => window.__zooms)));
+724041	  // keyboard path through LINES: Tab to the LINES button, Enter, Tab into the list, Enter on a row
+724042	  await page.keyboard.press('Escape'); await sleep(200);
+724043	  const b = await page.$('#bar [data-panel="lines"]'); const r = await b.boundingBox(); await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await sleep(600);
+724044	  const rows = await page.evaluate(() => ({ rows: document.querySelectorAll('#lineslist [data-i]').length, focusable: document.querySelectorAll('#lineslist [data-i][tabindex="0"][role="button"]').length, expanded: document.querySelector('#bar [data-panel="lines"]').getAttribute('aria-expanded') }));
+724045	  console.log('lines rows', JSON.stringify(rows));
+724046	  await page.evaluate(() => document.querySelector('#lineslist [data-i="5"]').focus());
+724047	  const f = await page.evaluate(() => { const a = document.activeElement; return a.dataset.i + ' fv=' + a.matches(':focus-visible') + ' outline=' + getComputedStyle(a).outlineStyle; });
+724048	  await page.keyboard.press('Enter'); await sleep(6000);
+724049	  const after = await page.evaluate(() => ({ panel: !!document.querySelector('.gm-open'), card: getComputedStyle(document.getElementById('card')).display, title: document.querySelector('#card b').textContent, nOf: document.querySelector('#card span').textContent }));
+724050	  console.log('row focus', f, 'after Enter', JSON.stringify(after));
+724051	  // details button by keyboard
+724052	  await page.evaluate(() => document.querySelector('#card .ct').focus()); await page.keyboard.press('Enter'); await sleep(200);
+724053	  console.log('details', JSON.stringify(await page.evaluate(() => ({ open: document.getElementById('card').classList.contains('open'), expanded: document.querySelector('#card .ct').getAttribute('aria-expanded') }))));
+724054	  console.log('errors', JSON.stringify(log));
+724055	// Builds a GridAtlas wordmark fixture from the real bytes: ventusv8.css (whole file) + the menu-bar module's
+724056	// installStyle() CSS array (gridatlas@5ec7f62 atlas/modules/202609031958-menu-bar.js:164-384), and the shell's
+724057	// .hud-header markup (atlas/releases/202608300453-atlas-v9/index.html:23-33) inside a .gm-brand-slot between two
+724058	// side groups of the six titles (buildBar :481-545).
+724059	const G = '/home/user/estate/gridatlas/';
+724060	const mod = fs.readFileSync(G + 'atlas/modules/202609031958-menu-bar.js', 'utf8').split('\n');
+724061	const start = mod.findIndex(l => l.includes('style.textContent = ['));
+724062	const end = mod.findIndex((l, i) => i > start && l.includes("].join('');"));
+724063	const BAR_ID = 'gridatlas-menu-bar';
+724064	const css = eval('[' + mod.slice(start + 1, end).join('\n') + ']').join('');
+724065	const v8 = fs.readFileSync(G + 'atlas/releases/202608300453-atlas-v9/ventusv8.css', 'utf8');
+724066	const shell = fs.readFileSync(G + 'atlas/releases/202608300453-atlas-v9/index.html', 'utf8').split('\n');
+724067	const hud = shell.slice(22, 34).join('\n');   // :23-34
+724068	const t = n => `<div class="gm-menu"><button class="gm-title">${n}</button></div>`;
+724069	const html = `<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+724070	<style>${v8}</style><style>${css}</style></head><body><div class="dashboard"><div class="map-container" style="flex:1">
+724071	<nav id="gridatlas-menu-bar"><div class="gm-side gm-side-left">${t('File')}${t('Edit')}${t('View')}</div>
+724072	<div class="gm-brand-slot">${hud}</div><div class="gm-side gm-side-right">${t('Scope')}${t('Grid')}${t('About')}</div></nav>
+724073	</div></div><script>(function t(){const now=new Date(),target=new Date(Date.UTC(2050,0,1,0,0,0));document.getElementById('clock').innerText=now.toLocaleTimeString('en-GB');document.getElementById('date').innerText=now.toLocaleDateString('en-GB');document.getElementById('days').innerText=Math.floor((target-now)/86400000)+' DAYS';setTimeout(t,1000)})()</script></body></html>`;
+724074	fs.writeFileSync(__dirname + '/ga-fixture/index.html', html);
+724075	console.log('lines', start + 1, end + 1, 'css bytes', css.length);
+724076	const PORT = 8413, BASE = `http://127.0.0.1:${PORT}/editions/202611012135/`;
+724077	const MOD = 'modules/202611012143-kuiper-shell.js';
+724078	const VP = [
+724079	  ['Galaxy S24', devices['Galaxy S24']],
+724080	  ['Pixel 7', devices['Pixel 7']],
+724081	  ['393', { ...devices['Pixel 7'], viewport: { width: 393, height: 852 } }],
+724082	  ['430', { ...devices['Pixel 7'], viewport: { width: 430, height: 932 } }],
+724083	  ['434', { ...devices['Pixel 7'], viewport: { width: 434, height: 932 } }],
+724084	  ['Pixel 7 landscape', devices['Pixel 7 landscape']],
+724085	  ['1280x800', { viewport: { width: 1280, height: 800 } }],
+724086	  for (const [name, dev] of VP) {
+724087	    const ctx = await browser.newContext(dev); const page = await ctx.newPage();
+724088	    const errs = [];
+724089	    page.on('pageerror', e => errs.push('pageerror ' + e.message));
+724090	    page.on('console', m => { if (m.type() === 'error') errs.push('console ' + m.text()); });
+724091	    await page.route(BASE, async r => { const res = await r.fetch(); let b = await res.text();
+724092	      b = b.replace('</body>', `<script src="${MOD}"></script></body>`); r.fulfill({ response: res, body: b }); });
+724093	    console.error('start', name, Date.now()); await page.goto(BASE, { waitUntil: 'domcontentloaded', timeout: 60000 }); await page.waitForTimeout(7000); console.error('loaded', name, Date.now());
+724094	    out[name] = await page.evaluate(() => {
+724095	      const R = e => { if (!e) return null; const r = e.getBoundingClientRect(); return [+r.x.toFixed(1), +r.y.toFixed(1), +r.width.toFixed(1), +r.height.toFixed(1)]; };
+724096	      const bar = document.getElementById('kuiper-menu-bar'); const cs = e => getComputedStyle(e);
+724097	      const vm = bar && bar.querySelector('.ventus-main'), vs = bar && bar.querySelector('.ventus-sub'), hh = bar && bar.querySelector('.hud-header'), vb = bar && bar.querySelector('.ventus-brand');
+724098	      const titles = bar ? [...bar.querySelectorAll('.gm-title')].map(t => [t.textContent, ...R(t)]) : [];
+724099	      const left = bar && bar.querySelector('.gm-side-left');
+724100	      return { state: window.__KUIPER_SHELL__ ? window.__KUIPER_SHELL__.inspect() : (window.__KUIPER_MODULES__||{}).menuBar,
+724101	        bar: R(bar), barBg: bar && cs(bar).backgroundColor, barBorder: bar && cs(bar).borderBottom, barFont: bar && cs(bar).font, pos: bar && cs(bar).position,
+724102	        scroll: bar && [bar.scrollWidth, bar.clientWidth], titles,
+724103	        titleStyle: titles.length && (s => [s.fontSize, s.letterSpacing, s.color, s.textTransform, s.paddingLeft])(cs(bar.querySelector('.gm-menu>.gm-title'))),
+724104	        leftSide: R(left), leftContent: left && left.scrollWidth,
+724105	        hudHeader: R(hh), brand: R(vb), brandCentre: vb && +((vb.getBoundingClientRect().x + vb.getBoundingClientRect().width/2) - innerWidth/2).toFixed(2),
+724106	        vm: vm && [R(vm), cs(vm).fontSize, cs(vm).fontWeight, cs(vm).letterSpacing, cs(vm).color, cs(vm).textTransform, cs(vm).fontFamily, !!vm.closest('a')],
+724107	        vs: vs && [R(vs), cs(vs).fontSize, cs(vs).letterSpacing, cs(vs).color],
+724108	        flanks: hh && [...hh.children].map(c => cs(c).display),
+724109	        strip: R(document.getElementById('kuiper-star-strip')), starIds: document.querySelectorAll('#kuiper-star-strip').length,
+724110	        oldBar: (b => b && [cs(b).visibility, R(b)])(document.getElementById('bar')),
+724111	        safeTop: null, iw: innerWidth };
+724112	    out[name].errors = errs;
+724113	  fs.writeFileSync(__dirname + '/measure.json', JSON.stringify(out, null, 1));
+724114	  console.log(JSON.stringify(out, null, 0));
+724115	const { chromium, devices } = require('playwright'); const fs = require('fs'), crypto = require('crypto');
+724116	const ED = '/home/user/estate/kuiper-belt/editions/202611012135/', BASE = 'http://127.0.0.1:8410/editions/202611012135/';
+724117	const FILE = ED + 'modules/202611012143-kuiper-shell.js', buf = fs.readFileSync(FILE), sha = crypto.createHash('sha256').update(buf).digest('hex');
+724118	const man = JSON.parse(fs.readFileSync(ED + 'modules.json', 'utf8')); let rec = man.modules.find(m => m.id === 'kuiper-shell'); if (!rec) { rec = JSON.parse(fs.readFileSync('/tmp/nl010-opus/team-1/lead/shell-record.json', 'utf8')); man.modules.splice(1, 0, rec); } if (!man.order.includes('kuiper-shell')) man.order.splice(man.order.indexOf('hello') + 1, 0, 'kuiper-shell'); rec.sha256 = sha; rec.bytes = buf.length;
+724119	  for (const dn of (process.argv[2] || 'Pixel 7,Galaxy S24').split(',')) {
+724120	    const page = await (await browser.newContext(devices[dn])).newPage(); const errs = [];
+724121	    page.on('pageerror', e => errs.push(e.message)); page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+724122	    await page.route(BASE + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(man) }));
+724123	    await page.goto(BASE, { waitUntil: 'load' }); await page.waitForFunction(() => window.__KUIPER_EDITION__ && __KUIPER_EDITION__.done !== false && document.getElementById('kuiper-menu-bar'), null, { timeout: 60000 }).catch(() => {}); await page.waitForTimeout(6000);
+724124	    const tapSel = async sel => { if (!(await page.locator(sel).count())) return false; const b = await page.locator(sel).first().boundingBox(); if (!b) return false; await page.touchscreen.tap(b.x + b.width / 2, b.y + b.height / 2); return true; };
+724125	    const card = () => page.evaluate(() => { const c = document.getElementById('card'); return getComputedStyle(c).display !== 'none' && c.getBoundingClientRect().height > 0; });
+724126	    const st = () => page.evaluate(() => ({ open: window.__KUIPER_SHELL__ ? __KUIPER_SHELL__.inspect().open : (KY.modules['kuiper-shell'] && KY.modules['kuiper-shell'].inspect().open), hs: JSON.stringify(history.state), hl: history.length }));
+724127	    const out = { admitted: await page.evaluate(() => window.__KUIPER_EDITION__ && __KUIPER_EDITION__.admitted.map(a => a.id).join(',') + ' | refused ' + JSON.stringify(__KUIPER_EDITION__.refused)) };
+724128	    // 1 VIEW > next verified line
+724129	    await tapSel('#kmb-title-view'); await page.waitForTimeout(500); await tapSel('#kmb-panel-view [data-k="e"]'); await page.waitForTimeout(2500);
+724130	    out.nextCard = await card(); out.afterNext = await st();
+724131	    // 2 card details
+724132	    const det = await tapSel('#card .lc-t, #card .ct'); await page.waitForTimeout(1500); out.details = det; out.detailsCard = await card();
+724133	    // 3 WAFER > pick a row
+724134	    await tapSel('#kmb-title-wafer'); await page.waitForTimeout(800);
+724135	    const row = await tapSel('#kmb-panel-wafer #lineslist [data-i]'); await page.waitForTimeout(2500);
+724136	    out.pickRow = row; out.pickCard = await card(); out.afterPick = await st();
+724137	    const det2 = await tapSel('#card .lc-t, #card .ct'); await page.waitForTimeout(1500); out.details2Card = await card();
+724138	    // 4 back gesture closes the card and stays
+724139	    await page.goBack({ waitUntil: 'commit', timeout: 5000 }).catch(e => out.backErr = e.message.split('\n')[0]); await page.waitForTimeout(1200); out.backCard = await card(); out.url = page.url().replace(BASE, '.../'); out.afterBack = await st();
+724140	    // 5 open a panel while... ABOUT then back closes panel only
+724141	    await tapSel('#kmb-title-about'); await page.waitForTimeout(500); await page.goBack({ waitUntil: 'commit', timeout: 5000 }).catch(e => out.backErr2 = e.message.split('\n')[0]); await page.waitForTimeout(1000); out.aboutAfterBack = await st(); out.url2 = page.url().replace(BASE, '.../');
+724142	    out.errs = errs;
+724143	    console.log(dn, JSON.stringify(out));
+724144	    await page.context().close();
+724145	"""Write editions/202611012135/proof/keys-summary.json in Edition 4's form, every value re-measured here."""
+724146	import json, os, re, subprocess, collections
+724147	KB = '/home/user/estate/kuiper-belt'; ED = KB + '/editions/202611012135'
+724148	KP = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'kp')   # cwd holding C:/Users/vikra/Documents/GitHub -> clones
+724149	k = json.load(open(ED + '/keys.json')); B = k['bodies']; byk = {b['key']: b for b in B if b.get('key') is not None}
+724150	e4 = json.load(open(KB + '/editions/202611012027/proof/keys-summary.json'))
+724151	rt = []
+724152	for r in e4['roundtrip_key_py']:
+724153	    key = r['key']; b = byk.get(key, {})
+724155	        p = subprocess.run(['python3', KB + '/tools/key.py', str(key)], cwd=KP, capture_output=True, text=True, timeout=900)
+724157	        rt.append({'key': key, 'pass': None, 'repo': b.get('repo'), 'path': b.get('path'), 'line': b.get('line'),
+724158	                   'checks': 'NOT EVALUATED: key.py did not finish in 900 s (load average over 80)', 'edition4_pass': r.get('pass')}); continue
+724159	    o = p.stdout.splitlines()
+724160	    if 'REFUSED: no local clone' in p.stdout:
+724161	                   'checks': 'NOT EVALUATED: no clone of ' + str(b.get('repo')) + ' on this machine (key.py: ' + o[-1].strip() + ')',
+724162	                   'edition4_pass': r.get('pass')}); continue
+724163	    m1 = next((re.match(r'key [\d,]+ -> (\S+) / ([0-9a-f]+) / line', l) for l in o if l.startswith('key ')), None)
+724164	    m2 = next((re.match(r'\s+(.+?) : (\d+)\s+\(blob', l) for l in o if '(blob' in l), None)
+724165	    txt = next((l[l.index('| ') + 2:] if '| ' in l else '' for l in o if l.lstrip().startswith('|')), None)
+724166	    kp = {'repo': m1 and m1.group(1), 'commit': m1 and m1.group(2), 'path': m2 and m2.group(1),
+724167	          'line': m2 and int(m2.group(2)), 'text': txt}
+724168	    lt = b.get('line_text'); q = b.get('quote') or ''
+724169	    checks = {'exit0': p.returncode == 0, 'repo': (kp['repo'] or '').lower() == (b.get('repo') or '').lower(),
+724170	              'commit': bool(kp['commit']) and (b.get('commit') or '').startswith(kp['commit']),
+724171	              'path': kp['path'] == b.get('path'), 'line': kp['line'] == b.get('line'),
+724172	              'text_eq_git_line': txt is not None and lt is not None and txt.rstrip('\r\n') == lt.rstrip('\r\n'),
+724173	              'text_vs_quote': b.get('quote_check')}
+724174	    rt.append({'key': key, 'pass': all(v for kk, v in checks.items() if kk != 'text_vs_quote'), 'repo': b.get('repo'),
+724175	               'path': b.get('path'), 'line': b.get('line'), 'checks': checks, 'key_py': kp,
+724176	               'edition4_pass': r.get('pass')})
+724177	pl = [b for b in B if b.get('on_wafer')]
+724179	 'edition': 'Kuiper Edition 5 (202611012135), keys.json byte-identical to Edition 4 (sha256 1c293c33…242b)',
+724180	 'bodies': len(B), 'on_wafer': len(pl), 'verified': sum(1 for b in B if b.get('verified')),
+724181	 'not_on_wafer': [{'id': b.get('id'), 'repo': b.get('repo'), 'commit': b.get('commit'), 'reason': 'commit not on the wafer'} for b in B if not b.get('on_wafer')],
+724182	 'roundtrip_key_py': rt,
+724183	 'quote_not_at_line': [{'id': b.get('id'), 'repo': b.get('repo'), 'path': b.get('path'), 'line': b.get('line'), 'key': b.get('key'),
+724184	                        'quote_key': b.get('quote_key'), 'check': b.get('quote_check')} for b in B if b.get('quote_key')],
+724185	 'line_text': {'placed_quote_differs': sum(1 for b in pl if b.get('quote') != b.get('line_text')),
+724186	               'placed_empty_line': sum(1 for b in pl if b.get('line_text') == ''),
+724187	               'longest': max(((len(b.get('line_text') or ''), b['repo'] + ' ' + b['path'] + ':' + str(b['line']), b['key']) for b in B))},
+724188	 'method': 'tools/key.py run per key from a scratch cwd whose relative path C:/Users/vikra/Documents/GitHub/<repo> links to the local clones (key.py ROOTS, tools/key.py:31); key.py is not edited. Counts read from keys.json.',
+724189	 'render': 'NOT EVALUATED here: the Android journey is proof/android-journey.json (Opus 10 tester, team 9 script).',
+724190	 'note': e4['note'],
+724191	os.makedirs(ED + '/proof', exist_ok=True)
+724192	json.dump(out, open(ED + '/proof/keys-summary.json', 'w'), indent=1, ensure_ascii=False); open(ED + '/proof/keys-summary.json', 'a').write('\n')
+724193	print('bodies', out['bodies'], 'on_wafer', out['on_wafer'], 'verified', out['verified'], 'not_on_wafer', len(out['not_on_wafer']),
+724194	      'roundtrips pass', sum(1 for r in rt if r['pass'] is True), 'of', len(rt), 'quote_not_at_line', len(out['quote_not_at_line']))
+724195	for r in rt:
+724196	    if r['pass'] is not True: print('NOT PASS', r['key'], r['checks'], r.get('key_py'))
+724197	"""Render the live sections of handoff/10-integration/EVIDENCE.md from the template. Read-only on every other file."""
+724198	import hashlib, json, os, re, glob, datetime, subprocess
+724199	ED = '/home/user/estate/kuiper-belt/editions/202611012135'
+724200	HOOKS = ('keyPlace address describe findBy flyTo home homeCamera safeBox lightTime showNew goKey fmt words esc cv ov o2 '
+724201	         'hud big sub card gbox gin SPACE N repos commits wafer').split()
+724202	EXTRA = 'cam lit sel redraw draw panels'.split()
+724203	KEYRE = re.compile(r'[A-Za-z0-9_.-]+@[0-9a-f]{7,40}\b[^\n`|]*?[\w./-]+:\d+')
+724204	now = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M:%SZ')
+724205	sha = lambda p: hashlib.sha256(open(p, 'rb').read()).hexdigest()
+724206	def reg_requires(src):
+724207	    m = re.search(r'register\(\{.*?requires:\s*(\[[^\]]*\]|[A-Z_]+)', src, re.S)
+724208	    if not m: return None
+724209	    v = m.group(1)
+724210	    if not v.startswith('['):
+724211	        m2 = re.search(re.escape(v) + r'\s*=\s*(\[[^\]]*\])', src, re.S)
+724212	        if not m2: return None
+724213	        v = m2.group(1)
+724214	    return re.findall(r"['\"]([^'\"]+)['\"]", v)
+724215	def header_requires(src, known):
+724216	    head = src[:src.find('*/') + 2] if src.startswith('/*') and 0 < src.find('*/') < 6000 else ''
+724217	    blob = head + '\n' + '\n'.join(l for l in src.splitlines()[:8] if l.lstrip().startswith('//'))
+724218	    m = re.search(r'requires(?: \(C8\))?:\s*(.*?)(?:\n\s*(?:\*\s*)?(?:optional|provides|Public|[A-Z]{2,})|·\s*provides|provides:|\.\s+provides|\*/)', blob, re.S)
+724219	    return [t for t in dict.fromkeys(re.findall(r'(?<![#\w-])[A-Za-z][A-Za-z0-9-]*', m.group(1))) if t in HOOKS + EXTRA or t in known]
+724220	def handoff_dir(team):
+724221	    hd = sorted(d for d in os.listdir(os.path.join(ED, 'handoff')) if d.startswith(str(team).zfill(2) + '-'))
+724222	    return hd[0] if hd else None
+724223	def evidence_keys(hd):
+724224	    p = os.path.join(ED, 'handoff', hd, 'EVIDENCE.md') if hd else ''
+724225	    if not (p and os.path.exists(p)): return None
+724226	    return (len(KEYRE.findall(t)), len(re.findall(r'(?<![\w@])[\w./-]*[A-Za-z][\w./-]*:\d+(?:-\d+)?\b', t)))
+724227	def test_verdict(hd):
+724228	    p = os.path.join(ED, 'handoff', hd, 'TEST.md') if hd else ''
+724229	    if not (p and os.path.exists(p)): return 'no TEST.md'
+724230	    m = re.search(r'(?im)^\**(?:verdict|status|result)\**\s*:?\s*\**\s*(.{0,90})', t)
+724231	    return (m.group(1).strip() if m else 'no verdict line').replace('|', '/')
+724232	mp = os.environ.get('MANIFEST') or os.path.join(ED, 'modules.json')
+724233	man = json.load(open(mp))
+724234	known = set(); out = []
+724235	out.append(f'Read {now}: `modules.json` sha256 `{sha(mp)}`, `order` = `{json.dumps(man.get("order"))}`.\n')
+724236	recs = {m.get('id'): m for m in man.get('modules', [])}
+724237	if not man.get('order'):
+724238	    out.append('No module is admitted yet (`order` is empty). The candidates on disk are checked in 2b below.\n')
+724239	earlier = set()
+724240	for i, oid in enumerate(man.get('order', []), 1):
+724241	    m = recs.get(oid)
+724243	        out.append(f'### {i}. `{oid}`: IN ORDER BUT NOT IN `modules` (the loader refuses it: `in order but not in modules`)\n'); continue
+724244	    p = os.path.join(ED, m['path']); exists = os.path.exists(p)
+724245	    act = sha(p) if exists else 'MISSING'; nb = os.path.getsize(p) if exists else -1
+724246	    src = open(p, encoding='utf-8').read() if exists else ''
+724247	    l1 = src.splitlines()[0] if src else ''
+724248	    hm = re.match(r'/\* kuiper module (\S+), generation (\d{12}) \(UTC\), (.*?)(?:\s*\*/)?$', l1)
+724249	    fs = re.match(r'(\d{12})-', os.path.basename(m['path']))
+724250	    rg = re.search(r'register\(\{.*?generation:\s*([\'"]?[\w]+)', src, re.S)
+724251	    rgen = rg.group(1).strip('\'"') if rg else None
+724252	    if rgen and not rgen.isdigit():
+724253	        mm = re.search(re.escape(rgen) + r"\s*=\s*['\"](\d{12})", src); rgen = mm.group(1) if mm else rgen
+724254	    adm = set(HOOKS) | set(EXTRA) | earlier
+724255	    req = m.get('requires', []); bad = [r for r in req if r not in adm]
+724256	    rr = reg_requires(src); hr = header_requires(src, earlier)
+724257	    hd = handoff_dir(m.get('team', '')); ek = evidence_keys(hd)
+724258	    ms = os.path.join(ED, 'handoff', hd, 'MODULE.sha256') if hd else ''
+724259	    msv = open(ms).read().split()[0] if ms and os.path.exists(ms) and open(ms).read().split() else None
+724260	    stamps = [fs and fs.group(1), hm and hm.group(2), m.get('generation'), rgen]
+724261	    ok = lambda b: 'PASS' if b else '**FAIL**'
+724262	    out.append(f'### {i}. `{oid}` — `{m["path"]}` (team {m.get("team")}, step {m.get("step")})\n')
+724263	    out.append('| check | recorded | measured | result |\n|---|---|---|---|')
+724264	    out.append(f'| sha256 | `{m["sha256"]}` (modules.json) | `{act}` (sha256sum) | {ok(act == m["sha256"])} |')
+724265	    out.append(f'| sha256 in handoff MODULE.sha256 | `{msv}` | `{act}` | {ok(msv == act) if msv else "no MODULE.sha256"} |')
+724266	    out.append(f'| bytes / budget | {m.get("bytes")} / {m.get("byte_budget")} | {nb} | {ok(nb == m.get("bytes") and nb <= (m.get("byte_budget") or 0))} |')
+724267	    out.append(f'| header licence line (line 1) | record `licence`: {m.get("licence")} | `{(hm.group(3) if hm else l1)}` | {ok(bool(hm) and bool(m.get("licence")) and m.get("licence").split()[0].rstrip(",") in hm.group(3))} |')
+724268	    out.append(f'| header id | `{oid}` | `{hm and hm.group(1)}` | {ok(bool(hm) and hm.group(1) == oid)} |')
+724269	    out.append(f'| stamp: file / header / record / registration | | {" / ".join(str(s) for s in stamps)} | {ok(len(set(stamps)) == 1 and None not in stamps)} |')
+724270	    out.append(f'| requires (record) against HOOKS.md (28 hooks + 6 + earlier provides) | `{" ".join(req)}` | not admissible: {", ".join(bad) if bad else "none"} | {ok(not bad)} |')
+724271	    out.append(f'| requires: registration = record | | `{" ".join(rr) if rr is not None else "not found"}` | {ok(rr is not None and set(rr) == set(req))} |')
+724272	    out.append(f'| requires: header = record | | `{" ".join(hr) if hr is not None else "not found"}` | {ok(hr is not None and set(hr) == set(req))} |')
+724273	    out.append(f'| provides | `{" ".join(m.get("provides", []))}` | id in provides: {oid in m.get("provides", [])} | {ok(oid in m.get("provides", []))} |')
+724274	    out.append(f'| team EVIDENCE.md with keys | `handoff/{hd}/EVIDENCE.md` | {"absent" if ek is None else str(ek[0]) + " full keys `repo@sha path:line`; " + str(ek[1]) + " `path:line` references in all (short forms resolve against the file's heads table)"} | {ok(bool(ek) and ek[1] > 0)} |')
+724275	    tp = os.path.join(ED, 'handoff', hd, 'TEST.md') if hd else ''
+724276	    tt = open(tp, encoding='utf-8').read() if tp and os.path.exists(tp) else ''
+724277	    named = [x[:12] for x in set(re.findall(r'\b[0-9a-f]{64}\b', tt))]
+724278	    out.append(f'| team TEST.md verdict | | {test_verdict(hd)} | |')
+724279	    out.append(f'| TEST.md ran on the admitted bytes (admitted sha256 written in TEST.md) | `{act[:12]}` | {"named" if act in tt else "**not named**"}; 64-hex values in TEST.md: {", ".join("`"+x+"`" for x in sorted(named)[:6]) or "none"} | {"PASS" if act in tt else "**CHECK**"} |')
+724280	    out.append(f'| team HANDOFF.md | | {"present" if hd and os.path.exists(os.path.join(ED, "handoff", hd, "HANDOFF.md")) else "absent"} | |\n')
+724281	    earlier |= set(m.get('provides', [])) | {oid}
+724282	# references (the loader): sha256 and the marker block equal to index.html's (E6)
+724283	B = 'KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1'
+724284	def block(p):
+724285	    L = open(p, encoding='utf-8').read().split('\n'); i = [n for n, l in enumerate(L) if B in l]
+724286	    return ('\n'.join(L[i[0]:i[-1] + 1]), i[0] + 1, i[-1] + 1) if len(i) >= 2 else (None, None, None)
+724287	for r in man.get('references', []):
+724288	    p = os.path.join(ED, r['file']); a = sha(p) if os.path.exists(p) else 'MISSING'
+724289	    bi, i0, i1 = block(os.path.join(ED, 'index.html')); bl, j0, j1 = block(p) if os.path.exists(p) else (None, None, None)
+724290	    out.append(f'### reference `{r["file"]}` (team {r.get("team")}, never fetched)\n')
+724291	    out.append(f'| sha256 | `{r.get("sha256")}` | `{a}` | {"PASS" if a == r.get("sha256") else "**FAIL**"} |')
+724292	    out.append(f'| marker block byte-identical to index.html | index.html :{i0}-{i1} | reference :{j0}-{j1}; sha256 of block `{hashlib.sha256(bi.encode()).hexdigest()[:12] if bi else None}` / `{hashlib.sha256(bl.encode()).hexdigest()[:12] if bl else None}` | {"PASS" if bi and bi == bl else "**FAIL** (or not yet patched in)"} |')
+724293	    out.append(f'| header line 1 | | `{open(p).readline().strip()}` | |\n')
+724294	# 2b: candidates on disk
+724295	cand = ['\n| file | sha256 (sha256sum) | bytes | line 1 (licence) | registration requires | handoff MODULE.sha256 | team TEST.md |', '|---|---|---|---|---|---|---|']
+724296	for p in sorted(glob.glob(os.path.join(ED, 'modules', '*.js'))):
+724297	    s = open(p, encoding='utf-8').read(); l1 = s.splitlines()[0].replace('|', '/')
+724298	    hid = re.match(r'/\* kuiper (?:module (\S+),|loader reference)', l1)
+724299	    mid = hid.group(1) if hid and hid.group(1) else None
+724300	    team = None
+724301	    for d in os.listdir(os.path.join(ED, 'handoff')):
+724302	        for f in ('MODULE.json',):
+724303	            fp = os.path.join(ED, 'handoff', d, f)
+724304	            if mid and os.path.exists(fp):
+724306	                    if json.load(open(fp)).get('id') == mid: team = d
+724308	    if not team:
+724309	        team = {'hello': '04-loader', 'kuiper-shell': '01-shell', 'line-card': '02-card', 'layers': '03-layers',
+724310	                'see-through': '05-see-through', 'file': '06-file', 'apps': '07-apps', 'drift': '08-drift'}.get(mid or '', '04-loader' if 'loader' in p else None)
+724311	    ms = os.path.join(ED, 'handoff', team, 'MODULE.sha256') if team else ''
+724312	    msv = '—'
+724313	    if ms and os.path.exists(ms):
+724314	        a = sha(p); msv = 'lists it, equal' if a in open(ms).read() else 'present, **this sha256 not in it**'
+724315	    rr = reg_requires(s)
+724316	    cand.append(f'| `{os.path.basename(p)}` | `{sha(p)}` | {os.path.getsize(p)} | `{l1[:110]}` | {len(rr) if rr else "—"} names | {msv} | {test_verdict(team)[:60] if team else "—"} |')
+724317	open(os.path.join(HERE, 'live-modules.md'), 'w').write('\n'.join(out))
+724318	open(os.path.join(HERE, 'live-candidates.md'), 'w').write('\n'.join(cand) + '\n')
+724319	print('\n'.join(out)); print('\n'.join(cand))
+724320	import io, os, sys, subprocess
+724321	ROOT = '/home/user/estate/kuiper-belt'
+724322	sys.path.insert(0, os.path.join(ROOT, 'tools'))
+724324	for base in ['see-through', 'editions/202611012135/handoff/12-see-through-reader']:
+724325	    for d, _, fs in os.walk(os.path.join(ROOT, base)):
+724326	        files += [os.path.join(d, f) for f in fs]
+724327	bad = [f for f in files if os.path.getsize(f) <= 3_000_000 and leaks(io.open(f, encoding='utf-8', errors='replace').read())]
+724328	print('team-12 scope K1: %d files scanned, %d match a private digest' % (len(files), len(bad)))
+724329	for b in bad: print('  ', os.path.relpath(b, ROOT))
+724330	const N=20000, NSUB=5800, F=63340120796, W=63363988142, OLD=59637070538;
+724331	const key=(j,s)=>Math.floor((j+0.5)*s/N);
+724332	let bad=0, bad2=0;
+724333	for (const [a,b] of [[F,W],[W,F],[OLD,F],[F,OLD]]) for (let j=0;j<NSUB;j++){ const k=key(j,a); const jj=Math.floor(k*N/a);
+724334	  if (jj!==j || key(jj,a)!==k) bad++; // STEPS formula, no +-1 needed?
+724335	  let hit=-1; for (let d=-1;d<=1;d++) if (j+d>=0&&j+d<NSUB&&key(j+d,a)===k) hit=j+d; if (hit!==j) bad2++; }
+724336	console.log('STEPS j=floor(k*N/space) recovers j for all 4x5800:', bad===0, ' code +-1 window recovers j:', bad2===0);
+724337	console.log('subKey[1182] frozen', key(1182,F), ' main-sky', key(1182,W), ' 7a65dd3-sky', key(1182,OLD));
+724338	const k0=36064705400; console.log('36064705400 / frozen: j', Math.floor(k0*N/F), 'is star key?', key(Math.floor(k0*N/F),F)===k0, ' < SPACE', k0<F);
+724339	// false-positive remap: a non-star key that passes the check?
+724340	let fp=0; for (let t=0;t<200000;t++){ const k=Math.floor(Math.random()*F); const j=Math.floor(k*N/F); if (j<NSUB && key(j,F)===k) fp++; } console.log('random keys that pass the star-key check:', fp,'/200000');
+724341	# Re-read every key row of an EVIDENCE.md: | id | claim | key | fragment |
+724342	# key = repo@sha path:line[-line] ; sha WT = working tree. PASS only when the line exists and the fragment is on it.
+724343	import re, subprocess, sys
+724344	REPOS = {'kuiper-belt': '/home/user/estate/kuiper-belt', 'gridatlas': '/home/user/estate/gridatlas',
+724345	         'neural-link': '/home/user/neural-link-between-agents'}
+724346	rows = ok = 0; bad = []
+724347	for ln in open(sys.argv[1], encoding='utf-8'):
+724348	    cells = [c.strip() for c in re.split(r'(?<!\\)\|', ln.strip().strip('|'))] if ln.startswith('|') else []
+724349	    if len(cells) < 4: continue
+724350	    m = re.fullmatch(r'`?([\w-]+)@(\w+) ([^:`]+):(\d+)(?:-(\d+))?`?', cells[2])
+724351	    if not m: continue
+724352	    repo, sha, path, a, b = m.groups(); a = int(a); b = int(b or a)
+724353	    frag = cells[3].strip('`').replace('\\|', '|')
+724354	    d = REPOS[repo]
+724355	        txt = open(d + '/' + path, encoding='utf-8').read() if sha == 'WT' else \
+724356	            subprocess.run(['git', '-C', d, 'show', sha + ':' + path], capture_output=True, check=True).stdout.decode('utf-8', 'replace')
+724358	        bad.append((cells[0], 'missing file')); rows += 1; continue
+724359	    L = txt.split('\n'); rows += 1
+724360	    if b > len(L) or not any(frag in L[i - 1] for i in range(a, b + 1)):
+724361	        bad.append((cells[0], cells[2], frag)); continue
+724362	    ok += 1
+724363	print('rows', rows, 'PASS', ok, 'FAIL', len(bad))
+724364	for x in bad: print(' FAIL', x)
+724365	sys.exit(1 if bad or not rows else 0)
+724366	import json, sys, collections
+724367	d = json.load(open(sys.argv[1]))
+724368	B = d['bodies']
+724369	placed = [b for b in B if b.get('on_wafer')]
+724370	print('bodies', len(B), 'placed', len(placed))
+724371	print('placed with line_text field', sum('line_text' in b and b['line_text'] is not None for b in placed))
+724372	print('unplaced with line_text', [(b['repo'], b['id'], 'line_text' in b) for b in B if not b.get('on_wafer')])
+724373	empty = [b for b in placed if b['line_text'] == '']
+724374	nonempty = [b for b in placed if b['line_text'] != '']
+724375	print('empty line_text', len(empty), 'nonempty', len(nonempty))
+724376	eq = [b for b in nonempty if b['quote'] == b['line_text']]
+724377	print('nonempty quote==line_text', len(eq), 'differ', len(nonempty) - len(eq))
+724378	print('all placed quote==line_text', sum(b['quote'] == b['line_text'] for b in placed), 'differ (incl empty)', sum(b['quote'] != b['line_text'] for b in placed))
+724379	print('quote_check counts (placed):', dict(collections.Counter(b['quote_check'] for b in placed)))
+724380	print('quote_check by empty:', dict(collections.Counter(b['quote_check'] for b in empty)))
+724381	ws = [b for b in nonempty if b['quote'] != b['line_text'] and b['quote'].strip() == b['line_text'].strip()]
+724382	print('differ only by surrounding whitespace (strip)', len(ws))
+724383	ws2 = [b for b in nonempty if b['quote'] != b['line_text'] and b['quote'] == b['line_text'].lstrip()]
+724384	print('quote == line_text.lstrip()', len(ws2))
+724385	print('quote_key present', sum('quote_key' in b for b in placed))
+724386	for b in empty: print(' EMPTY', b['repo'], b['path'], b['line'], b['key'], b['quote_check'])
+724387	# For WT rows whose fragment moved: find the unique line now holding the fragment and rewrite the key's line number.
+724388	import re, sys
+724389	p = sys.argv[1]; R = {'kuiper-belt': '/home/user/estate/kuiper-belt'}
+724390	out = []; changed = []
+724391	for ln in open(p, encoding='utf-8'):
+724392	    cells = re.split(r'(?<!\\)\|', ln.strip().strip('|')) if ln.startswith('|') else []
+724393	    if len(cells) >= 4:
+724394	        key = cells[2].strip(); frag = cells[3].strip().strip('`').replace('\\|', '|')
+724395	        m = re.fullmatch(r'kuiper-belt@WT ([^:]+):(\d+)', key)
+724397	            L = open(R['kuiper-belt'] + '/' + m.group(1), encoding='utf-8').read().split('\n'); n = int(m.group(2))
+724398	            if not (n <= len(L) and frag in L[n - 1]):
+724399	                hits = [i + 1 for i, l in enumerate(L) if frag in l]
+724400	                if len(hits) == 1:
+724401	                    ln = ln.replace(key, 'kuiper-belt@WT %s:%d' % (m.group(1), hits[0]), 1); changed.append((cells[0].strip(), n, hits[0]))
+724402	                else: changed.append((cells[0].strip(), n, 'hits=%s' % hits))
+724403	    out.append(ln)
+724404	open(p, 'w', encoding='utf-8').write(''.join(out)); print(changed)
+724405	import json, subprocess, sys, random
+724406	d = json.load(open(sys.argv[1])); kp = sys.argv[2]
+724407	P = [b for b in d['bodies'] if b.get('on_wafer')]
+724408	seven = [b for b in P if 'quote_key' in b]
+724409	random.seed(20261101); extra = random.sample([b for b in P if 'quote_key' not in b], 5)
+724410	def text(k):
+724411	    o = subprocess.run([sys.executable, '-I', kp, str(k)], capture_output=True, text=True, timeout=300).stdout
+724412	    ls = [l for l in o.split('\n') if l.startswith('  | ')]
+724413	    return ls[0][4:] if ls else ('<<' + o.strip().split('\n')[-1] + '>>')
+724415	for b in seven + extra:
+724416	    t = text(b['key']); ok = t == b['line_text']
+724417	    r = {'repo': b['repo'], 'path': b['path'], 'line': b['line'], 'key': b['key'], 'key_py': t, 'line_text_equal': ok}
+724418	    if 'quote_key' in b:
+724419	        q = text(b['quote_key']); qf = b['quote'].split('\n')[0]
+724420	        r.update({'quote_key': b['quote_key'], 'quote_key_py': q, 'quote_check_at_quote_key': q == qf or q.strip() == qf.strip()})
+724421	    rows.append(r); print(json.dumps(r, ensure_ascii=False))
+724422	print('line_text equal', sum(r['line_text_equal'] for r in rows), 'of', len(rows))
+724423	// OPUS-2 evidence: the cost of the 1,240,449-character header (kuiper-belt estate-network.json:1, key 63013167769)
+724424	const U = 'http://127.0.0.1:8423/editions/202611012135/', ED = '/home/user/estate/kuiper-belt/editions/202611012135';
+724425	const IDX = '/tmp/nl010-opus/team-2/evidence/apply/editions/202611012135/index.html';
+724426	const MOD = fs.readdirSync(ED + '/modules').find(f => /^\d{12}-line-card\.js$/.test(f));
+724427	  const bytes = fs.readFileSync(ED + '/modules/' + MOD), sha = crypto.createHash('sha256').update(bytes).digest('hex');
+724428	  const manifest = { schema:'kuiper.modules.v1', edition:'202611012135', hooks:'kuiper.hooks.v1', order:['line-card'], modules:[{ id:'line-card',
+724429	    generation: MOD.slice(0,12), path:'modules/' + MOD, sha256: sha, bytes: bytes.length, byte_budget: 32768,
+724430	    requires:['card','esc','fmt','address','describe','sel','lit','redraw','gbox'], provides:['line-card'], reads:[], writes:['#card'],
+724431	    creates_controls:'none', licence:'Apache-2.0', team:'02', step:2, proof:'handoff/02-card/' }], contracts:{} };
+724433	  const out = { module: MOD, sha256: sha, devices: {} };
+724434	  for (const name of ["Pixel 7", "Galaxy S24"]) {
+724435	    const ctx = await browser.newContext({ ...devices[name] });
+724436	    await ctx.route(U, r => r.fulfill({ body: fs.readFileSync(IDX), contentType:'text/html' }));
+724437	    await ctx.route(U + 'modules.json', r => r.fulfill({ body: JSON.stringify(manifest), contentType:'application/json' }));
+724438	    const page = await ctx.newPage(); const errs = [];
+724439	    page.on('pageerror', e => errs.push('pageerror ' + e.message)); page.on('console', m => { if (m.type() === 'error') errs.push('console ' + m.text()); });
+724440	    await page.goto(U, { waitUntil:'load' }); await sleep(8000);
+724441	    const r = await page.evaluate(async () => {
+724442	      const j = await (await fetch('keys.json')).json(), api = KY.modules['line-card'].api, card = KY.hooks.card;
+724443	      const time = async (b) => { const t0 = performance.now(); api.show(b, { index:0, of:344 }); const rc = card.getBoundingClientRect();
+724444	        const t1 = performance.now(); await new Promise(res => requestAnimationFrame(() => requestAnimationFrame(res))); const t2 = performance.now();
+724445	        const code = card.querySelector('header.lc-h > code'), h = card.querySelector('header.lc-h').getBoundingClientRect();
+724446	        return { show_layout_ms: +(t1 - t0).toFixed(1), to_second_frame_ms: +(t2 - t0).toFixed(1), header_equal: code.textContent === b.line_text,
+724447	          chars: b.line_text.length, card_share: +(rc.height / innerHeight).toFixed(3), header_h: Math.round(h.height), code_scrollH: code.scrollHeight, code_rect_h: Math.round(code.getBoundingClientRect().height), code_w: Math.round(code.getBoundingClientRect().width), hdr_scrollW: card.querySelector("header.lc-h").scrollWidth, hdr_scrollH: card.querySelector("header.lc-h").scrollHeight }; };
+724448	      const big = j.bodies.find(b => b.key === 63013167769), small = j.bodies.find(b => b.key === 36064705400);
+724449	      const res = { small: await time(small), big: await time(big), small2: await time(small), big2: await time(big), sha: 0 }; return res; });
+724450	    await page.screenshot({ path: "/tmp/nl010-opus/team-2/evidence/t/big-" + name.replace(/ /g, "-") + ".png", timeout: 180000 });
+724451	    const _x = await page.evaluate(() => { KY.modules["line-card"].api.close(); return 1;
+724452	      api.close(); return res; });
+724453	    out.devices[name] = { ...r, errors: errs }; console.error(name, JSON.stringify(out.devices[name])); await ctx.close();
+724454	  await browser.close(); fs.writeFileSync('/tmp/nl010-opus/team-2/evidence/t/bigline.json', JSON.stringify(out, null, 1));
+724455	// probe: with shell + line-card, tap a LINES row and log what happens to #card
+724456	const { chromium, devices } = require('playwright'); const fs = require('fs'); const path = require('path');
+724457	const T = '/home/user/estate/kuiper-belt/editions/202611012135/handoff/02-card/test.cjs';
+724458	  const report = JSON.parse(fs.readFileSync('/tmp/nl010-opus/team-2/tester/run-shell/report.json', 'utf8'));
+724459	  const ctx = await b.newContext({ ...devices['Pixel 7'] });
+724460	  // reuse the served html/manifest the test builds: run the test's builder by requiring it is not possible; rebuild here
+724461	  const { execFileSync } = require('child_process');
+724462	  const ED = '/home/user/estate/kuiper-belt/editions/202611012135';
+724463	  const tmp = fs.mkdtempSync('/tmp/nl010-opus/team-2/tester/probe/s-'); fs.mkdirSync(tmp + '/editions/202611012135', { recursive: true });
+724464	  fs.copyFileSync(ED + '/index.html', tmp + '/editions/202611012135/index.html'); execFileSync('git', ['init', '-q'], { cwd: tmp });
+724465	  execFileSync('git', ['apply', ED + '/handoff/04-loader/index.html.patch'], { cwd: tmp }); execFileSync('git', ['apply', ED + '/handoff/02-card/index.patch'], { cwd: tmp });
+724466	  const html = fs.readFileSync(tmp + '/editions/202611012135/index.html', 'utf8');
+724467	  const crypto = require('crypto'); const rec = (id, f) => { const buf = fs.readFileSync(ED + '/modules/' + f); return { id, generation: f.slice(0, 12), path: 'modules/' + f, sha256: crypto.createHash('sha256').update(buf).digest('hex'), bytes: buf.length, byte_budget: 131072, requires: (buf.toString().match(/requires\s*:\s*\[([^\]]*)\]/)[1].match(/['"]([^'"]+)['"]/g) || []).map(s => s.slice(1, -1)), provides: [id], licence: 'Apache-2.0' }; };
+724468	  const man = { schema: 'kuiper.modules.v1', edition: '202611012135', hooks: 'kuiper.hooks.v1', order: ['kuiper-shell', 'line-card'], modules: [rec('kuiper-shell', '202611012143-kuiper-shell.js'), JSON.parse(fs.readFileSync(ED + '/handoff/02-card/MODULE.json'))] };
+724469	  const U = 'http://127.0.0.1:8422/editions/202611012135/';
+724470	  await ctx.route(u => u.href === U || u.href === U + 'index.html', r => r.fulfill({ body: html, contentType: 'text/html' }));
+724471	  await ctx.route(u => u.href === U + 'modules.json', r => r.fulfill({ body: JSON.stringify(man), contentType: 'application/json' }));
+724472	  const p = await ctx.newPage(); const log = []; p.on('console', m => log.push('console ' + m.type() + ' ' + m.text())); p.on('pageerror', e => log.push('pageerror ' + e.message));
+724473	  await p.goto(U); await p.waitForFunction(() => window.KY && KY.modules['line-card'] && KY.modules['kuiper-shell'], null, { timeout: 120000 }); await new Promise(r => setTimeout(r, 7000));
+724474	  await p.evaluate(() => { window.__log = []; const c = document.getElementById('card');
+724475	    new MutationObserver(ms => ms.forEach(m => window.__log.push([Math.round(performance.now()), 'card ' + m.attributeName + '=' + c.getAttribute(m.attributeName), new Error().stack.split('\n').slice(2, 5).join(' | ')]))).observe(c, { attributes: true });
+724476	    for (const t of ['pointerdown', 'pointerup', 'click', 'popstate', 'keydown']) addEventListener(t, e => window.__log.push([Math.round(performance.now()), t, (e.target && (e.target.id || e.target.className || e.target.tagName)) + '']), true);
+724477	    const lc = KY.modules['line-card'].api; });
+724478	  const wafer = await p.evaluate(() => { const t = document.querySelector('[data-menu="wafer"] > .gm-title'); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+724479	  await p.touchscreen.tap(wafer.x, wafer.y); await new Promise(r => setTimeout(r, 1000));
+724480	  const row = await p.evaluate(() => { const e = document.querySelector('#lineslist [data-i]'); const b = e.getBoundingClientRect(); const x = b.left + b.width / 2, y = b.top + Math.min(b.height / 2, 10); const h = document.elementFromPoint(x, y); return { x, y, hit: h && (h.className || h.tagName), inRow: e.contains(h), cls: e.className }; });
+724481	  console.log('row', JSON.stringify(row));
+724482	  await p.touchscreen.tap(row.x, row.y); await new Promise(r => setTimeout(r, 3000));
+724483	  const out = await p.evaluate(() => ({ log: window.__log, card: getComputedStyle(document.getElementById('card')).display, inspect: KY.modules['line-card'].api.inspect ? KY.modules['line-card'].api.inspect() : null, hist: history.length }));
+724484	  console.log(JSON.stringify(out, null, 1).slice(0, 4000)); console.log(log.join('\n'));
+724486	// test.cjs — Opus team 2, roadmap step 2 "the card law: the line of code is the header", acceptance B1–B7 on Android.
+724487	// In the form of neural-link FIXES/NL-009/android-journey.cjs: Playwright, devices['Pixel 7'] and devices['Galaxy S24'],
+724488	// real touch (page.touchscreen.tap; CDP Input.dispatchTouchEvent for the swipe), zero console errors, JSON report.
+724489	//   node test.cjs <edition-url> <outdir> [--devices "Pixel 7,Galaxy S24"] [--with-shell] [--before]
+724490	// <edition-url> is http://127.0.0.1:<port>/editions/202611012135/ served from the kuiper-belt root. Until the integrator
+724491	// (Opus 10) has applied them, the page is served with Opus 4's handoff/04-loader/index.html.patch and our
+724492	// handoff/02-card/index.patch applied (page.route, the file on disk is never edited) and a modules.json whose `order` is
+724493	// [kuiper-shell (with --with-shell)], line-card, each record carrying the sha256 of the file on disk. When the page on
+724494	// disk already carries the hook table and the delegation, it is served as it is. --before also screenshots Edition 4's
+724495	// card from the unpatched page. Exit 0 when every check on every device passed, 1 otherwise, 2 on a harness error.
+724496	// B1 the card's first visible text node equals keys.json bodies[i].line_text byte for byte, for all 344 placed bodies
+724497	//    (expected values read from keys.json on disk by this script, not from the page); empty lines carry
+724498	//    "empty line at key"; aria-label = the header (K2); a "register quote" row for every quote ≠ line_text.
+724499	// B2 the second row is the key: repo, 7-character commit, path:line, key number; its href equals destination.
+724500	// B3 the title appears only after the key row; after a touch tap on "next verified line", on a spark and on a LINES row,
+724501	//    the card is ≤ 34 % of the viewport (closed and with details open) and the selected spark is in the clear space
+724502	//    (under the bar, ≥ 14 px above the card's top); NL-009 02-card: × and details ≥ 44 px, swipe-down closes and
+724503	//    un-targets, Escape closes, the card steps behind an open panel, the gesture-bar inset is paid, the link opens a
+724504	//    new tab with the card kept.
+724505	// B4 the K3 sentence is byte-identical in api.law, the module's header comment, handoff/02-card/LAWS-L11.patch,
+724506	//    handoff/02-card/README-card-law.md, the edition README.md, and (with --with-shell, when the shell has the slot)
+724507	//    the first paragraph of the ABOUT panel.
+724508	// B5 a body without line_text refuses with "no text at key" (never the title, never the quote).
+724509	// B6 every LINES row reads line text, key, title, in that order (all rows).
+724510	// B7 zero page errors and console errors; python3 tools/ci_check.py prints RESULT: PASS.
+724511	const fs = require('fs'), path = require('path'), os = require('os'), crypto = require('crypto'), cp = require('child_process');
+724512	const positional = argv.filter((a, i) => !a.startsWith('--') && !(i > 0 && argv[i - 1] === '--devices'));
+724513	const flag = n => { const i = argv.indexOf(n); return i >= 0 ? (argv[i + 1] && !argv[i + 1].startsWith('--') ? argv[i + 1] : true) : null; };
+724514	if (positional.length < 2) { console.error('usage: node test.cjs <edition-url> <outdir> [--devices A,B] [--with-shell] [--before]'); process.exit(2); }
+724515	const URL0 = positional[0].replace(/\/?$/, '/'), OUT = path.resolve(positional[1]);
+724516	const DEVICES = flag('--devices') ? String(flag('--devices')).split(',').map(s => s.trim()) : ['Pixel 7', 'Galaxy S24'];
+724517	const WITH_SHELL = !!flag('--with-shell'), BEFORE = !!flag('--before');
+724518	const ED = path.resolve(__dirname, '..', '..');                  // editions/202611012135
+724519	const ROOT = path.resolve(ED, '..', '..');                       // kuiper-belt
+724520	const HO = __dirname;
+724521	const MODULE = 'modules/202611012143-line-card.js', SHELL = 'modules/202611012143-kuiper-shell.js';
+724523	const LAUNCH = { args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] };
+724524	// ------------------------------------------------------------------ the expected values, from disk
+724525	const KEYS = JSON.parse(fs.readFileSync(path.join(ED, 'keys.json'), 'utf8'));
+724526	const EXPECT = {};                                               // key -> {line_text, destination, quote, quote_key, title}
+724527	for (const b of BODIES) if (b.on_wafer && b.verified && Number.isFinite(b.key)) EXPECT[b.key] = { t: b.line_text, d: b.destination, q: b.quote || '', qk: b.quote_key || null, title: b.title };
+724528	const sha = buf => crypto.createHash('sha256').update(buf).digest('hex');
+724529	// ------------------------------------------------------------------ the page as it will be integrated
+724530	function servedIndex() {
+724531	  let html = fs.readFileSync(path.join(ED, 'index.html'), 'utf8'); const applied = [];
+724532	  if (!/window\.KY\s*=/.test(html)) {
+724533	    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'nl010-t2-')); const d = path.join(tmp, 'editions', '202611012135'); fs.mkdirSync(d, { recursive: true });
+724534	    fs.writeFileSync(path.join(d, 'index.html'), html);
+724535	    cp.execFileSync('patch', ['-s', '-p1', '-i', path.join(ED, 'handoff', '04-loader', 'index.html.patch')], { cwd: tmp });
+724536	    html = fs.readFileSync(path.join(d, 'index.html'), 'utf8'); applied.push('handoff/04-loader/index.html.patch');
+724537	  if (!/KY\.modules\['line-card'\]/.test(html)) {
+724538	    cp.execFileSync('patch', ['-s', '-p1', '-i', path.join(HO, 'index.patch')], { cwd: tmp });
+724539	    html = fs.readFileSync(path.join(d, 'index.html'), 'utf8'); applied.push('handoff/02-card/index.patch');
+724540	  return { html, applied };
+724541	function record(id, file, requires, provides, extra) {
+724542	  const buf = fs.readFileSync(path.join(ED, file)); const gen = path.basename(file).slice(0, 12);
+724543	  return Object.assign({ id, generation: gen, path: file, sha256: sha(buf), bytes: buf.length, byte_budget: 65536, requires, provides,
+724544	    reads: [], writes: [], creates_controls: 'none', licence: 'Apache-2.0' }, extra || {});
+724545	function moduleRequires(file) {   // the registration's own requires, read from the file (the manifest must list them all)
+724546	  const s = fs.readFileSync(path.join(ED, file), 'utf8'); const m = s.match(/requires:\s*\[([^\]]*)\]/); if (!m) return [];
+724547	  return m[1].split(',').map(x => x.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
+724548	function servedManifest() {
+724549	  const disk = JSON.parse(fs.readFileSync(path.join(ED, 'modules.json'), 'utf8'));
+724550	  if ((disk.order || []).includes('line-card')) return { json: disk, from: 'modules.json on disk' };
+724551	  const order = [], modules = [];
+724552	  if (WITH_SHELL && fs.existsSync(path.join(ED, SHELL))) { order.push('kuiper-shell'); modules.push(record('kuiper-shell', SHELL, moduleRequires(SHELL), ['kuiper-shell'])); }
+724553	  order.push('line-card'); modules.push(record('line-card', MODULE, moduleRequires(MODULE), ['line-card'], { team: '02', step: 2 }));
+724554	  return { json: { schema: 'kuiper.modules.v1', edition: '202611012135', hooks: 'kuiper.hooks.v1', order, modules }, from: 'test manifest (order ' + order.join(', ') + ')' };
+724555	// ------------------------------------------------------------------ in-page probes
+724556	function overlayProbe() {
+724557	  const o = document.getElementById('o'); const W = o.width, H = o.height, k = W / innerWidth; const d = o.getContext('2d').getImageData(0, 0, W, H).data;
+724558	  let sx = 0, sy = 0, n = 0; const gp = [];
+724559	  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = (y * W + x) * 4, r = d[i], g = d[i + 1], b = d[i + 2], a = d[i + 3]; if (a < 60) continue;
+724560	    if (r > 180 && g < 110 && b > 140) { sx += x; sy += y; n++; } else if (g > 150 && r < 120 && b < 170 && a > 120) gp.push([x, y]); }
+724561	  const cl = [];
+724562	  for (const [x, y] of gp) { let hit = null; for (const c of cl) if (Math.abs(c.cx - x) <= 7 && Math.abs(c.cy - y) <= 7) { hit = c; break; }
+724563	    if (hit) { hit.sx += x; hit.sy += y; hit.n++; hit.cx = hit.sx / hit.n; hit.cy = hit.sy / hit.n; } else cl.push({ sx: x, sy: y, n: 1, cx: x, cy: y }); }
+724564	  return { magenta: n ? { x: sx / n / k, y: sy / n / k, px: n } : null, greens: cl.filter(c => c.n >= 4).map(c => ({ x: c.cx / k, y: c.cy / k, px: c.n })) };
+724565	function cardProbe() {
+724566	  const card = document.getElementById('card'), bar = document.getElementById('bar');
+724567	  const R = el => { if (!el) return null; const r = el.getBoundingClientRect(); return { left: r.left, top: r.top, right: r.right, bottom: r.bottom, width: r.width, height: r.height }; };
+724568	  const open = getComputedStyle(card).display !== 'none';
+724569	  return { open, rect: R(card), bar: R(bar), vh: innerHeight, vw: innerWidth, header: card.querySelector('.lc-h code') ? card.querySelector('.lc-h code').textContent : null,
+724570	    behind: getComputedStyle(card).visibility === 'hidden', details: card.classList.contains('lc-open'), x: R(card.querySelector('.lc-x')), t: R(card.querySelector('.lc-t')),
+724571	    a: R(card.querySelector('.lc-a a')), fontSize: getComputedStyle(card).fontSize, padBottom: getComputedStyle(card.querySelector('.lc-in') || card).paddingBottom };
+724572	async function runDevice(browser, name) {
+724573	  const dev = devices[name]; if (!dev) throw new Error('unknown device ' + name);
+724574	  const dir = path.join(OUT, name.toLowerCase().replace(/[^a-z0-9]+/g, '-')); fs.mkdirSync(dir, { recursive: true });
+724575	  const ctx = await browser.newContext({ ...dev, locale: 'en-GB' });
+724576	  await ctx.route(/^https:\/\/github\.com\//, r => r.fulfill({ status: 200, contentType: 'text/plain', body: 'ok' }));
+724577	  const S = servedIndex(), M = servedManifest();
+724578	  await ctx.route(u => u.href.replace(/[?#].*$/, '') === URL0 || u.href.replace(/[?#].*$/, '') === URL0 + 'index.html',
+724579	    r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: S.html }));
+724580	  await ctx.route(u => u.href.replace(/[?#].*$/, '') === URL0 + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(M.json) }));
+724581	  page.on('console', m => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 300)); });
+724582	  page.on('pageerror', e => errors.push('pageerror: ' + String(e.message || e).slice(0, 300)));
+724583	  const checks = []; const rec = (id, pass, measured, note) => { checks.push({ id, pass: !!pass, measured, note: note || '' }); process.stderr.write(`[${name}] ${pass ? 'PASS' : 'FAIL'} ${id}${note ? ' — ' + note : ''}\n`); };
+724584	  const shot = async f => { try { await page.screenshot({ path: path.join(dir, f), scale: 'css', timeout: 180000 }); return f; } catch (e) { return 'FAILED ' + String(e.message).split('\n')[0]; } };
+724585	  const tap = (x, y) => page.touchscreen.tap(Math.round(x), Math.round(y));
+724586	  const tapEl = async sel => { const r = await page.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); return b.width && b.height ? { x: b.left + b.width / 2, y: b.top + b.height / 2 } : null; }, sel); if (!r) return false; await tap(r.x, r.y); return true; };
+724588	  const visible = sel => page.evaluate(s => { const e = document.querySelector(s); if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && getComputedStyle(e).visibility !== 'hidden'; }, sel);
+724589	  // open whichever bar title shows the element (Edition 4's titles, or the shell's), by touch
+724590	  const reveal = async sel => {
+724591	    if (await visible(sel)) return true;
+724592	    const titles = await page.evaluate(() => [...document.querySelectorAll('#bar .gm-title, #bar [data-panel], #bar [data-menu]')].map((b, i) => { b.setAttribute('data-t2', i); return i; }));
+724593	    for (const i of titles) { await tapEl(`[data-t2="${i}"]`); await sleep(500); if (await visible(sel)) return true; await tapEl(`[data-t2="${i}"]`); await sleep(300); }
+724595	  const settleSpark = async () => { let last = null; for (let t = 0; t < 40; t++) { await sleep(t ? 700 : 6500); const o = await page.evaluate(overlayProbe); if (o.magenta && last && Math.hypot(o.magenta.x - last.x, o.magenta.y - last.y) < 0.6) return o; last = o.magenta; } return page.evaluate(overlayProbe); };
+724596	  const clearSpace = async (label) => {
+724597	    const o = await settleSpark(), c = await page.evaluate(cardProbe);
+724598	    const ok = c.open && !!o.magenta && o.magenta.y >= c.bar.bottom && o.magenta.y <= c.rect.top - 14 && c.rect.height <= 0.34 * c.vh + 0.5;
+724599	    rec('B3 ' + label + ': capped and spark in clear space', ok, { spark: o.magenta, cardTop: c.rect && c.rect.top, cardH: c.rect && c.rect.height, share: c.rect && +(c.rect.height / c.vh).toFixed(3), barBottom: c.bar && c.bar.bottom });
+724600	    return { o, c };
+724602	  await page.goto(URL0, { waitUntil: 'load' });
+724603	  await page.waitForFunction(() => /verified lines lit/.test((document.getElementById('big') || {}).textContent || '') && window.KY && window.KY.modules && window.KY.modules['line-card'], null, { timeout: 180000 });
+724604	  const edition = await page.evaluate(() => ({ admitted: window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.admitted, refused: window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.refused, placed: edPlaced.length }));
+724605	  rec('line-card admitted by the loader', (edition.admitted || []).some(a => a.id === 'line-card') && !(edition.refused || []).length, edition, 'served: ' + S.applied.join(' + ') + ' · ' + M.from);
+724606	  // ---- B3 by touch: "next verified line"
+724607	  const okE = await reveal('#keys [data-k="e"]') && await tapEl('#keys [data-k="e"]');
+724608	  rec('touch: next verified line tapped', okE);
+724609	  const e1 = await clearSpace('after next verified line');
+724610	  const shotAfter = await shot('after-' + name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '.png');
+724611	  // NL-009 02-card targets and type
+724612	  const hit = await page.evaluate(() => { const card = document.getElementById('card'); const out = {};
+724613	    for (const [k, s] of [['x', '.lc-x'], ['details', '.lc-t'], ['link', '.lc-a a']]) { const el = card.querySelector(s), r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2; let a = cx, b = cx, c = cy, d = cy;
+724614	      for (let dx = -40; dx <= 40; dx++) for (let dy = -40; dy <= 40; dy++) { const t = document.elementFromPoint(cx + dx, cy + dy); if (t && (t === el || el.contains(t))) { a = Math.min(a, cx + dx); b = Math.max(b, cx + dx); c = Math.min(c, cy + dy); d = Math.max(d, cy + dy); } }
+724615	      out[k] = [b - a + 1, d - c + 1]; } return out; });
+724616	  rec('02-card F1/F2: × ≥ 44×44, details and link ≥ 44 tall', hit.x[0] >= 44 && hit.x[1] >= 44 && hit.details[1] >= 44 && hit.link[1] >= 44, hit);
+724617	  rec('02-card F6: 12 px type on a phone', e1.c.fontSize === '12px', e1.c.fontSize);
+724618	  // details by touch: names come after, cap holds
+724619	  await tapEl('#card .lc-t'); await sleep(800);
+724620	  const det = await page.evaluate(() => { const card = document.getElementById('card'), k = card.querySelector('.lc-k'), t = card.querySelector('.lc-title'), r = card.getBoundingClientRect();
+724621	    return { open: card.classList.contains('lc-open'), aria: card.querySelector('.lc-t').getAttribute('aria-expanded'), titleAfterKey: !!(k && t && (k.compareDocumentPosition(t) & Node.DOCUMENT_POSITION_FOLLOWING)), titleTop: t.getBoundingClientRect().top, keyBottom: k.getBoundingClientRect().bottom, share: r.height / innerHeight }; });
+724622	  rec('B3 details open: title only after the key row, aria-expanded, still ≤ 34 %', det.open && det.aria === 'true' && det.titleAfterKey && det.titleTop >= det.keyBottom - 0.5 && det.share <= 0.3405, det);
+724623	  // the link: a new tab, the card stays
+724624	  await page.evaluate(() => { document.getElementById('card').scrollTop = 0; });
+724625	  const np = ctx.waitForEvent('page', { timeout: 8000 }).catch(() => null); await tapEl('#card .lc-a a'); const p2 = await np;
+724626	  rec('02-card F8: the link opens a new tab, card kept', !!p2 && (await page.evaluate(cardProbe)).open, { newTab: p2 ? p2.url() : null }); if (p2) await p2.close();
+724627	  // a panel over the card: the card steps behind, and returns
+724628	  const panelTitle = await page.evaluate(() => { const b = document.querySelector('#bar .gm-title'); if (b) b.setAttribute('data-t2p', '1'); return !!b; });
+724629	  if (panelTitle) { await tapEl('[data-t2p="1"]'); await sleep(800); const b1 = (await page.evaluate(cardProbe)).behind; await tapEl('[data-t2p="1"]'); await sleep(800); const b2 = (await page.evaluate(cardProbe)).behind;
+724630	    rec('02-card F4: behind an open panel, back when it closes', b1 && !b2, { behindWhileOpen: b1, behindAfter: b2 }); }
+724631	  // the gesture-bar inset
+724632	  await cdp.send('Emulation.setSafeAreaInsetsOverride', { insets: { bottom: 24 } }).catch(() => null); await sleep(400);
+724633	  const pad = (await page.evaluate(cardProbe)).padBottom; await cdp.send('Emulation.setSafeAreaInsetsOverride', { insets: {} }).catch(() => null);
+724634	  rec('02-card F5: pays the gesture bar (24 px inset → 32 px padding)', pad === '32px', pad);
+724635	  // swipe down closes and un-targets
+724636	  await page.evaluate(() => { const c = document.getElementById('card'); c.scrollTop = 0; });
+724637	  const c3 = (await page.evaluate(cardProbe)).rect; const sx = c3.left + c3.width / 2;
+724638	  await touch('touchStart', [[sx, c3.top + 14]]); for (let i = 1; i <= 10; i++) { await touch('touchMove', [[sx, c3.top + 14 + i * 12]]); await sleep(16); } await touch('touchEnd', []); await sleep(1800);
+724639	  const sw = await page.evaluate(cardProbe), swo = await page.evaluate(overlayProbe);
+724640	  rec('02-card F7: swipe down closes, spark un-targeted', !sw.open && !swo.magenta, { open: sw.open, magenta: swo.magenta });
+724641	  // ---- B3 by touch: a spark
+724642	  const greens = (await page.evaluate(overlayProbe)).greens; const bar = (await page.evaluate(cardProbe)).bar;
+724643	  const vh = (await page.evaluate(cardProbe)).vh, vw = (await page.evaluate(cardProbe)).vw;
+724644	  const spark = greens.filter(g => g.y > bar.bottom + 40 && g.y < vh * 0.6 && g.x > 20 && g.x < vw - 20).sort((a, b) => Math.hypot(a.x - vw / 2, a.y - vh / 3) - Math.hypot(b.x - vw / 2, b.y - vh / 3))[0];
+724645	  let spOk = false;
+724646	  if (spark) { await tap(spark.x, spark.y); await sleep(1500); spOk = (await page.evaluate(cardProbe)).open; }
+724647	  rec('touch: a spark tapped opens its card', spOk, { spark, candidates: greens.length });
+724648	  if (spOk) await clearSpace('after a spark');
+724649	  // Escape closes when no panel is open
+724650	  await page.keyboard.press('Escape'); await sleep(1200);
+724651	  rec('02-card F7: Escape closes the card', !(await page.evaluate(cardProbe)).open);
+724652	  // ---- B6 and B3 by touch: the LINES rows
+724653	  const okL = await reveal('#lineslist .ln[data-i]');
+724654	  const rows = await page.evaluate(EX => { const out = { n: 0, bad: [] };
+724655	    for (const row of document.querySelectorAll('#lineslist .ln[data-i]')) { out.n++; const b = edPlaced[+row.dataset.i], ex = EX[b.key];
+724656	      const kids = [...row.children], code = kids[0], kEl = row.querySelector('.lc-rk'), tEl = row.querySelector('.lc-rn');
+724657	      const order = code && kEl && tEl && code.tagName === 'CODE' && (code.compareDocumentPosition(kEl) & 4) && (kEl.compareDocumentPosition(tEl) & 4);
+724658	      if (!ex || !order || code.textContent !== ex.t || kEl.textContent.indexOf(b.repo + '@' + String(b.commit).slice(0, 7) + ' ' + b.path + ':' + b.line) !== 0 || tEl.textContent !== (b.title || ''))
+724659	        out.bad.push(b.key); }
+724660	    return out; }, EXPECT);
+724661	  rec('B6 LINES rows read text, key, title (all rows)', okL && rows.n === Object.keys(EXPECT).length && rows.bad.length === 0, { rows: rows.n, mismatches: rows.bad.slice(0, 5) });
+724662	  const rowSel = await page.evaluate(() => { const rs = [...document.querySelectorAll('#lineslist .ln[data-i]')]; const r = rs.find(x => { const b = x.getBoundingClientRect(); return b.top > 0 && b.bottom < innerHeight * 0.6; }) || rs[0]; r.setAttribute('data-t2r', '1'); return +r.dataset.i; });
+724663	  await tapEl('[data-t2r="1"]'); await sleep(1200);
+724664	  const afterRow = await page.evaluate(i => ({ open: getComputedStyle(document.getElementById('card')).display !== 'none', header: document.querySelector('#card .lc-h code').textContent, expect: edPlaced[i].line_text, panel: !!document.querySelector('.gm-open') }), rowSel);
+724665	  rec('touch: a LINES row opens its card with its line as the header', afterRow.open && afterRow.header === afterRow.expect && !afterRow.panel, { row: rowSel, panelOpen: afterRow.panel });
+724666	  if (afterRow.open) await clearSpace('after a LINES row');
+724667	  // ---- B1, B2 over all 344 placed bodies, by calling the page's own edCard(i)
+724668	  const all = await page.evaluate(EX => {
+724669	    const out = { n: 0, b1: [], b2: [], aria: [], empty: 0, emptyWords: 0, quoteRows: 0, quoteKeyRows: 0, expectQuoteRows: 0, slowest: [0, -1] };
+724670	    const card = document.getElementById('card');
+724671	    for (let i = 0; i < edPlaced.length; i++) {
+724672	      const b = edPlaced[i], ex = EX[b.key]; const t0 = performance.now(); edCard(i); const dt = performance.now() - t0; if (dt > out.slowest[0]) out.slowest = [Math.round(dt), b.key];
+724673	      out.n++;
+724674	      const inner = card.querySelector('.lc-in'), first = inner && inner.firstElementChild, code = card.querySelector('.lc-h code');
+724675	      // the first visible text node of the card
+724676	      const w = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, { acceptNode: n => { const el = n.parentElement; if (!n.data.length) return NodeFilter.FILTER_SKIP; for (let p = el; p && p !== card.parentElement; p = p.parentElement) { const cs = getComputedStyle(p); if (cs.display === 'none' || p.getAttribute('aria-hidden') === 'true') return NodeFilter.FILTER_SKIP; } return NodeFilter.FILTER_ACCEPT; } });
+724677	      const ft = w.nextNode(); const firstText = ft ? ft.data : null;
+724678	      const okHeader = first && first.tagName === 'HEADER' && first.classList.contains('lc-h') && code && code.textContent === ex.t
+724679	        && (ex.t === '' ? (firstText === 'empty line at key') : firstText === ex.t);
+724680	      if (ex.t === '') { out.empty++; if (firstText === 'empty line at key') out.emptyWords++; }
+724681	      if (!okHeader) out.b1.push({ key: b.key, first: first && first.tagName, firstText: firstText && firstText.slice(0, 60), expect: ex.t.slice(0, 60) });
+724682	      if (card.getAttribute('aria-label') !== ex.t || card.getAttribute('aria-live') !== 'polite') out.aria.push(b.key);
+724683	      const second = first && first.nextElementSibling;
+724684	      const keyStr = b.repo + '@' + String(b.commit).slice(0, 7) + ' ' + b.path + ':' + b.line;
+724685	      if (!(second && second.classList.contains('lc-k') && second.tagName === 'A' && second.getAttribute('href') === ex.d && second.textContent.indexOf(keyStr) === 0 && second.textContent.indexOf(fmt(b.key)) > 0))
+724686	        out.b2.push({ key: b.key, second: second && second.className, text: second && second.textContent.slice(0, 80) });
+724687	      if (ex.q && ex.q !== ex.t) out.expectQuoteRows++;
+724688	      const q = card.querySelector('.lc-q'); if (q) { out.quoteRows++; if (/quoted one line below/.test(q.textContent)) out.quoteKeyRows++; }
+724689	      // the title is never in the header or the key row
+724690	      if (b.title && (code.textContent === b.title && ex.t !== b.title)) out.b1.push({ key: b.key, titleAsHeader: true });
+724691	    card.style.display = 'none';
+724692	  rec('B1 first visible text node = line_text, all placed bodies', all.n === Object.keys(EXPECT).length && all.b1.length === 0 && all.empty === all.emptyWords,
+724693	    { bodies: all.n, mismatches: all.b1.length, first: all.b1.slice(0, 3), empty: all.empty, emptyWords: all.emptyWords, slowest_ms_key: all.slowest });
+724694	  rec('K2 aria-label = header, aria-live polite, all bodies', all.aria.length === 0, { mismatches: all.aria.length });
+724695	  rec('B1 register quote row for every quote ≠ line_text', all.quoteRows === all.expectQuoteRows, { quoteRows: all.quoteRows, expected: all.expectQuoteRows, quotedOneLineBelow: all.quoteKeyRows });
+724696	  rec('B2 second row = key (repo@commit7 path:line · key N), href = destination, all bodies', all.b2.length === 0, { mismatches: all.b2.length, first: all.b2.slice(0, 3) });
+724697	  // ---- B5: a body without line_text refuses
+724698	  const b5 = await page.evaluate(() => { const b = Object.assign({}, edPlaced[0]); delete b.line_text; const api = KY.modules['line-card'].api; api.show(b, { index: 0, of: edPlaced.length });
+724699	    const card = document.getElementById('card'), h = card.querySelector('.lc-h'); const r = { headerText: h.textContent, code: h.querySelector('code').textContent, title: b.title, quote: b.quote, aria: card.getAttribute('aria-label'), apiHeader: api.header(b) }; api.close(); return r; });
+724700	  rec('B5 no line_text → "no text at key", never the title or the quote', b5.headerText === 'no text at key' && b5.code === '' && b5.aria === 'no text at key' && b5.apiHeader === 'no text at key', b5);
+724701	  // ---- B4 in the page (api.law and, with the shell, ABOUT's first paragraph)
+724702	  const b4 = await page.evaluate(() => { const api = KY.modules['line-card'].api; const slot = document.querySelector('[data-owner="line-card"][data-law="L11"]');
+724703	    let about = null; const panels = [...document.querySelectorAll('.gm-panel')]; const ab = panels.find(p => /about/i.test(p.id + ' ' + (p.getAttribute('aria-label') || '') + ' ' + (p.dataset.panel || '') + ' ' + (p.dataset.menu || '')));
+724704	    if (ab) { const p = ab.querySelector('p, .gm-prose'); about = p ? p.textContent : null; }
+724705	    return { law: api.law, slot: slot ? slot.textContent : null, about }; });
+724706	  const fileOf = f => { try { return fs.readFileSync(f, 'utf8'); } catch (e) { return ''; } };
+724707	  const srcs = { module: fileOf(path.join(ED, MODULE)), laws: fileOf(path.join(HO, 'LAWS-L11.patch')), readmeSection: fileOf(path.join(HO, 'README-card-law.md')), editionReadme: fileOf(path.join(ED, 'README.md')) };
+724708	  const has = Object.fromEntries(Object.entries(srcs).map(([k, v]) => [k, v.includes(LAW)]));
+724709	  const pageOk = b4.law === LAW && (!WITH_SHELL || b4.slot === LAW || b4.about === LAW);
+724710	  rec('B4 the K3 sentence identical in page, README, LAWS patch, module', pageOk && Object.values(has).every(Boolean), { apiLaw: b4.law === LAW, aboutSlot: b4.slot === null ? 'absent (shell not in this run or no slot yet)' : b4.slot === LAW, aboutFirst: b4.about === null ? null : b4.about === LAW, files: has });
+724711	  // ---- B7
+724712	  rec('B7 zero page errors and console errors', errors.length === 0, errors.slice(0, 5));
+724713	  const report = { device: name, viewport: dev.viewport, ms: Date.now() - t0, served: S.applied, manifest: M.from, screenshot: shotAfter, checks };
+724714	  const browser = await chromium.launch(LAUNCH); const reports = [];
+724715	    if (BEFORE) {   // Edition 4's card on the unpatched page, for the before/after pair
+724716	      const ctx = await browser.newContext({ ...devices['Pixel 7'], locale: 'en-GB' }); const p = await ctx.newPage(); p.setDefaultTimeout(180000);
+724717	      await p.goto(URL0, { waitUntil: 'load' }); await p.waitForFunction(() => /verified lines lit/.test(document.getElementById('big').textContent), null, { timeout: 180000 }); await sleep(7000);
+724718	      await p.evaluate(() => { const t = document.querySelector('#bar [data-panel="foot"]'); if (t) t.click(); }); await sleep(500);
+724719	      const r = await p.evaluate(() => { const b = document.querySelector('#keys [data-k="e"]').getBoundingClientRect(); return { x: b.left + b.width / 2, y: b.top + b.height / 2 }; });
+724720	      await p.touchscreen.tap(r.x, r.y); await sleep(8000);
+724721	      fs.mkdirSync(path.join(OUT, 'pixel-7'), { recursive: true }); await p.screenshot({ path: path.join(OUT, 'pixel-7', 'before-pixel-7.png'), scale: 'css', timeout: 180000 }); await ctx.close();
+724722	    for (const d of DEVICES) reports.push(await runDevice(browser, d));
+724723	  } catch (e) { console.error('HARNESS ERROR', e); await browser.close(); process.exit(2); }
+724724	  let ci = null; try { ci = cp.execFileSync('python3', ['tools/ci_check.py'], { cwd: ROOT, encoding: 'utf8' }); } catch (e) { ci = String(e.stdout || '') + String(e.stderr || ''); }
+724725	  const ciPass = /RESULT: PASS/.test(ci || '');
+724726	  const pass = reports.every(r => r.checks.every(c => c.pass)) && ciPass;
+724727	  const out = { schema: 'kuiper.card.accept.v1', step: 2, url: URL0, utc: new Date().toISOString(), module: MODULE, module_sha256: sha(fs.readFileSync(path.join(ED, MODULE))),
+724728	    ci_check: { pass: ciPass, tail: (ci || '').trim().split('\n').slice(-2) }, devices: reports, RESULT: pass ? 'PASS' : 'FAIL' };
+724729	  console.log(JSON.stringify({ RESULT: out.RESULT, ci_check: out.ci_check, devices: reports.map(r => ({ device: r.device, failed: r.checks.filter(c => !c.pass).map(c => c.id) })) }, null, 1));
+724730	  process.exit(pass ? 0 : 1);
+724731	const ED = 'http://127.0.0.1:8431/editions/202611012135/';
+724732	const SHIM = fs.readFileSync('/tmp/nl010-opus/team-3/builder/shim/index.html');
+724733	const scen = process.argv[2] || 'ok', dev = process.argv[3] || 'Galaxy S24';
+724734	  const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+724735	  const d = dev === 'landscape' ? devices['Pixel 7 landscape'] : devices[dev];
+724736	  const ctx = await b.newContext({ ...d }); const page = await ctx.newPage();
+724737	  const errs = []; page.on('pageerror', e => errs.push('pageerror ' + e.message)); page.on('console', m => { if (m.type() === 'error') errs.push('console ' + m.text()); });
+724738	  await page.route(/\/editions\/202611012135\/(index\.html)?(\?[^#]*)?$/, r => r.fulfill({ status: 200, contentType: 'text/html', body: SHIM }));
+724739	  if (scen === '404') await page.route(/\/editions\/202611012135\/keys\.json/, r => r.fulfill({ status: 404, body: 'no' }));
+724740	  if (scen === 'tamper') await page.route(/\/editions\/202611012135\/keys\.json/, async r => { const res = await r.fetch(); const buf = Buffer.from(await res.body()); buf[100] = buf[100] === 0x41 ? 0x42 : 0x41; r.fulfill({ status: 200, contentType: 'application/json', body: buf }); });
+724741	  if (scen === 'nosha') await page.route(/\/data\/layers\.json/, async r => { const res = await r.fetch(); const j = JSON.parse(await res.text()); j.layers.forEach(l => { if (l.id === 'lines') delete l.source.sha256; }); r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(j) }); });
+724742	  if (scen === 'nowafer') await page.route(/\/cosmos\/wafer\.tsv/, r => r.fulfill({ status: 404, body: 'no' }));
+724743	  await page.goto(ED, { waitUntil: 'load' }); await page.waitForTimeout(+(process.env.WAITMS||8000));
+724744	  const before = await page.evaluate(() => { const L = KY.modules.layers && KY.modules.layers.api; return { inspect: L && L.inspect(), big: document.getElementById('big').textContent, refuse: (document.getElementById('refuse') || {}).textContent }; });
+724745	  // open the WAFER panel by touch
+724746	  const t = await page.locator('#bar [data-panel=wafer]').boundingBox(); await page.touchscreen.tap(t.x + t.width / 2, t.y + t.height / 2); await page.waitForTimeout(800);
+724747	  const m = await page.evaluate(() => { const p = document.getElementById('layers'), pr = p.getBoundingClientRect();
+724748	    const rows = [...p.querySelectorAll('input[data-ky-layer]')].map(i => { const l = i.closest('label'), r = l.getBoundingClientRect(), ir = i.getBoundingClientRect(), font = getComputedStyle(l.querySelector('.nm') || l).fontSize;
+724749	      return { k: i.getAttribute('data-ky-layer'), h: +r.height.toFixed(1), top: +r.top.toFixed(0), bottom: +r.bottom.toFixed(0), covers: ir.left <= r.left + .5 && ir.right >= r.right - .5 && ir.top <= r.top + .5 && ir.bottom >= r.bottom - .5, visibleInPanel: r.bottom <= pr.bottom + .5 && r.top >= pr.top - .5, font, text: l.textContent.trim().replace(/\s+/g,' ') }; });
+724750	    const list = document.getElementById('lineslist');
+724751	    return { panel: { top: pr.top, bottom: pr.bottom, left: pr.left, right: pr.right, sh: p.scrollHeight, ch: p.clientHeight }, vh: innerHeight, vw: innerWidth, list: list && { sh: list.scrollHeight, ch: list.clientHeight }, count: (document.getElementById('lycount') || {}).textContent, small: [...p.querySelectorAll('button,label,.lg,input#lyFind')].filter(e => e.offsetParent && e.getBoundingClientRect().height < 44).map(e => (e.className || e.tagName) + ':' + e.getBoundingClientRect().height.toFixed(0)).slice(0, 8), rows }; });
+724752	  console.log(JSON.stringify({ scen, dev, before, m, errs }, null, 1));
+724753	  await page.screenshot({ path: '/tmp/nl010-opus/team-3/builder/' + scen + '-' + dev.replace(/ /g, '_') + '.png', timeout: 180000 });
+724754	"""Re-read every key row of an EVIDENCE.md: | id | claim | key | `fragment` |.
+724755	key = repo@sha path:line (estate clone, read with git show sha:path) or
+724756	      neural-link-between-agents path:line (working tree, not a git repo) or
+724757	      kuiper-belt@WORKTREE path:line (the edition branch's uncommitted files).
+724758	PASS only if the sha resolves, the line exists, and the fragment is on that line."""
+724759	import re, subprocess, sys, pathlib
+724760	EST = pathlib.Path('/home/user/estate'); NL = pathlib.Path('/home/user/neural-link-between-agents')
+724761	KEY = re.compile(r'([A-Za-z0-9_.-]+)@([0-9a-f]{7,40}|WORKTREE) ([^\s`|]+):(\d+)')
+724762	NLK = re.compile(r'neural-link-between-agents ([^\s`|]+):(\d+)')
+724763	cache = {}
+724764	def lines(repo, sha, path):
+724765	    k = (repo, sha, path)
+724766	    if k not in cache:
+724767	        if repo == 'NL':
+724768	            cache[k] = (NL / path).read_text(errors='replace').split('\n')
+724769	        elif sha == 'WORKTREE':
+724770	            cache[k] = (EST / repo / path).read_text(errors='replace').split('\n')
+724771	            out = subprocess.run(['git', '-C', str(EST / repo), 'show', f'{sha}:{path}'], capture_output=True)
+724772	            if out.returncode: raise FileNotFoundError(out.stderr.decode().strip())
+724773	            cache[k] = out.stdout.decode(errors='replace').split('\n')
+724774	    return cache[k]
+724775	ok = bad = 0
+724776	for n, row in enumerate(open(sys.argv[1], encoding='utf-8'), 1):
+724777	    if not row.startswith('|') or row.startswith('|---') or row.startswith('| #'): continue
+724778	    cells = [c.strip() for c in re.split(r'(?<!\\)\|', row.strip())[1:-1]]
+724779	    keycell, frag = cells[-2], cells[-1]
+724780	    m = KEY.search(keycell); mn = NLK.search(keycell)
+724781	    if not (m or mn): continue
+724782	    fm = re.fullmatch(r'`+ ?(.*?) ?`+', frag)
+724783	    if not fm: print(f'NOFRAG  row {n}: {cells[0]}'); bad += 1; continue
+724784	    f = fm.group(1).replace('\\|', '|')
+724785	    repo, sha, path, ln = (m.groups() if m else ('NL', '', mn.group(1), mn.group(2)))
+724786	        L = lines(repo, sha, path); ln = int(ln)
+724787	        line = L[ln - 1] if 0 < ln <= len(L) else None
+724788	        print(f'FAIL    row {n}: {cells[0]} {repo}@{sha} {path}: {e}'); bad += 1; continue
+724789	    if line is not None and f in line: ok += 1
+724790	        bad += 1; print(f'FAIL    row {n}: {cells[0]} {repo}@{sha} {path}:{ln} fragment not on line: {f!r}\n        line: {(line or "")[:200]!r}')
+724791	print(f'checked {ok + bad} keys: {ok} PASS, {bad} FAIL'); print('RESULT:', 'PASS' if bad == 0 and ok else 'FAIL')
+724792	sys.exit(0 if bad == 0 and ok else 1)
+724793	# PRE-INTEGRATION page for test.cjs --index: current base index.html + team 3's deletions + team 4's hook table and
+724794	# loader (the reference bytes of modules/202611012145-loader.js between its marker lines) + the wafer promise + refuse().
+724795	import re, subprocess
+724796	ED='/home/user/estate/kuiper-belt/editions/202611012135/'
+724797	OUT='/tmp/nl010-opus/team-3/lead/pre5/'
+724798	subprocess.run(['python3','/tmp/nl010-opus/team-3/lead/gen/delete.py',ED+'index.html',OUT+'del.html'],check=True,stderr=subprocess.DEVNULL)
+724799	s=open(OUT+'del.html').read()
+724800	P=open(ED+'handoff/04-loader/index.html.patch').read().split('\n')
+724801	css=[l[1:] for l in P if l.startswith('+  #refuse,noscript .refuse')]
+724802	cssmore=[]
+724803	for i,l in enumerate(P):
+724804	    if l.startswith('+  #refuse,noscript .refuse'):
+724805	        j=i+1
+724806	        while P[j].startswith('+  ') and not P[j].startswith('+  /*'): cssmore.append(P[j][1:]); j+=1
+724808	ref=[]; 
+724809	    if l.startswith('+function refuse(m, slot)'):
+724810	        j=i
+724811	        while P[j].startswith('+') and not P[j].startswith('+if (!gl)'): ref.append(P[j][1:]); j+=1
+724812	assert css and ref, (css, ref)
+724813	L=open(ED+'modules/202611012145-loader.js').read().split('\n')
+724814	a=[i for i,l in enumerate(L) if 'KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · begin' in l][0]
+724815	b=[i for i,l in enumerate(L) if 'KUIPER HOOK TABLE AND LOADER kuiper.hooks.v1 · end' in l][0]
+724816	loader='\n'.join(L[a:b+1])
+724817	def one(old,new):
+724818	    global s; assert s.count(old)==1,old; s=s.replace(old,new)
+724819	one('</style>','\n'.join(css+cssmore)+'\n</style>')
+724820	one("if (!gl) {", '\n'.join(ref)+"\nif (!gl) {")
+724821	one("let N = 0, SPACE = 0, repos = [], commits = [];","let N = 0, SPACE = 0, repos = [], commits = [];\nlet kyWaferOk, kyWaferNo; const kyWafer = new Promise((ok, no) => { kyWaferOk = ok; kyWaferNo = no; }); kyWafer.catch(() => {});")
+724822	one("the belt says ' + fmt(bad.lines); return; }","the belt says ' + fmt(bad.lines); kyWaferNo(new Error(hud.textContent)); return; }")
+724823	one("  N = issued; SPACE = k;","  N = issued; SPACE = k; kyWaferOk({ N, SPACE });")
+724824	one("}).catch(() => { hud.textContent = '../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.'; });",
+724825	    "}).catch(() => { refuse('../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.'); kyWaferNo(new Error('../../cosmos/wafer.tsv did not load. The wafer will not invent its keys.')); });")
+724826	one("\nrequestAnimationFrame(frame);","\n"+loader+"\nrequestAnimationFrame(frame);")
+724827	open(OUT+'index.html','w').write(s)
+724828	import json, hashlib
+724829	f='modules/202611012141-layers.js'; src=open(ED+f).read()
+724830	req=[x.strip().strip("'") for x in re.search(r"REQUIRES = \[([^\]]*)\]",src).group(1).split(',')]
+724831	json.dump({"schema":"kuiper.modules.v1","edition":"202611012135","hooks":"kuiper.hooks.v1","order":["layers"],"modules":[{"id":"layers","generation":"202611012141","path":f,"sha256":"live","bytes":0,"byte_budget":98304,"requires":req,"provides":["layers"],"licence":"Apache-2.0"}]},open(OUT+'modules.json','w'),indent=1)
+724832	print('ok', len(s))
+724833	# PRE-INTEGRATION on the integrator's base (hook table + loader already in index.html): our deletions by content, and
+724834	# the integrator's modules.json with layers appended. kuiper-shell is left out: it still REQUIREs #lines #lyAll
+724835	# #lyFocus #lyFind, which step 3 deletes (REQUEST to Opus 1, issue #10).
+724836	import json, subprocess
+724837	ED='/home/user/estate/kuiper-belt/editions/202611012135/'; OUT='/tmp/nl010-opus/team-3/lead/pre6/'
+724838	subprocess.run(['python3', ED+'handoff/03-layers/delete-moved.py', ED+'index.html', OUT+'index.html'], check=True, stderr=subprocess.DEVNULL)
+724839	SKIP=('layers',) + tuple(sys.argv[1:])
+724840	m=json.load(open(ED+'modules.json')); rec=json.load(open(ED+'handoff/03-layers/MODULE.json'))
+724841	m['modules']=[x for x in m['modules'] if x['id'] not in SKIP]
+724842	m['order']=[x for x in m['order'] if x not in SKIP]
+724843	rec=dict(rec); rec['sha256']='live'
+724844	m['modules'].append(rec); m['order'].append('layers')
+724845	json.dump(m, open(OUT+'modules.json','w'), indent=1); print(m['order'])
+724846	// build-pre.cjs: PRE-INTEGRATION shim for test.cjs --index/--manifest. Edition 4 copy + team 4's index.html.patch
+724847	// (+ team 3's index.html.patch when it exists), and a manifest listing the named modules in order.
+724848	//   node build-pre.cjs layers [kuiper-shell line-card ...]
+724849	const fs = require('fs'), path = require('path'), cp = require('child_process'), crypto = require('crypto');
+724850	const ED = '/home/user/estate/kuiper-belt/editions/202611012135', OUT = '/tmp/nl010-opus/team-3/tester/pre';
+724851	const ids = process.argv.slice(2).length ? process.argv.slice(2) : ['layers'];
+724852	const work = path.join(OUT, 'tree'); fs.rmSync(work, { recursive: true, force: true }); fs.mkdirSync(path.join(work, 'editions/202611012135'), { recursive: true });
+724853	fs.copyFileSync(path.join(ED, 'index.html'), path.join(work, 'editions/202611012135/index.html'));
+724854	const log = [];
+724855	const PATCHES = (process.env.PATCHES || '04-loader/index.html.patch,03-layers/index.html.after-04-loader.patch').split(',').map(x => x.split('/'));
+724856	for (const [p, name] of PATCHES) { const f = path.join(ED, 'handoff', p, name); if (!fs.existsSync(f)) { log.push(p + ': no ' + name); continue; }
+724857	  try { cp.execFileSync('patch', ['-p1', '--dry-run', '-i', f], { cwd: work, encoding: 'utf8' }); log.push(p + ' ' + name + ': ' + cp.execFileSync('patch', ['-p1', '--no-backup-if-mismatch', '-i', f], { cwd: work, encoding: 'utf8' }).trim().replace(/\n/g, ' / ')); }
+724858	  catch (e) { log.push(p + ' ' + name + ': DOES NOT APPLY, skipped: ' + String(e.stdout || e.message).replace(/\n/g, ' / ')); } }
+724859	fs.copyFileSync(path.join(work, 'editions/202611012135/index.html'), path.join(OUT, 'index.html'));
+724860	const files = fs.readdirSync(path.join(ED, 'modules'));
+724861	const modules = ids.map(id => { const f = files.filter(x => new RegExp('^\\d{12}-' + id + '\\.js$').test(x)).sort().pop(); if (!f) throw new Error('no module ' + id);
+724862	  const b = fs.readFileSync(path.join(ED, 'modules', f)), s = b.toString('utf8');
+724863	  const arr = k => { const m = s.match(new RegExp('(?:' + k + '|' + k.toUpperCase() + ')\\s*[:=]\\s*\\[([^\\]]*)\\]')); return m ? m[1].split(',').map(x => x.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean) : []; };
+724864	  return { id, generation: f.slice(0, 12), path: 'modules/' + f, sha256: 'live', bytes: b.length, byte_budget: Math.max(65536, b.length * 2),
+724865	    requires: arr('requires'), provides: arr('provides').length ? arr('provides') : [id], reads: [], writes: [], creates_controls: 'see module', licence: 'Apache-2.0', team: 'pre', step: 0, proof: 'pre-integration shim' }; });
+724866	const man = { schema: 'kuiper.modules.v1', edition: '202611012135', hooks: 'kuiper.hooks.v1', order: ids, modules };
+724867	fs.writeFileSync(path.join(OUT, 'modules.json'), JSON.stringify(man, null, 1));
+724868	console.log(log.join('\n')); console.log(JSON.stringify(modules.map(m => [m.id, m.path, m.sha256, m.requires.join(' ')])));
+724869	key = repo@sha path:line[-line]. PASS only if sha is a prefix of a commit that resolves, the path exists at that
+724870	commit (or, for sha 'WT', in the working tree), the first line of the range exists and the fragment is on a line
+724871	of the range. Usage: python3 -I check_keys.py EVIDENCE.md"""
+724872	import re, subprocess, sys, os
+724873	EST = '/home/user/estate'
+724874	ROW = re.compile(r'^\|\s*([A-Z]+\d+(?:\.\d+)?)\s*\|(.*)\|\s*([\w.-]+)@([0-9a-fA-FWT]+)\s+([^\s:|]+):(\d+)(?:-(\d+))?\s*\|\s*`(.+)`\s*\|\s*$')
+724875	def text(repo, sha, path):
+724876	    if k in cache: return cache[k]
+724877	    if sha == 'WT':
+724878	        p = os.path.join(EST, repo, path)
+724879	        t = open(p, encoding='utf-8').read() if os.path.exists(p) else None
+724880	        r = subprocess.run(['git', '-C', os.path.join(EST, repo), 'show', f'{sha}:{path}'], capture_output=True, text=True)
+724881	        t = r.stdout if r.returncode == 0 else None
+724882	    cache[k] = t
+724883	    return t
+724884	for n, line in enumerate(open(sys.argv[1], encoding='utf-8'), 1):
+724885	    m = ROW.match(line.rstrip('\n'))
+724886	    rid, _, repo, sha, path, a, b, frag = m.groups()
+724887	    frag = frag.replace('\\|', '|')
+724888	    t = text(repo, sha, path)
+724889	    a = int(a); b = int(b) if b else a
+724890	    if t is None: print(f'FAIL {rid} {repo}@{sha} {path}: no such file'); bad += 1; continue
+724891	    L = t.split('\n')
+724892	    if b > len(L): print(f'FAIL {rid} {path}:{a}-{b}: past end ({len(L)})'); bad += 1; continue
+724893	    if any(frag in L[i-1] for i in range(a, b+1)): ok += 1
+724894	    else: print(f'FAIL {rid} {path}:{a}-{b}: fragment not found: {frag!r}'); bad += 1
+724895	print(f'rows checked {ok+bad}, PASS {ok}, FAIL {bad}')
+724896	print('RESULT: ' + ('PASS' if bad == 0 and ok else 'FAIL'))
+724897	const URL = 'http://127.0.0.1:8443/editions/202611012135/';
+724898	  for (const dev of ['Pixel 7', 'Galaxy S24']) {
+724899	    const ctx = await b.newContext({ ...devices[dev] }); const p = await ctx.newPage();
+724900	    const errs = [], cons = [];
+724901	    p.on('pageerror', e => errs.push(String(e))); p.on('console', m => { if (m.type() === 'error') cons.push(m.text()); });
+724902	    await p.goto(URL); await p.waitForTimeout(7000);
+724903	    const r = await p.evaluate(() => {
+724904	      const KY = window.KY, E = window.__KUIPER_EDITION__;
+724905	      let writeThrows = null; try { KY.x = 1; writeThrows = false; } catch (e) { writeThrows = e.constructor.name; }
+724906	      return { frozen: Object.isFrozen(KY), hooks: Object.keys(KY.hooks), hooksFrozen: Object.isFrozen(KY.hooks), names: KY.names.length,
+724907	        alias: window.__KUIPER_MODULES__ === KY.modules, admitted: E.admitted, refused: E.refused, failures: E.failures, timings: E.timings,
+724908	        bytes: E.bytes, budget: E.byte_budget, refuse: !!document.getElementById('refuse'), hello: KY.modules.hello && KY.modules.hello.inspect(),
+724909	        scripts: [...document.querySelectorAll('script[data-ky-module]')].map(s => s.dataset.kyModule), N: KY.hooks.N, SPACE: KY.hooks.SPACE,
+724910	        writeFromPage: writeThrows };
+724911	    console.log(dev, JSON.stringify(r)); console.log(dev, 'pageerror', errs.length, errs.slice(0,3), 'console.error', cons.length, cons.slice(0,3));
+724912	// test.cjs: NL-010 step 4 "the Kuiper cartridge law", tests 1-9 (ROADMAP.md step 4; team-2/STEPS.md step 4 acceptance).
+724913	//   node test.cjs <edition-url> <outdir> [--page <patched index.html>] [--devices "Pixel 7,Galaxy S24"]
+724914	// <edition-url> is http://127.0.0.1:<port>/editions/202611012135/ served from the kuiper-belt root. Until the
+724915	// integrator applies handoff/04-loader/index.html.patch, pass --page with the patched file and the test serves it in
+724916	// place of index.html (served, not committed). The manifests and every mutated module are served by the test through
+724917	// page.route, never written into the repository. Pixel 7 and Galaxy S24 (360 px), real touch (page.touchscreen.tap),
+724918	// pageerror 0 in every case; console errors 0 except the browser's own "Failed to load resource" line in the cases that
+724919	// serve a 404 on purpose (6 and 7b), which is counted and reported. Test 8 runs tools/edition_check.py (from
+724920	// handoff/04-loader/edition_check.py.patch when the tool is not in the repository yet) on a copy. Exit 0 when all pass.
+724921	const fs = require('fs'), path = require('path'), crypto = require('crypto'), cp = require('child_process'), os = require('os');
+724922	const argv = process.argv.slice(2), pos = argv.filter((a, i) => !a.startsWith('--') && !(i && argv[i - 1].startsWith('--')));
+724923	if (pos.length < 2) { console.error('usage: node test.cjs <edition-url> <outdir> [--page file] [--devices A,B]'); process.exit(2); }
+724924	const BASE = pos[0].replace(/\/?$/, '/'), OUT = path.resolve(pos[1]), PAGE = flag('--page');
+724925	const DEVICES = (flag('--devices') || 'Pixel 7,Galaxy S24').split(',').map(s => s.trim());
+724926	const HERE = '/home/user/estate/kuiper-belt/editions/202611012135/handoff/04-loader', ED = path.resolve(HERE, '../..'), REPO = path.resolve(ED, '../..');
+724927	// ------------------------------------------------------------------------------------------- fixtures
+724928	const FIRST = JSON.parse(fs.readFileSync(path.join(HERE, 'modules.json'), 'utf8'));
+724929	const HELLO = fs.readFileSync(path.join(ED, FIRST.modules[0].path));
+724930	const STAMP = '202611012145';
+724931	const HOOKS28 = ['keyPlace', 'address', 'describe', 'findBy', 'flyTo', 'home', 'homeCamera', 'safeBox', 'lightTime', 'showNew',
+724932	  'goKey', 'fmt', 'words', 'esc', 'cv', 'ov', 'o2', 'hud', 'big', 'sub', 'card', 'gbox', 'gin', 'SPACE', 'N', 'repos', 'commits', 'wafer'];
+724933	function probe(id, requires, body) {           // a test-only module, served by the test, never committed
+724934	  return Buffer.from(`/* kuiper module ${id}, generation ${STAMP} (UTC), Apache-2.0 (kuiper-belt) */
+724935	// test-only probe of handoff/04-loader/test.cjs; served by the test, never committed
+724936	  KY.register({ schema: 'kuiper.module.v1', id: '${id}', generation: '${STAMP}', requires: ${JSON.stringify(requires)}, provides: ['${id}'],
+724937	    install(KY) { const h = document.createElement('div'); h.id = 'ky-${id}'; h.hidden = true; document.body.appendChild(h); ${body || 'return { ok: true };'} },
+724938	    inspect() { return { id: '${id}' }; } });
+724940	function rec(id, file, buf, requires, extra) {
+724941	  return Object.assign({ id, generation: STAMP, path: 'modules/' + file, sha256: sha(buf), bytes: buf.length, byte_budget: 4096,
+724942	    requires, provides: [id], reads: [], writes: ['window.KY.modules.' + id, '#ky-' + id], creates_controls: 'none',
+724943	    licence: 'Apache-2.0', team: '04', step: 4, proof: 'handoff/04-loader/' }, extra || {});
+724944	const PA = probe('probe-a', ['keyPlace', 'cam']), PB = probe('probe-b', ['keyPlace', 'probe-a']);
+724945	const PW = probe('probe-w', ['wafer', 'N'], `window.__probeW = { installed_ms: performance.now(), N_at_install: KY.hooks.N };
+724946	      return KY.hooks.wafer.then(w => { window.__probeW.resolved_ms = performance.now(); window.__probeW.N = w.N; return { N: w.N }; },
+724947	        e => { window.__probeW.rejected = String(e && e.message || e); throw e; });`);
+724948	function manifest(mods) { return Object.assign({}, FIRST, { order: mods.map(m => m.id), modules: mods }); }
+724949	const R_HELLO = FIRST.modules[0];
+724950	const R_PA = rec('probe-a', STAMP + '-probe-a.js', PA, ['keyPlace', 'cam']);
+724951	const R_PB = rec('probe-b', STAMP + '-probe-b.js', PB, ['keyPlace', 'probe-a']);
+724952	const R_PW = rec('probe-w', STAMP + '-probe-w.js', PW, ['wafer', 'N']);
+724953	const THREE = manifest([R_HELLO, R_PA, R_PB]);
+724954	const SHELL = fs.readFileSync(path.join(ED, 'modules/202611012143-kuiper-shell.js'));
+724955	const R_SHELL = Object.assign(rec('kuiper-shell', '202611012143-kuiper-shell.js', SHELL, ['safeBox', 'card', 'hud', 'big', 'sub', 'cv', 'gbox', 'gin', 'redraw']),
+724956	  { generation: '202611012143', provides: ['kuiper-shell', 'menuBar'], byte_budget: 65536, team: '01', step: 1 });
+724957	const PP = probe('probe-p', ['panels', 'kuiper-shell'], "KY.panels.add('wafer', h, 'wafer'); window.__probeP = { inShellPanel: h.parentElement === KY.modules['kuiper-shell'].api.panel('wafer') }; return { ok: true };");
+724958	const R_PP = rec('probe-p', STAMP + '-probe-p.js', PP, ['panels', 'kuiper-shell']);
+724959	const files = { [R_SHELL.path]: SHELL, [R_PP.path]: PP, [R_PA.path]: PA, [R_PB.path]: PB, [R_PW.path]: PW };
+724960	// ------------------------------------------------------------------------------------------- one run
+724961	async function run(browser, dev, name, o) {
+724962	  const ctx = await browser.newContext({ ...devices[dev] }), page = await ctx.newPage();
+724963	  const errors = [], consoleErr = [];
+724965	  page.on('console', m => { if (m.type() === 'error') consoleErr.push(m.text()); });
+724966	  if (PAGE) await page.route(u => u.href === BASE || u.href === BASE + 'index.html', r => r.fulfill({ status: 200, contentType: 'text/html; charset=utf-8', body: fs.readFileSync(PAGE) }));
+724967	  await page.route(BASE + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(o.manifest) }));
+724968	  const served = Object.assign({}, files, o.files || {});
+724969	  await page.route(u => u.href.startsWith(BASE + 'modules/'), r => { const p = r.request().url().slice(BASE.length);
+724970	    if (served[p] === 404) return r.fulfill({ status: 404, body: 'not found' });
+724971	    if (served[p]) return r.fulfill({ status: 200, contentType: 'text/javascript', body: served[p] });
+724972	    return r.continue(); });
+724973	  let waferAt = null;
+724974	  if (o.wafer === '404') await page.route(/cosmos\/wafer\.tsv$/, r => r.fulfill({ status: 404, body: 'not found' }));
+724975	  if (o.wafer === 'delay') await page.route(/cosmos\/wafer\.tsv$/, async r => { await sleep(o.delay || 12000); waferAt = Date.now(); await r.continue(); });
+724976	  await page.goto(BASE, { waitUntil: 'load', timeout: 120000 });
+724977	  await page.waitForFunction(() => window.__KUIPER_EDITION__ && window.__KUIPER_EDITION__.done, null, { timeout: 90000 });
+724978	  await sleep(o.settle || 7000);
+724979	  const st = await page.evaluate(() => {
+724980	    const E = window.__KUIPER_EDITION__, nav = performance.getEntriesByType('navigation')[0], rf = document.getElementById('refuse');
+724981	    const rr = rf && rf.getBoundingClientRect();
+724982	    return { admitted: E.admitted, refused: E.refused, failures: E.failures, whole: E.whole || null, order: E.order, timings: E.timings,
+724983	      bytes: E.bytes, byte_budget: E.byte_budget, load_event_ms: Math.round(nav.loadEventStart), dcl_ms: Math.round(nav.domContentLoadedEventStart),
+724984	      refuse: rf ? { text: rf.textContent, role: rf.getAttribute('role'), rect: { left: rr.left, top: rr.top, right: rr.right, bottom: rr.bottom },
+724985	        visible: getComputedStyle(rf).display !== 'none' && rr.height > 0, inViewport: rr.left >= 0 && rr.top >= 0 && rr.right <= innerWidth && rr.bottom <= innerHeight } : null,
+724986	      hud: document.getElementById('hud').textContent, bar: !!document.getElementById('bar'), vw: innerWidth, vh: innerHeight,
+724987	      hosts: [...document.querySelectorAll('[id^="ky-"]')].map(e => e.id), scripts: [...document.querySelectorAll('script[data-ky-module]')].map(s => s.dataset.kyModule),
+724988	      N: window.KY ? window.KY.hooks.N : null, probeW: window.__probeW || null, probeP: window.__probeP || null,
+724989	      frozen: window.KY ? { KY: Object.isFrozen(window.KY), hooks: Object.isFrozen(KY.hooks), names: Object.isFrozen(KY.names), cam: Object.isFrozen(KY.cam),
+724990	        lit: Object.isFrozen(KY.lit), sel: Object.isFrozen(KY.sel), draw: Object.isFrozen(KY.draw), panels: Object.isFrozen(KY.panels) } : null,
+724991	      hookKeys: window.KY ? Object.keys(KY.hooks) : null, alias: window.KY ? window.__KUIPER_MODULES__ === KY.modules : null,
+724992	      writeThrows: (function () { 'use strict'; try { window.KY.hooks.flyTo = null; return false; } catch (e) { return e instanceof TypeError; } })(),
+724993	      helloInspect: window.KY && KY.modules.hello ? KY.modules.hello.inspect() : null };
+724994	  // the wafer is drawn: non-black pixels of a CSS-px screenshot, outside the bar and the refusal strip
+724995	  const shot = await page.screenshot({ scale: 'css', timeout: 180000 });
+724996	  st.wafer = await page.evaluate(async ({ b64, skip }) => { const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode();
+724997	    const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0);
+724998	    const d = x.getImageData(0, 0, c.width, c.height).data, bar = document.getElementById('bar').getBoundingClientRect(); let lit = 0, n = 0;
+724999	    for (let y = Math.ceil(bar.bottom) + 2; y < c.height; y += 2) for (let X = 0; X < c.width; X += 2) {
+725000	      if (skip && X >= skip.left && X <= skip.right && y >= skip.top && y <= skip.bottom) continue;
+725001	      const i = (y * c.width + X) * 4; n++; if (d[i] + d[i + 1] + d[i + 2] > 60) lit++; }
+725002	    return { lit_fraction: +(lit / n).toFixed(4), sampled: n }; }, { b64: shot.toString('base64'), skip: st.refuse && st.refuse.rect });
+725003	  st.waferDrawn = st.wafer.lit_fraction > 0.01;
+725004	  if (o.shot) fs.writeFileSync(path.join(OUT, `${o.shot}-${dev.replace(/ /g, '_')}.png`), shot);
+725005	  if (o.touch) st.touch = await o.touch(page);
+725006	  st.pageerror = errors; st.console_errors = consoleErr; st.wall_ms = Date.now() - t0; st.wafer_delayed_until_ms = waferAt ? waferAt - t0 : null;
+725008	const sameOrder = (st, ids, m) => st.admitted.length === ids.length && st.admitted.every((a, i) => a.id === ids[i] && a.sha256 === m.modules.find(x => x.id === a.id).sha256);
+725009	const why = (st, id) => (st.refused.find(r => r.id === id) || {}).why || '';
+725010	const net404 = s => s.every(t => /Failed to load resource.*404/.test(t));
+725011	  const report = { url: BASE, page: PAGE || 'served index.html', started: new Date().toISOString(), devices: {}, test8: null };
+725012	  for (const dev of DEVICES) {
+725013	    const T = {}; report.devices[dev] = T;
+725014	    const add = (k, pass, data) => { T[k] = Object.assign({ PASS: !!pass }, data); if (!pass) allPass = false; console.log(dev, k, pass ? 'PASS' : 'FAIL'); };
+725015	    let s;
+725016	    // 1 every order entry admitted in order with the manifest's sha256; readout lines; real touch opens READOUT
+725017	    s = await run(browser, dev, 't1', { manifest: THREE, shot: '1-admitted', touch: async page => {
+725018	      const b = await page.$('#bar .gm-title[data-panel="hud"]'); const r = await b.boundingBox();
+725019	      await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await sleep(1500);
+725020	      return page.evaluate(() => ({ open: document.getElementById('hud').classList.contains('gm-open'), lines: document.getElementById('hud').textContent.split('\n').filter(l => / admitted · [0-9a-f]{12}$/.test(l)) })); } });
+725021	    add('1', sameOrder(s, ['hello', 'probe-a', 'probe-b'], THREE) && !s.refused.length && !s.refuse && s.touch.open && s.touch.lines.length === 3
+725022	      && s.helloInspect && s.helloInspect.frames_drawn > 0 && !s.pageerror.length && !s.console_errors.length, s);
+725023	    // 2 one byte changed in a served module: sha256 mismatch, the rest admitted, alert inside the viewport, wafer drawn
+725024	    const bad = Buffer.from(HELLO); bad[bad.length - 2] ^= 1;
+725025	    s = await run(browser, dev, 't2', { manifest: THREE, files: { [R_HELLO.path]: bad }, shot: '2-sha-mismatch' });
+725026	    add('2', why(s, 'hello') === 'sha256 mismatch' && s.admitted.map(a => a.id).join() === 'probe-a,probe-b' && s.refuse && s.refuse.role === 'alert'
+725027	      && s.refuse.visible && s.refuse.inViewport && s.waferDrawn && s.bar && !s.hosts.includes('ky-hello') && !s.scripts.includes('hello') && !s.pageerror.length && !s.console_errors.length, s);
+725028	    // 3 requires noSuchHook: missing hook; host absent; the module that requires its provides refused too
+725029	    s = await run(browser, dev, 't3', { manifest: manifest([R_HELLO, Object.assign({}, R_PA, { requires: ['noSuchHook'] }), R_PB]) });
+725030	    add('3', why(s, 'probe-a') === 'missing hook noSuchHook' && why(s, 'probe-b') === 'missing hook probe-a' && s.admitted.map(a => a.id).join() === 'hello'
+725031	      && !s.hosts.includes('ky-probe-a') && !s.pageerror.length && !s.console_errors.length, s);
+725032	    // 4 renamed stamp: refused in words; renamed without leading digits: admitted (identity is generation + sha256)
+725033	    s = await run(browser, dev, 't4a', { manifest: manifest([R_HELLO, Object.assign({}, R_PA, { path: 'modules/202611012146-probe-a.js' })]), files: { 'modules/202611012146-probe-a.js': PA } });
+725034	    const s4b = await run(browser, dev, 't4b', { manifest: manifest([R_HELLO, Object.assign({}, R_PA, { path: 'modules/probe-a.js' })]), files: { 'modules/probe-a.js': PA } });
+725035	    add('4', why(s, 'probe-a') === 'stamp mismatch: generation 202611012145, file name 202611012146' && s.admitted.map(a => a.id).join() === 'hello'
+725036	      && s4b.admitted.map(a => a.id).join() === 'hello,probe-a' && !s.pageerror.length && !s4b.pageerror.length && !s.console_errors.length && !s4b.console_errors.length, { renamed: s, no_digits: s4b });
+725037	    // 5 install throws: install threw test, the rest admitted
+725038	    const thr = Buffer.from(HELLO.toString().replace('install(KY) {', "install(KY) { throw new Error('test');"));
+725039	    s = await run(browser, dev, 't5', { manifest: manifest([Object.assign({}, R_HELLO, { sha256: sha(thr), bytes: thr.length }), R_PA, R_PB]), files: { [R_HELLO.path]: thr } });
+725040	    add('5', why(s, 'hello') === 'install threw test' && s.admitted.map(a => a.id).join() === 'probe-a,probe-b' && !s.pageerror.length && !s.console_errors.length, s);
+725041	    // 6 file deleted: HTTP 404
+725042	    s = await run(browser, dev, 't6', { manifest: THREE, files: { [R_HELLO.path]: 404 } });
+725043	    add('6', why(s, 'hello') === 'HTTP 404' && s.admitted.map(a => a.id).join() === 'probe-a,probe-b' && !s.pageerror.length && net404(s.console_errors), s);
+725044	    // 7 empty manifest: whole wafer and bar, admitted [], no alert, KY frozen, the 28 hooks, the alias
+725045	    s = await run(browser, dev, 't7', { manifest: manifest([]), shot: '7-empty', touch: async page => page.evaluate(() => {
+725046	      const r = {}; KY.refuse('probe line', 'probe'); r.shown = (document.getElementById('refuse') || {}).textContent === 'probe line';
+725047	      KY.refuse('', 'probe'); r.cleared = !document.getElementById('refuse');
+725048	      try { KY.refuse('x', 'engine'); r.reserved = false; } catch (e) { r.reserved = e instanceof TypeError; }
+725049	      KY.cam.atHome = false; r.atHomeFalse = KY.cam.atHome === false; KY.cam.atHome = true; r.atHomeTrue = KY.cam.atHome === true;
+725050	      r.names36 = KY.names.length === 36 && KY.names.includes('refuse') && KY.names.includes('nav'); return r; }) });
+725051	    add('7', Object.values(s.touch).every(Boolean) && s.waferDrawn && s.bar && !s.admitted.length && !s.refused.length && !s.refuse && s.frozen && Object.values(s.frozen).every(Boolean) && s.writeThrows
+725052	      && JSON.stringify(s.hookKeys) === JSON.stringify(HOOKS28) && s.alias && !s.pageerror.length && !s.console_errors.length, s);
+725053	    // 7b wafer.tsv 404: modules that do not require the wafer admitted, the engine's words in the strip, the wafer module's install rejects in words
+725054	    s = await run(browser, dev, 't7b', { manifest: manifest([R_HELLO, R_PA, R_PW]), wafer: '404' });
+725055	    add('7b', s.admitted.map(a => a.id).join() === 'hello,probe-a,probe-w' && s.refuse && /did not load\. The wafer will not invent its keys\./.test(s.refuse.text)
+725056	      && s.probeW && /did not load/.test(s.probeW.rejected || '') && s.failures.some(f => f.id === 'probe-w') && !s.pageerror.length && net404(s.console_errors), s);
+725057	    // 7c wafer.tsv held back 12 s: hello is admitted while the 535,037-byte fetch is still pending
+725058	    s = await run(browser, dev, 't7c', { manifest: manifest([R_HELLO, R_PW]), wafer: 'delay', delay: 12000, settle: 16000 });
+725059	    const hAd = (s.admitted.find(a => a.id === 'hello') || {}).t_ms;
+725060	    add('7c', hAd != null && s.probeW && s.probeW.N_at_install === 0 && s.probeW.resolved_ms > hAd + 5000 && s.N > 0 && !s.pageerror.length && !s.console_errors.length,
+725061	      Object.assign(s, { hello_admitted_ms: hAd, wafer_resolved_ms: s.probeW && Math.round(s.probeW.resolved_ms) }));
+725062	    // 10 (rev 4) KY.panels.add forwards into the shell's panel once kuiper-shell is admitted (01-shell REQUESTS 2)
+725063	    s = await run(browser, dev, 't10', { manifest: manifest([R_HELLO, R_SHELL, R_PP]) });
+725064	    add('10', s.admitted.map(a => a.id).join() === 'hello,kuiper-shell,probe-p' && s.probeP && s.probeP.inShellPanel && !s.pageerror.length && !s.console_errors.length, s);
+725065	    // 11 (rev 5) KY.nav, the one owner of history: another owner's programmatic back never closes the card; a user back
+725066	    // closes only the layer whose entry it removed
+725067	    s = await run(browser, dev, 't11', { manifest: manifest([R_HELLO]), touch: async page => {
+725068	      const w = ms => page.waitForTimeout(ms), card = () => page.evaluate(() => ({ card: document.getElementById('card').style.display, st: history.state, nav: KY.nav.depth }));
+725069	      const r = {}; await page.keyboard.press('e'); await w(2500); r.open = await card();
+725070	      await page.evaluate(() => { window.__nb = 0; KY.nav.onBack('probe', () => window.__nb++); KY.nav.push('probe'); }); await w(400);
+725071	      await page.evaluate(() => KY.nav.back('probe')); await w(1500); r.afterSelfBack = await card();
+725072	      await page.evaluate(() => KY.nav.push('probe')); await w(400); await page.evaluate(() => history.back()); await w(1500); r.afterUserBack1 = await card(); r.probeCalls = await page.evaluate(() => window.__nb);
+725073	      await page.evaluate(() => history.back()); await w(1500); r.afterUserBack2 = await card();
+725074	      r.reserved = await page.evaluate(() => { try { KY.nav.push('edition'); return false; } catch (e) { return e instanceof TypeError; } });
+725075	      return r; } });
+725076	    { const t = s.touch; add('11', t.open.card === 'block' && t.open.st && t.open.st.owner === 'edition' && t.afterSelfBack.card === 'block' && t.afterSelfBack.st && t.afterSelfBack.st.owner === 'edition'
+725077	        && t.afterUserBack1.card === 'block' && t.probeCalls === 1 && t.afterUserBack2.card === 'none' && t.reserved && !s.pageerror.length && !s.console_errors.length, s); }
+725078	    // 9 measured, no threshold: load to last admitted; sum of bytes against sum of byte_budget (from test 1's manifest)
+725079	    const t1 = T['1'];
+725080	    add('9', t1.timings.last_admitted_ms != null, { nav_to_last_admitted_ms: t1.timings.last_admitted_ms, load_event_ms: t1.load_event_ms,
+725081	      load_to_last_admitted_ms: t1.timings.last_admitted_ms - t1.load_event_ms, loader_start_ms: t1.timings.loader_start_ms,
+725082	      bytes: t1.bytes, byte_budget: t1.byte_budget, modules: t1.admitted.length, note: 'SwiftShader in Playwright, served from 127.0.0.1; negative load_to_last_admitted means the last module was admitted before the load event' });
+725083	  // 8 edition_check.py E1-E8 PASS on the integrated copy, FAIL on each mutation applied to a copy
+725084	  report.test8 = test8(); if (!report.test8.PASS) allPass = false; console.log('test 8', report.test8.PASS ? 'PASS' : 'FAIL');
+725085	  report.PASS = allPass; report.finished = new Date().toISOString();
+725086	  console.log('RESULT:', allPass ? 'PASS' : 'FAIL'); process.exit(allPass ? 0 : 1);
+725087	function test8() {
+725088	  const tmp = fs.mkdtempSync(path.join(process.env.KY_TMP || os.tmpdir(), 'ky-t8-')), out = {};
+725089	  const mk = name => { const d = path.join(tmp, name), e = path.join(d, 'editions', '202611012135');
+725090	    fs.cpSync(path.join(REPO, 'editions', '202611012027'), path.join(d, 'editions', '202611012027'), { recursive: true });
+725091	    for (const f of ['index.html', 'keys.json', 'README.md']) fs.copyFileSync(path.join(ED, f), path.join(e, f));
+725092	    if (PAGE) fs.copyFileSync(PAGE, path.join(e, 'index.html'));   // the page under test, not the moving live file
+725093	    for (const f of [R_HELLO.path, FIRST.references[0].file]) fs.copyFileSync(path.join(ED, f), path.join(e, f));
+725094	    fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(FIRST, null, 1));
+725095	    if (!fs.readFileSync(path.join(e, 'index.html'), 'utf8').includes('KUIPER HOOK TABLE AND LOADER'))
+725096	      cp.execFileSync('patch', ['-p1', '-s', '-i', path.join(HERE, 'index.html.patch')], { cwd: d });
+725097	    const tool = path.join(REPO, 'tools', 'edition_check.py');
+725098	  const check = d => { const r = cp.spawnSync('python3', ['tools/edition_check.py', 'editions/202611012135'], { cwd: d, encoding: 'utf8' }); return { rc: r.status, out: r.stdout.trim().split('\n') }; };
+725099	    hash: e => { const p = path.join(e, R_HELLO.path), b = fs.readFileSync(p); b[b.length - 2] ^= 1; fs.writeFileSync(p, b); },
+725100	    stamp: e => { fs.renameSync(path.join(e, R_HELLO.path), path.join(e, 'modules/202611012146-hello.js'));
+725101	      const m = JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))); m.modules[0].path = 'modules/202611012146-hello.js'; fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m)); },
+725102	    requires: e => { const m = JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))); m.modules[0].requires = ['noSuchHook']; fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m)); },
+725103	    stray: e => fs.writeFileSync(path.join(e, 'modules/202611012150-stray.js'), '/* stray */\n'),
+725104	    writes: e => { const m = JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))); m.modules[0].writes.push('#ky-nowhere'); fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m)); },
+725105	    register_twice: e => { const p = path.join(e, R_HELLO.path), t = fs.readFileSync(p, 'utf8') + '// KY.register( again\n'; fs.writeFileSync(p, t);
+725106	      const m = JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))); m.modules[0].sha256 = sha(Buffer.from(t)); m.modules[0].bytes = Buffer.byteLength(t); fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m)); },
+725107	    no_licence: e => { const m = JSON.parse(fs.readFileSync(path.join(e, 'modules.json'))); m.modules[0].licence = ''; fs.writeFileSync(path.join(e, 'modules.json'), JSON.stringify(m)); } };
+725108	  const c0 = mk('committed'); proof(c0.e); out.integrated = check(c0.d);
+725109	  let pass = out.integrated.rc === 0 && ['E1', 'E2', 'E3', 'E4', 'E5', 'E6', 'E7', 'E8'].every(k => out.integrated.out.some(l => l.startsWith(k + ' PASS')));
+725110	  out.mutations = {};
+725111	  for (const [k, f] of Object.entries(mut)) { const c = mk(k); f(c.e); proof(c.e); const r = check(c.d); out.mutations[k] = r; if (r.rc !== 1) pass = false; }
+725112	  out.PASS = pass; fs.rmSync(tmp, { recursive: true, force: true });
+725113	const FIRST = JSON.parse(fs.readFileSync(path.join(HERE, 'rev5', 'modules.first.json'), 'utf8'));
+725114	    fs.copyFileSync(path.join(ED, R_HELLO.path), path.join(e, R_HELLO.path)); fs.copyFileSync(path.join(HERE, 'rev5', FIRST.references[0].file), path.join(e, FIRST.references[0].file));
+725115	const BASE = 'http://127.0.0.1:8440/editions/202611012135/';
+725116	(async () => { const b = await chromium.launch({ args: ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'] });
+725117	  for (const v of ['base', 'touch', 'full']) { const ctx = await b.newContext({ ...devices['Pixel 7'] }), p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(e.message));
+725118	    await p.route(u => u.href === BASE, r => r.fulfill({ status: 200, contentType: 'text/html', body: fs.readFileSync(__dirname + '/' + v + '.html') }));
+725119	    await p.route(BASE + 'modules.json', r => r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ schema: 'kuiper.modules.v1', edition: '202611012135', hooks: 'kuiper.hooks.v1', order: [], modules: [] }) }));
+725120	    await p.goto(BASE); await p.waitForTimeout(7000);
+725121	    await p.evaluate(() => { window.__rs = 0; addEventListener('resize', () => window.__rs++); });
+725123	    for (const [w, h] of [[839, 412], [412, 839], [412, 783]]) { await p.setViewportSize({ width: w, height: h }); await p.waitForTimeout(4000);
+725124	      out.push(await p.evaluate(() => ({ iw: innerWidth, ih: innerHeight, cw: document.getElementById('c').width, ch: document.getElementById('c').height, vv: visualViewport && [visualViewport.width, visualViewport.height, visualViewport.scale], dw: document.documentElement.clientWidth, rs: window.__rs }))); }
+725125	    console.log(v, JSON.stringify(out), errs); await ctx.close(); }
+725126	  await b.close(); })();
+725127	const HERE = __dirname, ED = path.resolve(HERE, '../..'), REPO = path.resolve(ED, '../..');
+725128	const files = { [R_PA.path]: PA, [R_PB.path]: PB, [R_PW.path]: PW };
+725129	      N: window.KY ? window.KY.hooks.N : null, probeW: window.__probeW || null,
+725130	      writeThrows: (() => { try { 'use strict'; window.KY.hooks.flyTo = null; return false; } catch (e) { return e instanceof TypeError; } })(),
+725131	    s = await run(browser, dev, 't7', { manifest: manifest([]), shot: '7-empty' });
+725132	    add('7', s.waferDrawn && s.bar && !s.admitted.length && !s.refused.length && !s.refuse && s.frozen && Object.values(s.frozen).every(Boolean) && s.writeThrows
+725133	  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'ky-t8-')), out = {};
+725134	  // :813-816 exportStamp (UTC to the minute), :1082-1097 looksBlank (sample a 40x40 probe), :1120-1137 capture INSIDE a
+725136	        var probe = mk('canvas'); probe.width = 40; probe.height = 40;
+725137	        var c = probe.getContext('2d'); c.drawImage(canvas, 0, 0, 40, 40);
+725138	        var d = c.getImageData(0, 0, 40, 40).data, r = d[0], g = d[1], b = d[2], a = d[3], anyAlpha = false;
+725139	    function utcStamp(now) { return now.toISOString().replace('T', ' ').slice(0, 16) + ' UTC'; }      // GridAtlas :813-816
+725140	      var m = String(Hc.big && Hc.big.textContent || '').match(/Kuiper Edition \d+/i);
+725141	      return (m ? m[0] : 'Kuiper edition') + ' · ' + KYc.edition;
+725142	        p.done(view, null);
+725143	        pending = { done: function (view, why) { res(view ? { view: view } : { refused: why }); },
+725145	        if (looksBlank(r.view)) { st.exports.push({ kind: 'image', ok: false, why: BLANK_WORDS, at: now.toISOString() }); say(rowEl, BLANK_WORDS); return null; }
+725146	        var why = r.refused || (looksBlank(r.view) ? BLANK_WORDS : null);
+725163	const ED = '/home/user/estate/kuiper-belt/editions/202611012135', ROOT = path.resolve(ED, '..', '..'), STAMP = path.basename(ED);
+725175	  try { execFileSync('patch', ['-p1', '-s', '-f', '-i', path.join(ED, 'handoff/04-loader/index.html.patch')], { cwd: tmp, stdio: 'ignore' }); } catch (e) { /* builder copy: a rejected hunk the base already carries is skipped */ }
+725204	# shift module line refs >= START by D in EVIDENCE.md (module-context only)
+725205	p, START, D = sys.argv[1], int(sys.argv[2]), int(sys.argv[3])
+725206	L = open(p).read().split('\n')
+725207	def sh(m):
+725208	    a = int(m.group(2)); b = m.group(4)
+725209	    na = a + D if a >= START else a
+725210	    nb = (int(b) + D if int(b) >= START else int(b)) if b else None
+725211	    return m.group(1) + str(na) + ('-' + str(nb) if b else '')
+725212	NUM = re.compile(r'(:)(\d{2,3})((?:-)(\d{2,3}))?\b')
+725213	PROTECT = re.compile(r'(kuiper-shell\.js:\d+|index\.html:\d+|README\.md:\d+|layers\.js:\d+(?:-\d+)?|ED5 :\d+(?:-\d+)?|live :\d+(?:-\d+)?|:710 PANELS)')
+725214	def shift_text(t):
+725215	    parts = PROTECT.split(t)
+725216	    return ''.join(x if PROTECT.fullmatch(x or '') else NUM.sub(sh, x) for x in parts)
+725217	# section 1 table rows: last cell only
+725218	start1 = next(i for i,l in enumerate(L) if l.startswith('## 1.'))
+725219	end1 = next(i for i,l in enumerate(L) if l.startswith('## 2.'))
+725220	for i in range(start1, end1):
+725221	    l = L[i]
+725222	    if l.startswith('|') and l.count('|') >= 4 and not l.startswith('|---') and 'In the Kuiper module' not in l:
+725223	        cells = l.split('|'); cells[-2] = shift_text(cells[-2]); L[i] = '|'.join(cells)
+725224	# explicit module-context fragments elsewhere
+725225	FRAG = [r'resolves \(:\d+\)', r'\(module :\d+-\d+, :\d+\)', r'vs module :\d+', r'pasted link", :\d+, :\d+\)',
+725226	        r'module :\d+-\d+ header, :\d+-\d+ registration', r'`wireFind` :\d+-\d+, `openPaste` :\d+-\d+',
+725227	        r'`H\.wafer\.then\(readLocation\)` :\d+', r'`Hc\.ov` :\d+-\d+', r'`readout\(\)` :\d+', r'`editionName\(\)` :\d+-\d+',
+725228	        r'no shell :\d+', r'\(order 1e9\) :\d+, the readout \(order 40\) :\d+', r'\| :138, :259, :\d+ \|', r'\(:\d+\)\. It is in the 28-hook',
+725229	        r"`GEN = '202611012231'` \(:28, :\d+\)", r'module :1, :28, :\d+', r'module :\d+-\d+ \|', r'module :29, :\d+',
+725230	        r'module :161, :\d+, :\d+', r'comment at :\d+ and the `utcStamp` comment at :\d+', r'and in the registration \(:\d+\)',
+725231	        r'`writeNow` :\d+-\d+', r'hook table; `fmt\(\)` \(:\d+\)']
+725232	for i in range(len(L)):
+725233	    if start1 <= i < end1: continue
+725234	    for f in FRAG:
+725235	        L[i] = re.sub(f, lambda m: NUM.sub(sh, m.group(0)), L[i])
+725236	open(p, 'w').write('\n'.join(L))
+725237	// Unit test of SECTION C (builder) outside the browser: stubs for KY/H, real files, Node webcrypto. No Playwright.
+725238	const ROOT = '/home/user/estate/kuiper-belt', ED = ROOT + '/editions/202611012135';
+725239	const src = fs.readFileSync(ED + '/modules/202611012309-apps.js', 'utf8');
+725240	const C0 = src.indexOf('// ======================================================================== SECTION C'), D0 = src.indexOf('// ======================================================================== SECTION D');
+725241	const sec = src.slice(C0, D0);
+725242	const removeGraphs = process.argv.includes('--no-graphs');
+725243	// the wafer, as index.html builds it
+725244	const rows = f => fs.readFileSync(ROOT + '/cosmos/' + f, 'utf8').split('\n').filter(l => l && l[0] !== '#').map(l => l.split('\t'));
+725245	const repos = rows('repos.tsv').map(p => ({ i: +p[0], name: p[1], lines: +p[2] }));
+725246	let k = 0; const commits = rows('wafer.tsv').map(p => { k += +p[4]; const c = { repo: +p[2], sha: p[3], k0: k, lines: +p[1] }; k += c.lines; return c; });
+725247	const SPACE = k, R = Math.sqrt(SPACE);
+725248	global.fetch = async (file) => { const p = path.join(ED, file); if (removeGraphs && /graphs/.test(file) || !fs.existsSync(p)) return { ok: false, status: 404 };
+725249	  const b = fs.readFileSync(p); return { ok: true, status: 200, arrayBuffer: async () => b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength), json: async () => JSON.parse(b) }; };
+725250	global.window = { crypto: globalThis.crypto };
+725251	global.addEventListener = () => {};
+725252	const H = { SPACE, repos, commits, keyPlace: kk => [kk / SPACE * R, 0], fmt: n => n.toLocaleString('en-GB'), o2: { canvas: { width: 400, height: 800 } }, cv: {} };
+725253	const regs = [];
+725254	const L = { get: id => ({ id, status: id === 'elements' ? 'REFUSED' : 'EMPTY' }), register: l => { regs.push(l); } };
+725255	const st = { said: [], spider: { status: 'WAIT', why: '', graphs: {} }, card: null };
+725256	let EL = null;
+725257	const loadElements = () => Promise.resolve().then(() => { EL = JSON.parse(fs.readFileSync(ED + '/data/elements.json')); return EL; });
+725258	const fn = new Function('KY', 'H', 'st', 'loadElements', 'getEL', 'mod', 'fmt', 'openElement', 'ID', 'C_RECORD', 'C_SEL', 'setTimeout',
+725259	  sec.replace(/\bEL\b/g, 'getEL()') + '\nreturn { registerLayers, loadSpider, nodeKey, C, GRAPHS };');
+725260	const KY = { draw: { add() {} }, redraw() {}, cam: { x: 0, y: 0, zoom: 1 } };
+725261	const X = fn(KY, H, st, loadElements, () => EL, () => L, H.fmt, () => true, 'apps', '#c9d3e6', '#ff2bd6', setTimeout);
+725262	X.registerLayers();
+725263	setTimeout(async () => {
+725264	  console.log('registered', regs.map(r => r.id));
+725265	  const sp = regs.find(r => r.id === 'spider'), el = regs.find(r => r.id === 'elements');
+725266	  try { console.log('elements load', await el.load()); } catch (e) { console.log('elements load FAIL', e.message); }
+725267	  try { console.log('spider load', await sp.load()); } catch (e) { console.log('spider load FAIL', e.message); }
+725268	  console.log(JSON.stringify(st.spider.graphs, null, 0).slice(0, 900));
+725269	  console.log('readout:', st.said);
+725270	  console.log('segs', X.C.segs.length, 'rings', X.C.rings.length, 'dots', X.C.dots.length);
+725272	# scratch site for OPUS-6: the edition as it will stand at admission 6 (loader 04 patch + layers 03 patch applied in a copy;
+725273	# modules kuiper-shell, line-card, layers, file). Nothing in the repository is written.
+725274	import os, re, json, hashlib, subprocess, shutil, sys
+725275	KB='/home/user/estate/kuiper-belt'; ED=KB+'/editions/202611012135'; S='/tmp/nl010-opus/team-7/tester/site'
+725276	mods=sys.argv[1:] or ['modules/202611012143-kuiper-shell.js','modules/202611012143-line-card.js','modules/202611012141-layers.js','modules/202611012231-file.js','modules/202611012141-see-through.js','modules/202611012309-apps.js']
+725277	if not os.path.isdir(S):
+725278	    os.makedirs(S+'/editions/202611012135')
+725279	    for n in os.listdir(KB):
+725280	        if n not in ('editions','.git'): os.symlink(KB+'/'+n, S+'/'+n)
+725281	    for n in os.listdir(KB+'/editions'):
+725282	        if n!='202611012135': os.symlink(KB+'/editions/'+n, S+'/editions/'+n)
+725283	d=S+'/editions/202611012135'
+725284	for n in os.listdir(ED):
+725285	    if n in ('index.html','modules.json','modules'): continue
+725286	    if not os.path.lexists(d+'/'+n): os.symlink(ED+'/'+n, d+'/'+n)
+725287	if os.path.isdir(d+'/modules'): shutil.rmtree(d+'/modules')
+725288	shutil.copytree(ED+'/modules', d+'/modules')
+725289	shutil.copy(os.environ.get('KYPAGE','/tmp/nl010-opus/team-7/tester/index.base.html'), d+'/index.html')
+725290	for p in ['handoff/04-loader/index.html.patch','handoff/03-layers/index.html.after-04-loader.patch']:
+725291	    subprocess.run(['patch','-p3','-s','-d',d,'-i',ED+'/'+p],check=True) if False else None
+725292	# patches are written against a/editions/202611012135/index.html: apply from S with -p1
+725293	for p in []:
+725294	    r=subprocess.run(['patch','-p1','-s','-d',S,'--follow-symlinks','-i',ED+'/'+p],capture_output=True,text=True)
+725295	    print(p, 'rc', r.returncode, r.stdout[-300:], r.stderr[-300:])
+725296	m=json.load(open(ED+'/handoff/04-loader/modules.json'))
+725297	for rel in mods:
+725298	    src=open(d+'/'+rel,'rb').read(); t=src.decode()
+725299	    h=re.match(r'/\* kuiper module ([a-z0-9-]+), generation (\d{12}) \(UTC\), ([^*\n]*)', t)
+725300	    reg=re.search(r"KY\.register\(\{[\s\S]*?requires:\s*(\[[^\]]*\]|REQUIRES)", t)
+725301	    lit=reg.group(1)
+725302	    if lit=='REQUIRES': lit=re.search(r"var REQUIRES = (\[[^\]]*\])", t).group(1)
+725303	    req=re.findall(r"'([^']+)'", lit)
+725304	    prov=re.findall(r"'([^']+)'", re.search(r"provides:\s*(\[[^\]]*\])", t[reg.start():]).group(1))
+725305	    prov=[x if x!="' + ID + '" else h.group(1) for x in prov]
+725306	    if 'ID' in re.search(r"provides:\s*(\[[^\]]*\])", t[reg.start():]).group(1): prov=[h.group(1)]+[p for p in prov]
+725307	    rec={'id':h.group(1),'generation':h.group(2),'path':rel,'sha256':hashlib.sha256(src).hexdigest(),'bytes':len(src),'byte_budget':max(len(src),65536),
+725308	         'requires':req,'provides':sorted(set(prov+[h.group(1)]),key=lambda x:(x!=h.group(1),x)),'reads':[],'writes':[],'creates_controls':'scratch','licence':h.group(3).strip(),'team':'scratch','step':0,'proof':'scratch'}
+725309	    m['modules']=[x for x in m['modules'] if x['id']!=rec['id']]+[rec]
+725310	    if rec['id'] not in m['order']: m['order'].append(rec['id'])
+725311	m['order']=[x for x in m['order'] if x!='hello']; m['modules']=[x for x in m['modules'] if x['id']!='hello']
+725312	json.dump(m, open(d+'/modules.json','w'), indent=1)
+725313	print([(x['id'],x['provides'],len(x['requires'])) for x in m['modules']])
+725314	"""OPUS-9 evidence officer: re-read every key of handoff/09-law/EVIDENCE.md from git objects (never a working tree).
+725315	Apache-2.0 (kuiper-belt code). One TSV row per key: section, id, key, PASS/FAIL, lines read (trimmed)."""
+725316	import re, subprocess, hashlib
+725317	E = '/home/user/estate'
+725318	NL = '/home/user/neural-link-between-agents'
+725319	def repo_dir(r): return NL if r == 'neural-link' else E + '/' + r
+725320	def git(repo, *a, binary=False):
+725321	    r = subprocess.run(['git', '-C', repo_dir(repo)] + list(a), capture_output=True)
+725322	    return r.returncode, (r.stdout if binary else r.stdout.decode('utf-8', 'replace'))
+725323	RL = 'docs/RELEASE.md'; NOTES = 'SESSIONS/202611012145-kuiper-edition-harness-notes.md'
+725324	MB = 'atlas/modules/202609031958-menu-bar.js'
+725325	K = [  # section, id, repo, sha, path, a, b, regex
+725326	 # 1. RELEASE.md: the eight steps and the rules
+725327	 ('R', 'step-1-cut', 'gridatlas', '5ec7f62', RL, 38, 38, r'^\| 1 \| cut \|.*make-generation'),
+725328	 ('R', 'step-2-preview', 'gridatlas', '5ec7f62', RL, 39, 39, r'^\| 2 \| preview PR \|.*draft PR'),
+725329	 ('R', 'step-3-acceptance', 'gridatlas', '5ec7f62', RL, 40, 40, r'^\| 3 \| owner acceptance \|.*ACCEPT G.*first line.*owner login'),
+725330	 ('R', 'step-4-release', 'gridatlas', '5ec7f62', RL, 41, 41, r'^\| 4 \| release \|.*owner merges it with \*\*rebase'),
+725331	 ('R', 'step-5-live', 'gridatlas', '5ec7f62', RL, 42, 42, r'^\| 5 \| live bytes \|'),
+725332	 ('R', 'step-6-homepage', 'gridatlas', '5ec7f62', RL, 43, 43, r'^\| 6 \| homepage \|'),
+725333	 ('R', 'step-7-served', 'gridatlas', '5ec7f62', RL, 44, 44, r'^\| 7 \| served \|.*byte for byte'),
+725334	 ('R', 'step-8-rollback', 'gridatlas', '5ec7f62', RL, 45, 45, r'^\| 8 \| rollback \|.*route C'),
+725335	 ('R', 'eight-steps', 'gridatlas', '5ec7f62', RL, 26, 26, r'Eight steps'),
+725336	 ('R', 'pointer-only', 'gridatlas', '5ec7f62', RL, 3, 7, r'Nothing else changes'),
+725337	 ('R', 'agents-never-accept', 'gridatlas', '5ec7f62', RL, 49, 53, r'Agents never record acceptance'),
+725338	 ('R', 'owner-merges', 'gridatlas', '5ec7f62', RL, 54, 55, r'Only the owner merges a release[\s\S]*rebase, never squash'),
+725339	 ('R', 'hash-each-cartridge', 'gridatlas', '5ec7f62', RL, 117, 117, r'hashing to its recorded sha256'),
+725340	 ('R', 'tested-preview', 'gridatlas', '5ec7f62', RL, 119, 121, r'tested preview is the release'),
+725341	 ('R', 'two-files', 'gridatlas', '5ec7f62', RL, 147, 151, r'revertable, byte for byte'),
+725342	 ('R', 'reverse-order', 'gridatlas', '5ec7f62', RL, 264, 264, r'pointer first'),
+725343	 ('R', 'route-c-refusals', 'gridatlas', '5ec7f62', RL, 291, 296, r'pointer has moved since'),
+725344	 ('R', 'route-c-byte', 'gridatlas', '5ec7f62', RL, 300, 302, r'byte-identical'),
+725345	 ('R', 'route-c-gates', 'gridatlas', '5ec7f62', RL, 305, 306, r'runs the gates[\s\S]*rollback/'),
+725346	 ('R', 'manifest-arch', 'gridatlas', '5ec7f62', 'atlas/current.json', 5, 5, r'IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES'),
+725347	 ('R', 'manifest-order', 'gridatlas', '5ec7f62', 'atlas/current.json', 14, 21, r'cartridge_order'),
+725348	 ('R', 'manifest-sha', 'gridatlas', '5ec7f62', 'atlas/current.json', 31, 31, r'"sha256": "[0-9a-f]{64}"'),
+725349	 ('R', 'pr-gate-sha', 'gridatlas', '5ec7f62', 'tools/ci/pr-gate.mjs', 176, 176, r'SHA-256 mismatch'),
+725350	 ('R', 'menu-admission', 'gridatlas', '5ec7f62', MB, 8, 17, r'installs nothing until'),
+725351	 ('R', 'menu-no-silent-skip', 'gridatlas', '5ec7f62', MB, 17, 18, r'reachable[\s\S]*instead of being silently skipped'),
+725352	 ('R', 'menu-complete', 'gridatlas', '5ec7f62', MB, 122, 124, r'EXPECTED_LAYER_CONTROLS'),
+725353	 ('R', 'menu-missing', 'gridatlas', '5ec7f62', MB, 157, 157, r"missing\.push\('63 unique layer controls'\)"),
+725354	 ('R', 'ga-root-forward', 'gridatlas', '5ec7f62', 'index.html', 2, 2, r'location\.replace\(target\+window\.location\.search\+window\.location\.hash\)'),
+725355	 # 2. LAWS.md L1-L10
+725356	 ('L', 'preface', 'kuiper-belt', '018b46a', 'LAWS.md', 3, 4, r'cannot be falsified is not a\s*law|cannot be falsified'),
+725357	 ('L', 'L1', 'kuiper-belt', '018b46a', 'LAWS.md', 12, 12, r'^## L1\. The shepherd is computed, never declared'),
+725358	 ('L', 'L2', 'kuiper-belt', '018b46a', 'LAWS.md', 26, 26, r'^## L2\. Semi-major axis'),
+725359	 ('L', 'L3', 'kuiper-belt', '018b46a', 'LAWS.md', 42, 42, r'^## L3\. Eccentricity'),
+725360	 ('L', 'L4', 'kuiper-belt', '018b46a', 'LAWS.md', 57, 57, r'^## L4\. Inclination'),
+725361	 ('L', 'L5', 'kuiper-belt', '018b46a', 'LAWS.md', 72, 72, r'^## L5\. Mass'),
+725362	 ('L', 'L6', 'kuiper-belt', '018b46a', 'LAWS.md', 82, 82, r'^## L6\. Resonance'),
+725363	 ('L', 'L7', 'kuiper-belt', '018b46a', 'LAWS.md', 100, 100, r'^## L7\. Epoch'),
+725364	 ('L', 'L8', 'kuiper-belt', '018b46a', 'LAWS.md', 111, 111, r'^## L8\. Openness: the only law that judges'),
+725365	 ('L', 'L8-body', 'kuiper-belt', '018b46a', 'LAWS.md', 111, 124, r'licen'),
+725366	 ('L', 'L9', 'kuiper-belt', '018b46a', 'LAWS.md', 128, 128, r'^## L9\. Reproducibility'),
+725367	 ('L', 'L10', 'kuiper-belt', '018b46a', 'LAWS.md', 139, 139, r'^## L10\. Reconciliation'),
+725368	 ('L', 'L10-verdicts', 'kuiper-belt', '018b46a', 'LAWS.md', 152, 157, r'HONOURED[\s\S]*OVERREACHED[\s\S]*NOT EVALUATED[\s\S]*DISCLOSED'),
+725369	 ('L', 'L10-not-evaluated', 'kuiper-belt', '018b46a', 'LAWS.md', 156, 156, r'NOT EVALUATED'),
+725370	 ('L', 'L10-disclosed', 'kuiper-belt', '018b46a', 'LAWS.md', 157, 157, r'DISCLOSED'),
+725371	 # 3. ci_check K1-K4
+725372	 ('K', 'K1-def', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 8, 8, r'K1\s+no tracked file'),
+725373	 ('K', 'K2-def', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 9, 9, r'K2\s+cosmos/wafer\.tsv'),
+725374	 ('K', 'K3-def', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 10, 10, r'K3\s+every tool'),
+725375	 ('K', 'K4-def', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 11, 11, r'K4\s+keys are in time order'),
+725376	 ('K', 'K1-code', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 37, 48, r"K1 privacy"),
+725377	 ('K', 'K2-code', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 50, 60, r"K2 sums"),
+725378	 ('K', 'K3-code', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 62, 80, r"K3 syntax"),
+725379	 ('K', 'K3-root-only', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 68, 68, r"os\.listdir\(ROOT\)"),
+725380	 ('K', 'K4-code', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 82, 93, r"K4 order"),
+725381	 ('K', 'result-line', 'kuiper-belt', '018b46a', 'tools/ci_check.py', 97, 97, r"RESULT: "),
+725382	 ('K', 'workflow-on', 'kuiper-belt', '018b46a', '.github/workflows/check.yml', 6, 8, r'on:[\s\S]*push'),
+725383	 ('K', 'workflow-run', 'kuiper-belt', '018b46a', '.github/workflows/check.yml', 25, 26, r'python tools/ci_check\.py'),
+725384	 # 4. pointers
+725385	 ('P', 'ed-meta', 'kuiper-belt', '018b46a', 'editions/index.html', 7, 7, r'url=202611012027/"'),
+725386	 ('P', 'ed-link', 'kuiper-belt', '018b46a', 'editions/index.html', 11, 11, r'href="202611012027/"'),
+725387	 ('P', 'ed-replace', 'kuiper-belt', '018b46a', 'editions/index.html', 12, 12, r"location\.replace\('202611012027/' \+ location\.hash\)"),
+725388	 ('P', 'ed-meta-HEAD', 'kuiper-belt', 'HEAD', 'editions/index.html', 7, 7, r'url=202611012027/"'),
+725389	 ('P', 'ed-link-HEAD', 'kuiper-belt', 'HEAD', 'editions/index.html', 11, 11, r'href="202611012027/"'),
+725390	 ('P', 'ed-replace-HEAD', 'kuiper-belt', 'HEAD', 'editions/index.html', 12, 12, r"location\.replace\('202611012027/' \+ location\.hash\)"),
+725391	 ('P', 'st-meta', 'kuiper-belt', '018b46a', 'see-through/index.html', 7, 7, r'url=202610050609/"'),
+725392	 ('P', 'st-link', 'kuiper-belt', '018b46a', 'see-through/index.html', 11, 11, r'href="202610050609/"'),
+725393	 ('P', 'st-replace', 'kuiper-belt', '018b46a', 'see-through/index.html', 12, 12, r"location\.replace\('202610050609/' \+ location\.hash\)"),
+725394	 ('P', 'st-meta-HEAD', 'kuiper-belt', 'HEAD', 'see-through/index.html', 7, 7, r'url=202611020012/"'),
+725395	 ('P', 'st-link-HEAD', 'kuiper-belt', 'HEAD', 'see-through/index.html', 11, 11, r'href="202611020012/"'),
+725396	 ('P', 'st-replace-HEAD', 'kuiper-belt', 'HEAD', 'see-through/index.html', 12, 12, r"location\.replace\('202611020012/' \+ location\.search \+ location\.hash\)"),
+725397	 ('P', 'ed-readme-stamp', 'kuiper-belt', '018b46a', 'editions/README.md', 3, 4, r'the stamp is the key[\s\S]*Kuiper Edition 4'),
+725398	 ('P', 'ed-readme-newest', 'kuiper-belt', '018b46a', 'editions/README.md', 9, 10, r'from the pointer, not by sorting'),
+725399	 ('P', 'ed4-no-belt', 'kuiper-belt', '018b46a', 'editions/202611012027/README.md', 25, 26, r'/belt/'),
+725400	 ('P', 'ed4-keys-sha', 'kuiper-belt', '018b46a', 'editions/202611012027/proof/edition-sha256.txt', 4, 4, r'^1c293c33[0-9a-f]{56}\s+\S*keys\.json'),
+725401	 # 5. the harness notes and AGENTS.md (the law's process keys)
+725402	 ('N', 'nl008-gap', 'neural-link', '591b57c', NOTES, 19, 20, r'only the owner merges'),
+725403	 ('N', 'folder-rule', 'neural-link', '591b57c', NOTES, 39, 41, r'new dated folder[\s\S]*three[\s\S]*no `/belt/`'),
+725404	 ('N', 'readme-entries', 'neural-link', '591b57c', NOTES, 42, 43, r'current[\s\S]*edition'),
+725405	 ('N', 'folder-files', 'neural-link', '591b57c', NOTES, 44, 46, r'sha256 of every file except itself'),
+725406	 ('N', 'ci-before-push', 'neural-link', '591b57c', NOTES, 48, 49, r'RESULT: PASS[\s\S]*merge `--no-ff` into main'),
+725407	 ('N', 'android-test', 'neural-link', '591b57c', NOTES, 52, 58, r'Pixel 7[\s\S]*hasTouch'),
+725408	 ('N', 'never-accept', 'neural-link', '591b57c', NOTES, 63, 64, r'Agents never post ACCEPT'),
+725409	 ('N', 'agents-11', 'neural-link', '591b57c', 'AGENTS.md', 11, 11, r'owner acceptance'),
+725410	 ('N', 'agents-18', 'neural-link', '591b57c', 'AGENTS.md', 18, 18, r'declare `ACCEPT <generation>`, merge protected or live release branches'),
+725411	 ('N', 'nl009-01-13', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/01-bar.md', 13, 13, r'BLOCKER.*75\.1 px'),
+725412	 ('N', 'nl009-01-18', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/01-bar.md', 18, 18, r'MAJOR.*29\.0 px'),
+725413	 ('N', 'nl009-01-20', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/01-bar.md', 20, 20, r'MAJOR.*SEE THROUGH'),
+725414	 ('N', 'nl009-06-11', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/06-seethrough.md', 11, 11, r'BLOCKER.*unreachable'),
+725415	 ('N', 'nl009-06-24', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/06-seethrough.md', 24, 24, r'MAJOR'),
+725416	 ('N', 'nl009-09-11', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/09-robust.md', 11, 11, r'MAJOR.*READOUT'),
+725417	 ('N', 'nl009-09-18', 'neural-link', 'HEAD', 'FIXES/NL-009/round1/09-robust.md', 18, 18, r'MAJOR.*WebGL'),
+725419	bad = 0
+725420	for sec, i, repo, sha, path, a, b, rx in K:
+725421	    if sha == 'HEAD':
+725422	        sha = git(repo, 'rev-parse', '--short=7', 'HEAD')[1].strip()
+725423	    rc, out = git(repo, 'show', '%s:%s' % (sha, path))
+725424	    lines = out.split('\n')[a - 1:b] if rc == 0 else []
+725425	    ok = rc == 0 and bool(re.search(rx, '\n'.join(lines), re.I | re.M))
+725426	    bad += not ok
+725427	    print('%s\t%s\t%s@%s %s:%s\t%s\t%s' % (sec, i, repo, sha, path, a if a == b else '%d-%d' % (a, b), 'PASS' if ok else 'FAIL',
+725428	          ' / '.join(l.strip() for l in lines if l.strip())[:200]))
+725429	# unchanged between the roadmap's head and the branch head
+725430	for p in ['LAWS.md', 'tools/ci_check.py', 'editions/index.html', 'LICENSE', 'README.md', 'editions/README.md']:
+725431	    rc, d = git('kuiper-belt', 'diff', '--stat', '018b46a', 'HEAD', '--', p)
+725432	    print('U\tunchanged:%s\tkuiper-belt 018b46a..HEAD %s\t%s\t%s' % (p, p, 'PASS' if rc == 0 and not d.strip() else 'CHANGED', d.strip()[:120]))
+725433	rc, d = git('gridatlas', 'diff', '--stat', '5ec7f62', 'HEAD', '--', RL)
+725434	print('U\tunchanged:RELEASE.md\tgridatlas 5ec7f62..HEAD\t%s\t%s' % ('PASS' if not d.strip() else 'CHANGED', d.strip()[:120]))
+725435	print('RESULT: %s (%d keys)' % ('PASS' if not bad else 'FAIL (%d)' % bad, len(K)))
+725436	"""Re-read every key of the LICENCES.md register from git objects at the named heads (never a working tree).
+725437	Apache-2.0 (kuiper-belt code). Prints one TSV row per key: id, key, PASS/FAIL, the lines read (trimmed)."""
+725438	ST = 'see-through/202610050609/'
+725439	K = [  # id, repo, sha, path, first, last, regex that must match the lines read
+725440	 ('kb-licence', 'kuiper-belt', '018b46a', 'LICENSE', 1, 3, r'Apache License'),
+725441	 ('kb-readme', 'kuiper-belt', '018b46a', 'README.md', 156, 157, r'Apache-2\.0[\s\S]*CC BY 4\.0'),
+725442	 ('kb-editions-readme', 'kuiper-belt', '018b46a', 'editions/README.md', 27, 27, r'Apache-2\.0'),
+725443	 ('kb-ed4-notice-code', 'kuiper-belt', '018b46a', 'editions/202611012027/NOTICE.md', 3, 5, r'Apache License 2\.0'),
+725444	 ('kb-ed4-notice-quotes', 'kuiper-belt', '018b46a', 'editions/202611012027/NOTICE.md', 7, 10, r'ODbL[\s\S]*(OGL|Open Government)'),
+725445	 ('kb-laws-l8', 'kuiper-belt', '018b46a', 'LAWS.md', 111, 124, r'licen'),
+725446	 ('kb-laws-disclosed', 'kuiper-belt', '018b46a', 'LAWS.md', 156, 156, r'NOT EVALUATED|DISCLOSED|examine'),
+725447	 ('ga-licence', 'gridatlas', '5ec7f62', 'LICENSE', 1, 4, r'Apache License'),
+725448	 ('ga-notice', 'gridatlas', '5ec7f62', 'NOTICE', 1, 12, r'Ventus[\s\S]*Apache'),
+725449	 ('ga-notice-thirdparty', 'gridatlas', '5ec7f62', 'NOTICE', 25, 32, r'(third|data)'),
+725450	 ('ga-trademarks', 'gridatlas', '5ec7f62', 'LICENSE', 139, 142, r'Trademarks'),
+725451	 ('ga-ventus-css', 'gridatlas', '5ec7f62', 'atlas/modules/202609031958-menu-bar.js', 184, 205, r'ventus'),
+725452	 ('st-licence', 'kuiper-belt', '018b46a', ST + 'LICENSE.md', 1, 10, r'CERN'),
+725453	 ('st-notice-head', 'kuiper-belt', '018b46a', ST + 'NOTICE.md', 3, 3, r'CERN|licen'),
+725454	 ('st-notice-files', 'kuiper-belt', '018b46a', ST + 'NOTICE.md', 8, 16, r'CERN|ODbL'),
+725455	 ('st-notice-odbl', 'kuiper-belt', '018b46a', ST + 'NOTICE.md', 22, 27, r'OpenStreetMap[\s\S]*ODbL|Open Database'),
+725456	 ('st-notice-services', 'kuiper-belt', '018b46a', ST + 'NOTICE.md', 28, 34, r'CARTO[\s\S]*Esri'),
+725457	 ('st-notice-maplibre', 'kuiper-belt', '018b46a', ST + 'NOTICE.md', 38, 39, r'MapLibre|BSD'),
+725458	 ('st-maplibre-licence', 'kuiper-belt', '018b46a', ST + 'vendor/MAPLIBRE-LICENSE.txt', 1, 1, r'.'),
+725459	 ('st-cern-text', 'kuiper-belt', '018b46a', ST + 'licences/globalgrid2050-CERN-OHL-S-2.0.txt', 1, 1, r'CERN'),
+725460	 ('st-pointer', 'kuiper-belt', '018b46a', 'see-through/index.html', 12, 12, r'202610050609/'),
+725461	 ('gg-licence', 'globalgrid2050', 'c66759f', 'LICENSE.txt', 1, 5, r'CERN'),
+725462	 ('lk-readme', 'kuiper-belt', '018b46a', 'learn-the-kuiper/README.md', 34, 37, r'licen|Apache|CC BY|CERN'),
+725463	 ('lk-notice', 'kuiper-belt', '018b46a', 'learn-the-kuiper/202610050609/NOTICE.md', 7, 11, r'CERN'),
+725464	 ('tc-licence', 'testcode', 'd09c185', 'LICENSE', 2, 4, r'Apache'),
+725465	 ('tc-notice', 'testcode', 'd09c185', 'NOTICE', 1, 12, r'Apache'),
+725466	 ('tc-notice-thirdparty', 'testcode', 'd09c185', 'NOTICE', 26, 33, r'.'),
+725467	NONE = [('elements', 'f7a92fb'), ('galaxies-wafers', 'fff6fc6'), ('stars', 'cbca125'), ('code-generator', '857ea81')]
+725468	def git(repo, *a):
+725469	    r = subprocess.run(['git', '-C', E + '/' + repo] + list(a), capture_output=True)
+725470	    return r.returncode, r.stdout.decode('utf-8', 'replace')
+725471	for i, repo, sha, path, a, b, rx in K:
+725472	    txt = '\n'.join(lines)
+725473	    ok = rc == 0 and bool(re.search(rx, txt, re.I))
+725474	    print('%s\t%s@%s %s:%s\t%s\t%s' % (i, repo, sha, path, a if a == b else '%d-%d' % (a, b), 'PASS' if ok else 'FAIL', ' / '.join(l.strip() for l in lines if l.strip())[:220]))
+725475	for repo, sha in NONE:
+725476	    rc, files = git(repo, 'ls-tree', '-r', '--name-only', sha)
+725477	    fl = [f for f in files.split('\n') if f]
+725478	    lic = [f for f in fl if re.search(r'licen|notice|copying', f.split('/')[-1], re.I)]
+725479	    rc2, g = git(repo, 'grep', '-n', '-i', '-I', 'licen', sha)
+725480	    hits = [l for l in g.split('\n') if l]
+725481	    print('none-%s\t%s@%s (tree)\t%s\t%d tracked files; licence/notice/copying files: %s; `git grep -i licen`: %d line(s)%s' % (
+725482	        repo, repo, sha, 'PASS' if rc == 0 else 'FAIL', len(fl), lic or 'none', len(hits), (' e.g. ' + hits[0][:120]) if hits else ''))
+725483	    bad += rc != 0
+725484	print('RESULT: %s' % ('PASS' if not bad else 'FAIL (%d)' % bad))
+725485	  for (const [name, ctxOpts] of [['pixel7', { ...devices['Pixel 7'] }], ['w360', { viewport: { width: 360, height: 780 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true }], ['desktop1280', { viewport: { width: 1280, height: 800 } }]]) {
+725486	    const ctx = await browser.newContext(ctxOpts);
+725487	    const errs = []; page.on('pageerror', e => errs.push(String(e))); page.on('console', m => { if (m.type() === 'error') errs.push(m.text()); });
+725488	    await page.goto('http://127.0.0.1:8771/editions/202611012027/', { waitUntil: 'load', timeout: 120000 });
+725489	      const r = s => { const e = document.querySelector(s); if (!e) return null; const b = e.getBoundingClientRect(); const cs = getComputedStyle(e); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), font: cs.font, color: cs.color, bg: cs.backgroundColor, display: cs.display }; };
+725490	      const titles = [...document.querySelectorAll('#bar .gm-title')].map(b => ({ text: b.textContent, ...(() => { const r = b.getBoundingClientRect(); return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) }; })() }));
+725491	      const rows = new Set(titles.map(t => t.y)); const nameR = document.getElementById('barname').getBoundingClientRect(); rows.add(Math.round(nameR.y));
+725492	      return { vw: innerWidth, vh: innerHeight, bar: r('#bar'), barname: r('#barname'), titles, barRows: rows.size, top: r('#top'), hud: r('#hud'), foot: r('#foot'), card: r('#card'), lines: r('#lines'), bodyFont: getComputedStyle(document.body).font };
+725493	    out[name] = { ...m, errors: errs };
+725494	    await page.screenshot({ path: `/tmp/nl010/team-1/B/ed4-${name}.png` });
+725495	const ML = fs.readFileSync('/home/user/estate/kuiper-belt/see-through/202610050609/vendor/maplibre-gl.js');
+725496	  for (const [name, ctxOpts] of [['desktop1280', { viewport: { width: 1280, height: 800 } }], ['pixel7', { ...devices['Pixel 7'] }], ['w360', { viewport: { width: 360, height: 780 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true }]]) {
+725497	    await ctx.route(/^https?:\/\/(?!127\.0\.0\.1)/, route => {
+725498	      const u = route.request().url();
+725499	      if (/maplibre-gl.*\.js$/.test(u)) return route.fulfill({ status: 200, contentType: 'text/javascript', body: ML });
+725500	      if (/maplibre-gl.*\.css$/.test(u)) return route.fulfill({ status: 200, contentType: 'text/css', body: '' });
+725501	      if (/style\.json/.test(u)) return route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ version: 8, name: 'stub', sources: {}, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': '#000' } }] }) });
+725502	      return route.abort();
+725503	    const errs = []; page.on('pageerror', e => errs.push(String(e).slice(0, 200)));
+725504	    await page.goto('http://127.0.0.1:8772/atlas/', { waitUntil: 'load', timeout: 120000 });
+725505	    let installed = false;
+725506	    try { await page.waitForSelector('#gridatlas-menu-bar', { timeout: 60000 }); installed = true; } catch (e) {}
+725507	      const rr = e => { if (!e) return null; const b = e.getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height) }; };
+725508	      const cs = (e, props) => { if (!e) return null; const s = getComputedStyle(e); const o = {}; for (const p of props) o[p] = s[p]; return o; };
+725509	      const bar = document.getElementById('gridatlas-menu-bar');
+725510	      const titles = [...document.querySelectorAll('#gridatlas-menu-bar .gm-title')].map(b => ({ text: b.textContent, rect: rr(b), style: cs(b, ['fontSize','fontFamily','letterSpacing','textTransform','color']) }));
+725511	      const brand = document.querySelector('#gridatlas-menu-bar .gm-brand-slot');
+725512	      const main = document.querySelector('#gridatlas-menu-bar .ventus-main');
+725513	      const sub = document.querySelector('#gridatlas-menu-bar .ventus-sub');
+725514	      const state = window.__GRIDATLAS_MODULES__ && window.__GRIDATLAS_MODULES__.menuBar;
+725516	        vw: innerWidth, vh: innerHeight, gen: document.documentElement.dataset.gridatlasGeneration,
+725517	        bar: rr(bar), barStyle: cs(bar, ['position','height','font','backgroundColor','borderBottom','zIndex']),
+725518	        titles, brand: rr(brand), main: { rect: rr(main), text: main && main.textContent, style: cs(main, ['fontSize','fontWeight','fontFamily','letterSpacing','color','textTransform']), insideAnchor: !!(main && main.closest('a')), onclick: !!(main && (main.onclick || main.closest('[onclick]'))) },
+725519	        sub: { rect: rr(sub), text: sub && sub.textContent, style: cs(sub, ['fontSize','letterSpacing','color']) },
+725520	        mapContainer: rr(document.querySelector('.map-container')), map: rr(document.getElementById('map')),
+725521	        hudHeaderParent: document.querySelector('.hud-header') && document.querySelector('.hud-header').parentElement.className,
+725522	        letterhead: cs(document.getElementById('fs-letterhead'), ['display']),
+725523	        panelCounts: state && state.panel_counts, installedState: state && state.installed, layer_controls: state && state.layer_controls, failure: state && state.failure, waiting: state && state.waiting_for,
+725524	        gridChips: [...document.querySelectorAll('#gridatlas-mobile-tray button')].filter(b => !b.hidden).map(b => ({ text: b.textContent.trim(), rect: rr(b) }))
+725525	    out[name] = { installed, ...m, errors: errs.slice(0, 5) };
+725526	    await page.screenshot({ path: `/tmp/nl010/team-1/B/ga-${name}.png`, timeout: 180000 }); fs.writeFileSync('/tmp/nl010/team-1/B/ga-' + name + '.json', JSON.stringify(out[name], null, 1));
+725527	    if (installed) {
+725528	      // open each menu and measure its panel
+725529	      const panels = {};
+725530	      for (let i = 0; i < 6; i++) {
+725531	        await page.click(`#gridatlas-menu-bar-title-${i}`);
+725532	        await page.waitForTimeout(400);
+725533	        panels[await page.textContent(`#gridatlas-menu-bar-title-${i}`)] = await page.evaluate((i) => { const p = document.getElementById('gridatlas-menu-bar-panel-' + i); const b = p.getBoundingClientRect(); return { x: Math.round(b.x), y: Math.round(b.y), w: Math.round(b.width), h: Math.round(b.height), items: [...p.querySelectorAll('button,a,label,.gm-layer-group')].slice(0, 40).map(e => e.textContent.replace(/\s+/g, ' ').trim().slice(0, 60)) }; }, i);
+725534	        if (name === 'desktop1280') await page.screenshot({ path: `/tmp/nl010/team-1/B/ga-${name}-menu${i}.png`, timeout: 180000 });
+725535	        await page.keyboard.press('Escape');
+725536	      out[name].panels = panels; fs.writeFileSync('/tmp/nl010/team-1/B/ga-' + name + '.json', JSON.stringify(out[name], null, 1));
+725537	const OUT = '/tmp/nl010/team-1';
+725538	const URL = 'http://127.0.0.1:8201/atlas/';
+725539	const args = ['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--ignore-gpu-blocklist'];
+725540	const VENDOR = '/home/user/estate/kuiper-belt/see-through/202610050513/vendor/';
+725541	const BLOCKED = [];
+725542	async function wire(page, tag) {
+725543	  await page.route('**/*', async (route) => {
+725544	    if (u.startsWith('http://127.0.0.1:8201/')) return route.continue();
+725545	    BLOCKED.push(tag + ' ' + u.slice(0, 140));
+725546	async function measure(page, tag) {
+725547	  // wait for the menu bar to install (max 60 s)
+725549	  for (let i = 0; i < 60; i++) {
+725550	    installed = await page.evaluate(() => !!document.getElementById('gridatlas-menu-bar'));
+725551	    if (installed) break;
+725552	    await page.waitForTimeout(1000);
+725553	  await page.waitForTimeout(4000);
+725554	  const data = await page.evaluate(() => {
+725555	    const r = (el) => { if (!el) return null; const b = el.getBoundingClientRect(); return { x: +b.x.toFixed(1), y: +b.y.toFixed(1), w: +b.width.toFixed(1), h: +b.height.toFixed(1) }; };
+725556	    const cs = (el, props) => { if (!el) return null; const s = getComputedStyle(el); const o = {}; props.forEach(p => o[p] = s.getPropertyValue(p)); return o; };
+725557	    const bar = document.getElementById('gridatlas-menu-bar');
+725558	    const out = { viewport: { w: innerWidth, h: innerHeight, dpr: devicePixelRatio }, title: document.title, href: location.href };
+725559	    out.menuBarState = window.__GRIDATLAS_MODULES__ && window.__GRIDATLAS_MODULES__.menuBar ? JSON.parse(JSON.stringify(window.__GRIDATLAS_MODULES__.menuBar, (k, v) => typeof v === 'function' ? undefined : v)) : null;
+725560	    out.bar = { rect: r(bar), style: cs(bar, ['position','top','left','right','height','z-index','background-color','border-bottom','font-family','font-size','line-height','backdrop-filter','display']) };
+725561	    out.titles = bar ? Array.from(bar.querySelectorAll('.gm-title')).map(t => ({ text: t.textContent, rect: r(t), side: t.closest('.gm-side') ? t.closest('.gm-side').className : null, style: cs(t, ['font-family','font-size','letter-spacing','text-transform','color','padding','min-height','background-color']) })) : [];
+725562	    const brand = bar ? bar.querySelector('.gm-brand-slot') : null;
+725563	    out.brandSlot = brand ? { rect: r(brand), style: cs(brand, ['max-width','padding','display','justify-content']), html: brand.innerHTML.slice(0, 3000) } : null;
+725564	    const hh = document.querySelector('.hud-header');
+725565	    out.hudHeader = hh ? { rect: r(hh), parent: hh.parentElement && hh.parentElement.className, children: Array.from(hh.children).map(c => ({ tag: c.tagName, cls: c.className, text: c.textContent.replace(/\s+/g,' ').trim(), rect: r(c), display: getComputedStyle(c).display })), style: cs(hh, ['display','gap','font-family']) } : null;
+725566	    const vm = document.querySelector('.ventus-main');
+725567	    const vs = document.querySelector('.ventus-sub');
+725568	    out.ventusMain = vm ? { tag: vm.tagName, text: vm.textContent.trim(), rect: r(vm), style: cs(vm, ['font-family','font-size','font-weight','letter-spacing','color','text-shadow','line-height','margin']), link: (vm.closest('a') || {}).href || null, parentTag: vm.parentElement.tagName, parentCls: vm.parentElement.className } : null;
+725569	    out.ventusSub = vs ? { tag: vs.tagName, text: vs.textContent.trim(), rect: r(vs), style: cs(vs, ['font-family','font-size','font-weight','letter-spacing','color','text-transform']) } : null;
+725570	    out.images = Array.from(document.querySelectorAll('img, svg, [style*="background-image"]')).filter(e => /ventus|logo|brand/i.test((e.outerHTML||'').slice(0,400)) || (e.closest && e.closest('#gridatlas-menu-bar'))).slice(0,20).map(e => ({ tag: e.tagName, src: e.currentSrc || e.src || null, natural: e.naturalWidth ? { w: e.naturalWidth, h: e.naturalHeight } : null, rect: r(e), cls: e.className && e.className.baseVal !== undefined ? e.className.baseVal : e.className, bg: getComputedStyle(e).backgroundImage }));
+725571	    out.anchorsInBar = bar ? Array.from(bar.querySelectorAll('a')).slice(0, 30).map(a => ({ text: a.textContent.replace(/\s+/g,' ').trim().slice(0,60), href: a.href, target: a.target, hidden: a.offsetParent === null })) : [];
+725572	    const sel = {
+725573	      mapContainer: '.map-container', map: '#map, .maplibregl-map', mapControls: '.map-controls', search: '.search-bar-wrapper', attrib: '.custom-map-attrib', scada: '#scada-ui-container', scadaBrand: '.scada-brand', statusLegend: '.status-legend', fsLetterhead: '#fs-letterhead', btnExport: '#btn-export', btnStatus: '#btn-status', btnFullscreen: '#btn-fullscreen', btnRadius: '#btn-radius', btnZone: '#btn-zonedraw', btnMeasure: '#btn-measure', disclaimer: '.disclaimer-box', podcast: '.podcast-shoutout', maplibreCtrlTL: '.maplibregl-ctrl-top-left', maplibreCtrlTR: '.maplibregl-ctrl-top-right', maplibreCtrlBL: '.maplibregl-ctrl-bottom-left', maplibreCtrlBR: '.maplibregl-ctrl-bottom-right'
+725574	    out.landmarks = {};
+725575	    for (const k in sel) { const el = document.querySelector(sel[k]); out.landmarks[k] = el ? { rect: r(el), visible: !!(el.offsetParent || el.getClientRects().length), inBar: !!el.closest('#gridatlas-menu-bar'), parentCls: el.parentElement && (el.parentElement.className || el.parentElement.id), display: getComputedStyle(el).display, position: getComputedStyle(el).position, zIndex: getComputedStyle(el).zIndex } : null; }
+725576	    // visible elements that sit over the map outside the bar: anything absolutely/fixed positioned with text, top-level
+725577	    out.overlays = Array.from(document.body.querySelectorAll('*')).filter(e => { const s = getComputedStyle(e); if (!(s.position === 'absolute' || s.position === 'fixed')) return false; if (e.closest('#gridatlas-menu-bar')) return false; if (e.closest('.maplibregl-canvas-container')) return false; const b = e.getBoundingClientRect(); return b.width > 0 && b.height > 0 && s.visibility !== 'hidden' && s.display !== 'none' && e.textContent.trim().length > 0 && b.width < innerWidth; }).slice(0, 40).map(e => ({ tag: e.tagName, id: e.id, cls: String(e.className).slice(0,60), text: e.textContent.replace(/\s+/g,' ').trim().slice(0, 50), rect: r(e) }));
+725578	    out.brandChain = (function(){ const vm = document.querySelector('#gridatlas-menu-bar .ventus-main'); const chain = []; let e = vm; while (e && e.id !== 'gridatlas-menu-bar') { chain.push(e.tagName + (e.id ? '#' + e.id : '') + (e.className ? '.' + String(e.className).split(' ').join('.') : '')); e = e.parentElement; } return chain; })();
+725579	    out.rootVars = { clear: getComputedStyle(document.documentElement).getPropertyValue('--gridatlas-menu-bar-clear') };
+725580	    out.bodyFont = cs(document.body, ['font-family','font-size','background-color','color']);
+725581	  fs.writeFileSync(`${OUT}/measure-${tag}.json`, JSON.stringify(data, null, 1));
+725582	  await page.screenshot({ path: `${OUT}/shell-${tag}.png`, timeout: 180000 });
+725583	  // open each menu and measure its panel
+725584	  const names = ['File','Edit','View','Scope','Grid','About'];
+725585	  const panels = {};
+725587	      const t = page.locator(`#gridatlas-menu-bar .gm-title:has-text("${n}")`).first();
+725588	      await t.click({ timeout: 5000 });
+725589	      await page.waitForTimeout(600);
+725590	      panels[n] = await page.evaluate((n) => {
+725591	        const bar = document.getElementById('gridatlas-menu-bar');
+725592	        const p = Array.from(bar.querySelectorAll('.gm-panel')).find(p => !p.hidden);
+725593	        if (!p) return null;
+725594	        const b = p.getBoundingClientRect();
+725595	        const items = Array.from(p.querySelectorAll('button,[role="button"],a,.gm-layer-group,label')).filter(e => e.getClientRects().length).slice(0, 80).map(e => ({ tag: e.tagName, text: e.textContent.replace(/\s+/g,' ').trim().slice(0, 70), href: e.href || null, h: +e.getBoundingClientRect().height.toFixed(0) }));
+725596	        return { rect: { x: +b.x.toFixed(1), y: +b.y.toFixed(1), w: +b.width.toFixed(1), h: +b.height.toFixed(1) }, position: getComputedStyle(p).position, count: items.length, items };
+725597	      }, n);
+725598	      await page.screenshot({ path: `${OUT}/menu-${n.toLowerCase()}-${tag}.png`, timeout: 180000 });
+725599	      await page.keyboard.press('Escape');
+725600	      await page.waitForTimeout(300);
+725601	    } catch (e) { panels[n] = { error: String(e).slice(0, 200) }; }
+725602	  fs.writeFileSync(`${OUT}/panels-${tag}.json`, JSON.stringify(panels, null, 1));
+725603	  console.log(tag, 'installed', installed, 'bar', JSON.stringify(data.bar.rect), 'titles', data.titles.map(t => t.text + '@' + t.rect.x + ',' + t.rect.y + ' ' + t.rect.w + 'x' + t.rect.h).join(' | '));
+725604	  const browser = await chromium.launch({ args });
+725605	  const consoleLog = [];
+725606	  // desktop
+725607	    const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 } });
+725608	    const page = await ctx.newPage(); await wire(page, 'desk');
+725609	    page.on('console', m => consoleLog.push('[desk] ' + m.type() + ' ' + m.text().slice(0, 200)));
+725610	    page.on('requestfailed', rq => consoleLog.push('[desk] FAIL ' + rq.url().slice(0, 160)));
+725611	    await page.goto(URL, { waitUntil: 'load', timeout: 120000 });
+725612	    await page.waitForTimeout(8000);
+725613	    await measure(page, 'desktop-1280x800');
+725614	    const page = await ctx.newPage(); await wire(page, 'px7');
+725615	    page.on('console', m => consoleLog.push('[px7] ' + m.type() + ' ' + m.text().slice(0, 200)));
+725616	    page.on('requestfailed', rq => consoleLog.push('[px7] FAIL ' + rq.url().slice(0, 160)));
+725617	    await measure(page, 'pixel7');
+725618	    const ctx = await browser.newContext({ ...devices['Pixel 7'], viewport: { width: 360, height: 740 } });
+725619	    const page = await ctx.newPage(); await wire(page, '360');
+725620	    await measure(page, '360x740');
+725621	  fs.writeFileSync(`${OUT}/console.log`, consoleLog.join('\n'));
+725622	  fs.writeFileSync(`${OUT}/blocked-requests.log`, Array.from(new Set(BLOCKED)).join('\n'));
+725623	"""Verify every `repo@sha path:line` key in an EVIDENCE/STEPS file against the clones under /home/user/estate.
+725624	A row passes when the clone's HEAD starts with the sha, the file has that line, and the backticked fragment
+725625	(last table cell) is on that line (or, if the row has a range a-b, within it). Prints PASS/FAIL per row and a total."""
+725626	ESTATE = '/home/user/estate'
+725627	KEY = re.compile(r'([\w.-]+)@([0-9a-f]{7,40}) (\S+?):(\d+)(?:-(\d+))?')
+725628	heads = {}
+725629	def head(repo):
+725630	    if repo not in heads:
+725631	        try: heads[repo] = subprocess.check_output(['git', '-C', f'{ESTATE}/{repo}', 'rev-parse', 'HEAD'], text=True).strip()
+725632	        except Exception: heads[repo] = ''
+725633	    return heads[repo]
+725635	def lines(repo, path):
+725636	    p = f'{ESTATE}/{repo}/{path}'
+725637	    if p not in files:
+725638	        try: files[p] = open(p, 'rb').read().decode('utf-8', 'replace').split('\n')
+725639	        except Exception: files[p] = None
+725640	    return files[p]
+725641	    if not ln.startswith('|'): continue
+725642	    cells = [c.strip() for c in ln.strip().strip('|').split('|')]
+725643	    m = KEY.search(cells[2])
+725644	    repo, sha, path, a, b = m.group(1), m.group(2), m.group(3), int(m.group(4)), m.group(5)
+725645	    b = int(b) if b else a
+725646	    frag = cells[-1]
+725647	    fm = re.match(r'^``\s?(.*?)\s?``$|^`(.*)`$', frag)
+725648	    frag = (fm.group(1) if fm and fm.group(1) is not None else (fm.group(2) if fm else frag))
+725649	    why = []
+725650	    h = head(repo)
+725651	    if not h.startswith(sha): why.append(f'HEAD {h[:12]} != {sha}')
+725652	    L = lines(repo, path)
+725653	    if L is None: why.append('no such file')
+725654	    elif b > len(L): why.append(f'only {len(L)} lines')
+725655	        text = '\n'.join(L[a-1:b])
+725656	        if frag and frag not in text: why.append(f'fragment not on line: {L[a-1][:100]!r}')
+725657	    tag = cells[0]
+725658	    if why: bad += 1; print(f'FAIL {tag} {repo}@{sha} {path}:{a} :: ' + '; '.join(why))
+725659	    else: ok += 1
+725660	print(f'RESULT: {"PASS" if not bad else "FAIL"} ({ok} keys verified, {bad} failed)')
+725661	sys.exit(1 if bad else 0)
+725662	"""Existence check of every fully-qualified key `repo@sha path:line[-line]` in a STEPS file (no fragment column):
+725663	HEAD must start with sha, file must exist, last line of the range must exist. Also checks `team-N/STEPS.md:line`
+725664	and `neural-link path:line` keys against this repository's working tree."""
+725665	ESTATE='/home/user/estate'; NL='/home/user/neural-link-between-agents'
+725666	txt=open(sys.argv[1],encoding='utf-8').read()
+725667	heads={}
+725668	def head(r):
+725669	    if r not in heads:
+725670	        try: heads[r]=subprocess.check_output(['git','-C',f'{ESTATE}/{r}','rev-parse','HEAD'],text=True).strip()
+725671	        except Exception: heads[r]=''
+725672	    return heads[r]
+725673	def nlines(p):
+725674	    try: return len(open(p,'rb').read().split(b'\n'))
+725675	    except Exception: return -1
+725676	bad=0; n=0
+725677	for m in re.finditer(r'([\w-]+)@([0-9a-f]{7,40}) ([\w./-]+?):(\d+)(?:-(\d+))?', txt):
+725678	    r,s,p,a,b=m.groups(); b=int(b or a); n+=1
+725679	    why=[]
+725680	    if not head(r).startswith(s): why.append(f'HEAD {head(r)[:12]}')
+725681	    L=nlines(f'{ESTATE}/{r}/{p}')
+725682	    if L<0: why.append('no file')
+725683	    elif b>L: why.append(f'only {L} lines')
+725684	    if why: bad+=1; print('FAIL',m.group(0),';'.join(why))
+725685	for m in re.finditer(r'(?:neural-link|team-5/|team-3/|team-1/|team-4/)\s?([\w./-]+?):(\d+)(?:-(\d+))?', txt):
+725686	    p,a,b=m.groups(); b=int(b or a); n+=1
+725687	    full = p if p.startswith('FIXES') or p.startswith('SESSIONS') else ('FIXES/NL-010/'+m.group(0).split()[0].rstrip('/') + '/' + p if m.group(0).startswith('team-') else p)
+725688	    if m.group(0).startswith('team-'): full='FIXES/NL-010/'+m.group(0).split(':')[0]
+725689	    L=nlines(f'{NL}/{full}')
+725690	    if L<0 or b>L: bad+=1; print('FAIL',m.group(0),'->',full,f'lines={L}')
+725691	print(f'RESULT: {"PASS" if not bad else "FAIL"} ({n} keys, {bad} failed)')
+725692	// NL-010 team 3: See Through and Edition 4 on Pixel 7 emulation, served from the kuiper-belt root on :8203.
+725693	// SwiftShader renders See Through's canvases slowly, so before each capture the page is told it is hidden
+725694	// (descent.js pauses its requestAnimationFrame loop on visibilitychange, descent.js:1019-1022) and told it is
+725695	// visible again afterwards. The capture is CDP Page.captureScreenshot with a 90 s limit.
+725696	const OUT = '/tmp/nl010/team-3/img'; fs.mkdirSync(OUT, { recursive: true });
+725697	const report = {}; const save = () => fs.writeFileSync('/tmp/nl010/team-3/shots-report.json', JSON.stringify(report, null, 1));
+725698	async function pause(page, on) {
+725699	  await page.evaluate(h => { Object.defineProperty(document, 'hidden', { configurable: true, get: () => h }); document.dispatchEvent(new Event('visibilitychange')); }, on).catch(() => {});
+725700	async function shot(page, name) {
+725701	  const path = OUT + '/' + name; const t0 = Date.now();
+725702	  await pause(page, true);
+725703	  try { const cdp = await page.context().newCDPSession(page);
+725704	    const r = await Promise.race([cdp.send('Page.captureScreenshot', { format: 'png' }), sleep(90000).then(() => null)]);
+725705	    if (r) fs.writeFileSync(path, Buffer.from(r.data, 'base64')); else console.error('shot timeout', name);
+725706	    await cdp.detach().catch(() => {});
+725707	  } catch (e) { console.error('shot failed', name, String(e.message)); }
+725708	  await pause(page, false);
+725709	  console.error('step', name, (Date.now() - t0) + ' ms'); save();
+725710	  const ctx = await browser.newContext({ ...devices['Pixel 7'] });
+725711	  const errors = []; page.on('pageerror', e => errors.push(String(e.message))); page.on('console', m => { if (m.type() === 'error') errors.push(m.text().slice(0, 200)); });
+725712	  // 1. See Through first screen, arriving with a hash that nothing reads today
+725713	  await page.goto('http://127.0.0.1:8203/see-through/202610050609/#sub=Drax', { waitUntil: 'load', timeout: 120000 });
+725714	  await sleep(6000);
+725715	  report.st_first = await page.evaluate(() => {
+725716	    const R = el => { const r = el.getBoundingClientRect(); return [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)]; };
+725717	    const btns = [...document.querySelectorAll('button')].map(b => ({ t: b.textContent.trim(), r: R(b), aria: b.getAttribute('aria-label') }));
+725718	    const inp = document.querySelector('input');
+725719	    const st = window.__descent && window.__descent.state();
+725720	    return { vw: innerWidth, vh: innerHeight, dpr: devicePixelRatio, buttons: btns, input: inp && { ph: inp.placeholder, r: R(inp) }, state: st, hash: location.hash,
+725721	      links: [...document.querySelectorAll('a')].map(a => a.href), title: document.title, space: window.KuiperLaw.constants.SPACE };
+725723	  await shot(page, '01-see-through-first.png');
+725724	  // 2. the find and fly hooks (what a deep link would call)
+725725	  report.st_find = await page.evaluate(() => ({ drax: window.__descent.find('drax'), draxSub: window.__descent.sub(window.__descent.find('drax')), T_before: window.__descent.state().T }));
+725726	  await page.evaluate(() => window.__descent.fly(window.__descent.find('drax')));
+725727	  await sleep(3500);
+725728	  report.st_falling = await page.evaluate(() => window.__descent.state()); save();
+725729	  await shot(page, '02-see-through-falling.png');
+725730	  await sleep(9000);
+725731	  report.st_arrived = await page.evaluate(() => window.__descent.state()); save();
+725732	  await shot(page, '03-see-through-arrived.png');
+725733	  // 3. KUIPER view (stars only) at the bottom
+725734	  await page.evaluate(() => window.__descent.view('kuiper'));
+725735	  await sleep(2500);
+725736	  report.st_kuiper = await page.evaluate(() => window.__descent.state()); save();
+725737	  await shot(page, '04-see-through-kuiper-view.png');
+725738	  report.st_errors = errors.slice(); save();
+725739	  // 4. Edition 4 first screen
+725740	  errors.length = 0;
+725741	  await page.goto('http://127.0.0.1:8203/editions/202611012027/', { waitUntil: 'load', timeout: 120000 });
+725742	  report.ed_first = await page.evaluate(() => {
+725744	    return { vw: innerWidth, vh: innerHeight, bar: R(bar), barname: document.getElementById('barname').textContent,
+725745	      titles: [...bar.querySelectorAll('.gm-title')].map(b => ({ t: b.textContent, r: R(b) })), big: document.getElementById('big').textContent, hash: location.hash };
+725746	  await shot(page, '05-edition4-first.png');
+725747	  report.ed_errors = errors.slice(); save();
+725748	})().catch(e => { console.error('HARNESS', e); save(); process.exit(2); });
+725749	"""Lines of text blobs at HEAD inside a few app folders, counted by the wafer's own rule (count_lines.py:60-61:
+725750	NUL in the first 8,000 bytes is binary, else newlines plus one if no trailing newline)."""
+725751	import subprocess, sys
+725752	def count(repo, prefix):
+725753	    ls = subprocess.run(['git','-C',repo,'ls-tree','-r','-z','HEAD',prefix], capture_output=True).stdout.split(b'\0')
+725754	    shas = [e.split(b'\t')[0].split(b' ')[2] for e in ls if e]
+725755	    p = subprocess.run(['git','-C',repo,'cat-file','--batch'], input=b'\n'.join(shas)+b'\n', capture_output=True).stdout
+725756	    i = 0; lines = 0; files = 0; binary = 0
+725758	        nl = p.index(b'\n', i); hdr = p[i:nl].split(); size = int(hdr[2]); body = p[nl+1:nl+1+size]; i = nl+1+size+1
+725760	        if b'\x00' in body[:8000]: binary += 1; continue
+725762	    return files, binary, lines
+725763	for repo, prefix in [('/home/user/estate/kuiper-belt','see-through/202610050609'), ('/home/user/estate/kuiper-belt','learn-the-kuiper/202610050609'),
+725764	                     ('/home/user/estate/kuiper-belt','editions/202611012027'), ('/home/user/estate/testcode','spider/20260914T143049Z-v5-linkify-frontdoor-brandfaithful'),
+725765	                     ('/home/user/estate/gridatlas','atlas/releases/202608300453-atlas-v9'), ('/home/user/estate/gridatlas','atlas/cartridges'), ('/home/user/estate/elements','')]:
+725766	    f, b, l = count(repo, prefix); print(f'{repo.split("/")[-1]}/{prefix}: files {f}, binary {b}, text lines {l}')
+725767	"""Prototype of the drift algorithm: each verified line of Edition 4 (keys.json) against the HEAD of the local
+725768	clone of its repository. Reads git objects only (git show HEAD:path); never the working tree. Classes:
+725769	SAME      the quoted text is at the same path and line at HEAD
+725770	MOVED     the text is in the same file at HEAD but at another line (first occurrence reported)
+725771	GONE      the file exists at HEAD but the text is not in it
+725772	FILE_GONE the path does not exist at HEAD
+725773	UNVERIFIED no clone of the repository on this machine; nothing is claimed"""
+725774	import json, os, subprocess, collections
+725775	ED = json.load(open('/home/user/estate/kuiper-belt/editions/202611012027/keys.json'))['bodies']
+725776	ROOTS = ['/home/user/estate', '/home/user']
+725777	def clone(repo):
+725778	    for r in ROOTS:
+725779	        p = os.path.join(r, repo)
+725780	        if os.path.isdir(os.path.join(p, '.git')): return p
+725781	def head(p):
+725782	    return subprocess.run(['git', '-C', p, 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
+725783	out, heads = [], {}
+725784	for b in ED:
+725785	    p = clone(b['repo']); text = b.get('line_text') or b['quote']
+725786	    rec = {'id': b['id'], 'repo': b['repo'], 'path': b['path'], 'line': b['line'], 'key': b.get('key'), 'edition_commit': b['commit']}
+725787	    if not p: rec['class'] = 'UNVERIFIED'; rec['reason'] = 'no clone'; out.append(rec); continue
+725788	    heads.setdefault(b['repo'], head(p)); rec['head'] = heads[b['repo']]
+725789	    r = subprocess.run(['git', '-C', p, 'show', 'HEAD:' + b['path']], capture_output=True)
+725790	    if r.returncode != 0: rec['class'] = 'FILE_GONE'; out.append(rec); continue
+725791	    lines = r.stdout.decode('utf-8', 'replace').split('\n')
+725792	    same = b['line'] - 1 < len(lines) and lines[b['line'] - 1].rstrip('\r') == text
+725793	    if same: rec['class'] = 'SAME'
+725794	        hits = [i + 1 for i, l in enumerate(lines) if l.rstrip('\r') == text]
+725795	        if hits: rec['class'] = 'MOVED'; rec['head_line'] = hits[0]; rec['delta'] = hits[0] - b['line']
+725796	        else: rec['class'] = 'GONE'
+725797	    out.append(rec)
+725798	c = collections.Counter(r['class'] for r in out)
+725799	print('bodies', len(out), dict(c))
+725800	per = collections.defaultdict(collections.Counter)
+725801	for r in out: per[r['repo']][r['class']] += 1
+725802	for repo in sorted(per): print(' ', repo, (heads.get(repo) or 'no clone')[:12], dict(per[repo]))
+725803	print('examples MOVED:', [(r['repo'], r['path'], r['line'], '->', r['head_line']) for r in out if r['class'] == 'MOVED'][:5])
+725804	print('examples GONE:', [(r['repo'], r['path'], r['line']) for r in out if r['class'] == 'GONE'][:5])
+725805	print('examples FILE_GONE:', [(r['repo'], r['path']) for r in out if r['class'] == 'FILE_GONE'][:5])
+725806	json.dump({'heads': heads, 'rows': out}, open('drift.json', 'w'), indent=1)
+725807	    p = clone(b['repo']); text = b.get("line_text")
+725808	    if not text: rec['class'] = 'UNVERIFIED'; rec['reason'] = 'empty line_text'; out.append(rec); continue
+725809	json.dump({'heads': heads, 'rows': out}, open('drift_strict.json', 'w'), indent=1)
+725810	"""Which catalogued elements can be placed on the live wafer at a key of their own?
+725811	An element is placeable when at least one of its register files names a commit that is a row of
+725812	cosmos/wafer.tsv (sha12 match) in a repository the wafer names. Reads only; prints counts."""
+725813	import json, collections
+725814	E = json.load(open('/home/user/estate/elements/catalogue/elements.json'))
+725815	W = [l.rstrip('\n').split('\t') for l in open('/home/user/estate/kuiper-belt/cosmos/wafer.tsv') if l.strip() and l[0] != '#']
+725816	R = {int(p[0]): p[1] for p in (l.rstrip('\n').split('\t') for l in open('/home/user/estate/kuiper-belt/cosmos/repos.tsv') if l.strip() and l[0] != '#')}
+725817	sha12 = {w[3]: (R[int(w[2])], int(w[0]), int(w[1])) for w in W}
+725818	with_files = [e for e in E if e['files']]
+725819	placeable, by_app, commits_used = [], {}, set()
+725820	for e in E:
+725821	    hits = [(f['repo'], f['path'], f['commit']) for f in e['files'] if f['commit'][:12] in sha12]
+725822	    if hits: placeable.append(e['key']); commits_used.update(h[2][:12] for h in hits)
+725823	    if e['kind'] == 'app': by_app[e['key']] = (len(e['files']), len(hits), sorted(set(h[2][:7] for h in hits)))
+725824	print('elements', len(E), 'with files', len(with_files), 'placeable (a file commit is a wafer row)', len(placeable),
+725825	      'not placeable', len(E) - len(placeable), 'distinct commits used', len(commits_used))
+725826	print('by kind placeable:', collections.Counter(next(x['kind'] for x in E if x['key'] == k) for k in placeable))
+725827	print('by kind all:', collections.Counter(e['kind'] for e in E))
+725828	print('apps: key -> (files, files on wafer, commits)', by_app)
+725829	allc = collections.Counter(f['commit'][:12] in sha12 for e in E for f in e['files'])
+725830	print('file rows total/on wafer:', sum(allc.values()), allc[True])
+725831	repos_named = collections.Counter(f['repo'].split('/')[-1] for e in E for f in e['files'])
+725832	print('repos named by element files:', dict(repos_named))
+725833	print('of which not on the wafer:', [r for r in repos_named if r not in set(R.values())])
+725834	  const V = '20260914T143049Z-v5-linkify-frontdoor-brandfaithful';
+725835	  const base = 'http://127.0.0.1:8204/spider/' + V + '/index.html';
+725836	  for (const [name, url] of [['default', base], ['overview', base + '?graph=overview&focus=GLOBALGRID2050%20architecture']]) {
+725837	    const reqs = [], failed = [], errors = [], consoleErr = [];
+725838	    page.on('request', r => reqs.push(r.url()));
+725839	    page.on('requestfailed', r => failed.push(r.url() + ' ' + (r.failure() || {}).errorText));
+725840	    page.on('response', r => { if (r.status() >= 400) failed.push(r.url() + ' HTTP ' + r.status()); });
+725841	    page.on('pageerror', e => errors.push(String(e.message).slice(0, 200)));
+725842	    page.on('console', m => { if (m.type() === 'error') consoleErr.push(m.text().slice(0, 200)); });
+725843	    await page.goto(url, { waitUntil: 'load', timeout: 120000 });
+725844	      const q = s => document.querySelector(s);
+725845	      const txt = s => (q(s) ? q(s).innerText.trim().slice(0, 300) : null);
+725846	      const sel = q('select'); const opts = sel ? [...sel.options].map(o => o.textContent.trim()) : [];
+725847	      const vis = [...document.querySelectorAll('button, a, select, input')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; });
+725848	      const small = vis.filter(e => { const r = e.getBoundingClientRect(); return r.height < 44 || r.width < 44; }).length;
+725849	      return { title: document.title, vw: innerWidth, vh: innerHeight, sw: document.documentElement.scrollWidth, sh: document.documentElement.scrollHeight,
+725850	        eyebrow: txt('.brand .ey'), h1: txt('.brand h1'), count: txt('.count'), hint: txt('.hint'), crumbs: txt('.crumbs'), srctag: txt('.srctag'),
+725851	        graphOptions: opts, cards: document.querySelectorAll('.card, [class*=card]').length, svgs: document.querySelectorAll('svg').length,
+725852	        controls: vis.length, controlsUnder44: small, bodyText: document.body.innerText.replace(/\s+/g, ' ').slice(0, 600) };
+725853	    await page.screenshot({ path: 'spider-pixel7-' + name + '.png', timeout: 180000 });
+725854	    out[name] = { url, loadMs: Date.now() - t0, m, requests: reqs, failed, pageErrors: errors, consoleErrors: consoleErr };
+725855	  fs.writeFileSync('spider-pixel7.json', JSON.stringify(out, null, 1));
+725856	  for (const k of Object.keys(out)) { const o = out[k]; console.log('==', k, o.loadMs + 'ms'); console.log(JSON.stringify(o.m, null, 1)); console.log('requests', o.requests.length); o.requests.forEach(r => console.log('  R', r)); console.log('failed', o.failed.length); o.failed.forEach(r => console.log('  F', r)); console.log('pageErrors', o.pageErrors); console.log('consoleErrors', o.consoleErrors.slice(0, 6)); }
+725857	})().catch(e => { console.error('ERR', e); process.exit(1); });
+725858	"""Distinct line texts against all line occurrences, over the text blobs at HEAD of the 25 local clones
+725859	(/home/user/estate/*), by the wafer's binary rule. Distinct = exact bytes of the line without its newline,
+725860	CR before LF removed (LF-normalised). Prints per repository and in total; writes unique_lines.json."""
+725861	import subprocess, os, json, hashlib
+725862	tot = {'repos': 0, 'files': 0, 'binary': 0, 'lines': 0, 'distinct_in_repo_sum': 0}
+725863	seen = set(); per = {}
+725864	for repo in sorted(os.listdir(EST)):
+725865	    d = os.path.join(EST, repo)
+725866	    if not os.path.isdir(os.path.join(d, '.git')): continue
+725867	    ls = subprocess.run(['git','-C',d,'ls-tree','-r','-z','HEAD'], capture_output=True).stdout.split(b'\0')
+725868	    p = subprocess.run(['git','-C',d,'cat-file','--batch'], input=b'\n'.join(shas)+b'\n', capture_output=True).stdout
+725869	    i = 0; lines = 0; files = 0; binary = 0; local = set()
+725870	        if body.endswith(b'\n'): body = body[:-1]
+725871	        for ln in body.split(b'\n'):
+725872	            if ln.endswith(b'\r'): ln = ln[:-1]
+725873	            lines += 1; h = hashlib.blake2b(ln, digest_size=16).digest(); local.add(h); seen.add(h)
+725874	    head = subprocess.run(['git','-C',d,'rev-parse','HEAD'], capture_output=True, text=True).stdout.strip()
+725875	    per[repo] = {'head': head, 'files': files, 'binary': binary, 'lines': lines, 'distinct': len(local)}
+725876	    tot['repos'] += 1; tot['files'] += files; tot['binary'] += binary; tot['lines'] += lines; tot['distinct_in_repo_sum'] += len(local)
+725877	    print(repo, per[repo], flush=True)
+725878	tot['distinct_across_estate'] = len(seen)
+725879	print('TOTAL', tot)
+725880	json.dump({'per_repo': per, 'total': tot, 'rule': 'exact bytes without newline, CR before LF removed; NUL in first 8000 bytes = binary, skipped'}, open('unique_lines.json','w'), indent=1)
+725889	  const panelEl = id => { if (!shell) return q('#' + id); const t = titleEls.find(b => (SHELLMAP[b.textContent.trim().toUpperCase()] || '') === (id === 'hud' ? 'foot' : id)); return t && t.getAttribute('aria-controls') ? document.getElementById(t.getAttribute('aria-controls')) : null; };
+725890	import sys, subprocess
+725891	files = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=AM'], capture_output=True, text=True).stdout.split()
+725892	bad = []
+725894	        b = open(f, 'rb').read()
+725897	    if len(b) <= 3_000_000 and leaks(b.decode('utf-8', 'replace')):
+725898	        bad.append(f)
+725899	print('K1-STAGED', len(files), 'files,', len(bad), 'leak:', ' '.join(bad))
+725900	import subprocess,sys,re,hashlib
+725901	sys.path.insert(0,'tools')
+725902	def g(*a): return subprocess.run(['git',*a],capture_output=True).stdout
+725903	commits=g('rev-list','--reverse','96736f5..origin/edition/202611012135').decode().split()
+725904	state={}
+725905	for c in commits:
+725906	    t=g('log','-1','--format=%ad','--date=format:%H:%M:%S',c).decode().strip()
+725907	    for line in g('diff-tree','-r','--no-commit-id','--name-status',c).decode().splitlines():
+725908	        st,*p=line.split('\t'); path=p[-1]
+725909	        if st.startswith('D'):
+725910	            if state.get(path): print(t,c[:7],'REMOVED',path); state[path]=False
+725911	        b=g('show',f'{c}:{path}')
+725912	        n=leaks(b.decode('utf-8','replace'))
+725913	        if n and not state.get(path): print(t,c[:7],'K1 IN',path,n)
+725914	        if not n and state.get(path): print(t,c[:7],'K1 CLEARED',path)
+725915	        state[path]=bool(n)
+725916	# NL-011 STUDY-01 (protocol adherence). Reproduces every count in 01-protocol.md.
+725917	# Usage: python3 -I 01-protocol.py <empty-or-existing-dir>
+725918	#   fetches issues 1-10 comments with gh into <dir>/i<n>.json if absent, then prints all sections.
+725919	import os,subprocess,sys
+725920	D=sys.argv[1]; os.makedirs(D,exist_ok=True)
+725921	for n in range(1,11):
+725922	    p=f'{D}/i{n}.json'
+725924	        out=subprocess.run(['gh','api','--paginate','--slurp',f'repos/Ventusltd/neural-link-between-agents/issues/{n}/comments?per_page=100'],capture_output=True,text=True,check=True).stdout
+725925	        import json as _j; pages=_j.loads(out); open(p,'w').write(_j.dumps([c for pg in pages for c in pg]))
+725926	os.chdir(D); os.makedirs('c',exist_ok=True)
+725927	    if not os.path.exists(f'c/i{n}.json'): os.symlink(os.path.abspath(f'i{n}.json'),f'c/i{n}.json')
+725928	sys.argv=[sys.argv[0],'c']
+725929	print('\n######## parse')
+725930	exec(compile(r'''
+725931	import json,re,sys,collections,datetime as dt
+725932	D=sys.argv[1]
+725933	ALL={}
+725934	    for c in json.load(open(f'{D}/i{n}.json')):
+725935	        c['issue']=n; ALL[c['id']]=c
+725936	FIELDS=['TYPE','IN-REPLY-TO','SCOPE','HEAD','EVIDENCE','STATUS','DETAILS','ACTION REQUESTED']
+725937	HDR=re.compile(r'^[`*\s]*\[([^\]]+?)\s*(?:→|->)\s*([^\]]+)\]\s*\[(NL-\d{3})\]\s*\[([^\]]+)\]')
+725938	FOOT='_Generated by [Claude Code](https://claude.ai/code)_'
+725939	def ts(s):
+725940	    s=s.strip()
+725941	    m=re.match(r'^(\d{4}-\d\d-\d\d)[ T](\d\d:\d\d)(?::\d\d)?\s*(?:UTC|Z)?\s*$',s)
+725942	    return dt.datetime.fromisoformat(m.group(1)+'T'+m.group(2)+':00+00:00')
+725943	def gh(s): return dt.datetime.fromisoformat(s.replace('Z','+00:00'))
+725944	def fieldval(body,f):
+725945	    # line-start form, allow markdown wrappers, or inline on header line
+725946	    m=re.search(r'(?m)^[\s>*`_-]*'+re.escape(f)+r'[*`_]*\s*:(.*)$',body)
+725947	    if m: return m.group(1).strip()
+725948	    first=body.split('\n',1)[0]
+725949	    m=re.search(r'\b'+re.escape(f)+r'\s*:(.*)$',first)
+725950	rows=[]
+725951	for n in [6,7,8,9,10]:
+725952	        b=c['body']; r={'issue':n,'id':c['id'],'created':c['created_at'],'updated':c['updated_at']}
+725953	        h=HDR.match(b.split('\n',1)[0])
+725954	        r['hdr']=bool(h)
+725955	        if h:
+725956	            r['from'],r['to'],r['tag'],r['tstr']=h.group(1).strip(),h.group(2).strip(),h.group(3),h.group(4)
+725957	            r['tag_ok']= r['tag']==f'NL-{n:03d}'
+725958	            t=ts(r['tstr']); r['tdecl']=t
+725959	            r['drift_min']= None if t is None else round((t-gh(c['created_at'])).total_seconds()/60,1)
+725960	        for f in FIELDS: r[f]=fieldval(b,f)
+725961	        r['nfields']=sum(r[f] is not None for f in FIELDS)
+725962	        r['foot']=b.rstrip().endswith(FOOT)
+725963	        r['literal_file']= b.strip().startswith('@')
+725965	json.dump(rows,open(f'{D}/rows.json','w'),default=str,indent=0)
+725966	''','parse','exec'),{'__name__':'__main__','sys':sys})
+725967	print('\n######## stats')
+725968	import json,collections,re,sys
+725969	R=json.load(open('c/rows.json'))
+725970	F=['TYPE','IN-REPLY-TO','SCOPE','HEAD','EVIDENCE','STATUS','DETAILS','ACTION REQUESTED']
+725971	TYPES={'HANDOFF','REQUEST','FINDING','ACK','BLOCKER','REVIEW','DECISION-PROPOSAL'}
+725972	STAT={'PASS','FAIL','UNVERIFIED','IN-PROGRESS'}
+725973	C=collections.Counter
+725974	print('per issue: total, complete8, hdr, partial, none')
+725975	tot=C()
+725976	    rr=[r for r in R if r['issue']==n]
+725977	    comp=sum(r['hdr'] and r['nfields']==8 for r in rr)
+725978	    part=sum((r['hdr'] or r['nfields']>0) and not (r['hdr'] and r['nfields']==8) for r in rr)
+725979	    none=sum((not r['hdr']) and r['nfields']==0 for r in rr)
+725980	    print(n,len(rr),comp,sum(r['hdr'] for r in rr),part,none)
+725981	print('ALL',len(R),sum(r['hdr'] and r['nfields']==8 for r in R))
+725982	print('field presence',{f:sum(r[f] is not None for r in R) for f in F})
+725983	print('footer',sum(r['foot'] for r in R),'tag_ok',sum(r.get('tag_ok',False) for r in R))
+725984	# header time formats
+725985	fm=C()
+725986	for r in R:
+725987	    t=r.get('tstr','')
+725988	    if re.match(r'^\d{4}-\d\d-\d\d \d\d:\d\d UTC$',t): fm['YYYY-MM-DD HH:MM UTC (canonical)']+=1
+725989	    elif re.match(r'^\d{4}-\d\d-\d\dT\d\d:\d\dZ$',t): fm['ISO T..Z']+=1
+725990	    else: fm['other:'+t]+=1
+725991	print(fm)
+725992	# TYPE
+725993	tv=C(); tv_raw=C()
+725994	    v=r['TYPE'] or 'MISSING'; tv_raw[v]+=1
+725995	    w=re.match(r'[A-Z-]+',v); tv[w.group(0) if w else v]+=1
+725996	print('TYPE first token',tv.most_common())
+725997	print('TYPE exact enum', sum((r['TYPE'] or '') in TYPES for r in R))
+725998	print('TYPE raw non-enum',[(r['id'],r['TYPE']) for r in R if (r['TYPE'] or '') not in TYPES])
+725999	# STATUS
+726000	sv=C(); exact=0
+726001	    v=r['STATUS']
+726002	    if v is None: sv['MISSING']+=1; continue
+726003	    if v in STAT: exact+=1
+726004	    w=re.match(r'[A-Z][A-Z-]+',v); sv[w.group(0) if w else 'nonword:'+v[:30]]+=1
+726005	print('STATUS first token',sv.most_common(),'exact-enum',exact)
+726006	print('STATUS non-enum first token',[(r['id'],r['STATUS'][:70]) for r in R if r['STATUS'] and not re.match(r'(PASS|FAIL|UNVERIFIED|IN-PROGRESS)\b',r['STATUS'])])
+726007	# HEAD
+726008	hv=C()
+726009	    v=r['HEAD']
+726010	    if v is None: hv['MISSING']+=1
+726011	    elif v.startswith('NOT-APPLICABLE'): hv['NOT-APPLICABLE']+=1
+726012	    elif re.search(r'\b[0-9a-f]{7,40}\b',v): hv['has sha']+=1
+726013	    else: hv['other']+=1
+726014	print('HEAD',hv)
+726015	# ACTION
+726016	av=C()
+726017	    v=r['ACTION REQUESTED']
+726018	    if v is None: av['MISSING']+=1
+726019	    elif v.upper().startswith('NONE'): av['NONE']+=1
+726020	    elif v=='' : av['empty-line']+=1
+726021	    else: av['step']+=1
+726022	print('ACTION',av)
+726023	# DETAILS on same line or following
+726024	print('DETAILS empty-inline (content on following lines)',sum(r['DETAILS']=='' for r in R))
+726025	# body lengths
+726026	''','stats','exec'),{'__name__':'__main__','sys':sys})
+726027	print('\n######## irt')
+726028	import json,collections,re
+726029	    for c in json.load(open(f'c/i{n}.json')): c['issue']=n; ALL[c['id']]=c
+726030	byid={r['id']:r for r in R}
+726031	cat=collections.Counter(); bad=[]; xs=[]
+726032	    v=r['IN-REPLY-TO']
+726033	    if v is None: cat['missing']+=1; continue
+726034	    m=re.search(r'issues/(\d+)#issuecomment-(\d+)',v)
+726036	        iss,cid=int(m.group(1)),int(m.group(2))
+726037	        if cid in ALL:
+726038	            t=ALL[cid]
+726039	            ok_issue = t['issue']==iss
+726040	            before = t['created_at']<=r['created']
+726041	            same = iss==r['issue']
+726042	            k='comment URL: resolves'+('' if ok_issue else ' (wrong issue number)')+('' if before else ' (target later!)')+('' if same else ' [cross-issue]')
+726043	            cat[k]+=1; xs.append((r['id'],cid))
+726044	            cat['comment URL: id does not exist']+=1; bad.append((r['issue'],r['id'],v[:140]))
+726045	    if re.match(r'^NEW\b',v): cat['NEW']+=1; continue
+726046	    m=re.search(r'issues/(\d+)\b',v)
+726047	        cat['issue URL only (issue %s)'%('same' if int(m.group(1))==r['issue'] else 'other')]+=1; continue
+726048	    cat['prose / other']+=1; bad.append((r['issue'],r['id'],v[:140]))
+726049	for k,v in cat.most_common(): print(v,k)
+726050	print('BAD:'); [print(b) for b in bad]
+726051	json.dump(xs,open('c/edges.json','w'))
+726052	# how many NEW per issue
+726053	''','irt','exec'),{'__name__':'__main__','sys':sys})
+726054	print('\n######## hs')
+726055	import json,collections,re,datetime as dt
+726056	R=json.load(open('c/rows.json')); E=json.load(open('c/edges.json'))
+726057	def g(s): return dt.datetime.fromisoformat(s.replace('Z','+00:00'))
+726058	replies=collections.defaultdict(list)
+726059	for a,b in E: replies[b].append(a)
+726060	def typ(r): 
+726061	    m=re.match(r'[A-Z-]+',r['TYPE'] or ''); return m.group(0) if m else '?'
+726062	# ACK occurrences in text
+726063	ackline=[r['id'] for r in R if re.search(r'(?m)\bACK\s+(https://|[0-9a-f]{7}|<)',ALL[r['id']]['body'])]
+726064	print('TYPE ACK:',[ (r['id'],r['from'],r['IN-REPLY-TO'][-10:]) for r in R if typ(r)=='ACK'])
+726065	print('bodies with "ACK <url|sha>":',len(ackline),ackline)
+726066	print('bodies with word ACK anywhere:',sum(bool(re.search(r'\bACK\b',ALL[r["id"]]["body"])) for r in R))
+726067	print('bodies with acknowledg*:',[r['id'] for r in R if re.search(r'(?i)acknowledg',ALL[r["id"]]["body"])])
+726068	# directed messages
+726070	tab=collections.Counter(); lat=[]
+726071	    t=typ(r)
+726072	    if t not in ('HANDOFF','REQUEST','BLOCKER','DECISION-PROPOSAL'): continue
+726073	    directed = not re.match(r'^ALL\b',r['to'])
+726074	    reps=sorted(replies.get(r['id'],[]),key=lambda i:ALL[i]['created_at'])
+726075	    first=byid[reps[0]] if reps else None
+726076	    k=(t,'directed' if directed else 'ALL', 'no explicit reply' if not first else 'first reply '+typ(first))
+726077	    tab[k]+=1
+726078	    if first: lat.append((t,r['id'],first['id'],round((g(first['created'])-g(r['created'])).total_seconds()/60,1)))
+726079	for k,v in sorted(tab.items()): print(v,k)
+726080	print('latencies to first explicit reply (min):',sorted(x[3] for x in lat))
+726082	print('median',statistics.median([x[3] for x in lat]),'n',len(lat))
+726083	# reply graph stats
+726084	print('comments that are replied to:',len(replies),'reply count dist',collections.Counter(len(v) for v in replies.values()))
+726085	# addressee check: reply's FROM vs target's TO
+726086	ok=0;tot=0;mism=[]
+726087	def norm(s): return re.sub(r'\s*\(.*?\)','',s).upper()
+726088	for a,b in E:
+726089	    if b not in byid: continue
+726090	    A,B=byid[a],byid[b]; tot+=1
+726091	    fa=norm(A['from']).split()[0]; 
+726092	    if fa in norm(B['to']) or norm(B['to']).startswith('ALL'): ok+=1
+726093	    else: mism.append((a,A['from'],b,B['to']))
+726094	print('reply sender was addressee of target (or target to ALL):',ok,'/',tot)
+726095	for m in mism[:40]: print('  ',m)
+726096	''','hs','exec'),{'__name__':'__main__','sys':sys})
+726097	print('\n######## hs2')
+726098	replied={b for a,b in E}
+726099	def typ(r):
+726100	    if typ(r) in ('HANDOFF','REQUEST','BLOCKER','DECISION-PROPOSAL') and r['id'] not in replied:
+726101	        later=[x['id'] for x in R if x['created']>r['created'] and str(r['id']) in ALL[x['id']]['body']]
+726102	        print(r['issue'],r['id'],typ(r),'|',r['from'],'→',r['to'][:50],'| mentioned later in:',later)
+726103	''','hs2','exec'),{'__name__':'__main__','sys':sys})
+726104	print('\n######## drift')
+726105	import json,collections,statistics,re,datetime as dt
+726106	d=[(r['drift_min'],r) for r in R if r.get('drift_min') is not None]
+726107	print('parsed',len(d),'unparsed',[ (r['id'],r.get('tstr')) for r in R if r.get('drift_min') is None])
+726108	v=sorted(x for x,_ in d)
+726109	print('min',v[0],'max',v[-1],'median',statistics.median(v),'mean',round(statistics.mean(v),1))
+726110	a=sorted(abs(x) for x in v); print('median |drift|',statistics.median(a),'p90 |drift|',a[int(.9*len(a))-1])
+726111	B=[(-1e9,-60),(-60,-15),(-15,-5),(-5,-2),(-2,0.01),(0.01,2),(2,5),(5,15),(15,60),(60,1e9)]
+726112	# envelope time is minute precision: declared HH:MM vs created HH:MM:SS; drift in (-1,0] means same minute
+726113	for lo,hi in B:
+726114	    print(f'[{lo},{hi})',sum(lo<=x<hi for x in v))
+726115	print('same minute (declared == floor(created)):',sum(-1<x<=0 for x in v))
+726116	print('declared later than posted (future, >0):',sum(x>0 for x in v),' >5 min:',sum(x>5 for x in v),' >60:',sum(x>60 for x in v))
+726117	print('declared earlier than posted:',sum(x<=-1 for x in v))
+726118	print('per issue:')
+726119	    w=[x for x,r in d if r['issue']==n]; aw=[abs(x) for x in w]
+726120	    print(n,len(w),'median',statistics.median(w),'median|.|',statistics.median(aw),'max|.|',max(aw),'future',sum(x>0 for x in w))
+726121	print('largest 15:')
+726122	for x,r in sorted(d,key=lambda t:-abs(t[0]))[:15]: print(x,r['issue'],r['id'],r['from'],r['tstr'],r['created'])
+726123	print('canonical vs ISO format median |drift|:')
+726124	for lab,pat in [('canon',r' UTC$'),('iso',r'Z$')]:
+726125	    w=[abs(x) for x,r in d if re.search(pat,r['tstr'])]; print(lab,len(w),statistics.median(w),max(w))
+726126	print('per sender class (HARNESS vs agents):')
+726127	for lab,f in [('HARNESS',lambda r:r['from'].startswith('HARNESS')),('agents',lambda r:not r['from'].startswith('HARNESS'))]:
+726128	    w=[x for x,r in d if f(r)]; print(lab,len(w),'median',statistics.median(w),'median|.|',statistics.median([abs(y) for y in w]),'future>0',sum(y>0 for y in w),'future>5',sum(y>5 for y in w))
+726129	''','drift','exec'),{'__name__':'__main__','sys':sys})
+726130	print('\n######## strict')
+726131	import json,re
+726132	IDS=set()
+726133	    IDS|={c['id'] for c in json.load(open(f'c/i{n}.json'))}
+726134	T={'HANDOFF','REQUEST','FINDING','ACK','BLOCKER','REVIEW','DECISION-PROPOSAL'}
+726135	def irt_ok(v):
+726136	    if v is None: return False
+726137	    m=re.search(r'issuecomment-(\d+)',v)
+726138	    if m: return int(m.group(1)) in IDS
+726139	    return v.startswith('NEW') or bool(re.search(r'issues/\d+',v))
+726140	checks={
+726141	 'header canonical time': lambda r: bool(re.match(r'^\d{4}-\d\d-\d\d \d\d:\d\d UTC$',r.get('tstr',''))),
+726142	 'all 8 fields': lambda r: r['nfields']==8,
+726143	 'TYPE exactly one enum value': lambda r: (r['TYPE'] or '') in T,
+726144	 'STATUS starts with enum value': lambda r: bool(re.match(r'(PASS|FAIL|UNVERIFIED|IN-PROGRESS)\b',r['STATUS'] or '')),
+726145	 'HEAD sha or NOT-APPLICABLE': lambda r: bool(r['HEAD']) and (r['HEAD'].startswith('NOT-APPLICABLE') or bool(re.search(r'\b[0-9a-f]{7,40}\b',r['HEAD']))),
+726146	 'IN-REPLY-TO NEW/issue/resolving comment': lambda r: irt_ok(r['IN-REPLY-TO']),
+726147	for k,f in checks.items(): print(sum(f(r) for r in R),'/',len(R),k)
+726148	allok=[r for r in R if all(f(r) for f in checks.values())]
+726149	print(len(allok),'/',len(R),'pass every check above')
+726150	for n in [6,7,8,9,10]: print('  issue',n,sum(r['issue']==n for r in allok),'/',sum(r['issue']==n for r in R))
+726151	print('\n######## drift plausibility (declared minute vs GitHub second)')
+726152	v=[(r['drift_min'],r) for r in R if r.get('drift_min') is not None]
+726153	print(sum(x<=0 for x,_ in v),'<=0 : consistent with a clock read (floored to the minute) before posting')
+726154	print(sum(0<x<1 for x,_ in v),'(0,1) : consistent only with rounding up inside the minute')
+726155	print(sum(x>=1 for x,_ in v),'>=1 : declared time later than GitHub received the comment; not read from a clock before posting')
+726156	print('  of which HARNESS',sum(x>=1 and r['from'].startswith('HARNESS') for x,r in v),'of',sum(r['from'].startswith('HARNESS') for x,r in v))
+726157	print(sum(x<=-2 for x,_ in v),'<=-2 : envelope written 2+ min before posting')
+726158	print(sum(abs(x)<=2 for x,_ in v),'|drift|<=2')
+726159	print('\n######## labels')
+726160	print(len({r['from'] for r in R}),'distinct FROM labels over',len(R),'comments')
+726161	print(sum('TYPE:' in r.get('tstr','') or False for r in R) or sum(1 for n in [6,7,8,9,10] for c in json.load(open(f'c/i{n}.json')) if 'TYPE:' in c['body'].split('\n')[0]),'headers carrying TYPE on line 1')
+726162	 * Revision 3 (2 Nov 2026, same generation): a panel reopened while the shell's own back() is on its way gets a fresh
+726163	 *  entry when that pop arrives (pendingBack), so the next back gesture closes it and never leaves the page.
 ```

@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-11-02T01:00:30.459Z",
+ "generated_utc": "2026-11-02T08:13:41.423Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 11266,
+ "families_with_uses": 11375,
  "hubs": [
   {
    "family": 1318,
@@ -21,7 +21,12 @@
   {
    "family": 146349,
    "name": "path",
-   "used_by": 408
+   "used_by": 440
+  },
+  {
+   "family": 146501,
+   "name": "path",
+   "used_by": 420
   },
   {
    "family": 150844,
@@ -34,19 +39,14 @@
    "used_by": 391
   },
   {
-   "family": 146501,
-   "name": "path",
-   "used_by": 388
-  },
-  {
    "family": 5175,
    "name": "fmt",
-   "used_by": 380
+   "used_by": 383
   },
   {
    "family": 7992,
    "name": "fmt",
-   "used_by": 376
+   "used_by": 379
   },
   {
    "family": 70695,
@@ -54,14 +54,14 @@
    "used_by": 312
   },
   {
+   "family": 164912,
+   "name": "st",
+   "used_by": 310
+  },
+  {
    "family": 7364,
    "name": "fetch",
    "used_by": 306
-  },
-  {
-   "family": 164912,
-   "name": "st",
-   "used_by": 300
   },
   {
    "family": 130547,
@@ -114,6 +114,11 @@
    "used_by": 214
   },
   {
+   "family": 151717,
+   "name": "fmt",
+   "used_by": 211
+  },
+  {
    "family": 129814,
    "name": "link",
    "used_by": 207
@@ -134,24 +139,34 @@
    "used_by": 206
   },
   {
+   "family": 151895,
+   "name": "fmt",
+   "used_by": 206
+  },
+  {
+   "family": 402,
+   "name": "fetch",
+   "used_by": 202
+  },
+  {
+   "family": 454,
+   "name": "fetch",
+   "used_by": 202
+  },
+  {
+   "family": 1085,
+   "name": "fetch",
+   "used_by": 202
+  },
+  {
    "family": 129751,
    "name": "el",
    "used_by": 199
   },
   {
-   "family": 151717,
-   "name": "fmt",
-   "used_by": 197
-  },
-  {
    "family": 130262,
    "name": "card",
-   "used_by": 192
-  },
-  {
-   "family": 151895,
-   "name": "fmt",
-   "used_by": 192
+   "used_by": 194
   },
   {
    "family": 1595,
@@ -159,24 +174,9 @@
    "used_by": 190
   },
   {
-   "family": 402,
-   "name": "fetch",
-   "used_by": 186
-  },
-  {
-   "family": 454,
-   "name": "fetch",
-   "used_by": 186
-  },
-  {
-   "family": 1085,
-   "name": "fetch",
-   "used_by": 186
-  },
-  {
    "family": 77548,
    "name": "fmt",
-   "used_by": 185
+   "used_by": 188
   },
   {
    "family": 8597,
@@ -211,22 +211,22 @@
   {
    "family": 164893,
    "name": "cx",
-   "used_by": 158
+   "used_by": 159
   },
   {
    "family": 155195,
    "name": "cv",
-   "used_by": 151
+   "used_by": 152
   },
   {
    "family": 155973,
    "name": "cv",
-   "used_by": 151
+   "used_by": 152
   },
   {
    "family": 156340,
    "name": "cv",
-   "used_by": 151
+   "used_by": 152
   },
   {
    "family": 76405,
@@ -271,12 +271,17 @@
   {
    "family": 149664,
    "name": "zoom",
-   "used_by": 127
+   "used_by": 128
   },
   {
    "family": 151622,
    "name": "zoom",
-   "used_by": 127
+   "used_by": 128
+  },
+  {
+   "family": 8912,
+   "name": "note",
+   "used_by": 124
   },
   {
    "family": 130795,
@@ -295,11 +300,6 @@
   },
   {
    "family": 1598,
-   "name": "escapeHtml",
-   "used_by": 123
-  },
-  {
-   "family": 3412,
    "name": "escapeHtml",
    "used_by": 123
   }
