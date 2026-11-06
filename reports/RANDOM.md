@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-11-05`
+# The Random star — 148 links by chance, seed `2026-11-06`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- #3979 detach —MIGHT_TOUCH (0.052)→ repo unnamed-02
-- #8299 writeSourceCodeBundle —COULD_REPLACE (0.008)→ #1175 getCentralInverterDcMwdc
-- #3800 signalLabel —COULD_REPLACE (0.652)→ #3610 testcode/onChange
-- #3819 fetchPayload —COULD_REPLACE (0.037)→ #3610 testcode/onChange
-- Si(202609041221) —MIGHT_TOUCH (0.953)→ #6161 item
-- #3384 testcode/promise —MIGHT_TOUCH (0.913)→ #1524 pipelinenews/promise
-- #8398 tool —COULD_REPLACE (0.086)→ #3366 rowObject
-- #6652 megawatts —COULD_REPLACE (0.122)→ #1529 invariant
-- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.732)→ #3610 globalgrid2050/onChange
-- #30 cable-trench-or-drill/debounce —COULD_REPLACE (0.573)→ #3615 array
-- #3869 updateResultSummary —MIGHT_TOUCH (0.921)→ #1497 setButtonState
-- #4034 captureGeometry —ENTANGLED_MAYBE (0.036)→ #6161 item
-- #1524 globalgrid2050/promise —WHAT_IF (0.328)→ #1524 globalgrid2050/promise
-- Ss(202609080837) —MIGHT_TOUCH (0.734)→ #3610 globalgrid2050/onChange
-- #5 normaliseIntegerFields —MIGHT_TOUCH (0.77)→ #4320 gitBlob
-- Ss(202609041945) —COULD_REPLACE (0.241)→ #1524 pipelinenews/promise
-- #3840 drawRegional —REMINDS_OF (0.686)→ #1542 select
-- repo pipelinenews —ENTANGLED_MAYBE (0.141)→ #5 normaliseIntegerFields
-- #1817 doRadiusAreaMeasure —REMINDS_OF (0.126)→ #1524 pipelinenews/promise
-- #1524 pipelinenews/promise —MIGHT_TOUCH (0.689)→ #1524 globalgrid2050/promise
-- Ss(202609040047) —COULD_REPLACE (0.617)→ #1567 select
-- #3405 ready —MIGHT_TOUCH (0.986)→ #2055 union
-- #5439 title —ENTANGLED_MAYBE (0.404)→ Si(202609030233)
-- #3610 gridatlas/onChange —REMINDS_OF (0.119)→ Ro route-obstacles.js
-- Ss(202609032315) —RHYMES_WITH (0.405)→ repo gridmachine1
-- Ss(202609031809) —MIGHT_TOUCH (0.003)→ #4312 readText
-- #3610 globalgrid2050/onChange —ENTANGLED_MAYBE (0.223)→ #3834 drawRegional
-- #1524 globalgrid2050/promise —REMINDS_OF (0.855)→ #3820 renderNews
-- #1666 bindWiderFleet —RHYMES_WITH (0.947)→ #3804 renderNews
-- #4318 readJson —ENTANGLED_MAYBE (0.99)→ #15 testcode/renderStats
-- #3384 testcode/promise —MIGHT_TOUCH (0.684)→ #3384 testcode/promise
-- #4711 waitForResolvedIdentity —WHAT_IF (0.548)→ #3810 refreshProjects
-- #3416 screeningFinance —REMINDS_OF (0.406)→ #1524 globalgrid2050/promise
-- Si(202609030234) —RHYMES_WITH (0.241)→ #3384 testcode/promise
-- #3610 gridatlas/onChange —COULD_REPLACE (0.095)→ #1 clampInteger
-- #3610 testcode/onChange —COULD_REPLACE (0.027)→ repo gpu-drivers-for-global-grid
-- #1683 declineExport —MIGHT_TOUCH (0.929)→ #3610 globalgrid2050/onChange
-- R railways —ENTANGLED_MAYBE (0.313)→ #3748 hasValidatedModel
-- Si —WHAT_IF (0.177)→ #4624 crossing
-- #1431 modules —REMINDS_OF (0.066)→ #4316 readJson
+- #3979 detach —RHYMES_WITH (0.866)→ repo gridatlas
+- #4340 passed —REMINDS_OF (0.865)→ #3413 centralStats
+- #3821 loadNewsV9_5_1 —MIGHT_TOUCH (0.707)→ #15 globalgrid2050/renderStats
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.2)→ #8391 buildNavigationRegistry
+- #537 query —RHYMES_WITH (0.564)→ Si(202609050301)
+- #3610 testcode/onChange —ENTANGLED_MAYBE (0.719)→ #3384 globalgrid2050/promise
+- #3384 globalgrid2050/promise —RHYMES_WITH (0.646)→ #1524 pipelinenews/promise
+- #3384 globalgrid2050/promise —RHYMES_WITH (0.315)→ repo star-maker
+- #21 drawBend —REMINDS_OF (0.697)→ #3384 gridatlas/promise
+- #3610 testcode/onChange —WHAT_IF (0.534)→ Ss(202609051540)
+- #3610 globalgrid2050/onChange —WHAT_IF (0.727)→ #1524 pipelinenews/promise
+- #4317 readText —MIGHT_TOUCH (0.714)→ repo testcode
+- Si(202609030137) —ENTANGLED_MAYBE (0.39)→ #3610 globalgrid2050/onChange
+- Si(202609050249) —ENTANGLED_MAYBE (0.333)→ repo pipelinenews
+- #1524 globalgrid2050/promise —WHAT_IF (0.554)→ #3610 globalgrid2050/onChange
+- #1524 pipelinenews/promise —COULD_REPLACE (0.259)→ Ed electrical-distance.js
+- #1463 installStyles —MIGHT_TOUCH (0.078)→ #3769 buildAtlasV8Url
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.309)→ #4305 readJson
+- #15 globalgrid2050/renderStats —RHYMES_WITH (0.959)→ #3793 updateGaugesV9_2
+- #6554 centre —RHYMES_WITH (0.069)→ #8436 overlap
+- Si(202609050249) —MIGHT_TOUCH (0.527)→ #5 normaliseIntegerFields
+- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.756)→ #8299 writeSourceCodeBundle
+- #3869 updateResultSummary —COULD_REPLACE (0.014)→ #3384 globalgrid2050/promise
+- #3384 testcode/promise —RHYMES_WITH (0.942)→ #3384 testcode/promise
+- #4711 waitForResolvedIdentity —MIGHT_TOUCH (0.548)→ Io industrial_offtakers
+- #4569 success —REMINDS_OF (0.315)→ #1222 showPopup
+- #3416 screeningFinance —COULD_REPLACE (0.85)→ #3812 indexNewsItems
+- #3610 testcode/onChange —WHAT_IF (0.138)→ #1470 invariant
+- #3384 globalgrid2050/promise —MIGHT_TOUCH (0.37)→ #5885 groupFor
+- repo star-maker —COULD_REPLACE (0.708)→ #4 normaliseBurialDepthFieldOnBlur
+- #3610 testcode/onChange —REMINDS_OF (0.811)→ Ss(202609030109)
+- #6554 centre —RHYMES_WITH (0.941)→ #1179 computeStats
+- #1222 showPopup —MIGHT_TOUCH (0.759)→ Ss(202609041244)
+- #8 computeLayout —COULD_REPLACE (0.119)→ #3610 globalgrid2050/onChange
+- Si(202609040337) —MIGHT_TOUCH (0.319)→ #1524 pipelinenews/promise
+- Ss(202609032041) —WHAT_IF (0.576)→ #3610 globalgrid2050/onChange
+- #4052 globalgrid2050/handle —MIGHT_TOUCH (0.591)→ #3360 sharedDuckDBRuntime
+- #6652 megawatts —WHAT_IF (0.133)→ #4364 schedule
+- #1817 doRadiusAreaMeasure —RHYMES_WITH (0.692)→ #3384 globalgrid2050/promise
+- #7050 clamp —ENTANGLED_MAYBE (0.552)→ #3384 testcode/promise
 
 ## For the Spider
-`random/graph.json` — 168 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 160 nodes, 148 edges. Fly it when you want to get lost on purpose.
