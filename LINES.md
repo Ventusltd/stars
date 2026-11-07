@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-420,301 unique lines, numbered 1 to 729,994. Generated 2026-11-07T20:30:18.442Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+420,364 unique lines, numbered 1 to 730,066. Generated 2026-11-07T23:56:41.092Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -420304,4 +420304,67 @@
 729991	        ('edge_kind_counts', dict(counts)),
 729993	    json.dump(graph, open(a.out, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 729994	    print(f'wrote {a.out}: {len(nodes)} nodes, {len(edges)} edges, kinds {dict(counts)}')
+729995	"""Illustrative feeder-state counterexample, not operational control logic.
+729997	Context: Google Cloud europe-west2-b outage 20 Oct 2026:
+729998	https://status.cloud.google.com/incidents/Xs2XTHzAVC9YnafnPyzj
+729999	This model is NOT Google's PLC code, a safe generator-start algorithm,
+730000	an engineering design, or a complete electrical topology.
+730004	class FeederObservation:
+730005	    line_side_energised: bool
+730006	    breaker_closed: bool
+730007	    load_side_energised: bool
+730008	def upstream_voltage_only(a: FeederObservation, b: FeederObservation) -> bool:
+730009	    """Flawed indicator: voltage visible on either line-side meter."""
+730010	    return a.line_side_energised or b.line_side_energised
+730011	def continuity_evidence(feeder: FeederObservation) -> bool:
+730012	    """Illustrative evidence predicate ONLY; not sufficient for real safety logic."""
+730014	        feeder.line_side_energised
+730015	        and feeder.breaker_closed
+730016	        and feeder.load_side_energised
+730018	def mismatch(a: FeederObservation, b: FeederObservation) -> bool:
+730019	    """True if upstream voltage falsely suggests a healthy load source."""
+730020	    return upstream_voltage_only(a, b) and not (
+730021	        continuity_evidence(a) or continuity_evidence(b)
+730023	    a = FeederObservation(False, True, False)   # Failed active feeder
+730024	    b = FeederObservation(True, False, False)   # Live line side, open breaker
+730025	    assert upstream_voltage_only(a, b)
+730026	    assert mismatch(a, b)
+730027	    print("PASS: upstream voltage can be true while neither feeder delivers power")
+730028	"""Offline tests of a *conceptual* false-positive, not a PLC acceptance test.
+730029	Run: python -m unittest discover -s examples -p 'test_power_state_counterexample.py' -v
+730030	No network, dependencies, switchgear interfaces, or generators are accessed.
+730032	from power_state_counterexample import (
+730033	    FeederObservation,
+730034	    continuity_evidence,
+730035	    mismatch,
+730036	    upstream_voltage_only,
+730038	class SourceStateCounterexampleTests(unittest.TestCase):
+730039	    def test_external_fault_while_other_feeder_is_locked_open(self):
+730040	        active_a = FeederObservation(False, True, False)
+730041	        disconnected_b = FeederObservation(True, False, False)
+730042	        self.assertTrue(upstream_voltage_only(active_a, disconnected_b))
+730043	        self.assertFalse(continuity_evidence(active_a))
+730044	        self.assertFalse(continuity_evidence(disconnected_b))
+730045	        self.assertTrue(mismatch(active_a, disconnected_b))
+730046	    def test_available_healthy_a_cannot_be_falsely_called_unavailable(self):
+730047	        healthy_a = FeederObservation(True, True, True)
+730048	        isolated_b = FeederObservation(True, False, False)
+730049	        self.assertTrue(upstream_voltage_only(healthy_a, isolated_b))
+730050	        self.assertTrue(continuity_evidence(healthy_a))
+730051	        self.assertFalse(mismatch(healthy_a, isolated_b))
+730052	    def test_no_upstream_voltage_has_no_specific_mismatch(self):
+730053	        dead_a = FeederObservation(False, True, False)
+730054	        dead_b = FeederObservation(False, False, False)
+730055	        self.assertFalse(upstream_voltage_only(dead_a, dead_b))
+730056	        self.assertFalse(mismatch(dead_a, dead_b))
+730057	    def test_open_breaker_blocks_simple_continuity_inference(self):
+730058	        isolated = FeederObservation(True, False, False)
+730059	        self.assertFalse(continuity_evidence(isolated))
+730060	    def test_a_single_counterexample_invalidates_upstream_only_sufficiency(self):
+730061	        # Counterexample to: "voltage upstream implies usable power at load".
+730062	        a = FeederObservation(False, True, False)
+730063	        b = FeederObservation(True, False, False)
+730064	        self.assertTrue(upstream_voltage_only(a, b))
+730065	        self.assertFalse(
+730066	            continuity_evidence(a) or continuity_evidence(b)
 ```

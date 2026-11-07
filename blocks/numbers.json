@@ -1,5 +1,5 @@
 {
- "next": 2107,
+ "next": 2110,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2043,6 +2043,9 @@
   "neural-link-between-agents:FIXES/NL-011/build_kuiper_map.py": 2103,
   "neural-link-between-agents:FIXES/NL-011/build_link_graph.py": 2104,
   "neural-link-between-agents:FIXES/NL-010/tools/evidence/nl010-opus/team-4/lead/src/block.js": 2105,
-  "neural-link-between-agents:FIXES/NL-009/round1/07-perf-edition_min.py": 2106
+  "neural-link-between-agents:FIXES/NL-009/round1/07-perf-edition_min.py": 2106,
+  "gridatlas:atlas/preview/lightning/index.html": 2107,
+  "testcode:examples/power_state_counterexample.py": 2108,
+  "testcode:examples/test_power_state_counterexample.py": 2109
  }
 }
