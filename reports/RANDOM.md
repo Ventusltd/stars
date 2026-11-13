@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-11-12`
+# The Random star — 150 links by chance, seed `2026-11-13`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- #2141 scripts —MIGHT_TOUCH (0.802)→ #5889 authority
-- #4052 globalgrid2050/handle —ENTANGLED_MAYBE (0.297)→ Si(202609020018)
-- repo gridmachine1 —ENTANGLED_MAYBE (0.919)→ Ss(202609040046)
-- #1524 pipelinenews/promise —REMINDS_OF (0.951)→ #1524 pipelinenews/promise
-- repo youengineer-code-review —MIGHT_TOUCH (0.203)→ #1219 toggleAtlasV8GridLayer
-- #3384 testcode/promise —WHAT_IF (0.457)→ #3384 globalgrid2050/promise
-- repo data-grid-gb —MIGHT_TOUCH (0.766)→ #3408 nearestTransmission
-- #3793 updateGaugesV9_2 —WHAT_IF (0.021)→ Ri REPD_IDS
-- #3610 testcode/onChange —COULD_REPLACE (0.47)→ #4272 preparePage
-- #3869 updateResultSummary —WHAT_IF (0.646)→ #3610 testcode/onChange
-- #1191 computeAndDraw —RHYMES_WITH (0.866)→ #3880 repdUpdatedTimestamp
-- #3262 startCableRouteMode —REMINDS_OF (0.254)→ Ri REPD_IDS
-- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.159)→ #5372 measured
-- Ss —MIGHT_TOUCH (0.11)→ Si(202609030109)
-- Dt deeplink (the MAP button) —REMINDS_OF (0.959)→ #1222 showPopup
-- #3824 signalForProjectV9_5 —RHYMES_WITH (0.859)→ #4316 readJson
-- #3384 globalgrid2050/promise —MIGHT_TOUCH (0.006)→ #3360 sharedDuckDBRuntime
-- #3610 testcode/onChange —ENTANGLED_MAYBE (0.97)→ Pf published-fault-level.js
-- Ss(202609050238) —MIGHT_TOUCH (0.246)→ repo gpu-drivers-for-global-grid
-- #3406 provisional —MIGHT_TOUCH (0.868)→ #1240 updateExportCableLengthDisplay
-- substation-intelligence: SyntaxError: Invalid or unexpected token —COULD_REPLACE (0.602)→ #3805 validPayload
-- #3403 scope —COULD_REPLACE (0.105)→ #3384 testcode/promise
-- Si(202609040134) —ENTANGLED_MAYBE (0.509)→ #3839 regionalRows
-- #1524 globalgrid2050/promise —WHAT_IF (0.429)→ #4624 crossing
-- #3610 gridatlas/onChange —COULD_REPLACE (0.253)→ #5889 authority
-- #3573 published —ENTANGLED_MAYBE (0.216)→ #3880 repdUpdatedTimestamp
-- #3610 testcode/onChange —ENTANGLED_MAYBE (0.316)→ #3384 globalgrid2050/promise
-- #6580 curvature —COULD_REPLACE (0.841)→ #980 cells
-- #3384 gridatlas/promise —ENTANGLED_MAYBE (0.563)→ #1175 getCentralInverterDcMwdc
-- Si(202609040219) —ENTANGLED_MAYBE (0.808)→ Ss(202609040337)
-- Ss(202609041957) —REMINDS_OF (0.545)→ #6554 centre
-- #3384 testcode/promise —MIGHT_TOUCH (0.091)→ #3265 addCableRouteWaypoint
-- #1524 pipelinenews/promise —RHYMES_WITH (0.439)→ #3855 drawProjectTable
-- #4466 words —WHAT_IF (0.306)→ G6 grid_66kv
-- #1465 validateAsset —MIGHT_TOUCH (0.99)→ Hi HIT_RADIUS_VERTEX_PX
-- #3610 globalgrid2050/onChange —ENTANGLED_MAYBE (0.128)→ #3610 globalgrid2050/onChange
-- Si(202609051529) —WHAT_IF (0.673)→ #4538 nearest
-- #3265 addCableRouteWaypoint —COULD_REPLACE (0.055)→ Si(202609051526)
-- #15 testcode/renderStats —WHAT_IF (0.127)→ Si(202609051556)
-- Flow —COULD_REPLACE (0.295)→ Si(202609050249)
+- #2141 scripts —COULD_REPLACE (0.117)→ #411 cartridges
+- #1567 select —RHYMES_WITH (0.581)→ #2141 scripts
+- #4538 nearest —REMINDS_OF (0.974)→ Ss(202609051540)
+- #8341 blocks —REMINDS_OF (0.786)→ #3384 testcode/promise
+- #4538 nearest —COULD_REPLACE (0.342)→ #1683 declineExport
+- #4674 encode —MIGHT_TOUCH (0.169)→ #1524 pipelinenews/promise
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.466)→ #21 drawBend
+- Data —WHAT_IF (0.291)→ #3406 provisional
+- #8351 assess —ENTANGLED_MAYBE (0.443)→ repo data-gridatlas
+- #4364 schedule —COULD_REPLACE (0.747)→ #3384 testcode/promise
+- #4364 schedule —REMINDS_OF (0.548)→ #3610 globalgrid2050/onChange
+- #3820 renderNews —COULD_REPLACE (0.995)→ #3384 globalgrid2050/promise
+- Ss(202609012317) —REMINDS_OF (0.096)→ #4 normaliseBurialDepthFieldOnBlur
+- #3402 classOf —ENTANGLED_MAYBE (0.949)→ #8445 distance
+- #3610 testcode/onChange —COULD_REPLACE (0.74)→ Si(202609032222)
+- #3610 testcode/onChange —RHYMES_WITH (0.642)→ #3360 sharedDuckDBRuntime
+- #5726 counts —REMINDS_OF (0.73)→ At ALLOWED_TECHNOLOGIES
+- #4568 outcome —RHYMES_WITH (0.573)→ #1680 presentSummary
+- #3610 globalgrid2050/onChange —WHAT_IF (0.919)→ #3787 updateGaugesV9_1
+- Si(202609032246) —MIGHT_TOUCH (0.5)→ #3384 testcode/promise
+- #3823 canonicalItem —RHYMES_WITH (0.512)→ Ss(202609012317)
+- #1524 globalgrid2050/promise —COULD_REPLACE (0.153)→ #1175 getCentralInverterDcMwdc
+- Si(202609031751) —COULD_REPLACE (0.901)→ #1524 globalgrid2050/promise
+- #3824 signalForProjectV9_5 —MIGHT_TOUCH (0.36)→ #3384 globalgrid2050/promise
+- Si(202609032012) —RHYMES_WITH (0.597)→ #3384 globalgrid2050/promise
+- #3869 updateResultSummary —RHYMES_WITH (0.858)→ #1219 toggleAtlasV8GridLayer
+- #4037 cloneVisiblePrinterUi —ENTANGLED_MAYBE (0.113)→ #1231 renderBenchmark
+- #3384 gridatlas/promise —WHAT_IF (0.468)→ #5403 nativeFetch
+- #6652 megawatts —REMINDS_OF (0.055)→ #3384 testcode/promise
+- #4093 dispose —REMINDS_OF (0.751)→ Ss(202609080850)
+- #3754 createCanonicalProjectControls —ENTANGLED_MAYBE (0.582)→ #4568 outcome
+- #4035 assertStableGeometry —ENTANGLED_MAYBE (0.121)→ #352 sweep
+- Pf published-fault-level.js —MIGHT_TOUCH (0.655)→ #1524 globalgrid2050/promise
+- #1231 renderBenchmark —COULD_REPLACE (0.291)→ #15 globalgrid2050/renderStats
+- #30 cable-trench-or-drill/debounce —ENTANGLED_MAYBE (0.954)→ #3384 globalgrid2050/promise
+- #8493 auditProjectRows —RHYMES_WITH (0.105)→ #1497 setButtonState
+- #3384 globalgrid2050/promise —ENTANGLED_MAYBE (0.198)→ #1793 _zoneDrawCalcArea
+- #1524 pipelinenews/promise —RHYMES_WITH (0.226)→ #1535 invariant
+- #1476 invariant —WHAT_IF (0.077)→ #8471 edit
+- repo gb-electricity-ui —WHAT_IF (0.458)→ #15 globalgrid2050/renderStats
 
 ## For the Spider
-`random/graph.json` — 176 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 162 nodes, 150 edges. Fly it when you want to get lost on purpose.
