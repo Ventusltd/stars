@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-420,364 unique lines, numbered 1 to 730,066. Generated 2026-11-13T09:57:54.255Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+420,441 unique lines, numbered 1 to 730,222. Generated 2026-11-13T18:03:17.580Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -420367,4 +420367,81 @@
 730064	        self.assertTrue(upstream_voltage_only(a, b))
 730065	        self.assertFalse(
 730066	            continuity_evidence(a) or continuity_evidence(b)
+730070	<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+730071	<meta name="description" content="13 November 2026: fact-checked research on Google Cloud, Binance and Microsoft incidents and reducing single-provider dependencies.">
+730072	<title>Concentration risk — Cyber Resilience Log</title><link rel="stylesheet" href="../assets/log.css"></head><body>
+730073	<header><div class="wrap breadcrumb"><a href="../">← Cyber Resilience Log</a> · GLOBALGRID2050</div></header>
+730074	<main class="wrap prose"><div class="article-head"><div class="date"><time datetime="2026-11-13">13 November 2026</time> · Research note</div>
+730075	<h1>Cloud outages, the Binance theft and the case for distributed resilience</h1></div>
+730076	<section aria-labelledby="argument"><h2 id="argument">The argument</h2>
+730077	<p>First Google Cloud's London-region outage disrupted major UK banking services, and now a Microsoft 365 outage has affected organisations worldwide. In between came the largest cryptocurrency theft reported to date: approximately $6.3 billion stolen from Binance, with a compromised DevOps engineer's laptop identified in Binance's preliminary investigation. The incidents had different causes, but all expose the consequences of concentrated dependencies.</p>
+730078	<p>This is why open-source tools need to replace critical closed dependencies wherever practical, with genuine portability, independent recovery and proper security oversight.</p>
+730079	<p>Linus Torvalds, a Finnish 🇫🇮 software developer, created the Linux kernel and later Git. Git uses distributed version control, so a central machine does not have to hold the only copy of a project's history. Computers can work in isolation, commit changes locally, and compare the integrity of histories exchanged with other computers. Git is free to learn and use, and software designed for offline operation can run locally without an internet connection.</p>
+730080	<p>AI is heading the same way as enterprise email and video calls: a few major providers, operating across a few major clouds. Claude is offered through Amazon, Google and Microsoft cloud platforms. OpenAI remains closely tied to Microsoft, although its 2026 agreement also permits service across other cloud providers. Meanwhile, the UK's Competition and Markets Authority is examining Microsoft's business software ecosystem, including bundling, interoperability and customer choice.</p>
+730081	<p>There's a familiar fix. Just as special-purpose vehicles are used to ring-fence project liabilities, critical digital services should isolate their failure domains. R&amp;D and key procurement should be spread beyond the largest firms, with proper oversight, independently usable alternatives and tested recovery arrangements, so one provider's failure stays contained.</p>
+730083	<section aria-labelledby="facts"><h2 id="facts">Evidence and limitations</h2>
+730084	<table class="facts"><tbody>
+730085	<tr><th scope="row">20 October 2026 · Google Cloud</th><td>A London-region availability-zone power and control-system failure disrupted dependent services, including UK banking. An infrastructure outage, not evidence of a cyberattack. <a href="https://status.cloud.google.com/incidents/Xs2XTHzAVC9YnafnPyzj">Google incident report</a>.</td></tr>
+730086	<tr><th scope="row">29 October 2026 · Binance</th><td>The FBI attributed more than US$6 billion in stolen cryptocurrency to North Korean operators. Binance preliminarily identified a compromised DevOps laptop as a possible route; forensic certainty is limited. <a href="https://www.fbi.gov/investigate/cyber/alerts/2026/north-korea-responsible-for-6-billion-binance-attack/layout_view">FBI alert</a>.</td></tr>
+730087	<tr><th scope="row">12–13 November 2026 · Microsoft</th><td>A Microsoft 365 disruption affected Outlook, Teams, Copilot and connected services internationally. Microsoft reported no indication of malicious activity. <a href="https://www.reuters.com/technology/microsoft-365-outlook-down-thousands-us-users-downdetector-shows-2026-11-12/">Reuters reporting</a>.</td></tr>
+730088	<tr><th scope="row">Competition and suppliers</th><td>The CMA's Microsoft business-software investigation was ongoing, with a proposed strategic market status decision, not a final finding. <a href="https://www.gov.uk/cma-cases/microsofts-business-software-ecosystem">CMA case</a>.</td></tr>
+730089	<tr><th scope="row">Git and local operation</th><td>Git's distributed, content-hashed history supports offline working and integrity comparisons; it does not automatically establish identity or trusted provenance. <a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control">Git documentation</a>.</td></tr>
+730090	</tbody></table>
+730091	<p class="callout">These incidents are not all cyberattacks, and open-source software is not inherently more secure. The relevant common principle is failure containment, portable workloads, independently verified backups and recoverable operations.</p>
+730092	<section aria-labelledby="principles"><h2 id="principles">Practical resilience principles</h2>
+730093	<ol><li>Model the loss of a provider, region, identity system and network connection, then rehearse restoration.</li>
+730094	<li>Maintain independent, recoverable source code, configuration, offline procedures and backups.</li>
+730095	<li>Keep mirrors and recovery credentials outside the same control plane.</li>
+730096	<li>Use inspectable, open standards where appropriate without assuming open source itself guarantees safety.</li>
+730097	<li>Verify provenance with trusted signatures, reviewed changes and reproducible builds.</li>
+730098	<li>Spread material procurement and R&amp;D dependencies, with explicit supplier exit plans.</li>
+730099	<li>Distinguish operational outages from malicious compromise when designing controls.</li></ol></section>
+730100	<section aria-labelledby="record"><h2 id="record">Full research record</h2>
+730101	<p>The companion research note includes the underlying case-by-case table, chronological record and 14 source references. <a href="https://github.com/Ventusltd/cyber-resilience/blob/main/research/2026-11-13-concentration-risk.md">Read the full evidence and source list</a>.</p>
+730102	<p>Version history and corrections are recorded in <a href="https://github.com/Ventusltd/cyber-resilience">the public Git repository</a>.</p></section></main>
+730103	<footer><div class="wrap">Funded by VENTUS LTD · General technical documentation and research. Claims are dated 13 November 2026.</div></footer>
+730105	<meta name="description" content="GlobalGrid2050 Cyber Resilience Log: a dated public record of cloud failures, concentration risk and independent recovery.">
+730106	<title>Cyber Resilience Log | GlobalGrid2050</title>
+730107	<link rel="stylesheet" href="./assets/log.css"></head><body>
+730108	<header class="masthead"><div class="wrap">
+730109	<a class="brand" href="https://globalgrid2050.com/">GLOBALGRID2050</a>
+730110	<p class="eyebrow" style="margin-top:32px">Open research · Critical infrastructure</p>
+730111	<h1>Cyber Resilience Log</h1>
+730112	<p>Single-provider dependency in finance, energy, cloud computing and other critical systems. A dated, evidence-led record of failures, lessons and the case for independent recovery.</p>
+730113	<nav class="nav" aria-label="Navigation"><a href="https://globalgrid2050.com/">← GlobalGrid2050 homepage</a><a href="https://github.com/Ventusltd/cyber-resilience">Source repository</a><a href="https://github.com/Ventusltd/cyber-resilience/blob/main/README.md">Purpose and scope</a></nav>
+730114	</div></header>
+730115	<main class="wrap"><section aria-labelledby="entries"><h2 id="entries">Entries</h2>
+730116	<article class="entry"><span class="date"><time datetime="2026-11-13">13 November 2026</time></span><span class="pill">Research note</span>
+730117	<h3><a href="./entries/2026-11-13-concentration-risk.html">Cloud outages, the Binance theft and the case for distributed resilience</a></h3>
+730118	<p>Three different failures expose a common dependency problem: Google Cloud London-region disruption affecting banking, an alleged endpoint compromise behind the Binance cryptocurrency theft, and a worldwide Microsoft 365 outage. Linux, Git and independently recoverable services show practical alternatives to a single point of trust or failure.</p>
+730119	<a href="./entries/2026-11-13-concentration-risk.html">Read the complete entry →</a>
+730120	</article></section>
+730121	<section class="prose" aria-labelledby="method"><h2 id="method">Method</h2><p>Every dated entry separates reported events, technical explanation, uncertainty and recommendations. Corrections can be recorded in the repository history. An operational outage is not automatically a cyberattack; open source and Git are useful resilience tools, not substitutes for security controls.</p>
+730122	<p>For complete citations and the underlying research, follow the evidence links inside each entry. No analytics, accounts, cookies or external scripts are used by this page.</p></section>
+730123	</main><footer><div class="wrap">Funded by VENTUS LTD · Open collaboration · General research only; not an incident response service or engineering certification.</div></footer>
+730192	<details id="cyber-resilience-log"><summary><span class="number">10</span><span class="title">Cyber Resilience Log<small>Cloud outages, supply-chain risk and independent recovery</small></span></summary><div class="inside"><p>A dated research log on operational failures, security incidents and the risks of relying on too few providers for critical systems.</p><a class="launch" href="https://ventusltd.github.io/cyber-resilience/">Open Cyber Resilience Log &rarr;</a></div></details>
+730195	"""The cyber resilience entry extends, rather than replaces, the homepage."""
+730200	ID = "cyber-resilience-log"
+730201	class CyberResilienceEntryTests(unittest.TestCase):
+730202	    def test_catalogue_metadata_fallback_remain_aligned(self):
+730203	        catalogue = json.loads((ROOT / "data/homepage.json").read_text(encoding="utf-8"))
+730204	        metadata = json.loads((ROOT / "data/entity-types.json").read_text(encoding="utf-8"))
+730205	        html = (ROOT / "index.html").read_text(encoding="utf-8")
+730206	        by_id = {entity["id"]: entity for entity in catalogue["entities"]}
+730207	        self.assertEqual(len(by_id), len(catalogue["entities"]))
+730208	        self.assertGreaterEqual(len(by_id), 28)
+730209	        self.assertEqual(set(by_id), set(metadata["records"]))
+730210	        self.assertEqual(catalogue["view"]["items"][-1], {"entity_id": ID, "open": False})
+730211	        self.assertEqual([item["entity_id"] for item in catalogue["view"]["items"][:9]],
+730212	                         ["solar-design-studio","kuiper","gridatlas","ventus-grid-engine",
+730213	                          "pipeline-news","identity-registry","electricity-market-intelligence",
+730214	                          "metals-cable-prices","cable-engineering"])
+730215	        entity = by_id[ID]
+730216	        self.assertEqual(entity["operative_release_id"], "20261113")
+730217	        self.assertEqual(entity["releases"][0]["url"], "https://ventusltd.github.io/cyber-resilience/")
+730218	        self.assertEqual(html.count('<details id="cyber-resilience-log">'), 1)
+730219	        self.assertIn('Cyber Resilience Log<small>', html)
+730220	        self.assertIn('id="catalogueArchive"', html)
+730221	        self.assertIn("Privacy", html)
+730222	        self.assertIn("Kuiper", html)
 ```
