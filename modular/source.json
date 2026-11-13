@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-13T02:05:55.740Z",
+  "generated_utc": "2026-11-13T09:56:12.535Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -75,6 +75,11 @@
       "repo": "Ventusltd/cvaa",
       "commit": "b124c39e5343b24dd5b546a0c279a1c06360bdad",
       "code_files": 9
+    },
+    {
+      "repo": "Ventusltd/cyber-resilience",
+      "commit": "035a7516b1e225bc36ada20516b53a43aea54412",
+      "code_files": 0
     },
     {
       "repo": "Ventusltd/data-centres-gb",
@@ -213,7 +218,7 @@
     },
     {
       "repo": "Ventusltd/kuiper-belt",
-      "commit": "3d8240dc1402a414d73f13e15d5acb818747da60",
+      "commit": "98e0e9d8ebc68b4b0379b1bd6bbc355d25ea9624",
       "code_files": 296
     },
     {
@@ -373,7 +378,7 @@
     },
     {
       "repo": "Ventusltd/star-solar-star",
-      "commit": "c0b29d1cbd55a5342d437d69d661843ce4224b76",
+      "commit": "36641b0b0a9e6fc73d74cd483c9a3eaed3f7cdc9",
       "code_files": 25
     },
     {
@@ -403,7 +408,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "3f827e7822d8706c9193e0473d45d2720b8627dc",
+      "commit": "86e81a642bda4667fb9f5634a880e8565b632578",
       "code_files": 1
     },
     {
@@ -428,7 +433,7 @@
     },
     {
       "repo": "Ventusltd/ventus-grid-engine",
-      "commit": "8f2439b84478578eeac3e4f697472e4b0bac8921",
+      "commit": "82c888f8bd69ee3b4bc9888464c360c26a896132",
       "code_files": 78
     },
     {
