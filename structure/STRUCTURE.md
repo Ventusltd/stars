@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-13 23:52 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (116 KB, 136 cards, 403 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-14 07:00 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (117 KB, 136 cards, 409 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (41)
 
@@ -13,14 +13,14 @@ flowchart TD
   classDef live fill:#12304a,stroke:#58a6ff,color:#e6edf3
   classDef off fill:#21262d,stroke:#6b7280,color:#9aa3b5
   estate["globalgrid2050 architecture development"]:::ok
-  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 24 blocks"]:::ok
+  n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 23 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
-  n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
+  n_Ventusltd_globalgrid2050["globalgrid2050 · 21 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050
-  n_Ventusltd_gridatlas["gridatlas · 12 blocks"]:::ok
-  estate --> n_Ventusltd_gridatlas
   n_Ventusltd_testcode["testcode · 12 blocks"]:::ok
   estate --> n_Ventusltd_testcode
+  n_Ventusltd_gridatlas["gridatlas · 11 blocks"]:::ok
+  estate --> n_Ventusltd_gridatlas
   n_Ventusltd_code_generator["code-generator · 10 blocks"]:::ok
   estate --> n_Ventusltd_code_generator
   n_Ventusltd_pipelinenews["pipelinenews · 7 blocks"]:::ok
@@ -31,12 +31,14 @@ flowchart TD
   estate --> n_Ventusltd_claude
   n_Ventusltd_data_grid_gb["data-grid-gb · 4 blocks"]:::ok
   estate --> n_Ventusltd_data_grid_gb
-  n_Ventusltd_data_gridatlas["data-gridatlas · 4 blocks"]:::ok
+  n_Ventusltd_data_gridatlas["data-gridatlas · 3 blocks"]:::ok
   estate --> n_Ventusltd_data_gridatlas
   n_Ventusltd_galaxies_wafers["galaxies-wafers · 3 blocks"]:::ok
   estate --> n_Ventusltd_galaxies_wafers
   n_Ventusltd_layout_tool["layout-tool · 3 blocks"]:::ok
   estate --> n_Ventusltd_layout_tool
+  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 3 blocks"]:::ok
+  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_chatgpt_audits["chatgpt-audits · 2 blocks"]:::ok
   estate --> n_Ventusltd_chatgpt_audits
   n_Ventusltd_companies["companies · 2 blocks"]:::ok
@@ -47,8 +49,6 @@ flowchart TD
   estate --> n_Ventusltd_grid_distance_maths
   n_Ventusltd_lightning["lightning · 2 blocks"]:::ok
   estate --> n_Ventusltd_lightning
-  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 2 blocks"]:::ok
-  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_teleprinter["teleprinter · 2 blocks"]:::ok
   estate --> n_Ventusltd_teleprinter
   n_Ventusltd_youengineer_code_review["youengineer-code-review · 2 blocks"]:::ok
@@ -233,9 +233,13 @@ flowchart LR
   n_block_Dt --> n_block_Gn
   n_block_Dt --> n_block_Dc
   n_block_Dt --> n_block_Cg
+  n_block_Ps --> n_block_St
+  n_block_Ps --> n_block_Tp
+  n_block_Ps --> n_block_Pr
+  n_block_Ps --> n_block_Gn
+  n_block_Ps --> n_block_Dc
   n_block_Ps --> n_block_Ss
   n_block_Ps --> n_block_Wf
-  n_block_Ps --> n_block_Dc
   n_block_Pn --> n_block_Pr
   n_block_Pn --> n_block_Si
   n_block_Pn --> n_block_Tp
@@ -246,9 +250,14 @@ flowchart LR
   n_block_Pn --> n_block_Wf
   n_block_Pn --> n_block_Dt
   n_block_Pn --> n_block_Sa
+  n_block_Gp --> n_block_St
+  n_block_Gp --> n_block_Tp
+  n_block_Gp --> n_block_Pr
+  n_block_Gp --> n_block_Gn
+  n_block_Gp --> n_block_Dc
   n_block_Gp --> n_block_Ss
   n_block_Gp --> n_block_Wf
-  n_block_Gp --> n_block_Dc
+  n_block_Gp --> n_block_Dt
   n_block_Wf --> n_block_St
   n_block_Wf --> n_block_Tp
   n_block_Wf --> n_block_Pr
@@ -264,8 +273,10 @@ flowchart LR
   n_block_Cg --> n_block_Si
   n_block_Cg --> n_block_Ra
   n_block_Cg --> n_block_Pn
+  n_block_Cg --> n_block_Ln
   n_block_Cg --> n_block_Gn
   n_block_Cg --> n_block_Ss
+  n_block_Cg --> n_block_D
   n_block_Cg --> n_block_Dt
   n_block_Cg --> n_block_Wf
   n_block_Cg --> n_block_Dc
@@ -275,15 +286,16 @@ flowchart LR
   n_block_Cg --> n_block_Gp
   n_block_Cg --> n_block_Tp
   n_block_Cg --> n_block_Sa
+  n_block_Sb --> n_block_Pr
   n_block_Sb --> n_block_St
   n_block_Sb --> n_block_Tp
-  n_block_Sb --> n_block_Pr
   n_block_Sb --> n_block_Gn
   n_block_Sb --> n_block_Dc
   n_block_Sb --> n_block_Ss
   n_block_Sb --> n_block_Wf
   n_block_Sb --> n_block_Cg
   n_block_Sb --> n_block_Pn
+  n_block_St --> n_block_Pr
   n_block_St --> n_block_Si
   n_block_St --> n_block_Tp
   n_block_St --> n_block_Sp
@@ -302,14 +314,9 @@ flowchart LR
   n_block_Em --> n_block_Pr
   n_block_Em --> n_block_Gn
   n_block_Em --> n_block_Dc
-  n_block_Pr --> n_block_Vn
-  n_block_Pr --> n_block_Ss
-  n_block_Pr --> n_block_Si
   n_block_Pr --> n_block_Dc
-  n_block_Pr --> n_block_Dt
   n_block_Gn --> n_block_Dt
   n_block_Gn --> n_block_St
-  n_block_Gn --> n_block_Pn
   n_block_Gn --> n_block_Em
   n_block_Gn --> n_block_Dc
 ```
