@@ -1,5 +1,5 @@
 {
- "next": 2181,
+ "next": 2193,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2117,6 +2117,18 @@
   "pipelinenews:tools/intelligence/register-source.mjs": 2177,
   "pipelinenews:tools/intelligence/register_refresh.py": 2178,
   "pipelinenews:tools/intelligence/release_hash_guard.py": 2179,
-  "pipelinenews:tools/publication/test_register_refresh.py": 2180
+  "pipelinenews:tools/publication/test_register_refresh.py": 2180,
+  "testcode:backups/{stamp}-repd-2026q3-pre-release/globalgrid2050/scripts/repd_sources_v6.py": 2181,
+  "testcode:backups/{stamp}-repd-2026q3-pre-release/globalgrid2050/scripts/repd_updater.py": 2182,
+  "testcode:backups/{stamp}-repd-2026q3-pre-release/globalgrid2050/scripts/validate_v6_manifest_provenance.py": 2183,
+  "globalgrid2050:automation/news/pipeline_headlines.py": 2184,
+  "globalgrid2050:automation/news/signals/combine.py": 2185,
+  "globalgrid2050:automation/news/signals/index.py": 2186,
+  "globalgrid2050:automation/news/signals/official.py": 2187,
+  "globalgrid2050:automation/news/signals/planning_file.py": 2188,
+  "globalgrid2050:automation/news/signals/trade.py": 2189,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/live-news.js": 2190,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/newspaper-v9-5-1.js": 2191,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/newspaper-v9-7.js": 2192
  }
 }

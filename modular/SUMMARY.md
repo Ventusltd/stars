@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-14 06:58 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
+Updated 2026-11-14 14:28 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,12 +8,12 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 439,946 |
-| File versions | 8,169 |
-| Elements (functions and classes) | 31,237 |
-| Families (same logic) | 30,123 |
+| Unique lines | 445,519 |
+| File versions | 8,193 |
+| Elements (functions and classes) | 31,631 |
+| Families (same logic) | 30,517 |
 | Families written in two or more different files (duplicate work) | 7,174 |
-| Families only copied between versions of one file | 2,628 |
+| Families only copied between versions of one file | 2,631 |
 | Self-contained functions compiled into the library | 728 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
@@ -30,7 +30,7 @@ The same logic written in two or more different files. Copies of one file in tim
 | #8770 | `initialBearingDeg` | 13 | 254 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 13 | 251 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
-| #975 | `sha256` | 67 | 134 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
+| #975 | `sha256` | 67 | 138 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
 | #8285 | `sha256Hex` | 33 | 351 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
 | #5168 | `escapeHTML` | 24 | 196 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
 | #5609 | `(anonymous)` | 20 | 192 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
@@ -63,24 +63,24 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `build` | 119 | 21 |
-| `load` | 58 | 21 |
-| `check` | 62 | 20 |
-| `__init__` | 46 | 18 |
-| `draw` | 117 | 17 |
+| `build` | 121 | 21 |
+| `load` | 59 | 21 |
+| `check` | 63 | 20 |
+| `__init__` | 53 | 18 |
+| `draw` | 118 | 17 |
 | `classify` | 23 | 16 |
 | `require` | 18 | 15 |
-| `verify` | 17 | 15 |
-| `fetch` | 28 | 14 |
+| `verify` | 18 | 15 |
+| `fetch` | 40 | 14 |
 | `setUp` | 44 | 13 |
-| `validate` | 26 | 13 |
+| `validate` | 27 | 13 |
 | `walk` | 26 | 13 |
 | `normalise` | 14 | 13 |
 | `measure` | 25 | 12 |
-| `start` | 81 | 11 |
+| `start` | 82 | 11 |
 | `step` | 44 | 11 |
 | `refresh` | 38 | 11 |
-| `record` | 22 | 11 |
+| `record` | 23 | 11 |
 | `describe` | 19 | 11 |
 | `write_json` | 19 | 11 |
 | `frame` | 45 | 10 |

@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-439,946 unique lines, numbered 1 to 759,719. Generated 2026-11-14T07:00:23.288Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+445,519 unique lines, numbered 1 to 766,119. Generated 2026-11-14T14:29:53.788Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -439949,4 +439949,5577 @@
 759717	class Q2PortProofTest(unittest.TestCase):
 759718	    def test_port_reproduces_shipped_q2_indexes_byte_for_byte(self):
 759719	            self.assertEqual(refresh.prove_q2("202609060232-pipelinenews"), 0)
+759722	"""Pipeline headlines: fresh UK renewables, storage, grid and data-centre headlines for Pipeline News.
+759724	Reads the public RSS/Atom feeds listed in automation/news/pipeline_feeds.json and writes
+759725	dist/pipeline_headlines.json (schema automation/news/schema/pipeline-headlines.v1.schema.json).
+759726	  python3 automation/news/pipeline_headlines.py --out dist/pipeline_headlines.json
+759727	  python3 automation/news/pipeline_headlines.py --probe report.md      # feed health report, writes no data file
+759728	The rule, in one sentence: keep a headline when its TITLE names a topic (solar, wind, storage, grid, data centre,
+759729	renewables) AND carries an event word (refused, approved, consent, DCO, financial close, construction, energised,
+759730	appeal, ...), and the story is about the UK.
+759731	- Source order (owner, 14 Nov 2026): BBC News first, Solar Power Portal second, then the rest. Feeds are
+759732	  fetched in the order of the list.
+759733	- Lane "keywords" (BBC News; "The main priority news feed is with key words solar and data centres and from
+759734	  BBC news rss feed"): a BBC item whose title or feed summary says solar or data centre is kept even with no
+759735	  event word, because BBC titles rarely name the project ("huge solar farm on palace estate"). It gets the
+759736	  event category when the title has an event word, otherwise "other" (solar) or "datacentre".
+759737	- Two narrow world-news lanes, each capped at the newest 10 so UK planning news is never crowded out:
+759738	  "datacentre_money" (Bloomberg and data-centre titles: data centres or AI infrastructure AND money or
+759739	  markets; category datacentre) and "china_solar" (pv magazine: China or a Chinese manufacturer AND solar,
+759740	  modules, polysilicon, prices, exports or tariffs; category other, technology solar). These are not UK news
+759741	  and nothing marks them as UK; they never get a REPD match.
+759742	- Headlines and links only. Only title, link, source and date are stored. The feed summary is read in memory
+759743	  for the BBC keywords lane alone and is never written out; no article page is requested.
+759744	- On a feed that is not UK-only the title must itself say it is UK news: a UK word, a REPD county, or a REPD
+759745	  site name. A title that names another country and no UK word is dropped on every feed.
+759746	- One category per headline from a fixed list; technology when the title says it.
+759747	- possible_match: only when the title contains a whole name segment of a REPD Site Name (word-bounded, at
+759748	  least two words or a distinctive single word) AND a second thing in the title agrees with that REPD row:
+759749	  the developer, the planning authority, the county or the technology (a single-word name needs one of the
+759750	  first three; technology alone is not enough for it). Exactly one REPD site must remain
+759751	  (co-located rows sharing one Site Name and county count as one site; the lowest Ref ID is given); otherwise null. It is a labelled possible match for review, never a confirmed link.
+759752	- Fetching, feed parsing, dates, canonical links, the sponsored filter and the link merge are imported from
+759753	  datacentre_feed.py; nothing is copied. One feed failing is recorded in "feeds" and never stops the run.
+759765	if str(HERE) not in sys.path:
+759766	    sys.path.insert(0, str(HERE))
+759767	import datacentre_feed as D  # noqa: E402  fetch, parse, dates, links, sponsored filter, merge
+759768	import names as N  # noqa: E402  the shared REPD name normalisation
+759769	SCHEMA = "globalgrid2050.news.pipeline-headlines.v1"
+759771	MAX_AGE_DAYS = 120
+759772	CATEGORIES = ("planning_decision", "consent", "refusal", "dco", "finance", "construction", "energisation",
+759773	              "grid", "policy", "datacentre", "other")
+759774	TECHNOLOGIES = ("solar", "wind", "offshore_wind", "battery", "hydro", "tidal")
+759775	ITEM_FIELDS = ("title", "link", "source", "date", "first_seen", "category", "technology", "possible_match")
+759776	SCOPE = ("Headlines and links from public RSS and Atom feeds; no article text is stored. Category and technology "
+759777	         "are labels read from the headline. A possible match is a name coincidence for review, not a confirmed "
+759778	         "link to a REPD project. Data-centre market headlines and China solar headlines are world news, not UK "
+759779	         "project news.")
+759780	WORLD_LANES = ("datacentre_money", "china_solar")
+759781	LANE_CAP = 10
+759782	def _rx(pattern):
+759783	    return re.compile(r"(?<![\w])(?:" + pattern + r")(?![\w])", re.I)
+759784	# ---------------------------------------------------------------- topic (title only)
+759785	TOPICS = {
+759786	    "solar": _rx(r"solar(?!\s+(?:eclipse|system|storm|flare|wind|orbiter))|photovoltaics?|PV"),
+759787	    "wind": _rx(r"wind[\s-]?farms?|wind[\s-]?turbines?|turbines?|offshore wind|onshore wind|floating wind|"
+759788	                r"wind (?:power|energy|projects?|parks?|capacity|developers?|sector|industry)"),
+759789	    "storage": _rx(r"batter(?:y|ies)(?: energy)? storage|BESS|energy storage|battery (?:sites?|farms?|parks?|"
+759790	                   r"projects?|facilit(?:y|ies)|schemes?|units?)|pumped (?:hydro|storage)|"
+759791	                   r"(?<!EV )(?<!car )(?<!vehicle )(?<!phone )batter(?:y|ies)(?! (?:factor|plant|gigafactor|recycl|fire|maker|cell|swap))"),
+759792	    "grid": _rx(r"national grid|NESO|Ofgem|grid connections?|connections? queue|electricity (?:grid|networks?|"
+759793	                r"transmission|superhighway)|power grid|grid (?:upgrades?|reforms?|capacity|queue|operator|"
+759794	                r"infrastructure|reinforcement)|pylons?|substations?|interconnectors?|transmission (?:lines?|"
+759795	                r"networks?|upgrades?|infrastructure|assets)|overhead lines?|power lines?|(?:power|subsea|undersea) cables?"),
+759796	    "renewables": _rx(r"renewables?|clean energy|clean power|green energy|energy parks?|tidal (?:energy|power|"
+759797	                      r"stream|lagoon|park|project|array)|hydro(?:electric)? (?:scheme|project|plant|power)"),
+759798	    "datacentre": _rx(r"data[\s-]?cent(?:re|er)s?|hyperscal(?:e|er|ers)|AI growth zones?"),
+759800	ENERGY_TOPICS = ("solar", "wind", "storage", "grid", "renewables")
+759801	# ---------------------------------------------------------------- event words (title only)
+759802	LEGAL = _rx(r"judicial review|high court|court of (?:appeal|session)|supreme court|challeng(?:e|es|ed)|lawful|"
+759803	            r"unlawful|court|judge|quash(?:ed|es)?")
+759804	REFUSAL = _rx(r"refus(?:e|es|ed|al|als|ing)|reject(?:s|ed|ion|ing)?|turn(?:s|ed)? down|thrown out|throws? out|"
+759805	              r"block(?:s|ed)|denied|dismiss(?:ed|es)|says? no|appeal fail(?:s|ed)|"
+759806	              r"(?:loses?|lost) (?:\w+ )?appeal")
+759807	CONSENT = _rx(r"approv(?:e|es|ed|al|als)|grant(?:s|ed)|consents|consented|go[\s-]ahead|green[\s-]?lit|"
+759808	              r"green[\s-]light(?:s|ed)?|given the nod|gets? the nod|allowed|"
+759809	              r"(?:wins?|won|secur(?:e|es|ed)|gets?|gains?|gained|receiv(?:e|es|ed)|awarded|obtain(?:s|ed)?|lands?)"
+759810	              r"\b.{0,50}\b(?:consents?|permission|approval|DCOs?)|"
+759811	              r"(?:consent|permission) (?:given|secured|awarded|won)|(?:wins?|won) (?:\w+ )?appeal|"
+759812	              r"appeal (?:allowed|upheld|succeeds|success|win|victory)")
+759813	CANCELLED = _rx(r"cancel(?:s|led|lation)?|scrap(?:s|ped)?|shelv(?:e|es|ed)|withdr(?:aw|aws|awn|ew)|abandon(?:s|ed)?|"
+759814	                r"axe[sd]?|pull(?:s|ed) (?:out|the plug)|halt(?:s|ed)?|paus(?:e|es|ed)")
+759815	ENERGISED = _rx(r"energi[sz](?:e|es|ed|ation)|switch(?:es|ed)? on|go(?:es)? live|went live|operational|"
+759816	                r"commission(?:s|ed|ing)|comes? online|came online|first power|starts? (?:generating|exporting|"
+759817	                r"operations?)|begins? (?:generating|exporting|operations?)|connect(?:s|ed) to (?:the )?(?:national )?grid|"
+759818	                r"fully (?:operational|online)|officially open(?:s|ed)?|(?:enters?|into|begins?|starts?) (?:commercial )?"
+759819	                r"operations?|commercial operations?")
+759820	CONSTRUCTION = _rx(r"construction|break(?:s|ing)? ground|broke ground|ground[\s-]?breaking|"
+759821	                   r"(?:work|works|building|build) (?:start|starts|started|begin|begins|began|under ?way|to start|to begin)|"
+759822	                   r"start(?:s|ed)? (?:works?|building)|begins? (?:works?|building)|install(?:s|ed|ation|ing)|"
+759823	                   r"milestone|contractor|EPC|kicks? off")
+759824	FINANCE = _rx(r"financial close|financ(?:e|es|ed|ing)|refinanc(?:e|es|ed|ing)|fund(?:s|ed|ing)|invest(?:s|ed|ing|"
+759825	              r"ment|ments|or|ors)?|acqui(?:re|res|red|sition)|buys?|bought|sells?|sold|sale|stake|loans?|"
+759826	              r"debt|raises?|raised|joint venture|joins? forces|CfDs?|contracts? for difference|auction|AR[78]|tolling|PPA|offtake")
+759827	DCO = _rx(r"DCOs?|development consent|nationally significant|NSIPs?|examination|planning inspectorate|section 36|"
+759828	          r"recommendation")
+759829	DECISION = _rx(r"decisions?|decid(?:e|es|ed)|ruling|rules|ruled|appeals?|inquiry|verdict|call(?:ed|s)?[\s-]in|"
+759830	               r"planning (?:committee|permission)|secretary of state|ministers?|clear(?:s|ed)")
+759831	GRID_EVENT = _rx(r"connections?|connect(?:s|ed)|upgrad(?:e|es|ed)|reinforcement|queue|reforms?|capacity|"
+759832	                 r"constraints?|route|corridor|offers?")
+759833	POLICY = _rx(r"polic(?:y|ies)|consultations?|government|bills?|strateg(?:y|ies)|reforms?|rules|regulations?|"
+759834	             r"targets?|DESNZ|Miliband|parliament|MPs?|plan to|taskforce")
+759835	WEAK = _rx(r"planning|plans? (?:submitted|lodged|unveiled|revealed)|submit(?:s|ted)|lodg(?:es|ed)|applications?|"
+759836	           r"proposals?|consent")
+759837	POLICY_BODY = _rx(r"Ofgem|NESO|reforms?|polic(?:y|ies)|strateg(?:y|ies)|bills?|consultations?|rules|regulations?")
+759838	PROJECT_NOUN = _rx(r"farms?|parks?|projects?|plants?|sites?|schemes?|arrays?|stations?|substations?|"
+759839	                   r"interconnectors?|cables?|pylons?|lines?|BESS|windfarms?|turbines?|DCOs?")
+759840	DC_EXTRA = _rx(r"planning|council|ministers?|government|grid|power|energy|water|billions?|millions?|"
+759841	               r"\d[\d.,]*\s?(?:bn|m)|campus|build(?:s|ing)?|expan(?:d|ds|ded|sion)|capex|spend(?:s|ing)?")
+759842	TECH_RULES = (
+759843	    ("offshore_wind", _rx(r"offshore wind|floating wind|offshore wind[\s-]?farms?")),
+759844	    ("solar", TOPICS["solar"]),
+759845	    ("wind", _rx(r"wind|windfarms?|turbines?")),
+759846	    ("battery", _rx(r"batter(?:y|ies)|BESS|energy storage")),
+759847	    ("hydro", _rx(r"pumped (?:hydro|storage)|hydro(?:electric)?")),
+759848	    ("tidal", _rx(r"tidal")),
+759850	UK_WORDS = _rx(r"UK|U\.K\.|Britain|British|Great Britain|GB|England|English|Scotland|Scottish|Scots|"
+759851	               r"(?<!New South )Wales|Welsh|"
+759852	               r"Northern Ireland|Ofgem|NESO|National Grid|DESNZ|Miliband|Crown Estate|Planning Inspectorate|"
+759853	               r"Celtic Sea|Irish Sea|North Sea|Dogger Bank|Hornsea|East Anglia|Moray|Shetland|Orkney|Humber|London")
+759854	# A headline that names another country and no UK word is not UK news, whatever feed carried it.
+759855	FOREIGN = _rx(r"US|U\.S\.|USA|America|American|EU|Europe-wide|Ireland|Irish|Germany|German|France|French|Spain|"
+759856	              r"Spanish|Italy|Greece|Netherlands|Dutch|Poland|China|Chinese|India|Japan|Australia|Australian|"
+759857	              r"Canada|Texas|California|Singapore|Brazil|Africa|Taiwan|Korean?|Finland|Finnish|Norway|Norwegian|"
+759858	              r"Denmark|Danish|Sweden|Swedish|Belgium|Belgian|Baltic|New South Wales|Queensland|Vietnam|Philippines")
+759859	# Not this page's subject even when a topic word is present.
+759860	EXCLUDE = _rx(r"gas fields?|oil ?fields?|speech|solar (?:eclipse|system|storm|flare)|need to know")
+759861	# World lanes (title only).
+759862	AI_INFRA = _rx(r"data[\s-]?cent(?:re|er)s?|hyperscal(?:e|er|ers)|AI (?:infrastructure|capex|spending|boom|bubble|"
+759863	               r"build[\s-]?out|investments?|chips?|compute|trade|stocks?|rally|debt|bonds?)|compute capacity")
+759864	MONEY = _rx(r"capex|capital expenditure|spend(?:s|ing)?|invest(?:s|ed|ing|ment|ments|or|ors)?|bonds?|debt|loans?|"
+759865	            r"valuations?|valued|bubble|shares?|stocks?|earnings|revenue|profits?|fund(?:s|ed|ing)?|financ(?:e|es|ed|ing)|"
+759866	            r"raises?|raised|IPO|markets?|rally|sell[\s-]?off|euphoria|boom|billions?|millions?|trillions?|"
+759867	            r"[$£€]\s?\d[\d.,]*\s?(?:bn|m|tn|billion|million|trillion)?(?:-plus)?")
+759868	CHINA = _rx(r"China|Chinese|LONGi|Jinko(?:Solar)?|Trina(?: Solar)?|JA Solar|Tongwei|GCL(?: Tech)?|Daqo|Risen|"
+759869	            r"Astronergy|DAS Solar|Aiko|Huasun|Sungrow|TCL Zhonghuan|Canadian Solar")
+759870	SOLAR_TRADE = _rx(r"solar|PV|photovoltaics?|modules?|polysilicon|wafers?|cells?|prices?|exports?|tariffs?")
+759871	def lane_label(title, lane):
+759872	    """World lanes: (category, technology, None) or None. Never a REPD match, never a UK claim."""
+759873	    if lane == "datacentre_money":
+759874	        return ("datacentre", None, None) if AI_INFRA.search(title) and MONEY.search(title) else None
+759875	    if lane == "china_solar":
+759876	        return ("other", "solar", None) if CHINA.search(title) and SOLAR_TRADE.search(title) else None
+759878	# Paid-for items the shared sponsored filter does not name.
+759879	BRANDED = _rx(r"branded content|sponsored feature|promotional feature")
+759880	# Opinion columns and letters are not project news (The Guardian marks them with " | Author").
+759881	OPINION_HOSTS = ("www.theguardian.com",)
+759882	def topics_of(title):
+759883	    return [name for name, rx in TOPICS.items() if rx.search(title)]
+759884	def technology_of(title):
+759885	    for tech, rx in TECH_RULES:
+759886	        if rx.search(title):
+759887	            return tech
+759888	def category_of(title, topics=None):
+759889	    """One category from CATEGORIES for an in-scope title, or None when it carries no event word.
+759890	    topics: given by the priority lane when the topic was found in the feed summary, not the title."""
+759891	    topics = topics or topics_of(title)
+759892	    if not topics or EXCLUDE.search(title):
+759894	    if topics == ["datacentre"]:
+759895	        if any(rx.search(title) for rx in (REFUSAL, CONSENT, FINANCE, CONSTRUCTION, DECISION, POLICY, DC_EXTRA, WEAK)):
+759896	            return "datacentre"
+759897	    has = lambda rx: bool(rx.search(title))  # noqa: E731
+759898	    # A regulator or policy headline with no project noun ("Ofgem approves connection reform") is not a consent.
+759899	    if has(POLICY_BODY) and not has(PROJECT_NOUN):
+759900	        if not any(has(rx) for rx in (REFUSAL, CONSENT, FINANCE, DECISION, GRID_EVENT, POLICY, WEAK)):
+759902	        return "grid" if "grid" in topics else "policy"
+759903	    if has(LEGAL):
+759904	        return "planning_decision"          # outcome of a court case is not safely read from a headline
+759905	    if has(REFUSAL):
+759906	        return "refusal"
+759907	    if has(CONSENT):
+759908	        return "consent"
+759909	    if has(CANCELLED):
+759911	    if has(ENERGISED):
+759912	        return "energisation"
+759913	    if has(CONSTRUCTION):
+759914	        return "construction"
+759915	    if has(FINANCE):
+759916	        return "finance"
+759917	    if has(DCO):
+759918	        return "dco"
+759919	    if has(DECISION):
+759920	        return "planning_decision"
+759921	    if "grid" in topics and has(GRID_EVENT):
+759922	        return "grid"
+759923	    if has(POLICY):
+759924	        return "policy"
+759925	    if has(WEAK):
+759926	# ---------------------------------------------------------------- REPD possible match
+759927	# Words that do not make a REPD name segment distinctive ("Data Centre", "Clean Energy").
+759928	_GENERIC = frozenset({"data", "clean", "smart", "city", "town", "county", "national", "central",
+759929	                      "community", "village", "garden", "retail", "science", "technology", "distribution"})
+759930	class Repd:
+759931	    """Name segments of REPD Site Names, for the possible-match rule. Empty when no CSV is given."""
+759932	    def __init__(self, rows=()):
+759933	        self.by_phrase = {}
+759934	        self.counties = set()
+759935	        place_tokens = set()
+759936	        rows = list(rows)
+759938	            for field in ("County", "Planning Authority", "Region"):
+759939	                place_tokens.update(N.norm(r.get(field)).split())
+759940	            county = N.norm(r.get("County"))
+759941	            if len(county) >= 4 and county not in ("offshore", "central", "islands", "borders", "jersey", "tock"):
+759942	                self.counties.add(county)
+759943	            ref, site = N.clean(r.get("Ref ID")), N.clean(r.get("Site Name"))
+759944	            if not ref or not site:
+759946	            parts = N.segments(site)
+759947	            for seg in _name_segments(parts):
+759948	                phrase = N.norm(seg)
+759949	                toks = phrase.split()
+759950	                distinct = [t for t in toks if len(t) >= 4 and not t.isdigit() and t not in N.NAME_BOILERPLATE
+759951	                            and t not in N.GENERIC_SINGLE and t not in N.ADDRESS_ONLY and t not in _GENERIC]
+759952	                if not distinct:
+759954	                if len(toks) == 1 and (len(toks[0]) < 7 or toks[0] in place_tokens):
+759955	                    continue        # a single word must be distinctive: long, and not a county or authority word
+759956	                self.by_phrase.setdefault(phrase, {})[ref] = {
+759957	                    "ref": ref, "site_name": site, "family": N.tech_family(r.get("Technology Type")),
+759958	                    "operator": N.operator_tokens(r.get("Operator (or Applicant)")),
+759959	                    "authority": _authority(r.get("Planning Authority")), "county": N.norm(r.get("County"))}
+759960	        self.max_words = max((len(p.split()) for p in self.by_phrase), default=0)
+759962	    def load(cls, path):
+759963	        if not path or not Path(path).exists():
+759964	            return cls()
+759965	        raw = Path(path).read_bytes()
+759967	            text = raw.decode("utf-8-sig")
+759969	            text = raw.decode("cp1252")
+759970	        return cls(csv.DictReader(io.StringIO(text)))
+759972	        """{"repd_ref", "site_name", "basis"} or None. Longest name first; exactly one REPD site must remain."""
+759973	        text = N.padded(title)
+759974	        toks = text.split()
+759975	        for size in range(min(self.max_words, len(toks)), 0, -1):
+759976	            found = None
+759977	            for i in range(len(toks) - size + 1):
+759978	                phrase = " ".join(toks[i:i + size])
+759979	                rows = self.by_phrase.get(phrase)
+759980	                if not rows:
+759981	                if size == 1 and not N.descriptor_adjacent(text, phrase):
+759982	                    continue        # a single word counts only right before a technology word ("Xyzzy solar")
+759983	                rest = N.padded(" ".join(toks[:i] + toks[i + size:]))
+759984	                agreed = {}
+759985	                for ref, row in rows.items():
+759986	                    # one word plus a technology word is too weak ("Hunterston battery" fits more than one
+759987	                    # project): a single-word name needs the developer, the planning authority or the county
+759988	                    basis = _agreement(row, rest, N.tech_context(text) if size > 1 else ())
+759989	                    if basis:
+759990	                        agreed[ref] = (row, basis)
+759991	                named = {ref: v for ref, v in agreed.items() if v[1] != "technology"}
+759992	                agreed = named or agreed    # a developer, authority or county in the headline outranks technology
+759993	                if agreed and len({(row["site_name"], row["county"]) for row, _ in agreed.values()}) == 1:
+759994	                    # one row, or co-located rows of one site (same Site Name and county): lowest Ref ID stands for it
+759995	                    row, basis = agreed[min(agreed, key=lambda r: (len(r), r))]
+759996	                    found = {"repd_ref": row["ref"], "site_name": row["site_name"], "basis": basis}
+759998	                if agreed:
+759999	                    return None     # the name fits more than one REPD row: say nothing
+760001	                return found
+760002	_COLOCATED_TAIL = re.compile(r"\s+(?:&|and)\s+(.+)$", re.I)
+760003	def _name_segments(parts):
+760004	    """First and last segment of a REPD Site Name as written, and each of them without a trailing
+760005	    '& Battery Storage'-style tail (a tail made only of technology words describes the co-located plant)."""
+760007	    for seg in ([parts[0], parts[-1]] if parts else []):
+760008	        out.append(seg)
+760009	        tail = _COLOCATED_TAIL.search(seg)
+760010	        if tail and all(t in N.NAME_BOILERPLATE for t in N.norm(tail.group(1)).split()):
+760011	            out.append(seg[:tail.start()])
+760013	def _authority(value):
+760014	    parts = N.segments(value)
+760015	    toks = [t for t in N.norm(parts[0] if parts else "").split() if t not in ("the", "council")]
+760017	def _agreement(row, rest, families):
+760018	    """What else in the headline agrees with this REPD row. rest = the headline without the matched name."""
+760019	    if row["operator"] & set(rest.split()):
+760020	        return "developer"
+760021	    if len(row["authority"]) >= 5 and N.contains_phrase(rest, row["authority"]):
+760022	        return "planning_authority"
+760023	    if len(row["county"]) >= 5 and row["county"] != "offshore" and N.contains_phrase(rest, row["county"]):
+760024	        return "county"
+760025	    if row["family"] in families:
+760026	        return "technology"
+760027	def newest_repd_csv(root):
+760028	    """The newest quarterly REPD file in the repository root (repd-2026q3.csv, ...), or None."""
+760029	    found = sorted(Path(root).glob("repd-20[0-9][0-9]q[1-4].csv"))
+760030	    return str(found[-1]) if found else None
+760031	# ---------------------------------------------------------------- collect, dedupe, build
+760032	def is_uk(title, repd):
+760033	    """The title itself says this is UK news: a UK word, a REPD county, or a REPD site name of two words or more."""
+760034	    if UK_WORDS.search(title):
+760036	    padded = N.padded(title)
+760037	    if any(N.contains_phrase(padded, county) for county in repd.counties):
+760038	    toks = padded.split()
+760039	    return any(" ".join(toks[i:i + size]) in repd.by_phrase
+760040	               for size in range(2, min(repd.max_words, len(toks)) + 1) for i in range(len(toks) - size + 1))
+760041	def label(title, repd):
+760042	    """(category, technology, possible_match) for a kept title, or None when the title is out of scope."""
+760043	    category = category_of(title)
+760044	    if category is None:
+760045	    match = None if category == "datacentre" else repd.match(title)
+760046	    return category, technology_of(title), match
+760047	def priority_label(title, summary, repd):
+760048	    """Priority lane: (category, technology, possible_match) when the title or feed summary says solar or
+760049	    data centre, with or without an event word; None otherwise."""
+760051	    solar, datacentre = TOPICS["solar"].search(text), TOPICS["datacentre"].search(text)
+760052	    if not (solar or datacentre) or EXCLUDE.search(title):
+760053	    if not solar:
+760054	        return "datacentre", None, None
+760055	    return category_of(title, ["solar"]) or "other", technology_of(title), repd.match(title)
+760056	def load_feeds(path):
+760057	    feeds = json.loads(Path(path).read_text(encoding="utf-8"))["feeds"]
+760058	    return [f for f in feeds if f.get("url", "").startswith("https://") and f.get("source")]
+760059	def collect(feeds, fetch, repd, now_iso):
+760060	    """Returns (items, health). A feed that fails is recorded and skipped; the run carries on."""
+760062	    horizon = _shift(now_iso, days=2)
+760063	    for feed in feeds:
+760064	        url, source = feed["url"], feed["source"]
+760066	            entries = D.parse_feed(body)
+760071	        kept, newest = 0, None
+760073	            title, link, date = D.clean_text(title, 300), D.canonical_link(link), D.parse_date(date)
+760074	            if date and (newest is None or date > newest):
+760075	                newest = date
+760076	            if not title or not link or D.SPONSORED_RE.search(title) or BRANDED.search(title):
+760077	            if date and date > horizon:
+760078	            if any(h in link for h in OPINION_HOSTS) and " | " in title:
+760079	            lane = feed.get("lane")
+760080	            if lane in WORLD_LANES:
+760081	                verdict = lane_label(title, lane)
+760083	                if FOREIGN.search(title) and not UK_WORDS.search(title):
+760084	                verdict = label(title, repd)
+760085	                if verdict is None and lane == "keywords":
+760086	                    verdict = priority_label(title, D.clean_text(summary, 2000), repd)   # summary read, never stored
+760087	                if verdict is not None and not feed.get("uk_only") and not is_uk(title, repd):
+760088	                    verdict = None
+760090	            items.append({"_feed": url, "title": title, "link": link, "source": source, "date": date, "first_seen": now_iso,
+760091	                          "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
+760094	                       "newest": newest})
+760096	def _shift(iso, days):
+760097	    moved = dt.datetime.fromisoformat(iso.replace("Z", "+00:00")) + dt.timedelta(days=days)
+760098	    return moved.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+760099	def when(item):
+760100	    return item.get("date") or item.get("first_seen") or ""
+760101	_SUFFIX = re.compile(r"\s+[|–—-]\s+[^|–—-]{2,40}$")
+760102	def title_key(title):
+760103	    """Title reduced for comparing two feeds' copies: a trailing " - Publisher" removed, then names.norm."""
+760104	    return N.norm(_SUFFIX.sub("", title)) or N.norm(title)
+760105	def dedupe_titles(items):
+760106	    """Collapse near-identical titles (same words, or 85% of words shared, within 3 days). The earliest
+760107	    published copy stays; the link breaks ties."""
+760109	    for item in sorted(items, key=lambda i: (when(i), i["link"])):
+760110	        key = title_key(item["title"])
+760111	        words = set(key.split())
+760112	        day = when(item)[:10]
+760113	        duplicate = False
+760114	        for other_key, other_words, other_day in ((k["_k"], k["_w"], k["_d"]) for k in kept):
+760115	            if key == other_key:
+760116	                duplicate = True
+760117	            elif len(words) >= 5 and abs(_days(day, other_day)) <= 3:
+760118	                duplicate = len(words & other_words) / len(words | other_words) >= 0.85
+760119	            if duplicate:
+760121	        if not duplicate:
+760122	            kept.append(dict(item, _k=key, _w=words, _d=day))
+760123	    return [{f: k.get(f) for f in ITEM_FIELDS} for k in kept]
+760124	def _days(a, b):
+760126	        return (dt.date.fromisoformat(a) - dt.date.fromisoformat(b)).days
+760129	def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None):
+760130	    """Earlier items are kept (a rolling feed must not make a story vanish) and re-labelled with today's rules.
+760131	    Link merge and first_seen are datacentre_feed.merge; then age limit, title dedupe, newest first, cap.
+760132	    lanes: {source: lane} from the feed list. A keywords-lane item that was kept on its feed summary keeps the
+760133	    labels it was given then, because the summary is not stored and cannot be read again. Each world lane is
+760134	    cut to its newest LANE_CAP items."""
+760135	    lanes = lanes or {}
+760136	    fresh = {i["link"]: i for i in incoming}
+760137	    by_link = D.merge(previous, incoming, cap=10 ** 6)
+760138	    cutoff = _shift(now_iso, days=-max_age_days)
+760139	    for item in by_link:
+760140	        lane = lanes.get(item.get("source"))
+760141	        if lane in WORLD_LANES:
+760142	            verdict = lane_label(item.get("title", ""), lane)
+760144	            verdict = label(item.get("title", ""), repd)
+760145	        if verdict is None and lane not in WORLD_LANES and (item["link"] in fresh or lane == "keywords") \
+760146	                and item.get("category") in CATEGORIES:
+760147	            verdict = (item["category"], item.get("technology"), item.get("possible_match"))
+760148	        if verdict is None or when(item) < cutoff:
+760149	        out.append({"title": item["title"], "link": item["link"], "source": item.get("source", ""),
+760150	                    "date": item.get("date"), "first_seen": item.get("first_seen") or now_iso,
+760151	                    "category": verdict[0], "technology": verdict[1], "possible_match": verdict[2]})
+760152	    out = dedupe_titles(out)
+760153	    out.sort(key=lambda i: (when(i), i["link"]), reverse=True)
+760154	    seen, capped = {}, []
+760155	    for item in out:
+760156	        lane = lanes.get(item["source"])
+760157	            seen[lane] = seen.get(lane, 0) + 1
+760158	            if seen[lane] > LANE_CAP:
+760159	        capped.append(item)
+760160	    return capped[:cap]
+760161	def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None):
+760162	    merged = merge(previous.get("items", []), items, repd, now_iso, cap, lanes=lanes)
+760164	    by_category = {c: n for c in CATEGORIES if (n := sum(i["category"] == c for i in merged))}
+760168	        "status": "ok" if ok == len(health) and health else ("partial" if ok else "failed"),
+760169	        "counts": {"items": len(merged), "with_possible_match": sum(bool(i["possible_match"]) for i in merged),
+760170	                   "feeds_ok": ok, "feeds_failed": len(health) - ok, "by_category": by_category},
+760171	        "limits": {"max_items": cap, "max_age_days": MAX_AGE_DAYS},
+760172	        "scope": SCOPE,
+760176	def probe_report(items, merged, health, now_iso, primary=(), lanes=None):
+760177	    """Markdown feed-health report for the pull-request probe job: every feed, then the headlines that would
+760178	    be published (after merge and dedupe)."""
+760179	    by_feed = {}
+760180	    for i in items:
+760181	        by_feed.setdefault(i["_feed"], []).append(i)
+760182	    lines = ["# Pipeline headlines feed probe, %s" % now_iso, "",
+760183	             "%d feeds: %d ok, %d failed. %d headlines kept; %d after merge and dedupe." % (
+760184	                 len(health), sum(h["status"] == "ok" for h in health),
+760185	                 sum(h["status"] != "ok" for h in health), len(items), len(merged)), "",
+760186	             "| feed | status | items | newest | kept | sample kept titles |", "|---|---|---|---|---|---|"]
+760187	    for h in health:
+760188	        samples = [i["title"] for i in by_feed.get(h["url"], [])][:3]
+760189	        cell = " / ".join(s.replace("|", "/") for s in samples)
+760190	        lines.append("| %s (%s) | %s | %s | %s | %s | %s |" % (
+760191	            h["url"], h["source"], h["status"] if h["status"] == "ok" else "FAILED " + h.get("error", "").replace("|", "/"),
+760192	            h.get("entries", ""), (h.get("newest") or "")[:10], h.get("kept", ""), cell))
+760193	    primary, lanes = list(primary), lanes or {}
+760194	    rank = lambda i: primary.index(i["source"]) if i["source"] in primary else len(primary)  # noqa: E731
+760195	    merged = sorted(merged, key=rank)   # stable: newest first within each source group
+760196	    lines += ["", "## Headlines that would be published: %s first, then the rest; newest first within each" % (
+760197	                  ", then ".join(primary) or "no primary source"), "",
+760198	              "The published file itself is ordered newest first. Lanes: " + (", ".join(
+760199	                  "%s = %s" % (s, l) for s, l in lanes.items()) or "none") + ".", "",
+760200	              "| date | category | technology | possible match | source | title |", "|---|---|---|---|---|---|"]
+760201	    for i in merged:
+760202	        m = i["possible_match"]
+760203	        lines.append("| %s | %s | %s | %s | %s | %s |" % (
+760204	            (i["date"] or "undated")[:10], i["category"], i["technology"] or "",
+760205	            "REPD %s %s (%s)" % (m["repd_ref"], m["site_name"].replace("|", "/"), m["basis"]) if m else "",
+760206	            i["source"], i["title"].replace("|", "/")))
+760209	    root = HERE.parents[1]
+760211	    ap.add_argument("--out", default="dist/pipeline_headlines.json")
+760212	    ap.add_argument("--feeds", default=str(HERE / "pipeline_feeds.json"), help="JSON list of feeds to read")
+760213	    ap.add_argument("--repd", default=None, help="REPD CSV for possible matches (default: newest repd-<yyyy>q<n>.csv)")
+760216	    ap.add_argument("--probe", default=None, help="write a Markdown feed-health report here; no data file is written")
+760221	    repd = Repd.load(args.repd or newest_repd_csv(root))
+760222	    feeds = load_feeds(args.feeds)
+760226	            path = fixture_dir / D.fixture_name(url)
+760231	        fetch = D.fetch_url
+760232	    feeds.sort(key=lambda f: not f.get("primary"))         # primary sources first; otherwise the order of the list
+760233	    lanes = {f["source"]: f["lane"] for f in feeds if f.get("lane")}
+760234	    primary = list(dict.fromkeys(f["source"] for f in feeds if f.get("primary")))
+760235	    items, health = collect(feeds, fetch, repd, now_iso)
+760236	    if args.probe:
+760237	        report = probe_report(items, merge([], items, repd, now_iso, args.max_items, lanes=lanes), health, now_iso,
+760238	                              primary, lanes)
+760239	        Path(args.probe).write_text(report, encoding="utf-8")
+760240	        print(report)
+760249	    result = build(previous, items, health, repd, now_iso, args.max_items, lanes)
+760252	    tmp.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+760254	    print(json.dumps({"status": result["status"], **result["counts"], "repd_names": len(repd.by_phrase),
+760256	    return 1 if result["status"] == "failed" and not previous else 0
+760259	"""Project signals: the combiner. Three optional part files and the planning-file fallback become one file.
+760260	  python automation/news/signals/combine.py --official parts/official.json --trade parts/trade.json \
+760261	      --index parts/index.json --previous dist/project_signals.json --out dist/project_signals.json
+760262	Output: dist/project_signals.json, schema project-signals.v1 (the shared contract, section 5), keyed by REPD Ref ID
+760263	for each of the 200 largest solar projects: "signals" (headline, link, publisher, date; newest first, at most
+760264	five, no link twice) and "planning_file" (always present, labelled "planning file", never placed in "signals").
+760266	- Every part file is optional. A part that is absent, unreadable or of another schema is recorded under "parts"
+760267	  and the run carries on with the rest; with no part at all every project still has its planning file.
+760268	- Items for a reference outside the 200, without a usable https link, from a source that is not allowed, or whose
+760269	  title carries one of the project's "exclude" phrases are dropped and counted.
+760270	- The "reviewed" part is a committed file, reviewed_signals.json: signals found by hand, each with basis
+760271	  "reviewed <date>". A fetched item with the same link takes the reviewed one's place. A developer's or a
+760272	  campaign's own page has family "developer" and is never counted as news.
+760273	- Signals already published in the previous file are kept, so a story that has rolled off a feed does not vanish.
+760274	- The planning file comes from, in order: a --planning file, the planning_file module when it can be imported
+760275	  (planning_file_for), aliases.json, and a last resort built here (counted separately, never marked verified).
+760276	- counts.nothing must be 0: the exit code is 2 if any project has neither a signal nor a planning file.
+760278	NEWS = HERE.parent
+760279	for _path in (str(NEWS), str(HERE)):
+760280	    if _path not in sys.path:
+760281	        sys.path.insert(0, _path)
+760282	import datacentre_feed as D  # noqa: E402  canonical links and text cleaning (reused, not copied)
+760283	SCHEMA = "project-signals.v1"
+760284	PART_SCHEMA = "project-signals-part.v1"
+760285	TRUTH_SCHEMA = "project-signals-ground-truth.v1"
+760286	SCOPE = "200 largest Solar Photovoltaics rows, REPD October 2026"
+760287	TEAMS = ("official", "trade", "index", "reviewed")
+760288	FAMILIES = ("official", "bbc", "trade", "national", "regional", "developer")
+760289	REVIEWED = "reviewed"            # basis of an item found by hand: "reviewed <date>"
+760290	# A developer's or a campaign's own page is something to click, not news: family "developer", never counted as news.
+760291	DEVELOPER_HOSTS = (
+760292	    "baywa-re.co.uk", "ecotricity.co.uk", "infinis.com", "lightsourcebp.com", "lowcarbon.com", "ensoenergy.co.uk",
+760293	    "sonnedix.com", "statkraft.co.uk", "scottishpowerrenewables.com", "rwe.com", "qair.energy", "uniper.energy",
+760294	    "nationalgrid.com", "azurewebsites.net", "edf-re.uk", "edfenergy.com", "islandgp.com", "pvdp.co.uk",
+760295	    "change.org", "scotlandagainstspin.org", "oxfordpreservation.org.uk", "gwentwildlife.org", "cambridgeppf.org",
+760296	    "whitewatervalley.org.uk")
+760297	AGGREGATOR_HOSTS = ("aol.com", "inkl.com")       # a copy of another publisher's story: never family "bbc"
+760298	NEWS_FAMILIES = ("bbc", "trade", "national", "regional")
+760299	KINDS = ("pins_project", "ecu_case", "pedw_case", "application", "search_page")
+760300	MAX_SIGNALS = 5
+760301	EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "reuters.com", "ft.com", "thetimes.co.uk", "thetimes.com",
+760302	                    "telegraph.co.uk", "bloomberg.com", "wsj.com", "economist.com", "msn.com", "yahoo.com",
+760303	                    "facebook.com", "x.com", "twitter.com", "linkedin.com", "youtube.com")
+760304	PINS_PROJECT = "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/%s"
+760305	ECU_SEARCH = "https://www.energyconsents.scot/ApplicationSearch.aspx"
+760306	PEDW_SEARCH = "https://planningcasework.service.gov.wales/"
+760307	REGISTER_FINDER = "https://www.gov.uk/search-register-planning-decisions"
+760309	    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+760310	def read_json(path):
+760312	        return None, "absent"
+760313	        return json.loads(Path(path).read_text(encoding="utf-8")), "ok"
+760314	    except (ValueError, OSError):
+760315	        return None, "unreadable"
+760316	def _excluded(link):
+760317	    host = (urllib.parse.urlsplit(link).hostname or "").lower()
+760318	    return any(host == d or host.endswith("." + d) for d in EXCLUDED_DOMAINS) or ".google." in "." + host + "."
+760319	def _host_in(link, hosts):
+760320	    return any(host == d or host.endswith("." + d) for d in hosts)
+760321	def is_reviewed(item):
+760322	    return item["basis"].startswith(REVIEWED)
+760323	def clean_item(raw, team):
+760324	    """A part's item in the contract's shape, or (None, reason)."""
+760325	    if not isinstance(raw, dict):
+760326	        return None, "not an object"
+760327	    link = D.canonical_link(raw.get("link") if isinstance(raw.get("link"), str) else "")
+760328	    title = D.clean_text(raw.get("title") if isinstance(raw.get("title"), str) else "", 300)
+760329	    if not link or not title:
+760330	        return None, "no title or link"
+760331	    if _excluded(link):
+760332	        return None, "source not allowed"
+760333	    date = raw.get("date")
+760334	    date = date[:10] if isinstance(date, str) and re.match(r"\d{4}-\d{2}-\d{2}", date) else None
+760335	    family = raw.get("family") if raw.get("family") in FAMILIES else ("official" if team == "official" else
+760336	                                                                        "trade" if team == "trade" else "regional")
+760337	    if _host_in(link, DEVELOPER_HOSTS):
+760338	        family = "developer"
+760339	    elif family == "bbc" and _host_in(link, AGGREGATOR_HOSTS):
+760340	        family = "national"
+760341	    basis = D.clean_text(str(raw.get("basis") or ""), 240)
+760342	    if team == REVIEWED and not basis.startswith(REVIEWED):
+760343	        basis = REVIEWED
+760344	    return {"repd_ref": str(raw.get("repd_ref") or ""), "title": title, "link": link,
+760345	            "publisher": D.clean_text(str(raw.get("publisher") or ""), 80) or (urllib.parse.urlsplit(link).hostname or ""),
+760346	            "date": date, "family": family, "basis": basis,
+760347	            "confidence": "confirmed" if raw.get("confidence") == "confirmed" else "uncertain"}, ""
+760348	    return re.sub(r"[^a-z0-9]+", " ", title.lower()).strip()
+760349	def order_key(item):
+760350	    date = int(item["date"].replace("-", "")) if item["date"] else 0
+760351	    return (item["confidence"] != "confirmed", -date, FAMILIES.index(item["family"]), item["link"])
+760352	def select(items, cap=MAX_SIGNALS):
+760353	    """No link twice, no headline twice (a fetched item always takes the place of a reviewed one); confirmed before
+760354	    uncertain, then newest first (undated last), then family order; at most `cap`, keeping one item of each family
+760355	    present where that is possible."""
+760356	    seen_links, seen_titles, unique = set(), set(), []
+760357	    for item in sorted(items, key=lambda i: (is_reviewed(i), order_key(i))):
+760358	        if item["link"] in seen_links or key in seen_titles:
+760359	        seen_links.add(item["link"])
+760360	        seen_titles.add(key)
+760361	        unique.append(item)
+760362	    unique.sort(key=order_key)
+760363	    if len(unique) <= cap:
+760364	        return unique
+760365	    chosen = unique[:cap]
+760366	    for family in FAMILIES:
+760367	        if any(i["family"] == family for i in chosen):
+760368	        extra = next((i for i in unique[cap:] if i["family"] == family), None)
+760369	        if extra is None:
+760371	        for i in chosen:
+760372	            counts[i["family"]] = counts.get(i["family"], 0) + 1
+760373	        for position in range(len(chosen) - 1, -1, -1):               # replace the last item of a repeated family
+760374	            if counts[chosen[position]["family"]] > 1:
+760375	                chosen[position] = extra
+760376	    return sorted(chosen, key=order_key)
+760377	# ---------------------------------------------------------------- planning file
+760378	def last_resort(row):
+760379	    """A planning file built from the REPD row alone. Never verified; a search page unless the reference is a
+760380	    Planning Inspectorate project number."""
+760381	    ref = (row.get("planning_ref") or "").strip()
+760382	    authority = (row.get("planning_authority") or "").strip()
+760383	    country = (row.get("country") or "").strip()
+760384	    if re.fullmatch(r"EN0\d{5}", ref, re.I):
+760385	        return {"authority": "The Planning Inspectorate", "reference": ref.upper(), "url": PINS_PROJECT % ref.upper(),
+760386	                "kind": "pins_project", "verified": False, "note": ""}
+760387	    shown = ref or "the project name"
+760388	    if re.match(r"ECU", ref, re.I) or (country == "Scotland" and re.search(r"scottish (?:government|ministers)|energy consents", authority, re.I)):
+760389	        return {"authority": "Scottish Government Energy Consents Unit", "reference": ref, "url": ECU_SEARCH,
+760390	                "kind": "search_page", "verified": False, "note": "search for %s" % shown}
+760391	    if re.match(r"DNS|CAS-", ref, re.I) or (country == "Wales" and re.search(r"welsh (?:government|ministers)|PEDW|planning and environment decisions", authority, re.I)):
+760392	        return {"authority": "Planning and Environment Decisions Wales", "reference": ref, "url": PEDW_SEARCH,
+760393	    return {"authority": authority or "Local planning authority", "reference": ref, "url": REGISTER_FINDER,
+760394	            "kind": "search_page", "verified": False,
+760395	            "note": "find the planning register of %s, then search for %s" % (authority or "the local planning authority", shown)}
+760396	def clean_planning_file(raw):
+760397	    url = D.canonical_link(raw.get("url") if isinstance(raw.get("url"), str) else "")
+760398	    if not url:
+760399	    kind = raw.get("kind") if raw.get("kind") in KINDS else "search_page"
+760400	    reference = D.clean_text(str(raw.get("reference") or ""), 120)
+760401	    note = D.clean_text(str(raw.get("note") or ""), 200)
+760402	    if kind == "search_page" and not note and reference:
+760403	        note = "search for %s" % reference
+760404	    return {"label": "planning file", "authority": D.clean_text(str(raw.get("authority") or ""), 120),
+760405	            "reference": reference, "url": url, "kind": kind, "verified": raw.get("verified") is True, "note": note}
+760406	def module_planning_file(row):
+760407	    """Lead 1's builder, only if its module is present. Any failure means "not available"."""
+760408	        import planning_file as PF  # noqa: PLC0415  optional module from another pull request
+760410	    for name in ("planning_file_for", "build_planning_file", "planning_file"):
+760411	        fn = getattr(PF, name, None)
+760414	                return clean_planning_file(fn(dict(row)))
+760417	def planning_table(data):
+760418	    """{repd_ref: planning_file} from either accepted shape of a --planning file."""
+760421	    projects = data.get("projects") if isinstance(data.get("projects"), dict) else data
+760423	    for ref, value in projects.items():
+760424	        if isinstance(value, dict):
+760425	            out[str(ref)] = value.get("planning_file") if isinstance(value.get("planning_file"), dict) else value
+760427	# ---------------------------------------------------------------- combine
+760428	def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_iso=None, use_module=True):
+760429	    """rows: the top-200 list. parts: {team: part dict or None}. Returns the combined file as a dict."""
+760430	    aliases = (aliases or {}).get("projects", {}) if isinstance(aliases, dict) else {}
+760431	    parts, planning = parts or {}, planning_table(planning)
+760432	    refs = [str(r["repd_ref"]) for r in rows]
+760433	    ref_set = set(refs)
+760434	    excludes = {ref: [e.lower() for e in (aliases.get(ref) or {}).get("exclude") or [] if isinstance(e, str) and e.strip()]
+760435	                for ref in refs}
+760436	    gathered = {ref: [] for ref in refs}
+760437	    dropped = {"outside the 200": 0, "no title or link": 0, "source not allowed": 0, "exclude phrase": 0, "not an object": 0}
+760438	    sources, part_state = [], {}
+760439	    def take(raw, team):
+760440	        item, reason = clean_item(raw, team)
+760443	        elif item["repd_ref"] not in ref_set:
+760444	            dropped["outside the 200"] += 1
+760445	        elif any(phrase in item["title"].lower() for phrase in excludes[item["repd_ref"]]):
+760446	            dropped["exclude phrase"] += 1
+760447	            gathered[item["repd_ref"]].append(item)
+760450	    for team in TEAMS:
+760451	        part = parts.get(team)
+760452	        if not isinstance(part, dict):
+760453	            part_state[team] = {"status": part if isinstance(part, str) else "absent", "items": 0}
+760454	        if part.get("schema") != PART_SCHEMA or not isinstance(part.get("items"), list):
+760455	            part_state[team] = {"status": "wrong schema", "items": 0}
+760456	        kept = sum(1 for raw in part["items"] if take(raw, team))
+760457	        part_state[team] = {"status": "ok", "items": kept, "generated_at": part.get("generated_at")}
+760458	        for source in part.get("sources") or []:
+760459	            if isinstance(source, dict):
+760460	                sources.append({"team": team, "id": str(source.get("id") or ""), "url": str(source.get("url") or ""),
+760461	                                "status": source.get("status") if source.get("status") in ("ok", "partial", "failed") else "failed",
+760462	                                "requests": source.get("requests") or 0, "failures": source.get("failures") or 0,
+760463	                                "items": source.get("items") or 0,
+760464	                                "error": re.sub(r"\S+@\S+", "(address removed)", D.clean_text(str(source.get("error") or ""), 300))})
+760465	    carried = 0
+760466	    if isinstance(previous, dict) and previous.get("schema") == SCHEMA:
+760467	        for ref, project in (previous.get("projects") or {}).items():
+760468	            for raw in (project or {}).get("signals") or []:
+760469	                if isinstance(raw, dict):
+760470	                    carried += bool(take(dict(raw, repd_ref=ref), "index"))
+760471	    projects, missing = {}, []
+760472	    counts = {"projects": len(refs), "with_signal": 0, "with_signal_by_family": {f: 0 for f in FAMILIES},
+760473	              "with_news_signal": 0, "official_signal_only": 0, "with_confirmed_signal": 0, "planning_file_only": 0,
+760474	              "planning_file_verified": 0, "planning_file_search_page": 0, "planning_file_last_resort": 0, "nothing": 0,
+760475	              "split": {"fetched_news": 0, "fetched_official": 0, "reviewed_only": 0, "planning_file_only": 0, "nothing": 0}}
+760477	        ref = str(row["repd_ref"])
+760478	        entry = aliases.get(ref) or {}
+760479	        signals = select(gathered[ref])
+760480	        file, origin = None, ""
+760481	        file, origin = clean_planning_file(planning.get(ref)), "planning"
+760482	        if not file and use_module:
+760483	            file, origin = module_planning_file(dict(row, planning_file=entry.get("planning_file"))), "module"
+760484	        if not file:
+760485	            file, origin = clean_planning_file(entry.get("planning_file")), "aliases"
+760486	            file, origin = clean_planning_file(last_resort(row)), "last_resort"
+760487	        names = entry.get("aliases") or []
+760488	        projects[ref] = {"repd_ref": ref, "rank": row.get("rank"), "site_name": (row.get("site_name") or "").strip(),
+760489	                         "alias": names[0] if names and isinstance(names[0], str) else (row.get("site_name") or "").strip(),
+760490	                         "signals": signals, "planning_file": file}
+760491	        families = {s["family"] for s in signals}
+760492	        if signals:
+760493	            counts["with_signal"] += 1
+760494	            for family in families:
+760495	                counts["with_signal_by_family"][family] += 1
+760496	            if families & set(NEWS_FAMILIES):
+760497	                counts["with_news_signal"] += 1
+760498	                counts["official_signal_only"] += 1
+760499	            counts["with_confirmed_signal"] += any(s["confidence"] == "confirmed" for s in signals)
+760500	            fetched = [s for s in gathered[ref] if not is_reviewed(s)]       # before the cap of five
+760501	            if any(s["family"] in NEWS_FAMILIES for s in fetched):
+760502	                counts["split"]["fetched_news"] += 1
+760503	            elif fetched:
+760504	                counts["split"]["fetched_official"] += 1
+760505	                counts["split"]["reviewed_only"] += 1
+760506	        elif file:
+760507	            counts["planning_file_only"] += 1
+760508	            counts["split"]["planning_file_only"] += 1
+760509	            counts["nothing"] += 1
+760510	            counts["split"]["nothing"] += 1
+760512	        if file:
+760513	            counts["planning_file_verified"] += file["verified"]
+760514	            counts["planning_file_search_page"] += file["kind"] == "search_page"
+760515	            counts["planning_file_last_resort"] += origin == "last_resort"
+760516	    return {"schema": SCHEMA, "generated_at": now_iso or now_utc(), "scope": SCOPE, "counts": counts,
+760517	            "parts": part_state, "dropped": dropped, "carried_from_previous": carried, "sources": sources,
+760518	            "projects": projects}
+760519	# ---------------------------------------------------------------- ground truth (the members' findings)
+760520	def load_truth(path):
+760521	    data, state = read_json(path)
+760522	    if state != "ok" or not isinstance(data, dict) or data.get("schema") != TRUTH_SCHEMA:
+760523	    return data.get("projects") or {}
+760524	def truth_report(truth, signals_by_ref, label="all parts"):
+760525	    """Markdown: of the projects the members marked "found", how many the automated run finds, by family."""
+760526	    found = {ref: t for ref, t in truth.items() if t.get("status") == "found"}
+760527	    if not truth:
+760528	        return "### Ground truth\n\nNo ground-truth file.\n"
+760529	    hit = [ref for ref in found if signals_by_ref.get(ref)]
+760530	    lines = ["### Compared with the members' ground truth (%s)\n" % label,
+760531	             "Ground truth covers %d projects: %d found, %d uncertain, %d none, %d not searched." % (
+760532	                 len(truth), len(found), sum(1 for t in truth.values() if t.get("status") == "uncertain"),
+760533	                 sum(1 for t in truth.values() if t.get("status") == "none"),
+760534	                 sum(1 for t in truth.values() if t.get("status") not in ("found", "uncertain", "none"))),
+760535	             "Of the %d found by a member, the automated run has at least one signal for **%d**.\n" % (len(found), len(hit)),
+760536	             "| family in ground truth | projects | automated: any signal | automated: same family | same link |",
+760537	             "|---|---|---|---|---|"]
+760538	        refs = [ref for ref, t in found.items() if family in (t.get("families") or [])]
+760539	        any_signal = sum(1 for ref in refs if signals_by_ref.get(ref))
+760540	        same = sum(1 for ref in refs if any(s["family"] == family for s in signals_by_ref.get(ref) or []))
+760541	        links = sum(1 for ref in refs
+760542	                    if {D.canonical_link(l) for l in found[ref].get("links") or []} & {s["link"] for s in signals_by_ref.get(ref) or []})
+760543	        lines.append("| %s | %d | %d | %d | %d |" % (family, len(refs), any_signal, same, links))
+760544	    extra = [ref for ref, t in truth.items() if t.get("status") != "found" and signals_by_ref.get(ref)]
+760545	    lines.append("\nAutomated signals for projects a member did not mark found: %d%s." % (
+760546	        len(extra), (" (REPD " + ", ".join(sorted(extra, key=lambda r: (len(r), r))[:30]) + ")") if extra else ""))
+760547	    missed = sorted((ref for ref in found if not signals_by_ref.get(ref)), key=lambda r: (len(r), r))
+760548	    if missed:
+760549	        lines.append("Found by a member, not by the run: REPD " + ", ".join(missed[:80]) + ".")
+760550	def summary(result, truth=None):
+760551	    c = result["counts"]
+760552	    lines = ["## Project signals: combined file\n",
+760553	             "Generated %s. %s.\n" % (result["generated_at"], result["scope"]),
+760554	             "| | projects |\n|---|---|",
+760555	             "| with at least one signal | **%d** of %d |" % (c["with_signal"], c["projects"]),
+760556	             "| with a news signal (BBC, trade, national or regional) | %d |" % c["with_news_signal"],
+760557	             "| with an official signal only | %d |" % c["official_signal_only"],
+760558	             "| with a confirmed signal | %d |" % c["with_confirmed_signal"],
+760559	             "| with a planning file only | %d |" % c["planning_file_only"],
+760560	             "| with nothing (must be 0) | %d |" % c["nothing"],
+760561	             "\nSplit of the %d: fetched news %d, fetched official or developer page only %d, reviewed only %d, planning file "
+760562	             "only %d, nothing %d." % (c["projects"], c["split"]["fetched_news"], c["split"]["fetched_official"],
+760563	                                       c["split"]["reviewed_only"], c["split"]["planning_file_only"], c["split"]["nothing"]),
+760564	             "\nBy family: " + ", ".join("%s %d" % kv for kv in c["with_signal_by_family"].items()) + ".",
+760565	             "Planning files: %d verified, %d search pages, %d built as a last resort from the REPD row." % (
+760566	                 c["planning_file_verified"], c["planning_file_search_page"], c["planning_file_last_resort"]),
+760567	             "Parts: " + ", ".join("%s %s (%d items)" % (t, s["status"], s["items"]) for t, s in result["parts"].items())
+760568	             + ". Kept from the previous file: %d. Dropped: %s.\n" % (
+760569	                 result["carried_from_previous"], ", ".join("%s %d" % kv for kv in result["dropped"].items() if kv[1]) or "none"),
+760570	             "| team | source | status | requests | failures | items | error |\n|---|---|---|---|---|---|---|"]
+760571	    for s in result["sources"]:
+760572	        lines.append("| %s | %s | %s | %s | %s | %s | %s |" % (s["team"], s["id"], s["status"], s["requests"], s["failures"],
+760573	                                                                s["items"], s["error"].replace("|", "/")))
+760574	    if truth is not None:
+760575	        lines.append("\n" + truth_report(truth, {ref: p["signals"] for ref, p in result["projects"].items()}))
+760576	    lines.append("\n### The 200\n\n| rank | REPD | alias | shown | date | publisher | title or reference |\n|---|---|---|---|---|---|---|")
+760577	    for p in sorted(result["projects"].values(), key=lambda p: p["rank"] or 0):
+760578	        if p["signals"]:
+760579	            s = p["signals"][0]
+760580	            lines.append("| %s | %s | %s | %s%s | %s | %s | [%s](%s) |" % (
+760581	                p["rank"], p["repd_ref"], p["alias"].replace("|", "/"), s["family"] + (", reviewed" if is_reviewed(s) else ""),
+760582	                "" if s["confidence"] == "confirmed" else " (uncertain)", s["date"] or "", s["publisher"].replace("|", "/"),
+760583	                s["title"].replace("|", "/").replace("[", "(").replace("]", ")"), s["link"]))
+760584	            f = p["planning_file"] or {}
+760585	            lines.append("| %s | %s | %s | planning file | | %s | [%s](%s) |" % (
+760586	                p["rank"], p["repd_ref"], p["alias"].replace("|", "/"), (f.get("authority") or "").replace("|", "/"),
+760587	                (f.get("reference") or f.get("kind") or "none").replace("|", "/"), f.get("url") or ""))
+760588	        ap.add_argument("--" + team, default=None, help="part file of team %s (optional)" % team)
+760589	    ap.set_defaults(reviewed=str(HERE / "reviewed_signals.json"))
+760590	    ap.add_argument("--top200", default=str(HERE / "top200_solar.json"))
+760591	    ap.add_argument("--aliases", default=str(HERE / "aliases.json"))
+760592	    ap.add_argument("--planning", default=None, help="optional {repd_ref: planning_file} file")
+760593	    ap.add_argument("--previous", default=None, help="the file published last time; its signals are kept")
+760594	    ap.add_argument("--truth", default=str(HERE / "index_ground_truth.json"))
+760595	    ap.add_argument("--out", default="dist/project_signals.json")
+760596	    ap.add_argument("--summary", default=None, help="write a Markdown summary here")
+760597	    ap.add_argument("--now", default=None)
+760598	    rows = json.loads(Path(args.top200).read_text(encoding="utf-8"))
+760599	    aliases, _ = read_json(args.aliases)
+760600	    parts = {}
+760601	        data, state = read_json(getattr(args, team))
+760602	        parts[team] = data if state == "ok" else state
+760603	    planning, _ = read_json(args.planning)
+760604	    previous, _ = read_json(args.previous)
+760605	    result = combine(rows, aliases, parts, planning, previous, args.now)
+760607	        truth = load_truth(args.truth) if args.truth and Path(args.truth).exists() else None
+760608	        Path(args.summary).write_text(summary(result, truth), encoding="utf-8")
+760609	    print(json.dumps({"out": str(out), **{k: v for k, v in result["counts"].items() if not isinstance(v, dict)},
+760610	                      "split": result["counts"]["split"], "parts": {t: s["status"] for t, s in result["parts"].items()}}))
+760611	    if result["counts"]["nothing"]:
+760612	        print("FAIL: %d project(s) have neither a signal nor a planning file" % result["counts"]["nothing"], file=sys.stderr)
+760615	"""Project signals, part "index": BBC News RSS, the Guardian's RSS by tag and the GDELT DOC 2.0 API.
+760616	For each of the 200 largest solar projects in the REPD (top200_solar.json) and its curated press name
+760617	(aliases.json) this script looks for dated headlines about that project and writes one part file in the shared
+760618	contract (schema project-signals-part.v1, team "index"). Headlines and links only: a feed summary is read in
+760619	memory to decide a match and is never written; no article page is ever requested.
+760620	  python automation/news/signals/index.py --out parts/index.json [--probe summary.md] [--limit N]
+760621	Sources
+760622	- BBC News RSS (the owner's first primary source): the national feeds and the regional feed of every county that
+760623	  appears in the top 200 (BBC_REGION below; each feed's health is recorded so a wrong address is visible).
+760624	- The Guardian's public RSS for a few tags.
+760625	- GDELT DOC 2.0 (no key): one query per project, the project's name as an exact phrase with the word solar,
+760626	  restricted to UK sources. One request every few seconds, back off on HTTP 429, answers cached by query, and the
+760627	  200 are rotated across runs (never asked first, then longest since asked).
+760628	Match rule (shared contract, section 3). An item is tied to a project when the headline carries the alias, or
+760629	the project's name directly followed by "solar", or the planning reference. BBC headlines rarely name the
+760630	project, so the feed's own summary is also read: the alias in the summary counts when one more fact agrees (the
+760631	feed is the project's own county feed, or the county or operator is named). A weaker match (the name and "solar"
+760632	apart in the headline; the name only in the summary of the county feed; a GDELT article whose text carries the
+760633	phrase but whose headline only says solar) is kept with confidence "uncertain". The basis line says which.
+760634	A bare place name is never enough. Google News links and excluded sources are dropped.
+760638	import datacentre_feed as D  # noqa: E402  fetch, parse, dates, canonical links (reused, not copied)
+760639	SCHEMA = "project-signals-part.v1"
+760640	TEAM = "index"
+760641	USER_AGENT = "GlobalGrid2050-ProjectSignals/1.0 (+https://globalgrid2050.com)"
+760643	MAX_PER_PROJECT = 8
+760644	GDELT_URL = "https://api.gdeltproject.org/api/v2/doc/doc"
+760645	GDELT_INTERVAL_S = 6.0
+760646	GDELT_MAXRECORDS = 75
+760647	GDELT_CACHE_DAYS = 7
+760648	GDELT_DEFAULT_CAP = 120
+760649	GDELT_MAX_REFUSALS = 6          # a query refused twice (HTTP 429) this many times running: stop for this run
+760650	# Widest first. GDELT answers a window it does not allow with a plain-text message; the script then steps down.
+760651	GDELT_WINDOWS = (("since 2017", {"startdatetime": "20170101000000"}),
+760652	                 ("last 12 months", {"timespan": "12m"}),
+760653	                 ("default (about three months)", {}))
+760654	BBC_BASE = "https://feeds.bbci.co.uk/news/"
+760655	BBC_NATIONAL = ("", "uk/", "business/", "science_and_environment/", "politics/", "england/", "scotland/", "wales/",
+760656	                "northern_ireland/")
+760657	# REPD county -> BBC regional feed slug(s). Every address is fetched in CI; a failure shows in the health table.
+760658	BBC_REGION = {
+760659	    "lincolnshire": ["england/lincolnshire", "england/humberside"],
+760660	    "nottinghamshire": ["england/nottingham"],
+760661	    "cambridgeshire": ["england/cambridgeshire"],
+760662	    "essex": ["england/essex"],
+760663	    "gloucestershire": ["england/gloucestershire"],
+760664	    "oxfordshire": ["england/oxford"],
+760665	    "north yorkshire": ["england/york_and_north_yorkshire"],
+760666	    "warwickshire": ["england/coventry_and_warwickshire"],
+760667	    "wiltshire": ["england/wiltshire"],
+760668	    "county durham": ["england/tees", "england/tyne_and_wear"],
+760669	    "south yorkshire": ["england/south_yorkshire"],
+760670	    "northamptonshire": ["england/northamptonshire"],
+760671	    "kent": ["england/kent"],
+760672	    "norfolk": ["england/norfolk"],
+760673	    "derbyshire": ["england/derbyshire"],
+760674	    "hampshire": ["england/hampshire"],
+760675	    "staffordshire": ["england/stoke_and_staffordshire"],
+760676	    "cleveland": ["england/tees"],
+760677	    "buckinghamshire": ["england/beds_bucks_and_herts"],
+760678	    "hertfordshire": ["england/beds_bucks_and_herts"],
+760679	    "east riding of yorkshire": ["england/humberside"],
+760680	    "humberside": ["england/humberside"],
+760681	    "cumbria": ["england/cumbria"],
+760682	    "leicestershire": ["england/leicester"],
+760683	    "northumberland": ["england/tyne_and_wear"],
+760684	    "devon": ["england/devon"],
+760685	    "suffolk": ["england/suffolk"],
+760686	    "somerset": ["england/somerset"],
+760687	    "west yorkshire": ["england/leeds_and_west_yorkshire"],
+760688	    "cheshire": ["england/merseyside", "england/manchester", "england/stoke_and_staffordshire"],
+760689	    "london": ["england/london"],
+760690	    "cornwall": ["england/cornwall"],
+760691	    "hereford and worcester": ["england/hereford_and_worcester"],
+760692	    "worcestershire": ["england/hereford_and_worcester"],
+760693	    "west midlands": ["england/birmingham_and_black_country", "england/coventry_and_warwickshire"],
+760694	    "berkshire": ["england/berkshire"],
+760695	    "shropshire": ["england/shropshire"],
+760696	    "dorset": ["england/dorset"],
+760697	    "tayside": ["scotland/tayside_and_central"], "perthshire": ["scotland/tayside_and_central"],
+760698	    "angus": ["scotland/tayside_and_central"],
+760699	    "lanarkshire": ["scotland/glasgow_and_west"], "strathclyde": ["scotland/glasgow_and_west"],
+760700	    "renfrewshire": ["scotland/glasgow_and_west"], "ayrshire": ["scotland/glasgow_and_west"],
+760701	    "aberdeenshire": ["scotland/north_east_orkney_and_shetland"],
+760702	    "grampian": ["scotland/north_east_orkney_and_shetland"],
+760703	    "moray": ["scotland/north_east_orkney_and_shetland", "scotland/highlands_and_islands"],
+760704	    "borders": ["scotland/south_scotland"],
+760705	    "fife": ["scotland/edinburgh_east_and_fife"], "east lothian": ["scotland/edinburgh_east_and_fife"],
+760706	    "gwent": ["wales/south_east_wales"], "south glamorgan": ["wales/south_east_wales"],
+760707	    "vale of glamorgan": ["wales/south_east_wales"], "west glamorgan": ["wales/south_west_wales"],
+760708	    "clwyd": ["wales/north_east_wales"], "flintshire": ["wales/north_east_wales"],
+760709	    "denbighshire": ["wales/north_east_wales"],
+760710	    "gwynedd": ["wales/north_west_wales"], "isle of anglesey": ["wales/north_west_wales"],
+760711	    "co. antrim": ["northern_ireland"],
+760712	GUARDIAN_FEEDS = ("https://www.theguardian.com/environment/solarpower/rss",
+760713	                  "https://www.theguardian.com/environment/renewableenergy/rss",
+760714	                  "https://www.theguardian.com/environment/energy/rss",
+760715	                  "https://www.theguardian.com/business/energy-industry/rss",
+760716	                  "https://www.theguardian.com/politics/planning/rss")
+760717	# Not allowed as sources (brief): Google, Reuters, anything behind a login or paywall; plus aggregators that
+760718	# re-host another publisher's story.
+760719	EXCLUDED_DOMAINS = ("google.com", "google.co.uk", "news.google.com", "reuters.com", "ft.com", "thetimes.co.uk",
+760720	                    "thetimes.com", "telegraph.co.uk", "bloomberg.com", "wsj.com", "economist.com", "msn.com",
+760721	                    "yahoo.com", "facebook.com", "x.com", "twitter.com", "linkedin.com", "youtube.com")
+760722	PUBLISHERS = {
+760723	    "bbc.co.uk": ("BBC News", "bbc"), "bbc.com": ("BBC News", "bbc"),
+760724	    "theguardian.com": ("The Guardian", "national"), "independent.co.uk": ("The Independent", "national"),
+760725	    "sky.com": ("Sky News", "national"), "lbc.co.uk": ("LBC", "national"), "itv.com": ("ITV News", "national"),
+760726	    "dailymail.co.uk": ("Daily Mail", "national"), "mirror.co.uk": ("Daily Mirror", "national"),
+760727	    "express.co.uk": ("Daily Express", "national"), "standard.co.uk": ("The Standard", "national"),
+760728	    "inews.co.uk": ("The i Paper", "national"), "thesun.co.uk": ("The Sun", "national"),
+760729	    "scotsman.com": ("The Scotsman", "national"), "heraldscotland.com": ("The Herald", "national"),
+760730	    "solarpowerportal.co.uk": ("Solar Power Portal", "trade"), "pv-tech.org": ("PV Tech", "trade"),
+760731	    "pv-magazine.com": ("pv magazine", "trade"), "energy-storage.news": ("Energy-Storage.news", "trade"),
+760732	    "current-news.co.uk": ("Current", "trade"), "renews.biz": ("reNEWS", "trade"),
+760733	    "planningresource.co.uk": ("Planning Resource", "trade"),
+760734	    "constructionenquirer.com": ("Construction Enquirer", "trade"),
+760735	    "businessgreen.com": ("BusinessGreen", "trade"), "energylivenews.com": ("Energy Live News", "trade"),
+760736	    "theenergyst.com": ("The Energyst", "trade"), "renewablesnow.com": ("Renewables Now", "trade"),
+760737	    "energyvoice.com": ("Energy Voice", "trade"), "theconstructionindex.co.uk": ("The Construction Index", "trade"),
+760738	    "farminguk.com": ("FarmingUK", "trade"), "fwi.co.uk": ("Farmers Weekly", "trade"),
+760739	    "edie.net": ("edie", "trade"), "insidermedia.com": ("Insider Media", "trade"),
+760740	    "gov.uk": ("GOV.UK", "official"), "gov.scot": ("Scottish Government", "official"),
+760741	    "gov.wales": ("Welsh Government", "official"), "parliament.uk": ("UK Parliament", "official"),
+760742	GDELT_DOMAINS = ("bbc.co.uk", "theguardian.com", "solarpowerportal.co.uk", "pv-tech.org", "pv-magazine.com",
+760743	                 "independent.co.uk", "lincolnshireworld.com", "lincolnshirelive.co.uk", "edp24.co.uk",
+760744	                 "oxfordmail.co.uk", "yorkshirepost.co.uk", "nottinghampost.com", "cambridge-news.co.uk")
+760745	GENERIC_WORDS = frozenset((
+760746	    "solar", "energy", "farm", "farms", "park", "parks", "project", "projects", "pv", "photovoltaic",
+760747	    "photovoltaics", "renewable", "renewables", "scheme", "array", "plant", "power", "station", "battery",
+760748	    "storage", "bess", "hub", "centre", "center", "green", "ltd", "limited", "and", "&", "site", "panels",
+760749	    "development", "extension", "co-located", "colocated"))
+760750	# A name that is only this is too common to match on without the full alias.
+760751	WEAK_CORES = frozenset((
+760752	    "north", "south", "east", "west", "the", "new", "great", "little", "upper", "lower", "manor", "grange", "hall",
+760753	    "home", "church", "mill", "park", "wood", "field", "green", "hill", "bridge", "lodge", "airfield", "aerodrome",
+760754	    "england", "scotland", "wales", "uk", "britain", "one", "two", "sunny", "light", "bright", "meadow", "valley",
+760755	    "common", "heath", "moor", "marsh", "fen", "fens", "marshes", "court", "castle", "abbey", "priory", "glebe",
+760756	    "rectory", "station", "high", "low", "long", "white", "black", "red", "oak", "ash", "elm", "stoke", "land",
+760757	    "airport", "port", "dock", "docks", "quarry", "colliery", "estate", "airbase", "base", "house", "farm",
+760758	    "yorkshire", "anglia", "midlands", "road", "middle", "lane", "street",
+760759	    # names shared with places or companies abroad: only the full alias is matched
+760760	    "houston", "springfield", "oaklands", "meridian", "helios"))
+760761	EMAIL = re.compile(r"\S+@\S+")
+760762	def scrub(text):
+760763	    """A source's own message, without any email address it carries."""
+760764	    return " ".join(EMAIL.sub("(address removed)", text or "").split())
+760765	SOLAR = re.compile(r"(?<!\w)(?:solar|photovoltaics?|pv)(?!\w)", re.I)
+760766	REF = re.compile(r"\b(?:EN0\d{5}|ECU\d{6,8}|DNS/\d{7}|DNS\s?CAS-\d+[-\w]*)\b", re.I)
+760767	# ---------------------------------------------------------------- projects and aliases
+760768	def clean_site_name(site_name):
+760769	    """REPD "Place, Village - Project Name & Battery Storage" -> "Project Name" (a derived alias)."""
+760770	    name = " ".join((site_name or "").split())
+760771	    if " - " in name:
+760772	        left, right = name.split(" - ", 1)
+760773	        name = right if re.search(r"solar|energy|park|farm", right, re.I) and len(right.split()) > 2 else left
+760774	    name = re.sub(r"\s*(?:&|and|with|\+)\s*(?:battery|bess|energy storage|storage|co-?located).*$", "", name, flags=re.I)
+760775	    name = re.sub(r"\s*\((?:resubmission|extension|phase[^)]*)\)\s*$", "", name, flags=re.I)
+760776	    return name.split(",")[0].strip(" -")
+760777	def core_name(alias):
+760778	    """The distinctive start of an alias: "The Botley West Solar Farm" -> "Botley West". "" when there is none."""
+760779	    words = re.sub(r"[^\w\s'&-]", " ", alias or "").split()
+760780	    if words and words[0].lower() == "the":
+760781	        words = words[1:]
+760782	    core = []
+760783	    for word in words:
+760784	        if word.lower() in GENERIC_WORDS:
+760786	        core.append(word)
+760787	    return " ".join(core)
+760788	def phrase_rx(phrase):
+760789	    parts = [re.escape(p) for p in re.split(r"[\s-]+", phrase.strip()) if p]
+760790	    return re.compile(r"(?<!\w)" + r"[\s-]+".join(parts) + r"(?!\w)", re.I) if parts else None
+760791	def load_projects(top200_path, aliases_path):
+760792	    """Top-200 rows joined to the alias table. Without a table every project gets a derived alias."""
+760793	    rows = json.loads(Path(top200_path).read_text(encoding="utf-8"))
+760794	    table = {}
+760795	    if aliases_path and Path(aliases_path).exists():
+760796	            table = json.loads(Path(aliases_path).read_text(encoding="utf-8")).get("projects", {})
+760797	        except (ValueError, AttributeError):
+760798	            table = {}
+760799	    counties = {(r.get("county") or "").strip().lower() for r in rows}
+760801	        entry = table.get(ref) or {}
+760802	        aliases = [a.strip() for a in entry.get("aliases") or [] if isinstance(a, str) and a.strip()]
+760803	        status = entry.get("alias_status") or "derived"
+760804	        if not aliases:
+760805	            aliases, status = [clean_site_name(row.get("site_name"))], "derived"
+760806	        county = (entry.get("county") or row.get("county") or "").strip()
+760807	        cores = []
+760808	        for alias in aliases:
+760809	            core = core_name(alias)
+760810	            low = core.lower()
+760811	            if (core and low not in cores and len(core) >= 5 and low not in counties
+760812	                    and not all(w.lower() in WEAK_CORES for w in core.split())):
+760813	                cores.append(low)
+760814	        ref_text = (entry.get("planning_ref") or row.get("planning_ref") or "").strip()
+760815	        operator = re.sub(r"\b(?:ltd|limited|plc|llp|uk)\b\.?", "", (entry.get("operator") or row.get("operator") or ""),
+760816	                          flags=re.I).strip(" &,")
+760818	            "repd_ref": ref, "rank": row.get("rank"), "site_name": (row.get("site_name") or "").strip(),
+760819	            "county": county, "operator": operator, "aliases": aliases, "alias_status": status, "cores": cores,
+760820	            "planning_ref": ref_text if REF.fullmatch(ref_text) else "",
+760821	            "exclude": [e.lower() for e in entry.get("exclude") or [] if isinstance(e, str) and e.strip()],
+760822	            "_alias_rx": [phrase_rx(a) for a in aliases],
+760823	            "_core_rx": [(c, phrase_rx(c), re.compile(phrase_rx(c).pattern + r"[\s-]+(?:solar|pv|photovoltaic)", re.I))
+760824	                         for c in cores],
+760827	def match_item(project, title, summary="", county_feed=False):
+760828	    """(strength, basis) or None. strength: "strong" | "weak". The summary is read here and never stored."""
+760829	    low_title = title.lower()
+760830	    if any(phrase in low_title for phrase in project["exclude"]):
+760831	    ref = project["planning_ref"]
+760832	    if ref and re.search(re.escape(ref), title, re.I):
+760833	        return "strong", "planning reference %s in title" % ref
+760834	    for alias, rx in zip(project["aliases"], project["_alias_rx"]):
+760835	        if rx and SOLAR.search(alias) and rx.search(title):
+760836	            return "strong", "alias '%s' in title" % alias
+760837	    for core, rx, adjacent in project["_core_rx"]:
+760838	        if adjacent.search(title):
+760839	            return "strong", "name '%s' followed by 'solar' in title" % core.title()
+760840	        if rx and not SOLAR.search(alias) and rx.search(title) and SOLAR.search(title + " " + summary):
+760841	            return "strong", "alias '%s' in title with 'solar'" % alias
+760842	    if summary:
+760843	        agree = None
+760844	        if county_feed:
+760845	            agree = "the feed is the project's county feed"
+760846	        elif project["county"] and re.search(r"(?<!\w)" + re.escape(project["county"]) + r"(?!\w)", title + " " + summary, re.I):
+760847	            agree = "county %s named" % project["county"]
+760848	        elif len(project["operator"]) >= 4 and project["operator"].lower() in (title + " " + summary).lower():
+760849	            agree = "operator named"
+760850	        if ref and re.search(re.escape(ref), summary, re.I):
+760851	            return "strong", "planning reference %s in feed summary" % ref
+760852	        named = None
+760853	        for alias, rx in zip(project["aliases"], project["_alias_rx"]):
+760854	            if rx and rx.search(summary) and SOLAR.search(alias + " " + title + " " + summary):
+760855	                named = "alias '%s'" % alias
+760856	        if not named:
+760857	            for core, rx, adjacent in project["_core_rx"]:
+760858	                if adjacent.search(summary):
+760859	                    named = "name '%s' followed by 'solar'" % core.title()
+760860	        if named:
+760861	            if agree:
+760862	                return "strong", "%s in feed summary; %s" % (named, agree)
+760863	            return "weak", "%s in feed summary; no second agreeing fact" % named
+760864	    for core, rx, _adjacent in project["_core_rx"]:
+760865	        if rx.search(title) and SOLAR.search(title):
+760866	            return "weak", "name '%s' and 'solar' both in title, not adjacent" % core.title()
+760867	        if rx.search(title) and summary and SOLAR.search(summary) and county_feed:
+760868	            return "weak", "name '%s' in title, 'solar' in feed summary; county feed" % core.title()
+760869	        if summary and county_feed and rx.search(summary) and SOLAR.search(title):
+760870	            return "weak", "'solar' in title, name '%s' in feed summary; county feed" % core.title()
+760871	def domain_of(link):
+760872	    return host[4:] if host.startswith("www.") else host
+760873	def _under(host, domain):
+760874	    return host == domain or host.endswith("." + domain)
+760875	def is_excluded(link):
+760876	    host = domain_of(link)
+760877	    return not host or any(_under(host, d) for d in EXCLUDED_DOMAINS) or ".google." in "." + host + "."
+760878	def publisher_of(link):
+760879	    """(display name, family). An unknown UK title is "regional" under its own host name."""
+760880	    for domain, value in PUBLISHERS.items():
+760881	        if _under(host, domain):
+760883	    return host, "regional"
+760884	def make_item(project, title, link, date, publisher, family, strength, basis, where):
+760885	    confirmed = strength == "strong" and project["alias_status"] == "confirmed"
+760886	    note = "" if project["alias_status"] == "confirmed" else " (alias %s)" % project["alias_status"]
+760887	    return {"repd_ref": project["repd_ref"], "title": title[:300], "link": link, "publisher": publisher,
+760888	            "date": date[:10] if date else None, "family": family,
+760889	            "basis": ("%s: %s%s" % (where, basis, note))[:240],
+760890	            "confidence": "confirmed" if confirmed else "uncertain"}
+760891	# ---------------------------------------------------------------- RSS (BBC, Guardian)
+760892	def bbc_feeds(projects):
+760893	    """[(url, set of county names it is the regional feed for)], national feeds first. Derived from the top 200."""
+760894	    feeds = {BBC_BASE + slug + "rss.xml": set() for slug in BBC_NATIONAL}
+760895	    unmapped = set()
+760897	        county = project["county"].lower()
+760898	        slugs = BBC_REGION.get(county)
+760899	        if slugs is None:
+760900	            unmapped.add(project["county"])
+760901	        for slug in slugs:
+760902	            feeds.setdefault(BBC_BASE + slug + "/rss.xml", set()).add(county)
+760903	    return list(feeds.items()), sorted(unmapped)
+760904	class Throttle:
+760905	    """At most one request per `interval` seconds per host."""
+760906	    def __init__(self, interval=1.0, sleep=time.sleep, clock=time.monotonic):
+760907	        self.interval, self.sleep, self.clock, self.last = interval, sleep, clock, {}
+760908	    def wait(self, host, interval=None):
+760909	        gap = self.interval if interval is None else interval
+760910	        now = self.clock()
+760911	        due = self.last.get(host, -1e9) + gap
+760912	        if due > now:
+760913	            self.sleep(due - now)
+760914	        self.last[host] = self.clock()
+760915	def fetch_feed(url):
+760919	        return response.read(D.MAX_BYTES + 1)
+760920	def collect_rss(feeds, projects, fetch, publisher, family, where, throttle=None):
+760921	    """feeds: [(url, counties)]. Returns (items, per-feed health)."""
+760922	    unmatched = collect_rss.unmatched
+760923	    for url, counties in feeds:
+760924	        if throttle:
+760925	            throttle.wait(urllib.parse.urlsplit(url).hostname)
+760926	            entries = D.parse_feed(fetch(url))
+760927	            health.append({"url": url, "status": "failed", "entries": 0, "solar": 0, "kept": 0, "newest": None,
+760928	                           "error": scrub(type(error).__name__ + ": " + str(error))[:200]})
+760929	        kept, solar, newest = 0, 0, None
+760930	            summary = D.clean_text(summary, 2000)                     # read for the match, never stored
+760931	            if not title or not link or is_excluded(link):
+760932	            if not SOLAR.search(title + " " + summary):
+760934	            matched = False
+760935	            for project in projects:
+760936	                verdict = match_item(project, title, summary, project["county"].lower() in counties)
+760937	                if verdict:
+760938	                    items.append(make_item(project, title, link, date, publisher, family, verdict[0], verdict[1], where))
+760939	                    kept += 1
+760940	                    matched = True
+760941	            if not matched and link not in unmatched:
+760942	                unmatched[link] = (publisher, (date or "")[:10], title)
+760943	        health.append({"url": url, "status": "ok", "entries": len(entries), "solar": solar, "kept": kept,
+760944	                       "newest": newest, "error": ""})
+760945	collect_rss.unmatched = {}     # link -> (publisher, date, headline) of items that say solar and matched no project
+760946	def source_record(source_id, url, health):
+760947	    failures = sum(1 for h in health if h["status"] != "ok")
+760948	    status = "ok" if not failures else ("failed" if failures == len(health) else "partial")
+760949	    errors = "; ".join("%s %s" % (h["url"].replace(BBC_BASE, ""), h["error"]) for h in health if h["status"] != "ok")
+760950	    return {"id": source_id, "url": url, "status": status, "requests": len(health), "failures": failures,
+760951	            "items": sum(h["kept"] for h in health), "error": errors[:300]}
+760952	# ---------------------------------------------------------------- GDELT DOC 2.0
+760953	def gdelt_phrase(project, index=0):
+760954	    """The phrase asked of GDELT for this project: its distinctive name, or the full alias when the name is weak."""
+760955	    choices = []
+760956	    for alias in project["aliases"]:
+760957	        core = core_name(alias)
+760958	        text = core if core.lower() in project["cores"] else alias
+760959	        text = " ".join(re.sub(r"[^\w\s]", " ", text).split())
+760960	        if len(text) >= 5 and text.lower() not in [c.lower() for c in choices]:
+760961	            choices.append(text)
+760962	    return choices[index] if index < len(choices) else None
+760963	def gdelt_query(phrase, scope="uk"):
+760964	    term = '"%s"' % phrase if " " in phrase else phrase
+760965	    if scope == "domains":
+760966	        return "%s solar (%s)" % (term, " OR ".join("domainis:" + d for d in GDELT_DOMAINS))
+760967	    return "%s solar sourcecountry:UK" % term
+760968	def gdelt_url(query, window, now_iso):
+760969	    params = {"query": query, "mode": "artlist", "format": "json", "maxrecords": str(GDELT_MAXRECORDS),
+760970	              "sort": "datedesc"}
+760971	    params.update(window)
+760972	    if "startdatetime" in window:
+760973	        params["enddatetime"] = re.sub(r"\D", "", now_iso)[:14]
+760974	    return GDELT_URL + "?" + urllib.parse.urlencode(params)
+760975	def fetch_gdelt(url):
+760976	    """(HTTP status, text). HTTP errors are returned, not raised, so the caller can back off on 429."""
+760977	    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
+760978	        with urllib.request.urlopen(req, timeout=30) as response:  # noqa: S310 (fixed https host)
+760979	            return response.status, response.read(D.MAX_BYTES + 1).decode("utf-8", "replace")
+760980	    except urllib.error.HTTPError as error:
+760981	        return error.code, error.read(2000).decode("utf-8", "replace")
+760982	def parse_gdelt(text):
+760983	    """[(title, url, domain, date, language)] or raises ValueError carrying GDELT's own plain-text message."""
+760984	    body = text.strip()
+760985	    if not body or body == "{}":
+760987	    if not body.startswith("{"):
+760988	        raise ValueError(scrub(body)[:160])
+760989	        data = json.loads(body, strict=False)
+760991	        raise ValueError("bad JSON: %s" % str(error)[:120]) from None
+760992	    for art in data.get("articles") or []:
+760993	        seen = art.get("seendate") or ""
+760994	        date = "%s-%s-%s" % (seen[:4], seen[4:6], seen[6:8]) if re.match(r"\d{8}", seen) else None
+760995	        out.append((art.get("title") or "", art.get("url") or "", art.get("domain") or "", date,
+760996	                    art.get("language") or ""))
+760997	class Gdelt:
+760998	    """One query per project, cached by query, polite, rotating. `fetch(url) -> (status, text)`."""
+760999	    def __init__(self, fetch, cache, now_iso, cap=GDELT_DEFAULT_CAP, sleep=time.sleep, scope="uk",
+761000	                 interval=GDELT_INTERVAL_S, cache_days=GDELT_CACHE_DAYS, seconds=None, clock=time.monotonic):
+761001	        self.fetch, self.cache, self.now, self.cap, self.sleep = fetch, cache, now_iso, cap, sleep
+761002	        self.clock, self.deadline = clock, (clock() + seconds) if seconds else None
+761003	        self.scope, self.interval, self.cache_days = scope, interval, cache_days
+761004	        self.window = 0
+761005	        self.stats = {"requests": 0, "answered": 0, "cache_hits": 0, "http_429": 0, "errors": 0, "empty": 0,
+761006	                      "articles": 0, "stopped": "", "window": "", "error_samples": [], "not_asked": 0,
+761007	                      "refused_queries": 0}
+761008	        self.refusals = 0
+761009	        self.throttle = Throttle(interval, sleep)
+761010	    def _fresh(self, key):
+761011	        entry = self.cache.get(key)
+761012	        if not entry or entry.get("error"):
+761013	            age = (dt.datetime.fromisoformat(self.now.replace("Z", "+00:00"))
+761014	                   - dt.datetime.fromisoformat(entry["fetched_at"].replace("Z", "+00:00"))).total_seconds()
+761015	        except (KeyError, ValueError):
+761016	        return entry if age < self.cache_days * 86400 else None
+761017	    def _error(self, message):
+761018	        self.stats["errors"] += 1
+761019	        if len(self.stats["error_samples"]) < 5 and message not in self.stats["error_samples"]:
+761020	            self.stats["error_samples"].append(message)
+761021	    def ask(self, query):
+761022	        """Articles for a query, from the cache or the API. None when it could not be asked this run."""
+761023	        fresh = self._fresh(query)
+761024	        if fresh is not None:
+761025	            self.stats["cache_hits"] += 1
+761026	            return fresh["articles"]
+761027	        if not self.stats["stopped"] and self.deadline is not None and self.clock() > self.deadline:
+761028	            self.stats["stopped"] = "time budget for GDELT reached; the rest are asked on later runs"
+761029	        if self.stats["stopped"] or self.stats["requests"] >= self.cap:
+761030	            self.stats["not_asked"] += 1
+761031	        while self.window < len(GDELT_WINDOWS):
+761032	            label, window = GDELT_WINDOWS[self.window]
+761033	            url = gdelt_url(query, window, self.now)
+761034	            status, text = self._get(url)
+761035	            if status == 429:
+761036	                self.stats["http_429"] += 1
+761037	                self.sleep(10)                                         # contract: wait ten seconds, retry once
+761038	                status, text = self._get(url)
+761039	                if status == 429:
+761040	                    self.stats["http_429"] += 1
+761041	                    self.stats["refused_queries"] += 1
+761042	                    self.refusals += 1
+761043	                    note = "HTTP 429: " + scrub(text)[:120]
+761044	                    if note not in self.stats["error_samples"] and len(self.stats["error_samples"]) < 5:
+761045	                        self.stats["error_samples"].append(note)
+761046	                    if self.refusals >= GDELT_MAX_REFUSALS:
+761047	                        self.stats["stopped"] = ("HTTP 429 on %d queries running, each retried once; GDELT left alone "
+761048	                                                 "for the rest of this run" % self.refusals)
+761050	                        self.sleep(20)                                 # slow down further before the next query
+761052	            self.refusals = 0
+761053	            if status != 200:
+761054	                self._error("HTTP %s" % status)
+761055	                self.cache[query] = {"fetched_at": self.now, "articles": [], "error": "HTTP %s" % status}
+761056	                arts = parse_gdelt(text)
+761057	            except ValueError as error:
+761058	                message = str(error)
+761059	                if re.search(r"timespan|date|too (?:far|old)|start", message, re.I) and self.window + 1 < len(GDELT_WINDOWS):
+761060	                    self.window += 1                                   # this window is not allowed: step down
+761061	                self._error(message)
+761062	                self.cache[query] = {"fetched_at": self.now, "articles": [], "error": message}
+761063	            self.stats["answered"] += 1
+761064	            self.stats["window"] = label
+761065	            self.stats["articles"] += len(arts)
+761066	            if not arts:
+761067	                self.stats["empty"] += 1
+761068	            articles = [{"title": D.clean_text(t, 300), "url": u, "domain": d, "date": date, "language": lang}
+761069	                        for t, u, d, date, lang in arts]
+761070	            self.cache[query] = {"fetched_at": self.now, "articles": articles, "window": label}
+761071	            return articles
+761072	    def _get(self, url):
+761073	        if self.stats["requests"] >= self.cap + 10:
+761074	            return 0, ""
+761075	        self.throttle.wait("gdelt")
+761076	        self.stats["requests"] += 1
+761077	        if self.stats["requests"] % 20 == 0:
+761078	            print("gdelt: %(requests)d requests, %(answered)d answered, %(http_429)d HTTP 429, %(articles)d articles"
+761079	                  % self.stats, file=sys.stderr, flush=True)
+761080	            return self.fetch(url)
+761081	        except Exception as error:  # network failure: recorded, the run carries on
+761082	            return 0, type(error).__name__ + ": " + scrub(str(error))[:100]
+761083	def rotation(projects, cache, scope="uk"):
+761084	    """Order in which projects are asked: never asked first, then longest since asked, then rank."""
+761085	    def key(project):
+761086	        phrase = gdelt_phrase(project)
+761087	        entry = cache.get(gdelt_query(phrase, scope)) if phrase else None
+761088	        return ((entry or {}).get("fetched_at") or "", project.get("rank") or 0)
+761089	    return sorted((p for p in projects if gdelt_phrase(p)), key=key)
+761090	def gdelt_title(title):
+761091	    """GDELT stores a tokenised headline ("solar , storage"; "Headline | Paper"): close the gaps, drop the paper."""
+761092	    title = re.sub(r"\s+([,.;:!?])", r"\1", title or "")
+761093	    return re.sub(r"\s+\|\s+[^|]{2,60}$", "", title).strip()
+761094	def gdelt_items(project, articles, phrase, dropped, others=()):
+761095	    for art in articles:
+761096	        title, link = gdelt_title(art.get("title")), D.canonical_link(art.get("url"))
+761097	        if not title or not link:
+761098	            dropped["no title or link"] += 1
+761099	        if is_excluded(link):
+761100	            dropped["excluded source"] += 1
+761101	        verdict = match_item(project, title)
+761102	        if verdict is None:
+761103	            if any(p in title.lower() for p in project["exclude"]):
+761104	                dropped["exclude phrase"] += 1
+761105	            if not SOLAR.search(title):
+761106	                dropped["headline has neither the name nor solar"] += 1
+761107	            county = project["county"]
+761108	            if not county or not re.search(r"(?<!\w)" + re.escape(county) + r"(?!\w)", title, re.I):
+761109	                dropped["headline says solar but neither the name nor the county"] += 1
+761110	            if any((match_item(other, title) or ("", ""))[0] == "strong" for other in others if other is not project):
+761111	                dropped["headline names another of the 200"] += 1
+761112	            verdict = ("weak", "phrase '%s' and 'solar' in the article text per GDELT; headline says solar and %s "
+761113	                               "but not the name" % (phrase, county))
+761114	        publisher, family = publisher_of(link)
+761115	        out.append(make_item(project, title, link, art.get("date"), publisher, family, verdict[0], verdict[1],
+761116	                             "GDELT index, UK sources"))
+761117	def collect_gdelt(projects, client, limit=None):
+761118	    items, per_project = [], {}
+761119	    dropped = {"no title or link": 0, "excluded source": 0, "exclude phrase": 0,
+761120	               "headline has neither the name nor solar": 0,
+761121	               "headline says solar but neither the name nor the county": 0, "headline names another of the 200": 0}
+761122	    order = rotation(projects, client.cache, client.scope)
+761124	        order = order[:limit]
+761125	    for project in order:
+761126	        articles = client.ask(gdelt_query(phrase, client.scope))
+761127	        if articles is None:
+761128	        found = gdelt_items(project, articles, phrase, dropped, projects)
+761129	        second = gdelt_phrase(project, 1)
+761130	        if not found and second:                       # a second press name, only when the first gave nothing
+761131	            more = client.ask(gdelt_query(second, client.scope))
+761132	            if more:
+761133	                articles = articles + more
+761134	                found = gdelt_items(project, more, second, dropped, projects)
+761135	        per_project[project["repd_ref"]] = {"phrase": phrase, "returned": len(articles), "kept": len(found),
+761136	                                            "strong": sum(1 for i in found if " per GDELT" not in i["basis"])}
+761137	        items.extend(found)
+761138	    return items, per_project, dropped
+761139	def gdelt_experiment(projects, client, count):
+761140	    """Ask the first `count` projects again in other ways, to report what GDELT really returns. Not cached."""
+761142	    for project in [p for p in projects if gdelt_phrase(p)][:count]:
+761143	        row = {"repd_ref": project["repd_ref"], "phrase": phrase}
+761144	        variants = [("uk, " + label, gdelt_url(gdelt_query(phrase, "uk"), window, client.now))
+761145	                    for label, window in GDELT_WINDOWS]
+761146	        variants.append(("named domains, since 2017", gdelt_url(gdelt_query(phrase, "domains"), GDELT_WINDOWS[0][1], client.now)))
+761147	        variants.append(("no country filter, since 2017",
+761148	                         gdelt_url(gdelt_query(phrase, "uk").replace(" sourcecountry:UK", ""), GDELT_WINDOWS[0][1], client.now)))
+761149	        for label, url in variants:
+761150	            status, text = client._get(url)
+761151	                row[label] = "HTTP %s" % status
+761152	                    client.sleep(10)
+761153	                dates = sorted(a[3] for a in arts if a[3])
+761154	                row[label] = "%d articles%s" % (len(arts), (", %s to %s" % (dates[0], dates[-1])) if dates else "")
+761155	                row[label] = "message: " + str(error)[:90]
+761158	# ---------------------------------------------------------------- assemble
+761159	FAMILY_ORDER = {"official": 0, "bbc": 1, "trade": 2, "national": 3, "regional": 4}
+761160	def tidy(items, previous_items=(), valid_refs=None, cap=MAX_PER_PROJECT):
+761161	    """Dedupe by (project, link); a confirmed item beats an uncertain one; newest first; cap per project."""
+761163	    for item in list(items) + [i for i in previous_items if isinstance(i, dict)]:
+761164	        if valid_refs is not None and item.get("repd_ref") not in valid_refs:
+761165	        if not item.get("link") or not item.get("title") or is_excluded(item["link"]):
+761166	        key = (item["repd_ref"], item["link"])
+761167	        held = best.get(key)
+761168	        if held is None or (held["confidence"] != "confirmed" and item.get("confidence") == "confirmed"):
+761169	            best[key] = item
+761170	    by_project = {}
+761171	    for item in best.values():
+761172	        by_project.setdefault(item["repd_ref"], []).append(item)
+761173	    for ref in sorted(by_project, key=lambda r: (len(r), r)):
+761174	        rows = sorted(by_project[ref], key=lambda i: (i["confidence"] != "confirmed", -int((i["date"] or "0000-00-00").replace("-", "")),
+761175	                                                      FAMILY_ORDER.get(i["family"], 9), i["link"]))
+761176	        seen, unique = set(), []
+761177	        for row in rows:                                   # one syndicated story, many local titles: keep one
+761178	            key = re.sub(r"[^a-z0-9]+", " ", row["title"].lower()).strip()
+761179	            if key not in seen:
+761181	                unique.append(row)
+761182	        out.extend(unique[:cap])
+761183	def coverage(items, projects):
+761184	    refs = {p["repd_ref"] for p in projects}
+761185	    any_ref = {i["repd_ref"] for i in items} & refs
+761186	    confirmed = {i["repd_ref"] for i in items if i["confidence"] == "confirmed"} & refs
+761187	    by_family = {}
+761188	    for family in FAMILY_ORDER:
+761189	        by_family[family] = len({i["repd_ref"] for i in items if i["family"] == family} & refs)
+761190	    return {"projects": len(projects), "with_signal": len(any_ref), "with_confirmed_signal": len(confirmed),
+761191	            "with_signal_by_family": by_family, "items": len(items)}
+761192	def probe_report(part, projects, extra):
+761193	    cov, lines = part["coverage"], []
+761194	    lines.append("## Project signals, part \"index\" (BBC RSS, Guardian RSS, GDELT)\n")
+761195	    lines.append("Generated %s. Projects with at least one signal from these sources: **%d of %d** "
+761196	                 "(%d with a confirmed signal). Items kept: %d.\n" % (part["generated_at"], cov["with_signal"],
+761197	                                                                       cov["projects"], cov["with_confirmed_signal"], cov["items"]))
+761198	    lines.append("By family: " + ", ".join("%s %d" % kv for kv in cov["with_signal_by_family"].items()) + ".\n")
+761199	    lines.append("| source | status | requests | failures | items | error |\n|---|---|---|---|---|---|")
+761200	    for s in part["sources"]:
+761201	        lines.append("| %s | %s | %s | %s | %s | %s |" % (s["id"], s["status"], s["requests"], s["failures"], s["items"],
+761202	                                                          s["error"].replace("|", "/")))
+761203	    g = part.get("gdelt") or {}
+761204	    if g:
+761205	        lines.append("\n### GDELT DOC 2.0: what it returned\n")
+761206	        lines.append("- requests %(requests)s, answered %(answered)s, cache hits %(cache_hits)s, HTTP 429 %(http_429)s, "
+761207	                     "queries refused twice %(refused_queries)s, errors %(errors)s, queries with no article %(empty)s, articles returned %(articles)s, "
+761208	                     "projects not asked this run %(not_asked)s" % g)
+761209	        lines.append("- window in use: %s%s" % (g.get("window") or "none answered", ("; stopped: " + g["stopped"]) if g.get("stopped") else ""))
+761210	        if g.get("error_samples"):
+761211	            lines.append("- messages from GDELT: " + " / ".join(g["error_samples"]))
+761212	        lines.append("- projects asked %s; with any article returned %s; with a kept item %s; with a headline that names "
+761213	                     "the project %s" % (g.get("projects_asked"), g.get("projects_with_articles"),
+761214	                                         g.get("projects_with_kept"), g.get("projects_with_strong")))
+761215	        lines.append("- dropped: " + ", ".join("%s %d" % kv for kv in (g.get("dropped") or {}).items()))
+761216	        dates = sorted(i["date"] for i in part["items"] if i["basis"].startswith("GDELT") and i["date"])
+761217	        if dates:
+761218	            lines.append("- dates of kept GDELT items: %s to %s" % (dates[0], dates[-1]))
+761219	        if g.get("domains"):
+761220	            lines.append("- domains of kept items: " + ", ".join("%s %d" % kv for kv in g["domains"]))
+761221	    if extra.get("experiment"):
+761222	        lines.append("\n### GDELT windows and scopes compared (same phrase, first projects)\n")
+761223	        keys = [k for k in extra["experiment"][0] if k not in ("repd_ref", "phrase")]
+761224	        lines.append("| REPD | phrase | " + " | ".join(keys) + " |\n|---|---|" + "---|" * len(keys))
+761225	        for row in extra["experiment"]:
+761226	            lines.append("| %s | %s | %s |" % (row["repd_ref"], row["phrase"], " | ".join(str(row.get(k, "")) for k in keys)))
+761227	    lines.append("\n### Feeds\n")
+761228	    if extra.get("unmapped_counties"):
+761229	        lines.append("Counties with no BBC regional feed in the table: %s\n" % ", ".join(extra["unmapped_counties"]))
+761230	    lines.append("| feed | status | entries | mention solar | kept | newest | error |\n|---|---|---|---|---|---|---|")
+761231	    for h in part.get("feeds", []):
+761232	        lines.append("| %s | %s | %s | %s | %s | %s | %s |" % (h["url"].replace("https://", ""), h["status"], h["entries"],
+761233	                                                               h["solar"], h["kept"], (h["newest"] or "")[:10],
+761234	                                                               h["error"].replace("|", "/")))
+761235	    lines.append("\n### Items (first 60)\n\n| REPD | date | family | publisher | confidence | title | basis |\n|---|---|---|---|---|---|---|")
+761236	    for i in part["items"][:60]:
+761237	        lines.append("| %s | %s | %s | %s | %s | [%s](%s) | %s |" % (
+761238	            i["repd_ref"], i["date"] or "", i["family"], i["publisher"], i["confidence"],
+761239	            i["title"].replace("|", "/").replace("[", "(").replace("]", ")"), i["link"], i["basis"].replace("|", "/")))
+761240	    if extra.get("unmatched"):
+761241	        lines.append("\n### Feed items that say solar and matched none of the 200 (headlines only)\n")
+761242	        for link, (publisher, date, title) in list(extra["unmatched"].items())[:50]:
+761243	            lines.append("- %s %s: [%s](%s)" % (date, publisher, title.replace("[", "(").replace("]", ")"), link))
+761244	    if extra.get("truth"):
+761245	        lines.append("\n" + extra["truth"])
+761246	    ap.add_argument("--out", default="dist/project_signals_index.json")
+761247	    ap.add_argument("--previous", default=None, help="an earlier part file; its items are kept (rolling feeds)")
+761248	    ap.add_argument("--cache", default=None, help="GDELT answers by query (JSON), read and rewritten")
+761249	    ap.add_argument("--probe", default=None, help="write a Markdown report here as well")
+761250	    ap.add_argument("--truth", default=str(HERE / "index_ground_truth.json"), help="ground truth for the probe report")
+761251	    ap.add_argument("--limit", type=int, default=None, help="only the first N projects by rank")
+761252	    ap.add_argument("--gdelt-max", type=int, default=GDELT_DEFAULT_CAP, help="GDELT requests this run (0 = skip)")
+761253	    ap.add_argument("--gdelt-seconds", type=int, default=1200, help="time budget for GDELT this run")
+761254	    ap.add_argument("--gdelt-scope", choices=("uk", "domains"), default="uk")
+761255	    ap.add_argument("--gdelt-experiment", type=int, default=0, help="compare windows and scopes for the first N")
+761256	    ap.add_argument("--skip-rss", action="store_true")
+761257	    projects = load_projects(args.top200, args.aliases)
+761259	        projects = projects[:args.limit]
+761260	    items, sources, feeds, extra = [], [], [], {}
+761261	    throttle = Throttle(1.0)
+761262	    if not args.skip_rss:
+761263	        collect_rss.unmatched.clear()
+761264	        extra["unmatched"] = collect_rss.unmatched
+761265	        bbc, extra["unmapped_counties"] = bbc_feeds(projects)
+761266	        found, health = collect_rss(bbc, projects, fetch_feed, "BBC News", "bbc", "BBC News RSS", throttle)
+761267	        items += found
+761268	        feeds += health
+761269	        sources.append(source_record("bbc-rss", BBC_BASE, health))
+761270	        found, health = collect_rss([(u, set()) for u in GUARDIAN_FEEDS], projects, fetch_feed, "The Guardian",
+761271	                                    "national", "Guardian RSS", throttle)
+761272	        sources.append(source_record("guardian-rss", "https://www.theguardian.com/", health))
+761273	    gdelt = {}
+761274	    if args.gdelt_max > 0:
+761275	        cache = {}
+761276	        if args.cache and Path(args.cache).exists():
+761277	                cache = json.loads(Path(args.cache).read_text(encoding="utf-8")).get("queries", {})
+761278	            except (ValueError, AttributeError):
+761279	                cache = {}
+761280	        client = Gdelt(fetch_gdelt, cache, now_iso, cap=args.gdelt_max, scope=args.gdelt_scope, seconds=args.gdelt_seconds)
+761281	        if args.gdelt_experiment:
+761282	                extra["experiment"] = gdelt_experiment(projects, client, args.gdelt_experiment)
+761283	            except Exception:  # an experiment only
+761285	            found, per_project, dropped = collect_gdelt(projects, client)
+761286	        except Exception as error:  # GDELT failing as a whole never stops the run
+761287	            found, per_project, dropped = [], {}, {}
+761288	            client.stats["stopped"] = (type(error).__name__ + ": " + str(error))[:160]
+761289	        domains = {}
+761290	        for item in found:
+761291	            domains[domain_of(item["link"])] = domains.get(domain_of(item["link"]), 0) + 1
+761292	        gdelt = dict(client.stats, dropped=dropped, projects_asked=len(per_project),
+761293	                     projects_with_articles=sum(1 for v in per_project.values() if v["returned"]),
+761294	                     projects_with_kept=sum(1 for v in per_project.values() if v["kept"]),
+761295	                     projects_with_strong=sum(1 for v in per_project.values() if v["strong"]),
+761296	                     domains=sorted(domains.items(), key=lambda kv: (-kv[1], kv[0]))[:25], per_project=per_project)
+761297	        if args.cache:
+761298	            keep = {q: e for q, e in cache.items() if not e.get("error")}
+761299	            Path(args.cache).parent.mkdir(parents=True, exist_ok=True)
+761300	            Path(args.cache).write_text(json.dumps({"schema": "project-signals-gdelt-cache.v1", "queries": keep},
+761301	                                                   ensure_ascii=False) + "\n", encoding="utf-8")
+761302	        s = client.stats
+761303	        asked = s["requests"]
+761304	        status = "ok" if s["answered"] and not s["stopped"] and not s["errors"] else ("partial" if s["answered"] or s["cache_hits"] else "failed")
+761305	        sources.append({"id": "gdelt-doc", "url": GDELT_URL, "status": status, "requests": asked,
+761306	                        "failures": s["errors"] + s["http_429"], "items": len(found),
+761307	                        "error": scrub("; ".join(filter(None, [s["stopped"]] + s["error_samples"])))[:300]})
+761308	    previous_items = []
+761309	    if args.previous and Path(args.previous).exists():
+761310	            old = json.loads(Path(args.previous).read_text(encoding="utf-8"))
+761311	            if old.get("schema") == SCHEMA and old.get("team") == TEAM:
+761312	                previous_items = old.get("items") or []
+761313	            previous_items = []
+761314	    items = tidy(items, previous_items, {p["repd_ref"] for p in projects})
+761315	    part = {"schema": SCHEMA, "team": TEAM, "generated_at": now_iso, "items": items, "sources": sources,
+761316	            "coverage": coverage(items, projects), "feeds": feeds, "gdelt": gdelt}
+761317	    out.write_text(json.dumps(part, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+761318	        if args.truth and Path(args.truth).exists():
+761319	                import combine as C
+761320	                truth = C.load_truth(args.truth)
+761321	                by_ref = {}
+761322	                for item in items:
+761323	                    by_ref.setdefault(item["repd_ref"], []).append(item)
+761324	                extra["truth"] = C.truth_report(truth, by_ref, "this part alone")
+761325	            except Exception as error:  # the comparison is a report, never a reason to fail
+761326	                extra["truth"] = "Ground truth comparison unavailable: %s" % type(error).__name__
+761327	        report = probe_report(part, projects, extra)
+761328	    print(json.dumps({"out": str(out), **part["coverage"], "sources": {s["id"]: s["status"] for s in sources}}))
+761329	    return 1 if sources and all(s["status"] == "failed" for s in sources) and not items else 0
+761330	"""Official-source signals for the 200 largest solar projects in the REPD (team "official").
+761331	For each project in top200_solar.json, with the press alias from aliases.json, this asks sources that permit
+761332	automated access and keeps headlines, links and dates only (never page text):
+761333	  pins-register   the Planning Inspectorate's national infrastructure project list (one CSV download), matched on the
+761334	                  project reference (EN01xxxx) and, failing that, on the alias; gives the stage and milestone dates
+761335	  govuk-search    the GOV.UK search API (https://www.gov.uk/api/search.json): exact alias phrase, and the planning
+761336	                  reference where the project has a national one; decision pages for development consent, notices
+761337	  ecu-case        the Scottish Energy Consents Unit case page for an ECU reference (title and existence)
+761338	Output (see SIGNALS-CONTRACT.md, "project-signals-part.v1"): items {repd_ref, title, link, publisher, date, family
+761339	"official", basis, confidence} and one health record per source. One failing source never stops a run; the exit code
+761340	is non-zero only when every source failed.
+761341	Politeness: a descriptive User-Agent, at most one request a second per host, a per-run cap per host, one retry after
+761342	ten seconds on HTTP 429, 20 second timeouts.
+761343	  python automation/news/signals/official.py --out part-official.json [--probe summary.md] [--limit N]
+761344	  python automation/news/signals/official.py --discover summary.md      (prints what each source returns; CI aid)
+761345	if str(HERE.parent) not in sys.path:
+761346	    sys.path.insert(0, str(HERE.parent))
+761347	import datacentre_feed as D  # noqa: E402  clean_text, canonical_link, parse_date
+761348	SCHEMA_PART = "project-signals-part.v1"
+761349	MAX_BYTES = 6_000_000
+761350	MIN_INTERVAL_S = 1.0
+761351	HOST_CAP = 450
+761352	TITLE_LIMIT = 300
+761353	PINS_HOST = "https://national-infrastructure-consenting.planninginspectorate.gov.uk"
+761354	PINS_CSV = PINS_HOST + "/api/applications-download"
+761355	PINS_PROJECT = PINS_HOST + "/projects/{ref}"
+761356	GOVUK_SEARCH = "https://www.gov.uk/api/search.json"
+761357	ECU_CASE = "https://www.energyconsents.scot/ApplicationDetails.aspx?cr={ref}"
+761358	PINS_REF_RE = re.compile(r"\bEN0\d{5,6}\b", re.I)
+761359	ECU_REF_RE = re.compile(r"\bECU\d{8}\b", re.I)
+761360	NATIONAL_REF_RE = re.compile(r"\b(?:EN0\d{5,6}|ECU\d{8}|DNS/\d{7}|CAS-\d{5}-[A-Z0-9]{6})\b", re.I)
+761361	TOPIC_RE = re.compile(r"\b(solar|photovoltaic|pv|energy|renewables?|battery|development consent)\b", re.I)
+761362	DISTINCTIVE_RE = re.compile(r"\b(solar|photovoltaic|pv|energy|renewables?)\b", re.I)
+761364	class FetchError(Exception):
+761365	    def __init__(self, message, status=None):
+761367	        self.status = status
+761368	def _open(url, accept):
+761369	    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": accept,
+761370	                                               "Accept-Language": "en-GB,en;q=0.8"})
+761371	    with urllib.request.urlopen(req, timeout=TIMEOUT_S) as response:  # noqa: S310 (https URLs built here)
+761372	        return response.status, response.geturl(), response.headers.get("Content-Type", ""), \
+761373	            response.read(MAX_BYTES + 1)[:MAX_BYTES]
+761374	class Fetcher:
+761375	    """One request a second per host, a cap per host, one retry after ten seconds on HTTP 429."""
+761376	    def __init__(self, opener=_open, sleep=time.sleep, clock=time.monotonic, min_interval=MIN_INTERVAL_S,
+761377	                 host_cap=HOST_CAP):
+761378	        self.opener, self.sleep, self.clock = opener, sleep, clock
+761379	        self.min_interval, self.host_cap = min_interval, host_cap
+761380	        self.last = {}
+761381	        self.count = {}
+761382	        self.down = {}          # host -> error, after a timeout or connection failure: not asked again this run
+761383	    def _wait(self, host):
+761384	        if self.count.get(host, 0) >= self.host_cap:
+761385	            raise FetchError("per-run cap of %d requests reached for %s" % (self.host_cap, host))
+761386	        previous = self.last.get(host)
+761388	            gap = self.min_interval - (self.clock() - previous)
+761389	            if gap > 0:
+761390	                self.sleep(gap)
+761391	        self.count[host] = self.count.get(host, 0) + 1
+761392	    def get(self, url, accept="*/*"):
+761393	        """Returns (final_url, content_type, bytes). Raises FetchError."""
+761394	        host = urllib.parse.urlsplit(url).hostname or ""
+761395	        if not url.startswith("https://") or not host:
+761396	            raise FetchError("not an https URL")
+761397	        if host in self.down:
+761398	            raise FetchError(self.down[host])
+761399	        for attempt in (0, 1):
+761400	            self._wait(host)
+761401	                status, final, ctype, body = self.opener(url, accept)
+761402	                if status != 200:
+761403	                    raise FetchError("HTTP %s" % status, status)
+761404	                return final, ctype, body
+761405	            except urllib.error.HTTPError as exc:
+761406	                if exc.code == 429 and attempt == 0:
+761407	                    self.sleep(10)
+761408	                raise FetchError("HTTP %s" % exc.code, exc.code) from None
+761409	            except FetchError:
+761411	            except Exception as exc:  # noqa: BLE001  URLError, timeouts, TLS, reset: all one failed request
+761412	                self.down[host] = "%s: %s" % (type(exc).__name__, str(exc)[:120])
+761413	                raise FetchError(self.down[host]) from None
+761414	        raise FetchError("HTTP 429", 429)
+761415	def health(source_id, url):
+761416	    return {"id": source_id, "url": url, "status": "ok", "requests": 0, "failures": 0, "items": 0, "error": ""}
+761417	def close_health(record):
+761418	    if record["requests"] == 0:
+761419	        record["status"] = "ok" if not record["error"] else "failed"
+761420	    elif record["failures"] >= record["requests"]:
+761421	        record["status"] = "failed"
+761422	    elif record["failures"]:
+761423	        record["status"] = "partial"
+761425	# ---------------------------------------------------------------- inputs
+761426	def load_projects(top_path=None, alias_path=None):
+761427	    """The 200 projects, each merged with its alias entry. Without an alias entry a derived alias is used."""
+761428	    top = json.loads(Path(top_path or HERE / "top200_solar.json").read_text(encoding="utf-8"))
+761429	    alias_file = Path(alias_path or HERE / "aliases.json")
+761430	    table = json.loads(alias_file.read_text(encoding="utf-8")).get("projects", {}) if alias_file.exists() else {}
+761431	    for row in top:
+761432	        entry = table.get(ref, {})
+761433	        aliases = [a for a in entry.get("aliases", []) if a and a.strip()]
+761434	        status = entry.get("alias_status", "derived")
+761435	            aliases, status = [derive_alias(row["site_name"])], "derived"
+761436	            "repd_ref": ref, "rank": row["rank"], "site_name": row["site_name"].strip(),
+761437	            "operator": (row.get("operator") or "").strip(), "mw": row.get("mw"),
+761438	            "county": (row.get("county") or "").strip(), "country": row.get("country") or "",
+761439	            "planning_authority": (row.get("planning_authority") or "").strip(),
+761440	            "planning_ref": (row.get("planning_ref") or "").strip(),
+761441	            "aliases": aliases, "alias_status": status, "exclude": entry.get("exclude", []),
+761442	            "planning_file": entry.get("planning_file"),
+761443	TAIL_RE = re.compile(
+761444	    r"\s*(?:[-–,(]\s*)?(?:&|and|with|\+)?\s*\b(?:solar (?:farm|park|panels?|array|pv farm|photovoltaic array|project)"
+761445	    r"|battery(?: energy)? storage(?: system| facility)?|energy storage(?: facility| park)?|bess|co-?located"
+761446	    r"|phase \d+|solar)\b.*$", re.I)
+761447	def derive_alias(site_name):
+761448	    """"Springwell, Lincoln - Springwell Solar Farm & Battery Storage" -> "Springwell Solar Farm"."""
+761449	    name = " ".join(site_name.split())
+761450	        left, right = [p.strip() for p in name.split(" - ", 1)]
+761451	        generic = re.match(r"(?:solar|battery|energy storage|photovoltaic|pv)\b", right, re.I)
+761452	        name = left.split(",")[0].strip() if generic else right
+761453	    name = re.sub(r"\s*&\s*(?:battery|energy)\b.*$", "", name, flags=re.I).strip(" -,")
+761454	    name = re.sub(r"^the\s+", "", name, flags=re.I)
+761455	    if not DISTINCTIVE_RE.search(name):
+761456	        name += " Solar Farm"
+761458	# ---------------------------------------------------------------- matching (contract section 3)
+761459	def _norm(text):
+761460	    text = (text or "").lower().replace("&", " and ").replace("’", "'")
+761461	    return " ".join(re.sub(r"[^a-z0-9à-ÿ']+", " ", text).split())
+761462	def phrase_in(phrase, text):
+761463	    p, t = _norm(phrase), _norm(text)
+761464	    return bool(p) and re.search(r"(?<![a-z0-9])%s(?![a-z0-9])" % re.escape(p), t) is not None
+761465	def alias_core(alias):
+761466	    """The alias without a generic tail: "Botley West Solar Farm" -> "Botley West"."""
+761467	    core = re.sub(r"\s+(?:solar|energy|renewable|pv)\b.*$", "", alias, flags=re.I).strip()
+761468	    return core if len(core) >= 4 else alias
+761469	def _facts(project):
+761470	    facts = []
+761471	    for word in re.findall(r"[A-Za-z][A-Za-z']{3,}", project.get("operator", "")):
+761472	        if word.lower() not in {"limited", "energy", "solar", "renewables", "power", "development", "partners",
+761473	                                "holdings", "group", "farm", "green", "project", "developments", "storage"}:
+761474	            facts.append(word)
+761475	    if project.get("county"):
+761476	        facts.append(project["county"])
+761477	    return facts
+761478	def match(project, title, summary=""):
+761479	    """(basis, confidence) when the item is tied to the project by the shared rule, else None."""
+761480	    text = "%s %s" % (title, summary)
+761481	    for phrase in project.get("exclude", []):
+761482	        if phrase_in(phrase, text):
+761483	    ref = project.get("planning_ref", "")
+761484	    if ref and NATIONAL_REF_RE.fullmatch(ref) and ref.lower() in text.lower():
+761485	        return "planning reference %s in the %s" % (ref, "title" if ref.lower() in title.lower() else "summary"), \
+761486	            "confirmed"
+761487	    confidence = "confirmed" if project.get("alias_status") == "confirmed" else "uncertain"
+761488	        distinctive = DISTINCTIVE_RE.search(alias) is not None
+761489	        if phrase_in(alias, title) and (distinctive or TOPIC_RE.search(text)):
+761490	            return "alias '%s' in the title" % alias, confidence
+761491	        core = alias_core(alias)
+761492	        if core != alias and len(_norm(core).split()) >= 2 and phrase_in(core, title) and TOPIC_RE.search(title):
+761493	            return "alias '%s' (as '%s') in the title with a solar or energy term" % (alias, core), confidence
+761494	        if phrase_in(alias, summary) and distinctive:
+761495	            for fact in _facts(project):
+761496	                if phrase_in(fact, text):
+761497	                    return "alias '%s' in the summary and '%s' agrees" % (alias, fact), confidence
+761498	def item(project, title, link, publisher, date, basis, confidence):
+761499	    link = D.canonical_link(link)
+761500	    title = D.clean_text(title, TITLE_LIMIT)
+761501	    return {"repd_ref": project["repd_ref"], "title": title, "link": link, "publisher": publisher,
+761502	            "date": date, "family": "official", "basis": basis, "confidence": confidence}
+761503	# ---------------------------------------------------------------- source: Planning Inspectorate project list
+761504	DATE_FORMATS = ("%d/%m/%Y", "%Y-%m-%d", "%d %B %Y", "%d %b %Y", "%d-%m-%Y", "%Y-%m-%dT%H:%M:%S", "%d/%m/%Y %H:%M")
+761505	def parse_day(value):
+761506	    """A register date in any of its spellings -> YYYY-MM-DD, or None."""
+761509	    iso = D.parse_date(value)
+761510	    if iso:
+761511	        return iso[:10]
+761512	    head = value.replace("Z", "").split(".")[0]
+761513	    for fmt in DATE_FORMATS:
+761514	            return dt.datetime.strptime(head, fmt).date().isoformat()
+761515	def parse_pins_csv(body):
+761516	    """Rows of the project list as dicts with: ref, name, applicant, stage, dates {column label: YYYY-MM-DD}."""
+761517	    text = body.decode("utf-8-sig", "replace") if isinstance(body, bytes) else body
+761518	    reader = csv.reader(io.StringIO(text))
+761519	        header = [h.strip() for h in next(reader)]
+761521	    low = [h.lower() for h in header]
+761522	    def col(*needles):
+761523	        for needle in needles:
+761524	            for i, h in enumerate(low):
+761525	                if needle in h:
+761526	                    return i
+761527	    c_ref, c_name = col("project reference", "reference"), col("project name", "name")
+761528	    c_app, c_stage = col("applicant"), col("stage")
+761529	    if c_ref is None or c_name is None:
+761530	        raise ValueError("project list: no reference or name column in %r" % header[:8])
+761531	    date_cols = [i for i, h in enumerate(low) if h.startswith("date") and "anticipated" not in h]
+761532	    for raw in reader:
+761533	        if len(raw) <= max(c_ref, c_name):
+761534	        dates = {}
+761535	        for i in date_cols:
+761536	            day = parse_day(raw[i]) if i < len(raw) else None
+761537	            if day:
+761538	                dates[header[i]] = day
+761539	        rows.append({"ref": raw[c_ref].strip().upper(), "name": raw[c_name].strip(),
+761540	                     "applicant": raw[c_app].strip() if c_app is not None and c_app < len(raw) else "",
+761541	                     "stage": raw[c_stage].strip() if c_stage is not None and c_stage < len(raw) else "",
+761542	                     "dates": dates})
+761543	def _milestone(label):
+761544	    label = re.sub(r"^date\s+(?:of\s+)?", "", label.strip(), flags=re.I)
+761545	    return label[:1].lower() + label[1:]
+761546	def pins_lookup(project, rows):
+761547	    """(row, how) for the project in the project list: by reference first, then by alias and applicant or topic."""
+761548	    ref = project.get("planning_ref", "").upper()
+761549	    if PINS_REF_RE.fullmatch(ref):
+761551	            if row["ref"] == ref:
+761552	                return row, "reference %s" % ref
+761553	    if "inspectorate" not in project.get("planning_authority", "").lower() and not PINS_REF_RE.fullmatch(ref):
+761554	        return None, ""
+761555	        for alias in project["aliases"]:
+761556	            if phrase_in(alias, row["name"]) or (len(_norm(alias_core(alias)).split()) >= 2
+761557	                                                 and phrase_in(alias_core(alias), row["name"])
+761558	                                                 and TOPIC_RE.search(row["name"])):
+761559	                return row, "alias '%s' is the register's project name '%s'" % (alias, row["name"])
+761561	def pins_items(projects, rows, today):
+761562	    """One item per project found in the list: its newest milestone that is not in the future."""
+761563	    out, found = [], {}
+761564	        row, how = pins_lookup(project, rows)
+761565	        if not row:
+761566	        found[project["repd_ref"]] = row
+761567	        past = sorted(((day, label) for label, day in row["dates"].items() if day <= today), reverse=True)
+761568	        link = PINS_PROJECT.format(ref=row["ref"])
+761569	        if past:
+761570	            day, label = past[0]
+761571	            title = "%s: %s" % (row["name"], _milestone(label))
+761572	            if row["stage"]:
+761573	                title += " (stage: %s)" % row["stage"]
+761574	            basis = "Planning Inspectorate project list, %s; title composed from the list's '%s' and stage" % (
+761575	                how, label)
+761576	            day = None
+761577	            title = "%s: on the national infrastructure register%s" % (
+761578	                row["name"], " (stage: %s)" % row["stage"] if row["stage"] else "")
+761579	            basis = "Planning Inspectorate project list, %s; no dated milestone yet" % how
+761580	        made = item(project, title, link, "Planning Inspectorate", day, basis,
+761581	                    "confirmed" if how.startswith("reference") else "uncertain")
+761582	        if made:
+761583	            made["kind"] = "register_milestone"
+761584	            out.append(made)
+761585	    return out, found
+761586	def source_pins(projects, fetcher, today):
+761587	    record = health("pins-register", PINS_CSV)
+761588	    record["requests"] += 1
+761589	        _, _, body = fetcher.get(PINS_CSV, "text/csv, */*")
+761590	        rows = parse_pins_csv(body)
+761592	            raise ValueError("project list is empty")
+761593	    except (FetchError, ValueError) as exc:
+761594	        record["failures"] += 1
+761595	        record["error"] = str(exc)[:200]
+761596	        return [], close_health(record), {}
+761597	    items, found = pins_items(projects, rows, today)
+761598	    record["items"] = len(items)
+761599	    record["rows"] = len(rows)
+761600	    return items, close_health(record), found
+761601	# ---------------------------------------------------------------- source: GOV.UK search API
+761602	GOVUK_FIELDS = ("title", "link", "public_timestamp", "organisations", "format", "description")
+761603	def govuk_url(query, count=20):
+761604	    params = [("q", query), ("count", str(count)), ("order", "-public_timestamp")]
+761605	    params += [("fields", f) for f in GOVUK_FIELDS]
+761606	    return GOVUK_SEARCH + "?" + urllib.parse.urlencode(params)
+761607	def govuk_results(body):
+761608	    data = json.loads(body.decode("utf-8", "replace") if isinstance(body, bytes) else body)
+761609	    for r in data.get("results", []):
+761610	        link = r.get("link") or ""
+761611	        if link.startswith("/"):
+761612	            link = "https://www.gov.uk" + link
+761613	        orgs = [o.get("title") for o in (r.get("organisations") or []) if isinstance(o, dict) and o.get("title")]
+761614	        out.append({"title": r.get("title") or "", "link": link, "summary": r.get("description") or "",
+761615	                    "date": (D.parse_date(r.get("public_timestamp") or "") or "")[:10] or None,
+761616	                    "publisher": orgs[0] if orgs else "GOV.UK", "format": r.get("format") or ""})
+761617	def govuk_queries(project):
+761618	    queries = ['"%s"' % project["aliases"][0]]
+761619	        queries.append(ref)
+761620	    return queries
+761621	def source_govuk(projects, fetcher, per_project=3):
+761622	    record = health("govuk-search", GOVUK_SEARCH)
+761623	    items = []
+761624	        kept, seen = [], set()
+761625	        for query in govuk_queries(project):
+761626	            record["requests"] += 1
+761627	                _, _, body = fetcher.get(govuk_url(query), "application/json")
+761628	                results = govuk_results(body)
+761629	            except (FetchError, ValueError) as exc:
+761630	                record["failures"] += 1
+761631	                record["error"] = str(exc)[:200]
+761632	            for r in results:
+761633	                hit = match(project, r["title"], r["summary"])
+761634	                if not hit or r["link"] in seen:
+761635	                made = item(project, r["title"], r["link"], r["publisher"], r["date"],
+761636	                            "GOV.UK search for %s: %s" % (query, hit[0]), hit[1])
+761637	                if made:
+761638	                    seen.add(r["link"])
+761639	                    made["kind"] = "govuk_page"
+761640	                    kept.append(made)
+761641	        kept.sort(key=lambda i: i["date"] or "", reverse=True)
+761642	        items += kept[:per_project]
+761643	    return items, close_health(record)
+761644	# ---------------------------------------------------------------- source: Scottish Energy Consents Unit case page
+761645	TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+761646	def html_title(body):
+761647	    m = TITLE_RE.search(body.decode("utf-8", "replace") if isinstance(body, bytes) else body)
+761648	    return D.clean_text(m.group(1), 200) if m else ""
+761649	def page_mentions(body, *needles):
+761650	    text = _norm(D.clean_text(body.decode("utf-8", "replace") if isinstance(body, bytes) else body, MAX_BYTES))
+761651	    return any(_norm(n) and _norm(n) in text for n in needles if n)
+761652	def source_ecu(projects, fetcher):
+761653	    """An ECU case page that answers and names the reference is an official, undated notice of the case."""
+761654	    record = health("ecu-case", ECU_CASE.format(ref="<reference>"))
+761655	        ref = project.get("planning_ref", "").upper()
+761656	        if not ECU_REF_RE.fullmatch(ref):
+761657	        record["requests"] += 1
+761658	        url = ECU_CASE.format(ref=ref)
+761659	            _, _, body = fetcher.get(url, "text/html")
+761660	        except FetchError as exc:
+761661	            record["failures"] += 1
+761662	            record["error"] = str(exc)[:200]
+761663	        if not page_mentions(body, ref):
+761664	            record["error"] = "case page does not show %s" % ref
+761665	        named = next((a for a in project["aliases"] if page_mentions(body, alias_core(a))), None)
+761666	        made = item(project, "%s: Section 36 application %s (Energy Consents Unit case)" % (project["aliases"][0], ref),
+761667	                    url, "Scottish Government Energy Consents Unit", None,
+761668	                    "Energy Consents Unit case page for %s%s; title composed from the reference" % (
+761669	                        ref, ", which names '%s'" % alias_core(named) if named else ""),
+761670	                    "confirmed" if named else "uncertain")
+761671	            made["kind"] = "case_page"
+761672	            items.append(made)
+761673	# ---------------------------------------------------------------- run, report
+761674	def dedupe(items):
+761675	    seen, out = set(), []
+761677	        key = (it["repd_ref"], it["link"])
+761678	        if key not in seen:
+761680	            out.append(it)
+761681	def run(projects, fetcher, today, sources=("pins", "govuk", "ecu")):
+761682	    items, records, extra = [], [], {}
+761683	    if "pins" in sources:
+761684	        got, record, found = source_pins(projects, fetcher, today)
+761685	        items += got
+761687	        extra["pins_found"] = {ref: row["ref"] for ref, row in found.items()}
+761688	    if "govuk" in sources:
+761689	        got, record = source_govuk(projects, fetcher)
+761690	    if "ecu" in sources:
+761691	        got, record = source_ecu(projects, fetcher)
+761692	    return dedupe(items), records, extra
+761693	def build_part(items, records, now_iso):
+761694	    return {"schema": SCHEMA_PART, "team": "official", "generated_at": now_iso, "items": items, "sources": records}
+761695	def by_project(items):
+761696	        table.setdefault(it["repd_ref"], []).append(it)
+761697	    for group in table.values():
+761698	        group.sort(key=lambda i: (i["date"] is not None, i["date"] or ""), reverse=True)
+761699	    return table
+761700	def cell(text):
+761701	    return str(text if text is not None else "").replace("|", "/").replace("\n", " ")
+761702	def probe_report(projects, items, records, now_iso):
+761703	    table = by_project(items)
+761704	    with_any = [p for p in projects if p["repd_ref"] in table]
+761705	    with_page = [p for p in projects if any(i.get("kind") == "govuk_page" for i in table.get(p["repd_ref"], []))]
+761706	    with_milestone = [p for p in projects
+761707	                      if any(i.get("kind") == "register_milestone" for i in table.get(p["repd_ref"], []))]
+761708	    without = [p for p in projects if p["repd_ref"] not in table]
+761709	    lines = ["## Official sources: %d of %d projects with at least one official signal" % (
+761710	        len(with_any), len(projects)), "",
+761711	        "Generated %s. GOV.UK page: %d projects; Planning Inspectorate register milestone: %d; "
+761712	        "Energy Consents Unit case page: %d; items: %d." % (
+761713	            now_iso, len(with_page), len(with_milestone),
+761714	            len({i["repd_ref"] for i in items if i.get("kind") == "case_page"}), len(items)), "",
+761715	        "| source | status | requests | failures | items | error |", "|---|---|---|---|---|---|"]
+761717	        lines.append("| %s | %s | %s | %s | %s | %s |" % (r["id"], r["status"], r["requests"], r["failures"],
+761718	                                                           r["items"], cell(r["error"])))
+761719	    failed = [r["id"] for r in records if r["status"] != "ok"]
+761720	    lines += ["", "Sources that failed or were partial: %s" % (", ".join(failed) or "none"), "",
+761721	              "### Newest official signal per project", "",
+761722	              "| rank | REPD | alias | date | publisher | title | basis |", "|---|---|---|---|---|---|---|"]
+761723	    for p in with_any:
+761724	        top = table[p["repd_ref"]][0]
+761725	            p["rank"], p["repd_ref"], cell(p["aliases"][0]), top["date"] or "", cell(top["publisher"]),
+761726	            cell(top["title"])[:110], top["link"], cell(top["basis"])[:110]))
+761727	    lines += ["", "### Projects with no official signal (%d)" % len(without), "",
+761728	              ", ".join("%s %s" % (p["repd_ref"], cell(p["aliases"][0])) for p in without) or "none", ""]
+761730	DISCOVER = [
+761731	    (PINS_CSV, "text/csv, */*"),
+761732	    (PINS_PROJECT.format(ref="EN010147"), "text/html"),
+761733	    (PINS_HOST + "/projects/EN010147/project-updates", "text/html"),
+761734	    (PINS_HOST + "/projects/EN010147/documents", "text/html"),
+761735	    (PINS_HOST + "/projects/EN0110020", "text/html"),
+761736	    (PINS_HOST + "/project-search?searchTerm=Botley", "text/html"),
+761737	    (govuk_url('"Botley West Solar Farm"', 5), "application/json"),
+761738	    (govuk_url("EN010147", 5), "application/json"),
+761739	    (govuk_url('"Cottam Solar Project"', 5), "application/json"),
+761740	    (ECU_CASE.format(ref="ECU00005085"), "text/html"),
+761741	    ("https://www.energyconsents.scot/ApplicationSearch.aspx", "text/html"),
+761742	    ("https://planningcasework.service.gov.wales/", "text/html"),
+761743	    ("https://planningcasework.service.gov.wales/en/case/CAS-01772-Z5P5D2", "text/html"),
+761744	    ("https://planningcasework.service.gov.wales/case/CAS-01772-Z5P5D2", "text/html"),
+761745	    ("https://planningcasework.service.gov.wales/en/case/DNS-3274702", "text/html"),
+761746	    ("https://planningcasework.service.gov.wales/en/case-search?q=CAS-01772-Z5P5D2", "text/html"),
+761747	    ("https://planningcasework.service.gov.wales/en/case-search?searchTerm=3274702", "text/html"),
+761749	HREF_RE = re.compile(r'href="([^"#]{2,200})"', re.I)
+761750	def discover(fetcher, urls=DISCOVER):
+761751	    """What each candidate source returns: status, type, size, title, first bytes and telling links. A CI aid."""
+761752	    lines = ["## Source discovery", ""]
+761753	    for url, accept in urls:
+761754	        lines.append("### `%s`" % url)
+761755	            final, ctype, body = fetcher.get(url, accept)
+761756	            lines += ["FAILED: %s" % exc, ""]
+761757	        text = body.decode("utf-8", "replace")
+761758	        lines.append("ok; final `%s`; type `%s`; %d bytes; title: %s" % (final, ctype, len(body),
+761759	                                                                       cell(html_title(body))))
+761760	        if "html" in ctype:
+761761	            hrefs = [h for h in dict.fromkeys(HREF_RE.findall(text))
+761762	                     if re.search(r"project|case|EN0|ECU|update|document|download|api|search", h, re.I)]
+761763	            lines += ["links: " + " ; ".join("`%s`" % h for h in hrefs[:40]), "",
+761764	                      "text: " + cell(D.clean_text(re.sub(r"(?is)<(script|style).*?</\1>", " ", text), 1500))]
+761765	            lines += ["```", text[:1500].replace("```", "'''"), "```"]
+761767	    ap.add_argument("--out", default=None, help="write the part file (project-signals-part.v1) here")
+761768	    ap.add_argument("--probe", default=None, help="write a Markdown coverage report here")
+761769	    ap.add_argument("--discover", default=None, help="write a Markdown report of what each source returns and stop")
+761770	    ap.add_argument("--top", default=None)
+761771	    ap.add_argument("--aliases", default=None)
+761772	    ap.add_argument("--limit", type=int, default=0, help="only the first N projects by rank")
+761773	    ap.add_argument("--sources", default="pins,govuk,ecu")
+761774	    fetcher = Fetcher()
+761775	    if args.discover:
+761776	        report = discover(fetcher)
+761777	        Path(args.discover).write_text(report, encoding="utf-8")
+761778	    now_iso = args.now or now_utc()
+761779	    projects = load_projects(args.top, args.aliases)
+761780	    items, records, _ = run(projects, fetcher, now_iso[:10], tuple(args.sources.split(",")))
+761781	    part = build_part(items, records, now_iso)
+761785	        out.write_text(json.dumps(part, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+761786	        Path(args.probe).write_text(probe_report(projects, items, records, now_iso), encoding="utf-8")
+761787	    print(json.dumps({"projects": len(projects), "with_official_signal": len({i["repd_ref"] for i in items}),
+761788	                      "items": len(items), "sources": {r["id"]: r["status"] for r in records}}))
+761789	    return 1 if records and all(r["status"] == "failed" for r in records) else 0
+761790	"""The planning-file fallback for the 200 largest solar projects in the REPD.
+761791	Owner, 14 November 2026: "Default to its local authority planning application file if nothing significant
+761792	discovered." So every project gets one link to its planning file, of the best kind available:
+761793	  pins_project   the Planning Inspectorate project page for a national infrastructure reference (EN01xxxx)
+761794	  ecu_case       the Scottish Energy Consents Unit case for a Section 36 reference (ECU0000xxxx)
+761795	  pedw_case      the Planning and Environment Decisions Wales case, where a case address is known
+761796	  application    the local planning authority's own page for the application, where a direct address can be built
+761797	                 from the reference (or was recorded with the alias table)
+761798	  search_page    the authority's planning register search page, with the reference for the reader to paste
+761799	A planning file is labelled "planning file", carries the authority and the reference, and is never a news signal.
+761800	The table of authority to register is planning_registers.json (every authority among the 200; a test enforces it).
+761801	  planning_file_for(project) -> dict            offline, used by the combiner
+761802	  python automation/news/signals/planning_file.py --out planning-files.json [--verify] [--probe summary.md]
+761803	                                                [--official part-official.json]
+761804	--verify fetches each register home once and each direct link once (one request a second per host) and sets
+761805	"verified" from what answered: a direct link is verified when the page answers and shows the reference or the
+761806	project's name; a link that is gone (404, 410, no such host) falls back to the search page.
+761807	import official as O  # noqa: E402  Fetcher, load_projects, matching helpers
+761808	SCHEMA = "project-planning-files.v1"
+761809	LABEL = "planning file"
+761810	DIRECT = ("pins_project", "ecu_case", "pedw_case", "application")
+761811	GENERIC_SEARCH = "https://www.gov.uk/search-register-planning-decisions"
+761812	GONE = (404, 410)
+761813	REGISTER_TIMEOUT_S = 10
+761814	_registers = None
+761815	def load_registers(path=None):
+761816	    global _registers
+761817	    if path is None and _registers is not None:
+761818	        return _registers
+761819	    table = json.loads(Path(path or HERE / "planning_registers.json").read_text(encoding="utf-8"))["authorities"]
+761821	        _registers = table
+761822	def _specific(url, register):
+761823	    """A member-recorded address that points at a case, not at a register's front page."""
+761824	    u = urllib.parse.urlsplit(url)
+761825	    if u.scheme != "https" or not u.hostname:
+761826	    fronts = {(register or {}).get(k, "").rstrip("/") for k in ("home", "search", "council")}
+761827	    return url.rstrip("/") not in fronts and (len(u.path.strip("/")) > 0 or bool(u.query)) and \
+761828	        not re.search(r"search\.do\?action=(simple|advanced)", url)
+761829	def _reference_forms(ref):
+761830	    return {"ref": urllib.parse.quote(ref, safe="/"), "ref_lower_dashed": ref.lower().replace("/", "-"),
+761831	            "ref_digits": re.sub(r"\D", "", ref)}
+761832	def search_page(register, authority, reference, why=""):
+761833	    register = register or {}
+761834	    dead = register.get("check", {}).get("status") == "gone"
+761835	    url = (register.get("council") if dead else register.get("search") or register.get("home")) \
+761836	        or register.get("council") or GENERIC_SEARCH
+761837	    note = "Search the register for %s." % reference if reference else "Search the register for the site name."
+761838	    if register.get("notes"):
+761839	        note += " " + register["notes"]
+761840	    if why:
+761841	        note += " " + why
+761842	    return {"label": LABEL, "authority": register.get("label") or authority, "reference": reference, "url": url,
+761843	            "kind": "search_page", "verified": False, "note": note.strip()}
+761844	def planning_file_for(project, registers=None):
+761845	    """The best planning-file link for one project, without the network. `project` is a dict with planning_authority,
+761846	    planning_ref and, optionally, the alias table's planning_file (a member's finding)."""
+761847	    registers = load_registers() if registers is None else registers
+761848	    authority = (project.get("planning_authority") or "").strip()
+761849	    reference = (project.get("planning_ref") or "").strip()
+761850	    register = registers.get(authority)
+761851	    member = project.get("planning_file") if isinstance(project.get("planning_file"), dict) else None
+761852	    def made(kind, url, auth, ref, note="", verified=False):
+761853	        return {"label": LABEL, "authority": auth, "reference": ref, "url": url, "kind": kind,
+761854	                "verified": bool(verified), "note": note}
+761855	    pins = registers.get("The Planning Inspectorate - National Infrastructure", {})
+761856	    ecu = registers.get("Scottish Government (S36)", {})
+761857	    en_ref = reference.upper() if O.PINS_REF_RE.fullmatch(reference) else None
+761858	    if not en_ref and member and member.get("kind") == "pins_project":
+761859	        found = O.PINS_REF_RE.search("%s %s" % (member.get("url", ""), member.get("reference", "")))
+761860	        en_ref = found.group(0).upper() if found else None
+761861	    if en_ref:
+761862	        note = "" if en_ref == reference.upper() else \
+761863	            "REPD records the reference %s; the national infrastructure reference is %s." % (reference, en_ref)
+761864	        return made("pins_project", O.PINS_PROJECT.format(ref=en_ref),
+761865	                    pins.get("label", "Planning Inspectorate (national infrastructure)"), en_ref, note)
+761866	    if O.ECU_REF_RE.fullmatch(reference):
+761867	        return made("ecu_case", O.ECU_CASE.format(ref=reference.upper()),
+761868	                    ecu.get("label", "Scottish Government Energy Consents Unit"), reference.upper())
+761869	    if member and member.get("kind") in DIRECT and _specific(member.get("url", ""), register):
+761870	        return made(member["kind"], member["url"], (register or {}).get("label") or member.get("authority") or authority,
+761871	                    member.get("reference") or reference, "", member.get("verified") is True)
+761872	    if register and register.get("application") and reference and \
+761873	            re.fullmatch(register.get("ref_re", r".+"), reference):
+761874	        return made(register.get("kind", "application"), register["application"].format(**_reference_forms(reference)),
+761875	                    register.get("label") or authority, reference)
+761876	    if not register and member and str(member.get("url", "")).startswith("https://"):
+761877	        return made("search_page", member["url"], member.get("authority") or authority,
+761878	                    member.get("reference") or reference, "Search the register for %s." % reference)
+761879	    return search_page(register, authority, reference)
+761880	# ---------------------------------------------------------------- verification (network)
+761881	def _check(fetcher, url, cache):
+761882	    """('ok', body) | ('gone', reason) | ('blocked', reason): gone is a 404/410 or a host that does not resolve."""
+761883	    if url in cache:
+761884	        return cache[url]
+761885	        _, _, body = fetcher.get(url, "text/html, */*")
+761886	        result = ("ok", body)
+761887	    except O.FetchError as exc:
+761888	        text = str(exc)
+761889	        gone = exc.status in GONE or "Name or service not known" in text or "No address associated" in text \
+761890	            or "getaddrinfo" in text or "nodename nor servname" in text
+761891	        result = ("gone" if gone else "blocked", text[:120])
+761892	    cache[url] = result
+761894	def verify(projects, fetcher, registers=None):
+761895	    """Planning files with "verified" set from the network, and one health record per register."""
+761896	    cache, files, checks = {}, {}, {}
+761897	    def register_check(authority):
+761898	        register = registers.get(authority)
+761899	        if register is None:
+761900	        if authority not in checks:
+761901	            record = {"authority": authority, "url": register.get("search") or register.get("home"),
+761902	                      "status": "", "error": "", "used": ""}
+761903	            status, detail = _check(fetcher, record["url"], cache)
+761904	            if status != "ok" and register.get("search") and register.get("home"):
+761905	                status2, detail2 = _check(fetcher, register["home"], cache)
+761906	                if status2 == "ok":
+761907	                    status, detail, record["url"] = status2, detail2, register["home"]
+761908	            record["status"] = status
+761909	            if status == "ok":
+761910	                record["used"] = record["url"]
+761911	                record["error"] = detail
+761912	                if register.get("council"):
+761913	                    status3, _ = _check(fetcher, register["council"], cache)
+761914	                    if status3 == "ok":
+761915	                        record["used"] = register["council"]
+761916	                        record["status"] = "council_page_only" if status == "gone" else "blocked"
+761917	            checks[authority] = record
+761918	        return checks[authority]
+761919	        made = dict(planning_file_for(project, registers))
+761920	        made["verified"] = False
+761921	        made["check"] = ""
+761922	        authority = project.get("planning_authority", "")
+761923	        if made["kind"] in DIRECT:
+761924	            status, detail = _check(fetcher, made["url"], cache)
+761925	                names = [O.alias_core(a) for a in project.get("aliases", [])]
+761926	                if O.page_mentions(detail, made["reference"], *names):
+761927	                    made["verified"], made["check"] = True, "page answers and shows the reference or the name"
+761928	                elif made["url"].lower().endswith(".pdf"):
+761929	                    made["verified"], made["check"] = True, "document answers"
+761931	                    made["check"] = "page answers but does not show the reference"
+761932	            elif status == "blocked":
+761933	                made["check"] = "not fetched (%s); link kept, unverified" % detail
+761934	                made = search_page(registers.get(authority), authority, project.get("planning_ref", ""),
+761935	                                   "The direct link did not answer (%s)." % detail)
+761936	                made["check"] = "direct link gone"
+761937	        if made["kind"] == "search_page":
+761938	            record = register_check(authority)
+761939	            if record is None:
+761940	                made["check"] = made.get("check") or "authority not in the register table"
+761941	            elif record["status"] == "ok":
+761942	                made["url"] = record["url"]
+761943	                made["check"] = (made.get("check") + "; " if made.get("check") else "") + "register page answers"
+761944	            elif record["used"]:
+761945	                if record["status"] == "council_page_only":
+761946	                    made["url"] = record["used"]
+761947	                made["check"] = "register page: %s (%s)" % (record["status"], record["error"])
+761948	            made["register_status"] = record["status"] if record else "unknown"
+761949	        files[project["repd_ref"]] = made
+761950	    return files, [checks[a] for a in sorted(checks)]
+761951	# ---------------------------------------------------------------- output
+761952	def counts_of(files, total):
+761953	    direct_ok = [r for r, f in files.items() if f["kind"] in DIRECT and f["verified"]]
+761954	    direct_unverified = [r for r, f in files.items() if f["kind"] in DIRECT and not f["verified"]]
+761955	    search = [r for r, f in files.items() if f["kind"] == "search_page"]
+761956	    return {"projects": total, "with_planning_file": len(files), "verified_direct": len(direct_ok),
+761957	            "direct_unverified": len(direct_unverified), "search_page": len(search),
+761958	            "search_page_register_answers": sum(1 for r in search if files[r].get("register_status") == "ok"),
+761959	            "nothing": total - len(files),
+761960	            "by_kind": {k: sum(1 for f in files.values() if f["kind"] == k) for k in KINDS}}
+761961	def build(projects, files, register_records, now_iso, verified_run):
+761962	    return {"schema": SCHEMA, "generated_at": now_iso, "verified_run": verified_run,
+761963	            "counts": counts_of(files, len(projects)),
+761964	            "projects": {p["repd_ref"]: {"repd_ref": p["repd_ref"], "planning_file": files[p["repd_ref"]]}
+761965	                         for p in projects if p["repd_ref"] in files},
+761966	            "registers": register_records}
+761967	def probe_report(projects, files, register_records, now_iso, official=None):
+761968	    c = counts_of(files, len(projects))
+761969	    signalled = {i["repd_ref"] for i in (official or {}).get("items", [])}
+761970	    verified = {r for r, f in files.items() if f["kind"] in DIRECT and f["verified"]}
+761971	    search_only = [p for p in projects if p["repd_ref"] not in signalled and p["repd_ref"] not in verified
+761972	                   and files.get(p["repd_ref"], {}).get("kind") == "search_page"]
+761973	    unverified_only = [p for p in projects if p["repd_ref"] not in signalled and p["repd_ref"] not in verified
+761974	                       and files.get(p["repd_ref"], {}).get("kind") in DIRECT]
+761975	    nothing = [p for p in projects if p["repd_ref"] not in signalled and p["repd_ref"] not in files]
+761976	    failed = ["%s (%s)" % (s["id"], s["status"]) for s in (official or {}).get("sources", []) if s["status"] != "ok"]
+761977	    bad_registers = [r for r in register_records if r["status"] != "ok"]
+761978	    lines = ["## Project signals, official sources and planning files: %d projects" % len(projects), "",
+761979	             "Generated %s." % now_iso, "",
+761980	             "| measure | projects |", "|---|---|"]
+761981	    if official is not None:
+761982	        lines.append("| at least one official signal | %d |" % len(signalled))
+761983	    lines += ["| a verified planning file (direct link that answered and shows the reference or name) | %d |" % len(verified),
+761984	              "| a direct planning-file link that could not be verified from here | %d |" % c["direct_unverified"],
+761985	              "| a search-page planning file | %d (register page answered for %d) |" % (
+761986	                  c["search_page"], c["search_page_register_answers"])]
+761987	        lines += ["| no official signal and no verified file: only a search-page fallback | %d |" % len(search_only),
+761988	                  "| no official signal and only an unverified direct link | %d |" % len(unverified_only),
+761989	                  "| an official signal or a planning file (the guarantee) | %d |" % (len(projects) - len(nothing))]
+761990	    lines += ["| nothing at all | %d |" % len(nothing), "",
+761991	              "Planning files by kind: " + ", ".join("%s %d" % (k, v) for k, v in c["by_kind"].items()), "",
+761992	              "Sources that failed or were partial: %s" % (", ".join(failed) or "none"), "",
+761993	              "Registers that did not answer: %d of %d checked" % (len(bad_registers), len(register_records)), ""]
+761994	    if bad_registers:
+761995	        lines += ["| authority | status | address tried | error | page used |", "|---|---|---|---|---|"]
+761996	        lines += ["| %s | %s | %s | %s | %s |" % (O.cell(r["authority"]), r["status"], r["url"], O.cell(r["error"]),
+761997	                                                 r["used"]) for r in bad_registers]
+761998	    lines += ["Projects with nothing: %s" % (", ".join("%s %s" % (p["repd_ref"], O.cell(p["site_name"]))
+761999	                                                       for p in nothing) or "none"), "",
+762000	              "### Planning file per project", "",
+762001	              "| rank | REPD | project | authority | reference | kind | verified | check |",
+762002	              "|---|---|---|---|---|---|---|---|"]
+762004	        f = files.get(p["repd_ref"])
+762006	            lines.append("| %s | %s | %s | %s | [%s](%s) | %s | %s | %s |" % (
+762007	                p["rank"], p["repd_ref"], O.cell(p["aliases"][0]), O.cell(f["authority"]),
+762008	                O.cell(f["reference"]) or "(none)", f["url"].replace(" ", "%20"), f["kind"],
+762009	                "yes" if f["verified"] else "no", O.cell(f.get("check", ""))[:90]))
+762011	    ap.add_argument("--out", default=None, help="write the planning files (project-planning-files.v1) here")
+762012	    ap.add_argument("--probe", default=None, help="write a Markdown report here")
+762013	    ap.add_argument("--verify", action="store_true", help="fetch register pages and direct links to set 'verified'")
+762014	    ap.add_argument("--official", default=None, help="the official part file, to report combined coverage")
+762016	    now_iso = args.now or O.now_utc()
+762017	    projects = O.load_projects(args.top, args.aliases)
+762018	    if args.verify:
+762019	        O.TIMEOUT_S = REGISTER_TIMEOUT_S        # many council hosts do not answer a datacentre address: do not wait long
+762020	        files, records = verify(projects, O.Fetcher())
+762021	        files, records = {p["repd_ref"]: planning_file_for(p) for p in projects}, []
+762022	    result = build(projects, files, records, now_iso, args.verify)
+762023	        out.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+762024	        official = None
+762025	        if args.official and Path(args.official).exists():
+762026	            official = json.loads(Path(args.official).read_text(encoding="utf-8"))
+762027	        Path(args.probe).write_text(probe_report(projects, files, records, now_iso, official), encoding="utf-8")
+762028	    print(json.dumps(result["counts"]))
+762029	    return 1 if result["counts"]["nothing"] else 0
+762030	"""Offline tests for automation/news/signals/combine.py."""
+762031	SIGNALS = Path(__file__).resolve().parents[1]
+762032	for path in (str(SIGNALS.parent), str(SIGNALS)):
+762033	    if path not in sys.path:
+762034	        sys.path.insert(0, path)
+762035	import combine as C  # noqa: E402
+762036	NOW = "2026-11-14T12:00:00Z"
+762038	    {"rank": 1, "repd_ref": "12588", "site_name": "Botley West, Botley - Botley West Solar Project", "country": "England",
+762039	     "planning_authority": "The Planning Inspectorate - National Infrastructure", "planning_ref": "EN010147"},
+762040	    {"rank": 2, "repd_ref": "20001", "site_name": "Rigifa Solar Farm", "country": "Scotland",
+762041	     "planning_authority": "Scottish Government (S36)", "planning_ref": "ECU00004567"},
+762042	    {"rank": 3, "repd_ref": "20002", "site_name": "Mill Solar Farm", "country": "England",
+762043	     "planning_authority": "Ashford", "planning_ref": "24/00001/AS"},
+762044	    {"rank": 4, "repd_ref": "20003", "site_name": "Quiet Solar Farm", "country": "Wales",
+762045	     "planning_authority": "Welsh Government (PEDW)", "planning_ref": "DNS/3240001"},
+762046	ALIASES = {"projects": {
+762047	    "12588": {"aliases": ["Botley West Solar Farm"], "planning_file": {
+762048	        "authority": "The Planning Inspectorate", "reference": "EN010147", "kind": "pins_project", "verified": True,
+762049	        "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010147"}},
+762050	    "20001": {"aliases": ["Rigifa Solar Farm"], "exclude": ["Caithness"]},
+762052	def item(ref, n, family="trade", date="2026-11-01", confidence="confirmed", **more):
+762053	    base = {"repd_ref": ref, "title": "Headline %s" % n, "link": "https://example.co.uk/%s?utm_source=x" % n,
+762054	            "publisher": "Example", "date": date, "family": family, "basis": "alias in title", "confidence": confidence}
+762055	    base.update(more)
+762057	def part(team, items, sources=None):
+762058	    return {"schema": C.PART_SCHEMA, "team": team, "generated_at": NOW, "items": items,
+762059	            "sources": sources if sources is not None else [{"id": team + "-src", "url": "https://example.co.uk/", "status": "ok",
+762060	                                                             "requests": 3, "failures": 0, "items": len(items), "error": ""}]}
+762061	def test_runs_with_no_parts_and_every_project_has_a_planning_file():
+762062	    result = C.combine(ROWS, None, {}, now_iso=NOW, use_module=False)
+762063	    assert c["projects"] == 4 and c["with_signal"] == 0 and c["planning_file_only"] == 4 and c["nothing"] == 0
+762064	    assert c["planning_file_last_resort"] == 4 and c["planning_file_verified"] == 0
+762065	    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "absent", "trade": "absent", "index": "absent", "reviewed": "absent"}
+762066	    files = {ref: p["planning_file"] for ref, p in result["projects"].items()}
+762067	    assert files["12588"]["kind"] == "pins_project" and files["12588"]["url"].endswith("/projects/EN010147")
+762068	    assert files["20001"]["kind"] == "search_page" and "energyconsents.scot" in files["20001"]["url"]
+762069	    assert files["20001"]["note"] == "search for ECU00004567"
+762070	    assert "planningcasework.service.gov.wales" in files["20003"]["url"]
+762071	    assert files["20002"]["authority"] == "Ashford" and "24/00001/AS" in files["20002"]["note"]
+762072	    assert all(f["label"] == "planning file" and f["verified"] is False for f in files.values())
+762073	    assert all(p["signals"] == [] for p in result["projects"].values())
+762074	def test_merge_order_cap_dedupe_and_counts():
+762075	    official = part("official", [item("12588", "o1", "official", "2026-11-10"), item("20002", "o2", "official", "2026-05-01")])
+762076	    trade = part("trade", [item("12588", "t%d" % n, "trade", "2026-11-%02d" % n) for n in range(1, 8)]
+762077	                 + [item("12588", "o1", "trade", "2026-11-10")]                      # same link as the official item
+762078	                 + [item("12588", "dup", "trade", "2026-10-01", title="Headline t7")]  # same headline, other link
+762079	                 + [item("99999", "x")])
+762080	    index = part("index", [item("12588", "b1", "bbc", "2026-11-10"), item("12588", "u1", "regional", "2026-11-12", "uncertain"),
+762081	                           item("12588", "nodate", "national", None),
+762082	                           item("20001", "r1", "regional", "2026-01-01", title="Rigifa solar farm in Caithness approved"),
+762083	                           item("20001", "g1", "regional", link="https://news.google.com/rss/articles/abc"),
+762084	                           {"repd_ref": "20001", "title": "", "link": "https://example.co.uk/e"}])
+762085	    result = C.combine(ROWS, ALIASES, {"official": official, "trade": trade, "index": index}, now_iso=NOW, use_module=False)
+762086	    signals = result["projects"]["12588"]["signals"]
+762087	    assert len(signals) == 5 and len({s["link"] for s in signals}) == 5
+762088	    assert all("utm_" not in s["link"] for s in signals)
+762089	    assert [s["family"] for s in signals[:2]] == ["official", "bbc"]                 # same day: official first, then BBC
+762090	    assert signals[0]["date"] == "2026-11-10" and signals[0]["title"] == "Headline o1"
+762091	    dated = [s["date"] for s in signals if s["confidence"] == "confirmed" and s["date"]]
+762092	    assert dated == sorted(dated, reverse=True)
+762093	    assert {"official", "bbc", "trade", "national", "regional"} == {s["family"] for s in signals}   # one of each family kept
+762094	    assert signals[-1]["confidence"] == "uncertain"                                   # uncertain after confirmed
+762095	    assert c["with_signal"] == 2 and c["with_news_signal"] == 1 and c["official_signal_only"] == 1
+762096	    assert c["with_confirmed_signal"] == 2 and c["planning_file_only"] == 2 and c["nothing"] == 0
+762097	    assert c["with_signal_by_family"] == {"official": 2, "bbc": 1, "trade": 1, "national": 1, "regional": 1, "developer": 0}
+762098	    assert c["split"] == {"fetched_news": 1, "fetched_official": 1, "reviewed_only": 0, "planning_file_only": 2, "nothing": 0}
+762099	    assert c["planning_file_verified"] == 1 and c["planning_file_last_resort"] == 3
+762100	    assert result["dropped"] == {"outside the 200": 1, "no title or link": 1, "source not allowed": 1, "exclude phrase": 1,
+762101	                                 "not an object": 0}
+762102	    assert result["projects"]["12588"]["planning_file"]["verified"] is True
+762103	    assert result["projects"]["12588"]["alias"] == "Botley West Solar Farm"
+762104	    assert {s["team"] for s in result["sources"]} == {"official", "trade", "index"}
+762105	    assert all("planning" not in s["title"].lower() for p in result["projects"].values() for s in p["signals"])
+762106	def test_bad_parts_are_recorded_and_do_not_stop_the_run():
+762107	    parts = {"official": "unreadable", "trade": {"schema": "something-else", "items": []},
+762108	             "index": part("index", [item("20002", "b1", "bbc")])}
+762109	    result = C.combine(ROWS, ALIASES, parts, now_iso=NOW, use_module=False)
+762110	    assert {t: s["status"] for t, s in result["parts"].items()} == {"official": "unreadable", "trade": "wrong schema", "index": "ok", "reviewed": "absent"}
+762111	    assert result["counts"]["with_signal"] == 1 and result["counts"]["nothing"] == 0
+762112	def test_previous_signals_are_kept_and_planning_override():
+762113	    first = C.combine(ROWS, ALIASES, {"index": part("index", [item("20002", "b1", "bbc", "2026-10-01")])}, now_iso=NOW, use_module=False)
+762114	    planning = {"20002": {"authority": "Ashford Borough Council", "reference": "24/00001/AS", "kind": "application",
+762115	                          "url": "https://planning.example.gov.uk/app?ref=24/00001/AS", "verified": True}}
+762116	    second = C.combine(ROWS, ALIASES, {"index": part("index", [item("20002", "b2", "bbc", "2026-11-01")])}, planning, first,
+762117	                       now_iso=NOW, use_module=False)
+762118	    assert [s["title"] for s in second["projects"]["20002"]["signals"]] == ["Headline b2", "Headline b1"]
+762119	    assert second["carried_from_previous"] == 1
+762120	    assert second["projects"]["20002"]["planning_file"]["kind"] == "application"
+762121	    assert second["counts"]["planning_file_last_resort"] == 2
+762122	    third = C.combine(ROWS, ALIASES, {}, None, {"schema": "other"}, now_iso=NOW, use_module=False)
+762123	    assert third["counts"]["with_signal"] == 0
+762124	def reviewed(ref, n, family="regional", date="2026-06-01", **more):
+762125	    return item(ref, n, family, date, basis="reviewed 2026-11-14", **more)
+762126	def test_reviewed_part_fills_gaps_and_never_outranks_a_fetched_item():
+762127	    index = part("index", [item("12588", "same", "bbc", "2026-11-10", basis="BBC News RSS: alias in title"),
+762128	                           item("12588", "old", "regional", "2026-01-01")])
+762129	    rev = part("reviewed", [
+762130	        reviewed("12588", "same", "regional", "2026-11-10", title="Another wording of the same story"),   # same link as fetched
+762131	        reviewed("12588", "r-new", "trade", "2026-11-12"), reviewed("12588", "r-undated", "regional", None),
+762132	        reviewed("20001", "dev", "official", "2026-03-01", link="https://uk.rwe.com/projects/rigifa"),      # developer page
+762133	        reviewed("20002", "reg", "regional", "2025-05-05"),
+762134	        reviewed("20002", "aol", "bbc", "2025-06-06", link="https://www.aol.com/news/story"),
+762135	        reviewed("20003", "g", "regional", link="https://news.google.com/rss/articles/x"),
+762136	        reviewed("20003", "paywall", "national", link="https://www.ft.com/content/x"),
+762137	        {"repd_ref": "20002", "title": "No basis given", "link": "https://example.co.uk/nb", "family": "regional", "date": None,
+762138	         "notes": "private note", "evidence": "text"}], sources=[])
+762139	    result = C.combine(ROWS, ALIASES, {"index": index, "reviewed": rev}, now_iso=NOW, use_module=False)
+762140	    botley = result["projects"]["12588"]["signals"]
+762141	    assert [s["link"].rsplit("/", 1)[1] for s in botley] == ["r-new", "same", "old", "r-undated"]      # newest first, undated last
+762142	    same = next(s for s in botley if s["link"].endswith("/same"))
+762143	    assert same["family"] == "bbc" and same["basis"].startswith("BBC News RSS")                       # the fetched item won
+762144	    assert [s["basis"] for s in botley if s["link"].endswith(("r-new", "r-undated"))] == ["reviewed 2026-11-14"] * 2
+762145	    dev = result["projects"]["20001"]["signals"]
+762146	    assert [s["family"] for s in dev] == ["developer"]
+762147	    mill = result["projects"]["20002"]["signals"]
+762148	    assert {s["family"] for s in mill} == {"regional", "national"}                                    # an aggregator copy is not "bbc"
+762149	    assert all(s["basis"] == "reviewed" or s["basis"] == "reviewed 2026-11-14" for s in mill)
+762150	    assert all(set(s) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"} for s in mill)
+762151	    assert result["projects"]["20003"]["signals"] == [] and result["dropped"]["source not allowed"] == 2
+762152	    assert c["split"] == {"fetched_news": 1, "fetched_official": 0, "reviewed_only": 2, "planning_file_only": 1, "nothing": 0}
+762153	    assert c["with_signal"] == 3 and c["with_news_signal"] == 2                                       # the developer page is not news
+762154	    assert c["with_signal_by_family"]["developer"] == 1 and c["with_signal_by_family"]["bbc"] == 1
+762155	    assert "private note" not in json.dumps(result)
+762156	    text = C.summary(result)
+762157	    assert "fetched news 1, fetched official or developer page only 0, reviewed only 2, planning file only 1, nothing 0" in text
+762158	def test_committed_reviewed_file_is_clean():
+762159	    data = json.loads((SIGNALS / "reviewed_signals.json").read_text())
+762160	    assert data["schema"] == C.PART_SCHEMA and data["team"] == "reviewed" and data["items"]
+762161	    refs = {str(r["repd_ref"]) for r in json.loads((SIGNALS / "top200_solar.json").read_text())}
+762162	    for entry in data["items"]:
+762163	        assert set(entry) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+762164	        assert entry["repd_ref"] in refs and entry["basis"] == "reviewed 2026-11-14" and entry["link"].startswith("https://")
+762165	        assert C.clean_item(entry, "reviewed")[0] is not None
+762166	    assert "@" not in json.dumps(data) and "/home/" not in json.dumps(data)
+762167	def test_truth_report_by_family():
+762168	    truth = {"12588": {"status": "found", "families": ["bbc", "trade"], "links": ["https://example.co.uk/b1"]},
+762169	             "20002": {"status": "found", "families": ["regional"], "links": []},
+762170	             "20003": {"status": "none", "families": [], "links": []}}
+762171	    result = C.combine(ROWS, ALIASES, {"index": part("index", [item("12588", "b1", "bbc"), item("20003", "q", "regional")])},
+762172	    text = C.truth_report(truth, {ref: p["signals"] for ref, p in result["projects"].items()})
+762173	    assert "Of the 2 found by a member, the automated run has at least one signal for **1**." in text
+762174	    assert "| bbc | 1 | 1 | 1 | 1 |" in text and "| trade | 1 | 1 | 0 | 1 |" in text and "| regional | 1 | 0 | 0 | 0 |" in text
+762175	    assert "did not mark found: 1 (REPD 20003)" in text and "not by the run: REPD 20002." in text
+762176	def test_main_writes_file_and_summary(tmp_path):
+762177	    top, aliases, index = tmp_path / "top.json", tmp_path / "aliases.json", tmp_path / "index.json"
+762178	    top.write_text(json.dumps(ROWS))
+762179	    aliases.write_text(json.dumps(ALIASES))
+762180	    index.write_text(json.dumps(part("index", [item("12588", "b1", "bbc")])))
+762181	    (tmp_path / "trade.json").write_text("{not json")
+762182	    out, md = tmp_path / "dist" / "project_signals.json", tmp_path / "summary.md"
+762183	    code = C.main(["--top200", str(top), "--aliases", str(aliases), "--index", str(index), "--trade", str(tmp_path / "trade.json"),
+762184	                   "--official", str(tmp_path / "missing.json"), "--out", str(out), "--summary", str(md), "--now", NOW,
+762185	                   "--truth", str(tmp_path / "none.json")])
+762186	    data = json.loads(out.read_text())
+762187	    assert code == 0 and data["schema"] == "project-signals.v1" and set(data["projects"]) == {r["repd_ref"] for r in ROWS}
+762188	    assert data["parts"]["trade"]["status"] == "unreadable" and data["parts"]["official"]["status"] == "absent"
+762189	    assert all(p["planning_file"] and p["planning_file"]["url"].startswith("https://") for p in data["projects"].values())
+762190	    text = md.read_text()
+762191	    assert "with nothing (must be 0) | 0 |" in text and "planning file" in text and "/home/" not in out.read_text() + text
+762192	def test_real_top200_all_have_something_to_click():
+762193	    rows = json.loads((SIGNALS / "top200_solar.json").read_text())
+762194	    result = C.combine(rows, None, {}, now_iso=NOW, use_module=False)
+762195	    assert result["counts"]["projects"] == 200 and result["counts"]["nothing"] == 0
+762196	    assert result["counts"]["planning_file_only"] == 200
+762197	"""Offline tests for automation/news/signals/index.py. No network: feeds and GDELT answers are given in memory."""
+762199	import index as I  # noqa: E402
+762200	FOUR = {"rank": 4, "repd_ref": "20003", "site_name": "Cottam Solar Project", "operator": "Island Green Power", "mw": 600.0,
+762201	        "county": "Lincolnshire", "country": "England", "planning_authority": "PINS", "planning_ref": "EN010133"}
+762202	TOP = [
+762203	    {"rank": 1, "repd_ref": "12588", "site_name": "Botley West, Botley - Botley West Solar Project",
+762204	     "operator": "Photovolt Development Partners & SolarFive ", "mw": 840.0, "county": "Oxfordshire",
+762205	     "country": "England", "planning_authority": "The Planning Inspectorate - National Infrastructure",
+762206	     "planning_ref": "EN010147"},
+762207	    {"rank": 2, "repd_ref": "20001", "site_name": "Rigifa Solar Farm & Battery Storage", "operator": "Example Energy Ltd",
+762208	     "mw": 60.0, "county": "Aberdeenshire", "country": "Scotland", "planning_authority": "Aberdeenshire",
+762209	     "planning_ref": "APP/2025/0001"},
+762210	    {"rank": 3, "repd_ref": "20002", "site_name": "Mill Solar Farm", "operator": "Example Energy Ltd", "mw": 50.0,
+762211	     "county": "Kent", "country": "England", "planning_authority": "Ashford", "planning_ref": "24/00001"},
+762212	ALIASES = {"schema": "project-signal-aliases.v1", "projects": {
+762213	    "12588": {"aliases": ["Botley West Solar Farm"], "alias_status": "confirmed", "planning_ref": "EN010147"},
+762214	    "20001": {"aliases": ["Rigifa Solar Farm"], "alias_status": "confirmed", "exclude": ["Caithness"]},
+762215	def rss(*entries):
+762216	    body = "".join("<item><title>%s</title><link>%s</link><pubDate>%s</pubDate><description>%s</description></item>" % e
+762217	                   for e in entries)
+762218	    return ("<?xml version='1.0'?><rss version='2.0'><channel><title>t</title>%s</channel></rss>" % body).encode()
+762220	def projects(tmp_path):
+762221	    top, aliases = tmp_path / "top.json", tmp_path / "aliases.json"
+762222	    top.write_text(json.dumps(TOP))
+762223	    return I.load_projects(top, aliases)
+762224	def test_derived_alias_and_core_names(tmp_path, projects):
+762225	    assert I.clean_site_name("Botley West, Botley - Botley West Solar Project") == "Botley West Solar Project"
+762226	    assert I.clean_site_name("Green Hill Solar Farm & Battery Storage") == "Green Hill Solar Farm"
+762227	    assert I.clean_site_name("Tillbridge Solar Farm, Hemswell - Solar Panels") == "Tillbridge Solar Farm"
+762228	    assert I.core_name("The Tween Bridge Solar Farm") == "Tween Bridge"
+762229	    botley, rigifa, mill = projects
+762230	    assert botley["cores"] == ["botley west"] and botley["alias_status"] == "confirmed"
+762231	    assert mill["alias_status"] == "derived" and mill["aliases"] == ["Mill Solar Farm"]
+762232	    assert mill["cores"] == []                       # "Mill" alone is too common to match on
+762233	    top = tmp_path / "top.json"
+762234	    assert [p["alias_status"] for p in I.load_projects(top, tmp_path / "missing.json")] == ["derived"] * 3
+762235	def test_match_rule(projects):
+762236	    assert I.match_item(botley, "Botley West solar farm refused by minister")[0] == "strong"
+762237	    assert I.match_item(botley, "Botley West solar project decision due")[0] == "strong"
+762238	    assert I.match_item(botley, "Decision on EN010147 published")[0] == "strong"
+762239	    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "strong"
+762240	    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "strong"
+762241	    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.")[0] == "weak"
+762242	    assert I.match_item(botley, "Solar plan near Botley West divides villagers")[0] == "weak"
+762243	    assert I.match_item(botley, "Botley West residents meet over road closure") is None      # a bare name is not enough
+762244	    assert I.match_item(botley, "Solar farm refused in Oxfordshire") is None
+762245	    assert I.match_item(rigifa, "Rigifa solar farm in Caithness approved") is None           # exclude phrase
+762246	    assert I.match_item(mill, "Mill solar farm approved")[0] == "strong"                     # full alias still matches
+762247	    assert I.match_item(mill, "Solar plan for old mill site") is None
+762248	def test_bbc_feed_list_is_derived_from_the_counties(projects):
+762249	    feeds, unmapped = I.bbc_feeds(projects)
+762250	    urls = dict(feeds)
+762251	    assert "https://feeds.bbci.co.uk/news/england/oxford/rss.xml" in urls
+762252	    assert urls["https://feeds.bbci.co.uk/news/england/oxford/rss.xml"] == {"oxfordshire"}
+762253	    assert "https://feeds.bbci.co.uk/news/rss.xml" in urls and unmapped == []
+762254	    assert "https://feeds.bbci.co.uk/news/england/norfolk/rss.xml" not in urls
+762255	def test_every_top200_county_has_a_bbc_feed():
+762256	    projects = I.load_projects(SIGNALS / "top200_solar.json", None)
+762257	    assert len(projects) == 200
+762258	    assert unmapped == []
+762259	    assert all(url.startswith("https://feeds.bbci.co.uk/news/") and url.endswith("rss.xml") for url, _ in feeds)
+762260	def test_collect_rss_reads_summary_but_never_stores_it(projects):
+762261	    oxford = "https://feeds.bbci.co.uk/news/england/oxford/rss.xml"
+762262	    bodies = {
+762263	        oxford: rss(("Minister refuses giant solar farm", "https://www.bbc.co.uk/news/articles/abc?at_medium=RSS",
+762264	                     "Tue, 10 Nov 2026 12:00:00 GMT", "The Botley West Solar Farm was refused development consent."),
+762265	                    ("Bus timetable changes", "https://www.bbc.co.uk/news/articles/def", "Tue, 10 Nov 2026 12:00:00 GMT", "x"),
+762266	                    ("Solar eclipse photos", "https://news.google.com/rss/articles/xyz", "Tue, 10 Nov 2026 12:00:00 GMT", "x")),
+762268	        if url not in bodies:
+762269	            raise OSError("HTTP 404")
+762270	        return bodies[url]
+762271	    feeds = [(oxford, {"oxfordshire"}), ("https://feeds.bbci.co.uk/news/england/nowhere/rss.xml", set())]
+762272	    items, health = I.collect_rss(feeds, projects, fetch, "BBC News", "bbc", "BBC News RSS")
+762273	    assert [h["status"] for h in health] == ["ok", "failed"]            # one bad feed never stops the run
+762274	    assert [v[2] for v in I.collect_rss.unmatched.values()] == []       # the eclipse item is a Google link: dropped
+762276	    item = items[0]
+762277	    assert item == {"repd_ref": "12588", "title": "Minister refuses giant solar farm",
+762278	                    "link": "https://www.bbc.co.uk/news/articles/abc", "publisher": "BBC News", "date": "2026-11-10",
+762279	                    "family": "bbc", "confidence": "confirmed",
+762280	                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed"}
+762281	    assert "refused development consent" not in json.dumps(items)
+762282	    record = I.source_record("bbc-rss", I.BBC_BASE, health)
+762283	    assert record["status"] == "partial" and record["failures"] == 1 and record["items"] == 1
+762284	def test_excluded_sources_and_publishers():
+762285	    assert I.is_excluded("https://news.google.com/rss/articles/x")
+762286	    assert I.is_excluded("https://www.google.co.uk/url?q=x")
+762287	    assert I.is_excluded("https://www.reuters.com/world/uk/x")
+762288	    assert not I.is_excluded("https://www.bbc.co.uk/news/articles/x")
+762289	    assert I.publisher_of("https://www.bbc.co.uk/news/articles/x") == ("BBC News", "bbc")
+762290	    assert I.publisher_of("https://www.solarpowerportal.co.uk/x") == ("Solar Power Portal", "trade")
+762291	    assert I.publisher_of("https://www.oxfordmail.co.uk/news/x") == ("oxfordmail.co.uk", "regional")
+762292	def test_gdelt_query_and_url(projects):
+762293	    botley = projects[0]
+762294	    assert I.gdelt_phrase(botley) == "Botley West"
+762295	    assert I.gdelt_phrase(projects[2]) == "Mill Solar Farm"            # weak name: the full alias is asked
+762296	    assert I.gdelt_query("Botley West") == '"Botley West" solar sourcecountry:UK'
+762297	    assert I.gdelt_query("Sunnica") == "Sunnica solar sourcecountry:UK"
+762298	    assert "domainis:bbc.co.uk OR domainis:theguardian.com" in I.gdelt_query("Botley West", "domains")
+762299	    url = I.gdelt_url(I.gdelt_query("Botley West"), I.GDELT_WINDOWS[0][1], NOW)
+762300	    assert url.startswith("https://api.gdeltproject.org/api/v2/doc/doc?query=%22Botley+West%22+solar+sourcecountry%3AUK")
+762301	    assert "mode=artlist" in url and "format=json" in url and "startdatetime=20170101000000" in url
+762302	    assert "enddatetime=20261114120000" in url
+762303	def test_parse_gdelt():
+762304	    assert I.parse_gdelt("") == [] and I.parse_gdelt("{}") == []
+762305	    body = json.dumps({"articles": [{"url": "https://www.bbc.co.uk/news/a", "title": "Botley West solar farm refused",
+762306	                                     "seendate": "20261110T121500Z", "domain": "bbc.co.uk", "language": "English"}]})
+762307	    assert I.parse_gdelt(body) == [("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "bbc.co.uk",
+762308	                                    "2026-11-10", "English")]
+762309	    with pytest.raises(ValueError, match="too short"):
+762310	        I.parse_gdelt("The specified phrase is too short.")
+762311	def gdelt_body(*arts):
+762312	    return json.dumps({"articles": [{"url": u, "title": t, "seendate": d, "domain": "x", "language": "English"}
+762313	                                    for t, u, d in arts]})
+762314	def test_gdelt_cache_rate_limit_and_rotation(projects):
+762315	    calls, sleeps = [], []
+762316	    answers = {
+762317	        "Botley West": [(429, "rate limit"), (200, gdelt_body(
+762318	            ("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "20261110T120000Z"),
+762319	            ("Oxfordshire solar farm row deepens | Oxford Mail", "https://www.oxfordmail.co.uk/news/b", "20261001T120000Z"),
+762320	            ("Oxfordshire solar farm row deepens", "https://www.heraldseries.co.uk/news/b", "20261001T120000Z"),
+762321	            ("Solar tiles , roofs and prices", "https://www.oxfordmail.co.uk/news/d", "20261001T120000Z"),
+762322	            ("Oxfordshire reacts as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
+762323	            ("Council budget agreed", "https://www.oxfordmail.co.uk/news/c", "20261002T120000Z"),
+762324	            ("Botley West solar farm refused", "https://news.google.com/x", "20261110T120000Z"),
+762325	            ("Botley West solar farm refused - Reuters", "https://www.reuters.com/x", "20261110T120000Z")))],
+762326	        "Rigifa": [(200, gdelt_body(("Rigifa solar farm in Caithness approved", "https://www.example.co.uk/r", "20260101T000000Z")))],
+762327	        "Mill Solar Farm": [(200, "{}")],
+762328	        calls.append(url)
+762329	        for phrase, queue in answers.items():
+762330	            if phrase.replace(" ", "+") in url:
+762331	                return queue.pop(0) if len(queue) > 1 else queue[0]
+762332	        return 200, "{}"
+762334	    client = I.Gdelt(fetch, cache, NOW, cap=10, sleep=sleeps.append, interval=0)
+762335	    items, per_project, dropped = I.collect_gdelt(projects, client)
+762336	    assert client.stats["http_429"] == 1 and 10 in sleeps                 # waited ten seconds, retried once
+762337	    items = I.tidy(items)
+762338	    assert [(i["repd_ref"], i["family"], i["confidence"], i["title"]) for i in items] == [
+762339	        ("12588", "bbc", "confirmed", "Botley West solar farm refused"),
+762340	        ("12588", "regional", "uncertain", "Oxfordshire solar farm row deepens")]      # syndicated copy kept once
+762341	    assert "headline says solar and Oxfordshire but not the name" in items[1]["basis"]
+762342	    assert dropped["headline says solar but neither the name nor the county"] == 1
+762343	    assert dropped["headline names another of the 200"] == 1
+762344	    assert dropped["excluded source"] == 2 and dropped["headline has neither the name nor solar"] == 1
+762345	    assert dropped["exclude phrase"] == 1 and per_project["20001"]["kept"] == 0
+762346	    assert len(cache) == 3 and client.stats["empty"] == 1
+762347	    before = len(calls)
+762348	    again = I.Gdelt(fetch, cache, NOW, cap=10, sleep=sleeps.append, interval=0)
+762349	    items2, _, _ = I.collect_gdelt(projects, again)
+762350	    assert len(calls) == before and again.stats["cache_hits"] == 3 and len(I.tidy(items2)) == 2   # cached by query
+762351	    cache[I.gdelt_query("Botley West")]["fetched_at"] = "2026-11-01T00:00:00Z"
+762352	    del cache[I.gdelt_query("Rigifa")]
+762353	    assert [p["repd_ref"] for p in I.rotation(projects, cache)] == ["20001", "12588", "20002"]   # never asked first
+762354	def test_gdelt_stops_politely_and_respects_the_cap(projects, monkeypatch):
+762355	    monkeypatch.setattr(I, "GDELT_MAX_REFUSALS", 2)
+762356	    stopped = I.Gdelt(lambda url: (429, ""), {}, NOW, cap=10, sleep=lambda s: None, interval=0)
+762357	    items, per_project, _ = I.collect_gdelt(projects, stopped)
+762358	    assert items == [] and per_project == {} and "429" in stopped.stats["stopped"]
+762359	    assert stopped.stats["requests"] == 2 * I.GDELT_MAX_REFUSALS and stopped.stats["refused_queries"] == I.GDELT_MAX_REFUSALS
+762360	    capped = I.Gdelt(lambda url: (200, "{}"), {}, NOW, cap=1, sleep=lambda s: None, interval=0)
+762361	    I.collect_gdelt(projects, capped)
+762362	    assert capped.stats["requests"] == 1 and capped.stats["not_asked"] >= 2
+762363	def test_gdelt_carries_on_after_one_refused_query(tmp_path):
+762364	    top.write_text(json.dumps(TOP + [FOUR]))
+762365	    projects = I.load_projects(top, None)
+762366	    seen = []
+762367	        seen.append(url)
+762368	        return (429, "Please limit requests to one every 5 seconds or contact someone@example.org.") if "Botley" in url else (200, "{}")
+762369	    client = I.Gdelt(fetch, {}, NOW, cap=20, sleep=lambda s: None, interval=0)
+762370	    _, per_project, _ = I.collect_gdelt(projects, client)
+762371	    assert "12588" not in per_project and len(per_project) == 3 and not client.stats["stopped"]
+762372	    assert client.stats["refused_queries"] == 1 and "limit requests" in client.stats["error_samples"][0]
+762373	    assert "@" not in client.stats["error_samples"][0] and "(address removed)" in client.stats["error_samples"][0]
+762374	    assert I.gdelt_title("Government greenlights 400MW Beacon Fen solar , storage | Paper") == "Government greenlights 400MW Beacon Fen solar, storage"
+762375	def test_gdelt_time_budget(projects):
+762376	    ticks = iter(range(0, 10000, 50))
+762377	    client = I.Gdelt(lambda url: (200, "{}"), {}, NOW, cap=50, sleep=lambda s: None, interval=0, seconds=120,
+762378	                     clock=lambda: next(ticks))
+762379	    I.collect_gdelt(projects, client)
+762380	    assert "time budget" in client.stats["stopped"] and client.stats["not_asked"] >= 1 and client.stats["answered"] >= 1
+762381	def test_gdelt_steps_down_when_a_window_is_not_allowed(projects):
+762382	        if "startdatetime" in url:
+762383	            return 200, "Invalid timespan or start date."
+762384	        return 200, gdelt_body(("Botley West solar farm refused", "https://www.bbc.co.uk/news/a", "20261110T120000Z"))
+762385	    client = I.Gdelt(fetch, {}, NOW, cap=10, sleep=lambda s: None, interval=0)
+762386	    assert len(client.ask(I.gdelt_query("Botley West"))) == 1
+762387	    assert client.stats["window"] == "last 12 months" and client.stats["errors"] == 0
+762388	def test_tidy_dedupes_prefers_confirmed_and_caps(projects):
+762389	    def item(n, confidence="uncertain", date="2026-01-0%d"):
+762390	        return {"repd_ref": "12588", "title": "t%d" % n, "link": "https://e.co.uk/%d" % n, "publisher": "e",
+762391	                "date": date % n if "%d" in date else date, "family": "regional", "basis": "b", "confidence": confidence}
+762392	    rows = [item(1), item(1, "confirmed"), item(2), item(3)] + [dict(item(4), repd_ref="99999")]
+762393	    out = I.tidy(rows, [item(5), {"repd_ref": "12588", "title": "g", "link": "https://news.google.com/x",
+762394	                                  "confidence": "uncertain", "date": None, "family": "regional"}], {"12588"})
+762395	    assert [i["link"][-1] for i in out] == ["1", "5", "3", "2"] and out[0]["confidence"] == "confirmed"
+762396	    assert len(I.tidy([item(n) for n in range(1, 10)], cap=3)) == 3
+762397	    cov = I.coverage(out, projects)
+762398	    assert cov["with_signal"] == 1 and cov["with_confirmed_signal"] == 1 and cov["with_signal_by_family"]["regional"] == 1
+762399	def test_main_offline_writes_the_contract_part(tmp_path, monkeypatch):
+762400	    monkeypatch.setattr(I, "fetch_feed", lambda url: rss(
+762401	        ("Botley West solar farm refused", "https://www.bbc.co.uk/news/articles/abc", "Tue, 10 Nov 2026 12:00:00 GMT", "s")))
+762402	    monkeypatch.setattr(I, "fetch_gdelt", lambda url: (200, "{}"))
+762403	    monkeypatch.setattr(I.time, "sleep", lambda s: None)
+762404	    monkeypatch.setattr(I, "GDELT_INTERVAL_S", 0)
+762405	    monkeypatch.setattr(I.Throttle, "wait", lambda self, host, interval=None: None)
+762406	    out, probe, cache = tmp_path / "part.json", tmp_path / "probe.md", tmp_path / "cache.json"
+762407	    code = I.main(["--top200", str(top), "--aliases", str(aliases), "--out", str(out), "--probe", str(probe),
+762408	                   "--cache", str(cache), "--now", NOW, "--truth", str(tmp_path / "none.json")])
+762409	    part = json.loads(out.read_text())
+762410	    assert code == 0 and part["schema"] == "project-signals-part.v1" and part["team"] == "index"
+762411	    assert [s["id"] for s in part["sources"]] == ["bbc-rss", "guardian-rss", "gdelt-doc"]
+762412	    assert all(set(s) == {"id", "url", "status", "requests", "failures", "items", "error"} for s in part["sources"])
+762413	    assert len(part["items"]) == 1                                         # the same link from many feeds, once
+762414	    assert set(part["items"][0]) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+762415	    assert part["coverage"]["with_signal"] == 1
+762416	    assert "1 of 3" in probe.read_text() and len(json.loads(cache.read_text())["queries"]) == 3
+762417	    text = out.read_text() + probe.read_text()
+762418	    assert "/home/" not in text and "@" not in text
+762419	"""Trade-press signals for the 200 largest REPD solar projects (team "trade" of the project-signals contract).
+762420	For each project and each alias in automation/news/signals/aliases.json this script asks each trade site's own
+762421	public search for the alias and keeps the results whose HEADLINE names the project. It also reads each site's
+762422	main feed once a run and matches every alias against it, so fresh news is caught for all 200 every day.
+762423	  python3 automation/news/signals/trade.py --out dist/project_signals_trade.json --cache dist/trade_cache.json
+762424	  python3 automation/news/signals/trade.py --out part.json --probe summary.md --discover --batch 200
+762425	Sites, in priority order (owner: Solar Power Portal is the second primary source after BBC News):
+762426	Solar Power Portal, PV Tech, pv magazine, Energy-Storage.news, Current, reNEWS, Planning Resource,
+762427	Construction Enquirer, Solar Energy UK.
+762428	- Headlines and links only: title, link, publisher, date. Summaries are never stored; no article page is
+762429	  requested.
+762430	- robots.txt of every host is fetched first and honoured (the group for this User-Agent, else "*"; Allow,
+762431	  Disallow with * and $, Crawl-delay). A search route that robots.txt disallows is recorded as
+762432	  "refused by robots.txt" and never requested.
+762433	- One request a second per host at most (longer when Crawl-delay says so), HTTP 429: wait ten seconds and retry
+762434	  once, a request cap per host and per run, a time budget per host. One site failing never stops the run.
+762435	- Each site has an ordered list of search routes (WordPress REST posts search, WordPress RSS search, the site's
+762436	  HTML results page, WordPress REST search). The first route that answers a canary query with parsable results
+762437	  is used for the run; --discover tries every route and reports what each one returns.
+762438	- A result counts only when its title contains the alias phrase, whole words, case-insensitive. The phrase is
+762439	  the alias without its generic tail ("Botley West Solar Farm" -> "Botley West"). A short or common phrase
+762440	  (one word, or only everyday words such as "Low Farm") also needs a second agreeing term in the title: the
+762441	  developer, the county, the planning authority, or a solar word. A planning reference (EN010147) in the title
+762442	  matches on its own. The basis line of every item says which of these applied.
+762443	- Summary rule of the contract, as a fallback: when the headline does not name the project but the search or
+762444	  feed summary contains the alias phrase AND the developer, county, planning authority or planning reference
+762445	  agrees, the item is kept with confidence "uncertain" and a basis that says so. The summary itself is read in
+762446	  memory and never stored.
+762447	- A title containing one of the project's "exclude" phrases is dropped. Aliases with alias_status "derived" or
+762448	  "uncertain" give items with confidence "uncertain".
+762449	- Cache and rotation: the cache file is keyed by site and query and stores only matching headlines. A run
+762450	  searches the --batch (default 40) least recently searched projects, plus any project whose last search is
+762451	  older than --stale-days (default 30); a query younger than --fresh-days (default 4) is never repeated. At
+762452	  one run a day the 200 projects are covered in five runs (five days) and every project is searched again
+762453	  every five days; a cold start with an empty cache takes the same five runs. The main feeds are read on
+762454	  every run for all 200.
+762455	- Feed archive (Solar Power Portal): its RSS feed takes limit and offset, so the script pages backwards
+762456	  through the whole archive, --feed-pages (default 30) pages of 100 headlines a run, and applies the title rule
+762457	  and the summary rule to every item for all 200 projects; when the end is reached it starts again after
+762458	  --stale-days.
+762459	- Sitemap route (a site with no usable search, such as Solar Power Portal, whose robots.txt disallows /search):
+762460	  the sitemap files named in robots.txt are read, --sitemap-files (default 90) a run, those never read first;
+762461	  an article link whose path contains an alias phrase is kept and its headline and date are taken from the
+762462	  article page's own metadata, --page-lookups (default 60) a run, the newest link of each project first. Only
+762463	  the headline and the date are kept. The whole sitemap is covered in about five runs and re-read in rotation.
+762464	- Fetch failure handling, feed parsing, dates, canonical links and text cleaning are imported from
+762465	  datacentre_feed.py; nothing is copied.
+762467	if str(NEWS) not in sys.path:
+762468	    sys.path.insert(0, str(NEWS))
+762469	import datacentre_feed as D  # noqa: E402  parse_feed, parse_date, canonical_link, clean_text, limits
+762470	import pipeline_headlines as P  # noqa: E402  FOREIGN and UK_WORDS: a headline naming another country is not UK news
+762471	CACHE_SCHEMA = "project-signals-trade-cache.v1"
+762472	TEAM = "trade"
+762473	UA_TOKEN = "GlobalGrid2050-ProjectSignals"
+762474	USER_AGENT = UA_TOKEN + "/1.0 (+https://globalgrid2050.com)"
+762475	RETRY_429_S = 10.0
+762476	CANARY = "solar farm"
+762477	MAX_TERMS_PER_PROJECT = 2
+762478	PER_PUBLISHER = 5
+762479	BREAKER = 6  # consecutive failures after which a site is left alone for the rest of the run
+762480	WP_POSTS = "/wp-json/wp/v2/posts?search={q}&per_page=20&orderby=relevance&_fields=title,link,date,excerpt"
+762481	WP_SEARCH = "/wp-json/wp/v2/search?search={q}&per_page=20"
+762482	WP_RSS = "/?s={q}&feed=rss2"
+762483	WP_FEED = "/feed/?s={q}"
+762484	# id, publisher, base, main feeds, ordered search routes (kind, path template).
+762486	    {"id": "solar-power-portal", "publisher": "Solar Power Portal", "base": "https://www.solarpowerportal.co.uk",
+762487	     "feeds": ["https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100"],
+762488	     "routes": [("html", "/search?q={q}"), ("wp_posts", WP_POSTS), ("sitemap", "/sitemap.xml")],
+762489	     "feed_archive": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article&limit=100&offset={offset}",
+762490	     "feed_archive_step": 100},
+762491	    {"id": "pv-tech", "publisher": "PV Tech", "base": "https://www.pv-tech.org",
+762492	     "feeds": ["https://www.pv-tech.org/feed/"],
+762493	     "routes": [("wp_posts", WP_POSTS), ("wp_rss", WP_RSS), ("wp_rss", WP_FEED), ("html", "/?s={q}"),
+762494	                ("wp_search", WP_SEARCH)]},
+762495	    {"id": "pv-magazine", "publisher": "pv magazine", "base": "https://www.pv-magazine.com",
+762496	     "feeds": ["https://www.pv-magazine.com/feed/"],
+762497	    {"id": "energy-storage-news", "publisher": "Energy-Storage.news", "base": "https://www.energy-storage.news",
+762498	     "feeds": ["https://www.energy-storage.news/feed/"],
+762499	    {"id": "current", "publisher": "Current", "base": "https://www.current-news.co.uk",
+762500	     "feeds": ["https://www.current-news.co.uk/feed/"],
+762501	    {"id": "renews", "publisher": "reNEWS", "base": "https://renews.biz",
+762502	     "feeds": ["https://feeds.feedburner.com/Renews-RenewableEnergyNews"],
+762503	     "routes": [("wp_posts", WP_POSTS)]},
+762504	    {"id": "planning-resource", "publisher": "Planning Resource", "base": "https://www.planningresource.co.uk",
+762505	     "feeds": ["https://www.planningresource.co.uk/rss/news"],
+762506	     "routes": [("html", "/search/articles?KeyWords={q}"), ("html", "/search?q={q}")]},
+762507	    {"id": "construction-enquirer", "publisher": "Construction Enquirer",
+762508	     "base": "https://www.constructionenquirer.com",
+762509	     "feeds": ["https://www.constructionenquirer.com/feed/"],
+762510	    {"id": "solar-energy-uk", "publisher": "Solar Energy UK", "base": "https://solarenergyuk.org",
+762511	     "feeds": ["https://solarenergyuk.org/feed/"],
+762512	SITE_SUFFIX = re.compile(r"\s*[|\-\u2013\u2014]\s*(?:%s)\s*$" % "|".join(re.escape(x["publisher"]) for x in SITES), re.I)
+762513	    return dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
+762514	def iso(moment):
+762515	    return moment.isoformat().replace("+00:00", "Z")
+762516	# ---------------------------------------------------------------- robots.txt
+762517	class Robots:
+762518	    """Rules of one robots.txt for this User-Agent. Missing or unreadable file: everything allowed (RFC 9309
+762519	    for 4xx); a 5xx or network error on robots.txt: nothing allowed for the run."""
+762520	    def __init__(self, text=None, blocked=False):
+762521	        self.rules, self.delay, self.sitemaps, self.blocked = [], None, [], blocked
+762523	            self._parse(text)
+762524	    def _parse(self, text):
+762525	        groups, agents, rules, fresh = [], [], [], True
+762526	        for raw in text.splitlines():
+762527	            line = raw.split("#", 1)[0].strip()
+762528	            if ":" not in line:
+762529	            key, value = (part.strip() for part in line.split(":", 1))
+762530	            key = key.lower()
+762531	            if key == "sitemap":
+762532	                self.sitemaps.append(value)
+762533	            elif key == "user-agent":
+762534	                if not fresh:
+762535	                    groups.append((agents, rules))
+762536	                    agents, rules, fresh = [], [], True
+762537	                agents.append(value.lower())
+762538	            elif key in ("allow", "disallow", "crawl-delay"):
+762539	                fresh = False
+762540	                rules.append((key, value))
+762541	        groups.append((agents, rules))
+762542	        token = UA_TOKEN.lower()
+762543	        chosen = [r for a, r in groups if any(x != "*" and x in token for x in a)] or \
+762544	                 [r for a, r in groups if "*" in a]
+762545	        for rules in chosen:
+762546	            for key, value in rules:
+762547	                if key == "crawl-delay":
+762549	                        self.delay = max(self.delay or 0.0, float(value))
+762550	                    except ValueError:
+762552	                elif value:
+762553	                    self.rules.append((key == "allow", value, self._regex(value)))
+762555	    def _regex(pattern):
+762556	        end = pattern.endswith("$")
+762557	        body = "".join(".*" if ch == "*" else re.escape(ch) for ch in pattern.rstrip("$"))
+762558	        return re.compile(body + ("$" if end else ""))
+762559	    def allowed(self, url):
+762560	        if self.blocked:
+762563	        target = (parts.path or "/") + ("?" + parts.query if parts.query else "")
+762565	        for allow, pattern, regex in self.rules:
+762566	            if regex.match(target):
+762567	                rank = (len(pattern), allow)
+762568	                if best is None or rank > best:
+762569	                    best = rank
+762570	        return True if best is None else best[1]
+762571	class HttpError(Exception):
+762574	    """(content type, body bytes). Raises HttpError with a short reason."""
+762576	        "User-Agent": USER_AGENT,
+762577	        "Accept": "application/json, application/rss+xml, application/atom+xml, application/xml, text/html;q=0.8"})
+762578	        with urllib.request.urlopen(request, timeout=D.TIMEOUT_S) as response:  # noqa: S310 (fixed https list)
+762579	            return response.headers.get("Content-Type", ""), response.read(D.MAX_BYTES + 1)
+762580	        raise HttpError("HTTP %d" % error.code) from None
+762581	    except Exception as error:  # network, TLS, timeout
+762582	        raise HttpError((type(error).__name__ + ": " + str(error))[:160]) from None
+762583	class Host:
+762584	    """Polite access to one site: robots.txt, spacing, the 429 rule, caps, counters."""
+762585	    def __init__(self, site, fetch, cap, seconds, sleep=time.sleep, clock=time.monotonic):
+762586	        self.site, self.fetch, self.cap, self.seconds = site, fetch, cap, seconds
+762587	        self.sleep, self.clock = sleep, clock
+762588	        self.started = clock()
+762589	        self.requests = self.failures = self.streak = 0
+762590	        self.robots = {}
+762591	        self.notes = []
+762592	    def _wait(self, host, interval):
+762593	        due = self.last.get(host, -1e9) + interval
+762594	        pause = due - self.clock()
+762595	        if pause > 0:
+762596	            self.sleep(pause)
+762597	    def _robots(self, url):
+762598	        host = parts.netloc
+762599	        if host not in self.robots:
+762600	            self._wait(host, MIN_INTERVAL_S)
+762601	            self.requests += 1
+762602	                _ctype, body = self.fetch("%s://%s/robots.txt" % (parts.scheme, host))
+762603	                self.robots[host] = Robots(body.decode("utf-8", "replace"))
+762604	            except HttpError as error:
+762605	                missing = re.match(r"HTTP 4\d\d", str(error)) is not None
+762606	                self.robots[host] = Robots(blocked=not missing)
+762607	                self.notes.append("robots.txt %s: %s (%s)" % (host, error,
+762608	                                                              "treated as no rules" if missing else "host skipped"))
+762609	        return self.robots[host]
+762610	    def spent(self):
+762611	        if self.requests >= self.cap:
+762612	            return "request cap of %d reached" % self.cap
+762613	        if self.clock() - self.started > self.seconds:
+762614	            return "time budget of %d s reached" % self.seconds
+762615	        if self.streak >= BREAKER:
+762616	            return "%d failures in a row" % self.streak
+762617	    def get(self, url):
+762618	        """(content type, body) or raises HttpError. 'refused by robots.txt' is raised without a request."""
+762619	        robots = self._robots(url)
+762620	        if not robots.allowed(url):
+762621	            raise HttpError("refused by robots.txt")
+762622	        reason = self.spent()
+762624	            raise HttpError(reason)
+762625	        host = urllib.parse.urlsplit(url).netloc
+762626	        interval = max(MIN_INTERVAL_S, robots.delay or 0.0)
+762627	        for attempt in (1, 2):
+762628	            self._wait(host, interval)
+762629	                result = self.fetch(url)
+762630	                self.streak = 0
+762632	                if attempt == 1 and str(error) == "HTTP 429":
+762633	                    self.sleep(RETRY_429_S)
+762634	                self.failures += 1
+762635	                self.streak += 1
+762636	# ---------------------------------------------------------------- reading search results
+762637	MONTHS = {m: i + 1 for i, m in enumerate(
+762638	    ("jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"))}
+762639	A_RE = re.compile(r"<a\b([^>]*)>(.*?)</a>", re.I | re.S)
+762640	HREF_RE = re.compile(r"""\bhref\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+762641	DATETIME_RE = re.compile(r"""\bdatetime\s*=\s*["'](\d{4}-\d{2}-\d{2})""", re.I)
+762642	DMY_RE = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)?\s+([A-Za-z]{3})[a-z]*\.?,?\s+(\d{4})\b")
+762643	MDY_RE = re.compile(r"\b([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})\b")
+762644	URL_DATE_RE = re.compile(r"/(20\d{2})/(\d{1,2})/(\d{1,2})/")
+762645	def _valid_date(year, month, day):
+762646	        return dt.date(int(year), int(month), int(day)).isoformat()
+762648	def day_of(value):
+762649	    """YYYY-MM-DD from an RSS, Atom or ISO date; None when unreadable. A WordPress REST date has no zone."""
+762650	    stamp = D.parse_date(value)
+762652	        return stamp[:10]
+762653	    found = re.match(r"\s*(\d{4})-(\d{2})-(\d{2})", value or "")
+762654	    return _valid_date(*found.groups()) if found else None
+762655	def date_near(text):
+762656	    """A date in a fragment of results-page markup: <time datetime>, '10 November 2026' or 'Nov 10, 2026'."""
+762657	    found = DATETIME_RE.search(text)
+762659	        return found.group(1)
+762660	    plain = D.clean_text(text, 4000)
+762661	    for regex, order in ((DMY_RE, (2, 1, 0)), (MDY_RE, (2, 0, 1))):
+762662	        for found in regex.finditer(plain):
+762663	            parts = found.groups()
+762664	            month = MONTHS.get(parts[order[1]].lower()[:3])
+762665	            date = month and _valid_date(parts[order[0]], month, parts[order[2]])
+762666	            if date:
+762667	                return date
+762668	def parse_html_results(body, base):
+762669	    """[(title, link, date, "")] from a results page: every same-site link whose text reads like a headline. The
+762670	    date is the first one in the markup that follows the link (before the next headline link), else the date in
+762671	    the link itself. The alias rule decides afterwards which of these count."""
+762672	    text = body.decode("utf-8", "replace")
+762673	    host = urllib.parse.urlsplit(base).netloc.removeprefix("www.")
+762675	    for match in A_RE.finditer(text):
+762676	        href = HREF_RE.search(match.group(1))
+762677	        title = D.clean_text(match.group(2), 300)
+762678	        if not href or len(title) < 20 or len(title.split()) < 4:
+762679	        link = D.canonical_link(urllib.parse.urljoin(base + "/", href.group(1) or href.group(2) or ""))
+762680	        if not link or urllib.parse.urlsplit(link).netloc.removeprefix("www.") != host:
+762681	        found.append((title, link, match.end()))
+762683	    for index, (title, link, end) in enumerate(found):
+762684	        if link in seen:
+762685	        seen.add(link)
+762686	        stop = found[index + 1][2] if index + 1 < len(found) else len(text)
+762687	        url_date = URL_DATE_RE.search(link)
+762688	        date = date_near(text[end:min(stop, end + 1500)]) or (url_date and _valid_date(*url_date.groups()))
+762689	        out.append((title, link, date or None, ""))
+762690	def parse_results(kind, body, base):
+762691	    """[(title, link, date, summary)] for one search route; the summary is read in memory for the summary rule
+762692	    and is never written anywhere. Raises ValueError when the answer is not what the route
+762693	    promises (an HTML challenge page where JSON was expected, for example)."""
+762694	    if kind in ("wp_posts", "wp_search"):
+762695	            rows = json.loads(body.decode("utf-8", "replace"))
+762696	            raise ValueError("not JSON") from None
+762698	            raise ValueError("JSON is not a list")
+762701	            title = row.get("title")
+762702	            if isinstance(title, dict):
+762703	                title = title.get("rendered")
+762704	            link = D.canonical_link(row.get("link") or row.get("url") or "")
+762705	            title = D.clean_text(title if isinstance(title, str) else "", 300)
+762706	            excerpt = row.get("excerpt")
+762707	            if isinstance(excerpt, dict):
+762708	                excerpt = excerpt.get("rendered")
+762709	            if title and link:
+762710	                out.append((title, link, day_of(row.get("date_gmt") or row.get("date") or ""),
+762711	                            D.clean_text(excerpt if isinstance(excerpt, str) else "", 1500)))
+762713	    if kind in ("wp_rss", "feed"):
+762714	        for title, link, date, summary in D.parse_feed(body):
+762715	            title, link = D.clean_text(title, 300), D.canonical_link(link)
+762716	                out.append((title, link, day_of(date), D.clean_text(summary, 1500)))
+762717	    if kind == "html":
+762718	        return parse_html_results(body, base)
+762719	    raise ValueError("unknown route kind %s" % kind)
+762720	LOC_RE = re.compile(r"<loc>\s*(?:<!\[CDATA\[)?\s*([^<\]\s]+)", re.I)
+762721	URL_RE = re.compile(r"<url>(.*?)</url>", re.I | re.S)
+762722	LASTMOD_RE = re.compile(r"<lastmod>\s*(\d{4}-\d{2}-\d{2})", re.I)
+762723	NEWS_TITLE_RE = re.compile(r"<news:title>\s*(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?\s*</news:title>", re.I | re.S)
+762724	NEWS_DATE_RE = re.compile(r"<news:publication_date>\s*(\d{4}-\d{2}-\d{2})", re.I)
+762725	META_RE = re.compile(r"<meta\b[^>]*>", re.I)
+762726	ATTR_RE = re.compile(r"""\b(property|name|content)\s*=\s*(?:"([^"]*)"|'([^']*)')""", re.I)
+762727	PUBLISHED_RE = re.compile(r""""datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})""")
+762728	H1_RE = re.compile(r"<h1\b[^>]*>(.*?)</h1>", re.I | re.S)
+762729	TITLE_TAG_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+762730	def parse_sitemap(body):
+762731	    """('index', [sitemap urls]) or ('urls', [(loc, lastmod, news title, news date)]). Read with regular
+762732	    expressions so that a file cut off at the size limit still gives its complete entries."""
+762733	    if "<sitemapindex" in text[:3000].lower():
+762734	        return "index", [html_unescape(u) for u in LOC_RE.findall(text)]
+762735	    for block in URL_RE.findall(text):
+762736	        loc = LOC_RE.search(block)
+762737	        if not loc:
+762738	        lastmod, title, date = LASTMOD_RE.search(block), NEWS_TITLE_RE.search(block), NEWS_DATE_RE.search(block)
+762739	        out.append((html_unescape(loc.group(1)), lastmod.group(1) if lastmod else None,
+762740	                    D.clean_text(title.group(1), 300) if title else "", date.group(1) if date else None))
+762741	    return "urls", out
+762742	def html_unescape(value):
+762743	    return D.clean_text(value, 2000)
+762744	def slug_words(text):
+762745	    """Lower-case words of a URL path or a phrase, for matching an alias against a link: 'Bloy's Grove' and
+762746	    '/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm' both give '... bloy s grove ...'."""
+762747	    return " " + " ".join(re.findall(r"[a-z0-9]+", urllib.parse.unquote(text).lower().replace("\u2019", "'"))) + " "
+762748	def parse_article_head(body):
+762749	    """(headline, YYYY-MM-DD or None) from an article page's own metadata (og:title, article:published_time,
+762750	    datePublished). Nothing else of the page is read or kept."""
+762752	    for tag in META_RE.findall(text):
+762753	        attrs = {k.lower(): (a or b) for k, a, b in ATTR_RE.findall(tag)}
+762754	        key = (attrs.get("property") or attrs.get("name") or "").lower()
+762755	        if key and "content" in attrs:
+762756	            meta.setdefault(key, attrs["content"])
+762757	    title = D.clean_text(meta.get("og:title") or meta.get("twitter:title") or "", 300)
+762758	    if not title:
+762759	        found = TITLE_TAG_RE.search(text)
+762760	        title = re.sub(r"\s+[|\-\u2013]\s+[^|\-\u2013]{3,40}$", "", D.clean_text(found.group(1) if found else "", 300))
+762761	    title = SITE_SUFFIX.sub("", title)
+762762	    h1 = H1_RE.search(text)
+762763	    h1 = D.clean_text(h1.group(1), 300) if h1 else ""
+762764	    if title and len(h1) > len(title) and h1.lower().startswith(title.lower().rstrip(". ")):
+762765	        title = h1  # the page's own headline when the metadata carries a shortened one
+762766	    date = day_of(meta.get("article:published_time") or meta.get("og:article:published_time") or "")
+762767	    if not date:
+762768	        found = PUBLISHED_RE.search(text)
+762769	        date = found.group(1) if found else None
+762770	    return title, date
+762771	def route_url(site, template, term):
+762772	    return site["base"] + template.format(q=urllib.parse.quote_plus(term))
+762773	# ---------------------------------------------------------------- aliases and the title rule
+762774	KEYWORD = re.compile(r"\s+(?:solar|energy|energyfarm|renewables?|photovoltaics?|pv|battery|bess)(?!\w)", re.I)
+762775	TAIL = re.compile(r"(?:\s+(?:farm|park|project|scheme|array|plant|development|ltd|limited|nsip|dco))+\s*$", re.I)
+762776	ADJACENT = (r"(?:[\s\-]+[\w&'.]+){0,2}?[\s\-]+(?:solar|photovoltaics?|pv|energyfarm|(?:renewable\s+)?energy\s+(?:park|farm|project|centre|hub)"
+762777	            r"|(?:green|clean)\s+energy)(?!\w)")
+762778	COMMON = frozenset(
+762779	    "farm farms hill hills lane manor house park grange hall wood woods green north south east west great little "
+762780	    "new old high low lower upper moor field fields bridge road drove mill church land lands meadow meadows "
+762781	    "marsh fen common court lodge cottage barn home top end side long big cross way gate lakes lake valley "
+762782	    "airfield quarry airport the of and at on".split())
+762783	ELSEWHERE = re.compile(
+762784	    r"(?<!\w)(?:New Zealand|Kenya|Chile|Mexico|Portugal|Romania|Bulgaria|Hungary|Turkey|Türkiye|Saudi|UAE|Egypt|"
+762785	    r"South Africa|Indonesia|Malaysia|Thailand|Pakistan|Bangladesh|Colombia|Argentina|Peru|Ontario|Alberta|"
+762786	    r"Arizona|Nevada|Florida|Ohio|Indiana|Virginia|Illinois|Tasmania|Western Australia|Austria|Switzerland|"
+762787	    r"Croatia|Serbia|Ukraine|Lithuania|Latvia|Estonia|Czech|Slovakia|Israel|Oman|Qatar|Nigeria|Ghana|Zambia|"
+762788	    r"Uzbekistan|Kazakhstan|Louisiana|Colorado|Utah|Oregon|Michigan|Wisconsin|Kentucky|Tennessee|Oklahoma)(?!\w)")
+762789	GENERIC_CORES = frozenset(("solar", "solar farm", "solar park", "land", "farm", "energy", "pv"))
+762790	SOLAR_WORD = re.compile(r"(?<!\w)(?:solar|PV|photovoltaics?|energy (?:park|farm)|DCO|NSIP)(?!\w)", re.I)
+762791	OPERATOR_STOP = frozenset(
+762792	    "ltd limited plc llp uk gb group holdings energy energies renewable renewables solar power partners "
+762793	    "development developments company co and the of infrastructure capital investments generation green "
+762794	    "services management international europe farm park project".split())
+762795	PLAIN_FIRST_WORDS = frozenset("british european low green island national scottish welsh big new good united "
+762796	                              "clean one first north south east west renewable solar energy power".split())
+762797	OTHER_TECH = re.compile(r"(?<!\w)(?:batter(?:y|ies)|BESS|gas|wind|hydrogen|nuclear|compressor|CCGT|EV|"
+762798	                        r"data[\s-]?cent(?:re|er)s?|power station|offshore|onshore|turbines?)(?!\w)", re.I)
+762799	AUTHORITY_STOP = frozenset(
+762800	    "nsip pins dco the planning inspectorate national infrastructure council district borough county city of and unitary "
+762801	    "metropolitan authority government scottish welsh ministers energy consents unit north south east west "
+762802	    "mid central vale".split())
+762803	def straight(text):
+762804	    """Typographic apostrophes as plain ones, so that "Bloy\u2019s Grove" is "Bloy's Grove"."""
+762805	    return (text or "").replace("\u2019", "'").replace("\u2018", "'")
+762806	def fold(text):
+762807	    """Letters the REPD writes plainly: 'Ørsted' is 'Orsted' there."""
+762808	    return text.replace("\u00d8", "O").replace("\u00f8", "o")
+762809	def bounded(phrase):
+762810	    words = [re.escape(w) for w in re.split(r"[\s\-]+", phrase.strip()) if w]
+762811	    return re.compile(r"(?<!\w)" + r"[\s\-]+".join(words) + r"(?:['’]s)?(?!\w)", re.I)
+762812	def core_of(alias):
+762813	    """The alias without its generic tail: 'Botley West Solar Farm' -> 'Botley West', 'East Park Energy' ->
+762814	    'East Park', 'Great North Road Solar and Biodiversity Park' -> 'Great North Road'."""
+762815	    text = re.sub(r"^\s*the\s+", "", " ".join((alias or "").split()), flags=re.I)
+762816	    text = " ".join(re.sub(r"\([^)]*\)", " ", text).split())
+762817	    cut = KEYWORD.search(text)
+762818	    if cut:
+762819	        return text[:cut.start()].strip(" ,-") or text
+762820	    core = TAIL.sub("", text).strip(" ,-")
+762821	    if not core or all(w.lower() in COMMON for w in core.split()):
+762822	        return text  # 'Low Farm' stays 'Low Farm'
+762823	    return core
+762824	def weakness(core, counties=()):
+762825	    """0 = distinctive phrase (two or more words, not all everyday words): the phrase alone is enough.
+762826	    1 = one distinctive word: a second agreeing term is needed anywhere in the title.
+762827	    2 = only everyday words, or a county name: the developer or county must agree, or a solar or energy word
+762828	    must follow the phrase directly ('Green Hill Solar Farm', 'East Yorkshire Solar Farm')."""
+762829	    words = re.findall(r"[A-Za-z0-9']+", core)
+762830	    if all(w.lower() in COMMON for w in words) or core.lower() in counties:
+762831	    return 1 if len(words) < 2 or len(core) < 6 else 0
+762832	def _tokens(text, stop):
+762833	    return [w for w in re.findall(r"[A-Za-z][A-Za-z0-9]{2,}", text or "") if w.lower() not in stop]
+762834	class Project:
+762835	    def __init__(self, record, counties=()):
+762836	        self.ref = str(record["repd_ref"])
+762837	        self.rank = record.get("rank") or 999
+762838	        self.site_name = record.get("site_name") or ""
+762839	        self.status = record.get("alias_status") or "derived"
+762840	        self.planning_ref = (record.get("planning_ref") or "").strip()
+762841	        self.aliases, self.full = [], []
+762843	        for alias in record.get("aliases") or []:
+762844	            core = core_of(alias)
+762845	            if core and core.lower() not in seen and core.lower() not in GENERIC_CORES:
+762846	                seen.add(core.lower())
+762847	                self.aliases.append((alias, core, bounded(core), weakness(core, counties)))
+762848	            full = " ".join(re.sub(r"\([^)]*\)", " ", alias).split())
+762849	            if core and len(full) > len(core) + 3 and core.lower() not in GENERIC_CORES:
+762850	                self.full.append(bounded(full))
+762851	        self.exclude = [bounded(p) for p in record.get("exclude") or [] if p and p.strip()]
+762852	        second = []
+762853	        for name in re.split(r"\s*(?:&|/|,|\band\b)\s*", record.get("operator") or ""):
+762854	            words = _tokens(name, OPERATOR_STOP)
+762855	            if words and words[0].lower() in PLAIN_FIRST_WORDS:
+762856	                found = re.search(re.escape(words[0]) + r"\s+[A-Za-z0-9]+", name)  # 'Low Carbon', 'British Solar'
+762857	                if found:
+762858	                    second.append(("developer", found.group(0)))
+762859	            elif words:
+762860	                second.append(("developer", words[0]))
+762861	        if record.get("county"):
+762862	            second.append(("county", record["county"]))
+762863	        for word in _tokens(record.get("planning_authority"), AUTHORITY_STOP):
+762864	            second.append(("planning authority", word))
+762865	        self.second = [(label, text, bounded(text)) for label, text in second]
+762866	            mw = float(record.get("mw") or 0)
+762868	            mw = 0.0
+762869	        if mw >= 5:  # the stated capacity is an agreeing fact: '740MW One Earth'
+762870	            number = ("%d" % mw) if mw == int(mw) else re.escape(("%.2f" % mw).rstrip("0"))
+762871	            self.second.append(("capacity", "%gMW" % mw, re.compile(
+762872	                r"(?<![\d.,])" + number + r"(?:\.0+)?\s?MW(?:p|ac|dc)?(?!\w)", re.I)))
+762873	        self.ref_rx = bounded(self.planning_ref) if re.match(r"^[A-Z]{2}\d{6}$", self.planning_ref) else None
+762874	    def terms(self):
+762875	        """Search phrases, most distinctive first. A weak phrase is sent with 'solar' beside it."""
+762876	        for _alias, core, _rx, weak in self.aliases[:MAX_TERMS_PER_PROJECT]:
+762877	            out.append(core + " solar" if weak else core)
+762878	    def match(self, title, summary=""):
+762879	        """(basis, confidence) when the title names this project, else None. The summary rule of the contract
+762880	        is the fallback: the alias phrase in the feed or search summary together with the developer, county,
+762881	        planning authority or planning reference (in the title or the summary). Such an item is always
+762882	        'uncertain' and its basis says the headline does not name the project."""
+762883	        title = straight(title)
+762884	        summary = straight(summary)
+762885	        if any(rx.search(title) for rx in self.exclude):
+762886	        if (P.FOREIGN.search(title) or ELSEWHERE.search(title)) and not P.UK_WORDS.search(title):
+762887	            return None  # 'Meridian Energy ... in New Zealand' is not the Lincolnshire project
+762888	        confidence = "confirmed" if self.status == "confirmed" else "uncertain"
+762889	        if self.ref_rx and self.ref_rx.search(title):
+762890	            return "planning reference %s in title" % self.planning_ref, confidence
+762891	        for _alias, core, rx, weak in self.aliases:
+762892	            if not rx.search(title):
+762893	            agree = [(label, text) for label, text, srx in self.second
+762894	                     if srx.search(fold(title)) and text.lower() not in core.lower()]
+762895	            rest = rx.sub(" ", title)
+762896	            named = any(full.search(title) for full in self.full)
+762897	            near = re.search(rx.pattern + ADJACENT, title, re.I) is not None
+762898	            if not named and not near and OTHER_TECH.search(rest) and not SOLAR_WORD.search(rest) \
+762899	                    and not any(label == "developer" for label, _text in agree):
+762900	                continue  # 'West Burton C battery', 'St Fergus gas compressor': the same place, another scheme
+762901	            if weak == 2:
+762902	                agree = []  # everyday words or a county name: only the name followed by its solar word counts
+762903	                extra = "%s '%s'" % agree[0]
+762904	            elif named:
+762905	                extra = "the full alias"
+762906	            elif near:
+762907	                extra = "solar or energy word directly after it"
+762909	            if weak and not extra:
+762910	            basis = "alias phrase '%s' in title" % core
+762912	                basis += " with %s" % extra
+762913	            return basis, confidence
+762915	            return self.match_summary(title, summary)
+762916	    def match_summary(self, title, summary):
+762917	        title, summary = straight(title), straight(summary)
+762918	        if any(rx.search(summary) for rx in self.exclude):
+762919	        both = title + " . " + summary
+762920	        if (P.FOREIGN.search(both) or ELSEWHERE.search(both)) and not P.UK_WORDS.search(both):
+762921	            if not rx.search(summary):
+762922	            if weak == 2 and not (re.search(rx.pattern + ADJACENT, summary, re.I)
+762923	                                  or any(full.search(summary) for full in self.full)):
+762924	                     if srx.search(fold(both)) and text.lower() not in core.lower()]
+762925	            if self.ref_rx and self.ref_rx.search(both):
+762926	                agree.insert(0, ("planning reference", self.planning_ref))
+762927	                return ("alias phrase '%s' in the summary with %s '%s'; the headline does not name the project"
+762928	                        % (core, agree[0][0], agree[0][1])), "uncertain"
+762929	def load_projects(path):
+762930	    table = json.loads(Path(path).read_text(encoding="utf-8"))
+762931	    records = table["projects"]
+762932	    records = records.values() if isinstance(records, dict) else records
+762933	    records = list(records)
+762934	    counties = {(r.get("county") or "").strip().lower() for r in records} - {""}
+762935	    return sorted((Project(r, counties) for r in records), key=lambda p: (p.rank, p.ref))
+762936	# ---------------------------------------------------------------- cache and rotation
+762937	def load_cache(path):
+762938	        cache = json.loads(Path(path).read_text(encoding="utf-8"))
+762939	        if cache.get("schema") == CACHE_SCHEMA:
+762940	            return cache
+762941	    except (OSError, ValueError, AttributeError, TypeError):
+762943	    return {"schema": CACHE_SCHEMA, "queries": {}, "feed_hits": {}}
+762944	def cache_key(site_id, term):
+762945	    return site_id + "|" + " ".join(term.lower().split())
+762946	def age_days(stamp, now):
+762947	        then = dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+762948	    except (AttributeError, ValueError):
+762949	        return 1e9
+762950	    return (now - then).total_seconds() / 86400.0
+762951	def last_searched(project, cache, now):
+762952	    """Age in days of the oldest search of this project across the sites (never searched: very large)."""
+762953	    ages = [age_days((cache["queries"].get(cache_key(site["id"], term)) or {}).get("at"), now)
+762954	            for site in SITES for term in project.terms()]
+762955	    return max(ages) if ages else 0.0
+762956	def choose(projects, cache, now, batch, stale_days):
+762957	    """The projects to search this run: the `batch` least recently searched, plus every project whose last
+762958	    search is older than `stale_days` (never-searched projects wait their turn in the batch)."""
+762959	    aged = sorted(((last_searched(p, cache, now), p) for p in projects), key=lambda x: (-x[0], x[1].rank))
+762960	    picked = [p for _age, p in aged[:batch]]
+762961	    picked += [p for age, p in aged[batch:] if stale_days < age < 1e8]
+762962	    return picked
+762963	# ---------------------------------------------------------------- one site
+762964	def pick_route(site, host, discover, report, main_links=frozenset()):
+762965	    """The first route that answers the canary query with results about the canary (a title that says solar),
+762966	    so that a home page, a navigation menu or a challenge page is never taken for search results. With
+762967	    discover, every route is tried and described in `report`."""
+762968	    chosen = None
+762969	    for kind, template in site["routes"]:
+762970	        url = route_url(site, template, CANARY)
+762971	        entry = {"route": kind, "url": url}
+762972	            ctype, body = host.get(url)
+762973	            if kind == "sitemap":
+762974	                shape, rows = parse_sitemap(body)
+762975	                entry.update(status="ok" if rows else "empty", content_type=ctype.split(";")[0], bytes=len(body),
+762976	                             results=len(rows), dated="", summaries="", relevant="",
+762977	                             sample="%s: %s" % (shape, rows[0] if shape == "index" else rows[0][0]) if rows else "")
+762978	                if rows and chosen is None:
+762979	                    chosen = (kind, template)
+762980	                rows = parse_results(kind, body, site["base"])
+762981	                dated = sum(1 for r in rows if r[2])
+762982	                relevant = sum(1 for r in rows if re.search(r"\bsolar\b", r[0], re.I))
+762983	                entry.update(status="ok" if relevant else ("no result about the query" if rows else "empty"),
+762984	                             content_type=ctype.split(";")[0], bytes=len(body), results=len(rows), dated=dated,
+762985	                             summaries=sum(1 for r in rows if r[3]), relevant=relevant,
+762986	                             sample=next((r[0] for r in rows if re.search(r"\bsolar\b", r[0], re.I)),
+762987	                                         rows[0][0] if rows else ""))
+762988	                if discover and kind == "html":
+762989	                    print("LINKS %s %s" % (site["id"], url), flush=True)
+762990	                    for row in rows[:25]:
+762991	                        print("  %s | %s | %s" % (row[2], row[0][:90], row[1][:110]), flush=True)
+762992	                usable = relevant >= 1 and (dated or kind != "wp_search")
+762993	                if kind == "html" and (relevant < 3 or relevant * 4 < len(rows)):
+762994	                    usable = False
+762995	                    entry["status"] = "not search results (%d of %d links say solar)" % (relevant, len(rows))
+762996	                if kind == "wp_rss" and rows and main_links and {r[1] for r in rows[:10]} <= main_links:
+762997	                    entry["status"] = "ignores the query (same items as the main feed)"
+762998	                if usable and chosen is None:
+762999	        except (HttpError, ValueError) as error:
+763000	            entry.update(status="refused" if "robots" in str(error) else "failed", error=str(error)[:160])
+763001	        report.append(entry)
+763002	        if chosen and not discover:
+763003	    if discover:
+763004	        for path in site.get("probe_urls") or []:
+763005	            entry = {"route": "extra", "url": site["base"] + path}
+763006	                ctype, body = host.get(site["base"] + path)
+763007	                entry.update(status="ok", content_type=ctype.split(";")[0], bytes=len(body))
+763009	                    rows = parse_results("feed", body, site["base"])
+763010	                    dates = sorted(r[2] for r in rows if r[2])
+763011	                    entry.update(results=len(rows), dated=len(dates), sample="feed %s to %s; %s" % (
+763012	                        dates[0] if dates else "", dates[-1] if dates else "", rows[0][0] if rows else ""))
+763014	                    shape, rows = parse_sitemap(body)
+763015	                    entry.update(results=len(rows), sample="%s: %s" % (shape, " ; ".join(
+763016	                        str(r if shape == "index" else r[0]) for r in rows[:3])))
+763017	                entry.update(status="refused" if "robots" in str(error) else "failed", error=str(error)[:160])
+763018	            report.append(entry)
+763019	    return chosen
+763020	def read_feed_archive(site, host, projects, cache, health, feed_hits, main_links, now, args):
+763021	    """Page backwards through a feed that takes an offset (Solar Power Portal: 100 items a page, with
+763022	    summaries), --feed-pages pages a run, continuing where the last run stopped. Every item is matched against
+763023	    all projects with the title rule and the summary rule. When the end is reached the walk starts again
+763024	    after --stale-days."""
+763025	    state = cache.setdefault("feed_archive", {}).setdefault(site["id"], {"next": 1, "finished_at": ""})
+763026	    if state.get("finished_at") and age_days(state["finished_at"], now) < args.stale_days:
+763027	        health["feed_archive"] = {"pages_read": 0, "note": "complete; next pass after %d days" % args.stale_days}
+763029	    if state.get("finished_at"):
+763030	        state.update(next=1, finished_at="")
+763031	    step, pages, entries, kept, oldest = site["feed_archive_step"], 0, 0, 0, ""
+763032	    while pages < args.feed_pages and not host.spent():
+763033	            _ctype, body = host.get(site["feed_archive"].format(offset=state["next"] * step))
+763034	            rows = parse_results("feed", body, site["base"])
+763035	            health["notes"].append("feed archive page %d: %s" % (state["next"], str(error)[:80]))
+763036	            break  # not the end of the archive: the next run tries this page again
+763037	        pages += 1
+763038	        fresh = [r for r in rows if r[1] not in main_links]
+763039	        if not fresh:
+763040	            state["finished_at"] = iso(now)
+763041	        for title, link, date, summary in fresh:
+763042	            main_links.add(link)
+763043	            entries += 1
+763044	            oldest = min(oldest or "9999", date or "9999")
+763045	            refs = {}
+763046	                verdict = project.match(title, summary)
+763047	                    refs[project.ref] = verdict[0] if "in the summary" in verdict[0] else ""
+763048	            if refs:
+763049	                feed_hits[link] = {"title": title, "link": link, "date": date, "site": site["id"], "refs": refs,
+763050	                                   "how": "feed archive"}
+763051	                kept += 1
+763052	        state["next"] += 1
+763053	    health["feed_archive"] = {"pages_read": pages, "entries": entries, "oldest": oldest, "matched": kept,
+763054	                              "next_page": state["next"], "complete": bool(state.get("finished_at"))}
+763055	def walk_sitemap(site, host, start, projects, cache, health, now, args, known):
+763056	    """Read the site's sitemap files (robots.txt 'Sitemap:' lines, else `start`), keep the article links whose
+763057	    path contains a project's alias phrase, and get each kept link's headline and date: from the sitemap when it
+763058	    carries news:title, else from the article page's own metadata (one request per new link, remembered in the
+763059	    cache; the newest link of every project first). At most --sitemap-files files a run, those never read
+763060	    first and then the ones read longest ago, so the whole sitemap is covered in a few runs and then re-read
+763061	    in rotation. Returns feed-hit records; the alias rule is applied to the real headline afterwards."""
+763062	    robots = host._robots(site["base"] + "/")
+763063	    skip = re.compile(r"image|video|event|webinar|contributor|author", re.I)
+763064	    roots = [u for u in robots.sitemaps if re.search(r"sitemap|\.xml", u, re.I) and not skip.search(u)] \
+763065	        or [site["base"] + start]
+763067	        for _alias, core, _rx, _weak in project.aliases:
+763068	            wanted.append((slug_words(core), project))
+763069	    state = cache.setdefault("sitemaps", {}).setdefault(site["id"], {"files": {}, "links": {}})
+763070	    files, links = state["files"], state["links"]
+763071	    age = lambda u: files.get(u, "")  # noqa: E731  never read sorts first
+763072	    work, seen, indexes, read, urls, position = sorted(dict.fromkeys(roots), key=age), set(roots), set(), 0, 0, 0
+763073	    while position < len(work) and read < args.sitemap_files and not host.spent():
+763074	        url = work[position]
+763075	        position += 1
+763076	            _ctype, body = host.get(url)
+763077	        except HttpError as error:
+763078	            health["notes"].append("sitemap %s: %s" % (url, error))
+763079	            files[url] = iso(now)
+763080	        shape, rows = parse_sitemap(body)
+763081	        if shape == "index":
+763082	            indexes.add(url)
+763083	            fresh = sorted((c for c in dict.fromkeys(rows) if c not in seen and not skip.search(c)), key=age)
+763084	            seen.update(fresh)
+763085	            work[position:position] = fresh
+763087	        for loc, lastmod, news_title, news_date in rows:
+763088	            urls += 1
+763089	            link = D.canonical_link(loc)
+763090	            if not link:
+763091	            words = slug_words(urllib.parse.urlsplit(link).path)
+763092	            for phrase, project in wanted:
+763093	                if phrase in words:
+763094	                    found = links.setdefault(link, {"refs": []})
+763095	                    found.update(lastmod=lastmod, title=news_title or found.get("title") or "",
+763096	                                 date=news_date or found.get("date"))
+763097	                    if project.ref not in found["refs"]:
+763098	                        found["refs"].append(project.ref)
+763099	        files[url] = iso(now)
+763100	    known = [u for u in work if u not in indexes]
+763101	    print("SITEMAPS %s roots=%d files=%d sample=%s" % (site["id"], len(roots), len(known),
+763102	                                                      json.dumps(work[:6] + work[-6:])), flush=True)
+763103	    pages, hits, looked = cache.setdefault("pages", {}), {}, 0
+763104	    per_project = {}
+763105	    for link in sorted(links, key=lambda l: links[l].get("lastmod") or "", reverse=True):
+763106	        for ref in links[link]["refs"]:
+763107	            per_project.setdefault(ref, []).append(link)
+763108	    order = sorted({(position, link) for chain in per_project.values() for position, link in enumerate(chain)},
+763109	                   key=lambda x: (x[0], -int((links[x[1]].get("lastmod") or "0000-00-00").replace("-", ""))))
+763111	    for _position, link in order:
+763112	        if link in done:
+763113	        done.add(link)
+763114	        found = links[link]
+763115	        title, date = found.get("title"), found.get("date")
+763116	        if not title and link in known:
+763117	            continue  # the feed already gave this headline
+763118	        if not title and link in pages:
+763119	            title, date = pages[link]
+763120	        elif not title and looked < args.page_lookups and not host.spent():
+763121	            looked += 1
+763122	                _ctype, body = host.get(link)
+763123	                title, date = parse_article_head(body)
+763124	                if title:
+763125	                    pages[link] = [title, date]
+763126	            except HttpError:
+763127	        if title:
+763128	            hits[link] = {"title": title, "link": link, "date": date, "site": site["id"],
+763129	                          "refs": {ref: "" for ref in found["refs"]}, "how": "sitemap"}
+763130	    health["sitemap"] = {"files_known": len(known), "files_read_this_run": read,
+763131	                         "files_never_read": sum(1 for u in known if u not in files), "urls_read": urls,
+763132	                         "links_matching_an_alias": len(links), "pages_opened": looked,
+763133	                         "headlines_known": len(hits)}
+763135	def run_site(site, projects, todo, cache, fetch, now, args, out):
+763136	    """Feeds, route choice and the searches of one site. Everything it learns goes into `out` (one dict per
+763137	    site, written by this thread only)."""
+763138	    host = Host(site, fetch, args.per_host_cap, args.host_seconds)
+763139	    health = {"id": site["id"], "url": site["base"], "status": "ok", "requests": 0, "failures": 0, "items": 0,
+763140	              "error": "", "route": "", "routes": [], "feeds": [], "searched": 0, "cached": 0, "skipped": 0}
+763141	    hits, main_links = [], set()
+763142	    new_queries, feed_hits = {}, {}
+763143	        for url in site["feeds"]:
+763144	            entry = {"url": url}
+763145	                _ctype, body = host.get(url)
+763146	                rows = parse_results("feed", body, site["base"])
+763147	                main_links.update(r[1] for r in rows)
+763148	                kept = 0
+763149	                for title, link, date, summary in rows:
+763150	                    refs = {}
+763151	                    for project in projects:
+763152	                        verdict = project.match(title, summary)
+763153	                        if verdict:
+763154	                            refs[project.ref] = verdict[0] if "in the summary" in verdict[0] else ""
+763155	                    if refs:
+763156	                        feed_hits[link] = {"title": title, "link": link, "date": date, "site": site["id"],
+763157	                                           "refs": refs}
+763158	                        kept += 1
+763159	                entry.update(status="ok", entries=len(rows), matched=kept,
+763160	                             newest=max((r[2] for r in rows if r[2]), default=""))
+763161	            except (HttpError, ValueError) as error:
+763162	                entry.update(status="failed", error=str(error)[:160])
+763163	            health["feeds"].append(entry)
+763164	        if site.get("feed_archive"):
+763165	            read_feed_archive(site, host, projects, cache, health, feed_hits, main_links, now, args)
+763166	        route = pick_route(site, host, args.discover, health["routes"], frozenset(main_links))
+763167	        host.failures = host.streak = 0  # routes that do not exist are findings, not failures of the run
+763168	        health["notes"] = host.notes
+763169	        if route and route[0] == "sitemap":
+763170	            health["route"] = "sitemap (links by alias in the path, headline from the article's metadata)"
+763171	            known = set(feed_hits) | set(cache.get("feed_hits") or {})
+763172	            for link, hit in walk_sitemap(site, host, route[1], projects, cache, health, now, args, known).items():
+763173	                feed_hits.setdefault(link, hit)  # a headline from the feed is kept as the feed gave it
+763174	            health["searched"] = len(projects)
+763175	        elif route:
+763176	            kind, template = route
+763177	            health["route"] = kind + " " + template
+763178	            for project in todo:
+763179	                for term in project.terms():
+763180	                    key = cache_key(site["id"], term)
+763181	                    old = cache["queries"].get(key)
+763182	                    if old and old.get("status") == "ok" and age_days(old.get("at"), now) < args.fresh_days:
+763183	                        health["cached"] += 1
+763185	                    if host.spent():
+763186	                        health["skipped"] += 1
+763187	                        _ctype, body = host.get(route_url(site, template, term))
+763188	                        rows = parse_results(kind, body, site["base"])
+763189	                        core_rx = bounded(term[:-6] if term.endswith(" solar") else term)
+763190	                        keep = []
+763191	                        for title, link, date, summary in rows:
+763192	                            if core_rx.search(straight(title)) or (project.ref_rx and project.ref_rx.search(title)):
+763193	                                keep.append([title, link, date])
+763194	                            else:
+763195	                                verdict = project.match_summary(title, summary) if summary else None
+763196	                                if verdict:
+763197	                                    keep.append([title, link, date, verdict[0]])
+763198	                        new_queries[key] = {"at": iso(now), "status": "ok", "route": kind, "returned": len(rows),
+763199	                                            "results": keep[:12]}
+763200	                        health["searched"] += 1
+763201	                    except (HttpError, ValueError) as error:
+763202	                        if isinstance(error, ValueError):
+763203	                            host.failures += 1
+763204	                            host.streak += 1
+763205	                        print("FAILED %s %r: %s" % (site["id"], term, str(error)[:100]), flush=True)
+763206	                        new_queries.setdefault(key, {"at": iso(now), "status": "failed",
+763207	                                                     "error": str(error)[:120], "results": (old or {}).get("results", [])})
+763208	            health["error"] = "no search route usable: " + "; ".join(
+763209	                "%s %s" % (r["route"], r.get("error") or r["status"]) for r in health["routes"])
+763210	    except Exception as error:  # a bug in one site must not stop the others
+763211	        health["error"] = (type(error).__name__ + ": " + str(error))[:200]
+763212	    reason = host.spent()
+763213	    if reason and not health["error"]:
+763214	        health["error"] = reason
+763215	    feeds_ok = any(f["status"] == "ok" for f in health["feeds"])
+763216	    if not health["route"] and not feeds_ok:
+763217	        health["status"] = "failed"
+763218	    elif not health["route"] or health["error"] or host.failures > 3 or health["skipped"] > 3:
+763219	        health["status"] = "partial"
+763220	    health["requests"], health["failures"] = host.requests, host.failures
+763221	    print("SITE " + json.dumps({k: v for k, v in health.items() if k not in ("routes", "feeds")}), flush=True)
+763222	    out[site["id"]] = {"health": health, "queries": new_queries, "feed_hits": feed_hits, "hits": hits}
+763224	def build_items(projects, cache):
+763225	    """Items of the contract from everything the cache holds (search results and feed hits)."""
+763226	    publisher = {s["id"]: s["publisher"] for s in SITES}
+763227	    by_term = {}
+763228	        for term in project.terms():
+763229	            by_term.setdefault(" ".join(term.lower().split()), []).append(project)
+763230	    items, seen = [], set()
+763231	    def add(project, title, link, date, site_id, how, summary_basis=""):
+763232	        if summary_basis:
+763233	            if any(rx.search(title) for rx in project.exclude):
+763235	            verdict = (summary_basis, "uncertain")
+763236	            verdict = project.match(title)
+763237	        if not verdict or (project.ref, link) in seen:
+763239	        seen.add((project.ref, link))
+763240	        items.append({"repd_ref": project.ref, "title": title[:300], "link": link, "publisher": publisher[site_id],
+763241	                      "date": date, "family": "trade", "basis": "%s %s: %s" % (publisher[site_id], how, verdict[0]),
+763242	                      "confidence": verdict[1]})
+763243	    by_ref = {p.ref: p for p in projects}
+763244	    for key in sorted(cache["queries"]):
+763245	        site_id, _, term = key.partition("|")
+763246	        if site_id not in publisher:
+763247	        for row in cache["queries"][key].get("results") or []:
+763248	            for project in by_term.get(term, []):
+763249	                add(project, row[0], row[1], row[2], site_id, "search", row[3] if len(row) > 3 else "")
+763250	    for link in sorted(cache.get("feed_hits") or {}):
+763251	        hit = cache["feed_hits"][link]
+763252	        if hit.get("site") not in publisher:
+763253	        for ref, summary_basis in sorted((hit.get("refs") or {}).items()):
+763254	            if ref in by_ref:
+763255	                add(by_ref[ref], hit["title"], hit["link"], hit.get("date"), hit["site"], hit.get("how") or "feed",
+763256	                    summary_basis)
+763257	    strong = re.compile(r" with (?:developer|county|capacity|planning authority) |planning reference ")
+763260	        by_link.setdefault(item["link"], []).append(item)
+763261	    for group in by_link.values():  # one headline, several projects of the same name: the agreeing fact decides
+763262	        if len(group) > 1 and any(strong.search(i["basis"]) for i in group):
+763263	            cores = {}
+763264	            for item in group:
+763265	                found = re.search(r"alias phrase '([^']*)'", item["basis"])
+763266	                cores.setdefault(found.group(1).lower() if found else item["repd_ref"], []).append(item)
+763267	            for same in cores.values():
+763268	                if len(same) > 1 and any(strong.search(i["basis"]) for i in same):
+763269	                    for item in same:
+763270	                        if not strong.search(item["basis"]):
+763271	                            items.remove(item)
+763272	    rank = {p.ref: p.rank for p in projects}
+763273	    items.sort(key=lambda i: (rank[i["repd_ref"]], i["date"] is None, "" if i["date"] is None else
+763274	                              "%08d" % (99999999 - int(i["date"].replace("-", ""))), i["link"]))
+763275	    kept, count = [], {}
+763276	    for item in items:  # newest first within a project: at most PER_PUBLISHER items per project and site
+763277	        key = (item["repd_ref"], item["publisher"])
+763278	        count[key] = count.get(key, 0) + 1
+763279	        if count[key] <= PER_PUBLISHER:
+763280	            kept.append(item)
+763282	def run(projects, cache, fetch, now, args):
+763283	    todo = choose(projects, cache, now, args.batch, args.stale_days)
+763284	    results, threads = {}, []
+763286	        thread = threading.Thread(target=run_site, args=(site, projects, todo, cache, fetch, now, args, results),
+763287	                                  daemon=True)
+763288	        threads.append(thread)
+763290	    for thread in threads:
+763291	        thread.join()
+763293	        result = results.get(site["id"])
+763295	            sources.append({"id": site["id"], "url": site["base"], "status": "failed", "requests": 0,
+763296	                            "failures": 0, "items": 0, "error": "no result"})
+763297	        cache["queries"].update(result["queries"])
+763298	        store = cache.setdefault("feed_hits", {})
+763299	        for link, hit in result["feed_hits"].items():
+763300	            if hit.get("how") == "sitemap" and link in store and store[link].get("how") != "sitemap":
+763301	                store[link].setdefault("refs", {}).update({r: b for r, b in hit["refs"].items()
+763302	                                                           if r not in store[link].get("refs", {})})
+763303	                store[link] = hit
+763304	        sources.append(result["health"])
+763305	    cache["updated_at"] = iso(now)
+763306	    items = build_items(projects, cache)
+763307	    publisher = {s["publisher"]: s["id"] for s in SITES}
+763309	        source["items"] = sum(1 for i in items if publisher[i["publisher"]] == source["id"])
+763310	    return {"schema": SCHEMA, "team": TEAM, "generated_at": iso(now), "items": items, "sources": sources,
+763311	            "rotation": {"projects": len(projects), "searched_this_run": len(todo), "batch": args.batch,
+763312	                         "stale_days": args.stale_days, "fresh_days": args.fresh_days,
+763313	                         "full_cycle_runs": -(-len(projects) // max(1, args.batch))}}
+763314	# ---------------------------------------------------------------- report
+763315	def compare_truth(items, truth, projects):
+763316	    """How many of the members' trade-press signals the script found (by canonical link), and for how many
+763317	    projects with a trade signal in the ground truth the script has at least one item."""
+763318	    hosts = {urllib.parse.urlsplit(s["base"]).netloc.removeprefix("www.") for s in SITES}
+763319	    known = {p.ref for p in projects}
+763320	    found_links = {(i["repd_ref"], i["link"]) for i in items}
+763321	    have = {i["repd_ref"] for i in items}
+763322	    for signal in truth:
+763323	        link = D.canonical_link(signal.get("link") or "")
+763324	        if not link or str(signal.get("repd_ref")) not in known:
+763325	        host = urllib.parse.urlsplit(link).netloc.removeprefix("www.")
+763326	        if host not in hosts:
+763327	        ref = str(signal["repd_ref"])
+763328	        rows.append({"repd_ref": ref, "title": signal.get("title") or "", "link": link, "host": host,
+763329	                     "link_found": (ref, link) in found_links, "project_found": ref in have})
+763330	    refs = {r["repd_ref"] for r in rows}
+763331	    return {"signals": len(rows), "signals_found": sum(r["link_found"] for r in rows),
+763332	            "projects": len(refs), "projects_found": len({r["repd_ref"] for r in rows if r["project_found"]}),
+763333	            "rows": rows}
+763334	    return str(text).replace("|", "/").replace("\n", " ")
+763335	def report(part, projects, truth, discover):
+763336	    items, lines = part["items"], []
+763337	    with_signal = {i["repd_ref"] for i in items}
+763338	    confirmed = {i["repd_ref"] for i in items if i["confidence"] == "confirmed"}
+763339	    by_title = {i["repd_ref"] for i in items if "in the summary" not in i["basis"]}
+763340	    rot = part["rotation"]
+763341	    lines.append("## Trade-press signals for the top 200 solar projects\n")
+763342	    lines.append("**Projects with at least one trade signal: %d of %d** (%d by the title rule, %d more by the "
+763343	                 "summary rule only; %d with a confirmed item; %d items).  Searched this run: %d projects; a full "
+763344	                 "cycle is %d runs of %d.\n"
+763345	                 % (len(with_signal), len(projects), len(by_title), len(with_signal - by_title), len(confirmed),
+763346	                    len(items), rot["searched_this_run"],
+763347	                    rot["full_cycle_runs"], rot["batch"]))
+763348	    lines.append("### Per site\n")
+763349	    lines.append("| site | status | search route used | searched | cached | skipped | requests | failures | "
+763350	                 "projects | items | note |\n|---|---|---|---|---|---|---|---|---|---|---|")
+763351	    by_pub = {}
+763352	        by_pub.setdefault(item["publisher"], set()).add(item["repd_ref"])
+763353	    for site, source in zip(SITES, part["sources"]):
+763354	        lines.append("| %s | %s | %s | %s | %s | %s | %s | %s | %d | %s | %s |" % (
+763355	            site["publisher"], source["status"], cell(source.get("route") or "none"), source.get("searched", ""),
+763356	            source.get("cached", ""), source.get("skipped", ""), source["requests"], source["failures"],
+763357	            len(by_pub.get(site["publisher"], ())), source["items"],
+763358	            cell("; ".join([source.get("error") or ""] + (source.get("notes") or [])
+763359	                           + ["%s %s" % (k, json.dumps(source[k])) for k in ("feed_archive", "sitemap")
+763360	                              if source.get(k)]).strip("; "))))
+763361	    lines.append("\n### Routes tried (canary query '%s')%s\n" % (CANARY, "" if discover else
+763362	                                                                   " - stops at the first that works"))
+763363	    lines.append("| site | route | result | type | results | about solar | dated | with summary | sample or error |\n"
+763364	                 "|---|---|---|---|---|---|---|---|---|")
+763365	        for route in source.get("routes") or []:
+763366	            lines.append("| %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
+763367	                site["publisher"], cell(route["url"].replace(site["base"], "")), route["status"],
+763368	                route.get("content_type", ""), route.get("results", ""), route.get("relevant", ""),
+763369	                route.get("dated", ""),
+763370	                route.get("summaries", ""),
+763371	                cell((route.get("sample") or route.get("error") or "")[:160])))
+763372	    lines.append("\n### Main feeds\n")
+763373	    lines.append("| site | feed | result | entries | newest | matched a project |\n|---|---|---|---|---|---|")
+763374	        for feed in source.get("feeds") or []:
+763375	            lines.append("| %s | %s | %s | %s | %s | %s |" % (
+763376	                site["publisher"], feed["url"], feed["status"] + (" " + feed.get("error", "") if feed.get("error") else ""),
+763377	                feed.get("entries", ""), feed.get("newest", ""), feed.get("matched", "")))
+763378	        result = compare_truth(items, truth, projects)
+763379	        lines.append("\n### Against the members' ground truth (trade-press signals on these nine sites)\n")
+763380	        lines.append("Truth signals found by link: **%d of %d**. Projects with a truth trade signal for which the "
+763381	                     "script has at least one item: **%d of %d**.\n"
+763382	                     % (result["signals_found"], result["signals"], result["projects_found"], result["projects"]))
+763383	        missed = [r for r in result["rows"] if not r["link_found"]]
+763384	        if missed:
+763385	            lines.append("| REPD | host | project has an item | truth title not found by link |\n|---|---|---|---|")
+763386	            for row in missed[:60]:
+763387	                lines.append("| %s | %s | %s | %s |" % (row["repd_ref"], row["host"],
+763388	                                                       "yes" if row["project_found"] else "no", cell(row["title"][:110])))
+763389	    lines.append("\n### Newest item per project (first 60 by rank)\n")
+763390	    lines.append("| rank | REPD | date | publisher | confidence | title | basis |\n|---|---|---|---|---|---|---|")
+763391	    shown = set()
+763392	        if item["repd_ref"] in shown or len(shown) >= 60:
+763393	        shown.add(item["repd_ref"])
+763394	            rank[item["repd_ref"]], item["repd_ref"], item["date"] or "", item["publisher"], item["confidence"],
+763395	            cell(item["title"][:120]), item["link"], cell(item["basis"])))
+763396	    without = [p for p in projects if p.ref not in with_signal]
+763397	    lines.append("\n### Projects without a trade signal (%d)\n" % len(without))
+763398	    lines.append(", ".join("%s (%s)" % (p.ref, cell(p.aliases[0][1] if p.aliases else p.site_name))
+763399	                           for p in without))
+763401	def parse_args(argv=None):
+763402	    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+763404	    parser.add_argument("--aliases", default=str(HERE / "aliases.json"))
+763405	    parser.add_argument("--cache", default="", help="query cache, read and rewritten (default: next to --out)")
+763406	    parser.add_argument("--probe", default="", help="write a markdown report here")
+763407	    parser.add_argument("--truth", default="", help="ground-truth signals (JSON list) to compare with")
+763408	    parser.add_argument("--discover", action="store_true", help="try every search route of every site")
+763409	    parser.add_argument("--limit", type=int, default=0, help="only the first N projects by rank")
+763410	    parser.add_argument("--batch", type=int, default=40, help="projects searched per run")
+763411	    parser.add_argument("--stale-days", type=float, default=30.0)
+763412	    parser.add_argument("--fresh-days", type=float, default=4.0)
+763413	    parser.add_argument("--per-host-cap", type=int, default=200, help="requests per site per run")
+763414	    parser.add_argument("--host-seconds", type=int, default=900, help="time budget per site per run")
+763415	    parser.add_argument("--feed-pages", type=int, default=30, help="pages of an offset feed read per run")
+763416	    parser.add_argument("--sitemap-files", type=int, default=90, help="sitemap files read per run (sitemap route)")
+763417	    parser.add_argument("--page-lookups", type=int, default=60,
+763418	                        help="article pages opened per run for their headline and date (sitemap route)")
+763419	    return parser.parse_args(argv)
+763420	def main(argv=None, fetch=fetch_url):
+763421	    args = parse_args(argv)
+763423	    projects = load_projects(args.aliases)
+763424	    cache_path = Path(args.cache) if args.cache else out.with_name(out.stem + ".cache.json")
+763425	    cache = load_cache(cache_path)
+763426	    part = run(projects, cache, fetch, now, args)
+763427	    for path, payload in ((out, part), (cache_path, cache)):
+763429	        tmp = path.with_suffix(path.suffix + ".tmp")
+763430	        tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+763431	        tmp.replace(path)
+763432	    truth = None
+763433	    if args.truth and Path(args.truth).exists():
+763434	        truth = json.loads(Path(args.truth).read_text(encoding="utf-8"))
+763435	        Path(args.probe).write_text(report(part, projects, truth, args.discover), encoding="utf-8")
+763436	    with_signal = len({i["repd_ref"] for i in part["items"]})
+763437	    print(json.dumps({"projects": len(projects), "with_trade_signal": with_signal, "items": len(part["items"]),
+763438	                      "sources": {s["id"]: s["status"] for s in part["sources"]}}))
+763439	    return 1 if all(s["status"] == "failed" for s in part["sources"]) else 0
+763440	"""Acid check of a published dist/project_signals.json (the real file, or one a test built).
+763441	  python automation/news/tests/acid_live.py dist/project_signals.json [--now 2026-11-14T12:00:00Z] [--summary FILE]
+763442	Rules (each is reported by name; the exit code is 1 when any fails):
+763443	  schema            the file is project-signals.v2 with the keys and value sets of the contract
+763444	  nothing           no project is left with neither an item nor a planning file, and the count says 0
+763445	  repd-9050         no item on REPD 9050 whose title lacks "solar"
+763446	  undated-order     in every list an undated item is never above a dated one, and dates run newest first
+763447	  tier-counts       the counts by tier are what the items give when counted again, and sum to the 200
+763448	  tier-purity       recent_news holds only publisher items dated within the recent window; no list mixes tiers
+763449	  dates             every date is a real calendar date, not after the day following the run
+763450	  generated-at      generated_at is not older than two days, unless the file and its parts say stale;
+763451	                    and it is never later than the newest successful collection it reports
+763452	A version 1 file is read too (its one "signals" list is checked for order, dates and REPD 9050), and fails the
+763453	rules it cannot meet by construction (schema, tier-counts, tier-purity). No network; standard library only.
+763454	V2 = "project-signals.v2"
+763455	LISTS = ("recent_news", "official", "archive")
+763456	TIERS = ("recent_news", "official", "archive_only", "planning_file_only", "nothing")
+763457	FAMILIES = ("official",) + NEWS_FAMILIES + ("developer",)
+763458	EVENTS = ("consent", "refusal", "appeal", "legal_challenge", "financial_close", "construction_start", "energisation",
+763459	          "grid_connection", "sale", None)
+763460	LABELS = ("planning file (verified link)", "planning file (unverified link)", "planning register search",
+763461	          "planning register finder")
+763462	PART_STATUS = ("ok", "stale", "failed", "absent")
+763463	LIVE_PARTS = ("official", "trade", "index")
+763464	MAX_AGE_DAYS = 2
+763465	RULES = ("schema", "nothing", "repd-9050", "undated-order", "tier-counts", "tier-purity", "dates", "generated-at")
+763466	def parse_stamp(value):
+763467	    if not isinstance(value, str):
+763468	        stamp = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+763469	    return stamp if stamp.tzinfo else stamp.replace(tzinfo=dt.timezone.utc)
+763471	        return dt.date.fromisoformat(value)
+763472	def is_v2(doc):
+763473	    return isinstance(doc, dict) and doc.get("schema") == V2
+763474	def lists_of(project, v2=None):
+763475	    """{list name: [items]} for either version: the three tier lists, or version 1's single "signals"."""
+763476	    if v2 is None:
+763477	        v2 = any(name in project for name in LISTS)
+763478	    names = LISTS if v2 else ("signals",)
+763479	    return {name: [i for i in (project.get(name) or []) if isinstance(i, dict)] for name in names}
+763480	def shown(project):
+763481	    """Every item in the order a reader meets it."""
+763482	    return [item for items in lists_of(project).values() for item in items]
+763483	def tier_of(project):
+763484	    """The exclusive bucket of the contract, counted from the items themselves."""
+763485	    lists = lists_of(project, True)
+763486	    if any(i.get("confidence") == "confirmed" for i in lists["recent_news"]):
+763487	        return "recent_news"
+763488	    if any(i.get("confidence") == "confirmed" for i in lists["official"]):
+763489	        return "official"
+763490	    if any(lists.values()):
+763491	        return "archive_only"
+763492	    file = project.get("planning_file")
+763493	    return "planning_file_only" if isinstance(file, dict) and file.get("url") else "nothing"
+763494	def _schema(doc, fail):
+763495	    if not is_v2(doc):
+763496	        fail("schema is %r, not %r" % (doc.get("schema") if isinstance(doc, dict) else type(doc).__name__, V2))
+763497	    for key, kind in (("generated_at", (str, type(None))), ("run_at", str), ("stale", bool), ("recent_days", int),
+763498	                      ("parts", dict), ("counts", dict), ("projects", dict)):
+763499	        if not isinstance(doc.get(key), kind):
+763500	            fail("top level %r missing or of the wrong type" % key)
+763501	    for name, part in (doc.get("parts") or {}).items():
+763502	        if not isinstance(part, dict) or part.get("status") not in PART_STATUS:
+763503	            fail("parts.%s.status is %r" % (name, part.get("status") if isinstance(part, dict) else part))
+763504	        elif part.get("collected_at") is not None and parse_stamp(part.get("collected_at")) is None:
+763505	            fail("parts.%s.collected_at is not a timestamp" % name)
+763506	    counts = doc.get("counts") if isinstance(doc.get("counts"), dict) else {}
+763507	    for key in ("with_signal", "with_confirmed_signal", "split", "with_signal_by_family"):
+763508	        if key in counts:
+763509	            fail("counts still has the mixed version 1 key %r" % key)
+763510	    if not isinstance(counts.get("by_tier"), dict) or set(counts.get("by_tier") or {}) != set(TIERS):
+763511	        fail("counts.by_tier must have exactly %s" % ", ".join(TIERS))
+763512	    headline = counts.get("headline")
+763513	    if not isinstance(headline, dict) or headline.get("label") != "projects with recent verified news":
+763514	        fail("counts.headline.label is not 'projects with recent verified news'")
+763515	    for ref, project in (doc.get("projects") or {}).items():
+763516	        if not isinstance(project, dict):
+763517	            fail("project %s is not an object" % ref)
+763518	        for name in LISTS:
+763519	            if not isinstance(project.get(name), list):
+763520	                fail("project %s has no list %r" % (ref, name))
+763521	        if project.get("tier") not in TIERS:
+763522	            fail("project %s tier is %r" % (ref, project.get("tier")))
+763523	        if project.get("alias_standing") not in ("confirmed", "possible"):
+763524	            fail("project %s alias_standing is %r" % (ref, project.get("alias_standing")))
+763525	        file = project.get("planning_file")
+763526	        if not isinstance(file, dict) or file.get("label") not in LABELS or file.get("link_type") not in ("direct", "search") \
+763527	                or not str(file.get("url") or "").startswith("https://"):
+763528	            fail("project %s planning_file is missing, unlabelled or without an https link" % ref)
+763529	        elif (file["link_type"] == "direct") != file["label"].startswith("planning file ("):
+763530	            fail("project %s planning_file label %r does not agree with link_type %r" % (ref, file["label"], file["link_type"]))
+763531	        elif (file["label"] == "planning file (verified link)") != (file.get("verified") is True):
+763532	            fail("project %s planning_file label and 'verified' disagree" % ref)
+763533	        for name, items in lists_of(project, True).items():
+763534	            for item in items:
+763535	                where = "project %s %s %r" % (ref, name, str(item.get("link"))[:80])
+763536	                if not item.get("title") or not str(item.get("link") or "").startswith("https://"):
+763537	                    fail(where + ": no title or https link")
+763538	                if item.get("tier") != name:
+763539	                    fail(where + ": tier %r in list %r" % (item.get("tier"), name))
+763540	                if item.get("confidence") not in ("confirmed", "possible"):
+763541	                    fail(where + ": confidence %r" % item.get("confidence"))
+763542	                if item.get("obtained") not in ("fetched", "reviewed"):
+763543	                    fail(where + ": obtained %r" % item.get("obtained"))
+763544	                if item.get("source") not in LIVE_PARTS + ("reviewed",):
+763545	                    fail(where + ": source %r" % item.get("source"))
+763546	                if item.get("family") not in FAMILIES:
+763547	                    fail(where + ": family %r" % item.get("family"))
+763548	                if item.get("freshness") not in ("recent", "older", "undated"):
+763549	                    fail(where + ": freshness %r" % item.get("freshness"))
+763550	                if item.get("event") not in EVENTS:
+763551	                    fail(where + ": event %r" % item.get("event"))
+763552	                if parse_stamp(item.get("collected_at")) is None:
+763553	                    fail(where + ": collected_at missing")
+763554	                if not item.get("basis"):
+763555	                    fail(where + ": no basis")
+763556	                if item.get("confidence") == "confirmed" and project.get("alias_standing") != "confirmed":
+763557	                    fail(where + ": confirmed item under an alias that is only possible")
+763558	            if len(items) > 5:
+763559	                fail("project %s %s has %d items (cap 5)" % (ref, name, len(items)))
+763560	def check(doc, now=None):
+763561	    """[(rule, passed, [evidence lines])] in the order of RULES."""
+763562	    found = {rule: [] for rule in RULES}
+763563	    if not isinstance(doc, dict) or not isinstance(doc.get("projects"), dict):
+763564	        return [(rule, False, ["the file is not a project signals file"]) for rule in RULES]
+763565	    v2 = is_v2(doc)
+763566	    projects = {ref: p for ref, p in doc["projects"].items() if isinstance(p, dict)}
+763567	    run_at = parse_stamp(doc.get("run_at")) or parse_stamp(now) or dt.datetime.now(dt.timezone.utc)
+763568	    now_stamp = parse_stamp(now) or dt.datetime.now(dt.timezone.utc)
+763569	    recent_days = doc.get("recent_days") if isinstance(doc.get("recent_days"), int) else 90
+763570	    _schema(doc, found["schema"].append)
+763571	    # nothing
+763572	    for ref, project in projects.items():
+763573	        if not shown(project) and not (isinstance(file, dict) and file.get("url")):
+763574	            found["nothing"].append("project %s has neither an item nor a planning file" % ref)
+763575	    said = (counts.get("by_tier") or {}).get("nothing") if v2 else counts.get("nothing")
+763576	    if said != 0:
+763577	        found["nothing"].append("the count of projects with nothing is %r, not 0" % said)
+763578	    if not projects:
+763579	        found["nothing"].append("the file has no project")
+763580	    elif counts.get("projects") != len(projects):
+763581	        found["nothing"].append("counts.projects is %r, the file has %d" % (counts.get("projects"), len(projects)))
+763582	    # REPD 9050
+763583	    for item in shown(projects.get("9050") or {}):
+763584	        if "solar" not in str(item.get("title") or "").lower():
+763585	            found["repd-9050"].append("REPD 9050: %r (%s)" % (item.get("title"), item.get("link")))
+763586	    # order and dates
+763587	    last_day = (run_at + dt.timedelta(days=1)).date()
+763588	        for name, items in lists_of(project).items():
+763589	            seen_undated, previous = None, None
+763590	            for position, item in enumerate(items):
+763591	                raw = item.get("date")
+763592	                day = parse_day(raw)
+763593	                if raw is not None and day is None:
+763594	                    found["dates"].append("project %s %s: %r is not a calendar date" % (ref, name, raw))
+763595	                elif day and day > last_day:
+763596	                    found["dates"].append("project %s %s: %s is in the future" % (ref, name, raw))
+763597	                if v2 and "year" in item and item.get("year") != (day.year if day else None):
+763598	                    found["dates"].append("project %s %s: year %r does not belong to date %r" % (ref, name, item.get("year"), raw))
+763599	                if day is None:
+763600	                    seen_undated = seen_undated if seen_undated is not None else position
+763601	                if seen_undated is not None:
+763602	                    found["undated-order"].append("project %s %s: undated item at place %d is above %s at place %d" % (
+763603	                        ref, name, seen_undated + 1, raw, position + 1))
+763604	                    seen_undated = None            # one line per run of undated items is enough
+763605	                if previous and day > previous:
+763606	                    found["undated-order"].append("project %s %s: %s at place %d is below the older %s" % (
+763607	                        ref, name, raw, position + 1, previous.isoformat()))
+763608	                previous = day
+763609	    # tier counts, tier purity
+763610	    if not v2:
+763611	        found["tier-counts"].append("version 1 counts one mixed figure (with_signal %r, with_confirmed_signal %r): recent "
+763612	                                    "news, old articles, official notices and reviewed research are not separated"
+763613	                                    % (counts.get("with_signal"), counts.get("with_confirmed_signal")))
+763614	        found["tier-purity"].append("version 1 has one list per project; items carry no tier and no freshness")
+763615	        by_tier = {tier: 0 for tier in TIERS}
+763616	        with_ = {"with_recent_news": 0, "with_official": 0, "with_archive": 0, "with_possible_recent_news": 0}
+763617	        item_counts = {name: 0 for name in LISTS}
+763618	        possible_only = 0
+763619	        cutoff = run_at.date() - dt.timedelta(days=recent_days)
+763620	        for ref, project in projects.items():
+763621	            lists = lists_of(project, True)
+763622	            tier = tier_of(project)
+763623	            by_tier[tier] += 1
+763624	            if project.get("tier") != tier:
+763625	                found["tier-counts"].append("project %s says tier %r, its items give %r" % (ref, project.get("tier"), tier))
+763626	            confirmed_recent = any(i.get("confidence") == "confirmed" for i in lists["recent_news"])
+763627	            with_["with_recent_news"] += confirmed_recent
+763628	            with_["with_possible_recent_news"] += bool(lists["recent_news"]) and not confirmed_recent
+763629	            with_["with_official"] += any(i.get("confidence") == "confirmed" for i in lists["official"])
+763630	            with_["with_archive"] += bool(lists["archive"])
+763631	            every = [i for items in lists.values() for i in items]
+763632	            possible_only += tier == "archive_only" and all(i.get("confidence") == "possible" for i in every)
+763633	            for name, items in lists.items():
+763634	                item_counts[name] += len(items)
+763635	                    day, family = parse_day(item.get("date")), item.get("family")
+763636	                    fresh = "undated" if day is None else "recent" if day >= cutoff else "older"
+763637	                    where = "project %s %s %r" % (ref, name, str(item.get("link"))[:80])
+763638	                    if item.get("freshness") != fresh:
+763639	                        found["tier-purity"].append("%s: freshness %r, its date %r gives %r" % (where, item.get("freshness"), item.get("date"), fresh))
+763640	                    if name == "recent_news" and (fresh != "recent" or family not in NEWS_FAMILIES):
+763641	                        found["tier-purity"].append("%s: in recent_news but %s, family %r" % (where, fresh, family))
+763642	                    if name == "official" and (family != "official" or day is None):
+763643	                        found["tier-purity"].append("%s: in official but family %r, date %r" % (where, family, item.get("date")))
+763644	                    if name == "archive" and family in NEWS_FAMILIES and fresh == "recent":
+763645	                        found["tier-purity"].append("%s: a recent publisher item filed as archive" % where)
+763646	                    if name == "archive" and family == "official" and day is not None:
+763647	                        found["tier-purity"].append("%s: a dated official item filed as archive" % where)
+763648	            links = [i.get("link") for i in every]
+763649	            if len(links) != len(set(links)):
+763650	                found["tier-purity"].append("project %s lists a link in more than one place" % ref)
+763651	        said_tiers = counts.get("by_tier") if isinstance(counts.get("by_tier"), dict) else {}
+763652	        for tier in TIERS:
+763653	            if said_tiers.get(tier) != by_tier[tier]:
+763654	                found["tier-counts"].append("counts.by_tier.%s is %r, the items give %d" % (tier, said_tiers.get(tier), by_tier[tier]))
+763655	        if sum(v for v in said_tiers.values() if isinstance(v, int)) != len(projects):
+763656	            found["tier-counts"].append("counts.by_tier does not sum to the %d projects" % len(projects))
+763657	        headline = counts.get("headline") if isinstance(counts.get("headline"), dict) else {}
+763658	        if headline.get("value") != by_tier["recent_news"]:
+763659	            found["tier-counts"].append("counts.headline.value is %r, projects with confirmed recent news: %d" % (
+763660	                headline.get("value"), by_tier["recent_news"]))
+763661	        for key, value in with_.items():
+763662	            if key in counts and counts.get(key) != value:
+763663	                found["tier-counts"].append("counts.%s is %r, the items give %d" % (key, counts.get(key), value))
+763664	        if "possible_only" in counts and counts.get("possible_only") != possible_only:
+763665	            found["tier-counts"].append("counts.possible_only is %r, the items give %d" % (counts.get("possible_only"), possible_only))
+763666	        said_items = counts.get("items") if isinstance(counts.get("items"), dict) else {}
+763667	            if name in said_items and said_items.get(name) != item_counts[name]:
+763668	                found["tier-counts"].append("counts.items.%s is %r, the lists hold %d" % (name, said_items.get(name), item_counts[name]))
+763669	    # generated_at
+763670	    parts = doc.get("parts") if isinstance(doc.get("parts"), dict) else {}
+763671	    generated = parse_stamp(doc.get("generated_at"))
+763672	    live = {name: parts.get(name) for name in LIVE_PARTS if isinstance(parts.get(name), dict)}
+763673	    says_stale = doc.get("stale") is True or any(p.get("status") in ("stale", "failed") for p in live.values())
+763674	    if generated is None:
+763675	        if not says_stale:
+763676	            found["generated-at"].append("generated_at is %r and nothing says stale" % doc.get("generated_at"))
+763677	        age = now_stamp - generated
+763678	        if age > dt.timedelta(days=MAX_AGE_DAYS) and not says_stale:
+763679	            found["generated-at"].append("generated_at %s is %.1f days old and neither 'stale' nor a part says so" % (
+763680	                doc.get("generated_at"), age.total_seconds() / 86400))
+763681	        if age < dt.timedelta(minutes=-10):
+763682	            found["generated-at"].append("generated_at %s is in the future" % doc.get("generated_at"))
+763683	        if v2:
+763684	            good = [parse_stamp(p.get("collected_at")) for p in live.values() if p.get("status") == "ok"]
+763685	            good = [g for g in good if g]
+763686	            if good and generated != max(good):
+763687	                found["generated-at"].append("generated_at %s is not the newest successful live collection (%s)" % (
+763688	                    doc.get("generated_at"), max(good).isoformat()))
+763689	            if doc.get("stale") is not True and any(p.get("status") != "ok" for p in live.values()):
+763690	                found["generated-at"].append("a live part is not ok but 'stale' is not true")
+763691	    return [(rule, not found[rule], found[rule]) for rule in RULES]
+763692	def failures(doc, now=None):
+763693	    """{rule: [evidence]} of the rules that fail."""
+763694	    return {rule: evidence for rule, passed, evidence in check(doc, now) if not passed}
+763695	def report(results, doc, source=""):
+763696	    lines = ["## Project signals: live acid check\n",
+763697	             "File: %s. schema `%s`, generated_at `%s`%s.\n" % (
+763698	                 source or "dist/project_signals.json", doc.get("schema") if isinstance(doc, dict) else "?",
+763699	                 doc.get("generated_at") if isinstance(doc, dict) else "?",
+763700	                 ", stale" if isinstance(doc, dict) and doc.get("stale") is True else ""),
+763701	             "| rule | result | first evidence | more |", "|---|---|---|---|"]
+763702	    for rule, passed, evidence in results:
+763703	        lines.append("| %s | %s | %s | %s |" % (rule, "pass" if passed else "**FAIL**",
+763704	                                               (evidence[0] if evidence else "").replace("|", "/")[:260],
+763705	                                               ("%d more" % (len(evidence) - 1)) if len(evidence) > 1 else ""))
+763706	    failed = [rule for rule, passed, _ in results if not passed]
+763707	    lines.append("\n**%s**\n" % ("Failed: " + ", ".join(failed) if failed else "All rules pass."))
+763708	    ap.add_argument("file")
+763709	    ap.add_argument("--summary", default=None)
+763710	    ap.add_argument("--source", default="")
+763711	        doc = json.loads(Path(args.file).read_text(encoding="utf-8"))
+763712	    except (OSError, ValueError) as error:
+763713	        doc = None
+763714	        text = "## Project signals: live acid check\n\n**Failed: schema** (the published file could not be read: %s)\n" % type(error).__name__
+763715	        results = [("schema", False, [])]
+763716	        results = check(doc, args.now)
+763717	        text = report(results, doc, args.source)
+763719	        with open(args.summary, "a", encoding="utf-8") as handle:
+763720	            handle.write(text + "\n")
+763721	    return 1 if any(not passed for _rule, passed, _e in results) else 0
+763722	"""One table for all project-signals test suites, from the JUnit files pytest wrote.
+763723	  python automation/news/tests/acid_report.py <dir of *.xml> [--summary FILE] [--json FILE]
+763724	Columns: suite, tests, passed, failed, then "known failing until the fixer's PR" (a test marked xfail with the
+763725	review finding it covers; strict, so one that passes unexpectedly is counted as failed), "open recommendation"
+763726	(an xfail whose reason starts with OPEN: a tester's recommendation outside the contract, never a failure) and
+763727	skipped. A suite that wrote no report, or collected no test, counts as failed. Exit code 1 when any suite has
+763728	a failure.
+763730	ORDER = ("official", "trade", "index", "planning_file", "combiner", "acid")
+763731	def read_suite(path):
+763732	    """{tests, passed, failed, known, skipped, failures: [(name, message)], known_list: [(name, reason)]}."""
+763733	    out = {"tests": 0, "passed": 0, "failed": 0, "known": 0, "open": 0, "skipped": 0, "failures": [], "known_list": [],
+763734	           "open_list": []}
+763735	        root = ET.parse(path).getroot()
+763736	    except (ET.ParseError, OSError) as error:
+763737	        out["failed"] = 1
+763738	        out["failures"].append(("(report unreadable)", str(error)[:200]))
+763739	    for case in root.iter("testcase"):
+763740	        out["tests"] += 1
+763741	        name = "%s::%s" % ((case.get("classname") or "").rsplit(".", 1)[-1], case.get("name") or "")
+763742	        bad = case.find("failure") if case.find("failure") is not None else case.find("error")
+763743	        skipped = case.find("skipped")
+763744	        if bad is not None:
+763745	            out["failed"] += 1
+763746	            out["failures"].append((name, (bad.get("message") or "").strip()[:300]))
+763747	        elif skipped is not None and skipped.get("type") == "pytest.xfail":
+763748	            reason = (skipped.get("message") or "").strip()[:300]
+763749	            kind = "open" if reason.startswith("OPEN") else "known"
+763750	            out[kind] += 1
+763751	            out[kind + "_list"].append((name, reason))
+763752	        elif skipped is not None:
+763753	            out["skipped"] += 1
+763754	            out["passed"] += 1
+763755	    if not out["tests"]:
+763756	        out["failures"].append(("(no test collected)", "the suite did not run"))
+763757	def table(suites, commit=""):
+763758	    lines = ["## Project signals: all test suites together%s\n" % (" at `%s`" % commit[:12] if commit else ""),
+763759	             "| suite | tests | passed | failed | known failing until the fixer's PR | open recommendation | skipped |",
+763760	             "|---|---|---|---|---|---|---|"]
+763761	    total = {"tests": 0, "passed": 0, "failed": 0, "known": 0, "open": 0, "skipped": 0}
+763762	    for name, s in suites:
+763763	        lines.append("| %s | %d | %d | %s | %d | %d | %d |" % (name, s["tests"], s["passed"],
+763764	                                                              ("**%d**" % s["failed"]) if s["failed"] else "0", s["known"],
+763765	                                                              s["open"], s["skipped"]))
+763766	        for key in total:
+763767	            total[key] += s[key]
+763768	    lines.append("| **all** | **%d** | **%d** | **%d** | **%d** | **%d** | **%d** |" % (
+763769	        total["tests"], total["passed"], total["failed"], total["known"], total["open"], total["skipped"]))
+763770	    failures = [(name, test, message) for name, s in suites for test, message in s["failures"]]
+763772	        lines += ["\n### Failed\n", "| suite | test | message |", "|---|---|---|"]
+763773	        lines += ["| %s | `%s` | %s |" % (name, cell(test), cell(message)) for name, test, message in failures]
+763774	    known = [(name, test, reason) for name, s in suites for test, reason in s["known_list"]]
+763775	    if known:
+763776	        lines += ["\n### Known failing until the fixer's PR (%d)\n" % len(known),
+763777	                  "Each is a rule the code at this commit does not meet. The marker is strict: a test listed here that "
+763778	                  "passes is reported as failed, and on code that declares the revised contract the marker is not applied "
+763779	                  "at all, so every one of these must pass there.\n",
+763780	                  "| suite | test | finding covered |", "|---|---|---|"]
+763781	        lines += ["| %s | `%s` | %s |" % (name, cell(test), cell(reason)) for name, test, reason in known]
+763782	    opened = [(name, test, reason) for name, s in suites for test, reason in s["open_list"]]
+763783	    if opened:
+763784	        lines += ["\n### Open recommendations (%d)\n" % len(opened),
+763785	                  "Reported by the acid testers, outside contract version 2. Not failures; listed so they are not lost.\n",
+763786	                  "| suite | test | recommendation |", "|---|---|---|"]
+763787	        lines += ["| %s | `%s` | %s |" % (name, cell(test), cell(reason)) for name, test, reason in opened]
+763788	    return "\n".join(lines) + "\n", total
+763789	    ap.add_argument("directory")
+763790	    ap.add_argument("--json", default=None)
+763791	    ap.add_argument("--commit", default="")
+763792	    ap.add_argument("--expect", default=",".join(ORDER), help="suites that must have a report")
+763793	    found = {p.stem: p for p in Path(args.directory).glob("*.xml")}
+763794	    names = [n for n in args.expect.split(",") if n] + sorted(n for n in found if n not in args.expect.split(","))
+763795	    suites = [(name, read_suite(found[name]) if name in found else
+763796	               {"tests": 0, "passed": 0, "failed": 1, "known": 0, "open": 0, "skipped": 0,
+763797	                "failures": [("(no report)", "the suite did not run")], "known_list": [], "open_list": []}) for name in names]
+763798	    text, total = table(suites, args.commit)
+763799	        print(text)
+763800	    except BrokenPipeError:
+763802	        Path(args.json).write_text(json.dumps({"commit": args.commit, "total": total, "suites": dict(suites)}, indent=1) + "\n",
+763803	                                   encoding="utf-8")
+763804	    return 1 if total["failed"] else 0
+763805	"""Tests for automation/news/pipeline_headlines.py. Offline: fixtures hold real headlines, links and dates only."""
+763809	import pipeline_headlines as P  # noqa: E402
+763810	FIXTURES = Path(__file__).resolve().parent / "fixtures" / "pipeline"
+763811	SCHEMA = json.loads((PKG / "schema" / "pipeline-headlines.v1.schema.json").read_text(encoding="utf-8"))
+763812	def repd_row(ref, site, tech="Solar Photovoltaics", operator="Example Energy Ltd", county="Oxfordshire",
+763813	             authority="West Oxfordshire"):
+763814	    return {"Ref ID": ref, "Site Name": site, "Technology Type": tech, "Operator (or Applicant)": operator,
+763815	            "County": county, "Planning Authority": authority, "Region": "South East"}
+763816	REPD = P.Repd([
+763817	    repd_row("12588", "Botley West, Botley - Botley West Solar Project",
+763818	             operator="Photovolt Development Partners & SolarFive",
+763819	             authority="The Planning Inspectorate - National Infrastructure"),
+763820	    repd_row("10529", "Botley - Solar Photovoltaic Array", operator="Red House Solar Limited"),
+763821	    repd_row("13599", "Beacon Fen Energy Park", operator="Low Carbon Limited", county="Lincolnshire"),
+763822	    repd_row("13600", "Beacon Fen Energy Park", tech="Battery", operator="Low Carbon Limited", county="Lincolnshire"),
+763823	    repd_row("15793", "Green Hill Solar Farm & Battery Storage", operator="Island Green Power",
+763824	             county="Northamptonshire"),
+763825	    repd_row("15252", "Steeple Renewables Project", operator="Renewable Energy Systems RES Limited",
+763826	             county="Nottinghamshire"),
+763827	    repd_row("70001", "Manor Farm - Solar Farm"),
+763828	    repd_row("70002", "Twin Oaks Solar Farm", county="Kent"),
+763829	    repd_row("70003", "Twin Oaks Solar Farm", county="Devon"),
+763830	    repd_row("70004", "Zennorwick - Battery Storage", tech="Battery", county="Cornwall"),
+763831	    repd_row("412", "Hunterston", tech="Battery", operator="Scottish Enterprise & SSE", county="Ayrshire",
+763832	             authority="North Ayrshire"),
+763833	    repd_row("10535", "Hunterston Grid Services Complex - Energy Storage Facility", tech="Battery",
+763834	             operator="Revera Energy", county="Ayrshire", authority="Scottish Government (S36)"),
+763836	@pytest.mark.parametrize("title, category, technology", [
+763837	    ("UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no", "refusal", "solar"),
+763838	    ("Planned solar farm in Oxfordshire scrapped as government rejects application", "refusal", "solar"),
+763839	    ("Botley West Solar Farm: development consent order, Planning Act 2008", "dco", "solar"),
+763840	    ("Great North Road Solar and Biodiversity Park development consent decision announced", "dco", "solar"),
+763841	    ("Major solar projects by Elements Green, Cubico granted DCOs", "consent", "solar"),
+763842	    ("Low Carbon wins DCO for Beacon Fen Energy Park in Lincolnshire", "consent", None),
+763843	    ("Llyr offshore wind farm secures Section 36 Consent from Welsh Ministers", "consent", "offshore_wind"),
+763844	    ("PACE wins appeal for 49.5MW solar plant in Gloucestershire", "consent", "solar"),
+763845	    ("Blocked BESS in Britain: Clearstone's appeal fails for 150 MW site at Axminster [UPDATED]", "refusal", "battery"),
+763846	    ("UK's largest Solar farm approval deemed lawful by High Court", "planning_decision", "solar"),
+763847	    ("Decision due on huge solar farm on palace estate", "planning_decision", "solar"),
+763848	    ("Challenge to UK's largest solar farm plan rejected", "planning_decision", "solar"),
+763849	    ("Healey to veto new offshore wind projects if they will not lower bills", "policy", "offshore_wind"),
+763850	    ("RWE and KKR Reach Financial Close for 2.8 GW UK Offshore Wind Projects", "finance", "offshore_wind"),
+763851	    ("TotalEnergies acquires 450MW solar, 150MW BESS NSIP project", "finance", "solar"),
+763852	    ("Qair begins construction of 46 MW Brecks Solar Farm in Nottinghamshire", "construction", "solar"),
+763853	    ("Harmony Energy switches on 70 MWh Skeeby BESS in UK", "energisation", "battery"),
+763854	    ("1GWh Coalburn 1 battery energy storage enters operations in Scotland", "energisation", "battery"),
+763855	    ("Clean energy projects to be prioritised as grid connections reform evidence window opens", "grid", None),
+763856	    ("DESNZ steps back from proposal to require solar over car parks", "policy", "solar"),
+763857	    ("AI datacentres plan on-site power stations on huge scale despite climate risks, research reveals",
+763858	     "datacentre", None),
+763859	    ("Thistle Wind Partners submits offshore plans for Bowdun offshore wind farm", "other", "offshore_wind"),
+763860	def test_real_headlines_are_kept_and_classified(title, category, technology):
+763861	    assert P.category_of(title) == category
+763862	    assert P.technology_of(title) == technology
+763864	    "Mini-gardens for bees on bus stop roofs approved",                       # event word, no topic
+763865	    "Investment delivers better bus stops and shelters across Lincolnshire",
+763866	    "Kier wins planning battle for Birmingham towers",
+763867	    "SMA Solar narrows 2026 guidance off strong nine-month performance",      # topic, no event word
+763868	    "Uskmouth BESS makes progress",
+763869	    "World is now in 'age of electricity', energy agency chief says",
+763870	    "Independent investigation concludes allegations against NESO were unsubstantiated",
+763871	    "Total solar eclipse approved as school holiday",                         # not the energy sense of solar
+763872	    "UK government approves new North Sea gas field, says tax revenue will fund clean energy",
+763873	    "Foreign Secretary's speech at the Clean Energy Transition summit",
+763874	    "Sea Link development consent decision announced",                        # no topic word: a known miss
+763875	def test_out_of_scope_headlines_are_dropped(title):
+763876	    assert P.category_of(title) is None
+763877	def test_every_category_and_technology_is_in_the_contract_list():
+763878	    assert set(SCHEMA["$defs"]["category"]["enum"]) == set(P.CATEGORIES)
+763879	    assert set(SCHEMA["properties"]["items"]["items"]["properties"]["technology"]["enum"]) == set(P.TECHNOLOGIES) | {None}
+763880	# ---------------------------------------------------------------- possible match
+763881	def test_owner_example_botley_west_is_a_possible_match_on_name_plus_technology():
+763882	    m = REPD.match("UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no")
+763883	    assert m == {"repd_ref": "12588", "site_name": "Botley West, Botley - Botley West Solar Project",
+763884	                 "basis": "technology"}
+763885	def test_match_bases_developer_authority_county():
+763886	    assert REPD.match("SolarFive loses Botley West decision")["basis"] == "developer"
+763887	    assert REPD.match("Planning Inspectorate reports on Botley West")["basis"] == "planning_authority"
+763888	    assert REPD.match("Oxfordshire reacts to Botley West ruling")["basis"] == "county"
+763889	def test_name_alone_is_never_a_match():
+763890	    assert REPD.match("Botley West decision announced") is None
+763891	    assert REPD.match("Steeple Renewables Project development consent decision announced") is None
+763892	def test_name_must_be_exact_and_word_bounded():
+763893	    assert REPD.match("Botley Westfield solar farm refused") is None
+763894	    assert REPD.match("Green Hills solar farm approved") is None
+763895	    assert REPD.match("West Botley solar farm approved") is None      # 'Botley' alone is too short to stand as a name
+763896	def test_generic_names_never_match():
+763897	    assert REPD.match("Manor Farm solar farm approved in Oxfordshire") is None
+763898	    assert "manor farm" not in REPD.by_phrase and "solar farm" not in REPD.by_phrase
+763899	def test_colocated_rows_of_one_site_give_the_lowest_ref_and_two_sites_give_nothing():
+763900	    m = REPD.match("Low Carbon wins DCO for Beacon Fen Energy Park in Lincolnshire")
+763901	    assert (m["repd_ref"], m["basis"]) == ("13599", "developer")
+763902	    assert REPD.match("Twin Oaks Solar Farm approved") is None         # two rows, same name, same technology
+763903	    assert REPD.match("Twin Oaks Solar Farm approved in Devon")["repd_ref"] == "70003"
+763904	def test_name_without_colocated_tail_and_single_distinctive_word():
+763905	    assert REPD.match("Green Hill Solar Farm development consent decision announced")["repd_ref"] == "15793"
+763906	    assert REPD.match("Zennorwick battery scheme approved in Cornwall")["repd_ref"] == "70004"
+763907	    assert REPD.match("Zennorwick battery scheme approved") is None     # one word plus technology is not enough
+763908	    assert REPD.match("Cornwall battery scheme approved in Zennorwick") is None  # the word must sit before the technology
+763909	def test_single_word_plus_technology_does_not_pick_the_wrong_hunterston():
+763910	    assert REPD.match("Revera's Hunterston battery storage project starts construction") is None
+763911	    assert REPD.match("Hunterston BESS reaches financial close") is None
+763912	def test_branded_content_is_dropped():
+763913	    body = (b"<rss version='2.0'><channel><item><title>BRANDED CONTENT: Solar farm construction made easy</title>"
+763914	            b"<link>https://example.org/b</link></item></channel></rss>")
+763915	    items, _ = P.collect([{"url": "https://x.example/f", "source": "X", "uk_only": True}], lambda u: body, REPD, NOW)
+763916	    assert items == []
+763917	def test_data_centre_headlines_never_get_a_repd_match():
+763918	    title = "Botley West data centre approved"
+763919	    assert P.label(title, REPD) == ("datacentre", None, None)
+763920	# ---------------------------------------------------------------- end to end on fixtures
+763921	def run(tmp_path, *extra):
+763922	    out = tmp_path / "pipeline_headlines.json"
+763923	    code = P.main(["--out", str(out), "--feeds", str(FIXTURES / "feeds.json"), "--fixtures", str(FIXTURES),
+763924	                   "--now", NOW, *extra])
+763925	    return code, (json.loads(out.read_text(encoding="utf-8")) if out.exists() else None)
+763926	def validate(node, schema, root=SCHEMA, path="$"):
+763927	    """Small JSON Schema checker for the keywords this schema uses (no third-party dependency)."""
+763928	    if "$ref" in schema:
+763929	        schema = root["$defs"][schema["$ref"].split("/")[-1]]
+763930	    if "anyOf" in schema:
+763932	        for option in schema["anyOf"]:
+763933	                return validate(node, option, root, path)
+763934	            except AssertionError as error:
+763935	                errors.append(str(error))
+763936	        raise AssertionError("%s: no anyOf option fits: %s" % (path, errors))
+763937	    if "const" in schema:
+763938	        assert node == schema["const"], path
+763939	    if "enum" in schema:
+763940	        assert node in schema["enum"], "%s: %r" % (path, node)
+763941	    kind = schema.get("type")
+763942	    if kind:
+763943	        ok = {"object": dict, "array": list, "string": str, "integer": int, "null": type(None)}[kind]
+763944	        assert isinstance(node, ok) and not (kind == "integer" and isinstance(node, bool)), "%s: not %s" % (path, kind)
+763945	    if isinstance(node, str):
+763946	        assert len(node) >= schema.get("minLength", 0) and len(node) <= schema.get("maxLength", 10 ** 9), path
+763947	        if "pattern" in schema:
+763948	            assert re.search(schema["pattern"], node), "%s: %r" % (path, node)
+763949	    if isinstance(node, int) and "minimum" in schema:
+763950	        assert node >= schema["minimum"], path
+763951	    if isinstance(node, list):
+763952	        assert len(node) <= schema.get("maxItems", 10 ** 9), path
+763953	        for n, child in enumerate(node):
+763954	            validate(child, schema.get("items", {}), root, "%s[%d]" % (path, n))
+763955	    if isinstance(node, dict):
+763956	        for key in schema.get("required", []):
+763957	            assert key in node, "%s: missing %s" % (path, key)
+763958	        props, extra = schema.get("properties", {}), schema.get("additionalProperties", True)
+763959	        for key, child in node.items():
+763960	            if "propertyNames" in schema:
+763961	                validate(key, schema["propertyNames"], root, path + "." + key)
+763962	            if key in props:
+763963	                validate(child, props[key], root, path + "." + key)
+763964	                assert extra is not False, "%s: unexpected %s" % (path, key)
+763965	                if isinstance(extra, dict):
+763966	                    validate(child, extra, root, path + "." + key)
+763967	def test_fixture_run_matches_schema_and_contract(tmp_path):
+763968	    code, d = run(tmp_path)
+763970	    validate(d, SCHEMA)
+763971	    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 6
+763972	    assert d["feeds"][0]["source"] == "BBC News"                    # priority feeds are fetched first
+763973	    bbc = {i["title"]: i for i in d["items"] if i["source"] == "BBC News"}
+763974	    assert set(bbc) == {"Decision due on huge solar farm on palace estate",
+763975	                        "Government decision on 2,400 acre solar farm delayed"}
+763976	    failed = [f for f in d["feeds"] if f["status"] == "failed"]
+763977	    assert len(failed) == 1 and "error" in failed[0]
+763978	    items = d["items"]
+763979	    assert d["counts"]["items"] == len(items) >= 30
+763980	    assert sum(d["counts"]["by_category"].values()) == len(items)
+763981	    keys = [(P.when(i), i["link"]) for i in items]
+763982	    assert keys == sorted(keys, reverse=True)                       # newest first
+763983	    assert len({i["link"] for i in items}) == len(items)
+763984	    assert all(set(i) == set(P.ITEM_FIELDS) for i in items)         # nothing beyond the contract is stored
+763985	    titles = [i["title"] for i in items]
+763986	    botley = [i for i in items if "Botley West" in i["title"]]
+763987	    assert {i["category"] for i in botley} == {"refusal", "dco"}
+763988	    assert all(i["possible_match"]["repd_ref"] == "12588" for i in botley)
+763989	    assert not any("bus stop" in t for t in titles)
+763990	    assert not any(" | " in t for t in titles)                      # opinion column dropped
+763991	    assert "Seaway7 Kicks Off Cable Installation Work at Ørsted's Hornsea 3" not in titles   # no UK word, global feed
+763992	def test_previous_items_are_kept_first_seen_is_stable_and_rerun_is_identical(tmp_path):
+763993	    old = {"schema": P.SCHEMA, "items": [
+763994	        {"title": "Example Wind Farm refused by council", "link": "https://example.org/old-story", "source": "Old",
+763995	         "date": "2026-08-10T08:00:00Z", "first_seen": "2026-08-10T13:00:00Z", "category": "consent",
+763996	         "technology": None, "possible_match": None},
+763997	        {"title": "Solar farm approved long ago", "link": "https://example.org/ancient", "source": "Old",
+763998	         "date": "2026-01-01T08:00:00Z", "first_seen": "2026-01-01T13:00:00Z", "category": "consent",
+763999	         "technology": "solar", "possible_match": None},
+764000	        {"title": "A headline today's rules would not keep", "link": "https://example.org/off-topic", "source": "Old",
+764001	         "date": "2026-11-01T08:00:00Z", "first_seen": "2026-11-01T13:00:00Z", "category": "other",
+764002	         "technology": None, "possible_match": None}]}
+764003	    out.write_text(json.dumps(old), encoding="utf-8")
+764004	    _, first = run(tmp_path)
+764005	    kept = {i["link"]: i for i in first["items"]}
+764006	    # 96 days old: kept until max_age_days (120), whatever the shared link merge does with age
+764007	    assert kept["https://example.org/old-story"]["first_seen"] == "2026-08-10T13:00:00Z"
+764008	    assert kept["https://example.org/old-story"]["category"] == "refusal"     # re-labelled with today's rules
+764009	    assert "https://example.org/ancient" not in kept                          # older than max_age_days
+764010	    assert "https://example.org/off-topic" not in kept
+764011	    _, second = run(tmp_path, "--now", "2026-11-14T18:00:00Z")
+764012	    assert [i for i in second["items"]] == [i for i in first["items"]]        # first_seen does not move
+764013	def test_all_feeds_failing_keeps_earlier_items_and_fails_only_without_any(tmp_path):
+764014	    feeds = tmp_path / "feeds.json"
+764015	    feeds.write_text(json.dumps({"feeds": [{"url": "https://example.invalid/a.xml", "source": "A", "uk_only": True}]}))
+764016	    out = tmp_path / "out.json"
+764017	    args = ["--out", str(out), "--feeds", str(feeds), "--fixtures", str(tmp_path), "--now", NOW]
+764018	    assert P.main(args) == 1                                                  # nothing fetched, nothing to keep
+764019	    out.write_text(json.dumps({"schema": P.SCHEMA, "items": [
+764020	        {"title": "Solar farm approved", "link": "https://example.org/a", "source": "A", "date": "2026-11-13T08:00:00Z",
+764021	         "first_seen": "2026-11-13T13:00:00Z", "category": "consent", "technology": "solar", "possible_match": None}]}))
+764022	    assert P.main(args) == 0
+764023	    d = json.loads(out.read_text())
+764024	    assert d["status"] == "failed" and len(d["items"]) == 1
+764025	def test_one_bad_feed_does_not_stop_the_others():
+764026	        if "bad" in url:
+764027	            raise OSError("boom")
+764028	        return (b'<rss version="2.0"><channel><item><title>Sponsored: solar farm approved</title>'
+764029	                b'<link>https://example.org/s</link></item><item><title>Solar farm refused in Kent</title>'
+764030	                b'<link>http://Example.org/x?utm_source=a#top</link><description>Body text never stored</description>'
+764031	                b'</item></channel></rss>')
+764032	    feeds = [{"url": "https://bad.example/f", "source": "Bad", "uk_only": True},
+764033	             {"url": "https://good.example/f", "source": "Good", "uk_only": True}]
+764034	    items, health = P.collect(feeds, fetch, P.Repd(), NOW)
+764035	    assert [h["status"] for h in health] == ["failed", "ok"]
+764036	    assert [(i["title"], i["link"], i["date"]) for i in items] == [
+764037	        ("Solar farm refused in Kent", "https://example.org/x", None)]        # sponsored dropped, link canonical
+764038	    assert "Body text" not in json.dumps(items)
+764039	def test_global_feed_needs_a_uk_word_and_foreign_headlines_are_dropped():
+764040	    body = (b'<rss version="2.0"><channel>'
+764041	            b'<item><title>Solar farm approved in Scotland</title><link>https://example.org/1</link></item>'
+764042	            b'<item><title>Solar farm approved in Greece</title><link>https://example.org/2</link></item>'
+764043	            b'<item><title>Solar farm approved somewhere</title><link>https://example.org/3</link><description>In Kent, England</description></item>'
+764044	            b'<item><title>Wind and battery project approved in New South Wales</title><link>https://example.org/4</link></item>'
+764045	            b'<item><title>Twin Oaks Solar Farm approved</title><link>https://example.org/5</link></item>'
+764046	            b'</channel></rss>')
+764047	    world, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": False}], lambda u: body, REPD, NOW)
+764048	    # a UK word or a REPD site name in the title; the feed summary ("In Kent, England") is never read
+764049	    assert [i["link"] for i in world] == ["https://example.org/1", "https://example.org/5"]
+764050	    uk, _ = P.collect([{"url": "https://w.example/f", "source": "W", "uk_only": True}], lambda u: body, REPD, NOW)
+764051	    assert [i["link"] for i in uk] == ["https://example.org/1", "https://example.org/3", "https://example.org/5"]
+764052	# ---------------------------------------------------------------- BBC priority lane
+764053	BBC = [{"url": "https://feeds.bbci.co.uk/news/rss.xml", "source": "BBC News", "uk_only": True, "lane": "keywords", "primary": True}]
+764054	    return ("<rss version='2.0'><channel>" + "".join(
+764055	        "<item><title>%s</title><link>https://www.bbc.co.uk/news/articles/%d</link><description>%s</description></item>"
+764056	        % (title, n, summary) for n, (title, summary) in enumerate(entries)) + "</channel></rss>").encode()
+764057	def test_bbc_keyword_only_headlines_are_kept_without_an_event_word():
+764058	    body = rss(("Huge solar farm on palace estate divides village", ""),
+764059	               ("The village that fears being surrounded", "Residents say three solar farms would encircle them."),
+764060	               ("Tech giant picks town for new datacentre", ""),
+764061	               ("What the new AI growth zone means for the valley", ""),
+764062	               ("Why your street may get a new neighbour", "A hyperscale data center is planned nearby."),
+764063	               ("Solar panels for every new home", ""))
+764064	    items, _ = P.collect(BBC, lambda u: body, REPD, NOW)
+764065	    assert [(i["category"], i["technology"]) for i in items] == [
+764066	        ("other", "solar"), ("other", None), ("datacentre", None), ("datacentre", None), ("datacentre", None),
+764067	        ("other", "solar")]
+764068	    assert all(set(i) - {"_feed"} == set(P.ITEM_FIELDS) for i in items)
+764069	    assert "encircle" not in json.dumps(items) and "hyperscale" not in json.dumps(items)   # summary never stored
+764070	def test_bbc_headline_about_neither_topic_is_dropped_and_scope_rules_still_apply():
+764071	    body = rss(("Mini-gardens for bees on bus stop roofs approved", "Council approves the plan."),
+764072	               ("Chancellor to cut tariffs on marmalade", ""),
+764073	               ("Sponsored: solar panels for your home", ""),
+764074	               ("Texas solar farm destroyed by hail", ""),
+764075	               ("Total solar eclipse: where to watch", ""),
+764076	               ("US firm to build data centre in Wales", ""))
+764077	    assert [i["title"] for i in items] == ["US firm to build data centre in Wales"]
+764078	def test_bbc_lane_uses_the_event_category_and_keeps_the_botley_west_wording():
+764079	    body = rss(("UK government refuses 840MW Botley West Solar Farm in first-ever solar NSIP no", ""),
+764080	               ("Planned solar farm in Oxfordshire scrapped as government rejects application", ""),
+764081	               ("Botley West Solar Farm: development consent order, Planning Act 2008", ""),
+764082	               ("Decision due on huge farm on palace estate", "The Botley West solar farm would cover 2,400 acres."),
+764083	               ("Challenge to UK's largest solar farm plan rejected", ""))
+764084	    assert [i["category"] for i in items] == ["refusal", "refusal", "dco", "planning_decision", "planning_decision"]
+764085	    assert [bool(i["possible_match"]) for i in items] == [True, False, True, False, False]   # match reads the title only
+764086	def test_the_same_keyword_only_headline_on_a_secondary_feed_is_not_kept():
+764087	    other = [{"url": "https://example.org/f", "source": "Other", "uk_only": True}]
+764088	    items, _ = P.collect(other, lambda u: rss(("Huge solar farm on palace estate divides village", "")), REPD, NOW)
+764089	def test_priority_items_kept_on_their_summary_survive_later_runs():
+764090	    body = rss(("The village that fears being surrounded", "Residents say three solar farms would encircle them."))
+764091	    items, health = P.collect(BBC, lambda u: body, REPD, NOW)
+764092	    first = P.build({}, items, health, REPD, NOW, lanes={"BBC News": "keywords"})
+764093	    later = P.build(first, [], [], REPD, "2026-11-15T12:00:00Z", lanes={"BBC News": "keywords"})
+764094	    assert [i["title"] for i in later["items"]] == ["The village that fears being surrounded"]
+764095	    assert later["items"][0]["first_seen"] == NOW
+764096	def test_live_feed_list_order_is_bbc_then_solar_power_portal_then_the_rest():
+764097	    feeds = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))["feeds"]
+764098	    sources = list(dict.fromkeys(f["source"] for f in feeds))
+764099	    assert sources[:2] == ["BBC News", "Solar Power Portal"]
+764100	    assert [f["source"] for f in feeds if f.get("primary")] == [f["source"] for f in feeds][:sum(bool(f.get("primary")) for f in feeds)]
+764101	    assert all(f.get("lane") == "keywords" for f in feeds if "feeds.bbci.co.uk" in f["url"])
+764102	    by_source = {}
+764103	    for f in feeds:
+764104	        by_source.setdefault(f["source"], set()).add(f.get("lane"))
+764105	    assert all(len(v) == 1 for v in by_source.values())             # one lane per source label
+764106	    assert not any("reuters" in f["url"] or "news.google" in f["url"] for f in feeds)
+764107	# ---------------------------------------------------------------- world lanes
+764108	@pytest.mark.parametrize("title, kept", [
+764109	    ("Meta Sells $25 Billion of Bonds to Fund AI Data Centers", True),
+764110	    ("AI Bubble Fears Hit Chipmaker Shares as Hyperscaler Capex Soars", True),
+764111	    ("UK Government offers £180m for AI data centre – but there’s a catch", True),
+764112	    ("Drax partners with Brookfield on £20bn-plus AI data centre plans", True),
+764113	    ("Microsoft Opens New Data Center in Wisconsin", False),          # data centre, no money
+764114	    ("Oil Rises as Traders Weigh Supply Risks", False),               # money and markets, no data centre
+764115	    ("Vertiv completes KES acquisition to expand EMEA services", False),
+764116	def test_datacentre_money_lane(title, kept):
+764117	    assert (P.lane_label(title, "datacentre_money") == ("datacentre", None, None)) is kept
+764118	    ("Chinese PV Industry Brief: Polysilicon prices rise again", True),
+764119	    ("China to end export tax rebates for solar modules", True),
+764120	    ("JinkoSolar, LONGi cut module output as prices slide", True),
+764121	    ("Germany awards 288 MW of solar in rooftop tender at average price of €0.0967/kWh", False),
+764122	    ("Slovenia tenders solar-plus-storage project", False),
+764123	    ("China approves new nuclear reactors", False),
+764124	def test_china_solar_lane(title, kept):
+764125	    assert (P.lane_label(title, "china_solar") == ("other", "solar", None)) is kept
+764126	def test_world_lanes_are_capped_never_matched_to_repd_and_do_not_crowd_out_uk_news():
+764127	    def entries(prefix, n):
+764128	        return "".join("<item><title>%s %d</title><link>https://example.org/%s/%d</link>"
+764129	                       "<pubDate>Fri, %02d Nov 2026 09:00:00 GMT</pubDate></item>" % (prefix, k, abs(hash(prefix)), k, 1 + k % 13)
+764130	                       for k in range(n))
+764131	    bodies = {"b": "Botley West data centers draw $1 billion investment", "p": "China solar module prices fall, week"}
+764132	    feeds = [{"url": "https://b.example/f", "source": "Bloomberg", "uk_only": False, "lane": "datacentre_money"},
+764133	             {"url": "https://p.example/f", "source": "pv magazine", "uk_only": False, "lane": "china_solar"},
+764134	             {"url": "https://u.example/f", "source": "UK", "uk_only": True}]
+764135	        if "u.example" in url:
+764136	            return b"<rss version='2.0'><channel><item><title>Solar farm refused in Kent</title><link>https://example.org/uk</link></item></channel></rss>"
+764137	        return ("<rss version='2.0'><channel>" + entries(bodies[url[8]], 25) + "</channel></rss>").encode()
+764138	    items, health = P.collect(feeds, fetch, REPD, NOW)
+764139	    assert len(items) == 51
+764140	    d = P.build({}, items, health, REPD, NOW, lanes=lanes)
+764141	    for i in d["items"]:
+764142	        by_source.setdefault(i["source"], []).append(i)
+764143	    assert {k: len(v) for k, v in by_source.items()} == {"Bloomberg": 10, "pv magazine": 10, "UK": 1}
+764144	    assert all(i["possible_match"] is None for i in by_source["Bloomberg"] + by_source["pv magazine"])
+764145	    assert {i["category"] for i in by_source["Bloomberg"]} == {"datacentre"}
+764146	    assert {(i["category"], i["technology"]) for i in by_source["pv magazine"]} == {("other", "solar")}
+764147	    again = P.build(d, [], [], REPD, "2026-11-15T12:00:00Z", lanes=lanes)     # the cap holds on later runs
+764148	    assert len(again["items"]) == 21
+764149	def test_near_identical_titles_from_two_feeds_collapse_to_the_earliest():
+764150	    a = {"title": "Statkraft hits key milestone at first UK solar scheme in Yorkshire", "link": "https://a.example/1",
+764151	         "source": "A", "date": "2026-09-01T09:00:00Z", "first_seen": NOW}
+764152	    b = dict(a, title="Statkraft hits key milestone at first UK solar scheme in Yorkshire - Example Site",
+764153	             link="https://b.example/2", source="B", date="2026-09-02T09:00:00Z")
+764154	    c = dict(a, title="Statkraft hits a key milestone at first UK solar scheme in Yorkshire", link="https://c.example/3")
+764155	    merged = P.merge([], [b, a, c], P.Repd(), NOW)
+764156	    assert [i["link"] for i in merged] == ["https://a.example/1"]
+764157	def test_probe_report_lists_every_feed_and_kept_headline(tmp_path):
+764158	    report = tmp_path / "probe.md"
+764159	    assert P.main(["--probe", str(report), "--feeds", str(FIXTURES / "feeds.json"), "--fixtures", str(FIXTURES),
+764160	                   "--now", NOW, "--out", str(tmp_path / "never.json")]) == 0
+764161	    text = report.read_text(encoding="utf-8")
+764162	    assert "FAILED OSError" in text and "Botley West" in text and "REPD 12588" in text
+764163	    assert not (tmp_path / "never.json").exists()
+764164	def test_live_feed_list_is_https_and_reuses_the_shared_fetcher():
+764165	    feeds = P.load_feeds(PKG / "pipeline_feeds.json")
+764166	    assert feeds and all(f["url"].startswith("https://") and f["source"] for f in feeds)
+764167	    assert len({f["url"] for f in feeds}) == len(feeds)
+764168	    assert P.D.fetch_url is D.fetch_url and P.D.parse_feed is D.parse_feed
+764169	"""Acid suite for the project signals (top 200 solar): the combiner run end to end on fixtures, the collectors'
+764170	matchers and date readers, the integrated workflow and the live checker. No network.
+764171	Written against contract version 2 (schema project-signals.v2: tiers recent_news, official, archive; planning
+764172	file apart; honest generated_at). The combiner is run as a program, the way the workflow runs it, so the suite
+764173	does not depend on its internals.
+764174	Known failing: a test that the code on main (schema project-signals.v1) does not meet carries `known(...)`, an
+764175	xfail naming the review finding it covers (NL-019 = the independent code review on neural-link issue 19;
+764176	"definition N" = the definitions of done of the acid cycle). The marker is strict, and it is applied only
+764177	while combine.py still declares version 1: on version 1 a marked test that passes is a failure, and on code that
+764178	declares version 2 the marker is not applied, so every marked test must pass there.
+764179	Rule ids in the test names (R01 to R15) are the rows of the scorecard.
+764181	TESTS = Path(__file__).resolve().parent
+764182	NEWS = TESTS.parent
+764183	SIGNALS = NEWS / "signals"
+764184	REPO = NEWS.parents[1]
+764185	FIXTURES = TESTS / "fixtures" / "acid"
+764186	for _path in (str(TESTS), str(NEWS), str(SIGNALS)):
+764187	import acid_live as L  # noqa: E402
+764188	import acid_report  # noqa: E402
+764189	COMBINE = SIGNALS / "combine.py"
+764190	VERSION_1 = "project-signals.v2" not in COMBINE.read_text(encoding="utf-8")
+764191	COLLECTED = "2026-11-14T11:50:00Z"
+764192	NEXT_DAY = "2026-11-15T12:00:00Z"
+764193	NEXT_COLLECTED = "2026-11-15T11:50:00Z"
+764194	WORLD = json.loads((FIXTURES / "projects.json").read_text(encoding="utf-8"))
+764195	FALSE_MATCHES = json.loads((FIXTURES / "false_matches.json").read_text(encoding="utf-8"))["cases"]
+764196	DATES = json.loads((FIXTURES / "dates.json").read_text(encoding="utf-8"))["cases"]
+764197	TESTERS = json.loads((FIXTURES / "tester_cases.json").read_text(encoding="utf-8"))
+764198	TESTER_FALSE = json.loads((FIXTURES / "tester_false_matches.json").read_text(encoding="utf-8"))
+764199	REAL_TOP200 = json.loads((SIGNALS / "top200_solar.json").read_text(encoding="utf-8"))
+764200	REAL_ALIASES = json.loads((SIGNALS / "aliases.json").read_text(encoding="utf-8"))
+764201	REVIEWED = json.loads((SIGNALS / "reviewed_signals.json").read_text(encoding="utf-8"))
+764202	def known(finding, text, strict=True):
+764203	    """Known failing on main until the fixer's pull request; see the module docstring."""
+764204	    return pytest.mark.xfail(condition=VERSION_1, strict=strict, reason="%s: %s" % (finding, text))
+764205	def open_item(text):
+764206	    """A recommendation outside contract version 2: reported, never a failure."""
+764207	    return pytest.mark.xfail(strict=False, reason="OPEN, outside contract v2: %s" % text)
+764208	# ---------------------------------------------------------------- fixtures and the runner
+764209	def item(ref, slug, title=None, date="2026-11-01", family="trade", confidence="confirmed", publisher="Example News", **more):
+764210	    base = {"repd_ref": str(ref), "title": title or "Headline %s" % slug, "link": "https://news.example.co.uk/%s" % slug,
+764211	            "publisher": publisher, "date": date, "family": family, "basis": "alias in title", "confidence": confidence}
+764212	def part(team, items, stamp=COLLECTED, sources=None):
+764213	    if sources is None:
+764214	        sources = [{"id": team + "-source", "url": "https://news.example.co.uk/", "status": "ok", "requests": 3,
+764215	                    "failures": 0, "items": len(items), "error": ""}]
+764216	    return {"schema": PART_SCHEMA, "team": team, "generated_at": stamp, "items": items, "sources": sources}
+764217	def reviewed(items, stamp="2026-11-14T10:00:00Z"):
+764218	    for one in items:
+764219	        one.setdefault("basis", "reviewed 2026-11-14")
+764220	        if not one["basis"].startswith("reviewed"):
+764221	            one["basis"] = "reviewed 2026-11-14"
+764222	    return part("reviewed", items, stamp, sources=[])
+764223	def world(tmp, extra_refs=(), aliases_patch=None):
+764224	    """Write the fixture top-200 list and alias table (plus real rows for `extra_refs`); return their paths."""
+764225	    rows = [dict(r) for r in WORLD["top200"]]
+764226	    aliases = json.loads(json.dumps(WORLD["aliases"]))
+764227	    for ref in extra_refs:
+764228	        if ref in aliases["projects"]:
+764229	        rows.append(dict(next(r for r in REAL_TOP200 if str(r["repd_ref"]) == ref), rank=len(rows) + 1))
+764230	        aliases["projects"][ref] = REAL_ALIASES["projects"][ref]
+764231	    for ref, patch in (aliases_patch or {}).items():
+764232	        aliases["projects"][ref].update(patch)
+764233	    top, table = tmp / "top200.json", tmp / "aliases.json"
+764234	    top.write_text(json.dumps(rows), encoding="utf-8")
+764235	    table.write_text(json.dumps(aliases), encoding="utf-8")
+764236	    return top, table
+764238	    def __init__(self, code, doc, text, out):
+764239	        self.code, self.doc, self.text, self.out = code, doc, text, out
+764240	    def project(self, ref):
+764241	        assert self.doc is not None, "the combiner wrote no file (exit %s): %s" % (self.code, self.text[-400:])
+764242	        return self.doc["projects"][str(ref)]
+764243	def combine(tmp, parts=None, now=NOW, previous=None, name="out", top200=None, aliases=None, extra_refs=(), aliases_patch=None):
+764244	    """Run combine.py as the workflow does. parts: {team: part dict | raw text | None (file absent)}.
+764245	    A reviewed part is always passed (empty unless given) so the committed reviewed file does not leak in."""
+764246	    work = tmp / name
+764248	    if top200 is None:
+764249	        top200, aliases = world(work, extra_refs, aliases_patch)
+764250	    given = {"official": None, "trade": None, "index": None, "reviewed": reviewed([])}
+764251	    given.update(parts or {})
+764252	    args = [sys.executable, str(COMBINE), "--top200", str(top200), "--aliases", str(aliases), "--now", now]
+764253	    for team, value in given.items():
+764254	        path = work / ("part-%s.json" % team)
+764255	            path.write_text(json.dumps(value), encoding="utf-8")
+764256	        elif isinstance(value, str):
+764257	            path.write_text(value, encoding="utf-8")
+764258	        args += ["--" + team, str(path)]
+764259	    out = work / "project_signals.json"
+764260	    if previous is not None:
+764261	        out.write_bytes(Path(previous).read_bytes())          # as in the workflow: the previous file is at --out
+764262	        args += ["--previous", str(out)]
+764263	    args += ["--out", str(out), "--summary", str(work / "summary.md")]
+764264	    done = subprocess.run(args, capture_output=True, text=True, timeout=120, cwd=str(REPO))
+764265	    doc = None
+764266	            doc = json.loads(out.read_text(encoding="utf-8"))
+764267	            doc = None
+764268	    return Run(done.returncode, doc, done.stdout + done.stderr, out)
+764269	def tiers(project):
+764270	    """The three lists of contract version 2; a version 1 project fails here, saying why."""
+764271	    assert all(isinstance(project.get(name), list) for name in L.LISTS), \
+764272	        "version 1 output: one mixed 'signals' list per project, no recent_news / official / archive"
+764273	    return {name: project[name] for name in L.LISTS}
+764274	    return L.shown(project)
+764275	def reports(project, title):
+764276	    """The items that carry this headline: shown under it, or folded into another item's cluster as a source."""
+764277	    return [i for i in shown(project) if i["title"] == title or any(s.get("title") == title for s in i.get("sources") or [])]
+764278	def find(project, slug):
+764279	    return [i for i in shown(project) if i["link"].endswith("/" + slug)]
+764280	def confirmed(one):
+764281	    return one.get("confidence") == "confirmed"
+764282	def total_items(doc):
+764283	    return sum(len(shown(p)) for p in doc["projects"].values())
+764284	def projects_with_items(doc):
+764285	    return sum(1 for p in doc["projects"].values() if shown(p))
+764286	def base_parts(stamp=COLLECTED):
+764287	    """One healthy run: six projects with items, of every kind."""
+764288	        "official": part("official", [
+764289	            item("90001", "o-consent", "Alderwick Solar Farm: development consent decision", "2026-11-10", "official",
+764290	                 publisher="Planning Inspectorate"),
+764291	            item("90002", "o-exam", "Brantley Moor Solar Farm: examination closed", "2026-03-02", "official",
+764292	                 publisher="Planning Inspectorate")], stamp),
+764293	        "trade": part("trade", [
+764294	            item("90001", "t-consent", "Alderwick Solar Farm granted development consent", "2026-11-11"),
+764295	            item("90003", "t-mill", "Mill Solar Farm near Ashford approved", "2026-10-20"),
+764296	            item("90007", "t-tarn", "Tarnside Solar Farm plan submitted in Cumbria", "2026-09-30"),
+764297	            item("90008", "t-oxley-old", "Oxley Green Solar Farm proposed for Essex", "2021-05-04")], stamp),
+764298	        "index": part("index", [
+764299	            item("90008", "i-oxley-undated", "Oxley Green Solar Farm: what we know", None, "regional"),
+764300	            item("9050", "i-foston", "Solar farm at Foston wins approval", "2021-02-17", "regional")], stamp),
+764301	# ---------------------------------------------------------------- R01 false matches
+764302	REJECT = [c for c in FALSE_MATCHES if c["expect"] == "reject"]
+764303	NOT_CONFIRMED = [c for c in FALSE_MATCHES if c["expect"] == "not_confirmed"]
+764304	ACCEPT = [c for c in FALSE_MATCHES if c["expect"] == "accept"]
+764305	REAL_REFS = {str(r["repd_ref"]) for r in REAL_TOP200}
+764306	def case_parts(cases, family="trade", team="trade"):
+764307	    return {team: part(team, [item(c["repd_ref"], "case-%d" % n, c["title"], "2026-11-05", family)
+764308	                              for n, c in enumerate(cases)])}
+764309	@known("NL-019 finding 5", "REPD 9050 'Bypass Solar Farm' takes headlines about bypass diodes; no exclusion rule")
+764310	@pytest.mark.parametrize("team, family", [("trade", "trade"), ("index", "regional"), ("official", "official"), ("reviewed", "trade")])
+764311	def test_R01_repd_9050_takes_no_headline_without_solar_farm_or_the_place(tmp_path, team, family):
+764312	    cases = [c for c in REJECT + ACCEPT if c["repd_ref"] == "9050"]
+764313	    parts = case_parts(cases, family, team)
+764314	    if team == "reviewed":
+764315	        parts = {"reviewed": reviewed(parts["reviewed"]["items"])}
+764316	    run = combine(tmp_path, parts)
+764317	    project = run.project("9050")
+764318	    titles = [i["title"] for i in shown(project)] + [s["title"] for i in shown(project) for s in i.get("sources") or []]
+764319	    wrong = [t for t in titles if not re.search(r"solar farm|foston|grantham", t, re.I)]
+764320	    assert not wrong, "REPD 9050 shows %r although the %s part only said so" % (wrong, team)
+764321	    for case in (c for c in cases if c["expect"] == "accept"):
+764322	        assert reports(project, case["title"]), "the true headline %r was lost" % case["title"]
+764323	@known("NL-019 finding 5", "a headline carried over from the previous file is not checked against the exclusion rule again")
+764324	def test_R01_a_false_match_already_published_is_not_carried_into_the_next_file(tmp_path):
+764325	    """Acid tester 5: a corrected false match must not be republished from the previous file for ever. The previous
+764326	    file here is a version 1 file as main publishes it today, holding a bypass-diode headline on REPD 9050."""
+764327	    first = {"schema": "project-signals.v1", "generated_at": "2026-11-13T05:23:00Z", "projects": {"9050": {"signals": [
+764328	        {"repd_ref": "9050", "title": "New bypass diode design cuts shading losses in PV modules",
+764329	         "link": "https://news.example.co.uk/old-diode", "publisher": "Example News", "date": "2026-11-12", "family": "trade",
+764330	         "basis": "alias phrase 'Bypass' in title", "confidence": "confirmed"}]}}}
+764331	    previous = tmp_path / "previous.json"
+764332	    previous.write_text(json.dumps(first), encoding="utf-8")
+764333	    run = combine(tmp_path, base_parts(), previous=previous)
+764334	    assert run.code == 0, run.text[-400:]
+764335	    assert not find(run.project("9050"), "old-diode"), "the bypass-diode headline came back from the previous file"
+764336	COLLECTOR_KNOWN = {
+764337	    ("trade", "9050"): ("Town bypass", "NL-019 finding 5", "trade.py: 'Bypass' followed by a solar word is a confirmed match (a road with solar-powered signs)"),
+764338	    ("trade", "11678"): ("Drove Lane", "acid tester 6 (recent news)", "trade.py ties 'East Yorkshire' plus developer 'Boom' to another Boom Power project, as confirmed"),
+764339	    ("official", "11678"): ("Drove Lane", "acid tester 6 (recent news)", "official.py ties 'East Yorkshire' with a solar word to another Boom Power project, as confirmed"),
+764340	@pytest.mark.parametrize("case", [c for c in REJECT + NOT_CONFIRMED if c["repd_ref"] in REAL_REFS],
+764341	                         ids=lambda c: "%s-%s" % (c["repd_ref"], re.sub(r"\W+", "-", c["title"][:32])))
+764342	@pytest.mark.parametrize("collector", ["trade", "index", "official"])
+764343	def test_R01_no_collector_attaches_a_reported_false_match_as_a_confident_match(case, collector, request):
+764344	    ref, title, summary = case["repd_ref"], case["title"], case.get("summary") or ""
+764345	    if collector == "trade":
+764346	        import trade as T
+764347	        project = next(p for p in T.load_projects(str(SIGNALS / "aliases.json")) if p.ref == ref)
+764348	        found = project.match(title, summary)
+764349	        confident = found is not None and found[1] == "confirmed"
+764350	    elif collector == "index":
+764351	        import index as I
+764352	        loaded = I.load_projects(str(SIGNALS / "top200_solar.json"), str(SIGNALS / "aliases.json"))
+764353	        project = next(p for p in (loaded.values() if isinstance(loaded, dict) else loaded) if str(p["repd_ref"]) == ref)
+764354	        found = I.match_item(project, title, summary)
+764355	        confident = found is not None and found[0] == "strong"
+764356	        import official as O
+764357	        project = next(p for p in O.load_projects() if str(p["repd_ref"]) == ref)
+764358	        found = O.match(project, title, summary)
+764359	    if (collector, ref) in COLLECTOR_KNOWN and COLLECTOR_KNOWN[(collector, ref)][0] in title:
+764360	        request.applymarker(known(*COLLECTOR_KNOWN[(collector, ref)][1:]))
+764361	    assert not confident, "%s.py ties %r to REPD %s as a confident match: %r" % (collector, title, ref, found)
+764362	@known("NL-019 findings 1 and 5", "a part's 'confirmed' is taken on trust: no evidence check, no second term for a one-word alias")
+764363	@pytest.mark.parametrize("case", NOT_CONFIRMED, ids=lambda c: c["repd_ref"])
+764364	def test_R01_confidence_is_earned_not_inherited_from_the_part(tmp_path, case):
+764365	    extra = [case["repd_ref"]] if case["repd_ref"] in REAL_REFS else []
+764366	    run = combine(tmp_path, case_parts([case]), extra_refs=extra)
+764367	    kept = [i for i in shown(run.project(case["repd_ref"])) if i["title"] == case["title"]]
+764368	    assert not any(confirmed(i) for i in kept), "shown as confirmed although: %s" % case["why"]
+764369	    if not VERSION_1:
+764370	        assert all(i["confidence"] == "possible" for i in kept)
+764371	def test_R01_true_headlines_are_kept_as_confirmed(tmp_path):
+764372	    run = combine(tmp_path, case_parts(ACCEPT))
+764373	    for case in ACCEPT:
+764374	        kept = reports(run.project(case["repd_ref"]), case["title"])
+764375	        assert kept and confirmed(kept[0]), "lost or downgraded: %r (%s)" % (case["title"], case["why"])
+764376	@known("NL-019 finding 5", "143 confirmed, 47 uncertain and 10 derived aliases; items of an unconfirmed alias are still shown as confirmed")
+764377	def test_R01_real_alias_table_no_confirmed_item_under_an_alias_that_is_not_evidenced(tmp_path):
+764378	    table = REAL_ALIASES["projects"]
+764379	    weak = {ref for ref, entry in table.items()
+764380	            if entry.get("alias_status") != "confirmed" or not (entry.get("alias_evidence") or entry.get("alias_evidence_url"))}
+764381	    run = combine(tmp_path, {"reviewed": REVIEWED}, top200=SIGNALS / "top200_solar.json", aliases=SIGNALS / "aliases.json")
+764382	    wrong = sorted(ref for ref in weak if any(confirmed(i) for i in shown(run.project(ref))))
+764383	    assert not wrong, "%d of the %d projects without a confirmed, evidenced alias show a confirmed item: REPD %s" % (
+764384	        len(wrong), len(weak), ", ".join(wrong[:25]))
+764385	@open_item("acid tester 3 recommends 'possible' for eight aliases marked confirmed (one agreeing fact or an unexplained capacity conflict)")
+764386	def test_R01_aliases_the_confidence_tester_would_downgrade_show_no_confirmed_item(tmp_path):
+764387	    wrong = [c["repd_ref"] for c in TESTERS["downgrade"] if any(confirmed(i) for i in shown(run.project(c["repd_ref"])))]
+764388	    assert not wrong, "confirmed items under aliases with one agreeing fact or a capacity conflict: REPD %s" % ", ".join(wrong)
+764389	_LOADED = {}
+764390	def collector_verdict(collector, ref, title, summary=""):
+764391	    """(attached, confident) as the collector's own matcher decides for the real alias table."""
+764392	        if "trade" not in _LOADED:
+764393	            _LOADED["trade"] = {p.ref: p for p in T.load_projects(str(SIGNALS / "aliases.json"))}
+764394	        found = _LOADED["trade"][ref].match(title, summary)
+764395	        return found is not None, found is not None and found[1] == "confirmed"
+764396	    if collector == "index":
+764397	        if "index" not in _LOADED:
+764398	            loaded = I.load_projects(str(SIGNALS / "top200_solar.json"), str(SIGNALS / "aliases.json"))
+764399	            _LOADED["index"] = {str(p["repd_ref"]): p for p in (loaded.values() if isinstance(loaded, dict) else loaded)}
+764400	        found = I.match_item(_LOADED["index"][ref], title, summary)
+764401	        return found is not None, found is not None and found[0] == "strong"
+764402	    import official as O
+764403	    if "official" not in _LOADED:
+764404	        _LOADED["official"] = {str(p["repd_ref"]): p for p in O.load_projects()}
+764405	    found = O.match(_LOADED["official"][ref], title, summary)
+764406	    return found is not None, found is not None and found[1] == "confirmed"
+764407	TESTER_CLASSES = sorted(TESTER_FALSE["rule_classes"])
+764408	@known("acid tester 1 (false matches)", "239 wrong headlines pass the collectors' matchers on main, 167 of them labelled confirmed")
+764409	@pytest.mark.parametrize("rule_class", TESTER_CLASSES)
+764410	def test_R01_tester_false_matches_no_collector_is_confident(rule_class):
+764411	    cases = [c for c in TESTER_FALSE["cases"] if rule_class in c["rule_classes"]]
+764412	    wrong = []
+764413	    for case in cases:
+764414	        for collector in ("trade", "index", "official"):
+764415	            if collector_verdict(collector, case["repd_ref"], case["title"])[1]:
+764416	                wrong.append("%s REPD %s %r" % (collector, case["repd_ref"], case["title"][:70]))
+764417	    assert not wrong, "class %s (%s): %d confident wrong matches in %d cases, e.g. %s" % (
+764418	        rule_class, TESTER_FALSE["rule_classes"][rule_class][:90], len(wrong), len(cases), "; ".join(wrong[:3]))
+764419	@known("acid tester 1 (false matches)", "the combiner publishes a wrong headline as confirmed whenever a part says confirmed")
+764420	def test_R01_tester_false_matches_are_never_published_as_confirmed(tmp_path, rule_class):
+764421	    items = [item(c["repd_ref"], "w%d" % n, c["title"], "2026-11-05") for n, c in enumerate(cases)]
+764422	    run = combine(tmp_path, {"trade": part("trade", items)}, top200=SIGNALS / "top200_solar.json", aliases=SIGNALS / "aliases.json")
+764423	    wrong = ["REPD %s %r" % (c["repd_ref"], c["title"][:70]) for n, c in enumerate(cases)
+764424	             if any(confirmed(i) for i in find(run.project(c["repd_ref"]), "w%d" % n))]
+764425	    assert not wrong, "class %s: %d of %d wrong headlines are published as confirmed, e.g. %s" % (
+764426	        rule_class, len(wrong), len(cases), "; ".join(wrong[:3]))
+764427	def test_R01_tester_false_matches_fixture_is_complete():
+764428	    cases = TESTER_FALSE["cases"]
+764429	    assert len(cases) == 239 and sum(1 for c in cases if c["real"]) == 7
+764430	    assert all(c["repd_ref"] in REAL_REFS and c["title"] for c in cases)
+764431	    assert any(c["repd_ref"] == "9050" for c in cases)
+764432	# ---------------------------------------------------------------- R02 calendar and dates
+764433	MAIN_ACCEPTS_BAD_DATE = {"impossible-day", "impossible-month", "31-november", "zero-date", "future-months", "future-two-days",
+764434	                         "impossible-gdelt-slice"}
+764435	@pytest.mark.parametrize("case", DATES, ids=lambda c: c["id"])
+764436	def test_R02_combiner_never_shows_a_wrong_impossible_or_future_date(tmp_path, case, request):
+764437	    if case["id"] in MAIN_ACCEPTS_BAD_DATE:
+764438	        request.applymarker(known("NL-019 finding 3", "dates are accepted by their YYYY-MM-DD prefix: no calendar or future check"))
+764439	    run = combine(tmp_path, {"trade": part("trade", [item("90001", "dated", "Alderwick Solar Farm update", case["raw"])])})
+764440	    kept = find(run.project("90001"), "dated")
+764441	    assert kept, "the item was dropped; an unreadable date makes it undated, it does not remove it"
+764442	    assert kept[0]["date"] in case["allowed"], "%r became %r (%s)" % (case["raw"], kept[0]["date"], case["why"])
+764443	@pytest.mark.parametrize("case", [c for c in DATES if c.get("collectors", True)], ids=lambda c: c["id"])
+764444	@pytest.mark.parametrize("reader", ["trade.day_of", "official.parse_day", "feed.parse_date"])
+764445	def test_R02_collector_date_readers_never_swap_day_and_month_or_invent_a_date(case, reader, request):
+764446	    if (reader, case["id"]) == ("official.parse_day", "year-0026"):
+764447	        request.applymarker(known("acid tester 2 (dates)", "official.parse_day reads 1/2/0026 as the year 26"))
+764448	    if reader == "trade.day_of":
+764449	        got = T.day_of(case["raw"])
+764450	    elif reader == "official.parse_day":
+764451	        got = O.parse_day(case["raw"])
+764452	        import datacentre_feed as D
+764453	        got = D.parse_date(case["raw"])
+764454	    got = got[:10] if isinstance(got, str) else got
+764455	    if reader == "feed.parse_date" and got is None:
+764456	        return                      # the feed reader refuses any value without a time zone: undated, never wrong
+764457	    assert got in case["allowed"], "%s(%r) gave %r (%s)" % (reader, case["raw"], got, case["why"])
+764458	@known("NL-019 finding 3", "a date after the run is kept, so the item is ranked first as the newest")
+764459	def test_R02_a_future_dated_item_is_not_ranked_as_the_newest(tmp_path):
+764460	    run = combine(tmp_path, {"trade": part("trade", [
+764461	        item("90001", "future", "Alderwick Solar Farm to open", "2027-06-01"),
+764462	        item("90001", "real", "Alderwick Solar Farm granted development consent", "2026-11-11")])})
+764463	    first = shown(run.project("90001"))[0]
+764464	    assert first["link"].endswith("/real"), "first shown: %r dated %r" % (first["title"], first["date"])
+764465	@open_item("acid tester 2 (dates): a collector's date reader loses or misreads this value")
+764466	@pytest.mark.parametrize("case", TESTERS["date_readers"], ids=lambda c: c["name"])
+764467	def test_R02_tester_date_reader_recommendations(case):
+764468	    module, name = case["function"].split(".")
+764469	    got = getattr(__import__(module), name)(case["value"])
+764470	    assert got == case["expected"], "%s(%r) gave %r, the tester expects %r" % (case["function"], case["value"], got, case["expected"])
+764471	@known("NL-019 finding 2 and acid tester 2", "no freshness boundary exists")
+764472	@pytest.mark.parametrize("date, where", [("2026-08-16", "recent_news"), ("2026-08-15", "archive")])
+764473	def test_R02_the_ninety_day_boundary_is_counted_from_the_date(tmp_path, date, where):
+764474	    run = combine(tmp_path, {"trade": part("trade", [item("90001", "edge", "Alderwick Solar Farm update", date)])})
+764475	    lists = tiers(run.project("90001"))
+764476	    assert [name for name, items in lists.items() if items] == [where], "an item dated %s (run on 2026-11-14)" % date
+764477	# ---------------------------------------------------------------- R03 stale feed
+764478	@known("NL-019 finding 2", "freshness is inherited from the run: an article of months ago, fetched today, counts as a news signal")
+764479	def test_R03_an_old_article_fetched_today_is_archive_not_recent_news(tmp_path):
+764480	    run = combine(tmp_path, {"trade": part("trade", [item("90007", "old", "Tarnside Solar Farm plan submitted", "2026-08-01")])})
+764481	    lists = tiers(run.project("90007"))
+764482	    assert [i["link"].rsplit("/", 1)[-1] for i in lists["archive"]] == ["old"] and not lists["recent_news"]
+764483	    assert lists["archive"][0]["freshness"] == "older" and lists["archive"][0]["year"] == 2026
+764484	    assert run.doc["counts"]["headline"]["value"] == 0 and run.doc["counts"]["by_tier"]["archive_only"] == 1
+764485	@known("NL-019 finding 3", "generated_at is the clock of the run: the same parts combined a day later look freshly collected")
+764486	def test_R03_the_same_parts_combined_again_do_not_move_generated_at(tmp_path):
+764487	    first = combine(tmp_path, base_parts(), name="first")
+764488	    again = combine(tmp_path, base_parts(), now=NEXT_DAY, previous=first.out, name="again")
+764489	    assert again.code == 0, again.text[-400:]
+764490	    assert again.doc["generated_at"] == first.doc["generated_at"], "generated_at moved from %s to %s with nothing collected" % (
+764491	        first.doc["generated_at"], again.doc["generated_at"])
+764492	    assert again.doc["generated_at"] == COLLECTED, "generated_at must be the newest successful collection (%s)" % COLLECTED
+764493	    for ref in ("90001", "90003", "90008"):
+764494	        before = {i["link"]: i.get("collected_at") for i in shown(first.project(ref))}
+764495	        after = {i["link"]: i.get("collected_at") for i in shown(again.project(ref))}
+764496	        assert before == after and all(before.values()), "collected_at of the items of %s changed or is missing" % ref
+764497	@known("NL-019 finding 2", "no freshness status is computed from the date")
+764498	def test_R03_recent_news_ages_out_by_its_date_when_the_feed_stays_the_same(tmp_path):
+764499	    assert [i["link"].rsplit("/", 1)[-1] for i in tiers(first.project("90003"))["recent_news"]] == ["t-mill"]
+764500	    later = combine(tmp_path, base_parts(), now="2027-03-01T12:00:00Z", previous=first.out, name="later")
+764501	    assert later.code == 0, later.text[-400:]
+764502	    lists = tiers(later.project("90003"))
+764503	    assert not lists["recent_news"] and [i["freshness"] for i in lists["archive"]] == ["older"]
+764504	    assert later.doc["counts"]["headline"]["value"] == 0
+764505	# ---------------------------------------------------------------- R04 source failure, R09 generated_at
+764506	ALL_FAILED = part("trade", [], NEXT_COLLECTED, sources=[{"id": "trade-source", "url": "https://news.example.co.uk/",
+764507	                                                           "status": "failed", "requests": 4, "failures": 4, "items": 0,
+764508	                                                           "error": "URLError: timed out"}])
+764509	BROKEN = {"missing": None, "unreadable": "{\"schema\": \"project-signals-part.v1\", \"items\": [", "raised": "Traceback (most recent call last):\n",
+764510	          "wrong-schema": json.dumps({"schema": "something-else", "items": []}), "every-source-failed": ALL_FAILED,
+764511	          "items-not-a-list": json.dumps({"schema": PART_SCHEMA, "generated_at": NEXT_COLLECTED, "items": None})}
+764512	@known("NL-019 finding 3", "a part that failed is recorded as absent, or as ok with 0 items, and never as stale; its items lose their collection time")
+764513	@pytest.mark.parametrize("how", list(BROKEN))
+764514	def test_R04_a_failed_part_is_marked_stale_and_its_items_keep_their_times(tmp_path, how):
+764515	    parts = base_parts(NEXT_COLLECTED)
+764516	    parts["trade"] = BROKEN[how]
+764517	    second = combine(tmp_path, parts, now=NEXT_DAY, previous=first.out, name="second")
+764518	    assert second.code == 0, second.text[-400:]
+764519	    kept = find(second.project("90003"), "t-mill")
+764520	    assert kept, "the trade item published before was lost when the trade part failed (%s)" % how
+764521	    state = second.doc["parts"]["trade"]
+764522	    assert state["status"] == "stale", "parts.trade.status is %r after a failed collection (%s)" % (state["status"], how)
+764523	    assert state.get("collected_at") == COLLECTED and kept[0].get("collected_at") == COLLECTED
+764524	    assert second.doc.get("stale") is True
+764525	    assert second.doc["generated_at"] == NEXT_COLLECTED, "the official and index parts did succeed at %s" % NEXT_COLLECTED
+764526	def test_R04_with_no_part_at_all_every_project_still_has_its_planning_file(tmp_path):
+764527	    run = combine(tmp_path, {})
+764528	    assert all(isinstance(p.get("planning_file"), dict) and p["planning_file"]["url"].startswith("https://")
+764529	               for p in run.doc["projects"].values())
+764530	    assert not any(shown(p) for p in run.doc["projects"].values())
+764531	@known("NL-019 finding 3", "a file built from nothing still carries the time of the run as generated_at")
+764532	def test_R09_nothing_collected_and_nothing_before_gives_no_generated_at(tmp_path):
+764533	    assert run.doc["generated_at"] is None, "generated_at is %r though nothing was ever collected" % run.doc["generated_at"]
+764534	    assert run.doc.get("stale") is True
+764535	@known("NL-019 finding 3", "every fetch failing republishes the previous items under a new generated_at")
+764536	@pytest.mark.parametrize("how", ["missing", "unreadable", "every-source-failed"])
+764537	def test_R09_generated_at_does_not_advance_when_every_collection_fails(tmp_path, how):
+764538	    broken = BROKEN[how]
+764539	    parts = {team: (dict(broken, team=team) if isinstance(broken, dict) else broken) for team in ("official", "trade", "index")}
+764540	    assert second.doc is not None
+764541	    assert second.doc["generated_at"] == first.doc["generated_at"], "generated_at went from %s to %s although every collection failed (%s)" % (
+764542	        first.doc["generated_at"], second.doc["generated_at"], how)
+764543	    if second.code == 0:
+764544	        assert second.doc.get("stale") is True
+764545	        assert total_items(second.doc) == total_items(first.doc), "items were lost or added by a run that collected nothing"
+764546	        assert L.failures(second.doc, "2026-11-20T12:00:00Z").get("generated-at") is None, "six days later the file must still say it is stale"
+764547	@known("acid tester 5 (publishing)", "every signal of the previous file is carried for ever, so a reviewed entry that was withdrawn is republished")
+764548	def test_R04_a_reviewed_entry_withdrawn_from_the_committed_file_is_not_carried_for_ever(tmp_path):
+764549	    parts = base_parts()
+764550	    parts["reviewed"] = reviewed([item("90006", "r-wrong", "Henwick Solar Park approved", "2026-10-01", "regional")])
+764551	    first = combine(tmp_path, parts, name="first")
+764552	    assert find(first.project("90006"), "r-wrong")
+764553	    second = combine(tmp_path, base_parts(NEXT_COLLECTED), now=NEXT_DAY, previous=first.out, name="second")
+764554	    assert not find(second.project("90006"), "r-wrong"), "the withdrawn reviewed entry is still published"
+764555	# ---------------------------------------------------------------- R05 undated against dated, ordering
+764556	@known("NL-019 finding 2", "confirmed first, then date: an undated or 2014 confirmed item outranks a timely uncertain one")
+764557	def test_R05_an_undated_item_never_outranks_a_dated_one(tmp_path):
+764558	    run = combine(tmp_path, {"index": part("index", [
+764559	        item("90001", "undated", "Alderwick Solar Farm: what we know", None, "regional"),
+764560	        item("90001", "old", "Alderwick Solar Farm first proposed", "2019-03-01", "regional"),
+764561	        item("90001", "fresh", "Alderwick Solar Farm decision due this week", "2026-11-12", "regional", "uncertain")])})
+764562	    order = [i["link"].rsplit("/", 1)[-1] for i in shown(run.project("90001"))]
+764563	    assert order == ["fresh", "old", "undated"], "shown in the order %s" % order
+764564	    assert not L.failures(run.doc, NOW).get("undated-order")
+764565	@known("definition 1", "an undated item carries no label saying so")
+764566	def test_R05_an_undated_item_is_archive_and_labelled_undated(tmp_path):
+764567	    run = combine(tmp_path, {"index": part("index", [item("90008", "undated", "Oxley Green Solar Farm: what we know", None, "regional"),
+764568	                                                      item("90008", "undated-official", "Oxley Green Solar Farm notice", None, "official")])})
+764569	    lists = tiers(run.project("90008"))
+764570	    assert not lists["recent_news"] and not lists["official"] and len(lists["archive"]) == 2
+764571	    assert all(i["date"] is None and i["year"] is None and i["freshness"] == "undated" for i in lists["archive"])
+764572	@known("acid tester 6 (recent news)", "the newest event is hidden: an uncertain recent item ranks below confirmed older ones and the cap of five cuts it")
+764573	def test_R05_a_recent_possible_item_is_not_pushed_out_by_five_older_confirmed_ones(tmp_path):
+764574	    older = [item("90001", "y%d" % n, "Alderwick Solar Farm report %d" % n, "2025-0%d-10" % n) for n in range(1, 8)]
+764575	    run = combine(tmp_path, {"trade": part("trade", older + [
+764576	        item("90001", "sale", "Developer sells 500MW solar NSIP in Norfolk", "2026-11-13", confidence="uncertain")])})
+764577	    kept = find(run.project("90001"), "sale")
+764578	    assert kept and shown(run.project("90001"))[0]["link"].endswith("/sale"), "the newest item is missing or not first"
+764579	    assert not confirmed(kept[0]), "an uncertain match must never be shown as fact"
+764580	# ---------------------------------------------------------------- R06 reviewed item duplicated by a fetched one
+764581	@pytest.mark.parametrize("fetched_link", [
+764582	    "https://news.example.co.uk/same?utm_source=rss&utm_medium=feed",
+764583	    "https://news.example.co.uk/same?ito=1&at_medium=rss",
+764584	    "http://news.example.co.uk/same",
+764585	    "https://NEWS.example.co.uk/same#comments"], ids=["utm", "ito-at", "http", "host-case-fragment"])
+764586	def test_R06_a_reviewed_item_duplicated_by_a_fetched_one_is_shown_once_as_fetched(tmp_path, fetched_link):
+764587	    title = "Alderwick Solar Farm granted development consent"
+764588	    run = combine(tmp_path, {
+764589	        "reviewed": reviewed([item("90001", "same", title, "2026-11-11", publisher="Example News")]),
+764590	        "trade": part("trade", [item("90001", "same", title, "2026-11-11", link=fetched_link)])})
+764591	    kept = [i for i in shown(run.project("90001")) if "/same" in i["link"]]
+764592	    assert len(kept) == 1, "the same article is listed %d times" % len(kept)
+764593	    assert kept[0]["link"] == "https://news.example.co.uk/same"
+764594	    if VERSION_1:
+764595	        assert not kept[0]["basis"].startswith("reviewed")
+764596	        assert kept[0]["obtained"] == "fetched" and kept[0]["source"] == "trade"
+764597	def test_R06_two_articles_whose_links_differ_in_a_meaningful_query_are_both_kept(tmp_path):
+764598	        item("90001", "a", "Alderwick Solar Farm granted development consent", "2026-11-11", link="https://news.example.co.uk/?p=35578"),
+764599	        item("90001", "b", "Alderwick Solar Farm: residents respond", "2026-10-02", link="https://news.example.co.uk/?p=35579")])})
+764600	    assert len(shown(run.project("90001"))) == 2
+764601	@known("NL-019 finding 2", "reviewed research is one undifferentiated pile: 326 items, 113 undated, 4 dated since 31 October 2026")
+764602	def test_R06_reviewed_items_follow_their_dates_like_any_other(tmp_path):
+764603	    run = combine(tmp_path, {"reviewed": reviewed([
+764604	        item("90007", "r-recent", "Tarnside Solar Farm approved by committee", "2026-11-06", "regional"),
+764605	        item("90007", "r-2021", "Tarnside Solar Farm plan revealed", "2021-06-01", "regional"),
+764606	        item("90007", "r-undated", "Tarnside Solar Farm: the story so far", None, "regional")])})
+764607	    assert [(i["link"].rsplit("/", 1)[-1], i["obtained"]) for i in lists["recent_news"]] == [("r-recent", "reviewed")]
+764608	    assert [i["link"].rsplit("/", 1)[-1] for i in lists["archive"]] == ["r-2021", "r-undated"]
+764609	    assert [i["year"] for i in lists["archive"]] == [2021, None]
+764610	# ---------------------------------------------------------------- R07 multi-project articles
+764611	BOTH = "Alderwick and Brantley Moor solar farms both granted development consent"
+764612	ONE = "Alderwick Solar Farm granted development consent"
+764613	@known("NL-019 finding 6", "a link on several projects is not recorded as one article about several projects")
+764614	def test_R07_an_article_naming_two_projects_is_listed_on_both_and_says_so(tmp_path):
+764615	    run = combine(tmp_path, {"reviewed": reviewed([item("90001", "both", BOTH, "2026-11-11"), item("90002", "both", BOTH, "2026-11-11")])})
+764616	    first, second = find(run.project("90001"), "both"), find(run.project("90002"), "both")
+764617	    assert first and second, "a valid two-project story must stay on both projects"
+764618	    assert first[0].get("also_projects") == ["90002"] and second[0].get("also_projects") == ["90001"]
+764619	@known("NL-019 finding 6", "five links sit on more than one project whatever their titles say")
+764620	@pytest.mark.parametrize("obtained", ["fetched", "reviewed"])
+764621	def test_R07_an_article_naming_one_project_is_not_listed_on_another(tmp_path, obtained):
+764622	    """Definition 4: on several projects only when the title or the reviewer's evidence names each. Being in the
+764623	    reviewed file is not by itself evidence that the article names the second project (acid tester 4: one link
+764624	    is on REPD 6071 and 7630 although the reviewer's note says the article was not opened)."""
+764625	    both = [item("90001", "one", ONE, "2026-11-11"), item("90002", "one", ONE, "2026-11-11")]
+764626	    run = combine(tmp_path, {"reviewed": reviewed(both)} if obtained == "reviewed" else {"trade": part("trade", both)})
+764627	    assert find(run.project("90001"), "one"), "the article was lost from the project it names"
+764628	    assert not find(run.project("90002"), "one"), "the article is also listed on a project its title does not name"
+764629	@known("NL-019 finding 6", "the reviewed corpus has links on two projects each; the published file does not say so")
+764630	def test_R07_real_reviewed_corpus_every_shared_link_is_declared(tmp_path):
+764632	    for ref, project in run.doc["projects"].items():
+764633	        for one in shown(project):
+764634	            where.setdefault(one["link"], []).append((ref, one))
+764635	    shared = {link: places for link, places in where.items() if len(places) > 1}
+764636	    undeclared = sorted(link for link, places in shared.items()
+764637	                        if any(sorted(one.get("also_projects") or []) != sorted(r for r, _ in places if r != ref) for ref, one in places))
+764638	    assert not undeclared, "%d link(s) on more than one project without also_projects: %s" % (len(undeclared), undeclared[:5])
+764639	# ---------------------------------------------------------------- R08 a sharp drop in the counts
+764640	@known("definition 5 and acid tester 5", "nothing stops publication when the counts fall sharply; the only gate (nothing == 0) cannot fire")
+764641	def test_R08_a_sharp_drop_in_the_counts_is_not_published(tmp_path):
+764642	    before = first.out.read_bytes()
+764643	    had, had_items = projects_with_items(first.doc), total_items(first.doc)
+764644	    assert had >= 6
+764645	    wipe = {ref: {"exclude": ["solar"]} for ref in WORLD["aliases"]["projects"] if ref != "90001"}
+764646	    second = combine(tmp_path, base_parts(NEXT_COLLECTED), now=NEXT_DAY, previous=first.out, name="second", aliases_patch=wipe)
+764647	        assert projects_with_items(second.doc) * 3 >= had * 2 and total_items(second.doc) * 3 >= had_items * 2, \
+764648	            "published with %d of %d projects and %d of %d items left" % (
+764649	                projects_with_items(second.doc), had, total_items(second.doc), had_items)
+764650	        assert second.code == 3, "refusal must be exit code 3, got %d: %s" % (second.code, second.text[-300:])
+764651	        assert second.out.read_bytes() == before, "the combiner refused but still changed the published file"
+764652	        assert re.search(r"drop|fell|fall|third", second.text, re.I), "the refusal does not say why"
+764653	def test_R08_an_ordinary_second_run_is_published(tmp_path):
+764654	    assert second.code == 0 and total_items(second.doc) >= total_items(first.doc), second.text[-400:]
+764655	# ---------------------------------------------------------------- R10 tiers and counts
+764656	@known("NL-019 findings 1, 2 and 8", "'161 of 200 with a signal' mixes recent news, old articles, official notices and reviewed research")
+764657	def test_R10_counts_are_by_tier_and_equal_what_the_items_give(tmp_path):
+764658	    run = combine(tmp_path, base_parts())
+764659	    assert not L.failures(run.doc, NOW), L.failures(run.doc, NOW)
+764660	    counts = run.doc["counts"]
+764661	    assert {ref: p["tier"] for ref, p in run.doc["projects"].items()} == {
+764662	        "90001": "recent_news", "90002": "official", "90003": "recent_news", "90004": "planning_file_only",
+764663	        "90005": "planning_file_only", "90006": "planning_file_only", "90007": "recent_news", "90008": "archive_only",
+764664	        "9050": "archive_only"}
+764665	    assert counts["by_tier"] == {"recent_news": 3, "official": 1, "archive_only": 2, "planning_file_only": 3, "nothing": 0}
+764666	    assert counts["headline"] == {"label": "projects with recent verified news", "value": 3}
+764667	    assert not {"with_signal", "with_confirmed_signal", "split"} & set(counts)
+764668	@known("NL-019 finding 2", "old and undated articles are counted with the news")
+764669	def test_R10_archive_and_official_items_never_reach_the_recent_news_count(tmp_path):
+764670	        "official": part("official", [item("90002", "o1", "Brantley Moor Solar Farm: decision", "2026-11-12", "official")]),
+764671	        "trade": part("trade", [item("90008", "t-2021", "Oxley Green Solar Farm proposed", "2021-05-04"),
+764672	                                item("90007", "t-possible", "Tarnside Solar Farm sold", "2026-11-12", confidence="uncertain"),
+764673	                                item("90001", "dev", "Alderwick Solar Farm: our plans", "2026-11-12", "developer",
+764674	                                     link="https://www.lightsourcebp.com/alderwick")])})
+764675	    assert counts["headline"]["value"] == 0 and counts["by_tier"]["recent_news"] == 0
+764676	    assert counts["by_tier"]["official"] == 1 and counts.get("with_possible_recent_news") == 1
+764677	    assert tiers(run.project("90001"))["archive"] and not tiers(run.project("90001"))["recent_news"], \
+764678	        "a developer's own page is not news, whatever its date"
+764679	@known("NL-019 finding 2", "the committed reviewed corpus is shown as current signals")
+764680	def test_R10_real_reviewed_corpus_passes_every_live_rule_and_its_headline_is_small(tmp_path):
+764681	    problems = L.failures(run.doc, NOW)
+764682	    problems.pop("generated-at", None)          # nothing live was collected in this run: stale by design
+764683	    assert not problems, {rule: lines[:3] for rule, lines in problems.items()}
+764684	    cutoff = (dt.date(2026, 11, 14) - dt.timedelta(days=90)).isoformat()
+764685	    recent = {str(i["repd_ref"]) for i in REVIEWED["items"]
+764686	              if i.get("family") in NEWS_FAMILIES and isinstance(i.get("date"), str) and cutoff <= i["date"][:10] <= "2026-11-15"}
+764687	    value = run.doc["counts"]["headline"]["value"]
+764688	    assert value <= len(recent), "headline %d, but only %d projects have a reviewed publisher article since %s" % (value, len(recent), cutoff)
+764689	# ---------------------------------------------------------------- R11 planning file labels
+764690	@known("NL-019 finding 7", "every kind of link is labelled 'planning file', including an unverified search page")
+764691	def test_R11_a_register_search_is_not_labelled_as_a_planning_file(tmp_path):
+764692	        file = project["planning_file"]
+764693	        assert file["label"] in L.LABELS, "REPD %s: label %r" % (ref, file["label"])
+764694	        if file["kind"] == "search_page":
+764695	            assert file["label"].startswith("planning register") and file["link_type"] == "search" and file["verified"] is False
+764696	            assert file["label"].startswith("planning file (") and file["link_type"] == "direct"
+764697	        assert (file["label"] == "planning file (verified link)") == (file["verified"] is True)
+764698	    assert run.project("90006")["planning_file"]["label"].startswith("planning register")
+764699	    assert set(run.doc["counts"]["planning_file"]) == {"verified_direct", "unverified_direct", "register_search", "register_finder"}
+764700	    assert sum(run.doc["counts"]["planning_file"].values()) == len(run.doc["projects"])
+764701	# ---------------------------------------------------------------- R12 events and clusters
+764702	@known("definition 8 and NL-019 finding 6", "no event type; the same story from two publishers is two headlines, or one is silently dropped")
+764703	def test_R12_one_event_reported_twice_is_shown_once_with_its_sources(tmp_path):
+764704	        item("90001", "a", "Alderwick Solar Farm granted development consent", "2026-11-10", publisher="Example News"),
+764705	        item("90001", "b", "Alderwick Solar Farm wins development consent from Secretary of State", "2026-11-12", publisher="Other Press"),
+764706	        item("90002", "c", "Brantley Moor Solar Farm refused development consent", "2026-11-10")])})
+764707	    recent = tiers(run.project("90001"))["recent_news"]
+764708	    assert len(recent) == 1, "one consent, two reports: %d headlines shown" % len(recent)
+764709	    assert recent[0]["event"] == "consent" and recent[0]["link"].endswith("/b"), "the item shown is the newest dated confirmed one"
+764710	    assert recent[0].get("cluster") == "90001:consent:2026-11-10"
+764711	    assert [s["link"].rsplit("/", 1)[-1] for s in recent[0].get("sources") or []] == ["a"]
+764712	    assert tiers(run.project("90002"))["recent_news"][0]["event"] == "refusal"
+764713	@known("definition 8", "no event type is recorded")
+764714	@pytest.mark.parametrize("title, event", [
+764715	    ("Alderwick Solar Farm granted development consent", "consent"),
+764716	    ("Alderwick Solar Farm refused by Secretary of State", "refusal"),
+764717	    ("Alderwick Solar Farm appeal lodged", "appeal"),
+764718	    ("Alderwick Solar Farm reaches financial close", "financial_close"),
+764719	    ("Construction starts at Alderwick Solar Farm", "construction_start"),
+764720	    ("Alderwick Solar Farm energised", "energisation"),
+764721	    ("Alderwick Solar Farm: residents' views", None)])
+764722	def test_R12_the_event_is_recorded_only_where_the_title_states_it(tmp_path, title, event):
+764723	    run = combine(tmp_path, {"trade": part("trade", [item("90001", "e", title, "2026-11-10")])})
+764724	    kept = find(run.project("90001"), "e")
+764725	    assert kept and "event" in kept[0] and kept[0]["event"] == event, "event %r for %r" % (kept[0].get("event") if kept else None, title)
+764726	# ---------------------------------------------------------------- R13 provenance on every item
+764727	@known("definition 1 and NL-019 finding 1", "items carry no provenance: not how obtained, not which part, not when collected")
+764728	def test_R13_every_item_says_where_it_came_from_and_when(tmp_path):
+764729	    parts["reviewed"] = reviewed([item("90006", "r1", "Henwick Solar Park approved", "2026-10-01", "regional")])
+764730	    assert not L.failures(run.doc, NOW).get("schema"), L.failures(run.doc, NOW).get("schema")[:5]
+764731	    got = {i["link"].rsplit("/", 1)[-1]: (i["source"], i["obtained"], i["collected_at"]) for p in run.doc["projects"].values() for i in shown(p)}
+764732	    assert got["t-mill"] == ("trade", "fetched", COLLECTED) and got["o-consent"] == ("official", "fetched", COLLECTED)
+764733	    assert got["r1"][:2] == ("reviewed", "reviewed")
+764734	    assert set(run.doc["parts"]) >= {"official", "trade", "index", "reviewed", "planning"}
+764735	    assert run.doc["generated_at"] == COLLECTED and run.doc["run_at"] == NOW and run.doc["stale"] is False
+764736	# ---------------------------------------------------------------- R14 the integrated workflow
+764737	WORKFLOW = REPO / ".github" / "workflows" / "project-signals-acid.yml"
+764738	def test_R14_the_integrated_workflow_runs_every_signals_suite():
+764740	    suites = sorted(str(p.relative_to(REPO)).replace("\\", "/") for p in
+764741	                    list(TESTS.glob("test_signals_*.py")) + list((SIGNALS / "tests").glob("test_*.py")))
+764742	    assert len(suites) >= 6
+764743	    missing = [s for s in suites if s not in text]
+764744	    assert not missing, "not run by the integrated workflow: %s" % missing
+764745	    assert "schedule:" in text and "pull_request:" in text and "automation/news/signals/**" in text
+764746	    assert "acid_report.py" in text and "acid_live.py" in text and "GITHUB_STEP_SUMMARY" in text
+764747	    assert "contents: read" in text and "contents: write" not in text, "the acid workflow must not be able to write"
+764748	def test_R14_the_summary_table_counts_passed_failed_and_known_failing(tmp_path):
+764749	    (tmp_path / "combiner.xml").write_text(
+764750	        '<testsuites><testsuite><testcase classname="a.b" name="ok"/><testcase classname="a.b" name="bad"><failure message="boom"/></testcase>'
+764751	        '<testcase classname="a.b" name="known"><skipped type="pytest.xfail" message="NL-019 finding 3: x"/></testcase>'
+764752	        '<testcase classname="a.b" name="open"><skipped type="pytest.xfail" message="OPEN, outside contract v2: y"/></testcase>'
+764753	        '<testcase classname="a.b" name="skip"><skipped type="pytest.skip" message="s"/></testcase></testsuite></testsuites>', encoding="utf-8")
+764754	    code = acid_report.main([str(tmp_path), "--expect", "combiner,trade", "--summary", str(tmp_path / "s.md"), "--json", str(tmp_path / "s.json")])
+764755	    text = (tmp_path / "s.md").read_text(encoding="utf-8")
+764756	    assert code == 1 and "| combiner | 5 | 1 | **1** | 1 | 1 | 1 |" in text
+764757	    assert "| trade | 0 | 0 | **1** | 0 | 0 | 0 |" in text, "a suite that did not run must count as failed"
+764758	    assert "NL-019 finding 3: x" in text and "| suite | tests | passed | failed |" in text
+764759	    (tmp_path / "combiner.xml").write_text('<testsuites><testsuite><testcase classname="a.b" name="ok"/></testsuite></testsuites>', encoding="utf-8")
+764760	    assert acid_report.main([str(tmp_path), "--expect", "combiner"]) == 0
+764761	# ---------------------------------------------------------------- R15 the live checker
+764762	def good_item(slug, date, tier, family="trade", confidence="confirmed", title=None):
+764763	    day = L.parse_day(date)
+764764	    fresh = "undated" if day is None else "recent" if day >= dt.date(2026, 8, 16) else "older"
+764765	    return {"title": title or "Example Solar Farm %s" % slug, "link": "https://news.example.co.uk/%s" % slug, "publisher": "Example News",
+764766	            "date": date, "year": day.year if day else None, "tier": tier, "event": None, "obtained": "fetched", "source": "trade",
+764767	            "family": family, "collected_at": COLLECTED, "confidence": confidence, "freshness": fresh, "basis": "exact phrase in title"}
+764768	def good_file():
+764769	    def project(ref, tier, recent=(), official=(), archive=(), label="planning register search"):
+764770	        return {"repd_ref": ref, "rank": 1, "site_name": "Example", "alias": "Example Solar Farm", "alias_standing": "confirmed",
+764771	                "tier": tier, "recent_news": list(recent), "official": list(official), "archive": list(archive),
+764772	                "planning_file": {"label": label, "link_type": "direct" if label.startswith("planning file") else "search",
+764773	                                  "authority": "Example", "reference": "1/2", "url": "https://register.example.gov.uk/", "kind":
+764774	                                  "application" if label.startswith("planning file") else "search_page",
+764775	                                  "verified": label == "planning file (verified link)", "note": ""}}
+764776	    projects = {
+764777	        "1": project("1", "recent_news", [good_item("a", "2026-11-10", "recent_news")], [], [good_item("b", "2021-01-05", "archive"),
+764778	                                                                                             good_item("c", None, "archive")]),
+764779	        "2": project("2", "official", [], [good_item("d", "2025-02-01", "official", "official")], label="planning file (verified link)"),
+764780	        "9050": project("9050", "archive_only", [], [], [good_item("e", "2021-02-17", "archive", "regional", title="Solar farm at Foston wins approval")]),
+764781	        "4": project("4", "planning_file_only")}
+764782	    ok = {"status": "ok", "collected_at": COLLECTED, "items": 1, "note": ""}
+764783	    return {"schema": "project-signals.v2", "generated_at": COLLECTED, "run_at": NOW, "stale": False, "scope": "test", "recent_days": 90,
+764784	            "parts": {"official": dict(ok), "trade": dict(ok), "index": dict(ok), "reviewed": dict(ok), "planning": dict(ok)},
+764785	            "counts": {"projects": 4, "headline": {"label": "projects with recent verified news", "value": 1},
+764786	                       "by_tier": {"recent_news": 1, "official": 1, "archive_only": 1, "planning_file_only": 1, "nothing": 0},
+764787	                       "possible_only": 0, "with_recent_news": 1, "with_official": 1, "with_archive": 2, "with_possible_recent_news": 0,
+764788	                       "items": {"recent_news": 1, "official": 1, "archive": 3},
+764789	                       "planning_file": {"verified_direct": 1, "unverified_direct": 0, "register_search": 3, "register_finder": 0}},
+764790	            "dropped": {}, "sources": [], "projects": projects}
+764791	def test_R15_live_checker_passes_a_file_that_meets_the_contract():
+764792	    assert L.failures(good_file(), NOW) == {}
+764793	def _diode(doc):
+764794	    doc["projects"]["9050"]["archive"][0]["title"] = "New bypass diode design cuts shading losses in PV modules"
+764795	def _undated_first(doc):
+764796	    doc["projects"]["1"]["archive"].reverse()
+764797	def _headline(doc):
+764798	    doc["counts"]["headline"]["value"] = 3
+764799	def _by_tier(doc):
+764800	    doc["counts"]["by_tier"].update(recent_news=2, archive_only=0)
+764801	def _old_as_recent(doc):
+764802	    moved = doc["projects"]["1"]["archive"].pop(0)
+764803	    doc["projects"]["1"]["recent_news"].append(dict(moved, tier="recent_news"))
+764804	def _nothing(doc):
+764805	    doc["projects"]["4"]["planning_file"] = None
+764806	def _future(doc):
+764807	    doc["projects"]["1"]["recent_news"][0].update(date="2027-01-01", year=2027)
+764808	def _impossible(doc):
+764809	    doc["projects"]["1"]["recent_news"][0].update(date="2026-02-30")
+764810	def _old_stamp(doc):
+764811	    doc["generated_at"] = "2026-11-10T05:00:00Z"
+764812	    for name in ("official", "trade", "index"):
+764813	        doc["parts"][name]["collected_at"] = "2026-11-10T05:00:00Z"
+764814	def _fresh_stamp_over_stale_parts(doc):
+764815	        doc["parts"][name].update(status="stale", collected_at="2026-11-10T05:00:00Z")
+764816	    doc["stale"] = True
+764817	def _version_1(doc):
+764818	    doc["schema"] = "project-signals.v1"
+764819	@pytest.mark.parametrize("damage, rule", [
+764820	    (_diode, "repd-9050"), (_undated_first, "undated-order"), (_headline, "tier-counts"), (_by_tier, "tier-counts"),
+764821	    (_old_as_recent, "tier-purity"), (_nothing, "nothing"), (_future, "dates"), (_impossible, "dates"),
+764822	    (_old_stamp, "generated-at"), (_version_1, "schema")], ids=lambda v: getattr(v, "__name__", v))
+764823	def test_R15_live_checker_names_the_rule_that_is_broken(damage, rule):
+764824	    doc = good_file()
+764825	    damage(doc)
+764826	    assert rule in L.failures(doc, NOW), "the checker did not report %r" % rule
+764827	def test_R15_live_checker_accepts_an_old_generated_at_only_when_the_file_says_stale():
+764828	    _old_stamp(doc)
+764829	    _fresh_stamp_over_stale_parts(doc)
+764830	    assert "generated-at" not in L.failures(doc, NOW)
+764831	    doc["stale"] = False
+764832	    assert "generated-at" in L.failures(doc, NOW)
+764833	def test_R15_live_checker_exit_code_and_summary_name_the_rule(tmp_path):
+764834	    _diode(doc)
+764835	    path, summary = tmp_path / "project_signals.json", tmp_path / "summary.md"
+764836	    path.write_text(json.dumps(doc), encoding="utf-8")
+764837	    assert L.main([str(path), "--now", NOW, "--summary", str(summary)]) == 1
+764838	    assert "Failed: repd-9050" in summary.read_text(encoding="utf-8")
+764839	    path.write_text(json.dumps(good_file()), encoding="utf-8")
+764840	    assert L.main([str(path), "--now", NOW]) == 0
+764841	    path.write_text("not json", encoding="utf-8")
+764842	    assert L.main([str(path), "--now", NOW]) == 1
+764843	"""Tests for automation/news/signals/official.py. Offline: synthetic responses in the shape each source returns."""
+764844	SIG = Path(__file__).resolve().parents[1] / "signals"
+764845	sys.path.insert(0, str(SIG))
+764846	import official as O  # noqa: E402
+764847	PINS_CSV = (
+764848	    "Project reference,Project name,Applicant name,Stage,Date of application,Date of decision,"
+764849	    "Anticipated submission date\r\n"
+764850	    "EN010147,Botley West Solar Farm,SolarFive Ltd,Decided,15/11/2024,10/11/2026,\r\n"
+764851	    "EN010148,Tween Bridge Solar Farm,RWE,Recommendation,2025-08-01,,\r\n"
+764852	    "EN010999,Hedgehog Grove Solar Farm,Example,Pre-application,,,01/03/2027\r\n"
+764853	    "EN020001,Some Power Line,National Grid,Decided,01/01/2020,01/01/2022,\r\n").encode()
+764854	GOVUK = {"results": [
+764855	    {"title": "Botley West Solar Farm: development consent decision", "link": "/government/publications/botley-west",
+764856	     "public_timestamp": "2026-11-10T15:00:00.000+00:00", "organisations": [{"title": "Department for Energy Security and Net Zero"}],
+764857	     "format": "decision", "description": "Decision on the application for development consent."},
+764858	    {"title": "Planning decisions this week", "link": "/government/news/decisions",
+764859	     "public_timestamp": "2026-11-11T09:00:00Z", "organisations": [], "format": "news",
+764860	     "description": "Includes Botley West Solar Farm in Oxfordshire."},
+764861	    {"title": "Botley village hall grant", "link": "/government/news/botley-hall",
+764862	     "public_timestamp": "2026-10-01T09:00:00Z", "organisations": [], "format": "news", "description": "A grant."},
+764863	]}
+764864	def project(ref="12588", alias="Botley West Solar Farm", pref="EN010147", authority="The Planning Inspectorate - National Infrastructure",
+764865	            status="confirmed", **extra):
+764866	    base = {"repd_ref": ref, "rank": 1, "site_name": alias, "operator": "Photovolt Development Partners & SolarFive",
+764867	            "mw": 840.0, "county": "Oxfordshire", "country": "England", "planning_authority": authority,
+764868	            "planning_ref": pref, "aliases": [alias], "alias_status": status, "exclude": [], "planning_file": None}
+764869	    base.update(extra)
+764870	class FakeFetcher:
+764871	    def __init__(self, routes):
+764872	        self.routes, self.calls = routes, []
+764873	        self.calls.append(url)
+764874	        for prefix, value in self.routes.items():
+764875	            if url.startswith(prefix):
+764876	                if isinstance(value, Exception):
+764877	                    raise value
+764878	                return url, "text/plain", value(url) if callable(value) else value
+764879	        raise O.FetchError("HTTP 404", 404)
+764880	def test_derive_alias_strips_place_prefix_and_storage_tail():
+764881	    assert O.derive_alias("Springwell, Lincoln - Springwell Solar Farm & Battery Storage") == "Springwell Solar Farm"
+764882	    assert O.derive_alias("Bolt Hall Farm, Lark Hill Road - Solar Photovoltaic Farm") == "Bolt Hall Farm Solar Farm"
+764883	    assert O.derive_alias("Longfield") == "Longfield Solar Farm"
+764884	    assert O.derive_alias("The Tween Bridge Solar Farm ") == "Tween Bridge Solar Farm"
+764885	def test_match_needs_the_alias_in_the_title_or_summary_with_a_second_fact():
+764886	    p = project()
+764887	    assert O.match(p, "Botley West Solar Farm refused consent")[1] == "confirmed"
+764888	    assert O.match(p, "Planning decisions", "Includes Botley West Solar Farm in Oxfordshire.")
+764889	    assert O.match(p, "Planning decisions", "Includes Botley West Solar Farm.") is None
+764890	    assert O.match(p, "Botley village hall grant", "A grant.") is None
+764891	    assert O.match(p, "Decision letter EN010147") [0].startswith("planning reference")
+764892	    assert O.match(p, "Botley West: solar scheme decision")           # core of the alias plus a solar term
+764893	def test_match_whole_words_exclusions_and_uncertain_aliases():
+764894	    p = project(alias="Longfield Solar Farm", status="uncertain", exclude=["Longfield Academy"])
+764895	    assert O.match(p, "Longfield Solar Farm approved")[1] == "uncertain"
+764896	    assert O.match(p, "Longfields Solar Farm approved") is None
+764897	    assert O.match(p, "Longfield Solar Farm visit by Longfield Academy") is None
+764898	    generic = project(alias="Cowley Complex", pref="20/2131/FUL", authority="Stockton-on-Tees")
+764899	    assert O.match(generic, "Cowley Complex opens") is None           # no solar or energy word anywhere
+764900	    assert O.match(generic, "Cowley Complex solar farm opens")
+764901	def test_pins_csv_gives_the_newest_past_milestone_by_reference():
+764902	    rows = O.parse_pins_csv(PINS_CSV)
+764903	    assert [r["ref"] for r in rows] == ["EN010147", "EN010148", "EN010999", "EN020001"]
+764904	    items, found = O.pins_items([project(), project("12926", "Tween Bridge Solar Farm", "EN010148")], rows, "2026-11-14")
+764905	    assert items[0]["date"] == "2026-11-10" and items[0]["title"] == "Botley West Solar Farm: decision (stage: Decided)"
+764906	    assert items[0]["link"].endswith("/projects/EN010147") and items[0]["family"] == "official"
+764907	    assert items[0]["confidence"] == "confirmed" and items[0]["publisher"] == "Planning Inspectorate"
+764908	    assert items[1]["date"] == "2025-08-01" and "application" in items[1]["title"]
+764909	    assert set(found) == {"12588", "12926"}
+764910	def test_pins_lookup_by_alias_only_for_inspectorate_rows_without_a_national_reference():
+764911	    hedgehog = project("18870", "Hedgehog Grove Solar Farm", "26/00440/FUL")
+764912	    items, _ = O.pins_items([hedgehog], rows, "2026-11-14")
+764913	    assert items[0]["date"] is None and items[0]["confidence"] == "uncertain" and "EN010999" in items[0]["link"]
+764914	    local = project("1", "Tween Bridge Solar Farm", "21/0001/FUL", authority="Doncaster")
+764915	    assert O.pins_items([local], rows, "2026-11-14")[0] == []
+764917	        O.parse_pins_csv(b"a,b\n1,2\n")
+764918	def test_govuk_search_keeps_matching_results_only():
+764919	    fetcher = FakeFetcher({O.GOVUK_SEARCH: json.dumps(GOVUK).encode()})
+764920	    items, record = O.source_govuk([project()], fetcher)
+764921	    assert [i["link"] for i in items] == ["https://www.gov.uk/government/news/decisions",
+764922	                                          "https://www.gov.uk/government/publications/botley-west"]
+764923	    assert items[1]["publisher"] == "Department for Energy Security and Net Zero" and items[1]["date"] == "2026-11-10"
+764924	    assert record["status"] == "ok" and record["requests"] == 2 and record["items"] == 2
+764925	    assert "%22Botley+West+Solar+Farm%22" in fetcher.calls[0] and "q=EN010147" in fetcher.calls[1]
+764926	def test_one_failing_source_never_stops_a_run():
+764927	    fetcher = FakeFetcher({O.PINS_CSV: O.FetchError("HTTP 503", 503), O.GOVUK_SEARCH: json.dumps(GOVUK).encode(),
+764928	                           "https://www.energyconsents.scot/": b"<html><title>Case</title>ECU00005085 Bowshiel Solar Farm</html>"})
+764929	    scottish = project("17779", "Bowshiel Solar Farm", "ECU00005085", authority="Scottish Government (S36)")
+764930	    items, records, _ = O.run([project(), scottish], fetcher, "2026-11-14")
+764931	    status = {r["id"]: r["status"] for r in records}
+764932	    assert status == {"pins-register": "failed", "govuk-search": "ok", "ecu-case": "ok"}
+764933	    ecu = [i for i in items if i["repd_ref"] == "17779"]
+764934	    assert ecu and ecu[0]["date"] is None and ecu[0]["confidence"] == "confirmed" and "ECU00005085" in ecu[0]["link"]
+764935	    part = O.build_part(items, records, NOW)
+764936	    assert part["schema"] == "project-signals-part.v1" and part["team"] == "official"
+764937	    for it in part["items"]:
+764938	        assert set(it) >= {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+764939	        assert it["family"] == "official" and it["link"].startswith("https://") and len(it["title"]) <= 300
+764940	    report = O.probe_report([project(), scottish], items, records, NOW)
+764941	    assert "2 of 2 projects" in report and "pins-register" in report
+764942	def test_fetcher_throttles_per_host_retries_once_on_429_and_caps():
+764943	    slept, clock, calls = [], [0.0], []
+764944	    def opener(url, accept):
+764945	        if len(calls) == 2:
+764946	            raise urllib.error.HTTPError(url, 429, "Too Many", {}, None)
+764947	        return 200, url, "text/plain", b"ok"
+764948	    def sleep(seconds):
+764949	        slept.append(seconds)
+764950	        clock[0] += seconds
+764951	    f = O.Fetcher(opener=opener, sleep=sleep, clock=lambda: clock[0], host_cap=4)
+764952	    assert f.get("https://a.example/1")[2] == b"ok"
+764953	    assert f.get("https://a.example/2")[2] == b"ok"            # 429, wait ten seconds, one retry
+764954	    assert 10 in slept and slept[0] == pytest.approx(1.0)
+764955	    assert f.get("https://b.example/1")[2] == b"ok"            # another host: its own allowance
+764956	    f.get("https://a.example/3")
+764957	    with pytest.raises(O.FetchError):
+764958	        f.get("https://a.example/4")                           # cap of four requests for the host
+764959	        f.get("http://a.example/plain")
+764960	def test_shipped_tables_cover_the_200():
+764961	    projects = O.load_projects()
+764962	    assert len(projects) == 200 and len({p["repd_ref"] for p in projects}) == 200
+764963	    table = json.loads((SIG / "aliases.json").read_text(encoding="utf-8"))
+764964	    assert table["schema"] == "project-signal-aliases.v1" and set(table["projects"]) == {p["repd_ref"] for p in projects}
+764965	        assert p["aliases"] and all(len(a) >= 4 for a in p["aliases"]) and p["alias_status"] in ("confirmed", "uncertain", "derived")
+764966	    text = (SIG / "aliases.json").read_text(encoding="utf-8")
+764967	    assert "@" not in text.replace("@id", "") and "/home/" not in text
+764968	"""Tests for automation/news/signals/planning_file.py. Offline."""
+764970	import planning_file as P  # noqa: E402
+764971	from test_signals_official import FakeFetcher, project  # noqa: E402
+764972	REG = P.load_registers()
+764973	def test_every_authority_in_the_200_has_a_register_and_every_project_a_planning_file():
+764974	    assert {p["planning_authority"] for p in projects} <= set(REG)
+764975	    for register in REG.values():
+764976	        for key in ("home", "council", "search", "application"):
+764977	            assert register.get(key, "https://").startswith("https://")
+764979	        f = P.planning_file_for(p)
+764980	        assert f["label"] == "planning file" and f["kind"] in P.KINDS and f["url"].startswith("https://")
+764981	        assert f["authority"] and "family" not in f and "title" not in f      # never shaped like a news signal
+764982	        if f["kind"] == "search_page" and p["planning_ref"]:
+764983	            assert p["planning_ref"] in f["note"]
+764984	        kinds[f["kind"]] = kinds.get(f["kind"], 0) + 1
+764985	    assert kinds["pins_project"] >= 37 and kinds["ecu_case"] == 20 and sum(kinds.values()) == 200
+764986	def test_kinds_by_reference_and_authority():
+764987	    f = P.planning_file_for(project())
+764988	    assert (f["kind"], f["reference"]) == ("pins_project", "EN010147") and f["url"].endswith("/projects/EN010147")
+764989	    f = P.planning_file_for(project("17779", "Bowshiel Solar Farm", "ECU00005085", "Scottish Government (S36)"))
+764990	    assert f["kind"] == "ecu_case" and f["url"].endswith("cr=ECU00005085")
+764991	    f = P.planning_file_for(project("7936", "Nuneham Courtenay Solar Farm", "P20/S4360/FUL", "South Oxfordshire"))
+764992	    assert f["kind"] == "application" and f["url"].endswith("REF=P20/S4360/FUL")
+764993	    f = P.planning_file_for(project("12162", "Winterton Road solar farm", "PA/2024/129", "North Lincolnshire"))
+764994	    assert f["url"].endswith("/application/pa-2024-129")
+764995	    f = P.planning_file_for(project("1", "Example Solar Farm", "21/00077/FUL", "Thurrock"))
+764996	    assert f["kind"] == "search_page" and "search.do" in f["url"] and "21/00077/FUL" in f["note"] and not f["verified"]
+764997	    f = P.planning_file_for(project("2", "Welsh Solar Farm", "DNS/3274702", "Welsh Government (NSIP)"))
+764998	    assert f["kind"] == "search_page" and "wales" in f["url"] and f["authority"] == "Planning and Environment Decisions Wales"
+764999	    f = P.planning_file_for(project("3", "Unknown Solar Farm", "X/1", "Not A Listed Authority"))
+765000	    assert f["kind"] == "search_page" and f["url"] == P.GENERIC_SEARCH
+765001	def test_a_member_finding_is_used_only_when_it_points_at_a_case():
+765002	    case = {"authority": "Thurrock", "reference": "21/00077/FUL", "kind": "application", "verified": False,
+765003	            "url": "https://regs.thurrock.gov.uk/online-applications/applicationDetails.do?activeTab=summary&keyVal=QN50FLQGFP500"}
+765004	    f = P.planning_file_for(project("8026", "Bulphan Fen Solar Farm", "21/00077/FUL", "Thurrock", planning_file=case))
+765005	    assert f["kind"] == "application" and "keyVal=QN50FLQGFP500" in f["url"]
+765006	    front = dict(case, url="https://regs.thurrock.gov.uk/online-applications/", kind="application")
+765007	    f = P.planning_file_for(project("8026", "Bulphan Fen Solar Farm", "21/00077/FUL", "Thurrock", planning_file=front))
+765008	    assert f["kind"] == "search_page"
+765009	    national = {"kind": "pins_project", "reference": "EN010999", "verified": True,
+765010	                "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010999"}
+765011	    f = P.planning_file_for(project("18870", "Hedgehog Grove Solar Farm", "26/00440/FUL", planning_file=national))
+765012	    assert f["kind"] == "pins_project" and f["reference"] == "EN010999" and "26/00440/FUL" in f["note"]
+765013	def test_verify_sets_verified_from_what_answers_and_falls_back_when_a_link_is_gone():
+765014	    projects = [
+765015	        project(),                                                                       # page shows the reference
+765016	        project("17779", "Bowshiel Solar Farm", "ECU00005085", "Scottish Government (S36)"),  # blocked
+765017	        project("7936", "Nuneham Courtenay Solar Farm", "P20/S4360/FUL", "South Oxfordshire"),  # gone -> search page
+765018	        project("1", "Example Solar Farm", "21/00077/FUL", "Thurrock"),                   # register answers
+765019	        project("2", "Other Solar Farm", "20/1/FUL", "Hart"),                             # register gone, council answers
+765021	    fetcher = FakeFetcher({
+765022	        "https://national-infrastructure-consenting": b"<h1>Botley West Solar Farm</h1> EN010147",
+765023	        "https://www.energyconsents.scot/": O.FetchError("HTTP 403", 403),
+765024	        "https://data.southoxon.gov.uk/ccm/support/Main.jsp?MODULE=ApplicationDetails": O.FetchError("HTTP 404", 404),
+765025	        "https://data.southoxon.gov.uk/ccm/support/Main.jsp?MODULE=ApplicationCriteria": b"search",
+765026	        "https://regs.thurrock.gov.uk/": b"search",
+765027	        "https://publicaccess.hart.gov.uk/": O.FetchError("URLError: [Errno -2] Name or service not known"),
+765028	        "https://www.hart.gov.uk/": b"council",
+765030	    files, records = P.verify(projects, fetcher)
+765031	    assert files["12588"]["verified"] is True and files["12588"]["kind"] == "pins_project"
+765032	    assert files["17779"]["kind"] == "ecu_case" and files["17779"]["verified"] is False and "403" in files["17779"]["check"]
+765033	    assert files["7936"]["kind"] == "search_page" and "did not answer" in files["7936"]["note"]
+765034	    assert files["7936"]["register_status"] == "ok"
+765035	    assert files["1"]["register_status"] == "ok" and files["1"]["verified"] is False
+765036	    assert files["2"]["url"] == "https://www.hart.gov.uk/" and files["2"]["register_status"] == "council_page_only"
+765037	    assert {r["authority"]: r["status"] for r in records} == {"Hart": "council_page_only", "South Oxfordshire": "ok", "Thurrock": "ok"}
+765038	    result = P.build(projects, files, records, "2026-11-14T12:00:00Z", True)
+765039	    assert result["counts"]["nothing"] == 0 and result["counts"]["verified_direct"] == 1
+765040	    assert result["counts"]["search_page"] == 3 and result["projects"]["12588"]["planning_file"]["label"] == "planning file"
+765041	    official = {"items": [{"repd_ref": "12588"}], "sources": [{"id": "govuk-search", "status": "partial"}]}
+765042	    report = P.probe_report(projects, files, records, "2026-11-14T12:00:00Z", official)
+765043	    assert "| at least one official signal | 1 |" in report and "govuk-search (partial)" in report
+765044	    assert "Projects with nothing: none" in report
+765045	"""Offline tests for automation/news/signals/trade.py. No network: a scripted fetch stands in for the sites."""
+765046	SIGNALS = Path(__file__).resolve().parents[1] / "signals"
+765047	if str(SIGNALS) not in sys.path:
+765048	    sys.path.insert(0, str(SIGNALS))
+765049	import trade as T  # noqa: E402
+765050	NOW = dt.datetime(2026, 11, 14, 12, 0, tzinfo=dt.timezone.utc)
+765051	def record(ref, rank, aliases, **extra):
+765052	    base = {"repd_ref": str(ref), "rank": rank, "site_name": aliases[0], "aliases": aliases,
+765053	            "alias_status": "confirmed", "operator": "Example Power Ltd", "county": "Oxfordshire",
+765054	            "planning_authority": "The Planning Inspectorate - National Infrastructure", "planning_ref": ""}
+765055	def project(*args, **kwargs):
+765056	    return T.Project(record(*args, **kwargs), counties={"oxfordshire", "east yorkshire"})
+765057	@pytest.mark.parametrize("alias, core", [
+765058	    ("Botley West Solar Farm", "Botley West"),
+765059	    ("The Tween Bridge Solar Farm", "Tween Bridge"),
+765060	    ("East Park Energy", "East Park"),
+765061	    ("Great North Road Solar and Biodiversity Park", "Great North Road"),
+765062	    ("Cleve Hill Solar Park", "Cleve Hill"),
+765063	    ("East Yorkshire (Howden) Solar Farm", "East Yorkshire"),
+765064	    ("Helios Renewable Energy Project", "Helios"),
+765065	    ("Stonestreet Green Solar", "Stonestreet Green"),
+765066	    ("Low Farm", "Low Farm"),
+765067	    ("Mallard Pass Solar Project", "Mallard Pass"),
+765068	    ("Desborough Airfield", "Desborough Airfield"),
+765069	def test_core_of(alias, core):
+765070	    assert T.core_of(alias) == core
+765071	def test_distinctive_phrase_matches_alone_and_is_word_bounded():
+765072	    p = project(12588, 1, ["Botley West Solar Farm"])
+765073	    basis, confidence = p.match("Miliband refuses Botley West")
+765074	    assert "Botley West" in basis and confidence == "confirmed"
+765075	    assert p.match("Botley Westfield plan lodged") is None
+765076	    assert p.match("West Botley residents object to solar") is None
+765077	    assert p.match("Botley West's 840MW solar plan refused")
+765078	def test_single_word_alias_needs_a_second_term():
+765079	    p = project(7188, 10, ["Sunnica Energy Farm"], county="Cambridgeshire")
+765080	    assert p.match("Sunnica wins court case") is None
+765081	    assert "solar" in p.match("Sunnica solar farm wins court case")[0]
+765082	    assert "county" in p.match("Sunnica scheme in Cambridgeshire cleared")[0]
+765083	    assert "developer" in p.match("Example hails Sunnica ruling")[0]
+765084	def test_everyday_words_need_the_solar_word_directly_after_or_the_developer():
+765085	    p = project(15793, 15, ["Green Hill Solar Farm"], county="Northamptonshire")
+765086	    assert p.match("Solar panels approved for Green Hill school") is None
+765087	    assert p.match("Green Hill Solar Farm examination opens")
+765088	    assert p.match("Example lodges Green Hill plans") is None
+765089	    county = project(1, 22, ["East Yorkshire Solar Farm"], county="East Yorkshire")
+765090	    assert county.match("Solar farm approved in East Yorkshire") is None
+765091	    assert county.match("East Yorkshire Solar Farm gets consent")
+765092	    assert county.match("Example Power secures permission for Drove Lane solar PV plant in East Yorkshire") is None
+765093	def test_planning_reference_matches_alone_and_exclude_drops():
+765094	    p = project(12588, 1, ["Botley West Solar Farm"], planning_ref="EN010147", exclude=["Botley West station"])
+765095	    assert "EN010147" in p.match("Decision issued on EN010147")[0]
+765096	    assert p.match("Botley West station reopens") is None
+765097	    local = project(2, 2, ["Tween Bridge Solar Farm"], planning_ref="21/01234/FUL")
+765098	    assert local.ref_rx is None
+765099	def test_unconfirmed_alias_gives_uncertain_items_and_generic_alias_is_ignored():
+765100	    p = project(3, 3, ["Mallard Pass Solar Farm"], alias_status="derived")
+765101	    assert p.match("Mallard Pass approved")[1] == "uncertain"
+765102	    assert project(4, 4, ["Solar Farm"]).aliases == []
+765103	def test_summary_rule_needs_alias_and_an_agreeing_fact_and_is_uncertain():
+765104	    p = project(10914, 8, ["Cottam Solar Project"], county="Lincolnshire", operator="Island Green Power")
+765105	    title = "UK's biggest solar farm gets development consent order"
+765106	    assert p.match(title) is None
+765107	    assert p.match(title, "The 600MW Cottam Solar Project has been approved.") is None  # alias alone
+765108	    basis, confidence = p.match(title, "Island Green Power's 600MW Cottam Solar Project has been approved.")
+765109	    assert confidence == "uncertain" and "summary" in basis and "Island" in basis and "headline" in basis
+765110	    assert p.match(title, "Island Green Power wins consent in Lincolnshire.") is None  # no alias
+765111	    everyday = project(15793, 15, ["Green Hill Solar Farm"], operator="Island Green Power")
+765112	    assert everyday.match(title, "Island Green Power plans a solar farm at a green hill site.") is None
+765113	    assert everyday.match(title, "Island Green Power's Green Hill Solar Farm moves on.")
+765114	def test_capacity_and_folded_developer_are_agreeing_facts():
+765115	    p = project(14806, 7, ["One Earth Solar Farm"], mw=740.0, operator="Orsted UK Limited & PS Renewables",
+765116	                county="Nottinghamshire")
+765117	    title = "DESNZ grants DCO to UK's second-largest solar PV project"
+765118	    assert "capacity '740MW'" in p.match(title, "The 740MW One Earth Solar Farm has development consent.")[0]
+765119	    assert p.match(title, "The 1,740MW One Earth scheme") is None and p.match(title, "A 74MW One Earth plan") is None
+765120	    assert "developer 'Orsted'" in p.match(title, "\u00d8rsted's One Earth Solar Farm has development consent.")[0]
+765121	    small = project(1, 150, ["Sunnica Energy Farm"], mw=49.9, county="Suffolk")
+765122	    assert "capacity '49.9MW'" in small.match("Sunnica 49.9MW scheme approved")[0]
+765123	    assert small.match("Sunnica 149.9MW scheme approved") is None
+765124	def test_same_place_other_scheme_and_far_away_solar_word_are_dropped():
+765125	    wb = project(10916, 20, ["West Burton Solar Project"], county="Lincolnshire", operator="Island Green Power")
+765126	    assert wb.match("Financial close for Fidra Energy\u2019s 500MW West Burton C battery energy storage system") is None
+765127	    assert wb.match("UK consents Heckington Fen, West Burton solar farms")
+765128	    assert "developer 'Island Green'" in wb.match("Island Green Power wins West Burton consent")[0]
+765129	    houston = project(14293, 56, ["Houston Solar Farm"], county="Renfrewshire")
+765130	    assert houston.match("PVH expands Houston footprint to scale pre-assembled solar trackers") is None
+765131	    assert houston.match("Houston 60MW solar farm approved in Renfrewshire")
+765132	    grove = project(8308, 150, ["Bloy's Grove Solar Farm"])
+765133	    assert grove.match("EDF Renewables\u2019 50MW Bloy\u2019s Grove solar farm gets green light")
+765134	    assert T.parse_article_head(b'<meta property="og:title" content="Carlton Power gains consent for BESS - Solar Power Portal">')[0] \
+765135	        == "Carlton Power gains consent for BESS"
+765136	def test_search_terms():
+765137	    assert project(1, 1, ["Botley West Solar Farm", "Botley West"]).terms() == ["Botley West"]
+765138	    assert project(1, 1, ["Sunnica Energy Farm"]).terms() == ["Sunnica solar"]
+765139	ROBOTS = """
+765140	User-agent: *
+765141	Disallow: /wp-admin/
+765142	Allow: /wp-admin/admin-ajax.php
+765143	Disallow: /?s=
+765144	Disallow: /search
+765145	Disallow: /*.pdf$
+765146	Crawl-delay: 2
+765147	Sitemap: https://example.org/sitemap.xml
+765148	User-agent: BadBot
+765149	Disallow: /
+765150	def test_robots_rules():
+765151	    r = T.Robots(ROBOTS)
+765152	    assert not r.allowed("https://example.org/?s=botley&feed=rss2")
+765153	    assert not r.allowed("https://example.org/search?q=botley")
+765154	    assert r.allowed("https://example.org/wp-json/wp/v2/posts?search=botley")
+765155	    assert r.allowed("https://example.org/wp-admin/admin-ajax.php")
+765156	    assert not r.allowed("https://example.org/wp-admin/x")
+765157	    assert not r.allowed("https://example.org/a/b.pdf")
+765158	    assert r.allowed("https://example.org/a/b.pdf?x=1")
+765159	    assert r.delay == 2 and r.sitemaps == ["https://example.org/sitemap.xml"]
+765160	    assert T.Robots("").allowed("https://example.org/anything")
+765161	    assert not T.Robots(blocked=True).allowed("https://example.org/")
+765162	def test_robots_group_for_this_agent_wins():
+765163	    r = T.Robots("User-agent: *\nDisallow: /\n\nUser-agent: globalgrid2050-projectsignals\nDisallow: /private\n")
+765164	    assert r.allowed("https://example.org/feed/") and not r.allowed("https://example.org/private/x")
+765165	# ---------------------------------------------------------------- reading results
+765166	def test_parse_wp_posts_and_search_json():
+765167	    body = json.dumps([{"title": {"rendered": "Botley West &#8216;refused&#8217; by <em>Miliband</em>"},
+765168	                        "link": "https://www.example.org/botley/?utm_source=x", "date": "2026-11-10T09:30:00"},
+765169	                       {"title": {"rendered": ""}, "link": "https://www.example.org/x/"}]).encode()
+765170	    rows = T.parse_results("wp_posts", body, "https://www.example.org")
+765171	    assert rows == [("Botley West ‘refused’ by Miliband", "https://www.example.org/botley/", "2026-11-10", "")]
+765172	    body = json.dumps([{"title": "Cleve Hill goes live", "url": "https://www.example.org/cleve/"}]).encode()
+765173	    assert T.parse_results("wp_search", body, "https://www.example.org") == [
+765174	        ("Cleve Hill goes live", "https://www.example.org/cleve/", None, "")]
+765175	        T.parse_results("wp_posts", b"<html>Just a moment...</html>", "https://www.example.org")
+765176	        T.parse_results("wp_posts", b'{"code": "rest_forbidden"}', "https://www.example.org")
+765177	def test_parse_rss_search():
+765178	    body = (b'<?xml version="1.0"?><rss version="2.0"><channel><item><title>Cleve Hill Solar Park energised</title>'
+765179	            b'<link>https://www.example.org/cleve-hill/</link><pubDate>Tue, 10 Nov 2026 09:00:00 +0000</pubDate>'
+765180	            b'<description>never stored</description></item></channel></rss>')
+765181	    assert T.parse_results("wp_rss", body, "https://www.example.org") == [
+765182	        ("Cleve Hill Solar Park energised", "https://www.example.org/cleve-hill/", "2026-11-10", "never stored")]
+765183	HTML = b"""<html><body><nav><a href="/news">News</a><a href="/about-us/our-team-and-contacts">About</a></nav>
+765184	<article><h3><a href="/planning/botley-west-refused">Botley West solar farm refused consent</a></h3>
+765185	<span class="date">10 November 2026</span></article>
+765186	<article><a class="t" href='https://www.example.org/2025/03/07/cleve-hill-live/'><span>Cleve Hill Solar Park goes live in Kent</span></a></article>
+765187	<article><a href="/x/y">Mallard Pass contractor named by developer</a><time datetime="2026-01-05T08:00:00Z">5 Jan</time></article>
+765188	<a href="https://other.example.com/story">A story on another site with a long title</a>
+765189	</body></html>"""
+765190	def test_parse_html_results_page():
+765191	    rows = T.parse_results("html", HTML, "https://www.example.org")
+765192	    assert rows == [
+765193	        ("Botley West solar farm refused consent", "https://www.example.org/planning/botley-west-refused", "2026-11-10", ""),
+765194	        ("Cleve Hill Solar Park goes live in Kent", "https://www.example.org/2025/03/07/cleve-hill-live/", "2025-03-07", ""),
+765195	        ("Mallard Pass contractor named by developer", "https://www.example.org/x/y", "2026-01-05", ""),
+765196	def test_date_near_reads_us_order_and_rejects_nonsense():
+765197	    assert T.date_near("<span>Nov 10, 2026</span>") == "2026-11-10"
+765198	    assert T.date_near("<span>31 Feb 2026</span>") is None
+765199	# ---------------------------------------------------------------- polite host
+765200	class Clock:
+765202	        self.t, self.sleeps = 0.0, []
+765203	    def now(self):
+765204	        return self.t
+765205	    def sleep(self, seconds):
+765206	        self.sleeps.append(seconds)
+765207	        self.t += seconds
+765208	def test_host_spacing_robots_and_429_retry():
+765209	    clock, calls = Clock(), []
+765210	    answers = {"https://a.example/robots.txt": "User-agent: *\nDisallow: /search\nCrawl-delay: 3\n"}
+765211	        if url in answers:
+765212	            return "text/plain", answers[url].encode()
+765213	        if url.endswith("/busy") and calls.count(url) == 1:
+765214	            raise T.HttpError("HTTP 429")
+765215	        return "application/json", b"[]"
+765216	    host = T.Host({"id": "a"}, fetch, cap=10, seconds=10_000, sleep=clock.sleep, clock=clock.now)
+765217	    host.get("https://a.example/one")
+765218	    host.get("https://a.example/two")
+765219	    assert clock.sleeps[-1] == 3  # Crawl-delay honoured between two requests to one host
+765220	    with pytest.raises(T.HttpError, match="robots"):
+765221	        host.get("https://a.example/search?q=x")
+765222	    assert "https://a.example/search?q=x" not in calls
+765223	    host.get("https://a.example/busy")
+765224	    assert T.RETRY_429_S in clock.sleeps and calls.count("https://a.example/busy") == 2
+765225	    assert host.failures == 0
+765226	def test_host_request_cap_and_missing_robots():
+765227	    clock = Clock()
+765228	        if url.endswith("robots.txt"):
+765229	            raise T.HttpError("HTTP 404")
+765230	        return "text/html", b""
+765231	    host = T.Host({"id": "a"}, fetch, cap=3, seconds=10_000, sleep=clock.sleep, clock=clock.now)
+765232	    host.get("https://a.example/1")
+765233	    host.get("https://a.example/2")
+765234	    with pytest.raises(T.HttpError, match="cap"):
+765235	        host.get("https://a.example/3")
+765236	    def down(url):
+765237	        raise T.HttpError("HTTP 503")
+765238	    host = T.Host({"id": "a"}, down, cap=9, seconds=10_000, sleep=clock.sleep, clock=clock.now)
+765239	        host.get("https://a.example/1")
+765240	# ---------------------------------------------------------------- whole run, cache and rotation
+765241	def write_aliases(tmp_path, records):
+765242	    path = tmp_path / "aliases.json"
+765243	    path.write_text(json.dumps({"schema": "project-signal-aliases.v1", "projects": {r["repd_ref"]: r for r in records}}))
+765245	def fake_site(monkeypatch):
+765246	    monkeypatch.setattr(T, "MIN_INTERVAL_S", 0.0)
+765247	    monkeypatch.setattr(T, "SITES", [
+765248	        {"id": "one", "publisher": "Site One", "base": "https://one.example", "feeds": ["https://one.example/feed/"],
+765249	         "routes": [("wp_posts", T.WP_POSTS), ("wp_rss", T.WP_RSS)]},
+765250	        {"id": "two", "publisher": "Site Two", "base": "https://two.example", "feeds": ["https://two.example/feed/"],
+765251	         "routes": [("wp_rss", T.WP_RSS)]},
+765254	    feed = (b'<rss version="2.0"><channel><item><title>Tween Bridge solar farm accepted for examination</title>'
+765255	            b'<link>https://one.example/tween/</link><pubDate>Mon, 09 Nov 2026 09:00:00 +0000</pubDate></item>'
+765256	        if url.endswith("/robots.txt"):
+765257	            if "two.example" in url:
+765258	                return "text/plain", b"User-agent: *\nDisallow: /?s=\n"
+765259	        if url == "https://one.example/feed/":
+765260	            return "application/rss+xml", feed
+765261	        if url == "https://two.example/feed/":
+765262	            raise T.HttpError("HTTP 500")
+765263	        if "search=solar+farm" in url:
+765264	            return "application/json", json.dumps([{"title": {"rendered": "A solar farm story"},
+765265	                                                    "link": "https://one.example/a/", "date": "2026-11-01T00:00:00"}]).encode()
+765266	        if "search=Botley+West" in url:
+765267	            return "application/json", json.dumps([
+765268	                {"title": {"rendered": "Botley West refused"}, "link": "https://one.example/bw/", "date": "2026-11-10T10:00:00"},
+765269	                {"title": {"rendered": "Unrelated solar story"}, "link": "https://one.example/u/", "date": "2026-11-09T10:00:00"},
+765270	                {"title": {"rendered": "Largest UK solar farm refused"}, "link": "https://one.example/big/",
+765271	                 "date": "2026-11-11T10:00:00",
+765272	                 "excerpt": {"rendered": "<p>Example Power's Botley West Solar Farm was refused.</p>"}},
+765273	            ]).encode()
+765274	    return fetch, calls
+765275	def test_run_writes_contract_part_uses_cache_and_survives_a_failing_site(tmp_path, monkeypatch):
+765276	    fetch, calls = fake_site(monkeypatch)
+765277	    aliases = write_aliases(tmp_path, [record(12588, 1, ["Botley West Solar Farm"]),
+765278	                                       record(12926, 2, ["Tween Bridge Solar Farm"], alias_status="uncertain"),
+765279	                                       record(7188, 3, ["Sunnica Energy Farm"])])
+765280	    out, probe = tmp_path / "part.json", tmp_path / "probe.md"
+765281	    truth = tmp_path / "truth.json"
+765282	    truth.write_text(json.dumps([{"repd_ref": "12588", "title": "Botley West refused", "link": "https://one.example/bw/"},
+765283	                                 {"repd_ref": "7188", "title": "Sunnica", "link": "https://one.example/missing/"},
+765284	                                 {"repd_ref": "7188", "title": "Elsewhere", "link": "https://elsewhere.example/x/"}]))
+765285	    argv = ["--out", str(out), "--aliases", str(aliases), "--probe", str(probe), "--truth", str(truth)]
+765286	    assert T.main(argv, fetch=fetch) == 0
+765287	    assert part["schema"] == "project-signals-part.v1" and part["team"] == "trade"
+765288	    assert [(i["repd_ref"], i["link"], i["date"], i["confidence"], i["family"]) for i in part["items"]] == [
+765289	        ("12588", "https://one.example/big/", "2026-11-11", "uncertain", "trade"),
+765290	        ("12588", "https://one.example/bw/", "2026-11-10", "confirmed", "trade"),
+765291	        ("12926", "https://one.example/tween/", "2026-11-09", "uncertain", "trade")]
+765292	    assert all(set(i) == {"repd_ref", "title", "link", "publisher", "date", "family", "basis", "confidence"}
+765293	               for i in part["items"])
+765294	    assert "summary" in part["items"][0]["basis"] and "Example Power" not in json.dumps(part)
+765295	    assert "search" in part["items"][1]["basis"] and "feed" in part["items"][2]["basis"]
+765296	    one, two = part["sources"]
+765297	    assert one["status"] == "ok" and one["items"] == 3 and one["route"].startswith("wp_posts")
+765298	    assert two["status"] == "failed" and "robots" in two["error"]
+765299	    assert not any("two.example/?s=" in c for c in calls)  # the disallowed route was never requested
+765300	    text = probe.read_text()
+765301	    assert "at least one trade signal: 2 of 3" in text and "found by link: **1 of 2**" in text
+765302	    # second run: every query is fresh in the cache, so only robots.txt, feeds and the canary are requested
+765303	    assert not any("search=Botley" in c for c in calls[before:])
+765304	    assert json.loads(out.read_text())["items"] == part["items"]
+765305	    cache = json.loads((tmp_path / "part.cache.json").read_text())
+765306	    assert cache["queries"]["one|botley west"]["results"][0] == ["Botley West refused", "https://one.example/bw/", "2026-11-10"]
+765307	    assert "was refused" not in json.dumps(cache)  # the summary text is never stored
+765308	def test_rotation_takes_least_recently_searched_then_stale(monkeypatch):
+765309	    fake_site(monkeypatch)
+765310	    projects = [T.Project(record(i, i, ["Name%d Place Solar Farm" % i])) for i in range(1, 7)]
+765311	    cache = {"schema": T.CACHE_SCHEMA, "queries": {}, "feed_hits": {}}
+765312	    def searched(p, days):
+765313	        for site in T.SITES:
+765314	            cache["queries"][T.cache_key(site["id"], p.terms()[0])] = {
+765315	                "at": T.iso(NOW - dt.timedelta(days=days)), "status": "ok", "results": []}
+765316	    searched(projects[0], 1)
+765317	    searched(projects[1], 40)
+765318	    searched(projects[2], 35)
+765319	    searched(projects[3], 2)
+765320	    # 5 and 6 never searched: first in the batch; then the stale ones (40 and 35 days) are added
+765321	    picked = T.choose(projects, cache, NOW, batch=2, stale_days=30)
+765322	    assert [p.ref for p in picked] == ["5", "6", "2", "3"]
+765323	    assert [p.ref for p in T.choose(projects, cache, NOW, batch=3, stale_days=30)] == ["5", "6", "2", "3"]
+765324	def test_every_site_failing_gives_exit_code_1(tmp_path, monkeypatch):
+765325	        raise T.HttpError("URLError: no network")
+765326	    aliases = write_aliases(tmp_path, [record(12588, 1, ["Botley West Solar Farm"])])
+765327	    assert T.main(["--out", str(tmp_path / "p.json"), "--aliases", str(aliases)], fetch=fetch) == 1
+765328	    part = json.loads((tmp_path / "p.json").read_text())
+765329	    assert len(part["sources"]) == len(T.SITES) and part["items"] == []
+765330	def test_shared_alias_table_loads_and_gives_terms_for_all_200():
+765331	    projects = T.load_projects(SIGNALS / "aliases.json")
+765332	    assert len(projects) == 200 and projects[0].ref == "12588"
+765333	    assert sum(1 for p in projects if p.terms()) >= 195  # a project whose only alias is generic is not searched
+765334	    top = json.loads((SIGNALS / "top200_solar.json").read_text())
+765335	    assert {p.ref for p in projects} == {str(r["repd_ref"]) for r in top}
+765336	# ---------------------------------------------------------------- foreign headlines, sitemap route
+765337	def test_foreign_headline_is_dropped_and_company_name_is_not_a_project():
+765338	    p = project(15866, 5, ["Meridian Solar"], county="Lincolnshire")
+765339	    assert p.match("Meridian Energy bags consent for 110MW solar PV plant in New Zealand") is None
+765340	    assert p.match("Meridian Energy reports record profit") is None
+765341	    assert p.match("Meridian Solar consultation opens")
+765342	    east = project(15347, 24, ["East Park Energy"], county="Bedfordshire")
+765343	    assert "full alias" in east.match("East Park Energy submits DCO application")[0]
+765344	    assert east.match("New energy centre for East Park estate") is None
+765345	SITEMAP_INDEX = b"""<?xml version="1.0"?><sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+765346	<sitemap><loc>https://sp.example/sitemap-articles-1.xml</loc></sitemap>
+765347	</sitemapindex>"""
+765348	SITEMAP_URLS = b"""<?xml version="1.0"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+765349	<url><loc>https://sp.example/solar-projects/edf-renewables-50mw-bloy-s-grove-solar-farm-gets-green-light</loc><lastmod>2022-07-01T10:00:00Z</lastmod></url>
+765350	<url><loc>https://sp.example/news/some_other_story_about_rooftop_solar</loc><lastmod>2022-07-02</lastmod></url>
+765351	<url><loc>https://sp.example/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm</loc><lastmod>2026-11-11</lastmod></url>
+765352	<url><loc>https://sp.example/cut-off"""
+765353	ARTICLE = b"""<html><head><title>Wrong | Site</title>
+765354	<meta property="og:title" content="EDF Renewables&#x27; 50MW Bloy&#x27;s Grove solar farm gets green light" />
+765355	<meta content="2022-07-01T09:12:00.000Z" property="article:published_time">
+765356	</head><body><p>Body text that must never be stored.</p></body></html>"""
+765357	def test_parse_sitemap_and_article_head():
+765358	    assert T.parse_sitemap(SITEMAP_INDEX) == ("index", ["https://sp.example/sitemap-articles-1.xml"])
+765359	    shape, rows = T.parse_sitemap(SITEMAP_URLS)
+765360	    assert shape == "urls" and len(rows) == 3 and rows[0][1] == "2022-07-01"
+765361	    assert T.parse_article_head(ARTICLE) == ("EDF Renewables' 50MW Bloy's Grove solar farm gets green light", "2022-07-01")
+765362	    assert T.parse_article_head(b'<title>Headline here - Site Name</title><script>{"datePublished":"2024-05-06T01:00"}</script>') == (
+765363	        "Headline here", "2024-05-06")
+765364	    short = b'<meta property="og:title" content="Botley West refused"><h1 class="x">Botley West refused in first solar NSIP no</h1>'
+765365	    assert T.parse_article_head(short)[0] == "Botley West refused in first solar NSIP no"
+765366	    assert " bloy s grove " in T.slug_words("Bloy's Grove") and " bloy s grove " in T.slug_words(rows[0][0])
+765367	def test_sitemap_route_finds_articles_by_alias_in_the_link(tmp_path, monkeypatch):
+765368	    monkeypatch.setattr(T, "SITES", [{"id": "sp", "publisher": "Site SP", "base": "https://sp.example", "feeds": [],
+765369	                                      "routes": [("html", "/search?q={q}"), ("sitemap", "/sitemap.xml")]}])
+765370	            return "text/plain", b"User-agent: *\nDisallow: /search\nSitemap: https://sp.example/sitemap.xml\n"
+765371	        if url == "https://sp.example/sitemap.xml":
+765372	            return "application/xml", SITEMAP_INDEX
+765373	        if url == "https://sp.example/sitemap-articles-1.xml":
+765374	            return "application/xml", SITEMAP_URLS
+765375	        if "bloy-s-grove" in url:
+765376	            return "text/html", ARTICLE
+765377	        if "botley-west" in url:
+765378	            return "text/html", b'<meta property="og:title" content="UK government refuses 840MW Botley West Solar Farm">'
+765379	        raise T.HttpError("HTTP 404")
+765380	                                       record(8308, 2, ["Bloy's Grove Solar Farm"])])
+765381	    argv = ["--out", str(tmp_path / "p.json"), "--aliases", str(aliases), "--probe", str(tmp_path / "p.md")]
+765382	    assert [(i["repd_ref"], i["date"], i["title"]) for i in part["items"]] == [
+765383	        ("12588", None, "UK government refuses 840MW Botley West Solar Farm"),
+765384	        ("8308", "2022-07-01", "EDF Renewables' 50MW Bloy's Grove solar farm gets green light")]
+765385	    assert "sitemap" in part["items"][0]["basis"] and part["sources"][0]["status"] == "ok"
+765386	    assert not any("/search" in c for c in calls)
+765387	    assert "never be stored" not in (tmp_path / "p.cache.json").read_text()
+765388	    opened = [c for c in calls if "bloy-s-grove" in c]
+765389	    assert T.main(argv, fetch=fetch) == 0  # second run: the headline comes from the cache, the page is not reopened
+765390	    assert [c for c in calls if "bloy-s-grove" in c] == opened
+765391	def test_feed_archive_pages_back_until_nothing_new_and_resumes(tmp_path, monkeypatch):
+765392	    monkeypatch.setattr(T, "SITES", [{"id": "sp", "publisher": "Site SP", "base": "https://sp.example",
+765393	                                      "feeds": ["https://sp.example/rss.xml?limit=100"], "routes": [],
+765394	                                      "feed_archive": "https://sp.example/rss.xml?limit=100&offset={offset}",
+765395	                                      "feed_archive_step": 100}])
+765396	    def rss(*items):
+765397	        return ("<rss version='2.0'><channel>" + "".join(
+765398	            "<item><title>%s</title><link>https://sp.example/%s</link><pubDate>%s</pubDate>"
+765399	            "<description>%s</description></item>" % i for i in items) + "</channel></rss>").encode()
+765400	    pages = {
+765401	        "limit=100": rss(("Daily solar news", "a", "Fri, 13 Nov 2026 09:00:00 +0000", "Nothing.")),
+765402	        "offset=100": rss(("UK's biggest solar farm gets development consent order", "b",
+765403	                           "Fri, 06 Sep 2024 09:00:00 +0000", "Example Power's Cottam Solar Project is approved.")),
+765404	        "offset=200": rss(("Cottam Solar Project accepted for examination", "c", "Mon, 06 Feb 2023 09:00:00 +0000", "")),
+765405	        "offset=300": rss(),
+765406	        return "text/xml", pages[url.rsplit("&", 1)[-1] if "offset" in url else "limit=100"]
+765407	    aliases = write_aliases(tmp_path, [record(10914, 8, ["Cottam Solar Project"])])
+765408	    argv = ["--out", str(tmp_path / "p.json"), "--aliases", str(aliases), "--feed-pages", "1"]
+765409	    assert [(i["link"], i["confidence"]) for i in part["items"]] == [("https://sp.example/b", "uncertain")]
+765410	    assert "feed archive" in part["items"][0]["basis"] and "summary" in part["items"][0]["basis"]
+765411	    assert T.main(argv[:-1] + ["5"], fetch=fetch) == 0  # resumes at page 2 and stops at the empty page
+765412	    assert [i["link"] for i in part["items"]] == ["https://sp.example/b", "https://sp.example/c"]
+765413	    assert sum("offset=100" in c for c in calls) == 1
+765414	    cache = json.loads((tmp_path / "p.cache.json").read_text())
+765415	    assert cache["feed_archive"]["sp"]["finished_at"] and "is approved" not in json.dumps(cache)
+765416	    assert T.main(argv, fetch=fetch) == 0  # complete: no archive page is requested again until it is stale
+765417	    assert not any("offset" in c for c in calls[before:])
+765490	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611141017</title>
+765504	  <link rel="stylesheet" href="styles/v9-21.css?v=9.21">
+765514	      <small>UK RENEWABLES PIPELINE · V9.21</small>
+765517	      <a class="active" href="#">V9.21 BUILD · REPD Q3 2026</a>
+765519	      <a href="../202611140306/">V9.20 202611140306 · REPD Q3 2026</a>
+765562	      <h1>UK RENEWABLES PIPELINE 202611141017</h1>
+765563	      <div class="status">● REPD OCTOBER 2026 · ALL PROJECTS ≥1 MW</div>
+765565	      <strong>V9.21 · REPD OCTOBER 2026 (Q3) · LIVE HEADLINES IN THE NEWS BLOCK · BUILD · 14 November 2026</strong>
+765571	        <h2>GLOBALGRID2050 <span>HEADLINES</span></h2>
+765573	          <span id="newsStatus" data-state="loading">Loading headlines…</span>
+765574	          <span>UK renewables, storage and grid headlines from public feeds, newest first · headlines and links only · a "possible match" is a name coincidence for review, not a confirmed link to a project</span>
+765577	      <div class="live-news" id="liveNews"></div>
+765578	      <details class="news-archive" id="newsArchive">
+765579	        <summary>ARCHIVE · PROJECT HEADLINES COLLECTED UP TO AUGUST 2026 · NOT UPDATED</summary>
+765580	          <span id="newsMeta">loading archive…</span>
+765594	        <div class="paper">
+765595	          <div class="stories" id="stories">
+765596	            <div class="news-empty">Loading the archive…</div>
+765670	  <script defer src="scripts/plugins/live-news.js?v=1"></script>
+765674	/* Live headlines for the news block.
+765676	 * Reads the headlines file a scheduled workflow refreshes several times a day
+765677	 * (schema globalgrid2050.news.pipeline-headlines.v1, on the data branch pipeline-news-data),
+765678	 * and draws one plain list: date, category, source, the headline as a link, and, where the
+765679	 * file gives one, a "Possible match" chip naming a REPD project. Newest first, always.
+765680	 * The label above the list is worked out here, in the reader's browser, from the file's own
+765681	 * generated_at: "Headlines updated ..." when it is fresh, "Stale since ..." when it is more
+765682	 * than 36 hours old or the last refresh failed. Nothing is typed in by hand.
+765683	 * If the live file cannot be read, the copy saved in this folder when the page was built
+765684	 * (news/pipeline_headlines.snapshot.json) is shown instead and labelled as a saved copy. If
+765685	 * that holds no headlines either, the block says live headlines are not available.
+765686	 * A possible match is a name coincidence offered for review. It is never written into the
+765687	 * project table. Clicking the chip searches the table for that REPD Ref ID. Titles are drawn
+765688	 * as text, never as HTML. The MAP link and the project table are not touched.
+765692	  var LIVE = 'https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/dist/pipeline_headlines.json';
+765693	  var SNAPSHOT = 'news/pipeline_headlines.snapshot.json';
+765694	  var SCHEMA = 'globalgrid2050.news.pipeline-headlines.v1';
+765695	  var STALE_MS = 36 * 3600 * 1000;
+765696	  var PAGE = 12;
+765697	  var CATEGORY = { planning_decision: 'PLANNING DECISION', consent: 'CONSENTED', refusal: 'REFUSED', dco: 'DCO', finance: 'FINANCE',
+765698	    construction: 'CONSTRUCTION', energisation: 'ENERGISED', grid: 'GRID', policy: 'POLICY', datacentre: 'DATA CENTRES', other: '' };
+765699	  var TECHNOLOGY = { solar: 'SOLAR', wind: 'WIND', offshore_wind: 'OFFSHORE WIND', battery: 'BATTERY', hydro: 'HYDRO', tidal: 'TIDAL' };
+765701	  function stamp(iso, withTime) {
+765703	    if (!iso || isNaN(d)) return '';
+765704	    var day = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
+765705	    if (!withTime) return day;
+765706	    return day + ' ' + ('0' + d.getUTCHours()).slice(-2) + ':' + ('0' + d.getUTCMinutes()).slice(-2) + ' UTC';
+765708	  /* The label, as a pure function of the file's date, its status and the clock. */
+765709	  function label(generatedAt, status, nowMs, source) {
+765710	    var when = Date.parse(generatedAt);
+765711	    if (source === 'none' || isNaN(when)) return { state: 'unavailable', text: 'Live headlines are not available at the moment.' };
+765712	    if (source === 'snapshot') return { state: 'snapshot', text: 'Live headlines are not available at the moment. Showing the copy saved with this page on ' + stamp(generatedAt, true) + '.' };
+765713	    if (status === 'failed' || nowMs - when > STALE_MS) return { state: 'overdue', text: 'Stale since ' + stamp(generatedAt, true) + ': headlines last updated then; refresh is overdue.' };
+765714	    return { state: 'live', text: 'Headlines updated ' + stamp(generatedAt, true) };
+765715	  function valid(doc) {
+765716	    return doc && doc.schema === SCHEMA && Array.isArray(doc.items) && doc.items.length > 0 && typeof doc.generated_at === 'string';
+765717	  function getJson(url, ms) {
+765719	    var timer = setTimeout(function () { if (ctl) ctl.abort(); }, ms);
+765720	    return fetch(url, { cache: 'no-store', signal: ctl ? ctl.signal : undefined })
+765722	      .then(function (d) { clearTimeout(timer); return d; }, function (e) { clearTimeout(timer); throw e; });
+765723	  function when(item) { return Date.parse(item.date || item.first_seen || '') || 0; }
+765724	  function showProject(ref, chip) {
+765729	    setTimeout(function () {
+765730	      if (document.getElementById('repd-' + ref)) {
+765731	        var table = document.querySelector('.tablewrap');
+765732	        if (table && table.scrollIntoView) table.scrollIntoView({ block: 'start' });
+765734	        input.value = '';
+765735	        input.dispatchEvent(new Event('input', { bubbles: true }));
+765736	        chip.textContent += ' · not in this list (below 1 MW, or a technology this page does not carry)';
+765737	        chip.disabled = true;
+765739	    }, 900);
+765740	  function row(item) {
+765741	    var box = el('div', 'ln-item');
+765742	    var meta = [stamp(item.date || item.first_seen, false).toUpperCase() || 'DATE NOT GIVEN', CATEGORY[item.category] || '', TECHNOLOGY[item.technology] || '', String(item.source || '')];
+765743	    box.appendChild(el('span', 'ln-meta', meta.filter(Boolean).join(' · ')));
+765744	    var a = el('a', 'ln-title', String(item.title || ''));
+765745	    if (/^https:\/\//.test(String(item.link || ''))) a.href = item.link;
+765748	    box.appendChild(a);
+765749	    var m = item.possible_match;
+765750	    if (m && /^\d+$/.test(String(m.repd_ref || '')) && m.site_name) {
+765751	      var chip = el('button', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
+765753	      chip.title = 'A name coincidence offered for review, not a confirmed link. Shows this REPD record in the table.';
+765754	      chip.addEventListener('click', function () { showProject(String(m.repd_ref), chip); });
+765755	      box.appendChild(chip);
+765757	  function render(doc, source, nowMs) {
+765758	    var status = document.getElementById('newsStatus');
+765759	    var list = document.getElementById('liveNews');
+765760	    if (!status || !list) return;
+765761	    var ok = valid(doc);
+765762	    var l = label(ok ? doc.generated_at : '', ok ? doc.status : '', nowMs == null ? Date.now() : nowMs, ok ? source : 'none');
+765763	    status.textContent = l.text;
+765764	    status.setAttribute('data-state', l.state);
+765766	    var archive = document.getElementById('newsArchive');
+765767	    if (!ok) { if (archive) archive.open = true; return; }
+765768	    // Newest first, whatever order the file arrived in; equal times keep the file's order.
+765769	    var items = doc.items.map(function (it, i) { return [it, i]; })
+765770	      .sort(function (a, b) { return when(b[0]) - when(a[0]) || a[1] - b[1]; }).map(function (p) { return p[0]; });
+765771	    var shown = 0;
+765772	    var more = el('button', 'ln-more', '');
+765773	    more.type = 'button';
+765775	      items.slice(shown, shown + PAGE).forEach(function (it) { list.insertBefore(row(it), more.parentNode === list ? more : null); });
+765776	      shown = Math.min(shown + PAGE, items.length);
+765777	      if (shown < items.length) { more.textContent = 'SHOW MORE HEADLINES (' + (items.length - shown) + ')'; if (more.parentNode !== list) list.appendChild(more); }
+765778	      else if (more.parentNode === list) list.removeChild(more);
+765779	    more.addEventListener('click', draw);
+765781	    if (doc.scope) list.appendChild(el('p', 'ln-scope', String(doc.scope)));
+765783	    if (typeof fetch !== 'function') { render(null, 'none'); return; }
+765784	    getJson(LIVE, 6000).then(function (doc) { if (!valid(doc)) throw new Error('invalid'); render(doc, 'live'); })
+765786	        return getJson(SNAPSHOT, 6000).then(function (doc) { render(valid(doc) ? doc : null, valid(doc) ? 'snapshot' : 'none'); });
+765788	      .catch(function () { render(null, 'none'); });
+765789	  // For the release checks: the label rule and the renderer, callable with a document of the same schema.
+765790	  window.pipelineHeadlines = { label: label, render: render, schema: SCHEMA };
+765865	      ? `<span class="news-quality relevant">POSSIBLE MATCH</span> · REPD ${escapeHtml(item.repd_ref)} · matched by project name`
+765866	      : '<span class="news-quality unverified">NO PROJECT MATCH</span>';
+765867	    // A headline that is not matched to a project carries no project line: printing a REPD
+765868	    // project under it presented a name guess as fact.
+765869	    const projectLine = item.canonical_relevant === true
+765870	      ? `<p><span class="project">${escapeHtml(project)}${capacity ? ` · ${capacity.toLocaleString("en-GB")} MW` : ""}</span>${item.operator ? ` · ${escapeHtml(item.operator)}` : ""}${item.county ? ` · ${escapeHtml(item.county)}` : ""}</p>`
+765871	      : "";
+765872	    return `<a class="story ${articleClass}" href="${escapeHtml(item.url)}" target="_blank" rel="noopener"><div class="kicker">${escapeHtml(technology)} · ${escapeHtml(item.event || "PROJECT UPDATE")} · ${escapeHtml(item.published || "")}</div><h3>${escapeHtml(item.headline || project)}</h3>${projectLine}<span class="source">${escapeHtml(item.source || "Source")} · ${quality}</span></a>`;
+765977	    document.getElementById("newsMeta").textContent = `${uk} UK · ${regionalItems.length} international (${counts.US} US · ${counts.EUROPE} Europe · ${counts.INTERNATIONAL_OTHER} other) · ${state.newsItems.length} headlines · collected to ${String(state.newsItems.map((item) => item.published || "").sort().pop() || "August 2026")} · not updated since`;
+765987	/* check_v9_21.mjs - Pipeline News V9.21, proven from the bytes and through the
+765996	 * Run: node tests/check_v9_21.mjs
+766006	const VERSION = "9.21";
+766008	const PARENT_ID = "202611140306";
+766081	console.log(`check_v9_21: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+766099	<a href="versions.json">versions.json</a>. Generated 2026-11-14T10:27:19Z.</p>
+766100	<p>The homepage opens 202611140306 (V9.20). Candidate: 202611141017 (V9.21), the same page with a news block that reads live headlines; it awaits live checks before the homepage is moved. Held: 202611140247 (V9.19), with data-centre register context, awaiting verification of the register&#x27;s source licences.</p>
+766104	<tr class="pass"><td><a href="202611141017/"><b>202611141017</b></a><br>V9.21<br><span class="state">PUBLISHED</span></td><td>2026-11-14 10:17:00 UTC</td><td>News block only. Opens with a list of headlines read from a file a scheduled workflow refreshes, newest first, with a browser-computed &#x27;Headlines updated&#x27; or &#x27;Stale since&#x27; label, a saved-copy fallback and a &#x27;possible match&#x27; chip where the file names a REPD project. The August headlines become a labelled archive without REPD projects printed under unmatched headlines. Bug fix: the MAP button is no longer cut off at 1440 px. Table columns, CSV and every MAP link unchanged.<br><i>Data-centre features: no data-centre register content; data-centre headlines (public feeds, links only) retained.</i><ul><li>Until the headlines workflow has run for the first time the live file does not exist and the saved copy is empty: the block says live headlines are not available.</li><li>NEWS SIGNAL column unchanged: August file, 29 of 7,775 rows.</li><li>At 1440 px the pinned ACTIONS column covers the neighbouring columns until the table is scrolled sideways.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611140306<br><a href="202611141017/CHANGES.md">changes</a></td></tr>
+766105	<tr class="pass"><td><a href="202611140306/"><b>202611140306</b></a><br>V9.20<br><span class="state">OPERATIVE (HOMEPAGE POINTS HERE); NO DATA-CENTRE REGISTER CONTENT</span></td><td>2026-11-14 03:06:00 UTC</td><td>Promotable candidate: identical to V9.19 except that content derived from the UK data-centre register is switched off (nearest data centre per project and its data files; register-site lines in the headlines panel), pending verification of the register&#x27;s source licences. Headlines panel, register changes, GridAtlas state, pinned Chart.js and every MAP link kept.<br><i>Data-centre features: no data-centre register content; data-centre headlines (public feeds, links only) retained.</i><ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611140247<br><a href="202611140306/CHANGES.md">changes</a></td></tr>
+766118	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">Open Pipeline News &rarr;</a></div></details>
+766119	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.20 · October 2026 REPD (14 November 2026)</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div></details></td></tr>
 ```
