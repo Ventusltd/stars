@@ -1,66 +1,138 @@
 {
   "schema": "random-graph.v1",
   "label": "The Random star",
-  "seed": "2026-11-13",
-  "generated_utc": "2026-11-13T23:53:48.267Z",
+  "seed": "2026-11-14",
+  "generated_utc": "2026-11-14T01:30:25.172Z",
   "note": "Links chosen by probability alone. Not findings. Serendipity for Claude + VIK-AI.",
   "focus_default": "#2141 scripts",
   "nodes": [
     {
       "label": "#2141 scripts",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#411 cartridges",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1567 select",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#4538 nearest",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · def · 28 lines · shells K0 L0 M60 · valence 1 · spin paired · homes grid-distanc",
+      "reason": "from the electron star · def · 4 lines · shells K2 L0 M1 · valence 1 · spin paired · homes globalgrid2050",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Ss(202609051540)",
-      "type": "chemistry",
+      "label": "#4305 readJson",
+      "type": "electron",
       "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 31 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+      "reason": "from the electron star · arrow · 51 lines · shells K53 L61 M60 · valence 0 · spin paired · homes globalgr",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#8341 blocks",
+      "label": "#8493 auditProjectRows",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 30 lines · shells K0 L2 M1 · valence 1 · spin paired · homes ventus-g",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1524 globalgrid2050/promise",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 11 lines · globalgrid2050/pipelinenews_intelligence/202608311645/assets/",
+      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/pipelinenews_intelligence/202608311645/assets/202608291447-app.mjs#L280",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3821 loadNewsV9_5_1",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#1524 pipelinenews/promise",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 11 lines · pipelinenews/releases/javascript/202609010200-v8-fast-runtime",
+      "gh": "https://github.com/Ventusltd/pipelinenews/blob/main/releases/javascript/202609010200-v8-fast-runtime.js#L238",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
       "label": "#3384 testcode/promise",
       "type": "soul",
       "rag": "green",
-      "reason": "from the soul star · arrow · 17 lines · testcode/sandbox/202609051936/atlas/cartridges/202609051936-u",
-      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051936/atlas/cartridges/202609051936-uk-gazetteer-flyto.js#L162",
+      "reason": "from the soul star · arrow · 17 lines · testcode/sandbox/202609051214/atlas/cartridges/202609051214-u",
+      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051214/atlas/cartridges/202609051214-uk-gazetteer-flyto.js#L162",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3573 published",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 6 lines · shells K0 L1 M2 · valence 1 · spin unpaired · homes globalgrid",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "repo testcode",
+      "type": "magnetar",
+      "rag": "green",
+      "reason": "from the magnetar star · mass 34 · field 102 · drawn toward globalgrid2050 · 36 starquakes in 60 days",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#5439 title",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 31 lines · shells K0 L0 M1 · valence 1 · spin paired · homes gridatlas",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1469 select",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 23 lines · shells K42 L61 M60 · valence 0 · spin unpaired · homes glo",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3800 signalLabel",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 10 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3812 indexNewsItems",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Ug",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 4217 compounds · 957 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ug"
+    },
+    {
+      "label": "#352 sweep",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3978 click",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
       "label": "#1683 declineExport",
@@ -71,31 +143,47 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#4674 encode",
-      "type": "electron",
+      "label": "#3610 globalgrid2050/onChange",
+      "type": "soul",
       "rag": "green",
-      "reason": "from the electron star · function · 6 lines · shells K0 L2 M3 · valence 3 · spin paired · homes gridatlas",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "reason": "from the soul star · arrow · 16 lines · globalgrid2050/testcode/202609051936/atlas/cartridges/2026090",
+      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609051936/atlas/cartridges/202609051936-sld-sandbox.js#L7683",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#1524 pipelinenews/promise",
-      "type": "soul",
+      "label": "#4034 captureGeometry",
+      "type": "vedic",
       "rag": "green",
-      "reason": "from the soul star · arrow · 11 lines · pipelinenews/releases/202609012326-pipelinenews/assets/202608",
-      "gh": "https://github.com/Ventusltd/pipelinenews/blob/main/releases/202609012326-pipelinenews/assets/202608291447-app.mjs#L371",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
       "label": "#3384 globalgrid2050/promise",
       "type": "soul",
       "rag": "green",
-      "reason": "from the soul star · arrow · 17 lines · globalgrid2050/testcode/202609051927/atlas/cartridges/2026090",
-      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609051927/atlas/cartridges/202609051927-uk-gazetteer-flyto.js#L162",
+      "reason": "from the soul star · arrow · 17 lines · globalgrid2050/testcode/202609052023/atlas/cartridges/2026090",
+      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609052023/atlas/cartridges/202609052023-streaming-parquet-bridge.js#L147",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#21 drawBend",
+      "label": "Ss",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 73 compounds · 35 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "Si(202609040219)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 67 compounds · 26 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#3801 signalForProjectV9_2",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -103,26 +191,514 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "Data",
+      "label": "#3804 renderNews",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · data at rest: layers, files, substations, circuits · 443 forms",
+      "reason": "from the vedic star · function · Data",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3406 provisional",
+      "label": "#20 drawTrench",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 21 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globa",
+      "reason": "from the electron star · function · 87 lines · shells K29 L59 M61 · valence 0 · spin paired · homes cable",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#8351 assess",
+      "label": "Si(202609032222)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 68 compounds · 26 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#3799 indexNewsItems",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Ss(202609030200)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 4 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "#3402 classOf",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#1219 toggleAtlasV8GridLayer",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#6554 centre",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3384 gridatlas/promise",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 17 lines · gridatlas/atlas/cartridges/202609041945-streaming-parquet-bri",
+      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041945-streaming-parquet-bridge-v9-5.js#L147",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#4843 envelope",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Computation",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Mr MAX_RESOURCES",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · element · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Mr"
+    },
+    {
+      "label": "#5372 measured",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 4 lines · shells K7 L0 M1 · valence 1 · spin paired · homes gridatlas · ",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Si substation-intelligence",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · element · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#15 globalgrid2050/renderStats",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · function · 16 lines · globalgrid2050/solar-bess-topology-v6/cable-geometry-visua",
+      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/solar-bess-topology-v6/cable-geometry-visualiser/rendering.js#L24",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Ss(202609030128)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 4 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "Si(202609050249)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 0 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "Ss(202609080000)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "repo unnamed-01",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3610 gridatlas/onChange",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 16 lines · gridatlas/atlas/cartridges/202609070857-sld-sandbox-v9-8.js:7",
+      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609070857-sld-sandbox-v9-8.js#L7368",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Ss(202609031809)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 4 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "#30 cable-trench-or-drill/debounce",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · function · 4 lines · cable-trench-or-drill/releases/202609051921/solar-bess-topo",
+      "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/main/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L304",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#4272 preparePage",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#4281 layoutSnapshot",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "repo spiders",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Ss(202609050244)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "#1206 setFetchStatus",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 15 lines · shells K37 L61 M61 · valence 0 · spin paired · homes unnam",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3366 rowObject",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3824 signalForProjectV9_5",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3263 finishCableRouteMode",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 5 lines · shells K0 L23 M20 · valence 2 · spin paired · homes globalg",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#14 renderIssues",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3415 applyMountingBifacial",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#15 testcode/renderStats",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · function · 16 lines · testcode/sandbox/202609051948/layer-apps/solar-bess-topolo",
+      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051948/layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L24",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1231 renderBenchmark",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#6 getInputs",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#5403 nativeFetch",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Flow",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3404 survey",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Flow",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#2138 files",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · def · 4 lines · shells K2 L0 M6 · valence 4 · spin paired · homes globalgrid2050",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1200 renderFinance",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 20 lines · shells K42 L61 M61 · valence 0 · spin paired · homes unnam",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "G2 grid_220kv",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · element · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=G2"
+    },
+    {
+      "label": "Si(202609051522)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 0 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#1236 updateLegend",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 29 lines · shells K31 L61 M61 · valence 0 · spin paired · homes unnam",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Si(202609051455)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 0 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#8297 header",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#1209 intVal",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Ss(202609012211)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 3 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "Structure",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · what holds everything in place: shells, manifests, contracts, registries · 5 for",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Ss(202609072329)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "Ss(202609030119)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 4 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "#6588 nearest_segment",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Si(202609051616)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 0 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#3616 cleanText",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#411 cartridges",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · def · 41 lines · shells K0 L0 M2 · valence 1 · spin paired · homes claude",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#4315 readText",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#5214 grab",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 8 lines · shells K0 L1 M59 · valence 2 · spin paired · homes gridatlas",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1666 bindWiderFleet",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#1792 _zoneDrawCirclePoints",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 12 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes glo",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3786 setGaugeUniverseV9_1",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#3610 testcode/onChange",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 16 lines · testcode/sandbox/202609051300/atlas/cartridges/202609051300-s",
+      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051300/atlas/cartridges/202609051300-sld-sandbox.js#L7381",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3787 updateGaugesV9_1",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 12 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1535 invariant",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 3 lines · shells K49 L61 M60 · valence 0 · spin unpaired · homes glob",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3571 network",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Si(202609051526)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 66 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "Si(202609051529)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 66 compounds · 66 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+    },
+    {
+      "label": "#6974 log_message",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Movement",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
@@ -135,7 +711,7 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#4364 schedule",
+      "label": "#5909 projects",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -143,31 +719,7 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3610 globalgrid2050/onChange",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 16 lines · globalgrid2050/testcode/202609060300/atlas/cartridges/2026090",
-      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609060300/atlas/cartridges/202609060300-sld-sandbox.js#L7691",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3820 renderNews",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K45 L61 M60 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Ss(202609012317)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 59 compounds · 4 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#4 normaliseBurialDepthFieldOnBlur",
+      "label": "#3748 hasValidatedModel",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -175,47 +727,47 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3402 classOf",
+      "label": "#4711 waitForResolvedIdentity",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#7851 available",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K27 L60 M61 · valence 0 · spin paired · homes global",
+      "reason": "from the electron star · function · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes solar-e",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#8445 distance",
-      "type": "electron",
+      "label": "#5246 finding",
+      "type": "vedic",
       "rag": "green",
-      "reason": "from the electron star · arrow · 1 lines · shells K1 L0 M1 · valence 1 · spin paired · homes testcode",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3610 testcode/onChange",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 16 lines · testcode/sandbox/202609051300/atlas/cartridges/202609051300-s",
-      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051300/atlas/cartridges/202609051300-sld-sandbox.js#L7381",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Si(202609032222)",
+      "label": "Si(202609041221)",
       "type": "chemistry",
       "rag": "green",
-      "reason": "from the chemistry star · 68 compounds · 26 red",
+      "reason": "from the chemistry star · 67 compounds · 0 red",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
       "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "#3360 sharedDuckDBRuntime",
-      "type": "electron",
+      "label": "Ss(202609080846)",
+      "type": "chemistry",
       "rag": "green",
-      "reason": "from the electron star · function · 27 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
     },
     {
-      "label": "#5726 counts",
+      "label": "#1504 csvCell",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -223,23 +775,15 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "At ALLOWED_TECHNOLOGIES",
+      "label": "#3734 fetchJson",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · Data",
+      "reason": "from the vedic star · function · Flow",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=At"
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#4568 outcome",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 3 lines · shells K0 L24 M36 · valence 2 · spin paired · homes gridatl",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1680 presentSummary",
+      "label": "#19 drawFormation",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -247,7 +791,23 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3787 updateGaugesV9_1",
+      "label": "#1793 _zoneDrawCalcArea",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Computation",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "repo teleprinter",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3411 consistency",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -263,223 +823,111 @@
       "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "#3823 canonicalItem",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1524 globalgrid2050/promise",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 11 lines · globalgrid2050/pipelinenews_intelligence/202609031308/assets/",
-      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/pipelinenews_intelligence/202609031308/assets/202608291447-app.mjs#L373",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1175 getCentralInverterDcMwdc",
+      "label": "#6688 releases",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 4 lines · shells K28 L61 M61 · valence 0 · spin paired · homes unname",
+      "reason": "from the electron star · def · 11 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenew",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Si(202609031751)",
+      "label": "#4282 assertContained",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 7 lines · shells K60 L61 M60 · valence 0 · spin paired · homes global",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3412 stringStats",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 23 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#8552 compute",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 6 lines · shells K0 L0 M60 · valence 2 · spin paired · homes ventus-grid",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "repo gpu-drivers-for-global-grid",
+      "type": "magnetar",
+      "rag": "green",
+      "reason": "from the magnetar star · mass 1 · field 3.8 · drawn toward globalgrid2050 · 0 starquakes in 60 days",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#6743 cartridge",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · def · 14 lines · shells K0 L1 M3 · valence 2 · spin paired · homes pipelinenews",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Si(202609040058)",
       "type": "chemistry",
       "rag": "green",
-      "reason": "from the chemistry star · 68 compounds · 26 red",
+      "reason": "from the chemistry star · 67 compounds · 27 red",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
       "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "#3824 signalForProjectV9_5",
+      "label": "#1201 renderFinanceWarnings",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
+      "reason": "from the electron star · function · 45 lines · shells K40 L61 M61 · valence 0 · spin paired · homes unnam",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Si(202609032012)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 68 compounds · 26 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
-    },
-    {
-      "label": "#3869 updateResultSummary",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 8 lines · shells K60 L61 M60 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1219 toggleAtlasV8GridLayer",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 9 lines · shells K39 L61 M61 · valence 0 · spin paired · homes unname",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#4037 cloneVisiblePrinterUi",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 28 lines · shells K30 L59 M61 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1231 renderBenchmark",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 5 lines · shells K32 L61 M61 · valence 0 · spin paired · homes unname",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3384 gridatlas/promise",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 17 lines · gridatlas/atlas/cartridges/202609041945-place-global-search-v",
-      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609041945-place-global-search-v9-5.js#L162",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#5403 nativeFetch",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Flow",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#6652 megawatts",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · def · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#4093 dispose",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Ss(202609080850)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 61 compounds · 31 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#3754 createCanonicalProjectControls",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#4035 assertStableGeometry",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#352 sweep",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Pf published-fault-level.js",
+      "label": "Gg geo-geojson.js",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · element · Computation",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Pf"
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Gg"
     },
     {
-      "label": "#15 globalgrid2050/renderStats",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · function · 16 lines · globalgrid2050/testcode/202609051936/layer-apps/solar-bess",
-      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609051936/layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L24",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#30 cable-trench-or-drill/debounce",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · function · 4 lines · cable-trench-or-drill/releases/202609051921/solar-bess-topo",
-      "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/main/releases/202609051921/solar-bess-topology-v7/cable-geometry-visualiser/ui.js#L304",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#8493 auditProjectRows",
+      "label": "#3838 queryMatches",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 30 lines · shells K0 L2 M1 · valence 1 · spin paired · homes ventus-g",
+      "reason": "from the electron star · function · 8 lines · shells K30 L61 M60 · valence 0 · spin paired · homes global",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#1497 setButtonState",
-      "type": "vedic",
+      "label": "Si(202609040047)",
+      "type": "chemistry",
       "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+      "reason": "from the chemistry star · 66 compounds · 26 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "#1793 _zoneDrawCalcArea",
+      "label": "#8579 drawLegend",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 16 lines · shells K10 L19 M20 · valence 1 · spin unpaired · homes glo",
+      "reason": "from the electron star · function · 25 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes youeng",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#1535 invariant",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1476 invariant",
+      "label": "#766 geometry",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 3 lines · shells K49 L61 M60 · valence 0 · spin unpaired · homes glob",
+      "reason": "from the electron star · function · 7 lines · shells K0 L0 M9 · valence 5 · spin paired · homes data-fede",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#8471 edit",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · def · 3 lines · shells K0 L0 M1 · valence 1 · spin paired · homes testcode",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "repo gb-electricity-ui",
+      "label": "repo claude",
       "type": "electron",
       "rag": "green",
       "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
@@ -487,7 +935,23 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#4281 layoutSnapshot",
+      "label": "Dt deeplink (the MAP button)",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · element · Structure",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Dt"
+    },
+    {
+      "label": "#3880 repdUpdatedTimestamp",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 5 lines · shells K60 L61 M60 · valence 0 · spin paired · homes global",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#1529 invariant",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -495,23 +959,7 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#8391 buildNavigationRegistry",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Structure",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#2966 composition",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Structure",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#4034 captureGeometry",
+      "label": "#5889 authority",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -519,39 +967,15 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "repo gridmachine1",
-      "type": "magnetar",
-      "rag": "green",
-      "reason": "from the magnetar star · mass 0 · field 12.8 · drawn toward globalgrid2050 · 0 starquakes in 60 days",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3829 fetchPayload",
+      "label": "#4364 schedule",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 9 lines · shells K45 L61 M60 · valence 0 · spin paired · homes global",
+      "reason": "from the electron star · function · 7 lines · shells K7 L60 M1 · valence 1 · spin paired · homes globalgr",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Ss(202609032315)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 4 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#1686 carried",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · arrow · 37 lines · shells K54 L61 M61 · valence 0 · spin paired · homes globalgr",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3408 nearestTransmission",
+      "label": "#3839 regionalRows",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -559,159 +983,7 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3573 published",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1724 centroid",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · def · 3 lines · shells K16 L16 M1 · valence 1 · spin unpaired · homes globalgrid",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3610 gridatlas/onChange",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 16 lines · gridatlas/atlas/cartridges/202609080430-sld-sandbox-v9-8.js:7",
-      "gh": "https://github.com/Ventusltd/gridatlas/blob/main/atlas/cartridges/202609080430-sld-sandbox-v9-8.js#L7916",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3833 regionalRows",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#2055 union",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · def · 17 lines · shells K0 L0 M7 · valence 1 · spin unpaired · homes globalgrid2",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3822 bindNewspaperV9_5_1",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1533 selfTest",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 57 lines · shells K52 L61 M60 · valence 0 · spin unpaired · homes glo",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Ss(202609042123)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 31 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#1463 installStyles",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1233 recalcAll",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 14 lines · shells K47 L61 M61 · valence 0 · spin paired · homes unnam",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#5490 pair",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · arrow · 38 lines · shells K0 L0 M2 · valence 2 · spin unpaired · homes gridatlas",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1236 updateLegend",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 29 lines · shells K31 L61 M61 · valence 0 · spin paired · homes unnam",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "repo cvaa",
-      "type": "magnetar",
-      "rag": "green",
-      "reason": "from the magnetar star · mass 0 · field 102 · drawn toward globalgrid2050 · 1 starquakes in 60 days",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#4052 globalgrid2050/handle",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 4 lines · globalgrid2050/testcode/202609052011/tool-layers/dismissal.js:",
-      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609052011/tool-layers/dismissal.js#L3",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Si(202609040337)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 67 compounds · 26 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
-    },
-    {
-      "label": "#7851 available",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes solar-e",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#2926 indexed",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · def · 13 lines · shells K0 L34 M26 · valence 1 · spin paired · homes globalgrid2",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1228 normaliseSubstations",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 53 lines · shells K28 L61 M61 · valence 0 · spin paired · homes unnam",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Ss(202609030059)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 58 compounds · 3 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "repo pipelinenews",
+      "label": "repo cable-trench-or-drill",
       "type": "electron",
       "rag": "green",
       "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
@@ -719,196 +991,20 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#4466 words",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#3813 signalForProjectV9_5_1",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#3707 loadCanonicalProjectsV9_1",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#3705 round2",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#3262 startCableRouteMode",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Movement",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#4340 passed",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Ss(202609032041)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 4 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#3801 signalForProjectV9_2",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "D datacentres",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=D"
-    },
-    {
-      "label": "Ri REPD_IDS",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ri"
-    },
-    {
-      "label": "#1240 updateExportCableLengthDisplay",
+      "label": "#1241 updateArrayRotationDisplay",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 6 lines · shells K31 L61 M61 · valence 0 · spin paired · homes unname",
+      "reason": "from the electron star · function · 6 lines · shells K32 L61 M61 · valence 0 · spin paired · homes unname",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#1179 computeStats",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 3 lines · shells K35 L61 M61 · valence 0 · spin paired · homes unname",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3827 renderNews",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K45 L61 M60 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3404 survey",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 35 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3821 loadNewsV9_5_1",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 12 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3793 updateGaugesV9_2",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 20 lines · shells K50 L61 M60 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Vd voltage-drop.js",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Computation",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Vd"
-    },
-    {
-      "label": "repo data-federation-map-for-globalgrid2050-all-repos",
-      "type": "magnetar",
-      "rag": "green",
-      "reason": "from the magnetar star · mass 5 · field 59.1 · drawn toward globalgrid2050 · 0 starquakes in 60 days",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#4305 readJson",
+      "label": "#7050 clamp",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#1469 select",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 23 lines · shells K42 L61 M60 · valence 0 · spin unpaired · homes glo",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#15 testcode/renderStats",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · function · 16 lines · testcode/sandbox/202609051948/layer-apps/solar-bess-topolo",
-      "gh": "https://github.com/Ventusltd/testcode/blob/main/sandbox/202609051948/layer-apps/solar-bess-topology-v7/cable-geometry-visualiser/rendering.js#L24",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Ss(202609030200)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 4 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#3810 refreshProjects",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Si(202609030200)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 68 compounds · 26 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
       "label": "Si(202609051503)",
@@ -919,39 +1015,55 @@
       "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "Si(202609041957)",
+      "label": "substation-intelligence: SyntaxError: Invalid or unexpected token",
       "type": "chemistry",
       "rag": "green",
-      "reason": "from the chemistry star · 67 compounds · 0 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
+      "reason": "from the chemistry star · 1 stars",
+      "gh": "https://github.com/Ventusltd/star-maker/blob/main/stars/00225794c628.json",
+      "ext": "https://github.com/Ventusltd/star-maker/blob/main/stars/00225794c628.json"
     },
     {
-      "label": "#3786 setGaugeUniverseV9_1",
+      "label": "Vn v9-nearest-search.js",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · function · Data",
+      "reason": "from the vedic star · element · Movement",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Vn"
     },
     {
-      "label": "Si(202609020018)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 66 compounds · 26 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
-    },
-    {
-      "label": "#3790 formatLargestV9_2",
+      "label": "repo star-maker",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 3 lines · shells K50 L61 M60 · valence 0 · spin paired · homes global",
+      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Ss(202609030119)",
+      "label": "#1680 presentSummary",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · function · 21 lines · shells K39 L61 M60 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#43 cable-trench-or-drill/onChange",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 1 lines · cable-trench-or-drill/releases/202609052001/solar-bess-topolog",
+      "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/main/releases/202609052001/solar-bess-topology-v7/cable-geometry-visualiser/render-readiness.js#L12",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3265 addCableRouteWaypoint",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Movement",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "Ss(202609032012)",
       "type": "chemistry",
       "rag": "green",
       "reason": "from the chemistry star · 63 compounds · 4 red",
@@ -967,7 +1079,47 @@
       "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
     },
     {
-      "label": "#4313 readJson",
+      "label": "#5440 panel",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#4037 cloneVisiblePrinterUi",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#4320 gitBlob",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 1 lines · shells K57 L58 M60 · valence 0 · spin paired · homes globalgri",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#5490 pair",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 38 lines · shells K0 L0 M2 · valence 2 · spin unpaired · homes gridatlas",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3816 drawNewsV9_5_1",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · function · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+    },
+    {
+      "label": "#10 lookupOD",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -983,15 +1135,39 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#6688 releases",
+      "label": "#6161 item",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · def · 11 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenew",
+      "reason": "from the electron star · function · 4 lines · shells K3 L1 M1 · valence 1 · spin unpaired · homes pipelin",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "#3725 deepFreeze",
+      "label": "#6652 megawatts",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · def · 7 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinenews",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "Ga geo-area.js",
+      "type": "vedic",
+      "rag": "green",
+      "reason": "from the vedic star · element · Computation",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ga"
+    },
+    {
+      "label": "#4052 globalgrid2050/handle",
+      "type": "soul",
+      "rag": "green",
+      "reason": "from the soul star · arrow · 4 lines · globalgrid2050/testcode/202609051940/tool-layers/dismissal.js:",
+      "gh": "https://github.com/Ventusltd/globalgrid2050/blob/main/testcode/202609051940/tool-layers/dismissal.js#L3",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#5885 groupFor",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -999,71 +1175,7 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "Gc geo-core.js",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Computation",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Gc"
-    },
-    {
-      "label": "#3855 drawProjectTable",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 13 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#4312 readText",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Cc connection-capacity.js",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Computation",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Cc"
-    },
-    {
-      "label": "#3807 fetchPayload",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Flow",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Si(202609040047)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 66 compounds · 26 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
-    },
-    {
-      "label": "#3403 scope",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 89 lines · shells K27 L60 M61 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#1532 buildAtlasV9DeepLink",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Movement",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Ss(202609070913)",
+      "label": "Ss(202609080030)",
       "type": "chemistry",
       "rag": "green",
       "reason": "from the chemistry star · 63 compounds · 31 red",
@@ -1071,58 +1183,26 @@
       "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
     },
     {
-      "label": "#1464 sha256Hex",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#6589 nearest_substations",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Gri grid_substations",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · element · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Gri"
-    },
-    {
-      "label": "#5246 finding",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "repo crm",
+      "label": "#3869 updateResultSummary",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
+      "reason": "from the electron star · function · 8 lines · shells K60 L61 M60 · valence 0 · spin paired · homes global",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
     {
-      "label": "Ss(202609040337)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 4 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
-    },
-    {
-      "label": "#3848 renderNews",
+      "label": "#3754 createCanonicalProjectControls",
       "type": "electron",
       "rag": "green",
-      "reason": "from the electron star · function · 9 lines · shells K45 L61 M60 · valence 0 · spin paired · homes global",
+      "reason": "from the electron star · function · 19 lines · shells K30 L61 M60 · valence 0 · spin paired · homes globa",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+    },
+    {
+      "label": "#3810 refreshProjects",
+      "type": "electron",
+      "rag": "green",
+      "reason": "from the electron star · arrow · 1 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globalgri",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
     },
@@ -1135,87 +1215,31 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#980 cells",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Si(202609041945)",
+      "label": "Ss(202609030233)",
       "type": "chemistry",
       "rag": "green",
-      "reason": "from the chemistry star · 67 compounds · 0 red",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
-    },
-    {
-      "label": "#1220 initMap",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#3366 rowObject",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "repo solar-electrical-topology-analysis-engine-text-based",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · holds no copy of the souls it bonds with — every bond is a tunnel",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#6 getInputs",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "Ss(202609072329)",
-      "type": "chemistry",
-      "rag": "green",
-      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "reason": "from the chemistry star · 63 compounds · 4 red",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
       "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
     },
     {
-      "label": "#1817 doRadiusAreaMeasure",
+      "label": "Ss(202609012155)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 3 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "G4 grid_400kv",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · function · Computation",
+      "reason": "from the vedic star · element · Data",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
+      "ext": "https://ventusltd.github.io/stars/table.html?block=G4"
     },
     {
-      "label": "#3789 formatCapacityV9_2",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K50 L61 M60 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3811 canonicalItem",
-      "type": "electron",
-      "rag": "green",
-      "reason": "from the electron star · function · 7 lines · shells K30 L61 M60 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "Si(202609032005)",
+      "label": "Si(202609032001)",
       "type": "chemistry",
       "rag": "green",
       "reason": "from the chemistry star · 68 compounds · 26 red",
@@ -1223,7 +1247,7 @@
       "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "#537 query",
+      "label": "#5096 classified",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Data",
@@ -1231,23 +1255,31 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3812 indexNewsItems",
-      "type": "electron",
+      "label": "Si(202609050244)",
+      "type": "chemistry",
       "rag": "green",
-      "reason": "from the electron star · function · 13 lines · shells K60 L61 M60 · valence 0 · spin paired · homes globa",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the chemistry star · 65 compounds · 0 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Si"
     },
     {
-      "label": "Rp REPD_PAGE",
+      "label": "Ss(202609072337)",
+      "type": "chemistry",
+      "rag": "green",
+      "reason": "from the chemistry star · 63 compounds · 31 red",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CHEMISTRY.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=Ss"
+    },
+    {
+      "label": "#3818 payloadTime",
       "type": "vedic",
       "rag": "green",
-      "reason": "from the vedic star · element · Data",
+      "reason": "from the vedic star · function · Data",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://ventusltd.github.io/stars/table.html?block=Rp"
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#3709 fetchRelease",
+      "label": "#3360 sharedDuckDBRuntime",
       "type": "vedic",
       "rag": "green",
       "reason": "from the vedic star · function · Flow",
@@ -1255,20 +1287,20 @@
       "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
-      "label": "#5889 authority",
-      "type": "electron",
+      "label": "G1 grid_132kv",
+      "type": "vedic",
       "rag": "green",
-      "reason": "from the electron star · arrow · 4 lines · shells K0 L0 M1 · valence 1 · spin unpaired · homes pipelinene",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the vedic star · element · Data",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://ventusltd.github.io/stars/table.html?block=G1"
     },
     {
-      "label": "#3405 ready",
-      "type": "electron",
+      "label": "Data",
+      "type": "vedic",
       "rag": "green",
-      "reason": "from the electron star · function · 6 lines · shells K27 L60 M61 · valence 0 · spin paired · homes global",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
+      "reason": "from the vedic star · data at rest: layers, files, substations, circuits · 443 forms",
+      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
+      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     },
     {
       "label": "Sp streaming-parquet-bridge",
@@ -1277,932 +1309,908 @@
       "reason": "from the vedic star · element · Flow",
       "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
       "ext": "https://ventusltd.github.io/stars/table.html?block=Sp"
-    },
-    {
-      "label": "#43 cable-trench-or-drill/onChange",
-      "type": "soul",
-      "rag": "green",
-      "reason": "from the soul star · arrow · 1 lines · cable-trench-or-drill/releases/202609052001/solar-bess-topolog",
-      "gh": "https://github.com/Ventusltd/cable-trench-or-drill/blob/main/releases/202609052001/solar-bess-topology-v7/cable-geometry-visualiser/render-readiness.js#L12",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/RANDOM.md"
-    },
-    {
-      "label": "#3804 renderNews",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
-    },
-    {
-      "label": "#401 head_sha",
-      "type": "vedic",
-      "rag": "green",
-      "reason": "from the vedic star · function · Data",
-      "gh": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md",
-      "ext": "https://github.com/Ventusltd/stars/blob/main/reports/CLASSIFICATION.md"
     }
   ],
   "edges": [
     {
       "from": "#2141 scripts",
-      "to": "#411 cartridges",
+      "to": "#4305 readJson",
       "kind": "COULD_REPLACE",
-      "p": 0.117
-    },
-    {
-      "from": "#1567 select",
-      "to": "#2141 scripts",
-      "kind": "RHYMES_WITH",
-      "p": 0.581
-    },
-    {
-      "from": "#4538 nearest",
-      "to": "Ss(202609051540)",
-      "kind": "REMINDS_OF",
-      "p": 0.974
-    },
-    {
-      "from": "#8341 blocks",
-      "to": "#3384 testcode/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.786
-    },
-    {
-      "from": "#4538 nearest",
-      "to": "#1683 declineExport",
-      "kind": "COULD_REPLACE",
-      "p": 0.342
-    },
-    {
-      "from": "#4674 encode",
-      "to": "#1524 pipelinenews/promise",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.169
-    },
-    {
-      "from": "#3384 globalgrid2050/promise",
-      "to": "#21 drawBend",
-      "kind": "COULD_REPLACE",
-      "p": 0.466
-    },
-    {
-      "from": "Data",
-      "to": "#3406 provisional",
-      "kind": "WHAT_IF",
-      "p": 0.291
-    },
-    {
-      "from": "#8351 assess",
-      "to": "repo data-gridatlas",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.443
-    },
-    {
-      "from": "#4364 schedule",
-      "to": "#3384 testcode/promise",
-      "kind": "COULD_REPLACE",
-      "p": 0.747
-    },
-    {
-      "from": "#4364 schedule",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "REMINDS_OF",
-      "p": 0.548
-    },
-    {
-      "from": "#3820 renderNews",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "COULD_REPLACE",
-      "p": 0.995
-    },
-    {
-      "from": "Ss(202609012317)",
-      "to": "#4 normaliseBurialDepthFieldOnBlur",
-      "kind": "REMINDS_OF",
-      "p": 0.096
-    },
-    {
-      "from": "#3402 classOf",
-      "to": "#8445 distance",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.949
-    },
-    {
-      "from": "#3610 testcode/onChange",
-      "to": "Si(202609032222)",
-      "kind": "COULD_REPLACE",
-      "p": 0.74
-    },
-    {
-      "from": "#3610 testcode/onChange",
-      "to": "#3360 sharedDuckDBRuntime",
-      "kind": "RHYMES_WITH",
-      "p": 0.642
-    },
-    {
-      "from": "#5726 counts",
-      "to": "At ALLOWED_TECHNOLOGIES",
-      "kind": "REMINDS_OF",
-      "p": 0.73
-    },
-    {
-      "from": "#4568 outcome",
-      "to": "#1680 presentSummary",
-      "kind": "RHYMES_WITH",
-      "p": 0.573
-    },
-    {
-      "from": "#3610 globalgrid2050/onChange",
-      "to": "#3787 updateGaugesV9_1",
-      "kind": "WHAT_IF",
-      "p": 0.919
-    },
-    {
-      "from": "Si(202609032246)",
-      "to": "#3384 testcode/promise",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.5
-    },
-    {
-      "from": "#3823 canonicalItem",
-      "to": "Ss(202609012317)",
-      "kind": "RHYMES_WITH",
-      "p": 0.512
-    },
-    {
-      "from": "#1524 globalgrid2050/promise",
-      "to": "#1175 getCentralInverterDcMwdc",
-      "kind": "COULD_REPLACE",
-      "p": 0.153
-    },
-    {
-      "from": "Si(202609031751)",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "COULD_REPLACE",
-      "p": 0.901
-    },
-    {
-      "from": "#3824 signalForProjectV9_5",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.36
-    },
-    {
-      "from": "Si(202609032012)",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "RHYMES_WITH",
-      "p": 0.597
-    },
-    {
-      "from": "#3869 updateResultSummary",
-      "to": "#1219 toggleAtlasV8GridLayer",
-      "kind": "RHYMES_WITH",
-      "p": 0.858
-    },
-    {
-      "from": "#4037 cloneVisiblePrinterUi",
-      "to": "#1231 renderBenchmark",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.113
-    },
-    {
-      "from": "#3384 gridatlas/promise",
-      "to": "#5403 nativeFetch",
-      "kind": "WHAT_IF",
-      "p": 0.468
-    },
-    {
-      "from": "#6652 megawatts",
-      "to": "#3384 testcode/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.055
-    },
-    {
-      "from": "#4093 dispose",
-      "to": "Ss(202609080850)",
-      "kind": "REMINDS_OF",
-      "p": 0.751
-    },
-    {
-      "from": "#3754 createCanonicalProjectControls",
-      "to": "#4568 outcome",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.582
-    },
-    {
-      "from": "#4035 assertStableGeometry",
-      "to": "#352 sweep",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.121
-    },
-    {
-      "from": "Pf published-fault-level.js",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.655
-    },
-    {
-      "from": "#1231 renderBenchmark",
-      "to": "#15 globalgrid2050/renderStats",
-      "kind": "COULD_REPLACE",
-      "p": 0.291
-    },
-    {
-      "from": "#30 cable-trench-or-drill/debounce",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.954
+      "p": 0.413
     },
     {
       "from": "#8493 auditProjectRows",
-      "to": "#1497 setButtonState",
-      "kind": "RHYMES_WITH",
-      "p": 0.105
-    },
-    {
-      "from": "#3384 globalgrid2050/promise",
-      "to": "#1793 _zoneDrawCalcArea",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.198
-    },
-    {
-      "from": "#1524 pipelinenews/promise",
-      "to": "#1535 invariant",
-      "kind": "RHYMES_WITH",
-      "p": 0.226
-    },
-    {
-      "from": "#1476 invariant",
-      "to": "#8471 edit",
-      "kind": "WHAT_IF",
-      "p": 0.077
-    },
-    {
-      "from": "repo gb-electricity-ui",
-      "to": "#15 globalgrid2050/renderStats",
-      "kind": "WHAT_IF",
-      "p": 0.458
-    },
-    {
-      "from": "#4281 layoutSnapshot",
-      "to": "#8391 buildNavigationRegistry",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.293
-    },
-    {
-      "from": "#2966 composition",
-      "to": "#4034 captureGeometry",
-      "kind": "COULD_REPLACE",
-      "p": 0.924
-    },
-    {
-      "from": "repo gridmachine1",
-      "to": "#3829 fetchPayload",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.984
-    },
-    {
-      "from": "#1524 pipelinenews/promise",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "REMINDS_OF",
-      "p": 0.989
-    },
-    {
-      "from": "#3406 provisional",
-      "to": "Ss(202609032315)",
-      "kind": "REMINDS_OF",
-      "p": 0.219
-    },
-    {
-      "from": "#1686 carried",
-      "to": "#3384 testcode/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.516
-    },
-    {
-      "from": "#411 cartridges",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.797
-    },
-    {
-      "from": "#3408 nearestTransmission",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "WHAT_IF",
-      "p": 0.292
-    },
-    {
-      "from": "#3573 published",
-      "to": "#1724 centroid",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.757
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#3610 gridatlas/onChange",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.528
-    },
-    {
-      "from": "#3833 regionalRows",
       "to": "#1524 globalgrid2050/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.113
-    },
-    {
-      "from": "#2055 union",
-      "to": "#3822 bindNewspaperV9_5_1",
-      "kind": "WHAT_IF",
-      "p": 0.802
-    },
-    {
-      "from": "#1533 selfTest",
-      "to": "Ss(202609042123)",
       "kind": "MIGHT_TOUCH",
-      "p": 0.625
-    },
-    {
-      "from": "#1463 installStyles",
-      "to": "#3610 gridatlas/onChange",
-      "kind": "COULD_REPLACE",
-      "p": 0.336
-    },
-    {
-      "from": "#1233 recalcAll",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "WHAT_IF",
-      "p": 0.906
-    },
-    {
-      "from": "#3610 gridatlas/onChange",
-      "to": "#5490 pair",
-      "kind": "WHAT_IF",
-      "p": 0.974
-    },
-    {
-      "from": "#1236 updateLegend",
-      "to": "#4568 outcome",
-      "kind": "WHAT_IF",
-      "p": 0.32
-    },
-    {
-      "from": "repo cvaa",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.733
-    },
-    {
-      "from": "#4052 globalgrid2050/handle",
-      "to": "#1219 toggleAtlasV8GridLayer",
-      "kind": "WHAT_IF",
-      "p": 0.028
-    },
-    {
-      "from": "#3610 testcode/onChange",
-      "to": "#4037 cloneVisiblePrinterUi",
-      "kind": "REMINDS_OF",
-      "p": 0.644
-    },
-    {
-      "from": "Si(202609040337)",
-      "to": "#7851 available",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.525
-    },
-    {
-      "from": "#2926 indexed",
-      "to": "#1228 normaliseSubstations",
-      "kind": "WHAT_IF",
-      "p": 0.884
-    },
-    {
-      "from": "Ss(202609030059)",
-      "to": "#3610 testcode/onChange",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.947
-    },
-    {
-      "from": "#1793 _zoneDrawCalcArea",
-      "to": "repo pipelinenews",
-      "kind": "WHAT_IF",
-      "p": 0.813
-    },
-    {
-      "from": "#4466 words",
-      "to": "#3813 signalForProjectV9_5_1",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.366
-    },
-    {
-      "from": "#3573 published",
-      "to": "#3707 loadCanonicalProjectsV9_1",
-      "kind": "RHYMES_WITH",
-      "p": 0.318
-    },
-    {
-      "from": "#3705 round2",
-      "to": "#3262 startCableRouteMode",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.201
-    },
-    {
-      "from": "#3610 gridatlas/onChange",
-      "to": "#4340 passed",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.145
-    },
-    {
-      "from": "Ss(202609032041)",
-      "to": "#3801 signalForProjectV9_2",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.836
-    },
-    {
-      "from": "#1231 renderBenchmark",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "WHAT_IF",
-      "p": 0.451
-    },
-    {
-      "from": "D datacentres",
-      "to": "#3787 updateGaugesV9_1",
-      "kind": "WHAT_IF",
-      "p": 0.592
-    },
-    {
-      "from": "#15 globalgrid2050/renderStats",
-      "to": "Ri REPD_IDS",
-      "kind": "RHYMES_WITH",
-      "p": 0.7
-    },
-    {
-      "from": "#2141 scripts",
-      "to": "#1240 updateExportCableLengthDisplay",
-      "kind": "REMINDS_OF",
-      "p": 0.451
-    },
-    {
-      "from": "#1179 computeStats",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "REMINDS_OF",
-      "p": 0.157
-    },
-    {
-      "from": "#3827 renderNews",
-      "to": "#3404 survey",
-      "kind": "WHAT_IF",
-      "p": 0.991
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#3384 testcode/promise",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.403
+      "p": 0.329
     },
     {
       "from": "#3821 loadNewsV9_5_1",
-      "to": "#4052 globalgrid2050/handle",
-      "kind": "WHAT_IF",
-      "p": 0.005
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.962
     },
     {
-      "from": "#3384 gridatlas/promise",
-      "to": "#3793 updateGaugesV9_2",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.404
-    },
-    {
-      "from": "Vd voltage-drop.js",
+      "from": "#1524 pipelinenews/promise",
       "to": "#3384 testcode/promise",
       "kind": "RHYMES_WITH",
-      "p": 0.095
+      "p": 0.671
     },
     {
-      "from": "#3384 testcode/promise",
-      "to": "#1683 declineExport",
-      "kind": "RHYMES_WITH",
-      "p": 0.008
-    },
-    {
-      "from": "#3384 globalgrid2050/promise",
-      "to": "#4052 globalgrid2050/handle",
-      "kind": "COULD_REPLACE",
-      "p": 0.39
-    },
-    {
-      "from": "repo data-federation-map-for-globalgrid2050-all-repos",
-      "to": "#15 globalgrid2050/renderStats",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.452
-    },
-    {
-      "from": "#3824 signalForProjectV9_5",
-      "to": "#3610 testcode/onChange",
-      "kind": "RHYMES_WITH",
-      "p": 0.043
-    },
-    {
-      "from": "#3610 gridatlas/onChange",
-      "to": "#3610 gridatlas/onChange",
+      "from": "#3573 published",
+      "to": "#1524 globalgrid2050/promise",
       "kind": "REMINDS_OF",
-      "p": 0.079
+      "p": 0.196
     },
     {
-      "from": "repo gridmachine1",
-      "to": "#3404 survey",
-      "kind": "RHYMES_WITH",
-      "p": 0.277
-    },
-    {
-      "from": "#1524 globalgrid2050/promise",
-      "to": "Ss(202609051540)",
+      "from": "#2141 scripts",
+      "to": "repo testcode",
       "kind": "REMINDS_OF",
-      "p": 0.828
-    },
-    {
-      "from": "#4305 readJson",
-      "to": "#3610 gridatlas/onChange",
-      "kind": "RHYMES_WITH",
-      "p": 0.803
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#1469 select",
-      "kind": "ENTANGLED_MAYBE",
       "p": 0.097
     },
     {
-      "from": "#15 testcode/renderStats",
-      "to": "#3610 testcode/onChange",
+      "from": "#5439 title",
+      "to": "#3384 testcode/promise",
       "kind": "ENTANGLED_MAYBE",
-      "p": 0.189
+      "p": 0.826
+    },
+    {
+      "from": "#1469 select",
+      "to": "#3800 signalLabel",
+      "kind": "COULD_REPLACE",
+      "p": 0.096
+    },
+    {
+      "from": "#3812 indexNewsItems",
+      "to": "Ug",
+      "kind": "COULD_REPLACE",
+      "p": 0.463
+    },
+    {
+      "from": "#3384 testcode/promise",
+      "to": "#352 sweep",
+      "kind": "COULD_REPLACE",
+      "p": 0.294
+    },
+    {
+      "from": "#3978 click",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.96
+    },
+    {
+      "from": "#352 sweep",
+      "to": "#1683 declineExport",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.088
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "#4034 captureGeometry",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.304
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "Ss",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.581
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "Si(202609040219)",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.42
+    },
+    {
+      "from": "#3384 testcode/promise",
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "REMINDS_OF",
+      "p": 0.16
+    },
+    {
+      "from": "#3801 signalForProjectV9_2",
+      "to": "#3804 renderNews",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.749
+    },
+    {
+      "from": "#20 drawTrench",
+      "to": "Si(202609032222)",
+      "kind": "REMINDS_OF",
+      "p": 0.18
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.949
+    },
+    {
+      "from": "#3799 indexNewsItems",
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.614
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "Ss(202609030200)",
+      "kind": "COULD_REPLACE",
+      "p": 0.442
+    },
+    {
+      "from": "#3402 classOf",
+      "to": "#1219 toggleAtlasV8GridLayer",
+      "kind": "COULD_REPLACE",
+      "p": 0.515
+    },
+    {
+      "from": "#6554 centre",
+      "to": "#3384 gridatlas/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.336
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#4843 envelope",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.711
+    },
+    {
+      "from": "Mr MAX_RESOURCES",
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "WHAT_IF",
+      "p": 0.211
+    },
+    {
+      "from": "#5372 measured",
+      "to": "Si substation-intelligence",
+      "kind": "WHAT_IF",
+      "p": 0.845
+    },
+    {
+      "from": "#3384 gridatlas/promise",
+      "to": "#15 globalgrid2050/renderStats",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.839
+    },
+    {
+      "from": "Ss(202609030128)",
+      "to": "Si(202609050249)",
+      "kind": "WHAT_IF",
+      "p": 0.614
+    },
+    {
+      "from": "Ss(202609080000)",
+      "to": "repo unnamed-01",
+      "kind": "RHYMES_WITH",
+      "p": 0.087
     },
     {
       "from": "#3610 gridatlas/onChange",
-      "to": "Ss(202609030200)",
+      "to": "Ss(202609031809)",
+      "kind": "WHAT_IF",
+      "p": 0.558
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "#3610 gridatlas/onChange",
+      "kind": "RHYMES_WITH",
+      "p": 0.461
+    },
+    {
+      "from": "#30 cable-trench-or-drill/debounce",
+      "to": "#4272 preparePage",
+      "kind": "REMINDS_OF",
+      "p": 0.045
+    },
+    {
+      "from": "#4281 layoutSnapshot",
+      "to": "repo spiders",
+      "kind": "RHYMES_WITH",
+      "p": 0.192
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "Ss(202609050244)",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.042
+    },
+    {
+      "from": "#1206 setFetchStatus",
+      "to": "#3366 rowObject",
+      "kind": "REMINDS_OF",
+      "p": 0.426
+    },
+    {
+      "from": "#3824 signalForProjectV9_5",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.258
+    },
+    {
+      "from": "#3263 finishCableRouteMode",
+      "to": "#4843 envelope",
+      "kind": "WHAT_IF",
+      "p": 0.175
+    },
+    {
+      "from": "#14 renderIssues",
+      "to": "#3384 testcode/promise",
+      "kind": "WHAT_IF",
+      "p": 0.946
+    },
+    {
+      "from": "#3415 applyMountingBifacial",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.386
+    },
+    {
+      "from": "#15 testcode/renderStats",
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "REMINDS_OF",
+      "p": 0.031
+    },
+    {
+      "from": "#1231 renderBenchmark",
+      "to": "#6 getInputs",
+      "kind": "WHAT_IF",
+      "p": 0.351
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#5403 nativeFetch",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.3
+    },
+    {
+      "from": "#3404 survey",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.332
+    },
+    {
+      "from": "#6 getInputs",
+      "to": "#2138 files",
+      "kind": "REMINDS_OF",
+      "p": 0.877
+    },
+    {
+      "from": "#1200 renderFinance",
+      "to": "G2 grid_220kv",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.501
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.389
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "Si(202609051522)",
+      "kind": "COULD_REPLACE",
+      "p": 0.237
+    },
+    {
+      "from": "#1236 updateLegend",
+      "to": "Si(202609051455)",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.75
+    },
+    {
+      "from": "#3824 signalForProjectV9_5",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.629
+    },
+    {
+      "from": "#15 globalgrid2050/renderStats",
+      "to": "#8297 header",
+      "kind": "COULD_REPLACE",
+      "p": 0.559
+    },
+    {
+      "from": "#1209 intVal",
+      "to": "Ss(202609012211)",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.455
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "Structure",
+      "kind": "WHAT_IF",
+      "p": 0.626
+    },
+    {
+      "from": "Ss(202609072329)",
+      "to": "Ss(202609030119)",
+      "kind": "RHYMES_WITH",
+      "p": 0.037
+    },
+    {
+      "from": "#6588 nearest_segment",
+      "to": "Si(202609051616)",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.106
+    },
+    {
+      "from": "#3616 cleanText",
+      "to": "#411 cartridges",
+      "kind": "REMINDS_OF",
+      "p": 0.14
+    },
+    {
+      "from": "#4315 readText",
+      "to": "#5214 grab",
+      "kind": "RHYMES_WITH",
+      "p": 1
+    },
+    {
+      "from": "#1666 bindWiderFleet",
+      "to": "#3610 globalgrid2050/onChange",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.548
+    },
+    {
+      "from": "#3384 testcode/promise",
+      "to": "#1792 _zoneDrawCirclePoints",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.426
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#3786 setGaugeUniverseV9_1",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.048
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "#3610 testcode/onChange",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.767
+    },
+    {
+      "from": "#3787 updateGaugesV9_1",
+      "to": "#1535 invariant",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.775
+    },
+    {
+      "from": "#3571 network",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "WHAT_IF",
+      "p": 0.839
+    },
+    {
+      "from": "Si(202609051526)",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.902
+    },
+    {
+      "from": "Si(202609051529)",
+      "to": "#6974 log_message",
+      "kind": "WHAT_IF",
+      "p": 0.555
+    },
+    {
+      "from": "#3610 gridatlas/onChange",
+      "to": "repo data-gridatlas",
       "kind": "WHAT_IF",
       "p": 0.708
     },
     {
-      "from": "#3820 renderNews",
-      "to": "#15 testcode/renderStats",
-      "kind": "WHAT_IF",
-      "p": 0.321
-    },
-    {
-      "from": "#3810 refreshProjects",
-      "to": "#1228 normaliseSubstations",
-      "kind": "WHAT_IF",
-      "p": 0.639
-    },
-    {
-      "from": "Si(202609030200)",
-      "to": "#1476 invariant",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.902
-    },
-    {
-      "from": "#1240 updateExportCableLengthDisplay",
-      "to": "#8341 blocks",
-      "kind": "COULD_REPLACE",
-      "p": 0.805
-    },
-    {
-      "from": "Si(202609051503)",
-      "to": "#3408 nearestTransmission",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.19
-    },
-    {
-      "from": "Si(202609041957)",
-      "to": "#3786 setGaugeUniverseV9_1",
-      "kind": "COULD_REPLACE",
-      "p": 0.97
-    },
-    {
-      "from": "Si(202609020018)",
-      "to": "#3790 formatLargestV9_2",
-      "kind": "REMINDS_OF",
-      "p": 0.96
-    },
-    {
-      "from": "#3610 globalgrid2050/onChange",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.62
-    },
-    {
-      "from": "#1228 normaliseSubstations",
-      "to": "#5403 nativeFetch",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.78
-    },
-    {
-      "from": "Ss(202609030200)",
-      "to": "#15 globalgrid2050/renderStats",
-      "kind": "REMINDS_OF",
-      "p": 0.304
-    },
-    {
-      "from": "Ss(202609030119)",
-      "to": "Ss(202609032222)",
-      "kind": "RHYMES_WITH",
-      "p": 0.723
-    },
-    {
-      "from": "#4313 readJson",
-      "to": "#3610 globalgrid2050/onChange",
-      "kind": "WHAT_IF",
-      "p": 0.012
-    },
-    {
-      "from": "#4316 readJson",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "RHYMES_WITH",
-      "p": 0.491
-    },
-    {
-      "from": "#6688 releases",
-      "to": "#3725 deepFreeze",
-      "kind": "REMINDS_OF",
-      "p": 0.176
-    },
-    {
-      "from": "#3786 setGaugeUniverseV9_1",
-      "to": "Gc geo-core.js",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.406
-    },
-    {
-      "from": "#3855 drawProjectTable",
-      "to": "#3384 testcode/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.064
-    },
-    {
-      "from": "#8341 blocks",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "RHYMES_WITH",
-      "p": 0.416
-    },
-    {
-      "from": "#21 drawBend",
-      "to": "#3384 globalgrid2050/promise",
-      "kind": "RHYMES_WITH",
-      "p": 0.815
-    },
-    {
-      "from": "#4312 readText",
-      "to": "#1524 globalgrid2050/promise",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.821
-    },
-    {
-      "from": "#1793 _zoneDrawCalcArea",
-      "to": "Cc connection-capacity.js",
-      "kind": "COULD_REPLACE",
-      "p": 0.041
-    },
-    {
-      "from": "#3807 fetchPayload",
-      "to": "#4364 schedule",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.026
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#1533 selfTest",
-      "kind": "WHAT_IF",
-      "p": 0.488
-    },
-    {
-      "from": "#1524 pipelinenews/promise",
-      "to": "#3384 gridatlas/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.833
-    },
-    {
-      "from": "#3823 canonicalItem",
-      "to": "Si(202609040047)",
-      "kind": "WHAT_IF",
-      "p": 0.69
-    },
-    {
-      "from": "#1524 globalgrid2050/promise",
-      "to": "#3403 scope",
-      "kind": "COULD_REPLACE",
-      "p": 0.891
-    },
-    {
-      "from": "#3384 globalgrid2050/promise",
-      "to": "#3384 testcode/promise",
-      "kind": "WHAT_IF",
-      "p": 0.047
-    },
-    {
-      "from": "#1532 buildAtlasV9DeepLink",
-      "to": "#3384 testcode/promise",
-      "kind": "RHYMES_WITH",
-      "p": 0.706
-    },
-    {
-      "from": "#3384 globalgrid2050/promise",
-      "to": "Ss(202609070913)",
-      "kind": "REMINDS_OF",
-      "p": 0.23
-    },
-    {
-      "from": "#1524 pipelinenews/promise",
-      "to": "#1464 sha256Hex",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.978
-    },
-    {
-      "from": "#6589 nearest_substations",
-      "to": "Gri grid_substations",
-      "kind": "REMINDS_OF",
-      "p": 0.355
-    },
-    {
-      "from": "#4052 globalgrid2050/handle",
-      "to": "Si(202609041957)",
-      "kind": "WHAT_IF",
-      "p": 0.404
-    },
-    {
-      "from": "#5246 finding",
-      "to": "#1233 recalcAll",
-      "kind": "REMINDS_OF",
-      "p": 0.386
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#1497 setButtonState",
-      "kind": "REMINDS_OF",
-      "p": 0.727
-    },
-    {
-      "from": "Ss(202609070913)",
-      "to": "repo crm",
-      "kind": "ENTANGLED_MAYBE",
-      "p": 0.477
-    },
-    {
-      "from": "Ss(202609040337)",
-      "to": "#3848 renderNews",
-      "kind": "RHYMES_WITH",
-      "p": 0.168
-    },
-    {
-      "from": "#1524 globalgrid2050/promise",
-      "to": "#190 replay",
-      "kind": "COULD_REPLACE",
-      "p": 0.771
-    },
-    {
-      "from": "#980 cells",
-      "to": "Si(202609041945)",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.939
-    },
-    {
-      "from": "#15 globalgrid2050/renderStats",
-      "to": "#1220 initMap",
-      "kind": "COULD_REPLACE",
-      "p": 0.663
-    },
-    {
       "from": "#15 testcode/renderStats",
-      "to": "#1524 pipelinenews/promise",
-      "kind": "REMINDS_OF",
-      "p": 0.672
+      "to": "#5909 projects",
+      "kind": "COULD_REPLACE",
+      "p": 0.502
     },
     {
-      "from": "#3366 rowObject",
-      "to": "repo solar-electrical-topology-analysis-engine-text-based",
+      "from": "#6974 log_message",
+      "to": "#3748 hasValidatedModel",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.508
+    },
+    {
+      "from": "#4711 waitForResolvedIdentity",
+      "to": "#7851 available",
       "kind": "REMINDS_OF",
-      "p": 0.333
+      "p": 0.991
     },
     {
       "from": "#3384 testcode/promise",
-      "to": "#6 getInputs",
-      "kind": "REMINDS_OF",
-      "p": 0.069
+      "to": "#5246 finding",
+      "kind": "WHAT_IF",
+      "p": 0.818
     },
     {
-      "from": "Ss(202609072329)",
-      "to": "#4364 schedule",
-      "kind": "WHAT_IF",
-      "p": 0.739
+      "from": "Si(202609041221)",
+      "to": "Ss(202609080846)",
+      "kind": "COULD_REPLACE",
+      "p": 0.865
     },
     {
-      "from": "#3610 testcode/onChange",
-      "to": "#1817 doRadiusAreaMeasure",
-      "kind": "WHAT_IF",
+      "from": "#1504 csvCell",
+      "to": "#3384 testcode/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.686
+    },
+    {
+      "from": "#1535 invariant",
+      "to": "#3734 fetchJson",
+      "kind": "COULD_REPLACE",
+      "p": 0.938
+    },
+    {
+      "from": "#19 drawFormation",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "COULD_REPLACE",
       "p": 0.717
     },
     {
-      "from": "#3789 formatCapacityV9_2",
-      "to": "#3811 canonicalItem",
+      "from": "#1793 _zoneDrawCalcArea",
+      "to": "repo teleprinter",
+      "kind": "COULD_REPLACE",
+      "p": 0.33
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#3800 signalLabel",
       "kind": "ENTANGLED_MAYBE",
-      "p": 0.576
+      "p": 0.782
     },
     {
-      "from": "#4305 readJson",
-      "to": "#15 globalgrid2050/renderStats",
+      "from": "#15 testcode/renderStats",
+      "to": "#3411 consistency",
+      "kind": "REMINDS_OF",
+      "p": 0.938
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#1524 globalgrid2050/promise",
       "kind": "COULD_REPLACE",
-      "p": 0.838
+      "p": 0.089
     },
     {
-      "from": "repo pipelinenews",
-      "to": "#1724 centroid",
+      "from": "Si(202609032246)",
+      "to": "#3748 hasValidatedModel",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.064
+    },
+    {
+      "from": "#3610 gridatlas/onChange",
+      "to": "#6688 releases",
+      "kind": "RHYMES_WITH",
+      "p": 0.056
+    },
+    {
+      "from": "#4282 assertContained",
+      "to": "#3610 gridatlas/onChange",
       "kind": "COULD_REPLACE",
-      "p": 0.992
+      "p": 0.44
     },
     {
-      "from": "Si(202609032005)",
-      "to": "#537 query",
-      "kind": "COULD_REPLACE",
-      "p": 0.755
+      "from": "#3412 stringStats",
+      "to": "#8552 compute",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.394
     },
     {
-      "from": "#3610 globalgrid2050/onChange",
-      "to": "#3812 indexNewsItems",
-      "kind": "WHAT_IF",
-      "p": 0.2
+      "from": "#3610 gridatlas/onChange",
+      "to": "repo gpu-drivers-for-global-grid",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.782
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#14 renderIssues",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.349
     },
     {
       "from": "#1524 pipelinenews/promise",
-      "to": "#3610 testcode/onChange",
-      "kind": "MIGHT_TOUCH",
-      "p": 0.278
+      "to": "#1524 pipelinenews/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.27
+    },
+    {
+      "from": "#6743 cartridge",
+      "to": "Si(202609040058)",
+      "kind": "WHAT_IF",
+      "p": 0.413
+    },
+    {
+      "from": "#1201 renderFinanceWarnings",
+      "to": "#8552 compute",
+      "kind": "REMINDS_OF",
+      "p": 0.704
+    },
+    {
+      "from": "#1236 updateLegend",
+      "to": "#6688 releases",
+      "kind": "COULD_REPLACE",
+      "p": 0.44
+    },
+    {
+      "from": "#6743 cartridge",
+      "to": "Ss(202609080000)",
+      "kind": "WHAT_IF",
+      "p": 0.026
+    },
+    {
+      "from": "Gg geo-geojson.js",
+      "to": "#3838 queryMatches",
+      "kind": "WHAT_IF",
+      "p": 0.644
+    },
+    {
+      "from": "Si(202609040047)",
+      "to": "#8579 drawLegend",
+      "kind": "COULD_REPLACE",
+      "p": 0.026
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#15 testcode/renderStats",
+      "kind": "COULD_REPLACE",
+      "p": 0.452
     },
     {
       "from": "#3384 testcode/promise",
       "to": "#3610 gridatlas/onChange",
+      "kind": "COULD_REPLACE",
+      "p": 0.515
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#766 geometry",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.577
+    },
+    {
+      "from": "repo claude",
+      "to": "Dt deeplink (the MAP button)",
+      "kind": "COULD_REPLACE",
+      "p": 0.49
+    },
+    {
+      "from": "#3573 published",
+      "to": "repo claude",
+      "kind": "WHAT_IF",
+      "p": 0.812
+    },
+    {
+      "from": "#3880 repdUpdatedTimestamp",
+      "to": "#3384 testcode/promise",
+      "kind": "REMINDS_OF",
+      "p": 0.041
+    },
+    {
+      "from": "#1529 invariant",
+      "to": "#3384 testcode/promise",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.381
+    },
+    {
+      "from": "#6554 centre",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "WHAT_IF",
+      "p": 0.104
+    },
+    {
+      "from": "#5889 authority",
+      "to": "#4364 schedule",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.74
+    },
+    {
+      "from": "#3839 regionalRows",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.393
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "#3384 testcode/promise",
       "kind": "RHYMES_WITH",
-      "p": 0.286
+      "p": 0.973
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "repo cable-trench-or-drill",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.928
     },
     {
       "from": "#3384 testcode/promise",
-      "to": "Rp REPD_PAGE",
+      "to": "#1241 updateArrayRotationDisplay",
+      "kind": "RHYMES_WITH",
+      "p": 0.333
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#7050 clamp",
+      "kind": "RHYMES_WITH",
+      "p": 0.483
+    },
+    {
+      "from": "Si(202609051503)",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.079
+    },
+    {
+      "from": "substation-intelligence: SyntaxError: Invalid or unexpected token",
+      "to": "Vn v9-nearest-search.js",
       "kind": "ENTANGLED_MAYBE",
+      "p": 0.01
+    },
+    {
+      "from": "#14 renderIssues",
+      "to": "repo unnamed-01",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.751
+    },
+    {
+      "from": "repo star-maker",
+      "to": "#3412 stringStats",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.458
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "COULD_REPLACE",
+      "p": 0.676
+    },
+    {
+      "from": "#1680 presentSummary",
+      "to": "#43 cable-trench-or-drill/onChange",
+      "kind": "REMINDS_OF",
       "p": 0.281
     },
     {
-      "from": "#4037 cloneVisiblePrinterUi",
-      "to": "#3709 fetchRelease",
-      "kind": "COULD_REPLACE",
-      "p": 0.004
+      "from": "#1231 renderBenchmark",
+      "to": "#3265 addCableRouteWaypoint",
+      "kind": "REMINDS_OF",
+      "p": 0.088
+    },
+    {
+      "from": "Ss(202609032012)",
+      "to": "#3610 gridatlas/onChange",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.314
     },
     {
       "from": "Ss(202609032222)",
-      "to": "#5889 authority",
-      "kind": "WHAT_IF",
-      "p": 0.503
+      "to": "#3384 testcode/promise",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.879
     },
     {
-      "from": "repo crm",
-      "to": "#3405 ready",
-      "kind": "WHAT_IF",
-      "p": 0.712
-    },
-    {
-      "from": "#3366 rowObject",
-      "to": "Sp streaming-parquet-bridge",
-      "kind": "REMINDS_OF",
-      "p": 0.287
-    },
-    {
-      "from": "#43 cable-trench-or-drill/onChange",
-      "to": "#3787 updateGaugesV9_1",
-      "kind": "WHAT_IF",
-      "p": 0.304
-    },
-    {
-      "from": "#1179 computeStats",
-      "to": "#2141 scripts",
-      "kind": "RHYMES_WITH",
-      "p": 0.409
-    },
-    {
-      "from": "#3384 testcode/promise",
-      "to": "#3384 globalgrid2050/promise",
+      "from": "#3610 gridatlas/onChange",
+      "to": "#15 testcode/renderStats",
       "kind": "MIGHT_TOUCH",
-      "p": 0.161
+      "p": 0.184
+    },
+    {
+      "from": "#3610 gridatlas/onChange",
+      "to": "#1666 bindWiderFleet",
+      "kind": "RHYMES_WITH",
+      "p": 0.027
+    },
+    {
+      "from": "#5440 panel",
+      "to": "#4037 cloneVisiblePrinterUi",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.631
+    },
+    {
+      "from": "#3265 addCableRouteWaypoint",
+      "to": "#4320 gitBlob",
+      "kind": "REMINDS_OF",
+      "p": 0.365
     },
     {
       "from": "#3384 globalgrid2050/promise",
-      "to": "#3804 renderNews",
+      "to": "#3384 testcode/promise",
       "kind": "RHYMES_WITH",
-      "p": 0.816
+      "p": 0.645
     },
     {
-      "from": "#401 head_sha",
+      "from": "#1524 pipelinenews/promise",
+      "to": "#15 globalgrid2050/renderStats",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.288
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#1236 updateLegend",
+      "kind": "RHYMES_WITH",
+      "p": 0.709
+    },
+    {
+      "from": "#5490 pair",
+      "to": "#5372 measured",
+      "kind": "COULD_REPLACE",
+      "p": 0.118
+    },
+    {
+      "from": "#3816 drawNewsV9_5_1",
+      "to": "#10 lookupOD",
+      "kind": "REMINDS_OF",
+      "p": 0.836
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#1524 globalgrid2050/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.04
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#1219 toggleAtlasV8GridLayer",
+      "kind": "REMINDS_OF",
+      "p": 0.571
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#4316 readJson",
+      "kind": "WHAT_IF",
+      "p": 0.151
+    },
+    {
+      "from": "#6161 item",
+      "to": "#6688 releases",
+      "kind": "COULD_REPLACE",
+      "p": 0.287
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#6652 megawatts",
+      "kind": "COULD_REPLACE",
+      "p": 0.824
+    },
+    {
+      "from": "Ga geo-area.js",
+      "to": "#4052 globalgrid2050/handle",
+      "kind": "REMINDS_OF",
+      "p": 0.421
+    },
+    {
+      "from": "#4272 preparePage",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.932
+    },
+    {
+      "from": "#1524 globalgrid2050/promise",
+      "to": "#3384 globalgrid2050/promise",
+      "kind": "REMINDS_OF",
+      "p": 0.276
+    },
+    {
+      "from": "#5885 groupFor",
+      "to": "Structure",
+      "kind": "REMINDS_OF",
+      "p": 0.941
+    },
+    {
+      "from": "#3384 testcode/promise",
+      "to": "#8297 header",
+      "kind": "RHYMES_WITH",
+      "p": 0.161
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "Ss(202609080030)",
+      "kind": "REMINDS_OF",
+      "p": 0.042
+    },
+    {
+      "from": "#3869 updateResultSummary",
+      "to": "#15 testcode/renderStats",
+      "kind": "COULD_REPLACE",
+      "p": 0.377
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#4843 envelope",
+      "kind": "COULD_REPLACE",
+      "p": 0.914
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
       "to": "#3610 testcode/onChange",
+      "kind": "WHAT_IF",
+      "p": 0.53
+    },
+    {
+      "from": "#4315 readText",
+      "to": "#3754 createCanonicalProjectControls",
+      "kind": "COULD_REPLACE",
+      "p": 0.92
+    },
+    {
+      "from": "#3810 refreshProjects",
+      "to": "#190 replay",
+      "kind": "WHAT_IF",
+      "p": 0.133
+    },
+    {
+      "from": "Ss(202609030233)",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "WHAT_IF",
+      "p": 0.941
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "Ss(202609012155)",
       "kind": "MIGHT_TOUCH",
-      "p": 0.802
+      "p": 0.696
+    },
+    {
+      "from": "G4 grid_400kv",
+      "to": "Si(202609032001)",
+      "kind": "MIGHT_TOUCH",
+      "p": 0.453
+    },
+    {
+      "from": "#5096 classified",
+      "to": "#1524 pipelinenews/promise",
+      "kind": "RHYMES_WITH",
+      "p": 0.852
+    },
+    {
+      "from": "#3610 globalgrid2050/onChange",
+      "to": "Si(202609050244)",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.511
+    },
+    {
+      "from": "Ss(202609072337)",
+      "to": "#3818 payloadTime",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.268
+    },
+    {
+      "from": "#1524 pipelinenews/promise",
+      "to": "#3384 testcode/promise",
+      "kind": "WHAT_IF",
+      "p": 0.862
+    },
+    {
+      "from": "#3610 testcode/onChange",
+      "to": "#3360 sharedDuckDBRuntime",
+      "kind": "COULD_REPLACE",
+      "p": 0.329
+    },
+    {
+      "from": "#3610 gridatlas/onChange",
+      "to": "#15 testcode/renderStats",
+      "kind": "ENTANGLED_MAYBE",
+      "p": 0.685
+    },
+    {
+      "from": "#3384 globalgrid2050/promise",
+      "to": "#3838 queryMatches",
+      "kind": "WHAT_IF",
+      "p": 0.797
+    },
+    {
+      "from": "G1 grid_132kv",
+      "to": "Data",
+      "kind": "REMINDS_OF",
+      "p": 0.852
+    },
+    {
+      "from": "Sp streaming-parquet-bridge",
+      "to": "#3402 classOf",
+      "kind": "REMINDS_OF",
+      "p": 0.591
     }
   ]
 }
