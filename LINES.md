@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-446,108 unique lines, numbered 1 to 766,891. Generated 2026-11-15T17:59:41.610Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+448,566 unique lines, numbered 1 to 775,177. Generated 2026-11-15T23:10:25.647Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -446111,4 +446111,2462 @@
 766889	  await assert.rejects(collect({schema:'estate-activity.config.v1',owner:'Ventusltd',
 766890	    lookback_days:7,max_commit_pages:1,repos:[],pr_repos:[]},'token',
 766891	    new Date(when),async()=>({ok:true,json:async()=>[]})),/invalid bounded config/);
+767010	def parse_calendar_day(value):
+767011	    """A publisher's written calendar day, NOT an inferred UTC instant.
+767012	    A date-only or timezone-free timestamp may be shown as a publisher-local
+767013	    calendar day but may never authorise same-run freshness without a separately
+767014	    observed timezone-aware publication instant. `parse_date` remains the
+767015	    strict UTC feed timestamp parser and continues rejecting naive input.
+767017	    from signals import dates as calendar_dates
+767018	    return calendar_dates.day(value)
+767308	"""Fail-closed, review-required evidence contracts for project-specific Pipeline News.
+767309	This module performs *structural* validation of proposed article-to-REPD
+767310	associations. It does not fetch original bytes, prove licence rights, verify a
+767311	human identity, certify a claim or give permission to publish. A syntactically
+767312	complete record always requires an independent external acceptance decision.
+767313	Separate article receipts, per-project bindings, event assertions and rights
+767314	assessments. A URL linked to multiple projects needs one binding PER REPD Ref.
+767315	No AI score, headline match or reviewed boolean substitutes for evidence.
+767317	SHA256 = re.compile(r"^[a-f0-9]{64}$")
+767318	REF = re.compile(r"^[1-9][0-9]*$")
+767319	EVENTS = frozenset({
+767320	    "planning_submission", "consent", "refusal", "appeal", "construction",
+767321	    "energisation", "financial_close", "acquisition", "cancellation",
+767322	    "grid_connection", "other_project_development",
+767324	RIGHTS = frozenset({"publisher_permission", "open_licence", "headline_link_only"})
+767325	def _https(value):
+767326	    if not isinstance(value, str) or not value.startswith("https://"):
+767329	        return bool(parts.hostname) and not parts.username and not parts.password
+767331	def _date(value, *, moment=False):
+767333	        if moment:
+767334	            if not value.endswith("Z"):
+767336	            d = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+767337	            return d.utcoffset() == dt.timedelta(0)
+767338	        return bool(re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value)
+767339	                    and dt.date.fromisoformat(value))
+767340	def check_proposal(record):
+767341	    """Return recorded structural problems; never certify source truth or rights."""
+767344	        return ["record.not_object"]
+767345	    def object_named(key):
+767346	        value = record.get(key)
+767347	        if not isinstance(value, dict):
+767348	            errors.append(key + ".missing")
+767351	    article = object_named("ArticleReceipt")
+767352	    binding = object_named("ProjectBinding")
+767353	    event = object_named("EventAssertion")
+767354	    rights = object_named("RightsAssessment")
+767355	    if not str(article.get("publisher") or "").strip():
+767356	        errors.append("ArticleReceipt.publisher")
+767357	    for field in ("requested_url", "final_url", "retrieval_log_url"):
+767358	        if not _https(article.get(field)):
+767359	            errors.append("ArticleReceipt." + field)
+767360	    if article.get("http_status") != 200:
+767361	        errors.append("ArticleReceipt.http_status")
+767362	    if not _date(article.get("fetched_at"), moment=True):
+767363	        errors.append("ArticleReceipt.fetched_at")
+767364	    for field in ("response_sha256", "retrieval_log_sha256"):
+767365	        if not isinstance(article.get(field), str) or not SHA256.fullmatch(article[field]):
+767366	    if not str(article.get("parser_identity") or "").strip():
+767367	        errors.append("ArticleReceipt.parser_identity")
+767368	    ref = str(binding.get("repd_ref") or "")
+767369	    if not REF.fullmatch(ref):
+767370	        errors.append("ProjectBinding.repd_ref")
+767371	    if not str(binding.get("project_name") or "").strip():
+767372	        errors.append("ProjectBinding.project_name")
+767373	    if "contrary_evidence" not in binding or not isinstance(binding["contrary_evidence"], list):
+767374	        errors.append("ProjectBinding.contrary_evidence")
+767375	    support = binding.get("supporting_evidence")
+767376	    if not isinstance(support, list) or not support:
+767377	        errors.append("ProjectBinding.supporting_evidence")
+767378	        for i, edge in enumerate(support):
+767379	            if not isinstance(edge, dict) or edge.get("repd_ref") != ref \
+767380	                    or edge.get("article_url") != article.get("final_url") \
+767381	                    or not str(edge.get("extract") or "").strip():
+767382	                errors.append("ProjectBinding.supporting_evidence[" + str(i) + "]")
+767383	    decision = binding.get("independent_review")
+767384	    if not isinstance(decision, dict) or decision.get("decision") != "accepted" \
+767385	            or not _https(decision.get("evidence_url")) \
+767386	            or not _date(decision.get("reviewed_at"), moment=True) \
+767387	            or not str(decision.get("reviewer_role") or "").strip() \
+767388	            or decision.get("reviewer_role") == record.get("proposing_role"):
+767389	        errors.append("ProjectBinding.independent_review")
+767390	    if event.get("event_type") not in EVENTS:
+767391	        errors.append("EventAssertion.event_type")
+767392	    if not _date(event.get("actual_event_date")):
+767393	        errors.append("EventAssertion.actual_event_date")
+767394	    if not _https(event.get("event_evidence_url")):
+767395	        errors.append("EventAssertion.event_evidence_url")
+767396	    if event.get("event_type") in {"planning_submission", "consent", "refusal", "appeal"}:
+767397	        if not str(event.get("planning_reference") or "").strip():
+767398	            errors.append("EventAssertion.planning_reference")
+767399	    if not str(rights.get("publisher_owner") or "").strip():
+767400	        errors.append("RightsAssessment.publisher_owner")
+767401	    if rights.get("basis") not in RIGHTS:
+767402	        errors.append("RightsAssessment.basis")
+767403	    if not _https(rights.get("basis_evidence_url")):
+767404	        errors.append("RightsAssessment.basis_evidence_url")
+767405	    if rights.get("display_scope") != "headline_link":
+767406	        errors.append("RightsAssessment.display_scope")
+767407	    if rights.get("stores_article_body") is not False:
+767408	        errors.append("RightsAssessment.stores_article_body")
+767409	    rreview = rights.get("independent_review")
+767410	    if not isinstance(rreview, dict) or rreview.get("decision") != "accepted" \
+767411	            or not _https(rreview.get("evidence_url")) \
+767412	            or not _date(rreview.get("reviewed_at"), moment=True) \
+767413	            or not str(rreview.get("reviewer_role") or "").strip() \
+767414	            or rreview.get("reviewer_role") == record.get("proposing_role"):
+767415	        errors.append("RightsAssessment.independent_review")
+767416	    # Rights for the final redirected source and all display contexts require
+767417	    # independent legal adjudication: these fields are claims, not proofs.
+767418	    return sorted(set(errors))
+767419	def assess(record):
+767420	    """Generate an explicit PublicationEligibility, never self-authorise release."""
+767421	    errors = check_proposal(record)
+767422	        "PublicationEligibility": {
+767423	            "status": "withheld" if errors else "independent_external_acceptance_required",
+767424	            "structural_errors": errors,
+767425	            "accepted_for_publication": False,
+767427	                "Evidence fields incomplete or contradictory."
+767428	                if errors else
+767429	                "Structural completeness alone cannot authenticate original HTTP "
+767430	                "bytes, publisher rights, review identity or a REPD relationship."
+767784	def _publisher_day(item):
+767785	    """Only publisher-supplied dates may delimit article copies. First-seen is a crawl date."""
+767786	    raw = item.get("date")
+767787	    if not isinstance(raw, str) or not raw:
+767788	        return dt.date.fromisoformat(raw[:10])
+767789	def _project_ref(item):
+767790	    match = item.get("possible_match") or {}
+767791	    return str(match.get("repd_ref") or "") if isinstance(match, dict) else ""
+767792	def _same_documented_event(item, other):
+767793	    """Fail open to TWO headlines when publisher/project/event identity is ambiguous.
+767794	    A common article URL identifies one article. Two different URLs require a common
+767795	    candidate REPD Ref, a consistent category and distinct publisher sources; planning
+767796	    decisions also require the same explicit decision/event reference. This is article
+767797	    display deduplication, never evidence of verified REPD identity or publisher rights.
+767798	    for field in ("planning_reference", "decision_reference", "event_reference", "event_type"):
+767799	        left, right = item.get(field), other.get(field)
+767800	        if (left or right) and left != right:
+767802	    left_ref, right_ref = _project_ref(item), _project_ref(other)
+767803	    if left_ref != right_ref:
+767804	    if item.get("link") == other.get("link"):
+767805	    if not left_ref or item.get("source") == other.get("source"):
+767806	    if item.get("category") != other.get("category"):
+767807	    if item.get("category") in ("planning_decision", "consent", "refusal", "dco"):
+767808	        # Two same-named planning decisions can occur days apart: never equate them
+767809	        # merely because their headlines and candidate project identifiers agree.
+767810	        return bool(item.get("decision_reference") or item.get("event_reference"))
+767813	    """Collapse documented article copies, not unrelated same-title project events.
+767814	    Require publisher dates within three days for different article URLs and
+767815	    independently non-conflicting article/project/event identifiers. When evidence
+767816	    is absent, retaining a repeated-looking headline is safer than losing an event.
+767821	        day = _publisher_day(item)
+767823	        for other in kept:
+767824	            if not _same_documented_event(item, other):
+767825	            # Identical canonical URLs were already handled by the upstream link
+767826	            # merge, but may be present in direct calls to this function.
+767827	            if item.get("link") != other.get("link"):
+767828	                other_day = _publisher_day(other)
+767829	                if day is None or other_day is None or abs((day - other_day).days) > 3:
+767830	            if key == other["_k"]:
+767832	            elif len(words) >= 5:
+767833	                union = words | other["_w"]
+767834	                duplicate = bool(union) and len(words & other["_w"]) / len(union) >= 0.85
+767838	            kept.append(dict(item, _k=key, _w=words))
+767935	"""Project signals: the combiner (contract version 2). Part files and the planning files become one file.
+767938	Output: dist/project_signals.json, schema project-signals.v2, keyed by REPD Ref ID for each of the 200 largest solar
+767939	projects. Four tiers per project, never mixed in one list, one count or one label:
+767940	  recent_news    a publisher's item dated within 90 days of the run
+767941	  official       a dated planning decision or notice
+767942	  archive        older or undated items and developer pages, shown with their year or "undated"
+767943	  planning_file  always present; labelled as a verified link, an unverified link, a register search or a finder
+767944	- The tier comes from the item's date and family, never from how or when the item arrived. A reviewed item
+767945	  (reviewed_signals.json, found by hand) goes through the same rule; a fetched item with the same link replaces it.
+767946	- Order inside a list: dated before undated, newest first; confidence only breaks a tie on the same date.
+767947	- Confidence is earned: "confirmed" needs a collector's or reviewer's "confirmed", an alias whose standing is
+767948	  backed by recorded evidence in aliases.json, a second agreeing term for a one-word or everyday-word alias, and
+767949	  no exclusion rule (exclusions.json). Anything else is "possible" and never counted as fact.
+767950	- A link listed under several projects stays on each only when the title names that project or a reviewer tied
+767951	  it to that project; otherwise it stays on the best-evidenced one.
+767952	- Events (consent, refusal, appeal, ...) are read from the title; reports of one event for one project within
+767953	  14 days become one item with its "sources".
+767954	- Honest publishing: every part has its own status and collected_at. A part that failed or came back empty keeps
+767955	  the items published before, with their original collected_at, and is marked stale. generated_at is the time of
+767956	  the newest successful live collection and does not move otherwise. The file is not written (exit code 3) when
+767957	  it fails the schema check or the counts fall sharply against the file published before.
+767962	import dates as DATES  # noqa: E402  one date rule shared with the collectors
+767963	import gate as GATE  # noqa: E402  the title gate shared with the collectors
+767965	SCHEMA = "project-signals.v2"
+767966	SCHEMA_V1 = "project-signals.v1"
+767970	LIVE_TEAMS = ("official", "trade", "index")
+767971	TEAMS = LIVE_TEAMS + ("reviewed",)
+767972	PART_NAMES = TEAMS + ("planning",)
+767975	TIERS = ("recent_news", "official", "archive")
+767976	PROJECT_TIERS = ("recent_news", "official", "archive_only", "planning_file_only", "nothing")
+767977	EVENTS = ("consent", "refusal", "appeal", "legal_challenge", "financial_close", "construction_start",
+767978	          "energisation", "grid_connection", "sale")
+767979	RECENT_DAYS = 90
+767980	CLUSTER_DAYS = 14
+767981	MAX_PER_TIER = 5
+767982	PART_MAX_HOURS = 48           # a part file older than this was not collected by this run
+767983	DROP_LIMIT = 1 / 3            # the writer refuses a file whose counts fall by more than this
+767984	HEADLINE = "projects with recent candidate news (independent evidence pending)"
+767985	REVIEWED = "reviewed"         # basis of an item found by hand: "reviewed <date>"
+767986	# A developer's or a campaign's own page is something to click, not news: family "developer", always archive.
+767995	PLANNING_LABELS = ("planning file (verified link)", "planning file (unverified link)", "planning register search",
+767996	                   "planning register finder")
+768004	# Words that say nothing about which project: removed to find the distinctive part of an alias.
+768005	GENERIC_WORDS = frozenset(
+768006	    "solar farm park project energy pv photovoltaic battery storage extension the and of scheme plant array bess "
+768007	    "power station renewable renewables hub centre limited ltd".split())
+768008	# Everyday words: an alias made only of these (or of one word) needs a second agreeing term in the title.
+768009	EVERYDAY_WORDS = frozenset(
+768010	    "bypass mill manor grange hall field fields hill bridge church lodge home wood woods green north south east west "
+768011	    "new old long high low upper lower great little big top bottom airfield lane road street house cottage barn "
+768012	    "warren breach wick spring springs meadow meadows common heath moor marsh valley view land lands oak oaks "
+768013	    "white black red blue stone water lake river brook ford gate way cross corner end side hills".split())
+768014	SOLAR_NOUN_RE = re.compile(r"\bsolar (?:farm|park|project|scheme|plant|array|development)s?\b|\benergy (?:park|farm)\b", re.I)
+768015	PLURAL_RE = re.compile(r"\b(?:two|three|four|both|several) |\bsolar (?:farms|parks|projects|schemes)\b", re.I)
+768016	EVENT_RULES = (
+768017	    ("legal_challenge", r"judicial review|legal challenge|high court|court of appeal|court challenge|court battle|"
+768018	                        r"(?:launch\w*|lodg\w+|mounts?|brings?|files?) (?:a |legal )?challenge"),
+768019	    ("appeal", r"\bappeals?\b|\bappealed\b|planning inquiry|public inquiry"),
+768020	    ("refusal", r"\brefus\w+|\breject\w+|turned down|thrown out|\bblocked\b|\bdenied\b"),
+768021	    ("consent", r"\bapproved\b|\bapproves\b(?! its\b)|\bapproval (?:of|for|granted|given)\b|green ?lights?|greenlights?|go[- ]ahead|\bconsent(?:ed|s)\b|\bgrant(?:s|ed)\b|"
+768022	                r"(?:wins?|secures?|gains?|receives?|gets?|given|awarded) (?:planning |development |section 36 )?"
+768023	                r"(?:consent|permission|approval|permit|DCO)\b"),
+768024	    ("financial_close", r"financial close|final investment decision|\bFID\b|financing (?:secured|closed|agreed)|"
+768025	                        r"(?:secures?|closes?|raises?|lands?) [^.]{0,40}(?:financing|funding|loan|debt facility)"),
+768026	    ("energisation", r"\benergis\w+|\benergiz\w+|goes live|switched on|(?:begins?|starts?) generating|first power|"
+768027	                     r"comes? online|\bcommissioned\b|(?:becomes?|now|fully) operational"),
+768028	    ("construction_start", r"construction (?:starts?|begins?|under ?way|commences?|has started|to start|kicks off)|"
+768029	                           r"breaks? ground|ground-?breaking|work (?:starts?|begins?)|(?:starts?|begins?) "
+768030	                           r"(?:construction|building|work)"),
+768031	    ("grid_connection", r"grid connection|connection agreement|connect(?:ed|s) to the (?:national )?grid"),
+768032	    ("sale", r"\bacquir\w+|\bacquisition\b|\bsold\b|\bsells?\b|\bsale of\b|\bbuys?\b|\bbought\b|"
+768033	             r"takes? (?:a )?(?:\d+% )?stake|\bdivest\w+"),
+768034	EVENT_RULES = tuple((name, re.compile(pattern, re.I)) for name, pattern in EVENT_RULES)
+768041	        return None, "missing"
+768049	    return _host_in(link, EXCLUDED_DOMAINS) or ".google." in "." + host + "."
+768051	    text = (text or "").lower().replace("&", " and ").replace("’", "'").replace("‘", "'")
+768052	    return " ".join(re.sub(r"[^a-z0-9à-ÿ]+", " ", text).split())
+768056	    return _norm(title)
+768058	    return item.get("obtained") == "reviewed"
+768059	# ---------------------------------------------------------------- dates, freshness, tier, event
+768060	def parse_date(value, today):
+768061	    """A real calendar date, not later than the day after `today`, as YYYY-MM-DD; otherwise None (dates.day)."""
+768062	    return DATES.day(value, today)
+768063	def freshness(date, today):
+768065	        return "undated"
+768066	    return "recent" if (today - dt.date.fromisoformat(date)).days <= RECENT_DAYS else "older"
+768067	def tier_of(family, date, today):
+768068	    if not date or family == "developer":
+768069	        return "archive"
+768070	    if family == "official":
+768072	    return "recent_news" if freshness(date, today) == "recent" else "archive"
+768073	def event_of(title):
+768074	    for name, pattern in EVENT_RULES:
+768075	        if pattern.search(title):
+768078	    """Dated before undated, newest first; confidence only on the same date; then family, then link."""
+768080	    return (item["date"] is None, -date, item["confidence"] != "confirmed", FAMILIES.index(item["family"]), item["link"])
+768081	# ---------------------------------------------------------------- confidence: alias standing and exclusions
+768082	def alias_standing(entry, recommended=None):
+768083	    """"confirmed" only with a confirmed status and recorded evidence (a URL or text) in aliases.json and, where
+768084	    alias_standings.json has reviewed the project, a "confirmed" standing there; otherwise "possible"."""
+768085	    entry = entry or {}
+768086	    if isinstance(recommended, dict) and recommended.get("standing"):
+768087	        return "confirmed" if recommended["standing"] == "confirmed" else "possible"
+768088	    evidence = str(entry.get("alias_evidence_url") or "").strip() or str(entry.get("alias_evidence") or "").strip()
+768089	    return "confirmed" if entry.get("alias_status") == "confirmed" and evidence else "possible"
+768090	def alias_words(alias):
+768091	    return [w for w in _norm(alias).split() if w not in GENERIC_WORDS]
+768092	def needs_second_term(alias):
+768093	    words = alias_words(alias)
+768094	    return len(words) <= 1 or all(w in EVERYDAY_WORDS for w in words)
+768095	def agreeing_terms(row, entry):
+768096	    """Facts that can stand beside a weak alias: place, county, authority, operator words, planning reference."""
+768098	    site = (row.get("site_name") or entry.get("site_name") or "")
+768099	    for piece in re.split(r"\s+-\s+|,", site)[:-1]:               # "Botley West, Botley - Botley West Solar Project"
+768100	        terms.append(piece)
+768101	    for key in ("county", "planning_authority", "planning_ref"):
+768102	        terms.append(row.get(key) or entry.get(key) or "")
+768103	    for word in re.findall(r"[A-Za-z][A-Za-z']{3,}", row.get("operator") or entry.get("operator") or ""):
+768104	        if word.lower() not in GENERIC_WORDS | {"development", "developments", "partners", "holdings", "group", "green"}:
+768105	            terms.append(word)
+768106	    terms.extend(entry.get("places") or [])
+768107	    return [t.strip() for t in terms if isinstance(t, str) and len(t.strip()) >= 4]
+768108	def names_project(title, entry, row):
+768109	    """True when the title carries one of the project's aliases, its distinctive part or its planning reference."""
+768111	    if len(ref) >= 6 and ref.lower() in title.lower():
+768112	    for alias in (entry or {}).get("aliases") or [(row.get("site_name") or "")]:
+768113	        if not isinstance(alias, str):
+768114	        core = " ".join(alias_words(alias))
+768115	        if phrase_in(alias, title) or (len(core) >= 4 and phrase_in(core, title)):
+768118	def second_term_ok(title, entry, row, weak=None):
+768119	    """For a one-word, everyday-word or shared alias: the title must also carry an agreeing fact (place, county,
+768120	    authority, operator, planning reference) or, unless the alias is shared with another row, a solar noun phrase.
+768121	    A fact that is itself part of the alias does not count."""
+768122	    aliases = [a for a in (entry or {}).get("aliases") or [] if isinstance(a, str)]
+768123	    if not weak:
+768124	        if any(len(_norm(a).split()) >= 3 and phrase_in(a, title) for a in aliases):
+768125	            return True                                     # the whole name, three words or more, is in the title
+768126	        matched = [a for a in aliases if phrase_in(a, title) or phrase_in(" ".join(alias_words(a)), title)]
+768127	        if not all(needs_second_term(a) for a in (matched or aliases)) or not aliases:
+768128	    if weak != "shared" and SOLAR_NOUN_RE.search(title):
+768129	    try:                                                    # a capacity within a fifth of the REPD figure agrees
+768130	        mw = float(row.get("mw") or (entry or {}).get("mw") or 0)
+768132	        mw = 0
+768133	    if mw and weak != "shared":
+768134	        for found in re.findall(r"(\d+(?:\.\d+)?)\s?(MW|GW)", title, re.I):
+768135	            value = float(found[0]) * (1000 if found[1].lower() == "gw" else 1)
+768136	            if abs(value - mw) <= 0.2 * mw:
+768138	    inside = " ".join(_norm(a) for a in aliases)
+768139	    return any(phrase_in(term, title) for term in agreeing_terms(row, entry or {}) if not phrase_in(term, inside))
+768140	def exclusion_reason(item, rules):
+768141	    """Why a per-project rule of exclusions.json removes the item, or ""."""
+768144	    title = item["title"]
+768145	    if item["link"] in {D.canonical_link(l) for l in rules.get("links") or [] if isinstance(l, str)}:
+768146	        return "link excluded"
+768147	    for phrase in rules.get("exclude") or []:
+768148	        if isinstance(phrase, str) and phrase.strip() and phrase_in(phrase, title):
+768149	            return "title has '%s'" % phrase
+768150	    required = [p for p in rules.get("require_any") or [] if isinstance(p, str) and p.strip()]
+768151	    if required and not any(phrase_in(p, title) for p in required):
+768152	        return "title lacks the required terms"
+768154	# ---------------------------------------------------------------- items
+768155	def clean_item(raw, team, today=None, collected_at=None, as_of=None):
+768156	    """A part's item in the version 2 shape (without cluster), or (None, reason). `as_of` is accepted as another
+768157	    name for `today` (the date the 90 days and future dates are measured from)."""
+768158	    today = today or as_of or dt.datetime.now(dt.timezone.utc).date()
+768162	    link = re.sub(r"\s", "%20", link.strip()) if link else link     # a link with a raw space is never published
+768168	    when = raw.get("collected_at") if isinstance(raw.get("collected_at"), str) and raw.get("collected_at") else collected_at
+768169	    collection_clock = None
+768170	    if isinstance(when, str):
+768171	            collection_clock = dt.datetime.fromisoformat(when.replace("Z", "+00:00"))
+768172	            if collection_clock.tzinfo is None:
+768173	                collection_clock = None
+768174	            collection_clock = None
+768175	    raw_date = raw.get("date")
+768176	    future = False
+768177	    # Keep the publisher's written calendar day, but never promote a story
+768178	    # published AFTER the actual fetch/observation time into recent news.
+768179	    # Timezone-free stamps may provide a calendar day, never a precise UTC
+768180	    # instant; no offset is silently invented.
+768181	    if collection_clock is not None and isinstance(raw_date, str) and raw_date.strip():
+768182	        value = raw_date.strip()
+768183	            if re.match(r"^\d{4}-\d\d-\d\d[T ]\d\d:", value):
+768184	                publication = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+768185	                if publication.tzinfo is not None:
+768186	                    future = publication > collection_clock + dt.timedelta(minutes=5)
+768188	                    future = publication.date() > collection_clock.date()
+768189	                publisher_day = DATES.day(value)
+768190	                future = bool(publisher_day and dt.date.fromisoformat(publisher_day) > collection_clock.date())
+768192	    date = None if future else (parse_date(raw_date, today) or DATES.url_day(link, today))
+768193	    year = int(date[:4]) if date else None
+768194	    # The calendar year alone can be evidenced by a reviewed entry or a
+768195	    # source URL without knowing a day. This is year-only ARCHIVE metadata,
+768196	    # never a fresh news date or proof that an event happened on that day.
+768197	    if year is None:
+768198	        hint = raw.get("year")
+768199	        year = hint if isinstance(hint, int) and DATES.FIRST_YEAR <= hint <= today.year else DATES.url_year(link, today)
+768207	    reviewed = team == REVIEWED or raw.get("obtained") == "reviewed" or basis.startswith(REVIEWED)
+768208	    if reviewed and not basis.startswith(REVIEWED):
+768212	            "date": date, "year": year, "tier": tier_of(family, date, today),
+768213	            "event": event_of(title), "obtained": "reviewed" if reviewed else "fetched",
+768214	            "source": REVIEWED if reviewed else (raw.get("source") if raw.get("source") in LIVE_TEAMS else team),
+768215	            "family": family, "collected_at": when,
+768216	            "confidence": "confirmed" if raw.get("confidence") == "confirmed" else "possible",
+768217	            "freshness": freshness(date, today), "basis": basis}, ""
+768218	def link_key(link):
+768219	    """One key for the copies of one page: no www., m. or amp. host prefix, no trailing slash or /amp suffix, the
+768220	    path's spaces and %20 alike, http and https alike. Used to recognise duplicates; the link shown is unchanged."""
+768221	    parts = urllib.parse.urlsplit(link.strip())
+768222	    host = re.sub(r"^(?:www|m|amp|mobile)\.", "", (parts.hostname or "").lower())
+768223	    path = urllib.parse.quote(urllib.parse.unquote(parts.path), safe="/:@!$&'()*+,;=-._~")
+768224	    path = re.sub(r"/amp/?$", "", path).rstrip("/")
+768225	    query = sorted(p for p in parts.query.split("&") if p and not re.match(r"(?:lang|language|hl)=", p))
+768226	    return host + path + ("?" + "&".join(query) if query else "")
+768228	    """No page twice (link_key). A fetched item takes the place of a reviewed one; the earliest collected_at is kept."""
+768230	    for item in sorted(items, key=lambda i: (is_reviewed(i), i["date"] is None, i["confidence"] != "confirmed")):
+768231	        kept = best.get(link_key(item["link"]))
+768232	        if kept is None:
+768233	            best[link_key(item["link"])] = item
+768234	        elif item["collected_at"] and (not kept["collected_at"] or item["collected_at"] < kept["collected_at"]) \
+768235	                and not is_reviewed(item):
+768236	            kept["collected_at"] = item["collected_at"]
+768237	    return list(best.values())
+768238	def _citation(item):
+768239	    return {"publisher": item["publisher"], "link": item["link"], "date": item["date"], "title": item["title"]}
+768240	def cluster(ref, items):
+768241	    """One story once only within an evidenced event-time window.
+768242	    Same headline text can be reused for distinct decisions years apart. Never
+768243	    infer that an undated article covers the same event as a dated one merely
+768244	    because its words are identical; URL deduplication happens upstream.
+768245	    items = sorted(items, key=order_key)
+768246	    groups, by_title = [], {}
+768248	        home = None
+768249	        if item["date"]:
+768250	            day = dt.date.fromisoformat(item["date"])
+768251	            for candidate in by_title.get(key, []):
+768252	                lead = candidate[0]
+768253	                if lead["date"] and lead["event"] == item["event"] and \
+768254	                        abs((dt.date.fromisoformat(lead["date"]) - day).days) <= CLUSTER_DAYS:
+768255	                    home = candidate
+768256	        if home is not None:
+768257	            home.append(item)
+768258	            group = [item]
+768259	            groups.append(group)
+768260	            by_title.setdefault(key, []).append(group)
+768262	    for group in groups:                                    # same event within 14 days of the cluster's first date
+768263	        lead = group[0]
+768264	        if lead["event"] and lead["date"]:
+768265	            day = dt.date.fromisoformat(lead["date"])
+768266	            for other in merged:
+768267	                first = other[0]
+768268	                if first["event"] == lead["event"] and first["date"] and \
+768269	                        abs((dt.date.fromisoformat(first["date"]) - day).days) <= CLUSTER_DAYS:
+768270	                    home = other
+768271	        if home is None:
+768272	            merged.append(list(group))
+768273	            home.extend(group)
+768274	    for group in merged:
+768275	        first = next((i for i in group if i["confidence"] == "confirmed"), group[0])   # never lead with a possible match
+768276	        group = [first] + [i for i in group if i is not first]
+768277	        lead = dict(first)
+768279	            dates = sorted(i["date"] for i in group if i["date"])
+768280	            lead["cluster"] = "%s:%s:%s" % (ref, lead["event"] or "story", dates[0] if dates else "undated")
+768281	            seen = {lead["link"]}
+768282	            lead["sources"] = []
+768283	            for other in group[1:]:
+768284	                if other["link"] not in seen:
+768285	                    seen.add(other["link"])
+768286	                    lead["sources"].append(_citation(other))
+768287	        out.append(lead)
+768288	    return sorted(out, key=order_key)
+768307	def planning_label(kind, verified, url):
+768308	    """Exactly which kind of thing the link is: never "planning file" for a search page."""
+768309	    if kind == "search_page":
+768310	        return ("planning register finder" if url.rstrip("/") == REGISTER_FINDER else "planning register search"), "search"
+768311	    return ("planning file (verified link)" if verified else "planning file (unverified link)"), "direct"
+768320	    verified = raw.get("verified") is True and kind != "search_page"
+768321	    label, link_type = planning_label(kind, verified, url)
+768322	    return {"label": label, "link_type": link_type, "authority": D.clean_text(str(raw.get("authority") or ""), 120),
+768323	            "reference": reference, "url": url, "kind": kind, "verified": verified, "note": note}
+768345	def _part_good(part):
+768346	    """A part file collected something this run: right schema, at least one item, not every source failed."""
+768347	    if not isinstance(part, dict):
+768348	        return False, "no part file from this run" if part in ("missing", "absent", None) else "part file %s" % part
+768349	    if part.get("schema") != PART_SCHEMA or not isinstance(part.get("items"), list):
+768350	        return False, "part file has the wrong schema"
+768351	    stamp, now = part.get("generated_at"), part.get("_run_at")
+768352	    if isinstance(stamp, str) and isinstance(now, str) and part.get("team") != REVIEWED:
+768353	            age = dt.datetime.fromisoformat(now.replace("Z", "+00:00")) - dt.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+768354	            if age > dt.timedelta(hours=PART_MAX_HOURS):
+768355	                return False, "part file is older than %d hours" % PART_MAX_HOURS
+768356	            return False, "part file has no readable collection time"
+768357	    sources = [s for s in part.get("sources") or [] if isinstance(s, dict)]
+768358	    if sources and all(s.get("status") == "failed" for s in sources):
+768359	        return False, "every source failed"
+768360	    if not part["items"]:
+768361	        return False, "collection returned nothing"
+768362	    return True, ""
+768363	def previous_items(previous, today):
+768364	    """{team: [raw items]} and {team: collected_at} from the file published before (version 2, or version 1)."""
+768365	    items, when = {t: [] for t in LIVE_TEAMS}, {t: None for t in LIVE_TEAMS}
+768366	    if not isinstance(previous, dict) or previous.get("schema") not in (SCHEMA, SCHEMA_V1):
+768367	        return items, when, None
+768368	    old_parts = previous.get("parts") if isinstance(previous.get("parts"), dict) else {}
+768369	    v1 = previous.get("schema") == SCHEMA_V1
+768370	    for team in LIVE_TEAMS:
+768371	        state = old_parts.get(team) if isinstance(old_parts.get(team), dict) else {}
+768372	        stamp = state.get("generated_at") if v1 else state.get("collected_at")
+768373	        when[team] = stamp if isinstance(stamp, str) and stamp else None
+768374	    if v1:                       # version 1 stamped the write time; the newest part time is the honest one
+768375	        generated = max([w for w in when.values() if w] or [None], key=lambda w: w or "")
+768376	        generated = previous.get("generated_at") if isinstance(previous.get("generated_at"), str) else None
+768377	    for ref, project in (previous.get("projects") or {}).items():
+768378	        project = project if isinstance(project, dict) else {}
+768379	        listed = list(project.get("signals") or []) if v1 else [i for t in TIERS for i in project.get(t) or []]
+768380	        for raw in listed:
+768382	            if raw.get("obtained") == "reviewed" or str(raw.get("basis") or "").startswith(REVIEWED):
+768383	                continue                                    # the committed reviewed file supplies these every run
+768384	            more = [raw] + [dict(raw, **s) for s in raw.get("sources") or [] if isinstance(s, dict)]
+768385	            for one in more:
+768386	                team = one.get("source") if one.get("source") in LIVE_TEAMS else (
+768387	                    "official" if one.get("family") == "official" else "trade" if one.get("family") == "trade" else "index")
+768388	                one = {k: v for k, v in one.items() if k not in ("sources", "cluster", "also_projects")}
+768389	                one.setdefault("collected_at", when[team] or generated)
+768390	                items[team].append(dict(one, repd_ref=str(ref), source=team))
+768391	    return items, when, generated
+768392	def combine(rows, aliases=None, parts=None, planning=None, previous=None, now_iso=None, use_module=True,
+768393	            exclusions=None, standings=None):
+768394	    """rows: the top-200 list. parts: {team: part dict, or "absent" / "missing" / "unreadable"}.
+768395	    Returns the combined file (version 2) as a dict. Nothing here touches the network or the disk."""
+768397	    exclusions = (exclusions or {}).get("projects", {}) if isinstance(exclusions, dict) else {}
+768398	    standings = (standings or {}).get("projects", {}) if isinstance(standings, dict) else {}
+768399	    standing = lambda ref: alias_standing(aliases.get(ref), standings.get(ref))  # noqa: E731
+768400	    parts = parts or {}
+768401	    run_at = now_iso or now_utc()
+768402	    today = dt.date.fromisoformat(run_at[:10])
+768403	    plan_data = planning if isinstance(planning, dict) else None
+768404	    planning = planning_table(planning)
+768405	    rows_by_ref = {str(r["repd_ref"]): r for r in rows}
+768406	    refs = list(rows_by_ref)
+768408	    dropped = {"outside the 200": 0, "no title or link": 0, "source not allowed": 0, "exclusion rule": 0,
+768409	               "not an object": 0, "link on several projects": 0, "title gate": 0}
+768410	    downgraded = {"alias without recorded evidence": 0, "weak alias without a second term": 0, "title gate": 0,
+768411	                  "shared link that names no project": 0}
+768412	    gate_cache = {}
+768413	    def gate_project(ref):
+768414	        if ref not in gate_cache:
+768415	            gate_cache[ref] = GATE.project_of(rows_by_ref[ref], aliases.get(ref), exclusions.get(ref))
+768416	        return gate_cache[ref]
+768418	    old_items, old_when, old_generated = previous_items(previous, today)
+768419	    def rules_for(ref):
+768421	        rules = dict(exclusions.get(ref) or {})
+768422	        legacy = [e for e in entry.get("exclude") or [] if isinstance(e, str) and e.strip()]
+768423	        if legacy:
+768424	            rules["exclude"] = list(rules.get("exclude") or []) + legacy
+768425	        return rules
+768426	    def take(raw, team, collected_at):
+768427	        item, reason = clean_item(raw, team, today, collected_at)
+768430	        ref = item["repd_ref"]
+768431	        if ref not in rows_by_ref:
+768433	        if exclusion_reason(item, rules_for(ref)):
+768434	            dropped["exclusion rule"] += 1
+768435	        if is_reviewed(item):
+768436	            # "reviewed" means the URL was manually discovered, NOT that its
+768437	            # particular REPD binding has an independent identity receipt.
+768438	            # The multi-project URL cleanup below cannot catch a sole URL
+768439	            # incorrectly pasted onto the wrong project's record.
+768440	            names_this_site = names_project(item["title"], entry, rows_by_ref[ref])
+768441	            if not names_this_site:
+768442	                other_sites_named = [
+768443	                    other for other in refs if other != ref
+768444	                    and names_project(item["title"], aliases.get(other) or {}, rows_by_ref[other])
+768445	                    and GATE.judge(other, item["title"], project=gate_project(other),
+768446	                                   official=item["family"] == "official")[0] == "ok"
+768448	                if other_sites_named:
+768449	                    dropped["title gate"] += 1  # explicit different scheme; never promote the wrong REPD
+768450	                    return False
+768451	                if item["confidence"] == "confirmed":
+768452	                    item["confidence"] = "possible"
+768453	                    item["basis"] = D.clean_text(
+768454	                        "%s; possible only: reviewed URL lacks a named project in the headline"
+768455	                        % item["basis"], 240)
+768456	                    downgraded["title gate"] += 1
+768457	        if not is_reviewed(item) and "reference" not in item["basis"]:
+768458	            verdict, why = GATE.judge(ref, item["title"], project=gate_project(ref), official=item["family"] == "official")
+768459	            if verdict == "drop":                          # also purges a carried-forward copy of a match now rejected
+768460	                dropped["title gate"] += 1
+768461	            if verdict in ("possible", "none") and item["confidence"] == "confirmed":
+768462	                # No name in the title is not a confirmed identity match merely
+768463	                # because one collector accepted the phrase or summary.
+768464	                item["confidence"] = "possible"
+768465	                item["basis"] = D.clean_text("%s; possible only: %s" % (item["basis"], why), 240)
+768466	                downgraded["title gate"] += 1
+768467	        if item["confidence"] == "confirmed" and aliases:
+768468	            if standing(ref) != "confirmed":
+768469	                downgraded["alias without recorded evidence"] += 1
+768470	            elif not is_reviewed(item) and "reference" not in item["basis"] and \
+768471	                    not second_term_ok(item["title"], entry, rows_by_ref[ref], (exclusions.get(ref) or {}).get("weak_alias")):
+768472	                downgraded["weak alias without a second term"] += 1
+768473	        gathered[ref].append(item)
+768475	        part = parts.get(team, "absent")
+768476	        if part == "absent" and not (team in LIVE_TEAMS and old_items[team]):
+768477	            part_state[team] = {"status": "absent", "collected_at": None, "items": 0, "note": "not part of this run"}
+768478	        good, why = _part_good(dict(part, _run_at=run_at) if isinstance(part, dict) and team != REVIEWED else part)
+768479	        if isinstance(part, dict):
+768480	            for source in part.get("sources") or []:
+768481	                if isinstance(source, dict):
+768482	                    sources.append({"team": team, "id": str(source.get("id") or ""), "url": str(source.get("url") or ""),
+768483	                                    "status": source.get("status") if source.get("status") in ("ok", "partial", "failed") else "failed",
+768484	                                    "requests": source.get("requests") or 0, "failures": source.get("failures") or 0,
+768485	                                    "items": source.get("items") or 0,
+768486	                                    "error": re.sub(r"\S+@\S+", "(address removed)", D.clean_text(str(source.get("error") or ""), 300))})
+768487	        if team == REVIEWED:
+768488	            if good:
+768489	                stamp = part.get("generated_at") if isinstance(part.get("generated_at"), str) else None
+768490	                kept = sum(1 for raw in part["items"] if take(raw, team, stamp))
+768491	                part_state[team] = {"status": "ok", "collected_at": stamp, "items": kept,
+768492	                                    "note": "committed file, reviewed by hand"}
+768493	                part_state[team] = {"status": "failed", "collected_at": None, "items": 0, "note": why}
+768494	        if good:                                            # this run's items first: on a shared link they win
+768495	            stamp = part.get("generated_at") if isinstance(part.get("generated_at"), str) else run_at
+768496	            kept = sum(1 for raw in part["items"] if take(dict(raw, collected_at=None, source=team), team, stamp))
+768497	        kept_old = sum(1 for raw in old_items[team] if take(raw, team, old_when[team]))
+768498	        if good:
+768499	            part_state[team] = {"status": "ok", "collected_at": stamp, "items": kept, "note": ""}
+768500	        elif kept_old:
+768501	            part_state[team] = {"status": "stale", "collected_at": old_when[team], "items": kept_old,
+768502	                                "note": why + "; items published before are kept with their own dates"}
+768503	            part_state[team] = {"status": "failed", "collected_at": None, "items": 0,
+768504	                                "note": why + "; nothing published before to keep"}
+768505	    # one link, one project, unless the title names each or a reviewer tied it to each
+768506	    homes = {}
+768508	        gathered[ref] = dedupe(gathered[ref])
+768509	        for item in gathered[ref]:
+768510	            homes.setdefault(link_key(item["link"]), []).append(ref)
+768511	    for link, on in homes.items():
+768512	        if len(on) < 2:
+768513	        found = {ref: next(i for i in gathered[ref] if link_key(i["link"]) == link) for ref in on}
+768514	        named = {ref: names_project(found[ref]["title"], aliases.get(ref) or {}, rows_by_ref[ref]) for ref in on}
+768515	        # A reviewed record is a source discovery method, not itself evidence
+768516	        # that one URL concerns every REPD row to which it was pasted. The
+768517	        # specific identity of *each* project must be supported independently.
+768518	        # This also permits a genuinely two-project headline when both names
+768519	        # occur; a future reviewed binding may qualify only with a separately
+768520	        # audited project-specific receipt.
+768521	        keep = [ref for ref in on if named[ref]]
+768522	        if not keep:
+768523	            keep = [min(on, key=lambda ref: (found[ref]["confidence"] != "confirmed",
+768524	                                              standing(ref) != "confirmed",
+768525	                                              rows_by_ref[ref].get("rank") or 10 ** 6))]
+768526	        for ref in on:
+768527	            if ref not in keep:
+768528	                gathered[ref] = [i for i in gathered[ref] if link_key(i["link"]) != link]
+768529	                dropped["link on several projects"] += 1
+768530	            elif len(keep) > 1:
+768531	                found[ref]["also_projects"] = sorted((r for r in keep if r != ref), key=lambda r: (len(r), r))
+768532	                if not named[ref] and not PLURAL_RE.search(found[ref]["title"]) and found[ref]["confidence"] == "confirmed":
+768533	                    found[ref]["confidence"] = "possible"   # tied by hand to several projects, the title names none
+768534	                    downgraded["shared link that names no project"] += 1
+768535	    # planning files
+768536	    plan_origin = {}
+768546	        files[ref], plan_origin[ref] = file, origin
+768547	    from_file = sum(1 for o in plan_origin.values() if o == "planning")
+768548	    if from_file:
+768549	        stamp = plan_data.get("generated_at") if plan_data and isinstance(plan_data.get("generated_at"), str) else run_at
+768550	        part_state["planning"] = {"status": "ok", "collected_at": stamp, "items": sum(1 for f in files.values() if f),
+768551	                                  "note": "" if from_file == len(refs) else "%d from the planning run, the rest from the alias table" % from_file}
+768552	        part_state["planning"] = {"status": "absent", "collected_at": None, "items": sum(1 for f in files.values() if f),
+768553	                                  "note": "no planning run; links built from the alias table and the REPD row"}
+768554	    projects = {}
+768555	    counts = {"projects": len(refs), "headline": {"label": HEADLINE, "value": 0},
+768556	              "by_tier": {t: 0 for t in PROJECT_TIERS}, "possible_only": 0,
+768557	              "with_recent_news": 0, "with_official": 0, "with_archive": 0, "with_possible_recent_news": 0,
+768558	              "items": {t: 0 for t in TIERS},
+768559	              "planning_file": {"verified_direct": 0, "unverified_direct": 0, "register_search": 0, "register_finder": 0}}
+768560	    label_count = dict(zip(PLANNING_LABELS, ("verified_direct", "unverified_direct", "register_search", "register_finder")))
+768561	        lists = {}
+768563	            shown = cluster(ref, [i for i in gathered[ref] if i["tier"] == tier])[:MAX_PER_TIER]
+768564	            lists[tier] = [{k: v for k, v in i.items() if k != "repd_ref"} for i in shown]
+768565	            counts["items"][tier] += len(lists[tier])
+768566	        confirmed = {t: any(i["confidence"] == "confirmed" for i in lists[t]) for t in TIERS}
+768567	        any_item = any(lists[t] for t in TIERS)
+768568	        file = files[ref]
+768569	        if confirmed["recent_news"]:
+768570	            tier = "recent_news"
+768571	        elif confirmed["official"]:
+768572	            tier = "official"
+768573	        elif any_item:
+768574	            tier = "archive_only"
+768575	            counts["possible_only"] += not confirmed["archive"]
+768577	            tier = "planning_file_only"
+768578	            tier = "nothing"
+768579	        counts["by_tier"][tier] += 1
+768580	        counts["with_recent_news"] += confirmed["recent_news"]
+768581	        counts["with_official"] += confirmed["official"]
+768582	        counts["with_archive"] += bool(lists["archive"])
+768583	        counts["with_possible_recent_news"] += bool(lists["recent_news"]) and not confirmed["recent_news"]
+768585	            counts["planning_file"][label_count[file["label"]]] += 1
+768589	                         "alias_standing": standing(ref), "tier": tier,
+768590	                         "recent_news": lists["recent_news"], "official": lists["official"], "archive": lists["archive"],
+768591	                         "planning_file": file}
+768592	    counts["headline"]["value"] = counts["by_tier"]["recent_news"]
+768593	    collected = [part_state[t]["collected_at"] for t in LIVE_TEAMS if part_state[t]["status"] == "ok" and part_state[t]["collected_at"]]
+768594	    generated = max(collected) if collected else old_generated
+768595	    stale = any(part_state[t]["status"] in ("stale", "failed") for t in LIVE_TEAMS)
+768596	    return {"schema": SCHEMA, "generated_at": generated, "run_at": run_at, "stale": stale, "scope": SCOPE,
+768597	            "recent_days": RECENT_DAYS, "parts": {name: part_state[name] for name in PART_NAMES}, "counts": counts,
+768598	            "dropped": dropped, "downgraded": downgraded, "sources": sources, "projects": projects}
+768599	# ---------------------------------------------------------------- the writer's checks (fail closed)
+768600	def schema_errors(result, expected_refs=None):
+768601	    """Every way the file breaks the version 2 contract (an empty list means it may be published)."""
+768602	    def need(ok, message):
+768603	        if not ok and len(errors) < 40:
+768606	        return ["not an object"]
+768607	    need(result.get("schema") == SCHEMA, "schema is not %s" % SCHEMA)
+768608	    stamp = re.compile(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$")
+768609	    need(result.get("generated_at") is None or (isinstance(result.get("generated_at"), str) and stamp.match(result["generated_at"])),
+768610	         "generated_at is not a timestamp or null")
+768611	    need(isinstance(result.get("run_at"), str) and stamp.match(result.get("run_at") or ""), "run_at is not a timestamp")
+768612	    parts = result.get("parts") if isinstance(result.get("parts"), dict) else {}
+768613	    for name in PART_NAMES:
+768614	        state = parts.get(name)
+768615	        need(isinstance(state, dict) and state.get("status") in ("ok", "stale", "failed", "absent")
+768616	             and "collected_at" in state, "parts.%s lacks status or collected_at" % name)
+768617	    live_ok = [parts[t]["collected_at"] for t in LIVE_TEAMS
+768618	               if isinstance(parts.get(t), dict) and parts[t].get("status") == "ok" and parts[t].get("collected_at")]
+768619	    if live_ok:
+768620	        need(result.get("generated_at") == max(live_ok), "generated_at is not the newest successful collection")
+768621	    projects = result.get("projects") if isinstance(result.get("projects"), dict) else {}
+768622	    counts = result.get("counts") if isinstance(result.get("counts"), dict) else {}
+768623	    by_tier = counts.get("by_tier") if isinstance(counts.get("by_tier"), dict) else {}
+768624	    need(set(by_tier) == set(PROJECT_TIERS), "counts.by_tier keys are wrong")
+768625	    need(sum(v for v in by_tier.values() if isinstance(v, int)) == len(projects) == counts.get("projects"),
+768626	         "counts.by_tier does not sum to the number of projects")
+768627	    need(isinstance(counts.get("headline"), dict) and counts["headline"].get("value") == by_tier.get("recent_news"),
+768628	         "headline does not equal the candidate recent-news count")
+768629	    if expected_refs is not None:
+768630	        need(set(projects) == {str(r) for r in expected_refs}, "the projects are not the expected set")
+768631	    need(by_tier.get("nothing") == 0, "%s project(s) have neither an item nor a planning file" % by_tier.get("nothing"))
+768632	    today = dt.date.fromisoformat(result["run_at"][:10]) if isinstance(result.get("run_at"), str) and stamp.match(result["run_at"]) else None
+768635	            need(False, "%s is not an object" % ref)
+768637	        need(isinstance(file, dict) and file.get("label") in PLANNING_LABELS and str(file.get("url") or "").startswith("https://"),
+768638	             "%s: planning_file missing or mislabelled" % ref)
+768639	        need(project.get("tier") in PROJECT_TIERS, "%s: tier" % ref)
+768640	        links = []
+768641	            items = project.get(tier)
+768642	            if not isinstance(items, list):
+768643	                need(False, "%s: %s is not a list" % (ref, tier))
+768644	            keys = []
+768646	                where = "%s %s" % (ref, tier)
+768647	                if not isinstance(item, dict):
+768648	                    need(False, where + ": item is not an object")
+768649	                links.append(item.get("link"))
+768650	                need(isinstance(item.get("title"), str) and item["title"] and str(item.get("link") or "").startswith("https://"),
+768651	                     where + ": title or link")
+768652	                need(item.get("tier") == tier, where + ": item tier differs from its list")
+768653	                need(item.get("confidence") in ("confirmed", "possible"), where + ": confidence")
+768654	                need(item.get("obtained") in ("fetched", "reviewed"), where + ": obtained")
+768655	                need(item.get("event") is None or item.get("event") in EVENTS, where + ": event")
+768656	                need(isinstance(item.get("collected_at"), str) and item["collected_at"], where + ": collected_at")
+768657	                date = item.get("date")
+768658	                if date is None:
+768659	                    need(item.get("freshness") == "undated" and tier == "archive"
+768660	                         and (item.get("year") is None or isinstance(item.get("year"), int)),
+768661	                         where + ": undated item outside the archive or mislabelled")
+768662	                elif today is not None:
+768663	                    need(parse_date(date, today) == date, where + ": date %r is not a past calendar date" % (date,))
+768664	                    if parse_date(date, today) == date:
+768665	                        need(item.get("freshness") == freshness(date, today) and item.get("year") == int(date[:4]),
+768666	                             where + ": freshness or year does not follow from the date")
+768667	                        need(tier != "recent_news" or item.get("freshness") == "recent", where + ": old item in recent_news")
+768668	                if isinstance(item.get("link"), str) and item.get("confidence") in ("confirmed", "possible") and item.get("family") in FAMILIES:
+768669	                    keys.append(order_key(item))
+768670	            need(keys == sorted(keys), "%s %s: not in order (newest dated first)" % (ref, tier))
+768671	        need(len(links) == len(set(links)), "%s: a link appears twice" % ref)
+768673	def with_any_item(result):
+768674	    return sum(1 for p in (result.get("projects") or {}).values() if any(p.get(t) for t in TIERS))
+768675	def publication_check(result, previous, expected_refs=None):
+768676	    """Reasons not to publish (empty: publish). Schema first, then a sharp drop against the published version 2 file."""
+768677	    reasons = ["schema: " + e for e in schema_errors(result, expected_refs)]
+768678	    if isinstance(previous, dict) and previous.get("schema") == SCHEMA and not reasons:
+768679	        pairs = (("projects with any item", with_any_item(previous), with_any_item(result)),
+768680	                 ("items", sum((previous.get("counts") or {}).get("items", {}).values() or [0]), sum(result["counts"]["items"].values())))
+768681	        for name, before, after in pairs:
+768682	            if before >= 6 and after < before * (1 - DROP_LIMIT):
+768683	                reasons.append("sharp drop: %s fell from %d to %d (more than a third)" % (name, before, after))
+768684	    return reasons
+768717	def _cell(text):
+768718	    return str(text if text is not None else "").replace("|", "/").replace("[", "(").replace("]", ")")
+768719	def summary(result, truth=None, reasons=None, published=True):
+768721	    t = c["by_tier"]
+768722	    lines = ["## Project signals: combined file (version 2)\n",
+768723	             "### Publication\n",
+768724	             ("**Published.**" if published else "**Not published: the file on the data branch stays as it was.**")
+768725	             + " Last successful live collection (generated_at): %s. This run: %s.%s\n" % (
+768726	                 result["generated_at"] or "never", result["run_at"],
+768727	                 " **Stale: at least one live part did not collect in this run.**" if result["stale"] else "")]
+768728	    for reason in reasons or []:
+768729	        lines.append("- refused because: %s" % reason)
+768730	    lines += ["\n### Counts by tier (%s; each of the %d projects is counted once)\n" % (result["scope"], c["projects"]),
+768731	              "**%s: %d of %d** (a publisher's item dated within %d days of this run, confirmed match).\n" % (
+768732	                  HEADLINE.capitalize(), c["headline"]["value"], c["projects"], result["recent_days"]),
+768733	              "| tier | projects |\n|---|---|",
+768734	              "| with recent news | %d |" % t["recent_news"],
+768735	              "| with an official item (and no recent news) | %d |" % t["official"],
+768736	              "| with archive only (older or undated items, shown with their year) | %d |" % t["archive_only"],
+768737	              "| with planning file only | %d |" % t["planning_file_only"],
+768738	              "| with nothing (zero) | %d |" % t["nothing"],
+768739	              "\nNot exclusive: %d projects have a confirmed official item, %d have an archive item, %d have only a possible "
+768740	              "match in recent news. Of the archive-only projects %d have possible matches only (shown as possible, never "
+768741	              "as fact)." % (c["with_official"], c["with_archive"], c["with_possible_recent_news"], c["possible_only"]),
+768742	              "Items listed: recent news %d, official %d, archive %d." % (c["items"]["recent_news"], c["items"]["official"], c["items"]["archive"]),
+768743	              "Planning files: %d verified direct links, %d unverified direct links, %d register searches, %d register "
+768744	              "finders." % tuple(c["planning_file"][k] for k in ("verified_direct", "unverified_direct", "register_search", "register_finder")),
+768745	              "\n### Parts\n", "| part | status | collected_at | items | note |\n|---|---|---|---|---|"]
+768746	    for name, state in result["parts"].items():
+768747	        lines.append("| %s | %s | %s | %d | %s |" % (name, state["status"], state["collected_at"] or "", state["items"], _cell(state["note"])))
+768748	    lines.append("\nDropped: %s. Downgraded to possible: %s.\n" % (
+768749	        ", ".join("%s %d" % kv for kv in result["dropped"].items() if kv[1]) or "none",
+768750	        ", ".join("%s %d" % kv for kv in result["downgraded"].items() if kv[1]) or "none"))
+768751	    lines.append("| team | source | status | requests | failures | items | error |\n|---|---|---|---|---|---|---|")
+768754	                                                                s["items"], _cell(s["error"])))
+768756	        lines.append("\n" + truth_report(truth, {ref: [i for tier in TIERS for i in p[tier]] for ref, p in result["projects"].items()}))
+768757	    lines.append("\n### The %d\n\n| rank | REPD | alias | tier | shown | date | publisher | title or reference |\n|---|---|---|---|---|---|---|---|" % c["projects"])
+768759	        shown = next((p[tier][0] for tier in TIERS if p[tier] and p[tier][0]["confidence"] == "confirmed"), None) or \
+768760	            next((p[tier][0] for tier in TIERS if p[tier]), None)
+768761	        if shown:
+768762	            lines.append("| %s | %s | %s | %s | %s, %s%s%s | %s | %s | [%s](%s) |" % (
+768763	                p["rank"], p["repd_ref"], _cell(p["alias"]), p["tier"], shown["tier"], shown["obtained"],
+768764	                "" if shown["confidence"] == "confirmed" else ", possible match",
+768765	                (", " + shown["event"]) if shown["event"] else "", shown["date"] or "undated", _cell(shown["publisher"]),
+768766	                _cell(shown["title"]), shown["link"]))
+768768	            lines.append("| %s | %s | %s | %s | %s | | %s | [%s](%s) |" % (
+768769	                p["rank"], p["repd_ref"], _cell(p["alias"]), p["tier"], f.get("label") or "none", _cell(f.get("authority")),
+768770	                _cell(f.get("reference") or f.get("kind") or "none"), f.get("url") or ""))
+768775	    ap.add_argument("--exclusions", default=str(HERE / "exclusions.json"))
+768776	    ap.add_argument("--standings", default=str(HERE / "alias_standings.json"))
+768778	    ap.add_argument("--previous", default=None, help="the file published last time; its items are kept")
+768783	    ap.add_argument("--force", action="store_true", help="write even after a sharp drop (never after a schema failure)")
+768786	    exclusions, _ = read_json(args.exclusions)
+768792	    standings, _ = read_json(args.standings)
+768793	    result = combine(rows, aliases, parts, planning, previous, args.now, exclusions=exclusions, standings=standings)
+768794	    reasons = publication_check(result, previous, [r["repd_ref"] for r in rows])
+768795	    refuse = [r for r in reasons if r.startswith("schema") or not args.force]
+768796	    same = lambda d: {k: v for k, v in d.items() if k != "run_at"}  # noqa: E731
+768797	    unchanged = not refuse and isinstance(previous, dict) and previous.get("schema") == SCHEMA and same(previous) == same(result)
+768798	    if unchanged and out.exists():
+768799	        reasons = ["nothing changed since the published file (only the run time differs): not rewritten"]
+768800	    elif not refuse:
+768802	        tmp = out.with_suffix(".tmp")
+768803	        tmp.write_text(json.dumps(result, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+768804	        tmp.replace(out)
+768807	        Path(args.summary).write_text(summary(result, truth, reasons, published=not refuse), encoding="utf-8")
+768808	    print(json.dumps({"out": str(out) if not refuse else None, "generated_at": result["generated_at"], "stale": result["stale"],
+768809	                      "by_tier": result["counts"]["by_tier"], "headline": result["counts"]["headline"],
+768810	                      "parts": {t: s["status"] for t, s in result["parts"].items()}}))
+768811	    if refuse:
+768812	        for reason in refuse:
+768813	            print("NOT PUBLISHED: %s" % reason, file=sys.stderr)
+768815	"""Project signals: one date rule shared by the three collectors and the combiner.
+768816	  day(value, today=None) -> "YYYY-MM-DD" or None
+768817	The day is the publisher's own calendar day: the date as written, not shifted to UTC (a story stamped
+768818	00:30 +01:00 on the 15th is dated the 15th by every collector). A missing or unknown time zone costs the time,
+768819	never the date. Impossible dates (30 February), placeholder dates (1970, year 26), dates before 2005 and, when
+768820	`today` is given, dates later than the day after it are None: an undated item, never a recent one.
+768821	  url_day(link) -> "YYYY-MM-DD" or None       a full date written in the link's path (/2026/11/10/, /10112026/)
+768822	  url_year(link) -> int or None               a year written in the link's path (/2026/, /uploads/2023/12/)
+768823	MONTHS = {m: n for n, names in enumerate((
+768824	    ("jan", "january"), ("feb", "february"), ("mar", "march"), ("apr", "april"), ("may",), ("jun", "june"),
+768825	    ("jul", "july"), ("aug", "august"), ("sep", "sept", "september"), ("oct", "october"), ("nov", "november"),
+768826	    ("dec", "december")), 1) for m in names}
+768827	FIRST_YEAR = 2005                 # before any utility-scale solar news in Great Britain
+768828	ISO_RE = re.compile(r"^(\d{4})-(\d{2})-(\d{2})(?:$|[T ])")
+768829	BASIC_RE = re.compile(r"^(\d{4})(\d{2})(\d{2})(?:$|T\d{6}Z?$)")
+768830	WORDS_RE = re.compile(r"(?<!\d)(\d{1,2})(?:st|nd|rd|th)?[ \-]([A-Za-z]{3,9})\.?,?[ \-](\d{4}|\d{2})(?!\d)")
+768831	US_WORDS_RE = re.compile(r"\b([A-Za-z]{3,9})\.? (\d{1,2})(?:st|nd|rd|th)?,? (\d{4})(?!\d)")
+768832	NUMERIC_RE = re.compile(r"^(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4}|\d{2})(?:$|[ T])")
+768833	def _make(year, month, day_, today=None):
+768834	        short = len(str(year)) <= 2
+768835	        year, month, day_ = int(year), int(month), int(day_)
+768836	        if short:
+768837	            year += 2000
+768838	        made = dt.date(year, month, day_)
+768839	    if made.year < FIRST_YEAR:
+768840	    if today is not None and made > today + dt.timedelta(days=1):
+768841	    return made.isoformat()
+768842	def day(value, today=None, month_first=False):
+768843	    """The calendar day a source wrote, or None. Accepts ISO dates and timestamps (with or without a zone), RFC 822
+768844	    dates with any or no zone name, "14 November 2026", "Nov 14, 2026", 14/11/2026, 14.11.2026, 20261114."""
+768846	    text = value.strip()
+768848	    found = ISO_RE.match(text) or BASIC_RE.match(text)
+768850	        return _make(found.group(1), found.group(2), found.group(3), today)
+768851	    found = WORDS_RE.search(text)
+768852	    if found and found.group(2).lower() in MONTHS:
+768853	        return _make(found.group(3), MONTHS[found.group(2).lower()], found.group(1), today)
+768854	    found = US_WORDS_RE.search(text)
+768855	    if found and found.group(1).lower() in MONTHS:
+768856	        return _make(found.group(3), MONTHS[found.group(1).lower()], found.group(2), today)
+768857	    found = NUMERIC_RE.match(text)
+768858	        first, second = found.group(1), found.group(2)
+768859	        if month_first or int(second) > 12 >= int(first):
+768860	            first, second = second, first
+768861	        return _make(found.group(3), second, first, today)
+768862	URL_DAY_RES = (re.compile(r"/(20\d{2})[/-](\d{1,2})[/-](\d{1,2})(?:/|-|$)"),
+768863	               re.compile(r"/(\d{2})(\d{2})(20\d{2})/"))
+768864	URL_YEAR_RE = re.compile(r"/(20\d{2})(?:/|$)")
+768865	def url_day(link, today=None):
+768866	    if not isinstance(link, str):
+768867	    path = link.split("?")[0]
+768868	    found = URL_DAY_RES[0].search(path)
+768869	    found = URL_DAY_RES[1].search(path)
+768870	        return _make(found.group(3), found.group(2), found.group(1), today)
+768871	def url_year(link, today=None):
+768872	    found = URL_YEAR_RE.search(link.split("?")[0])
+768874	    year = int(found.group(1))
+768875	    if year < FIRST_YEAR or (today is not None and year > today.year):
+768876	    return year
+768877	"""Project signals: one title gate shared by the three collectors and the combiner.
+768878	A headline that carries a project's name is not yet a headline about the project: "Fosse Way" is a road,
+768879	"Belvoir Castle" a visitor attraction, "Cambridge" a city, "Helios" a project in Spain. Each collector asks this
+768880	gate after its own matcher has said yes, and the combiner asks it again for every item, including items carried
+768881	from the file published before, so a match the rules now reject is purged.
+768882	  judge(ref, title) -> (verdict, reason)
+768883	  "none"      the title does not carry any of the project's names: not this gate's business (a match made from a
+768884	              feed summary, or by a reviewer who read the article)
+768885	  "ok"        the name is in the title with enough beside it
+768886	  "possible"  the name is there but the support is thin: keep, never as a confirmed match
+768887	  "drop"      the name is there in another sense: not this project
+768888	The rule (from the acid test of 14 November 2026, cases_1_false_matches):
+768889	- the planning reference in the title is enough;
+768890	- otherwise the title must carry a solar term ("solar" not followed by panels, cells, canopy and the like; PV;
+768891	  "energy park"; DCO; NSIP), the whole alias with its solar words, or the developer; a name alone, or a name with
+768892	  only a county beside it, is dropped;
+768893	- a headline placed abroad, or in another UK county than the project's, is dropped;
+768894	- a one-word, everyday-word or flagged name needs its solar term directly after it, or a second agreeing fact
+768895	  (county, district, developer, capacity); a name shared by two of the 200, or flagged generic, always needs the
+768896	  second fact to be more than "possible";
+768897	- a capacity in the title far from the REPD figure makes a weak name's match "possible" at most.
+768898	TAIL_RE = re.compile(r"\s+(?:solar|energy|energyfarm|renewables?|photovoltaics?|pv|battery|bess)\b.*$", re.I)
+768899	SOLAR_TERM = (r"(?:solar(?:[- ]plus[- ]storage)?(?!\s+(?:panels?|cells?|canop\w+|lights?|lighting|roof\w*|car ?ports?|tiles?|"
+768900	              r"thermal|powered|lamps?|trackers?|eclipse|system|bench\w*|charger\w*))|pv|photovoltaics?|energy (?:park|farm)|"
+768901	              r"renewable energy (?:project|park)|renewables project|dco|nsip)")
+768902	SOLAR_RE = re.compile(r"(?<![\w-])%s(?![\w])" % SOLAR_TERM, re.I)
+768903	SMALL_RE = re.compile(r"\broof\w*\b|\bcar ?ports?\b|\bstreet ?lights?\b|\bsolar (?:panels?|cells?|canop\w+|lights?|tiles?) "
+768904	                      r"(?:for|on|at|fitted|installed on)\b|\benergy[- ]efficien\w+", re.I)
+768905	CONTEXT_RE = re.compile(r"\d\s?(?:MW|GW)\b|\bconsent\b|\bpermit\b|\bBESS\b|\bO&M\b|\bexamination\b|\brefus\w+|\bapprov\w+|\breject\w+|"
+768906	                        r"\bdevelopment consent\b", re.I)
+768907	# Actual project-development activity, not merely a generic mention of solar.
+768908	# Site name and action are a *candidate match*: publisher and REPD evidence
+768909	# are checked separately before public confirmation.
+768910	DEVELOPMENT_ACTION_RE = re.compile(
+768911	    r"\b(?:consents?|decision|approv\w*|refus\w*|rejection|reject\w*|"
+768912	    r"consult\w*|planning|dco|nsip|paperwork|filed?|filing|submits?|"
+768913	    r"pre-examination|permi\w*|financ\w*|invest\w*|epc|o&m|"
+768914	    r"energis\w*|energiz\w*|construction|commission\w*|"
+768915	    r"operational|acquir\w*|sale|sells?|buys?|delayed|milestones?|"
+768916	    r"moves? forward|launch\w*|unveil\w*|tweak\w*|design|"
+768917	    r"suppl(?:ies|ying)|go[- ]ahead|reaches?|secures?)\b", re.I
+768918	PLACE_TAIL = frozenset("farm lane road house hall way castle street bridge airfield aerodrome".split())
+768919	FOREIGN_RE = re.compile(
+768920	    r"(?<!\w)(?:US|U\.S\.|USA|America|American|Ireland|Irish|County (?:Meath|Kildare|Cork|Wexford|Offaly)|Germany|German|"
+768921	    r"France|French|Spain|Spanish|Italy|Italian|Greece|Netherlands|Dutch|Poland|Polish|China|Chinese|India|Indian|Japan|"
+768922	    r"Australia|Australian|Canada|Canadian|Texas|California|Missouri|Massachusetts|Vermont|Ontario|Alberta|Arizona|Nevada|"
+768923	    r"Florida|Ohio|Indiana|Virginia|Illinois|New Zealand|Brazil|Chile|Mexico|Portugal|Romania|Bulgaria|Hungary|Turkey|"
+768924	    r"South Africa|Kenya|Nigeria|Vietnam|Philippines|Denmark|Sweden|Norway|Finland|Belgium|Austria|Switzerland|state contract)"
+768925	    r"(?!\w)")
+768926	UK_RE = re.compile(r"(?<!\w)(?:UK|U\.K\.|Britain|British|England|English|Scotland|Scottish|Wales|Welsh|DESNZ|Miliband|"
+768927	                   r"Planning Inspectorate|Secretary of State)(?!\w)")
+768928	COUNTIES = (
+768929	    "Bedfordshire Berkshire Buckinghamshire Cambridgeshire Cheshire Cornwall Cumbria Derbyshire Devon Dorset Durham "
+768930	    "Essex Gloucestershire Hampshire Herefordshire Hertfordshire Kent Lancashire Leicestershire Lincolnshire Norfolk "
+768931	    "Northamptonshire Northumberland Nottinghamshire Oxfordshire Rutland Shropshire Somerset Staffordshire Suffolk "
+768932	    "Surrey Warwickshire Wiltshire Worcestershire Merseyside Anglesey Gwynedd Conwy Denbighshire Flintshire Wrexham "
+768933	    "Powys Ceredigion Pembrokeshire Carmarthenshire Monmouthshire Aberdeenshire Angus Fife Moray Highland Ayrshire "
+768934	    "Lanarkshire Perthshire Stirlingshire Midlothian Cardiff Swansea Newport Gateshead Barnsley").split() + [
+768935	    "East Sussex", "West Sussex", "North Yorkshire", "South Yorkshire", "West Yorkshire", "East Yorkshire",
+768936	    "East Riding", "Greater Manchester", "West Midlands", "Tyne and Wear", "Isle of Wight", "County Durham",
+768937	    "Vale of Glamorgan", "Scottish Borders", "Dumfries and Galloway", "East Lothian", "West Lothian",
+768938	    "Perth and Kinross", "Argyll and Bute", "Northern Ireland", "County Antrim", "County Down", "South Gloucestershire",
+768939	    "North Lincolnshire", "North East Lincolnshire", "Wensleydale"]
+768940	# Old regions in REPD rows and the counties a headline would use instead.
+768941	REGIONS = {"grampian": ["Aberdeenshire", "Moray", "Aberdeen"], "tayside": ["Angus", "Perthshire", "Perth and Kinross", "Dundee"],
+768942	           "humberside": ["East Yorkshire", "East Riding", "North Lincolnshire", "North East Lincolnshire", "Lincolnshire", "Hull"],
+768943	           "hereford and worcester": ["Herefordshire", "Worcestershire"], "clwyd": ["Denbighshire", "Flintshire", "Wrexham", "Conwy"],
+768944	           "gwent": ["Monmouthshire", "Newport", "Torfaen", "Caerphilly"], "cleveland": ["Durham", "County Durham", "Hartlepool", "Stockton"],
+768945	           "strathclyde": ["Lanarkshire", "Ayrshire"], "central": ["Stirlingshire", "Stirling", "Falkirk"],
+768946	           "lothian": ["Midlothian", "East Lothian", "West Lothian"], "dyfed": ["Carmarthenshire", "Pembrokeshire", "Ceredigion"],
+768947	           "yorkshire": ["North Yorkshire", "East Yorkshire", "East Riding", "South Yorkshire", "West Yorkshire"],
+768948	           "north yorkshire": ["East Yorkshire", "East Riding"], "east yorkshire": ["East Riding"],
+768949	    "east riding of yorkshire": ["East Yorkshire", "East Riding"],
+768950	           "south glamorgan": ["Cardiff", "Vale of Glamorgan"], "west glamorgan": ["Swansea"], "avon": ["South Gloucestershire", "Somerset"],
+768951	           "county durham": ["Durham"], "durham": ["County Durham"]}
+768952	EVERYDAY = frozenset(
+768953	    "farm farms hill hills lane manor house park grange hall wood woods green north south east west great little new old "
+768954	    "high low lower upper moor field fields bridge road drove droves mill church land lands meadow meadows marsh fen "
+768955	    "common court lodge cottage barn home top end side long big cross way gate lakes lake valley airfield quarry airport "
+768956	    "the of and at on bypass by pass warren breach wick spring springs heath view oak oaks white black red blue stone "
+768957	    "water river brook ford corner street castle".split())
+768958	DEVELOPER_STOP = frozenset(
+768959	    "ltd limited plc llp uk gb group holdings energy energies renewable renewables solar power partners development "
+768960	    "developments company co and the of infrastructure capital investments generation green net system systems old "
+768961	    "solutions planning pass spring five red white horse iron rush light low carbon switch boom elements defence unknown "
+768962	    "canadian shell aura elgin elstree darlington rayleigh farm project projects storage new one first british "
+768963	    "international europe european global national island".split())
+768964	_TABLE = None
+768965	    text = (text or "").lower().replace("&", " and ").replace("’", "'").replace("‘", "'").replace("-", " ")
+768966	def _has(phrase, text_norm):
+768967	    p = _norm(phrase)
+768968	    return bool(p) and re.search(r"(?<![a-z0-9])%s(?![a-z0-9])" % re.escape(p), text_norm) is not None
+768970	    """The alias without its solar tail; words inside the name are kept ("Fosse Green Energy" -> "Fosse Green")."""
+768971	    core = TAIL_RE.sub("", re.sub(r"\([^)]*\)", " ", alias)).strip(" ,-")
+768972	    core = re.sub(r"^the\s+", "", core, flags=re.I)
+768973	    return core if len(core) >= 3 else ""
+768974	def inverted_solar_place(title, record):
+768975	    """Match 'solar farm at Foston' against documented alias 'Foston solar farm'.
+768976	    Only a place alias with a verified project location qualifies. The
+768977	    collector still applies the common title gate and confidence/rights rules.
+768978	    This is not a generic acceptance of a loose locality word.
+768979	    if not isinstance(title, str):
+768980	    aliases = [a for a in record.get("aliases") or [] if isinstance(a, str)]
+768981	    places = list((table().get(str(record.get("repd_ref"))) or {}).get("county_also") or [])
+768982	    normalized = _norm(title)
+768984	        core = core_of(alias)
+768985	        if (not core or len(_norm(core)) < 5 or _norm(core) not in [_norm(p) for p in places]
+768986	                or not re.search(r"\bsolar\s+farm\b", alias, re.I)):
+768987	        if re.search(r"\bsolar farm (?:at|in|near|outside|by) " + re.escape(_norm(core)) + r"\b", normalized):
+768988	def is_weak_core(core):
+768989	    words = _norm(core).split()
+768990	    return len(words) <= 1 or all(w in EVERYDAY for w in words) or words[-1] in PLACE_TAIL
+768991	def named_development_candidate(title, project):
+768992	    """A project core directly followed by 'solar' plus a genuine planning /
+768993	    development action. This is candidate discovery only, never confirmation.
+768994	    Exclusions, foreign places, county conflicts, weak names and publisher
+768995	    evidence remain separate mandatory gates. Do not use a developer or
+768996	    county alone as a project identity.
+768997	    if not isinstance(title, str) or not isinstance(project, dict):
+768998	    if not SOLAR_RE.search(title) or SMALL_RE.search(title):
+768999	    if not (DEVELOPMENT_ACTION_RE.search(title) or CONTEXT_RE.search(title)):
+769000	    text = _norm(title)
+769001	    for alias in project.get("aliases") or []:
+769002	        core = _norm(core_of(alias))
+769003	        if core and re.search(r"(?<![a-z0-9])" + re.escape(core) +
+769004	                              r"(?: \d+(?:\.\d+)? ?mw)? solar\b", text):
+769006	    """{repd_ref: project} from the committed top-200 list, alias table and exclusions (loaded once)."""
+769007	    global _TABLE
+769008	    if _TABLE is None:
+769009	        def load(name):
+769010	                return json.loads((HERE / name).read_text(encoding="utf-8"))
+769011	            except (OSError, ValueError):
+769013	        rows = load("top200_solar.json") or []
+769014	        aliases = (load("aliases.json") or {}).get("projects", {})
+769015	        rules = (load("exclusions.json") or {}).get("projects", {})
+769016	        _TABLE = {}
+769017	        for row in rows if isinstance(rows, list) else []:
+769018	            ref = str(row.get("repd_ref"))
+769019	            _TABLE[ref] = project_of(row, aliases.get(ref), rules.get(ref))
+769020	    return _TABLE
+769021	def project_of(row, entry=None, rules=None):
+769022	    """The fields the gate needs, from a top-200 row, its alias entry and its exclusion rules."""
+769023	    entry, rules = entry or {}, rules or {}
+769024	    names = [a.strip() for a in entry.get("aliases") or [] if isinstance(a, str) and a.strip()] or \
+769025	        [re.split(r"\s+-\s+", row.get("site_name") or "")[-1].strip()]
+769026	    def field(key):
+769027	        return str(entry.get(key) or row.get(key) or "").strip()
+769028	    county = field("county")
+769029	    home = [county] + REGIONS.get(county.lower(), []) + list(rules.get("county_also") or [])
+769030	    authority = re.sub(r"\b(?:council|borough|district|city|county|metropolitan|unitary|the|of)\b", " ", field("planning_authority"), flags=re.I)
+769031	    if not re.search(r"inspectorate|government|ministers|secretary", authority, re.I):
+769032	        home.append(" ".join(authority.split()))
+769033	    site = field("site_name")
+769034	    home += [piece.strip() for piece in re.split(r"\s+-\s+|,", site)[:-1]]
+769035	    developers = []
+769036	    for name in re.split(r"\s*(?:&|/|,|\band\b)\s*", field("operator")):
+769037	        words = [w for w in re.findall(r"[A-Za-z][A-Za-z0-9']+", name) if w.lower() not in ("ltd", "limited", "plc", "llp", "uk")]
+769038	        distinct = [w for w in words if w.lower() not in DEVELOPER_STOP and (len(w) >= 4 or w.isupper())]
+769039	        if len(words) >= 2:
+769040	            developers.append(" ".join(words))
+769041	        if distinct:
+769042	            developers.append(distinct[0])
+769043	        mw = float(entry.get("mw") or row.get("mw") or 0)
+769044	        mw = 0.0
+769045	    return {"repd_ref": str(row.get("repd_ref")), "aliases": names, "planning_ref": field("planning_ref"), "mw": mw,
+769046	            "home": [h for h in home if h and len(h) >= 4], "developers": developers, "weak": rules.get("weak_alias"),
+769047	            "county": county, "county_also": list(rules.get("county_also") or []),
+769048	            "exclude": [p for p in rules.get("exclude") or [] if isinstance(p, str) and p.strip()]}
+769049	def judge(ref, title, project=None, official=False):
+769050	    """(verdict, reason): see the module text. `project` (from project_of) replaces the committed tables in tests.
+769051	    official=True: the item is from an official register or GOV.UK, where the whole alias is the case's own name."""
+769052	    project = project or table().get(str(ref))
+769053	    if not project or not isinstance(title, str):
+769054	        return "none", ""
+769055	    # Apply the same project-specific false-match exclusions at the collector
+769056	    # gate as the combiner (e.g. heat-network energy centres, Fosse Way roads).
+769057	    if any(_has(phrase, text) for phrase in project.get("exclude") or []):
+769058	        return "drop", "explicitly excluded non-project title"
+769059	    names = []                                              # (alias, core, whole alias in title)
+769061	        whole = TAIL_RE.search(alias) is not None and _has(alias, text)
+769062	        if whole or (core and _has(core, text)):
+769063	            names.append((alias, core or alias, whole))
+769064	    planning_ref = project["planning_ref"]
+769065	    if len(planning_ref) >= 6 and planning_ref.lower() in title.lower():
+769066	        return "ok", "planning reference in the title"
+769067	    # A named town getting school rooftop panels, solar canopies or street
+769068	    # lights is not evidence that its utility-scale REPD scheme progressed.
+769069	    if SMALL_RE.search(title) and not re.search(
+769070	            r"\b(?:solar (?:farm|park|plant|project)|NSIP|DCO)\b", title, re.I):
+769071	        return "drop", "non-utility rooftop or lighting subject"
+769073	    if inverted_solar_place(title, {"repd_ref": ref, "aliases": project["aliases"]}):
+769074	        return "ok", "evidenced place-form solar-farm title"
+769075	    weak_flag = project.get("weak")
+769076	    weak = bool(weak_flag) or all(is_weak_core(core) for _alias, core, _whole in names)
+769077	    home = any(_has(h, text) for h in project["home"] if not any(_has(h, _norm(a)) for a in project["aliases"]))
+769078	    developer = any(_has(d, text) for d in project["developers"]
+769079	                    if not any(_has(d, _norm(a)) or _has(core_of(a), _norm(d)) for a in project["aliases"]))
+769080	    if FOREIGN_RE.search(title) and not UK_RE.search(title) and not home and not developer:
+769081	        return "drop", "the headline is placed outside the UK"
+769082	    # An explicit mismatched UK county is strong negative location evidence,
+769083	    # even if a generic alias or town occurs elsewhere in the title.
+769084	    named_counties = [c for c in COUNTIES if _has(c, text)]
+769085	    county = project.get("county") or ""
+769086	    allowed_counties = [county] + REGIONS.get(county.lower(), []) + [
+769087	        x for x in project.get("county_also") or [] if x in COUNTIES]
+769088	    if named_counties and not any(_has(c, text) for c in allowed_counties if c):
+769089	        return "drop", "headline explicitly names a different UK county"
+769090	    if weak and not home:
+769091	        inside = " ".join(_norm(a) for a in project["aliases"])
+769092	        other = [c for c in COUNTIES if _has(c, text) and not _has(c, inside)]
+769093	        if other:
+769094	            return "drop", "the headline is placed in %s, not the project's county" % other[0]
+769095	    solar = SOLAR_RE.search(title) is not None and not SMALL_RE.search(title)
+769096	    whole = any(w for _a, _c, w in names) and not SMALL_RE.search(title)
+769097	    # "solar" can mean a timetable, panels, battery hub or charity donation.
+769098	    # A direct match needs a utility-scale scheme noun, not that token alone.
+769099	    adjacent = solar and any(re.search(
+769100	        r"(?<![a-z0-9])%s (?:\d+ ?mw )?(?:solar|pv|photovoltaic) "
+769101	        r"(?:farm|park|project|plant|scheme|development|array)\b" %
+769102	        re.escape(_norm(core)), text) for _a, core, _w in names)
+769103	    capacity = False
+769104	    far = False
+769105	    if project["mw"]:
+769106	        figures = [float(n) * (1000 if unit.lower() == "gw" else 1)
+769107	                   for n, unit in re.findall(r"(\d+(?:\.\d+)?)\s?(MW|GW)", title, re.I)]
+769108	        capacity = any(abs(f - project["mw"]) <= 0.2 * project["mw"] for f in figures)
+769109	        far = bool(figures) and not any(0.45 * project["mw"] <= f <= 2.2 * project["mw"] for f in figures)
+769110	    fact = home or developer or capacity
+769111	    official_specific = bool(re.search(
+769112	        r"\b(?:development consent|consent order|planning act 2008|dco|nsip)\b", title, re.I))
+769113	    if official and any(w for _a, _c, w in names) and not far and (
+769114	            (not weak and (whole or fact)) or
+769115	            (weak_flag != "shared" and whole and (fact or official_specific)) or
+769116	            (weak_flag == "shared" and (developer or capacity))):
+769117	        return "ok", "project identity supported by an official development notice"
+769118	    if not (solar or whole):
+769119	        if capacity:
+769120	            return ("possible" if weak_flag else "ok"), "the name with the project's capacity"
+769121	        everyday = all(all(w in EVERYDAY for w in _norm(core).split()) for _a, core, _w in names)
+769122	        if developer and not everyday:
+769123	            return "possible", "the name and the developer, but no solar term"
+769124	        if not weak and CONTEXT_RE.search(title):
+769125	            return "possible", "a distinctive name in a planning or energy headline, but no solar term"
+769126	        return "drop", "the name without a solar term"
+769127	        # "North Ray of Light charity solar donation" and "Tealing solar
+769128	        # timetable" mention a name and solar but not this power station.
+769129	        # Only the whole project alias or a direct solar-development phrase
+769130	        # merits the stronger result. General energy news stays possible.
+769131	        if whole:
+769132	            return "ok", "the full project alias with its solar context"
+769133	        site_pattern = re.compile(
+769134	            r"(?<![a-z0-9])(?:%s)(?: solar| pv| photovoltaic) "
+769135	            r"(?:farm|park|project|plant|scheme|development|array)\b" %
+769136	            "|".join(re.escape(_norm(core)) for _alias, core, _w in names)
+769138	        if site_pattern.search(text):
+769139	            return "ok", "specific solar development name stated in headline"
+769140	        # A longer proper name may start with the solar project's two-word
+769141	        # core but identify a different organisation ("North Ray of Light").
+769142	        # The inserted continuation must never be treated as exact project
+769143	        # identity merely because the headline also mentions a solar farm.
+769144	        if any(re.search(
+769145	                r"(?<![a-z0-9])" + re.escape(_norm(core)) + r"\s+of\s+[a-z]+",
+769146	                text) for _alias, core, _whole in names):
+769147	            return "possible", "core begins a different, longer proper name"
+769148	        if DEVELOPMENT_ACTION_RE.search(title) and (not far or developer) and (fact or any(
+769149	                len(_norm(core).split()) >= 2 for _alias, core, _whole in names)):
+769150	            return "ok", "distinctive project name plus actual development activity"
+769151	        return "possible", "the name and a broad solar mention without project-specific identity"
+769152	    if weak_flag:                                           # generic or shared with another row: a fact is required
+769153	        # A shared alias tied only to a broad county does not identify which
+769154	        # scheme was involved. Require a distinct developer, capacity or exact
+769155	        # planning reference before calling one of the two schemes confirmed.
+769156	        if weak_flag == "shared" and not (developer or capacity):
+769157	            return "possible", "shared name without a project-specific developer, capacity or reference"
+769158	        if fact and (whole or adjacent) and not far:
+769159	            return "ok", "a weak name with a direct solar project phrase and an agreeing fact"
+769160	        if whole or adjacent:
+769161	            return "possible", "a generic or shared name with no agreeing fact"
+769162	        if named_development_candidate(title, project):
+769163	            return "possible", "project core followed by solar in a development headline; independent case identity absent"
+769164	        return "drop", "a generic or shared name, not followed by its solar term, with no agreeing fact"
+769165	    if whole or adjacent:
+769166	        if far and not fact:
+769167	            return "possible", "the capacity in the title is far from the project's"
+769168	        return "ok", "the name followed directly by its solar term"
+769169	    if fact:
+769170	        return "possible", "a weak name and a solar term apart, with an agreeing fact"
+769171	    if named_development_candidate(title, project):
+769172	        return "possible", "weak project core followed by solar in a development headline; independent identity absent"
+769173	    return "drop", "a weak name and a solar term apart, with nothing else agreeing"
+769174	def for_record(record):
+769175	    """The gate's view of a collector's own project record (its aliases, county, operator, reference, capacity),
+769176	    with the committed exclusion rules of that reference."""
+769177	    ref = str(record.get("repd_ref"))
+769178	    committed = table().get(ref) or {}
+769179	    made = project_of(record, record, {"weak_alias": committed.get("weak"),
+769180	                                       "county_also": committed.get("county_also"),
+769181	                                       "exclude": committed.get("exclude")})
+769183	def gated(record, title, found, official=False):
+769184	    """A collector's own title match (basis, confidence), or None, after the gate: dropped, or kept as uncertain."""
+769186	    verdict, reason = judge(record.get("repd_ref"), title, project=for_record(record), official=official)
+769187	    if verdict == "drop":
+769188	    # Summary-only matches and ambiguous names cannot inherit a collector's
+769189	    # confirmed flag unless its evidence really identifies the planning case.
+769190	    if verdict in ("possible", "none") and found[1] == "confirmed":
+769191	        if verdict == "none" and "planning reference" in str(found[0]).lower():
+769192	            return found
+769193	        return "%s; kept as uncertain: %s" % (found[0], reason or "no project name in headline"), "uncertain"
+769217	import dates as DATES  # noqa: E402  one date rule shared by the collectors and the combiner
+769218	import gate as GATE  # noqa: E402  the title gate shared with trade.py, official.py and combine.py
+769408	    """The module's own rule (_match_item), then the shared title gate (gate.py). A match made in the title that
+769409	    the gate drops is no match; thin support is weak."""
+769410	    found = _match_item(project, title, summary, county_feed)
+769411	    verdict, reason = GATE.judge(project.get("repd_ref"), title, project=GATE.for_record(project))
+769412	    # An index title may match a loose synonym which the independent project
+769413	    # gate does not recognise as the scheme's name. Absence of project naming
+769414	    # cannot inherit an upstream "strong" declaration; the match stays a
+769415	    # candidate until a planning reference or independent REPD receipt exists.
+769416	    if found[0] == "strong" and verdict in ("possible", "none"):
+769417	        return "weak", "%s; kept as weak: %s" % (
+769418	            found[1], reason or "headline lacks a verified project name")
+769419	def _match_item(project, title, summary="", county_feed=False):
+769426	    if GATE.inverted_solar_place(title, project):
+769427	        return "strong", "verified place alias in inverted solar-farm title"
+769521	            title, link, date = D.clean_text(title, 300), D.canonical_link(link), DATES.day(date)
+769583	        # "seendate" is when GDELT crawled the page, not when it was published: a 2019 article crawled today must
+769584	        # not look recent. The date is the one written in the article's own link, when there is one; otherwise none.
+769585	        date = DATES.url_day(art.get("url") or "")
+769937	import gate as GATE  # noqa: E402  the title gate shared with trade.py, index.py and combine.py
+769959	_CONTEXTS = {}      # host -> ssl context completed with the issuer certificate, or None when that failed
+769960	def _completed_context(host, opener=urllib.request.urlopen):
+769961	    """For a server that does not send its intermediate certificate (the Energy Consents Unit site): read the
+769962	    issuer's address from the server certificate (Authority Information Access), fetch that one certificate and
+769963	    add it to a normal verifying context. Verification is never switched off: the chain must still end at a
+769964	    trusted root, so a wrong or forged issuer certificate simply fails as before."""
+769966	    import ssl
+769968	    pem = ssl.get_server_certificate((host, 443), timeout=TIMEOUT_S)        # read only, nothing trusted yet
+769969	    with tempfile.NamedTemporaryFile("w", suffix=".pem", delete=False) as handle:
+769970	        handle.write(pem)
+769971	        info = ssl._ssl._test_decode_cert(handle.name)                      # noqa: SLF001  the only stdlib decoder
+769973	        os.unlink(handle.name)
+769974	    context = ssl.create_default_context()
+769975	    added = 0
+769976	    for issuer in info.get("caIssuers") or ():
+769977	        if not issuer.lower().startswith(("http://", "https://")):
+769978	        req = urllib.request.Request(issuer, headers={"User-Agent": USER_AGENT})
+769979	        with opener(req, timeout=TIMEOUT_S) as response:                    # noqa: S310
+769980	            data = response.read(200_000)
+769981	        context.load_verify_locations(cadata=data.decode("ascii") if data.lstrip().startswith(b"-----BEGIN")
+769982	                                      else ssl.DER_cert_to_PEM_cert(data))
+769983	        added += 1
+769984	    if not added:
+769985	        raise FetchError("server certificate names no issuer address")
+769987	def _incomplete_chain(exc):
+769988	    return "CERTIFICATE_VERIFY_FAILED" in str(exc) and "local issuer" in str(exc)
+769992	    host = urllib.parse.urlsplit(url).hostname or ""
+769993	    context = _CONTEXTS.get(host)
+769994	        response = urllib.request.urlopen(req, timeout=TIMEOUT_S, context=context)  # noqa: S310 (https URLs built here)
+769995	    except urllib.error.HTTPError:
+769997	    except urllib.error.URLError as exc:
+769998	        if not _incomplete_chain(exc) or host in _CONTEXTS:
+770000	            _CONTEXTS[host] = _completed_context(host)
+770001	        except Exception as inner:  # noqa: BLE001
+770002	            _CONTEXTS[host] = None
+770003	            raise FetchError("the server sends an incomplete certificate chain and its issuer certificate could not "
+770004	                             "be fetched (%s); not fetched, verification stays on" % type(inner).__name__) from None
+770005	        response = urllib.request.urlopen(req, timeout=TIMEOUT_S, context=_CONTEXTS[host])  # noqa: S310
+770006	    with response:
+770110	    """The module's own rule (_match), then the shared title gate (gate.py): a headline placed abroad or in another
+770111	    county, or a bare name without a solar term, is not this project. The whole alias is enough in an official title."""
+770112	    return GATE.gated(project, title, _match(project, title, summary), official=True)
+770113	def _match(project, title, summary=""):
+770123	        return "verified place alias in inverted solar-farm title", confidence
+770143	    found = DATES.day(value)        # day first unless the value cannot be read that way; implausible years are None
+770144	    if found or re.match(r"\d{1,2}[/.\-]\d{1,2}[/.\-]\d{2,4}", value):
+770251	                    "date": DATES.day(r.get("public_timestamp") or ""),
+770423	"""Offline tests for automation/news/signals/combine.py (contract version 2)."""
+770431	LATER = "2026-11-15T05:23:00Z"
+770434	     "county": "Oxfordshire", "mw": 840.0, "operator": "Photovolt Development Partners",
+770438	    {"rank": 3, "repd_ref": "9050", "site_name": "Bypass Solar Farm", "country": "England", "county": "Lincolnshire",
+770439	     "mw": 49.99, "operator": "By-Pass Farm Solar Limited", "planning_authority": "South Kesteven", "planning_ref": "S20/1433"},
+770442	    {"rank": 5, "repd_ref": "20004", "site_name": "Hulam Solar Farm", "country": "England", "county": "Durham",
+770443	     "planning_authority": "Durham", "planning_ref": "DM/20/1"},
+770445	    "12588": {"aliases": ["Botley West Solar Farm"], "alias_status": "confirmed", "alias_evidence": "developer and EN010147 agree",
+770446	              "planning_file": {"authority": "The Planning Inspectorate", "reference": "EN010147", "kind": "pins_project",
+770447	                                "verified": True,
+770448	                                "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010147"}},
+770449	    "20001": {"aliases": ["Rigifa Solar Farm"], "alias_status": "confirmed", "alias_evidence": "", "alias_evidence_url": ""},
+770450	    "9050": {"aliases": ["Bypass Solar Farm", "Foston solar farm"], "alias_status": "confirmed",
+770451	             "alias_evidence": "applicant and authority agree"},
+770452	    "20003": {"aliases": ["Quiet Solar Farm"], "alias_status": "uncertain", "alias_evidence": "one article"},
+770453	    "20004": {"aliases": ["Hulam Solar Farm"], "alias_status": "confirmed", "alias_evidence_url": "https://example.co.uk/e"},
+770455	EXCLUSIONS = json.loads((SIGNALS / "exclusions.json").read_text())
+770461	def part(team, items, sources=None, at=NOW):
+770462	    return {"schema": C.PART_SCHEMA, "team": team, "generated_at": at, "items": items,
+770465	def run(parts, previous=None, now=NOW, **more):
+770466	    more.setdefault("exclusions", EXCLUSIONS)
+770467	    return C.combine(ROWS, ALIASES, parts, previous=previous, now_iso=now, use_module=False, **more)
+770468	def everything(project):
+770469	    return [i for tier in C.TIERS for i in project[tier]]
+770470	# ---------------------------------------------------------------- tiers, never mixed
+770471	def test_no_parts_every_project_has_a_planning_file_labelled_as_what_it_is():
+770473	    assert c["by_tier"] == {"recent_news": 0, "official": 0, "archive_only": 0, "planning_file_only": 5, "nothing": 0}
+770474	    assert c["headline"] == {"label": "projects with recent candidate news (independent evidence pending)", "value": 0}
+770475	    assert result["generated_at"] is None and result["stale"] is False
+770476	    assert {t: s["status"] for t, s in result["parts"].items()} == {
+770477	        "official": "absent", "trade": "absent", "index": "absent", "reviewed": "absent", "planning": "absent"}
+770479	    assert files["12588"]["label"] == "planning file (unverified link)" and files["12588"]["link_type"] == "direct"
+770480	    assert files["20001"]["label"] == "planning register search" and files["20001"]["note"] == "search for ECU00004567"
+770481	    assert files["9050"]["label"] == "planning register finder" and "S20/1433" in files["9050"]["note"]
+770482	    assert all(f["verified"] is False for f in files.values())
+770483	    assert all(p["recent_news"] == p["official"] == p["archive"] == [] for p in result["projects"].values())
+770484	    assert C.schema_errors(result) == []
+770485	def test_tier_comes_from_the_date_and_family_not_from_how_the_item_arrived():
+770486	    index = part("index", [item("12588", "new", "bbc", "2026-11-10"), item("12588", "edge", "trade", "2026-08-16"),
+770487	                           item("12588", "old", "regional", "2026-08-15"), item("12588", "undated", "national", None),
+770488	                           item("12588", "dev", "trade", "2026-11-12", link="https://www.pvdp.co.uk/news/1")])
+770489	    official = part("official", [item("12588", "notice", "official", "2024-01-05"), item("12588", "case", "official", None)])
+770490	    reviewed = part("reviewed", [item("12588", "r-new", "regional", "2026-11-01", basis="reviewed 2026-11-14",
+770491	                                 title="Botley West Solar Farm permit approved"),
+770492	                                 item("12588", "r-old", "regional", "2014-11-13", basis="reviewed 2026-11-14")])
+770493	    p = run({"index": index, "official": official, "reviewed": reviewed})["projects"]["12588"]
+770494	    assert [i["title"] for i in p["recent_news"]] == ["Headline new", "Botley West Solar Farm permit approved", "Headline edge"]
+770495	    assert [(i["title"], i["freshness"]) for i in p["official"]] == [("Headline notice", "older")]
+770496	    assert {i["title"]: (i["year"], i["freshness"]) for i in p["archive"]} == {
+770497	        "Headline dev": (2026, "recent"), "Headline old": (2026, "older"), "Headline r-old": (2014, "older"),
+770498	        "Headline undated": (None, "undated"), "Headline case": (None, "undated")}
+770499	    assert all(i["tier"] == tier for tier in C.TIERS for i in p[tier])
+770500	    assert {i["obtained"] for i in everything(p) if i["title"].startswith("Headline r-")} == {"reviewed"}
+770501	    assert all(i["collected_at"] == NOW and "utm_" not in i["link"] for i in everything(p))
+770502	    assert p["tier"] == "recent_news"
+770503	def test_freshness_is_measured_from_the_run_not_from_collection():
+770504	    index = part("index", [item("12588", "a", "bbc", "2026-11-10")])
+770505	    first = run({"index": index})
+770506	    much_later = run({}, previous=first, now="2027-03-01T00:00:00Z")
+770507	    kept = much_later["projects"]["12588"]
+770508	    assert kept["recent_news"] == [] and kept["archive"][0]["freshness"] == "older"
+770509	    assert kept["archive"][0]["collected_at"] == NOW and much_later["counts"]["headline"]["value"] == 0
+770510	def test_impossible_and_future_dates_are_treated_as_undated():
+770511	    index = part("index", [item("12588", "feb30", date="2026-02-30"), item("12588", "month99", date="2026-99-99"),
+770512	                           item("12588", "tomorrow2", date="2026-11-16"), item("12588", "text", date="last week"),
+770513	                           item("12588", "stamp", date="2026-11-13T08:00:00Z")])
+770514	    p = run({"index": index})["projects"]["12588"]
+770515	    assert [i["title"] for i in p["recent_news"]] == ["Headline stamp"] and p["recent_news"][0]["date"] == "2026-11-13"
+770516	    assert len(p["archive"]) == 4 and all(i["date"] is None and i["freshness"] == "undated" for i in p["archive"])
+770517	# ---------------------------------------------------------------- ordering
+770518	def test_newest_first_confidence_only_breaks_ties_undated_last():
+770519	    # Synthetic *named* articles isolate sorting from the unrelated title-identity gate.
+770520	    index = part("index", [item("12588", "old-confirmed", "trade", "2026-09-01",
+770521	                                title="Botley West Solar Farm construction begins"),
+770522	                           item("12588", "new-possible", "trade", "2026-11-13", "uncertain",
+770523	                                title="Botley West Solar Farm financing secured"),
+770524	                           item("12588", "same-day-possible", "bbc", "2026-10-01", "uncertain",
+770525	                                title="Botley West Solar Farm consultation opens"),
+770526	                           item("12588", "same-day-confirmed", "regional", "2026-10-01",
+770527	                                title="Botley West Solar Farm consent decision issued")])
+770528	    old = part("reviewed", [item("12588", "undated-confirmed", "trade", None, basis="reviewed 2026-11-14"),
+770529	                            item("12588", "y2014", "trade", "2014-01-01", "uncertain", basis="reviewed 2026-11-14")])
+770530	    result = run({"index": index, "reviewed": old})
+770531	    p = result["projects"]["12588"]
+770532	    assert [i["title"] for i in p["recent_news"]] == [
+770533	        "Botley West Solar Farm financing secured",
+770534	        "Botley West Solar Farm consent decision issued",
+770535	        "Botley West Solar Farm consultation opens",
+770536	        "Botley West Solar Farm construction begins"]
+770537	    assert [i["confidence"] for i in p["recent_news"]] == ["possible", "confirmed", "possible", "confirmed"]
+770538	    assert p["recent_news"][0]["confidence"] == "possible"  # newest, but not declared verified
+770539	    assert [i["title"] for i in p["archive"]] == ["Headline y2014", "Headline undated-confirmed"]
+770540	def test_a_recent_item_is_never_hidden_by_older_ones():
+770541	    older = [item("12588", "o%d" % n, "trade", "2025-%02d-01" % n) for n in range(1, 10)]
+770542	    recent = [item("12588", "sale", "trade", "2026-11-13", "uncertain", title="TotalEnergies acquires 450MW solar project")]
+770543	    p = run({"trade": part("trade", older + recent)})["projects"]["12588"]
+770544	    assert [i["title"] for i in p["recent_news"]] == ["TotalEnergies acquires 450MW solar project"]
+770545	    assert p["recent_news"][0]["event"] == "sale" and len(p["archive"]) == C.MAX_PER_TIER
+770546	    assert p["archive"][0]["date"] == "2025-09-01"
+770547	# ---------------------------------------------------------------- confidence earned
+770548	def test_confidence_needs_recorded_alias_evidence():
+770549	    index = part("index", [item("12588", "a", date="2026-11-01", title="Botley West Solar Farm approved"),
+770550	                           item("20001", "b", date="2026-11-01", title="Rigifa Solar Farm approved"),
+770551	                           item("20003", "c", date="2026-11-01", title="Quiet Solar Farm approved")])
+770552	    result = run({"index": index})
+770553	    assert result["projects"]["12588"]["alias_standing"] == "confirmed"
+770554	    assert result["projects"]["20001"]["alias_standing"] == "possible"  # no recorded alias evidence
+770555	    assert result["projects"]["20003"]["alias_standing"] == "possible"
+770556	    assert result["projects"]["20001"]["recent_news"][0]["confidence"] == "possible"
+770557	    assert result["counts"]["headline"]["value"] == 1 and result["counts"]["with_possible_recent_news"] == 2
+770558	    assert result["counts"]["by_tier"]["archive_only"] == 2 and result["counts"]["possible_only"] == 2
+770559	    assert result["downgraded"]["alias without recorded evidence"] == 2
+770560	    # Recorded alias standing cannot manufacture a verified headline absent site identity.
+770561	    generic = run({"index": part("index", [item("12588", "generic", date="2026-11-01")])})
+770562	    assert generic["counts"]["headline"]["value"] == 0
+770563	    standings = {"projects": {"12588": {"standing": "possible"}, "20003": {"standing": "confirmed"}, "20001": {"standing": "unknown"}}}
+770564	    again = run({"index": index}, standings=standings)
+770565	    assert [again["projects"][r]["alias_standing"] for r in ("12588", "20003", "20001")] == ["possible", "confirmed", "possible"]
+770566	def test_one_word_alias_needs_a_second_agreeing_term():
+770567	    index = part("index", [item("20004", "bare", title="Hulam plan moves on"),
+770568	                           item("20004", "noun", title="Hulam solar farm plan moves on"),
+770569	                           item("20004", "place", title="Hulam scheme backed by Durham councillors"),
+770570	                           item("20004", "apart", title="Durham solar scheme at Hulam approved"),
+770571	                           item("20004", "panels", title="Hulam solar panels for village hall"),
+770572	                           item("20004", "kent", title="Hulam solar farm plan in Kent approved"),
+770573	                           item("20004", "ref", title="Hulam update", basis="planning reference DM/20/1 in the title")])
+770574	    got = {i["title"]: i["confidence"] for i in result["projects"]["20004"]["recent_news"]}
+770575	    assert got == {"Hulam solar farm plan moves on": "confirmed", "Durham solar scheme at Hulam approved": "possible",
+770576	                   "Hulam update": "confirmed"}                             # a bare name, a name with a county, panels, Kent: gone
+770577	    assert result["dropped"]["title gate"] == 4 and result["downgraded"]["title gate"] == 1
+770578	    assert C.needs_second_term("Bypass Solar Farm") and C.needs_second_term("Green Hill Solar Farm")
+770579	    assert not C.needs_second_term("Botley West Solar Farm")
+770580	def test_bypass_9050_false_match_is_excluded_and_purged_from_carried_items():
+770581	    false_match = item("9050", "lights", "trade", "2026-11-02", title="Bypass solar scheme will light the new road")
+770582	    road = item("9050", "road", "regional", "2026-11-03", title="Bypass solar project for road signs")
+770583	    real = item("9050", "real", "regional", "2026-11-04", title="Solar farm north of Grantham wins approval")
+770584	    first = run({"trade": part("trade", [false_match, road, real])}, exclusions=None)
+770585	    assert len(first["projects"]["9050"]["recent_news"]) == 3              # without the rule the false matches are in
+770586	    result = run({"trade": part("trade", [false_match, road, real])}, previous=first)
+770587	    assert [i["title"] for i in everything(result["projects"]["9050"])] == ["Solar farm north of Grantham wins approval"]
+770588	    assert result["dropped"]["exclusion rule"] == 4                        # two from this run, two carried copies
+770589	    diodes = item("9050", "diodes", "trade", "2026-11-02", title="Bypass diodes: why modules fail in the field")
+770590	    gated = run({"trade": part("trade", [diodes])}, exclusions=None)       # the title gate alone already stops this one
+770591	    assert everything(gated["projects"]["9050"]) == [] and gated["dropped"]["title gate"] == 1
+770592	    stale = run({}, previous=first)                                        # a failed run does not bring them back either
+770593	    assert [i["title"] for i in everything(stale["projects"]["9050"])] == ["Solar farm north of Grantham wins approval"]
+770594	def test_committed_exclusions_cover_the_reported_cases():
+770595	    rules = EXCLUSIONS["projects"]
+770596	    drove = {"title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire", "link": "https://example.co.uk/d"}
+770597	    assert C.exclusion_reason(drove, rules["11678"])
+770598	    assert not C.exclusion_reason({"title": "Ampyr acquires 530MW East Yorkshire Solar Farm", "link": "https://example.co.uk/a"}, rules["11678"])
+770599	    assert C.exclusion_reason({"title": "How bypass diodes protect panels", "link": "https://example.co.uk/b"}, rules["9050"])
+770600	    assert rules["7191"]["weak_alias"] == "shared" and "11278" in rules["7191"]["shares_alias_with"]
+770601	    standings = json.loads((SIGNALS / "alias_standings.json").read_text())["projects"]
+770602	    assert len(standings) == 200 and {v["standing"] for v in standings.values()} == {"confirmed", "possible", "unknown"}
+770603	# ---------------------------------------------------------------- one link, several projects
+770604	def test_link_on_several_projects_only_when_title_or_reviewer_names_each():
+770605	    shared = "https://example.co.uk/two"
+770606	    both = [item("12588", "x", link=shared, title="Botley West Solar Farm and Hulam solar farm win consent"),
+770607	            item("20004", "x", link=shared, title="Botley West Solar Farm and Hulam solar farm win consent")]
+770608	    p = run({"index": part("index", both)})["projects"]
+770609	    assert p["12588"]["recent_news"][0]["also_projects"] == ["20004"] and p["20004"]["recent_news"][0]["also_projects"] == ["12588"]
+770610	    one = [item("12588", "y", link=shared, title="Botley West Solar Farm wins consent"),
+770611	           item("20004", "y", link=shared, title="Botley West Solar Farm wins consent", confidence="uncertain")]
+770612	    result = run({"index": part("index", one)})
+770613	    assert len(result["projects"]["12588"]["recent_news"]) == 1 and everything(result["projects"]["20004"]) == []
+770614	    assert "also_projects" not in result["projects"]["12588"]["recent_news"][0] and result["dropped"]["link on several projects"] == 1
+770615	    neither = [item("12588", "z", link=shared, title="Two solar farms approved"), item("20004", "z", link=shared, title="Two solar farms approved", confidence="uncertain")]
+770616	    result = run({"index": part("index", neither)})
+770617	    assert len(everything(result["projects"]["12588"])) == 1 and everything(result["projects"]["20004"]) == []
+770618	    by_hand = [dict(i, basis="reviewed 2026-11-14") for i in neither]
+770619	    result = run({"reviewed": part("reviewed", by_hand)})  # reviewed is discovery, not proof of two REPD bindings
+770620	    assert len(everything(result["projects"]["12588"])) == 1
+770621	    assert everything(result["projects"]["20004"]) == []
+770622	    assert "also_projects" not in everything(result["projects"]["12588"])[0]
+770623	    assert result["dropped"]["link on several projects"] == 1
+770624	def test_single_reviewed_wrong_project_is_not_confirmed_without_duplicate_link():
+770625	    # Regression: no second copy of this URL exists under the real project.
+770626	    # Merely marking the wrong project as "reviewed" cannot bypass title identity.
+770627	    wrong = item("20004", "misbound", title="Botley West Solar Farm wins consent",
+770628	                 basis="reviewed 2026-11-14")
+770629	    result = run({"reviewed": part("reviewed", [wrong])})
+770630	    assert result["counts"]["headline"]["value"] == 0
+770631	    generic = item("12588", "unsupported", title="A huge solar farm wins approval",
+770632	                   basis="reviewed 2026-11-14")
+770633	    result = run({"reviewed": part("reviewed", [generic])})
+770634	    hits = everything(result["projects"]["12588"])
+770635	    assert len(hits) == 1 and hits[0]["confidence"] == "possible"
+770636	    named = item("12588", "site-named", title="Botley West Solar Farm wins consent",
+770637	    result = run({"reviewed": part("reviewed", [named])})
+770638	    assert everything(result["projects"]["12588"])[0]["confidence"] == "confirmed"
+770639	# ---------------------------------------------------------------- events and clusters
+770640	def test_same_headline_on_distinct_historic_dates_is_not_one_event():
+770641	    # A publisher reusing a headline years apart must not erase an earlier
+770642	    # decision or make the latest decision inherit the earlier source.
+770643	    old = item("12588", "historic-decision-2018", "regional", "2018-02-01",
+770644	               title="Botley West Solar Farm consent decision published")
+770645	    new = item("12588", "historic-decision-2020", "regional", "2020-06-01",
+770646	    near = item("12588", "historic-syndication-2020", "regional", "2020-06-02",
+770647	                title="Botley West Solar Farm consent decision published")
+770648	    result = run({"trade": part("trade", [old, new, near])})
+770649	    archive = result["projects"]["12588"]["archive"]
+770650	    assert len(archive) == 2
+770651	    assert {entry["date"] for entry in archive} == {"2018-02-01", "2020-06-02"}
+770652	    modern = next(entry for entry in archive if entry["date"] == "2020-06-02")
+770653	    assert {source["date"] for source in modern.get("sources", [])} == {"2020-06-01"}
+770654	    assert "sources" not in next(entry for entry in archive if entry["date"] == "2018-02-01")
+770655	def test_event_from_the_title_and_one_story_shown_once_with_its_sources():
+770656	    trade = part("trade", [item("12588", "a", "trade", "2026-11-11", title="UK government refuses 840MW Botley West Solar Farm"),
+770657	                           item("12588", "b", "trade", "2026-11-10", title="UK rejects 840MW Botley West solar farm", publisher="reNEWS"),
+770658	                           item("12588", "c", "regional", "2026-11-12", "uncertain", title="Solar farm plan turned down by minister"),
+770659	                           item("12588", "d", "trade", "2026-09-03", title="Botley West Solar Farm decision deadline extended"),
+770660	                           item("12588", "e", "trade", "2026-08-20", title="Botley West Solar Farm refused by council committee")])
+770661	    p = run({"trade": part("trade", trade["items"])})["projects"]["12588"]
+770662	    lead = p["recent_news"][0]
+770663	    assert lead["title"].startswith("UK government refuses") and lead["confidence"] == "confirmed" and lead["event"] == "refusal"
+770664	    assert lead["cluster"] == "12588:refusal:2026-11-10" and [s["link"] for s in lead["sources"]] == [
+770665	        "https://example.co.uk/c", "https://example.co.uk/b"]
+770666	    assert [i["title"] for i in p["recent_news"][1:]] == ["Botley West Solar Farm decision deadline extended",
+770667	                                                          "Botley West Solar Farm refused by council committee"]
+770668	    assert "cluster" not in p["recent_news"][2]                             # same event type, but months apart
+770669	    for title, event in (("Council approves solar farm", "consent"), ("Appeal lodged over solar farm", "appeal"),
+770670	                         ("High Court dismisses judicial review of solar farm", "legal_challenge"),
+770671	                         ("Project reaches financial close", "financial_close"), ("Developer breaks ground", "construction_start"),
+770672	                         ("Solar farm energised", "energisation"), ("Grid connection agreed for solar farm", "grid_connection"),
+770673	                         ("EDF buys 500MW project", "sale"), ("Botley West Solar Farm: development consent order, Planning Act 2008", None),
+770674	                         ("Firm signs power purchase agreement", None), ("Developer seeks approval", None)):
+770675	        assert C.event_of(title) == event, title
+770676	def test_a_fetched_item_replaces_the_reviewed_copy_and_same_headline_is_one_story():
+770677	    reviewed = part("reviewed", [item("12588", "same", "regional", "2026-11-01", basis="reviewed 2026-11-14", title="Botley West Solar Farm refused"),
+770678	                                 item("12588", "other", "regional", "2026-11-01", basis="reviewed 2026-11-14", title="Botley West Solar Farm refused",
+770679	                                      publisher="Second Paper")], at="2026-11-14T09:00:00Z")
+770680	    index = part("index", [item("12588", "same", "bbc", "2026-11-01", title="Botley West Solar Farm refused")])
+770681	    result = run({"index": index, "reviewed": reviewed})
+770682	    news = result["projects"]["12588"]["recent_news"]
+770683	    assert len(news) == 1 and news[0]["obtained"] == "fetched" and news[0]["family"] == "bbc" and news[0]["source"] == "index"
+770684	    assert [s["publisher"] for s in news[0]["sources"]] == ["Second Paper"] and result["counts"]["items"]["recent_news"] == 1
+770685	# ---------------------------------------------------------------- honest publishing
+770686	def test_failed_run_keeps_items_with_their_own_times_and_does_not_move_generated_at():
+770687	    first = run({"official": part("official", [item("12588", "o", "official", "2026-11-10")], at="2026-11-14T11:00:00Z"),
+770688	                 "trade": part("trade", [item("12588", "t", "trade", "2026-11-09")], at="2026-11-14T11:30:00Z")})
+770689	    assert first["generated_at"] == "2026-11-14T11:30:00Z" and first["run_at"] == NOW and first["stale"] is False
+770690	    dead = [{"id": "s", "url": "https://example.co.uk/", "status": "failed", "requests": 2, "failures": 2, "items": 0, "error": "down"}]
+770691	    second = run({"official": part("official", [], dead, at=LATER), "trade": "missing", "index": "missing"}, previous=first, now=LATER)
+770692	    assert second["generated_at"] == "2026-11-14T11:30:00Z" and second["run_at"] == LATER and second["stale"] is True
+770693	    assert second["parts"]["official"] == {"status": "stale", "collected_at": "2026-11-14T11:00:00Z", "items": 1,
+770694	                                           "note": "every source failed; items published before are kept with their own dates"}
+770695	    assert second["parts"]["trade"]["status"] == "stale" and second["parts"]["trade"]["collected_at"] == "2026-11-14T11:30:00Z"
+770696	    assert second["parts"]["index"]["status"] == "failed" and second["parts"]["index"]["collected_at"] is None
+770697	    p = second["projects"]["12588"]
+770698	    assert p["official"][0]["collected_at"] == "2026-11-14T11:00:00Z" and p["recent_news"][0]["collected_at"] == "2026-11-14T11:30:00Z"
+770699	    assert C.schema_errors(second) == [] and C.publication_check(second, first) == []
+770700	    empty = run({"official": part("official", [], at=LATER)}, previous=first, now=LATER)      # healthy sources, nothing found
+770701	    assert empty["parts"]["official"]["status"] == "stale" and "returned nothing" in empty["parts"]["official"]["note"]
+770702	    third = run({"official": part("official", [item("12588", "o", "official", "2026-11-10"), item("12588", "o2", "official", "2026-11-14")],
+770703	                                  at=LATER)}, previous=second, now=LATER)
+770704	    assert third["generated_at"] == LATER and third["parts"]["official"]["status"] == "ok"
+770705	    seen = {i["title"]: i["collected_at"] for i in third["projects"]["12588"]["official"]}
+770706	    assert seen == {"Headline o": "2026-11-14T11:00:00Z", "Headline o2": LATER}             # first collection time is kept
+770707	def test_version_1_previous_file_is_read_for_carry_over_without_its_reviewed_items():
+770708	    v1 = {"schema": "project-signals.v1", "generated_at": "2026-11-14T12:46:07Z",
+770709	          "parts": {"official": {"status": "ok", "items": 1, "generated_at": "2026-11-14T12:30:52Z"},
+770710	                    "trade": {"status": "ok", "items": 1, "generated_at": "2026-11-14T12:34:49Z"}},
+770711	          "projects": {"12588": {"signals": [
+770712	              dict(item("12588", "o", "official", "2026-11-10"), basis="register"), item("12588", "t", "trade", "2026-11-09"),
+770713	              dict(item("12588", "gone", "regional", "2020-01-01"), basis="reviewed 2026-11-14")]}}}
+770714	    result = run({}, previous=v1, now=LATER)
+770715	    assert result["generated_at"] == "2026-11-14T12:34:49Z"                  # the newest collection, not the write time
+770716	    assert p["official"][0]["collected_at"] == "2026-11-14T12:30:52Z" and p["recent_news"][0]["source"] == "trade"
+770717	    assert p["archive"] == []                                              # a reviewed item no longer in the committed file is gone
+770718	def test_writer_refuses_a_bad_schema_and_a_sharp_drop(tmp_path):
+770719	    items = [item(ref, "n%d" % n, "trade", "2026-11-01") for n, ref in enumerate(["12588"] * 4 + ["20004"] * 4)]
+770720	    good = run({"trade": part("trade", items)})
+770721	    assert C.publication_check(good, None) == []
+770722	    broken = copy.deepcopy(good)
+770723	    broken["projects"]["12588"]["recent_news"][0]["date"] = "2026-02-30"
+770724	    broken["projects"]["12588"]["planning_file"]["label"] = "planning file"
+770725	    broken["counts"]["by_tier"]["recent_news"] = 7
+770726	    reasons = C.publication_check(broken, None)
+770727	    assert any("not a past calendar date" in r for r in reasons) and any("mislabelled" in r for r in reasons)
+770728	    assert any("does not sum" in r for r in reasons)
+770729	    mixed = copy.deepcopy(good)
+770730	    mixed["projects"]["12588"]["recent_news"].append(dict(mixed["projects"]["12588"]["recent_news"][0], date=None, freshness="undated", year=None,
+770731	                                                          link="https://example.co.uk/zz"))
+770732	    assert any("undated item outside the archive" in r for r in C.schema_errors(mixed))
+770733	    shrunk = run({"trade": part("trade", items[:1])})
+770734	    shrunk_reasons = C.publication_check(shrunk, good)
+770735	    assert any("sharp drop" in r and "items fell from 8 to 1" in r for r in shrunk_reasons)
+770736	    top, aliases, trade, prev = (tmp_path / n for n in ("top.json", "aliases.json", "trade.json", "previous.json"))
+770739	    prev.write_text(json.dumps(good))
+770740	    trade.write_text(json.dumps(part("trade", [])))
+770742	    base = ["--top200", str(top), "--aliases", str(aliases), "--reviewed", str(tmp_path / "none.json"), "--out", str(out),
+770743	            "--summary", str(md), "--truth", str(tmp_path / "none.json"), "--standings", str(tmp_path / "none.json")]
+770744	    code = C.main(base + ["--trade", str(trade), "--now", NOW])           # no previous file given: the 8 items are gone
+770745	    assert code == 0 and out.exists()
+770746	    out.unlink()
+770747	    lost = dict(good, projects={ref: dict(p, recent_news=[]) for ref, p in good["projects"].items()})
+770748	    (tmp_path / "lost.json").write_text(json.dumps(lost))
+770749	    trade.write_text(json.dumps(part("trade", items)))
+770750	    assert C.main(base + ["--trade", str(trade), "--previous", str(prev), "--now", NOW]) == 0 and out.exists()
+770751	    out.write_text(json.dumps(good))
+770752	    trade.write_text(json.dumps(part("trade", items[:1])))
+770753	    assert C.main(base + ["--trade", str(trade), "--now", NOW]) == 0       # written: nothing to compare with
+770754	    exclusions = tmp_path / "ex.json"
+770755	    exclusions.write_text(json.dumps({"projects": {"12588": {"exclude": ["Headline"]}, "20004": {"exclude": ["Headline"]}}}))
+770756	    code = C.main(base + ["--trade", str(trade), "--previous", str(prev), "--exclusions", str(exclusions), "--now", NOW])
+770758	    assert code == 3 and json.loads(out.read_text()) == good               # refused: the published file is untouched
+770759	    assert "Not published" in text and "refused because: sharp drop" in text
+770760	def test_main_writes_file_and_summary_with_counts_by_tier(tmp_path):
+770762	    index.write_text(json.dumps(part("index", [item("12588", "b1", "bbc"), item("20004", "old", "regional", "2019-05-01", title="Hulam solar farm approved")])))
+770764	    args = ["--top200", str(top), "--aliases", str(aliases), "--index", str(index), "--trade", str(tmp_path / "trade.json"),
+770765	            "--official", str(tmp_path / "missing.json"), "--out", str(out), "--summary", str(md), "--now", NOW,
+770766	            "--truth", str(tmp_path / "none.json"), "--reviewed", str(tmp_path / "none.json")]
+770767	    code = C.main(args)
+770769	    assert code == 0 and data["schema"] == "project-signals.v2" and set(data["projects"]) == {r["repd_ref"] for r in ROWS}
+770770	    assert data["parts"]["trade"]["status"] == "failed" and "unreadable" in data["parts"]["trade"]["note"]
+770771	    assert data["parts"]["official"]["status"] == "failed" and data["parts"]["index"]["status"] == "ok"
+770772	    assert data["generated_at"] == NOW and data["stale"] is True
+770773	    # A generic index headline cannot become verified merely because a source was fetched.
+770774	    assert data["counts"]["headline"]["value"] == 0
+770775	    assert data["counts"]["by_tier"]["archive_only"] == 2
+770776	    for line in ("**Projects with recent candidate news (independent evidence pending): 0 of 5**", "| with recent news | 0 |",
+770777	                 "| with an official item (and no recent news) | 0 |", "| with archive only (older or undated items, shown with their year) | 2 |",
+770778	                 "| with planning file only | 3 |", "| with nothing (zero) | 0 |", "**Published.**"):
+770779	        assert line in text, line
+770780	    assert "/home/" not in out.read_text() + text and "@" not in text
+770781	    before = out.read_text()
+770782	    assert C.main(args + ["--previous", str(out), "--now", LATER]) == 0     # same parts, later clock
+770783	    again = json.loads(out.read_text())
+770784	    assert again["generated_at"] == NOW and again["projects"] == data["projects"]
+770785	def test_unchanged_failed_run_does_not_rewrite_the_file(tmp_path):
+770787	    out = tmp_path / "project_signals.json"
+770788	    base = ["--top200", str(top), "--aliases", str(aliases), "--out", str(out), "--truth", str(tmp_path / "none.json"),
+770789	            "--reviewed", str(tmp_path / "none.json"), "--official", str(tmp_path / "o.json"), "--previous", str(out)]
+770790	    (tmp_path / "o.json").write_text(json.dumps(part("official", [item("12588", "o", "official", "2026-11-10")])))
+770791	    assert C.main(base + ["--now", NOW]) == 0
+770792	    (tmp_path / "o.json").unlink()
+770793	    assert C.main(base + ["--now", LATER]) == 0                            # first failure: published once, marked stale
+770794	    stale = out.read_text()
+770795	    assert json.loads(stale)["stale"] is True and json.loads(stale)["generated_at"] == NOW
+770796	    assert C.main(base + ["--now", "2026-11-15T17:23:00Z"]) == 0
+770797	    assert out.read_text() == stale                                        # second failure: byte for byte the same
+770798	# ---------------------------------------------------------------- the committed data
+770799	def test_committed_reviewed_file_is_routed_by_date():
+770801	    aliases = json.loads((SIGNALS / "aliases.json").read_text())
+770802	    reviewed = json.loads((SIGNALS / "reviewed_signals.json").read_text())
+770803	    standings = json.loads((SIGNALS / "alias_standings.json").read_text())
+770804	    assert reviewed["schema"] == C.PART_SCHEMA and "@" not in json.dumps(reviewed) and "/home/" not in json.dumps(reviewed)
+770805	    result = C.combine(rows, aliases, {"reviewed": reviewed}, now_iso=NOW, use_module=False, exclusions=EXCLUSIONS, standings=standings)
+770806	    assert C.schema_errors(result, [r["repd_ref"] for r in rows]) == []
+770807	    assert c["projects"] == 200 and sum(c["by_tier"].values()) == 200 and c["by_tier"]["nothing"] == 0
+770808	    assert 0 < c["headline"]["value"] < 30                                 # recent verified news is rare; the archive is not news
+770809	    assert c["by_tier"]["archive_only"] > c["by_tier"]["recent_news"]
+770810	    for p in result["projects"].values():
+770811	        assert all(i["freshness"] == "recent" and i["date"] >= "2026-08-16" for i in p["recent_news"])
+770812	        assert all(i["obtained"] == "reviewed" for i in everything(p))
+770813	    assert everything(result["projects"]["9050"])[0]["title"].startswith("'Large' Solar farm north of Grantham")
+770816	             "20004": {"status": "found", "families": ["regional"], "links": []},
+770818	    result = run({"index": part("index", [item("12588", "b1", "bbc"), item("20003", "q", "regional")])})
+770819	    text = C.truth_report(truth, {ref: everything(p) for ref, p in result["projects"].items()})
+770822	    assert "did not mark found: 1 (REPD 20003)" in text and "not by the run: REPD 20004." in text
+770823	"""Offline tests for the shared title gate (gate.py) and date rule (dates.py), through all three collectors."""
+770824	import dates as DATES  # noqa: E402
+770825	import gate as G  # noqa: E402
+770829	CASES = json.loads((SIGNALS / "tests" / "fixtures" / "gate_cases.json").read_text(encoding="utf-8"))
+770830	EXCLUSIONS = json.loads((SIGNALS / "exclusions.json").read_text(encoding="utf-8"))["projects"]
+770831	TODAY = dt.date(2026, 11, 14)
+770832	def test_gate_verdicts_on_the_plain_cases():
+770833	    for ref, title, verdict in (
+770834	            ("12588", "UK government refuses 840MW Botley West Solar Farm", "ok"),
+770835	            ("12588", "Botley West footpath closed after landslip", "drop"),              # a distinctive name alone
+770836	            ("12588", "Miliband refuses Botley West", "possible"),                        # planning word, no solar term
+770837	            ("12588", "Decision on EN010147 published", "ok"),                            # the reference is enough
+770838	            ("12588", "Huge solar farm refused in Oxfordshire", "none"),                  # the title does not name it
+770839	            ("9050", "Contractor named for £60m Lincolnshire bypass", "drop"),            # name and county, no solar term
+770840	            ("9050", "Bypass diodes: why solar modules fail in the field", "drop"),
+770841	            ("17429", "Fosse Way near Leamington now clear after earlier accident", "drop"),
+770842	            ("12117", "The new pavements installed on Cardiff's Cowbridge Road and how they work", "drop"),
+770843	            ("8483", "Belvoir Castle sees visitor numbers rise as it opens for the new season", "drop"),
+770844	            ("10529", "New life for Red House", "drop"),
+770845	            ("11678", "East Yorkshire bus drivers vote to strike", "drop"),
+770846	            ("7945", "Cornwell solar panels on village hall", "drop"),                    # panels are not a solar farm
+770847	            ("19007", "Thornton solar farm plan in Lancashire", "drop"),                  # another county
+770848	            ("11476", "Helios Solar Farm reaches financial close in Spain", "drop"),      # abroad
+770849	            ("6012", "Kells solar farm plan in County Meath", "drop"),
+770850	            ("8479", "Octopus Energy fined for breach of supply rules", "drop"),          # a developer and an everyday word
+770851	            ("15252", "RES wins permit for 450MW Steeple solar farm", "ok"),
+770852	            ("7188", "500MW Sunnica permit call hit by fresh delay", "ok"),               # the project's own capacity
+770853	            ("9904", "Windel, Canadian Solar file Mallard Pass paperwork", "ok"),         # "Canadian" is the developer here
+770854	            ("14096", "Cubico opens Frodsham consultation", "possible")):                 # developer only
+770855	        assert G.judge(ref, title)[0] == verdict, (ref, title, G.judge(ref, title))
+770856	    assert G.judge("15793", "Green Hill Solar Farm development consent decision announced", official=True)[0] == "ok"
+770857	    assert G.judge("99999", "Anything") == ("none", "")
+770858	def test_no_false_headline_is_confirmed_by_the_gate_beyond_the_known_few():
+770859	    verdicts = [G.judge(ref, title)[0] for ref, title, _real in CASES["false"]]
+770860	    assert len(verdicts) == 240
+770861	    assert verdicts.count("ok") <= 12, verdicts.count("ok")            # was 168 "confirmed" before the gate
+770862	    assert verdicts.count("drop") >= 190
+770863	    real = [G.judge(ref, title)[0] for ref, title, is_real in CASES["false"] if is_real]
+770864	    assert real == ["drop"] * 7                                        # the seven real published headlines
+770865	def test_true_headlines_survive_the_gate():
+770866	    # Independent Agent2 ruling: these nine titles are plausible candidates,
+770867	    # but the title ALONE does not establish full project/site or publisher proof.
+770868	    # In particular, a road name, BOOM developer or county is not conclusive.
+770869	    candidate_only = {
+770870	        ("13043", "EDF and Luminous tweak Springwell solar design"),
+770871	        ("15149", "Great North Road solar nears decision"),
+770872	        ("17699", "Green Nation unveils 750MW Whitestone solar"),
+770873	        ("8162", "METLEN to deliver EPC work at EDF’s 400MW Longfield solar PV farm"),
+770874	        ("15252", "RES submits 600MW Steeple solar for DCO"),
+770875	        ("11678", "Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP"),
+770876	        ("14098", "Boom Power wins Fenwick solar approval"),
+770877	        ("14098", "BOOM Power’s Fenwick solar NSIP closes examination phase early"),
+770878	        ("6557", "UK gives go-ahead for 50MW Little Crow solar"),
+770879	    results = [(ref, title, G.judge(ref, title, official=team == "official")[0])
+770880	               for ref, title, team in CASES["true"]]
+770881	    lost = [(ref, title, verdict) for ref, title, verdict in results
+770882	            if verdict != "ok" and not ((ref, title) in candidate_only and verdict == "possible")]
+770883	    assert len(CASES["true"]) >= 80 and sum(verdict == "ok" for _, _, verdict in results) >= 81
+770884	    assert lost == []
+770885	def test_east_yorkshire_alias_is_not_a_wrong_county():
+770886	    assert G.judge("11678", "Government grants consent for Boom Power's 400MW East Yorkshire solar NSIP")[0] in ("ok", "possible")
+770887	    # An actual different county remains an explicit contradiction, not a synonym.
+770888	    assert G.judge("11678", "Boom Power's 400MW East Yorkshire solar project approved in West Yorkshire")[0] != "ok"
+770889	def test_weak_development_candidates_never_become_confirmed_from_place_or_developer_alone():
+770890	    # The new candidate path must not turn roadworks, a different Boom Power
+770891	    # solar project or roof-panel coverage into a verified REPD project event.
+770892	    for ref, title in (
+770893	        ("15149", "Great North Road solar street lights planning granted"),
+770894	        ("15149", "Great North Road residents discuss road resurfacing"),
+770895	        ("14098", "Boom Power solar contract in another county"),
+770896	        ("11678", "Boom Power 49.99MW Drove Lane solar farm approved in East Yorkshire"),
+770897	        ("14098", "Fenwick solar panels installed on library roof"),
+770899	        assert G.judge(ref, title)[0] != "ok", (ref, title, G.judge(ref, title))
+770900	def test_all_three_collectors_reject_the_false_headlines():
+770901	    trade = {p.ref: p for p in T.load_projects(str(SIGNALS / "aliases.json"))}
+770902	    official = {p["repd_ref"]: p for p in O.load_projects()}
+770903	    index = {p["repd_ref"]: p for p in I.load_projects(str(SIGNALS / "top200_solar.json"), str(SIGNALS / "aliases.json"))}
+770904	    counts = {"trade": 0, "trade confirmed": 0, "official": 0, "index": 0, "index strong": 0, "confirmed and not excluded": 0}
+770905	    for ref, title, _real in CASES["false"]:
+770906	        t, o, i = trade[ref].match(title), O.match(official[ref], title), I.match_item(index[ref], title)
+770907	        counts["trade"] += bool(t)
+770908	        counts["trade confirmed"] += bool(t and t[1] == "confirmed")
+770909	        counts["official"] += bool(o)
+770910	        counts["index"] += bool(i)
+770911	        counts["index strong"] += bool(i and i[0] == "strong")
+770912	        confirmed = (t and t[1] == "confirmed") or (o and o[1] == "confirmed") or (i and i[0] == "strong")
+770913	        excluded = C.exclusion_reason({"title": title, "link": "https://example.co.uk/x"}, EXCLUSIONS.get(ref) or {})
+770914	        counts["confirmed and not excluded"] += bool(confirmed and not excluded)
+770915	    # before the gate (the tester's run of the same file): trade 229, index 85, official 45, 168 confirmed
+770916	    assert counts["trade"] <= 50 and counts["trade confirmed"] <= 12, counts
+770917	    assert counts["official"] <= 16 and counts["index"] <= 20, counts
+770918	    assert counts["confirmed and not excluded"] <= 18, counts
+770919	def test_collectors_still_match_the_true_headlines():
+770920	    missed = []
+770921	    for ref, title, team in CASES["true"]:
+770922	        found = trade[ref].match(title) if team == "trade" else O.match(official[ref], title)
+770924	            missed.append((team, ref, title))
+770925	    assert missed == []
+770926	def test_combiner_purges_a_carried_false_match_and_keeps_reviewed_items():
+770927	    exclusions = {"projects": EXCLUSIONS}
+770928	    stamp = "2026-11-14T12:34:49Z"
+770929	    previous = {"schema": "project-signals.v1", "generated_at": "2026-11-14T12:46:07Z",
+770930	                "parts": {"trade": {"status": "ok", "items": 3, "generated_at": stamp}},
+770931	                "projects": {"11678": {"signals": [
+770932	                    {"title": "Falling masonry kills man in East Yorkshire", "link": "https://www.constructionenquirer.com/a",
+770933	                     "publisher": "Construction Enquirer", "date": "2026-11-05", "family": "trade", "basis": "alias", "confidence": "confirmed"},
+770934	                    {"title": "Boom Power secures planning permission for 49.99MW Drove Lane solar PV plant in East Yorkshire",
+770935	                     "link": "https://www.solarpowerportal.co.uk/b", "publisher": "Solar Power Portal", "date": "2026-10-23",
+770936	                     "family": "trade", "basis": "alias", "confidence": "confirmed"}]},
+770937	                    "12588": {"signals": [
+770938	                        {"title": "UK rejects 840MW Botley West solar farm", "link": "https://renews.biz/c", "publisher": "reNEWS",
+770939	                         "date": "2026-11-10", "family": "trade", "basis": "alias", "confidence": "confirmed"}]}}}
+770940	    result = C.combine(rows, aliases, {}, previous=previous, now_iso="2026-11-15T05:23:00Z", use_module=False,
+770941	                       exclusions=exclusions, standings=standings)
+770942	    assert [i for t in C.TIERS for i in result["projects"]["11678"][t]] == []
+770943	    kept = result["projects"]["12588"]["recent_news"]
+770944	    assert [i["title"] for i in kept] == ["UK rejects 840MW Botley West solar farm"] and kept[0]["collected_at"] == stamp
+770945	    assert result["dropped"]["title gate"] == 1 and result["dropped"]["exclusion rule"] == 1
+770946	    assert result["generated_at"] == stamp and result["parts"]["trade"]["status"] == "stale"
+770947	def test_shared_links_follow_the_reviewers_findings():
+770948	    reviewed["items"].append({"repd_ref": "7840", "title": "£80m solar farm gets green light", "publisher": "Evesham Observer",
+770949	                              "link": "http://www.eveshamobserver.co.uk/?p=35578", "date": "2014-11-13", "family": "regional",
+770950	                              "basis": "reviewed 2026-11-14", "confidence": "confirmed"})
+770951	    result = C.combine(rows, aliases, {"reviewed": reviewed}, now_iso="2026-11-14T12:00:00Z", use_module=False,
+770952	                       exclusions={"projects": EXCLUSIONS}, standings=json.loads((SIGNALS / "alias_standings.json").read_text()))
+770953	    def on(ref, needle):
+770954	        return [i for t in C.TIERS for i in result["projects"][ref][t] if needle in i["link"]]
+770955	    assert on("1980", "eveshamobserver") and not on("7840", "eveshamobserver")          # the 2014 approval is 1980's
+770956	    assert on("11278", "inkl.com") and not on("7191", "inkl.com")                         # one refusal, one project
+770957	    # Historic reviewer discovery does not independently prove both REPD identities.
+770958	    # One copy of a generic "two projects" headline must not assert also_projects.
+770959	    for first, second, needle in (("9729", "9739", "morpethherald"),
+770960	                                  ("7823", "8254", "high-court")):
+770961	        matches = [(ref, item) for ref in (first, second) for item in on(ref, needle)]
+770962	        # An ambiguous historical link can appear only as separate possible review
+770963	        # candidates, not a proven multi-project binding or confirmed headline.
+770964	        assert matches
+770965	        assert all("also_projects" not in item for ref, item in matches)
+770966	        assert all(item["confidence"] == "possible" for ref, item in matches)
+770967	    edf = [(ref, item) for ref in ("6071", "7630") for item in on(ref, "edf-acquires-100mw")]
+770968	    # An unnamed EDF article cannot become two independent confirmed REPD
+770969	    # bindings. One discovery candidate is retained, never also_projects.
+770970	    assert len(edf) == 1
+770971	    assert edf[0][1]["confidence"] == "possible" and "also_projects" not in edf[0][1]
+770972	    assert "Defford Aerodrome solar farm" not in aliases["projects"]["7840"]["aliases"]
+770973	def test_link_key_recognises_copies_of_one_page():
+770974	    same = (("http://eveshamobserver.co.uk/?p=35578", "https://eveshamobserver.co.uk/?p=35578"),
+770975	            ("https://thecourier.co.uk/fp/news/x", "https://www.thecourier.co.uk/fp/news/x"),
+770976	            ("https://m.thecourier.co.uk/fp/news/x", "https://www.thecourier.co.uk/fp/news/x"),
+770977	            ("https://www.energyglobal.com/solar/13102025/a/amp/", "https://www.energyglobal.com/solar/13102025/a"),
+770978	            ("https://www.energyglobal.com/solar/12122025/b/", "https://www.energyglobal.com/solar/12122025/b"),
+770979	            ("https://moderngov.stockton.gov.uk/Data/Planning Committee/1/att.pdf", "https://moderngov.stockton.gov.uk/Data/Planning%20Committee/1/att.pdf"),
+770980	            ("https://x.example/a?a=1&b=2", "https://x.example/a?b=2&a=1"),
+770981	            ("https://x.example/projects/EN010118?lang=en", "https://x.example/projects/EN010118"))
+770982	    for a, b in same:
+770983	        assert C.link_key(C.D.canonical_link(a) or a) == C.link_key(C.D.canonical_link(b) or b), (a, b)
+770984	    assert C.link_key("https://eveshamobserver.co.uk/?p=35578") != C.link_key("https://eveshamobserver.co.uk/?p=35579")
+770985	def test_one_date_rule_for_collectors_and_combiner():
+770986	    for value, expected in (
+770987	            ("Fri, 14 Nov 2026 10:00:00 -0000", "2026-11-14"), ("Fri, 14 Nov 2026 10:00:00 BST", "2026-11-14"),
+770988	            ("Fri, 14 Nov 2026 10:00:00 CET", "2026-11-14"), ("Fri, 14 Nov 2026 10:00:00", "2026-11-14"),
+770989	            ("2026-11-14", "2026-11-14"), ("2026-11-14T10:00:00", "2026-11-14"), ("20261114", "2026-11-14"),
+770990	            ("Sat, 14 Nov 26 10:00:00 GMT", "2026-11-14"), ("Sun, 14 Nov 49 10:00:00 GMT", None),
+770991	            ("Fri, 14 Nov 69 10:00:00 GMT", None), ("2027-01-01T00:00:00Z", None), ("Thu, 01 Jan 1970 00:00:00 GMT", None),
+770992	            ("Sat, 15 Nov 2026 00:30:00 +0100", "2026-11-15"), ("2026-11-14T23:30:00-05:00", "2026-11-14"),
+770993	            ("Mon, 30 Feb 2026 10:00:00 GMT", None), ("2026-02-30", None), ("2026-99-99", None), ("2026-13-45", None),
+770994	            ("0000-00-00", None), ("03/04/2026", "2026-04-03"), ("3/4/26", "2026-04-03"), ("1/2/0026", None),
+770995	            ("2026-11-14 10:00", "2026-11-14"), ("14 Sept 2026", "2026-09-14"), ("14.11.2026", "2026-11-14"),
+770996	            ("04/14/2026", "2026-04-14"), ("", None), (None, None), ("last week", None)):
+770997	        assert DATES.day(value, TODAY) == expected, value
+770998	        assert C.parse_date(value, TODAY) == expected, value
+770999	    assert DATES.day("2026-11-15", TODAY) == "2026-11-15" and DATES.day("2026-11-16", TODAY) is None   # tomorrow, not later
+771000	    assert T.day_of("2026-11-14T23:30:00-05:00") == "2026-11-14" and T.day_of("Fri, 14 Nov 2026 10:00:00 BST") == "2026-11-14"
+771001	    assert O.parse_day("3/4/26") == "2026-04-03" and O.parse_day("1/2/0026") is None and O.parse_day("14 Sept 2026") == "2026-09-14"
+771002	    assert T.date_near("Nov 10, 2026 | Related: Solar farm refused 3 December 2025") == "2026-11-10"
+771003	    assert T.date_near("Hearing on 3 December 2099") is None
+771004	    assert DATES.url_day("https://www.energyglobal.com/solar/12052025/a-headline/") == "2025-05-12"
+771005	    assert DATES.url_day("https://now.solar/2026/10/29/a-headline/") == "2026-10-29"
+771006	    assert DATES.url_day("https://example.co.uk/news/2025/06/a-headline") is None
+771007	    assert DATES.url_year("https://example.co.uk/news/2025/06/a-headline") == 2025
+771008	def test_year_is_kept_for_an_undated_item_when_the_link_or_the_reviewer_gives_it():
+771009	    rows = [{"rank": 1, "repd_ref": "12588", "site_name": "Botley West Solar Project", "planning_ref": "EN010147"}]
+771010	    reviewed = {"schema": C.PART_SCHEMA, "team": "reviewed", "generated_at": "2026-11-14T12:00:00Z", "sources": [], "items": [
+771011	        {"repd_ref": "12588", "title": "Update", "link": "https://example.co.uk/wp-content/uploads/2023/12/update.pdf",
+771012	         "publisher": "Parish", "date": None, "year": 2024, "family": "regional", "basis": "reviewed 2026-11-14", "confidence": "confirmed"},
+771013	        {"repd_ref": "12588", "title": "Milestone", "link": "https://example.co.uk/newsroom/2026/milestone/",
+771014	         "publisher": "Paper", "date": None, "family": "regional", "basis": "reviewed 2026-11-14", "confidence": "confirmed"},
+771015	        {"repd_ref": "12588", "title": "No clue", "link": "https://example.co.uk/a", "publisher": "Paper", "date": None,
+771016	         "family": "regional", "basis": "reviewed 2026-11-14", "confidence": "confirmed"}]}
+771017	    result = C.combine(rows, None, {"reviewed": reviewed}, now_iso="2026-11-14T12:00:00Z", use_module=False)
+771018	    got = {i["title"]: (i["year"], i["freshness"], i["tier"]) for i in result["projects"]["12588"]["archive"]}
+771019	    assert got == {"Update": (2024, "undated", "archive"), "Milestone": (2026, "undated", "archive"), "No clue": (None, "undated", "archive")}
+771020	    assert result["projects"]["12588"]["recent_news"] == [] and C.schema_errors(result) == []
+771021	def test_a_part_file_older_than_two_days_is_stale_not_ok():
+771022	    old = {"schema": C.PART_SCHEMA, "team": "trade", "generated_at": "2026-10-01T00:00:00Z", "sources": [], "items": [
+771023	        {"repd_ref": "12588", "title": "Botley West Solar Farm refused", "link": "https://example.co.uk/a", "publisher": "Paper",
+771024	         "date": "2026-09-30", "family": "trade", "basis": "alias", "confidence": "confirmed"}]}
+771025	    result = C.combine(rows, None, {"trade": old}, now_iso="2026-11-14T12:00:00Z", use_module=False)
+771026	    assert result["parts"]["trade"]["status"] == "failed" and "older than 48 hours" in result["parts"]["trade"]["note"]
+771027	    assert result["generated_at"] is None and result["stale"] is True
+771068	    # County RSS summaries may discover a candidate, but they do not prove the identity of a generic headline.
+771069	    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm would have covered farmland.", True)[0] == "weak"
+771070	    assert I.match_item(botley, "Huge solar farm refused", "The Botley West Solar Farm in Oxfordshire is refused.")[0] == "weak"
+771071	    unrelated = I.match_item(botley, "Longfield Solar Farm receives consent",
+771072	                             "Botley West Solar Farm was discussed in a separate item.", True)
+771073	    assert unrelated is None or unrelated[0] != "strong"  # wrong scheme in title never gains confirmed identity
+771112	                    "family": "bbc", "confidence": "uncertain",
+771113	                    "basis": "BBC News RSS: alias 'Botley West Solar Farm' in feed summary; the feed is the project's county feed; kept as weak: headline lacks a verified project name"}
+771141	                                    None, "English")]                      # the crawl date is not a publication date
+771142	    dated = json.dumps({"articles": [{"url": "https://www.example-paper.co.uk/news/2019/05/07/solar-farm-approved",
+771143	                                      "title": "Solar farm approved", "seendate": "20261110T121500Z"},
+771144	                                     {"url": "https://a.co.uk/x", "title": "t", "seendate": "20261345T000000Z"}]})
+771145	    assert [a[3] for a in I.parse_gdelt(dated)] == ["2019-05-07", None]   # the article's own date, from its link
+771159	            ("Oxfordshire and Aberdeenshire react as Rigifa solar farm approved", "https://www.oxfordmail.co.uk/news/e", "20261001T120000Z"),
+771307	import gate as GATE  # noqa: E402  the title gate shared with official.py, index.py and combine.py
+771485	    found = DATES.day(value)        # the publisher's own calendar day, whatever the zone or the lack of one
+771491	def _tomorrow():
+771492	    return (dt.datetime.now(dt.timezone.utc).date() + dt.timedelta(days=1)).isoformat()
+771498	    best = None                                             # the date written nearest the headline, whatever its spelling
+771504	            if date and date <= _tomorrow() and (best is None or found.start() < best[0]):
+771505	                best = (found.start(), date)                # a date still to come is an event date, not a publication date
+771506	    return best[1] if best else None
+771675	        self.record = record
+771718	        """The module's own rule (_match), then the shared title gate (gate.py): a name in the title without a
+771719	        solar term, abroad or in another county is not this project; thin support is kept as uncertain."""
+771720	        found = self._match(title, summary)
+771721	        if found is None and not any(rx.search(title) for rx in self.exclude):
+771722	            # The old weak-name extractor misses headlines such as "Fenwick
+771723	            # solar approval" and "Great North Road solar nears decision".
+771724	            # Recover only project-core + solar + a real development action.
+771725	            # This is NEVER a confirmed identity or publisher-rights claim.
+771726	            foreign_only = (P.FOREIGN.search(title) or ELSEWHERE.search(title)) and not P.UK_WORDS.search(title)
+771727	            if not foreign_only:
+771728	                project = GATE.for_record(self.record)
+771729	                if GATE.named_development_candidate(title, project):
+771730	                    verdict, reason = GATE.judge(self.ref, title, project=project)
+771731	                    if verdict in ("possible", "ok"):
+771732	                        found = ("project-core solar development candidate; independent REPD identity pending",
+771733	                                 "uncertain")
+771734	        return GATE.gated(self.record, straight(title), found)
+771735	    def _match(self, title, summary=""):
+771748	        if GATE.inverted_solar_place(title, self.record):
+771749	            return "verified place alias in inverted solar-farm title", confidence
+772368	    # This checker is the *new producer* publication gate, not an archival file
+772369	    # viewer. Legacy published snapshots retain their bytes and historical
+772370	    # checker pinned to their own source revision. A new project-signals.v2
+772371	    # file must NEVER pass while claiming candidate matches are verified news.
+772372	    expected_label = "projects with recent candidate news (independent evidence pending)"
+772373	    if not isinstance(headline, dict) or headline.get("label") != expected_label:
+772374	        fail("counts.headline.label must declare recent candidate news pending independent evidence")
+772453	                if v2 and "year" in item:
+772454	                    year = item.get("year")
+772455	                    if day is not None and year != day.year:
+772456	                        found["dates"].append("project %s %s: year %r does not belong to date %r" %
+772457	                                              (ref, name, year, raw))
+772458	                    elif day is None and year is not None:
+772459	                        # A reviewed page or URL may support a YEAR only. Do
+772460	                        # not upgrade it to a fabricated exact date or fresh
+772461	                        # news, and refuse impossible/future-year hints.
+772462	                        if name != "archive" or type(year) is not int or not 2005 <= year <= last_day.year:
+772463	                            found["dates"].append("project %s %s: invalid year-only archive hint %r" %
+772464	                                                  (ref, name, year))
+772594	ORDER = ("official", "trade", "index", "planning_file", "combiner", "gate", "acid")
+772669	"""Agent 7 regressions: title similarity is not proof of article/event identity."""
+772672	def item(*, title="Solar farm planning decision announced", date="2026-11-14T10:00:00Z",
+772673	         ref=None, link="https://publisher.example/a", source="Publisher A",
+772674	         category="planning_decision", **extra):
+772675	    return dict(title=title, date=date, link=link, source=source, category=category,
+772676	                first_seen="2026-11-15T12:00:00Z", technology="solar",
+772677	                possible_match={"repd_ref": str(ref), "site_name": "Example site", "basis": "county"}
+772678	                if ref is not None else None, **extra)
+772679	def test_same_title_distinct_years_retains_both():
+772680	    a = item(date="2025-01-05T09:00:00Z")
+772681	    b = item(date="2026-01-05T09:00:00Z", link="https://publisher.example/b", source="Publisher B")
+772682	    assert len(P.dedupe_titles([a, b])) == 2
+772683	def test_generic_same_title_different_repd_projects_retains_both():
+772684	    a = item(ref=1001)
+772685	    b = item(ref=2002, link="https://publisher.example/b", source="Publisher B")
+772686	def test_separate_decisions_same_project_retained():
+772687	    a = item(ref=1001, decision_reference="P/2026/001")
+772688	    b = item(ref=1001, decision_reference="P/2026/002",
+772689	             date="2026-11-15T11:00:00Z", link="https://publisher.example/b", source="Publisher B")
+772690	def test_undated_same_title_separate_urls_retained():
+772691	    a = item(date=None, ref=1001, category="construction")
+772692	    b = item(date=None, ref=1001, category="construction",
+772693	             link="https://publisher.example/b", source="Publisher B")
+772694	def test_same_canonical_article_url_syndicated_collapses():
+772695	    a = item()
+772696	    b = item(link=a["link"], source="Syndicated B")
+772697	    assert len(P.dedupe_titles([a, b])) == 1
+772698	def test_two_publishers_same_project_non_decision_near_date_collapses():
+772699	    a = item(ref=1001, category="construction")
+772700	    b = item(ref=1001, category="construction",
+772701	             date="2026-11-15T10:00:00Z",
+772702	             link="https://second.example/b", source="Publisher B")
+772703	def test_same_title_unknown_project_different_urls_kept():
+772704	    b = item(link="https://publisher-b.example/b", source="Publisher B")
+772705	"""Evidence ledger: structural checks are not article, publisher or legal verification."""
+772706	import evidence_ledger as L  # noqa: E402
+772707	def record(ref="1001"):
+772708	    article = "https://publisher.example/projects/solar"
+772709	        "proposing_role": "Agent7",
+772710	        "ArticleReceipt": {
+772711	            "publisher": "Example Publisher",
+772712	            "requested_url": article, "final_url": article,
+772713	            "http_status": 200, "fetched_at": "2026-11-15T12:00:00Z",
+772714	            "response_sha256": "a" * 64, "retrieval_log_sha256": "b" * 64,
+772715	            "retrieval_log_url": "https://github.com/Ventusltd/evidence/blob/abc/receipt.json",
+772716	            "parser_identity": "html5-parser/1",
+772718	        "ProjectBinding": {
+772719	            "repd_ref": ref, "project_name": "Example Solar Park",
+772720	            "contrary_evidence": [],
+772721	            "supporting_evidence": [
+772722	                {"repd_ref": ref, "article_url": article,
+772723	                 "extract": "Example Solar Park (REPD " + ref + ") was granted consent."}
+772725	            "independent_review": {
+772726	                "decision": "accepted", "evidence_url": "https://github.com/Ventusltd/reviews/issues/1",
+772727	                "reviewer_role": "Agent2", "reviewed_at": "2026-11-15T13:00:00Z",
+772729	        "EventAssertion": {
+772730	            "event_type": "consent", "actual_event_date": "2026-11-14",
+772731	            "event_evidence_url": article, "planning_reference": "P/2026/0001",
+772732	        "RightsAssessment": {
+772733	            "publisher_owner": "Example Publisher",
+772734	            "basis": "headline_link_only",
+772735	            "basis_evidence_url": "https://publisher.example/terms",
+772736	            "display_scope": "headline_link", "stores_article_body": False,
+772737	                "decision": "accepted", "evidence_url": "https://github.com/Ventusltd/reviews/issues/2",
+772738	def test_completely_filled_synthetic_contract_is_still_not_accepted():
+772739	    item = record()
+772740	    assert L.check_proposal(item) == []
+772741	    result = L.assess(item)["PublicationEligibility"]
+772742	    assert result["status"] == "independent_external_acceptance_required"
+772743	    assert result["accepted_for_publication"] is False
+772744	def test_original_source_hash_and_http_response_required():
+772745	    item["ArticleReceipt"].update(response_sha256="", http_status=None)
+772746	    errs = L.check_proposal(item)
+772747	    assert "ArticleReceipt.response_sha256" in errs
+772748	    assert "ArticleReceipt.http_status" in errs
+772749	    assert L.assess(item)["PublicationEligibility"]["status"] == "withheld"
+772750	def test_redirected_article_identity_and_provenance_cannot_be_omitted():
+772751	    item["ArticleReceipt"]["final_url"] = "http://publisher.example/other"
+772752	    item["ArticleReceipt"]["retrieval_log_url"] = ""
+772753	    assert "ArticleReceipt.final_url" in errs
+772754	    assert "ArticleReceipt.retrieval_log_url" in errs
+772755	def test_article_b_about_project_b_cannot_bind_project_a():
+772756	    item = record("1001")
+772757	    item["ProjectBinding"]["supporting_evidence"][0]["repd_ref"] = "2002"
+772758	    assert "ProjectBinding.supporting_evidence[0]" in L.check_proposal(item)
+772759	def test_one_article_about_two_projects_needs_two_separate_bindings():
+772760	    one = record("1001")
+772761	    two = record("2002")
+772762	    two["ArticleReceipt"] = copy.deepcopy(one["ArticleReceipt"])
+772763	    two["ProjectBinding"]["supporting_evidence"][0]["repd_ref"] = "1001"
+772764	    assert L.check_proposal(one) == []
+772765	    assert "ProjectBinding.supporting_evidence[0]" in L.check_proposal(two)
+772766	def test_reviewed_boolean_does_not_substitute_for_independent_review():
+772767	    item["ProjectBinding"]["independent_review"] = {"reviewed": True}
+772768	    assert "ProjectBinding.independent_review" in L.check_proposal(item)
+772769	def test_producer_cannot_structurally_self_review():
+772770	    item["ProjectBinding"]["independent_review"]["reviewer_role"] = "Agent7"
+772771	    item["RightsAssessment"]["independent_review"]["reviewer_role"] = "Agent7"
+772772	    assert "ProjectBinding.independent_review" in errs
+772773	    assert "RightsAssessment.independent_review" in errs
+772774	def test_undocumented_rights_and_article_body_storage_withheld():
+772775	    item["RightsAssessment"]["basis"] = "AI confidence high"
+772776	    item["RightsAssessment"]["stores_article_body"] = True
+772777	    assert "RightsAssessment.basis" in errs
+772778	    assert "RightsAssessment.stores_article_body" in errs
+772779	def test_event_requires_actual_date_and_planning_reference():
+772780	    item["EventAssertion"].update(actual_event_date="not known", planning_reference="")
+772781	    assert "EventAssertion.actual_event_date" in errs
+772782	    assert "EventAssertion.planning_reference" in errs
+772783	def test_news_is_withheld_when_raw_record_unavailable():
+772784	    assert L.assess(None)["PublicationEligibility"]["status"] == "withheld"
+773128	def test_near_identical_titles_without_event_or_project_identity_are_not_silently_collapsed():
+773129	    # Former test assumed 85% text overlap alone proved one event. This is unsafe:
+773130	    # separate article URLs can cover separate decisions, even for the same developer.
+773131	    # Keep all three for independent project/article adjudication when source identity
+773132	    # has no REPD Ref, original URL lineage or common decision reference.
+773139	    assert {i["link"] for i in merged} == {a["link"], b["link"], c["link"]}
+773140	    assert len(merged) == 3
+773453	    if case["function"] == "datacentre_feed.parse_date":
+773454	        # The tester's recommendation concerns the written CALENDAR DAY,
+773455	        # not an inferred UTC timestamp. Keep datacentre_feed.parse_date()
+773456	        # strict for feed freshness and introduce a separately named reader.
+773457	        got = D.parse_calendar_day(case["value"])
+773458	        got = getattr(__import__(module), name)(case["value"])
+773459	    assert got == case["expected"], "%s calendar day (%r) gave %r, the tester expects %r" % (
+773460	        case["function"], case["value"], got, case["expected"])
+773656	    assert counts["headline"] == {"label": "projects with recent candidate news (independent evidence pending)", "value": 3}
+773775	            "counts": {"projects": 4, "headline": {"label": "projects with recent candidate news (independent evidence pending)", "value": 1},
+773783	def test_R15_new_v2_must_not_call_uncleared_project_news_verified():
+773785	    # Changing only the wording to the historical label must be rejected even
+773786	    # if all other dates, tiers and synthetic fixture values are consistent.
+773787	    doc["counts"]["headline"]["label"] = "projects with recent verified news"
+773788	    failures = L.failures(doc, NOW)
+773789	    assert "schema" in failures
+773790	    assert any("candidate news" in message for message in failures["schema"])
+773791	    # Source-history readback belongs to its own pinned old revision; it is
+773792	    # never used as an exception in the current producer's publication gate.
+773870	    basis, confidence = p.match("Miliband refuses Botley West")          # the title gate: no solar term, so not confirmed
+773871	    assert "Botley West" in basis and confidence == "uncertain" and "no solar term" in basis
+773872	    assert p.match("Miliband refuses Botley West solar farm")[1] == "confirmed"
+773873	    assert p.match("Botley West footpath closed after landslip") is None  # a distinctive name alone is not the project
+773881	    assert p.match("Sunnica scheme in Cambridgeshire cleared") is None    # a county agrees only beside a solar term
+773882	    assert "county" in p.match("Sunnica solar scheme in Cambridgeshire cleared")[0]
+773883	    assert p.match("Sunnica solar farm plan in Lancashire") is None       # placed in another county
+773884	    assert p.match("Sunnica solar panels for village hall") is None       # panels are not a solar farm
+774094	        ("12588", "https://one.example/bw/", "2026-11-10", "uncertain", "trade"),    # "Botley West refused": no solar term
+774242	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">Open Pipeline News &rarr;</a></div></details>
+774266	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.22 · October 2026 REPD · project signals (known mobile issue)</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div></details></td></tr>
+774293	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611151300</title>
+774308	  <link rel="stylesheet" href="styles/v9-22.css?v=9.22">
+774318	      <small>UK RENEWABLES PIPELINE · V9.22</small>
+774321	      <a class="active" href="#">V9.22 BUILD · REPD Q3 2026</a>
+774323	      <a href="../202611141017/">V9.21 202611141017 · PREVIOUS EDITION</a>
+774367	      <h1>UK RENEWABLES PIPELINE 202611151300</h1>
+774370	      <strong>V9.22 · REPD OCTOBER 2026 (Q3) · LIVE HEADLINES IN THE NEWS BLOCK · BUILD · 15 November 2026</strong>
+774443	      <span><b>MAP ON A PHONE:</b> GridAtlas can open its project result card minimised so the map remains visible. Expand the card to read the nearest-substation screening. A distance is not available grid capacity or a connection offer.</span>
+774476	  <script defer src="scripts/plugins/live-news.js?v=2"></script>
+774486	 * The label is based on collection time and explicit source health, never a claim
+774487	 * that an article or underlying project event is new. Valid empty feeds are healthy.
+774488	 * Partial collection and saved snapshots are labelled separately.
+774515	  function label(generatedAt, status, nowMs, source, counts) {
+774518	    if (source === 'snapshot') return { state: 'snapshot', text: 'Live source unavailable. Showing a saved snapshot collected ' + stamp(generatedAt, true) + '; its articles may be older.' };
+774519	    if (status === 'failed') return { state: 'failed', text: 'Source collection failed at ' + stamp(generatedAt, true) + '. Any displayed headlines were retained from earlier collections.' };
+774520	    var overdue = nowMs - when > STALE_MS;
+774521	    if (status === 'partial') {
+774522	      var ok = counts && Number.isInteger(counts.feeds_ok) ? counts.feeds_ok : null;
+774523	      var bad = counts && Number.isInteger(counts.feeds_failed) ? counts.feeds_failed : null;
+774524	      var coverage = ok !== null && bad !== null ? ' (' + ok + ' sources succeeded, ' + bad + ' failed)' : '';
+774525	      return { state: overdue ? 'overdue-partial' : 'partial',
+774526	        text: 'Partial source collection' + coverage + '. Feed checked ' + stamp(generatedAt, true)
+774527	          + (overdue ? '; refresh is overdue.' : '. Displaying available headlines.') };
+774528	    if (overdue) return { state: 'overdue', text: 'Feed last checked ' + stamp(generatedAt, true) + '; refresh is overdue. Article dates may be older.' };
+774529	    return { state: 'live', text: 'Feed checked ' + stamp(generatedAt, true) + '. Article dates are shown separately.' };
+774531	    return !!(doc && doc.schema === SCHEMA && Array.isArray(doc.items)
+774532	      && typeof doc.generated_at === 'string' && !isNaN(Date.parse(doc.generated_at))
+774533	      && ['ok', 'partial', 'failed'].indexOf(doc.status) !== -1);
+774559	    var articleDate = stamp(item.date, false);
+774560	    var collectedDate = stamp(item.first_seen, false);
+774561	    var dateLabel = articleDate ? 'PUBLISHER DATE ' + articleDate.toUpperCase()
+774562	      : (collectedDate ? 'FIRST COLLECTED ' + collectedDate.toUpperCase() : 'ARTICLE DATE UNKNOWN');
+774563	    var meta = [dateLabel, CATEGORY[item.category] || '', TECHNOLOGY[item.technology] || '', String(item.source || '')];
+774583	    var l = label(ok ? doc.generated_at : '', ok ? doc.status : '', nowMs == null ? Date.now() : nowMs,
+774584	      ok ? source : 'none', ok ? doc.counts : null);
+774590	    if (doc.items.length === 0) {
+774591	      list.appendChild(el('p', 'ln-empty', 'No headlines currently meet the feed criteria.'));
+774592	      if (doc.scope) list.appendChild(el('p', 'ln-scope', String(doc.scope)));
+774616	  window.pipelineHeadlines = { label: label, render: render, valid: valid, schema: SCHEMA };
+774620	/* Live GridAtlas deep-link proof. Unlike URL-only tests, physically clicks a
+774621	 * Pipeline News MAP anchor, opens its actual external page, and demands a
+774622	 * composed receiver, a terminal no-error technology layer and visible nearest
+774623	 * substation result. Real network and engine; no destination mocks or fake flags.
+774624	 * Reports each attempt including failures; a retry never erases initial red.
+774625	 * This is a DIAGNOSTIC SUBSET, never evidence of all 7,775 executions or
+774626	 * independent reviewer acceptance. 15 November 2026.
+774628	import { readFile, mkdir, writeFile } from 'node:fs/promises';
+774632	const require = createRequire(new URL('../package.json', import.meta.url));
+774635	const ROOT = join(HERE, '..');
+774636	const OUTPUT = process.env.AGENT7_ENGINE_REPORT_DIR || '/tmp/agent7-engine';
+774637	const CANDIDATE = process.env.AGENT7_PIPELINE_SOURCE
+774638	  || 'http://127.0.0.1:8765/uk_renewables_pipeline/202611151300/';
+774639	const MODE = process.env.AGENT7_ENGINE_MODE || 'local';
+774640	const WIDTH = Number(process.env.AGENT7_ENGINE_WIDTH || 1440);
+774641	const SAMPLE_LIMIT = Number(process.env.AGENT7_ENGINE_SAMPLE_LIMIT || 2);
+774642	const MAX_MS = Number(process.env.AGENT7_ENGINE_WAIT_MS || 85000);
+774643	assert.ok([390, 1440].includes(WIDTH), 'unknown test viewport');
+774644	assert.ok(SAMPLE_LIMIT >= 1 && SAMPLE_LIMIT <= 6, 'limited honest runtime matrix');
+774645	const manifest = JSON.parse(await readFile(join(ROOT, 'data/v9.1/build_manifest.json'), 'utf8'));
+774648	  const d = JSON.parse(await readFile(join(ROOT, part.path), 'utf8'));
+774649	  rows.push(...d.projects);
+774650	assert.equal(rows.length, 7775);
+774651	function located(row) {
+774652	  return Number.isFinite(Number(row.latitude))
+774653	    && Number.isFinite(Number(row.longitude))
+774654	    && Number(row.latitude) >= 50 && Number(row.latitude) <= 59
+774655	    && Number(row.longitude) >= -6 && Number(row.longitude) <= 1;
+774656	const classes = ['solar', 'bess', 'wind_onshore'];
+774657	const chosen = classes.map(tech => rows.find(row => row.technology === tech && located(row)
+774658	  && String(row.repd_ref).match(/^\d+$/))).filter(Boolean).slice(0, SAMPLE_LIMIT);
+774659	assert.equal(chosen.length, SAMPLE_LIMIT,
+774660	  'not enough distinct solar/battery/onshore samples to claim this matrix');
+774661	await mkdir(OUTPUT, { recursive: true });
+774664	let fatal = false;
+774666	  for (const record of chosen) {
+774667	    const receipt = {
+774668	      source: CANDIDATE, mode: MODE, width: WIDTH,
+774669	      repd_ref: String(record.repd_ref), technology: record.technology,
+774670	      expected_coordinates: { latitude: Number(record.latitude), longitude: Number(record.longitude) },
+774671	      source_head: process.env.GITHUB_SHA || 'UNKNOWN',
+774672	      status: 'FAIL',
+774673	      start_utc: new Date().toISOString(),
+774674	      phases: {},
+774675	      page_errors: [], console_errors: [], request_failures: []
+774677	    receipts.push(receipt);
+774679	      viewport: { width: WIDTH, height: 900 }, isMobile: WIDTH === 390,
+774680	      hasTouch: WIDTH === 390, acceptDownloads: true
+774683	    let arrival;
+774685	      // Stub only optional library on SOURCE; never mock receiver, cartridges,
+774686	      // basemap, data, computation or network on the destination page.
+774688	        window.Chart = class ChartStub { constructor(_c, c) { this.data = c.data; } update() {} };
+774690	      await page.route('https://cdn.jsdelivr.net/**',
+774691	        route => route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+774692	      if (MODE === 'local') {
+774693	        // Allows an honest no-headlines state without relying on a live RSS file
+774694	        // for a separate MAP test. Does NOT affect the destination GridAtlas.
+774695	        await page.route('https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/**',
+774696	          route => route.fulfill({
+774697	            status: 200, contentType: 'application/json',
+774698	            headers: { 'access-control-allow-origin': '*' },
+774699	            body: JSON.stringify({ schema: 'globalgrid2050.news.pipeline-headlines.v1',
+774700	              generated_at: new Date().toISOString(), status: 'ok',
+774701	              items: [], counts: { feeds_ok: 0, feeds_failed: 0 } })
+774703	      await page.goto(CANDIDATE, { waitUntil: 'domcontentloaded', timeout: 60000 });
+774704	      await page.waitForFunction(() => document.getElementById('tbody')?.dataset.total === '7775',
+774705	        null, { timeout: 70000 });
+774706	      const search = page.locator('#search');
+774707	      await search.fill(String(record.repd_ref));
+774708	      const target = page.locator('#tbody a.atlaslink[href*="repd_ref=' + record.repd_ref + '"]').first();
+774709	      await target.waitFor({ state: 'visible', timeout: 35000 });
+774710	      await target.scrollIntoViewIfNeeded();
+774711	      const hit = await target.evaluate(a => {
+774712	        const b = a.getBoundingClientRect();
+774713	        const el = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2);
+774714	        return { width: b.width, height: b.height, left: b.left, right: b.right,
+774715	          viewport: document.documentElement.clientWidth, reachable: el === a || a.contains(el),
+774716	          href: a.href };
+774717	      receipt.phases.map_hit = hit;
+774718	      assert.ok(hit.reachable && hit.left >= 0 && hit.right <= hit.viewport + 1
+774719	        && hit.width >= 44 && hit.height >= 44, 'MAP not physically clickable');
+774720	      const href = new URL(hit.href);
+774721	      assert.equal(href.origin + href.pathname, 'https://ventusltd.github.io/gridatlas/atlas/');
+774722	      assert.equal(href.searchParams.get('repd_ref'), receipt.repd_ref);
+774723	      assert.equal(href.searchParams.get('technology'), record.technology);
+774724	      assert.equal(Number(href.searchParams.get('latitude')), Number(record.latitude));
+774725	      assert.equal(Number(href.searchParams.get('longitude')), Number(record.longitude));
+774726	      const popup = context.waitForEvent('page', { timeout: 20000 });
+774727	      await target.click({ timeout: 20000 });
+774728	      arrival = await popup;
+774729	      const arrived = new URL(arrival.url());
+774730	      receipt.phases.actual_clicked_url = arrived.href;
+774731	      assert.equal(arrived.origin + arrived.pathname, href.origin + href.pathname);
+774732	      assert.equal(arrived.searchParams.get('repd_ref'), receipt.repd_ref);
+774733	      receipt.phases.popup_created = true;
+774734	      arrival.on('pageerror', e => receipt.page_errors.push(String(e.message || e).slice(0,240)));
+774735	      arrival.on('console', m => {
+774736	        if (m.type() === 'error') receipt.console_errors.push(m.text().slice(0,240));
+774737	      arrival.on('requestfailed', req => {
+774738	        receipt.request_failures.push({ url: req.url().slice(0,200),
+774739	          why: req.failure()?.errorText || 'request failed' });
+774740	      await arrival.waitForLoadState('domcontentloaded', { timeout: 60000 });
+774741	      // Real engine state first. A phone intentionally collapses the project
+774742	      // card on arrival; looking only at document.body.innerText before the
+774743	      // user expands it would falsely report a failed calculation.
+774744	      await arrival.waitForFunction(() => {
+774745	        const runtime = window.__GRIDATLAS_NEON_LINKS__;
+774746	        const atlas = window.__GRIDATLAS_ATLAS__;
+774747	        return !!atlas && !!runtime
+774748	          && Array.isArray(runtime.failures) && runtime.failures.length === 0
+774749	          && !!document.documentElement.dataset.gridatlasGeneration
+774750	          && runtime.technology_layer?.enabled === true
+774751	          && !!runtime.project_layer_enabled;
+774752	      }, null, { timeout: MAX_MS });
+774753	      const initialCard = await arrival.evaluate(() => {
+774754	        const popup = document.querySelector('.maplibregl-popup');
+774755	        const hidden = document.body?.textContent || '';
+774756	        const visible = document.body?.innerText || '';
+774757	        const button = popup?.querySelector('.gridatlas-card-bar button.min');
+774759	          popup_found: !!popup,
+774760	          minimized: popup?.classList.contains('gridatlas-min') || false,
+774761	          control_exists: !!button,
+774762	          control_text: button?.textContent?.trim() || null,
+774763	          nearest_in_hidden_dom: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(hidden),
+774764	          nearest_visible: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(visible),
+774765	          viewport_visibility: document.visibilityState
+774767	      receipt.phases.card_on_arrival = initialCard;
+774768	      if (initialCard.minimized) {
+774769	        // Simulate the reader explicitly restoring the mobile measurement card.
+774770	        // This is NOT a fake engine result: only an actual user-operable click
+774771	        // may expose the real computed nearest and source-identity evidence.
+774772	        assert.ok(initialCard.control_exists, 'mobile project card minimised with no restore button');
+774773	        const restore = arrival.locator('.maplibregl-popup.gridatlas-min .gridatlas-card-bar button.min').first();
+774774	        await restore.click({ timeout: 15000 });
+774775	        receipt.phases.card_restored_by_real_click = true;
+774777	        await arrival.waitForFunction(() =>
+774778	          /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(document.body?.innerText || ''),
+774779	        null, { timeout: 35000 });
+774781	        receipt.phases.visible_nearest_timeout = String(e.message).slice(0,180);
+774782	      const state = await arrival.evaluate(() => {
+774783	        const a = window.__GRIDATLAS_ATLAS__ || null;
+774784	        const x = window.__GRIDATLAS_NEON_LINKS__ || null;
+774785	        const body = document.body?.innerText || '';
+774786	          router_state: document.body?.dataset.gridatlasRouter || null,
+774787	          generation: document.documentElement.dataset.gridatlasGeneration || null,
+774788	          atlas_schema: a?.schema || null, composition_generation: a?.generation || null,
+774789	          cartridge_count: a?.loaded_cartridges?.length ?? null,
+774790	          technology_layer: x?.technology_layer || null,
+774791	          project_layer_enabled: x?.project_layer_enabled ?? null,
+774792	          failures: x?.failures || null,
+774793	          nearest_excerpt: (body.match(/Nearest\s+\d+\s*kV\s+substation\s*:[^\n]{0,150}/i) || [])[0] || null,
+774794	          still_minimised: !!document.querySelector('.maplibregl-popup.gridatlas-min'),
+774795	          nearest_in_dom_even_if_hidden: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(document.body?.textContent || ''),
+774796	          has_loading_spinner: /GRIDATLAS COMPOSITION FAILED|verifying immutable shell and cartridges/i.test(body),
+774797	          headline: body.slice(0, 360)
+774798	      receipt.phases.runtime = state;
+774799	      await arrival.screenshot({
+774800	        path: join(OUTPUT, 'engine-' + WIDTH + '-' + record.repd_ref + '.png'),
+774801	        fullPage: false, timeout: 18000
+774802	      }).catch(e => { receipt.phases.screenshot_error = e.message.slice(0,160); });
+774803	      assert.ok(state.generation && state.generation === state.composition_generation,
+774804	        'composed generation mismatch/absent');
+774805	      assert.ok(state.cartridge_count >= 4, 'no verified cartridge composition receipt');
+774806	      assert.ok(state.router_state !== 'failed', 'GridAtlas composer failed');
+774807	      assert.deepEqual(state.failures, [], 'GridAtlas runtime failures not empty');
+774808	      assert.equal(state.technology_layer?.enabled, true, 'technology layer not enabled');
+774809	      assert.ok(state.project_layer_enabled, 'project layer not enabled');
+774810	      assert.ok(state.nearest_excerpt, 'NO real nearest-substation output observed');
+774811	      assert.equal(receipt.page_errors.length, 0, 'destination page exceptions');
+774812	      receipt.status = 'PASS';
+774814	      receipt.why = String(error?.message || error).slice(0,800);
+774815	      fatal = true;
+774817	      receipt.ended_utc = new Date().toISOString();
+774818	      console.log(JSON.stringify({ repd_ref: receipt.repd_ref, tech: receipt.technology,
+774819	        width: receipt.width, mode: receipt.mode, status: receipt.status,
+774820	        why: receipt.why || null, output: receipt.phases.runtime?.nearest_excerpt || null }));
+774824	  const path = join(OUTPUT, 'real-map-engine-receipts-' + MODE + '-' + WIDTH + '.json');
+774825	  await writeFile(path, JSON.stringify({
+774826	    schema: 'globalgrid2050.agent7.real-map-engine-receipts.v1',
+774827	    generated_at: new Date().toISOString(),
+774828	    sampled_rows: chosen.length,
+774829	    full_population: rows.length,
+774830	    coverage: 'PARTIAL_SAMPLE_ONLY',
+774831	    note: 'Real browser click and external engine. This does not certify all onshore/nearshore or legal rights.',
+774832	    receipts
+774833	  }, null, 2) + '\n');
+774834	if (fatal) {
+774835	  console.error('Real MAP→GridAtlas→Engine subset FAILED / partial. See per-REPD receipts.');
+774838	  console.log('Real MAP→GridAtlas→Engine diagnostic subset passed; global coverage PARTIAL ONLY');
+774839	/* Agent 7 actual Chromium STAGING preflight (not public served-byte or engine QA).
+774840	 * Real local 390px phone and 1440px desktop page, search/table, CSV and MAP
+774841	 * hit-target checks. Does NOT treat a syntactically valid MAP link as a
+774842	 * successful GridAtlas receiver/engine calculation. No fake remote engine.
+774843	import { readFile, mkdir } from 'node:fs/promises';
+774844	const { chromium, webkit } = require('playwright');
+774845	const ORIGIN = process.env.V9_BASE_URL ||
+774846	  'http://127.0.0.1:8765/uk_renewables_pipeline/202611151300/';
+774847	const OUT = process.env.AGENT7_SCREENSHOT_DIR || '/tmp/agent7-staging';
+774848	assert.equal(manifest.project_count, 7775);
+774849	const expectedRefs = new Set();
+774850	  const data = JSON.parse(await readFile(join(ROOT, part.path), 'utf8'));
+774851	  for (const project of data.projects) {
+774853	    assert.ok(!expectedRefs.has(ref), 'duplicate canonical REPD Ref ' + ref);
+774854	    expectedRefs.add(ref);
+774855	assert.equal(expectedRefs.size, 7775);
+774856	/* RFC4180-style CSV rows, tolerating quoted commas, escaped quotes and CRLF. */
+774857	function parseCsv(value) {
+774858	  value = value.replace(/^\uFEFF/, '');
+774859	  let rows = [], row = [], cell = '', quoted = false;
+774860	  for (let i = 0; i < value.length; i++) {
+774861	    const c = value[i];
+774862	    if (c === '"') {
+774863	      if (quoted && value[i + 1] === '"') { cell += '"'; i++; }
+774864	      else quoted = !quoted;
+774865	    } else if (!quoted && c === ',') {
+774866	      row.push(cell); cell = '';
+774867	    } else if (!quoted && (c === '\n' || c === '\r')) {
+774868	      if (c === '\r' && value[i + 1] === '\n') i++;
+774869	      row.push(cell); rows.push(row); row = []; cell = '';
+774870	    } else cell += c;
+774871	  assert.equal(quoted, false, 'CSV ends inside quoted cell');
+774872	  if (row.length || cell) { row.push(cell); rows.push(row); }
+774874	const feed = {
+774875	  schema: 'globalgrid2050.news.pipeline-headlines.v1', status: 'ok',
+774877	  items: [], counts: { feeds_ok: 50, feeds_failed: 0 },
+774878	  scope: 'Headlines only. No confirmed REPD project associations.',
+774880	const webkitBrowser = await webkit.launch({ headless: true });
+774883	  for (const width of [390, 393, 1440]) {
+774884	    // 393px runs through WebKit to catch iOS-browser layout regressions.
+774885	    // 390px and 1440px retain the existing Chromium reference tests.
+774886	    const engine = width === 393 ? webkitBrowser : browser;
+774887	    const context = await engine.newContext({
+774888	      viewport: { width, height: 900 }, acceptDownloads: true,
+774889	      isMobile: width < 600, hasTouch: width < 600,
+774890	    // Chart.js is an optional CDN dependency; substitute a stub while verifying
+774891	    // the independent table, news, CSV and MAP interactions offline.
+774898	    page.on('pageerror', e => errors.push(e.message));
+774899	    await page.route('https://cdn.jsdelivr.net/**', route =>
+774900	      route.fulfill({ status: 200, contentType: 'application/javascript', body: '' }));
+774901	    await page.route('https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/**',
+774902	      route => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(feed),
+774903	        headers: { 'access-control-allow-origin': '*' } }));
+774904	    // Exercise the compiled receiver fallback without inventing remote engine execution.
+774905	    await page.route('https://ventusltd.github.io/ventus-grid-engine/deeplink/receivers.json',
+774906	      route => route.abort('failed'));
+774907	    await page.goto(ORIGIN, { waitUntil: 'domcontentloaded', timeout: 60000 });
+774909	      document.getElementById('tbody')?.dataset.total === '7775'
+774910	      && document.getElementById('newsStatus')?.dataset.state === 'live'
+774911	      && document.getElementById('liveNews')?.textContent
+774912	        .includes('No headlines currently meet the feed criteria.')
+774913	    ), null, { timeout: 90000 });
+774914	    const totals = await page.evaluate(() => ({
+774915	      total: document.getElementById('tbody').dataset.total,
+774916	      rows: document.querySelectorAll('#tbody tr').length,
+774917	      news: document.getElementById('liveNews').textContent,
+774918	      status: document.getElementById('newsStatus').textContent,
+774919	      pageScroll: document.documentElement.scrollWidth,
+774920	      pageWidth: document.documentElement.clientWidth,
+774922	    assert.equal(totals.total, '7775');
+774923	    assert.ok(totals.rows > 0 && totals.rows <= 20);
+774924	    assert.match(totals.news, /No headlines currently meet/);
+774925	    assert.ok(totals.pageScroll <= totals.pageWidth + 1,
+774926	      width + 'px page overflows horizontally by ' + (totals.pageScroll - totals.pageWidth));
+774927	    const mapAnchor = page.locator('#tbody tr .atlaslink').first();
+774928	    await mapAnchor.waitFor({ state: 'visible' });
+774929	    await mapAnchor.scrollIntoViewIfNeeded();
+774930	    const map = await mapAnchor.evaluate((a) => {
+774931	      const r = a.getBoundingClientRect();
+774932	      const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+774933	      return { url: a.href, rect: { left: r.left, right: r.right,
+774934	        width: r.width, height: r.height },
+774935	        hit: hit === a || a.contains(hit),
+774936	        viewport: document.documentElement.clientWidth,
+774937	    assert.ok(map.url.startsWith('https://ventusltd.github.io/gridatlas/atlas/?'), map.url);
+774938	    assert.ok(new URL(map.url).searchParams.get('repd_ref'), 'missing MAP REPD identity');
+774939	    assert.ok(map.rect.left >= 0 && map.rect.right <= map.viewport + 1,
+774940	      width + 'px MAP is off viewport: ' + JSON.stringify(map.rect));
+774941	    assert.ok(map.hit, width + 'px MAP centre is obscured');
+774942	    assert.ok(map.rect.width >= 44 && map.rect.height >= 44,
+774943	      width + 'px MAP hit target <44px');
+774944	    await page.screenshot({ path: join(OUT, 'v922-' + width + '.png'), fullPage: false });
+774945	    assert.deepEqual(errors, [], width + 'px application JS errors');
+774946	    if (width === 1440) {
+774947	      const [download] = await Promise.all([
+774948	        page.waitForEvent('download', { timeout: 30000 }),
+774949	        page.locator('#exportInline').click(),
+774951	      const csv = await readFile(await download.path(), 'utf8');
+774952	      const records = parseCsv(csv);
+774953	      assert.equal(records.length, 7776, 'CSV header + 7775 REPD rows expected');
+774954	      const ix = records[0].indexOf('REPD Ref');
+774955	      assert.ok(ix >= 0, 'CSV missing canonical REPD Ref column: ' + records[0].join('|'));
+774956	      const refs = records.slice(1).map(row => {
+774957	        assert.equal(row.length, records[0].length, 'CSV row width inconsistent');
+774958	        return row[ix];
+774959	      const exportedRefs = new Set(refs);
+774960	      assert.equal(exportedRefs.size, 7775, 'CSV duplicate REPD identity');
+774961	      assert.deepEqual([...exportedRefs].sort(), [...expectedRefs].sort(),
+774962	        'CSV REPD identity set not equal to source partitions');
+774963	      console.log('CSV verified 7,775/7,775 unique exact REPD refs against Q3 partitions');
+774964	    passed++;
+774965	    console.log(width + 'px actual ' + (width === 393 ? 'WebKit' : 'Chromium') + ' staging: PASS; MAP href + hit target checked, '
+774966	      + 'Grid Engine execution NOT checked');
+774968	  await webkitBrowser.close();
+774969	assert.equal(passed, 3);
+774970	console.log('Agent8 cross-browser STAGING PASS at Chromium 390/1440 and WebKit 393; NOT public served-byte or engine acceptance');
+774971	/* check_v9_22.mjs - Pipeline News V9.22, proven from the bytes and through the
+774980	 * Run: node tests/check_v9_22.mjs
+774989	const VERSION = "9.22";
+774991	const PARENT_ID = "202611141017";
+775055	assert.ok(html.includes("MAP ON A PHONE:") && html.includes("not available grid capacity"), "mobile GridAtlas result-card presentation and screening limits must be disclosed");
+775064	console.log(`check_v9_22: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+775067	/* V9.22 reader behaviour: real JS executed in an isolated DOM fixture; no network. */
+775069	import { runInNewContext } from 'node:vm';
+775071	const source = readFileSync(join(HERE, '../scripts/plugins/live-news.js'), 'utf8');
+775072	const NOW = Date.parse('2026-11-15T12:00:00Z');
+775073	function node(tag) {
+775074	  const n = { tagName: tag, children: [], parentNode: null, attrs: {}, _text: '', open: false,
+775075	    setAttribute(name, value) { this.attrs[name] = value; },
+775076	    appendChild(child) { child.parentNode = this; this.children.push(child); return child; },
+775077	    insertBefore(child, anchor) {
+775078	      child.parentNode = this;
+775079	      const pos = anchor ? this.children.indexOf(anchor) : -1;
+775080	      this.children.splice(pos < 0 ? this.children.length : pos, 0, child);
+775081	      return child;
+775083	    removeChild(child) {
+775084	      const pos = this.children.indexOf(child);
+775085	      if (pos >= 0) this.children.splice(pos, 1);
+775086	      child.parentNode = null;
+775089	  Object.defineProperty(n, 'textContent', {
+775090	    get() { return this._text; },
+775091	    set(value) { this._text = String(value); this.children = []; },
+775095	  const elements = { newsStatus: node('span'), liveNews: node('div'), newsArchive: node('details') };
+775097	    readyState: 'loading',
+775098	    createElement: node,
+775099	    getElementById: (id) => elements[id] || null,
+775100	  const window = {};
+775101	  runInNewContext(source, { document, window, Date, setTimeout: () => 1,
+775102	    clearTimeout() {}, AbortController: undefined, console });
+775103	  return { api: window.pipelineHeadlines, elements };
+775104	function doc(status = 'ok', items = [], extra = {}) {
+775105	  return { schema: 'globalgrid2050.news.pipeline-headlines.v1',
+775106	    status, items, generated_at: '2026-11-15T11:00:00Z',
+775107	    counts: { feeds_ok: 50, feeds_failed: 0 }, scope: 'Headlines only; no verified REPD binding.', ...extra };
+775108	function headline(date = '2026-11-08T12:00:00Z') {
+775109	  return { title: 'Planning decision on solar farm', date,
+775110	    first_seen: '2026-11-15T11:00:00Z', source: 'Example Publisher',
+775111	    link: 'https://publisher.example/article', category: 'planning_decision',
+775112	    technology: 'solar', possible_match: null };
+775113	test('healthy empty response is accepted, not treated as outage or snapshot', () => {
+775114	  const { api, elements } = fixture();
+775115	  assert.equal(api.valid(doc()), true);
+775116	  api.render(doc(), 'live', NOW);
+775117	  assert.equal(elements.newsStatus.attrs['data-state'], 'live');
+775118	  assert.match(elements.liveNews.children[0].textContent, /No headlines currently meet the feed criteria/);
+775119	  assert.doesNotMatch(elements.newsStatus.textContent, /Headlines updated|verified/i);
+775121	test('partial 49/50 feeds renders usable results and discloses failure', () => {
+775122	  api.render(doc('partial', [headline()], { counts: { feeds_ok: 49, feeds_failed: 1 } }), 'live', NOW);
+775123	  assert.equal(elements.newsStatus.attrs['data-state'], 'partial');
+775124	  assert.match(elements.newsStatus.textContent, /49 sources succeeded, 1 failed/);
+775125	  assert.equal(elements.liveNews.children[0].tagName, 'div');
+775126	test('partial healthy-empty response still shows genuine empty state', () => {
+775127	  api.render(doc('partial', [], { counts: { feeds_ok: 49, feeds_failed: 1 } }), 'live', NOW);
+775128	  assert.match(elements.liveNews.children[0].textContent, /No headlines currently/);
+775129	test('invalid JSON schema remains unavailable, not healthy-empty', () => {
+775130	  const broken = doc('ok', [], { schema: 'wrong' });
+775131	  assert.equal(api.valid(broken), false);
+775132	  api.render(broken, 'none', NOW);
+775133	  assert.equal(elements.newsStatus.attrs['data-state'], 'unavailable');
+775134	  assert.equal(elements.newsArchive.open, true);
+775135	test('failed collection is distinct from a saved fallback snapshot', () => {
+775136	  api.render(doc('failed', [headline()]), 'live', NOW);
+775137	  assert.equal(elements.newsStatus.attrs['data-state'], 'failed');
+775138	  assert.match(elements.newsStatus.textContent, /collection failed/i);
+775139	  api.render(doc('ok', [headline()]), 'snapshot', NOW);
+775140	  assert.equal(elements.newsStatus.attrs['data-state'], 'snapshot');
+775141	  assert.match(elements.newsStatus.textContent, /saved snapshot/i);
+775142	test('recent refresh does not claim eight-day-old article is new', () => {
+775143	  api.render(doc('ok', [headline('2026-11-07T13:00:00Z')]), 'live', NOW);
+775144	  assert.match(elements.newsStatus.textContent, /Feed checked/);
+775145	  assert.doesNotMatch(elements.newsStatus.textContent, /Headlines updated|new verified/i);
+775146	  assert.match(elements.liveNews.children[0].children[0].textContent, /PUBLISHER DATE 7 NOV 2026/);
+775147	test('stale partial collection reports both partial and overdue', () => {
+775148	  api.render(doc('partial', [headline()], { generated_at: '2026-11-12T12:00:00Z',
+775149	    counts: { feeds_ok: 49, feeds_failed: 1 } }), 'live', NOW);
+775150	  assert.equal(elements.newsStatus.attrs['data-state'], 'overdue-partial');
+775151	  assert.match(elements.newsStatus.textContent, /refresh is overdue/);
+775152	test('missing publisher date uses first-collected not event-effective date', () => {
+775153	  api.render(doc('ok', [headline(null)]), 'live', NOW);
+775154	  assert.match(elements.liveNews.children[0].children[0].textContent, /FIRST COLLECTED/);
+775170	<a href="versions.json">versions.json</a>. Generated 2026-11-15T16:12:33Z.</p>
+775171	<p>V9.22 (202611151300) was published on 15 November 2026 under the owner&#x27;s explicit iterative-release direction. The homepage now opens V9.22; V9.21 and V9.20 remain accessible as prior versions and rollback. GridAtlas mobile first-restore intermittently re-minimises the nearest result (REPD 2470 at 5.3 seconds in the 24-project sample); this known failure is deferred to V9.23, not called a PASS. News associations remain possible matches, not independently verified events. V9.19 with unlicensed data-centre register context remains held.</p>
+775175	<tr class="pass"><td><a href="202611151300/"><b>202611151300</b></a><br>V9.22<br><span class="state">PUBLISHED</span></td><td>2026-11-15 13:00:00 UTC</td><td>Versioned evidence-conscious successor to V9.21. Preserves 7,775 frozen DESNZ Q3 original project identities, official source status and every MAP link; adds event-aware RSS dedupe, honest empty/partial/stale/failed/snapshot health, publisher versus collection dates, and guarded project-signals candidates without false verified claims. Browser tests include 390/393/1440; real GridAtlas engine computed a limited three-class sample, not fleet-wide.<br><i>Data-centre features: no 258 unverified UK data-centre register records; attributed general external headlines only, separate from REPD.</i><ul><li>Three example real MAP-to-GridAtlas nearest calculations passed in a sampled run, but 390px GridAtlas can intermittently minimise the solar result card after first restore; this is not proof of a failed engine computation or fleet-wide reliability.</li><li>Project/news associations remain possible algorithmic matches. Original publisher byte receipts, specific REPD event binding and independent legal reuse have not been certified; the reader must not claim verified new project events.</li><li>Owner authorised a known-issues release: REPD 2470 at 390px re-minimised after 5.3 seconds in the 24-case real GridAtlas browser test (23/24 PASS). The mobile fix, full 24/24 acceptance and physical iPhone review are deferred to V9.23, not represented as green.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43769884506">SUCCESS</a></td><td>parent 202611141017<br><a href="202611151300/CHANGES.md">changes</a></td></tr>
+775177	<tr class="pass"><td><a href="202611140306/"><b>202611140306</b></a><br>V9.20<br><span class="state">AVAILABLE ROLLBACK (V9.21 HOMEPAGE OPERATIVE); NO DATA-CENTRE REGISTER CONTENT</span></td><td>2026-11-14 03:06:00 UTC</td><td>Promotable candidate: identical to V9.19 except that content derived from the UK data-centre register is switched off (nearest data centre per project and its data files; register-site lines in the headlines panel), pending verification of the register&#x27;s source licences. Headlines panel, register changes, GridAtlas state, pinned Chart.js and every MAP link kept.<br><i>Data-centre features: no data-centre register content; data-centre headlines (public feeds, links only) retained.</i><ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611140247<br><a href="202611140306/CHANGES.md">changes</a></td></tr>
 ```

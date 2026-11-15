@@ -1,5 +1,5 @@
 {
- "next": 2193,
+ "next": 2196,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2129,6 +2129,9 @@
   "globalgrid2050:automation/news/signals/trade.py": 2189,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/live-news.js": 2190,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/newspaper-v9-5-1.js": 2191,
-  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/newspaper-v9-7.js": 2192
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/newspaper-v9-7.js": 2192,
+  "globalgrid2050:automation/news/evidence_ledger.py": 2193,
+  "globalgrid2050:automation/news/signals/dates.py": 2194,
+  "globalgrid2050:automation/news/signals/gate.py": 2195
  }
 }
