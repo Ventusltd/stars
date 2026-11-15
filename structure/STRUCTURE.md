@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-15 11:29 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (117 KB, 136 cards, 407 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-15 17:59 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (117 KB, 136 cards, 404 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (41)
 
@@ -310,10 +310,7 @@ flowchart LR
   n_block_Em --> n_block_Gn
   n_block_Em --> n_block_Dc
   n_block_Pr --> n_block_Dc
-  n_block_Gn --> n_block_Dt
   n_block_Gn --> n_block_St
-  n_block_Gn --> n_block_Pn
-  n_block_Gn --> n_block_Em
   n_block_Gn --> n_block_Dc
 ```
 

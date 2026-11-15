@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-445,522 unique lines, numbered 1 to 766,198. Generated 2026-11-15T11:29:21.965Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+446,108 unique lines, numbered 1 to 766,891. Generated 2026-11-15T17:59:41.610Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -445525,4 +445525,590 @@
 766138	<p>The homepage opens 202611141017 (V9.21), promoted on the owner's 15 November 2026 instruction. V9.20 (202611140306) remains available as a rollback. V9.21 has a live-headlines block and labels REPD associations as possible matches, not verified connections. Held: 202611140247 (V9.19), with data-centre register context, awaiting verification of the register&#x27;s source licences.</p>
 766174	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">Open Pipeline News &rarr;</a></div></details>
 766198	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.21 · October 2026 REPD · live headlines</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div></details></td></tr>
+766251	<a class="card" href="/spiders/species/estate-activity/"><b>Estate Activity Spider</b><span>Chart recent Git commits and agent messages, compare Kuiper and Stars pinned measurements, and navigate to the Periodic Table and existing Spider graphs.</span></a>
+766252	<a class="card" href="https://ventusltd.github.io/stars/table.html"><b>Stars Periodic Table</b><span>Open the permanently numbered architecture blocks and linked sources.</span></a>
+766253	<a class="card" href="https://ventusltd.github.io/kuiper-belt/"><b>Kuiper Belt</b><span>Explore the independently measured estate and its orbit/commit provenance.</span></a>
+766260	// Public, read-only chart. Never interpret agent tags as proof of running processes.
+766262	const allowedHosts = new Set(['github.com','ventusltd.github.io','globalgrid2050.com']);
+766263	function safeLink(url) {
+766265	    const parsed = new URL(url);
+766266	    return parsed.protocol === 'https:' && allowedHosts.has(parsed.hostname) ? parsed.href : null;
+766269	function el(tag, text, css) {
+766271	  if (text !== undefined && text !== null) node.textContent = String(text);
+766272	  if (css) node.className = css;
+766274	function link(text, href, css) {
+766275	  const uri = safeLink(href);
+766276	  if (!uri) return el('span', text, css);
+766277	  const a = el('a', text, css);
+766278	  a.href = uri; a.rel = 'noopener noreferrer'; a.target = '_blank';
+766280	function shortSha(sha) { return typeof sha === 'string' ? sha.slice(0, 12) : 'unavailable'; }
+766281	function utc(value) {
+766282	  if (!value || !Number.isFinite(Date.parse(value))) return 'unknown';
+766283	  return new Date(value).toISOString().slice(0, 16).replace('T',' ') + ' UTC';
+766284	function noData(root, message) {root.replaceChildren(el('p', message));}
+766285	function metrics(data) {
+766286	  const root = $('metrics'); root.replaceChildren();
+766287	  const samples = data.repos.reduce((n,r)=>n+(Number(r.sample_count)||0),0);
+766288	  const lower = data.repos.some(r=>r.count_is_lower_bound);
+766289	  const values = [
+766290	    [data.repos.length, 'Public repositories observed'],
+766291	    [(lower ? '≥' : '') + samples, 'Default-branch commits observed'],
+766292	    [data.pulls.length, 'Open PR snapshots'],
+766293	    [data.messages.length, 'Recent agent-repo comments']
+766295	  for (const [value, label] of values) {
+766296	    const div = el('div', null, 'metric');
+766297	    div.append(el('b', value),el('span',label)); root.append(div);
+766299	function spark(values,days) {
+766300	  const ns = 'http://www.w3.org/2000/svg';
+766301	  const svg = document.createElementNS(ns,'svg');
+766302	  svg.setAttribute('viewBox','0 0 210 40');
+766303	  svg.setAttribute('class','spark');
+766304	  svg.setAttribute('role','img');
+766305	  const counts = values.map(x=>Math.max(0,Number(x.count)||0));
+766306	  svg.setAttribute('aria-label',days.map((d,i)=>d+': '+counts[i]).join('; '));
+766307	  const localMax = Math.max(1,...counts);
+766308	  counts.forEach((count,i)=>{
+766309	    const rect = document.createElementNS(ns,'rect');
+766310	    const h = count ? Math.max(3,Math.round(27*count/localMax)) : 2;
+766311	    rect.setAttribute('x',String(i*30+4));
+766312	    rect.setAttribute('y',String(32-h));
+766313	    rect.setAttribute('width','22');rect.setAttribute('height',String(h));
+766314	    rect.setAttribute('rx','2');rect.setAttribute('fill',count?'#46e8a4':'#244555');
+766315	    const title = document.createElementNS(ns,'title');
+766316	    title.textContent = days[i] + ': ' + count + ' commits';
+766317	    rect.append(title);svg.append(rect);
+766320	function chart(data) {
+766321	  const root = $('chart');root.replaceChildren();
+766322	  const table = el('table');const head=el('thead');const hrow=el('tr');
+766323	  for(const h of ['Repository','Sampled commits','Daily activity (scaled within repository)','Observed head'])hrow.append(el('th',h));
+766324	  head.append(hrow);table.append(head);
+766325	  const body=el('tbody');
+766326	  const sorted=[...data.repos].sort((a,b)=>b.sample_count-a.sample_count || a.repo.localeCompare(b.repo));
+766327	  for (const r of sorted) {
+766328	    const row=el('tr');
+766329	    const repo=el('td',null,'reponame');repo.append(link(r.repo.split('/')[1],r.url));
+766330	    const count=el('td',(r.count_is_lower_bound?'≥':'')+r.sample_count);
+766331	    const bar=el('td');bar.append(spark(r.day_counts,data.day_labels));
+766332	    const sha=el('td');sha.append(link(shortSha(r.head_sha),r.head_commit_url||r.url,'label'));
+766333	    sha.append(el('div',utc(r.head_commit_utc),'label'));
+766334	    row.append(repo,count,bar,sha);body.append(row);
+766335	  table.append(body);root.append(table);
+766336	  root.append(el('p','Bars: '+data.day_labels.join(' · ')+'; heights are normalised per repository. Counts and source SHAs are the auditable values.','label'));
+766337	function items(rootId,rows,kind) {
+766338	  const root=$(rootId);root.replaceChildren();
+766339	  if (!rows.length) return noData(root,kind==='pr'?'No open PRs in the monitored set.':'No recent comments in the seven-day evidence window.');
+766340	  for(const r of rows.slice(0,kind==='pr'?24:22)) {
+766341	    const card=el('div',null,'item');
+766342	    if(kind==='pr') {
+766343	      const title=(r.draft?'Draft ':'')+r.repo.split('/')[1]+' #'+r.number+': '+r.title;
+766344	      card.append(link(title,r.url));
+766345	      card.append(el('div','Updated '+utc(r.updated_utc)+' · head '+shortSha(r.head_sha),'meta'));
+766347	      const tag=r.declared_tag||'Unlabelled GitHub comment';
+766348	      card.append(link(tag+' · '+utc(r.utc),r.url));
+766349	      card.append(el('div','Public GitHub comment; body intentionally not copied; agent runtime status unknown.','meta'));
+766351	    root.append(card);
+766352	function joinColumn(root,title,sourceUrl,comparisons) {
+766353	  const div=el('div');
+766354	  const heading=el('h3');heading.append(link(title,sourceUrl));div.append(heading);
+766355	  const totals={aligned:0,lagging:0,unavailable:0};
+766356	  for (const c of comparisons) totals[c.status]=(totals[c.status]||0)+1;
+766357	  div.append(el('p',totals.aligned+' aligned · '+totals.lagging+' behind latest observed head · '+totals.unavailable+' unavailable'));
+766358	  const ul=el('ul');
+766359	  for (const c of comparisons.filter(c=>c.status!=='aligned').slice(0,14)) {
+766360	    const li=el('li');
+766361	    li.append(link(c.repo.split('/')[1],'https://github.com/'+c.repo),
+766362	      el('span',' — '+c.status+' ('+shortSha(c.pinned_sha)+' vs '+shortSha(c.observed_sha)+')','label'));
+766364	  if(!ul.children.length)ul.append(el('li','All compared repository heads align at this snapshot.'));
+766365	  div.append(ul);root.append(div);
+766366	function joins(data) {
+766367	  const root=$('joins');root.replaceChildren();
+766368	  const wrapper=el('div',null,'two');
+766369	  const j=data.joins;
+766370	  joinColumn(wrapper,'Stars source pins',
+766371	    'https://github.com/Ventusltd/stars/blob/'+j.stars.source_commit+'/'+j.stars.file,j.stars.comparisons);
+766372	  joinColumn(wrapper,'Kuiper measured heads',
+766373	    'https://github.com/Ventusltd/kuiper-belt/blob/'+j.kuiper.source_commit+'/'+j.kuiper.file,j.kuiper.comparisons);
+766374	  root.append(wrapper);
+766375	  const reg=el('div');reg.append(el('h3','Spider receiver graph registrations'));
+766376	  for (const g of j.spider_receiver.registrations) {
+766377	    const line=el('div',null,'item');
+766378	    line.append(link(g.id,g.receiver),el('span',g.registered?' · registered in pinned manifest':' · NOT REGISTERED','label'));
+766379	    reg.append(line);
+766380	  reg.append(el('p','Receiver manifest pinned at '+shortSha(j.spider_receiver.manifest_commit)+
+766381	    '. Source graph registrations checked; public served bytes not independently checked.','label'));
+766382	  root.append(reg);
+766383	  const cvaa=j.cvaa;
+766384	  const block=el('div');block.append(el('h3','CVAA vaccines and exact-head audit'));
+766385	  if (!cvaa) {
+766386	    block.append(el('p','CVAA evidence unavailable. No protection or green status inferred.','note'));
+766388	    const vaccine=el('div',null,'item');
+766389	    vaccine.append(link('Pinned observed-before-asserted vaccine',cvaa.vaccine_url),
+766390	      el('span',' · '+cvaa.vaccine.status+' · registry SHA '+shortSha(cvaa.source_commit),'label'));
+766391	    vaccine.append(el('div','Policy reference only: a vaccine existing in a verified registry does not mean Spider executed its antibody.','meta'));
+766392	    block.append(vaccine);
+766393	    const registry=el('div',null,'item');
+766394	    registry.append(link('CVAA vaccines.lock at pinned head',cvaa.registry_url));
+766395	    block.append(registry);
+766396	    const audit=el('div',null,'item');
+766397	    const result=cvaa.audit;
+766398	    const title='CVAA full-history audit PR #'+result.pr+': '+result.status;
+766399	    audit.append(link(title,result.run_url||result.pr_url),
+766400	      el('div','Exact reviewed head '+shortSha(result.pr_head_sha)+
+766401	        ' · '+utc(result.run_updated_utc)+
+766402	        ' · conclusion '+String(result.workflow_conclusion||'not observed'),'meta'));
+766403	    if(result.status!=='PASSED_AT_HEAD')audit.append(el('p','No overall CVAA green acceptance is claimed.','note'));
+766404	    audit.append(el('p','Consumer vaccine execution in Spider: '+result.consumer_inoculation+'.','meta'));
+766405	    block.append(audit);
+766406	  root.append(block);
+766407	function routes(data) {
+766408	  const root=$('routes');root.replaceChildren();
+766409	  for(const r of data.links){
+766410	    const uri=safeLink(r.url);if(!uri)continue;
+766411	    const card=link('',uri,'route');
+766412	    card.append(el('strong',r.name),el('small',r.kind+' · '+r.relation));
+766414	  const status=$('status');
+766415	    const response=await fetch('./data/activity.json',{cache:'no-store'});
+766416	    if(!response.ok)throw Error('No successful published snapshot yet (HTTP '+response.status+').');
+766417	    const data=await response.json();
+766418	    if(data?.schema!=='estate-activity-spider.v1' || !Array.isArray(data.repos) ||
+766419	       !Array.isArray(data.pulls) || !Array.isArray(data.messages) || !data.joins)
+766420	      throw Error('Invalid Spider data contract; refused to chart.');
+766421	    status.textContent='Evidence window starts '+data.window_start_utc+' · latest recorded event '+utc(data.latest_event_utc)+
+766422	      ' · collector observed '+utc(data.observed_at_utc)+' · rendered '+utc(new Date().toISOString())+
+766423	      ' · collection is scheduled; this display does not poll GitHub live.';
+766424	    metrics(data);chart(data);items('prs',data.pulls,'pr');items('messages',data.messages,'message');
+766425	    joins(data);routes(data);
+766426	    $('limits').textContent=(data.qualifications||[]).join(' ') +
+766427	      ' The observed counts are bounded to the configured public-repository sample, not all private work or all estate commits.';
+766429	    status.textContent='Snapshot unavailable — '+error.message+' Static navigation routes above remain usable; no results are inferred.';
+766430	    status.className='note';
+766434	<title>Estate Activity Spider | Ventus</title>
+766435	:root{color-scheme:dark;--bg:#081018;--ink:#e5f6ff;--muted:#93adbd;--line:#234555;--cyan:#4bd6ff;--green:#46e8a4;--amber:#ffca69}
+766437	body{margin:0;padding:clamp(12px,3vw,28px);background:linear-gradient(135deg,#0d2026,#081018 42%);color:var(--ink);font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+766438	main{max-width:1300px;margin:auto}
+766439	header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+766440	h1{font-size:clamp(24px,4vw,38px);line-height:1.15;margin:4px 0}
+766441	h2{font-size:18px;margin:0 0 8px}
+766442	p{color:var(--muted);margin:8px 0}
+766443	a{color:var(--cyan);text-decoration:none}
+766444	a:hover,a:focus-visible{text-decoration:underline}
+766445	.ey{color:var(--cyan);text-transform:uppercase;letter-spacing:.18em;font-size:11px;font-weight:700}
+766446	nav{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+766447	nav a,.pill{border:1px solid var(--line);padding:8px 12px;border-radius:999px;background:#10252f;color:var(--ink)}
+766448	nav a:hover{border-color:var(--cyan)}
+766449	section{background:#0a1b25;border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0;min-width:0}
+766450	.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-top:16px}
+766451	.metric{background:#0c2732;border:1px solid var(--line);padding:14px;border-radius:11px}
+766452	.metric b{font:600 clamp(24px,3vw,32px)/1.2 ui-monospace,monospace;display:block;color:var(--green)}
+766453	.metric span{color:var(--muted);font-size:12px}
+766454	.note{color:var(--amber)}
+766455	.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px}
+766456	.route{display:block;border:1px solid var(--line);padding:12px;border-radius:10px}
+766457	.route strong{display:block}
+766458	.route small{color:var(--muted)}
+766459	.scroll{overflow-x:auto}
+766460	table{border-collapse:collapse;width:100%;min-width:760px}
+766461	th,td{padding:9px 10px;text-align:left;border-bottom:1px solid #1a3643;vertical-align:middle}
+766462	th{color:var(--muted);font-size:12px;font-weight:600}
+766463	td.reponame{white-space:nowrap;font-weight:600}
+766464	code{font:12px ui-monospace,SFMono-Regular,monospace;color:var(--cyan)}
+766465	.spark{width:100%;min-width:150px;max-width:300px;height:34px;display:block}
+766466	.label{color:var(--muted);font-size:11px}
+766467	.item{padding:12px 0;border-bottom:1px solid #234555}
+766468	.item:last-child{border-bottom:0}
+766469	.item .meta{font-size:12px;color:var(--muted)}
+766470	.item strong{font-weight:600}
+766471	.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:14px}
+766472	ul{padding-left:21px}
+766473	li{margin:7px 0}
+766474	#status{min-height:20px}
+766475	@media(max-width:520px){body{font-size:13px}section{padding:12px}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}nav a{padding:8px}table{min-width:660px}}
+766477	<div>
+766478	<div class="ey">Ventus · GlobalGrid2050 · Spider species</div>
+766479	<h1>Estate Activity Spider</h1>
+766480	<p>Public Git commits, agent coordination receipts, Stars and Kuiper snapshots — crosslinked, not conflated.</p>
+766481	<a class="pill" href="../../">Spider species home</a>
+766483	<nav aria-label="Live estate routes">
+766484	<a href="https://ventusltd.github.io/stars/table.html">Stars periodic table</a>
+766485	<a href="https://ventusltd.github.io/ventus-grid-engine/?graph=periodic-table">Periodic table in Spider</a>
+766486	<a href="https://ventusltd.github.io/kuiper-belt/">Kuiper Belt</a>
+766487	<a href="https://ventusltd.github.io/ventus-grid-engine/?graph=overview">Spider receiver</a>
+766488	<a href="https://github.com/Ventusltd/neural-link-between-agents/issues/30">Agent coordination</a>
+766490	<p id="status" role="status">Loading the latest committed Spider measurement…</p>
+766491	<div id="metrics" class="summary"></div>
+766493	<h2>Estate observations by day (UTC)</h2>
+766494	<p>Bars count public commits on each repository's default branch in the seven-day window, not merged PR commits, message counts or a claim that an agent is running. Capped counts display ≥.</p>
+766495	<div id="chart" class="scroll"><p>Waiting for the first successful Spider scan.</p></div>
+766497	<div class="two">
+766498	<section><h2>Recent open pull requests</h2><p>PR last-update timestamps and exact head commits. Draft status is retained.</p><div id="prs">Waiting for snapshot.</div></section>
+766499	<section><h2>Neural-link messages</h2><p>These are public GitHub comments. Agent labels are self-declared, not authentication or proof of a running session.</p><div id="messages">Waiting for snapshot.</div></section>
+766500	<section><h2>Joined evidence</h2><p>Kuiper and Stars run independently; a pinned SHA behind a more recent Git head indicates scan lag, not necessarily a defect. A registered graph does not prove Pages served bytes.</p><div id="joins">Waiting for snapshot.</div></section>
+766501	<section><h2>Open the tools</h2><div id="routes" class="routes">
+766502	<a class="route" href="https://ventusltd.github.io/stars/code.html"><strong>Stars code report</strong><small>Permanent code family identities</small></a>
+766503	<a class="route" href="https://ventusltd.github.io/spiders/spider_printer_v1/"><strong>Elements topology</strong><small>Repository/reference view</small></a>
+766504	<a class="route" href="https://ventusltd.github.io/kuiper-belt/"><strong>Kuiper estate</strong><small>Measured code and commit orbits</small></a>
+766506	<section><h2>Reading the evidence</h2><p id="limits">This Spider is an observation and navigation tool, not a CI acceptance, engineering verification, legal licence clearance or publication authorisation.</p>
+766507	<p><a href="https://github.com/Ventusltd/spiders/tree/main/species/estate-activity">Source and collection method</a> · <a href="https://github.com/Ventusltd/spiders/actions/workflows/estate-activity.yml">Collection history and failures</a></p></section>
+766509	// Estate Activity Spider: read-only observation of GitHub; no external repository writes.
+766510	// No model classification, inferred code dependencies or invented releases.
+766511	import {readFile, mkdir, writeFile} from 'node:fs/promises';
+766519	export function isoDay(value) {
+766520	  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value)) return null;
+766521	  const d = new Date(value);
+766522	  return Number.isFinite(d.getTime()) ? d.toISOString().slice(0, 10) : null;
+766523	export function dayLabels(now, count = 7) {
+766524	  const d = new Date(now);
+766525	  if (!Number.isFinite(d.getTime())) throw Error('invalid scan time');
+766526	  d.setUTCHours(0, 0, 0, 0);
+766527	  return Array.from({length: count}, (_, i) => {
+766528	    const day = new Date(d);
+766529	    day.setUTCDate(d.getUTCDate() - (count - i - 1));
+766530	    return day.toISOString().slice(0, 10);
+766531	export function summarizeCommits(name, commits, days, capReached = false) {
+766532	  if (!Array.isArray(commits)) throw Error('commit response is not an array for ' + name);
+766533	  const unique = new Map();
+766535	    if (!/^[a-f0-9]{40}$/i.test(c?.sha ?? '')) continue;
+766536	    if (!unique.has(c.sha)) unique.set(c.sha, c);
+766537	  const rows = [...unique.values()];
+766538	  const latest = rows[0] ?? null; // API returns the current branch first; this is HEAD, not 'most recent by author date'.
+766539	  const hist = Object.fromEntries(days.map(d => [d, 0]));
+766540	  const first = days[0];
+766541	  let inWindow = 0;
+766543	    const d = isoDay(c.commit?.committer?.date ?? c.commit?.author?.date);
+766544	    if (d && d >= first && d in hist) {hist[d]++; inWindow++;}
+766546	    repo: OWNER + '/' + name,
+766547	    url: 'https://github.com/' + OWNER + '/' + name,
+766548	    head_sha: latest?.sha ?? null,
+766549	    head_commit_url: latest?.html_url ?? null,
+766550	    head_commit_utc: latest?.commit?.committer?.date ?? null,
+766551	    sample_count: inWindow,
+766552	    count_is_lower_bound: !!capReached,
+766553	    day_counts: days.map(day => ({day, count: hist[day]})),
+766554	    recent: rows.slice(0, 5).map(c => ({
+766555	      sha: c.sha, url: c.html_url,
+766556	      utc: c.commit?.committer?.date ?? null,
+766557	      message: String(c.commit?.message ?? '').split('\n')[0].slice(0, 160)
+766560	export function parseStanding(tsv) {
+766561	  if (typeof tsv !== 'string') throw Error('Kuiper standing TSV missing');
+766563	  for (const line of tsv.split(/\r?\n/)) {
+766564	    if (!line || line.startsWith('#')) continue;
+766565	    const cells = line.split('\t');
+766566	    if (cells.length < 3 || !/^[a-f0-9]{12,40}$/i.test(cells[1])) continue;
+766567	    result.set(cells[0], {sha_prefix: cells[1], timestamp_unix: Number(cells[2]) || null});
+766568	  if (!result.size) throw Error('Kuiper standing has no valid measured rows');
+766570	export function comparePinned(repos, pins) {
+766571	  if (!Array.isArray(repos) || !Array.isArray(pins)) throw Error('invalid pin comparison');
+766572	  const live = new Map(repos.map(r => [r.repo, r.head_sha]));
+766573	  return pins.map(p => {
+766574	    const observed = live.get(p.repo) ?? null;
+766575	    const pinned = p.sha ?? p.sha_prefix ?? null;
+766576	    const status = !observed || !pinned ? 'unavailable' : observed.startsWith(pinned) ? 'aligned' : 'lagging';
+766577	    return {repo: p.repo, pinned_sha: pinned, observed_sha: observed, status};
+766578	export function deriveRegistry(manifest) {
+766579	  if (!Array.isArray(manifest?.graphs)) throw Error('Spider receiver manifest missing graphs');
+766580	  const targets = ['periodic-table', 'modular', 'proof-of-work', 'genome-spider'];
+766581	  return targets.map(id => {
+766582	    const entry = manifest.graphs.find(g => g.id === id);
+766583	    const path = entry?.path ?? null;
+766584	    const expected = id === 'genome-spider' ? '/spiders/' : '/stars/';
+766585	    return {id, registered: typeof path === 'string' && path.includes(expected),
+766586	      source_path: path, receiver: 'https://ventusltd.github.io/ventus-grid-engine/?graph=' + id,
+766587	      served_bytes_checked: false};
+766588	function githubHeaders(token) {
+766589	  return {'Accept':'application/vnd.github+json', 'Authorization':'Bearer ' + token,
+766590	    'X-GitHub-Api-Version':'2022-11-28', 'User-Agent':'Ventus-Activity-Spider'};
+766591	async function request(url, token, fetcher = fetch) {
+766592	  const response = await fetcher(url, {headers: githubHeaders(token), signal: AbortSignal.timeout(20000)});
+766593	  if (!response.ok) throw Error('GitHub/source request HTTP ' + response.status + ': ' + url);
+766595	async function api(route, token, fetcher = fetch) {
+766596	  return (await request('https://api.github.com' + route, token, fetcher)).json();
+766597	async function raw(name, commit, file, token, fetcher = fetch) {
+766598	  if (!/^[a-f0-9]{40}$/i.test(commit ?? '')) throw Error('unverified source head for ' + name);
+766599	  return (await request('https://raw.githubusercontent.com/' + OWNER + '/' + name + '/' + commit + '/' + file, token, fetcher)).text();
+766600	export async function crawlRepo(name, labels, pages, token, fetcher = fetch) {
+766601	  const since = labels[0] + 'T00:00:00Z';
+766602	  let commits = [], capped = false;
+766603	  for (let page = 1; page <= pages; page++) {
+766604	    const rows = await api('/repos/' + OWNER + '/' + name + '/commits?since=' + encodeURIComponent(since) +
+766605	      '&per_page=100&page=' + page, token, fetcher);
+766606	    if (!Array.isArray(rows)) throw Error('invalid commits response for ' + name);
+766607	    commits.push(...rows);
+766608	    if (rows.length < 100) break;
+766609	    if (page === pages) capped = true;
+766610	  // Preserve exact default-branch HEAD even for quiet repos without commits in the last seven days.
+766611	  if (!commits.length) {
+766612	    const head = await api('/repos/' + OWNER + '/' + name + '/commits?per_page=1', token, fetcher);
+766613	    if (!Array.isArray(head) || !head[0]) throw Error('repository HEAD unavailable for ' + name);
+766614	    commits = head;
+766615	  return summarizeCommits(name, commits, labels, capped);
+766616	export function assessCvaaAudit(pr, runs) {
+766617	  if (!/^[a-f0-9]{40}$/i.test(pr?.head?.sha ?? '')) throw Error('CVAA audit PR lacks exact HEAD');
+766618	  if (!Array.isArray(runs)) throw Error('CVAA Actions run list missing');
+766619	  const sameHead = runs.filter(r => r.head_sha === pr.head.sha &&
+766620	    r.name === '202608301447 Self-test and full-history fleet audit')
+766621	    .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)));
+766622	  const latest = sameHead[0] ?? null;
+766623	    type:'cvaa-full-history-audit', pr: pr.number,
+766624	    pr_url: pr.html_url, pr_head_sha: pr.head.sha, pr_state: pr.state,
+766625	    status: !latest ? 'NOT_OBSERVED' : latest.status !== 'completed' ? 'RUNNING' :
+766626	      latest.conclusion === 'success' ? 'PASSED_AT_HEAD' : latest.conclusion === 'failure' ? 'FAILED_AT_HEAD' : 'INCOMPLETE',
+766627	    run_id:latest?.id ?? null, run_url:latest?.html_url ?? null,
+766628	    workflow_name:latest?.name ?? null, workflow_head_sha:latest?.head_sha ?? null,
+766629	    workflow_conclusion:latest?.conclusion ?? null, run_updated_utc:latest?.updated_at ?? null,
+766630	    coverage:'exact PR head; workflow job conclusion, not historical full estate certification',
+766631	    consumer_inoculation:'NOT_OBSERVED'
+766632	export function verifyVaccineLock(lock, fileName, bytes) {
+766633	  const expected = lock?.[fileName];
+766634	  if (!/^[a-f0-9]{64}$/i.test(expected ?? '')) throw Error('CVAA lock missing pinned vaccine SHA256');
+766635	  const actual = createHash('sha256').update(bytes,'utf8').digest('hex');
+766636	  return {name:fileName, expected_sha256:expected, actual_sha256:actual,
+766637	    status:actual === expected ? 'LOCK_MATCH' : 'PROVENANCE_CONFLICT'};
+766638	function isoMax(values) {
+766639	  const valid = values.filter(s => typeof s === 'string' && Number.isFinite(Date.parse(s)));
+766640	  return valid.length ? valid.sort((a, b) => Date.parse(b) - Date.parse(a))[0] : null;
+766641	export async function collect(config, token, now = new Date(), fetcher = fetch) {
+766642	  if (config.schema !== 'estate-activity.config.v1' || config.owner !== OWNER ||
+766643	      !Array.isArray(config.repos) || !config.repos.length ||
+766644	      !Number.isInteger(config.max_commit_pages) || config.max_commit_pages < 1 || config.max_commit_pages > 5)
+766645	    throw Error('invalid bounded config');
+766646	  const days = dayLabels(now, config.lookback_days);
+766647	  const repos = [];
+766648	  // Serial reads keep GitHub API usage predictable, avoiding burst rate limiting.
+766649	  for (const name of config.repos) {
+766650	    if (!/^[A-Za-z0-9._-]+$/.test(name)) throw Error('invalid repository name');
+766651	    repos.push(await crawlRepo(name, days, config.max_commit_pages, token, fetcher));
+766652	  const byName = new Map(repos.map(r => [r.repo.split('/')[1], r]));
+766653	  const pinnedSha = name => byName.get(name)?.head_sha;
+766654	  for (const name of ['stars','kuiper-belt','ventus-grid-engine']) {
+766655	    if (!pinnedSha(name)) throw Error('cannot pin essential ' + name + ' main head');
+766656	  const registry = deriveRegistry(JSON.parse(await raw('ventus-grid-engine', pinnedSha('ventus-grid-engine'),
+766657	    'spider/manifest.json', token, fetcher)));
+766658	  const standing = parseStanding(await raw('kuiper-belt', pinnedSha('kuiper-belt'),
+766659	    'cosmos/standing.tsv', token, fetcher));
+766660	  const starsSource = JSON.parse(await raw('stars', pinnedSha('stars'),
+766661	    'modular/source.json', token, fetcher));
+766662	  if (!Array.isArray(starsSource.repositories)) throw Error('Stars catalogue missing pinned repositories');
+766663	  const cvaaSha=pinnedSha('cvaa');
+766664	  if (!cvaaSha) throw Error('CVAA HEAD unobserved; do not infer vaccine coverage');
+766665	  const vaccineName='202609261425-observed-before-asserted.md';
+766666	  const cvaaLock=JSON.parse(await raw('cvaa',cvaaSha,'vaccines.lock',token,fetcher));
+766667	  const vaccineText=await raw('cvaa',cvaaSha,'vaccines/'+vaccineName,token,fetcher);
+766668	  const vaccine=verifyVaccineLock(cvaaLock,vaccineName,vaccineText);
+766669	  if (vaccine.status !== 'LOCK_MATCH') throw Error('CVAA vaccine bytes do not match pinned lock; refusing publication');
+766670	  const cvaaPr=await api('/repos/'+OWNER+'/cvaa/pulls/2',token,fetcher);
+766671	  const runResponse=await api('/repos/'+OWNER+'/cvaa/actions/runs?per_page=35',token,fetcher);
+766672	  const cvaaAudit=assessCvaaAudit(cvaaPr,runResponse.workflow_runs);
+766673	  const kuiperPins = [...standing].map(([name, row]) => ({repo: OWNER + '/' + name, sha_prefix: row.sha_prefix}));
+766674	  const starsPins = starsSource.repositories.map(p => ({repo: p.repo, sha: p.commit}));
+766675	  const inspected = new Set(repos.map(r => r.repo));
+766676	  const joins = {
+766677	    spider_receiver: {manifest_commit: pinnedSha('ventus-grid-engine'), registrations: registry},
+766678	    kuiper: {source_commit: pinnedSha('kuiper-belt'), file: 'cosmos/standing.tsv',
+766679	      pinned_rows: standing.size, comparisons: comparePinned(repos, kuiperPins.filter(p => inspected.has(p.repo)))},
+766680	    stars: {source_commit: pinnedSha('stars'), file: 'modular/source.json',
+766681	      source_generated_utc: starsSource.generated_utc ?? null, pinned_rows: starsPins.length,
+766682	      comparisons: comparePinned(repos, starsPins.filter(p => inspected.has(p.repo)))},
+766683	    cvaa:{source_commit:cvaaSha, vaccine_registry:'vaccines.lock', vaccine,
+766684	      vaccine_url:'https://github.com/'+OWNER+'/cvaa/blob/'+cvaaSha+'/vaccines/'+vaccineName,
+766685	      registry_url:'https://github.com/'+OWNER+'/cvaa/blob/'+cvaaSha+'/vaccines.lock',
+766686	      relationship:'POLICY_REFERENCE_ONLY', audit:cvaaAudit}
+766687	  const pulls = [];
+766688	  for (const name of config.pr_repos) {
+766689	    if (!config.repos.includes(name)) throw Error('PR repository not in measured set: ' + name);
+766690	    const ps = await api('/repos/' + OWNER + '/' + name + '/pulls?state=open&sort=updated&direction=desc&per_page=60', token, fetcher);
+766691	    if (!Array.isArray(ps)) throw Error('invalid PR response for ' + name);
+766692	    for (const p of ps) {
+766693	      if (!/^[a-f0-9]{40}$/i.test(p.head?.sha ?? '')) continue;
+766694	      pulls.push({repo: OWNER + '/' + name, number: p.number, title: String(p.title ?? '').slice(0, 140),
+766695	        url: p.html_url, draft: !!p.draft, head_sha: p.head.sha, updated_utc: p.updated_at});
+766696	  pulls.sort((a, b) => String(b.updated_utc).localeCompare(String(a.updated_utc)));
+766697	  const comments = await api('/repos/' + OWNER + '/neural-link-between-agents/issues/comments?sort=created&direction=desc&per_page=100', token, fetcher);
+766698	  if (!Array.isArray(comments)) throw Error('invalid agent comment response');
+766699	  const messages = comments.filter(x => isoDay(x.created_at) >= days[0]).slice(0, 35).map(c => {
+766700	    const tag = /^\s*\[([^\]\n]{3,100})\]/.exec(c.body ?? '');
+766701	    const safeTag=/^(?:CHATGPT\s+)?AGENT\s+[A-Za-z0-9-]{1,8}\b/i.exec(tag?.[1] ?? '');
+766702	    return {id:c.id,url:c.html_url,issue_url:c.issue_url,utc:c.created_at,
+766703	      declared_tag:safeTag ? safeTag[0] : null,
+766704	      record_type:'MESSAGE_RECORDED', agent_runtime_status:'UNKNOWN'};
+766705	    // Do not republish public comment bodies: they may contain inadvertently disclosed private details.
+766706	  const events = repos.flatMap(r => r.recent.map(c => c.utc))
+766707	    .concat(pulls.map(x => x.updated_utc), messages.map(x => x.utc));
+766708	  return {schema:'estate-activity-spider.v1', owner: OWNER,
+766709	    observation: 'public GitHub default-branch commits, open PR head snapshots and public issue comments; not individual agent process telemetry',
+766710	    observed_at_utc:new Date(now).toISOString(),
+766711	    coverage:{repos_requested:config.repos.length,repos_scanned:repos.length,repo_errors:0},
+766712	    window_start_utc: days[0] + 'T00:00:00Z', day_labels: days,
+766713	    latest_event_utc: isoMax(events),
+766714	    count_rule: '7 UTC calendar days; commit counts may be lower bounds if the API page cap is reached',
+766715	    repos, pulls: pulls.slice(0, 80), messages, joins, links: config.links,
+766716	    sources: {github:'GitHub REST API, public repos, exact commits and comment URLs',
+766717	      stars:'stars/modular/source.json at pinned stars HEAD',
+766718	      kuiper:'kuiper-belt/cosmos/standing.tsv at pinned Kuiper HEAD',
+766719	      spider:'ventus-grid-engine/spider/manifest.json at pinned receiver HEAD',
+766720	      cvaa:'CVAA vaccines.lock and observed-before-asserted vaccine at pinned CVAA HEAD; exact PR #2 audit run'},
+766721	    qualifications: ['Navigation links are not measured code dependencies.',
+766722	      'GitHub account comments and their self-declared agent tags do not establish live agent status.',
+766723	      'Registered graph URLs are not independently verified served HTTP bytes.',
+766724	      'A pinned CVAA vaccine is policy reference; it does not mean Spider executed the inoculation.',
+766725	      'CVAA failing audit at an exact PR head remains failed, even if other individual tests passed.',
+766726	      'Public agent comment bodies are intentionally not copied into the activity snapshot.',
+766727	      'A Kuiper or Stars pin behind a newer commit is expected between independent scans, not proof of a defect.']};
+766728	export async function main() {
+766729	  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+766730	  if (!token) throw Error('GITHUB_TOKEN or GH_TOKEN required; do not publish an unauthenticated partial snapshot');
+766731	  const config = JSON.parse(await readFile(path.join(ROOT, 'config.json'), 'utf8'));
+766732	  const snapshot = await collect(config, token);
+766733	  const output = path.join(ROOT, 'data', 'activity.json');
+766734	  // A rerun with identical observed facts should not create a new Git commit solely
+766735	  // because the clock advanced. The latest successful check still has an Actions run.
+766737	  try { previous = JSON.parse(await readFile(output,'utf8')); }
+766738	  catch (error) { if (error.code !== 'ENOENT') throw error; }
+766739	  const facts = value => {
+766740	    const copy = {...value}; delete copy.observed_at_utc;
+766741	    return JSON.stringify(copy);
+766742	  if (previous && facts(previous) === facts(snapshot)) {
+766743	    console.log('No material GitHub activity change; retaining last successful snapshot.');
+766745	  const serialised = JSON.stringify(snapshot, null, 2) + '\n';
+766746	  await mkdir(path.dirname(output), {recursive: true});
+766747	  await writeFile(output, serialised, 'utf8');
+766748	  console.log('activity snapshot: ' + snapshot.repos.length + ' repos, ' + snapshot.pulls.length +
+766749	    ' open PRs, ' + snapshot.messages.length + ' comment references, date window starts ' + snapshot.window_start_utc);
+766751	  main().catch(e => {console.error('ACTIVITY SPIDER HOLD: ' + e.message); process.exitCode = 1;});
+766754	import {dayLabels, isoDay, summarizeCommits, parseStanding, comparePinned, deriveRegistry, assessCvaaAudit, verifyVaccineLock, collect} from './build.mjs';
+766755	const SHA_A = 'a'.repeat(40);
+766756	const SHA_B = 'b'.repeat(40);
+766757	const SHA_C = 'c'.repeat(40);
+766758	const SHA_D = 'd'.repeat(40);
+766759	const when = '2026-11-15T12:00:00Z';
+766760	const days = dayLabels(when);
+766761	test('UTC calendar dates include exactly the current UTC day and previous six days', () => {
+766762	  assert.deepEqual(days, ['2026-11-09','2026-11-10','2026-11-11','2026-11-12',
+766763	    '2026-11-13','2026-11-14','2026-11-15']);
+766764	  assert.equal(isoDay('2026-11-15T00:30:00+02:00'), '2026-11-14');
+766765	  assert.equal(isoDay('not a date'), null);
+766767	test('commits are keyed by SHA, never double-counted; a capped response is a lower bound', () => {
+766768	  const one = {sha:SHA_A,html_url:'https://github.com/Ventusltd/stars/commit/' + SHA_A,
+766769	    commit:{committer:{date:'2026-11-15T11:00:00Z'},message:'Modular star'}};
+766770	  const old = {sha:SHA_B,html_url:'https://github.com/Ventusltd/stars/commit/' + SHA_B,
+766771	    commit:{committer:{date:'2026-11-01T10:00:00Z'},message:'Prior'}};
+766772	  const a = summarizeCommits('stars',[one,one,old],days,true);
+766773	  assert.equal(a.head_sha,SHA_A);
+766774	  assert.equal(a.sample_count,1);
+766775	  assert.equal(a.count_is_lower_bound,true);
+766776	  assert.equal(a.day_counts[6].count,1);
+766777	  assert.equal(a.recent.length,2);
+766778	test('pinned comparisons distinguish aligned, lagging and unavailable; they never claim failure', () => {
+766779	  const got = comparePinned([{repo:'Ventusltd/stars',head_sha:SHA_A}],
+766780	    [{repo:'Ventusltd/stars',sha:SHA_A.slice(0,12)},
+766781	      {repo:'Ventusltd/stars',sha:SHA_B},
+766782	      {repo:'Ventusltd/missing',sha:SHA_C}]);
+766783	  assert.deepEqual(got.map(x=>x.status),['aligned','lagging','unavailable']);
+766784	test('Kuiper measured rows and Spider manifest links require actual evidence', () => {
+766785	  const standing = parseStanding('# repo\thead\thead_unix\nstars\t' + SHA_A.slice(0,12) + '\t1794745000\n');
+766786	  assert.equal(standing.get('stars').sha_prefix,SHA_A.slice(0,12));
+766787	  assert.throws(()=>parseStanding('# no rows'),/no valid/);
+766788	  const links = deriveRegistry({graphs:[
+766789	    {id:'periodic-table',path:'https://ventusltd.github.io/stars/blocks/graph.json'},
+766790	    {id:'modular',path:'https://ventusltd.github.io/stars/modular/graph.json'},
+766791	    {id:'proof-of-work',path:'https://ventusltd.github.io/stars/proof/graph.json'},
+766792	    {id:'genome-spider',path:'https://ventusltd.github.io/spiders/species/genome-spider/data/nodes.json'}
+766793	  ]});
+766794	  assert.equal(links.filter(x=>x.registered).length,4);
+766795	  assert.ok(links.every(x=>x.served_bytes_checked===false));
+766796	  assert.equal(deriveRegistry({graphs:[]}).filter(x=>x.registered).length,0);
+766797	  assert.throws(()=>deriveRegistry({}),/missing graphs/);
+766798	test('full mocked crawl links exact repo SHA, Stars source and Kuiper measurements, not agent status', async () => {
+766799	  const commits = {
+766800	    stars:SHA_A, 'kuiper-belt':SHA_B, 'ventus-grid-engine':SHA_C,
+766801	    'neural-link-between-agents':SHA_D, cvaa:'e'.repeat(40)
+766802	  const config={schema:'estate-activity.config.v1', owner:'Ventusltd', lookback_days:7,
+766803	    max_commit_pages:1, repos:Object.keys(commits),pr_repos:['neural-link-between-agents'],links:[]};
+766804	  const calls=[];
+766805	  async function fakeFetch(url) {
+766806	    calls.push(url);
+766807	    let payload;
+766808	    if (url.includes('/commits?since=')) {
+766809	      const repo=url.split('/repos/Ventusltd/')[1].split('/')[0];
+766810	      payload=[{sha:commits[repo],html_url:'https://github.com/Ventusltd/'+repo+'/commit/'+commits[repo],
+766811	        commit:{committer:{date:'2026-11-15T10:00:00Z'},message:'Verified public commit'}}];
+766812	    } else if(url.includes('/cvaa/pulls/2')) {
+766813	      payload={number:2,state:'open',html_url:'https://github.com/Ventusltd/cvaa/pull/2',head:{sha:'f'.repeat(40)}};
+766814	    } else if(url.includes('/cvaa/actions/runs?')) {
+766815	      payload={workflow_runs:[{id:42,name:'202608301447 Self-test and full-history fleet audit',
+766816	        head_sha:'f'.repeat(40),created_at:'2026-11-15T10:00:00Z',updated_at:'2026-11-15T10:10:00Z',
+766817	        status:'completed',conclusion:'failure',html_url:'https://github.com/Ventusltd/cvaa/actions/runs/42'}]};
+766818	    } else if(url.includes('/pulls?')) {
+766819	      payload=[{number:35,title:'Research',draft:true,html_url:'https://github.com/Ventusltd/neural-link-between-agents/pull/35',
+766820	        head:{sha:SHA_D},updated_at:'2026-11-15T11:00:00Z'}];
+766821	    } else if(url.includes('/issues/comments?')) {
+766822	      payload=[{id:123,created_at:'2026-11-15T11:20:00Z',
+766823	        html_url:'https://github.com/Ventusltd/neural-link-between-agents/issues/30#issuecomment-123',
+766824	        issue_url:'https://api.github.com/repos/Ventusltd/neural-link-between-agents/issues/30',
+766825	        body:'[AGENT 7] A comment, not proof of a running process'}];
+766826	    } else if(url.includes('/spider/manifest.json')) {
+766827	      payload={graphs:[{id:'periodic-table',path:'https://ventusltd.github.io/stars/blocks/graph.json'}]};
+766828	    } else if(url.includes('/vaccines.lock')) {
+766829	      payload={['202609261425-observed-before-asserted.md']:'19010486c40033079d62599947777e50993f0da01b2792f48ad512765e7ce9a7'};
+766830	    } else if(url.includes('/vaccines/202609261425-observed-before-asserted.md')) {
+766831	      payload='test CVAA vaccine fixture';
+766832	    } else if(url.includes('/cosmos/standing.tsv')) {
+766833	      payload='# repo\thead\thead_unix\nstars\t'+SHA_A.slice(0,12)+'\t1794745000\n';
+766834	    } else if(url.includes('/modular/source.json')) {
+766835	      payload={generated_utc:'2026-11-15T09:00:00Z',repositories:[
+766836	        {repo:'Ventusltd/stars',commit:SHA_A},{repo:'Ventusltd/kuiper-belt',commit:SHA_A}
+766837	      ]};
+766838	    } else throw Error('unrecognised mocked URL: '+url);
+766839	    return {ok:true,status:200,json:async()=>payload,
+766840	      text:async()=>typeof payload==='string'?payload:JSON.stringify(payload)};
+766841	  const result=await collect(config,'mock-token',new Date(when),fakeFetch);
+766842	  assert.equal(result.repos.length,5);
+766843	  assert.equal(result.pulls.length,1);
+766844	  assert.equal(result.messages[0].declared_tag,'AGENT 7');
+766845	  assert.match(result.observation,/not individual agent process telemetry/);
+766846	  assert.equal(result.joins.kuiper.comparisons[0].status,'aligned');
+766847	  assert.equal(result.joins.stars.comparisons[1].status,'lagging');
+766848	  assert.equal(result.joins.spider_receiver.registrations[0].registered,true);
+766849	  assert.equal(result.joins.cvaa.audit.status,'FAILED_AT_HEAD');
+766850	  assert.equal(result.joins.cvaa.relationship,'POLICY_REFERENCE_ONLY');
+766851	  assert.equal(result.joins.cvaa.vaccine.status,'LOCK_MATCH');
+766852	  assert.ok(!('excerpt' in result.messages[0]));
+766853	  assert.equal(result.messages[0].agent_runtime_status,'UNKNOWN');
+766854	  assert.equal(result.coverage.repos_requested,5);
+766855	  assert.ok(calls.length>=12);
+766856	test('upstream HTTP failure aborts rather than publishing a fictitious empty graph', async () => {
+766857	  const config={schema:'estate-activity.config.v1',owner:'Ventusltd',lookback_days:7,
+766858	    max_commit_pages:1,repos:['stars'],pr_repos:[],links:[]};
+766859	  await assert.rejects(collect(config,'mock',new Date(when),
+766860	    async()=>({ok:false,status:403})),/HTTP 403/);
+766861	test('E2-CVAA-01: green workflow on SHA-A does not certify changed SHA-B', () => {
+766862	  const pr={number:2,state:'open',head:{sha:SHA_B},html_url:'https://github.com/Ventusltd/cvaa/pull/2'};
+766863	  const prior=[{name:'202608301447 Self-test and full-history fleet audit',head_sha:SHA_A,
+766864	    created_at:'2026-11-15T10:00:00Z',status:'completed',conclusion:'success',id:8}];
+766865	  const result=assessCvaaAudit(pr,prior);
+766866	  assert.equal(result.status,'NOT_OBSERVED');
+766867	  assert.equal(result.run_id,null);
+766868	  assert.equal(result.consumer_inoculation,'NOT_OBSERVED');
+766869	test('E2-CVAA-02: a vaccine policy without valid pinned digest is rejected', () => {
+766870	  const name='202609261425-observed-before-asserted.md';
+766871	  assert.throws(()=>verifyVaccineLock({},name,'contents'),/missing pinned vaccine/);
+766872	  const bad=verifyVaccineLock({[name]:'a'.repeat(64)},name,'contents');
+766873	  assert.equal(bad.status,'PROVENANCE_CONFLICT');
+766874	test('E2-CVAA-03: newest exact-head full audit failure overrides a green subset or older pass', () => {
+766875	  const pr={number:2,state:'open',head:{sha:SHA_A},html_url:'https://github.com/Ventusltd/cvaa/pull/2'};
+766876	  const runs=[
+766877	    {name:'202608301447 Self-test and full-history fleet audit',head_sha:SHA_A,
+766878	      created_at:'2026-11-15T10:01:00Z',status:'completed',conclusion:'success',id:10},
+766879	      created_at:'2026-11-15T10:03:00Z',status:'completed',conclusion:'failure',id:12},
+766880	    {name:'Selected tests passing',head_sha:SHA_A,created_at:'2026-11-15T10:04:00Z',
+766881	      status:'completed',conclusion:'success',id:13}
+766882	  const result=assessCvaaAudit(pr,runs);
+766883	  assert.equal(result.status,'FAILED_AT_HEAD');
+766884	  assert.equal(result.run_id,12);
+766885	test('E2-CVAA-08: public comment declaring an agent does not establish its live process', async () => {
+766886	  assert.equal(assessCvaaAudit(pr,[]).status,'NOT_OBSERVED');
+766887	  assert.notEqual(assessCvaaAudit(pr,[{name:'irrelevant',head_sha:SHA_A,conclusion:'success'}]).status,'PASSED_AT_HEAD');
+766888	test('E2-CVAA-05: no repositories in configuration cannot be reported as fleet success', async () => {
+766889	  await assert.rejects(collect({schema:'estate-activity.config.v1',owner:'Ventusltd',
+766890	    lookback_days:7,max_commit_pages:1,repos:[],pr_repos:[]},'token',
+766891	    new Date(when),async()=>({ok:true,json:async()=>[]})),/invalid bounded config/);
 ```

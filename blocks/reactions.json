@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-15T11:28:52.508Z",
+ "generated_utc": "2026-11-15T17:59:21.089Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -674,17 +674,6 @@
    "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
   },
   {
-   "folder": "spiders/species/seer-spider/estate-menu",
-   "title": "Estate menu",
-   "repo": "Ventusltd/spiders",
-   "blocks": [
-    "Em",
-    "Si"
-   ],
-   "live": "https://ventusltd.github.io/spiders/species/seer-spider/estate-menu/",
-   "gh": "https://github.com/Ventusltd/spiders/tree/main/species/seer-spider/estate-menu"
-  },
-  {
    "folder": "code-generator/apps/substation-finder/Vn",
    "title": "Vn",
    "repo": "Ventusltd/code-generator",
@@ -760,6 +749,17 @@
    ],
    "live": "https://globalgrid2050.com/automation/pipeline_release/",
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/automation/pipeline_release"
+  },
+  {
+   "folder": "spiders/species/estate-activity/tools",
+   "title": "Estate activity",
+   "repo": "Ventusltd/spiders",
+   "blocks": [
+    "Gn",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/spiders/species/estate-activity/tools/",
+   "gh": "https://github.com/Ventusltd/spiders/tree/main/species/estate-activity/tools"
   },
   {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.6.1/tests",
@@ -1721,6 +1721,33 @@
    "decay": null
   },
   {
+   "a": "Gn",
+   "b": "Pr",
+   "probability": 0.8,
+   "verdict": "seen together",
+   "basis": "already used together in 3 app folders, never composition-tested",
+   "together": 3,
+   "examples": [
+    {
+     "title": "Spider",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
+    },
+    {
+     "title": "Genome spider",
+     "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
+     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
+    },
+    {
+     "title": "Estate activity",
+     "live": "https://ventusltd.github.io/spiders/species/estate-activity/tools/",
+     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/estate-activity/tools"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Sp",
    "b": "Ug",
    "probability": 0.77,
@@ -1989,28 +2016,6 @@
      "title": "Gridatlas",
      "live": null,
      "gh": "https://github.com/Ventusltd/teleprinter/tree/main/drivers/gridatlas"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Gn",
-   "b": "Pr",
-   "probability": 0.7,
-   "verdict": "seen together",
-   "basis": "already used together in 2 app folders, never composition-tested",
-   "together": 2,
-   "examples": [
-    {
-     "title": "Spider",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/spider/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/spider"
-    },
-    {
-     "title": "Genome spider",
-     "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
-     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
     }
    ],
    "tests": null,
@@ -4622,23 +4627,6 @@
      "title": "Javascript",
      "live": "https://ventusltd.github.io/pipelinenews/discovery/javascript/",
      "gh": "https://github.com/Ventusltd/pipelinenews/tree/main/discovery/javascript"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Em",
-   "b": "Si",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Estate menu",
-     "live": "https://ventusltd.github.io/spiders/species/seer-spider/estate-menu/",
-     "gh": "https://github.com/Ventusltd/spiders/tree/main/species/seer-spider/estate-menu"
     }
    ],
    "tests": null,

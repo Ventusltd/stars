@@ -1,7 +1,7 @@
 {
- "generated_utc": "2026-11-15T11:27:24.255Z",
+ "generated_utc": "2026-11-15T17:57:49.457Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 11667,
+ "families_with_uses": 11704,
  "hubs": [
   {
    "family": 1318,
@@ -21,17 +21,17 @@
   {
    "family": 146349,
    "name": "path",
-   "used_by": 456
+   "used_by": 457
   },
   {
    "family": 146501,
    "name": "path",
-   "used_by": 436
+   "used_by": 437
   },
   {
    "family": 72282,
-   "name": "assert",
-   "used_by": 424
+   "name": "invariant",
+   "used_by": 435
   },
   {
    "family": 150844,
