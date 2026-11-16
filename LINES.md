@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-449,215 unique lines, numbered 1 to 777,089. Generated 2026-11-16T12:01:28.947Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+454,535 unique lines, numbered 1 to 791,583. Generated 2026-11-16T22:30:04.932Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -449218,4 +449218,5324 @@
 777035	<tr class="pass"><td><a href="202611160020/"><b>202611160020</b></a><br>V9.23<br><span class="state">PUBLISHED_ITERATIVE_KNOWN_GRIDATLAS_MOBILE_ISSUE</span></td><td>2026-11-16 00:20:00 UTC</td><td>one feed, Machine Read Notes, no show-table jump<ul><li>Known GridAtlas 390px nearest-card failure unresolved</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43785343834">SUCCESS</a></td><td>parent 202611151300<br><a href="202611160020/CHANGES.md">changes</a></td></tr>
 777065	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">Open Pipeline News &rarr;</a></div></details>
 777089	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div></details></td></tr>
+777111	"""Solar-only research acquisition; machine associations are always provisional."""
+777112	"""Immutable analytical Parquet projection; SQLite remains the operational store.
+777114	Pinned upstream conventions and integration boundary are in ANALYTICS.md.
+777123	from .evidence_store import EvidenceValidationError, validate_snapshot
+777124	SCHEMA = "globalgrid2050.solar-evidence.analytics.v1"
+777125	TABLES = {
+777126	    "projects": [
+777127	        ("project_id", "VARCHAR"), ("name", "VARCHAR"),
+777128	        ("latitude", "DOUBLE"), ("longitude", "DOUBLE"), ("status", "VARCHAR"),
+777129	        ("evidence_count", "BIGINT"), ("provisional_count", "BIGINT"),
+777130	        ("verified_count", "BIGINT"), ("last_event", "VARCHAR"),
+777131	        ("last_researched_at", "VARCHAR"),
+777133	    "evidence": [
+777134	        ("project_id", "VARCHAR"), ("id", "VARCHAR"), ("url", "VARCHAR"),
+777135	        ("title", "VARCHAR"), ("pub_date", "VARCHAR"), ("source_id", "VARCHAR"),
+777136	        ("publisher", "VARCHAR"), ("status", "VARCHAR"), ("match_method", "VARCHAR"),
+777137	        ("first_seen", "VARCHAR"), ("last_seen", "VARCHAR"),
+777139	ORDERS = {"projects": "project_id", "evidence": "project_id, url"}
+777140	def _require(condition, message):
+777143	def _json(value):
+777144	    return (json.dumps(value, sort_keys=True, ensure_ascii=False,
+777145	                       allow_nan=False, indent=2) + "\n").encode("utf-8")
+777146	def _sha(data):
+777149	    # Independent Python reference for complete DuckDB readback comparison.
+777150	    projects = sorted(payload["projects"], key=lambda row: row["project_id"])
+777151	    evidence = sorted(
+777152	        ({**article, "project_id": project["project_id"]}
+777153	         for project in projects for article in project["evidence"]),
+777154	        key=lambda row: (row["project_id"], row["url"]),
+777156	    return {name: [tuple(row[column] for column, _ in TABLES[name]) for row in rows]
+777157	            for name, rows in (("projects", projects), ("evidence", evidence))}
+777158	def _connect():
+777162	    return connection
+777163	def _literal(path):
+777164	    # COPY's destination is SQL syntax; values elsewhere use bound parameters.
+777165	    return "'" + Path(path).as_posix().replace("'", "''") + "'"
+777166	def _receipt(directory, manifest):
+777167	    return {"schema": SCHEMA, "directory": directory.name,
+777168	            "manifest": directory.name + "/manifest.json",
+777169	            "sha256": _sha((directory / "manifest.json").read_bytes()),
+777170	            "project_count": manifest["project_count"],
+777171	            "evidence_count": manifest["evidence_count"], "review_required": True}
+777172	def validate_analytics(directory, payload, *, expected_project_ids):
+777173	    """Read-only verification of every artifact and every projected source row."""
+777174	    validate_snapshot(payload, expected_project_ids)
+777176	    names = {"projects.parquet", "evidence.parquet", "manifest.json"}
+777177	    _require(directory.is_dir() and not directory.is_symlink(), "Missing analytical directory")
+777178	    _require({p.name for p in directory.iterdir()} == names
+777179	             and all((directory / n).is_file() and not (directory / n).is_symlink() for n in names),
+777180	             "Analytical artifact closure mismatch")
+777181	    manifest = json.loads((directory / "manifest.json").read_text(encoding="utf-8"))
+777182	    expected_rows = _rows(payload)
+777183	    expected_header = {
+777184	        "schema": SCHEMA, "source_snapshot_sha256": _sha(_json(payload)),
+777185	        "generated_at": payload["generated_at"], "seed_release": payload["seed_release"],
+777186	        "project_count": payload["project_count"], "evidence_count": payload["evidence_count"],
+777187	        "review_required": True, "sources": payload["sources"],
+777189	    _require(set(manifest) == set(expected_header) | {"runtime", "artifacts"}
+777190	             and all(manifest[key] == value for key, value in expected_header.items()),
+777191	             "Analytical source identity mismatch")
+777192	    _require(manifest["runtime"] == {"duckdb": duckdb.__version__, "threads": 1},
+777193	             "Analytical runtime mismatch; immutable rebuild requires a new generation")
+777194	    _require(set(manifest["artifacts"]) == set(TABLES), "Analytical artifact manifest mismatch")
+777195	    with _connect() as connection:
+777196	        for table, columns in TABLES.items():
+777197	            path = directory / (table + ".parquet")
+777198	            data = path.read_bytes()
+777199	            expected = {"path": path.name, "sha256": _sha(data), "bytes": len(data),
+777200	                        "rows": len(expected_rows[table]), "columns": [list(c) for c in columns],
+777201	                        "compression": "ZSTD"}
+777202	            _require(manifest["artifacts"][table] == expected, "Analytical artifact hash/schema mismatch")
+777203	            relation = connection.read_parquet(str(path))
+777204	            _require(list(zip(relation.columns, map(str, relation.types))) == columns,
+777205	                     "Analytical Parquet schema mismatch")
+777206	            relation.create_view(table)
+777207	            actual = connection.execute(f"SELECT * FROM {table} ORDER BY {ORDERS[table]}").fetchall()
+777208	            _require(actual == expected_rows[table], "Analytical full-row comparison failed")
+777209	            codecs = connection.execute("SELECT DISTINCT compression FROM parquet_metadata(?)", [str(path)]).fetchall()
+777210	            _require(all(c[0] == "ZSTD" for c in codecs), "Unexpected analytical compression")
+777211	        invalid = connection.execute("""
+777212	            SELECT count(*) FROM projects p LEFT JOIN
+777213	              (SELECT project_id, count(*) AS n FROM evidence GROUP BY project_id) e
+777214	              USING(project_id)
+777215	            WHERE p.evidence_count <> coalesce(e.n, 0)
+777216	               OR p.provisional_count <> coalesce(e.n, 0) OR p.verified_count <> 0
+777217	        """).fetchone()[0]
+777218	        orphans = connection.execute("""
+777219	            SELECT count(*) FROM evidence e ANTI JOIN projects p USING(project_id)
+777220	        _require(invalid == 0 and orphans == 0, "Analytical project/evidence closure mismatch")
+777221	    return _receipt(directory, manifest)
+777222	def export_analytics(payload, out_dir, *, expected_project_ids):
+777223	    """Write validated immutable Parquet alongside snapshots; never move pointers."""
+777224	    expected_project_ids = list(expected_project_ids)
+777225	    stamp = datetime.fromisoformat(payload["generated_at"].replace("Z", "+00:00")).strftime("%Y%m%dT%H%M%SZ")
+777227	    target = out_dir / ("analytics_" + stamp)
+777229	        return validate_analytics(target, payload, expected_project_ids=expected_project_ids)
+777231	    rows = _rows(payload)
+777232	    with tempfile.TemporaryDirectory(prefix=".analytics-build-", dir=out_dir) as temporary:
+777233	        staged = Path(temporary) / target.name
+777234	        staged.mkdir()
+777235	        artifacts = {}
+777236	        with _connect() as connection:
+777237	            for table, columns in TABLES.items():
+777238	                ddl = ", ".join(f"{name} {kind}" for name, kind in columns)
+777239	                connection.execute(f"CREATE TABLE {table} ({ddl})")
+777240	                if rows[table]:
+777241	                    placeholders = ",".join("?" for _ in columns)
+777242	                    connection.executemany(f"INSERT INTO {table} VALUES ({placeholders})", rows[table])
+777243	                path = staged / (table + ".parquet")
+777244	                connection.execute(f"COPY (SELECT * FROM {table} ORDER BY {ORDERS[table]}) "
+777245	                                   f"TO {_literal(path)} (FORMAT PARQUET, COMPRESSION ZSTD, ROW_GROUP_SIZE 100000)")
+777246	                data = path.read_bytes()
+777247	                artifacts[table] = {"path": path.name, "sha256": _sha(data), "bytes": len(data),
+777248	                                    "rows": len(rows[table]), "columns": [list(c) for c in columns],
+777249	                                    "compression": "ZSTD"}
+777250	        manifest = {"schema": SCHEMA, "source_snapshot_sha256": _sha(_json(payload)),
+777251	                    "generated_at": payload["generated_at"], "seed_release": payload["seed_release"],
+777252	                    "project_count": payload["project_count"], "evidence_count": payload["evidence_count"],
+777253	                    "review_required": True, "sources": payload["sources"],
+777254	                    "runtime": {"duckdb": duckdb.__version__, "threads": 1}, "artifacts": artifacts}
+777255	        (staged / "manifest.json").write_bytes(_json(manifest))
+777256	        receipt = validate_analytics(staged, payload, expected_project_ids=expected_project_ids)
+777257	        staged.rename(target)
+777259	import {test,expect} from '@playwright/test';
+777262	const release='/uk_renewables_pipeline/202611161630/';
+777263	const pointerURL='https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json';
+777264	const manifest=JSON.parse(await readFile(new URL('../../../../uk_renewables_pipeline/202611161630/solar1000/manifest.json',import.meta.url)));
+777265	const schema='globalgrid2050.solar-evidence.provisional.v1';
+777266	const generated='2026-11-16T16:30:00Z';
+777267	const researchScope='Completed bounded feed scan using strict name/REPD-ID matching; not independent project-first research. No match is not proof no evidence exists.';
+777268	const hostileTitle='TEST FIXTURE ONLY: REPD 1018 <img src=x onerror="window.evidenceInjected=true">';
+777269	function fixture(){
+777270	  const projects=manifest.ids.map((id,i)=>({project_id:id,name:'Synthetic browser fixture',status:i?'RESEARCH_ATTEMPTED_NO_EVIDENCE':'PROVISIONAL',evidence_count:i?0:1,provisional_count:i?0:1,verified_count:0,last_event:null,last_researched_at:generated,evidence:i?[]:[{id:'fixture',url:'https://example.org/test-only-solar-article',title:hostileTitle,pub_date:generated,source_id:'fixture_only',publisher:'TEST FIXTURE ONLY',status:'PROVISIONAL',match_method:'repd_id',first_seen:generated,last_seen:generated}]}));
+777271	  const data={schema,generated_at:generated,source_run_at:generated,seed_release:'202611161244',project_count:1000,evidence_count:1,verified_count:0,review_required:true,sources:[{id:'fixture_only',status:'ok',url:'https://example.org/test-only-feed',rights_review_url:'https://example.org/test-only-rights-receipt',fetched_at:generated,http_status:200,response_sha256:'a'.repeat(64),eligible_for_publication:true,probe_only:false,rights_status:'accepted'}],research_scope:researchScope,projects};
+777272	  const body=JSON.stringify(data);
+777273	  return {body,pointer:{schema,generated_at:generated,snapshot:'snapshot_20261116T163000Z',json:'snapshot_20261116T163000Z/evidence.json',sha256:{'evidence.json':createHash('sha256').update(body).digest('hex')},project_count:1000,evidence_count:1,review_required:true}};
+777274	async function installRoutes(page,mode='valid'){
+777275	  const localOrigin=new URL(test.info().project.use.baseURL).origin;
+777276	  const f=fixture();
+777277	  if(mode==='bad-digest')f.pointer.sha256['evidence.json']='0'.repeat(64);
+777278	  const data=JSON.parse(f.body);
+777279	  if(mode==='invalid-status')data.projects[0].status='VERIFIED';
+777280	  if(mode==='no-sources')data.sources=[];
+777281	  if(mode==='failed-source')data.sources[0].status='failed';
+777282	  if(mode==='unknown-rights')data.sources[0].rights_status='unknown';
+777283	  if(mode==='probe-only')data.sources[0].probe_only=true;
+777284	  if(mode==='not-eligible')data.sources[0].eligible_for_publication=false;
+777285	  if(mode==='missing-rights-receipt')delete data.sources[0].rights_review_url;
+777286	  if(mode==='duplicate-source')data.sources.push({...data.sources[0]});
+777287	  if(mode==='missing-source-reference')data.projects[0].evidence[0].source_id='unrecorded';
+777288	  if(mode==='invalid-run-time')data.source_run_at='2026-02-30T16:30:00Z';
+777289	  if(mode==='run-after-generation')data.source_run_at='2026-11-17T16:30:00Z';
+777290	  if(mode==='incorrect-scope')data.research_scope='All projects independently researched and verified';
+777291	  if(mode==='invalid-http-receipt')data.sources[0].http_status=403;
+777292	  if(mode==='invalid-source-hash')data.sources[0].response_sha256='not-a-hash';
+777293	  if(mode==='source-after-run')data.sources[0].fetched_at='2026-11-17T16:30:00Z';
+777294	  if(mode==='stale'){
+777295	    const old='2026-11-08T16:30:00Z';
+777296	    data.source_run_at=old;data.sources[0].fetched_at=old;
+777297	    for(const project of data.projects){
+777298	      project.last_researched_at=old;
+777299	      for(const article of project.evidence){article.first_seen=old;article.last_seen=old;article.pub_date=old;}
+777301	  if(mode==='retained-source'){
+777302	    data.sources[0].fetched_at='2026-11-01T16:30:00Z';
+777303	    data.sources.push({...data.sources[0],id:'current_fixture_only',fetched_at:generated});
+777304	    Object.assign(data.projects[0].evidence[0],{first_seen:'2026-11-01T16:30:00Z',last_seen:'2026-11-01T16:30:00Z',pub_date:'2026-11-01T16:30:00Z'});
+777305	  f.body=JSON.stringify(data);
+777306	  if(mode!=='bad-digest')f.pointer.sha256['evidence.json']=createHash('sha256').update(f.body).digest('hex');
+777307	  await page.clock.setFixedTime(new Date('2026-11-17T16:30:00Z'));
+777308	  await page.route('**/*',async route=>{
+777309	    const url=route.request().url();
+777310	    if(url===pointerURL){
+777311	      if(mode==='unavailable')return route.fulfill({status:503,body:'source unavailable'});
+777312	      return route.fulfill({contentType:'application/json',body:JSON.stringify(f.pointer)});
+777313	    if(url===new URL(f.pointer.json,pointerURL).href)return route.fulfill({contentType:'application/json',body:f.body});
+777314	    if(url.startsWith(localOrigin+'/'))return route.continue();
+777315	    // Keep browser smoke deterministic. External service availability is a
+777316	    // separate live gate, never inferred from these intercepted test responses.
+777319	async function ready(page){
+777320	  await page.goto(release);
+777321	  await expect(page.locator('#evidenceCoverage')).toHaveAttribute('data-selection-count','1000');
+777322	  await expect(page.locator('#tbody')).toHaveAttribute('data-complete','true');
+777323	  await expect(page.locator('#resultsMeta')).toContainText('7,775');
+777324	test('provisional evidence, escaping, search, map contract, and full CSV',async({page},testInfo)=>{
+777325	  const errors=[];page.on('pageerror',error=>errors.push(error.message));
+777326	  await installRoutes(page);await ready(page);
+777327	  await expect(page.locator('#solar1000Pilot')).toHaveCount(0);
+777328	  await expect(page.getByRole('tab',{name:'UK projects',exact:true})).toHaveAttribute('aria-selected','true');
+777329	  await expect(page.getByRole('tab',{name:'Global data centres',exact:true})).toBeVisible();
+777330	  expect(await page.evaluate(()=>Boolean(document.querySelector('.newspaper').compareDocumentPosition(document.querySelector('#officialRegister')) & Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);
+777331	  await page.screenshot({path:testInfo.outputPath('dashboard-overview.png')});
+777332	  await expect(page.locator('[data-evidence-status]')).toContainText('1 provisional matches');
+777333	  await page.locator('#search').fill('1018');
+777334	  await page.locator('#repd-1018 .project-record > summary').click();
+777335	  const panel=page.locator('[data-evidence-project="1018"]');
+777336	  await expect(panel.locator('summary')).toHaveText('Evidence · Provisional: 1');
+777337	  await panel.locator('summary').click();
+777338	  await expect(panel.locator('a')).toHaveText(hostileTitle);
+777339	  await expect(panel.locator('a')).toHaveAttribute('href','https://example.org/test-only-solar-article');
+777340	  await expect(panel.locator('a')).toHaveAttribute('target','_blank');
+777341	  await expect(panel.locator('img')).toHaveCount(0);
+777342	  expect(await page.evaluate(()=>window.evidenceInjected)).toBeUndefined();
+777343	  const panelBox=await panel.boundingBox();
+777344	  expect(panelBox.x).toBeGreaterThanOrEqual(0);
+777345	  expect(panelBox.x+panelBox.width).toBeLessThanOrEqual(page.viewportSize().width);
+777346	  await page.locator('#repd-1018 .project-record').screenshot({path:testInfo.outputPath('evidence-panel.png')});
+777347	  const map=page.locator('#repd-1018 a.atlaslink');
+777348	  await expect(map).toHaveAttribute('target','_blank');
+777349	  const mapURL=new URL(await map.getAttribute('href'));
+777350	  expect(mapURL.protocol).toBe('https:');expect(mapURL.searchParams.get('repd_ref')).toBe('1018');
+777351	  expect(mapURL.searchParams.get('technology')).toBe('solar');
+777352	  await page.locator('#search').fill('1019');
+777353	  await page.locator('#repd-1019 .project-record > summary').click();
+777354	  await expect(page.locator('[data-evidence-project="1019"] summary')).toHaveText('Evidence · Provisional: 0');
+777355	  await page.locator('#clearFilters').click();
+777356	  const downloadPromise=page.waitForEvent('download');
+777357	  await page.locator('#exportInline').click();
+777358	  const download=await downloadPromise;
+777359	  const csv=await readFile(await download.path(),'utf8');
+777360	  expect(csv).toContain('1018');
+777361	  expect(csv.trim().split(/\r?\n/)).toHaveLength(7776);
+777362	  expect(errors).toEqual([]);
+777364	for(const mode of ['unavailable','bad-digest','invalid-status','no-sources','failed-source','unknown-rights','probe-only','not-eligible','missing-rights-receipt','duplicate-source','missing-source-reference','invalid-run-time','run-after-generation','incorrect-scope','invalid-http-receipt','invalid-source-hash','source-after-run'])test(`${mode} evidence preserves register and maps`,async({page})=>{
+777365	  await installRoutes(page,mode);await ready(page);
+777366	  await expect(page.locator('[data-evidence-status]')).toContainText('Evidence unavailable');
+777367	  await expect(page.locator('[data-evidence-project="1018"] summary')).toHaveText('Evidence · Unavailable');
+777368	  await expect(page.locator('#repd-1018 a.atlaslink')).toHaveAttribute('href',/repd_ref=1018/);
+777369	  await page.locator('#search').fill('');
+777371	  await expect(page.locator('#resultsMeta')).toContainText('3,604');
+777372	test('stale collection remains explicitly overdue even when snapshot generation is recent',async({page})=>{
+777373	  await installRoutes(page,'stale');await ready(page);
+777374	  const status=page.locator('[data-evidence-status]');
+777375	  await expect(status).toContainText('Evidence snapshot 2026-11-16T16:30:00Z');
+777376	  await expect(status).toContainText('Last successful collection: 2026-11-08T16:30:00Z');
+777377	  await expect(status).toContainText('Overdue: more than 7 days since collection');
+777378	  await expect(panel.locator('summary')).toContainText('Provisional: 1');
+777379	  await expect(panel).toContainText('Last successful collection: 2026-11-08T16:30:00Z');
+777380	test('retained evidence can reference an older successful source receipt',async({page})=>{
+777381	  await installRoutes(page,'retained-source');await ready(page);
+777382	  await expect(page.locator('[data-evidence-status]')).toContainText('Last successful collection: 2026-11-16T16:30:00Z');
+777383	  await expect(page.locator('[data-evidence-project="1018"] summary')).toContainText('Provisional: 1');
+777384	test('one pipeline switches datasets without changing UK filters, totals or exports',async({page},testInfo)=>{
+777385	  const uk=page.getByRole('tab',{name:'UK projects',exact:true});
+777386	  const global=page.getByRole('tab',{name:'Global data centres',exact:true});
+777387	  await global.click();
+777388	  await expect(global).toHaveAttribute('aria-selected','true');
+777389	  await expect(page.locator('#globalProjectPanel')).toBeVisible();
+777390	  await expect(page.locator('#ukProjectsPanel')).toBeHidden();
+777391	  await expect(page.locator('#globalDatacentres')).toBeVisible();
+777392	  await expect(page.locator('#globalDcCount')).toHaveText('12 of 12 sites shown');
+777393	  await page.locator('#officialRegister').evaluate(node=>node.scrollIntoView({block:'start',behavior:'instant'}));
+777394	  await page.screenshot({path:testInfo.outputPath('global-pipeline.png')});
+777395	  await global.press('ArrowLeft');
+777396	  await expect(uk).toBeFocused();
+777397	  await expect(uk).toHaveAttribute('aria-selected','true');
+777398	  await page.locator('[data-technology="bess"]').click();
+777399	  await expect(page.locator('[data-technology="bess"]')).toHaveAttribute('aria-pressed','true');
+777400	  await global.click();await uk.click();
+777401	test('global data centres keep sourced identities, country filters and unknown capacities',async({page},testInfo)=>{
+777402	  await page.getByRole('tab',{name:'Global data centres',exact:true}).click();
+777403	  const cards=page.locator('#globalDatacentres [data-dc-id]');
+777404	  await expect(cards).toHaveCount(12);
+777405	  await expect(page.locator('#globalDatacentres')).toContainText('12 source-indexed sites in 10 countries');
+777406	  await expect(page.locator('#globalDatacentres')).toContainText('not a comprehensive worldwide register');
+777407	  await page.locator('#globalDcSearch').fill('Utah');
+777408	  await expect(cards).toHaveCount(1);
+777409	  await expect(cards.first()).toHaveAttribute('data-dc-id','DC-WD-Q12857142');
+777410	  await expect(cards.first()).toContainText('IT load: not reported');
+777411	  await expect(cards.first().locator('a[href*="openstreetmap.org"]')).toHaveAttribute('target','_blank');
+777412	  await expect(cards.first().locator('a[href*="wikidata.org/w/index.php"]')).toHaveAttribute('href',/oldid=\d+/);
+777413	  await page.locator('#globalDcSearch').fill('');
+777414	  await page.locator('#globalDcCountry').selectOption('Q668');
+777415	  await expect(cards.first()).toContainText('Yotta NM1');
+777416	  await expect(cards.first()).toContainText('Map unavailable');
+777417	  await expect(cards.first().locator('a[href*="openstreetmap.org"]')).toHaveCount(0);
+777418	  await page.locator('#globalDcCountry').selectOption('Q39');
+777419	  await expect(cards.first()).toContainText('Swiss Fort Knox');
+777420	  await expect(cards.first()).toContainText('approximate source point');
+777421	  await page.locator('#globalDcCountry').selectOption('');
+777422	  await page.locator('#globalDcSearch').fill('no such fixture site');
+777423	  await expect(cards).toHaveCount(0);
+777424	  await expect(page.locator('#globalDcCount')).toHaveText('0 of 12 sites shown');
+777425	  await page.screenshot({path:testInfo.outputPath('global-data-centres.png')});
+777426	  await page.getByRole('tab',{name:'UK projects',exact:true}).click();
+777427	test('global dataset failure leaves UK register available and does not invent sites',async({page})=>{
+777428	  await installRoutes(page);
+777429	  await page.route('**/global-datacentres/projects.json',route=>route.fulfill({status:503,body:'unavailable'}));
+777430	  await ready(page);
+777431	  await expect(page.locator('#globalDatacentres .gdc-error')).toContainText('unavailable');
+777432	  await expect(page.locator('#globalDatacentres [data-dc-id]')).toHaveCount(0);
+777433	// Run with: node --test harness.test.mjs
+777436	import {spawn,execFileSync} from 'node:child_process';
+777437	import {createServer} from 'node:net';
+777438	import {once} from 'node:events';
+777439	import {setTimeout as delay} from 'node:timers/promises';
+777441	import {getTestPort} from './server.mjs';
+777442	const cwd=fileURLToPath(new URL('.',import.meta.url));
+777443	test('default and explicit port configuration share one loopback origin',()=>{
+777444	  assert.equal(getTestPort({}),4173);
+777445	  for(const value of [undefined,'1','4187','65535']){
+777446	    const env={...process.env};
+777447	    delete env.EVIDENCE_TEST_PORT;
+777448	    if(value!==undefined)env.EVIDENCE_TEST_PORT=value;
+777449	    const output=execFileSync(process.execPath,['--input-type=module','-e',
+777450	      "import c from './playwright.config.mjs'; console.log(JSON.stringify({base:c.use.baseURL,ready:c.webServer.url,reuse:c.webServer.reuseExistingServer}))"],{cwd,env,encoding:'utf8'});
+777451	    const config=JSON.parse(output);
+777452	    const origin=`http://127.0.0.1:${getTestPort(env)}`;
+777453	    assert.deepEqual(config,{base:origin,ready:origin+release,reuse:false});
+777454	test('invalid ports fail before opening a listener',()=>{
+777455	  for(const value of ['', '0', '-1', '65536', '4187.5', '4187abc', ' 4187', '1e3']){
+777456	    assert.throws(()=>getTestPort({EVIDENCE_TEST_PORT:value}),/integer from 1 to 65535/);
+777457	async function unusedPort(){
+777458	  const server=createServer().listen(0,'127.0.0.1');
+777459	  await once(server,'listening');
+777460	  const port=server.address().port;
+777461	  await new Promise((resolve,reject)=>server.close(error=>error?reject(error):resolve()));
+777462	  return port;
+777463	async function start(port,t){
+777464	  const child=spawn(process.execPath,['server.mjs'],{cwd,env:{...process.env,EVIDENCE_TEST_PORT:String(port)},stdio:['ignore','ignore','pipe']});
+777465	  let stderr='';
+777466	  child.stderr.on('data',chunk=>stderr+=chunk);
+777467	  t.after(async()=>{
+777468	    if(child.exitCode===null && child.signalCode===null){
+777469	      const stopped=once(child,'exit');
+777470	      child.kill();
+777471	      await stopped;
+777472	  for(let attempt=0;attempt<100;attempt++){
+777473	    assert.equal(child.exitCode,null,stderr);
+777475	      const response=await fetch(`http://127.0.0.1:${port}${release}`,{signal:AbortSignal.timeout(500)});
+777476	      assert.equal(response.status,200);
+777477	      assert.match(response.headers.get('content-type'),/text\/html/);
+777478	      assert.match(await response.text(),/<!doctype html>/i);
+777481	      if(attempt===99)throw error;
+777482	      await delay(50);
+777483	test('two distinct ports serve the candidate concurrently without reusing a server',{timeout:15000},async t=>{
+777484	  const firstPort=await unusedPort();
+777485	  const first=await start(firstPort,t);
+777486	  const secondPort=await unusedPort();
+777487	  assert.notEqual(secondPort,firstPort);
+777488	  const second=await start(secondPort,t);
+777489	  assert.equal(first.exitCode,null);
+777490	  assert.equal(second.exitCode,null);
+777491	  assert.notEqual(first.pid,second.pid);
+777492	import {defineConfig} from '@playwright/test';
+777493	const baseURL=`http://127.0.0.1:${getTestPort()}`;
+777494	export default defineConfig({
+777495	  testDir:'.', testMatch:'news-priority.spec.mjs', timeout:45000,
+777496	  fullyParallel:true, workers:3, reporter:[['list']],
+777497	  use:{baseURL,headless:true,channel:process.env.BROWSER_CHANNEL || undefined},
+777498	  projects:[
+777499	    {name:'mobile',use:{viewport:{width:375,height:812}}},
+777500	    {name:'tablet',use:{viewport:{width:768,height:1024}}},
+777501	    {name:'desktop',use:{viewport:{width:1440,height:900}}}
+777503	  webServer:{command:'node server.mjs',url:`${baseURL}/uk_renewables_pipeline/202611161734/`,reuseExistingServer:false}
+777505	const root=fileURLToPath(new URL('../../../../',import.meta.url));
+777506	const release='/uk_renewables_pipeline/202611161734/';
+777507	const live='https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-news-data/dist/pipeline_headlines.json';
+777508	const rankURL=live.replace(/\.json$/,'.rank.json');
+777509	const fixed='2026-11-16T14:00:00Z';
+777510	// Python producer supplies the actual sidecar consumed by browser JS.
+777511	const fixture=JSON.parse(execFileSync(process.env.PYTHON || 'python',['-c',`
+777512	from automation.news.build_news_priority import build
+777513	from automation.news.tests.test_news_priority_export import document,raw
+777514	from automation.news.tests.test_news_algorithm import article
+777515	d=document([
+777516	 article('https://www.bloomberg.com/news/test-only', 'TEST FIXTURE: UK solar project financing announced', source='Bloomberg',date='2026-11-16T13:00:00Z'),
+777517	 article('https://www.gov.uk/news/test-only', 'TEST FIXTURE: UK solar planning policy announced <img src=x onerror=alert(1)>', source='GOV.UK',category='policy',date='2026-11-15T13:00:00Z'),
+777518	 article('https://news.example/undated','TEST FIXTURE: UK grid construction planned', source='Example publisher',date=None)
+777520	b=raw(d)
+777521	print(json.dumps({'body':b.decode(),'sidecar':build(b)}))
+777522	`],{cwd:root,encoding:'utf8'}));
+777523	async function install(page, mode='valid'){
+777524	  const d=JSON.parse(fixture.body), s=structuredClone(fixture.sidecar);
+777525	  let body=fixture.body;
+777526	  if(mode==='digest')s.input_sha256='0'.repeat(64);
+777527	  if(mode==='profile')s.profile_sha256='0'.repeat(64);
+777528	  if(mode==='duplicate')s.entries[1]=structuredClone(s.entries[0]);
+777529	  if(mode==='rank')s.entries[0].rank=2;
+777530	  if(mode==='source')s.entries[0].source='Unattributed';
+777531	  if(mode==='title')s.entries[0].title='Substituted headline';
+777532	  if(mode==='missing')s.entries.pop();
+777533	  if(mode==='foreign-link')s.entries[0].link='https://other.example/elsewhere';
+777534	  if(mode==='extra-field')s.entries[0].verification_status='VERIFIED';
+777535	  if(mode==='clock')s.as_of='2026-11-16T13:06:14Z';
+777536	  if(mode==='partial'||mode==='failed'){
+777537	    d.status=mode; d.counts.feeds_ok=mode==='failed'?0:49;d.counts.feeds_failed=mode==='failed'?50:1;
+777538	    body=JSON.stringify(d);
+777539	    const rebuilt=execFileSync(process.env.PYTHON||'python',['-c','import sys,json; from automation.news.build_news_priority import build; print(json.dumps(build(sys.stdin.buffer.read())))'],{cwd:root,input:body,encoding:'utf8'});
+777540	    Object.assign(s,JSON.parse(rebuilt));
+777541	  await page.clock.setFixedTime(new Date(mode==='stale'?'2026-11-19T14:00:00Z':mode==='future'?'2026-11-16T13:00:00Z':fixed));
+777542	  const origin=new URL(test.info().project.use.baseURL).origin;
+777543	    if(url===live)return mode==='snapshot'?route.fulfill({status:503,body:'unavailable'}):route.fulfill({contentType:'application/json',body});
+777544	    if(url===rankURL){
+777545	      if(mode==='timeout')return new Promise(()=>{});
+777546	      return mode==='unavailable'?route.fulfill({status:404,body:'unavailable'}):route.fulfill({contentType:'application/json',body:JSON.stringify(s)});
+777547	    if(mode==='snapshot'&&url===origin+release+'news/pipeline_headlines.snapshot.json')return route.fulfill({contentType:'application/json',body});
+777548	    if(url.startsWith(origin+'/'))return route.continue();
+777549	  await expect(page.locator('#liveNews .ln-item')).toHaveCount(3);
+777550	  await page.waitForFunction(()=>['accepted','rejected','unavailable'].includes(window.pipelineHeadlinePriorityState)
+777551	    || document.getElementById('newsStatus').getAttribute('data-state')==='snapshot');
+777552	test('priority is visible, credits retained, policy shown, text escaped and core pipeline intact',async({page},info)=>{
+777553	  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+777554	  await install(page);await ready(page);
+777555	  await expect(page.locator('#newsStatus')).toHaveAttribute('data-order','priority');
+777556	  await expect(page.locator('#liveNews .ln-title').first()).toContainText('planning policy');
+777557	  await expect(page.locator('#liveNews .ln-priority').first()).toContainText('Priority 1 · Government source');
+777558	  await expect(page.locator('#liveNews')).toContainText('Bloomberg');
+777559	  await expect(page.locator('#liveNews')).toContainText('Publisher date unknown');
+777560	  await expect(page.locator('#liveNews img')).toHaveCount(0);
+777561	  await expect(page.locator('#liveNews .ln-title').first()).toHaveAttribute('href','https://www.gov.uk/news/test-only');
+777562	  await expect(page.locator('#liveNews .ln-title').first()).toHaveAttribute('rel','noopener noreferrer');
+777563	  await expect(page.locator('#newsStatus')).toContainText('not project verification');
+777564	  const downloading=page.waitForEvent('download');await page.locator('#exportInline').click();
+777565	  const csv=await readFile(await (await downloading).path(),'utf8');
+777566	  await expect(page.locator('#globalProjectPanel')).toContainText('12');
+777567	  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+777568	  await page.locator('.newspaper').first().screenshot({path:info.outputPath('v926-news-block.png')});
+777569	  await page.screenshot({path:info.outputPath('v926-news-and-pipeline.png')});
+777570	for(const mode of ['digest','profile','duplicate','rank','source','title','missing','foreign-link','extra-field','clock','unavailable','timeout']){
+777571	  test(`invalid priority ${mode} keeps credited date fallback`,async({page})=>{
+777572	    await install(page,mode);await ready(page);
+777573	    await expect(page.locator('#newsStatus')).toHaveAttribute('data-order','date');
+777574	    await expect(page.locator('#newsStatus')).toContainText('Priority unavailable');
+777575	    await expect(page.locator('#liveNews .ln-priority')).toHaveCount(0);
+777576	    await expect(page.locator('#liveNews')).toContainText('planning policy');
+777577	    await expect(page.locator('#liveNews .ln-title').first()).toHaveAttribute('href','https://www.bloomberg.com/news/test-only');
+777578	for(const mode of ['stale','snapshot','failed','future']){
+777579	  test(`${mode} cannot promote a matching old rank`,async({page})=>{
+777580	    await expect(page.locator('#newsStatus')).toHaveAttribute('data-state',mode==='stale'?'overdue':mode);
+777581	test('partial source health remains explicit with accepted priority',async({page})=>{
+777582	  await install(page,'partial');await ready(page);
+777583	  await expect(page.locator('#newsStatus')).toHaveAttribute('data-state','partial');
+777584	  await expect(page.locator('#newsStatus')).toContainText('49 sources succeeded, 1 failed');
+777585	  testDir: '.', testMatch: 'evidence.spec.mjs', timeout: 45000,
+777586	  fullyParallel: true, workers: 3,
+777587	  reporter: [['list']],
+777588	  use: {baseURL, headless: true},
+777589	  projects: [
+777590	    {name:'mobile', use:{viewport:{width:375,height:812}}},
+777591	    {name:'phone390', use:{viewport:{width:390,height:844}}},
+777592	    {name:'phone393', use:{viewport:{width:393,height:852}}},
+777593	    {name:'tablet', use:{viewport:{width:768,height:1024}}},
+777594	    {name:'desktop', use:{viewport:{width:1440,height:900}}}
+777595	  webServer: {command:'node server.mjs', url:`${baseURL}/uk_renewables_pipeline/202611161630/`, reuseExistingServer:false}
+777596	  testDir:'.',testMatch:'prospecting-priority.spec.mjs',timeout:45000,
+777597	  outputDir:'test-results/prospecting-priority',
+777598	  fullyParallel:true,workers:3,reporter:[['list']],
+777599	  use:{baseURL,headless:true,channel:process.env.BROWSER_CHANNEL||undefined},
+777600	  projects:[{name:'mobile',use:{viewport:{width:375,height:812}}},{name:'tablet',use:{viewport:{width:768,height:1024}}},{name:'desktop',use:{viewport:{width:1440,height:900}}}],
+777601	  webServer:{command:'node server.mjs',url:`${baseURL}/uk_renewables_pipeline/202611161747/`,reuseExistingServer:false}
+777602	const release='/uk_renewables_pipeline/202611161747/';
+777603	const directory=new URL('../../../../uk_renewables_pipeline/202611161747/prospecting/',import.meta.url);
+777604	const priorityRaw=await readFile(new URL('priority.json',directory));
+777605	const manifestRaw=await readFile(new URL('manifest.json',directory));
+777606	const csv=await readFile(new URL('priority.csv',directory));
+777607	const manifest=JSON.parse(manifestRaw),priority=JSON.parse(priorityRaw);
+777608	const ranked=priority.records[0],unranked=manifest.inventory.official_ids.find(id=>!priority.records.some(row=>row.id===id));
+777610	// The prospecting bundle is actual pinned data. News below is an explicit offline fixture.
+777611	const newsFixture=JSON.parse(execFileSync(process.env.PYTHON||'python',['-c',`
+777612	d=document([article('https://www.bloomberg.com/news/test-only','TEST FIXTURE: UK solar financing',source='Bloomberg'),article('https://www.gov.uk/news/test-only','TEST FIXTURE: UK solar planning policy',source='GOV.UK',category='policy')]);b=raw(d)
+777613	print(json.dumps({'raw':b.decode(),'rank':build(b)}))
+777614	async function setup(page,mode='valid'){
+777615	  await page.clock.setFixedTime(new Date('2026-11-16T17:49:00Z'));
+777616	    if(url===live)return route.fulfill({contentType:'application/json',body:newsFixture.raw});
+777617	    if(url===live.replace(/\.json$/,'.rank.json'))return route.fulfill({contentType:'application/json',body:JSON.stringify(newsFixture.rank)});
+777618	    if(url===origin+release+'prospecting/manifest.json'&&mode==='manifest')return route.fulfill({contentType:'application/json',body:manifestRaw.toString()+' '});
+777619	    if(url===origin+release+'prospecting/priority.json'){
+777620	      if(mode==='missing')return route.fulfill({status:404,body:'unavailable'});
+777621	      if(mode==='malformed')return route.fulfill({contentType:'application/json',body:'{'});
+777622	      if(mode==='typed-source'){const bad=structuredClone(priority);bad.records[0].capacities.repd_installed_mw='1000';return route.fulfill({contentType:'application/json',body:JSON.stringify(bad)});}
+777623	  await page.waitForFunction(()=>['accepted','rejected'].includes(window.projectResearchPriorityState));
+777624	test('actual export reproduces and source modules remain identical',async()=>{
+777625	  const actual=JSON.parse(execFileSync(process.env.PYTHON||'python',['-c',`
+777627	from automation.news.build_prospecting_priority import build_artifacts
+777628	b=build_artifacts(as_of='2026-11-16T17:48:52Z')
+777629	c=lambda v:(json.dumps(v,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\\n').encode()
+777630	b['priority.json']=c(json.loads(b['priority.json']))
+777631	m=json.loads(b['manifest.json']);m['files']['priority.json']={'sha256':hashlib.sha256(b['priority.json']).hexdigest(),'bytes':len(b['priority.json'])};b['manifest.json']=c(m)
+777632	print(json.dumps({k:hashlib.sha256(v).hexdigest() for k,v in b.items()}))
+777633	  expect(actual).toEqual({'priority.json':hash(priorityRaw),'priority.csv':hash(csv),'manifest.json':hash(manifestRaw)});
+777634	  for(const name of ['adapter.mjs','bundle.mjs','view.mjs']){
+777635	    expect(await readFile(new URL(`../../../../uk_renewables_pipeline/202611161747/scripts/plugins/prospecting/${name}`,import.meta.url))).toEqual(await readFile(new URL(`../../prospecting-ui/${name}`,import.meta.url)));
+777636	  expect(manifest.inventory.official_ids).toHaveLength(7775);expect(manifest.inventory.solar1000_ids).toHaveLength(1000);
+777637	  expect(priority.records.every(r=>r.research_state==='UNKNOWN'&&r.heat.state==='UNKNOWN'&&r.event_at===null)).toBe(true);
+777638	test('inline ranking, remarks, exact identity, rerenders, maps and full CSV',async({page},info)=>{
+777639	  const errors=[];page.on('pageerror',error=>errors.push(error.message));await setup(page);
+777640	  await expect(page.locator('#researchPriorityStatus')).toContainText('1,000 ranked from 7,775');
+777641	  await page.locator('#search').fill(ranked.id.slice(5));
+777642	  const row=page.locator('#repd-'+ranked.id.slice(5)),map=row.locator('a.atlaslink');
+777643	  const mapBefore=await map.getAttribute('href');expect(new URL(mapBefore).searchParams.get('repd_ref')).toBe(ranked.id.slice(5));
+777644	  await row.locator('.v927-priority-hint').click();
+777645	  const detail=row.locator('[data-priority-id]');await expect(detail).toHaveAttribute('open','');
+777646	  await expect(detail).toContainText('Momentum: unknown');await expect(detail).toContainText(ranked.research_note);
+777647	  await page.evaluate(()=>window.dispatchEvent(new Event('pipeline-projects-rendered')));
+777648	  await expect(row.locator('[data-priority-id]')).toHaveCount(1);await expect(detail).toHaveAttribute('open','');
+777649	  await expect(map).toHaveAttribute('href',mapBefore);
+777650	  await expect(detail.locator('a').first()).toHaveAttribute('href',ranked.source.url);
+777651	  await page.screenshot({path:info.outputPath('priority-project.png')});
+777652	  await page.locator('#search').fill(unranked.slice(5));await page.locator('#repd-'+unranked.slice(5)+' .project-record > summary').click();
+777653	  await expect(page.locator('#repd-'+unranked.slice(5)+' [data-priority-state]')).toHaveText('Outside this research-priority subset');
+777654	  const full=await readFile(await(await downloading).path(),'utf8');expect(full.trim().split(/\r?\n/)).toHaveLength(7776);
+777655	  await page.getByText('How to interpret statuses, maps and news',{exact:true}).click();
+777656	  const researchDownload=page.waitForEvent('download');await page.locator('a[href="prospecting/priority.csv"]').click();
+777657	  expect(hash(await readFile(await(await researchDownload).path()))).toBe(manifest.files['priority.csv'].sha256);
+777658	  await page.getByRole('tab',{name:'Global data centres',exact:true}).click();await expect(page.locator('.gdc-card')).toHaveCount(12);
+777659	  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);expect(errors).toEqual([]);
+777660	for(const mode of ['missing','manifest','malformed','typed-source'])test(`${mode} priority leaves official dataset usable`,async({page})=>{
+777661	  await setup(page,mode);await expect(page.locator('#researchPriorityStatus')).toContainText('Research priority unavailable');
+777662	  await expect(page.locator('.v927-priority-hint')).toHaveCount(0);
+777663	  await page.locator('#search').fill('1018');await page.locator('#repd-1018 .project-record > summary').click();
+777664	  await expect(page.locator('#repd-1018 [data-priority-state]')).toHaveText('Research priority unavailable');
+777665	  await page.locator('#clearFilters').click();await expect(page.locator('#resultsMeta')).toContainText('7,775');
+777666	test('failed reload clears previous rank without clearing project facts',async({page})=>{
+777667	  await setup(page);await page.locator('#search').fill(ranked.id.slice(5));await page.locator('.v927-priority-hint').click();
+777668	  await page.route('**/prospecting/manifest.json',route=>route.fulfill({status:503,body:'unavailable'}));
+777669	  await page.evaluate(async()=>{const module=await import('./scripts/plugins/research-priority-v927.js?v=9.27');await module.reloadPriority();});
+777670	  await expect(page.locator('[data-priority-id]')).toHaveCount(0);await expect(page.locator('.v927-priority-hint')).toHaveCount(0);
+777671	  await expect(page.locator('[data-priority-state]')).toHaveText('Research priority unavailable');
+777672	  await expect(page.locator('#repd-'+ranked.id.slice(5)+' .record-grid')).toBeVisible();
+777673	// Isolated local static server for browser tests; never a production server.
+777675	import {readFile, stat} from 'node:fs/promises';
+777676	import {resolve, sep, extname} from 'node:path';
+777677	const root = fileURLToPath(new URL('../../../../',import.meta.url));
+777678	const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.geojson':'application/geo+json','.css':'text/css','.svg':'image/svg+xml'};
+777679	// One resolver keeps Playwright's origin and its child server in agreement.
+777680	// Use a distinct EVIDENCE_TEST_PORT for each concurrent worktree test run.
+777681	export function getTestPort(env=process.env){
+777682	  const value=env.EVIDENCE_TEST_PORT ?? '4173';
+777683	  if(!/^[1-9][0-9]*$/.test(value) || Number(value)>65535){
+777684	    throw new Error('EVIDENCE_TEST_PORT must be an integer from 1 to 65535');
+777685	  return Number(value);
+777686	export function createTestServer(){
+777687	return createServer(async(req,res)=>{
+777689	    let file=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+777690	    if(!file.startsWith(root.endsWith(sep)?root:root+sep))throw Error('outside test root');
+777691	    if((await stat(file)).isDirectory())file=resolve(file,'index.html');
+777692	    res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});
+777693	    res.end(await readFile(file));
+777695	if(process.argv[1] && resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+777696	  createTestServer().listen(getTestPort(),'127.0.0.1');
+777697	"""Durable, provisional-only research results and immutable weekly exports.
+777698	This is a research snapshot contract, not evidence_ledger's reviewed publication
+777699	contract. No event date or VERIFIED decision is inferred from an RSS headline.
+777700	Article bodies/snippets are deliberately never stored. Publish the snapshot and
+777701	latest.json together in one Git commit/push; this module only builds files.
+777707	import sqlite3
+777709	SCHEMA = "globalgrid2050.solar-evidence.provisional.v1"
+777710	COUNT = 1000
+777711	PROVISIONAL = "PROVISIONAL"
+777712	NO_EVIDENCE = "RESEARCH_ATTEMPTED_NO_EVIDENCE"
+777713	METHODS = {"exact_name", "repd_id"}
+777715	    """A failed gate: keep the previous publication and require manual review."""
+777716	def _moment(value):
+777717	    _require(isinstance(value, str) and bool(re.fullmatch(
+777718	        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", value)), "UTC second timestamp required")
+777720	        return dt.datetime.strptime(value, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=dt.timezone.utc)
+777722	        raise EvidenceValidationError("Invalid UTC timestamp") from exc
+777723	def _url(value):
+777724	        p = urlsplit(value)
+777725	        valid = (p.scheme == "https" and p.hostname and not p.username
+777726	                 and not p.password and p.port in (None, 443))
+777727	    except (ValueError, TypeError):
+777728	        valid = False
+777729	    _require(valid, "Safe HTTPS URL required")
+777730	def _ids(values):
+777731	    result = list(values)
+777732	    _require(len(result) == COUNT and len(set(result)) == COUNT,
+777733	             "Exactly 1000 unique Solar-1000 project IDs required")
+777734	    _require(all(isinstance(x, str) and re.fullmatch(r"[1-9][0-9]*", x) for x in result),
+777735	             "Project IDs must be numeric REPD strings")
+777737	def _coordinates(latitude, longitude):
+777738	    if latitude is None and longitude is None:
+777740	    _require(all(isinstance(x, (int, float)) and not isinstance(x, bool) and math.isfinite(x)
+777741	                 for x in (latitude, longitude)), "Coordinates must be finite numbers or both null")
+777742	    _require(-90 <= latitude <= 90 and -180 <= longitude <= 180, "Invalid coordinates")
+777743	def _sources(sources):
+777744	    _require(isinstance(sources, list) and bool(sources), "Successful source receipts required")
+777745	    ids = []
+777747	        _require(isinstance(source, dict) and source.get("status") == "ok",
+777748	                 "Critical source failure: manual review required")
+777749	        _require(source.get("eligible_for_publication") is True and source.get("probe_only") is False
+777750	                 and source.get("rights_status") == "accepted",
+777751	                 "Source rights unknown or probe-only: manual review required")
+777752	        _url(source.get("rights_review_url"))
+777753	        _require(isinstance(source.get("id"), str) and source["id"], "Source ID required")
+777754	        ids.append(source["id"])
+777755	        _url(source.get("url"))
+777756	        _moment(source.get("fetched_at"))
+777757	        _require(source.get("http_status") in (200, 304), "Successful HTTP receipt required")
+777758	        _require(isinstance(source.get("response_sha256"), str)
+777759	                 and re.fullmatch(r"[a-f0-9]{64}", source["response_sha256"]),
+777760	                 "Source response SHA256 required")
+777761	    _require(len(ids) == len(set(ids)), "Duplicate source IDs")
+777762	    return set(ids)
+777763	def _article(article):
+777764	    _require(isinstance(article, dict), "Article object required")
+777765	    for key in ("id", "url", "title", "pub_date", "source_id", "publisher"):
+777766	        _require(isinstance(article.get(key), str) and bool(article[key].strip()),
+777767	                 "Article field required: " + key)
+777768	    _url(article["url"])
+777769	    # A publication date is not an actual project event date.
+777770	        dt.datetime.fromisoformat(article["pub_date"].replace("Z", "+00:00"))
+777771	        raise EvidenceValidationError("Invalid publication date") from exc
+777772	    return (json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+777773	class EvidenceStore:
+777774	    """SQLite storage; writes are transactional, repeated matches are idempotent."""
+777775	    def __init__(self, path=":memory:"):
+777776	        if str(path) != ":memory:":
+777777	            Path(path).parent.mkdir(parents=True, exist_ok=True)
+777778	        self.connection = sqlite3.connect(str(path))
+777779	        self.connection.row_factory = sqlite3.Row
+777780	        self.connection.execute("PRAGMA foreign_keys=ON")
+777781	        version = self.connection.execute("PRAGMA user_version").fetchone()[0]
+777782	        _require(version in (0, 1), "Unsupported evidence database schema")
+777783	        self.connection.executescript("""
+777784	            CREATE TABLE IF NOT EXISTS projects (
+777785	                id TEXT PRIMARY KEY, name TEXT NOT NULL,
+777786	                latitude REAL, longitude REAL, researched_at TEXT NOT NULL
+777788	            CREATE TABLE IF NOT EXISTS articles (
+777789	                url TEXT PRIMARY KEY, id TEXT NOT NULL, title TEXT NOT NULL,
+777790	                pub_date TEXT NOT NULL, source_id TEXT NOT NULL, publisher TEXT NOT NULL
+777791	            CREATE TABLE IF NOT EXISTS evidence (
+777792	                project_id TEXT NOT NULL REFERENCES projects(id),
+777793	                article_url TEXT REFERENCES articles(url), status TEXT NOT NULL,
+777794	                match_method TEXT, first_seen TEXT NOT NULL, last_seen TEXT NOT NULL,
+777795	                CHECK ((status='PROVISIONAL' AND article_url IS NOT NULL AND match_method IS NOT NULL
+777796	                        AND match_method IN ('exact_name','repd_id')) OR
+777797	                       (status='RESEARCH_ATTEMPTED_NO_EVIDENCE' AND article_url IS NULL
+777798	                        AND match_method IS NULL)),
+777799	                UNIQUE(project_id, article_url)
+777800	            CREATE UNIQUE INDEX IF NOT EXISTS one_no_evidence_per_project
+777801	                ON evidence(project_id) WHERE article_url IS NULL;
+777802	            CREATE TABLE IF NOT EXISTS runs (
+777803	                fetched_at TEXT PRIMARY KEY, sources_json TEXT NOT NULL
+777804	            PRAGMA user_version=1;
+777807	            "projects": {"id", "name", "latitude", "longitude", "researched_at"},
+777808	            "articles": {"url", "id", "title", "pub_date", "source_id", "publisher"},
+777809	            "evidence": {"project_id", "article_url", "status", "match_method", "first_seen", "last_seen"},
+777810	            "runs": {"fetched_at", "sources_json"},
+777812	        for table, columns in expected.items():
+777813	            actual = {r[1] for r in self.connection.execute(f"PRAGMA table_info({table})")}
+777814	            _require(actual == columns, "Unexpected database schema: " + table)
+777816	        self.connection.close()
+777819	    def __exit__(self, *_):
+777821	    def record_run(self, projects, articles, matches, fetched_at, sources):
+777822	        """Record a complete successful scan; failed scans must never call this."""
+777823	        _moment(fetched_at)
+777824	        source_ids = _sources(sources)
+777825	        last_run = self.connection.execute("SELECT MAX(fetched_at) FROM runs").fetchone()[0]
+777826	        _require(last_run is None or fetched_at >= last_run, "Acquisition timestamp would move backwards")
+777827	        projects, articles, matches = list(projects), list(articles), list(matches)
+777828	        project_ids = _ids(p["id"] for p in projects)
+777829	        existing = self.connection.execute("SELECT id,name,latitude,longitude FROM projects").fetchall()
+777830	        supplied = {p["id"]: p for p in projects}
+777831	        _require(not existing or {r["id"] for r in existing} == set(project_ids),
+777832	                 "Stored seed membership differs: manual review required")
+777833	        for project in projects:
+777834	            _require(isinstance(project.get("name"), str) and project["name"].strip(), "Project name required")
+777835	            _coordinates(project.get("latitude"), project.get("longitude"))
+777836	        for row in existing:
+777837	            project = supplied[row["id"]]
+777838	            _require((row["name"], row["latitude"], row["longitude"]) ==
+777839	                     (project["name"], project.get("latitude"), project.get("longitude")),
+777840	                     "Immutable seed project metadata changed")
+777841	        article_by_url = {}
+777842	        for article in articles:
+777843	            _article(article)
+777844	            _require(article["source_id"] in source_ids, "Article has no successful source receipt")
+777845	            _require(article["url"] not in article_by_url, "Duplicate article URLs in run")
+777846	            previous = self.connection.execute(
+777847	                "SELECT id,title,pub_date,source_id,publisher FROM articles WHERE url=?",
+777848	                (article["url"],)).fetchone()
+777849	            # Historical bindings refer to the metadata first observed at this
+777850	            # URL. Without versioned article identities, replacing it would
+777851	            # silently rewrite the evidence for every earlier project match.
+777852	            _require(previous is None or all(previous[key] == article[key] for key in previous.keys()),
+777853	                     "Stored article metadata changed; manual review required")
+777854	            article_by_url[article["url"]] = article
+777855	        for match in matches:
+777856	            _require(match.get("status") == PROVISIONAL, "Machine matches must remain PROVISIONAL")
+777857	            _require(match.get("project_id") in supplied, "Match outside Solar-1000")
+777858	            _require(match.get("article_url") in article_by_url, "Match article not fetched in this run")
+777859	            _require(match.get("match_method") in METHODS, "Unknown strict matching method")
+777860	        with self.connection:
+777861	            self.connection.executemany(
+777862	                "INSERT INTO projects VALUES (?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET researched_at=excluded.researched_at",
+777863	                [(p["id"], p["name"], p.get("latitude"), p.get("longitude"), fetched_at) for p in projects])
+777864	                "INSERT INTO articles VALUES (?,?,?,?,?,?) ON CONFLICT(url) DO NOTHING",
+777865	                [(a["url"], a["id"], a["title"], a["pub_date"], a["source_id"], a["publisher"]) for a in articles])
+777866	            for match in matches:
+777867	                self.connection.execute("DELETE FROM evidence WHERE project_id=? AND article_url IS NULL", (match["project_id"],))
+777868	                self.connection.execute(
+777869	                    "INSERT INTO evidence VALUES (?,?,?,?,?,?) ON CONFLICT(project_id,article_url) DO UPDATE SET last_seen=excluded.last_seen",
+777870	                    (match["project_id"], match["article_url"], PROVISIONAL, match["match_method"], fetched_at, fetched_at))
+777872	                if not self.connection.execute("SELECT 1 FROM evidence WHERE project_id=? AND article_url IS NOT NULL", (project["id"],)).fetchone():
+777873	                    self.connection.execute("DELETE FROM evidence WHERE project_id=?", (project["id"],))
+777874	                    self.connection.execute("INSERT INTO evidence VALUES (?,NULL,?,NULL,?,?)", (project["id"], NO_EVIDENCE, fetched_at, fetched_at))
+777875	            self.connection.execute("INSERT INTO runs VALUES (?,?) ON CONFLICT(fetched_at) DO UPDATE SET sources_json=excluded.sources_json",
+777876	                                    (fetched_at, json.dumps(sources, sort_keys=True)))
+777877	    def snapshot(self, timestamp=None):
+777878	        _require(not self.connection.execute("PRAGMA foreign_key_check").fetchall(),
+777879	                 "Broken database relationships: manual review required")
+777880	        run = self.connection.execute("SELECT * FROM runs ORDER BY fetched_at DESC LIMIT 1").fetchone()
+777881	        _require(run is not None, "No successful acquisition run")
+777882	        timestamp = timestamp or run["fetched_at"]
+777883	        _moment(timestamp)
+777884	        _require(timestamp >= run["fetched_at"], "Snapshot cannot predate its acquisition run")
+777886	        for project in self.connection.execute("SELECT * FROM projects ORDER BY CAST(id AS INTEGER)"):
+777887	            evidence = [dict(row) for row in self.connection.execute(
+777888	                "SELECT a.*,e.status,e.match_method,e.first_seen,e.last_seen FROM evidence e "
+777889	                "JOIN articles a ON a.url=e.article_url WHERE e.project_id=? ORDER BY a.pub_date DESC,a.url",
+777890	                (project["id"],))]
+777892	                "project_id": project["id"], "name": project["name"],
+777893	                "latitude": project["latitude"], "longitude": project["longitude"],
+777894	                "status": PROVISIONAL if evidence else NO_EVIDENCE,
+777895	                "evidence_count": len(evidence), "provisional_count": len(evidence), "verified_count": 0,
+777896	                "last_event": None, "last_researched_at": project["researched_at"], "evidence": evidence,
+777899	            "schema": SCHEMA, "generated_at": timestamp, "source_run_at": run["fetched_at"],
+777900	            "seed_release": "202611161244", "project_count": len(rows),
+777901	            "evidence_count": sum(r["evidence_count"] for r in rows), "verified_count": 0,
+777902	            "review_required": True, "sources": json.loads(run["sources_json"]),
+777903	            "research_scope": "Completed bounded feed scan using strict name/REPD-ID matching; not independent project-first research. No match is not proof no evidence exists.",
+777904	            "projects": rows,
+777905	def validate_snapshot(payload, expected_project_ids):
+777906	    """Validate types, statuses, membership and counts before any pointer update."""
+777907	    expected = set(_ids(expected_project_ids))
+777908	    _require(isinstance(payload, dict) and payload.get("schema") == SCHEMA, "Unexpected snapshot schema")
+777909	    _require(payload.get("seed_release") == "202611161244", "Wrong baseline release")
+777910	    _require(set(payload) == {"schema", "generated_at", "source_run_at", "seed_release", "project_count",
+777911	                             "evidence_count", "verified_count", "review_required", "sources", "research_scope", "projects"},
+777912	             "Unexpected snapshot fields")
+777913	    _require(isinstance(payload.get("research_scope"), str) and payload["research_scope"], "Research scope required")
+777914	    _moment(payload.get("generated_at"))
+777915	    _moment(payload.get("source_run_at"))
+777916	    source_ids = _sources(payload.get("sources"))
+777917	    _require(payload.get("review_required") is True and type(payload.get("verified_count")) is int
+777918	             and payload["verified_count"] == 0, "Provisional snapshot cannot assert verification")
+777919	    rows = payload.get("projects")
+777920	    _require(isinstance(rows, list) and type(payload.get("project_count")) is int
+777921	             and payload["project_count"] == COUNT and len(rows) == COUNT, "Snapshot must contain 1000 projects")
+777922	    ids = _ids(r.get("project_id") for r in rows)
+777923	    _require(set(ids) == expected, "Snapshot Solar-1000 membership differs")
+777926	        _require(set(row) == {"project_id", "name", "latitude", "longitude", "status", "evidence_count",
+777927	                             "provisional_count", "verified_count", "last_event", "last_researched_at", "evidence"},
+777928	                 "Unexpected project snapshot fields")
+777929	        _require(isinstance(row.get("name"), str) and row["name"].strip(), "Project name required")
+777930	        _coordinates(row.get("latitude"), row.get("longitude"))
+777931	        _moment(row.get("last_researched_at"))
+777932	        evidence = row.get("evidence")
+777933	        _require(isinstance(evidence, list), "Evidence must be a list")
+777934	        for field in ("evidence_count", "provisional_count", "verified_count"):
+777935	            _require(type(row.get(field)) is int, "Evidence counts must be integers")
+777936	        _require(row["evidence_count"] == row["provisional_count"] == len(evidence)
+777937	                 and row["verified_count"] == 0, "Evidence counts inconsistent")
+777938	        _require("last_event" in row and row["last_event"] is None, "RSS match cannot assert a project event")
+777939	        _require(row.get("status") == (PROVISIONAL if evidence else NO_EVIDENCE), "Invalid research status")
+777940	        urls = []
+777941	        for article in evidence:
+777942	            _require(set(article) == {"id", "url", "title", "pub_date", "source_id", "publisher", "status",
+777943	                                     "match_method", "first_seen", "last_seen"}, "Unexpected evidence fields")
+777944	            _require(article.get("status") == PROVISIONAL and article.get("match_method") in METHODS,
+777945	                     "Evidence must be a strict provisional match")
+777946	            _require(not any(k in article for k in ("content", "body", "summary", "description")),
+777947	                     "Article bodies must not be exported")
+777948	            _moment(article.get("first_seen"))
+777949	            _moment(article.get("last_seen"))
+777950	            urls.append(article["url"])
+777951	        _require(len(urls) == len(set(urls)), "Duplicate project/article association")
+777952	        total += len(evidence)
+777953	    _require(type(payload.get("evidence_count")) is int and payload["evidence_count"] == total,
+777954	             "Snapshot evidence total inconsistent")
+777956	def _csv_cell(value):
+777957	    # Prevent untrusted publisher/project titles becoming spreadsheet formulas.
+777958	    return "'" + value if isinstance(value, str) and value.lstrip().startswith(("=", "+", "-", "@")) else value
+777959	def export_snapshot(store, out_dir, timestamp=None, *, expected_project_ids):
+777960	    """Build immutable exports and then latest.json; no publication occurs here."""
+777961	    payload = validate_snapshot(store.snapshot(timestamp), expected_project_ids)
+777962	    stamp = _moment(payload["generated_at"]).strftime("%Y%m%dT%H%M%SZ")
+777963	    folder = "snapshot_" + stamp
+777964	    target = out_dir / folder
+777965	    stream = io.StringIO(newline="")
+777966	    fields = ["project_id", "name", "status", "evidence_count", "provisional_count", "verified_count", "last_event", "last_researched_at"]
+777967	    writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+777969	    writer.writerows({key: _csv_cell(row[key]) for key in fields} for row in payload["projects"])
+777971	        "type": "FeatureCollection", "schema": SCHEMA, "generated_at": payload["generated_at"],
+777972	        "features": [{"type": "Feature", "id": row["project_id"],
+777973	                      "geometry": None if row["latitude"] is None else {
+777974	                          "type": "Point", "coordinates": [row["longitude"], row["latitude"]]},
+777975	                      "properties": {key: row[key] for key in fields}}
+777976	                     for row in payload["projects"]],
+777977	    files = {"evidence.json": _json(payload), "evidence.csv": stream.getvalue().encode("utf-8"),
+777978	             "evidence.geojson": _json(geojson)}
+777979	    hashes = {name: hashlib.sha256(data).hexdigest() for name, data in files.items()}
+777980	    files["checksums.json"] = _json(hashes)
+777981	        _require(target.is_dir() and {p.name for p in target.iterdir()} == set(files)
+777982	                 and all((target / name).read_bytes() == data for name, data in files.items()),
+777983	                 "Immutable snapshot already exists with different bytes; manual review required")
+777985	        target.mkdir(parents=True, exist_ok=False)
+777986	        for name, data in files.items():
+777987	            with (target / name).open("xb") as handle:
+777988	                handle.write(data)
+777989	    # Verify disk bytes before writing a pointer. A partial directory is never reused.
+777990	    for name, data in files.items():
+777991	        _require((target / name).read_bytes() == data, "Snapshot readback mismatch")
+777992	    pointer = {"schema": SCHEMA, "generated_at": payload["generated_at"], "snapshot": folder,
+777993	               "json": folder + "/evidence.json", "csv": folder + "/evidence.csv",
+777994	               "geojson": folder + "/evidence.geojson", "sha256": hashes,
+777995	               "project_count": COUNT, "evidence_count": payload["evidence_count"], "review_required": True}
+777996	    (out_dir / "latest.json").write_bytes(_json(pointer))
+777997	    return pointer
+777998	"""Bounded, fail-closed HTTP acquisition for the one approved solar RSS source."""
+778005	from urllib3.connection import HTTPSConnection
+778006	from urllib3.connectionpool import HTTPSConnectionPool
+778007	from urllib3.exceptions import NewConnectionError
+778008	from .normalise import normalise_article, safe_publisher_url
+778009	MAX_BYTES = 4 * 1024 * 1024
+778010	MAX_ENTRIES = 200
+778011	class FetchError(RuntimeError):
+778012	    """Critical fetch/parse failure: retain previous snapshot, require review."""
+778013	class _PublicHTTPSConnection(HTTPSConnection):
+778014	    """Resolve once, reject private answers, connect to that validated address.
+778015	    The surrounding urllib3 TLS implementation still verifies the original
+778016	    hostname. Connecting to the resolved sockaddr avoids a DNS rebind between
+778017	    a separate safety check and the actual connection.
+778019	    def _new_conn(self):
+778021	            addresses = socket.getaddrinfo(self._dns_host, self.port, type=socket.SOCK_STREAM)
+778022	            ips = [ipaddress.ip_address(a[4][0]) for a in addresses]
+778023	            if not ips or any(not ip.is_global or ip.is_multicast or ip.is_reserved for ip in ips):
+778024	                raise FetchError("Publisher DNS resolved to a non-public address")
+778025	            for family, socktype, proto, _, address in addresses:
+778026	                sock = socket.socket(family, socktype, proto)
+778028	                    sock.settimeout(self.timeout)
+778029	                    for option in self.socket_options or []:
+778030	                        sock.setsockopt(*option)
+778031	                    if self.source_address:
+778032	                        sock.bind(self.source_address)
+778033	                    sock.connect(address)
+778034	                    return sock
+778036	                    sock.close()
+778037	            raise NewConnectionError(self, "Publisher connection failed")
+778038	        except (OSError, ValueError) as exc:
+778039	            raise NewConnectionError(self, "Publisher DNS or connection failed") from exc
+778040	class _PublicHTTPSPool(HTTPSConnectionPool):
+778041	    ConnectionCls = _PublicHTTPSConnection
+778042	class _PublicHTTPSAdapter(requests.adapters.HTTPAdapter):
+778043	    def init_poolmanager(self, *args, **kwargs):
+778044	        super().init_poolmanager(*args, **kwargs)
+778045	        self.poolmanager.pool_classes_by_scheme = dict(self.poolmanager.pool_classes_by_scheme)
+778046	        self.poolmanager.pool_classes_by_scheme["https"] = _PublicHTTPSPool
+778047	def _rights_accepted(source):
+778048	        review = urlsplit(source.get("rights_review_url") or "")
+778049	        return (source.get("rights_status") == "accepted" and review.scheme == "https"
+778050	                and bool(review.hostname) and not review.username and not review.password)
+778053	def load_sources(path=None, *, include_disabled=False):
+778054	    sources = yaml.safe_load(Path(path or Path(__file__).with_name("sources.yaml")).read_text(encoding="utf-8"))
+778055	    if not isinstance(sources, list) or not sources:
+778056	        raise ValueError("sources must be a nonempty list")
+778058	        if not isinstance(source, dict) or source.get("id") != "pv_magazine_global":
+778059	            raise ValueError("Only approved pv_magazine_global is enabled in this sprint")
+778060	        if source["id"] in seen:
+778061	            raise ValueError("Duplicate source ID")
+778062	        seen.add(source["id"])
+778063	        if (not safe_publisher_url(source.get("url")) or source.get("kind") != "rss"
+778064	                or source.get("technology") != ["solar"] or type(source.get("enabled")) is not bool
+778065	                or source.get("rights_status") not in {"unknown", "accepted"}
+778066	                or source.get("output_policy") != "headline_link_only"
+778067	                or type(source.get("interval_hours")) is not int or source["interval_hours"] != 168
+778068	                or not isinstance(source.get("publisher"), str) or not source["publisher"].strip()):
+778069	            raise ValueError("Invalid solar source configuration")
+778070	        if source["enabled"] and not _rights_accepted(source):
+778071	            raise ValueError("Source requires attributable rights acceptance before enabling")
+778072	    return sources if include_disabled else [s for s in sources if s["enabled"]]
+778073	def parse_feed(raw, source):
+778074	    if len(raw) > MAX_BYTES or b"<!DOCTYPE" in raw.upper() or b"<!ENTITY" in raw.upper():
+778075	        raise FetchError("Oversized or unsafe XML")
+778076	        root = ET.fromstring(raw)
+778077	        if root.tag != "rss":
+778078	            raise ValueError("Expected RSS document")
+778079	        entries = root.findall("./channel/item")
+778080	        if not entries or len(entries) > MAX_ENTRIES:
+778081	            raise ValueError("Empty or excessive feed")
+778082	        articles = []
+778083	        for item in entries:
+778084	            articles.append(normalise_article({
+778085	                "title": item.findtext("title"), "link": item.findtext("link"),
+778086	                "pub_date": item.findtext("pubDate"),
+778087	                "content": item.findtext("{http://purl.org/rss/1.0/modules/content/}encoded") or item.findtext("description"),
+778088	            }, source))
+778089	        return list({a["url"]: a for a in articles}.values())
+778090	    except (ValueError, TypeError, ET.ParseError) as exc:
+778091	        raise FetchError(f"Invalid RSS: {exc}") from exc
+778092	def fetch_source(source, cache=None, *, session=None, now=None, probe=False):
+778093	    """Return articles, a source receipt, and raw in-memory conditional cache.
+778094	    Cached XML is intentionally caller-owned and must not be included in public
+778095	    artifacts. A 304 without a byte-verified cached body fails closed.
+778096	    if not probe and (source.get("enabled") is not True or not _rights_accepted(source)):
+778097	        raise FetchError("Source disabled or rights unaccepted; explicit health probe only")
+778098	    if not safe_publisher_url(source.get("url")):
+778099	        raise FetchError("Unapproved source URL")
+778100	    client = session or requests.Session()
+778101	    if session is None:
+778102	        # An environment proxy would resolve the publisher elsewhere and defeat
+778103	        # the validated-address connection policy.
+778104	        client.trust_env = False
+778105	        client.mount("https://", _PublicHTTPSAdapter())
+778106	    headers = {"User-Agent": "GlobalGrid2050-Evidence/9.25 (+https://globalgrid2050.com)", "Accept": "application/rss+xml, application/xml"}
+778107	    if cache and cache.get("url") == source["url"] and cache.get("etag"):
+778108	        headers["If-None-Match"] = cache["etag"]
+778109	        url = source["url"]
+778110	        for redirect in range(4):
+778111	            with client.get(url, headers=headers, timeout=(10, 25), stream=True, allow_redirects=False) as response:
+778112	                if response.status_code in {301, 302, 303, 307, 308}:
+778113	                    from urllib.parse import urljoin
+778114	                    url = urljoin(url, response.headers.get("Location", ""))
+778115	                    if not safe_publisher_url(url) or redirect == 3:
+778116	                        raise FetchError("Unapproved or excessive redirect")
+778118	                if response.status_code == 304:
+778119	                    if (not cache or cache.get("url") != source["url"] or not isinstance(cache.get("body"), bytes)
+778120	                            or hashlib.sha256(cache["body"]).hexdigest() != cache.get("response_sha256")):
+778121	                        raise FetchError("304 without a valid cached feed")
+778122	                    raw = cache["body"]
+778123	                elif response.status_code == 200:
+778124	                    raw = b""
+778125	                    for chunk in response.iter_content(65536):
+778126	                        raw += chunk
+778127	                        if len(raw) > MAX_BYTES:
+778128	                            raise FetchError("RSS exceeds size limit")
+778130	                    raise FetchError(f"Critical source HTTP {response.status_code}: {source['id']}")
+778131	                digest = hashlib.sha256(raw).hexdigest()
+778132	                articles = parse_feed(raw, source)
+778133	                fetched_at = (now or datetime.now(timezone.utc)).isoformat(timespec="seconds").replace("+00:00", "Z")
+778134	                etag = response.headers.get("ETag") or (cache or {}).get("etag")
+778135	                return {"articles": articles, "source": {
+778136	                    "id": source["id"], "status": "ok", "url": source["url"], "final_url": url,
+778137	                    "publisher": source["publisher"], "fetched_at": fetched_at,
+778138	                    "http_status": response.status_code, "response_sha256": digest, "etag": etag,
+778139	                    "article_count": len(articles), "output_policy": "headline_link_only",
+778140	                    "probe_only": probe, "eligible_for_publication": not probe and _rights_accepted(source),
+778141	                    "rights_status": source.get("rights_status", "unknown"),
+778142	                    "rights_review_url": source.get("rights_review_url"),
+778143	                }, "cache": {"url": source["url"], "etag": etag, "body": raw, "response_sha256": digest}}
+778145	        raise FetchError(f"Critical source transport failure: {source['id']}") from exc
+778147	        if session is None:
+778148	            client.close()
+778149	    raise FetchError("No successful source response")
+778150	"""Conservative exact project matching, with no verification or event inference."""
+778153	def normalise_name(value):
+778154	    return " ".join(re.findall(r"[^\W_]+", unicodedata.normalize("NFKC", value).casefold(), re.UNICODE))
+778155	def match_articles(articles, projects):
+778156	    """Match explicit REPD identifiers or a complete, unambiguous project name.
+778157	    Bare digits are not IDs (they can be years or capacities). Short one-word
+778158	    names and names duplicated in the queue require an explicit REPD ID.
+778159	    names = Counter(normalise_name(p["name"]) for p in projects)
+778160	    matches = {}
+778162	        raw = article["title"] + "\n" + article.get("content", "")
+778163	        text = " " + normalise_name(raw) + " "
+778164	        explicit = set(re.findall(r"\brepd\s*(?:(?:ref(?:erence)?\s*)?(?:id\s*)?)[:#-]?\s*(\d+)\b", raw, flags=re.I))
+778165	            ref = str(project["id"])
+778166	            name = normalise_name(project["name"])
+778167	            method = None
+778168	            if ref in explicit:
+778169	                method = "repd_id"
+778170	            elif (not project.get("name_ambiguous", False) and len(name.split()) >= 2
+778171	                  and len(name) >= 8 and names[name] == 1 and " " + name + " " in text):
+778172	                method = "exact_name"
+778173	            if method:
+778174	                matches[(ref, article["url"])] = {"project_id": ref, "article_url": article["url"],
+778175	                                                "status": "PROVISIONAL", "match_method": method}
+778176	    return list(matches.values())
+778177	"""Normalize RSS metadata without persisting publisher article bodies."""
+778181	from urllib.parse import urlsplit, urlunsplit
+778182	class _Text(HTMLParser):
+778185	        self.parts = []
+778194	            self.parts.append(data)
+778195	def clean_text(value):
+778196	    parser = _Text()
+778197	    parser.feed(html.unescape(str(value or "")))
+778198	    return " ".join(" ".join(parser.parts).split())
+778199	def safe_publisher_url(value):
+778200	    """Only the explicitly approved HTTPS publisher host is accepted."""
+778201	        return (p.scheme == "https" and p.hostname in {"www.pv-magazine.com", "pv-magazine.com"}
+778202	                and p.port in {None, 443} and not p.username and not p.password)
+778204	def normalise_article(entry, source):
+778205	    url = str(entry.get("url") or entry.get("link") or "").strip()
+778206	    if not safe_publisher_url(url):
+778207	        raise ValueError("Article URL must use the approved HTTPS publisher")
+778208	    p = urlsplit(url)
+778209	    url = urlunsplit((p.scheme, p.netloc.lower(), p.path, p.query, ""))
+778210	    title = clean_text(entry.get("title"))
+778211	    raw_date = entry.get("pub_date") or entry.get("date") or entry.get("published")
+778212	    if not title or not isinstance(raw_date, str):
+778213	        raise ValueError("Article title and publisher date are required")
+778214	        date = parsedate_to_datetime(raw_date)
+778215	        date = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
+778216	    if date.tzinfo is None:
+778217	        raise ValueError("Publisher date must have a timezone")
+778219	        "id": hashlib.sha256(url.encode()).hexdigest(), "url": url, "title": title,
+778220	        "pub_date": date.astimezone(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+778221	        "source_id": source["id"], "publisher": source["publisher"],
+778222	        # Transient matching input: deliberately excluded from database/export.
+778223	        "content": clean_text(entry.get("content") or entry.get("description"))[:20000],
+778224	"""Publish one evidence commit with an exact-ref lease and no history rewrite."""
+778227	REF = "refs/heads/pipeline-evidence-data"
+778228	def publish(repository, expected_head, remote="origin"):
+778229	    if expected_head and not re.fullmatch(r"[0-9a-f]{40}", expected_head):
+778230	        raise ValueError("Expected a full restored commit SHA or empty new-branch lease")
+778232	        return subprocess.run(["git", "-C", str(repository), *args], check=True,
+778233	                              capture_output=True, text=True).stdout.strip()
+778234	    ancestry = git("rev-list", "--parents", "-n", "1", "HEAD").split()
+778235	    # Only a direct successor of the restored state (or a root initial commit)
+778236	    # may be published. The lease flag is a CAS, never permission to rewrite.
+778237	    if ancestry[1:] != ([expected_head] if expected_head else []):
+778238	        raise ValueError("Publication must be one direct successor of restored state")
+778239	    return git("push", f"--force-with-lease={REF}:{expected_head}", remote, f"HEAD:{REF}")
+778242	    parser.add_argument("repository")
+778243	    parser.add_argument("expected_head")
+778245	    publish(args.repository, args.expected_head)
+778246	"""Load exactly the immutable V9.24 Solar-1000, validating all official rows."""
+778247	from .match import normalise_name
+778248	RELEASE_ID = "202611161244"
+778249	MANIFEST_SHA256 = "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f"
+778250	BUILD_MANIFEST_SHA256 = "eb59fee0ab9bd4bf304cf7957755e69647038ad2360eabe680848d14e636c304"
+778252	def _read_pinned(path, digest):
+778255	        raise ValueError("Required immutable V9.24 input unavailable") from exc
+778256	    if hashlib.sha256(data).hexdigest() != digest:
+778257	        raise ValueError("Immutable V9.24 input changed")
+778258	    return json.loads(data)
+778259	def load_seed_projects(repo_root=None):
+778260	    """Return 1,000 original project dicts plus an `id` alias, never reselection."""
+778261	    release = Path(repo_root or ROOT) / "uk_renewables_pipeline" / RELEASE_ID
+778262	    seed = _read_pinned(release / "solar1000/manifest.json", MANIFEST_SHA256)
+778263	    manifest = _read_pinned(release / "data/v9.1/build_manifest.json", BUILD_MANIFEST_SHA256)
+778264	    ids = seed["ids"]
+778265	    if len(ids) != 1000 or len(set(ids)) != 1000 or seed["selection_count"] != 1000:
+778266	        raise ValueError("Solar-1000 selection count changed")
+778269	        data = _read_pinned(release / part["path"], part["sha256"])
+778270	        if len(data["projects"]) != part["record_count"]:
+778271	            raise ValueError("REPD partition count changed")
+778272	        projects.extend(data["projects"])
+778273	    index = {p["repd_ref"]: p for p in projects}
+778274	    solar_ids = sorted((p["repd_ref"] for p in projects if p["technology"] == "solar"), key=int)
+778275	    if len(projects) != 7775 or len(index) != 7775 or len(solar_ids) != 3604:
+778276	        raise ValueError("Official REPD population changed")
+778277	    if ids != solar_ids[:1000]:
+778278	        raise ValueError("Solar-1000 differs from V9.24 selection")
+778279	    name_counts = Counter(normalise_name(p["name"]) for p in projects if p["technology"] == "solar")
+778280	    return [dict(index[ref], id=ref, name_ambiguous=name_counts[normalise_name(index[ref]["name"])] > 1)
+778281	            for ref in ids]
+778282	    print(f"V9.24 REPD: 7775; immutable Solar-1000: {len(load_seed_projects())}")
+778283	"""Weekly evidence candidate builder; probes never write evidence or state."""
+778285	from .evidence_store import EvidenceStore, export_snapshot
+778286	from .fetch import FetchError, fetch_source, load_sources
+778287	from .match import match_articles
+778288	from .research_queue import MANIFEST_SHA256, load_seed_projects
+778289	def collect(out, *, sources_path=None, probe=False, fetcher=fetch_source):
+778290	    projects = load_seed_projects()
+778291	    sources = load_sources(sources_path, include_disabled=probe)
+778293	        raise FetchError("No enabled source with accepted rights; manual review required")
+778294	    # Complete every critical fetch and match before opening or changing state.
+778295	    results = [fetcher(source, probe=probe) for source in sources]
+778296	    articles = [a for result in results for a in result["articles"]]
+778297	    receipts = [result["source"] for result in results]
+778298	    matches = match_articles(articles, projects)
+778299	    report = {"probe_only": probe, "selected": len(projects), "articles": len(articles),
+778300	              "provisional_matches": len(matches), "verified": 0,
+778301	              "seed_sha256": MANIFEST_SHA256, "sources": receipts}
+778303	        return report
+778304	    out = Path(out)
+778306	    database = out / "evidence.sqlite"
+778307	    # A failed schema/export cannot corrupt the previous accepted SQLite state.
+778308	    # This is staging, not a claim of filesystem-atomic multi-file publication.
+778309	    # Workflow publishes the entire validated output in one Git ref update.
+778310	    with tempfile.TemporaryDirectory(prefix="evidence-build-") as temporary:
+778311	        staged = Path(temporary)
+778312	        staged_db = staged / "evidence.sqlite"
+778313	        if database.exists():
+778314	            shutil.copyfile(database, staged_db)
+778315	        now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+778316	        with EvidenceStore(staged_db) as store:
+778317	            store.record_run(projects, articles, matches, now, receipts)
+778318	            pointer = export_snapshot(store, staged, expected_project_ids=[p["id"] for p in projects])
+778319	        # Analytical artifacts belong to the same candidate transaction. Import
+778320	        # only on this path: health probes never load or create analytical data.
+778321	        from .analytics import export_analytics
+778322	        payload = json.loads((staged / pointer["json"]).read_text(encoding="utf-8"))
+778323	        analytics = export_analytics(payload, staged, expected_project_ids=[p["id"] for p in projects])
+778324	        # Check immutable conflicts before copying any candidate file.
+778325	        for path in staged.rglob("*"):
+778326	            if not path.is_file() or path.name in {"evidence.sqlite", "latest.json"}:
+778328	            destination = out / path.relative_to(staged)
+778329	            if destination.exists() and destination.read_bytes() != path.read_bytes():
+778330	                raise ValueError("Immutable snapshot conflict; manual review required")
+778331	            if path.is_file() and path.name != "latest.json":
+778332	                destination = out / path.relative_to(staged)
+778333	                destination.parent.mkdir(parents=True, exist_ok=True)
+778334	                shutil.copyfile(path, destination)
+778335	        (out / "latest.json").write_bytes((staged / "latest.json").read_bytes())
+778336	    report["pointer"] = pointer
+778337	    report["analytics"] = analytics
+778340	    parser.add_argument("--out", type=Path, default=Path("dist/news/evidence"))
+778341	    parser.add_argument("--sources", type=Path)
+778342	    parser.add_argument("--probe", action="store_true", help="Health metadata only, including disabled sources")
+778344	        report = collect(args.out, sources_path=args.sources, probe=args.probe)
+778345	        report["result"] = "probe_complete" if args.probe else "candidate_built"
+778348	        # Never dump paths, raw responses, credentials or articles into receipts.
+778349	        report = {"result": "blocked", "error_type": type(exc).__name__,
+778350	                  "manual_review_required": True, "probe_only": args.probe}
+778351	        print(f"BLOCKED ({type(exc).__name__}); manual review required; no publication")
+778354	    args.report.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
+778355	    print(json.dumps(report))
+778358	"""Build a deterministic rank sidecar without changing the existing headline file.
+778359	Run: python -m automation.news.build_news_priority --input dist/pipeline_headlines.json
+778360	     --output dist/pipeline_headlines.rank.json
+778361	Publish both files in one data-branch commit. A sidecar is display guidance, never
+778362	source permission, project binding or evidence verification.
+778363	from automation.news import news_algorithm as N
+778364	from automation.news import pipeline_headlines as P
+778365	SCHEMA = "globalgrid2050.news.headline-priority.v1"
+778367	HEADLINE_SCHEMA = json.loads((Path(__file__).parent / "schema/pipeline-headlines.v1.schema.json").read_text(encoding="utf-8"))
+778368	def _unique(pairs):
+778372	            raise ValueError("duplicate JSON property")
+778374	def _validate(value, rule, root=HEADLINE_SCHEMA):
+778375	    """Existing headline schema's small, dependency-free keyword subset."""
+778376	    supported = {"$schema", "$id", "$defs", "title", "description", "$ref", "anyOf", "const", "enum", "type",
+778377	                 "minLength", "maxLength", "pattern", "minimum", "maxItems", "items", "required",
+778378	                 "properties", "additionalProperties", "propertyNames"}
+778379	    if set(rule) - supported:
+778380	        raise ValueError("unsupported headline schema keyword")
+778381	    if "$ref" in rule:
+778382	        rule = root["$defs"][rule["$ref"].split("/")[-1]]
+778383	    if "anyOf" in rule:
+778384	        for option in rule["anyOf"]:
+778386	                _validate(value, option, root)
+778390	        raise ValueError("headline schema: no valid variant")
+778391	    kind = rule.get("type")
+778392	    types = {"object": dict, "array": list, "string": str, "integer": int, "null": type(None)}
+778393	    if kind and type(value) is not types[kind]:
+778394	        raise ValueError("headline schema: wrong type")
+778395	    if "const" in rule and value != rule["const"] or "enum" in rule and value not in rule["enum"]:
+778396	        raise ValueError("headline schema: invalid value")
+778398	        if not rule.get("minLength", 0) <= len(value) <= rule.get("maxLength", MAX_BYTES):
+778399	            raise ValueError("headline schema: text length")
+778400	        if "pattern" in rule and not re.search(rule["pattern"], value):
+778401	            raise ValueError("headline schema: text pattern")
+778402	    if type(value) is int and value < rule.get("minimum", value):
+778403	        raise ValueError("headline schema: below minimum")
+778405	        if len(value) > rule.get("maxItems", 200):
+778406	            raise ValueError("headline schema: too many items")
+778408	            _validate(child, rule.get("items", {}), root)
+778410	        if not set(rule.get("required", ())).issubset(value):
+778411	            raise ValueError("headline schema: missing property")
+778412	        props, extra = rule.get("properties", {}), rule.get("additionalProperties", True)
+778413	        for key, child in value.items():
+778414	            if "propertyNames" in rule:
+778415	                _validate(key, rule["propertyNames"], root)
+778417	                _validate(child, props[key], root)
+778418	            elif extra is False:
+778419	                raise ValueError("headline schema: unexpected property")
+778420	            elif isinstance(extra, dict):
+778421	                _validate(child, extra, root)
+778422	def build(raw: bytes) -> dict:
+778423	    if not isinstance(raw, bytes) or not 0 < len(raw) <= MAX_BYTES:
+778424	        raise ValueError("bounded nonempty headline bytes required")
+778425	    doc = json.loads(raw.decode("utf-8-sig"), object_pairs_hook=_unique,
+778426	                     parse_constant=lambda value: (_ for _ in ()).throw(ValueError("nonfinite JSON")))
+778427	    _validate(doc, HEADLINE_SCHEMA)
+778428	    if doc["counts"]["items"] != len(doc["items"]):
+778429	        raise ValueError("headline item count mismatch")
+778430	    as_of = N._clock(doc["generated_at"])
+778432	    for item in doc["items"]:
+778433	        if N._clock(item["first_seen"]) > as_of:
+778434	            raise ValueError("first collection occurs after document generation")
+778435	        if item["date"] is not None:
+778436	            N._clock(item["date"])
+778437	        link = N.public_url(item["link"])
+778438	        if link in by_link:
+778439	            raise ValueError("duplicate canonical headline URL")
+778440	        by_link[link] = item
+778441	    ranking = N.rank_headlines(doc["items"], as_of=as_of.isoformat())
+778443	    for ranked in ranking["items"]:
+778444	        original, editorial = by_link[ranked["link"]], ranked["editorial"]
+778445	        entries.append({
+778446	            "link": original["link"], "source": original["source"], "title": original["title"],
+778447	            "rank": editorial["rank"], "source_kind": editorial["source"]["kind"],
+778448	            "role": editorial["role"], "topics": editorial["topics"],
+778449	            "freshness_state": editorial["freshness"]["state"],
+778450	            "uk_context": editorial["components"]["uk_headline_context"] > 0,
+778451	            "score": editorial["selection_score"],
+778452	            "requires_primary_followup": editorial["requires_primary_followup"],
+778453	            "subscription_notice": editorial["source"]["access_notice"] is not None,
+778455	    return {"schema": SCHEMA, "input_sha256": hashlib.sha256(raw).hexdigest(),
+778456	            "input_bytes": len(raw), "input_generated_at": doc["generated_at"],
+778457	            "input_count": len(doc["items"]), "as_of": ranking["as_of"],
+778458	            "profile_id": N.PROFILE["id"], "profile_sha256": N.PROFILE_SHA256,
+778459	            "entries": entries}
+778460	def dumps(document):
+778461	    return json.dumps(document, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n"
+778462	    parser.add_argument("--input", type=Path, required=True)
+778464	    if args.input.resolve() == args.output.resolve():
+778465	        parser.error("sidecar must not overwrite the headline input")
+778466	    with args.input.open("rb") as source:
+778467	        raw = source.read(MAX_BYTES + 1)
+778468	    document = build(raw)
+778469	    result = dumps(document).encode("utf-8")
+778471	    args.output.write_bytes(result)
+778472	    print(f"priority sidecar: {len(document['entries'])} credited headlines; input bytes unchanged")
+778474	"""Export the existing bounded research ranking without changing official rows.
+778475	Offline only. Writes a new immutable review directory containing priority.json,
+778476	priority.csv and manifest.json. Integration must pin the manifest before use.
+778477	from automation.news import prospecting
+778478	SCHEMA = "globalgrid2050.prospecting.export.v1"
+778479	def encoded(value):
+778480	    return (json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2,
+778481	                       allow_nan=False) + "\n").encode("utf-8")
+778482	def sha(raw):
+778484	def remark(row):
+778485	    """Summarise supplied record fields, never create an event or delivery claim."""
+778486	    if row["record_type"] == "data_centre":
+778487	        return ("Research note: Wikidata source-indexed data-centre lead; "
+778488	                "operation, demand, connection and funding remain unassessed. "
+778489	                "Inspect the linked entity revision.")
+778490	    capacity = row["capacities"]["repd_installed_mw"]
+778491	    quantity = "capacity unknown" if capacity is None else f"{capacity:g} MW installed capacity"
+778492	    status = row["official_status"] or "status unknown"
+778493	    date = row["record_freshness"]["timestamp"] or "unknown update date"
+778494	    return (f"Research note: {row['id']} records {quantity}; {status}; record date {date}. "
+778495	            "Review the linked REPD record. This is not a new event or evidence of grid access.")
+778496	def csv_text(value):
+778497	    value = "" if value is None else str(value)
+778498	    # Spreadsheet interpretation must not execute source-provided formulas.
+778499	    return "'" + value if value.lstrip().startswith(("=", "+", "-", "@")) or value.startswith(("\t", "\r", "\n")) else value
+778500	def build_artifacts(*, as_of, limit=1000, evidence=None, datacentres=None, repo_root=None):
+778501	    triage = prospecting.build(as_of=as_of, limit=limit, evidence=evidence,
+778502	                               datacentres=datacentres, repo_root=repo_root)
+778503	    rows, pilot, official = prospecting.official(repo_root)
+778504	    ids = ["REPD-" + row["repd_ref"] for row, _ in rows]
+778505	    solar_count = sum(row["technology"] == "solar" for row, _ in rows)
+778506	    prospecting.require(len(ids) == len(set(ids)) == 7775 and solar_count == 3604,
+778507	                        "Official population invariant failed")
+778508	    prospecting.require(len(pilot) == len(set(pilot)) == 1000,
+778509	                        "Solar-1000 invariant failed")
+778510	    dc_rows, _ = prospecting.dc_input(datacentres, prospecting._moment(as_of))
+778511	    dc_ids = sorted(row["id"] for row in dc_rows)
+778512	    all_ids = set(ids + dc_ids)
+778513	    prospecting.require(all(row["id"] in all_ids for row in triage["records"]),
+778514	                        "Ranked record is absent from source inventory")
+778515	    for row in triage["records"]:
+778516	        row["research_note"] = remark(row)
+778517	    priority = encoded(triage)
+778518	    prospecting.require(len(priority) <= prospecting.MAX_BYTES,
+778519	                        "Priority output exceeds consumer size limit")
+778520	    fields = ["rank", "project_id", "record_type", "name", "research_priority_points",
+778521	              "official_status", "repd_installed_mw", "research_state", "momentum_state",
+778522	              "as_of", "source_record_date", "source_url", "source_sha256", "research_note"]
+778523	    writer = csv.writer(stream, lineterminator="\n")
+778524	    writer.writerow(fields)
+778525	        writer.writerow([csv_text(value) for value in (
+778526	            row["rank"], row["id"], row["record_type"], row["name"], row["score"],
+778527	            row["official_status"], row["capacities"].get("repd_installed_mw"),
+778528	            row["research_state"], row["heat"]["state"], triage["as_of"],
+778529	            row["record_freshness"]["timestamp"], row["source"].get("revision_url", row["source"]["url"]),
+778530	            row["source"]["sha256"], row["research_note"])])
+778531	    csv_bytes = stream.getvalue().encode("utf-8")
+778532	    inventory = {"official_ids": ids, "solar1000_ids": pilot, "data_centre_ids": dc_ids}
+778534	        "schema": SCHEMA, "as_of": as_of, "purpose": triage["purpose"],
+778535	        "publication_state": "REVIEW_ARTIFACT", "source_release": official["release"],
+778536	        "official_count": 7775, "solar_count": 3604, "solar1000_count": 1000,
+778537	        "ranked_count": triage["returned_count"], "input_count": triage["input_count"],
+778538	        "rank_scope": "Bounded research subset; not the numeric Solar-1000 selection",
+778539	        "unranked_state": "OUTSIDE_RANKED_SUBSET", "inventory": inventory,
+778540	        "inventory_sha256": sha(encoded(inventory)),
+778541	        "input_receipts": triage["input_receipts"],
+778542	        "profile_sha256": triage["profile_sha256"],
+778543	        "files": {name: {"sha256": sha(raw), "bytes": len(raw)} for name, raw in
+778544	                  (("priority.json", priority), ("priority.csv", csv_bytes))},
+778545	    manifest_bytes = encoded(manifest)
+778546	    prospecting.require(len(csv_bytes) <= prospecting.MAX_BYTES and len(manifest_bytes) <= 1024 * 1024,
+778547	                        "Export output exceeds consumer size limit")
+778548	    return {"priority.json": priority, "priority.csv": csv_bytes, "manifest.json": manifest_bytes}
+778549	def write_artifacts(directory, artifacts):
+778550	    """Validate/build first, then create a new directory; never replace a pointer."""
+778551	    destination = Path(directory).resolve()
+778552	    prospecting.require(not destination.is_relative_to(prospecting.queue.ROOT / "uk_renewables_pipeline"),
+778553	                        "Do not write into immutable release trees")
+778554	    prospecting.require(set(artifacts) == {"priority.json", "priority.csv", "manifest.json"},
+778555	                        "Unexpected export files")
+778556	    manifest = json.loads(artifacts["manifest.json"])
+778557	    for name in ("priority.json", "priority.csv"):
+778558	        prospecting.require(manifest["files"][name] == {"sha256": sha(artifacts[name]),
+778559	                            "bytes": len(artifacts[name])}, "Export digest mismatch")
+778560	    destination.mkdir(parents=True, exist_ok=False)
+778561	    # Manifest is the completion receipt. An interrupted write has no valid receipt.
+778562	    for name in ("priority.json", "priority.csv", "manifest.json"):
+778563	        with (destination / name).open("xb") as stream:
+778564	            stream.write(artifacts[name])
+778566	    parser.add_argument("--as-of", required=True)
+778567	    parser.add_argument("--out-dir", required=True, type=Path)
+778568	    parser.add_argument("--limit", type=int, default=1000)
+778569	    for name in ("evidence", "datacentres"):
+778570	        parser.add_argument("--" + name, type=Path)
+778571	        parser.add_argument("--" + name + "-sha256")
+778574	        path, digest = getattr(args, name), getattr(args, name + "_sha256")
+778575	        if bool(path) != bool(digest):
+778576	            parser.error("Optional inputs require both a file and exact SHA256")
+778577	        inputs[name] = (path, digest) if path else None
+778578	        artifacts = build_artifacts(as_of=args.as_of, limit=args.limit, **inputs)
+778579	        write_artifacts(args.out_dir, artifacts)
+778581	        parser.exit(2, f"Priority export failed: {exc}\n")
+778582	    print(f"Priority review export complete: {json.loads(artifacts['manifest.json'])['ranked_count']} ranked; 7775 official IDs retained")
+778584	"""Deterministic headline selection; no collection, project binding or publication.
+778585	Publisher credit survives ranking. Primary-source preference, topic, freshness,
+778586	reviewed original reporting and display diversity are separate explanations.
+778587	The caller supplies the clock and any source/originality review receipts.
+778589	SCHEMA = "globalgrid2050.news.editorial-priority.v1"
+778590	PROFILE = {
+778591	    "id": "uk-transition-global-context.v1",
+778592	    "topic": {"solar": 20, "storage": 20, "grid": 20, "datacentre": 20,
+778593	              "wind": 10, "renewables": 10},
+778594	    "authority": {"government": 18, "regulator": 18, "institution": 16,
+778595	                  "listed_parent": 14, "reporting": 8, "discovery": 2},
+778596	    "actionability": 8, "original_reporting": 6, "freshness": 10, "uk_context": 5,
+778597	    "freshness_half_life_days": 14, "current_days": 120,
+778598	    "publisher_diversity_penalty": 8,
+778599	PROFILE_SHA256 = hashlib.sha256(json.dumps(PROFILE, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+778600	_GOV_SUFFIXES = ("gov.uk", "gov.scot", "gov.wales", "gov")
+778601	_DISCOVERY = ("bloomberg.com", "ft.com")
+778602	_DNS_LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
+778603	_GENRE = re.compile(r"(?:^|/)(?:whitepapers?|webinars?|sponsored)(?:/|$)", re.I)
+778604	_UK_CONTEXT = re.compile(r"\b(?:UK|U\.K\.|Britain|British|England|Scotland|Scottish|(?<!New South )Wales|Welsh|Northern Ireland|London|Ofgem|NESO)\b", re.I)
+778605	def _under(host, suffix):
+778606	    return host == suffix or host.endswith("." + suffix)
+778607	def public_url(value):
+778608	    """Public DNS HTTPS article URL, without resolving or fetching anything."""
+778609	    if not isinstance(value, str) or any(ord(c) < 33 for c in value) or "\\" in value:
+778610	        raise ValueError("invalid article URL")
+778611	        raw = urlsplit(value)
+778612	        host = (raw.hostname or "").lower().rstrip(".")
+778613	        if raw.scheme not in ("http", "https") or raw.username or raw.password or raw.port not in (None, 80, 443):
+778614	            raise ValueError("unsafe article URL")
+778615	        labels = host.split(".")
+778616	        if len(labels) < 2 or any(not _DNS_LABEL.fullmatch(label) for label in labels):
+778617	            raise ValueError("public DNS hostname required")
+778618	        # Browser numeric aliases (127.1, 2130706433, 0x7f000001) are not DNS names.
+778619	        if labels[-1].isdigit() or labels[-1].startswith("0x") or host.endswith((".localhost", ".local", ".internal")):
+778620	            raise ValueError("numeric or local hostname")
+778621	            ipaddress.ip_address(host)
+778625	            raise ValueError("IP literal is not an article publisher")
+778626	        url = P.D.canonical_link(value)
+778627	        if not url:
+778628	            raise ValueError("invalid article URL")
+778629	        parsed = urlsplit(url)
+778630	        return parsed._replace(netloc=host).geturl()
+778632	        raise ValueError("invalid public article URL") from exc
+778633	def _clock(value):
+778634	        when = dt.datetime.fromisoformat(value.replace("Z", "+00:00"))
+778635	    except (AttributeError, TypeError, ValueError) as exc:
+778636	        raise ValueError("as_of must be an explicit timezone-aware timestamp") from exc
+778637	    if when.tzinfo is None:
+778638	        raise ValueError("as_of must be timezone-aware")
+778639	    return when.astimezone(dt.timezone.utc)
+778640	def _publication(raw, as_of):
+778641	    if raw is None or raw == "":
+778642	        return {"precision": "unknown", "age_days": None, "state": "unknown", "points": 0}
+778643	    if not isinstance(raw, str):
+778644	        raise ValueError("publication date must be text or null")
+778645	    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
+778646	            day = dt.date.fromisoformat(raw)
+778648	            raise ValueError("invalid publication day") from exc
+778649	        age, precision = (as_of.date() - day).days, "day"
+778650	        parsed = P.D.parse_date(raw)
+778651	        if not parsed:
+778652	            return {"precision": "unknown", "age_days": None, "state": "unknown", "points": 0}
+778653	        age, precision = (as_of - _clock(parsed)).total_seconds() / 86400, "second"
+778654	    if age < 0:
+778655	        return {"precision": precision, "age_days": round(age, 4), "state": "future", "points": 0}
+778656	    points = round(10 / (1 + age / PROFILE["freshness_half_life_days"]), 2)
+778657	    return {"precision": precision, "age_days": round(age, 4),
+778658	            "state": "current" if age <= PROFILE["current_days"] else "stale", "points": points}
+778659	def _policies(policies):
+778660	    by_host = {}
+778661	    for policy in policies:
+778662	        kind = policy.get("kind")
+778663	        if kind not in PROFILE["authority"]:
+778664	            raise ValueError("unknown source policy kind")
+778665	        if policy.get("access", "unknown") not in ("open", "paywalled", "unknown"):
+778666	            raise ValueError("unknown source access policy")
+778667	        public_url(policy.get("review_url"))
+778668	        hosts = policy.get("hosts")
+778669	        if not isinstance(hosts, list) or not hosts or not policy.get("source_id"):
+778670	            raise ValueError("source policy requires hosts and source_id")
+778671	        if kind == "listed_parent":
+778672	            if not policy.get("listed_parent_id"):
+778673	                raise ValueError("listed-parent identity required")
+778674	            public_url(policy.get("listing_evidence_url"))
+778675	        for host in hosts:
+778676	            if not isinstance(host, str) or host != urlsplit(public_url("https://" + host + "/")).hostname:
+778677	                raise ValueError("source policy hosts must be canonical DNS names")
+778678	            if host in by_host:
+778679	                raise ValueError("duplicate source policy host")
+778680	            by_host[host] = copy.deepcopy(policy)
+778681	    return by_host
+778682	def _originality(reviews):
+778684	    for review in reviews:
+778685	        url = public_url(review.get("article_url"))
+778686	        if review.get("kind") != "original_reporting" or review.get("reviewed") is not True:
+778687	            raise ValueError("original reporting requires an explicit reviewed receipt")
+778688	        if not isinstance(review.get("basis"), str) or not review["basis"].strip() or len(review["basis"]) > 500:
+778689	            raise ValueError("originality receipt needs a bounded review basis")
+778690	        public_url(review.get("review_url"))
+778691	        if url in by_url:
+778692	            raise ValueError("duplicate originality review")
+778693	        by_url[url] = copy.deepcopy(review)
+778694	    return by_url
+778695	def _source(host, policy):
+778696	    discovery = next((name for name in _DISCOVERY if _under(host, name)), None)
+778697	    if policy:
+778698	        kind = policy["kind"]
+778699	        group = policy.get("publisher_group") or policy["source_id"]
+778700	        basis = {"type": "supplied_source_policy", "review_url": policy["review_url"]}
+778701	        kind = "government" if any(_under(host, suffix) for suffix in _GOV_SUFFIXES) else "reporting"
+778702	        if discovery:
+778703	            kind = "discovery"
+778704	        group = discovery or ("bbc" if any(_under(host, s) for s in ("bbc.co.uk", "bbc.com", "bbci.co.uk")) else host.removeprefix("www."))
+778705	        basis = {"type": "hostname_classification", "review_url": None}
+778706	    if not isinstance(group, str) or not group.strip():
+778707	        raise ValueError("publisher display group must be nonempty text")
+778708	    access = policy.get("access", "unknown") if policy else "unknown"
+778709	    return {"kind": kind, "display_group": group, "basis": basis, "access": access,
+778710	            "access_notice": "May require a subscription; use accessible primary follow-up" if discovery or access == "paywalled" else None,
+778711	            "rights_approval": "not_assessed_by_ranking"}
+778712	def rank_headlines(items, *, as_of, source_policies=(), originality=(), diversity_penalty=8):
+778713	    """Return credited headline metadata and a deterministic, explainable order.
+778714	    The soft publisher penalty is for display variety, never source independence.
+778715	    An original-reporting receipt is a caller review assertion, not verification.
+778716	    No title numbers, possible matches or source brands establish project facts.
+778717	    now, policies, reviews = _clock(as_of), _policies(source_policies), _originality(originality)
+778718	    if type(diversity_penalty) not in (int, float) or not 0 <= diversity_penalty <= 30:
+778719	        raise ValueError("diversity_penalty must be between 0 and 30")
+778720	    if not isinstance(items, list) or len(items) > 10000:
+778721	        raise ValueError("bounded list of headline items required")
+778722	    candidates, urls = [], set()
+778724	        if not isinstance(item, dict) or not isinstance(item.get("title"), str) or not item["title"].strip():
+778725	            raise ValueError("headline title required")
+778726	        url = public_url(item.get("link"))
+778727	        if url in urls:
+778728	            raise ValueError("duplicate canonical URL: merge article records before ranking")
+778729	        urls.add(url)
+778730	        host = urlsplit(url).hostname
+778731	        title = P.D.clean_text(item["title"], 300)
+778732	        topics = [] if P.EXCLUDE.search(title) else P.topics_of(title)
+778733	        topic_points = max((PROFILE["topic"][t] for t in topics), default=0)
+778734	        category = P.category_of(title) if topics else None
+778735	        context_only = bool(_GENRE.search(urlsplit(url).path) or P.D.SPONSORED_RE.search(title) or P.BRANDED.search(title))
+778736	        source = _source(host, policies.get(host))
+778737	        freshness = _publication(item.get("date"), now)
+778738	        review = reviews.get(url)
+778739	        components = {
+778740	            "topic": topic_points,
+778741	            "primary_source_preference": PROFILE["authority"][source["kind"]],
+778742	            "headline_event_cue": PROFILE["actionability"] if category and not context_only else 0,
+778743	            "uk_headline_context": PROFILE["uk_context"] if _UK_CONTEXT.search(title) and topics else 0,
+778744	            "publication_freshness": freshness["points"],
+778745	            "reviewed_original_reporting": PROFILE["original_reporting"] if review else 0,
+778746	        # Irrelevant, promotional and future-dated items stay available as
+778747	        # context; display diversity never pushes them ahead of current topics.
+778748	        bucket = 0 if topics and not context_only and freshness["state"] not in ("stale", "future") else 1
+778749	        metadata = {field: copy.deepcopy(item.get(field)) for field in P.ITEM_FIELDS}
+778750	        metadata.update(title=title, link=url)
+778751	        metadata["editorial"] = {
+778752	            "role": "discovery_lead" if source["kind"] == "discovery" else "primary_context" if source["kind"] in ("government", "regulator", "institution", "listed_parent") else "attributed_reporting",
+778753	            "topics": topics, "category_hint": category, "source": source, "freshness": freshness,
+778754	            "originality_review": review, "components": components, "base_score": round(sum(components.values()), 2),
+778755	            "context_bucket": bucket, "project_fact_status": "NOT_ASSESSED", "verification_status": "NOT_VERIFIED",
+778756	            "requires_primary_followup": source["kind"] in ("discovery", "reporting"),
+778757	        candidates.append(metadata)
+778758	    selected, count = [], {}
+778759	    while candidates:
+778760	        def key(item):
+778761	            e = item["editorial"]
+778762	            penalty = diversity_penalty * count.get(e["source"]["display_group"], 0)
+778763	            return (e["context_bucket"], -(e["base_score"] - penalty), item["link"])
+778764	        picked = min(candidates, key=key)
+778765	        candidates.remove(picked)
+778766	        e, group = picked["editorial"], picked["editorial"]["source"]["display_group"]
+778767	        e["publisher_repetition_penalty"] = diversity_penalty * count.get(group, 0)
+778768	        e["selection_score"] = round(e["base_score"] - e["publisher_repetition_penalty"], 2)
+778769	        e["rank"] = len(selected) + 1
+778770	        count[group] = count.get(group, 0) + 1
+778771	        selected.append(picked)
+778772	    return {"schema": SCHEMA, "profile_id": PROFILE["id"], "profile_sha256": PROFILE_SHA256,
+778773	            "as_of": now.isoformat().replace("+00:00", "Z"), "diversity_penalty": diversity_penalty,
+778774	            "input_count": len(items), "items": selected,
+778775	            "scope": "Editorial research order only; no source-rights grant, project binding, financial figure extraction or VERIFIED claim."}
+778776	/** Bounded consumer for the V9.26 research-triage proposal. No acquisition. */
+778777	export const SCHEMA='globalgrid2050.prospecting.research-triage.v1';
+778778	export const MAX_BYTES=16*1024*1024;
+778779	const SHA=/^[a-f0-9]{64}$/;
+778780	const policy={paywalled_channels:'EXCLUDED',unknown_access:'DISABLED',corporate_enrichment:'LISTED_PARENT_GROUP_ONLY_WITH_IDENTITY_AND_MEMBERSHIP_EVIDENCE',sme_targeting:false,directors_officers_residential_addresses:false,government_hosting_implies_reuse_permission:false};
+778781	function require(value,message){if(!value)throw new Error(message);}
+778782	function text(value,label,nullable=false){require(nullable&&value===null||typeof value==='string'&&value.trim().length>0&&value.length<=1000,`${label}: bounded text required`);return value;}
+778783	function number(value,label){require(typeof value==='number'&&Number.isFinite(value)&&value>=0,`${label}: nonnegative finite number required`);return value;}
+778784	function integer(value,label){number(value,label);require(Number.isInteger(value),`${label}: integer required`);return value;}
+778785	function hash(value){require(SHA.test(value),'SHA256 required');return value;}
+778786	function moment(value){
+778787	  require(typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z$/.test(value),'UTC timestamp required');
+778788	  const parsed=new Date(value);require(Number.isFinite(+parsed)&&parsed.toISOString().slice(0,19)===value.slice(0,19),'Invalid calendar timestamp');return +parsed;
+778789	function past(value,asOf){const result=moment(value);require(result<=asOf,'Future source timestamp');return result;}
+778790	export function safeSourceURL(value){
+778791	  require(typeof value==='string'&&!/[\s\\\x00-\x1f]/.test(value),'Invalid source URL');
+778792	  const url=new URL(value);const host=url.hostname.toLowerCase();
+778793	  require(url.protocol==='https:'&&!url.username&&!url.password&&!url.port&&host.includes('.')&&!host.startsWith('[')&&!/^\d+(?:\.\d+){3}$/.test(host)&&!/(?:^|\.)(?:localhost|local|internal|test)$/.test(host),'Public HTTPS source required');return url.href;
+778794	function freshness(value,asOf,windowDays,calendar=false){
+778795	  require(value&&typeof value==='object','Freshness required');text(value.basis,'Freshness basis');
+778796	  if(value.state==='UNKNOWN'){require(value.timestamp===null&&value.age_days===null,'Unknown freshness must retain nulls');return {...value};}
+778797	  require(['STALE','WITHIN_WINDOW'].includes(value.state),'Unsupported freshness state');
+778798	  let when;
+778799	  if(calendar){require(/^\d{4}-\d{2}-\d{2}$/.test(value.timestamp),'Official calendar date required');when=moment(`${value.timestamp}T00:00:00Z`);}
+778800	  else when=past(value.timestamp,asOf);
+778801	  const reference=calendar?Math.floor(asOf/86400000)*86400000:asOf;
+778802	  const age=(reference-when)/86400000;require(age>=0,'Future record date');number(value.age_days,'Freshness age');
+778803	  require(Math.abs(value.age_days-age)<0.00011,'Freshness age disagrees with source clock');
+778804	  require(value.state===(age>windowDays?'STALE':'WITHIN_WINDOW'),'Freshness state disagrees with source clock');return {...value};
+778805	function access(value,asOf){require(value?.state==='OPEN','Paywalled or unknown access excluded');safeSourceURL(value.review_url);past(value.checked_at,asOf);}
+778806	function evidence(article,asOf){
+778807	  require(article.state==='PROVISIONAL','Machine evidence must remain provisional');
+778808	  text(article.id,'Article ID');text(article.title,'Headline');require(article.title.length<=300,'Headline display limit');text(article.publisher,'Publisher');safeSourceURL(article.url);
+778809	  const published=past(article.pub_date,asOf),first=past(article.first_seen,asOf),last=past(article.last_seen,asOf);require(published<=last&&first<=last,'Article clocks disagree');
+778810	  require(['exact_name','repd_id'].includes(article.match_method),'Unsupported match');
+778811	  const source=article.source;require(source&&typeof source==='object','Article receipt missing');text(source.id,'Source ID');safeSourceURL(source.url);safeSourceURL(source.rights_review_url);hash(source.response_sha256);past(source.fetched_at,asOf);access(source.channel_access,asOf);access(article.access,asOf);
+778812	  return {title:article.title,url:article.url,publisher:article.publisher,pub_date:article.pub_date,state:'PROVISIONAL',freshness:freshness(article.freshness,asOf,30),retrieval_freshness:freshness(article.retrieval_freshness,asOf,14)};
+778813	function candidate(row,index,asOf){
+778814	  require(row&&typeof row==='object','Record required');
+778815	  const official=row.record_type==='renewable_project';require(official||row.record_type==='data_centre','Unsupported record type');
+778816	  require((official?/^REPD-[1-9]\d*$/:/^DC-WD-Q[1-9]\d*$/).test(row.id),'Identity/type mismatch');
+778817	  require(row.rank===index+1,'Ranks must be consecutive');text(row.name,'Name',true);text(row.country,'Country',true);text(row.technology,'Technology');
+778818	  require(row.record_state===(official?'OFFICIAL':'PROVISIONAL'),'Unsupported record state');require(['UNKNOWN','PROVISIONAL'].includes(row.research_state),'Unsupported research state');text(row.official_status,'Official status',true);
+778819	  require(row.event_at===null,'Current adapter cannot assert an event');text(row.research_note,'Research note');require(row.research_note.startsWith('Research note:'),'Generated note must be labelled');
+778820	  const corporate=row.corporate_eligibility;
+778821	  require(corporate?.eligible===false&&corporate.state==='UNKNOWN'&&corporate.listed_parent===null&&Array.isArray(corporate.identity_evidence)&&corporate.identity_evidence.length===0&&Array.isArray(corporate.membership_evidence)&&corporate.membership_evidence.length===0,'Listed-parent eligibility not established');text(corporate.reason,'Corporate policy reason');
+778822	  const heat=row.heat;require(heat?.state==='UNKNOWN'&&heat.momentum_status==='UNKNOWN'&&heat.score===0&&heat.independent_signal_count===null&&Array.isArray(heat.components)&&heat.components.length===0,'Independent momentum not established');text(heat.reason,'Momentum reason');
+778823	  const capacities=row.capacities;require(capacities&&typeof capacities==='object','Typed capacity required');
+778824	  const keys=official?['repd_installed_mw']:['grid_connection_mw','it_load_mw','site_demand_mw'];require(JSON.stringify(Object.keys(capacities).sort())===JSON.stringify(keys),'Capacity basis mismatch');
+778825	  for(const value of Object.values(capacities)){if(value!==null)number(value,'Capacity');if(!official)require(value===null,'DC figures need reviewed successor adapter');}
+778826	  const source=row.source;require(source&&typeof source==='object','Source required');safeSourceURL(source.url);hash(source.sha256);
+778827	  if(!official){safeSourceURL(source.revision_url);require(source.publisher==='Wikidata'&&source.licence==='CC0-1.0','Unsupported DC attribution');past(source.retrieved_at,asOf);}
+778828	  const allowed=official?['capacity','technology','national_route','evidence_tier','research_follow_up']:['data_centre_topic'];
+778829	  require(Array.isArray(row.reasons)&&row.reasons.length===allowed.length,'Named reasons required');
+778830	  const reasons=row.reasons.map((reason,i)=>{require(reason.name===allowed[i],'Unexpected score component');number(reason.points,'Points');number(reason.max,'Maximum');require(reason.points<=reason.max,'Points exceed component maximum');text(reason.basis,'Score reason');return {name:reason.name,points:reason.points,max:reason.max,basis:reason.basis};});
+778831	  number(row.score,'Score');require(Math.abs(row.score-Math.round(reasons.reduce((sum,r)=>sum+r.points,0)*100)/100)<0.00001,'Score does not equal named components');
+778832	  require(Array.isArray(row.evidence)&&row.evidence.length<=100,'Evidence exceeds bounded display');const articles=row.evidence.map(article=>evidence(article,asOf));require(new Set(articles.map(a=>a.url)).size===articles.length,'Duplicate article');require(row.research_state===(articles.length?'PROVISIONAL':'UNKNOWN'),'Research state/count disagree');
+778833	  if(row.last_researched_at!==null)past(row.last_researched_at,asOf);
+778834	  return {id:row.id,rank:row.rank,name:row.name,country:row.country,record_type:row.record_type,technology:row.technology,record_state:row.record_state,official_status:row.official_status,score:row.score,reasons,capacities:{...capacities},source:{url:source.revision_url||source.url,sha256:source.sha256},record_freshness:freshness(row.record_freshness,asOf,90,official),retrieval_freshness:row.retrieval_freshness?freshness(row.retrieval_freshness,asOf,14):null,evidence:articles,heat:{...heat},research_note:row.research_note,corporate_reason:corporate.reason};
+778835	export function validateTriage(payload){
+778836	  require(payload?.schema===SCHEMA,'Unsupported research-priority schema');const asOf=moment(payload.as_of);
+778837	  require(payload.source_policy&&Object.entries(policy).every(([key,value])=>payload.source_policy[key]===value),'Source policy is not eligible');
+778838	  hash(payload.profile_sha256);require(payload.profile?.id==='research-triage.v1','Unsupported scoring profile');text(payload.purpose,'Purpose');text(payload.coverage,'Coverage');
+778839	  integer(payload.input_count,'Input count');integer(payload.eligible_count,'Eligible count');integer(payload.returned_count,'Returned count');integer(payload.limit,'Limit');
+778840	  require(payload.limit>=1&&payload.limit<=1000&&payload.input_count>=7775&&payload.eligible_count<=payload.input_count&&payload.returned_count<=payload.eligible_count&&payload.returned_count<=payload.limit,'Counts inconsistent');
+778841	  require([null,'renewable_project','data_centre'].includes(payload.record_type_filter),'Unsupported type filter');
+778842	  const receipts=payload.input_receipts;require(Array.isArray(receipts)&&receipts.length===3&&new Set(receipts.map(r=>r.id)).size===3,'Input receipts required');
+778843	  const official=receipts.find(r=>r.id==='official_repd');require(official?.state==='OFFICIAL'&&official.population===7775&&official.solar1000_count===1000&&official.release==='202611161244','Official population changed');hash(official.manifest_sha256);hash(official.solar1000_manifest_sha256);hash(official.source_workbook_sha256);
+778844	  for(const id of ['news_evidence','global_data_centres']){const r=receipts.find(r=>r.id===id);require(r&&['UNKNOWN','PROVISIONAL'].includes(r.state),'Invalid optional input receipt');if(r.state==='PROVISIONAL'){hash(r.sha256);freshness(r.freshness,asOf,14);}else text(r.reason,'Missing input reason');}
+778845	  require(Array.isArray(payload.unsupported_interfaces)&&payload.unsupported_interfaces.every(i=>i.enabled===false),'Unsupported source enabled');
+778846	  require(Array.isArray(payload.records)&&payload.records.length===payload.returned_count,'Record count differs');const records=payload.records.map((row,index)=>candidate(row,index,asOf));require(new Set(records.map(r=>r.id)).size===records.length,'Duplicate record identity');
+778847	  const news=receipts.find(r=>r.id==='news_evidence'),dc=receipts.find(r=>r.id==='global_data_centres');
+778848	  if(news.state==='PROVISIONAL'){require(news.rights_state==='ACCEPTED_RECEIPTS_SUPPLIED','Accepted news receipts required');const generated=past(news.generated_at,asOf);require(past(news.source_run_at,asOf)<=generated&&news.freshness.timestamp===news.source_run_at,'News receipt clocks disagree');}
+778849	  records.forEach((row,i)=>{require(!payload.record_type_filter||row.record_type===payload.record_type_filter,'Filter/type mismatch');require(!row.evidence.length||news.state==='PROVISIONAL','Article lacks admitted news input');require(row.record_type!=='data_centre'||dc.state==='PROVISIONAL','DC record lacks admitted input');if(i){const prior=records[i-1];require(prior.score>row.score||prior.score===row.score&&prior.id<row.id,'Ranking order disagrees with score and ID');}});
+778850	  return {as_of:payload.as_of,purpose:payload.purpose,coverage:payload.coverage,input_count:payload.input_count,eligible_count:payload.eligible_count,returned_count:payload.returned_count,record_type_filter:payload.record_type_filter,profile_sha256:payload.profile_sha256,records};
+778851	export async function parseArtifact(bytes,expectedSHA256){
+778852	  require(bytes.byteLength<=MAX_BYTES,'Priority artifact exceeds size limit');
+778853	  if(expectedSHA256){hash(expectedSHA256);const actual=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');require(actual===expectedSHA256,'Priority artifact hash mismatch');}
+778854	  return validateTriage(JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)));
+778855	export function selectRecords(model,{recordType='renewable_project',query='',sort='priority'}={}){
+778856	  const needle=query.trim().toLocaleLowerCase('en-GB');const rows=model.records.filter(row=>row.record_type===recordType&&[row.id,row.name||'',row.country||'',row.technology].join(' ').toLocaleLowerCase('en-GB').includes(needle));
+778857	  return sort==='name'?rows.sort((a,b)=>(a.name||a.id).localeCompare(b.name||b.id,'en-GB')||a.id.localeCompare(b.id)):rows.sort((a,b)=>a.rank-b.rank);
+778858	/** Source-bound successor adapter. Never replaces official table rows or exports. */
+778859	import {parseArtifact,MAX_BYTES} from './adapter.mjs';
+778860	import {attachPriority} from './view.mjs';
+778861	async function digest(bytes){return Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');}
+778862	function ids(values,pattern,count){require(Array.isArray(values)&&values.length===count&&new Set(values).size===count&&values.every(v=>typeof v==='string'&&pattern.test(v)),'Invalid source identity inventory');return values;}
+778863	export async function parsePriorityBundle(priorityBytes,manifestBytes,expectedManifestSHA256){
+778864	  require(SHA.test(expectedManifestSHA256),'A pinned manifest SHA256 is required');
+778865	  require(manifestBytes.byteLength<=1024*1024&&priorityBytes.byteLength<=MAX_BYTES,'Priority bundle size exceeded');
+778866	  require(await digest(manifestBytes)===expectedManifestSHA256,'Manifest digest mismatch');
+778867	  const manifest=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(manifestBytes));
+778868	  require(manifest.schema==='globalgrid2050.prospecting.export.v1'&&manifest.source_release==='202611161244'&&manifest.publication_state==='REVIEW_ARTIFACT','Unsupported priority manifest');
+778869	  require(manifest.official_count===7775&&manifest.solar_count===3604&&manifest.solar1000_count===1000,'Baseline counts changed');
+778870	  require(manifest.unranked_state==='OUTSIDE_RANKED_SUBSET'&&typeof manifest.rank_scope==='string','Rank scope missing');
+778871	  const inventory=manifest.inventory;
+778872	  const official=ids(inventory?.official_ids,/^REPD-[1-9]\d*$/,7775);
+778873	  const pilot=ids(inventory?.solar1000_ids,/^[1-9]\d*$/,1000);
+778874	  require(pilot.every((v,i)=>official.includes('REPD-'+v)&&(!i||Number(v)>Number(pilot[i-1]))),'Solar-1000 order or membership changed');
+778875	  const dc=ids(inventory?.data_centre_ids,/^DC-WD-Q[1-9]\d*$/,inventory?.data_centre_ids?.length);
+778876	  require(dc.length<=1000&&manifest.input_count===official.length+dc.length,'Input population mismatch');
+778877	  require(Object.keys(inventory).sort().join(',')==='data_centre_ids,official_ids,solar1000_ids','Unexpected inventory fields');
+778878	  const canonicalInventory=JSON.stringify({data_centre_ids:dc,official_ids:official,solar1000_ids:pilot},null,2)+'\n';
+778879	  require(await digest(new TextEncoder().encode(canonicalInventory))===manifest.inventory_sha256,'Inventory digest mismatch');
+778880	  require(manifest.files&&Object.keys(manifest.files).sort().join(',')==='priority.csv,priority.json','Unexpected bundle files');
+778881	  const record=manifest.files['priority.json'];
+778882	  require(record.bytes===priorityBytes.byteLength&&SHA.test(record.sha256),'Priority file receipt mismatch');
+778883	  const model=await parseArtifact(priorityBytes,record.sha256);
+778884	  require(model.as_of===manifest.as_of&&model.returned_count===manifest.ranked_count&&model.input_count===manifest.input_count&&model.profile_sha256===manifest.profile_sha256,'Priority model differs from manifest');
+778885	  const raw=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(priorityBytes));
+778886	  require(JSON.stringify(raw.input_receipts)===JSON.stringify(manifest.input_receipts),'Source receipt differs from manifest');
+778887	  const members=new Set([...official,...dc]);
+778888	  require(model.records.every(r=>members.has(r.id)),'Ranked identity not in source inventory');
+778889	  return {model,manifest,members,byId:new Map(model.records.map(row=>[row.id,row]))};
+778890	export function attachProjectPriority(host,projectId,bundle){
+778891	  const row=host.closest('[id^="repd-"], [data-project-id]');
+778892	  const identity=row?.id?.startsWith('repd-')?'REPD-'+row.id.slice(5):row?.dataset.projectId;
+778893	  require(identity===projectId,'Priority host identity mismatch');
+778894	  // Remove only this adapter's prior rendering. Existing project facts/actions stay intact.
+778895	  host.querySelector(':scope > [data-priority-id]')?.remove();
+778896	  host.querySelector(':scope > [data-priority-state]')?.remove();
+778897	  if(!bundle){const label=document.createElement('span');label.dataset.priorityState='UNAVAILABLE';label.textContent='Research priority unavailable';host.append(label);return;}
+778898	  require(bundle.members.has(projectId),'Project absent from bound source inventory');
+778899	  const priority=bundle.byId.get(projectId);
+778900	  if(priority){attachPriority(host,priority,bundle.model.as_of);return;}
+778901	  const label=document.createElement('span');label.dataset.priorityState='OUTSIDE_RANKED_SUBSET';label.textContent='Outside this research-priority subset';host.append(label);
+778904	<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>V9.26 research priority · local review prototype</title><link rel="stylesheet" href="prototype.css"></head>
+778907	  <header><p class="eyebrow">GLOBALGRID2050 · V9.26 LOCAL PROTOTYPE</p><h1>Project research priorities</h1><p>A review of the proposed inline priority display. No production release or live research feed is changed.</p><nav aria-label="Page"><a href="#news">01 News</a><a href="#pipeline">02 Pipeline</a></nav></header>
+778908	  <section id="news" aria-labelledby="news-title"><p class="eyebrow">01 / CONTEXT</p><h2 id="news-title">News</h2><p>The existing News section remains first in the full dashboard. This isolated prototype does not acquire, repeat or rank live headlines.</p></section>
+778909	  <section id="pipeline" aria-labelledby="pipeline-title">
+778910	    <p class="eyebrow">02 / PROJECTS AND INFRASTRUCTURE</p><h2 id="pipeline-title">Pipeline</h2>
+778911	    <p>Research priority belongs within project details. Canonical project rows, the immutable Solar-1000 selection, maps and official CSV exports remain independent.</p>
+778912	    <label class="upload">Load a generated review artifact <input id="artifact" type="file" accept="application/json,.json"></label>
+778913	    <p id="artifactStatus" role="status">No review artifact loaded. Rankings and momentum are unavailable.</p>
+778914	    <div role="tablist" aria-label="Project datasets"><button id="ukTab" type="button" role="tab" aria-selected="true" aria-controls="reviewRows" data-type="renewable_project">UK projects</button><button id="dcTab" type="button" role="tab" aria-selected="false" aria-controls="reviewRows" tabindex="-1" data-type="data_centre">Global data centres</button></div>
+778915	    <div class="toolbar"><label>Find a project <input id="search" type="search" placeholder="Name, ID, country or technology"></label><label>Order review subset <select id="sort"><option value="priority">Research priority</option><option value="name">Project name</option></select></label></div>
+778916	    <p id="reviewCount">0 records loaded</p><div id="reviewRows" role="tabpanel" aria-labelledby="ukTab"></div>
+778919	<script type="module" src="prototype.mjs"></script>
+778921	import {parseArtifact,selectRecords,MAX_BYTES} from './adapter.mjs';
+778922	import {renderReviewRows} from './view.mjs';
+778923	let model=null,recordType='renewable_project';
+778924	const rows=document.querySelector('#reviewRows'),status=document.querySelector('#artifactStatus'),search=document.querySelector('#search'),sort=document.querySelector('#sort');
+778925	function render(){const selected=model?selectRecords(model,{recordType,query:search.value,sort:sort.value}):[];renderReviewRows(rows,selected,model?.as_of);document.querySelector('#reviewCount').textContent=model?`${selected.length} shown from ${model.returned_count} ranked review records; ${model.eligible_count} eligible input records. This subset is not Solar-1000.`:'0 records loaded';}
+778926	document.querySelector('#artifact').addEventListener('change',async event=>{
+778927	  const file=event.target.files[0];if(!file)return;
+778928	  try{if(file.size>MAX_BYTES)throw new Error('Priority artifact exceeds size limit');const next=await parseArtifact(await file.arrayBuffer());model=next;status.textContent=`Review artifact validated as of ${next.as_of}. ${next.coverage} Local file bytes are not a publication or source-authenticity approval.`;}
+778929	  catch{model=null;status.textContent='Review artifact unavailable: contract validation failed. No rankings or source claims displayed.';}
+778931	const tabs=Array.from(document.querySelectorAll('[role=tab]'));
+778932	function activate(tab){recordType=tab.dataset.type;for(const button of tabs){button.setAttribute('aria-selected',String(button===tab));button.tabIndex=button===tab?0:-1;}rows.setAttribute('aria-labelledby',tab.id);render();}
+778933	tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>activate(tab));tab.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const next=tabs[event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:tabs.length-1))%tabs.length];activate(next);next.focus();});});
+778934	search.addEventListener('input',render);sort.addEventListener('change',render);render();
+778935	import test from 'node:test';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+778936	import {fixture,article} from './fixture.mjs';import {validateTriage,parseArtifact,selectRecords,safeSourceURL} from '../adapter.mjs';
+778937	test('keeps canonical source identities, distinct capacity bases, rank reasons and unknown momentum',()=>{const model=validateTriage(fixture());assert.equal(model.records[0].capacities.repd_installed_mw,50);assert.equal(model.records[1].capacities.it_load_mw,null);assert.equal(model.records[1].heat.independent_signal_count,null);assert.equal(selectRecords(model,{query:'1018'})[0].id,'REPD-1018');assert.equal(selectRecords(model,{recordType:'data_centre'})[0].id,'DC-WD-Q123');});
+778938	const invalid={
+778939	  paywall:p=>p.source_policy.paywalled_channels='SECONDARY',
+778940	  sme:p=>p.source_policy.sme_targeting=true,
+778941	  personal:p=>p.source_policy.directors_officers_residential_addresses=true,
+778942	  population:p=>p.input_receipts[0].population=7774,
+778943	  seed:p=>p.input_receipts[0].solar1000_count=999,
+778944	  score:p=>p.records[0].score=99,
+778945	  verification:p=>p.records[1].record_state='VERIFIED',
+778946	  momentum:p=>p.records[0].heat.state='HOT',
+778947	  financeEvent:p=>p.records[0].event_at=p.as_of,
+778948	  groupInference:p=>p.records[0].corporate_eligibility.eligible=true,
+778949	  capacity:p=>p.records[1].capacities.it_load_mw=0,
+778950	  negativeMW:p=>p.records[0].capacities.repd_installed_mw=-1,
+778951	  wrongID:p=>p.records[0].id='DC-WD-Q123',
+778952	  rank:p=>p.records[0].rank=2,
+778953	  count:p=>p.returned_count=1,
+778954	  source:p=>p.records[0].source.url='javascript:alert(1)',
+778955	  future:p=>p.records[1].source.retrieved_at='2027-01-01T00:00:00Z',
+778956	  falseFresh:p=>p.records[1].retrieval_freshness.age_days=10,
+778957	  impossibleDate:p=>p.as_of='2026-02-30T00:00:00Z',
+778958	  reason:p=>p.records[0].reasons[0].name='funding',
+778959	  enabledSource:p=>p.unsupported_interfaces[0].enabled=true,
+778961	for(const [name,mutate] of Object.entries(invalid))test(`rejects ${name}`,()=>{const input=fixture();mutate(input);assert.throws(()=>validateTriage(input));});
+778962	test('stale record clock stays stale and retrieval date cannot overwrite it',()=>{const input=fixture();input.records[0].record_freshness={state:'STALE',basis:'official record update date',timestamp:'2026-01-01',age_days:319};assert.equal(validateTriage(input).records[0].record_freshness.state,'STALE');});
+778963	test('source texts remain literal and unused personal fields are never projected',()=>{const input=fixture();input.records[0].officer_address='DO NOT PROJECT';const model=validateTriage(input);assert.match(model.records[0].name,/<img/);assert.equal(JSON.stringify(model).includes('DO NOT PROJECT'),false);});
+778964	test('article requires an admitted input, provisional state and open channel plus per-article access',()=>{const input=fixture();input.records[0].evidence=[article()];input.records[0].research_state='PROVISIONAL';assert.throws(()=>validateTriage(input));Object.assign(input.input_receipts[1],{state:'PROVISIONAL',sha256:'b'.repeat(64),rights_state:'ACCEPTED_RECEIPTS_SUPPLIED',generated_at:input.as_of,source_run_at:input.as_of,freshness:{state:'WITHIN_WINDOW',basis:'source run time',timestamp:input.as_of,age_days:0}});assert.equal(validateTriage(input).records[0].evidence.length,1);input.records[0].evidence[0].access.state='PAYWALLED';assert.throws(()=>validateTriage(input));});
+778965	test('hash mismatch fails before display and invalid UTF8 is rejected',async()=>{const bytes=new TextEncoder().encode(JSON.stringify(fixture()));const sha=createHash('sha256').update(bytes).digest('hex');assert.equal((await parseArtifact(bytes,sha)).returned_count,2);await assert.rejects(parseArtifact(bytes,'0'.repeat(64)));await assert.rejects(parseArtifact(new Uint8Array([255])));});
+778966	for(const url of ['https://127.0.0.1/x','https://host.internal/x','https://user:pass@example.org/x','https://example.org:444/x','http://example.org/x'])test(`unsafe URL ${url}`,()=>assert.throws(()=>safeSourceURL(url)));
+778967	// Isolated test server and installed Chrome; does not alter the release harness.
+778968	import {createServer} from 'node:http';import {readFile,mkdir} from 'node:fs/promises';import {fileURLToPath} from 'node:url';import {resolve,sep,extname} from 'node:path';import assert from 'node:assert/strict';
+778969	import {chromium} from '../../acquisition/browser/node_modules/playwright/index.mjs';
+778970	import {fixture} from './fixture.mjs';
+778971	import {parseArtifact} from '../adapter.mjs';
+778972	const root=fileURLToPath(new URL('../',import.meta.url));
+778973	const output=resolve(process.env.PRIORITY_SCREENSHOTS||'tmp/prospecting-ui-browser');await mkdir(output,{recursive:true});
+778974	const mime={'.html':'text/html; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8'};
+778975	const server=createServer(async(req,res)=>{try{const path=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));if(!path.startsWith(root.endsWith(sep)?root:root+sep))throw new Error('path');const bytes=await readFile(path);res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream'});res.end(bytes);}catch{res.writeHead(404);res.end('Not found');}});
+778976	await new Promise(done=>server.listen(0,'127.0.0.1',done));let browser;let passed=0;
+778979	  for(const width of [375,390,393,768,1440]){
+778980	    const page=await browser.newPage({viewport:{width,height:900}});const errors=[];page.on('pageerror',error=>errors.push(error.message));
+778981	    await page.goto(`http://127.0.0.1:${server.address().port}/index.html`);
+778982	    assert.equal(await page.locator('[data-priority-id]').count(),0);
+778983	    assert.equal(await page.evaluate(()=>Boolean(document.querySelector('#news').compareDocumentPosition(document.querySelector('#pipeline'))&Node.DOCUMENT_POSITION_FOLLOWING)),true);
+778984	    await page.locator('#artifact').setInputFiles({name:'SYNTHETIC-TEST-ONLY.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(fixture()))});
+778985	    await page.locator('[data-priority-id="REPD-1018"]').waitFor();
+778986	    await page.locator('[data-priority-id] > summary').click();
+778987	    assert.match(await page.locator('#reviewRows').innerText(),/Momentum: unknown/);
+778988	    assert.match(await page.locator('#reviewRows').innerText(),/Current financing: not assessed/);
+778989	    assert.equal(await page.locator('#reviewRows img').count(),0);
+778990	    assert.match(await page.locator('#reviewRows').innerText(),/<img src=x/);
+778991	    assert.equal(await page.locator('#reviewRows a').getAttribute('rel'),'noopener noreferrer');
+778992	    assert.equal(await page.evaluate(async()=>{const {attachPriority}=await import('./view.mjs');const {validateTriage}=await import('./adapter.mjs');const {fixture}=await import('./tests/fixture.mjs');const model=validateTriage(fixture());const host=document.createElement('div');attachPriority(host,model.records[0],model.as_of);attachPriority(host,model.records[0],model.as_of);return host.querySelectorAll('[data-priority-id]').length;}),1);
+778993	    await page.locator('#search').fill('no such site');assert.equal(await page.locator('[data-record-id]').count(),0);await page.locator('#search').fill('1018');assert.equal(await page.locator('[data-record-id]').count(),1);await page.locator('#search').fill('');
+778994	    await page.locator('#dcTab').click();await page.locator('[data-priority-id="DC-WD-Q123"] > summary').click();
+778995	    assert.match(await page.locator('#reviewRows').innerText(),/IT load: unknown/);assert.match(await page.locator('#reviewRows').innerText(),/Grid connection: unknown/);
+778996	    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+778997	    await page.locator('#pipeline').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:resolve(output,`priority-${width}.png`),fullPage:true});
+778998	    await page.locator('#dcTab').press('ArrowLeft');assert.equal(await page.locator('#ukTab').getAttribute('aria-selected'),'true');
+778999	    if(process.env.PRIORITY_REVIEW_ARTIFACT){
+779000	      const bytes=await readFile(process.env.PRIORITY_REVIEW_ARTIFACT),actual=await parseArtifact(bytes);
+779001	      await page.locator('#artifact').setInputFiles({name:'generated-local-review.json',mimeType:'application/json',buffer:bytes});
+779002	      await page.waitForFunction(()=>document.querySelector('#artifactStatus').textContent.includes('Review artifact validated'));
+779003	      await page.locator(actual.record_type_filter==='data_centre'?'#dcTab':'#ukTab').click();
+779004	      assert.equal(await page.locator('[data-record-id]').count(),actual.records.filter(r=>r.record_type===(actual.record_type_filter||'renewable_project')).length);
+779005	      await page.locator('[data-priority-id] > summary').first().click();await page.locator('#pipeline').evaluate(el=>el.scrollIntoView({block:'start'}));await page.screenshot({path:resolve(output,`producer-review-${width}.png`)});
+779006	    const broken=fixture();broken.source_policy.paywalled_channels='ALLOWED';await page.locator('#artifact').setInputFiles({name:'INVALID-TEST-ONLY.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(broken))});
+779007	    await page.waitForFunction(()=>document.querySelector('#artifactStatus').textContent.includes('validation failed'));assert.equal(await page.locator('[data-priority-id]').count(),0);assert.deepEqual(errors,[]);passed++;await page.close();
+779008	  console.log(JSON.stringify({browser:'installed Google Chrome',version:browser.version(),viewport_checks:passed,widths:[375,390,393,768,1440],fixtures:'synthetic tests only',additional_producer_artifact:Boolean(process.env.PRIORITY_REVIEW_ARTIFACT),android_device:false}));
+779009	}finally{await browser?.close();await new Promise(done=>server.close(done));}
+779011	import {parsePriorityBundle} from '../bundle.mjs';
+779012	const result=JSON.parse(execFileSync('python',['-c',"import json; from automation.news.build_prospecting_priority import build_artifacts; print(json.dumps({k:v.decode() for k,v in build_artifacts(as_of='2026-11-16T17:40:00Z').items()}))"],{cwd:root,encoding:'utf8',maxBuffer:24*1024*1024}));
+779013	const bytes=value=>new TextEncoder().encode(value);
+779014	const priority=bytes(result['priority.json']),manifest=bytes(result['manifest.json']);
+779015	const sha=value=>createHash('sha256').update(value).digest('hex');
+779016	test('actual producer bundle preserves all official and pilot identities',async()=>{
+779017	  const b=await parsePriorityBundle(priority,manifest,sha(manifest));
+779018	  assert.equal(b.members.size,7775);assert.equal(b.byId.size,1000);assert.equal(b.manifest.inventory.solar1000_ids.length,1000);
+779019	  assert.equal(b.model.records.every(r=>r.heat.state==='UNKNOWN'&&r.evidence.length===0),true);
+779020	test('requires a trusted manifest digest',async()=>{await assert.rejects(parsePriorityBundle(priority,manifest),/pinned/);});
+779021	test('altered manifest rejected',async()=>{await assert.rejects(parsePriorityBundle(priority,bytes(result['manifest.json']+' '),sha(manifest)),/digest/);});
+779022	test('altered priority rejected',async()=>{const altered=priority.slice();altered[4]^=1;await assert.rejects(parsePriorityBundle(altered,manifest,sha(manifest)),/hash/);});
+779023	for(const [name,mutate,pattern] of [
+779024	  ['duplicate inventory',m=>{m.inventory.official_ids[1]=m.inventory.official_ids[0];},/inventory/],
+779025	  ['wrong pilot order',m=>m.inventory.solar1000_ids.reverse(),/order/],
+779026	  ['wrong rank count',m=>m.ranked_count++,/differs/],
+779027	  ['wrong source receipt',m=>m.input_receipts[0].manifest_sha256='0'.repeat(64),/receipt/],
+779028	  ['wrong as-of',m=>m.as_of='2026-11-17T17:40:00Z',/differs/],
+779029	  ['missing output',m=>delete m.files['priority.csv'],/files/],
+779030	])test(name,async()=>{const m=JSON.parse(result['manifest.json']);mutate(m);const raw=bytes(JSON.stringify(m));await assert.rejects(parsePriorityBundle(priority,raw,sha(raw)),pattern);});
+779031	// Synthetic contracts for tests only. Never exported as production research.
+779032	const sha='a'.repeat(64),asOf='2026-11-16T18:00:00Z';
+779033	const unknown={state:'UNKNOWN',basis:'source timestamp unavailable',timestamp:null,age_days:null};
+779034	export function fixture(){
+779035	  const shared={country:'TEST COUNTRY',official_status:null,research_state:'UNKNOWN',last_researched_at:null,evidence:[],event_at:null,research_note:'Research note: SYNTHETIC TEST ONLY; inspect the linked fixture.',heat:{state:'UNKNOWN',momentum_status:'UNKNOWN',score:0,independent_signal_count:null,components:[],reason:'Independent origins have not been established.'},corporate_eligibility:{eligible:false,state:'UNKNOWN',listed_parent:null,identity_evidence:[],membership_evidence:[],reason:'No reviewed listed-parent mapping; corporate enrichment disabled'},record_freshness:{...unknown}};
+779036	  const component=(name,points,max)=>({name,points,max,basis:'SYNTHETIC TEST ONLY component'});
+779037	  return {schema:'globalgrid2050.prospecting.research-triage.v1',as_of:asOf,purpose:'Research triage only',profile:{id:'research-triage.v1'},profile_sha256:sha,source_policy:{paywalled_channels:'EXCLUDED',unknown_access:'DISABLED',corporate_enrichment:'LISTED_PARENT_GROUP_ONLY_WITH_IDENTITY_AND_MEMBERSHIP_EVIDENCE',sme_targeting:false,directors_officers_residential_addresses:false,government_hosting_implies_reuse_permission:false},input_count:7776,eligible_count:7776,returned_count:2,limit:200,record_type_filter:null,coverage:'SYNTHETIC TEST ONLY — not a project corpus',unsupported_interfaces:[{id:'unsupported',enabled:false}],input_receipts:[{id:'official_repd',state:'OFFICIAL',population:7775,solar1000_count:1000,release:'202611161244',manifest_sha256:sha,solar1000_manifest_sha256:sha,source_workbook_sha256:sha},{id:'news_evidence',state:'UNKNOWN',reason:'Not supplied'},{id:'global_data_centres',state:'PROVISIONAL',sha256:sha,freshness:{state:'WITHIN_WINDOW',basis:'Wikidata retrieval time',timestamp:asOf,age_days:0}}],records:[{...structuredClone(shared),id:'REPD-1018',rank:1,name:'TEST ONLY Solar <img src=x onerror=alert(1)>',record_type:'renewable_project',technology:'solar',record_state:'OFFICIAL',capacities:{repd_installed_mw:50},source:{url:'https://example.org/test-only-official',sha256:sha},score:42,reasons:[component('capacity',12,30),component('technology',15,15),component('national_route',0,8),component('evidence_tier',15,40),component('research_follow_up',0,5)]},{...structuredClone(shared),id:'DC-WD-Q123',rank:2,name:'TEST ONLY Global DC',record_type:'data_centre',technology:'data_centre',record_state:'PROVISIONAL',capacities:{it_load_mw:null,site_demand_mw:null,grid_connection_mw:null},source:{url:'https://www.wikidata.org/wiki/Q123',revision_url:'https://www.wikidata.org/w/index.php?title=Q123&oldid=456',publisher:'Wikidata',licence:'CC0-1.0',retrieved_at:asOf,sha256:sha},retrieval_freshness:{state:'WITHIN_WINDOW',basis:'Wikidata retrieval time',timestamp:asOf,age_days:0},score:15,reasons:[component('data_centre_topic',15,15)]}]};
+779038	export function article(){return {id:'fixture',title:'TEST ONLY headline',url:'https://example.org/test-only-story',publisher:'TEST ONLY',state:'PROVISIONAL',pub_date:asOf,first_seen:asOf,last_seen:asOf,match_method:'repd_id',source:{id:'test',url:'https://example.org/test-only-feed',rights_review_url:'https://example.org/test-only-rights',response_sha256:sha,fetched_at:asOf,channel_access:{state:'OPEN',review_url:'https://example.org/test-only-open-review',checked_at:asOf}},access:{state:'OPEN',review_url:'https://example.org/test-only-article-review',checked_at:asOf},freshness:{state:'WITHIN_WINDOW',basis:'publication time',timestamp:asOf,age_days:0},retrieval_freshness:{state:'WITHIN_WINDOW',basis:'source receipt time',timestamp:asOf,age_days:0}};}
+779039	// Genuine installed Chrome against the existing 7,775-row page; no release edits.
+779040	import {readFile,mkdir} from 'node:fs/promises';
+779041	import {resolve} from 'node:path';
+779042	import {createTestServer} from '../../acquisition/browser/server.mjs';
+779043	const artifact=process.env.PRIORITY_REVIEW_DIR||'tmp/prospecting-v927';
+779044	const priority=await readFile(resolve(artifact,'priority.json'));
+779045	const manifest=await readFile(resolve(artifact,'manifest.json'));
+779046	const spec=JSON.parse(manifest),raw=JSON.parse(priority),ranked=raw.records[0].id;
+779047	const unranked=spec.inventory.official_ids.find(id=>!raw.records.some(r=>r.id===id));
+779048	const pin=createHash('sha256').update(manifest).digest('hex');
+779049	const server=createTestServer();await new Promise(done=>server.listen(0,'127.0.0.1',done));
+779050	const origin=`http://127.0.0.1:${server.address().port}`;
+779051	const screenshots=resolve('tmp/prospecting-register-browser');await mkdir(screenshots,{recursive:true});
+779052	let browser;const checks=[];
+779053	  for(const width of [375,768,1440]){
+779054	    const page=await browser.newPage({viewport:{width,height:900}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+779055	    // External source health is independent; retain the page's honest saved/unavailable labels.
+779056	    await page.route('**/*',route=>route.request().url().startsWith(origin+'/')?route.continue():route.abort());
+779057	    await page.goto(origin+'/uk_renewables_pipeline/202611161630/');
+779058	    await page.addStyleTag({url:origin+'/automation/news/prospecting-ui/inline.css'});
+779059	    await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.complete==='true');
+779060	    assert.match(await page.locator('#resultsMeta').innerText(),/7,775/);
+779061	    await page.evaluate(async({priority,manifest,pin})=>{
+779062	      const {parsePriorityBundle}=await import('/automation/news/prospecting-ui/bundle.mjs');
+779063	      window.priorityTestBundle=await parsePriorityBundle(new TextEncoder().encode(priority),new TextEncoder().encode(manifest),pin);
+779064	    },{priority:priority.toString(),manifest:manifest.toString(),pin});
+779065	    for(const [identity,expected] of [[ranked,'ranked'],[unranked,'unranked']]){
+779066	      const ref=identity.slice(5);await page.locator('#search').fill(ref);
+779067	      const row=page.locator('#repd-'+ref),record=row.locator('.project-record');
+779068	      const before=await row.locator('a.atlaslink').getAttribute('href');
+779069	      await page.evaluate(async({ref,identity})=>{const {attachProjectPriority}=await import('/automation/news/prospecting-ui/bundle.mjs');const host=document.querySelector('#repd-'+ref+' .project-record');attachProjectPriority(host,identity,window.priorityTestBundle);attachProjectPriority(host,identity,window.priorityTestBundle);},{ref,identity});
+779070	      await record.locator(':scope > summary').click();
+779071	      if(expected==='ranked'){
+779072	        assert.equal(await record.locator('[data-priority-id]').count(),1);
+779073	        await record.locator('[data-priority-id] > summary').click();
+779074	        assert.match(await record.innerText(),/Momentum: unknown/);
+779075	        await record.screenshot({path:resolve(screenshots,`record-${width}.png`)});
+779076	      }else assert.equal(await record.locator('[data-priority-state]').innerText(),'Outside this research-priority subset');
+779077	      assert.equal(await row.locator('a.atlaslink').getAttribute('href'),before);
+779078	    const identityCheck=await page.evaluate(async({unranked,ranked})=>{const {attachProjectPriority}=await import('/automation/news/prospecting-ui/bundle.mjs');const host=document.querySelector('#repd-'+unranked.slice(5)+' .project-record');try{attachProjectPriority(host,ranked,window.priorityTestBundle);return false;}catch{return true;}},{unranked,ranked});
+779079	    assert.equal(identityCheck,true);
+779080	    await page.evaluate(async({unranked})=>{const {attachProjectPriority}=await import('/automation/news/prospecting-ui/bundle.mjs');const host=document.querySelector('#repd-'+unranked.slice(5)+' .project-record');attachProjectPriority(host,unranked,null);},{unranked});
+779081	    assert.equal(await page.locator('#repd-'+unranked.slice(5)+' [data-priority-state]').innerText(),'Research priority unavailable');
+779082	    await page.locator('#clearFilters').click();
+779083	    const downloadPromise=page.waitForEvent('download');await page.locator('#exportInline').click();const download=await downloadPromise;
+779084	    assert.equal((await readFile(await download.path(),'utf8')).trim().split(/\r?\n/).length,7776);
+779085	    assert.deepEqual(errors,[]);checks.push({width,official_rows:7775,csv_rows:7775,identity_guard:true});await page.close();
+779086	  console.log(JSON.stringify({browser:'installed Google Chrome',version:browser.version(),checks,native_android:false,live_source_health_tested:false}));
+779087	/** Safe DOM renderer; append compact details inside an existing project row. */
+779088	function node(tag,text,className){const element=document.createElement(tag);if(text!==undefined)element.textContent=text;if(className)element.className=className;return element;}
+779089	function link(label,url){const element=node('a',label);element.href=url;element.target='_blank';element.rel='noopener noreferrer';return element;}
+779090	function clockLabel(value){return value?`${value.basis}: ${value.timestamp??'unknown'} (${value.state.toLowerCase().replaceAll('_',' ')})`:'Source observation date: unknown';}
+779091	const capacityLabels={repd_installed_mw:'Official installed capacity',it_load_mw:'IT load',site_demand_mw:'Site demand',grid_connection_mw:'Grid connection'};
+779092	export function renderPriority(row,asOf){
+779093	  const details=node('details',undefined,'research-priority');details.dataset.priorityId=row.id;
+779094	  details.append(node('summary',`Research priority #${row.rank} · ${row.score} points`));
+779095	  const content=node('div',undefined,'priority-content');details.append(content);
+779096	  content.append(node('p','Research ordering only. This score is not verification, investment value or available grid capacity.','priority-note'));
+779097	  content.append(node('p',`Ranked as of ${asOf}. Source record: ${row.record_state.toLowerCase()}.`));
+779098	  const reasons=node('ul');for(const reason of row.reasons)reasons.append(node('li',`${reason.name.replaceAll('_',' ')}: ${reason.points}/${reason.max} — ${reason.basis}`));content.append(reasons);
+779099	  content.append(node('p','Momentum: unknown','priority-unknown'),node('p',row.heat.reason),node('p',clockLabel(row.record_freshness)),node('p',clockLabel(row.retrieval_freshness)));
+779100	  const figures=node('ul');for(const [key,value] of Object.entries(row.capacities))figures.append(node('li',`${capacityLabels[key]}: ${value===null?'unknown':`${value} MW`}`));content.append(figures);
+779101	  content.append(node('p',`Official status: ${row.official_status??'unknown'}. This is not a newly occurring event.`),node('p','Current financing: not assessed'),node('p',row.research_note),node('p',row.corporate_reason),link('Inspect source record',row.source.url));
+779102	  if(row.evidence.length){const list=node('ul');for(const article of row.evidence){const item=node('li');item.append(link(article.title,article.url),node('p',`${article.publisher} · published ${article.pub_date} · provisional association`),node('p',clockLabel(article.retrieval_freshness)));list.append(item);}content.append(list);}
+779103	  else content.append(node('p','Project news coverage: unknown. No supplied match does not establish inactivity.'));
+779104	  return details;
+779105	export function attachPriority(host,row,asOf){host.querySelector(':scope > [data-priority-id]')?.remove();host.append(renderPriority(row,asOf));}
+779106	export function renderReviewRows(host,rows,asOf){
+779108	  for(const row of rows){const item=node('article',undefined,'review-row');item.dataset.recordId=row.id;item.append(node('h3',row.name??'Name not supplied by source'),node('p',`${row.id} · ${row.country??'Country unknown'} · ${row.technology}`,'record-meta'),renderPriority(row,asOf));host.append(item);}
+779109	  if(!rows.length)host.append(node('p','No records in this loaded review subset match these filters.'));
+779110	"""Offline V9.26 research triage proposal; never a collector or event generator.
+779111	Run with ``python -m automation.news.prospecting --as-of UTC --out FILE``.
+779112	Optional input files require their exact SHA256. See PROSPECTING.md for the
+779113	contract, rights boundary, score semantics and intentionally unsupported inputs.
+779116	from automation.news import relevance
+779117	from automation.news.acquisition import research_queue as queue
+779118	from automation.news.acquisition.evidence_store import _moment, _url, validate_snapshot
+779119	SCHEMA = "globalgrid2050.prospecting.research-triage.v1"
+779120	MAX_BYTES = 16 * 1024 * 1024
+779121	    "id": "research-triage.v1", "relevance_profile_sha256": relevance.profile_sha256(),
+779122	    "official_components": ["capacity", "technology", "national_route", "evidence_tier"],
+779123	    "fresh_provisional_evidence_points": 5, "data_centre_topic_points": 15,
+779124	    "record_stale_days": 90, "article_stale_days": 30, "retrieval_stale_days": 14,
+779125	    "tie_break": "source-qualified ID ascending", "maximum_output_records": 1000,
+779126	# Scope: qualifying project-evidence inputs only. Separate News-owner Bloomberg
+779127	# DISCOVERY_ONLY headline/link display is permitted by NL42/6923484114; it cannot
+779128	# supply follow-up/heat points or substantiate figures through this adapter.
+779130	    "paywalled_channels": "EXCLUDED", "unknown_access": "DISABLED",
+779131	    "preferred_authorities": ["government", "regulator", "institutional_funding", "official_filings"],
+779132	    "corporate_enrichment": "LISTED_PARENT_GROUP_ONLY_WITH_IDENTITY_AND_MEMBERSHIP_EVIDENCE",
+779133	    "sme_targeting": False, "directors_officers_residential_addresses": False,
+779134	    "government_hosting_implies_reuse_permission": False,
+779135	BASE_URL = "https://ventusltd.github.io/globalgrid2050/uk_renewables_pipeline/" + queue.RELEASE_ID + "/"
+779138	    """Offline link syntax check only; this module never resolves or fetches URLs."""
+779139	    _url(value)
+779140	    host = urlsplit(value).hostname.lower()
+779141	    require(host.isascii() and "%" not in host, "Canonical public source hostname required")
+779142	    require(not any(c.isspace() or ord(c) < 32 for c in value) and "\\" not in value,
+779143	            "Invalid public source URL")
+779145	        address = None
+779146	    if address is not None:
+779147	        require(address.is_global and not any((address.is_multicast, address.is_reserved,
+779148	                address.is_private, address.is_loopback, address.is_link_local, address.is_unspecified)),
+779149	                "Non-public source address")
+779150	        dns_host = host.removesuffix(".")
+779151	        # Browsers interpret numeric final labels as IPv4, including short,
+779152	        # octal and hex forms that ipaddress deliberately rejects. Do not let
+779153	        # those forms fall through as DNS; do not decode escaped/Unicode hosts.
+779154	        require(not re.fullmatch(r"(?:[0-9]+|0x[0-9a-f]*)", dns_host.rsplit(".", 1)[-1]),
+779155	                "Canonical public IP address required")
+779156	        label = r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?"
+779157	        require(len(dns_host) <= 253 and re.fullmatch(label + r"(?:\." + label + r")+", dns_host)
+779158	                and not dns_host.endswith((".local", ".internal", ".localhost", ".test")),
+779159	                "Public source hostname required")
+779161	def text(value, label):
+779162	    require(isinstance(value, str) and bool(value.strip()) and len(value) <= 1000,
+779163	            label + " must be bounded text")
+779164	def digest(value):
+779165	    require(isinstance(value, str) and re.fullmatch(r"[a-f0-9]{64}", value), "SHA256 required")
+779166	def pinned(spec):
+779167	    path, expected = spec
+779168	    digest(expected)
+779169	        with Path(path).open("rb") as stream:
+779170	            raw = stream.read(MAX_BYTES + 1)
+779171	        require(len(raw) <= MAX_BYTES, "Input exceeds bounded file size")
+779172	        require(hashlib.sha256(raw).hexdigest() == expected, "Input SHA256 mismatch")
+779173	        return json.loads(raw)
+779175	        raise ValueError("Pinned input unavailable or invalid JSON") from exc
+779176	def clock(value, as_of):
+779177	    moment = _moment(value)
+779178	    require(moment <= as_of, "Future observation/publication timestamp")
+779180	def freshness(value, as_of, days, basis, calendar=False):
+779182	        return {"state": "UNKNOWN", "basis": basis, "timestamp": None, "age_days": None}
+779183	    if calendar:
+779184	        require(isinstance(value, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", value),
+779185	                "Calendar date required")
+779186	        age = (as_of.date() - date.fromisoformat(value)).days
+779187	        require(age >= 0, "Future official record date")
+779188	        age = (as_of - clock(value, as_of)).total_seconds() / 86400
+779189	    return {"state": "STALE" if age > days else "WITHIN_WINDOW", "basis": basis,
+779190	            "timestamp": value, "age_days": round(age, 4)}
+779191	def capacity(value):
+779192	    require(value is None or (type(value) in (int, float) and math.isfinite(value) and value >= 0),
+779193	            "Capacity must be finite nonnegative MW or null")
+779194	def open_access(receipt, reference):
+779195	    require(isinstance(receipt, dict) and set(receipt) == {"state", "review_url", "checked_at"}
+779196	            and receipt["state"] == "OPEN", "Paywalled or unknown access is excluded")
+779197	    public_url(receipt["review_url"])
+779198	    clock(receipt["checked_at"], reference)
+779199	    return dict(receipt)
+779200	def research_policy_fields(record):
+779201	    """Existing inputs cannot establish parent eligibility or independent momentum."""
+779202	    record.update(
+779203	        corporate_eligibility={"eligible": False, "state": "UNKNOWN", "listed_parent": None,
+779204	                               "identity_evidence": [], "membership_evidence": [],
+779205	                               "reason": "No reviewed listed-parent mapping; corporate enrichment disabled"},
+779206	        heat={"state": "UNKNOWN", "momentum_status": "UNKNOWN", "score": 0,
+779207	              "independent_signal_count": None, "components": [],
+779208	              "reason": "Existing inputs do not prove independent origins; repeated articles are not momentum"},
+779209	        event_at=None,
+779210	        research_note="Research note: review the linked source record; current status is not a newly occurring event.",
+779212	def official(repo_root):
+779213	    # This shared loader validates every partition AND the immutable Solar-1000 selection.
+779214	    seeds = queue.load_seed_projects(repo_root)
+779215	    release = Path(repo_root or queue.ROOT) / "uk_renewables_pipeline" / queue.RELEASE_ID
+779216	    manifest = queue._read_pinned(release / "data/v9.1/build_manifest.json", queue.BUILD_MANIFEST_SHA256)
+779218	        payload = queue._read_pinned(release / part["path"], part["sha256"])
+779219	        rows.extend((row, {"url": BASE_URL + part["path"], "sha256": part["sha256"]})
+779220	                    for row in payload["projects"])
+779221	    return rows, [p["id"] for p in seeds], {
+779222	        "id": "official_repd", "state": "OFFICIAL", "release": queue.RELEASE_ID,
+779223	        "manifest_sha256": queue.BUILD_MANIFEST_SHA256,
+779224	        "solar1000_manifest_sha256": queue.MANIFEST_SHA256,
+779225	        "source_workbook_sha256": manifest["source_workbook_sha256"],
+779226	        "source_dataset": manifest["source_dataset"], "observed_at": None,
+779227	        "freshness": "UNKNOWN", "population": len(rows), "solar1000_count": len(seeds),
+779228	def evidence_input(spec, seed_ids, as_of):
+779229	    if spec is None:
+779230	        return {}, {"id": "news_evidence", "state": "UNKNOWN", "reason": "Input not supplied"}
+779231	    payload = pinned(spec)
+779232	    validate_snapshot(payload, seed_ids)
+779233	    generated = clock(payload["generated_at"], as_of)
+779234	    run = clock(payload["source_run_at"], generated)
+779235	    require(len(payload["sources"]) <= 100 and payload["evidence_count"] <= 10000,
+779236	            "Evidence input exceeds bounded scope")
+779237	    receipts = {}
+779238	    access = {}
+779239	    for source in payload["sources"]:
+779240	        clock(source["fetched_at"], run)
+779241	        public_url(source["url"])
+779242	        public_url(source["rights_review_url"])
+779243	        receipts[source["id"]] = {
+779244	            key: source[key] for key in ("id", "url", "fetched_at", "response_sha256", "rights_review_url")}
+779245	        receipts[source["id"]]["channel_access"] = open_access(source.get("channel_access"), generated)
+779246	        require(isinstance(source.get("article_access"), dict), "Article access receipts required")
+779247	        access[source["id"]] = source["article_access"]
+779248	    records = {}
+779249	    for row in payload["projects"]:
+779250	        researched = clock(row["last_researched_at"], run)
+779251	        for article in row["evidence"]:
+779252	            last = clock(article["last_seen"], researched)
+779253	            clock(article["first_seen"], last)
+779254	            clock(article["pub_date"], last)
+779255	            public_url(article["url"])
+779256	            source = receipts[article["source_id"]]
+779257	            admission = open_access(access[article["source_id"]].get(article["url"]), generated)
+779258	            require(len(text(article["title"], "Headline")) <= 300, "Headline exceeds metadata display scope")
+779259	            entry = {key: article[key] for key in
+779260	                     ("id", "url", "title", "publisher", "pub_date", "first_seen", "last_seen", "match_method")}
+779261	            entry.update(state="PROVISIONAL", source=source, access=admission,
+779262	                         freshness=freshness(article["pub_date"], as_of, 30, "publication time"),
+779263	                         retrieval_freshness=freshness(article["last_seen"], as_of, 14, "article last observed time"))
+779264	            articles.append(entry)
+779265	        records[row["project_id"]] = {"last_researched_at": row["last_researched_at"],
+779266	                                      "articles": sorted(articles, key=lambda a: a["url"])}
+779267	    return records, {"id": "news_evidence", "state": "PROVISIONAL", "sha256": spec[1],
+779268	                     "generated_at": payload["generated_at"], "source_run_at": payload["source_run_at"],
+779269	                     "rights_state": "ACCEPTED_RECEIPTS_SUPPLIED",
+779270	                     "freshness": freshness(payload["source_run_at"], as_of, 14, "source run time")}
+779271	def component(name, points, maximum, basis):
+779272	    return {"name": name, "points": points, "max": maximum, "basis": basis}
+779273	def official_candidate(row, source, research, as_of):
+779274	    mw = capacity(row["capacity_mw"])
+779275	    require(type(row["capacity_known"]) is bool and row["capacity_known"] == (mw is not None),
+779276	            "Capacity known flag inconsistent")
+779277	    require(re.fullmatch(r"[1-9][0-9]*", row["repd_ref"]), "Invalid official identity")
+779278	    articles = research.get("articles", [])
+779279	    fresh = any(a["freshness"]["state"] == a["retrieval_freshness"]["state"] == "WITHIN_WINDOW"
+779280	                for a in articles)
+779281	    follow_up_basis = (
+779282	        "Recent provisional news match to review; not event verification" if fresh else
+779283	        "Supplied research has no qualifying fresh association; this is not evidence of inactivity" if research else
+779284	        "News coverage unknown or outside supplied research scope; no activity conclusion")
+779285	    reasons = [relevance.capacity_component(mw, label="official REPD installed capacity"),
+779286	               relevance.technology_component(row["repd_technology"]),
+779287	               relevance.national_route_component(row["planning_authority"]),
+779288	               relevance.evidence_component("official_record"),
+779289	               component("research_follow_up", 5 if fresh else 0, 5, follow_up_basis)]
+779290	    return research_policy_fields({
+779291	        "id": "REPD-" + row["repd_ref"], "record_type": "renewable_project",
+779292	        "name": text(row["name"], "Project name") if row["name"] else None, "country": row["country"] or None,
+779293	        "technology": row["technology"], "official_technology": row["repd_technology"],
+779294	        "record_state": "OFFICIAL", "official_status": row["status"],
+779295	        "research_state": "PROVISIONAL" if articles else "UNKNOWN",
+779296	        "capacities": {"repd_installed_mw": mw}, "source": source,
+779297	        "record_freshness": freshness(row["repd_record_updated"], as_of, 90, "official record update date", True),
+779298	        "last_researched_at": research.get("last_researched_at"), "evidence": articles,
+779299	        "score": round(sum(r["points"] for r in reasons), 2), "reasons": reasons,
+779301	def dc_input(spec, as_of):
+779302	        return [], {"id": "global_data_centres", "state": "UNKNOWN", "reason": "Input not supplied"}
+779303	    data = pinned(spec)
+779304	    require(isinstance(data, dict) and data.get("schema") == "globalgrid2050.global-datacentres.projects.v1",
+779305	            "Unsupported data-centre schema")
+779306	    retrieved = clock(data["generated_from_retrieval"], as_of)
+779307	    digest(data["source_facts_sha256"])
+779308	    records = data["records"]
+779309	    require(isinstance(records, list) and 0 < len(records) <= 1000
+779310	            and type(data["record_count"]) is int and data["record_count"] == len(records),
+779311	            "Invalid data-centre count")
+779312	    require(data["scope"] == "global", "Unsupported data-centre scope")
+779313	    text(data["coverage"], "Data-centre coverage")
+779314	    result, ids, countries = [], set(), set()
+779316	        identity = record["id"]
+779317	        require(isinstance(identity, str) and re.fullmatch(r"DC-WD-Q[1-9][0-9]*", identity)
+779318	                and identity not in ids, "Duplicate or invalid data-centre identity")
+779319	        ids.add(identity)
+779320	        require(record["record_type"] == "data_centre" and record["verification_status"] == "SOURCE_INDEXED"
+779321	                and record["operating_status"] == "not_assessed", "Unsupported data-centre claim state")
+779322	        country = record["country"]
+779323	        text(country["name"], "Country")
+779324	        require(re.fullmatch(r"Q[1-9][0-9]*", country["wikidata_id"]), "Invalid country identity")
+779325	        require(country["code"] is None or re.fullmatch(r"[A-Z]{2}", country["code"]), "Invalid country code")
+779326	        countries.add(country["wikidata_id"])
+779327	        expected_capacity = {"it_load_mw": None, "site_demand_mw": None, "grid_connection_mw": None}
+779328	        require(record["capacity"] == record["capacity_sources"] == expected_capacity,
+779329	                "Current DC adapter supports unknown capacity only; reviewed adapter required for populated values")
+779330	        source = record["source"]
+779331	        entity = identity.removeprefix("DC-WD-")
+779332	        require(source["publisher"] == "Wikidata" and source["licence"] == "CC0-1.0"
+779333	                and source["licence_url"] == "https://www.wikidata.org/wiki/Wikidata:Copyright"
+779334	                and source["url"] == "https://www.wikidata.org/wiki/" + entity,
+779335	                "Unsupported data-centre source/rights")
+779336	        require(type(source["revision"]) is int and source["revision"] > 0 and source["revision_url"] ==
+779337	                f"https://www.wikidata.org/w/index.php?title={entity}&oldid={source['revision']}",
+779338	                "Pinned entity revision required")
+779339	        require(clock(source["retrieved_at"], retrieved) == retrieved, "Inconsistent data-centre retrieval")
+779340	        for field in ("name", "country"):
+779341	            url = public_url(record["field_sources"][field])
+779342	            revision = re.fullmatch(r"https://www\.wikidata\.org/w/index\.php\?title=(Q[1-9][0-9]*)&oldid=[1-9][0-9]*", url)
+779343	            require(revision, "Pinned field revision required")
+779344	            require(field != "country" or revision.group(1) == country["wikidata_id"],
+779345	                    "Country revision identity differs")
+779346	        require(record["field_sources"]["name"] == source["revision_url"], "Name revision differs")
+779347	        reasons = [component("data_centre_topic", 15, 15, "Data-centre source record selected for research; status and demand unknown")]
+779348	        result.append(research_policy_fields({
+779349	            "id": identity, "record_type": "data_centre", "name": text(record["name"], "Data-centre name"),
+779350	            "country": country["name"], "country_code": country["code"], "technology": "data_centre",
+779351	            "record_state": "PROVISIONAL", "official_status": None, "research_state": "UNKNOWN",
+779352	            "capacities": expected_capacity, "source": {**{key: source[key] for key in
+779353	                ("publisher", "url", "revision_url", "revision", "retrieved_at", "licence", "licence_url")}, "sha256": spec[1],
+779354	                "source_facts_sha256": data["source_facts_sha256"],
+779355	                "field_sources": {k: record["field_sources"][k] for k in ("name", "country")}},
+779356	            "record_freshness": freshness(None, as_of, 90, "official record date unavailable"),
+779357	            "retrieval_freshness": freshness(source["retrieved_at"], as_of, 14, "Wikidata retrieval time"),
+779358	            "last_researched_at": None, "evidence": [], "score": 15, "reasons": reasons,
+779360	    require(type(data["country_count"]) is int and data["country_count"] == len(countries), "Country count mismatch")
+779361	    return result, {"id": "global_data_centres", "state": "PROVISIONAL", "sha256": spec[1],
+779362	                    "source_facts_sha256": data["source_facts_sha256"], "coverage": data["coverage"],
+779363	                    "freshness": freshness(data["generated_from_retrieval"], as_of, 14, "Wikidata retrieval time")}
+779364	def build(*, as_of, limit=200, evidence=None, datacentres=None, repo_root=None, record_type=None):
+779365	    """Validate the complete supplied input set before returning a ranked projection.
+779366	    Optional input specs are (path, full_file_sha256). Absence is UNKNOWN; a
+779367	    supplied invalid input is an error, never silently omitted or replaced.
+779368	    reference = _moment(as_of)
+779369	    require(type(limit) is int and 1 <= limit <= 1000, "Limit must be 1..1000")
+779370	    require(record_type in (None, "renewable_project", "data_centre"), "Unsupported record type filter")
+779371	        rows, seed_ids, repd_receipt = official(repo_root)
+779372	        research, news_receipt = evidence_input(evidence, seed_ids, reference)
+779373	        candidates = [official_candidate(row, source, research.get(row["repd_ref"], {}), reference)
+779374	                      for row, source in rows]
+779375	        dc_rows, dc_receipt = dc_input(datacentres, reference)
+779376	        candidates.extend(dc_rows)
+779377	        require(len({r["id"] for r in candidates}) == len(candidates), "Duplicate candidate identity")
+779378	    except (KeyError, TypeError, AttributeError, OverflowError) as exc:
+779379	        raise ValueError("Input schema failed; no triage output produced") from exc
+779380	    eligible = [r for r in candidates if record_type is None or r["record_type"] == record_type]
+779381	    eligible.sort(key=lambda row: (-row["score"], row["id"]))
+779382	    selected = [dict(row, rank=i + 1) for i, row in enumerate(eligible[:limit])]
+779383	    return {"schema": SCHEMA, "as_of": as_of, "intended_increment": "V9.26 proposal",
+779384	            "purpose": "Research triage only; scores are priorities, not event verification or commercial value",
+779385	            "profile": PROFILE, "profile_sha256": relevance.profile_sha256(PROFILE),
+779386	            "source_policy": SOURCE_POLICY,
+779387	            "input_receipts": [repd_receipt, news_receipt, dc_receipt],
+779388	            "input_count": len(candidates), "eligible_count": len(eligible), "record_type_filter": record_type,
+779389	            "returned_count": len(selected), "limit": limit,
+779390	            "coverage": "Pinned 7775-record REPD scope; optional Solar-1000 evidence and curated DC sample. Not exhaustive prospects.",
+779391	            "unsupported_interfaces": [
+779392	                {"id": "bbc_raw_headlines", "enabled": False, "rights_state": "UNKNOWN",
+779393	                 "reason": "Existing RSS/headline interface lacks this adapter's accepted source receipt contract"},
+779394	                {"id": "public_linkedin", "enabled": False, "rights_state": "UNKNOWN",
+779395	                 "reason": "No supported ingestion interface or accepted rights receipt"}],
+779396	            "records": selected}
+779397	    parser.add_argument("--out", required=True, type=Path)
+779398	    parser.add_argument("--limit", default=200, type=int)
+779399	    parser.add_argument("--record-type", choices=("renewable_project", "data_centre"))
+779400	        path, sha = getattr(args, name), getattr(args, name + "_sha256")
+779401	        if bool(path) != bool(sha):
+779402	            parser.error("Each optional input requires a file and SHA256")
+779403	        inputs[name] = (path, sha) if path else None
+779404	    temporary = None
+779405	        target = args.out.resolve()
+779406	        require(not target.is_relative_to(queue.ROOT / "uk_renewables_pipeline"),
+779407	                "Release trees are immutable; write a review artifact elsewhere")
+779408	        require(all(spec is None or target != Path(spec[0]).resolve() for spec in inputs.values()),
+779409	                "Output cannot replace an input")
+779410	        payload = build(as_of=args.as_of, limit=args.limit, record_type=args.record_type, **inputs)
+779411	        raw = (json.dumps(payload, sort_keys=True, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+779412	        # A failed gate never creates or replaces the previous output.
+779414	        with tempfile.NamedTemporaryFile(dir=args.out.parent, delete=False) as stream:
+779415	            temporary = Path(stream.name)
+779416	            stream.write(raw)
+779417	        os.replace(temporary, args.out)
+779419	        parser.exit(2, "Prospecting input/output gate failed; previous output retained.\n")
+779420	        if temporary is not None:
+779421	            temporary.unlink(missing_ok=True)
+779422	"""Network-free failure gates and identity regression tests for V9.25."""
+779424	from automation.news.acquisition.fetch import FetchError, MAX_BYTES, _PublicHTTPSConnection, fetch_source, load_sources, parse_feed
+779425	from automation.news.acquisition.match import match_articles
+779426	from automation.news.acquisition.normalise import normalise_article
+779427	from automation.news.acquisition.research_queue import ROOT, load_seed_projects
+779428	SOURCE = load_sources(include_disabled=True)[0]
+779429	RSS = b'''<?xml version="1.0"?><rss version="2.0"><channel><item>
+779430	<title>Solar Farm A plans approved</title><link>https://www.pv-magazine.com/example/</link>
+779431	<pubDate>Mon, 16 Nov 2026 10:00:00 GMT</pubDate><description><![CDATA[<p>A proposal.</p>]]></description>
+779432	</item></channel></rss>'''
+779434	    def __init__(self, status=200, body=RSS, headers=None):
+779435	        self.status_code, self.body, self.headers = status, body, headers or {}
+779436	    def __exit__(self, *args):
+779438	    def iter_content(self, size):
+779439	        for i in range(0, len(self.body), size):
+779440	            yield self.body[i:i + size]
+779442	    def __init__(self, *responses):
+779443	        self.responses, self.calls = iter(responses), []
+779444	    def get(self, url, **kwargs):
+779445	        self.calls.append((url, kwargs))
+779446	        value = next(self.responses)
+779447	        if isinstance(value, Exception):
+779448	            raise value
+779450	def test_exact_unchanged_selection_and_all_repd_rows():
+779451	    seed = json.loads((ROOT / 'uk_renewables_pipeline/202611161244/solar1000/manifest.json').read_text())
+779452	    assert len(projects) == 1000
+779453	    assert [p['id'] for p in projects] == seed['ids']
+779454	    assert all(p['technology'] == 'solar' for p in projects)
+779455	def test_seed_tamper_is_fatal(tmp_path):
+779456	    release = tmp_path / 'uk_renewables_pipeline/202611161244/solar1000'
+779458	    (release / 'manifest.json').write_text('{"ids": []}')
+779459	    with pytest.raises(ValueError, match='Immutable'):
+779460	        load_seed_projects(tmp_path)
+779461	@pytest.mark.parametrize('change', [
+779462	    {'url': 'http://www.pv-magazine.com/feed/'}, {'url': 'https://127.0.0.1/feed/'},
+779463	    {'url': 'https://www.pv-magazine.com:444/feed/'}, {'url': 'https://user@www.pv-magazine.com/feed/'},
+779464	    {'technology': ['solar', 'bess']}, {'enabled': 'true'}, {'output_policy': 'full_text'},
+779465	def test_source_configuration_fail_closed(tmp_path, change):
+779466	    p = tmp_path / 'sources.yaml'
+779467	    p.write_text(yaml.safe_dump([dict(SOURCE, **change)]))
+779469	        load_sources(p)
+779470	def test_duplicate_sources_rejected(tmp_path):
+779471	    p.write_text(yaml.safe_dump([SOURCE, SOURCE]))
+779472	    with pytest.raises(ValueError, match='Duplicate'):
+779473	def test_normalise_strips_html_separates_date_and_body():
+779474	    article = normalise_article({'title': '<b>Solar</b> &amp; power<script>bad()</script>',
+779475	        'link': 'https://www.pv-magazine.com/article/#tracking',
+779476	        'pub_date': 'Mon, 16 Nov 2026 11:00:00 +0100', 'content': '<p>Body</p>'}, SOURCE)
+779477	    assert article['title'] == 'Solar & power'
+779478	    assert article['pub_date'] == '2026-11-16T10:00:00Z'
+779479	    assert article['url'] == 'https://www.pv-magazine.com/article/'
+779480	    assert article['content'] == 'Body'
+779481	def test_missing_date_is_not_replaced_with_fetch_date():
+779482	        normalise_article({'title': 'title', 'url': 'https://www.pv-magazine.com/article/'}, SOURCE)
+779483	def test_fetch_receipt_and_conditional_request():
+779484	    session = Session(Response(headers={'ETag': 'v1'}), Response(304))
+779485	    first = fetch_source(SOURCE, session=session, probe=True)
+779486	    second = fetch_source(SOURCE, cache=first['cache'], session=session, probe=True)
+779487	    assert first['articles'] == second['articles']
+779488	    assert first['source']['response_sha256'] == hashlib.sha256(RSS).hexdigest()
+779489	    assert second['source']['http_status'] == 304
+779490	    assert session.calls[1][1]['headers']['If-None-Match'] == 'v1'
+779491	    assert session.calls[0][1]['timeout'] == (10, 25)
+779492	@pytest.mark.parametrize('response', [Response(403), Response(429), Response(500), Response(304),
+779493	    Response(body=b'<html>unavailable</html>'), Response(body=b'<rss><channel/></rss>'),
+779494	    Response(body=b'x' * (MAX_BYTES + 1)), requests.Timeout('timeout'),
+779495	    Response(302, headers={'Location': 'http://127.0.0.1/private'})])
+779496	def test_critical_source_failures_never_produce_success(response):
+779497	    with pytest.raises(FetchError):
+779498	        fetch_source(SOURCE, session=Session(response), probe=True)
+779499	def test_rights_unknown_disabled_by_default_and_probe_never_authorizes():
+779500	    assert load_sources() == []
+779501	    session = Session(Response())
+779502	    with pytest.raises(FetchError, match='disabled'):
+779503	        fetch_source(SOURCE, session=session)
+779504	    assert session.calls == []
+779505	    probe = fetch_source(SOURCE, session=session, probe=True)
+779506	    assert probe['source']['eligible_for_publication'] is False
+779507	    assert probe['source']['probe_only'] is True
+779508	    assert probe['source']['rights_status'] == 'unknown'
+779509	def test_enabled_source_requires_attributable_rights_acceptance(tmp_path):
+779510	    p.write_text(yaml.safe_dump([dict(SOURCE, enabled=True)]))
+779511	    with pytest.raises(ValueError, match='rights acceptance'):
+779512	    # A structural review URL is necessary, not independent proof of rights.
+779513	    accepted = dict(SOURCE, enabled=True, rights_status='accepted',
+779514	                    rights_review_url='https://example.org/review/accepted')
+779515	    p.write_text(yaml.safe_dump([accepted]))
+779516	    assert load_sources(p) == [accepted]
+779517	    receipt = fetch_source(accepted, session=Session(Response()))['source']
+779518	    assert receipt['eligible_for_publication'] is True
+779519	    assert receipt['rights_review_url'] == accepted['rights_review_url']
+779520	def test_xml_entity_rejected():
+779521	        parse_feed(b'<!DOCTYPE rss [<!ENTITY x "unsafe">]><rss/>', SOURCE)
+779522	def test_strict_matching_rejects_bare_ids_partial_names_and_ambiguity():
+779523	    projects = [{'id': '1019', 'name': 'Solar Farm A'}, {'id': '1020', 'name': 'Solar Farm AB'},
+779524	                {'id': '2026', 'name': 'Manor Farm'}, {'id': '2027', 'name': 'Manor Farm'}]
+779525	    base = {'url': 'https://www.pv-magazine.com/article/'}
+779526	    matches = match_articles([dict(base, title='Solar Farm A plans approved in 2026')], projects)
+779527	    assert matches == [{'project_id': '1019', 'article_url': base['url'], 'status': 'PROVISIONAL', 'match_method': 'exact_name'}]
+779528	    assert not match_articles([dict(base, title='Manor Farm output increases in 2026')], projects)
+779529	    assert not match_articles([dict(base, title='Solar Farm ABC planning')], projects)
+779530	    assert match_articles([dict(base, title='REPD Ref ID: 2026 solar update')], projects)[0]['project_id'] == '2026'
+779531	def test_content_match_and_idempotent_results():
+779532	    article = {'title': 'Update', 'content': 'Solar Farm A is mentioned.', 'url': 'https://www.pv-magazine.com/a/'}
+779533	    result = match_articles([article, article], [{'id': '1019', 'name': 'Solar Farm A'}])
+779534	    assert len(result) == 1
+779535	    assert result[0]['status'] == 'PROVISIONAL'
+779536	def test_ambiguity_outside_pilot_blocks_name_match_but_not_explicit_id():
+779537	    projects = [{'id': '1019', 'name': 'Solar Farm A', 'name_ambiguous': True}]
+779538	    article = {'title': 'Solar Farm A plans approved', 'url': 'https://www.pv-magazine.com/a/'}
+779539	    assert match_articles([article], projects) == []
+779540	    article['title'] += ' REPD 1019'
+779541	    assert match_articles([article], projects)[0]['match_method'] == 'repd_id'
+779542	@pytest.mark.parametrize('address', ['127.0.0.1', '10.0.0.1', '169.254.169.254', '192.168.1.1', '::1', 'fc00::1', '224.0.0.1', 'ff02::1'])
+779543	def test_private_dns_answer_rejected_before_connect(monkeypatch, address):
+779544	    monkeypatch.setattr(socket, 'getaddrinfo', lambda *a, **kw: [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (address, 443))])
+779545	    monkeypatch.setattr(socket, 'socket', lambda *a: pytest.fail('Private address must never connect'))
+779546	    with pytest.raises(FetchError, match='non-public'):
+779547	        _PublicHTTPSConnection('www.pv-magazine.com', timeout=10)._new_conn()
+779548	def test_public_dns_address_is_connected_without_second_resolution(monkeypatch):
+779550	    class FakeSocket:
+779551	        def settimeout(self, value):
+779552	            assert value == 10
+779553	        def setsockopt(self, *args):
+779554	        def connect(self, address):
+779555	            calls.append(address)
+779556	    def resolve(*args, **kwargs):
+779557	        calls.append('resolve')
+779558	        return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', ('8.8.8.8', 443))]
+779559	    monkeypatch.setattr(socket, 'getaddrinfo', resolve)
+779560	    monkeypatch.setattr(socket, 'socket', lambda *args: FakeSocket())
+779561	    _PublicHTTPSConnection('www.pv-magazine.com', timeout=10)._new_conn()
+779562	    assert calls == ['resolve', ('8.8.8.8', 443)]
+779563	def test_transport_error_does_not_expose_local_paths():
+779564	    with pytest.raises(FetchError) as error:
+779565	        fetch_source(SOURCE, session=Session(requests.ConnectionError('C:/private/session/file.pem')), probe=True)
+779566	    assert 'C:/' not in str(error.value)
+779567	"""Full-row analytical closure and fail-closed immutable output checks."""
+779570	from automation.news.acquisition import analytics
+779571	from automation.news.acquisition.evidence_store import EvidenceStore, EvidenceValidationError
+779572	from automation.news.acquisition.research_queue import load_seed_projects
+779573	NOW = "2026-11-16T16:00:00Z"
+779575	def snapshot():
+779576	    article = {"id": "synthetic", "url": "https://fixtures.example/solar",
+779577	               "title": "Synthetic solar association", "pub_date": NOW,
+779578	               "source_id": "fixture", "publisher": "Synthetic test publisher"}
+779579	    source = {"id": "fixture", "status": "ok", "url": "https://fixtures.example/feed",
+779580	              "fetched_at": NOW, "response_sha256": "a" * 64, "http_status": 200,
+779581	              "eligible_for_publication": True, "probe_only": False, "rights_status": "accepted",
+779582	              "rights_review_url": "https://fixtures.example/synthetic-rights"}
+779583	    # Same article associated with two projects: preserve association identity.
+779584	    matches = [{"project_id": p["id"], "article_url": article["url"],
+779585	                "status": "PROVISIONAL", "match_method": "repd_id"} for p in projects[:2]]
+779586	    with EvidenceStore() as store:
+779587	        store.record_run(projects, [article], matches, NOW, [source])
+779588	        return store.snapshot(), [p["id"] for p in projects]
+779589	def export(tmp_path, snapshot):
+779590	    payload, ids = snapshot
+779591	    receipt = analytics.export_analytics(payload, tmp_path, expected_project_ids=ids)
+779592	    return tmp_path / receipt["directory"], receipt
+779593	def bytes_in(directory):
+779594	    return {p.relative_to(directory).as_posix(): p.read_bytes()
+779595	            for p in directory.rglob("*") if p.is_file()}
+779596	def test_full_seed_parquet_join_and_replay_preserve_operational_state(tmp_path, snapshot):
+779597	    (tmp_path / "latest.json").write_bytes(b"existing pointer")
+779598	    (tmp_path / "evidence.sqlite").write_bytes(b"existing operational store")
+779599	    directory, receipt = export(tmp_path, snapshot)
+779600	    assert receipt["project_count"] == 1000
+779601	    assert receipt["evidence_count"] == 2
+779602	    assert not str(tmp_path) in json.dumps(receipt)
+779603	    with duckdb.connect() as db:
+779604	        projects = db.read_parquet(str(directory / "projects.parquet"))
+779605	        assert projects.count("*").fetchone()[0] == 1000
+779606	        assert projects.filter("verified_count <> 0 OR last_event IS NOT NULL").count("*").fetchone()[0] == 0
+779607	        evidence = db.read_parquet(str(directory / "evidence.parquet"))
+779608	        assert evidence.aggregate("count(DISTINCT project_id)").fetchone()[0] == 2
+779609	        assert evidence.aggregate("count(DISTINCT url)").fetchone()[0] == 1
+779610	        assert "body" not in evidence.columns
+779611	    before = bytes_in(tmp_path)
+779612	    assert export(tmp_path, snapshot)[1] == receipt
+779613	    assert bytes_in(tmp_path) == before
+779614	    assert before["latest.json"] == b"existing pointer"
+779615	    assert before["evidence.sqlite"] == b"existing operational store"
+779616	def test_empty_evidence_keeps_typed_table_and_unknown_coordinates(tmp_path, snapshot):
+779617	    payload, ids = copy.deepcopy(snapshot)
+779618	        row.update(evidence=[], evidence_count=0, provisional_count=0,
+779619	                   status="RESEARCH_ATTEMPTED_NO_EVIDENCE", latitude=None, longitude=None)
+779620	    payload["evidence_count"] = 0
+779621	    directory, _ = export(tmp_path, (payload, ids))
+779622	        relation = db.read_parquet(str(directory / "evidence.parquet"))
+779623	        assert relation.columns == [c for c, _ in analytics.TABLES["evidence"]]
+779624	        assert relation.count("*").fetchone()[0] == 0
+779625	        assert projects.filter("latitude IS NULL AND longitude IS NULL").count("*").fetchone()[0] == 1000
+779626	@pytest.mark.parametrize("mutation", [
+779627	    lambda p: p.update(verified_count=1),
+779628	    lambda p: p["sources"][0].update(rights_status="unknown"),
+779629	    lambda p: p["projects"][0].update(project_id="99999999"),
+779630	    lambda p: p["projects"][0]["evidence"][0].update(body="do not persist"),
+779631	    lambda p: p["projects"][0].update(evidence_count=999),
+779632	def test_invalid_source_fails_before_output(tmp_path, snapshot, mutation):
+779633	    mutation(payload)
+779634	    with pytest.raises(EvidenceValidationError):
+779635	        analytics.export_analytics(payload, tmp_path, expected_project_ids=ids)
+779636	    assert list(tmp_path.iterdir()) == []
+779637	def test_changed_source_same_generation_cannot_overwrite(tmp_path, snapshot):
+779638	    directory, _ = export(tmp_path, snapshot)
+779639	    before = bytes_in(directory)
+779640	    payload["projects"][0]["name"] = "Changed identity"
+779641	    with pytest.raises(EvidenceValidationError, match="source identity"):
+779642	    assert bytes_in(directory) == before
+779643	@pytest.mark.parametrize("change", ["corrupt", "missing", "extra"])
+779644	def test_artifact_tampering_rejected(tmp_path, snapshot, change):
+779645	    parquet = directory / "projects.parquet"
+779646	    if change == "corrupt":
+779647	        parquet.write_bytes(parquet.read_bytes() + b"corruption")
+779648	    elif change == "missing":
+779649	        parquet.unlink()
+779650	        (directory / "unowned.txt").write_text("unexpected")
+779651	        analytics.validate_analytics(directory, snapshot[0], expected_project_ids=snapshot[1])
+779652	def test_recomputed_hash_cannot_hide_changed_parquet_values(tmp_path, snapshot):
+779653	    path = directory / "evidence.parquet"
+779654	    replacement = tmp_path / "changed.parquet"
+779655	        db.read_parquet(str(path)).create_view("original")
+779656	        db.execute("COPY (SELECT * REPLACE ('VERIFIED' AS status) FROM original) TO "
+779657	                   + analytics._literal(replacement) + " (FORMAT PARQUET, COMPRESSION ZSTD)")
+779658	    path.write_bytes(replacement.read_bytes())
+779659	    manifest_path = directory / "manifest.json"
+779661	    manifest["artifacts"]["evidence"].update(
+779662	        sha256=hashlib.sha256(path.read_bytes()).hexdigest(), bytes=path.stat().st_size)
+779663	    manifest_path.write_text(json.dumps(manifest))
+779664	    with pytest.raises(EvidenceValidationError, match="full-row comparison"):
+779665	def test_failed_readback_leaves_no_partial_generation_or_pointer(tmp_path, snapshot, monkeypatch):
+779666	    (tmp_path / "latest.json").write_bytes(b"accepted")
+779667	    def fail(*args, **kwargs):
+779668	        raise EvidenceValidationError("simulated readback failure")
+779669	    monkeypatch.setattr(analytics, "validate_analytics", fail)
+779670	    with pytest.raises(EvidenceValidationError, match="simulated"):
+779671	        export(tmp_path, snapshot)
+779672	    assert bytes_in(tmp_path) == {"latest.json": b"accepted"}
+779673	    assert [p.name for p in tmp_path.iterdir()] == ["latest.json"]
+779674	def test_output_path_with_quote_is_not_sql(tmp_path, snapshot):
+779675	    directory, _ = export(tmp_path / "producer's output", snapshot)
+779676	    assert directory.is_dir()
+779677	def test_fixed_payload_builds_identical_bytes_in_independent_directories(tmp_path, snapshot):
+779678	    first, receipt_a = export(tmp_path / "first", snapshot)
+779679	    second, receipt_b = export(tmp_path / "second", snapshot)
+779680	    assert bytes_in(first) == bytes_in(second)
+779681	    assert receipt_a == receipt_b
+779682	def test_hash_repair_does_not_hide_wrong_column_type(tmp_path, snapshot):
+779683	    path = directory / "projects.parquet"
+779684	    replacement = tmp_path / "wrong-schema.parquet"
+779685	        db.execute("COPY (SELECT * REPLACE (CAST(project_id AS BIGINT) AS project_id) FROM original) TO "
+779686	    manifest["artifacts"]["projects"].update(
+779687	    with pytest.raises(EvidenceValidationError, match="Parquet schema"):
+779688	"""End-to-end candidate builds use explicit synthetic feed/rights fixtures only."""
+779689	from automation.news.acquisition import run
+779690	from automation.news.acquisition.evidence_store import EvidenceValidationError, validate_snapshot
+779691	from automation.news.acquisition.fetch import FetchError, parse_feed
+779692	SOURCE = {
+779693	    "id": "pv_magazine_global", "publisher": "PV Magazine", "kind": "rss",
+779694	    "url": "https://www.pv-magazine.com/feed/", "technology": ["solar"],
+779695	    "interval_hours": 168, "enabled": True, "output_policy": "headline_link_only",
+779696	    "rights_status": "accepted", "rights_review_url": "https://fixtures.example/synthetic-rights-review",
+779697	RSS = b'''<rss><channel><item>
+779698	<title>Synthetic fixture: REPD Ref 1018 solar project</title>
+779699	<link>https://www.pv-magazine.com/synthetic-test-fixture/</link>
+779700	<pubDate>Sun, 15 Nov 2026 12:00:00 GMT</pubDate>
+779701	<description>Transient fixture content must not persist.</description>
+779702	class FrozenClock:
+779704	    def now(tz):
+779705	        return datetime(2026, 11, 16, 16, 0, 0, tzinfo=timezone.utc)
+779706	def setup(tmp_path, monkeypatch):
+779707	    # Exercise the real, byte-pinned V9.24 input loader, not a reselected list.
+779708	    monkeypatch.setattr(run, "datetime", FrozenClock)
+779709	    config = tmp_path / "synthetic-sources.yaml"
+779710	    config.write_text(yaml.safe_dump([SOURCE]), encoding="utf-8")
+779711	    return {"out": tmp_path / "evidence", "config": config, "ids": [p["id"] for p in projects]}
+779712	def fixture_fetcher(source, *, probe=False):
+779713	    return {"articles": parse_feed(RSS, source), "source": {
+779714	        "id": source["id"], "publisher": source["publisher"], "url": source["url"],
+779715	        "status": "ok", "fetched_at": NOW, "http_status": 200,
+779716	        "response_sha256": hashlib.sha256(RSS).hexdigest(),
+779717	        "probe_only": probe, "eligible_for_publication": not probe,
+779718	        "rights_status": source["rights_status"], "rights_review_url": source["rights_review_url"],
+779720	def build(setup, **kwargs):
+779721	    return run.collect(setup["out"], sources_path=setup["config"], fetcher=fixture_fetcher, **kwargs)
+779722	def state_bytes(out):
+779723	    return {str(path.relative_to(out)): path.read_bytes() for path in out.rglob("*") if path.is_file()}
+779724	def test_real_seed_synthetic_feed_through_sqlite_and_all_exports(setup):
+779725	    result = build(setup)
+779726	    assert result["selected"] == 1000 and result["provisional_matches"] == 1
+779727	    assert result["verified"] == 0 and result["probe_only"] is False
+779728	    out, pointer = setup["out"], result["pointer"]
+779729	    assert json.loads((out / "latest.json").read_text()) == pointer
+779730	    payload = json.loads((out / pointer["json"]).read_text(encoding="utf-8"))
+779731	    validate_snapshot(payload, setup["ids"])
+779732	    row = next(row for row in payload["projects"] if row["project_id"] == "1018")
+779733	    assert row["evidence_count"] == 1 and row["evidence"][0]["status"] == "PROVISIONAL"
+779734	    assert row["evidence"][0]["match_method"] == "repd_id"
+779735	    assert (out / pointer["csv"]).is_file() and (out / pointer["geojson"]).is_file()
+779736	    analytics = result["analytics"]
+779737	    assert analytics["project_count"] == 1000 and analytics["evidence_count"] == 1
+779738	    assert not Path(analytics["manifest"]).is_absolute()
+779739	    manifest_bytes = (out / analytics["manifest"]).read_bytes()
+779740	    assert hashlib.sha256(manifest_bytes).hexdigest() == analytics["sha256"]
+779741	    from automation.news.acquisition.analytics import validate_analytics
+779742	    validate_analytics(out / analytics["directory"], payload, expected_project_ids=setup["ids"])
+779743	    with sqlite3.connect(out / "evidence.sqlite") as db:
+779744	        assert db.execute("SELECT count(*) FROM projects").fetchone()[0] == 1000
+779745	        assert db.execute("SELECT count(*) FROM evidence").fetchone()[0] == 1000
+779746	        assert db.execute("SELECT count(*) FROM evidence WHERE status='PROVISIONAL'").fetchone()[0] == 1
+779747	    assert all(b"Transient fixture content" not in content for content in state_bytes(out).values())
+779748	    previous = state_bytes(out)
+779749	    assert build(setup)["pointer"] == pointer
+779750	    # SQLite may change its page layout on an idempotent rerun; public exports
+779751	    # and logical row counts are the invariant, not database file bytes.
+779752	    after = state_bytes(out)
+779753	    previous.pop("evidence.sqlite")
+779754	    after.pop("evidence.sqlite")
+779755	    assert after == previous
+779756	def test_probe_returns_health_without_creating_or_changing_state(setup):
+779757	    result = build(setup, probe=True)
+779758	    assert result["probe_only"] is True and "pointer" not in result
+779759	    assert not setup["out"].exists()
+779760	    build(setup)
+779761	    previous = state_bytes(setup["out"])
+779762	    build(setup, probe=True)
+779763	    assert state_bytes(setup["out"]) == previous
+779764	def test_analytics_failure_preserves_accepted_database_snapshots_and_pointer(setup, monkeypatch):
+779765	    from automation.news.acquisition import analytics
+779766	    def fail_analytics(payload, out, **kwargs):
+779767	        # A real adapter failure can occur after partial candidate writes.
+779768	        (out / "partial-analytics.parquet").write_bytes(b"synthetic partial artifact")
+779769	        raise EvidenceValidationError("Injected analytical readback failure")
+779770	    monkeypatch.setattr(analytics, "export_analytics", fail_analytics)
+779771	    with pytest.raises(EvidenceValidationError, match="analytical readback"):
+779772	        build(setup)
+779773	    # Health probes must never invoke the failing analytical adapter.
+779774	    assert build(setup, probe=True)["probe_only"] is True
+779775	def test_critical_fetch_failure_keeps_previous_state(setup):
+779776	    def failing_fetcher(*args, **kwargs):
+779777	        raise FetchError("Critical source HTTP 503")
+779778	        run.collect(setup["out"], sources_path=setup["config"], fetcher=failing_fetcher)
+779779	    lambda result: result["source"].update(status="failed"),
+779780	    lambda result: result["source"].update(rights_status="unknown"),
+779781	    lambda result: result["source"].update(probe_only=True),
+779782	    lambda result: result["articles"][0].update(pub_date="invalid"),
+779783	def test_schema_or_rights_failure_keeps_database_and_latest(setup, mutation):
+779784	    def invalid_fetcher(source, **kwargs):
+779785	        result = fixture_fetcher(source, **kwargs)
+779786	        mutation(result)
+779788	        run.collect(setup["out"], sources_path=setup["config"], fetcher=invalid_fetcher)
+779789	def test_export_validation_failure_does_not_commit_staged_database(setup, monkeypatch):
+779790	    def fail_export(*args, **kwargs):
+779791	        raise EvidenceValidationError("Injected malformed export")
+779792	    monkeypatch.setattr(run, "export_snapshot", fail_export)
+779793	def test_changed_article_keeps_previous_database_and_pointer(setup):
+779794	    def changed_fetcher(source, **kwargs):
+779795	        result["articles"][0]["title"] += " revised"
+779796	    with pytest.raises(EvidenceValidationError, match="Stored article metadata changed"):
+779797	        run.collect(setup["out"], sources_path=setup["config"], fetcher=changed_fetcher)
+779798	    lambda sources: sources.append(copy.deepcopy(sources[0])),
+779799	    lambda sources: sources[0].update(url="http://127.0.0.1/feed"),
+779800	    lambda sources: sources[0].update(rights_status="unknown"),
+779801	def test_invalid_source_config_fails_before_fetch_or_output(setup, mutation):
+779802	    sources = [copy.deepcopy(SOURCE)]
+779803	    mutation(sources)
+779804	    setup["config"].write_text(yaml.safe_dump(sources), encoding="utf-8")
+779805	    def unexpected_fetch(*args, **kwargs):
+779806	        pytest.fail("Invalid source must never be fetched")
+779807	        run.collect(setup["out"], sources_path=setup["config"], fetcher=unexpected_fetch)
+779808	def test_disabled_unknown_rights_source_only_allows_probe(setup):
+779809	    disabled = {**SOURCE, "enabled": False, "rights_status": "unknown", "rights_review_url": None}
+779810	    setup["config"].write_text(yaml.safe_dump([disabled]), encoding="utf-8")
+779811	    with pytest.raises(FetchError, match="No enabled source"):
+779812	def test_cli_failure_report_is_redacted_and_requires_manual_review(tmp_path, monkeypatch, capsys):
+779813	    report = tmp_path / "report.json"
+779814	    def fail_collect(*args, **kwargs):
+779815	        raise ValueError("secret-example-token and machine-specific-path")
+779816	    monkeypatch.setattr(run, "collect", fail_collect)
+779817	    monkeypatch.setattr(sys, "argv", ["run", "--report", str(report), "--out", str(tmp_path / "out")])
+779818	    assert run.main() == 1
+779819	    payload = json.loads(report.read_text())
+779820	    assert payload == {"result": "blocked", "error_type": "ValueError", "manual_review_required": True,
+779821	                       "probe_only": False}
+779822	    assert "secret-example-token" not in report.read_text() + capsys.readouterr().out
+779823	    assert not (tmp_path / "out").exists()
+779824	"""Real local bare-repo races: no network and no production refs."""
+779825	from automation.news.acquisition.publish import REF, publish
+779826	def git(folder, *args):
+779827	    return subprocess.run(["git", "-C", str(folder), *args], check=True,
+779829	def repos(tmp_path):
+779830	    remote, writer = tmp_path / "remote.git", tmp_path / "writer"
+779831	    git(tmp_path, "init", "--bare", str(remote))
+779832	    git(tmp_path, "init", str(writer))
+779833	    git(writer, "config", "user.name", "Synthetic test")
+779834	    git(writer, "config", "user.email", "test@example.invalid")
+779835	    git(writer, "remote", "add", "origin", str(remote))
+779836	    return remote, writer
+779837	def commit(writer, label):
+779838	    (writer / "evidence.txt").write_text(label)
+779839	    git(writer, "add", ".")
+779840	    git(writer, "commit", "-m", label)
+779841	    return git(writer, "rev-parse", "HEAD")
+779842	def test_create_and_direct_successor(repos):
+779843	    remote, writer = repos
+779844	    first = commit(writer, "initial")
+779845	    publish(writer, "")
+779846	    second = commit(writer, "weekly")
+779847	    publish(writer, first)
+779848	    assert git(remote, "rev-parse", REF) == second
+779849	def test_concurrent_rollback_is_not_undone(repos):
+779850	    restored = commit(writer, "restored-state")
+779851	    commit(writer, "new-snapshot")
+779852	    git(remote, "update-ref", REF, first, restored)  # concurrent owner's rollback
+779853	    with pytest.raises(subprocess.CalledProcessError):
+779854	        publish(writer, restored)
+779855	    assert git(remote, "rev-parse", REF) == first
+779856	def test_concurrent_creation_rejected(repos):
+779857	        # A different newly-created root cannot replace an existing branch.
+779858	        git(writer, "checkout", "--orphan", "other-root")
+779859	        commit(writer, "other")
+779860	        publish(writer, "")
+779861	def test_non_descendant_never_reaches_push(repos):
+779862	    commit(writer, "middle")
+779863	    commit(writer, "latest")
+779864	    with pytest.raises(ValueError, match="direct successor"):
+779865	        publish(writer, first)
+779866	"""Acquisition storage gates: immutable scope, provisional status and publication."""
+779867	from automation.news.acquisition.evidence_store import (
+779868	    EvidenceStore, EvidenceValidationError, NO_EVIDENCE, PROVISIONAL,
+779869	    export_snapshot, validate_snapshot,
+779871	LATER = "2026-11-23T16:00:00Z"
+779872	def projects():
+779873	    return [{"id": str(i), "name": f"Project {i}", "latitude": 52.1 if i == 1000 else None,
+779874	             "longitude": -1.2 if i == 1000 else None} for i in range(1000, 2000)]
+779875	def articles():
+779876	    return [{"id": "article1", "url": "https://www.pv-magazine.com/example/",
+779877	             "title": "Project 1000 solar plans", "pub_date": "2026-11-15T10:00:00Z",
+779878	             "source_id": "pv_magazine_global", "publisher": "PV Magazine",
+779879	             "content": "This transient snippet must never reach SQLite or published exports."}]
+779880	def sources():
+779881	    return [{"id": "pv_magazine_global", "status": "ok", "url": "https://www.pv-magazine.com/feed/",
+779882	             "fetched_at": NOW, "response_sha256": "a" * 64, "http_status": 200,
+779883	             "eligible_for_publication": True, "probe_only": False, "rights_status": "accepted",
+779884	             "rights_review_url": "https://fixtures.example/synthetic-rights-review"}]
+779885	def matches(articles):
+779886	    return [{"project_id": "1000", "article_url": articles[0]["url"],
+779887	             "status": PROVISIONAL, "match_method": "exact_name"}]
+779888	def test_database_is_durable_idempotent_and_has_no_bodies(tmp_path, projects, articles, sources):
+779889	    db = tmp_path / "state.sqlite"
+779890	    with EvidenceStore(db) as store:
+779891	        store.record_run(projects, articles, matches(articles), NOW, sources)
+779892	        assert store.connection.execute("SELECT count(*) FROM projects").fetchone()[0] == 1000
+779893	        assert store.connection.execute("SELECT count(*) FROM articles").fetchone()[0] == 1
+779894	        assert store.connection.execute("SELECT count(*) FROM evidence").fetchone()[0] == 1000
+779895	        assert store.connection.execute("SELECT count(*) FROM evidence WHERE status=?", (NO_EVIDENCE,)).fetchone()[0] == 999
+779896	    assert b"This transient snippet" not in db.read_bytes()
+779897	        # Feed rotation must not erase a match discovered last week.
+779898	        store.record_run(projects, [], [], LATER, [{**sources[0], "fetched_at": LATER}])
+779899	        snapshot = validate_snapshot(store.snapshot(), [p["id"] for p in projects])
+779900	        assert snapshot["evidence_count"] == 1
+779901	        assert snapshot["projects"][0]["evidence"][0]["first_seen"] == NOW
+779902	        assert {key: snapshot["projects"][0]["evidence"][0][key]
+779903	                for key in ("id", "title", "pub_date", "source_id", "publisher")} == {
+779904	                    key: articles[0][key] for key in ("id", "title", "pub_date", "source_id", "publisher")}
+779905	        assert snapshot["projects"][0]["last_researched_at"] == LATER
+779906	def test_no_evidence_row_replaced_when_match_found(projects, articles, sources):
+779907	        store.record_run(projects, articles, [], NOW, sources)
+779908	        store.record_run(projects, articles, matches(articles), LATER, sources)
+779909	        rows = store.connection.execute("SELECT * FROM evidence WHERE project_id='1000'").fetchall()
+779910	        assert len(rows) == 1 and rows[0]["status"] == PROVISIONAL
+779911	    lambda p, a, m, s: m[0].update(status="VERIFIED"),
+779912	    lambda p, a, m, s: m[0].update(project_id="999999"),
+779913	    lambda p, a, m, s: m[0].update(article_url="https://elsewhere.example/unfetched"),
+779914	    lambda p, a, m, s: m[0].update(match_method="fuzzy"),
+779915	    lambda p, a, m, s: s[0].update(status="failed"),
+779916	    lambda p, a, m, s: s[0].update(response_sha256=""),
+779917	    lambda p, a, m, s: s[0].update(eligible_for_publication=False),
+779918	    lambda p, a, m, s: s[0].update(probe_only=True),
+779919	    lambda p, a, m, s: s[0].update(rights_status="unknown"),
+779920	    lambda p, a, m, s: s[0].update(rights_review_url=None),
+779921	    lambda p, a, m, s: a[0].update(url="javascript:alert(1)"),
+779922	    lambda p, a, m, s: a[0].update(pub_date="not a date"),
+779923	    lambda p, a, m, s: p.pop(),
+779924	    lambda p, a, m, s: p[0].update(latitude=float("nan")),
+779925	def test_invalid_run_fails_without_mutating_store(projects, articles, sources, mutation):
+779926	        before = store.snapshot()
+779927	        match = matches(articles)
+779928	        mutation(projects, articles, match, sources)
+779929	        with pytest.raises(EvidenceValidationError):
+779930	            store.record_run(projects, articles, match, LATER, sources)
+779931	        assert store.snapshot() == before
+779932	def test_seed_metadata_cannot_drift(projects, articles, sources):
+779933	        projects[0]["name"] = "Changed identity"
+779934	        with pytest.raises(EvidenceValidationError, match="metadata changed"):
+779935	            store.record_run(projects, articles, matches(articles), LATER, sources)
+779936	def test_database_blocks_verified_and_unknown_schema(tmp_path, projects, articles, sources):
+779937	        with pytest.raises(sqlite3.IntegrityError):
+779938	            store.connection.execute("UPDATE evidence SET status='VERIFIED' WHERE project_id='1000'")
+779939	    path = tmp_path / "bad.sqlite"
+779940	    with sqlite3.connect(path) as db:
+779941	        db.execute("PRAGMA user_version=9")
+779942	    with pytest.raises(EvidenceValidationError, match="Unsupported"):
+779943	        EvidenceStore(path)
+779944	def test_immutable_exports_roundtrip_and_pointer(tmp_path, projects, articles, sources):
+779945	        ids = [p["id"] for p in projects]
+779946	        pointer = export_snapshot(store, tmp_path, expected_project_ids=ids)
+779947	        assert json.loads((tmp_path / "latest.json").read_text()) == pointer
+779948	        snapshot = json.loads((tmp_path / pointer["json"]).read_text())
+779949	        validate_snapshot(snapshot, ids)
+779950	        for filename, digest in pointer["sha256"].items():
+779951	            assert hashlib.sha256((tmp_path / pointer["snapshot"] / filename).read_bytes()).hexdigest() == digest
+779952	        with (tmp_path / pointer["csv"]).open(newline="") as handle:
+779953	            rows = list(csv.DictReader(handle))
+779954	        assert len(rows) == 1000 and rows[0]["provisional_count"] == "1"
+779955	        geojson = json.loads((tmp_path / pointer["geojson"]).read_text())
+779956	        assert len(geojson["features"]) == 1000
+779957	        assert geojson["features"][0]["geometry"]["coordinates"] == [-1.2, 52.1]
+779958	        assert geojson["features"][1]["geometry"] is None
+779959	        assert "content" not in snapshot["projects"][0]["evidence"][0]
+779960	        assert snapshot["projects"][0]["last_event"] is None
+779961	        # An identical invocation safely reproduces the same immutable artifact.
+779962	        assert export_snapshot(store, tmp_path, expected_project_ids=ids) == pointer
+779963	        previous = (tmp_path / "latest.json").read_bytes()
+779964	        articles[0]["title"] = "Changed article title"
+779965	        with pytest.raises(EvidenceValidationError, match="Stored article metadata changed"):
+779966	            store.record_run(projects, articles, matches(articles), NOW, sources)
+779967	        assert (tmp_path / "latest.json").read_bytes() == previous
+779968	    lambda x: x.update(schema="wrong"),
+779969	    lambda x: x.update(verified_count=1),
+779970	    lambda x: x.update(project_count=True),
+779971	    lambda x: x.update(evidence_count=2),
+779972	    lambda x: x["projects"][0].update(status="VERIFIED"),
+779973	    lambda x: x["projects"][0].update(project_id="9999"),
+779974	    lambda x: x["projects"][0].update(last_event="planning approved"),
+779975	    lambda x: x["projects"][0]["evidence"][0].update(content="body"),
+779976	    lambda x: x["sources"][0].update(status="failed"),
+779977	    lambda x: x["sources"][0].update(rights_status="unknown"),
+779978	    lambda x: x["sources"][0].update(probe_only=True),
+779979	def test_schema_failure_keeps_previous_pointer(tmp_path, projects, articles, sources, mutation, monkeypatch):
+779980	        export_snapshot(store, tmp_path, expected_project_ids=ids)
+779981	        payload = copy.deepcopy(store.snapshot(LATER))
+779982	        mutation(payload)
+779983	        monkeypatch.setattr(store, "snapshot", lambda timestamp=None: payload)
+779984	            export_snapshot(store, tmp_path, LATER, expected_project_ids=ids)
+779985	        assert len(list(tmp_path.glob("snapshot_*"))) == 1
+779986	def test_csv_neutralizes_untrusted_formulas(tmp_path, projects, articles, sources):
+779987	    projects[0]["name"] = "=HYPERLINK(\"https://malicious.example\")"
+779988	        pointer = export_snapshot(store, tmp_path, expected_project_ids=[p["id"] for p in projects])
+779989	        assert rows[0]["name"].startswith("'=")
+779990	def test_no_successful_run_cannot_export(tmp_path, projects):
+779991	        with pytest.raises(EvidenceValidationError, match="No successful"):
+779992	            export_snapshot(store, tmp_path, expected_project_ids=[p["id"] for p in projects])
+779993	    assert not (tmp_path / "latest.json").exists()
+779994	@pytest.mark.parametrize("field,value", [
+779995	    ("id", "replacement-article-id"),
+779996	    ("title", "Project 1001 solar plans"),
+779997	    ("pub_date", "2026-11-22T10:00:00Z"),
+779998	    ("source_id", "replacement_source"),
+779999	    ("publisher", "Replacement publisher"),
+780000	def test_changed_article_is_rejected_before_state_or_exports_change(
+780001	        tmp_path, projects, articles, sources, field, value):
+780002	    from automation.news.acquisition.match import match_articles
+780003	    database = tmp_path / "state.sqlite"
+780004	    with EvidenceStore(database) as store:
+780005	        store.record_run(projects, articles, match_articles(articles, projects), NOW, sources)
+780006	        before = {str(path.relative_to(tmp_path)): path.read_bytes()
+780007	                  for path in tmp_path.rglob("*") if path.is_file()}
+780008	        previous_snapshot = store.snapshot()
+780009	        changed = [{**articles[0], field: value}]
+780010	        receipts = copy.deepcopy(sources)
+780011	        if field == "source_id":
+780012	            # The replacement has a valid receipt, isolating metadata immutability
+780013	            # from the independent requirement to have an accepted source.
+780014	            receipts.append({**sources[0], "id": value})
+780015	        changed_matches = match_articles(changed, projects)
+780016	        if field == "title":
+780017	            assert [m["project_id"] for m in changed_matches] == ["1001"]
+780018	            store.record_run(projects, changed, changed_matches, LATER, receipts)
+780019	        assert store.snapshot() == previous_snapshot
+780020	        assert {str(path.relative_to(tmp_path)): path.read_bytes()
+780021	                for path in tmp_path.rglob("*") if path.is_file()} == before
+780022	def test_existing_snapshot_bytes_cannot_be_overwritten(tmp_path, projects, articles, sources):
+780023	        target = tmp_path / pointer["json"]
+780024	        target.write_bytes(b"Synthetic conflicting snapshot bytes")
+780025	        with pytest.raises(EvidenceValidationError, match="Immutable snapshot"):
+780026	            export_snapshot(store, tmp_path, expected_project_ids=ids)
+780027	        assert target.read_bytes() == b"Synthetic conflicting snapshot bytes"
+780028	def test_snapshot_rejects_evidence_without_accepted_source_receipt(
+780029	        tmp_path, projects, articles, sources, monkeypatch):
+780030	        payload["projects"][0]["evidence"][0]["source_id"] = "no-accepted-source-receipt"
+780031	        with pytest.raises(EvidenceValidationError, match="Article has no successful source receipt"):
+780032	"""Global DC facts remain separate, attributable, reproducible and conservative."""
+780034	DATA = ROOT / 'uk_renewables_pipeline/202611161630/global-datacentres'
+780036	    return json.loads((DATA / name).read_text(encoding='utf-8'))
+780037	def test_curated_sample_is_genuinely_global_and_source_namespaced():
+780038	    data = load('projects.json')
+780039	    assert data['record_count'] == len(data['records']) == 12
+780040	    assert data['country_count'] == len({p['country']['wikidata_id'] for p in data['records']}) == 10
+780041	    assert {'Japan', 'India', 'Australia', 'Brazil', 'United States', 'United Kingdom'} <= {p['country']['name'] for p in data['records']}
+780042	    assert len({p['id'] for p in data['records']}) == 12
+780043	    assert all(p['id'].startswith('DC-WD-Q') for p in data['records'])
+780044	    assert 'not a comprehensive' in data['coverage']
+780045	    assert all(p['operating_status'] == 'not_assessed' and p['verification_status'] == 'SOURCE_INDEXED' for p in data['records'])
+780046	def test_export_reproduces_from_fixed_cc0_facts_and_original_coordinates():
+780047	    spec = importlib.util.spec_from_file_location('global_dc_build', DATA / 'build.py')
+780050	    assert module.build(DATA / 'source-facts.json') == data
+780051	    assert hashlib.sha256((DATA / 'source-facts.json').read_bytes()).hexdigest() == data['source_facts_sha256']
+780052	    facts = load('source-facts.json')
+780053	    assert facts['licence'] == 'CC0-1.0'
+780054	    assert all(r['http_status'] == 200 and len(r['response_sha256']) == 64 for r in facts['requests'])
+780056	        original = facts['entities'][record['id'].removeprefix('DC-WD-')]
+780057	        assert record['name'] == original['label']
+780058	        assert record['source']['revision'] == original['revision']
+780059	        assert f"oldid={original['revision']}" in record['source']['revision_url']
+780060	        if record['location'] is not None:
+780061	            coordinates = module.values(original, 'P625')[0]
+780062	            assert record['location']['latitude'] == coordinates['latitude']
+780063	            assert record['location']['longitude'] == coordinates['longitude']
+780064	            assert record['location']['precision_degrees'] == coordinates['precision']
+780065	def test_unknown_capacity_and_coordinates_never_fabricated():
+780066	    records = load('projects.json')['records']
+780067	        assert record['capacity'] == {'it_load_mw': None, 'site_demand_mw': None, 'grid_connection_mw': None}
+780068	        assert all(source is None for source in record['capacity_sources'].values())
+780069	    for entity in ['Q142068471', 'Q142068695', 'Q142068699']:
+780070	        record = next(p for p in records if p['id'] == 'DC-WD-' + entity)
+780071	        assert record['location'] is None
+780072	    # A deprecated ISO claim is not promoted into a current code.
+780073	    assert next(p for p in records if p['country']['wikidata_id'] == 'Q55')['country']['code'] is None
+780074	def test_browser_model_filters_links_capacity_and_rejects_bad_records():
+780075	    result = subprocess.run(['node', str(DATA / 'test-model.cjs')], capture_output=True, text=True, check=True)
+780076	    assert 'PASS' in result.stdout
+780077	def test_parquet_exact_readback_schema_nulls_and_deterministic_bytes(tmp_path):
+780079	    spec = importlib.util.spec_from_file_location('global_dc_furnace', DATA / 'build.py')
+780080	    module.build(DATA / 'source-facts.json', output_dir=tmp_path)
+780081	    audit = json.loads((tmp_path / 'pipeline-audit.json').read_text())
+780082	    parquet = tmp_path / module.PARQUET
+780083	    assert parquet.read_bytes() == (DATA / module.PARQUET).read_bytes()
+780084	    assert audit['double_compile'] == 'BYTE_IDENTICAL'
+780085	    assert audit['browser_export_source'] == 'DUCKDB_PARQUET_READBACK'
+780086	    assert audit['row_count'] == audit['distinct_source_ids'] == 12
+780087	    assert audit['quarantined_rows'] == audit['verified_rows'] == 0
+780088	    with duckdb.connect(':memory:') as db:
+780089	        assert db.execute('SELECT count(*) FROM read_parquet(?,hive_partitioning=false) WHERE it_load_mw IS NULL AND site_demand_mw IS NULL AND grid_connection_mw IS NULL', [str(parquet)]).fetchone()[0] == 12
+780090	        assert db.execute('SELECT count(*) FROM read_parquet(?,hive_partitioning=false) WHERE latitude IS NULL AND longitude IS NULL', [str(parquet)]).fetchone()[0] == 3
+780091	        assert db.execute('SELECT DISTINCT compression FROM parquet_metadata(?)', [str(parquet)]).fetchall() == [('ZSTD',)]
+780092	@pytest.mark.parametrize('mutation', [
+780093	    lambda f: f.update(licence='unknown'),
+780094	    lambda f: f['selected_ids'].append(f['selected_ids'][0]),
+780095	    lambda f: f['entities']['Q12857142']['claims']['P625'][0]['value'].update(latitude=200),
+780096	    lambda f: f['entities']['Q12857142']['claims'].update(P17=[]),
+780097	def test_invalid_inputs_are_quarantined_before_output_changes(tmp_path, mutation):
+780098	    spec = importlib.util.spec_from_file_location('global_dc_invalid', DATA / 'build.py')
+780099	    facts = copy.deepcopy(load('source-facts.json'))
+780100	    mutation(facts)
+780101	    path = tmp_path / 'invalid-source.json'
+780102	    path.write_text(json.dumps(facts), encoding='utf-8')
+780103	    target = tmp_path / 'output'
+780104	    target.mkdir()
+780105	    previous = target / 'projects.json'
+780106	    previous.write_text('previous accepted output', encoding='utf-8')
+780107	    with pytest.raises(ValueError, match='quarantine'):
+780108	        module.build(path, output_dir=target)
+780109	    assert previous.read_text() == 'previous accepted output'
+780110	    assert not (target / module.PARQUET).exists()
+780111	"""Contract/negative tests for headline ordering, independent of live sources."""
+780112	NOW = "2026-11-16T13:06:13Z"
+780113	def article(link="https://news.example/1", title="UK solar farm granted planning consent", **extra):
+780114	    return {"title": title, "link": link, "source": "A credited publisher", "date": "2026-11-15T12:00:00Z",
+780115	            "first_seen": "2026-11-16T12:00:00Z", "category": "consent", "technology": "solar",
+780116	            "possible_match": None, **extra}
+780117	def rank(items, **kwargs):
+780118	    return N.rank_headlines(items, as_of=NOW, **kwargs)["items"]
+780119	def test_official_relevant_news_precedes_paid_discovery_without_deleting_credit():
+780120	    discovery = article("https://www.bloomberg.com/news/1", source="Bloomberg", date="2026-11-16T12:50:00Z")
+780121	    official = article("https://www.gov.uk/government/news/1", source="GOV.UK", date="2026-11-14T12:00:00Z")
+780122	    items = rank([discovery, official])
+780123	    assert [item["source"] for item in items] == ["GOV.UK", "Bloomberg"]
+780124	    assert items[1]["link"] == discovery["link"]
+780125	    assert items[1]["editorial"]["role"] == "discovery_lead"
+780126	    assert "subscription" in items[1]["editorial"]["source"]["access_notice"]
+780127	    assert all(item["editorial"]["verification_status"] == "NOT_VERIFIED" for item in items)
+780128	def test_display_diversity_is_soft_and_does_not_drop_valuable_articles():
+780129	    repeated = [article(f"https://news.example/{i}") for i in range(15)]
+780130	    alternative = article("https://other.example/1", date="2026-11-10T12:00:00Z")
+780131	    items = rank(repeated + [alternative])
+780132	    assert len(items) == 16 and items[1]["link"] == alternative["link"]
+780133	    assert items[2]["editorial"]["publisher_repetition_penalty"] == 8
+780134	    uncapped = rank(repeated + [alternative], diversity_penalty=0)
+780135	    assert uncapped[-1]["link"] == alternative["link"]
+780136	def test_generic_ai_finance_is_context_even_if_legacy_category_says_datacentre():
+780137	    stock = article("https://wire.example/1", "AI stocks rally before a busy earnings week", category="datacentre", date=NOW)
+780138	    dc = article("https://agency.example/1", "Data centre construction begins in Indiana", technology=None)
+780139	    items = rank([stock, dc])
+780140	    assert items[0]["link"] == dc["link"]
+780141	    assert items[1]["editorial"]["topics"] == []
+780142	    assert items[1]["editorial"]["context_bucket"] == 1
+780143	def test_uk_context_does_not_claim_project_location_or_use_multinational_name():
+780144	    uk = rank([article(title="UK solar project approved")])[0]
+780145	    overseas = rank([article(title="National Grid solar project approved in New South Wales")])[0]
+780146	    assert uk["editorial"]["components"]["uk_headline_context"] == 5
+780147	    assert overseas["editorial"]["components"]["uk_headline_context"] == 0
+780148	    assert "country" not in overseas and overseas["editorial"]["project_fact_status"] == "NOT_ASSESSED"
+780149	def test_source_policy_is_not_inferred_from_publisher_label():
+780150	    fake = article("https://other.example/1", source="GOV.UK")
+780151	    assert rank([fake])[0]["editorial"]["source"]["kind"] == "reporting"
+780152	    policy = {"source_id": "funding-agency", "hosts": ["other.example"], "kind": "institution",
+780153	              "review_url": "https://review.example/source/1", "publisher_group": "funding-agency"}
+780154	    row = rank([fake], source_policies=[policy])[0]
+780155	    assert row["editorial"]["source"]["kind"] == "institution"
+780156	    assert row["editorial"]["source"]["rights_approval"] == "not_assessed_by_ranking"
+780157	def test_listed_parent_needs_explicit_identity_and_listing_evidence():
+780158	    policy = {"source_id": "issuer", "hosts": ["news.example"], "kind": "listed_parent",
+780159	              "review_url": "https://review.example/source/1"}
+780160	    with pytest.raises(ValueError, match="listed-parent"):
+780161	        rank([article()], source_policies=[policy])
+780162	    policy.update(listed_parent_id="issuer:EXAMPLE", listing_evidence_url="https://exchange.example/issuer/EXAMPLE")
+780163	    assert rank([article()], source_policies=[policy])[0]["editorial"]["source"]["kind"] == "listed_parent"
+780164	def test_reviewed_original_reporting_credit_is_not_inferred_from_brand():
+780165	    row = article("https://www.reuters.com/energy/original", source="Reuters")
+780166	    assert rank([row])[0]["editorial"]["components"]["reviewed_original_reporting"] == 0
+780167	    receipt = {"article_url": row["link"], "kind": "original_reporting", "reviewed": True,
+780168	               "basis": "Reviewer inspected attributable original reporting; test fixture.",
+780169	               "review_url": "https://review.example/originality/1"}
+780170	    ranked = rank([row], originality=[receipt])[0]
+780171	    assert ranked["editorial"]["components"]["reviewed_original_reporting"] == 6
+780172	    assert ranked["source"] == "Reuters" and ranked["editorial"]["verification_status"] == "NOT_VERIFIED"
+780173	    with pytest.raises(ValueError, match="reviewed receipt"):
+780174	        rank([row], originality=[dict(receipt, reviewed=False)])
+780175	@pytest.mark.parametrize("date,state,precision", [
+780176	    (None, "unknown", "unknown"), ("2026-11-15", "current", "day"),
+780177	    ("2026-11-15T12:00:00", "unknown", "unknown"),
+780178	    ("2026-11-17T12:00:00Z", "future", "second"), ("2025-11-15", "stale", "day"),
+780179	def test_publication_precision_and_freshness_never_use_first_seen(date, state, precision):
+780180	    item = rank([article(date=date, first_seen=NOW)])[0]
+780181	    f = item["editorial"]["freshness"]
+780182	    assert f["state"] == state and f["precision"] == precision
+780183	    if state in ("unknown", "future"):
+780184	        assert f["points"] == 0
+780185	    assert item["date"] == date
+780186	def test_future_or_stale_government_article_does_not_lead_current_project_story():
+780187	    fresh = article("https://news.example/current")
+780188	    for date in ("2027-01-01", "2024-01-01"):
+780189	        gov = article("https://www.gov.uk/news/old", date=date)
+780190	        assert rank([gov, fresh])[0]["link"] == fresh["link"]
+780191	def test_exclusion_and_document_genre_do_not_become_project_priority():
+780192	    rows = [article("https://news.example/e", "Solar eclipse viewing plans announced"),
+780193	            article("https://news.example/whitepapers/report", "Global data centre market investment report"),
+780194	            article("https://news.example/real", "UK grid reinforcement approved")]
+780195	    ranked = rank(rows)
+780196	    assert ranked[0]["link"] == rows[-1]["link"]
+780197	    assert all(row["editorial"]["context_bucket"] == 1 for row in ranked[1:])
+780198	def test_exact_output_is_permutation_stable_and_does_not_mutate_or_republish_body():
+780199	    rows = [article("https://news.example/2"), article("https://other.example/1", body="must not survive")]
+780200	    before = copy.deepcopy(rows)
+780201	    left = N.rank_headlines(rows, as_of=NOW)
+780202	    right = N.rank_headlines(list(reversed(rows)), as_of=NOW)
+780203	    assert json.dumps(left, sort_keys=True) == json.dumps(right, sort_keys=True)
+780204	    assert rows == before and all("body" not in row for row in left["items"])
+780205	@pytest.mark.parametrize("url", [
+780206	    "javascript:alert(1)", "https://user:pass@news.example/x", "https://news.example:444/x",
+780207	    "https://127.1/x", "https://2130706433/x", "https://0x7f000001/x", "https://224.0.0.1/x",
+780208	    "https://[::1]/x", "https://example.local/x", "https://example.internal/x", "https://localhost/x",
+780209	    "https://news.example\\@evil.example/x", "https://news.example/\nfoo",
+780210	def test_malformed_or_nonpublic_url_is_rejected(url):
+780211	    with pytest.raises(ValueError, match="URL"):
+780212	        rank([article(url)])
+780213	def test_tracking_canonicalization_detects_duplicate_article_input():
+780214	    with pytest.raises(ValueError, match="duplicate canonical URL"):
+780215	        rank([article("https://news.example/1?utm_source=a"), article("https://news.example/1?utm_source=b")])
+780216	def test_explicit_clock_required_and_policy_conflicts_fail_closed():
+780217	    with pytest.raises(ValueError, match="timezone"):
+780218	        N.rank_headlines([article()], as_of="2026-11-16")
+780219	    policy = {"source_id": "one", "hosts": ["news.example"], "kind": "reporting", "review_url": "https://review.example/1"}
+780220	    with pytest.raises(ValueError, match="duplicate source policy"):
+780221	        rank([article()], source_policies=[policy, policy])
+780222	    with pytest.raises(ValueError, match="diversity"):
+780223	        rank([article()], diversity_penalty=True)
+780224	"""Rank publication must keep the legacy file intact and bind its exact bytes."""
+780225	from automation.news import build_news_priority as B
+780226	def document(items=None):
+780227	    items = items if items is not None else [article()]
+780228	    return {"schema": B.P.SCHEMA, "generated_at": "2026-11-16T13:06:13Z", "status": "ok",
+780229	            "counts": {"items": len(items), "with_possible_match": 0, "feeds_ok": 1, "feeds_failed": 0,
+780230	                       "by_category": {}}, "limits": {"max_items": 200, "max_age_days": 120},
+780231	            "scope": "Headlines only", "feeds": [{"url": "https://news.example/feed", "source": "Example", "status": "ok"}],
+780232	            "items": items}
+780233	def raw(doc):
+780234	    return json.dumps(doc, ensure_ascii=False).encode()
+780235	def test_exact_bytes_determinism_and_legacy_input_preserved():
+780236	    doc = document([article("https://www.bloomberg.com/news/1", source="Bloomberg"),
+780237	                    article("https://www.gov.uk/news/1", "UK solar planning policy announced", source="GOV.UK", category="policy")])
+780238	    original = copy.deepcopy(doc)
+780239	    first = B.build(raw(doc))
+780240	    assert first == B.build(raw(doc)) and doc == original
+780241	    assert first["input_sha256"] == hashlib.sha256(raw(doc)).hexdigest()
+780242	    assert first["as_of"] == doc["generated_at"]
+780243	    assert [e["source"] for e in first["entries"]] == ["GOV.UK", "Bloomberg"]
+780244	    assert first["entries"][0]["title"] == doc["items"][1]["title"]
+780245	    assert B.build(raw(doc) + b"\n")["input_sha256"] != first["input_sha256"]
+780246	@pytest.mark.parametrize("status", ["ok", "partial", "failed"])
+780247	def test_health_not_reclassified_and_empty_is_valid(status):
+780248	    doc = document([])
+780249	    doc["status"] = status
+780250	    assert B.build(raw(doc))["entries"] == []
+780251	    assert doc["status"] == status
+780252	@pytest.mark.parametrize("change", [
+780253	    lambda d: d.update(schema="wrong"),
+780254	    lambda d: d.update(editorial={}),
+780255	    lambda d: d["items"][0].update(editorial={}),
+780256	    lambda d: d["counts"].update(items=99),
+780257	    lambda d: d["counts"].update(items=True),
+780258	    lambda d: d.update(generated_at="2026-02-30T12:00:00Z"),
+780259	    lambda d: d["items"][0].update(first_seen="2026-02-30T12:00:00Z"),
+780260	    lambda d: d["items"][0].update(first_seen="2026-11-17T12:00:00Z"),
+780261	    lambda d: d["items"][0].update(date="2026-02-30T12:00:00Z"),
+780262	    lambda d: d["items"][0].update(link="https://127.0.0.1/private"),
+780263	    lambda d: d["items"].append(copy.deepcopy(d["items"][0])),
+780264	def test_malformed_inputs_fail_before_output(change):
+780265	    doc = document()
+780266	    change(doc)
+780267	        B.build(raw(doc))
+780268	def test_duplicates_and_oversize_fail():
+780269	    for data in (b'{"schema":1,"schema":2}', b'NaN', b"x" * (B.MAX_BYTES + 1)):
+780270	        with pytest.raises(ValueError):
+780271	            B.build(data)
+780272	    doc = document([article("https://news.example/1?utm_source=a"), article("https://news.example/1")])
+780273	    with pytest.raises(ValueError, match="canonical"):
+780274	def test_schema_growth_requires_explicit_validator_support():
+780275	    with pytest.raises(ValueError, match="unsupported"):
+780276	        B._validate("x", {"type": "string", "newValidationKeyword": True})
+780277	def test_no_freshness_from_collection_time_or_fake_verification():
+780278	    doc = document([article(date=None)])
+780279	    entry = B.build(raw(doc))["entries"][0]
+780280	    assert entry["freshness_state"] == "unknown"
+780281	    assert "VERIFIED" not in B.dumps(B.build(raw(doc)))
+780282	def test_cli_keeps_previous_output_on_schema_failure_and_never_changes_input(tmp_path):
+780283	    source, output = tmp_path / "headlines.json", tmp_path / "priority.json"
+780284	    source.write_bytes(raw(document()))
+780285	    before = source.read_bytes()
+780286	    command = [sys.executable, "-m", "automation.news.build_news_priority", "--input", str(source), "--output", str(output)]
+780287	    assert subprocess.run(command, capture_output=True).returncode == 0
+780288	    saved = output.read_bytes()
+780289	    assert source.read_bytes() == before
+780290	    source.write_bytes(b"{}")
+780291	    assert subprocess.run(command, capture_output=True).returncode != 0
+780292	    assert output.read_bytes() == saved
+780293	    assert subprocess.run(command[:-1] + [str(source)], capture_output=True).returncode != 0
+780294	def test_empty_saved_placeholder_cannot_be_presented_as_fresh_ranking():
+780295	    source = Path("uk_renewables_pipeline/202611161734/news/pipeline_headlines.snapshot.json")
+780296	        B.build(before)
+780297	def test_actual_collector_fixture_output_keeps_every_item(tmp_path):
+780298	    from automation.news.tests.test_pipeline_headlines import run
+780299	    code, doc = run(tmp_path)
+780301	    result = B.build(raw(doc))
+780302	    assert result["input_count"] == len(doc["items"]) > 0
+780303	    assert {entry["link"] for entry in result["entries"]} == {item["link"] for item in doc["items"]}
+780304	"""Offline research priorities: real pinned baseline plus synthetic receipt fixtures."""
+780305	from automation.news import prospecting as p
+780306	from automation.news.acquisition.evidence_store import EvidenceStore
+780307	AS_OF = "2026-11-16T23:00:00Z"
+780308	FETCHED = "2026-11-16T18:00:00Z"
+780309	def write_pin(tmp_path, payload, name="input.json"):
+780310	    raw = json.dumps(payload, allow_nan=True).encode()
+780311	    path = tmp_path / name
+780313	    return path, hashlib.sha256(raw).hexdigest()
+780315	def baseline():
+780316	    return p.official(ROOT)
+780317	def evidence(baseline):
+780318	    rows, ids, _ = baseline
+780319	    projects = [dict(r, id=r["repd_ref"]) for r, _ in rows if r["repd_ref"] in ids]
+780320	    # Synthetic accepted receipt, never a claim that a real publisher authorised reuse.
+780321	    receipt = {"id": "synthetic", "status": "ok", "url": "https://publisher.example/feed",
+780322	               "fetched_at": FETCHED, "response_sha256": "a" * 64, "http_status": 200,
+780323	               "eligible_for_publication": True, "probe_only": False, "rights_status": "accepted",
+780324	               "rights_review_url": "https://publisher.example/fixture-rights",
+780325	               "channel_access": {"state": "OPEN", "checked_at": FETCHED,
+780326	                                  "review_url": "https://publisher.example/fixture-access"},
+780327	               "article_access": {"https://publisher.example/story": {
+780328	                   "state": "OPEN", "checked_at": FETCHED,
+780329	                   "review_url": "https://publisher.example/fixture-story-access"}}}
+780330	    article = {"id": "test-article", "url": "https://publisher.example/story",
+780331	               "title": "Synthetic project headline", "pub_date": "2026-11-15T12:00:00Z",
+780332	               "source_id": "synthetic", "publisher": "Synthetic publisher"}
+780333	    match = {"project_id": ids[0], "article_url": article["url"],
+780334	             "status": "PROVISIONAL", "match_method": "repd_id"}
+780335	        store.record_run(projects, [article], [match], FETCHED, [receipt])
+780336	        snapshot = store.snapshot(timestamp=FETCHED)
+780338	def dc():
+780339	    path = ROOT / "uk_renewables_pipeline/202611161630/global-datacentres/projects.json"
+780340	    data = json.loads(path.read_bytes())
+780341	    data["records"] = data["records"][:1]
+780342	    data["record_count"] = data["country_count"] = 1
+780344	def test_real_official_scope_stable_and_no_invented_events_or_freshness(baseline):
+780345	    before = json.dumps(baseline, sort_keys=True)
+780346	    result = p.build(as_of=AS_OF, limit=1000)
+780347	    assert result == p.build(as_of=AS_OF, limit=1000)
+780348	    assert result["input_count"] == 7775
+780349	    assert result["input_receipts"][0]["solar1000_count"] == 1000
+780350	    assert result["input_receipts"][0]["observed_at"] is None
+780351	    assert result["input_receipts"][0]["freshness"] == "UNKNOWN"
+780352	    assert result["profile_sha256"] == p.relevance.profile_sha256(result["profile"])
+780353	    records = result["records"]
+780354	    assert records == sorted(records, key=lambda r: (-r["score"], r["id"]))
+780355	    assert all(r["score"] == round(sum(c["points"] for c in r["reasons"]), 2) for r in records)
+780356	    assert all(r["record_state"] == "OFFICIAL" and r["research_state"] == "UNKNOWN" for r in records)
+780357	    assert all("coverage unknown" in r["reasons"][-1]["basis"] for r in records)
+780358	    assert all("event" not in r and "event_date" not in r and "available_grid_mw" not in r for r in records)
+780359	    assert all(c["name"] not in {"stage", "novelty", "datacentre_proximity", "recency"}
+780360	               for r in records for c in r["reasons"])
+780361	    assert all(r["event_at"] is None and r["heat"]["score"] == 0
+780362	               and not r["corporate_eligibility"]["eligible"] for r in records)
+780363	    assert json.dumps(baseline, sort_keys=True) == before
+780364	    assert all(not row["enabled"] and row["rights_state"] == "UNKNOWN" for row in result["unsupported_interfaces"])
+780365	def test_missing_name_capacity_country_remain_unknown(baseline):
+780366	    row, source = copy.deepcopy(baseline[0][0])
+780367	    row.update(name="", country="", capacity_mw=None, capacity_known=False, repd_record_updated=None)
+780368	    candidate = p.official_candidate(row, source, {}, p._moment(AS_OF))
+780369	    assert candidate["name"] is candidate["country"] is candidate["capacities"]["repd_installed_mw"] is None
+780370	    assert candidate["record_freshness"]["state"] == "UNKNOWN"
+780371	    assert candidate["reasons"][0]["points"] == 0
+780372	@pytest.mark.parametrize("value", [-1, float("nan"), float("inf"), True, "100"])
+780373	def test_invalid_capacity_cannot_become_positive_priority(value, baseline):
+780374	    row["capacity_mw"] = value
+780375	        p.official_candidate(row, source, {}, p._moment(AS_OF))
+780376	def test_future_record_date_rejected_even_outside_returned_top_n():
+780377	    with pytest.raises(ValueError, match="Future official record date"):
+780378	        p.build(as_of="2026-01-01T00:00:00Z", limit=1)
+780379	def test_evidence_is_provisional_and_news_age_never_becomes_event(evidence, baseline, tmp_path):
+780380	    spec = write_pin(tmp_path, evidence)
+780381	    records, receipt = p.evidence_input(spec, baseline[1], p._moment(AS_OF))
+780382	    ref = baseline[1][0]
+780383	    row, source = next(x for x in baseline[0] if x[0]["repd_ref"] == ref)
+780384	    candidate = p.official_candidate(row, source, records[ref], p._moment(AS_OF))
+780385	    assert candidate["record_state"] == "OFFICIAL" and candidate["research_state"] == "PROVISIONAL"
+780386	    assert candidate["evidence"][0]["state"] == "PROVISIONAL"
+780387	    assert candidate["reasons"][-1]["points"] == 5
+780388	    assert receipt["sha256"] == spec[1]
+780389	    assert candidate["last_researched_at"] == FETCHED
+780390	    assert candidate["evidence"][0]["title"] == "Synthetic project headline" and "event_date" not in candidate
+780391	    old_records, _ = p.evidence_input(spec, baseline[1], p._moment("2027-01-01T00:00:00Z"))
+780392	    stale = p.official_candidate(row, source, old_records[ref], p._moment("2027-01-01T00:00:00Z"))
+780393	    assert stale["reasons"][-1]["points"] == 0
+780394	    assert stale["evidence"][0]["freshness"]["state"] == "STALE"
+780395	    assert stale["evidence"][0]["pub_date"] == candidate["evidence"][0]["pub_date"]
+780396	    lambda x: x["sources"][0].update(fetched_at="2026-11-17T00:00:00Z"),
+780397	    lambda x: x["sources"][0].update(rights_review_url="https://127.0.0.1/private"),
+780398	    lambda x: x["sources"][0].pop("channel_access"),
+780399	    lambda x: x["sources"][0]["channel_access"].update(state="PAYWALLED"),
+780400	    lambda x: x["sources"][0]["channel_access"].update(state="UNKNOWN"),
+780401	    lambda x: x["sources"][0].update(article_access={}),
+780402	    lambda x: x["sources"][0]["article_access"]["https://publisher.example/story"].update(state="PAYWALLED"),
+780403	    lambda x: x.update(generated_at="2026-11-17T00:00:00Z"),
+780404	    lambda x: x.update(schema="globalgrid2050.news.pipeline-headlines.v1"),
+780405	    lambda x: next(r for r in x["projects"] if r["evidence"])["evidence"][0].update(source_id="unreceipted"),
+780406	    lambda x: next(r for r in x["projects"] if r["evidence"])["evidence"][0].update(pub_date="2027-01-01T00:00:00Z"),
+780407	    lambda x: next(r for r in x["projects"] if r["evidence"])["evidence"][0].update(pub_date="2026-11-15"),
+780408	    lambda x: next(r for r in x["projects"] if r["evidence"])["evidence"][0].update(last_seen="2026-11-14T00:00:00Z"),
+780409	def test_bad_news_input_fails_closed(change, evidence, tmp_path):
+780410	    change(evidence)
+780411	        p.build(as_of=AS_OF, evidence=write_pin(tmp_path, evidence), limit=1)
+780412	def test_dc_distinct_unknown_capacity_and_original_revision(dc, tmp_path):
+780413	    dc["records"][0]["source"]["private_path"] = "never-export-local-receipts"
+780414	    spec = write_pin(tmp_path, dc)
+780415	    result = p.build(as_of=AS_OF, datacentres=spec, record_type="data_centre")
+780416	    assert result["input_count"] == 7776 and result["eligible_count"] == 1
+780417	    row = result["records"][0]
+780418	    assert row["id"].startswith("DC-WD-") and row["record_state"] == "PROVISIONAL"
+780419	    assert row["official_status"] is None
+780420	    assert row["capacities"] == {"it_load_mw": None, "site_demand_mw": None, "grid_connection_mw": None}
+780421	    assert row["source"]["revision_url"] == dc["records"][0]["source"]["revision_url"]
+780422	    assert row["source"]["sha256"] == spec[1]
+780423	    assert "never-export-local-receipts" not in json.dumps(result)
+780424	    assert str(tmp_path) not in json.dumps(result)
+780425	    lambda x: x.update(schema="other"),
+780426	    lambda x: x.update(record_count=2),
+780427	    lambda x: x.update(country_count=2),
+780428	    lambda x: x.update(generated_from_retrieval="2027-01-01T00:00:00Z"),
+780429	    lambda x: x["records"][0].update(verification_status="VERIFIED"),
+780430	    lambda x: x["records"][0]["capacity"].update(it_load_mw=123),
+780431	    lambda x: x["records"][0]["source"].update(licence="unknown"),
+780432	    lambda x: x["records"][0]["source"].update(revision_url="https://www.wikidata.org/wiki/Q142068695"),
+780433	    lambda x: x["records"][0]["field_sources"].update(country="https://localhost/private"),
+780434	def test_invalid_dc_fails_even_when_filtered_out(change, dc, tmp_path):
+780435	    change(dc)
+780436	        p.build(as_of=AS_OF, datacentres=write_pin(tmp_path, dc), record_type="renewable_project", limit=1)
+780437	def test_cli_hash_failure_preserves_previous_artifact(tmp_path):
+780438	    source, _ = write_pin(tmp_path, {"untrusted": True})
+780439	    output = tmp_path / "triage.json"
+780440	    output.write_bytes(b"previous reviewed artifact")
+780441	    with pytest.raises(SystemExit) as error:
+780442	        p.main(["--as-of", AS_OF, "--out", str(output), "--datacentres", str(source),
+780443	                "--datacentres-sha256", "0" * 64])
+780444	    assert error.value.code == 2
+780445	    assert output.read_bytes() == b"previous reviewed artifact"
+780446	    assert set(tmp_path.iterdir()) == {source, output}
+780447	def test_cli_repeatable_bytes_and_no_local_path(tmp_path):
+780448	    first, second = tmp_path / "first.json", tmp_path / "second.json"
+780449	    for target in (first, second):
+780450	        assert p.main(["--as-of", AS_OF, "--out", str(target), "--limit", "10"]) == 0
+780451	    assert first.read_bytes() == second.read_bytes()
+780452	    assert str(ROOT).encode() not in first.read_bytes()
+780453	def test_cli_refuses_release_tree_output_without_touching_baseline():
+780454	    manifest = ROOT / "uk_renewables_pipeline" / p.queue.RELEASE_ID / "solar1000/manifest.json"
+780455	    before = manifest.read_bytes()
+780457	        p.main(["--as-of", AS_OF, "--out", str(manifest)])
+780458	    assert manifest.read_bytes() == before
+780459	def test_changed_official_pin_fails_closed(monkeypatch):
+780460	    monkeypatch.setattr(p.queue, "BUILD_MANIFEST_SHA256", "0" * 64)
+780461	    with pytest.raises(ValueError, match="Immutable V9.24 input changed"):
+780462	        p.build(as_of=AS_OF)
+780463	def test_company_names_do_not_infer_listed_parent_or_enable_personal_enrichment(dc, tmp_path):
+780464	    dc["records"][0].update(name="NASDAQ famous listed group FTSE250",
+780465	                            operator="Ambiguous company name", directors=["Must not export"],
+780466	                            residential_address="Must not export")
+780467	    result = p.build(as_of=AS_OF, datacentres=write_pin(tmp_path, dc), record_type="data_centre")
+780468	    eligibility = result["records"][0]["corporate_eligibility"]
+780469	    assert eligibility["state"] == "UNKNOWN" and eligibility["listed_parent"] is None
+780470	    assert not eligibility["eligible"] and not eligibility["membership_evidence"]
+780471	    assert "Must not export" not in json.dumps(result)
+780472	    assert not result["source_policy"]["sme_targeting"]
+780473	    assert not result["source_policy"]["government_hosting_implies_reuse_permission"]
+780474	def test_multiple_headlines_do_not_manufacture_independent_momentum(evidence, baseline, tmp_path):
+780475	    row = next(r for r in evidence["projects"] if r["evidence"])
+780476	    duplicate = dict(row["evidence"][0], id="syndicated", url="https://publisher.example/repost")
+780477	    row["evidence"].append(duplicate)
+780478	    row["evidence_count"] = row["provisional_count"] = evidence["evidence_count"] = 2
+780479	    source = evidence["sources"][0]
+780480	    source["article_access"][duplicate["url"]] = source["article_access"]["https://publisher.example/story"]
+780481	    records, _ = p.evidence_input(write_pin(tmp_path, evidence), baseline[1], p._moment(AS_OF))
+780482	    official, provenance = next(x for x in baseline[0] if x[0]["repd_ref"] == row["project_id"])
+780483	    candidate = p.official_candidate(official, provenance, records[row["project_id"]], p._moment(AS_OF))
+780484	    assert candidate["heat"]["state"] == "UNKNOWN" and candidate["heat"]["independent_signal_count"] is None
+780485	def test_generator_requires_no_network(monkeypatch):
+780487	    def forbidden(*args, **kwargs):
+780488	        raise AssertionError("Network is not part of offline triage")
+780489	    monkeypatch.setattr(socket, "socket", forbidden)
+780490	    monkeypatch.setattr(socket, "getaddrinfo", forbidden)
+780491	    assert p.build(as_of=AS_OF, limit=1)["returned_count"] == 1
+780492	def test_dc_country_revision_must_identify_declared_country(dc, tmp_path):
+780493	    record = dc["records"][0]
+780494	    assert record["country"]["wikidata_id"] == "Q408"
+780495	    record["field_sources"]["country"] = record["source"]["revision_url"]
+780496	    with pytest.raises(ValueError, match="Country revision identity differs"):
+780497	        p.build(as_of=AS_OF, datacentres=write_pin(tmp_path, dc), record_type="data_centre")
+780498	@pytest.mark.parametrize("host", [
+780499	    "127.1", "127.0.0.1", "127.0.0.1.", "127.0.0.01", "0177.0.0.1",
+780500	    "0x7f.1", "0x7f000001", "0x7f000001.", "2130706433", "2130706433.",
+780501	    "%31%32%37.0.0.%31", "１２７.０.０.１", "224.0.0.1", "239.255.255.250",
+780502	    "240.0.0.1", "10.0.0.1", "169.254.169.254", "192.0.2.1", "0.0.0.0",
+780503	    "[::1]", "[ff02::1]", "[fe80::1]", "[::ffff:127.0.0.1]", "[2606:4700:4700::1111%eth0]",
+780504	    "localhost.", "host.local.",
+780505	def test_public_links_reject_browser_numeric_aliases_and_nonpublic_addresses(host):
+780506	        p.public_url("https://" + host + "/private")
+780507	@pytest.mark.parametrize("host", ["www.gov.uk", "www.wikidata.org", "www.gov.uk.",
+780508	                                  "8.8.8.8", "1.1.1.1", "[2606:4700:4700::1111]"])
+780509	def test_public_links_allow_normal_dns_and_canonical_public_ips_offline(host, monkeypatch):
+780510	        raise AssertionError("Public link validation must remain offline")
+780511	    url = "https://" + host + "/source"
+780512	    assert p.public_url(url) == url
+780513	@pytest.mark.parametrize("observed_again", [False, True])
+780514	def test_later_source_run_only_refreshes_articles_actually_observed(observed_again, evidence, baseline, tmp_path):
+780515	    first_seen = "2026-10-27T18:00:00Z"
+780516	    original = next(r for r in evidence["projects"] if r["evidence"])["evidence"][0]
+780517	    article = {key: original[key] for key in ("id", "url", "title", "pub_date", "source_id", "publisher")}
+780518	    article["pub_date"] = "2026-10-26T12:00:00Z"
+780519	    first_source = copy.deepcopy(evidence["sources"][0])
+780520	    first_source["fetched_at"] = first_seen
+780521	    first_source["channel_access"]["checked_at"] = first_seen
+780522	    first_source["article_access"][article["url"]]["checked_at"] = first_seen
+780523	    latest_source = copy.deepcopy(first_source)
+780524	    latest_source["fetched_at"] = FETCHED
+780525	    latest_source["channel_access"]["checked_at"] = FETCHED
+780526	        store.record_run(projects, [article], [match], first_seen, [first_source])
+780527	        store.record_run(projects, [article] if observed_again else [],
+780528	                         [match] if observed_again else [], FETCHED, [latest_source])
+780529	    records, receipt = p.evidence_input(write_pin(tmp_path, snapshot), ids, p._moment(AS_OF))
+780530	    official, source = next(x for x in rows if x[0]["repd_ref"] == ids[0])
+780531	    candidate = p.official_candidate(official, source, records[ids[0]], p._moment(AS_OF))
+780532	    assert candidate["reasons"][-1]["points"] == (5 if observed_again else 0)
+780533	    exported = candidate["evidence"][0]
+780534	    assert exported["retrieval_freshness"]["state"] == ("WITHIN_WINDOW" if observed_again else "STALE")
+780535	    assert exported["retrieval_freshness"]["timestamp"] == (FETCHED if observed_again else first_seen)
+780536	    assert exported["retrieval_freshness"]["basis"] == "article last observed time"
+780537	    assert exported["freshness"]["state"] == "WITHIN_WINDOW"
+780538	    assert exported["pub_date"] == article["pub_date"] and exported["first_seen"] == first_seen
+780539	    assert exported["source"]["fetched_at"] == FETCHED
+780540	    assert receipt["freshness"]["state"] == "WITHIN_WINDOW"  # source health is separate
+780541	@pytest.mark.parametrize("remove", [False, True])
+780542	def test_article_observation_clock_missing_fails_closed(remove, evidence, tmp_path):
+780543	    article = next(r for r in evidence["projects"] if r["evidence"])["evidence"][0]
+780544	    if remove:
+780545	        article.pop("last_seen")
+780546	        article["last_seen"] = None
+780547	from automation.news import build_prospecting_priority as export
+780548	AS_OF = "2026-11-16T17:40:00Z"
+780549	def artifacts():
+780550	    return export.build_artifacts(as_of=AS_OF)
+780551	def test_real_population_and_ranking_are_separate(artifacts):
+780552	    triage = json.loads(artifacts["priority.json"])
+780553	    rows, pilot, _ = export.prospecting.official(None)
+780554	    assert manifest["inventory"]["official_ids"] == ["REPD-" + r["repd_ref"] for r, _ in rows]
+780555	    assert manifest["inventory"]["solar1000_ids"] == pilot
+780556	    assert len(rows) == 7775 and manifest["solar_count"] == 3604
+780557	    assert len(pilot) == 1000 and triage["returned_count"] == 1000
+780558	    assert all(r["heat"]["state"] == r["research_state"] == "UNKNOWN" for r in triage["records"])
+780559	    assert all(r["event_at"] is None and "This is not a new event" in r["research_note"] for r in triage["records"])
+780560	    assert manifest["rank_scope"].endswith("not the numeric Solar-1000 selection")
+780561	def test_deterministic_and_exact_file_receipts(artifacts):
+780562	    assert export.build_artifacts(as_of=AS_OF) == artifacts
+780563	    for name, receipt in manifest["files"].items():
+780564	        assert receipt == {"sha256": hashlib.sha256(artifacts[name]).hexdigest(), "bytes": len(artifacts[name])}
+780565	def test_csv_matches_ranked_ids_and_nulls(artifacts):
+780566	    table = list(csv.DictReader(io.StringIO(artifacts["priority.csv"].decode())))
+780567	    assert [r["project_id"] for r in table] == [r["id"] for r in triage["records"]]
+780568	    assert all(r["momentum_state"] == "UNKNOWN" and r["as_of"] == AS_OF for r in table)
+780569	    assert table[0]["source_url"] == triage["records"][0]["source"]["url"]
+780570	@pytest.mark.parametrize("value", ["=HYPERLINK(1)", "+1", "-1", "@cmd", "  =1", "\t1", "\r1", "\n1"])
+780571	def test_csv_formula_safety(value):
+780572	    assert export.csv_text(value) == "'" + value
+780573	def test_output_is_write_once_and_failed_digest_creates_nothing(tmp_path, artifacts):
+780574	    destination = tmp_path / "run"
+780575	    export.write_artifacts(destination, artifacts)
+780576	    assert {p.name: p.read_bytes() for p in destination.iterdir()} == artifacts
+780577	    with pytest.raises(FileExistsError):
+780578	        export.write_artifacts(destination, artifacts)
+780579	    changed = {**artifacts, "priority.json": b"{}"}
+780580	    with pytest.raises(ValueError, match="digest"):
+780581	        export.write_artifacts(tmp_path / "bad", changed)
+780582	    assert not (tmp_path / "bad").exists()
+780583	def test_invalid_optional_input_does_not_create_output(tmp_path):
+780584	    invalid = tmp_path / "invalid.json"
+780585	    invalid.write_text("{}")
+780586	    with pytest.raises(SystemExit) as exc:
+780587	        export.main(["--as-of", AS_OF, "--out-dir", str(tmp_path / "output"), "--evidence", str(invalid), "--evidence-sha256", "0" * 64])
+780588	    assert exc.value.code == 2 and not (tmp_path / "output").exists()
+780589	def test_release_output_forbidden(artifacts):
+780590	    with pytest.raises(ValueError, match="immutable"):
+780591	        export.write_artifacts(export.prospecting.queue.ROOT / "uk_renewables_pipeline" / "never-write-test", artifacts)
+780592	def test_missing_optional_pin_and_limit_are_errors(tmp_path):
+780593	        export.main(["--as-of", AS_OF, "--out-dir", str(tmp_path / "output"), "--datacentres", "unknown.json"])
+780594	    with pytest.raises(ValueError, match="Limit"):
+780595	        export.build_artifacts(as_of=AS_OF, limit=7775)
+780596	def test_unknown_dc_remark_does_not_invent_numbers():
+780597	    row = {"record_type": "data_centre"}
+780598	    note = export.remark(row)
+780599	    assert "unassessed" in note and "MW" not in note
+780600	def test_real_dc_input_retains_separate_inventory_and_unknowns():
+780601	    path = export.prospecting.queue.ROOT / "uk_renewables_pipeline/202611161630/global-datacentres/projects.json"
+780603	    files = export.build_artifacts(as_of=AS_OF, datacentres=(path, export.sha(raw)))
+780604	    manifest = json.loads(files["manifest.json"])
+780605	    records = json.loads(raw)["records"]
+780606	    assert manifest["inventory"]["data_centre_ids"] == sorted(r["id"] for r in records)
+780607	    assert manifest["input_count"] == 7775 + len(records)
+780608	    assert manifest["input_receipts"][2]["sha256"] == export.sha(raw)
+780609	def test_oversized_output_rejected_before_writing(monkeypatch):
+780610	    monkeypatch.setattr(export.prospecting, "MAX_BYTES", 100)
+780611	    with pytest.raises(ValueError, match="consumer size"):
+780612	        export.build_artifacts(as_of=AS_OF)
+780613	"""Release tooling must preserve the frozen parent and candidate semantics."""
+780614	sys.path.insert(0, str(ROOT / "automation/pipeline_release"))
+780615	import common
+780616	import new_version
+780617	def test_dry_run_reports_parent_and_writes_nothing(tmp_path, monkeypatch, capsys):
+780618	    monkeypatch.setattr(new_version, "PIPELINE", tmp_path)
+780619	    monkeypatch.setattr(new_version, "load_registry", lambda: {
+780620	        "versions": [{"id": "202611161244", "version": "V9.24"}]})
+780621	    new_version.create("202611161630", "V9.25", "Evidence", dry_run=True)
+780622	    assert "parent: 202611161244 (V9.24)" in capsys.readouterr().out
+780623	def test_release_text_is_utf8_lf(tmp_path):
+780624	    path = tmp_path / "release.txt"
+780625	    new_version.write_text(path, "Solar · provisional\n")
+780626	    assert path.read_bytes() == "Solar · provisional\n".encode()
+780627	def test_registry_round_trip_preserves_utf8_metadata(tmp_path, monkeypatch):
+780628	    path = tmp_path / "registry.json"
+780629	    monkeypatch.setattr(common, "REGISTRY", path)
+780630	    registry = {"versions": [{"added": "Solar · quoted \u201ccandidate\u201d · 東京"}]}
+780631	    common.save_registry(registry)
+780632	    assert common.load_registry() == registry
+780633	def test_published_record_cannot_be_refinalized(monkeypatch):
+780634	        "versions": [{"id": "202611161244", "version": "V9.24", "state": "published"}]})
+780635	    with pytest.raises(AssertionError, match="cannot be rewritten"):
+780636	        new_version.finalize("202611161244", "change", [], [], "release_candidate_blocked")
+780637	@pytest.mark.parametrize("old_state", ["published", "release_candidate_blocked"])
+780638	def test_older_registered_release_cannot_be_refinalized(tmp_path, monkeypatch, old_state):
+780639	    registry = {"versions": [
+780640	        {"id": "202611161244", "version": "V9.24", "state": old_state},
+780641	        {"id": "202611161630", "version": "V9.25", "state": "release_candidate_blocked"},
+780642	    ]}
+780643	    monkeypatch.setattr(new_version, "load_registry", lambda: registry)
+780644	    monkeypatch.setattr(new_version, "walk", lambda _: pytest.fail("Historical filesystem was accessed"))
+780645	    assert len(registry["versions"]) == 2
+780646	@pytest.mark.parametrize("migration", [False, True])
+780647	def test_unpublished_tail_can_be_refinalized(tmp_path, monkeypatch, migration):
+780648	        {"id": "202611161244", "version": "V9.24", "state": "published"},
+780649	    if migration:
+780650	        registry["versions"][-1]["feature_migrations"] = [dict(new_version.SOLAR_MIGRATION)]
+780651	    parent = tmp_path / "202611161244"
+780652	    candidate = tmp_path / "202611161630"
+780653	    parent.mkdir()
+780654	    (candidate / "tests").mkdir(parents=True)
+780655	    runner = candidate / "tests/run_v9_25.sh"
+780656	    runner.write_text("CHANGED_FROM_PARENT=(\n)\nREMOVED_FROM_PARENT=(\n)\n", encoding="utf-8")
+780657	    monkeypatch.setattr(new_version, "tree_hash", lambda _: "synthetic-candidate-tree")
+780658	    saved = []
+780659	    monkeypatch.setattr(new_version, "save_registry", saved.append)
+780660	    new_version.finalize("202611161630", "candidate revision", [], [], "release_candidate_blocked")
+780661	    assert len(saved[0]["versions"]) == 2
+780662	    assert saved[0]["versions"][-1]["parent"] == "202611161244"
+780663	    assert saved[0]["versions"][-1]["trees"] == ["synthetic-candidate-tree"]
+780664	    assert saved[0]["versions"][-1].get("feature_migrations", []) == ([new_version.SOLAR_MIGRATION] if migration else [])
+780665	    assert list(parent.iterdir()) == []
+780666	def test_frozen_parent_tree_and_candidate_data():
+780667	    assert common.tree_hash("202611161244") == "2d109396cdef80302914045b5330e4f7007e5830"
+780668	    parent = ROOT / "uk_renewables_pipeline/202611161244"
+780669	    candidate = ROOT / "uk_renewables_pipeline/202611161630"
+780670	    assert common.data_digest(parent) == common.data_digest(candidate)
+780671	    assert (parent / "solar1000/manifest.json").read_bytes() == (candidate / "solar1000/manifest.json").read_bytes()
+780672	def test_candidate_provenance_sanitization_changes_no_facts():
+780673	    relative = "fixtures/v9.8/interconnector-endpoints.json"
+780674	    old = json.loads((ROOT / "uk_renewables_pipeline/202611161244" / relative).read_text())
+780675	    new = json.loads((ROOT / "uk_renewables_pipeline/202611161630" / relative).read_text())
+780676	    old["flow_data"]["source"] = new["flow_data"]["source"]
+780677	    assert old == new
+780678	    assert new["flow_data"]["source"].startswith("https://github.com/Ventusltd/")
+780679	"""A moved presentation must retain its frozen data and executable access contract."""
+780680	from feature_contracts import check_features
+780681	SOURCE = "202611161244"
+780682	CANDIDATE = "202611161630"
+780683	MIGRATION = {"id": "solar1000-pilot", "from": SOURCE, "contract": "solar1000-inline-v1"}
+780685	    versions = [
+780686	        {"id": SOURCE, "parent": None, "features": [
+780687	            {"id": "solar1000-pilot", "file": "index.html", "contains": "SOLAR 1000 EVIDENCE PILOT"}]},
+780688	        {"id": CANDIDATE, "parent": SOURCE, "features": [], "feature_migrations": [copy.deepcopy(MIGRATION)]},
+780690	    for version in versions:
+780691	        folder = tmp_path / version["id"]
+780692	        folder.mkdir()
+780693	        actual = ROOT / "uk_renewables_pipeline" / version["id"]
+780694	        for rel in ("solar1000/manifest.json", "solar1000/candidates.json", "index.html",
+780695	                    "scripts/plugins/solar1000-v924.js"):
+780696	            target = folder / rel
+780698	            shutil.copyfile(actual / rel, target)
+780699	        (folder / "data").mkdir()
+780700	        (folder / "data/official.json").write_text('[{"repd_ref":"1018"}]', encoding="utf-8")
+780701	    return tmp_path, {v["id"]: v for v in versions}
+780702	def check(releases):
+780703	    root, versions = releases
+780704	    return check_features(versions[CANDIDATE], versions, root)
+780705	def test_actual_candidate_keeps_feature_through_explicit_migration():
+780706	    registry = common.load_registry()
+780707	    versions = {v["id"]: v for v in registry["versions"]}
+780708	    versions[CANDIDATE]["feature_migrations"] = [copy.deepcopy(MIGRATION)]
+780709	    result, probes = check_features(versions[CANDIDATE], versions, common.PIPELINE)
+780710	    assert result["pass"], result
+780711	    assert "solar1000-pilot" in result["features"]
+780712	    assert "solar1000-pilot" not in result["withdrawn_on_purpose"]
+780713	    assert result["migrations"][0]["pass"]
+780714	    assert len(probes) == 3
+780715	    candidates = json.loads((common.PIPELINE / SOURCE / "solar1000/candidates.json").read_text(encoding="utf-8"))
+780716	    for candidate, probe in zip(candidates, probes[1:]):
+780717	        assert probe["search"] == candidate["repd_ref"]
+780718	        assert candidate["source_url"] in probe["js"]
+780719	        assert ".project-record" in probe["js"]
+780720	def test_migration_is_inherited_but_historical_feature_is_still_checked(releases):
+780721	    result, _ = check_features(versions[SOURCE], versions, root)
+780722	    assert result["pass"]
+780723	    (root / SOURCE / "index.html").write_text("lost", encoding="utf-8")
+780724	    assert not result["pass"] and result["missing"] == ["solar1000-pilot"]
+780725	    successor = {"id": "202611170001", "parent": CANDIDATE, "features": []}
+780726	    shutil.copytree(root / CANDIDATE, root / successor["id"])
+780727	    versions[successor["id"]] = successor
+780728	    result, probes = check_features(successor, versions, root)
+780729	    assert result["pass"] and len(probes) == 3
+780730	@pytest.mark.parametrize("change", ["unknown_contract", "unknown_feature", "wrong_source", "duplicate", "removed"])
+780731	def test_invalid_migration_fails_closed(releases, change):
+780732	    _, versions = releases
+780733	    version = versions[CANDIDATE]
+780734	    migration = version["feature_migrations"][0]
+780735	    if change == "unknown_contract":
+780736	        migration["contract"] = "trust-me"
+780737	    elif change == "unknown_feature":
+780738	        migration["id"] = "map-deep-link"
+780739	    elif change == "wrong_source":
+780740	        migration["from"] = CANDIDATE
+780741	    elif change == "duplicate":
+780742	        version["feature_migrations"].append(copy.deepcopy(migration))
+780743	        version["removed_features"] = ["solar1000-pilot"]
+780744	    result, _ = check(releases)
+780745	    assert not result["pass"]
+780746	@pytest.mark.parametrize("change", ["order", "membership", "missing", "candidate_url", "official_data", "inline_host", "plugin_wiring"])
+780747	def test_migration_rejects_lost_data_or_access(releases, change):
+780748	    root, _ = releases
+780749	    folder = root / CANDIDATE
+780750	    if change in {"order", "membership"}:
+780751	        path = folder / "solar1000/manifest.json"
+780752	        manifest = json.loads(path.read_text(encoding="utf-8"))
+780753	        if change == "order":
+780754	            manifest["ids"][0], manifest["ids"][1] = manifest["ids"][1], manifest["ids"][0]
+780755	            manifest["ids"][-1] = "999999"
+780756	        path.write_text(json.dumps(manifest), encoding="utf-8")
+780757	        (folder / "solar1000/manifest.json").unlink()
+780758	    elif change == "candidate_url":
+780759	        path = folder / "solar1000/candidates.json"
+780760	        path.write_text(path.read_text(encoding="utf-8").replace("https://stiveslocal.uk/", "https://example.org/"), encoding="utf-8")
+780761	    elif change == "official_data":
+780762	        (folder / "data/official.json").write_text("[]", encoding="utf-8")
+780763	        path = folder / "index.html"
+780764	        old = 'id="evidenceCoverage"' if change == "inline_host" else 'src="scripts/plugins/solar1000-v924.js'
+780765	        path.write_text(path.read_text(encoding="utf-8").replace(old, "removed"), encoding="utf-8")
+780766	    assert not result["pass"], change
+780767	def test_without_explicit_migration_old_marker_still_fails(releases):
+780768	    del versions[CANDIDATE]["feature_migrations"]
+780769	    result, probes = check(releases)
+780770	    assert probes == []
+780798	        subprocess.run(["git", "-C", str(root), "-c", "core.autocrlf=false", "-c", "core.fileMode=true", "update-index", "--add", "-z", "--stdin"],
+780799	                       input=("\0".join(files) + "\0").encode("utf-8"), check=True, env=env)
+780800	        # Windows cannot recover executable bits from disk. Preserve tracked
+780801	        # modes; new release runners are executable by the release contract.
+780802	        if os.name == "nt":
+780803	            tracked = subprocess.run(["git", "-C", str(root), "ls-files", "-s", "-z", "--", rel],
+780804	                                     check=True, capture_output=True).stdout
+780805	            modes = {entry.split(b"\t", 1)[1].decode(): entry.split(b" ", 1)[0].decode()
+780806	                     for entry in tracked.split(b"\0") if entry}
+780807	            for mode in ("100644", "100755"):
+780808	                paths = [p for p in files if modes.get(p, "100755" if re_runner(p) else "100644") == mode]
+780809	                if paths:
+780810	                    subprocess.run(["git", "update-index", "--chmod=" + ("+x" if mode == "100755" else "-x"), "-z", "--stdin"],
+780811	                                   input=("\0".join(paths) + "\0").encode(), check=True, env=env, cwd=root)
+780813	def re_runner(path):
+780815	    return bool(re.search(r"/tests/run_v9_\d+\.sh$", path))
+780821	    return json.loads(REGISTRY.read_text(encoding="utf-8"))
+780823	    REGISTRY.write_text(json.dumps(reg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+780824	"""Inherited features, including explicit, executable presentation migrations.
+780825	Migration contracts are code-reviewed validators, not aliases for missing strings.
+780826	An unknown contract fails. The original release's marker remains independently
+780827	checked; only descendants declaring this migration use its stronger contract.
+780828	from common import data_digest
+780829	SOLAR_MIGRATION = {"id": "solar1000-pilot", "from": "202611161244", "contract": "solar1000-inline-v1"}
+780830	def _solar_inline(folder, source):
+780831	    failures, probes = [], []
+780832	    for relative in ("solar1000/manifest.json", "solar1000/candidates.json"):
+780833	        if (folder / relative).read_bytes() != (source / relative).read_bytes():
+780834	            failures.append(f"changed frozen {relative}")
+780835	    manifest = json.loads((folder / "solar1000/manifest.json").read_text(encoding="utf-8"))
+780836	    ids = manifest.get("ids", [])
+780837	    if (len(ids) != 1000 or any(not isinstance(i, str) or not i.isascii() or not i.isdecimal() for i in ids)
+780838	            or len(set(ids)) != 1000 or sorted(ids, key=int) != ids
+780839	            or manifest.get("selection") != "numeric-repd-ref-ascending"
+780840	            or manifest.get("selection_count") != 1000 or manifest.get("record_count") != 7775
+780841	            or manifest.get("independently_verified") != 0):
+780842	        failures.append("invalid frozen Solar-1000 membership/order/counts")
+780843	    candidates = json.loads((folder / "solar1000/candidates.json").read_text(encoding="utf-8"))
+780844	    if len(candidates) != 2 or any(c.get("repd_ref") not in ids for c in candidates):
+780845	        failures.append("invalid inherited source candidates")
+780846	    if data_digest(folder) != data_digest(source):
+780847	        failures.append("official data changed from migration source")
+780848	    html = (folder / "index.html").read_text(encoding="utf-8")
+780849	    plugin = (folder / "scripts/plugins/solar1000-v924.js").read_text(encoding="utf-8")
+780850	    for marker in ('id="evidenceCoverage"', 'data-evidence-selection', 'data-evidence-status',
+780851	                   'src="scripts/plugins/solar1000-v924.js'):
+780853	            failures.append(f"missing inline wiring: {marker}")
+780854	    for marker in ("solar1000/manifest.json", "solar1000/candidates.json", "pipeline-projects-rendered",
+780855	                   ".project-record", "integratedEvidence", "renderEvidence"):
+780856	        if marker not in plugin:
+780857	            failures.append(f"missing inline implementation: {marker}")
+780858	    # Runtime probes prove the retained sources are reachable inside the existing
+780859	    # project records; static marker checks alone cannot establish this migration.
+780860	    probes.append({"name": "Solar-1000 migration: unchanged selection in consolidated register", "selector": "body",
+780861	                   "js": "document.querySelector('#evidenceCoverage')?.dataset.selectionCount==='1000' && !document.querySelector('#solar1000Pilot') && document.querySelector('#tbody')?.dataset.complete==='true'"})
+780863	        ref, url = candidate["repd_ref"], candidate["source_url"]
+780864	        probes.append({"name": f"Solar-1000 migration: inherited source inside project {ref}", "search": ref,
+780865	                       "row": f"repd-{ref}", "selector": ".project-record",
+780866	                       "js": "(() => {const d=document.querySelector(" + json.dumps(f"#repd-{ref} .project-record") + ");"
+780867	                             "if(!d)return false;d.open=true;const h=d.querySelector('[data-integrated-evidence]');"
+780868	                             "const e=h?.querySelector('[data-evidence-project]');const a=h?.querySelector('.v925-inherited-source a');"
+780869	                             "return !!h&&!!e&&h.dataset.integratedEvidence===" + json.dumps(ref) +
+780870	                             "&&e.dataset.evidenceProject===" + json.dumps(ref) + "&&a?.href===" + json.dumps(url) +
+780871	                             "&&a.getBoundingClientRect().width>0&&h.textContent.includes('unverified')&&d.open;})()"})
+780872	    return failures, probes
+780873	def check_features(version, by_id, pipeline):
+780874	    """Return the offline verdict and mandatory browser probes for migrations."""
+780875	    inherited, dropped, migrations, errors = [], set(), {}, []
+780876	    node, visited = version, set()
+780877	    while node:
+780878	        if node["id"] in visited:
+780879	            errors.append("cyclic feature ancestry")
+780881	        visited.add(node["id"])
+780882	        dropped |= set(node.get("removed_features", []))
+780883	        inherited = [(f, node["id"]) for f in node["features"] if f["id"] not in dropped] + inherited
+780884	        for migration in node.get("feature_migrations", []):
+780885	            if not isinstance(migration, dict) or migration != SOLAR_MIGRATION:
+780886	                errors.append("unknown feature migration contract")
+780887	            if migration["id"] in migrations:
+780888	                errors.append("duplicate feature migration")
+780889	            migrations[migration["id"]] = migration
+780890	        node = by_id.get(node["parent"])
+780891	    folder = pipeline / version["id"]
+780892	    missing, receipts, probes = [], [], []
+780893	    for feature_id, migration in migrations.items():
+780894	        origins = [origin for feature, origin in inherited if feature["id"] == feature_id]
+780895	        faults = []
+780896	        if origins != [migration["from"]] or feature_id in dropped:
+780897	            faults.append("migration must preserve its exact inherited feature and source")
+780898	                faults, runtime = _solar_inline(folder, pipeline / migration["from"])
+780899	                probes.extend(runtime)
+780900	            except (OSError, ValueError, KeyError, TypeError) as exc:
+780901	                # Paths may be private locally; public verdicts contain no exception path.
+780902	                faults = [f"invalid or unavailable migration input ({type(exc).__name__})"]
+780903	        receipts.append(dict(migration, **{"pass": not faults, "failures": faults}))
+780904	        if faults:
+780905	            missing.append(feature_id)
+780906	    for feature, _ in inherited:
+780907	        if feature["id"] in migrations:
+780908	        path = folder / feature["file"]
+780909	        if not path.is_file() or feature["contains"] not in path.read_text(encoding="utf-8", errors="replace"):
+780910	            missing.append(feature["id"])
+780911	    return {"pass": not missing and not errors, "features": [f["id"] for f, _ in inherited],
+780912	            "missing": missing, "withdrawn_on_purpose": sorted(dropped),
+780913	            "migrations": receipts, "errors": errors}, probes
+780916	  new_version.py create <new id> <V9.NN> "<short title>" ["RELEASE CANDIDATE"] [--dry-run]
+780920	  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--migrate-feature solar1000-inline-v1] [--state release_candidate_publication_blocked]
+780922	      (tree hash, features, faults) in registry.json. Only an unpublished candidate
+780923	      at the registry tail may be re-finalized; published records are immutable.
+780926	from feature_contracts import SOLAR_MIGRATION
+780927	RUNNER_TEMPLATE = (HERE / "runner_template.sh").read_text(encoding="utf-8")
+780928	def write_text(path, text):
+780929	    path.write_text(text, encoding="utf-8", newline="\n")
+780932	def create(new_id, version, title, state="BUILD", dry_run=False):
+780937	    print(f"parent: {parent['id']} ({parent['version']})")
+780938	    if dry_run:
+780939	        print(f"dry-run: would create {dst} as {version}; no files written")
+780946	    check = check_template.read_text(encoding="utf-8").replace("@VERSION@", nv.lstrip("V")).replace("@PARENT_ID@", parent["id"]).replace("@FIXTURE_OWNER@", reg["fixture_owner"]).replace("@NUM@", num(nv)).replace("@STATE@", state)
+780947	    write_text(dst / f"tests/check_v{num(nv)}.mjs", check)
+780951	    write_text(path, runner)
+780953	    day = datetime.now(timezone.utc).strftime("%d %B %Y").lstrip("0")
+780954	    html = (dst / "index.html").read_text(encoding="utf-8")
+780963	    write_text(dst / "index.html", html)
+780964	    write_text(dst / "README.md",
+780971	    write_text(dst / "CHANGES.md", f"# {new_id} ({nv})\n\nParent: `{parent['id']}` ({pv}), tree `{tree_hash(parent['id'])}`.\n\nCandidate initialized; see final change report before publication.\n")
+780973	def finalize(new_id, added, faults, features, state="published", feature_migrations=None):
+780974	    registered = [entry for entry in reg["versions"] if entry["id"] == new_id]
+780975	    assert not registered or (len(registered) == 1 and parent["id"] == new_id), "already registered; historical records cannot be rewritten"
+780976	    if feature_migrations is None:
+780977	        feature_migrations = parent.get("feature_migrations", []) if parent["id"] == new_id else []
+780978	    assert isinstance(feature_migrations, list) and len(feature_migrations) <= 1 and all(
+780979	        migration == SOLAR_MIGRATION for migration in feature_migrations), "unknown or duplicate feature migration"
+780980	    if parent["id"] == new_id:
+780981	        assert parent.get("state", "").startswith("release_candidate_") and state.startswith("release_candidate_"), "already registered; published records cannot be rewritten"
+780982	        reg["versions"].pop()
+780983	        parent = reg["versions"][-1]
+780988	    text = (dst / runner).read_text(encoding="utf-8")
+780992	    write_text(dst / runner, text)
+780999	        "known_faults": faults, "ci": None, "merge_commit": None, "state": state,
+781000	        **({"feature_migrations": feature_migrations} if feature_migrations else {}),
+781004	    dry_run = "--dry-run" in args
+781005	        args.remove("--dry-run")
+781007	        create(*args[1:], dry_run=dry_run)
+781008	    elif args[:1] == ["finalize"] and len(args) >= 3 and not dry_run:
+781010	        state, migrations = "published", None
+781012	            if len(rest) < 2 or rest[0] not in {"--fault", "--feature", "--state", "--migrate-feature"}:
+781013	                sys.exit("Expected --fault, --feature, --state or --migrate-feature and value")
+781015	            if flag == "--state":
+781016	                state = value
+781017	            elif flag == "--migrate-feature":
+781018	                if value != SOLAR_MIGRATION["contract"] or migrations is not None:
+781019	                    sys.exit("Unknown or duplicate feature migration")
+781020	                migrations = [dict(SOLAR_MIGRATION)]
+781022	                (faults if flag == "--fault" else features).append(value)
+781023	        finalize(args[1], args[2], faults, features, state=state, feature_migrations=migrations)
+781049	    hrefs, digests, results, migration_probes = {}, {}, {}, {}
+781076	        checks["features_kept"], migration_probes[vid] = check_features(v, by_id, PIPELINE)
+781098	                # Migrations add mandatory executable checks, not removable aliases.
+781099	                probes[v["id"]] = chain + migration_probes[v["id"]]
+781215	"""Offline contract and importer-parity tests; no public source claims."""
+781218	import verify as v
+781219	def encoded(obj):
+781220	    return (json.dumps(obj, sort_keys=True) + "\n").encode()
+781221	class Response(io.BytesIO):
+781222	    status = 200
+781223	    def __init__(self, body, length=None):
+781224	        super().__init__(body)
+781225	        self.headers = {} if length is None else {"Content-Length": str(length)}
+781226	class ReadbackTests(unittest.TestCase):
+781231	        self.current = "202611161244"
+781232	        self.new = "202611161630"
+781233	        self.ids = (self.new, *v.ROLLBACKS)
+781234	        self.registry = {"versions": [{"id": rid, "version": ver, "trees": [rid * 3 + "abcd"]}
+781235	            for rid, ver in zip(self.ids, ("V9.25", "V9.24", "V9.23"))]}
+781236	        self.owner = {"schema_version": 1, "entities": [{"id": "pipeline-news", "operative_release_id": self.current,
+781237	            "releases": [{"id": rid, "status": "available", "url": v.BASE + f"uk_renewables_pipeline/{rid}/"} for rid in self.ids]}]}
+781238	        self.raw = b'\xef\xbb\xbf<html><link href="./assets/versioned-homepage.css"><script src="./assets/versioned-homepage.js"></script><a href="data/homepage.json">Data</a></html>  \r\n'
+781239	        self.bundle = {name: (self.raw if name == "index.html" else b"{}\n") for name in v.FILES}
+781240	        self.bundle["data/homepage.json"] = encoded(self.owner)
+781241	        seed = {"selection": "numeric-repd-ref-ascending", "ids": [str(i) for i in range(1018, 2017)] + ["2325"],
+781242	                "record_count": 7775, "solar_count": 3604, "provisional_candidates": 2, "not_researched": 998, "independently_verified": 0}
+781243	        self.manifest = encoded(seed)
+781244	        self.remote = {}
+781245	        for entry in self.registry["versions"]:
+781246	            rid = entry["id"]
+781247	            self.write(f"uk_renewables_pipeline/{rid}/index.html", f'<html>{entry["version"]} {rid}</html>'.encode())
+781248	            if rid != v.ROLLBACKS[1]:
+781249	                self.write(f"uk_renewables_pipeline/{rid}/solar1000/manifest.json", self.manifest)
+781250	        self.ledger = {"versions": [{"id": e["id"], "version": e["version"], "verdict": "PASS", "tree": e["trees"]} for e in self.registry["versions"]]}
+781251	        self.write("automation/pipeline_release/registry.json", encoded(self.registry))
+781252	        self.write("uk_renewables_pipeline/versions.json", encoded(self.ledger))
+781253	        self.repin()
+781254	    def write(self, name, body):
+781255	        target = self.root / name
+781257	        target.write_bytes(body)
+781258	        self.remote[v.BASE + name] = body
+781259	    def repin(self):
+781260	        self.pin = {"repository": "Ventusltd/globalgrid2050-homepage", "commit": "a" * 40,
+781261	                    "files": {name: v.sha(body) for name, body in self.bundle.items()}}
+781262	        self.write("catalogue/homepage-owner.json", encoded(self.pin))
+781263	        for name, body in self.bundle.items():
+781264	            self.remote[f'https://raw.githubusercontent.com/{self.pin["repository"]}/{self.pin["commit"]}/{name}'] = body
+781265	            if name != "index.html":
+781266	                self.remote[v.BASE + "homepage-shell/" + name] = body
+781267	        self.remote[v.BASE] = v.transformed_index(self.bundle["index.html"])
+781268	    def git(self, root, command, ref):
+781269	        if ref == "HEAD":
+781270	            return "b" * 40
+781271	        rid = ref.rsplit("/", 1)[-1]
+781272	        return next(e["trees"][0] for e in self.registry["versions"] if e["id"] == rid)
+781273	    def prepare(self):
+781274	        return v.prepare(self.root, self.remote.__getitem__, self.git)
+781276	        return v.check_once(self.prepare(), self.remote.__getitem__)
+781277	    def test_registry_tail_does_not_promote_operative_release(self):
+781278	        result = self.check()
+781279	        self.assertEqual(result["release"], self.current)
+781280	        self.assertNotEqual(result["owner_source_index_sha256"], result["transformed_root_sha256"])
+781281	        self.assertEqual(result["rollback_releases"], list(v.ROLLBACKS))
+781282	    def test_later_owner_promotion_selects_new_version(self):
+781283	        self.owner["entities"][0]["operative_release_id"] = self.new
+781284	        self.assertEqual(self.check()["version"], "V9.25")
+781285	    def test_transformation_matches_real_importer(self):
+781286	        spec = importlib.util.spec_from_file_location("real_importer", Path(__file__).resolve().parents[2] / "scripts/import_homepage_owner.py")
+781287	        importer = importlib.util.module_from_spec(spec)
+781288	        spec.loader.exec_module(importer)
+781289	        def response(url, **kwargs):
+781290	            return Response(self.remote[url])
+781291	        with patch.object(importer, "ROOT", self.root), patch.object(importer.urllib.request, "urlopen", response):
+781292	            importer.main()
+781293	        self.assertEqual((self.root / "index.html").read_bytes(), v.transformed_index(self.raw))
+781294	        for name in v.FILES - {"index.html"}:
+781295	            self.assertEqual((self.root / "homepage-shell" / name).read_bytes(), self.bundle[name])
+781296	    def test_wrong_source_pin_fails(self):
+781297	        self.pin["files"]["index.html"] = "0" * 64
+781298	        with self.assertRaisesRegex(ValueError, "source hash mismatch"):
+781299	            self.prepare()
+781300	    def test_unpinned_owner_commit_fails(self):
+781301	        self.pin["commit"] = "main"
+781302	        with self.assertRaisesRegex(ValueError, "invalid owner pin"):
+781303	    def test_untransformed_root_fails(self):
+781304	        self.remote[v.BASE] = self.raw
+781305	        with self.assertRaisesRegex(ValueError, "served byte mismatch"):
+781306	            self.check()
+781307	    def test_malformed_importer_references_fail(self):
+781308	        for body in (self.raw.replace(b'./assets/versioned-homepage.js', b'wrong.js'), self.raw + b'href="data/homepage.json"'):
+781309	            with self.subTest(body=body), self.assertRaises(ValueError):
+781310	                v.transformed_index(body)
+781311	    def test_every_served_bundle_asset_is_pinned(self):
+781312	            with self.subTest(name=name):
+781313	                url = v.BASE + "homepage-shell/" + name
+781314	                original = self.remote[url]
+781315	                self.remote[url] += b"x"
+781316	                with self.assertRaisesRegex(ValueError, "served byte mismatch"):
+781317	                    self.check()
+781318	                self.remote[url] = original
+781319	    def test_wrong_release_and_rollbacks_fail(self):
+781320	        for rid in (self.new, *v.ROLLBACKS):
+781321	            with self.subTest(rid=rid):
+781322	                self.owner["entities"][0]["operative_release_id"] = self.new
+781323	                self.repin()
+781324	                url = v.BASE + f"uk_renewables_pipeline/{rid}/index.html"
+781325	                self.remote[url] = b"wrong release"
+781326	    def test_current_manifest_must_equal_frozen_baseline(self):
+781327	        self.write(f"uk_renewables_pipeline/{self.new}/solar1000/manifest.json", self.manifest + b" ")
+781328	        with self.assertRaisesRegex(ValueError, "differs from frozen"):
+781329	    def test_missing_or_changed_ledger_fails(self):
+781330	        self.remote[v.BASE + "uk_renewables_pipeline/versions.json"] = b"{}"
+781331	    def test_ledger_semantics_are_checked_even_with_identical_bytes(self):
+781332	        for key, value in (("verdict", "FAIL"), ("version", "V9.99"), ("tree", ["wrong"])):
+781333	            with self.subTest(key=key):
+781334	                ledger = copy.deepcopy(self.ledger)
+781335	                ledger["versions"][1][key] = value
+781336	                self.write("uk_renewables_pipeline/versions.json", encoded(ledger))
+781337	                with self.assertRaisesRegex(ValueError, "ledger identity/tree/verdict"):
+781338	    def test_owner_wrong_url_candidate_and_duplicate_rejected(self):
+781339	        original = copy.deepcopy(self.owner)
+781340	        for change in ("url", "status", "duplicate"):
+781341	            with self.subTest(change=change):
+781342	                self.owner = copy.deepcopy(original)
+781343	                release = self.owner["entities"][0]["releases"][1]
+781344	                if change == "duplicate":
+781345	                    self.owner["entities"].append(copy.deepcopy(self.owner["entities"][0]))
+781346	                    release[change] = "candidate" if change == "status" else v.BASE + "wrong/"
+781348	                    self.prepare()
+781349	    def test_unregistered_tree_fails(self):
+781350	        with self.assertRaisesRegex(ValueError, "unregistered source tree"):
+781351	            v.prepare(self.root, self.remote.__getitem__, lambda *args: "0" * 40)
+781352	    def test_source_and_public_fetch_failure_cannot_pass(self):
+781354	            raise TimeoutError("bounded fetch timed out")
+781355	        with self.assertRaises(TimeoutError):
+781356	            v.prepare(self.root, fail, self.git)
+781357	            v.check_once(self.prepare(), fail)
+781358	    def test_main_writes_failure_receipt_and_exits_nonzero(self):
+781360	        with patch.dict(os.environ, {"PIPELINE_RECEIPT_PATH": str(output)}), patch.object(v, "prepare", side_effect=TimeoutError("offline")):
+781361	            self.assertEqual(v.main(), 1)
+781362	        self.assertEqual(json.loads(output.read_text())["status"], "FAIL")
+781363	class TransportTests(unittest.TestCase):
+781364	    def test_http_url_and_unknown_host_rejected_before_network(self):
+781365	        for url in ("http://globalgrid2050.com/", "https://localhost/", "https://globalgrid2050.com:8443/", "https://user@globalgrid2050.com/"):
+781367	                v.read(url)
+781368	    def test_redirect_is_rejected(self):
+781369	        with self.assertRaisesRegex(ValueError, "redirect"):
+781370	            v.NoRedirects().redirect_request(None, None, 302, "", {}, "https://localhost/")
+781371	    def test_size_limits_and_http_failure(self):
+781372	        for body, length, status in ((b"x", v.MAX_BYTES + 1, 200), (b"x" * (v.MAX_BYTES + 1), None, 200), (b"denied", None, 403)):
+781373	            response = Response(body, length)
+781374	            response.status = status
+781375	            with self.subTest(length=length, status=status), patch.object(v.urllib.request, "build_opener") as factory:
+781376	                factory.return_value.open.return_value = response
+781377	                    v.read(v.BASE)
+781378	                self.assertEqual(factory.return_value.open.call_args.kwargs["timeout"], 10)
+781379	    def test_retry_budget_is_bounded(self):
+781380	        for value in ("0", "5", "-1", "not-a-number"):
+781381	            with self.subTest(value=value), patch.dict(os.environ, {"PIPELINE_VERIFY_ATTEMPTS": value}), self.assertRaises(ValueError):
+781382	                v.bounded_env("PIPELINE_VERIFY_ATTEMPTS", 3, 1, 4)
+781383	    def test_duplicate_json_keys_rejected(self):
+781384	        with self.assertRaisesRegex(ValueError, "duplicate JSON key"):
+781385	            v.decode(b'{"a":1,"a":2}')
+781387	"""Read-only current Pipeline News/owner bundle and immutable rollback readback.
+781388	The legacy directory name is retained. The hash-pinned homepage owner, not the
+781389	registry tail or newest public URL, selects the operative release.
+781394	BASE = "https://globalgrid2050.com/"
+781395	ROLLBACKS = ("202611161244", "202611160020")
+781396	FILES = {"index.html", "assets/versioned-homepage.css", "assets/versioned-homepage.js",
+781397	         "data/homepage.json", "data/active-pages.json", "data/presentation.json", "data/entity-types.json"}
+781400	        require(key not in result, f"duplicate JSON key: {key}")
+781401	def decode(data):
+781402	    return json.loads(data.decode("utf-8-sig"), object_pairs_hook=unique_object)
+781403	class NoRedirects(urllib.request.HTTPRedirectHandler):
+781405	        raise ValueError("readback redirects are not permitted")
+781406	def read(url):
+781408	    require(parsed.scheme == "https" and parsed.hostname in {"globalgrid2050.com", "raw.githubusercontent.com"}
+781409	            and not parsed.username and not parsed.password and parsed.port in (None, 443), "unsafe readback URL")
+781410	    request = urllib.request.Request(url, headers={"User-Agent": "GlobalGrid2050-Public-Readback/2.0", "Cache-Control": "no-cache"})
+781411	    with urllib.request.build_opener(NoRedirects()).open(request, timeout=10) as response:
+781412	        require(response.status == 200, f"HTTP {response.status}: {url}")
+781414	        require(length is None or int(length) <= MAX_BYTES, "oversized response header")
+781415	        body = response.read(MAX_BYTES + 1)
+781416	        require(len(body) <= MAX_BYTES, "oversized response body")
+781418	def transformed_index(raw):
+781419	    """Match scripts/import_homepage_owner.py; parity-tested against its real main."""
+781420	    index = raw.decode("utf-8-sig")
+781421	    for name in ("versioned-homepage.css", "versioned-homepage.js"):
+781422	        source = f"./assets/{name}"
+781423	        require(index.count(source) == 1, f"unexpected index reference: {name}")
+781424	        index = index.replace(source, f"./homepage-shell/assets/{name}")
+781426	    require(index.count(source) == 1, "unexpected catalogue fallback reference")
+781427	    return (index.replace(source, 'href="./homepage-shell/data/homepage.json"').rstrip() + "\n").encode("utf-8")
+781428	def git_value(root, *args):
+781429	    return subprocess.check_output(["git", "-C", str(root), *args], text=True).strip()
+781430	def prepare(root=ROOT, fetch=read, git=git_value):
+781431	    pin = decode((root / "catalogue/homepage-owner.json").read_bytes())
+781432	    require(pin.get("repository") == "Ventusltd/globalgrid2050-homepage"
+781433	            and re.fullmatch(r"[0-9a-f]{40}", pin.get("commit", "")), "invalid owner pin")
+781434	    require(set(pin.get("files", {})) == FILES, "unexpected owner bundle files")
+781436	    for name, digest in pin["files"].items():
+781437	        require(isinstance(digest, str) and re.fullmatch(r"[0-9a-f]{64}", digest), "invalid owner digest")
+781438	        body = fetch(f'https://raw.githubusercontent.com/{pin["repository"]}/{pin["commit"]}/{name}')
+781439	        require(len(body) <= 1_000_000 and sha(body) == digest, f"owner source hash mismatch: {name}")
+781440	        bundle[name] = body
+781441	    require(sum(map(len, bundle.values())) < 1_000_000, "owner bundle exceeds size limit")
+781442	    config = decode(bundle["data/homepage.json"])
+781443	    require(config.get("schema_version") == 1, "unsupported owner catalogue")
+781444	    entities = [e for e in config["entities"] if e.get("id") == "pipeline-news"]
+781445	    require(len(entities) == 1, "pipeline owner identity missing or ambiguous")
+781446	    entity = entities[0]
+781447	    current = entity.get("operative_release_id", "")
+781448	    require(re.fullmatch(r"[0-9]{12}", current), "invalid operative release identity")
+781449	    owner_releases = [r for r in entity["releases"] if r.get("id") == current]
+781450	    require(len(owner_releases) == 1 and owner_releases[0].get("status") == "available", "operative release is not available")
+781451	    require(owner_releases[0].get("url") == BASE + f"uk_renewables_pipeline/{current}/", "operative release URL mismatch")
+781452	    registry = decode((root / "automation/pipeline_release/registry.json").read_bytes())
+781453	    records = registry["versions"]
+781454	    selected = {}
+781455	    for release_id in dict.fromkeys((current, *ROLLBACKS)):
+781456	        matches = [v for v in records if v.get("id") == release_id]
+781457	        require(len(matches) == 1, "registered release missing or ambiguous")
+781458	        entry = matches[0]
+781459	        actual_tree = git(root, "rev-parse", f"HEAD:uk_renewables_pipeline/{release_id}")
+781460	        require(actual_tree in entry["trees"], f"unregistered source tree: {release_id}")
+781461	        html = (root / "uk_renewables_pipeline" / release_id / "index.html").read_bytes()
+781462	        require(entry["version"].encode() in html and release_id.encode() in html, "local release identity absent")
+781463	        selected[release_id] = {"version": entry["version"], "tree": actual_tree, "html": html}
+781464	    manifest = (root / "uk_renewables_pipeline" / ROLLBACKS[0] / "solar1000/manifest.json").read_bytes()
+781465	    seed = decode(manifest)
+781466	    require(seed["selection"] == "numeric-repd-ref-ascending" and len(seed["ids"]) == len(set(seed["ids"])) == 1000,
+781467	            "invalid frozen Solar-1000 selection")
+781468	    require(seed["ids"][0] == "1018" and seed["ids"][-1] == "2325" and seed["record_count"] == 7775
+781469	            and seed["solar_count"] == 3604 and seed["provisional_candidates"] == 2
+781470	            and seed["not_researched"] == 998 and seed["independently_verified"] == 0, "frozen baseline counts changed")
+781471	    require((root / "uk_renewables_pipeline" / current / "solar1000/manifest.json").read_bytes() == manifest,
+781472	            "operative Solar-1000 differs from frozen baseline")
+781473	    ledger = (root / "uk_renewables_pipeline/versions.json").read_bytes()
+781474	    return {"source_commit": git(root, "rev-parse", "HEAD"), "pin": pin, "bundle": bundle,
+781475	            "root_html": transformed_index(bundle["index.html"]), "current": current,
+781476	            "selected": selected, "manifest": manifest, "ledger": ledger}
+781477	def check_once(expected, fetch=read):
+781478	    observed = {}
+781479	    def exact(path, original):
+781480	        body = fetch(BASE + path)
+781481	        require(body == original, f"served byte mismatch: {path or 'index.html'}")
+781482	        observed[path or "index.html"] = sha(body)
+781483	    exact("", expected["root_html"])
+781484	    for name, body in expected["bundle"].items():
+781485	        if name != "index.html":
+781486	            exact("homepage-shell/" + name, body)
+781487	    for release_id, source in expected["selected"].items():
+781488	        exact(f"uk_renewables_pipeline/{release_id}/index.html", source["html"])
+781489	    for release_id in dict.fromkeys((expected["current"], ROLLBACKS[0])):
+781490	        exact(f"uk_renewables_pipeline/{release_id}/solar1000/manifest.json", expected["manifest"])
+781491	    ledger = decode(exact("uk_renewables_pipeline/versions.json", expected["ledger"]))
+781492	        matches = [v for v in ledger["versions"] if v.get("id") == release_id]
+781493	        require(len(matches) == 1, "served ledger release missing or ambiguous")
+781494	        require(entry.get("version") == source["version"] and entry.get("verdict") == "PASS"
+781495	                and source["tree"] in entry.get("tree", []), "served ledger identity/tree/verdict mismatch")
+781496	    return {"status": "PASS", "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+781497	            "source_commit": expected["source_commit"], "homepage_owner_commit": expected["pin"]["commit"],
+781498	            "release": expected["current"], "version": expected["selected"][expected["current"]]["version"],
+781499	            "owner_source_index_sha256": sha(expected["bundle"]["index.html"]),
+781500	            "transformed_root_sha256": sha(expected["root_html"]), "served_sha256": observed,
+781501	            "rollback_releases": list(ROLLBACKS), "solar_1000": 1000,
+781502	            "scope": "Exact source-pinned HTTP bytes, operative owner release, ledger and V9.24/V9.23 rollback. Not rights approval, project verification, live MAP/browser acceptance or promotion."}
+781503	def bounded_env(name, default, low, high):
+781504	    value = int(os.environ.get(name, str(default)))
+781505	    require(low <= value <= high, f"{name} outside allowed bounds")
+781506	    out = Path(os.environ.get("PIPELINE_RECEIPT_PATH", str(Path(tempfile.gettempdir()) / "pipeline-public-receipt.json")))
+781507	    receipt = {"status": "FAIL", "scope": "public readback"}
+781508	        attempts = bounded_env("PIPELINE_VERIFY_ATTEMPTS", 3, 1, 4)
+781509	        delay = bounded_env("PIPELINE_VERIFY_DELAY_SECONDS", 8, 0, 15)
+781510	        expected = prepare()
+781511	        for attempt in range(1, attempts + 1):
+781512	                receipt = check_once(expected)
+781514	            except (ValueError, OSError, KeyError, TypeError) as exc:
+781515	                receipt = {"status": "FAIL", "attempt": attempt, "source_commit": expected["source_commit"], "error": str(exc)}
+781516	                print(f"Public readback attempt {attempt}/{attempts}: {exc}", flush=True)
+781517	                if attempt < attempts:
+781518	                    time.sleep(delay)
+781519	    except (ValueError, OSError, KeyError, TypeError, subprocess.CalledProcessError) as exc:
+781520	        receipt = {"status": "FAIL", "error": str(exc)}
+781522	    out.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+781524	    return 0 if receipt["status"] == "PASS" else 1
+781541	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">Open Pipeline News &rarr;</a></div></details>
+781565	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div></details></td></tr>
+781591	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611161244</title>
+781608	  <link rel="stylesheet" href="styles/v9-24.css?v=9.24">
+781618	      <small>UK RENEWABLES PIPELINE · V9.24</small>
+781621	      <a class="active" href="#">V9.24 BUILD · REPD Q3 2026</a>
+781623	      <a href="../202611160020/">V9.23 202611160020 · PREVIOUS EDITION</a>
+781669	      <h1>UK RENEWABLES PIPELINE 202611161244</h1>
+781672	      <strong>V9.24 · REPD OCTOBER 2026 (Q3) · SOLAR 1000 EVIDENCE PILOT · BUILD · 16 November 2026</strong>
+781707	    <section class="v924-pilot" id="solar1000Pilot" aria-label="Solar 1000 evidence pilot">
+781708	 <h2>V9.24 · SOLAR 1000 EVIDENCE PILOT</h2>
+781709	 <p><b>Candidate intelligence only.</b> Numeric REPD Ref selection; original 7,775-row pipeline, official statuses, CSV and MAP links remain unchanged. A source candidate is not a new planning decision.</p>
+781710	 <p data-pilot-count>1,000 selected records · 2 provisional sources · 998 not researched · 0 independently verified</p>
+781711	 <p data-pilot-verification>Research pilot: original publisher receipts and publication rights have not been independently accepted.</p>
+781712	 <p data-pilot-source>Loading source manifest…</p>
+781713	 <p data-pilot-status>Loading pilot rows…</p>
+781714	 <label for="solarPilotSearch">Find a selected solar project by site, county or REPD number</label>
+781715	 <input id="solarPilotSearch" data-pilot-search type="search" placeholder="Search among 1,000 selected projects" autocomplete="off">
+781716	 <div data-pilot-rows aria-live="polite"></div>
+781717	 <div class="v924-pagination"><button type="button" data-pilot-prev>PREVIOUS 25</button><span data-pilot-page>Loading…</span><button type="button" data-pilot-next>NEXT 25</button></div>
+781792	  <script type="module" src="scripts/plugins/solar1000-v924.js?v=9.24"></script>
+781795	import { loadCanonicalProjectsV9_5_1 } from '../data/canonical-projects-v9-5-1.js';
+781796	import { atlasUrlV9_5_1 } from './projects-v9-8.js';
+781797	const root=document.getElementById('solar1000Pilot');
+781798	const result=root?.querySelector('[data-pilot-status]');
+781799	const input=root?.querySelector('[data-pilot-search]');
+781800	const page=root?.querySelector('[data-pilot-page]');
+781801	const prev=root?.querySelector('[data-pilot-prev]');
+781802	const next=root?.querySelector('[data-pilot-next]');
+781803	const list=root?.querySelector('[data-pilot-rows]');
+781804	const counts=root?.querySelector('[data-pilot-count]');
+781805	const stamp=root?.querySelector('[data-pilot-source]');
+781806	const sourceBadge=root?.querySelector('[data-pilot-verification]');
+781807	const PAGE_SIZE=25;
+781808	let records=[],current=0;
+781809	function add(parent,tag,value,cls){const n=document.createElement(tag);if(cls)n.className=cls;if(value!==undefined)n.textContent=String(value);parent.appendChild(n);return n;}
+781810	function display(){
+781811	 const needle=String(input.value||'').toLowerCase().trim();
+781812	 const rows=records.filter(({project:p})=>!needle || [p.repd_ref,p.name,p.county,p.operator,p.planning_application_reference].some(v=>String(v||'').toLowerCase().includes(needle)));
+781813	 const total=Math.max(1,Math.ceil(rows.length/PAGE_SIZE));current=Math.min(current,total-1);
+781814	 list.textContent='';
+781815	 for(const {project:p,candidate:c} of rows.slice(current*PAGE_SIZE,(current+1)*PAGE_SIZE)){
+781816	   const r=add(list,'div',undefined,'v924-row');
+781817	   const name=add(r,'div',undefined,'v924-row-name');
+781818	   add(name,'strong',p.name);
+781819	   add(name,'span','REPD '+p.repd_ref+' · '+(p.county||'County not specified'));
+781820	   const detail=add(r,'div',undefined,'v924-row-detail');
+781821	   add(detail,'span','OFFICIAL: '+(p.status||'Unknown'));
+781822	   add(detail,'span',typeof p.capacity_mw==='number'?p.capacity_mw.toLocaleString('en-GB',{maximumFractionDigits:2})+' MW':'Capacity not supplied');
+781823	   const facts=add(r,'div',undefined,'v924-row-note');
+781824	   add(facts,'strong',c?'PROVISIONAL SOURCE CANDIDATE — UNVERIFIED':'NOT RESEARCHED — NO EXTERNAL EVIDENCE ASSERTED');
+781825	   if(c){add(facts,'span',c.event_date+' · '+c.publisher+' · '+c.remarks);const a=add(facts,'a','Original source ↗');a.href=c.source_url;a.target='_blank';a.rel='noopener noreferrer';}
+781826	   const href=atlasUrlV9_5_1(p);
+781827	   if(href){const a=add(r,'a','MAP · GRIDATLAS ↗','v924-map');a.href=href;a.target='_blank';a.rel='noopener noreferrer';}
+781828	   else add(r,'span','MAP UNAVAILABLE — SOURCE COORDINATES NOT PRESENT','v924-map');
+781830	 page.textContent='Showing '+(rows.length?current*PAGE_SIZE+1:0)+'–'+Math.min((current+1)*PAGE_SIZE,rows.length)+' of '+rows.length+' selected solar projects';
+781831	 prev.disabled=current<=0;next.disabled=current>=total-1;
+781833	 if(!root)return;
+781835	 const [data,candidates,model]=await Promise.all([
+781836	  fetch('solar1000/manifest.json').then(r=>{if(!r.ok)throw Error('Pilot manifest unavailable');return r.json()}),
+781837	  fetch('solar1000/candidates.json').then(r=>{if(!r.ok)throw Error('Candidate register unavailable');return r.json()}),
+781838	  loadCanonicalProjectsV9_5_1()
+781839	 ]);
+781840	 const ids=data.ids.map(String);
+781841	 if(ids.length!==1000||new Set(ids).size!==1000||ids.some((x,i)=>i&&Number(x)<=Number(ids[i-1]))||data.selection!=='numeric-repd-ref-ascending')throw Error('Pilot membership failed identity checks');
+781842	 const byRef=new Map(model.projects.map(p=>[String(p.repd_ref),p]));
+781843	 const byCandidate=new Map(candidates.map(c=>[String(c.repd_ref),c]));
+781844	 records=ids.map(ref=>({project:byRef.get(ref),candidate:byCandidate.get(ref)}));
+781845	 if(records.some(v=>!v.project||v.project.technology!=='solar')||candidates.length!==2||data.independently_verified!==0)throw Error('Pilot source/technology verification failed');
+781846	 counts.textContent='1,000 selected of 3,604 solar · 7,775 total REPD records · 2 provisional source candidates · 998 not researched · ZERO independently verified';
+781847	 sourceBadge.textContent='Research pilot: candidate evidence only — no publisher rights or project-event decisions verified';
+781848	 stamp.textContent='V9.23 immutable source · numeric REPD IDs '+ids[0]+'–'+ids.at(-1)+' · 16 source partitions · Agent 11 f8ab48e8';
+781849	 result.textContent='Pilot loaded · 1,000 official REPD records, unchanged';
+781850	 input.addEventListener('input',()=>{current=0;display()});
+781851	 prev.addEventListener('click',()=>{current--;display()});
+781852	 next.addEventListener('click',()=>{current++;display()});
+781853	 display();
+781854	 }catch(e){result.textContent='Pilot unavailable: '+String(e.message||e)+'; full REPD register and MAP remain available below.';result.setAttribute('data-error','true');}
+781857	const manifest=JSON.parse(await readFile(new URL('../solar1000/manifest.json',import.meta.url)));
+781858	const candidates=JSON.parse(await readFile(new URL('../solar1000/candidates.json',import.meta.url)));
+781859	assert.equal(manifest.record_count,7775);
+781860	assert.equal(manifest.solar_count,3604);
+781861	assert.equal(manifest.selection,'numeric-repd-ref-ascending');
+781862	assert.equal(manifest.ids.length,1000);
+781863	assert.equal(new Set(manifest.ids).size,1000);
+781864	assert.equal(manifest.ids[0],'1018');assert.equal(manifest.ids.at(-1),'2325');
+781865	assert.equal(candidates.length,2);assert.equal(manifest.independently_verified,0);
+781866	assert.equal(manifest.not_researched,998);
+781867	assert.ok(manifest.ids.every((id,i,a)=>i===0||+id>+a[i-1]));
+781868	assert.deepEqual(candidates.map(c=>c.repd_ref),['1019','1020']);
+781869	assert.ok(candidates.every(c=>c.rights_basis==='unknown'&&c.verification==='provisional_candidate_only'));
+781870	const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
+781871	assert.match(html,/SOLAR 1000 EVIDENCE PILOT/);
+781872	assert.match(html,/solar1000-v924.js/);
+781873	console.log('V9.24 Solar-1000 membership and provisional evidence: PASS');
+781874	/* check_v9_24.mjs - Pipeline News V9.24, proven from the bytes and through the
+781884	 * Run: node tests/check_v9_24.mjs
+781895	const VERSION = "9.24";
+781897	const PARENT_ID = "202611160020";
+781969	console.log(`check_v9_24: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+781972	"""Rebuild the bounded global sample offline from pinned CC0 structured facts.
+781973	This is not a collector and makes no network requests. Updates require reviewed
+781974	entity revisions in source-facts.json and a new release; historical data stays.
+781975	SCHEMA = "globalgrid2050.global-datacentres.projects.v1"
+781976	DUCKDB_VERSION = "1.3.2"
+781977	PARQUET = "data/facilities/generation=202611161630/source=WIKIDATA/global-data-centre-records-v1.parquet"
+781979	    ("source_record_id", "VARCHAR"), ("name", "VARCHAR"), ("country_id", "VARCHAR"),
+781980	    ("country_name", "VARCHAR"), ("country_code", "VARCHAR"), ("operator_name", "VARCHAR"),
+781981	    ("latitude", "DOUBLE"), ("longitude", "DOUBLE"), ("precision_degrees", "DOUBLE"),
+781982	    ("it_load_mw", "DOUBLE"), ("site_demand_mw", "DOUBLE"), ("grid_connection_mw", "DOUBLE"),
+781983	    ("retrieved_at", "VARCHAR"), ("entity_revision", "BIGINT"), ("entity_url", "VARCHAR"),
+781984	    ("revision_url", "VARCHAR"), ("country_revision_url", "VARCHAR"), ("operator_revision_url", "VARCHAR"),
+781985	    ("source_licence", "VARCHAR"), ("licence_url", "VARCHAR"), ("source_facts_sha256", "VARCHAR"),
+781987	def values(entity, prop):
+781988	    claims = [c for c in entity["claims"].get(prop, []) if c["rank"] != "deprecated"]
+781989	    preferred = [c for c in claims if c["rank"] == "preferred"]
+781990	    return [c["value"] for c in preferred or claims]
+781991	def revision_url(entity):
+781992	    return f"https://www.wikidata.org/w/index.php?title={entity['id']}&oldid={entity['revision']}"
+781993	def project(path=HERE / "source-facts.json"):
+781994	    facts = json.loads(raw)
+781995	    if facts["licence"] != "CC0-1.0":
+781996	        raise ValueError("Source rights not accepted; quarantine required")
+781997	    entities = facts["entities"]
+781999	    for entity_id in facts["selected_ids"]:
+782000	        entity = entities[entity_id]
+782001	        if not {v["id"] for v in values(entity, "P31")} >= {"Q671224"}:
+782002	            raise ValueError("Source not classified as a data centre; quarantine required")
+782003	        countries = values(entity, "P17")
+782004	        if len(countries) != 1:
+782005	            raise ValueError("Ambiguous country; quarantine required")
+782006	        country = entities[countries[0]["id"]]
+782007	        codes = values(country, "P297")
+782008	        code = codes[0] if len(codes) == 1 and len(codes[0]) == 2 else None
+782009	        coordinates = values(entity, "P625")
+782010	        # Ambiguous or non-Earth coordinates are not mapped.
+782011	        point = coordinates[0] if len(coordinates) == 1 and coordinates[0]["globe"].endswith("/Q2") else None
+782012	        if point and (not all(isinstance(point[k], (float, int)) and math.isfinite(point[k]) for k in ("latitude", "longitude", "precision"))
+782013	                      or not (-90 <= point["latitude"] <= 90 and -180 <= point["longitude"] <= 180 and point["precision"] > 0)):
+782014	            raise ValueError("Invalid coordinate; quarantine required")
+782015	        operators = values(entity, "P137")
+782016	        operator = entities[operators[0]["id"]] if len(operators) == 1 else None
+782017	        records.append({
+782018	            "id": "DC-WD-" + entity_id, "name": entity["label"], "record_type": "data_centre",
+782019	            "country": {"code": code, "name": country["label"], "wikidata_id": country["id"]},
+782020	            "operator": operator["label"] if operator else None,
+782021	            "operating_status": "not_assessed", "verification_status": "SOURCE_INDEXED",
+782022	            "location": None if point is None else {
+782023	                "latitude": point["latitude"], "longitude": point["longitude"],
+782024	                "precision_degrees": point["precision"], "basis": "Wikidata P625 source point; not surveyed accuracy",
+782026	            "capacity": {"it_load_mw": None, "site_demand_mw": None, "grid_connection_mw": None},
+782027	            "capacity_sources": {"it_load_mw": None, "site_demand_mw": None, "grid_connection_mw": None},
+782028	            "source": {"publisher": "Wikidata", "url": "https://www.wikidata.org/wiki/" + entity_id,
+782029	                       "revision_url": revision_url(entity), "revision": entity["revision"],
+782030	                       "retrieved_at": facts["retrieved_at"], "licence": "CC0-1.0",
+782031	                       "licence_url": facts["licence_url"]},
+782032	            "field_sources": {
+782033	                "name": revision_url(entity), "country": revision_url(country),
+782034	                "location": revision_url(entity) + "#P625" if point else None,
+782035	                "operator": revision_url(operator) if operator else None,
+782036	    if len(records) != len({r["id"] for r in records}):
+782037	        raise ValueError("Duplicate source identity; quarantine required")
+782038	    records.sort(key=lambda p: (p["country"]["name"], p["name"]))
+782039	    return {"schema": SCHEMA, "generated_from_retrieval": facts["retrieved_at"],
+782040	            "coverage": "Curated global sample; not a comprehensive worldwide register. Countries and facilities without selected records are not implied absent.",
+782041	            "scope": "global", "record_count": len(records),
+782042	            "country_count": len({p["country"]["wikidata_id"] for p in records}),
+782043	            "source_facts_sha256": hashlib.sha256(raw).hexdigest(), "records": records}
+782044	def flatten(record, digest):
+782045	    p, s, f = record, record["source"], record["field_sources"]
+782046	    location = p["location"] or {}
+782047	    return (p["id"], p["name"], p["country"]["wikidata_id"], p["country"]["name"], p["country"]["code"], p["operator"],
+782048	            location.get("latitude"), location.get("longitude"), location.get("precision_degrees"),
+782049	            p["capacity"]["it_load_mw"], p["capacity"]["site_demand_mw"], p["capacity"]["grid_connection_mw"],
+782050	            s["retrieved_at"], s["revision"], s["url"], s["revision_url"], f["country"], f["operator"],
+782051	            s["licence"], s["licence_url"], digest)
+782052	def expand(row):
+782053	    r = dict(zip((name for name, _ in COLUMNS), row))
+782054	        "id": r["source_record_id"], "name": r["name"], "record_type": "data_centre",
+782055	        "country": {"code": r["country_code"], "name": r["country_name"], "wikidata_id": r["country_id"]},
+782056	        "operator": r["operator_name"], "operating_status": "not_assessed", "verification_status": "SOURCE_INDEXED",
+782057	        "location": None if r["latitude"] is None else {"latitude": r["latitude"], "longitude": r["longitude"],
+782058	                     "precision_degrees": r["precision_degrees"], "basis": "Wikidata P625 source point; not surveyed accuracy"},
+782059	        "capacity": {key: r[key] for key in ("it_load_mw", "site_demand_mw", "grid_connection_mw")},
+782060	        "capacity_sources": {"it_load_mw": None, "site_demand_mw": None, "grid_connection_mw": None},
+782061	        "source": {"publisher": "Wikidata", "url": r["entity_url"], "revision_url": r["revision_url"],
+782062	                   "revision": r["entity_revision"], "retrieved_at": r["retrieved_at"], "licence": r["source_licence"],
+782063	                   "licence_url": r["licence_url"]},
+782064	        "field_sources": {"name": r["revision_url"], "country": r["country_revision_url"],
+782065	                          "location": r["revision_url"] + "#P625" if r["latitude"] is not None else None,
+782066	                          "operator": r["operator_revision_url"]},
+782067	def build(path=HERE / "source-facts.json", output_dir=None):
+782068	    """Furnace: validate -> typed Parquet -> exact readback -> browser export.
+782069	    Invalid source rows fail the entire build before any output is promoted.
+782070	    Unknown measurements remain null and are not erroneous/quarantined rows.
+782071	    if duckdb.__version__ != DUCKDB_VERSION:
+782072	        raise ValueError(f"DuckDB version drift: require {DUCKDB_VERSION}")
+782073	    candidate = project(path)
+782074	    rows = sorted(flatten(r, candidate["source_facts_sha256"]) for r in candidate["records"])
+782075	    with tempfile.TemporaryDirectory(prefix="global-dc-furnace-") as temporary:
+782076	        folder = Path(temporary)
+782077	        hashes = []
+782078	        for pass_number in (1, 2):
+782079	            parquet = folder / f"pass{pass_number}.parquet"
+782080	            with duckdb.connect(":memory:") as db:
+782081	                db.execute("SET threads=1")
+782082	                db.execute("CREATE TABLE records (" + ",".join(name + " " + kind for name, kind in COLUMNS) + ")")
+782083	                db.executemany("INSERT INTO records VALUES (" + ",".join("?" for _ in COLUMNS) + ")", rows)
+782084	                escaped = parquet.as_posix().replace("'", "''")
+782085	                db.execute(f"COPY (SELECT * FROM records ORDER BY source_record_id) TO '{escaped}' (FORMAT PARQUET, COMPRESSION ZSTD, ROW_GROUP_SIZE 2048)")
+782086	                readback = db.execute("SELECT * FROM read_parquet(?, hive_partitioning=false) ORDER BY source_record_id", [str(parquet)]).fetchall()
+782087	                if readback != rows:
+782088	                    raise ValueError("Parquet value/null readback failed; quarantine required")
+782089	                schema = db.execute("DESCRIBE SELECT * FROM read_parquet(?, hive_partitioning=false)", [str(parquet)]).fetchall()
+782090	                if [(r[0], r[1]) for r in schema] != COLUMNS:
+782091	                    raise ValueError("Parquet schema mismatch; quarantine required")
+782092	                codecs = db.execute("SELECT DISTINCT compression FROM parquet_metadata(?)", [str(parquet)]).fetchall()
+782093	                if codecs != [("ZSTD",)]:
+782094	                    raise ValueError("Parquet compression mismatch")
+782095	            hashes.append(hashlib.sha256(parquet.read_bytes()).hexdigest())
+782096	        if len(set(hashes)) != 1:
+782097	            raise ValueError("Deterministic double compile failed; quarantine required")
+782098	        candidate["records"] = sorted((expand(row) for row in readback), key=lambda p: (p["country"]["name"], p["name"]))
+782099	        audit = {"schema": "globalgrid2050.global-datacentres.furnace-audit.v1", "source_facts_sha256": candidate["source_facts_sha256"],
+782100	                 "duckdb_version": DUCKDB_VERSION, "source_grain": "one Wikidata entity; not adjudicated facility identity",
+782101	                 "row_count": len(rows), "distinct_source_ids": len({r[0] for r in rows}), "quarantined_rows": 0,
+782102	                 "source_rights": "CC0-1.0 structured data", "parquet": PARQUET, "parquet_sha256": hashes[0],
+782103	                 "compression": "ZSTD", "double_compile": "BYTE_IDENTICAL", "readback": "EXACT_VALUES_AND_NULLS",
+782104	                 "browser_export_source": "DUCKDB_PARQUET_READBACK", "verified_rows": 0,
+782105	                 "stages": ["pinned_cc0_facts", "validate_or_quarantine", "typed_normalization", "parquet_double_compile", "duckdb_readback", "browser_projection"]}
+782106	        if output_dir is not None:
+782107	            out = Path(output_dir)
+782108	            target = out / PARQUET
+782109	            shutil.copyfile(folder / "pass1.parquet", target)
+782110	            (out / "pipeline-audit.json").write_text(json.dumps(audit, indent=2) + "\n", encoding="utf-8", newline="\n")
+782111	        return candidate
+782112	    result = build(output_dir=HERE)
+782113	    (HERE / "projects.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+782114	    print(f"Global source-indexed sample: {result['record_count']} sites, {result['country_count']} countries")
+782115	/* Offline checks of the production sample and its defensive browser model. */
+782119	require('node:vm').runInThisContext(fs.readFileSync(path.join(__dirname, '../scripts/plugins/global-datacentres-v925.js'), 'utf8'));
+782120	const api = globalThis.GlobalDatacentres;
+782121	const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'projects.json'), 'utf8'));
+782122	assert.equal(api.validate(data), data);
+782123	assert.equal(data.record_count, 12);
+782124	assert.equal(data.country_count, 10);
+782125	assert.equal(api.filter(data.records, 'utah', '').length, 1);
+782126	assert.equal(api.filter(data.records, '', 'Q30').length, 3);
+782127	assert.equal(api.filter(data.records, 'utah', 'Q17').length, 0);
+782128	assert.equal(api.filter(data.records, 'DC-WD-Q11236058', '')[0].name, 'NTT Telepark Dojima');
+782129	assert.equal(api.filter(data.records, 'there is no such record', '').length, 0);
+782130	const utah = data.records.find(p => p.id === 'DC-WD-Q12857142');
+782131	assert.ok(api.mapUrl(utah).startsWith('https://www.openstreetmap.org/?mlat=40.43153&mlon=-111.933092'));
+782132	const yotta = data.records.find(p => p.id === 'DC-WD-Q142068471');
+782133	assert.equal(api.mapUrl(yotta), null);
+782134	assert.deepEqual(api.capacityLabels(yotta), ['IT load: not reported', 'Site demand: not reported', 'Grid connection: not reported']);
+782135	const coarse = data.records.find(p => p.id === 'DC-WD-Q520438');
+782136	assert.ok(api.mapUrl(coarse).includes('#map=8/'));
+782138	  d => { d.records[0].id = '1018'; },
+782139	  d => { d.records[0].location = {latitude: 200, longitude: 0, precision_degrees: 1}; },
+782140	  d => { d.records[0].source.revision_url = 'javascript:alert(1)'; },
+782141	  d => { d.records[0].source.licence = 'UNKNOWN'; },
+782142	  d => { d.records[0].verification_status = 'VERIFIED'; },
+782143	  d => { d.records[0].capacity.it_load_mw = 100; },
+782144	  d => { d.country_count = 11; },
+782145	  d => { d.records[1].id = d.records[0].id; },
+782146	].forEach(mutate => { const bad = structuredClone(data); mutate(bad); assert.throws(() => api.validate(bad)); });
+782147	const separated = structuredClone(data);
+782148	separated.records[0].capacity.it_load_mw = 10;
+782149	separated.records[0].capacity.site_demand_mw = 15;
+782150	separated.records[0].capacity.grid_connection_mw = 20;
+782151	Object.keys(separated.records[0].capacity_sources).forEach(k => { separated.records[0].capacity_sources[k] = 'https://fixtures.example/capacity-test'; });
+782152	api.validate(separated);
+782153	assert.deepEqual(api.capacityLabels(separated.records[0]), ['IT load: 10 MW', 'Site demand: 15 MW', 'Grid connection: 20 MW']);
+782154	console.log('Global data-centre model: PASS (production source records plus synthetic negative cases)');
+782155	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611161630</title>
+782156	  <link rel="stylesheet" href="styles/v9-25.css?v=9.25">
+782157	      <small>UK RENEWABLES PIPELINE · V9.25</small>
+782158	      <a class="active" href="#">V9.25 RELEASE CANDIDATE · REPD Q3 2026</a>
+782159	      <a href="../202611161244/">V9.24 202611161244 · REPD Q3 2026</a>
+782160	      <details class="v925-history">
+782161	        <summary>Previous editions</summary>
+782162	      <a href="#" id="export">EXPORT UK CSV</a>
+782163	  <main class="main" id="dashboard">
+782164	    <div class="header v925-hero">
+782166	        <p class="v925-eyebrow">UNITED KINGDOM / ENERGY TRANSITION</p>
+782167	        <h1>UK RENEWABLES PIPELINE 202611161630</h1>
+782168	        <h2>UK energy transition</h2>
+782169	        <p class="v925-intro">Solar, battery storage, wind and grid infrastructure, with global data-centre context.</p>
+782170	      <div class="status"><b>V9.25 RELEASE CANDIDATE</b><br>● REPD OCTOBER 2026 · ALL PROJECTS ≥1 MW</div>
+782171	    <p class="v925-release-meta"><strong>V9.25 · REPD OCTOBER 2026 (Q3) · NEWS AND GLOBAL PROJECT PIPELINE · RELEASE CANDIDATE · 16 November 2026</strong></p>
+782172	    <nav class="v925-sections" aria-label="Dashboard sections">
+782173	      <a href="#transitionContext">01 <span>News</span></a>
+782174	      <a href="#officialRegister">02 <span>Pipeline</span></a>
+782175	      <a href="https://ventusltd.github.io/gridatlas/atlas/"><span>GridAtlas &#8599;</span></a>
+782176	      <a href="../datacentres/"><span>UK data-centre context &#8599;</span></a>
+782177	      <div class="masthead" id="transitionContext">
+782178	        <p class="v925-eyebrow context">01 / UK AND INTERNATIONAL CONTEXT</p>
+782179	        <h2>NEWS <span>AND CONTEXT</span></h2>
+782180	        <p class="v925-context-note">UK developments in a wider energy transition. International headlines provide market context; they are not UK REPD project records or verified project evidence. Cross-border infrastructure is available in the separate Interconnectors tab.</p>
+782181	    <section class="v925-pipeline" id="officialRegister" aria-labelledby="pipelineHeading">
+782182	      <div class="v925-register-heading"><p class="v925-eyebrow">02 / PROJECTS AND INFRASTRUCTURE</p><h2 id="pipelineHeading">PIPELINE</h2><p>Explore the UK register or switch to global data-centre projects. Each view retains its own sources and identities.</p></div>
+782183	      <div class="v925-tabs" role="tablist" aria-label="Pipeline geography">
+782184	        <button id="ukProjectsTab" role="tab" aria-selected="true" aria-controls="ukProjectsPanel" tabindex="0">UK projects</button>
+782185	        <button id="globalProjectsTab" role="tab" aria-selected="false" aria-controls="globalProjectPanel" tabindex="-1">Global data centres</button>
+782186	      <div id="ukProjectsPanel" role="tabpanel" aria-labelledby="ukProjectsTab">
+782187	        <p class="v925-scope"><strong>7,775 official REPD records</strong> <span>Solar, battery storage and wind at 1 MW and above. Interconnectors are a separate dataset.</span></p>
+782188	        <details class="v925-disclosure"><summary>REPD source and release details</summary>
+782190	        <details class="v925-disclosure" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json">
+782191	          <summary>Project evidence coverage</summary>
+782192	          <p data-evidence-selection>Loading the unchanged V9.24 Solar-1000 selection...</p>
+782193	          <p data-evidence-status role="status">Loading weekly evidence...</p>
+782194	          <p>Source matches appear within the selected project's record details. All machine matches remain provisional; no independently verified events are asserted.</p>
+782195	    <details class="v925-disclosure"><summary>How to interpret statuses, maps and news</summary>
+782197	      <div id="globalProjectPanel" role="tabpanel" aria-labelledby="globalProjectsTab" hidden>
+782198	        <section id="globalDatacentres" aria-label="Global data centre projects">
+782199	          <p class="gdc-empty">Global data-centre records are not available until their source register loads. UK REPD totals remain separate.</p>
+782201	  <script type="module" src="scripts/plugins/solar1000-v924.js?v=9.25"></script>
+782202	  <script defer src="scripts/plugins/pipeline-tabs-v925.js?v=9.25"></script>
+782203	  <script defer src="scripts/plugins/global-datacentres-v925.js?v=9.25"></script>
+782204	// Weekly machine matches are leads for review, never verified project events.
+782205	const SCHEMA = 'globalgrid2050.solar-evidence.provisional.v1';
+782206	const RESEARCH_SCOPE = 'Completed bounded feed scan using strict name/REPD-ID matching; not independent project-first research. No match is not proof no evidence exists.';
+782207	const WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+782208	function require(condition, message) { if (!condition) throw Error(message); }
+782209	function moment(value) {
+782210	  require(typeof value === 'string' && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/.test(value), 'UTC timestamp required');
+782211	  const time = Date.parse(value);
+782212	  require(Number.isFinite(time) && new Date(time).toISOString().replace('.000Z', 'Z') === value, 'Invalid UTC timestamp');
+782213	  return time;
+782214	function nonempty(value) { return typeof value === 'string' && value.trim().length > 0; }
+782215	function add(parent, tag, value) {
+782217	  if (value !== undefined) node.textContent = String(value);
+782220	function safeArticleURL(value) {
+782222	  require(url.protocol === 'https:' && !url.username && !url.password && !url.port, 'Unsafe HTTPS link');
+782225	  const response = await fetch(url, {cache: 'no-store', signal: AbortSignal.timeout(10000)});
+782226	  require(response.ok && response.url === url.href, 'Evidence snapshot unavailable');
+782228	export async function loadEvidence(pointerPath, ids) {
+782229	  const pointerURL = new URL(pointerPath, window.location.href);
+782230	  require(pointerURL.origin === window.location.origin || pointerURL.href === 'https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json', 'Unapproved evidence pointer');
+782231	  const pointer = await (await get(pointerURL)).json();
+782232	  require(pointer.schema === SCHEMA && pointer.project_count === 1000 && pointer.review_required === true, 'Evidence pointer failed validation');
+782233	  require(/^snapshot_\d{8}T\d{6}Z$/.test(pointer.snapshot) && pointer.json === pointer.snapshot + '/evidence.json', 'Invalid evidence path');
+782234	  require(/^[a-f0-9]{64}$/.test(pointer.sha256?.['evidence.json']), 'Missing evidence digest');
+782235	  const bytes = await (await get(new URL(pointer.json, pointerURL))).arrayBuffer();
+782236	  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), n => n.toString(16).padStart(2, '0')).join('');
+782237	  require(digest === pointer.sha256['evidence.json'], 'Evidence digest mismatch');
+782238	  const data = JSON.parse(new TextDecoder().decode(bytes));
+782239	  require(data.schema === SCHEMA && data.seed_release === '202611161244' && data.project_count === 1000 && data.verified_count === 0 && data.review_required === true, 'Evidence schema failed validation');
+782240	  require(data.generated_at === pointer.generated_at && data.evidence_count === pointer.evidence_count, 'Evidence pointer disagrees with snapshot');
+782241	  const generated = moment(data.generated_at), acquired = moment(data.source_run_at);
+782242	  require(acquired <= generated, 'Snapshot predates acquisition');
+782243	  require(data.research_scope === RESEARCH_SCOPE, 'Invalid research scope');
+782244	  require(Array.isArray(data.sources) && data.sources.length > 0, 'Successful source receipts required');
+782245	  const sources = new Map();
+782246	  for (const source of data.sources) {
+782247	    require(source && nonempty(source.id) && !sources.has(source.id), 'Duplicate or invalid source ID');
+782248	    require(source.status === 'ok' && source.eligible_for_publication === true && source.probe_only === false && source.rights_status === 'accepted', 'Source not eligible for publication');
+782249	    require([200,304].includes(source.http_status) && /^[a-f0-9]{64}$/.test(source.response_sha256), 'Invalid successful HTTP receipt');
+782250	    safeArticleURL(source.url);
+782251	    safeArticleURL(source.rights_review_url);
+782252	    require(moment(source.fetched_at) <= acquired, 'Source receipt is later than acquisition');
+782253	    sources.set(source.id, source);
+782254	  require(Array.isArray(data.projects) && data.projects.length === ids.length, 'Evidence membership mismatch');
+782255	  const expected = new Set(ids), projects = new Map();
+782258	    require(expected.has(project.project_id) && !projects.has(project.project_id), 'Evidence membership mismatch');
+782259	    require(Array.isArray(project.evidence) && project.evidence_count === project.evidence.length && project.provisional_count === project.evidence.length && project.verified_count === 0 && project.last_event === null, 'Invalid evidence counts');
+782260	    require(project.status === (project.evidence.length ? 'PROVISIONAL' : 'RESEARCH_ATTEMPTED_NO_EVIDENCE'), 'Invalid evidence status');
+782261	    require(moment(project.last_researched_at) <= acquired, 'Project research is later than acquisition');
+782262	    const articleURLs = new Set();
+782263	    for (const article of project.evidence) {
+782264	      require(article.status === 'PROVISIONAL' && nonempty(article.id) && nonempty(article.title) && nonempty(article.publisher) && ['repd_id','exact_name'].includes(article.match_method), 'Invalid provisional article');
+782265	      require(sources.has(article.source_id), 'Article has no successful source receipt');
+782266	      safeArticleURL(article.url);
+782267	      moment(article.pub_date);
+782268	      require(moment(article.first_seen) <= moment(article.last_seen) && moment(article.last_seen) <= acquired, 'Invalid evidence acquisition dates');
+782269	      require(!articleURLs.has(article.url), 'Duplicate project article');
+782270	      articleURLs.add(article.url);
+782271	    count += project.evidence.length;
+782272	    projects.set(project.project_id, project);
+782273	  require(count === data.evidence_count, 'Invalid total evidence count');
+782274	  const overdue = Date.now() - acquired > WEEK_MS;
+782275	  const freshnessLabel = 'Last successful collection: ' + data.source_run_at + (overdue ? ' · Overdue: more than 7 days since collection' : ' · Within weekly collection interval');
+782276	  return {projects, generatedAt: data.generated_at, sourceRunAt: data.source_run_at, overdue, freshnessLabel, count};
+782277	export function renderEvidence(parent, project, state) {
+782278	  const panel = add(parent, 'details');
+782279	  panel.className = 'v925-evidence';
+782280	  panel.dataset.evidenceProject = project.repd_ref;
+782281	  const row = state.data?.projects.get(String(project.repd_ref));
+782282	  add(panel, 'summary', 'Evidence · ' + (row ? 'Provisional: ' + row.provisional_count : state.loading ? 'Loading' : 'Unavailable'));
+782283	  if (!row) {
+782284	    add(panel, 'p', state.loading ? 'Loading weekly evidence…' : 'Evidence unavailable. No research or verification claim is made.');
+782286	  add(panel, 'p', 'Machine-found matches require manual review. No verified events are asserted.');
+782287	  add(panel, 'p', state.data.freshnessLabel);
+782288	  if (!row.evidence.length) add(panel, 'p', 'No evidence matched in the fetched feed. Other sources have not been searched.');
+782289	  for (const article of row.evidence) {
+782290	    const entry = add(panel, 'p');
+782291	    const link = add(entry, 'a', article.title);
+782292	    link.href = safeArticleURL(article.url);
+782293	    link.target = '_blank';
+782294	    link.rel = 'noopener noreferrer';
+782295	    add(entry, 'small', article.publisher + ' · ' + article.pub_date.slice(0, 10) + ' · PROVISIONAL');
+782296	/* Separate global data-centre sample. No REPD joins or inferred MW/status. */
+782299	  var SCHEMA = 'globalgrid2050.global-datacentres.projects.v1';
+782300	  var METRICS = {it_load_mw: 'IT load', site_demand_mw: 'Site demand', grid_connection_mw: 'Grid connection'};
+782301	  function https(value) {
+782302	    try { var u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password; }
+782304	  function validPoint(point) {
+782305	    return point && Number.isFinite(point.latitude) && Number.isFinite(point.longitude) &&
+782306	      Math.abs(point.latitude) <= 90 && Math.abs(point.longitude) <= 180 &&
+782307	      Number.isFinite(point.precision_degrees) && point.precision_degrees > 0;
+782309	    if (!data || data.schema !== SCHEMA || data.scope !== 'global' || !Array.isArray(data.records) ||
+782310	        !data.records.length || data.records.length !== data.record_count || typeof data.coverage !== 'string') throw new Error('Invalid global data-centre schema');
+782311	    var ids = new Set(), countries = new Set();
+782312	    data.records.forEach(function (p) {
+782313	      if (!p || !/^DC-WD-Q[1-9][0-9]*$/.test(p.id) || ids.has(p.id) || typeof p.name !== 'string' || !p.name.trim() ||
+782314	          p.record_type !== 'data_centre' || p.verification_status !== 'SOURCE_INDEXED' || p.operating_status !== 'not_assessed' ||
+782315	          !p.country || !/^Q[1-9][0-9]*$/.test(p.country.wikidata_id) || typeof p.country.name !== 'string' ||
+782316	          !(p.operator === null || typeof p.operator === 'string') ||
+782317	          !(p.location === null || validPoint(p.location)) || !p.source || p.source.licence !== 'CC0-1.0' ||
+782318	          !https(p.source.url) || !https(p.source.revision_url) || !https(p.source.licence_url) ||
+782319	          !Number.isInteger(p.source.revision) || !/^\d{4}-\d{2}-\d{2}T/.test(p.source.retrieved_at)) throw new Error('Invalid sourced data-centre record');
+782320	      Object.keys(METRICS).forEach(function (key) {
+782321	        if (!p.capacity || !p.capacity_sources || !Object.prototype.hasOwnProperty.call(p.capacity, key)) throw new Error('Missing capacity metric');
+782322	        var value = p.capacity[key];
+782323	        if (!(value === null || (typeof value === 'number' && Number.isFinite(value) && value >= 0 && https(p.capacity_sources[key])))) throw new Error('Unsourced or invalid capacity metric');
+782325	      ids.add(p.id); countries.add(p.country.wikidata_id);
+782327	    if (countries.size !== data.country_count) throw new Error('Country count differs');
+782329	  function filter(records, query, country) {
+782330	    var text = String(query || '').trim().toLocaleLowerCase();
+782331	    return records.filter(function (p) {
+782332	      return (!country || p.country.wikidata_id === country) &&
+782333	        (!text || [p.name, p.id, p.operator || '', p.country.name].join(' ').toLocaleLowerCase().includes(text));
+782334	  function mapUrl(record) {
+782335	    if (!validPoint(record.location)) return null;
+782336	    var p = record.location, zoom = p.precision_degrees > 0.01 ? 8 : 14;
+782337	    return 'https://www.openstreetmap.org/?mlat=' + p.latitude + '&mlon=' + p.longitude + '#map=' + zoom + '/' + p.latitude + '/' + p.longitude;
+782338	  function capacityLabels(record) {
+782339	    return Object.keys(METRICS).map(function (key) {
+782340	      return METRICS[key] + ': ' + (record.capacity[key] === null ? 'not reported' : record.capacity[key] + ' MW');
+782341	  function element(tag, cls, text) {
+782346	  function link(label, url) {
+782347	    var e = element('a', null, label);
+782348	    e.href = url; e.target = '_blank'; e.rel = 'noopener noreferrer'; return e;
+782349	  function card(record) {
+782350	    var row = element('article', 'gdc-card'); row.dataset.dcId = record.id;
+782351	    row.appendChild(element('h3', null, record.name));
+782352	    row.appendChild(element('p', 'gdc-meta', record.country.name + ' · ' + record.id));
+782353	    row.appendChild(element('p', 'gdc-meta', 'Operator: ' + (record.operator || 'not reported')));
+782354	    row.appendChild(element('p', 'gdc-meta', 'Source-indexed · operating status not assessed'));
+782355	    var capacity = element('ul', 'gdc-capacity');
+782356	    capacityLabels(record).forEach(function (text) { capacity.appendChild(element('li', null, text)); });
+782357	    row.appendChild(capacity);
+782358	    var links = element('div', 'gdc-links');
+782359	    links.appendChild(link('Wikidata source revision', record.source.revision_url));
+782360	    var map = mapUrl(record);
+782361	    if (map) {
+782362	      links.appendChild(link(record.location.precision_degrees > 0.01 ? 'Map — approximate source point' : 'Map — sourced point', map));
+782363	      row.appendChild(element('p', 'gdc-meta', 'Coordinate precision in source: ' + record.location.precision_degrees + '°; not a surveyed accuracy claim.'));
+782364	    } else links.appendChild(element('span', 'gdc-meta', 'Map unavailable — coordinates not reported'));
+782365	    row.appendChild(links);
+782366	    row.appendChild(element('p', 'gdc-meta', 'Retrieved ' + record.source.retrieved_at.slice(0, 10) + ' · CC0 structured data'));
+782368	  function render(host, data) {
+782370	    host.appendChild(element('h2', null, 'GLOBAL DATA CENTRES'));
+782371	    host.appendChild(element('p', 'gdc-summary', data.record_count + ' source-indexed sites in ' + data.country_count + ' countries. ' + data.coverage));
+782372	    var attribution = element('p', 'gdc-meta', 'Structured facts from ');
+782373	    attribution.appendChild(link('Wikidata · CC0', 'https://www.wikidata.org/wiki/Wikidata:Copyright'));
+782374	    attribution.appendChild(document.createTextNode('. IT load, total site demand and grid connection capacity are separate quantities. Unknown values remain unreported.'));
+782375	    host.appendChild(attribution);
+782376	    var tools = element('div', 'gdc-toolbar');
+782377	    var searchLabel = element('label', null, 'Search global data centres');
+782378	    var search = element('input'); search.type = 'search'; search.id = 'globalDcSearch'; search.setAttribute('aria-label', 'Search global data centres');
+782379	    searchLabel.appendChild(search); tools.appendChild(searchLabel);
+782380	    var countryLabel = element('label', null, 'Country');
+782381	    var country = element('select'); country.id = 'globalDcCountry'; country.setAttribute('aria-label', 'Country');
+782382	    var all = element('option', null, 'All countries'); all.value = ''; country.appendChild(all);
+782383	    var choices = new Map(data.records.map(function (p) { return [p.country.wikidata_id, p.country.name]; }));
+782384	    Array.from(choices).sort(function (a,b) { return a[1].localeCompare(b[1]); }).forEach(function (c) {
+782385	      var option = element('option', null, c[1]); option.value = c[0]; country.appendChild(option);
+782386	    countryLabel.appendChild(country); tools.appendChild(countryLabel); host.appendChild(tools);
+782387	    var status = element('p', 'gdc-summary'); status.id = 'globalDcCount'; status.setAttribute('role', 'status'); host.appendChild(status);
+782388	    var list = element('div', 'gdc-list'); host.appendChild(list);
+782389	    function update() {
+782390	      var rows = filter(data.records, search.value, country.value); list.replaceChildren();
+782391	      status.textContent = rows.length + ' of ' + data.record_count + ' sites shown';
+782392	      if (!rows.length) list.appendChild(element('p', 'gdc-empty', 'No sites match these filters in this sample.'));
+782393	      rows.forEach(function (p) { list.appendChild(card(p)); });
+782394	    search.addEventListener('input', update); country.addEventListener('change', update); update();
+782395	  function init(host) {
+782396	    if (!host || host.dataset.globalDcStarted === 'true') return Promise.resolve();
+782397	    host.dataset.globalDcStarted = 'true'; host.textContent = 'Loading global data-centre sample…';
+782398	    var controller = new AbortController(), timer = setTimeout(function () { controller.abort(); }, 8000);
+782399	    return fetch('global-datacentres/projects.json', {signal: controller.signal})
+782400	      .then(function (response) { if (!response.ok) throw new Error('Source unavailable'); return response.json(); })
+782401	      .then(validate).then(function (data) { render(host, data); })
+782402	      .catch(function () { host.replaceChildren(element('p', 'gdc-error', 'Global data-centre sample unavailable. Try reloading this tab.')); })
+782403	      .finally(function () { clearTimeout(timer); });
+782404	  var api = {validate: validate, filter: filter, mapUrl: mapUrl, capacityLabels: capacityLabels, init: init};
+782405	  root.GlobalDatacentres = api;
+782408	    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function () { init(document.getElementById('globalDatacentres')); });
+782409	    else init(document.getElementById('globalDatacentres'));
+782410	})(typeof globalThis !== 'undefined' ? globalThis : this);
+782411	// Top-level datasets have separate identities, counts and controls.
+782413	  const tabs=[document.getElementById('ukProjectsTab'),document.getElementById('globalProjectsTab')];
+782414	  if(tabs.some(tab=>!tab))return;
+782415	  function select(index,focus=false){
+782416	    tabs.forEach((tab,i)=>{
+782417	      const active=i===index;
+782418	      tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+782419	      document.getElementById(tab.getAttribute('aria-controls')).hidden=!active;
+782420	    if(focus)tabs[index].focus();
+782421	  tabs.forEach((tab,index)=>{
+782422	    tab.addEventListener('click',()=>select(index));
+782423	    tab.addEventListener('keydown',event=>{
+782424	      if(['ArrowLeft','ArrowRight','Home','End'].includes(event.key)){
+782425	        event.preventDefault();select(event.key==='Home'?0:event.key==='End'?1:1-index,true);
+782427	  // An inherited headline's project-search action must reveal the UK results.
+782428	  document.getElementById('search')?.addEventListener('input',()=>select(0));
+782429	  document.getElementById('export')?.addEventListener('click',()=>select(0));
+782431	// V9.25 keeps the V9.24 selection, adding evidence to existing UK records.
+782432	// It does not create another project list or change official filters/exports.
+782433	import {loadEvidence, renderEvidence} from './evidence-v925.js';
+782434	import {loadCanonicalProjectsV9_5_1} from '../data/canonical-projects-v9-5-1.js';
+782435	const coverage = document.getElementById('evidenceCoverage');
+782436	const selection = coverage?.querySelector('[data-evidence-selection]');
+782437	const status = coverage?.querySelector('[data-evidence-status]');
+782438	const state = {loading:true,data:null};
+782439	let projects = new Map(), candidates = new Map();
+782440	function attachEvidence() {
+782441	  for (const row of document.querySelectorAll('#tbody > tr[id^="repd-"]')) {
+782442	    const id = row.id.slice(5), project = projects.get(id);
+782443	    const details = row.querySelector('.project-record');
+782444	    if (!project || !details || details.querySelector('[data-integrated-evidence]')) continue;
+782445	    details.querySelector('summary').textContent = 'PROJECT RECORD · SOURCES';
+782446	    const host = document.createElement('div');
+782447	    host.dataset.integratedEvidence = id;
+782448	    details.appendChild(host);
+782449	    renderEvidence(host,project,state);
+782450	    const inherited = candidates.get(id);
+782451	    if (inherited) {
+782452	      const note = document.createElement('p');
+782453	      note.className = 'v925-inherited-source';
+782454	      note.textContent = 'Inherited V9.24 source candidate - unverified. ';
+782455	      const url = new URL(inherited.source_url);
+782456	      if (url.protocol === 'https:' && !url.username && !url.password) {
+782458	        link.href = url.href;link.target = '_blank';link.rel = 'noopener noreferrer';
+782459	        link.textContent = inherited.publisher;
+782460	        note.appendChild(link);
+782461	      host.appendChild(note);
+782462	function refreshEvidence() {
+782463	  document.querySelectorAll('[data-integrated-evidence]').forEach(node=>node.remove());
+782464	  attachEvidence();
+782466	  if (!coverage) return;
+782468	    const [manifest,inherited,model] = await Promise.all([
+782469	      fetch('solar1000/manifest.json').then(r=>{if(!r.ok)throw Error('Manifest unavailable');return r.json();}),
+782470	      fetch('solar1000/candidates.json').then(r=>{if(!r.ok)throw Error('Inherited candidates unavailable');return r.json();}),
+782471	      loadCanonicalProjectsV9_5_1()
+782473	    const ids = manifest.ids.map(String);
+782474	    if (ids.length!==1000 || new Set(ids).size!==1000 || manifest.selection!=='numeric-repd-ref-ascending' || ids.some((id,i)=>i&&Number(id)<=Number(ids[i-1]))) throw Error('Invalid pinned selection');
+782475	    const byId = new Map(model.projects.map(p=>[String(p.repd_ref),p]));
+782476	    projects = new Map(ids.map(id=>[id,byId.get(id)]));
+782477	    if ([...projects.values()].some(p=>!p||p.technology!=='solar') || model.projects.length!==7775 || inherited.length!==2 || manifest.independently_verified!==0) throw Error('Invalid source identities');
+782478	    candidates = new Map(inherited.map(c=>[String(c.repd_ref),c]));
+782479	    coverage.dataset.selectionCount = String(projects.size);
+782480	    selection.textContent = '1,000 selected of 3,604 solar projects; exact V9.24 membership retained. Evidence is shown inside project record details.';
+782481	    window.addEventListener('pipeline-projects-rendered',attachEvidence);
+782482	    attachEvidence();
+782484	      state.data = await loadEvidence(coverage.dataset.evidencePointer,ids);
+782485	      status.textContent = 'Evidence snapshot '+state.data.generatedAt+' / '+state.data.count+' provisional matches / 0 verified events / '+state.data.freshnessLabel;
+782487	      status.textContent = 'Evidence unavailable - no validated snapshot is available. Manual review required.';
+782488	    state.loading = false;
+782489	    refreshEvidence();
+782491	    selection.textContent = 'Evidence selection unavailable. The official UK register remains available.';
+782492	    status.textContent = 'Evidence unavailable - source identity checks failed. Manual review required.';
+782493	assert.match(html,/id="evidenceCoverage"/);
+782494	assert.ok(!html.includes('id="solar1000Pilot"'), 'Evidence is integrated in project details, not a second project list');
+782495	/* check_v9_25.mjs - Pipeline News V9.25, proven from the bytes and through the
+782496	 * Run: node tests/check_v9_25.mjs
+782497	const VERSION = "9.25";
+782499	const PARENT_ID = "202611161244";
+782500	console.log(`check_v9_25: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+782501	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611161734</title>
+782502	  <link rel="stylesheet" href="styles/v9-26.css?v=9.26">
+782503	      <small>UK RENEWABLES PIPELINE · V9.26</small>
+782504	      <a class="active" href="#">V9.26 RELEASE CANDIDATE · REPD Q3 2026</a>
+782505	      <a href="../202611161630/">V9.25 202611161630 · REPD Q3 2026</a>
+782506	        <h1>UK RENEWABLES PIPELINE 202611161734</h1>
+782507	    <p class="v925-release-meta"><strong>V9.26 · REPD OCTOBER 2026 (Q3) · SOURCE-AWARE NEWS PRIORITY · RELEASE CANDIDATE · 16 November 2026</strong></p>
+782508	          <span>Solar, storage, grid and data-centre headlines with publisher credit. Possible project matches are unverified research leads.</span>
+782509	  <script defer src="scripts/plugins/live-news.js?v=9.26"></script>
+782514	 * file gives one, a "Possible match" chip naming a REPD project. An exact-input priority
+782515	 * sidecar controls current live order; unavailable/stale ranks fall back to date order.
+782523	 * project table. Titles are drawn
+782528	  var PRIORITY = LIVE.replace(/\.json$/, '.rank.json');
+782530	  var PRIORITY_SCHEMA = 'globalgrid2050.news.headline-priority.v1';
+782531	  var PROFILE_SHA256 = '06250f2435088a522d8d25676f31f813165a430df1e19f602bd8baae03961c05';
+782532	  var priorities = new WeakMap();
+782533	  var MAX_BYTES = 2000000;
+782552	    if (when - nowMs > 300000) return {state:'future',text:'Feed timestamp is ahead of this browser clock. Collection time needs review: ' + stamp(generatedAt, true) + '.'};
+782565	      && doc.items.length <= 200 && doc.items.every(function (item) { return item && typeof item === 'object'
+782566	        && typeof item.title === 'string' && item.title.length > 0 && item.title.length <= 300
+782567	        && typeof item.link === 'string' && typeof item.source === 'string'; })
+782570	  function getBytes(url, ms) {
+782574	      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); })
+782575	      .then(function (bytes) { if (bytes.byteLength > MAX_BYTES) throw new Error('oversize'); return bytes; })
+782577	  function decode(bytes) { return JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes)); }
+782578	  function keys(value, expected) {
+782579	    return value && typeof value === 'object' && !Array.isArray(value)
+782580	      && Object.keys(value).sort().join('|') === expected.slice().sort().join('|');
+782581	  function safeLink(value) {
+782582	      if (typeof value !== 'string' || /[\\\s\u0000-\u001f\u007f]/.test(value)) return '';
+782583	      var url = new URL(value), host = url.hostname;
+782584	      if (url.protocol !== 'https:' || url.username || url.password || url.port && url.port !== '443'
+782585	        || !/^[a-z0-9.-]+$/.test(host) || host.indexOf('.') < 0 || /(?:^|\.)\d+$/.test(host)
+782586	        || /\.(?:local|localhost|internal)$/.test(host)) return '';
+782587	      return url.href;
+782588	    } catch (_) { return ''; }
+782589	  function current(doc, source, nowMs) {
+782590	    var age = nowMs - Date.parse(doc.generated_at);
+782591	    return source === 'live' && doc.status !== 'failed' && age >= -300000 && age <= STALE_MS;
+782592	  async function validatePriority(doc, bytes, sidecar) {
+782593	    priorities.delete(doc);
+782594	    if (!valid(doc) || !bytes || bytes.byteLength > MAX_BYTES || !globalThis.crypto || !crypto.subtle
+782595	      || JSON.stringify(decode(bytes)) !== JSON.stringify(doc)) return false;
+782596	    var envelope = ['schema','input_sha256','input_bytes','input_generated_at','input_count','as_of','profile_id','profile_sha256','entries'];
+782597	    if (!keys(sidecar, envelope) || sidecar.schema !== PRIORITY_SCHEMA
+782598	      || sidecar.profile_id !== 'uk-transition-global-context.v1' || sidecar.profile_sha256 !== PROFILE_SHA256
+782599	      || sidecar.input_generated_at !== doc.generated_at || sidecar.as_of !== doc.generated_at
+782600	      || sidecar.input_count !== doc.items.length || sidecar.input_bytes !== bytes.byteLength
+782601	      || !Array.isArray(sidecar.entries) || sidecar.entries.length !== doc.items.length || doc.items.length > 200
+782602	      || !/^[a-f0-9]{64}$/.test(sidecar.input_sha256)) return false;
+782603	    var hash = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))).map(function (v) { return v.toString(16).padStart(2, '0'); }).join('');
+782604	    if (hash !== sidecar.input_sha256) return false;
+782605	    var originals = new Map(), seen = new Set(), output = [];
+782606	    for (var original of doc.items) {
+782607	      if (!safeLink(original.link) || originals.has(original.link)) return false;
+782608	      originals.set(original.link, original);
+782609	    var fields = ['link','source','title','rank','source_kind','role','topics','freshness_state','uk_context','score','requires_primary_followup','subscription_notice'];
+782610	    for (var i = 0; i < sidecar.entries.length; i++) {
+782611	      var entry = sidecar.entries[i], item = originals.get(entry && entry.link);
+782612	      if (!keys(entry, fields) || !item || seen.has(entry.link) || entry.rank !== i + 1
+782613	        || entry.source !== item.source || entry.title !== item.title || !Number.isFinite(entry.score)
+782614	        || ['government','regulator','institution','listed_parent','reporting','discovery'].indexOf(entry.source_kind) < 0
+782615	        || ['primary_context','discovery_lead','attributed_reporting'].indexOf(entry.role) < 0
+782616	        || ['current','unknown','future','stale'].indexOf(entry.freshness_state) < 0
+782617	        || typeof entry.uk_context !== 'boolean' || typeof entry.requires_primary_followup !== 'boolean'
+782618	        || typeof entry.subscription_notice !== 'boolean' || !Array.isArray(entry.topics)
+782619	        || entry.topics.length > 6 || new Set(entry.topics).size !== entry.topics.length
+782620	        || entry.topics.some(function (t) { return ['solar','storage','grid','datacentre','wind','renewables'].indexOf(t) < 0; })) return false;
+782621	      seen.add(entry.link);
+782622	      output.push({item:item, priority:JSON.parse(JSON.stringify(entry))});
+782623	    priorities.set(doc, output);
+782626	  function row(item, priority) {
+782635	    var safe = safeLink(item.link);
+782636	    if (safe) a.href = safe;
+782640	    if (priority) {
+782641	      var sourceLabel = {government:'Government source',regulator:'Regulator source',institution:'Institutional source',listed_parent:'Issuer source',reporting:'Attributed reporting',discovery:'Research lead'}[priority.source_kind];
+782642	      var reasons = ['Priority ' + priority.rank, sourceLabel];
+782643	      if (priority.topics.length) reasons.push(priority.topics.join(' / ').replace('datacentre','data centres'));
+782644	      if (priority.uk_context) reasons.push('UK context');
+782645	      if (priority.freshness_state === 'unknown') reasons.push('Publisher date unknown');
+782646	      if (priority.freshness_state === 'stale') reasons.push('Older context');
+782647	      if (priority.freshness_state === 'future') reasons.push('Future date: review');
+782648	      if (priority.subscription_notice) reasons.push('May require subscription');
+782649	      box.appendChild(el('span', 'ln-priority', reasons.join(' · ')));
+782665	    status.setAttribute('data-order', 'none');
+782669	    if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') window.dispatchEvent(new CustomEvent('pipeline-feed-loaded', { detail: ok ? doc : null }));
+782675	    // Exact-input priority only for a current live collection; preserve every credited item.
+782676	    var ranked = current(doc, source, nowMs == null ? Date.now() : nowMs) ? priorities.get(doc) : null;
+782677	    var items = ranked || doc.items.map(function (it, i) { return {item:it, index:i}; })
+782678	      .sort(function (a, b) { return when(b.item) - when(a.item) || a.index - b.index; });
+782679	    status.setAttribute('data-order', ranked ? 'priority' : 'date');
+782680	    status.textContent += ranked ? ' Research priority considers topic, source type, publication date and publisher variety; it is not project verification.'
+782681	      : ' Priority unavailable for this collection; showing date order.';
+782686	      items.slice(shown, shown + PAGE).forEach(function (entry) { list.insertBefore(row(entry.item, entry.priority), more.parentNode === list ? more : null); });
+782694	    window.pipelineHeadlinePriorityState = 'not-requested';
+782696	    getBytes(LIVE, 6000).then(function (bytes) {
+782697	      var doc = decode(bytes);
+782698	      if (!valid(doc)) throw new Error('invalid');
+782699	      render(doc, 'live');
+782700	      window.pipelineHeadlinePriorityState = 'pending';
+782701	      // A ranking failure is not a headline-fetch failure and never selects the saved snapshot.
+782702	      return getBytes(PRIORITY, 4000).then(function (rankBytes) { return validatePriority(doc, bytes, decode(rankBytes)); })
+782703	        .then(function (accepted) {
+782704	          if (accepted && window.pipelineHeadlineDocument === doc) render(doc, 'live');
+782705	          window.pipelineHeadlinePriorityState = accepted ? 'accepted' : 'rejected';
+782706	        .catch(function () { window.pipelineHeadlinePriorityState = 'unavailable'; });
+782708	        return getBytes(SNAPSHOT, 6000).then(function (bytes) { var doc = decode(bytes); render(valid(doc) ? doc : null, valid(doc) ? 'snapshot' : 'none'); });
+782712	  window.pipelineHeadlines = { label: label, render: render, valid: valid, schema: SCHEMA, validatePriority: validatePriority, prioritySchema: PRIORITY_SCHEMA };
+782715	/* check_v9_26.mjs - Pipeline News V9.26, proven from the bytes and through the
+782716	 * Run: node tests/check_v9_26.mjs
+782717	const VERSION = "9.26";
+782718	const PARENT_ID = "202611161630";
+782719	console.log(`check_v9_26: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+782720	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611161747</title>
+782721	  <link rel="stylesheet" href="styles/research-priority-v927.css?v=9.27">
+782722	      <small>UK RENEWABLES PIPELINE · V9.27</small>
+782723	      <a class="active" href="#">V9.27 RELEASE CANDIDATE · REPD Q3 2026</a>
+782724	      <a href="../202611161734/">V9.26 202611161734 · REPD Q3 2026</a>
+782725	        <h1>UK RENEWABLES PIPELINE 202611161747</h1>
+782726	    <p class="v925-release-meta"><strong>V9.27 · REPD OCTOBER 2026 (Q3) · EXPLAINED PROJECT RESEARCH PRIORITIES · RELEASE CANDIDATE · 16 November 2026</strong></p>
+782727	      <span id="researchPriorityStatus" role="status">Research priority is loading; official records remain unchanged.</span>
+782728	      <span><a href="prospecting/priority.csv" download>DOWNLOAD RESEARCH-PRIORITY SUBSET CSV</a> · Separate research ordering; the filtered official CSV above is unchanged.</span>
+782729	  <script type="module" src="scripts/plugins/research-priority-v927.js?v=9.27"></script>
+782730	// Research ordering is separate from official facts, news verification and Solar-1000.
+782731	import {parsePriorityBundle,attachProjectPriority} from './prospecting/bundle.mjs';
+782732	const PIN='4cb13bcdc332730f1c88804b1a1cadae76b75d1c9ada4dd4f6d1c7252f86de27';
+782733	const directory=new URL('../../prospecting/',import.meta.url);
+782734	const status=document.getElementById('researchPriorityStatus');
+782735	let bundle=null,state='loading',epoch=0;
+782736	window.projectResearchPriorityState=state;
+782737	async function boundedFile(name,limit){
+782738	  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+782739	    const response=await fetch(new URL(name,directory),{signal:controller.signal});
+782740	    if(!response.ok||Number(response.headers.get('content-length'))>limit)throw Error('Priority file unavailable');
+782741	    const reader=response.body.getReader(),chunks=[];let size=0;
+782742	    for(;;){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>limit){await reader.cancel();throw Error('Priority file exceeds limit');}chunks.push(value);}
+782743	    const result=new Uint8Array(size);let offset=0;for(const chunk of chunks){result.set(chunk,offset);offset+=chunk.byteLength;}return result;
+782744	  }finally{clearTimeout(timer);}
+782745	function renderRecord(details){
+782746	  const row=details.closest('#tbody > tr[id^="repd-"]');if(!row||state==='loading')return;
+782747	  if(details.dataset.priorityEpoch===String(epoch))return;
+782748	  const identity='REPD-'+row.id.slice(5);
+782749	  try{attachProjectPriority(details,identity,bundle);}catch{attachProjectPriority(details,identity,null);}
+782750	  details.dataset.priorityEpoch=String(epoch);
+782751	function attachRows(){
+782752	  for(const row of document.querySelectorAll('#tbody > tr[id^="repd-"]')){
+782753	    const details=row.querySelector('.project-record');if(!details)continue;
+782754	    const identity='REPD-'+row.id.slice(5),priority=bundle?.byId.get(identity);
+782755	    let button=row.querySelector('.v927-priority-hint');
+782756	    if(!priority){button?.remove();}else{
+782757	      if(!button){button=document.createElement('button');button.type='button';button.className='v927-priority-hint';button.dataset.priorityProject=identity;details.after(button);}
+782758	      button.textContent=`Research #${priority.rank} · ${priority.score} points`;
+782759	      button.setAttribute('aria-label',`Read research priority ${priority.rank} for ${priority.name||identity}`);
+782760	    if(details.open)renderRecord(details);
+782761	export async function reloadPriority(){
+782762	  const current=++epoch;bundle=null;state='loading';window.projectResearchPriorityState=state;
+782763	  document.querySelectorAll('.v927-priority-hint, [data-priority-id], [data-priority-state]').forEach(node=>node.remove());
+782764	  if(status)status.textContent='Research priority is loading; official records remain unchanged.';
+782765	    const [manifest,priority]=await Promise.all([boundedFile('manifest.json',1024*1024),boundedFile('priority.json',16*1024*1024)]);
+782766	    const parsed=await parsePriorityBundle(priority,manifest,PIN);
+782767	    if(current!==epoch)return;
+782768	    bundle=parsed;state='accepted';
+782769	    if(status)status.textContent=`Research priority: ${bundle.model.returned_count.toLocaleString('en-GB')} ranked from 7,775 official records. Ranking reference time ${bundle.model.as_of}; source dates are shown per project. Momentum and financing are not assessed. This subset does not replace Solar-1000.`;
+782770	  }catch{
+782771	    bundle=null;state='rejected';
+782772	    if(status)status.textContent='Research priority unavailable: the source-bound bundle could not be validated. Official records, CSV and MAP remain available.';
+782773	  window.projectResearchPriorityState=state;attachRows();
+782774	window.addEventListener('pipeline-projects-rendered',attachRows);
+782775	document.getElementById('tbody')?.addEventListener('toggle',event=>{if(event.target.matches('.project-record')&&event.target.open)renderRecord(event.target);},true);
+782776	document.getElementById('tbody')?.addEventListener('click',event=>{
+782777	  const button=event.target.closest('.v927-priority-hint');if(!button)return;
+782778	  const details=button.closest('tr').querySelector('.project-record');details.open=true;renderRecord(details);
+782779	  const priority=details.querySelector('[data-priority-id]');if(priority){priority.open=true;priority.scrollIntoView({block:'start'});}
+782780	reloadPriority();
+782781	/* check_v9_27.mjs - Pipeline News V9.27, proven from the bytes and through the
+782782	 * Run: node tests/check_v9_27.mjs
+782783	const VERSION = "9.27";
+782784	const PARENT_ID = "202611161734";
+782785	console.log(`check_v9_27: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+782793	<a href="versions.json">versions.json</a>. Generated 2026-11-16T18:17:59Z.</p>
+782794	<p>V9.24 remains the public homepage operative release, confirmed against the served owner configuration and exact V9.24 index bytes on 16 November 2026. V9.25 is a software-only candidate: consolidated UK Pipeline and Global DC interface, unchanged 7,775 official records and exact Solar-1000. The solar source stays disabled because rights are unknown; the latest successful health probe produced zero strict project matches, and no real evidence snapshot has been published. The original real-match sprint criterion is not met. Software CI is not evidence-source approval or a public release. Historical registry entries, including their candidate labels and null release receipts, remain unchanged; see docs/pipeline/V9.25-RELEASE-METADATA.md for the separately audited publication evidence.</p>
+782796	<tr class="pass"><td><a href="202611161747/"><b>202611161747</b></a><br>V9.27<br><span class="state">RELEASE_CANDIDATE_PROJECT_PRIORITY</span></td><td>2026-11-16 17:47:00 UTC</td><td>Explained source-bound research priority and remarks within existing project rows, preserving the complete official inventory and separate immutable Solar-1000.<ul><li>Research ranking is separate from the Solar-1000 pilot; unranked projects remain in the full register. News momentum and financing are unknown without accepted project evidence.</li><li>Evidence publication remains disabled; Global DC remains 12 sourced leads. Native Android verification is unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611161734<br><a href="202611161747/CHANGES.md">changes</a></td></tr>
+782797	<tr class="pass"><td><a href="202611161734/"><b>202611161734</b></a><br>V9.26<br><span class="state">RELEASE_CANDIDATE_NEWS_PRIORITY</span></td><td>2026-11-16 17:34:00 UTC</td><td>Source-aware news priority keeps every credited headline, gives relevant primary sources useful prominence and limits publisher repetition; validates ranking against exact feed bytes and labels fallbacks honestly.<ul><li>Live editorial priority requires a successful existing headlines refresh; absent or mismatched sidecar uses an explicitly labelled date-order fallback.</li><li>Project evidence remains disabled with zero independently verified findings; Global DC coverage remains a partial set of 12 sourced leads.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611161630<br><a href="202611161734/CHANGES.md">changes</a></td></tr>
+782798	<tr class="pass"><td><a href="202611161630/"><b>202611161630</b></a><br>V9.25<br><span class="state">RELEASE_CANDIDATE_SOFTWARE_ONLY_EVIDENCE_DISABLED</span></td><td>2026-11-16 16:30:00 UTC</td><td>Consolidated UK Pipeline and Global DC tabs with staged Parquet evidence analytics<ul><li>Source rights unknown; solar feed disabled. The successful health probe found zero strict Solar-1000 matches; no real project-evidence snapshot published.</li><li>Global DC is a partial sourced sample of 12 facilities in 10 countries, not verified operation or capacity.</li><li>Software promotion still requires exact-head CI for the metadata revision, GridAtlas live/mobile readback, homepage-owner promotion and exact served-byte verification. Native Android testing is unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611161244<br><a href="202611161630/CHANGES.md">changes</a></td></tr>
+782799	<tr class="pass"><td><a href="202611161244/"><b>202611161244</b></a><br>V9.24<br><span class="state">RELEASE_CANDIDATE_KNOWN_UNVERIFIED_SOURCES</span></td><td>2026-11-16 12:44:00 UTC</td><td>Solar 1000 numeric REPD pilot with two provisional candidate source links; official register unchanged<ul><li>Zero independently verified publisher article/REPD bindings or rights; 2 provisional candidates only, 998 not researched.</li><li>Inherited external GridAtlas 390px nearest-card first-restore instability; MAP hrefs unchanged.</li><li>No paid external search configured or executed.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611160020<br><a href="202611161244/CHANGES.md">changes</a></td></tr>
+782814	<details id="solar-design-studio"><summary><span class="number">01</span><span class="title">Solar Design Studio<small>Walk, fly and design on real terrain</small></span></summary><div class="inside"><p>Walk and fly over real ground from Environment Agency LiDAR, then design on it. The GIS, SLD &amp; Financial Sandbox remains available among the earlier releases.</p><a class="launch" href="https://globalgrid2050.com/energy-transition-simulator/202609282123/overlay.html">Open Solar Design Studio &rarr;</a><details id="electrical-scene-explorer"><summary><span class="number">&#8611;</span><span class="title">Electrical Scene Explorer<small>Solar Design Studio drawing prototype</small></span></summary><div class="inside"><p>Explore an illustrative electrical scene in 3D, inspect array geometry and follow modelled cable routes. Prototype, not a surveyed site or approved engineering design.</p><a class="launch" href="https://globalgrid2050.com/solar-design-studio/202609262041-site-world/">Open drawing prototype &rarr;</a></div></details><details id="energy-transition-simulator"><summary><span class="number">&#8611;</span><span class="title">Energy Transition Simulator<small>Solar farming with power grids, on real UK ground (preview)</small></span></summary><div class="inside"><p>Walk and fly anywhere in the UK over Environment Agency LiDAR, streamed where you arrive. Tables, trenches, lines and stations are modelled on the satellite, with source data, documentation and estimates distinguished. A preview, not a surveyed site or an approved engineering design.</p><a class="launch" href="https://globalgrid2050.com/energy-transition-simulator/202609282123/overlay.html">Open the simulator preview &rarr;</a></div></details></div></details>
+782815	<details id="cyber-resilience-log"><summary><span class="number">10</span><span class="title">Cyber Resilience Log<small>Cloud outages, supplier dependencies and independent recovery</small></span></summary><div class="inside"><p>A dated research log on operational failures, security incidents and the risks of relying on too few providers for critical systems.</p><a class="launch" href="https://ventusltd.github.io/cyber-resilience/">Open Cyber Resilience Log &rarr;</a></div></details>
+782817	/* Receipt and distance owner: Ventusltd/ventus-grid-engine 487ec7bd38dfa5aecb1c75da53b4a866ab2101cb */
+782818	/* Ventus Grid Engine: generated receipt observer; not a substitute nearest engine. */
+782821	const distanceKm = (() => {
+782935	return distanceKm;
+783019	/** Honest UI projection of computation receipts. No inference from a URL. */
+783020	function describeComputeReceipt(receipt) {
+783021	  const status = receipt?.status || 'not_requested';
+783022	  const summary = receipt?.summary;
+783023	  const nearest = summary?.nearest_km;
+783024	  const labels = {
+783025	    not_requested: 'Grid calculation not requested', requested: 'Grid calculation queued',
+783026	    started: 'Calculating nearest mapped substations', completed_empty: 'Search completed: no mapped substations returned',
+783027	    unsupported: 'Grid calculation unavailable', failed: 'Grid calculation failed',
+783028	  if (status === 'completed' && Number.isFinite(nearest) && nearest >= 0) {
+783029	    return { status, text: `Nearest mapped substation: ${nearest.toFixed(2)} km`,
+783030	      distance_km: nearest, unit: 'km', scope: 'Geometric screening only; not an electrical connection, capacity or offer.' };
+783031	  return { status, text: labels[status] || 'Grid calculation result unavailable',
+783032	    reason: receipt?.reason || null, distance_km: null, unit: null,
+783033	    scope: 'Geometric screening only; not an electrical connection, capacity or offer.' };
+783034	globalThis.VentusGridCompute = Object.freeze({ schema, distanceKm, createComputeObserver, describeComputeReceipt });
+784471	  let cardSelectionKey = '';
+784472	  let cardPreference = null;
+784473	  function cardPreferenceKey() { return currentRepdRef ? 'repd:' + currentRepdRef : cardSelectionKey; }
+784524	    link.neso_lookup = { status: 'loading', reason: null };
+784526	      const finish = (sites, reason = null) => {
+784527	        link.neso_lookup = { status: reason ? 'failed' : 'complete', reason };
+784528	        resolve(sites);
+784532	        xhr.timeout = 4000;
+784534	          if (xhr.status < 200 || xhr.status >= 300) { finish({}, 'HTTP_' + xhr.status); return; }
+784538	            finish(payload.sites || {});
+784539	          } catch (_) { finish({}, 'INVALID_JSON'); }
+784543	        xhr.onerror = () => finish({}, 'NETWORK_ERROR');
+784544	        xhr.ontimeout = () => finish({}, 'TIMEOUT');
+784545	        xhr.onabort = () => finish({}, 'ABORTED');
+784547	      } catch (_) { finish({}, 'LOOKUP_ERROR'); }
+785852	      const km = globalThis.VentusGridCompute.distanceKm(lon, lat, sub.at[0], sub.at[1]);
+786229	      cardPreference = { key: cardPreferenceKey(), minimised: popup.classList.contains('gridatlas-min') };
+786318	    const arriveMinimised = cardPreference?.key === cardPreferenceKey()
+786319	      ? cardPreference.minimised : (function () {
+786336	  function renderComputeReceipt() {
+786338	    if (!content || !link.compute_receipt) return;
+786339	    let node = content.querySelector('.gridatlas-compute-state');
+786340	    if (!node) { node = document.createElement('p'); node.className = 'gridatlas-compute-state'; content.appendChild(node); }
+786341	    const presentation = globalThis.VentusGridCompute.describeComputeReceipt(link.compute_receipt);
+786342	    node.dataset.status = presentation.status;
+786343	    node.dataset.entityId = link.compute_receipt.entity.id;
+786345	    node.textContent = 'Ventus Grid Engine distance calculation: ' + presentation.text
+786346	      + (presentation.reason ? ': ' + presentation.reason : '') + '. ' + presentation.scope;
+786354	    if (link.neso_lookup?.status === 'failed') {
+786355	      const notice = document.createElement('p');
+786356	      notice.className = 'gridatlas-neso-lookup-status';
+786357	      notice.textContent = 'Declared connection lookup unavailable (' + link.neso_lookup.reason
+786358	        + '). Nearest distances below are geometric screening only; no electrical connection is inferred.';
+786359	      holder.firstElementChild?.appendChild(notice);
+786367	    renderComputeReceipt();
+786656	    cardSelectionKey = JSON.stringify([origin, name, tech, direction]);
+787792	    const computeObserver = globalThis.VentusGridCompute.createComputeObserver({
+787793	      onEvent(receipt) {
+787794	        if (computeObserver.snapshot()?.id !== receipt.id) return;
+787795	        link.compute_receipt = receipt;
+787796	        renderComputeReceipt();
+787865	      const computeEntity = { kind: currentRepdRef ? 'repd' : 'location',
+787866	        id: currentRepdRef || JSON.stringify(origin) };
+787867	      const computeOrigin = { lon: origin[0], lat: origin[1] };
+787868	      const computeId = computeObserver.request({ entity: computeEntity, location: computeOrigin,
+787869	        dataset: 'GridAtlas pinned substation payload; geometric nearest screening' });
+787887	          await computeObserver.run(computeId, () => { throw new Error('Substation payload unavailable'); });
+787896	      let measured;
+787897	      const receipt = await computeObserver.run(computeId, () => {
+787898	        measured = nearestSubstations(origin[0], origin[1], subs);
+787899	        const answer = measured.length ? measured : (measured.beyondRadiusNearest ? [measured.beyondRadiusNearest] : []);
+787900	        return { entity: computeEntity, origin: computeOrigin, search_completed: true, scanned_count: subs.length,
+787901	          measurements: answer.map((node, index) => ({ node_id: String(node.id || node.name || index),
+787902	            lon: node.at[0], lat: node.at[1], km: node.km })) };
+787903	      if (!computeObserver.assess(computeId, { entity: computeEntity, location: computeOrigin }).passed) {
+787904	        if (receipt.status !== 'completed_empty') return false;
+787905	      drawLinks(map, origin, name, tech, measured, 'to-substation', statedMw);
+789916	const HERE = fileURLToPath(new URL('./', import.meta.url)), REPO = HERE + '../../../';
+790718	step('sld-source', ['node', '--test', 'tools/sld/build.test.mjs']);
+790744	/** Candidate integrity; actual MAP and visible-result acceptance runs separately. */
+790745	import {deriveCurrent,rerootForPreview} from '../release/lib.mjs';
+790746	const root=new URL('../../',import.meta.url),G='202611161645';
+790747	const read=p=>fs.readFileSync(new URL(p,root),'utf8').replace(/\r\n/g,'\n');
+790748	const manifest=read(`atlas/manifests/${G}-composition.json`),candidate=JSON.parse(manifest),live=JSON.parse(read('atlas/current.json'));
+790749	const parent=JSON.parse(read('atlas/manifests/202611132345-composition.json'));
+790750	assert.ok([parent.generation,G].includes(live.generation),'live composition must be the declared parent or promoted candidate');
+790751	assert.equal(candidate.previous_generation,parent.generation);
+790752	assert.equal(candidate.superseded_generation,parent.generation);
+790753	assert.equal(candidate.candidate_predecessor,parent.generation);
+790754	assert.equal(read(`atlas/v/${G}/current.json`),rerootForPreview(deriveCurrent(manifest)));
+790755	assert.equal(read(`atlas/v/${G}/index.html`),read('atlas/index.html'));
+790756	for(const c of candidate.cartridges){
+790757	 const source=read('atlas/'+c.path);assert.equal(createHash('sha256').update(source).digest('hex'),c.sha256);
+790758	 if(c.id!=='sld-sandbox')assert.deepEqual(c,parent.cartridges.find(x=>x.id===c.id));
+790759	 else { assert.equal(Buffer.byteLength(source),c.bytes); new vm.Script(source); }
+790760	const bundle=read(`atlas/modules/${G}-ventus-compute-observer.js`);
+790761	assert.equal(createHash('sha256').update(bundle).digest('hex'),candidate.provenance.compute_observer.sha256);
+790762	const apiContext={};vm.runInNewContext(bundle,apiContext);
+790763	const api=apiContext.VentusGridCompute;
+790764	assert.equal(api.distanceKm(-1,52,-1,52),0);
+790765	assert.ok(api.distanceKm(-1,52,-1,53)>111);
+790766	// The optional declaration lookup must settle independently of the nearest calculation.
+790767	const cartridge=read(`atlas/cartridges/${G}-sld-sandbox-v9-8.js`);
+790768	const start=cartridge.indexOf('  let nesoPromise = null;'),end=cartridge.indexOf('  function siteKey(',start);
+790769	let xhr;class XHR{constructor(){xhr=this;}open(){}send(){}}
+790770	const ctx={link:{},document:{baseURI:'https://ventusltd.github.io/gridatlas/atlas/releases/shell/'},URL,XMLHttpRequest:XHR};
+790771	vm.runInNewContext(cartridge.slice(start,end)+';globalThis.load=loadNesoSites',ctx);
+790772	const pending=ctx.load();assert.equal(xhr.timeout,4000);xhr.ontimeout();await pending;
+790773	assert.equal(ctx.link.neso_lookup.status,'failed');assert.equal(ctx.link.neso_lookup.reason,'TIMEOUT');
+790774	console.log('Candidate hashes, immutable parent, owner distance bundle and bounded lookup PASS; browser proof required separately.');
+790775	const root=new URL('../../',import.meta.url),G='202611161720';
+790776	const bundle=read('atlas/modules/202611161645-ventus-compute-observer.js');
+790777	// Cut metadata is checked by the real promotion and rollback guards.
+790778	assert.equal(candidate.parent_generation,parent.generation);
+790779	assert.equal(candidate.acceptance.full_application_copies_created,0);
+790780	assert.equal(candidate.acceptance.immutable_shell_modified,false);
+790781	assert.equal(candidate.version,candidate.composition_version);
+790782	assert.equal(candidate.cut_at_utc,'2026-11-16T17:20:00.000Z');
+790783	assert.equal(read('atlas/cartridges/202611161720-sld-sandbox-v9-8.js'),read('atlas/cartridges/202611161645-sld-sandbox-v9-8.js'));
+790784	// Prove the claim: the immutable application tree is the published base tree,
+790785	// and this generation's only HTML is the byte-identical registered loader.
+790786	const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+790787	assert.equal(git('rev-parse','HEAD:atlas/releases'),git('rev-parse','76653e40:atlas/releases'));
+790788	assert.deepEqual(fs.readdirSync(new URL('atlas/v/202611161720/',root)).sort(),['current.json','index.html']);
+790789	assert.equal(read('atlas/v/202611161720/index.html'),read('atlas/index.html'));
+790790	assert.equal(fs.readdirSync(root).filter(n=>/^\d{12}-atlas-v9$/.test(n)).length,0);
+790791	console.log('Cut metadata, real parent lineage and zero full-application copies PROVED');
+790792	import { chromium } from 'playwright';
+790794	const ROOT=process.cwd(), GEN=process.env.MAP_RECEIVER_GENERATION||'202611161645';
+790795	assert.match(GEN,/^\d{12}$/);
+790796	const widths=process.env.WIDTHS?.split(',').map(Number)||[390,393,1440];
+790797	const refs=process.env.REFS?.split(',')||['12588','14535','2470'];
+790798	const channel=process.env.BROWSER_CHANNEL||null;
+790799	const receipts=[];const browser=await chromium.launch({headless:true,...(channel?{channel}:{})});
+790800	const browserIdentity={channel:channel||'playwright-chromium',version:browser.version()};
+790801	await fs.mkdir('work',{recursive:true});
+790802	 for(const width of widths)for(const ref of refs){
+790803	  const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<700,isMobile:width<700});
+790804	  if (!process.env.MAP_RECEIVER_PUBLIC) await context.route('https://ventusltd.github.io/gridatlas/**',async route=>{
+790805	   const pathname=new URL(route.request().url()).pathname.replace(/^\/gridatlas\//,'');
+790806	   if(process.env.NESO_TIMEOUT==='1' && pathname.endsWith('neso-connection-sites.lean.json')){await new Promise(resolve=>setTimeout(resolve,6500));await route.abort().catch(()=>{});return;}
+790807	   const rel=pathname==='atlas/current.json'?`atlas/manifests/${GEN}-composition.json`:pathname.endsWith('/')?pathname+'index.html':pathname;
+790808	   try{const body=await fs.readFile(path.join(ROOT,rel));const ext=path.extname(rel);await route.fulfill({body,contentType:({'.html':'text/html','.json':'application/json','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css'})[ext]||'application/octet-stream',headers:{'access-control-allow-origin':'*'}});}catch{await route.continue();}
+790809	  const page=await context.newPage();const errors=[];
+790810	  await page.goto('https://globalgrid2050.com/uk_renewables_pipeline/202611161244/',{waitUntil:'domcontentloaded'});
+790811	  await page.locator('#search').fill(ref);const map=page.locator(`#repd-${ref} a.atlaslink`);await map.waitFor({timeout:60000});
+790812	  const [receiver]=await Promise.all([context.waitForEvent('page'),map.click()]);receiver.on('pageerror',e=>errors.push(e.message));
+790813	  await receiver.waitForLoadState('domcontentloaded');
+790814	  await receiver.waitForFunction(()=>window.__GRIDATLAS_NEON_LINKS__?.arrival_engine?.terminal && window.__GRIDATLAS_NEON_LINKS__?.links_drawn>0,null,{timeout:120000});
+790815	  const card=receiver.locator('.maplibregl-popup').first();
+790816	  if((await card.getAttribute('class')).includes('gridatlas-min'))await receiver.locator('.gridatlas-card-bar .min').first().click();
+790817	  await receiver.waitForTimeout(12000);
+790818	  await receiver.locator('.neon-km').first().scrollIntoViewIfNeeded();
+790819	  assert.ok(await receiver.locator('.neon-km').first().isVisible());
+790820	  const r=await receiver.evaluate(()=>{const l=window.__GRIDATLAS_NEON_LINKS__,p=document.querySelector('.maplibregl-popup'),block=p?.querySelector('.gridatlas-neon-block')||p;return {generation:document.documentElement.dataset.gridatlasGeneration,url:location.href,compute:l.compute_receipt,neso:l.neso_lookup,identity:l.identity_verification,arrival:l.arrival_engine,selection:l.last_selection,links:l.links_drawn,failures:l.failures,technology:l.technology_layer,cardClass:p?.className,cardText:p?.innerText,rect:block?.getBoundingClientRect().toJSON()};});
+790821	  r.width=width;r.ref=ref;r.errors=errors;r.browser=browserIdentity;r.receiver_mode=process.env.MAP_RECEIVER_PUBLIC?'public':'local-candidate-interception';
+790822	  assert.equal(r.generation,GEN);assert.equal(new URL(r.url).searchParams.get('repd_ref'),ref);
+790823	  assert.equal(r.identity.repd_ref,ref);assert.equal(r.arrival.answered,true);assert.ok(Number.isFinite(r.selection.nearest_km));assert.ok(r.selection.nearest_name);
+790824	  assert.ok(!r.cardClass.includes('gridatlas-min'),'reader restore must persist');assert.match(r.cardText,/km/);assert.ok(r.rect.height>100);assert.deepEqual(errors,[]);
+790825	  assert.equal(r.compute.status,'completed');assert.equal(r.compute.entity.id,ref);assert.equal(r.compute.entity.kind,'repd');assert.ok(r.compute.measurements.length>0);assert.match(r.cardText,/Ventus Grid Engine/);
+790826	  if(process.env.NESO_TIMEOUT==='1'){assert.equal(r.neso.status,'failed');assert.equal(r.neso.reason,'TIMEOUT');assert.match(r.cardText,/Declared connection lookup unavailable/);}
+790827	  assert.equal(r.technology.enabled,true);assert.deepEqual(r.failures,[]);
+790828	  await receiver.screenshot({path:`work/map-${channel||'chromium'}-${width}-${ref}${process.env.NESO_TIMEOUT==='1'?'-timeout':''}.png`});
+790829	  await receiver.locator('.gridatlas-compute-state').scrollIntoViewIfNeeded();
+790830	  assert.ok(await receiver.locator('.gridatlas-compute-state').isVisible());
+790831	  await receiver.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+790832	  const stateBounds=await receiver.locator('.gridatlas-compute-state').boundingBox();
+790833	  assert.ok(stateBounds.x>=0 && stateBounds.x+stateBounds.width<=width,'owner state must fit the viewport horizontally');
+790834	  await receiver.screenshot({path:`work/engine-${channel||'chromium'}-${width}-${ref}${process.env.NESO_TIMEOUT==='1'?'-timeout':''}.png`});
+790835	  receipts.push(r);console.log('PASS',width,ref,r.identity.status,r.selection.nearest_name,r.selection.nearest_km);
+790837	}finally{await fs.mkdir('work',{recursive:true});await fs.writeFile(process.env.NESO_TIMEOUT==='1'?'work/map-receiver-timeout.json':`work/map-receiver-${channel||'chromium'}-candidate.json`,JSON.stringify(receipts,null,2));await browser.close();}
+790838	/** Full local-only release and route-C rollback; never push or read acceptance. */
+790841	const G='202611161720', BEFORE='202611161645', PARENT='202611132345';
+790842	function run(cwd,command,args,{allowFailure=false}={}) {
+790843	  const r=spawnSync(command,args,{cwd,encoding:'utf8',maxBuffer:128*1024*1024});
+790844	  const output=(r.stdout||'')+(r.stderr||'');
+790845	  if(!allowFailure)assert.equal(r.status,0,`${command} ${args.join(' ')}\n${output}`);
+790846	  return {status:r.status,output};
+790847	const git=(cwd,...args)=>run(cwd,'git',args).output.trim();
+790848	assert.equal(git(ROOT,'status','--porcelain'),'','rehearsal requires a clean committed candidate');
+790849	const originalHead=git(ROOT,'rev-parse','HEAD');
+790850	assert.equal(JSON.parse(fs.readFileSync(path.join(ROOT,'atlas/current.json'))).generation,PARENT);
+790851	fs.mkdirSync(path.join(ROOT,'work'),{recursive:true});
+790852	const checkout=fs.mkdtempSync(path.join(ROOT,'work','map-release-rehearsal-'));
+790853	assert.ok(path.resolve(checkout).startsWith(path.join(ROOT,'work')+path.sep));
+790854	run(ROOT,'git',['worktree','add','--detach',checkout,originalHead]);
+790855	fs.mkdirSync(path.join(checkout,'work'),{recursive:true});
+790856	const suffix=path.basename(checkout), branch=name=>`rehearsal/${suffix}/${name}`;
+790857	const json=name=>JSON.parse(fs.readFileSync(path.join(checkout,'work',name)));
+790858	const invoke=(script,args)=>run(checkout,'node',[script,...args],{allowFailure:true});
+790859	const summary={candidate_commit:originalHead,generation:G,parent:PARENT};
+790861	  // Exercise the exact rejected release, not a synthetic validator fixture.
+790862	  const before=invoke('tools/release/release-generation.mjs',[
+790863	    '--generation',BEFORE,'--base',originalHead,'--expect-live',PARENT,
+790864	    '--branch',branch('before'),'--authorised-by','Local regression rehearsal only; never publish',
+790865	    '--report','work/before.json','--log','work/before.log']);
+790866	  assert.equal(before.status,1,'old preview must fail real promotion');
+790867	  const failed=json('before.json');
+790868	  assert.deepEqual(failed.gates.filter(g=>!g.ok).map(g=>g.gate).sort(),[
+790869	    'verify-compose',`rollback.mjs --to ${PARENT} --dry-run`].sort());
+790870	  const beforeLog=fs.readFileSync(path.join(checkout,'work/before.log'),'utf8');
+790871	  assert.match(beforeLog,/composition copied full application/);
+790872	  assert.match(beforeLog,/not an ancestor/);
+790873	  assert.equal(git(checkout,'status','--porcelain'),'');
+790874	  assert.equal(git(checkout,'rev-parse','HEAD'),originalHead);
+790875	  summary.before={expected_failure:true,gates:failed.gates};
+790876	  console.log('BEFORE PASS: real release rejects missing copy attestation and parent lineage, restoring pointer/STATE.');
+790877	  const after=invoke('tools/release/release-generation.mjs',[
+790878	    '--generation',G,'--base',originalHead,'--expect-live',PARENT,
+790879	    '--branch',branch('release'),'--authorised-by','Local regression rehearsal only; never publish',
+790880	    '--report','work/after.json','--log','work/after.log']);
+790881	  assert.equal(after.status,0,after.output);
+790882	  const released=json('after.json');
+790883	  assert.ok(released.gates.length>=7 && released.gates.every(g=>g.ok));
+790884	  assert.equal(JSON.parse(fs.readFileSync(path.join(checkout,'atlas/current.json'))).generation,G);
+790885	  assert.deepEqual(git(checkout,'diff','--name-only',`${released.release_commit}^`,released.release_commit).split('\n').sort(),['STATE.md','atlas/current.json']);
+790886	  summary.after={gates:released.gates,release_commit:released.release_commit,before:released.before,after:released.after};
+790887	  console.log('AFTER PASS: actual release committed only pointer/STATE; every promotion gate passed.');
+790888	  // The preview gate sees the predecessor; exercise the full PR gate with the actual promoted composition.
+790889	  const promotedGate=invoke('tools/ci/pr-gate.mjs',['--base',originalHead]);
+790890	  fs.writeFileSync(path.join(checkout,'work/promoted-pr-gate.log'),promotedGate.output);
+790891	  assert.equal(promotedGate.status,0,promotedGate.output);
+790892	  summary.promoted_pr_gate={passed:true,summary:promotedGate.output.match(/\d+\/\d+ checks passed/)?.[0]};
+790893	  console.log('PROMOTED PR GATE PASS: '+summary.promoted_pr_gate.summary);
+790894	  const reverted=invoke('tools/release/rollback-generation.mjs',[
+790895	    '--release-commit',released.release_commit,'--base',released.release_commit,
+790896	    '--branch',branch('rollback'),'--reason','Local route-C regression rehearsal only; never publish',
+790897	    '--report','work/rollback.json','--log','work/rollback.log']);
+790898	  assert.equal(reverted.status,0,reverted.output);
+790899	  const rollback=json('rollback.json');
+790900	  assert.ok(rollback.gates.every(g=>g.ok));
+790901	  assert.deepEqual(rollback.byte_exact,{'atlas/current.json':true,'STATE.md':true});
+790902	  assert.equal(JSON.parse(fs.readFileSync(path.join(checkout,'atlas/current.json'))).generation,PARENT);
+790903	  assert.equal(git(checkout,'diff',originalHead,'HEAD','--','atlas/current.json','STATE.md'),'');
+790904	  summary.rollback={gates:rollback.gates,byte_exact:rollback.byte_exact,from:rollback.from,to:rollback.to};
+790905	  console.log('ROLLBACK PASS: route C restored predecessor pointer and STATE byte-for-byte; every rollback gate passed.');
+790906	  summary.result='PASS';
+790908	  assert.equal(git(ROOT,'rev-parse','HEAD'),originalHead);
+790909	  assert.equal(git(ROOT,'status','--porcelain'),'');
+790910	  // Only this path-free summary is uploaded. Full local reports remain in the isolated checkout.
+790911	  fs.writeFileSync(path.join(ROOT,'work','map-promotion-rehearsal.json'),JSON.stringify(summary,null,2)+'\n');
+790912	/** Rebuild the MAP receiver from a pinned immutable baseline and explicit source edits. */
+790914	export function buildSld(generation,root=ROOT) {
+790915	  const registry=JSON.parse(fs.readFileSync(path.join(root,'tools/sld/generations.json')));
+790916	  const entry=registry.generations[generation];
+790917	  assert.ok(entry,`No SLD source recipe for ${generation}`);
+790918	  const pinned=input=>{
+790919	    const bytes=fs.readFileSync(path.join(root,input.path));
+790920	    assert.equal(digest(bytes),input.sha256,`Source pin drift: ${input.path}`);
+790921	    return bytes.toString('utf8');
+790922	  let source=pinned(entry.base);
+790923	  const owner=pinned(entry.owner);
+790924	  const edits=JSON.parse(fs.readFileSync(path.join(root,entry.edits)));
+790925	  assert.ok(Array.isArray(edits)&&edits.length>0);
+790926	  for(const [index,edit] of edits.entries()) {
+790927	    assert.equal(typeof edit.before,'string');assert.ok(edit.before.length);
+790928	    assert.equal(typeof edit.after,'string');
+790929	    const at=source.indexOf(edit.before);
+790930	    assert.ok(at>=0,`Source edit ${index} no longer matches`);
+790931	    assert.equal(source.indexOf(edit.before,at+1),-1,`Source edit ${index} is ambiguous`);
+790932	    source=source.slice(0,at)+edit.after+source.slice(at+edit.before.length);
+790933	  const built=Buffer.from(entry.header+owner+'\n'+source);
+790934	  assert.equal(digest(built),entry.output_sha256,'Rebuilt SLD differs from its registered output pin');
+790935	  return built;
+790936	if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
+790937	  const arg=name=>process.argv[process.argv.indexOf(name)+1];
+790938	  assert.ok(process.argv.includes('--gen')&&process.argv.includes('--out'),'Use --gen G --out NEW_FILE');
+790939	  const built=buildSld(arg('--gen'));
+790940	  fs.writeFileSync(arg('--out'),built,{flag:'wx'});
+790941	  console.log(`SLD source rebuild: ${built.length} bytes sha256 ${digest(built)}`);
+790942	import {buildSld} from './build.mjs';
+790943	const registry=JSON.parse(fs.readFileSync(path.join(ROOT,'tools/sld/generations.json')));
+790944	test('rebuilds both accepted generations without the expected cartridge in its source tree',()=>{
+790945	  const root=fs.mkdtempSync(path.join(os.tmpdir(),'gridatlas-sld-source-'));
+790946	    const entry=registry.generations['202611161720'];
+790947	    for(const rel of ['tools/sld/generations.json',entry.base.path,entry.owner.path,entry.edits]) {
+790948	      const to=path.join(root,rel);fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(path.join(ROOT,rel),to);
+790949	    for(const generation of Object.keys(registry.generations)) {
+790950	      const expected=`atlas/cartridges/${generation}-sld-sandbox-v9-8.js`;
+790951	      assert.equal(fs.existsSync(path.join(root,expected)),false);
+790952	      assert.deepEqual(buildSld(generation,root),fs.readFileSync(path.join(ROOT,expected)));
+790953	    // A changed source and a dropped edit must both fail, rather than copy the expected output.
+790954	    fs.appendFileSync(path.join(root,entry.base.path),'\n');
+790955	    assert.throws(()=>buildSld('202611161720',root),/Source pin drift/);
+790956	    fs.copyFileSync(path.join(ROOT,entry.base.path),path.join(root,entry.base.path));
+790957	    const edits=JSON.parse(fs.readFileSync(path.join(root,entry.edits)));edits.pop();
+790958	    fs.writeFileSync(path.join(root,entry.edits),JSON.stringify(edits));
+790959	    assert.throws(()=>buildSld('202611161720',root),/differs from its registered output pin/);
+790960	  } finally {assert.ok(path.resolve(root).startsWith(path.resolve(os.tmpdir())+path.sep));fs.rmSync(root,{recursive:true,force:true});}
+790961	test('unregistered generations fail closed',()=>{
+790962	  assert.throws(()=>buildSld('202611160000'),/No SLD source recipe/);
+791101	  } else if (c.id === 'sld-sandbox' && exists('tools/sld/generations.json') && readJson('tools/sld/generations.json').generations[G]) {
+791102	    // Only pinned source inputs enter this empty tree. The expected final cartridge is absent.
+791103	    const entry = readJson('tools/sld/generations.json').generations[G];
+791104	    const tree = path.join(work, 'sld-source');
+791105	    for (const rel of ['tools/sld/build.mjs', 'tools/sld/generations.json', entry.base.path, entry.owner.path, entry.edits]) {
+791106	      const to = path.join(tree, rel); fs.mkdirSync(path.dirname(to), { recursive: true }); fs.copyFileSync(abs(rel), to);
+791107	    const r = run(['node', path.join(tree, 'tools/sld/build.mjs'), '--gen', G, '--out', out]);
+791108	    if (r.code !== 0 || !fs.existsSync(out)) { R.fail(name, 'SLD source rebuild failed: ' + (r.stderr || r.stdout).trim().slice(0, 200)); continue; }
+791109	    if (sha256(fs.readFileSync(out)) !== c.sha256) R.fail(name + ' pin', 'rebuilt SLD differs from the composition pin');
+791170	"""Offline bounded synthetic-input replay of pinned prospecting score arithmetic.
+791171	CPU performs producer feature extraction. GPU adds integer hundredths and sorts.
+791172	No source acquisition, real-corpus parity, news parser or publication certification.
+791178	PINS = {'relevance': '8be79d5e5048b79eae425f14f749cfa439a03774c2c27fb0b1309aca3b953f43',
+791179	        'prospecting': '23c2c054a1d55b07e60af513709071476bdc6202dbf0e8b4ec87b23cf59ddf73'}
+791180	SOURCE_COMMIT = '0cb4f71e948df23e2985f189a5a1d77e88d332b2'
+791182	extern "C" __global__ void score(const int* x, int n, int* out) {
+791183	 int i=blockDim.x*blockIdx.x+threadIdx.x;
+791184	 if(i>=n) return;
+791185	 int s=x[i*4]+x[i*4+1]+1500;
+791186	 if(x[i*4+2]) s+=800;
+791187	 if(x[i*4+3]) s+=500;
+791188	 out[i]=s;
+791190	def require(ok):
+791192	        raise ValueError('verification_failed')
+791193	def producer():
+791194	    """Run only an explicit AST subset from SHA-pinned local producer sources."""
+791195	    env = {'math': math, 're': re, 'date': datetime.date}
+791196	    selected = {
+791197	        'relevance': {'_c', 'capacity_component', 'technology_component',
+791198	                      'national_route_component', 'evidence_component'},
+791199	        'prospecting': {'official_candidate', 'capacity', 'require', 'component',
+791200	                        'text', 'research_policy_fields', 'freshness'}}
+791201	    for name in ('relevance', 'prospecting'):
+791202	        raw = Path(__file__).with_name(name + '.source').read_bytes()
+791203	        require(hashlib.sha256(raw).hexdigest() == PINS[name])
+791204	        tree = ast.parse(raw)
+791205	        nodes = []
+791207	            if name == 'relevance' and isinstance(node, ast.Assign):
+791208	                if any(isinstance(t, ast.Name) and t.id in {'PROFILE_ID', 'DEFAULT_PROFILE'} for t in node.targets):
+791209	                    nodes.append(node)
+791210	            if isinstance(node, ast.FunctionDef) and node.name in selected[name]:
+791211	                nodes.append(node)
+791212	        local = dict(env)
+791213	        exec(compile(ast.Module(body=nodes, type_ignores=[]), '<pinned-producer-subset>', 'exec'), local)
+791214	        if name == 'relevance':
+791215	            env['relevance'] = types.SimpleNamespace(**{k: local[k] for k in selected[name]})
+791216	            return local['official_candidate'], env['relevance']
+791217	def write_receipt(path, receipt):
+791220	    temp.write_text(json.dumps(receipt, indent=2, sort_keys=True, allow_nan=False) + '\n', encoding='utf-8')
+791222	    parser.add_argument('--output', type=Path, required=True)
+791223	    parser.add_argument('--cases', type=int, default=65536)
+791224	    parser.add_argument('--repeats', type=int, default=3)
+791225	    parser.add_argument('--seed', type=int, default=20261116)
+791226	    parser.add_argument('--inject-failure', action='store_true', help='Deliberately corrupt GPU score; must exit 1 with rejected receipt')
+791227	    receipt = dict(schema='furnace.prospecting-numeric-pilot.v1', accepted=False,
+791228	                   status='running', source_commit=SOURCE_COMMIT, source_sha256=PINS,
+791229	                   script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+791230	                   production_enabled=False, synthetic_inputs=True,
+791231	                   scope='Pinned official_candidate score and ID ordering on synthetic rows; CPU feature extraction; no real-corpus, news, provenance, rights, browser or publication acceptance',
+791232	                   seed=args.seed, requested_cases=args.cases, repeats=args.repeats,
+791233	                   deliberate_failure_requested=args.inject_failure, tolerance_hundredths=0,
+791234	                   ordering_validation='Both GPU scoring channels share CuPy lexsort; independent Python string-key oracle witnesses every rank')
+791235	    write_receipt(args.output, receipt)
+791237	    phase = 'input_validation'
+791238	        require(32 <= args.cases <= 262144 and 1 <= args.repeats <= 10 and 0 <= args.seed <= 2**32-1)
+791240	        oracle, relevance = producer()
+791241	        rng = np.random.default_rng(args.seed)
+791242	        n = args.cases
+791243	        # Independent synthetic records, not copies of any live/source project.
+791244	        mw = rng.uniform(0, 2000, n)
+791245	        known = rng.integers(0, 2, n, dtype=np.int32)
+791246	        tech_idx = rng.integers(0, 6, n, dtype=np.int32)
+791247	        route = rng.integers(0, 2, n, dtype=np.int32)
+791248	        age = rng.integers(-1, 60, (n, 2), dtype=np.int32)
+791249	        # Explicit zero/unknown/cap boundary + inclusive freshness windows + tied IDs.
+791250	        caps = [None, 0., 999., 998.999999, 999.000001, 1e-12, 1e9, 0., 0., 0., 0., 0.]
+791251	        for i, v in enumerate(caps):
+791252	            mw[i] = v or 0.; known[i] = int(v is not None)
+791253	        tech_idx[:12] = 0; route[:12] = 0
+791254	        age[:12] = [[-1,-1],[-1,-1],[30,14],[31,14],[30,15],[0,0],[-1,0],[30,14],[30,15],[-1,-1],[0,-1],[31,15]]
+791255	        techs = [None, 'Solar Photovoltaics', 'Battery', 'Wind Onshore', 'Hydrogen', 'Unknown technology']
+791256	        features = np.empty((n,4), np.int32)
+791257	        expected = np.empty(n, np.int32)
+791258	        extraction_start = time.perf_counter()
+791260	            capacity = float(mw[i]) if known[i] else None
+791261	            tech = techs[int(tech_idx[i])]
+791262	            authority = 'Scottish Government (S36)' if route[i] else None
+791263	            a, b = (int(v) for v in age[i])
+791264	            fresh = a >= 0 and b >= 0 and a <= 30 and b <= 14
+791265	            article = {'freshness': {'state': 'WITHIN_WINDOW' if 0 <= a <= 30 else 'UNKNOWN' if a < 0 else 'STALE'},
+791266	                       'retrieval_freshness': {'state': 'WITHIN_WINDOW' if 0 <= b <= 14 else 'UNKNOWN' if b < 0 else 'STALE'}}
+791267	            row = dict(capacity_mw=capacity, capacity_known=bool(known[i]), repd_ref=str(i+1),
+791268	                       repd_technology=tech, planning_authority=authority, name=None, country=None,
+791269	                       technology=tech, status=None, repd_record_updated=None)
+791270	            actual = oracle(row, {}, {'articles':[article]}, None)
+791271	            expected[i] = round(actual['score']*100)
+791272	            features[i] = [round(relevance.capacity_component(capacity)['points']*100),
+791273	                           round(relevance.technology_component(tech)['points']*100), int(route[i]), int(fresh)]
+791274	            require(actual['heat']['state'] == 'UNKNOWN' and actual['heat']['score'] == 0)
+791275	        extraction_seconds = time.perf_counter()-extraction_start
+791276	        # Rank IDs exactly as producer string ordering (e.g. REPD-10 before REPD-2).
+791277	        ids = ['REPD-'+str(i+1) for i in range(n)]
+791278	        string_order = sorted(range(n), key=ids.__getitem__)
+791279	        id_key = np.empty(n, np.int32)
+791280	        id_key[string_order] = np.arange(n, dtype=np.int32)
+791281	        oracle_order = np.asarray(sorted(range(n), key=lambda i: (-int(expected[i]), ids[i])), dtype=np.int64)
+791282	        require(expected[0] == expected[1] == 1500 and known[0] != known[1])
+791283	        require(expected[2] == 5000 and expected[3] == 4500 and expected[4] == 4500)
+791284	        require(expected[7] == 2000 and expected[8] == 1500)
+791285	        input_hash = hashlib.sha256()
+791286	        for x in (mw,known,tech_idx,route,age,features,id_key):
+791287	            input_hash.update(str(x.dtype).encode()); input_hash.update(str(x.shape).encode()); input_hash.update(x.tobytes())
+791288	        receipt.update(input_sha256=input_hash.hexdigest(), processed_rows=n,
+791289	                       unique_source_feature_cases=int(np.unique(np.column_stack((np.where(known,mw,-1),known,tech_idx,route,age)),axis=0).shape[0]),
+791290	                       unique_numeric_feature_cases=int(np.unique(features,axis=0).shape[0]),
+791291	                       boundary_fixture_rows=12, cpu_oracle_rows=n,
+791292	                       cpu_feature_extraction_and_producer_oracle_seconds=extraction_seconds,
+791293	                       unknown_capacity_rows=int((known==0).sum()), known_zero_capacity_rows=int(((known==1)&(mw==0)).sum()),
+791294	                       array_memory_conservative_bound_bytes=512*n, array_memory_limit_bytes=256*1024*1024,
+791295	                       maximum_cases=262144, channels=['raw CUDA integer branches','CuPy independent expression graph'],
+791296	                       cpu_oracle='SHA-pinned official_candidate AST subset', integer_score_unit='hundredth point')
+791297	        phase = 'gpu_initialization'
+791298	        warnings.filterwarnings('ignore', message='CUDA path could not be detected.*', category=UserWarning)
+791300	        cp.get_default_memory_pool().set_limit(size=128*1024*1024)
+791301	        require(cp.cuda.runtime.getDeviceCount() > 0)
+791302	        kernel = cp.RawKernel(KERNEL, 'score')
+791303	        def gpu(channel):
+791304	            x=cp.asarray(features); key=cp.asarray(id_key)
+791305	            if channel == 'raw':
+791306	                score=cp.empty(n, dtype=cp.int32)
+791307	                kernel(((n+255)//256,), (256,), (x,np.int32(n),score))
+791308	                score = cp.sum(cp.stack((x[:,0], x[:,1], cp.full(n,1500,dtype=cp.int32), x[:,2]*800, x[:,3]*500)),axis=0,dtype=cp.int32)
+791309	            if args.inject_failure:
+791310	                score[0] += 1
+791311	            order=cp.lexsort(cp.stack((key,-score)))
+791312	            result=(cp.asnumpy(score),cp.asnumpy(order))
+791315	        def cpu():
+791316	            x=features
+791317	            s=x[:,0]+x[:,1]+1500+800*x[:,2]+500*x[:,3]
+791318	            return s,np.lexsort((id_key,-s))
+791319	        warm_start=time.perf_counter()
+791320	        phase='gpu_compilation_and_warmup'
+791321	        for ch in ('raw','graph'):
+791322	            s,o=gpu(ch)
+791323	            receipt['mismatches']=int(np.count_nonzero(s!=expected))
+791324	            receipt['maximum_absolute_error_hundredths']=int(np.max(np.abs(s-expected)))
+791325	            require(np.array_equal(s,expected) and np.array_equal(o,oracle_order))
+791326	        receipt['gpu_warmup_compile_seconds']=time.perf_counter()-warm_start
+791327	        phase='paired_verification'
+791328	        timings={'cpu_numpy':[],'raw':[],'graph':[]}
+791329	        max_error=0
+791330	        for _ in range(args.repeats):
+791331	            for ch in timings:
+791332	                cp.cuda.Stream.null.synchronize()
+791333	                tick=time.perf_counter(); s,o=cpu() if ch=='cpu_numpy' else gpu(ch)
+791334	                elapsed=time.perf_counter()-tick
+791335	                timings[ch].append(elapsed)
+791336	                max_error=max(max_error,int(np.max(np.abs(s-expected))))
+791337	                require(np.array_equal(s,expected) and np.array_equal(o,oracle_order))
+791338	        broken_device=cp.asarray(s); broken_device[0]+=1
+791339	        broken=cp.asnumpy(broken_device)
+791340	        witness=np.flatnonzero(broken!=expected)
+791341	        require(witness.tolist()==[0])
+791342	        broken_order=oracle_order.copy(); broken_order[:2]=broken_order[:2][::-1]
+791343	        require(not np.array_equal(broken_order,oracle_order))
+791344	        receipt.update(accepted=True,status='passed', device=cp.cuda.runtime.getDeviceProperties(0)['name'].decode(),
+791345	                       cupy_version=cp.__version__,numpy_version=np.__version__,
+791346	                       cuda_runtime=cp.cuda.runtime.runtimeGetVersion(),
+791347	                       maximum_absolute_error_hundredths=max_error,mismatches=0,
+791348	                       injected_score_error_detected=True,injected_score_error_witness_row=0,
+791349	                       injected_error_channel='CuPy graph output copied to GPU then incremented by one hundredth',
+791350	                       injected_order_error_detected=True,
+791351	                       gpu_warmup_executions=2, repeated_gpu_executions=2*args.repeats,
+791352	                       repeated_gpu_row_evaluations=n*2*args.repeats,
+791353	                       timings_seconds=timings,median_seconds={k:statistics.median(v) for k,v in timings.items()},
+791354	                       timing_scope='Warm scoring+full ordering; GPU synchronized H2D+D2H included; extraction/oracle and compilation excluded and separately reported',
+791355	                       gpu_pool_reserved_bytes=cp.get_default_memory_pool().total_bytes(),
+791356	                       actual_producer_parity_scope='Synthetic official_candidate scores only; CPU pre-extracted rounded capacity, technology, route/freshness; full producer validation and real inputs not tested')
+791357	        receipt.update(accepted=False,status='gpu_unavailable' if phase=='gpu_initialization' else 'failed',
+791358	                       failure_phase=phase,error_type=type(exc).__name__)
+791359	    receipt['whole_seconds']=time.perf_counter()-started
+791360	    write_receipt(args.output,receipt)
+791361	    print(json.dumps({'accepted':receipt['accepted'],'status':receipt['status']}))
+791362	    return 0 if receipt['accepted'] else 1
+791363	if __name__=='__main__':
+791364	"""Bounded negative controls, using only this pilot directory."""
+791365	import builtins
+791367	HERE=Path(__file__).resolve().parent
+791368	spec=importlib.util.spec_from_file_location('pilot',HERE/'furnace_pilot.py')
+791369	pilot=importlib.util.module_from_spec(spec); spec.loader.exec_module(pilot)
+791370	class NegativeControls(unittest.TestCase):
+791371	    def invoke(self, *args):
+791372	        with tempfile.TemporaryDirectory(dir=HERE) as work:
+791373	            path=Path(work)/'receipt.json'
+791374	            with patch.object(sys,'argv',['pilot','--output',str(path),*args]),contextlib.redirect_stdout(io.StringIO()):
+791375	                code=pilot.main()
+791376	            raw=path.read_text(); receipt=json.loads(raw)
+791377	            self.assertNotIn(str(HERE),raw)
+791378	            self.assertNotIn('C:\\',raw)
+791379	            self.assertEqual(receipt['script_sha256'],hashlib.sha256((HERE/'furnace_pilot.py').read_bytes()).hexdigest())
+791380	            return code,receipt
+791381	    def test_cases_over_cap_fail_closed(self):
+791382	        code,r=self.invoke('--cases','262145')
+791383	        self.assertEqual(code,1); self.assertFalse(r['accepted'])
+791384	    def test_zero_repeats_rejected(self):
+791385	        code,r=self.invoke('--repeats','0')
+791386	    def test_source_mutation_rejected_before_execution(self):
+791387	        original=Path.read_bytes
+791388	        def mutated(path):
+791389	            raw=original(path)
+791390	            return raw+b'\nraise Exception("must never execute")\n' if path.name=='prospecting.source' else raw
+791391	        with patch.object(Path,'read_bytes',mutated):
+791392	            with self.assertRaisesRegex(ValueError,'verification_failed'):
+791393	                pilot.producer()
+791394	    def test_missing_gpu_never_passes(self):
+791395	        original=builtins.__import__
+791396	        def no_gpu(name,*args,**kwargs):
+791397	            if name=='cupy': raise ImportError('synthetic_unavailable')
+791398	            return original(name,*args,**kwargs)
+791399	        with patch('builtins.__import__',no_gpu):
+791400	            code,r=self.invoke('--cases','32')
+791401	        self.assertEqual(code,1); self.assertFalse(r['accepted']); self.assertEqual(r['status'],'gpu_unavailable')
+791402	    def test_deterministic_seed_and_inputs(self):
+791403	        code,a=self.invoke('--cases','69','--repeats','1')
+791404	        other,b=self.invoke('--cases','69','--repeats','1')
+791405	        self.assertEqual((code,other),(0,0))
+791406	        self.assertEqual(a['input_sha256'],b['input_sha256'])
+791407	        self.assertEqual(a['unique_numeric_feature_cases'],b['unique_numeric_feature_cases'])
+791408	    def test_injected_gpu_failure_rejects_receipt(self):
+791409	        code,r=self.invoke('--cases','32','--inject-failure')
+791410	        self.assertEqual(code,1); self.assertFalse(r['accepted']); self.assertEqual(r['status'],'failed')
+791411	        self.assertEqual(r['mismatches'],1); self.assertEqual(r['maximum_absolute_error_hundredths'],1)
+791412	from validate import unique, validate
+791413	class LedgerTests(unittest.TestCase):
+791414	        self.doc = json.loads(Path(__file__).with_name("20261116-build-ledger.json").read_text(encoding="utf-8"))
+791415	    def reject(self, edit, message):
+791416	        edit(self.doc)
+791418	            validate(self.doc)
+791419	    def test_actual_handoff_has_ordered_dependencies_and_no_public_claim(self):
+791420	        result = validate(self.doc)
+791421	        self.assertEqual(result["public_pipeline_count"], 0)
+791422	        order = result["code_dependency_order"]
+791423	        self.assertLess(order.index("figures"), order.index("covenant_ledger"))
+791424	        self.assertLess(order.index("prospecting_ui"), order.index("prospecting_export"))
+791425	    def test_missing_dependency(self):
+791426	        self.reject(lambda d: d["components"][0]["code_requires"].append("absent"), "missing dependency")
+791427	    def test_cycle(self):
+791428	        self.reject(lambda d: d["components"][0]["code_requires"].append("news_consumer"), "dependency cycle")
+791429	    def test_stale_ci_does_not_follow_new_head(self):
+791430	        self.passing_candidate_ci()
+791431	        self.reject(lambda d: d["milestones"][0].update(head="f" * 40), "stale CI head")
+791432	    def test_count_cannot_be_incremented_without_publication(self):
+791433	        self.reject(lambda d: d.update(public_pipeline_count=1), "count differs")
+791434	    def test_passing_ci_alone_is_not_publication(self):
+791435	        self.reject(lambda d: d["milestones"][0].update(published=True), "public receipt")
+791436	    def passing_candidate_ci(self):
+791437	        row = self.doc["milestones"][0]
+791438	        row["ci"] = {
+791439	            "status": "observed_pass",
+791440	            "tested_head": row["head"],
+791441	            "urls": ["https://github.com/example/repository/actions/runs/1"],
+791442	    def test_release_dependency_missing(self):
+791443	        self.reject(lambda d: d["milestones"][1]["requires_release"].append("V0"), "missing dependency")
+791444	    def test_machine_verification_rejected(self):
+791445	        self.reject(lambda d: d["invariants"].update(automatic_verified=True), "machine verification")
+791446	    def test_old_version_delta_cannot_be_blind_cherry_pick(self):
+791447	        def edit(d):
+791448	            row = next(c for c in d["components"] if c["id"] == "dc_expansion")
+791449	            row["next_action"]["command"] = "git cherry-pick " + row["authored_commits"][0]
+791450	        self.reject(edit, "historical-path")
+791451	    def test_duplicate_inventory_key(self):
+791452	        self.reject(lambda d: d["components"].append(copy.deepcopy(d["components"][0])), "duplicate id")
+791453	    def test_short_commit_is_not_exact_pin(self):
+791454	        self.reject(lambda d: d["components"][0]["authored_commits"].__setitem__(0, "c2b89326"), "invalid source commit")
+791455	    def test_private_path_is_not_public_memory(self):
+791456	        self.reject(lambda d: d["coverage"]["missing"].append("C:/Users/example/private"), "private path")
+791457	    def test_json_duplicate_keys_rejected(self):
+791458	            json.loads('{"status": "PASS", "status": "FAIL"}', object_pairs_hook=unique)
+791459	"""Validate this declared build handoff. No network, Git writes or command execution."""
+791460	SHA = re.compile(r"[0-9a-f]{40}\Z")
+791461	DIGEST = re.compile(r"[0-9a-f]{64}\Z")
+791462	def unique(pairs):
+791463	def acyclic(rows, key, dependencies):
+791464	    nodes = {row[key]: row for row in rows}
+791465	    require(len(nodes) == len(rows), f"duplicate {key}")
+791466	    active, done, ordered = set(), set(), []
+791467	    def visit(name):
+791468	        require(name in nodes, f"missing dependency: {name}")
+791469	        require(name not in active, f"dependency cycle: {name}")
+791470	        if name in done:
+791472	        active.add(name)
+791473	        for child in nodes[name][dependencies]:
+791474	            visit(child)
+791475	        active.remove(name)
+791476	        done.add(name)
+791477	        ordered.append(name)
+791478	    for name in nodes:
+791479	        visit(name)
+791481	def check_ci(row):
+791482	    ci = row["ci"]
+791483	    require(ci["status"] in {"observed_pass", "pending", "failed"}, "unknown CI status")
+791484	    if ci["status"] == "observed_pass":
+791485	        require(bool(SHA.fullmatch(row["head"] or "")), "CI has no exact head")
+791486	        require(ci["tested_head"] == row["head"], "stale CI head")
+791487	        require(bool(ci["urls"]), "passing CI has no receipt")
+791488	    for url in ci["urls"]:
+791489	        require(url.startswith("https://github.com/") and "/actions/runs/" in url, "invalid CI receipt URL")
+791490	def validate(doc):
+791491	    require(doc["schema"] == "globalgrid2050.neural-build-ledger.v1", "unknown ledger schema")
+791492	    require(doc["coverage"]["complete_transcript"] is False, "transcript completeness is not measured")
+791493	    inv = doc["invariants"]
+791494	    require((inv["repd_records"], inv["solar_records"], inv["solar1000_count"]) == (7775, 3604, 1000), "baseline counts changed")
+791495	    require(inv["automatic_verified"] is False, "machine verification forbidden")
+791496	    require(inv["critical_evidence_failure_blocks_publication"] is True, "critical source/schema gate removed")
+791497	    require(bool(DIGEST.fullmatch(inv["solar1000_sha256"])), "missing pilot digest")
+791498	    require(bool(SHA.fullmatch(doc["protocol_sources"]["commit"])), "protocol source is not pinned")
+791499	    components = doc["components"]
+791500	    require(bool(components), "empty component inventory")
+791501	    ordered = acyclic(components, "id", "code_requires")
+791502	    for row in components:
+791503	        require(bool(row["authored_commits"]), "component lacks authored commits")
+791504	        require(len(set(row["authored_commits"])) == len(row["authored_commits"]), "duplicate authored commit")
+791505	        for sha in row["authored_commits"] + row["integrated_as"]:
+791506	            require(bool(SHA.fullmatch(sha)), "short or invalid source commit")
+791507	        require(bool(row["owned_paths"]), "component lacks file scope")
+791508	        for path in row["owned_paths"]:
+791509	            require(not path.startswith(("/", "\\")) and ".." not in path.split("/") and ":" not in path, "non-relative file scope")
+791510	        require(row["checks"]["status"] in {"reported_pass", "observed_pass", "pending", "failed", "unavailable"}, "unknown component check status")
+791511	        require(row["checks"]["evidence_url"].startswith("https://github.com/"), "missing handoff evidence")
+791512	        if row["integration"] == "transplant_required":
+791513	            require(row["next_action"]["kind"] == "transplant", "old release delta must be transplanted")
+791514	            require(not (row["next_action"]["command"] or "").startswith("git cherry-pick"), "unsafe historical-path cherry-pick")
+791515	        if row["integration"] == "candidate_integrated":
+791516	            require(bool(row["integrated_as"]), "integrated component lacks resulting commit")
+791517	    milestones = doc["milestones"]
+791518	    acyclic(milestones, "version", "requires_release")
+791519	    ids = set(ordered)
+791521	    for row in milestones:
+791522	        require(set(row["components"]) <= ids, "milestone references missing component")
+791523	        check_ci(row)
+791524	        require(type(row["published"]) is bool, "published must be boolean")
+791525	        if row["published"]:
+791526	            require(row["ci"]["status"] == "observed_pass", "publication lacks passing exact-head CI")
+791527	            require(bool(row["public_receipts"]), "publication lacks public receipt")
+791528	            for receipt in row["public_receipts"]:
+791529	                require(receipt["url"].startswith("https://"), "public URL must be HTTPS")
+791530	                require(bool(SHA.fullmatch(receipt["deployment_sha"])), "missing deployed commit")
+791531	                require(bool(DIGEST.fullmatch(receipt["html_sha256"])), "missing served-byte digest")
+791532	                require(receipt["browser_receipt_url"].startswith("https://"), "missing actual browser receipt")
+791534	    require(type(doc["public_pipeline_count"]) is int and doc["public_pipeline_count"] == count, "public release count differs from receipts")
+791535	    for row in doc["prerequisite_releases"]:
+791536	    # The ledger is public. These checks are only obvious-leak checks, not a security certification.
+791537	    text = json.dumps(doc, ensure_ascii=False)
+791538	    require(not re.search(r"(?i)(?<![A-Za-z])[A-Z]:[\\/]|/Users/|/home/|session_id\s*[\":]|threadId", text), "private path or session identifier in public ledger")
+791539	    return {"status": "PASS", "components": len(components), "milestones": len(milestones), "public_pipeline_count": count, "code_dependency_order": ordered}
+791540	    path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).with_name("20261116-build-ledger.json")
+791541	        doc = json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique)
+791542	        print(json.dumps(validate(doc), sort_keys=True))
+791544	    except (OSError, ValueError, KeyError, TypeError) as exc:
+791545	        print(json.dumps({"status": "FAIL", "reason": str(exc) if not isinstance(exc, OSError) else "ledger unavailable"}))
+791547	export function describeComputeReceipt(receipt) {
+791548	import { buildBrowserObserver } from '../tools/build-browser-observer.mjs';
+791549	import { describeComputeReceipt } from '../engine/compute-presentation.js';
+791550	import { distanceKm } from '../engine/v9-geodesy.js';
+791551	const sandbox = {};
+791552	vm.runInNewContext(buildBrowserObserver(), sandbox);
+791553	const api = sandbox.VentusGridCompute;
+791554	const observer = api.createComputeObserver();
+791555	const entity = {kind:'repd',id:'12588'}, location={lon:-1.3489728,lat:51.8132088};
+791556	const id=observer.request({entity,location});
+791557	assert.equal(api.describeComputeReceipt(observer.snapshot()).status,'requested');
+791558	const node={node_id:'test-node',lon:-1.35,lat:51.8};
+791559	let invoked=0;
+791560	const completed=await observer.run(id,()=>{invoked++;return {entity,origin:location,measurements:[{...node,km:distanceKm(location.lon,location.lat,node.lon,node.lat)}]};});
+791561	assert.equal(invoked,1);
+791562	assert.equal(api.distanceKm(location.lon,location.lat,node.lon,node.lat),distanceKm(location.lon,location.lat,node.lon,node.lat));
+791563	assert.equal(completed.status,'completed');
+791564	assert.equal(api.describeComputeReceipt(completed).unit,'km');
+791565	assert.equal(JSON.stringify(api.describeComputeReceipt(completed)),JSON.stringify(describeComputeReceipt(completed)));
+791566	assert.match(api.describeComputeReceipt(completed).scope,/not an electrical connection/);
+791567	assert.equal(describeComputeReceipt({status:'failed',reason:'dataset unavailable'}).distance_km,null);
+791568	assert.equal(describeComputeReceipt(null).status,'not_requested');
+791569	assert.equal(buildBrowserObserver(),buildBrowserObserver());
+791570	console.log('browser observer PASS — 10 checks');
+791571	/** Deterministic browser bundle of the owned receipt and presentation code.
+791572	 * Usage: node tools/build-browser-observer.mjs <output-file>
+791573	 * This bundles observation only; the caller must supply its actual calculation.
+791574	const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+791575	export function buildBrowserObserver() {
+791576	  const read = name => fs.readFileSync(path.join(root, 'engine', name), 'utf8').replace(/\r\n/g, '\n');
+791577	  const geodesy = read('v9-geodesy.js').replace(/^export /gm, '');
+791578	  const observer = read('compute-observer.js').replace(/^import .*;\n/m, '').replace(/^export /gm, '');
+791579	  const presentation = read('compute-presentation.js').replace(/^export /gm, '');
+791580	  return `/* Ventus Grid Engine: generated receipt observer; not a substitute nearest engine. */\n(() => {\n'use strict';\nconst distanceKm = (() => {\n${geodesy}\nreturn distanceKm;\n})();\n${observer}\n${presentation}\nglobalThis.VentusGridCompute = Object.freeze({ schema, distanceKm, createComputeObserver, describeComputeReceipt });\n})();\n`;
+791582	  if (!process.argv[2]) throw new Error('Output file is required');
+791583	  fs.writeFileSync(process.argv[2], buildBrowserObserver());
 ```
