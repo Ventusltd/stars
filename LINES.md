@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-448,700 unique lines, numbered 1 to 775,345. Generated 2026-11-16T03:04:45.317Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+449,215 unique lines, numbered 1 to 777,089. Generated 2026-11-16T12:01:28.947Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -448703,4 +448703,519 @@
 775343	    (out/"latest.md").write_text("\n".join(markdown)+"\n")
 775344	    return 0 # failures are visible findings, not a reason to lose receipts
 775345	if __name__=="__main__":sys.exit(main())
+775347	"""Deterministic V9.23 CI feedback: diagnose failures, never self-authorise publication.
+775349	The half-hourly workflow writes this report for an independent agent to decide
+775350	the next code patch. GitHub Actions cannot infer or fabricate a successful fix.
+775358	TARGET = "202611160020"
+775359	SUGGESTED_REPAIRS = {
+775360	    "tree_unchanged": "Re-run the candidate generator and pin only the new V9.23 tree; never repin historical versions.",
+775361	    "runner": "Inspect the exact failing V9.23 runner step and its pinned V9.22 parent.",
+775362	    "map_contract": "Diff every generated MAP deep link against the canonical V9.22 contract; do not change GridAtlas unilaterally.",
+775363	    "grid_engine_contract": "Test the actual Grid Engine parameters and nearest-result receiver; URLs alone are insufficient.",
+775364	    "map_links_identical_to_parent": "Restore character-for-character V9.22 MAP href parity for all 7,775 REPD records.",
+775365	    "data_unchanged_from_parent": "Reject any new candidate that silently rewrites official REPD source data.",
+775366	    "features_kept": "List the exact inherited feature lost; only the owner's explicit withdrawn features may be retired.",
+775367	    "feature_probes": "Inspect failed named browser probes; recreate the event in Chromium/WebKit and add a targeted negative test.",
+775368	    "browser": "Inspect screenshots, JS exceptions, same-origin failures and 390/393 mobile layout independently.",
+775369	    "csv_export": "Compare all 7,775 exported rows and their exact header/body hashes with the parent.",
+775370	    "size_budget": "Remove unneeded duplicated assets without touching the frozen source partitions.",
+775372	def analyse(document: dict | None, head: str = "") -> dict:
+775375	        "schema": "globalgrid2050.pipeline-news.v923-ci-feedback.v1",
+775376	        "generated_at_utc": now,
+775377	        "candidate": TARGET,
+775379	        "verdict": "UNVERIFIED",
+775380	        "failed_checks": [],
+775381	        "failed_browser_probes": [],
+775382	        "next_repair_actions": [],
+775383	        "release_holds": [
+775384	            "Original publisher rights and independently accepted article-to-REPD binding unverified",
+775385	            "GridAtlas REPD12588/REPD2470 mobile first-restore regressions remain known issues",
+775386	            "Independent physical iPhone and served immutable V9.23 byte acceptance pending",
+775387	            "Production homepage remains V9.22",
+775390	    if not document or not isinstance(document.get("versions"), list):
+775391	        result["next_repair_actions"].append("NO_VERDICT_FILE: inspect the generator and workflow that stopped before release verification.")
+775393	    version = next((v for v in document["versions"] if v.get("id") == TARGET), None)
+775394	    if not version:
+775395	        result["next_repair_actions"].append("MISSING_V923_VERDICT: verify the branch and exact candidate identity.")
+775396	    checks = version.get("checks") or {}
+775397	    mandatory = ("tree_unchanged", "runner", "map_contract", "grid_engine_contract",
+775398	                 "map_links_identical_to_parent", "data_unchanged_from_parent", "features_kept")
+775399	    missing = [name for name in mandatory if name not in checks]
+775401	        result["verdict"] = "INCOMPLETE_VERDICT"
+775402	        result["next_repair_actions"].append("MISSING_MANDATORY_CHECKS: " + ", ".join(missing))
+775403	    result["browser_checked"] = version.get("browser_checked") is True
+775404	    failed = sorted(name for name, value in checks.items() if not isinstance(value, dict) or value.get("pass") is not True)
+775405	    result["failed_checks"] = failed
+775406	    for name in failed:
+775407	        result["next_repair_actions"].append(SUGGESTED_REPAIRS.get(name, "Inspect the raw verdict and add a named regression test for " + name + "."))
+775408	        if name == "feature_probes":
+775409	            probes = checks[name].get("results") or []
+775410	            result["failed_browser_probes"] = [
+775411	                {"name": p.get("name", "unnamed"), "viewport": p.get("viewport", "unknown"),
+775412	                 "detail": str(p.get("detail") or "")[:500]}
+775413	                for p in probes if p.get("pass") is not True
+775414	            ][:30]
+775416	        result["verdict"] = "PRODUCT_CI_FAIL"
+775417	    elif result["browser_checked"]:
+775418	        result["verdict"] = "PRODUCT_BROWSER_PARITY_PASS_WITH_OPEN_EXTERNAL_HOLDS"
+775420	        result["verdict"] = "STATIC_PARITY_PASS_BROWSER_AND_GRIDATLAS_PENDING"
+775422	def main(argv: list[str]) -> int:
+775423	    if len(argv) != 4:
+775424	        raise SystemExit("usage: feedback.py INPUT_VERDICTS_JSON OUTPUT_JSON OUTPUT_MARKDOWN")
+775425	    incoming, out_json, out_md = map(Path, argv[1:4])
+775427	        doc = json.loads(incoming.read_text()) if incoming.is_file() else None
+775430	    info = analyse(doc, os.getenv("ACTUAL_CANDIDATE_SHA") or os.getenv("GITHUB_SHA", "unverified"))
+775431	    out_json.parent.mkdir(parents=True, exist_ok=True)
+775432	    out_json.write_text(json.dumps(info, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+775433	    msg = [
+775434	        "## V9.23 CI feedback (automated, non-publishing)",
+775435	        "UTC: " + info["generated_at_utc"],
+775436	        "Exact checkout/commit: " + info["head"],
+775437	        "Verdict: **" + info["verdict"] + "**",
+775438	        "Failed checks: " + (", ".join(info["failed_checks"]) or "none measured"),
+775440	    if info["failed_browser_probes"]:
+775441	        msg.append("Failed browser probes:")
+775442	        msg.extend("- " + str(p["name"]) + " [" + str(p["viewport"]) + "] " + p["detail"]
+775443	                   for p in info["failed_browser_probes"])
+775444	    msg.append("Next reproducible repair:")
+775445	    msg.extend("- " + item for item in (info["next_repair_actions"] or ["No product regression detected; obtain independent evidence and maintain the release hold."]))
+775446	    msg.append("Release limits (not waived):")
+775447	    msg.extend("- " + item for item in info["release_holds"])
+775448	    out_md.write_text("\n".join(msg) + "\n", encoding="utf-8")
+775449	    print(info["verdict"], "failures=", len(info["failed_checks"]),
+775450	          "probe failures=", len(info["failed_browser_probes"]))
+775451	    return 0  # Preserve reports even when earlier validation failed.
+775454	"""One-time Python release generator, non-publishing and V9.22 immutable."""
+775455	import json,re,subprocess,sys
+775457	P=ROOT/"uk_renewables_pipeline"
+775458	OLD="202611151300"; NEW="202611160020"
+775459	A=P/OLD; B=P/NEW
+775460	HERE=Path(__file__).parent
+775461	def swap(txt,old,new):
+775462	    n=txt.count(old)
+775463	    if n!=1:raise RuntimeError(f"Unsafe anchor count {n} for {old[:100]!r}")
+775464	    return txt.replace(old,new,1)
+775465	def require_completed_candidate(directory, version):
+775466	    """CVAA-01: never treat an interrupted candidate as a successful retry."""
+775468	        "index.html", "CHANGES.md", "README.md", "tests/run_v9_23.sh",
+775469	        "scripts/plugins/projects-v9-8.js", "scripts/plugins/live-news.js",
+775470	        "scripts/plugins/machine-notes-v923.js", "styles/v9-23.css",
+775471	        "docs/V923-AUDIT.md",
+775473	    if version.get("id") != NEW or version.get("version") != "V9.23" or version.get("parent") != OLD:
+775474	        raise RuntimeError("PARTIAL_CANDIDATE: release registry has no complete V9.23 parent/identity")
+775475	    for name in required:
+775476	        path = directory / name
+775477	        if not path.is_file() or path.stat().st_size == 0:
+775478	            raise RuntimeError("PARTIAL_CANDIDATE: missing or empty " + name)
+775479	    if version.get("runner") != "tests/run_v9_23.sh" or not version.get("trees"):
+775480	        raise RuntimeError("PARTIAL_CANDIDATE: release runner or immutable tree receipt missing")
+775481	def repair_existing_columns():
+775482	    """Correct only the known V9.23 insertion error; refuse unrecognised row structures."""
+775483	    path = B / "scripts/plugins/projects-v9-8.js"
+775484	    source = path.read_text()
+775485	    marker = "\nfunction projectRowHtml(project) {"
+775486	    if source.count(marker) != 1:
+775487	        raise RuntimeError("PARTIAL_CANDIDATE: missing unique row-function boundary")
+775488	    inter, repd = source.split(marker, 1)
+775489	    broken = r'</td><td class="machine-note-cell">NOT A REPD RECORD</td><td class="machine-note-cell"><button[^<>]*>CHECK NOTE</button></td><td><div class="project-actions">'
+775490	    fixed = '</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">'
+775491	    inter, n = re.subn(broken, fixed, inter, count=1)
+775492	    if inter.count('class="machine-note-cell"') != 1:
+775493	        raise RuntimeError("PARTIAL_CANDIDATE: interconnector must have exactly one notes cell")
+775494	    target = '</td><td><div class="project-actions">' + chr(36) + '{mapAction}'
+775495	    if repd.count('class="machine-note-cell"') == 0:
+775496	        if repd.count(target) != 1:
+775497	            raise RuntimeError("PARTIAL_CANDIDATE: missing exact REPD notes insertion anchor")
+775498	        cell = '</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="' + chr(36) + '{escapeHtml(project.repd_ref)}" data-note-name="' + chr(36) + '{escapeHtml(project.name)}" data-note-status="' + chr(36) + '{escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">' + chr(36) + '{mapAction}'
+775499	        repd = repd.replace(target, cell, 1)
+775500	    if repd.count('class="machine-note-cell"') != 1 or inter.count('data-note-ref') != 0:
+775501	        raise RuntimeError("PARTIAL_CANDIDATE: REPD notes cell absent, duplicated or on wrong vertical")
+775502	    cleaned = inter + marker + repd
+775503	    if cleaned != source:
+775504	        path.write_text(cleaned)
+775505	    # Rebinding notes after all paginated table rerenders is a V9.23-only view hook.
+775506	    hook = '  body.innerHTML = slice.map(projectRowHtml).join("");'
+775507	    path_text = path.read_text()
+775508	    if 'pipeline-projects-rendered' not in path_text:
+775509	        if path_text.count(hook) != 1:
+775510	            raise RuntimeError("PARTIAL_CANDIDATE: missing unique renderTable hook")
+775511	        path.write_text(path_text.replace(hook,hook+'\n  window.dispatchEvent(new Event("pipeline-projects-rendered"));',1))
+775513	    register=ROOT/"automation/pipeline_release/registry.json"
+775514	    reg=json.loads(register.read_text())
+775515	    if B.exists():
+775516	        require_completed_candidate(B, reg["versions"][-1])
+775517	        reconcile()
+775518	        check()
+775519	        print("Candidate exists; completion receipt and actual contents validated")
+775521	    if reg["versions"][-1]["id"]!=OLD:raise RuntimeError("V9.22 no longer latest parent")
+775522	    subprocess.run([sys.executable,"automation/pipeline_release/new_version.py","create",NEW,"V9.23","one news feed with machine notes","BUILD"],cwd=ROOT,check=True)
+775523	    path=B/"index.html"; txt=path.read_text()
+775524	    txt=swap(txt,'<link rel="stylesheet" href="styles/v9-22.css?v=9.22">','<link rel="stylesheet" href="styles/v9-22.css?v=9.22">\n  <link rel="stylesheet" href="styles/v9-23.css?v=9.23">')
+775525	    txt=swap(txt,'<th>NEWS SIGNAL</th>\n            <th>ACTIONS</th>','<th>NEWS SIGNAL</th>\n            <th>MACHINE READ NOTES</th>\n            <th>ACTIONS</th>')
+775526	    txt=swap(txt,'<details class="news-archive" id="newsArchive">','<details class="news-archive" id="newsArchive" hidden>')
+775527	    txt=swap(txt,'  <script defer src="scripts/plugins/datacentre-news.js?v=1"></script>\n','')
+775528	    txt=swap(txt,'  <script defer src="scripts/plugins/live-news.js?v=2"></script>',
+775529	                 '  <script defer src="scripts/plugins/live-news.js?v=2"></script>\n  <script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>')
+775530	    path.write_text(txt)
+775531	    path=B/"scripts/plugins/live-news.js";txt=path.read_text()
+775532	    txt,n=re.subn(r'\n  function showProject\(ref, chip\) \{.*?\n  \}\n\n','\n',txt,count=1,flags=re.S)
+775533	    if n!=1:raise RuntimeError("show table function absent")
+775534	    start=txt.index("      var chip = el('button', 'ln-match'")
+775535	    end=txt.index("      box.appendChild(chip);",start)+len("      box.appendChild(chip);")
+775536	    txt=txt[:start]+"""      var chip = el('span', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
+775537	      chip.title = 'Unverified name coincidence; not a confirmed link to a project event; inspect the original publisher.';
+775538	      box.appendChild(chip);"""+txt[end:]
+775539	    txt=swap(txt,"    var archive = document.getElementById('newsArchive');",
+775540	                "    var archive = document.getElementById('newsArchive');\n    window.pipelineHeadlineDocument = ok ? doc : null;\n    window.dispatchEvent(new CustomEvent('pipeline-feed-loaded', { detail: ok ? doc : null }));")
+775541	    txt=swap(txt,'    var items = doc.items.map(function (it, i) { return [it, i]; })',
+775542	        """    var items = doc.items.filter(function (it) {
+775543	      return it.category !== 'policy' && !/\\b(politics|political|election campaign)\\b/i.test(String(it.title || ''));
+775544	    }).map(function (it, i) { return [it, i]; })""")
+775545	    path=B/"scripts/plugins/projects-v9-8.js";txt=path.read_text()
+775546	    target='</td><td><div class="project-actions">'+chr(36)+'{mapAction}'
+775547	    boundary="\nfunction projectRowHtml(project) {"
+775548	    if txt.count(boundary)!=1:raise RuntimeError("Missing unique REPD row boundary")
+775549	    inter, repd = txt.split(boundary,1)
+775550	    if inter.count(target)!=1 or repd.count(target)!=1:
+775551	        raise RuntimeError("REPD/interconnector row anchors moved or duplicated")
+775552	    inter=inter.replace(target,'</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">'+chr(36)+'{mapAction}',1)
+775553	    cell='</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="'+chr(36)+'{escapeHtml(project.repd_ref)}" data-note-name="'+chr(36)+'{escapeHtml(project.name)}" data-note-status="'+chr(36)+'{escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">'+chr(36)+'{mapAction}'
+775554	    repd=repd.replace(target,cell,1)
+775555	    txt=(inter+boundary+repd).replace('colspan="11"','colspan="12"')
+775556	    (B/"scripts/plugins/machine-notes-v923.js").write_text((HERE/"templates/machine-notes.js").read_text())
+775557	    (B/"styles/v9-23.css").write_text((HERE/"templates/v9-23.css").read_text())
+775558	    (B/"docs/V923-AUDIT.md").write_text("V9.23 NONLIVE. Candidate notes are name-matched metadata, not verified events. Source REPD unmodified. Politics panel removed, old show-table shortcut removed; old MAP builder inherited. GridAtlas 390px card failure remains RED. No homepage promotion.\n")
+775559	    subprocess.run([sys.executable,"automation/pipeline_release/new_version.py","finalize",NEW,
+775560	        "one feed, Machine Read Notes, no show-table jump","--fault","Known GridAtlas 390px nearest-card failure unresolved",
+775561	        "--feature","machine-notes-column:index.html:MACHINE READ NOTES"],cwd=ROOT,check=True)
+775562	    reconcile()
+775564	    print("CREATED NONLIVE V9.23 CANDIDATE")
+775565	def reconcile():
+775566	    """Pin the NEW candidate after documenting deliberate removals; never edit the parent."""
+775567	    registry=ROOT/"automation/pipeline_release/registry.json"
+775568	    document=json.loads(registry.read_text())
+775569	    v=document["versions"][-1]
+775570	    if v["id"]!=NEW:raise RuntimeError("V9.23 is not the newest candidate")
+775571	    repair_existing_columns()
+775572	    withdrawn=set(v.get("removed_features",[]))
+775573	    withdrawn.add("datacentre-news-panel")
+775574	    v["removed_features"]=sorted(withdrawn)
+775575	    # Version-scoped acceptance: old table has 11 columns; the owner explicitly
+775576	    # asked for one additional native Machine Read Notes column in V9.23.
+775577	    # Withdraw ONLY the obsolete assertion, replace with positive 12-col proof.
+775578	    obsolete="table columns unchanged from the parent"
+775579	    v["removed_probes"]=sorted(set(v.get("removed_probes",[])) | {obsolete})
+775580	    labels="SITE NAME|COUNTY|OPERATOR|TECHNOLOGY|OFFICIAL REPD STATUS|OFFICIAL CAPACITY|REPD REF|GLOBALGRID REF|REPD UPDATED|NEWS SIGNAL|MACHINE READ NOTES|ACTIONS"
+775581	    checks=[
+775582	      {"name":"V9.23 native 12-column notes and original MAP sibling",
+775583	       "selector":"body",
+775584	       "js":"(function(){var headers=[...document.querySelectorAll('.tablewrap thead th')].map(function(th){return th.textContent.replace(/[^A-Z ]/g,'').trim().replace(/ +/g,' ')}).join('|');var row=document.querySelector('#tbody tr');var notes=row?.querySelector('button.machine-note-button[data-note-ref]');return headers==="+json.dumps(labels)+"&&row?.children.length===12&&!!notes&&!!row.querySelector('a.atlaslink[href*=repd_ref]')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('script[src*=datacentre-news]');})()"},
+775585	      {"name":"V9.23 accessible Machine Read Notes opens without altering MAP",
+775586	       "js":"(function(){var b=document.querySelector('#tbody tr button.machine-note-button'),a=b?.closest('tr')?.querySelector('a.atlaslink');if(!b||!a)return false;var before=a.href;b.click();var d=document.querySelector('dialog.machine-note-dialog');var content=d?.querySelector('#machineNoteBody')?.textContent||'';var pass=d?.open&&(/CANDIDATE|INSUFFICIENT EVIDENCE/.test(content))&&content.includes('OFFICIAL SOURCE STATUS')&&a.href===before&&d.querySelector('button.machine-note-close')?.getBoundingClientRect().height>=44;if(d?.open)d.close();return !!pass;})()"},
+775587	      {"name":"V9.23 latest refusal headline visible in project row without changing official status",
+775588	       "js":"(function(){var row=document.querySelector('#tbody tr[id^=repd-]'),b=row?.querySelector('.machine-note-cell .machine-note-button');if(!b)return false;var ref=b.dataset.noteRef,official=row.children[4]?.textContent;var p=window.pipelineHeadlines;if(!p?.render)return false;p.render({schema:p.schema,generated_at:'2026-11-16T00:00:00Z',status:'ok',items:[{title:'Sample solar application refused',link:'https://example.org/original',source:'Synthetic example',date:'2026-11-11T12:00:00Z',first_seen:'2026-11-15T10:00:00Z',category:'refusal',technology:'solar',possible_match:{repd_ref:ref,site_name:'Synthetic matching name',basis:'name_plus_technology'}}]},'live');var first=b.textContent;b.textContent='CHECK NOTE';window.dispatchEvent(new Event('pipeline-projects-rendered'));return first.includes('REFUSAL REPORTED')&&first.includes('Sample solar application refused')&&b.textContent===first&&b.dataset.noteCandidate==='possible'&&b.getAttribute('aria-label').includes('unverified')&&row.children[4]?.textContent===official;})()"},
+775589	      {"name":"V9.23 one live feed, no separate politics or dead show table action",
+775590	       "js":"!!document.querySelector('#liveNews')&&!document.querySelector('#dcNews')&&!!document.querySelector('#newsArchive[hidden]')&&!document.querySelector('#liveNews button.ln-match')"},
+775591	      {"name":"V9.23 mobile note button visible and accessible without sideways scroll",
+775592	       "js":"(function(){var b=document.querySelector('#tbody tr button.mobile-machine-note');if(!b)return false;var css=getComputedStyle(b);if(innerWidth>768)return css.display==='none';var r=b.getBoundingClientRect();return css.display!=='none'&&r.height>=44&&r.left>=0&&r.right<=innerWidth&&!!b.closest('td.site')&&b.getAttribute('data-note-ref')!==null;})()"}
+775593	    v["browser_probes"]=[p for p in v.get("browser_probes",[]) if p["name"] not in {x["name"] for x in checks}]+checks
+775594	    v["state"]="nonlive_candidate"
+775595	    changes=B/"CHANGES.md"
+775596	    txt=changes.read_text()
+775597	    if "TO BE WRITTEN" in txt:
+775598	        txt=txt.replace("TO BE WRITTEN","""## Changed
+775599	- Removed the non-functional headline-to-table jump. A possible match no longer changes search or paging.
+775600	- Removed the secondary data-centre politics feed. One main infrastructure headline feed remains visible.
+775601	- Added native Machine Read Notes for candidate-only, explicitly unverified headline associations.
+775602	- Kept the complete 7,775-identity REPD source, MAP deep-link emitter, CSV and historic editions untouched.
+775603	## Outstanding
+775604	- GridAtlas receiver mobile sheet can re-minimise a calculated nearest result at 390px (REPD 12588 / 2470): **FAIL** until separate GridAtlas release.
+775605	- Publisher bytes, independent per-project binding, rights, owner iPhone and served V9.23 SHA are **UNVERIFIED**.
+775606	- Data-centre register source rights are unverified; its separate news panel was intentionally withdrawn.
+775608	        changes.write_text(txt)
+775609	    idx=B/"index.html"
+775610	    html=idx.read_text()
+775611	    old='<span><b>DATA-CENTRE HEADLINES:</b> headlines and links from public news and government feeds; no article text is stored or shown. This version carries no content from the UK data-centre register.</span>'
+775613	        html=html.replace(old,'<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>')
+775614	    if "One public energy-infrastructure feed. Machine Read Notes" in html:
+775615	        html=html.replace("One public energy-infrastructure feed. Machine Read Notes",
+775616	                          "One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes")
+775617	    if "no content from the UK data-centre register" not in html:
+775618	        raise RuntimeError("The register-exclusion statement was lost")
+775619	    if html != idx.read_text():idx.write_text(html)
+775620	    rowmodule=B/"scripts/plugins/projects-v9-8.js"
+775621	    project_js=rowmodule.read_text()
+775622	    if 'class="machine-note-button mobile-machine-note"' not in project_js:
+775623	        target='<div class="mobile-extra">'+chr(36)+'{escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><details class="project-record">'
+775624	        addition='<div class="mobile-extra">'+chr(36)+'{escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="'+chr(36)+'{escapeHtml(project.repd_ref)}" data-note-name="'+chr(36)+'{escapeHtml(project.name)}" data-note-status="'+chr(36)+'{escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record">'
+775625	        if project_js.count(target)!=1:raise RuntimeError("Cannot safely insert mobile project note action")
+775626	        rowmodule.write_text(project_js.replace(target,addition,1))
+775627	    style=B/"styles/v9-23.css"
+775628	    css=style.read_text()
+775629	    rule="\n/* Phone: note action in site cell, independent of horizontal table scroll. */\n.mobile-machine-note{display:none!important}\n@media(max-width:768px){.mobile-machine-note{display:inline-flex!important;align-items:center;margin-top:8px;font-size:11px;min-width:112px}.tablewrap th:nth-last-child(2),.tablewrap td.machine-note-cell{display:none}}\n"
+775630	    if "Phone: note action in site cell" not in css:style.write_text(css+rule)
+775631	    js=B/"scripts/plugins/live-news.js"
+775632	    feed=js.read_text()
+775633	    feed=feed.replace("Unverified headline match, not a proven project event",
+775634	                      "Unverified name coincidence; not a confirmed link to a project event; inspect the original publisher.")
+775635	    if feed!=js.read_text():js.write_text(feed)
+775636	    if "no content from the UK data-centre register" not in idx.read_text():
+775637	    sys.path.insert(0,str(ROOT/"automation/pipeline_release"))
+775638	    from common import tree_hash
+775639	    v["trees"]=[tree_hash(NEW)]
+775640	    registry.write_text(json.dumps(document,indent=2,ensure_ascii=False)+"\n")
+775641	    print("V9.23 metadata: datacentre-news-panel explicitly withdrawn; candidate tree pinned")
+775643	    if not B.exists():raise RuntimeError("Candidate not generated")
+775644	    html=(B/"index.html").read_text(); live=(B/"scripts/plugins/live-news.js").read_text()
+775645	    pj=(B/"scripts/plugins/projects-v9-8.js").read_text()
+775646	    assert "MACHINE READ NOTES" in html and "data-note-ref" in pj
+775647	    assert "datacentre-news.js?v=1" not in html and 'id="newsArchive" hidden' in html
+775648	    assert "function showProject(" not in live
+775649	    assert "pipeline-feed-loaded" in live
+775650	    notes_js=(B/"scripts/plugins/machine-notes-v923.js").read_text()
+775651	    assert "headlineSummaryV923" in notes_js, "Machine summary missing from native notes column"
+775652	    assert "shortHeadlineV923" in notes_js and "machine-note-headline" in notes_js, "Short actual headline fragment missing"
+775653	    assert "pipeline-projects-rendered" in notes_js, "Note listener missing on table rerender"
+775654	    assert "pipeline-projects-rendered" in pj, "Table fails to dispatch note-rebinding event"
+775655	    map_test=(B/"tests/browser_real_map_to_engine_agent7.mjs").read_text()
+775656	    assert "visibility_stability" in map_test and "visibilityStability.every" in map_test, "Delayed GridAtlas card-visibility test missing"
+775657	    assert pj.count(boundary)==1, "REPD row boundary changed"
+775658	    inter,repd=pj.split(boundary,1)
+775659	    assert inter.count('class="machine-note-cell"')==1, "Duplicate interconnector note cell"
+775660	    assert inter.count('data-note-ref')==0, "Interconnector wrongly using a REPD key"
+775661	    assert repd.count('class="machine-note-cell"')==1, "Missing REPD note column"
+775662	    assert repd.count('data-note-ref="')>=2, "Missing desktop or mobile REPD note button"
+775663	    reg=json.loads((ROOT/"automation/pipeline_release/registry.json").read_text())
+775664	    require_completed_candidate(B,reg["versions"][-1])
+775665	    for n in ["scripts/core/atlas-receiver-v9-7.js","scripts/data/canonical-projects-v9-5-1.js"]:
+775666	        assert (A/n).read_bytes()==(B/n).read_bytes()
+775667	    print("PASS: V9.23 structural and canonical REPD/MAP source parity")
+775668	if __name__=="__main__":{"build":build,"check":check}[sys.argv[1]]()
+775669	/* V9.23: candidate-only Machine Read Notes. No original article is republished. */
+775672	  var notes = new Map();
+775673	  var dialog;
+775680	  function originalLink(raw) {
+775681	    try { var u = new URL(String(raw)); return u.protocol === 'https:' ? u.href : null; }
+775683	  function headlineSummaryV923(item) {
+775684	    var kind = {
+775685	      refusal: 'REFUSAL REPORTED',
+775686	      consent: 'CONSENT REPORTED',
+775687	      planning_decision: 'PLANNING DECISION REPORTED',
+775688	      construction: 'CONSTRUCTION REPORTED',
+775689	      finance: 'FINANCING REPORTED',
+775690	      grid: 'GRID UPDATE REPORTED',
+775691	      energisation: 'ENERGISATION REPORTED',
+775692	      dco: 'DCO UPDATE REPORTED',
+775693	      datacentre: 'DATA CENTRE UPDATE REPORTED'
+775694	    }[item.category] || 'PROJECT HEADLINE';
+775695	    var d = new Date(item.published);
+775696	    var date = Number.isNaN(d.getTime()) ? 'DATE UNKNOWN' :
+775697	      d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).toUpperCase();
+775698	    return kind + ' · ' + date;
+775699	  function shortHeadlineV923(item) {
+775700	    // First ten source-title words only, never publisher article text.
+775701	    var raw = String(item.title || '').replace(/\s+/g, ' ').trim();
+775702	    if (!raw) return 'Headline details available at original source';
+775703	    var words = raw.split(' ');
+775704	    return words.slice(0, 10).join(' ') + (words.length > 10 ? '…' : '');
+775705	  function latestTime(item) {
+775706	    var t = Date.parse(item.published || item.observed || '');
+775707	    return Number.isFinite(t) ? t : 0;
+775708	  function load(doc) {
+775709	    notes.clear();
+775710	    if (doc && Array.isArray(doc.items)) doc.items.forEach(function (item) {
+775711	      var match = item.possible_match;
+775712	      if (!match || !/^\d+$/.test(String(match.repd_ref || ''))) return;
+775713	      if (item.category === 'policy' || /\b(politics|political|election campaign)\b/i.test(String(item.title || ''))) return;
+775714	      var uri = originalLink(item.link);
+775715	      if (!uri) return;
+775716	      var id = String(match.repd_ref);
+775717	      if (!notes.has(id)) notes.set(id, []);
+775718	      notes.get(id).push({
+775719	        title: String(item.title || ''), publisher: String(item.source || 'Publisher not stated'),
+775720	        url: uri, category: String(item.category || 'other'),
+775721	        published: String(item.date || ''), observed: String(item.first_seen || '')
+775724	    // The first line is useful before any click: short event and publisher date.
+775725	    // Never turn an algorithmic name association into an official REPD decision.
+775726	    notes.forEach(function (events) { events.sort(function (a, b) {
+775727	      return latestTime(b) - latestTime(a) || a.title.localeCompare(b.title);
+775728	    }); });
+775729	    updateVisibleNotes();
+775730	    window.dispatchEvent(new Event('machine-notes-updated'));
+775731	  function updateVisibleNotes() {
+775732	    document.querySelectorAll('.machine-note-button').forEach(function (b) {
+775733	      var items = notes.get(String(b.dataset.noteRef)) || [];
+775734	      if (items.length) {
+775735	        b.replaceChildren(
+775736	          el('span', 'machine-note-kind', 'POSSIBLE · ' + headlineSummaryV923(items[0])),
+775737	          el('span', 'machine-note-headline', shortHeadlineV923(items[0]))
+775740	        b.textContent = 'NO MATCHED HEADLINE';
+775742	      b.setAttribute('aria-label', items.length
+775743	        ? 'Possible, unverified project headline: ' + headlineSummaryV923(items[0])
+775744	          + '. ' + shortHeadlineV923(items[0]) + '. Open evidence brief'
+775745	        : 'No matched project headline. Open evidence state');
+775746	      b.title = items.length ? 'POSSIBLE MATCH · ' + items[0].publisher + ' · verify at original source'
+775747	        : 'No independently evidenced project headline';
+775748	      b.dataset.noteCandidate = items.length ? 'possible' : 'none';
+775750	    if (dialog) return dialog;
+775751	    dialog = el('dialog', 'machine-note-dialog');
+775752	    dialog.setAttribute('aria-labelledby', 'machineNoteTitle');
+775753	    var close = el('button', 'machine-note-close', 'CLOSE');
+775754	    close.type = 'button';
+775755	    close.addEventListener('click', function () { if (dialog.close) dialog.close(); else dialog.removeAttribute('open'); });
+775756	    var title = el('h2', null, 'Machine-originated Pipeline Intelligence Brief');
+775757	    title.id = 'machineNoteTitle';
+775758	    dialog.append(close, title);
+775759	    var body = el('div', 'machine-note-body');
+775760	    body.id = 'machineNoteBody';
+775761	    dialog.appendChild(body);
+775762	    document.body.appendChild(dialog);
+775763	    return dialog;
+775764	  function open(button) {
+775765	    var dlg = panel(), body = document.getElementById('machineNoteBody');
+775766	    body.replaceChildren();
+775767	    var ref = String(button.dataset.noteRef || '');
+775768	    var events = notes.get(ref) || [];
+775769	    body.appendChild(el('p', 'machine-note-stamp', events.length ?
+775770	      'CANDIDATE — NOT INDEPENDENTLY VERIFIED' : 'INSUFFICIENT EVIDENCE'));
+775771	    body.appendChild(el('p', null, 'REPD ' + ref + ' · ' + String(button.dataset.noteName || 'Project')));
+775772	    body.appendChild(el('p', null, 'OFFICIAL SOURCE STATUS · ' + String(button.dataset.noteStatus || 'Unknown')));
+775774	      body.appendChild(el('p', null, 'No adequate matched headline evidence is currently available. The official source remains unchanged.'));
+775776	      body.appendChild(el('p', null, 'Machine assessment: a headline may relate to this named project. This is an unverified screening lead, not a new official status or an independently accepted project decision. Check the source and exact REPD binding before relying on it.'));
+775777	      events.slice(0, 5).forEach(function (event) {
+775778	        var entry = el('section', 'machine-note-source');
+775779	        entry.appendChild(el('p', null, event.publisher + ' · PUBLISHED ' + (event.published || 'not independently established') +
+775780	          ' · FIRST OBSERVED ' + (event.observed || 'unknown')));
+775781	        var a = el('a', null, event.title || 'Publisher headline');
+775782	        a.href = event.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+775783	        entry.appendChild(a); body.appendChild(entry);
+775784	      body.appendChild(el('p', null, 'Evidence receipt, owner independence, rights and exact REPD identity association: NOT VERIFIED.'));
+775785	    if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+775786	    dlg.querySelector('.machine-note-close').focus();
+775787	  window.pipelineMachineNotes = { has: function (ref) { return notes.has(String(ref)); } };
+775788	  window.addEventListener('pipeline-feed-loaded', function (ev) { load(ev.detail); });
+775789	  window.addEventListener('pipeline-projects-rendered', updateVisibleNotes);
+775790	  document.addEventListener('click', function (ev) {
+775791	    var b = ev.target && ev.target.closest ? ev.target.closest('.machine-note-button') : null;
+775792	    if (b) open(b);
+775794	  if (window.pipelineHeadlineDocument) load(window.pipelineHeadlineDocument);
+775796	"""CVAA fail-closed checks: interrupted builds and two-vertical REPD table cells."""
+775800	SOURCE=Path(__file__).resolve().parent/"repair.py"
+775801	spec=importlib.util.spec_from_file_location("v923_repair_under_test",SOURCE)
+775802	repair=importlib.util.module_from_spec(spec)
+775803	spec.loader.exec_module(repair)
+775804	class IncompleteBuildTests(unittest.TestCase):
+775805	    def test_interrupted_after_create_must_fail(self):
+775807	            root=Path(d)
+775808	            (root/"index.html").write_text("partial")
+775809	            with self.assertRaisesRegex(RuntimeError,"PARTIAL_CANDIDATE"):
+775810	                repair.require_completed_candidate(root,{"id":repair.NEW,"version":"V9.23","parent":repair.OLD,"runner":"tests/run_v9_23.sh","trees":["digest"]})
+775811	    def test_unregistered_candidate_must_fail(self):
+775812	                repair.require_completed_candidate(Path(d),{"id":repair.OLD,"version":"V9.22"})
+775813	    def test_inline_headline_summary_exists_and_is_candidate_only(self):
+775814	        notes=(repair.B/"scripts/plugins/machine-notes-v923.js").read_text()
+775815	        self.assertIn("headlineSummaryV923",notes)
+775816	        self.assertIn("shortHeadlineV923",notes)
+775817	        self.assertIn("machine-note-headline",notes)
+775818	        self.assertIn("pipeline-projects-rendered", notes)
+775819	        self.assertIn("Possible, unverified project headline",notes)
+775820	        self.assertNotIn("CONFIRMED BY MACHINE",notes)
+775821	    def test_late_gridatlas_card_collapse_must_be_checked(self):
+775822	        script=(repair.B/"tests/browser_real_map_to_engine_agent7.mjs").read_text()
+775823	        self.assertIn("visibility_stability",script)
+775824	        self.assertIn("visibilityStability.every",script)
+775825	        self.assertIn("1700, 4000, 4400",script)
+775826	    def test_feedback_keeps_failed_browser_probe_red(self):
+775827	        spec2=importlib.util.spec_from_file_location(
+775828	            "v923_feedback_under_test",SOURCE.parent/"feedback.py")
+775829	        feedback=importlib.util.module_from_spec(spec2)
+775830	        spec2.loader.exec_module(feedback)
+775831	        record={"versions":[{"id":repair.NEW,"checks":{
+775832	            "feature_probes":{"pass":False,"results":[
+775833	                {"name":"Native notes column","viewport":"phone","pass":False,
+775834	                 "detail":"Missing row cell"}]},
+775835	            "map_contract":{"pass":True},
+775836	            "tree_unchanged":{"pass":True},
+775837	            "runner":{"pass":True},
+775838	            "grid_engine_contract":{"pass":True},
+775839	            "map_links_identical_to_parent":{"pass":True},
+775840	            "data_unchanged_from_parent":{"pass":True},
+775841	            "features_kept":{"pass":True}
+775842	        }}]}
+775843	        outcome=feedback.analyse(record, "frozen-test-sha")
+775844	        self.assertEqual(outcome["verdict"],"PRODUCT_CI_FAIL")
+775845	        self.assertEqual(outcome["failed_checks"],["feature_probes"])
+775846	        self.assertEqual(outcome["failed_browser_probes"][0]["viewport"],"phone")
+775847	        self.assertNotEqual(outcome["verdict"],"PRODUCT_CI_PASS_WITH_OPEN_EXTERNAL_HOLDS")
+775848	    def test_feedback_missing_mandatory_checks_is_incomplete(self):
+775849	        outcome=feedback.analyse({"versions":[{"id":repair.NEW,"checks":{}}]})
+775850	        self.assertEqual(outcome["verdict"],"INCOMPLETE_VERDICT")
+775851	    def test_feedback_static_pass_is_not_a_browser_pass(self):
+775852	        names=("tree_unchanged","runner","map_contract","grid_engine_contract",
+775853	               "map_links_identical_to_parent","data_unchanged_from_parent","features_kept")
+775854	        doc={"versions":[{"id":repair.NEW,"browser_checked":False,
+775855	              "checks":{n:{"pass":True} for n in names}}]}
+775856	        outcome=feedback.analyse(doc)
+775857	        self.assertEqual(outcome["verdict"],
+775858	          "STATIC_PARITY_PASS_BROWSER_AND_GRIDATLAS_PENDING")
+775859	        self.assertFalse(outcome["browser_checked"])
+775860	    def test_feedback_missing_verdict_is_not_success(self):
+775861	        self.assertEqual(feedback.analyse(None)["verdict"],"UNVERIFIED")
+775862	    def test_candidate_columns_are_one_per_vertical(self):
+775863	        content=(repair.B/"scripts/plugins/projects-v9-8.js").read_text()
+775865	        self.assertEqual(content.count(marker),1)
+775866	        inter,repd=content.split(marker,1)
+775867	        self.assertEqual(inter.count('class="machine-note-cell"'),1)
+775868	        self.assertEqual(repd.count('class="machine-note-cell"'),1)
+775869	        self.assertNotIn('data-note-ref',inter)
+775870	        self.assertIn('data-note-ref=',repd)
+775871	if __name__=="__main__":
+775878	  <title>GlobalGrid2050 | UK Renewables Pipeline 202611160020</title>
+775894	  <link rel="stylesheet" href="styles/v9-23.css?v=9.23">
+775906	      <small>UK RENEWABLES PIPELINE · V9.23</small>
+775909	      <a class="active" href="#">V9.23 BUILD · REPD Q3 2026</a>
+775911	      <a href="../202611151300/">V9.22 202611151300 · REPD Q3 2026</a>
+775956	      <h1>UK RENEWABLES PIPELINE 202611160020</h1>
+775959	      <strong>V9.23 · REPD OCTOBER 2026 (Q3) · ONE NEWS FEED WITH MACHINE NOTES · BUILD · 16 November 2026</strong>
+775972	      <details class="news-archive" id="newsArchive" hidden>
+776053	            <th>MACHINE READ NOTES</th>
+776062	      <span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>
+776067	  <script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>
+776145	      var chip = el('span', 'ln-match', 'Possible match: ' + m.site_name + ' (REPD ' + m.repd_ref + ')');
+776159	    window.pipelineHeadlineDocument = ok ? doc : null;
+776160	    window.dispatchEvent(new CustomEvent('pipeline-feed-loaded', { detail: ok ? doc : null }));
+776167	    var items = doc.items.filter(function (it) {
+776168	      return it.category !== 'policy' && !/\b(politics|political|election campaign)\b/i.test(String(it.title || ''));
+776169	    }).map(function (it, i) { return [it, i]; })
+776379	  return `<tr id="repd-${escapeHtml(record.repd_ref)}" data-repd-updated="" data-technology="interconnector"><td class="site">${escapeHtml(record.name)}<div class="project-meta">${escapeHtml(identity)} · ${escapeHtml(record.gg_project_id)} · NOT A REPD RECORD</div><div class="mobile-extra">${escapeHtml(location)}</div><details class="project-record"><summary>INTERCONNECTOR RECORD</summary><div class="record-grid"><div><b>CONVERTERS</b><span>${escapeHtml(gbEnd)} ↔ ${escapeHtml(farEnd)}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(geometry)}</span></div><div><b>FLOW</b><span>${escapeHtml(flow)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(lifecycle)}</span></div><div><b>SOURCE</b><span>data-interconnectors reference list; converter positions from gridatlas</span></div><div><b>NOTES</b><span>${escapeHtml(record.notes || "-")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location)}</td><td class="hide-mobile">${escapeHtml(record.operator || "not in reference data")}</td><td><span class="badge" style="background:${COLOURS[record.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(record.status)}</td><td class="mw">${record.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(record.bmrs_code || "no BMRS code")}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(record.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">not a REPD record</td><td><span class="signal none">NO SIGNAL</span><div class="signal-note">news signals are REPD-bound; interconnectors carry none</div></td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(record.gg_project_id)}">COPY ID</button></div></td></tr>`;
+776394	    return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td><span class="signal ${escapeHtml(signal.cls)}">${escapeHtml(signal.label)}</span><div class="signal-note">${escapeHtml(signal.note)}</div></td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
+776445	  // A later filter, sort or page change must keep precomputed notes on new rows.
+776446	  window.dispatchEvent(new Event("pipeline-projects-rendered"));
+776628	    document.getElementById("tbody").innerHTML = '<tr><td colspan="12" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.5.1 has failed closed.</td></tr>';
+776844	      // Recheck at 1.7 s, 5.7 s (past the known 5.3 s reset) and 10.1 s.
+776845	      // A computed-but-hidden result or a card that re-minimises is a FAIL.
+776846	      const visibilityStability = [];
+776847	      let elapsedMs = 0;
+776848	      for (const deltaMs of [1700, 4000, 4400]) {
+776849	        await arrival.waitForTimeout(deltaMs);
+776850	        elapsedMs += deltaMs;
+776851	        const sample = await arrival.evaluate(() => {
+776852	          const body = document.body?.innerText || '';
+776854	            nearest_visible: /Nearest\s+\d+\s*kV\s+substation\s*:/i.test(body),
+776855	            minimised: !!document.querySelector('.maplibregl-popup.gridatlas-min')
+776858	        visibilityStability.push({ elapsed_ms: elapsedMs, ...sample });
+776859	      receipt.phases.visibility_stability = visibilityStability;
+776889	      assert.ok(visibilityStability.length === 3
+776890	        && visibilityStability.every(s => s.nearest_visible && !s.minimised),
+776891	        'Mobile nearest result not continuously user-visible after manual restore at 1.7/5.7/10.1 s');
+776919	/* check_v9_23.mjs - Pipeline News V9.23, proven from the bytes and through the
+776928	 * Run: node tests/check_v9_23.mjs
+776937	const VERSION = "9.23";
+776939	const PARENT_ID = "202611151300";
+777012	console.log(`check_v9_23: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+777030	<a href="versions.json">versions.json</a>. Generated 2026-11-16T08:14:12Z.</p>
+777031	<p>V9.23 published 16 November 2026 on direct owner instruction. One simplified feed; native brief, possible-match Machine Read Notes visible in each project row; broken show-table shortcut removed. V9.22 (202611151300), V9.21 and V9.20 remain available and immutable. External GridAtlas real mobile first-restore: 390px 1/3 PASS for solar/BESS/wind, 1440px 3/3 PASS. Original publisher rights/independent per-article match verification not established; existing official REPD statuses unchanged. No claim that an independently verified planning event was created by heuristic notes.</p>
+777035	<tr class="pass"><td><a href="202611160020/"><b>202611160020</b></a><br>V9.23<br><span class="state">PUBLISHED_ITERATIVE_KNOWN_GRIDATLAS_MOBILE_ISSUE</span></td><td>2026-11-16 00:20:00 UTC</td><td>one feed, Machine Read Notes, no show-table jump<ul><li>Known GridAtlas 390px nearest-card failure unresolved</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43785343834">SUCCESS</a></td><td>parent 202611151300<br><a href="202611160020/CHANGES.md">changes</a></td></tr>
+777065	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">Open Pipeline News &rarr;</a></div></details>
+777089	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div></details></td></tr>
 ```

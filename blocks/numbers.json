@@ -1,5 +1,5 @@
 {
- "next": 2197,
+ "next": 2201,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2133,6 +2133,10 @@
   "globalgrid2050:automation/news/evidence_ledger.py": 2193,
   "globalgrid2050:automation/news/signals/dates.py": 2194,
   "globalgrid2050:automation/news/signals/gate.py": 2195,
-  "neural-link-between-agents:automation/v923-recovery/audit.py": 2196
+  "neural-link-between-agents:automation/v923-recovery/audit.py": 2196,
+  "globalgrid2050:automation/v923-recovery/feedback.py": 2197,
+  "globalgrid2050:automation/v923-recovery/repair.py": 2198,
+  "globalgrid2050:automation/v923-recovery/templates/machine-notes.js": 2199,
+  "globalgrid2050:automation/v923-recovery/test_regressions.py": 2200
  }
 }
