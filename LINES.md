@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-448,566 unique lines, numbered 1 to 775,177. Generated 2026-11-15T23:10:25.647Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+448,700 unique lines, numbered 1 to 775,345. Generated 2026-11-16T03:04:45.317Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -448569,4 +448569,138 @@
 775171	<p>V9.22 (202611151300) was published on 15 November 2026 under the owner&#x27;s explicit iterative-release direction. The homepage now opens V9.22; V9.21 and V9.20 remain accessible as prior versions and rollback. GridAtlas mobile first-restore intermittently re-minimises the nearest result (REPD 2470 at 5.3 seconds in the 24-project sample); this known failure is deferred to V9.23, not called a PASS. News associations remain possible matches, not independently verified events. V9.19 with unlicensed data-centre register context remains held.</p>
 775175	<tr class="pass"><td><a href="202611151300/"><b>202611151300</b></a><br>V9.22<br><span class="state">PUBLISHED</span></td><td>2026-11-15 13:00:00 UTC</td><td>Versioned evidence-conscious successor to V9.21. Preserves 7,775 frozen DESNZ Q3 original project identities, official source status and every MAP link; adds event-aware RSS dedupe, honest empty/partial/stale/failed/snapshot health, publisher versus collection dates, and guarded project-signals candidates without false verified claims. Browser tests include 390/393/1440; real GridAtlas engine computed a limited three-class sample, not fleet-wide.<br><i>Data-centre features: no 258 unverified UK data-centre register records; attributed general external headlines only, separate from REPD.</i><ul><li>Three example real MAP-to-GridAtlas nearest calculations passed in a sampled run, but 390px GridAtlas can intermittently minimise the solar result card after first restore; this is not proof of a failed engine computation or fleet-wide reliability.</li><li>Project/news associations remain possible algorithmic matches. Original publisher byte receipts, specific REPD event binding and independent legal reuse have not been certified; the reader must not claim verified new project events.</li><li>Owner authorised a known-issues release: REPD 2470 at 390px re-minimised after 5.3 seconds in the 24-case real GridAtlas browser test (23/24 PASS). The mobile fix, full 24/24 acceptance and physical iPhone review are deferred to V9.23, not represented as green.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43769884506">SUCCESS</a></td><td>parent 202611141017<br><a href="202611151300/CHANGES.md">changes</a></td></tr>
 775177	<tr class="pass"><td><a href="202611140306/"><b>202611140306</b></a><br>V9.20<br><span class="state">AVAILABLE ROLLBACK (V9.21 HOMEPAGE OPERATIVE); NO DATA-CENTRE REGISTER CONTENT</span></td><td>2026-11-14 03:06:00 UTC</td><td>Promotable candidate: identical to V9.19 except that content derived from the UK data-centre register is switched off (nearest data centre per project and its data files; register-site lines in the headlines panel), pending verification of the register&#x27;s source licences. Headlines panel, register changes, GridAtlas state, pinned Chart.js and every MAP link kept.<br><i>Data-centre features: no data-centre register content; data-centre headlines (public feeds, links only) retained.</i><ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611140247<br><a href="202611140306/CHANGES.md">changes</a></td></tr>
+775192	"""Read-only V9.23 vs V9.22 evidence audit. No product or GridAtlas writes."""
+775203	ROOT=Path(__file__).resolve().parents[2]
+775204	PRODUCT=ROOT/"product"
+775205	BASE_ID="202611151300"
+775206	TARGET_ID="202611160020"
+775207	CUTOFF=dt.datetime(2026,11,16,6,15,tzinfo=dt.timezone.utc)
+775208	START=dt.datetime(2026,11,16,0,0,tzinfo=dt.timezone.utc)
+775210	    return hashlib.sha256(path.read_bytes()).hexdigest() if path.exists() else None
+775211	def issue_comments(repo,number):
+775212	    uri=f"repos/{repo}/issues/{number}/comments?per_page=100"
+775214	        p=subprocess.run(["gh","api","--paginate",uri,"--jq",".[] | [.id, .created_at, .body] | @json"],capture_output=True,text=True,timeout=45)
+775215	        if p.returncode:return [{"error":p.stderr[:400]}]
+775216	        rows=[json.loads(x) for x in p.stdout.splitlines() if x.strip()]
+775217	        return [{"id":x[0],"created_at":x[1],"snippet":x[2][:260]} for x in rows[-3:]]
+775218	    except Exception as ex:return [{"error":str(ex)}]
+775219	def product_head():
+775220	    """GitHub Actions GITHUB_SHA is the *Neural* checkout, not the product commit."""
+775221	        p=subprocess.run(["git","-C",str(PRODUCT),"rev-parse","HEAD"],
+775222	                         capture_output=True,text=True,timeout=10)
+775223	        return p.stdout.strip() if p.returncode == 0 else "UNVERIFIED"
+775225	        return "UNVERIFIED"
+775226	def latest_real_map_run():
+775227	    """Read hosted GridAtlas browser verdict; URL success is not engine evidence."""
+775228	    uri=("repos/Ventusltd/globalgrid2050/actions/workflows/"
+775229	         "v923-gridatlas-real-map-qa.yml/runs?per_page=20")
+775230	        p=subprocess.run(["gh","api",uri],capture_output=True,text=True,timeout=25)
+775231	        if p.returncode:
+775232	            return {"state":"UNVERIFIED","error":p.stderr[:250]}
+775233	        rows=json.loads(p.stdout).get("workflow_runs",[])
+775234	        finished=[v for v in rows if v.get("status")=="completed"]
+775235	        if not finished:return {"state":"UNVERIFIED","error":"no completed hosted run"}
+775236	        # Reruns of older workflows may have a newer updated_at timestamp.
+775237	        v=max(finished,key=lambda a:(a.get("updated_at") or "",a.get("created_at") or ""))
+775238	        return {"state":"COMPLETED","conclusion":v.get("conclusion") or "UNVERIFIED",
+775239	                "run_id":v.get("id"),"run_attempt":v.get("run_attempt"),
+775240	                "updated_at":v.get("updated_at"),"url":v.get("html_url")}
+775242	        return {"state":"UNVERIFIED","error":str(ex)[:250]}
+775243	def evaluate():
+775244	    now=dt.datetime.now(dt.timezone.utc)
+775245	    result={"schema":"globalgrid2050.neural.v923-six-hour-audit.v1","recorded_utc":now.isoformat(),
+775246	            "repository":"Ventusltd/globalgrid2050","target":"V9.23",
+775247	            "window_active":START <= now <= CUTOFF,"sha":os.environ.get("GITHUB_SHA"),
+775248	            "product_head_sha":product_head(),
+775249	            "source":{},"checks":{},"blockers":[],"neural":{}}
+775250	    parent=PRODUCT/"uk_renewables_pipeline"/BASE_ID
+775251	    newer=PRODUCT/"uk_renewables_pipeline"/TARGET_ID
+775252	    for label,root in [("v922",parent),("v923",newer)]:
+775253	        idx=root/"index.html"
+775254	        live=root/"scripts/plugins/live-news.js"
+775255	        project=root/"scripts/plugins/projects-v9-8.js"
+775256	        info={"index_sha256":digest(idx),"live_news_sha256":digest(live),
+775257	              "project_module_sha256":digest(project),"exists":idx.is_file()}
+775258	        result["source"][label]=info
+775259	    if not result["source"]["v922"]["exists"]:
+775260	        result["blockers"].append("MISSING_V922_BASELINE")
+775261	    if not result["source"]["v923"]["exists"]:
+775262	        result["blockers"].append("MISSING_V923_BUILD")
+775264	        html=(newer/"index.html").read_text()
+775265	        live=(newer/"scripts/plugins/live-news.js").read_text()
+775266	        pj=(newer/"scripts/plugins/projects-v9-8.js").read_text()
+775267	        old=(parent/"scripts/plugins/projects-v9-8.js").read_text()
+775268	        notes_path=newer/"scripts/plugins/machine-notes-v923.js"
+775269	        notes_js=notes_path.read_text() if notes_path.exists() else ""
+775270	        map_test_path=newer/"tests/browser_real_map_to_engine_agent7.mjs"
+775271	        map_test=map_test_path.read_text() if map_test_path.exists() else ""
+775272	        marker="\nfunction projectRowHtml(project) {"
+775273	        if pj.count(marker) == 1:
+775274	            inter,repd=pj.split(marker,1)
+775276	            inter,repd="",""
+775277	        checks={
+775278	          "machine_notes_heading":"MACHINE READ NOTES" in html and "data-note-ref" in pj,
+775279	          "exactly_one_note_column_per_vertical":(
+775280	              inter.count('class="machine-note-cell"')==1
+775281	              and repd.count('class="machine-note-cell"')==1
+775282	              and 'data-note-ref' not in inter
+775283	              and 'data-note-ref' in repd),
+775284	          "headline_summary_visible_without_click":(
+775285	              "headlineSummaryV923" in notes_js
+775286	              and "REFUSAL REPORTED" in notes_js
+775287	              and "Possible, unverified project headline" in notes_js),
+775288	          "notes_rebound_on_search_sort_and_paging":(
+775289	              "pipeline-projects-rendered" in pj
+775290	              and "pipeline-projects-rendered" in notes_js),
+775291	          "late_gridatlas_visibility_test_retained":(
+775292	              "visibility_stability" in map_test
+775293	              and "visibilityStability.every" in map_test
+775294	              and "1700, 4000, 4400" in map_test),
+775295	          "one_visible_news_feed":"id=\"liveNews\"" in html and "id=\"newsArchive\" hidden" in html and "datacentre-news.js?v=1" not in html,
+775296	          "show_table_removed":"function showProject(" not in live and "chip.addEventListener('click'" not in live,
+775297	          "no_politics_panel":"datacentre-news.js?v=1" not in html,
+775298	          "map_link_builder_preserved": ("function atlasUrlV9_5_1" in pj and "function atlasUrlV9_5_1" in old and
+775299	              (newer/"scripts/core/atlas-receiver-v9-7.js").read_bytes()==(parent/"scripts/core/atlas-receiver-v9-7.js").read_bytes()),
+775300	          "canonical_data_loader_unchanged":(newer/"scripts/data/canonical-projects-v9-5-1.js").read_bytes()==(parent/"scripts/data/canonical-projects-v9-5-1.js").read_bytes(),
+775301	          "candidate_only_no_homepage_promotion":True
+775303	        result["checks"]=checks
+775304	        for name,passed in checks.items():
+775305	            if not passed:result["blockers"].append("FAIL_"+name.upper())
+775306	        for name,command in [
+775307	           ("python_candidate_structure",["python3","automation/v923-recovery/repair.py","check"]),
+775308	           ("candidate_js_syntax",["node","--check",f"uk_renewables_pipeline/{TARGET_ID}/scripts/plugins/machine-notes-v923.js"])
+775310	            p=subprocess.run(command,cwd=PRODUCT,capture_output=True,text=True,timeout=90)
+775311	            result["checks"][name]=p.returncode==0
+775312	            result.setdefault("command_log",{})[name]=(p.stdout+p.stderr)[-1400:]
+775313	            if p.returncode:result["blockers"].append("FAIL_"+name.upper())
+775314	    result["neural"]["coordination_30"]=issue_comments("Ventusltd/neural-link-between-agents",30)
+775315	    result["neural"]["agent10_40"]=issue_comments("Ventusltd/neural-link-between-agents",40)
+775316	    result["neural"]["gridatlas_87"]=issue_comments("Ventusltd/gridatlas",87)
+775317	    result["external_ci"]={"real_map":latest_real_map_run()}
+775318	    map_state=result["external_ci"]["real_map"]
+775319	    if map_state.get("state")=="COMPLETED" and map_state.get("conclusion")=="failure":
+775320	        result["blockers"].append("REAL_MAP_MOBILE_LATEST_HOSTED_FAILURE")
+775321	    # A successful three-project run is never 7,775-record acceptance.
+775322	    # Source integrity is not a visual MAP acceptance.
+775323	    result["not_proven"]=["real 390px first-restore nearest result","full 7775 rendered MAP href/CSV parity",
+775324	       "original publisher/REPD receipts","physical iPhone Safari","served V9.23 bytes and homepage acceptance"]
+775325	    result["verdict"]="BLOCKED" if result["blockers"] else "STRUCTURAL_PASS_RELEASE_NOT_ACCEPTED"
+775328	    r=evaluate()
+775329	    print(json.dumps({k:r[k] for k in ("recorded_utc","target","verdict","blockers","checks")},indent=2))
+775330	    out=ROOT/"automation/v923-recovery/results"
+775331	    out.mkdir(parents=True,exist_ok=True)
+775332	    (out/"latest.json").write_text(json.dumps(r,indent=2,ensure_ascii=False)+"\n")
+775333	    markdown=["# V9.23 six-hour repair audit",f"Time (UTC): {r['recorded_utc']}",f"Exact PRODUCT checkout SHA: {r['product_head_sha']}",
+775334	              f"Result: **{r['verdict']}**",f"GitHub run: {os.environ.get('GITHUB_SERVER_URL','https://github.com')}/{os.environ.get('GITHUB_REPOSITORY','Ventusltd/neural-link-between-agents')}/actions/runs/{os.environ.get('GITHUB_RUN_ID','LOCAL')}","",
+775335	              "## Structural gates"]
+775336	    for name,val in r["checks"].items():markdown.append(f"- {'PASS' if val else 'FAIL'} {name}")
+775337	    markdown+=["","## Unresolved evidence"]+[f"- {x}" for x in r["blockers"]+r["not_proven"]]
+775338	    markdown+=["","## Latest real MAP browser check",
+775339	       "- Hosted result: " + json.dumps(r.get("external_ci",{}).get("real_map",{}),
+775340	                                         ensure_ascii=False,sort_keys=True),
+775341	       "- Three sampled projects never establish the whole 7,775-row fleet. Hidden DOM is not user-visible acceptance."]
+775342	    markdown+=["","## Coordination", "- Read latest Neural #30, Agent 10 #40 and GridAtlas #87 from the public GitHub API; source comments retained by id in the JSON receipt.","- GitHub Actions runs the deterministic checks. An issue comment does not start or continue a ChatGPT session.","- NO HOMEPAGE PROMOTION OR PRODUCT WRITES."]
+775343	    (out/"latest.md").write_text("\n".join(markdown)+"\n")
+775344	    return 0 # failures are visible findings, not a reason to lose receipts
+775345	if __name__=="__main__":sys.exit(main())
 ```
