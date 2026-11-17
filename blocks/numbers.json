@@ -1,5 +1,5 @@
 {
- "next": 2282,
+ "next": 2294,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2218,6 +2218,18 @@
   "globalgrid2050:automation/repd_expand_ui/browser.mjs": 2278,
   "globalgrid2050:automation/repd_expand_ui/expand.mjs": 2279,
   "globalgrid2050:automation/v933_preview/browser.mjs": 2280,
-  "globalgrid2050:automation/v933_preview/invariants.mjs": 2281
+  "globalgrid2050:automation/v933_preview/invariants.mjs": 2281,
+  "globalgrid2050:automation/document_facts_ui/{stamp}-v939/model.mjs": 2282,
+  "globalgrid2050:automation/grid_notice_ui/{stamp}-v938/model.mjs": 2283,
+  "globalgrid2050:automation/news/filings/documents.py": 2284,
+  "globalgrid2050:automation/news/grid_watch/government_v938.py": 2285,
+  "globalgrid2050:automation/news_quality_ui/{stamp}-v937/model.mjs": 2286,
+  "globalgrid2050:automation/news_quality_ui/{stamp}-v937/view.mjs": 2287,
+  "globalgrid2050:automation/ticker_neon_ui/{stamp}-v940/ticker.mjs": 2288,
+  "globalgrid2050:automation/v936_preview/browser.mjs": 2289,
+  "globalgrid2050:automation/v937_preview/browser.mjs": 2290,
+  "globalgrid2050:automation/v940_preview/android.mjs": 2291,
+  "globalgrid2050:automation/v940_preview/test_migration.py": 2292,
+  "globalgrid2050:automation/v940_preview/test_migration_origins.py": 2293
  }
 }

@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-463,992 unique lines, numbered 1 to 805,003. Generated 2026-11-17T14:54:01.238Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+465,577 unique lines, numbered 1 to 808,540. Generated 2026-11-17T23:09:14.474Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -463995,4 +463995,1589 @@
 804977	<tr class="pass"><td><a href="202611170324/"><b>202611170324</b></a><br>V9.32<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-17 03:24:00 UTC</td><td>One reviewed government planning decision in the existing Machine Read Notes brief, with provisional exact-ID association, preserved source/rights/date distinctions and unchanged REPD, CSV, MAP, DC and Prices.<ul><li>One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.</li><li>Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896">SUCCESS</a></td><td>parent 202611170243<br><a href="202611170324/CHANGES.md">changes</a></td></tr>
 805002	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">Open Pipeline News &rarr;</a></div></details>
 805003	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.35 - Operational dates, sorting and year filters</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div></details></td></tr>
+805005	"""Offline pinned REPD analytical export; no live importer or source refresh."""
+805006	from .export import main
+805009	"""DuckDB/Parquet prototype preserving the exact frozen canonical records.
+805010	Source blobs are read from a caller-provided local Git repository at a pinned
+805011	commit. Only a new caller-owned output directory is written. No network, source
+805012	refresh, scheduled writes, browser engine or live-pointer modification occurs.
+805024	DATES = {"planning_application_submitted", "repd_record_updated", "operational", "planning_application_withdrawn",
+805025	         "planning_permission_granted", "planning_permission_refused", "planning_permission_expired", "under_construction"}
+805026	TECH = {"solar", "bess", "wind_onshore", "wind_offshore"}
+805029	    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n").encode()
+805032	def git_blob(root, commit, path):
+805034	        raise ValueError("source commit must be an immutable 40-character SHA")
+805035	    p = PurePosixPath(path)
+805036	    if p.is_absolute() or ".." in p.parts or "\\" in path or not path or ":" in path:
+805037	        raise ValueError("unsafe source path")
+805038	    return subprocess.check_output(["git", "-C", str(root), "show", commit + ":" + path], stderr=subprocess.PIPE)
+805039	def load_source(source_root, pin):
+805040	    if pin.get("schema") != "data-grid-gb.repd-columnar-input.v1":
+805041	        raise ValueError("invalid input pin schema")
+805042	    files = pin.get("files")
+805043	    if not isinstance(files, list) or not files or len({f["path"] for f in files}) != len(files):
+805044	        raise ValueError("missing or duplicate source pins")
+805047	        raw = git_blob(source_root, pin["source_commit"], f["path"])
+805048	        if len(raw) != f["bytes"] or sha(raw) != f["sha256"]:
+805049	            raise ValueError("source byte/hash pin mismatch: " + f["path"])
+805050	        blobs[f["path"]] = raw
+805051	    base = pin["edition_path"].rstrip("/") + "/"
+805052	    manifest = json.loads(blobs[base + "data/v9.1/build_manifest.json"])
+805053	    raw_expected = json.loads(blobs[pin["raw_descriptor_path"]])["expected"]
+805054	    if any(raw_expected[k] != v for k, v in pin["raw_dataset_hashes"].items()):
+805055	        raise ValueError("raw dataset hashes disagree with pinned source descriptor")
+805056	    if manifest["project_count"] != pin["expected_rows"] or manifest["solar_count"] != pin["expected_solar"]:
+805057	        raise ValueError("wrong canonical population or scope")
+805058	    if manifest["source_record_count"] != pin["original_source_population"]:
+805059	        raise ValueError("original source population is a different scope")
+805062	        raw = blobs[base + part["path"]]
+805063	        if sha(raw) != part["sha256"]:
+805064	            raise ValueError("partition disagrees with source build manifest")
+805066	        if document["record_count"] != part["record_count"] or len(document["projects"]) != part["record_count"]:
+805067	            raise ValueError("partition count mismatch")
+805068	        rows.extend(document["projects"])
+805069	    solar = json.loads(blobs[base + "solar1000/manifest.json"])
+805070	    ids = solar["ids"]
+805071	    if len(ids) != 1000 or len(set(ids)) != 1000 or ids != sorted(ids, key=int):
+805072	        raise ValueError("Solar-1000 ordered selection changed")
+805073	    if solar["record_count"] != pin["expected_rows"] or solar["solar_count"] != pin["expected_solar"]:
+805074	        raise ValueError("Solar-1000 source scope mismatch")
+805075	    if sha(blobs[base + "solar1000/manifest.json"]) != pin["solar1000_manifest_sha256"]:
+805076	        raise ValueError("Solar-1000 seed manifest changed")
+805077	    if len(rows) != pin["expected_rows"] or sum(r["technology"] == "solar" for r in rows) != pin["expected_solar"]:
+805078	        raise ValueError("actual rows disagree with pinned scope")
+805079	    if len({r["repd_ref"] for r in rows}) != len(rows) or len({r["gg_project_id"] for r in rows}) != len(rows):
+805080	        raise ValueError("duplicate canonical identity")
+805081	    by_ref = {r["repd_ref"]: r for r in rows}
+805082	    if any(i not in by_ref or by_ref[i]["technology"] != "solar" for i in ids):
+805083	        raise ValueError("Solar-1000 identity missing from canonical source")
+805085	        if not {"repd_ref", "gg_project_id", "technology", "capacity_mw", "capacity_known", *DATES} <= r.keys():
+805086	            raise ValueError("missing required canonical field")
+805087	        if not isinstance(r["repd_ref"], str) or r["gg_project_id"] != "GG2050-REPD-" + r["repd_ref"]:
+805088	            raise ValueError("canonical ID changed")
+805089	        cap = r["capacity_mw"]
+805090	        if cap is not None and (type(cap) not in (int, float) or not math.isfinite(cap)):
+805091	            raise ValueError("invalid capacity")
+805092	        if r.get("capacity_known") is False and cap is not None:
+805093	            raise ValueError("unknown capacity cannot become a numeric value")
+805094	        for f in DATES:
+805095	            if r.get(f) is not None and (not isinstance(r[f], str) or dt.date.fromisoformat(r[f]).isoformat() != r[f]):
+805096	                raise ValueError("date must remain a source calendar day or null")
+805097	    return rows, solar, blobs, manifest
+805098	def _q(name):
+805099	    return '"' + name.replace('"', '""') + '"'
+805100	def schema_for(rows):
+805101	    keys = sorted(rows[0])
+805102	    if any(sorted(r) != keys for r in rows):
+805103	        raise ValueError("heterogeneous record field sets")
+805104	    if set(keys) & {"source_ordinal", "solar1000_ordinal", "record_json"}:
+805105	        raise ValueError("reserved column collision")
+805108	        types = {type(r[key]) for r in rows if r[key] is not None}
+805109	        if key in DATES:
+805110	            typ = "DATE"
+805111	        elif not types or types <= {str}:
+805112	            typ = "VARCHAR"
+805113	        elif types <= {bool}:
+805114	            typ = "BOOLEAN"
+805115	        elif types <= {int}:
+805116	            typ = "BIGINT"
+805117	        elif types <= {int, float}:
+805118	            typ = "DOUBLE"
+805119	        elif types <= {list, dict}:
+805120	            typ = "JSON"
+805122	            raise ValueError("unhandled field types: " + key)
+805123	        result.append((key, typ))
+805125	def filters(technology=None, submitted_year=None, updated_year=None, operational_year=None):
+805126	    clauses, values = [], []
+805127	    if technology is not None:
+805128	        if technology not in TECH:
+805129	            raise ValueError("unsupported technology")
+805130	        clauses.append("technology = ?")
+805131	        values.append(technology)
+805132	    for field, year in [("planning_application_submitted", submitted_year), ("repd_record_updated", updated_year), ("operational", operational_year)]:
+805133	        if year is None:
+805135	        if year == "missing":
+805136	            clauses.append(_q(field) + " IS NULL")
+805137	        elif isinstance(year, str) and re.fullmatch(r"[0-9]{4}", year) and 1 <= int(year) <= 9999:
+805138	            clauses.append("EXTRACT(YEAR FROM " + _q(field) + ") = ?")
+805139	            values.append(int(year))
+805140	            raise ValueError("year must be YYYY or missing")
+805141	    return (" WHERE " + " AND ".join(clauses) if clauses else ""), values
+805142	def projection(parquet, limit=100, **query):
+805144	    if type(limit) is not int or not 1 <= limit <= 1000:
+805145	        raise ValueError("projection limit must be 1..1000")
+805146	    where, params = filters(**query)
+805148	        total = db.execute("SELECT count(*) FROM read_parquet(?)" + where, [str(parquet), *params]).fetchone()[0]
+805149	        records = db.execute("SELECT record_json FROM read_parquet(?)" + where + " ORDER BY source_ordinal LIMIT ?", [str(parquet), *params, limit]).fetchall()
+805150	    return {"schema": "data-grid-gb.repd-filtered-view.v1", "matching_count": total,
+805151	            "returned_count": len(records), "limit": limit, "truncated": total > len(records),
+805152	            "rows": [json.loads(r[0]) for r in records]}
+805153	def _matches(row, query):
+805154	    if query.get("technology") is not None and row["technology"] != query["technology"]:
+805156	    for f, param in [("planning_application_submitted", "submitted_year"), ("repd_record_updated", "updated_year"), ("operational", "operational_year")]:
+805157	        y = query.get(param)
+805158	        if y is not None and (row[f] is not None if y == "missing" else not row[f] or row[f][:4] != y):
+805161	def measure(json_path, parquet, limit, query):
+805163	    reference = None
+805164	    for i in range(3):
+805165	        for mode in (["json", "parquet"] if i % 2 == 0 else ["parquet", "json"]):
+805166	            start, cpu = time.perf_counter(), time.process_time()
+805167	            if mode == "json":
+805168	                rows = json.loads(json_path.read_bytes())
+805169	                selected = [r for r in rows if _matches(r, query)]
+805170	                value = {"matching_count": len(selected), "rows": selected[:limit]}
+805172	                value = projection(parquet, limit=limit, **query)
+805173	            samples.append({"format": mode, "iteration": i, "elapsed_ms": (time.perf_counter() - start) * 1000,
+805174	                            "cpu_ms": (time.process_time() - cpu) * 1000, "matching_count": value["matching_count"],
+805175	                            "returned_count": len(value["rows"])})
+805176	            selection = {"matching_count": value["matching_count"], "rows": value["rows"]}
+805177	            if reference is not None and selection != reference:
+805178	                raise ValueError("JSON and Parquet measured selections differ")
+805179	            reference = selection
+805180	    return {"scope": "One workload; fresh DuckDB connection per Parquet sample; file read/parse/filter/decode included; connection startup included for Parquet",
+805181	            "cache": "OS file cache uncontrolled; not a cold-cache benchmark; no browser transfer/WASM or GPU speedup claim",
+805182	            "query": query, "limit": limit, "same_selection": "PASS", "alternating_order": True, "samples": samples}
+805183	def export_product(source_root, output, pin, limit=100, **query):
+805184	    if duckdb.__version__ != "1.3.2":
+805185	        raise ValueError("prototype requires pinned duckdb==1.3.2")
+805186	    # Validate inputs/query and output boundaries before creating any output.
+805187	    filters(**query)
+805188	    if ".." in Path(output).parts:
+805189	        raise ValueError("output path traversal is not allowed")
+805190	    source_root, output = Path(source_root).resolve(), Path(output).resolve()
+805191	    own_root = HERE.parent.resolve()
+805192	    if output == source_root or source_root in output.parents or output == own_root or own_root in output.parents:
+805193	        raise ValueError("output must be caller-owned, outside source and data repositories")
+805195	        raise ValueError("refusing to overwrite an existing output path")
+805196	    ancestor = output.parent
+805197	    while not ancestor.exists() and ancestor != ancestor.parent:
+805198	        ancestor = ancestor.parent
+805199	    inside = subprocess.run(["git", "-C", str(ancestor), "rev-parse", "--is-inside-work-tree"], capture_output=True, text=True)
+805200	    if inside.returncode == 0 and inside.stdout.strip() == "true":
+805201	        raise ValueError("output must be outside every Git source/product worktree")
+805202	    rows, solar, blobs, source_manifest = load_source(source_root, pin)
+805203	    columns = schema_for(rows)
+805204	    ranks = {ref: i for i, ref in enumerate(solar["ids"])}
+805205	    tuples = []
+805207	        values = [json.dumps(r[k], ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False) if typ == "JSON" and r[k] is not None else r[k] for k, typ in columns]
+805208	        tuples.append((i, ranks.get(r["repd_ref"]), *values, encoded(r).decode()))
+805210	    parquet = output / "repd.parquet"
+805211	    load_path = output / "source-load.json"
+805212	    load_path.write_bytes(encoded([{**r, "source_ordinal": i, "solar1000_ordinal": ranks.get(r["repd_ref"]),
+805213	                                    "record_json": encoded(r).decode()} for i, r in enumerate(rows)]))
+805214	        definition = "source_ordinal BIGINT PRIMARY KEY, solar1000_ordinal BIGINT," + ",".join(_q(k) + " " + t for k, t in columns) + ",record_json VARCHAR"
+805215	        db.execute("CREATE TABLE repd(" + definition + ")")
+805216	        load_columns = {"source_ordinal": "BIGINT", "solar1000_ordinal": "BIGINT", **dict(columns), "record_json": "VARCHAR"}
+805217	        db.read_json(str(load_path), columns=load_columns).insert_into("repd")
+805218	        load_path.unlink()
+805219	        db.sql("SELECT * FROM repd ORDER BY source_ordinal").write_parquet(str(parquet), compression="zstd")
+805220	        readback = db.execute("SELECT * FROM read_parquet(?,hive_partitioning=false) ORDER BY source_ordinal", [str(parquet)]).fetchall()
+805221	        if len(readback) != len(tuples):
+805222	            raise ValueError("Parquet readback row count differs")
+805223	        for expected, actual, row in zip(tuples, readback, rows):
+805224	            if actual[0:2] != expected[0:2] or json.loads(actual[-1]) != row:
+805225	                raise ValueError("record identity/order/complete-field JSON roundtrip differs")
+805226	            for j, (key, typ) in enumerate(columns, 2):
+805227	                value = actual[j]
+805228	                if typ == "DATE" and value is not None:
+805229	                    value = value.isoformat()
+805230	                if typ == "JSON" and value is not None:
+805231	                    value = json.loads(value)
+805232	                if value != row[key]:
+805233	                    raise ValueError("typed field roundtrip differs: " + key)
+805234	        if db.execute("SELECT DISTINCT compression FROM parquet_metadata(?)", [str(parquet)]).fetchall() != [("ZSTD",)]:
+805235	            raise ValueError("Parquet compression differs")
+805236	        pilot = db.execute("SELECT repd_ref FROM read_parquet(?) WHERE solar1000_ordinal IS NOT NULL ORDER BY solar1000_ordinal", [str(parquet)]).fetchall()
+805237	        if [r[0] for r in pilot] != solar["ids"]:
+805238	            raise ValueError("Solar-1000 order differs")
+805239	    baseline = output / "benchmark-baseline.json"
+805240	    baseline.write_bytes(encoded(rows))
+805241	    filtered = projection(parquet, limit=limit, **query)
+805242	    (output / "filtered.json").write_bytes(encoded(filtered))
+805243	    solar_raw = blobs[pin["edition_path"] + "/solar1000/manifest.json"]
+805244	    (output / "solar1000-manifest.json").write_bytes(solar_raw)
+805245	    measurements = measure(baseline, parquet, limit, query)
+805246	    (output / "measurements.json").write_bytes(encoded(measurements))
+805247	    outputs = [{"path": name, "bytes": (output / name).stat().st_size, "sha256": sha((output / name).read_bytes())}
+805248	               for name in ["repd.parquet", "filtered.json", "solar1000-manifest.json", "benchmark-baseline.json", "measurements.json"]]
+805249	    source_package_sha = sha(encoded(pin["files"]))
+805250	    manifest = {"schema": "data-grid-gb.repd-columnar-export.v1", "engine": "duckdb-" + duckdb.__version__,
+805251	        "source_commit": pin["source_commit"], "edition_path": pin["edition_path"], "source_package_sha256": source_package_sha,
+805252	        "raw_dataset_hashes": pin["raw_dataset_hashes"], "source_identity_sha256": source_manifest["source_identity_sha256"],
+805253	        "raw_hash_evidence": "Reference hashes checked against pinned product release descriptor; raw CSV/workbook not fetched or rehashed by this export",
+805254	        "rows": len(rows), "solar_rows": sum(r["technology"] == "solar" for r in rows), "columns": columns,
+805255	        "full_row_and_typed_field_readback": "PASS", "solar1000_order_readback": "PASS", "solar1000_manifest_sha256": sha(solar_raw),
+805256	        "first_seen_last_seen": "Preserved if present; absent in this frozen source and never inferred from REPD update, submission or export time",
+805257	        "date_precision": "Calendar day (DATE), null preserved; no time zone or instant invented",
+805258	        "capacity_policy": "Unknown remains null; no default zero", "outputs": outputs,
+805259	        "output_package_sha256": sha(encoded({"source_package_sha256": source_package_sha, "outputs": outputs})),
+805260	        "browser_delivery": "Prototype filtered.json only; no current JSON switch or DuckDB-WASM/GPU dependency",
+805261	        "benchmark_json": "benchmark-baseline.json is offline comparison only, not a browser payload",
+805262	        "size_context": {"parquet_codec": "ZSTD", "json_file_codec": "uncompressed",
+805263	            "json_gzip_bytes_reference_only": len(gzip.compress(baseline.read_bytes(), mtime=0)),
+805264	            "note": "Gzip size is an in-memory reference, not a measured browser transfer or gzip query benchmark"},
+805265	        "measurements": "measurements.json reports all alternating samples, OS cache uncontrolled"}
+805266	    (output / "manifest.json").write_bytes(encoded(manifest))
+805270	    p.add_argument("--source-root", required=True, type=Path)
+805271	    p.add_argument("--pin", type=Path, default=HERE / "pins/v939-source.json")
+805272	    p.add_argument("--out", required=True, type=Path)
+805273	    p.add_argument("--limit", type=int, default=100)
+805274	    p.add_argument("--technology", choices=sorted(TECH))
+805275	    p.add_argument("--submitted-year")
+805276	    p.add_argument("--updated-year")
+805277	    p.add_argument("--operational-year")
+805278	    args = p.parse_args(argv)
+805279	    manifest = export_product(args.source_root, args.out, json.loads(args.pin.read_bytes()), limit=args.limit,
+805280	                              technology=args.technology, submitted_year=args.submitted_year,
+805281	                              updated_year=args.updated_year, operational_year=args.operational_year)
+805282	    print(json.dumps({"rows": manifest["rows"], "solar_rows": manifest["solar_rows"], "outputs": manifest["outputs"]}, indent=2))
+805283	"""Offline prototype checks. Real integration uses an explicit pinned local checkout."""
+805292	from repd_columnar.export import DATES, HERE, encoded, export_product, filters, git_blob, load_source, projection, sha
+805293	PIN = json.loads((HERE / "pins/v939-source.json").read_bytes())
+805294	def synthetic():
+805295	    for i in range(1001):
+805296	        r = {"repd_ref": str(i + 1000), "gg_project_id": "GG2050-REPD-" + str(i + 1000),
+805297	             "technology": "solar" if i < 1000 else "bess", "capacity_mw": None if i == 0 else float(i + 1),
+805298	             "capacity_known": i != 0, "name": 'Synthetic, "Unicode" café\nrow ' + str(i),
+805299	             "relationships": [{"repd_ref": "999999", "source_field": "fixture"}], "source_row": i + 1,
+805300	             "first_seen": None if i == 0 else "2024-01-01T00:00:00Z",
+805301	             "last_seen": None if i == 0 else "2024-02-01T00:00:00Z"}
+805302	        r.update({d: "2025-01-02" if i % 2 else None for d in DATES})
+805304	    base = "uk_renewables_pipeline/209901010000"
+805305	    parts = [{"path": "data/v9.1/projects/part-001.json", "record_count": len(rows), "sha256": sha(encoded({"record_count": len(rows), "projects": rows}))}]
+805306	    manifest = {"project_count": 1001, "solar_count": 1000, "source_record_count": 2000,
+805307	                "project_partitions": parts, "source_identity_sha256": "d" * 64}
+805308	    solar = {"ids": [str(i + 1000) for i in range(1000)], "record_count": 1001, "solar_count": 1000, "selection_count": 1000}
+805309	    blobs = {base + "/data/v9.1/build_manifest.json": encoded(manifest), base + "/solar1000/manifest.json": encoded(solar),
+805310	             "raw-descriptor.json": encoded({"expected": {"csv_sha256": "b" * 64, "xlsx_sha256": "c" * 64}}),
+805311	             base + "/data/v9.1/projects/part-001.json": encoded({"record_count": len(rows), "projects": rows})}
+805312	    pin = {"schema": "data-grid-gb.repd-columnar-input.v1", "source_commit": "a" * 40, "edition_path": base,
+805313	           "expected_rows": 1001, "expected_solar": 1000, "original_source_population": 2000,
+805314	           "solar1000_manifest_sha256": sha(blobs[base + "/solar1000/manifest.json"]),
+805315	           "raw_descriptor_path": "raw-descriptor.json",
+805316	           "raw_dataset_hashes": {"csv_sha256": "b" * 64, "xlsx_sha256": "c" * 64},
+805317	           "files": [{"path": p, "bytes": len(b), "sha256": sha(b)} for p, b in blobs.items()]}
+805318	    return rows, blobs, pin
+805319	class ExportTests(unittest.TestCase):
+805323	        self.source = self.root / "source"
+805324	        self.source.mkdir()
+805325	        self.rows, self.blobs, self.pin = synthetic()
+805326	        self.mock = patch("repd_columnar.export.git_blob", side_effect=lambda root, ref, path: self.blobs[path])
+805327	        self.mock.start()
+805328	        self.addCleanup(self.mock.stop)
+805329	        self.addCleanup(self.tmp.cleanup)
+805330	    def test_all_fields_dates_null_capacity_nested_unicode_and_order_roundtrip(self):
+805331	        out = self.root / "result"
+805332	        m = export_product(self.source, out, self.pin, limit=17, submitted_year="missing")
+805333	        self.assertEqual(m["full_row_and_typed_field_readback"], "PASS")
+805334	        with duckdb.connect() as db:
+805335	            data = db.execute("SELECT source_ordinal,repd_ref,capacity_mw,planning_application_submitted,record_json FROM read_parquet(?) ORDER BY source_ordinal", [str(out / "repd.parquet")]).fetchall()
+805336	            self.assertIsNone(data[0][2])
+805337	            self.assertIsNone(data[0][3])
+805338	            self.assertEqual(data[1][3], datetime.date(2025, 1, 2))
+805339	            self.assertEqual([json.loads(r[-1]) for r in data], self.rows)
+805340	        filtered = json.loads((out / "filtered.json").read_bytes())
+805341	        self.assertEqual(filtered["rows"], self.rows[::2][:17])
+805342	        self.assertEqual(filtered["matching_count"], 501)
+805343	        self.assertNotEqual(m["source_package_sha256"], m["raw_dataset_hashes"]["csv_sha256"])
+805344	        self.assertIsNone(filtered["rows"][0]["first_seen"])
+805345	        self.assertEqual(sha((out / "solar1000-manifest.json").read_bytes()), self.pin["solar1000_manifest_sha256"])
+805346	        measurements = json.loads((out / "measurements.json").read_bytes())
+805347	        self.assertEqual(len(measurements["samples"]), 6)
+805348	        self.assertEqual(measurements["same_selection"], "PASS")
+805349	    def test_changed_byte_pin_refuses_before_output_write(self):
+805350	        pin = copy.deepcopy(self.pin)
+805351	        pin["files"][0]["sha256"] = "0" * 64
+805352	        out = self.root / "must-not-exist"
+805353	        with self.assertRaisesRegex(ValueError, "pin mismatch"):
+805354	            export_product(self.source, out, pin)
+805355	        self.assertFalse(out.exists())
+805356	        p = copy.deepcopy(self.pin)
+805357	        p["raw_dataset_hashes"]["csv_sha256"] = "f" * 64
+805358	        with self.assertRaisesRegex(ValueError, "raw dataset hashes"):
+805359	            load_source(self.source, p)
+805360	    def test_unknown_capacity_is_never_zero_imputed(self):
+805361	        self.rows[0]["capacity_mw"] = 0
+805362	        path = self.pin["edition_path"] + "/data/v9.1/projects/part-001.json"
+805363	        self.blobs[path] = encoded({"record_count": len(self.rows), "projects": self.rows})
+805364	        part_hash = sha(self.blobs[path])
+805365	        manifest_path = self.pin["edition_path"] + "/data/v9.1/build_manifest.json"
+805366	        manifest = json.loads(self.blobs[manifest_path])
+805367	        manifest["project_partitions"][0]["sha256"] = part_hash
+805368	        self.blobs[manifest_path] = encoded(manifest)
+805369	        for f in self.pin["files"]:
+805370	            f.update(bytes=len(self.blobs[f["path"]]), sha256=sha(self.blobs[f["path"]]))
+805371	        with self.assertRaisesRegex(ValueError, "unknown capacity"):
+805372	            load_source(self.source, self.pin)
+805373	    def test_duplicate_identity_and_invalid_day_are_refused(self):
+805374	        for mutate in [lambda r: r[1].update(repd_ref=r[0]["repd_ref"]),
+805375	                       lambda r: r[1].update(planning_application_submitted="2025-99-01")]:
+805376	            rows, blobs, pin = synthetic()
+805377	            mutate(rows)
+805378	            path = pin["edition_path"] + "/data/v9.1/projects/part-001.json"
+805379	            blobs[path] = encoded({"record_count": len(rows), "projects": rows})
+805380	            manifest_path = pin["edition_path"] + "/data/v9.1/build_manifest.json"
+805381	            manifest = json.loads(blobs[manifest_path]);manifest["project_partitions"][0]["sha256"] = sha(blobs[path]);blobs[manifest_path] = encoded(manifest)
+805382	            for f in pin["files"]:
+805383	                f.update(bytes=len(blobs[f["path"]]), sha256=sha(blobs[f["path"]]))
+805384	            with patch("repd_columnar.export.git_blob", side_effect=lambda root, ref, path: blobs[path]):
+805386	                    load_source(self.source, pin)
+805387	    def test_population_mismatch_and_solar_order_are_refused(self):
+805388	        for field, value in [("expected_rows", 7680), ("expected_solar", 3599), ("original_source_population", 14966)]:
+805389	            p = copy.deepcopy(self.pin)
+805390	            p[field] = value
+805392	                load_source(self.source, p)
+805393	        path = self.pin["edition_path"] + "/solar1000/manifest.json"
+805394	        solar = json.loads(self.blobs[path]);solar["ids"].reverse();self.blobs[path] = encoded(solar)
+805395	        self.pin["solar1000_manifest_sha256"] = sha(self.blobs[path])
+805396	        with self.assertRaisesRegex(ValueError, "ordered selection"):
+805397	    def test_existing_or_inside_source_output_is_refused(self):
+805398	        existing = self.root / "existing";existing.mkdir();(existing / "keep").write_text("do not replace")
+805399	        for out in [existing, self.source / "derived", HERE / "output", self.root / "x/../escape"]:
+805400	                export_product(self.source, out, self.pin)
+805401	        self.assertEqual((existing / "keep").read_text(), "do not replace")
+805402	    def test_another_git_worktree_output_is_refused(self):
+805403	        with patch("repd_columnar.export.subprocess.run") as run:
+805404	            run.return_value.returncode = 0;run.return_value.stdout = "true\n"
+805405	            with self.assertRaisesRegex(ValueError, "every Git"):
+805406	                export_product(self.source, self.root / "other-repo/output", self.pin)
+805407	    def test_filters_are_bounded_and_parameterized(self):
+805408	        for query in [{"submitted_year": "2025 OR 1=1"}, {"technology": "solar';drop table repd;--"}, {"operational_year": "0000"}]:
+805409	                filters(**query)
+805410	        clause, args = filters(technology="solar", submitted_year="2025", updated_year="missing")
+805411	        self.assertEqual(args, ["solar", 2025]);self.assertIn("IS NULL", clause)
+805413	            export_product(self.source, self.root / "bad-limit", self.pin, limit=1001)
+805414	    def test_source_path_and_mutable_ref_are_refused(self):
+805415	        self.mock.stop()
+805416	        for ref, path in [("main", "okay.json"), ("a" * 40, "../outside.json"), ("a" * 40, "C:/secret")]:
+805417	                git_blob(self.source, ref, path)
+805418	@unittest.skipUnless(os.environ.get("REPD_SOURCE_ROOT"), "Set REPD_SOURCE_ROOT for actual pinned integration")
+805419	class PinnedSourceTests(unittest.TestCase):
+805420	    def test_full_7775_record_source_roundtrip(self):
+805422	            out = Path(folder) / "actual-output"
+805423	            m = export_product(Path(os.environ["REPD_SOURCE_ROOT"]), out, PIN, limit=100, technology="solar", submitted_year="missing")
+805424	            self.assertEqual((m["rows"], m["solar_rows"]), (7775, 3604))
+805425	            self.assertEqual(m["solar1000_manifest_sha256"], "c625edbb9c471a1e9a9034a1afe99881fbfabb1fcadcf0623355931f5b6aed1f")
+805426	            self.assertEqual(projection(out / "repd.parquet", limit=1000, operational_year="missing")["matching_count"], 5531)
+805429	import {acceptedNotice} from '../../grid_notice_ui/20261117-v938/model.mjs';
+805430	export const bundleHash='e2af1d77b9cc49d5d202d4b8f814bcb9469c974193afea21cf9d186a0d722d0a';
+805431	export async function acceptedDocuments(bytes,notice){
+805433	  const digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(bytes)))).map(n=>n.toString(16).padStart(2,'0')).join('');
+805434	  if(digest!==bundleHash)throw Error('Unreviewed extraction bytes');
+805435	  const reviewed=await acceptedNotice(notice);if(!reviewed)throw Error('Narrow fact-rights review required');
+805436	  const payload=JSON.parse(bytes);if(payload.schema!=='globalgrid2050.distilled-document-bundle.v1'||payload.documents.length!==2)throw Error('Unknown bundle');
+805437	  for(const doc of payload.documents){const source=reviewed.documents.find(d=>d.url===doc.source_url);if(!source||source.source_sha256!==doc.source_version||source.publisher!==doc.publisher||doc.project!=='planning:EN020026'||doc.status!=='machine-provisional')throw Error('Unreviewed source');}
+805438	  return payload;
+805439	 }catch{return null;}
+805441	import {acceptedDocuments} from './model.mjs';
+805442	const doc=document,panel=doc.getElementById('gridPanel'),layer=doc.getElementById('gridLayerHost');
+805443	if(panel&&layer){
+805444	 const el=(tag,text)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
+805445	 const host=el('details');host.className='pn-document-facts';host.dataset.state='loading';host.append(el('summary','Publication facts and exact source locators'));panel.append(host);
+805446	  const [facts,notice]=await Promise.all([fetch(new URL('facts.json',import.meta.url),{cache:'no-store'}),fetch(new URL('../../grid_notice_ui/20261117-v938/notice.json',import.meta.url),{cache:'no-store'})]);
+805447	  if(!facts.ok||!notice.ok)throw Error('Source unavailable');const payload=await acceptedDocuments(await facts.text(),await notice.json());if(!payload)throw Error('Review or integrity pending');
+805448	  host.dataset.state='source-qualified';host.dataset.documentCount='2';host.dataset.factCount='6';host.append(el('p','Sea Link EN020026: 6 automatically distilled facts from 2 government HTML documents. Machine provisional; exact source versions, no independent verification.'));
+805449	  const names={application_submitted:'Application submitted',application_accepted:'Accepted for examination',reported_network_operator:'Reported network operator',recommendation:'Recommendation to Secretary of State',consent_decision:'Consent decision',planned_transmission_upper_bound:'Planned transmission upper bound'};
+805450	  for(const source of payload.documents){
+805451	   const group=el('section');group.append(el('h4',source.publisher));const link=el('a','Original publication');link.href=source.source_url;link.target='_blank';link.rel='noopener noreferrer';group.append(link,el('p','Published '+source.published_date.value+' (DAY); retrieved '+source.retrieved_at));
+805452	   for(const fact of source.facts){
+805453	    const details=el('details'),value=typeof fact.value==='object'?fact.value.value+' (DAY)':fact.value+(fact.unit?' '+fact.unit:'');details.append(el('summary',names[fact.id]+': '+value));
+805454	    if(fact.meaning)details.append(el('p',fact.meaning));
+805455	    details.append(el('p','Source paragraph '+fact.locator.paragraph),el('code',fact.locator.selector),el('p','Paragraph SHA-256: '+fact.locator.text_sha256),el('p','Document SHA-256: '+source.source_version));group.append(details);
+805456	   }host.append(group);
+805458	  host.append(el('p','2 GW is a planned upper bound, not commissioned or currently available capacity. Commissioning, current capacity, coordinates and REPD joins remain unknown.'),el('p','Government-authored facts only under the narrow reviewed Open Government Licence scope; no images or linked third-party material.'),el('p','PDF extraction unavailable: no approved local PDF or installed extractor. No OCR, table inference or body reproduction.'));
+805459	 }catch{host.dataset.state='withheld';host.append(el('p','Publication facts unavailable: exact source bytes or independent narrow fact-rights review is pending. Existing Grid layers remain usable.'));}
+805460	export const factsHash='f9802c96444c21e84b328d612475353861c8053cde31f55196d1ea5862918afb';
+805461	const pins=new Map([
+805462	 ['https://www.gov.uk/government/news/sea-link-development-consent-decision-announced',{publisher:'Planning Inspectorate',sha256:'b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb',bytes:68432}],
+805463	 ['https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008',{publisher:'Department for Energy Security and Net Zero',sha256:'c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0',bytes:69536}],
+805465	function canonical(value){if(Array.isArray(value))return value.map(canonical);if(value&&typeof value==='object')return Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])]));return value;}
+805466	function day(value){return value?.precision==='DAY'&&value.value==='2026-10-30'&&Object.keys(value).sort().join(',')==='precision,value';}
+805467	export async function acceptedNotice(payload){
+805468	  if(payload?.schema!=='globalgrid2050.reviewed-grid-notice.v1'||payload.facts_sha256!==factsHash)throw Error('Unpinned notice');
+805469	  const encoded=new TextEncoder().encode(JSON.stringify(canonical(payload.facts))),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',encoded))).map(v=>v.toString(16).padStart(2,'0')).join('');if(digest!==factsHash)throw Error('Changed fact bytes');
+805470	  const f=payload.facts;if(f.application_ref!=='EN020026'||f.reported_network_operator!=='NGET'||f.reported_stage!=='consented'||!day(f.event_date)||!Array.isArray(f.documents)||f.documents.length!==2)throw Error('Unknown fact scope');
+805471	  const seen=new Set();for(const d of f.documents){const pin=pins.get(d.url),r=d.source_receipt;if(!pin||seen.has(d.url)||d.publisher!==pin.publisher||d.role!=='government_authority'||d.source_sha256!==pin.sha256||!day(d.published_date)||!day(d.event_date)||d.published_at!==null||r?.source_url!==d.url||r.sha256!==pin.sha256||r.bytes!==pin.bytes||r.http_status!==200||r.retrieved_at!==d.retrieved_at)throw Error('Unreviewed document');seen.add(d.url);}
+805472	  const a=payload.approval,reviews=a?.reviews;if(!payload.publishable||payload.review_state!=='NARROW_FACTS_REVIEWED'||payload.notice_count!==1||payload.document_count!==2||a?.state!=='APPROVED_FACTS_ONLY'||a.rights_scope!=='government_html_facts_only_no_images_or_third_party_material'||a.facts_sha256!==factsHash||!Array.isArray(reviews)||reviews.length!==2||new Set(reviews.map(r=>r.role)).size!==2||!reviews.some(r=>r.role==='AGENT_A')||!reviews.some(r=>r.role==='AGENT_B')||reviews.some(r=>r.decision!=='PASS'||!/^https:\/\/github\.com\/Ventusltd\/neural-link-between-agents\/issues\/42#issuecomment-\d+$/.test(r.reference))||reviews[0].reference===reviews[1].reference)throw Error('Independent narrow rights review required');
+805474	import {acceptedNotice} from './model.mjs';
+805475	 const host=el('div');host.className='pn-grid-notice';host.dataset.state='loading';host.append(el('p','Source-qualified government notice loading.'));layer.after(host);
+805476	  const response=await fetch(new URL('notice.json',import.meta.url),{cache:'no-store'});if(!response.ok)throw Error('Notice unavailable');const f=await acceptedNotice(await response.json());if(!f)throw Error('Independent fact-rights review required');
+805477	  host.replaceChildren();host.dataset.state='reviewed-facts';host.dataset.noticeCount='1';host.append(el('h3','Government grid notice'),el('p','1 source-qualified notice · 2 government documents · not a grid asset or REPD update count'));
+805478	  const filter=el('input'),count=el('p','1 of 1 source-qualified notices match');filter.type='search';filter.placeholder='Filter notice title, operator or source';filter.setAttribute('aria-label','Filter government grid notices');count.setAttribute('role','status');host.append(filter,count);
+805479	  const record=el('article');record.append(el('h4','Sea Link · EN020026'),el('p','Consented · 30 October 2026 (DAY precision). Reported network operator: NGET. Government publishers are separate from the operator.'),el('p','Proposed Suffolk–Kent HVDC transmission link; planned upper bound up to 2 GW, not current available or commissioned capacity.'));
+805480	  const details=el('details'),summary=el('summary','Source dates, attribution and known unknowns');details.append(summary);
+805481	  for(const d of f.documents){
+805482	   const p=el('p'),a=el('a',d.publisher);a.href=d.url;a.target='_blank';a.rel='noopener noreferrer';p.append(a,' · published '+d.published_date.value+' (DAY); retrieved '+d.retrieved_at);details.append(p);
+805483	   for(const [name,date]of Object.entries(d.milestones||{}))details.append(el('p',name.replaceAll('_',' ')+': '+date.value+' (DAY)'));
+805484	  details.append(el('p','Narrow government-authored facts under the stated Open Government Licence v3.0 only. Images and linked third-party material are excluded.'),el('p','Current capacity, commissioning, connection, project joins and coordinates remain unknown. No REPD/ETYS match, cross-border interconnector row or VERIFIED association is created.'));record.append(details);host.append(record);
+805485	  filter.addEventListener('input',()=>{record.hidden=!['Sea Link EN020026 NGET consented Suffolk Kent HVDC',...f.documents.map(d=>d.publisher)].join(' ').toLocaleLowerCase().includes(filter.value.trim().toLocaleLowerCase());host.dataset.filteredCount=record.hidden?'0':'1';count.textContent=(record.hidden?'0':'1')+' of 1 source-qualified notices match';});host.dataset.filteredCount='1';
+805486	 }catch{host.dataset.state='withheld';host.replaceChildren(el('p','Source-qualified government notices unavailable: source integrity or independent fact-rights review is pending. Existing Grid layers remain separate and usable.'));}
+805487	"""Bounded, offline distillation of two reviewed government HTML publications.
+805488	No fetching, OCR, joins or authority transitions. Changed documents require review.
+805489	Only short typed facts and content-addressed DOM locators leave this module.
+805495	from .contracts import validate_claim
+805496	OGL = "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+805497	SCOPE = "government_html_facts_only_no_images_or_third_party_material"
+805498	POLICIES = {
+805499	    "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced": {
+805500	        "sha256": "b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb", "bytes": 68432,
+805501	        "publisher": "Planning Inspectorate", "title": "Sea Link development consent decision announced", "kind": "pins"},
+805502	    "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008": {
+805503	        "sha256": "c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0", "bytes": 69536,
+805504	        "publisher": "Department for Energy Security and Net Zero", "title": "Sea Link: development consent order, Planning Act 2008", "kind": "desnz"},
+805505	VOID = frozenset("area base br col embed hr img input link meta param source track wbr".split())
+805506	IGNORED = frozenset("script style svg template nav footer form iframe noscript".split())
+805507	@dataclass(eq=False)
+805508	class Node:
+805509	    tag: str
+805510	    attrs: dict = field(default_factory=dict)
+805511	    parent: object = None
+805512	    children: list = field(default_factory=list)
+805514	        if self.tag in IGNORED:
+805516	        return " ".join(" ".join(c if isinstance(c, str) else c.text() for c in self.children).split())
+805517	    def walk(self):
+805519	        yield self
+805520	        for child in self.children:
+805521	            if isinstance(child, Node):
+805522	                yield from child.walk()
+805523	    def selector(self):
+805524	        if self.tag == "main" and self.attrs.get("id") == "content":
+805525	            return "main#content"
+805526	        siblings = [c for c in self.parent.children if isinstance(c, Node) and c.tag == self.tag]
+805527	        return self.parent.selector() + f" > {self.tag}:nth-of-type({siblings.index(self) + 1})"
+805528	class BoundedHTML(HTMLParser):
+805531	        self.root = Node("root")
+805532	        self.stack = [self.root]
+805533	        self.count = 0
+805535	        self.count += 1
+805536	        if self.count > 20000 or len(self.stack) > 100:
+805537	            raise ValueError("HTML structural bound exceeded")
+805538	        if len(attrs) != len(dict(attrs)):
+805539	            raise ValueError("duplicate HTML attribute")
+805540	        node = Node(tag, dict(attrs), self.stack[-1])
+805541	        self.stack[-1].children.append(node)
+805542	        if tag not in VOID:
+805543	            self.stack.append(node)
+805544	    def handle_startendtag(self, tag, attrs):
+805545	        self.handle_starttag(tag, attrs)
+805546	            self.handle_endtag(tag)
+805548	        for i in range(len(self.stack) - 1, 0, -1):
+805549	            if self.stack[i].tag == tag:
+805550	                del self.stack[i:]
+805553	        self.stack[-1].children.append(data)
+805554	def day(text):
+805555	    """DAY only; never manufacture a midnight instant or expand partial dates."""
+805556	    if not re.fullmatch(r"\d{1,2} [A-Z][a-z]+ \d{4}", text):
+805557	        raise ValueError("source date is not an explicit English DAY")
+805558	    return {"value": datetime.strptime(text, "%d %B %Y").date().isoformat(), "precision": "DAY"}
+805559	def unavailable(reason, **extra):
+805560	    return {"schema": "globalgrid2050.document-facts.v1", "status": "unavailable", "reason": reason,
+805561	            "facts": [], "claims": [], "publishable": False, **extra}
+805562	def _distil_html(payload, policy, url, retrieved_at):
+805563	    """Internal parser; public entry additionally enforces immutable source/rights pins."""
+805564	    parser = BoundedHTML()
+805565	    parser.feed(payload.decode("utf-8", errors="strict"))
+805566	    mains = [n for n in parser.root.walk() if n.tag == "main" and n.attrs.get("id") == "content"]
+805567	    if len(mains) != 1:
+805568	        raise ValueError("one visible main#content required")
+805569	    main = mains[0]
+805570	    nodes = list(main.walk())
+805571	    headings = [n.text() for n in nodes if n.tag == "h1"]
+805572	    if headings != [policy["title"]]:
+805573	        raise ValueError("wrong or ambiguous document title")
+805574	    project_ids = set(re.findall(r"\bEN\d{6}\b", main.text() + " " + " ".join(n.attrs.get("href", "") for n in nodes)))
+805575	    if project_ids != {"EN020026"}:
+805576	        raise ValueError("wrong or ambiguous project identity")
+805577	    published = []
+805578	    publishers = []
+805579	    for n in nodes:
+805580	        if n.tag != "dt" or n.text() not in ("Published:", "From:"):
+805581	        siblings = [c for c in n.parent.children if isinstance(c, Node)]
+805582	        i = siblings.index(n)
+805583	        if i + 1 < len(siblings) and siblings[i + 1].tag == "dd":
+805584	            (published if n.text() == "Published:" else publishers).append(siblings[i + 1].text())
+805585	    if publishers != [policy["publisher"]] or len(published) != 1:
+805586	        raise ValueError("publisher/publication unavailable or ambiguous")
+805587	    publication = day(published[0])
+805588	    if publication["value"] > datetime.fromisoformat(retrieved_at.replace("Z", "+00:00")).date().isoformat():
+805590	    paragraphs = [n for n in nodes if n.tag == "p" and any("gem-c-govspeak" in a.attrs.get("class", "").split() for a in _ancestors(n))]
+805591	    digest = sha256(payload).hexdigest()
+805593	    def fact(name, value, node, unit=None, meaning=None):
+805594	        text = node.text()
+805595	        facts.append({"id": name, "value": value, "unit": unit, "meaning": meaning,
+805596	                      "locator": {"kind": "HTML_PARAGRAPH", "selector": node.selector(),
+805597	                                  "paragraph": paragraphs.index(node) + 1,
+805598	                                  "text_sha256": sha256(text.encode()).hexdigest(), "document_sha256": digest}})
+805599	    def unique(pattern):
+805600	        matches = [(n, re.search(pattern, n.text())) for n in paragraphs]
+805601	        matches = [(n, m) for n, m in matches if m]
+805602	        if len(matches) != 1:
+805603	            raise ValueError("missing or ambiguous source fact")
+805604	        return matches[0]
+805606	    if policy["kind"] == "pins":
+805607	        node, match = unique(r"submitted to the Planning Inspectorate for consideration by National Grid Electricity Transmission \(NGET\) Plc on (\d{1,2} \w+ \d{4}) and accepted for examination on (\d{1,2} \w+ \d{4})\.")
+805608	        fact("application_submitted", day(match[1]), node)
+805609	        fact("application_accepted", day(match[2]), node)
+805610	        fact("reported_network_operator", "National Grid Electricity Transmission (NGET) Plc", node)
+805611	        node, match = unique(r"recommendations were made to the Secretary of State on (\d{1,2} \w+ \d{4})\.")
+805612	        fact("recommendation", day(match[1]), node)
+805613	        dates = [f["value"]["value"] for f in facts if isinstance(f["value"], dict)]
+805614	        if dates != sorted(dates) or dates[-1] > publication["value"]:
+805615	            raise ValueError("milestone chronology ambiguous")
+805617	        labels = [i for i, n in enumerate(paragraphs) if n.text() == "Date of decision"]
+805618	        if len(labels) != 1 or labels[0] + 1 >= len(paragraphs):
+805619	            raise ValueError("decision DAY unavailable")
+805620	        date_node = paragraphs[labels[0] + 1]
+805621	        decision = day(date_node.text())
+805622	        if decision["value"] > publication["value"]:
+805623	            raise ValueError("decision after publication")
+805624	        fact("consent_decision", decision, date_node)
+805625	        node, match = unique(r"It will have a transmission capacity of up to (\d+(?:\.\d+)?) gigawatts\.")
+805626	        if not all(s in node.text() for s in ("Kent and Suffolk", "high voltage direct current")):
+805627	            raise ValueError("capacity context unavailable")
+805628	        fact("planned_transmission_upper_bound", match[1], node, "GW", "forecast upper bound; not current, available or commissioned capacity")
+805629	        claim = {"schema": "globalgrid2050.filing-figure.v1", "claim_id": "planning:EN020026:planned-transmission:" + digest[:16],
+805630	                 "status": "machine-provisional", "quantity_kind": "grid_upgrade", "metric": "Planned transmission capacity upper bound",
+805631	                 "value": match[1], "scale": "1", "unit": "GW", "original_unit": "up to " + match[1] + " gigawatts",
+805632	                 "currency": None, "finance_stage": None,
+805633	                 "entity": {"scope": "project", "id": "planning:EN020026", "consolidation_group_id": None, "identity_evidence_url": url},
+805634	                 "reporting_period": None, "as_of": decision["value"], "basis": "forecast", "assurance": "unknown",
+805635	                 "provenance": {"document_id": "planning:EN020026:" + digest, "document_url": url, "sha256": digest,
+805636	                                "page": None, "section": node.selector(), "published_date": publication["value"], "retrieved_at": retrieved_at},
+805637	                 "revision": {"id": digest, "supersedes_claim_id": None, "restated": False}}
+805638	        claims.append(validate_claim(claim))
+805639	    return {"schema": "globalgrid2050.document-facts.v1", "status": "machine-provisional", "publishable": False,
+805640	            "project": "planning:EN020026", "title": policy["title"], "publisher": policy["publisher"],
+805641	            "authority_role": "government_authority", "source_url": url, "source_version": digest,
+805642	            "retrieved_at": retrieved_at, "published_date": publication, "document_type": "HTML",
+805643	            "rights": {"licence_url": OGL, "scope": SCOPE, "state": "REVIEW_REQUIRED"},
+805644	            "facts": facts, "claims": claims, "unknowns": {"commissioned_date": None, "current_capacity": None,
+805645	             "coordinates": None, "repd_join": None}, "revision": {"state": "pinned_original", "supersedes": None}}
+805646	def _ancestors(node):
+805647	    while node.parent:
+805648	        node = node.parent
+805649	        yield node
+805650	def distil_document(payload: bytes, *, source_url: str, receipt: dict, content_type="text/html"):
+805651	    """Read caller-provided bytes only. Receipts are evidence, never review approval."""
+805652	    policy = POLICIES.get(source_url)
+805654	        return unavailable("source_not_approved")
+805655	    if not isinstance(payload, bytes) or len(payload) > 1_000_000:
+805656	        return unavailable("document_size_or_type")
+805657	    if content_type != "text/html":
+805658	        return unavailable("pdf_extraction_unavailable_no_approved_pdf_or_extractor")
+805659	    if digest != policy["sha256"] or len(payload) != policy["bytes"]:
+805660	        return unavailable("source_revision_requires_review", observed_sha256=digest, accepted_sha256=policy["sha256"])
+805661	    if not isinstance(receipt, dict) or any(receipt.get(k) != v for k, v in {
+805662	            "source_url": source_url, "sha256": digest, "bytes": len(payload), "http_status": 200,
+805663	            "licence_url": OGL}.items()) or not str(receipt.get("content_type", "")).startswith("text/html"):
+805664	        return unavailable("retrieval_or_rights_receipt_invalid")
+805666	        stamp = receipt["retrieved_at"]
+805667	        parsed = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+805669	            raise ValueError("retrieval timezone unavailable")
+805670	        return _distil_html(payload, policy, source_url, stamp)
+805671	    except (ValueError, KeyError, UnicodeError, RecursionError) as error:
+805672	        return unavailable("distillation_abstained", detail=str(error)[:180])
+805673	    """Explicit offline reproduction, not a collector or scheduled publication path."""
+805678	    parser.add_argument("--source-dir", required=True, type=Path)
+805679	    parser.add_argument("--receipts", required=True, type=Path)
+805682	    rows = json.loads(args.receipts.read_text(encoding="utf-8"))["records"]
+805683	    if len(rows) != 2 or {r.get("source_url") for r in rows} != set(POLICIES):
+805684	        parser.error("exact two approved source receipts required")
+805685	    documents = []
+805686	    for i, row in enumerate(rows, 1):
+805687	        source = args.source_dir / f"source-{i}.html"
+805688	        if source.stat().st_size > 1_000_000:
+805689	            parser.error("source exceeds byte bound")
+805690	        documents.append(distil_document(source.read_bytes(), source_url=row["source_url"], receipt=row["source_receipt"]))
+805691	    payload = {"schema": "globalgrid2050.distilled-document-bundle.v1", "documents": documents,
+805692	               "pdf_status": "unavailable: no approved local PDF and no installed extractor; no OCR attempted"}
+805693	    args.output.write_text(json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
+805694	    return 0 if all(d["status"] == "machine-provisional" for d in documents) else 2
+805696	"""V9.38 additive government-fact extension of the immutable operator adapter.
+805700	from .adapter import (STAGES, OPERATOR_ROLES, FIELDS as OPERATOR_FIELDS,
+805701	                      METRIC_UNITS, METRIC_KINDS as OPERATOR_METRIC_KINDS,
+805702	                      canonical, _timestamp, _text, _source_url,
+805703	                      normalise as normalise_operator)
+805704	SOURCE_ROLES = OPERATOR_ROLES | {"government_authority"}
+805705	FIELDS = OPERATOR_FIELDS | {"published_date", "event_date", "milestones", "source_receipt"}
+805706	METRIC_KINDS = OPERATOR_METRIC_KINDS | {"planned_transmission_upper_bound"}
+805707	GOVERNMENT_URLS = frozenset({
+805708	    "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced",
+805709	    "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008",
+805711	GOVERNMENT_PUBLISHERS = {
+805712	    "https://www.gov.uk/government/news/sea-link-development-consent-decision-announced": "Planning Inspectorate",
+805713	    "https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008": "Department for Energy Security and Net Zero",
+805714	FACTS_RIGHTS_SCOPE = "government_html_facts_only_no_images_or_third_party_material"
+805715	def _day(value, label):
+805718	    if (not isinstance(value, dict) or set(value) != {"value", "precision"}
+805719	            or value["precision"] != "DAY" or not isinstance(value["value"], str)
+805720	            or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value["value"])):
+805721	        raise ValueError(f"{label} must be an explicit DAY, not a fabricated midnight instant")
+805722	        date.fromisoformat(value["value"])
+805724	        raise ValueError(f"invalid {label}") from exc
+805726	def _government_receipt(record, source, url, retrieved):
+805727	    receipt = record.get("source_receipt")
+805728	    expected = source.get("document_receipt")
+805729	    if (url not in GOVERNMENT_URLS or source.get("allowed_urls") != [url]
+805730	            or source.get("publisher") != GOVERNMENT_PUBLISHERS.get(url)
+805731	            or source.get("reported_operators") != ["NGET"]
+805732	            or not isinstance(receipt, dict) or receipt != expected
+805733	            or receipt.get("source_url") != url or receipt.get("http_status") != 200
+805734	            or not str(receipt.get("content_type", "")).startswith("text/html")
+805735	            or type(receipt.get("bytes")) is not int or not 0 < receipt["bytes"] <= 1000000
+805736	            or receipt.get("sha256") != record.get("source_sha256")
+805737	            or receipt.get("retrieved_at") != retrieved
+805738	            or receipt.get("licence_url") != "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+805739	            or not isinstance(receipt.get("licence_evidence"), str)
+805740	            or "images" not in receipt["licence_evidence"].lower()):
+805741	        raise ValueError("government fact needs its exact pinned HTML and narrow rights receipt")
+805748	    if isinstance(record, dict):
+805749	        source = sources.get(record.get("source_id"))
+805750	        if isinstance(source, dict) and source.get("role") != "government_authority":
+805751	            return normalise_operator(record, sources)
+805756	    if not isinstance(source, dict) or source.get("role") not in SOURCE_ROLES:
+805761	    government = source["role"] == "government_authority"
+805762	    if (government and (source.get("operator") is not None or operator != "NGET" or operator not in source.get("reported_operators", []))
+805763	            or not government and operator != source["operator"]):
+805780	    published_date, event_date = _day(record.get("published_date"), "publication date"), _day(record.get("event_date"), "event date")
+805781	    if published_date and published or government and (published or not published_date or not event_date):
+805782	        raise ValueError("government publication/event clocks require separately recorded DAY precision")
+805783	    for clock in (published_date, event_date):
+805784	        if clock and clock["value"] > retrieved[:10]:
+805785	            raise ValueError("source date after retrieval")
+805786	    milestones = record.get("milestones")
+805787	    if milestones is not None:
+805788	        if not isinstance(milestones, dict) or set(milestones) - {"application_submitted", "accepted_for_examination", "recommendation"}:
+805789	            raise ValueError("unrecognised milestone clocks")
+805790	        milestones = {key: _day(value, key) for key, value in milestones.items()}
+805791	        if any(value and value["value"] > retrieved[:10] for value in milestones.values()):
+805792	            raise ValueError("milestone after retrieval")
+805793	    receipt = _government_receipt(record, source, url, retrieved) if government else None
+805794	    if not government and record.get("source_receipt") is not None:
+805795	        raise ValueError("unreviewed operator notice cannot claim government fact rights")
+805810	                   "equipment_rating": "MVA", "funding_allocation": "GBP", "planned_transmission_upper_bound": "MW"}
+805818	    if government:
+805819	        fact.update(published_date=published_date, event_date=event_date, milestones=milestones)
+805824	                   "scheme_key": f"{operator}:{scheme_id}" if scheme_id and not government else None,
+805830	                     "licence_state": licence_state, "review_state": "REVIEW_REQUIRED",
+805831	                     **({"published_date": published_date, "event_date": event_date,
+805832	                         "milestones": milestones, "source_receipt": receipt} if government else {})},
+805849	def reviewed_government_notice(rows, approval=None):
+805850	    """One tightly bounded factual notice, hidden until independent rights reviews.
+805851	    Review references are auditable workflow inputs, not authentication or a grant
+805852	    of rights by this function. Ordinary operator rows never become publishable.
+805853	    if (not isinstance(rows, list) or len(rows) != 2
+805854	            or {r.get("evidence", {}).get("url") for r in rows} != GOVERNMENT_URLS):
+805855	        raise ValueError("Sea Link needs both exact government documents")
+805857	        evidence, scheme, links = row["evidence"], row["scheme"], row["links"]
+805858	        if (evidence["role"] != "government_authority" or evidence["publisher"] != GOVERNMENT_PUBLISHERS[evidence["url"]]
+805859	                or evidence["licence_state"] not in {"OGL_V3_FACTS_REVIEW_REQUIRED", "OGL_V3_FACTS_REVIEWED"}
+805860	                or scheme["operator"] != "NGET" or scheme["scheme_id"] != "EN020026" or scheme["scheme_key"] is not None
+805861	                or evidence["reported_stage"] != "consented" or evidence["event_date"] != {"value": "2026-10-30", "precision": "DAY"}
+805862	                or evidence["published_date"] != {"value": "2026-10-30", "precision": "DAY"}
+805863	                or evidence["published_at"] is not None or any(links[key] is not None for key in ("repd_ref", "grid_connection", "available_capacity_mw"))):
+805864	            raise ValueError("unreviewed identity, clock, attribution or connection claim")
+805866	        "notice_id": "government:EN020026:consented:2026-10-30", "scheme": "Sea Link", "application_ref": "EN020026",
+805867	        "reported_network_operator": "NGET", "reported_stage": "consented",
+805868	        "event_date": {"value": "2026-10-30", "precision": "DAY"},
+805869	        "description": "Proposed Suffolk-Kent high voltage direct current transmission link",
+805870	        "planned_metric": {"value": 2000, "unit": "MW", "kind": "planned_transmission_upper_bound"},
+805871	        "current_capacity_mw": None, "commissioned": None, "connection": None, "repd_ref": None, "coordinates": None,
+805872	        "documents": [{"record_id": row["record_id"], **row["evidence"]} for row in sorted(rows, key=lambda r: r["evidence"]["url"])],
+805873	    metrics = [row["reported_metric"] for row in rows if row["reported_metric"] is not None]
+805874	    if metrics != [facts["planned_metric"]]:
+805875	        raise ValueError("planned upper bound must remain source-qualified, not current capacity")
+805876	    digest = sha256(canonical(facts)).hexdigest()
+805877	    accepted = False
+805878	    if approval is not None:
+805879	        reviews = approval.get("reviews") if isinstance(approval, dict) else None
+805880	        accepted = (isinstance(approval, dict) and set(approval) == {"state", "rights_scope", "facts_sha256", "reviews"}
+805881	                    and approval["state"] == "APPROVED_FACTS_ONLY" and approval["rights_scope"] == FACTS_RIGHTS_SCOPE
+805882	                    and approval["facts_sha256"] == digest and isinstance(reviews, list) and len(reviews) == 2
+805883	                    and {r.get("role") for r in reviews if isinstance(r, dict)} == {"AGENT_A", "AGENT_B"}
+805884	                    and all(isinstance(r, dict) and set(r) == {"role", "decision", "reference"} and r["decision"] == "PASS"
+805885	                            and isinstance(r["reference"], str)
+805886	                            and re.fullmatch(r"https://github\.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-\d+", r["reference"]) for r in reviews)
+805887	                    and len({r["reference"] for r in reviews}) == 2)
+805888	        if not accepted:
+805889	            raise ValueError("narrow two-review fact-rights approval missing or mismatched")
+805890	    return {"schema": "globalgrid2050.reviewed-grid-notice.v1", "facts_sha256": digest, "facts": facts,
+805891	            "approval": approval, "publishable": bool(accepted),
+805892	            "review_state": "NARROW_FACTS_REVIEWED" if accepted else "REVIEW_REQUIRED",
+805893	            "notice_count": 1 if accepted else None, "document_count": 2,
+805894	            "limitations": "Government facts only; no images or third-party content, no current capacity/commissioning/connection, no REPD/ETYS join or coordinates, no interconnector row or VERIFIED association"}
+805895	"""Synthetic parser negatives plus optional pinned actual local-byte verification."""
+805898	from automation.news.filings.documents import POLICIES, OGL, BoundedHTML, _distil_html, day, distil_document
+805899	URL = list(POLICIES)[1]
+805900	POLICY = POLICIES[URL]
+805901	STAMP = "2026-11-17T15:48:11Z"
+805902	def synthetic(body=None, project="EN020026", extra=""):
+805903	    body = body if body is not None else "It is a high voltage direct current link between Kent and Suffolk. It will have a transmission capacity of up to 2 gigawatts."
+805904	    return (f'<main id="content"><h1>{POLICY["title"]}</h1><dl><dt>From:</dt><dd>{POLICY["publisher"]}</dd><dt>Published:</dt><dd>30 October 2026</dd></dl>'
+805905	            f'<a href="https://example.test/projects/{project}">Project</a><div class="gem-c-govspeak"><p>{body}</p><p>Date of decision</p><p>30 October 2026</p>{extra}</div></main>').encode()
+805906	def parse(data):
+805907	    return _distil_html(data, POLICY, URL, STAMP)
+805908	def test_synthetic_typed_power_has_exact_units_meaning_and_locator():
+805909	    data = synthetic()
+805910	    result = parse(data)
+805911	    assert result["publishable"] is False
+805912	    claim = result["claims"][0]
+805913	    assert (claim["value"], claim["unit"], claim["basis"], claim["as_of"]) == ("2", "GW", "forecast", "2026-10-30")
+805914	    assert claim["quantity_kind"] == "grid_upgrade"
+805915	    assert result["unknowns"]["current_capacity"] is None
+805916	    locator = result["facts"][1]["locator"]
+805917	    assert locator["paragraph"] == 1 and locator["document_sha256"] == sha256(data).hexdigest()
+805918	    assert locator["selector"] == "main#content > div:nth-of-type(1) > p:nth-of-type(1)"
+805919	@pytest.mark.parametrize("body", ["It currently has 2 gigawatts.", "It will have a transmission capacity of up to 2 gigawatt-hours.", "It will have a transmission capacity of up to 400 kilovolts.", "It will have a transmission capacity of up to 2 gigawatts.", "Unknown capacity"])
+805920	def test_unit_or_meaning_or_context_ambiguity_abstains(body):
+805922	        parse(synthetic(body))
+805923	@pytest.mark.parametrize("project", ["EN999999", "EN020026 EN999999", ""])
+805924	def test_wrong_crossproject_identity_abstains(project):
+805925	        parse(synthetic(project=project))
+805926	def test_script_facts_and_title_markup_never_become_authority():
+805927	    data = synthetic() + b'<script><p>It will have a transmission capacity of up to 99 gigawatts.</p></script>'
+805928	    assert parse(data)["claims"][0]["value"] == "2"
+805929	        parse(synthetic().replace(b"Sea Link:", b"<img src=x onerror=alert(1)>Spoof:"))
+805930	def test_duplicate_capacity_and_mixed_tables_abstain():
+805931	        parse(synthetic(extra='<p>It will have a transmission capacity of up to 3 gigawatts.</p>'))
+805932	        parse(synthetic(body='<table><tr><td>2 gigawatts</td><td>3 gigawatts</td></tr></table>'))
+805933	@pytest.mark.parametrize("value", ["2026", "October 2026", "30 October 2026T00:00Z", "31 February 2026"])
+805934	def test_no_partial_date_expansion_or_fabricated_instants(value):
+805935	        day(value)
+805936	def test_unknown_unsafe_sources_changed_hash_and_pdf_unavailable():
+805937	    for source in ("javascript:alert(1)", URL + "?spoof=1", "https://evil.test/"):
+805938	        assert distil_document(b"", source_url=source, receipt={})["reason"] == "source_not_approved"
+805939	    revised = distil_document(synthetic(), source_url=URL, receipt={})
+805940	    assert revised["reason"] == "source_revision_requires_review" and revised["facts"] == []
+805941	    for payload in (b"%PDF scanned image", b"%PDF mixed table unlocated", b"%PDF unknown rights"):
+805942	        result = distil_document(payload, source_url=URL, receipt={}, content_type="application/pdf")
+805943	        assert result["facts"] == [] and result["status"] == "unavailable"
+805944	def test_source_receipts_fail_closed_even_when_policy_hash_is_pinned(monkeypatch):
+805945	    monkeypatch.setitem(POLICIES, URL, {**POLICY, "sha256": sha256(data).hexdigest(), "bytes": len(data)})
+805946	    receipt = {"source_url": URL, "sha256": sha256(data).hexdigest(), "bytes": len(data), "http_status": 200,
+805947	               "content_type": "text/html", "licence_url": OGL, "retrieved_at": STAMP}
+805948	    assert distil_document(data, source_url=URL, receipt=receipt)["status"] == "machine-provisional"
+805949	    for key, value in (("licence_url", "unknown"), ("http_status", 403), ("sha256", "0" * 64), ("retrieved_at", "2026-01-01")):
+805950	        bad = {**receipt, key: value}
+805951	        assert distil_document(data, source_url=URL, receipt=bad)["status"] == "unavailable"
+805952	def test_actual_pinned_documents_when_local_receipts_available():
+805953	    directory = os.environ.get("DOCUMENT_SOURCE_DIR")
+805954	    if not directory:
+805955	        pytest.skip("actual HTML bytes are private retrieval artifacts; set DOCUMENT_SOURCE_DIR")
+805956	    records = json.loads(Path("automation/news/grid_watch/government-facts.json").read_text())["records"]
+805957	    results = [distil_document((Path(directory) / f"source-{i}.html").read_bytes(), source_url=row["source_url"], receipt=row["source_receipt"]) for i, row in enumerate(records, 1)]
+805958	    assert [r["status"] for r in results] == ["machine-provisional"] * 2
+805959	    assert [len(r["facts"]) for r in results] == [4, 2]
+805960	    assert results[0]["facts"][0]["value"] == {"value": "2025-03-27", "precision": "DAY"}
+805961	    assert results[1]["claims"][0]["value"] == "2"
+805962	    assert all(r["publishable"] is False for r in results)
+805963	    for i, result in enumerate(results, 1):
+805964	        parser = BoundedHTML()
+805965	        parser.feed((Path(directory) / f"source-{i}.html").read_text(encoding="utf-8"))
+805966	        main = next(n for n in parser.root.walk() if n.tag == "main" and n.attrs.get("id") == "content")
+805967	        for fact in result["facts"]:
+805968	            found = [n for n in main.walk() if n.selector() == fact["locator"]["selector"]]
+805969	            assert len(found) == 1
+805970	            assert sha256(found[0].text().encode()).hexdigest() == fact["locator"]["text_sha256"]
+805971	"""V9.38 additive government-fact tests; original donor tests remain byte-exact."""
+805972	from automation.news.grid_watch.government_v938 import build_grid_rows, normalise, reviewed_government_notice, FACTS_RIGHTS_SCOPE
+805974	SOURCES = {s["id"]: s for name in ("sources.json", "government-sources.v938.json") for s in json.loads((HERE / name).read_text())["sources"]}
+805976	GOV_RECORDS = json.loads((HERE / "government-facts.json").read_text())["records"]
+805977	class GridGovernmentV938Test(unittest.TestCase):
+805978	    def test_government_publisher_is_not_reported_operator(self):
+805979	        rows = build_grid_rows(GOV_RECORDS, SOURCES)
+805980	        self.assertEqual(len(rows), 2)
+805981	        self.assertEqual({r["evidence"]["publisher"] for r in rows}, {"Planning Inspectorate", "Department for Energy Security and Net Zero"})
+805982	        self.assertTrue(all(r["scheme"]["operator"] == "NGET" and r["evidence"]["role"] == "government_authority" for r in rows))
+805983	        self.assertTrue(all(r["scheme"]["scheme_key"] is None and not r["publishable"] for r in rows))
+805984	        self.assertTrue(all(r["links"]["repd_ref"] is None and r["links"]["grid_connection"] is None and r["links"]["available_capacity_mw"] is None for r in rows))
+805985	    def test_actual_government_receipts_and_day_clocks_remain_distinct(self):
+805987	            e = row["evidence"]
+805988	            self.assertIsNone(e["published_at"])
+805989	            self.assertEqual(e["published_date"], {"value": "2026-10-30", "precision": "DAY"})
+805990	            self.assertEqual(e["event_date"], {"value": "2026-10-30", "precision": "DAY"})
+805991	            self.assertEqual(e["source_sha256"], e["source_receipt"]["sha256"])
+805992	            self.assertEqual(e["source_receipt"]["http_status"], 200)
+805993	            self.assertGreater(e["source_receipt"]["bytes"], 60000)
+805994	        pins = next(r for r in rows if r["evidence"]["publisher"] == "Planning Inspectorate")
+805995	        self.assertEqual(pins["evidence"]["milestones"]["application_submitted"]["value"], "2025-03-27")
+805996	        self.assertEqual(pins["evidence"]["milestones"]["accepted_for_examination"]["value"], "2025-04-23")
+805997	        self.assertEqual(pins["evidence"]["milestones"]["recommendation"]["value"], "2026-07-30")
+805998	    def test_government_clock_rejects_fabricated_midnight_and_impossible_day(self):
+805999	        for patch in ({"published_at": "2026-10-30T00:00:00Z"}, {"published_date": {"value": "2026-10-30T00:00:00Z", "precision": "DAY"}}, {"event_date": {"value": "2026-02-30", "precision": "DAY"}}, {"published_date": None}, {"event_date": {"value": "2027-01-01", "precision": "DAY"}}):
+806000	            with self.subTest(patch=patch), self.assertRaises(ValueError): normalise(dict(GOV_RECORDS[0], **patch), SOURCES)
+806001	    def test_government_exact_url_hash_receipt_and_attribution_refuse_spoofs(self):
+806002	        for patch in ({"source_url": "https://www.gov.uk/government/news/unreviewed"}, {"source_url": GOV_RECORDS[0]["source_url"]+"?copy=1"}, {"source_url": "https://www.gov.uk.evil.example/source"}, {"source_sha256": "0"*64}, {"network_operator": "NESO"}, {"source_receipt": {}}):
+806003	        for patch in ({"publisher": "NGET"}, {"operator": "NGET"}, {"reported_operators": ["NGET", "NESO"]}):
+806004	            sources = deepcopy(SOURCES);sources[GOV_RECORDS[0]["source_id"]].update(patch)
+806005	            with self.subTest(source_patch=patch), self.assertRaises(ValueError): normalise(GOV_RECORDS[0], sources)
+806006	    def test_one_notice_two_documents_unknown_counts_and_review_gate(self):
+806007	        rows = build_grid_rows(GOV_RECORDS, SOURCES);pending = reviewed_government_notice(rows)
+806008	        self.assertFalse(pending["publishable"]);self.assertIsNone(pending["notice_count"]);self.assertEqual(pending["document_count"], 2)
+806009	        self.assertEqual(pending["facts"]["planned_metric"], {"kind": "planned_transmission_upper_bound", "value": 2000, "unit": "MW"})
+806010	        self.assertIsNone(pending["facts"]["current_capacity_mw"]);self.assertIsNone(pending["facts"]["coordinates"])
+806011	        # Synthetic review references test the gate; they do not represent actual approval.
+806012	        approval = {"state": "APPROVED_FACTS_ONLY", "rights_scope": FACTS_RIGHTS_SCOPE, "facts_sha256": pending["facts_sha256"], "reviews": [{"role": "AGENT_A", "decision": "PASS", "reference": "https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100"}, {"role": "AGENT_B", "decision": "PASS", "reference": "https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101"}]}
+806013	        self.assertTrue(reviewed_government_notice(rows, approval)["publishable"])
+806014	        for patch in ({"rights_scope": "all_gov_content"}, {"facts_sha256": "0"*64}, {"reviews": approval["reviews"][:1]}, {"state": "REVIEW_REQUIRED"}):
+806015	            with self.subTest(patch=patch), self.assertRaises(ValueError): reviewed_government_notice(rows, dict(approval, **patch))
+806016	        changed = deepcopy(rows);changed[0]["links"]["available_capacity_mw"] = 2000
+806017	        with self.assertRaises(ValueError): reviewed_government_notice(changed, approval)
+806018	        changed = deepcopy(rows);changed[0]["evidence"]["licence_state"] = "RESTRICTED"
+806019	        with self.assertRaises(ValueError): reviewed_government_notice(build_grid_rows(RECORDS, SOURCES), approval)
+806026	from feature_contracts import check_features, NEWS_MIGRATION, RESEARCH_MIGRATIONS, KNOWN_MIGRATIONS, GLOBAL_DC_MIGRATION, NEON_MIGRATIONS
+806197	    old_flags = ["solar1000-inline-v1", "news-priority-internal-v1", "research-priority-internal-v1", "global-dc-ui-v928-v1"]
+806198	    assert migration_records(old_flags) == [MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION]
+806199	    assert migration_records(["ticker-neon-v940-v1"]) == NEON_MIGRATIONS
+806200	    result = migration_records([*old_flags, "ticker-neon-v940-v1"])
+806264	const kinds=new Set(['government','regulator','institution','listed_parent','reporting','discovery']);
+806265	const topics=new Set(['solar','storage','grid','datacentre','wind','renewables']);
+806266	export function validClock(value){
+806267	 if(typeof value!=='string')return false;
+806268	 const m=/^(\d{4})-(\d{2})-(\d{2})(?:T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d))?$/.exec(value);if(!m)return false;
+806269	 const [y,month,day]=m.slice(1).map(Number),days=[31,y%4===0&&(y%100!==0||y%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];return y>=1900&&month>=1&&month<=12&&day>=1&&day<=days[month-1]&&Number.isFinite(Date.parse(value));
+806270	function feedUrl(value){try{const u=new URL(value);return typeof value==='string'&&u.protocol==='https:'&&!u.username&&!u.password&&u.hostname.includes('.')&&!/^[\d.]+$/.test(u.hostname)&&!u.hostname.endsWith('.')&&!/(^|\.)(localhost|local|internal)$/.test(u.hostname)&&(!u.port||u.port==='443');}catch{return false;}}
+806271	export function auditHealth(doc){
+806272	 const items=Array.isArray(doc?.items)?doc.items:[],publishers=new Map();let unknownPublishers=0;
+806273	 for(const item of items){const name=typeof item?.source==='string'?item.source.trim():'';if(name)publishers.set(name,(publishers.get(name)||0)+1);else unknownPublishers++;}
+806274	 const result={articles:Array.isArray(doc?.items)?items.length:null,publishers:[...publishers].sort((a,b)=>a[0].localeCompare(b[0])),unknownPublishers,collectionClock:validClock(doc?.generated_at)?doc.generated_at:null,status:typeof doc?.status==='string'?doc.status:'unavailable',available:false,reason:'Feed-health metadata unavailable or inconsistent'};
+806275	 if(items.some(item=>!item||typeof item!=='object')||!Array.isArray(doc?.feeds)||!doc.feeds.length||doc.feeds.length>500||!doc.counts)return result;
+806276	 const seen=new Set();let ok=0,failed=0;
+806277	 for(const f of doc.feeds){
+806278	  if(!f||!feedUrl(f.url)||seen.has(f.url)||typeof f.source!=='string'||!f.source.trim()||!['ok','failed'].includes(f.status)||!Number.isInteger(f.entries)||f.entries<0||!Number.isInteger(f.kept)||f.kept<0||f.kept>f.entries||(f.newest!==null&&!validClock(f.newest)))return result;
+806279	  seen.add(f.url);if(f.status==='ok')ok++;else failed++;
+806281	 if(doc.counts.items!==items.length||doc.counts.feeds_ok!==ok||doc.counts.feeds_failed!==failed||doc.status==='ok'&&failed||doc.status==='partial'&&(!ok||!failed)||doc.status==='failed'&&ok||!['ok','partial','failed'].includes(doc.status))return result;
+806282	 if(doc.counts.with_possible_match!==undefined&&doc.counts.with_possible_match!==items.filter(item=>item.possible_match).length)return result;
+806283	 if(doc.counts.by_category!==undefined){const expected=Object.create(null);for(const item of items){const key=item.category||'other';expected[key]=(expected[key]||0)+1;}const counts=doc.counts.by_category;if(!counts||Array.isArray(counts)||Object.keys(counts).length!==Object.keys(expected).length||Object.entries(expected).some(([key,total])=>counts[key]!==total))return result;}
+806284	 return {...result,available:true,reason:null,feeds:seen.size,ok,failed,failedSources:doc.feeds.filter(f=>f.status==='failed').map(f=>({source:f.source,url:f.url}))};
+806285	export function classification(entry,ranked){
+806286	 const p=ranked?entry?.priority:null,item=entry?.item||{};
+806287	 const accepted=!!p&&p.link===item.link&&p.title===item.title&&p.source===item.source&&kinds.has(p.source_kind);
+806288	 return {kind:accepted?p.source_kind:'Unclassified',topics:[...new Set([...(typeof item.technology==='string'&&item.technology?[item.technology]:[]),...(accepted&&Array.isArray(p.topics)?p.topics.filter(t=>topics.has(t)):[])])]};
+806289	export function selectEntries(entries,filter={},ranked=false){
+806290	 const tokens=String(filter.query||'').trim().toLocaleLowerCase('en-GB').split(/\s+/).filter(Boolean);
+806291	 return entries.filter(entry=>{const item=entry.item,c=classification(entry,ranked);const hay=[item.title,item.source,item.category,...c.topics].join(' ').toLocaleLowerCase('en-GB');return tokens.every(token=>hay.includes(token))&&(!filter.source||item.source===filter.source)&&(!filter.category||item.category===filter.category)&&(!filter.topic||c.topics.includes(filter.topic))&&(!filter.kind||c.kind===filter.kind);});
+806292	import {auditHealth,classification,selectEntries} from './model.mjs';
+806293	const doc=document,list=doc.getElementById('liveNews');
+806294	if(list){
+806295	 const host=el('div');host.className='pn-news-quality';const tools=el('div');tools.className='pn-news-filter-tools';
+806296	 const query=el('input');query.type='search';query.placeholder='Search title, source or topic';query.setAttribute('aria-label','Filter news titles, sources or topics');
+806297	 const selects={};for(const [id,label] of [['source','Publisher'],['topic','Topic'],['category','Category'],['kind','Ranking source type']]){const wrapper=el('label',label+' '),select=el('select');select.setAttribute('aria-label','News '+label.toLowerCase());selects[id]=select;wrapper.append(select);tools.append(wrapper);}
+806298	 const clear=el('button','Clear news filters');clear.type='button';const count=el('span');count.setAttribute('role','status');tools.prepend(query);tools.append(clear,count);
+806299	 const details=el('details'),summary=el('summary','Source health & provenance'),health=el('div');details.append(summary,health);host.append(tools,details);list.before(host);
+806300	 let current=null,revision='',healthBuilt=false;
+806301	 function values(entries,key,ranked){return [...new Set(entries.flatMap(entry=>key==='source'?[entry.item.source]:key==='category'?[entry.item.category]:key==='topic'?classification(entry,ranked).topics:[classification(entry,ranked).kind]).filter(v=>typeof v==='string'&&v))].sort((a,b)=>a.localeCompare(b));}
+806302	 function drawHealth(){
+806303	  if(!current)return;const audit=auditHealth(current.doc);health.replaceChildren();
+806304	  health.append(el('p',audit.articles===null?'Article and publisher metadata unavailable.':`${audit.articles} original articles; ${audit.publishers.length} distinct credited publisher labels${audit.unknownPublishers?`; ${audit.unknownPublishers} publisher credits unavailable`:''}. Publishers and feeds are different counts.`));
+806305	  health.append(el('p',audit.available?`${audit.ok} of ${audit.feeds} feed checks succeeded; ${audit.failed} failed.`:audit.reason));
+806306	  health.append(el('p',`Collection clock: ${audit.collectionClock||'Unknown'}. Recorded status: ${audit.status}. Display: ${current.source}. Publisher dates and first-collected clocks stay separate.`));
+806307	  health.append(el('p',current.ranked?'Ranking metadata is exact-input and current; its source types are classifications, not source verification.':'Ranking source type unavailable: Unclassified. Saved, stale, rejected or missing priority metadata supplies no source authority.'));
+806308	  const publishers=el('ul');for(const [name,total] of audit.publishers.slice(0,20))publishers.append(el('li',`${name}: ${total} credited articles`));health.append(publishers);if(audit.publishers.length>20)health.append(el('p',`${audit.publishers.length-20} further publisher labels available in the Publisher filter.`));
+806309	  if(audit.available&&audit.failed)for(const f of audit.failedSources.slice(0,5))health.append(el('p',`Failed feed: ${f.source} (${f.url})`));healthBuilt=true;
+806310	 function apply(reset=true){if(!current)return;const filter={query:query.value,...Object.fromEntries(Object.entries(selects).map(([k,n])=>[k,n.value]))},selected=selectEntries(current.entries,filter,current.ranked);count.textContent=current.doc?`${selected.length} of ${current.entries.length} original headlines match`:'Headlines unavailable';host.dataset.filteredCount=String(selected.length);current.draw(selected,reset);}
+806311	 function update(view){
+806312	  const key=JSON.stringify(view.entries.map(entry=>[entry.item.link,entry.item.title,entry.item.source,entry.item.category,classification(entry,view.ranked)]));const same=key===revision;revision=key;current=view;healthBuilt=false;
+806313	  for(const [id,select] of Object.entries(selects)){const selected=select.value;select.replaceChildren(new Option('All '+(id==='kind'?'types':id==='source'?'publishers':id==='category'?'categories':'topics'),''));for(const value of values(view.entries,id,view.ranked))select.add(new Option(value,value));if([...select.options].some(o=>o.value===selected))select.value=selected;}
+806314	  apply(!same);if(details.open)drawHealth();
+806315	 query.addEventListener('input',()=>apply());for(const select of Object.values(selects))select.addEventListener('change',()=>apply());clear.addEventListener('click',()=>{query.value='';for(const select of Object.values(selects))select.value='';apply();});details.addEventListener('toggle',()=>{if(details.open&&!healthBuilt)drawHealth();});
+806316	 const attach=()=>window.pipelineHeadlines?.attachView?.(update);if(window.pipelineHeadlines)attach();else window.addEventListener('pipeline-news-ready',attach,{once:true});
+806329	NEON_MIGRATIONS = [{"id": feature, "from": "202611171507", "contract": "ticker-neon-v940-v1"}
+806330	                   for feature in ("v936-ticker-contract", "v936-ticker-bounded-static")]
+806331	KNOWN_MIGRATIONS = [SOLAR_MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION, *NEON_MIGRATIONS]
+806337	    "ticker-neon-v940-v1": NEON_MIGRATIONS,
+806338	def _ticker_neon(folder, source):
+806339	    """Explicit owner presentation replacement; historical static feature stays intact."""
+806341	    contract = json.loads((folder / "contracts/ticker.v940.json").read_text(encoding="utf-8"))
+806342	    if contract.get("schema") != "globalgrid2050.neon-headline-ticker.v940" or contract.get("limit") != 100:
+806343	        failures.append("invalid moving ticker contract")
+806344	    shared = folder.parents[1] / "automation/ticker_neon_ui/20261117-v940"
+806345	    hashes = contract.get("shared_sha256", {})
+806346	    if set(hashes) != {"ticker.mjs", "header.mjs", "styles.css"}:
+806347	        failures.append("incomplete shared successor pins")
+806348	    for name, digest in hashes.items():
+806349	        if name not in {"ticker.mjs", "header.mjs", "styles.css"} or hashlib.sha256((shared / name).read_bytes()).hexdigest() != digest:
+806350	            failures.append("changed shared ticker/header bytes")
+806351	    if data_digest(folder) != data_digest(source) or (folder / "scripts/layers/model.mjs").read_bytes() != (source / "scripts/layers/model.mjs").read_bytes():
+806352	        failures.append("changed inherited source data or headline selection policy")
+806353	    binding = "import {latestHeadlines} from './model.mjs';\nimport {createTickerRenderer} from '../../../../automation/ticker_neon_ui/20261117-v940/ticker.mjs';\nexport const renderTicker=createTickerRenderer(latestHeadlines);\n"
+806354	    if (folder / "scripts/layers/ticker.mjs").read_text(encoding="utf-8") != binding:
+806355	        failures.append("missing shared ticker binding")
+806356	    probe = "(()=>{const t=document.querySelector('#headlineTicker'),q=document.querySelector('.pn-news-header-search input'),c=t?.querySelector('.pn-ticker-copy');return !!q&&q.closest('.masthead')&&t.querySelectorAll('input,button').length===0&&t.querySelectorAll('ul').length===1&&!!c&&c.hasAttribute('inert')&&c.getAttribute('aria-hidden')==='true'&&c.querySelectorAll('a,[tabindex]').length===0;})()"
+806357	    return failures, [{"name": "V9.40 singular main header query and one semantic ticker list", "selector": "#headlineTicker", "js": probe}]
+806582	        declarations = [(feature, origin) for feature, origin in inherited if feature["id"] == feature_id]
+806583	        origins = [origin for _, origin in declarations]
+806584	        origin_valid = origins == [migration["from"]]
+806585	        if migration in NEON_MIGRATIONS:
+806586	            # V9.37-39 repeat the original V9.36 feature records verbatim.
+806587	            # Admit only those identical restatements, with one original source
+806588	            # and no duplicate identity inside any edition. Other migrations
+806589	            # retain their original exact single-source requirement.
+806590	            origin_valid = (bool(origins) and origins[0] == migration["from"]
+806591	                            and len(set(origins)) == len(origins)
+806592	                            and all(feature == declarations[0][0] for feature, _ in declarations))
+806594	        if not origin_valid or feature_id in dropped or version["id"] == migration["from"]:
+806600	                             "global-dc-ui-v928-v1": _global_dc_ui,
+806601	                             "ticker-neon-v940-v1": _ticker_neon}[migration["contract"]]
+806619	// Import once, then relocate its real control. Its existing filter closure remains authoritative.
+806620	import '../../news_quality_ui/20261117-v937/view.mjs';
+806621	const D=document,head=D.querySelector('.newspaper .masthead'),query=D.querySelector('.pn-news-filter-tools input[type="search"]');
+806622	if(head&&query&&!head.querySelector('.pn-news-header-search')){
+806623	 const line=D.createElement('div');line.className='pn-news-header-line';const title=D.getElementById('headlinesHeading');if(title){title.textContent='GLOBALGRID2050 HEADLINES';line.append(title);}
+806624	 const label=D.createElement('label');label.className='pn-news-header-search';const text=D.createElement('span');text.textContent='NEWS SEARCH';query.setAttribute('aria-label','Search news titles, sources or topics');query.placeholder='Search news';label.append(text,query);line.append(label);head.prepend(line);
+806625	 const strap=head.querySelector('.strap'),status=D.getElementById('newsStatus');if(strap&&status){head.append(status);const notes=D.createElement('details'),summary=D.createElement('summary');summary.textContent='News scope and matching guidance';notes.className='pn-news-guidance';notes.append(summary,strap);D.querySelector('.pn-news-quality')?.append(notes);}
+806626	/** Flowing visual strip with one semantic list. Source selection remains owner-injected. */
+806627	export function createTickerRenderer(latestHeadlines) {
+806628	 const states=new WeakMap();
+806629	 return function renderTicker(host,items,{snapshotLabel='Latest available headlines'}={}) {
+806630	  const rows=latestHeadlines(items),key=JSON.stringify(rows),old=states.get(host),D=host.ownerDocument,W=D.defaultView;
+806631	  if(old?.key===key&&old.label.parentNode===host){old.label.textContent=snapshotLabel;return;}
+806632	  old?.destroy();host.replaceChildren();host.classList.add('pn-ticker','pn-neon-ticker');host.dataset.count=String(rows.length);
+806633	  const el=(tag,cls,text)=>{const n=D.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;};
+806634	  const label=el('span','pn-ticker-label',snapshotLabel),hint=el('span','pn-ticker-hint','Moving headlines pause on focus or hover. Touch to read; tap empty ticker space again to resume. All original links remain available in the static scrolling list.');
+806635	  const viewport=el('div','pn-ticker-viewport'),track=el('div','pn-ticker-track'),list=el('ul','pn-ticker-cycle');
+806636	  viewport.tabIndex=0;viewport.setAttribute('role','region');viewport.setAttribute('aria-label','Latest headlines; focus to pause and scroll');viewport.setAttribute('aria-live','off');
+806637	  list.setAttribute('aria-label','Original headlines with publisher attribution and dates');
+806638	  for(const row of rows){const li=el('li','pn-ticker-item'),a=el('a','pn-ticker-title',`${row.title} — ${row.source}`),time=el('time','',`${row.dateKind} ${row.date}`);a.href=row.link;a.target='_blank';a.rel='noopener noreferrer';time.dateTime=row.date;li.append(a,' · ',time);list.append(li);}
+806639	  if(!rows.length)list.append(el('li','pn-ticker-item','Headlines unavailable'));
+806640	  const copy=el('div','pn-ticker-cycle pn-ticker-copy');copy.setAttribute('aria-hidden','true');copy.setAttribute('inert','');
+806641	  for(const row of rows){const item=el('div','pn-ticker-item');item.append(el('span','pn-ticker-title',`${row.title} — ${row.source}`),' · ',el('span','pn-ticker-date',`${row.dateKind} ${row.date}`));copy.append(item);}
+806642	  track.append(list,copy);viewport.append(track);host.append(label,hint,viewport);
+806643	  const media=W.matchMedia('(prefers-reduced-motion: reduce)'),listeners=[];let touch=false,focused=false,alive=true;
+806644	  const listen=(n,t,f)=>{n.addEventListener(t,f);listeners.push(()=>n.removeEventListener(t,f));};
+806645	  function sync(){host.dataset.reading=String(media.matches||focused||touch||rows.length<2);host.dataset.motion=host.dataset.reading==='true'?'static':'flowing';}
+806646	  function measure(){if(!alive)return;const width=viewport.clientWidth;host.style.setProperty('--pn-viewport-width',width+'px');const cycle=list.getBoundingClientRect().width;host.style.setProperty('--pn-cycle-width',cycle+'px');host.style.setProperty('--pn-cycle-duration',Math.max(12,cycle/42)+'s');}
+806647	  listen(host,'focusin',e=>{focused=true;sync();e.target.closest('a')?.scrollIntoView({block:'nearest',inline:'nearest'});});listen(host,'focusout',e=>{if(!host.contains(e.relatedTarget)){focused=false;touch=false;sync();}});
+806648	  listen(host,'pointerdown',e=>{if(e.pointerType!=='touch')return;if(touch&&!e.target.closest('a')){e.preventDefault();touch=false;if(host.contains(D.activeElement))D.activeElement.blur();}else touch=true;sync();});
+806649	  listen(viewport,'keydown',e=>{if(e.key==='Escape'){touch=false;viewport.blur();sync();}});
+806650	  const preference=()=>{sync();measure();};media.addEventListener('change',preference);
+806651	  const observer=W.ResizeObserver?new W.ResizeObserver(measure):null;observer?.observe(viewport);observer?.observe(list);if(!observer)listen(W,'resize',measure);
+806652	  const state={key,label,destroy(){alive=false;observer?.disconnect();media.removeEventListener('change',preference);listeners.forEach(off=>off());}};states.set(host,state);sync();measure();D.fonts?.ready.then(()=>{if(alive)measure();});
+806653	 };
+806665	const BASE_SHA = '65bcc01e0d7e4dc073e759345727e53cf7a95752';
+806666	const HISTORY_BASE_SHA = process.env.V928_BASE_SHA || execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+806674	  preservation_base: BASE_SHA, historical_base: HISTORY_BASE_SHA, candidate: relative(ROOT, CANDIDATE).replaceAll('\\', '/'),
+806752	    ...git(['diff','--name-only',HISTORY_BASE_SHA,'--']).split(/\r?\n/),
+806755	  const historical=protectedEditionChanges({cwd:ROOT,base:HISTORY_BASE_SHA});
+806756	  assert.deepEqual(historical,[],'every numeric edition present at the pinned published base remains immutable');
+806759	    assert.equal(git(['ls-tree', BASE_SHA, '--', path]), '', 'original V142 restore point was additive against its original source base');
+806760	    if (git(['ls-tree', HISTORY_BASE_SHA, '--', path])) {
+806761	      assert.deepEqual(bytes(resolve(ROOT,path)),execFileSync('git',['show',HISTORY_BASE_SHA+':'+path],{cwd:ROOT}),'existing restore point remains immutable');
+806765	  const currentRestoreReadme = execFileSync('git',['show',HISTORY_BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
+806766	  assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(currentRestoreReadme.replaceAll('\r\n','\n')), 'restore-point ledger retains the current published history too');
+806832	  assert.deepEqual(historical,[],'all numeric edition trees present in the pinned base remain immutable, including staged/unstaged changes and deletions');
+806905	import {latestHeadlines} from '../../uk_renewables_pipeline/202611171507/scripts/layers/model.mjs';
+806906	const root=resolve(import.meta.dirname,'../..'),edition='uk_renewables_pipeline/202611171507';
+806907	const out=resolve(process.env.V936_OUT||'D:/githubfiles/.qa-artifacts/v936-ticker-worker');mkdirSync(out,{recursive:true});
+806909	const raw=readFileSync(resolve(root,edition,'news/pipeline_headlines.snapshot.json')),saved=JSON.parse(raw);
+806910	const observedRaw=process.env.V936_OBSERVED_LIVE_FILE?readFileSync(process.env.V936_OBSERVED_LIVE_FILE):null,observed=observedRaw?JSON.parse(observedRaw):null;
+806911	const fixture=count=>({schema:saved.schema,status:'ok',generated_at:'2026-11-17T14:00:00Z',scope:'Synthetic browser test; not collected publication evidence',items:Array.from({length:count},(_,i)=>({title:i===0?'<img src=x onerror=alert(1)> literal source title':'Synthetic attributed headline '+i,source:'Fixture publisher',link:'https://publisher.example/article/'+i,date:new Date(Date.parse('2026-11-01T00:00:00Z')+i*60000).toISOString(),first_seen:'2026-11-17T00:00:00Z'}))});
+806912	const server=createServer((req,res)=>{try{const file=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));assert.ok(file.startsWith(root+sep));const bytes=readFileSync(file);res.setHeader('Content-Type',({'.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.html':'text/html'})[extname(file)]||'application/octet-stream');res.end(bytes);}catch{res.writeHead(404).end();}});
+806914	const proof={status:'RUNNING',edition,utc:new Date().toISOString(),checks:[],saved_source:{sha256:createHash('sha256').update(raw).digest('hex'),generated_at:saved.generated_at,input:saved.items.length,eligible:latestHeadlines(saved.items).length},limitations:['Local Chromium desktop/touch emulation; physical handset and public served-byte acceptance are not claimed.','External network is blocked to exercise the production saved snapshot fallback. Boundary datasets are explicitly synthetic test fixtures.']};
+806915	async function touchDrag(session,{x,y,dx}){
+806916	 await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1,radiusX:2,radiusY:2,force:1}]});
+806917	 for(let i=1;i<=10;i++){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+dx*i/10,y,id:1,radiusX:2,radiusY:2,force:1}]});await new Promise(r=>setTimeout(r,16));}
+806918	 await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+806921	 for(const [width,reducedMotion] of [[1440,'no-preference'],[393,'no-preference'],[390,'reduce']]){
+806922	  const context=await browser.newContext({viewport:{width,height:900},isMobile:width<500,hasTouch:width<500,reducedMotion});
+806924	  const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
+806925	  await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)===7775&&document.querySelector('#headlineTicker')?.dataset.count==='71');
+806926	  const host=page.locator('#headlineTicker'),search=host.getByRole('searchbox'),previous=host.getByRole('button',{name:'Previous headlines',exact:true}),next=host.getByRole('button',{name:'Next headlines',exact:true});
+806927	  assert.equal(await page.locator('#newsStatus').getAttribute('data-state'),'snapshot');assert.match(await host.locator('.pn-ticker-label').innerText(),/saved snapshot collected.*articles may be older/i);assert.equal(await host.locator('.pn-ticker-label').isVisible(),true);
+806928	  assert.equal(await page.locator('#liveNews .ln-item').count(),12);await page.locator('#liveNews .ln-more').click();assert.equal(await page.locator('#liveNews .ln-item').count(),24);
+806929	  assert.equal(await host.getAttribute('data-count'),'71');assert.equal(await host.locator('a').count(),20);for(const href of await host.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href)))assert.ok(saved.items.some(item=>item.link===href));
+806930	  const savedLinks=[];for(let batch=0;batch<4;batch++){savedLinks.push(...await host.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href)));assert.ok(await host.locator('a').count()<=20);if(await next.isDisabled())break;await next.click();}assert.deepEqual(savedLinks,latestHeadlines(saved.items).map(row=>row.link));assert.equal(await page.locator('#liveNews .ln-item').count(),24);
+806931	  proof.checks.push({width,reducedMotion,saved_source71:true,all_saved71_pages_reachable:true,main_list12_then24:true,bounded20links:true,status:'PASS'});
+806932	  await page.screenshot({path:resolve(out,'ticker-saved71-'+width+'.png')});
+806933	  if(observed){
+806934	   const eligible=latestHeadlines(observed.items);await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),observed);assert.equal(await host.getAttribute('data-count'),String(eligible.length));assert.deepEqual(await host.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href)),eligible.slice(0,20).map(row=>row.link));assert.equal(await page.locator('#liveNews .ln-item').count(),12);await page.locator('#liveNews .ln-more').click();assert.equal(await page.locator('#liveNews .ln-item').count(),24);
+806935	   proof.checks.push({width,observed_live_replay:true,input:observed.items.length,eligible:eligible.length,generated_at:observed.generated_at,sha256:createHash('sha256').update(observedRaw).digest('hex'),main_list12_then24:true,status:'PASS'});
+806936	  for(const count of [0,1,10,71,100]){
+806937	   const doc=fixture(count);await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),doc);const expected=latestHeadlines(doc.items);
+806938	   assert.equal(await host.getAttribute('data-count'),String(count));assert.equal(await host.getAttribute('data-filtered-count'),String(count));assert.match(await host.locator('.pn-ticker-count').innerText(),new RegExp(count+' of '+count+' headlines'));
+806939	   assert.equal(await host.getByRole('button',{name:/pause|play|resume/i}).count(),0);assert.equal(await host.locator('[aria-hidden]').count(),0);assert.equal(await host.locator('img').count(),0);assert.equal(await host.locator('ul').count(),1);
+806940	   const seen=[];let batch=0;
+806941	   do{
+806942	    const shown=expected.slice(batch*20,batch*20+20);assert.equal(await host.locator('a').count(),shown.length);assert.ok(shown.length<=20);
+806943	    assert.deepEqual(await host.locator('a').allTextContents(),shown.map(row=>row.title+' \u2014 '+row.source));assert.deepEqual(await host.locator('time').evaluateAll(nodes=>nodes.map(node=>node.dateTime)),shown.map(row=>row.date));
+806944	    seen.push(...await host.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href)));assert.equal(await host.locator('.pn-ticker-track').evaluate(node=>getComputedStyle(node).animationName),'none');assert.equal(await host.locator('a[tabindex="-1"]').count(),0);
+806945	    if(await next.isDisabled())break;await next.click();batch++;
+806946	   }while(batch<6);
+806947	   assert.deepEqual(seen,expected.map(row=>row.link));assert.equal(await page.locator('#liveNews .ln-item').count(),Math.min(count,12));
+806948	   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));proof.checks.push({width,count,all_source_items_reachable:true,bounded20links:true,one_list_no_clones_pause_animation:true,attribution_dates_title_literal:true,status:'PASS'});
+806949	  const originalMain=await page.locator('#liveNews .ln-title').evaluateAll(nodes=>nodes.map(node=>node.href));await search.fill('literal source title');assert.equal(await host.getAttribute('data-filtered-count'),'1');assert.equal(await host.locator('a').count(),1);assert.equal(await host.locator('a').first().getAttribute('href'),'https://publisher.example/article/0');assert.equal(await host.getAttribute('data-page'),'1');assert.match(await host.locator('.pn-ticker-count').innerText(),/1 of 100 headlines/);assert.deepEqual(await page.locator('#liveNews .ln-title').evaluateAll(nodes=>nodes.map(node=>node.href)),originalMain);
+806950	  await search.fill('no such fixture headline');assert.equal(await host.getAttribute('data-filtered-count'),'0');assert.equal(await host.locator('a').count(),0);assert.match(await host.innerText(),/No matching headlines/);await search.fill('FIXTURE PUBLISHER');assert.equal(await host.getAttribute('data-filtered-count'),'100');await next.click();assert.equal(await host.getAttribute('data-page'),'2');
+806951	  await search.focus();await page.evaluate(()=>{window.savedTickerSearch=document.querySelector('#headlineTicker input');window.savedTickerFirst=document.querySelector('#headlineTicker a');document.querySelector('#headlineTicker .pn-ticker-viewport').scrollLeft=100;});
+806952	  const same=fixture(100);same.generated_at='2026-11-17T14:01:00Z';await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),same);assert.equal(await search.inputValue(),'FIXTURE PUBLISHER');assert.equal(await host.getAttribute('data-page'),'2');assert.equal(await page.evaluate(()=>document.querySelector('#headlineTicker input')===window.savedTickerSearch&&document.querySelector('#headlineTicker a')===window.savedTickerFirst&&document.activeElement===window.savedTickerSearch),true);assert.equal(await host.locator('.pn-ticker-viewport').evaluate(node=>node.scrollLeft),100);
+806953	  await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),fixture(71));assert.equal(await search.inputValue(),'FIXTURE PUBLISHER');assert.equal(await host.getAttribute('data-page'),'1');assert.equal(await host.getAttribute('data-filtered-count'),'71');
+806954	  await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),fixture(100));const viewport=host.locator('.pn-ticker-viewport'),keyboardLinks=[];
+806955	  for(let batch=0;batch<5;batch++){
+806956	   await viewport.scrollIntoViewIfNeeded();await viewport.focus();await page.keyboard.press('ArrowRight');await page.waitForFunction(()=>document.querySelector('#headlineTicker .pn-ticker-viewport').scrollLeft>0);
+806957	   for(const anchor of await host.locator('a').all()){
+806958	    await page.keyboard.press('Tab');assert.equal(await anchor.evaluate(node=>node===document.activeElement),true);assert.ok(await anchor.evaluate(node=>{const a=node.getBoundingClientRect(),v=node.closest('.pn-ticker-viewport').getBoundingClientRect();return a.right>v.left&&a.left<v.right;}));keyboardLinks.push(await anchor.getAttribute('href'));
+806960	   if(batch<4)await next.click();
+806961	  assert.equal(new Set(keyboardLinks).size,100);assert.equal(await next.isDisabled(),true);await previous.click();assert.equal(await host.getAttribute('data-page'),'4');
+806962	  if(width<500){await viewport.evaluate(node=>{node.scrollLeft=0;});await viewport.scrollIntoViewIfNeeded();const box=await viewport.boundingBox(),session=await context.newCDPSession(page);await touchDrag(session,{x:box.x+box.width*.8,y:box.y+box.height*.5,dx:-Math.min(180,box.width*.6)});await page.waitForFunction(()=>document.querySelector('#headlineTicker .pn-ticker-viewport').scrollLeft>0);await session.detach();}
+806963	  await search.fill('');const mixed=fixture(1);mixed.items.push({...mixed.items[0]},{...mixed.items[0],link:'javascript:alert(1)'},{...mixed.items[0],link:'https://publisher.example/future',date:'2050-01-01'},{...mixed.items[0],link:'https://publisher.example/impossible',date:'2026-02-30'});await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),mixed);assert.equal(await host.locator('a').count(),1);assert.equal(await host.getAttribute('data-count'),'1');
+806964	  const fallback=fixture(1);fallback.items[0].date=null;fallback.items[0].source='';await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),fallback);assert.match(await page.locator('#headlineTicker time').innerText(),/^First collected 2026-11-17T00:00:00Z$/);assert.match(await page.locator('#headlineTicker a').innerText(),/Publisher not supplied/);
+806965	  await page.screenshot({path:resolve(out,'ticker-'+width+'.png')});assert.deepEqual(errors,[]);proof.checks.push({width,native_keyboard_all100_reachable_in5boundedpages:true,native_touch_scroll:width<500,title_publisher_search_beyondfirstpage:true,samefeed_preserves_nodes_focus_query_range_scroll:true,changedfeed_preserves_query_resets_range:true,main_list_independent:true,duplicate_future_unsafe_malformed_withheld:true,first_collected_not_publisher:true,status:'PASS'});await context.close();
+806967	}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify(proof,null,2)+'\n');}
+806971	const asOf=Date.parse('2026-11-17T23:00:00Z');
+806972	const fixture=count=>Array.from({length:count},(_,i)=>({title:'Synthetic attributed headline '+i,source:'Fixture publisher',link:'https://publisher.example/article/'+i,date:new Date(Date.parse('2026-11-01T00:00:00Z')+i*60000).toISOString(),first_seen:'2026-11-17T00:00:00Z'}));
+806973	for(const count of [0,1,10,71,100])test('available '+count+' headlines stay '+count+' without padding',()=>{
+806974	 const input=fixture(count),copy=structuredClone(input),result=latestHeadlines(input,100,{asOf});assert.equal(result.length,count);assert.equal(new Set(result.map(row=>row.link)).size,count);assert.deepEqual(input,copy);
+806975	 for(const row of result){const original=input.find(item=>item.link===row.link);assert.equal(row.title,original.title);assert.equal(row.source,original.source);assert.equal(row.date,original.date);assert.equal(row.dateKind,'Publisher date');}
+806977	test('default ceiling100 and explicit10 retain latest deterministic source order',()=>{
+806978	 const items=fixture(130);assert.equal(latestHeadlines(items,undefined,{asOf}).length,100);const ten=latestHeadlines(items,10,{asOf});assert.equal(ten.length,10);assert.equal(ten[0].title,items.at(-1).title);assert.equal(ten.at(-1).title,items.at(-10).title);
+806979	 for(const value of [0,-1,101,1.2,'10',NaN])assert.deepEqual(latestHeadlines(items,value,{asOf}),[]);
+806980	test('duplicates collapse by source URL and latest genuine date wins',()=>{
+806981	 const items=fixture(2);items.push({...items[0],date:'2026-11-10',title:'Updated source headline'});const result=latestHeadlines(items,100,{asOf});assert.equal(result.length,2);assert.equal(result[0].title,'Updated source headline');
+806982	test('unsafe URLs, malformed/impossible/future clocks and blank titles withheld',()=>{
+806983	 const original=fixture(1)[0];
+806984	 for(const date of ['2026-02-30','2026-11-31T12:00:00Z','2026-11-17T24:00:00Z','2050-01-01','not-a-date','2026-13-01'])assert.deepEqual(latestHeadlines([{...original,date}],100,{asOf}),[],date);
+806985	 for(const link of ['javascript:alert(1)','http://publisher.example/a','https://user:pass@publisher.example/a','https://127.0.0.1/a','https://localhost/a','https://192.168.1.1/a','https://[::1]/a','https://router.internal/a'])assert.deepEqual(latestHeadlines([{...original,link}],100,{asOf}),[],link);
+806986	 for(const title of ['', '   ',null,{},'x'.repeat(1001)])assert.deepEqual(latestHeadlines([{...original,title}],100,{asOf}),[]);
+806987	 assert.deepEqual(latestHeadlines(null),[]);assert.deepEqual(latestHeadlines(Array(10001).fill(original)),[]);assert.deepEqual(latestHeadlines([original],100,{asOf:NaN}),[]);
+806988	test('first-collected fallback and missing attribution remain explicitly unknown',()=>{
+806989	 const item={...fixture(1)[0],date:null,first_seen:'2026-11-16T09:17:00Z',source:null};const [row]=latestHeadlines([item],100,{asOf});assert.equal(row.dateKind,'First collected');assert.equal(row.date,item.first_seen);assert.equal(row.source,'Publisher not supplied');
+806990	 assert.deepEqual(latestHeadlines([{...item,first_seen:null}],100,{asOf}),[]);
+806991	 assert.equal(latestHeadlines([{...item,date:'2024-02-29'}],100,{asOf})[0].dateKind,'Publisher date');
+806992	test('actual saved source snapshot supplies71 real attributed links and unchanged clocks',()=>{
+806993	 const path=new URL('../../uk_renewables_pipeline/202611171507/news/pipeline_headlines.snapshot.json',import.meta.url),bytes=readFileSync(path),doc=JSON.parse(bytes);const result=latestHeadlines(doc.items,100,{asOf});assert.equal(doc.items.length,71);assert.equal(result.length,71);
+806994	 for(const row of result){const original=doc.items.find(item=>item.link===row.link);assert.ok(original);assert.equal(row.title,original.title);assert.equal(row.source,original.source);assert.equal(row.date,original.date||original.first_seen);}
+806995	 console.log('Pinned saved snapshot SHA256 '+createHash('sha256').update(bytes).digest('hex')+'; generated '+doc.generated_at+'; eligible '+result.length);
+806996	const root=resolve(import.meta.dirname,'../..'),edition='uk_renewables_pipeline/202611171526',out=resolve(process.env.V937_OUT||'D:/githubfiles/.qa-artifacts/v937-news-worker');mkdirSync(out,{recursive:true});
+806997	const saved=JSON.parse(readFileSync(resolve(root,edition,'news/pipeline_headlines.snapshot.json'))),observed=process.env.V937_OBSERVED_LIVE_FILE?JSON.parse(readFileSync(process.env.V937_OBSERVED_LIVE_FILE)):null;
+806998	const proof={status:'RUNNING',edition,utc:new Date().toISOString(),checks:[],limitations:['Integrated local Chromium/touch emulation; no physical handset or public publication claim.','Existing saved71 is real source; optional observed76 replays existing read-only bytes. Negative health/ranking/association inputs are explicitly synthetic.']};
+806999	const fixture=()=>({schema:saved.schema,generated_at:new Date().toISOString(),status:'ok',counts:{items:1,feeds_ok:1,feeds_failed:0},feeds:[{url:'https://www.gov.uk/example/feed',source:'GOV.UK',status:'ok',entries:1,kept:1,newest:'2026-11-17T10:00:00Z'}],scope:'Synthetic browser quality-negative fixture, not real publication evidence',items:[{title:'Synthetic UK solar planning decision for ambiguous West Burton',source:'GOV.UK',link:'https://www.gov.uk/news/quality-fixture',date:'2026-11-17T10:00:00Z',first_seen:'2026-11-17T11:00:00Z',category:'policy',technology:'solar',source_kind:'regulator',possible_match:{repd_ref:'10916',site_name:'West Burton Solar Project'}}]});
+807001	  const context=await browser.newContext({viewport:{width,height:900},isMobile:width<500,hasTouch:width<500});await context.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
+807002	  const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>document.querySelector('.pn-news-quality')?.dataset.filteredCount==='71'&&document.querySelector('#tbody')?.dataset.total==='7775');
+807003	  const quality=page.locator('.pn-news-quality'),search=quality.getByRole('searchbox'),source=quality.getByRole('combobox',{name:'News publisher',exact:true}),topic=quality.getByRole('combobox',{name:'News topic',exact:true}),category=quality.getByRole('combobox',{name:'News category',exact:true}),kind=quality.getByRole('combobox',{name:'News ranking source type',exact:true}),clear=quality.getByRole('button',{name:'Clear news filters'}),details=quality.locator('details');
+807004	  assert.equal(await page.locator('#liveNews .ln-item').count(),12);await page.locator('#liveNews .ln-more').click();assert.equal(await page.locator('#liveNews .ln-item').count(),24);await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));assert.equal(await page.locator('#liveNews .ln-item').count(),24);
+807005	  await details.locator('summary').click();await details.locator('p').first().waitFor({state:'visible'});assert.match(await details.innerText(),/71 original articles; 15 distinct credited publisher labels/);assert.match(await details.innerText(),/50 of 50 feed checks succeeded; 0 failed/);assert.ok((await details.innerText()).includes(saved.generated_at));assert.match(await details.innerText(),/Unclassified/);
+807006	  const ticker=page.locator('#headlineTicker');await ticker.getByRole('searchbox').fill(' ');await ticker.getByRole('button',{name:'Next headlines',exact:true}).click();const tickerBefore={query:await ticker.getByRole('searchbox').inputValue(),page:await ticker.getAttribute('data-page'),count:await ticker.getAttribute('data-count'),links:await ticker.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href))};
+807007	  const original=await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument));await search.fill('solar planning');const expected=saved.items.filter(item=>[item.title,item.source,item.category,item.technology].join(' ').toLowerCase().includes('solar')&&[item.title,item.source,item.category,item.technology].join(' ').toLowerCase().includes('planning'));assert.equal(await quality.getAttribute('data-filtered-count'),String(expected.length));assert.ok(expected.length>0&&expected.length<71);await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));assert.equal(await search.inputValue(),'solar planning');assert.equal(await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument)),original);
+807008	  assert.deepEqual({query:await ticker.getByRole('searchbox').inputValue(),page:await ticker.getAttribute('data-page'),count:await ticker.getAttribute('data-count'),links:await ticker.locator('a').evaluateAll(nodes=>nodes.map(node=>node.href))},tickerBefore);
+807009	  await clear.click();await source.selectOption('BBC News');assert.equal(await quality.getAttribute('data-filtered-count'),String(saved.items.filter(item=>item.source==='BBC News').length));assert.ok((await page.locator('#liveNews .ln-meta').allTextContents()).every(text=>text.includes('BBC News')));await clear.click();await topic.selectOption('solar');assert.ok(Number(await quality.getAttribute('data-filtered-count'))<71);await category.selectOption('consent');assert.equal(await quality.getAttribute('data-filtered-count'),String(saved.items.filter(item=>item.technology==='solar'&&item.category==='consent').length));await clear.click();await search.fill('no-such-quality-token');assert.equal(await quality.getAttribute('data-filtered-count'),'0');assert.match(await page.locator('#liveNews').innerText(),/No headlines match/);await clear.click();
+807010	  if(observed){await search.fill('solar');await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),observed);assert.equal(await search.inputValue(),'solar');await clear.click();assert.equal(await quality.getAttribute('data-filtered-count'),'76');assert.match(await details.innerText(),/76 original articles; 16 distinct credited publisher labels/);assert.match(await details.innerText(),/50 of 50 feed checks succeeded/);assert.equal(await ticker.getAttribute('data-count'),'76');}
+807011	  const bad=fixture();bad.counts.feeds_ok=999;await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),bad);await clear.click();assert.match(await details.innerText(),/Feed-health metadata unavailable or inconsistent/);assert.doesNotMatch(await details.innerText(),/999.*succeeded/);assert.equal(await kind.locator('option[value="regulator"]').count(),0);assert.match(await page.locator('#liveNews .ln-match').innerText(),/Possible match/);assert.doesNotMatch(await page.locator('#liveNews').innerText(),/VERIFIED|12345/);
+807012	  const day=fixture();day.generated_at='2026-11-17';day.items[0].first_seen='2026-11-17';day.items[0].date='2026-11-16';await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'snapshot'),day);await clear.click();assert.match(await page.locator('#liveNews .ln-meta').innerText(),/PUBLISHER DATE 16 NOV 2026/);assert.equal(await page.locator('#liveNews .ln-collected').innerText(),'FIRST COLLECTED 17 NOV 2026');assert.doesNotMatch(await page.locator('#newsStatus').innerText(),/00:00|UTC/);assert.doesNotMatch(await page.locator('#liveNews').innerText(),/00:00|UTC/);assert.match(await details.innerText(),/Collection clock: 2026-11-17\./);const instant=fixture();await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),instant);assert.match(await page.locator('#liveNews .ln-meta').innerText(),/10:00 UTC/);assert.match(await page.locator('#liveNews .ln-collected').innerText(),/11:00 UTC/);
+807013	  const clock=fixture();clock.items[0].date=null;clock.items[0].first_seen=null;clock.items[0].source='';clock.items[0].title='<img src=x onerror=alert(1)> literal headline';clock.items[0].link='https://localhost./private';await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),clock);await clear.click();assert.match(await page.locator('#liveNews .ln-meta').innerText(),/ARTICLE DATE UNKNOWN/);assert.equal(await page.locator('#liveNews img').count(),0);assert.equal(await page.locator('#liveNews a[href]').count(),0);assert.match(await details.innerText(),/1 publisher credits unavailable/);
+807014	  for(const status of ['ok','partial','failed']){const doc=fixture();doc.status=status;if(status!=='ok'){doc.feeds[0].status='failed';doc.counts.feeds_ok=0;doc.counts.feeds_failed=1;}await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),doc);assert.ok((await details.innerText()).includes('Recorded status: '+status));if(status==='partial')assert.match(await details.innerText(),/metadata unavailable or inconsistent/);}
+807015	  const empty=fixture();empty.items=[];empty.counts.items=0;empty.feeds[0].kept=0;await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),empty);assert.match(await details.innerText(),/0 original articles/);assert.match(await details.innerText(),/1 of 1 feed checks succeeded/);const impossible=fixture();impossible.generated_at='2026-02-30T10:00:00Z';await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),impossible);assert.match(await details.innerText(),/Article and publisher metadata unavailable/);
+807016	  await page.evaluate(()=>window.pipelineHeadlines.render(null,'none'));assert.equal(await quality.getAttribute('data-filtered-count'),'0');assert.match(await details.innerText(),/metadata unavailable or inconsistent/);
+807017	  const ranked=fixture();await page.evaluate(async doc=>{
+807018	   const bytes=new TextEncoder().encode(JSON.stringify(doc)),digest=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))).map(v=>v.toString(16).padStart(2,'0')).join(''),item=doc.items[0];
+807019	   const sidecar={schema:window.pipelineHeadlines.prioritySchema,input_sha256:digest,input_bytes:bytes.length,input_generated_at:doc.generated_at,input_count:1,as_of:doc.generated_at,profile_id:'uk-transition-global-context.v1',profile_sha256:'06250f2435088a522d8d25676f31f813165a430df1e19f602bd8baae03961c05',entries:[{link:item.link,source:item.source,title:item.title,rank:1,source_kind:'government',role:'primary_context',topics:['solar'],freshness_state:'current',uk_context:true,score:12345,requires_primary_followup:false,subscription_notice:false}]};
+807020	   window.qualityTestInput={doc,bytes,sidecar};if(await window.pipelineHeadlines.validatePriority(doc,bytes,{...sidecar,input_sha256:'0'.repeat(64)}))throw Error('forged rank accepted');window.pipelineHeadlines.render(doc,'live');
+807021	  },ranked);assert.equal(await kind.locator('option[value="government"]').count(),0);
+807022	  await page.evaluate(async()=>{const {doc,bytes,sidecar}=window.qualityTestInput;if(!await window.pipelineHeadlines.validatePriority(doc,bytes,sidecar))throw Error('exact rank rejected');window.pipelineHeadlines.render(doc,'live');});assert.equal(await kind.locator('option[value="government"]').count(),1);await kind.selectOption('government');assert.equal(await quality.getAttribute('data-filtered-count'),'1');assert.doesNotMatch(await page.locator('body').innerText(),/12345/);assert.match(await details.innerText(),/classifications, not source verification/);
+807023	  await page.evaluate(()=>{const {doc}=window.qualityTestInput;window.pipelineHeadlines.render(doc,'live',Date.parse(doc.generated_at)+40*3600000);});assert.equal(await kind.locator('option[value="government"]').count(),0);assert.match(await details.innerText(),/Unclassified/);
+807024	  await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'snapshot'),saved);await clear.click();assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');assert.equal(await page.locator('#operationalHeader').count(),1);assert.ok(await page.locator('#tbody a.atlaslink').first().getAttribute('href'));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:resolve(out,'news-quality-'+width+'.png')});assert.deepEqual(errors,[]);
+807025	  const inheritedStateProbe=JSON.parse(readFileSync(resolve(root,'automation/pipeline_release/registry.json'),'utf8')).versions.find(v=>v.id==='202611171526').browser_probes[0].js;await page.locator('#search').fill('12588');assert.equal(await page.locator('#tbody').getAttribute('data-total'),'1');assert.equal(await page.evaluate(expression=>(0,eval)(expression),inheritedStateProbe),true);assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');
+807026	  proof.checks.push({width,status:'PASS',checks:['Real71/15publisherlabels/50feeds; optional76/16 replay','Main12 then24 and same-source range preserved','Stable title/source/topic/category/current-ranked-kind filters','Original document and V936 ticker query/page/data independent','Bogus/missing/inconsistent health unavailable; separate clocks and day precision without invented midnight','Safe text/unsafe URL/ambiguous possible-match qualification','Forged ranking rejected; stale ranking unclassified; score hidden','Empty/failed/partial/snapshot/unknown states; no overflow/runtime errors; canonical7775 retained']});await context.close();
+807027	import {auditHealth,classification,selectEntries,validClock} from '../../automation/news_quality_ui/20261117-v937/model.mjs';
+807028	const saved=JSON.parse(readFileSync(new URL('../../uk_renewables_pipeline/202611171526/news/pipeline_headlines.snapshot.json',import.meta.url)));
+807029	const entries=saved.items.map(item=>({item}));
+807030	test('actual71 articles15 credited publisher labels50 successful feedrecords',()=>{const a=auditHealth(saved);assert.equal(a.available,true);assert.equal(a.articles,71);assert.equal(a.publishers.length,15);assert.equal(a.feeds,50);assert.equal(a.ok,50);assert.equal(a.failed,0);assert.equal(a.collectionClock,saved.generated_at);});
+807031	test('incomplete, bogus and duplicate feedhealth explicitly unavailable',()=>{
+807032	 for(const mutate of [d=>delete d.feeds,d=>delete d.counts,d=>d.counts.feeds_ok=999,d=>d.counts.items=999,d=>d.counts.by_category.finance=999,d=>d.counts.with_possible_match=999,d=>d.feeds.push(d.feeds[0]),d=>delete d.feeds[0].kept,d=>d.feeds[0].newest='2026-02-30',d=>d.feeds[0].url='https://127.0.0.1/feed',d=>d.feeds[0].entries=-1,d=>d.status='failed']){const d=structuredClone(saved);mutate(d);const a=auditHealth(d);assert.equal(a.available,false);assert.equal('ok' in a,false);assert.equal('feeds' in a,false);}
+807033	 assert.equal(auditHealth(null).collectionClock,null);assert.equal(auditHealth(null).articles,null);
+807034	test('duplicate publishers do not collapse different feed checks',()=>{const d=structuredClone(saved);d.feeds[1].source=d.feeds[0].source;assert.equal(auditHealth(d).feeds,50);assert.equal(auditHealth(d).publishers.length,15);});
+807035	test('partial and retained failed collection preserve recorded status',()=>{const d=structuredClone(saved);d.status='partial';d.feeds[0].status='failed';d.counts.feeds_ok=49;d.counts.feeds_failed=1;const a=auditHealth(d);assert.equal(a.available,true);assert.equal(a.failed,1);assert.equal(a.articles,71);d.status='failed';for(const f of d.feeds)f.status='failed';d.counts.feeds_ok=0;d.counts.feeds_failed=50;assert.equal(auditHealth(d).available,true);});
+807036	test('filtering is stable derived view and screens unrelated source/topic matches',()=>{const before=JSON.stringify(saved);const selected=selectEntries(entries,{query:'solar planning'});assert.ok(selected.length>0&&selected.length<71);assert.ok(selected.every(e=>[e.item.title,e.item.source,e.item.category,e.item.technology].join(' ').toLowerCase().includes('solar')));assert.equal(JSON.stringify(saved),before);assert.deepEqual(selectEntries(entries,{query:'no-such-unique-token'}),[]);const source=entries[0].item.source;assert.ok(selectEntries(entries,{source}).every(e=>e.item.source===source));});
+807037	test('raw item sourcekind and forged/mismatched priority wrappers never classify',()=>{const item={...saved.items[0],source_kind:'government'};assert.equal(classification({item},false).kind,'Unclassified');const p={...item,source_kind:'government',topics:['solar']};assert.equal(classification({item,priority:p},false).kind,'Unclassified');assert.equal(classification({item,priority:{...p,title:'wrong'}},true).kind,'Unclassified');assert.equal(classification({item,priority:p},true).kind,'government');});
+807038	test('publisher/collection clocks stay separate, impossible or unknown clocks unavailable',()=>{for(const value of ['2026-02-30','2026-11-31T10:00:00Z',null,'unknown','2026-11-17T25:00:00Z'])assert.equal(validClock(value),false);assert.equal(validClock('2024-02-29'),true);assert.equal(validClock('2026-11-17T13:48:13Z'),true);const d=structuredClone(saved);d.generated_at='bad';assert.equal(auditHealth(d).collectionClock,null);});
+807039	test('possible ambiguous association remains a source field, never a verified filter claim',()=>{const item={title:'Synthetic ambiguous West Burton pair',source:'Synthetic publisher',category:'consent',technology:'solar',possible_match:{repd_ref:'10916',site_name:'West Burton Solar Project',verified:false}};const e={item};assert.equal(selectEntries([e],{query:'west burton'}).length,1);assert.equal(item.possible_match.verified,false);assert.equal(classification(e,false).kind,'Unclassified');});
+807040	test('shared reader contract and actual stylesheet/module SRI bind final local bytes',()=>{const release=new URL('../../uk_renewables_pipeline/202611171526/',import.meta.url),contract=JSON.parse(readFileSync(new URL('contracts/news-quality.v937.json',release))),html=readFileSync(new URL('index.html',release),'utf8');for(const [name,digest]of Object.entries(contract.sha256)){const bytes=readFileSync(new URL('../../automation/news_quality_ui/20261117-v937/'+name,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),digest,name);if(name!=='model.mjs')assert.ok(html.includes('news_quality_ui/20261117-v937/'+name+'" integrity="sha256-'+createHash('sha256').update(bytes).digest('base64')+'"'),name);}const bad=structuredClone(saved);bad.items=[null];assert.equal(auditHealth(bad).available,false);});
+807041	const root=resolve(import.meta.dirname,'../..'),edition='uk_renewables_pipeline/202611171550',out=resolve(process.env.V938_OUT||'D:/githubfiles/.qa-artifacts/v938-grid-worker');mkdirSync(out,{recursive:true});
+807042	const pending=JSON.parse(readFileSync(resolve(root,'automation/grid_notice_ui/20261117-v938/notice.json'))),approved=structuredClone(pending);approved.publishable=true;approved.review_state='NARROW_FACTS_REVIEWED';approved.notice_count=1;approved.approval={state:'APPROVED_FACTS_ONLY',rights_scope:'government_html_facts_only_no_images_or_third_party_material',facts_sha256:approved.facts_sha256,reviews:[{role:'AGENT_A',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'AGENT_B',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]};
+807043	await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;let browser;
+807044	const proof={status:'RUNNING',edition,utc:new Date().toISOString(),checks:[],limitations:['Local Chromium desktop/touch emulation, no actual public or physical handset acceptance.','Approved-fixture mode uses explicitly synthetic review references; actual-approved mode reads unchanged local notice.json with real independent exact-fact review references, with no notice interception.','Existing remote Grid datasets are blocked; notice view and canonical REPD are tested separately from those unchanged layers.']};
+807045	 for(const width of [1440,393,390])for(const mode of ['pending','approved','actual-approved','changed-bytes']){
+807046	  const context=await browser.newContext({viewport:{width,height:900},isMobile:width<500,hasTouch:width<500});const payload=mode==='pending'?{...pending,publishable:false,approval:null}:structuredClone(approved);if(mode==='changed-bytes')payload.facts.documents[0].source_sha256='0'.repeat(64);
+807047	  await context.route('**/*',route=>mode!=='actual-approved'&&route.request().url().endsWith('/automation/grid_notice_ui/20261117-v938/notice.json')?route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(payload)}):route.request().url().startsWith(origin)?route.continue():route.abort());
+807048	  const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775'&&document.querySelector('.pn-grid-notice')?.dataset.state!=='loading');const host=page.locator('.pn-grid-notice');assert.equal(await host.evaluate(n=>n.parentElement.id),'gridPanel');assert.equal(await page.locator('main > section').count(),2);assert.equal(await host.isVisible(),false);
+807049	  await page.locator('#gridTab').click();await host.waitFor({state:'visible'});
+807050	  if(mode==='approved'||mode==='actual-approved'){
+807051	   assert.equal(await host.getAttribute('data-state'),'reviewed-facts');assert.equal(await host.getAttribute('data-notice-count'),'1');assert.match(await host.innerText(),/1 source-qualified notice.*2 government documents/);assert.match(await host.innerText(),/30 October 2026 \(DAY precision\)/);assert.match(await host.innerText(),/up to 2 GW, not current/);await host.locator('summary').click();assert.equal(await host.locator('a').count(),2);
+807052	   for(const document of approved.facts.documents){assert.ok((await host.innerText()).includes(document.publisher));assert.ok((await host.innerText()).includes(document.retrieved_at));assert.equal(await host.locator('a[href="'+document.url+'"]').count(),1);}
+807053	   for(const date of ['2025-03-27','2025-04-23','2026-07-30'])assert.ok((await host.innerText()).includes(date));assert.match(await host.innerText(),/no images|Images and linked third-party material are excluded/i);assert.match(await host.innerText(),/No REPD\/ETYS match/);assert.equal(await host.locator('img,iframe').count(),0);
+807054	   await host.getByRole('searchbox').fill('no-matching-grid-notice');assert.equal(await host.getAttribute('data-filtered-count'),'0');assert.match(await host.getByRole('status').innerText(),/0 of 1/);assert.equal(await host.locator('article').isVisible(),false);await host.getByRole('searchbox').fill('NGET');assert.equal(await host.getAttribute('data-filtered-count'),'1');assert.equal(await host.locator('article').isVisible(),true);
+807055	  }else{assert.equal(await host.getAttribute('data-state'),'withheld');assert.equal(await host.getAttribute('data-notice-count'),null);assert.equal(await host.locator('article,a').count(),0);assert.match(await host.innerText(),/unavailable.*review is pending/);}
+807056	  await page.locator('#solarTab').click();assert.equal(await host.isVisible(),false);assert.equal(await page.locator('#tbody').getAttribute('data-total'),'3604');await page.locator('#clearFilters').click();assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');assert.equal(await page.locator('#operationalHeader').count(),1);assert.ok(await page.locator('#tbody a.atlaslink').first().getAttribute('href'));assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.deepEqual(errors,[]);if(mode==='approved'||mode==='actual-approved'){await page.locator('#gridTab').click();await page.screenshot({path:resolve(out,'grid-notice-'+width+'.png')});}
+807057	  proof.checks.push({width,mode,status:'PASS',checks:['Existing Grid tab only; no extra principal panel','One notice/two document count or explicitly unavailable','Typed DAY clocks, publisher vs reported operator, planned power qualification','Pending/changed-byte gates fail closed; no fabricated source join or image','Filtering, original7775/3604 source counts, dates and MAP preserved; no overflow/runtime errors']});await context.close();
+807058	import {acceptedNotice,factsHash} from '../grid_notice_ui/20261117-v938/model.mjs';
+807059	const input=JSON.parse(readFileSync(new URL('../grid_notice_ui/20261117-v938/notice.json',import.meta.url)));
+807060	export function approvedFixture(){const doc=structuredClone(input);doc.publishable=true;doc.review_state='NARROW_FACTS_REVIEWED';doc.notice_count=1;doc.approval={state:'APPROVED_FACTS_ONLY',rights_scope:'government_html_facts_only_no_images_or_third_party_material',facts_sha256:factsHash,reviews:[{role:'AGENT_A',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'AGENT_B',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]};return doc;}
+807061	test('actual source facts with synthetic scoped review references satisfy the private gate',async()=>{const f=await acceptedNotice(approvedFixture());assert.equal(f.application_ref,'EN020026');assert.equal(f.reported_network_operator,'NGET');assert.equal(f.event_date.precision,'DAY');assert.equal(f.planned_metric.kind,'planned_transmission_upper_bound');assert.equal(f.current_capacity_mw,null);assert.equal(f.repd_ref,null);assert.equal(f.coordinates,null);assert.equal(f.documents.length,2);});
+807062	test('pending, missing/duplicate reviews, broad rights and changed source bytes withheld',async()=>{for(const mutate of [d=>d.publishable=false,d=>d.approval=null,d=>d.approval.rights_scope='all_gov_content',d=>d.approval.reviews.pop(),d=>d.approval.reviews[1].reference=d.approval.reviews[0].reference,d=>d.facts.documents[0].source_sha256='0'.repeat(64),d=>d.facts.documents[0].publisher='NGET',d=>d.facts.current_capacity_mw=2000,d=>d.facts.event_date={value:'2026-10-30T00:00:00Z',precision:'INSTANT'},d=>d.facts.repd_ref='1',d=>d.facts.documents[0].url='https://www.gov.uk.evil.example/fake']){const doc=approvedFixture();mutate(doc);assert.equal(await acceptedNotice(doc),null);}assert.equal(await acceptedNotice(null),null);});
+807063	test('new GRID host contract, stylesheet and module SRI bind actual shared bytes',()=>{const release=new URL('../../uk_renewables_pipeline/202611171550/',import.meta.url),contract=JSON.parse(readFileSync(new URL('contracts/grid-notice.v938.json',release))),html=readFileSync(new URL('index.html',release),'utf8');for(const [name,hash]of Object.entries(contract.sha256)){const bytes=readFileSync(new URL('../grid_notice_ui/20261117-v938/'+name,import.meta.url));assert.equal(createHash('sha256').update(bytes).digest('hex'),hash,name);if(['view.mjs','styles.css'].includes(name))assert.ok(html.includes('grid_notice_ui/20261117-v938/'+name+'" integrity="sha256-'+createHash('sha256').update(bytes).digest('base64')+'"'),name);}});
+807064	const root=resolve(import.meta.dirname,'../..'),edition=process.env.V939_EDITION||'uk_renewables_pipeline/202611171609',inject=process.env.V939_INJECT==='1',out=resolve(process.env.V939_OUT||'D:/githubfiles/.qa-artifacts/v939-documents-worker');mkdirSync(out,{recursive:true});
+807065	const noticePath='/automation/grid_notice_ui/20261117-v938/notice.json',factsPath='/automation/document_facts_ui/20261117-v939/facts.json';
+807066	const original=JSON.parse(readFileSync(resolve(root,'.'+noticePath))),approved=structuredClone(original);approved.publishable=true;approved.review_state='NARROW_FACTS_REVIEWED';approved.notice_count=1;approved.approval={state:'APPROVED_FACTS_ONLY',rights_scope:'government_html_facts_only_no_images_or_third_party_material',facts_sha256:approved.facts_sha256,reviews:[{role:'AGENT_A',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'AGENT_B',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]};
+807067	const server=createServer((req,res)=>{try{const file=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));assert.ok(file.startsWith(root+sep));let bytes=readFileSync(file);if(inject&&file===resolve(root,edition,'index.html'))bytes=Buffer.from(bytes.toString().replace('</head>','<link rel="stylesheet" href="../../automation/document_facts_ui/20261117-v939/styles.css"><script type="module" src="../../automation/document_facts_ui/20261117-v939/view.mjs"></script></head>'));res.setHeader('Content-Type',({'.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.html':'text/html'})[extname(file)]||'application/octet-stream');res.end(bytes);}catch{res.writeHead(404).end();}});
+807068	const proof={status:'RUNNING',edition,injectedPreviewTags:inject,utc:new Date().toISOString(),checks:[],limitations:['Local Chromium emulation; no actual public or physical device acceptance.','Approved-fixture uses synthetic narrow review metadata; actual-approved uses unchanged committed actual independent review with no notice interception.','PDF extraction unavailable; only actual pinned government HTML facts tested.']};
+807069	 for(const width of [1440,393,390])for(const mode of ['approved-fixture','actual-approved','pending','changed-extraction']){
+807071	  await context.route('**/*',route=>{const url=new URL(route.request().url());if(mode!=='actual-approved'&&url.pathname===noticePath)return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(mode==='pending'?{...original,publishable:false,approval:null}:approved)});if(mode==='changed-extraction'&&url.pathname===factsPath){const data=JSON.parse(readFileSync(resolve(root,'.'+factsPath)));data.documents[1].claims[0].value='2000';return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});}return url.origin===origin?route.continue():route.abort();});
+807072	  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775'&&document.querySelector('.pn-document-facts')?.dataset.state!=='loading');const host=page.locator('.pn-document-facts');assert.equal(await host.evaluate(n=>n.parentElement.id),'gridPanel');assert.equal(await host.isVisible(),false);await page.locator('#gridTab').click();await host.locator(':scope > summary').click();
+807073	  if(mode==='approved-fixture'||mode==='actual-approved'){
+807074	   assert.equal(await host.getAttribute('data-state'),'source-qualified');assert.equal(await host.locator('section').count(),2);assert.equal(await host.locator('section details').count(),6);assert.equal(await host.locator('a').count(),2);assert.match(await host.innerText(),/6 automatically distilled facts from 2 government HTML/);assert.match(await host.innerText(),/Machine provisional/);assert.match(await host.innerText(),/PDF extraction unavailable/);
+807075	   for(const date of ['2025-03-27','2025-04-23','2026-07-30','2026-10-30'])assert.ok((await host.innerText()).includes(date));assert.match(await host.innerText(),/Planned transmission upper bound: 2 GW/);await host.locator('section details').last().locator('summary').click();assert.match(await host.innerText(),/forecast upper bound; not current/);assert.match(await host.innerText(),/Source paragraph 1/);assert.equal(await host.locator('code').last().innerText(),'main#content > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(1) > section:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1)');assert.equal(await host.locator('img,iframe,table').count(),0);
+807076	   for(const link of await host.locator('a').all())assert.ok((await link.getAttribute('href')).startsWith('https://www.gov.uk/government/'));await page.screenshot({path:resolve(out,'document-facts-'+width+'.png')});
+807077	  }else{assert.equal(await host.getAttribute('data-state'),'withheld');assert.equal(await host.locator('section,a').count(),0);assert.match(await host.innerText(),/unavailable/);}
+807078	  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.locator('#solarTab').click();assert.equal(await host.isVisible(),false);await page.locator('#clearFilters').click();assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');assert.equal(await page.locator('#operationalHeader').count(),1);assert.ok(await page.locator('#tbody a.atlaslink').first().getAttribute('href'));assert.deepEqual(errors,[]);proof.checks.push({width,mode,status:'PASS'});await context.close();
+807079	 }proof.status='PASS';
+807081	import {acceptedDocuments,bundleHash} from '../document_facts_ui/20261117-v939/model.mjs';
+807082	const bytes=readFileSync(new URL('../document_facts_ui/20261117-v939/facts.json',import.meta.url),'utf8');
+807083	const pending=JSON.parse(readFileSync(new URL('../grid_notice_ui/20261117-v938/notice.json',import.meta.url)));
+807084	function approved(){const n=structuredClone(pending);n.publishable=true;n.review_state='NARROW_FACTS_REVIEWED';n.notice_count=1;n.approval={state:'APPROVED_FACTS_ONLY',rights_scope:'government_html_facts_only_no_images_or_third_party_material',facts_sha256:n.facts_sha256,reviews:[{role:'AGENT_A',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'AGENT_B',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]};return n;}
+807085	test('actual extracted bundle, synthetic narrow approval: six located provisional facts',async()=>{const data=await acceptedDocuments(bytes,approved());assert.equal(data.documents.length,2);assert.equal(data.documents.flatMap(d=>d.facts).length,6);assert.equal(data.documents[1].claims[0].value,'2');assert.equal(data.documents[1].claims[0].basis,'forecast');assert.ok(data.documents.every(d=>!d.publishable&&d.unknowns.current_capacity===null));assert.equal(bundleHash.length,64);});
+807086	test('pending or spoofed reviews never authorize a display',async()=>{assert.equal(await acceptedDocuments(bytes,{...pending,publishable:false,approval:null}),null);const n=approved();n.approval.reviews[1].reference='https://evil.test/fake';assert.equal(await acceptedDocuments(bytes,n),null);});
+807087	test('changed extracted facts/locators, unsafe titles or source URLs fail exact-byte pin',async()=>{for(const mutate of [d=>d.documents[1].claims[0].value='2000',d=>d.documents[0].source_url='javascript:alert(1)',d=>d.documents[0].title='<img src=x onerror=alert(1)>',d=>d.documents[0].facts[0].locator.paragraph=99]){const d=JSON.parse(bytes);mutate(d);assert.equal(await acceptedDocuments(JSON.stringify(d),approved()),null);}});
+807088	/** Named Android emulation proof. Local saved-data acceptance and live observations are separate. */
+807092	const root = path.resolve(import.meta.dirname, '../..');
+807093	const edition = 'uk_renewables_pipeline/202611171710';
+807094	const sourceCommit = 'e008a5e031912f52c8d65c60161fe70357cd5162';
+807095	const sourceEditionTree = 'b027ff05286bd998abdf8304cc12c9a72732d477';
+807096	const output = path.resolve(process.env.V940_ANDROID_OUT || path.join(root, '.qa-artifacts/v940-android'));
+807097	const {chromium, devices} = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)).href : 'playwright');
+807098	const {latestHeadlines} = await import(pathToFileURL(path.join(root, edition, 'scripts/layers/model.mjs')).href);
+807100	const git = (...args) => execFileSync('git', args, {cwd: root, encoding: 'utf8'}).trim();
+807101	const selected = (process.env.ANDROID_DEVICE || 'Pixel 7,Galaxy S9+').split(',').map(s => s.trim());
+807102	const pins = {
+807103	  [edition + '/index.html']: '97fe3ff68d2f2c21c639a7906c85a87a4dea780a68c1abeee85ff42de4852073',
+807104	  'automation/ticker_neon_ui/20261117-v940/ticker.mjs': 'f9ed407157cd54209b797497e71e6884bda4ea1a373f68b6934cf85d0faf9653',
+807105	  'automation/ticker_neon_ui/20261117-v940/header.mjs': '17fbbbf9488ceadfd46baeef8849a3f37862d30261916991fa56f85eb0a3b94d',
+807106	  'automation/ticker_neon_ui/20261117-v940/styles.css': '9ac64ca9859a73263a532ef65f121c7a7e87627400e5abce6d235d46f4ae0db4'
+807110	  status: 'RUNNING', startedUTC: new Date().toISOString(), sourceCommit, sourceEditionTree,
+807111	  worktreeHead: git('rev-parse', 'HEAD'), observedEditionTree: git('rev-parse', 'HEAD:' + edition), edition,
+807112	  environment: 'Named Playwright Android device emulation using host Chromium; NOT physical Android/ADB acceptance',
+807113	  local: [], public: [], sourceHashes: {},
+807115	    'External requests are blocked ONLY for local saved-data fallback. Optional public observations have no interception.',
+807116	    'Physical Android, mobile GPU, browser chrome, hardware keyboard and TalkBack acceptance remain unknown.'
+807118	const save = () => fs.writeFileSync(path.join(output, 'receipt.json'), JSON.stringify(receipt, null, 2) + '\n');
+807120	for (const [file, expected] of Object.entries(pins)) {
+807121	  const actual = sha(fs.readFileSync(path.join(root, file)));
+807122	  receipt.sourceHashes[file] = actual;
+807123	  assert.equal(actual, expected, file + ' differs from frozen UI source');
+807124	const saved = JSON.parse(fs.readFileSync(path.join(root, edition, 'news/pipeline_headlines.snapshot.json')));
+807125	const expectedRows = latestHeadlines(saved.items);
+807126	assert.equal(expectedRows.length, 71, 'Pinned saved-news population');
+807127	for (const name of selected) {
+807128	  assert.ok(devices[name] && devices[name + ' landscape'], 'Unknown portrait/landscape device: ' + name);
+807129	  assert.match(devices[name].userAgent, /Android/);
+807130	  assert.equal(devices[name].hasTouch, true);
+807133	    const file = path.resolve(root, '.' + decodeURIComponent(new URL(req.url, 'http://local').pathname));
+807134	    assert.ok(file.startsWith(root + path.sep));
+807135	    res.setHeader('Content-Type', ({'.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript', '.json': 'application/json'})[path.extname(file)] || 'application/octet-stream');
+807136	    res.end(fs.readFileSync(file));
+807139	const origin = 'http://127.0.0.1:' + server.address().port;
+807140	const url = origin + '/' + edition + '/index.html?technology=all';
+807141	async function rotate(page, session, name, landscape) {
+807142	  const cfg = devices[name + (landscape ? ' landscape' : '')], vp = cfg.viewport;
+807143	  await page.setViewportSize(vp);
+807144	  await session.send('Emulation.setDeviceMetricsOverride', {
+807145	    width: vp.width, height: vp.height, deviceScaleFactor: cfg.deviceScaleFactor, mobile: true,
+807146	    screenWidth: cfg.screen?.width || vp.width, screenHeight: cfg.screen?.height || vp.height,
+807147	    screenOrientation: {type: landscape ? 'landscapePrimary' : 'portraitPrimary', angle: landscape ? 90 : 0}
+807149	  await page.waitForTimeout(120);
+807151	    viewport: {width: innerWidth, height: innerHeight}, screen: {width: screen.width, height: screen.height},
+807152	    orientation: {type: screen.orientation.type, angle: screen.orientation.angle}, dpr: devicePixelRatio,
+807153	    touch: navigator.maxTouchPoints, ua: navigator.userAgent, platform: navigator.platform,
+807154	    hover: matchMedia('(hover:hover)').matches
+807156	async function tap(session, x, y) {
+807157	  await session.send('Input.dispatchTouchEvent', {type: 'touchStart', touchPoints: [{x, y, id: 1, radiusX: 2, radiusY: 2, force: 1}]});
+807158	  await session.send('Input.dispatchTouchEvent', {type: 'touchEnd', touchPoints: []});
+807159	async function swipe(session, x, y, dx) {
+807160	  for (let i = 1; i <= 12; i++) {
+807161	    await session.send('Input.dispatchTouchEvent', {type: 'touchMove', touchPoints: [{x: x + dx * i / 12, y, id: 1, radiusX: 2, radiusY: 2, force: 1}]});
+807162	    await new Promise(resolve => setTimeout(resolve, 18));
+807163	async function originals(ticker) {
+807164	  const actual = await ticker.locator('ul li').evaluateAll(nodes => nodes.map(n => ({
+807165	    text: n.querySelector('a')?.textContent, href: n.querySelector('a')?.href,
+807166	    date: n.querySelector('time')?.dateTime, dateText: n.querySelector('time')?.textContent
+807168	  assert.deepEqual(actual, expectedRows.map(row => ({text: `${row.title} \u2014 ${row.source}`, href: row.link, date: row.date, dateText: `${row.dateKind} ${row.date}`})), 'Every literal publisher/date/link matches the saved-source selector');
+807169	async function fallback(context, blocked) {
+807170	  await context.route('**/*', route => {
+807171	    if (route.request().url().startsWith(origin + '/')) return route.continue();
+807172	    blocked.add(route.request().url());
+807174	  browser = await chromium.launch({headless: true});
+807175	  receipt.browserVersion = browser.version();
+807176	  for (const name of selected) {
+807177	    const context = await browser.newContext({...devices[name], reducedMotion: 'no-preference'}), blocked = new Set();
+807178	    await fallback(context, blocked);
+807179	    const page = await context.newPage(), session = await context.newCDPSession(page), errors = [], popups = [];
+807180	    page.setDefaultTimeout(10000);
+807182	    page.on('popup', p => { popups.push(p.url()); p.close().catch(() => {}); });
+807183	    const result = {device: name, descriptor: devices[name], rotations: [], errors, popups};
+807184	    receipt.local.push(result); save();
+807185	    await page.goto(url, {waitUntil: 'domcontentloaded', timeout: 20000});
+807186	    await page.waitForFunction(() => document.querySelector('#tbody')?.dataset.total === '7775' && document.querySelector('#headlineTicker')?.dataset.count === '71');
+807187	    await page.screenshot({path: path.join(output, name.replaceAll(' ', '-') + '-header.png')});
+807188	    const ticker = page.locator('#headlineTicker'), view = ticker.locator('.pn-ticker-viewport');
+807189	    const x = () => ticker.locator('ul').evaluate(n => n.getBoundingClientRect().x);
+807190	    for (const landscape of [false, true, false]) {
+807191	      const actual = await rotate(page, session, name, landscape);
+807192	      assert.match(actual.ua, /Android/); assert.ok(actual.touch > 0 && actual.dpr > 1); assert.equal(actual.hover, false);
+807193	      assert.equal(actual.orientation.angle, landscape ? 90 : 0);
+807194	      await ticker.scrollIntoViewIfNeeded(); await page.mouse.move(0, 0);
+807195	      const a = await x(); await page.waitForTimeout(400); const b = await x();
+807196	      assert.ok(a - b > 5, 'Actual rendered Android ticker movement across frames');
+807197	      assert.equal(await ticker.locator('input,button').count(), 0);
+807198	      assert.equal(await page.locator('.masthead input[type=search]').count(), 1);
+807199	      assert.equal(await page.locator('#headlinesHeading').evaluate(n => getComputedStyle(n).color), 'rgb(255, 255, 255)');
+807200	      assert.equal(await ticker.locator('.pn-ticker-copy a,.pn-ticker-copy [tabindex]').count(), 0);
+807201	      assert.equal(await ticker.locator('.pn-ticker-copy').getAttribute('aria-hidden'), 'true');
+807202	      assert.notEqual(await ticker.locator('.pn-ticker-copy').getAttribute('inert'), null);
+807203	      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2));
+807204	      assert.equal(await page.locator('#tbody').getAttribute('data-total'), '7775');
+807205	      result.rotations.push({landscape, actual, renderedDelta: a - b});
+807206	      await page.screenshot({path: path.join(output, name.replaceAll(' ', '-') + '-' + result.rotations.length + '.png')}); save();
+807207	    const box = await view.boundingBox();
+807208	    await tap(session, box.x + box.width * .5, box.y + 3); await page.waitForTimeout(80);
+807209	    assert.equal(await ticker.getAttribute('data-reading'), 'true');
+807210	    let a = await x(); await page.waitForTimeout(300); assert.ok(Math.abs(await x() - a) < 1);
+807211	    const before = await view.evaluate(n => n.scrollLeft), beforeUrl = page.url();
+807212	    await swipe(session, box.x + box.width * .8, box.y + box.height / 2, -Math.min(180, box.width * .6));
+807214	    const after = await view.evaluate(n => n.scrollLeft);
+807215	    assert.ok(after > before + 20, 'Native horizontal touch reading swipe');
+807216	    assert.equal(page.url(), beforeUrl); assert.equal(popups.length, 0);
+807217	    assert.equal(await ticker.getAttribute('data-reading'), 'false');
+807218	    a = await x(); await page.waitForTimeout(400); assert.ok(a - await x() > 5);
+807219	    result.touch = {paused: true, readSwipePixels: after - before, resumed: true, noLinkActivation: true};
+807220	    const query = page.locator('.pn-news-header-search input'), target = saved.items.at(-1);
+807221	    await query.fill(target.title);
+807222	    assert.ok((await page.locator('#liveNews').textContent()).includes(target.title));
+807223	    await page.locator('.pn-news-quality').getByRole('button', {name: 'Clear news filters'}).tap();
+807224	    assert.equal(await page.locator('.pn-news-quality').getAttribute('data-filtered-count'), '71');
+807225	    result.headerSearch = {singular: true, lastOriginalArticleMatched: true};
+807226	    await originals(ticker);
+807227	    result.attributionDates = {literalSourceEquality: true, originalLinks: expectedRows.length, datedOriginals: expectedRows.length};
+807229	    result.expectedBlockedExternal = [...blocked];
+807231	    const reduced = await browser.newContext({...devices[name], reducedMotion: 'reduce'}), reducedBlocked = new Set();
+807232	    await fallback(reduced, reducedBlocked);
+807233	    const r = await reduced.newPage(), reducedErrors = []; r.on('pageerror', e => reducedErrors.push(e.message));
+807234	    await r.goto(url, {waitUntil: 'domcontentloaded', timeout: 20000});
+807235	    await r.waitForFunction(() => document.querySelector('#headlineTicker')?.dataset.count === '71');
+807236	    const rt = r.locator('#headlineTicker'); await rt.scrollIntoViewIfNeeded();
+807237	    a = await rt.locator('ul').evaluate(n => n.getBoundingClientRect().x);
+807238	    await r.waitForTimeout(350);
+807239	    assert.ok(Math.abs(await rt.locator('ul').evaluate(n => n.getBoundingClientRect().x) - a) < 1);
+807240	    await rt.locator('ul a').last().focus();
+807241	    assert.ok(await rt.locator('ul a').last().evaluate(n => { const a = n.getBoundingClientRect(), v = n.closest('.pn-ticker-viewport').getBoundingClientRect(); return a.right > v.left && a.left < v.right; }));
+807242	    assert.ok(await r.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2));
+807243	    await originals(rt); assert.deepEqual(reducedErrors, []);
+807244	    result.reducedMotion = {static: true, lastOriginalLinkReadable: true, literalSourceEquality: true, errors: reducedErrors};
+807245	    await r.screenshot({path: path.join(output, name.replaceAll(' ', '-') + '-reduced.png')});
+807246	    await reduced.close(); result.status = 'PASS'; save();
+807247	    console.log(JSON.stringify({device: name, status: result.status, touch: result.touch, reducedMotion: result.reducedMotion}));
+807248	  // Opt-in observation only. Public transport/content cannot establish acceptance of this source candidate.
+807249	  if (process.env.V940_ANDROID_PUBLIC === '1') for (const target of ['https://globalgrid2050.com/uk_renewables_pipeline/202611171526/', 'https://globalgrid2050.com/']) {
+807250	    const context = await browser.newContext({...devices[selected[0]]}), page = await context.newPage(), errors = [];
+807251	    page.setDefaultTimeout(2500); page.on('pageerror', e => errors.push(e.message));
+807252	    const observation = {requestedUrl: target, utc: new Date().toISOString(), device: selected[0], interception: false, acceptedFixClaim: false};
+807253	    receipt.public.push(observation);
+807255	      const response = await page.goto(target, {waitUntil: 'domcontentloaded', timeout: 15000});
+807257	      observation.status = response?.status(); observation.finalUrl = page.url();
+807258	      if (response) observation.htmlSha256 = sha(await response.body());
+807259	      observation.dom = await page.evaluate(() => ({title: document.title, brand: document.querySelector('.release-brand small')?.textContent || null,
+807260	        tickerControls: [...document.querySelectorAll('#headlineTicker input,#headlineTicker button')].map(e => ({tag: e.tagName, text: e.textContent, placeholder: e.getAttribute('placeholder')})),
+807261	        tickerCount: document.querySelector('#headlineTicker')?.dataset.count || null,
+807262	        pipelineLinks: [...document.querySelectorAll('a[href*="uk_renewables_pipeline/"]')].map(a => ({text: a.textContent, href: a.href})).slice(0, 30)}));
+807263	      const track = page.locator('#headlineTicker .pn-ticker-track');
+807264	      if (await track.count()) { await track.scrollIntoViewIfNeeded(); const a = await track.evaluate(n => n.getBoundingClientRect().x); await page.waitForTimeout(500); observation.renderedDelta = a - await track.evaluate(n => n.getBoundingClientRect().x); }
+807265	      await page.screenshot({path: path.join(output, 'public-' + receipt.public.length + '.png'), timeout: 2500});
+807266	      observation.errors = errors;
+807267	    } catch (e) { observation.transportOrObservationError = e.message; }
+807268	    save(); await context.close();
+807269	  receipt.status = 'PASS'; receipt.completedUTC = new Date().toISOString(); save();
+807271	  receipt.status = 'FAIL'; receipt.failure = {message: e.message, stack: e.stack}; save(); throw e;
+807272	} finally { await browser?.close(); await new Promise(resolve => server.close(resolve)); }
+807273	const root=resolve(import.meta.dirname,'../..'),edition='uk_renewables_pipeline/202611171710',out=resolve(process.env.V940_OUT||'D:/githubfiles/.qa-artifacts/v940-neon-worker');mkdirSync(out,{recursive:true});
+807274	const saved=JSON.parse(readFileSync(resolve(root,edition,'news/pipeline_headlines.snapshot.json')));
+807275	const fixture=n=>({...saved,items:Array.from({length:n},(_,i)=>({title:'Synthetic headline '+i,source:'Fixture publisher',link:'https://publisher.example/article/'+i,date:'2026-11-17T10:00:00Z'}))});
+807276	const server=createServer((req,res)=>{try{const p=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));assert.ok(p.startsWith(root+sep));res.setHeader('Content-Type',({'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json'})[extname(p)]||'application/octet-stream');res.end(readFileSync(p));}catch{res.writeHead(404).end();}});
+807277	await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port,proof={status:'RUNNING',edition,checks:[],limitations:['Chromium viewport/touch/keyboard emulation; physical handset and assistive technology acceptance unknown.','Existing saved source and explicitly synthetic boundary fixtures; no public publication claimed.']};let browser;
+807278	 for(const [width,motion]of [[1440,'no-preference'],[393,'no-preference'],[390,'reduce']]){
+807279	  const context=await browser.newContext({viewport:{width,height:900},hasTouch:width<500,isMobile:width<500,reducedMotion:motion});await context.route('**/*',r=>r.request().url().startsWith(origin)?r.continue():r.abort());
+807280	  const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775'&&document.querySelector('#headlineTicker')?.dataset.count==='71'&&document.querySelector('.pn-news-header-search input'));
+807281	  const ticker=page.locator('#headlineTicker'),viewport=ticker.locator('.pn-ticker-viewport'),primary=ticker.locator('ul'),headerQuery=page.locator('.pn-news-header-search input'),quality=page.locator('.pn-news-quality');
+807282	  assert.equal(await ticker.locator('input,button').count(),0);assert.equal(await primary.locator('a').count(),71);assert.equal(await ticker.locator('.pn-ticker-copy a,.pn-ticker-copy [tabindex]').count(),0);assert.equal(await ticker.locator('.pn-ticker-copy').getAttribute('aria-hidden'),'true');assert.notEqual(await ticker.locator('.pn-ticker-copy').getAttribute('inert'),null);assert.equal(await quality.getByRole('searchbox').count(),0);assert.equal(await page.locator('.masthead input[type=search]').count(),1);
+807283	  assert.equal(await page.locator('#headlinesHeading').evaluate(n=>getComputedStyle(n).color),'rgb(255, 255, 255)');
+807284	  await ticker.scrollIntoViewIfNeeded();await page.mouse.move(0,0);const x=()=>primary.evaluate(n=>n.getBoundingClientRect().x);let a=await x();await page.waitForTimeout(450);let b=await x();if(motion==='reduce')assert.ok(Math.abs(b-a)<1);else assert.ok(a-b>5,'Actual rendered strip must move across frames');
+807285	  if(width===1440&&motion!=='reduce'){
+807286	   await ticker.hover();a=await x();await page.waitForTimeout(250);assert.ok(Math.abs(await x()-a)<1,'Hover pauses real frames');await page.mouse.move(0,0);
+807287	   const wrap=await page.evaluate(async()=>{const h=document.querySelector('#headlineTicker'),t=h.querySelector('.pn-ticker-track'),p=h.querySelector('ul'),c=h.querySelector('.pn-ticker-copy'),v=h.querySelector('.pn-ticker-viewport'),animation=t.getAnimations()[0],duration=animation.effect.getTiming().duration;animation.currentTime=duration-60;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const before=c.firstElementChild.getBoundingClientRect(),vr=v.getBoundingClientRect();animation.currentTime=duration+60;await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));const after=p.firstElementChild.getBoundingClientRect();animation.currentTime=0;return{widthDifference:Math.abs(p.getBoundingClientRect().width-c.getBoundingClientRect().width),beforeVisible:before.right>vr.left&&before.left<vr.right,afterVisible:after.right>vr.left&&after.left<vr.right,wrapDistance:Math.abs(before.x-after.x)};});assert.ok(wrap.widthDifference<1);assert.ok(wrap.beforeVisible&&wrap.afterVisible);assert.ok(wrap.wrapDistance<20,'Seamless cycle has no blank or discontinuous jump');
+807288	  await viewport.focus();a=await x();await page.waitForTimeout(350);b=await x();assert.ok(Math.abs(b-a)<1,'Focus pauses movement');assert.equal(await ticker.getAttribute('data-reading'),'true');
+807289	  await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),fixture(100));await viewport.focus();
+807290	  const visited=[];for(let i=0;i<100;i++){await page.keyboard.press('Tab');const focused=await page.evaluate(()=>({href:document.activeElement?.href,tag:document.activeElement?.tagName,visible:(()=>{const e=document.activeElement,r=e.getBoundingClientRect(),v=e.closest('.pn-ticker-viewport')?.getBoundingClientRect();return !!v&&r.right>v.left&&r.left<v.right;})()}));assert.ok(focused.visible,JSON.stringify({i,focused}));visited.push(focused.href);}assert.equal(new Set(visited).size,100);
+807291	  await page.keyboard.press('Tab');await page.mouse.move(0,0);
+807292	  for(const count of [0,1,10,71,100]){await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'live'),fixture(count));assert.equal(await primary.locator('a').count(),count);assert.equal(await ticker.locator('input,button').count(),0);assert.equal(await ticker.locator('.pn-ticker-copy a').count(),0);}
+807293	  await page.evaluate(doc=>window.pipelineHeadlines.render(doc,'snapshot'),saved);
+807294	  await headerQuery.fill('solar');assert.ok(Number(await quality.getAttribute('data-filtered-count'))>0);assert.ok(Number(await quality.getAttribute('data-filtered-count'))<71);await quality.getByRole('button',{name:'Clear news filters'}).click();assert.equal(await headerQuery.inputValue(),'');
+807295	  const target=saved.items.at(-1);await headerQuery.fill(target.title);assert.ok((await page.locator('#liveNews').textContent()).includes(target.title),'Header search reaches beyond initial twelve');await quality.getByRole('button',{name:'Clear news filters'}).click();assert.equal(await quality.getAttribute('data-filtered-count'),'71');
+807296	  await ticker.scrollIntoViewIfNeeded();await page.mouse.move(0,0);await page.evaluate(()=>{window.v940First=document.querySelector('#headlineTicker ul a');window.v940Animation=document.querySelector('#headlineTicker .pn-ticker-track').getAnimations()[0];});await page.evaluate(doc=>window.pipelineHeadlines.render({...doc,generated_at:'2026-11-17T14:01:00Z'},'snapshot'),saved);assert.equal(await page.evaluate(()=>window.v940First===document.querySelector('#headlineTicker ul a')&&window.v940Animation===document.querySelector('#headlineTicker .pn-ticker-track').getAnimations()[0]),true);
+807297	  if(width<500&&motion!=='reduce'){
+807298	   const session=await context.newCDPSession(page),box=await viewport.boundingBox(),tap=async()=>{await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:box.x+box.width/2,y:box.y+3,id:1}]});await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});};await tap();await page.waitForTimeout(80);assert.equal(await ticker.getAttribute('data-reading'),'true');a=await x();await page.waitForTimeout(300);assert.ok(Math.abs(await x()-a)<1);await tap();await page.waitForTimeout(80);assert.equal(await ticker.getAttribute('data-reading'),'false');a=await x();await page.waitForTimeout(350);assert.ok(a-await x()>5,'Actual touch resume moves again');await session.detach();
+807299	  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');assert.ok(await page.locator('#tbody a.atlaslink').first().getAttribute('href'));assert.deepEqual(errors,[]);await page.screenshot({path:resolve(out,'neon-'+width+'-'+motion+'.png')});await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:resolve(out,'header-'+width+'-'+motion+'.png')});proof.checks.push({width,motion,renderedMotion:motion==='reduce'?'static':'moving',all100OriginalLinksKeyboardReachable:true,singularHeaderSearch:true,noTickerControls:true,mainQueryBeyond12:true,status:'PASS'});await context.close();
+807300	 const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:393,height:852}}),fallback=await nojs.newPage();await nojs.route('**/*',r=>r.request().url().startsWith(origin)?r.continue():r.abort());await fallback.goto(origin+'/'+edition+'/index.html');assert.ok((await fallback.locator('body').innerText()).includes('JavaScript'));assert.ok(await fallback.locator('noscript a').count()>0);assert.equal(await fallback.locator('#headlinesHeading span').evaluate(n=>getComputedStyle(n).color),'rgb(255, 255, 255)');await nojs.close();proof.status='PASS';
+807301	}finally{await browser?.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify(proof,null,2)+'\n');}
+807302	import {latestHeadlines} from '../../uk_renewables_pipeline/202611171710/scripts/layers/model.mjs';
+807303	const root=path.resolve(import.meta.dirname,'../..'),current=path.join(root,'uk_renewables_pipeline/202611171710'),parent=path.join(root,'uk_renewables_pipeline/202611171609'),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+807304	test('canonical data/news/Solar files and selector policy remain byte-identical',()=>{let checked=0;for(const dir of ['data','news','solar1000']){const base=path.join(parent,dir);if(!fs.existsSync(base))continue;function walk(p){for(const f of fs.readdirSync(p,{withFileTypes:true})){const file=path.join(p,f.name);if(f.isDirectory())walk(file);else{assert.equal(hash(file),hash(path.join(current,path.relative(parent,file))));checked++;}}}walk(base);}assert.ok(checked>=54);assert.equal(hash(path.join(parent,'scripts/layers/model.mjs')),hash(path.join(current,'scripts/layers/model.mjs')));});
+807305	test('safe source policy retains cap, attribution, null dates and hostile URL refusals',()=>{const items=Array.from({length:105},(_,i)=>({title:'Headline '+i,source:'Original publisher',link:'https://publisher.example/'+i,date:'2026-11-17T10:00:00Z'}));assert.equal(latestHeadlines(items).length,100);for(const bad of [{link:'javascript:alert(1)'},{date:'2050-01-01'},{date:'2026-02-30'},{date:null,first_seen:null}])assert.equal(latestHeadlines([{...items[0],...bad}]).length,0);});
+807306	test('exact shared successor and historical editions are pinned',()=>{const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v940.json')));for(const [name,sha]of Object.entries(c.shared_sha256))assert.equal(hash(path.join(root,'automation/ticker_neon_ui/20261117-v940',name)),sha);assert.deepEqual(protectedEditionChanges({cwd:root,base:'3a3106e248131f6e430c1ea03b4858d659755303'}),[]);});
+807307	"""Adversarial checks for the explicit source-preserving presentation migration."""
+807309	sys.path.insert(0, str(ROOT / 'automation/pipeline_release'))
+807310	from feature_contracts import _ticker_neon
+807311	class NeonMigrationTests(unittest.TestCase):
+807313	        self.folder, self.source = root / 'uk_renewables_pipeline/new', root / 'uk_renewables_pipeline/source'
+807314	        for folder in (self.folder, self.source):
+807315	            (folder / 'data').mkdir(parents=True)
+807316	            (folder / 'data/test.json').write_text('{"synthetic":true}')
+807317	            (folder / 'scripts/layers').mkdir(parents=True)
+807318	            (folder / 'scripts/layers/model.mjs').write_text('SYNTHETIC unchanged policy')
+807319	        (self.folder / 'scripts/layers/ticker.mjs').write_bytes((ROOT / 'uk_renewables_pipeline/202611171710/scripts/layers/ticker.mjs').read_bytes())
+807320	        (self.folder / 'contracts').mkdir()
+807321	        self.shared = root / 'automation/ticker_neon_ui/20261117-v940'
+807322	        shutil.copytree(ROOT / 'automation/ticker_neon_ui/20261117-v940', self.shared)
+807323	        self.contract = json.loads((ROOT / 'uk_renewables_pipeline/202611171710/contracts/ticker.v940.json').read_text())
+807324	        self.save()
+807327	    def save(self):
+807328	        (self.folder / 'contracts/ticker.v940.json').write_text(json.dumps(self.contract))
+807329	    def test_pinned_successor_admits_one_scoped_probe(self):
+807330	        errors, probes = _ticker_neon(self.folder, self.source)
+807331	        self.assertEqual(errors, [])
+807332	        self.assertEqual(len(probes), 1)
+807333	    def test_changed_shared_bytes_are_rejected(self):
+807334	        (self.shared / 'ticker.mjs').write_text('changed')
+807335	        self.assertTrue(_ticker_neon(self.folder, self.source)[0])
+807336	    def test_changed_policy_or_data_is_rejected(self):
+807337	        for rel in ('scripts/layers/model.mjs', 'data/test.json'):
+807338	            path = self.folder / rel
+807340	            path.write_text('changed')
+807341	            self.assertTrue(_ticker_neon(self.folder, self.source)[0])
+807342	            path.write_bytes(original)
+807343	    def test_missing_pin_and_wrong_contract_cap_are_rejected(self):
+807344	        self.contract['limit'] = 101
+807345	        self.contract['limit'] = 100
+807346	        self.contract['shared_sha256'].pop('header.mjs')
+807348	"""Real ancestry restates V9.36 identities; changed declarations remain invalid."""
+807349	sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline_release"))
+807350	from feature_contracts import check_features, NEON_MIGRATIONS, SOLAR_MIGRATION
+807351	class NeonOriginTests(unittest.TestCase):
+807352	    def registry(self, migration=NEON_MIGRATIONS[0]):
+807353	        feature = {"id": migration["id"], "file": "original.json", "contains": "original marker"}
+807354	        source = {"id": migration["from"], "parent": None, "features": [feature]}
+807355	        repeated = {"id": "202611171609", "parent": source["id"], "features": [copy.deepcopy(feature)]}
+807356	        current = {"id": "202611171710", "parent": repeated["id"], "features": [],
+807357	                   "feature_migrations": [copy.deepcopy(migration)]}
+807358	        return current, {v["id"]: v for v in (source, repeated, current)}
+807359	    def verdict(self, current, registry):
+807360	        with patch("feature_contracts._ticker_neon", return_value=([], [])), patch("feature_contracts._solar_inline", return_value=([], [])):
+807361	            return check_features(current, registry, Path("synthetic"))[0]
+807362	    def test_identical_descendant_restatements_keep_exact_original_identity(self):
+807363	        current, registry = self.registry()
+807364	        self.assertTrue(self.verdict(current, registry)["pass"])
+807365	    def test_changed_descendant_marker_is_rejected(self):
+807366	        registry["202611171609"]["features"][0]["contains"] = "changed"
+807367	        self.assertFalse(self.verdict(current, registry)["pass"])
+807368	    def test_identity_introduced_before_original_source_is_rejected(self):
+807369	        source = registry[NEON_MIGRATIONS[0]["from"]]
+807370	        earlier = {"id": "202611171400", "parent": None, "features": copy.deepcopy(source["features"])}
+807371	        registry[earlier["id"]] = earlier
+807372	        source["parent"] = earlier["id"]
+807373	    def test_duplicate_identity_inside_one_edition_is_rejected(self):
+807374	        registry["202611171609"]["features"] *= 2
+807375	    def test_old_migration_still_requires_single_exact_source(self):
+807376	        current, registry = self.registry(SOLAR_MIGRATION)
+807377	const root=path.resolve(import.meta.dirname,'../..'),edition='uk_renewables_pipeline/202611171940',parent='uk_renewables_pipeline/202611171710',out=path.resolve(process.env.V941_OUT||path.join(root,'.qa-artifacts/v941'));
+807378	const {chromium,devices}=await import(process.env.PLAYWRIGHT_MODULE?pathToFileURL(path.resolve(process.env.PLAYWRIGHT_MODULE)).href:'playwright');
+807379	const sha=b=>createHash('sha256').update(b).digest('hex'),walk=p=>fs.readdirSync(p,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(p,e.name)):e.name.endsWith('.pyc')?[]:[path.join(p,e.name)]);
+807381	const proof={status:'RUNNING',edition,parent,checks:[],environment:'Chromium desktop and named Android device emulation; physical handset/TalkBack unknown',external:'Blocked only to exercise the actual unchanged saved-news fallback'};
+807382	const save=()=>fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify(proof,null,2)+'\n');save();
+807383	const oldFiles=walk(path.join(root,parent)),allowed=new Set(['index.html','README.md','CHANGES.md','tests/check_v9_40.mjs','tests/run_v9_40.sh']);
+807384	const kept=oldFiles.map(p=>path.relative(path.join(root,parent),p).replaceAll('\\','/')).filter(p=>!allowed.has(p));
+807385	for(const p of kept)assert.equal(sha(fs.readFileSync(path.join(root,parent,p))),sha(fs.readFileSync(path.join(root,edition,p))),p+' changed');
+807386	proof.preservation={byteIdenticalParentFiles:kept.length,sourcePaths:kept.filter(p=>/^(data|news|solar1000|prospecting|datacentres)\//.test(p)).length};
+807387	proof.packageBytes=walk(path.join(root,edition)).reduce((n,p)=>n+fs.statSync(p).size,0);assert.ok(proof.packageBytes<18*1024*1024);
+807388	const contract=JSON.parse(fs.readFileSync(path.join(root,edition,'contracts/ticker.v941.json')));assert.equal(sha(fs.readFileSync(path.join(root,contract.shared_css))),contract.sha256);proof.css=contract;
+807389	const server=http.createServer((req,res)=>{try{const p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));assert.ok(p.startsWith(root+path.sep));res.setHeader('Content-Type',({'.html':'text/html','.css':'text/css','.mjs':'text/javascript','.js':'text/javascript','.json':'application/json'})[path.extname(p)]||'application/octet-stream');res.end(fs.readFileSync(p));}catch{res.writeHead(404).end();}});
+807390	const pageErrors=new WeakMap();
+807391	async function load(context,ed=edition){await context.route('**/*',r=>r.request().url().startsWith(origin+'/')?r.continue():r.abort());const p=await context.newPage(),errors=[];pageErrors.set(p,errors);p.on('pageerror',e=>errors.push(e.message));await p.goto(origin+'/'+ed+'/index.html?technology=all');await p.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775'&&document.querySelector('#headlineTicker')?.dataset.count==='71');return p;}
+807392	async function look(page){return page.locator('#headlineTicker').evaluate(n=>{const t=n.querySelector('.pn-ticker-track'),l=n.querySelector('ul'),s=getComputedStyle(t);return{rate:l.getBoundingClientRect().width/parseFloat(s.animationDuration),all:[n,...n.querySelectorAll('*')].map(e=>{const s=getComputedStyle(e);return{background:s.backgroundColor,image:s.backgroundImage,color:s.color,textShadow:s.textShadow,boxShadow:s.boxShadow,filter:s.filter,backdropFilter:s.backdropFilter};})};});}
+807393	async function move(page){const t=page.locator('#headlineTicker');await t.scrollIntoViewIfNeeded();await page.mouse.move(0,0);const a=await t.locator('ul').evaluate(n=>n.getBoundingClientRect().x);await page.waitForTimeout(500);return a-await t.locator('ul').evaluate(n=>n.getBoundingClientRect().x);}
+807394	async function tap(session,x,y){await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1,radiusX:2,radiusY:2,force:1}]});await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});}
+807395	 browser=await chromium.launch({headless:true});proof.browserVersion=browser.version();
+807396	 const oldContext=await browser.newContext({viewport:{width:1440,height:900}}),old=await load(oldContext,parent),baseline=await look(old);assert.ok(Math.abs(baseline.rate-42)<.02);const oldDelta=await move(old);assert.ok(oldDelta>15);proof.baseline={rate:baseline.rate,renderedDelta:oldDelta};await oldContext.close();
+807397	 for(const name of ['Desktop','Pixel 7','Galaxy S9+']){
+807398	  const cfg=name==='Desktop'?{viewport:{width:1440,height:900}}:devices[name],context=await browser.newContext({...cfg,reducedMotion:'no-preference'}),page=await load(context),errors=pageErrors.get(page);const session=await context.newCDPSession(page),result={device:name,descriptor:cfg,rotations:[]};
+807399	  await page.evaluate(()=>scrollTo(0,0));await page.screenshot({path:path.join(out,name.replaceAll(' ','-')+'-header.png')});
+807400	  for(const landscape of name==='Desktop'?[false]:[false,true,false]){
+807401	   if(name!=='Desktop'){const d=devices[name+(landscape?' landscape':'')],v=d.viewport;await page.setViewportSize(v);await session.send('Emulation.setDeviceMetricsOverride',{width:v.width,height:v.height,deviceScaleFactor:d.deviceScaleFactor,mobile:true,screenWidth:d.screen?.width||v.width,screenHeight:d.screen?.height||v.height,screenOrientation:{type:landscape?'landscapePrimary':'portraitPrimary',angle:landscape?90:0}});await page.waitForTimeout(120);}
+807402	   const style=await look(page);assert.ok(Math.abs(style.rate-50)<.02);for(const s of style.all){assert.equal(s.background,'rgb(0, 0, 0)');assert.equal(s.color,'rgb(255, 51, 51)');for(const k of ['image','textShadow','boxShadow','filter','backdropFilter'])assert.equal(s[k],'none');}
+807403	   const delta=await move(page);assert.ok(delta>20&&delta<31,'Actual frame movement about50px/s');assert.equal(await page.locator('#headlineTicker input,#headlineTicker button,.pn-ticker-count').count(),0);assert.equal(await page.locator('.masthead input[type=search]').count(),1);assert.equal(await page.locator('#headlinesHeading').evaluate(n=>getComputedStyle(n).color),'rgb(255, 255, 255)');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+807404	   const actual=await page.evaluate(()=>({ua:navigator.userAgent,dpr:devicePixelRatio,touch:navigator.maxTouchPoints,width:innerWidth,height:innerHeight,angle:screen.orientation.angle,platform:navigator.platform}));if(name!=='Desktop'){assert.match(actual.ua,/Android/);assert.ok(actual.touch>0);assert.equal(actual.angle,landscape?90:0);}result.rotations.push({landscape,actual,rate:style.rate,renderedDelta:delta});await page.screenshot({path:path.join(out,name.replaceAll(' ','-')+'-'+result.rotations.length+'.png')});
+807405	  const ticker=page.locator('#headlineTicker'),view=ticker.locator('.pn-ticker-viewport'),x=()=>ticker.locator('ul').evaluate(n=>n.getBoundingClientRect().x);
+807406	  if(name!=='Desktop'){const b=await view.boundingBox();await tap(session,b.x+b.width*.5,b.y+3);await page.waitForTimeout(80);assert.equal(await ticker.getAttribute('data-reading'),'true');const a=await x();await page.waitForTimeout(250);assert.ok(Math.abs(await x()-a)<1);await tap(session,b.x+b.width*.5,b.y+3);await page.waitForTimeout(80);assert.equal(await ticker.getAttribute('data-reading'),'false');assert.ok(await move(page)>20);result.touchPauseResume=true;}
+807407	  await ticker.locator('ul a').last().focus();const a=await x();await page.waitForTimeout(250);assert.ok(Math.abs(await x()-a)<1);assert.ok(await ticker.locator('ul a').last().evaluate(n=>{const a=n.getBoundingClientRect(),b=n.closest('.pn-ticker-viewport').getBoundingClientRect();return a.right>b.left&&a.left<b.right;}));result.focusPausedLastLinkReadable=true;
+807408	  const literal=await ticker.locator('ul').textContent();assert.ok(literal.includes('Publisher date')&&literal.includes('Bloomberg'));
+807409	  const query=page.locator('.pn-news-header-search input'),saved=JSON.parse(fs.readFileSync(path.join(root,edition,'news/pipeline_headlines.snapshot.json'))),last=saved.items.at(-1);await query.fill(last.title);assert.ok((await page.locator('#liveNews').textContent()).includes(last.title));await page.locator('.pn-news-quality').getByRole('button',{name:'Clear news filters'}).click();assert.equal(await page.locator('.pn-news-quality').getAttribute('data-filtered-count'),'71');result.headerQueryBeyond12=true;
+807410	  await query.focus();assert.ok(await move(page)>20,'Normal motion resumes outside ticker before reduced-motion test');await page.emulateMedia({reducedMotion:'reduce'});await page.waitForTimeout(100);assert.equal(await page.evaluate(()=>matchMedia('(prefers-reduced-motion:reduce)').matches),true);assert.equal(await ticker.locator('.pn-ticker-track').evaluate(n=>getComputedStyle(n).animationName),'none');const reducedX=await x();await page.waitForTimeout(300);assert.ok(Math.abs(await x()-reducedX)<1);result.reducedMotionStatic=true;assert.deepEqual(errors,[]);result.errors=errors;result.status='PASS';proof.checks.push(result);save();await context.close();console.log(JSON.stringify({device:name,status:'PASS',rates:result.rotations.map(r=>r.rate)}));
+807411	 proof.status='PASS';proof.completedUTC=new Date().toISOString();save();
+807412	}catch(e){proof.status='FAIL';proof.failure={message:e.message,stack:e.stack};save();throw e;}finally{await browser?.close();await new Promise(r=>server.close(r));}
+807413	const root=path.resolve(import.meta.dirname,'../..'),current=path.join(root,'uk_renewables_pipeline/202611171940'),parent=path.join(root,'uk_renewables_pipeline/202611171710'),hash=p=>createHash('sha256').update(fs.readFileSync(p)).digest('hex');
+807414	test('new crisp contract pins the exact additive CSS and requested rate',()=>{const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v941.json')));assert.equal(c.schema,'globalgrid2050.crisp-headline-ticker.v941');assert.equal(c.background,'#000000');assert.equal(c.foreground,'#ff3333');assert.equal(c.effects,'none');assert.equal(c.durationMultiplier,.84);assert.equal(c.minimumDurationSeconds,12);assert.equal(c.targetPixelsPerSecond,50);assert.equal(c.parentPixelsPerSecond,42);assert.equal(hash(path.join(root,c.shared_css)),c.sha256);const html=fs.readFileSync(path.join(current,'index.html'),'utf8');assert.ok(html.indexOf('ticker_crisp_ui/20261117-v941/styles.css')>html.indexOf('ticker_neon_ui/20261117-v940/styles.css'));});
+807415	test('source model, renderer binding and V9.40 pins stay byte-identical',()=>{for(const rel of ['scripts/layers/model.mjs','scripts/layers/ticker.mjs','contracts/ticker.v940.json','contracts/ticker.v936.json'])assert.equal(hash(path.join(current,rel)),hash(path.join(parent,rel)));const c=JSON.parse(fs.readFileSync(path.join(current,'contracts/ticker.v940.json')));for(const [name,sha]of Object.entries(c.shared_sha256))assert.equal(hash(path.join(root,'automation/ticker_neon_ui/20261117-v940',name)),sha);});
+807416	test('all historical editions in the accepted V9.40 publisher stay immutable',()=>{assert.deepEqual(protectedEditionChanges({cwd:root,base:'aaca1dd8138269b679d20db196a7c0d480d09389'}),[]);});
+807418	const base=fs.readFileSync(path.join(root,'automation/ticker_neon_ui/20261117-v940/styles.css'),'utf8'),override=fs.readFileSync(path.join(root,'automation/ticker_crisp_ui/20261117-v941/styles.css'),'utf8');
+807419	test('computed short-feed minimum, long-cycle factor and static reading/reduced motion',async()=>{const browser=await chromium.launch({headless:true});try{const context=await browser.newContext({reducedMotion:'no-preference'}),page=await context.newPage();await page.setContent(`<style>${base}</style><style>${override}</style><div id="headlineTicker" class="pn-neon-ticker" style="--pn-cycle-duration:12s;--pn-cycle-width:200px"><div class="pn-ticker-track"><ul class="pn-ticker-cycle"><li class="pn-ticker-item">Short synthetic feed</li></ul></div></div>`);const state=()=>page.locator('.pn-ticker-track').evaluate(n=>({duration:parseFloat(getComputedStyle(n).animationDuration),name:getComputedStyle(n).animationName}));assert.equal((await state()).duration,12);assert.equal((await state()).name,'pn-neon-flow');await page.locator('#headlineTicker').evaluate(n=>n.style.setProperty('--pn-cycle-duration','36s'));assert.ok(Math.abs((await state()).duration-30.24)<.001);await page.locator('#headlineTicker').evaluate(n=>n.dataset.reading='true');assert.equal((await state()).name,'none');await page.locator('#headlineTicker').evaluate(n=>delete n.dataset.reading);await page.emulateMedia({reducedMotion:'reduce'});assert.equal((await state()).name,'none');await context.close();}finally{await browser.close();}});
+807488	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">Open Pipeline News &rarr;</a></div></details>
+807489	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.36 - searchable static headlines, up to 100 available</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div></details></td></tr>
+807490	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">Open Pipeline News &rarr;</a></div></details>
+807491	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.37 - news filters and source provenance</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div></details></td></tr>
+807492	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">Open Pipeline News &rarr;</a></div></details>
+807493	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.40 - flowing neon headlines with source-qualified grid and document facts</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div></details></td></tr>
+807496	<title>GlobalGrid2050 | Pipeline News V9.36 · 202611171507</title>
+807521	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.36</small></div>
+807523	        <a class="active" href="#" aria-current="page">V9.36 · PIPELINE NEWS</a>
+807525	        <a href="../202611171217/">V9.35 · PREVIOUS EDITION</a>
+807531	<p class="preview-status" data-edition="202611171507">V9.36 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+807683	/* Receiver provenance and original diagnostics: immutable parent V9.35 atlas-receiver-v9-7.js. */
+807940	export function latestHeadlines(items, limit = 100, {asOf=Date.now()}={}) {
+807941	  if (!Array.isArray(items) || items.length>10000 || !Number.isFinite(asOf) || !Number.isInteger(limit) || limit<1 || limit>100) return [];
+807948	    const row = {title: item.title, link: u.href, source: typeof item.source==='string'&&item.source.trim()?item.source:'Publisher not supplied', date: item.date || item.first_seen, dateKind:item.date?'Publisher date':'First collected', stamp};
+807952	const states=new WeakMap();
+807954	  const doc=host.ownerDocument,headlines=latestHeadlines(items),size=20;
+807955	  const key=JSON.stringify(headlines),previousState=states.get(host);
+807956	  if(previousState?.key===key&&previousState.label.parentNode===host){previousState.label.textContent=snapshotLabel;return;}
+807957	  host.classList.add('pn-ticker');host.replaceChildren();host.dataset.count=String(headlines.length);
+807958	  const el=(tag,cls,text)=>{const node=doc.createElement(tag);if(cls)node.className=cls;if(text)node.textContent=text;return node;};
+807959	  const label=el('span','pn-ticker-label',snapshotLabel),tools=el('div','pn-ticker-tools');
+807960	  const search=el('input');search.type='search';search.placeholder='Search headlines';search.setAttribute('aria-label','Search ticker headlines by title or publisher');
+807961	  search.value=previousState?.query||'';
+807962	  const previous=el('button','', 'Previous'),next=el('button','','Next'),count=el('span','pn-ticker-count');
+807963	  previous.type=next.type='button';previous.setAttribute('aria-label','Previous headlines');next.setAttribute('aria-label','Next headlines');count.setAttribute('role','status');
+807964	  tools.append(search,previous,next,count);
+807965	  const viewport=el('div','pn-ticker-viewport');viewport.tabIndex=0;viewport.setAttribute('role','region');
+807966	  const track=el('div','pn-ticker-track'),list=el('ul');track.append(list);viewport.append(track);host.append(label,tools,viewport);
+807967	  let page=0;
+807968	  const state={key,label,query:search.value,page};states.set(host,state);
+807970	    const query=search.value.trim().toLocaleLowerCase('en-GB'),matches=headlines.filter(h=>!query||[h.title,h.source].some(value=>value.toLocaleLowerCase('en-GB').includes(query)));
+807971	    const pages=Math.ceil(matches.length/size);page=Math.max(0,Math.min(page,pages-1));const start=page*size,shown=matches.slice(start,start+size);
+807972	    state.query=search.value;state.page=page;
+807973	    list.replaceChildren();host.dataset.filteredCount=String(matches.length);host.dataset.page=String(pages?page+1:0);
+807974	    count.textContent=`${matches.length} of ${headlines.length} headlines; ${shown.length?start+1:0}-${start+shown.length}; page ${pages?page+1:0}/${pages}`;
+807975	    viewport.setAttribute('aria-label',count.textContent+'; scroll horizontally');list.setAttribute('aria-label',count.textContent);
+807976	    for(const h of shown){
+807977	      const li=el('li'),a=el('a'),time=el('time');a.href=h.link;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`${h.title} \u2014 ${h.source}`;
+807978	      time.dateTime=h.date;time.textContent=`${h.dateKind} ${h.date}`;li.append(a,' \u00b7 ',time);list.append(li);
+807979	    if(!shown.length)list.append(el('li','',headlines.length?'No matching headlines':'Headlines unavailable'));
+807980	    previous.disabled=page===0;next.disabled=page+1>=pages;search.disabled=!headlines.length;viewport.scrollLeft=0;
+807981	  search.addEventListener('input',()=>{page=0;draw();});previous.addEventListener('click',()=>{page--;draw();});next.addEventListener('click',()=>{page++;draw();});draw();
+807982	/* check_v9_36.mjs - Pipeline News V9.36, proven from the bytes and through the
+807991	 * Run: node tests/check_v9_36.mjs
+808002	const VERSION = "9.36";
+808004	const PARENT_ID = "202611171217";
+808086	console.log(`check_v9_36: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808089	<title>GlobalGrid2050 | Pipeline News V9.37 · 202611171526</title>
+808090	<link rel="stylesheet" href="../../automation/news_quality_ui/20261117-v937/styles.css" integrity="sha256-dZ9E56dLcJ2VEWIgPF99Q3kDp6iDQXrbY1VhPINN6nE=">
+808091	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.37</small></div>
+808092	        <a class="active" href="#" aria-current="page">V9.37 · PIPELINE NEWS</a>
+808093	        <a href="../202611171507/">V9.36 · PREVIOUS EDITION</a>
+808094	<p class="preview-status" data-edition="202611171526">V9.37 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+808095	<script type="module" src="../../automation/news_quality_ui/20261117-v937/view.mjs" integrity="sha256-jzUKDk7jqMmpwgslmjzt6dqn1CE/VtHU59kBQc2NOWA="></script>
+808108	  var qualityAdapter = null, lastQuality = null, viewShown = PAGE;
+808109	  function quality(view) { lastQuality = view; if (qualityAdapter) qualityAdapter(view); else view.draw(view.entries, true); }
+808115	    var match = typeof iso === 'string' && /^(\d{4})-(\d{2})-(\d{2})(?:T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d+)?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d))?$/.exec(iso);
+808116	    if (!match) return '';
+808117	    var y=Number(match[1]),m=Number(match[2]),day=Number(match[3]),days=[31,y%4===0&&(y%100!==0||y%400===0)?29:28,31,30,31,30,31,31,30,31,30,31];
+808118	    if (y<1900||m<1||m>12||day<1||day>days[m-1]) return '';
+808122	    if (!withTime || iso.indexOf('T') < 0) return day;
+808146	      && typeof doc.generated_at === 'string' && !isNaN(Date.parse(doc.generated_at)) && !!stamp(doc.generated_at, true)
+808163	        || host.endsWith('.') || !/^[a-z0-9.-]+$/.test(host) || host.indexOf('.') < 0 || /(?:^|\.)\d+$/.test(host)
+808206	    var articleDate = stamp(item.date, typeof item.date==='string' && item.date.indexOf('T')>=0);
+808212	    if (articleDate && collectedDate) box.appendChild(el('span', 'ln-collected', 'FIRST COLLECTED ' + stamp(item.first_seen, true).toUpperCase()));
+808233	      ok ? source : 'none', null);
+808241	    if (!ok) { quality({doc:null,source:'none',entries:[],ranked:false,draw:function(){ list.textContent=''; }}); if (archive) archive.open = true; return; }
+808249	    quality({doc:doc,source:source,entries:items,ranked:!!ranked,draw:function(selected,reset){
+808250	      if (reset) viewShown = PAGE;
+808251	      list.textContent = '';
+808252	      if (!selected.length) { list.appendChild(el('p','ln-empty',doc.items.length?'No headlines match these filters.':'No headlines currently meet the feed criteria.')); if(doc.scope)list.appendChild(el('p','ln-scope',doc.scope));return; }
+808253	      var shown=0, wanted=Math.min(selected.length,Math.max(PAGE,viewShown));
+808254	      var more=el('button','ln-more','');more.type='button';
+808255	      function draw(){
+808256	        selected.slice(shown,shown+PAGE).forEach(function(entry){list.insertBefore(row(entry.item,entry.priority),more.parentNode===list?more:null);});
+808257	        shown=Math.min(shown+PAGE,selected.length);viewShown=shown;
+808258	        if(shown<selected.length){more.textContent='SHOW MORE HEADLINES ('+(selected.length-shown)+')';if(more.parentNode!==list)list.appendChild(more);}else if(more.parentNode===list)list.removeChild(more);
+808259	      more.addEventListener('click',draw);draw();while(shown<wanted)draw();if(doc.scope)list.appendChild(el('p','ln-scope',doc.scope));
+808260	    }});
+808282	  window.pipelineHeadlines = { label: label, render: render, valid: valid, schema: SCHEMA, validatePriority: validatePriority, prioritySchema: PRIORITY_SCHEMA, attachView: function(adapter) { qualityAdapter=adapter; if(lastQuality)adapter(lastQuality); } };
+808283	  window.dispatchEvent(new Event('pipeline-news-ready'));
+808287	/* check_v9_37.mjs - Pipeline News V9.37, proven from the bytes and through the
+808288	 * Run: node tests/check_v9_37.mjs
+808289	const VERSION = "9.37";
+808290	const PARENT_ID = "202611171507";
+808291	console.log(`check_v9_37: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808292	<title>GlobalGrid2050 | Pipeline News V9.38 · 202611171550</title>
+808293	<link rel="stylesheet" href="../../automation/grid_notice_ui/20261117-v938/styles.css" integrity="sha256-ZDlBQKCGuLdyrS3J7VA09B3/ij4CABHMA1Sz1MDzRg8=">
+808294	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.38</small></div>
+808295	        <a class="active" href="#" aria-current="page">V9.38 · PIPELINE NEWS</a>
+808296	        <a href="../202611171526/">V9.37 · PREVIOUS EDITION</a>
+808297	<p class="preview-status" data-edition="202611171550">V9.38 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+808298	<script type="module" src="../../automation/grid_notice_ui/20261117-v938/view.mjs" integrity="sha256-JRp4cvecPrT5/+DFO/V1HLodKeD128bNx7q2z9UkuWk="></script>
+808351	/* check_v9_38.mjs - Pipeline News V9.38, proven from the bytes and through the
+808352	 * Run: node tests/check_v9_38.mjs
+808353	const VERSION = "9.38";
+808354	const PARENT_ID = "202611171526";
+808355	console.log(`check_v9_38: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808356	<title>GlobalGrid2050 | Pipeline News V9.39 · 202611171609</title>
+808357	<link rel="stylesheet" href="../../automation/document_facts_ui/20261117-v939/styles.css" integrity="sha256-meIm9EvalMpaR7WKu/dmO8ZKd3iOirU9Ea1zCeDaQDE=">
+808358	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.39</small></div>
+808359	        <a class="active" href="#" aria-current="page">V9.39 · PIPELINE NEWS</a>
+808360	        <a href="../202611171550/">V9.38 · PREVIOUS EDITION</a>
+808361	<p class="preview-status" data-edition="202611171609">V9.39 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+808362	<script type="module" src="../../automation/document_facts_ui/20261117-v939/view.mjs" integrity="sha256-6fGzTXO/spIGMQH6b9g/5wPk8b5332aVgsV9uO7hQG4="></script>
+808453	/* check_v9_39.mjs - Pipeline News V9.39, proven from the bytes and through the
+808454	 * Run: node tests/check_v9_39.mjs
+808455	const VERSION = "9.39";
+808456	const PARENT_ID = "202611171550";
+808457	console.log(`check_v9_39: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808458	<title>GlobalGrid2050 | Pipeline News V9.40 · 202611171710</title>
+808459	<link rel="stylesheet" href="../../automation/ticker_neon_ui/20261117-v940/styles.css" integrity="sha256-msZMqYWacyY6Uy72XxIcen6HYnQA5avObSNdRvSuDbQ=">
+808460	<script type="module" src="../../automation/ticker_neon_ui/20261117-v940/header.mjs" integrity="sha256-F/u7+UiM6t/Ua67viEmj83hi0wJhkWmR+lb4XrCjuU0="></script>
+808461	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.40</small></div>
+808462	        <a class="active" href="#" aria-current="page">V9.40 · PIPELINE NEWS</a>
+808463	        <a href="../202611171609/">V9.39 · PREVIOUS EDITION</a>
+808464	<p class="preview-status" data-edition="202611171710">V9.40 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+808465	<noscript><p>JavaScript is unavailable. <a href="news/pipeline_headlines.snapshot.json">Read the saved headline snapshot with publisher dates</a> or <a href="data/v9.1/build_manifest.json">open the unchanged register data manifest</a>.</p></noscript>
+808466	import {createTickerRenderer} from '../../../../automation/ticker_neon_ui/20261117-v940/ticker.mjs';
+808467	export const renderTicker=createTickerRenderer(latestHeadlines);
+808468	/* check_v9_40.mjs - Pipeline News V9.40, proven from the bytes and through the
+808469	 * Run: node tests/check_v9_40.mjs
+808470	const VERSION = "9.40";
+808471	const PARENT_ID = "202611171609";
+808472	console.log(`check_v9_40: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808473	<title>GlobalGrid2050 | Pipeline News V9.41 · 202611171940</title>
+808474	<link rel="stylesheet" href="../../automation/ticker_crisp_ui/20261117-v941/styles.css" integrity="sha256-C564xoAwHSpzZlFkm9wYA2BTXOaKle7VC+MBG7Rx4wA=">
+808475	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.41</small></div>
+808476	        <a class="active" href="#" aria-current="page">V9.41 · PIPELINE NEWS</a>
+808477	        <a href="../202611171710/">V9.40 · PREVIOUS EDITION</a>
+808478	<p class="preview-status" data-edition="202611171940">V9.41 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+808479	/* check_v9_41.mjs - Pipeline News V9.41, proven from the bytes and through the
+808480	 * Run: node tests/check_v9_41.mjs
+808481	const VERSION = "9.41";
+808483	const PARENT_ID = "202611171710";
+808484	console.log(`check_v9_41: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+808500	<a href="versions.json">versions.json</a>. Generated 2026-11-17T20:20:22Z.</p>
+808501	<p>Six typed source-located HTML facts; original full documents behind source links. PDF unavailable; no OCR, verified joins or current capacity inference.</p>
+808505	<tr class="pass"><td><a href="202611171940/"><b>202611171940</b></a><br>V9.41<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 19:40:00 UTC</td><td>PN-NEWS: crisp red headlines on solid black without effects; unchanged renderer and controls,50px/s on long cycles with a12s minimum duration<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li><li>Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.</li><li>One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.</li><li>PDF extraction is unavailable: no approved local PDF or installed extractor; only two pinned government HTML publications are supported. All distilled facts remain machine-provisional and confer no verified joins.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171710<br><a href="202611171940/CHANGES.md">changes</a></td></tr>
+808506	<tr class="pass"><td><a href="202611171710/"><b>202611171710</b></a><br>V9.40<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 17:10:00 UTC</td><td>PN-NEWS: continuously flowing restrained red-neon headlines with one accessible original-link list, inert visual repetition and the existing main news query moved to a compact white-on-black header<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li><li>Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.</li><li>One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.</li><li>PDF extraction is unavailable: no approved local PDF or installed extractor; only two pinned government HTML publications are supported. All distilled facts remain machine-provisional and confer no verified joins.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171609<br><a href="202611171710/CHANGES.md">changes</a></td></tr>
+808507	<tr class="pass"><td><a href="202611171609/"><b>202611171609</b></a><br>V9.39<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 16:09:00 UTC</td><td>PN-DOCS: deterministic distillation of six typed government HTML facts with exact paragraph/document fingerprints and original links; reuse existing filing figure validator<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li><li>Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.</li><li>One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.</li><li>PDF extraction is unavailable: no approved local PDF or installed extractor; only two pinned government HTML publications are supported. All distilled facts remain machine-provisional and confer no verified joins.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171550<br><a href="202611171609/CHANGES.md">changes</a></td></tr>
+808508	<tr class="pass"><td><a href="202611171550/"><b>202611171550</b></a><br>V9.38<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 15:50:00 UTC</td><td>PN-GRID: one source-qualified Sea Link consent notice with two pinned government documents, distinct authority/operator and DAY clocks; no inferred grid or REPD joins<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li><li>Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.</li><li>One government consent event supported by two documents is not directory/network event coverage; grid connection, commissioned capacity and geometry remain unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171526<br><a href="202611171550/CHANGES.md">changes</a></td></tr>
+808509	<tr class="pass"><td><a href="202611171526/"><b>202611171526</b></a><br>V9.37<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 15:26:00 UTC</td><td>PN-NEWS: stable source/topic/category filters, independently labelled collection clocks and on-demand honest source-health/provenance; actual article availability without invented quotas<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li><li>Publisher-label counts are not independently verified publishing organizations. Source types classify accepted current exact-input priority metadata; they confer no verification or new reuse rights.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171507<br><a href="202611171526/CHANGES.md">changes</a></td></tr>
+808510	<tr class="pass"><td><a href="202611171507/"><b>202611171507</b></a><br>V9.36<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 15:07:00 UTC</td><td>Static source-attributed ticker up to100 available headlines,20-item bounded pages, stable title/publisher search, separate source clocks and no Pause/animation; original main12-item news list preserved.<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171217<br><a href="202611171507/CHANGES.md">changes</a></td></tr>
+808539	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">Open Pipeline News &rarr;</a></div></details>
+808540	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.41 - crisp red ticker</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div></details></td></tr>
 ```
