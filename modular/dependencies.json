@@ -1,37 +1,47 @@
 {
- "generated_utc": "2026-11-16T22:28:53.761Z",
+ "generated_utc": "2026-11-17T04:45:12.990Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 12748,
+ "families_with_uses": 13304,
  "hubs": [
   {
    "family": 172767,
    "name": "document",
-   "used_by": 2725
+   "used_by": 2772
+  },
+  {
+   "family": 173796,
+   "name": "document",
+   "used_by": 2772
+  },
+  {
+   "family": 173891,
+   "name": "window",
+   "used_by": 1517
   },
   {
    "family": 1318,
    "name": "state",
-   "used_by": 633
+   "used_by": 636
   },
   {
    "family": 70873,
    "name": "assert",
-   "used_by": 529
+   "used_by": 630
+  },
+  {
+   "family": 72282,
+   "name": "invariant",
+   "used_by": 551
   },
   {
    "family": 134305,
    "name": "state",
-   "used_by": 466
+   "used_by": 469
   },
   {
    "family": 146349,
    "name": "path",
    "used_by": 462
-  },
-  {
-   "family": 72282,
-   "name": "invariant",
-   "used_by": 450
   },
   {
    "family": 146501,
@@ -41,7 +51,7 @@
   {
    "family": 150844,
    "name": "state",
-   "used_by": 409
+   "used_by": 412
   },
   {
    "family": 5175,
@@ -56,22 +66,27 @@
   {
    "family": 7364,
    "name": "fetch",
-   "used_by": 337
+   "used_by": 359
+  },
+  {
+   "family": 77688,
+   "name": "assert",
+   "used_by": 352
   },
   {
    "family": 130547,
    "name": "fetch",
-   "used_by": 322
+   "used_by": 344
+  },
+  {
+   "family": 169638,
+   "name": "fetch",
+   "used_by": 341
   },
   {
    "family": 164912,
    "name": "st",
    "used_by": 320
-  },
-  {
-   "family": 169638,
-   "name": "fetch",
-   "used_by": 319
   },
   {
    "family": 70695,
@@ -82,6 +97,16 @@
    "family": 130715,
    "name": "esc",
    "used_by": 266
+  },
+  {
+   "family": 1317,
+   "name": "el",
+   "used_by": 262
+  },
+  {
+   "family": 1686,
+   "name": "el",
+   "used_by": 262
   },
   {
    "family": 379,
@@ -104,14 +129,14 @@
    "used_by": 258
   },
   {
+   "family": 129751,
+   "name": "el",
+   "used_by": 255
+  },
+  {
    "family": 1199,
    "name": "esc",
    "used_by": 254
-  },
-  {
-   "family": 77688,
-   "name": "assert",
-   "used_by": 251
   },
   {
    "family": 1586,
@@ -119,39 +144,24 @@
    "used_by": 241
   },
   {
-   "family": 1317,
-   "name": "el",
-   "used_by": 233
-  },
-  {
-   "family": 1686,
-   "name": "el",
-   "used_by": 233
-  },
-  {
-   "family": 129751,
-   "name": "el",
-   "used_by": 226
-  },
-  {
    "family": 129814,
    "name": "link",
-   "used_by": 219
+   "used_by": 224
   },
   {
    "family": 130047,
    "name": "link",
-   "used_by": 219
+   "used_by": 224
+  },
+  {
+   "family": 144574,
+   "name": "view",
+   "used_by": 222
   },
   {
    "family": 151717,
    "name": "fmt",
    "used_by": 217
-  },
-  {
-   "family": 144574,
-   "name": "view",
-   "used_by": 214
   },
   {
    "family": 151895,
@@ -239,19 +249,39 @@
    "used_by": 153
   },
   {
-   "family": 76405,
-   "name": "byId",
-   "used_by": 145
-  },
-  {
    "family": 130544,
    "name": "origin",
-   "used_by": 140
+   "used_by": 152
   },
   {
    "family": 144643,
    "name": "origin",
-   "used_by": 140
+   "used_by": 152
+  },
+  {
+   "family": 76405,
+   "name": "byId",
+   "used_by": 149
+  },
+  {
+   "family": 172429,
+   "name": "doc",
+   "used_by": 142
+  },
+  {
+   "family": 136068,
+   "name": "status",
+   "used_by": 139
+  },
+  {
+   "family": 142915,
+   "name": "status",
+   "used_by": 139
+  },
+  {
+   "family": 149509,
+   "name": "status",
+   "used_by": 139
   },
   {
    "family": 130796,
@@ -259,49 +289,19 @@
    "used_by": 138
   },
   {
-   "family": 136068,
-   "name": "status",
-   "used_by": 135
+   "family": 1598,
+   "name": "escapeHtml",
+   "used_by": 130
   },
   {
-   "family": 142915,
-   "name": "status",
-   "used_by": 135
-  },
-  {
-   "family": 149509,
-   "name": "status",
-   "used_by": 135
-  },
-  {
-   "family": 172429,
-   "name": "doc",
-   "used_by": 132
+   "family": 3412,
+   "name": "escapeHtml",
+   "used_by": 130
   },
   {
    "family": 144622,
    "name": "baseHeight",
    "used_by": 129
-  },
-  {
-   "family": 1598,
-   "name": "escapeHtml",
-   "used_by": 128
-  },
-  {
-   "family": 3412,
-   "name": "escapeHtml",
-   "used_by": 128
-  },
-  {
-   "family": 149664,
-   "name": "zoom",
-   "used_by": 128
-  },
-  {
-   "family": 151622,
-   "name": "zoom",
-   "used_by": 128
   }
  ]
 }

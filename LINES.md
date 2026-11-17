@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-454,535 unique lines, numbered 1 to 791,583. Generated 2026-11-16T22:30:04.932Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+462,492 unique lines, numbered 1 to 802,044. Generated 2026-11-17T04:47:12.184Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -454538,4 +454538,7961 @@
 791580	  return `/* Ventus Grid Engine: generated receipt observer; not a substitute nearest engine. */\n(() => {\n'use strict';\nconst distanceKm = (() => {\n${geodesy}\nreturn distanceKm;\n})();\n${observer}\n${presentation}\nglobalThis.VentusGridCompute = Object.freeze({ schema, distanceKm, createComputeObserver, describeComputeReceipt });\n})();\n`;
 791582	  if (!process.argv[2]) throw new Error('Output file is required');
 791583	  fs.writeFileSync(process.argv[2], buildBrowserObserver());
+791630	def price_input_glob(repo):
+791631	    """All supported physical parts; data_1 and later are not duplicate evidence."""
+791632	    return os.path.join(repo, "prices", "year=*", "month=*",
+791633	                        "data_*.parquet").replace("\\", "/")
+791634	def require_price_grain(connection, parquet_glob):
+791635	    rows, keys, nulls, nonfinite = connection.execute("""
+791636	        SELECT count(*), count(DISTINCT periodStartUTC),
+791637	               count(*) FILTER (WHERE periodStartUTC IS NULL),
+791638	               count(*) FILTER (WHERE systemSellPriceGBPperMWh IS NOT NULL
+791639	                 AND NOT isfinite(systemSellPriceGBPperMWh))
+791640	        FROM read_parquet(?, hive_partitioning=false)
+791641	    """, [parquet_glob]).fetchone()
+791642	    if rows == 0 or rows != keys or nulls or nonfinite:
+791643	        raise ValueError("Price grain failed: rows=%s keys=%s nulls=%s nonfinite=%s"
+791644	                         % (rows, keys, nulls, nonfinite))
+791645	    return {"rows": rows, "distinct_periods": keys,
+791646	            "null_keys": nulls, "nonfinite_sell_prices": nonfinite}
+791684	    glob = price_input_glob(REPO)
+791686	    input_grain = require_price_grain(con, glob)
+791762	            "path": "prices/year=*/month=*/data_*.parquet",
+791763	            "source_key": "periodStartUTC",
+791764	            "input_grain": input_grain,
+791796	    with io.open(out, "w", encoding="utf-8", newline="\n") as stream:
+791797	        stream.write(json.dumps(product, ensure_ascii=False, indent=2) + "\n")
+791813	"""Offline, typed daily system-sell products for bounded browser consumption."""
+791817	from decimal import Decimal, localcontext, ROUND_HALF_EVEN
+791823	sys.path.insert(0, str(ROOT / 'pipelines'))
+791824	from gb_calendar import london_midnight_utc
+791825	from build_price_decade_rollup import price_input_glob, require_price_grain
+791826	SCHEMA = 'data-gb-electricity.system-sell-daily.v1'
+791827	UNIT = 'GBP/MWh'
+791828	BASIS = 'ELEXON_SYSTEM_SELL_PRICE'
+791829	QUANTUM = Decimal('0.000001')
+791830	def encode(value):
+791831	    return (json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':'), allow_nan=False) + '\n').encode('utf-8')
+791834	def six(value):
+791836	    return float(value.quantize(QUANTUM, rounding=ROUND_HALF_EVEN))
+791837	def source_manifest(repo):
+791838	    return [{'path': str(p.relative_to(repo)).replace('\\', '/'), 'sha256': digest(p.read_bytes()), 'bytes': p.stat().st_size}
+791839	            for p in sorted((repo / 'prices').glob('year=*/month=*/data_*.parquet'))]
+791840	def daily_rows(repo):
+791842	        db.execute("SET TimeZone='UTC'")
+791843	        grain = require_price_grain(db, price_input_glob(str(repo)))
+791844	        db.read_parquet(price_input_glob(str(repo)), hive_partitioning=False).create_view('prices')
+791845	        types = {row[0]: row[1] for row in db.execute('DESCRIBE prices').fetchall()}
+791846	        expected = {'settlementDate': 'DATE', 'settlementPeriod': 'BIGINT',
+791847	                    'periodStartUTC': 'TIMESTAMP WITH TIME ZONE', 'systemSellPriceGBPperMWh': 'DOUBLE'}
+791848	        if any(types.get(k) != v for k, v in expected.items()):
+791849	            raise ValueError('Unexpected original source types')
+791850	        date_values = [row[0] for row in db.execute('SELECT DISTINCT settlementDate::VARCHAR FROM prices ORDER BY 1').fetchall()]
+791851	        if any(value is None for value in date_values):
+791852	            raise ValueError('Missing source-declared settlement date')
+791853	        dates = [dt.date.fromisoformat(value) for value in date_values]
+791854	        start, end = dates[0], dates[-1]
+791855	        if start.year < 1996 or (end-start).days > 366*100:
+791856	            raise ValueError('Calendar is outside the declared bounded GB rules')
+791857	        calendar = []
+791858	        day = start
+791859	        while day <= end:
+791860	            first, next_first = london_midnight_utc(day), london_midnight_utc(day + dt.timedelta(days=1))
+791861	            calendar.append((day.isoformat(), int(first.timestamp()), int((next_first-first).total_seconds()/1800)))
+791863	        db.execute('CREATE TABLE gb_days(day VARCHAR PRIMARY KEY,start_epoch BIGINT,expected INTEGER)')
+791864	        db.execute('''INSERT INTO gb_days SELECT r.day,r.start_epoch,r.expected
+791865	            FROM UNNEST(?::STRUCT(day VARCHAR,start_epoch BIGINT,expected INTEGER)[]) input(r)''',
+791866	            [[{'day':day,'start_epoch':epoch,'expected':count} for day,epoch,count in calendar]])
+791867	        bad = db.execute('''SELECT count(*) FROM prices p LEFT JOIN gb_days c ON p.settlementDate::VARCHAR=c.day
+791868	            WHERE c.day IS NULL OR p.settlementPeriod IS NULL OR p.settlementPeriod<1 OR p.settlementPeriod>c.expected''').fetchone()[0]
+791869	        duplicate_declared = db.execute('SELECT count(*) FROM (SELECT settlementDate,settlementPeriod FROM prices GROUP BY 1,2 HAVING count(*)>1)').fetchone()[0]
+791870	        if bad or duplicate_declared:
+791871	            raise ValueError('Invalid or duplicate source-declared GB date/period identity')
+791872	        groups = {row[0]: row[1:] for row in db.execute('''SELECT settlementDate::VARCHAR,
+791873	            count(*), count(systemSellPriceGBPperMWh), list(systemSellPriceGBPperMWh ORDER BY settlementPeriod),
+791874	            count(*) FILTER(WHERE epoch(periodStartUTC)<>c.start_epoch+(settlementPeriod-1)*1800)
+791875	            FROM prices p JOIN gb_days c ON p.settlementDate::VARCHAR=c.day GROUP BY 1 ORDER BY 1''').fetchall()}
+791877	        with localcontext() as context:
+791878	            context.prec = 90
+791879	            for day, _, expected_periods in calendar:
+791880	                observed, priced, values, mismatches = groups.get(day, (0, 0, [], 0))
+791881	                values = [Decimal.from_float(v) for v in values if v is not None]
+791882	                mean = sum(values, Decimal(0)) / len(values) if values else None
+791883	                status = 'NO_OBSERVATIONS' if not observed else 'COMPLETE_SOURCE_DAY' if priced == observed == expected_periods else 'PARTIAL_SOURCE_DAY'
+791884	                rows.append({'date': day, 'expected_periods': expected_periods, 'observed_periods': observed,
+791885	                             'priced_periods': priced, 'coverage_status': status,
+791886	                             'utc_alignment_mismatches': mismatches,
+791887	                             'price_coverage_pct': round(100*priced/expected_periods, 6),
+791888	                             'mean_available_gbp_per_mwh': six(mean),
+791889	                             'minimum_observed_gbp_per_mwh': six(min(values)) if values else None,
+791890	                             'maximum_observed_gbp_per_mwh': six(max(values)) if values else None})
+791891	        window = db.execute('SELECT min(periodStartUTC)::VARCHAR,max(periodStartUTC)::VARCHAR FROM prices').fetchone()
+791892	    return rows, grain, window
+791893	def compile_products(repo, folder):
+791894	    before = source_manifest(repo)
+791895	    rows, grain, window = daily_rows(repo)
+791896	    years = sorted({int(r['date'][:4]) for r in rows})
+791897	    source = {'schema': SCHEMA + '.sources', 'source_grain': 'periodStartUTC', 'price_basis': BASIS,
+791898	              'source_field': 'systemSellPriceGBPperMWh', 'repository': 'Ventusltd/data-gb-electricity',
+791899	              'endpoint': 'https://data.elexon.co.uk/bmrs/api/v1/balancing/settlement/system-prices',
+791900	              'files': before, 'input_grain': grain, 'first_stored_period_utc': window[0], 'last_stored_period_utc': window[1],
+791901	              'utc_alignment_mismatches': sum(r['utc_alignment_mismatches'] for r in rows),
+791902	              'calendar_quality': 'Source-declared settlement dates/periods retained. Legacy stored UTC fields can disagree; counters report this without correcting frozen source history.'}
+791903	    sources = encode(source)
+791904	    (folder / 'sources.json').write_bytes(sources)
+791905	    parts = []
+791907	        selected = [r for r in rows if r['date'].startswith(str(year) + '-')]
+791908	        payload = {'schema': SCHEMA, 'year': year, 'unit': UNIT, 'price_basis': BASIS,
+791909	                   'time_basis': 'Source-declared GB settlement date in Europe/London; stored UTC alignment reported separately',
+791910	                   'mean_basis': 'Available reported settlement-period prices; no interpolation',
+791911	                   'rounding': 'Six decimal places, half-even, from exact stored IEEE-754 source values',
+791912	                   'rows': selected}
+791913	        raw = encode(payload)
+791914	        name = str(year) + '.json'
+791915	        (folder / name).write_bytes(raw)
+791916	        parts.append({'year': year, 'path': name, 'sha256': digest(raw), 'bytes': len(raw),
+791917	                      'calendar_days': len(selected), 'observed_days': sum(r['observed_periods']>0 for r in selected),
+791918	                      'complete_days': sum(r['coverage_status']=='COMPLETE_SOURCE_DAY' for r in selected),
+791919	                      'partial_days': sum(r['coverage_status']=='PARTIAL_SOURCE_DAY' for r in selected),
+791920	                      'missing_days': sum(r['coverage_status']=='NO_OBSERVATIONS' for r in selected)})
+791921	    parquet = folder / 'daily.parquet'
+791922	        db.execute('CREATE TABLE daily(date VARCHAR PRIMARY KEY,expected_periods INTEGER,observed_periods INTEGER,priced_periods INTEGER,coverage_status VARCHAR,utc_alignment_mismatches INTEGER,price_coverage_pct DOUBLE,mean_available_gbp_per_mwh DOUBLE,minimum_observed_gbp_per_mwh DOUBLE,maximum_observed_gbp_per_mwh DOUBLE)')
+791923	        fields = list(rows[0])
+791924	        actual_rows = [tuple(r[k] for k in fields) for r in rows]
+791925	        db.execute('''INSERT INTO daily SELECT r.date,r.expected_periods,r.observed_periods,r.priced_periods,
+791926	            r.coverage_status,r.utc_alignment_mismatches,r.price_coverage_pct,r.mean_available_gbp_per_mwh,
+791927	            r.minimum_observed_gbp_per_mwh,r.maximum_observed_gbp_per_mwh FROM UNNEST(?::STRUCT(
+791928	            date VARCHAR,expected_periods INTEGER,observed_periods INTEGER,priced_periods INTEGER,
+791929	            coverage_status VARCHAR,utc_alignment_mismatches INTEGER,price_coverage_pct DOUBLE,
+791930	            mean_available_gbp_per_mwh DOUBLE,minimum_observed_gbp_per_mwh DOUBLE,maximum_observed_gbp_per_mwh DOUBLE)[]) input(r)''', [rows])
+791931	        db.sql('SELECT * FROM daily ORDER BY date').write_parquet(str(parquet), compression='zstd')
+791932	        reread = db.execute('SELECT * FROM read_parquet(?,hive_partitioning=false) ORDER BY date', [str(parquet)]).fetchall()
+791933	        if reread != actual_rows:
+791934	            raise ValueError('Daily full-row Parquet readback mismatch')
+791935	        if db.execute('SELECT DISTINCT compression FROM parquet_metadata(?)', [str(parquet)]).fetchall() != [('ZSTD',)]:
+791936	            raise ValueError('Unexpected Parquet compression')
+791937	    if source_manifest(repo) != before:
+791938	        raise ValueError('Source files changed during build')
+791939	    index = {'schema': SCHEMA + '.index', 'unit': UNIT, 'price_basis': BASIS,
+791940	             'time_basis': 'Source-declared GB settlement date in Europe/London; stored UTC alignment reported separately',
+791941	             'source_grain': 'Source-declared settlementDate plus settlementPeriod; original stored periodStartUTC remains the upstream key',
+791942	             'first_date': rows[0]['date'], 'last_date': rows[-1]['date'], 'rows': len(rows),
+791943	             'source_periods': grain['rows'], 'observed_periods': sum(r['observed_periods'] for r in rows),
+791944	             'priced_periods': sum(r['priced_periods'] for r in rows), 'parts': parts,
+791945	             'utc_alignment_mismatches': source['utc_alignment_mismatches'], 'calendar_quality': source['calendar_quality'],
+791946	             'sources': {'path':'sources.json','bytes':len(sources),'sha256':digest(sources)},
+791947	             'parquet': {'path':'daily.parquet','bytes':parquet.stat().st_size,'sha256':digest(parquet.read_bytes()),'rows':len(rows),'compression':'ZSTD','full_row_readback':'PASS'},
+791948	             'engine': 'duckdb-' + duckdb.__version__, 'producer_sha256': digest(Path(__file__).read_bytes()),
+791949	             'scope': 'Historical system-sell prices; no market-index merge, realtime quote or forecast'}
+791950	    if index['source_periods'] != index['observed_periods']:
+791951	        raise ValueError('Daily aggregation lost source rows')
+791952	    (folder / 'index.json').write_bytes(encode(index))
+791954	def run(repo, output, verify=False):
+791956	    with tempfile.TemporaryDirectory(prefix='price-daily-stage-', dir=output.parent) as temporary:
+791957	        stage = Path(temporary)
+791958	        index = compile_products(repo, stage)
+791959	        produced = {p.name for p in stage.iterdir()}
+791960	        if verify:
+791961	            actual = {p.name for p in output.iterdir() if p.is_file()}
+791962	            if actual != produced or any((output/p).read_bytes() != (stage/p).read_bytes() for p in produced):
+791963	                raise ValueError('Daily committed products differ from actual source rebuild')
+791965	            if output.exists() and any(p.is_file() and p.name not in produced for p in output.iterdir()):
+791966	                raise ValueError('Unexpected existing output; no silent history deletion')
+791967	            output.mkdir(exist_ok=True)
+791968	            for name in sorted(produced - {'index.json'}) + ['index.json']:
+791969	                target = output / name
+791970	                if not target.exists() or target.read_bytes() != (stage/name).read_bytes():
+791971	                    (stage/name).replace(target)
+791974	    parser.add_argument('--repo', type=Path, default=ROOT)
+791975	    parser.add_argument('--output', type=Path)
+791978	    index = run(args.repo, args.output or args.repo/'derived/price-daily-browser', args.verify)
+791979	    print(json.dumps({'status':'PASS','source_periods':index['source_periods'],'calendar_days':index['rows'],
+791980	                      'last_date':index['last_date'],'years':len(index['parts']),
+791981	                      'largest_year_bytes':max(p['bytes'] for p in index['parts']), 'parquet_bytes':index['parquet']['bytes']}))
+792034	    parquet_glob = price_input_glob(REPO)
+792036	    actual_grain = require_price_grain(connection, parquet_glob)
+792037	    assert product["derived_from"]["path"] == "prices/year=*/month=*/data_*.parquet"
+792038	    assert product["derived_from"]["source_key"] == "periodStartUTC"
+792039	    assert product["derived_from"]["input_grain"] == actual_grain
+792080	"""Synthetic daily source-grain/DST/coverage checks, plus actual-source replay."""
+792083	sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'derived'))
+792084	import price_daily_browser as producer
+792085	class DailyBrowserTests(unittest.TestCase):
+792089	        self.output = self.repo / 'derived/product'
+792090	        self.db = duckdb.connect()
+792091	        self.db.execute('CREATE TABLE fixture(settlementDate DATE,settlementPeriod BIGINT,periodStartUTC TIMESTAMPTZ,systemSellPriceGBPperMWh DOUBLE,marketIndexPrice DOUBLE)')
+792093	        self.db.close()
+792095	    def add_day(self, date, periods, first_utc, missing=(), null_price=(), split=False):
+792096	        first = dt.datetime.fromisoformat(first_utc.replace('Z', '+00:00'))
+792097	        for part in range(2 if split else 1):
+792098	            self.db.execute('DELETE FROM fixture')
+792099	            rows = [(date, i, (first+dt.timedelta(minutes=(i-1)*30)).isoformat(), None if i in null_price else float(i), 999.0)
+792100	                    for i in range(1, periods+1) if i not in missing and (not split or (i-1)%2 == part)]
+792101	            self.db.executemany('INSERT INTO fixture VALUES (CAST(? AS DATE),?,CAST(? AS TIMESTAMPTZ),?,?)', rows)
+792102	            target = self.repo / f'prices/year={date[:4]}/month={int(date[5:7])}/data_{date}_{part}.parquet'
+792104	            self.db.sql('SELECT * FROM fixture ORDER BY periodStartUTC').write_parquet(str(target), compression='zstd')
+792105	    def result(self):
+792106	        index = producer.run(self.repo, self.output)
+792107	        data = json.loads((self.output / str(index['parts'][0]['year'])).with_suffix('.json').read_bytes())
+792108	        return index, data['rows']
+792109	    def test_spring46_and_autumn50_are_complete_source_days(self):
+792110	        for date, n, first in [('2026-03-29',46,'2026-03-29T00:00:00Z'),('2026-10-25',50,'2026-10-24T23:00:00Z')]:
+792111	            with self.subTest(date=date):
+792112	                self.add_day(date,n,first)
+792113	        index, rows = self.result()
+792114	        selected = {r['date']:r for r in rows}
+792115	        self.assertEqual((selected['2026-03-29']['expected_periods'], selected['2026-10-25']['expected_periods']), (46,50))
+792116	        self.assertEqual(selected['2026-03-29']['coverage_status'], 'COMPLETE_SOURCE_DAY')
+792117	        self.assertEqual(selected['2026-10-25']['utc_alignment_mismatches'], 0)
+792118	        self.assertEqual(index['observed_periods'],96)
+792119	    def test_every_physical_part_is_combined_without_market_index_prices(self):
+792120	        self.add_day('2026-01-01',48,'2026-01-01T00:00:00Z',split=True)
+792121	        self.assertEqual(index['source_periods'],48)
+792122	        self.assertEqual(rows[0]['mean_available_gbp_per_mwh'],24.5)
+792123	        self.assertEqual(rows[0]['maximum_observed_gbp_per_mwh'],48.0)
+792124	    def test_absent_dates_are_explicit_gaps_with_null_prices(self):
+792125	        self.add_day('2026-01-01',48,'2026-01-01T00:00:00Z')
+792126	        self.add_day('2026-01-03',48,'2026-01-03T00:00:00Z')
+792127	        _, rows = self.result()
+792128	        self.assertEqual(rows[1]['date'],'2026-01-02')
+792129	        self.assertEqual(rows[1]['coverage_status'],'NO_OBSERVATIONS')
+792130	        self.assertIsNone(rows[1]['mean_available_gbp_per_mwh'])
+792131	    def test_missing_and_null_periods_are_partial_not_zero_or_imputed(self):
+792132	        self.add_day('2026-01-01',48,'2026-01-01T00:00:00Z',missing=(1,2),null_price=(3,))
+792133	        self.assertEqual((rows[0]['observed_periods'],rows[0]['priced_periods']),(46,45))
+792134	        self.assertEqual(rows[0]['coverage_status'],'PARTIAL_SOURCE_DAY')
+792135	        self.assertEqual(rows[0]['minimum_observed_gbp_per_mwh'],4.0)
+792136	    def test_legacy_utc_clock_disagreement_is_retained_and_counted(self):
+792137	        self.add_day('2026-07-01',48,'2026-07-01T00:00:00Z')
+792138	        self.assertEqual(rows[0]['utc_alignment_mismatches'],48)
+792139	        self.assertEqual(index['utc_alignment_mismatches'],48)
+792140	        self.assertIn('Source-declared', index['time_basis'])
+792141	    def test_legacy_october_clock_collision_loss_stays_partial_on_oct31(self):
+792142	        self.add_day('2016-10-30',50,'2016-10-30T00:00:00Z')
+792143	        self.add_day('2016-10-31',48,'2016-10-31T00:00:00Z',missing=(1,2))
+792144	        _, rows=self.result()
+792145	        self.assertEqual((rows[0]['expected_periods'],rows[0]['utc_alignment_mismatches']),(50,50))
+792146	        self.assertEqual((rows[1]['observed_periods'],rows[1]['expected_periods']),(46,48))
+792147	        self.assertEqual(rows[1]['coverage_status'],'PARTIAL_SOURCE_DAY')
+792148	        self.assertEqual(rows[1]['price_coverage_pct'],95.833333)
+792149	    def test_unremoved_legacy_clock_key_collision_is_rejected(self):
+792150	        self.add_day('2016-10-31',48,'2016-10-31T00:00:00Z')
+792151	        with self.assertRaisesRegex(ValueError,'Price grain failed'):
+792152	            producer.run(self.repo,self.output)
+792153	        self.assertFalse(self.output.exists())
+792154	    def test_twenty_four_period_floor_never_certifies_a_complete_day(self):
+792155	        self.add_day('2026-01-01',24,'2026-01-01T00:00:00Z')
+792156	        index, rows=self.result()
+792157	        self.assertEqual(rows[0]['price_coverage_pct'],50.0)
+792158	        self.assertEqual(index['parts'][0]['complete_days'],0)
+792159	    def test_no_sell_observations_keep_null_mean_and_zero_price_coverage(self):
+792160	        self.add_day('2026-01-01',48,'2026-01-01T00:00:00Z',null_price=tuple(range(1,49)))
+792161	        self.assertIsNone(rows[0]['mean_available_gbp_per_mwh'])
+792162	        self.assertEqual(rows[0]['price_coverage_pct'],0.0)
+792163	    def test_duplicate_declared_periods_fail_before_replacing_output(self):
+792164	        self.result()
+792165	        saved = (self.output/'index.json').read_bytes()
+792166	        self.db.execute('DELETE FROM fixture')
+792167	        self.db.execute("INSERT INTO fixture VALUES ('2026-01-01',1,'2026-01-02T00:00:00Z',1,999)")
+792168	        self.db.sql('SELECT * FROM fixture').write_parquet(str(self.repo/'prices/year=2026/month=1/data_extra.parquet'))
+792169	        with self.assertRaisesRegex(ValueError,'duplicate'):
+792170	        self.assertEqual((self.output/'index.json').read_bytes(),saved)
+792171	    def test_impossible_spring_period47_is_not_allowed(self):
+792172	        self.add_day('2026-03-29',47,'2026-03-29T00:00:00Z')
+792173	        with self.assertRaisesRegex(ValueError,'identity'):
+792174	    def test_corrupted_product_is_not_accepted_by_shape_only(self):
+792175	        part=self.output/'2026.json';data=json.loads(part.read_bytes());data['rows'][0]['mean_available_gbp_per_mwh']=999
+792176	        part.write_bytes(producer.encode(data))
+792177	        with self.assertRaisesRegex(ValueError,'actual source rebuild'):
+792178	            producer.run(self.repo,self.output,verify=True)
+792179	    def test_negative_prices_remain_negative_and_full_parquet_readback_passes(self):
+792180	        p=next((self.repo/'prices').glob('**/*.parquet'))
+792181	        self.db.read_parquet(str(p)).create_view('original')
+792182	        self.db.sql('SELECT settlementDate,settlementPeriod,periodStartUTC, -systemSellPriceGBPperMWh AS systemSellPriceGBPperMWh,marketIndexPrice FROM original').write_parquet(str(p.with_name('replacement.parquet')))
+792183	        p.unlink();p.with_name('replacement.parquet').rename(p)
+792184	        self.assertEqual(rows[0]['mean_available_gbp_per_mwh'],-24.5)
+792185	        self.assertEqual(index['parquet']['full_row_readback'],'PASS')
+792186	        self.assertEqual(producer.run(self.repo,self.output,verify=True)['rows'],1)
+792188	"""Synthetic split-part regression; no upstream fetch or historical rewrite."""
+792194	sys.path.insert(0, str(ROOT / 'derived'))
+792195	builder = importlib.import_module('build_price_decade_rollup')
+792196	verifier = importlib.import_module('verify_price_decade_rollup')
+792197	class SplitPricePartsTests(unittest.TestCase):
+792198	        self.repo = pathlib.Path(self.temp.name)
+792199	        self.derived = self.repo / 'derived'
+792200	        self.derived.mkdir()
+792201	        self.db = duckdb.connect(':memory:')
+792202	        self.db.execute('CREATE TABLE fixture(settlementDate DATE,settlementPeriod BIGINT,periodStartUTC TIMESTAMPTZ,systemSellPriceGBPperMWh DOUBLE)')
+792203	        for year in range(2016, 2026):
+792204	            for part in (0, 1):
+792206	                for period in range(part * 12, (part + 1) * 12):
+792207	                    stamp = datetime.datetime(year, 1, 1, tzinfo=datetime.timezone.utc) + datetime.timedelta(minutes=period * 30)
+792208	                    rows.append((stamp.date().isoformat(), period + 1, stamp.isoformat(), float(period - 10)))
+792209	                self.db.execute('DELETE FROM fixture')
+792210	                self.db.executemany('INSERT INTO fixture VALUES (CAST(? AS DATE),?,CAST(? AS TIMESTAMPTZ),?)', rows)
+792211	                target = self.repo / 'prices' / f'year={year}' / 'month=1' / f'data_{part}.parquet'
+792213	                self.db.sql('SELECT * FROM fixture ORDER BY periodStartUTC').write_parquet(str(target), compression='zstd')
+792214	    def run_builder(self):
+792215	        with patch.object(builder, 'REPO', str(self.repo)), patch.object(builder, 'HERE', str(self.derived)):
+792216	            builder.main()
+792217	        return json.loads((self.derived / 'price-decade-rollup.json').read_text(encoding='utf-8'))
+792218	    def test_all_physical_parts_combine_before_daily_inclusion_and_verify(self):
+792219	        product = self.run_builder()
+792220	        self.assertEqual(product['derived_from']['settlement_periods'], 240)
+792221	        self.assertEqual(product['derived_from']['included_days'], 10)
+792222	        self.assertTrue(all(row['days_included'] == 1 for row in product['price']['by_year']))
+792223	        self.assertEqual(product['derived_from']['input_grain']['distinct_periods'], 240)
+792224	        with patch.object(verifier, 'REPO', str(self.repo)), patch.object(verifier, 'PATH', str(self.derived / 'price-decade-rollup.json')):
+792225	            verifier.main()
+792226	    def test_a_duplicate_in_an_extra_part_fails_before_output_replacement(self):
+792227	        target = self.derived / 'price-decade-rollup.json'
+792228	        target.write_text('accepted previous bytes', encoding='utf-8')
+792229	        source = self.repo / 'prices/year=2016/month=1/data_0.parquet'
+792230	        duplicate = source.with_name('data_2.parquet')
+792231	        duplicate.write_bytes(source.read_bytes())
+792232	        with self.assertRaisesRegex(ValueError, 'Price grain failed'):
+792233	            self.run_builder()
+792234	        self.assertEqual(target.read_text(encoding='utf-8'), 'accepted previous bytes')
+792235	    def test_null_period_in_extra_part_is_not_hidden_by_daily_aggregation(self):
+792236	        self.db.execute("INSERT INTO fixture VALUES ('2016-01-01',49,NULL,12)")
+792237	        target = self.repo / 'prices/year=2016/month=1/data_2.parquet'
+792238	        self.db.sql('SELECT * FROM fixture').write_parquet(str(target), compression='zstd')
+792239	    def test_nonfinite_price_does_not_become_an_aggregate(self):
+792240	        self.db.execute("INSERT INTO fixture VALUES ('2016-01-02',1,'2016-01-02T00:00:00Z','NaN'::DOUBLE)")
+792241	"""Address/location stage for the existing data-centre data owners."""
+792242	"""Offline DC address/location projection. No identity or grid-capacity approval."""
+792246	SCHEMA = 'data-grid-gb.dc-address-locations.v1'
+792247	POSTCODE = re.compile(r'\b(?:GIR\s?0AA|[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKPSTUW]?\s?\d[ABD-HJLNP-UW-Z]{2})\b', re.I)
+792248	QID = re.compile(r'Q[1-9]\d*\Z')
+792249	FOOTNOTE = 'Screening only; not a grid-capacity assessment.'
+792250	GEOCODER_LICENCE = 'https://postcodes.io/docs/licences/'
+792251	GB_ATTRIBUTION = ['Contains Ordnance Survey data © Crown copyright and database right 2025',
+792252	                  'Contains Royal Mail data © Royal Mail copyright and database right 2025',
+792253	                  'Contains National Statistics data © Crown copyright and database right 2025',
+792254	                  'Contains NRS data © Crown copyright and database right 2025']
+792258	def postcode(value):
+792259	    compact = re.sub(r'\s+', '', value.upper())
+792260	    return compact[:-3] + ' ' + compact[-3:]
+792261	def point(lon, lat):
+792262	    if (type(lon) not in (int, float) or type(lat) not in (int, float)
+792263	            or not math.isfinite(lon) or not math.isfinite(lat)
+792264	            or not (-180 <= lon <= 180 and -90 <= lat <= 90) or (lon, lat) == (0, 0)):
+792265	        raise ValueError('Invalid geographic point')
+792266	    return {'type': 'Point', 'coordinates': [lon, lat]}
+792267	def statements(entity, prop):
+792268	    rows = [s for s in entity.get('claims', {}).get(prop, [])
+792269	            if s.get('rank') != 'deprecated' and s.get('mainsnak', {}).get('snaktype') == 'value']
+792270	    preferred = [s for s in rows if s.get('rank') == 'preferred']
+792271	    return preferred or rows
+792272	def statement_value(statement):
+792273	    return statement['mainsnak']['datavalue']['value']
+792274	def text_claims(entity, prop):
+792276	    for s in statements(entity, prop):
+792277	        value = statement_value(s)
+792278	        text = value.get('text') if isinstance(value, dict) else value
+792279	        if not isinstance(text, str) or not text.strip():
+792280	            raise ValueError('Invalid textual address claim')
+792281	        refs = sorted({r['datavalue']['value'] for ref in s.get('references', [])
+792282	                       for r in ref.get('snaks', {}).get('P854', [])
+792283	                       if r.get('snaktype') == 'value' and isinstance(r.get('datavalue', {}).get('value'), str)})
+792284	        result.append({'statement_id': s['id'], 'rank': s['rank'], 'text': text,
+792285	                       'language': value.get('language') if isinstance(value, dict) else None,
+792286	                       'reference_urls': refs})
+792287	    return sorted(result, key=lambda x: (x['text'], x['statement_id']))
+792288	def address_metadata(entity, country):
+792289	    addresses = text_claims(entity, 'P6375') + text_claims(entity, 'P969')
+792290	    declared = text_claims(entity, 'P281')
+792291	    # Only a full, unambiguous GB postcode can request a GB lookup. No address guessing.
+792292	    candidates = set()
+792293	    if country in ('GB', 'UK'):
+792294	        for s in addresses + declared:
+792295	            candidates.update(postcode(m.group()) for m in POSTCODE.finditer(s['text']))
+792296	    return addresses, declared, sorted(candidates)
+792297	def screening_url(geometry, name):
+792299	    lon, lat = geometry['coordinates']
+792300	    point(lon, lat)
+792301	    return 'https://ventusltd.github.io/gridatlas/atlas/?' + urlencode({
+792302	        'longitude': lon, 'latitude': lat, 'zoom': 12, 'project': name,
+792303	        'technology': 'datacentre'})
+792304	def distance_m(a, b):
+792305	    lon1, lat1 = map(math.radians, a)
+792306	    lon2, lat2 = map(math.radians, b)
+792307	    h = math.sin((lat2-lat1)/2)**2 + math.cos(lat1)*math.cos(lat2)*math.sin((lon2-lon1)/2)**2
+792308	    return 6371008.8 * 2 * math.asin(math.sqrt(min(1, max(0, h))))
+792309	def source_qids(properties):
+792310	    """Facility IDs only. Deliberately ignores operator:wikidata and arbitrary text."""
+792311	    ids = set()
+792312	    for key in ('wikidata', 'wikidata_id'):
+792313	        value = properties.get(key)
+792314	        if isinstance(value, str) and QID.fullmatch(value):
+792315	            ids.add(value)
+792316	    for row in properties.get('sources', []) + properties.get('records', []):
+792317	        if not isinstance(row, dict) or row.get('source', '').lower() != 'wikidata':
+792319	        value = row.get('source_id', row.get('id', ''))
+792320	        value = value.removeprefix('wd:') if isinstance(value, str) else ''
+792321	        if QID.fullmatch(value):
+792322	    return ids
+792323	def cross_references(feature, references):
+792324	    """Retain explicit source joins; name/spatial discovery never supplies geometry."""
+792325	    properties = feature['properties']
+792326	    qid = properties['wikidata_id']
+792327	    normalized = re.sub(r'\W+', ' ', properties['name'].casefold()).strip()
+792328	    for ref in references:
+792329	        if ref.get('country_scope', 'GB') != properties['country']['code']:
+792330	        for other in ref['document'].get('features', []):
+792331	            p = other.get('properties') or {}
+792332	            if ref.get('class_filter') and p.get('class') != ref['class_filter']:
+792334	            exact = qid in source_qids(p)
+792335	            same_name = normalized and normalized == re.sub(r'\W+', ' ', str(p.get('name', '')).casefold()).strip()
+792336	            if not exact and not same_name:
+792337	            geometry = other.get('geometry')
+792338	            gap = None
+792339	            if feature['geometry'] and geometry and geometry.get('type') == 'Point':
+792340	                coords = geometry['coordinates']
+792341	                point(*coords)
+792342	                gap = round(distance_m(feature['geometry']['coordinates'], coords), 1)
+792343	            result.append({'dataset_id': ref['id'], 'record_id': p.get('id', other.get('id')),
+792344	                           'source_sha256': ref['sha256'], 'source_url': ref['url'],
+792345	                           'method': 'EXPLICIT_WIKIDATA_SOURCE_ID' if exact else 'EXACT_NAME_CANDIDATE',
+792346	                           'review_state': 'SOURCE_ID_JOIN' if exact else 'CANDIDATE',
+792347	                           'distance_m': gap, 'source_licence': ref['licence'],
+792348	                           'source_attribution': ref['attribution'], 'geometry_adopted': False})
+792349	    return sorted(result, key=lambda x: (x['dataset_id'], str(x['record_id'])))
+792350	def build(cohort, entities, geocodes, receipt, references=()):
+792351	    if cohort.get('schema') != 'globalgrid2050.global-datacentres.projects.v1':
+792352	        raise ValueError('Expected the existing Pipeline source-indexed DC cohort')
+792353	    records = cohort.get('records', [])
+792354	    if not records or cohort.get('record_count') != len(records):
+792355	        raise ValueError('DC cohort count mismatch')
+792356	    features, seen = [], set()
+792357	    for row in sorted(records, key=lambda x: x['id']):
+792358	        rid = row['id']
+792359	        qid = rid.removeprefix('DC-WD-')
+792360	        if not QID.fullmatch(qid) or rid in seen:
+792361	            raise ValueError('Invalid or duplicate original DC source identity')
+792362	        seen.add(rid)
+792363	        entity = entities[qid]
+792364	        if entity.get('id') != qid or type(entity.get('lastrevid')) is not int:
+792365	            raise ValueError('Missing source entity/revision closure')
+792366	        source_countries = {statement_value(s).get('id') for s in statements(entity, 'P17')}
+792367	        if source_countries != {row['country']['wikidata_id']}:
+792368	            raise ValueError('Current source country conflicts with the original cohort')
+792369	        revision = f"https://www.wikidata.org/w/index.php?title={qid}&oldid={entity['lastrevid']}"
+792370	        addresses, postal_claims, postcodes = address_metadata(entity, row['country']['code'])
+792371	        geometry, precision, locator = None, 'UNKNOWN', None
+792372	        coordinate_claims = statements(entity, 'P625')
+792373	        points = []
+792374	        for s in coordinate_claims:
+792375	            v = statement_value(s)
+792376	            if v.get('globe') != 'http://www.wikidata.org/entity/Q2':
+792377	                raise ValueError('Unsupported coordinate reference globe')
+792378	            coords = point(v.get('longitude'), v.get('latitude'))
+792379	            if type(v.get('precision')) not in (int, float) or not math.isfinite(v['precision']) or v['precision'] <= 0:
+792380	                raise ValueError('Missing coordinate precision')
+792381	            points.append((coords, v['precision'], s['id']))
+792382	        notes = []
+792383	        if len(points) == 1:
+792384	            geometry, degrees, statement_id = points[0]
+792385	            precision = 'WIKIDATA_REPORTED_POINT'
+792386	            locator = {'revision_url': revision, 'statement_id': statement_id, 'precision_degrees': degrees}
+792387	        elif len(points) > 1:
+792388	            notes.append('Conflicting coordinate statements: no automatic point selection')
+792389	        elif len(postcodes) == 1:
+792390	            pc = postcodes[0]
+792391	            if pc.startswith('BT'):
+792392	                notes.append('Northern Ireland postcode geocoding withheld: distinct reuse terms')
+792394	                geo = geocodes.get(pc)
+792395	                if geo is not None:
+792396	                    if postcode(geo.get('postcode', '')) != pc:
+792397	                        raise ValueError('Geocoder returned another postcode')
+792398	                    if geo.get('country') not in ('England', 'Scotland', 'Wales'):
+792399	                        raise ValueError('Geocoder result outside supported GB licence scope')
+792400	                    if geo.get('latitude') is not None and geo.get('longitude') is not None:
+792401	                        geometry = point(geo['longitude'], geo['latitude'])
+792402	                        # A postcode/country label alone cannot bless a remote or false-origin point.
+792403	                        # This is a gross GB geographic sanity bound, not an accuracy certificate.
+792404	                        if not (-8.7 <= geo['longitude'] <= 2.0 and 49.8 <= geo['latitude'] <= 61.2):
+792405	                            raise ValueError('Geocoder coordinates are outside Great Britain bounds')
+792406	                        precision = 'POSTCODE_CENTROID_APPROXIMATE'
+792407	                        locator = {'postcode': pc, 'endpoint': 'https://api.postcodes.io/postcodes',
+792408	                                   'quality': geo.get('quality'), 'licence_url': GEOCODER_LICENCE}
+792409	        elif len(postcodes) > 1:
+792410	            notes.append('Multiple source postcodes: no automatic address selection')
+792411	        if geometry is None and not notes:
+792412	            notes.append('No supported unambiguous coordinate or geocoded postcode')
+792413	        props = {'id': rid, 'wikidata_id': qid, 'name': row['name'], 'country': row['country'],
+792414	                 'addresses': addresses, 'postal_code_statements': postal_claims,
+792415	                 'postcode_candidates': postcodes, 'location_precision': precision,
+792416	                 'location_source': locator, 'source_revision_url': revision,
+792417	                 'original_pipeline_revision_url': row['source']['revision_url'],
+792418	                 'source_statement_licence': 'CC0-1.0', 'source_statement_licence_url': 'https://www.wikidata.org/wiki/Wikidata:Copyright',
+792419	                 'geometry_licence': ('OS OpenData: GB postcode source terms' if precision == 'POSTCODE_CENTROID_APPROXIMATE' else 'CC0-1.0') if geometry else None,
+792420	                 'geometry_licence_url': (GEOCODER_LICENCE if precision == 'POSTCODE_CENTROID_APPROXIMATE' else 'https://www.wikidata.org/wiki/Wikidata:Copyright') if geometry else None,
+792421	                 'geometry_attribution': GB_ATTRIBUTION if precision == 'POSTCODE_CENTROID_APPROXIMATE' else ['Wikidata structured statements: CC0'] if geometry else [],
+792422	                 'source_retrieved_at': receipt['retrieved_at'], 'notes': notes,
+792423	                 'screening_note': FOOTNOTE, 'facility_identity_review': 'NOT_INDEPENDENTLY_VERIFIED',
+792424	                 'grid_connection_assessed': False}
+792425	        feature = {'type': 'Feature', 'id': rid, 'geometry': geometry, 'properties': props}
+792426	        props['screening_url'] = screening_url(geometry, row['name'])
+792427	        props['cross_references'] = cross_references(feature, references)
+792429	    counts = {'records': len(features), 'with_address': sum(bool(f['properties']['addresses']) for f in features),
+792430	              'with_geometry': sum(f['geometry'] is not None for f in features),
+792431	              'postcode_centroids': sum(f['properties']['location_precision'] == 'POSTCODE_CENTROID_APPROXIMATE' for f in features),
+792432	              'unknown_geometry': sum(f['geometry'] is None for f in features)}
+792433	    return {'type': 'FeatureCollection', 'schema': SCHEMA, 'counts': counts,
+792434	            'attribution': ['Wikidata structured statements: CC0'] + GB_ATTRIBUTION +
+792435	                           sorted({r['attribution'] for r in references}),
+792436	            'source_receipt': receipt, 'screening_note': FOOTNOTE, 'features': features}
+792437	def write_parquet(document, path):
+792438	    """Serialize every GeoJSON feature, then compare every row after readback."""
+792439	        db.execute('CREATE TABLE locations(id VARCHAR PRIMARY KEY, name VARCHAR, longitude DOUBLE, latitude DOUBLE, location_precision VARCHAR, feature_json VARCHAR)')
+792440	        for f in document['features']:
+792441	            p = f['properties']
+792442	            lon, lat = f['geometry']['coordinates'] if f['geometry'] else (None, None)
+792443	            rows.append((f['id'], p['name'], lon, lat, p['location_precision'], encoded(f).decode('utf-8')))
+792444	        db.executemany('INSERT INTO locations VALUES (?,?,?,?,?,?)', rows)
+792445	        db.sql('SELECT * FROM locations ORDER BY id').write_parquet(str(path), compression='zstd')
+792446	        actual = db.execute('SELECT * FROM read_parquet(?,hive_partitioning=false) ORDER BY id', [str(path)]).fetchall()
+792447	        if actual != sorted(rows):
+792448	            raise ValueError('Full-row Parquet readback mismatch')
+792449	        if db.execute('SELECT DISTINCT compression FROM parquet_metadata(?)', [str(path)]).fetchall() != [('ZSTD',)]:
+792450	            raise ValueError('Parquet compression mismatch')
+792451	    return {'engine': 'duckdb-' + duckdb.__version__, 'rows': len(rows), 'full_row_readback': 'PASS', 'sha256': sha(path.read_bytes())}
+792452	"""Bounded manual address stage beside the existing DC-A4 producer.
+792453	Collects Wikidata structured facts and GB postcode points, then rebuilds offline.
+792454	Never scrapes linked publisher bodies or edits accepted data generations.
+792458	from urllib.parse import urlencode, urlsplit
+792460	from .build import address_metadata, build, encoded, postcode, sha, write_parquet
+792461	MAX_RESPONSE_BYTES = 8 * 1024 * 1024
+792462	MAX_TOTAL_BYTES = 32 * 1024 * 1024
+792463	MAX_REQUESTS = 32
+792464	PROPERTIES = ('P17', 'P625', 'P6375', 'P969', 'P281', 'P856')
+792465	USER_AGENT = 'GlobalGrid2050-DC-addresses/1.0 (https://github.com/Ventusltd/data-grid-gb)'
+792466	def resource_path(folder, relative):
+792467	    allowed = r'(?:inputs\.json|cohort\.json|(?:wikidata|postcodes)-[0-9]{3}\.json|references/[a-z][a-z0-9_-]{0,79}\.geojson)'
+792468	    if not isinstance(relative, str) or not re.fullmatch(allowed, relative):
+792469	        raise ValueError('Unsafe snapshot resource path')
+792470	    path = folder / relative
+792471	    if not path.resolve().is_relative_to(folder.resolve()):
+792473	class Collector:
+792474	    def __init__(self, folder):
+792475	        self.folder = folder
+792476	        self.resources = []
+792477	        self.total = 0
+792478	    def fetch(self, relative, url, payload=None, expected=None):
+792479	        path = resource_path(self.folder, relative)
+792481	            raise FileExistsError('Captured source already exists')
+792482	        if len(self.resources) >= MAX_REQUESTS:
+792483	            raise ValueError('Request budget exceeded')
+792484	        p = urlsplit(url)
+792485	        if p.scheme != 'https' or p.hostname not in ('raw.githubusercontent.com', 'www.wikidata.org', 'api.postcodes.io'):
+792486	            raise ValueError('Endpoint is outside the existing approved source stage')
+792487	        req = Request(url, data=encoded(payload) if payload is not None else None,
+792488	                      headers={'User-Agent': USER_AGENT, 'Content-Type': 'application/json', 'Accept': 'application/json'})
+792489	        with urlopen(req, timeout=45) as response:
+792490	            if response.status != 200 or urlsplit(response.geturl()).hostname != p.hostname:
+792491	                raise ValueError('Unexpected source status or redirect')
+792492	            raw = response.read(MAX_RESPONSE_BYTES + 1)
+792493	        self.total += len(raw)
+792494	        if len(raw) > MAX_RESPONSE_BYTES or self.total > MAX_TOTAL_BYTES:
+792495	            raise ValueError('Source byte budget exceeded')
+792496	        if expected is not None and sha(raw) != expected:
+792497	            raise ValueError('Pinned source bytes changed: ' + relative)
+792498	        document = json.loads(raw)
+792499	        if isinstance(document, dict) and 'error' in document:
+792500	            raise ValueError('Source returned an API error')
+792502	        with path.open('xb') as stream:
+792504	        self.resources.append({'path': relative, 'url': url, 'method': 'POST' if payload else 'GET',
+792505	                               'request_json': payload, 'http_status': 200, 'sha256': sha(raw), 'bytes': len(raw)})
+792506	        return document
+792507	def extract_entities(responses):
+792509	    for document in responses:
+792510	        for qid, entity in document['entities'].items():
+792511	            if qid in entities or 'missing' in entity:
+792512	                raise ValueError('Duplicate or missing source entity')
+792513	            entities[qid] = {k: entity[k] for k in ('id', 'lastrevid')}
+792514	            entities[qid]['claims'] = {p: entity.get('claims', {}).get(p, []) for p in PROPERTIES}
+792515	    return entities
+792516	def parse_geocodes(document):
+792517	    if document.get('status') != 200:
+792518	        raise ValueError('Postcode source did not succeed')
+792520	    for row in document.get('result', []):
+792521	        key = postcode(row['query'])
+792523	            raise ValueError('Duplicate postcode response')
+792524	        result[key] = row['result']
+792526	def load_snapshot(folder):
+792527	    """Every replay rechecks the actual source bytes, never merely saved counts."""
+792528	    snapshot_bytes = (folder / 'source-snapshot.json').read_bytes()
+792529	    snapshot = json.loads(snapshot_bytes)
+792530	    documents = {}
+792531	    for r in snapshot['resources']:
+792532	        path = resource_path(folder, r['path'])
+792533	        if r['path'] in documents:
+792534	            raise ValueError('Unsafe snapshot resource path')
+792536	        if len(raw) != r['bytes'] or sha(raw) != r['sha256']:
+792537	            raise ValueError('Snapshot resource bytes do not match receipt')
+792538	        documents[r['path']] = json.loads(raw)
+792539	    config = documents['inputs.json']
+792540	    cohort = documents['cohort.json']
+792541	    by_path = {r['path']: r for r in snapshot['resources']}
+792542	    if by_path['cohort.json']['sha256'] != config['cohort']['sha256']:
+792543	        raise ValueError('Cohort differs from the pinned input configuration')
+792544	    for ref in config['references']:
+792545	        if by_path['references/' + ref['id'] + '.geojson']['sha256'] != ref['sha256']:
+792546	            raise ValueError('Reference differs from the pinned input configuration')
+792547	    entities = extract_entities([documents[r['path']] for r in snapshot['resources'] if r['path'].startswith('wikidata-')])
+792548	    geocodes = {}
+792549	        if r['path'].startswith('postcodes-'):
+792550	            batch = parse_geocodes(documents[r['path']])
+792551	            requested = {postcode(p) for p in r['request_json']['postcodes']}
+792552	            if set(batch) != requested or set(geocodes) & set(batch):
+792553	                raise ValueError('Postcode response does not match requested identities')
+792554	            geocodes.update(batch)
+792555	    references = [{**r, 'document': documents['references/' + r['id'] + '.geojson']} for r in config['references']]
+792556	    receipt = {'retrieved_at': snapshot['retrieved_at'], 'snapshot_sha256': sha(snapshot_bytes),
+792557	               'cohort_sha256': config['cohort']['sha256'], 'cohort_source_url': config['cohort']['url'],
+792558	               'resources': snapshot['resources'], 'producer': 'data-grid-gb/datacentres/locations'}
+792559	    return build(cohort, entities, geocodes, receipt, references)
+792560	def collect(config_path, folder):
+792561	    config_raw = config_path.read_bytes()
+792562	    config = json.loads(config_raw)
+792563	    ids = [ref['id'] for ref in config['references']]
+792565	        raise ValueError('Duplicate reference dataset identity')
+792566	    for identity in ids:
+792567	        resource_path(folder, 'references/' + identity + '.geojson')
+792568	    (folder / 'inputs.json').write_bytes(config_raw)
+792569	    c = Collector(folder)
+792570	    c.resources.append({'path': 'inputs.json', 'url': None, 'method': 'LOCAL_CONFIG',
+792571	                        'request_json': None, 'http_status': None, 'sha256': sha(config_raw), 'bytes': len(config_raw)})
+792572	    cohort = c.fetch('cohort.json', config['cohort']['url'], expected=config['cohort']['sha256'])
+792573	    rows = cohort['records']
+792574	    if not 0 < len(rows) <= 1000 or cohort['record_count'] != len(rows):
+792575	        raise ValueError('Cohort exceeds the bounded source stage')
+792576	    ids = sorted({row['id'].removeprefix('DC-WD-') for row in rows})
+792577	    if len(ids) != len(rows) or any(not re.fullmatch(r'Q[1-9]\d*', qid) for qid in ids):
+792578	        raise ValueError('Invalid source cohort identities')
+792579	    raw_entities = []
+792580	    for offset in range(0, len(ids), 50):
+792581	        url = 'https://www.wikidata.org/w/api.php?' + urlencode({'action': 'wbgetentities',
+792582	              'ids': '|'.join(ids[offset:offset+50]), 'props': 'claims|info', 'format': 'json', 'maxlag': 5})
+792583	        raw_entities.append(c.fetch(f'wikidata-{offset//50:03}.json', url))
+792584	    entities = extract_entities(raw_entities)
+792585	    if set(entities) != set(ids):
+792586	        raise ValueError('Source response does not close the requested cohort')
+792587	    postcodes = set()
+792588	        _, _, pcs = address_metadata(entities[row['id'][6:]], row['country']['code'])
+792589	        if len(pcs) == 1 and not pcs[0].startswith('BT'):
+792590	            postcodes.add(pcs[0])
+792591	    postcodes = sorted(postcodes)
+792592	    for offset in range(0, len(postcodes), 100):
+792593	        c.fetch(f'postcodes-{offset//100:03}.json',
+792594	                'https://api.postcodes.io/postcodes?filter=postcode,longitude,latitude,quality,country',
+792595	                payload={'postcodes': postcodes[offset:offset+100]})
+792596	        c.fetch('references/' + ref['id'] + '.geojson', ref['url'], expected=ref['sha256'])
+792597	    snapshot = {'schema': 'data-grid-gb.dc-address-source-snapshot.v1',
+792598	                'retrieved_at': datetime.now(timezone.utc).isoformat(), 'resources': c.resources,
+792599	                'bounds': {'max_requests': MAX_REQUESTS, 'max_response_bytes': MAX_RESPONSE_BYTES,
+792600	                           'max_total_bytes': MAX_TOTAL_BYTES, 'actual_requests': len(c.resources)-1,
+792601	                           'actual_response_bytes': c.total}}
+792602	    (folder / 'source-snapshot.json').write_bytes(encoded(snapshot))
+792603	def product(folder, document, parquet=False):
+792604	    geojson = encoded(document)
+792605	    (folder / 'datacentre-locations.geojson').write_bytes(geojson)
+792606	    manifest = {'schema': 'data-grid-gb.dc-address-product-manifest.v1', 'counts': document['counts'],
+792607	                'source_snapshot_sha256': document['source_receipt']['snapshot_sha256'],
+792608	                'products': {'datacentre-locations.geojson': {'sha256': sha(geojson), 'bytes': len(geojson)}}}
+792609	    if parquet:
+792610	        p = folder / 'datacentre-locations.parquet'
+792611	        proof = write_parquet(document, p)
+792612	        second = folder / 'readback-repeat.parquet'
+792613	        write_parquet(document, second)
+792614	        if p.read_bytes() != second.read_bytes():
+792615	            raise ValueError('Independent repeated Parquet builds differ')
+792616	        second.unlink()
+792617	        manifest['products'][p.name] = {**proof, 'bytes': p.stat().st_size, 'repeated_compile': 'IDENTICAL'}
+792618	    manifest['code_sha256'] = {p.name: sha(p.read_bytes()) for p in (Path(__file__), Path(__file__).with_name('build.py'))}
+792619	    snapshot_path = folder / 'source-snapshot.json'
+792620	    if snapshot_path.exists():
+792621	        # A compact, reproducible source closure avoids repeated expanded copies of
+792622	        # the already-owned reference GeoJSON. It is not a browser dependency.
+792623	        snapshot = json.loads(snapshot_path.read_bytes())
+792624	        paths = sorted(r['path'] for r in snapshot['resources']) + ['source-snapshot.json']
+792625	        archive_path = folder / 'source-snapshot.tar.gz'
+792626	        with archive_path.open('xb') as stream, gzip.GzipFile(filename='', fileobj=stream, mode='wb', mtime=0) as compressed:
+792627	            with tarfile.open(fileobj=compressed, mode='w') as archive:
+792628	                for relative in paths:
+792629	                    path = snapshot_path if relative == 'source-snapshot.json' else resource_path(folder, relative)
+792630	                    raw = path.read_bytes()
+792631	                    info = tarfile.TarInfo(relative)
+792632	                    info.size, info.mtime, info.mode = len(raw), 0, 0o644
+792633	                    archive.addfile(info, io.BytesIO(raw))
+792634	        manifest['source_archive'] = {'path': archive_path.name, 'sha256': sha(archive_path.read_bytes()),
+792635	                                      'bytes': archive_path.stat().st_size, 'resources': len(paths)}
+792636	    # Final manifest is the completion marker; a partially written scratch is never accepted.
+792637	    (folder / 'manifest.json').write_bytes(encoded(manifest))
+792639	    parser.add_argument('mode', choices=('collect', 'build'))
+792640	    parser.add_argument('--inputs', type=Path, default=Path(__file__).with_name('inputs.json'))
+792641	    parser.add_argument('--snapshot', type=Path)
+792642	    parser.add_argument('--output', type=Path, required=True, help='New generation folder; never an existing accepted folder')
+792643	    parser.add_argument('--parquet', action='store_true', help='Also build and fully read back with the declared DuckDB version')
+792645	        raise FileExistsError('Output generation already exists')
+792647	    with tempfile.TemporaryDirectory(prefix='dc-address-stage-', dir=args.output.parent) as scratch:
+792648	        stage = Path(scratch) / 'generation'
+792649	        stage.mkdir()
+792650	        if args.mode == 'collect':
+792651	            collect(args.inputs, stage)
+792652	            document = load_snapshot(stage)
+792653	            if args.snapshot is None:
+792654	                raise ValueError('Offline build requires --snapshot')
+792655	            document = load_snapshot(args.snapshot)
+792656	        manifest = product(stage, document, args.parquet)
+792657	        if args.output.exists():
+792658	            raise FileExistsError('Output appeared during build; no history replacement')
+792659	        os.rename(stage, args.output)
+792661	"""Offline synthetic checks for address provenance, uncertainty and source joins."""
+792664	from datacentres.locations.build import build, encoded, point, sha, write_parquet
+792665	from datacentres.locations.pipeline import Collector, load_snapshot, main
+792666	def claim(prop, value, rank='normal'):
+792667	    return {'id': 'Q1$' + prop, 'rank': rank, 'mainsnak': {'snaktype': 'value', 'datavalue': {'value': value}},
+792668	            'references': [{'snaks': {'P854': [{'snaktype': 'value', 'datavalue': {'value': 'https://fixture.example/source'}}]}}]}
+792669	def fixtures():
+792670	    cohort = {'schema': 'globalgrid2050.global-datacentres.projects.v1', 'record_count': 1,
+792671	              'records': [{'id': 'DC-WD-Q1', 'name': 'Synthetic DC',
+792672	                           'country': {'code': 'GB', 'wikidata_id': 'Q145', 'name': 'United Kingdom'},
+792673	                           'source': {'revision_url': 'https://www.wikidata.org/w/index.php?title=Q1&oldid=1'}}]}
+792674	    entity = {'id': 'Q1', 'lastrevid': 2, 'claims': {
+792675	        'P17': [claim('P17', {'id': 'Q145'})],
+792676	        'P6375': [claim('P6375', {'text': '1 Synthetic Street, London SW1A 1AA', 'language': 'en'})]}}
+792677	    geocodes = {'SW1A 1AA': {'postcode': 'SW1A 1AA', 'latitude': 51.501, 'longitude': -0.141,
+792678	                            'quality': 1, 'country': 'England'}}
+792679	    return cohort, {'Q1': entity}, geocodes, {'retrieved_at': '2026-11-17T00:00:00Z'}
+792680	def make_snapshot(folder):
+792681	    cohort, entities, geocodes, _ = fixtures()
+792682	    payloads = {'cohort.json': cohort, 'wikidata-000.json': {'entities': entities},
+792683	                'postcodes-000.json': {'status': 200, 'result': [{'query': k, 'result': v} for k, v in geocodes.items()]}}
+792684	    payloads['inputs.json'] = {'cohort': {'url': 'https://fixture.example/cohort', 'sha256': sha(encoded(cohort))}, 'references': []}
+792685	    resources = []
+792686	    for name, data in payloads.items():
+792687	        raw = encoded(data)
+792688	        resources.append({'path': name, 'bytes': len(raw), 'sha256': sha(raw),
+792689	                          'request_json': {'postcodes': list(geocodes)} if name.startswith('postcodes') else None})
+792690	    snapshot = {'retrieved_at': '2026-11-17T00:00:00Z', 'resources': resources}
+792691	class AddressLocationTests(unittest.TestCase):
+792692	        self.cohort, self.entities, self.geocodes, self.receipt = fixtures()
+792693	    def run_build(self, references=()):
+792694	        return build(self.cohort, self.entities, self.geocodes, self.receipt, references)
+792695	    def test_street_address_claim_and_postcode_precision_remain_attributable(self):
+792696	        doc = self.run_build()
+792697	        p = doc['features'][0]['properties']
+792698	        self.assertEqual(doc['counts']['postcode_centroids'], 1)
+792699	        self.assertEqual(p['addresses'][0]['statement_id'], 'Q1$P6375')
+792700	        self.assertEqual(p['addresses'][0]['reference_urls'], ['https://fixture.example/source'])
+792701	        self.assertEqual(p['location_precision'], 'POSTCODE_CENTROID_APPROXIMATE')
+792702	        self.assertEqual(p['source_statement_licence'], 'CC0-1.0')
+792703	        self.assertIn('OS OpenData', p['geometry_licence'])
+792704	        self.assertEqual(len(p['geometry_attribution']), 4)
+792705	        self.assertNotIn('source_licence', p)
+792706	        self.assertIn('oldid=2', p['source_revision_url'])
+792707	        self.assertIn('oldid=1', p['original_pipeline_revision_url'])
+792708	        self.assertFalse(p['grid_connection_assessed'])
+792709	        self.assertIn('longitude=-0.141', p['screening_url'])
+792710	        self.assertNotIn('repd_ref', p['screening_url'])
+792711	    def test_missing_address_or_point_is_null_and_source_record_is_retained(self):
+792712	        self.entities['Q1']['claims'].pop('P6375')
+792713	        self.assertEqual(doc['counts']['records'], 1)
+792714	        self.assertIsNone(doc['features'][0]['geometry'])
+792715	        self.assertIsNone(doc['features'][0]['properties']['screening_url'])
+792716	    def test_preferred_wikidata_point_beats_postcode_and_preserves_precision(self):
+792717	        values = {'longitude': -1, 'latitude': 52, 'precision': 0.01, 'globe': 'http://www.wikidata.org/entity/Q2'}
+792718	        self.entities['Q1']['claims']['P625'] = [claim('P625-old', {**values, 'longitude': -2}), claim('P625', values, 'preferred')]
+792719	        p = self.run_build()['features'][0]['properties']
+792720	        self.assertEqual(p['location_precision'], 'WIKIDATA_REPORTED_POINT')
+792721	        self.assertEqual(p['location_source']['precision_degrees'], 0.01)
+792722	    def test_conflicting_points_are_not_silently_replaced_by_a_postcode(self):
+792723	        value = {'longitude': -1, 'latitude': 52, 'precision': 0.01, 'globe': 'http://www.wikidata.org/entity/Q2'}
+792724	        self.entities['Q1']['claims']['P625'] = [claim('P625-a', value), claim('P625-b', {**value, 'longitude': -2})]
+792725	        self.assertIsNone(self.run_build()['features'][0]['geometry'])
+792726	    def test_multiple_postcodes_require_review(self):
+792727	        self.entities['Q1']['claims']['P281'] = [claim('P281', 'M1 1AA')]
+792728	    def test_northern_ireland_postcode_scope_is_not_silently_licensed(self):
+792729	        self.entities['Q1']['claims']['P6375'][0]['mainsnak']['datavalue']['value']['text'] = 'Synthetic Belfast BT1 1AA'
+792730	        self.geocodes['BT1 1AA'] = {'postcode': 'BT1 1AA', 'latitude': 54.6, 'longitude': -5.9, 'country': 'Northern Ireland'}
+792731	        self.assertIn('distinct reuse terms', doc['features'][0]['properties']['notes'][0])
+792732	    def test_geocoder_cannot_substitute_another_postcode_or_country(self):
+792733	        for wrong in ({'postcode': 'M1 1AA'}, {'country': 'France'}, {'latitude': 48.8566, 'longitude': 2.3522}):
+792734	            with self.subTest(wrong=wrong):
+792735	                original = copy.deepcopy(self.geocodes)
+792736	                self.geocodes['SW1A 1AA'].update(wrong)
+792738	                    self.run_build()
+792739	                self.geocodes = original
+792740	    def test_nonfinite_false_origin_boolean_and_out_of_range_points_reject(self):
+792741	        for lon, lat in [(0, 0), (float('nan'), 52), (-1, float('inf')), (True, 52), (181, 52), (-1, 91)]:
+792742	            with self.subTest(lon=lon, lat=lat), self.assertRaises(ValueError):
+792743	                point(lon, lat)
+792744	    def test_source_country_cannot_drift_from_original_country_identity(self):
+792745	        self.entities['Q1']['claims']['P17'] = [claim('P17', {'id': 'Q142'})]
+792746	        with self.assertRaisesRegex(ValueError, 'country conflicts'):
+792747	            self.run_build()
+792748	    def test_duplicate_or_missing_source_identity_fails(self):
+792749	        self.cohort['records'] *= 2
+792750	        self.cohort['record_count'] = 2
+792751	        with self.assertRaisesRegex(ValueError, 'duplicate'):
+792752	    def test_name_candidate_does_not_assign_geometry_or_verified_identity(self):
+792753	        refs = [{'id': 'synthetic-source', 'url': 'https://fixture.example/data', 'sha256': 'a'*64,
+792754	                 'licence': 'SYNTHETIC', 'attribution': 'Synthetic fixture', 'document': {'features': [
+792755	                     {'type': 'Feature', 'geometry': point(-1, 52), 'properties': {'id': 'OT-C-1', 'name': 'Synthetic DC', 'operator:wikidata': 'Q1'}}]}}]
+792756	        f = self.run_build(refs)['features'][0]
+792757	        self.assertIsNone(f['geometry'])
+792758	        self.assertEqual(f['properties']['cross_references'][0]['method'], 'EXACT_NAME_CANDIDATE')
+792759	        self.assertFalse(f['properties']['cross_references'][0]['geometry_adopted'])
+792760	    def test_explicit_source_qid_is_separate_from_operator_and_name_matching(self):
+792761	                     {'type': 'Feature', 'geometry': point(-1, 52), 'properties': {'id': 'wd:Q1', 'name': 'Another label', 'sources': [{'source': 'Wikidata', 'source_id': 'wd:Q1'}]}}]}}]
+792762	        ref = self.run_build(refs)['features'][0]['properties']['cross_references'][0]
+792763	        self.assertEqual(ref['method'], 'EXPLICIT_WIKIDATA_SOURCE_ID')
+792764	        self.assertGreater(ref['distance_m'], 1000)
+792765	        self.assertFalse(ref['geometry_adopted'])
+792766	    def test_collector_refuses_arbitrary_source_or_internal_endpoint(self):
+792767	        with tempfile.TemporaryDirectory() as folder, patch('datacentres.locations.pipeline.urlopen') as network:
+792769	                Collector(Path(folder)).fetch('x.json', 'https://127.0.0.1/private')
+792770	            network.assert_not_called()
+792771	    def test_collector_validates_path_before_network_or_existing_file_writes(self):
+792773	            target = root / 'accepted.json'
+792774	            target.write_bytes(b'accepted bytes')
+792775	            stage = root / 'scratch'
+792776	            stage.mkdir()
+792777	            for name in ('../accepted.json', 'references/../../accepted.json', 'references/C:accepted.geojson'):
+792778	                with self.assertRaisesRegex(ValueError, 'Unsafe'):
+792779	                    Collector(stage).fetch(name, 'https://www.wikidata.org/w/api.php')
+792780	            self.assertEqual(target.read_bytes(), b'accepted bytes')
+792781	    def test_collector_cannot_replace_an_existing_captured_resource(self):
+792782	            (root / 'cohort.json').write_bytes(b'accepted source bytes')
+792784	                Collector(root).fetch('cohort.json', 'https://raw.githubusercontent.com/owner/repo/pinned/file')
+792785	            self.assertEqual((root / 'cohort.json').read_bytes(), b'accepted source bytes')
+792786	    def test_offline_snapshot_requires_actual_source_bytes(self):
+792788	            make_snapshot(root)
+792789	            self.assertEqual(load_snapshot(root)['counts']['with_geometry'], 1)
+792790	            (root / 'wikidata-000.json').write_bytes(b'{}')
+792791	            with self.assertRaisesRegex(ValueError, 'bytes'):
+792792	                load_snapshot(root)
+792793	    def test_snapshot_path_traversal_is_rejected(self):
+792794	            p = root / 'source-snapshot.json'
+792795	            d = json.loads(p.read_bytes())
+792796	            d['resources'][0]['path'] = '../cohort.json'
+792797	            p.write_bytes(encoded(d))
+792798	            with self.assertRaisesRegex(ValueError, 'Unsafe'):
+792799	    def test_existing_generation_is_never_replaced(self):
+792800	            (root / 'accepted.txt').write_text('accepted bytes')
+792801	                main(['build', '--output', str(root)])
+792802	            self.assertEqual((root / 'accepted.txt').read_text(), 'accepted bytes')
+792803	    def test_offline_replays_are_byte_identical(self):
+792804	            source = root / 'source'
+792805	            source.mkdir()
+792806	            make_snapshot(source)
+792807	            for name in ('first', 'second'):
+792808	                main(['build', '--snapshot', str(source), '--output', str(root / name)])
+792809	            self.assertEqual((root / 'first/datacentre-locations.geojson').read_bytes(), (root / 'second/datacentre-locations.geojson').read_bytes())
+792810	    @unittest.skipUnless(importlib.util.find_spec('duckdb'), 'Optional DuckDB is installed by the address workflow')
+792811	    def test_full_feature_rows_and_nulls_roundtrip_in_zstd_parquet(self):
+792812	            p = Path(folder) / 'locations.parquet'
+792813	            proof = write_parquet(self.run_build(), p)
+792814	            self.assertEqual(proof['rows'], 1)
+792815	            self.assertEqual(proof['full_row_readback'], 'PASS')
+792816	    def test_committed_actual_generation_rebuilds_from_its_complete_source_archive(self):
+792817	        folder = Path(__file__).parents[1] / 'datacentres/locations/data/20261117T002200Z'
+792818	        manifest = json.loads((folder / 'manifest.json').read_bytes())
+792819	        source = folder / manifest['source_archive']['path']
+792820	        self.assertEqual(sha(source.read_bytes()), manifest['source_archive']['sha256'])
+792821	        for name, proof in manifest['products'].items():
+792822	            self.assertEqual(sha((folder / name).read_bytes()), proof['sha256'])
+792825	            with tarfile.open(source) as archive:
+792826	                archive.extractall(root, filter='data')
+792827	            document = load_snapshot(root)
+792828	            self.assertEqual(encoded(document), (folder / 'datacentre-locations.geojson').read_bytes())
+792829	            cohort = json.loads((root / 'cohort.json').read_bytes())
+792830	            self.assertEqual({f['id'] for f in document['features']}, {r['id'] for r in cohort['records']})
+792831	            if importlib.util.find_spec('duckdb'):
+792832	                path = root / 'reproduced.parquet'
+792833	                write_parquet(document, path)
+792834	                self.assertEqual(path.read_bytes(), (folder / 'datacentre-locations.parquet').read_bytes())
+792835	/* Optional, bounded DC location actions. Frame and original source records stay owned by their existing components. */
+792836	export const INPUT = Object.freeze({
+792837	  url: 'https://raw.githubusercontent.com/Ventusltd/data-grid-gb/b33190f2a95a2046e108c2ba465c6a9195759892/datacentres/locations/data/20261117T002200Z/datacentre-locations.geojson',
+792838	  sha256: '6f68e078d9b57057acdda679288730e638553f68df884dfd747c5049e56ea88e',
+792839	  bytes: 183561
+792841	const PRECISIONS = new Set(['WIKIDATA_REPORTED_POINT', 'POSTCODE_CENTROID_APPROXIMATE', 'UNKNOWN']);
+792842	const ATTACHMENTS = new WeakMap();
+792843	export const FOOTNOTE = 'UK screening coverage. Screening only; not a grid-capacity assessment.';
+792844	const requireValid = (ok, field) => { if (!ok) throw new Error('DC locations rejected: ' + field); };
+792845	function checkedPoint(feature) {
+792846	  const xy = feature?.geometry?.coordinates;
+792847	  requireValid(feature?.geometry?.type === 'Point' && Array.isArray(xy) && xy.length === 2 &&
+792848	    xy.every(Number.isFinite) && Math.abs(xy[0]) <= 180 && Math.abs(xy[1]) <= 90 &&
+792849	    (xy[0] !== 0 || xy[1] !== 0), 'point');
+792850	  return xy;
+792852	function revision(value, qid) {
+792853	  let u; try { u = new URL(value); } catch { throw new Error('DC locations rejected: source URL'); }
+792854	  requireValid(u.protocol === 'https:' && u.hostname === 'www.wikidata.org' && !u.username && !u.password &&
+792855	    !u.port && u.pathname === '/w/index.php' && u.searchParams.get('title') === qid &&
+792856	    u.searchParams.size === 2 && u.searchParams.getAll('title').length === 1 && u.searchParams.getAll('oldid').length === 1 &&
+792857	    /^[1-9]\d*$/.test(u.searchParams.get('oldid') || '') && !u.hash, 'source revision');
+792859	export function indexLocations(document) {
+792860	  requireValid(document?.schema === 'data-grid-gb.dc-address-locations.v1' && document.type === 'FeatureCollection' &&
+792861	    Array.isArray(document.features) && document.features.length > 0 && document.features.length <= 1000, 'schema/count');
+792862	  const index = new Map(); let points = 0, approximate = 0, addresses = 0;
+792863	  for (const f of document.features) {
+792864	    const p = f.properties;
+792865	    requireValid(f.type === 'Feature' && p && /^DC-WD-Q[1-9]\d*$/.test(f.id) && f.id === p.id &&
+792866	      p.wikidata_id === f.id.slice(6) && !index.has(f.id), 'original source identity');
+792867	    requireValid(typeof p.name === 'string' && p.name.trim() && p.name.length <= 1000 &&
+792868	      p.grid_connection_assessed === false && p.facility_identity_review === 'NOT_INDEPENDENTLY_VERIFIED', 'scope');
+792869	    requireValid(PRECISIONS.has(p.location_precision) && Array.isArray(p.addresses) &&
+792870	      p.addresses.every(x => typeof x.text === 'string' && x.text.length <= 2000), 'precision/address');
+792871	    revision(p.source_revision_url, p.wikidata_id);
+792872	    if (p.addresses.length) addresses++;
+792873	    if (f.geometry !== null) {
+792874	      const xy = checkedPoint(f);
+792875	      requireValid(p.location_precision !== 'UNKNOWN' && typeof p.geometry_licence === 'string' &&
+792876	        Array.isArray(p.geometry_attribution) && p.geometry_attribution.length > 0 &&
+792877	        p.geometry_attribution.every(x => typeof x === 'string' && x.trim() && x.length <= 2000), 'point/rights');
+792878	      points++;
+792879	      if (p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE') {
+792880	        requireValid(p.country?.code === 'GB' && xy[0] >= -8.7 && xy[0] <= 2 && xy[1] >= 49.8 && xy[1] <= 61.2 &&
+792881	          p.geometry_licence.startsWith('OS OpenData') && p.geometry_licence_url === 'https://postcodes.io/docs/licences/', 'postcode geometry terms');
+792882	        approximate++;
+792883	      } else requireValid(p.geometry_licence === 'CC0-1.0' &&
+792884	        p.geometry_licence_url === 'https://www.wikidata.org/wiki/Wikidata:Copyright', 'Wikidata geometry terms');
+792885	    } else requireValid(p.location_precision === 'UNKNOWN', 'null geometry precision');
+792886	    index.set(f.id, f);
+792888	  const c = document.counts;
+792889	  requireValid(c?.records === index.size && c.with_geometry === points && c.unknown_geometry === index.size - points &&
+792890	    c.postcode_centroids === approximate && c.with_address === addresses, 'observed counts');
+792891	  return index;
+792892	export function screenUrl(feature) {
+792893	  if (!feature?.geometry || feature.properties?.country?.code !== 'GB') return null;
+792894	  const [longitude, latitude] = checkedPoint(feature);
+792895	  requireValid(typeof feature.properties?.name === 'string' && feature.properties.name.trim(), 'source label');
+792896	  // Reconstruct from checked coordinates; never execute a producer-supplied action URL.
+792897	  return 'https://ventusltd.github.io/gridatlas/atlas/?' + new URLSearchParams({
+792898	    longitude: String(longitude), latitude: String(latitude), zoom: '12',
+792899	    project: feature.properties.name, technology: 'datacentre'}).toString();
+792900	export async function loadLocations(transport = fetch, pin = INPUT) {
+792901	  requireValid(pin && Number.isSafeInteger(pin.bytes) && pin.bytes > 0 && pin.bytes <= 2 * 1024 * 1024 &&
+792902	    /^[a-f0-9]{64}$/.test(pin.sha256 || '') && typeof pin.url === 'string' &&
+792903	    /^https:\/\/raw\.githubusercontent\.com\/Ventusltd\/data-grid-gb\/[a-f0-9]{40}\/datacentres\/locations\/data\/[A-Za-z0-9_-]+\/datacentre-locations\.geojson$/.test(pin.url), 'pinned source contract');
+792904	  const response = await transport(pin.url, {credentials: 'omit', referrerPolicy: 'no-referrer'});
+792905	  requireValid(response.ok, 'HTTP response');
+792906	  const reader = response.body?.getReader();
+792907	  requireValid(reader, 'bounded response stream');
+792908	  const chunks = []; let length = 0;
+792909	  while (true) {
+792910	    const {done, value} = await reader.read(); if (done) break;
+792911	    length += value.byteLength;
+792912	    if (length > pin.bytes) { await reader.cancel(); throw new Error('DC locations rejected: byte limit'); }
+792913	    chunks.push(value);
+792914	  requireValid(length === pin.bytes, 'source byte count');
+792916	  for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+792918	  const actual = Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('');
+792919	  requireValid(actual === pin.sha256, 'source digest');
+792920	  return indexLocations(JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes)));
+792921	export function attachLocationActions(host, options = {}) {
+792922	  const {pin = INPUT, noteId = 'dc-screening-note'} = options;
+792923	  requireValid(host?.nodeType === 1 && /^[a-z][a-z0-9-]*$/.test(noteId), 'host/note ID');
+792924	  const key = JSON.stringify([pin.url, pin.sha256, pin.bytes, noteId]);
+792925	  const previous = ATTACHMENTS.get(host);
+792926	  if (previous) {
+792927	    requireValid(previous.key === key, 'host already has another source');
+792928	    return previous.promise;
+792929	  const state = {key};
+792930	  state.promise = mount(host, options, state).catch(error => {
+792931	    if (ATTACHMENTS.get(host) === state) ATTACHMENTS.delete(host);
+792934	  ATTACHMENTS.set(host, state);
+792935	  return state.promise;
+792936	async function mount(host, {transport = fetch, pin = INPUT, noteId = 'dc-screening-note'}, state) {
+792937	  const index = await loadLocations(transport, pin);
+792938	  let closed = false, queued = false;
+792940	    if (closed) return;
+792942	    for (const row of host.querySelectorAll('tbody tr')) {
+792943	      const id = row.querySelector('.ggdc-id')?.textContent?.trim(), feature = index.get(id);
+792944	      const screenable = feature?.geometry && feature.properties.country?.code === 'GB';
+792945	      const addresses = feature?.properties.addresses || [];
+792946	      const eligible = screenable || addresses.length > 0;
+792947	      const stale = [...row.querySelectorAll('.ggdc-location-actions')].filter(n => !eligible || n.dataset.sourceId !== id);
+792948	      for (const n of stale) n.remove();
+792949	      if (stale.length) row.querySelectorAll('[data-dc-location-hidden]').forEach(n => {
+792950	        if (n.dataset.dcLocationHidden === noteId) { n.hidden = false; delete n.dataset.dcLocationHidden; }
+792952	      if (!eligible || row.querySelector('.ggdc-location-actions')) continue;
+792953	      const cell = row.lastElementChild;
+792954	      if (!cell) continue;
+792955	      const p = feature.properties, actions = document.createElement('div');
+792956	      actions.className = 'ggdc-location-actions' + (screenable ? ' ggdc-screen-actions' : ''); actions.dataset.sourceId = id;
+792957	      if (screenable) {
+792958	      const link = document.createElement('a'); link.textContent = 'Screen¹';
+792959	      link.href = screenUrl(feature); link.target = '_blank'; link.rel = 'noopener noreferrer';
+792960	      link.setAttribute('aria-describedby', noteId);
+792961	      link.title = p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE'
+792962	        ? 'Approximate postcode location — open existing grid vicinity screening' : 'Source-reported location — open existing grid vicinity screening';
+792963	      actions.append(link);
+792965	      const source = document.createElement('a'); source.textContent = 'Location source';
+792966	      source.href = revision(p.source_revision_url, p.wikidata_id); source.target = '_blank'; source.rel = 'noopener noreferrer';
+792967	      actions.append(source);
+792968	      if (addresses.length) {
+792969	        const reported = document.createElement('details'); reported.className = 'ggdc-reported-address';
+792970	        const summary = document.createElement('summary'); summary.textContent = 'Reported address'; reported.append(summary);
+792971	        for (const statement of addresses) {
+792972	          const line = document.createElement('p'); line.textContent = statement.text; reported.append(line);
+792974	        actions.append(reported);
+792975	      const location = document.createElement('small'); location.className = 'ggdc-screen-location';
+792976	      location.textContent = (p.location_precision === 'POSTCODE_CENTROID_APPROXIMATE' ? 'Approx. postcode: ' : 'Source point: ') +
+792977	        (p.location_source?.postcode || p.addresses[0]?.text || p.name);
+792978	      actions.append(location);
+792979	      for (const n of cell.querySelectorAll('.ggdc-muted')) if (n.textContent.trim() === 'No mapped coordinates') {
+792980	        n.hidden = true; n.dataset.dcLocationHidden = noteId;
+792981	      cell.append(actions); count++;
+792982	    if (!host.querySelector('#' + noteId) && host.querySelector('.ggdc-screen-actions')) {
+792983	      const note = document.createElement('small'); note.id = noteId; note.className = 'ggdc-screen-footnote';
+792984	      note.textContent = '¹ ' + FOOTNOTE; host.append(note);
+792985	    if (!host.querySelector('.ggdc-location-sources') && host.querySelector('.ggdc-location-actions')) {
+792986	      const disclosure = document.createElement('details'); disclosure.className = 'ggdc-location-sources';
+792987	      const summary = document.createElement('summary'); summary.textContent = 'Location sources and accuracy';
+792988	      disclosure.append(summary);
+792989	      const description = document.createElement('p');
+792990	      description.textContent = 'Addresses and source-reported points use Wikidata structured statements. GB postcode points use Postcodes.io and are approximate postcode locations.';
+792991	      disclosure.append(description);
+792992	      const data = document.createElement('a'); data.textContent = 'Source GeoJSON (100 records)';
+792993	      data.href = pin.url; data.target = '_blank'; data.rel = 'noopener noreferrer'; disclosure.append(data);
+792994	      const identity = document.createElement('p');
+792995	      identity.textContent = 'Reported address statements do not independently verify facility identity.'; disclosure.append(identity);
+792996	      const terms = document.createElement('p');
+792997	      for (const [label, href] of [['Wikidata CC0 terms', 'https://www.wikidata.org/wiki/Wikidata:Copyright'],
+792998	        ['Postcode-provider terms', 'https://postcodes.io/docs/licences/']]) {
+792999	        const link = document.createElement('a'); link.textContent = label; link.href = href;
+793000	        link.target = '_blank'; link.rel = 'noopener noreferrer'; terms.append(link, document.createTextNode(' '));
+793001	      disclosure.append(terms);
+793002	      const credits = new Set([...index.values()].filter(f => f.geometry &&
+793003	        f.properties.country?.code === 'GB' && f.properties.location_precision === 'POSTCODE_CENTROID_APPROXIMATE')
+793004	        .flatMap(f => f.properties.geometry_attribution));
+793005	      for (const credit of credits) {
+793006	        const line = document.createElement('small'); line.textContent = credit; disclosure.append(line);
+793007	      host.append(disclosure);
+793008	    const note = host.querySelector('#' + noteId);
+793009	    if (note) note.hidden = !host.querySelector('.ggdc-screen-actions');
+793010	    const disclosure = host.querySelector('.ggdc-location-sources');
+793011	    if (disclosure) disclosure.hidden = !host.querySelector('.ggdc-location-actions');
+793014	    if (queued || closed) return;
+793015	    queued = true;
+793016	    queueMicrotask(() => { queued = false; refresh(); });
+793017	  refresh(); observer.observe(host, {childList: true, characterData: true, subtree: true});
+793018	  return {refresh, disconnect() {
+793019	    closed = true; observer.disconnect();
+793020	    host.querySelectorAll('.ggdc-location-actions').forEach(n => n.remove());
+793021	    host.querySelector('#' + noteId)?.remove();
+793022	    host.querySelector('.ggdc-location-sources')?.remove();
+793023	    host.querySelectorAll('[data-dc-location-hidden]').forEach(n => {
+793024	      if (n.dataset.dcLocationHidden === noteId) { n.hidden = false; delete n.dataset.dcLocationHidden; }
+793026	  }, sourceIds: index.size};
+793027	"""Bounded offline composition of existing Covenant, Grid and Solar contracts.
+793028	No collection, project matching, allocation, quantity conversion or publication.
+793029	The producer validators remain authoritative; native records are retained intact.
+793032	from automation.news.dc_context import grid, solar
+793033	from automation.news.filings.contracts import validate_claim
+793034	from automation.news.policy_commitments import ledger as policy
+793035	SCHEMA = "globalgrid2050.transition-context.v1"
+793036	MAX_INPUT_BYTES = 4 * 1024 * 1024
+793037	MAX_OUTPUT_BYTES = 16 * 1024 * 1024
+793038	COLUMNS = ("id", "family", "title", "scope", "source_state", "evaluation_state",
+793039	           "applicability_state", "source_links", "numeric_claims", "native_schema", "native_record")
+793040	def dumps(value):
+793041	    return json.dumps(value, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n"
+793042	def _bounded(value, limit):
+793043	    raw = dumps(value).encode("utf-8")
+793045	        raise ValueError("Context exceeds bounded size")
+793047	def _scope(native_scope, entity_id, *, family, relationship=None):
+793048	    # These are presentation categories only, never an identity crosswalk.
+793049	    if relationship == "portfolio_storage_access" or native_scope == "consolidated_group":
+793050	        kind = "portfolio"
+793051	    elif native_scope == "issuer":
+793052	        kind = "issuer"
+793053	    elif native_scope in {"project", "site", "campus", "phase"}:
+793054	        kind = "project"
+793055	    elif family == "policy":
+793056	        kind = "policy"
+793058	        kind = "UNKNOWN"
+793059	    return {"kind": kind, "native_scope": native_scope, "entity_id": entity_id,
+793060	            "canonical_project_id": None, "binding": "UNLINKED"}
+793061	def _link(document, *, section=None, page=None, text=None, covenant=False):
+793062	    return {"document_id": document["id"] if covenant else document["document_id"],
+793063	            "url": document["url"],
+793064	            "publisher": document["issuer"] if covenant else document["publisher"],
+793065	            "published_date": document["published_on"] if covenant else document["published_date"],
+793066	            "reviewed_at": document["reviewed_at"] if covenant else None,
+793067	            "retrieved_at": document["retrieved_at"],
+793068	            "sha256": document["content_sha256"] if covenant else document["sha256"],
+793069	            "locator": {"section": section, "page": page, "text": text},
+793070	            "receipt": deepcopy(document)}
+793071	def _figure(claim, role, qualifier=None):
+793072	    # Exact FIGURES validation/copy; no float coercion or parallel quantity model.
+793073	    return {"role": role, "qualifier": qualifier, "claim": validate_claim(claim)}
+793074	def _policy_row(row, documents):
+793075	    claims = []
+793076	    references = [row["source"], *row["applicability"]["evidence"],
+793077	                  *(update["source"] for update in row["updates"])]
+793078	    for role, claim in (("TARGET", row["target"]), ("BASELINE", row["baseline"]),
+793079	                        *(("UPDATE", update["claim"]) for update in row["updates"])):
+793080	        if claim is not None:
+793081	            claims.append(_figure(claim, role))
+793082	            provenance = claim["provenance"]
+793083	            references.append({"document_id": provenance["document_id"],
+793084	                               "locator": provenance["section"] or "page " + provenance["page"]})
+793085	    links = {(ref["document_id"], ref["locator"]): _link(documents[ref["document_id"]],
+793086	             text=ref["locator"], covenant=True) for ref in references}
+793087	    return {"id": "policy:" + row["commitment_id"], "family": "policy", "title": row["statement"],
+793088	            "scope": _scope(row["scope"]["figure_entity_scope"], row["scope"]["entity_id"], family="policy"),
+793089	            "source_state": row["document_state"], "evaluation_state": row["state"],
+793090	            "applicability_state": row["applicability"]["state"],
+793091	            "source_links": [links[key] for key in sorted(links)], "numeric_claims": claims,
+793092	            "native_schema": policy.REPORT_SCHEMA, "native_record": deepcopy(row)}
+793093	def _context_row(row, family):
+793094	    is_solar = family == "solar"
+793095	    native_scope = row["entity"]["scope"] if is_solar else row["entity_scope"]
+793096	    entity_id = row["entity"]["id"] if is_solar else row["id"]
+793097	    figures = [_figure(item["claim"], "CONTEXT", item["qualifier"]) if is_solar
+793098	               else _figure(item, "CONTEXT") for item in row["numeric_claims"]]
+793099	    return {"id": family + ":" + row["id"], "family": family, "title": row["name"],
+793100	            "scope": _scope(native_scope, entity_id, family=family, relationship=row.get("relationship")),
+793101	            "source_state": row["source_state"], "evaluation_state": "UNKNOWN", "applicability_state": "UNKNOWN",
+793102	            "source_links": [_link(row["source"], section=row["section"], page=row["page"])],
+793103	            "numeric_claims": figures, "native_schema": solar.SCHEMA if is_solar else grid.SCHEMA,
+793104	            "native_record": deepcopy(row)}
+793105	def build(policy_input, grid_input, solar_input, *, as_of):
+793106	    """Validate all three inputs before returning a complete, unlinked bundle.
+793107	    Every family is mandatory and nonempty. Input digests cover the entire
+793108	    supplied JSON value in canonical serialization, not original document bytes.
+793110	    inputs = {"policy": policy_input, "grid": grid_input, "solar": solar_input}
+793111	    digests = {family: hashlib.sha256(_bounded(value, MAX_INPUT_BYTES)).hexdigest()
+793112	               for family, value in inputs.items()}
+793113	    evaluated = policy.evaluate(policy_input, as_of=as_of)
+793114	    grid_result = grid.build(grid_input, as_of=as_of)
+793115	    solar_result = solar.build(solar_input, as_of=as_of)
+793116	    documents = {document["id"]: document for document in evaluated["documents"]}
+793117	    records = [_policy_row(row, documents) for row in evaluated["results"]]
+793118	    records.extend(_context_row(row, "grid") for row in grid_result["records"])
+793119	    records.extend(_context_row(row, "solar") for row in solar_result["records"])
+793120	    records.sort(key=lambda row: row["id"])
+793121	    if not records or len(records) > 3000 or len({row["id"] for row in records}) != len(records):
+793122	        raise ValueError("Nonempty bounded unique context coverage required")
+793123	    claim_ids = [figure["claim"]["claim_id"] for row in records for figure in row["numeric_claims"]]
+793124	    if len(claim_ids) != len(set(claim_ids)):
+793125	        raise ValueError("Repeated FIGURES identity across context families")
+793126	    counts = {family: sum(row["family"] == family for row in records) for family in inputs}
+793127	    if not all(counts.values()):
+793128	        raise ValueError("All context families require coverage")
+793129	    receipts = []
+793130	    for family, result in (("policy", evaluated), ("grid", grid_result), ("solar", solar_result)):
+793131	        receipts.append({"family": family, "input_schema": inputs[family]["schema"],
+793132	                         "input_sha256": digests[family], "output_schema": result["schema"],
+793133	                         "record_count": counts[family],
+793134	                         "source_count": len(inputs[family]["documents" if family == "policy" else "sources"]),
+793135	                         "source_byte_validation": "RECEIPTS_ONLY",
+793136	                         "native_metadata": {key: deepcopy(value) for key, value in result.items()
+793137	                                             if key not in {"records", "results"}}})
+793138	    report = {"schema": SCHEMA, "as_of": as_of, "status": "PROVISIONAL",
+793139	              "coverage": {"records": len(records), "families": counts, "numeric_claims": len(claim_ids),
+793140	                           "linked_projects": 0, "scope": "BOUNDED_SUPPLIED_CONTEXT"},
+793141	              "input_receipts": receipts, "records": records,
+793142	              "limitations": ["Dated source context; no current project delivery, legal compliance or source truth certified.",
+793143	                              "No identity crosswalk, site allocation, numerical aggregation, conversion or ranking.",
+793144	                              "Receipt hashes are supplied metadata; original source bytes were not reverified.",
+793145	                              "Publication, review, retrieval and figure dates remain distinct; composition time is not source freshness.",
+793146	                              "Historical inventory is separate; no exhaustive treaty history or final COP31 outcome inferred."]}
+793147	    _bounded(report, MAX_OUTPUT_BYTES)
+793149	def csv_report(report):
+793150	    """One context per row; nested records/claims retain exact JSON values."""
+793151	    class BoundedOutput(io.StringIO):
+793153	        def write(self, value):
+793154	            self.size += len(value.encode("utf-8"))
+793155	            if self.size > MAX_OUTPUT_BYTES:
+793156	                raise ValueError("CSV export exceeds bounded size")
+793157	            return super().write(value)
+793158	    output = BoundedOutput(newline="")
+793159	    writer = csv.DictWriter(output, fieldnames=("bundle", *COLUMNS), lineterminator="\n")
+793161	    metadata = {key: value for key, value in report.items() if key != "records"}
+793162	    for row in report["records"]:
+793163	        cells = {}
+793164	        for name in ("bundle", *COLUMNS):
+793165	            value = metadata if name == "bundle" else row[name]
+793167	                value = json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False)
+793168	            value = "" if value is None else str(value)
+793169	            cells[name] = "'" + value if value.startswith(("=", "+", "-", "@", "\t", "\r")) else value
+793170	        writer.writerow(cells)
+793171	    return output.getvalue()
+793172	def _unique_object(pairs):
+793174	            raise ValueError("Duplicate JSON key")
+793176	def _read(path):
+793178	        raw = handle.read(MAX_INPUT_BYTES + 1)
+793179	    if len(raw) > MAX_INPUT_BYTES:
+793180	        raise ValueError("Input exceeds bounded size")
+793181	    return json.loads(raw, object_pairs_hook=_unique_object)
+793182	def _publish_new(path, raw):
+793183	    """Publish fully flushed bytes by an atomic, exclusive same-filesystem link.
+793184	    Unsupported hard links fail closed; never fall back to overwriting/renaming.
+793185	    Only the uniquely created staging file is removed, never the destination.
+793186	    descriptor, name = tempfile.mkstemp(prefix=".transition-context-", suffix=".tmp", dir=path.parent)
+793187	    temporary = Path(name)
+793189	        with os.fdopen(descriptor, "wb") as handle:
+793193	        os.link(temporary, path)
+793195	        temporary.unlink(missing_ok=True)
+793196	    parser.add_argument("--policy", type=Path, required=True)
+793197	    parser.add_argument("--grid", type=Path, required=True)
+793198	    parser.add_argument("--solar", type=Path, required=True)
+793200	    parser.add_argument("--format", choices=("json", "csv"), default="json")
+793202	        report = build(_read(args.policy), _read(args.grid), _read(args.solar), as_of=args.as_of)
+793203	        result = csv_report(report) if args.format == "csv" else dumps(report)
+793204	        if len(result.encode("utf-8")) > MAX_OUTPUT_BYTES:
+793205	            raise ValueError("Export exceeds bounded size")
+793206	        if args.output:
+793207	            _publish_new(args.output, result.encode("utf-8"))
+793208	            if hasattr(sys.stdout, "buffer"):
+793209	                sys.stdout.buffer.write(result.encode("utf-8"))
+793210	                sys.stdout.write(result)
+793211	    except (ValueError, TypeError, KeyError, OSError, OverflowError, RecursionError):
+793212	        parser.exit(2, "Transition context validation/export failed; no replacement or partial report published.\n")
+793213	/** Offline consumer of the pinned SUPPORT composer. FIGURES remains injected. */
+793214	export const MAX_BYTES = 16 * 1024 * 1024;
+793215	const SCHEMA = 'globalgrid2050.transition-context.v1';
+793216	const families = ['policy', 'grid', 'solar'];
+793217	const digestPattern = /^[a-f0-9]{64}$/;
+793218	function requireValue(ok) { if (!ok) throw new TypeError('Unsupported transition context'); }
+793219	function equal(a, b) {
+793220	  if (a === b) return true;
+793221	  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;
+793222	  const keys = Object.keys(a);
+793223	  return keys.length === Object.keys(b).length && keys.every(k => Object.hasOwn(b, k) && equal(a[k], b[k]));
+793224	function keys(value, names) {
+793225	  requireValue(value && typeof value === 'object' && !Array.isArray(value));
+793226	  requireValue(equal(Object.keys(value).sort(), names.split(' ').sort()));
+793227	function text(value) { requireValue(typeof value === 'string' && value.length > 0 && value.length <= 100000); }
+793228	export function sourceUrl(value) {
+793229	  requireValue(typeof value === 'string' && /^[\x21-\x7e]+$/.test(value) && !/[\\]/.test(value));
+793231	  requireValue(url.protocol === 'https:' && !url.username && !url.password && !url.port);
+793232	  requireValue(/^(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z]{2,63}$/i.test(url.hostname));
+793233	  requireValue(!/(?:^|\.)(?:localhost|local|internal|test|invalid|example)$/i.test(url.hostname));
+793235	function date(value, timestamp = false) {
+793236	  if (value === null) return;
+793237	  requireValue(typeof value === 'string' && (timestamp
+793238	    ? /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2})$/
+793239	    : /^\d{4}(?:-\d{2}(?:-\d{2})?)?$/).test(value));
+793240	  // A well-shaped date such as 2026-02-30 is not a valid source clock.
+793241	  const [year, month = 1, day = 1] = value.slice(0, 10).split('-').map(Number);
+793242	  requireValue(month >= 1 && month <= 12 && day >= 1 &&
+793243	    day <= new Date(Date.UTC(year, month, 0)).getUTCDate());
+793244	  if (timestamp) requireValue(Number.isFinite(Date.parse(value)));
+793245	function scope(nativeScope, entity, family, relationship) {
+793246	  const kind = relationship === 'portfolio_storage_access' || nativeScope === 'consolidated_group'
+793247	    ? 'portfolio' : nativeScope === 'issuer' ? 'issuer'
+793248	      : ['project', 'site', 'campus', 'phase'].includes(nativeScope) ? 'project'
+793249	        : family === 'policy' ? 'policy' : 'UNKNOWN';
+793250	  return {kind, native_scope: nativeScope, entity_id: entity, canonical_project_id: null, binding: 'UNLINKED'};
+793251	function validateLink(link) {
+793252	  keys(link, 'document_id url publisher published_date reviewed_at retrieved_at sha256 locator receipt');
+793253	  text(link.document_id); text(link.publisher); sourceUrl(link.url);
+793254	  date(link.published_date); date(link.reviewed_at, true); date(link.retrieved_at, true);
+793255	  requireValue(link.sha256 === null || digestPattern.test(link.sha256));
+793256	  keys(link.locator, 'section page text');
+793257	  for (const value of Object.values(link.locator)) if (value !== null) text(value);
+793258	  const doc = link.receipt;
+793259	  const policy = Object.hasOwn(doc, 'published_on');
+793260	  for (const [key, expected] of Object.entries({document_id: policy ? doc.id : doc.document_id,
+793261	    url: doc.url, publisher: policy ? doc.issuer : doc.publisher,
+793262	    published_date: policy ? doc.published_on : doc.published_date,
+793263	    reviewed_at: policy ? doc.reviewed_at : null, retrieved_at: doc.retrieved_at,
+793264	    sha256: policy ? doc.content_sha256 : doc.sha256})) requireValue(equal(link[key], expected));
+793265	/** expectedSha256 must come from the host's accepted manifest, never the payload. */
+793266	export async function readContext(raw, {expectedSha256, buildViewModel}) {
+793267	  requireValue(raw instanceof Uint8Array && raw.length > 0 && raw.length <= MAX_BYTES);
+793268	  requireValue(typeof expectedSha256 === 'string' && digestPattern.test(expectedSha256));
+793269	  requireValue(typeof buildViewModel === 'function');
+793270	  const bytes = raw.slice(); // prevent mutation while WebCrypto is pending
+793271	  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)), b => b.toString(16).padStart(2, '0')).join('');
+793272	  requireValue(digest === expectedSha256);
+793273	  const report = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes));
+793274	  keys(report, 'schema as_of status coverage input_receipts records limitations');
+793275	  requireValue(report.schema === SCHEMA && report.status === 'PROVISIONAL');
+793276	  date(report.as_of, true); requireValue(report.as_of !== null);
+793277	  requireValue(Array.isArray(report.records) && report.records.length > 0 && report.records.length <= 3000);
+793278	  requireValue(Array.isArray(report.limitations) && report.limitations.length > 0);
+793279	  report.limitations.forEach(text);
+793280	  const counts = {policy: 0, grid: 0, solar: 0}, ids = new Set(), claims = new Set();
+793281	  for (const row of report.records) {
+793282	    keys(row, 'id family title scope source_state evaluation_state applicability_state source_links numeric_claims native_schema native_record');
+793283	    requireValue(families.includes(row.family)); counts[row.family]++;
+793284	    text(row.id); text(row.title); requireValue(!ids.has(row.id)); ids.add(row.id);
+793285	    const n = row.native_record, policy = row.family === 'policy', solar = row.family === 'solar';
+793286	    requireValue(row.id === row.family + ':' + (policy ? n.commitment_id : n.id));
+793287	    requireValue(row.title === (policy ? n.statement : n.name));
+793288	    requireValue(row.native_schema === (policy ? 'globalgrid2050.policy-commitment-evaluation.v1' : `globalgrid2050.${row.family}-dc-context.v1`));
+793289	    requireValue(equal(row.scope, scope(policy ? n.scope.figure_entity_scope : solar ? n.entity.scope : n.entity_scope,
+793290	      policy ? n.scope.entity_id : solar ? n.entity.id : n.id, row.family, n.relationship)));
+793291	    requireValue(row.source_state === (policy ? n.document_state : n.source_state));
+793292	    requireValue(row.evaluation_state === (policy ? n.state : 'UNKNOWN'));
+793293	    requireValue(row.applicability_state === (policy ? n.applicability.state : 'UNKNOWN'));
+793294	    if (policy) requireValue(n.legal_compliance === 'NOT_ASSESSED');
+793295	    else requireValue(n.canonical_project_id === null && (solar ? n.current_delivery : n.current_project_state) === 'UNKNOWN');
+793296	    const nativeFigures = policy
+793297	      ? [['TARGET', n.target], ['BASELINE', n.baseline], ...n.updates.map(u => ['UPDATE', u.claim])]
+793298	        .filter(([, claim]) => claim !== null).map(([role, claim]) => ({role, qualifier: null, claim}))
+793299	      : n.numeric_claims.map(item => ({role: 'CONTEXT', qualifier: solar ? item.qualifier : null, claim: solar ? item.claim : item}));
+793300	    requireValue(equal(row.numeric_claims, nativeFigures));
+793301	    for (const figure of row.numeric_claims) {
+793302	      requireValue([null, 'stated', 'upper_bound', 'approximate'].includes(figure.qualifier));
+793303	      requireValue(!claims.has(figure.claim.claim_id)); claims.add(figure.claim.claim_id);
+793304	      requireValue(figure.claim.entity.id === row.scope.entity_id && figure.claim.entity.scope === row.scope.native_scope);
+793305	      buildViewModel({entityId: row.scope.entity_id, state: 'available', claims: [figure.claim]});
+793306	    requireValue(Array.isArray(row.source_links) && row.source_links.length > 0);
+793307	    row.source_links.forEach(validateLink);
+793308	  requireValue(families.every(f => counts[f] > 0));
+793309	  requireValue(equal(report.coverage, {records: report.records.length, families: counts,
+793310	    numeric_claims: claims.size, linked_projects: 0, scope: 'BOUNDED_SUPPLIED_CONTEXT'}));
+793311	  requireValue(Array.isArray(report.input_receipts) && report.input_receipts.length === 3);
+793312	  const receipts = new Set();
+793313	  for (const receipt of report.input_receipts) {
+793314	    keys(receipt, 'family input_schema input_sha256 output_schema record_count source_count source_byte_validation native_metadata');
+793315	    requireValue(families.includes(receipt.family) && !receipts.has(receipt.family)); receipts.add(receipt.family);
+793316	    requireValue(receipt.record_count === counts[receipt.family] && digestPattern.test(receipt.input_sha256));
+793317	    requireValue(receipt.source_byte_validation === 'RECEIPTS_ONLY');
+793318	    requireValue(receipt.native_metadata.schema === receipt.output_schema && receipt.native_metadata.as_of === report.as_of);
+793319	    for (const doc of receipt.native_metadata.documents ?? []) {
+793320	      sourceUrl(doc.url); date(doc.published_on); date(doc.reviewed_at, true); date(doc.retrieved_at, true);
+793321	      requireValue(doc.content_sha256 === null || digestPattern.test(doc.content_sha256));
+793322	  // The payload is already hash-pinned by the host. Still fail closed when
+793323	  // multiple *internal* copies of the same source contradict each other.
+793324	  // Neither matching receipts nor a hash pin amounts to source-truth review.
+793325	  const sourceDocuments = new Map();
+793326	  const registerSource = (id, receipt) => {
+793327	    text(id);
+793328	    const prior = sourceDocuments.get(id);
+793329	    requireValue(prior === undefined || equal(prior, receipt));
+793330	    sourceDocuments.set(id, receipt);
+793332	  const policyReceipt = report.input_receipts.find(r => r.family === 'policy');
+793333	  requireValue(Array.isArray(policyReceipt.native_metadata.documents) &&
+793334	    policyReceipt.native_metadata.documents.length === policyReceipt.source_count);
+793335	  for (const doc of policyReceipt.native_metadata.documents) {
+793336	    sourceUrl(doc.url); date(doc.published_on); date(doc.reviewed_at, true); date(doc.retrieved_at, true);
+793337	    registerSource(doc.id, doc);
+793338	  for (const family of ['grid', 'solar']) {
+793339	    const receipt = report.input_receipts.find(r => r.family === family);
+793340	    const familyRows = report.records.filter(r => r.family === family);
+793341	    const meta = receipt.native_metadata;
+793342	    requireValue(meta.context_count === familyRows.length &&
+793343	      meta.numeric_claim_count === familyRows.reduce((n, row) => n + row.numeric_claims.length, 0) &&
+793344	      meta.linked_project_count === 0 &&
+793345	      (meta.source_byte_validation === undefined || meta.source_byte_validation === 'RECEIPTS_ONLY'));
+793346	    requireValue(Array.isArray(meta.limitations) && meta.limitations.length > 0);
+793347	    meta.limitations.forEach(text);
+793348	    for (const row of familyRows) {
+793349	      const native = row.native_record;
+793350	      requireValue(row.source_links.length === 1 && native.source && native.source_id === native.source.id);
+793351	      const link = row.source_links[0];
+793352	      requireValue(equal(link.receipt, native.source) &&
+793353	        link.document_id === native.source.document_id &&
+793354	        link.locator.section === native.section && link.locator.page === native.page);
+793355	      registerSource(link.document_id, link.receipt);
+793356	      // A FIGURES claim may not borrow another source's identity, date or locator.
+793357	      for (const {claim} of row.numeric_claims) {
+793358	        const p = claim.provenance;
+793359	        requireValue(p.document_id === link.document_id && p.document_url === link.url &&
+793360	          p.sha256 === link.sha256 && p.published_date === link.published_date &&
+793361	          p.retrieved_at === link.retrieved_at && p.section === link.locator.section &&
+793362	          p.page === link.locator.page);
+793363	  const asOfTime = Date.parse(report.as_of);
+793364	    if (row.family === 'policy') {
+793365	      const references = [native.source, ...native.applicability.evidence,
+793366	        ...native.updates.map(u => u.source)];
+793367	      for (const ref of references) requireValue(row.source_links.some(link =>
+793368	        link.document_id === ref.document_id && link.locator.text === ref.locator));
+793369	    for (const link of row.source_links) {
+793370	      requireValue(equal(sourceDocuments.get(link.document_id), link.receipt));
+793371	      for (const clock of [link.reviewed_at, link.retrieved_at]) {
+793372	        if (clock !== null) requireValue(Date.parse(clock) <= asOfTime);
+793373	      if (link.published_date !== null) {
+793374	        date(link.published_date);
+793375	        // Date precision may be year, month or day. Reject source publications
+793376	        // whose earliest possible date is later than the evaluation clock.
+793377	        const earliestDay = link.published_date.length === 4
+793378	          ? link.published_date + '-01-01'
+793379	          : link.published_date.length === 7 ? link.published_date + '-01' : link.published_date;
+793380	        requireValue(Date.parse(earliestDay + 'T00:00:00Z') <= asOfTime);
+793381	  return report; // untouched native records, nulls, source clocks and metadata
+793384	import {readContext, MAX_BYTES, sourceUrl} from './adapter.mjs';
+793385	import {evidenceValue, limitationText, isContextHost} from './render.mjs';
+793386	import {buildViewModel, raw, report, pins, encode, sha} from './test-support.mjs';
+793387	const options = {expectedSha256: pins.fixture_sha256, buildViewModel};
+793388	test('existing News or Pipeline tabs may opt in, unrelated hosts may not', () => {
+793389	  assert.equal(isContextHost({hasAttribute: name => name === 'data-news-context-host'}), true);
+793390	  assert.equal(isContextHost({hasAttribute: name => name === 'data-pipeline-context-host'}), true);
+793391	  assert.equal(isContextHost({hasAttribute: () => false}), false);
+793392	  assert.equal(isContextHost(null), false);
+793393	test('source acronyms remain exact and unrecognized source limitations survive', () => {
+793394	  for (const [key, value] of [['country', 'US'], ['country', 'GB'], ['currency', 'GBP'], ['unit', 'MW'], ['id', 'FERC']]) {
+793395	    assert.equal(evidenceValue(key, value), value);
+793396	  assert.equal(evidenceValue('source_state', 'REJECTED'), 'Rejected');
+793397	  assert.equal(limitationText('Source excludes developments after 2024.'), 'Source excludes developments after 2024.');
+793398	  assert.match(limitationText(report.limitations[2]), /Original source files were not checked again/);
+793399	  assert.match(limitationText(report.limitations[4]), /not a complete treaty history/);
+793400	test('actual composer export: complete native record and receipt preservation', async () => {
+793401	  const actual = await readContext(raw, options);
+793402	  assert.deepEqual(actual, report);
+793403	  assert.deepEqual(actual.coverage.families, {policy: 8, grid: 2, solar: 4});
+793404	  assert.equal(actual.coverage.numeric_claims, 3);
+793405	  assert.equal(actual.coverage.linked_projects, 0);
+793406	  const policy = actual.records.filter(r => r.family === 'policy');
+793407	  assert.equal(policy.filter(r => r.evaluation_state === 'UNKNOWN').length, 7);
+793408	  assert.equal(policy.filter(r => r.evaluation_state === 'REPORTED_PROGRESS').length, 1);
+793409	  const cop = actual.input_receipts[0].native_metadata.documents.find(d => d.id.startsWith('unfccc:cop31'));
+793410	  assert.equal(cop.document_state, 'IN_PROGRESS'); assert.equal(cop.content_sha256, null); assert.equal(cop.retrieved_at, null);
+793411	  assert.ok(actual.records.some(r => r.source_state === 'REJECTED'));
+793412	  assert.ok(actual.records.some(r => r.scope.kind === 'portfolio' && r.scope.native_scope === 'issuer'));
+793413	test('pin required, changed bytes rejected, bounded UTF-8 input', async () => {
+793414	  await assert.rejects(readContext(raw, {buildViewModel}));
+793415	  await assert.rejects(readContext(raw, {...options, expectedSha256: '0'.repeat(64)}));
+793416	  await assert.rejects(readContext(new Uint8Array(MAX_BYTES + 1), options));
+793417	  const bad = new Uint8Array([0xff]);
+793418	  await assert.rejects(readContext(bad, {...options, expectedSha256: sha(bad)}));
+793419	const mutations = {
+793420	  'coverage overstatement': r => r.coverage.records++,
+793421	  'missing family': r => {r.records = r.records.filter(x => x.family !== 'solar');},
+793422	  'duplicate row': r => r.records.push(r.records[0]),
+793423	  'scope inflated to site binding': r => r.records[0].scope.canonical_project_id = 'site:123',
+793424	  'scope changed to issuer': r => r.records[0].scope.kind = 'issuer',
+793425	  'native scope disagrees': r => r.records[0].scope.native_scope = 'issuer',
+793426	  'rejected amendment converted to delivery': r => r.records[0].source_state = 'DELIVERED',
+793427	  'unknown evaluation promoted': r => r.records[0].evaluation_state = 'EVIDENCE_SUPPORTED_RESULT',
+793428	  'source clock rewritten': r => r.records[0].source_links[0].published_date = '2026-11-16',
+793429	  'source URL executable': r => r.records[0].source_links[0].url = 'javascript:alert(1)',
+793430	  'qualifier stripped': r => r.records.find(x => x.numeric_claims.some(f => f.qualifier === 'upper_bound')).numeric_claims[0].qualifier = 'stated',
+793431	  'numeric scalar coerced': r => {const f = r.records[0]; f.numeric_claims[0].claim.value = 480; f.native_record.numeric_claims[0].value = 480;},
+793432	  'figure scope reassigned': r => {const f = r.records[0]; f.numeric_claims[0].claim.entity.scope = 'issuer'; f.native_record.numeric_claims[0].entity.scope = 'issuer';},
+793433	  'source receipt replaced': r => r.records[0].source_links[0].receipt.sha256 = '0'.repeat(64),
+793434	  'duplicate input family': r => r.input_receipts[1] = r.input_receipts[0],
+793435	  'source bytes marked verified': r => r.input_receipts[0].source_byte_validation = 'VERIFIED',
+793436	  'missing original source record': r => {r.records.find(x => x.family === 'grid').native_record.source = null;},
+793437	  'fabricated native REPD association': r => {r.records.find(x => x.family === 'solar').native_record.canonical_project_id = 'GG2050-REPD-1234';},
+793438	  'conflicting source receipt and original context': r => {
+793439	    const row = r.records.find(x => x.family === 'grid');
+793440	    row.source_links[0].receipt.sha256 = '0'.repeat(64);
+793441	    row.source_links[0].sha256 = '0'.repeat(64);
+793443	  'conflicting policy document catalogue': r => {
+793444	    const row = r.records.find(x => x.family === 'policy');
+793445	    row.source_links[0].receipt.content_sha256 = '0'.repeat(64);
+793446	  'mismatched producer coverage': r => {r.input_receipts.find(x => x.family === 'solar').native_metadata.context_count++;},
+793447	  'native source ID disagrees with context': r => {r.records.find(x => x.family === 'solar').native_record.source_id = 'different-source';},
+793448	  'source timestamp after evaluation': r => {
+793449	    const row = r.records.find(x => x.family === 'grid' && x.numeric_claims.length);
+793450	    const stamp = '2027-01-01T00:00:00Z';
+793451	    row.source_links[0].retrieved_at = stamp;
+793452	    row.source_links[0].receipt.retrieved_at = stamp;
+793453	    row.native_record.source.retrieved_at = stamp;
+793454	    row.numeric_claims[0].claim.provenance.retrieved_at = stamp;
+793455	    row.native_record.numeric_claims[0].provenance.retrieved_at = stamp;
+793456	  'future source publication day within assessment year': r => {
+793457	    const row = r.records.find(x => x.family === 'grid' && x.numeric_claims.length === 0);
+793458	    const future = '2026-11-17'; // as_of is 2026-11-16T18:00:00Z
+793459	    row.source_links[0].published_date = future;
+793460	    row.source_links[0].receipt.published_date = future;
+793461	    row.native_record.source.published_date = future;
+793462	  'future source publication month within assessment year': r => {
+793463	    const future = '2026-12'; // precision is month, not an assumed current day
+793464	  'impossible source calendar day': r => {
+793465	    row.source_links[0].published_date = '2026-02-30';
+793466	    row.source_links[0].receipt.published_date = '2026-02-30';
+793467	    row.native_record.source.published_date = '2026-02-30';
+793468	  'policy source citation silently dropped': r => {
+793469	    row.native_record.source.locator = 'A citation not in the export';
+793470	  'numeric claim borrows different source': r => {
+793471	    const row = r.records.find(x => x.family === 'solar' && x.numeric_claims.length);
+793472	    const forged = 'https://unrelated.example.org/document';
+793473	    row.numeric_claims[0].claim.provenance.document_url = forged;
+793474	    row.native_record.numeric_claims[0].claim.provenance.document_url = forged;
+793475	  'COP31 source executable': r => r.input_receipts[0].native_metadata.documents[2].url = 'data:text/html,evil',
+793477	for (const [name, mutate] of Object.entries(mutations)) test(name, async () => {
+793478	  const changed = structuredClone(report); mutate(changed); const bytes = encode(changed);
+793479	  await assert.rejects(readContext(bytes, {...options, expectedSha256: sha(bytes)}));
+793480	for (const url of ['http://example.org/a', 'https://127.0.0.1/', 'https://[::1]/', 'https://localhost/',
+793481	  'https://example.org@evil.org/', 'https://evil.org:444/', 'https://evil.local/', 'https://evil.org\\@good.org/', ' javascript:alert(1)']) {
+793482	  test(`unsupported URL ${url}`, () => assert.throws(() => sourceUrl(url)));
+793483	test('copied input prevents changes during asynchronous digest', async () => {
+793484	  const bytes = raw.slice(); const pending = readContext(bytes, options); bytes.fill(0);
+793485	  assert.deepEqual(await pending, report);
+793486	/** Real Chrome proof, using actual exporter bytes and the external pinned renderer. */
+793487	import {readFile, writeFile, mkdir} from 'node:fs/promises';
+793490	import {directory, figuresDirectory, raw, pins, sha} from './test-support.mjs';
+793491	assert.ok(process.env.CONTEXT_UI_ARTIFACTS, 'Explicit CONTEXT_UI_ARTIFACTS directory required');
+793492	const artifacts = resolve(process.env.CONTEXT_UI_ARTIFACTS);
+793493	const {chromium} = await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(resolve(process.env.PLAYWRIGHT_MODULE)).href : 'playwright');
+793494	const html = `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+793495	<title>Context UI integration proof</title><link rel="stylesheet" href="/context.css"><link rel="stylesheet" href="/figures/figures.css">
+793496	<body><main><section id="news" aria-label="News" data-news-context-host><h1>News</h1><button id="sentinel">Existing news control</button></section><section id="pipeline" aria-label="Pipeline" data-pipeline-context-host><h1>Pipeline</h1></section></main>
+793497	<script type="module" src="/boot.mjs"></script></body></html>`;
+793498	const boot = `import {renderContext} from '/render.mjs';
+793499	import {buildViewModel} from '/figures/model.mjs'; import {renderFigures} from '/figures/render.mjs';
+793500	const host = document.querySelector(location.hash === '#pipeline' ? '#pipeline' : '#news'); window.sentinel = document.querySelector('#sentinel');
+793501	window.clicks = 0; sentinel.addEventListener('click', () => window.clicks++);
+793502	window.original = new Uint8Array(await (await fetch('/fixture.json')).arrayBuffer());
+793503	window.hash = async b => Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', b)), x => x.toString(16).padStart(2,'0')).join('');
+793504	window.render = (b, pin) => renderContext(host, b, {expectedSha256: pin, figures: {buildViewModel,renderFigures}});
+793505	await window.render(window.original, '${pins.fixture_sha256}'); window.ready = true;`;
+793506	const resources = new Map([['/', ['text/html', html]], ['/boot.mjs', ['text/javascript', boot]],
+793507	  ['/fixture.json', ['application/json', raw]]]);
+793508	for (const name of ['adapter.mjs', 'render.mjs', 'context.css']) resources.set('/' + name,
+793509	  [name.endsWith('.css') ? 'text/css' : 'text/javascript', await readFile(resolve(directory, name))]);
+793510	for (const name of Object.keys(pins.figures_files)) resources.set('/figures/' + name,
+793511	  [name.endsWith('.css') ? 'text/css' : 'text/javascript', await readFile(resolve(figuresDirectory, name))]);
+793512	// Route-only loopback origin: no network sockets or production server required.
+793513	const origin = 'http://127.0.0.1:18329';
+793514	const results = []; let browser;
+793516	  await mkdir(artifacts, {recursive: true});
+793517	  browser = await chromium.launch({headless: true, channel: 'chrome', args: ['--no-proxy-server']});
+793518	  for (const width of [375, 390, 393, 768, 1440]) {
+793519	    const context = await browser.newContext({viewport: {width, height: 950}, serviceWorkers: 'block'});
+793520	    const external = [], errors = [];
+793521	    await context.route('**/*', route => {
+793522	      const url = new URL(route.request().url());
+793523	      const resource = url.origin === origin && route.request().method() === 'GET' && resources.get(url.pathname + url.search);
+793524	      if (resource) return route.fulfill({status: 200, contentType: resource[0] + '; charset=utf-8',
+793525	        headers: {'Cache-Control': 'no-store', 'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'none'; object-src 'none'; base-uri 'none'"},
+793526	        body: typeof resource[1] === 'string' ? resource[1] : Buffer.from(resource[1])});
+793527	      external.push(route.request().url()); return route.abort();
+793528	    const page = await context.newPage(); page.on('pageerror', error => errors.push(error.message));
+793529	    const hostSelector = width === 390 || width === 393 ? '#pipeline' : '#news';
+793530	    await page.goto(origin + (hostSelector === '#pipeline' ? '/#pipeline' : '/')); await page.waitForFunction(() => window.ready);
+793531	    assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'available');
+793532	    assert.equal(await page.locator(hostSelector + ' > [data-transition-context-root]').count(), 1);
+793533	    assert.equal(await page.locator('[data-context-id]').count(), 14);
+793534	    assert.equal(await page.locator('[data-figure-claim]').count(), 3);
+793535	    assert.deepEqual(await page.evaluate(() => {
+793536	      const root = document.querySelector('[data-transition-context-root]');
+793537	      const figure = root.querySelector('[data-filings-figures-root]');
+793538	      const amount = figure.querySelector('[data-figure-value]');
+793539	      const host = getComputedStyle(root.parentElement);
+793540	      return {font: getComputedStyle(amount).fontSize === host.fontSize,
+793541	        color: getComputedStyle(figure).color === host.color,
+793542	        background: getComputedStyle(figure).backgroundColor,
+793543	        native: root.contextReport.records.length};
+793544	    }), {font: true, color: true, background: 'rgba(0, 0, 0, 0)', native: 14});
+793545	    await page.locator('[data-transition-context-root] > summary').click();
+793546	    // Keyboard access uses native disclosure semantics.
+793547	    const first = page.locator('[data-context-id]').first();
+793548	    await first.locator(':scope > summary').focus(); await page.keyboard.press('Enter');
+793549	    assert.equal(await first.getAttribute('open'), '');
+793550	    await page.evaluate(() => document.querySelectorAll('[data-context-id] > details.filings-figures, [data-context-figure] > details').forEach(x => x.open = true));
+793551	    const text = await page.locator('[data-transition-context-root]').textContent();
+793552	    for (const required of ['Rejected', 'Unknown', 'Reported progress', 'In progress', 'Upper bound (up to)',
+793553	      '2021-09-22', '2024', 'Published:', 'Reviewed:', 'Retrieved:', 'Not confirmed', 'Not assessed',
+793554	      'Original source files were not checked again', 'not a complete treaty history', 'Country: US', 'Country: GB']) assert.ok(text.includes(required), required);
+793555	    assert.equal(await page.locator('[data-figure-value]').allTextContents().then(v => v.join('|')), '480 MW|350 MW|280 MW');
+793556	    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+793557	    for (const a of await page.locator('[data-transition-context-root] a').all()) {
+793558	      assert.ok((await a.getAttribute('href')).startsWith('https://'));
+793559	      assert.match(await a.getAttribute('rel'), /noopener/);
+793560	    await page.locator('#sentinel').click(); assert.equal(await page.evaluate(() => clicks), 1);
+793561	    const screenshot = `context-${width}.png`; await page.screenshot({path: resolve(artifacts, screenshot), fullPage: true});
+793562	    // Hostile markup is plain text, including native history and background metadata.
+793563	    await page.evaluate(async () => {
+793564	      const r = JSON.parse(new TextDecoder().decode(original));
+793565	      const evil = '<img src=x onerror="window.pwned=1"><script>window.pwned=1</script>';
+793566	      r.records[0].title = evil; r.records[0].native_record.name = evil;
+793567	      r.records[0].native_record.research_action = evil;
+793568	      r.records[0].native_record.revision_history = [{state: 'REJECTED', superseded_by: null, text: evil}];
+793569	      const bytes = new TextEncoder().encode(JSON.stringify(r)); await render(bytes, await hash(bytes));
+793570	    assert.equal(await page.locator('[data-transition-context-root] img, [data-transition-context-root] script').count(), 0);
+793571	    assert.equal(await page.evaluate(() => window.pwned), undefined);
+793572	    assert.ok((await page.locator('[data-transition-context-root]').textContent()).includes('Revision history'));
+793573	    // Failed refresh must clear every stale value and preserve neighboring controls.
+793574	    await page.evaluate(async () => render(original, '0'.repeat(64)));
+793575	    assert.equal(await page.locator('[data-transition-context-root]').getAttribute('data-state'), 'unavailable');
+793576	    assert.equal(await page.locator('[data-figure-claim], [data-context-id]').count(), 0);
+793577	    assert.equal(await page.evaluate(() => sentinel === document.querySelector('#sentinel')), true);
+793578	    await page.locator('#sentinel').click(); assert.equal(await page.evaluate(() => clicks), 2);
+793579	    // A later bad request wins even if an earlier digest is still pending.
+793580	    await page.evaluate(async pin => Promise.all([render(original, pin), render(original, 'bad')]), pins.fixture_sha256);
+793581	    assert.equal(await page.locator('[data-transition-context-root]').count(), 1);
+793582	    assert.deepEqual(external, []); assert.deepEqual(errors, []);
+793583	    results.push({width, host: hostSelector, checks: ['actual exporter', '14 contexts', '3 exact figures', 'inherited typography and colors', 'complete native data retained', 'unknown and historical states',
+793584	      'distinct clocks', 'upper-bound qualifier', 'native keyboard disclosure', 'no horizontal overflow',
+793585	      'safe source links', 'text escaped', 'history retained', 'stale values cleared', 'neighbor control preserved', 'latest request wins', 'no external requests'],
+793586	      screenshot, screenshot_sha256: sha(await readFile(resolve(artifacts, screenshot)))});
+793588	  const proof = {browser: 'Chrome', version: browser.version(), actual_export_sha256: pins.fixture_sha256,
+793589	    renderer_commit: pins.figures_commit, transport: 'Playwright route fulfillment from whitelisted local bytes; no HTTP server',
+793590	    results, scope: 'Local isolated component; no live release, Android, or project integration acceptance'};
+793591	  await writeFile(resolve(artifacts, 'proof.json'), JSON.stringify(proof, null, 2) + '\n');
+793592	  console.log(JSON.stringify(proof, null, 2));
+793595	import {readContext, sourceUrl} from './adapter.mjs';
+793596	const generations = new WeakMap();
+793597	const rootAttribute = 'data-transition-context-root';
+793598	const known = value => value === null || value === undefined ? 'Unknown' : String(value);
+793599	const label = value => known(value).replace(/_/g, ' ').toLowerCase().replace(/^./, c => c.toUpperCase());
+793600	// Complete values remain in readContext's result; presentation omits transport
+793601	// identifiers and renders source/history evidence without JSON or schema jargon.
+793602	const transport = new Set(['schema', 'input_schema', 'output_schema', 'input_sha256', 'output_policy']);
+793603	const states = new Set(['status', 'state', 'source_state', 'document_state', 'measurement_state',
+793604	  'baseline_state', 'current_delivery', 'current_project_state', 'legal_compliance', 'canonical_binding', 'binding_basis']);
+793605	export function evidenceValue(key, value) {
+793606	  if (key === 'source_byte_validation' && value === 'RECEIPTS_ONLY') return 'Based on supplied source records; original source files were not checked again.';
+793607	  return states.has(key) && typeof value === 'string' ? label(value) : value;
+793608	const limitations = new Map([
+793609	  ['Dated source context; no current project delivery, legal compliance or source truth certified.', 'These are dated source reports. Current delivery, legal compliance and factual accuracy have not been independently confirmed.'],
+793610	  ['No identity crosswalk, site allocation, numerical aggregation, conversion or ranking.', 'Projects have not been matched to other records. Figures are not assigned to sites, added together, converted or ranked.'],
+793611	  ['Receipt hashes are supplied metadata; original source bytes were not reverified.', 'Source fingerprints were supplied with the records. Original source files were not checked again.'],
+793612	  ['Publication, review, retrieval and figure dates remain distinct; composition time is not source freshness.', 'Publication, review, retrieval and figure dates have different meanings. The assessment date does not mean the sources are current.'],
+793613	  ['Historical inventory is separate; no exhaustive treaty history or final COP31 outcome inferred.', 'The separate historical source list is not a complete treaty history. No final COP31 outcome is established here.'],
+793615	export const limitationText = value => limitations.get(value) ?? value;
+793616	function evidence(document, parent, value) {
+793617	  if (value.schema === 'globalgrid2050.filing-figure.v1') {
+793618	    line(document, parent, 'Figure', 'See the figure and source details above');
+793620	  for (const [key, entry] of Object.entries(value)) {
+793621	    if (transport.has(key)) continue;
+793622	    const title = ({sha256: 'Source fingerprint', content_sha256: 'Source fingerprint',
+793623	      native_metadata: 'Source background', source_byte_validation: 'Source check', numeric_claims: 'Figures', canonical_project_id: 'Confirmed project',
+793624	      canonical_binding: 'Project association', binding_basis: 'Basis for project association',
+793625	      figure_entity_scope: 'Figure coverage', entity_id: 'Organisation or project reference'})[key] ?? (Array.isArray(value) ? 'Entry' : label(key));
+793626	    if (entry && typeof entry === 'object') {
+793627	      const group = disclosure(document, parent, title);
+793628	      if (!Object.keys(entry).length) line(document, group, 'Details', 'None supplied');
+793629	      else evidence(document, group, entry);
+793630	    } else line(document, parent, title, evidenceValue(key, entry));
+793631	function node(document, tag, text) {
+793632	  const result = document.createElement(tag);
+793633	  if (text !== undefined) result.textContent = text;
+793635	function line(document, parent, label, value) {
+793636	  parent.append(node(document, 'p', `${label}: ${known(value)}`));
+793637	function disclosure(document, parent, title) {
+793638	  const details = node(document, 'details'); details.append(node(document, 'summary', title)); parent.append(details); return details;
+793639	function source(document, parent, link) {
+793640	  const details = disclosure(document, parent, `Source: ${link.publisher}`);
+793641	  const a = node(document, 'a', link.receipt.title || 'Read source'); a.href = sourceUrl(link.url);
+793642	  a.target = '_blank'; a.rel = 'noopener noreferrer'; details.append(a);
+793643	  for (const [label, value] of [['Published', link.published_date], ['Reviewed', link.reviewed_at],
+793644	    ['Retrieved', link.retrieved_at], ['Source fingerprint', link.sha256],
+793645	    ['Section', link.locator.section], ['Page', link.locator.page], ['Locator', link.locator.text]]) line(document, details, label, value);
+793646	  evidence(document, disclosure(document, details, 'Source details'), link.receipt);
+793647	/** Mount only inside an explicitly opted-in existing News or Pipeline tab. */
+793648	export const isContextHost = host => Boolean(host?.hasAttribute?.('data-news-context-host') ||
+793649	  host?.hasAttribute?.('data-pipeline-context-host'));
+793650	export async function renderContext(host, bytes, {expectedSha256, figures}) {
+793651	  if (!isContextHost(host)) throw new TypeError('An opted-in News or Pipeline host is required');
+793652	  const generation = (generations.get(host) ?? 0) + 1; generations.set(host, generation);
+793653	  const document = host.ownerDocument;
+793654	  const root = node(document, 'details'); root.setAttribute(rootAttribute, ''); root.className = 'transition-context';
+793655	  let report;
+793657	    if (typeof figures?.renderFigures !== 'function') throw new TypeError('Missing FIGURES renderer');
+793658	    report = await readContext(bytes, {expectedSha256, buildViewModel: figures.buildViewModel});
+793659	    root.contextReport = report; // exact native evidence retained for the host
+793660	    root.dataset.state = 'available';
+793661	    root.append(node(document, 'summary', 'Policy, grid and energy context'));
+793662	    root.append(node(document, 'p', 'Provisional information from dated sources. Project associations, current delivery and legal compliance have not been confirmed.'));
+793663	    line(document, root, 'Assessment date (sources may be older)', report.as_of);
+793664	    for (const row of report.records) {
+793665	      const item = disclosure(document, root, `${row.title} — ${label(row.source_state)}`); item.dataset.contextId = row.id;
+793666	      line(document, item, 'Coverage', `${label(row.scope.kind)}; source describes: ${label(row.scope.native_scope)}`);
+793667	      line(document, item, 'Project association', 'Not confirmed');
+793668	      line(document, item, 'Source status', label(row.source_state)); line(document, item, 'Progress', label(row.evaluation_state));
+793669	      line(document, item, 'Applicability', label(row.applicability_state));
+793670	      const n = row.native_record;
+793671	      if (row.family === 'policy') {
+793672	        line(document, item, 'Policy scope', n.scope.description);
+793673	        line(document, item, 'Applicability reason', n.applicability.reason);
+793674	        line(document, item, 'Measurement', label(n.measurement_state));
+793675	        line(document, item, 'Evidence limitation', n.metric.limitation);
+793676	        line(document, item, 'Deadline', n.deadline.value); line(document, item, 'Deadline wording', n.deadline.wording);
+793677	        line(document, item, 'Reporting obligation', n.reporting_obligation);
+793678	        for (const condition of n.conditions) line(document, item, 'Condition', condition);
+793679	        for (const reason of n.reasons) line(document, item, 'Reason', reason);
+793680	        line(document, item, 'Legal compliance', label(n.legal_compliance));
+793682	        line(document, item, 'Current delivery / project status', label(row.family === 'solar' ? n.current_delivery : n.current_project_state));
+793683	        if (row.family === 'solar') line(document, item, 'Scope limitation', n.scope_note);
+793684	        line(document, item, 'Research needed', n.research_action);
+793685	        if (n.figures_omitted_reason !== null) line(document, item, 'Why figures are unavailable', n.figures_omitted_reason);
+793686	      if (!row.numeric_claims.length) item.append(node(document, 'p', 'No supported figures available.'));
+793687	      for (const figure of row.numeric_claims) {
+793688	        const box = node(document, 'div'); box.dataset.contextFigure = '';
+793689	        line(document, box, 'Figure purpose', label(figure.role));
+793690	        line(document, box, 'Qualifier', figure.qualifier === 'upper_bound' ? 'Upper bound (up to)' : known(figure.qualifier));
+793691	        figures.renderFigures(box, {entityId: row.scope.entity_id, state: 'available', claims: [figure.claim]});
+793692	        item.append(box);
+793693	      row.source_links.forEach(link => source(document, item, link));
+793694	      evidence(document, disclosure(document, item, 'Supporting details and history'), n);
+793695	    const backgroundDetails = disclosure(document, root, 'Coverage and source background');
+793696	    report.limitations.forEach(value => backgroundDetails.append(node(document, 'p', limitationText(value))));
+793697	    for (const receipt of report.input_receipts) {
+793698	      const family = disclosure(document, backgroundDetails, label(receipt.family));
+793699	      for (const doc of receipt.native_metadata.documents ?? []) {
+793700	        const background = disclosure(document, family, `${doc.title} — ${label(doc.document_state)}`);
+793701	        line(document, background, 'Source coverage', doc.read_coverage.note);
+793702	        source(document, background, {document_id: doc.id, publisher: doc.issuer, url: doc.url,
+793703	          published_date: doc.published_on, reviewed_at: doc.reviewed_at, retrieved_at: doc.retrieved_at,
+793704	          sha256: doc.content_sha256, locator: {section: null, page: null, text: doc.read_coverage.locators.join('; ')}, receipt: doc});
+793705	      evidence(document, disclosure(document, family, 'Source background details'), receipt.native_metadata);
+793708	    delete root.contextReport;
+793709	    root.dataset.state = 'unavailable';
+793710	    root.append(node(document, 'summary', 'Policy, grid and energy context — unavailable'));
+793711	    root.append(node(document, 'p', 'This information is temporarily unavailable.'));
+793712	  if (generations.get(host) !== generation) return null;
+793713	  for (const child of Array.from(host.children)) if (child.hasAttribute(rootAttribute)) child.remove();
+793714	  host.append(root);
+793720	export const directory = fileURLToPath(new URL('./', import.meta.url));
+793721	export const pins = JSON.parse(await readFile(new URL('./pins.json', import.meta.url), 'utf8'));
+793722	export const sha = bytes => createHash('sha256').update(bytes).digest('hex');
+793723	export const encode = value => new TextEncoder().encode(JSON.stringify(value));
+793724	assert.ok(process.env.FIGURES_UI_DIR, 'FIGURES_UI_DIR must identify the pinned external renderer directory');
+793725	export const figuresDirectory = resolve(process.env.FIGURES_UI_DIR);
+793726	for (const [file, hash] of Object.entries(pins.figures_files)) {
+793727	  assert.equal(sha(await readFile(resolve(figuresDirectory, file))), hash, `Pinned FIGURES ${file}`);
+793728	export const {buildViewModel} = await import(pathToFileURL(resolve(figuresDirectory, 'model.mjs')));
+793729	const result = spawnSync(process.env.PYTHON || 'python', ['-B', '-X', 'utf8', '-m', 'automation.news.build_transition_context',
+793730	  '--policy', 'automation/news/policy_commitments/sample_ledger.json',
+793731	  '--grid', 'automation/news/dc_context/grid-source-fixture.json',
+793732	  '--solar', 'automation/news/dc_context/fixtures/solar-context.json', '--as-of', pins.fixture_as_of],
+793733	  {cwd: fileURLToPath(new URL('../../../', import.meta.url)), maxBuffer: 17 * 1024 * 1024});
+793734	assert.equal(result.status, 0, result.stderr?.toString());
+793735	export const raw = new Uint8Array(result.stdout);
+793736	assert.equal(sha(raw), pins.fixture_sha256, 'Actual exporter bytes must match accepted receipt');
+793737	export const report = JSON.parse(new TextDecoder().decode(raw));
+793738	/* GlobalGrid2050 V9.28: isolated, no-network Data Centre model. No identity joins. */
+793742	  root.GGDataCentreModel = api;
+793743	})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+793745	  const PROJECTS = 'globalgrid2050.global-datacentres.projects.v1';
+793746	  const OFFICIAL = 'globalgrid2050.dc-official-projects.v1';
+793747	  const GROUPS = 'globalgrid2050.dc-group-links.v1';
+793748	  const KEYS = ['it_load_mw', 'site_demand_mw', 'grid_connection_mw'];
+793749	  const isObject = x => x !== null && typeof x === 'object' && !Array.isArray(x);
+793750	  const validText = x => typeof x === 'string' && x.trim().length > 0;
+793751	  const isUK = x => x && (x.country?.code === 'GB' || x.country?.code === 'UK' || x.country_code === 'GB');
+793752	  function safeUrl(x) {
+793753	    if (typeof x !== 'string') return null;
+793755	      const u = new URL(x);
+793756	      return u.protocol === 'https:' && !u.username && !u.password ? u.href : null;
+793758	  function requireValid(ok, why) { if (!ok) throw new Error('Data Centre input rejected: ' + why); }
+793759	  function distinct(records, field) {
+793760	    const keys = records.map(x => x[field]);
+793761	    requireValid(keys.every(validText), 'missing identifier');
+793762	    requireValid(new Set(keys).size === keys.length, 'duplicate identifier');
+793763	  function validateProjects(data) {
+793764	    requireValid(isObject(data) && data.schema === PROJECTS && data.scope === 'global', 'projects schema');
+793765	    requireValid(Array.isArray(data.records) && data.records.length > 0 && data.record_count === data.records.length, 'projects count');
+793766	    distinct(data.records, 'id');
+793767	    const countries = new Set();
+793768	    data.records.forEach(p => {
+793769	      requireValid(/^DC-WD-Q[1-9]\d*$/.test(p.id) && validText(p.name), 'project identity');
+793770	      requireValid(p.record_type === 'data_centre' && p.verification_status === 'SOURCE_INDEXED', 'unverified project classification');
+793771	      requireValid(p.operating_status === 'not_assessed', 'unsupported current operating status');
+793772	      requireValid(isObject(p.country) && validText(p.country.name) && /^Q[1-9]\d*$/.test(p.country.wikidata_id), 'country');
+793773	      countries.add(p.country.wikidata_id);
+793774	      requireValid(p.operator === null || typeof p.operator === 'string', 'operator');
+793775	      requireValid(isObject(p.source) && safeUrl(p.source.url) && safeUrl(p.source.revision_url) &&
+793776	        safeUrl(p.source.licence_url) && p.source.licence === 'CC0-1.0' &&
+793777	        /^\d{4}-\d{2}-\d{2}T/.test(p.source.retrieved_at || ''), 'source / rights / time');
+793778	      requireValid(isObject(p.capacity) && isObject(p.capacity_sources), 'capacity');
+793779	      KEYS.forEach(k => {
+793780	        const value = p.capacity[k], src = p.capacity_sources[k];
+793781	        requireValid(value === null || (Number.isFinite(value) && value >= 0 && safeUrl(src)), 'unsourced or invalid MW');
+793782	      const pt = p.location;
+793783	      requireValid(pt === null || (isObject(pt) && Number.isFinite(pt.latitude) && Math.abs(pt.latitude) <= 90 &&
+793784	        Number.isFinite(pt.longitude) && Math.abs(pt.longitude) <= 180 &&
+793785	        Number.isFinite(pt.precision_degrees) && pt.precision_degrees > 0), 'location');
+793786	    requireValid(data.country_count === countries.size, 'country count');
+793788	  function validateAudit(audit, projects) {
+793789	    requireValid(isObject(audit) && /^globalgrid2050\./.test(audit.schema || ''), 'audit schema');
+793790	    requireValid(Array.isArray(audit.quarantined) && audit.quarantined_count === audit.quarantined.length, 'quarantine count');
+793791	    requireValid(audit.selected_count === projects.record_count &&
+793792	      audit.candidate_count === audit.selected_count + audit.quarantined_count, 'candidate arithmetic');
+793793	    distinct(audit.quarantined, 'id');
+793794	    const selected = new Set(projects.records.map(x => x.id));
+793795	    audit.quarantined.forEach(x => {
+793796	      requireValid(!selected.has(x.id) && validText(x.name) && validText(x.reason) &&
+793797	        safeUrl(x.source_revision_url), 'quarantine reason / source');
+793798	    return audit;
+793799	  function validateOfficial(data) {
+793800	    requireValid(isObject(data) && data.schema === OFFICIAL && Array.isArray(data.projects), 'official schema');
+793801	    distinct(data.projects, 'project_id');
+793802	    data.projects.forEach(x => {
+793803	      requireValid(validText(x.name) && (x.entity_scope === 'planning_case' || x.entity_scope === 'tax_qualification_record') &&
+793804	        x.current_lifecycle === 'UNKNOWN' && x.review_status === 'PROVISIONAL' &&
+793805	        isObject(x.source_document) && safeUrl(x.source_document.url) &&
+793806	        isObject(x.record_event) && validText(x.record_event.kind) && /^\d{4}-\d{2}-\d{2}$/.test(x.record_event.date || '') &&
+793807	        x.capacity_mw === null, 'official source record is not a verified facility');
+793808	  function validateGroups(data) {
+793809	    requireValid(isObject(data) && data.schema === GROUPS && Array.isArray(data.records) &&
+793810	      data.record_count === data.records.length, 'group schema / count');
+793811	    distinct(data.records, 'project_id');
+793812	    let provisional = 0, unlinked = 0;
+793813	    data.records.forEach(x => {
+793814	      requireValid(x.status === 'PROVISIONAL' || x.status === 'UNLINKED', 'group certainty');
+793815	      requireValid(x.legal_ownership_verified === false && x.current_operating_status === 'not_assessed' &&
+793816	        safeUrl(x.source_revision_url) && Array.isArray(x.receipts), 'group rights / status / provenance');
+793817	      x.receipts.forEach(r => requireValid(safeUrl(r.final_url) && validText(r.publisher) &&
+793818	        validText(r.retrieved_at), 'group source receipt'));
+793819	      if (x.status === 'PROVISIONAL') provisional++; else unlinked++;
+793820	    requireValid(data.provisional_count === provisional && data.unlinked_count === unlinked, 'group count');
+793821	  function validateBundle(bundle) {
+793822	    requireValid(isObject(bundle), 'missing bundle');
+793823	    const projects = validateProjects(bundle.projects);
+793824	    validateOfficial(bundle.official);
+793825	    validateGroups(bundle.groups);
+793826	    validateAudit(bundle.audit, projects);
+793827	    const baseline = validateProjects(bundle.baseline);
+793828	    const byId = new Map(projects.records.map(x => [x.id, x]));
+793829	    // Compare semantics, not JSON key order; retrieval times are intentionally newer.
+793830	    function canonical(x) {
+793831	      if (Array.isArray(x)) return '[' + x.map(canonical).join(',') + ']';
+793832	      if (x !== null && typeof x === 'object') return '{' +
+793833	        Object.keys(x).sort().map(k => JSON.stringify(k) + ':' + canonical(x[k])).join(',') + '}';
+793834	      return JSON.stringify(x);
+793835	    const sameFields = ['name','record_type','country','operator','operating_status',
+793836	      'verification_status','location','capacity','capacity_sources','field_sources'];
+793837	    baseline.records.forEach(x => {
+793838	      const newer = byId.get(x.id);
+793839	      requireValid(!!newer, 'original baseline identity lost: ' + x.id);
+793840	      sameFields.forEach(k => requireValid(canonical(x[k]) === canonical(newer[k]),
+793841	        'original baseline semantic field changed: ' + x.id + '/' + k));
+793842	      ['publisher','url','revision_url','revision','licence','licence_url'].forEach(k =>
+793843	        requireValid(x.source[k] === newer.source[k],
+793844	          'original baseline source changed: ' + x.id + '/' + k));
+793845	    requireValid(baseline.record_count <= projects.record_count, 'baseline larger than expansion');
+793846	    return bundle;
+793847	  function selectRows(records, {scope = 'uk', query = '', country = ''} = {}) {
+793848	    const q = String(query).trim().toLocaleLowerCase();
+793849	    return records.filter(x => (scope !== 'uk' || isUK(x)) &&
+793850	      (!country || x.country.wikidata_id === country) &&
+793851	      (!q || [x.name, x.id, x.operator || '', x.country.name].join(' ').toLocaleLowerCase().includes(q)))
+793852	      .slice().sort((a,b) => Number(isUK(b)) - Number(isUK(a)) ||
+793853	        a.name.localeCompare(b.name, 'en') || a.id.localeCompare(b.id, 'en'));
+793854	  function mapUrl(x) {
+793855	    if (!x.location) return null;
+793856	    const p = x.location, z = p.precision_degrees > 0.01 ? 8 : 14;
+793857	    return 'https://www.openstreetmap.org/?mlat=' + p.latitude + '&mlon=' + p.longitude +
+793858	      '#map=' + z + '/' + p.latitude + '/' + p.longitude;
+793859	  const mw = x => x === null || x === undefined ? 'Not reported' : String(x) + ' MW';
+793860	  function csv(rows) {
+793861	    const fields = [
+793862	      ['Source entity ID', x => x.id], ['Name', x => x.name],
+793863	      ['Country', x => x.country.name], ['Classification', x => 'Source-indexed lead'],
+793864	      ['Current operation', x => 'Not assessed'], ['IT load MW', x => x.capacity.it_load_mw],
+793865	      ['Site demand MW', x => x.capacity.site_demand_mw], ['Grid connection MW', x => x.capacity.grid_connection_mw],
+793866	      ['Wikidata revision', x => x.source.revision_url], ['Retrieved UTC', x => x.source.retrieved_at],
+793867	      ['IT load source', x => x.capacity_sources.it_load_mw], ['Site demand source', x => x.capacity_sources.site_demand_mw],
+793868	      ['Grid connection source', x => x.capacity_sources.grid_connection_mw]
+793870	    function cell(v) {
+793871	      let s = v === null || v === undefined ? '' : String(v);
+793872	      if (/^[=+\-@\t\r\n]/.test(s)) s = "'" + s;
+793873	      return '"' + s.replace(/"/g, '""') + '"';
+793874	    return [fields.map(x => cell(x[0])).join(',')].concat(rows.map(r => fields.map(x => cell(x[1](r))).join(','))).join('\r\n') + '\r\n';
+793875	  function summary(bundle) {
+793876	    const records = bundle.projects.records;
+793877	    return {leads: records.length, uk_leads: records.filter(isUK).length,
+793878	      countries: bundle.projects.country_count, quarantined: bundle.audit.quarantined_count,
+793879	      baseline: bundle.baseline.record_count, official_source_records: bundle.official.projects.length,
+793880	      groups_provisional: bundle.groups.provisional_count, groups_unlinked: bundle.groups.unlinked_count,
+793881	      verified_facilities: 0};
+793882	  return {validateProjects, validateAudit, validateOfficial, validateGroups, validateBundle,
+793883	    selectRows, isUK, safeUrl, mapUrl, mw, csv, summary};
+793884	"""Opt-in real Chromium/Playwright acceptance: python automation/news/datacentre-ui/tests/browser_smoke.py
+793885	Requires: python -m pip install playwright ; Chromium provisioned with python -m playwright install chromium.
+793886	Never publishes/merges or contacts external websites; localhost static server only.
+793887	import functools
+793892	DATA = ROOT / "uk_renewables_pipeline" / "202611161757" / "global-datacentres"
+793893	BASELINE = ROOT / "uk_renewables_pipeline" / "202611161747" / "global-datacentres" / "projects.json"
+793894	PREFIX = "/uk_renewables_pipeline/202611161757/global-datacentres/"
+793896	    "projects": PREFIX + "projects.json",
+793897	    "official": PREFIX + "official-projects.json",
+793898	    "groups": PREFIX + "project-groups.json",
+793899	    "audit": PREFIX + "selection-audit.json",
+793900	    "baseline": "/uk_renewables_pipeline/202611161747/global-datacentres/projects.json",
+793901	def source_path(url: str) -> Path:
+793902	    resolved = (ROOT / url.lstrip("/")).resolve()
+793903	    if not resolved.is_relative_to(ROOT):
+793904	        raise ValueError("Unsafe fixture")
+793906	class SilentHandler(http.server.SimpleHTTPRequestHandler):
+793907	    def log_message(self, *_args):
+793910	    handler = functools.partial(SilentHandler, directory=str(ROOT))
+793911	    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+793912	    thread = threading.Thread(target=server.serve_forever, daemon=True)
+793914	    base = f"http://127.0.0.1:{server.server_port}"
+793915	    pins = {
+793916	        "urls": {name: base + url for name, url in PATHS.items()},
+793917	        "sha256": {name: hashlib.sha256(source_path(url).read_bytes()).hexdigest()
+793918	                   for name, url in PATHS.items()},
+793919	    checks = 0
+793920	        with sync_playwright() as playwright:
+793921	            browser = playwright.chromium.launch(headless=True)
+793923	                for width in (375, 768, 1440):
+793924	                    page = browser.new_page(viewport={"width": width, "height": 850},
+793925	                                            accept_downloads=True)
+793926	                    page.goto(base + "/automation/news/datacentre-ui/tests/harness.html")
+793927	                    page.add_style_tag(url=base + "/automation/news/datacentre-ui/styles.css")
+793928	                    page.add_script_tag(url=base + "/automation/news/datacentre-ui/model.js")
+793929	                    page.add_script_tag(url=base + "/automation/news/datacentre-ui/view.js")
+793930	                    loaded = page.evaluate("""async pins => {
+793931	                        const result = await window.GGDataCentreUI.mount(
+793932	                            document.getElementById('dc'), pins);
+793933	                        return result.error || result.counts;
+793934	                    }""", pins)
+793935	                    assert not isinstance(loaded, str), f"{width}: failed to load: {loaded}"
+793936	                    assert loaded["leads"] == 100 and loaded["uk_leads"] == 54
+793937	                    assert page.locator(".ggdc-table tbody tr").count() == 54
+793938	                    assert page.get_by_role("button", name="UK leads (54)").get_attribute("aria-pressed") == "true"
+793939	                    checks += 3
+793940	                    # Page must not overflow viewport; table remains horizontally scrollable at mobile widths.
+793941	                    widths = page.evaluate("""() => ({
+793942	                        body: document.documentElement.scrollWidth,
+793943	                        viewport: window.innerWidth,
+793944	                        table: document.querySelector('.ggdc-scroll').scrollWidth,
+793945	                        frame: document.querySelector('.ggdc-scroll').clientWidth
+793946	                    })""")
+793947	                    assert widths["body"] <= widths["viewport"] + 2, f"{width}: page overflows: {widths}"
+793948	                    if width < 790:
+793949	                        assert widths["table"] > widths["frame"], f"{width}: table not scrollable"
+793950	                    checks += 2 if width < 790 else 1
+793951	                    page.get_by_role("button", name="Global leads (100)").click()
+793952	                    assert page.locator(".ggdc-table tbody tr").count() == 100
+793953	                    page.get_by_role("button", name="Official source records (3)").click()
+793954	                    assert page.locator(".ggdc-table tbody tr").count() == 3
+793955	                    assert "UNKNOWN" in page.locator(".ggdc-table").inner_text()
+793956	                    page.get_by_role("button", name="Group associations (6)").click()
+793957	                    assert page.locator(".ggdc-table tbody tr").count() == 6
+793958	                    assert "PROVISIONAL" in page.locator(".ggdc-table").inner_text()
+793959	                    page.get_by_role("button", name="Quarantined candidates (38)").click()
+793960	                    assert page.locator(".ggdc-table tbody tr").count() == 38
+793961	                    assert "reason" in page.locator(".ggdc-table").inner_text().lower()
+793962	                    checks += 6
+793963	                    page.get_by_role("button", name="UK leads (54)").click()
+793964	                    page.get_by_role("searchbox", name="Search Data Centre records").fill("CyrusOne")
+793965	                    shown = page.locator(".ggdc-table tbody tr").count()
+793966	                    assert 0 < shown < 54, f"{width}: UK search failed"
+793967	                    checks += 1
+793968	                    page.get_by_role("searchbox", name="Search Data Centre records").fill("")
+793969	                    with page.expect_download() as got:
+793970	                        page.get_by_role("button", name="Export displayed leads (CSV)").click()
+793971	                    data = got.value.path().read_text("utf-8-sig")
+793972	                    assert len(data.strip().splitlines()) == 55
+793973	                    assert "Current operation" in data and "Not assessed" in data
+793974	                    checks += 2
+793975	                    # Mutated hash must clear previously visible records; no stale successes.
+793976	                    bad = json.loads(json.dumps(pins))
+793977	                    bad["sha256"]["projects"] = "0" * 64
+793978	                    failed = page.evaluate("""async pins => {
+793979	                        return {error: result.error || null, text: document.getElementById('dc').innerText};
+793980	                    }""", bad)
+793981	                    assert "hash differs" in failed["error"]
+793982	                    assert "unavailable" in failed["text"]
+793983	                    assert page.locator(".ggdc-table tbody tr").count() == 0
+793984	                    page.close()
+793985	                print(f"PASS: {checks} real Chromium checks across 375 / 768 / 1440; "
+793986	                      "UK-first, four distinct evidence categories, search, CSV, no body overflow, "
+793987	                      "horizontal scroll, hash-negative stale-clearing.")
+793989	                browser.close()
+793994	<title>Data Centre isolated browser acceptance fixture</title>
+793995	<style>html,body{margin:0;max-width:100%;overflow-x:hidden;background:#070d10;color:#e3eded}main{padding:12px;max-width:100%;box-sizing:border-box}</style></head>
+793996	<body><main><div id="dc" role="region" aria-label="GlobalGrid2050 Data Centre component"></div></main></body></html>
+793997	/* Run from repository root: node --test automation/news/datacentre-ui/tests/*.test.cjs */
+793999	const {test} = require('node:test');
+794003	const m = require('../model.js');
+794004	const ROOT = path.resolve(__dirname, '../../../..');
+794005	const current = path.join(ROOT, 'uk_renewables_pipeline/202611161757/global-datacentres');
+794006	const older = path.join(ROOT, 'uk_renewables_pipeline/202611161747/global-datacentres');
+794007	const read = f => JSON.parse(fs.readFileSync(f, 'utf8'));
+794008	const source = {
+794009	  projects: read(path.join(current,'projects.json')),
+794010	  official: read(path.join(current,'official-projects.json')),
+794011	  groups: read(path.join(current,'project-groups.json')),
+794012	  audit: read(path.join(current,'selection-audit.json')),
+794013	  baseline: read(path.join(older,'projects.json'))
+794014	const clone = () => JSON.parse(JSON.stringify(source));
+794015	function reject(name, update) {
+794016	  test('REJECT: ' + name, () => {
+794017	    const b = clone();
+794018	    update(b);
+794019	    assert.throws(() => m.validateBundle(b), /rejected/);
+794020	test('validated actual source-pinned cohort and sidecars', () => assert.equal(m.validateBundle(source), source));
+794021	test('real counts are separate evidence grains, not 103 facilities', () => {
+794022	  assert.deepEqual(m.summary(source),{
+794023	    leads:100,uk_leads:54,countries:22,quarantined:38,baseline:12,
+794024	    official_source_records:3,groups_provisional:3,groups_unlinked:3,verified_facilities:0
+794025	test('UK-first sorting and 54 default UK records', () => {
+794026	  const uk = m.selectRows(source.projects.records,{scope:'uk'});
+794027	  assert.equal(uk.length,54);
+794028	  assert.ok(uk.every(m.isUK));
+794029	  const all = m.selectRows(source.projects.records,{scope:'global'});
+794030	  assert.ok(all.slice(0,54).every(m.isUK));
+794031	  assert.ok(all.slice(54).every(x=>!m.isUK(x)));
+794032	test('original twelve identities preserved in the successor cohort', () => {
+794033	  const ids = new Set(source.projects.records.map(x => x.id));
+794034	  source.baseline.records.forEach(x => assert.ok(ids.has(x.id)));
+794035	test('no presumed MW, grid connection, or current operation', () => {
+794036	  for (const x of source.projects.records) {
+794037	    assert.equal(x.operating_status,'not_assessed');
+794038	    assert.equal(x.capacity.it_load_mw,null);
+794039	    assert.equal(x.capacity.site_demand_mw,null);
+794040	    assert.equal(x.capacity.grid_connection_mw,null);
+794041	test('unknown geometries stay unmappable', () => {
+794042	  assert.equal(source.projects.records.filter(x=>x.location===null).length,61);
+794043	  assert.equal(m.mapUrl(source.projects.records.find(x=>x.location===null)),null);
+794044	test('source filtering and no implicit REPD binding', () => {
+794045	  assert.equal(m.selectRows(source.projects.records,{scope:'uk',query:'no such source'}).length,0);
+794046	  assert.ok(m.selectRows(source.projects.records,{scope:'uk',query:'CyrusOne'}).length>0);
+794047	  assert.equal(Object.keys(source.projects.records[0]).includes('repd_id'),false);
+794048	test('CSV quotes formula-like values; keeps null MW empty', () => {
+794049	  const x = structuredClone(source.projects.records[0]);
+794050	  x.name = '=HYPERLINK("https://evil.example")';
+794051	  const csv = m.csv([x]);
+794052	  assert.ok(csv.includes("'=HYPERLINK"));
+794053	  assert.ok(csv.includes('"IT load MW"'));
+794054	  assert.ok(csv.includes('""'));
+794055	test('HTTPS-only original evidence links', () => {
+794056	  assert.equal(m.safeUrl('javascript:alert(1)'),null);
+794057	  assert.equal(m.safeUrl('http://example.org'),null);
+794058	  assert.ok(m.safeUrl(source.projects.records[0].source.revision_url));
+794059	reject('duplicate source ID', x => x.projects.records[1].id=x.projects.records[0].id);
+794060	reject('invented VERIFIED status', x => x.projects.records[0].verification_status='VERIFIED');
+794061	reject('invented operational status', x => x.projects.records[0].operating_status='operational');
+794062	reject('unsourced MW', x => x.projects.records[0].capacity.it_load_mw=100);
+794063	reject('negative MW', x => x.projects.records[0].capacity.it_load_mw=-10);
+794064	reject('invented country count', x => x.projects.country_count=999);
+794065	reject('unsafe source URL', x => x.projects.records[0].source.revision_url='javascript:alert(1)');
+794066	reject('invalid geometry', x => x.projects.records[0].location={latitude:91,longitude:0,precision_degrees:1});
+794067	reject('quarantine without reason', x => x.audit.quarantined[0].reason='');
+794068	reject('quarantine overlapping selected', x => x.audit.quarantined[0].id=x.projects.records[0].id);
+794069	reject('quarantine arithmetic mismatch', x => x.audit.quarantined_count=1);
+794070	reject('official record duplicated', x => x.official.projects.push(x.official.projects[0]));
+794071	reject('document converted to operating facility', x => x.official.projects[0].current_lifecycle='OPERATIONAL');
+794072	reject('provisional legal group mislabelled verified', x => x.groups.records[0].legal_ownership_verified=true);
+794073	reject('group link promoted to VERIFIED', x => x.groups.records[0].status='VERIFIED');
+794074	reject('group split changed', x => x.groups.provisional_count++);
+794075	reject('baseline source identity lost', x => x.baseline.records[0].id='DC-WD-Q999999999');
+794076	reject('source rights removed', x => x.projects.records[0].source.licence='UNKNOWN');
+794077	reject('timestamp fabricated', x => x.projects.records[0].source.retrieved_at='unknown');
+794078	reject('official source mutated to bad URL', x => x.official.projects[0].source_document.url='https://user:pass@example.org/');
+794079	reject('baseline original semantic name changed', x => x.baseline.records[0].name='Misidentified site');
+794080	reject('baseline original operator changed', x => x.baseline.records[0].operator='Unverified new operator');
+794081	reject('baseline original source revision tampered', x => x.baseline.records[0].source.revision=1);
+794082	/* Source-integrity loading and failure-mode tests, no external network. */
+794083	const crypto = require('node:crypto');
+794084	const view = require('../view.js');
+794085	const current = 'uk_renewables_pipeline/202611161757/global-datacentres/';
+794086	const baseline = 'uk_renewables_pipeline/202611161747/global-datacentres/projects.json';
+794087	const files = {
+794088	  projects:current+'projects.json',official:current+'official-projects.json',
+794089	  groups:current+'project-groups.json',audit:current+'selection-audit.json',baseline
+794090	const contents = Object.fromEntries(Object.entries(files).map(([k,p])=>[k,fs.readFileSync(path.join(ROOT,p),'utf8')]));
+794091	const digest = x => crypto.createHash('sha256').update(x).digest('hex');
+794092	const inputs = {urls:Object.fromEntries(Object.keys(files).map(k=>[k,'fixture://'+k])),
+794093	  sha256:Object.fromEntries(Object.keys(files).map(k=>[k,digest(contents[k])]))};
+794094	const fetcher = async url => ({ok:true,text:async()=>contents[url.replace('fixture://','')]});
+794095	const hasMessage = async (fn,needle) => {
+794096	  await assert.rejects(fn,e=>String(e.message).includes(needle));
+794097	test('SHA-256 pinned five-file loader accepts actual cohort',async()=>{
+794098	  const b=await view.load(inputs,fetcher,digest);
+794099	  assert.equal(b.projects.records.length,100);
+794100	  assert.equal(b.official.projects.length,3);
+794101	  assert.equal(b.groups.records.length,6);
+794102	  assert.equal(b.audit.quarantined.length,38);
+794103	  assert.equal(b.baseline.records.length,12);
+794104	test('reject modified bytes / stale or corrupted source',async()=>{
+794105	  const tamper=async url=>({ok:true,text:async()=>url==='fixture://projects'?contents.projects+' ':contents[url.replace('fixture://','')]});
+794106	  await hasMessage(()=>view.load(inputs,tamper,digest),'hash differs');
+794107	test('reject unavailable source instead of partial rendering',async()=>{
+794108	  const missing=async url=>url==='fixture://official'?{ok:false}:{ok:true,text:async()=>contents[url.replace('fixture://','')]};
+794109	  await hasMessage(()=>view.load(inputs,missing,digest),'unavailable');
+794110	test('reject a missing source hash',async()=>{
+794111	  const bad=structuredClone(inputs);delete bad.sha256.groups;
+794112	  await hasMessage(()=>view.load(bad,fetcher,digest),'Unpinned');
+794113	test('reject URL script scheme even when digest exists',async()=>{
+794114	  const bad=structuredClone(inputs);bad.urls.projects='javascript:alert(1)';
+794115	  await hasMessage(()=>view.load(bad,fetcher,digest),'unsafe');
+794116	test('reject validly hashed but malformed JSON',async()=>{
+794117	  const badText='{broken';
+794118	  const bad=structuredClone(inputs);bad.sha256.projects=digest(badText);
+794119	  const badFetch=async url=>({ok:true,text:async()=>url==='fixture://projects'?badText:contents[url.replace('fixture://','')]});
+794120	  await assert.rejects(()=>view.load(bad,badFetch,digest),SyntaxError);
+794121	test('reject validly hashed but fake VERIFIED row',async()=>{
+794122	  const item=JSON.parse(contents.projects);item.records[0].verification_status='VERIFIED';
+794123	  const badText=JSON.stringify(item),bad=structuredClone(inputs);bad.sha256.projects=digest(badText);
+794124	  await hasMessage(()=>view.load(bad,badFetch,digest),'unverified');
+794125	test('on failure, mount removes stale content and visibly fails closed',async()=>{
+794126	  const previous=global.document;
+794127	  global.document={createElement(tag){return {tagName:tag,nodeType:1,className:'',textContent:'',setAttribute(){}}}};
+794128	    const host={nodes:[{textContent:'STALE 100 RECORDS'}],replaceChildren(...nodes){this.nodes=nodes}};
+794129	    const bad=structuredClone(inputs);bad.sha256.projects='0'.repeat(64);
+794130	    const r=await view.mount(host,bad,fetcher,digest);
+794131	    assert.ok(r.error.includes('hash differs'));
+794132	    assert.equal(host.nodes.length,1);
+794133	    assert.match(host.nodes[0].textContent,/unavailable/);
+794134	    assert.doesNotMatch(host.nodes[0].textContent,/STALE/);
+794135	  } finally {global.document=previous;}
+794136	/* GlobalGrid2050 Data Centre component. Host-owned tab slot; never edits the page frame. */
+794137	  const model = (typeof module === 'object' && module.exports)
+794138	    ? require('./model.js') : root.GGDataCentreModel;
+794139	  const api = factory(model);
+794140	  root.GGDataCentreUI = api;
+794141	})(typeof globalThis !== 'undefined' ? globalThis : this, function (model) {
+794142	  const NAMES = ['projects', 'official', 'groups', 'audit', 'baseline'];
+794143	  const LABELS = {
+794144	    uk: 'UK leads', global: 'Global leads', official: 'Official source records',
+794145	    groups: 'Group associations', quarantine: 'Quarantined candidates'
+794146	  function el(tag, className, value) {
+794148	    if (className) n.className = 'ggdc-' + className;
+794149	    if (value !== undefined && value !== null) n.textContent = String(value);
+794151	  function source(label, address) {
+794152	    const safe = model.safeUrl(address);
+794153	    if (!safe) return el('span', 'muted', 'Source unavailable');
+794154	    const a = el('a', 'source', label);
+794155	    a.href = safe;
+794159	  function cell(row, value) {
+794160	    const td = el('td');
+794161	    if (value && typeof value === 'object' && value.nodeType) td.appendChild(value);
+794162	    else td.textContent = value === null || value === undefined ? 'Not reported' : String(value);
+794163	    row.appendChild(td);
+794164	    return td;
+794165	  function table(columns, records, cells) {
+794166	    const scroll = el('div', 'scroll');
+794167	    scroll.setAttribute('tabindex', '0');
+794168	    scroll.setAttribute('role', 'region');
+794169	    scroll.setAttribute('aria-label', 'Data Centre records, horizontally scrollable');
+794170	    const t = el('table', 'table'), head = el('thead'), tr = el('tr');
+794171	    columns.forEach(c => { const th = el('th', null, c); th.scope = 'col'; tr.appendChild(th); });
+794172	    head.appendChild(tr); t.appendChild(head);
+794173	    const body = el('tbody');
+794174	    records.forEach(x => {
+794175	      const r = el('tr'); cells(r,x); body.appendChild(r);
+794176	    t.appendChild(body); scroll.appendChild(t);
+794177	    return scroll;
+794178	  function leadRows(records) {
+794179	    return table(['Site / source entity', 'Country', 'Current operation',
+794180	      'IT load', 'Site demand', 'Grid connection', 'Evidence'], records, (r,x) => {
+794181	      const identity = el('div', 'identity', x.name);
+794182	      identity.appendChild(el('small', 'id', x.id));
+794183	      cell(r, identity);
+794184	      cell(r, x.country.name);
+794185	      cell(r, 'Not assessed');
+794186	      cell(r, model.mw(x.capacity.it_load_mw));
+794187	      cell(r, model.mw(x.capacity.site_demand_mw));
+794188	      cell(r, model.mw(x.capacity.grid_connection_mw));
+794189	      const evidence = el('div', 'evidence');
+794190	      evidence.appendChild(source('Source revision', x.source.revision_url));
+794191	      evidence.appendChild(el('small', 'stamp', 'Retrieved ' + x.source.retrieved_at));
+794192	      if (model.mapUrl(x)) evidence.appendChild(source(
+794193	        x.location.precision_degrees > 0.01 ? 'Approximate map' : 'Map', model.mapUrl(x)));
+794194	      else evidence.appendChild(el('small', 'muted', 'No mapped coordinates'));
+794195	      cell(r, evidence);
+794196	  function officialRows(records) {
+794197	    return table(['Document / project name', 'Source grain', 'Document event',
+794198	      'Current lifecycle', 'Published evidence'], records, (r,x) => {
+794199	      const ident = el('div', 'identity', x.name);
+794200	      ident.appendChild(el('small', 'id', x.project_id));
+794201	      cell(r, ident);
+794202	      cell(r, x.entity_scope === 'planning_case' ? 'Planning case' : 'Tax qualification record');
+794203	      cell(r, x.record_event.kind + ' · ' + x.record_event.date);
+794204	      cell(r, 'UNKNOWN — document event is not current operation');
+794205	      cell(r, source('Official document', x.source_document.url));
+794206	  function groupRows(records) {
+794207	    return table(['Source entity', 'Relationship finding', 'Listed group evidence',
+794208	      'Current operation', 'Provenance'], records, (r,x) => {
+794209	      cell(r, x.status === 'PROVISIONAL' ? 'PROVISIONAL association; legal ownership unverified' :
+794210	        'UNLINKED — no supported association');
+794211	      cell(r, x.listed_parent?.legal_name || 'No supported listed-parent link');
+794212	      const proof = el('div', 'evidence');
+794213	      proof.appendChild(source('Original entity', x.source_revision_url));
+794214	      x.receipts.forEach(p => proof.appendChild(source(p.publisher + ' receipt', p.final_url)));
+794215	      if (x.unknown_reasons?.length) proof.appendChild(el('small','muted',x.unknown_reasons.join('; ')));
+794216	      cell(r, proof);
+794217	  function quarantineRows(records) {
+794218	    return table(['Candidate', 'Reason held back', 'Source revision'], records, (r,x) => {
+794219	      ident.appendChild(el('small', 'id', x.id));
+794220	      cell(r, ident); cell(r, x.reason);
+794221	      cell(r, source('Original source revision', x.source_revision_url));
+794222	  function render(host, bundle) {
+794223	    model.validateBundle(bundle);
+794224	    const counts = model.summary(bundle);
+794226	    const section = el('section', 'component');
+794227	    section.setAttribute('aria-label', 'Data Centre intelligence');
+794228	    section.appendChild(el('h3', 'title', 'DATA CENTRES'));
+794229	    section.appendChild(el('p', 'intro',
+794230	      counts.leads + ' source-indexed leads (' + counts.uk_leads + ' UK), ' + counts.countries +
+794231	      ' countries; ' + counts.quarantined + ' quarantined; original ' + counts.baseline +
+794232	      ' identities preserved. NOT a verified operating-facility census.'));
+794233	    section.appendChild(el('p', 'muted',
+794234	      'Current operation is not assessed. IT load, site demand and grid connection are different measurements. Unknown MW remains unknown. Official documents, group links and quarantined candidates are separate record types.'));
+794235	    const toolbar = el('div', 'toolbar');
+794236	    toolbar.setAttribute('role', 'group');
+794237	    toolbar.setAttribute('aria-label', 'Data Centre evidence category');
+794238	    const nav = {};
+794239	    const filters = {kind: 'uk', query: '', country: ''};
+794240	    Object.entries(LABELS).forEach(([id,label]) => {
+794241	      const button = el('button', 'tab', label + ' (' +
+794242	        ({uk:counts.uk_leads,global:counts.leads,official:counts.official_source_records,
+794243	          groups:counts.groups_provisional+counts.groups_unlinked,quarantine:counts.quarantined}[id]) + ')');
+794245	      button.dataset.kind = id;
+794246	      button.addEventListener('click', () => { filters.kind = id; update(); });
+794247	      nav[id] = button; toolbar.appendChild(button);
+794248	    section.appendChild(toolbar);
+794249	    const controls = el('div', 'filters');
+794250	    const searchLabel = el('label', null, 'Search');
+794251	    const input = el('input'); input.type = 'search'; input.placeholder = 'Name, source ID or operator';
+794252	    input.setAttribute('aria-label', 'Search Data Centre records');
+794253	    input.addEventListener('input', () => { filters.query = input.value; update(); });
+794254	    searchLabel.appendChild(input); controls.appendChild(searchLabel);
+794255	    const countryLabel = el('label', null, 'Country');
+794256	    const select = el('select'); select.setAttribute('aria-label', 'Country');
+794257	    const all = el('option', null, 'All countries'); all.value = ''; select.appendChild(all);
+794258	    const countries = new Map(bundle.projects.records.map(r => [r.country.wikidata_id,r.country.name]));
+794259	    [...countries].sort((a,b) => a[1].localeCompare(b[1])).forEach(([id,name]) => {
+794260	      const o = el('option', null, name); o.value = id; select.appendChild(o);
+794261	    select.addEventListener('change', () => { filters.country = select.value; update(); });
+794262	    countryLabel.appendChild(select); controls.appendChild(countryLabel);
+794263	    const exportButton = el('button', 'download', 'Export displayed leads (CSV)');
+794264	    exportButton.type = 'button';
+794265	    function selectedLeads() {
+794266	      return model.selectRows(bundle.projects.records, {
+794267	        scope: filters.kind === 'uk' ? 'uk' : 'global',
+794268	        query: filters.query,
+794269	        country: filters.kind === 'global' ? filters.country : ''
+794270	    exportButton.addEventListener('click', () => {
+794271	      if (filters.kind !== 'uk' && filters.kind !== 'global') return;
+794272	      const data = model.csv(selectedLeads());
+794273	      const url = URL.createObjectURL(new Blob([data], {type:'text/csv;charset=utf-8'}));
+794275	        const link = el('a'); link.href = url; link.download = 'globalgrid2050-data-centres-' + filters.kind + '.csv';
+794277	      } finally { URL.revokeObjectURL(url); }
+794278	    controls.appendChild(exportButton); section.appendChild(controls);
+794279	    const status = el('p', 'status'); status.setAttribute('role','status'); status.setAttribute('aria-live','polite');
+794280	    section.appendChild(status);
+794281	    const results = el('div', 'results'); section.appendChild(results);
+794282	    section.appendChild(el('p','muted',
+794283	      'Wikidata structured facts: CC0. Original source revisions linked per row. Other document rights not inferred. No identity-based join to REPD or grid connection claim.'));
+794284	    host.appendChild(section);
+794286	      Object.keys(nav).forEach(x => nav[x].setAttribute('aria-pressed', String(filters.kind === x)));
+794287	      const leads = filters.kind === 'uk' || filters.kind === 'global';
+794288	      countryLabel.hidden = !leads || filters.kind === 'uk';
+794289	      exportButton.hidden = !leads;
+794290	      if (!leads) select.value = '';
+794291	      results.replaceChildren();
+794292	      let rows, builder;
+794293	      if (leads) {
+794294	        rows = selectedLeads();
+794295	        builder = leadRows;
+794296	        const list = filters.kind === 'official' ? bundle.official.projects :
+794297	          filters.kind === 'groups' ? bundle.groups.records : bundle.audit.quarantined;
+794298	        const s = filters.query.toLocaleLowerCase().trim();
+794299	        rows = list.filter(x => !s || [x.name,x.id||x.project_id,x.reason||'',x.entity_scope||''].join(' ').toLocaleLowerCase().includes(s));
+794300	        builder = filters.kind === 'official' ? officialRows : filters.kind === 'groups' ? groupRows : quarantineRows;
+794301	      status.textContent = rows.length + ' ' + LABELS[filters.kind].toLowerCase() + ' displayed';
+794302	      if (rows.length) results.appendChild(builder(rows));
+794303	      else results.appendChild(el('p', 'empty','No matching records in this category.'));
+794304	    update();
+794305	    return {counts, update, section};
+794306	  async function load(inputs, transport = fetch, digest = null) {
+794307	    if (!inputs || !inputs.urls || !inputs.sha256) throw new Error('Five pinned Data Centre inputs required');
+794308	    const sha = digest || (async text => {
+794309	      if (!globalThis.crypto?.subtle) throw new Error('SHA-256 verifier unavailable');
+794310	      const hash = await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text));
+794311	      return Array.from(new Uint8Array(hash),b => b.toString(16).padStart(2,'0')).join('');
+794312	    const objects = await Promise.all(NAMES.map(async name => {
+794313	      const url = inputs.urls[name], expected = inputs.sha256[name];
+794314	      if (typeof url !== 'string' || !url.trim() || /^(?:javascript|data|blob):/i.test(url) ||
+794315	          !/^[a-f0-9]{64}$/i.test(expected || '')) throw new Error('Unpinned or unsafe Data Centre source: ' + name);
+794316	      const response = await transport(url, {cache:'no-store'});
+794317	      if (!response || !response.ok) throw new Error('Data Centre source unavailable: ' + name);
+794319	      if ((await sha(body)).toLowerCase() !== expected.toLowerCase()) throw new Error('Data Centre source hash differs: ' + name);
+794320	      return [name,JSON.parse(body)];
+794322	    return model.validateBundle(Object.fromEntries(objects));
+794323	  async function mount(host, inputs, transport, digest) {
+794324	    if (!host || typeof host.replaceChildren !== 'function') throw new Error('Host element required');
+794325	    host.replaceChildren(el('p','status','Loading source-pinned Data Centre intelligence…'));
+794326	    try { const bundle = await load(inputs, transport, digest); return render(host, bundle); }
+794328	      host.replaceChildren(el('p','error','Data Centre records unavailable — source or integrity check failed. No partial data displayed.'));
+794329	      return {error: err.message};
+794330	  return {load, mount, render, LABELS};
+794331	"""Offline, provisional grid/data-centre context; no network or inference.
+794332	The public ``build(bundle, *, as_of)`` API preserves dated source states and
+794333	uses the shared filings FIGURES validator for optional quantitative claims.
+794334	Context identifiers are local document-context keys, never official site IDs.
+794335	There is no geospatial matching, scoring, current-status or connection inference.
+794338	INPUT_SCHEMA = "globalgrid2050.grid-dc-context-input.v1"
+794339	SCHEMA = "globalgrid2050.grid-dc-context.v1"
+794340	_ID = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}\Z")
+794341	_SHA = re.compile(r"[a-f0-9]{64}\Z")
+794342	_SOURCE_KEYS = {
+794343	    "id", "document_id", "url", "publisher", "authority", "title",
+794344	    "published_date", "retrieved_at", "http_status", "sha256", "bytes",
+794345	    "access_state", "output_policy",
+794346	_CONTEXT_KEYS = {
+794347	    "id", "name", "country", "entity_scope", "source_entity_reference",
+794348	    "source_id", "section", "page", "kind", "source_state",
+794349	    "numeric_claims", "figures_omitted_reason",
+794350	_PRIMARY_HOSTS = {"www.gov.uk": "GOVERNMENT", "www.ferc.gov": "REGULATOR"}
+794351	# Values are separate dimensions: source state, permitted numeric kind/basis,
+794352	# and a research action. No rule awards investment value or available power.
+794353	_RULES = {
+794354	    ("development_proposal", "PROPOSED"): (
+794355	        {"project_demand", "it_load"}, {"forecast"},
+794356	        "Seek a named development scheme, planning record and dated connection evidence."),
+794357	    ("connection_amendment_decision", "REJECTED"): (
+794358	        {"project_demand"}, {"forecast"},
+794359	        "Check later docket decisions; rejection of this amendment does not reject every existing arrangement."),
+794360	    ("connection_offer", "OFFER_REPORTED"): (
+794361	        {"secured_connection"}, {"reported"},
+794362	        "Check the offer's conditions, validity and subsequent delivery; an offer is not energisation."),
+794363	    ("energisation_report", "ENERGISED_REPORTED"): (
+794364	        {"energised_load"}, {"reported"},
+794365	        "Check the reported date and exact energised phase; do not extend it to an entire campus."),
+794366	    ("grid_upgrade", "PLANNED"): (
+794367	        {"grid_upgrade"}, {"forecast"},
+794368	        "Check the named upgrade, consent and delivery evidence; planned network work is not available capacity."),
+794369	    ("grid_upgrade", "COMMISSIONED_REPORTED"): (
+794370	        {"grid_upgrade"}, {"reported"},
+794371	        "Check the commissioned asset scope; its rating is not a data-centre connection allocation."),
+794372	    ("funding", "ANNOUNCED"): (
+794373	        {"finance"}, {"reported", "forecast"},
+794374	        "Check committed and disbursed funding separately; announced funding is not expenditure."),
+794375	    ("funding", "COMMITTED"): (
+794376	        {"finance"}, {"reported"},
+794377	        "Check funding conditions and disbursement; a commitment is not paid project CAPEX."),
+794378	    ("funding", "DISBURSED"): (
+794379	        "Keep the disclosed payment scope; do not allocate portfolio totals to an individual site."),
+794383	def _object(value, keys, field):
+794384	    _require(isinstance(value, dict) and set(value) == keys, f"{field}: unexpected fields")
+794385	def _text(value, field, *, limit=250):
+794386	    _require(isinstance(value, str) and 0 < len(value) <= limit
+794387	             and value == value.strip()
+794388	             and not any(ord(c) < 32 or ord(c) == 127 or 0xD800 <= ord(c) <= 0xDFFF for c in value)
+794389	             and not any(c in value for c in "<>"), f"{field}: invalid plain text")
+794390	def _identifier(value, field):
+794391	    _require(isinstance(value, str) and bool(_ID.fullmatch(value)), f"{field}: invalid identifier")
+794392	def _day(value, field):
+794393	    _require(isinstance(value, str) and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", value)),
+794394	             f"{field}: explicit calendar day required")
+794395	        return date.fromisoformat(value)
+794397	        raise ValueError(f"{field}: invalid day") from exc
+794398	def _time(value, field):
+794400	        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?Z", value)),
+794401	        f"{field}: explicit UTC timestamp required")
+794402	        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+794403	        raise ValueError(f"{field}: invalid timestamp") from exc
+794404	    """Stable JSON bytes for hashing/replay; preserves exact decimal strings."""
+794405	def _source(source, as_of):
+794406	    _object(source, _SOURCE_KEYS, "source")
+794407	    for key in ("id", "document_id"):
+794408	        _identifier(source[key], f"source.{key}")
+794409	    for key in ("publisher", "title"):
+794410	        _text(source[key], f"source.{key}")
+794411	    url = source["url"]
+794412	    _text(url, "source.url", limit=2048)
+794413	    _require(url.isascii() and "\\" not in url and not any(c.isspace() for c in url), "source.url: unsafe syntax")
+794415	    _require(parsed.scheme == "https" and parsed.netloc in _PRIMARY_HOSTS
+794416	             and parsed.path.startswith("/") and not parsed.query and not parsed.fragment,
+794417	             "source.url: unsupported primary-source URL")
+794418	    _require(source["authority"] == _PRIMARY_HOSTS[parsed.netloc], "source.authority: host mismatch")
+794419	    _require(type(source["http_status"]) is int and source["http_status"] == 200,
+794420	             "source: successful source receipt required")
+794421	    _require(isinstance(source["sha256"], str) and bool(_SHA.fullmatch(source["sha256"])), "source: invalid digest")
+794422	    _require(type(source["bytes"]) is int and 0 < source["bytes"] <= 4 * 1024 * 1024,
+794423	             "source: invalid bounded response size")
+794424	    _require(source["access_state"] == "OPEN_OBSERVED" and source["output_policy"] == "FACT_METADATA_ONLY",
+794425	             "source: unsupported access/display policy")
+794426	    retrieved = _time(source["retrieved_at"], "source.retrieved_at")
+794427	    published = _day(source["published_date"], "source.published_date")
+794428	    _require(published <= retrieved.date() and retrieved <= as_of, "source: inconsistent or future clocks")
+794429	def _figures(context, source, kinds, bases):
+794430	    figures = context["numeric_claims"]
+794431	    _require(isinstance(figures, list) and len(figures) <= 20, "context: bounded numeric_claims required")
+794432	    if not figures:
+794434	    # The FIGURES producer owns this dependency; no duplicated numeric schema.
+794435	    from automation.news.filings.contracts import validate_claim
+794436	    result, seen = [], set()
+794437	    for raw in figures:
+794438	        claim = validate_claim(raw)
+794439	        _require(claim["claim_id"] not in seen, "context: duplicate numeric claim")
+794440	        seen.add(claim["claim_id"])
+794441	        _require(claim["quantity_kind"] in kinds and claim["basis"] in bases,
+794442	                 "context: numeric kind/basis contradicts source state")
+794443	        entity = claim["entity"]
+794444	        _require(entity["id"] == context["id"] and entity["scope"] == context["entity_scope"]
+794445	                 and entity["consolidation_group_id"] is None
+794446	                 and entity["identity_evidence_url"] == source["url"],
+794447	                 "context: numeric entity/scope mismatch")
+794448	        provenance = claim["provenance"]
+794449	        for claim_key, source_key in (("document_id", "document_id"), ("document_url", "url"),
+794450	                                      ("sha256", "sha256"), ("published_date", "published_date"),
+794451	                                      ("retrieved_at", "retrieved_at")):
+794452	            _require(provenance[claim_key] == source[source_key], "context: numeric provenance mismatch")
+794453	        _require(provenance["page"] == context["page"] and provenance["section"] == context["section"],
+794454	                 "context: numeric locator mismatch")
+794455	        if claim["quantity_kind"] == "finance":
+794456	            _require(claim["finance_stage"] == context["source_state"].lower(),
+794457	                     "context: finance stage mismatch")
+794458	        result.append(claim)
+794459	    return sorted(result, key=lambda c: c["claim_id"])
+794460	def build(bundle, *, as_of):
+794461	    """Validate the whole input and return deterministic, unlinked context.
+794462	    Every supplied source and context is checked before output. Source hashes
+794463	    are receipts, not independent verification of the source or extraction.
+794464	    The result never turns its internal context key into an official DC ID.
+794465	    _object(bundle, {"schema", "sources", "contexts"}, "bundle")
+794466	    _require(bundle["schema"] == INPUT_SCHEMA, "bundle: unsupported schema")
+794467	    clock = _time(as_of, "as_of")
+794468	    sources, contexts = bundle["sources"], bundle["contexts"]
+794469	    _require(isinstance(sources, list) and 0 < len(sources) <= 100, "bundle: source bound")
+794470	    _require(isinstance(contexts, list) and 0 < len(contexts) <= 1000, "bundle: context bound")
+794471	    by_source, source_documents = {}, set()
+794473	        _source(source, clock)
+794474	        _require(source["id"] not in by_source and source["document_id"] not in source_documents,
+794475	                 "bundle: duplicate source/document")
+794476	        by_source[source["id"]] = source
+794477	        source_documents.add(source["document_id"])
+794478	    records, seen_ids, figure_ids = [], set(), set()
+794479	    for context in contexts:
+794480	        _object(context, _CONTEXT_KEYS, "context")
+794481	        _identifier(context["id"], "context.id")
+794482	        _identifier(context["source_id"], "context.source_id")
+794483	        _require(context["id"] not in seen_ids, "bundle: duplicate context")
+794484	        seen_ids.add(context["id"])
+794485	        _require(context["source_id"] in by_source, "context: unknown source")
+794486	        source = by_source[context["source_id"]]
+794487	        for key in ("name", "source_entity_reference"):
+794488	            _text(context[key], f"context.{key}")
+794489	        for key in ("section", "page", "figures_omitted_reason"):
+794490	            if context[key] is not None:
+794491	                _text(context[key], f"context.{key}", limit=400)
+794492	        _require(context["section"] is not None or context["page"] is not None, "context: locator required")
+794493	        _require(isinstance(context["country"], str) and context["country"] in {"GB", "US"},
+794494	                 "context: unsupported source country")
+794495	        _require(isinstance(context["entity_scope"], str)
+794496	                 and context["entity_scope"] in {"project", "site", "campus", "phase", "zone"},
+794497	                 "context: unsupported entity scope")
+794498	        _require(isinstance(context["kind"], str) and isinstance(context["source_state"], str),
+794499	                 "context: kind/state must be text")
+794500	        key = (context["kind"], context["source_state"])
+794501	        _require(key in _RULES, "context: unsupported kind/source-state combination")
+794502	        kinds, bases, action = _RULES[key]
+794503	        figures = _figures(context, source, kinds, bases)
+794504	        _require(not figures or context["figures_omitted_reason"] is None,
+794505	                 "context: figures and omission reason conflict")
+794506	        _require(not figure_ids.intersection(c["claim_id"] for c in figures), "bundle: repeated numeric claim")
+794507	        figure_ids.update(c["claim_id"] for c in figures)
+794508	        record = deepcopy(context)
+794509	        record["numeric_claims"] = figures
+794510	        record.update({
+794511	            "status": "PROVISIONAL", "current_project_state": "UNKNOWN",
+794512	            "canonical_project_id": None, "binding_basis": "DOCUMENT_CONTEXT_ONLY",
+794513	            "source": deepcopy(source),
+794514	            "source_document_age_days": (clock.date() - _day(source["published_date"], "source.published_date")).days,
+794515	            "retrieval_age_days": (clock - _time(source["retrieved_at"], "source.retrieved_at")).days,
+794516	            "research_action": action,
+794517	            "current_secured_connection": None, "current_energised_load": None,
+794518	            "available_grid_capacity": None, "site_capex": None,
+794520	    normalized_input = {"schema": INPUT_SCHEMA,
+794521	                        "sources": sorted(deepcopy(sources), key=lambda s: s["id"]),
+794522	                        "contexts": sorted(deepcopy(contexts), key=lambda c: c["id"])}
+794523	        "schema": SCHEMA, "as_of": as_of,
+794524	        "input_sha256": hashlib.sha256(dumps(normalized_input).encode("utf-8")).hexdigest(),
+794525	        "context_count": len(records), "numeric_claim_count": len(figure_ids),
+794526	        "linked_project_count": 0, "records": sorted(records, key=lambda c: c["id"]),
+794527	        "limitations": ["Dated document context; current delivery and ownership are not established.",
+794528	                        "No site crosswalk, proximity inference, aggregation, ranking or publication approval.",
+794529	                        "Successful source retrieval is not independent factual or numerical verification."],
+794532	    _require(args.input.stat().st_size <= 4 * 1024 * 1024, "input: maximum size exceeded")
+794533	    result = dumps(build(json.loads(args.input.read_text(encoding="utf-8")), as_of=args.as_of))
+794536	        # A new artifact is required; no overwrite or pointer update.
+794537	        with args.output.open("x", encoding="utf-8", newline="\n") as handle:
+794538	            handle.write(result)
+794539	        print(result, end="")
+794540	"""Offline solar/storage/procurement context, preserving source scope and bounds.
+794541	No fetch, extraction, site matching, financial aggregation or verification claim.
+794542	The shared FIGURES contract owns numerical validation; this adapter binds those
+794543	claims to source receipts and explicit context. See SOLAR.md for the interface.
+794544	INPUT_SCHEMA = "globalgrid2050.solar-dc-context-input.v1"
+794545	SCHEMA = "globalgrid2050.solar-dc-context.v1"
+794546	_HOSTS = {
+794547	    "www.epa.gov": "ISSUER_PRESENTATION_GOVERNMENT_HOSTED",
+794548	    "www.googlecloudpresscorner.com": "ISSUER_RELEASE",
+794549	    "www.sma-uk.com": "SUPPLIER_CASE_STUDY",
+794550	_SOURCE_KEYS = {"id", "document_id", "url", "publisher", "title", "authority",
+794551	                "published_date", "retrieved_at", "http_status", "bytes", "sha256",
+794552	                "access_state", "output_policy"}
+794553	_CONTEXT_KEYS = {"id", "name", "country", "entity", "source_id", "section", "page",
+794554	                 "relationship", "source_state", "source_as_of", "numeric_claims",
+794555	                 "figures_omitted_reason", "scope_note"}
+794556	_ENTITY_KEYS = {"id", "scope", "consolidation_group_id", "identity_evidence_url"}
+794557	_KINDS = {
+794558	    "solar_procurement": {"generation_power", "generation_energy", "energy_procurement"},
+794559	    "storage_procurement": {"storage_power", "storage_energy"},
+794560	    "portfolio_storage_access": {"storage_power", "storage_energy"},
+794561	    "onsite_solar_ppa": {"generation_power", "generation_energy", "energy_procurement"},
+794562	    "procurement_finance": {"finance"},
+794563	_ACTIONS = {
+794564	    "solar_procurement": "Check delivery, named supply assets and allocation; contracted generation is not data-centre demand.",
+794565	    "storage_procurement": "Check delivery, shared rights and duration separately; MW does not establish MWh or site allocation.",
+794566	    "portfolio_storage_access": "Identify contracted storage assets and allocations; portfolio access does not establish onsite batteries.",
+794567	    "onsite_solar_ppa": "Check current operation and reconcile source capacity labels before using a numeric site rating.",
+794568	    "procurement_finance": "Retain funding stage and entity scope; do not allocate group funding to individual sites.",
+794569	def _require(ok, message):
+794571	    _require(isinstance(value, dict) and set(value) == keys, field + ": unexpected fields")
+794572	def _text(value, field, limit=500):
+794573	    _require(isinstance(value, str) and 0 < len(value) <= limit and value == value.strip()
+794574	             and not any(ord(c) < 32 or ord(c) == 127 or 0xD800 <= ord(c) <= 0xDFFF or c in "<>"
+794575	                         for c in value), field + ": invalid plain text")
+794576	def _id(value, field):
+794577	    _require(isinstance(value, str) and bool(_ID.fullmatch(value)), field + ": invalid identifier")
+794578	def _time(value):
+794579	    _require(isinstance(value, str) and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", value)),
+794580	             "Explicit UTC timestamp required")
+794582	def _day(value):
+794583	    _require(isinstance(value, str) and bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", value)), "Exact source day required")
+794584	    return date.fromisoformat(value)
+794585	    return json.dumps(value, sort_keys=True, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+794586	def verify_source_bytes(source, raw):
+794587	    """Verify an explicitly supplied response; never fetch or retain its body."""
+794588	    _require(isinstance(raw, bytes) and 0 < len(raw) <= 4 * 1024 * 1024, "Bounded source bytes required")
+794589	    _require(len(raw) == source["bytes"] and hashlib.sha256(raw).hexdigest() == source["sha256"],
+794590	             "Source bytes do not match receipt")
+794591	def _source(source, clock):
+794592	        _id(source[key], key)
+794593	        _text(source[key], key)
+794594	    _text(url, "url", 2048)
+794595	    _require(url.isascii() and "\\" not in url and not any(c.isspace() for c in url)
+794596	             and parsed.scheme == "https" and parsed.netloc in _HOSTS
+794597	             "Unsupported primary source URL")
+794598	    _require(source["authority"] == _HOSTS[parsed.netloc], "Source authority/host mismatch")
+794599	    _require(type(source["http_status"]) is int and source["http_status"] == 200, "Successful source receipt required")
+794600	    _require(type(source["bytes"]) is int and 0 < source["bytes"] <= 4 * 1024 * 1024, "Invalid source byte count")
+794601	    _require(isinstance(source["sha256"], str) and bool(re.fullmatch(r"[a-f0-9]{64}", source["sha256"])), "Invalid source digest")
+794602	             "Unsupported source output policy")
+794603	    retrieved = _time(source["retrieved_at"])
+794604	    _require(retrieved <= clock, "Future source retrieval")
+794605	    if source["published_date"] is not None:
+794606	        _require(_day(source["published_date"]) <= retrieved.date(), "Future source publication")
+794607	def _context(context, source, clock):
+794608	    _object(context, _CONTEXT_KEYS, "context")
+794609	    for key in ("id", "source_id"):
+794610	        _id(context[key], key)
+794611	    for key in ("name", "scope_note"):
+794612	        _text(context[key], key)
+794613	    for key in ("page", "section", "figures_omitted_reason"):
+794614	        if context[key] is not None:
+794615	            _text(context[key], key)
+794616	    _require(context["page"] is not None or context["section"] is not None, "Source locator required")
+794617	    _require(context["country"] in ("GB", "US"), "Unsupported source geography")
+794618	    relation = context["relationship"]
+794619	    _require(isinstance(relation, str) and relation in _KINDS, "Unsupported relationship; proximity is not procurement")
+794620	    state = context["source_state"]
+794621	    _require(state in ("ANNOUNCED", "AGREEMENT_REPORTED", "COMMISSIONED_REPORTED", "COMMITTED", "DISBURSED"),
+794622	             "Unsupported source state")
+794623	    _require(relation == "procurement_finance" or state not in ("COMMITTED", "DISBURSED"), "Funding stage on electrical context")
+794624	    _require(relation != "procurement_finance" or state in ("ANNOUNCED", "COMMITTED", "DISBURSED"), "Unsupported funding stage")
+794625	    _text(context["source_as_of"], "source_as_of", 10)
+794626	    _require(bool(re.fullmatch(r"\d{4}(?:-\d{2}(?:-\d{2})?)?", context["source_as_of"])), "Source date precision required")
+794627	    parts = [int(x) for x in context["source_as_of"].split("-")]
+794628	    source_day = date(*parts, *([1] * (3 - len(parts))))
+794629	    _require(source_day <= _time(source["retrieved_at"]).date(), "Source context cannot be a future observation")
+794630	    entity = context["entity"]
+794631	    _object(entity, _ENTITY_KEYS, "entity")
+794632	    _id(entity["id"], "entity.id")
+794633	    _require(entity["scope"] in ("issuer", "consolidated_group", "project", "site", "campus", "phase"), "Unsupported entity scope")
+794634	    _require(entity["identity_evidence_url"] == source["url"], "Entity identity must retain supporting source")
+794635	    _require(entity["consolidation_group_id"] is None or entity["consolidation_group_id"] == entity["id"],
+794636	             "No inferred corporate association")
+794637	    _require((entity["scope"] == "consolidated_group") == (entity["consolidation_group_id"] == entity["id"]),
+794638	             "Group identity mismatch")
+794639	    if relation == "portfolio_storage_access":
+794640	        _require(entity["scope"] in ("issuer", "consolidated_group", "project"), "Portfolio storage cannot become site storage")
+794641	    if relation == "onsite_solar_ppa":
+794642	        _require(entity["scope"] in ("site", "campus", "phase"), "Onsite relationship requires named site scope")
+794643	    if relation == "procurement_finance":
+794644	        _require(entity["scope"] == "consolidated_group", "Corporate finance must remain at evidenced parent-group scope")
+794645	    _require(isinstance(figures, list) and len(figures) <= 20, "Bounded figures required")
+794646	    _require(bool(figures) == (context["figures_omitted_reason"] is None), "Explain omitted figures; do not invent zero")
+794647	    for wrapped in figures:
+794648	        _object(wrapped, {"claim", "qualifier"}, "numeric claim")
+794649	        _require(wrapped["qualifier"] in ("stated", "upper_bound", "approximate"), "Explicit numerical qualifier required")
+794650	        claim = validate_claim(wrapped["claim"])
+794651	        _require(claim["entity"] == entity, "Figure entity/scope mismatch")
+794652	        _require(claim["quantity_kind"] in _KINDS[relation], "Figure kind does not match context")
+794653	        _require(claim["assurance"] != "audited", "Current primary sources do not establish audited numerical assurance")
+794654	        if state == "COMMISSIONED_REPORTED":
+794655	            _require(claim["basis"] == "reported", "Commissioned context cannot use forecast figure")
+794656	        if relation == "procurement_finance":
+794657	            _require(claim["finance_stage"] == state.lower(), "Funding stage mismatch")
+794658	        if claim["basis"] == "reported":
+794659	            # Fresh retrieval must not turn a historical target into an actual.
+794660	            for observed in (claim["as_of"], (claim["reporting_period"] or {}).get("end")):
+794661	                if observed is not None:
+794662	                    components = [int(x) for x in observed.split("-")]
+794663	                    observed_day = date(*components, *([1] * (3 - len(components))))
+794664	                    _require(observed_day <= source_day, "Reported figure postdates source observation")
+794665	        for a, b in (("document_id", "document_id"), ("document_url", "url"), ("sha256", "sha256"),
+794666	                     ("published_date", "published_date"), ("retrieved_at", "retrieved_at")):
+794667	            _require(provenance[a] == source[b], "Figure/source receipt mismatch")
+794668	        _require(provenance["page"] == context["page"] and provenance["section"] == context["section"], "Figure locator mismatch")
+794669	        result.append({"claim": claim, "qualifier": wrapped["qualifier"]})
+794670	    return sorted(result, key=lambda f: f["claim"]["claim_id"])
+794671	def build(bundle, *, as_of, source_bytes=None):
+794672	    """Produce provisional rows; optional response bytes verify hashes, not facts."""
+794673	    _require(bundle["schema"] == INPUT_SCHEMA, "Unsupported input schema")
+794674	    clock = _time(as_of)
+794675	    _require(isinstance(bundle["sources"], list) and 0 < len(bundle["sources"]) <= 100, "Bounded nonempty sources required")
+794676	    _require(isinstance(bundle["contexts"], list) and 0 < len(bundle["contexts"]) <= 1000, "Bounded nonempty contexts required")
+794677	    sources, documents = {}, set()
+794678	    for source in bundle["sources"]:
+794679	        _require(source["id"] not in sources and source["document_id"] not in documents, "Duplicate source identity")
+794680	        sources[source["id"]] = source
+794681	        documents.add(source["document_id"])
+794682	    if source_bytes is not None:
+794683	        _require(isinstance(source_bytes, dict) and set(source_bytes) == set(sources), "Source byte coverage must be complete")
+794684	        for key, source in sources.items():
+794685	            verify_source_bytes(source, source_bytes[key])
+794686	    records, ids, claims = [], set(), set()
+794687	    for context in bundle["contexts"]:
+794688	        _require(isinstance(context["source_id"], str) and context["source_id"] in sources, "Missing context source")
+794689	        source = sources[context["source_id"]]
+794690	        figures = _context(context, source, clock)
+794691	        _require(context["id"] not in ids, "Duplicate context identity")
+794692	        ids.add(context["id"])
+794693	        for figure in figures:
+794694	            claim_id = figure["claim"]["claim_id"]
+794695	            _require(claim_id not in claims, "Duplicate numerical claim")
+794696	            claims.add(claim_id)
+794697	        record.update(numeric_claims=figures, status="PROVISIONAL", source=deepcopy(source),
+794698	                      canonical_project_id=None, canonical_binding="UNLINKED",
+794699	                      current_delivery="UNKNOWN", current_site_supply_mw=None,
+794700	                      current_storage_energy_mwh=None, research_action=_ACTIONS[context["relationship"]],
+794701	                      source_document_age_days=None if source["published_date"] is None else
+794702	                      (clock.date() - _day(source["published_date"])).days)
+794703	    normalized = {"schema": INPUT_SCHEMA, "sources": sorted(deepcopy(bundle["sources"]), key=lambda s: s["id"]),
+794704	                  "contexts": sorted(deepcopy(bundle["contexts"]), key=lambda c: c["id"])}
+794705	    return {"schema": SCHEMA, "as_of": as_of, "context_count": len(records), "numeric_claim_count": len(claims),
+794706	            "input_sha256": hashlib.sha256(dumps(normalized).encode()).hexdigest(),
+794707	            "source_byte_validation": "MATCHED_SUPPLIED_BYTES" if source_bytes is not None else "RECEIPTS_ONLY",
+794708	            "coverage": "BOUNDED_PRIMARY_SOURCE_SLICE", "linked_project_count": 0,
+794709	            "records": sorted(records, key=lambda r: r["id"]),
+794710	            "limitations": ["Dated source claims are provisional; present delivery is unknown.",
+794711	                            "No canonical site crosswalk, proximity inference, quantity allocation or aggregation.",
+794712	                            "Receipt hashes identify observed bytes, not source truth or publication rights."]}
+794713	    _require(args.input.stat().st_size <= 4 * 1024 * 1024, "Input exceeds bound")
+794714	"""Ventus News Engine: read-only, deterministic intelligence adapter.
+794715	Consumes existing collector output; never fetches, schedules, approves rights,
+794716	verifies identities, or publishes. Uses acquisition.match.match_articles.
+794717	from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+794718	from .acquisition.match import match_articles
+794719	SCHEMA = "globalgrid2050.ventus-news-intelligence.v1"
+794720	VERTICALS = frozenset(("solar", "bess", "wind", "grid", "datacentre"))
+794721	_SHA = re.compile(r"[0-9a-f]{64}\Z")
+794722	_DNS = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
+794723	_TRACKING = frozenset(("fbclid", "gclid", "mc_cid", "mc_eid"))
+794724	def _required(value, field):
+794726	        raise ValueError(field + " must be nonempty text")
+794728	def canonical_url(value):
+794729	    """Validate public HTTPS metadata, strip fragment/known tracking; never fetch."""
+794730	    _required(value, "article URL")
+794731	    if any(ord(c) < 33 for c in value) or "\\" in value:
+794732	        raise ValueError("unsafe article URL")
+794734	        host = (p.hostname or "").lower().rstrip(".")
+794736	        if (p.scheme != "https" or p.username or p.password or p.port not in (None, 443)
+794737	                or len(labels) < 2 or any(not _DNS.fullmatch(label) for label in labels)
+794738	                or labels[-1].isdigit() or labels[-1].startswith("0x")
+794739	                or host.endswith((".localhost", ".local", ".internal"))):
+794740	            raise ValueError("unsafe public HTTPS URL")
+794741	        raise ValueError("unsafe public HTTPS URL") from exc
+794742	    query = urlencode([(k, v) for k, v in parse_qsl(p.query, keep_blank_values=True)
+794743	                       if not (k.lower().startswith("utm_") or k.lower() in _TRACKING)])
+794744	    return urlunsplit(("https", host, p.path or "/", query, ""))
+794745	def _checked_timestamp(value, field):
+794746	    """Keep original ISO date text but reject impossible or malformed clocks.
+794747	    These are metadata validation checks only; not independent publisher evidence.
+794749	        raise ValueError(field + " timestamp must be text or null")
+794750	        if re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", value):
+794752	        elif re.fullmatch(
+794753	            r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"
+794754	            r"(?::[0-9]{2}(?:\.[0-9]{1,6})?)?(?:Z|[+-][0-9]{2}:[0-9]{2})?",
+794755	            value,
+794757	            datetime.fromisoformat(value.replace("Z", "+00:00"))
+794758	            raise ValueError("bad timestamp format")
+794759	        raise ValueError(field + " invalid timestamp") from exc
+794760	def _sources(rows):
+794762	        raise ValueError("sources must be an array")
+794763	    for raw in rows:
+794764	        if not isinstance(raw, dict):
+794765	            raise ValueError("invalid source")
+794766	        sid = _required(raw.get("id"), "source.id")
+794767	        if sid in result:
+794768	            raise ValueError("duplicate source id")
+794769	        publisher = _required(raw.get("publisher"), "source.publisher")
+794770	        status = raw.get("rights_status", "unknown")
+794771	        if status not in ("unknown", "accepted", "rejected"):
+794772	            raise ValueError("unrecognised source rights_status")
+794773	        review = raw.get("rights_review_url")
+794774	        if review is not None:
+794775	            canonical_url(review)
+794776	        if status == "accepted" and not review:
+794777	            raise ValueError("accepted rights require a review URL")
+794778	        policy = raw.get("output_policy", "headline_link_only")
+794779	        if policy != "headline_link_only":
+794780	            raise ValueError("engine can only process headline_link_only sources")
+794781	        enabled = raw.get("enabled", False)
+794782	        if type(enabled) is not bool:
+794783	            raise ValueError("source.enabled must be boolean")
+794784	        if enabled and status != "accepted":
+794785	            raise ValueError("unreviewed source cannot be enabled")
+794786	        result[sid] = {"id": sid, "publisher": publisher,
+794787	                       "kind": raw.get("kind"), "enabled": enabled,
+794788	                       "rights_status": status, "rights_review_url": review,
+794789	                       "output_policy": policy}
+794790	def _projects(rows):
+794791	        raise ValueError("projects must be an array")
+794792	    projects, seen = [], set()
+794794	        if not isinstance(p, dict):
+794795	            raise ValueError("invalid project")
+794796	        namespace = p.get("namespace", "repd")
+794797	        pid = str(p.get("id", ""))
+794798	        if namespace != "repd":
+794799	            # Future DC/grid adapters must use their own stable identities.
+794800	        if not re.fullmatch(r"[1-9][0-9]*", pid) or pid in seen:
+794801	            raise ValueError("invalid or duplicate REPD identifier")
+794802	        seen.add(pid)
+794803	        projects.append({"id": pid, "name": _required(p.get("name"), "project.name"),
+794804	                         "name_ambiguous": p.get("name_ambiguous", False),
+794805	                         "technology": p.get("technology")})
+794807	def build_intelligence(articles, sources, projects=()):
+794808	    """Return offline metadata candidates; zero VERIFIED matches by construction."""
+794809	    if isinstance(articles, dict):
+794810	        articles = articles.get("items")
+794811	    if not isinstance(articles, list):
+794812	        raise ValueError("articles must be an array or a document with items")
+794813	    policies = _sources(sources)
+794814	    repd = _projects(list(projects))
+794815	    by_publisher = {}
+794816	    for sid, source in policies.items():
+794817	        by_publisher.setdefault(source["publisher"], []).append(sid)
+794819	    for a in articles:
+794820	        if not isinstance(a, dict):
+794821	            raise ValueError("invalid article")
+794822	        original = _required(a.get("url") or a.get("link"), "article.url")
+794823	        url = canonical_url(original)
+794824	        title = _required(a.get("title"), "article.title")
+794825	        sid = a.get("source_id")
+794826	        if sid is None:
+794827	            labels = by_publisher.get(a.get("source"), [])
+794828	            if len(labels) != 1:
+794829	                raise ValueError("article needs unambiguous source_id")
+794830	            sid = labels[0]
+794831	        if sid not in policies:
+794832	            raise ValueError("article references missing source")
+794833	        src = policies[sid]
+794834	        if a.get("publisher", src["publisher"]) != src["publisher"]:
+794835	            raise ValueError("publisher attribution conflicts with source")
+794836	        if a.get("source") is not None and a["source"] != src["publisher"]:
+794837	            raise ValueError("publisher attribution conflicts with source label")
+794838	        published = _checked_timestamp(a.get("pub_date", a.get("date")), "publication")
+794839	        first_seen = _checked_timestamp(a.get("first_seen"), "first_seen")
+794840	        fetched = _checked_timestamp(a.get("fetched_at"), "fetched_at")
+794841	        receipt = a.get("source_receipt_sha256")
+794842	        if receipt is not None and (not isinstance(receipt, str) or not _SHA.fullmatch(receipt)):
+794843	            raise ValueError("invalid source receipt hash")
+794844	        vertical = a.get("vertical")
+794845	        if vertical is not None and vertical not in VERTICALS:
+794846	            raise ValueError("unknown vertical")
+794847	        row = {"article_id": hashlib.sha256(url.encode("utf-8")).hexdigest(),
+794848	               "original_article_url": original, "observed_article_urls": [original],
+794849	               "canonical_article_url": url,
+794850	               "title": title, "publisher": src["publisher"], "source_id": sid,
+794851	               "published_at": published, "first_seen": first_seen,
+794852	               "fetched_at": fetched, "source_receipt_sha256": receipt,
+794853	               "vertical": vertical, "source_kind": src["kind"],
+794854	               "usage_rights": {"status": src["rights_status"],
+794855	                                "review_url": src["rights_review_url"],
+794856	                                "source_enabled": src["enabled"]},
+794857	               "headline_link_scope_only": src["output_policy"] == "headline_link_only",
+794858	               "publisher_independence": "UNASSESSED",
+794859	               "verification_status": "NOT_VERIFIED",
+794860	               "publication_eligibility": "WITHHELD_INDEPENDENT_REVIEW_REQUIRED",
+794861	               "project_candidates": []}
+794863	            previous = by_url[url]
+794864	            comparable = dict(row)
+794865	            comparable["original_article_url"] = previous["original_article_url"]
+794866	            comparable["observed_article_urls"] = previous["observed_article_urls"]
+794867	            if previous != comparable:
+794868	                raise ValueError("canonical URL collision requires attribution review")
+794869	            variants = sorted(set(previous["observed_article_urls"] + [original]))
+794870	            previous["observed_article_urls"] = variants
+794871	            previous["original_article_url"] = variants[0]
+794872	        by_url[url] = row
+794873	    match_input = [{"title": row["title"], "url": url} for url, row in by_url.items()]
+794874	    candidates = match_articles(match_input, repd)
+794875	    for edge in candidates:
+794876	        row = by_url[edge["article_url"]]
+794877	        row["project_candidates"].append({"namespace": "repd", "id": edge["project_id"],
+794878	                                          "method": edge["match_method"],
+794879	                                          "status": "PROVISIONAL", "evidence_scope": "TITLE_ONLY",
+794880	                                          "independent_review": "REQUIRED"})
+794881	    for row in by_url.values():
+794882	        edges = row["project_candidates"]
+794883	        edges.sort(key=lambda e: (int(e["id"]), e["method"]))
+794884	        if len(edges) > 1:
+794885	            for edge in edges:
+794886	                edge["ambiguous_multi_project"] = True
+794887	    return {"schema": SCHEMA,
+794888	            "scope": "offline headline/link metadata; no source fetch or inferred verified claims",
+794889	            "counts": {"articles": len(by_url),
+794890	                       "provisional_project_edges": len(candidates),
+794891	                       "verified_project_edges": 0,
+794892	                       "rights_unresolved_articles": sum(
+794893	                           r["usage_rights"]["status"] != "accepted" for r in by_url.values())},
+794894	            "articles": sorted(by_url.values(), key=lambda r: (
+794895	                r["canonical_article_url"], r["source_id"]))}
+794896	    parser.add_argument("--articles", type=Path, required=True)
+794897	    parser.add_argument("--sources", type=Path, required=True)
+794898	    parser.add_argument("--projects", type=Path, help="optional exact REPD project JSON list")
+794899	    parser.add_argument("--output", type=Path, help="new JSON path; never overwrite")
+794900	    def read(path):
+794902	    result = build_intelligence(read(args.articles), read(args.sources),
+794903	                                read(args.projects) if args.projects else ())
+794904	    encoded = json.dumps(result, ensure_ascii=False, sort_keys=True, indent=2) + "\n"
+794905	        with args.output.open("x", encoding="utf-8") as handle:
+794906	            handle.write(encoded)
+794907	        print(encoded, end="")
+794908	"""Exact, provisional numerical claims for successor filings and project inputs.
+794909	Public API: ``validate_claim(mapping)`` returns an independent validated dict;
+794910	``dumps_claim(mapping)`` returns deterministic JSON. Invalid input raises
+794911	``ClaimValidationError`` (a ValueError). Standard library only; no I/O.
+794912	All keys below are required (nullable means an explicit JSON null). Unknown keys
+794913	are rejected at every level. The schema is ``globalgrid2050.filing-figure.v1``::
+794915	      "schema": "globalgrid2050.filing-figure.v1",
+794916	      "claim_id": "sec:example-filing:capex:1",
+794917	      "status": "machine-provisional",
+794918	      "quantity_kind": "finance", "metric": "Capital expenditure",
+794919	      "value": "1.20", "scale": "1e9",
+794920	      "unit": "currency", "original_unit": "billion US dollars",
+794921	      "currency": "USD", "finance_stage": "announced",
+794922	      "entity": {"scope": "consolidated_group", "id": "group:example",
+794923	                 "consolidation_group_id": "group:example",
+794924	                 "identity_evidence_url": "https://www.sec.gov/example"},
+794925	      "reporting_period": {"start": "2026", "end": "2026"},
+794926	      "as_of": "2026-10-31", "basis": "forecast", "assurance": "unknown",
+794927	      "provenance": {"document_id": "sec:example-filing",
+794928	                     "document_url": "https://www.sec.gov/example",
+794929	                     "sha256": "<64 lowercase hex characters>",
+794930	                     "page": "12", "section": "Capital expenditure",
+794931	                     "published_date": "2026-11-01",
+794932	                     "retrieved_at": "2026-11-16T12:00:00Z"},
+794933	      "revision": {"id": "original", "supersedes_claim_id": null,
+794934	                   "restated": false}
+794935	The example is synthetic documentation, not a claim about a real company.
+794936	Dates retain their source precision: YYYY, YYYY-MM or YYYY-MM-DD. Period ends
+794937	must have the same precision; absent period/as_of can be null, but not both.
+794938	Source publication may be null. Retrieval requires a timezone-aware timestamp.
+794939	Dates are not expanded in output. Forecast periods/as_of may be in the future;
+794940	source publication must still precede retrieval. ``metric`` retains the source's
+794941	measure label (for example capital expenditure versus revenue); no metric is
+794942	inferred from the number or its unit.
+794943	Calendar-only comparisons use the supplied retrieval offset. When a source
+794944	uses a different calendar timezone, callers must express the retrieval instant
+794945	in that evidenced source timezone. Unknown source timezone can produce a
+794946	conservative rejection at a day boundary; this validator does not infer it.
+794947	``value`` is an exact plain decimal string (signed financial values supported).
+794948	``scale`` is one of 1/1e3/1e6/1e9/1e12; source spelling is in original_unit.
+794949	No numerical transformation is performed: 1.20 billion is not rounded to 1.2.
+794950	Power kinds accept W/kW/MW/GW; storage_energy/generation_energy/
+794951	energy_procurement accept Wh/kWh/MWh/GWh/TWh. Finance requires unit=currency,
+794952	an explicit three-letter uppercase currency label, and finance_stage of
+794953	announced/committed/disbursed/reported. A label is not a currency-registry check.
+794954	Nonfinance claims require currency and finance_stage to be null. Source-reported
+794955	power/energy quantities cannot be negative. Unknown quantities are omitted by
+794956	the upstream adapter, never represented by fabricated zero or a null value.
+794957	Entity scopes: issuer, consolidated_group, project, site, campus, phase,
+794958	public_institution. Group totals stay at group scope; the explicit nullable
+794959	consolidation_group_id preserves known overlap with subsidiaries. No summation,
+794960	FX, inference, extraction, verified-state transition, or aggregation API exists.
+794961	In particular, two individually valid claims are NOT automatically additive.
+794962	Use a separate evidenced group/project association before displaying a figure
+794963	on a project; a shared name or nearby grid asset is insufficient.
+794964	Regional aggregate scopes are not supported by v1 and must not be relabelled as
+794965	projects or sites to pass validation.
+794966	This validator checks shape and internal semantics, not truth, identity,
+794967	publisher rights, audit validity, source accessibility, or DNS. Source-policy
+794968	and independent-review gates belong to the calling producer. HTTPS URLs get a
+794969	conservative syntax/public-literal check only; this module never fetches them.
+794970	Provenance hashes are required but must be matched to publisher bytes upstream.
+794971	The provenance document must support this particular number and scope; a
+794972	secondary discovery link alone is not numerical evidence. Discovery/reporting
+794973	links belong in the caller's separate metadata, not invented claim provenance.
+794974	Caller-provided assurance=audited remains a provisional *source assertion*.
+794975	The contract never certifies rights or allows publication by itself.
+794976	from collections.abc import Mapping
+794980	SCHEMA = "globalgrid2050.filing-figure.v1"
+794981	STATUS = "machine-provisional"
+794982	POWER_KINDS = frozenset({
+794983	    "generation_power", "storage_power", "it_load", "project_demand",
+794984	    "secured_connection", "energised_load", "grid_upgrade",
+794986	ENERGY_KINDS = frozenset({"storage_energy", "generation_energy", "energy_procurement"})
+794987	QUANTITY_KINDS = POWER_KINDS | ENERGY_KINDS | {"finance"}
+794988	ENTITY_SCOPES = frozenset({
+794989	    "issuer", "consolidated_group", "project", "site", "campus", "phase",
+794990	    "public_institution",
+794991	_TOP_KEYS = frozenset({
+794992	    "schema", "claim_id", "status", "quantity_kind", "metric", "value", "scale", "unit",
+794993	    "original_unit", "currency", "finance_stage", "entity", "reporting_period",
+794994	    "as_of", "basis", "assurance", "provenance", "revision",
+794995	_DECIMAL = re.compile(r"-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?\Z")
+794996	_DATE = re.compile(r"[0-9]{4}(?:-[0-9]{2}(?:-[0-9]{2})?)?\Z")
+794997	_TIME = re.compile(
+794998	    r"[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}"
+794999	    r"(?:\.[0-9]{1,6})?(?:Z|[+-][0-9]{2}:[0-9]{2})\Z"
+795001	_HOST_LABEL = re.compile(r"[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\Z")
+795002	class ClaimValidationError(ValueError):
+795003	    """A claim is malformed or has incompatible numerical semantics."""
+795004	def _fail(field: str, reason: str) -> None:
+795005	    # Do not echo an untrusted value, document body or URL into logs.
+795006	    raise ClaimValidationError(f"{field}: {reason}")
+795007	def _object(value: Any, keys: frozenset[str] | set[str], field: str) -> dict:
+795008	    if not isinstance(value, Mapping) or set(value) != keys:
+795009	        _fail(field, "expected exactly the documented fields")
+795010	    return dict(value)
+795011	def _text(value: Any, field: str, max_length: int = 200) -> str:
+795012	    if (not isinstance(value, str) or not value or len(value) > max_length
+795013	            or value != value.strip() or any(ord(c) < 32 or ord(c) == 127
+795014	                                            or 0xD800 <= ord(c) <= 0xDFFF for c in value)):
+795015	        _fail(field, "expected bounded nonempty text without control characters")
+795016	def _identifier(value: Any, field: str) -> str:
+795017	    if not isinstance(value, str) or not _ID.fullmatch(value):
+795018	        _fail(field, "expected a bounded source-namespaced identifier")
+795019	def _choice(value: Any, choices: set[str] | frozenset[str], field: str) -> str:
+795020	    if not isinstance(value, str) or value not in choices:
+795021	        _fail(field, "unsupported value")
+795022	def _source_date(value: Any, field: str) -> date:
+795023	    """Return earliest possible day for comparison, never for serialization."""
+795024	    if not isinstance(value, str) or not _DATE.fullmatch(value):
+795025	        _fail(field, "expected YYYY, YYYY-MM or YYYY-MM-DD")
+795026	    parts = [int(p) for p in value.split("-")]
+795027	        return date(*parts, *([1] * (3 - len(parts))))
+795029	        _fail(field, "invalid calendar date")
+795030	def _timestamp(value: Any, field: str) -> datetime:
+795031	    if not isinstance(value, str) or not _TIME.fullmatch(value):
+795032	        _fail(field, "expected a timestamp with explicit UTC offset")
+795033	        _fail(field, "invalid timestamp")
+795034	def _url(value: Any, field: str) -> str:
+795035	    _text(value, field, 2048)
+795036	    if any(c.isspace() for c in value) or "\\" in value or not value.isascii():
+795037	        _fail(field, "expected an ASCII HTTPS URL without whitespace or backslashes")
+795039	        host = parsed.hostname
+795040	        port = parsed.port
+795041	        _fail(field, "invalid URL")
+795042	    if (parsed.scheme != "https" or not host or parsed.username is not None
+795043	            or parsed.password is not None or port not in (None, 443)):
+795044	        _fail(field, "expected public HTTPS URL without credentials/custom port")
+795046	        # Numeric last labels include browser IPv4 aliases: 127.1, octal/hex,
+795047	        # one-number IPv4 and dotted variants. No IDNA or DNS is performed.
+795048	        if (len(labels) < 2 or not all(_HOST_LABEL.fullmatch(p) for p in labels)
+795049	                or not re.fullmatch(r"[a-z]{2,63}", labels[-1])
+795050	                or labels[-1] in {"localhost", "local", "internal", "test", "invalid"}):
+795051	            _fail(field, "expected a public DNS-form hostname")
+795052	        if not address.is_global or address.is_multicast:
+795053	            _fail(field, "nonpublic IP literal")
+795054	def validate_claim(claim: Mapping[str, Any]) -> dict[str, Any]:
+795055	    """Validate one claim, retaining source precision and returning a deep copy.
+795056	    Does not fetch, verify, aggregate, convert, or mutate its input. Unknown keys
+795057	    fail closed instead of passing through personal fields or hidden extras.
+795058	    c = _object(claim, _TOP_KEYS, "claim")
+795059	    _choice(c["schema"], {SCHEMA}, "schema")
+795060	    _choice(c["status"], {STATUS}, "status")
+795061	    _identifier(c["claim_id"], "claim_id")
+795062	    kind = _choice(c["quantity_kind"], QUANTITY_KINDS, "quantity_kind")
+795063	    _text(c["metric"], "metric", 200)
+795064	    value = c["value"]
+795065	    if not isinstance(value, str) or len(value) > 100 or not _DECIMAL.fullmatch(value):
+795066	        _fail("value", "expected an exact plain decimal string of at most 100 characters")
+795067	    if kind != "finance" and Decimal(value) < 0:
+795068	        _fail("value", "power/energy quantities cannot be negative")
+795069	    _choice(c["scale"], {"1", "1e3", "1e6", "1e9", "1e12"}, "scale")
+795070	    _text(c["original_unit"], "original_unit", 100)
+795071	    if kind == "finance":
+795072	        _choice(c["unit"], {"currency"}, "unit")
+795073	        if not isinstance(c["currency"], str) or not re.fullmatch(r"[A-Z]{3}", c["currency"]):
+795074	            _fail("currency", "finance requires the source's three-letter currency label")
+795075	        _choice(c["finance_stage"], {"announced", "committed", "disbursed", "reported"},
+795076	                "finance_stage")
+795077	        units = {"W", "kW", "MW", "GW"} if kind in POWER_KINDS else {"Wh", "kWh", "MWh", "GWh", "TWh"}
+795078	        _choice(c["unit"], units, "unit")
+795079	        if c["currency"] is not None or c["finance_stage"] is not None:
+795080	            _fail("currency/finance_stage", "must be null for power/energy claims")
+795081	    entity = _object(c["entity"], {"scope", "id", "consolidation_group_id", "identity_evidence_url"}, "entity")
+795082	    scope = _choice(entity["scope"], ENTITY_SCOPES, "entity.scope")
+795083	    _identifier(entity["id"], "entity.id")
+795084	    _url(entity["identity_evidence_url"], "entity.identity_evidence_url")
+795085	    group_id = entity["consolidation_group_id"]
+795086	    if group_id is not None:
+795087	        _identifier(group_id, "entity.consolidation_group_id")
+795088	    if scope == "consolidated_group" and group_id != entity["id"]:
+795089	        _fail("entity.consolidation_group_id", "group totals must retain their own group identity")
+795090	    _choice(c["basis"], {"reported", "forecast"}, "basis")
+795091	    _choice(c["assurance"], {"audited", "unaudited", "unknown"}, "assurance")
+795092	    if c["basis"] == "forecast" and c["assurance"] == "audited":
+795093	        _fail("assurance", "forecast must not be represented as an audited actual")
+795094	    provenance = _object(c["provenance"], {
+795095	        "document_id", "document_url", "sha256", "page", "section", "published_date", "retrieved_at",
+795096	    }, "provenance")
+795097	    _identifier(provenance["document_id"], "provenance.document_id")
+795098	    _url(provenance["document_url"], "provenance.document_url")
+795099	    digest = provenance["sha256"]
+795100	    if not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest):
+795101	        _fail("provenance.sha256", "expected lowercase SHA256 of source bytes")
+795102	    for locator in ("page", "section"):
+795103	        if provenance[locator] is not None:
+795104	            _text(provenance[locator], f"provenance.{locator}")
+795105	    if provenance["page"] is None and provenance["section"] is None:
+795106	        _fail("provenance", "a page or section locator is required")
+795107	    retrieved = _timestamp(provenance["retrieved_at"], "provenance.retrieved_at").date()
+795108	    if provenance["published_date"] is not None:
+795109	        if _source_date(provenance["published_date"], "provenance.published_date") > retrieved:
+795110	            _fail("provenance.published_date", "publication cannot follow retrieval")
+795111	    if c["as_of"] is not None:
+795112	        if _source_date(c["as_of"], "as_of") > retrieved and c["basis"] != "forecast":
+795113	            _fail("as_of", "future observation/target date requires explicit forecast basis")
+795114	    period = c["reporting_period"]
+795115	    if period is not None:
+795116	        period = _object(period, {"start", "end"}, "reporting_period")
+795117	        start = _source_date(period["start"], "reporting_period.start")
+795118	        end = _source_date(period["end"], "reporting_period.end")
+795119	        if len(period["start"]) != len(period["end"]) or end < start:
+795120	            _fail("reporting_period", "ordered bounds with equal source precision required")
+795121	        if c["basis"] == "reported" and end > retrieved:
+795122	            _fail("reporting_period", "future period requires explicit forecast basis")
+795123	    elif c["as_of"] is None:
+795124	        _fail("reporting_period/as_of", "at least one source-stated temporal basis is required")
+795125	    revision = _object(c["revision"], {"id", "supersedes_claim_id", "restated"}, "revision")
+795126	    _identifier(revision["id"], "revision.id")
+795127	    previous = revision["supersedes_claim_id"]
+795129	        _identifier(previous, "revision.supersedes_claim_id")
+795130	        if previous == c["claim_id"]:
+795131	            _fail("revision.supersedes_claim_id", "a new claim cannot supersede itself")
+795132	    if not isinstance(revision["restated"], bool):
+795133	        _fail("revision.restated", "expected a boolean")
+795134	    if revision["restated"] and previous is None:
+795135	        _fail("revision.supersedes_claim_id", "restatement requires an explicit earlier claim")
+795136	    # Normalize Mapping containers, not numerical/date/source lexemes.
+795137	    c["entity"], c["provenance"], c["revision"], c["reporting_period"] = entity, provenance, revision, period
+795138	    return deepcopy(c)
+795139	def dumps_claim(claim: Mapping[str, Any]) -> str:
+795140	    """Canonical UTF-8-compatible JSON; decimal values remain strings."""
+795141	    return json.dumps(validate_claim(claim), ensure_ascii=False, sort_keys=True,
+795142	                      separators=(",", ":"), allow_nan=False)
+795143	"""Offline UK operator-source evidence adapter (review only)."""
+795144	from .adapter import build_grid_rows, normalise
+795145	__all__ = ["build_grid_rows", "normalise"]
+795146	"""Conservative UK electricity-grid evidence adapter for Pipeline News.
+795147	Offline, deterministic and dependency-free. Does not fetch, grant reuse rights,
+795148	certify a grid connection, or declare any scheme commissioned.
+795150	STAGES = frozenset({"unknown", "proposed", "consented", "financed", "under_construction", "commissioned"})
+795151	OPERATOR_ROLES = frozenset({"system_operator", "transmission_owner", "distribution_operator", "regulator"})
+795152	FIELDS = frozenset({"source_id", "source_url", "source_record_id", "source_sha256", "published_at",
+795153	                   "retrieved_at", "scheme_id", "scheme_name", "network_operator", "network_type",
+795154	                   "region", "stage", "reported_metric", "etys_node_code"})
+795155	METRIC_UNITS = frozenset({"kV", "km", "MW", "MVA", "GBP"})
+795156	METRIC_KINDS = frozenset({"voltage", "route_length", "reported_power", "equipment_rating", "funding_allocation"})
+795158	    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False).encode("utf-8")
+795159	def _timestamp(value, *, required=False):
+795160	    if value is None and not required:
+795161	    if not isinstance(value, str) or not value.endswith("Z"):
+795162	        raise ValueError("timestamps must be explicit UTC ISO-8601 Z or null")
+795163	        date = datetime.fromisoformat(value.replace("Z", "+00:00"))
+795164	        raise ValueError("invalid timestamp") from exc
+795165	    if date.utcoffset() != timezone.utc.utcoffset(date):
+795166	        raise ValueError("UTC required")
+795167	    return date.isoformat().replace("+00:00", "Z")
+795168	def _text(value, label, *, optional=False):
+795169	    if value is None and optional:
+795170	    if not isinstance(value, str) or not value.strip() or len(value) > 240:
+795171	        raise ValueError(f"invalid {label}")
+795172	    if any(ord(c) < 32 for c in value):
+795173	        raise ValueError(f"control character in {label}")
+795175	def _source_url(value, hostname):
+795176	        raise ValueError("source URL required")
+795177	    p = urlsplit(value)
+795178	    if (p.scheme != "https" or p.hostname != hostname or p.username or p.password
+795179	            or p.port or p.fragment or not p.path.startswith("/")):
+795180	        raise ValueError("unapproved source URL")
+795181	def normalise(record, sources):
+795182	    """Accept one explicitly attributed operator notice; do not infer matches.
+795183	    sources maps registry source_id -> {publisher, operator, role, hostname}.
+795184	    Returned records are REVIEW_REQUIRED; publishing and rights approval are external gates.
+795185	    if not isinstance(record, dict) or set(record) - FIELDS:
+795186	        raise ValueError("unexpected evidence fields")
+795187	    key = _text(record.get("source_id"), "source id")
+795188	    source = sources.get(key)
+795189	    if not isinstance(source, dict) or source.get("role") not in OPERATOR_ROLES:
+795190	        raise ValueError("unknown official source")
+795191	    url = _source_url(record.get("source_url"), source["hostname"])
+795192	    title = _text(record.get("scheme_name"), "scheme name")
+795193	    operator = _text(record.get("network_operator"), "operator")
+795194	    if operator != source["operator"]:
+795195	        raise ValueError("source/operator disagreement")
+795196	    network_type = record.get("network_type")
+795197	    if network_type not in ("transmission", "distribution", "system", "regulation"):
+795198	        raise ValueError("unknown network type")
+795199	    stage = record.get("stage", "unknown")
+795200	    if stage not in STAGES:
+795201	        raise ValueError("unrecognised project stage")
+795202	    scheme_id = _text(record.get("scheme_id"), "scheme id", optional=True)
+795203	    source_record_id = _text(record.get("source_record_id"), "record id", optional=True)
+795204	    region = _text(record.get("region"), "region", optional=True)
+795205	    source_hash = record.get("source_sha256")
+795206	    if source_hash is not None and (not isinstance(source_hash, str) or not re.fullmatch(r"[a-f0-9]{64}", source_hash)):
+795207	        raise ValueError("invalid source byte hash")
+795208	    licence_state = _text(source.get("licence_state", "UNASSESSED"), "source licence state")
+795209	    published = _timestamp(record.get("published_at"))
+795210	    retrieved = _timestamp(record.get("retrieved_at"), required=True)
+795211	    if published and published > retrieved:
+795212	        raise ValueError("publication after retrieval")
+795213	    node = record.get("etys_node_code")
+795214	    if node is not None and (not isinstance(node, str) or not re.fullmatch(r"[A-Z0-9]{3,12}", node)):
+795215	        raise ValueError("ETYS reference must be an exact supplied code")
+795216	    metric = record.get("reported_metric")
+795217	    if metric is not None:
+795218	        if not isinstance(metric, dict) or set(metric) != {"value", "unit", "kind"}:
+795219	            raise ValueError("invalid reported metric structure")
+795220	        value = metric["value"]
+795221	        if type(value) not in (int, float) or not 0 <= value < 1e12:
+795222	            raise ValueError("invalid metric value")
+795223	        if metric["unit"] not in METRIC_UNITS or metric["kind"] not in METRIC_KINDS:
+795224	            raise ValueError("metric unit/kind not recognised")
+795225	        allowed = {"voltage": "kV", "route_length": "km", "reported_power": "MW",
+795226	                   "equipment_rating": "MVA", "funding_allocation": "GBP"}
+795227	        if allowed[metric["kind"]] != metric["unit"]:
+795228	            raise ValueError("metric kind/unit mismatch")
+795229	    fact = {"source_id": key, "url": url, "source_record_id": source_record_id,
+795230	            "source_sha256": source_hash, "published_at": published,
+795231	            "scheme_id": scheme_id, "scheme_name": title, "network_operator": operator,
+795232	            "network_type": network_type, "region": region, "stage": stage,
+795233	            "reported_metric": metric, "etys_node_code": node}
+795234	    event_id = sha256(canonical(fact)).hexdigest()
+795235	        "record_id": "grid:" + event_id[:24],
+795236	        "scheme": {"name": title, "scheme_id": scheme_id,
+795237	                   "scheme_key": f"{operator}:{scheme_id}" if scheme_id else None,
+795238	                   "operator": operator, "network_type": network_type, "region": region},
+795239	        "evidence": {"source_id": key, "publisher": source["publisher"], "role": source["role"],
+795240	                     "url": url, "source_record_id": source_record_id,
+795241	                     "source_sha256": source_hash, "published_at": published,
+795242	                     "retrieved_at": retrieved, "reported_stage": stage,
+795243	                     "licence_state": licence_state, "review_state": "REVIEW_REQUIRED"},
+795244	        "reported_metric": metric,
+795245	        "links": {"repd_ref": None, "grid_connection": None, "available_capacity_mw": None,
+795246	                  "etys_node_code_as_reported": node, "etys_node_link_verified": False},
+795247	        "publishable": False,
+795248	def build_grid_rows(records, sources):
+795249	    """Small immutable consumer hook: input records -> sorted one-record-per-evidence rows.
+795250	    Repeated identical source observations collapse; conflicting reports do not.
+795251	    The host decides review and visibility. No map coordinates, connectivity or scores.
+795253	        row = normalise(record, sources)
+795254	        rid = row["record_id"]
+795255	        if rid not in result or row["evidence"]["retrieved_at"] > result[rid]["evidence"]["retrieved_at"]:
+795256	            result[rid] = row
+795257	    return sorted(result.values(), key=lambda r: (r["scheme"]["operator"], r["scheme"]["name"], r["record_id"]))
+795258	"""Offline, provisional policy commitment and attributable evidence ledger."""
+795259	"""COVENANT AGENT: deterministic source-led comparison, never legal compliance.
+795260	Public API: validate_ledger(mapping), evaluate(mapping, as_of=UTC),
+795261	dumps_report(report), csv_report(report). Quantities use the existing FIGURES
+795262	validate_claim contract unchanged. No network, inference of identities, or writes.
+795263	from decimal import Decimal, localcontext
+795264	from automation.news.filings.contracts import (
+795265	    validate_claim, _identifier, _source_date, _text, _timestamp, _url,
+795266	SCHEMA = "globalgrid2050.policy-commitments.v1"
+795267	REPORT_SCHEMA = "globalgrid2050.policy-commitment-evaluation.v1"
+795268	STATES = {"UNKNOWN", "NOT_YET_DUE", "REPORTED_PROGRESS", "EVIDENCE_SUPPORTED_RESULT"}
+795271	def fields(value, names, label):
+795272	    require(isinstance(value, dict) and set(value) == set(names.split()), label + ": unexpected fields")
+795273	def choice(value, choices, label):
+795274	    require(isinstance(value, str) and value in choices, label + ": unsupported state")
+795275	def strings(value, label, *, empty=True):
+795276	    require(isinstance(value, list) and len(value) <= 50 and (empty or bool(value)), label + ": bounded list required")
+795277	    for item in value:
+795278	        _text(item, label, 500)
+795279	    require(len(value) == len(set(value)), label + ": duplicate values")
+795280	def index(rows, label):
+795281	    require(isinstance(rows, list) and len(rows) <= 1000, label + ": bounded list required")
+795282	        require(isinstance(row, dict), label + ": object required")
+795283	        identity = _identifier(row.get("id"), label + ".id")
+795284	        require(identity not in result, label + ": duplicate identity")
+795285	        result[identity] = row
+795286	def reference(value, documents):
+795287	    fields(value, "document_id locator", "source reference")
+795288	    require(value["document_id"] in documents, "Unknown source document")
+795289	    document = documents[value["document_id"]]
+795290	    require(document["read_coverage"]["state"] != "UNREVIEWED"
+795291	            and value["locator"] in document["read_coverage"]["locators"], "Source locator was not inventoried as read")
+795292	    return document
+795293	def quantity(value, documents, scope):
+795294	    claim = validate_claim(value)
+795295	    provenance = claim["provenance"]
+795296	    require(provenance["document_id"] in documents, "Quantity document missing")
+795297	    document = documents[provenance["document_id"]]
+795298	    require(document["content_sha256"] is not None, "Quantity needs original document byte receipt")
+795299	    require((provenance["document_url"], provenance["sha256"], provenance["published_date"], provenance["retrieved_at"])
+795300	            == (document["url"], document["content_sha256"], document["published_on"], document["retrieved_at"]),
+795301	            "Quantity provenance differs from document receipt")
+795302	    locator = provenance["section"] or ("page " + provenance["page"])
+795303	    reference({"document_id": document["id"], "locator": locator}, documents)
+795304	    require(scope["entity_id"] is not None and claim["entity"]["id"] == scope["entity_id"],
+795305	            "Quantity entity differs from commitment scope")
+795306	    require(claim["entity"]["scope"] == scope["figure_entity_scope"], "Quantity scope differs from commitment scope")
+795307	    return claim
+795308	def validate_ledger(payload):
+795309	    """Fail closed on malformed contracts; retain missing evidence as explicit nulls.
+795310	    Validation establishes internal consistency, not factual truth, legal force,
+795311	    audit validity or permission. Caller-supplied receipts require source review.
+795312	    ledger = deepcopy(payload)
+795313	    fields(ledger, "schema coverage_note documents scopes commitments updates", "ledger")
+795314	    require(ledger["schema"] == SCHEMA, "Unsupported ledger schema")
+795315	    _text(ledger["coverage_note"], "coverage_note", 1000)
+795316	    documents = index(ledger["documents"], "documents")
+795317	    scopes = index(ledger["scopes"], "scopes")
+795318	    commitments = index(ledger["commitments"], "commitments")
+795319	    updates = index(ledger["updates"], "updates")
+795320	    require(documents and scopes and commitments, "Empty evidence coverage cannot pass")
+795321	    for document in documents.values():
+795322	        fields(document, "id title issuer url version published_on reviewed_at retrieved_at content_sha256 hash_limitation document_state source_kind read_coverage", "document")
+795323	        for key in ("title", "issuer", "version"):
+795324	            _text(document[key], "document." + key, 300)
+795325	        _url(document["url"], "document.url")
+795326	        reviewed = _timestamp(document["reviewed_at"], "reviewed_at")
+795327	        if document["published_on"] is not None:
+795328	            require(_source_date(document["published_on"], "published_on") <= reviewed.date(), "Document publication follows review")
+795329	        choice(document["document_state"], {"DRAFT", "PUBLISHED", "PUBLISHED_POLICY", "ADOPTED", "IN_PROGRESS", "UNKNOWN"}, "document_state")
+795330	        choice(document["source_kind"], {"PRIMARY_POLICY", "OFFICIAL_ANSWER", "CONFERENCE_INDEX", "OFFICIAL_MEASUREMENT", "AUDIT_REPORT", "FILING", "ATTRIBUTED_REPORT", "PRESS_RELEASE"}, "source_kind")
+795331	        coverage = fields(document["read_coverage"], "state locators note", "read_coverage")
+795332	        choice(coverage["state"], {"READ", "PARTIAL", "UNREVIEWED"}, "read_coverage.state")
+795333	        strings(coverage["locators"], "locators", empty=coverage["state"] == "UNREVIEWED")
+795334	        require(coverage["state"] != "UNREVIEWED" or not coverage["locators"], "Unread source cannot assert read locators")
+795335	        _text(coverage["note"], "coverage note", 500)
+795336	        if document["content_sha256"] is None:
+795337	            require(document["retrieved_at"] is None, "Missing original bytes cannot assert a retrieval receipt")
+795338	            _text(document["hash_limitation"], "hash_limitation", 500)
+795339	            require(isinstance(document["content_sha256"], str)
+795340	                    and re.fullmatch(r"[a-f0-9]{64}", document["content_sha256"]), "Invalid source SHA256")
+795341	            require(document["hash_limitation"] is None, "Byte receipt and missing-hash state conflict")
+795342	            retrieved = _timestamp(document["retrieved_at"], "retrieved_at")
+795343	            require(retrieved <= reviewed, "Original retrieval follows review")
+795344	            if document["published_on"] is not None:
+795345	                require(_source_date(document["published_on"], "published_on") <= retrieved.date(), "Publication follows retrieval")
+795346	    for scope in scopes.values():
+795347	        fields(scope, "id jurisdiction description entity_id figure_entity_scope", "scope")
+795348	        _text(scope["jurisdiction"], "jurisdiction")
+795349	        _text(scope["description"], "scope description", 500)
+795350	        if scope["entity_id"] is None:
+795351	            require(scope["figure_entity_scope"] is None, "Unlinked scope cannot acquire a figure entity scope")
+795352	            _identifier(scope["entity_id"], "entity_id")
+795353	            choice(scope["figure_entity_scope"], {"issuer", "consolidated_group", "project", "site", "campus", "phase", "public_institution"}, "figure_entity_scope")
+795354	    all_claim_ids = set()
+795355	    for row in commitments.values():
+795356	        fields(row, "id issuer source scope_id statement_type statement conditions metric target baseline baseline_state deadline reporting_obligation applicability revision", "commitment")
+795357	        document = reference(row["source"], documents)
+795358	        require(row["issuer"] == document["issuer"], "Commitment issuer differs from source")
+795359	        require(row["scope_id"] in scopes, "Unknown commitment scope")
+795360	        scope = scopes[row["scope_id"]]
+795361	        choice(row["statement_type"], {"EXPECTATION", "UNDERTAKING", "CONDITIONAL_REQUIREMENT", "CONDITIONAL_OFFER", "REQUIREMENT_STATED", "CONTEXT"}, "statement_type")
+795362	        _text(row["statement"], "statement", 500)
+795363	        strings(row["conditions"], "conditions", empty=not row["statement_type"].startswith("CONDITIONAL_"))
+795364	        metric = fields(row["metric"], "label numeric_support limitation", "metric")
+795365	        _text(metric["label"], "metric.label")
+795366	        choice(metric["numeric_support"], {"SUPPORTED", "UNSUPPORTED", "UNSTATED"}, "numeric_support")
+795367	        if metric["numeric_support"] != "SUPPORTED":
+795368	            _text(metric["limitation"], "metric limitation", 500)
+795369	            require(row["target"] is None and row["baseline"] is None, "Unsupported metric cannot carry a parallel quantity")
+795370	            require(metric["limitation"] is None and row["target"] is not None, "Supported metric requires a target claim")
+795371	        row["target"] = quantity(row["target"], documents, scope)
+795372	        row["baseline"] = quantity(row["baseline"], documents, scope)
+795373	        choice(row["baseline_state"], {"UNKNOWN", "NOT_REQUIRED", "STATED"}, "baseline_state")
+795374	        require((row["baseline"] is not None) == (row["baseline_state"] == "STATED"), "Baseline state differs from quantity")
+795375	        if row["target"]:
+795376	            require(row["target"]["metric"] == metric["label"], "Metric differs from target claim")
+795377	            provenance = row["target"]["provenance"]
+795378	            require(provenance["document_id"] == row["source"]["document_id"]
+795379	                    and (provenance["section"] or "page " + provenance["page"]) == row["source"]["locator"],
+795380	                    "Target claim differs from commitment source locator")
+795381	        deadline = fields(row["deadline"], "value wording", "deadline")
+795382	        if deadline["value"] is not None:
+795383	            _source_date(deadline["value"], "deadline.value")
+795384	            _text(deadline["wording"], "deadline.wording")
+795385	            require(deadline["wording"] is None, "Unknown deadline cannot assert date wording")
+795386	        if row["reporting_obligation"] is not None:
+795387	            _text(row["reporting_obligation"], "reporting_obligation", 500)
+795388	        applicability = fields(row["applicability"], "state reason evidence", "applicability")
+795389	        choice(applicability["state"], {"UNKNOWN", "ESTABLISHED"}, "applicability.state")
+795390	        _text(applicability["reason"], "applicability.reason", 500)
+795391	        require(isinstance(applicability["evidence"], list) and len(applicability["evidence"]) <= 20, "Applicability evidence list required")
+795392	        for item in applicability["evidence"]:
+795393	            reference(item, documents)
+795394	        if applicability["state"] == "ESTABLISHED":
+795395	            require(scope["entity_id"] is not None and applicability["evidence"], "Applicability requires stable entity and source evidence")
+795396	        revision = fields(row["revision"], "id supersedes_commitment_id baseline_changed", "revision")
+795397	        _identifier(revision["id"], "revision.id")
+795398	        require(type(revision["baseline_changed"]) is bool, "baseline_changed must be boolean")
+795399	        prior = revision["supersedes_commitment_id"]
+795400	        require(prior is None or (prior in commitments and prior != row["id"]), "Superseded commitment missing or self-referential")
+795401	        require(not revision["baseline_changed"] or prior is not None, "Changed baseline needs retained predecessor")
+795402	        for claim in (row["target"], row["baseline"]):
+795403	            if claim:
+795404	                require(claim["claim_id"] not in all_claim_ids, "Duplicate claim identity")
+795405	                all_claim_ids.add(claim["claim_id"])
+795406	        seen, cursor = set(), row
+795407	        while cursor["revision"]["supersedes_commitment_id"] is not None:
+795408	            require(cursor["id"] not in seen, "Cyclic commitment revision")
+795409	            seen.add(cursor["id"])
+795410	            cursor = commitments[cursor["revision"]["supersedes_commitment_id"]]
+795411	    for update in updates.values():
+795412	        fields(update, "id commitment_id commitment_revision_id baseline_revision_id source reported_on statement kind claim measurement_state", "update")
+795413	        require(update["commitment_id"] in commitments, "Update commitment missing")
+795414	        row = commitments[update["commitment_id"]]
+795415	        document = reference(update["source"], documents)
+795416	        _source_date(update["reported_on"], "update.reported_on")
+795417	        require(_source_date(update["reported_on"], "reported_on") <= _timestamp(document["reviewed_at"], "reviewed_at").date(), "Future reported update")
+795418	        require(document["published_on"] is None or update["reported_on"] == document["published_on"],
+795419	                "Reported update date differs from source publication")
+795420	        _text(update["statement"], "update.statement", 500)
+795421	        for field in ("commitment_revision_id", "baseline_revision_id"):
+795422	            _identifier(update[field], field)
+795423	        choice(update["kind"], {"PROCESS_REPORT", "NUMERIC_REPORT", "CORRECTION", "CONTRADICTION"}, "update.kind")
+795424	        choice(update["measurement_state"], {"UNKNOWN", "REPORTED", "DOCUMENTED_MEASUREMENT"}, "measurement_state")
+795425	        update["claim"] = quantity(update["claim"], documents, scopes[row["scope_id"]])
+795426	        require((update["claim"] is not None) == (update["kind"] == "NUMERIC_REPORT"), "Numerical reports require exactly one FIGURES claim")
+795427	        if update["claim"]:
+795428	            require(update["claim"]["claim_id"] not in all_claim_ids, "Duplicate claim identity")
+795429	            all_claim_ids.add(update["claim"]["claim_id"])
+795430	            provenance = update["claim"]["provenance"]
+795431	            require(provenance["document_id"] == update["source"]["document_id"]
+795432	                    and (provenance["section"] or "page " + provenance["page"]) == update["source"]["locator"],
+795433	                    "Update claim source differs")
+795434	        if update["measurement_state"] == "DOCUMENTED_MEASUREMENT":
+795435	            require(update["claim"] is not None and update["claim"]["basis"] == "reported"
+795436	                    and document["source_kind"] in {"OFFICIAL_MEASUREMENT", "AUDIT_REPORT"}
+795437	                    and document["document_state"] in {"PUBLISHED", "ADOPTED"},
+795438	                    "Press releases and assertions cannot certify a measured outcome")
+795439	    return ledger
+795440	def incompatibilities(target, measured):
+795441	    """Exact compatibility only: no currency/unit conversion or scope aggregation."""
+795443	    for key in ("metric", "quantity_kind", "unit", "currency", "finance_stage", "reporting_period"):
+795444	        if target[key] != measured[key]:
+795445	            mismatches.append(key)
+795446	    for key in ("id", "scope", "consolidation_group_id"):
+795447	        if target["entity"][key] != measured["entity"][key]:
+795448	            mismatches.append("entity." + key)
+795449	    if target["reporting_period"] is None and target["as_of"] != measured["as_of"]:
+795450	        mismatches.append("as_of")
+795451	    return mismatches
+795452	def evaluate(payload, *, as_of):
+795453	    """Return evidence states and exact numerical relations; never compliance labels."""
+795454	    ledger = validate_ledger(payload)
+795455	    reference_time = _timestamp(as_of, "as_of")
+795456	    documents = {d["id"]: d for d in ledger["documents"]}
+795457	    scopes = {s["id"]: s for s in ledger["scopes"]}
+795458	        require(_timestamp(document["reviewed_at"], "reviewed_at") <= reference_time, "Source review follows evaluation clock")
+795460	    for row in sorted(ledger["commitments"], key=lambda r: r["id"]):
+795461	        document = documents[row["source"]["document_id"]]
+795462	        updates = sorted((u for u in ledger["updates"] if u["commitment_id"] == row["id"]), key=lambda u: (u["reported_on"], u["id"]))
+795463	        superseded_by = sorted(c["id"] for c in ledger["commitments"] if c["revision"]["supersedes_commitment_id"] == row["id"])
+795464	        state, reasons, comparison = "UNKNOWN", [], None
+795465	        if superseded_by:
+795466	            reasons.append("Superseded version retained for historical review; no current result inferred")
+795467	        elif document["document_state"] in {"DRAFT", "IN_PROGRESS", "UNKNOWN"}:
+795468	            reasons.append("Instrument is draft, in progress or unclassified; no adopted outcome inferred")
+795469	        elif row["applicability"]["state"] != "ESTABLISHED":
+795470	            reasons.append("Applicability to a stable entity is unknown; conditions do not establish compliance")
+795471	        elif any(u["kind"] in {"CORRECTION", "CONTRADICTION"} for u in updates):
+795472	            reasons.append("Unresolved correction or contradiction retained; no automatic evidence reconciliation")
+795473	        elif any(u["commitment_revision_id"] != row["revision"]["id"] or u["baseline_revision_id"] != row["revision"]["id"] for u in updates):
+795474	            reasons.append("Update refers to a different commitment or baseline revision")
+795475	        elif any(u["claim"] and (u["claim"]["revision"]["restated"] or u["claim"]["revision"]["supersedes_claim_id"] is not None) for u in updates):
+795476	            reasons.append("Figure revision retained for explicit reconciliation; no automatic replacement")
+795477	            measured = [u for u in updates if u["measurement_state"] == "DOCUMENTED_MEASUREMENT"]
+795478	            if measured and row["target"] is not None and row["baseline_state"] != "UNKNOWN":
+795479	                mismatches = sorted({key for u in measured for key in incompatibilities(row["target"], u["claim"])})
+795480	                if mismatches:
+795481	                    reasons.append("Numerical comparison unavailable: incompatible " + ", ".join(mismatches))
+795483	                    with localcontext() as context:
+795484	                        context.prec = 256
+795485	                        target_value = Decimal(row["target"]["value"]) * Decimal(row["target"]["scale"])
+795486	                        values = {Decimal(u["claim"]["value"]) * Decimal(u["claim"]["scale"]) for u in measured}
+795487	                    if len(values) != 1:
+795488	                        reasons.append("Conflicting measurements retained without selecting a preferred result")
+795490	                        value = next(iter(values))
+795491	                        state = "EVIDENCE_SUPPORTED_RESULT"
+795492	                        comparison = {"relation": "EQUAL" if value == target_value else "LESS_THAN" if value < target_value else "GREATER_THAN",
+795493	                                      "target_claim_id": row["target"]["claim_id"],
+795494	                                      "measurement_claim_ids": sorted(u["claim"]["claim_id"] for u in measured),
+795495	                                      "unit": row["target"]["unit"], "currency": row["target"]["currency"]}
+795496	                        reasons.append("Documented same-scope/metric/unit/stage/period comparison; numerical relation is not a legal compliance verdict")
+795497	            elif updates:
+795498	                state = "REPORTED_PROGRESS"
+795499	                reasons.append("Attributable update recorded; measurement, scope or baseline support is insufficient for a result")
+795500	            elif row["deadline"]["value"] is not None and reference_time.date() < _source_date(row["deadline"]["value"], "deadline"):
+795501	                state = "NOT_YET_DUE"
+795502	                reasons.append("Evaluation precedes the earliest day of the source-stated deadline; no delivery inferred")
+795503	                reasons.append("No comparable measurement supplied; missing evidence is not failure")
+795504	        results.append({"commitment_id": row["id"], "issuer": row["issuer"], "scope": scopes[row["scope_id"]],
+795505	                        "statement_type": row["statement_type"], "statement": row["statement"],
+795506	                        "document_state": document["document_state"], "applicability": row["applicability"],
+795507	                        "metric": row["metric"], "target": row["target"], "baseline": row["baseline"],
+795508	                        "baseline_state": row["baseline_state"], "revision": row["revision"], "superseded_by": superseded_by,
+795509	                        "deadline": row["deadline"], "conditions": row["conditions"],
+795510	                        "reporting_obligation": row["reporting_obligation"], "state": state,
+795511	                        "measurement_state": "EVIDENCE_SUPPORTED" if state == "EVIDENCE_SUPPORTED_RESULT" else "UNKNOWN",
+795512	                        "reasons": reasons, "comparison": comparison, "source": {**row["source"], "url": document["url"],
+795513	                            "published_on": document["published_on"], "reviewed_at": document["reviewed_at"],
+795514	                            "retrieved_at": document["retrieved_at"], "content_sha256": document["content_sha256"]},
+795515	                        "updates": updates, "status": "machine-provisional", "legal_compliance": "NOT_ASSESSED"})
+795516	    return {"schema": REPORT_SCHEMA, "as_of": as_of, "coverage_note": ledger["coverage_note"],
+795517	            "documents": sorted(ledger["documents"], key=lambda d: d["id"]), "results": results}
+795518	def dumps_report(report):
+795519	    return json.dumps(report, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n"
+795520	    """One commitment per row; nested evidence stays attributable through JSON cells."""
+795521	    output = io.StringIO(newline="")
+795522	    names = ["commitment_id", "issuer", "state", "measurement_state", "statement_type", "document_state", "statement", "deadline", "metric",
+795523	             "scope", "conditions", "target", "baseline", "baseline_state", "revision", "superseded_by", "reporting_obligation", "applicability", "reasons", "comparison", "source", "updates", "status", "legal_compliance"]
+795524	    writer = csv.DictWriter(output, fieldnames=names, lineterminator="\n")
+795525	    for row in report["results"]:
+795528	            value = row[name]
+795529	            values[name] = "'" + value if value.startswith(("=", "+", "-", "@", "\t", "\r")) else value
+795530	        writer.writerow(values)
+795531	    parser.add_argument("--ledger", type=Path, default=Path(__file__).with_name("sample_ledger.json"))
+795532	        with args.ledger.open("rb") as stream:
+795534	        require(len(raw) <= MAX_BYTES, "Input exceeds bounded size")
+795535	        result = evaluate(json.loads(raw), as_of=args.as_of)
+795536	    except (ValueError, TypeError, KeyError, OSError):
+795537	        parser.exit(2, "Policy ledger validation failed; no report emitted.\n")
+795538	    print(csv_report(result) if args.format == "csv" else dumps_report(result), end="")
+795539	"""Synthetic OFFLINE CLI replay for Agent 3 independent acceptance.
+795540	All people, projects, publishers and URLs in this fixture are invented.
+795541	No network requests or publisher content retrieval occur.
+795543	    articles = [
+795544	        {"url": "https://fixture.example.org/solar/east-meadow?utm_source=test",
+795545	         "title": "East Meadow Solar Farm consultation submitted",
+795546	         "source_id": "fixture_press", "source": "Fixture Press",
+795547	         "pub_date": "2026-11-16", "first_seen": "2026-11-16T12:00:00Z",
+795548	         "source_receipt_sha256": "a" * 64,
+795549	         "content": "DO NOT STORE OR MATCH: REPD 9999"},
+795550	        {"url": "https://fixture.example.org/solar/east-meadow?utm_medium=mail",
+795551	         "source_receipt_sha256": "a" * 64},
+795552	        {"url": "https://fixture.example.org/markets/uk-renewables",
+795553	         "title": "UK energy markets see further investment",
+795554	         "date": None, "first_seen": "2026-11-16T12:10:00Z"},
+795557	        {"id": "fixture_press", "publisher": "Fixture Press", "kind": "reporting",
+795558	         "rights_status": "unknown", "enabled": False,
+795559	         "output_policy": "headline_link_only"}
+795560	    projects = [{"id": "1018", "name": "East Meadow Solar Farm",
+795561	                 "namespace": "repd", "technology": "solar"}]
+795562	    with tempfile.TemporaryDirectory(prefix="news-engine-synthetic-") as tmp:
+795563	        root = Path(tmp)
+795564	        for name, payload in (("articles", articles), ("sources", sources), ("projects", projects)):
+795565	            (root / (name + ".json")).write_text(json.dumps(payload), encoding="utf-8")
+795566	        cmd = [sys.executable, "-m", "automation.news.engine",
+795567	               "--articles", str(root / "articles.json"),
+795568	               "--sources", str(root / "sources.json"),
+795569	               "--projects", str(root / "projects.json"),
+795570	               "--output", str(root / "out.json")]
+795571	        subprocess.run(cmd, check=True, capture_output=True, text=True)
+795572	        result = json.loads((root / "out.json").read_text(encoding="utf-8"))
+795573	    assert result["counts"] == {
+795574	        "articles": 2, "provisional_project_edges": 1,
+795575	        "verified_project_edges": 0, "rights_unresolved_articles": 2,
+795576	    project_row = next(row for row in result["articles"] if row["project_candidates"])
+795577	    market_row = next(row for row in result["articles"] if not row["project_candidates"])
+795578	    assert len(project_row["observed_article_urls"]) == 2
+795579	    assert project_row["project_candidates"][0]["status"] == "PROVISIONAL"
+795580	    assert market_row["published_at"] is None
+795581	    assert all(row["publication_eligibility"].startswith("WITHHELD") for row in result["articles"])
+795582	    assert "DO NOT STORE" not in json.dumps(result)
+795584	        "label": "SYNTHETIC OFFLINE FIXTURE — NOT REAL SOURCES OR VERIFIED EVIDENCE",
+795585	        "schema": result["schema"], "counts": result["counts"],
+795586	        "project_candidate": project_row["project_candidates"][0],
+795587	        "market_news_has_no_project_binding": market_row["project_candidates"] == [],
+795588	        "observed_original_url_variants": len(project_row["observed_article_urls"]),
+795589	        "publication": project_row["publication_eligibility"],
+795590	    }, sort_keys=True, indent=2))
+795591	"""Offline positive/negative regression tests for the additive News Engine."""
+795593	from automation.news.engine import build_intelligence, canonical_url
+795594	S = {"id": "publisher_1", "publisher": "Independent Example", "kind": "reporting",
+795595	     "rights_status": "unknown", "enabled": False, "output_policy": "headline_link_only"}
+795596	P = [{"id": "1018", "name": "East Meadow Solar Farm", "technology": "solar"},
+795597	     {"id": "1019", "name": "Other Solar Farm", "technology": "solar"}]
+795598	A = {"url": "https://news.example.org/solar/1?utm_source=feed#fragment",
+795599	     "title": "East Meadow Solar Farm planning news", "publisher": "Independent Example",
+795600	     "source_id": "publisher_1", "pub_date": "2026-11-16T12:34:00Z",
+795601	     "first_seen": "2026-11-16T12:45:00Z", "source_receipt_sha256": "a" * 64,
+795602	     "content": "REPD 1019 (publisher body that must never be used or stored)"}
+795603	def test_name_only_provisional_and_publisher_rights_and_timestamps_preserved():
+795604	    out = build_intelligence([A], [S], P)
+795605	    assert out["schema"] == "globalgrid2050.ventus-news-intelligence.v1"
+795606	    assert out["counts"] == {"articles": 1, "provisional_project_edges": 1,
+795607	                             "verified_project_edges": 0, "rights_unresolved_articles": 1}
+795608	    row = out["articles"][0]
+795609	    assert row["publisher"] == A["publisher"]
+795610	    assert row["published_at"] == A["pub_date"]
+795611	    assert row["first_seen"] == A["first_seen"]
+795612	    assert row["source_receipt_sha256"] == "a" * 64
+795613	    assert row["usage_rights"]["status"] == "unknown"
+795614	    assert row["publication_eligibility"].startswith("WITHHELD")
+795615	    assert row["verification_status"] == "NOT_VERIFIED"
+795616	    assert row["project_candidates"] == [{"namespace": "repd", "id": "1018",
+795617	                                          "method": "exact_name", "status": "PROVISIONAL",
+795618	                                          "evidence_scope": "TITLE_ONLY", "independent_review": "REQUIRED"}]
+795619	    assert "publisher body" not in json.dumps(out)
+795620	    assert "1019" not in json.dumps(row)
+795621	def test_explicit_repd_id_is_not_verification_and_bare_digits_not_ids():
+795622	    out = build_intelligence([{**A, "title": "REPD reference 1019 changes"}], [S], P)
+795623	    assert out["articles"][0]["project_candidates"][0]["method"] == "repd_id"
+795624	    out2 = build_intelligence([{**A, "title": "Capacity 1019 MW changes"}], [S], P)
+795625	    assert out2["counts"]["provisional_project_edges"] == 0
+795626	def test_duplicate_full_name_veto_and_distinct_non_repd_namespaces():
+795627	    projects = P + [{"id": "2000", "name": P[0]["name"]},
+795628	                    {"namespace": "dcuk", "id": "dcuk-1", "name": P[0]["name"]}]
+795629	    out = build_intelligence([A], [S], projects)
+795630	    assert out["counts"]["provisional_project_edges"] == 0
+795631	def test_identity_not_inferred_from_geo_similarity_and_zero_is_honest():
+795632	    out = build_intelligence([{**A, "title": "A nearby developer starts construction"}], [S], P)
+795633	    assert out["counts"]["verified_project_edges"] == 0
+795634	def test_duplicates_normalise_tracking_without_dropping_original_article_url():
+795635	    rows = [A, {**A, "url": A["url"]}]
+795636	    out = build_intelligence(rows, [S], P)
+795637	    assert out["counts"]["articles"] == 1
+795638	    assert out["articles"][0]["original_article_url"] == A["url"]
+795639	    assert out["articles"][0]["canonical_article_url"] == "https://news.example.org/solar/1"
+795640	def test_tracking_variants_dedupe_preserve_both_original_urls():
+795641	    alternate = {**A, "url": "https://news.example.org/solar/1?utm_medium=email"}
+795642	    first = build_intelligence([A, alternate], [S], P)
+795643	    second = build_intelligence([alternate, A], [S], P)
+795645	    assert first["counts"]["articles"] == 1
+795646	    assert first["articles"][0]["observed_article_urls"] == sorted([A["url"], alternate["url"]])
+795647	def test_deterministic_across_input_order():
+795648	    other = {**A, "url": "https://news.example.org/2", "title": "UK wind market news"}
+795649	    x = build_intelligence([A, other], [S], P)
+795650	    y = build_intelligence([other, A], [S], P)
+795651	    assert x == y
+795652	    assert x["counts"]["articles"] == 2
+795653	def test_existing_pipeline_headlines_shape_is_accepted_with_unique_source():
+795654	    out = build_intelligence({"items": [{"title": "Grid update", "link": A["url"],
+795655	                                          "source": S["publisher"], "date": "2026-11-16"}]}, [S])
+795656	    assert out["articles"][0]["published_at"] == "2026-11-16"
+795657	    assert out["articles"][0]["project_candidates"] == []
+795658	@pytest.mark.parametrize("bad", ["http://news.example.org/1", "https://127.0.0.1/a",
+795659	                                 "https://localhost/a", "https://person@news.example.org/a",
+795660	                                 "https://news.example.org:444/a", "https://news.example.org\\@evil.com/a",
+795661	                                 "https://news.example.org/a\nfoo"])
+795662	def test_reject_non_public_or_unsafe_article_urls(bad):
+795664	        canonical_url(bad)
+795665	@pytest.mark.parametrize("source", [
+795666	    {**S, "enabled": True},
+795667	    {**S, "rights_status": "accepted"},
+795668	    {**S, "output_policy": "full_text"},
+795669	    {**S, "rights_status": "legal_unknown"},
+795671	def test_unapproved_or_unlicensed_sources_fail_closed(source):
+795672	        build_intelligence([A], [source])
+795673	def test_rights_approved_does_not_grant_project_verification():
+795674	    approved = {**S, "rights_status": "accepted", "enabled": True,
+795675	                "rights_review_url": "https://publisher.example.org/licences/1"}
+795676	    out = build_intelligence([A], [approved], P)
+795677	    assert out["articles"][0]["publication_eligibility"].startswith("WITHHELD")
+795678	def test_canonical_collision_different_publisher_metadata_fails_closed():
+795679	    with pytest.raises(ValueError, match="collision"):
+795680	        build_intelligence([A, {**A, "title": "Retitled story"}], [S], P)
+795681	def test_ambiguous_multiple_explicit_refs_not_verified():
+795682	    out = build_intelligence([{**A, "title": "REPD 1018 and REPD 1019"}], [S], P)
+795683	    edges = out["articles"][0]["project_candidates"]
+795684	    assert len(edges) == 2 and all(e["ambiguous_multi_project"] for e in edges)
+795685	def test_article_source_provenance_mismatch_rejected():
+795686	    with pytest.raises(ValueError, match="attribution"):
+795687	        build_intelligence([{**A, "publisher": "Other"}], [S], P)
+795688	def test_cli_no_overwrite_and_roundtrip(tmp_path):
+795689	    for name, data in [("articles", [A]), ("sources", [S]), ("projects", P)]:
+795690	        (tmp_path / (name + ".json")).write_text(json.dumps(data), encoding="utf-8")
+795691	    cmd = [sys.executable, "-m", "automation.news.engine", "--articles", str(tmp_path / "articles.json"),
+795692	           "--sources", str(tmp_path / "sources.json"), "--projects", str(tmp_path / "projects.json"),
+795693	           "--output", str(tmp_path / "out.json")]
+795694	    subprocess.run(cmd, check=True, capture_output=True, text=True)
+795695	    assert json.loads((tmp_path / "out.json").read_text())["counts"]["verified_project_edges"] == 0
+795696	    result = subprocess.run(cmd, capture_output=True, text=True)
+795697	    assert result.returncode != 0 and "FileExistsError" in result.stderr
+795698	"""Independent Agent 3 V9.28 News Engine acceptance: synthetic fixtures only.
+795699	Run against the exact PR #130 source on an isolated branch. No network, real
+795700	publisher extraction, rights acceptance, source activation or public output.
+795702	    "id": "fixture_press",
+795703	    "publisher": "Fixture Press",
+795704	    "kind": "reporting",
+795705	    "rights_status": "unknown",
+795706	    "enabled": False,
+795707	    "output_policy": "headline_link_only",
+795708	ARTICLE = {
+795709	    "url": "https://press.example.org/news/solar?utm_campaign=test",
+795710	    "title": "East Meadow Solar Farm moves to planning",
+795711	    "source_id": "fixture_press",
+795712	    "source": "Fixture Press",
+795713	    "pub_date": "2026-11-16T08:00:00Z",
+795714	    "first_seen": "2026-11-16T09:00:00Z",
+795715	    "fetched_at": "2026-11-16T09:05:00Z",
+795716	    "source_receipt_sha256": "a" * 64,
+795717	    "content": "REPD 2002 invented body text must not become a match",
+795718	    "importance_score": 1.0,
+795719	    "ranking_score": 99999,
+795720	    "score": 12,
+795721	    "priority": 1,
+795722	    "rank": 1,
+795724	    {"id": "1018", "name": "East Meadow Solar Farm", "technology": "solar"},
+795725	    {"id": "2002", "name": "A Different Solar Farm", "technology": "solar"},
+795727	def run(items=None, sources=None, projects=None):
+795728	    return build_intelligence(
+795729	        [copy.deepcopy(ARTICLE)] if items is None else items,
+795730	        [copy.deepcopy(SOURCE)] if sources is None else sources,
+795731	        copy.deepcopy(PROJECTS) if projects is None else projects,
+795733	def test_independent_title_only_without_content_or_scores():
+795734	    out = run()
+795735	    assert out["counts"] == {
+795736	        "articles": 1, "provisional_project_edges": 1,
+795737	        "verified_project_edges": 0, "rights_unresolved_articles": 1,
+795738	    assert [e["id"] for e in row["project_candidates"]] == ["1018"]
+795739	    assert row["project_candidates"][0]["status"] == "PROVISIONAL"
+795740	    assert row["publisher_independence"] == "UNASSESSED"
+795741	    assert row["publication_eligibility"] == "WITHHELD_INDEPENDENT_REVIEW_REQUIRED"
+795742	    serialised = json.dumps(out)
+795743	    assert "invented body text" not in serialised
+795744	    for forbidden in ("importance_score", "ranking_score", '"score"', '"priority"', '"rank"'):
+795745	        assert forbidden not in serialised
+795746	def test_independent_general_market_news_has_no_project_evidence():
+795747	    market = {**ARTICLE, "title": "UK solar industry investment rises"}
+795748	    out = run(items=[market])
+795749	def test_independent_duplicate_title_two_unrelated_urls_are_not_merged():
+795750	    first = copy.deepcopy(ARTICLE)
+795751	    second = {**ARTICLE, "url": "https://other.example.org/news/solar"}
+795752	    out = run(items=[first, second])
+795753	    assert out["counts"]["articles"] == 2
+795754	def test_independent_tracking_variants_preserve_original_urls_deterministically():
+795755	    a = copy.deepcopy(ARTICLE)
+795756	    b = {**ARTICLE, "url": "https://press.example.org/news/solar?utm_medium=email"}
+795757	    forward = run(items=[a, b])
+795758	    reverse = run(items=[b, a])
+795759	    assert forward == reverse
+795760	    assert forward["counts"]["articles"] == 1
+795761	    assert forward["articles"][0]["observed_article_urls"] == sorted([a["url"], b["url"]])
+795762	def test_independent_same_url_with_different_publisher_fails_closed():
+795763	    other_source = {**SOURCE, "id": "other", "publisher": "Other Outlet"}
+795764	    mismatched = {**ARTICLE, "source_id": "other", "publisher": "Other Outlet", "source": "Other Outlet"}
+795765	        run(items=[ARTICLE, mismatched], sources=[SOURCE, other_source])
+795766	def test_independent_ambiguous_repd_name_never_proves_identity():
+795767	    projects = PROJECTS + [{"id": "3000", "name": "East Meadow Solar Farm"}]
+795768	    out = run(projects=projects)
+795769	def test_independent_non_repd_id_cannot_be_repd_identity():
+795770	    out = run(projects=[{"id": "dc-001", "name": "East Meadow Solar Farm", "namespace": "datacentre"}])
+795771	def test_independent_explicit_multiple_repd_ids_are_ambiguous_not_verified():
+795772	    item = {**ARTICLE, "title": "REPD 1018 and REPD 2002 planning update"}
+795773	    out = run(items=[item])
+795774	    assert out["counts"]["provisional_project_edges"] == 2
+795775	    assert all(e.get("ambiguous_multi_project") for e in out["articles"][0]["project_candidates"])
+795776	@pytest.mark.parametrize("value", [
+795777	    "http://press.example.org/news", "https://localhost/local", "https://127.0.0.1/news",
+795778	    "https://user@press.example.org/news", "https://press.example.org:8080/news",
+795779	def test_independent_reject_unsafe_urls(value):
+795780	        canonical_url(value)
+795781	def test_independent_source_id_cannot_override_contradictory_source_publisher():
+795782	    """REGRESSION: valid source_id must not conceal another publisher in source."""
+795783	    bad = {**ARTICLE, "source": "Other Outlet"}
+795784	        run(items=[bad])
+795785	def test_independent_source_label_cannot_contradict_without_publisher_key():
+795786	    del bad["publisher"]
+795787	@pytest.mark.parametrize("bad", ["not-a-date", "2026-02-30", "2026-13-17", "2026-11-16T35:00:00Z"])
+795788	def test_independent_invalid_publisher_dates_fail_closed(bad):
+795789	    """Bad dates must not masquerade as accepted publication times."""
+795790	    with pytest.raises(ValueError, match="timestamp"):
+795791	        run(items=[{**ARTICLE, "pub_date": bad}])
+795792	def test_independent_missing_dates_remain_null():
+795793	    item = copy.deepcopy(ARTICLE)
+795794	    for key in ("pub_date", "first_seen", "fetched_at"):
+795795	        item.pop(key)
+795796	    row = run(items=[item])["articles"][0]
+795797	    assert row["published_at"] is None
+795798	    assert row["first_seen"] is None
+795799	    assert row["fetched_at"] is None
+795800	@pytest.mark.parametrize("bad", ["abc", "A" * 64, 12, None])
+795801	def test_independent_bad_hashes_fail_closed(bad):
+795802	    item = {**ARTICLE, "source_receipt_sha256": bad}
+795803	    if bad is None:
+795804	        # An absent receipt is allowed as unknown, so test explicit null separately.
+795805	        assert run(items=[item])["articles"][0]["source_receipt_sha256"] is None
+795806	        with pytest.raises(ValueError, match="receipt"):
+795807	            run(items=[item])
+795808	def test_independent_rights_assertion_does_not_authorise_publication():
+795809	    source = {**SOURCE, "rights_status": "accepted", "enabled": True,
+795810	              "rights_review_url": "https://publisher.example.org/rights"}
+795811	    row = run(sources=[source])["articles"][0]
+795812	    assert row["usage_rights"]["status"] == "accepted"
+795813	def test_independent_publisher_body_cannot_create_repd_id():
+795814	    item = {**ARTICLE, "title": "Industry capacity outlook in Britain",
+795815	            "content": "REPD reference 1018 and named East Meadow Solar Farm"}
+795816	    assert run(items=[item])["counts"]["provisional_project_edges"] == 0
+795817	@pytest.mark.parametrize("field,bad", [
+795818	    ("first_seen", "yesterday"), ("first_seen", "2026-11-31T14:00:00Z"),
+795819	    ("fetched_at", "2026-14-01"), ("fetched_at", "2026-11-16T27:00:00Z"),
+795820	def test_independent_invalid_observation_timestamps_fail_closed(field, bad):
+795821	        run(items=[{**ARTICLE, field: bad}])
+795822	def test_independent_valid_iso_date_and_timezone_preserved_verbatim():
+795823	    out = run(items=[{**ARTICLE, "pub_date": "2026-11-16",
+795824	                      "first_seen": "2026-11-16T12:00:00+00:00"}])
+795825	    assert row["published_at"] == "2026-11-16"
+795826	    assert row["first_seen"] == "2026-11-16T12:00:00+00:00"
+795827	"""Synthetic contract fixtures only; no claims about real issuers or projects."""
+795828	    ClaimValidationError, ENERGY_KINDS, POWER_KINDS, SCHEMA, dumps_claim, validate_claim,
+795830	def claim():
+795831	        "schema": SCHEMA, "claim_id": "filing:synthetic:capex:1",
+795832	        "status": "machine-provisional", "quantity_kind": "finance", "metric": "Capital expenditure", "value": "1.20",
+795833	        "scale": "1e9", "unit": "currency", "original_unit": "billion US dollars",
+795834	        "currency": "USD", "finance_stage": "announced",
+795835	        "entity": {"scope": "consolidated_group", "id": "group:synthetic",
+795836	                   "consolidation_group_id": "group:synthetic",
+795837	                   "identity_evidence_url": "https://www.sec.gov/synthetic-identity"},
+795838	        "reporting_period": {"start": "2026-01", "end": "2026-09"},
+795839	        "as_of": "2026-09-30", "basis": "reported", "assurance": "unknown",
+795840	        "provenance": {"document_id": "filing:synthetic",
+795841	                       "document_url": "https://www.sec.gov/synthetic-document",
+795842	                       "sha256": "a" * 64, "page": "12", "section": "Capital expenditure",
+795843	                       "published_date": "2026-10-01", "retrieved_at": "2026-11-16T12:00:00Z"},
+795844	        "revision": {"id": "original", "supersedes_claim_id": None, "restated": False},
+795845	def test_exact_decimal_scale_and_source_precision_survive_json(claim):
+795846	    wire = dumps_claim(claim)
+795847	    assert json.loads(wire) == claim
+795848	    assert json.loads(wire)["value"] == "1.20"
+795849	    assert json.loads(wire)["scale"] == "1e9"
+795850	    assert json.loads(wire)["reporting_period"]["end"] == "2026-09"
+795851	    assert wire == dumps_claim(dict(reversed(list(claim.items()))))
+795852	def test_no_mutation_or_shared_nested_containers(claim):
+795853	    before = deepcopy(claim)
+795854	    result = validate_claim(claim)
+795855	    result["entity"]["id"] = "group:changed"
+795856	    result["reporting_period"]["end"] = "2026-10"
+795857	    assert claim == before
+795858	@pytest.mark.parametrize("value", [1.2, 1, True, None, Decimal("1.20"), "NaN", "Infinity",
+795859	                                      "-Infinity", "1e9", "1,200", "01.2", ".2", "1.", " 1.20", "1.20\n", "9" * 101])
+795860	def test_lossy_nonfinite_or_ambiguous_numbers_rejected(claim, value):
+795861	    claim["value"] = value
+795862	    with pytest.raises(ClaimValidationError, match="value"):
+795863	        validate_claim(claim)
+795864	@pytest.mark.parametrize("stage", ["announced", "committed", "disbursed", "reported"])
+795865	def test_finance_stages_and_signed_reported_value_remain_distinct(claim, stage):
+795866	    claim.update(finance_stage=stage, value="-123456789012345678901234567890.00100")
+795867	    assert validate_claim(claim)["finance_stage"] == stage
+795868	    assert json.loads(dumps_claim(claim))["value"].endswith(".00100")
+795869	@pytest.mark.parametrize("kind", sorted(POWER_KINDS | ENERGY_KINDS))
+795870	def test_electrical_claims_keep_kind_scope_and_unit(claim, kind):
+795871	    claim.update(quantity_kind=kind, unit="MWh" if kind in ENERGY_KINDS else "MW",
+795872	                 original_unit="source units", scale="1", currency=None, finance_stage=None)
+795873	    claim["entity"].update(scope="phase", id="phase:synthetic", consolidation_group_id=None)
+795874	    assert result["quantity_kind"] == kind
+795875	    assert result["entity"]["scope"] == "phase"
+795876	    assert result["value"] == "1.20"
+795877	@pytest.mark.parametrize("kind,unit", [("storage_energy", "MW"), ("storage_power", "MWh"),
+795878	                                       ("it_load", "GWh"), ("finance", "MW")])
+795879	def test_no_automatic_power_energy_money_conversion(claim, kind, unit):
+795880	    claim.update(quantity_kind=kind, unit=unit)
+795881	    if kind != "finance":
+795882	        claim.update(currency=None, finance_stage=None)
+795883	    with pytest.raises(ClaimValidationError, match="unit"):
+795884	@pytest.mark.parametrize("key,value", [("currency", None), ("currency", "US$"), ("currency", "usd"),
+795885	                                       ("finance_stage", "paid-or-announced"), ("scale", 1000),
+795886	                                       ("scale", "2"), ("status", "VERIFIED"), ("basis", "estimated"),
+795887	                                       ("original_unit", "")])
+795888	def test_unknown_finance_semantics_or_verified_status_rejected(claim, key, value):
+795889	    claim[key] = value
+795890	    with pytest.raises(ClaimValidationError):
+795891	def test_negative_power_and_attached_currency_rejected(claim):
+795892	    claim.update(quantity_kind="project_demand", unit="MW", value="-1", currency=None, finance_stage=None)
+795893	    with pytest.raises(ClaimValidationError, match="negative"):
+795894	    claim.update(value="1", currency="USD")
+795895	    with pytest.raises(ClaimValidationError, match="currency"):
+795896	def test_consolidation_scope_is_preserved_not_allocated_to_project(claim):
+795897	    group = validate_claim(claim)
+795898	    subsidiary = deepcopy(claim)
+795899	    subsidiary["claim_id"] = "filing:synthetic:subsidiary:1"
+795900	    subsidiary["entity"].update(scope="issuer", id="issuer:subsidiary")
+795901	    validated = validate_claim(subsidiary)
+795902	    assert validated["entity"]["id"] != group["entity"]["id"]
+795903	    assert validated["entity"]["consolidation_group_id"] == group["entity"]["id"]
+795904	    claim["entity"]["consolidation_group_id"] = None
+795905	    with pytest.raises(ClaimValidationError, match="group identity"):
+795906	def test_forecast_not_audited_actual_and_future_period_explicit(claim):
+795907	    claim["reporting_period"] = {"start": "2027", "end": "2029"}
+795908	    with pytest.raises(ClaimValidationError, match="forecast"):
+795909	    claim["basis"] = "forecast"
+795910	    claim["as_of"] = "2029-12"
+795911	    assert validate_claim(claim)["reporting_period"]["end"] == "2029"
+795912	    assert validate_claim(claim)["as_of"] == "2029-12"
+795913	    claim["assurance"] = "audited"
+795914	    with pytest.raises(ClaimValidationError, match="audited actual"):
+795915	@pytest.mark.parametrize("value", ["2026-13", "2026-02-30", "0000", "2026-1", "20261101", True])
+795916	def test_invalid_source_dates_rejected(claim, value):
+795917	    claim["as_of"] = value
+795918	def test_period_order_precision_and_missing_temporal_basis(claim):
+795919	    for period in ({"start": "2026-10", "end": "2026-09"},
+795920	                   {"start": "2026", "end": "2026-09"}, None):
+795921	        claim.update(reporting_period=period, as_of=None)
+795922	        with pytest.raises(ClaimValidationError):
+795923	            validate_claim(claim)
+795924	@pytest.mark.parametrize("value", ["2026-11-16T12:00:00", "2026-11-16", "2026-13-16T12:00:00Z"])
+795925	def test_retrieval_requires_valid_offset_timestamp(claim, value):
+795926	    claim["provenance"]["retrieved_at"] = value
+795927	def test_chronology_and_nullable_publication_preserved(claim):
+795928	    claim["provenance"]["published_date"] = None
+795929	    assert validate_claim(claim)["provenance"]["published_date"] is None
+795930	    claim["provenance"]["published_date"] = "2026-12"
+795931	    with pytest.raises(ClaimValidationError, match="publication"):
+795932	    claim["as_of"] = "2027"
+795933	    with pytest.raises(ClaimValidationError, match="observation"):
+795934	def test_source_calendar_offset_explicit_at_retrieval_day_boundary(claim):
+795935	    claim["provenance"].update(published_date="2026-11-17", retrieved_at="2026-11-17T00:30:00+09:00")
+795936	    assert validate_claim(claim)["provenance"]["retrieved_at"].endswith("+09:00")
+795937	    # Same instant, unknown source timezone: conservative rejection is documented.
+795938	    claim["provenance"]["retrieved_at"] = "2026-11-16T15:30:00Z"
+795939	def test_revision_and_restatement_preserve_history(claim):
+795940	    claim["revision"] = {"id": "restatement:2", "supersedes_claim_id": "filing:older:capex:1", "restated": True}
+795941	    assert validate_claim(claim)["revision"]["supersedes_claim_id"] == "filing:older:capex:1"
+795942	    claim["revision"]["supersedes_claim_id"] = claim["claim_id"]
+795943	    with pytest.raises(ClaimValidationError, match="itself"):
+795944	    claim["revision"]["supersedes_claim_id"] = None
+795945	    with pytest.raises(ClaimValidationError, match="earlier claim"):
+795946	    claim["revision"]["restated"] = 1
+795947	    with pytest.raises(ClaimValidationError, match="boolean"):
+795948	@pytest.mark.parametrize("level", [None, "entity", "provenance", "revision", "reporting_period"])
+795949	def test_no_personal_or_untrusted_extra_fields_pass_through(claim, level):
+795950	    target = claim if level is None else claim[level]
+795951	    target["director_residential_address"] = "synthetic forbidden field"
+795952	    with pytest.raises(ClaimValidationError, match="documented fields"):
+795953	@pytest.mark.parametrize("url", ["http://www.sec.gov/x", "https://localhost/x", "https://127.1/x",
+795954	                                    "https://2130706433/x", "https://0x7f000001/x", "https://127.0.0.1/x",
+795955	                                    "https://224.0.0.1/x", "https://[::1]/x", "https://user:password@www.sec.gov/x",
+795956	                                    "https://www.sec.gov\\@127.0.0.1/x", "https://www.sec.gov:444/x",
+795957	                                    "https://host.internal/x", "https://www.sec.gov/%s\n"])
+795958	def test_provenance_url_syntax_rejects_private_literals_and_confusion(claim, url):
+795959	    claim["provenance"]["document_url"] = url
+795960	def test_hash_and_locator_required_without_fabricating_source_evidence(claim):
+795961	    claim["provenance"].update(page=None, section=None)
+795962	    with pytest.raises(ClaimValidationError, match="locator"):
+795963	    claim["provenance"].update(section="Table 1", sha256="unknown")
+795964	    with pytest.raises(ClaimValidationError, match="SHA256"):
+795965	def test_unsupported_scope_and_arbitrary_nested_payload_fail(claim):
+795966	    claim["entity"]["scope"] = "person"
+795967	    claim["entity"]["scope"] = "consolidated_group"
+795968	    claim["provenance"]["section"] = {"body": "untrusted data"}
+795969	def test_metric_missing_or_unencodable_text_rejected(claim):
+795970	    claim["metric"] = "\ud800"
+795971	    del claim["metric"]
+795972	"""Scope, state and provenance regressions for the offline GRID-DC adapter."""
+795973	from automation.news.dc_context.grid import build, dumps
+795974	FIXTURE = Path(__file__).parents[1] / "dc_context/grid-source-fixture.json"
+795975	AS_OF = "2026-11-16T18:00:00Z"
+795976	def bundle():
+795977	    return json.loads(FIXTURE.read_text(encoding="utf-8"))
+795978	def test_actual_sources_keep_historical_rejection_and_unknown_current_state(bundle):
+795979	    result = build(bundle, as_of=AS_OF)
+795980	    assert result["context_count"] == 2
+795981	    assert result["numeric_claim_count"] == 1
+795982	    assert result["linked_project_count"] == 0
+795983	    ferc, culham = result["records"]
+795984	    assert ferc["source_state"] == "REJECTED"
+795985	    assert ferc["numeric_claims"][0]["value"] == "480"
+795986	    assert ferc["numeric_claims"][0]["quantity_kind"] == "project_demand"
+795987	    assert "every existing arrangement" in ferc["research_action"]
+795988	    assert culham["numeric_claims"] == []
+795989	    assert "basis" in culham["figures_omitted_reason"]
+795990	    for record in result["records"]:
+795991	        assert record["status"] == "PROVISIONAL"
+795992	        assert record["current_project_state"] == "UNKNOWN"
+795993	        assert record["source_document_age_days"] > 600
+795994	        assert record["retrieval_age_days"] == 0
+795995	        for key in ("canonical_project_id", "current_secured_connection",
+795996	                    "current_energised_load", "available_grid_capacity", "site_capex"):
+795997	            assert record[key] is None
+795998	def test_committed_replay_matches_every_output_byte(bundle):
+795999	    expected = FIXTURE.with_name("grid-context-fixture.json").read_bytes()
+796000	    assert dumps(build(bundle, as_of=AS_OF)).encode("utf-8") == expected
+796001	def test_replay_sorting_and_input_independence(bundle):
+796002	    before = deepcopy(bundle)
+796003	    first = build(bundle, as_of=AS_OF)
+796004	    assert bundle == before
+796005	    bundle["sources"].reverse()
+796006	    bundle["contexts"].reverse()
+796007	    assert dumps(build(bundle, as_of=AS_OF)) == dumps(first)
+796008	    first["records"][0]["source"]["publisher"] = "changed"
+796009	    assert build(bundle, as_of=AS_OF)["records"][0]["source"]["publisher"] != "changed"
+796011	    ("http_status", 403), ("http_status", True), ("sha256", "0" * 63),
+796012	    ("bytes", 0), ("bytes", 4 * 1024 * 1024 + 1), ("bytes", True),
+796013	    ("access_state", "UNKNOWN"), ("access_state", "PAYWALLED"),
+796014	    ("output_policy", "FULL_TEXT"), ("authority", "COMPANY"),
+796015	    ("retrieved_at", "2026-11-17T00:00:00Z"),
+796016	    ("retrieved_at", "2026-11-16T12:00:00"),
+796017	    ("published_date", "2026-11-17"), ("published_date", "2025-02-30"),
+796018	    ("title", "<img src=x onerror=alert(1)>"),
+796019	def test_bad_source_aborts_whole_generation(bundle, field, value):
+796020	    bundle["sources"][0][field] = value
+796021	        build(bundle, as_of=AS_OF)
+796023	    "http://www.gov.uk/x", "https://www.gov.uk.evil.example/x",
+796024	    "https://www.gov.uk@127.0.0.1/x", "https://127.1/x",
+796025	    "https://www.gov.uk:8443/x", "https://www.gov.uk\\@example.com/x",
+796026	    "https://www.gov.uk/x?redirect=https://example.com", "https://www.gov.uk/x#redirect",
+796027	    "https://www.bloomberg.com/story", "https://www.gov.uk/\nfoo",
+796028	def test_unapproved_or_unsafe_source_urls(bundle, url):
+796029	    bundle["sources"][0]["url"] = url
+796030	    ("kind", "proximity_match"), ("source_state", "VERIFIED"),
+796031	    ("source_state", "OFFER_REPORTED"), ("entity_scope", "consolidated_group"),
+796032	    ("source_id", "missing-source"), ("name", "<script>alert(1)</script>"),
+796033	    ("country", "XX"), ("id", "../../private"),
+796034	    ("country", []), ("source_id", []), ("entity_scope", []),
+796035	def test_bad_context_or_unsupported_inference(bundle, field, value):
+796036	    bundle["contexts"][0][field] = value
+796037	@pytest.mark.parametrize("kind", ["secured_connection", "energised_load", "grid_upgrade", "generation_power", "it_load"])
+796038	def test_rejected_load_request_cannot_become_connection_or_operating_power(bundle, kind):
+796039	    bundle["contexts"][1]["numeric_claims"][0]["quantity_kind"] = kind
+796040	    with pytest.raises(ValueError, match="numeric kind/basis"):
+796041	@pytest.mark.parametrize("key,value", [("basis", "reported"), ("value", 480), ("unit", "MWh"),
+796042	                                     ("status", "VERIFIED"), ("assurance", "audited")])
+796043	def test_shared_figures_semantics_preserved(bundle, key, value):
+796044	    bundle["contexts"][1]["numeric_claims"][0][key] = value
+796045	@pytest.mark.parametrize("part,key,value", [
+796046	    ("entity", "id", "repd:1018"), ("entity", "scope", "site"),
+796047	    ("entity", "consolidation_group_id", "group:parent"),
+796048	    ("entity", "identity_evidence_url", "https://www.gov.uk/another-project"),
+796049	    ("provenance", "document_id", "ferc:different-docket"),
+796050	    ("provenance", "sha256", "a" * 64), ("provenance", "page", "2"),
+796051	    ("provenance", "section", "Another section"),
+796052	    ("provenance", "published_date", "2024-10-31"),
+796053	    ("provenance", "retrieved_at", "2026-11-16T17:13:22Z"),
+796054	def test_cannot_move_figures_between_entities_documents_or_clocks(bundle, part, key, value):
+796055	    bundle["contexts"][1]["numeric_claims"][0][part][key] = value
+796056	    with pytest.raises(ValueError, match="mismatch"):
+796057	@pytest.mark.parametrize("part", ["sources", "contexts"])
+796058	def test_duplicate_identifiers_rejected(bundle, part):
+796059	    bundle[part].append(deepcopy(bundle[part][0]))
+796060	    with pytest.raises(ValueError, match="duplicate"):
+796061	def test_no_private_fields_or_implicit_binding_are_passed_through(bundle):
+796062	    bundle["contexts"][0]["canonical_project_id"] = "DC-WD-Q123"
+796063	    with pytest.raises(ValueError, match="unexpected fields"):
+796064	def test_unknown_clock_and_missing_locator_fail_closed(bundle):
+796065	    with pytest.raises(ValueError, match="UTC timestamp"):
+796066	        build(bundle, as_of="2026-11-16")
+796067	    bundle["contexts"][0]["section"] = None
+796068	    with pytest.raises(ValueError, match="locator required"):
+796069	def test_retrieval_does_not_refresh_the_source_claim(bundle):
+796070	    original = build(bundle, as_of=AS_OF)
+796071	    newer = "2026-11-16T17:59:00Z"
+796072	    bundle["sources"][0]["retrieved_at"] = newer
+796073	    replay = build(bundle, as_of=AS_OF)
+796074	    assert replay["records"][1]["source_document_age_days"] == original["records"][1]["source_document_age_days"]
+796075	    assert replay["records"][1]["current_project_state"] == "UNKNOWN"
+796076	def test_exact_value_lexical_precision_is_not_rounded(bundle):
+796077	    bundle["contexts"][1]["numeric_claims"][0]["value"] = "480.00"
+796078	    assert result["records"][0]["numeric_claims"][0]["value"] == "480.00"
+796079	@pytest.mark.parametrize("kind,state,quantity,basis", [
+796080	    ("connection_offer", "OFFER_REPORTED", "secured_connection", "reported"),
+796081	    ("energisation_report", "ENERGISED_REPORTED", "energised_load", "reported"),
+796082	    ("grid_upgrade", "PLANNED", "grid_upgrade", "forecast"),
+796083	    ("grid_upgrade", "COMMISSIONED_REPORTED", "grid_upgrade", "reported"),
+796084	def test_synthetic_source_states_do_not_claim_current_connection(bundle, kind, state, quantity, basis):
+796085	    # Synthetic schema cases only: these do not reinterpret the real FERC order.
+796086	    context = bundle["contexts"][1]
+796087	    context["kind"], context["source_state"] = kind, state
+796088	    claim = context["numeric_claims"][0]
+796089	    claim["quantity_kind"], claim["basis"] = quantity, basis
+796090	    record = build(bundle, as_of=AS_OF)["records"][0]
+796091	    assert record["source_state"] == state
+796092	    assert record["numeric_claims"][0]["quantity_kind"] == quantity
+796093	    assert record["current_secured_connection"] is None
+796094	    assert record["current_project_state"] == "UNKNOWN"
+796095	@pytest.mark.parametrize("state", ["ANNOUNCED", "COMMITTED", "DISBURSED"])
+796096	def test_synthetic_funding_keeps_stage_without_allocating_capex(bundle, state):
+796097	    context["kind"], context["source_state"] = "funding", state
+796098	    claim.update(quantity_kind="finance", basis="reported", unit="currency", original_unit="US dollars",
+796099	                 currency="USD", finance_stage=state.lower(), value="1.20", scale="1e9")
+796100	    assert record["numeric_claims"][0]["finance_stage"] == state.lower()
+796101	    assert record["site_capex"] is None
+796102	    claim["finance_stage"] = "reported"
+796103	    with pytest.raises(ValueError, match="finance stage mismatch"):
+796104	def test_cli_writes_new_artifact_and_refuses_overwrite(tmp_path):
+796105	    output = tmp_path / "grid-context.json"
+796106	    command = [sys.executable, "-m", "automation.news.dc_context.grid", "--input", str(FIXTURE),
+796107	               "--as-of", AS_OF, "--output", str(output)]
+796108	    first = subprocess.run(command, capture_output=True, text=True)
+796109	    assert first.returncode == 0, first.stderr
+796110	    original = output.read_bytes()
+796111	    second = subprocess.run(command, capture_output=True, text=True)
+796112	    assert second.returncode != 0
+796113	    assert output.read_bytes() == original
+796114	    payload = json.loads(original)
+796115	    assert payload["context_count"] == 2
+796116	    assert payload["numeric_claim_count"] == 1
+796117	def test_failed_input_does_not_create_output(tmp_path, bundle):
+796118	    bundle["sources"][1]["http_status"] = 403
+796119	    source = tmp_path / "broken.json"
+796120	    source.write_text(json.dumps(bundle), encoding="utf-8")
+796121	    output = tmp_path / "output.json"
+796122	    result = subprocess.run([sys.executable, "-m", "automation.news.dc_context.grid", "--input", str(source),
+796123	                             "--as-of", AS_OF, "--output", str(output)], capture_output=True, text=True)
+796124	    assert result.returncode != 0
+796125	    assert not output.exists()
+796126	"""Run from repository root: python -m unittest discover -s automation/news/tests -p test_grid_watch.py"""
+796127	from automation.news.grid_watch import build_grid_rows, normalise
+796128	HERE = Path(__file__).resolve().parents[1] / "grid_watch"
+796129	SOURCES = {s["id"]: s for s in json.loads((HERE / "sources.json").read_text())["sources"]}
+796130	RECORDS = json.loads((HERE / "fixtures.json").read_text())["records"]
+796131	class GridWatchTest(unittest.TestCase):
+796132	    def test_three_official_operator_fixture_rows(self):
+796133	        rows = build_grid_rows(RECORDS, SOURCES)
+796134	        self.assertEqual(len(rows), 3)
+796135	        self.assertEqual({r["scheme"]["operator"] for r in rows}, {"NGET", "SSEN-T", "SPT"})
+796136	        self.assertTrue(all(r["evidence"]["licence_state"] == "UNASSESSED" and not r["publishable"] for r in rows))
+796137	        self.assertTrue(all(r["links"]["grid_connection"] is None and r["links"]["available_capacity_mw"] is None for r in rows))
+796138	        self.assertIsNone(next(r for r in rows if r["scheme"]["operator"] == "SSEN-T")["scheme"]["scheme_key"])
+796139	    def test_dedup_exact_observations_but_not_conflicts(self):
+796140	        b = deepcopy(RECORDS[0]); b["retrieved_at"] = "2026-11-17T00:00:00Z"
+796141	        self.assertEqual(len(build_grid_rows([RECORDS[0], b], SOURCES)), 1)
+796142	        b["stage"] = "consented"
+796143	        self.assertEqual(len(build_grid_rows([RECORDS[0], b], SOURCES)), 2)
+796144	    def test_status_never_promoted(self):
+796145	        row = normalise(RECORDS[1], SOURCES)
+796146	        self.assertEqual(row["evidence"]["reported_stage"], "under_construction")
+796147	        self.assertFalse(row["publishable"])
+796148	        self.assertIsNone(row["links"]["repd_ref"])
+796149	    def test_missing_identity_does_not_fuzzy_match(self):
+796150	        row = normalise(RECORDS[0], SOURCES)
+796151	        self.assertIsNone(row["scheme"]["scheme_key"])
+796152	        b = deepcopy(RECORDS[0]); b["scheme_name"] = "Bramford / Twinstead"
+796153	        self.assertIsNone(normalise(b, SOURCES)["scheme"]["scheme_key"])
+796154	    def test_exact_supplier_scheme_identifier_not_connection_proof(self):
+796155	        row = normalise(RECORDS[2], SOURCES)
+796156	        self.assertEqual(row["scheme"]["scheme_key"], "SPT:EGL1/E2DC")
+796157	        self.assertIsNone(row["links"]["grid_connection"])
+796158	    def test_reject_spoofed_url(self):
+796159	        for url in ("http://www.nationalgrid.com/foo", "https://www.nationalgrid.com.evil.test/foo",
+796160	                    "https://evil@www.nationalgrid.com/foo", "https://www.nationalgrid.com:444/foo"):
+796161	            b = dict(RECORDS[0], source_url=url)
+796162	            with self.subTest(url=url), self.assertRaises(ValueError): normalise(b, SOURCES)
+796163	    def test_reject_unverified_source_id_or_operator_disagreement(self):
+796164	        for patch in ({"source_id": "unknown"}, {"network_operator":"NESO"}):
+796165	            with self.assertRaises(ValueError): normalise(dict(RECORDS[0], **patch), SOURCES)
+796166	    def test_reject_unrecognised_evidence_claims(self):
+796167	        for patch in ({"connected_capacity_mw": 100}, {"stage": "approved"}, {"etys_node_code": "cot 41"}):
+796168	    def test_exact_etys_code_remains_unverified_crosswalk(self):
+796169	        row = normalise(dict(RECORDS[0], etys_node_code="COTT41"), SOURCES)
+796170	        self.assertEqual(row["links"]["etys_node_code_as_reported"], "COTT41")
+796171	        self.assertFalse(row["links"]["etys_node_link_verified"])
+796172	    def test_metric_kinds_units_are_not_interchangeable(self):
+796173	        b = dict(RECORDS[0], reported_metric={"kind":"equipment_rating", "value":100, "unit":"MW"})
+796174	        with self.assertRaises(ValueError): normalise(b, SOURCES)
+796175	        b["reported_metric"] = {"kind":"equipment_rating", "value":100, "unit":"MVA"}
+796176	        self.assertEqual(normalise(b, SOURCES)["reported_metric"]["unit"], "MVA")
+796177	        for v in (True, "100", -1, float("nan")):
+796178	            b["reported_metric"]["value"] = v
+796179	            with self.assertRaises(ValueError): normalise(b, SOURCES)
+796180	    def test_preserves_explicit_source_rights_without_granting_publication(self):
+796181	        sources = deepcopy(SOURCES)
+796182	        sources["nget-projects"]["licence_state"] = "RESTRICTED"
+796183	        row = normalise(RECORDS[0], sources)
+796184	        self.assertEqual(row["evidence"]["licence_state"], "RESTRICTED")
+796185	        self.assertEqual(row["evidence"]["review_state"], "REVIEW_REQUIRED")
+796186	        sources["nget-projects"].pop("licence_state")
+796187	        self.assertEqual(normalise(RECORDS[0], sources)["evidence"]["licence_state"], "UNASSESSED")
+796188	    def test_publication_cannot_follow_retrieval(self):
+796189	        b = dict(RECORDS[0], published_at="2027-01-01T00:00:00Z")
+796190	    def test_refuses_ambiguous_clock(self):
+796191	        with self.assertRaises(ValueError): normalise(dict(RECORDS[0], retrieved_at="2026-11-16"), SOURCES)
+796192	"""COVENANT states, attribution and compatible measurements; no source network."""
+796195	HERE = ROOT / "automation/news/policy_commitments"
+796197	    return json.loads((HERE / "sample_ledger.json").read_text(encoding="utf-8"))
+796198	def numeric():
+796199	    # Synthetic source/measurement receipts exercise the shared FIGURES contract.
+796200	    def document(identity, kind, published, retrieved, sha, state, locator):
+796201	        return {"id": identity, "title": "Synthetic " + identity, "issuer": "Synthetic institution",
+796202	                "url": "https://institution.example/" + identity, "version": "fixture-original",
+796203	                "published_on": published, "reviewed_at": retrieved, "retrieved_at": retrieved,
+796204	                "content_sha256": sha * 64, "hash_limitation": None,
+796205	                "document_state": state, "source_kind": kind,
+796206	                "read_coverage": {"state": "READ", "locators": [locator], "note": "Synthetic fixture only"}}
+796207	    target_doc = document("policy", "PRIMARY_POLICY", "2026-01-01", "2026-01-02T00:00:00Z", "a", "ADOPTED", "target")
+796208	    actual_doc = document("measurement", "OFFICIAL_MEASUREMENT", "2026-11-15", "2026-11-16T00:00:00Z", "b", "PUBLISHED", "table")
+796209	    def claim(identity, doc, value, basis):
+796210	        return {"schema": "globalgrid2050.filing-figure.v1", "claim_id": identity, "status": "machine-provisional",
+796211	                "quantity_kind": "energised_load", "metric": "Energised site load", "value": value, "scale": "1",
+796212	                "unit": "MW", "original_unit": "MW", "currency": None, "finance_stage": None,
+796213	                "entity": {"scope": "site", "id": "site:synthetic", "consolidation_group_id": None,
+796214	                           "identity_evidence_url": "https://institution.example/site-identity"},
+796215	                "reporting_period": {"start": "2026-01-01", "end": "2026-10-31"},
+796216	                "as_of": "2026-10-31", "basis": basis, "assurance": "unknown",
+796217	                "provenance": {"document_id": doc["id"], "document_url": doc["url"], "sha256": doc["content_sha256"],
+796218	                               "page": None, "section": doc["read_coverage"]["locators"][0],
+796219	                               "published_date": doc["published_on"], "retrieved_at": doc["retrieved_at"]},
+796220	                "revision": {"id": "original", "supersedes_claim_id": None, "restated": False}}
+796221	    source = {"document_id": "policy", "locator": "target"}
+796222	    return {"schema": policy.SCHEMA, "coverage_note": "Synthetic comparison fixtures; no real delivery claims.",
+796223	            "documents": [target_doc, actual_doc],
+796224	            "scopes": [{"id": "scope:site", "jurisdiction": "Fixture", "description": "One identified site",
+796225	                        "entity_id": "site:synthetic", "figure_entity_scope": "site"}],
+796226	            "commitments": [{"id": "commitment:site", "issuer": "Synthetic institution", "source": source,
+796227	                "scope_id": "scope:site", "statement_type": "UNDERTAKING", "statement": "Synthetic capacity undertaking",
+796228	                "conditions": [], "metric": {"label": "Energised site load", "numeric_support": "SUPPORTED", "limitation": None},
+796229	                "target": claim("figure:target", target_doc, "100.00", "forecast"), "baseline": None,
+796230	                "baseline_state": "NOT_REQUIRED", "deadline": {"value": "2026-10-31", "wording": "by 31 October 2026"},
+796231	                "reporting_obligation": None, "applicability": {"state": "ESTABLISHED", "reason": "Fixture identity receipt",
+796232	                                                               "evidence": [source]},
+796233	                "revision": {"id": "original", "supersedes_commitment_id": None, "baseline_changed": False}}],
+796234	            "updates": [{"id": "update:site", "commitment_id": "commitment:site", "commitment_revision_id": "original",
+796235	                "baseline_revision_id": "original", "source": {"document_id": "measurement", "locator": "table"},
+796236	                "reported_on": "2026-11-15", "statement": "Synthetic measurement report", "kind": "NUMERIC_REPORT",
+796237	                "claim": claim("figure:actual", actual_doc, "120.00", "reported"), "measurement_state": "DOCUMENTED_MEASUREMENT"}]}
+796238	def only_result(payload):
+796239	    return policy.evaluate(payload, as_of=AS_OF)["results"][0]
+796240	def test_real_seed_is_bounded_and_cannot_invent_compliance(sample):
+796241	    report = policy.evaluate(sample, as_of=AS_OF)
+796242	    assert len(report["results"]) == 8 and len(report["documents"]) == 3
+796243	    states = {r["commitment_id"]: r["state"] for r in report["results"]}
+796244	    assert states["uk:dc:control-centre"] == "REPORTED_PROGRESS"
+796245	    assert list(states.values()).count("UNKNOWN") == 7
+796246	    assert all(r["legal_compliance"] == "NOT_ASSESSED" and r["status"] == "machine-provisional" for r in report["results"])
+796247	    assert all(r["comparison"] is None and r["target"] is None for r in report["results"])
+796248	    assert all(r["measurement_state"] == "UNKNOWN" for r in report["results"])
+796249	    national = next(r for r in report["results"] if r["commitment_id"] == "uk:dc:national-capacity-context")
+796250	    assert national["deadline"]["value"] == "2030"  # source precision retained, no invented date
+796251	    assert national["scope"]["entity_id"] is None
+796252	    assert all(d["content_sha256"] is None for d in report["documents"] if d["source_kind"] != "PRIMARY_POLICY")
+796253	@pytest.mark.parametrize("value,relation", [("120.00", "GREATER_THAN"), ("100.00", "EQUAL"), ("80.00", "LESS_THAN")])
+796254	def test_supported_result_is_a_numerical_relation_not_a_compliance_label(numeric, value, relation):
+796255	    numeric["updates"][0]["claim"]["value"] = value
+796256	    before = copy.deepcopy(numeric)
+796257	    result = only_result(numeric)
+796258	    assert result["state"] == "EVIDENCE_SUPPORTED_RESULT"
+796259	    assert result["comparison"]["relation"] == relation
+796260	    assert result["legal_compliance"] == "NOT_ASSESSED"
+796261	    assert result["target"]["value"] == "100.00"  # exact FIGURES lexeme
+796262	    assert numeric == before
+796263	def test_unknown_applicability_wins_over_measurement(numeric):
+796264	    numeric["commitments"][0]["applicability"]["state"] = "UNKNOWN"
+796265	    assert only_result(numeric)["state"] == "UNKNOWN"
+796266	def test_conditional_offer_does_not_apply_without_identity_and_conditions(sample):
+796267	    result = next(r for r in policy.evaluate(sample, as_of=AS_OF)["results"] if r["commitment_id"] == "uk:dc:support-offer")
+796268	    assert result["statement_type"] == "CONDITIONAL_OFFER" and result["conditions"]
+796269	    assert result["state"] == "UNKNOWN" and result["comparison"] is None
+796270	@pytest.mark.parametrize("state", ["DRAFT", "IN_PROGRESS", "UNKNOWN"])
+796271	def test_incomplete_instrument_cannot_become_an_adopted_result(numeric, state):
+796272	    numeric["documents"][0]["document_state"] = state
+796273	def test_future_deadline_is_not_yet_due_but_missing_overdue_evidence_is_unknown(numeric):
+796274	    numeric["updates"] = []
+796275	    numeric["commitments"][0]["deadline"] = {"value": "2027", "wording": "by 2027"}
+796276	    assert only_result(numeric)["state"] == "NOT_YET_DUE"
+796277	    assert policy.evaluate(numeric, as_of="2027-06-01T00:00:00Z")["results"][0]["state"] == "UNKNOWN"
+796278	    numeric["commitments"][0]["deadline"] = {"value": "2026-10-31", "wording": "by 31 October 2026"}
+796280	    lambda c: c.update(unit="GW", original_unit="GW"),
+796281	    lambda c: c.update(metric="Contracted site load"),
+796282	    lambda c: c.update(quantity_kind="secured_connection"),
+796283	    lambda c: c.update(reporting_period={"start": "2026-01", "end": "2026-10"}),
+796284	    lambda c: c["entity"].update(consolidation_group_id="group:different"),
+796285	def test_incompatible_measurement_returns_unknown_instead_of_converting(numeric, change):
+796286	    change(numeric["updates"][0]["claim"])
+796287	    assert "incompatible" in result["reasons"][0]
+796288	def test_finance_announcement_cannot_substitute_for_disbursement(numeric):
+796289	    for claim in (numeric["commitments"][0]["target"], numeric["updates"][0]["claim"]):
+796290	        claim.update(quantity_kind="finance", metric="Disbursed project funding", unit="currency",
+796291	                     original_unit="pounds sterling", currency="GBP", finance_stage="disbursed")
+796292	    numeric["commitments"][0]["metric"]["label"] = "Disbursed project funding"
+796293	    numeric["updates"][0]["claim"]["finance_stage"] = "announced"
+796294	    assert result["state"] == "UNKNOWN" and "finance_stage" in result["reasons"][0]
+796295	def test_reported_or_press_release_claim_is_only_reported_progress(numeric):
+796296	    numeric["updates"][0]["measurement_state"] = "REPORTED"
+796297	    numeric["documents"][1]["source_kind"] = "PRESS_RELEASE"
+796298	    assert only_result(numeric)["state"] == "REPORTED_PROGRESS"
+796299	    numeric["updates"][0]["measurement_state"] = "DOCUMENTED_MEASUREMENT"
+796300	    with pytest.raises(ValueError, match="cannot certify"):
+796301	        policy.validate_ledger(numeric)
+796302	def test_changed_baseline_and_old_revision_do_not_transfer_measurement(numeric):
+796303	    prior = copy.deepcopy(numeric["commitments"][0])
+796304	    prior["id"] = "prior:site"
+796305	    prior["target"]["claim_id"] = "figure:prior"
+796306	    numeric["commitments"].append(prior)
+796307	    numeric["commitments"][0]["revision"] = {"id": "revised", "supersedes_commitment_id": "prior:site", "baseline_changed": True}
+796308	    result = next(r for r in policy.evaluate(numeric, as_of=AS_OF)["results"] if r["commitment_id"] == "commitment:site")
+796309	    assert result["state"] == "UNKNOWN" and "revision" in result["reasons"][0]
+796310	    assert len(policy.evaluate(numeric, as_of=AS_OF)["results"]) == 2
+796311	    old = next(r for r in policy.evaluate(numeric, as_of=AS_OF)["results"] if r["commitment_id"] == "prior:site")
+796312	    assert old["state"] == "UNKNOWN" and old["superseded_by"] == ["commitment:site"]
+796313	@pytest.mark.parametrize("kind", ["CORRECTION", "CONTRADICTION"])
+796314	def test_unresolved_source_corrections_remain_visible(numeric, kind):
+796315	    update = copy.deepcopy(numeric["updates"][0])
+796316	    update.update(id="update:correction", kind=kind, claim=None, measurement_state="UNKNOWN")
+796317	    numeric["updates"].append(update)
+796318	    assert result["state"] == "UNKNOWN" and len(result["updates"]) == 2
+796319	def test_conflicting_measurements_are_not_silently_selected(numeric):
+796320	    second = copy.deepcopy(numeric["updates"][0])
+796321	    second["id"] = "update:second"
+796322	    second["claim"].update(claim_id="figure:second", value="90")
+796323	    numeric["updates"].append(second)
+796324	    lambda x: x.update(contacts=["unrequested personal field"]),
+796325	    lambda x: x.update(commitments=[]),
+796326	    lambda x: x["commitments"][0]["target"].update(unit="ratio"),
+796327	    lambda x: x["commitments"][0]["target"].update(value=100.0),
+796328	    lambda x: x["updates"][0]["claim"]["entity"].update(id="site:unrelated"),
+796329	    lambda x: x["updates"][0]["claim"]["provenance"].update(sha256="c" * 64),
+796330	    lambda x: x["updates"][0]["source"].update(locator="unread section"),
+796331	    lambda x: x["documents"][1].update(document_state="DRAFT"),
+796332	    lambda x: x["updates"][0].update(reported_on="2030-01-01"),
+796333	    lambda x: x["updates"][0].update(reported_on="2026-10-01"),
+796334	    lambda x: x["documents"][0].update(url="https://127.1/private"),
+796335	    lambda x: x["commitments"][0]["applicability"].update(evidence=[]),
+796336	    lambda x: x["commitments"][0]["revision"].update(supersedes_commitment_id="commitment:site"),
+796337	    lambda x: x["commitments"][0]["metric"].update(numeric_support="UNSUPPORTED", limitation="Unsupported metric"),
+796338	def test_bad_contracts_fail_closed(numeric, change):
+796339	    change(numeric)
+796340	        policy.evaluate(numeric, as_of=AS_OF)
+796341	def test_future_review_clock_fails_closed(numeric):
+796342	    with pytest.raises(ValueError, match="follows evaluation"):
+796343	        policy.evaluate(numeric, as_of="2026-11-15T00:00:00Z")
+796344	def test_json_csv_are_stable_traceable_and_spreadsheet_safe(numeric):
+796345	    numeric["documents"][0]["issuer"] = numeric["commitments"][0]["issuer"] = "=unsafe()"
+796346	    report = policy.evaluate(numeric, as_of=AS_OF)
+796347	    assert policy.dumps_report(report) == policy.dumps_report(policy.evaluate(numeric, as_of=AS_OF))
+796348	    csv_rows = list(csv.DictReader(io.StringIO(policy.csv_report(report))))
+796349	    assert len(csv_rows) == 1 and csv_rows[0]["issuer"] == "'=unsafe()"
+796350	    assert json.loads(csv_rows[0]["target"])["value"] == "100.00"
+796351	    assert json.loads(csv_rows[0]["source"])["content_sha256"] == "a" * 64
+796352	    assert json.loads(csv_rows[0]["updates"])[0]["reported_on"] == "2026-11-15"
+796353	def test_cli_emits_json_and_csv_without_writing_or_network(sample, monkeypatch, capsys):
+796355	    monkeypatch.setattr(socket, "getaddrinfo", lambda *a, **k: pytest.fail("Unexpected network"))
+796356	    for format in ("json", "csv"):
+796357	        assert policy.main(["--as-of", AS_OF, "--format", format]) == 0
+796358	        output = capsys.readouterr().out
+796359	        assert str(ROOT) not in output
+796360	        if format == "json":
+796361	            assert len(json.loads(output)["results"]) == 8
+796362	            assert len(list(csv.DictReader(io.StringIO(output)))) == 8
+796363	def test_target_cannot_borrow_an_unrelated_read_source(numeric):
+796364	    measured = numeric["updates"][0]["claim"]
+796365	    numeric["commitments"][0]["target"]["provenance"] = copy.deepcopy(measured["provenance"])
+796366	    with pytest.raises(ValueError, match="Target claim differs"):
+796367	def test_update_claim_and_statement_must_use_same_read_locator(numeric):
+796368	    numeric["documents"][1]["read_coverage"]["locators"].append("another table")
+796369	    numeric["updates"][0]["source"]["locator"] = "another table"
+796370	    with pytest.raises(ValueError, match="Update claim source differs"):
+796371	def test_restatement_requires_reconciliation_without_replacing_old_values(numeric):
+796372	    numeric["updates"][0]["claim"]["revision"] = {
+796373	        "id": "restatement", "supersedes_claim_id": "figure:earlier", "restated": True}
+796374	    assert result["state"] == "UNKNOWN" and "reconciliation" in result["reasons"][0]
+796375	    assert result["updates"][0]["claim"]["value"] == "120.00"
+796376	def test_history_inventory_covers_bounded_primary_chain_without_claiming_missing_bytes():
+796377	    history = json.loads((HERE / "historical_sources.json").read_text(encoding="utf-8"))
+796378	    assert history["schema"] == "globalgrid2050.policy-history.sources.v1"
+796379	    assert len(history["sources"]) == 10
+796380	    assert len({s["id"] for s in history["sources"]}) == 10
+796381	    assert all(s["content_sha256"] is None and s["retrieved_at"] is None for s in history["sources"])
+796382	    assert all(s["read_coverage"]["locators"] for s in history["sources"])
+796383	    assert all(s["document_state"] != "ADOPTED" or "agenda" in s["title"].lower()
+796384	               for s in history["sources"] if "cop31" in s["id"].lower())
+796389	from feature_contracts import check_features, NEWS_MIGRATION, RESEARCH_MIGRATIONS, KNOWN_MIGRATIONS, GLOBAL_DC_MIGRATION
+796390	from new_version import migration_records
+796480	def internal_priorities(tmp_path):
+796481	    news_id, research_id, candidate_id = "202611161734", "202611161747", "202611162359"
+796482	        {"id": news_id, "parent": None, "features": [
+796483	            {"id": "news-editorial-priority", "file": "scripts/plugins/live-news.js",
+796484	             "contains": "globalgrid2050.news.headline-priority.v1"}]},
+796485	        {"id": research_id, "parent": news_id, "features": [
+796486	            {"id": "inline-research-priority", "file": "index.html", "contains": "research-priority-v927.js"},
+796487	            {"id": "source-bound-priority", "file": "index.html", "contains": "researchPriorityStatus"}]},
+796488	        {"id": candidate_id, "parent": research_id, "features": [],
+796489	         "feature_migrations": copy.deepcopy([NEWS_MIGRATION, *RESEARCH_MIGRATIONS])},
+796490	    research_paths = ("prospecting/manifest.json", "prospecting/priority.json", "prospecting/priority.csv",
+796491	                      "scripts/plugins/research-priority-v927.js", "scripts/plugins/prospecting/adapter.mjs",
+796492	                      "scripts/plugins/prospecting/bundle.mjs", "scripts/plugins/prospecting/view.mjs")
+796493	        (folder / "data").mkdir(parents=True)
+796494	        for path in ("scripts/plugins/live-news.js", "news/pipeline_headlines.snapshot.json"):
+796495	            destination = folder / path
+796497	            shutil.copyfile(ROOT / "uk_renewables_pipeline" / news_id / path, destination)
+796498	        if version["id"] != news_id:
+796499	            for path in research_paths:
+796500	                destination = folder / path
+796502	                shutil.copyfile(ROOT / "uk_renewables_pipeline" / research_id / path, destination)
+796503	        (folder / "index.html").write_text(
+796504	            '<script defer src="scripts/plugins/live-news.js?v=9.28"></script>', encoding="utf-8")
+796506	    return tmp_path, by_id, by_id[candidate_id]
+796507	def test_internal_migrations_preserve_algorithms_data_and_mandatory_browser_probes(internal_priorities):
+796508	    root, by_id, version = internal_priorities
+796509	    result, probes = check_features(version, by_id, root)
+796510	    assert len(result["migrations"]) == 3
+796511	    assert result["withdrawn_on_purpose"] == []
+796512	    assert len(probes) == 2  # Research is one executable proof for its two inherited features.
+796513	    assert all(probe["js"].startswith("(async () =>") for probe in probes)
+796514	    assert "await p.validatePriority(doc,bytes,bad)" in probes[0]["js"]
+796515	    assert "Forged attribution" in probes[0]["js"]
+796516	    assert "dataset.order==='priority'" in probes[0]["js"]
+796517	    assert "items[i].source" in probes[0]["js"]
+796518	    assert "parsePriorityBundle" in probes[1]["js"]
+796519	    assert "bundle.members.size===7775" in probes[1]["js"]
+796520	    assert "bundle.byId.size===1000" in probes[1]["js"]
+796521	@pytest.mark.parametrize("change", ["research_json", "research_csv", "manifest", "parser", "public_script",
+796522	                                     "public_status", "validator", "schema", "news_wiring", "provenance", "official_data"])
+796523	def test_internal_migrations_reject_lost_data_or_reintroduced_public_scores(internal_priorities, change):
+796524	    folder = root / version["id"]
+796525	    if change in {"research_json", "research_csv", "manifest", "parser"}:
+796526	        path = folder / {"research_json": "prospecting/priority.json", "research_csv": "prospecting/priority.csv",
+796527	                         "manifest": "prospecting/manifest.json", "parser": "scripts/plugins/prospecting/bundle.mjs"}[change]
+796528	        path.write_bytes(path.read_bytes() + b" ")
+796529	    elif change in {"public_script", "public_status", "news_wiring"}:
+796531	        if change == "public_script":
+796532	            text += "<script src='scripts/plugins/research-priority-v927.js?v=9.27'></script>"
+796533	        elif change == "public_status":
+796534	            text += "<span id='researchPriorityStatus'>Research #1</span>"
+796535	            text = "<p>No headline renderer</p>"
+796537	    elif change in {"validator", "schema"}:
+796538	        path = folder / "scripts/plugins/live-news.js"
+796539	        before = "crypto.subtle.digest" if change == "validator" else "globalgrid2050.news.headline-priority.v1"
+796540	        path.write_text(path.read_text(encoding="utf-8").replace(before, "removed"), encoding="utf-8")
+796541	    elif change == "provenance":
+796542	        path = folder / "news/pipeline_headlines.snapshot.json"
+796543	        doc = json.loads(path.read_text(encoding="utf-8"))
+796544	        doc["items"] = [{"title": "Synthetic missing publisher", "source": "", "link": "https://example.org/fixture"}]
+796545	        path.write_text(json.dumps(doc), encoding="utf-8")
+796546	    result, _ = check_features(version, by_id, root)
+796547	@pytest.mark.parametrize("feature", ["inline-research-priority", "source-bound-priority", "news-editorial-priority"])
+796548	def test_internal_features_cannot_be_bypassed_by_removed_features(internal_priorities, feature):
+796549	    version["removed_features"] = [feature]
+796550	    assert "internal priority features require an audited migration, not removal" in result["errors"]
+796551	def test_descendant_may_restate_exact_inherited_contract_but_not_duplicate_locally(internal_priorities):
+796552	    parent = by_id[version["parent"]]
+796553	    parent["feature_migrations"] = copy.deepcopy(RESEARCH_MIGRATIONS)
+796554	    version["feature_migrations"].append(copy.deepcopy(NEWS_MIGRATION))
+796555	    assert not result["pass"] and "duplicate feature migration" in result["errors"]
+796556	def test_release_flags_expand_only_explicit_reviewed_contracts():
+796557	    result = migration_records(["solar1000-inline-v1", "news-priority-internal-v1", "research-priority-internal-v1", "global-dc-ui-v928-v1"])
+796558	    assert result == KNOWN_MIGRATIONS
+796559	    assert migration_records(["solar1000-inline-v1"]) == [MIGRATION]
+796560	    result[0]["contract"] = "caller mutation"
+796561	@pytest.mark.parametrize("flags", [["unknown"], ["solar1000-inline-v1", "solar1000-inline-v1"],
+796562	                                   ["research-priority-internal-v1", "research-priority-internal-v1"]])
+796563	def test_release_flags_reject_unknown_or_duplicate_contracts(flags):
+796564	    with pytest.raises(ValueError, match="Unknown or duplicate"):
+796565	        migration_records(flags)
+796566	@pytest.mark.parametrize("document", [[], {"schema": "globalgrid2050.news.pipeline-headlines.v1", "items": [None]}])
+796567	def test_malformed_headline_provenance_returns_failed_verdict(internal_priorities, document):
+796568	    (root / version["id"] / "news/pipeline_headlines.snapshot.json").write_text(json.dumps(document), encoding="utf-8")
+796569	def test_migration_cannot_replace_original_sources_own_feature_check(internal_priorities):
+796570	    root, by_id, _ = internal_priorities
+796571	    source = by_id[NEWS_MIGRATION["from"]]
+796572	    source["feature_migrations"] = [copy.deepcopy(NEWS_MIGRATION)]
+796573	    result, _ = check_features(source, by_id, root)
+796574	def datacentre_migration(tmp_path):
+796575	    pipeline = tmp_path / "pipeline"
+796576	    source_id, candidate_id = GLOBAL_DC_MIGRATION["from"], "202611162359"
+796577	    versions = {
+796578	        source_id: {"id": source_id, "parent": None, "features": [
+796579	            {"id": "global-dc-tab", "file": "index.html", "contains": "global-datacentres-v925.js"}]},
+796580	        candidate_id: {"id": candidate_id, "parent": source_id, "features": [],
+796581	                       "feature_migrations": [copy.deepcopy(GLOBAL_DC_MIGRATION)]},
+796582	    for vid in versions:
+796583	        folder = pipeline / vid
+796584	        actual = ROOT / "uk_renewables_pipeline" / (source_id if vid == source_id else "202611161757")
+796585	        paths = ["global-datacentres/projects.json", "index.html"]
+796586	        if vid == candidate_id:
+796587	            paths += ["global-datacentres/official-projects.json", "global-datacentres/project-groups.json",
+796588	                      "global-datacentres/selection-audit.json", "scripts/plugins/preview-v928.js"]
+796589	        for rel in paths:
+796590	    return pipeline, versions, versions[candidate_id]
+796591	def test_datacentre_migration_retains_100_leads_12_semantics_and_mandatory_real_host_probe(datacentre_migration):
+796592	    pipeline, versions, candidate = datacentre_migration
+796593	    result, probes = check_features(candidate, versions, pipeline)
+796594	    assert len(probes) == 1
+796595	    assert "tab.click()" in probes[0]["js"]
+796596	    assert "GGDataCentreModel.validateBundle(forged)" in probes[0]["js"]
+796597	    assert "length!==54" in probes[0]["js"] and "length!==100" in probes[0]["js"]
+796598	    assert "querySelectorAll('main>section').length!==2" in probes[0]["js"]
+796599	@pytest.mark.parametrize("change", ["identity", "mw", "status", "malformed_capacity", "audit", "old_semantics", "host", "old_renderer", "lazy"])
+796600	def test_datacentre_migration_rejects_changed_evidence_or_lost_host(datacentre_migration, change):
+796601	    folder = pipeline / candidate["id"]
+796602	    if change in {"identity", "mw", "status", "malformed_capacity"}:
+796603	        path = folder / "global-datacentres/projects.json"
+796604	        if change == "identity":
+796605	            doc["records"][0]["id"] = "DC-WD-Q999999999"
+796606	        elif change == "mw":
+796607	            doc["records"][0]["capacity"]["it_load_mw"] = 100
+796608	        elif change == "malformed_capacity":
+796609	            doc["records"][0]["capacity"] = None
+796610	            doc["records"][0]["operating_status"] = "operational"
+796611	    elif change == "audit":
+796612	        path = folder / "global-datacentres/selection-audit.json"
+796613	    elif change == "old_semantics":
+796614	        path = pipeline / GLOBAL_DC_MIGRATION["from"] / "global-datacentres/projects.json"
+796615	        doc["records"][0]["name"] = "Different original identity"
+796616	    elif change == "lazy":
+796617	        path = folder / "scripts/plugins/preview-v928.js"
+796618	        path.write_text(path.read_text(encoding="utf-8").replace("!dcStarted", "true"), encoding="utf-8")
+796619	        text = text.replace('id="datacentreHost"', 'id="removed"') if change == "host" else text + '<script src="scripts/plugins/global-datacentres-v925.js"></script>'
+796620	    result, _ = check_features(candidate, versions, pipeline)
+796621	"""Offline primary-source fixture and adversarial solar/DC scope tests."""
+796622	from automation.news.dc_context.solar import build, dumps, verify_source_bytes
+796623	FIXTURE = Path(__file__).resolve().parents[1] / "dc_context/fixtures/solar-context.json"
+796624	NOW = "2026-11-16T17:30:00Z"
+796625	def claim(bundle, index=0):
+796626	    return bundle["contexts"][index]["numeric_claims"][0]["claim"]
+796627	def test_real_receipt_slice_preserves_forecast_bounds_and_source_scope(bundle):
+796628	    original = deepcopy(bundle)
+796629	    output = build(bundle, as_of=NOW)
+796630	    assert output["context_count"] == 4
+796631	    assert output["numeric_claim_count"] == 2
+796632	    assert output["linked_project_count"] == 0
+796633	    assert output["source_byte_validation"] == "RECEIPTS_ONLY"
+796634	    by_id = {r["id"]: r for r in output["records"]}
+796635	    solar = by_id["solar:google-nevada-2021"]["numeric_claims"][0]
+796636	    battery = by_id["storage:google-nevada-2021"]["numeric_claims"][0]
+796637	    assert solar["claim"]["value"] == "350"
+796638	    assert battery["claim"]["value"] == "280"
+796639	    assert battery["qualifier"] == "upper_bound"
+796640	    assert battery["claim"]["quantity_kind"] == "storage_power"
+796641	    assert battery["claim"]["unit"] == "MW"
+796642	    assert battery["claim"]["basis"] == "forecast"
+796643	    assert battery["claim"]["as_of"] == "2024"
+796644	    assert by_id["storage:google-uk-shell-2025"]["entity"]["scope"] == "issuer"
+796645	    livingston = by_id["solar:sma-iron-mountain-livingston"]
+796646	    assert livingston["numeric_claims"] == []
+796647	    assert livingston["source_document_age_days"] is None
+796648	    assert livingston["source_as_of"] == "2020-03"
+796649	    assert "unresolved" in livingston["figures_omitted_reason"]
+796650	    for row in output["records"]:
+796651	        assert row["status"] == "PROVISIONAL"
+796652	        assert row["current_delivery"] == "UNKNOWN"
+796653	        assert row["canonical_project_id"] is None
+796654	        assert row["current_site_supply_mw"] is None
+796655	        assert row["current_storage_energy_mwh"] is None
+796656	    assert bundle == original
+796657	    output["records"][0]["source"]["title"] = "mutation"
+796658	def test_deterministic_order_and_json(bundle):
+796659	    expected = dumps(build(bundle, as_of=NOW))
+796660	    assert dumps(build(bundle, as_of=NOW)) == expected
+796662	    lambda b: b.update(body="private hidden payload"),
+796663	    lambda b: b["contexts"][0].update(canonical_project_id="repd:1018"),
+796664	    lambda b: b["contexts"][0].update(relationship="nearby_solar"),
+796665	    lambda b: b["contexts"][0].update(source_state="VERIFIED"),
+796666	    lambda b: b["contexts"][0].update(source_id="missing"),
+796667	    lambda b: b["contexts"][0].update(section=None, page=None),
+796668	    lambda b: b["contexts"][0].update(name="<script>"),
+796669	    lambda b: b["contexts"][0].update(source_as_of="2027-01-01"),
+796670	    lambda b: b["contexts"][0].update(numeric_claims=[], figures_omitted_reason=None),
+796671	    lambda b: b["contexts"][0].update(figures_omitted_reason="unknown"),
+796672	    lambda b: b["contexts"][2]["entity"].update(scope="site"),
+796673	    lambda b: b["contexts"][3]["entity"].update(scope="issuer"),
+796674	    lambda b: b["sources"][0].update(http_status=403),
+796675	    lambda b: b["sources"][0].update(http_status=True),
+796676	    lambda b: b["sources"][0].update(bytes=0),
+796677	    lambda b: b["sources"][0].update(retrieved_at="2026-12-01T00:00:00Z"),
+796678	    lambda b: b["sources"][0].update(published_date="2027-01-01"),
+796679	    lambda b: b["sources"][0].update(sha256="bad"),
+796680	    lambda b: b["sources"][0].update(url="https://www.epa.gov.evil.example/document"),
+796681	    lambda b: b["sources"][0].update(url="https://127.0.0.1/document"),
+796682	    lambda b: b["sources"][0].update(authority="GOVERNMENT_VERIFIED"),
+796683	    lambda b: b["sources"][0].update(output_policy="FULL_BODY"),
+796684	    lambda b: b["sources"].append(deepcopy(b["sources"][0])),
+796685	    lambda b: b["contexts"].append(deepcopy(b["contexts"][0])),
+796686	    lambda b: claim(b).update(status="VERIFIED"),
+796687	    lambda b: claim(b).update(value=350.0),
+796688	    lambda b: claim(b).update(value="NaN"),
+796689	    lambda b: claim(b).update(quantity_kind="it_load"),
+796690	    lambda b: claim(b).update(basis="reported"),
+796691	    lambda b: claim(b).update(assurance="audited"),
+796692	    lambda b: claim(b)["entity"].update(scope="site"),
+796693	    lambda b: claim(b)["provenance"].update(sha256="0" * 64),
+796694	    lambda b: claim(b)["provenance"].update(section="Another scope"),
+796695	    lambda b: claim(b, 1).update(unit="MWh"),
+796696	    lambda b: b["contexts"][1]["numeric_claims"][0].update(qualifier=None),
+796697	    lambda b: b["contexts"][1]["numeric_claims"][0].pop("qualifier"),
+796698	def test_rejects_scope_unit_proximity_source_and_verification_tampering(bundle, mutation):
+796699	    mutation(bundle)
+796700	        build(bundle, as_of=NOW)
+796701	def test_all_supplied_source_bytes_required_and_checked(bundle):
+796702	    # Explicit synthetic bytes test the contract; not replacements for real receipts.
+796703	    supplied = {}
+796704	        raw = ("SYNTHETIC SOURCE " + source["id"]).encode()
+796705	        supplied[source["id"]] = raw
+796706	        source.update(bytes=len(raw), sha256=hashlib.sha256(raw).hexdigest())
+796707	        for context in bundle["contexts"]:
+796708	            if context["source_id"] == source["id"]:
+796709	                for figure in context["numeric_claims"]:
+796710	                    figure["claim"]["provenance"]["sha256"] = source["sha256"]
+796711	    result = build(bundle, as_of=NOW, source_bytes=supplied)
+796712	    assert result["source_byte_validation"] == "MATCHED_SUPPLIED_BYTES"
+796713	    assert "SYNTHETIC SOURCE" not in dumps(result)
+796714	    with pytest.raises(ValueError, match="coverage"):
+796715	        build(bundle, as_of=NOW, source_bytes={})
+796716	    supplied[next(iter(supplied))] += b"tamper"
+796717	    with pytest.raises(ValueError, match="bytes"):
+796718	        build(bundle, as_of=NOW, source_bytes=supplied)
+796719	def test_source_receipt_rejects_wrong_bytes(bundle):
+796720	    with pytest.raises(ValueError, match="receipt"):
+796721	        verify_source_bytes(bundle["sources"][0], b"not observed publisher bytes")
+796722	def test_empty_coverage_is_not_success(bundle):
+796723	    bundle["contexts"] = []
+796724	    with pytest.raises(ValueError, match="nonempty"):
+796725	def test_parent_finance_stays_exact_and_stage_specific(bundle):
+796726	    # Entirely synthetic finance example; no real financial claim is asserted.
+796727	    context = bundle["contexts"][0]
+796728	    context.update(relationship="procurement_finance", source_state="ANNOUNCED")
+796729	    context["entity"].update(scope="consolidated_group", id="group:synthetic",
+796730	                              consolidation_group_id="group:synthetic")
+796731	    c = claim(bundle)
+796732	    c.update(quantity_kind="finance", metric="Synthetic planned procurement funding",
+796733	             value="1.2300", scale="1e9", unit="currency", original_unit="billion USD",
+796734	             currency="USD", finance_stage="announced", entity=deepcopy(context["entity"]))
+796735	    result = build(bundle, as_of=NOW)
+796736	    result_claim = next(r for r in result["records"] if r["id"] == context["id"])["numeric_claims"][0]["claim"]
+796737	    assert result_claim["value"] == "1.2300"
+796738	    assert result_claim["scale"] == "1e9"
+796739	    assert result_claim["currency"] == "USD"
+796740	    assert result_claim["finance_stage"] == "announced"
+796741	    c["finance_stage"] = "disbursed"
+796742	    with pytest.raises(ValueError, match="Funding stage"):
+796743	    output = tmp_path / "context.json"
+796744	    args = [sys.executable, "-m", "automation.news.dc_context.solar", "--input", str(FIXTURE),
+796745	            "--as-of", NOW, "--output", str(output)]
+796746	    completed = subprocess.run(args, capture_output=True, text=True)
+796748	    before = output.read_bytes()
+796749	    assert json.loads(before)["context_count"] == 4
+796750	    assert subprocess.run(args, capture_output=True).returncode != 0
+796751	    assert output.read_bytes() == before
+796752	"""Actual typed producers composed offline; no live source acquisition."""
+796753	from automation.news import build_transition_context as context
+796754	from automation.news.tests.test_policy_commitments import numeric  # existing synthetic fixture
+796757	PATHS = {"policy": HERE / "policy_commitments/sample_ledger.json",
+796758	         "grid": HERE / "dc_context/grid-source-fixture.json",
+796759	         "solar": HERE / "dc_context/fixtures/solar-context.json"}
+796760	def inputs():
+796761	    return {name: json.loads(path.read_text(encoding="utf-8")) for name, path in PATHS.items()}
+796762	def compose(inputs, **kwargs):
+796763	    return context.build(inputs["policy"], inputs["grid"], inputs["solar"], as_of=kwargs.get("as_of", AS_OF))
+796764	def rows(report, family):
+796765	    return [row for row in report["records"] if row["family"] == family]
+796766	def grid_claim(inputs):
+796767	    return next(row["numeric_claims"][0] for row in inputs["grid"]["contexts"] if row["numeric_claims"])
+796768	def command(paths=None, *extra):
+796769	    paths = paths or PATHS
+796770	    return [sys.executable, "-B", "-X", "utf8", "-m", "automation.news.build_transition_context",
+796771	            "--policy", str(paths["policy"]), "--grid", str(paths["grid"]), "--solar", str(paths["solar"]),
+796772	            "--as-of", AS_OF, *extra]
+796773	def test_actual_fourteen_contexts_remain_unlinked_and_provisional(inputs):
+796774	    before = deepcopy(inputs)
+796775	    report = compose(inputs)
+796776	    assert report["schema"] == context.SCHEMA and report["status"] == "PROVISIONAL"
+796777	    assert report["coverage"] == {"records": 14, "families": {"policy": 8, "grid": 2, "solar": 4},
+796778	                                  "numeric_claims": 3, "linked_projects": 0, "scope": "BOUNDED_SUPPLIED_CONTEXT"}
+796779	    assert all(row["scope"]["canonical_project_id"] is None and row["scope"]["binding"] == "UNLINKED"
+796780	               for row in report["records"])
+796781	    assert [row["evaluation_state"] for row in rows(report, "policy")].count("UNKNOWN") == 7
+796782	    assert [row["evaluation_state"] for row in rows(report, "policy")].count("REPORTED_PROGRESS") == 1
+796783	    assert all(row["evaluation_state"] == row["applicability_state"] == "UNKNOWN"
+796784	               for row in rows(report, "grid") + rows(report, "solar"))
+796785	    assert inputs == before
+796786	    report["records"][0]["native_record"]["name"] = "changed copy"
+796787	def test_native_records_and_source_receipts_survive_exactly(inputs):
+796788	    assert [row["native_record"] for row in rows(report, "policy")] == policy.evaluate(inputs["policy"], as_of=AS_OF)["results"]
+796789	    assert [row["native_record"] for row in rows(report, "grid")] == grid.build(inputs["grid"], as_of=AS_OF)["records"]
+796790	    assert [row["native_record"] for row in rows(report, "solar")] == solar.build(inputs["solar"], as_of=AS_OF)["records"]
+796791	        for link in row["source_links"]:
+796792	            assert link["url"] == link["receipt"]["url"]
+796793	            assert link["retrieved_at"] == link["receipt"]["retrieved_at"]
+796794	    assert all(item["source_byte_validation"] == "RECEIPTS_ONLY" for item in report["input_receipts"])
+796795	    for receipt in report["input_receipts"]:
+796796	        family = receipt["family"]
+796797	        reconstructed = {**receipt["native_metadata"],
+796798	                         "results" if family == "policy" else "records": [row["native_record"] for row in rows(report, family)]}
+796799	        original = (policy.evaluate(inputs[family], as_of=AS_OF) if family == "policy"
+796800	                    else (grid if family == "grid" else solar).build(inputs[family], as_of=AS_OF))
+796801	        assert reconstructed == original
+796802	def test_rejection_forecast_upper_bound_and_missing_capacity_are_not_delivered(inputs):
+796803	    rejected = next(row for row in rows(report, "grid") if row["source_state"] == "REJECTED")
+796804	    figure = rejected["numeric_claims"][0]
+796805	    assert figure["qualifier"] is None and figure["claim"]["value"] == "480"
+796806	    assert figure["claim"]["basis"] == "forecast" and figure["claim"]["quantity_kind"] == "project_demand"
+796807	    battery = next(row for row in rows(report, "solar") if "storage:google-nevada" in row["id"])
+796808	    assert battery["numeric_claims"][0]["qualifier"] == "upper_bound"
+796809	    assert battery["numeric_claims"][0]["claim"]["as_of"] == "2024"
+796810	    assert battery["native_record"]["current_delivery"] == "UNKNOWN"
+796811	    missing = next(row for row in rows(report, "solar") if "livingston" in row["id"])
+796812	    assert missing["numeric_claims"] == [] and missing["native_record"]["current_site_supply_mw"] is None
+796813	    assert missing["source_links"][0]["published_date"] is None
+796814	def test_scope_categories_do_not_allocate_portfolio_to_site(inputs):
+796815	    portfolio = next(row for row in rows(report, "solar") if "shell" in row["id"])
+796816	    assert portfolio["scope"]["kind"] == "portfolio"
+796817	    assert portfolio["scope"]["native_scope"] == "issuer"
+796818	    assert portfolio["numeric_claims"] == []
+796819	    zone = next(row for row in rows(report, "grid") if row["scope"]["native_scope"] == "zone")
+796820	    assert zone["scope"]["kind"] == "UNKNOWN"
+796821	    assert all(row["scope"]["kind"] == "policy" for row in rows(report, "policy"))
+796822	def test_unknown_original_hash_and_clocks_are_not_fabricated(inputs):
+796823	    metadata = report["input_receipts"][0]["native_metadata"]
+796824	    cop = next(doc for doc in metadata["documents"] if doc["document_state"] == "IN_PROGRESS")
+796825	    assert cop["published_on"] is cop["retrieved_at"] is cop["content_sha256"] is None
+796826	    assert cop["reviewed_at"] == "2026-11-16T17:16:51Z" and cop["hash_limitation"]
+796827	    answer = next(link for row in rows(report, "policy") for link in row["source_links"]
+796828	                  if link["receipt"]["source_kind"] == "OFFICIAL_ANSWER")
+796829	    assert answer["sha256"] is answer["retrieved_at"] is None
+796830	def test_deterministic_complete_input_digests_and_dates(inputs):
+796831	    first = compose(inputs)
+796832	    assert context.dumps(first) == context.dumps(compose(inputs))
+796833	    for receipt in first["input_receipts"]:
+796834	        raw = context.dumps(inputs[receipt["family"]]).encode("utf-8")
+796835	        assert receipt["input_sha256"] == hashlib.sha256(raw).hexdigest()
+796836	    changed = deepcopy(inputs)
+796837	    changed["policy"]["coverage_note"] += " Additional bounded review note."
+796838	    second = compose(changed)
+796839	    assert first["input_receipts"][0]["input_sha256"] != second["input_receipts"][0]["input_sha256"]
+796840	    later = compose(inputs, as_of="2026-12-16T18:00:00Z")
+796841	    assert [row["source_links"] for row in first["records"]] == [row["source_links"] for row in later["records"]]
+796842	def test_exact_large_decimals_and_comparison_remain_shared_figures(inputs, numeric):
+796843	    numeric["commitments"][0]["target"]["value"] = "9007199254740993.010"
+796844	    numeric["updates"][0]["claim"]["value"] = "9007199254740993.011"
+796845	    inputs["policy"] = numeric
+796846	    row = rows(compose(inputs), "policy")[0]
+796847	    assert row["evaluation_state"] == "EVIDENCE_SUPPORTED_RESULT"
+796848	    assert row["native_record"]["comparison"]["relation"] == "GREATER_THAN"
+796849	    assert row["native_record"]["legal_compliance"] == "NOT_ASSESSED"
+796850	    assert [(f["role"], f["claim"]["value"]) for f in row["numeric_claims"]] == [
+796851	        ("TARGET", "9007199254740993.010"), ("UPDATE", "9007199254740993.011")]
+796852	    assert row["scope"]["kind"] == "project" and row["scope"]["binding"] == "UNLINKED"
+796853	@pytest.mark.parametrize("field,value", [("unit", "GW"), ("reporting_period", {"start": "2026-01", "end": "2026-10"})])
+796854	def test_incompatible_measurements_do_not_become_results(inputs, numeric, field, value):
+796855	    numeric["updates"][0]["claim"][field] = value
+796856	    assert rows(compose(inputs), "policy")[0]["evaluation_state"] == "UNKNOWN"
+796857	@pytest.mark.parametrize("observed_stage,expected", [("announced", "UNKNOWN"), ("disbursed", "EVIDENCE_SUPPORTED_RESULT")])
+796858	def test_finance_stages_are_preserved_without_delivery_inference(inputs, numeric, observed_stage, expected):
+796859	    target, actual = numeric["commitments"][0]["target"], numeric["updates"][0]["claim"]
+796860	    for claim in (target, actual):
+796861	        claim.update(quantity_kind="finance", unit="currency", original_unit="euros", currency="EUR", finance_stage="disbursed")
+796862	    actual["finance_stage"] = observed_stage
+796863	    assert row["evaluation_state"] == expected
+796864	    assert row["numeric_claims"][1]["claim"]["finance_stage"] == observed_stage
+796865	@pytest.mark.parametrize("change", ["draft", "unknown_applicability", "baseline_revision"])
+796866	def test_policy_uncertainties_survive_composition(inputs, numeric, change):
+796867	    if change == "draft":
+796868	        numeric["documents"][0]["document_state"] = "DRAFT"
+796869	    elif change == "unknown_applicability":
+796870	        numeric["commitments"][0]["applicability"]["state"] = "UNKNOWN"
+796871	        numeric["updates"][0]["baseline_revision_id"] = "earlier"
+796872	    assert row["evaluation_state"] == "UNKNOWN" and row["native_record"]["comparison"] is None
+796873	def test_issuer_scope_stays_issuer_and_future_deadline_is_not_delivery(inputs, numeric):
+796874	    entity = inputs["solar"]["contexts"][0]["entity"]
+796875	    entity["scope"] = "issuer"
+796876	    inputs["solar"]["contexts"][0]["numeric_claims"][0]["claim"]["entity"] = deepcopy(entity)
+796877	    assert rows(report, "policy")[0]["evaluation_state"] == "NOT_YET_DUE"
+796878	    assert next(row for row in rows(report, "solar") if row["id"] == "solar:solar:google-nevada-2021")["scope"]["kind"] == "issuer"
+796879	def test_csv_roundtrip_preserves_whole_bundle_and_formula_safety(inputs):
+796880	    inputs["policy"]["commitments"][0]["statement"] = '=SUM(1,2) "Türkiye €"'
+796881	    exported = list(csv.DictReader(io.StringIO(context.csv_report(report))))
+796882	    assert len(exported) == len(report["records"])
+796883	    for flat, row in zip(exported, report["records"]):
+796884	        assert json.loads(flat["bundle"]) == {k: v for k, v in report.items() if k != "records"}
+796885	        for key, value in row.items():
+796886	                assert json.loads(flat[key]) == value
+796887	                assert flat[key] == ("'" + value if value.startswith(("=", "+", "-", "@", "\t", "\r")) else value)
+796888	@pytest.mark.parametrize("family,field", [("policy", "commitments"), ("grid", "contexts"), ("solar", "contexts")])
+796889	def test_empty_family_fails_whole_composition(inputs, family, field):
+796890	    inputs[family][field] = []
+796891	        compose(inputs)
+796892	    lambda x: grid_claim(x).update(value=480),
+796893	    lambda x: x["solar"]["contexts"][0]["numeric_claims"][0].update(qualifier="delivered"),
+796894	    lambda x: x["grid"]["sources"][0].update(url="javascript:alert(1)"),
+796895	    lambda x: x["policy"]["documents"][0].update(reviewed_at="2027-01-01T00:00:00Z"),
+796896	    lambda x: x["solar"]["contexts"][0]["numeric_claims"][0]["claim"]["provenance"].update(sha256="0" * 64),
+796897	    lambda x: x["grid"]["contexts"][0].update(canonical_project_id="invented"),
+796898	def test_invalid_input_fails_closed(inputs, mutation):
+796899	    mutation(inputs)
+796900	    with pytest.raises((ValueError, KeyError, TypeError)):
+796901	def test_cross_family_repeated_claim_identity_is_not_corroboration(inputs):
+796902	    duplicate = grid_claim(inputs)["claim_id"]
+796903	    inputs["solar"]["contexts"][0]["numeric_claims"][0]["claim"]["claim_id"] = duplicate
+796904	    with pytest.raises(ValueError, match="Repeated FIGURES"):
+796905	@pytest.mark.parametrize("format", ["json", "csv"])
+796906	def test_real_cli_utf8_export_and_no_overwrite(tmp_path, format):
+796907	    destination = tmp_path / ("context." + format)
+796908	    result = subprocess.run(command(None, "--format", format, "--output", str(destination)), cwd=ROOT, capture_output=True)
+796909	    assert result.returncode == 0 and result.stdout == b""
+796910	    original = destination.read_bytes()
+796911	    decoded = original.decode("utf-8")
+796912	    assert len(json.loads(decoded)["records"] if format == "json" else list(csv.DictReader(io.StringIO(decoded)))) == 14
+796913	    second = subprocess.run(command(None, "--format", format, "--output", str(destination)), cwd=ROOT, capture_output=True)
+796914	    assert second.returncode != 0 and second.stdout == b"" and destination.read_bytes() == original
+796915	@pytest.mark.parametrize("payload", [b'{"schema":"x","schema":"y"}', b'{bad json', b'{}', b'[]'])
+796916	def test_cli_invalid_input_emits_no_stdout_or_file(tmp_path, payload):
+796918	    invalid.write_bytes(payload)
+796919	    result = subprocess.run(command({**PATHS, "solar": invalid}, "--output", str(output)), cwd=ROOT, capture_output=True)
+796920	    assert result.returncode != 0 and result.stdout == b"" and not output.exists()
+796921	    assert b"Traceback" not in result.stderr
+796922	def test_cli_missing_file_and_oversized_inputs_fail(tmp_path):
+796923	    invalid = tmp_path / "missing.json"
+796924	    for raw in (None, b" " * (context.MAX_INPUT_BYTES + 1)):
+796925	        if raw is not None:
+796926	            invalid.write_bytes(raw)
+796927	        result = subprocess.run(command({**PATHS, "grid": invalid}, "--output", str(output)), cwd=ROOT, capture_output=True)
+796928	        assert result.returncode != 0 and result.stdout == b"" and not output.exists()
+796929	def test_library_size_bound_fails_before_returning_partial_report(inputs, monkeypatch):
+796930	    monkeypatch.setattr(context, "MAX_OUTPUT_BYTES", 100)
+796931	    with pytest.raises(ValueError, match="bounded size"):
+796932	def test_csv_repeated_metadata_is_bounded_during_serialization(inputs, monkeypatch):
+796933	    monkeypatch.setattr(context, "MAX_OUTPUT_BYTES", 1000)
+796934	    with pytest.raises(ValueError, match="CSV export exceeds bounded size"):
+796935	        context.csv_report(report)
+796936	def test_cli_unicode_quotes_and_formula_prefix_survive(inputs, tmp_path, format):
+796937	    statement = '=SUM(1,2) "Türkiye €"'
+796938	    inputs["policy"]["commitments"][0]["statement"] = statement
+796939	    input_path = tmp_path / "policy.json"
+796940	    input_path.write_text(json.dumps(inputs["policy"], ensure_ascii=False), encoding="utf-8")
+796941	    result = subprocess.run(command({**PATHS, "policy": input_path}, "--format", format), cwd=ROOT, capture_output=True)
+796942	    assert result.returncode == 0
+796943	    text = result.stdout.decode("utf-8")
+796944	    if format == "json":
+796945	        assert any(row["title"] == statement for row in json.loads(text)["records"])
+796946	        parsed = list(csv.DictReader(io.StringIO(text)))
+796947	        assert any(row["title"] == "'" + statement for row in parsed)
+796948	def test_partial_disk_write_leaves_no_published_file_or_staging_file(tmp_path, monkeypatch, capsys):
+796949	    destination = tmp_path / "new.json"
+796950	    original = context.os.fdopen
+796951	    observed = []
+796952	    class FailingWriter:
+796953	        def __init__(self, descriptor, mode):
+796954	            self.handle = original(descriptor, mode)
+796955	        def __enter__(self):
+796956	            return self
+796957	        def write(self, raw):
+796958	            fragment = raw[:len(raw) // 2]
+796959	            self.handle.write(fragment)
+796960	            self.handle.flush()
+796961	            staged = list(tmp_path.glob(".transition-context-*.tmp"))
+796962	            assert len(staged) == 1 and staged[0].read_bytes() == fragment
+796963	            observed.append(len(fragment))
+796964	            raise OSError("Simulated interrupted disk write")
+796965	        def __exit__(self, *args):
+796966	            self.handle.close()
+796967	    monkeypatch.setattr(context.os, "fdopen", FailingWriter)
+796969	        context.main(command(None, "--output", str(destination))[6:])
+796970	    assert error.value.code == 2 and observed and observed[0] > 0
+796971	    assert not destination.exists() and list(tmp_path.iterdir()) == []
+796972	    assert capsys.readouterr().out == ""
+796973	def test_concurrent_destination_creation_is_preserved(tmp_path, monkeypatch):
+796974	    destination = tmp_path / "raced.json"
+796975	    link = context.os.link
+796976	    def race(source, target):
+796977	        destination.write_bytes(b"existing winner")
+796978	        return link(source, target)
+796979	    monkeypatch.setattr(context.os, "link", race)
+796981	        context._publish_new(destination, b"candidate")
+796982	    assert destination.read_bytes() == b"existing winner"
+796983	    assert list(tmp_path.iterdir()) == [destination]
+796984	def test_unsupported_atomic_link_fails_without_fallback(tmp_path, monkeypatch):
+796985	    destination = tmp_path / "unsupported.json"
+796986	    def unavailable(*args):
+796987	        raise OSError("Hard links unavailable")
+796988	    monkeypatch.setattr(context.os, "link", unavailable)
+796989	    with pytest.raises(OSError):
+796990	"""Real V9.28 cohort/data integration; no browser or facility verification claim."""
+796991	EDITION = 'uk_renewables_pipeline/202611161757'
+796992	DATA = ROOT / EDITION / 'global-datacentres'
+796994	    return json.loads((DATA / name).read_bytes())
+796995	def builder():
+796996	    spec = importlib.util.spec_from_file_location('v928_dc_build', DATA / 'build.py')
+797000	def test_real_new_edition_100_leads_22_countries_and_quarantine():
+797001	    data, audit = load('projects.json'), load('selection-audit.json')
+797002	    assert len(data['records']) == data['record_count'] == 100
+797003	    assert len({r['id'] for r in data['records']}) == 100
+797004	    assert len({r['country']['wikidata_id'] for r in data['records']}) == data['country_count'] == 22
+797005	    assert audit['candidate_count'] == data['candidate_count'] == 138
+797006	    assert len(audit['quarantined']) == audit['quarantined_count'] == data['quarantined_count'] == 38
+797007	    assert audit['independently_verified'] is False
+797008	    assert not {r['id'] for r in data['records']} & {r['id'] for r in audit['quarantined']}
+797009	    assert builder().project(DATA / 'source-facts.json') == data
+797010	def test_original_twelve_semantic_fields_exact_and_null_measurements_retained():
+797011	    parent = json.loads((ROOT / 'uk_renewables_pipeline/202611161630/global-datacentres/projects.json').read_bytes())
+797012	    records = {r['id']: r for r in load('projects.json')['records']}
+797013	    assert len(parent['records']) == 12
+797014	    for old in parent['records']:
+797015	        for key in ('id', 'name', 'country', 'operator', 'location', 'capacity'):
+797016	            assert records[old['id']][key] == old[key]
+797017	    assert sum(r['location'] is None for r in records.values()) == 61
+797018	    for r in records.values():
+797019	        assert r['verification_status'] == 'SOURCE_INDEXED'
+797020	        assert r['operating_status'] == 'not_assessed'
+797021	        assert all(x is None for x in r['capacity'].values())
+797022	        assert all(x is None for x in r['capacity_sources'].values())
+797023	def test_compact_sources_keep_full_upstream_objects_and_explicit_hash_bridge():
+797024	    manifest = load('integration-manifest.json')
+797025	    assert manifest['edition'] == '202611161757' and manifest['grains_separate'] is True
+797026	    for source in manifest['sources']:
+797027	        served = (DATA / source['served_path']).read_bytes()
+797028	        assert hashlib.sha256(served).hexdigest() == source['served_sha256']
+797029	        assert b'\n  ' not in served
+797030	        # Public source object identity is recorded even in shallow CI clones.
+797031	        assert len(source['source_commit']) == len(source['source_blob']) == 40
+797032	        assert len(source['source_sha256']) == 64
+797033	    facts = (DATA / 'source-facts.json').read_bytes()
+797034	    assert hashlib.sha256(facts).hexdigest() == load('projects.json')['source_facts_sha256']
+797035	    assert load('pipeline-audit.json')['source_facts_sha256'] == load('projects.json')['source_facts_sha256']
+797036	    assert len(load('source-facts.json')['candidate_ids']) == 138
+797037	def test_official_and_group_records_are_not_extra_facilities():
+797038	    official, groups = load('official-projects.json'), load('project-groups.json')
+797039	    assert official['schema'] == 'globalgrid2050.dc-official-projects.v1'
+797040	    assert official['coverage']['selected_records'] == len(official['projects']) == 3
+797041	    assert official['coverage']['physical_facility_count'] is None
+797042	    assert {r['entity_scope'] for r in official['projects']} == {'planning_case', 'tax_qualification_record'}
+797043	    cohort_ids = {r['id'] for r in load('projects.json')['records']}
+797044	    assert not cohort_ids & {r['project_id'] for r in official['projects']}
+797045	    for r in official['projects']:
+797046	        assert r['review_status'] == 'PROVISIONAL' and r['current_lifecycle'] == 'UNKNOWN'
+797047	        assert r['capacity_mw'] is r['latitude'] is r['longitude'] is r['listed_parent'] is None
+797048	        assert r['numeric_claims'] == r['crosswalks'] == []
+797049	    assert groups['record_count'] == len(groups['records']) == 6
+797050	    assert groups['provisional_count'] == groups['unlinked_count'] == 3
+797051	    assert {r['project_id'] for r in groups['records']} <= cohort_ids
+797052	    assert all(r['numeric_claims'] == [] and r['legal_ownership_verified'] is False for r in groups['records'])
+797053	    manifest_source = next(s for s in load('integration-manifest.json')['sources'] if s['served_path'] == 'source-facts.json')
+797054	    assert groups['cohort']['source_facts_sha256'] == manifest_source['source_sha256']
+797055	def test_pinned_furnace_double_build_readback_and_new_generation(tmp_path):
+797056	    module = builder()
+797057	    assert duckdb.__version__ == '1.3.2'
+797058	    assert 'generation=202611161757/' in module.PARQUET
+797059	    assert module.build(DATA / 'source-facts.json', output_dir=tmp_path) == load('projects.json')
+797060	    assert (tmp_path / module.PARQUET).read_bytes() == (DATA / module.PARQUET).read_bytes()
+797061	    assert json.loads((tmp_path / 'pipeline-audit.json').read_bytes()) == load('pipeline-audit.json')
+797062	    assert json.loads((tmp_path / 'selection-audit.json').read_bytes()) == load('selection-audit.json')
+797064	        result = db.execute('SELECT count(*),count(DISTINCT source_record_id),count(latitude),count(it_load_mw),count(site_demand_mw),count(grid_connection_mw) FROM read_parquet(?,hive_partitioning=false)', [str(DATA / module.PARQUET)]).fetchone()
+797065	        assert result == (100, 100, 39, 0, 0, 0)
+797066	    assert not (DATA / 'data/facilities/generation=202611161630/source=WIKIDATA/global-data-centre-records-v1.parquet').exists()
+797067	@pytest.mark.parametrize('mutate', [
+797069	    lambda f: f['baseline_ids'].pop(),
+797070	    lambda f: f['entities']['Q12857142'].update(label='Changed original identity'),
+797072	def test_source_identity_or_selection_failure_preserves_accepted_output(tmp_path, mutate):
+797073	    facts = deepcopy(load('source-facts.json'))
+797074	    mutate(facts)
+797075	    path = tmp_path / 'bad.json'
+797077	    out = tmp_path / 'output'
+797078	    out.mkdir()
+797079	    sentinel = out / 'projects.json'
+797080	    sentinel.write_bytes(b'previous accepted bytes')
+797081	        builder().build(path, output_dir=out)
+797082	    assert sentinel.read_bytes() == b'previous accepted bytes'
+797083	    assert not (out / builder().PARQUET).exists()
+797084	def test_edition_under_existing_18_mib_budget_with_working_data_delta():
+797085	    # The index includes newly staged candidate files before the first commit.
+797086	    # Git blob sizes cover sparse files; actual files override sizes and include
+797087	    # new UI assets instead of testing an obsolete HEAD-only candidate.
+797088	    raw = subprocess.check_output(['git', 'ls-files', '--stage', '--', EDITION], cwd=ROOT).decode()
+797090	    for line in raw.splitlines():
+797091	        meta, path = line.split('\t', 1)
+797092	        entries.append((path, meta.split()[1]))
+797093	    sizes = subprocess.check_output(
+797094	        ['git', 'cat-file', '--batch-check=%(objectsize)'], cwd=ROOT,
+797095	        input=''.join(blob + '\n' for _, blob in entries).encode()).decode().splitlines()
+797096	    tracked = {path: int(size) for (path, _), size in zip(entries, sizes)}
+797097	    for path in (ROOT / EDITION).rglob('*'):
+797098	        if path.is_file() and '__pycache__' not in path.parts:
+797099	            tracked[path.relative_to(ROOT).as_posix()] = path.stat().st_size
+797100	    assert tracked, 'candidate must exist in the index or working tree'
+797101	    assert sum(tracked.values()) <= 18 * 1024 * 1024
+797159	    await evaluate("document.querySelector('#solarTab')?.click(); document.querySelector('#clearFilters')?.click()");
+797162	  const result = await evaluate(`(async (p) => {
+797165	    if (p.js) { let ok = false; try { ok = !!(await (0, eval)(p.js)); } catch (e) { ok = false; } return { pass: ok, detail: ok ? '' : 'expression is not true: ' + p.js }; }
+797191	  await evaluate("document.querySelector('#clearFilters')?.click()");
+797219	  // Compare the complete official register/CSV across versions, even when a
+797220	  // successor opens its Solar tab by default. Category behavior has its own probes.
+797221	  await sleep(100);
+797369	const compact = html.includes(`data-edition="${ID}"`);
+797370	assert.ok(compact || html.includes(`UK RENEWABLES PIPELINE ${ID}`), "visible page identity names this release");
+797376	if (compact) {
+797377	  assert.ok(label.includes(`<small>PIPELINE NEWS · V${VERSION}</small>`), "compact brand names the version");
+797378	  assert.ok(label.includes(`>V${VERSION} · PIPELINE NEWS</a>`), "compact nav names the version");
+797379	  assert.ok(label.includes(`V${VERSION} · `) && label.includes(' · REPD OCTOBER 2026 · '), "compact stamp names the version and source vintage");
+797380	  assert.ok(html.includes(`<title>GlobalGrid2050 | Pipeline News V${VERSION} · ${ID}</title>`), "compact title names this release");
+797381	  assert.equal((html.match(/<section\b/g)||[]).length,2,"exactly two principal blocks");
+797382	  for (const tab of ['solarTab','bessTab','gridTab','datacentreTab']) assert.ok(html.includes(`id="${tab}" role="tab"`),`category ${tab}`);
+797383	  assert.ok(!html.includes('<th>NEWS SIGNAL</th>')&&!html.includes('id="solar1000Pilot"'),"withdrawn panels/column do not return");
+797401	NEWS_MIGRATION = {"id": "news-editorial-priority", "from": "202611161734", "contract": "news-priority-internal-v1"}
+797402	GLOBAL_DC_MIGRATION = {"id": "global-dc-tab", "from": "202611161630", "contract": "global-dc-ui-v928-v1"}
+797403	RESEARCH_MIGRATIONS = [
+797404	    {"id": feature, "from": "202611161747", "contract": "research-priority-internal-v1"}
+797405	    for feature in ("inline-research-priority", "source-bound-priority")
+797406	KNOWN_MIGRATIONS = [SOLAR_MIGRATION, NEWS_MIGRATION, *RESEARCH_MIGRATIONS, GLOBAL_DC_MIGRATION]
+797407	MIGRATION_FLAGS = {
+797408	    "solar1000-inline-v1": [SOLAR_MIGRATION],
+797409	    "news-priority-internal-v1": [NEWS_MIGRATION],
+797410	    "research-priority-internal-v1": RESEARCH_MIGRATIONS,
+797411	    "global-dc-ui-v928-v1": [GLOBAL_DC_MIGRATION],
+797412	INTERNAL_PRIORITY_IDS = {NEWS_MIGRATION["id"], *(m["id"] for m in RESEARCH_MIGRATIONS)}
+797413	DC_PINS = {
+797414	    "projects.json": "faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449",
+797415	    "official-projects.json": "bcf6473bebe78e7a7dab566b1998ea51237d653c5a8584420690c2cea9a5180f",
+797416	    "project-groups.json": "b77afd5846a3c27697e49664fabb4c0020a81a88ccaa680fb5130f6d6d1b8970",
+797417	    "selection-audit.json": "faa79b4651d62baee822b8e6f748e447d0b8aebbe1c8c13beafd81d973b1c592",
+797418	def _global_dc_ui(folder, source):
+797420	    for name, digest in DC_PINS.items():
+797421	        if hashlib.sha256((folder / "global-datacentres" / name).read_bytes()).hexdigest() != digest:
+797422	            failures.append(f"changed accepted 100-lead recovery input: {name}")
+797423	    projects = json.loads((folder / "global-datacentres/projects.json").read_text(encoding="utf-8"))
+797424	    original = json.loads((source / "global-datacentres/projects.json").read_text(encoding="utf-8"))
+797425	    rows, baseline = projects["records"], original["records"]
+797426	    by_id = {row["id"]: row for row in rows}
+797427	    if len(rows) != 100 or len(by_id) != 100 or len(baseline) != 12:
+797428	        failures.append("invalid recovered/original Data Centre populations")
+797429	    def semantic(row):
+797430	        value = json.loads(json.dumps(row))
+797431	        value["source"].pop("retrieved_at", None)
+797433	    if any(row["id"] not in by_id or semantic(by_id[row["id"]]) != semantic(row) for row in baseline):
+797434	        failures.append("lost original 12 Data Centre semantic identities")
+797435	    if (sum(row["country"]["code"] == "GB" for row in rows) != 54
+797436	            or any(row["operating_status"] != "not_assessed" or row["verification_status"] != "SOURCE_INDEXED"
+797437	                   or any(value is not None for value in row["capacity"].values()) for row in rows)):
+797438	        failures.append("unsupported Data Centre operation/capacity or changed UK population")
+797440	        failures.append("official REPD data changed by Data Centre presentation migration")
+797441	    html = _Scripts((folder / "index.html").read_text(encoding="utf-8"))
+797442	    if not {"datacentreTab", "datacentrePanel", "datacentreHost"} <= html.ids:
+797443	        failures.append("missing consolidated Data Centre tab/host")
+797444	    for script in ("../../automation/news/datacentre-ui/model.js", "../../automation/news/datacentre-ui/view.js",
+797445	                   "scripts/plugins/preview-v928.js"):
+797446	        if script not in html.sources:
+797447	            failures.append(f"missing Data Centre dependency wiring: {script}")
+797448	    host = (folder / "scripts/plugins/preview-v928.js").read_text(encoding="utf-8")
+797449	    if any(marker not in host for marker in ("!dcStarted", "GGDataCentreUI.mount", "dcInputs", "datacentreHost")):
+797450	        failures.append("missing lazy integrity-pinned host implementation")
+797451	    if "scripts/plugins/global-datacentres-v925.js" in html.sources:
+797452	        failures.append("old competing Data Centre renderer still wired")
+797453	    probe = {"name": "Data Centre migration: actual lazy tab, original source states and no extra principal panel",
+797454	             "selector": "body", "js": """(async () => {
+797455	const host=document.querySelector('#datacentreHost'),tab=document.querySelector('#datacentreTab');
+797456	if(!host||!tab||!window.GGDataCentreModel?.validateBundle)return false;
+797457	const previous=document.querySelector('#officialRegister [role=tab][aria-selected=true]');
+797459	tab.click();const stop=performance.now()+6000;
+797460	while(host.querySelectorAll('.ggdc-table tbody tr').length!==54&&performance.now()<stop)await new Promise(r=>setTimeout(r,25));
+797461	if(host.querySelectorAll('.ggdc-table tbody tr').length!==54||document.querySelectorAll('main>section').length!==2)return false;
+797462	const global=[...host.querySelectorAll('button')].find(n=>n.textContent==='Global leads (100)');
+797463	if(!global)return false;global.click();
+797464	if(host.querySelectorAll('.ggdc-table tbody tr').length!==100||!host.innerText.includes('not assessed'))return false;
+797465	const paths=['projects.json','official-projects.json','project-groups.json','selection-audit.json'];
+797466	const docs=await Promise.all(paths.map(async path=>{const r=await fetch('global-datacentres/'+path);if(!r.ok)throw Error('Data Centre input absent');return r.json();}));
+797467	const baseline=await fetch('../202611161630/global-datacentres/projects.json').then(r=>r.json());
+797468	const bundle={projects:docs[0],official:docs[1],groups:docs[2],audit:docs[3],baseline};
+797469	GGDataCentreModel.validateBundle(bundle);
+797470	const forged=structuredClone(bundle);forged.projects.records[0].capacity.it_load_mw=100;
+797471	let rejected=false;try{GGDataCentreModel.validateBundle(forged);}catch{rejected=true;}
+797472	return rejected&&docs[0].records.length===100&&baseline.records.length===12&&docs[3].quarantined.length===38
+797473	&&docs[0].records.every(r=>r.operating_status==='not_assessed'&&Object.values(r.capacity).every(v=>v===null));
+797474	}finally{const uk=[...host.querySelectorAll('button')].find(n=>n.textContent==='UK leads (54)');uk?.click();previous?.click();}
+797475	})()"""}
+797476	    return failures, [probe]
+797477	class _Scripts(HTMLParser):
+797478	    def __init__(self, html):
+797480	        self.sources, self.ids = [], set()
+797481	        self.feed(html)
+797484	        if "id" in attrs:
+797485	            self.ids.add(attrs["id"])
+797486	        if tag == "script" and isinstance(attrs.get("src"), str):
+797487	            self.sources.append(attrs["src"].split("?", 1)[0])
+797488	def _news_internal(folder, source):
+797489	        failures.append("official data changed from internal-news migration source")
+797490	    plugin = (folder / "scripts/plugins/live-news.js").read_text(encoding="utf-8")
+797491	    original = (source / "scripts/plugins/live-news.js").read_text(encoding="utf-8")
+797492	    if "scripts/plugins/live-news.js" not in html.sources:
+797493	        failures.append("source-attributed headline renderer is not wired")
+797494	    # Retain the exact cryptographic envelope validator while presentation may
+797495	    # change. A schema string alone cannot stand in for the accepted algorithm.
+797496	    pattern = r"async function validatePriority\(.*?(?=\n  function when\()"
+797497	    before, after = re.search(pattern, original, re.S), re.search(pattern, plugin, re.S)
+797498	    if before is None or after is None or before.group() != after.group():
+797499	        failures.append("exact-input priority validation was changed or removed")
+797500	    for marker in ("globalgrid2050.news.headline-priority.v1", "priorities.get(doc)",
+797501	                   "validatePriority(doc, bytes", "item.source", "safeLink(item.link)"):
+797503	            failures.append(f"missing internal headline implementation: {marker}")
+797504	    snapshot = json.loads((folder / "news/pipeline_headlines.snapshot.json").read_text(encoding="utf-8"))
+797505	    if (not isinstance(snapshot, dict) or snapshot.get("schema") != "globalgrid2050.news.pipeline-headlines.v1"
+797506	            or not isinstance(snapshot.get("items"), list)
+797507	            or any(not isinstance(item, dict) or not all(isinstance(item.get(k), str) and item[k] for k in ("title", "source", "link"))
+797508	                   for item in snapshot.get("items", []))):
+797509	        failures.append("headline snapshot lost original source/title/link provenance")
+797510	    # This is an explicitly synthetic renderer/sidecar test, not source evidence.
+797511	    probe = {"name": "Internal headline priority: reject forged receipts, retain ranked attribution without visible scores",
+797512	const p=window.pipelineHeadlines, original=window.pipelineHeadlineDocument;
+797513	if(!p?.validatePriority||!p?.render)return false;
+797514	const now=Date.now(),stamp=new Date(now).toISOString();
+797515	const items=[{title:'Synthetic older ranked headline',source:'Synthetic source A',link:'https://example.org/v928-a',date:new Date(now-86400000).toISOString(),first_seen:stamp},
+797516	{title:'Synthetic newer headline',source:'Synthetic source B',link:'https://example.org/v928-b',date:stamp,first_seen:stamp}];
+797517	const doc={schema:p.schema,generated_at:stamp,status:'ok',items,counts:{feeds_ok:2,feeds_failed:0}};
+797518	const bytes=new TextEncoder().encode(JSON.stringify(doc));
+797519	const hash=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),v=>v.toString(16).padStart(2,'0')).join('');
+797520	const side={schema:p.prioritySchema,input_sha256:hash,input_bytes:bytes.byteLength,input_generated_at:stamp,input_count:2,as_of:stamp,
+797521	profile_id:'uk-transition-global-context.v1',profile_sha256:'06250f2435088a522d8d25676f31f813165a430df1e19f602bd8baae03961c05',
+797522	entries:items.map((v,i)=>({...v,rank:i+1,source_kind:'government',role:'primary_context',topics:['solar'],freshness_state:'current',uk_context:true,score:99-i,requires_primary_followup:false,subscription_notice:false}))};
+797523	side.entries=side.entries.map(({date,first_seen,...entry})=>entry);
+797524	const bad=structuredClone(side);bad.input_sha256='0'.repeat(64);
+797525	if(await p.validatePriority(doc,bytes,bad))return false;
+797526	const forged=structuredClone(side);forged.entries[0].source='Forged attribution';
+797527	if(await p.validatePriority(doc,bytes,forged))return false;
+797528	if(!await p.validatePriority(doc,bytes,side))return false;
+797529	p.render(doc,'live',now);
+797530	const rows=[...document.querySelectorAll('#liveNews .ln-item')];
+797531	const visible=n=>getComputedStyle(n).display!=='none'&&getComputedStyle(n).visibility!=='hidden'&&n.getBoundingClientRect().width>0;
+797532	return rows.length===2&&rows.every((r,i)=>r.querySelector('.ln-title')?.href===items[i].link&&r.querySelector('.ln-title')?.textContent===items[i].title&&r.querySelector('.ln-meta')?.textContent.includes(items[i].source))
+797533	&&document.querySelector('#newsStatus')?.dataset.order==='priority'&&![...document.querySelectorAll('#liveNews .ln-priority')].some(visible)
+797534	&&!/\\bPriority\\s+\\d/.test(document.querySelector('#liveNews')?.innerText||'');
+797535	}finally{p.render(original,'snapshot');}
+797536	def _research_internal(folder, source):
+797537	        failures.append("official data changed from internal-research migration source")
+797538	    preserved = ("prospecting/manifest.json", "prospecting/priority.json", "prospecting/priority.csv",
+797539	                 "scripts/plugins/research-priority-v927.js", "scripts/plugins/prospecting/adapter.mjs",
+797540	                 "scripts/plugins/prospecting/bundle.mjs", "scripts/plugins/prospecting/view.mjs")
+797541	    for relative in preserved:
+797543	            failures.append(f"changed retained internal research artifact: {relative}")
+797544	    manifest_bytes = (folder / "prospecting/manifest.json").read_bytes()
+797546	    if not isinstance(manifest, dict):
+797547	        return failures + ["invalid retained research manifest"], []
+797548	    if (manifest.get("schema") != "globalgrid2050.prospecting.export.v1"
+797549	            or manifest.get("publication_state") != "REVIEW_ARTIFACT"
+797550	            or [manifest.get(k) for k in ("official_count", "solar_count", "solar1000_count")] != [7775, 3604, 1000]):
+797551	        failures.append("retained research provenance/population state changed")
+797553	        raw = (folder / "prospecting" / name).read_bytes()
+797554	        pin = manifest["files"][name]
+797555	        if pin["bytes"] != len(raw) or pin["sha256"] != hashlib.sha256(raw).hexdigest():
+797556	            failures.append(f"retained research receipt differs: {name}")
+797557	    if "researchPriorityStatus" in html.ids or "scripts/plugins/research-priority-v927.js" in html.sources:
+797558	        failures.append("withdrawn research-score presentation is still wired")
+797559	    digest = hashlib.sha256(manifest_bytes).hexdigest()
+797560	    probe = {"name": "Internal research priority: execute retained pinned parser without public score presentation",
+797561	if([...document.querySelectorAll('.v927-priority-hint,[data-priority-id],#researchPriorityStatus')].some(visible))return false;
+797562	const [m,p]=await Promise.all(['prospecting/manifest.json','prospecting/priority.json'].map(async path=>{const r=await fetch(path);if(!r.ok)throw Error('retained research unavailable');return new Uint8Array(await r.arrayBuffer());}));
+797563	const parser=await import(new URL('scripts/plugins/prospecting/bundle.mjs',location.href).href);
+797564	const bundle=await parser.parsePriorityBundle(p,m,""" + json.dumps(digest) + """);
+797565	return bundle.members.size===7775&&bundle.byId.size===1000&&bundle.manifest.solar1000_count===1000
+797566	&&bundle.manifest.publication_state==='REVIEW_ARTIFACT'&&document.querySelector('#tbody')?.dataset.complete==='true'
+797567	&&![...document.querySelectorAll('.v927-priority-hint,[data-priority-id],#researchPriorityStatus')].some(visible);
+797619	        local_migration_ids = set()
+797621	            if not isinstance(migration, dict) or migration not in KNOWN_MIGRATIONS:
+797623	            if migration["id"] in local_migration_ids:
+797625	            local_migration_ids.add(migration["id"])
+797626	            # A descendant may explicitly restate the same audited contract;
+797627	            # duplicates within one declaration remain invalid.
+797628	            if migration["id"] in migrations and migrations[migration["id"]] != migration:
+797629	                errors.append("conflicting inherited feature migration")
+797630	            migrations.setdefault(migration["id"], migration)
+797632	    if dropped & INTERNAL_PRIORITY_IDS:
+797633	        errors.append("internal priority features require an audited migration, not removal")
+797639	        if origins != [migration["from"]] or feature_id in dropped or version["id"] == migration["from"]:
+797641	                validator = {"solar1000-inline-v1": _solar_inline,
+797642	                             "news-priority-internal-v1": _news_internal,
+797643	                             "research-priority-internal-v1": _research_internal,
+797644	                             "global-dc-ui-v928-v1": _global_dc_ui}[migration["contract"]]
+797645	                faults, runtime = validator(folder, pipeline / migration["from"])
+797647	            except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
+797658	    probes = list({probe["name"]: probe for probe in probes}.values())
+797667	  new_version.py finalize <new id> "<what it added>" [--fault "<known fault>"]... [--feature id:file:marker]... [--migrate-feature <audited-contract>]... [--state release_candidate_publication_blocked]
+797671	      Audited contracts: solar1000-inline-v1, news-priority-internal-v1,
+797672	      research-priority-internal-v1 and global-dc-ui-v928-v1. Each flag occurs
+797673	      once; research expands to both exact inherited V9.27 feature identities.
+797676	from feature_contracts import SOLAR_MIGRATION, KNOWN_MIGRATIONS, MIGRATION_FLAGS
+797682	def migration_records(flags):
+797683	    """Expand explicit audited flags; reject unknown/repeated features."""
+797685	    for flag in flags:
+797686	        if flag not in MIGRATION_FLAGS:
+797687	            raise ValueError("Unknown or duplicate feature migration")
+797688	        incoming = MIGRATION_FLAGS[flag]
+797689	        if any(m["id"] in {old["id"] for old in records} for m in incoming):
+797690	        records.extend(dict(m) for m in incoming)
+797716	    compact = f'data-edition="{parent["id"]}"' in html
+797720	        html = html.replace(f"Pipeline News {pv} · {parent['id']}</title>", f"Pipeline News {nv} · {new_id}</title>")
+797721	        html = html.replace(f"<small>PIPELINE NEWS · {pv}</small>", f"<small>PIPELINE NEWS · {nv}</small>")
+797722	        html = html.replace(f'data-edition="{parent["id"]}"', f'data-edition="{new_id}"')
+797723	        html, stamp_count = re.subn(r'(<p class="preview-status"[^>]*>)[^<]*(</p>)',
+797724	            lambda m: f'{m[1]}{nv} · {day.upper()} · REPD OCTOBER 2026 · Source dates and provisional research states retained{m[2]}', html, count=1)
+797725	        assert stamp_count == 1, "compact edition stamp not found"
+797726	    active_label = f"{nv} · PIPELINE NEWS" if compact else f"{nv} {state} · REPD Q3 2026"
+797727	    if compact and '<nav class="release-links"' in html:
+797728	        # Keep the owner's replacement header bounded as further editions arrive.
+797729	        links = [f'<a class="active" href="#" aria-current="page">{active_label}</a>',
+797730	                 '<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>',
+797731	                 f'<a href="../{parent["id"]}/">{pv} · PREVIOUS EDITION</a>',
+797732	                 '<a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>',
+797733	                 '<a href="#" id="export">EXPORT CSV</a>', '<a href="../../index.html">DIRECTORY</a>']
+797734	        html, n = re.subn(r'(<nav class="release-links"[^>]*>).*?(</nav>)',
+797735	            lambda m: m[1] + "\n        " + "\n        ".join(links) + "\n      " + m[2], html, count=1, flags=re.S)
+797736	        html, n = re.subn(r'<a class="active" href="#"(?: aria-current="page")?>[^<]*</a>\n(\s*)(<a href="\.\./versions\.html">[^<]*</a>\n\s*)?',
+797737	                          lambda m: f'<a class="active" href="#">{active_label}</a>\n{m.group(1)}<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>\n{m.group(1)}<a href="../{parent["id"]}/">{pv} {parent["id"]} · REPD Q3 2026</a>\n{m.group(1)}', html, count=1)
+797741	    assert compact or n == 1, "meta line not found"
+797757	    assert isinstance(feature_migrations, list) and all(
+797758	        migration in KNOWN_MIGRATIONS for migration in feature_migrations), "unknown feature migration"
+797759	    assert len({migration["id"] for migration in feature_migrations}) == len(feature_migrations), "duplicate feature migration"
+797791	        state, migrations, migration_flags = "published", None, []
+797799	                migration_flags.append(value)
+797801	                    migrations = migration_records(migration_flags)
+797803	                    sys.exit(str(exc))
+797807	"""Successor editions must preserve the approved compact shell and frozen parent."""
+797808	sys.path.insert(0,str(ROOT / "automation/pipeline_release"))
+797810	@pytest.mark.parametrize("parent_id,version,next_version", [("202611161757", "V9.28", "V9.29"), ("202611161747", "V9.27", "V9.29"), ("202611162354", "V9.29", "V9.30")])
+797811	def test_create_successor_from_real_compact_or_legacy_shell(tmp_path, monkeypatch, parent_id, version, next_version):
+797812	    """The approved compact shell has no former giant h1/strong metadata line."""
+797813	    source = ROOT / "uk_renewables_pipeline" / parent_id
+797814	    parent = tmp_path / parent_id
+797815	    (parent / "tests").mkdir(parents=True)
+797816	    original = (source / "index.html").read_bytes()
+797817	    (parent / "index.html").write_bytes(original)
+797818	    suffix = version.removeprefix("V").replace(".", "_")
+797819	    for name in (f"run_v{suffix}.sh", f"check_v{suffix}.mjs"):
+797820	        (parent / "tests" / name).write_bytes((source / "tests" / name).read_bytes())
+797822	    monkeypatch.setattr(new_version, "load_registry", lambda: {"fixture_owner": "202611132345", "versions": [
+797823	        {"id": parent_id, "version": version, "runner": f"tests/run_v{suffix}.sh"}]})
+797824	    monkeypatch.setattr(new_version, "tree_hash", lambda _: "f" * 40)
+797825	    new_version.create("202611170001", next_version, "Existing source layers", "RELEASE CANDIDATE")
+797826	    result = (tmp_path / "202611170001/index.html").read_text(encoding="utf8")
+797827	    assert (parent / "index.html").read_bytes() == original
+797828	    assert '<a href="../' + parent_id + '/">' in result
+797829	    next_suffix = next_version.removeprefix("V").replace(".", "_")
+797830	    assert (tmp_path / f"202611170001/tests/run_v{next_suffix}.sh").exists()
+797831	    assert (tmp_path / f"202611170001/tests/check_v{next_suffix}.mjs").exists()
+797832	    if version in ("V9.28", "V9.29"):
+797833	        assert 'data-edition="202611170001"' in result
+797834	        assert f'<title>GlobalGrid2050 | Pipeline News {next_version} · 202611170001</title>' in result
+797835	        assert f'<small>PIPELINE NEWS · {next_version}</small>' in result
+797836	        assert result.count('<section') == 2
+797837	        if version == "V9.29":
+797838	            assert '<aside' not in result
+797839	            navigation = result.split('<nav class="release-links"', 1)[1].split('</nav>', 1)[0]
+797840	            assert navigation.count('<a ') == 6
+797841	            assert navigation.count('../versions.html') == 1
+797842	            assert navigation.count('PREVIOUS EDITION') == 1
+797843	        assert '<h1>UK RENEWABLES PIPELINE 202611170001</h1>' in result
+797844	        assert 'V9.29 RELEASE CANDIDATE · REPD Q3 2026' in result
+797845	/* V6 canvas design: Courier, dark field, cyan mean/gold high/red low, GBP axes. */
+797846	import {segments,dateMs,summarise} from './model.mjs';
+797847	const SERIES=[['maximum_observed_gbp_per_mwh','High','#ffcc00'],['mean_available_gbp_per_mwh','Available mean','#00ffff'],['minimum_observed_gbp_per_mwh','Low','#ff3333']];
+797848	const money=n=>n===null?'—':'£'+n.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2});
+797849	function tickStep(span){const raw=span/6,p=10**Math.floor(Math.log10(Math.max(raw,1))),n=raw/p;return(n<=1?1:n<=2?2:n<=5?5:10)*p;}
+797850	export function drawDaily(canvas,result){
+797851	  const ratio=globalThis.devicePixelRatio||1,bounds=canvas.getBoundingClientRect();
+797852	  const width=Math.max(240,bounds.width||800),height=Math.max(300,bounds.height||440);
+797853	  canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+797854	  const g=canvas.getContext('2d');if(!g)throw Error('Canvas unavailable');g.setTransform(ratio,0,0,ratio,0,0);
+797855	  const pad={left:55,right:16,top:65,bottom:54},w=width-pad.left-pad.right,h=height-pad.top-pad.bottom;
+797856	  const all=result.rows.flatMap(r=>SERIES.map(([field])=>r[field])).filter(Number.isFinite);
+797857	  const lo=Math.min(0,...all),hi=Math.max(0,...all),margin=Math.max((hi-lo)*.08,10),bottom=lo-margin,top=hi+margin;
+797858	  const start=dateMs(result.start),end=dateMs(result.end)+86400000;
+797859	  const X=date=>pad.left+((dateMs(date)+43200000-start)/(end-start))*w,Y=value=>pad.top+(top-value)/(top-bottom)*h;
+797860	  g.clearRect(0,0,width,height);g.fillStyle='#05070c';g.fillRect(0,0,width,height);
+797861	  g.font='10px Courier New';g.textBaseline='middle';
+797862	  const step=tickStep(top-bottom);
+797863	  for(let value=Math.ceil(bottom/step)*step;value<=top;value+=step){
+797864	    const y=Y(value);g.strokeStyle=value===0?'rgba(0,255,255,.35)':'rgba(255,255,255,.07)';g.lineWidth=1;
+797865	    g.beginPath();g.moveTo(pad.left,y);g.lineTo(width-pad.right,y);g.stroke();
+797866	    g.fillStyle='#f5f7fb';g.textAlign='left';g.fillText('£'+(Math.round(value)||0).toLocaleString('en-GB'),4,y);
+797867	  g.fillStyle='#9aa3b6';g.font='10px Courier New';g.textAlign='left';g.fillText('GBP/MWh · system sell',pad.left,14);
+797868	  let legendX=pad.left;
+797869	  for(const [,label,color] of SERIES){g.fillStyle=color;g.shadowColor=color;g.shadowBlur=4;g.fillRect(legendX,30,7,7);g.shadowBlur=0;g.fillStyle='#9aa3b6';g.font='9px Courier New';g.fillText(label,legendX+10,34);legendX+=label==='Available mean'?105:55;}
+797870	  g.fillStyle='#9aa3b6';g.textAlign='left';g.fillText(result.start,pad.left,height-30);g.textAlign='right';g.fillText(result.end,width-pad.right,height-30);
+797871	  g.textAlign='left';g.font='9px Courier New';g.fillText('Gaps retained · hollow markers = partial source days',pad.left,height-12,Math.max(1,w));
+797872	  const receipt=[];
+797873	  for(const [field,,color] of SERIES){
+797874	    const groups=segments(result.rows,field);g.save();g.lineWidth=field==='mean_available_gbp_per_mwh'?2.4:2.1;g.lineCap='round';g.lineJoin='round';
+797875	    g.strokeStyle=color;g.shadowColor=color;g.shadowBlur=5;
+797876	    for(const group of groups){
+797877	      g.beginPath();group.forEach((point,i)=>{if(i)g.lineTo(X(point.date),Y(point.value));else g.moveTo(X(point.date),Y(point.value));});g.stroke();
+797878	      for(const point of group)if(group.length===1||point.partial){
+797879	        g.beginPath();g.arc(X(point.date),Y(point.value),point.partial?3:2,0,Math.PI*2);g.fillStyle=point.partial?'#05070c':color;g.fill();g.stroke();
+797880	    }g.restore();receipt.push({field,segments:groups.map(group=>group.map(point=>point.date))});
+797881	  const summary=summarise(result.rows);
+797882	  if(!all.length){g.fillStyle='#00ffff';g.textAlign='center';g.font='bold 12px Courier New';g.fillText('No reported prices in this window',pad.left+w/2,pad.top+h/2,Math.max(1,w));}
+797883	  else{
+797884	    // The dates label source-declared daily observations; no intraday clock is invented.
+797885	    const high=result.rows.find(r=>r.maximum_observed_gbp_per_mwh===summary.high),low=result.rows.find(r=>r.minimum_observed_gbp_per_mwh===summary.low);
+797886	    for(const [label,row,value,align] of [['HIGH',high,summary.high,'left'],['LOW',low,summary.low,'right']]){
+797887	      const x=X(row.date),y=Y(value);g.fillStyle='#ff3333';g.shadowColor='rgba(0,255,255,.8)';g.shadowBlur=6;
+797888	      g.beginPath();g.arc(x,y,3,0,Math.PI*2);g.fill();g.shadowBlur=0;
+797889	      const text=label+' '+money(value)+' · '+row.date;g.font='bold 9px Courier New';g.textAlign=align;
+797890	      g.fillStyle='#ff5555';g.fillText(text,align==='left'?pad.left:width-pad.right,52,Math.max(1,w/2-6));
+797891	  return receipt;
+797892	/* Daily historical system-sell data only. The data owner defines its grain. */
+797893	export const SOURCE = Object.freeze({
+797894	  repository: 'Ventusltd/data-gb-electricity',
+797895	  commit: 'cf48c8d6fdd9ab686c4af7261149d81a0129f7fc',
+797896	  base: 'https://raw.githubusercontent.com/Ventusltd/data-gb-electricity/cf48c8d6fdd9ab686c4af7261149d81a0129f7fc/derived/price-daily-browser/',
+797897	  index: Object.freeze({path:'index.json',bytes:3616,sha256:'3c3ad8e0d8169b4bc253dabbad2a7d35b64984f40accce1abd016e1ca15a1e8e'})
+797898	const SCHEMA='data-gb-electricity.system-sell-daily.v1',BASIS='ELEXON_SYSTEM_SELL_PRICE',DAY=86400000;
+797899	const fail=(ok,message)=>{if(!ok)throw Error('Daily prices rejected: '+message);};
+797900	const integer=(n,max=2000000)=>Number.isSafeInteger(n)&&n>=0&&n<=max;
+797901	const hash=s=>typeof s==='string'&&/^[a-f0-9]{64}$/.test(s);
+797902	function immutable(value){
+797903	  if(value&&typeof value==='object'&&!Object.isFrozen(value)){for(const item of Object.values(value))immutable(item);Object.freeze(value);}return value;
+797904	export function dateMs(date){
+797905	  fail(typeof date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(date),'date');
+797906	  const n=Date.parse(date+'T00:00:00Z');fail(Number.isFinite(n)&&new Date(n).toISOString().slice(0,10)===date,'calendar date');return n;
+797907	export const dateAt=n=>new Date(n).toISOString().slice(0,10);
+797908	function lastSunday(year,month){const d=new Date(Date.UTC(year,month+1,0));return dateAt(d.getTime()-d.getUTCDay()*DAY);}
+797909	export function expectedPeriods(date){const year=Number(date.slice(0,4));dateMs(date);fail(year>=1996&&year<=2100,'GB calendar range');return date===lastSunday(year,2)?46:date===lastSunday(year,9)?50:48;}
+797910	function pin(value,path,max){fail(value?.path===path&&integer(value.bytes,max)&&value.bytes>0&&hash(value.sha256),'part identity');}
+797911	export function validateIndex(index){
+797912	  fail(index?.schema===SCHEMA+'.index'&&index.unit==='GBP/MWh'&&index.price_basis===BASIS,'index schema/basis');
+797913	  const first=dateMs(index.first_date),last=dateMs(index.last_date);
+797914	  fail(last>=first&&index.rows===(last-first)/DAY+1&&integer(index.rows,40000),'date span');
+797915	  fail(integer(index.source_periods)&&index.source_periods>0&&index.source_periods===index.observed_periods&&
+797916	    integer(index.priced_periods)&&index.priced_periods<=index.observed_periods&&
+797917	    integer(index.utc_alignment_mismatches)&&index.utc_alignment_mismatches<=index.observed_periods,'input counters');
+797918	  fail(hash(index.producer_sha256)&&typeof index.calendar_quality==='string'&&index.calendar_quality.includes('Source-declared'),'producer/quality');
+797919	  pin(index.sources,'sources.json',100000);pin(index.parquet,'daily.parquet',2000000);
+797920	  fail(Array.isArray(index.parts)&&index.parts.length>0&&index.parts.length<=100,'annual parts');
+797921	  let previous=Number(index.first_date.slice(0,4))-1,total=0;
+797922	  for(const p of index.parts){
+797923	    fail(integer(p.year,2100)&&p.year===previous+1,'ordered years');previous=p.year;pin(p,p.year+'.json',150000);
+797924	    const a=Math.max(first,Date.UTC(p.year,0,1)),b=Math.min(last,Date.UTC(p.year+1,0,1)-DAY);
+797925	    fail(b>=a&&p.calendar_days===(b-a)/DAY+1&&['observed_days','complete_days','partial_days','missing_days'].every(k=>integer(p[k],366))&&
+797926	      p.complete_days+p.partial_days===p.observed_days&&p.observed_days+p.missing_days===p.calendar_days,'year coverage');total+=p.calendar_days;
+797927	  fail(total===index.rows&&previous===Number(index.last_date.slice(0,4)),'calendar population');return index;
+797928	export function validateYear(data,part,index){
+797929	  fail(data?.schema===SCHEMA&&data.year===part.year&&data.unit==='GBP/MWh'&&data.price_basis===BASIS&&Array.isArray(data.rows),'year schema/basis');
+797930	  const start=Math.max(dateMs(index.first_date),Date.UTC(part.year,0,1));let complete=0,partial=0,missing=0;
+797931	  fail(data.rows.length===part.calendar_days,'year row count');
+797932	  for(let i=0;i<data.rows.length;i++){
+797933	    const r=data.rows[i];fail(r?.date===dateAt(start+i*DAY)&&r.expected_periods===expectedPeriods(r.date),'daily calendar');
+797934	    fail(integer(r.observed_periods,50)&&integer(r.priced_periods,50)&&r.priced_periods<=r.observed_periods&&r.observed_periods<=r.expected_periods&&
+797935	      integer(r.utc_alignment_mismatches,50)&&r.utc_alignment_mismatches<=r.observed_periods,'daily grain');
+797936	    const status=!r.observed_periods?'NO_OBSERVATIONS':r.priced_periods===r.observed_periods&&r.observed_periods===r.expected_periods?'COMPLETE_SOURCE_DAY':'PARTIAL_SOURCE_DAY';
+797937	    fail(r.coverage_status===status&&Number.isFinite(r.price_coverage_pct)&&Math.abs(r.price_coverage_pct-100*r.priced_periods/r.expected_periods)<0.000001,'daily coverage');
+797938	    const values=[r.minimum_observed_gbp_per_mwh,r.mean_available_gbp_per_mwh,r.maximum_observed_gbp_per_mwh];
+797939	    fail(r.priced_periods?values.every(Number.isFinite)&&values[0]<=values[1]&&values[1]<=values[2]:values.every(v=>v===null),'daily prices/nulls');
+797940	    if(status==='COMPLETE_SOURCE_DAY')complete++;else if(status==='PARTIAL_SOURCE_DAY')partial++;else missing++;
+797941	  fail(complete===part.complete_days&&partial===part.partial_days&&missing===part.missing_days,'observed year coverage');return data.rows;
+797942	export async function readPinned(url,pin,transport=fetch){
+797943	  fail(url.startsWith(SOURCE.base)&&/^\d{4}\.json$|^index\.json$/.test(url.slice(SOURCE.base.length)),'immutable source URL');
+797944	  fail(integer(pin?.bytes,150000)&&pin.bytes>0&&hash(pin.sha256),'byte/hash bound');
+797945	  const response=await transport(url,{credentials:'omit',referrerPolicy:'no-referrer',redirect:'error',signal:AbortSignal.timeout(15000)});
+797946	  fail(response.ok&&!response.redirected,'HTTP response');const reader=response.body?.getReader();fail(reader,'bounded response stream');
+797947	  const chunks=[];let size=0;
+797948	  for(;;){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>pin.bytes){await reader.cancel();throw Error('Daily prices rejected: byte limit');}chunks.push(value);}
+797949	  fail(size===pin.bytes,'exact bytes');const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.byteLength;}
+797950	  const actual=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),n=>n.toString(16).padStart(2,'0')).join('');
+797951	  fail(actual===pin.sha256,'SHA-256');return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+797952	export async function createStore(transport=fetch){
+797953	  const index=immutable(validateIndex(await readPinned(SOURCE.base+'index.json',SOURCE.index,transport))),cache=new Map();
+797954	  async function year(n){
+797955	    const part=index.parts.find(p=>p.year===n);fail(part,'available year');
+797956	    if(cache.has(n)){const promise=cache.get(n);cache.delete(n);cache.set(n,promise);return promise;}
+797957	    const promise=readPinned(SOURCE.base+part.path,part,transport).then(data=>immutable(validateYear(data,part,index))).catch(e=>{if(cache.get(n)===promise)cache.delete(n);throw e;});
+797958	    cache.set(n,promise);if(cache.size>3)cache.delete(cache.keys().next().value);return promise;
+797959	  return Object.freeze({index,async window(start,end){
+797960	    const a=Math.max(dateMs(start),dateMs(index.first_date)),b=Math.min(dateMs(end),dateMs(index.last_date));
+797961	    fail(b>=a&&(b-a)/DAY<366,'bounded historical window');
+797962	    const years=[];for(let y=new Date(a).getUTCFullYear();y<=new Date(b).getUTCFullYear();y++)years.push(y);
+797963	    const rows=(await Promise.all(years.map(year))).flat().filter(r=>dateMs(r.date)>=a&&dateMs(r.date)<=b);
+797964	    fail(rows.length===(b-a)/DAY+1,'window calendar continuity');return immutable({start:dateAt(a),end:dateAt(b),rows});
+797966	export function summarise(rows){
+797967	  const values=rows.filter(r=>r.priced_periods>0);return {
+797968	    calendarDays:rows.length,completeDays:rows.filter(r=>r.coverage_status==='COMPLETE_SOURCE_DAY').length,
+797969	    partialDays:rows.filter(r=>r.coverage_status==='PARTIAL_SOURCE_DAY').length,missingDays:rows.filter(r=>r.coverage_status==='NO_OBSERVATIONS').length,
+797970	    expected:rows.reduce((n,r)=>n+r.expected_periods,0),observed:rows.reduce((n,r)=>n+r.observed_periods,0),priced:rows.reduce((n,r)=>n+r.priced_periods,0),
+797971	    clockMismatches:rows.reduce((n,r)=>n+r.utc_alignment_mismatches,0),
+797972	    dailyMean:values.length?values.reduce((n,r)=>n+r.mean_available_gbp_per_mwh,0)/values.length:null,
+797973	    high:values.length?Math.max(...values.map(r=>r.maximum_observed_gbp_per_mwh)):null,
+797974	    low:values.length?Math.min(...values.map(r=>r.minimum_observed_gbp_per_mwh)):null};
+797975	export function segments(rows,field){
+797976	  const output=[];let current=[],previous=null;
+797977	  for(const row of rows){
+797978	    const value=row[field],t=dateMs(row.date);
+797979	    if(!Number.isFinite(value)||!row.priced_periods||previous!==null&&t-previous!==DAY){if(current.length)output.push(current);current=[];}
+797980	    if(Number.isFinite(value)&&row.priced_periods)current.push({date:row.date,value,partial:row.coverage_status!=='COMPLETE_SOURCE_DAY'});
+797981	    previous=t;
+797982	  if(current.length)output.push(current);return output;
+797983	export function trailingWindow(end,days,first){const b=dateMs(end);fail(integer(days,366)&&days>0,'window length');return {start:dateAt(Math.max(dateMs(first),b-(days-1)*DAY)),end};}
+797984	import {SOURCE,createStore,summarise,trailingWindow,dateMs,dateAt} from './model.mjs';
+797985	import {drawDaily} from './canvas.mjs';
+797986	const MOUNTS=new WeakMap();
+797987	const number=n=>n.toLocaleString('en-GB'),money=n=>n===null?'Not available':'£'+n.toLocaleString('en-GB',{minimumFractionDigits:2,maximumFractionDigits:2})+'/MWh';
+797988	const element=(doc,tag,text,cls)=>{const n=doc.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+797989	function anchor(doc,label,url){const a=element(doc,'a',label);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
+797990	export function mountDailyPrices(host,{transport=fetch}={}){
+797991	  if(host?.nodeType!==1)throw Error('Daily price host required');if(MOUNTS.has(host))return MOUNTS.get(host);
+797992	  const doc=host.ownerDocument,root=element(doc,'section',undefined,'pn-daily-prices');root.setAttribute('aria-label','Historical daily system-sell prices');
+797993	  root.append(element(doc,'h3','Historical electricity system-sell prices'));
+797994	  const sourceLine=element(doc,'p','Loading dated source data…','pnd-source');root.append(sourceLine);
+797995	  const tools=element(doc,'div',undefined,'pnd-tools'),year=element(doc,'select'),period=element(doc,'select'),end=element(doc,'input');end.type='date';
+797996	  year.setAttribute('aria-label','Source year');period.setAttribute('aria-label','Daily window');end.setAttribute('aria-label','Window end date');
+797997	  for(const [value,label] of [['30','30 days'],['90','90 days'],['365','365 days'],['year','Selected year']]){const option=element(doc,'option',label);option.value=value;period.append(option);}
+797998	  for(const [label,input] of [['Year',year],['Window',period],['End date',end]]){const item=element(doc,'label',label);item.append(input);tools.append(item);}root.append(tools);
+797999	  const status=element(doc,'p','Loading…','pnd-status');status.setAttribute('role','status');status.setAttribute('aria-live','polite');root.append(status);
+798000	  const canvas=element(doc,'canvas');canvas.setAttribute('role','img');canvas.setAttribute('aria-label','Daily high, available mean and low system-sell prices; gaps and partial source days retained.');root.append(canvas);
+798001	  const stats=element(doc,'dl',undefined,'pnd-stats');root.append(stats);
+798002	  const coverage=element(doc,'p',undefined,'pnd-coverage'),quality=element(doc,'p',undefined,'pnd-quality');root.append(coverage,quality);
+798003	  root.append(element(doc,'p','Historical observations only. Daily groups use source-declared GB settlement dates. Complete source-day coverage does not certify stored UTC alignment.','pnd-note'));
+798004	  const details=element(doc,'details'),summary=element(doc,'summary','Source and daily observations');details.append(summary);
+798005	  const links=element(doc,'p');links.append(anchor(doc,'Pinned data index',SOURCE.base+'index.json'),doc.createTextNode(' · '),anchor(doc,'Source file hashes',SOURCE.base+'sources.json'),doc.createTextNode(' · '),anchor(doc,'Data-owner method','https://github.com/'+SOURCE.repository+'/blob/'+SOURCE.commit+'/derived/PRICE_DAILY_BROWSER.md'));details.append(links);
+798006	  details.append(element(doc,'p','Elexon system-sell prices, GBP/MWh. Daily means use available prices; the displayed window mean is the unweighted mean of available daily means. Partial days can affect that mean. No market-index merge, interpolation, forecast or realtime quote.'));
+798007	  const tableWrap=element(doc,'div',undefined,'pnd-table'),table=element(doc,'table'),thead=element(doc,'thead'),header=element(doc,'tr');
+798008	  for(const label of ['Source date','Available mean £/MWh','High £/MWh','Low £/MWh','Priced / expected','Source-day coverage','UTC disagreements']){const th=element(doc,'th',label);th.scope='col';header.append(th);}thead.append(header);const tbody=element(doc,'tbody');table.append(thead,tbody);tableWrap.append(table);details.append(tableWrap);root.append(details);
+798009	  host.append(root);tools.hidden=true;canvas.hidden=true;stats.hidden=true;coverage.hidden=true;quality.hidden=true;
+798010	  let store=null,closed=false,generation=0,current=null,resizeFrame=null;
+798011	  function clearResults(){
+798012	    canvas.hidden=true;stats.hidden=true;coverage.hidden=true;quality.hidden=true;current=null;
+798013	    stats.replaceChildren();tbody.replaceChildren();coverage.textContent='';quality.textContent='';delete canvas.dataset.series;
+798014	  function unavailable(message){clearResults();root.dataset.state='unavailable';status.textContent=message;}
+798015	  function paint(result){
+798016	    if(closed)return;current=result;const s=summarise(result.rows);canvas.hidden=false;stats.hidden=false;coverage.hidden=false;quality.hidden=false;
+798017	    const receipt=drawDaily(canvas,result);canvas.dataset.series=JSON.stringify(receipt);
+798018	    status.textContent=result.start+' to '+result.end+' · '+number(s.calendarDays)+' calendar days';root.dataset.state='available';
+798019	    stats.replaceChildren();for(const [label,value] of [['High observed',money(s.high)],['Mean of available daily means',money(s.dailyMean)],['Low observed',money(s.low)]]){const block=element(doc,'div');block.append(element(doc,'dt',label),element(doc,'dd',value));stats.append(block);}
+798020	    coverage.textContent=number(s.completeDays)+' complete source days · '+number(s.partialDays)+' partial · '+number(s.missingDays)+' missing · '+number(s.priced)+' priced / '+number(s.expected)+' expected periods ('+number(s.observed)+' observed).';
+798021	    quality.textContent='Stored UTC disagreements: '+number(s.clockMismatches)+' in this window; '+number(store.index.utc_alignment_mismatches)+' in the full source snapshot. History is retained without timestamp repair.';
+798022	    tbody.replaceChildren();for(const row of result.rows){const tr=element(doc,'tr');for(const value of [row.date,row.mean_available_gbp_per_mwh,row.maximum_observed_gbp_per_mwh,row.minimum_observed_gbp_per_mwh,row.priced_periods+' / '+row.expected_periods,row.coverage_status,row.utc_alignment_mismatches])tr.append(element(doc,'td',value===null?'Not available':String(value)));tbody.append(tr);}
+798023	  async function load(){
+798024	    if(!store||closed)return;const token=++generation;root.dataset.state='loading';status.textContent='Loading selected source days…';
+798025	    // Hide the previous window while another window is loading or fails.
+798026	    clearResults();
+798028	      const last=store.index.last_date,first=store.index.first_date;
+798029	      const boundedEnd=dateAt(Math.min(dateMs(last),Math.max(dateMs(first),dateMs(end.value))));end.value=boundedEnd;
+798030	      let range;
+798031	      if(period.value==='year'){const y=Number(year.value);range={start:dateAt(Math.max(dateMs(first),Date.UTC(y,0,1))),end:dateAt(Math.min(dateMs(last),Date.UTC(y+1,0,1)-86400000))};end.value=range.end;}
+798032	      else{range=trailingWindow(boundedEnd,Number(period.value),first);year.value=boundedEnd.slice(0,4);}
+798033	      const result=await store.window(range.start,range.end);if(!closed&&token===generation)paint(result);
+798034	    }catch{if(!closed&&token===generation)unavailable('Selected daily price data unavailable. Inspect the pinned source links or select another window.');}
+798035	  year.addEventListener('change',()=>{period.value='year';void load();});period.addEventListener('change',()=>void load());end.addEventListener('change',()=>{if(period.value==='year')period.value='30';void load();});
+798036	  const resize=new ResizeObserver(()=>{if(!current||closed)return;cancelAnimationFrame(resizeFrame);resizeFrame=requestAnimationFrame(()=>{
+798037	    if(current&&!closed)try{drawDaily(canvas,current);}catch{unavailable('Daily price graph unavailable. Select another window to retry.');}
+798038	  });});resize.observe(root);
+798039	  const controller={ready:null,disconnect(){if(closed)return;closed=true;generation++;resize.disconnect();cancelAnimationFrame(resizeFrame);root.remove();if(MOUNTS.get(host)===controller)MOUNTS.delete(host);}};
+798040	  MOUNTS.set(host,controller);
+798041	  controller.ready=(async()=>{
+798042	      store=await createStore(transport);if(closed)return;const index=store.index;
+798043	      sourceLine.textContent='Latest source date: '+index.last_date+' · historical Elexon system-sell prices · GBP/MWh';
+798044	      for(const part of [...index.parts].reverse()){const option=element(doc,'option',String(part.year));option.value=String(part.year);year.append(option);}
+798045	      year.value=index.last_date.slice(0,4);end.min=index.first_date;end.max=index.last_date;end.value=index.last_date;tools.hidden=false;await load();
+798046	    }catch{if(!closed){sourceLine.textContent='Historical system-sell source unavailable.';unavailable('Daily price data unavailable. The original electricity workspace remains separate.');}}
+798047	  })();return controller;
+798048	/* Curated trust catalogue. A hostname or caller flag cannot add a source. */
+798049	function freeze(value){if(value&&typeof value==='object'){for(const child of Object.values(value))freeze(child);Object.freeze(value);}return value;}
+798050	export const CATALOGUE=freeze({
+798051	  "schema": "globalgrid2050.primary-note-source-catalogue.v1",
+798052	  "review": {
+798053	    "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+798054	    "independent_review_at": "2026-11-17T02:41:05.452826+00:00",
+798055	    "curated_at": "2026-11-17T03:16:20Z",
+798056	    "method": "Two-session primary PDF, exact canonical identity and terms review; not a publisher-wide rights grant"
+798058	    "id": "desnz-en010147-002440",
+798059	    "author": "Department for Energy Security and Net Zero",
+798060	    "authorship": "GOVERNMENT_DECISION_LETTER",
+798061	    "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010147-002440-Botley%20West%20Solar%20Farm%20-%20Secretary%20of%20State%20for%20Energy%20Security%20and%20Net%20Zero%20Decision%20Letter.pdf",
+798062	    "sha256": "335eff9eed9c8e32658fe70186d2f02f4bf82a92ffbed1eaa835ac7ced0f857e",
+798063	    "bytes": 1247918,
+798064	    "retrieved_at": "2026-11-17T02:08:14.252676+00:00",
+798065	    "headers": {
+798066	      "Content-Type": "application/pdf",
+798067	      "Content-Length": "1247918",
+798068	      "Last-Modified": "Tue, 10 Nov 2026 16:20:36 GMT",
+798069	      "ETag": "0x8DF3F468DAAB111"
+798071	    "document_date": "2026-11-10",
+798072	    "document_stated_publication_date": "2026-11-10",
+798073	    "allowed_claim": "DEVELOPMENT_CONSENT_REFUSED",
+798074	    "planning_reference": "EN010147",
+798075	    "locators": {
+798076	      "decision": "paragraph 3.9, page 5",
+798077	      "application_date": "paragraph 1.1, page 1",
+798078	      "original_proposal": "paragraph 1.9, page 2",
+798079	      "later_capacity_uncertainty": "paragraph 4.14, page 8",
+798080	      "publication": "Annex A, page 114"
+798081	    "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010147",
+798082	    "project_url_scope": "Supplementary navigation only; not a newly reviewed project-page status"
+798083	  "rights": {
+798084	    "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+798085	    "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+798086	    "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+798087	    "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+798088	    "exclusions": [
+798089	      "Third-party and applicant documents, maps and photographs",
+798090	      "Personal information",
+798091	      "Standalone departmental logos and crests",
+798092	      "Official endorsement"
+798094	    "terms_receipts": [
+798096	        "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+798097	        "bytes": 74533,
+798098	        "sha256": "6b64ce231a8a7bd91860fa4eb0a1d0109acf4174c0eb814c1090b48f3af95733",
+798099	        "retrieved_at": "2026-11-17T02:14:30.331250+00:00"
+798100	        "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+798101	        "bytes": 10450,
+798102	        "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+798103	        "retrieved_at": "2026-11-17T02:14:30.443798+00:00"
+798104	    "review_limit": "Terms reviewed from supplied original HTML and exact receipt hashes; independent fresh web reader could not open those terms pages. Fresh primary PDF bytes were independently matched."
+798105	  "canonical": {
+798106	    "edition": "202611170147",
+798107	    "expected_population": 7775,
+798108	    "partition": "data/v9.1/projects/part-001.json",
+798109	    "partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+798110	    "fields": {
+798111	      "repd_ref": "12588",
+798112	      "gg_project_id": "GG2050-REPD-12588",
+798113	      "planning_application_reference": "EN010147",
+798114	      "name": "Botley West, Botley - Botley West Solar Project",
+798115	      "operator": "Photovolt Development Partners & SolarFive",
+798116	      "county": "Oxfordshire",
+798117	      "country": "England",
+798118	      "technology": "solar",
+798119	      "capacity_known": true,
+798120	      "capacity_mw": 840,
+798121	      "status": "Application Submitted",
+798122	      "repd_record_updated": "2024-12-16",
+798123	      "planning_application_submitted": "2024-11-15",
+798124	      "latitude": 51.8132088,
+798125	      "longitude": -1.3489728
+798126	  "news_metadata": {
+798127	    "source_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/c7343d45a6842ad05c88d5aa958e111df623c807/dist/pipeline_headlines.json",
+798128	    "sha256": "f19f17df1780f118b4d7823a88dddc03264626888418a50369df722507ab6c26",
+798129	    "bytes": 39620,
+798130	    "read_at": "2026-11-17T03:14:42.759038+00:00",
+798131	    "feed_generated_at": "2026-11-17T00:27:34Z",
+798132	    "article_url": "https://www.solarpowerportal.co.uk/solar-planning/uk-government-refuses-840mw-botley-west-solar-farm-in-first-ever-solar-nsip-no",
+798133	    "publisher": "Solar Power Portal",
+798134	    "published_at": "2026-11-11T12:29:34Z",
+798135	    "first_seen": "2026-11-14T10:47:43Z",
+798136	    "basis": "EXISTING_FEED_METADATA_ONLY",
+798137	    "article_body_reviewed": false,
+798138	    "publisher_content_rights": "NOT_ASSESSED"
+798139	  "claim": {
+798140	    "type": "DEVELOPMENT_CONSENT_REFUSED",
+798141	    "decision_date": "2026-11-10",
+798142	    "statement": "The government decision letter for EN010147 records refusal of development consent on 10 November 2026. The association with REPD12588 is provisional; the frozen REPD status remains Application Submitted.",
+798143	    "source_application_submitted": "2024-11-14",
+798144	    "capacity_context": {
+798145	      "original_application_repd_baseline_mw": 840,
+798146	      "basis": "ORIGINAL_APPLICATION_AND_FROZEN_REPD_BASELINE",
+798147	      "later_reduction_reported": true,
+798148	      "final_reduced_capacity_mw": null
+798149	    "unknowns": {
+798150	      "judicial_review_status": null,
+798151	      "later_project_status": null,
+798152	      "current_installed_capacity_mw": null,
+798153	      "electrical_connection_status": null
+798154	/* Offline curated primary notes. This validates one reviewed association, not a matcher. */
+798155	import data from './notes.json' with {type:'json'};
+798156	import {CATALOGUE} from './catalogue.mjs';
+798157	const SCHEMA='globalgrid2050.primary-notes.v1';
+798158	const NOTE_ID='PRIMARY-EN010147-002440-REFUSAL-20261110';
+798159	const requireValid=(ok,why)=>{if(!ok)throw Error('Primary note withheld: '+why);};
+798160	function jsonCopy(value,seen=new Set(),depth=0){
+798161	  requireValid(depth<=20,'JSON depth');
+798162	  if(value===null||typeof value==='boolean')return value;
+798163	  if(typeof value==='string'){requireValid(value.length<=20000,'JSON text bound');return value;}
+798164	  if(typeof value==='number'){requireValid(Number.isFinite(value),'finite JSON number');return value;}
+798165	  requireValid(value&&typeof value==='object'&&!seen.has(value),'plain acyclic JSON required');
+798166	  const array=Array.isArray(value),prototype=Object.getPrototypeOf(value);
+798167	  requireValid(array?prototype===Array.prototype:prototype===Object.prototype||prototype===null,'plain JSON prototype');
+798168	  const own=Reflect.ownKeys(value);requireValid(own.length<=1000,'JSON member bound');
+798169	  seen.add(value);const result=array?[]:Object.create(null);
+798170	  for(const key of own){
+798171	    if(array&&key==='length')continue;
+798172	    const descriptor=Object.getOwnPropertyDescriptor(value,key);
+798173	    requireValid(typeof key==='string'&&descriptor.enumerable&&'value'in descriptor,'JSON accessors or hidden fields forbidden');
+798174	    if(array)requireValid(/^(0|[1-9]\d*)$/.test(key)&&Number(key)<value.length,'JSON array keys');
+798175	    result[key]=jsonCopy(descriptor.value,seen,depth+1);
+798176	  if(array)requireValid(result.length===value.length&&Object.keys(result).length===value.length,'dense JSON arrays required');
+798177	  seen.delete(value);return result;
+798178	const serial=value=>value&&typeof value==='object'?Array.isArray(value)?'['+value.map(serial).join(',')+']':'{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+serial(value[k])).join(',')+'}':JSON.stringify(value);
+798179	function keys(value,wanted,role){requireValid(value&&typeof value==='object'&&!Array.isArray(value)&&serial(Object.keys(value).sort())===serial([...wanted].sort()),role+' fields');}
+798180	function same(actual,expected,role){requireValid(serial(actual)===serial(expected),role+' differs from reviewed catalogue');}
+798181	function https(value){
+798182	  requireValid(typeof value==='string'&&!/[\u0000-\u0020]/.test(value),'unsafe URL');let url;
+798183	  try{url=new URL(value);}catch{throw Error('Primary note withheld: unsafe URL');}
+798184	  requireValid(url.protocol==='https:'&&url.hostname&&!url.username&&!url.password&&!url.port&&!url.hash,'unsafe URL');return value;
+798185	// Compare actual UTC instants at nanosecond precision, including receipt fractions.
+798186	export function utcInstant(value){
+798187	  requireValid(typeof value==='string','UTC timestamp');
+798188	  const match=value.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.(\d{1,9}))?(Z|\+00:00)$/);
+798189	  requireValid(match,'UTC timestamp');const [year,month,day,hour,minute,second]=match.slice(1,7).map(Number);
+798190	  requireValid(year>=1900&&year<=2100&&hour<24&&minute<60&&second<60,'UTC range');
+798191	  const ms=Date.UTC(year,month-1,day,hour,minute,second);
+798192	  requireValid(new Date(ms).toISOString().slice(0,19)===value.slice(0,19),'UTC calendar');
+798193	  return BigInt(ms)*1000000n+BigInt((match[7]||'').padEnd(9,'0'));
+798194	function day(value){requireValid(typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value),'date');return utcInstant(value+'T00:00:00Z');}
+798195	function canonical(projects){
+798196	  requireValid(Array.isArray(projects)&&Object.getPrototypeOf(projects)===Array.prototype,'plain canonical array required');
+798197	  const population=CATALOGUE.canonical.expected_population,length=Object.getOwnPropertyDescriptor(projects,'length');
+798198	  requireValid(length&&'value'in length&&length.value===population,'complete canonical population required');
+798199	  const members=Reflect.ownKeys(projects);
+798200	  requireValid(members.length===population+1&&members.every(key=>key==='length'||typeof key==='string'&&/^(0|[1-9]\d*)$/.test(key)&&Number(key)<population),'canonical array JSON members');
+798201	  const refs=new Set(),ids=new Set(),matches=[];
+798202	  const field=(row,name)=>{const d=Object.getOwnPropertyDescriptor(row,name);requireValid(!d||'value'in d,'canonical accessors forbidden');return d?.value;};
+798203	  for(let index=0;index<population;index++){
+798204	    const descriptor=Object.getOwnPropertyDescriptor(projects,String(index));
+798205	    requireValid(descriptor&&descriptor.enumerable&&'value'in descriptor,'dense canonical array data required');
+798206	    const row=descriptor.value;
+798207	    requireValid(row&&typeof row==='object','canonical row');const ref=field(row,'repd_ref'),id=field(row,'gg_project_id');
+798208	    requireValid(typeof ref==='string'&&/^[1-9]\d*$/.test(ref)&&id==='GG2050-REPD-'+ref,'canonical original IDs');
+798209	    requireValid(!refs.has(ref)&&!ids.has(id),'duplicate canonical identity');refs.add(ref);ids.add(id);
+798210	    if(field(row,'planning_application_reference')===CATALOGUE.source.planning_reference)matches.push(row);
+798211	  requireValid(matches.length===1,'exact planning reference must be unique');const row=jsonCopy(matches[0]);
+798212	  for(const [field,expected] of Object.entries(CATALOGUE.canonical.fields))requireValid(Object.is(row[field],expected),'canonical '+field+' mismatch');
+798214	function clocks(note,cutoff){
+798215	  const source=note.source,review=note.evidence_review,news=note.news_metadata;
+798216	  const moments=[source.retrieved_at,review.independent_review_at,review.curated_at,news.read_at,news.feed_generated_at,news.published_at,news.first_seen,
+798217	    ...note.rights.terms_receipts.map(r=>r.retrieved_at)];
+798218	  requireValid(moments.every(value=>utcInstant(value)<=cutoff),'future receipt, publication or evaluation clock');
+798219	  for(const value of [source.document_date,source.document_stated_publication_date,note.claim.decision_date,note.claim.source_application_submitted])requireValid(day(value)<=cutoff,'future document/event date');
+798220	  const modified=Date.parse(source.headers['Last-Modified']);requireValid(Number.isFinite(modified)&&BigInt(modified)*1000000n<=cutoff,'future/invalid HTTP clock');
+798221	  requireValid(day(note.claim.decision_date)<=day(source.document_date)&&day(source.document_stated_publication_date)<=utcInstant(source.retrieved_at),'decision/publication chronology');
+798222	  requireValid(utcInstant(source.retrieved_at)<=utcInstant(review.independent_review_at)&&note.rights.terms_receipts.every(r=>utcInstant(r.retrieved_at)<=utcInstant(review.independent_review_at)),'primary review chronology');
+798223	  requireValid(utcInstant(news.published_at)<=utcInstant(news.first_seen)&&utcInstant(news.first_seen)<=utcInstant(news.feed_generated_at)&&
+798224	    utcInstant(news.feed_generated_at)<=utcInstant(news.read_at)&&utcInstant(news.read_at)<=utcInstant(review.curated_at)&&
+798225	    utcInstant(review.independent_review_at)<=utcInstant(review.curated_at),'auxiliary metadata/curation chronology');
+798226	function validate(note,row,cutoff){
+798227	  note=jsonCopy(note);
+798228	  keys(note,['id','association','binding','source','rights','claim','news_metadata','evidence_review'],'note');
+798229	  requireValid(note.id===NOTE_ID&&note.association==='PROVISIONAL','only reviewed provisional association allowed');
+798230	  keys(note.binding,['repd_ref','gg_project_id','planning_reference','canonical_edition','canonical_partition','canonical_partition_sha256'],'binding');
+798231	  requireValid(note.binding.repd_ref===row.repd_ref&&note.binding.gg_project_id===row.gg_project_id&&
+798232	    note.binding.planning_reference===row.planning_application_reference,'exact binding mismatch');
+798233	  same(note.binding,{repd_ref:row.repd_ref,gg_project_id:row.gg_project_id,planning_reference:row.planning_application_reference,
+798234	    canonical_edition:CATALOGUE.canonical.edition,canonical_partition:CATALOGUE.canonical.partition,canonical_partition_sha256:CATALOGUE.canonical.partition_sha256},'canonical snapshot');
+798235	  requireValid(note.source&&note.rights&&note.claim&&note.news_metadata&&note.evidence_review&&
+798236	    Array.isArray(note.rights.terms_receipts)&&note.source.headers,'source/rights/claim receipts required');
+798237	  for(const field of ['source','rights','claim','news_metadata'])keys(note[field],Object.keys(CATALOGUE[field]),field);
+798238	  keys(note.evidence_review,Object.keys(CATALOGUE.review),'evidence review');
+798239	  for(const receipt of note.rights.terms_receipts)keys(receipt,['url','bytes','sha256','retrieved_at'],'rights receipt');
+798240	  for(const url of [note.source.url,note.source.project_url,note.rights.licence_url,note.news_metadata.source_url,note.news_metadata.article_url,...note.rights.terms_receipts.map(r=>r.url)])https(url);
+798241	  clocks(note,cutoff);
+798242	  // Exact trusted document and claim scope, not caller rights flags or a common hostname.
+798243	  same(note.source,CATALOGUE.source,'source receipt');same(note.rights,CATALOGUE.rights,'narrow rights evidence');
+798244	  same(note.claim,CATALOGUE.claim,'bounded decision claim');same(note.news_metadata,CATALOGUE.news_metadata,'auxiliary metadata');
+798245	  same(note.evidence_review,CATALOGUE.review,'actual review metadata');
+798246	  return freeze(note);
+798247	export const CURATED_NOTES=freeze(data);
+798248	export function buildPrimaryNotes(projects,options={}){
+798249	  requireValid(options&&typeof options==='object'&&!Array.isArray(options)&&Object.keys(options).every(k=>['asOf','records'].includes(k)),'unsupported evaluation options');
+798250	  const {asOf,records=CURATED_NOTES.notes}=options;
+798251	  const cutoff=utcInstant(asOf);same(CURATED_NOTES.schema,SCHEMA,'curated schema');const row=canonical(projects);
+798252	  requireValid(Array.isArray(records)&&records.length<=10,'bounded note records');const proposals=jsonCopy(records),ids=new Set(),bindings=new Set();
+798253	  for(const record of proposals){
+798254	    requireValid(record&&typeof record==='object','note object');const binding=record.binding?.gg_project_id;
+798255	    requireValid(!ids.has(record.id)&&!bindings.has(binding),'duplicate note/binding');ids.add(record.id);bindings.add(binding);
+798256	  requireValid(proposals.length<=1,'one reviewed decision only');
+798257	  const accepted=proposals.map(record=>validate(record,row,cutoff));
+798258	  const byRef=Object.create(null),byId=Object.create(null);
+798259	  for(const note of accepted){byRef[note.binding.repd_ref]=[note];byId[note.binding.gg_project_id]=[note];}
+798260	  return freeze({schema:SCHEMA,validated_as_of:asOf,association_count:accepted.length,verified_count:0,solar1000_verified_delta:0,
+798261	    by_repd_ref:byRef,by_project_id:byId});
+798262	/* ROOT renderer for the existing Machine Read Notes brief; no new panel. */
+798263	const el = (tag, text, cls) => {
+798265	  if (text !== undefined) node.textContent = String(text);
+798266	  if (cls) node.className = cls;
+798268	function date(value) {
+798269	  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return 'Unknown';
+798270	  const parsed = new Date(value + 'T00:00:00Z');
+798271	  return Number.isNaN(parsed.getTime()) ? 'Unknown' : parsed.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
+798272	function link(label, value) {
+798274	  try {url = new URL(value);} catch {return el('span', label + ' unavailable');}
+798275	  if (url.protocol !== 'https:' || url.username || url.password || url.port) return el('span', label + ' unavailable');
+798276	  const node = el('a', label);node.href = url.href;node.target = '_blank';node.rel = 'noopener noreferrer';return node;
+798277	export function decoratePrimaryButton(button, note) {
+798278	  button.replaceChildren(
+798279	    el('span', 'PROVISIONAL \u00b7 GOVERNMENT DECISION \u00b7 ' + date(note.claim.decision_date).toUpperCase(), 'machine-note-kind'),
+798280	    el('span', 'Development consent refused \u00b7 ' + note.binding.planning_reference, 'machine-note-headline')
+798282	  button.dataset.notePrimary = 'provisional';
+798283	  button.setAttribute('aria-label', 'Provisional project association. Government decision dated ' + date(note.claim.decision_date) + '. Open the source brief.');
+798284	  button.title = note.source.author + ' \u00b7 provisional association; frozen REPD record retained';
+798285	export function appendPrimaryBrief(body, note, project) {
+798286	  const section = el('section', undefined, 'machine-note-source machine-note-primary');
+798287	  section.dataset.primaryNoteId = note.id;
+798288	  section.append(el('h3', 'Primary government decision'), el('p', note.claim.statement.replace(/REPD(\d)/g,'REPD $1')));
+798289	  section.append(el('p', 'Decision date: ' + date(note.claim.decision_date) + '. Letter date: ' + date(note.source.document_date) + '.'));
+798290	  section.append(el('p', note.source.author + ' \u00b7 ' + note.source.locators.decision), link('Open the government decision letter', note.source.url));
+798291	  const details = el('details');details.append(el('summary', 'Source receipt and qualifications'));
+798292	  details.append(el('p', 'Frozen REPD status: ' + project.status + '. Record updated ' + date(project.repd_record_updated) + '.'));
+798293	  details.append(el('p', 'Submission dates remain source-specific: REPD ' + date(project.planning_application_submitted) + '; decision letter ' + date(note.claim.source_application_submitted) + '.'));
+798294	  details.append(el('p', 'The original application and frozen REPD baseline are ' + note.claim.capacity_context.original_application_repd_baseline_mw + ' MW. The letter describes a later reduction; the final reduced capacity is not established.'));
+798295	  details.append(el('p', 'Later project status, installed capacity, electrical connection and judicial review status remain unknown.'));
+798296	  details.append(el('p', 'Document retrieved: ' + note.source.retrieved_at + '. Independent review: ' + note.evidence_review.independent_review_at + '.'));
+798297	  const receipt = el('p', 'Observed PDF: ' + note.source.bytes.toLocaleString('en-GB') + ' bytes. SHA-256: ' + note.source.sha256);
+798298	  receipt.style.overflowWrap = 'anywhere';details.append(receipt);
+798299	  details.append(el('p', note.rights.attribution), link('Open Government Licence v3.0', note.rights.licence_url));
+798300	  details.append(el('p', 'Reuse is limited to government-authored decision facts. Applicant and other third-party material, personal information and standalone logos are excluded. No official endorsement is implied.'));
+798301	  section.append(details);body.append(section);
+798302	"""Package the existing, pinned Context producer and renderer for a local preview.
+798303	No collection, new project binding, rights decision or publication is performed.
+798304	By default only verify dependencies and regenerate the accepted export in memory.
+798305	An explicit new output directory stages an unchanged, self-contained browser cache.
+798306	DIRECTORY = Path(__file__).resolve().parent
+798307	def source_bytes(path, expected):
+798308	    """Accept only exact Git bytes or Windows CRLF-only checkout conversion."""
+798310	    if digest(raw) != expected:
+798311	        raw = raw.replace(b"\r\n", b"\n")
+798312	        raise ValueError("Pinned Context dependency changed")
+798313	def assemble(repository, figures_directory, *, include_validation=False):
+798314	    closure = json.loads((DIRECTORY / "closure.json").read_text(encoding="utf-8"))
+798315	    verified = {}
+798316	    for entry in closure["source_files"]:
+798317	        if entry["role"] == "validation" and not include_validation:
+798318	        verified[entry["path"]] = source_bytes(repository / entry["path"], entry["sha256"])
+798319	    figures = {}
+798320	    for name, expected in closure["figures"]["files"].items():
+798321	        raw = (figures_directory / name).read_bytes()
+798322	        if digest(raw) != expected:
+798323	            raise ValueError("Pinned FIGURES dependency changed; exact source bytes required")
+798324	        figures[name] = raw
+798325	    sys.path.insert(0, str(repository))
+798326	    composer = importlib.import_module("automation.news.build_transition_context")
+798327	    read = lambda relative: json.loads(verified[relative])
+798328	    report = composer.build(
+798329	        read("automation/news/policy_commitments/sample_ledger.json"),
+798330	        read("automation/news/dc_context/grid-source-fixture.json"),
+798331	        read("automation/news/dc_context/fixtures/solar-context.json"),
+798332	        as_of=closure["export"]["as_of"],
+798333	    raw = composer.dumps(report).encode("utf-8")
+798334	    if digest(raw) != closure["export"]["sha256"]:
+798335	        raise ValueError("Actual composer export differs from the independently pinned fixture")
+798336	    expected = {"records": 14, "families": {"policy": 8, "grid": 2, "solar": 4},
+798337	                "numeric_claims": 3, "linked_projects": 0,
+798338	                "scope": "BOUNDED_SUPPLIED_CONTEXT"}
+798339	    if report["coverage"] != expected or report["status"] != "PROVISIONAL":
+798340	        raise ValueError("Context coverage or provisional boundary changed")
+798341	    if any(row["scope"]["canonical_project_id"] is not None
+798342	           or row["scope"]["binding"] != "UNLINKED" for row in report["records"]):
+798343	        raise ValueError("Context must not acquire a project association")
+798344	    files = {"transition-context.json": raw}
+798345	    for name in ("adapter.mjs", "render.mjs", "context.css"):
+798346	        files[name] = verified["automation/news/context-ui/" + name]
+798347	    figures_prefix = "figures/" + closure["figures"]["commit"] + "/"
+798348	    files.update({figures_prefix + name: value for name, value in figures.items()})
+798350	        "schema": "globalgrid2050.v928-context-preview.v1",
+798351	        "preview_only": True,
+798352	        "publication_authorized": False,
+798353	        "source_rights_status": "UNASSESSED",
+798354	        "source_repository": closure["source_repository"],
+798355	        "source_commit": closure["source_commit"],
+798356	        "as_of": closure["export"]["as_of"],
+798357	        "transition_context_sha256": closure["export"]["sha256"],
+798358	        "coverage": expected,
+798359	        "figures": {**closure["figures"], "cache_directory": figures_prefix},
+798360	        "files": {name: {"sha256": digest(data), "bytes": len(data)}
+798361	                  for name, data in sorted(files.items())},
+798362	        "limitations": report["limitations"],
+798363	    files["manifest.json"] = (json.dumps(manifest, sort_keys=True, indent=2) + "\n").encode("utf-8")
+798364	    return files, manifest
+798365	    parser.add_argument("--repository-root", type=Path, default=DIRECTORY.parents[1])
+798366	    parser.add_argument("--figures-dir", type=Path, required=True)
+798367	    parser.add_argument("--verify-validation", action="store_true")
+798368	    parser.add_argument("--output-dir", type=Path,
+798369	                        help="Explicit NEW local-preview directory; never overwrite")
+798370	        files, manifest = assemble(args.repository_root.resolve(), args.figures_dir.resolve(),
+798371	                                   include_validation=args.verify_validation)
+798372	        if args.output_dir is not None:
+798373	            # Validate the entire bundle before creating anything. Manifest is last:
+798374	            # an interrupted staging attempt has no complete consumer manifest.
+798375	            destination = args.output_dir.resolve()
+798376	            destination.mkdir(parents=False, exist_ok=False)
+798377	            for name, raw in files.items():
+798378	                target = destination / name
+798379	                with target.open("xb") as handle:
+798380	                    handle.write(raw)
+798381	        print(json.dumps({"status": "PASS", "scope": "local provisional Context preview only",
+798382	                          "source_commit": manifest["source_commit"],
+798383	                          "export_sha256": manifest["transition_context_sha256"],
+798384	                          "manifest_sha256": digest(files["manifest.json"]),
+798385	                          "coverage": manifest["coverage"],
+798386	                          "source_rights_status": "UNASSESSED", "publication_authorized": False},
+798387	                         indent=2, sort_keys=True))
+798388	    except (OSError, ValueError, ImportError, KeyError, TypeError) as exc:
+798389	        parser.exit(2, f"Context preview withheld: {type(exc).__name__}: {exc}\n")
+798390	/** Offline browser/Node view adapter for pinned FIGURES e0deabac.
+798391	 * No extraction, association, number conversion, source fetch or publication.
+798392	 * Claims remain source assertions. This UI accepts HTTPS DNS URLs only; public
+798393	 * IP-literal URLs admitted by the Python contract are unsupported in this slice.
+798394	export const MODEL_SCHEMA = 'testcode.filing-figures-view.v1';
+798395	export const CLAIM_SCHEMA = 'globalgrid2050.filing-figure.v1';
+798396	export const MAX_CLAIMS = 100;
+798397	const POWER = ['generation_power', 'storage_power', 'it_load', 'project_demand', 'secured_connection', 'energised_load', 'grid_upgrade'];
+798398	const ENERGY = ['storage_energy', 'generation_energy', 'energy_procurement'];
+798399	const SCOPES = ['issuer', 'consolidated_group', 'project', 'site', 'campus', 'phase', 'public_institution'];
+798400	const CLAIM_KEYS = ['schema', 'claim_id', 'status', 'quantity_kind', 'metric', 'value', 'scale', 'unit', 'original_unit', 'currency', 'finance_stage', 'entity', 'reporting_period', 'as_of', 'basis', 'assurance', 'provenance', 'revision'];
+798401	const LABELS = {
+798402	  finance: 'Finance', generation_power: 'Generation power', storage_power: 'Storage power',
+798403	  it_load: 'IT load', project_demand: 'Project demand', secured_connection: 'Secured connection',
+798404	  energised_load: 'Energised load', grid_upgrade: 'Grid upgrade', storage_energy: 'Storage energy',
+798405	  generation_energy: 'Generation energy', energy_procurement: 'Energy procurement',
+798406	  issuer: 'Issuer', consolidated_group: 'Consolidated group', project: 'Project', site: 'Site',
+798407	  campus: 'Campus', phase: 'Phase', public_institution: 'Public institution',
+798408	  forecast: 'Forecast', reported: 'Reported', announced: 'Announced', committed: 'Committed', disbursed: 'Disbursed',
+798409	const ID = /^[A-Za-z0-9][A-Za-z0-9._:/-]{0,199}$/;
+798410	const DECIMAL = /^-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?$/;
+798411	const SOURCE_DATE = /^([0-9]{4})(?:-([0-9]{2})(?:-([0-9]{2}))?)?$/;
+798412	const TIMESTAMP = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.[0-9]{1,6})?(Z|[+-]([0-9]{2}):([0-9]{2}))$/;
+798413	export class FigureModelError extends TypeError {}
+798414	function fail(field, reason) { throw new FigureModelError(`${field}: ${reason}`); }
+798415	function fullMatch(pattern, value) { return pattern.exec(value)?.[0] === value; }
+798416	function object(value, keys, field) {
+798417	  if (!value || typeof value !== 'object' || Array.isArray(value)
+798418	      || ![Object.prototype, null].includes(Object.getPrototypeOf(value))) fail(field, 'expected a plain object');
+798419	  const own = Reflect.ownKeys(value);
+798420	  if (own.length !== keys.length || own.some(key => !keys.includes(key))) fail(field, 'unexpected or missing fields');
+798421	  for (const key of own) {
+798422	    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+798423	    if (!descriptor.enumerable || !Object.hasOwn(descriptor, 'value')) fail(field, 'expected JSON data properties');
+798425	function claimsArray(value) {
+798426	  if (!Array.isArray(value) || Object.getPrototypeOf(value) !== Array.prototype || value.length > MAX_CLAIMS) {
+798427	    fail('claims', 'expected an ordinary dense JSON array of at most 100 claims');
+798428	  // Array.from and iteration would execute caller-controlled Symbol.iterator,
+798429	  // allowing an empty/short array to yield arbitrary rows after the length gate.
+798430	  const keys = Reflect.ownKeys(value);
+798431	  if (keys.length !== value.length + 1 || keys.some(key => typeof key !== 'string')) fail('claims', 'unexpected array properties');
+798432	  const snapshot = [];
+798433	  for (let i = 0; i < value.length; i += 1) {
+798434	    const descriptor = Object.getOwnPropertyDescriptor(value, String(i));
+798435	    if (!descriptor || !descriptor.enumerable || !Object.hasOwn(descriptor, 'value')) {
+798436	      fail('claims', 'expected dense array data entries');
+798437	    snapshot.push(descriptor.value);
+798438	  // Dense entries + the built-in length exhaust the exact own-key count above;
+798439	  // no named property, symbol, accessor or custom prototype can pass through.
+798440	  return snapshot;
+798441	function text(value, field, max = 200) {
+798442	  if (typeof value !== 'string' || !value || Array.from(value).length > max || value.trim() !== value
+798443	      || value.startsWith('\u0085') || value.endsWith('\u0085')
+798444	      || /[\u0000-\u001f\u007f\ud800-\udfff]/u.test(value)) fail(field, 'expected bounded nonempty text');
+798445	function id(value, field) {
+798446	  if (typeof value !== 'string' || !fullMatch(ID, value)) fail(field, 'invalid identifier');
+798447	function choice(value, options, field) {
+798448	  if (typeof value !== 'string' || !options.includes(value)) fail(field, 'unsupported value');
+798449	function sourceDate(value, field) {
+798450	  if (typeof value !== 'string') fail(field, 'expected a source date');
+798451	  const m = SOURCE_DATE.exec(value);
+798452	  if (!m || m[0] !== value) fail(field, 'expected YYYY, YYYY-MM or YYYY-MM-DD');
+798453	  // These are calendar components only. Financial quantity strings never pass
+798454	  // through Number, parseFloat, Intl.NumberFormat or arithmetic.
+798455	  const year = Number(m[1]), month = m[2] ? Number(m[2]) : 1, day = m[3] ? Number(m[3]) : 1;
+798456	  const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+798457	  const days = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+798458	  if (year < 1 || month < 1 || month > 12 || day < 1 || day > days[month - 1]) fail(field, 'invalid calendar date');
+798459	  return `${m[1]}-${m[2] || '01'}-${m[3] || '01'}`;
+798460	function timestampDate(value, field) {
+798461	  if (typeof value !== 'string') fail(field, 'timestamp requires timezone');
+798462	  const m = TIMESTAMP.exec(value);
+798463	  if (!m || m[0] !== value) fail(field, 'timestamp requires seconds and timezone');
+798464	  const day = sourceDate(value.slice(0, 10), field);
+798465	  if (Number(m[4]) > 23 || Number(m[5]) > 59 || Number(m[6]) > 59
+798466	      || (m[7] !== 'Z' && (Number(m[8]) > 23 || Number(m[9]) > 59))) fail(field, 'invalid timestamp');
+798467	  // Python contract compares the retrieval calendar date in its supplied offset.
+798468	  // Do not silently normalize to UTC and move a source's day boundary.
+798469	  return day;
+798470	function url(value, field) {
+798471	  text(value, field, 2048);
+798472	  if (!/^[\x21-\x7e]+$/.test(value) || value.includes('\\')) fail(field, 'expected ASCII HTTPS URL');
+798473	  const authority = /^https:\/\/([^/?#]+)/.exec(value)?.[1];
+798474	  if (!authority || authority.includes('@')) fail(field, 'expected HTTPS URL without credentials');
+798475	  const parts = /^([^:]+)(?::(443))?$/.exec(authority);
+798476	  if (!parts) fail(field, 'IP literals and custom ports are unsupported');
+798477	  const hostname = parts[1].toLowerCase();
+798478	  const labels = hostname.split('.');
+798479	  if (labels.length < 2 || labels.some(label => !/^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$/.test(label))
+798480	      || !/^[a-z]{2,63}$/.test(labels.at(-1))
+798481	      || ['localhost', 'local', 'internal', 'test', 'invalid'].includes(labels.at(-1))) {
+798482	    fail(field, 'expected a public DNS-form hostname');
+798484	  try { parsed = new URL(value); } catch { fail(field, 'invalid URL'); }
+798485	  if (parsed.protocol !== 'https:' || parsed.hostname !== hostname || parsed.username || parsed.password) fail(field, 'ambiguous URL');
+798486	function validateClaim(claim, entityId) {
+798487	  const c = object(claim, CLAIM_KEYS, 'claim');
+798488	  choice(c.schema, [CLAIM_SCHEMA], 'schema');
+798489	  choice(c.status, ['machine-provisional'], 'status');
+798490	  id(c.claim_id, 'claim_id');
+798491	  const kind = choice(c.quantity_kind, [...POWER, ...ENERGY, 'finance'], 'quantity_kind');
+798492	  text(c.metric, 'metric');
+798493	  if (typeof c.value !== 'string' || c.value.length > 100 || !fullMatch(DECIMAL, c.value)) fail('value', 'expected exact decimal string');
+798494	  if (kind !== 'finance' && c.value.startsWith('-') && /[1-9]/.test(c.value)) fail('value', 'negative power/energy');
+798495	  choice(c.scale, ['1', '1e3', '1e6', '1e9', '1e12'], 'scale');
+798496	  text(c.original_unit, 'original_unit', 100);
+798497	  if (kind === 'finance') {
+798498	    choice(c.unit, ['currency'], 'unit');
+798499	    if (typeof c.currency !== 'string' || !fullMatch(/^[A-Z]{3}$/, c.currency)) fail('currency', 'explicit currency label required');
+798500	    choice(c.finance_stage, ['announced', 'committed', 'disbursed', 'reported'], 'finance_stage');
+798502	    choice(c.unit, POWER.includes(kind) ? ['W', 'kW', 'MW', 'GW'] : ['Wh', 'kWh', 'MWh', 'GWh', 'TWh'], 'unit');
+798503	    if (c.currency !== null || c.finance_stage !== null) fail('currency/finance_stage', 'must be null for power/energy');
+798504	  const entity = object(c.entity, ['scope', 'id', 'consolidation_group_id', 'identity_evidence_url'], 'entity');
+798505	  choice(entity.scope, SCOPES, 'entity.scope');
+798506	  id(entity.id, 'entity.id');
+798507	  if (entity.id !== entityId) fail('entity.id', 'does not match selected entity');
+798508	  url(entity.identity_evidence_url, 'entity.identity_evidence_url');
+798509	  if (entity.consolidation_group_id !== null) id(entity.consolidation_group_id, 'entity.consolidation_group_id');
+798510	  if (entity.scope === 'consolidated_group' && entity.consolidation_group_id !== entity.id) fail('entity.consolidation_group_id', 'group must retain own identity');
+798511	  choice(c.basis, ['reported', 'forecast'], 'basis');
+798512	  choice(c.assurance, ['audited', 'unaudited', 'unknown'], 'assurance');
+798513	  if (c.basis === 'forecast' && c.assurance === 'audited') fail('assurance', 'forecast cannot be audited actual');
+798514	  const provenance = object(c.provenance, ['document_id', 'document_url', 'sha256', 'page', 'section', 'published_date', 'retrieved_at'], 'provenance');
+798515	  id(provenance.document_id, 'provenance.document_id');
+798516	  url(provenance.document_url, 'provenance.document_url');
+798517	  if (typeof provenance.sha256 !== 'string' || !fullMatch(/^[a-f0-9]{64}$/, provenance.sha256)) fail('provenance.sha256', 'source byte hash required');
+798518	  for (const key of ['page', 'section']) if (provenance[key] !== null) text(provenance[key], `provenance.${key}`);
+798519	  if (provenance.page === null && provenance.section === null) fail('provenance', 'page or section required');
+798520	  const retrievedDate = timestampDate(provenance.retrieved_at, 'provenance.retrieved_at');
+798521	  if (provenance.published_date !== null && sourceDate(provenance.published_date, 'provenance.published_date') > retrievedDate) fail('provenance.published_date', 'publication follows retrieval');
+798522	  if (c.as_of !== null && sourceDate(c.as_of, 'as_of') > retrievedDate && c.basis !== 'forecast') fail('as_of', 'future date requires forecast');
+798523	  if (c.reporting_period !== null) {
+798524	    const period = object(c.reporting_period, ['start', 'end'], 'reporting_period');
+798525	    const start = sourceDate(period.start, 'reporting_period.start'), end = sourceDate(period.end, 'reporting_period.end');
+798526	    if (period.start.length !== period.end.length || end < start) fail('reporting_period', 'ordered equal-precision bounds required');
+798527	    if (c.basis === 'reported' && end > retrievedDate) fail('reporting_period', 'future period requires forecast');
+798528	  } else if (c.as_of === null) fail('reporting_period/as_of', 'source temporal basis required');
+798529	  const revision = object(c.revision, ['id', 'supersedes_claim_id', 'restated'], 'revision');
+798530	  id(revision.id, 'revision.id');
+798531	  if (revision.supersedes_claim_id !== null) {
+798532	    id(revision.supersedes_claim_id, 'revision.supersedes_claim_id');
+798533	    if (revision.supersedes_claim_id === c.claim_id) fail('revision', 'claim cannot supersede itself');
+798534	  if (typeof revision.restated !== 'boolean' || (revision.restated && revision.supersedes_claim_id === null)) fail('revision', 'restatement requires an earlier claim');
+798535	  return JSON.parse(JSON.stringify(c));
+798536	function row(claim) {
+798537	  const p = claim.provenance, r = claim.revision;
+798538	  const period = claim.reporting_period;
+798539	  const amount = `${claim.value}${claim.scale === '1' ? '' : ` × ${claim.scale}`} ${claim.currency || claim.unit}`;
+798540	  return { id: claim.claim_id, claim, display: {
+798541	    amount, quantityKind: LABELS[claim.quantity_kind], basis: LABELS[claim.basis],
+798542	    assurance: claim.assurance === 'unknown' ? 'Unknown' : `${claim.assurance === 'audited' ? 'Audited' : 'Unaudited'} (source assertion)`,
+798543	    financeStage: claim.finance_stage === null ? 'Not applicable' : LABELS[claim.finance_stage],
+798544	    entityScope: LABELS[claim.entity.scope],
+798545	    period: period === null ? 'Unknown' : (period.start === period.end ? period.start : `${period.start} to ${period.end}`),
+798546	    asOf: claim.as_of ?? 'Unknown',
+798547	    sourceLocator: [p.page === null ? null : `Page ${p.page}`, p.section].filter(value => value !== null).join(' · '),
+798548	    publishedDate: p.published_date ?? 'Unknown', retrievedAt: p.retrieved_at,
+798549	    revision: `${r.id} · ${r.restated ? 'Restated' : 'Restatement not asserted'}${r.supersedes_claim_id === null ? '' : ` · Supersedes ${r.supersedes_claim_id}`}`,
+798550	    status: 'Provisional; not independently verified',
+798552	/** Validate the entire input before returning any rows; caller clears stale UI on error. */
+798553	export function buildViewModel(input) {
+798554	  object(input, ['entityId', 'claims', 'state'], 'input');
+798555	  id(input.entityId, 'entityId');
+798556	  choice(input.state, ['available', 'unknown', 'unavailable'], 'state');
+798557	  const claims = claimsArray(input.claims);
+798558	  if (input.state !== 'available' && claims.length !== 0) fail('claims', 'nonavailable states require empty claims');
+798561	  for (let i = 0; i < claims.length; i += 1) {
+798562	    const validated = validateClaim(claims[i], input.entityId);
+798563	    if (ids.has(validated.claim_id)) fail('claim_id', 'duplicate claim');
+798564	    ids.add(validated.claim_id);
+798565	    rows.push(row(validated));
+798566	  const messages = {
+798567	    available: rows.length ? 'Source figures are provisional. Each keeps its own unit, scope and period; no total is calculated.' : 'No figures have been supplied.',
+798568	    unknown: 'No source figures are known for this entity. Unknown does not mean zero.',
+798569	    unavailable: 'Source figures are currently unavailable. This does not mean zero.',
+798571	    schema: MODEL_SCHEMA, entityId: input.entityId, state: input.state,
+798572	    stateLabel: { available: rows.length ? 'Figures supplied' : 'No figures supplied', unknown: 'Figures unknown', unavailable: 'Figures unavailable' }[input.state],
+798573	    message: messages[input.state], rows, publishable: false,
+798574	/** Inline, provisional filing figures. No extraction or publication authority. */
+798575	import { buildViewModel } from './model.mjs';
+798576	const ROOT_ATTRIBUTE = 'data-filings-figures-root';
+798577	function element(document, tag, className, text) {
+798579	  if (text !== undefined) node.textContent = text;
+798580	function knownText(value) {
+798581	  return value === null || value === undefined || value === '' ? 'Unknown' : String(value);
+798582	function sourceUrl(value) {
+798583	  if (typeof value !== 'string' || /[\s\\]/u.test(value) || !/^[\x21-\x7e]+$/.test(value)) {
+798584	    throw new TypeError('Unsupported source link');
+798585	  if (url.protocol !== 'https:' || url.username || url.password || url.port) {
+798586	  // The model validates the source URL too. Keep a separate conservative DOM
+798587	  // boundary: no local/literal hosts or browser numeric IPv4 aliases.
+798588	  const labels = url.hostname.split('.');
+798589	  if (labels.length < 2 || !/^[a-z]{2,63}$/i.test(labels.at(-1))
+798590	      || /(?:^|\.)(?:localhost|local|internal|test|invalid)$/i.test(url.hostname)
+798591	      || labels.some(label => !/^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(label))) {
+798593	function addField(document, list, label, value, attribute) {
+798594	  const term = element(document, 'dt', 'ff-field-label', label);
+798595	  const definition = element(document, 'dd', 'ff-field-value', knownText(value));
+798596	  if (attribute) definition.setAttribute(attribute, '');
+798597	  list.append(term, definition);
+798598	function renderRow(document, row) {
+798599	  const item = element(document, 'li', 'ff-claim');
+798600	  item.setAttribute('data-figure-claim', row.id);
+798601	  const metric = knownText(row.claim.metric);
+798602	  item.append(element(document, 'p', 'ff-metric', metric));
+798603	  const amount = element(document, 'p', 'ff-amount', knownText(row.display.amount));
+798604	  amount.setAttribute('data-figure-value', '');
+798605	  item.append(amount);
+798606	  const original = element(document, 'p', 'ff-original-unit');
+798607	  original.append(element(document, 'span', 'ff-inline-label', 'Original unit: '));
+798608	  original.append(element(document, 'span', '', knownText(row.claim.original_unit)));
+798609	  item.append(original);
+798610	  const status = element(document, 'p', 'ff-status', 'Provisional · requires independent review');
+798611	  status.setAttribute('data-figure-status', 'provisional');
+798612	  item.append(status);
+798613	  const fields = element(document, 'dl', 'ff-fields');
+798614	  addField(document, fields, 'Quantity', row.display.quantityKind);
+798615	  addField(document, fields, 'Scope', row.display.entityScope);
+798616	  addField(document, fields, 'Entity', row.claim.entity.id);
+798617	  addField(document, fields, 'Group overlap', row.claim.entity.consolidation_group_id);
+798618	  addField(document, fields, 'Basis', row.display.basis);
+798619	  addField(document, fields, 'Assurance', row.display.assurance);
+798620	  addField(document, fields, 'Finance stage', row.display.financeStage);
+798621	  addField(document, fields, 'Reporting period', row.display.period);
+798622	  addField(document, fields, 'As of', row.display.asOf);
+798623	  addField(document, fields, 'Published', row.display.publishedDate);
+798624	  addField(document, fields, 'Retrieved', row.display.retrievedAt);
+798625	  addField(document, fields, 'Source location', row.display.sourceLocator);
+798626	  addField(document, fields, 'Revision', row.display.revision, 'data-figure-revision');
+798627	  item.append(fields);
+798628	  const source = sourceUrl(row.claim.provenance.document_url);
+798629	  const link = element(document, 'a', 'ff-source-link', 'Source document');
+798630	  link.href = source.href;
+798631	  link.target = '_blank';
+798632	  link.rel = 'noopener noreferrer';
+798633	  link.referrerPolicy = 'no-referrer';
+798634	  link.setAttribute('data-figure-link', '');
+798635	  link.setAttribute('aria-label', `Source document for ${metric} (opens in a new tab)`);
+798636	  const sourceLine = element(document, 'p', 'ff-source');
+798637	  sourceLine.append(link, element(document, 'span', 'ff-source-host', ` · ${source.hostname}`));
+798638	  item.append(sourceLine);
+798640	function detailsRoot(document, view, wasOpen) {
+798641	  const root = element(document, 'details', 'filings-figures');
+798642	  root.setAttribute(ROOT_ATTRIBUTE, '');
+798643	  root.setAttribute('data-state', view.state);
+798644	  root.setAttribute('data-entity-id', view.entityId ?? '');
+798645	  root.open = Boolean(wasOpen);
+798646	  const summary = element(document, 'summary', 'ff-summary');
+798647	  summary.append(element(document, 'span', 'ff-summary-title', 'Filing figures'));
+798648	  const badge = element(document, 'span', 'ff-badge',
+798649	    view.state === 'available' && view.rows.length ? 'Provisional' : knownText(view.stateLabel));
+798650	  badge.setAttribute('data-figure-state-badge', '');
+798651	  summary.append(badge);
+798652	  root.append(summary);
+798653	  const body = element(document, 'div', 'ff-content');
+798654	  if (!view.rows.length) {
+798655	    const empty = element(document, 'p', 'ff-empty', knownText(view.message));
+798656	    empty.setAttribute('data-figure-empty', '');
+798657	    empty.setAttribute('role', 'status');
+798658	    body.append(empty);
+798659	    const note = element(document, 'p', 'ff-notice',
+798660	      'Source assertions for this entity. Figures remain provisional; source rights and independent review are still required.');
+798661	    body.append(note);
+798662	    const list = element(document, 'ul', 'ff-claims');
+798663	    list.setAttribute('role', 'list');
+798664	    list.setAttribute('aria-label', 'Provisional filing figures');
+798665	    for (const row of view.rows) list.append(renderRow(document, row));
+798666	    body.append(list);
+798667	  root.append(body);
+798669	 * Replace this adapter's direct child only; host MAP/export controls survive.
+798670	 * Returns the new details Element, or null for an unusable host container.
+798671	 * Invalid input clears any prior figures and displays an unavailable state.
+798672	export function renderFigures(container, input) {
+798673	  if (!container || container.nodeType !== 1 || !container.ownerDocument
+798674	      || typeof container.append !== 'function') return null;
+798675	  const document = container.ownerDocument;
+798676	  const prior = Array.from(container.children).filter(node => node.hasAttribute(ROOT_ATTRIBUTE));
+798677	  let root;
+798678	    const view = buildViewModel(input);
+798679	    const wasOpen = prior.some(node => node.open && node.getAttribute('data-entity-id') === view.entityId);
+798680	    root = detailsRoot(document, view, wasOpen);
+798681	    // Never leave stale figures from the previously selected entity in view,
+798682	    // expose untrusted exception values, or label invalid input as empty data.
+798683	    root = detailsRoot(document, {
+798684	      entityId: '', state: 'unavailable', stateLabel: 'Unavailable', rows: [],
+798685	      message: 'Figures are unavailable because the supplied data could not be validated.',
+798686	    }, prior.some(node => node.open));
+798687	  if (prior.length) {
+798688	    prior[0].replaceWith(root);
+798689	    for (const duplicate of prior.slice(1)) duplicate.remove();
+798690	    container.append(root);
+798691	"""Verify selected corrected News/Grid import bytes; never fetch or publish."""
+798693	    root = args.repo.resolve()
+798694	    manifest = json.loads(Path(__file__).with_name("import-pins.json").read_text(encoding="utf-8"))
+798695	    for row in manifest["files"]:
+798696	        path = root / row["path"]
+798698	            failures.append({"path": row["path"], "reason": "missing"})
+798699	        elif sha256(path.read_bytes()).hexdigest() != row["sha256"]:
+798700	            failures.append({"path": row["path"], "reason": "source bytes differ"})
+798701	    for name in manifest["existing_dependency_paths"]:
+798702	        if not (root / name).is_file():
+798703	            failures.append({"path": name, "reason": "existing dependency missing"})
+798704	    print(json.dumps({"result": "FAIL" if failures else "PASS",
+798705	                      "selected_files": len(manifest["files"]), "failures": failures,
+798706	                      "scope": "Selected source-byte identity only; no evidence, rights, browser or publication acceptance."}, indent=2))
+798707	    return 2 if failures else 0
+798708	/** Local integrated acceptance; external requests are blocked and recorded. */
+798712	import { readFileSync, existsSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
+798713	import { dirname, resolve, relative, extname, sep } from 'node:path';
+798716	const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+798717	const CANDIDATE = resolve(ROOT, process.env.V928_CANDIDATE || 'uk_renewables_pipeline/202611161757');
+798718	const BASELINE = resolve(ROOT,'uk_renewables_pipeline/202611161244');
+798719	const OUT = resolve(process.env.V928_OUT || resolve(tmpdir(),'gg2050-v928-preview'));
+798720	const PLAYWRIGHT = process.env.V928_PLAYWRIGHT;
+798721	const { chromium } = PLAYWRIGHT ? await import(pathToFileURL(resolve(PLAYWRIGHT))) : await import('playwright');
+798722	mkdirSync(OUT,{recursive:true});
+798724	const mime = {'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json',
+798725	  '.geojson':'application/geo+json','.css':'text/css','.csv':'text/csv','.svg':'image/svg+xml','.png':'image/png'};
+798726	const server = createServer((req,res)=>{
+798727	    let file = resolve(ROOT, '.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));
+798728	    if (!file.startsWith(ROOT+sep)) {res.writeHead(403).end();return;}
+798729	    if (existsSync(file) && statSync(file).isDirectory()) file=resolve(file,'index.html');
+798730	    if(!existsSync(file)) {res.writeHead(404).end('Fixture not checked out');return;}
+798731	    res.writeHead(200,{'Content-Type':mime[extname(file)]||'application/octet-stream','Cache-Control':'no-store'});
+798732	    res.end(readFileSync(file));
+798733	  } catch {res.writeHead(500).end();}
+798736	const urlFor = dir => origin+'/'+relative(ROOT,dir).replaceAll('\\','/')+'/';
+798737	const receipt = {status:'RUNNING',utc:new Date().toISOString(),
+798738	  head:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),
+798739	  candidate:relative(ROOT,CANDIDATE).replaceAll('\\','/'),
+798740	  index_sha256:sha(readFileSync(resolve(CANDIDATE,'index.html'))),checks:[],blocked_external:[],
+798741	  limitations:['Localhost preview only; no deployment/public served-byte acceptance.',
+798742	    'External feeds and Chart.js CDN blocked: saved/unavailable states and numeric gauges tested, not live acquisition or chart rendering.',
+798743	    'All-row original MAP links are gated separately; this suite does not contact or certify the public GridAtlas receiver.',
+798744	    'Fixture records retain their provisional/quarantined states; browser success does not certify rights or project facts.']};
+798745	function pass(name,details={}) {receipt.checks.push({name,status:'PASS',...details});console.log('PASS:',name);}
+798746	function parseCsv(input) {
+798747	  const text=input.replace(/^\ufeff/,'');const records=[];let row=[],cell='',quoted=false;
+798748	  for(let i=0;i<text.length;i++) {const c=text[i];
+798749	    if(c==='"'&&quoted&&text[i+1]==='"'){cell+='"';i++;}
+798750	    else if(c==='"'){quoted=!quoted;}
+798751	    else if(c===','&&!quoted){row.push(cell);cell='';}
+798752	    else if((c==='\r'||c==='\n')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);records.push(row);row=[];cell='';}
+798753	    else cell+=c;
+798754	  assert.equal(quoted,false,'CSV quoted field must terminate');
+798755	  if(cell.length||row.length){row.push(cell);records.push(row);}return records;
+798756	async function openPage(browser,width,folder,tamper=false,publication=false) {
+798757	  const context=await browser.newContext({viewport:{width,height:1000},acceptDownloads:true});
+798758	  const page=await context.newPage();
+798759	  const failures=[];page.on('pageerror',e=>failures.push(String(e)));
+798760	  await context.route('**/*',async route=>{
+798761	    const url=new URL(route.request().url());
+798762	    if(publication && url.origin==='https://publication-preview.invalid') {
+798763	      const response=await route.fetch({url:origin+url.pathname+url.search});
+798764	      return route.fulfill({response});
+798765	    if(url.origin!==origin) {receipt.blocked_external.push(url.origin+url.pathname);return route.abort();}
+798766	    if(tamper==='context-manifest' && url.pathname.endsWith('/automation/v928_context/preview/manifest.json')) {
+798767	      return route.fulfill({status:404,contentType:'application/json',body:'{}'});
+798768	    if(tamper==='context-data' && url.pathname.endsWith('/automation/v928_context/preview/transition-context.json')) {
+798769	      return route.fulfill({status:200,contentType:'application/json',body:readFileSync(resolve(ROOT,'.'+url.pathname),'utf8')+' '});
+798770	    if(tamper && url.pathname===new URL(urlFor(CANDIDATE)+'global-datacentres/projects.json').pathname) {
+798771	      const raw=readFileSync(resolve(ROOT,'.'+url.pathname),'utf8');
+798772	      return route.fulfill({status:200,contentType:'application/json',body:raw+' '});
+798774	  await page.goto(publication?urlFor(folder).replace(origin,'https://publication-preview.invalid'):urlFor(folder),{waitUntil:'domcontentloaded'});
+798775	  await page.waitForFunction(()=>Number(document.getElementById('tbody')?.dataset.total)>0);
+798776	  return {context,page,failures};
+798777	async function allRows(page) {
+798779	  await page.waitForFunction(()=>document.getElementById('tbody')?.dataset.total==='7775');
+798780	  assert.equal(await page.locator('#v2').innerText(),'7,775');
+798781	async function downloadCsv(page,name) {
+798782	  const event=page.waitForEvent('download');await page.locator('#exportInline').click();
+798783	  const download=await event;const path=resolve(OUT,name);await download.saveAs(path);
+798784	  const bytes=readFileSync(path);return {bytes,rows:parseCsv(bytes.toString('utf8')),sha256:sha(bytes)};
+798785	async function activate(page,id) {
+798786	  const tab=page.locator('#'+id);await tab.focus();await page.keyboard.press('Enter');
+798787	  await page.waitForFunction(id=>document.getElementById(id)?.getAttribute('aria-selected')==='true',id);
+798788	  const panelId=await tab.getAttribute('aria-controls');
+798789	  assert.ok(panelId, id+' controls a panel');
+798790	  const panel=page.locator('#'+panelId);assert.equal(await panel.isVisible(),true,id+' panel visible');
+798791	  assert.equal(await panel.getAttribute('aria-labelledby'),id,id+' panel accessible name follows selected tab');
+798793	  browser=await chromium.launch({headless:true});receipt.browser=browser.version();
+798794	  // Frozen baseline is exercised through its existing controls, not a duplicated exporter.
+798795	  const base=await openPage(browser,1440,BASELINE);
+798796	  await allRows(base.page);
+798797	  await base.page.waitForFunction(()=>!/^loading/i.test(document.getElementById('newsMeta')?.textContent||'loading'));
+798798	  const baselineCsv=await downloadCsv(base.page,'baseline-v924-all.csv');
+798799	  assert.equal(baselineCsv.rows.length,7776);
+798800	  await base.context.close();
+798801	  pass('V9.24 baseline browser exports full canonical CSV',{rows:7775,sha256:baselineCsv.sha256});
+798802	  for(const width of [390,393,1440]) {
+798803	    const {context,page,failures}=await openPage(browser,width,CANDIDATE);
+798804	    const blocks=page.locator('main > section');assert.equal(await blocks.count(),2,'exactly two principal blocks');
+798805	    const titles=[];
+798806	    for(const block of await blocks.all()) titles.push(await block.locator('h2').first().innerText());
+798807	    const normalised=titles.map(s=>s.replace(/\s+/g,' ').trim().toUpperCase());
+798808	    assert.deepEqual(normalised,['GLOBALGRID2050 HEADLINES','REPD PIPELINE ANALYTICS'],'principal headings');
+798809	    const tabs=page.locator('#officialRegister [role="tab"]');assert.equal(await tabs.count(),4,'four principal tabs');
+798810	    assert.deepEqual((await tabs.allTextContents()).map(s=>s.replace(/\s+/g,' ').trim()),['Solar','BESS','Grid','Data Centres']);
+798811	    assert.equal(await page.getByRole('columnheader',{name:'NEWS SIGNAL',exact:true}).count(),0,'withdrawn signal column');
+798812	    assert.equal(await page.locator('#solar1000Pilot').isVisible().catch(()=>false),false);
+798813	    const headings=await page.locator('main h1, main h2, main h3').allTextContents();
+798814	    assert.ok(!headings.some(s=>/REGISTER CHANGES: JULY TO OCTOBER|SOLAR 1000 EVIDENCE PILOT/i.test(s)));
+798815	    await activate(page,'solarTab');
+798816	    await page.waitForFunction(()=>document.getElementById('tbody')?.dataset.total==='3604');
+798817	    await page.locator('#solarTab').focus();await page.keyboard.press('ArrowRight');
+798818	    assert.equal(await page.locator('#bessTab').evaluate(n=>n===document.activeElement),true,'ArrowRight moves tab focus');
+798819	    await page.keyboard.press('Enter');
+798820	    await page.waitForFunction(()=>document.getElementById('bessTab')?.getAttribute('aria-selected')==='true');
+798821	    const tech=await page.locator('#tbody tr .badge').allTextContents();assert.ok(tech.length>0&&tech.every(t=>/battery/i.test(t)),'BESS rows only');
+798822	    await page.locator('#bessTab').focus();await page.keyboard.press('End');
+798823	    assert.equal(await page.locator('#datacentreTab').evaluate(n=>n===document.activeElement),true,'End focuses final tab');
+798824	    await page.keyboard.press('Home');
+798825	    assert.equal(await page.locator('#solarTab').evaluate(n=>n===document.activeElement),true,'Home focuses first tab');
+798826	    await activate(page,'solarTab');await allRows(page);
+798827	    await page.locator('#search').fill('8162');
+798828	    await page.waitForFunction(()=>[...document.querySelectorAll('#tbody tr')].some(tr=>tr.id==='repd-8162'));
+798829	    const mapHref=await page.locator('#repd-8162 a.atlaslink').getAttribute('href');
+798830	    const baselineReceiver=await import(pathToFileURL(resolve(BASELINE,'scripts/core/atlas-receiver-v9-7.js')));
+798831	    const dataManifest=JSON.parse(readFileSync(resolve(BASELINE,'data/v9.1/build_manifest.json'),'utf8'));
+798832	    const original=dataManifest.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(BASELINE,p.path),'utf8')).projects)
+798833	      .find(p=>String(p.repd_ref)==='8162');
+798834	    assert.equal(mapHref,baselineReceiver.buildAtlasDeepLinkV9_7(original),'rendered search result original MAP route');
+798835	    const note = width <= 768 ? page.locator('#repd-8162 .mobile-machine-note') : page.locator('#repd-8162 .machine-note-cell .machine-note-button');
+798836	    await note.click();
+798837	    assert.equal(await page.locator('.machine-note-dialog').isVisible(),true,'Machine Read Notes remain reachable after signal column removal');
+798838	    assert.match(await page.locator('.machine-note-dialog').innerText(),/INSUFFICIENT EVIDENCE|NOT INDEPENDENTLY VERIFIED/);
+798839	    await page.locator('.machine-note-close').click();
+798840	    const searched=await downloadCsv(page,`candidate-search-${width}.csv`);
+798841	    const refColumn=searched.rows[0].indexOf('REPD Ref');assert.ok(refColumn>=0);
+798842	    assert.ok(searched.rows.slice(1).some(r=>r[refColumn]==='8162'),'searched CSV contains correct REPD identity');
+798843	    await allRows(page);
+798844	    await page.waitForFunction(()=>!/^loading/i.test(document.getElementById('newsMeta')?.textContent||'loading'));
+798845	    if(width===1440) {
+798846	      const candidateCsv=await downloadCsv(page,'candidate-v928-all.csv');
+798847	      assert.deepEqual(candidateCsv.rows,baselineCsv.rows,'all exported fields and row order equal V9.24');
+798848	      pass('full candidate CSV equals V9.24 across all canonical fields and 7,775 rows',{sha256:candidateCsv.sha256});
+798849	    await page.waitForFunction(()=>['snapshot','unavailable','failed'].includes(document.getElementById('newsStatus')?.dataset.state));
+798850	    const sourceState=await page.locator('#newsStatus').getAttribute('data-state');
+798851	    assert.ok(['snapshot','unavailable','failed'].includes(sourceState),'offline headline state disclosed: '+sourceState);
+798852	    assert.ok(await page.locator('#liveNews .ln-item').count()>0,'pinned existing source headlines remain useful offline');
+798853	    for(const row of await page.locator('#liveNews .ln-item').all()) {
+798854	      assert.match(await row.locator('.ln-title').getAttribute('href'),/^https:\/\//,'original source HTTPS link');
+798855	      assert.ok((await row.locator('.ln-meta').innerText()).includes('·'),'publisher/date attribution');
+798856	    assert.doesNotMatch(await page.locator('#liveNews').innerText(),/\bPriority\s+\d/i,'internal ranking stays hidden');
+798857	    const geometry=await page.evaluate(()=>({viewport:innerWidth,width:document.documentElement.scrollWidth,
+798858	      font:getComputedStyle(document.body).fontFamily,background:getComputedStyle(document.body).backgroundColor}));
+798859	    assert.ok(geometry.width<=width+2,'page remains within viewport');assert.match(geometry.font,/mono|courier/i,'V9.24 monospace family');
+798860	    await page.evaluate(()=>{document.querySelector('.main').scrollTop=0;window.scrollTo(0,0);});
+798861	    await page.screenshot({path:resolve(OUT,`preview-solar-${width}.png`)});
+798862	    await activate(page,'gridTab');
+798863	    await page.waitForFunction(()=>document.getElementById('gridDirectory')?.dataset.state==='directory-only');
+798864	    assert.equal(await page.locator('#gridDirectory .grid-source').count(),14,'source directories remain distinct from project events');
+798865	    assert.match(await page.locator('#gridPanel').innerText(),/REVIEW_REQUIRED|review required|unassessed|restricted|source|unavailable/i,'honest grid state');
+798866	    await page.screenshot({path:resolve(OUT,`preview-grid-${width}.png`)});
+798867	    await activate(page,'datacentreTab');
+798868	    await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-table tbody tr').length===54);
+798869	    assert.match(await page.locator('#datacentreHost').innerText(),/not assessed|not_assessed/i);
+798870	    assert.doesNotMatch(await page.locator('#datacentreHost').innerText(),/100 verified operating/i);
+798871	    await page.screenshot({path:resolve(OUT,`preview-datacentre-${width}.png`)});
+798872	    await page.locator('#datacentreHost [data-kind="global"]').click();
+798873	    await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-table tbody tr').length===100);
+798874	    const globalDownloadEvent=page.waitForEvent('download');
+798875	    await page.locator('#datacentreHost button.ggdc-download').click();
+798876	    const globalDownload=await globalDownloadEvent;
+798877	    const globalCsvPath=resolve(OUT,`candidate-global-datacentres-${width}.csv`);
+798878	    await globalDownload.saveAs(globalCsvPath);
+798879	    assert.equal(parseCsv(readFileSync(globalCsvPath,'utf8')).length,101,'Global view must export all 100 displayed leads, not the UK subset');
+798880	    const country=page.locator('#datacentreHost select[aria-label="Country"]');
+798881	    const foreign=await country.locator('option').evaluateAll(options=>options.find(o=>o.value&&o.textContent!=='United Kingdom').value);
+798882	    await country.selectOption(foreign);
+798883	    const foreignRows=await page.locator('#datacentreHost .ggdc-table tbody tr').count();
+798884	    assert.ok(foreignRows>0&&foreignRows<100,'foreign country filter yields a bounded visible subset');
+798885	    const foreignDownloadEvent=page.waitForEvent('download');
+798886	    const foreignDownload=await foreignDownloadEvent;
+798887	    const foreignCsvPath=resolve(OUT,`candidate-country-datacentres-${width}.csv`);
+798888	    await foreignDownload.saveAs(foreignCsvPath);
+798889	    assert.equal(parseCsv(readFileSync(foreignCsvPath,'utf8')).length,foreignRows+1,'country CSV matches displayed foreign leads');
+798890	    await page.locator('#contextDisclosure > summary').click();
+798891	    await page.waitForFunction(()=>document.querySelector('#contextHost [data-transition-context-root]')?.dataset.state==='available');
+798892	    assert.equal(await page.locator('#contextHost [data-context-id]').count(),14);
+798893	    assert.equal(await page.locator('#contextHost [data-figure-claim]').count(),3);
+798894	    assert.deepEqual(await page.locator('#contextHost').evaluate(host=>[...host.childNodes].filter(n=>n.nodeType===Node.TEXT_NODE&&n.textContent.trim()).map(n=>n.textContent)),[],'successful Context mount removes unavailable placeholder');
+798895	    await activate(page,'solarTab');assert.equal(await page.locator('#tbody').isVisible(),true,'return from optional modules preserves canonical table');
+798896	    assert.deepEqual(failures,[],'uncaught browser JavaScript errors');
+798897	    pass(`integrated frame, keyboard tabs, search, CSV, original MAP, offline source states and optional hosts at ${width}`,{geometry,headline_state:sourceState});
+798898	  const bad=await openPage(browser,393,CANDIDATE,true);
+798899	  await activate(bad.page,'datacentreTab');
+798900	  await bad.page.waitForFunction(()=>/unavailable/i.test(document.getElementById('datacentreHost')?.innerText||''));
+798901	  assert.equal(await bad.page.locator('#datacentreHost .ggdc-table tbody tr').count(),0,'integrated corrupted source clears DC rows');
+798902	  await activate(bad.page,'solarTab');await allRows(bad.page);
+798903	  await bad.page.screenshot({path:resolve(OUT,'preview-after-dc-integrity-failure-393.png')});
+798904	  await bad.context.close();pass('Data Centre corrupted served bytes fail closed while canonical REPD remains usable');
+798905	  for (const scenario of ['context-manifest','context-data']) {
+798906	    const missing=await openPage(browser,393,CANDIDATE,scenario);
+798907	    await missing.page.locator('#contextDisclosure > summary').click();
+798908	    await missing.page.waitForFunction(()=>/Context unavailable/.test(document.getElementById('contextHost')?.textContent||''));
+798909	    assert.equal(await missing.page.locator('#contextHost [data-context-id], #contextHost [data-figure-claim]').count(),0);
+798910	    await allRows(missing.page);
+798911	    await missing.context.close();
+798912	    pass(scenario+' fails closed without context figures or REPD regression');
+798913	  const production=await openPage(browser,393,CANDIDATE,false,true);
+798914	  assert.equal(await production.page.locator('#contextDisclosure').isVisible(),false,'unaccepted preview-only Context stays withheld on publication host');
+798915	  assert.equal(await production.page.locator('#contextHost [data-context-id], #contextHost [data-figure-claim]').count(),0);
+798916	  await allRows(production.page);
+798917	  await production.context.close();
+798918	  pass('production host withholds preview-only Context and retains complete REPD register');
+798919	  receipt.status='PASS';
+798920	} catch(error) {receipt.status='FAIL';receipt.failure=error.stack||String(error);throw error;}
+798922	  receipt.blocked_external=[...new Set(receipt.blocked_external)];
+798923	  writeFileSync(resolve(OUT,'browser.json'),JSON.stringify(receipt,null,2)+'\n');
+798924	  if(browser)await browser.close();await new Promise(r=>server.close(r));
+798925	/** Independent preservation gate. Imports the established MAP contract; no network. */
+798926	import { readFileSync, readdirSync, statSync, mkdirSync, writeFileSync } from 'node:fs';
+798927	import { dirname, resolve, relative, sep } from 'node:path';
+798928	const BASELINE = resolve(ROOT, 'uk_renewables_pipeline/202611161244');
+798929	const BASE_SHA = process.env.V928_BASE_SHA || '65bcc01e0d7e4dc073e759345727e53cf7a95752';
+798930	const OUT = process.env.V928_OUT ? resolve(process.env.V928_OUT) : null;
+798931	assert.ok(CANDIDATE.startsWith(ROOT + sep), 'candidate must be inside this repository');
+798932	const bytes = p => readFileSync(p);
+798933	const json = p => JSON.parse(bytes(p).toString('utf8'));
+798934	const git = args => execFileSync('git', args, { cwd: ROOT, encoding: 'utf8' }).trim();
+798935	const receipt = { status: 'RUNNING', utc: new Date().toISOString(), head: git(['rev-parse', 'HEAD']),
+798936	  preservation_base: BASE_SHA, candidate: relative(ROOT, CANDIDATE).replaceAll('\\', '/'),
+798937	  baseline: relative(ROOT, BASELINE).replaceAll('\\', '/'), checks: [], limitations: [
+798938	    'Offline gate proves original link construction, not execution of the public GridAtlas receiver.',
+798939	    'Preserved records and fixture source states are not live-source or publication acceptance.'] };
+798940	function pass(name, details) { receipt.checks.push({ name, status: 'PASS', ...details }); console.log('PASS:', name); }
+798941	async function population(folder) {
+798942	  const manifest = json(resolve(folder, 'data/v9.1/build_manifest.json'));
+798943	  for (const part of manifest.project_partitions) {
+798944	    const raw = bytes(resolve(folder, part.path));
+798945	    assert.equal(sha(raw), part.sha256, `${folder}/${part.path} pinned bytes`);
+798946	    const doc = JSON.parse(raw.toString('utf8'));
+798947	    assert.equal(doc.projects.length, part.record_count, `${part.path} declared count`);
+798948	    rows.push(...doc.projects);
+798949	  for (const part of manifest.atlas_partitions) {
+798950	    assert.equal(sha(raw), part.sha256, `${part.path} atlas pinned bytes`);
+798951	    assert.equal(JSON.parse(raw).features.length, part.feature_count, `${part.path} atlas count`);
+798952	  assert.equal(rows.length, 7775, 'canonical REPD universe');
+798953	  assert.equal(rows.filter(r => r.technology === 'solar').length, 3604, 'canonical solar universe');
+798954	  assert.equal(new Set(rows.map(r => String(r.repd_ref))).size, 7775, 'unique canonical REPD identities');
+798955	  return {manifest, rows};
+798956	  const originalRegistry = JSON.parse(execFileSync('git',['show',BASE_SHA+':automation/pipeline_release/registry.json'],{cwd:ROOT,encoding:'utf8'}));
+798957	  const currentRegistry = json(resolve(ROOT,'automation/pipeline_release/registry.json'));
+798958	  assert.deepEqual(currentRegistry.versions.slice(0,originalRegistry.versions.length),originalRegistry.versions,
+798959	    'all pre-existing release records, Unicode and probes must retain their exact meanings');
+798960	  for (const key of Object.keys(originalRegistry).filter(key=>!['versions','release_candidate'].includes(key))) {
+798961	    assert.deepEqual(currentRegistry[key],originalRegistry[key], 'unrelated registry metadata '+key);
+798962	  pass('prior release registry records and unrelated metadata preserved, including Unicode');
+798963	  function directoryBytes(folder) {
+798964	    return readdirSync(folder).reduce((total, name) => {
+798965	      if (name === '__pycache__') return total;
+798966	      const file = resolve(folder, name);
+798967	      return total + (statSync(file).isDirectory() ? directoryBytes(file) : statSync(file).size);
+798969	  const editionBytes = directoryBytes(CANDIDATE);
+798970	  assert.ok(editionBytes <= 18 * 1024 * 1024, 'actual working candidate must fit 18 MiB, including newly staged/untracked assets');
+798971	  pass('actual complete candidate fits unchanged 18 MiB budget', {bytes: editionBytes, limit: 18 * 1024 * 1024});
+798972	  const snapshot = bytes(resolve(CANDIDATE, 'news/pipeline_headlines.snapshot.json'));
+798973	  const snapshotReceipt = json(resolve(CANDIDATE, 'news/snapshot-provenance.json'));
+798974	  const originalSnapshot = execFileSync('git', ['show', snapshotReceipt.source_commit + ':' + snapshotReceipt.source_path], {cwd:ROOT});
+798975	  assert.deepEqual(snapshot, originalSnapshot, 'saved headline snapshot must retain exact existing owner-feed bytes');
+798976	  assert.equal(sha(snapshot), snapshotReceipt.sha256);
+798977	  assert.equal(JSON.parse(snapshot).items.length, snapshotReceipt.items);
+798978	  pass('source-attributed headline snapshot equals pinned existing feed', {items:snapshotReceipt.items,source_commit:snapshotReceipt.source_commit,sha256:snapshotReceipt.sha256});
+798979	  const [candidate, baseline] = await Promise.all([population(CANDIDATE), population(BASELINE)]);
+798980	  assert.deepEqual(candidate.rows, baseline.rows, 'every official row and its order must equal frozen V9.24');
+798981	  pass('canonical 7,775 rows / 3,604 solar with complete V9.24 record parity', {record_count:7775, solar_count:3604});
+798982	  for (const rel of ['solar1000/manifest.json', 'solar1000/candidates.json']) {
+798983	    assert.deepEqual(bytes(resolve(CANDIDATE, rel)), bytes(resolve(BASELINE, rel)), `${rel} frozen bytes`);
+798984	  const selected = json(resolve(CANDIDATE, 'solar1000/manifest.json'));
+798985	  assert.equal(selected.selection, 'numeric-repd-ref-ascending');
+798986	  assert.equal(selected.ids.length, 1000);
+798987	  assert.deepEqual(selected.ids, candidate.rows.filter(r => r.technology === 'solar')
+798988	    .map(r => String(r.repd_ref)).sort((a,b) => Number(a)-Number(b)).slice(0,1000));
+798989	  assert.equal(selected.independently_verified, 0);
+798990	  assert.equal(selected.not_researched, 998);
+798991	  const leads = json(resolve(CANDIDATE, 'solar1000/candidates.json'));
+798992	  assert.equal(leads.length, 2);
+798993	  assert.ok(leads.every(r => r.rights_basis === 'unknown' && r.verification === 'provisional_candidate_only'));
+798994	  pass('ordered Solar-1000 identities, seed/provenance bytes and provisional source states preserved',
+798995	    {selection_sha256:sha(bytes(resolve(CANDIDATE,'solar1000/manifest.json'))), first:selected.ids[0], last:selected.ids.at(-1)});
+798996	  const candidateReceiver = await import(pathToFileURL(resolve(CANDIDATE,'scripts/core/atlas-receiver-v9-7.js')));
+798997	  const baselineReceiver = await import(pathToFileURL(resolve(BASELINE,'scripts/core/atlas-receiver-v9-7.js')));
+798998	  let located = 0;
+798999	  for (let i=0; i<candidate.rows.length; i++) {
+799000	    const row = candidate.rows[i];
+799001	    const original = baselineReceiver.buildAtlasDeepLinkV9_7(baseline.rows[i]);
+799002	    const href = candidateReceiver.buildAtlasDeepLinkV9_7(row);
+799003	    assert.equal(href, original, `REPD ${row.repd_ref}: original MAP route/parameters`);
+799005	    assert.equal(url.searchParams.get('repd_ref'), String(row.repd_ref));
+799006	    assert.equal(url.searchParams.get('technology'), row.technology);
+799007	    if (candidateReceiver.atlasCentresOnRepdPointV9_7(row)) located++;
+799008	  const legacy = execFileSync(process.execPath,[resolve(CANDIDATE,'tests/check_map_contract_all_rows.mjs')],
+799009	    {cwd: ROOT, encoding:'utf8'}).trim();
+799010	  pass('all 7,775 original MAP routes and established all-row contract', {located, ref_only:7775-located, legacy});
+799011	  const changed = new Set([
+799012	    ...git(['diff','--name-only',BASE_SHA,'--']).split(/\r?\n/),
+799013	    ...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/),
+799014	  ].filter(Boolean));
+799015	  const candidateRel = receipt.candidate + '/';
+799016	  const restoreFiles = new Set(['homepage_versions/homepage_v142.html','homepage_versions/homepage_v142-metrics.json']);
+799017	  for (const path of restoreFiles) {
+799018	    assert.equal(git(['ls-tree', BASE_SHA, '--', path]), '', 'restore point must be additive, never overwrite old bytes');
+799019	  const oldRestoreReadme = execFileSync('git',['show',BASE_SHA+':homepage_versions/README.md'],{cwd:ROOT,encoding:'utf8'});
+799020	  assert.ok(bytes(resolve(ROOT,'homepage_versions/README.md')).toString('utf8').replaceAll('\r\n','\n').startsWith(oldRestoreReadme.replaceAll('\r\n','\n')),
+799021	    'restore-point ledger retains its entire prior history');
+799022	  const forbidden = [...changed].filter(p =>
+799023	    !restoreFiles.has(p) && p !== 'homepage_versions/README.md' && (
+799024	    (/^uk_renewables_pipeline\/\d{12}\//.test(p) && !p.startsWith(candidateRel)) ||
+799025	    /^(?:index\.html|catalogue\/homepage-owner\.json|homepage-shell\/|homepage_versions\/|homepage_v\d+\.html)/.test(p)));
+799026	  assert.deepEqual(forbidden, [], 'historical editions and operative homepage bytes must remain unchanged');
+799027	  pass('historical editions and operative homepage preserved against source base');
+799028	  receipt.source_sha256 = Object.fromEntries(['index.html','data/v9.1/build_manifest.json','solar1000/manifest.json']
+799029	    .map(p=>[p,sha(bytes(resolve(CANDIDATE,p)))]));
+799030	  receipt.status = 'PASS';
+799032	  receipt.status = 'FAIL'; receipt.failure = error.stack || String(error); throw error;
+799033	  if (OUT) { mkdirSync(OUT,{recursive:true}); writeFileSync(resolve(OUT,'invariants.json'),JSON.stringify(receipt,null,2)+'\n'); }
+799034	/** Loopback-only preview; no deployment or write endpoint. */
+799036	import {existsSync,readFileSync,statSync} from 'node:fs';
+799037	import {dirname,extname,resolve,sep} from 'node:path';
+799039	const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
+799040	const port=Number(process.env.V928_PORT||17828);
+799041	if(!Number.isInteger(port)||port<1||port>65535)throw new Error('Invalid loopback preview port');
+799042	const deadline=process.env.V928_DEADLINE_UTC?Date.parse(process.env.V928_DEADLINE_UTC):null;
+799043	if(deadline!==null&&(!Number.isFinite(deadline)||deadline<=Date.now()))throw new Error('Preview window has expired');
+799044	const types={'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css',
+799045	  '.json':'application/json','.geojson':'application/geo+json','.csv':'text/csv','.png':'image/png','.svg':'image/svg+xml'};
+799048	    if(!['GET','HEAD'].includes(req.method)){res.writeHead(405).end();return;}
+799049	    const path=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+799050	    if(path.split('/').some(part=>part.startsWith('.'))){res.writeHead(403).end();return;}
+799051	    let file=resolve(root,'.'+path);
+799052	    if(!file.startsWith(root+sep)){res.writeHead(403).end();return;}
+799053	    if(existsSync(file)&&statSync(file).isDirectory())file=resolve(file,'index.html');
+799054	    if(!existsSync(file)||!statSync(file).isFile()){res.writeHead(404).end();return;}
+799055	    res.writeHead(200,{'Content-Type':types[extname(file)]||'application/octet-stream',
+799056	      'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});
+799057	    res.end(req.method==='HEAD'?undefined:readFileSync(file));
+799058	  }catch{res.writeHead(400).end();}
+799059	server.listen(port,'127.0.0.1',()=>console.log(`Non-live preview: http://127.0.0.1:${port}/uk_renewables_pipeline/202611161757/`));
+799060	if(deadline!==null)setTimeout(()=>server.close(),deadline-Date.now());
+799061	for(const signal of ['SIGINT','SIGTERM'])process.on(signal,()=>server.close());
+799062	/** Real integrated V9.29 browser acceptance against exact source-byte fixtures. */
+799064	import {readFileSync,writeFileSync,mkdirSync,statSync,existsSync} from 'node:fs';
+799065	import {dirname,resolve,relative,extname,sep} from 'node:path';
+799068	const ROOT=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
+799069	const EDITION=process.env.V929_CANDIDATE||'uk_renewables_pipeline/202611162354';
+799070	const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611161757');
+799071	const OUT=resolve(process.env.V929_OUT||resolve(tmpdir(),'gg2050-v929-preview'));
+799072	const {chromium}=process.env.V929_PLAYWRIGHT
+799073	  ? await import(pathToFileURL(resolve(process.env.V929_PLAYWRIGHT))) : await import('playwright');
+799074	const {catalogue}=await import(pathToFileURL(resolve(candidate,'scripts/layers/catalogue.mjs')));
+799076	const receipt={status:'RUNNING',utc:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),edition:EDITION,index_sha256:sha(readFileSync(resolve(candidate,'index.html'))),checks:[],sources:[],blocked_external:[],limitations:[
+799077	  'Local integrated browser proof; no deployment, public served-byte or native-phone acceptance.',
+799078	  'Pinned GridAtlas source bytes are replayed exactly; no claim of fresh network-state data or typed substation arrival.',
+799079	  'External feeds, Chart.js CDN and Prices iframe navigation are blocked; existing saved headline and explicit frame URL are tested.',
+799080	  'Original Prices can show indicative baselines and stale observations; frame wiring is not actual-price-series acceptance.',
+799081	  'Android UA, touch gestures and screen orientation are Chromium emulation on this host, not a native Android handset/browser process.',
+799082	  'All-row MAP construction is checked separately; this browser suite does not execute the public GridAtlas receiver.']};
+799083	const sourceBytes=new Map();
+799084	for(const layer of catalogue.layers.filter(l=>l.data)){
+799085	  let raw,transport;
+799086	  try{const response=await fetch(layer.data.url,{signal:AbortSignal.timeout(12000),redirect:'error'});if(!response.ok)throw Error('HTTP '+response.status);raw=Buffer.from(await response.arrayBuffer());transport='immutable HTTPS URL';}
+799087	  catch{
+799088	    if(!process.env.GRIDATLAS_SOURCE)throw Error('Pinned source transport failed; set GRIDATLAS_SOURCE to an existing owner checkout for exact-byte replay.');
+799089	    const rel=new URL(layer.data.url).pathname.split('/').slice(4).join('/');
+799090	    raw=readFileSync(resolve(process.env.GRIDATLAS_SOURCE,rel));transport='existing owner checkout, exact pinned bytes';
+799091	  assert.equal(sha(raw),layer.data.sha256,layer.id+' actual source SHA256');assert.ok(raw.length<=layer.data.maxBytes);
+799092	  const doc=JSON.parse(raw);assert.equal(doc.features.length,layer.data.rows);
+799093	  sourceBytes.set(layer.data.url,raw);receipt.sources.push({id:layer.id,url:layer.data.url,sha256:sha(raw),bytes:raw.length,rows:doc.features.length,transport});
+799094	const subs=JSON.parse(sourceBytes.get(catalogue.layers.find(l=>l.id==='substations').data.url));
+799095	const named=subs.features.filter(f=>typeof f.properties?.name==='string'&&f.properties.name.trim()).length;
+799096	assert.equal(named,4460);assert.equal(subs.features.length-named,1340);
+799097	const mime={'.html':'text/html','.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.geojson':'application/json','.svg':'image/svg+xml','.png':'image/png'};
+799098	const server=createServer((req,res)=>{try{let p=resolve(ROOT,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));if(!p.startsWith(ROOT+sep)){res.writeHead(403).end();return;}if(statSync(p).isDirectory())p=resolve(p,'index.html');res.writeHead(200,{'Content-Type':mime[extname(p)]||'application/octet-stream','Cache-Control':'no-store'});res.end(readFileSync(p));}catch{res.writeHead(404).end();}});
+799099	await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+799100	const urlFor=dir=>origin+'/'+relative(ROOT,dir).replaceAll('\\','/')+'/';
+799101	const pass=(name,details={})=>{receipt.checks.push({name,status:'PASS',...details});console.log('PASS:',name);};
+799102	function csv(text){const records=[];let row=[],cell='',quoted=false;text=text.replace(/^\ufeff/,'');for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'&&quoted&&text[i+1]==='"'){cell+='"';i++;}else if(c==='"')quoted=!quoted;else if(c===','&&!quoted){row.push(cell);cell='';}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);records.push(row);row=[];cell='';}else cell+=c;}assert.equal(quoted,false);if(cell||row.length){row.push(cell);records.push(row);}return records;}
+799103	async function download(page,button,name){const event=page.waitForEvent('download');await button.click();const d=await event,p=resolve(OUT,name);await d.saveAs(p);const raw=readFileSync(p);return{rows:csv(raw.toString('utf8')),sha256:sha(raw)};}
+799104	async function open(browser,width,folder,{corrupt=false,reducedMotion=false,mobile=false,height=1000}={}){
+799105	  const context=await browser.newContext({viewport:{width,height},acceptDownloads:true,reducedMotion:reducedMotion?'reduce':'no-preference',
+799106	    ...(mobile?{isMobile:true,hasTouch:true,deviceScaleFactor:2.625,userAgent:'Mozilla/5.0 (Linux; Android 14; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/159.0.0.0 Mobile Safari/537.36'}:{})}),page=await context.newPage(),errors=[],requests=[];
+799108	  await context.route('**/*',route=>{const u=route.request().url();requests.push(u);if(u.startsWith(origin+'/'))return route.continue();if(sourceBytes.has(u)){let raw=sourceBytes.get(u);if(corrupt&&u===catalogue.layers.find(l=>l.id==='substations').data.url)raw=Buffer.concat([raw,Buffer.from(' ')]);return route.fulfill({status:200,contentType:'application/json',body:raw});}receipt.blocked_external.push(u);return route.abort();});
+799109	  await page.goto(urlFor(folder),{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>Number(document.getElementById('tbody')?.dataset.total)>0);
+799110	  return{context,page,errors,requests};
+799111	async function fullWidth(page){
+799112	  const layout=await page.evaluate(()=>{const main=document.querySelector('main'),r=main.getBoundingClientRect(),s=getComputedStyle(main),b=getComputedStyle(document.body),h=getComputedStyle(document.documentElement);return{viewport:innerWidth,mainLeft:r.left,mainWidth:r.width,mainMarginLeft:s.marginLeft,documentWidth:document.documentElement.scrollWidth,mainOverflowY:s.overflowY,bodyDisplay:b.display,bodyOverflowY:b.overflowY,htmlOverflowY:h.overflowY,bodyHeight:b.height,mainHeight:s.height,asideCount:document.querySelectorAll('aside,.sidebar').length};});
+799113	  assert.equal(layout.asideCount,0,'removed sidebar has no visible or hidden DOM remnant');assert.ok(Math.abs(layout.mainLeft)<=1,'main begins at viewport left: '+JSON.stringify(layout));assert.ok(Math.abs(layout.mainWidth-layout.viewport)<=2,'main uses full viewport width: '+JSON.stringify(layout));assert.ok(layout.documentWidth<=layout.viewport+2,'document has no lateral overflow: '+JSON.stringify(layout));assert.equal(layout.mainMarginLeft,'0px');assert.equal(layout.bodyDisplay,'block');assert.notEqual(layout.bodyOverflowY,'hidden');assert.notEqual(layout.mainOverflowY,'hidden');
+799114	  return layout;
+799115	async function painted(page,selector){
+799116	  const target=page.locator(selector).first();await target.scrollIntoViewIfNeeded();
+799117	  const paint=await target.evaluate(n=>{
+799118	    const r=n.getBoundingClientRect(),s=getComputedStyle(n);
+799119	    let left=Math.max(0,r.left),right=Math.min(innerWidth,r.right),top=Math.max(0,r.top),bottom=Math.min(innerHeight,r.bottom);
+799120	    // A wide table row may begin offscreen after native horizontal scrolling.
+799121	    // Test the visible intersection, including the scroll container's borders.
+799122	    for(let a=n.parentElement;a;a=a.parentElement){
+799123	      if(a===document.documentElement)continue; // Root scrolling clips to the viewport above.
+799124	      const style=getComputedStyle(a),box=a.getBoundingClientRect();
+799125	      if(/auto|scroll|hidden|clip/.test(style.overflowX)){left=Math.max(left,box.left+a.clientLeft);right=Math.min(right,box.left+a.clientLeft+a.clientWidth);}
+799126	      if(/auto|scroll|hidden|clip/.test(style.overflowY)){top=Math.max(top,box.top+a.clientTop);bottom=Math.min(bottom,box.top+a.clientTop+a.clientHeight);}
+799127	    const x=(left+right)/2,y=(top+bottom)/2,hit=right>left&&bottom>top?document.elementFromPoint(x,y):null;
+799128	    return{width:r.width,height:r.height,top:r.top,left:r.left,visible:{left,right,top,bottom},hitPoint:{x,y},display:s.display,visibility:s.visibility,opacity:s.opacity,text:n.textContent.trim().slice(0,120),hit:!!hit&&(n===hit||n.contains(hit)),viewport:{width:innerWidth,height:innerHeight}};
+799129	  assert.ok(paint.width>0&&paint.height>0&&paint.display!=='none'&&paint.visibility==='visible'&&Number(paint.opacity)>0&&paint.text.length>0&&paint.hit,'visible painted target '+selector+': '+JSON.stringify(paint));return paint;
+799130	async function settleTouch(page){await page.evaluate(async()=>{let previous='',stable=0;const end=performance.now()+2500;while(performance.now()<end){await new Promise(requestAnimationFrame);const state=[scrollY,visualViewport.pageTop,...[...document.querySelectorAll('.tablewrap')].map(n=>n.scrollLeft)].join('|');if(state===previous)stable++;else stable=0;previous=state;if(stable>=8)return;}});}
+799131	async function touchTap(page,selector){await settleTouch(page);await page.locator(selector).first().tap();}
+799132	async function touchDrag(session,{x,y,dx=0,dy=0}){
+799133	  await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y,id:1,radiusX:2,radiusY:2,force:1}]});
+799134	  for(let step=1;step<=10;step++){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+dx*step/10,y:y+dy*step/10,id:1,radiusX:2,radiusY:2,force:1}]});await new Promise(r=>setTimeout(r,16));}
+799135	  await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+799136	async function orientationScreenshot(session,name,size){
+799137	  // Playwright's screenshot helper restores its cached context viewport. Capture
+799138	  // directly through CDP so synthetic landscape metrics remain unchanged.
+799139	  const result=await session.send('Page.captureScreenshot',{format:'png',fromSurface:true,captureBeyondViewport:false});
+799140	  const png=Buffer.from(result.data,'base64'),width=png.readUInt32BE(16),height=png.readUInt32BE(20);
+799141	  assert.ok(Math.abs(width/height-size.width/size.height)<.005,'PNG must match actual requested orientation: '+JSON.stringify({name,width,height,requested:size}));
+799142	  writeFileSync(resolve(OUT,name),png);return{file:name,width,height,sha256:sha(png)};
+799143	async function tab(page,id){await page.locator('#'+id).click();await page.waitForFunction(id=>document.getElementById(id)?.getAttribute('aria-selected')==='true',id);const panel=await page.locator('#'+id).getAttribute('aria-controls');assert.equal(await page.locator('#'+panel).isVisible(),true);}
+799144	async function allRepd(page){await tab(page,'solarTab');await page.locator('#clearFilters').click();await page.waitForFunction(()=>document.getElementById('tbody')?.dataset.total==='7775');}
+799145	  if(!process.env.V929_ROTATION_ONLY){
+799146	  const b=await open(browser,1440,baseline);await allRepd(b.page);await b.page.waitForFunction(()=>!/^loading/i.test(document.getElementById('newsMeta')?.textContent||'loading'));
+799147	  const oldCsv=await download(b.page,b.page.locator('#exportInline'),'v928-all.csv');assert.equal(oldCsv.rows.length,7776);await b.context.close();
+799148	  pass('frozen V9.28 browser CSV establishes complete original population',{rows:7775,sha256:oldCsv.sha256});
+799149	  for(const width of [390,393,1440]){
+799150	    const {context,page,errors,requests}=await open(browser,width,candidate);
+799151	    assert.equal(await page.locator('main > section').count(),2);
+799152	    const fullWidthLayout=await fullWidth(page);await painted(page,'.release-header');
+799153	    assert.deepEqual((await page.locator('main > section').evaluateAll(nodes=>nodes.map(n=>n.querySelector('h2')?.textContent.replace(/\s+/g,' ').trim().toUpperCase()))),['GLOBALGRID2050 HEADLINES','REPD PIPELINE ANALYTICS']);
+799154	    assert.deepEqual((await page.locator('.pipeline-tabs > [role=tab]').allTextContents()).map(x=>x.trim()),['Solar','BESS','Grid','Data Centres','Offtakers','Prices']);
+799155	    assert.equal(requests.filter(u=>sourceBytes.has(u)).length,0,'asset source layers remain lazy before selection');
+799156	    await tab(page,'bessTab');assert.ok((await page.locator('#tbody tr .badge').allTextContents()).every(t=>/battery/i.test(t)));
+799157	    await allRepd(page);await page.locator('#search').fill('8162');await page.waitForFunction(()=>document.getElementById('repd-8162'));
+799158	    const receiver=await import(pathToFileURL(resolve(baseline,'scripts/core/atlas-receiver-v9-7.js'))),m=JSON.parse(readFileSync(resolve(baseline,'data/v9.1/build_manifest.json')));
+799159	    const row=m.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(baseline,p.path))).projects).find(p=>String(p.repd_ref)==='8162');
+799160	    assert.equal(await page.locator('#repd-8162 a.atlaslink').getAttribute('href'),receiver.buildAtlasDeepLinkV9_7(row));
+799161	    await allRepd(page);await page.waitForFunction(()=>!/^loading/i.test(document.getElementById('newsMeta')?.textContent||'loading'));
+799162	    if(width===1440){const actual=await download(page,page.locator('#exportInline'),'v929-all.csv');assert.deepEqual(actual.rows,oldCsv.rows);pass('all 7,775 exported CSV rows/fields/order equal frozen V9.28',{sha256:actual.sha256});}
+799163	    await page.waitForFunction(()=>document.querySelectorAll('#headlineTicker ul:not([aria-hidden]) li').length===10);
+799164	    assert.equal(await page.locator('#newsStatus').getAttribute('data-state'),'snapshot');
+799165	    const tickerLabel=await page.locator('#headlineTicker .pn-ticker-label').textContent();
+799166	    assert.match(tickerLabel,/Latest available.*source unavailable.*saved snapshot collected.*articles may be older/i);
+799167	    const sourceClock=JSON.parse(readFileSync(resolve(candidate,'news/snapshot-provenance.json'))).generated_at;
+799168	    const clock=new Date(sourceClock),clockLabel=clock.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})+' '+String(clock.getUTCHours()).padStart(2,'0')+':'+String(clock.getUTCMinutes()).padStart(2,'0')+' UTC';
+799169	    assert.ok(tickerLabel.includes(clockLabel),'ticker preserves original source collection clock');
+799170	    const headlineItems=JSON.parse(readFileSync(resolve(candidate,'news/pipeline_headlines.snapshot.json'))).items;
+799171	    const sourceLinks=new Set(headlineItems.map(x=>x.link));
+799172	    for(const a of await page.locator('#headlineTicker ul:not([aria-hidden]) a').all())assert.ok(sourceLinks.has(await a.getAttribute('href')));
+799173	    assert.equal(await page.locator('#headlineTicker a').first().evaluate(n=>getComputedStyle(n).color),'rgb(255, 85, 85)');
+799174	    await page.locator('#headlineTicker button').click();assert.equal(await page.locator('#headlineTicker').evaluate(n=>n.classList.contains('pn-paused')),true);
+799175	    await tab(page,'gridTab');await page.waitForFunction(()=>document.querySelector('#gridLayerHost .pn-count')?.textContent.includes('5,800'));
+799176	    assert.match(await page.locator('#gridLayerHost .pn-count').innerText(),/4,460 source names/);assert.equal(await page.locator('#gridLayerHost tbody tr').count(),100);
+799177	    await page.locator('#gridLayerHost').getByRole('button',{name:'Next',exact:true}).click();assert.match(await page.locator('#gridLayerHost .pn-tools').last().innerText(),/Page 2/);
+799178	    const search=page.locator('#gridLayerHost input[type=search]');await search.fill('grid_substations:0');assert.match(await page.locator('#gridLayerHost tbody').innerText(),/Name not recorded/);
+799179	    await search.fill('Barrow');const selected=await download(page,page.locator('#gridLayerHost').getByRole('button',{name:'Export results'}),`substations-search-${width}.csv`);assert.ok(selected.rows.length>1);
+799180	    const map=new URL(await page.locator('#gridLayerHost tbody a').first().getAttribute('href'));assert.equal(map.searchParams.has('repd_ref'),false);assert.equal(map.searchParams.has('capacity_mw'),false);assert.ok(map.searchParams.has('longitude')&&map.searchParams.has('latitude'));
+799181	    await search.fill('');await page.locator('#gridLayerHost').getByRole('button',{name:'2D locations'}).click();assert.equal(await page.locator('#gridLayerHost canvas').isVisible(),true);
+799182	    await page.locator('#gridLayerHost').getByRole('button',{name:'Analytics',exact:true}).click();assert.ok(await page.locator('#gridLayerHost meter').count()>0);
+799183	    await page.locator('#gridLayerHost').getByRole('tab',{name:'Grid Projects',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#gridLayerHost .pn-panel').textContent.includes('No independently approved'));
+799184	    assert.equal(await page.locator('#gridLayerHost tbody tr').count(),0);
+799185	    await tab(page,'offtakersTab');await page.waitForFunction(()=>document.querySelector('#offtakersLayerHost .pn-count')?.textContent.includes('1,568'));
+799186	    const offtakersCsv=await download(page,page.locator('#offtakersLayerHost').getByRole('button',{name:'Export results'}),`offtakers-${width}.csv`);
+799187	    assert.equal(offtakersCsv.rows.length,1569);assert.ok(offtakersCsv.rows[0].includes('Source record'));const exported=JSON.stringify(offtakersCsv.rows);assert.match(exported,/ODbL/);assert.match(exported,/OGL/);assert.match(exported,/NAEI/);
+799188	    await tab(page,'pricesTab');await page.locator('#pricesLayerHost').getByRole('button',{name:'Show original graphs here'}).waitFor();assert.equal(await page.locator('#pricesLayerHost iframe').count(),0);
+799189	    assert.match(await page.locator('#pricesLayerHost').innerText(),/observation dates/);assert.match(await page.locator('#pricesLayerHost').innerText(),/indicative price baselines/);
+799190	    await page.locator('#pricesLayerHost').getByRole('button',{name:'Show original graphs here'}).click();assert.equal(await page.locator('#pricesLayerHost iframe').getAttribute('src'),'https://globalgrid2050.com/uk_energy_tracking_v6/');
+799191	    await tab(page,'datacentreTab');await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-table tbody tr').length===54);
+799192	    await tab(page,'gridTab');await page.locator('#gridLayerHost').getByRole('tab',{name:'Substations',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#gridLayerHost .pn-count')?.textContent.includes('5,800'));
+799193	    assert.equal(requests.filter(u=>u===catalogue.layers.find(l=>l.id==='substations').data.url).length,1,'returning to Grid reuses pinned source cache');
+799194	    await page.locator('#pricesTab').focus();await page.keyboard.press('Home');assert.equal(await page.locator('#solarTab').evaluate(n=>n===document.activeElement),true);
+799195	    const geometry=await page.evaluate(()=>({viewport:innerWidth,width:document.documentElement.scrollWidth,font:getComputedStyle(document.body).fontFamily}));assert.ok(geometry.width<=width+2);assert.match(geometry.font,/mono|courier/i);
+799196	    await page.screenshot({path:resolve(OUT,`v929-solar-${width}.png`)});await tab(page,'gridTab');await page.screenshot({path:resolve(OUT,`v929-grid-${width}.png`)});
+799197	    assert.deepEqual(errors,[]);pass('integrated categories, provenance, ticker, search/CSV/MAP, cache and controls',{width,substations:5800,named:4460,unnamed:1340,offtakers:1568,geometry,fullWidthLayout});await context.close();
+799198	  for(const profile of [
+799199	    {id:'pixel7',portrait:{width:412,height:839},landscape:{width:915,height:412}},
+799200	    {id:'compact393',portrait:{width:393,height:851},landscape:{width:851,height:393}},
+799201	    {id:'narrow390',portrait:{width:390,height:844},landscape:{width:844,height:390}},
+799202	  ]){
+799203	    const {context,page,errors}=await open(browser,profile.portrait.width,candidate,{mobile:true,height:profile.portrait.height});
+799204	    const session=await context.newCDPSession(page),orientations=[];
+799205	    // Keep Grid rendering on a second genuinely touch-selected page. A post-pan
+799206	    // compatibility-click suppression in the emulator must not mask rotation paint.
+799207	    const gridCompanion=await open(browser,profile.portrait.width,candidate,{mobile:true,height:profile.portrait.height});
+799208	    const gridSession=await gridCompanion.context.newCDPSession(gridCompanion.page);
+799209	    await touchTap(gridCompanion.page,'#gridTab');await gridCompanion.page.waitForFunction(()=>document.querySelector('#gridLayerHost .pn-count')?.textContent.includes('5,800'));
+799210	    await page.locator('#search').fill('8162');await page.waitForFunction(()=>document.getElementById('repd-8162'));assert.match(await page.locator('#repd-8162 a.atlaslink').getAttribute('href'),/repd_ref=8162/);await page.locator('#search').fill('');
+799211	    assert.match(await page.evaluate(()=>navigator.userAgent),/Android.*Pixel 7/);assert.equal(await page.evaluate(()=>navigator.maxTouchPoints>0),true);
+799212	    for(const [name,size] of [['portrait',profile.portrait],['landscape',profile.landscape],['portrait-return',profile.portrait]]){
+799213	      await session.send('Emulation.setDeviceMetricsOverride',{...size,deviceScaleFactor:2.625,mobile:true,screenWidth:size.width,screenHeight:size.height,screenOrientation:{type:name==='landscape'?'landscapePrimary':'portraitPrimary',angle:name==='landscape'?90:0}});
+799214	      await gridSession.send('Emulation.setDeviceMetricsOverride',{...size,deviceScaleFactor:2.625,mobile:true,screenWidth:size.width,screenHeight:size.height,screenOrientation:{type:name==='landscape'?'landscapePrimary':'portraitPrimary',angle:name==='landscape'?90:0}});
+799215	      await page.waitForFunction(size=>screen.width===size.width&&screen.height===size.height,size,{timeout:2500});
+799216	      await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+799217	      const viewport=await page.evaluate(()=>({width:innerWidth,height:innerHeight,physical:{width:screen.width,height:screen.height},visual:{width:visualViewport.width,height:visualViewport.height,scale:visualViewport.scale}}));
+799218	      assert.ok(Math.abs(viewport.width-size.width)<=1&&Math.abs(viewport.height-size.height)<=2,'rotation must retain requested CSS viewport without intrinsic-overflow shrink-to-fit: '+JSON.stringify({profile:profile.id,name,requested:size,actual:viewport}));
+799219	      assert.ok(Math.abs(viewport.visual.width*viewport.visual.scale-size.width)<=2,'actual visual viewport fills requested physical orientation');
+799220	      await page.evaluate(()=>window.scrollTo(0,0));
+799221	      const layout=await fullWidth(page),header=await painted(page,'.release-header');
+799222	      assert.equal(await page.locator('.release-links a').count(),6);assert.equal(await page.locator('#mapAtlasNav').getAttribute('href'),'https://ventusltd.github.io/gridatlas/atlas/');
+799223	      const headerScreenshot=await orientationScreenshot(session,`rotation-${profile.id}-${name}-header.png`,size);
+799224	      assert.ok(Math.abs((await page.evaluate(()=>innerWidth))-size.width)<=1,'taking proof must not reset landscape viewport');
+799225	      await page.waitForFunction(()=>document.getElementById('tbody')?.dataset.total==='3604');
+799226	      const rowPaint=await painted(page,'#tbody tr');
+799227	      const wrap=page.locator('#repdPanel .tablewrap');await wrap.scrollIntoViewIfNeeded();
+799228	      const table=await wrap.evaluate(n=>({client:n.clientWidth,scroll:n.scrollWidth,left:n.scrollLeft,overflow:getComputedStyle(n).overflowX}));
+799229	      assert.ok(table.client<=viewport.width,'table overflow remains inside viewport');
+799230	      if(table.scroll>table.client+2){
+799231	        await wrap.evaluate(n=>n.scrollLeft=0);const r=await wrap.boundingBox();
+799232	        const point={x:Math.max(20,Math.min(viewport.width-20,r.x+r.width*.75)),y:(Math.max(0,r.y)+Math.min(viewport.height,r.y+r.height))/2};
+799233	        table.touchTarget=await page.evaluate(p=>{const n=document.elementFromPoint(p.x,p.y),w=document.querySelector('#repdPanel .tablewrap');return{point:p,target:n?.tagName,inWrapper:!!n&&w.contains(n),rect:w.getBoundingClientRect().toJSON(),touchAction:getComputedStyle(w).touchAction,visualViewport:{scale:visualViewport.scale,offsetTop:visualViewport.offsetTop,height:visualViewport.height}};},point);
+799234	        assert.equal(table.touchTarget.inWrapper,true,'touch drag must start inside actual scroll container: '+JSON.stringify(table.touchTarget));
+799235	        await touchDrag(session,{...point,dx:-Math.min(200,viewport.width*.45)});
+799236	        try{await page.waitForFunction(()=>document.querySelector('#repdPanel .tablewrap').scrollLeft>0,null,{timeout:2500});}catch(error){throw Error('Trusted touch horizontal pan did not move table: '+JSON.stringify({...table,after:await wrap.evaluate(n=>n.scrollLeft)}),{cause:error});}table.touchScrollLeft=await wrap.evaluate(n=>n.scrollLeft);
+799237	      const scrollBefore=await page.evaluate(()=>scrollY);
+799238	      await touchDrag(session,{x:viewport.width-6,y:Math.floor(viewport.height*.8),dy:-Math.min(320,Math.floor(viewport.height*.6))});
+799239	      await page.waitForFunction(before=>scrollY>before,scrollBefore,{timeout:2500});
+799240	      const nativeScroll=await page.evaluate(()=>({y:scrollY,scrollHeight:document.scrollingElement.scrollHeight,clientHeight:document.scrollingElement.clientHeight}));
+799241	      assert.ok(nativeScroll.scrollHeight>nativeScroll.clientHeight);
+799242	      receipt.rotation_in_progress={profile:profile.id,name,...size,viewport,layout,header,rowPaint,table,nativeScroll,touchMethod:'trusted CDP touchStart/move/end; Playwright actionability-checked locator.tap'};
+799243	      await page.evaluate(()=>{window.__rotationTouchRecords=[];for(const name of ['touchstart','touchend','click'])document.addEventListener(name,event=>window.__rotationTouchRecords.push({type:event.type,id:event.target.id,tag:event.target.tagName,trusted:event.isTrusted}),{capture:true,once:true});});
+799244	      await touchTap(page,'#solarTab');await new Promise(r=>setTimeout(r,350));await touchTap(page,'#solarTab');
+799245	      receipt.rotation_in_progress.postPanTap=await page.evaluate(()=>({target:'solarTab',selected:document.getElementById('solarTab').getAttribute('aria-selected'),events:window.__rotationTouchRecords,url:location.href,scrollY}));
+799246	      receipt.rotation_in_progress.postPanTap.pages=context.pages().length;
+799247	      const gridLayout=await fullWidth(gridCompanion.page),gridPaint=await painted(gridCompanion.page,'#gridLayerHost tbody tr');assert.equal(await gridCompanion.page.locator('#gridLayerHost tbody tr').count(),100);
+799248	      const gridScreenshot=await orientationScreenshot(gridSession,`rotation-${profile.id}-${name}-grid.png`,size);
+799249	      assert.equal(await page.locator('#tbody').getAttribute('data-total'),'3604');
+799250	      orientations.push({name,...size,viewport,layout,header,headerScreenshot,rowPaint,table,nativeScroll,gridLayout,gridPaint,gridScreenshot,sourceRows:5800,searchAndMapIdentity:'REPD8162 checked before panning; canonical population retained',postPanTouchEvents:receipt.rotation_in_progress.postPanTap.events});
+799251	    assert.deepEqual(errors,[]);assert.deepEqual(gridCompanion.errors,[]);pass('Android-UA/touch-emulated rotation remains full-width and painted with native scrolling',{profile:profile.id,orientations,actualHandset:false,touchNavigation:'Grid selected by real touch before panning on companion rotation page; post-pan compatibility-click suppression is recorded rather than substituted with JS/mouse clicks.',publicMapReturn:'Not executed by this source-byte replay; separate live receiver gate remains.'});delete receipt.rotation_in_progress;await context.close();await gridCompanion.context.close();
+799252	  const bad=await open(browser,393,candidate,{corrupt:true,reducedMotion:true});await tab(bad.page,'gridTab');await bad.page.waitForFunction(()=>document.querySelector('#gridLayerHost .pn-panel')?.dataset.state==='unavailable');assert.equal(await bad.page.locator('#gridLayerHost tbody tr').count(),0);
+799253	  await allRepd(bad.page);assert.equal(await bad.page.locator('#tbody').getAttribute('data-total'),'7775');await tab(bad.page,'offtakersTab');await bad.page.waitForFunction(()=>document.querySelector('#offtakersLayerHost .pn-count')?.textContent.includes('1,568'));
+799254	  await bad.page.waitForFunction(()=>document.querySelector('#headlineTicker .pn-ticker-track'));assert.equal(await bad.page.locator('#headlineTicker .pn-ticker-track').evaluate(n=>getComputedStyle(n).animationName),'none');assert.deepEqual(bad.errors,[]);await bad.context.close();
+799255	  pass('corrupt pinned substation source fails closed while REPD/Offtakers remain usable; reduced motion suppresses ticker animation');receipt.status='PASS';
+799256	}catch(error){receipt.status='FAIL';receipt.failure=error.stack;throw error;}
+799257	finally{receipt.blocked_external=[...new Set(receipt.blocked_external)];writeFileSync(resolve(OUT,'browser.json'),JSON.stringify(receipt,null,2)+'\n');if(browser)await browser.close();await new Promise(r=>server.close(r));}
+799259	import {createDataRegistry,validateRegistry} from '../../uk_renewables_pipeline/202611162354/scripts/layers/registry.mjs';
+799260	import {assetRows,selectRows,locationLink,latestHeadlines,voltageLabel} from '../../uk_renewables_pipeline/202611162354/scripts/layers/model.mjs';
+799261	import {assetCsv} from '../../uk_renewables_pipeline/202611162354/scripts/layers/views.mjs';
+799262	import {priceWorkspaceUrl,publicHttpsUrl} from '../../uk_renewables_pipeline/202611162354/scripts/layers/url-policy.mjs';
+799263	const source={type:'FeatureCollection',features:[{type:'Feature',id:'source:1',properties:{name:'Named substation',voltage:'132000'},geometry:{type:'Point',coordinates:[-1,52]}}]};
+799264	const bytes=Buffer.from(JSON.stringify(source));
+799265	const digest=createHash('sha256').update(bytes).digest('hex');
+799266	function spec(){return {schema:'globalgrid2050.pipeline-layers.v1',layers:[{id:'test',label:'Test',group:'Grid',owner:'Owner',renderer:'assets',data:{url:'https://example.org/pinned.json',sha256:digest,maxBytes:4096,rows:1,schema:'geojson.FeatureCollection'}}]};}
+799267	test('lazy source is fetched once; returned data cannot corrupt the cached snapshot',async()=>{
+799268	  let calls=0;const registry=createDataRegistry(spec(),{fetchImpl:async()=>{calls++;return new Response(bytes);}});
+799269	  assert.equal(calls,0);const a=await registry.load('test');a.features.length=0;
+799270	  const b=await registry.load('test');assert.equal(b.features.length,1);assert.equal(calls,1);
+799271	test('caller cannot mutate accepted manifest or its exposed dataset pins',async()=>{
+799272	  const manifest=spec();const registry=createDataRegistry(manifest,{fetchImpl:async()=>new Response(bytes)});
+799273	  manifest.layers[0].data.sha256='0'.repeat(64);
+799274	  assert.throws(()=>{registry.layers[0].data.sha256='0'.repeat(64);},TypeError);
+799275	  assert.equal((await registry.load('test')).features.length,1);
+799276	test('changed bytes fail before parsing or rendering and allow an explicit retry',async()=>{
+799277	  let bad=true;const registry=createDataRegistry(spec(),{fetchImpl:async()=>new Response(bad?Buffer.concat([bytes,Buffer.from(' ')]):bytes)});
+799278	  await assert.rejects(registry.load('test'),/integrity/);bad=false;assert.equal((await registry.load('test')).features.length,1);
+799279	test('a warmed source cannot bypass another layer’s stricter schema/count/byte contract',async()=>{
+799280	  const manifest=spec(),second=structuredClone(manifest.layers[0]);second.id='strict';second.data.rows=2;second.data.maxBytes=1;second.data.schema='WRONG';manifest.layers.push(second);
+799281	  const registry=createDataRegistry(manifest,{fetchImpl:async()=>new Response(bytes)});
+799282	  await assert.rejects(registry.load('strict'),/byte budget/);
+799283	test('stream size is enforced without trusting the declared content length',async()=>{
+799284	  const manifest=spec();manifest.layers[0].data.maxBytes=1;
+799285	  await assert.rejects(registry.load('test'),/byte budget/);
+799286	test('failed HTTP, redirected inputs, count mismatch and unknown layers fail closed',async()=>{
+799287	  const failed=createDataRegistry(spec(),{fetchImpl:async()=>new Response('unavailable',{status:503})});
+799288	  await assert.rejects(failed.load('test'),/unavailable/);
+799289	  const manifest=spec();manifest.layers[0].data.rows=2;
+799290	  await assert.rejects(createDataRegistry(manifest,{fetchImpl:async()=>new Response(bytes)}).load('test'),/schema\/count/);
+799291	  await assert.rejects(failed.load('not-present'),/Unknown/);
+799292	test('invalid catalogue identities, unsafe URLs and unbounded browser products are rejected',()=>{
+799293	  const duplicate=spec();duplicate.layers.push(structuredClone(duplicate.layers[0]));assert.throws(()=>validateRegistry(duplicate),/duplicate/);
+799294	  for(const url of ['http://example.org/file','javascript:alert(1)','https://user:password@example.org/file']){const x=spec();x.layers[0].data.url=url;assert.throws(()=>validateRegistry(x));}
+799295	  const big=spec();big.layers[0].data.rows=100000;assert.throws(()=>validateRegistry(big),/row policy/);
+799296	test('missing names and locations remain unknown, with original source IDs',()=>{
+799297	  const collection=structuredClone(source);collection.features[0].properties={};collection.features[0].geometry=null;
+799298	  const [row]=assetRows(collection,'substation');assert.equal(row.name,null);assert.equal(row.coordinates,null);assert.equal(locationLink(row),null);assert.equal(row.sourceId,'source:1');
+799299	test('null/string coordinates do not become locations and duplicate identities are refused',()=>{
+799300	  const collection=structuredClone(source);collection.features[0].geometry.coordinates=[null,'52'];
+799301	  assert.equal(assetRows(collection,'substation')[0].coordinates,null);
+799302	  collection.features.push(collection.features[0]);assert.throws(()=>assetRows(collection,'substation'),/Duplicate/);
+799303	test('location links carry no fabricated REPD identity, MW or connection status',()=>{
+799304	  const row=assetRows(source,'substation')[0],url=new URL(locationLink(row));
+799305	  assert.equal(url.origin+url.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(url.searchParams.get('technology'),'substation');
+799306	  assert.equal(url.searchParams.get('longitude'),'-1');assert.equal(url.searchParams.has('repd_ref'),false);assert.equal(url.searchParams.has('capacity_mw'),false);
+799307	test('published OSM voltage remains voltage rather than capacity, with unknowns retained',()=>{
+799308	  assert.equal(voltageLabel('132000;33000'),'132 / 33 kV');assert.equal(voltageLabel(null),'Not recorded');
+799309	  assert.equal(voltageLabel('unknown'),'unknown');assert.equal(voltageLabel('0'),'0');
+799310	test('search and CSV cover the same selected rows; deliberate cross-domain overlap is retained',()=>{
+799311	  const rows=[...assetRows(source,'substation'),...assetRows(source,'offtaker')];assert.equal(rows.length,2);
+799312	  const selected=selectRows(rows,'source:1');assert.equal(selected.length,2);assert.equal(assetCsv(selected).split('\r\n').length,4);
+799313	  rows[0].name='=HYPERLINK("malicious")';assert.ok(assetCsv(rows).includes("'=HYPERLINK"));
+799314	test('downloaded records retain original source URLs, licences and dataset-level attribution',()=>{
+799315	  const input=structuredClone(source);input.features[0].properties.sources=[{name:'NAEI',url:'https://naei.example/record',licence:'OGL v3.0'}];
+799316	  const rows=assetRows(input,'offtaker');const csv=assetCsv(rows,{sourceUrl:'https://source.example/pinned.json',datasetAttribution:{database:'ODbL',credit:'OpenStreetMap contributors'}});
+799317	  for(const value of ['https://naei.example/record','OGL v3.0','https://source.example/pinned.json','ODbL','OpenStreetMap contributors'])assert.ok(csv.includes(value),value);
+799318	test('ticker selects ten latest dated distinct HTTPS headlines without unsafe URLs',()=>{
+799319	  const items=Array.from({length:12},(_,i)=>({title:'Item '+i,link:'https://publisher.example/'+i,date:`2026-11-${String(i+1).padStart(2,'0')}`,source:'Publisher'}));
+799320	  items.push({...items[0]},{title:'Unsafe',link:'javascript:alert(1)',date:'2026-11-15'});
+799321	  const result=latestHeadlines(items);assert.equal(result.length,10);assert.equal(result[0].title,'Item 11');assert.equal(result.at(-1).title,'Item 2');
+799322	test('impossible dates, future publication and private-address headlines are withheld',()=>{
+799323	  const common={title:'Synthetic source title',source:'Fixture',link:'https://publisher.example/article'};
+799324	  const asOf=Date.parse('2026-11-16T23:00:00Z');
+799325	  for(const date of ['2026-02-30','2026-11-31T12:00:00Z','2099-01-01','2026-11-17T00:00:00Z','2026-11-16T25:00:00Z'])assert.deepEqual(latestHeadlines([{...common,date}],10,{asOf}),[],date);
+799326	  for(const link of ['https://127.0.0.1/private','https://[::1]/private','https://localhost/private','https://router.local/private','https://192.168.0.1/private','https://localhost./private','https://router.local./private','https://router.internal./private','https://localhost%2e/private'])assert.deepEqual(latestHeadlines([{...common,date:'2026-11-16',link}],10,{asOf}),[],link);
+799327	  assert.equal(latestHeadlines([{...common,date:'2024-02-29'}],10,{asOf}).length,1);
+799328	test('Prices URLs reject at both the registry and renderer URL-policy boundary',()=>{
+799329	  for(const url of ['javascript:alert(1)','https://127.0.0.1/private','https://evil.example/graphs']) {
+799330	    const manifest=spec();manifest.layers.push({id:'prices',label:'Prices',group:'Prices',owner:'Fixture',renderer:'prices',url});
+799331	    assert.throws(()=>validateRegistry(manifest),undefined,url);assert.throws(()=>priceWorkspaceUrl(url),undefined,url);
+799332	  assert.equal(priceWorkspaceUrl('https://globalgrid2050.com/uk_energy_tracking_v6/'),'https://globalgrid2050.com/uk_energy_tracking_v6/');
+799333	  assert.throws(()=>publicHttpsUrl('https://127.1/private'));
+799334	test('blank and non-identity source values cannot become fabricated asset keys',()=>{
+799335	  for(const id of ['', '   ',null,{},true,NaN]){const value=structuredClone(source);value.features[0].id=id;assert.throws(()=>assetRows(value,'substation'),/source identity/,String(id));}
+799336	/** Exact-source and historical-preservation acceptance for the formal V9.29 edition. */
+799337	import {readFileSync,readdirSync,statSync,mkdirSync,writeFileSync} from 'node:fs';
+799338	import {dirname,resolve,basename,relative} from 'node:path';
+799339	const sourceBase=process.env.V929_BASE_SHA||execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+799340	const out=process.env.V929_OUT;
+799341	const bytes=p=>readFileSync(p),json=p=>JSON.parse(bytes(p)),hash=b=>createHash('sha256').update(b).digest('hex');
+799342	const git=args=>execFileSync('git',args,{cwd:ROOT,encoding:'utf8'}).trim();
+799343	const receipt={status:'RUNNING',utc:new Date().toISOString(),head:git(['rev-parse','HEAD']),edition:EDITION,
+799344	  historical_base:sourceBase,checks:[],limitations:['Source-byte and local data/MAP-construction acceptance only; no public GridAtlas execution or source-rights approval.']};
+799345	function treeBytes(dir){return readdirSync(dir).filter(n=>n!=='__pycache__').reduce((total,name)=>{const p=resolve(dir,name);return total+(statSync(p).isDirectory()?treeBytes(p):statSync(p).size);},0);}
+799346	function population(folder){
+799347	  const manifest=json(resolve(folder,'data/v9.1/build_manifest.json')),rows=[];
+799348	  for(const part of manifest.project_partitions){const raw=bytes(resolve(folder,part.path));assert.equal(hash(raw),part.sha256,part.path);const projects=JSON.parse(raw).projects;assert.equal(projects.length,part.record_count);rows.push(...projects);}
+799349	  for(const part of manifest.atlas_partitions){const raw=bytes(resolve(folder,part.path));assert.equal(hash(raw),part.sha256);assert.equal(JSON.parse(raw).features.length,part.feature_count);}
+799350	  assert.equal(rows.length,7775);assert.equal(rows.filter(x=>x.technology==='solar').length,3604);assert.equal(new Set(rows.map(x=>String(x.repd_ref))).size,7775);
+799352	  const pageSource=bytes(resolve(candidate,'index.html')).toString('utf8');
+799353	  assert.doesNotMatch(pageSource,/<aside\b|class=["'][^"']*\bsidebar\b/i,'new edition must not restore the removed navigation sidebar');
+799354	  for(const required of ['class="release-header"','aria-label="Pipeline navigation"','../versions.html','../202611161757/','id="mapAtlasNav"','id="export"'])assert.ok(pageSource.includes(required),'compact navigation retains '+required);
+799355	  pass('sidebar markup removed; compact header preserves Versions, previous edition, MAP and CSV navigation');
+799356	  const pins=json(resolve(candidate,'contracts/layers-v929.json'));
+799357	  assert.equal(pins.source_commit,'8f94299afc8628908dc8bf461cb5ea607560332b');assert.equal(pins.files.length,8);
+799358	  for(const pin of pins.files){
+799359	    const raw=bytes(resolve(candidate,'scripts/layers',basename(pin.path)));
+799360	    const donor=execFileSync('git',['show',pins.source_commit+':'+pin.path],{cwd:ROOT});
+799361	    assert.deepEqual(raw,donor,pin.path+' must match the actual immutable donor, not only a self-declared manifest');
+799362	    assert.equal(hash(raw),pin.sha256,pin.path+' exact donor bytes');assert.equal(raw.length,pin.bytes);
+799363	    assert.equal(createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${raw.length}\0`),raw])).digest('hex'),pin.git_blob);
+799364	  pass('eight imported runtime assets exactly match reviewed donor Git blobs/SHA-256',{source_commit:pins.source_commit});
+799365	  const size=treeBytes(candidate);assert.ok(size<=18*1024*1024,`${size} exceeds 18 MiB`);pass('complete working edition fits unchanged 18 MiB budget',{bytes:size,limit:18*1024*1024});
+799366	  const current=population(candidate),original=population(baseline);assert.deepEqual(current,original);
+799367	  pass('all 7,775 official records and order equal frozen V9.28; 3,604 solar',{records:7775,solar:3604});
+799368	  for(const name of ['solar1000/manifest.json','solar1000/candidates.json'])assert.deepEqual(bytes(resolve(candidate,name)),bytes(resolve(baseline,name)),name);
+799369	  const selected=json(resolve(candidate,'solar1000/manifest.json'));assert.equal(selected.ids.length,1000);assert.equal(selected.independently_verified,0);
+799370	  assert.deepEqual(selected.ids,current.filter(x=>x.technology==='solar').map(x=>String(x.repd_ref)).sort((a,b)=>Number(a)-Number(b)).slice(0,1000));
+799371	  pass('ordered immutable Solar-1000 and provisional receipt bytes equal frozen V9.28',{sha256:hash(bytes(resolve(candidate,'solar1000/manifest.json')))});
+799372	  const receiver=await import(pathToFileURL(resolve(candidate,'scripts/core/atlas-receiver-v9-7.js')));
+799373	  const oldReceiver=await import(pathToFileURL(resolve(baseline,'scripts/core/atlas-receiver-v9-7.js')));
+799374	  for(let i=0;i<current.length;i++)assert.equal(receiver.buildAtlasDeepLinkV9_7(current[i]),oldReceiver.buildAtlasDeepLinkV9_7(original[i]),String(current[i].repd_ref));
+799375	  const existing=execFileSync(process.execPath,[resolve(candidate,'tests/check_map_contract_all_rows.mjs')],{cwd:ROOT,encoding:'utf8'}).trim();
+799376	  pass('all 7,775 original MAP routes and established all-row contract preserved',{established_check:existing});
+799377	  const snapshot=bytes(resolve(candidate,'news/pipeline_headlines.snapshot.json')),source=json(resolve(candidate,'news/snapshot-provenance.json'));
+799378	  assert.deepEqual(bytes(resolve(candidate,'news/snapshot-provenance.json')),bytes(resolve(baseline,'news/snapshot-provenance.json')),'original source clock/provenance receipt bytes preserved');
+799379	  assert.equal(hash(snapshot),source.sha256);assert.equal(JSON.parse(snapshot).items.length,71);assert.deepEqual(snapshot,bytes(resolve(baseline,'news/pipeline_headlines.snapshot.json')));
+799380	  pass('original saved 71-headline source bytes and publication clock preserved',{source_commit:source.source_commit,generated_at:source.generated_at,sha256:source.sha256});
+799381	  const changed=[...git(['diff','--name-only',sourceBase,'--']).split(/\r?\n/),...git(['ls-files','--others','--exclude-standard']).split(/\r?\n/)].filter(Boolean);
+799382	  const historical=changed.filter(p=>/^uk_renewables_pipeline\/\d{12}\//.test(p)&&!p.startsWith(EDITION+'/'));
+799383	  assert.deepEqual(historical,[],'historical edition trees unchanged relative to current origin/main');
+799384	  pass('every historical edition tree remains unchanged against origin/main',{base:sourceBase});
+799385	finally{if(out){mkdirSync(out,{recursive:true});writeFileSync(resolve(out,'invariants.json'),JSON.stringify(receipt,null,2)+'\n');}}
+799386	/** Real integrated V9.30 browser acceptance against exact source-byte fixtures. */
+799387	const EDITION=process.env.V930_CANDIDATE||'uk_renewables_pipeline/202611170147';
+799388	const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611162354');
+799389	const OUT=resolve(process.env.V930_OUT||resolve(tmpdir(),'gg2050-v930-preview'));
+799390	const {chromium}=process.env.V930_PLAYWRIGHT
+799391	  ? await import(pathToFileURL(resolve(process.env.V930_PLAYWRIGHT))) : await import('playwright');
+799392	const locationSpec=JSON.parse(readFileSync(resolve(candidate,'contracts/dc-locations.v930.json')));
+799393	let locationBytes;
+799394	if(process.env.V930_DATA_SOURCE)locationBytes=readFileSync(resolve(process.env.V930_DATA_SOURCE));
+799395	else{const response=await fetch(locationSpec.input.url,{redirect:'error',signal:AbortSignal.timeout(15000)});assert.ok(response.ok);locationBytes=Buffer.from(await response.arrayBuffer());}
+799396	assert.equal(locationBytes.length,183561);assert.equal(sha(locationBytes),'6f68e078d9b57057acdda679288730e638553f68df884dfd747c5049e56ea88e');
+799397	const locationData=JSON.parse(locationBytes),byId=new Map(locationData.features.map(f=>[f.id,f]));
+799398	sourceBytes.set(locationSpec.input.url,locationBytes);
+799399	receipt.sources.push({id:'dc-address-locations',url:locationSpec.input.url,sha256:sha(locationBytes),bytes:locationBytes.length,transport:process.env.V930_DATA_SOURCE?'explicit data-owner fixture, exact immutable bytes':'immutable HTTPS source'});
+799400	let baselineDCLinks,baselineDCCsv;
+799401	  await context.route('**/*',route=>{const u=route.request().url();requests.push(u);
+799402	    if(u.startsWith(origin+'/')){
+799403	      const pathname=new URL(u).pathname;
+799404	      const manifest=corrupt==='dc-manifest'&&pathname.endsWith('/contracts/dc-locations.v930.json');
+799405	      const module=corrupt==='dc-module'&&pathname.endsWith('/automation/dc_location_ui/'+locationSpec.producer.commit+'/actions.mjs');
+799406	      if(manifest||module){const raw=readFileSync(resolve(ROOT,'.'+pathname));return route.fulfill({status:200,contentType:module?'text/javascript':'application/json',body:Buffer.concat([raw,Buffer.from(' ')])});}
+799407	      return route.continue();
+799408	    if(sourceBytes.has(u)){let raw=sourceBytes.get(u);if((corrupt===true&&u===catalogue.layers.find(l=>l.id==='substations').data.url)||(corrupt==='dc-source'&&u===locationSpec.input.url))raw=Buffer.concat([raw,Buffer.from(' ')]);return route.fulfill({status:200,contentType:'application/json',body:raw});}receipt.blocked_external.push(u);return route.abort();});
+799409	async function dcOriginalLinks(page){return page.locator('#datacentreHost tbody tr').evaluateAll(rows=>Object.fromEntries(rows.map(row=>[row.querySelector('.ggdc-id')?.textContent.trim(),[...row.querySelectorAll('a')].filter(a=>!a.closest('.ggdc-location-actions')).map(a=>a.href)])));}
+799410	async function dcGlobal(page){await page.locator('#datacentreHost').getByRole('button',{name:/^Global leads/}).click();await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost tbody tr').length===100);}
+799411	async function verifyLocations(page,width){
+799412	  await page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available');
+799413	  assert.equal(await page.locator('#datacentreHost .ggdc-screen-actions').count(),34);
+799414	  await dcGlobal(page);await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-reported-address').length===38);
+799415	  assert.equal(await page.locator('#datacentreHost .ggdc-reported-address > p').count(),39);
+799416	  const actual=await page.locator('#datacentreHost tbody tr').evaluateAll(rows=>rows.map(row=>({id:row.querySelector('.ggdc-id')?.textContent.trim(),addresses:[...row.querySelectorAll('.ggdc-reported-address > p')].map(n=>n.textContent),screen:!!row.querySelector('.ggdc-screen-actions')})));
+799417	  for(const row of actual){const feature=byId.get(row.id);assert.ok(feature,'exact original ID');assert.deepEqual(row.addresses,feature.properties.addresses.map(a=>a.text));assert.equal(row.screen,!!feature.geometry&&feature.properties.country.code==='GB');}
+799418	  assert.equal(actual.filter(x=>x.screen).length,34);assert.deepEqual(await dcOriginalLinks(page),baselineDCLinks);
+799419	  assert.equal(await page.locator('#datacentreHost .ggdc-screen-location').allTextContents().then(x=>x.filter(v=>v.startsWith('Approx. postcode:')).length),25);
+799420	  assert.equal(await page.locator('#datacentreHost .ggdc-screen-footnote').count(),1);assert.match(await page.locator('#datacentreHost .ggdc-screen-footnote').innerText(),/UK screening coverage.*not a grid-capacity assessment/);
+799421	  const disclosure=page.locator('#datacentreHost .ggdc-location-sources');assert.equal(await disclosure.count(),1);assert.equal(await disclosure.getAttribute('open'),null);
+799422	  await disclosure.locator('summary').click();const text=await disclosure.innerText();for(const credit of [...new Set(locationData.features.flatMap(f=>f.properties.location_precision==='POSTCODE_CENTROID_APPROXIMATE'?f.properties.geometry_attribution:[]))])assert.ok(text.includes(credit));
+799423	  assert.equal(await disclosure.getByRole('link',{name:'Source GeoJSON (100 records)'}).getAttribute('href'),locationSpec.input.url);
+799424	  assert.equal(await disclosure.getByRole('link',{name:'Postcode-provider terms'}).getAttribute('href'),'https://postcodes.io/docs/licences/');await disclosure.locator('summary').click();
+799425	  const exported=await download(page,page.locator('#datacentreHost button.ggdc-download'),`v930-dc-global-${width}.csv`);assert.deepEqual(exported.rows,baselineDCCsv.rows,'optional locations never rewrite original100-record CSV');
+799426	  const search=page.getByRole('searchbox',{name:'Search Data Centre records'});
+799427	  for(const feature of [locationData.features.find(f=>f.properties.country.code!=='GB'&&f.properties.addresses.length),locationData.features.find(f=>!f.geometry&&f.properties.addresses.length)]){
+799428	    assert.ok(feature,'real foreign/null-geometry address fixture exists');await search.fill(feature.id);await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost tbody tr').length===1);
+799429	    assert.deepEqual(await page.locator('#datacentreHost .ggdc-reported-address > p').allTextContents(),feature.properties.addresses.map(a=>a.text));assert.equal(await page.locator('#datacentreHost .ggdc-screen-actions').count(),0);
+799430	  await search.fill('CyrusOne LON1');await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-screen-actions').length===1);assert.match(await page.locator('#datacentreHost .ggdc-screen-location').innerText(),/Approx\. postcode/);
+799431	  await tab(page,'solarTab');await tab(page,'datacentreTab');assert.equal(await search.inputValue(),'CyrusOne LON1');assert.equal(await page.locator('#datacentreHost .ggdc-location-sources').count(),1);assert.equal(await page.locator('#datacentreHost .ggdc-screen-footnote').count(),1);
+799432	  await search.fill('');await page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-reported-address').length===38);
+799433	  await painted(page,'#datacentreHost tbody tr');await page.screenshot({path:resolve(OUT,`v930-dc-global-${width}.png`)});
+799434	  pass('actual host100ID join/38addressrecords/39statements/34GBScreen/source links and originalCSV preserved across filters',{width});
+799435	  if(!process.env.V930_ROTATION_ONLY){
+799436	  const oldCsv=await download(b.page,b.page.locator('#exportInline'),'v929-all.csv');assert.equal(oldCsv.rows.length,7776);
+799437	  await tab(b.page,'datacentreTab');await b.page.waitForFunction(()=>document.querySelectorAll('#datacentreHost tbody tr').length===54);await dcGlobal(b.page);baselineDCLinks=await dcOriginalLinks(b.page);baselineDCCsv=await download(b.page,b.page.locator('#datacentreHost button.ggdc-download'),'v929-dc-global.csv');await b.context.close();
+799438	  pass('frozen V9.29 browser CSV establishes complete original population',{rows:7775,sha256:oldCsv.sha256});
+799439	  for(const width of [390,915,1440]){
+799440	    if(width===1440){const actual=await download(page,page.locator('#exportInline'),'v930-all.csv');assert.deepEqual(actual.rows,oldCsv.rows);pass('all 7,775 exported CSV rows/fields/order equal frozen V9.29',{sha256:actual.sha256});}
+799441	    await verifyLocations(page,width);
+799442	    await page.screenshot({path:resolve(OUT,`v930-solar-${width}.png`)});await tab(page,'gridTab');await page.screenshot({path:resolve(OUT,`v930-grid-${width}.png`)});
+799443	  const rotating=await open(browser,390,candidate,{mobile:true,height:844});
+799444	  await tab(rotating.page,'datacentreTab');await rotating.page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available');await dcGlobal(rotating.page);
+799445	  await rotating.page.getByRole('searchbox',{name:'Search Data Centre records'}).fill('CyrusOne LON1');await rotating.page.waitForFunction(()=>document.querySelectorAll('#datacentreHost .ggdc-screen-actions').length===1);
+799446	  await rotating.page.locator('.ggdc-reported-address summary').tap();
+799447	  const session=await rotating.context.newCDPSession(rotating.page),states=[];
+799448	  for(const [name,size] of [['portrait',{width:390,height:844}],['landscape',{width:915,height:412}],['portrait-return',{width:390,height:844}]]){
+799449	    await rotating.page.setViewportSize(size);
+799450	    await session.send('Emulation.setDeviceMetricsOverride',{...size,screenWidth:size.width,screenHeight:size.height,deviceScaleFactor:2.625,mobile:true,screenOrientation:{type:name==='landscape'?'landscapePrimary':'portraitPrimary',angle:name==='landscape'?90:0}});
+799451	    await rotating.page.waitForFunction(size=>Math.abs(innerWidth-size.width)<=1&&Math.abs(innerHeight-size.height)<=2,size);
+799452	    const layout=await fullWidth(rotating.page),paint=await painted(rotating.page,'#datacentreHost .ggdc-reported-address > p');
+799453	    assert.equal(await rotating.page.getByRole('searchbox',{name:'Search Data Centre records'}).inputValue(),'CyrusOne LON1');assert.equal(await rotating.page.locator('.ggdc-reported-address').getAttribute('open'),'');
+799454	    assert.equal(await rotating.page.locator('#datacentreHost .ggdc-screen-actions').count(),1);assert.equal(await rotating.page.locator('#datacentreHost .ggdc-screen-footnote').count(),1);assert.equal(await rotating.page.locator('#datacentreHost .ggdc-location-sources').count(),1);
+799455	    const screenshot=await orientationScreenshot(session,`v930-dc-${name}.png`,size);states.push({name,...size,layout,paint,screenshot});
+799456	  assert.deepEqual(rotating.errors,[]);await rotating.context.close();pass('Android-UA/touch-emulated DC portrait-landscape-return preserves address disclosure/search/Screen/onefooter',{states,actualHandset:false});
+799457	  for(const corrupt of ['dc-manifest','dc-module','dc-source']){
+799458	    const test=await open(browser,390,candidate,{corrupt});await tab(test.page,'datacentreTab');await test.page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='unavailable');
+799459	    assert.equal(await test.page.locator('#datacentreHost tbody tr').count(),54);assert.equal(await test.page.locator('#datacentreHost .ggdc-location-actions').count(),0);assert.equal(await test.page.locator('#datacentreHost .ggdc-screen-footnote').count(),0);
+799460	    assert.match(await test.page.locator('#datacentreHost .dc-location-status').innerText(),/Additional location data unavailable/);await dcGlobal(test.page);assert.deepEqual(await dcOriginalLinks(test.page),baselineDCLinks);
+799461	    await test.page.getByRole('searchbox',{name:'Search Data Centre records'}).fill('CyrusOne LON1');await test.page.waitForFunction(()=>document.querySelectorAll('#datacentreHost tbody tr').length===1);await allRepd(test.page);assert.equal(await test.page.locator('#tbody').getAttribute('data-total'),'7775');assert.deepEqual(test.errors,[]);await test.context.close();
+799462	    pass('optional location corruption fails closed without changing original DC controls/maps or REPD',{corrupt});
+799463	import {indexLocations,screenUrl,loadLocations,INPUT} from '../dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.mjs';
+799465	  return {type:'FeatureCollection',schema:'data-grid-gb.dc-address-locations.v1',
+799466	    counts:{records:1,with_geometry:1,unknown_geometry:0,postcode_centroids:1,with_address:1},
+799467	    features:[{type:'Feature',id:'DC-WD-Q1',geometry:{type:'Point',coordinates:[-0.1,51.5]},properties:{
+799468	      id:'DC-WD-Q1',wikidata_id:'Q1',name:'SYNTHETIC <site>',country:{code:'GB'},
+799469	      addresses:[{text:'1 Synthetic Street, London SW1A 1AA'}],location_precision:'POSTCODE_CENTROID_APPROXIMATE',
+799470	      source_revision_url:'https://www.wikidata.org/w/index.php?title=Q1&oldid=1',
+799471	      geometry_licence:'OS OpenData: GB postcode source terms',geometry_licence_url:'https://postcodes.io/docs/licences/',
+799472	      geometry_attribution:['SYNTHETIC attribution'],grid_connection_assessed:false,facility_identity_review:'NOT_INDEPENDENTLY_VERIFIED',
+799473	      screening_url:'javascript:globalThis.__probe=1'}}]};
+799474	test('exact original IDs and actual counts are required',()=>{
+799475	 const d=fixture();assert.equal(indexLocations(d).size,1);
+799476	 d.features.push(structuredClone(d.features[0]));d.counts.records=2;
+799477	 assert.throws(()=>indexLocations(d),/identity/);
+799478	test('count mismatches and false verification claims reject',()=>{
+799479	 const d=fixture();d.counts.with_geometry=0;assert.throws(()=>indexLocations(d),/counts/);
+799480	 const e=fixture();e.features[0].properties.facility_identity_review='VERIFIED';assert.throws(()=>indexLocations(e),/scope/);
+799481	test('unsafe or unrelated source-revision links reject',()=>{
+799482	 for(const url of ['javascript:alert(1)','https://127.0.0.1/a','https://www.wikidata.org/w/index.php?title=Q2&oldid=1','https://u@www.wikidata.org/w/index.php?title=Q1&oldid=1','https://www.wikidata.org/w/index.php?title=Q1&title=Q2&oldid=1']){
+799483	  const d=fixture();d.features[0].properties.source_revision_url=url;assert.throws(()=>indexLocations(d));
+799485	test('direct action reconstruction ignores executable producer URL',()=>{
+799486	 const f=fixture().features[0];const u=new URL(screenUrl(f));assert.equal(u.origin,'https://ventusltd.github.io');
+799487	 assert.equal(u.searchParams.get('project'),'SYNTHETIC <site>');assert.equal(u.searchParams.has('repd_ref'),false);
+799488	 assert.equal(u.searchParams.has('capacity_mw'),false);assert.equal(globalThis.__probe,undefined);
+799489	test('direct action caller cannot bypass coordinate validation',()=>{
+799490	 for(const xy of [[0,0],[NaN,51],[-0.1,91],[true,51]]){
+799491	  const f=fixture().features[0];f.geometry.coordinates=xy;assert.throws(()=>screenUrl(f));
+799492	test('missing points remain without screening actions',()=>{
+799493	 const d=fixture();d.features[0].geometry=null;d.features[0].properties.location_precision='UNKNOWN';
+799494	 Object.assign(d.counts,{with_geometry:0,unknown_geometry:1,postcode_centroids:0});
+799495	 assert.equal(screenUrl(indexLocations(d).get('DC-WD-Q1')),null);
+799496	test('foreign and unknown country points keep geometry without a GB screening route',()=>{
+799497	 for(const country of [{code:'FR'},{code:'US'},{code:'UK'},{code:null},undefined]){
+799498	  const d=fixture(),f=d.features[0];f.properties.country=country;
+799499	  f.geometry.coordinates=[7.73,48.58];f.properties.location_precision='WIKIDATA_REPORTED_POINT';
+799500	  f.properties.geometry_licence='CC0-1.0';f.properties.geometry_licence_url='https://www.wikidata.org/wiki/Wikidata:Copyright';
+799501	  d.counts.postcode_centroids=0;
+799502	  assert.equal(indexLocations(d).size,1);assert.deepEqual(f.geometry.coordinates,[7.73,48.58]);
+799503	  assert.equal(screenUrl(f),null);
+799504	test('postcode points require their own terms and GB bounds',()=>{
+799505	 for(const mutate of [p=>p.geometry_licence='CC0-1.0',p=>p.geometry_licence_url='https://bad.example/terms']){
+799506	  const d=fixture();mutate(d.features[0].properties);assert.throws(()=>indexLocations(d),/terms/);
+799507	 const d=fixture();d.features[0].geometry.coordinates=[2.35,48.85];assert.throws(()=>indexLocations(d),/terms/);
+799508	 const credit=fixture();credit.features[0].properties.geometry_attribution=[{text:'not text'}];
+799509	 assert.throws(()=>indexLocations(credit),/rights/);
+799510	test('pinned bounded loader rejects altered or excessive source bytes',async()=>{
+799511	 const bytes=new TextEncoder().encode(JSON.stringify(fixture()));
+799512	 const pin={url:INPUT.url,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')};
+799513	 assert.equal((await loadLocations(async()=>new Response(bytes),pin)).size,1);
+799514	 await assert.rejects(loadLocations(async()=>new Response(bytes),{...pin,sha256:'0'.repeat(64)}),/digest/);
+799515	 await assert.rejects(loadLocations(async()=>new Response(bytes),{...pin,bytes:bytes.length-1}),/byte limit/);
+799516	 await assert.rejects(loadLocations(async()=>new Response(bytes),{...pin,bytes:bytes.length+1}),/byte count/);
+799517	test('invalid pin bounds or endpoints reject before any network call',async()=>{
+799518	 for(const bad of [{bytes:NaN},{bytes:Infinity},{bytes:-1},{bytes:2147483647},{url:'https://127.0.0.1/'},{url:'javascript:alert(1)'},{sha256:'bad'}]){
+799519	  let fetched=false;await assert.rejects(loadLocations(async()=>{fetched=true;return new Response('{}');},{...INPUT,...bad}),/source contract/);
+799520	  assert.equal(fetched,false);
+799521	/** Exact-source and historical-preservation acceptance for the formal V9.30 edition. */
+799522	const sourceBase=process.env.V930_BASE_SHA||execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+799523	const out=process.env.V930_OUT;
+799524	  const contractPath=resolve(candidate,'contracts/dc-locations.v930.json'),contractBytes=bytes(contractPath),contract=JSON.parse(contractBytes);
+799525	  const donorCommit='83e7c36d08ef98f3665f7f35b8637405391dc4be';
+799526	  assert.equal(contract.producer.commit,donorCommit);assert.deepEqual(Object.keys(contract.files).sort(),['actions.css','actions.mjs']);
+799527	  const cache=resolve(ROOT,'automation/dc_location_ui',donorCommit);
+799528	  for(const [name,pin] of Object.entries(contract.files)){
+799529	    const local=bytes(resolve(cache,name)),donor=execFileSync('git',['show',donorCommit+':automation/news/dc-locations/'+name],{cwd:ROOT});
+799530	    assert.deepEqual(local,donor,name+' actual immutable producer bytes');assert.equal(hash(local),pin.sha256);assert.equal(local.length,pin.bytes);
+799531	    assert.equal(createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${local.length}\0`),local])).digest('hex'),pin.git_blob);
+799532	  const boot=bytes(resolve(candidate,'scripts/plugins/dc-locations-v930.mjs')).toString('utf8');
+799533	  assert.ok(boot.includes("const manifestHash = '"+hash(contractBytes)+"'"),'host pins exact accepted manifest bytes');
+799534	  const imported=await import(pathToFileURL(resolve(cache,'actions.mjs')));assert.deepEqual(contract.input,imported.INPUT);
+799535	  assert.equal(contract.input.sha256,'6f68e078d9b57057acdda679288730e638553f68df884dfd747c5049e56ea88e');assert.equal(contract.input.bytes,183561);
+799536	  let input,transport;
+799537	  if(process.env.V930_DATA_SOURCE){input=bytes(resolve(process.env.V930_DATA_SOURCE));transport='explicit existing data-owner file, byte checked';}
+799538	  else{const response=await fetch(contract.input.url,{redirect:'error',signal:AbortSignal.timeout(15000)});assert.equal(response.ok,true);input=Buffer.from(await response.arrayBuffer());transport='immutable data-owner HTTPS source';}
+799539	  assert.equal(input.length,contract.input.bytes);assert.equal(hash(input),contract.input.sha256);
+799540	  const locations=JSON.parse(input),indexed=imported.indexLocations(locations),oldDC=json(resolve(baseline,'global-datacentres/projects.json')).records;
+799541	  assert.deepEqual([...indexed.keys()].sort(),oldDC.map(x=>x.id).sort(),'exact100originalIDs; no name-based join');
+799542	  const observed={records:locations.features.length,with_address:locations.features.filter(f=>f.properties.addresses.length).length,address_statements:locations.features.flatMap(f=>f.properties.addresses).length,with_geometry:locations.features.filter(f=>f.geometry).length,wikidata_reported_points:locations.features.filter(f=>f.properties.location_precision==='WIKIDATA_REPORTED_POINT').length,postcode_centroids:locations.features.filter(f=>f.properties.location_precision==='POSTCODE_CENTROID_APPROXIMATE').length,unknown_geometry:locations.features.filter(f=>!f.geometry).length,screenable_gb_records:locations.features.filter(f=>imported.screenUrl(f)!==null).length};
+799543	  assert.deepEqual(observed,{records:100,with_address:38,address_statements:39,with_geometry:64,wikidata_reported_points:39,postcode_centroids:25,unknown_geometry:36,screenable_gb_records:34});assert.deepEqual(contract.expected,observed);
+799544	  assert.ok(locations.features.every(f=>f.properties.facility_identity_review==='NOT_INDEPENDENTLY_VERIFIED'&&f.properties.grid_connection_assessed===false));
+799545	  pass('exact83e cartridge/cache/host-manifest pins and100originalIDs/38addressrecords/39statements/34GBscreens',{donorCommit,observed,source_sha256:hash(input),transport,cache_bytes:treeBytes(cache)});
+799546	  const cssSRI='sha256-'+createHash('sha256').update(bytes(resolve(cache,'actions.css'))).digest('base64');assert.ok(pageSource.includes('integrity="'+cssSRI+'"'),'optional CSS is pinned by SRI');
+799547	  for(const required of ['class="release-header"','aria-label="Pipeline navigation"','../versions.html','../202611162354/','id="mapAtlasNav"','id="export"'])assert.ok(pageSource.includes(required),'compact navigation retains '+required);
+799548	  pass('all 7,775 official records and order equal frozen V9.29; 3,604 solar',{records:7775,solar:3604});
+799549	  pass('ordered immutable Solar-1000 and provisional receipt bytes equal frozen V9.29',{sha256:hash(bytes(resolve(candidate,'solar1000/manifest.json')))});
+799550	/** Real integrated V9.31 browser acceptance against exact source-byte fixtures. */
+799551	const EDITION=process.env.V931_CANDIDATE||'uk_renewables_pipeline/202611170243';
+799552	const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611170147');
+799553	const OUT=resolve(process.env.V931_OUT||resolve(tmpdir(),'gg2050-v931-preview'));
+799554	const {chromium}=process.env.V931_PLAYWRIGHT
+799555	  ? await import(pathToFileURL(resolve(process.env.V931_PLAYWRIGHT))) : await import('playwright');
+799556	  'External feeds, Chart.js CDN and original V6 workspace navigation are blocked; saved news and the independently linked workspace are tested.',
+799557	  'Prices are historical Elexon system-sell observations grouped by source-declared settlement date; complete source-day coverage does not certify stored UTC alignment.',
+799558	if(process.env.V931_DATA_SOURCE)locationBytes=readFileSync(resolve(process.env.V931_DATA_SOURCE));
+799559	receipt.sources.push({id:'dc-address-locations',url:locationSpec.input.url,sha256:sha(locationBytes),bytes:locationBytes.length,transport:process.env.V931_DATA_SOURCE?'explicit data-owner fixture, exact immutable bytes':'immutable HTTPS source'});
+799560	const priceSpec=JSON.parse(readFileSync(resolve(candidate,'contracts/prices.v931.json')));
+799561	const priceModel=await import(pathToFileURL(resolve(ROOT,'automation/price_daily_ui',priceSpec.producer.commit,'model.mjs')));
+799562	async function priceBytes(name,pin){
+799563	  let raw;if(process.env.V931_PRICE_SOURCE)raw=readFileSync(resolve(process.env.V931_PRICE_SOURCE,name));
+799564	  else{const response=await fetch(priceSpec.input.base+name,{redirect:'error',signal:AbortSignal.timeout(15000)});assert.ok(response.ok);raw=Buffer.from(await response.arrayBuffer());}
+799565	  assert.equal(raw.length,pin.bytes);assert.equal(sha(raw),pin.sha256);sourceBytes.set(priceSpec.input.base+name,raw);return raw;
+799566	const priceIndex=priceModel.validateIndex(JSON.parse(await priceBytes('index.json',priceSpec.input.index))),priceYears=new Map();
+799567	await Promise.all(priceIndex.parts.map(async part=>priceYears.set(part.year,{...JSON.parse(await priceBytes(part.path,part))})));
+799568	receipt.sources.push({id:'historical-daily-system-sell',repository:priceSpec.input.repository,commit:priceSpec.input.commit,index_sha256:priceSpec.input.index.sha256,index_bytes:priceSpec.input.index.bytes,annual_parts:priceIndex.parts.length,transport:process.env.V931_PRICE_SOURCE?'explicit existing owner bytes, every pin checked then replayed':'immutable HTTPS owner bytes, every pin checked then replayed'});
+799569	      const manifest=(corrupt==='dc-manifest'&&pathname.endsWith('/contracts/dc-locations.v930.json'))||(corrupt==='price-manifest'&&pathname.endsWith('/contracts/prices.v931.json'));
+799570	      const module=(corrupt==='dc-module'&&pathname.endsWith('/automation/dc_location_ui/'+locationSpec.producer.commit+'/actions.mjs'))||(corrupt==='price-module'&&pathname.endsWith('/automation/price_daily_ui/'+priceSpec.producer.commit+'/view.mjs'));
+799571	    if(sourceBytes.has(u)){let raw=sourceBytes.get(u);if((corrupt===true&&u===catalogue.layers.find(l=>l.id==='substations').data.url)||(corrupt==='dc-source'&&u===locationSpec.input.url)||(corrupt==='price-index'&&u===priceSpec.input.base+'index.json')||(corrupt==='price-year'&&u===priceSpec.input.base+'2026.json'))raw=Buffer.concat([raw,Buffer.from(' ')]);return route.fulfill({status:200,contentType:'application/json',body:raw});}receipt.blocked_external.push(u);return route.abort();});
+799572	  await context.addInitScript(()=>{
+799573	    window.__pricePaths=[];window.__priceLabels=[];window.__priceHollow=0;const paths=new WeakMap(),arcs=new WeakMap();
+799574	    for(const name of ['beginPath','moveTo','lineTo','stroke','fillText','arc','fill']){const original=CanvasRenderingContext2D.prototype[name];CanvasRenderingContext2D.prototype[name]=function(...args){
+799575	      if(this.canvas.closest('.pn-daily-prices')){
+799576	        if(name==='beginPath'){paths.set(this,[]);arcs.delete(this);}
+799577	        if(name==='moveTo'||name==='lineTo'){const p=paths.get(this)||[];p.push({kind:name,x:args[0],y:args[1]});paths.set(this,p);}
+799578	        if(name==='stroke'&&['#00ffff','#ffcc00','#ff3333'].includes(this.strokeStyle)&&(paths.get(this)||[]).length)window.__pricePaths.push({color:this.strokeStyle,points:paths.get(this).map(p=>({...p}))});
+799579	        if(name==='fillText')window.__priceLabels.push(String(args[0]));
+799580	        if(name==='arc')arcs.set(this,args[2]);
+799581	        if(name==='fill'&&arcs.get(this)===3&&this.fillStyle==='#05070c')window.__priceHollow++;
+799582	      }return original.apply(this,args);
+799583	    };}
+799584	  const exported=await download(page,page.locator('#datacentreHost button.ggdc-download'),`v931-dc-global-${width}.csv`);assert.deepEqual(exported.rows,baselineDCCsv.rows,'optional locations never rewrite original100-record CSV');
+799585	  await painted(page,'#datacentreHost tbody tr');await page.screenshot({path:resolve(OUT,`v931-dc-global-${width}.png`)});
+799586	async function resetPriceTrace(page){await page.evaluate(()=>{window.__pricePaths=[];window.__priceLabels=[];window.__priceHollow=0;});}
+799587	async function priceRange(page,end,days='30'){
+799588	  await resetPriceTrace(page);await page.getByLabel('Daily window',{exact:true}).selectOption(days);
+799589	  await page.getByLabel('Window end date',{exact:true}).fill(end);await page.getByLabel('Window end date',{exact:true}).dispatchEvent('change');
+799590	  await page.waitForFunction(()=>document.querySelector('.pn-daily-prices')?.dataset.state==='available');
+799591	async function assertPriceDrawing(page,rows){
+799592	  await page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
+799593	  const actual=await page.locator('#pricesLayerHost canvas').evaluate(canvas=>{
+799594	    const r=canvas.getBoundingClientRect(),pixels=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;let colored=0;
+799595	    for(let i=0;i<pixels.length;i+=4)if(pixels[i+1]>150&&(pixels[i]>150||pixels[i+2]>150))colored++;
+799596	    return{series:JSON.parse(canvas.dataset.series),paths:window.__pricePaths,labels:window.__priceLabels,hollow:window.__priceHollow,canvas:{width:r.width,height:r.height,backingWidth:canvas.width,backingHeight:canvas.height,colored}};
+799597	  const fields=[['maximum_observed_gbp_per_mwh','#ffcc00'],['mean_available_gbp_per_mwh','#00ffff'],['minimum_observed_gbp_per_mwh','#ff3333']];
+799598	  for(const [field,color] of fields){const groups=priceModel.segments(rows,field),receipt=actual.series.find(s=>s.field===field);assert.deepEqual(receipt.segments,groups.map(g=>g.map(p=>p.date)));
+799599	    const draws=actual.paths.filter(p=>p.color===color).slice(-groups.length);assert.deepEqual(draws.map(p=>p.points.length),groups.map(g=>g.length),'actual Canvas2D paths preserve each source gap');
+799600	    assert.ok(draws.every(p=>p.points[0].kind==='moveTo'&&p.points.slice(1).every(q=>q.kind==='lineTo')));
+799601	  assert.ok(actual.canvas.width>=240&&actual.canvas.height>=300&&actual.canvas.colored>100,'actual chart paints visible colored pixels');return actual;
+799602	async function verifyPrices(page,width,requests){
+799603	  assert.equal(requests.filter(u=>u.startsWith(priceSpec.input.base)).length,0,'price source remains lazy until the owner category is opened');
+799604	  await tab(page,'pricesTab');await page.waitForFunction(()=>document.querySelector('#pricesLayerHost .pn-daily-prices')?.dataset.state==='available');
+799605	  assert.equal(await page.locator('#pricesLayerHost .pn-daily-prices').count(),1);assert.equal(await page.locator('#pricesLayerHost iframe').count(),0);
+799606	  assert.match(await page.locator('#pricesLayerHost .pnd-source').innerText(),/Latest source date: 2026-10-31.*historical Elexon system-sell.*GBP\/MWh/);
+799607	  assert.match(await page.locator('#pricesLayerHost .pnd-note').innerText(),/source-declared.*Complete source-day coverage does not certify stored UTC alignment/);
+799608	  assert.match(await page.locator('#pricesLayerHost .pnd-quality').innerText(),/106,668.*without timestamp repair/);
+799609	  assert.match(await page.locator('#pricesLayerHost .pnd-status').innerText(),/^2026-10-02 to 2026-10-31/);
+799610	  assert.deepEqual(requests.filter(u=>u.startsWith(priceSpec.input.base)).map(u=>u.slice(priceSpec.input.base.length)),['index.json','2026.json'],'only index and selected source year load');
+799611	  const defaultRows=priceYears.get(2026).rows.filter(r=>r.date>='2026-10-02'),drawing=await assertPriceDrawing(page,defaultRows);assert.ok(drawing.labels.some(t=>/LOW £-28\.49/.test(t)),'actual negative observed low remains a negative GBP chart annotation');
+799612	  assert.match(await page.locator('#pricesLayerHost .pnd-stats').innerText(),/-28\.49/);
+799613	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v931-prices-default-${width}.png`)});
+799614	  const disclosure=page.locator('#pricesLayerHost .pn-daily-prices > details');assert.equal(await disclosure.getAttribute('open'),null);await disclosure.locator('summary').click();
+799615	  assert.equal(await disclosure.getByRole('link',{name:'Pinned data index',exact:true}).getAttribute('href'),priceSpec.input.base+'index.json');assert.match(await disclosure.innerText(),/unweighted mean of available daily means.*Partial days can affect/);
+799616	  const original=page.locator('#pricesPanel').getByRole('link',{name:'Open the original electricity workspace',exact:true});assert.equal(await original.getAttribute('href'),'https://globalgrid2050.com/uk_energy_tracking_v6/');assert.equal(await original.getAttribute('target'),'_blank');
+799617	  await priceRange(page,'2026-07-04');await page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.startsWith('2026-06-05 to 2026-07-04'));
+799618	  const gapRows=priceYears.get(2026).rows.filter(r=>r.date>='2026-06-05'&&r.date<='2026-07-04'),gap=await assertPriceDrawing(page,gapRows);assert.equal(gap.series[1].segments.length,2);assert.ok(gap.hollow>=3,'partial day is drawn with hollow markers in every series');
+799619	  assert.match(await page.locator('#pricesLayerHost .pnd-coverage').innerText(),/16 complete source days.*1 partial.*13 missing/);
+799620	  assert.equal(await page.locator('#pricesLayerHost tbody tr').filter({hasText:'NO_OBSERVATIONS'}).count(),13);assert.equal(await page.locator('#pricesLayerHost tbody tr').filter({hasText:'PARTIAL_SOURCE_DAY'}).count(),1);
+799621	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v931-prices-gap-${width}.png`)});
+799622	  // No UI window is short enough to contain only the thirteen missing days.
+799623	  // Exercise the same imported canvas runtime against those actual owner rows.
+799624	  const missingRows=priceYears.get(2026).rows.filter(r=>r.date>='2026-06-18'&&r.date<='2026-06-30');
+799625	  const empty=await page.evaluate(async({url,rows})=>{const {drawDaily}=await import(url),host=document.getElementById('pricesLayerHost'),canvas=document.createElement('canvas');host.querySelector('.pn-daily-prices').append(canvas);canvas.style.width='300px';canvas.style.height='350px';window.__pricePaths=[];window.__priceLabels=[];const result=drawDaily(canvas,{start:'2026-06-18',end:'2026-06-30',rows});const answer={result,paths:window.__pricePaths.length,labels:window.__priceLabels};canvas.remove();return answer;},{url:origin+'/automation/price_daily_ui/'+priceSpec.producer.commit+'/canvas.mjs',rows:missingRows});
+799626	  assert.equal(empty.paths,0);assert.ok(empty.result.every(s=>s.segments.length===0));assert.ok(empty.labels.includes('No reported prices in this window'));
+799627	  await page.getByLabel('Source year',{exact:true}).selectOption('2025');await page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.startsWith('2025-01-01 to 2025-12-31'));assert.equal(await page.getByLabel('Daily window',{exact:true}).inputValue(),'year');assert.equal(await page.locator('#pricesLayerHost tbody tr').count(),365);
+799628	  await priceRange(page,'2099-01-01');assert.equal(await page.getByLabel('Window end date',{exact:true}).inputValue(),'2026-10-31');await page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.startsWith('2026-10-02 to 2026-10-31'));
+799629	  assert.equal(requests.filter(u=>u===priceSpec.input.base+'2026.json').length,1,'returning to accepted 2026 reuses immutable cache');assert.equal(requests.filter(u=>u===priceSpec.input.base+'2025.json').length,1);
+799630	  await tab(page,'solarTab');await tab(page,'pricesTab');assert.equal(await page.locator('#pricesLayerHost .pn-daily-prices').count(),1);assert.equal(requests.filter(u=>u===priceSpec.input.base+'index.json').length,1,'returning category reuses accepted index');
+799631	  await fullWidth(page);pass('historical daily host lazy index/year cache, actual Canvas2D negative/gapped/partial/empty paths, source clocks and bounded year/date controls',{width,defaultDays:30,gapMissingDays:13,actualAllMissingRuntimeProbe:true});
+799632	  if(!process.env.V931_ROTATION_ONLY){
+799633	  pass('frozen V9.30 browser CSV establishes complete original population',{rows:7775,sha256:oldCsv.sha256});
+799634	    if(width===1440){const actual=await download(page,page.locator('#exportInline'),'v931-all.csv');assert.deepEqual(actual.rows,oldCsv.rows);pass('all 7,775 exported CSV rows/fields/order equal frozen V9.30',{sha256:actual.sha256});}
+799635	    await verifyPrices(page,width,requests);
+799636	    await page.screenshot({path:resolve(OUT,`v931-solar-${width}.png`)});await tab(page,'gridTab');await page.screenshot({path:resolve(OUT,`v931-grid-${width}.png`)});
+799637	    const screenshot=await orientationScreenshot(session,`v931-dc-${name}.png`,size);states.push({name,...size,layout,paint,screenshot});
+799638	  const priceRotation=await open(browser,393,candidate,{mobile:true,height:851});await tab(priceRotation.page,'pricesTab');await priceRotation.page.waitForFunction(()=>document.querySelector('.pn-daily-prices')?.dataset.state==='available');
+799639	  await priceRange(priceRotation.page,'2026-07-04');await priceRotation.page.waitForFunction(()=>document.querySelector('.pnd-status').textContent.startsWith('2026-06-05 to 2026-07-04'));
+799640	  const priceSession=await priceRotation.context.newCDPSession(priceRotation.page),priceStates=[];
+799641	  for(const [name,size] of [['portrait',{width:393,height:851}],['landscape',{width:915,height:412}],['portrait-return',{width:393,height:851}]]){
+799642	    await priceRotation.page.setViewportSize(size);await priceSession.send('Emulation.setDeviceMetricsOverride',{...size,screenWidth:size.width,screenHeight:size.height,deviceScaleFactor:2.625,mobile:true,screenOrientation:{type:name==='landscape'?'landscapePrimary':'portraitPrimary',angle:name==='landscape'?90:0}});
+799643	    await priceRotation.page.waitForFunction(size=>Math.abs(innerWidth-size.width)<=1&&Math.abs(innerHeight-size.height)<=2,size);const layout=await fullWidth(priceRotation.page);
+799644	    assert.equal(await priceRotation.page.getByLabel('Window end date',{exact:true}).inputValue(),'2026-07-04');assert.equal(await priceRotation.page.locator('#pricesLayerHost .pn-daily-prices').count(),1);
+799645	    const chart=await assertPriceDrawing(priceRotation.page,priceYears.get(2026).rows.filter(r=>r.date>='2026-06-05'&&r.date<='2026-07-04'));await priceRotation.page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();
+799646	    const screenshot=await orientationScreenshot(priceSession,`v931-prices-${name}.png`,size);priceStates.push({name,...size,layout,canvas:chart.canvas,screenshot});
+799647	  assert.deepEqual(priceRotation.errors,[]);await priceRotation.context.close();pass('Android-UA/touch-emulated Prices rotation keeps one painted gap chart and selected source window',{states:priceStates,actualHandset:false});
+799648	  for(const corrupt of ['price-manifest','price-module','price-index','price-year']){
+799649	    const test=await open(browser,393,candidate,{corrupt});await tab(test.page,'pricesTab');await test.page.waitForFunction(()=>document.getElementById('pricesLayerHost')?.dataset.priceState==='unavailable');
+799650	    assert.equal(await test.page.locator('#pricesLayerHost canvas:visible').count(),0);assert.equal(await test.page.locator('#pricesLayerHost tbody tr').count(),0);assert.equal(await test.page.locator('#pricesLayerHost .pnd-stats:not([hidden])').count(),0);
+799651	    assert.equal(await test.page.locator('#pricesPanel').getByRole('link',{name:'Open the original electricity workspace',exact:true}).getAttribute('href'),'https://globalgrid2050.com/uk_energy_tracking_v6/');
+799652	    await allRepd(test.page);assert.equal(await test.page.locator('#tbody').getAttribute('data-total'),'7775');await tab(test.page,'datacentreTab');await test.page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available');
+799653	    assert.equal(await test.page.locator('#datacentreHost tbody tr').count(),54);assert.equal(await test.page.locator('#datacentreHost .ggdc-screen-actions').count(),34);await dcGlobal(test.page);assert.deepEqual(await dcOriginalLinks(test.page),baselineDCLinks);
+799654	    assert.deepEqual(test.errors,[]);await test.context.close();pass('price corruption withholds chart/results while all REPD rows, original workspace and DC locations/maps remain usable',{corrupt});
+799656	import {createStore} from '../price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/model.mjs';
+799657	import {SOURCE,dateMs,expectedPeriods,validateIndex,validateYear,readPinned,segments,summarise,trailingWindow} from '../price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/model.mjs';
+799659	const pin=path=>({path,bytes:100,sha256:'a'.repeat(64)});
+799660	const row=(date,mean,priced=48,expected=48)=>({date,expected_periods:expected,observed_periods:priced,priced_periods:priced,
+799661	 coverage_status:priced===0?'NO_OBSERVATIONS':priced===expected?'COMPLETE_SOURCE_DAY':'PARTIAL_SOURCE_DAY',utc_alignment_mismatches:0,
+799662	 price_coverage_pct:Math.round(100000000*priced/expected)/1000000,mean_available_gbp_per_mwh:mean,
+799663	 minimum_observed_gbp_per_mwh:mean===null?null:mean-10,maximum_observed_gbp_per_mwh:mean===null?null:mean+10});
+799665	 const rows=[row('2026-01-01',-5),row('2026-01-02',null,0),row('2026-01-03',15,24)];
+799666	 const part={...pin('2026.json'),year:2026,calendar_days:3,observed_days:2,complete_days:1,partial_days:1,missing_days:1};
+799667	 const index={schema:'data-gb-electricity.system-sell-daily.v1.index',unit:'GBP/MWh',price_basis:'ELEXON_SYSTEM_SELL_PRICE',
+799668	  first_date:'2026-01-01',last_date:'2026-01-03',rows:3,source_periods:72,observed_periods:72,priced_periods:72,
+799669	  utc_alignment_mismatches:0,producer_sha256:'b'.repeat(64),calendar_quality:'Source-declared dates retained',sources:pin('sources.json'),parquet:pin('daily.parquet'),parts:[part]};
+799670	 const data={schema:'data-gb-electricity.system-sell-daily.v1',year:2026,unit:'GBP/MWh',price_basis:'ELEXON_SYSTEM_SELL_PRICE',rows};return {index,part,data,rows};
+799671	test('GB spring and autumn days are46/50; ordinary leap days48',()=>{
+799672	 assert.equal(expectedPeriods('2026-03-29'),46);assert.equal(expectedPeriods('2026-10-25'),50);assert.equal(expectedPeriods('2016-10-30'),50);assert.equal(expectedPeriods('2024-02-29'),48);
+799673	 assert.throws(()=>dateMs('2026-02-29'));assert.throws(()=>expectedPeriods('1995-01-01'));
+799674	test('accepted daily schema distinguishes missing, partial and complete',()=>{
+799675	 const {index,part,data}=fixture();assert.equal(validateIndex(index),index);assert.equal(validateYear(data,part,index),data.rows);
+799676	test('index rejects swapped basis, traversal, duplicate years and false coverage',()=>{
+799677	 for(const mutate of [i=>i.price_basis='MARKET_INDEX',i=>i.parts[0].path='../2026.json',i=>i.parts.push(i.parts[0]),i=>i.parts[0].complete_days=2,i=>i.source_periods=73,i=>i.sources.path='https://bad.example/a']){
+799678	  const {index}=fixture();mutate(index);assert.throws(()=>validateIndex(index));
+799679	test('daily row validation rejects null-to-zero, fake completeness and impossible clocks',()=>{
+799680	 for(const mutate of [d=>d.rows[1].mean_available_gbp_per_mwh=0,d=>d.rows[2].coverage_status='COMPLETE_SOURCE_DAY',d=>d.rows[0].utc_alignment_mismatches=49,d=>d.rows[0].minimum_observed_gbp_per_mwh=100,d=>d.rows[2].date='2026-01-04']){
+799681	  const {index,part,data}=fixture();mutate(data);assert.throws(()=>validateYear(data,part,index));
+799682	test('negative values remain prices; missing days break every series withoutzero',()=>{
+799683	 const {rows}=fixture();for(const field of ['mean_available_gbp_per_mwh','minimum_observed_gbp_per_mwh','maximum_observed_gbp_per_mwh']){
+799684	  const result=segments(rows,field);assert.deepEqual(result.map(g=>g.map(p=>p.date)),[['2026-01-01'],['2026-01-03']]);
+799685	 assert.equal(segments(rows,'mean_available_gbp_per_mwh')[0][0].value,-5);
+799686	test('omitted calendar rows also break connected paths; realzero stays',()=>{
+799687	 const rows=[row('2026-01-01',0),row('2026-01-03',3)];const groups=segments(rows,'mean_available_gbp_per_mwh');
+799688	 assert.equal(groups.length,2);assert.equal(groups[0][0].value,0);
+799689	test('partial days are retained and marked; clock quality is independent',()=>{
+799690	 const {rows}=fixture();rows[0].utc_alignment_mismatches=48;
+799691	 const s=summarise(rows);assert.equal(s.clockMismatches,48);assert.equal(s.completeDays,1);assert.equal(s.partialDays,1);assert.equal(s.missingDays,1);
+799692	 assert.equal(s.dailyMean,5);assert.equal(s.priced,72);assert.equal(s.expected,144);assert.equal(s.low,-15);
+799693	 assert.equal(segments(rows,'mean_available_gbp_per_mwh')[1][0].partial,true);
+799694	test('all-missing windows have null summary values without an indicative baseline',()=>{
+799695	 const s=summarise([row('2026-01-01',null,0)]);assert.equal(s.dailyMean,null);assert.equal(s.high,null);assert.equal(s.low,null);
+799696	test('last30source days anchorOct31 even when wallclock differs',()=>{
+799697	 assert.deepEqual(trailingWindow('2026-10-31',30,'2016-01-01'),{start:'2026-10-02',end:'2026-10-31'});
+799698	 assert.deepEqual(trailingWindow('2016-01-03',30,'2016-01-01'),{start:'2016-01-01',end:'2016-01-03'});
+799699	 assert.throws(()=>trailingWindow('2026-10-31',1000,'2016-01-01'));
+799700	test('bounded immutable loader rejects changed, excessive and short bytes',async()=>{
+799701	 const raw=new TextEncoder().encode('{"fixture":"metadata only"}'),p={bytes:raw.length,sha256:sha(raw)},url=SOURCE.base+'2026.json';
+799702	 assert.deepEqual(await readPinned(url,p,async()=>new Response(raw)),{fixture:'metadata only'});
+799703	 await assert.rejects(readPinned(url,{...p,sha256:'0'.repeat(64)},async()=>new Response(raw)),/SHA/);
+799704	 await assert.rejects(readPinned(url,{...p,bytes:raw.length-1},async()=>new Response(raw)),/byte limit/);
+799705	 await assert.rejects(readPinned(url,{...p,bytes:raw.length+1},async()=>new Response(raw)),/exact bytes/);
+799706	test('invalid endpoint or bounds fail before transport; redirects andHTTPerrorsreject',async()=>{
+799707	 for(const [url,p] of [['https://127.0.0.1/',{bytes:2,sha256:'a'.repeat(64)}],[SOURCE.base+'../index.json',{bytes:2,sha256:'a'.repeat(64)}],[SOURCE.base+'index.json',{bytes:Infinity,sha256:'a'.repeat(64)}]]){
+799708	  let called=false;await assert.rejects(readPinned(url,p,async()=>{called=true;return new Response('{}');}));assert.equal(called,false);
+799709	 await assert.rejects(readPinned(SOURCE.base+'index.json',{bytes:2,sha256:sha('{}')},async()=>new Response('{}',{status:503})),/HTTP/);
+799710	 await assert.rejects(readPinned(SOURCE.base+'index.json',{bytes:2,sha256:sha('{}')},async()=>({ok:true,redirected:true})),/HTTP/);
+799711	const actualBytes=new Map();
+799712	async function actual(name){
+799713	 if(!actualBytes.has(name))actualBytes.set(name,(async()=>{
+799714	  if(process.env.V931_PRICE_SOURCE)return readFileSync(resolve(process.env.V931_PRICE_SOURCE,name));
+799715	  const response=await fetch(SOURCE.base+name,{redirect:'error',signal:AbortSignal.timeout(15000)});assert.ok(response.ok);return Buffer.from(await response.arrayBuffer());
+799716	 })());return actualBytes.get(name);
+799717	test('independent: nested accepted pins and cached rows cannot be changed or self-certify altered annual data',async()=>{
+799718	 const original=await actual('2017.json');const altered=Buffer.from(original);altered[altered.length-2]^=1;assert.equal(altered.length,original.length);
+799719	 let malicious=true;const store=await createStore(async url=>new Response(url.endsWith('/2017.json')&&malicious?altered:await actual(url.slice(SOURCE.base.length))));
+799720	 const part=store.index.parts.find(p=>p.year===2017),originalPin=structuredClone(part);
+799721	 assert(Object.isFrozen(store.index.parts)&&Object.isFrozen(part));
+799722	 for(const change of [()=>part.sha256=sha(altered),()=>part.path='2026.json',()=>store.index.parts.splice(1,1),()=>store.window=async()=>({})])assert.throws(change,TypeError);
+799723	 assert.deepEqual(part,originalPin);await assert.rejects(store.window('2017-01-01','2017-01-02'),/SHA-256/);
+799724	 malicious=false;const window=await store.window('2017-01-01','2017-01-02');assert.deepEqual(window.rows,JSON.parse(original).rows.slice(0,2));
+799725	 for(const change of [()=>window.rows[0].mean_available_gbp_per_mwh=99999,()=>window.rows.splice(0,1),()=>window.start='2099-01-01'])assert.throws(change,TypeError);
+799726	 assert.deepEqual((await store.window('2017-01-01','2017-01-02')).rows,JSON.parse(original).rows.slice(0,2));
+799727	test('independent: actual missing and partial source days stay distinct; negative history and source bounds survive',async()=>{
+799728	 const store=await createStore(async url=>new Response(await actual(url.slice(SOURCE.base.length))));
+799729	 const missing=await store.window('2026-06-18','2026-06-30');assert.equal(missing.rows.length,13);assert(missing.rows.every(r=>r.coverage_status==='NO_OBSERVATIONS'&&r.mean_available_gbp_per_mwh===null));
+799730	 assert.deepEqual(segments(missing.rows,'mean_available_gbp_per_mwh'),[]);assert.equal(summarise(missing.rows).dailyMean,null);
+799731	 const year=await store.window('2026-01-01','2026-10-31');assert(year.rows.some(r=>r.minimum_observed_gbp_per_mwh<0));assert.equal(summarise(year.rows).partialDays,1);
+799732	 const broken=segments(year.rows.filter(r=>r.date>='2026-06-15'&&r.date<='2026-07-02'),'mean_available_gbp_per_mwh');assert.equal(broken.length,2);assert.equal(broken[0].at(-1).date,'2026-06-17');assert.equal(broken[1][0].date,'2026-07-01');
+799733	 const clamped=await store.window('2026-10-25','2099-01-01');assert.equal(clamped.end,'2026-10-31');assert.equal(clamped.rows.length,7);
+799734	/** Exact-source and historical-preservation acceptance for the formal V9.31 edition. */
+799735	const sourceBase=process.env.V931_BASE_SHA||execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+799736	const out=process.env.V931_OUT;
+799737	  const priceContractBytes=bytes(resolve(candidate,'contracts/prices.v931.json')),priceContract=JSON.parse(priceContractBytes);
+799738	  const priceProducer='78d5360239e1a5fcffa83fcb30d5937c5521acb9',priceCache=resolve(ROOT,'automation/price_daily_ui',priceProducer);
+799739	  assert.equal(priceContract.producer.commit,priceProducer);assert.deepEqual(Object.keys(priceContract.files).sort(),['canvas.mjs','model.mjs','styles.css','view.mjs']);
+799740	  for(const [name,pin] of Object.entries(priceContract.files)){
+799741	    const raw=bytes(resolve(priceCache,name)),donor=execFileSync('git',['show',priceProducer+':automation/news/price-daily-ui/'+name],{cwd:ROOT});
+799742	    assert.deepEqual(raw,donor,name+' actual accepted producer bytes');assert.equal(raw.length,pin.bytes);assert.equal(hash(raw),pin.sha256);
+799743	  const priceBoot=bytes(resolve(candidate,'scripts/plugins/prices-v931.mjs')).toString('utf8');assert.ok(priceBoot.includes("const manifestHash = '"+hash(priceContractBytes)+"'"));
+799744	  const priceModel=await import(pathToFileURL(resolve(priceCache,'model.mjs')));assert.deepEqual(priceContract.input,priceModel.SOURCE);
+799745	  assert.equal(priceModel.SOURCE.commit,'cf48c8d6fdd9ab686c4af7261149d81a0129f7fc');assert.equal(priceModel.SOURCE.index.sha256,'3c3ad8e0d8169b4bc253dabbad2a7d35b64984f40accce1abd016e1ca15a1e8e');assert.equal(priceModel.SOURCE.index.bytes,3616);
+799746	  async function priceInput(name,pin){
+799747	    let raw;if(process.env.V931_PRICE_SOURCE)raw=bytes(resolve(process.env.V931_PRICE_SOURCE,name));
+799748	    else{const response=await fetch(priceModel.SOURCE.base+name,{redirect:'error',signal:AbortSignal.timeout(15000)});assert.ok(response.ok);raw=Buffer.from(await response.arrayBuffer());}
+799749	    assert.equal(raw.length,pin.bytes);assert.equal(hash(raw),pin.sha256,name+' immutable source bytes');return raw;
+799750	  const priceIndex=priceModel.validateIndex(JSON.parse(await priceInput('index.json',priceModel.SOURCE.index)));
+799751	  const annualRows=(await Promise.all(priceIndex.parts.map(async part=>priceModel.validateYear(JSON.parse(await priceInput(part.path,part)),part,priceIndex)))).flat();
+799752	  const priceSources=JSON.parse(await priceInput(priceIndex.sources.path,priceIndex.sources));await priceInput(priceIndex.parquet.path,priceIndex.parquet);
+799753	  const priceSummary=priceModel.summarise(annualRows),expected={daily_rows:annualRows.length,source_parts:priceSources.files.length,source_prices:priceSummary.priced,complete_days:priceSummary.completeDays,partial_days:priceSummary.partialDays,missing_days:priceSummary.missingDays,utc_disagreements:priceSummary.clockMismatches,first_date:annualRows[0].date,last_date:annualRows.at(-1).date};
+799754	  assert.deepEqual(expected,{daily_rows:3957,source_parts:188,source_prices:189270,complete_days:3919,partial_days:25,missing_days:13,utc_disagreements:106668,first_date:'2016-01-01',last_date:'2026-10-31'});assert.deepEqual(priceContract.expected,expected);
+799755	  assert.equal(priceSources.input_grain.rows,189270);assert.equal(priceSources.utc_alignment_mismatches,106668);assert.equal(new Set(priceSources.files.map(p=>p.path)).size,188);
+799756	  assert.match(priceIndex.calendar_quality,/Source-declared/);assert.match(priceContract.scope,/no interpolation.*realtime/);
+799757	  pass('four exact price donor blobs and accepted source/index/annual/hash provenance preserve source-day gaps/partial/UTC distinctions',{producer:priceProducer,source:priceModel.SOURCE.commit,runtime_bytes:Object.values(priceContract.files).reduce((n,p)=>n+p.bytes,0),expected,transport:process.env.V931_PRICE_SOURCE?'existing data-owner bytes matched to immutable pins':'immutable source-owner HTTPS'});
+799758	  if(process.env.V931_DATA_SOURCE){input=bytes(resolve(process.env.V931_DATA_SOURCE));transport='explicit existing data-owner file, byte checked';}
+799759	  assert.ok(pageSource.includes('integrity="sha256-'+createHash('sha256').update(bytes(resolve(priceCache,'styles.css'))).digest('base64')+'"'),'price CSS SRI');
+799760	  assert.ok(pageSource.includes('https://globalgrid2050.com/uk_energy_tracking_v6/'),'original independent V6 workspace link retained');
+799761	  assert.ok(!bytes(resolve(candidate,'scripts/plugins/layers-v929.mjs')).toString('utf8').includes("prices: {host:"),'only the new price owner mounts the Prices category');
+799762	  for(const required of ['class="release-header"','aria-label="Pipeline navigation"','../versions.html','../202611170147/','id="mapAtlasNav"','id="export"'])assert.ok(pageSource.includes(required),'compact navigation retains '+required);
+799763	  pass('all 7,775 official records and order equal frozen V9.30; 3,604 solar',{records:7775,solar:3604});
+799764	  pass('ordered immutable Solar-1000 and provisional receipt bytes equal frozen V9.30',{sha256:hash(bytes(resolve(candidate,'solar1000/manifest.json')))});
+799765	/** Real integrated V9.32 browser acceptance against exact source-byte fixtures. */
+799766	const EDITION=process.env.V932_CANDIDATE||'uk_renewables_pipeline/202611170324';
+799767	const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611170243');
+799768	const OUT=resolve(process.env.V932_OUT||resolve(tmpdir(),'gg2050-v932-preview'));
+799769	const {chromium}=process.env.V932_PLAYWRIGHT
+799770	  ? await import(pathToFileURL(resolve(process.env.V932_PLAYWRIGHT))) : await import('playwright');
+799771	if(process.env.V932_DATA_SOURCE)locationBytes=readFileSync(resolve(process.env.V932_DATA_SOURCE));
+799772	receipt.sources.push({id:'dc-address-locations',url:locationSpec.input.url,sha256:sha(locationBytes),bytes:locationBytes.length,transport:process.env.V932_DATA_SOURCE?'explicit data-owner fixture, exact immutable bytes':'immutable HTTPS source'});
+799773	let baselineDCLinks,baselineDCCsv,baselineHeadlineHas,baselineNoteButtons={},baselineHeadlineLinks=[];
+799774	const primarySpec=JSON.parse(readFileSync(resolve(candidate,'contracts/primary-notes.v932.json')));
+799775	const primaryCache=resolve(ROOT,'automation/primary_note_ui',primarySpec.producer.commit),primaryData=JSON.parse(readFileSync(resolve(primaryCache,'notes.json'))),primaryNote=primaryData.notes[0];
+799776	const canonicalManifest=JSON.parse(readFileSync(resolve(candidate,'data/v9.1/build_manifest.json'))),canonicalRefs=canonicalManifest.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(candidate,p.path))).projects.map(r=>r.repd_ref));
+799777	receipt.sources.push({id:'curated-primary-government-decision',producer:primarySpec.producer.commit,pdf_sha256:primaryNote.source.sha256,pdf_bytes:primaryNote.source.bytes,decision_date:primaryNote.claim.decision_date,retrieved_at:primaryNote.source.retrieved_at,transport:'exact local reviewed cartridge; no fresh PDF/terms request'});
+799778	  let raw;if(process.env.V932_PRICE_SOURCE)raw=readFileSync(resolve(process.env.V932_PRICE_SOURCE,name));
+799779	receipt.sources.push({id:'historical-daily-system-sell',repository:priceSpec.input.repository,commit:priceSpec.input.commit,index_sha256:priceSpec.input.index.sha256,index_bytes:priceSpec.input.index.bytes,annual_parts:priceIndex.parts.length,transport:process.env.V932_PRICE_SOURCE?'explicit existing owner bytes, every pin checked then replayed':'immutable HTTPS owner bytes, every pin checked then replayed'});
+799780	      const primaryManifest=corrupt==='primary-manifest'&&pathname.endsWith('/contracts/primary-notes.v932.json');
+799781	      const primaryPaths={'primary-model':'model.mjs','primary-catalogue':'catalogue.mjs','primary-json':'notes.json','primary-mime':'notes.json'};
+799782	      const primaryFile=primaryPaths[corrupt]&&pathname.endsWith('/automation/primary_note_ui/'+primarySpec.producer.commit+'/'+primaryPaths[corrupt]);
+799783	      const primaryRenderer=corrupt==='primary-renderer'&&pathname.endsWith('/'+primarySpec.renderer.path);
+799784	      if(primaryManifest||primaryFile||primaryRenderer){const raw=readFileSync(resolve(ROOT,'.'+pathname)),json=pathname.endsWith('.json');return route.fulfill({status:200,contentType:corrupt==='primary-mime'?'text/plain':json?'application/json':'text/javascript',body:corrupt==='primary-mime'?raw:Buffer.concat([raw,Buffer.from(' ')])});}
+799785	  if(corrupt==='primary-evaluation')await context.addInitScript(()=>{const OriginalDate=Date;window.Date=class extends OriginalDate{constructor(...args){super(...(args.length?args:['2026-11-17T03:16:19.999Z']));}static now(){return new OriginalDate('2026-11-17T03:16:19.999Z').getTime();}};});
+799786	async function headlineHas(page){return page.evaluate(refs=>Object.fromEntries(refs.map(ref=>[ref,window.pipelineMachineNotes.has(ref)])),canonicalRefs);}
+799787	async function noteButton(page,ref){
+799788	  await page.locator('#search').fill(ref);await page.waitForFunction(ref=>!!document.getElementById('repd-'+ref),ref);
+799789	  const selector='#repd-'+ref+' .machine-note-button:visible',button=page.locator(selector).first();await painted(page,selector);return button;
+799790	async function existingBriefLinks(page){return page.locator('.machine-note-dialog .machine-note-source a').evaluateAll(nodes=>nodes.map(n=>({href:n.href,text:n.textContent})));}
+799791	async function verifyPrimary(page,width,requests){
+799792	  await page.waitForFunction(()=>document.documentElement.dataset.primaryNotesState==='available');assert.deepEqual(await headlineHas(page),baselineHeadlineHas,'primary source does not alter any of7775 legacy headline.has booleans');
+799793	  const requestsBefore=requests.filter(u=>u.includes('/data/v9.1/projects/')).length;
+799794	  await allRepd(page);const button=await noteButton(page,'12588'),map=await page.locator('#repd-12588 .atlaslink').getAttribute('href');assert.match(await button.innerText(),/PROVISIONAL.*GOVERNMENT DECISION.*10 NOV 2026/s);
+799795	  assert.deepEqual(await page.locator('[data-note-primary]').evaluateAll(nodes=>[...new Set(nodes.map(n=>n.dataset.noteRef))]),['12588']);await button.click();
+799796	  const dialog=page.locator('.machine-note-dialog[open]');assert.equal(await dialog.count(),1);assert.equal(await dialog.locator('.machine-note-primary').count(),1);assert.equal(await page.locator('main > section').count(),2);
+799797	  const text=await dialog.innerText();assert.match(text,/PRIMARY GOVERNMENT SOURCE - PROVISIONAL PROJECT ASSOCIATION/);assert.match(text,/OFFICIAL SOURCE STATUS \(FROZEN REPD\).*Application Submitted/);assert.match(text,/Primary government decision/);assert.match(text,/10 Nov 2026/);assert.match(text,/11 November|2026-11-11/);
+799798	  const primary=dialog.locator('.machine-note-primary');assert.equal(await primary.getByRole('link',{name:'Open the government decision letter',exact:true}).getAttribute('href'),primaryNote.source.url);assert.deepEqual(await dialog.locator('.machine-note-source:not(.machine-note-primary) a').evaluateAll(nodes=>nodes.map(n=>({href:n.href,text:n.textContent}))),baselineHeadlineLinks);
+799799	  const details=primary.locator('details');assert.equal(await details.getAttribute('open'),null);await details.locator('summary').click();const qualified=await primary.innerText();
+799800	  for(const expected of ['Application Submitted','14 Nov 2024','15 Nov 2024','840 MW','final reduced capacity is not established','judicial review status remain unknown',primaryNote.source.retrieved_at,primaryNote.source.sha256,'1,247,918 bytes',primaryNote.rights.attribution,'government-authored decision facts','third-party','No official endorsement'])assert.ok(qualified.includes(expected),expected+' retained in primary qualifications');
+799801	  assert.equal(await primary.getByRole('link',{name:'Open Government Licence v3.0',exact:true}).getAttribute('href'),primaryNote.rights.licence_url);assert.doesNotMatch(await primary.innerText(),/VERIFIED association|final (?:reduced )?capacity (?:is|of) 840/i);
+799802	  await page.screenshot({path:resolve(OUT,`v932-primary-brief-${width}.png`)});await page.keyboard.press('Escape');assert.equal(await page.locator('.machine-note-dialog[open]').count(),0);assert.equal(await button.evaluate(n=>n===document.activeElement),true,'native dialog restores opener focus');assert.equal(await page.locator('#repd-12588 .atlaslink').getAttribute('href'),map);
+799803	  for(const ref of ['10529','18174']){const other=await noteButton(page,ref);assert.equal(await other.getAttribute('data-note-primary'),null);assert.equal(await other.innerText(),baselineNoteButtons[ref]);}
+799804	  await allRepd(page);await page.locator('.pager-btn[data-page-step="1"]').click();await page.waitForFunction(()=>document.querySelector('.pager-meta')?.textContent.includes('21'));assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');
+799805	  const again=await noteButton(page,'12588');assert.equal(await again.getAttribute('data-note-primary'),'provisional');assert.equal(requests.filter(u=>u.includes('/data/v9.1/projects/')).length,requestsBefore,'opening/filtering primary notes does not refetch canonical partitions');
+799806	  await allRepd(page);pass('unique12588 provisional primary brief preserves7775 headline.has states, original headline links, frozen status, dates/rights/nulls, MAP, keyboard focus and rerenders',{width});
+799807	  const exported=await download(page,page.locator('#datacentreHost button.ggdc-download'),`v932-dc-global-${width}.csv`);assert.deepEqual(exported.rows,baselineDCCsv.rows,'optional locations never rewrite original100-record CSV');
+799808	  await painted(page,'#datacentreHost tbody tr');await page.screenshot({path:resolve(OUT,`v932-dc-global-${width}.png`)});
+799809	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v932-prices-default-${width}.png`)});
+799810	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v932-prices-gap-${width}.png`)});
+799811	  if(!process.env.V932_ROTATION_ONLY){
+799812	  await tab(b.page,'datacentreTab');await b.page.waitForFunction(()=>document.querySelectorAll('#datacentreHost tbody tr').length===54);await dcGlobal(b.page);baselineDCLinks=await dcOriginalLinks(b.page);baselineDCCsv=await download(b.page,b.page.locator('#datacentreHost button.ggdc-download'),'v931-dc-global.csv');
+799813	  await allRepd(b.page);baselineHeadlineHas=await headlineHas(b.page);
+799814	  for(const ref of ['12588','10529','18174']){const button=await noteButton(b.page,ref);baselineNoteButtons[ref]=await button.innerText();if(ref==='12588'){await button.click();baselineHeadlineLinks=await existingBriefLinks(b.page);await b.page.keyboard.press('Escape');}}
+799815	  await b.context.close();
+799816	  pass('frozen V9.31 browser CSV establishes complete original population',{rows:7775,sha256:oldCsv.sha256});
+799817	    await verifyPrimary(page,width,requests);
+799818	    if(width===1440){const actual=await download(page,page.locator('#exportInline'),'v932-all.csv');assert.deepEqual(actual.rows,oldCsv.rows);pass('all 7,775 exported CSV rows/fields/order equal frozen V9.31',{sha256:actual.sha256});}
+799819	    await page.screenshot({path:resolve(OUT,`v932-solar-${width}.png`)});await tab(page,'gridTab');await page.screenshot({path:resolve(OUT,`v932-grid-${width}.png`)});
+799820	    const screenshot=await orientationScreenshot(session,`v932-dc-${name}.png`,size);states.push({name,...size,layout,paint,screenshot});
+799821	    const screenshot=await orientationScreenshot(priceSession,`v932-prices-${name}.png`,size);priceStates.push({name,...size,layout,canvas:chart.canvas,screenshot});
+799822	  const primaryRotation=await open(browser,393,candidate,{mobile:true,height:851});await primaryRotation.page.waitForFunction(()=>document.documentElement.dataset.primaryNotesState==='available');await allRepd(primaryRotation.page);await (await noteButton(primaryRotation.page,'12588')).tap();
+799823	  await primaryRotation.page.locator('.machine-note-primary details summary').tap();const primarySession=await primaryRotation.context.newCDPSession(primaryRotation.page),primaryStates=[];
+799824	    await primaryRotation.page.setViewportSize(size);await primarySession.send('Emulation.setDeviceMetricsOverride',{...size,screenWidth:size.width,screenHeight:size.height,deviceScaleFactor:2.625,mobile:true,screenOrientation:{type:name==='landscape'?'landscapePrimary':'portraitPrimary',angle:name==='landscape'?90:0}});await primaryRotation.page.waitForFunction(size=>Math.abs(innerWidth-size.width)<=1&&Math.abs(innerHeight-size.height)<=2,size);
+799825	    const layout=await fullWidth(primaryRotation.page),paint=await painted(primaryRotation.page,'.machine-note-primary h3');assert.equal(await primaryRotation.page.locator('.machine-note-primary').count(),1);assert.equal(await primaryRotation.page.locator('.machine-note-primary details').getAttribute('open'),'');assert.equal(await primaryRotation.page.locator('#search').inputValue(),'12588');
+799826	    const screenshot=await orientationScreenshot(primarySession,`v932-primary-${name}.png`,size);primaryStates.push({name,...size,layout,paint,screenshot});
+799827	  await primaryRotation.page.keyboard.press('Escape');assert.equal(await primaryRotation.page.locator('.machine-note-dialog[open]').count(),0);assert.deepEqual(primaryRotation.errors,[]);await primaryRotation.context.close();pass('Android-UA/touch-emulated primary dialog rotates without losing provisional details/search/frozen record',{states:primaryStates,actualHandset:false});
+799828	  for(const corrupt of ['primary-manifest','primary-model','primary-catalogue','primary-json','primary-mime','primary-renderer','primary-evaluation']){
+799829	    const test=await open(browser,393,candidate,{corrupt});await test.page.waitForFunction(()=>document.documentElement.dataset.primaryNotesState==='unavailable');await test.page.waitForFunction(()=>!/^loading/i.test(document.getElementById('newsMeta')?.textContent||'loading'));
+799830	    assert.deepEqual(await headlineHas(test.page),baselineHeadlineHas);assert.equal(await test.page.locator('[data-note-primary]').count(),0);await allRepd(test.page);const button=await noteButton(test.page,'12588');assert.equal(await button.innerText(),baselineNoteButtons['12588']);await button.click();assert.equal(await test.page.locator('.machine-note-dialog .machine-note-primary').count(),0);assert.deepEqual(await existingBriefLinks(test.page),baselineHeadlineLinks);assert.match(await test.page.locator('.machine-note-dialog').innerText(),/OFFICIAL SOURCE STATUS \(FROZEN REPD\).*Application Submitted/);await test.page.keyboard.press('Escape');
+799831	    await allRepd(test.page);assert.equal(await test.page.locator('#tbody').getAttribute('data-total'),'7775');await tab(test.page,'datacentreTab');await test.page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available');assert.equal(await test.page.locator('#datacentreHost tbody tr').count(),54);assert.equal(await test.page.locator('#datacentreHost .ggdc-screen-actions').count(),34);
+799832	    await tab(test.page,'pricesTab');await test.page.waitForFunction(()=>document.querySelector('.pn-daily-prices')?.dataset.state==='available');assert.match(await test.page.locator('.pnd-status').innerText(),/^2026-10-02 to 2026-10-31/);assert.deepEqual(test.errors,[]);await test.context.close();pass('invalid primary cartridge/evaluation withholds only primary source; original headline brief/7775REPD/DC/Prices remain usable',{corrupt});
+799833	import {buildPrimaryNotes,CURATED_NOTES,utcInstant} from '../primary_note_ui/b5eed3d2ae878c78e5153be06ef531c11fff2148/model.mjs';
+799834	import {CATALOGUE} from '../primary_note_ui/b5eed3d2ae878c78e5153be06ef531c11fff2148/catalogue.mjs';
+799835	const AS_OF='2026-11-17T03:16:20Z',copy=value=>JSON.parse(JSON.stringify(value));
+799836	// Actual reviewed canonical target. Remaining fixture rows are explicitly synthetic.
+799837	const TARGET={repd_ref:'12588',gg_project_id:'GG2050-REPD-12588',planning_application_reference:'EN010147',
+799838	 name:'Botley West, Botley - Botley West Solar Project',operator:'Photovolt Development Partners & SolarFive',county:'Oxfordshire',country:'England',technology:'solar',
+799839	 capacity_known:true,capacity_mw:840,status:'Application Submitted',repd_record_updated:'2024-12-16',planning_application_submitted:'2024-11-15',latitude:51.8132088,longitude:-1.3489728};
+799840	function projects(){return [copy(TARGET),...Array.from({length:7774},(_,i)=>({repd_ref:String(500000+i),gg_project_id:'GG2050-REPD-'+(500000+i),name:'SYNTHETIC UNRELATED '+i,planning_application_reference:null}))];}
+799841	const evaluate=(rows=projects(),records=copy(CURATED_NOTES.notes),asOf=AS_OF)=>buildPrimaryNotes(rows,{records,asOf});
+799842	test('actual canonical target binds one frozen provisional note andzero verifieddelta',()=>{
+799843	 const result=evaluate(),note=result.by_repd_ref['12588'][0];
+799844	 assert.equal(result.association_count,1);assert.equal(result.verified_count,0);assert.equal(result.solar1000_verified_delta,0);
+799845	 assert.equal(note.association,'PROVISIONAL');assert.equal(result.by_project_id['GG2050-REPD-12588'][0],note);
+799846	 assert.equal(note.claim.decision_date,'2026-11-10');assert.equal(note.news_metadata.published_at,'2026-11-11T12:29:34Z');
+799847	 assert.equal(note.claim.capacity_context.final_reduced_capacity_mw,null);assert.equal(note.claim.unknowns.judicial_review_status,null);
+799848	 assert.equal(CATALOGUE.canonical.fields.status,'Application Submitted');
+799849	test('whole accepted canonical population is required; empty input doesnotinventbinding',()=>{
+799850	 assert.throws(()=>evaluate([copy(TARGET)]),/population/);assert.throws(()=>evaluate([]),/population/);
+799851	 assert.equal(evaluate(projects(),[]).association_count,0);
+799852	test('homonym IDs and local planning references are rejected',()=>{
+799853	 for(const [ref,planning] of [['10529','P23/V2624/FUL'],['18174','P24/V2489/FUL']]){
+799854	  const rows=projects();Object.assign(rows[0],{repd_ref:ref,gg_project_id:'GG2050-REPD-'+ref,planning_application_reference:planning,name:'Botley - Solar Photovoltaic Array',operator:'Red House Solar Limited',capacity_mw:49.99});
+799855	  assert.throws(()=>evaluate(rows),/planning reference/);
+799856	test('wrong exact identity, developer, country, point or frozenstatus withholds',()=>{
+799857	 for(const [field,value] of [['operator','Other Developer'],['country','Germany'],['name','Botley'],['county','Hampshire'],['latitude',null],['longitude',-1.3052428],['capacity_mw',49.99],['status','Application Refused'],['planning_application_submitted','2024-11-14'],['repd_record_updated','2026-11-10']]){
+799858	  const rows=projects();rows[0][field]=value;assert.throws(()=>evaluate(rows),/canonical/);
+799859	 const rows=projects();rows[0].repd_ref='10529';rows[0].gg_project_id='GG2050-REPD-10529';assert.throws(()=>evaluate(rows),/canonical repd_ref/);
+799860	test('duplicate canonical identities or a second EN010147 cannotbind',()=>{
+799861	 const duplicate=projects();duplicate[1]=copy(TARGET);assert.throws(()=>evaluate(duplicate),/duplicate canonical/);
+799862	 const shared=projects();shared[1].planning_application_reference='EN010147';assert.throws(()=>evaluate(shared),/unique/);
+799863	test('duplicate notes or bindings are rejected',()=>{
+799864	 const notes=copy(CURATED_NOTES.notes);assert.throws(()=>evaluate(projects(),[notes[0],copy(notes[0])]),/duplicate note/);
+799865	 const other=copy(notes[0]);other.id='OTHER';assert.throws(()=>evaluate(projects(),[notes[0],other]),/duplicate note/);
+799866	test('VERIFIED, currentcapacity and unsupported project claims are rejected',()=>{
+799867	 for(const mutate of [n=>n.association='VERIFIED',n=>n.claim.current_capacity_mw=840,n=>n.claim.capacity_context.final_reduced_capacity_mw=840,
+799868	  n=>n.claim.type='CONSTRUCTION_STARTED',n=>n.claim.statement='The project is cancelled and grid-connected.',n=>n.claim.unknowns.judicial_review_status='NONE',n=>n.verified_count=1]){
+799869	  const notes=copy(CURATED_NOTES.notes);mutate(notes[0]);assert.throws(()=>evaluate(projects(),notes));
+799870	test('unknown document, changed URL/hash/bytes and forged receipt reject',()=>{
+799871	 for(const mutate of [n=>n.source.id='unreviewed',n=>n.source.url=n.source.url.replace('002440','002441'),n=>n.source.sha256='0'.repeat(64),n=>n.source.bytes++,
+799872	  n=>n.source.headers['Last-Modified']='Wed, 11 Nov 2026 16:20:36 GMT',n=>n.evidence_review.status='CALLER_ACCEPTED']){
+799873	  const notes=copy(CURATED_NOTES.notes);mutate(notes[0]);assert.throws(()=>evaluate(projects(),notes),/catalogue/);
+799874	test('unsafe links cannotinheritrightsfromapublichostname',()=>{
+799875	 for(const url of ['javascript:alert(1)','http://www.gov.uk/','https://u:p@www.gov.uk/x','https://127.0.0.1/x','https://www.gov.uk/a#document']){
+799876	  const notes=copy(CURATED_NOTES.notes);notes[0].source.url=url;assert.throws(()=>evaluate(projects(),notes));
+799877	test('missing, unknown and broadened rights cannot selfapprove',()=>{
+799878	 for(const mutate of [n=>n.rights=null,n=>n.rights.status='UNKNOWN',n=>n.rights.status='ACCEPTED',n=>n.rights.terms_receipts=[],
+799879	  n=>n.rights.terms_receipts[0].sha256='a'.repeat(64),n=>n.rights.scope='ALL_PINS_DOCUMENTS',n=>n.rights.exclusions=[],n=>n.rights.attribution='']){
+799880	 assert.throws(()=>buildPrimaryNotes(projects(),{asOf:AS_OF,rightsAccepted:true}),/unsupported/);
+799881	test('future publication/retrieval/evaluation andmalformedclocks withhold',()=>{
+799882	 for(const mutate of [n=>n.source.retrieved_at='2026-11-18T00:00:00Z',n=>n.news_metadata.published_at='2026-11-18T00:00:00Z',
+799883	  n=>n.evidence_review.curated_at='2026-11-17T03:16:20.000000001Z',n=>n.source.document_date='2026-11-18']){
+799884	  const notes=copy(CURATED_NOTES.notes);mutate(notes[0]);assert.throws(()=>evaluate(projects(),notes),/future/);
+799885	 for(const value of ['2026-02-29T00:00:00Z','2026-11-17T24:00:00Z','2026-11-17T03:16:20+01:00','not-a-clock'])assert.throws(()=>evaluate(projects(),copy(CURATED_NOTES.notes),value));
+799886	 assert.throws(()=>evaluate(projects(),copy(CURATED_NOTES.notes),'2026-11-17T02:00:00Z'),/future/);
+799887	test('distinct chronology cannotbequietlyreconciledorrewritten',()=>{
+799888	 const notes=copy(CURATED_NOTES.notes);notes[0].news_metadata.first_seen='2026-11-10T00:00:00Z';assert.throws(()=>evaluate(projects(),notes),/chronology/);
+799889	 const altered=copy(CURATED_NOTES.notes);altered[0].claim.source_application_submitted='2024-11-15';assert.throws(()=>evaluate(projects(),altered),/claim/);
+799890	 assert(utcInstant('2026-11-17T03:16:20.000000001Z')>utcInstant(AS_OF));
+799891	test('source catalogue, curated inputs and returned records remainimmutable',()=>{
+799892	 const notes=copy(CURATED_NOTES.notes),rows=projects(),before=JSON.stringify(rows),result=evaluate(rows,notes),accepted=result.by_repd_ref['12588'][0];
+799894	 assert.equal(Reflect.set(CATALOGUE.source,'sha256','0'.repeat(64)),false);assert.equal(Reflect.set(CURATED_NOTES.notes[0].claim,'type','VERIFIED'),false);
+799895	 assert.equal(Reflect.set(accepted.rights.terms_receipts[0],'sha256','0'.repeat(64)),false);assert.equal(Reflect.set(result.by_repd_ref['12588'],'0',{}),false);
+799896	 notes[0].claim.statement='POISON';rows[0].operator='POISON';assert.notEqual(accepted.claim.statement,'POISON');assert.equal(accepted.association,'PROVISIONAL');
+799897	 assert.throws(()=>evaluate(projects(),notes));
+799898	test('hidden toJSON cannot replace a validated provisional note',()=>{
+799899	 const notes=copy(CURATED_NOTES.notes);let called=false;
+799900	 Object.defineProperty(notes[0],'toJSON',{enumerable:false,value(){called=true;return {association:'VERIFIED'};}});
+799901	 assert.throws(()=>evaluate(projects(),notes),/hidden fields/);assert.equal(called,false);
+799902	test('accessors and custom prototypes cannot change validated metadata',()=>{
+799903	 const notes=copy(CURATED_NOTES.notes);let calls=0;
+799904	 Object.defineProperty(notes[0],'source',{enumerable:true,get(){calls++;return copy(CATALOGUE.source);}});
+799905	 assert.throws(()=>evaluate(projects(),notes),/accessors/);assert.equal(calls,0);
+799906	 const rows=projects();Object.defineProperty(rows[0],'repd_ref',{get(){return '12588';}});assert.throws(()=>evaluate(rows),/accessors/);
+799907	 const proto=copy(CURATED_NOTES.notes);Object.setPrototypeOf(proto[0],{selfApproved:true});assert.throws(()=>evaluate(projects(),proto),/prototype/);
+799908	test('caller filter cannot substitute a reviewed row into an invalid population',()=>{
+799909	 for(const enumerable of [true,false]){
+799910	  const rows=projects();rows[0].planning_application_reference='UNRELATED';rows[0].operator='Wrong Developer';let called=false;
+799911	  Object.defineProperty(rows,'filter',{enumerable,value(){called=true;return [copy(TARGET)];}});
+799912	  assert.throws(()=>evaluate(rows),/canonical array/);assert.equal(called,false);
+799913	test('canonical iterator/custom/prototype/sparse/accessor arrays reject withoutcalls',()=>{
+799914	 const changes=[
+799915	  (rows,called)=>Object.defineProperty(rows,Symbol.iterator,{value(){called.value++;return Array.prototype[Symbol.iterator].call(rows);}}),
+799916	  rows=>Object.defineProperty(rows,'selfApproved',{value:true}),
+799917	  rows=>Object.setPrototypeOf(rows,Object.create(Array.prototype)),
+799918	  rows=>delete rows[1],
+799919	  (rows,called)=>Object.defineProperty(rows,'0',{enumerable:true,get(){called.value++;return copy(TARGET);}})
+799920	 ];
+799921	 for(const change of changes){const rows=projects(),called={value:0};change(rows,called);assert.throws(()=>evaluate(rows),/canonical array/);assert.equal(called.value,0);}
+799922	function actualProjects(){const edition=resolve(process.env.V932_CANDIDATE||'uk_renewables_pipeline/202611170324'),manifest=JSON.parse(readFileSync(resolve(edition,'data/v9.1/build_manifest.json'))),rows=[];for(const part of manifest.project_partitions){const raw=readFileSync(resolve(edition,part.path));assert.equal(createHash('sha256').update(raw).digest('hex'),part.sha256);rows.push(...JSON.parse(raw).projects);}return rows;}
+799923	test('independent actual7775 population binds only12588 without changing canonical fields or Solar1000',()=>{
+799924	 const rows=actualProjects(),before=JSON.stringify(rows),result=buildPrimaryNotes(rows,{asOf:AS_OF});
+799925	 assert.equal(result.association_count,1);assert.deepEqual(Object.keys(result.by_repd_ref),['12588']);assert.equal(result.verified_count,0);assert.equal(result.solar1000_verified_delta,0);assert.equal(JSON.stringify(rows),before);
+799926	 const pilot=JSON.parse(readFileSync(resolve(process.env.V932_CANDIDATE||'uk_renewables_pipeline/202611170324','solar1000/manifest.json')));assert.equal(pilot.ids.length,1000);assert.equal(pilot.ids.includes('12588'),false);
+799927	 for(const ref of ['10529','18174'])assert.equal(result.by_repd_ref[ref],undefined);
+799928	test('independent actual canonical population cannot execute own filter/iterator to replace identity',()=>{
+799929	 for(const [key,value] of [['filter',()=>{throw Error('caller filter ran');}],[Symbol.iterator,()=>{throw Error('caller iterator ran');}]]){const rows=actualProjects();Object.defineProperty(rows,key,{value});assert.throws(()=>buildPrimaryNotes(rows,{asOf:AS_OF}),/canonical array/);}
+799930	 const rows=actualProjects();rows.find(r=>r.repd_ref==='12588').status='Application Refused';assert.throws(()=>buildPrimaryNotes(rows,{asOf:AS_OF}),/canonical status/);
+799931	test('independent actual note clocks preserve source dates, null capacity and narrow government rights',()=>{
+799932	 const rows=actualProjects();assert.throws(()=>buildPrimaryNotes(rows,{asOf:'2026-11-17T03:16:19.999999999Z'}),/future/);
+799933	 const note=buildPrimaryNotes(rows,{asOf:AS_OF}).by_repd_ref['12588'][0];assert.equal(note.source.document_date,'2026-11-10');assert.equal(note.news_metadata.published_at.slice(0,10),'2026-11-11');assert.equal(note.source.retrieved_at.slice(0,10),'2026-11-17');
+799934	 assert.equal(note.rights.scope,'GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY');assert.equal(note.news_metadata.publisher_content_rights,'NOT_ASSESSED');assert.equal(note.claim.capacity_context.final_reduced_capacity_mw,null);assert(Object.values(note.claim.unknowns).every(v=>v===null));assert.equal(Object.isFrozen(note.rights.terms_receipts[0]),true);
+799935	/** Exact-source and historical-preservation acceptance for the formal V9.32 edition. */
+799936	const sourceBase=process.env.V932_BASE_SHA||execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+799937	const out=process.env.V932_OUT;
+799938	  const primaryContractBytes=bytes(resolve(candidate,'contracts/primary-notes.v932.json')),primaryContract=JSON.parse(primaryContractBytes),primaryDonor='b5eed3d2ae878c78e5153be06ef531c11fff2148';
+799939	  assert.equal(primaryContract.schema,'globalgrid2050.primary-note-cartridge.v1');assert.equal(primaryContract.producer.commit,primaryDonor);assert.deepEqual(Object.keys(primaryContract.files).sort(),['catalogue.mjs','model.mjs','notes.json']);
+799940	  const primaryCache=resolve(ROOT,'automation/primary_note_ui',primaryDonor);
+799941	  for(const [name,pin] of Object.entries(primaryContract.files)){
+799942	    const raw=bytes(resolve(primaryCache,name)),donor=execFileSync('git',['show',primaryDonor+':'+pin.source_path],{cwd:ROOT});assert.deepEqual(raw,donor,name+' exact reviewed donor');assert.equal(raw.length,pin.bytes);assert.equal(hash(raw),pin.sha256);
+799943	  const renderer=bytes(resolve(ROOT,primaryContract.renderer.path));assert.equal(renderer.length,3748);assert.equal(hash(renderer),'45344a1ad8b3926811f7146bb0bdc458d605e688af30b286bec294fc5f0a4806');assert.equal(primaryContract.renderer.bytes,renderer.length);assert.equal(primaryContract.renderer.sha256,hash(renderer));
+799944	  assert.equal(createHash('sha1').update(Buffer.concat([Buffer.from(`blob ${renderer.length}\0`),renderer])).digest('hex'),primaryContract.renderer.git_blob);
+799945	  const primaryBoot=bytes(resolve(candidate,'scripts/plugins/primary-notes-v932.mjs')).toString('utf8');assert.ok(primaryBoot.includes("const manifestHash = '"+hash(primaryContractBytes)+"'"));assert.match(primaryBoot,/state\.canonicalModel\?\.projects/);assert.doesNotMatch(primaryBoot,/fetch\([^)]*projects|project_partitions/);
+799946	  const primaryModel=await import(pathToFileURL(resolve(primaryCache,'model.mjs'))),primaryCatalogue=(await import(pathToFileURL(resolve(primaryCache,'catalogue.mjs')))).CATALOGUE;
+799947	  assert.match(bytes(resolve(primaryCache,'model.mjs')).toString('utf8'),/import data from '\.\/notes\.json' with \{type:'json'\}/);
+799948	  const allCanonical=population(candidate),canonicalBefore=JSON.stringify(allCanonical),primaryIndex=primaryModel.buildPrimaryNotes(allCanonical,{asOf:new Date().toISOString()});
+799949	  assert.deepEqual(primaryContract.expected,{canonical_population:7775,associations:1,verified:0,solar1000_verified_delta:0});assert.equal(primaryIndex.association_count,1);assert.equal(primaryIndex.verified_count,0);assert.equal(primaryIndex.solar1000_verified_delta,0);assert.deepEqual(Object.keys(primaryIndex.by_repd_ref),['12588']);assert.equal(JSON.stringify(allCanonical),canonicalBefore);
+799950	  const primary=primaryIndex.by_repd_ref['12588'][0];assert.equal(primary.association,'PROVISIONAL');assert.equal(primary.source.sha256,'335eff9eed9c8e32658fe70186d2f02f4bf82a92ffbed1eaa835ac7ced0f857e');assert.equal(primary.source.bytes,1247918);assert.equal(primary.source.document_date,'2026-11-10');assert.equal(primary.news_metadata.published_at,'2026-11-11T12:29:34Z');assert.equal(primary.source.retrieved_at.slice(0,10),'2026-11-17');
+799951	  assert.equal(primary.rights.scope,'GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY');assert.equal(primary.rights.terms_receipts.length,2);assert.equal(primary.news_metadata.publisher_content_rights,'NOT_ASSESSED');assert.equal(primary.claim.capacity_context.original_application_repd_baseline_mw,840);assert.equal(primary.claim.capacity_context.final_reduced_capacity_mw,null);assert(Object.values(primary.claim.unknowns).every(v=>v===null));
+799952	  assert.equal(hash(bytes(resolve(ROOT,'uk_renewables_pipeline',primaryCatalogue.canonical.edition,primaryCatalogue.canonical.partition))),primaryCatalogue.canonical.partition_sha256);
+799953	  assert.equal(allCanonical.find(r=>r.repd_ref==='12588').status,'Application Submitted');assert.equal(primary.claim.source_application_submitted,'2024-11-14');assert.equal(primaryCatalogue.canonical.fields.planning_application_submitted,'2024-11-15');
+799954	  for(const ref of ['10529','18174'])assert.equal(primaryIndex.by_repd_ref[ref],undefined);
+799955	  assert.throws(()=>primaryModel.buildPrimaryNotes(allCanonical,{asOf:'2026-11-17T03:16:19.999999999Z'}),/future/);
+799956	  pass('three exact primary donor blobs and ROOT renderer preserve unique canonical provisional binding, receipt/rights/date/null distinctions',{producer:primaryDonor,runtime_bytes:Object.values(primaryContract.files).reduce((n,p)=>n+p.bytes,0),renderer_sha256:hash(renderer),canonical:7775,associations:1,verified:0,solar1000_verified_delta:0,source_document_sha256:primary.source.sha256});
+799957	    let raw;if(process.env.V932_PRICE_SOURCE)raw=bytes(resolve(process.env.V932_PRICE_SOURCE,name));
+799958	  pass('four exact price donor blobs and accepted source/index/annual/hash provenance preserve source-day gaps/partial/UTC distinctions',{producer:priceProducer,source:priceModel.SOURCE.commit,runtime_bytes:Object.values(priceContract.files).reduce((n,p)=>n+p.bytes,0),expected,transport:process.env.V932_PRICE_SOURCE?'existing data-owner bytes matched to immutable pins':'immutable source-owner HTTPS'});
+799959	  if(process.env.V932_DATA_SOURCE){input=bytes(resolve(process.env.V932_DATA_SOURCE));transport='explicit existing data-owner file, byte checked';}
+799960	  for(const required of ['class="release-header"','aria-label="Pipeline navigation"','../versions.html','../202611170243/','id="mapAtlasNav"','id="export"'])assert.ok(pageSource.includes(required),'compact navigation retains '+required);
+799961	  pass('all 7,775 official records and order equal frozen V9.31; 3,604 solar',{records:7775,solar:3604});
+799962	  pass('ordered immutable Solar-1000 and provisional receipt bytes equal frozen V9.31',{sha256:hash(bytes(resolve(candidate,'solar1000/manifest.json')))});
+800030	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">Open Pipeline News &rarr;</a></div></details>
+800031	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.28 ? October 2026 REPD ? Headlines and Pipeline</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div></details></td></tr>
+800032	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">Open Pipeline News &rarr;</a></div></details>
+800033	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.29 - full-width pipeline and Android rotation</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div></details></td></tr>
+800034	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">Open Pipeline News &rarr;</a></div></details>
+800035	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.30 - data-centre address screening</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div></details></td></tr>
+800036	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">Open Pipeline News &rarr;</a></div></details>
+800037	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.31 - daily historical system-sell prices</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div></details></td></tr>
+800044	BASELINE_IDS = frozenset({"Q12857142", "Q520438", "Q1277574", "Q11236058", "Q19721053", "Q142068471",
+800045	                          "Q142068695", "Q142068699", "Q138426651", "Q140089116", "Q139609394", "Q24259253"})
+800046	PARQUET = f"data/facilities/generation={HERE.parent.name}/source=WIKIDATA/global-data-centre-records-v1.parquet"
+800055	def compact_json(value):
+800056	    """Deterministic served bytes without redundant indentation."""
+800057	    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False) + "\n"
+800064	def selection_audit(facts):
+800065	    """Conservative lead screening; source descriptions are not verification."""
+800066	    candidates = facts["candidate_ids"]
+800067	    if len(candidates) > 200 or len(candidates) != len(set(candidates)):
+800068	        raise ValueError("Candidate query exceeds bound or duplicates IDs; quarantine required")
+800069	    if set(facts["baseline_ids"]) != BASELINE_IDS or not BASELINE_IDS <= set(candidates):
+800070	        raise ValueError("Original twelve identities changed; quarantine required")
+800071	    selected, rejected = [], []
+800072	    for entity_id in candidates:
+800073	        entity = facts["entities"][entity_id]
+800074	        description = entity.get("description", "")
+800076	        if entity_id not in BASELINE_IDS:
+800077	            if re.search(r"company|organizational unit|former|library automation|seven subject-based|supercomputer in the", description, re.I):
+800078	                reason = "Ambiguous company, organisation, aggregate, former or computing-service identity"
+800079	            elif not re.search(r"\bdata[ -]?cent(?:er|re)\b", description, re.I):
+800080	                reason = "Insufficient English site/campus description for prospecting"
+800082	            rejected.append({"id": "DC-WD-" + entity_id, "name": entity["label"],
+800083	                             "source_revision_url": revision_url(entity), "reason": reason})
+800084	            selected.append(entity_id)
+800085	    if selected != facts["selected_ids"]:
+800086	        raise ValueError("Pinned selection differs from conservative screening; quarantine required")
+800087	    return {"schema": "globalgrid2050.global-datacentres.selection-audit.v1", "rule": "bounded-site-description-v1",
+800088	            "candidate_count": len(candidates), "selected_count": len(selected), "quarantined_count": len(rejected),
+800089	            "baseline_preserved": True, "independently_verified": False,
+800090	            "query": facts["coverage_query"], "quarantined": rejected}
+800095	    selection = selection_audit(facts)
+800136	        if record["id"].removeprefix("DC-WD-") in BASELINE_IDS:
+800137	            semantic = {k: record[k] for k in ("id", "name", "country", "operator", "location", "capacity")}
+800138	            digest = hashlib.sha256(json.dumps(semantic, sort_keys=True, ensure_ascii=False, separators=(",", ":")).encode()).hexdigest()
+800139	            if facts["baseline_semantic_sha256"].get(record["id"]) != digest:
+800140	                raise ValueError("Original twelve semantic fields changed; quarantine required")
+800143	            "coverage": "Bounded Wikidata prospecting sample; not a comprehensive worldwide register or verified-facility census. Ambiguous source identities are quarantined; countries and facilities without selected records are not implied absent.",
+800146	            "candidate_count": selection["candidate_count"], "quarantined_count": selection["quarantined_count"],
+800203	        selection = selection_audit(json.loads(path.read_bytes()))
+800206	                 "row_count": len(rows), "distinct_source_ids": len({r[0] for r in rows}), "quarantined_rows": selection["quarantined_count"],
+800207	                 "candidate_rows": selection["candidate_count"],
+800216	            (out / "pipeline-audit.json").write_text(compact_json(audit), encoding="utf-8", newline="\n")
+800217	            (out / "selection-audit.json").write_text(compact_json(selection), encoding="utf-8", newline="\n")
+800220	    (HERE / "projects.json").write_text(compact_json(result), encoding="utf-8", newline="\n")
+800221	    print(f"Global source-indexed sample: {result['record_count']} leads, {result['country_count']} countries")
+800225	  <title>GlobalGrid2050 | Pipeline News V9.28 · 202611161757</title>
+800249	  <link rel="stylesheet" href="styles/preview-v928.css">
+800250	  <link rel="stylesheet" href="../../automation/news/datacentre-ui/styles.css">
+800251	  <link rel="stylesheet" href="../../automation/v928_context/preview/context.css">
+800252	  <link rel="stylesheet" href="../../automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/figures.css">
+800256	      <small>PIPELINE NEWS · V9.28</small>
+800259	      <a class="active" href="#">V9.28 · PIPELINE NEWS</a>
+800260	      <a href="../202611161244/">V9.24 · PREVIOUS SELECTED EDITION</a>
+800261	      <a href="../202611161747/">V9.27 · SOFTWARE PARENT</a>
+800308	    <p class="preview-status" data-edition="202611161757">V9.28 · 16 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+800311	        <h2 id="headlinesHeading">GLOBALGRID2050 <span>HEADLINES</span></h2>
+800340	    <section id="officialRegister" aria-labelledby="pipelineHeading" data-register-changes="inline-only">
+800341	      <h2 class="section-title" id="pipelineHeading">REPD PIPELINE ANALYTICS</h2>
+800342	      <div class="pipeline-tabs" role="tablist" aria-label="Pipeline categories">
+800343	        <button id="solarTab" role="tab" aria-selected="true" aria-controls="repdPanel" tabindex="0" data-view="solar">Solar</button>
+800344	        <button id="bessTab" role="tab" aria-selected="false" aria-controls="repdPanel" tabindex="-1" data-view="bess">BESS</button>
+800345	        <button id="gridTab" role="tab" aria-selected="false" aria-controls="gridPanel" tabindex="-1" data-view="grid">Grid</button>
+800346	        <button id="datacentreTab" role="tab" aria-selected="false" aria-controls="datacentrePanel" tabindex="-1" data-view="datacentre">Data Centres</button>
+800347	      <div id="repdPanel" role="tabpanel" aria-labelledby="solarTab"><span id="releaseMeta" hidden></span>
+800348	        <p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
+800382	    <details class="scope-notes"><summary>Register scope and MAP guidance</summary><div class="meta">
+800414	      <div id="gridPanel" role="tabpanel" aria-labelledby="gridTab" hidden>
+800415	        <p class="category-scope">Official UK grid information sources. This directory contains no independently approved project updates or available connection-capacity claims.</p>
+800416	        <div id="gridDirectory" aria-live="polite">Source directory unavailable.</div>
+800417	      <div id="datacentrePanel" role="tabpanel" aria-labelledby="datacentreTab" hidden>
+800418	        <div id="datacentreHost" aria-live="polite">Loading source-indexed leads…</div>
+800419	      <details id="contextDisclosure" class="scope-notes" hidden>
+800420	        <summary>Energy and data-centre context · historical and provisional</summary>
+800421	        <p class="category-scope">Dated provisional source context. It establishes no UK project association, current capacity or publication-rights approval.</p>
+800422	        <div id="contextHost" data-pipeline-context-host>Context unavailable.</div>
+800423	      <details class="scope-notes" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"><summary>Sources and research coverage</summary>
+800424	        <p class="category-scope" data-evidence-selection>Loading the unchanged 1,000-project research selection…</p>
+800425	        <p class="category-scope" data-evidence-status>Research evidence unavailable until source validation completes.</p>
+800426	        <p class="category-scope">7,775 official REPD records; 3,604 solar. The unchanged 1,000-project research selection has zero independently verified findings. Missing research is not evidence that no development exists.</p>
+800427	        <div class="meta" id="dataSources">
+800432	  <script type="module" src="scripts/app-v9-8.js?v=9.28"></script>
+800434	  <script defer src="scripts/plugins/live-news.js?v=9.28"></script>
+800436	  <script type="module" src="scripts/plugins/solar1000-v924.js?v=9.28"></script>
+800438	  <script defer src="scripts/plugins/register-changes.js?v=9.28"></script>
+800439	  <script src="../../automation/news/datacentre-ui/model.js"></script>
+800440	  <script src="../../automation/news/datacentre-ui/view.js"></script>
+800441	  <script type="module" src="scripts/plugins/preview-v928.js"></script>
+800570	    // Ranking remains an internal ordering signal. Public rows retain only
+800571	    // original headlines, source attribution, clocks and provisional links.
+800602	    status.textContent += ranked ? ' Source-aware headline order; original article dates shown separately.'
+800603	      : ' Showing publisher-date order.';
+800638	/* Non-live host composition. Modules retain their own owners and evidence states. */
+800639	const tabs = [...document.querySelectorAll('.pipeline-tabs [role="tab"]')];
+800640	const panels = ['repdPanel', 'gridPanel', 'datacentrePanel'].map(id => document.getElementById(id));
+800641	let dcStarted = false;
+800642	let gridStarted = false;
+800643	let defaultApplied = false;
+800644	const dcInputs = Object.freeze({
+800645	  urls: {
+800646	    projects: 'global-datacentres/projects.json',
+800647	    official: 'global-datacentres/official-projects.json',
+800648	    groups: 'global-datacentres/project-groups.json',
+800649	    audit: 'global-datacentres/selection-audit.json',
+800650	    baseline: '../202611161747/global-datacentres/projects.json',
+800651	  sha256: {
+800652	    projects: 'faf617d9979151b7d309554cb1cd59d343f70b9d60616f90db45e5c2a227d449',
+800653	    official: 'bcf6473bebe78e7a7dab566b1998ea51237d653c5a8584420690c2cea9a5180f',
+800654	    groups: 'b77afd5846a3c27697e49664fabb4c0020a81a88ccaa680fb5130f6d6d1b8970',
+800655	    audit: 'faa79b4651d62baee822b8e6f748e447d0b8aebbe1c8c13beafd81d973b1c592',
+800656	    baseline: '224b039d9801eea547ec4934b6e247f756ec7846e35c62ebe1774ef134597bae',
+800657	async function pinnedBytes(url, expected) {
+800658	  const response = await fetch(url, {cache: 'no-store'});
+800659	  if (!response.ok) throw new Error('Preview input unavailable');
+800661	  if (bytes.length > 2 * 1024 * 1024) throw new Error('Preview input exceeds bound');
+800662	  const hash = await crypto.subtle.digest('SHA-256', bytes);
+800663	  const hex = Array.from(new Uint8Array(hash), x => x.toString(16).padStart(2, '0')).join('');
+800664	  if (hex !== expected) throw new Error('Preview input identity changed');
+800666	function text(tag, value) {
+800667	  const element = document.createElement(tag);
+800670	async function loadGrid() {
+800671	  const host = document.getElementById('gridDirectory');
+800672	  host.replaceChildren(text('p', 'Loading official source directory…'));
+800673	    const bytes = await pinnedBytes('../../automation/news/grid_watch/sources.json',
+800674	      'd4ef4584859d712ac15c07e02b9e201cc693b65542ccdc204427c8a7b114ca62');
+800675	    const catalogue = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes));
+800676	    if (catalogue.schema !== 'globalgrid2050.grid_watch.sources.v1' || catalogue.sources.length !== 14) throw new Error('Invalid directory');
+800678	    fragment.appendChild(text('p', '14 source-directory entries · 0 approved project updates'));
+800679	    for (const source of catalogue.sources) {
+800680	      const url = new URL(source.url);
+800681	      if (url.protocol !== 'https:' || url.username || url.password || url.hostname !== source.hostname) throw new Error('Unsafe source');
+800682	      const row = text('article', '');
+800683	      row.className = 'grid-source';
+800684	      const link = text('a', source.publisher + ' · ' + source.operator);
+800685	      link.href = url.href; link.target = '_blank'; link.rel = 'noopener noreferrer';
+800686	      row.append(link, text('small', source.role.replaceAll('_', ' ') + ' · Rights ' + source.licence_state), text('p', source.coverage));
+800687	      fragment.appendChild(row);
+800688	    host.replaceChildren(fragment);
+800689	    host.dataset.state = 'directory-only';
+800690	    host.replaceChildren(text('p', 'Grid source directory unavailable. No project updates displayed.'));
+800691	    host.dataset.state = 'unavailable';
+800692	function activate(tab, focus = false) {
+800693	  for (const item of tabs) {
+800694	    const selected = item === tab;
+800695	    item.setAttribute('aria-selected', String(selected));
+800696	    item.tabIndex = selected ? 0 : -1;
+800697	  const panel = document.getElementById(tab.getAttribute('aria-controls'));
+800698	  for (const item of panels) item.hidden = item !== panel;
+800699	  panel.setAttribute('aria-labelledby', tab.id);
+800700	  if (focus) tab.focus();
+800701	  if (['solar', 'bess'].includes(tab.dataset.view)) {
+800702	    document.querySelector('#tech [data-technology="' + tab.dataset.view + '"]')?.click();
+800703	  } else if (tab.dataset.view === 'grid' && !gridStarted) {
+800704	    gridStarted = true; void loadGrid();
+800705	  } else if (tab.dataset.view === 'datacentre' && !dcStarted) {
+800706	    dcStarted = true;
+800707	    const host = document.getElementById('datacentreHost');
+800708	    if (window.GGDataCentreUI) void window.GGDataCentreUI.mount(host, dcInputs);
+800709	    else host.replaceChildren(text('p', 'Data Centre records unavailable.'));
+800710	for (const tab of tabs) {
+800711	  tab.addEventListener('click', () => activate(tab));
+800712	  tab.addEventListener('keydown', event => {
+800713	    let index = tabs.indexOf(tab);
+800714	    if (event.key === 'ArrowRight') index = (index + 1) % tabs.length;
+800715	    else if (event.key === 'ArrowLeft') index = (index + tabs.length - 1) % tabs.length;
+800716	    else if (event.key === 'Home') index = 0;
+800717	    else if (event.key === 'End') index = tabs.length - 1;
+800719	    event.preventDefault(); activate(tabs[index], true);
+800720	function initialiseCategory() {
+800721	  if (defaultApplied) return;
+800722	  defaultApplied = true;
+800723	  queueMicrotask(() => {
+800724	    const technology = new URL(location.href).searchParams.get('technology');
+800725	    if (!technology || technology === 'solar') activate(document.getElementById('solarTab'));
+800726	    else if (technology === 'bess') activate(document.getElementById('bessTab'));
+800727	window.addEventListener('pipeline-projects-rendered', initialiseCategory);
+800728	if (document.getElementById('tbody').dataset.complete === 'true') initialiseCategory();
+800729	let contextStarted = false;
+800730	const contextDisclosure = document.getElementById('contextDisclosure');
+800731	// This cache is explicitly preview-only: production must not self-grant source acceptance.
+800732	const contextPreview = ['127.0.0.1', 'localhost', '[::1]'].includes(location.hostname);
+800733	contextDisclosure.hidden = !contextPreview;
+800734	contextDisclosure.addEventListener('toggle', async event => {
+800735	  if (!contextPreview || !event.target.open || contextStarted) return;
+800736	  contextStarted = true;
+800737	  const host = document.getElementById('contextHost');
+800738	    const expected = 'de0d205186ae2a30914711e1b25bacefc325f7c02efb880e4d5d5a6c070a87c1';
+800739	    const cache = '../../automation/v928_context/preview/';
+800740	    const manifestBytes = await pinnedBytes(cache + 'manifest.json',
+800741	      '8ee9770c0e22512879b93d73e4386521ca410f1ccf53069a7f8de6d7eccf8515');
+800742	    const manifest = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(manifestBytes));
+800743	    if (manifest.preview_only !== true || manifest.publication_authorized !== false ||
+800744	        manifest.files['transition-context.json'].sha256 !== expected) throw new Error('Unaccepted Context preview');
+800745	    const assets = Object.fromEntries(await Promise.all(Object.entries(manifest.files).map(async ([path, pin]) =>
+800746	      [path, await pinnedBytes(cache + path, pin.sha256)])));
+800747	    const bytes = assets['transition-context.json'];
+800748	    const [{renderContext}, {buildViewModel}, {renderFigures}] = await Promise.all([
+800749	      import('../../../../automation/v928_context/preview/render.mjs'),
+800750	      import('../../../../automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/model.mjs'),
+800751	      import('../../../../automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/render.mjs'),
+800753	    await renderContext(host, bytes, {expectedSha256: expected, figures: {buildViewModel, renderFigures}});
+800754	    host.replaceChildren(text('p', 'Context unavailable. No replacement figures or project associations displayed.'));
+800938	  return `<tr id="repd-${escapeHtml(record.repd_ref)}" data-repd-updated="" data-technology="interconnector"><td class="site">${escapeHtml(record.name)}<div class="project-meta">${escapeHtml(identity)} · ${escapeHtml(record.gg_project_id)} · NOT A REPD RECORD</div><div class="mobile-extra">${escapeHtml(location)}</div><details class="project-record"><summary>INTERCONNECTOR RECORD</summary><div class="record-grid"><div><b>CONVERTERS</b><span>${escapeHtml(gbEnd)} ↔ ${escapeHtml(farEnd)}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(geometry)}</span></div><div><b>FLOW</b><span>${escapeHtml(flow)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(lifecycle)}</span></div><div><b>SOURCE</b><span>data-interconnectors reference list; converter positions from gridatlas</span></div><div><b>NOTES</b><span>${escapeHtml(record.notes || "-")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location)}</td><td class="hide-mobile">${escapeHtml(record.operator || "not in reference data")}</td><td><span class="badge" style="background:${COLOURS[record.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(record.status)}</td><td class="mw">${record.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(record.bmrs_code || "no BMRS code")}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(record.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">not a REPD record</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(record.gg_project_id)}">COPY ID</button></div></td></tr>`;
+800953	    return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
+801272	    // V9.28 withdraws the standalone panel and keeps original register events
+801273	    // inside their existing project records, with no change to MAP/CSV.
+801274	    if (document.querySelector('[data-register-changes="inline-only"]')) return;
+801328	/* check_v9_28.mjs - Pipeline News V9.28, proven from the bytes and through the
+801330	 * Run: node tests/check_v9_28.mjs
+801331	const VERSION = "9.28";
+801333	const PARENT_ID = "202611161747";
+801335	assert.ok(html.includes(`data-edition="${ID}"`), "visible edition stamp names this release");
+801336	const label = html.slice(html.indexOf("<body>"), html.indexOf('<section class="newspaper"'));
+801337	assert.ok(label.includes(`<small>PIPELINE NEWS · V${VERSION}</small>`), "brand names the version");
+801338	assert.ok(label.includes(`<a class="active" href="#">V${VERSION} · PIPELINE NEWS</a>`), "nav names the version");
+801339	assert.ok(label.includes(`V${VERSION} · 16 NOVEMBER 2026 · REPD OCTOBER 2026`), "compact stamp names the version and dated source");
+801340	assert.ok(html.includes(`<title>GlobalGrid2050 | Pipeline News V${VERSION} · ${ID}</title>`), "title names this release");
+801341	assert.equal((html.match(/<section\b/g)||[]).length,2,"exactly two principal blocks");
+801342	for (const tab of ['solarTab','bessTab','gridTab','datacentreTab']) assert.ok(html.includes(`id="${tab}" role="tab"`),`category ${tab}`);
+801343	assert.ok(!html.includes('<th>NEWS SIGNAL</th>')&&!html.includes('id="solar1000Pilot"'),"withdrawn panels/column do not return");
+801344	console.log(`check_v9_28: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+801345	  <title>GlobalGrid2050 | Pipeline News V9.29 · 202611162354</title>
+801346	  <link rel="stylesheet" href="scripts/layers/pipeline-layers.css">
+801347	    <header class="release-header">
+801348	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.29</small></div>
+801349	      <nav class="release-links" aria-label="Pipeline navigation">
+801350	        <a class="active" href="#" aria-current="page">V9.29 · PIPELINE NEWS</a>
+801351	        <a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>
+801352	        <a href="../202611161757/">V9.28 · PREVIOUS EDITION</a>
+801353	        <a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>
+801354	        <a href="#" id="export">EXPORT CSV</a>
+801358	    <p class="preview-status" data-edition="202611162354">V9.29 · 16 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+801359	      <div id="headlineTicker" aria-label="Latest available headlines"></div>
+801360	        <button id="offtakersTab" role="tab" aria-selected="false" aria-controls="offtakersPanel" tabindex="-1" data-view="offtakers">Offtakers</button>
+801361	        <button id="pricesTab" role="tab" aria-selected="false" aria-controls="pricesPanel" tabindex="-1" data-view="prices">Prices</button>
+801362	        <div id="gridLayerHost">Select Grid to load the existing substation snapshot.</div>
+801363	        <details class="scope-notes"><summary>Official grid information sources · 0 approved project updates</summary>
+801364	          <div id="gridDirectory" aria-live="polite">Source directory unavailable.</div>
+801366	      <div id="offtakersPanel" role="tabpanel" aria-labelledby="offtakersTab" hidden>
+801367	        <div id="offtakersLayerHost">Select Offtakers to load the existing source snapshot.</div>
+801368	      <div id="pricesPanel" role="tabpanel" aria-labelledby="pricesTab" hidden>
+801369	        <div id="pricesLayerHost">Select Prices to open the existing electricity market workspace.</div>
+801370	  <script type="module" src="scripts/plugins/layers-v929.mjs"></script>
+801371	/* Existing, immutable GridAtlas products; no new collector or copied archive. */
+801372	const GRID = 'https://raw.githubusercontent.com/Ventusltd/gridatlas/1de35f9eca360a5d80d81542230fef546917f5c5/';
+801373	export const catalogue = {
+801374	  schema: 'globalgrid2050.pipeline-layers.v1',
+801375	  sourceComposition: 'gridatlas/202611161720',
+801377	    {id: 'substations', label: 'Substations', group: 'Grid', owner: 'Ventusltd/gridatlas', renderer: 'assets', kind: 'substation',
+801378	      sourceLabel: 'GridAtlas substation snapshot · OpenStreetMap contributors · ODbL 1.0',
+801379	      data: {url: GRID + 'atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson', sha256: '87976435766a58ddf19c99540b58cd7f18a224148af42ba55075d8851f9e6251', maxBytes: 1500000, rows: 5800, schema: 'geojson.FeatureCollection'}},
+801380	    {id: 'grid-projects', label: 'Grid Projects', group: 'Grid', owner: 'Ventusltd/globalgrid2050', renderer: 'grid-projects',
+801381	      sourceLabel: 'Existing Ventus News Engine · independently reviewed project associations only'},
+801382	    {id: 'offtakers', label: 'Offtakers', group: 'Offtakers', owner: 'Ventusltd/gridatlas', renderer: 'assets', kind: 'offtaker',
+801383	      sourceLabel: 'Existing GridAtlas filtered offtaker snapshot · per-record attribution and licences retained',
+801384	      data: {url: GRID + 'data/offtakers_filtered_202610292000.geojson', sha256: '16dca56003e7a222e7a74025b9b61db3c1929ac7e34adc38daeb343074e68139', maxBytes: 2600000, rows: 1568, schema: 'geojson.FeatureCollection'}},
+801385	    {id: 'prices', label: 'Electricity Prices', group: 'Prices', owner: 'Ventusltd/globalgrid2050', renderer: 'prices',
+801386	      sourceLabel: 'Original Electricity Market Intelligence workspace; graphs and data ownership unchanged', url: 'https://globalgrid2050.com/uk_energy_tracking_v6/'}
+801388	const el = (doc, tag, text, className) => { const n = doc.createElement(tag); if (text !== undefined) n.textContent = text; if (className) n.className = className; return n; };
+801389	export function mountLayerControls(root, {registry, renderers, initial = 'substations'}) {
+801390	  if (!root.id || !/^[A-Za-z][\w-]*$/.test(root.id)) throw Error('A unique named layer host is required');
+801391	  const doc = root.ownerDocument;
+801392	  root.classList.add('pn-layers'); root.replaceChildren();
+801393	  const top = el(doc, 'div', undefined, 'pn-groups'); top.setAttribute('role', 'tablist'); top.setAttribute('aria-label', 'Intelligence categories');
+801394	  const sub = el(doc, 'div', undefined, 'pn-subtabs'); sub.setAttribute('role', 'tablist'); sub.setAttribute('aria-label', 'Grid views');
+801395	  const panel = el(doc, 'div', undefined, 'pn-panel'); panel.id = root.id + '-panel'; panel.setAttribute('role', 'tabpanel');
+801396	  root.append(top, sub, panel);
+801397	  const groups = [...new Set(registry.layers.map(x => x.group))];
+801398	  const buttons = new Map(); let epoch = 0; let active = null; let cleanup = () => {}; let disposed = false;
+801399	  const groupButtons = new Map();
+801400	  function tab(button, chosen) { button.setAttribute('aria-selected', String(chosen)); button.tabIndex = chosen ? 0 : -1; }
+801401	  function keyboard(container) {
+801402	    container.addEventListener('keydown', event => {
+801403	      const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End']; if (!keys.includes(event.key)) return;
+801404	      const list = [...container.querySelectorAll('[role="tab"]')].filter(b => !b.hidden);
+801405	      if (!list.length) return;
+801406	      const i = list.indexOf(doc.activeElement);
+801407	      const next = event.key === 'Home' ? 0 : event.key === 'End' ? list.length-1 : (i + (event.key === 'ArrowRight' ? 1 : -1) + list.length) % list.length;
+801408	      event.preventDefault(); list[next].focus(); list[next].click();
+801409	  async function activate(id) {
+801410	    if (disposed) return;
+801411	    const layer = registry.layers.find(x => x.id === id); if (!layer) throw Error('Unknown layer');
+801412	    const turn = ++epoch; active = id; cleanup(); cleanup = () => {};
+801413	    panel.replaceChildren(el(doc, 'p', 'Loading…')); panel.dataset.state = 'loading';
+801414	    for (const [group, button] of groupButtons) tab(button, group === layer.group);
+801415	    for (const [key, button] of buttons) { button.hidden = registry.layers.find(x => x.id === key).group !== layer.group; tab(button, key === id); }
+801416	    sub.hidden = registry.layers.filter(x => x.group === layer.group).length < 2;
+801417	    panel.setAttribute('aria-labelledby', sub.hidden ? groupButtons.get(layer.group).id : buttons.get(id).id);
+801418	    const stage = el(doc, 'div');
+801419	      const renderer = Object.hasOwn(renderers, layer.renderer) ? renderers[layer.renderer] : null;
+801420	      if (typeof renderer !== 'function') throw Error('Renderer unavailable');
+801421	      const data = await registry.load(id);
+801422	      if (turn !== epoch || disposed) return;
+801423	      const destroy = await renderer(stage, {data, layer});
+801424	      if (turn !== epoch || disposed) { if (typeof destroy === 'function') destroy(); return; }
+801425	      cleanup = typeof destroy === 'function' ? destroy : () => {};
+801426	      panel.replaceChildren(stage); panel.dataset.state = 'available';
+801428	      panel.replaceChildren(el(doc, 'p', `${layer.label} unavailable. Other views remain usable.`)); panel.dataset.state = 'unavailable';
+801430	    const button = el(doc, 'button', group); button.type = 'button'; button.id = root.id + '-group-' + group.toLowerCase().replace(/[^a-z0-9]/g, '-');
+801431	    button.setAttribute('role', 'tab'); button.setAttribute('aria-controls', panel.id); button.addEventListener('click', () => { void activate(registry.layers.find(x => x.group === group).id); });
+801432	    groupButtons.set(group, button); top.append(button);
+801433	  for (const layer of registry.layers) {
+801434	    const button = el(doc, 'button', layer.label); button.type = 'button'; button.id = root.id + '-view-' + layer.id;
+801435	    button.dataset.layerId = layer.id; button.setAttribute('role', 'tab'); button.setAttribute('aria-controls', panel.id);
+801436	    button.addEventListener('click', () => { void activate(layer.id); }); buttons.set(layer.id, button); sub.append(button);
+801437	  keyboard(top); keyboard(sub); void activate(initial);
+801438	  return {activate, get active() { return active; }, destroy() { disposed = true; ++epoch; cleanup(); registry.clear(); root.replaceChildren(); }};
+801439	import {publicHttpsUrl} from './url-policy.mjs';
+801440	export function assetRows(payload, kind) {
+801441	  if (payload?.type !== 'FeatureCollection' || !Array.isArray(payload.features)) throw Error('Invalid source collection');
+801443	  return payload.features.map(feature => {
+801445	    const rawId = feature.id ?? p.id;
+801446	    if (!['string','number'].includes(typeof rawId) || !String(rawId).trim() || String(rawId).length > 160
+801447	      || (typeof rawId === 'number' && (!Number.isSafeInteger(rawId) || rawId < 0))) throw Error('Missing source identity');
+801448	    const id = `${kind}:${rawId}`;
+801449	    if (seen.has(id)) throw Error('Duplicate source identity'); seen.add(id);
+801450	    const c = feature.geometry?.type === 'Point' ? feature.geometry.coordinates : null;
+801451	    const located = Array.isArray(c) && c.length >= 2 && typeof c[0] === 'number' && typeof c[1] === 'number' && Number.isFinite(c[0]) && Number.isFinite(c[1]) && Math.abs(c[0]) <= 180 && Math.abs(c[1]) <= 90;
+801452	    return {id, sourceId: String(rawId), name: typeof p.name === 'string' && p.name.trim() ? p.name : null,
+801453	      operator: typeof p.operator === 'string' ? p.operator : null,
+801454	      category: p.class_label || p.type || null, voltage: p.voltage ?? null,
+801455	      coordinates: located ? [c[0], c[1]] : null, properties: p};
+801456	export function selectRows(rows, query = '') {
+801457	  const q = String(query).trim().toLocaleLowerCase('en-GB');
+801458	  return rows.filter(row => !q || [row.name, row.operator, row.sourceId, row.category, row.voltage].some(value => String(value ?? '').toLocaleLowerCase('en-GB').includes(q)));
+801459	export function voltageLabel(value) {
+801460	  if (value === null || value === undefined || value === '') return 'Not recorded';
+801461	  const parts = String(value).split(';');
+801462	  if (!parts.every(x => /^\d+(\.\d+)?$/.test(x.trim()) && Number(x) > 0)) return String(value);
+801463	  return parts.map(x => (Number(x) / 1000).toLocaleString('en-GB', {maximumFractionDigits: 3})).join(' / ') + ' kV';
+801464	export function locationLink(row) {
+801465	  if (!row.coordinates) return null;
+801466	  // Location-only contract, never an invented REPD ID or asserted connection.
+801467	  const url = new URL('https://ventusltd.github.io/gridatlas/atlas/');
+801468	  url.search = new URLSearchParams({longitude: String(row.coordinates[0]), latitude: String(row.coordinates[1]), zoom: '12',
+801469	    project: row.name || row.sourceId, technology: row.id.startsWith('substation:') ? 'substation' : 'offtaker'});
+801470	function publicationStamp(value) {
+801471	  if(typeof value!=='string')return NaN;
+801472	  const match=/^(\d{4})-(\d{2})-(\d{2})(?:T(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d(?:\.\d{1,9})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d))?$/.exec(value);
+801473	  if(!match)return NaN;
+801474	  const year=Number(match[1]),month=Number(match[2]),day=Number(match[3]);
+801475	  const leap=year%4===0&&(year%100!==0||year%400===0),days=[31,leap?29:28,31,30,31,30,31,31,30,31,30,31];
+801476	  if(year<1900||month<1||month>12||day<1||day>days[month-1])return NaN;
+801477	  return Date.parse(value);
+801478	export function latestHeadlines(items, limit = 10, {asOf=Date.now()}={}) {
+801479	  if (!Array.isArray(items) || items.length>10000 || !Number.isFinite(asOf) || !Number.isInteger(limit) || limit<1 || limit>10) return [];
+801482	    if (typeof item?.title !== 'string' || !item.title.trim() || item.title.length > 1000) continue;
+801483	    let u; try { u = publicHttpsUrl(item.link); } catch { continue; }
+801484	    const stamp = publicationStamp(item.date || item.first_seen || '');
+801485	    if (!Number.isFinite(stamp) || stamp>asOf) continue;
+801486	    const row = {title: item.title, link: u.href, source: String(item.source || 'Publisher not supplied'), date: item.date || item.first_seen, stamp};
+801487	    if (!unique.has(row.link) || unique.get(row.link).stamp < stamp) unique.set(row.link, row);
+801488	  return [...unique.values()].sort((a,b) => b.stamp - a.stamp || a.link.localeCompare(b.link)).slice(0, limit);
+801489	/* A data-plane extension of Pipeline's existing plugin host, not a script loader. */
+801490	import {publicHttpsUrl,priceWorkspaceUrl} from './url-policy.mjs';
+801491	const HEX = /^[a-f0-9]{64}$/;
+801492	const ID = /^[a-z][a-z0-9-]{0,63}$/;
+801493	export function validateRegistry(manifest) {
+801494	  if (manifest?.schema !== 'globalgrid2050.pipeline-layers.v1' || !Array.isArray(manifest.layers)) throw Error('Unsupported layer registry');
+801495	  for (const layer of manifest.layers) {
+801496	    if (!ID.test(layer.id) || ids.has(layer.id)) throw Error('Invalid or duplicate layer id');
+801497	    ids.add(layer.id);
+801498	    if (![layer.label, layer.group, layer.owner, layer.renderer].every(x => typeof x === 'string' && x.length > 0 && x.length <= 160)) throw Error('Layer metadata is incomplete');
+801499	    if (layer.url !== undefined) publicHttpsUrl(layer.url);
+801500	    if (layer.renderer === 'prices') priceWorkspaceUrl(layer.url);
+801501	    if (layer.data) {
+801502	      const u = publicHttpsUrl(layer.data.url);
+801503	      if (u.protocol !== 'https:' || u.username || u.password || u.hash || !HEX.test(layer.data.sha256)) throw Error('Invalid pinned data source');
+801504	      if (!Number.isSafeInteger(layer.data.maxBytes) || layer.data.maxBytes < 1 || layer.data.maxBytes > 8 * 1024 * 1024) throw Error('Layer exceeds browser byte policy');
+801505	      if (!Number.isSafeInteger(layer.data.rows) || layer.data.rows < 0 || layer.data.rows > 25000) throw Error('Layer exceeds browser row policy');
+801506	      if (typeof layer.data.schema !== 'string' || !layer.data.schema) throw Error('Missing source schema');
+801508	export async function sha256(bytes) {
+801509	  return [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(x => x.toString(16).padStart(2, '0')).join('');
+801510	async function readBounded(response, maxBytes) {
+801511	  if (Number(response.headers.get('content-length')) > maxBytes) throw Error('Data exceeds byte budget');
+801512	  if (!reader) {
+801514	    if (bytes.length > maxBytes) throw Error('Data exceeds byte budget');
+801516	  const parts = []; let size = 0;
+801518	      const {done, value} = await reader.read();
+801520	      size += value.byteLength;
+801521	      if (size > maxBytes) throw Error('Data exceeds byte budget');
+801522	      parts.push(value);
+801523	  } catch (error) { await reader.cancel().catch(() => {}); throw error; }
+801524	  const bytes = new Uint8Array(size); let offset = 0;
+801525	  for (const part of parts) { bytes.set(part, offset); offset += part.byteLength; }
+801526	export function createDataRegistry(manifest, {fetchImpl = globalThis.fetch, timeoutMs = 20000} = {}) {
+801527	  validateRegistry(manifest);
+801528	  // Copy the accepted composition. Later caller mutation cannot repin loaded data.
+801529	  const freeze = value => { for (const item of Object.values(value)) if (item && typeof item === 'object') freeze(item); return Object.freeze(value); };
+801530	  const layers = freeze(structuredClone(manifest.layers));
+801533	    async load(id) {
+801534	      const layer = layers.find(x => x.id === id);
+801535	      if (!layer) throw Error('Unknown layer');
+801536	      if (!layer.data) return null;
+801537	      // Validation belongs to the complete accepted contract, not merely its bytes.
+801538	      const key = JSON.stringify([layer.data.url, layer.data.sha256, layer.data.schema, layer.data.rows, layer.data.maxBytes]);
+801539	      if (!cache.has(key)) {
+801540	        const work = (async () => {
+801541	          const controller = new AbortController();
+801542	          const timer = setTimeout(() => controller.abort(), timeoutMs);
+801544	            const response = await fetchImpl(layer.data.url, {signal: controller.signal, redirect: 'error', cache: 'force-cache', credentials: 'omit'});
+801545	            if (!response.ok || response.redirected) throw Error('Source unavailable');
+801546	            const bytes = await readBounded(response, layer.data.maxBytes);
+801547	            if (await sha256(bytes) !== layer.data.sha256) throw Error('Source integrity changed');
+801548	            const payload = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(bytes));
+801549	            if (layer.data.schema !== 'geojson.FeatureCollection' || payload.type !== 'FeatureCollection' || !Array.isArray(payload.features) || payload.features.length !== layer.data.rows) throw Error('Source schema/count mismatch');
+801550	            return payload;
+801551	          } finally { clearTimeout(timer); }
+801553	        cache.set(key, work);
+801554	        work.catch(() => { if (cache.get(key) === work) cache.delete(key); });
+801555	      // Renderers never share mutable source objects.
+801556	      return structuredClone(await cache.get(key));
+801557	    clear() { cache.clear(); }
+801558	import {latestHeadlines} from './model.mjs';
+801559	export function renderTicker(host,items,{snapshotLabel='Latest available headlines'}={}) {
+801560	  const doc=host.ownerDocument;host.classList.add('pn-ticker');host.replaceChildren();
+801561	  const headlines=latestHeadlines(items);
+801562	  if(!headlines.length){host.textContent='Headlines unavailable';return;}
+801563	  const label=doc.createElement('span');label.className='pn-ticker-label';label.textContent=snapshotLabel;
+801564	  const pause=doc.createElement('button');pause.type='button';pause.textContent='Pause';pause.setAttribute('aria-pressed','false');pause.setAttribute('aria-label','Pause headline scrolling');
+801565	  const viewport=doc.createElement('div');viewport.className='pn-ticker-viewport';
+801566	  const track=doc.createElement('div');track.className='pn-ticker-track';
+801567	  const list=doc.createElement('ul');list.setAttribute('aria-label','Ten latest available headlines');
+801568	  for(const h of headlines){const li=doc.createElement('li'),a=doc.createElement('a');a.href=h.link;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`${h.title} — ${h.source}`;a.title=h.date;li.append(a);list.append(li);}
+801569	  const repeat=list.cloneNode(true);repeat.setAttribute('aria-hidden','true');repeat.removeAttribute('aria-label');
+801570	  for(const a of repeat.querySelectorAll('a'))a.tabIndex=-1;
+801571	  track.append(list,repeat);viewport.append(track);host.append(label,pause,viewport);
+801572	  pause.addEventListener('click',()=>{const stopped=host.classList.toggle('pn-paused');pause.textContent=stopped?'Play':'Pause';pause.setAttribute('aria-pressed',String(stopped));pause.setAttribute('aria-label',stopped?'Resume headline scrolling':'Pause headline scrolling');});
+801573	/* Browser navigation policy, not a DNS-based source-rights or identity decision. */
+801574	export function publicHttpsUrl(value) {
+801575	  if(typeof value!=='string')throw Error('URL must be text');
+801576	  const url=new URL(value),host=url.hostname.toLowerCase();
+801577	  if(url.protocol!=='https:'||url.username||url.password||!host.includes('.')||host.includes(':')||host.endsWith('.')
+801578	    ||/^[\d.]+$/.test(host)||/(^|\.)(localhost|local|internal)$/.test(host)
+801579	    ||(url.port&&url.port!=='443'))throw Error('Only public HTTPS hostnames are supported');
+801580	export function priceWorkspaceUrl(value) {
+801581	  const url=publicHttpsUrl(value);
+801582	  if(url.href!=='https://globalgrid2050.com/uk_energy_tracking_v6/')throw Error('Price workspace is not an accepted host product');
+801583	import {assetRows, selectRows, locationLink, voltageLabel} from './model.mjs';
+801584	import {priceWorkspaceUrl} from './url-policy.mjs';
+801585	const node = (doc, tag, text, cls) => { const n=doc.createElement(tag); if(text!==undefined)n.textContent=text; if(cls)n.className=cls; return n; };
+801586	function link(doc, label, href) { const a=node(doc,'a',label); a.href=href; a.target='_blank'; a.rel='noopener noreferrer'; return a; }
+801587	  let s=String(value??'');
+801588	  if(typeof value!=='number' && /^[=+@\-\t\r]/.test(s))s="'"+s;
+801589	  return /[",\r\n]/.test(s)?'"'+s.replaceAll('"','""')+'"':s;
+801590	export function assetCsv(rows,{sourceUrl=null,datasetAttribution=null}={}) {
+801591	  return [['Source ID','Name','Operator','Category','Published voltage','Longitude','Latitude','MAP location','Source dataset URL','Source attribution and licences','Dataset attribution and licence','Source record'],
+801592	    ...rows.map(r=>[r.sourceId,r.name,r.operator,r.category,r.voltage,r.coordinates?.[0],r.coordinates?.[1],locationLink(r),sourceUrl,
+801593	      JSON.stringify(r.properties?.sources??[]),JSON.stringify(datasetAttribution),JSON.stringify(r.properties)])]
+801594	    .map(row=>row.map(csvCell).join(',')).join('\r\n')+'\r\n';
+801595	export function renderAssets(host,{data,layer}) {
+801596	  const doc=host.ownerDocument, rows=assetRows(data,layer.kind); let page=0;
+801597	  host.append(node(doc,'p',layer.sourceLabel,'pn-source'));
+801598	  const provenance={sourceUrl:layer.data.url,sha256:layer.data.sha256,
+801599	    datasetAttribution:data.licence??data.license??data.attribution??layer.sourceLabel};
+801600	  const disclosure=node(doc,'details'),disclosureTitle=node(doc,'summary','Dataset source and attribution');
+801601	  disclosure.append(disclosureTitle,node(doc,'pre',JSON.stringify(provenance,null,2)));host.append(disclosure);
+801602	  host.append(node(doc,'p',layer.kind==='substation'
+801603	    ? 'Mapped substations; source names and voltages retained. A mapped site does not establish available capacity or a project connection.'
+801604	    : 'Potential offtakers for screening. Data-centre overlap is retained; a listed site is not confirmed demand, a contract or a connection.','pn-note'));
+801605	  const tools=node(doc,'div',undefined,'pn-tools');
+801606	  const search=node(doc,'input'); search.type='search'; search.placeholder='Name, operator, source ID…'; search.setAttribute('aria-label','Search '+layer.label);
+801607	  const exportButton=node(doc,'button','Export results'); exportButton.type='button';
+801608	  const plotButton=node(doc,'button','2D locations'); plotButton.type='button'; plotButton.setAttribute('aria-pressed','false');
+801609	  const statsButton=node(doc,'button','Analytics'); statsButton.type='button'; statsButton.setAttribute('aria-pressed','false');
+801610	  tools.append(search,exportButton,plotButton,statsButton); host.append(tools);
+801611	  const status=node(doc,'p',undefined,'pn-count'); status.setAttribute('role','status');
+801612	  const graph=node(doc,'div',undefined,'pn-plot'); graph.hidden=true;
+801613	  const graphTitle=node(doc,'p','2D source locations · schematic longitude/latitude view, north up');
+801614	  const canvas=node(doc,'canvas'); canvas.width=720; canvas.height=360; canvas.setAttribute('aria-label','Source locations. Use the searchable table for names and MAP links.');
+801615	  graph.append(graphTitle,canvas);
+801616	  const analytics=node(doc,'div',undefined,'pn-analytics'); analytics.hidden=true;
+801617	  const wrap=node(doc,'div',undefined,'pn-tablewrap'), table=node(doc,'table'), head=node(doc,'thead'), header=node(doc,'tr'), body=node(doc,'tbody');
+801618	  for(const value of ['Name / source ID','Operator','Voltage / category','Map']) { const th=node(doc,'th',value); th.scope='col'; header.append(th); }
+801619	  head.append(header); table.append(head,body); wrap.append(table);
+801620	  const paging=node(doc,'div',undefined,'pn-tools'), previous=node(doc,'button','Previous'), next=node(doc,'button','Next'), pageText=node(doc,'span');
+801621	  previous.type=next.type='button'; paging.append(previous,pageText,next);
+801622	  host.append(status,graph,analytics,wrap,paging);
+801623	  let filtered=rows, points=[];
+801625	    if(graph.hidden)return;
+801626	    const context=canvas.getContext('2d'); if(!context)return;
+801627	    context.clearRect(0,0,canvas.width,canvas.height);
+801628	    const located=filtered.filter(r=>r.coordinates);
+801629	    if(!located.length) { graphTitle.textContent='No locations recorded for these results'; points=[]; return; }
+801630	    graphTitle.textContent='2D source locations · schematic longitude/latitude view, north up';
+801631	    const xs=located.map(r=>r.coordinates[0]),ys=located.map(r=>r.coordinates[1]);
+801632	    const minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+801633	    points=located.map(row=>({row,x:18+(row.coordinates[0]-minX)/(maxX-minX||1)*684,y:342-(row.coordinates[1]-minY)/(maxY-minY||1)*324}));
+801634	    context.fillStyle='#00ffff';
+801635	    for(const p of points){context.beginPath();context.arc(p.x,p.y,2.1,0,Math.PI*2);context.fill();}
+801636	  function drawAnalytics() {
+801637	    if(analytics.hidden)return;
+801638	    const counts=new Map();
+801639	    for(const row of filtered){const key=String(layer.kind==='substation'?(row.voltage??'Voltage not recorded'):(row.category??'Category not recorded'));counts.set(key,(counts.get(key)||0)+1);}
+801640	    analytics.replaceChildren(node(doc,'p',`Source-record counts by ${layer.kind==='substation'?'published voltage text (volts)':'category'}; not MW, demand or available capacity.`));
+801641	    const ordered=[...counts].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).slice(0,20), maximum=Math.max(1,...ordered.map(x=>x[1]));
+801642	    for(const [label,count] of ordered){const row=node(doc,'div',undefined,'pn-bar-row'), text=node(doc,'span',`${label}: ${count}`),bar=node(doc,'meter');bar.min=0;bar.max=maximum;bar.value=count;bar.setAttribute('aria-label',label);row.append(text,bar);analytics.append(row);}
+801644	    filtered=selectRows(rows,search.value); page=Math.min(page,Math.max(0,Math.ceil(filtered.length/100)-1));
+801645	    const located=filtered.filter(r=>r.coordinates).length,named=filtered.filter(r=>r.name).length;
+801646	    status.textContent=`${filtered.length.toLocaleString('en-GB')} records · ${named.toLocaleString('en-GB')} source names · ${located.toLocaleString('en-GB')} locations`;
+801648	    for(const row of filtered.slice(page*100,(page+1)*100)) {
+801649	      const tr=node(doc,'tr'); tr.dataset.sourceId=row.sourceId;
+801650	      const name=node(doc,'td'); name.append(node(doc,'strong',row.name||'Name not recorded'),node(doc,'small',row.sourceId));
+801651	      const details=node(doc,'details'),summary=node(doc,'summary','Source record');details.append(summary);
+801652	      details.addEventListener('toggle',()=>{if(!details.open || details.childNodes.length>1)return;
+801653	        const pre=node(doc,'pre',JSON.stringify(row.properties,null,2));details.append(pre);
+801654	      });name.append(details);
+801655	      tr.append(name,node(doc,'td',row.operator||'Not recorded'),node(doc,'td',layer.kind==='substation'?voltageLabel(row.voltage):String(row.category??'Not recorded')));
+801656	      const td=node(doc,'td'),href=locationLink(row); if(href){const a=link(doc,'MAP',href);a.title='Open source location in GridAtlas; not a declared connection';td.append(a);}else td.textContent='Location not recorded';
+801657	      tr.append(td);body.append(tr);
+801658	    previous.disabled=page===0;next.disabled=(page+1)*100>=filtered.length;pageText.textContent=`Page ${page+1} / ${Math.max(1,Math.ceil(filtered.length/100))}`;
+801659	    draw();drawAnalytics();
+801660	  search.addEventListener('input',()=>{page=0;update();});
+801661	  previous.addEventListener('click',()=>{page--;update();});next.addEventListener('click',()=>{page++;update();});
+801662	  plotButton.addEventListener('click',()=>{graph.hidden=!graph.hidden;plotButton.setAttribute('aria-pressed',String(!graph.hidden));draw();});
+801663	  statsButton.addEventListener('click',()=>{analytics.hidden=!analytics.hidden;statsButton.setAttribute('aria-pressed',String(!analytics.hidden));drawAnalytics();});
+801664	  canvas.addEventListener('click',event=>{
+801665	    const b=canvas.getBoundingClientRect(),x=(event.clientX-b.left)*canvas.width/b.width,y=(event.clientY-b.top)*canvas.height/b.height;
+801666	    let selected=null,distance=144;
+801667	    for(const p of points){const d=(p.x-x)**2+(p.y-y)**2;if(d<distance){selected=p.row;distance=d;}}
+801668	    if(selected){search.value=selected.sourceId;page=0;update();search.focus();}
+801669	  exportButton.addEventListener('click',()=>{
+801670	    const href=URL.createObjectURL(new Blob([assetCsv(filtered,provenance)],{type:'text/csv;charset=utf-8'}));
+801671	    const a=link(doc,'',href);a.download=layer.id+'-results.csv';doc.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),1000);
+801673	export function renderGridProjects(host) {
+801675	  host.append(node(doc,'p','No independently approved news-derived Grid project records are connected to this view yet.'));
+801676	  host.append(node(doc,'p','The existing Ventus News Engine owns acquisition and candidate associations. Unreviewed fixtures, nearby assets and name matches are not published project events.','pn-note'));
+801677	export function renderPrices(host,{layer}) {
+801678	  const acceptedUrl=priceWorkspaceUrl(layer.url);
+801679	  host.append(node(doc,'p',layer.sourceLabel,'pn-source'),link(doc,'Open original electricity market workspace',acceptedUrl));
+801680	  host.append(node(doc,'p','Inspect each graph’s observation dates and actual-data label. The existing workspace can show indicative price baselines when actual prices are unavailable.','pn-note'));
+801681	  const button=node(doc,'button','Show original graphs here');button.type='button';host.append(button);
+801682	  button.addEventListener('click',()=>{
+801683	    const frame=node(doc,'iframe');frame.title='Original Electricity Market Intelligence graphs';frame.loading='lazy';frame.src=acceptedUrl;frame.referrerPolicy='no-referrer';
+801684	    host.append(frame);button.remove();
+801685	  },{once:true});
+801686	export const renderers={assets:renderAssets,'grid-projects':renderGridProjects,prices:renderPrices};
+801687	/* Explicit accepted renderers; existing Pipeline owns category navigation/news. */
+801688	import {catalogue} from '../layers/catalogue.mjs';
+801689	import {createDataRegistry} from '../layers/registry.mjs';
+801690	import {mountLayerControls} from '../layers/controls.mjs';
+801691	import {renderers} from '../layers/views.mjs';
+801692	import {renderTicker} from '../layers/ticker.mjs';
+801693	const views = {
+801694	  grid: {host:'gridLayerHost', ids:['substations','grid-projects'], initial:'substations'},
+801695	  offtakers: {host:'offtakersLayerHost', ids:['offtakers'], initial:'offtakers'},
+801696	  prices: {host:'pricesLayerHost', ids:['prices'], initial:'prices'},
+801697	const mounted = new Map();
+801698	function mountCategory(id) {
+801699	  const spec = views[id];
+801700	  if (!spec || mounted.has(id)) return;
+801701	  const host = document.getElementById(spec.host);
+801702	    const composition = {...catalogue, layers:catalogue.layers.filter(layer=>spec.ids.includes(layer.id))};
+801703	    const registry = createDataRegistry(composition);
+801704	    mounted.set(id, mountLayerControls(host,{registry,renderers,initial:spec.initial}));
+801705	    // The existing outer category tab already supplies the single group control.
+801706	    host.querySelector('.pn-groups').hidden = true;
+801707	    host.textContent = 'This view is unavailable. Other Pipeline categories remain usable.';
+801708	window.addEventListener('pipeline-category-changed',event=>mountCategory(event.detail));
+801709	mountCategory(document.querySelector('.pipeline-tabs [aria-selected="true"]')?.dataset.view);
+801710	function updateTicker(doc) {
+801711	  const status = document.getElementById('newsStatus');
+801712	  const label = 'Latest available · ' + (status?.textContent || 'collection date unknown');
+801713	  renderTicker(document.getElementById('headlineTicker'),doc?.items || [],{snapshotLabel:label});
+801714	window.addEventListener('pipeline-feed-loaded',event=>updateTicker(event.detail));
+801715	updateTicker(window.pipelineHeadlineDocument);
+801716	const panels = ['repdPanel', 'gridPanel', 'datacentrePanel', 'offtakersPanel', 'pricesPanel'].map(id => document.getElementById(id));
+801717	  window.dispatchEvent(new CustomEvent('pipeline-category-changed', {detail: tab.dataset.view}));
+801718	/* check_v9_29.mjs - Pipeline News V9.29, proven from the bytes and through the
+801719	 * Run: node tests/check_v9_29.mjs
+801720	const VERSION = "9.29";
+801721	const PARENT_ID = "202611161757";
+801722	console.log(`check_v9_29: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+801723	  <title>GlobalGrid2050 | Pipeline News V9.30 · 202611170147</title>
+801724	  <link rel="stylesheet" href="../../automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.css" integrity="sha256-CvhvasdWUaC+1UCWzKtAPnq7XLWLAjI43Hnli4o8oDk=">
+801725	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.30</small></div>
+801726	        <a class="active" href="#" aria-current="page">V9.30 · PIPELINE NEWS</a>
+801727	        <a href="../202611162354/">V9.29 · PREVIOUS EDITION</a>
+801728	    <p class="preview-status" data-edition="202611170147">V9.30 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+801729	  <script type="module" src="scripts/plugins/dc-locations-v930.mjs"></script>
+801730	/* Existing DC records own the table; this accepted cartridge adds source locations. */
+801731	const host = document.getElementById('datacentreHost');
+801732	const manifestUrl = new URL('../../contracts/dc-locations.v930.json', import.meta.url);
+801733	const manifestHash = 'c6ad3c693b4ed76e8b0e5303f26db53136cc953ca2945f09a9a2007133c3b49f';
+801734	let work = null, attached = false;
+801735	async function pinned(url, expected, limit, exact = null) {
+801736	  const response = await fetch(url, {credentials:'omit', redirect:'error', cache:'force-cache', signal:AbortSignal.timeout(15000)});
+801737	  if (!response.ok || response.redirected) throw Error('Location input unavailable');
+801738	  if (!reader) throw Error('Location input stream unavailable');
+801739	    const {done,value} = await reader.read(); if (done) break;
+801740	    if (length > limit) {await reader.cancel();throw Error('Location input exceeds its bound');}
+801741	  if (exact !== null && length !== exact) throw Error('Location input size changed');
+801742	  const bytes = new Uint8Array(length);let offset = 0;
+801743	  for (const chunk of chunks) {bytes.set(chunk,offset);offset += chunk.byteLength;}
+801744	  const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',bytes)),x=>x.toString(16).padStart(2,'0')).join('');
+801745	  if (digest !== expected) throw Error('Location input identity changed');
+801746	function ensureLocations() {
+801747	  if (!host?.querySelector('.ggdc-table') || attached || work) return work;
+801748	  host.dataset.locationsState = 'loading';
+801749	  work = (async()=>{
+801750	    const bytes = await pinned(manifestUrl,manifestHash,12000);
+801751	    const spec = JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+801752	    if (spec.schema !== 'globalgrid2050.dc-location-cartridge.v1' ||
+801753	        !/^[a-f0-9]{40}$/.test(spec.producer.commit) ||
+801754	        JSON.stringify(Object.keys(spec.files).sort()) !== JSON.stringify(['actions.css','actions.mjs'])) throw Error('Unsupported location cartridge');
+801755	    const base = new URL('../../../../automation/dc_location_ui/'+spec.producer.commit+'/',import.meta.url);
+801756	    await Promise.all(Object.entries(spec.files).map(([name,pin])=>{
+801757	      if (!Number.isSafeInteger(pin.bytes) || pin.bytes < 1 || pin.bytes > 65536) throw Error('Invalid location cartridge bound');
+801758	      return pinned(new URL(name,base),pin.sha256,pin.bytes,pin.bytes);
+801759	    const module = await import(new URL('actions.mjs',base));
+801760	    if (!['url','sha256','bytes'].every(k=>module.INPUT[k]===spec.input[k])) throw Error('Location source contract changed');
+801761	    const transport = (url,options={})=>fetch(url,{...options,redirect:'error',signal:AbortSignal.timeout(15000)});
+801762	    const controller = await module.attachLocationActions(host,{pin:spec.input,transport,noteId:'dc-screening-note'});
+801763	    if (controller.sourceIds !== spec.expected.records) {controller.disconnect();throw Error('Location source population changed');}
+801764	    attached = true;host.dataset.locationsState = 'available';
+801765	    host.querySelector('.dc-location-status')?.remove();
+801766	  })().catch(()=>{
+801767	    host.dataset.locationsState = 'unavailable';
+801768	    if (!host.querySelector('.dc-location-status')) {
+801769	      const note = document.createElement('p');note.className='category-scope dc-location-status';
+801770	      note.textContent='Additional location data unavailable.';host.append(note);
+801771	  }).finally(()=>{work=null;});
+801772	  return work;
+801773	window.addEventListener('pipeline-datacentre-ready',ensureLocations);
+801774	window.addEventListener('pipeline-category-changed',event=>{if(event.detail==='datacentre')void ensureLocations();});
+801775	void ensureLocations();
+801776	    if (window.GGDataCentreUI) void window.GGDataCentreUI.mount(host, dcInputs).then(()=>{
+801777	      if(host.querySelector('.ggdc-table'))window.dispatchEvent(new CustomEvent('pipeline-datacentre-ready'));
+801778	    }).catch(()=>{});
+801779	/* check_v9_30.mjs - Pipeline News V9.30, proven from the bytes and through the
+801780	 * Run: node tests/check_v9_30.mjs
+801781	const VERSION = "9.30";
+801782	const PARENT_ID = "202611162354";
+801783	console.log(`check_v9_30: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+801784	  <title>GlobalGrid2050 | Pipeline News V9.31 · 202611170243</title>
+801785	  <link rel="stylesheet" href="../../automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css" integrity="sha256-OMuIlBvYlrxro2QuNOO2Dwnl5q062jUsxNjMxxPaaVw=">
+801786	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.31</small></div>
+801787	        <a class="active" href="#" aria-current="page">V9.31 · PIPELINE NEWS</a>
+801788	        <a href="../202611170147/">V9.30 · PREVIOUS EDITION</a>
+801789	    <p class="preview-status" data-edition="202611170243">V9.31 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+801790	        <div id="pricesLayerHost"></div>
+801791	          <p class="category-scope"><a href="https://globalgrid2050.com/uk_energy_tracking_v6/" target="_blank" rel="noopener noreferrer">Open the original electricity workspace</a></p>
+801792	  <script type="module" src="scripts/plugins/prices-v931.mjs"></script>
+801793	import {fetchPinned as pinned} from './verified-inputs.mjs';
+801794	import {fetchPinned} from './verified-inputs.mjs';
+801795	const host = document.getElementById('pricesLayerHost');
+801796	const manifest = new URL('../../contracts/prices.v931.json', import.meta.url);
+801797	const manifestHash = '57df11f2866836442395910ba307dc9232bf8f0bada365dfcfb0b64207af332c';
+801798	let pending = null, controller = null;
+801799	function ensurePrices() {
+801800	  if (!host || pending || host.querySelector('.pn-daily-prices[data-state="available"]')) return pending;
+801801	  pending = (async () => {
+801802	    const raw = await fetchPinned(manifest, manifestHash, 12000);
+801803	    const spec = JSON.parse(new TextDecoder('utf-8', {fatal:true}).decode(raw));
+801804	    if (spec.schema !== 'globalgrid2050.daily-price-cartridge.v1' ||
+801805	        JSON.stringify(Object.keys(spec.files).sort()) !== JSON.stringify(['canvas.mjs','model.mjs','styles.css','view.mjs'])) throw Error('Unsupported daily price cartridge');
+801806	    const base = new URL('../../../../automation/price_daily_ui/' + spec.producer.commit + '/', import.meta.url);
+801807	    await Promise.all(Object.entries(spec.files).map(([name, pin]) => {
+801808	      if (!Number.isSafeInteger(pin.bytes) || pin.bytes < 1 || pin.bytes > 65536) throw Error('Daily price cartridge exceeds its bound');
+801809	      return fetchPinned(new URL(name,base), pin.sha256, pin.bytes, pin.bytes);
+801810	    const {SOURCE} = await import(new URL('model.mjs', base));
+801811	    if (SOURCE.commit !== spec.input.commit || SOURCE.base !== spec.input.base ||
+801812	        !['path','bytes','sha256'].every(k => SOURCE.index[k] === spec.input.index[k])) throw Error('Daily price source contract changed');
+801813	    const {mountDailyPrices} = await import(new URL('view.mjs', base));
+801814	    controller?.disconnect();
+801815	    host.querySelector('.price-cartridge-status')?.remove();
+801816	    const transport = (url,options={}) => fetch(url, {...options,redirect:'error',signal:AbortSignal.timeout(15000)});
+801817	    controller = mountDailyPrices(host, {transport});
+801818	    await controller.ready;
+801819	    host.dataset.priceState = host.querySelector('.pn-daily-prices')?.dataset.state || 'unavailable';
+801820	  })().catch(() => {
+801821	    host.dataset.priceState = 'unavailable';
+801822	    if (!host.querySelector('.price-cartridge-status')) {
+801823	      const message = document.createElement('p'); message.className = 'category-scope price-cartridge-status';
+801824	      message.textContent = 'Historical daily prices unavailable. The original electricity workspace remains available below.';
+801825	      host.append(message);
+801826	  }).finally(() => {pending = null;});
+801828	window.addEventListener('pipeline-category-changed', event => {if (event.detail === 'prices') void ensurePrices();});
+801829	if (document.getElementById('pricesTab')?.getAttribute('aria-selected') === 'true') void ensurePrices();
+801830	/* Bounded SHA-256 transport shared by optional source cartridges. */
+801831	export async function fetchPinned(url, expected, limit, exact = null) {
+801832	/* check_v9_31.mjs - Pipeline News V9.31, proven from the bytes and through the
+801833	 * Run: node tests/check_v9_31.mjs
+801834	const VERSION = "9.31";
+801835	const PARENT_ID = "202611170147";
+801836	console.log(`check_v9_31: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+801837	  <title>GlobalGrid2050 | Pipeline News V9.32 · 202611170324</title>
+801838	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.32</small></div>
+801839	        <a class="active" href="#" aria-current="page">V9.32 · PIPELINE NEWS</a>
+801840	        <a href="../202611170243/">V9.31 · PREVIOUS EDITION</a>
+801841	    <p class="preview-status" data-edition="202611170324">V9.32 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+801842	  <script type="module" src="scripts/plugins/primary-notes-v932.mjs"></script>
+801846	  var primaryLayer = null;
+801903	      delete b.dataset.notePrimary;
+801904	      var primary = primaryLayer && primaryLayer.records.get(String(b.dataset.noteRef));
+801905	      if (primary) {
+801906	        primaryLayer.view.decoratePrimaryButton(b, primary.note);
+801907	        b.dataset.noteCandidate = items.length ? 'possible' : 'none';
+801937	  // Rendering seam for the byte-pinned host; source/rights validation remains in its model.
+801938	  function setPrimaryNotes(index, view, projectFor) {
+801939	    if (!index || !Object.isFrozen(index) || index.schema !== 'globalgrid2050.primary-notes.v1' ||
+801940	        index.verified_count !== 0 || index.solar1000_verified_delta !== 0 ||
+801941	        !Number.isInteger(index.association_count) || index.association_count < 0 || index.association_count > 1 ||
+801942	        !view || typeof view.decoratePrimaryButton !== 'function' || typeof view.appendPrimaryBrief !== 'function' ||
+801943	        typeof projectFor !== 'function') throw new Error('Unsupported primary-note view');
+801944	    var records = new Map();
+801945	    Object.entries(index.by_repd_ref).forEach(function (entry) {
+801946	      var ref = entry[0], values = entry[1], note = values && values[0], project = projectFor(ref);
+801947	      if (!/^[1-9]\d*$/.test(ref) || !Object.isFrozen(values) || values.length !== 1 ||
+801948	          !note || !Object.isFrozen(note) || note.association !== 'PROVISIONAL' ||
+801949	          note.binding.repd_ref !== ref || note.binding.gg_project_id !== 'GG2050-REPD-' + ref ||
+801950	          !project || project.gg_project_id !== note.binding.gg_project_id) throw new Error('Invalid primary-note binding');
+801951	      records.set(ref, {note:note, project:project});
+801952	    if (records.size !== index.association_count) throw new Error('Invalid primary-note count');
+801953	    var layer = {records:records, view:view};primaryLayer = layer;updateVisibleNotes();
+801954	    return function () {if (primaryLayer === layer) {primaryLayer = null;updateVisibleNotes();}};
+801959	    var primary = primaryLayer && primaryLayer.records.get(ref);
+801960	    body.appendChild(el('p', 'machine-note-stamp', primary ? 'PRIMARY GOVERNMENT SOURCE - PROVISIONAL PROJECT ASSOCIATION (CANDIDATE)' : events.length ?
+801963	    body.appendChild(el('p', null, 'OFFICIAL SOURCE STATUS (FROZEN REPD) · ' + String(button.dataset.noteStatus || 'Unknown')));
+801964	    if (primary) primaryLayer.view.appendPrimaryBrief(body, primary.note, primary.project);
+801965	    if (!events.length && !primary) {
+801967	    } else if (events.length) {
+801968	      if (primary) body.appendChild(el('h3', null, 'Possible news associations'));
+801977	      body.appendChild(el('p', null, 'Headline evidence receipts, publisher independence, rights and exact REPD associations remain NOT VERIFIED.'));
+801980	  window.pipelineMachineNotes = { has: function (ref) { return notes.has(String(ref)); }, setPrimaryNotes:setPrimaryNotes };
+801987	import {state} from '../core/state.js';
+801988	const manifest = new URL('../../contracts/primary-notes.v932.json', import.meta.url);
+801989	const manifestHash = '4b208b67450c35c7c174b33d5a1f44b12a74665fe39f9c9ab5860d88db6601b2';
+801990	let pending = null, attempted = false;
+801991	function ensurePrimaryNotes() {
+801992	  const rows = state.canonicalModel?.projects;
+801993	  if (!rows || pending || attempted) return pending;
+801994	  attempted = true;
+801995	  document.documentElement.dataset.primaryNotesState = 'loading';
+801996	    if (spec.schema !== 'globalgrid2050.primary-note-cartridge.v1' ||
+801997	        JSON.stringify(Object.keys(spec.files).sort()) !== JSON.stringify(['catalogue.mjs','model.mjs','notes.json']) ||
+801998	        spec.renderer.path !== 'automation/primary_note_ui/host-202611170324/brief.mjs') throw Error('Unsupported primary-note cartridge');
+801999	    const base = new URL('../../../../automation/primary_note_ui/' + spec.producer.commit + '/', import.meta.url);
+802000	    const checked = (url,pin) => {
+802001	      if (!Number.isSafeInteger(pin.bytes) || pin.bytes < 1 || pin.bytes > 65536 || !/^[a-f0-9]{64}$/.test(pin.sha256)) throw Error('Invalid primary-note bound');
+802002	      return fetchPinned(url,pin.sha256,pin.bytes,pin.bytes);
+802003	    await Promise.all(Object.entries(spec.files).map(([name,pin]) => checked(new URL(name,base),pin)));
+802004	    const ui = new URL('../../../../' + spec.renderer.path, import.meta.url);
+802005	    await checked(ui,spec.renderer);
+802006	    const {buildPrimaryNotes} = await import(new URL('model.mjs',base));
+802007	    const index = buildPrimaryNotes(rows,{asOf:new Date().toISOString()});
+802008	    if (index.association_count !== spec.expected.associations || index.verified_count !== 0 || index.solar1000_verified_delta !== 0) throw Error('Primary-note counts changed');
+802009	    const view = await import(ui);
+802010	    window.pipelineMachineNotes.setPrimaryNotes(index,view,ref => rows.find(row => row.repd_ref === ref));
+802011	    document.documentElement.dataset.primaryNotesState = 'available';
+802012	  })().catch(() => {document.documentElement.dataset.primaryNotesState = 'unavailable';})
+802013	    .finally(() => {pending = null;});
+802014	window.addEventListener('pipeline-projects-rendered', ensurePrimaryNotes);
+802015	void ensurePrimaryNotes();
+802016	/* check_v9_32.mjs - Pipeline News V9.32, proven from the bytes and through the
+802017	 * Run: node tests/check_v9_32.mjs
+802018	const VERSION = "9.32";
+802019	const PARENT_ID = "202611170243";
+802020	console.log(`check_v9_32: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+802035	<a href="versions.json">versions.json</a>. Generated 2026-11-17T04:40:01Z.</p>
+802036	<p>One reviewed primary government decision is displayed in the existing brief with a provisional exact-identity association; source clocks, receipts and narrow rights remain distinct. V9.31 remains operative until source CI, actual public note/source/flow acceptance, owner promotion, pinned import and final root/rollback verification. All official records, CSV/MAP, headline associations, DC and Prices remain unchanged.</p>
+802040	<tr class="pass"><td><a href="202611170324/"><b>202611170324</b></a><br>V9.32<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 03:24:00 UTC</td><td>One reviewed government planning decision in the existing Machine Read Notes brief, with provisional exact-ID association, preserved source/rights/date distinctions and unchanged REPD, CSV, MAP, DC and Prices.<ul><li>One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.</li><li>Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611170243<br><a href="202611170324/CHANGES.md">changes</a></td></tr>
+802041	<tr class="pass"><td><a href="202611170243/"><b>202611170243</b></a><br>V9.31<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-17 02:43:00 UTC</td><td>Qualified daily historical electricity system-sell graph with pinned lazy data, null-gap and negative-price preservation, explicit coverage/clocks and original-workspace link; unchanged REPD, DC, CSV, MAP and historical releases.<ul><li>Historical system-sell observations end on 31 October 2026. Source-declared daily dates retain 106,668 UTC disagreements; daily completeness does not certify intraday timing. This is not a live quote, market-index price or forecast.</li><li>Reported/approximate DC points and vicinity screening do not verify facilities, capacity or connections. Solar-1000 has zero independently verified links; public Context and physical Android acceptance remain unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/44008489399">SUCCESS</a></td><td>parent 202611170147<br><a href="202611170243/CHANGES.md">changes</a></td></tr>
+802042	<tr class="pass"><td><a href="202611170147/"><b>202611170147</b></a><br>V9.30<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-17 01:47:00 UTC</td><td>Reported Data Centre addresses, source-linked UK-only location screening and bounded optional cartridge; unchanged REPD, CSV, MAP and historical releases.<ul><li>Reported addresses and source or approximate postcode points do not independently verify facility identity, operation, demand, connections or available capacity. Only GB points receive UK screening links.</li><li>Independent Solar-1000 evidence remains zero verified; Context stays unaccepted for public output; original Prices can remain stale or indicative. No native Android handset certification.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/44003316019">SUCCESS</a></td><td>parent 202611162354<br><a href="202611170147/CHANGES.md">changes</a></td></tr>
+802043	<tr class="pass"><td><a href="202611162354/"><b>202611162354</b></a><br>V9.29<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-16 23:54:00 UTC</td><td>Full-width Pipeline without the left sidebar, mobile rotation document flow, existing GridAtlas substations/offtakers, original Prices and a source-clocked ten-headline ticker; unchanged official REPD/CSV/MAP.<ul><li>Grid source snapshots are dated existing screening records; names, proximity and voltage do not establish connection, capacity or fresh network state. Grid Projects has zero independently approved events.</li><li>Original Prices may show stale observations or indicative baselines; no fresh actual-price-series acceptance is implied. MAP is generic source-location arrival, not typed substation identity.</li><li>Independent project evidence remains unavailable or unaccepted; no verified Solar-1000 bindings, public Context enablement or native Android acceptance.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43990908186">SUCCESS</a></td><td>parent 202611161757<br><a href="202611162354/CHANGES.md">changes</a></td></tr>
+802044	<tr class="pass"><td><a href="202611161757/"><b>202611161757</b></a><br>V9.28<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-16 17:57:00 UTC</td><td>Approved V9.24 two-block presentation with Solar/BESS/Grid/Data Centre tabs, source-attributed headlines and guarded source-indexed intelligence; unchanged qualifying REPD register and MAP/CSV.<ul><li>Zero independently verified Solar-1000 findings; source rights and project-event acceptance remain independent gates.</li><li>Grid is a 14-source directory with zero approved project developments; Data Centre operation/capacity/ownership remains unassessed or provisional.</li><li>Context cache is local-preview only and withheld on publication hosts pending source acceptance. Native Android device acceptance is unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43978940484">SUCCESS</a></td><td>parent 202611161747<br><a href="202611161757/CHANGES.md">changes</a></td></tr>
 ```
