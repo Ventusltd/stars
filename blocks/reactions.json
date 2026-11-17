@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-17T04:46:50.324Z",
+ "generated_utc": "2026-11-17T14:53:30.221Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -446,8 +446,8 @@
     "Pn",
     "Pr"
    ],
-   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611170324/tests/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611170324/tests"
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611171217/tests/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611171217/tests"
   },
   {
    "folder": "pipelinenews/tools/publication",
@@ -743,8 +743,8 @@
     "D",
     "Pn"
    ],
-   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611170324/scripts/plugins/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611170324/scripts/plugins"
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611171217/scripts/plugins/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611171217/scripts/plugins"
   },
   {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.6.1/tests",
@@ -769,17 +769,6 @@
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.6.2/tests"
   },
   {
-   "folder": "globalgrid2050/uk_renewables_pipeline/v9.6/tests",
-   "title": "Tests",
-   "repo": "Ventusltd/globalgrid2050",
-   "blocks": [
-    "Pn",
-    "Pr"
-   ],
-   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.6/tests/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.6/tests"
-  },
-  {
    "folder": "globalgrid2050/uk_renewables_pipeline/v9.7/tests",
    "title": "Tests",
    "repo": "Ventusltd/globalgrid2050",
@@ -789,6 +778,17 @@
    ],
    "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.7/tests/",
    "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.7/tests"
+  },
+  {
+   "folder": "globalgrid2050/uk_renewables_pipeline/v9.6/tests",
+   "title": "Tests",
+   "repo": "Ventusltd/globalgrid2050",
+   "blocks": [
+    "Pn",
+    "Pr"
+   ],
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/v9.6/tests/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/v9.6/tests"
   },
   {
    "folder": "pipelinenews/tools/intelligence/cartridges/wider-fleet/assets",
@@ -1945,8 +1945,8 @@
     },
     {
      "title": "Uk renewables pipeline",
-     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611170324/scripts/plugins/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611170324/scripts/plugins"
+     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611171217/scripts/plugins/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611171217/scripts/plugins"
     }
    ],
    "tests": null,

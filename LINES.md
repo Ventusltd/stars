@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-462,492 unique lines, numbered 1 to 802,044. Generated 2026-11-17T04:47:12.184Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+463,992 unique lines, numbered 1 to 805,003. Generated 2026-11-17T14:54:01.238Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -462495,4 +462495,1504 @@
 802042	<tr class="pass"><td><a href="202611170147/"><b>202611170147</b></a><br>V9.30<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-17 01:47:00 UTC</td><td>Reported Data Centre addresses, source-linked UK-only location screening and bounded optional cartridge; unchanged REPD, CSV, MAP and historical releases.<ul><li>Reported addresses and source or approximate postcode points do not independently verify facility identity, operation, demand, connections or available capacity. Only GB points receive UK screening links.</li><li>Independent Solar-1000 evidence remains zero verified; Context stays unaccepted for public output; original Prices can remain stale or indicative. No native Android handset certification.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/44003316019">SUCCESS</a></td><td>parent 202611162354<br><a href="202611170147/CHANGES.md">changes</a></td></tr>
 802043	<tr class="pass"><td><a href="202611162354/"><b>202611162354</b></a><br>V9.29<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-16 23:54:00 UTC</td><td>Full-width Pipeline without the left sidebar, mobile rotation document flow, existing GridAtlas substations/offtakers, original Prices and a source-clocked ten-headline ticker; unchanged official REPD/CSV/MAP.<ul><li>Grid source snapshots are dated existing screening records; names, proximity and voltage do not establish connection, capacity or fresh network state. Grid Projects has zero independently approved events.</li><li>Original Prices may show stale observations or indicative baselines; no fresh actual-price-series acceptance is implied. MAP is generic source-location arrival, not typed substation identity.</li><li>Independent project evidence remains unavailable or unaccepted; no verified Solar-1000 bindings, public Context enablement or native Android acceptance.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43990908186">SUCCESS</a></td><td>parent 202611161757<br><a href="202611162354/CHANGES.md">changes</a></td></tr>
 802044	<tr class="pass"><td><a href="202611161757/"><b>202611161757</b></a><br>V9.28<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-16 17:57:00 UTC</td><td>Approved V9.24 two-block presentation with Solar/BESS/Grid/Data Centre tabs, source-attributed headlines and guarded source-indexed intelligence; unchanged qualifying REPD register and MAP/CSV.<ul><li>Zero independently verified Solar-1000 findings; source rights and project-event acceptance remain independent gates.</li><li>Grid is a 14-source directory with zero approved project developments; Data Centre operation/capacity/ownership remains unassessed or provisional.</li><li>Context cache is local-preview only and withheld on publication hosts pending source acceptance. Native Android device acceptance is unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/43978940484">SUCCESS</a></td><td>parent 202611161747<br><a href="202611161757/CHANGES.md">changes</a></td></tr>
+802122	def validate_registry_metadata(reg):
+802123	    """Reject malformed CI metadata before release checks or registry writes."""
+802124	    if not isinstance(reg, dict) or not isinstance(reg.get("versions"), list):
+802125	        raise ValueError("release registry must be an object with a versions array")
+802126	    for index, version in enumerate(reg["versions"]):
+802127	        if not isinstance(version, dict):
+802128	            raise ValueError(f"registry versions[{index}] must be an object")
+802129	        label = version.get("id", f"versions[{index}]")
+802130	        ci = version.get("ci")
+802131	        if ci is None:
+802132	        if not isinstance(ci, dict):
+802133	            raise ValueError(f"registry version {label}: ci must be an object or null")
+802134	        # These are the optional fields used by the ledger renderer. Preserve
+802135	        # all other historical metadata and impose no URL or result enum policy.
+802136	        for field in ("url", "conclusion"):
+802137	            if field in ci and not isinstance(ci[field], str):
+802138	                raise ValueError(f"registry version {label}: ci.{field} must be a string")
+802141	    return validate_registry_metadata(json.loads(REGISTRY.read_text(encoding="utf-8")))
+802143	    validate_registry_metadata(reg)
+802145	/** Test-only guard: every numeric edition directory in the pinned base is immutable. */
+802147	export function protectedEditionChanges({cwd,base}) {
+802148	  if (typeof cwd!=='string'||!cwd||typeof base!=='string'||!base.trim()) {
+802149	    throw new TypeError('History guard requires a repository directory and pinned base');
+802151	  const git=args=>execFileSync('git',args,{cwd,encoding:'utf8',maxBuffer:16*1024*1024,stdio:['ignore','pipe','pipe']});
+802152	  let commit,directories;
+802154	    commit=git(['rev-parse','--verify','--end-of-options',base+'^{commit}']).trim();
+802155	    const tree=git(['rev-parse','--verify','--end-of-options',commit+':uk_renewables_pipeline']).trim();
+802156	    if (git(['cat-file','-t',tree]).trim()!=='tree') throw new Error('Pipeline baseline is not a directory');
+802157	    directories=git(['ls-tree','-d','--name-only','-z',tree]).split('\0')
+802158	      .filter(name=>/^\d{12}$/.test(name)).map(name=>'uk_renewables_pipeline/'+name);
+802159	    if (!directories.length) throw new Error('Pipeline baseline has no numeric edition directories');
+802161	    throw new Error('Cannot resolve immutable edition history from pinned base '+base,{cause});
+802162	  // Check both the working tree and index: an unstaged restoration must not hide
+802163	  // a staged mutation. No rename detection means the original deletion is kept.
+802164	  const changed=new Set([
+802165	    ...git(['diff','--name-only','--no-renames','-z',commit,'--']).split('\0'),
+802166	    ...git(['diff','--cached','--name-only','--no-renames','-z',commit,'--']).split('\0'),
+802167	    ...git(['ls-files','--others','--exclude-standard','-z']).split('\0')
+802169	  return [...changed].filter(path=>directories.some(dir=>path===dir||path.startsWith(dir+'/'))).sort();
+802172	import {mkdtempSync,mkdirSync,writeFileSync,unlinkSync,renameSync,rmSync,realpathSync} from 'node:fs';
+802174	import {basename,dirname,join,resolve} from 'node:path';
+802176	import {protectedEditionChanges} from '../edition_history.mjs';
+802177	const PREFIX='globalgrid2050-edition-history-';
+802178	const editions=['202601010000','202611170512','999999999999'];
+802179	const frozen=id=>'uk_renewables_pipeline/'+id+'/index.html';
+802180	function fixture(run,{numeric=true}={}) {
+802181	  const parent=realpathSync(tmpdir()),repo=mkdtempSync(join(parent,PREFIX));
+802182	  const git=args=>execFileSync('git',args,{cwd:repo,encoding:'utf8',stdio:['ignore','pipe','pipe']}).trim();
+802183	  const write=(path,text='original\n')=>{const target=resolve(repo,path);mkdirSync(dirname(target),{recursive:true});writeFileSync(target,text);};
+802184	    git(['init','--quiet']);git(['config','user.email','history-test@example.invalid']);git(['config','user.name','Edition history tests']);
+802185	    git(['config','core.autocrlf','false']);git(['config','core.quotepath','true']);
+802186	    write('.gitignore','*.ignored\n');write('uk_renewables_pipeline/v7/index.html');
+802187	    if(numeric)for(const id of editions)write(frozen(id));
+802188	    git(['add','--all']);git(['commit','--quiet','-m','Frozen baseline']);
+802189	    const base=git(['rev-parse','HEAD']),changes=()=>protectedEditionChanges({cwd:repo,base});
+802190	    return run({repo,git,write,base,changes});
+802192	    // Resolve and verify the exact generated directory before recursive cleanup,
+802193	    // including on Windows. Never delete a caller-supplied repository path.
+802194	    const target=realpathSync(repo);
+802195	    assert.equal(dirname(target),parent,'Temporary repository must remain inside its verified parent');
+802196	    assert.ok(basename(target).startsWith(PREFIX),'Temporary repository prefix must match');
+802197	    rmSync(target,{recursive:true,force:true});
+802198	test('unchanged baseline has no protected changes',()=>fixture(({changes})=>assert.deepEqual(changes(),[])));
+802199	test('new committed, staged and untracked edition files are append-only additions',()=>fixture(({git,write,changes})=>{
+802200	  write('uk_renewables_pipeline/202611170513/index.html');git(['add','--all']);git(['commit','--quiet','-m','Append edition']);
+802201	  write('uk_renewables_pipeline/202611170514/index.html');git(['add','--all']);
+802202	  write('uk_renewables_pipeline/202611170515/source note.txt');
+802203	  assert.deepEqual(changes(),[]);
+802205	for(const id of editions)test('baseline edition '+id+' is protected regardless of age or current/future label',()=>fixture(({write,changes})=>{
+802206	  write(frozen(id),'modified\n');assert.deepEqual(changes(),[frozen(id)]);
+802207	test('deleting an existing file is rejected',()=>fixture(({repo,changes})=>{
+802208	  unlinkSync(resolve(repo,frozen(editions[0])));assert.deepEqual(changes(),[frozen(editions[0])]);
+802209	test('untracked insertion inside any frozen edition is rejected',()=>fixture(({write,changes})=>{
+802210	  const path='uk_renewables_pipeline/'+editions[1]+'/extra/new source.json';write(path,'{}\n');assert.deepEqual(changes(),[path]);
+802211	test('moving an old file into a new edition still reports the original deletion',()=>fixture(({repo,write,git,changes})=>{
+802212	  const destination='uk_renewables_pipeline/202611170513/index.html';write(destination);
+802213	  unlinkSync(resolve(repo,destination));renameSync(resolve(repo,frozen(editions[0])),resolve(repo,destination));git(['add','--all']);
+802214	  assert.deepEqual(changes(),[frozen(editions[0])]);
+802215	test('NUL paths preserve Unicode and spaces without Git quote escaping',()=>fixture(({write,git,changes})=>{
+802216	  const original='uk_renewables_pipeline/'+editions[0]+'/source receipts/énergie 电力.txt';
+802217	  const inserted='uk_renewables_pipeline/'+editions[0]+'/source receipts/未確認 note.txt';
+802218	  write(original);git(['add','--all']);git(['commit','--quiet','-m','Add protected Unicode baseline']);
+802219	  const base=git(['rev-parse','HEAD']);write(original,'changed\n');write(inserted);
+802220	  assert.deepEqual(protectedEditionChanges({cwd:git(['rev-parse','--show-toplevel']),base}),[original,inserted].sort());
+802221	test('a restored working file cannot conceal a staged mutation',()=>fixture(({write,git,changes})=>{
+802222	  write(frozen(editions[0]),'staged mutation\n');git(['add','--all']);write(frozen(editions[0]));
+802223	test('ignored insertions are excluded but tracked changes remain protected',()=>fixture(({write,changes})=>{
+802224	  write('uk_renewables_pipeline/'+editions[0]+'/cache.ignored');assert.deepEqual(changes(),[]);
+802225	  write(frozen(editions[0]),'changed\n');assert.deepEqual(changes(),[frozen(editions[0])]);
+802226	test('non-numeric directories and unrelated source files are outside edition history',()=>fixture(({write,changes})=>{
+802227	  write('uk_renewables_pipeline/v7/index.html','changed\n');write('automation/new-test.mjs');assert.deepEqual(changes(),[]);
+802228	test('missing or invalid pinned bases fail closed',()=>fixture(({repo,base})=>{
+802229	  for(const invalid of [undefined,null,'','missing-history-ref','-invalid',base+':missing'])
+802230	    assert.throws(()=>protectedEditionChanges({cwd:repo,base:invalid}),/pinned base/);
+802231	test('a valid commit without numeric baseline editions fails closed',()=>fixture(({changes})=>{
+802232	  assert.throws(changes,/Cannot resolve immutable edition history/);
+802233	},{numeric:false}));
+802234	test('a missing baseline pipeline tree fails closed',()=>fixture(({repo,git,write})=>{
+802235	  git(['checkout','--orphan','empty-baseline']);git(['rm','-r','--quiet','--cached','.']);write('unrelated.txt');
+802236	  git(['add','--','unrelated.txt']);git(['commit','--quiet','-m','No pipeline baseline']);
+802237	  assert.throws(()=>protectedEditionChanges({cwd:repo,base:git(['rev-parse','HEAD'])}),/Cannot resolve immutable edition history/);
+802238	"""Malformed CI records must fail before the full release/browser verification."""
+802244	RELEASE = Path(__file__).resolve().parents[1]
+802245	sys.path.insert(0, str(RELEASE))
+802247	import verify
+802248	ACTUAL_REGISTRY = common.REGISTRY
+802249	class RegistryMetadataTests(unittest.TestCase):
+802251	        self.temp = tempfile.TemporaryDirectory(prefix="pn-registry-metadata-")
+802252	        self.parent = Path(tempfile.gettempdir()).resolve()
+802253	        self.folder = Path(self.temp.name).resolve()
+802254	        self.assertEqual(self.folder.parent, self.parent)
+802255	        self.assertTrue(self.folder.name.startswith("pn-registry-metadata-"))
+802256	        self.addCleanup(self.cleanup_temp)
+802257	        self.registry = self.folder / "registry.json"
+802258	        patcher = mock.patch.object(common, "REGISTRY", self.registry)
+802261	    def cleanup_temp(self):
+802262	        # Confirm the exact generated path before the standard-library recursive
+802263	        # cleanup on Windows; these tests never clean a caller-supplied path.
+802264	        target = Path(self.temp.name).resolve()
+802265	        self.assertEqual(target.parent, self.parent)
+802266	        self.assertTrue(target.name.startswith("pn-registry-metadata-"))
+802268	    def write(self, data):
+802269	        self.registry.write_text(json.dumps(data), encoding="utf-8")
+802270	    def bad_string_record(self):
+802271	        return {"versions": [{"id": "202611170324", "ci":
+802272	            "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896"}]}
+802273	    def test_missing_null_empty_and_extended_metadata_round_trip_unchanged(self):
+802274	        data = {"versions": [
+802275	            {"id": "missing"}, {"id": "null", "ci": None},
+802276	            {"id": "empty", "ci": {}},
+802277	            {"id": "legacy", "ci": {"workflow": "Original workflow", "pull_request": 68,
+802278	                "conclusion": "success", "note": "Original provenance retained"}},
+802279	        ]}
+802280	        common.save_registry(data)
+802281	        self.assertEqual(common.load_registry(), data)
+802282	    def test_reported_url_string_is_rejected_with_release_and_field(self):
+802283	        self.write(self.bad_string_record())
+802284	        with self.assertRaisesRegex(ValueError, "202611170324: ci must be an object or null"):
+802285	            common.load_registry()
+802286	    def test_verify_rejects_string_before_scratch_tree_or_runner_work(self):
+802287	        with mock.patch.object(verify.tempfile, "mkdtemp") as scratch, \
+802288	                mock.patch.object(verify, "tree_hash") as tree, \
+802289	                mock.patch.object(verify, "run") as runner:
+802290	            with self.assertRaisesRegex(ValueError, "202611170324: ci must be an object or null"):
+802291	                verify.main()
+802292	            scratch.assert_not_called()
+802293	            tree.assert_not_called()
+802294	            runner.assert_not_called()
+802295	    def test_save_rejects_bad_metadata_before_existing_bytes_change(self):
+802296	        original = b"existing registry bytes\n"
+802297	        self.registry.write_bytes(original)
+802298	        with self.assertRaisesRegex(ValueError, "ci must be an object or null"):
+802299	            common.save_registry(self.bad_string_record())
+802300	        self.assertEqual(self.registry.read_bytes(), original)
+802301	    def test_other_non_object_ci_values_are_rejected(self):
+802302	        for value in ([], 1, True, False):
+802303	            with self.subTest(value=value):
+802304	                with self.assertRaisesRegex(ValueError, "ci must be an object or null"):
+802305	                    common.validate_registry_metadata({"versions": [{"id": "release", "ci": value}]})
+802306	    def test_optional_renderer_fields_require_strings(self):
+802307	            for value in (None, True, 1, [], {}):
+802308	                with self.subTest(field=field, value=value):
+802309	                    with self.assertRaisesRegex(ValueError, rf"ci\.{field} must be a string"):
+802310	                        common.validate_registry_metadata({"versions": [{"id": "release", "ci": {field: value}}]})
+802311	    def test_string_content_and_extra_metadata_are_not_rewritten_or_enum_limited(self):
+802312	        data = {"versions": [{"id": "release", "ci": {"url": "../legacy-receipt.html#run",
+802313	            "conclusion": "provider_specific_result", "source_commit": "original", "extra": {"keep": True}}}]}
+802314	        before = copy.deepcopy(data)
+802315	        self.assertIs(common.validate_registry_metadata(data), data)
+802316	        self.assertEqual(common.load_registry(), before)
+802317	    def test_actual_corrected_registry_metadata_renders_all_versions(self):
+802318	        original = json.loads(ACTUAL_REGISTRY.read_text(encoding="utf-8"))
+802319	        self.write(original)
+802320	        reg = common.load_registry()
+802321	        self.assertEqual(reg, original)
+802322	        v932 = next(v for v in reg["versions"] if v["id"] == "202611170324")
+802323	        self.assertIsInstance(v932["ci"], dict)
+802324	        self.assertEqual(v932["ci"]["url"], "https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896")
+802325	        # Use actual release/CI metadata with explicitly unexecuted verdicts.
+802326	        # This exercises the real renderer, not the expensive release runners.
+802327	        doc = {"generated_at": "metadata-only regression fixture", "versions": []}
+802328	        for version in reversed(reg["versions"]):
+802329	            doc["versions"].append({**version, "ci": version.get("ci"),
+802330	                "state": version.get("state", "published"), "url": version["id"] + "/",
+802331	                "verdict": "NOT_RUN", "browser_checked": False,
+802332	                "known_faults": version.get("known_faults", []),
+802333	                "checks": {"map_contract": {"rows": reg["expected_record_count"], "pass": False}}})
+802334	        rendered = verify.render(doc)
+802335	        self.assertEqual(rendered.count('<tr class="not_run">'), len(reg["versions"]))
+802336	        self.assertIn(html.escape(v932["ci"]["url"]), rendered)
+802337	        self.assertIn("SUCCESS</a>", rendered)
+802451	// Additional individually reviewed government decisions; original catalogue above is unchanged.
+802452	export const CATALOGUES=freeze([{note_id:"PRIMARY-EN010147-002440-REFUSAL-20261110",catalogue:CATALOGUE},
+802454	    "note_id": "PRIMARY-EN010162-001340-GRANT-20261027",
+802455	    "catalogue": {
+802456	      "schema": "globalgrid2050.primary-note-source-catalogue.v1",
+802457	      "review": {
+802458	        "status": "NARROW_GOVERNMENT_FACTS_REVIEWED",
+802459	        "independent_review_at": "2026-11-17T04:58:25.027678+00:00",
+802460	        "curated_at": "2026-11-17T05:12:23.048665Z",
+802461	        "method": "Independent exact primary-source, canonical and licence review with ROOT-accepted development/HTML scope corrections; no publisher-wide grant"
+802462	      "source": {
+802463	        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+802464	        "sha256": "7f6470094b19c378ca36a267ab01108e6092e4c3dc0e791cdf71d59128bbf74e",
+802465	        "bytes": 351076,
+802466	        "retrieved_at": "2026-11-17T04:43:42.248899+00:00",
+802467	        "headers": {
+802468	          "Content-Type": "application/pdf",
+802469	          "Last-Modified": "Tue, 27 Oct 2026 16:21:14 GMT",
+802470	          "ETag": "0x8DF3446522609C0"
+802472	        "id": "desnz-en010162-001340",
+802473	        "author": "Department for Energy Security and Net Zero",
+802474	        "authorship": "GOVERNMENT_DECISION_LETTER",
+802475	        "document_date": "2026-10-27",
+802476	        "document_stated_publication_date": "2026-10-27",
+802477	        "allowed_claim": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+802478	        "planning_reference": "EN010162",
+802479	        "locators": {
+802480	          "decision": "page3 paragraphs3.2–3.3",
+802481	          "application_date": "paragraph 1.1, page 1"
+802482	        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010162",
+802483	        "project_url_scope": "Government project navigation; whole development, not a verified component identity",
+802484	        "government_applicant": "Elements Green Trent Limited",
+802485	        "corroboration": {
+802486	          "url": "https://www.gov.uk/government/publications/great-north-road-solar-and-biodiversity-park-decision-on-application-for-development-consent-under-the-planning-act-2008",
+802487	          "sha256": "0cb60fa34edcd600c1c344604034d934d9a97d857c4c17b598265f41beed9ee0",
+802488	          "bytes": 70739,
+802489	          "retrieved_at": "2026-11-17T04:42:54.507100+00:00",
+802490	          "headers": {
+802491	            "Content-Type": "text/html; charset=utf-8",
+802492	            "Last-Modified": null,
+802493	            "ETag": "W/\"0cb60fa34edcd600c1c344604034d934\""
+802496	      "rights": {
+802497	        "status": "REVIEWED_NARROW_OGL_FACT_PARAPHRASE",
+802498	        "scope": "GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY",
+802499	        "licence_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+802500	        "attribution": "Contains public sector information licensed under the Open Government Licence v3.0.",
+802501	        "exclusions": [
+802502	          "Third-party and applicant documents, maps and photographs",
+802503	          "Personal information",
+802504	          "Standalone departmental logos and crests",
+802505	          "Official endorsement"
+802507	        "terms_receipts": [
+802509	            "url": "https://www.gov.uk/help/terms-conditions",
+802510	            "bytes": 80624,
+802511	            "sha256": "3341846c2c7f9581cdfd3fbce0c3f8b440f34f9f918f136574adf20d96389fa6",
+802512	            "retrieved_at": "2026-11-17T04:42:54.660958+00:00"
+802514	            "url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/terms-and-conditions",
+802515	            "bytes": 74533,
+802516	            "sha256": "1df62b52ec295788bc670da9b0f03c79f0843acfd33d3d70bb2e04988e65bac6",
+802517	            "retrieved_at": "2026-11-17T04:42:54.737190+00:00"
+802518	            "url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+802519	            "bytes": 10450,
+802520	            "sha256": "f5b2b9f2af63647cde889fa6c3508f5705925295b74912c68caa28dd37e64aa5",
+802521	            "retrieved_at": "2026-11-17T04:42:54.831040+00:00"
+802522	        "review_limit": "Only selected government-authored facts and exact receipts reviewed; no publisher/domain licence. Public HTML only for EN010157; no additional PDF-derived qualifiers."
+802523	      "canonical": {
+802524	        "edition": "202611170324",
+802525	        "expected_population": 7775,
+802526	        "partition": "data/v9.1/projects/part-001.json",
+802527	        "partition_sha256": "1dec5e14cb05d5d47a3543d66a8970a5dc6e74e3cd444c1471befba2fad0a2aa",
+802528	        "fields": {
+802529	          "repd_ref": "15149",
+802530	          "gg_project_id": "GG2050-REPD-15149",
+802531	          "gg_development_id": "GG2050-DEV-131D47580D8A59",
+802532	          "planning_application_reference": "EN010162",
+802533	          "name": "Great North Road Solar Park",
+802534	          "operator": "Elements Green",
+802535	          "county": "Nottinghamshire",
+802536	          "country": "England",
+802537	          "technology": "solar",
+802538	          "capacity_known": true,
+802539	          "capacity_mw": 800.0,
+802540	          "status": "Application Submitted",
+802541	          "repd_record_updated": "2025-10-13",
+802542	          "planning_application_submitted": "2025-06-27",
+802543	          "planning_permission_granted": null,
+802544	          "latitude": 53.138419,
+802545	          "longitude": -0.8134645,
+802546	          "development_repd_refs": [
+802547	            "15149",
+802548	            "15150"
+802550	          "planning_sibling_repd_refs": [
+802551	          ]
+802552	      "news_metadata": {
+802553	        "basis": "GOVERNMENT_PUBLICATION_METADATA_ONLY",
+802554	        "source_url": "https://www.gov.uk/government/publications/great-north-road-solar-and-biodiversity-park-decision-on-application-for-development-consent-under-the-planning-act-2008",
+802555	        "sha256": "0cb60fa34edcd600c1c344604034d934d9a97d857c4c17b598265f41beed9ee0",
+802556	        "bytes": 70739,
+802557	        "publisher": "Department for Energy Security and Net Zero",
+802558	        "read_at": "2026-11-17T04:42:54.507100+00:00",
+802559	        "published_at": "2026-10-27T00:00:00Z",
+802560	        "published_at_original": "2026-10-27T00:00:00+00:00",
+802561	        "publication_precision": "DAY",
+802562	        "administrative_updated_at": "2026-11-16T11:01:08Z",
+802563	        "administrative_update_is_new_decision": false,
+802564	        "article_body_reviewed": false,
+802565	        "headline_association": "NONE",
+802566	        "publisher_content_rights": "NARROW_GOVERNMENT_FACTS_ONLY"
+802567	      "claim": {
+802568	        "type": "DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS",
+802569	        "decision_date": "2026-10-27",
+802570	        "statement": "The government decision for development EN010162 records consent granted with modifications on 27 October 2026. The displayed solar REPD15149 association is provisional within a solar and battery development; the frozen REPD status remains Application Submitted.",
+802571	        "source_application_submitted": "2025-06-27",
+802572	        "source_application_accepted": "2025-07-22",
+802573	        "frozen_grant_date_already_matches_decision": false,
+802574	        "development_scope": {
+802575	          "scope": "WHOLE_DEVELOPMENT",
+802576	          "display_solar_repd_ref": "15149",
+802577	          "component_repd_refs": [
+802578	          "battery_component": {
+802579	            "repd_ref": "15150",
+802580	            "capacity_mw": null,
+802581	            "energy_mwh": null
+802582	          "exclusive_solar_claim": false,
+802583	          "capacity_allocation_mw": null,
+802584	          "full_source_record_count": 14967,
+802585	          "full_identity_fixture_url": "https://raw.githubusercontent.com/Ventusltd/globalgrid2050/ba57b59447c4c7619262d440f6d4cac449dac8a2/uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json",
+802586	          "full_identity_fixture_sha256": "d0840c20bbf5a7b9b268c2631a844ec972ddae3040be353f1fac7e75d3dab5ad",
+802587	          "planning_reference_unique_only_in_browser_scope": true
+802588	        "capacity_context": {
+802589	          "frozen_solar_row_reported_mw": 800.0,
+802590	          "government_reported_mw": 800,
+802591	          "government_reported_basis": "export/import and proposed gross-output description, not as-built output",
+802592	          "government_reported_source_url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010162-001340-Great%20North%20Road%20Solar%20and%20Biodiversity%20Park%20-%20SoS%20Decision%20letter%20-%2027%20October%202026.pdf",
+802593	          "original_project_capacity_mw": null,
+802594	          "final_project_capacity_mw": null,
+802595	          "component_allocation_mw": null
+802596	        "unknowns": {
+802597	          "judicial_review_status": null,
+802598	          "later_project_status": null,
+802599	          "current_installed_capacity_mw": null,
+802600	          "electrical_connection_status": null,
+802601	          "commissioning_status": null,
+802602	          "ownership_equivalence": null
+802603	    "note_id": "PRIMARY-EN010159-001569-GRANT-20260708",
+802604	        "url": "https://nsip-documents.planninginspectorate.gov.uk/published-documents/EN010159-001569-One%20Earth%20Solar%20Farm%20-%20Decision%20Letter%20-%20Redacted.pdf",
+802605	        "sha256": "708b1f63e2a73517791b586480be6b3d549dfd6e903130f4948125707db4721b",
+802606	        "bytes": 508646,
+802607	        "retrieved_at": "2026-11-17T04:44:25.415976+00:00",
+802608	          "Last-Modified": "Wed, 08 Jul 2026 13:26:50 GMT",
+802609	          "ETag": "0x8DEDCF491BE0B2A"
+802610	        "id": "desnz-en010159-001569",
+802611	        "document_date": "2026-07-08",
+802612	        "document_stated_publication_date": "2026-07-08",
+802613	        "planning_reference": "EN010159",
+802614	          "decision": "page4 paragraphs3.1–3.2",
+802615	        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010159",
+802616	        "government_applicant": "One Earth Solar Farm Limited",
+802617	          "url": "https://www.gov.uk/government/publications/one-earth-solar-farm-development-consent-order-planning-act-2008",
+802618	          "sha256": "0133ae81c514b40795ede717d4f34949b9ec773da2fab80ab638b8d81c0d638d",
+802619	          "bytes": 70030,
+802620	          "retrieved_at": "2026-11-17T04:42:54.382796+00:00",
+802621	            "ETag": "W/\"0133ae81c514b40795ede717d4f34949\""
+802622	          "repd_ref": "14806",
+802623	          "gg_project_id": "GG2050-REPD-14806",
+802624	          "gg_development_id": "GG2050-DEV-8F9657E39A19E7",
+802625	          "planning_application_reference": "EN010159",
+802626	          "name": "One Earth Solar Farm",
+802627	          "operator": "Orsted UK Limited & PS Renewables",
+802628	          "capacity_mw": 740.0,
+802629	          "status": "Awaiting Construction",
+802630	          "repd_record_updated": "2026-07-13",
+802631	          "planning_application_submitted": "2025-02-27",
+802632	          "planning_permission_granted": "2026-07-08",
+802633	          "latitude": 53.2226387,
+802634	          "longitude": -0.7935386,
+802635	            "14806",
+802636	            "14807"
+802637	        "source_url": "https://www.gov.uk/government/publications/one-earth-solar-farm-development-consent-order-planning-act-2008",
+802638	        "sha256": "0133ae81c514b40795ede717d4f34949b9ec773da2fab80ab638b8d81c0d638d",
+802639	        "bytes": 70030,
+802640	        "read_at": "2026-11-17T04:42:54.382796+00:00",
+802641	        "published_at": "2026-07-08T13:44:38Z",
+802642	        "published_at_original": "2026-07-08T14:44:38+01:00",
+802643	        "publication_precision": "RECORDED_METADATA_TIMESTAMP",
+802644	        "administrative_updated_at": "2026-11-16T11:01:04Z",
+802645	        "decision_date": "2026-07-08",
+802646	        "statement": "The government decision for development EN010159 records consent granted with modifications on 8 July 2026. The displayed solar REPD14806 association is provisional within a solar and battery development; the frozen REPD status remains Awaiting Construction. This adds primary provenance to the existing frozen grant date, not a new status change.",
+802647	        "source_application_submitted": "2025-02-27",
+802648	        "source_application_accepted": "2025-03-27",
+802649	        "frozen_grant_date_already_matches_decision": true,
+802650	          "display_solar_repd_ref": "14806",
+802651	            "repd_ref": "14807",
+802652	          "frozen_solar_row_reported_mw": 740.0,
+802653	          "government_reported_mw": 740,
+802654	          "government_reported_basis": "proposed generation/export to High Marnham, not as-built or current operational output",
+802655	          "government_reported_source_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/document/EN010159-001569",
+802656	    "note_id": "PRIMARY-EN010157-GOVHTML-GRANT-20260702",
+802657	        "url": "https://www.gov.uk/government/news/peartree-hill-solar-farm-development-consent-decision-announced",
+802658	        "sha256": "cd73d7ae85c164ba53895f2326ffbb2f8ced9f08922e801cefdcc4fbb35c233f",
+802659	        "bytes": 68652,
+802660	        "retrieved_at": "2026-11-17T04:42:54.526563+00:00",
+802661	          "Content-Type": "text/html; charset=utf-8",
+802662	          "Last-Modified": null,
+802663	          "ETag": "W/\"cd73d7ae85c164ba53895f2326ffbb2f\""
+802664	        "id": "pins-en010157-consent-html",
+802665	        "author": "Planning Inspectorate",
+802666	        "authorship": "GOVERNMENT_PUBLIC_ANNOUNCEMENT",
+802667	        "document_date": "2026-07-02",
+802668	        "document_stated_publication_date": "2026-07-02",
+802669	        "allowed_claim": "DEVELOPMENT_CONSENT_GRANTED",
+802670	        "planning_reference": "EN010157",
+802671	          "decision": "public DESNZ decision Details/Date of decision and PINS government announcement",
+802672	          "application_date": "Public PINS announcement application/examination paragraph"
+802673	        "project_url": "https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/EN010157",
+802674	        "government_applicant": "RWE Renewables UK Solar and Storage Limited",
+802675	          "url": "https://www.gov.uk/government/publications/peartree-hill-solar-farm-development-consent-order-planning-act-2008",
+802676	          "sha256": "a8cbae9e5d6ae8d7e75e7f07504fa2b8b04bd470b272ec8b6e5619b601ca2667",
+802677	          "bytes": 70162,
+802678	          "retrieved_at": "2026-11-17T04:42:54.376387+00:00",
+802679	            "ETag": "W/\"a8cbae9e5d6ae8d7e75e7f07504fa2b8\""
+802680	          "repd_ref": "15000",
+802681	          "gg_project_id": "GG2050-REPD-15000",
+802682	          "gg_development_id": "GG2050-DEV-3F6A51011B5DEE",
+802683	          "planning_application_reference": "EN010157",
+802684	          "name": "Peartree Hill Solar Farm",
+802685	          "operator": "JBM Solar & RWE",
+802686	          "county": "East Riding of Yorkshire",
+802687	          "capacity_mw": 320.0,
+802688	          "planning_application_submitted": "2025-02-21",
+802689	          "planning_permission_granted": "2026-07-02",
+802690	          "latitude": 53.8393664,
+802691	          "longitude": -0.3337064,
+802692	            "15000",
+802693	            "15001"
+802694	        "source_url": "https://www.gov.uk/government/news/peartree-hill-solar-farm-development-consent-decision-announced",
+802695	        "publisher": "Planning Inspectorate",
+802696	        "read_at": "2026-11-17T04:42:54.526563+00:00",
+802697	        "published_at": "2026-07-02T13:16:00Z",
+802698	        "published_at_original": "2026-07-02T14:16:00+01:00",
+802699	        "administrative_updated_at": "2026-09-28T13:57:32Z",
+802700	        "type": "DEVELOPMENT_CONSENT_GRANTED",
+802701	        "decision_date": "2026-07-02",
+802702	        "statement": "The government decision for development EN010157 records consent granted on 2 July 2026. The displayed solar REPD15000 association is provisional within a solar and battery development; the frozen REPD status remains Awaiting Construction. This adds primary provenance to the existing frozen grant date, not a new status change.",
+802703	        "source_application_submitted": "2025-02-21",
+802704	        "source_application_accepted": "2025-03-21",
+802705	          "display_solar_repd_ref": "15000",
+802706	            "repd_ref": "15001",
+802707	          "frozen_solar_row_reported_mw": 320.0,
+802708	          "government_reported_mw": 320,
+802709	          "government_reported_basis": "up-to generating-capacity description, not as-built or BESS energy capacity",
+802710	          "government_reported_source_url": "https://www.gov.uk/government/publications/peartree-hill-solar-farm-development-consent-order-planning-act-2008",
+802712	/* Offline curated primary notes. Individually reviewed associations, not a matcher. */
+802714	import {CATALOGUE,CATALOGUES} from './catalogue.mjs';
+802758	  const refs=new Set(),ids=new Set(),matches=new Map(CATALOGUES.map(entry=>[entry.catalogue.source.planning_reference,[]]));
+802759	  requireValid(matches.size===4,'reviewed catalogue identity closure');
+802768	    const planning=field(row,'planning_application_reference');
+802769	    if(matches.has(planning))matches.get(planning).push(row);
+802770	  const accepted=new Map();
+802771	  for(const entry of CATALOGUES){
+802772	    const found=matches.get(entry.catalogue.source.planning_reference);
+802773	    requireValid(found.length===1,'exact planning reference must be unique within browser population');
+802774	    const row=jsonCopy(found[0]);
+802775	    for(const [field,expected] of Object.entries(entry.catalogue.canonical.fields))same(row[field],expected,'canonical '+field);
+802776	    accepted.set(entry.note_id,row);
+802780	  const feed=news.basis==='EXISTING_FEED_METADATA_ONLY';
+802781	  const moments=[source.retrieved_at,review.independent_review_at,review.curated_at,news.read_at,news.published_at,
+802782	    ...(feed?[news.feed_generated_at,news.first_seen]:[news.administrative_updated_at,source.corroboration.retrieved_at]),
+802785	  for(const value of [source.document_date,source.document_stated_publication_date,note.claim.decision_date,note.claim.source_application_submitted,
+802786	    ...(feed?[]:[note.claim.source_application_accepted])])requireValid(day(value)<=cutoff,'future document/event date');
+802787	  if(source.headers['Last-Modified']!==null){
+802788	    const modified=Date.parse(source.headers['Last-Modified']);requireValid(Number.isFinite(modified)&&BigInt(modified)*1000000n<=cutoff,'future/invalid HTTP clock');
+802791	  if(feed)requireValid(utcInstant(news.published_at)<=utcInstant(news.first_seen)&&utcInstant(news.first_seen)<=utcInstant(news.feed_generated_at)&&
+802792	    utcInstant(news.feed_generated_at)<=utcInstant(news.read_at),'auxiliary metadata/curation chronology');
+802793	  else requireValid(utcInstant(news.published_at)<=utcInstant(news.read_at)&&
+802794	    utcInstant(source.corroboration.retrieved_at)<=utcInstant(review.independent_review_at)&&
+802795	    day(note.claim.source_application_submitted)<=day(note.claim.source_application_accepted)&&
+802796	    day(note.claim.source_application_accepted)<=day(note.claim.decision_date),'government publication chronology');
+802797	  requireValid(utcInstant(news.read_at)<=utcInstant(review.curated_at)&&
+802799	function validate(note,row,catalogue,noteId,cutoff){
+802802	  requireValid(note.id===noteId&&note.association==='PROVISIONAL','only reviewed provisional association allowed');
+802807	    canonical_edition:catalogue.canonical.edition,canonical_partition:catalogue.canonical.partition,canonical_partition_sha256:catalogue.canonical.partition_sha256},'canonical snapshot');
+802810	  for(const field of ['source','rights','claim','news_metadata'])keys(note[field],Object.keys(catalogue[field]),field);
+802811	  keys(note.evidence_review,Object.keys(catalogue.review),'evidence review');
+802813	  const optionalUrls=[note.news_metadata.article_url,note.source.corroboration?.url,note.claim.development_scope?.full_identity_fixture_url,note.claim.capacity_context?.government_reported_source_url].filter(url=>url!==undefined);
+802814	  for(const url of [note.source.url,note.source.project_url,note.rights.licence_url,note.news_metadata.source_url,...optionalUrls,...note.rights.terms_receipts.map(r=>r.url)])https(url);
+802817	  same(note.source,catalogue.source,'source receipt');same(note.rights,catalogue.rights,'narrow rights evidence');
+802818	  same(note.claim,catalogue.claim,'bounded decision claim');same(note.news_metadata,catalogue.news_metadata,'auxiliary metadata');
+802819	  same(note.evidence_review,catalogue.review,'actual review metadata');
+802823	  options=jsonCopy(options);
+802826	  const cutoff=utcInstant(asOf);same(CURATED_NOTES.schema,SCHEMA,'curated schema');const rows=canonical(projects);
+802827	  requireValid(CURATED_NOTES.notes.length===4,'complete curated note closure');
+802832	  requireValid(proposals.length===0||proposals.length===4,'complete four-note proposal required');
+802833	  const accepted=proposals.map(record=>{
+802834	    const entry=CATALOGUES.find(item=>item.note_id===record.id);
+802835	    requireValid(entry,'unreviewed note identity');
+802836	    return validate(record,rows.get(record.id),entry.catalogue,entry.note_id,cutoff);
+802852	  return Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0,10) !== value ? 'Unknown' :
+802853	    parsed.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
+802859	const outcomes = Object.freeze({
+802860	  DEVELOPMENT_CONSENT_REFUSED:'Development consent refused',
+802861	  DEVELOPMENT_CONSENT_GRANTED:'Development consent granted',
+802862	  DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS:'Development consent granted with modifications'
+802866	    el('span', (outcomes[note.claim.type] || 'Government decision') + ' \u00b7 ' + note.binding.planning_reference, 'machine-note-headline')
+802873	  const letter = note.source.authorship === 'GOVERNMENT_DECISION_LETTER';
+802876	  section.append(el('p', 'Decision date: ' + date(note.claim.decision_date) + '. ' +
+802877	    (letter ? 'Letter date: ' : 'Government publication date: ') + date(note.source.document_date) + '.'));
+802878	  section.append(el('p', note.source.author + ' \u00b7 ' + note.source.locators.decision),
+802879	    link(letter ? 'Open the government decision letter' : 'Open the government announcement', note.source.url));
+802882	  details.append(el('p', 'Submission dates remain source-specific: REPD ' + date(project.planning_application_submitted) + '; ' +
+802883	    (letter ? 'decision letter ' : 'government announcement ') + date(note.claim.source_application_submitted) + '.'));
+802884	  if (note.claim.source_application_accepted) details.append(el('p', 'Government application acceptance: ' +
+802885	    date(note.claim.source_application_accepted) + '. Submission and acceptance are separate events.'));
+802886	  const capacity = note.claim.capacity_context;
+802887	  if (note.claim.type === 'DEVELOPMENT_CONSENT_REFUSED') {
+802888	    details.append(el('p', 'The original application and frozen REPD baseline are ' + capacity.original_application_repd_baseline_mw +
+802889	      ' MW. The letter describes a later reduction; the final reduced capacity is not established.'));
+802890	    details.append(el('p', 'Later project status, installed capacity, electrical connection and judicial review status remain unknown.'));
+802892	    details.append(el('p', 'Frozen solar-row REPD baseline: ' + capacity.frozen_solar_row_reported_mw + ' MW. Government capacity description: ' +
+802893	      capacity.government_reported_mw + ' MW (' + capacity.government_reported_basis + '). Original, final and as-built project capacity are not established by this note.'));
+802894	    details.append(link('Government capacity description source', capacity.government_reported_source_url));
+802895	    const scope = note.claim.development_scope, battery = scope.battery_component;
+802896	    details.append(el('p', 'Consent covers the whole solar-and-storage development. This solar-row association remains provisional. Battery REPD ' +
+802897	      battery.repd_ref + ' retains a separate identity; its MW and MWh are unknown, with no component capacity allocation.'));
+802898	    details.append(el('p', 'Government applicant: ' + note.source.government_applicant + '. Frozen REPD operator: ' + project.operator +
+802899	      '. Corporate ownership equivalence is not established.'));
+802900	    details.append(el('p', 'Later project status, installed capacity, electrical connection, commissioning and judicial review status remain unknown.'));
+802901	  if (note.news_metadata.basis === 'GOVERNMENT_PUBLICATION_METADATA_ONLY') {
+802902	    const precision = note.news_metadata.publication_precision;
+802903	    const publication = precision === 'DAY' ? date(note.news_metadata.published_at.slice(0,10)) + ' (day precision)' :
+802904	      precision === 'RECORDED_METADATA_TIMESTAMP' ? note.news_metadata.published_at + ' (recorded publication metadata)' : 'Unknown';
+802905	    details.append(el('p', 'Government page published: ' + publication + '. Administrative update: ' +
+802906	      note.news_metadata.administrative_updated_at + '. The decision date remains ' + date(note.claim.decision_date) + '.'));
+802908	  const receipt = el('p', (letter ? 'Observed PDF: ' : 'Observed government HTML: ') +
+802909	    note.source.bytes.toLocaleString('en-GB') + ' bytes. SHA-256: ' + note.source.sha256);
+802911	  if (note.source.corroboration) {
+802912	    details.append(link('Corroborating government publication', note.source.corroboration.url));
+802913	    const observed = el('p', 'Corroborating source retrieved: ' + note.source.corroboration.retrieved_at +
+802914	      '. Observed bytes: ' + note.source.corroboration.bytes + '. SHA-256: ' + note.source.corroboration.sha256);
+802915	    observed.style.overflowWrap = 'anywhere';details.append(observed);
+802921	import {resolve,extname,sep} from 'node:path';
+802923	const ownRoot=resolve(import.meta.dirname,'../..');
+802924	const root=resolve(process.env.REPD_EXPAND_ROOT||ownRoot);
+802925	const edition=process.env.REPD_EXPAND_EDITION||'uk_renewables_pipeline/202611170512';
+802926	const out=resolve(process.env.REPD_EXPAND_OUT||'D:/githubfiles/.qa-artifacts/repd-expand-agent-b');
+802927	const {chromium}=await import(process.env.PLAYWRIGHT_MODULE?pathToFileURL(process.env.PLAYWRIGHT_MODULE).href:'playwright');
+802929	const css='/automation/repd_expand_ui/expand.css',js='/automation/repd_expand_ui/expand.mjs';
+802932	    let path=decodeURIComponent(new URL(req.url,'http://local').pathname);
+802933	    if(path.endsWith('/'))path+='index.html';
+802934	    const sourceRoot=[css,js].includes(path)?ownRoot:root;
+802935	    const file=resolve(sourceRoot,'.'+path);
+802936	    assert.ok(file.startsWith(sourceRoot+sep));
+802937	    let bytes=readFileSync(file);
+802938	    if(path==='/'+edition+'/index.html'){
+802939	      let html=bytes.toString();
+802940	      if(!html.includes('repd_expand_ui/expand.css'))html=html.replace('</head>',`<link rel="stylesheet" href="${css}"></head>`);
+802941	      if(!html.includes('repd_expand_ui/expand.mjs'))html=html.replace('</body>',`<script type="module" src="${js}"></script></body>`);
+802942	      bytes=Buffer.from(html);
+802943	    res.setHeader('Content-Type',({'.mjs':'text/javascript','.js':'text/javascript','.css':'text/css','.json':'application/json','.html':'text/html'})[extname(file)]||'application/octet-stream');
+802944	    res.end(bytes);
+802948	const proof={status:'RUNNING',edition,checks:[],limitations:['Local Chromium/touch emulation; physical handset and public deployment unverified.','External requests blocked; existing source data and local scripts used.']};
+802951	  browser=await chromium.launch({headless:true});
+802953	    const context=await browser.newContext({viewport:{width,height:844},isMobile:width<500,hasTouch:width<500});
+802954	    await context.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
+802955	    const page=await context.newPage();
+802956	    await page.goto(origin+'/'+edition+'/index.html?technology=all');
+802957	    await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)===7775);
+802958	    const trigger=page.locator('[data-repd-expand]'),modal=page.locator('.repd-expand-dialog');
+802959	    await page.locator('#search').fill('15149');
+802960	    await page.locator('#repd-15149').waitFor();
+802961	    await page.evaluate(()=>{window.originalRegister=document.querySelector('#officialRegister');window.originalRow=document.querySelector('#repd-15149');window.originalParent=originalRegister.parentElement;});
+802962	    const mapBefore=await page.locator('#repd-15149 .map-action, #repd-15149 a').first().getAttribute('href');
+802963	    await trigger.scrollIntoViewIfNeeded();
+802964	    const scrollBefore=await page.evaluate(()=>scrollY);
+802965	    await trigger.click();
+802966	    await modal.waitFor({state:'visible'});
+802967	    assert.equal(await trigger.getAttribute('aria-expanded'),'true');
+802968	    assert.equal(await page.evaluate(()=>document.activeElement.classList.contains('repd-expand-close')),true);
+802969	    assert.equal(await page.evaluate(()=>document.querySelector('dialog #officialRegister')===originalRegister&&document.querySelector('#repd-15149')===originalRow),true);
+802970	    const bounds=await modal.boundingBox();
+802971	    assert.ok(Math.abs(bounds.x)<2&&Math.abs(bounds.y)<2&&Math.abs(bounds.width-width)<2&&Math.abs(bounds.height-844)<2,JSON.stringify(bounds));
+802972	    assert.equal(await page.locator('#search').inputValue(),'15149');
+802973	    await page.keyboard.press('Shift+Tab');
+802974	    assert.equal(await page.evaluate(()=>document.activeElement.closest('.repd-expand-dialog')!==null),true);
+802975	    const downloaded=page.waitForEvent('download');
+802976	    await page.locator('#exportInline').click();
+802977	    const download=await downloaded;assert.match(readFileSync(await download.path(),'utf8'),/15149/);
+802978	    // A second modal (for example a source note) closes before analytics does.
+802979	    await page.evaluate(()=>{const note=document.createElement('dialog');note.id='testNote';note.textContent='Nested note';document.body.append(note);note.showModal();});
+802981	    await page.waitForFunction(()=>!document.querySelector('#testNote').open);
+802982	    assert.equal(await modal.evaluate(n=>n.open),true);
+802983	    await page.evaluate(()=>document.querySelector('#testNote').remove());
+802984	    await page.locator('.repd-expand-close').click();
+802985	    await page.waitForFunction(()=>!document.querySelector('.repd-expand-dialog').open&&document.querySelector('#officialRegister')?.parentElement===originalParent);
+802986	    assert.equal(await page.evaluate(()=>document.querySelector('#officialRegister')===originalRegister&&originalRegister.parentElement===originalParent),true);
+802987	    assert.equal(await trigger.getAttribute('aria-expanded'),'false');
+802988	    assert.equal(await trigger.evaluate(n=>document.activeElement===n),true);
+802989	    assert.ok(Math.abs(await page.evaluate(()=>scrollY)-scrollBefore)<3);
+802990	    assert.equal(await page.evaluate(()=>document.documentElement.style.overflow),'');
+802991	    assert.equal(await page.locator('#repd-15149 .map-action, #repd-15149 a').first().getAttribute('href'),mapBefore);
+802992	    // Repeat, pan the live table, rotate, then close with Escape.
+802993	    await page.locator('.repd-expand-dialog .tablewrap').evaluate(n=>n.scrollLeft=200);
+802994	    const pan=await page.locator('.repd-expand-dialog .tablewrap').evaluate(n=>n.scrollLeft);
+802995	    if(width<500){
+802996	      await page.setViewportSize({width:915,height:412});
+802997	      const landscape=await modal.boundingBox();assert.ok(Math.abs(landscape.width-915)<2&&Math.abs(landscape.height-412)<2);
+802998	      await page.locator('.repd-expand-close').scrollIntoViewIfNeeded();
+802999	      assert.ok(await page.locator('.repd-expand-close').isVisible());
+803000	      await page.setViewportSize({width,height:844});
+803001	    await page.screenshot({path:resolve(out,`expanded-${width}.png`)});
+803002	    assert.equal(await page.locator('#officialRegister .tablewrap').evaluate(n=>n.scrollLeft),pan);
+803003	    assert.equal(await page.evaluate(()=>document.querySelectorAll('#officialRegister').length),1);
+803004	    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+803005	    proof.checks.push({width,status:'PASS',checks:['viewport coverage','same live nodes','search/CSV/MAP preserved','focus containment/return','close and Escape','nested modal Escape','scroll restoration','repeat open/close','table pan retained',...(width<500?['portrait-landscape-return']:[])]});
+803007	  const fallback=await browser.newContext({viewport:{width:390,height:844}});
+803008	  await fallback.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
+803009	  await fallback.addInitScript(()=>{HTMLDialogElement.prototype.showModal=undefined;});
+803010	  const fallbackPage=await fallback.newPage();
+803011	  await fallbackPage.goto(origin+'/'+edition+'/index.html?technology=all');
+803012	  await fallbackPage.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)===7775);
+803013	  assert.equal(await fallbackPage.locator('[data-repd-expand]').count(),0);
+803014	  assert.equal(await fallbackPage.locator('#officialRegister').isVisible(),true);
+803015	  proof.checks.push({status:'PASS',checks:['unsupported modal API retains ordinary dashboard']});
+803017	  proof.status='PASS';
+803018	}catch(error){proof.status='FAIL';proof.error=String(error.stack||error);throw error;}
+803019	finally{if(browser)await browser.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify(proof,null,2));}
+803020	console.log(JSON.stringify(proof,null,2));
+803021	/** Expand the existing analytics nodes; never clone data, controls or listeners. */
+803022	export function mountRepdExpansion(doc = document) {
+803023	  const section = doc.getElementById('officialRegister');
+803024	  if (!section || section.querySelector('[data-repd-expand]')) return null;
+803025	  const dialog = doc.createElement('dialog');
+803026	  // An unsupported browser keeps its ordinary, usable dashboard.
+803027	  if (typeof dialog.showModal !== 'function') return null;
+803028	  dialog.className = 'repd-expand-dialog';
+803029	  dialog.setAttribute('aria-label', 'REPD pipeline analytics expanded view');
+803030	  const bar = doc.createElement('div');
+803031	  bar.className = 'repd-expand-bar';
+803032	  const title = doc.createElement('span');
+803033	  title.textContent = 'REPD PIPELINE ANALYTICS';
+803034	  const close = doc.createElement('button');
+803035	  close.type = 'button';
+803036	  close.className = 'btn repd-expand-close';
+803037	  close.textContent = 'CLOSE EXPANDED VIEW';
+803038	  close.setAttribute('aria-label', 'Close expanded REPD analytics and return to page');
+803039	  bar.append(title, close);
+803040	  dialog.append(bar);
+803041	  const trigger = doc.createElement('button');
+803042	  trigger.type = 'button';
+803043	  trigger.className = 'btn repd-expand-open';
+803044	  trigger.dataset.repdExpand = '';
+803045	  trigger.textContent = 'EXPAND ANALYTICS';
+803046	  trigger.setAttribute('aria-haspopup', 'dialog');
+803047	  trigger.setAttribute('aria-expanded', 'false');
+803048	  const launcher = doc.createElement('div');
+803049	  launcher.className = 'repd-expand-launcher';
+803050	  launcher.append(trigger);
+803051	  const heading = section.querySelector('#pipelineHeading');
+803052	  if (heading) heading.after(launcher);
+803053	  else section.prepend(launcher);
+803054	  doc.body.append(dialog);
+803055	  let marker = null;
+803056	  let saved = null;
+803057	  let closingPositions = null;
+803058	  const win = doc.defaultView;
+803059	  const scrollPositions = () => [...section.querySelectorAll('*')]
+803060	    .filter(node => node.scrollLeft || node.scrollTop)
+803061	    .map(node => ({ node, left: node.scrollLeft, top: node.scrollTop }));
+803062	  const restorePositions = (positions) => positions.forEach(({node,left,top}) => {
+803063	    node.scrollLeft = left;
+803064	    node.scrollTop = top;
+803065	  function restore() {
+803066	    if (!marker) return;
+803067	    const positions = closingPositions || scrollPositions();
+803068	    closingPositions = null;
+803069	    marker.replaceWith(section);
+803070	    marker = null;
+803071	    doc.documentElement.style.overflow = saved.htmlOverflow;
+803072	    doc.body.style.overflow = saved.bodyOverflow;
+803073	    trigger.setAttribute('aria-expanded', 'false');
+803074	    restorePositions(positions);
+803075	    trigger.focus({ preventScroll: true });
+803076	    win.scrollTo(saved.x, saved.y);
+803077	  trigger.addEventListener('click', () => {
+803078	    if (dialog.open) return;
+803079	    saved = { x: win.scrollX, y: win.scrollY,
+803080	      htmlOverflow: doc.documentElement.style.overflow,
+803081	      bodyOverflow: doc.body.style.overflow };
+803082	    marker = doc.createComment('REPD analytics return position');
+803083	    const positions = scrollPositions();
+803084	    section.before(marker);
+803085	    dialog.append(section);
+803087	      dialog.showModal();
+803088	      restorePositions(positions);
+803089	      doc.documentElement.style.overflow = 'hidden';
+803090	      doc.body.style.overflow = 'hidden';
+803091	      trigger.setAttribute('aria-expanded', 'true');
+803092	      close.focus({ preventScroll: true });
+803094	      restore();
+803095	      // Leave the normal dashboard usable if modal display is unavailable.
+803096	      console.warn('REPD expanded view unavailable', error);
+803098	    closingPositions = scrollPositions();
+803100	  dialog.addEventListener('cancel', () => { closingPositions = scrollPositions(); });
+803101	  dialog.addEventListener('keydown', (event) => {
+803102	    if (event.key !== 'Tab') return;
+803103	    const items = [...dialog.querySelectorAll('button,input,select,textarea,a[href],summary,[tabindex]')]
+803104	      .filter(node => !node.disabled && node.tabIndex >= 0 && node.getClientRects().length);
+803105	    const first = items[0], last = items.at(-1);
+803106	    if ((event.shiftKey && doc.activeElement === first)
+803107	        || (!event.shiftKey && doc.activeElement === last)) {
+803109	      (event.shiftKey ? last : first).focus();
+803110	  // Native Escape/cancel also fires close. Nested note dialogs retain their own Escape.
+803111	  dialog.addEventListener('close', restore);
+803112	  return { dialog, trigger, close };
+803113	if (typeof document !== 'undefined') mountRepdExpansion();
+803119	import {protectedEditionChanges} from '../pipeline_release/edition_history.mjs';
+803232	  const historical=protectedEditionChanges({cwd:ROOT,base:sourceBase});
+803233	  assert.deepEqual(historical,[],'every edition directory present in the pinned base remains unchanged');
+803234	  pass('every baseline edition tree remains unchanged against the pinned Git base',{base:sourceBase});
+803238	/** Real integrated V9.33 browser acceptance against exact source-byte fixtures. */
+803241	const ACCEPTED_PRIMARY_DONOR='f421513f7cbd85ad45727ef236e053a6c67f92d9';
+803242	const ACCEPTED_RENDERER_SHA256='4cc9b278d5638a65fa7d8fc59cd42681666adf49a6089ffd0673f1c37446068c';
+803243	assert.match(ACCEPTED_PRIMARY_DONOR,/^[a-f0-9]{40}$/,'Reviewed producer SHA must be pinned');
+803244	assert.match(ACCEPTED_RENDERER_SHA256,/^[a-f0-9]{64}$/,'Accepted renderer SHA256 must be pinned');
+803245	const EDITION=process.env.V933_CANDIDATE||'uk_renewables_pipeline/202611170512';
+803246	const candidate=resolve(ROOT,EDITION),baseline=resolve(ROOT,'uk_renewables_pipeline/202611170324');
+803247	const OUT=resolve(process.env.V933_OUT||resolve(tmpdir(),'gg2050-v933-preview'));
+803248	const {chromium}=process.env.V933_PLAYWRIGHT
+803249	  ? await import(pathToFileURL(resolve(process.env.V933_PLAYWRIGHT))) : await import('playwright');
+803253	const receipt={status:'RUNNING',scope:'full integrated host',utc:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{cwd:ROOT,encoding:'utf8'}).trim(),edition:EDITION,index_sha256:sha(readFileSync(resolve(candidate,'index.html'))),checks:[],sources:[],blocked_external:[],limitations:[
+803263	if(process.env.V933_DATA_SOURCE)locationBytes=readFileSync(resolve(process.env.V933_DATA_SOURCE));
+803268	receipt.sources.push({id:'dc-address-locations',url:locationSpec.input.url,sha256:sha(locationBytes),bytes:locationBytes.length,transport:process.env.V933_DATA_SOURCE?'explicit data-owner fixture, exact immutable bytes':'immutable HTTPS source'});
+803269	let baselineDCLinks,baselineDCCsv,baselineHeadlineHas,baselineNoteButtons={},baselineHeadlineLinks=[],baselineLinksByRef={};
+803271	assert.equal(primarySpec.producer.commit,ACCEPTED_PRIMARY_DONOR);assert.equal(primarySpec.renderer.sha256,ACCEPTED_RENDERER_SHA256);
+803272	receipt.primaryContract={producer:primarySpec.producer.commit,manifest_sha256:sha(readFileSync(resolve(candidate,'contracts/primary-notes.v932.json'))),renderer_sha256:primarySpec.renderer.sha256,renderer_bytes:primarySpec.renderer.bytes};
+803273	const primaryCache=resolve(ROOT,'automation/primary_note_ui',primarySpec.producer.commit),primaryData=JSON.parse(readFileSync(resolve(primaryCache,'notes.json'))),primaryNote=primaryData.notes.find(n=>n.binding.repd_ref==='12588');
+803274	const primaryByRef=new Map(primaryData.notes.map(n=>[n.binding.repd_ref,n]));assert.deepEqual([...primaryByRef.keys()].sort(),['12588','14806','15000','15149']);
+803275	const canonicalManifest=JSON.parse(readFileSync(resolve(candidate,'data/v9.1/build_manifest.json'))),canonicalRows=canonicalManifest.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(candidate,p.path))).projects),canonicalRefs=canonicalRows.map(r=>r.repd_ref);
+803280	  let raw;if(process.env.V933_PRICE_SOURCE)raw=readFileSync(resolve(process.env.V933_PRICE_SOURCE,name));
+803285	receipt.sources.push({id:'historical-daily-system-sell',repository:priceSpec.input.repository,commit:priceSpec.input.commit,index_sha256:priceSpec.input.index.sha256,index_bytes:priceSpec.input.index.bytes,annual_parts:priceIndex.parts.length,transport:process.env.V933_PRICE_SOURCE?'explicit existing owner bytes, every pin checked then replayed':'immutable HTTPS owner bytes, every pin checked then replayed'});
+803362	async function nativeLandscapeNotePan(browser){
+803363	  const test=await open(browser,915,candidate,{mobile:true,height:412});await test.page.waitForFunction(()=>document.documentElement.dataset.primaryNotesState==='available');await allRepd(test.page);await test.page.locator('#search').fill('15149');await test.page.waitForFunction(()=>!!document.getElementById('repd-15149'));
+803364	  const wrapper=test.page.locator('.tablewrap:has(#tbody)'),button=test.page.locator('#repd-15149 .machine-note-cell .machine-note-button');await wrapper.scrollIntoViewIfNeeded();const session=await test.context.newCDPSession(test.page),pans=[];
+803365	  assert.equal(await wrapper.evaluate(n=>n.scrollLeft),0,'fresh table begins unpanned');assert.ok(await wrapper.evaluate(n=>n.scrollWidth>n.clientWidth),'real table overflows at915px');
+803366	  const visible=()=>button.evaluate(n=>{const r=n.getBoundingClientRect(),p=n.closest('.tablewrap').getBoundingClientRect();return r.left>=Math.max(0,p.left)&&r.right<=Math.min(innerWidth,p.right)&&r.top>=0&&r.bottom<=innerHeight;});
+803367	  for(let count=0;count<5;count++){
+803368	    if(count>0&&await visible())break;
+803369	    const rect=await wrapper.evaluate(n=>{const r=n.getBoundingClientRect();return{left:r.left,top:r.top,width:r.width,height:r.height,before:n.scrollLeft};});const x=Math.min(875,rect.left+rect.width*.85),y=Math.max(50,Math.min(360,rect.top+rect.height*.55));
+803370	    await touchDrag(session,{x,y,dx:-Math.min(500,rect.width*.6)});await settleTouch(test.page);const after=await wrapper.evaluate(n=>n.scrollLeft);pans.push({...rect,after});assert.ok(after>rect.before+2,'trusted touch drag pans the actual table');
+803371	  assert.equal(await visible(),true,'desktop note button is physically visible after native panning');
+803372	  let taps=0;for(;taps<2;taps++){await settleTouch(test.page);await button.tap();try{await test.page.waitForSelector('.machine-note-dialog[open]',{timeout:1000});break;}catch(error){if(taps===1)throw error;}}
+803373	  const dialog=test.page.locator('.machine-note-dialog[open]');assert.equal(await dialog.locator('.machine-note-primary').count(),1);assert.ok((await dialog.innerText()).includes('15149'));await test.page.locator('.machine-note-close').tap();await test.page.waitForSelector('.machine-note-dialog[open]',{state:'detached'});
+803374	  await settleTouch(test.page);assert.equal(await visible(),true);await button.tap();await test.page.waitForSelector('.machine-note-dialog[open]');assert.equal(await test.page.locator('.machine-note-primary').count(),1);
+803375	  const screenshot=await orientationScreenshot(session,'v933-native915-primary-pan-reopen.png',{width:915,height:412});await test.page.keyboard.press('Escape');assert.deepEqual(test.errors,[]);await test.context.close();pass('Android-UA/touch-emulated915 table pans to visible primary button; native tap/close/reopen works without JS scroll or mouse fallback',{pans,openTaps:taps+1,screenshot,actualHandset:false});
+803389	async function existingBriefLinks(page){return page.locator('.machine-note-dialog .machine-note-source:not(.machine-note-primary) a').evaluateAll(nodes=>nodes.map(n=>({href:n.href,text:n.textContent})));}
+803401	  await page.screenshot({path:resolve(OUT,`v933-primary-brief-${width}.png`)});await page.keyboard.press('Escape');assert.equal(await page.locator('.machine-note-dialog[open]').count(),0);assert.equal(await button.evaluate(n=>n===document.activeElement),true,'native dialog restores opener focus');assert.equal(await page.locator('#repd-12588 .atlaslink').getAttribute('href'),map);
+803422	  const exported=await download(page,page.locator('#datacentreHost button.ggdc-download'),`v933-dc-global-${width}.csv`);assert.deepEqual(exported.rows,baselineDCCsv.rows,'optional locations never rewrite original100-record CSV');
+803430	  await painted(page,'#datacentreHost tbody tr');await page.screenshot({path:resolve(OUT,`v933-dc-global-${width}.png`)});
+803432	async function verifyAddedConsents(page,width,requests){
+803433	  for(const [ref,sibling,applicant,dates] of [
+803434	    ['15149','15150','Elements Green Trent Limited',['27 Oct 2026','27 Jun 2025','22 Jul 2025']],
+803435	    ['14806','14807','One Earth Solar Farm Limited',['8 Jul 2026','27 Feb 2025','27 Mar 2025']],
+803436	    ['15000','15001','RWE Renewables UK Solar and Storage Limited',['2 Jul 2026','21 Feb 2025','21 Mar 2025']]
+803438	    const note=primaryByRef.get(ref),project=canonicalRows.find(p=>p.repd_ref===ref),button=await noteButton(page,ref),map=await page.locator('#repd-'+ref+' .atlaslink').getAttribute('href');
+803439	    assert.equal(await button.getAttribute('data-note-primary'),'provisional');assert.match(await button.innerText(),/PROVISIONAL.*GOVERNMENT/s);await button.click();
+803440	    const dialog=page.locator('.machine-note-dialog[open]'),primary=dialog.locator('.machine-note-primary');assert.equal(await dialog.count(),1);assert.equal(await primary.count(),1);assert.match(await dialog.innerText(),/PROVISIONAL PROJECT ASSOCIATION/);assert.ok((await dialog.innerText()).includes('OFFICIAL SOURCE STATUS (FROZEN REPD)')&&(await dialog.innerText()).includes(project.status));
+803441	    const sourceLink=primary.locator('a').first();assert.equal(await sourceLink.getAttribute('href'),note.source.url);
+803442	    assert.deepEqual(await existingBriefLinks(page),baselineLinksByRef[ref],'existing headline attribution/links stay separate and unchanged');
+803443	    if(ref==='15000'){assert.match(await sourceLink.innerText(),/page|announcement|publication|HTML/i);assert.doesNotMatch(await sourceLink.innerText(),/letter|PDF/i);assert.doesNotMatch(await primary.innerText(),/with modifications/i);}
+803444	    else assert.match(await sourceLink.innerText(),/letter|PDF/i);
+803445	    const details=primary.locator('details');assert.equal(await details.getAttribute('open'),null);await details.locator('summary').click();const text=await primary.innerText();
+803446	    for(const expected of [...dates,project.operator,applicant,sibling,note.source.retrieved_at,note.source.sha256,note.rights.attribution])assert.ok(text.includes(expected),ref+': '+expected+' retained');
+803447	    const publication=primary.locator('p').filter({hasText:'Government page published:'});assert.equal(await publication.count(),1);const publicationText=await publication.innerText();
+803448	    (receipt.publicationPrecisionChecks??=[]).push({repd_ref:ref,source_precision:note.news_metadata.publication_precision,source_published_at:note.news_metadata.published_at,rendered:publicationText});
+803449	    if(note.news_metadata.publication_precision==='DAY'){
+803450	      const label=new Date(note.news_metadata.published_at).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});assert.ok(publicationText.includes(label));assert.match(publicationText,/day precision/i);assert.doesNotMatch(publicationText,/T00:00:00(?:\.0+)?(?:Z|\+00:00)/,'day-only publication must not become a fabricated midnight instant');
+803451	    }else{assert.ok(publicationText.includes(note.news_metadata.published_at)||publicationText.includes(note.news_metadata.published_at_original),ref+': recorded source timestamp retained; actual: '+publicationText);assert.match(publicationText,/recorded publication metadata/i);}
+803452	    assert.match(text,/unknown|not established/i);assert.doesNotMatch(text,/battery[^.]{0,60}\b0\s*MW/i);assert.doesNotMatch(text,/VERIFIED association|current installed capacity (?:is|of) (?:800|740|320)/i);
+803453	    if(ref==='15149')assert.doesNotMatch(text,/submission dates (?:differ|conflict)|submission discrepancy exists/i);
+803454	    assert.equal(await primary.getByRole('link',{name:'Open Government Licence v3.0',exact:true}).getAttribute('href'),note.rights.licence_url);
+803455	    const geometry=await dialog.evaluate(n=>({client:n.clientWidth,scroll:n.scrollWidth}));assert.ok(geometry.scroll<=geometry.client+1,'no horizontal dialog overflow');
+803456	    await page.screenshot({path:resolve(OUT,`v933-primary-${ref}-${width}.png`)});await page.keyboard.press('Escape');assert.equal(await dialog.count(),0);assert.equal(await button.evaluate(n=>document.activeElement===n),true);assert.equal(await page.locator('#repd-'+ref+' .atlaslink').getAttribute('href'),map);
+803457	  const government=raw=>{const host=new URL(raw).hostname;return host==='www.gov.uk'||host.endsWith('.planninginspectorate.gov.uk')||host==='www.nationalarchives.gov.uk';};assert.equal(requests.filter(government).length,0,'note display must not fetch government source bodies or rights pages');
+803458	  await allRepd(page);assert.deepEqual(await headlineHas(page),baselineHeadlineHas);assert.equal(await page.locator('main > section').count(),2);
+803459	  pass('three added government consents preserve case dates/applicants/operators, separate BESS identities, HTML/PDF labels, rights scope and original MAP',{width,associations:4,verified:0,governmentBodyFetches:0});
+803487	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v933-prices-default-${width}.png`)});
+803495	  await page.locator('#pricesLayerHost canvas').scrollIntoViewIfNeeded();await page.screenshot({path:resolve(OUT,`v933-prices-gap-${width}.png`)});
+803507	  if(!process.env.V933_ROTATION_ONLY){
+803512	  for(const ref of ['12588','10529','18174','15149','14806','15000']){const button=await noteButton(b.page,ref);baselineNoteButtons[ref]=await button.innerText();if(['12588','15149','14806','15000'].includes(ref)){await button.click();baselineLinksByRef[ref]=await existingBriefLinks(b.page);if(ref==='12588')baselineHeadlineLinks=baselineLinksByRef[ref];await b.page.keyboard.press('Escape');}}
+803514	  pass('frozen V9.32 browser CSV establishes complete original population',{rows:7775,sha256:oldCsv.sha256});
+803528	    await verifyPrimary(page,width,requests);await verifyAddedConsents(page,width,requests);
+803529	    if(width===1440){const actual=await download(page,page.locator('#exportInline'),'v933-all.csv');assert.deepEqual(actual.rows,oldCsv.rows);pass('all 7,775 exported CSV rows/fields/order equal frozen V9.32',{sha256:actual.sha256});}
+803562	    await page.screenshot({path:resolve(OUT,`v933-solar-${width}.png`)});await tab(page,'gridTab');await page.screenshot({path:resolve(OUT,`v933-grid-${width}.png`)});
+803576	    const screenshot=await orientationScreenshot(session,`v933-dc-${name}.png`,size);states.push({name,...size,layout,paint,screenshot});
+803586	    const screenshot=await orientationScreenshot(priceSession,`v933-prices-${name}.png`,size);priceStates.push({name,...size,layout,canvas:chart.canvas,screenshot});
+803592	    const screenshot=await orientationScreenshot(primarySession,`v933-primary-${name}.png`,size);primaryStates.push({name,...size,layout,paint,screenshot});
+803594	  await nativeLandscapeNotePan(browser);
+803597	    assert.deepEqual(await headlineHas(test.page),baselineHeadlineHas);assert.equal(await test.page.locator('[data-note-primary]').count(),0);await allRepd(test.page);const button=await noteButton(test.page,'12588');assert.match(await button.innerText(),baselineHeadlineHas['12588']?/POSSIBLE/:/NO MATCHED HEADLINE/);await button.click();assert.equal(await test.page.locator('.machine-note-dialog .machine-note-primary').count(),0);assert.deepEqual(await existingBriefLinks(test.page),baselineHeadlineLinks);assert.match(await test.page.locator('.machine-note-dialog').innerText(),/OFFICIAL SOURCE STATUS \(FROZEN REPD\).*Application Submitted/);await test.page.keyboard.press('Escape');
+803618	/** Exact producer tests plus independent V9.33 actual-population contracts. */
+803620	import {resolve,dirname} from 'node:path';
+803621	assert.match(ACCEPTED_PRIMARY_DONOR,/^[a-f0-9]{40}$/,'Reviewed final producer SHA must be pinned');
+803622	const donorTests=execFileSync('git',['show',ACCEPTED_PRIMARY_DONOR+':automation/news/primary-notes/tests/contracts.test.mjs'],{cwd:ROOT,encoding:'utf8'});
+803623	const adapted=donorTests.replaceAll("'../model.mjs'",JSON.stringify(pathToFileURL(resolve(ROOT,'automation/primary_note_ui',ACCEPTED_PRIMARY_DONOR,'model.mjs')).href)).replaceAll("'../catalogue.mjs'",JSON.stringify(pathToFileURL(resolve(ROOT,'automation/primary_note_ui',ACCEPTED_PRIMARY_DONOR,'catalogue.mjs')).href));
+803624	await import('data:text/javascript;base64,'+Buffer.from(adapted).toString('base64'));
+803625	const {buildPrimaryNotes,CURATED_NOTES}=await import(pathToFileURL(resolve(ROOT,'automation/primary_note_ui',ACCEPTED_PRIMARY_DONOR,'model.mjs')));
+803626	const old=await import('../primary_note_ui/b5eed3d2ae878c78e5153be06ef531c11fff2148/model.mjs');
+803627	const EDITION=resolve(ROOT,process.env.V933_CANDIDATE||'uk_renewables_pipeline/202611170512');
+803628	const copy=value=>structuredClone(value),digest=raw=>createHash('sha256').update(raw).digest('hex');
+803629	const manifest=JSON.parse(readFileSync(resolve(EDITION,'data/v9.1/build_manifest.json'))),projects=[];
+803630	for(const part of manifest.project_partitions){const raw=readFileSync(resolve(EDITION,part.path));assert.equal(digest(raw),part.sha256);projects.push(...JSON.parse(raw).projects);}
+803631	assert.equal(projects.length,7775);const byRef=new Map(CURATED_NOTES.notes.map(n=>[n.binding.repd_ref,n]));
+803632	const asOf=()=>new Date().toISOString();
+803633	test('four reviewed notes stay PROVISIONAL withzeroverified/pilotdelta; Botley bytes remain unchanged',()=>{
+803634	 assert.deepEqual([...byRef.keys()].sort(),['12588','14806','15000','15149']);
+803635	 assert.deepEqual(byRef.get('12588'),old.CURATED_NOTES.notes.find(n=>n.binding.repd_ref==='12588'));
+803636	 const before=JSON.stringify(projects),result=buildPrimaryNotes(projects,{asOf:asOf()});
+803637	 assert.equal(result.association_count,4);assert.equal(result.verified_count,0);assert.equal(result.solar1000_verified_delta,0);assert.equal(JSON.stringify(projects),before);
+803638	 assert.deepEqual(Object.keys(result.by_repd_ref).sort(),['12588','14806','15000','15149']);assert(Object.values(result.by_repd_ref).every(notes=>notes.length===1&&notes[0].association==='PROVISIONAL'));
+803639	test('cross-record source/binding substitution cannot borrow another reviewed government receipt',()=>{
+803640	 const records=copy(CURATED_NOTES.notes),a=records.find(n=>n.binding.repd_ref==='15149'),b=records.find(n=>n.binding.repd_ref==='14806');[a.source,b.source]=[b.source,a.source];assert.throws(()=>buildPrimaryNotes(projects,{records,asOf:asOf()}));
+803641	 const changed=copy(CURATED_NOTES.notes);changed.find(n=>n.binding.repd_ref==='15000').claim.type='DEVELOPMENT_CONSENT_GRANTED_WITH_MODIFICATIONS';assert.throws(()=>buildPrimaryNotes(projects,{records:changed,asOf:asOf()}));
+803642	test('component substitutions and VERIFIED promotion cannot create accepted project notes',()=>{
+803643	 for(const [solar,component] of [['15149','15150'],['14806','14807'],['15000','15001']]){
+803644	  const records=copy(CURATED_NOTES.notes),note=records.find(n=>n.binding.repd_ref===solar);note.binding.repd_ref=component;note.binding.gg_project_id='GG2050-REPD-'+component;assert.throws(()=>buildPrimaryNotes(projects,{records,asOf:asOf()}));
+803646	 const records=copy(CURATED_NOTES.notes);records[0].association='VERIFIED';assert.throws(()=>buildPrimaryNotes(projects,{records,asOf:asOf()}));
+803647	test('GNR submission isJune27; acceptingJuly22 doesnotrewrite the frozen submission',()=>{
+803648	 assert.equal(projects.find(p=>p.repd_ref==='15149').planning_application_submitted,'2025-06-27');
+803649	 const records=copy(CURATED_NOTES.notes),note=records.find(n=>n.binding.repd_ref==='15149');note.claim.source_application_submitted='2025-07-22';assert.throws(()=>buildPrimaryNotes(projects,{records,asOf:asOf()}));
+803650	test('actual-population notes reject exclusive solar scope, zero battery power and operator/applicant conflation',()=>{
+803651	 for(const change of [n=>n.claim.development_scope.exclusive_solar_claim=true,n=>n.claim.development_scope.battery_component.capacity_mw=0,n=>n.claim.capacity_context.component_allocation_mw=800,n=>n.source.government_applicant=projects.find(p=>p.repd_ref==='15149').operator]){
+803652	  const records=copy(CURATED_NOTES.notes);change(records.find(n=>n.binding.repd_ref==='15149'));assert.throws(()=>buildPrimaryNotes(projects,{records,asOf:asOf()}));
+803653	/** Exact-source and historical-preservation acceptance for the formal V9.33 edition. */
+803654	const sourceBase=process.env.V933_BASE_SHA||execFileSync('git',['rev-parse','origin/main'],{cwd:ROOT,encoding:'utf8'}).trim();
+803655	const out=process.env.V933_OUT;
+803656	  const primaryContractBytes=bytes(resolve(candidate,'contracts/primary-notes.v932.json')),primaryContract=JSON.parse(primaryContractBytes),primaryDonor=ACCEPTED_PRIMARY_DONOR;
+803657	  assert.equal(primaryContractBytes.length,1914);assert.equal(hash(primaryContractBytes),'b260aa3cd59c72d50609083c906682347601ef414d3a3003cefba87fae9271ce');assert.equal(primaryContract.producer.extends_commit,'b5eed3d2ae878c78e5153be06ef531c11fff2148');execFileSync('git',['merge-base','--is-ancestor',primaryContract.producer.extends_commit,primaryDonor],{cwd:ROOT});
+803658	  const renderer=bytes(resolve(ROOT,primaryContract.renderer.path));assert.equal(hash(renderer),ACCEPTED_RENDERER_SHA256);assert.equal(primaryContract.renderer.bytes,renderer.length);assert.equal(primaryContract.renderer.sha256,hash(renderer));
+803659	  const primaryModel=await import(pathToFileURL(resolve(primaryCache,'model.mjs')));
+803660	  for(const [key,value] of Object.entries({canonical_population:7775,associations:4,verified:0,solar1000_verified_delta:0}))assert.equal(primaryContract.expected[key],value);
+803661	  assert.equal(primaryIndex.association_count,4);assert.equal(primaryIndex.verified_count,0);assert.equal(primaryIndex.solar1000_verified_delta,0);assert.deepEqual(Object.keys(primaryIndex.by_repd_ref).sort(),['12588','14806','15000','15149']);assert.equal(JSON.stringify(allCanonical),canonicalBefore);
+803662	  const oldModel=await import(pathToFileURL(resolve(ROOT,'automation/primary_note_ui/b5eed3d2ae878c78e5153be06ef531c11fff2148/model.mjs')));
+803663	  const curated=new Map(primaryModel.CURATED_NOTES.notes.map(n=>[n.binding.repd_ref,n]));assert.deepEqual(curated.get('12588'),oldModel.CURATED_NOTES.notes.find(n=>n.binding.repd_ref==='12588'),'immutable Botley curated object preserved');
+803664	  for(const note of curated.values())assert.equal(hash(bytes(resolve(ROOT,'uk_renewables_pipeline',note.binding.canonical_edition,note.binding.canonical_partition))),note.binding.canonical_partition_sha256);
+803665	  assert.equal(allCanonical.find(r=>r.repd_ref==='12588').status,'Application Submitted');assert.equal(primary.claim.source_application_submitted,'2024-11-14');assert.equal(allCanonical.find(r=>r.repd_ref==='12588').planning_application_submitted,'2024-11-15');
+803666	  const releaseContract=json(resolve(candidate,'contracts/release.v9.1.json')),identityRaw=bytes(resolve(ROOT,releaseContract.source.identity_fixture));assert.equal(hash(identityRaw),releaseContract.source.identity_fixture_sha256);const identity=JSON.parse(identityRaw).records;
+803667	  const caseFacts=[];
+803668	  for(const [ref,sibling,en,decision,submitted,accepted,capacity,mime,applicant] of [
+803669	    ['15149','15150','EN010162','2026-10-27','2025-06-27','2025-07-22',800,'application/pdf','Elements Green Trent Limited'],
+803670	    ['14806','14807','EN010159','2026-07-08','2025-02-27','2025-03-27',740,'application/pdf','One Earth Solar Farm Limited'],
+803671	    ['15000','15001','EN010157','2026-07-02','2025-02-21','2025-03-21',320,'text/html','RWE Renewables UK Solar and Storage Limited']
+803672	    const note=curated.get(ref),project=allCanonical.find(p=>p.repd_ref===ref),storage=identity.find(p=>p.repd_ref===sibling);assert(note);assert.equal(note.association,'PROVISIONAL');assert.equal(note.binding.planning_reference,en);assert.equal(note.claim.decision_date,decision);assert.equal(note.claim.source_application_submitted,submitted);assert.equal(project.planning_application_submitted,submitted);assert.equal(project.capacity_mw,capacity);assert.notEqual(project.operator,applicant);
+803673	    assert.equal(note.rights.scope,'GOVERNMENT_AUTHORED_DECISION_FACTS_ONLY');assert(Object.values(note.claim.unknowns).every(value=>value===null));assert.ok(JSON.stringify(note).includes(accepted),'separate acceptance date retained');assert.ok(JSON.stringify(note).includes(applicant),'source applicant retained independently');assert.ok(note.source.headers['Content-Type'].includes(mime));
+803674	    assert.equal(storage.technology,'Battery');assert.equal(storage.capacity_mw,null);assert.equal(storage.capacity_known,false);assert.equal(allCanonical.some(p=>p.repd_ref===sibling),false);assert.equal(primaryIndex.by_repd_ref[sibling],undefined);
+803675	    assert.deepEqual(identity.filter(p=>p.planning_application_reference===en).map(p=>p.repd_ref).sort(),[ref,sibling].sort());assert.equal(allCanonical.filter(p=>p.planning_application_reference===en).length,1);
+803676	    if(ref==='15000'){assert.equal(note.claim.type,'DEVELOPMENT_CONSENT_GRANTED');assert.doesNotMatch(JSON.stringify(note.claim),/GRANTED_WITH_MODIFICATIONS/);assert.ok(!note.source.url.endsWith('.pdf'));}
+803677	    caseFacts.push({ref,sibling,en,decision,submitted,accepted,capacity,basis:'source-specific proposed/up-to; current capacity unknown',mime});
+803678	  pass('three exact primary donor blobs and ROOT renderer preserve four provisional notes, immutable Botley, scoped component/date/rights/null distinctions',{producer:primaryDonor,runtime_bytes:Object.values(primaryContract.files).reduce((n,p)=>n+p.bytes,0),renderer_sha256:hash(renderer),canonical:7775,associations:4,verified:0,solar1000_verified_delta:0,source_document_sha256:primary.source.sha256,cases:caseFacts});
+803679	    let raw;if(process.env.V933_PRICE_SOURCE)raw=bytes(resolve(process.env.V933_PRICE_SOURCE,name));
+803680	  pass('four exact price donor blobs and accepted source/index/annual/hash provenance preserve source-day gaps/partial/UTC distinctions',{producer:priceProducer,source:priceModel.SOURCE.commit,runtime_bytes:Object.values(priceContract.files).reduce((n,p)=>n+p.bytes,0),expected,transport:process.env.V933_PRICE_SOURCE?'existing data-owner bytes matched to immutable pins':'immutable source-owner HTTPS'});
+803681	  if(process.env.V933_DATA_SOURCE){input=bytes(resolve(process.env.V933_DATA_SOURCE));transport='explicit existing data-owner file, byte checked';}
+803682	  for(const required of ['class="release-header"','aria-label="Pipeline navigation"','../versions.html','../202611170324/','id="mapAtlasNav"','id="export"'])assert.ok(pageSource.includes(required),'compact navigation retains '+required);
+803683	  pass('all 7,775 official records and order equal frozen V9.32; 3,604 solar',{records:7775,solar:3604});
+803684	  pass('ordered immutable Solar-1000 and provisional receipt bytes equal frozen V9.32',{sha256:hash(bytes(resolve(candidate,'solar1000/manifest.json')))});
+803685	import {resolve,extname} from 'node:path';
+803686	const root=resolve(import.meta.dirname,'../..'), edition='uk_renewables_pipeline/202611171141';
+803687	const {chromium}=await import(process.env.PLAYWRIGHT_MODULE ? pathToFileURL(process.env.PLAYWRIGHT_MODULE).href : 'playwright');
+803688	const manifest=JSON.parse(readFileSync(resolve(root,edition,'data/v9.1/build_manifest.json')));
+803689	const rows=manifest.project_partitions.flatMap(p=>JSON.parse(readFileSync(resolve(root,edition,p.path))).projects);
+803690	const fixture=JSON.parse(readFileSync(resolve(root,'uk_renewables_pipeline/202611132345/fixtures/2026q3/project_identity_2026q3.json')));
+803691	const source=new Map(fixture.records.map(r=>[r.repd_ref,r]));
+803692	for(const row of rows) for(const key of ['planning_application_submitted','repd_record_updated']) assert.equal(row[key],source.get(row.repd_ref)[key],row.repd_ref+' '+key);
+803693	const cases=[rows.find(r=>r.planning_application_submitted&&r.planning_application_submitted!==r.repd_record_updated),rows.find(r=>!r.planning_application_submitted)];
+803694	assert.ok(cases.every(Boolean));
+803695	const server=createServer((req,res)=>{try{const file=resolve(root,'.'+decodeURIComponent(new URL(req.url,'http://local').pathname));assert.ok(file.startsWith(root));const bytes=readFileSync(file);res.setHeader('Content-Type',({'.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css','.html':'text/html'})[extname(file)]||'application/octet-stream');res.end(bytes);}catch{res.writeHead(404).end();}});
+803696	const origin='http://127.0.0.1:'+server.address().port, out=resolve(process.env.V934_OUT||'D:/githubfiles/.qa-artifacts/v934-agent-a');mkdirSync(out,{recursive:true});
+803697	const proof={edition,checks:[],canonical_rows:rows.length,source_dates_equal:true,submitted:rows.filter(r=>r.planning_application_submitted).length,missing:rows.filter(r=>!r.planning_application_submitted).length,limitations:['Local Chromium with external network blocked; no deployed or physical handset certification.']};
+803698	const display=v=>v?v.split('-').reverse().join('/'):'not supplied by REPD';
+803699	 browser=await chromium.launch({headless:true});
+803700	 for(const width of [1440,393,390]){
+803701	  const context=await browser.newContext({viewport:{width,height:900},isMobile:width<500,hasTouch:width<500});
+803702	  await context.route('**/*',route=>route.request().url().startsWith(origin)?route.continue():route.abort());
+803703	  const page=await context.newPage();await page.goto(origin+'/'+edition+'/index.html?technology=all');await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)===7775);
+803704	  assert.equal(await page.locator('#planningSubmittedHeader').evaluate(n=>n.previousElementSibling.id),'repdUpdatedHeader');
+803705	  for(const project of cases){
+803706	   await page.locator('#search').fill(project.repd_ref);const row=page.locator('#repd-'+project.repd_ref);await row.waitFor();
+803707	   assert.equal(await row.getAttribute('data-planning-application-submitted'),project.planning_application_submitted||'');
+803708	   assert.equal(await row.locator('.planning-submitted').textContent(),display(project.planning_application_submitted));
+803709	   assert.equal(await row.locator('.planning-submitted').evaluate(n=>n.previousElementSibling.classList.contains('repd-updated')),true);
+803710	   await row.locator('summary').click();assert.match(await row.locator('.record-grid').innerText(),new RegExp(display(project.planning_application_submitted).replaceAll('/','\\/')));
+803711	   assert.match(await row.locator('.record-grid').innerText(),/PLANNING APPLICATION SUBMITTED/);
+803712	   const downloadPromise=page.waitForEvent('download');await page.locator('#export').click();const download=await downloadPromise;const csv=readFileSync(await download.path(),'utf8');assert.ok(csv.includes('"Planning Application Submitted"'));assert.ok(csv.includes('"'+(project.planning_application_submitted||'')+'"'));
+803713	   proof.checks.push({width,ref:project.repd_ref,submitted:project.planning_application_submitted,status:'PASS'});
+803715	  for(const [field,prefix,yearId] of [['planning_application_submitted','submitted','submittedYear'],['repd_record_updated','updated','updatedYear']]){
+803716	   const yearSelect=page.locator('[data-year-filter="'+yearId+'"]').first();
+803717	   assert.deepEqual(await yearSelect.locator('option').evaluateAll(ns=>ns.slice(2).map(n=>n.value)),[...new Set(rows.map(r=>r[field]?.slice(0,4)).filter(Boolean))].sort().reverse());
+803718	   for(const direction of ['asc','desc']){
+803719	    await page.locator('#sortProjects').selectOption(prefix+'_'+direction);
+803720	    const sorted=[...rows].sort((a,b)=>!a[field]?(b[field]?1:0):!b[field]?-1:direction==='asc'?a[field].localeCompare(b[field]):b[field].localeCompare(a[field]));
+803721	    assert.equal(await page.locator('#tbody tr').first().getAttribute('id'),'repd-'+sorted[0].repd_ref);
+803722	    assert.equal(await page.locator(prefix==='updated'?'#repdUpdatedHeader':'#planningSubmittedHeader').getAttribute('aria-sort'),direction==='asc'?'ascending':'descending');
+803724	   for(const year of ['2025','missing']){
+803725	    await yearSelect.selectOption(year);const expected=rows.filter(r=>year==='missing'?!r[field]:r[field]?.startsWith(year+'-'));
+803726	    assert.equal(await page.locator('#tbody').getAttribute('data-total'),String(expected.length));
+803727	    assert.equal(new URL(page.url()).searchParams.get(prefix+'_year'),year);
+803728	    const promise=page.waitForEvent('download');await page.locator('#export').click();const csv=readFileSync(await (await promise).path(),'utf8');assert.equal(csv.split('\r\n').length-1,expected.length);
+803729	    await page.reload();await page.waitForFunction(n=>Number(document.querySelector('#tbody')?.dataset.total)===n,expected.length);
+803730	    assert.equal(await yearSelect.inputValue(),year);
+803731	   await yearSelect.selectOption('All');proof.checks.push({width,field,sort_both_directions:true,years_and_missing:true,url_restored:true,csv_count:true,status:'PASS'});
+803732	  await page.locator('[data-year-filter="submittedYear"]').first().selectOption('2025');await page.locator('[data-year-filter="updatedYear"]').first().selectOption('2025');
+803733	  assert.equal(await page.locator('#tbody').getAttribute('data-total'),String(rows.filter(r=>r.planning_application_submitted?.startsWith('2025-')&&r.repd_record_updated?.startsWith('2025-')).length));
+803734	  await page.locator('#clearFilters').click();assert.equal(await page.locator('#tbody').getAttribute('data-total'),'7775');
+803735	  if(width===1440){
+803736	   for(const prefix of ['submitted','updated']){
+803737	    const header=page.locator(prefix==='submitted'?'#planningSubmittedHeader':'#repdUpdatedHeader');await header.locator('summary').click();await header.locator('[data-date-sort="'+prefix+'_asc"]').click();assert.equal(await header.getAttribute('aria-sort'),'ascending');
+803738	    await header.locator('summary').click();await header.locator('select').selectOption('2025');assert.equal(await page.locator('[data-year-filter="'+(prefix==='submitted'?'submittedYear':'updatedYear')+'"]').first().inputValue(),'2025');await header.locator('summary').click();await page.locator('#clearFilters').click();
+803739	  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:resolve(out,'planning-'+width+'.png')});await context.close();
+803740	 proof.status='PASS';
+803741	}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify(proof,null,2));}
+803743	const root=resolve(import.meta.dirname,'../..'), edition='uk_renewables_pipeline/202611171217';
+803744	for(const row of rows) for(const key of ['planning_application_submitted','repd_record_updated','operational']) assert.equal(row[key],source.get(row.repd_ref)[key],row.repd_ref+' '+key);
+803745	const origin='http://127.0.0.1:'+server.address().port, out=resolve(process.env.V935_OUT||'D:/githubfiles/.qa-artifacts/v935-operational-support');mkdirSync(out,{recursive:true});
+803746	  assert.equal(await page.locator('#operationalHeader').evaluate(n=>n.previousElementSibling.id),'planningSubmittedHeader');
+803747	  for(const [field,prefix,yearId] of [['planning_application_submitted','submitted','submittedYear'],['repd_record_updated','updated','updatedYear'],['operational','operational','operationalYear']]){
+803748	    assert.equal(await page.locator(prefix==='updated'?'#repdUpdatedHeader':prefix==='submitted'?'#planningSubmittedHeader':'#operationalHeader').getAttribute('aria-sort'),direction==='asc'?'ascending':'descending');
+803749	   for(const prefix of ['submitted','updated','operational']){
+803750	    const header=page.locator(prefix==='submitted'?'#planningSubmittedHeader':prefix==='updated'?'#repdUpdatedHeader':'#operationalHeader');await header.locator('summary').click();await header.locator('[data-date-sort="'+prefix+'_asc"]').click();assert.equal(await header.getAttribute('aria-sort'),'ascending');
+803751	    await header.locator('summary').click();await header.locator('select').selectOption('2025');assert.equal(await page.locator('[data-year-filter="'+(prefix==='submitted'?'submittedYear':prefix==='updated'?'updatedYear':'operationalYear')+'"]').first().inputValue(),'2025');await header.locator('summary').click();await page.locator('#clearFilters').click();
+803752	  for(const project of [rows.find(r=>r.operational),rows.find(r=>!r.operational),...rows.filter(r=>['8100','21493'].includes(r.repd_ref)),rows.find(r=>r.status==='Operational'&&!r.operational)]){
+803753	   assert.ok(project);await page.locator('#search').fill(project.repd_ref);const row=page.locator('#repd-'+project.repd_ref);await row.waitFor();assert.equal(await row.getAttribute('data-operational'),project.operational||'');assert.equal(await row.locator('.operational-date').textContent(),display(project.operational));assert.equal(await row.locator('td').nth(4).textContent(),project.status);await row.locator('summary').click();assert.match(await row.locator('.record-grid').innerText(),/OPERATIONAL DATE/);assert.ok((await row.locator('.record-grid').innerText()).includes(display(project.operational)));
+803754	  await page.locator('#clearFilters').click();await page.locator('[data-repd-expand]').click();
+803755	  for(const [field,prefix] of [['planning_application_submitted','submitted'],['repd_record_updated','updated'],['operational','operational']])for(const direction of ['asc','desc']){
+803756	   await page.locator('#sortProjects').selectOption(prefix+'_'+direction);
+803757	   const oracle=[...rows].sort((a,b)=>!a[field]?(b[field]?1:0):!b[field]?-1:(direction==='asc'?1:-1)*(Date.parse(a[field])-Date.parse(b[field]))).map(r=>r.repd_ref);
+803758	   const actual=await page.evaluate(async()=>{const {state}=await import(new URL('scripts/core/state.js',location.href));return state.filtered.map(r=>r.repd_ref);});assert.deepEqual(actual,oracle);assert.deepEqual(await page.locator('#tbody tr').evaluateAll(ns=>ns.map(n=>n.id.slice(5))),oracle.slice(0,20));
+803759	  await page.locator('[data-year-filter="updatedYear"]').first().selectOption('2025');await page.locator('[data-year-filter="operationalYear"]').first().selectOption('missing');assert.equal(await page.locator('[data-year-filter="updatedYear"]').first().inputValue(),'2025');const expected=rows.filter(r=>r.repd_record_updated?.startsWith('2025-')&&!r.operational).map(r=>r.repd_ref).sort();const actual=await page.evaluate(async()=>{const {state}=await import(new URL('scripts/core/state.js',location.href));return state.filtered.map(r=>r.repd_ref).sort();});assert.deepEqual(actual,expected);await page.locator('.repd-expand-close').click();assert.equal(await page.locator('[data-year-filter="operationalYear"]').first().inputValue(),'missing');await page.locator('#clearFilters').click();assert.equal(await page.locator('[data-year-filter="operationalYear"]').first().inputValue(),'All');
+803760	  await page.goto(origin+'/'+edition+'/index.html?technology=all&operational_year=invalid&updated_year=invalid&submitted_year=invalid&sort=invalid');await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)===7775);assert.equal(await page.locator('#sortProjects').inputValue(),'capacity_desc');for(const id of ['operationalYear','updatedYear','submittedYear'])assert.equal(await page.locator('[data-year-filter="'+id+'"]').first().inputValue(),'All');
+803761	  proof.checks.push({width,full_numeric_date_order_ids:rows.length*6,operational_status_edges_preserved:true,expanded_intersection_and_retention:true,invalid_url_defaults:true,status:'PASS'});
+803782	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">Open Pipeline News &rarr;</a></div></details>
+803806	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.32 - primary planning decision note</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div></details></td></tr>
+803830	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">Open Pipeline News &rarr;</a></div></details>
+803831	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.33 - reviewed development consent notes</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div></details></td></tr>
+803832	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">Open Pipeline News &rarr;</a></div></details>
+803833	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.34 - planning dates, year filters and expanded analytics</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div></details></td></tr>
+803837	  <title>GlobalGrid2050 | Pipeline News V9.33 · 202611170512</title>
+803870	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.33</small></div>
+803872	        <a class="active" href="#" aria-current="page">V9.33 · PIPELINE NEWS</a>
+803874	        <a href="../202611170324/">V9.32 · PREVIOUS EDITION</a>
+803880	    <p class="preview-status" data-edition="202611170512">V9.33 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+804133	        !Number.isInteger(index.association_count) || index.association_count < 0 || index.association_count > 4 ||
+804184	const manifestHash = 'b260aa3cd59c72d50609083c906682347601ef414d3a3003cefba87fae9271ce';
+804196	        spec.producer.extends_commit !== 'b5eed3d2ae878c78e5153be06ef531c11fff2148' ||
+804197	        spec.expected.canonical_population !== 7775 || spec.expected.associations !== 4 ||
+804199	        spec.renderer.path !== 'automation/primary_note_ui/host-202611170512/brief.mjs') throw Error('Unsupported primary-note cartridge');
+804219	/* check_v9_33.mjs - Pipeline News V9.33, proven from the bytes and through the
+804229	 * Run: node tests/check_v9_33.mjs
+804240	const VERSION = "9.33";
+804242	const PARENT_ID = "202611170324";
+804324	console.log(`check_v9_33: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+804327	  <title>GlobalGrid2050 | Pipeline News V9.34 · 202611171141</title>
+804328	  <style>#planningSubmittedHeader>button{white-space:normal;max-width:160px}.date-options{display:inline-block}.date-options summary{cursor:pointer}.date-options[open]>div{position:absolute;background:#050505;border:1px solid #00ffff;padding:10px;z-index:10;display:grid;gap:8px;min-width:180px;right:0}.date-options button{color:#00ffff!important}</style>
+804329	  <link rel="stylesheet" href="../../automation/repd_expand_ui/expand.css">
+804330	      <div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.34</small></div>
+804331	        <a class="active" href="#" aria-current="page">V9.34 · PIPELINE NEWS</a>
+804332	        <a href="../202611170512/">V9.33 · PREVIOUS EDITION</a>
+804333	    <p class="preview-status" data-edition="202611171141">V9.34 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+804334	        <option value="submitted_desc">SORT: APPLICATION SUBMITTED - NEWEST</option>
+804335	        <option value="submitted_asc">SORT: APPLICATION SUBMITTED - OLDEST</option>
+804336	      <label>REPD updated year <select data-year-filter="updatedYear" aria-label="REPD updated year"></select></label>
+804337	      <label>Application submitted year <select data-year-filter="submittedYear" aria-label="Application submitted year"></select></label>
+804338	      <span><b>DATES:</b> Application submitted is the planning submission event. REPD updated is the database record update, not necessarily an application amendment. Year filters combine; missing dates stay unknown and sort last.</span>
+804339	            <details class="date-options"><summary aria-label="REPD updated sort and year options">&#9881;</summary><div><button type="button" data-date-sort="updated_asc">&#9650; Ascending</button><button type="button" data-date-sort="updated_desc">&#9660; Descending</button><label>Year <select data-year-filter="updatedYear" aria-label="REPD updated year menu"></select></label></div></details></th>
+804340	            <th class="hide-mobile repd-updated-heading" id="planningSubmittedHeader" aria-sort="none"><button id="sortSubmitted" type="button">Planning Application Submitted <span id="submittedSortIndicator" aria-hidden="true">&#8597;</span></button><details class="date-options"><summary aria-label="Application submitted sort and year options">&#9881;</summary><div><button type="button" data-date-sort="submitted_asc">&#9650; Ascending</button><button type="button" data-date-sort="submitted_desc">&#9660; Descending</button><label>Year <select data-year-filter="submittedYear" aria-label="Application submitted year menu"></select></label></div></details></th>
+804341	  <script type="module" src="../../automation/repd_expand_ui/expand.mjs"></script>
+804344	atlasCentresOnRepdPointV9_7,
+804345	atlasReceiverV9_7,
+804346	atlasUnavailableReasonV9_7,
+804347	buildAtlasDeepLinkV9_7,
+804348	verifyAtlasReceiverV9_7,
+804351	buildProjectSearchTextV9_2,
+804352	projectMatchesV9_2,
+804353	summariseProjectsV9_2,
+804354	tokeniseSearchV9_2,
+804357	formatCapacityV9_2,
+804358	formatLargestV9_2,
+804359	setGaugeUniverseV9_2,
+804360	updateGaugesV9_2,
+804364	buildAtlasInterconnectorLinkV9_8,
+804365	interconnectorMapNoteV9_8,
+804366	interconnectorMapUnavailableReasonV9_8,
+804369	solar: "Solar",
+804370	bess: "Battery Storage",
+804371	wind_onshore: "Onshore Wind",
+804372	wind_offshore: "Offshore Wind",
+804373	interconnector: "Interconnector",
+804378	const ALLOWED_SORTS = new Set(["capacity_desc", "updated_desc", "updated_asc", "submitted_desc", "submitted_asc"]);
+804383	return technology === "interconnector" ? interconnectors : all;
+804395	let submittedYear = "All", updatedYear = "All";
+804397	// The receiver is not named here. It is read from the deep-link contract the
+804398	// engine publishes -- see ../core/atlas-receiver-v9-7.js for the measurement
+804399	// that made this necessary. Seven files in this directory each held their own
+804400	// copy of a route that had quietly stopped carrying the engine.
+804401	return buildAtlasDeepLinkV9_7(project);
+804403	if (!value) return "not supplied by REPD";
+804404	const [year, month, day] = String(value).split("-");
+804405	return year && month && day ? `${day}/${month}/${year}` : String(value);
+804407	if (!project.repd_record_updated) return null;
+804408	const value = Date.parse(`${project.repd_record_updated}T00:00:00Z`);
+804411	const leftTime = repdUpdatedTimestamp(left);
+804412	const rightTime = repdUpdatedTimestamp(right);
+804413	if (leftTime === null && rightTime === null) return 0;
+804414	if (leftTime === null) return 1;
+804415	if (rightTime === null) return -1;
+804416	return direction === "asc" ? leftTime - rightTime : rightTime - leftTime;
+804417	export function compareProjectSubmissionsV934(left, right, direction="desc") {
+804418	const a=left.planning_application_submitted, b=right.planning_application_submitted;
+804419	if(!a)return b?1:0;if(!b)return -1;
+804420	return direction==="asc"?a.localeCompare(b):b.localeCompare(a);
+804422	for(const [prefix,id,label] of [["updated","repdUpdatedHeader","REPD updated"],["submitted","planningSubmittedHeader","Planning application submitted"]]) {
+804423	const header=document.getElementById(id), button=document.getElementById(prefix==="updated"?"sortUpdated":"sortSubmitted");
+804424	const direction=sortMode===prefix+"_asc"?"ascending":sortMode===prefix+"_desc"?"descending":"none";
+804425	header.setAttribute("aria-sort",direction);button.setAttribute("aria-label",label+", "+direction+"; click to toggle date order");
+804426	document.getElementById(prefix+"SortIndicator").textContent=direction==="ascending"?"\u25b2":direction==="descending"?"\u25bc":"\u2195";
+804427	function populateDateYears() {
+804428	for(const [field,id] of [["planning_application_submitted","submittedYear"],["repd_record_updated","updatedYear"]]) {
+804429	const years=[...new Set(all.map(p=>p[field]?.slice(0,4)).filter(Boolean))].sort().reverse();
+804430	for(const select of document.querySelectorAll('[data-year-filter="'+id+'"]')) {
+804431	select.replaceChildren(new Option("All years","All"),new Option("Not supplied","missing"));
+804432	for(const year of years)select.add(new Option(year,year));
+804433	function syncYearControls() {
+804434	for(const [id,value] of [["submittedYear",submittedYear],["updatedYear",updatedYear]])for(const select of document.querySelectorAll('[data-year-filter="'+id+'"]'))select.value=value;
+804435	function matchesYear(value,year){return year==="All"||(year==="missing"?!value:value?.startsWith(year+"-"));}
+804437	const development = Array.isArray(project.development_repd_refs) ? project.development_repd_refs.length : 0;
+804438	const direct = Array.isArray(project.direct_related_repd_refs) ? project.direct_related_repd_refs.length : 0;
+804439	const siblings = Array.isArray(project.planning_sibling_repd_refs) ? project.planning_sibling_repd_refs.length : 0;
+804440	return `${development} development · ${direct} direct · ${siblings} planning sibling record(s)`;
+804442	const href = atlasUrlV9_5_1(project);
+804443	if (!href) {
+804444	return `<span class="action-disabled">NO MAP</span>`
+804445	+ `<div class="map-note">${escapeHtml(atlasUnavailableReasonV9_7(project))}</div>`;
+804446	const link = `<a class="action-link atlaslink" target="_blank" rel="noopener" href="${escapeHtml(href)}">MAP ↗</a>`;
+804447	if (atlasCentresOnRepdPointV9_7(project)) return link;
+804448	return `${link}<div class="map-note">REPD published no coordinate for this record. `
+804449	+ `The Atlas resolves it from REPD ${escapeHtml(project.repd_ref)} and centres on its own geometry.</div>`;
+804454	if (document.visibilityState === "visible" && typeof requestAnimationFrame === "function") {
+804455	requestAnimationFrame(step);
+804456	setTimeout(step, 0);
+804458	const label = LABELS[record.technology];
+804459	const unit = UNITS[record.technology];
+804460	const location = [record.county, record.region].filter(Boolean).join(" · ");
+804461	const news = new URL("https://www.google.com/search");
+804462	news.searchParams.set("q", `${record.name} interconnector`);
+804463	news.searchParams.set("tbm", "nws");
+804464	const href = buildAtlasInterconnectorLinkV9_8(record);
+804465	const mapAction = href
+804466	? `<a class="action-link atlaslink" target="_blank" rel="noopener" href="${escapeHtml(href)}">MAP ↗</a><div class="map-note">${escapeHtml(interconnectorMapNoteV9_8(record))}</div>`
+804467	: `<span class="action-disabled">NO MAP</span><div class="map-note">${escapeHtml(interconnectorMapUnavailableReasonV9_8(record))}</div>`;
+804468	const identity = record.bmrs_code ? `BMRS ${record.bmrs_code}` : "NO BMRS CODE YET";
+804469	const geometry = record.geometry_status === "valid"
+804470	? `straight line converter to converter, ${record.span.straight_line_km} km; the midpoint is a label anchor, not a location`
+804471	: record.geometry_status === "gb_end_only"
+804472	? `GB converter ${record.gb_end.name}; the far converter is not held yet`
+804473	: "no converter coordinates held";
+804474	const gbEnd = record.gb_end && record.gb_end.name ? record.gb_end.name : "GB end not held";
+804475	const farEnd = record.far_end && record.far_end.name ? record.far_end.name : `${record.country} end not held`;
+804476	const flow = record.flow
+804477	? `${record.flow.net_direction}; ${Math.round(record.flow.net_mwh).toLocaleString("en-GB")} MWh net over ${record.flow.years}`
+804478	: "flow data not wired for this link";
+804479	const lifecycle = record.lifecycle + (record.target_operational ? ` · target ${record.target_operational}` : "");
+804480	return `<tr id="repd-${escapeHtml(record.repd_ref)}" data-repd-updated="" data-technology="interconnector"><td class="site">${escapeHtml(record.name)}<div class="project-meta">${escapeHtml(identity)} · ${escapeHtml(record.gg_project_id)} · NOT A REPD RECORD</div><div class="mobile-extra">${escapeHtml(location)}</div><details class="project-record"><summary>INTERCONNECTOR RECORD</summary><div class="record-grid"><div><b>CONVERTERS</b><span>${escapeHtml(gbEnd)} ↔ ${escapeHtml(farEnd)}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(geometry)}</span></div><div><b>FLOW</b><span>${escapeHtml(flow)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(lifecycle)}</span></div><div><b>SOURCE</b><span>data-interconnectors reference list; converter positions from gridatlas</span></div><div><b>NOTES</b><span>${escapeHtml(record.notes || "-")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location)}</td><td class="hide-mobile">${escapeHtml(record.operator || "not in reference data")}</td><td><span class="badge" style="background:${COLOURS[record.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(record.status)}</td><td class="mw">${record.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(record.bmrs_code || "no BMRS code")}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(record.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">not a REPD record</td><td class="hide-mobile reference-cell planning-submitted">not a REPD record</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(record.gg_project_id)}">COPY ID</button></div></td></tr>`;
+804482	if (project.technology === "interconnector") return interconnectorRowHtml(project);
+804483	const label = LABELS[project.technology];
+804484	const unit = UNITS[project.technology];
+804485	const location = [project.county, project.region].filter(Boolean).join(" · ");
+804486	const signal = signalForProjectV9_5_1(project);
+804487	news.searchParams.set("q", `${project.name} ${label} UK`);
+804488	const mapAction = mapActionHtmlV9_5_1(project);
+804489	const planning = project.planning_application_reference || "not supplied by REPD";
+804490	const authority = project.planning_authority || "not supplied by REPD";
+804491	const developmentId = project.gg_development_id || "not assigned";
+804492	const updated = displayDate(project.repd_record_updated);
+804493	const submitted = displayDate(project.planning_application_submitted);
+804494	return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}" data-planning-application-submitted="${escapeHtml(project.planning_application_submitted || "")}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING APPLICATION SUBMITTED</b><span>${escapeHtml(submitted)}</span></div><div><b>REPD UPDATED</b><span>${escapeHtml(updated)}</span></div><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td class="hide-mobile reference-cell planning-submitted">${escapeHtml(submitted)}</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
+804497	return Math.max(1, Math.ceil(filtered.length / PAGE_ROWS));
+804499	let el = document.getElementById("projectPager");
+804500	if (!el) {
+804501	el = document.createElement("nav");
+804502	el.id = "projectPager";
+804503	el.className = "pager";
+804504	el.setAttribute("aria-label", "Project pages");
+804505	const table = document.getElementById("tbody");
+804506	const anchor = table ? table.closest("table") : null;
+804507	if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(el, anchor.nextSibling);
+804508	else if (table) table.parentNode.appendChild(el);
+804509	return el;
+804511	const el = pagerElement();
+804512	const pages = pageCount();
+804513	const total = filtered.length;
+804514	if (!total) {
+804515	el.innerHTML = '<span class="pager-meta">no records match the current filters</span>';
+804517	const from = page * PAGE_ROWS + 1;
+804518	const to = Math.min(total, (page + 1) * PAGE_ROWS);
+804519	el.innerHTML =
+804520	'<button type="button" class="pager-btn" data-page-step="-1"' + (page === 0 ? ' disabled' : '') + '>&larr; PREV</button>' +
+804521	'<span class="pager-meta">' + from.toLocaleString("en-GB") + '&ndash;' + to.toLocaleString("en-GB") +
+804522	' of ' + total.toLocaleString("en-GB") + ' &middot; page ' + (page + 1) + ' of ' + pages + '</span>' +
+804523	'<button type="button" class="pager-btn" data-page-step="1"' + (page + 1 >= pages ? ' disabled' : '') + '>NEXT &rarr;</button>';
+804524	el.dataset.page = String(page + 1);
+804525	el.dataset.pages = String(pages);
+804526	el.dataset.from = String(from);
+804527	el.dataset.to = String(to);
+804529	const body = document.getElementById("tbody");
+804530	if (page > pages - 1) page = pages - 1;
+804531	if (page < 0) page = 0;
+804532	const from = page * PAGE_ROWS;
+804533	const slice = filtered.slice(from, from + PAGE_ROWS);
+804534	body.innerHTML = slice.map(projectRowHtml).join("");
+804535	// A later filter, sort or page change must keep precomputed notes on new rows.
+804536	window.dispatchEvent(new Event("pipeline-projects-rendered"));
+804537	body.dataset.rendered = String(slice.length);
+804538	body.dataset.total = String(total);
+804539	body.dataset.page = String(page + 1);
+804540	body.dataset.pages = String(pages);
+804541	body.dataset.complete = "true";
+804542	renderPager();
+804544	const summary = summariseProjectsV9_2(filtered);
+804545	const element = document.getElementById("resultsMeta");
+804546	const universe = universeFor();
+804547	element.textContent = `${summary.count.toLocaleString("en-GB")} of ${universe.length.toLocaleString("en-GB")} ${technology === "interconnector" ? "interconnector records (outside the REPD spine)" : "records"} · ${formatCapacityV9_2(summary.capacity_mw)} MW · largest ${formatLargestV9_2(summary.largest_mw)} MW`;
+804548	element.classList.toggle("is-filtered", summary.count !== universe.length);
+804549	element.dataset.filteredCount = String(summary.count);
+804550	element.dataset.totalCount = String(universe.length);
+804552	const url = new URL(window.location.href);
+804553	for (const parameter of ["technology", "status", "county", "q", "sort", "submitted_year", "updated_year"]) url.searchParams.delete(parameter);
+804554	if (technology !== "all" || submittedYear !== "All" || updatedYear !== "All" || sortMode !== "capacity_desc") url.searchParams.set("technology", technology);
+804555	if (status !== "All") url.searchParams.set("status", status);
+804556	if (county !== "All") url.searchParams.set("county", county);
+804557	if (query) url.searchParams.set("q", query);
+804558	if (sortMode !== "capacity_desc") url.searchParams.set("sort", sortMode);
+804559	if(submittedYear!=="All")url.searchParams.set("submitted_year",submittedYear);
+804560	if(updatedYear!=="All")url.searchParams.set("updated_year",updatedYear);
+804561	history.replaceState(null, "", url);
+804563	const tokens = tokeniseSearchV9_2(query);
+804564	filtered = universeFor().filter((project) => projectMatchesV9_2(project, {
+804565	technology,
+804566	status,
+804567	county,
+804568	tokens,
+804569	}, searchIndex.get(project.repd_ref)) && matchesYear(project.planning_application_submitted,submittedYear) && matchesYear(project.repd_record_updated,updatedYear));
+804570	if (sortMode === "updated_desc") filtered.sort((left, right) => compareProjectUpdatesV9_5_1(left, right, "desc"));
+804571	if (sortMode === "updated_asc") filtered.sort((left, right) => compareProjectUpdatesV9_5_1(left, right, "asc"));
+804572	if(sortMode.startsWith("submitted_"))filtered.sort((a,b)=>compareProjectSubmissionsV934(a,b,sortMode.endsWith("_asc")?"asc":"desc"));
+804573	state.filtered = filtered;
+804574	page = 0;
+804575	updateGaugesV9_2(filtered);
+804576	renderTable();
+804577	updateResultSummary();
+804578	updateSortHeader();
+804579	if (syncUrl) syncFilterUrl();
+804581	const select = document.getElementById("county");
+804582	select.replaceChildren(new Option("🌍 ALL COUNTIES", "All"));
+804583	[...new Set(all.map((project) => project.county).filter(Boolean))]
+804584	.sort((left, right) => left.localeCompare(right, "en-GB"))
+804585	.forEach((value) => select.add(new Option(`📍 ${value}`, value)));
+804587	document.querySelectorAll(`${container} .btn`).forEach((button) => {
+804588	const active = button.dataset[dataKey] === selected;
+804589	button.classList.toggle("active", active);
+804590	button.setAttribute("aria-pressed", String(active));
+804592	const parameters = new URLSearchParams(window.location.search);
+804593	const requestedTechnology = parameters.get("technology") || "all";
+804594	const requestedStatus = parameters.get("status") || "All";
+804595	const requestedCounty = parameters.get("county") || "All";
+804596	const requestedSort = parameters.get("sort") || "capacity_desc";
+804597	technology = ALLOWED_TECHNOLOGIES.has(requestedTechnology) ? requestedTechnology : "all";
+804598	status = ALLOWED_STATUSES.has(requestedStatus) ? requestedStatus : "All";
+804599	county = [...document.getElementById("county").options].some((option) => option.value === requestedCounty)
+804600	? requestedCounty
+804601	: "All";
+804602	query = parameters.get("q") || "";
+804603	sortMode = ALLOWED_SORTS.has(requestedSort) ? requestedSort : "capacity_desc";
+804604	for(const [param,id] of [["submitted_year","submittedYear"],["updated_year","updatedYear"]]){const v=parameters.get(param)||"All";const valid=[...document.querySelector('[data-year-filter="'+id+'"]').options].some(o=>o.value===v);if(id==="submittedYear")submittedYear=valid?v:"All";else updatedYear=valid?v:"All";}
+804605	syncYearControls();
+804606	setButtonState("#tech", "technology", technology);
+804607	setButtonState("#status", "officialStatus", status);
+804608	document.getElementById("county").value = county;
+804609	document.getElementById("search").value = query;
+804610	document.getElementById("sortProjects").value = sortMode;
+804612	let text = value === null || value === undefined ? "" : String(value);
+804613	if (/^(?:[=+\-@]|\s+[=+\-@]|\t|\r|\n)/u.test(text)) text = `'${text}`;
+804614	return `"${text.replaceAll('"', '""')}"`;
+804616	const count = Number(metadata && metadata.source_record_count);
+804617	if (!Number.isInteger(count) || count <= 0) return "source record count not stated by the build manifest";
+804618	return `${count}/${count} canonical REPD Ref IDs`;
+804621	const headers = ["Site Name", "REPD Ref", "GlobalGrid Project ID", "GlobalGrid Development ID", "Identity Status", "Identity Confidence", "Technology", "Official REPD Technology", "Official REPD Capacity", "Capacity Unit", "Official REPD Status", "Derived Lifecycle", "Operator or Applicant", "County", "Region", "Country", "Planning Authority", "Planning Application Reference", "REPD Record Updated", "Planning Application Submitted", "Planning Application Withdrawn", "Planning Permission Granted", "Planning Permission Refused", "Planning Permission Expired", "Under Construction", "Operational", "Old REPD Ref", "Direct Related REPD Refs", "Planning Sibling REPD Refs", "Development REPD Refs", "Typed Relationships JSON", "Geometry Status", "Easting", "Northing", "Source CRS", "Longitude", "Latitude", "Atlas V8 URL", "Output CRS", "Coordinate Transform", "Coordinate Use", "Source Dataset", "Source Row", "Projects Array SHA-256", "Source Identity SHA-256", "Source Coordinate Fixture SHA-256", "Source Workbook SHA-256", "Source Reconciliation", "Canonical News Signal — Event Unverified", "Canonical News Match Note"];
+804622	const rows = filtered.map((project) => {
+804623	return [project.name, project.repd_ref, project.gg_project_id, project.gg_development_id, project.identity_status, project.identity_confidence, LABELS[project.technology], project.repd_technology, project.capacity_mw, UNITS[project.technology], project.status, project.lifecycle, project.operator, project.county, project.region, project.country, project.planning_authority, project.planning_application_reference, project.repd_record_updated, project.planning_application_submitted, project.planning_application_withdrawn, project.planning_permission_granted, project.planning_permission_refused, project.planning_permission_expired, project.under_construction, project.operational, project.repd_old_ref, project.direct_related_repd_refs.join("|"), project.planning_sibling_repd_refs.join("|"), project.development_repd_refs.join("|"), JSON.stringify(project.relationships), project.geometry_status, project.easting, project.northing, "EPSG:27700", project.longitude, project.latitude, atlasUrlV9_5_1(project), "RFC 7946 WGS84", project.coordinate_source, "market map context only; never evidence of a grid connection or cadastral boundary", metadata.source_dataset, project.source_row, metadata.projects_sha256, metadata.source_identity_sha256, metadata.source_coordinate_fixture_sha256, metadata.source_workbook_sha256, reconciliationNote(), signal.label, signal.note];
+804624	const content = `\ufeff${[headers, ...rows].map((row) => row.map(csvCell).join(",")).join("\r\n")}`;
+804625	const url = URL.createObjectURL(new Blob([content], { type: "text/csv;charset=utf-8" }));
+804626	const anchor = document.createElement("a");
+804627	anchor.href = url;
+804628	anchor.download = `globalgrid2050_uk_renewables_pipeline_v9_8_${new Date().toISOString().slice(0, 10)}.csv`;
+804629	anchor.click();
+804631	document.getElementById("exportMeta").textContent = `${filtered.length.toLocaleString("en-GB")} filtered records exported`;
+804633	technology = "all";
+804634	status = "All";
+804635	county = "All";
+804636	submittedYear = updatedYear = "All";syncYearControls();
+804637	query = "";
+804638	sortMode = "capacity_desc";
+804639	document.getElementById("search").value = "";
+804640	apply();
+804642	const value = button.dataset.copyId;
+804644	await navigator.clipboard.writeText(value);
+804646	const field = document.createElement("textarea");
+804647	field.value = value;
+804648	field.setAttribute("readonly", "");
+804649	field.style.position = "fixed";
+804650	field.style.opacity = "0";
+804651	document.body.appendChild(field);
+804652	field.select();
+804653	document.execCommand("copy");
+804654	field.remove();
+804655	const original = button.textContent;
+804656	button.textContent = "COPIED";
+804657	button.classList.add("copied");
+804659	button.textContent = original;
+804660	button.classList.remove("copied");
+804661	}, 1200);
+804663	const verifying = verifyAtlasReceiverV9_7();
+804664	const model = await loadCanonicalProjectsV9_5_1();
+804665	all = [...model.projects];
+804666	const interconnectorModel = await loadInterconnectorsV9_8();
+804667	interconnectors = [...interconnectorModel.records];
+804669	interconnectors = [];
+804670	interconnectorFailure = String((error && error.message) || error);
+804671	console.error(error);
+804672	const tab = document.querySelector('#tech [data-technology="interconnector"]');
+804673	if (tab) { tab.disabled = true; tab.title = interconnectorFailure; }
+804674	state.interconnectors = interconnectors;
+804675	filtered = all;
+804676	metadata = model.metadata;
+804677	release = model.release;
+804678	searchIndex = new Map(all.map((project) => [project.repd_ref, buildProjectSearchTextV9_2(project)]));
+804679	for (const record of interconnectors) searchIndex.set(record.repd_ref, buildProjectSearchTextV9_2(record));
+804680	state.all = all;
+804681	state.canonicalModel = model;
+804682	setGaugeUniverseV9_2(all);
+804683	populateCounties();
+804684	populateDateYears();
+804685	hydrateFiltersFromUrl();
+804686	apply({ syncUrl: false });
+804687	document.getElementById("releaseMeta").textContent = `V9.8 interface · V${release.data_parent.release} canonical data spine · ${interconnectors.length} interconnectors on their own tab · all ${all.length.toLocaleString("en-GB")} qualifying records loaded`;
+804688	verifying.then((result) => {
+804689	if (result.changed) refreshProjectsV9_8();
+804690	syncMapAtlasNavV9_7();
+804691	if (!result.verified) console.warn(`V9.5.1 MAP: ${result.reason}`);
+804692	document.getElementById("tbody").innerHTML = '<tr><td colspan="12" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.5.1 has failed closed.</td></tr>';
+804693	document.getElementById("resultsMeta").textContent = "canonical data unavailable";
+804695	if (metadata) renderTable();
+804697	if (controlsBound) return;
+804698	controlsBound = true;
+804699	document.querySelectorAll("#tech .btn").forEach((button) => {
+804700	button.onclick = () => {
+804701	technology = button.dataset.technology;
+804702	document.querySelectorAll("#status .btn").forEach((button) => {
+804703	status = button.dataset.officialStatus;
+804704	document.getElementById("county").onchange = (event) => { county = event.target.value; apply(); };
+804705	document.getElementById("sortProjects").onchange = (event) => { sortMode = event.target.value; apply(); };
+804706	document.getElementById("sortUpdated").onclick = () => {
+804707	sortMode = sortMode === "updated_desc" ? "updated_asc" : "updated_desc";
+804708	document.getElementById("sortSubmitted").onclick=()=>{sortMode=sortMode==="submitted_desc"?"submitted_asc":"submitted_desc";document.getElementById("sortProjects").value=sortMode;apply();};
+804709	for(const select of document.querySelectorAll('[data-year-filter]'))select.onchange=()=>{if(select.dataset.yearFilter==="submittedYear")submittedYear=select.value;else updatedYear=select.value;syncYearControls();apply();};
+804710	for(const button of document.querySelectorAll('[data-date-sort]'))button.onclick=()=>{sortMode=button.dataset.dateSort;document.getElementById("sortProjects").value=sortMode;button.closest("details").open=false;apply();};
+804711	document.getElementById("search").oninput = (event) => { query = event.target.value.trim(); apply(); };
+804712	document.addEventListener("click", (event) => {
+804713	const button = event.target.closest ? event.target.closest("[data-page-step]") : null;
+804714	if (!button || !document.getElementById("projectPager")) return;
+804715	const step = Number(button.getAttribute("data-page-step"));
+804716	if (!Number.isFinite(step)) return;
+804717	const next = Math.min(pages - 1, Math.max(0, page + step));
+804718	if (next === page) return;
+804719	page = next;
+804720	if (table && table.closest("table")) table.closest("table").scrollIntoView({ block: "start" });
+804721	document.getElementById("export").onclick = downloadCsv;
+804722	document.getElementById("exportInline").onclick = downloadCsv;
+804723	document.getElementById("clearFilters").onclick = clearFilters;
+804724	document.getElementById("tbody").addEventListener("click", (event) => {
+804725	const button = event.target.closest(".copy-id");
+804726	if (button) copyProjectId(button);
+804728	const nav = document.getElementById("mapAtlasNav");
+804729	if (!nav) return;
+804730	const route = atlasReceiverV9_7();
+804731	if (!route) {
+804732	nav.hidden = true;
+804733	nav.hidden = false;
+804734	nav.href = route;
+804735	/* check_v9_34.mjs - Pipeline News V9.34, proven from the bytes and through the
+804736	 * Run: node tests/check_v9_34.mjs
+804737	const VERSION = "9.34";
+804738	const PARENT_ID = "202611170512";
+804739	console.log(`check_v9_34: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+804741	<title>GlobalGrid2050 | Pipeline News V9.35 · 202611171217</title>
+804742	<link rel="preconnect" href="https://ventusltd.github.io" crossorigin>
+804743	<link rel="stylesheet" href="styles/v7.css?v=9.8">
+804744	<link rel="stylesheet" href="styles/mobile.css?v=9.8">
+804745	<link rel="stylesheet" href="styles/v9-3.css?v=9.8">
+804746	<link rel="stylesheet" href="styles/v9-4.css?v=9.8">
+804747	<style>#planningSubmittedHeader>button{white-space:normal;max-width:160px}.date-options{display:inline-block}.date-options summary{cursor:pointer}.date-options[open]>div{position:absolute;background:#050505;border:1px solid #00ffff;padding:10px;z-index:10;display:grid;gap:8px;min-width:180px;right:0}.date-options button{color:#00ffff!important}</style>
+804748	<link rel="stylesheet" href="styles/v9-5-1.css?v=9.8">
+804749	<link rel="stylesheet" href="styles/v9-6-1.css?v=9.8">
+804750	<link rel="stylesheet" href="styles/v9-10.css?v=9.10">
+804751	<link rel="stylesheet" href="styles/v9-21.css?v=9.21">
+804752	<link rel="stylesheet" href="styles/v9-22.css?v=9.22">
+804753	<link rel="stylesheet" href="styles/v9-23.css?v=9.23">
+804754	<link rel="stylesheet" href="styles/v9-24.css?v=9.24">
+804755	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+804756	<link rel="stylesheet" href="styles/preview-v928.css">
+804757	<link rel="stylesheet" href="../../automation/repd_expand_ui/expand.css">
+804758	<link rel="stylesheet" href="scripts/layers/pipeline-layers.css">
+804759	<link rel="stylesheet" href="../../automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css" integrity="sha256-OMuIlBvYlrxro2QuNOO2Dwnl5q062jUsxNjMxxPaaVw=">
+804760	<link rel="stylesheet" href="../../automation/dc_location_ui/83e7c36d08ef98f3665f7f35b8637405391dc4be/actions.css" integrity="sha256-CvhvasdWUaC+1UCWzKtAPnq7XLWLAjI43Hnli4o8oDk=">
+804761	<link rel="stylesheet" href="../../automation/news/datacentre-ui/styles.css">
+804762	<link rel="stylesheet" href="../../automation/v928_context/preview/context.css">
+804763	<link rel="stylesheet" href="../../automation/v928_context/preview/figures/b460cb7f76172691b5ffb6d2a7f1a8e12057ba20/figures.css">
+804765	<header class="release-header">
+804766	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.35</small></div>
+804767	<nav class="release-links" aria-label="Pipeline navigation">
+804768	<a class="active" href="#" aria-current="page">V9.35 · PIPELINE NEWS</a>
+804769	<a href="../versions.html">ALL VERSIONS · CI VERDICTS</a>
+804770	<a href="../202611171141/">V9.34 · PREVIOUS EDITION</a>
+804771	<a href="https://ventusltd.github.io/gridatlas/atlas/" id="mapAtlasNav">MAP ATLAS</a>
+804772	<a href="#" id="export">EXPORT CSV</a>
+804773	<a href="../../index.html">DIRECTORY</a>
+804776	<p class="preview-status" data-edition="202611171217">V9.35 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+804778	<div class="masthead">
+804779	<h2 id="headlinesHeading">GLOBALGRID2050 <span>HEADLINES</span></h2>
+804780	<div class="strap">
+804781	<span id="newsStatus" data-state="loading">Loading headlines…</span>
+804782	<span>UK renewables, storage and grid headlines from public feeds, newest first · headlines and links only · a "possible match" is a name coincidence for review, not a confirmed link to a project</span>
+804784	<div class="live-news" id="liveNews"></div>
+804785	<div id="headlineTicker" aria-label="Latest available headlines"></div>
+804786	<details class="news-archive" id="newsArchive" hidden>
+804787	<summary>ARCHIVE · PROJECT HEADLINES COLLECTED UP TO AUGUST 2026 · NOT UPDATED</summary>
+804788	<span id="newsMeta">loading archive…</span>
+804789	<div class="news-tools" id="newsTools">
+804790	<button class="active" data-news="ALL">ALL</button>
+804791	<button data-news="UK">UK</button>
+804792	<button data-news="INTERNATIONAL">INTERNATIONAL</button>
+804793	<button data-news="US">US</button>
+804794	<button data-news="EUROPE">EUROPE</button>
+804795	<button data-news="SOLAR">SOLAR</button>
+804796	<button data-news="BESS">BESS</button>
+804797	<button data-news="CONSENT">CONSENT</button>
+804798	<button data-news="CONSTRUCTION">CONSTRUCTION</button>
+804799	<button data-news="OPERATIONAL">OPERATIONAL</button>
+804800	<button data-news="FINANCE">FINANCE / M&amp;A</button>
+804801	<input id="newsSearch" placeholder="SEARCH HEADLINES / PROJECT / OPERATOR">
+804802	<div class="paper">
+804803	<div class="stories" id="stories">
+804804	<div class="news-empty">Loading the archive…</div>
+804805	<section id="officialRegister" aria-labelledby="pipelineHeading" data-register-changes="inline-only">
+804806	<h2 class="section-title" id="pipelineHeading">REPD PIPELINE ANALYTICS</h2>
+804807	<div class="pipeline-tabs" role="tablist" aria-label="Pipeline categories">
+804808	<button id="solarTab" role="tab" aria-selected="true" aria-controls="repdPanel" tabindex="0" data-view="solar">Solar</button>
+804809	<button id="bessTab" role="tab" aria-selected="false" aria-controls="repdPanel" tabindex="-1" data-view="bess">BESS</button>
+804810	<button id="gridTab" role="tab" aria-selected="false" aria-controls="gridPanel" tabindex="-1" data-view="grid">Grid</button>
+804811	<button id="datacentreTab" role="tab" aria-selected="false" aria-controls="datacentrePanel" tabindex="-1" data-view="datacentre">Data Centres</button>
+804812	<button id="offtakersTab" role="tab" aria-selected="false" aria-controls="offtakersPanel" tabindex="-1" data-view="offtakers">Offtakers</button>
+804813	<button id="pricesTab" role="tab" aria-selected="false" aria-controls="pricesPanel" tabindex="-1" data-view="prices">Prices</button>
+804814	<div id="repdPanel" role="tabpanel" aria-labelledby="solarTab"><span id="releaseMeta" hidden></span>
+804815	<p class="category-scope">Canonical DESNZ REPD Q3 2026: 7,775 solar, BESS and wind records at ≥1 MW from 14,967 source rows. Use All Tech for this full qualifying register; interconnectors retain their separate identities.</p>
+804816	<div class="gauges">
+804818	<h3>FILTERED CAPACITY (MW)</h3>
+804819	<div class="chart"><canvas id="g1"></canvas><div class="value" id="v1">0</div></div>
+804820	<h3>FILTERED PROJECTS (≥1MW)</h3>
+804821	<div class="chart"><canvas id="g2"></canvas><div class="value" id="v2">0</div></div>
+804822	<h3>LARGEST SINGLE SITE (MW)</h3>
+804823	<div class="chart"><canvas id="g3"></canvas><div class="value" id="v3">0</div></div>
+804824	<div class="filters" id="tech">
+804825	<button class="btn active" data-technology="all" aria-pressed="true">ALL TECH</button>
+804826	<button class="btn" data-technology="solar" aria-pressed="false">SOLAR</button>
+804827	<button class="btn" data-technology="bess" aria-pressed="false">BATTERY</button>
+804828	<button class="btn" data-technology="wind_onshore" aria-pressed="false">ONSHORE</button>
+804829	<button class="btn" data-technology="wind_offshore" aria-pressed="false">OFFSHORE</button>
+804830	<button class="btn" data-technology="interconnector" aria-pressed="false">INTERCONNECTORS</button>
+804831	<div class="filters" id="status">
+804832	<button class="btn active" data-official-status="All" aria-pressed="true">ALL STATUS</button>
+804833	<button class="btn" data-official-status="Operational" aria-pressed="false">OPERATIONAL</button>
+804834	<button class="btn" data-official-status="Under Construction" aria-pressed="false">CONSTRUCTING</button>
+804835	<button class="btn" data-official-status="Awaiting Construction" aria-pressed="false">AWAITING</button>
+804836	<button class="btn" data-official-status="Application Submitted" aria-pressed="false">SUBMITTED</button>
+804837	<div class="filters">
+804838	<select id="county"><option value="All">🌍 ALL COUNTIES</option></select>
+804839	<select id="sortProjects" aria-label="Sort projects">
+804840	<option value="capacity_desc">SORT: CAPACITY (DEFAULT)</option>
+804841	<option value="updated_desc">SORT: REPD UPDATED — NEWEST</option>
+804842	<option value="updated_asc">SORT: REPD UPDATED — OLDEST</option>
+804843	<option value="submitted_desc">SORT: APPLICATION SUBMITTED - NEWEST</option>
+804844	<option value="submitted_asc">SORT: APPLICATION SUBMITTED - OLDEST</option>
+804845	<option value="operational_desc">SORT: OPERATIONAL - NEWEST</option>
+804846	<option value="operational_asc">SORT: OPERATIONAL - OLDEST</option>
+804848	<label>REPD updated year <select data-year-filter="updatedYear" aria-label="REPD updated year"></select></label>
+804849	<label>Application submitted year <select data-year-filter="submittedYear" aria-label="Application submitted year"></select></label>
+804850	<label>Operational year <select data-year-filter="operationalYear" aria-label="Operational year"></select></label>
+804851	<input id="search" class="asset-search" placeholder="🔍 SEARCH PROJECT / REPD / GLOBALGRID / PLANNING..." autocomplete="off">
+804852	<button class="btn clear-filters" id="clearFilters">CLEAR FILTERS</button>
+804853	<button class="btn export-inline" id="exportInline">EXPORT FILTERED CSV</button>
+804854	<span id="resultsMeta" class="results-meta">Loading all qualifying records…</span>
+804855	<span id="exportMeta" class="export-meta">CSV contains the current filtered rows only</span>
+804856	<details class="scope-notes"><summary>Register scope and MAP guidance</summary><div class="meta">
+804857	<strong>STATUS DISCIPLINE</strong>
+804858	<span><b>DEFAULT:</b> every qualifying ≥1 MW record is loaded. Filters are user controls; they never redefine or truncate the pipeline.</span>
+804859	<span><b>NEWS:</b> relevance scores are algorithmic screening only and never change an official REPD fact.</span>
+804860	<span><b>ATLAS:</b> valid geometry resolves the exact REPD Ref. Missing geometry remains in search and CSV and is labelled NO MAP.</span>
+804861	<span><b>MAP ON A PHONE:</b> GridAtlas can open its project result card minimised so the map remains visible. Expand the card to read the nearest-substation screening. A distance is not available grid capacity or a connection offer.</span>
+804862	<span><b>DATES:</b> Application submitted is the planning submission event. REPD updated is the database record update, not necessarily an application amendment. Operational is the recorded REPD historical milestone, not independent proof of current operation, commissioning or capacity. Status and dates remain separate. Year filters combine; missing dates stay unknown and sort last.</span>
+804863	<span id="gaStateSummary" hidden></span>
+804864	<span><b>INTERCONNECTORS:</b> not REPD records and never counted in ALL TECH. Their MAP link carries the link's own identity; a midpoint is a label anchor, not a location.</span>
+804867	<thead>
+804869	<th>SITE NAME</th>
+804870	<th class="hide-mobile">COUNTY</th>
+804871	<th class="hide-mobile">OPERATOR</th>
+804872	<th>TECHNOLOGY</th>
+804873	<th>OFFICIAL REPD STATUS</th>
+804874	<th>OFFICIAL CAPACITY</th>
+804875	<th class="hide-mobile">REPD REF</th>
+804876	<th class="hide-mobile">GLOBALGRID REF</th>
+804877	<th class="hide-mobile repd-updated-heading" id="repdUpdatedHeader" aria-sort="none">
+804878	<button id="sortUpdated" type="button" aria-label="Sort by REPD updated date, newest first">
+804879	REPD UPDATED <span id="updatedSortIndicator" aria-hidden="true">↕</span>
+804880	</button>
+804881	<details class="date-options"><summary aria-label="REPD updated sort and year options">&#9881;</summary><div><button type="button" data-date-sort="updated_asc">&#9650; Ascending</button><button type="button" data-date-sort="updated_desc">&#9660; Descending</button><label>Year <select data-year-filter="updatedYear" aria-label="REPD updated year menu"></select></label></div></details></th>
+804882	<th class="hide-mobile repd-updated-heading" id="planningSubmittedHeader" aria-sort="none"><button id="sortSubmitted" type="button">Planning Application Submitted <span id="submittedSortIndicator" aria-hidden="true">&#8597;</span></button><details class="date-options"><summary aria-label="Application submitted sort and year options">&#9881;</summary><div><button type="button" data-date-sort="submitted_asc">&#9650; Ascending</button><button type="button" data-date-sort="submitted_desc">&#9660; Descending</button><label>Year <select data-year-filter="submittedYear" aria-label="Application submitted year menu"></select></label></div></details></th>
+804883	<th class="hide-mobile repd-updated-heading" id="operationalHeader" aria-sort="none"><button id="sortOperational" type="button">Operational <span id="operationalSortIndicator" aria-hidden="true">&#8597;</span></button><details class="date-options"><summary aria-label="Operational sort and year options">&#9881;</summary><div><button type="button" data-date-sort="operational_asc">&#9650; Ascending</button><button type="button" data-date-sort="operational_desc">&#9660; Descending</button><label>Year <select data-year-filter="operationalYear" aria-label="Operational year menu"></select></label></div></details></th>
+804884	<th>MACHINE READ NOTES</th>
+804885	<th>ACTIONS</th>
+804887	</thead>
+804888	<tbody id="tbody"></tbody>
+804890	<div id="gridPanel" role="tabpanel" aria-labelledby="gridTab" hidden>
+804891	<div id="gridLayerHost">Select Grid to load the existing substation snapshot.</div>
+804892	<details class="scope-notes"><summary>Official grid information sources · 0 approved project updates</summary>
+804893	<div id="gridDirectory" aria-live="polite">Source directory unavailable.</div>
+804894	<div id="datacentrePanel" role="tabpanel" aria-labelledby="datacentreTab" hidden>
+804895	<div id="datacentreHost" aria-live="polite">Loading source-indexed leads…</div>
+804896	<div id="offtakersPanel" role="tabpanel" aria-labelledby="offtakersTab" hidden>
+804897	<div id="offtakersLayerHost">Select Offtakers to load the existing source snapshot.</div>
+804898	<div id="pricesPanel" role="tabpanel" aria-labelledby="pricesTab" hidden>
+804899	<div id="pricesLayerHost"></div>
+804900	<p class="category-scope"><a href="https://globalgrid2050.com/uk_energy_tracking_v6/" target="_blank" rel="noopener noreferrer">Open the original electricity workspace</a></p>
+804901	<details id="contextDisclosure" class="scope-notes" hidden>
+804902	<summary>Energy and data-centre context · historical and provisional</summary>
+804903	<p class="category-scope">Dated provisional source context. It establishes no UK project association, current capacity or publication-rights approval.</p>
+804904	<div id="contextHost" data-pipeline-context-host>Context unavailable.</div>
+804905	<details class="scope-notes" id="evidenceCoverage" data-evidence-pointer="https://raw.githubusercontent.com/Ventusltd/globalgrid2050/pipeline-evidence-data/dist/news/evidence/latest.json"><summary>Sources and research coverage</summary>
+804906	<p class="category-scope" data-evidence-selection>Loading the unchanged 1,000-project research selection…</p>
+804907	<p class="category-scope" data-evidence-status>Research evidence unavailable until source validation completes.</p>
+804908	<p class="category-scope">7,775 official REPD records; 3,604 solar. The unchanged 1,000-project research selection has zero independently verified findings. Missing research is not evidence that no development exists.</p>
+804909	<div class="meta" id="dataSources">
+804910	<strong>DATA SOURCES AND LICENCES</strong>
+804911	<span><b>REPD:</b> Renewable Energy Planning Database, Department for Energy Security and Net Zero. Contains public sector information licensed under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" target="_blank" rel="noopener">Open Government Licence v3.0</a>.</span>
+804912	<span><b>HEADLINES:</b> One public energy-infrastructure feed, with no content from the UK data-centre register. Machine Read Notes are candidate screening interpretations; original evidence and official REPD status remain separate.</span>
+804913	<script type="module" src="scripts/app-v9-8.js?v=9.28"></script>
+804914	<script type="module" src="scripts/plugins/capacity-presentation-v9-3.js?v=9.8"></script>
+804915	<script defer src="scripts/plugins/live-news.js?v=9.28"></script>
+804916	<script defer src="scripts/plugins/machine-notes-v923.js?v=9.23"></script>
+804917	<script type="module" src="scripts/plugins/solar1000-v924.js?v=9.28"></script>
+804918	<script defer src="scripts/plugins/gridatlas-state.js?v=1"></script>
+804919	<script defer src="scripts/plugins/register-changes.js?v=9.28"></script>
+804920	<script src="../../automation/news/datacentre-ui/model.js"></script>
+804921	<script src="../../automation/news/datacentre-ui/view.js"></script>
+804922	<script type="module" src="scripts/plugins/preview-v928.js"></script>
+804923	<script type="module" src="scripts/plugins/layers-v929.mjs"></script>
+804924	<script type="module" src="scripts/plugins/dc-locations-v930.mjs"></script>
+804925	<script type="module" src="scripts/plugins/prices-v931.mjs"></script>
+804926	<script type="module" src="scripts/plugins/primary-notes-v932.mjs"></script>
+804927	<script type="module" src="../../automation/repd_expand_ui/expand.mjs"></script>
+804928	const ALLOWED_SORTS = new Set(["capacity_desc", "updated_desc", "updated_asc", "submitted_desc", "submitted_asc", "operational_desc", "operational_asc"]);
+804929	let submittedYear = "All", updatedYear = "All", operationalYear = "All";
+804930	export function compareProjectOperationalV935(left,right,direction="desc") {
+804931	const a=left.operational,b=right.operational;
+804932	for(const [prefix,id,label] of [["updated","repdUpdatedHeader","REPD updated"],["submitted","planningSubmittedHeader","Planning application submitted"],["operational","operationalHeader","Operational date"]]) {
+804933	const header=document.getElementById(id), button=document.getElementById(prefix==="updated"?"sortUpdated":prefix==="submitted"?"sortSubmitted":"sortOperational");
+804934	for(const [field,id] of [["planning_application_submitted","submittedYear"],["repd_record_updated","updatedYear"],["operational","operationalYear"]]) {
+804935	for(const [id,value] of [["submittedYear",submittedYear],["updatedYear",updatedYear],["operationalYear",operationalYear]])for(const select of document.querySelectorAll('[data-year-filter="'+id+'"]'))select.value=value;
+804936	return `<tr id="repd-${escapeHtml(record.repd_ref)}" data-repd-updated="" data-technology="interconnector"><td class="site">${escapeHtml(record.name)}<div class="project-meta">${escapeHtml(identity)} · ${escapeHtml(record.gg_project_id)} · NOT A REPD RECORD</div><div class="mobile-extra">${escapeHtml(location)}</div><details class="project-record"><summary>INTERCONNECTOR RECORD</summary><div class="record-grid"><div><b>CONVERTERS</b><span>${escapeHtml(gbEnd)} ↔ ${escapeHtml(farEnd)}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(geometry)}</span></div><div><b>FLOW</b><span>${escapeHtml(flow)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(lifecycle)}</span></div><div><b>SOURCE</b><span>data-interconnectors reference list; converter positions from gridatlas</span></div><div><b>NOTES</b><span>${escapeHtml(record.notes || "-")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location)}</td><td class="hide-mobile">${escapeHtml(record.operator || "not in reference data")}</td><td><span class="badge" style="background:${COLOURS[record.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(record.status)}</td><td class="mw">${record.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(record.bmrs_code || "no BMRS code")}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(record.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">not a REPD record</td><td class="hide-mobile reference-cell planning-submitted">not a REPD record</td><td class="hide-mobile reference-cell operational-date">not a REPD record</td><td class="machine-note-cell">NOT A REPD RECORD</td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(record.gg_project_id)}">COPY ID</button></div></td></tr>`;
+804937	const operational = displayDate(project.operational);
+804938	return `<tr id="repd-${escapeHtml(project.repd_ref)}" data-repd-updated="${escapeHtml(project.repd_record_updated || "")}" data-planning-application-submitted="${escapeHtml(project.planning_application_submitted || "")}" data-operational="${escapeHtml(project.operational || "")}"><td class="site">${escapeHtml(project.name)}<div class="project-meta">REPD ${escapeHtml(project.repd_ref)} · ${escapeHtml(project.gg_project_id)} · UPDATED ${escapeHtml(updated)}</div><div class="mobile-extra">${escapeHtml([location, project.operator].filter(Boolean).join(" | "))}</div><button type="button" class="machine-note-button mobile-machine-note" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">NOTES · CHECK</button><details class="project-record"><summary>PROJECT RECORD</summary><div class="record-grid"><div><b>PLANNING APPLICATION SUBMITTED</b><span>${escapeHtml(submitted)}</span></div><div><b>OPERATIONAL DATE</b><span>${escapeHtml(operational)}</span></div><div><b>REPD UPDATED</b><span>${escapeHtml(updated)}</span></div><div><b>PLANNING AUTHORITY</b><span>${escapeHtml(authority)}</span></div><div><b>PLANNING REF</b><span>${escapeHtml(planning)}</span></div><div><b>DEVELOPMENT ID</b><span>${escapeHtml(developmentId)}</span></div><div><b>LIFECYCLE</b><span>${escapeHtml(project.lifecycle || "not derived")}</span></div><div><b>RELATIONSHIPS</b><span>${escapeHtml(relationshipSummary(project))}</span></div><div><b>GEOMETRY</b><span>${escapeHtml(project.geometry_status === "valid" ? "valid REPD map point" : "missing — retained without deletion")}</span></div></div></details></td><td class="hide-mobile">${escapeHtml(location || "-")}</td><td class="hide-mobile">${escapeHtml(project.operator || "-")}</td><td><span class="badge" style="background:${COLOURS[project.technology]}">${escapeHtml(label)}</span></td><td>${escapeHtml(project.status)}</td><td class="mw">${project.capacity_mw.toLocaleString("en-GB", { maximumFractionDigits: 2 })} ${unit}</td><td class="hide-mobile reference-cell repd-ref">${escapeHtml(project.repd_ref)}</td><td class="hide-mobile reference-cell globalgrid-ref">${escapeHtml(project.gg_project_id)}</td><td class="hide-mobile reference-cell repd-updated">${escapeHtml(updated)}</td><td class="hide-mobile reference-cell planning-submitted">${escapeHtml(submitted)}</td><td class="hide-mobile reference-cell operational-date">${escapeHtml(operational)}</td><td class="machine-note-cell"><button type="button" class="machine-note-button" data-note-ref="${escapeHtml(project.repd_ref)}" data-note-name="${escapeHtml(project.name)}" data-note-status="${escapeHtml(project.status)}">CHECK NOTE</button></td><td><div class="project-actions">${mapAction}<a class="action-link newslink" target="_blank" rel="noopener" href="${escapeHtml(news.href)}">NEWS ↗</a><button class="copy-id" type="button" data-copy-id="${escapeHtml(project.gg_project_id)}">COPY ID</button></div></td></tr>`;
+804939	for (const parameter of ["technology", "status", "county", "q", "sort", "submitted_year", "updated_year", "operational_year"]) url.searchParams.delete(parameter);
+804940	if (technology !== "all" || submittedYear !== "All" || updatedYear !== "All" || operationalYear !== "All" || sortMode !== "capacity_desc") url.searchParams.set("technology", technology);
+804941	if(operationalYear!=="All")url.searchParams.set("operational_year",operationalYear);
+804942	}, searchIndex.get(project.repd_ref)) && matchesYear(project.planning_application_submitted,submittedYear) && matchesYear(project.repd_record_updated,updatedYear) && matchesYear(project.operational,operationalYear));
+804943	if(sortMode.startsWith("operational_"))filtered.sort((a,b)=>compareProjectOperationalV935(a,b,sortMode.endsWith("_asc")?"asc":"desc"));
+804944	for(const [param,id] of [["submitted_year","submittedYear"],["updated_year","updatedYear"],["operational_year","operationalYear"]]){const v=parameters.get(param)||"All";const valid=[...document.querySelector('[data-year-filter="'+id+'"]').options].some(o=>o.value===v);if(id==="submittedYear")submittedYear=valid?v:"All";else if(id==="updatedYear")updatedYear=valid?v:"All";else operationalYear=valid?v:"All";}
+804945	submittedYear = updatedYear = operationalYear = "All";syncYearControls();
+804946	document.getElementById("tbody").innerHTML = '<tr><td colspan="13" style="text-align:center;color:#ff6666">Canonical Q2 REPD data unavailable. V9.5.1 has failed closed.</td></tr>';
+804947	document.getElementById("sortOperational").onclick=()=>{sortMode=sortMode==="operational_desc"?"operational_asc":"operational_desc";document.getElementById("sortProjects").value=sortMode;apply();};
+804948	for(const select of document.querySelectorAll('[data-year-filter]'))select.onchange=()=>{if(select.dataset.yearFilter==="submittedYear")submittedYear=select.value;else if(select.dataset.yearFilter==="updatedYear")updatedYear=select.value;else if(select.dataset.yearFilter==="operationalYear")operationalYear=select.value;syncYearControls();apply();};
+804949	/* check_v9_35.mjs - Pipeline News V9.35, proven from the bytes and through the
+804950	 * Run: node tests/check_v9_35.mjs
+804951	const VERSION = "9.35";
+804952	const PARENT_ID = "202611171141";
+804953	console.log(`check_v9_35: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+804969	<a href="versions.json">versions.json</a>. Generated 2026-11-17T12:48:18Z.</p>
+804970	<p>Operational is the source historical milestone, not independent current commissioning/capacity proof. Official status and unknown dates remain unchanged.</p>
+804974	<tr class="pass"><td><a href="202611171217/"><b>202611171217</b></a><br>V9.35<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 12:17:00 UTC</td><td>Official Operational date beside planning dates, with independent year filter, both sort orders and mobile/expanded access; source data and CSV unchanged.<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171141<br><a href="202611171217/CHANGES.md">changes</a></td></tr>
+804975	<tr class="pass"><td><a href="202611171141/"><b>202611171141</b></a><br>V9.34<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 11:41:00 UTC</td><td>Planning submission date beside REPD updated; both dates sortable with independent year filters, header menus, mobile records and filtered CSV. Mobile analytics expansion preserves the live controls and supports close/restore.<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611170512<br><a href="202611171141/CHANGES.md">changes</a></td></tr>
+804976	<tr class="pass"><td><a href="202611170512/"><b>202611170512</b></a><br>V9.33<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 05:12:00 UTC</td><td>Three reviewed government consents extend existing Machine Read Notes to four provisional solar-row associations with whole-development scope and explicit source precision.<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611170324<br><a href="202611170512/CHANGES.md">changes</a></td></tr>
+804977	<tr class="pass"><td><a href="202611170324/"><b>202611170324</b></a><br>V9.32<br><span class="state">PUBLISHED_VERIFIED</span></td><td>2026-11-17 03:24:00 UTC</td><td>One reviewed government planning decision in the existing Machine Read Notes brief, with provisional exact-ID association, preserved source/rights/date distinctions and unchanged REPD, CSV, MAP, DC and Prices.<ul><li>One reviewed government fact is provisionally associated with REPD 12588. Frozen REPD status and source-specific dates are retained; final reduced capacity, later status and judicial review remain unknown. No VERIFIED association or Solar-1000 delta.</li><li>Historical Prices end on 31 October 2026 with source-declared dates, missing/partial coverage and UTC disagreements. DC points do not establish facilities, connections or available capacity. Native handset and broader source-rights approval remain unavailable.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td><a href="https://github.com/Ventusltd/globalgrid2050/actions/runs/44016860896">SUCCESS</a></td><td>parent 202611170243<br><a href="202611170324/CHANGES.md">changes</a></td></tr>
+805002	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">Open Pipeline News &rarr;</a></div></details>
+805003	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.35 - Operational dates, sorting and year filters</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div></details></td></tr>
 ```
