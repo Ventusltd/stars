@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-17 23:07 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
+Updated 2026-11-18 04:41 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 465,577 |
-| File versions | 8,532 |
-| Elements (functions and classes) | 33,263 |
-| Families (same logic) | 32,130 |
-| Families written in two or more different files (duplicate work) | 7,241 |
-| Families only copied between versions of one file | 2,854 |
-| Self-contained functions compiled into the library | 740 |
+| Unique lines | 469,073 |
+| File versions | 8,612 |
+| Elements (functions and classes) | 33,567 |
+| Families (same logic) | 32,409 |
+| Families written in two or more different files (duplicate work) | 7,346 |
+| Families only copied between versions of one file | 2,860 |
+| Self-contained functions compiled into the library | 755 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -26,36 +26,36 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 47 | 509 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
-| #8770 | `initialBearingDeg` | 14 | 257 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
-| #511 | `distanceKm` | 14 | 254 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
+| #1586 | `invariant` | 47 | 512 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
+| #8770 | `initialBearingDeg` | 14 | 260 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
+| #511 | `distanceKm` | 14 | 257 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #591 | `require` | 12 | 12 | 6 | no | 2026-08-29 | [companies/scripts/202608300232-build-atlas-v9-company-repd-links.py](https://github.com/Ventusltd/companies/blob/ac70a37408d4f434e89e8a80cc36d40e450d3cfb/scripts/202608300232-build-atlas-v9-company-repd-links.py#L40-L42) |
-| #975 | `sha256` | 67 | 218 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
-| #8285 | `sha256Hex` | 33 | 353 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
-| #5168 | `escapeHTML` | 24 | 196 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
-| #5609 | `(anonymous)` | 20 | 192 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
-| #8328 | `(anonymous)` | 16 | 89 | 5 | no | 2026-08-30 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L776-L786) |
-| #8319 | `numberOrNull` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L606-L611) |
-| #8320 | `textOrNull` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L612-L615) |
-| #8321 | `suppliedArrivalFields` | 13 | 84 | 5 | yes | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L605-L628) |
-| #8323 | `retryExactRepdDeepLink` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L723-L732) |
-| #8324 | `(anonymous)` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L742-L747) |
-| #8325 | `(anonymous)` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L749-L761) |
-| #8326 | `(anonymous)` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L763-L769) |
-| #8327 | `bindSearch` | 13 | 84 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L734-L774) |
-| #8767 | `representativePoint` | 12 | 255 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1696-L1714) |
-| #8768 | `voltagesKv` | 12 | 255 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1722-L1740) |
-| #8769 | `destinationPoint` | 12 | 251 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1754-L1764) |
-| #8946 | `normalise` | 11 | 179 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L8332-L8336) |
-| #8782 | `(anonymous)` | 10 | 357 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2104-L2108) |
-| #8850 | `(anonymous)` | 10 | 223 | 5 | yes | 2026-09-04 | [code-generator/apps/substation-finder/Si/202609031958-menu-bar.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609031958-menu-bar.js#L407-L413) |
-| #8856 | `(anonymous)` | 10 | 223 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Si/202609031958-menu-bar.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609031958-menu-bar.js#L539-L542) |
-| #8772 | `voltageOf` | 9 | 184 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1862-L1866) |
-| #8773 | `ratingsOf` | 9 | 184 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1870-L1878) |
-| #8775 | `parametersOf` | 9 | 184 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1929-L1936) |
-| #8776 | `land` | 9 | 184 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1961-L1965) |
-| #8777 | `siteOf` | 9 | 184 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1975-L1978) |
-| #8781 | `resolve` | 9 | 184 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2015-L2019) |
+| #975 | `sha256` | 67 | 226 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
+| #8285 | `sha256Hex` | 33 | 356 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
+| #5168 | `escapeHTML` | 24 | 197 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
+| #5609 | `(anonymous)` | 20 | 193 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
+| #8328 | `(anonymous)` | 16 | 90 | 5 | no | 2026-08-30 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L776-L786) |
+| #8319 | `numberOrNull` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L606-L611) |
+| #8320 | `textOrNull` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L612-L615) |
+| #8321 | `suppliedArrivalFields` | 13 | 85 | 5 | yes | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L605-L628) |
+| #8323 | `retryExactRepdDeepLink` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L723-L732) |
+| #8324 | `(anonymous)` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L742-L747) |
+| #8325 | `(anonymous)` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L749-L761) |
+| #8326 | `(anonymous)` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L763-L769) |
+| #8327 | `bindSearch` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L734-L774) |
+| #8767 | `representativePoint` | 12 | 258 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1696-L1714) |
+| #8768 | `voltagesKv` | 12 | 258 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1722-L1740) |
+| #8769 | `destinationPoint` | 12 | 254 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1754-L1764) |
+| #8782 | `(anonymous)` | 11 | 360 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2104-L2108) |
+| #8946 | `normalise` | 11 | 180 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L8332-L8336) |
+| #8850 | `(anonymous)` | 10 | 224 | 5 | yes | 2026-09-04 | [code-generator/apps/substation-finder/Si/202609031958-menu-bar.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609031958-menu-bar.js#L407-L413) |
+| #8856 | `(anonymous)` | 10 | 224 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Si/202609031958-menu-bar.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609031958-menu-bar.js#L539-L542) |
+| #8772 | `voltageOf` | 10 | 186 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1862-L1866) |
+| #8773 | `ratingsOf` | 10 | 186 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1870-L1878) |
+| #8775 | `parametersOf` | 10 | 186 | 5 | yes | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1929-L1936) |
+| #8776 | `land` | 10 | 186 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1961-L1965) |
+| #8777 | `siteOf` | 10 | 186 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1975-L1978) |
+| #8781 | `resolve` | 10 | 186 | 5 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2015-L2019) |
 
 ## Same name, different code
 
@@ -63,11 +63,11 @@ These names mean different things in different repositories, so check which vers
 
 | Name | Different versions | Repositories |
 |---|---|---|
-| `build` | 130 | 21 |
+| `build` | 131 | 21 |
 | `load` | 65 | 21 |
 | `check` | 65 | 20 |
 | `__init__` | 59 | 19 |
-| `draw` | 123 | 17 |
+| `draw` | 124 | 18 |
 | `classify` | 23 | 16 |
 | `require` | 19 | 16 |
 | `verify` | 18 | 15 |
@@ -78,16 +78,16 @@ These names mean different things in different repositories, so check which vers
 | `measure` | 26 | 13 |
 | `normalise` | 16 | 13 |
 | `start` | 86 | 11 |
+| `frame` | 46 | 11 |
 | `step` | 44 | 11 |
-| `refresh` | 39 | 11 |
+| `refresh` | 42 | 11 |
 | `record` | 24 | 11 |
 | `describe` | 19 | 11 |
 | `write_json` | 19 | 11 |
-| `frame` | 45 | 10 |
+| `inspect` | 28 | 10 |
 | `close` | 27 | 10 |
-| `inspect` | 27 | 10 |
 | `collect` | 25 | 10 |
-| `sha256` | 24 | 10 |
+| `sha256` | 25 | 10 |
 
 ## How to check for earlier work before writing code
 

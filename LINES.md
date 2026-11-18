@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-465,577 unique lines, numbered 1 to 808,540. Generated 2026-11-17T23:09:14.474Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+469,073 unique lines, numbered 1 to 827,257. Generated 2026-11-18T04:43:03.884Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -465580,4 +465580,3500 @@
 808510	<tr class="pass"><td><a href="202611171507/"><b>202611171507</b></a><br>V9.36<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 15:07:00 UTC</td><td>Static source-attributed ticker up to100 available headlines,20-item bounded pages, stable title/publisher search, separate source clocks and no Pause/animation; original main12-item news list preserved.<ul><li>All four row associations remain PROVISIONAL; independently VERIFIED and Solar-1000 deltas are zero.</li><li>Consent is a development-level planning event; separate Battery capacities, current output, energisation, commissioning and corporate ownership remain unknown.</li><li>Evidence feed is withheld when unavailable or unaccepted; price history retains declared gaps and UTC disagreements; native handset acceptance is unknown.</li><li>Actual eligible headline count depends on existing live/saved source; no minimum100 coverage is claimed. Keyboard/touch/reduced-motion checks are automated; physical VoiceOver/handset acceptance remains unknown.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171217<br><a href="202611171507/CHANGES.md">changes</a></td></tr>
 808539	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">Open Pipeline News &rarr;</a></div></details>
 808540	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.41 - crisp red ticker</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div></details></td></tr>
+808542	/* Source-host integration. PREVIEW=1 composes the additive module into V9.42
+808543	 * only in a local HTTP response; this is not public/edition acceptance. */
+808546	import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+808547	import {resolve,dirname,extname,sep} from 'node:path';
+808549	const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../..');
+808550	const edition=process.env.PN_JOURNEY_EDITION||'202611172355',preview=process.env.PN_JOURNEY_HOST_PREVIEW==='1';
+808551	assert.match(edition,/^\d{12}$/);const output=process.env.PN_JOURNEY_OUT||resolve(root,'work/journey-entry');mkdirSync(output,{recursive:true});
+808552	const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE||'D:/githubfiles/.qa-tools/node/node_modules/playwright/index.mjs').href);
+808553	const entryPath='/uk_renewables_pipeline/'+edition+'/';
+808554	for(const file of ['view.mjs','model.mjs','styles.css'])assert.ok(existsSync(new URL('./'+file,import.meta.url)),'materialize Journey module in sparse checkout: '+file);
+808555	const server=createServer((req,res)=>{try{const url=new URL(req.url,'http://local');let p=resolve(root,'.'+decodeURIComponent(url.pathname));assert.ok(p.startsWith(root+sep));if(url.pathname.endsWith('/'))p=resolve(p,'index.html');let bytes=readFileSync(p);if(url.pathname===entryPath||url.pathname===entryPath+'index.html'){
+808556	 const html=bytes.toString();if(preview)bytes=Buffer.from(html.replace('</body>','<link rel="stylesheet" href="/automation/journey_entry_ui/20261118/styles.css"><script type="module" src="/automation/journey_entry_ui/20261118/view.mjs"></script></body>'));else assert.ok(html.includes('journey_entry_ui/20261118/view.mjs'),'actual candidate must load Journey entry itself');
+808557	 }res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css'})[extname(p)]||'application/octet-stream');res.end(bytes)}catch{res.writeHead(404).end()}});
+808559	const browser=await chromium.launch(),report={scope:preview?'controlled local host composition; not a published edition':'actual local candidate entry integration',edition,results:[]};
+808560	try{for(const width of [393,1440]){
+808561	 const context=await browser.newContext({viewport:{width,height:852},isMobile:width<500,hasTouch:width<500}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+808562	 const result={width,started:new Date().toISOString(),errors,consoleErrors:[],httpErrors:[]};report.results.push(result);page.on('console',m=>{if(m.type()==='error')result.consoleErrors.push(m.text())});page.on('response',r=>{if(r.status()>=400)result.httpErrors.push({url:r.url(),status:r.status()})});
+808563	 const inspect=async link=>{
+808564	  await link.scrollIntoViewIfNeeded();return link.evaluate(a=>{const r=a.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{href:a.href,width:r.width,height:r.height,reachable:h===a||a.contains(h)}});
+808567	 await page.goto(base+entryPath+'?technology=all',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)>0);
+808568	 await page.locator('#clearFilters').click();await page.locator('#search').fill('2470');const repd=page.locator('#tbody .pn-journey-link').first();await repd.waitFor();result.repd=await inspect(repd);assert.equal(new URL(result.repd.href).searchParams.get('origin_id'),'repd:2470');assert.ok(result.repd.reachable&&result.repd.width>=62&&result.repd.height>=44);await page.screenshot({path:resolve(output,'repd-'+width+'.png')});
+808569	 await page.locator('.pipeline-tabs [data-view="grid"]').click();const sub=page.locator('#gridLayerHost tr[data-source-id] .pn-journey-link').first();await sub.waitFor({timeout:60000});result.substation=await inspect(sub);assert.equal(new URL(result.substation.href).searchParams.get('origin_type'),'substation');assert.ok(result.substation.reachable&&result.substation.width>=62&&result.substation.height>=44);await page.screenshot({path:resolve(output,'substation-'+width+'.png')});
+808570	 await page.locator('.pipeline-tabs [data-view="datacentre"]').click();await page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available',null,{timeout:60000});const dc=page.locator('#datacentreHost .ggdc-location-actions .pn-journey-link').first();await dc.waitFor();result.datacentre=await inspect(dc);assert.equal(new URL(result.datacentre.href).searchParams.get('origin_type'),'datacentre');assert.ok(result.datacentre.reachable&&result.datacentre.width>=62&&result.datacentre.height>=44);await page.screenshot({path:resolve(output,'datacentre-'+width+'.png')});
+808571	 assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.deepEqual(errors,[]);assert.deepEqual(result.httpErrors.filter(r=>r.url.startsWith(base)),[],'same-origin source assets must load');result.pass=true;
+808572	 }catch(e){result.pass=false;result.error=String(e);result.debug=await page.evaluate(()=>({api:!!window.pipelineJourneyEntry,total:document.querySelector('#tbody')?.dataset.total,query:document.querySelector('#search')?.value,maps:[...document.querySelectorAll('#tbody a.atlaslink')].slice(0,3).map(a=>a.outerHTML),journeyCount:document.querySelectorAll('.pn-journey-link').length}));throw e}
+808573	 finally{result.finished=new Date().toISOString();writeFileSync(resolve(output,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
+808574	}}finally{await browser.close();await new Promise(r=>server.close(r))}
+808576	const receiver='https://ventusltd.github.io/gridatlas/atlas/';
+808577	const kinds=new Set(['repd','datacentre','substation']);
+808578	export function checkedOrigin(value){
+808579	  if(!value||!kinds.has(value.origin_type)||typeof value.origin_id!=='string'||!value.origin_id.trim()||value.origin_id.length>160||/[\s\x00-\x1f\x7f]/.test(value.origin_id))return null;
+808580	  if(value.origin_type==='repd'&&!/^repd:[1-9]\d*$/.test(value.origin_id))return null;
+808581	  const {latitude,longitude}=value;
+808582	  if(typeof latitude!=='number'||typeof longitude!=='number'||!Number.isFinite(latitude)||!Number.isFinite(longitude)||Math.abs(latitude)>90||Math.abs(longitude)>180||(latitude===0&&longitude===0))return null;
+808583	  return Object.freeze({origin_type:value.origin_type,origin_id:value.origin_id,latitude,longitude,
+808584	    ...(typeof value.name==='string'&&value.name.trim()?{name:value.name.trim().slice(0,200)}:{}),
+808585	    ...(typeof value.technology==='string'?{technology:value.technology.slice(0,80)}:{})});
+808587	export function checkedNewsContextBase(value){
+808588	  if(typeof value!=='string')return null;
+808589	  let u;try{u=new URL(value)}catch{return null}
+808590	  if(u.origin!=='https://globalgrid2050.com'||u.username||u.password||u.port||u.search||u.hash||!/^\/uk_renewables_pipeline\/\d{12}\/(?:index\.html)?$/.test(u.pathname))return null;
+808592	export function buildJourneyUrl(mapHref,origin,{radiusKm=10,newsContextUrl}={}){
+808593	  const checked=checkedOrigin(origin);if(!checked||!Number.isInteger(radiusKm)||radiusKm<1||radiusKm>50)return null;
+808594	  let url;try{url=new URL(mapHref)}catch{return null}
+808595	  if(url.origin+url.pathname!==receiver||url.username||url.password||url.port||url.hash)return null;
+808596	  for(const key of ['repd_ref','latitude','longitude','technology'])if(url.searchParams.getAll(key).length>1)return null;
+808597	  if(checked.origin_type==='repd'&&url.searchParams.get('repd_ref')!==checked.origin_id.slice(5))return null;
+808598	  if(!url.searchParams.get('latitude')?.trim()||!url.searchParams.get('longitude')?.trim()||Number(url.searchParams.get('latitude'))!==checked.latitude||Number(url.searchParams.get('longitude'))!==checked.longitude)return null;
+808599	  url.searchParams.delete('news_context_url');
+808600	  for(const [key,value]of Object.entries({journey:'vicinity',origin_type:checked.origin_type,origin_id:checked.origin_id,latitude:checked.latitude,longitude:checked.longitude,radius_km:radiusKm}))url.searchParams.set(key,String(value));
+808601	  if(checked.name&&!url.searchParams.has('project'))url.searchParams.set('project',checked.name);
+808602	  if(checked.name&&!url.searchParams.has('name'))url.searchParams.set('name',checked.name);
+808603	  if(newsContextUrl!==undefined){const base=checkedNewsContextBase(newsContextUrl);if(!base)return null;url.searchParams.set('news_context_url',base)}
+808605	export function mapOrigin(mapHref,{origin_type,origin_id,name}={}){
+808606	  const latitude=url.searchParams.get('latitude'),longitude=url.searchParams.get('longitude');
+808607	  if(latitude===null||longitude===null||!latitude.trim()||!longitude.trim())return null;
+808608	  return checkedOrigin({origin_type,origin_id,name,latitude:Number(latitude),longitude:Number(longitude),technology:url.searchParams.get('technology')||undefined});
+808610	import {buildJourneyUrl,checkedOrigin,mapOrigin,checkedNewsContextBase} from './model.mjs';
+808611	const href='https://ventusltd.github.io/gridatlas/atlas/?repd_ref=2470&technology=wind_offshore&latitude=52.1374391&longitude=2.1708996&zoom=12';
+808612	const origin={origin_type:'repd',origin_id:'repd:2470',latitude:52.1374391,longitude:2.1708996,name:'East Anglia 3'};
+808613	test('REPD journey preserves legacy receiver identity, geometry and technology',()=>{
+808614	 const url=new URL(buildJourneyUrl(href,origin));
+808615	 for(const [key,value]of new URL(href).searchParams)assert.equal(url.searchParams.get(key),value);
+808616	 assert.equal(url.searchParams.get('journey'),'vicinity');assert.equal(url.searchParams.get('origin_id'),'repd:2470');assert.equal(url.searchParams.get('radius_km'),'10');
+808617	 assert.equal(url.searchParams.get('name'),'East Anglia 3');
+808619	test('data centre and substation IDs remain opaque source identities',()=>{
+808620	 for(const [kind,id]of [['datacentre','DC-WD-Q100'],['substation','grid_substations:0']]){
+808621	 const h='https://ventusltd.github.io/gridatlas/atlas/?latitude=51&longitude=-1&project=Source';
+808622	 const o=mapOrigin(h,{origin_type:kind,origin_id:id});assert.equal(new URL(buildJourneyUrl(h,o,{radiusKm:50})).searchParams.get('origin_id'),id);
+808624	test('missing, nonnumeric, substituted identity/point and out-of-range radius refuse',()=>{
+808625	 for(const o of [null,{...origin,latitude:null},{...origin,longitude:Infinity},{...origin,latitude:91},{...origin,latitude:0,longitude:0},{...origin,origin_id:'repd:999'},{...origin,origin_type:'interconnector'},{...origin,origin_id:'repd:2470\n'}])assert.equal(buildJourneyUrl(href,o),null);
+808626	 for(const radiusKm of [0,51,10.5,NaN,'10'])assert.equal(buildJourneyUrl(href,origin,{radiusKm}),null);
+808627	 assert.equal(buildJourneyUrl(href,{...origin,latitude:52}),null);
+808628	 assert.equal(mapOrigin('https://ventusltd.github.io/gridatlas/atlas/?repd_ref=2470',{origin_type:'repd',origin_id:'repd:2470'}),null);
+808629	test('unsafe receivers and duplicate legacy parameters cannot become journey links',()=>{
+808630	 for(const h of ['javascript:alert(1)',href.replace('ventusltd.github.io','example.com'),href.replace('https:','http:'),href+'#other',href+'&repd_ref=999',href+'&latitude=52'])assert.equal(buildJourneyUrl(h,origin),null);
+808631	 assert.equal(checkedOrigin({...origin,origin_id:'repd:2470 invalid'}),null);
+808632	test('optional news context is an immutable canonical base without redirects or incoming query',()=>{
+808633	 const base='https://globalgrid2050.com/uk_renewables_pipeline/202611172355/';
+808634	 assert.equal(new URL(buildJourneyUrl(href,origin)).searchParams.has('news_context_url'),false);
+808635	 assert.equal(new URL(buildJourneyUrl(href+'&news_context_url=https://example.com/',origin)).searchParams.has('news_context_url'),false);
+808636	 assert.equal(new URL(buildJourneyUrl(href,origin,{newsContextUrl:base})).searchParams.get('news_context_url'),base);
+808637	 for(const value of [base+'?q=x',base+'#x',base.replace('globalgrid2050.com','example.com'),base.replace('https:','http:'),base.replace('globalgrid2050.com','user@globalgrid2050.com'),base.replace('globalgrid2050.com','globalgrid2050.com:444'),base.replace('202611172355','current')]){
+808638	  assert.equal(checkedNewsContextBase(value),null);assert.equal(buildJourneyUrl(href,origin,{newsContextUrl:value}),null);
+808640	import {resolve,relative} from 'node:path';
+808642	const release=resolve(process.argv[2]),root=resolve(release,'../..');
+808643	const contract=JSON.parse(readFileSync(resolve(release,'contracts/journey-entry.v943.json')));
+808644	assert.equal(contract.schema,'pipeline.journey-entry.v1');
+808645	for(const [path,hash] of Object.entries(contract.files)){
+808646	 const target=resolve(root,path);assert(!relative(root,target).startsWith('..'));
+808647	 assert.equal(createHash('sha256').update(readFileSync(target)).digest('hex'),hash,path);
+808648	const html=readFileSync(resolve(release,'index.html'),'utf8');
+808649	for(const name of ['styles.css','view.mjs']){
+808650	 const path='automation/journey_entry_ui/20261118/'+name;
+808651	 const sri='sha256-'+Buffer.from(contract.files[path],'hex').toString('base64');
+808652	 assert(html.includes('../../'+path+'" integrity="'+sri+'"'),name+' SRI');
+808653	console.log('V9.43 shared Journey closure: PASS');
+808658	const {chromium}=createRequire(resolve(process.env.PLAYWRIGHT_MODULE_ROOT||'D:/githubfiles/.qa-tools/node','package.json'))('playwright');
+808659	const maps={repd:'https://ventusltd.github.io/gridatlas/atlas/?repd_ref=2470&technology=wind_offshore&latitude=52&longitude=2&zoom=12',sub:'https://ventusltd.github.io/gridatlas/atlas/?technology=substation&latitude=51&longitude=-1&project=Sub',dc:'https://ventusltd.github.io/gridatlas/atlas/?technology=datacentre&latitude=52&longitude=-1&project=DC'};
+808660	const fixture=`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>a{display:inline-block;min-height:44px;min-width:44px}.project-actions{width:124px}</style><link rel="stylesheet" href="/styles.css"><a id="mapAtlasNav" href="https://ventusltd.github.io/gridatlas/atlas/">MAP ATLAS</a><div id="tech"><button aria-pressed="true" data-technology="all">All</button></div><div id="status"><button aria-pressed="true" data-official-status="All">All</button></div><input id="search" value="2470"><select id="county"><option>All</option></select><select id="sortProjects"><option>capacity_desc</option></select><table><tbody id="tbody" data-total="1"><tr><td class="site">Origin</td><td><div class="project-actions"><a class="atlaslink" target="_blank" href="${maps.repd}">MAP</a></div></td></tr></tbody></table><div id="gridLayerHost"><table><tr data-source-id="grid_substations:0"><td><strong>Sub</strong></td><td><a href="${maps.sub}">MAP</a></td></tr></table></div><div id="datacentreHost"><table class="ggdc-table"><tbody><tr><td><div class="ggdc-identity">DC<small class="ggdc-id">DC-WD-Q100</small></div></td><td><div class="ggdc-location-actions"><a href="${maps.dc}">Screen</a></div></td></tr><tr><td><small class="ggdc-id">DC-WD-Q200</small></td><td>No point</td></tr></tbody></table></div><script type="module" src="/navigation.mjs"></script><script type="module" src="/view.mjs"></script>`;
+808661	const server=createServer((req,res)=>{const name=new URL(req.url,'http://local').pathname.slice(1);if(['model.mjs','view.mjs','navigation.mjs','styles.css'].includes(name)){res.setHeader('content-type',name.endsWith('.css')?'text/css':'text/javascript');res.end(readFileSync(name==='navigation.mjs'?resolve(root,'mobile_map_ui/20261118-v942/navigation.mjs'):new URL('./'+name,import.meta.url)))}else{res.setHeader('content-type','text/html');res.end(fixture)}});
+808662	await new Promise(r=>server.listen(0,'127.0.0.1',r));const browser=await chromium.launch();
+808663	try{for(const mobile of [true,false]){
+808664	 const context=await browser.newContext({viewport:{width:mobile?393:1440,height:852},isMobile:mobile,hasTouch:mobile});const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+808665	 await page.goto('http://127.0.0.1:'+server.address().port);await page.waitForFunction(()=>document.querySelectorAll('.pn-journey-link').length===4);
+808666	 const entries=await page.locator('.pn-journey-link').evaluateAll(links=>links.map(a=>({text:a.textContent,url:a.href,target:a.target})));
+808667	 assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='repd').length,1);assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='substation').length,1);assert.equal(entries.filter(a=>new URL(a.url).searchParams.get('origin_type')==='datacentre').length,1);
+808668	 if(mobile){const boxes=await page.locator('#tbody .project-actions').evaluate(el=>{const [map,journey]=[el.querySelector('a:not(.pn-journey-link)'),el.querySelector('.pn-journey-link')].map(a=>a.getBoundingClientRect());return{map:{x:map.x,y:map.y,w:map.width,h:map.height},journey:{x:journey.x,y:journey.y,w:journey.width,h:journey.height}}});assert.ok(Math.abs(boxes.map.y-boxes.journey.y)<1&&boxes.map.w>=44&&boxes.journey.w>=62&&boxes.journey.x>=boxes.map.x+boxes.map.w,'adjacent thumb targets');}
+808669	 assert.equal(await page.locator('.pn-journey-unavailable').count(),1);assert.equal(await page.locator('#tbody a:not(.pn-journey-link)').getAttribute('href'),maps.repd);
+808670	 await page.locator('#tbody .pn-journey-link').focus();assert.equal(await page.locator('#tbody .pn-journey-link').evaluate(a=>a===document.activeElement),true);
+808671	 if(!mobile){
+808672	   await page.evaluate(()=>{window.originEvents=[];window.addEventListener('pipeline-journey-origin',e=>window.originEvents.push(e.detail))});
+808673	   const opened=context.waitForEvent('page');await page.locator('#tbody .pn-journey-link').click();await(await opened).close();
+808674	   assert.equal(await page.evaluate(()=>window.originEvents.length),1);
+808675	 await page.evaluate(()=>{const row=document.querySelector('#tbody tr');row.replaceWith(row.cloneNode(true))});await page.waitForTimeout(100);assert.equal(await page.locator('#tbody .pn-journey-link').count(),1);assert.deepEqual(errors,[]);
+808676	   assert.equal(await page.evaluate(()=>window.originEvents.length),2,'cloned Journey action must still emit its checked origin');
+808677	 assert.ok(entries.every(a=>!new URL(a.url).searchParams.has('news_context_url')),'entry release does not predeclare contextual news');
+808678	 const contextBase='https://globalgrid2050.com/uk_renewables_pipeline/202611172355/';
+808679	 await page.evaluate(base=>window.pipelineJourneyEntry.setNewsContextUrl(base),contextBase);
+808680	 const linked=await page.locator('.pn-journey-link').evaluateAll(as=>as.map(a=>a.href));
+808681	 assert.ok(linked.every(h=>new URL(h).searchParams.get('news_context_url')===contextBase),'explicit later opt-in reaches assets and manual Layers entry');
+808682	 const rejected=await page.evaluate(()=>{try{window.pipelineJourneyEntry.setNewsContextUrl('https://example.com/');return false}catch{return true}});assert.equal(rejected,true);
+808683	 assert.deepEqual(await page.locator('.pn-journey-link').evaluateAll(as=>as.map(a=>a.href)),linked);
+808684	 console.log(JSON.stringify({mobile,entries,unavailable:1,sourceHrefUnchanged:true,rerenderSingular:true,pass:true}));await context.close();
+808685	import {buildJourneyUrl,mapOrigin,checkedNewsContextBase} from './model.mjs';
+808686	const document=globalThis.document;
+808687	const canonical='https://ventusltd.github.io/gridatlas/atlas/';
+808688	const stateKey='pipelineJourneyReturn';
+808689	const origins=new WeakMap();
+808690	let newsContextUrl;
+808691	function action(map,identity,parent){
+808692	  const existing=parent.querySelector(':scope > .pn-journey-action');
+808693	  const origin=map?mapOrigin(map.href,identity):null;
+808694	  const href=origin?buildJourneyUrl(map.href,origin,{newsContextUrl}):null;
+808695	  const signature=JSON.stringify([identity.origin_type,identity.origin_id,href]);
+808696	  if(existing?.dataset.signature===signature){if(href)origins.set(existing,origin);return}
+808697	  existing?.remove();
+808698	  const element=document.createElement(href?'a':'span');element.className='pn-journey-action';element.dataset.signature=signature;
+808699	  if(href){
+808700	    element.classList.add('action-link','atlaslink','pn-journey-link');element.href=href;element.target='_blank';element.rel='noopener noreferrer';element.textContent='JOURNEY';
+808701	    element.title='Explore nearby assets and documented network connectivity; not a connection assessment';origins.set(element,origin);
+808703	    element.classList.add('pn-journey-unavailable');element.textContent='JOURNEY: location unavailable';
+808705	  if(map?.parentElement===parent)map.after(element);else parent.append(element);
+808707	 for(const map of document.querySelectorAll('#tbody a.atlaslink:not(.pn-journey-link)')){
+808708	   const url=new URL(map.href),ref=url.searchParams.get('repd_ref');if(!/^[1-9]\d*$/.test(ref||''))continue;
+808709	   const row=map.closest('tr'),name=row?.querySelector('.site')?.firstChild?.textContent?.trim();
+808710	   action(map,{origin_type:'repd',origin_id:'repd:'+ref,name},map.parentElement);
+808711	 for(const row of document.querySelectorAll('#gridLayerHost tr[data-source-id]')){
+808712	   const map=[...row.querySelectorAll('a:not(.pn-journey-link)')].find(a=>a.href.startsWith(canonical));
+808713	   if(!map)continue;
+808714	   action(map,{origin_type:'substation',origin_id:row.dataset.sourceId,name:row.querySelector('strong')?.textContent},map.parentElement);
+808715	 for(const row of document.querySelectorAll('#datacentreHost .ggdc-table tbody tr')){
+808716	   const id=row.querySelector('.ggdc-id')?.textContent?.trim();if(!/^DC-WD-Q[1-9]\d*$/.test(id||''))continue;
+808717	   const actions=row.querySelector('.ggdc-location-actions');
+808718	   const map=actions&&[...actions.querySelectorAll('a:not(.pn-journey-link)')].find(a=>a.href.startsWith(canonical));
+808719	   const parent=actions||row.lastElementChild;if(!parent)continue;
+808720	   // A late source-backed location replaces the unavailable placeholder.
+808721	   if(actions)row.querySelector('td > .pn-journey-unavailable')?.remove();
+808722	   action(map,{origin_type:'datacentre',origin_id:id,name:row.querySelector('.ggdc-identity')?.firstChild?.textContent},parent);
+808723	 const map=document.getElementById('mapAtlasNav');
+808724	 if(map&&!document.getElementById('journeyAtlasNav')){
+808725	   const a=document.createElement('a');a.id='journeyAtlasNav';a.className='atlaslink pn-journey-link';a.textContent='GRID JOURNEYS';a.href=canonical+'?journey=vicinity';a.target='_blank';a.rel='noopener noreferrer';map.after(a);
+808726	 const nav=document.getElementById('journeyAtlasNav');if(nav){
+808727	   const url=new URL(canonical);url.searchParams.set('journey','vicinity');
+808728	   if(newsContextUrl)url.searchParams.set('news_context_url',newsContextUrl);
+808729	   nav.href=url.href;
+808730	let queued=false;
+808731	new MutationObserver(()=>{if(!queued){queued=true;queueMicrotask(()=>{queued=false;refresh()})}}).observe(document.body,{childList:true,subtree:true});
+808732	refresh();
+808733	// Only a later accepted news-context component opts into this metadata. The
+808734	// entry release never points to an unpublished or arbitrary return destination.
+808735	window.pipelineJourneyEntry=Object.freeze({schema:'pipeline.journey-entry.v1',setNewsContextUrl(value){
+808736	  const base=checkedNewsContextBase(value);if(!base)throw Error('Invalid immutable news context base');
+808737	  newsContextUrl=base;refresh();
+808739	window.dispatchEvent(new Event('pipeline-journey-ready'));
+808740	function rememberCategory(){
+808741	 const category=document.querySelector('.pipeline-tabs [aria-selected="true"]')?.dataset.view;
+808742	 const dc=document.getElementById('datacentreHost');
+808743	 const state={category,x:scrollX,y:scrollY,
+808744	   dcQuery:dc?.querySelector('input[type="search"]')?.value,
+808745	   dcKind:dc?.querySelector('[data-kind][aria-pressed="true"]')?.dataset.kind,
+808746	   dcCountry:dc?.querySelector('select[aria-label="Country"]')?.value};
+808747	 try{history.replaceState({...history.state,[stateKey]:state},'')}catch{/* Native link remains usable. */}
+808748	document.addEventListener('click',event=>{
+808749	 const a=event.target.closest?.('.pn-journey-link');if(!a)return;
+808750	 // V9.42's existing atlaslink handler owns native target and filter recovery.
+808751	 rememberCategory();
+808752	 const origin=origins.get(a);if(origin)window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:origin}));
+808753	},true);
+808754	// Restore the existing category controls only after the original app finishes
+808755	// its default-category initialization. BFCache keeps its live nodes unchanged.
+808756	const saved=history.state?.[stateKey];
+808757	if(saved&&['solar','bess','grid','datacentre','offtakers','prices'].includes(saved.category)){
+808758	 let restored=false;
+808759	 const restore=()=>{if(restored)return;restored=true;queueMicrotask(()=>{
+808760	   document.querySelector('.pipeline-tabs [data-view="'+saved.category+'"]')?.click();
+808761	   if(saved.category!=='datacentre'){scrollTo(saved.x,saved.y);return}
+808762	   const dcRestore=()=>{
+808763	     const dc=document.getElementById('datacentreHost'),input=dc?.querySelector('input[type="search"]');if(!input)return;
+808764	     if(['uk','global'].includes(saved.dcKind))dc.querySelector('[data-kind="'+saved.dcKind+'"]')?.click();
+808765	     input.value=saved.dcQuery||'';input.dispatchEvent(new Event('input',{bubbles:true}));
+808766	     const country=dc.querySelector('select[aria-label="Country"]');if(country&&[...country.options].some(o=>o.value===saved.dcCountry)){country.value=saved.dcCountry;country.dispatchEvent(new Event('change',{bubbles:true}))}
+808767	     scrollTo(saved.x,saved.y);
+808769	   window.addEventListener('pipeline-datacentre-ready',dcRestore,{once:true});dcRestore();
+808770	 })};
+808771	 window.addEventListener('pipeline-projects-rendered',restore,{once:true});
+808772	 if(document.getElementById('tbody')?.dataset.complete==='true')restore();
+808773	import {readFileSync,existsSync,writeFileSync} from 'node:fs';
+808775	const moduleRoot=process.env.PLAYWRIGHT_MODULE_ROOT||'D:/githubfiles/.qa-tools/node';
+808776	const {chromium}=createRequire(resolve(moduleRoot,'package.json'))('playwright');
+808777	const source=readFileSync(new URL('./navigation.mjs',import.meta.url));
+808778	const fixture=`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>a{display:inline-block;min-width:44px;min-height:44px}</style>
+808779	<div id="tech"><button aria-pressed="true" data-technology="all">All</button></div>
+808780	<div id="status"><button aria-pressed="true" data-official-status="All">All</button></div>
+808781	<input id="search" value="2470"><select id="county"><option>All</option></select><select id="sortProjects"><option>capacity_desc</option></select>
+808782	<a id="mapAtlasNav" href="/destination">MAP ATLAS</a>
+808783	<div class="tablewrap"><table><tbody id="tbody" data-total="7775"><tr><td><a class="atlaslink" target="_blank" rel="noopener" href="/destination?repd_ref=2470">MAP</a></td></tr></tbody></table></div>
+808784	<nav id="projectPager" data-page="1" data-pages="1"></nav><script type="module" src="/navigation.mjs"></script>`;
+808785	const server=createServer((req,res)=>{const u=new URL(req.url,'http://local');
+808786	if(u.pathname==='/navigation.mjs'){res.setHeader('content-type','text/javascript');res.end(source)}
+808787	else{res.setHeader('content-type','text/html');res.end(u.pathname==='/destination'?'<h1>Destination</h1>':fixture)}});
+808788	const browser=await chromium.launch();const results=[];
+808790	for(const mobile of [true,false]){
+808791	 const context=await browser.newContext({viewport:{width:mobile?393:1440,height:852},isMobile:mobile,hasTouch:mobile});
+808792	 const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+808793	 await page.goto(base+'/source');const a=page.locator('a.atlaslink');
+808794	 await page.waitForFunction(()=>document.querySelector('a.atlaslink')?.dataset.mapNavigation);
+808795	 assert.equal(await a.getAttribute('target'),mobile?'_self':'_blank');
+808796	 assert.equal(await page.locator('#mapAtlasNav').getAttribute('target'),mobile?'_self':null);
+808797	 if(mobile){
+808798	   await a.tap();await page.waitForURL('**/destination?repd_ref=2470');assert.equal(context.pages().length,1);
+808799	   await page.goBack();await page.waitForFunction(()=>document.querySelector('a.atlaslink')?.dataset.mapNavigation==='current-tab');
+808800	   assert.equal(new URL(page.url()).searchParams.get('q'),'2470');
+808801	   // Search rerenders get the same target before a native keyboard activation.
+808802	   await page.evaluate(()=>{const a=document.querySelector('a.atlaslink');a.replaceWith(a.cloneNode(true))});
+808803	   await page.locator('a.atlaslink').focus();await page.keyboard.press('Enter');await page.waitForURL('**/destination?repd_ref=2470');
+808804	 }else{
+808805	   const opened=context.waitForEvent('page');await a.click();const popup=await opened;await popup.waitForLoadState();assert.equal(new URL(popup.url()).searchParams.get('repd_ref'),'2470');assert.equal(new URL(page.url()).pathname,'/source');await popup.close();
+808806	 assert.deepEqual(errors,[]);results.push({mobile,pass:true});await context.close();
+808807	}finally{await browser.close();await new Promise(r=>server.close(r))}
+808808	if(process.env.MOBILE_MAP_REPORT)writeFileSync(process.env.MOBILE_MAP_REPORT,JSON.stringify({scope:'sender mechanics on local real HTTP pages; not live receiver acceptance',results},null,2)+'\n');
+808809	console.log(JSON.stringify(results));
+808810	/* Native touch navigation: do not open a background tab or wait on a fetch. */
+808811	const touch=matchMedia('(pointer: coarse)');
+808812	const selector='a.atlaslink,#mapAtlasNav';
+808813	const key='pipelineMapReturn';
+808814	const originalTargets=new WeakMap();
+808815	function decorate(){
+808816	  for(const a of document.querySelectorAll(selector)){
+808817	    if(!originalTargets.has(a))originalTargets.set(a,a.getAttribute('target'));
+808818	    const target=touch.matches?'_self':originalTargets.get(a);
+808819	    if(target===null)a.removeAttribute('target');else a.target=target;
+808820	    a.dataset.mapNavigation=target==='_blank'?'new-tab':'current-tab';
+808821	    a.setAttribute('aria-description',target==='_blank'?'Opens the grid map in a new tab.':'Opens the grid map in this tab. Use Back to return to these results.');
+808822	function remember(){
+808823	  const url=new URL(location.href),value=id=>document.getElementById(id)?.value;
+808824	  const fields={technology:document.querySelector('#tech [aria-pressed="true"]')?.dataset.technology,
+808825	    status:document.querySelector('#status [aria-pressed="true"]')?.dataset.officialStatus,
+808826	    county:value('county'),q:value('search'),sort:value('sortProjects')};
+808827	  for(const [param,id] of [['submitted_year','submittedYear'],['updated_year','updatedYear'],['operational_year','operationalYear']])
+808828	    fields[param]=document.querySelector('[data-year-filter="'+id+'"]')?.value;
+808829	  for(const [param,v]of Object.entries(fields))if(v!==undefined)url.searchParams.set(param,v);
+808830	  const wrapper=document.querySelector('#tbody')?.closest('.tablewrap');
+808831	  try{history.replaceState({...history.state,[key]:{path:location.pathname,page:Number(document.getElementById('projectPager')?.dataset.page)||1,x:scrollX,y:scrollY,left:wrapper?.scrollLeft||0}},'',url)}catch{/* Navigation stays native if history is unavailable. */}
+808832	  const link=event.target.closest?.(selector);
+808833	  if(!link)return;
+808834	  decorate();
+808835	  if(touch.matches&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey)remember();
+808836	touch.addEventListener('change',decorate);
+808837	new MutationObserver(decorate).observe(document.getElementById('tbody'),{childList:true,subtree:true});
+808838	decorate();
+808839	// BFCache preserves the actual DOM. A full Back reload uses the URL filters and
+808840	// the saved page/scroll instead; no filters or data are synthesized here.
+808841	const saved=history.state?.[key];
+808842	if(saved?.path===location.pathname){
+808844	  const restore=()=>{
+808845	    const body=document.getElementById('tbody'),pager=document.getElementById('projectPager');
+808846	    if(Number(body?.dataset.total)>0&&pager){
+808847	      const target=Math.min(Math.max(1,saved.page),Number(pager.dataset.pages)||1);
+808848	      while(Number(pager.dataset.page)<target){
+808849	        const next=pager.querySelector('[data-page-step="1"]');
+808850	        if(!next||next.disabled)break;
+808851	        next.click();
+808853	      const wrapper=body.closest('.tablewrap');if(wrapper)wrapper.scrollLeft=saved.left;
+808854	      scrollTo(saved.x,saved.y);
+808855	    }else if(++attempts<300)setTimeout(restore,100);
+808858	/* Unintercepted public sender -> accepted Vicinity controller. Device emulation
+808859	 * is bounded integration evidence, never physical-phone or fleet certification. */
+808861	const edition=process.env.PN_PUBLIC_EDITION,generation=process.env.EXPECTED_ATLAS_GENERATION;
+808862	assert.match(edition||'',/^\d{12}$/,'explicit published Pipeline edition required');assert.match(generation||'',/^\d{12}$/,'explicit accepted Atlas generation required');
+808863	const source='https://globalgrid2050.com/uk_renewables_pipeline/'+edition+'/';
+808864	const expected=createHash('sha256').update(readFileSync(resolve(root,'uk_renewables_pipeline/'+edition+'/index.html'))).digest('hex');
+808865	const pw=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE||'D:/githubfiles/.qa-tools/node/node_modules/playwright/index.mjs').href);
+808866	const out=process.env.PN_PUBLIC_OUT||resolve(root,'work/public-journey-entry');mkdirSync(out,{recursive:true});
+808867	const report={source,expectedAtlasGeneration:generation,scope:'actual public bounded entry sample; no interception, injected runtime or inferred connections',results:[]};
+808868	try{for(const [engine,device]of [['chromium','Pixel 7'],['webkit','iPhone 13']]){
+808869	 const browser=await pw[engine].launch({headless:true});
+808870	 try{for(const kind of ['repd','substation','datacentre','manual']){
+808871	 const context=await browser.newContext(pw.devices[device]),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+808872	 const row={engine,device,kind,started:new Date().toISOString(),errors};report.results.push(row);
+808873	 const response=await page.goto(source,{waitUntil:'domcontentloaded',timeout:60000});assert.equal(response.status(),200);assert.equal(createHash('sha256').update(await response.body()).digest('hex'),expected);
+808874	 await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)>0,null,{timeout:60000});
+808875	 let link;
+808876	 if(kind==='repd'){await page.locator('#clearFilters').tap();await page.locator('#search').fill('12588');link=page.locator('#tbody .pn-journey-link[href*="repd_ref=12588"]').first()}
+808877	 else if(kind==='substation'){await page.locator('.pipeline-tabs [data-view="grid"]').tap();link=page.locator('#gridLayerHost .pn-journey-link').first()}
+808878	 else if(kind==='datacentre'){await page.locator('.pipeline-tabs [data-view="datacentre"]').tap();await page.waitForFunction(()=>document.getElementById('datacentreHost')?.dataset.locationsState==='available',null,{timeout:60000});link=page.locator('#datacentreHost .ggdc-location-actions .pn-journey-link').first()}
+808879	 else link=page.locator('#journeyAtlasNav');
+808880	 await link.waitFor({state:'visible',timeout:60000});await link.scrollIntoViewIfNeeded();const href=await link.getAttribute('href'),url=new URL(href);row.href=href;assert.equal(url.origin+url.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(url.searchParams.get('journey'),'vicinity');
+808881	 if(kind!=='manual')assert.equal(url.searchParams.get('origin_type'),kind);
+808882	 row.hit=await link.evaluate(a=>{const r=a.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{width:r.width,height:r.height,reachable:h===a||a.contains(h)}});assert.ok(row.hit.reachable&&row.hit.width>=44&&row.hit.height>=44);
+808883	 await link.tap();await page.waitForURL('https://ventusltd.github.io/gridatlas/atlas/**',{timeout:30000});assert.equal(context.pages().length,1);
+808884	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__?.gridVicinity?.snapshot().opened,null,{timeout:100000});
+808885	 const panel=page.getByRole('region',{name:'Vicinity familiarisation'});await panel.waitFor({state:'visible'});
+808886	 row.arrival=await page.evaluate(()=>({url:location.href,generation:document.documentElement.dataset.gridatlasGeneration,router:document.body.dataset.gridatlasRouter,state:window.__GRIDATLAS_MODULES__.gridVicinity.snapshot()}));
+808887	 const arrived=new URL(row.arrival.url);assert.equal(arrived.origin+arrived.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(row.arrival.generation,generation);assert.notEqual(row.arrival.router,'failed');assert.equal(row.arrival.state.realConnectionsInferred,0);assert.equal(row.arrival.state.error,null);
+808888	 if(kind!=='manual'){
+808889	  const state=row.arrival.state;assert.equal(state.origin.type,kind);assert.equal(state.origin.id,url.searchParams.get('origin_id'));assert.deepEqual(state.origin.at,[Number(url.searchParams.get('longitude')),Number(url.searchParams.get('latitude'))]);assert.equal(state.radiusKm,Number(url.searchParams.get('radius_km')));
+808890	  if(url.searchParams.has('name'))assert.equal(state.origin.name,url.searchParams.get('name'));
+808891	  assert.equal(arrived.searchParams.get('origin_id'),state.origin.id);
+808892	 await page.getByRole('slider',{name:'Vicinity radius in kilometres'}).focus();await page.keyboard.press('End');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),50);await page.keyboard.press('Home');assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().radiusKm),1);
+808893	 const checkbox=panel.getByRole('checkbox',{name:'400 kV',exact:true});await checkbox.uncheck();assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().selectedBands.includes('400')),false);
+808894	 await page.setViewportSize({width:844,height:390});await page.waitForTimeout(250);const box=await panel.boundingBox();assert.ok(box.x>=0&&box.y>=0&&box.x+box.width<=845&&box.y+box.height<=391);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+808895	 await page.screenshot({path:resolve(out,engine+'-'+kind+'.png')});
+808896	 await page.goBack({waitUntil:'domcontentloaded'});await page.waitForURL(source+'**');assert.equal(new URL(page.url()).origin+new URL(page.url()).pathname,source);
+808897	 if(kind==='repd')await page.waitForFunction(()=>document.querySelector('#search')?.value==='12588',null,{timeout:60000});
+808898	 if(kind==='datacentre')await page.waitForFunction(()=>document.querySelector('.pipeline-tabs [data-view="datacentre"]')?.getAttribute('aria-selected')==='true',null,{timeout:60000});
+808899	 assert.deepEqual(errors,[]);row.pass=true;
+808900	 }catch(e){row.pass=false;row.error=String(e);throw e}
+808901	 finally{row.finished=new Date().toISOString();writeFileSync(resolve(out,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
+808902	 }}finally{await browser.close()}
+808904	}finally{report.finished=new Date().toISOString();writeFileSync(resolve(out,'receipt.json'),JSON.stringify(report,null,2)+'\n')}
+808905	/* Real source tap -> public receiver. No request interception or forced click.
+808906	 * This proves sender navigation and engine completion, not handset acceptance
+808907	 * or the separate GridAtlas card-presentation repair. */
+808908	import {resolve,extname,sep,dirname} from 'node:path';
+808909	const output=process.env.V942_OUT||resolve(root,'work/v942-browser');mkdirSync(output,{recursive:true});
+808910	const server=createServer((req,res)=>{try{const url=new URL(req.url,'http://local');let p=resolve(root,'.'+decodeURIComponent(url.pathname));assert.ok(p.startsWith(root+sep));if(url.pathname.endsWith('/'))p=resolve(p,'index.html');res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css'})[extname(p)]||'application/octet-stream');res.end(readFileSync(p))}catch{res.writeHead(404).end()}});
+808911	const browser=await chromium.launch(),results=[];
+808912	for(const width of [393,1440]){
+808913	 const mobile=width<500,context=await browser.newContext({viewport:{width,height:852},isMobile:mobile,hasTouch:mobile});
+808914	 const source=base+'/uk_renewables_pipeline/202611172355/?technology=all';
+808915	 const receipt={width,source,started:new Date().toISOString()};results.push(receipt);
+808916	 await page.goto(source,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>Number(document.querySelector('#tbody')?.dataset.total)>0);
+808917	 await page.locator('#clearFilters').click();await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775');
+808918	 await page.locator('#search').fill('2470');const anchor=page.locator('a.atlaslink[href*="repd_ref=2470"]').first();await anchor.scrollIntoViewIfNeeded();
+808919	 await page.waitForFunction(m=>document.querySelector('a.atlaslink')?.dataset.mapNavigation===(m?'current-tab':'new-tab'),mobile);
+808920	 const href=await anchor.getAttribute('href');receipt.href=href;assert.equal(new URL(href).searchParams.get('repd_ref'),'2470');
+808921	 receipt.hit=await anchor.evaluate(a=>{const r=a.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{width:r.width,height:r.height,reachable:a===h||a.contains(h)}});
+808922	 assert.ok(receipt.hit.reachable&&receipt.hit.width>=44&&receipt.hit.height>=44);
+808923	 let arrival;
+808924	 if(mobile){await anchor.tap();await page.waitForURL('https://ventusltd.github.io/gridatlas/atlas/**');arrival=page;assert.equal(context.pages().length,1)}
+808925	 else{const opened=context.waitForEvent('page');await anchor.click();arrival=await opened;await arrival.waitForLoadState('domcontentloaded')}
+808926	 await arrival.waitForFunction(()=>window.__GRIDATLAS_NEON_LINKS__?.arrival_engine?.terminal&&window.__GRIDATLAS_NEON_LINKS__?.compute_receipt?.status==='completed',null,{timeout:85000});
+808927	 receipt.receiver=await arrival.evaluate(()=>{const s=window.__GRIDATLAS_NEON_LINKS__;return{url:location.href,generation:document.documentElement.dataset.gridatlasGeneration,engine:s.arrival_engine,identity:s.compute_receipt.entity,nearest:s.compute_receipt.summary,failures:s.failures}});
+808928	 assert.equal(new URL(receipt.receiver.url).searchParams.get('repd_ref'),'2470');assert.equal(receipt.receiver.identity.id,'2470');assert.deepEqual(receipt.receiver.failures,[]);assert.ok(receipt.receiver.nearest.measured_count>0);
+808929	 await arrival.screenshot({path:resolve(output,'receiver-'+width+'.png')});
+808930	 if(mobile){await page.goBack({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('#search')?.value==='2470'&&!!document.querySelector('a.atlaslink[href*="repd_ref=2470"]'),null,{timeout:60000});assert.equal(new URL(page.url()).searchParams.get('q'),'2470');receipt.backRetainedSearch=true}
+808931	 assert.deepEqual(errors,[]);receipt.pass=true;
+808932	 }catch(e){receipt.pass=false;receipt.error=String(e);throw e}
+808933	 finally{receipt.finished=new Date().toISOString();writeFileSync(resolve(output,'receipt.json'),JSON.stringify({scope:'sender native navigation and receiver computation; GridAtlas visible-card acceptance separate',results},null,2)+'\n');await context.close()}
+808934	import {readFileSync,readdirSync} from 'node:fs';
+808935	const edition=resolve(root,'uk_renewables_pipeline/202611172355'),parent=resolve(root,'uk_renewables_pipeline/202611171940');
+808936	const read=(base,p)=>readFileSync(resolve(base,p));
+808938	function walk(p,prefix=''){return readdirSync(p,{withFileTypes:true}).flatMap(e=>e.name==='node_modules'||e.name==='__pycache__'?[]:e.isDirectory()?walk(resolve(p,e.name),prefix+e.name+'/'):[prefix+e.name])}
+808939	test('mobile navigation module is exact-pinned and the real entry loads it',()=>{
+808940	 const c=JSON.parse(read(edition,'contracts/mobile-map.v942.json'));
+808941	 assert.equal(c.schema,'globalgrid2050.mobile-map-native.v942');
+808942	 const bytes=read(root,c.module);assert.equal(hash(bytes),c.sha256);
+808943	 const html=read(edition,'index.html').toString();assert.ok(html.includes('src="../../'+c.module+'" integrity="sha256-'+createHash('sha256').update(bytes).digest('base64')+'"'));
+808944	test('all retained parent application/data bytes are unchanged',()=>{
+808945	 const permitted=new Set(['index.html','README.md','CHANGES.md','tests/run_v9_41.sh','tests/check_v9_41.mjs']);
+808946	 const retained=walk(parent).filter(p=>!permitted.has(p));assert.ok(retained.length>280);
+808947	 for(const p of retained)assert.deepEqual(read(edition,p),read(parent,p),p);
+808948	test('published candidate remains inside accepted edition byte budget',()=>{
+808949	 const size=walk(edition).reduce((n,p)=>n+read(edition,p).length,0);assert.ok(size<=18*1024*1024,'edition bytes '+size);
+808950	/* Actual public mobile tap, visible result, rotation and Back. No interception.
+808951	 * Browser device emulation is not physical handset certification. */
+808953	const output=process.env.V942_PUBLIC_OUT||resolve(root,'work/v942-public');mkdirSync(output,{recursive:true});
+808954	const source='https://globalgrid2050.com/uk_renewables_pipeline/202611172355/';
+808955	const expectedAtlasGeneration='202611172355';
+808957	const expected=digest(readFileSync(resolve(root,'uk_renewables_pipeline/202611172355/index.html')));
+808958	const report={started:new Date().toISOString(),scope:'actual public V9.42 sender and served Atlas mobile result; bounded sample, not fleet or physical-device acceptance',results:[]};
+808959	const cases=[{engine:'chromium',device:'Pixel 7'},{engine:'chromium',device:'Galaxy S9+'},{engine:'webkit',device:'iPhone 13'}];
+808960	for(const spec of cases){
+808961	 const browser=await pw[spec.engine].launch({headless:true,...(spec.engine==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
+808962	 try{for(const ref of ['2470','12588']){
+808963	 const options=pw.devices[spec.device];assert.ok(options,'device descriptor missing');
+808964	 const context=await browser.newContext(options),page=await context.newPage(),errors=[];
+808965	 const row={...spec,ref,started:new Date().toISOString(),errors};report.results.push(row);page.on('pageerror',e=>errors.push(e.message));
+808966	 const response=await page.goto(source,{waitUntil:'domcontentloaded',timeout:60000});assert.equal(response.status(),200);assert.equal(digest(await response.body()),expected);
+808967	 await page.locator('#clearFilters').tap();await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775');await page.locator('#search').fill(ref);
+808968	 const link=page.locator('a.atlaslink[href*="repd_ref='+ref+'"]').first();await link.scrollIntoViewIfNeeded();assert.equal(await link.getAttribute('target'),'_self');
+808969	 const href=await link.getAttribute('href'),url=new URL(href);assert.equal(url.origin+url.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(url.searchParams.get('repd_ref'),ref);row.clickedHref=href;
+808970	 await page.waitForFunction(id=>{const s=window.__GRIDATLAS_NEON_LINKS__;return s?.compute_receipt?.status==='completed'&&s.compute_receipt.entity.id===id&&s.arrival_engine?.terminal&&s.last_selection?.nearest_name},ref,{timeout:100000});
+808971	 const summary=page.locator('.gridatlas-arrival-summary').first();await summary.waitFor({state:'visible',timeout:30000});
+808972	 row.receiver=await page.evaluate(()=>{const s=window.__GRIDATLAS_NEON_LINKS__;return{url:location.href,generation:document.documentElement.dataset.gridatlasGeneration,router:document.body.dataset.gridatlasRouter,selection:s.last_selection,identity:s.compute_receipt.entity,engine:s.arrival_engine,measurements:s.compute_receipt.summary,failures:s.failures}});
+808973	 const arrived=new URL(row.receiver.url);assert.equal(arrived.origin+arrived.pathname,'https://ventusltd.github.io/gridatlas/atlas/');assert.equal(arrived.searchParams.get('repd_ref'),ref);assert.equal(row.receiver.generation,expectedAtlasGeneration);assert.notEqual(row.receiver.router,'failed');
+808974	 assert.equal(row.receiver.identity.id,ref);assert.deepEqual(row.receiver.failures,[]);const text=await summary.innerText();assert.ok(text.includes(row.receiver.selection.nearest_name));assert.ok(text.includes('km straight-line'));assert.ok(text.includes('Screening only; connection unverified.'));row.visibleSummary=text;
+808975	 const within=async locator=>locator.evaluate(e=>{const r=e.getBoundingClientRect();return r.x>=0&&r.y>=0&&r.right<=innerWidth+1&&r.bottom<=innerHeight+1});assert.ok(await within(summary),'compact result outside viewport');
+808976	 const details=page.getByRole('button',{name:'Show project details',exact:true});const box=await details.boundingBox();assert.ok(box.width>=44&&box.height>=44);await details.tap();await page.locator('.neon-km').first().waitFor({state:'visible'});
+808977	 if(ref==='2470')await page.waitForTimeout(12000);
+808978	 assert.ok(await page.locator('.neon-km').first().isVisible(),'reader restore was lost');await page.getByRole('button',{name:'Minimise project details',exact:true}).tap();
+808979	 if(spec.engine==='chromium'){
+808980	   const cdp=await context.newCDPSession(page);await cdp.send('Emulation.setDeviceMetricsOverride',{width:844,height:390,deviceScaleFactor:options.deviceScaleFactor,mobile:true,screenOrientation:{type:'landscapePrimary',angle:90}});row.rotation='CDP portrait to landscape';
+808981	 }else{await page.setViewportSize({width:844,height:390});row.rotation='WebKit viewport landscape emulation'}
+808982	 await page.waitForTimeout(300);assert.ok(await within(summary),'landscape result outside viewport');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+808983	 await page.screenshot({path:resolve(output,spec.engine+'-'+spec.device.replaceAll(' ','-')+'-'+ref+'.png')});
+808984	 await page.goBack({waitUntil:'domcontentloaded'});await page.waitForFunction(id=>document.querySelector('#search')?.value===id&&!!document.querySelector('a.atlaslink[href*="repd_ref='+id+'"]'),ref,{timeout:60000});const returned=new URL(page.url());assert.equal(returned.origin+returned.pathname,source);assert.equal(returned.searchParams.get('q'),ref);row.backRetainedSearch=true;assert.deepEqual(errors,[]);row.pass=true;
+808985	 finally{row.finished=new Date().toISOString();writeFileSync(resolve(output,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
+808986	}finally{report.finished=new Date().toISOString();writeFileSync(resolve(output,'receipt.json'),JSON.stringify(report,null,2)+'\n')}
+808987	// Actual candidate host and pinned source inputs, no composition or interception.
+808988	import '../journey_entry_ui/20261118/entry.browser.mjs';
+809057	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">Open Pipeline News &rarr;</a></div></details>
+809058	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.42 - mobile MAP handoff</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div></details></td></tr>
+809059	<details id="gridatlas"><summary><span class="number">03</span><span class="title">GridAtlas<small>Explore the electricity network</small></span></summary><div class="inside"><p>Explore mapped grid assets, project screening and native Grid Journeys, with visible mobile arrival results and clearly labelled learning demonstrations.</p><a class="launch" href="https://ventusltd.github.io/gridatlas/atlas/">Open GridAtlas &rarr;</a></div></details>
+809060	<tr data-entity-id="gridatlas"><th scope="row"><a href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas</a><small class="entity-key">gridatlas</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore electricity-network sites, layers and connections.</p><p>For: network researchers, project developers</p></details></td><td>Explore the electricity network</td><td><details class="table-versions"><summary>V9.192 - 18 November 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.156 - 24 September 2026</a><small class="entity-key">202609241334</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610281340/">V9.172 - 28 October 2026</a><small class="entity-key">202610281340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610291044/">V9.186 - 29 October 2026</a><small class="entity-key">202610291044</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610312138/">V9.188 - 31 October 2026</a><small class="entity-key">202610312138</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202611132345/">V9.189 - 14 November 2026</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202611161720/">V9.191 - 16 November 2026 generation</a><small class="entity-key">202611161720</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.192 - 18 November 2026</a><small class="entity-key">202611172355</small></div></details></td></tr>
+809063	<title>GlobalGrid2050 | Pipeline News V9.42 · 202611172355</title>
+809094	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.42</small></div>
+809096	        <a class="active" href="#" aria-current="page">V9.42 · PIPELINE NEWS</a>
+809098	        <a href="../202611171940/">V9.41 · PREVIOUS EDITION</a>
+809104	<p class="preview-status" data-edition="202611172355">V9.42 · 17 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+809260	<script type="module" src="../../automation/mobile_map_ui/20261118-v942/navigation.mjs" integrity="sha256-RN3HOmLcOg57gbewd/XP0tQgb6I2FucByVv0i3yVe+Q="></script>
+809261	/* check_v9_42.mjs - Pipeline News V9.42, proven from the bytes and through the
+809271	 * Run: node tests/check_v9_42.mjs
+809283	const VERSION = "9.42";
+809285	const PARENT_ID = "202611171940";
+809368	console.log(`check_v9_42: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+809371	<title>GlobalGrid2050 | Pipeline News V9.43 · 202611180058</title>
+809372	<link rel="stylesheet" href="../../automation/journey_entry_ui/20261118/styles.css" integrity="sha256-XVi2KkTENwlxsaeRIgY1VVvCci+AIL6/dc2NeDyDivE=">
+809373	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.43</small></div>
+809374	        <a class="active" href="#" aria-current="page">V9.43 · PIPELINE NEWS</a>
+809375	        <a href="../202611172355/">V9.42 · PREVIOUS EDITION</a>
+809376	<p class="preview-status" data-edition="202611180058">V9.43 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+809377	<script type="module" src="../../automation/journey_entry_ui/20261118/view.mjs" integrity="sha256-FGSk9nPx56ccE1CBgZRiRe0wNxsgAmn6TuRa1470ghk="></script>
+809378	/* check_v9_43.mjs - Pipeline News V9.43, proven from the bytes and through the
+809379	 * Run: node tests/check_v9_43.mjs
+809380	const VERSION = "9.43";
+809382	const PARENT_ID = "202611172355";
+809383	console.log(`check_v9_43: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+809399	<a href="versions.json">versions.json</a>. Generated 2026-11-18T04:13:44Z.</p>
+809404	<tr class="pass"><td><a href="202611180058/"><b>202611180058</b></a><br>V9.43<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-18 00:58:00 UTC</td><td>JOURNEY actions beside located REPD, data centre and substation MAP plus manual Grid Journeys; native touch and Back recovery; existing MAP/data preserved<ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611172355<br><a href="202611180058/CHANGES.md">changes</a></td></tr>
+809405	<tr class="pass"><td><a href="202611172355/"><b>202611172355</b></a><br>V9.42<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-17 23:55:00 UTC</td><td>Touch MAP opens natively in the current tab with Back filter and page recovery; desktop targets retained<ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611171940<br><a href="202611172355/CHANGES.md">changes</a></td></tr>
+809440	<details id="gridatlas"><summary><span class="number">03</span><span class="title">GridAtlas<small>Explore the electricity network</small></span></summary><div class="inside"><p>Explore nearby grid and energy assets, search 5,800 mapped substations, and draw clearly labelled learning journeys with session-only proposed connection concepts.</p><a class="launch" href="https://ventusltd.github.io/gridatlas/atlas/">Open GridAtlas &rarr;</a></div></details>
+809441	<tr data-entity-id="gridatlas"><th scope="row"><a href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas</a><small class="entity-key">gridatlas</small></th><td><details class="entity-type"><summary>application</summary><p>Intended purpose: Explore electricity-network sites, layers and connections.</p><p>For: network researchers, project developers</p></details></td><td>Explore the electricity network</td><td><details class="table-versions"><summary>V9.193 - 18 November 2026</summary><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.156 - 24 September 2026</a><small class="entity-key">202609241334</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610281340/">V9.172 - 28 October 2026</a><small class="entity-key">202610281340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610291044/">V9.186 - 29 October 2026</a><small class="entity-key">202610291044</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202610312138/">V9.188 - 31 October 2026</a><small class="entity-key">202610312138</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202611132345/">V9.189 - 14 November 2026</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202611161720/">V9.191 - 16 November 2026 generation</a><small class="entity-key">202611161720</small></div><div class="release"><span class="release-state">Archived</span><a href="https://ventusltd.github.io/gridatlas/atlas/v/202611172355/">V9.192 - 18 November 2026</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Operative</span><a href="https://ventusltd.github.io/gridatlas/atlas/">V9.193 - 18 November 2026</a><small class="entity-key">202611180026</small></div></details></td></tr>
+809457	def release_app_url(release, operative=False):
+809458	    """Match the JavaScript release row: archived app route, never a manifest."""
+809459	    if not operative and release.get('archive_url') and release.get('archive_kind') != 'manifest':
+809461	            return app_url(release['archive_url'])
+809463	            pass  # The JavaScript renderer also retains the app link.
+809464	    return app_url(release['url'])
+809509	            versions.append(f'<div class="release"><span class="release-state">{"Operative" if version["id"] == release["id"] else "Candidate" if version["status"] == "candidate" else "Archived"}</span><a href="{release_app_url(version, version["id"] == release["id"])}">{escape(version["label"])}</a><small class="entity-key">{escape(version["id"])}</small></div>')
+809537	"""Couple real Python fallback links to the actual JavaScript archive rule."""
+809539	from html import unescape
+809546	sys.path.insert(0, str(ROOT / 'scripts'))
+809547	import build_homepage_fallback as fallback
+809550	        super().__init__(); self.entity = None; self.anchor = None; self.links = {}; self.feed(html)
+809553	        if tag == 'tr': self.entity = attrs.get('data-entity-id')
+809554	        if tag == 'a' and self.entity: self.anchor = [attrs.get('href'), '']
+809555	    def handle_data(self, text):
+809556	        if self.anchor is not None: self.anchor[1] += text
+809558	        if tag == 'a' and self.anchor is not None:
+809559	            self.links[(self.entity, self.anchor[1].strip())] = self.anchor[0]; self.anchor = None
+809560	        if tag == 'tr': self.entity = None
+809561	class FallbackArchiveTests(unittest.TestCase):
+809562	    def test_archive_decisions_match_actual_javascript_renderer(self):
+809563	        base = {'id': 'old', 'label': 'Old build', 'status': 'available', 'url': 'https://example.com/live/', 'archive_url': 'https://example.com/v/old/?a=1&b=2', 'archive_kind': 'app'}
+809564	        cases = [{'release': copy.deepcopy(base), 'operative': flag} for flag in (False, True)]
+809565	        for changes in ({'archive_kind': 'manifest'}, {'archive_url': 'https://github.com/owner/repo/blob/main/manifest.json'}, {'archive_url': None}, {'status': 'candidate'}):
+809566	            cases.append({'release': {**base, **changes}, 'operative': False})
+809567	        javascript = (ROOT / 'assets/versioned-homepage.js').read_text(encoding='utf8')
+809568	        functions = []
+809569	        for name in ('safeUrl', 'appUrl', 'releaseRow'):
+809570	            match = re.search(r'  function ' + name + r'\([^\n]*\) \{.*?\n  \}', javascript, re.S)
+809571	            self.assertIsNotNone(match, name); functions.append(match.group(0))
+809572	        program = """const fs=require('node:fs'),vm=require('node:vm');
+809573	const input=JSON.parse(fs.readFileSync(0,'utf8'));
+809574	const context={URL,node:(tag,text,className)=>({tag,text,className,children:[],append(...nodes){this.children.push(...nodes);}}),link:(text,href)=>({text,href})};
+809575	vm.createContext(context);vm.runInContext(input.functions.join('\\n'),context);
+809576	process.stdout.write(JSON.stringify(input.cases.map(c=>context.releaseRow(c.release,c.operative).children[1].href)));
+809578	        result = subprocess.run(['node', '-e', program], input=json.dumps({'functions': functions, 'cases': cases}), text=True, capture_output=True, check=True)
+809579	        actual = [unescape(fallback.release_app_url(c['release'], c['operative'])) for c in cases]
+809580	        self.assertEqual(actual, json.loads(result.stdout))
+809581	        self.assertEqual(actual[0], base['archive_url']); self.assertEqual(actual[1], base['url'])
+809582	    def test_real_v191_archive_and_all_other_navigation_remain_correct(self):
+809583	        data = json.loads((ROOT / 'data/homepage.json').read_text(encoding='utf8'))
+809584	        original_data = json.dumps(data, sort_keys=True)
+809585	        before = Links((ROOT / 'index.html').read_text(encoding='utf8')).links
+809587	            root = Path(directory); (root / 'data').mkdir()
+809588	            for name in ('homepage.json', 'entity-types.json', 'presentation.json'):
+809589	                shutil.copyfile(ROOT / 'data' / name, root / 'data' / name)
+809590	            shutil.copyfile(ROOT / 'index.html', root / 'index.html')
+809591	            fallback.build(root)
+809592	            first = (root / 'index.html').read_bytes(); after = Links(first.decode()).links
+809593	            atlas = next(e for e in data['entities'] if e['id'] == 'gridatlas')
+809594	            old = next(r for r in atlas['releases'] if r['id'] == '202611161720')
+809595	            self.assertEqual(after[('gridatlas', old['label'])], 'https://ventusltd.github.io/gridatlas/atlas/v/202611161720/')
+809596	            for entity in data['entities']:
+809597	                operative = next(r for r in entity['releases'] if r['id'] == entity['operative_release_id'])
+809598	                if (entity['id'], entity['title']) in after:
+809599	                    self.assertEqual(after[(entity['id'], entity['title'])], operative['url'])
+809600	                for release in entity['releases']:
+809601	                    key = (entity['id'], release['label'])
+809602	                    if key not in after: continue
+809603	                    if entity['id'] != 'gridatlas': self.assertEqual(after[key], before[key])
+809604	                    if release['id'] == entity['operative_release_id']: self.assertEqual(after[key], release['url'])
+809605	            self.assertEqual(json.dumps(json.loads((root / 'data/homepage.json').read_text(encoding='utf8')), sort_keys=True), original_data)
+809606	            fallback.build(root); self.assertEqual((root / 'index.html').read_bytes(), first)
+813009	  function syncArrivalDetailsButton(popup) {
+813010	    const button = popup?.querySelector('.gridatlas-card-bar .min');
+813012	    const minimised = popup.classList.contains('gridatlas-min');
+813013	    button.textContent = minimised ? 'Details' : 'Map';
+813014	    button.title = minimised ? 'Show project details' : 'Minimise project details';
+813015	    button.setAttribute('aria-label', button.title);
+813016	    button.setAttribute('aria-expanded', String(!minimised));
+813018	    button.style.minWidth = '62px';
+813019	  function renderArrivalCardSummary(content, links, direction) {
+813021	    const label = content?.querySelector('.gridatlas-card-bar .label');
+813022	    if (!popup || !label) return;
+813023	    syncArrivalDetailsButton(popup);
+813024	    let summary = label.querySelector('.gridatlas-arrival-summary');
+813025	    if (!summary) {
+813026	      summary = document.createElement('span');
+813027	      summary.className = 'gridatlas-arrival-summary';
+813028	      summary.setAttribute('role', 'status');
+813029	      summary.setAttribute('aria-live', 'polite');
+813030	      summary.style.cssText = 'display:block;white-space:normal;font-size:11px;line-height:1.3;font-weight:normal';
+813031	      label.appendChild(summary);
+813032	    label.style.whiteSpace = 'normal';
+813033	    label.style.minWidth = '0';
+813034	    const nearest = links[0] || links.beyondRadiusNearest;
+813035	    const kind = direction === 'from-substation' ? 'project' : 'substation';
+813036	    summary.textContent = nearest && Number.isFinite(nearest.km)
+813037	      ? 'Nearest mapped ' + kind + ': ' + (nearest.name || 'name not supplied')
+813038	        + ' | ' + nearest.km.toFixed(1) + ' km straight-line. Screening only; connection unverified.'
+813039	      : 'No mapped ' + kind + ' distance available. Connection unverified.';
+813065	      syncArrivalDetailsButton(popup);
+813168	    if (toggle) syncArrivalDetailsButton(popup);
+813184	    renderArrivalCardSummary(content, links, direction);
+816775	  // Lookup-only public seam; existing providers and result shapes, no selection side effects.
+816776	  state.resolveLocations = async function resolveLocations(query, { includeGlobal = false } = {}) {
+816777	    if (typeof query !== 'string' || typeof includeGlobal !== 'boolean') throw new Error('Place lookup requires a typed query and an explicit boolean global option.');
+816778	    const uk = await queryUkGazetteer(query);
+816779	    if (!includeGlobal) return uk;
+816780	    const global = await queryGlobalGazetteer(query);
+816781	    return uk.concat(dedupeGlobalLocations(uk, global));
+817408	    // MapLibre fires remove after its style has already gone. Drop this
+817409	    // map reference before shared cleanup, so cleanup still cancels work and
+817410	    // clears selection state without reading a destroyed style.
+817411	    function cleanupRemovedMap() {
+817412	      popupWatcher.disconnect();
+817413	      if (capturedMap !== map) return;
+817414	      capturedMap = null;
+817415	    map.on('remove', cleanupRemovedMap);
+822092	  const removedMaps = new WeakSet();
+822093	  let installedMap = null;
+822122	    if (removedMaps.has(map)) return [];
+822129	      if (removedMaps.has(map)) return [];
+822229	    if (removedMaps.has(map)) return;
+822266	      if (removedMaps.has(map)) return;
+822293	    if (!map || typeof map.addSource !== 'function' || removedMaps.has(map)) return false;
+822295	    installedMap = map;
+822306	    const selectionPoll = setInterval(() => {
+822320	    map.on('remove', () => {
+822321	      removedMaps.add(map);
+822322	      clearInterval(selectionPoll);
+822323	      if (installedMap !== map) return;
+822324	      installedMap = null;
+822325	      state.installed = false;
+822326	      state.selection = null;
+822327	      state.active = [];
+823801	/* GJ-03 PREVIEW ONLY. Canonical engine Ventusltd/ventus-grid-engine@65d48a851fc2ac74b13f939a0184e11298e7e5bd. No live pointer writes. */
+823802	const JourneyTopology = (() => {
+824025	const schema = 'gridatlas.module.network-topology.v1';
+824026	return Object.freeze({ACCEPTS,NOT_AN_ASSESSMENT,IMPEDANCE_BASIS,UNDECLARED,ratingsOf,physicalUnits,parametersOf,index,schema});
+824027	const JourneyEvidence = (() => {
+824028	/** Byte-pinned, fail-closed Journey evidence. Receipt presence does not
+824029	 * authenticate a reviewer or grant rights. No DOM, network, inferred joins or MW. */
+824030	const topologyIndex = JourneyTopology.index;
+824031	const REVIEW_SCHEMA = 'data-grid-gb.grid-journey-review.v1';
+824032	const PRODUCT_SCHEMA = 'data-grid-gb.transmission-network.v1';
+824033	const KINDS = Object.freeze({circuit: 'circuits', transformer: 'transformers', planned_change: 'planned_changes'});
+824034	const GEOMETRY = Object.freeze(['verified_circuit_and_polyline', 'published_topology_only',
+824035	  'published_node_unlocated', 'vicinity_screening_only', 'ambiguous_or_licence_blocked']);
+824037	const hex = /^[0-9a-f]{64}$/;
+824038	const fail = message => { throw new Error(`Grid Journey evidence: ${message}`); };
+824039	const object = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+824040	const text = (v, label) => { if (typeof v !== 'string' || !v.trim()) fail(`${label} must be nonempty text`); };
+824041	const ordinal = (a, b) => a < b ? -1 : a > b ? 1 : 0;
+824043	  const active = new Set();
+824044	  function encode(v) {
+824045	    if (v === null || typeof v === 'string' || typeof v === 'boolean') return JSON.stringify(v);
+824046	    if (typeof v === 'number') { if (!Number.isFinite(v)) fail('nonfinite JSON number'); return JSON.stringify(v); }
+824047	    if (!object(v) && !Array.isArray(v)) fail('non-JSON input');
+824048	    if (active.has(v)) fail('cyclic JSON input');
+824049	    active.add(v);
+824050	    const out = Array.isArray(v) ? '[' + v.map(encode).join(',') + ']'
+824051	      : '{' + Object.keys(v).sort(ordinal).map(k => JSON.stringify(k) + ':' + encode(v[k])).join(',') + '}';
+824052	    active.delete(v);
+824053	  return encode(value);
+824055	  if (typeof bytes === 'string') bytes = encoder.encode(bytes);
+824056	  if (!(bytes instanceof Uint8Array)) fail('hash input must be text or bytes');
+824057	  if (!globalThis.crypto?.subtle) fail('Web Crypto SHA256 is unavailable');
+824058	  return [...new Uint8Array(await globalThis.crypto.subtle.digest('SHA-256', bytes))].map(b => b.toString(16).padStart(2, '0')).join('');
+824059	function url(v, label) {
+824060	  text(v, label);
+824061	  if (/[\s\\]/u.test(v)) fail(`${label} contains URL whitespace or backslash`);
+824062	  const match = /^https:\/\/([A-Za-z0-9.-]+)(?::([0-9]+))?(?:[/?#].*)?$/u.exec(v);
+824063	  if (!match || match[1].length > 253 || !match[1].split('.').every(s => /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?$/u.test(s))
+824064	      || match[2] && (+match[2] < 1 || +match[2] > 65535)) fail(`${label} must be a credential-free HTTPS URL`);
+824065	function receipt(v, label) {
+824066	  if (!object(v)) fail(`${label} requires an explicit review receipt`);
+824067	  text(v.id, `${label}.id`); text(v.reviewer, `${label}.reviewer`); url(v.reference, `${label}.reference`);
+824068	  if (typeof v.reviewedAt !== 'string' || !/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ$/u.test(v.reviewedAt)
+824069	      || v.reviewedAt.startsWith('0000') || !Number.isFinite(Date.parse(v.reviewedAt))
+824070	      || new Date(v.reviewedAt).toISOString().replace('.000Z', 'Z') !== v.reviewedAt) fail(`${label}.reviewedAt is not a valid UTC instant`);
+824071	function source(v, label) { if (!object(v)) fail(`${label} requires a source locator`); url(v.url, `${label}.url`); text(v.locator, `${label}.locator`); }
+824072	function rights(v, label) {
+824073	  if (!object(v) || !['accepted', 'unconfirmed', 'blocked'].includes(v.status)) fail(`${label} invalid rights status`);
+824074	  if (v.status === 'accepted') { url(v.licenceUrl, `${label}.licenceUrl`); text(v.attribution, `${label}.attribution`); receipt(v.review, `${label}.review`); }
+824075	function identity(v, label) {
+824076	  if (!object(v) || !['confirmed', 'unreviewed', 'ambiguous'].includes(v.status)) fail(`${label} invalid identity status`);
+824077	  if (v.status === 'confirmed') receipt(v.review, `${label}.review`);
+824078	function position(v, label) {
+824079	  if (!Array.isArray(v) || v.length !== 2 || !v.every(Number.isFinite) || Math.abs(v[0]) > 180 || Math.abs(v[1]) > 90) fail(`${label} must be finite WGS84 [longitude,latitude]`);
+824080	function edgeUid(bundleSha, kind, sourceIndex) {
+824081	  if (!hex.test(bundleSha) || !Object.hasOwn(KINDS, kind) || !Number.isSafeInteger(sourceIndex) || sourceIndex < 0) fail('invalid source-row identity');
+824082	  return `${bundleSha}:${kind}:${sourceIndex}`;
+824084	  if (!object(product) || product.schema !== PRODUCT_SCHEMA) fail('unsupported network product');
+824085	  for (const key of ['nodes', ...Object.values(KINDS)]) if (!Array.isArray(product[key])) fail(`network.${key} must be an array`);
+824086	  if (product.nodes.length > 100000 || Object.values(KINDS).reduce((n, k) => n + product[k].length, 0) > 200000) fail('network exceeds contract limits');
+824088	  const nodeId = v => { text(v, 'source node ID'); if (/[\x00-\x1f\x7f]/u.test(v)) fail('source node ID contains control characters'); };
+824089	  for (const n of product.nodes) {
+824090	    if (!object(n)) fail('network node must be an object');
+824091	    nodeId(n.node); if (ids.has(n.node)) fail('duplicate source node identity'); ids.add(n.node);
+824092	  for (const key of Object.values(KINDS)) for (const row of product[key]) {
+824093	    if (!object(row)) fail('network branch must be an object'); nodeId(row.node_1); nodeId(row.node_2);
+824094	  return product;
+824095	function validateLedger(ledger, product = null, expectedSha = null) {
+824096	  if (!object(ledger) || ledger.schema !== REVIEW_SCHEMA) fail('unsupported review ledger schema');
+824097	  edgeUid(ledger.sourceBundleSha, 'circuit', 0);
+824098	  if (expectedSha !== null && ledger.sourceBundleSha !== expectedSha) fail('review ledger source digest does not match actual bytes');
+824099	  if (product !== null) validateProduct(product);
+824100	  if (!Array.isArray(ledger.nodes) || !Array.isArray(ledger.edges)) fail('review ledger requires node and edge arrays');
+824101	  if (ledger.nodes.length > 100000 || ledger.edges.length > 200000) fail('review ledger exceeds contract limits');
+824102	  const sourceNodes = product && new Set(product.nodes.map(n => n.node)), nodes = new Set(), edges = new Set();
+824103	  for (const n of ledger.nodes) {
+824104	    if (!object(n)) fail('node review must be an object'); text(n.nodeId, 'nodeId');
+824105	    if (nodes.has(n.nodeId) || sourceNodes && !sourceNodes.has(n.nodeId)) fail('duplicate or unknown node review'); nodes.add(n.nodeId);
+824106	    identity(n.identity, 'node.identity'); rights(n.rights, 'node.rights'); source(n.sourceRef, 'node.sourceRef');
+824107	    const loc = Object.hasOwn(n, 'location') ? n.location : {status: 'unlocated'};
+824108	    if (!object(loc) || !['reviewed', 'unreviewed', 'unlocated', 'ambiguous'].includes(loc.status)) fail('invalid node location state');
+824109	    if (loc.status === 'reviewed') { position(loc.coordinates, 'location.coordinates'); source(loc.sourceRef, 'location.sourceRef'); receipt(loc.review, 'location.review'); rights(loc.rights, 'location.rights'); }
+824110	  for (const e of ledger.edges) {
+824111	    if (!object(e)) fail('edge review must be an object');
+824112	    const uid = edgeUid(ledger.sourceBundleSha, e.kind, e.sourceIndex);
+824113	    if (e.edgeUid !== uid || edges.has(uid)) fail('duplicate or inconsistent source-row UID'); edges.add(uid);
+824114	    text(e.node1, 'node1'); text(e.node2, 'node2');
+824115	    if (product) { const row = product[KINDS[e.kind]][e.sourceIndex]; if (!row || e.node1 !== row.node_1 || e.node2 !== row.node_2) fail('review refers to a different source row or endpoint'); }
+824116	    identity(e.identity, 'edge.identity'); rights(e.rights, 'edge.rights'); source(e.sourceRef, 'edge.sourceRef');
+824117	    if (!['reviewed', 'unreviewed', 'ambiguous'].includes(e.multiplicityStatus)) fail('edge multiplicity review status is required');
+824118	    if (e.multiplicityStatus === 'reviewed') receipt(e.multiplicityReview, 'edge.multiplicityReview');
+824119	    if (!GEOMETRY.includes(e.geometryStatus)) fail('unknown geometry evidence class');
+824120	    if (e.kind === 'transformer' && e.identity.status === 'confirmed') text(e.transformerRef, 'transformerRef');
+824121	    if (e.geometryStatus === 'verified_circuit_and_polyline') {
+824122	      const g = e.geometry;
+824123	      if (!object(g) || !Array.isArray(g.coordinates) || g.coordinates.length < 2) fail('verified polyline needs reviewed coordinates');
+824124	      for (const p of g.coordinates) position(p, 'geometry.coordinates');
+824125	      source(g.sourceRef, 'geometry.sourceRef'); receipt(g.review, 'geometry.review'); rights(g.rights, 'geometry.rights');
+824127	const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+824128	function classifyEdges(product, ledger, expectedSha = null) {
+824129	  validateLedger(ledger, product, expectedSha);
+824130	  const nodes = new Map(product.nodes.map(n => [n.node, n])), reviews = new Map(ledger.nodes.map(n => [n.nodeId, n]));
+824131	  const edgeReviews = new Map(ledger.edges.map(e => [e.edgeUid, e])), result = [];
+824132	  for (const [kind, key] of Object.entries(KINDS)) for (const [sourceIndex, row] of product[key].entries()) {
+824133	    const uid = edgeUid(ledger.sourceBundleSha, kind, sourceIndex), e = edgeReviews.get(uid), reasons = [];
+824134	    if (kind === 'planned_change') reasons.push('planned');
+824135	    if (!e) reasons.push('edge_unreviewed');
+824136	      if (e.identity.status !== 'confirmed') reasons.push('edge_identity');
+824137	      if (e.rights.status !== 'accepted') reasons.push('edge_rights');
+824138	      if (e.multiplicityStatus !== 'reviewed') reasons.push('multiplicity');
+824139	      if (['vicinity_screening_only', 'ambiguous_or_licence_blocked'].includes(e.geometryStatus)) reasons.push('geometry_withheld');
+824140	    const positions = [], volts = [];
+824141	    for (const nid of [row.node_1, row.node_2]) {
+824142	      const n = nodes.get(nid), r = reviews.get(nid); if (!n) reasons.push('orphan_node');
+824143	      let voltage = n?.voltage_consistent_with_site === true ? n.voltage_kv : null;
+824144	      if (!Number.isFinite(voltage) || voltage <= 0) { voltage = null; reasons.push('unknown_voltage'); } volts.push(voltage);
+824145	      if (r?.identity.status !== 'confirmed') reasons.push('node_identity');
+824146	      if (r?.rights.status !== 'accepted') reasons.push('node_rights');
+824147	      positions.push(r?.location?.status === 'reviewed' && r.location.rights.status === 'accepted' ? r.location.coordinates : null);
+824148	    if (kind === 'circuit' && volts.every(v => v !== null) && volts[0] !== volts[1]) reasons.push('illegal_voltage');
+824149	    let status = e?.geometryStatus ?? 'ambiguous_or_licence_blocked';
+824150	    if (e && status === 'verified_circuit_and_polyline') {
+824151	      const line = e.geometry.coordinates;
+824152	      if (e.geometry.rights.status !== 'accepted') reasons.push('geometry_rights');
+824153	      if (positions.includes(null) || !(same(line[0], positions[0]) && same(line.at(-1), positions[1]) || same(line[0], positions[1]) && same(line.at(-1), positions[0]))) reasons.push('geometry_endpoint_mismatch');
+824154	    } else if (status === 'published_topology_only' && positions.includes(null)) status = 'published_node_unlocated';
+824155	    result.push({edgeUid: uid, kind, sourceIndex, node1: row.node_1, node2: row.node_2,
+824156	      eligible: reasons.length === 0, reasons: [...new Set(reasons)].sort(ordinal), geometryStatus: status});
+824158	async function prepareJourneyEvidence(sourceBytes, ledger) {
+824159	  const bytes = typeof sourceBytes === 'string' ? encoder.encode(sourceBytes) : sourceBytes;
+824160	  if (!(bytes instanceof Uint8Array) || bytes.byteLength > 32 * 1024 * 1024) fail('network must be at most 32 MiB of exact JSON bytes');
+824161	  // Snapshot caller-owned bytes/ledger before the first asynchronous boundary.
+824162	  const snapshot = Uint8Array.from(bytes), ledgerText = canonicalJson(ledger);
+824163	  if (encoder.encode(ledgerText).length > 32 * 1024 * 1024) fail('review ledger exceeds 32 MiB');
+824164	  const frozenLedger = JSON.parse(ledgerText), product = JSON.parse(new TextDecoder('utf-8', {fatal: true}).decode(snapshot));
+824165	  const digest = await sha256(snapshot);
+824166	  validateLedger(frozenLedger, product, digest);
+824167	  const records = classifyEdges(product, frozenLedger, digest);
+824168	  return {sourceBundleSha: digest, reviewLedgerSha: await sha256(ledgerText), product,
+824169	    ledger: frozenLedger, records, graph: topologyIndex(product).graph()};
+824170	return Object.freeze({REVIEW_SCHEMA,PRODUCT_SCHEMA,KINDS,GEOMETRY,ordinal,canonicalJson,sha256,edgeUid,validateProduct,validateLedger,classifyEdges,prepareJourneyEvidence});
+824171	const JourneyEngine = (() => {
+824172	/** Bounded educational itinerary over reviewed source-row edges. No MW solver,
+824173	 * current direction, nearest-site connection, inferred transformer or GIS drawing. */
+824174	const {canonicalJson, ordinal, prepareJourneyEvidence, sha256} = JourneyEvidence;
+824175	const SCHEMA = 'ventus.grid-journey.plan.v1';
+824176	const CAVEAT = 'Journey shows documented network connectivity. The travelling light is a learning cursor, not measured current or a power-flow simulation. Dotted links are schematic; missing routes are not invented.';
+824177	const defaults = Object.freeze({maxNodes: 250, maxEdges: 500, maxMoves: 1000, maxGeometryBytes: 1000000});
+824178	const ceilings = Object.freeze({maxNodes: 100000, maxEdges: 200000, maxMoves: 400000, maxGeometryBytes: 32 * 1024 * 1024});
+824179	function limits(query) {
+824180	  if (!query || typeof query !== 'object' || Array.isArray(query)) throw new Error('Grid Journey query must be an object');
+824181	  if (query.requireReviewedIdentity === false) throw new Error('Grid Journey review gates cannot be disabled');
+824182	  if (query.modes !== undefined && (!Array.isArray(query.modes) || query.modes.length !== 1 || query.modes[0] !== 'published_circuits')) throw new Error('Only published_circuits mode is implemented');
+824183	  if (query.bounds !== undefined && (!query.bounds || typeof query.bounds !== 'object' || Array.isArray(query.bounds))) throw new Error('Invalid journey bounds');
+824184	  for (const k of Object.keys(query.bounds || {})) if (!Object.hasOwn(defaults, k)) throw new Error(`Unsupported journey bound ${k}`);
+824185	  const out = {...defaults, ...query.bounds};
+824186	  for (const [key, value] of Object.entries(out)) if (!Number.isSafeInteger(value) || value < (key === 'maxNodes' ? 1 : 0) || value > ceilings[key]) throw new Error(`Invalid journey bound ${key}`);
+824188	/** Exact JSON source bytes are required: a caller cannot attach a digest to an
+824189	 * unrelated parsed object. Review-ledger hash is over canonical JSON, no newline. */
+824190	async function planJourney({sourceBytes, ledger, query = {}}) {
+824191	  // Snapshot caller-owned query before hashing introduces an async boundary.
+824192	  query = JSON.parse(canonicalJson(query));
+824193	  const bounds = limits(query), evidence = await prepareJourneyEvidence(sourceBytes, ledger);
+824194	  const {product, graph, records, sourceBundleSha, reviewLedgerSha} = evidence;
+824195	  if (query.sourceBundleSha && query.sourceBundleSha !== sourceBundleSha) throw new Error('Query source digest mismatch');
+824196	  if (query.crosswalkSha && query.crosswalkSha !== reviewLedgerSha) throw new Error('Query review ledger digest mismatch');
+824197	  const nodeReviews = new Map(evidence.ledger.nodes.map(n => [n.nodeId, n]));
+824198	  const edgeReviews = new Map(evidence.ledger.edges.map(e => [e.edgeUid, e]));
+824199	  const eligible = records.filter(e => e.eligible), rowRecords = new WeakMap(), refusalCounts = {};
+824201	    if (r.kind !== 'planned_change') rowRecords.set(product[r.kind === 'circuit' ? 'circuits' : 'transformers'][r.sourceIndex], r);
+824202	    for (const reason of r.reasons) refusalCounts[reason] = (refusalCounts[reason] || 0) + 1;
+824203	  const seed = query.seed?.chosenNode ?? null;
+824204	  const result = {schema: SCHEMA, sourceBundleSha, reviewLedgerSha, seedNode: seed, endNode: seed,
+824205	    bounds, status: 'empty', steps: [], edgeCatalog: [], eligibleEdges: eligible.length,
+824206	    eligibleReachableEdges: 0, reachableNodes: 0, visitedUniqueEdges: 0, physicalUnits: null,
+824207	    coverage: null, truncated: false, truncationReasons: [],
+824208	    excluded: {refusalCounts, disconnectedEligibleEdges: 0, outsideBoundsEdges: 0}, caveats: [CAVEAT]};
+824209	  async function finish() { result.planSha256 = await sha256(canonicalJson(result)); return result; }
+824210	  const review = nodeReviews.get(seed);
+824211	  const seedReason = !seed ? 'chosen_node_required' : !graph.has(seed) ? 'seed_not_in_source'
+824212	    : review?.identity.status !== 'confirmed' ? 'seed_identity_unreviewed'
+824213	      : review?.rights.status !== 'accepted' ? 'seed_rights_withheld'
+824214	        : !Number.isFinite(graph.nodeVoltageKv(seed)) || graph.nodeVoltageKv(seed) <= 0 ? 'seed_voltage_unknown' : null;
+824215	  if (seedReason) { result.status = 'refused'; result.refusal = seedReason; return finish(); }
+824216	  const adjacency = new Map();
+824217	    const seen = new Set(), rows = [];
+824218	    // Read the incumbent graph; its two landings reference one source row.
+824219	    for (const landing of graph.edgesAt(n.node)) {
+824220	      const record = rowRecords.get(landing.row);
+824221	      if (!record?.eligible || record.kind !== landing.kind || seen.has(record.edgeUid)) continue;
+824222	      seen.add(record.edgeUid); rows.push(record);
+824223	    rows.sort((a, b) => ordinal(a.edgeUid, b.edgeUid)); adjacency.set(n.node, rows);
+824224	  const componentNodes = new Set([seed]), componentEdges = new Set(), pending = [seed];
+824225	  for (let i = 0; i < pending.length; i++) for (const e of adjacency.get(pending[i]) || []) {
+824226	    componentEdges.add(e.edgeUid);
+824227	    const far = e.node1 === pending[i] ? e.node2 : e.node1;
+824228	    if (!componentNodes.has(far)) { componentNodes.add(far); pending.push(far); }
+824229	  result.reachableNodes = componentNodes.size; result.eligibleReachableEdges = componentEdges.size;
+824230	  result.excluded.disconnectedEligibleEdges = eligible.length - componentEdges.size;
+824231	  if (!componentEdges.size) return finish();
+824232	  function catalogFor(e) {
+824233	    const r = edgeReviews.get(e.edgeUid), a = nodeReviews.get(e.node1), b = nodeReviews.get(e.node2);
+824234	    let coordinates = null;
+824235	      coordinates = r.geometry.coordinates.map(p => [...p]);
+824236	      if (canonicalJson(coordinates[0]) !== canonicalJson(a.location.coordinates)) coordinates.reverse();
+824237	    } else if (e.geometryStatus === 'published_topology_only') coordinates = [[...a.location.coordinates], [...b.location.coordinates]];
+824238	    return {edgeUid: e.edgeUid, kind: e.kind, node1: e.node1, node2: e.node2, sourceIndex: e.sourceIndex,
+824239	      geometryStatus: e.geometryStatus, coordinates, schematic: e.geometryStatus === 'published_topology_only',
+824240	      sourceRef: r.sourceRef, transformerRef: e.kind === 'transformer' ? r.transformerRef : null,
+824241	      label: e.geometryStatus === 'published_topology_only' ? 'Schematic topology connector; not a cable route'
+824242	        : e.geometryStatus === 'published_node_unlocated' ? 'Published topology; location unavailable — text only'
+824243	          : 'Reviewed source circuit/polyline association; precision remains source-specific'};
+824244	  const stack = [{node: seed, next: 0, via: null}], visited = new Set(), visitedNodes = new Set([seed]);
+824245	  const blocked = new Set(), truncated = new Set(); let geometryBytes = 0;
+824246	  const move = (kind, edge, from, to) => {
+824247	    result.steps.push({kind: edge.geometryStatus === 'published_node_unlocated' ? 'unlocated' : kind,
+824248	      traversal: kind, edgeUid: edge.edgeUid, nearNode: from, farNode: to, order: result.steps.length,
+824249	      nearVoltageKv: graph.nodeVoltageKv(from), farVoltageKv: graph.nodeVoltageKv(to),
+824250	      geometryStatus: edge.geometryStatus, direction: from === edge.node1 ? 'forward' : 'reverse',
+824251	      transformerRef: edge.kind === 'transformer' ? edgeReviews.get(edge.edgeUid).transformerRef : null,
+824252	      sourceRef: edgeReviews.get(edge.edgeUid).sourceRef}); result.endNode = to;
+824253	  walk: while (stack.length) {
+824254	    const frame = stack.at(-1), rows = adjacency.get(frame.node) || [];
+824255	    if (frame.next >= rows.length) {
+824256	      if (frame.via) {
+824257	        if (result.steps.length >= bounds.maxMoves) { truncated.add('maxMoves'); break; }
+824258	        move('backtrack', frame.via, frame.node, stack[stack.length - 2].node);
+824259	      stack.pop(); continue;
+824260	    const e = rows[frame.next++]; if (visited.has(e.edgeUid) || blocked.has(e.edgeUid)) continue;
+824261	    if (visited.size >= bounds.maxEdges) { truncated.add('maxEdges'); break; }
+824262	    const far = e.node1 === frame.node ? e.node2 : e.node1;
+824263	    if (!visitedNodes.has(far) && visitedNodes.size >= bounds.maxNodes) { truncated.add('maxNodes'); blocked.add(e.edgeUid); continue; }
+824264	    const catalog = catalogFor(e), addedBytes = catalog.coordinates ? encoder.encode(canonicalJson(catalog.coordinates)).length : 0;
+824265	    if (geometryBytes + addedBytes > bounds.maxGeometryBytes) { truncated.add('maxGeometryBytes'); blocked.add(e.edgeUid); continue; }
+824266	    if (result.steps.length >= bounds.maxMoves) { truncated.add('maxMoves'); break walk; }
+824267	    geometryBytes += addedBytes; visited.add(e.edgeUid); visitedNodes.add(far); result.edgeCatalog.push(catalog);
+824268	    move('advance', e, frame.node, far); stack.push({node: far, next: 0, via: e});
+824269	  result.visitedUniqueEdges = visited.size; result.coverage = visited.size / componentEdges.size;
+824270	  result.truncated = truncated.size > 0; result.truncationReasons = [...truncated].sort(ordinal);
+824271	  result.excluded.outsideBoundsEdges = componentEdges.size - visited.size;
+824272	  result.status = result.truncated ? 'truncated' : 'complete';
+824273	  result.geometryBytes = geometryBytes;
+824274	  return finish();
+824275	return Object.freeze({SCHEMA,CAVEAT,planJourney});
+824276	const JourneyFixture = {"schema":"ventus.grid-journey.synthetic-contract-fixture.v1","synthetic":true,"licence":"Invented test data only; no real infrastructure or external rights grant","networkText":"{\"schema\":\"data-grid-gb.transmission-network.v1\",\"sites\":[{\"code\":\"A1\"},{\"code\":\"B1\"},{\"code\":\"C1\"},{\"code\":\"D1\"},{\"code\":\"U1\"}],\"nodes\":[{\"node\":\"A1\",\"site_code\":\"A1\",\"voltage_consistent_with_site\":true,\"voltage_kv\":132},{\"node\":\"B1\",\"site_code\":\"B1\",\"voltage_consistent_with_site\":true,\"voltage_kv\":132},{\"node\":\"C1\",\"site_code\":\"C1\",\"voltage_consistent_with_site\":true,\"voltage_kv\":132},{\"node\":\"D1\",\"site_code\":\"D1\",\"voltage_consistent_with_site\":true,\"voltage_kv\":132},{\"node\":\"U1\",\"site_code\":\"U1\",\"voltage_consistent_with_site\":true,\"voltage_kv\":132}],\"circuits\":[{\"node_1\":\"A1\",\"node_2\":\"B1\"},{\"node_1\":\"B1\",\"node_2\":\"C1\"},{\"node_1\":\"B1\",\"node_2\":\"D1\"},{\"node_1\":\"D1\",\"node_2\":\"U1\"}],\"transformers\":[],\"planned_changes\":[]}\n","ledger":{"schema":"data-grid-gb.grid-journey-review.v1","sourceBundleSha":"b288e90cb106567c9e6373ed2409e4bc65e495d4f790d1ea44b4a47497b87afe","nodes":[{"identity":{"review":{"id":"A1","reference":"https://fixture.invalid/reviews/A1","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"location":{"coordinates":[-1.6,52.4],"review":{"id":"location","reference":"https://fixture.invalid/reviews/location","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/0/coordinates","url":"https://fixture.invalid/network.json"},"status":"reviewed"},"nodeId":"A1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/0","url":"https://fixture.invalid/network.json"}},{"identity":{"review":{"id":"A1","reference":"https://fixture.invalid/reviews/A1","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"location":{"coordinates":[-1.3,52.4],"review":{"id":"location","reference":"https://fixture.invalid/reviews/location","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/0/coordinates","url":"https://fixture.invalid/network.json"},"status":"reviewed"},"nodeId":"B1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/1","url":"https://fixture.invalid/network.json"}},{"identity":{"review":{"id":"A1","reference":"https://fixture.invalid/reviews/A1","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"location":{"coordinates":[-1,52.6],"review":{"id":"location","reference":"https://fixture.invalid/reviews/location","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/0/coordinates","url":"https://fixture.invalid/network.json"},"status":"reviewed"},"nodeId":"C1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/2","url":"https://fixture.invalid/network.json"}},{"identity":{"review":{"id":"A1","reference":"https://fixture.invalid/reviews/A1","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"location":{"coordinates":[-1,52.2],"review":{"id":"location","reference":"https://fixture.invalid/reviews/location","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/0/coordinates","url":"https://fixture.invalid/network.json"},"status":"reviewed"},"nodeId":"D1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/3","url":"https://fixture.invalid/network.json"}},{"identity":{"review":{"id":"A1","reference":"https://fixture.invalid/reviews/A1","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"location":{"status":"unlocated"},"nodeId":"U1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceRef":{"locator":"/nodes/4","url":"https://fixture.invalid/network.json"}}],"edges":[{"edgeUid":"b288e90cb106567c9e6373ed2409e4bc65e495d4f790d1ea44b4a47497b87afe:circuit:0","geometryStatus":"verified_circuit_and_polyline","identity":{"review":{"id":"edge","reference":"https://fixture.invalid/reviews/edge","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"kind":"circuit","multiplicityReview":{"id":"source-record-multiplicity","reference":"https://fixture.invalid/reviews/source-record-multiplicity","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"multiplicityStatus":"reviewed","node1":"A1","node2":"B1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceIndex":0,"sourceRef":{"locator":"/circuits/0","url":"https://fixture.invalid/network.json"},"geometry":{"coordinates":[[-1.6,52.4],[-1.45,52.45],[-1.3,52.4]],"sourceRef":{"locator":"/circuits/0","url":"https://fixture.invalid/network.json"},"review":{"id":"edge","reference":"https://fixture.invalid/reviews/edge","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"}}},{"edgeUid":"b288e90cb106567c9e6373ed2409e4bc65e495d4f790d1ea44b4a47497b87afe:circuit:1","geometryStatus":"published_topology_only","identity":{"review":{"id":"edge","reference":"https://fixture.invalid/reviews/edge","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"kind":"circuit","multiplicityReview":{"id":"source-record-multiplicity","reference":"https://fixture.invalid/reviews/source-record-multiplicity","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"multiplicityStatus":"reviewed","node1":"B1","node2":"C1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceIndex":1,"sourceRef":{"locator":"/circuits/1","url":"https://fixture.invalid/network.json"}},{"edgeUid":"b288e90cb106567c9e6373ed2409e4bc65e495d4f790d1ea44b4a47497b87afe:circuit:2","geometryStatus":"published_topology_only","identity":{"review":{"id":"edge","reference":"https://fixture.invalid/reviews/edge","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"kind":"circuit","multiplicityReview":{"id":"source-record-multiplicity","reference":"https://fixture.invalid/reviews/source-record-multiplicity","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"multiplicityStatus":"reviewed","node1":"B1","node2":"D1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceIndex":2,"sourceRef":{"locator":"/circuits/2","url":"https://fixture.invalid/network.json"}},{"edgeUid":"b288e90cb106567c9e6373ed2409e4bc65e495d4f790d1ea44b4a47497b87afe:circuit:3","geometryStatus":"published_node_unlocated","identity":{"review":{"id":"edge","reference":"https://fixture.invalid/reviews/edge","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"confirmed"},"kind":"circuit","multiplicityReview":{"id":"source-record-multiplicity","reference":"https://fixture.invalid/reviews/source-record-multiplicity","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"multiplicityStatus":"reviewed","node1":"D1","node2":"U1","rights":{"attribution":"Synthetic test fixture; no real asset or third-party data approval","licenceUrl":"https://fixture.invalid/synthetic-licence","review":{"id":"rights","reference":"https://fixture.invalid/reviews/rights","reviewedAt":"2026-11-17T00:00:00Z","reviewer":"SYNTHETIC TEST ONLY"},"status":"accepted"},"sourceIndex":3,"sourceRef":{"locator":"/circuits/3","url":"https://fixture.invalid/network.json"}}]}};
+824277	const JourneyCSS = "#gridatlas-gj03{font:12px/1.4 monospace;color:#0ff;position:absolute;inset:0;pointer-events:none;z-index:30}#gridatlas-gj03 *{box-sizing:border-box}#gridatlas-gj03 button,#gridatlas-gj03 select,#gridatlas-gj03 summary{font:inherit;min-height:44px;color:#0ff;background:#070d10;border:1px solid #477078;padding:8px;cursor:pointer;pointer-events:auto}#gridatlas-gj03 button:disabled{opacity:.45;cursor:default}#gridatlas-gj03 :focus-visible{outline:3px solid #ffd84d;outline-offset:2px}#gridatlas-gj03 .gj-launch{position:absolute;right:10px;top:120px;max-width:190px}#gridatlas-gj03 .gj-panel{pointer-events:auto;position:absolute;right:8px;top:170px;width:min(410px,calc(100% - 16px));max-height:calc(100% - 180px);overflow:auto;background:#020608f5;border:1px solid #0ff;padding:10px;box-shadow:0 4px 20px #000}#gridatlas-gj03 [hidden]{display:none!important}#gridatlas-gj03 .gj-heading{position:sticky;top:0;background:#020608;z-index:1;display:flex;align-items:center;gap:8px;justify-content:space-between}#gridatlas-gj03 .gj-caveat{color:#ffd84d;border-bottom:1px dotted #8b7934;padding-bottom:8px}#gridatlas-gj03 p{margin:8px 0}#gridatlas-gj03 .gj-node{display:block;margin:8px 0}#gridatlas-gj03 select{display:block;width:100%;margin-top:5px}#gridatlas-gj03 .gj-controls{display:flex;flex-wrap:wrap;gap:5px}#gridatlas-gj03 .gj-controls button{flex:1}#gridatlas-gj03 pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#b6d4d6;font:11px/1.4 monospace}#gridatlas-gj03 summary{margin-top:8px}@media(max-width:480px){#gridatlas-gj03 .gj-panel{top:170px;max-height:min(40vh,calc(100% - 176px))}#gridatlas-gj03 .gj-launch{top:120px}}@media(max-height:480px){#gridatlas-gj03 .gj-panel{top:48px;right:6px;width:min(410px,calc(100% - 65px));max-height:calc(100% - 54px)}}@media(prefers-reduced-motion:reduce){#gridatlas-gj03 *{animation:none!important;transition:none!important}}\n";
+824278	const JourneyGeneration = '202611172355';
+824279	/** Native MapLibre presentation only. The pinned engine owns evidence and traversal. */
+824280	function createJourneyController({map, document: D, window: W, planner, fixture, css, generation}) {
+824281	  const NS = 'gridatlas-gj03', source = NS + '-route', cursor = NS + '-cursor';
+824282	  const layerIds = [NS + '-verified', NS + '-schematic', NS + '-cursor'];
+824283	  const empty = () => ({type: 'FeatureCollection', features: []});
+824284	  const caveat = 'The travelling light is a learning cursor, not measured current or a power-flow simulation. Dotted links are schematic, not cable routes. Flow direction unavailable.';
+824285	  const layerGroups = [], layerLaunchers = [];
+824286	  let layerObserver = null, returnFocus = null, originContext = null;
+824287	  const on = [], ownedSources = new Map(), ownedLayers = new Map();
+824288	  let alive = true, opened = false, plan = null, step = 0, raf = null, playing = false, epoch = 0, demo = false, routeData = empty(), cursorData = empty();
+824289	  if (!map || !['addSource', 'addLayer', 'getSource', 'getLayer', 'removeSource', 'removeLayer', 'on', 'off'].every(k => typeof map[k] === 'function')) throw new Error('Native MapLibre map unavailable');
+824290	  if (D.getElementById(NS)) throw new Error('Journey already mounted');
+824291	  const container = D.getElementById('map-container') || map.getContainer?.();
+824292	  const initialPadding = map.getPadding?.();
+824293	  if (!container) throw new Error('Native map container unavailable');
+824294	  function el(tag, text, parent, attrs = {}) { const e = D.createElement(tag); if (text) e.textContent = text; for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v); parent?.appendChild(e); return e; }
+824295	  function listen(e, type, fn) { e.addEventListener(type, fn); on.push(() => e.removeEventListener(type, fn)); }
+824296	  const root = el('div', null, container, {id: NS, 'data-generation': generation});
+824297	  const style = el('style', css, root);
+824298	  const opener = el('button', 'Grid Journeys', root, {type: 'button', 'aria-expanded': 'false', 'aria-controls': NS + '-panel', class: 'gj-launch'});
+824299	  const panel = el('section', null, root, {id: NS + '-panel', 'aria-label': 'Grid Journeys', hidden: '', class: 'gj-panel'});
+824300	  const heading = el('div', null, panel, {class: 'gj-heading'});
+824301	  el('strong', 'GRID JOURNEYS', heading);
+824302	  const close = el('button', 'Close', heading, {type: 'button', 'aria-label': 'Close Grid Journey'});
+824303	  const caption = el('p', caveat, panel, {class: 'gj-caveat'});
+824304	  const state = el('p', 'Explore the physical grid on the map, or choose a learning demonstration below.', panel, {role: 'status', 'aria-live': 'polite', class: 'gj-status'});
+824305	  const context = el('p', 'Select an asset on the map to explore its surroundings.', panel, {class: 'gj-origin'});
+824306	  const realGrid = el('button', 'Explore real grid nearby', panel, {type: 'button'});
+824307	  const demoButton = el('button', 'Load SYNTHETIC demonstration', panel, {type: 'button'});
+824308	  const label = el('label', 'Explicit starting node ', panel, {class: 'gj-node'});
+824309	  const select = el('select', null, label, {'aria-label': 'Explicit starting node', disabled: ''});
+824310	  el('option', 'Choose a reviewed node…', select, {value: ''});
+824311	  const controls = el('div', null, panel, {class: 'gj-controls'});
+824312	  const start = el('button', 'Start', controls, {type: 'button', disabled: ''});
+824313	  const pause = el('button', 'Pause', controls, {type: 'button', disabled: ''});
+824314	  const next = el('button', 'Next', controls, {type: 'button', disabled: ''});
+824315	  const reset = el('button', 'Reset', controls, {type: 'button', disabled: ''});
+824316	  const evidence = el('details', null, panel, {class: 'gj-evidence'});
+824317	  el('summary', 'Input evidence and limits', evidence);
+824318	  evidence.appendChild(caption);
+824319	  const receipt = el('pre', 'Real routes: 0 accepted. No measured or modelled MW inputs. Synthetic data loads only on explicit request.', evidence);
+824320	  const media = W.matchMedia?.('(prefers-reduced-motion: reduce)');
+824321	  function isReduced() { return media?.matches === true; }
+824322	  function report(s) { if (alive) state.textContent = s; }
+824323	  function pauseMotion() { playing = false; if (raf !== null) W.cancelAnimationFrame(raf); raf = null; pause.disabled = true; start.disabled = !plan?.steps.length || step >= plan.steps.length; }
+824324	  function controlsState() { const usable = !!plan?.steps.length; start.disabled = !usable || step >= plan.steps.length || playing; next.disabled = !usable || playing || step >= plan.steps.length; reset.disabled = !plan; pause.disabled = !playing; start.textContent = isReduced() ? 'Start · manual' : 'Start'; }
+824325	  function removeMap() {
+824326	    for (const [id, object] of [...ownedLayers].reverse()) { if (map.getLayer(id) === object) map.removeLayer(id); ownedLayers.delete(id); }
+824327	    for (const [id, object] of ownedSources) { if (map.getSource(id) === object) map.removeSource(id); } ownedSources.clear();
+824328	  function installMap() {
+824329	    if (!alive || !opened || !plan) return false;
+824330	    // isStyleLoaded also waits on map resources; a loaded stylesheet can accept sources earlier.
+824331	    if (typeof map.getStyle === 'function' && !map.getStyle()) return true;
+824332	      for (const id of [source, cursor]) if (map.getSource(id) && ownedSources.get(id) !== map.getSource(id)) throw new Error('Journey source collision; existing map source preserved');
+824333	      for (const id of layerIds) if (map.getLayer(id) && ownedLayers.get(id) !== map.getLayer(id)) throw new Error('Journey layer collision; existing map layer preserved');
+824334	      for (const [id, data] of [[source, routeData], [cursor, cursorData]]) { if (!map.getSource(id)) { map.addSource(id, {type: 'geojson', data}); ownedSources.set(id, map.getSource(id)); } else map.getSource(id).setData(data); }
+824335	      const layers = [
+824336	        {id: layerIds[0], type: 'line', source, filter: ['==', ['get', 'schematic'], false], paint: {'line-color': '#00ffff', 'line-width': 3}},
+824337	        {id: layerIds[1], type: 'line', source, filter: ['==', ['get', 'schematic'], true], paint: {'line-color': '#ffd84d', 'line-width': 3, 'line-dasharray': [1, 3]}},
+824338	        {id: layerIds[2], type: 'circle', source: cursor, paint: {'circle-color': '#fff', 'circle-radius': 5, 'circle-stroke-color': '#00ffff', 'circle-stroke-width': 3}}
+824340	      for (const l of layers) if (!map.getLayer(l.id)) { map.addLayer(l); ownedLayers.set(l.id, map.getLayer(l.id)); }
+824341	    } catch (e) { pauseMotion(); report('WITHHELD: ' + e.message); removeMap(); plan = null; controlsState(); return false; }
+824342	  function writeCursor(coordinates) {
+824343	    cursorData = {type: 'FeatureCollection', features: coordinates ? [{type: 'Feature', properties: {meaning: 'learning cursor only'}, geometry: {type: 'Point', coordinates}}] : []};
+824344	    if (ownedSources.has(cursor) && ownedSources.get(cursor) === map.getSource(cursor)) map.getSource(cursor).setData(cursorData);
+824345	  function lineFor(s) { const e = plan.edgeCatalog.find(e => e.edgeUid === s.edgeUid); if (!e?.coordinates) return null; const coords = e.coordinates.map(p => [...p]); if (s.direction === 'reverse') coords.reverse(); return {e, coords}; }
+824346	  function frameRoute() {
+824347	    if (!alive || !opened || !plan) return;
+824348	    const pts = plan.edgeCatalog.flatMap(e => e.coordinates || []);
+824349	    const r = map.getContainer?.().getBoundingClientRect?.(), q = panel.getBoundingClientRect?.();
+824350	    let padding = 65;
+824351	    if (r && q) { const top = Math.max(45, q.bottom - r.top + 12); padding = q.width > r.width * .6 && r.height - top > 130 ? {left: 35, right: 35, top, bottom: 50} : {left: 45, right: Math.min(r.width * .6, q.width + 25), top: 55, bottom: 55}; }
+824352	    if (pts.length && map.fitBounds) { map.setPadding?.({top: 0, right: 0, bottom: 0, left: 0}); map.fitBounds([[Math.min(...pts.map(p => p[0])), Math.min(...pts.map(p => p[1]))], [Math.max(...pts.map(p => p[0])), Math.max(...pts.map(p => p[1]))]], {padding, maxZoom: 9, duration: 0}); }
+824353	  function showStep(index) {
+824354	    const s = plan.steps[index], line = lineFor(s);
+824355	    writeCursor(line?.coords.at(-1) || null);
+824356	    report(`SYNTHETIC ONLY · ${index + 1}/${plan.steps.length} · ${s.traversal} ${s.nearNode} → ${s.farNode} · ${s.geometryStatus === 'published_node_unlocated' ? 'UNLOCATED: text only' : line?.e.schematic ? 'DOTTED SCHEMATIC: not a cable route' : 'synthetic reviewed polyline'} · journey heading, flow direction unavailable`);
+824357	    step = index + 1; controlsState();
+824358	  function advance() { pauseMotion(); if (plan && step < plan.steps.length) showStep(step); }
+824359	  function resetPlan() { pauseMotion(); step = 0; writeCursor(null); if (plan) report(`SYNTHETIC ONLY · ready · ${plan.visitedUniqueEdges} source-row edges; ${plan.steps.length} moves including explicit backtracking; physical units unknown`); controlsState(); }
+824360	  function animate() {
+824361	    if (!alive || !opened || !plan || step >= plan.steps.length) { pauseMotion(); controlsState(); return; }
+824362	    if (isReduced()) { pauseMotion(); controlsState(); return; }
+824363	    const index = step, s = plan.steps[index], line = lineFor(s); let began;
+824364	    function frame(now) {
+824365	      if (!alive || !opened || !playing) return;
+824366	      if (isReduced()) { pauseMotion(); controlsState(); return; }
+824367	      began ??= now; const t = Math.min(1, (now - began) / 1000);
+824368	      // Only a reviewed polyline gets a travelling light. Schematic/unlocated moves are discrete.
+824369	      if (line && !line.e.schematic) {
+824370	        const p = t * (line.coords.length - 1), i = Math.min(line.coords.length - 2, Math.floor(p)), f = p - i;
+824371	        writeCursor(line.coords[i].map((v, k) => v + (line.coords[i + 1][k] - v) * f));
+824372	      if (t < 1) raf = W.requestAnimationFrame(frame);
+824373	      else { showStep(index); if (playing) animate(); }
+824374	    raf = W.requestAnimationFrame(frame);
+824375	  async function choose() {
+824376	    const ticket = ++epoch; pauseMotion(); plan = null; routeData = empty(); cursorData = empty(); removeMap(); controlsState();
+824377	    if (!select.value || !demo) { report('Choose an explicit reviewed synthetic node. No nearest-node or project connection is inferred.'); return; }
+824378	    report('Checking exact source bytes and review ledger…');
+824379	      const candidate = await planner({sourceBytes: fixture.networkText, ledger: fixture.ledger, query: {seed: {chosenNode: select.value}, bounds: {maxNodes: 25, maxEdges: 30, maxMoves: 60, maxGeometryBytes: 16000}}});
+824380	      if (!alive || ticket !== epoch || !opened) return;
+824381	      if (candidate.status === 'refused' || !candidate.steps.length) { report('WITHHELD: ' + (candidate.refusal || 'no eligible reviewed edges')); return; }
+824382	      // The engine classifies evidence. Presentation refuses unsupported output as well.
+824383	      if (candidate.edgeCatalog.some(e => !['verified_circuit_and_polyline', 'published_topology_only', 'published_node_unlocated'].includes(e.geometryStatus))) throw new Error('Unsupported geometry evidence');
+824384	      plan = candidate;
+824385	      routeData = {type: 'FeatureCollection', features: plan.edgeCatalog.filter(e => e.coordinates).map(e => ({type: 'Feature', properties: {edgeUid: e.edgeUid, schematic: e.schematic, meaning: e.label}, geometry: {type: 'LineString', coordinates: e.coordinates}}))};
+824386	      receipt.textContent = `SYNTHETIC TEST ONLY; no real assets or third-party approval\nsource SHA256 ${plan.sourceBundleSha}\nreview SHA256 ${plan.reviewLedgerSha}\nplan SHA256 ${plan.planSha256}\n${plan.edgeCatalog.filter(e => e.geometryStatus === 'verified_circuit_and_polyline').length} synthetic polylines; ${plan.edgeCatalog.filter(e => e.schematic).length} schematic; ${plan.edgeCatalog.filter(e => !e.coordinates).length} text-only\nEligible source rows ${plan.visitedUniqueEdges}/${plan.eligibleReachableEdges} in chosen component; excludes disconnected/withheld rows. Physical units and MW unknown.\nBounds: 25 nodes / 30 edges / 60 moves / 16000 geometry bytes.\nSource and receipts: https://fixture.invalid/ — synthetic, not an official source.`;
+824387	      if (!installMap()) return;
+824388	      resetPlan();
+824389	      frameRoute();
+824390	    } catch (e) { if (alive && ticket === epoch) report('WITHHELD: ' + e.message); }
+824391	  function installLayerControls() {
+824392	    const hosts = ['scada-ui-container', 'fs-curtain-keys'].map(id => [id, D.getElementById(id)]);
+824393	    hosts.push(['native-grid-menu', D.querySelector?.('#gridatlas-menu-bar-panel-4 .gm-panel-body')]);
+824394	    for (const [id, host] of hosts) {
+824395	      if (!host || layerGroups.some(g => g.parentNode === host || g.parent === host)) continue;
+824396	      // Other native modules use .key-group as the engine-dashboard ready marker.
+824397	      // Never create that marker before the engine's original controls exist.
+824398	      if (id !== 'native-grid-menu' && !host.querySelector?.('input[data-layer-id]')) continue;
+824399	      const group = el('div', null, host, {class: 'key-group', 'data-journey-group': id});
+824400	      const title = el('div', 'Grid Journeys', group, {class: 'key-title'});
+824401	      const button = el('button', 'Open Grid Journey', group, {type: 'button', class: 'map-ctrl-btn', 'aria-controls': NS + '-panel', 'aria-expanded': String(opened)});
+824402	      button.style.cssText = 'min-height:44px;min-width:44px;';
+824403	      el('p', 'Exploratory only; real routes require reviewed circuit evidence.', group);
+824404	      listen(button, 'click', e => { e.stopPropagation?.(); returnFocus = button; W.__GRIDATLAS_MODULES__?.menuBar?.closeAll?.(); const curtain = D.getElementById('fs-curtain'); if (id === 'fs-curtain-keys' && curtain?.classList?.contains('curtain-open')) D.getElementById('fs-curtain-tab')?.click(); open(); });
+824405	      layerGroups.push(group); layerLaunchers.push(button);
+824406	  function setOrigin(origin) {
+824407	    originContext = null;
+824408	    if (origin && typeof origin === 'object') {
+824409	      const name = typeof origin.name === 'string' ? origin.name.slice(0, 160) : '';
+824410	      const id = typeof origin.id === 'string' || typeof origin.id === 'number' ? String(origin.id).slice(0, 80) : '';
+824411	      if (name || id) { originContext = {name, id}; if (Array.isArray(origin.at) && origin.at.length === 2 && origin.at.every(Number.isFinite) && Math.abs(origin.at[0]) <= 180 && Math.abs(origin.at[1]) <= 90 && (origin.at[0] !== 0 || origin.at[1] !== 0)) originContext.at = [...origin.at]; if (['repd', 'datacentre', 'substation'].includes(origin.type)) originContext.type = origin.type; }
+824412	    context.textContent = originContext ? 'Selected asset: ' + [originContext.name, originContext.id].filter(Boolean).join(' ? ') + '. Nearby assets are map context; connections need source evidence.' : 'Select an asset on the map to explore its surroundings.';
+824413	    realSelection(false);
+824414	  function shut() { ++epoch; pauseMotion(); opened = false; panel.hidden = true; opener.setAttribute('aria-expanded', 'false'); removeMap(); if (initialPadding) map.setPadding(initialPadding); for (const b of layerLaunchers) b.setAttribute('aria-expanded', 'false'); const target = returnFocus?.isConnected === false || (returnFocus?.getClientRects && !returnFocus.getClientRects().length) ? D.getElementById('gridatlas-menu-bar-title-4') || opener : returnFocus || opener; target.focus(); }
+824415	  function open(options) { if (!alive) return; if (options?.origin) setOrigin(options.origin); opened = true; panel.hidden = false; opener.setAttribute('aria-expanded', 'true'); for (const b of layerLaunchers) b.setAttribute('aria-expanded', 'true'); installMap(); frameRoute(); close.focus(); }
+824416	  function realSelection(clearContext = true) { if (clearContext) { originContext = null; context.textContent = 'Selected asset has no reviewed circuit identity. Real circuit journeys remain withheld.'; } ++epoch; pauseMotion(); plan = null; demo = false; select.value = ''; select.disabled = true; removeMap(); controlsState(); report('Explore this asset and the surrounding grid. Nearby assets do not establish a connection.'); }
+824417	  listen(opener, 'click', () => {returnFocus = opener; opened ? shut() : open();}); listen(close, 'click', shut);
+824418	  listen(panel, 'keydown', e => { if (e.key === 'Escape') { e.preventDefault(); shut(); } });
+824419	  listen(demoButton, 'click', () => { ++epoch; pauseMotion(); plan = null; removeMap(); demo = true; select.disabled = false; select.replaceChildren(); el('option', 'Choose a reviewed synthetic node…', select, {value: ''}); for (const n of fixture.ledger.nodes) el('option', 'SYNTHETIC ' + n.nodeId, select, {value: n.nodeId}); report('SYNTHETIC DEMONSTRATION LOADED. These are invented assets; choose a starting node explicitly.'); controlsState(); });
+824420	  listen(realGrid, 'click', event => {
+824421	    event.stopPropagation?.();
+824422	    const vicinity = W.__GRIDATLAS_MODULES__?.gridVicinity;
+824423	    if (!vicinity?.open) {
+824424	      const grid = D.getElementById('gridatlas-menu-bar-title-4');
+824425	      if (!grid?.click) {
+824426	        const layers = D.getElementById('scada-ui-container');
+824427	        if (!layers?.scrollIntoView) { report('Grid layers are loading. Try Explore grid again when the map controls appear.'); return; }
+824428	        if (originContext?.at) map.flyTo?.({center: [...originContext.at], duration: 0});
+824429	        shut(); layers.scrollIntoView({block: 'start', behavior: 'instant'});
+824430	        layers.querySelector?.('input[data-layer-id]')?.focus();
+824431	      if (originContext?.at) map.flyTo?.({center: [...originContext.at], duration: 0});
+824433	      if (grid.getAttribute?.('aria-expanded') !== 'true') grid.click();
+824434	      grid.focus();
+824435	    pauseMotion(); vicinity.open({origin: originContext?.at ? {...originContext, at: [...originContext.at]} : undefined, radiusKm: 10}); shut();
+824436	  listen(select, 'change', choose); listen(next, 'click', advance); listen(reset, 'click', resetPlan);
+824437	  listen(start, 'click', () => { if (!plan) return; if (isReduced()) { advance(); return; } playing = true; controlsState(); animate(); });
+824438	  listen(pause, 'click', () => { pauseMotion(); controlsState(); });
+824439	  listen(W, 'gridatlas:card-open', e => { if (e.detail?.origin) setOrigin(e.detail.origin); else realSelection(); });
+824440	  listen(W, 'gridatlas:journey-open', e => open(e.detail));
+824441	  installLayerControls();
+824442	  if (W.MutationObserver && D.documentElement) { layerObserver = new W.MutationObserver(installLayerControls); layerObserver.observe(D.documentElement, {childList: true, subtree: true}); }
+824443	  const styleLoad = () => { pauseMotion(); installMap(); controlsState(); }; map.on('style.load', styleLoad);
+824444	  map.on('resize', frameRoute);
+824445	  const preferenceChange = () => { if (isReduced()) pauseMotion(); controlsState(); };
+824446	  if (media?.addEventListener) { media.addEventListener('change', preferenceChange); on.push(() => media.removeEventListener('change', preferenceChange)); }
+824447	  function mapRemoved() { destroy(true); }
+824448	  function destroy(mapWasRemoved = false) {
+824449	    if (!alive) return; alive = false; ++epoch; pauseMotion();
+824450	      map.off('style.load', styleLoad); map.off('resize', frameRoute); map.off('remove', mapRemoved); for (const off of on.splice(0)) off();
+824451	      // MapLibre fires remove AFTER destroying its style. Its layers/sources have already gone.
+824452	      if (mapWasRemoved) { ownedLayers.clear(); ownedSources.clear(); } else { removeMap(); if (initialPadding) map.setPadding(initialPadding); }
+824453	    } finally { layerObserver?.disconnect(); for (const group of layerGroups) group.remove(); root.remove(); }
+824454	  map.on('remove', mapRemoved);
+824455	  controlsState();
+824456	  return Object.freeze({open, setOrigin, close: shut, snapshot: () => ({alive, opened, playing, step, status: plan?.status || 'withheld', synthetic: demo, origin: originContext ? {...originContext} : null, layerControls: layerGroups.length, steps: plan?.steps.length || 0, edgeCount: plan?.edgeCatalog.length || 0}), destroy});
+824457	// Bounded public-map attachment. No private card closures, new map or network fetch.
+824458	const registry = window.__GRIDATLAS_MODULES__ = window.__GRIDATLAS_MODULES__ || {};
+824459	if (!registry.gridJourneyPreview) {
+824460	  let controller = null, timer = null, attempts = 0, stopped = false;
+824461	  function mount(map = window.__GRIDATLAS_V9_MAP__) {
+824462	    stopped = false;
+824463	    if (controller?.snapshot().alive) return controller;
+824464	    controller = null;
+824465	    controller = createJourneyController({map, document, window, planner: JourneyEngine.planJourney, fixture: JourneyFixture, css: JourneyCSS, generation: JourneyGeneration});
+824468	    if (stopped) return;
+824469	    if (window.__GRIDATLAS_V9_MAP__) { try { mount(); } catch (e) { console.warn('[Grid Journey preview]', e.message); } return; }
+824470	    if (++attempts < 120) timer = setTimeout(attach, 250);
+824471	    else console.warn('[Grid Journey preview] native map unavailable; no replacement map created');
+824472	  registry.gridJourneyPreview = Object.freeze({schema: 'gridatlas.journey.preview.v1', generation: JourneyGeneration, mount, open(options) { return mount().open(options); }, setOrigin(origin) { return mount().setOrigin(origin); }, snapshot: () => controller?.snapshot() || {status: 'map-unavailable'}, destroy() { stopped = true; clearTimeout(timer); controller?.destroy(); controller = null; }});
+824474	/* GridAtlas vicinity 202611180026: source-built spatial context, no inferred circuits. */
+824475	const VICINITY_GENERATION="202611180026";
+824476	const VICINITY_CSS="#gridatlas-vicinity{position:absolute;inset:0;pointer-events:none;z-index:32;font:12px/1.4 monospace;color:#bfe9ee}#gridatlas-vicinity *{box-sizing:border-box}#gridatlas-vicinity button,#gridatlas-vicinity input{font:inherit;pointer-events:auto}#gridatlas-vicinity button{min-height:44px;padding:7px 10px;color:#0ff;background:#061216;border:1px solid #367078;cursor:pointer}#gridatlas-vicinity :focus-visible{outline:3px solid #ffd84d;outline-offset:2px}#gridatlas-vicinity [hidden]{display:none!important}#gridatlas-vicinity .vic-launch{position:absolute;left:8px;top:170px;max-width:180px}#gridatlas-vicinity .vic-panel{position:absolute;pointer-events:auto;right:8px;top:58px;width:min(400px,calc(100% - 16px));max-height:calc(100% - var(--gridatlas-sheet-h,0px) - 130px);overflow:auto;overscroll-behavior:contain;background:#020809;border:1px solid #0ff;padding:10px}#gridatlas-vicinity .vic-head{display:flex;gap:8px;align-items:center;justify-content:space-between;position:sticky;top:-10px;background:#020809;padding:6px 0;z-index:1}#gridatlas-vicinity h2{font:700 14px/1.3 monospace;margin:0;color:#0ff}#gridatlas-vicinity p{margin:8px 0}#gridatlas-vicinity .vic-caption{color:#ffd84d}#gridatlas-vicinity fieldset{margin:8px 0;border:1px solid #315057;padding:6px}#gridatlas-vicinity .vic-bands{display:flex;flex-wrap:wrap;gap:2px 8px}#gridatlas-vicinity .vic-bands label{display:flex;gap:6px;align-items:center;min-height:44px}#gridatlas-vicinity input[type=checkbox]{width:20px;height:20px;accent-color:#0ff}#gridatlas-vicinity input[type=range]{display:block;width:100%;height:44px;accent-color:#0ff}#gridatlas-vicinity .vic-actions{display:flex;flex-wrap:wrap;gap:5px}#gridatlas-vicinity ol{margin:8px 0;padding-left:22px}#gridatlas-vicinity li{padding:7px 0;border-bottom:1px solid #18333a;overflow-wrap:anywhere}#gridatlas-vicinity li button{display:block;margin-top:4px}#gridatlas-vicinity .vic-error{color:#ff8585}#gridatlas-vicinity .vic-row-meta{display:block;color:#9ab8be}@media(max-height:440px){#gridatlas-vicinity .vic-panel{top:8px;max-height:calc(100% - 16px)}#gridatlas-vicinity .vic-launch{top:100px}}@media(prefers-reduced-motion:reduce){#gridatlas-vicinity *{animation:none!important;transition:none!important}}\n#gridatlas-gj03 select{appearance:none;-webkit-appearance:none;color-scheme:dark;background:#071013!important;color:#bfe9ee!important;border-radius:0}#gridatlas-gj03 select option{background:#071013;color:#bfe9ee}@media(max-height:480px){#gridatlas-vicinity .vic-panel{top:52px;max-height:calc(100% - var(--gridatlas-sheet-h,0px) - 124px)}body #gridatlas-gj03 .gj-panel{max-height:calc(100% - var(--gridatlas-sheet-h,0px) - 124px)}}\n#gridatlas-vicinity summary{min-height:44px;padding:8px 0;cursor:pointer}\n#gridatlas-vicinity .train-panel input[type=text],#gridatlas-vicinity .train-panel input[type=search],#gridatlas-vicinity .train-panel select{display:block;width:100%;min-height:44px;margin:5px 0;padding:8px;background:#071013;color:#bfe9ee;border:1px solid #367078;font:inherit;color-scheme:dark;appearance:none;-webkit-appearance:none}#gridatlas-vicinity .train-panel select option{background:#071013;color:#bfe9ee}#gridatlas-vicinity .train-check{display:flex;align-items:center;gap:8px;min-height:44px}#gridatlas-vicinity .train-check input{flex:none}#gridatlas-vicinity .train-search-results{max-height:260px;overflow:auto}#gridatlas-vicinity .train-panel button[aria-pressed=true]{border-color:#0ff;background:#103039}#gridatlas-vicinity .train-panel button:disabled{opacity:.5;cursor:default}#gridatlas-vicinity .train-panel li{padding:8px 0}#gridatlas-vicinity .train-place-binding{color:#bfe9ee;overflow-wrap:anywhere}#gridatlas-vicinity .train-progress{color:#0ff}#gridatlas-vicinity .train-panel .vic-actions button{flex:1 1 100px}\n#gridatlas-vicinity .vic-train-compact{position:absolute;pointer-events:auto;left:8px;top:52px;width:min(380px,calc(100% - 16px));padding:5px;background:#020809;border:1px solid #367078}#gridatlas-vicinity .vic-train-compact button{flex:1;min-width:55px;padding:5px}#gridatlas-vicinity .vic-train-compact p{margin:3px 0;font-size:10px}#gridatlas-vicinity .vic-train-map-legend{position:absolute;pointer-events:none;left:8px;bottom:calc(var(--gridatlas-sheet-h,0px) + 76px);max-width:min(270px,calc(100% - 100px));margin:0;padding:4px;background:#020809;border:1px solid #367078;font-size:10px;color:#bfe9ee}\n#gridatlas-vicinity .vic-panel{display:flex;flex-direction:column;overflow:hidden}#gridatlas-vicinity .vic-head{position:static;top:auto;flex:none}#gridatlas-vicinity .vic-panel-body{min-height:0;overflow:auto;overscroll-behavior:contain;scroll-padding:8px}\n/* The open native Grid menu supplies the layer controls. Its floating shortcut must not cover menu rows. */\nhtml:has(#gridatlas-menu-bar-title-4[aria-expanded=\"true\"]):has(#gridatlas-menu-bar-panel-4:not([hidden])) #gridatlas-dash-toggle{visibility:hidden!important;pointer-events:none!important}\n";
+824477	/** Spatial exploration only. Canonical Atlas geodesy is injected, never forked. */
+824478	const VOLTAGE_BANDS = Object.freeze([
+824479	  ['400', '400 kV', '#ff5555'], ['275', '275 kV', '#ff8a3d'],
+824480	  ['132', '132 kV', '#ffd84d'], ['66', '66 kV', '#8be28b'],
+824481	  ['33', '33 kV', '#48d8df'], ['11', '11 kV', '#b8b8ed'],
+824482	  ['other', 'Other stated voltage', '#e6e6e6'], ['unknown', 'Voltage not stated', '#8b9ca0']
+824484	function validCoordinate(at) {
+824485	  return Array.isArray(at) && at.length >= 2 && at.slice(0, 2).every(v => typeof v === 'number' && Number.isFinite(v))
+824486	    && Math.abs(at[0]) <= 180 && Math.abs(at[1]) <= 90
+824487	    && !(Math.abs(at[0]) < 1e-9 && Math.abs(at[1]) < 1e-9);
+824488	function radiusKm(value) {
+824489	  if (typeof value !== 'number' && typeof value !== 'string') throw new Error('Choose a whole-kilometre radius from 1 to 50 km.');
+824490	  if (typeof value === 'string' && !value.trim()) throw new Error('Choose a radius from 1 to 50 km.');
+824492	  if (!Number.isInteger(n) || n < 1 || n > 50) throw new Error('Choose a whole-kilometre radius from 1 to 50 km.');
+824494	function normaliseOrigin(origin, {requireIdentity = false} = {}) {
+824495	  if (!validCoordinate(origin?.at)) throw new Error('A valid located origin is required; no coordinates were inferred.');
+824496	  const type = String(origin.type || 'map-centre');
+824497	  const id = origin.id == null ? null : String(origin.id).trim();
+824498	  if (requireIdentity && (!['repd', 'datacentre', 'substation'].includes(type) || !id || id.length > 256 || /[\u0000-\u001f\u007f]/.test(id))) {
+824499	    throw new Error('Journey origin type and stable source ID are required.');
+824500	  return {at: [origin.at[0], origin.at[1]], type, id, name: String(origin.name || (id ? `${type} ${id}` : 'Map centre')).slice(0, 240)};
+824501	function parseVicinityIntent(search) {
+824503	  if (q.get('journey') !== 'vicinity') return null;
+824504	  if (q.getAll('journey').length !== 1 || q.getAll('radius_km').length > 1) throw new Error('Journey link has duplicate intent or radius fields.');
+824505	  const fields = ['origin_type', 'origin_id', 'latitude', 'longitude'];
+824506	  const hasOrigin = fields.some(k => q.has(k));
+824507	  let origin = null;
+824508	  if (hasOrigin) {
+824509	    if (fields.some(k => q.getAll(k).length !== 1) || !q.has('radius_km')) throw new Error('Journey link has missing or duplicate origin fields.');
+824510	    const latitude = q.get('latitude'), longitude = q.get('longitude');
+824511	    const numberText = value => typeof value === 'string' && /^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value.trim());
+824512	    if (!numberText(latitude) || !numberText(longitude)) throw new Error('Journey link has invalid coordinates.');
+824513	    origin = normaliseOrigin({at: [Number(longitude), Number(latitude)], type: q.get('origin_type'), id: q.get('origin_id'), name: q.get('name')}, {requireIdentity: true});
+824514	  const intent = origin ? {origin, radiusKm: radiusKm(q.get('radius_km'))} : {manual: true, radiusKm: q.has('radius_km') ? radiusKm(q.get('radius_km')) : 10};
+824515	  if (q.has('news_context_url')) {
+824516	      if (q.getAll('news_context_url').length !== 1 || q.getAll('news_topic').length > 1) throw new Error('News context has duplicate fields.');
+824517	      intent.newsContextUrl = validateNewsContextBase(q.get('news_context_url'));
+824518	      intent.newsTopic = normaliseNewsTopic(q.get('news_topic'), origin);
+824519	      delete intent.newsContextUrl; delete intent.newsTopic;
+824520	      intent.newsContextError = 'News context link was not applied: ' + error.message;
+824521	  return intent;
+824522	function validateNewsContextBase(value) {
+824523	  if (typeof value !== 'string' || value.length > 200 || !/^https:\/\/globalgrid2050\.com\//.test(value)) throw new Error('News context must use a dated GlobalGrid2050 edition.');
+824525	  if (url.origin !== 'https://globalgrid2050.com' || url.username || url.password || url.port || url.search || url.hash
+824526	    || !/^\/uk_renewables_pipeline\/\d{12}\/(?:index\.html)?$/.test(url.pathname)) throw new Error('News context must use a dated GlobalGrid2050 edition without extra URL fields.');
+824527	function normaliseNewsTopic(value, origin) {
+824528	  const allowed = ['datacentre','grid','renewables','storage','solar','wind'];
+824529	  if (value != null && value !== '') {
+824530	    if (!allowed.includes(value)) throw new Error('News topic is not supported.');
+824531	  return origin?.type === 'datacentre' ? 'datacentre' : origin?.type === 'substation' ? 'grid' : 'renewables';
+824532	function newsContextHref(base, origin, topic) {
+824533	  const url = new URL(validateNewsContextBase(base));
+824534	  if (['repd','datacentre','substation'].includes(origin?.type) && origin?.id) {
+824535	    url.searchParams.set('news_origin_type', origin.type);
+824536	    url.searchParams.set('news_origin_id', String(origin.id).slice(0,256));
+824537	  url.searchParams.set('news_topic', normaliseNewsTopic(topic, origin));
+824538	  url.hash = 'headlinesHeading';
+824539	function voltageBands(kv) {
+824540	  if (!kv.length) return ['unknown'];
+824541	  return [...new Set(kv.map(v => VOLTAGE_BANDS.some(b => b[0] === String(v)) ? String(v) : 'other'))];
+824542	function stationRecords(features, geodesy) {
+824543	  const seen = new Set(), records = [];
+824544	  for (const feature of features || []) {
+824545	    const p = feature?.properties || {}, at = geodesy.representativePoint(feature?.geometry);
+824546	    if (!validCoordinate(at)) continue;
+824547	    const kv = Array.from(geodesy.voltagesKv(p)).filter(v => Number.isFinite(v) && v > 0);
+824548	    // This key deduplicates display rows only. It is never exported as source identity.
+824549	    const id = feature.id ?? p.id ?? null;
+824550	    const key = `${at[0]}|${at[1]}|${p.name || ''}`;
+824553	    records.push({id: id == null ? null : String(id), at: [at[0], at[1]], name: String(p.name || 'Unnamed mapped substation'),
+824554	      operator: String(p.operator || ''), kv, bands: voltageBands(kv), source: String(p.source || 'Existing Atlas substation layer')});
+824555	  return records;
+824556	function exploreVicinity({origin, radius, records, bands, geodesy, limit = 200}) {
+824557	  const o = normaliseOrigin(origin), r = radiusKm(radius), selected = new Set(bands);
+824558	  const ordered = [];
+824559	  for (const row of records) {
+824560	    if (!row.bands.some(b => selected.has(b))) continue;
+824561	    const km = geodesy.distanceKm(o.at[0], o.at[1], row.at[0], row.at[1]);
+824562	    if (!Number.isFinite(km) || km < 0 || km > r) continue;
+824563	    ordered.push({...row, km});
+824564	  ordered.sort((a, b) => a.km - b.km || a.name.localeCompare(b.name, 'en') || String(a.id).localeCompare(String(b.id), 'en'));
+824565	  return {origin: o, radiusKm: r, matching: ordered.length, loadedRecords: records.length,
+824566	    shown: ordered.slice(0, limit), truncated: ordered.length > limit,
+824567	    statement: 'Spatial vicinity, connectivity unknown. Distances are straight-line; mapped voltage is a source tag, not capacity or an electrical path.'};
+824568	/** A radius boundary is spatial geometry, never a circuit or route. */
+824569	function vicinityGeoJSON(result, geodesy) {
+824570	  const [lon, lat] = result.origin.at;
+824572	  for (let i = 0; i <= 96; i++) {
+824573	    ring.push(geodesy.destinationPoint(lon, lat, result.radiusKm, i * 360 / 96));
+824574	  return {type: 'FeatureCollection', features: [
+824575	    {type: 'Feature', properties: {kind: 'radius', meaning: 'Spatial boundary; not a circuit'}, geometry: {type: 'LineString', coordinates: ring}},
+824576	    {type: 'Feature', properties: {kind: 'origin', name: result.origin.name}, geometry: {type: 'Point', coordinates: result.origin.at}},
+824577	    ...result.shown.map(row => ({type: 'Feature', properties: {kind: 'substation', name: row.name, km: row.km,
+824578	      voltage: row.kv.length ? row.kv.join(' / ') + ' kV' : 'Not stated', colour: VOLTAGE_BANDS.find(b => b[0] === row.bands[0])?.[2] || '#e6e6e6'},
+824579	      geometry: {type: 'Point', coordinates: row.at}}))
+824580	  ]};
+824581	const collectAssetContext = (() => {
+824582	/** Read-only context from existing Atlas source owners. No fetching or electrical inference. */
+824583	const ASSET_CONTEXT_CATEGORIES = Object.freeze([
+824584	 ['generation','REPD generation context'],['storage','REPD storage context'],['datacentre','Data-centre listings'],
+824585	 ['conventional','Listed conventional power context'],['demand-context','Other potential demand context']
+824586	const assetCoordinate = at => Array.isArray(at)&&at.length>=2&&at.slice(0,2).every(v=>typeof v==='number'&&Number.isFinite(v))&&Math.abs(at[0])<=180&&Math.abs(at[1])<=90&&(at[0]!==0||at[1]!==0);
+824587	const statedMw = value => {const v=value&&typeof value==='object'?value.value:value;if(typeof v!=='number'&&typeof v!=='string')return null;if(typeof v==='string'&&!/^\d+(?:\.\d+)?$/.test(v.trim()))return null;const n=Number(v);return Number.isFinite(n)&&n>0?n:null;};
+824588	const assetId = value => (typeof value==='string'||typeof value==='number')&&String(value).trim()&&String(value).length<=256?String(value).trim():null;
+824589	function assetPrecision(p){for(const [field,value]of[['location.precision',p.location?.precision],['coordinate_precision',p.coordinate_precision],['location_precision',p.location_precision]])if(typeof value==='string'&&value.trim())return{precision:value,precisionField:field,approximateLocation:/approx|centroid|postcode|settlement|area/i.test(value)};return{precision:null,precisionField:null,approximateLocation:false};}
+824590	function collectAssetContext({map,registry={},origin,radiusKm,geodesy,limit=200}={}){
+824591	 const at=origin?.at;
+824592	 if(!assetCoordinate(at)||!Number.isInteger(radiusKm)||radiusKm<1||radiusKm>50)throw Error('Located origin and integer radius 1-50 km are required.');
+824593	 if(!geodesy?.distanceKm||!geodesy?.representativePoint)throw Error('Canonical Atlas geodesy is required.');
+824594	 if(!Number.isInteger(limit)||limit<1||limit>200)throw Error('Asset result limit must be 1-200.');
+824595	 const categories=ASSET_CONTEXT_CATEGORIES.map(([id,label])=>({id,label,availability:'NOT_LOADED',source:null,count:0,loadedRecords:0,truncated:false,rows:[]}));
+824596	 const get=id=>categories.find(c=>c.id===id),seen=new Map(categories.map(c=>[c.id,new Set()]));
+824597	 function add(category,row){
+824598	  const c=get(category);c.loadedRecords++;
+824599	  if(!assetCoordinate(row.at))return;
+824600	  // Source IDs deduplicate records; coincident coordinates alone never merge facilities.
+824601	  const key=row.id===null?null:row.source+'|'+row.id;
+824602	  if(key!==null){if(seen.get(category).has(key))return;seen.get(category).add(key);}
+824603	  const km=geodesy.distanceKm(at[0],at[1],row.at[0],row.at[1]);
+824604	  if(!Number.isFinite(km)||km<0||km>radiusKm)return;
+824605	  c.rows.push({...row,at:row.at.slice(0,2),km,demandMw:null,facilityVerified:null,connection:null});
+824606	 let features=null;
+824607	 try{const data=map?.getSource?.('src-repd')?.serialize?.().data;if(data?.type==='FeatureCollection'&&Array.isArray(data.features)&&data.features.length)features=data.features;}catch{/* Explicit NOT_LOADED below; no replacement fetch. */}
+824608	 if(features){
+824609	  for(const id of ['generation','storage'])Object.assign(get(id),{availability:'LOADED',source:'Existing loaded src-repd GeoJSON'});
+824610	  features.forEach((f,i)=>{
+824611	   const p=f?.properties||{},point=geodesy.representativePoint(f?.geometry),tech=String(p.tech||p.technology||p.technology_type||'Not stated');
+824612	   const category=/^(?:bess(?:[_ -].*)?|battery(?:[_ -].*)?|storage|flywheel|caes)$/i.test(tech)?'storage':'generation';
+824613	   const ref=assetId(p.repd_ref??p.ref_id),id=ref??assetId(p.id??f?.id);
+824614	   add(category,{id,originId:ref&&/^\d+$/.test(ref)?'repd:'+ref:null,name:String(p.name||'Unnamed REPD record'),at:point,kind:category,status:String(p.status||'Not stated'),technology:tech,
+824615	    capacityMw:statedMw(p.capacity_mw??p.capacity),capacityBasis:typeof p.capacity_basis==='string'?p.capacity_basis:'REGISTER_STATED_POWER_BASIS_NOT_DECLARED',
+824616	    metrics:{itLoadMw:null,gridConnectionMw:null,unclassifiedMw:null},...assetPrecision(p),source:'src-repd',sourceRow:i});
+824617	 const owner=registry.ukOfftakers?.state, data=owner?.data, dots=Array.isArray(data?.dots)?data.dots:null;
+824618	 if(dots){
+824619	  for(const id of ['datacentre','conventional','demand-context'])Object.assign(get(id),{availability:'LOADED',source:id==='conventional'?'Loaded potential-offtaker power-station listing; not the full conventional dataset':'Existing loaded off-taker owner records'});
+824620	  dots.forEach((r,i)=>{
+824621	   const p=r?.p||{},category=r?.k==='c'?'datacentre':r?.k==='b'?'conventional':['a','d','s','e'].includes(r?.k)?'demand-context':null;if(!category)return;
+824622	   const id=assetId(p.id??r.id),size=p.size_metric;
+824623	   const capacity=category==='conventional'?(typeof size?.unit==='string'&&/^MW(?:\b|_)/.test(size.unit)?statedMw(size.value):statedMw(p.mw)):null;
+824624	   add(category,{id,originId:id,name:String(r.n||p.name||'Unnamed listed site'),at:r.a,kind:category,status:String(p.status||'Not stated'),technology:String(p.technology||p.fuel||r.sub||'Not stated'),
+824625	    capacityMw:capacity,capacityBasis:capacity===null?null:'SOURCE_STATED_POWER_NOT_CURRENT_OUTPUT',metrics:category==='datacentre'?{itLoadMw:statedMw(p.it_load_mw),gridConnectionMw:statedMw(p.grid_connection_mw),unclassifiedMw:statedMw(p.unclassified_mw)}:{itLoadMw:null,gridConnectionMw:null,unclassifiedMw:null},
+824626	    ...assetPrecision(p),source:category==='datacentre'&&r.dc?'ukOfftakers.data-centre-pipeline':'ukOfftakers.loaded-listing',sourceRow:i});
+824627	 for(const c of categories){c.rows.sort((a,b)=>a.km-b.km||a.name.localeCompare(b.name,'en')||String(a.id).localeCompare(String(b.id),'en'));c.count=c.rows.length;c.truncated=c.count>limit;c.rows=c.rows.slice(0,limit);}
+824628	 return{categories,radiusKm,connectionsInferred:0,limitations:['Loaded source records only; NOT_LOADED is not zero nearby assets.','Register power, IT load and connection figures remain separate; demand and present output are unknown.','A supplied location and source ID do not verify a facility or its connections; source precision is retained.']};
+824629	return collectAssetContext;
+824630	const documentContextFor = (() => {
+824631	/** Existing documentary context only. No fetch, name matching or spatial joins. */
+824632	function freezeDocumentContext(value) {
+824633	  if (value && typeof value === 'object') { for (const child of Object.values(value)) freezeDocumentContext(child); Object.freeze(value); }
+824635	const DOCUMENT_CONTEXT_PROVENANCE = freezeDocumentContext({
+824636	  declaredModule: {
+824637	    repository: 'Ventusltd/gridatlas', commit: 'b52693aaf513e63240acd8ab99a698df5b738cc6',
+824638	    path: 'atlas/modules/202609012128-declared-connections.js', bytes: 15461,
+824639	    sha256: 'a44520ebd644e725f644e7f3aea76839982c82d577022ac04583c5bc3346a371',
+824640	    sourceUrl: 'https://github.com/Ventusltd/gridatlas/blob/b52693aaf513e63240acd8ab99a698df5b738cc6/atlas/modules/202609012128-declared-connections.js'
+824641	  noticeProducer: {
+824642	    repository: 'Ventusltd/globalgrid2050', commit: '07bff3a6d1cdc4d845062cafa1cf49161b135c96',
+824643	    path: 'automation/grid_notice_ui/20261117-v938/notice.json', bytes: 5300,
+824644	    sha256: 'bef90e1a64e4f1921c62f85ee61d636d1fe02fcebd30ea1570a7b3bfd49f5148',
+824645	    factsSha256: 'f9802c96444c21e84b328d612475353861c8053cde31f55196d1ea5862918afb',
+824646	    sourceUrl: 'https://github.com/Ventusltd/globalgrid2050/blob/07bff3a6d1cdc4d845062cafa1cf49161b135c96/automation/grid_notice_ui/20261117-v938/notice.json',
+824647	    reviewReferences: ['https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6953350836', 'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6953404444']
+824648	const DOCUMENT_CONTEXT_NOTICES = freezeDocumentContext([{
+824649	  id: 'government:EN020026:consented:2026-10-30', title: 'Sea Link development consent',
+824650	  applicationRef: 'EN020026', status: 'NARROW_FACTS_REVIEWED_NO_ASSET_ASSOCIATION',
+824651	  sourceUrl: 'https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008',
+824652	  sourceTitle: 'Department for Energy Security and Net Zero: Sea Link development consent order',
+824653	  date: {value: '2026-10-30', precision: 'DAY'},
+824654	  statement: 'Government decision records development consent for the Suffolk–Kent transmission proposal. Its planned transmission upper bound is 2,000 MW; current capacity, commissioning and available headroom are unknown.',
+824655	  scope: 'Standalone official planning context. No association with the selected asset or its vicinity has been established.',
+824656	  plannedMetric: {value: 2000, unit: 'MW', kind: 'planned_transmission_upper_bound'},
+824657	  currentCapacityMw: null, commissioned: null, connection: null, repdRef: null, coordinates: null,
+824658	  verifiedAssetJoins: 0,
+824659	  rightsScope: 'government_html_facts_only_no_images_or_third_party_material',
+824660	  licenceUrl: 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/',
+824661	  sources: [
+824662	    {title: 'Planning Inspectorate: Sea Link development consent decision announced', url: 'https://www.gov.uk/government/news/sea-link-development-consent-decision-announced',
+824663	      publishedDate: {value: '2026-10-30', precision: 'DAY'}, sourceUpdatedAt: null,
+824664	      archivedReceipt: {retrievedAt: '2026-11-17T15:48:11Z', bytes: 68432, sha256: 'b9ba26b90820292e0b181da7993d2d3a2180fc2de0ac53cc6239adeb4cccfaeb'},
+824665	      currentObservation: {retrievedAt: '2026-11-18T00:35:01.291330Z', bytes: 68432, sha256: 'b404ca2c91a4b84def5c521ceccab617c4b3bda860d40d2da32fd3e9298f599a', scope: 'Decision day and stated OGL footer reconfirmed; current HTML differs from archived receipt.'}},
+824666	    {title: 'Department for Energy Security and Net Zero: Sea Link development consent order', url: 'https://www.gov.uk/government/publications/sea-link-development-consent-order-planning-act-2008',
+824667	      archivedReceipt: {retrievedAt: '2026-11-17T15:48:11Z', bytes: 69536, sha256: 'c26f93aa307740f8b4ec8ad150b152fb6d30e77f201e5bc31a6da52bba16e0d0'},
+824668	      currentObservation: {retrievedAt: '2026-11-18T00:35:01.437596Z', bytes: 69536, sha256: 'f15b12f35fa4fd1364894d550d3f053dfa680550ad7d83a56fa5b794624e4084', scope: 'Decision day and stated OGL footer reconfirmed; current HTML differs from archived receipt.'}}
+824671	function documentOrigin(origin) {
+824672	  if (!origin || !['repd', 'datacentre', 'substation'].includes(origin.type) || typeof origin.id !== 'string'
+824673	      || !origin.id || origin.id.length > 256 || /[\s\u0000-\u001f\u007f]/.test(origin.id)) return null;
+824674	  return {type: origin.type, id: origin.id};
+824675	function documentContextFor(origin, {declaredConnections} = {}) {
+824676	  const identity = documentOrigin(origin), matchedRecords = [];
+824677	  const limitations = [
+824678	    'No independently verified asset-to-upgrade or asset-to-notice crosswalk is supplied by this adapter.',
+824679	    'A published declaration or planning consent does not establish construction, energisation, a surveyed route, electrical connection, power flow or available capacity.',
+824680	    'The standalone Sea Link notice is not linked to the selected asset, nearby substations or a distance radius.'
+824681	  // Read the canonical already-published owner table; do not fork its records or
+824682	  // attach works to a nearby/name-matching substation. Its status stays verbatim.
+824683	  const ref = identity?.type === 'repd' && /^repd:[1-9]\d*$/.test(identity.id) ? identity.id.slice(5) : null;
+824684	  const canonical = declaredConnections?.schema === 'gridatlas.module.declared-connections.v1' ? declaredConnections.records : null;
+824685	  const declaration = ref && canonical && Object.hasOwn(canonical, ref) ? canonical[ref] : null;
+824686	  if (declaration && typeof declaration.source === 'string') {
+824687	    const statement = [declaration.works, declaration.poc_works, declaration.via].filter(v => typeof v === 'string' && v).join('; ');
+824688	    if (statement) matchedRecords.push({
+824689	      id: 'existing-atlas-declaration:' + ref, originId: identity.id,
+824690	      title: 'Existing published declaration for REPD ' + ref,
+824691	      sourceUrl: DOCUMENT_CONTEXT_PROVENANCE.declaredModule.sourceUrl, sourceTitle: declaration.source,
+824692	      statement, status: 'EXISTING_PUBLISHED_DECLARATION_UNREVALIDATED',
+824693	      scope: 'Existing published declaration; source citation not revalidated here. Exact REPD key only; not an independently verified asset-to-document association.',
+824694	      matchBasis: 'EXACT_REPD_KEY_IN_CANONICAL_OWNER_MODULE', verifiedAssetAssociation: false,
+824695	      date: null, datePrecision: 'UNKNOWN',
+824696	      declaredStatus: declaration.poc_status ?? null,
+824697	      // Preserve the original owner's fields and classification separately from
+824698	      // this adapter's review status. Never infer an absent status or date.
+824699	      declaration: Object.fromEntries(['works', 'poc_works', 'substation', 'circuit', 'via', 'source', 'poc_status', 'poc_status_note', 'poc_kind', 'kv']
+824700	        .filter(k => Object.hasOwn(declaration, k)).map(k => [k, declaration[k]]))
+824701	  if (!identity) limitations.unshift('No supported stable source identity was supplied; names and coordinates were not used to create a match.');
+824702	  else if (!matchedRecords.length) limitations.unshift('No exact existing documentary declaration is available for this source identity.');
+824703	  return freezeDocumentContext({
+824704	    schema: 'gridatlas.vicinity.document-context.v1', origin: identity,
+824705	    status: matchedRecords.length ? 'EXISTING_DECLARATION_ONLY' : 'NO_EXACT_ASSET_DOCUMENT_CONTEXT',
+824706	    matchedRecords, unassociatedNotices: DOCUMENT_CONTEXT_NOTICES,
+824707	    verifiedAssetJoins: 0, realConnectionsInferred: 0,
+824708	    counts: {existingDeclarations: matchedRecords.length, unassociatedNotices: 1, governmentDocuments: 2, verifiedAssetJoins: 0},
+824709	    limitations, provenance: DOCUMENT_CONTEXT_PROVENANCE
+824710	return documentContextFor;
+824711	const TRAIN_STATION_SOURCE_PIN={"path":"atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson","bytes":1192748,"sha256":"87976435766a58ddf19c99540b58cd7f18a224148af42ba55075d8851f9e6251","features":5800,"basis":"Expected immutable loader input; not a runtime payload revalidation"};
+824712	const TrainCore=(()=>{
+824713	/** Full source inventory. Display limits never change inventory or itinerary limits. */
+824714	function trainCoordinate(at) {
+824715	  return Array.isArray(at) && at.length === 2 && at.every(v => typeof v === 'number' && Number.isFinite(v)) && Math.abs(at[0]) <= 180 && Math.abs(at[1]) <= 90 && !(at[0] === 0 && at[1] === 0);
+824716	function normaliseTrainStop(stop) {
+824717	  const stationId = stop?.stationId ?? stop?.id;
+824718	  if (typeof stationId !== 'string' || !stationId.trim() || /[\u0000-\u001f\u007f]/.test(stationId) || (stop.id != null && stop.id !== stationId) || !trainCoordinate(stop.at)) throw new Error('A stable source station ID and valid source point are required.');
+824719	  const row = {stationId, id: stationId, name: String(stop.name || 'Unnamed mapped substation'), at: stop.at.slice(), kv: [...new Set((stop.kv || []).filter(v => typeof v === 'number' && Number.isFinite(v) && v > 0))], operator: String(stop.operator || ''), source: String(stop.source || 'Existing Atlas substation layer')};
+824720	  if (stop.place) {
+824721	    const p = stop.place;
+824722	    if (typeof p.label !== 'string' || !p.label.trim() || !trainCoordinate(p.at) || typeof p.provider !== 'string' || !p.provider || typeof p.distanceKm !== 'number' || !Number.isFinite(p.distanceKm) || p.distanceKm < 0) throw new Error('Place binding requires label, resolved point, provider and measured distance.');
+824723	    row.place = {label: p.label, at: p.at.slice(), provider: p.provider, precision: p.precision == null ? null : String(p.precision), distanceKm: p.distanceKm, ...(p.resolvedLabel ? {resolvedLabel: String(p.resolvedLabel)} : {})};
+824725	function buildStationIndex(features, {geodesy, datasetPin = null} = {}) {
+824726	  if (!Array.isArray(features) || typeof geodesy?.representativePoint !== 'function' || typeof geodesy?.voltagesKv !== 'function' || typeof geodesy?.distanceKm !== 'function') throw new Error('Full source features and canonical geodesy are required.');
+824727	  const sourceRecords = features.length, rows = [], ids = new Map(), conflictingIds = new Set();
+824728	  let invalidRecords = 0, duplicateRecords = 0;
+824729	  for (const feature of features) {
+824730	    const p = feature?.properties || {}, stationId = feature?.id ?? p.id, at = geodesy.representativePoint(feature?.geometry);
+824731	    if (stationId == null) { invalidRecords++; continue; }
+824732	    let row;
+824733	    try { row = normaliseTrainStop({stationId: String(stationId), at, name: p.name, kv: Array.from(geodesy.voltagesKv(p)), operator: p.operator, source: p.source}); } catch { invalidRecords++; continue; }
+824734	    if (ids.has(row.stationId)) {
+824735	      duplicateRecords++;
+824736	      if (JSON.stringify(ids.get(row.stationId)) !== JSON.stringify(row)) conflictingIds.add(row.stationId);
+824738	    ids.set(row.stationId, row); rows.push(row);
+824739	  // Conflicting identities are visible as a coverage gap, never silently selectable.
+824740	  const inventory = rows.filter(row => !conflictingIds.has(row.stationId));
+824741	  const pin = datasetPin == null ? null : JSON.parse(JSON.stringify(datasetPin));
+824742	  const copy = row => normaliseTrainStop(row), folded = s => String(s).normalize('NFKC').toLocaleLowerCase('en').trim();
+824743	  const limitValue = limit => { if (limit == null) return Infinity; if (!Number.isInteger(limit) || limit < 1) throw new Error('Result limit must be a positive integer.'); return limit; };
+824744	  function result(matches, limit, query = null) {
+824745	    const n = limitValue(limit);
+824746	    return {schema: 'gridatlas.station-search.v1', query, sourceRecords, indexedRecords: inventory.length, matched: matches.length, truncated: matches.length > n, ambiguous: matches.length > 1, rows: matches.slice(0,n).map(row => ({...copy(row), ...(row.distanceKm == null ? {} : {distanceKm: row.distanceKm})}))};
+824748	    search(query, {limit} = {}) {
+824749	      const q = folded(query ?? '');
+824750	      const matches = q ? inventory.filter(row => folded(row.stationId).includes(q) || folded(row.name).includes(q)) : [];
+824751	      matches.sort((a,b) => Number(folded(b.stationId) === q) - Number(folded(a.stationId) === q) || Number(folded(b.name) === q) - Number(folded(a.name) === q) || a.name.localeCompare(b.name,'en') || a.stationId.localeCompare(b.stationId,'en'));
+824752	      return result(matches, limit, String(query ?? ''));
+824753	    near(at, {radiusKm, limit} = {}) {
+824754	      if (!trainCoordinate(at) || !Number.isInteger(radiusKm) || radiusKm < 1 || radiusKm > 50) throw new Error('Choose a valid place point and whole radius from 1 to 50 km.');
+824755	      const matches = inventory.map(row => ({...row, distanceKm: geodesy.distanceKm(at[0],at[1],row.at[0],row.at[1])})).filter(row => Number.isFinite(row.distanceKm) && row.distanceKm >= 0 && row.distanceKm <= radiusKm).sort((a,b) => a.distanceKm-b.distanceKm || a.stationId.localeCompare(b.stationId,'en'));
+824756	      return result(matches, limit);
+824757	    get(stationId) { const row = ids.get(stationId); return row && !conflictingIds.has(stationId) ? copy(row) : null; },
+824758	    snapshot() { return {schema:'gridatlas.station-index.v1', sourceRecords, indexedRecords:inventory.length, invalidRecords, duplicateRecords, conflictingIds:[...conflictingIds], datasetPin: pin == null ? null : JSON.parse(JSON.stringify(pin)), datasetPinStatus:pin == null ? 'NOT_SUPPLIED' : 'CALLER_SUPPLIED_NOT_REVALIDATED', coordinatePrecision:'SOURCE_PROVIDED_NOT_INDEPENDENTLY_VERIFIED', connectionsInferred:0}; }
+824759	/** Session-owned drawing input. Never an official station, inventory or connection. */
+824760	function createScenarioStationStore({sessionId=globalThis.crypto?.randomUUID?.()}={}) {
+824761	 if(typeof sessionId!=='string'||!/^[A-Za-z0-9_-]{1,80}$/.test(sessionId))throw new Error('A valid unique session ID is required.');
+824762	 let revision=0,serial=0;const rows=new Map(),prefix='scenario:'+sessionId+':';
+824763	 const clone=row=>({...normaliseTrainStop(row),proposed:true,sessionId,scenarioRevision:row.scenarioRevision,evidence:'SESSION_ONLY_USER_PROPOSED_NOT_OFFICIAL'});
+824764	 function record(id,value){if(typeof value.name!=='string'||!value.name.trim()||!trainCoordinate(value.at)||!Array.isArray(value.kv)||value.kv.length!==1||![11,33].includes(value.kv[0]))throw new Error('Name, pin point and explicit11 or33kV choice are required.');return{stationId:id,id,name:value.name.trim(),at:value.at.slice(),kv:value.kv.slice(),operator:'',source:'SESSION_ONLY_USER_PROPOSED',proposed:true,sessionId,scenarioRevision:revision+1};}
+824765	 return Object.freeze({create(value){if(value?.stationId!=null||value?.id!=null)throw new Error('Proposed IDs are assigned by the current session.');const id=prefix+(serial+1),row=record(id,value);serial++;revision++;rows.set(id,row);return clone(row);},edit(id,patch){const old=rows.get(id);if(!old)throw new Error('No proposed station owned by this session.');if(patch?.id!=null||patch?.stationId!=null)throw new Error('Proposed station identity cannot be edited.');const row=record(id,{...old,...patch});revision++;rows.set(id,row);return clone(row);},remove(id){if(!rows.has(id))throw new Error('No proposed station owned by this session.');rows.delete(id);revision++;return{revision};},get(id){const row=rows.get(id);return row?clone(row):null;},snapshot(){return{schema:'gridatlas.session-proposed-stations.v1',sessionId,revision,count:rows.size,stations:[...rows.values()].map(clone),official:false,verifiedConnections:0};}});
+824766	/** Selected stops, including endpoints. Intermediate traversal nodes are not stored here. */
+824767	function createItinerary({mode = 'journey', stationIndex, scenarioStore = null, law: initialLaw = {}} = {}) {
+824768	  if (typeof stationIndex?.get !== 'function') throw new Error('The full canonical station index is required.');
+824769	  let law=normaliseJourneyLaw(initialLaw);
+824770	  const copyStation=row=>({...normaliseTrainStop(row),...(row.proposed?{proposed:true,sessionId:row.sessionId,scenarioRevision:row.scenarioRevision,evidence:'SESSION_ONLY_USER_PROPOSED_NOT_OFFICIAL'}:{})});
+824771	  function selectedStation(stop) {
+824772	    const id=stop?.stationId ?? stop?.id, canonical=stationIndex.get(id) || (law.fallback === 'user-opted-hypothetical' ? scenarioStore?.get(id) : null);
+824773	    if(!canonical)throw new Error('Selected stops must exist by stable ID in the station inventory.');
+824774	    if(stop.at && (!Array.isArray(stop.at)||stop.at.length!==2||stop.at.some((v,i)=>v!==canonical.at[i])))throw new Error('Selected station point differs from its canonical source point.');
+824775	    if(stop.id != null && stop.id !== id)throw new Error('Conflicting station identity.');
+824776	    return copyStation({...canonical,...(stop.place?{place:stop.place}:{})});
+824777	  const caps = {journey:10,vicinity:90};
+824778	  if (!Object.hasOwn(caps,mode)) throw new Error('Choose journey or vicinity mode.');
+824779	  let stops = [], revision = 0, serial = 0;
+824780	  const snapshot = () => {
+824781	    const invalidStopIds=[];
+824782	    const selected=stops.map(s=>{
+824783	      const current=s.proposed?scenarioStore?.get(s.stationId):stationIndex.get(s.stationId);
+824784	      const valid=!!current && (!s.proposed || law.fallback==='user-opted-hypothetical');
+824785	      if(!valid)invalidStopIds.push(s.stopId);
+824786	      return {...copyStation(current?{...current,...(s.place?{place:s.place}:{})}:s),stopId:s.stopId,...(!valid?{invalid:true}:{})};
+824787	    return {schema:'gridatlas.user-itinerary.v1',mode,limit:caps[mode],selectedCount:stops.length,revision,planEpoch:revision+(scenarioStore?.snapshot().revision||0),law:normaliseJourneyLaw(law),valid:invalidStopIds.length===0,invalidStopIds,evidence:'USER_SELECTED_ITINERARY_NOT_CONFIRMED_CONNECTION',stops:selected,start:stops[0]?.stopId||null,finish:stops.at(-1)?.stopId||null};
+824788	  function setLaw(value){const next=normaliseJourneyLaw(value);if(next.fallback!=='user-opted-hypothetical'&&stops.some(s=>s.proposed))throw new Error('Remove proposed stops explicitly before choosing documented-only.');law=next;revision++;return snapshot();}
+824789	  function position(value) {
+824790	    if (Number.isInteger(value) && value >= 0 && value < stops.length) return value;
+824791	    if (typeof value === 'string') { const exact = stops.findIndex(s=>s.stopId===value); if (exact>=0) return exact; const found=stops.map((s,i)=>s.stationId===value?i:-1).filter(i=>i>=0); if(found.length===1)return found[0]; }
+824792	    throw new Error('Choose one unambiguous selected stop.');
+824793	  function insert(stop,index=stops.length) {
+824794	    if(stops.length>=caps[mode])throw new Error('Selected stop limit is '+caps[mode]+' including start and finish.');
+824795	    if(!Number.isInteger(index)||index<0||index>stops.length)throw new Error('Invalid selected stop position.');
+824796	    const row=selectedStation(stop);stops.splice(index,0,{...row,stopId:'selected-stop-'+(++serial)});revision++;return snapshot();
+824797	  function replace(value,stop){const index=position(value),row=selectedStation(stop);stops[index]={...row,stopId:stops[index].stopId};revision++;return snapshot();}
+824798	  return Object.freeze({snapshot,setLaw,add(stop,{index}={}){return insert(stop,index);},remove(value){stops.splice(position(value),1);revision++;return snapshot();},move(value,index){const from=position(value);if(!Number.isInteger(index)||index<0||index>=stops.length)throw new Error('Invalid selected stop position.');const [row]=stops.splice(from,1);stops.splice(index,0,row);revision++;return snapshot();},replace,setStart(stop){return stops.length?replace(0,stop):insert(stop);},setFinish(stop){return stops.length>1?replace(stops.length-1,stop):insert(stop);},setMode(next){if(!Object.hasOwn(caps,next))throw new Error('Choose journey or vicinity mode.');if(stops.length>caps[next])throw new Error('Remove selected stops explicitly before reducing the limit.');mode=next;revision++;return snapshot();},clear(){stops=[];revision++;return snapshot();}});
+824799	/** Declarative user constraints only; execution and electrical enforcement belong to the planner. */
+824800	function normaliseJourneyLaw(value = {}) {
+824801	  if (!value || typeof value !== 'object' || Array.isArray(value) || Object.keys(value).some(key => !['schema','mustVisitStationIds','allowedVoltageBands','fallback','allowTransformers'].includes(key))) throw new Error('Journey law must use the supported declarative fields only.');
+824802	  if(value.schema != null && value.schema !== 'gridatlas.journey-law.v1') throw new Error('Unknown journey law schema.');
+824803	  const ids=value.mustVisitStationIds ?? [],bands=value.allowedVoltageBands ?? null,fallback=value.fallback ?? 'documented-only',allowTransformers=value.allowTransformers ?? true;
+824804	  if(!Array.isArray(ids)||ids.length>90||ids.some(id=>typeof id!=='string'||!id.trim()||/[\u0000-\u001f\u007f]/.test(id)))throw new Error('Ordered must-visit entries require stable station IDs.');
+824805	  const supported=new Set(['400','275','220','132','66','33','11','other','unknown']);
+824806	  if(bands!==null&&(!Array.isArray(bands)||bands.some(b=>typeof b!=='string'||!supported.has(b))))throw new Error('Choose supported source voltage bands.');
+824807	  if(!['documented-only','user-opted-hypothetical'].includes(fallback)||typeof allowTransformers!=='boolean')throw new Error('Choose documented-only or explicit user hypothetical fallback and a boolean transformer gate.');
+824808	  return {schema:'gridatlas.journey-law.v1',mustVisitStationIds:ids.slice(),allowedVoltageBands:bands===null?null:[...new Set(bands)],fallback,allowTransformers};
+824809	/** Adapter to the existing gazetteer result shape. No provider fetch or station auto-selection. */
+824810	function createPlaceBridge({resolve,index,geodesy}={}) {
+824811	  if(typeof resolve!=='function'||!index?.near||!index?.get||typeof geodesy?.distanceKm!=='function')throw new Error('Existing gazetteer resolver, station index and canonical geodesy are required.');
+824812	  let epoch=0,current=null;const offered=new Map();
+824813	  function invalidate(){epoch++;current=null;offered.clear();}
+824814	  return Object.freeze({invalidate,
+824815	    async lookup(label,{radiusKm=10,limit}={}) {
+824816	      invalidate();if(typeof label!=='string'||!label.trim())throw new Error('Type a place or postcode.');
+824817	      if(!Number.isInteger(radiusKm)||radiusKm<1||radiusKm>50)throw new Error('Choose a whole radius from 1 to 50 km.');
+824818	      const request=epoch;current={label,status:'RESOLVING',epoch:request};
+824819	      let raw;try{raw=await resolve(label);}catch(error){if(request!==epoch)return{stale:true,epoch:request};current={label,status:'FAILED',epoch:request,error:String(error?.message||error)};throw error;}
+824820	      if(request!==epoch)return{stale:true,epoch:request};
+824821	      const places=[];
+824822	      for(const [i,result]of (Array.isArray(raw)?raw:[]).entries()) {
+824823	        const at=result.at || [result.longitude,result.latitude];
+824824	        if(!trainCoordinate(at)||typeof result.provider!=='string'||!result.provider)continue;
+824825	        const place={label, resolvedLabel:String(result.label||label),at:at.slice(),provider:result.provider,precision:result.precision==null?null:String(result.precision),kind:String(result.kind||'location'),token:request+':'+i};
+824826	        const nearby=index.near(at,{radiusKm,limit});offered.set(place.token,{place,stationIds:new Set(nearby.rows.map(s=>s.stationId))});places.push({...place,at:place.at.slice(),nearby});
+824827	      current={label,status:places.length?'CHOOSE_PLACE_AND_STATION':'NO_RESULTS',epoch:request};return{...current,places,stationAutomaticallySelected:false};
+824828	    bind(token,stationId) {
+824829	      const choice=offered.get(token);if(!choice||!token.startsWith(epoch+':'))throw new Error('Place result is stale; search again.');
+824830	      if(!choice.stationIds.has(stationId))throw new Error('Explicitly choose a station offered within this place radius.');
+824831	      const station=index.get(stationId);if(!station)throw new Error('Station identity is unavailable or ambiguous.');
+824832	      const p=choice.place,distanceKm=geodesy.distanceKm(p.at[0],p.at[1],station.at[0],station.at[1]);
+824833	      return normaliseTrainStop({...station,place:{label:p.label,resolvedLabel:p.resolvedLabel,at:p.at,provider:p.provider,precision:p.precision,distanceKm}});
+824834	    },snapshot(){return current?{...current}:{status:'IDLE',epoch};}
+824835	/** Ordered user itinerary; proximity never establishes electrical connectivity. */
+824836	function buildRoutePlan({stops, stationIndex = null, scenarioStore = null, planEpoch = null, synthetic = false, geodesy, allowSimulated = false, network = null, rules = {}, law = null} = {}) {
+824837	  if (!Array.isArray(stops) || stops.length < 2 || stops.length > 90) throw Error('Choose 2–90 station stops.');
+824838	  if (typeof geodesy?.distanceKm !== 'function') throw Error('Canonical geodesy is required.');
+824839	  const selected = stops.map(stop => {
+824840	    const id = stop.stationId || stop.id;
+824841	    if (typeof id !== 'string' || !id) throw Error('Each stop needs a stable station identity.');
+824842	    if (stop.id != null && stop.id !== id) throw Error('Conflicting station identity.');
+824843	    const canonical = stationIndex?.get(id);
+824844	    const proposed = !canonical && law?.fallback === 'user-opted-hypothetical' ? scenarioStore?.get(id) : null;
+824845	    if (proposed && (proposed.proposed !== true || proposed.source !== 'SESSION_ONLY_USER_PROPOSED'
+824846	      || !id.startsWith('scenario:') || proposed.kv.length !== 1 || ![11,33].includes(proposed.kv[0]))) throw Error('Invalid session-owned proposal.');
+824847	    const owned = canonical || proposed;
+824848	    if (stop.invalid || !synthetic && (!owned || !same(owned.at, stop.at))) throw Error('Choose an existing canonical station from the station index or an opted-in current session proposal.');
+824849	    if (synthetic && !String(stop.source).startsWith('SYNTHETIC')) throw Error('Fictional stops need an explicit synthetic source.');
+824850	    const stopId = stop.stopId || 'visit-' + ids.size;
+824851	    if (ids.has(stopId)) throw Error('Each visit needs a distinct stop identity.');
+824852	    ids.add(stopId);
+824853	    if (!Array.isArray(stop.at) || stop.at.length !== 2 || !stop.at.every(Number.isFinite)
+824854	      || Math.abs(stop.at[0]) > 180 || Math.abs(stop.at[1]) > 90) throw Error('A station stop is unlocated.');
+824855	    const trusted = owned || stop;
+824856	    const kv = (Array.isArray(trusted.kv) ? trusted.kv : [trusted.kv]).filter(kv => Number.isFinite(kv) && kv > 0);
+824857	    if (stop.selectedVoltageKv != null && !kv.includes(stop.selectedVoltageKv)) throw Error('Selected journey voltage must belong to the canonical station.');
+824858	    return {...trusted, ...(stop.place ? {place: stop.place} : {}), id, stationId: id, stopId, at: [...trusted.at],
+824859	      kv, ...(stop.selectedVoltageKv != null ? {selectedVoltageKv: stop.selectedVoltageKv} : {})};
+824860	  if (law) {
+824861	    rules = {...rules, allowedVoltages: law.allowedVoltageBands == null ? null : law.allowedVoltageBands.filter(v => /^\d+$/.test(String(v))).map(Number),
+824862	      allowOtherVoltage: law.allowedVoltageBands?.includes('other') === true, allowTransformers: law.allowTransformers !== false};
+824863	    allowSimulated = law.fallback === 'user-opted-hypothetical';
+824864	    for (const id of law.mustVisitStationIds || []) {
+824865	      while (at < selected.length && selected[at].id !== id) at++;
+824866	      if (at === selected.length) throw Error('Required stations must appear in their declared order.');
+824867	      at++;
+824868	  const allowedVoltages = rules.allowedVoltages === undefined ? null : rules.allowedVoltages;
+824869	  if (allowedVoltages !== null && (!Array.isArray(allowedVoltages) || allowedVoltages.some(kv => !Number.isFinite(kv) || kv <= 0))) throw Error('Choose valid voltage levels.');
+824870	  const eligible = network?.index && createEligibleTrainIndex(network.index,
+824871	    {allowedVoltages, allowOtherVoltage:rules.allowOtherVoltage===true, allowTransformers: rules.allowTransformers === true}, network.isReviewedEdge);
+824872	  const sequence = planTrainBuses(selected, eligible, network, allowedVoltages, allowSimulated,rules.allowOtherVoltage===true);
+824873	  const legs = selected.slice(1).map((to, i) => {
+824874	    const from = selected[i];
+824875	    const choice = sequence[i];
+824876	    let evidence = choice?.topology ? 'TOPOLOGY_ONLY' : choice?.simulated ? 'SIMULATED' : 'MISSING';
+824877	    let coordinates = choice ? [[...from.at], [...to.at]] : null;
+824878	    const topology = choice?.topology || null, source = choice?.source || null;
+824879	    if (topology) {
+824880	      const joined = topology.path.map(hop => {
+824881	        const id = hop.circuit_id, join = id && network.geometryByCircuit?.[id];
+824882	        return join?.reviewed === true && join.source && join.circuitId === id
+824883	          && join.fromNode === hop.from_node && join.toNode === hop.to_node
+824884	          && join.geometry?.type === 'LineString' && validLine(join.geometry.coordinates)
+824885	          ? join.geometry.coordinates.map(at => [...at]) : null;
+824886	      if (joined.length && joined.every(Boolean) && joined.every((line, n) => !n || same(line[0], joined[n - 1].at(-1)))) {
+824887	        evidence = 'GIS_REVIEWED'; coordinates = joined.flatMap((line, n) => n ? line.slice(1) : line);
+824888	    const km = coordinates ? coordinates.slice(1).reduce((sum, at, n) => sum
+824889	      + geodesy.distanceKm(...coordinates[n], ...at), 0) : null;
+824890	    if (km !== null && (!Number.isFinite(km) || km < 0)) throw Error('Invalid route distance.');
+824891	    return {id: 'leg-' + i, index: i, fromId: from.id, toId: to.id, evidence, coordinates, km,
+824892	      topology, source, simulationVoltageKv: choice?.simulated ? choice.kv : null, fromBus: choice?.fromBus || null, toBus: choice?.toBus || null,
+824893	      electricalTopology: topology ? 'PUBLISHED_REVIEWED_PATH' : 'UNKNOWN',
+824894	      geometry: evidence === 'GIS_REVIEWED' ? 'REVIEWED_SOURCE_GIS' : coordinates ? 'SCHEMATIC' : 'UNKNOWN',
+824895	      surveyConstructability: 'UNKNOWN', accessStatus: 'UNKNOWN', direction: 'USER_JOURNEY_HEADING_ONLY', electricalFlow: 'UNKNOWN',
+824896	      label: evidence === 'SIMULATED' ? 'User-assumed simulated leg; not a cable route'
+824897	        : evidence === 'TOPOLOGY_ONLY' ? 'Published topology; schematic line, not a cable route'
+824898	        : evidence === 'GIS_REVIEWED' ? 'Reviewed circuit identity and source GIS geometry'
+824899	        : 'No reviewed route for this leg'};
+824900	  return {schema: 'gridatlas.train.route-plan.v1', planEpoch, rules: {allowedVoltages: allowedVoltages === null ? null : [...allowedVoltages], allowOtherVoltage:rules.allowOtherVoltage===true, allowTransformers: rules.allowTransformers === true}, stops: selected, legs,
+824901	    totalKm: legs.every(leg => leg.km !== null) ? legs.reduce((sum, leg) => sum + leg.km, 0) : null,
+824902	    synthetic: !!synthetic, playable: legs.every(leg => leg.coordinates !== null), simulated: legs.some(leg => leg.evidence === 'SIMULATED')};
+824903	function trainVoltageAllowed(kv, allowed,other=false) { return Number.isFinite(kv) && kv > 0 && (allowed === null || allowed.includes(kv)
+824904	  ||other&&![400,275,220,132,66,33,11].includes(kv)); }
+824905	/** Keep every reachable arrival bus, not just the cheapest arrival at a station. */
+824906	function planTrainBuses(stops, eligible, network, allowed, simulate,other) {
+824907	  const graph = eligible?.graph();
+824908	  const binding = stop => {
+824909	    if (stop.proposed) return null;
+824910	    const row = network?.stationBindings?.[stop.id];
+824911	    return row?.stationId === stop.id && row.reviewed === true && row.source && typeof row.siteCode === 'string'
+824912	      && eligible?.site(row.siteCode)?.code === row.siteCode ? row : null;
+824913	  const voltages = stop => (stop.selectedVoltageKv == null ? stop.kv : [stop.selectedVoltageKv])
+824914	    .filter(kv => trainVoltageAllowed(kv, allowed,other)).sort((a,b) => a-b);
+824915	  const statesAt = stop => {
+824916	    const bind = binding(stop), kv = voltages(stop);
+824917	    const buses = bind ? graph.nodesOfSite(bind.siteCode).filter(bus => kv.includes(graph.nodeVoltageKv(bus))).sort() : [];
+824918	    return buses.length ? buses.map(bus => ({bus, kv: graph.nodeVoltageKv(bus), binding: bind}))
+824919	      : kv.map(voltage => ({bus: null, kv: voltage, binding: null}));
+824920	  const order = (a,b) => a.cost-b.cost || a.key.localeCompare(b.key,'en');
+824921	  let states = statesAt(stops[0]).map(s => ({...s,cost:0,key:s.bus || 'virtual:'+s.kv,choices:[]}));
+824922	  for (let i=0;i<stops.length-1;i++) {
+824923	    const targets = statesAt(stops[i+1]), candidates = new Map();
+824924	    for (const previous of states) for (const target of targets) {
+824925	      let choice = null;
+824926	      if (previous.bus && target.bus && typeof network?.electricalDistance?.between === 'function') {
+824927	        const topology = trainExactBusPath(eligible, network, previous, target);
+824928	        if (topology) choice = {topology,source:{from:previous.binding.source,to:target.binding.source},fromBus:previous.bus,toBus:target.bus};
+824929	      if (!choice && simulate === true && previous.kv === target.kv) choice = {
+824930	        simulated:true,kv:previous.kv,fromBus:previous.bus,toBus:target.bus};
+824931	      if (!choice) continue;
+824932	      const fingerprint = choice.topology?.path.map(h=>h.from_node+'>'+h.to_node+':'+h.kind).join('|') || 'hypothetical';
+824933	      const candidate = {...target,cost:previous.cost+(choice.simulated?1000000:choice.topology.path.length),
+824934	        key:previous.key+'|'+(target.bus || 'virtual:'+target.kv)+'|'+fingerprint,choices:[...previous.choices,choice]};
+824935	      const key = target.bus || 'virtual:'+target.kv;
+824936	      if (!candidates.has(key) || order(candidate,candidates.get(key))<0) candidates.set(key,candidate);
+824937	    if (!candidates.size) {
+824938	      const prefix = states.sort(order)[0]?.choices || [];
+824939	      return [...prefix,...Array(stops.length-1-prefix.length).fill(null)];
+824940	    states = [...candidates.values()];
+824941	  return states.sort(order)[0]?.choices || Array(stops.length-1).fill(null);
+824942	function trainExactBusPath(eligible, network, from, to) {
+824943	  const graph = eligible.graph(), START='@train-exact-start', END='@train-exact-end';
+824944	  // Query aliases avoid electrical-distance's same-SITE zero-hop shortcut.
+824945	  // They are not source nodes or graph edges: exact source bus IDs remain unchanged.
+824946	  const queryGraph = {...graph,nodesOfSite:code => code===START?[from.bus]:code===END?[to.bus]:graph.nodesOfSite(code)};
+824947	  const index = {graph:()=>queryGraph,site:key=>key===START?{code:START,name:from.binding.siteCode}
+824948	    :key===END?{code:END,name:to.binding.siteCode}:null};
+824949	  const result = network.electricalDistance.between(index,START,END,{voltageKv:from.kv,
+824950	    maxHops:Number.isInteger(network.maxHops)&&network.maxHops>0?Math.min(10000,network.maxHops):10000});
+824951	  if (result?.schema!=='gridatlas.module.electrical-distance.v1'||result.reached!==true
+824952	    ||result.from?.code!==START||result.to?.code!==END||!Array.isArray(result.path)) return null;
+824953	  const path=result.path;
+824954	  if (path.length ? path[0].from_node!==from.bus||path.at(-1).to_node!==to.bus : from.bus!==to.bus) return null;
+824955	  if (!path.every((hop,n)=>graph.has(hop.from_node)&&graph.has(hop.to_node)
+824956	    &&(!n||path[n-1].to_node===hop.from_node)
+824957	    &&graph.edgesAt(hop.from_node).some(edge=>edge.kind===hop.kind&&edge.row[edge.far]===hop.to_node))) return null;
+824958	  return {...result,from:{code:from.binding.siteCode},to:{code:to.binding.siteCode},arrival_node:to.bus,
+824959	    path:path.map(hop=>{const rows=graph.edgesAt(hop.from_node).filter(edge=>edge.kind===hop.kind&&edge.row[edge.far]===hop.to_node);
+824960	      return {...hop,circuit_id:rows.length===1?rows[0].row.circuit_id||rows[0].row.id||null:null};})};
+824961	/** A view over the existing graph, never a new graph or a mutation of it. */
+824962	function createEligibleTrainIndex(index, {allowedVoltages, allowOtherVoltage=false, allowTransformers}, isReviewedEdge) {
+824964	  if (graph?.schema !== 'gridatlas.module.network-topology.graph.v1') throw Error('Unsupported network graph.');
+824965	  const permitted = node => graph.has(node) && trainVoltageAllowed(graph.nodeVoltageKv(node), allowedVoltages,allowOtherVoltage);
+824966	  const view = {...graph,
+824967	    has: permitted,
+824968	    nodesOfSite: code => graph.nodesOfSite(code).filter(permitted),
+824969	    edgesAt: node => !permitted(node) ? [] : graph.edgesAt(node).filter(edge => {
+824970	      const far = edge.row[edge.far];
+824971	      if (!permitted(far) || typeof isReviewedEdge !== 'function' || isReviewedEdge(edge) !== true) return false;
+824972	      const changes = graph.nodeVoltageKv(node) !== graph.nodeVoltageKv(far);
+824973	      return edge.kind === 'circuit' ? !changes : edge.kind === 'transformer' && allowTransformers === true;
+824974	    })};
+824975	  return {graph: () => view, site: key => index.site(key)};
+824976	function same(a, b) { return a[0] === b[0] && a[1] === b[1]; }
+824977	function validLine(line) {
+824978	  return Array.isArray(line) && line.length >= 2 && line.length <= 10000 && line.every(at =>
+824979	    Array.isArray(at) && at.length === 2 && at.every(Number.isFinite) && Math.abs(at[0]) <= 180 && Math.abs(at[1]) <= 90);
+824980	/** Native MapLibre learning cursor. Travel direction is never electrical flow. */
+824981	function createTrainRide({map, geodesy, palette = {}, onState = () => {}, reducedMotion = false, readPlanEpoch = null,
+824982	  requestFrame = globalThis.requestAnimationFrame?.bind(globalThis),
+824983	  cancelFrame = globalThis.cancelAnimationFrame?.bind(globalThis),
+824984	  setTimer = globalThis.setTimeout?.bind(globalThis), clearTimer = globalThis.clearTimeout?.bind(globalThis)} = {}) {
+824985	  if (!map || typeof geodesy?.distanceKm !== 'function') throw Error('Map and canonical geodesy required.');
+824986	  const prefix = 'gridatlas-train-', sources = new Map(), layers = new Map();
+824987	  const colour = palette.SUBSTATION_COLOUR || palette.substation || '#5fbdc2'; // Existing SLD substation colour.
+824988	  const flowColour = palette.FLOW_COLOUR || '#bfe9ee';
+824989	  const customerColour = palette.CUSTOMER_SUBSTATION_COLOUR || '#e0b050'; // Existing SLD_COLOUR.node customer_substation glyph.
+824990	  // Same 24 cached dash patterns as the existing SLD neon renderer; no atlas growth per frame.
+824991	  const flowPatterns = Array.from({length: 24}, (_, i) => Object.freeze([0.001,
+824992	    Math.max(0.001, i / 24 * 1.5), 0.42, Math.max(0.001, 1.5 - i / 24 * 1.5)]));
+824993	  let lastDashIndex = -1;
+824994	  let alive = true, plan = null, pinStops = [], playing = false, handle = null, legIndex = 0, fraction = 0, epoch = 0, measures = [], prefixStop = 0;
+824995	  let lastTime = null, lastPaint = -Infinity, cameraFollow = false, durationMs = 2400, unavailable = null;
+824996	  let retryHandle = null, retryCount = 0;
+824997	  const state = () => ({schema: 'gridatlas.train.motion.v1', alive, playing, legIndex, fraction,
+824998	    stopIndex: fraction === 1 ? legIndex + 1 : legIndex, reducedMotion: !!reducedMotion,
+824999	    cameraFollow, unavailable, approvedThroughStop: prefixStop, evidence: plan?.legs[legIndex]?.evidence || null,
+825000	    electricalFlow: 'UNKNOWN', simulated: !!plan?.simulated, stops: plan?.stops.length || pinStops.length});
+825001	  const notify = () => onState(state());
+825002	  const collection = features => ({type: 'FeatureCollection', features});
+825003	  const point = (at, properties = {}) => ({type: 'Feature', properties, geometry: {type: 'Point', coordinates: at}});
+825004	  function cancel() { epoch++; if (handle !== null) cancelFrame?.(handle); handle = null; lastTime = null; }
+825005	  function schedule() { const token = epoch; handle = requestFrame(time => { if (token === epoch) tick(time); }); }
+825006	  function pause() { playing = false; cancel(); notify(); return state(); }
+825007	  function cancelRetry() { if(retryHandle!==null)clearTimer?.(retryHandle);retryHandle=null;retryCount=0; }
+825008	  function waitForStyle() {
+825009	    unavailable = retryCount < 12 ? 'Map style is loading; drawing will retry briefly.' : 'Map style is not ready. Retry Draw when the map is ready.';
+825010	    if(retryHandle===null && retryCount<12 && typeof setTimer==='function') {
+825011	      retryCount++;retryHandle=setTimer(()=>{retryHandle=null;if(alive)paint();},250);
+825012	    notify();return false;
+825013	  function ensure() {
+825014	    if (!alive || !plan && !pinStops.length) return false;
+825015	    const sourceIds = ['routes', 'stops', 'cursor'].map(id => prefix + id);
+825016	    const layerIds = ['route-gis', 'route-topology', 'route-simulated', 'flow', 'stops', 'proposals', 'cursor'].map(id => prefix + id);
+825017	    for (const id of sourceIds) {
+825018	      const existing = map.getSource(id);
+825019	      if (existing && existing !== sources.get(id)) { unavailable = 'Source ID belongs to another module'; pause(); return false; }
+825020	    for (const id of layerIds) {
+825021	      const existing = map.getLayer(id);
+825022	      if (existing && existing !== layers.get(id)) { unavailable = 'Layer ID belongs to another module'; pause(); return false; }
+825023	    // Existing verified sources remain writable while their own setData is
+825024	    // pending. Global isStyleLoaded also includes that work; it is not a
+825025	    // readiness test for an owned source or for each animation frame.
+825026	    if(sourceIds.some(id=>!map.getSource(id)) && map.isStyleLoaded?.()===false) return waitForStyle();
+825027	    for (const id of sourceIds) if (!map.getSource(id)) {
+825028	      map.addSource(id, {type: 'geojson', data: collection([])}); sources.set(id, map.getSource(id));
+825029	    const add = spec => { if (!map.getLayer(spec.id)) { map.addLayer(spec); layers.set(spec.id, map.getLayer(spec.id)); if (spec.id === prefix + 'flow') lastDashIndex = -1; } };
+825030	    const line = {type: 'line', source: prefix + 'routes', layout: {'line-cap': 'round', 'line-join': 'round'}};
+825031	    add({...line, id: prefix + 'route-gis', filter: ['==', ['get', 'evidence'], 'GIS_REVIEWED'],
+825032	      paint: {'line-color': colour, 'line-width': 1.8, 'line-opacity': 0.8}});
+825033	    add({...line, id: prefix + 'route-topology', filter: ['==', ['get', 'evidence'], 'TOPOLOGY_ONLY'],
+825034	      paint: {'line-color': colour, 'line-width': 1.4, 'line-opacity': 0.65, 'line-dasharray': [5, 2]}});
+825035	    add({...line, id: prefix + 'route-simulated', filter: ['==', ['get', 'evidence'], 'SIMULATED'],
+825036	      paint: {'line-color': colour, 'line-width': 1.4, 'line-opacity': 0.65, 'line-dasharray': [1, 3]}});
+825037	    // Existing l-neon-flow rhythm, confined to our own overlay.
+825038	    add({...line, id: prefix + 'flow',filter:['==',['get','evidence'],'GIS_REVIEWED'], paint: {'line-color': flowColour, 'line-width': 1.2,
+825039	      'line-opacity': reducedMotion ? 0 : 0.45, 'line-dasharray': [0.2, 3.2]}});
+825040	    add({id: prefix + 'stops', type: 'circle', source: prefix + 'stops', filter:['!=',['get','proposed'],true],paint: {
+825041	      'circle-color': colour, 'circle-radius': 3, 'circle-opacity': 0.8}});
+825042	    add({id:prefix+'proposals',type:'circle',source:prefix+'stops',filter:['==',['get','proposed'],true],paint:{
+825043	      'circle-color':customerColour,'circle-radius':5,'circle-stroke-color':'#000c10','circle-stroke-width':1.5,'circle-opacity':0.9}});
+825044	    add({id: prefix + 'cursor', type: 'circle', source: prefix + 'cursor', paint: {
+825045	      'circle-color': colour, 'circle-radius': 5, 'circle-stroke-color': '#000c10', 'circle-stroke-width': 1.5}});
+825046	    cancelRetry();unavailable = null; return true;
+825048	    const line = plan?.legs[legIndex]?.coordinates;
+825049	    if (!line) return plan?.stops[legIndex]?.at || null;
+825050	    if (fraction === 1) return line.at(-1);
+825051	    const cumulative = measures[legIndex], wanted = cumulative.at(-1) * fraction;
+825052	    let lo = 1, hi = cumulative.length - 1;
+825053	    while (lo < hi) { const mid = (lo + hi) >> 1; if (cumulative[mid] < wanted) lo = mid + 1; else hi = mid; }
+825054	    const i = lo - 1, span = cumulative[lo] - cumulative[i], t = span ? (wanted - cumulative[i]) / span : 0;
+825055	    return [line[i][0] + (line[lo][0] - line[i][0]) * t, line[i][1] + (line[lo][1] - line[i][1]) * t];
+825057	    if(plan && readPlanEpoch && readPlanEpoch()!==plan.planEpoch){clearPlan();return;}
+825058	    if (!ensure()) return;
+825059	    sources.get(prefix + 'routes').setData(collection((plan?.legs||[]).slice(0,prefixStop).filter(l => l.coordinates).map(l => ({type: 'Feature',
+825060	      properties: {evidence: l.evidence, label: l.label}, geometry: {type: 'LineString', coordinates: l.coordinates}}))));
+825061	    sources.get(prefix + 'stops').setData(stopData(plan?.stops||pinStops));
+825062	    paintCursor();
+825063	  function paintCursor() {
+825064	    if (!alive || !plan || !sources.has(prefix + 'cursor') || map.getSource(prefix + 'cursor') !== sources.get(prefix + 'cursor')) return;
+825065	    const at = position(); sources.get(prefix + 'cursor').setData(collection(at ? [point(at, {meaning: 'User journey heading; electrical flow unknown'})] : []));
+825066	    if (cameraFollow && playing && at) map.easeTo?.({center: at, duration: 0});
+825067	  function tick(time) {
+825068	    handle = null; if (!alive || !playing) return;
+825069	    if (readPlanEpoch && readPlanEpoch() !== plan.planEpoch) { clearPlan(); return; }
+825070	    if(!sources.has(prefix+'cursor') || map.getSource(prefix+'cursor')!==sources.get(prefix+'cursor')) {pause();return;}
+825071	    if (lastTime === null) lastTime = time;
+825072	    fraction += Math.max(0, Math.min(250, time - lastTime)) / durationMs; lastTime = time;
+825073	    if (fraction >= 1) {
+825074	      if (legIndex < plan.legs.length - 1) { legIndex++; fraction = 0; } else { fraction = 1; playing = false; }
+825075	    if (time - lastPaint >= 33 || !playing) {
+825076	      lastPaint = time; paintCursor();
+825077	      const layer = map.getLayer(prefix + 'cursor');
+825078	      if (layer === layers.get(prefix + 'cursor')) map.setPaintProperty(prefix + 'cursor', 'circle-radius', 5 + Math.sin(fraction * Math.PI) * 1.5);
+825079	      const dashIndex = Math.floor(fraction * 24) % 24;
+825080	      if (dashIndex !== lastDashIndex && map.getLayer(prefix + 'flow') === layers.get(prefix + 'flow')) {
+825081	        lastDashIndex = dashIndex; map.setPaintProperty(prefix + 'flow', 'line-dasharray', flowPatterns[dashIndex]);
+825083	    if (playing) schedule();
+825084	  function setPlan(next) {
+825085	    if (!alive) throw Error('Train ride is destroyed.');
+825086	    // Reject stale asynchronous results before clearing or painting any current ride.
+825087	    if(readPlanEpoch && next?.planEpoch!==readPlanEpoch())throw Error('Stale journey plan epoch.');
+825088	    clearPlan({stops:pinStops});
+825089	    if (next?.schema !== 'gridatlas.train.route-plan.v1' || !Array.isArray(next.legs) || !next.legs.length
+825090	      || !Array.isArray(next.stops) || next.stops.length !== next.legs.length + 1
+825091	      || next.legs.reduce((n, leg) => n + (leg.coordinates?.length || 0), 0) > 20000) throw Error('Invalid or oversized journey plan.');
+825092	    // Snapshot input so later UI edits cannot mutate an active ride.
+825093	    const copy = JSON.parse(JSON.stringify(next)); plan = copy; pinStops = copy.stops;
+825094	    const gap = plan.legs.findIndex(leg => !leg.coordinates || leg.evidence === 'MISSING');
+825095	    prefixStop = gap < 0 ? plan.legs.length : gap;
+825096	    measures = plan.legs.map(leg => { const cumulative = [0];
+825097	      for (let i = 1; i < (leg.coordinates?.length || 0); i++) cumulative.push(cumulative.at(-1) + geodesy.distanceKm(...leg.coordinates[i - 1], ...leg.coordinates[i]));
+825098	      return cumulative; });
+825099	    legIndex = 0; fraction = 0; paint(); notify(); return state();
+825100	  function play(options = {}) {
+825101	    if (readPlanEpoch && plan && readPlanEpoch() !== plan.planEpoch) { clearPlan(); return false; }
+825102	    if (!alive || !plan?.playable || prefixStop !== plan.legs.length || unavailable) return false;
+825103	    cameraFollow = options.cameraFollow === true;
+825104	    if (Number.isFinite(options.durationMs)) durationMs = Math.max(500, Math.min(30000, options.durationMs));
+825105	    if (reducedMotion) { step(); return false; }
+825106	    if (typeof requestFrame !== 'function') return false;
+825107	    if (playing) return true;
+825108	    if (legIndex === plan.legs.length - 1 && fraction === 1) { legIndex = 0; fraction = 0; }
+825109	    playing = true; lastTime = null; schedule(); notify(); return true;
+825110	  function seekStop(index) {
+825111	    if (!alive || !plan || !Number.isInteger(index) || index < 0 || index > prefixStop || index >= plan.stops.length) return false;
+825112	    pause(); legIndex = index === prefixStop && index > 0 ? index - 1 : index;
+825113	    fraction = index === prefixStop && index > 0 ? 1 : 0;
+825114	    paintCursor(); notify(); return true;
+825115	  function step() { const next = state().stopIndex + 1; return next <= prefixStop && seekStop(next); }
+825116	  function stopData(stops) { return collection(stops.map((stop,i)=>point(stop.at,{stationId:stop.id||stop.stationId,stopIndex:i,
+825117	    proposed:stop.proposed===true,kind:stop.proposed?'customer_substation':'source_substation',label:stop.proposed?'PROPOSED SESSION ONLY':stop.name||''}))); }
+825118	  function clearPlan({stops=[]}={}) {
+825119	    if (!alive) return false;
+825120	    if (!Array.isArray(stops) || stops.length>90 || stops.some(stop=>!Array.isArray(stop.at)||stop.at.length!==2
+825121	      ||!stop.at.every(Number.isFinite)||Math.abs(stop.at[0])>180||Math.abs(stop.at[1])>90)) throw Error('Invalid selected station pins.');
+825122	    cameraFollow=false;cancelRetry();pause();plan=null;measures=[];prefixStop=0;legIndex=0;fraction=0;
+825123	    pinStops=JSON.parse(JSON.stringify(stops.filter(stop=>!stop.invalid)));
+825124	    if(ensure()) for(const [suffix,data]of [['routes',collection([])],['cursor',collection([])],['stops',stopData(pinStops)]]) {
+825125	      const id=prefix+suffix;if(map.getSource(id)===sources.get(id))sources.get(id).setData(data);
+825126	    // Empty selections still clear existing owned layers/sources without adding any.
+825127	    if(!pinStops.length)for(const suffix of ['routes','cursor','stops']){const id=prefix+suffix;
+825128	      if(sources.has(id)&&map.getSource(id)===sources.get(id))sources.get(id).setData(collection([]));}
+825129	    notify();return true;
+825130	  function styleReload() { if (!alive) return; cancelRetry();pause(); paint(); }
+825131	  function removed() { if (!alive) return; alive = false; playing = false; cancelRetry();cancel(); sources.clear(); layers.clear(); map.off('style.load', styleReload); notify(); }
+825132	  function destroy() {
+825133	    if (!alive) return; cancelRetry();pause();
+825134	    for (const [id, layer] of [...layers].reverse()) if (map.getLayer(id) === layer) map.removeLayer(id);
+825135	    for (const [id, source] of sources) if (map.getSource(id) === source) map.removeSource(id);
+825136	    sources.clear(); layers.clear(); alive = false;
+825137	    map.off('style.load', styleReload); map.off('remove', removed); notify();
+825138	  map.on('style.load', styleReload); map.on('remove', removed);
+825139	  return Object.freeze({setPlan, clearPlan, play, pause, step, seekStop, destroy, snapshot: state});
+825140	/** Original fictional teaching networks; no railway geography, names or artwork. */
+825141	function trainLearningFixture(kind = 'local') {
+825142	  const names = kind === 'express' ? ['Harbour', 'Highland', 'Far Reach']
+825143	    : kind === 'branch' ? ['Junction', 'West Branch', 'Junction', 'East Branch']
+825144	    : ['Central', 'Interchange', 'Gardens', 'Terminus'];
+825145	  const spacing = kind === 'express' ? 2 : 0.04;
+825146	  return {schema: 'gridatlas.train.fixture.v1', synthetic: true,
+825147	    title: kind === 'express' ? 'Fictional express learning journey'
+825148	      : kind === 'branch' ? 'Fictional branch and junction journey' : 'Fictional local and interchange journey',
+825149	    stops: names.map((name, i) => ({stationId: 'synthetic-' + name.toLowerCase().replaceAll(' ', '-'),
+825150	      id: 'synthetic-' + name.toLowerCase().replaceAll(' ', '-'), stopId: 'visit-' + i, name, kv: 400,
+825151	      at: [kind === 'branch' && i === 2 ? -1 : -1 + i * spacing, 52 + (i % 2) * spacing / 2],
+825152	      source: 'SYNTHETIC_TEACHING_FIXTURE'})),
+825153	    note: 'Original invented example. Lines require the same explicit simulated-journey action; no real electrical or railway connection is asserted.'};
+825154	return {buildStationIndex,createScenarioStationStore,createItinerary,createPlaceBridge,normaliseJourneyLaw,buildRoutePlan,createTrainRide,trainLearningFixture};
+825155	/** Shared native journey UI; all network evidence stays in the route planner. */
+825156	function createGreatGridJourney({map, registry, geodesy, parent, readFeatures,onProposedPick=()=>{},onMapView=()=>{},onRideState=()=>{},onStatus=()=>{}}) {
+825157	  let index = null, indexedFeatures = null, bridge = null, bridgeResolver = null, plan = null, searchEpoch = 0, destroyed = false;
+825158	  const D = document, cleanups = [], stationIndex={get:id=>index?.get(id)||null}, scenarioStore=TrainCore.createScenarioStationStore(), selected = TrainCore.createItinerary({mode:'journey',stationIndex,scenarioStore});
+825159	  let demo=null;
+825160	  let proposedPicking=false,proposedSource=null,mapRemoved=false,drawnEpoch=null,visible=true,overlayArmed=false,inventoryWaiting=false;
+825161	  const proposedLayers=new Map(),proposedSourceId='gridatlas-train-proposed-stations';
+825162	  const proposedMarkers=new Map();
+825163	  const chosenVoltage = new Map();
+825164	  const el = (tag,text,host,attrs={}) => {const e=D.createElement(tag);if(text!=null)e.textContent=text;for(const[k,v]of Object.entries(attrs))e.setAttribute(k,v);host?.appendChild(e);return e;};
+825165	  const on = (node,type,fn) => {node.addEventListener(type,fn);if(!node.closest('.train-search-results,.train-stops'))cleanups.push(()=>node.removeEventListener(type,fn));};
+825166	  const box=el('fieldset',null,parent,{class:'train-panel'});el('legend','Great Grid Journeys',box);
+825167	  el('p','Choose real stations, set your journey law, then draw or play. A travelling light is a learning cursor; it never represents electrical current.',box);
+825168	  el('p','Documented routing is unavailable in this build: stations have not been joined to reviewed circuit routes. Existing map lines are context, not routing proof. Explicit SIMULATED drawing is available.',box,{class:'train-routing-status'});
+825169	  const modeGroup=el('div',null,box,{class:'vic-actions','aria-label':'Journey mode'});
+825170	  const journeyMode=el('button','Journey · 10 stops',modeGroup,{type:'button','aria-pressed':'true'}), vicinityMode=el('button','Vicinity · 90 stops',modeGroup,{type:'button','aria-pressed':'false'});
+825171	  const inventory=el('p','Station inventory loading.',box,{class:'train-inventory'});
+825172	  const searchForm=el('form',null,box,{class:'train-search'});
+825173	  el('label','Station name, source ID, place or postcode',searchForm,{for:'gridatlas-train-query'});
+825174	  const query=el('input',null,searchForm,{id:'gridatlas-train-query',type:'search',autocomplete:'off',maxlength:'200',placeholder:'For example: North Hyde or a postcode'});
+825175	  const searchActions=el('div',null,searchForm,{class:'vic-actions'});
+825176	  const stationSearch=el('button','Find stations',searchActions,{type:'submit'}), placeSearch=el('button','Find place / postcode',searchActions,{type:'button'});
+825177	  const role=el('select',null,searchForm,{'aria-label':'Use search choice as'});
+825178	  for(const[value,label]of [['start','START'],['waypoint','WAYPOINT'],['finish','FINISH']])el('option',label,role,{value});
+825179	  const feedback=el('p','Search the full station inventory, independently of the nearby display limit.',box,{role:'status','aria-live':'polite',class:'train-status'});
+825180	  const searchResults=el('ol',null,box,{class:'train-search-results'});
+825181	  const ordered=el('ol',null,box,{class:'train-stops','aria-label':'Ordered selected stops'});
+825182	  const selectedStatus=el('p','0 / 10 selected stops, including START and FINISH.',box);
+825183	  const reset=el('button','Clear selected stops',box,{type:'button'});
+825184	  const proposedBox=el('details',null,box,{class:'train-proposed'});el('summary','Proposed customer substation · screening',proposedBox);
+825185	  el('p','Session-only FEED concept, not an official station, approved connection, transformer or land right. Golden customer-substation symbol plus Proposed label distinguishes the scenario.',proposedBox);
+825186	  const proposedName=el('input',null,proposedBox,{type:'text',value:'Proposed customer substation',maxlength:'80','aria-label':'Proposed customer substation label'});
+825187	  const proposedVoltage=el('select',null,proposedBox,{'aria-label':'Proposed customer substation voltage'});el('option','11 kV',proposedVoltage,{value:'11'});el('option','33 kV',proposedVoltage,{value:'33'});
+825188	  const propose=el('button','Pin proposed FEED concept',proposedBox,{type:'button','aria-pressed':'false'});
+825189	  const proposedList=el('ol',null,proposedBox,{'aria-label':'Session proposed substations'});
+825190	  const lawBox=el('details',null,box,{class:'train-law'});lawBox.open=true;el('summary','Journey law',lawBox);
+825191	  el('p','The ordered selected stops are required visits. Voltage and evidence rules apply to every traversed edge, not just the endpoints.',lawBox);
+825192	  const lawBands=el('div',null,lawBox,{class:'vic-bands'}), voltageInputs=[];
+825193	  for(const band of ['11','33','66','132','220','275','400','other','unknown']){const label=el('label',null,lawBands),input=el('input',null,label,{type:'checkbox',value:band});input.checked=true;el('span',band==='other'||band==='unknown'?band:band+' kV',label);voltageInputs.push(input);on(input,'change',applyLawChange);}
+825194	  const fallbackLabel=el('label',null,lawBox,{class:'train-check'}),fallback=el('input',null,fallbackLabel,{type:'checkbox'});el('span','Allow my SIMULATED straight-line legs where a reviewed route is missing',fallbackLabel);
+825195	  const transformerLabel=el('label',null,lawBox,{class:'train-check'}),transformers=el('input',null,transformerLabel,{type:'checkbox'});el('span','Allow documented, reviewed transformers between allowed voltage levels',transformerLabel);
+825196	  const controls=el('div',null,box,{class:'vic-actions train-controls'});
+825197	  const draw=el('button','Draw itinerary',controls,{type:'button'}),play=el('button','Play',controls,{type:'button'}),pause=el('button','Pause',controls,{type:'button'}),previous=el('button','Previous stop',controls,{type:'button'}),step=el('button','Step / next stop',controls,{type:'button'});
+825198	  const fitJourney=el('button','Fit itinerary on map',controls,{type:'button'});
+825199	  el('p','Solid: reviewed GIS route. Long dash: documented topology, schematic. Dotted: SIMULATED user leg. The cursor is a learning heading; electrical flow is unknown.',box,{class:'train-route-legend'});
+825200	  const cameraLabel=el('label',null,box,{class:'train-check'}),camera=el('input',null,cameraLabel,{type:'checkbox'});el('span','Follow the learning cursor with the camera',cameraLabel);
+825201	  const speedLabel=el('label','Seconds per leg',box),speed=el('input',null,speedLabel,{type:'range',min:'1',max:'20',step:'1',value:'4','aria-label':'Seconds per leg'});
+825202	  const progress=el('p','No itinerary drawn.',box,{class:'train-progress',role:'status'}),legs=el('ol',null,box,{class:'train-legs'});
+825203	  const demos=el('details',null,box);el('summary','Fictional topology demonstrations',demos);
+825204	  el('p','Original interchange, long-leg and branch patterns. Fictional grid-learning diagrams, with no railway dataset, map or logo. Load a pattern, edit its law, and explicitly allow simulation to draw it.',demos);
+825205	  for(const[kind,label]of [['interchange','Load interchange demo'],['express','Load express / long-leg demo'],['branch','Load branch demo']]){const b=el('button',label,demos,{type:'button'});on(b,'click',()=>loadDemo(kind));}
+825206	  const reduced=globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches===true;
+825207	  const ride=TrainCore.createTrainRide({map,geodesy,palette:{SUBSTATION_COLOUR:'#5fbdc2'},reducedMotion:reduced,readPlanEpoch:()=>selected.snapshot().planEpoch,onState:s=>{
+825208	    if(destroyed)return;onRideState(s);const caption=s.unavailable||`${s.playing?'Playing':reduced?'Static reduced-motion view':'Paused'} · stop ${Math.min(s.stops,s.stopIndex+1)} / ${s.stops} · ${s.evidence||'no route'} · electrical flow unknown`;
+825209	    if(progress.textContent!==caption)progress.textContent=caption;
+825210	    pause.disabled=!s.playing;play.setAttribute('aria-pressed',String(s.playing));
+825212	  function say(message){if(feedback.textContent!==message)feedback.textContent=message;onStatus(message);}
+825213	  function fullIndex(){const features=readFeatures();if(!Array.isArray(features)||!features.length){const hadIndex=!!index;index=null;indexedFeatures=null;if(hadIndex)invalidate();bridge?.invalidate();bridge=null;inventoryWaiting=true;say('Full substation inventory is not loaded. Use Show physical grid, then search again.');return null;}if(features!==indexedFeatures){const changed=!!indexedFeatures;index=TrainCore.buildStationIndex(features,{geodesy,datasetPin:TRAIN_STATION_SOURCE_PIN});indexedFeatures=features;if(changed)invalidate();bridge?.invalidate();bridge=null;}const s=index.snapshot();if(inventoryWaiting){inventoryWaiting=false;if(feedback.textContent==='Full substation inventory is not loaded. Use Show physical grid, then search again.')say(s.indexedRecords+' source stations are ready. Search by name or source ID, or resolve a place explicitly.');}inventory.textContent=`${s.sourceRecords} original source features · ${s.indexedRecords} selectable stable station IDs · ${s.invalidRecords} unlocated / missing-ID records · ${s.conflictingIds.length} conflicting IDs. Search is not capped by the nearby list.`;return index;}
+825214	  function invalidate(){const state=selected.snapshot();ride.clearPlan({stops:visible&&overlayArmed?state.stops.filter(stop=>!stop.invalid):[]});drawnEpoch=null;plan=null;legs.replaceChildren();progress.textContent='Selections or law changed. Draw again to apply them.';}
+825215	  function setMode(mode){try{selected.setMode(mode);journeyMode.setAttribute('aria-pressed',String(mode==='journey'));vicinityMode.setAttribute('aria-pressed',String(mode==='vicinity'));invalidate();renderStops();return true;}catch(e){say(e.message+' Your selected stops were kept.');return false;}}
+825216	  function add(row){try{const choice=role.value;if(choice==='start')selected.setStart(row);else if(choice==='finish')selected.setFinish(row);else{const count=selected.snapshot().selectedCount;selected.add(row,{index:count>1?count-1:count});}demo=null;overlayArmed=true;role.value=selected.snapshot().selectedCount===1?'finish':'waypoint';invalidate();renderStops();say('Station bound explicitly. The place label, if supplied, stays attached to this choice.');}catch(e){say(e.message);}}
+825217	  function renderStops(){const state=selected.snapshot();selectedStatus.textContent=`${state.selectedCount} / ${state.limit} selected stops, including START and FINISH. Intermediate network traversal is not limited by this stop count.`;ordered.replaceChildren();for(const[rowIndex,row]of state.stops.entries()){
+825218	    const li=el('li',null,ordered,{'data-train-stop-id':row.stopId});el('strong',`${row.proposed?'Proposed - FEED concept - ':''}${row.invalid?'INVALID VISIT - ':''}${rowIndex===0?'START':rowIndex===state.stops.length-1?'FINISH':'WAYPOINT '+rowIndex} · ${row.name}`,li);el('span',`ID ${row.stationId} · ${row.kv.length?row.kv.join(' / ')+' kV':'voltage unknown'}`,li,{class:'vic-row-meta'});
+825219	    if(row.place)el('p',`${row.place.label} → ${row.name} · ${row.place.distanceKm.toFixed(2)} km from resolved ${row.place.provider} point (${row.place.precision||'precision unknown'}). Place coordinate ${row.place.at.join(', ')}; station coordinate ${row.at.join(', ')}.`,li,{class:'train-place-binding'});
+825220	    if(!row.kv.includes(chosenVoltage.get(row.stopId)))chosenVoltage.delete(row.stopId);
+825221	    const selector=el('select',null,li,{'aria-label':'Journey voltage at '+row.name});el('option','Choose journey voltage',selector,{value:''});for(const kv of row.kv)el('option',kv+' kV',selector,{value:String(kv)});selector.value=String(chosenVoltage.get(row.stopId)??(row.kv.length===1?row.kv[0]:''));on(selector,'change',()=>{selector.value?chosenVoltage.set(row.stopId,Number(selector.value)):chosenVoltage.delete(row.stopId);invalidate();});
+825222	    const buttons=el('div',null,li,{class:'vic-actions'});for(const[label,action,disabled]of [['Move up',()=>selected.move(rowIndex,rowIndex-1),rowIndex===0],['Move down',()=>selected.move(rowIndex,rowIndex+1),rowIndex===state.stops.length-1],['Remove',()=>selected.remove(rowIndex),false]]){const b=el('button',label,buttons,{type:'button','aria-label':label+' '+row.name});b.disabled=disabled;on(b,'click',()=>{action();invalidate();renderStops();});}
+825224	  function showChoices(result,binding){searchResults.replaceChildren();say(`${result.matched} matching stations${result.truncated?'; showing the first 30 — refine your search':''}. ${result.ambiguous?'Choose the intended source ID explicitly.':''}`);for(const row of result.rows){const li=el('li',`${row.name} · ID ${row.stationId} · ${row.kv.join(' / ')||'unknown'} kV${row.distanceKm!=null?' · '+row.distanceKm.toFixed(2)+' km':''}`,searchResults);const b=el('button','Use '+row.name,li,{type:'button'});on(b,'click',()=>{try{add(binding?binding(row):row);}catch(e){say(e.message);}});}}
+825225	  function searchStations(){searchEpoch++;bridge?.invalidate();const idx=fullIndex();if(idx)showChoices(idx.search(query.value,{limit:30}));}
+825226	  async function searchPlaces(){const idx=fullIndex();if(!idx)return;const resolve=globalThis.__GRIDATLAS_PLACE_SEARCH__?.resolveLocations;if(typeof resolve!=='function'){say('The existing place resolver is not ready. Station-name and source-ID search remain available.');return;}if(!bridge||bridgeResolver!==resolve){bridge=TrainCore.createPlaceBridge({resolve:label=>resolve(label),index:idx,geodesy});bridgeResolver=resolve;}const epoch=++searchEpoch;searchResults.replaceChildren();say('Looking up the typed place using the existing Atlas resolver…');try{const result=await bridge.lookup(query.value,{radiusKm:50,limit:30});if(destroyed||epoch!==searchEpoch||result.stale)return;say(result.places.length?'Choose a resolved place, then explicitly choose its station. No nearest station was selected automatically.':'No resolved locations found. Refine the place or search a station name.');for(const place of result.places){const li=el('li',`${place.label} · ${place.resolvedLabel} · ${place.provider} · ${place.precision||'precision unknown'} · ${place.at.join(', ')}`,searchResults),b=el('button','Choose stations near this place',li,{type:'button'});on(b,'click',()=>showChoices(place.nearby,row=>bridge.bind(place.token,row.stationId)));}}catch(e){if(epoch===searchEpoch)say(e.message);}}
+825227	  function law(){return TrainCore.normaliseJourneyLaw({mustVisitStationIds:(demo?.stops||selected.snapshot().stops).map(s=>s.stationId||s.id),allowedVoltageBands:voltageInputs.every(e=>e.checked)?null:voltageInputs.filter(e=>e.checked).map(e=>e.value),fallback:fallback.checked?'user-opted-hypothetical':'documented-only',allowTransformers:transformers.checked});}
+825228	  function applyLawChange(){invalidate();try{selected.setLaw(law());invalidate();}catch(e){fallback.checked=selected.snapshot().law.fallback==='user-opted-hypothetical';say(e.message);}}
+825229	  function cancelProposedPick(){proposedPicking=false;propose.setAttribute('aria-pressed','false');}
+825230	  function paintProposed(){
+825231	    if(mapRemoved||destroyed||!visible||!overlayArmed||!map.getStyle?.())return;
+825232	    const rows=scenarioStore.snapshot().stations,pointLayer='gridatlas-train-proposed-point';
+825233	    const current=map.getSource(proposedSourceId),existing=map.getLayer(pointLayer);
+825234	    if(current&&current!==proposedSource||existing&&existing!==proposedLayers.get(pointLayer)){say('A scenario overlay ID is already in use. Existing map objects were preserved.');return;}
+825235	    if(!current){map.addSource(proposedSourceId,{type:'geojson',data:{type:'FeatureCollection',features:[]}});proposedSource=map.getSource(proposedSourceId);}
+825236	    if(!existing){map.addLayer({id:pointLayer,type:'circle',source:proposedSourceId,paint:{'circle-radius':5,'circle-color':'#e0b050','circle-stroke-color':'#000c10','circle-stroke-width':1.5}});proposedLayers.set(pointLayer,map.getLayer(pointLayer));}
+825237	    proposedSource.setData({type:'FeatureCollection',features:rows.map(row=>({type:'Feature',properties:{role:'customer_substation',evidence:'SESSION_ONLY_USER_PROPOSED',label:'Proposed · FEED concept',name:row.name,kv:row.kv[0]},geometry:{type:'Point',coordinates:row.at}}))});
+825238	    const keep=new Set(rows.map(row=>row.id));for(const[id,marker]of proposedMarkers)if(!keep.has(id)){marker.remove();proposedMarkers.delete(id);}
+825239	    for(const row of rows){let marker=proposedMarkers.get(row.id);if(!marker&&globalThis.maplibregl?.Marker){const label=D.createElement('span');label.className='train-proposed-map-label';label.textContent='Proposed · FEED concept';label.style.cssText='color:#e0b050;background:#020809;padding:2px 4px;border:1px dashed #e0b050;font:11px monospace;pointer-events:none';marker=new globalThis.maplibregl.Marker({element:label,anchor:'left',offset:[9,0]}).setLngLat(row.at).addTo(map);proposedMarkers.set(row.id,marker);}marker?.setLngLat(row.at);}
+825240	  function clearProposedOverlay(){for(const marker of proposedMarkers.values())marker.remove();proposedMarkers.clear();if(!mapRemoved&&map.getStyle?.()){for(const[id,layer]of proposedLayers)if(map.getLayer(id)===layer)map.removeLayer(id);if(map.getSource(proposedSourceId)===proposedSource&&!(map.getStyle().layers||[]).some(layer=>layer.source===proposedSourceId))map.removeSource(proposedSourceId);}proposedLayers.clear();proposedSource=null;}
+825241	  function renderProposed(){proposedList.replaceChildren();for(const row of scenarioStore.snapshot().stations){const li=el('li',null,proposedList);el('strong','Proposed · FEED concept',li);el('p',row.id+' · '+row.at.join(', ')+' · session-only; connection and rights unknown',li);const name=el('input',null,li,{type:'text',value:row.name,maxlength:'80','aria-label':'Edit proposed label '+row.name}),kv=el('select',null,li,{'aria-label':'Edit proposed voltage '+row.name});for(const v of[11,33])el('option',v+' kV',kv,{value:String(v)});kv.value=String(row.kv[0]);const update=el('button','Apply proposed label / voltage',li,{type:'button'}),remove=el('button','Remove proposed pin',li,{type:'button'});on(update,'click',()=>{try{ride.pause();scenarioStore.edit(row.id,{name:name.value,kv:[Number(kv.value)]});invalidate();renderProposed();renderStops();paintProposed();}catch(e){say(e.message);}});on(remove,'click',()=>{scenarioStore.remove(row.id);invalidate();renderProposed();renderStops();paintProposed();say('Proposed pin removed. Any selected visit is marked invalid; remove that visit explicitly before drawing.');});}}
+825242	  function proposedClick(event){if(!proposedPicking||!event.lngLat)return;cancelProposedPick();try{if(!fallback.checked)throw Error('Explicit SIMULATED fallback is required for a proposed station.');selected.setLaw(law());const count=selected.snapshot();if(role.value==='waypoint'&&count.selectedCount>=count.limit)throw Error('Remove a selected visit before adding another proposed stop.');const row=scenarioStore.create({name:proposedName.value,at:[event.lngLat.lng,event.lngLat.lat],kv:[Number(proposedVoltage.value)]});overlayArmed=true;invalidate();renderProposed();paintProposed();add(row);}catch(e){say(e.message);}}
+825243	  const proposedRemoved=()=>{mapRemoved=true;cancelProposedPick();};
+825244	  map.on('click',proposedClick);map.on('remove',proposedRemoved);map.on('style.load',paintProposed);
+825245	  on(propose,'click',()=>{if(!fallback.checked){say('Enable SIMULATED fallback in the journey law before pinning a proposed FEED concept.');return;}proposedPicking=!proposedPicking;propose.setAttribute('aria-pressed',String(proposedPicking));if(proposedPicking){onProposedPick();onMapView();say('Tap one point on the map for your proposed customer substation. It remains a session-only screening concept.');}});
+825246	  function drawPlan(){overlayArmed=true;paintProposed();ride.clearPlan({stops:selected.snapshot().stops.filter(stop=>!stop.invalid)});drawnEpoch=null;plan=null;try{if(!fullIndex()&&!demo)throw Error('The current full station inventory is unavailable.');const currentLaw=law();if(!demo)selected.setLaw(currentLaw);const state=selected.snapshot();if(!demo&&!state.valid)throw Error('A selected proposed or source station is unavailable. Remove or repair its visit explicitly.');drawnEpoch=state.planEpoch;const stops=state.stops.map(s=>({...s,selectedVoltageKv:chosenVoltage.get(s.stopId)||null}));plan=TrainCore.buildRoutePlan({...demo,stops:demo?.stops||stops,stationIndex:demo?null:stationIndex,scenarioStore,planEpoch:drawnEpoch,geodesy,law:currentLaw,network:null});ride.setPlan(plan);legs.replaceChildren();for(const leg of plan.legs)el('li',`${leg.index+1}. ${leg.label}${leg.km==null?'':' · '+leg.km.toFixed(2)+' km diagram distance'}`,legs);say(plan.playable?(plan.simulated?'SIMULATED user itinerary drawn. These joins are not source cables or measured power flow.':'Reviewed evidence itinerary drawn.'):'Some legs have no reviewed route. Edit stops or voltages, or explicitly allow simulated fallback. Unknown and mixed-voltage gaps remain unexplained rather than inventing transformers.');return plan.playable;}catch(e){plan=null;drawnEpoch=null;ride.clearPlan({stops:selected.snapshot().stops.filter(stop=>!stop.invalid)});say(e.message);return false;}}
+825247	  function planIsCurrent(){const state=selected.snapshot();if(!demo&&(!state.valid||state.planEpoch!==drawnEpoch)){invalidate();say('The station scenario or law changed. Draw a new valid itinerary before moving the cursor.');return false;}return !!plan;}
+825248	  function loadDemo(kind){demo=TrainCore.trainLearningFixture(kind==='interchange'?'local':kind);invalidate();legs.replaceChildren();for(const stop of demo.stops)el('li',stop.name,legs);say(demo.title+'. Fictional demonstration loaded separately; your real selected stops are preserved. Explicitly allow SIMULATED fallback, then draw. No physical route is asserted.');}
+825249	  on(searchForm,'submit',e=>{e.preventDefault();searchStations();});on(placeSearch,'click',searchPlaces);on(query,'input',()=>{searchEpoch++;bridge?.invalidate();});on(journeyMode,'click',()=>setMode('journey'));on(vicinityMode,'click',()=>setMode('vicinity'));on(reset,'click',()=>{selected.clear();demo=null;chosenVoltage.clear();invalidate();renderStops();});on(fallback,'change',applyLawChange);on(transformers,'change',applyLawChange);on(draw,'click',drawPlan);on(play,'click',()=>{if(!plan&&!drawPlan())return;if(!plan.playable||!planIsCurrent()){say('Edit the missing or changed legs before playing.');return;}ride.play({cameraFollow:camera.checked,durationMs:Number(speed.value)*1000});onMapView();});on(pause,'click',()=>ride.pause());on(step,'click',()=>{if(!plan)drawPlan();if(!plan||!planIsCurrent())return;const state=ride.snapshot();if(state.stopIndex>=state.approvedThroughStop){say('The next leg is missing or disallowed. Edit the stops or law before moving across this gap.');return;}ride.step();});on(previous,'click',()=>{if(!plan||!planIsCurrent()){say('Draw a current itinerary before moving to another stop.');return;}ride.seekStop(Math.max(0,ride.snapshot().stopIndex-1));});
+825250	  on(fitJourney,'click',()=>{const stops=demo?.stops||selected.snapshot().stops.filter(stop=>!stop.invalid);if(!stops.length){say('Choose located stops first.');return;}const xs=stops.map(stop=>stop.at[0]),ys=stops.map(stop=>stop.at[1]);onMapView();map.fitBounds([[Math.min(...xs),Math.min(...ys)],[Math.max(...xs),Math.max(...ys)]],{padding:{top:140,bottom:120,left:30,right:30},duration:0,maxZoom:13});});
+825251	  selected.setLaw(law());fullIndex();renderStops();
+825252	  return Object.freeze({element:box,open(){visible=true;},close(){visible=false;overlayArmed=false;cancelProposedPick();ride.clearPlan({stops:[]});plan=null;drawnEpoch=null;clearProposedOverlay();legs.replaceChildren();progress.textContent='Closed. Selected stops are kept; draw again to show them.';},setMode,nextStop:()=>step.click(),previousStop:()=>previous.click(),refreshInventory:fullIndex,pause:()=>{ride.pause();cancelProposedPick();},cancelProposedPick,addSourceStation(row){const idx=fullIndex(),station=idx?.get(String(row.id));if(!station){say('Choose a station with a stable ID from the full inventory.');return false;}add(station);return true;},nearContext(row){demo=null;searchEpoch++;bridge?.invalidate();invalidate();const idx=fullIndex();if(idx)showChoices(idx.near(row.at,{radiusKm:50,limit:30}));query.value=row.name||'';box.scrollIntoView({block:'start'});},snapshot:()=>{let currentLaw;try{currentLaw=law();}catch(e){currentLaw={error:e.message};}return{itinerary:selected.snapshot(),law:currentLaw,index:index?.snapshot()||null,plan,ride:ride.snapshot(),demo:demo?.title||null,routing:{availability:'NOT_INSTALLED',reviewedStationBindings:0},proposals:scenarioStore.snapshot(),proposedPicking};},destroy(){if(destroyed)return;destroyed=true;searchEpoch++;bridge?.invalidate();ride.destroy();map.off('click',proposedClick);map.off('remove',proposedRemoved);map.off('style.load',paintProposed);for(const marker of proposedMarkers.values())marker.remove();proposedMarkers.clear();if(!mapRemoved&&map.getStyle?.()){for(const[id,layer]of proposedLayers)if(map.getLayer(id)===layer)map.removeLayer(id);if(map.getSource(proposedSourceId)===proposedSource&&!(map.getStyle().layers||[]).some(layer=>layer.source===proposedSourceId))map.removeSource(proposedSourceId);}cleanups.forEach(fn=>fn());box.remove();}});
+825253	const W = window, D = document, NS = W.__GRIDATLAS_MODULES__ = W.__GRIDATLAS_MODULES__ || {};
+825254	if (!NS.gridVicinity) {
+825255	  let controller = null, timer = null, stopped = false, pendingIntent = null, intentError = null;
+825256	  try { pendingIntent = parseVicinityIntent(W.location.search); } catch (error) { intentError = error.message; }
+825257	  function createController(map) {
+825258	    const geodesy = NS.geodesy;
+825259	    if (!geodesy?.distanceKm || !geodesy?.voltagesKv || !geodesy?.representativePoint) throw new Error('Canonical Atlas geodesy is not ready.');
+825260	    const host = map.getContainer(), prior = D.getElementById('gridatlas-vicinity');
+825261	    if (prior) throw new Error('Vicinity UI already mounted.');
+825262	    let alive = true, opened = false, origin = null, radius = 10, picking = false, result = null, records = [], contextSource = 'No loaded substation data', error = null, phase = 'CHOOSE_ORIGIN';
+825263	    let source = null, sourceUnavailable = false, selectionEpoch = 0, refreshTimer = null, returning = null, newsBase = null, newsTopic = null, assetContext = null, documentContext = null, assetSignature = null, stationSignature = null, documentSignature = null;
+825264	    const categoryElements = new Map();
+825265	    const bands = new Set(VOLTAGE_BANDS.map(b => b[0])), listeners = [], groups = [], controls = [], ownedLayers = new Map();
+825266	    const SOURCE = 'gridatlas-vicinity-context', LAYERS = ['gridatlas-vicinity-radius', 'gridatlas-vicinity-points', 'gridatlas-vicinity-model'];
+825267	    const root = D.createElement('div'); root.id = 'gridatlas-vicinity'; host.appendChild(root);
+825268	    const style = D.createElement('style'); style.textContent = VICINITY_CSS; root.appendChild(style);
+825269	    function el(tag, text, parent, attrs = {}) { const e = D.createElement(tag); if (text != null) e.textContent = text; for (const [k,v] of Object.entries(attrs)) e.setAttribute(k, v); parent?.appendChild(e); return e; }
+825270	    function listen(target, type, fn) { target.addEventListener(type, fn); listeners.push(() => target.removeEventListener(type, fn)); }
+825271	    const launch = el('button', 'Great Grid Journeys', root, {type: 'button', class: 'vic-launch', 'aria-expanded': 'false', 'aria-controls': 'gridatlas-vicinity-panel'});
+825272	    const panel = el('section', null, root, {id: 'gridatlas-vicinity-panel', class: 'vic-panel', 'aria-label': 'Vicinity familiarisation'}); panel.hidden = true;
+825273	    const heading = el('div', null, panel, {class: 'vic-head'}); el('h2', 'Explore the nearby grid', heading);
+825274	    const close = el('button', 'Close', heading, {type: 'button', 'aria-label': 'Close vicinity explorer'});
+825275	    const compact=el('section',null,root,{class:'vic-train-compact','aria-label':'Journey map controls'});compact.hidden=true;
+825276	    const compactActions=el('div',null,compact,{class:'vic-actions'});
+825277	    const compactPause=el('button','Pause',compactActions,{type:'button','aria-label':'Pause journey'}),compactPrevious=el('button','Previous',compactActions,{type:'button','aria-label':'Previous journey stop'}),compactNext=el('button','Next',compactActions,{type:'button','aria-label':'Next journey stop'}),compactEdit=el('button','Edit',compactActions,{type:'button','aria-label':'Edit journey'});
+825278	    const compactStatus=el('p','Learning cursor; electrical flow unknown.',compact,{role:'status'});
+825279	    const mapLegend=el('p','Solid — reviewed GIS. Long dash — topology (schematic). Dotted — SIMULATED. Proposed pin — FEED concept. Electrical flow and rights unknown.',root,{class:'vic-train-map-legend'});mapLegend.hidden=true;
+825280	    const originLabel = el('p', '', panel, {class: 'vic-origin'});
+825281	    const originPrecision = el('p', 'Source-provided location; coordinate precision not supplied.', panel, {class: 'vic-origin-precision'});
+825282	    el('p', 'Spatial vicinity, connectivity unknown. Mapped points and voltage tags are context, not capacity or an electrical path.', panel, {class: 'vic-caption'});
+825283	    const actions = el('div', null, panel, {class: 'vic-actions'});
+825284	    const centre = el('button', 'Use map centre', actions, {type: 'button'});
+825285	    const pick = el('button', 'Pick origin on map', actions, {type: 'button', 'aria-pressed': 'false'});
+825286	    const fit = el('button', 'Fit radius', actions, {type: 'button'});
+825287	    const physical = el('button', 'Show physical grid', actions, {type: 'button'});
+825288	    const news = el('a', 'News context', actions, {target: '_blank', rel: 'noopener noreferrer', 'aria-label': 'Open news topic context in the supplied dated edition'}); news.hidden = true;
+825289	    news.style.cssText = 'display:inline-flex;align-items:center;min-height:44px;padding:7px 10px;color:#0ff;background:#061216;border:1px solid #367078';
+825290	    const newsCaption = el('p', 'Topic context only; a headline is not an association with this asset.', panel, {class: 'vic-news-caption'}); newsCaption.hidden = true;
+825291	    const radial = el('fieldset', null, panel); el('legend', 'Radius in whole kilometres', radial);
+825292	    const rangeLabel = el('label', '', radial, {for: 'gridatlas-vicinity-radius-input'});
+825293	    const slider = el('input', null, radial, {id: 'gridatlas-vicinity-radius-input', type: 'range', min: '1', max: '50', step: '1', value: '10', 'aria-label': 'Vicinity radius in kilometres'});
+825294	    const voltage = el('fieldset', null, panel); el('legend', 'Source voltage tags', voltage);
+825295	    const bandBox = el('div', null, voltage, {class: 'vic-bands'});
+825296	    for (const [key, name, colour] of VOLTAGE_BANDS) {
+825297	      const label = el('label', null, bandBox), input = el('input', null, label, {type: 'checkbox', value: key, 'aria-label': name}); input.checked = true;
+825298	      const text = el('span', name, label); text.style.color = colour;
+825299	      listen(input, 'change', () => { input.checked ? bands.add(key) : bands.delete(key); refresh(); });
+825300	    const status = el('p', '', panel, {class: 'vic-status', role: 'status', 'aria-live': 'polite'});
+825301	    const failure = el('p', '', panel, {class: 'vic-error', role: 'alert'}); failure.hidden = true;
+825302	    el('p', 'Nearby mapped substations · straight-line distance', panel);
+825303	    const list = el('ol', null, panel, {class: 'vic-results'});
+825304	    el('p', 'Existing Atlas substation layer; source tags and coverage may be incomplete. Reuses the map’s existing data loader.', panel, {class: 'vic-source'});
+825305	    const energy = el('fieldset', null, panel, {class: 'vic-energy-context'}); el('legend', 'Nearby generation and demand context', energy);
+825306	    el('p', 'Counts describe loaded source records. Nameplates, IT load, grid requests and actual electricity demand are different quantities.', energy);
+825307	    const loadAssets = el('button', 'Load existing asset layers', energy, {type: 'button'});
+825308	    const energyRows = el('div', null, energy, {class: 'vic-energy-categories'});
+825309	    const documents = el('details', null, panel, {class: 'vic-document-context'}); el('summary', 'Documented works and official notices', documents);
+825310	    const documentRows = el('div', null, documents);
+825311	    panel.insertBefore(energy, list); panel.insertBefore(documents, list);
+825312	    const train = createGreatGridJourney({map,registry:NS,geodesy,parent:panel,onMapView:()=>{panel.hidden=true;compact.hidden=false;const target=train.snapshot().proposedPicking?map.getCanvas():compactEdit;target.focus({preventScroll:true});},onStatus:message=>{if(!compact.hidden&&compactStatus.textContent!==message)compactStatus.textContent=message;},onRideState:state=>{const message=`${state.playing?'Playing':'Paused'} · ${state.evidence||'no route'} · electrical flow unknown`;if(compactStatus.textContent!==message)compactStatus.textContent=message;mapLegend.hidden=!state.evidence;},onProposedPick:()=>{picking=false;pick.setAttribute('aria-pressed','false');pick.textContent='Pick origin on map';},readFeatures:()=>{
+825313	      if(!map.getStyle?.())return null;
+825314	      const data=map.getSource('src-subs')?.serialize?.().data;
+825315	      return data&&typeof data==='object'&&Array.isArray(data.features)?data.features:null;
+825317	    panel.insertBefore(train.element,originLabel);
+825318	    listen(compactPause,'click',()=>train.pause());listen(compactPrevious,'click',()=>train.previousStop());listen(compactNext,'click',()=>train.nextStop());listen(compactEdit,'click',()=>{train.pause();compact.hidden=true;panel.hidden=false;close.focus();});
+825319	    for(const type of ['click','dblclick','pointerdown','touchstart'])listen(compact,type,event=>event.stopPropagation());
+825320	    listen(compact,'keydown',event=>{if(event.key==='Escape'){event.preventDefault();shut();}});
+825321	    // Keep the fixed Close row outside the scrolling content so native scroll-to-focus cannot hide a control behind it.
+825322	    const scroller=el('div',null,null,{class:'vic-panel-body'});
+825323	    for(const child of [...panel.children])if(child!==heading)scroller.appendChild(child);
+825324	    panel.appendChild(scroller);
+825325	    function sourceAnchor(parent, title, href) {
+825326	      try { const url = new URL(href); if (url.protocol !== 'https:' || url.username || url.password) return; el('a', title, parent, {href: url.href, target: '_blank', rel: 'noopener noreferrer'}); } catch (_) {}
+825327	    function rowOrigin(row) {
+825328	      return {at: row.at, name: row.name, id: row.originId || row.id, type: row.kind === 'datacentre' ? 'datacentre' : ['generation','storage'].includes(row.kind) ? 'repd' : 'context-asset'};
+825329	    function text(node, value) { if (node.textContent !== value) node.textContent = value; }
+825330	    function renderAssetContext() {
+825331	      assetContext = collectAssetContext({map, registry: NS, origin, radiusKm: radius, geodesy, limit: 40});
+825332	      const originRow = assetContext.categories.flatMap(category => category.rows).find(row => (row.originId || row.id) === origin.id && row.at.every((v,i) => v === origin.at[i]));
+825333	      text(originPrecision, ['map-centre','map-point'].includes(origin.type) ? 'User-chosen map point; no facility identity was inferred.'
+825334	        : originRow?.approximateLocation ? 'Source-provided location is approximate' + (originRow.precision ? ': ' + originRow.precision.replace(/_/g,' ').toLowerCase() : '') + '.'
+825335	        : originRow?.precision ? 'Source location tag: ' + originRow.precision.replace(/_/g,' ').toLowerCase() + '. Facility position has not been independently verified.'
+825336	        : 'Source-provided location; coordinate precision not supplied. A stable ID and coordinates alone do not verify a facility location.');
+825337	      const signature = JSON.stringify(assetContext);
+825338	      if (signature === assetSignature) return;
+825339	      assetSignature = signature;
+825340	      const scroll = scroller.scrollTop;
+825341	      for (const category of assetContext.categories) {
+825342	        let view = categoryElements.get(category.id);
+825343	        if (!view) {
+825344	          const section = el('details', null, energyRows, {'data-vicinity-category': category.id});
+825345	          view = {section, heading: el('summary','',section), source: el('p','',section), hint: el('p','',section), rows: el('ol',null,section), records: new Map()};
+825346	          categoryElements.set(category.id, view);
+825347	        text(view.heading, category.availability === 'LOADED' ? `${category.label}: ${category.count} within ${radius} km · ${category.loadedRecords} loaded records` : `${category.label}: not loaded; nearby count unknown`);
+825348	        text(view.source, `${category.source || 'Existing Atlas layer'}${category.truncated ? ' · showing nearest 40; narrow the radius for more detail.' : ''}`);
+825349	        text(view.hint, 'Use Load existing asset layers to request the map’s existing data.'); view.hint.hidden = category.availability === 'LOADED';
+825350	        const retained = new Set();
+825351	        for (const [index,row] of category.rows.entries()) {
+825352	          // A source-row index is a DOM cache key only; it never becomes an asset identity.
+825353	          const key = row.source + '|' + (row.originId || row.id || 'missing-source-id:' + row.sourceRow);
+825354	          retained.add(key);
+825355	          let entry = view.records.get(key);
+825356	          if (!entry) {
+825357	            const item = el('li',null,null,{'data-vicinity-asset-id':row.originId || row.id || ''});
+825358	            entry = {item, title: el('span','',item), meta: el('span','',item,{class:'vic-row-meta'}), row};
+825359	            const buttons = el('div',null,item,{class:'vic-actions'});
+825360	            entry.recenter = el('button','Use as origin',buttons,{type:'button'}); entry.add = el('button','Find stations nearby',buttons,{type:'button'});
+825361	            entry.recenter.addEventListener('click',()=>setOrigin(rowOrigin(entry.row))); entry.add.addEventListener('click',()=>train.nearContext(entry.row));
+825362	            view.records.set(key,entry);
+825363	          entry.row = row; text(entry.title,row.name);
+825364	          entry.recenter.setAttribute('aria-label','Use '+row.name+' as origin'); entry.add.setAttribute('aria-label','Find stations near '+row.name);
+825365	          const facts = [`${row.km.toFixed(2)} km straight-line`, row.status, row.technology].filter(Boolean);
+825366	          const basis = row.capacityBasis === 'REGISTER_STATED_POWER_BASIS_NOT_DECLARED' ? 'register power; basis not supplied' : row.capacityBasis === 'SOURCE_STATED_POWER_NOT_CURRENT_OUTPUT' ? 'source-stated power, not current output' : row.capacityBasis || 'source-stated basis not supplied';
+825367	          if (row.capacityMw != null) facts.push(`${row.capacityMw} MW (${basis})`);
+825368	          if (row.metrics?.itLoadMw != null) facts.push(`${row.metrics.itLoadMw} MW IT load`);
+825369	          if (row.metrics?.gridConnectionMw != null) facts.push(`${row.metrics.gridConnectionMw} MW grid-connection statement`);
+825370	          if (row.metrics?.unclassifiedMw != null) facts.push(`${row.metrics.unclassifiedMw} MW (basis unclassified)`);
+825371	          if (row.kind === 'datacentre' || row.kind === 'demand-context') facts.push('Actual electricity demand unknown');
+825372	          if (row.kind === 'storage') facts.push('Storage energy (MWh) unknown');
+825373	          if (row.approximateLocation) facts.push('Approximate source location' + (row.precision ? ': ' + row.precision.replace(/_/g,' ').toLowerCase() : ''));
+825374	          else facts.push(row.precision ? 'Source location tag: ' + row.precision.replace(/_/g,' ').toLowerCase() : 'Coordinate precision not supplied');
+825375	          text(entry.meta,facts.join(' · '));
+825376	          if (view.rows.children[index] !== entry.item) view.rows.insertBefore(entry.item,view.rows.children[index] || null);
+825377	        for (const [key,entry] of view.records) if (!retained.has(key)) { entry.item.remove(); view.records.delete(key); }
+825378	      scroller.scrollTop = scroll;
+825379	    function renderDocumentContext() {
+825380	      documentContext = documentContextFor(origin, {declaredConnections: NS.declaredConnections});
+825381	      const signature = JSON.stringify(documentContext); if (signature === documentSignature) return; documentSignature = signature;
+825382	      documentRows.replaceChildren();
+825383	      el('p', documentContext.matchedRecords?.length ? 'Existing published works context; source citations have not been revalidated in this release.' : 'No exact documentary works context is available for this asset.', documentRows);
+825384	      for (const row of (documentContext.matchedRecords || []).slice(0,10)) {
+825385	        const box = el('div', null, documentRows); el('strong', row.title || 'Existing source declaration', box);
+825386	        el('p', row.statement || '', box); el('p', 'Existing published declaration; not independently revalidated.', box); sourceAnchor(box, 'Source record', row.sourceUrl);
+825387	      for (const row of (documentContext.unassociatedNotices || []).slice(0,5)) {
+825388	        const box = el('div', null, documentRows); el('strong', row.title || 'Unassociated official notice', box);
+825389	        el('p', row.statement || 'No verified association to the selected asset.', box); sourceAnchor(box, 'Official notice context', row.sourceUrl);
+825390	      for (const text of documentContext.limitations || []) el('p', String(text), documentRows);
+825391	    function readRecords() {
+825392	      let features = [];
+825393	        const data = map.getSource('src-subs')?.serialize?.().data;
+825394	        if (data?.type === 'FeatureCollection' && Array.isArray(data.features) && data.features.length) {
+825395	          contextSource = 'Existing loaded Atlas substation GeoJSON'; return stationRecords(data.features, geodesy);
+825397	      try { if (map.getSource('src-subs')) features = map.querySourceFeatures('src-subs') || []; } catch (_) {}
+825398	      if (features.length) { contextSource = 'Loaded viewport subset of Atlas substations; use Fit radius to load this view'; return stationRecords(features, geodesy); }
+825399	      const loaded = W.__GRIDATLAS_NEON_LINKS__?.substations || W.__GRIDATLAS_SUBSTATIONS__ || [];
+825400	      if (loaded.length) {
+825401	        contextSource = 'Loaded Atlas ≥33 kV screening subset; lower voltages are not included';
+825402	        return stationRecords(loaded.map(row => ({type: 'Feature', id: row.id ?? undefined, geometry: {type: 'Point', coordinates: row.at},
+825403	          properties: {name: row.name, operator: row.operator, kv: (row.kv || []).join(';'), source: row.source || 'Existing Atlas screening subset'}})), geodesy);
+825404	      contextSource = 'Substation layer is not loaded yet'; return [];
+825406	      if (!opened || !result || !alive) return;
+825407	        let current = map.getSource(SOURCE);
+825408	        if (current && current !== source) { sourceUnavailable = true; return; }
+825409	        for (const id of LAYERS) {
+825410	          const existing = map.getLayer(id);
+825411	          if (existing && existing !== ownedLayers.get(id)) { sourceUnavailable = true; showError('A map layer ID is already in use. Results remain available; existing layers were preserved.'); return; }
+825412	        if (!current) { map.addSource(SOURCE, {type: 'geojson', data: {type: 'FeatureCollection', features: []}}); source = map.getSource(SOURCE); }
+825413	        sourceUnavailable = false;
+825414	        const specs = [
+825415	          {id: LAYERS[0], type: 'line', source: SOURCE, filter: ['==', ['get', 'kind'], 'radius'], paint: {'line-color': '#0ff', 'line-width': 1.5, 'line-dasharray': [3,3], 'line-opacity': 0.8}},
+825416	          {id: LAYERS[1], type: 'circle', source: SOURCE, filter: ['in', ['get', 'kind'], ['literal', ['origin','substation']]], paint: {'circle-color': ['case', ['==', ['get', 'kind'], 'origin'], '#ff4fd8', ['get', 'colour']], 'circle-radius': ['case', ['==', ['get', 'kind'], 'origin'], 8, 5], 'circle-stroke-color': '#020809', 'circle-stroke-width': 1.5}},
+825417	          {id: LAYERS[2], type: 'line', source: SOURCE, filter: ['==', ['get', 'kind'], 'user-model'], paint: {'line-color': '#ff4fd8', 'line-width': 3, 'line-dasharray': [2,3]}}
+825419	        for (const spec of specs) if (!map.getLayer(spec.id)) { map.addLayer(spec); ownedLayers.set(spec.id, map.getLayer(spec.id)); }
+825420	        const data = vicinityGeoJSON(result, geodesy);
+825421	        source.setData(data);
+825422	      } catch (e) { sourceUnavailable = true; failure.textContent = 'Map overlay not ready. Results remain available below.'; failure.hidden = false; }
+825423	    function removeMap(mapRemoved = false) {
+825424	      if (!source || mapRemoved) { source = null; ownedLayers.clear(); return; }
+825425	        if (map.getSource(SOURCE) === source) {
+825426	          for (const id of [...LAYERS].reverse()) if (map.getLayer(id) && map.getLayer(id) === ownedLayers.get(id)) map.removeLayer(id);
+825427	          const foreignDependency = (map.getStyle()?.layers || []).some(layer => layer.source === SOURCE);
+825428	          if (!foreignDependency && map.getSource(SOURCE) === source) map.removeSource(SOURCE);
+825429	      source = null; ownedLayers.clear();
+825430	    function showError(message) { error = message; failure.textContent = message; failure.hidden = !message; }
+825431	    function clearNews() { newsBase = null; newsTopic = null; news.removeAttribute('href'); news.hidden = newsCaption.hidden = true; }
+825432	    function clearSelectedContext() { origin = null; result = null; assetContext = null; documentContext = null; assetSignature = stationSignature = documentSignature = null; categoryElements.clear(); list.replaceChildren(); energyRows.replaceChildren(); documentRows.replaceChildren(); news.hidden = newsCaption.hidden = true; removeMap(); }
+825433	    function addStation(row) { train.addSourceStation(row); }
+825434	    function refresh() {
+825435	      if (!alive || !opened) return;
+825436	      if (!origin) { rangeLabel.textContent = `${radius} km radius`; slider.value = String(radius); train.refreshInventory(); return; }
+825437	        records = readRecords(); result = exploreVicinity({origin, radius, records, bands, geodesy});
+825438	        originLabel.textContent = `Origin: ${origin.name}${origin.id ? ' · source ID ' + origin.id : ''}`;
+825439	        if (newsBase) { news.href = newsContextHref(newsBase, origin, newsTopic); news.hidden = newsCaption.hidden = false; }
+825440	        rangeLabel.textContent = `${radius} km radius`; slider.value = String(radius);
+825441	        status.textContent = `${result.matching} matching mapped stations within ${radius} km · ${result.loadedRecords} loaded records. ${result.truncated ? 'Showing nearest 200. ' : ''}${contextSource}.`;
+825442	        const nextStationSignature = JSON.stringify(result);
+825443	        if (nextStationSignature !== stationSignature) {
+825444	          stationSignature = nextStationSignature; list.replaceChildren();
+825445	          for (const row of result.shown) {
+825446	          const item = el('li', row.name, list); el('span', `${row.km.toFixed(2)} km · ${row.kv.length ? row.kv.join(' / ') + ' kV' : 'Voltage not stated'}${row.operator ? ' · ' + row.operator : ''}`, item, {class: 'vic-row-meta'});
+825447	          const buttons = el('div', null, item, {class: 'vic-actions'});
+825448	          const recenter = el('button', 'Use as origin', buttons, {type: 'button', 'aria-label': 'Use ' + row.name + ' as origin'});
+825449	          const add = el('button', 'Add to my model', buttons, {type: 'button', 'aria-label': 'Add ' + row.name + ' to my model'});
+825450	          recenter.addEventListener('click', () => setOrigin({at: row.at, name: row.name, id: row.id, type: 'substation'}));
+825451	          add.addEventListener('click', () => addStation(row));
+825452	        renderAssetContext(); renderDocumentContext(); draw(); train.refreshInventory();
+825453	      } catch (e) { showError(e.message); }
+825454	    function setOrigin(next) {
+825455	      train.cancelProposedPick();
+825456	      try { const validated = normaliseOrigin(next); origin = validated; phase = 'READY'; selectionEpoch++; picking = false; pick.setAttribute('aria-pressed', 'false'); pick.textContent = 'Pick origin on map'; showError(null); refresh(); return true; }
+825457	      catch (e) { clearSelectedContext(); phase = 'REFUSED'; originLabel.textContent = 'Origin was not applied.'; showError(e.message); return false; }
+825458	    function mapCentre() { const c = map.getCenter(); return {at: [c.lng, c.lat], type: 'map-centre', id: null, name: 'Chosen map centre'}; }
+825459	    function fitRadius() {
+825460	      if (!result) return;
+825461	      const points = vicinityGeoJSON(result, geodesy).features[0].geometry.coordinates;
+825462	      const lngs = points.map(p => p[0]), lats = points.map(p => p[1]);
+825463	      map.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]], {padding: 32, duration: 0});
+825464	    function installControls() {
+825465	      for (const host of [D.getElementById('scada-ui-container'), D.getElementById('fs-curtain-keys'), D.querySelector('#gridatlas-menu-bar-panel-4 .gm-panel-body')]) {
+825466	        if (!host || groups.some(g => g.parentNode === host)) continue;
+825467	        if (host.id === 'scada-ui-container' && !host.querySelector('input[data-layer-id]')) continue;
+825468	        if (host.id === 'fs-curtain-keys' && !host.querySelector('input[data-layer-id]')) continue;
+825469	        if (host.closest?.('#gridatlas-menu-bar-panel-4') && !NS.menuBar?.installed) continue;
+825470	        const group = el('div', null, host, {class: 'key-group', 'data-vicinity-group': 'true'}); group.style.gridColumn = '1/-1'; el('div', 'Vicinity familiarisation', group, {class: 'key-title'});
+825471	        const button = el('button', 'Explore nearby grid · 1–50 km', group, {type: 'button', class: 'map-ctrl-btn', 'aria-expanded': String(opened), 'aria-controls': panel.id});
+825472	        button.style.minHeight = '44px'; listen(button, 'click', event => { event.stopPropagation(); NS.menuBar?.closeAll?.(); open({mode:'vicinity'}, button); });
+825473	        const journeyButton=el('button','Great Grid Journeys',group,{type:'button',class:'map-ctrl-btn','aria-controls':panel.id});journeyButton.style.minHeight='44px';listen(journeyButton,'click',event=>{event.stopPropagation();NS.menuBar?.closeAll?.();open({mode:'journey'},journeyButton);});
+825474	        groups.push(group); controls.push(button);
+825475	    function open(options = {}, invoker = null) {
+825476	      if (!alive) return false;
+825477	      returning = invoker || (D.activeElement && D.activeElement !== D.body && D.activeElement !== D.documentElement ? D.activeElement : launch); opened = true; panel.hidden = false; compact.hidden=true; launch.setAttribute('aria-expanded', 'true'); for (const b of controls) b.setAttribute('aria-expanded', 'true');
+825478	        train.open();if(!train.setMode(options.mode||'vicinity')) {showError('Selected stops exceed the requested mode. Remove stops explicitly before changing mode.');close.focus();return false;}
+825479	        if (options.error) { clearSelectedContext(); phase = 'REFUSED'; originLabel.textContent = 'Journey link was not applied. Choose an origin to explore.'; status.textContent = ''; showError(options.error); close.focus(); return false; }
+825480	        let newsError = options.newsContextError || null;
+825481	        if (newsError) clearNews();
+825482	        else if (options.newsContextUrl !== undefined) {
+825483	          try { const base = validateNewsContextBase(options.newsContextUrl), topic = normaliseNewsTopic(options.newsTopic, options.origin); newsBase = base; newsTopic = topic; }
+825484	          catch (e) { clearNews(); newsError = 'News context link was not applied: ' + e.message; }
+825485	        radius = radiusKm(options.radiusKm ?? radius);
+825486	        if (options.manual || !options.origin && !origin) {
+825487	          clearSelectedContext(); phase = 'CHOOSE_ORIGIN'; picking = false; pick.setAttribute('aria-pressed','false'); pick.textContent = 'Pick origin on map';
+825488	          originLabel.textContent = 'Choose an origin to begin.'; originPrecision.textContent = 'Use map centre or pick a point; no location is chosen automatically.';
+825489	          status.textContent = 'Choose a location, then explore the grid within your selected radius.'; refresh(); showError(newsError ? newsError + ' Choose a location to continue grid exploration.' : null); close.focus(); return true;
+825490	        if (!setOrigin(options.origin || origin)) return false;
+825491	        try { W.__GRIDATLAS_NEON_LINKS__?.enableSubstationLayer?.(); } catch (_) {}
+825492	        refresh(); if (newsError) showError(newsError + ' Grid exploration continues.'); close.focus(); return true;
+825493	      } catch (e) { clearSelectedContext(); phase = 'REFUSED'; originLabel.textContent = 'Journey request was not applied. Choose a valid origin and radius.'; showError(e.message); close.focus(); return false; }
+825494	    function shut() {
+825495	      if (!alive) return;
+825496	      opened = false; picking = false; panel.hidden = true; compact.hidden=true;mapLegend.hidden=true; launch.setAttribute('aria-expanded', 'false'); for (const b of controls) b.setAttribute('aria-expanded', 'false');
+825497	      train.close(); removeMap(); const candidate = returning?.isConnected && returning.getClientRects().length ? returning : D.getElementById('gridatlas-menu-bar-title-4') || launch; candidate.focus();
+825498	    listen(launch, 'click', () => { opened ? shut() : open({mode:'journey'}, launch); }); listen(close, 'click', shut);
+825499	    listen(centre, 'click', () => setOrigin(mapCentre())); listen(fit, 'click', fitRadius);
+825500	    listen(loadAssets, 'click', event => {
+825501	      const ids = ['solar','solar_operational','solar_roof','wind','wind_onshore_operational','wind_offshore_operational','bess','bess_operational','biomass','tidal','hydrogen','hydro','flywheel','act','geothermal','caes'];
+825502	      const boxes = ids.map(id => D.querySelector(`#scada-ui-container input[data-layer-id="${id}"]`)).filter(Boolean);
+825503	      for (const box of boxes) if (!box.checked) box.click();
+825504	      NS.ukOfftakers?.setOn?.(true); refresh();
+825505	    listen(physical, 'click', event => {
+825506	      const boxes = ['400','275','220','132','66','subs'].map(id => D.querySelector(`#scada-ui-container input[data-layer-id="${id}"]`)).filter(Boolean);
+825507	      if (!boxes.length) { showError('Physical grid controls are loading. Try again when the map controls appear.'); return; }
+825508	      showError(null); status.textContent = 'Existing physical grid layers switched on. Source-mapped corridors are context; crossings and proximity do not establish a connection.';
+825509	      fitRadius();
+825510	    listen(pick, 'click', () => { train.cancelProposedPick(); picking = !picking; pick.setAttribute('aria-pressed', String(picking)); pick.textContent = picking ? 'Tap a point on the map' : 'Pick origin on map'; });
+825511	    listen(slider, 'input', () => { try { radius = radiusKm(slider.value); showError(null); refresh(); } catch (e) { showError(e.message); } });
+825512	    listen(panel, 'keydown', event => { if (event.key === 'Escape') { event.preventDefault(); shut(); } });
+825513	    for (const type of ['click','dblclick','pointerdown','touchstart']) listen(panel, type, event => event.stopPropagation());
+825514	    const clicked = event => { if (opened && picking && event.lngLat) setOrigin({at: [event.lngLat.lng,event.lngLat.lat], name: 'Chosen map point', type: 'map-point', id: null}); };
+825515	    const sourced = event => { if (opened && (!event || ['src-subs','src-repd','gridatlas-offtakers'].includes(event.sourceId))) { clearTimeout(refreshTimer); refreshTimer = setTimeout(refresh, 100); } };
+825516	    const styled = () => { if (!map.getSource(SOURCE)) source = null; if (opened) refresh(); };
+825517	    const removed = () => destroy(true);
+825518	    map.on('click', clicked); map.on('sourcedata', sourced); map.on('style.load', styled); map.on('remove', removed);
+825519	    const onIntent = event => open(event.detail || {}); listen(W, 'gridatlas:vicinity-open', onIntent);
+825520	    const onCard = event => { if (event.detail?.origin && opened && !train.snapshot().proposedPicking) setOrigin(event.detail.origin); }; listen(W, 'gridatlas:card-open', onCard);
+825521	    const observer = new MutationObserver(installControls); observer.observe(D.documentElement, {childList: true, subtree: true}); installControls();
+825522	    function destroy(mapRemoved = false) {
+825523	      if (!alive) return; alive = false; clearTimeout(refreshTimer); observer.disconnect(); listeners.forEach(off => off());
+825524	      map.off('click', clicked); map.off('sourcedata', sourced); map.off('style.load', styled); map.off('remove', removed); removeMap(mapRemoved);
+825525	      train.destroy(); groups.forEach(g => g.remove()); root.remove();
+825526	    return Object.freeze({open, close: shut, setOrigin, refresh, destroy, snapshot: () => ({alive, opened, phase, generation: VICINITY_GENERATION, radiusKm: radius,
+825527	      origin: origin ? {...origin,at: origin.at.slice()} : null, matching: result?.matching ?? null, shown: result?.shown.length ?? 0, loadedRecords: records.length,
+825528	      newsContextUrl: newsBase, newsHref: newsBase && origin ? newsContextHref(newsBase, origin, newsTopic) : null,
+825529	      assetContext: assetContext ? {...assetContext, categories: assetContext.categories.map(category => ({...category, rows: category.rows.map(({sourceRow, ...row}) => row)}))} : null,
+825530	      documentContext,
+825531	      selectedBands: [...bands], contextSource, sourceUnavailable, train:train.snapshot(), modelStations: train.snapshot().itinerary.stops.map(row => ({name: row.name, id: row.id, at: row.at.slice()})),
+825532	      modelEvidence: 'USER_ASSUMED_LOCAL_MODEL', realConnectionsInferred: 0, error, selectionEpoch})});
+825533	  function mount(map = W.__GRIDATLAS_V9_MAP__) {
+825534	    if (!map?.getContainer) return null;
+825535	    controller = createController(map); return controller;
+825537	      if (mount()) {
+825538	        if (pendingIntent) { controller.open(pendingIntent); pendingIntent = null; }
+825539	        else if (intentError) { controller.open({error: 'Journey link refused: ' + intentError}); intentError = null; }
+825540	    } catch (e) { console.warn('[Vicinity]', e.message); }
+825541	    if (++tries < 240) timer = setTimeout(attach, 250);
+825542	  NS.gridVicinity = Object.freeze({schema: 'gridatlas.vicinity.v1', generation: VICINITY_GENERATION, mount,
+825543	    open(options) { return mount()?.open(options); }, setOrigin(origin) { return mount()?.setOrigin(origin); },
+825544	    snapshot: () => controller?.snapshot() || {alive: false, opened: false, status: 'map-unavailable'},
+825545	    destroy() { stopped = true; clearTimeout(timer); controller?.destroy(); controller = null; }});
+825546	/** Real native GridAtlas composer acceptance; local HTTP serves Git-published LF text bytes. */
+825551	import {ROOT, G as FIXTURE_GENERATION} from './build.mjs';
+825552	const G = process.env.JOURNEY_BROWSER_GENERATION || FIXTURE_GENERATION;
+825553	import {createPreviewServer} from './serve.mjs';
+825554	const pwModule = process.env.PLAYWRIGHT_MODULE;
+825555	const pw = await import(pwModule && path.isAbsolute(pwModule) ? pathToFileURL(pwModule).href : pwModule || 'playwright');
+825556	const runStartedUTC=new Date().toISOString();
+825557	const out = process.env.JOURNEY_BROWSER_OUTPUT || path.join(os.tmpdir(), 'gridatlas-gj03-browser-' + G + '-' + runStartedUTC.replace(/[:.]/g,'-'));
+825558	fs.mkdirSync(out, {recursive: true});
+825559	fs.rmSync(path.join(out,'receipt.json'),{force:true});
+825560	console.log(JSON.stringify({browserOutput:out,runStartedUTC}));
+825561	const server = await createPreviewServer();
+825562	const origin = `http://127.0.0.1:${server.address().port}`;
+825564	const receipts = [], errors = [], failed = [], assets = [], assetReads=[];
+825566	  browser = await pw.chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
+825567	  const context = await browser.newContext({...pw.devices['Pixel 7'], viewport:{width:390,height:844}});
+825569	  page.on('pageerror', e => errors.push(e.message));
+825570	  page.on('requestfailed', r => failed.push({url:r.url(),error:r.failure()?.errorText}));
+825571	  page.on('response',r=>{if(r.url()==='https://cdn.jsdelivr.net/npm/maplibre-gl@3.6.2/dist/maplibre-gl.js')assetReads.push(r.body().then(b=>assets.push({url:r.url(),status:r.status(),bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')})));});
+825572	  await page.goto(`${origin}/atlas/v/${G}/`, {waitUntil:'domcontentloaded', timeout:90000});
+825573	  await page.waitForFunction(() => window.__GRIDATLAS_V9_MAP__ && document.querySelector('#gridatlas-gj03 .gj-launch'), null, {timeout:90000});
+825574	  await page.waitForFunction(() => window.__GRIDATLAS_V9_MAP__?.getStyle()?.layers?.length > 0, null, {timeout:90000});
+825575	  const native = await page.evaluate(() => {const m=window.__GRIDATLAS_V9_MAP__; return {constructor:m.constructor.name,version:window.maplibregl?.version,canvas:!!m.getCanvas().getContext('webgl2') || !!m.getCanvas().getContext('webgl'),container:m.getContainer().id,existingLayers:m.getStyle().layers.length,existingLayerIds:m.getStyle().layers.map(l=>l.id)};});
+825576	  assert.equal(native.version, '3.6.2'); assert.ok(native.canvas); assert.ok(native.existingLayers > 0);
+825577	  await page.waitForFunction(() => {const s=window.__GRIDATLAS_MODULES__?.menuBar; return s?.installed || s?.failure;}, null, {timeout:90000});
+825578	  const menuState = await page.evaluate(()=>window.__GRIDATLAS_MODULES__.menuBar);
+825579	  assert.equal(menuState.installed,true,JSON.stringify(menuState));
+825580	  assert.equal(menuState.layer_controls,63);
+825581	  const nativeGrid = page.locator('#gridatlas-menu-bar-title-4');
+825582	  await nativeGrid.tap();
+825583	  const nativeJourney = page.locator('[data-journey-group="native-grid-menu"] button');
+825584	  await nativeJourney.tap();
+825585	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().opened),true);
+825586	  await page.getByRole('button',{name:'Close Grid Journey',exact:true}).tap();
+825587	  assert.equal(await nativeGrid.evaluate(e => e === document.activeElement && e.getClientRects().length > 0),true,'Close returns focus to the visible native Grid title');
+825588	  await page.getByRole('button',{name:'Explore real grid nearby',exact:true}).tap();
+825589	  assert.equal(await nativeGrid.getAttribute('aria-expanded'),'true');
+825590	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().opened),false);
+825591	  await nativeGrid.click();
+825592	  await page.locator('.gj-launch').click();
+825593	  await assert.match(await page.locator('.gj-status').textContent(),/Explore the physical grid/);
+825594	  assert.equal(await page.evaluate(()=>!!window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-gj03-route')), false);
+825595	  await page.getByRole('button',{name:'Load SYNTHETIC demonstration',exact:true}).click();
+825596	  await page.getByRole('combobox',{name:'Explicit starting node'}).selectOption('A1');
+825597	  await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().steps===8);
+825598	  await page.waitForFunction(()=>!!window.__GRIDATLAS_V9_MAP__.getLayer('gridatlas-gj03-schematic'),null,{timeout:60000});
+825599	  await page.getByRole('button',{name:'Next',exact:true}).click();
+825600	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().step),1);
+825601	  await page.getByRole('button',{name:'Reset',exact:true}).click();
+825602	  for(let i=0;i<8;i++) await page.getByRole('button',{name:'Next',exact:true}).click();
+825603	  assert.match(await page.locator('.gj-status').textContent(), /backtrack/);
+825604	  for(const [width,height] of [[390,844],[393,852],[1440,1000],[844,390]]) {
+825605	    const stepBefore=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().step);
+825606	    await page.setViewportSize({width,height});
+825607	    await page.waitForFunction(()=>{const m=window.__GRIDATLAS_V9_MAP__,c=m.getCanvas(),d=m.getSource('gridatlas-gj03-route').serialize().data;return d.features.every(f=>f.geometry.coordinates.every(x=>{const p=m.project(x);return p.x>=0&&p.x<=c.clientWidth&&p.y>=0&&p.y<=c.clientHeight;}));});
+825608	    await page.waitForFunction(()=>{const m=window.__GRIDATLAS_V9_MAP__;return m.isSourceLoaded('gridatlas-gj03-route')&&m.isSourceLoaded('gridatlas-gj03-cursor');});
+825609	    await page.evaluate(()=>new Promise(resolve=>{const m=window.__GRIDATLAS_V9_MAP__;m.once('render',resolve);m.triggerRepaint();}));
+825610	    const renderedEdges=await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__,c=m.getCanvas();return [...new Set(m.queryRenderedFeatures([[0,0],[c.clientWidth,c.clientHeight]],{layers:['gridatlas-gj03-verified','gridatlas-gj03-schematic']}).map(f=>f.properties.edgeUid))];});
+825611	    assert.equal(renderedEdges.length,3,'actual MapLibre rendered all three located synthetic edges');
+825612	    const layout=await page.evaluate(()=>{const p=document.querySelector('.gj-panel').getBoundingClientRect(),m=window.__GRIDATLAS_V9_MAP__,r=m.getContainer().getBoundingClientRect(),points=m.getSource('gridatlas-gj03-route').serialize().data.features.flatMap(f=>f.geometry.coordinates.map(c=>{const q=m.project(c);return{x:q.x+r.left,y:q.y+r.top};}));return {panel:{x:p.x,y:p.y,width:p.width,height:p.height},points,padding:m.getPadding(),controls:[...document.querySelectorAll('#gridatlas-gj03 button,#gridatlas-gj03 select')].map(e=>({text:e.textContent,h:e.getBoundingClientRect().height})),overflow:document.documentElement.scrollWidth>innerWidth};});
+825613	    assert.ok(layout.panel.x>=0 && layout.panel.y>=0 && layout.panel.x+layout.panel.width<=width+1 && layout.panel.y+layout.panel.height<=height+1);
+825614	    assert.ok(layout.controls.every(e=>e.h>=44)); assert.equal(layout.overflow,false);
+825615	    assert.ok(layout.points.every(q=>q.x<layout.panel.x||q.x>layout.panel.x+layout.panel.width||q.y<layout.panel.y||q.y>layout.panel.y+layout.panel.height),'route remains visible outside the panel: '+JSON.stringify(layout));
+825616	    assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().step),stepBefore,'orientation retains step');
+825617	    const closeButton=page.getByRole('button',{name:'Close Grid Journey',exact:true});
+825618	    await closeButton.scrollIntoViewIfNeeded();
+825619	    assert.equal(await closeButton.evaluate(e=>{const r=e.getBoundingClientRect(),p=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return p===e||e.contains(p);}),true,'Close remains hittable after rotation');
+825620	    await page.screenshot({path:path.join(out,`native-${width}x${height}.png`)});
+825621	    await closeButton.click();
+825622	    await page.keyboard.press('Enter'); // Close restored opener; keyboard reopens.
+825623	    assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().step),stepBefore);
+825624	    receipts.push({viewport:{width,height},layout,renderedEdges,result:'PASS'});
+825625	  await page.getByRole('button',{name:'Close Grid Journey',exact:true}).focus();
+825626	  await page.keyboard.press('Tab');
+825627	  assert.equal(await page.getByRole('button',{name:'Explore real grid nearby',exact:true}).evaluate(e=>e===document.activeElement),true);
+825628	  await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Enter'); await page.keyboard.press('Enter');
+825629	  await page.emulateMedia({reducedMotion:'reduce'});
+825630	  await page.getByRole('button',{name:'Start · manual',exact:true}).focus(); await page.keyboard.press('Enter');
+825631	  await page.waitForTimeout(1200);
+825632	  assert.deepEqual(await page.evaluate(()=>{const s=window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot();return {step:s.step,playing:s.playing};}),{step:1,playing:false});
+825633	  await page.getByRole('button',{name:'Close Grid Journey',exact:true}).focus(); await page.keyboard.press('Escape');
+825634	  assert.equal(await page.locator('.gj-launch').evaluate(e=>e===document.activeElement),true);
+825635	  assert.equal(await page.evaluate(()=>!!window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-gj03-route')),false);
+825636	  await page.waitForFunction(()=>!!window.__GRIDATLAS_V9_MAP__.getLayer('gridatlas-gj03-schematic'));
+825637	  await page.evaluate(()=>window.dispatchEvent(new CustomEvent('gridatlas:card-open',{detail:{owner:'offtakers'}})));
+825638	  assert.match(await page.locator('.gj-status').textContent(),/surrounding grid/);
+825639	  const foreign = {type:'FeatureCollection',features:[{type:'Feature',properties:{owner:'external-preserve'},geometry:{type:'Point',coordinates:[0,50]}}]};
+825640	  await page.evaluate(data=>window.__GRIDATLAS_V9_MAP__.addSource('gridatlas-gj03-cursor',{type:'geojson',data}),foreign);
+825641	  await page.waitForFunction(()=>document.querySelector('.gj-status').textContent.includes('collision'));
+825642	  assert.match(await page.locator('.gj-status').textContent(),/^WITHHELD:/);
+825643	  assert.equal(await page.getByRole('button',{name:'Next',exact:true}).isDisabled(),true);
+825644	  assert.deepEqual(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-gj03-cursor').serialize().data),foreign);
+825645	  await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.removeSource('gridatlas-gj03-cursor'));
+825646	  await page.evaluate(data=>{const m=window.__GRIDATLAS_V9_MAP__;m.addSource('journey-external',{type:'geojson',data});m.addLayer({id:'gridatlas-gj03-schematic',type:'circle',source:'journey-external'});},foreign);
+825647	  await page.waitForFunction(()=>document.querySelector('.gj-status').textContent.includes('layer collision'));
+825648	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayer('gridatlas-gj03-schematic').source),'journey-external');
+825649	  await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__;m.removeLayer('gridatlas-gj03-schematic');m.removeSource('journey-external');});
+825650	  // Real style reload retains the map instance and restores exactly one owned source/layer set.
+825651	  await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__,s=m.getStyle();s.layers=s.layers.filter(l=>!l.id.startsWith('gridatlas-gj03-'));for(const k of Object.keys(s.sources))if(k.startsWith('gridatlas-gj03-'))delete s.sources[k];m.setStyle(s,{diff:false});});
+825652	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getStyle().layers.filter(l=>l.id.startsWith('gridatlas-gj03-')).length),3);
+825653	  await page.emulateMedia({reducedMotion:'no-preference'});
+825654	  await page.getByRole('button',{name:'Start',exact:true}).click();
+825656	  await page.getByRole('button',{name:'Pause',exact:true}).click();
+825657	  const stoppedAt=await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-gj03-cursor').serialize().data);
+825658	  await page.waitForTimeout(1100);
+825659	  assert.deepEqual(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-gj03-cursor').serialize().data),stoppedAt);
+825660	  // Actual MapLibre repeated mount/destroy, no replacement map instance.
+825661	  for(let i=0;i<3;i++) {await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.destroy());assert.equal(await page.locator('#gridatlas-gj03').count(),0);await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.mount());assert.equal(await page.locator('#gridatlas-gj03').count(),1);}
+825662	  const finalMap = await page.evaluate(()=>({version:maplibregl.version,canvasCount:document.querySelectorAll('canvas.maplibregl-canvas').length,layers:window.__GRIDATLAS_V9_MAP__.getStyle().layers.length,layerIds:window.__GRIDATLAS_V9_MAP__.getStyle().layers.map(l=>l.id)}));
+825663	  assert.equal(finalMap.canvasCount,1);
+825664	  assert.ok(native.existingLayerIds.every(id=>finalMap.layerIds.includes(id)),'all initial Atlas layers preserved; existing asynchronous Atlas layers may arrive later');
+825665	  assert.ok(!finalMap.layerIds.some(id=>id.startsWith('gridatlas-gj03-')));
+825666	  await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.remove());
+825667	  assert.equal(await page.locator('#gridatlas-gj03').count(),0);
+825668	  assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().alive),false);
+825669	  assert.deepEqual(errors,[],'native page errors must be zero');
+825670	  await Promise.all(assetReads);assert.equal(assets.length,1);assert.equal(assets[0].status,200);
+825671	  const cartridgeSha256=createHash('sha256').update(fs.readFileSync(path.join(ROOT,`atlas/modules/${G}-grid-journey-preview.js`),'utf8').replace(/\r\n/g,'\n')).digest('hex');
+825672	  fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify({result:'PASS',runStartedUTC,runCompletedUTC:new Date().toISOString(),generation:G,cartridgeSha256,transport:'local read-only HTTP; LF published text bytes; actual existing composer and native MapLibre',assets,native,receipts,reducedMotion:'manual one step; no automatic progress after1200ms',keyboard:'Tab/ShiftTab and Enter operate controls; Escape/Close restores opener; orientation retains step; Close center hit-tested and clicked at every viewport',lifecycle:'close removes sources; card-open refuses; source/layer collisions preserve external data; style reload exactly3ownedlayers; pause stops cursor; three destroy/mount cycles; actual native map.remove destroys active Journey',physicalPhone:'UNKNOWN; Chromium software emulation; physical VoiceOver/AT unknown',errors,failed,finalMap},null,2)+'\n');
+825673	  console.log(JSON.stringify({result:'PASS',out,nativeVersion:native.version,existingLayers:native.existingLayers,viewports:receipts.length,errors,requestFailures:failed.length}));
+825674	} catch(e) {fs.writeFileSync(path.join(out,'failure.json'),JSON.stringify({message:e.message,stack:e.stack,errors,failed},null,2));throw e;}
+825675	finally {await browser?.close();await new Promise(r=>server.close(r));}
+825676	/** Assemble the reusable Journey cartridge only; never writes compositions or pointers. */
+825677	import {assembleModule} from './module.mjs';
+825679	function option(name){const i=args.indexOf(name);return i<0?undefined:args[i+1];}
+825680	const generation=option('--generation'),out=option('--out');
+825681	if(!generation||!out||args.length!==4)throw new Error('Usage: node tools/journey/build-module.mjs --generation YYYYMMDDHHMM --out FILE');
+825682	const {body}=assembleModule({generation});
+825683	fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});
+825684	fs.writeFileSync(out,body);
+825685	console.log(JSON.stringify({generation,path:out,bytes:Buffer.byteLength(body),sha256:createHash('sha256').update(body).digest('hex')}));
+825686	/** Deterministic, pinned-source preview assembly. Never modifies a live pointer. */
+825687	import {deriveCurrent, rerootForPreview} from '../release/lib.mjs';
+825688	export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+825689	export const G = '202611171525', PARENT = '202611161720', BUDGET = 72000;
+825690	const read = p => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r\n/g, '\n');
+825692	export {assembleModule} from './module.mjs';
+825693	export function assemble() {
+825694	  const {body, pin, fixture} = assembleModule();
+825695	  const parentText = read(`atlas/manifests/${PARENT}-composition.json`), parent = JSON.parse(parentText);
+825696	  const composition = JSON.parse(deriveCurrent(parentText));
+825697	  Object.assign(composition, {generation: G, previous_generation: PARENT, superseded_generation: PARENT, candidate_predecessor: PARENT, composition_version: 'GJ-03-preview-1', composition_id: 'native-grid-journey-preview', composition_manifest: `./manifests/${G}-composition.json`, composition_note: 'Isolated native GJ-03 preview; real routes withheld. No operative release change.'});
+825698	  composition.cartridge_order.push('grid-journey-preview');
+825699	  composition.cartridges.push({id: 'grid-journey-preview', generation: G, version: 'GJ-03-preview-1', type: 'script', slot: 'after-cartridge', after: 'uk-offtakers-overlay', path: `./modules/${G}-grid-journey-preview.js`, sha256: hash(body), bytes: Buffer.byteLength(body), byte_budget: BUDGET, budget_status: 'PROPOSED_PREVIEW_ONLY_NOT_OWNER_RELEASE_APPROVAL', preview_only: true, real_routes_accepted: 0, capabilities: ['native-maplibre', 'explicit-reviewed-synthetic-seed', 'manual-reduced-motion', 'removable-lifecycle'], immutable_shell_modified: false});
+825700	  const manifest = {...composition, parent_generation: PARENT, version: 'GJ-03-preview-1', cut_at_utc: '2026-11-17T15:25:00.000Z', note: 'GJ milestone preview, separate from Pipeline News editions. No owner promotion requested or assumed.', candidate_status: 'PREVIEW_ONLY_REAL_ROUTES_WITHHELD', acceptance: {full_application_copies_created: 0, immutable_shell_modified: false, owner_release_acceptance: 'NOT_RECORDED_BY_AGENT', proposed_preview_budget_bytes: BUDGET, engine_pin: pin, real_routes_accepted: 0}};
+825701	  manifest.acceptance.synthetic_fixture = {path: 'tools/journey/fixtures/synthetic-branch.v1.json', sha256: hash(read('tools/journey/fixtures/synthetic-branch.v1.json')), sourceBundleSha: fixture.ledger.sourceBundleSha, synthetic: true};
+825702	  assert.equal(parent.generation, PARENT);
+825703	  return new Map([
+825704	    [`atlas/modules/${G}-grid-journey-preview.js`, body],
+825705	    [`atlas/manifests/${G}-composition.json`, JSON.stringify(manifest, null, 1) + '\n'],
+825706	    [`atlas/v/${G}/current.json`, rerootForPreview(deriveCurrent(JSON.stringify(manifest)))],
+825707	    [`atlas/v/${G}/index.html`, read('atlas/index.html')]
+825708	export function build(check = false) {
+825709	  const outputs = assemble();
+825710	  for (const [p, bytes] of outputs) {
+825711	    if (check) assert.equal(read(p), bytes, `Rebuild drift: ${p}`);
+825712	    else { fs.mkdirSync(path.dirname(path.join(ROOT, p)), {recursive: true}); fs.writeFileSync(path.join(ROOT, p), bytes); }
+825713	  return {generation: G, cartridgeBytes: Buffer.byteLength(outputs.get(`atlas/modules/${G}-grid-journey-preview.js`)), proposedBudgetBytes: BUDGET, files: [...outputs.keys()]};
+825714	if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) console.log(JSON.stringify(build(process.argv.includes('--check'))));
+825715	import {planJourney} from './vendor/65d48a851fc2ac74b13f939a0184e11298e7e5bd/edge-cover-journey.js';
+825716	const read = p => JSON.parse(fs.readFileSync(new URL(p, import.meta.url)));
+825717	const fixture = read('./fixtures/synthetic-branch.v1.json'), pair = read('./fixtures/reviewed-pair.v1.json');
+825718	const clone = x => JSON.parse(JSON.stringify(x));
+825719	const make = (f, chosenNode) => planJourney({sourceBytes: f.networkText, ledger: f.ledger, query: {seed: {chosenNode}, bounds: {maxNodes: 25, maxEdges: 30, maxMoves: 60, maxGeometryBytes: 16000}}});
+825720	const p = await make(fixture, 'A1');
+825721	assert.equal(p.status, 'complete'); assert.equal(p.edgeCatalog.length, 4); assert.equal(p.steps.length, 8);
+825722	assert.ok(p.steps.some(s => s.traversal === 'backtrack'));
+825723	assert.ok(p.edgeCatalog.some(e => e.geometryStatus === 'verified_circuit_and_polyline'));
+825724	assert.equal(p.edgeCatalog.filter(e => e.schematic).length, 2);
+825725	assert.equal(p.edgeCatalog.filter(e => !e.coordinates).length, 1);
+825726	assert.equal(p.physicalUnits, null); assert.equal(p.planSha256, (await make(fixture, 'A1')).planSha256);
+825727	assert.equal((await make(fixture, '')).refusal, 'chosen_node_required');
+825728	assert.equal((await make(fixture, 'nearest')).refusal, 'seed_not_in_source');
+825729	const blocked = clone(fixture); blocked.ledger.nodes[0].rights = {status: 'blocked'};
+825730	assert.equal((await make(blocked, 'A1')).refusal, 'seed_rights_withheld');
+825731	const edgeBlocked = clone(fixture); for (const e of edgeBlocked.ledger.edges) e.rights = {status: 'blocked'};
+825732	assert.equal((await make(edgeBlocked, 'A1')).steps.length, 0);
+825733	const emptyLedger = clone(fixture); emptyLedger.ledger.nodes = []; emptyLedger.ledger.edges = [];
+825734	assert.equal((await make(emptyLedger, 'A1')).refusal, 'seed_identity_unreviewed');
+825735	const unsupported = clone(fixture); unsupported.ledger.edges[0].geometryStatus = 'invented';
+825736	await assert.rejects(make(unsupported, 'A1'), /unknown geometry evidence/);
+825737	const digestMismatch = clone(fixture); digestMismatch.networkText += ' ';
+825738	await assert.rejects(make(digestMismatch, 'A1'), /digest does not match/);
+825739	assert.equal((await make(pair, 'A1')).eligibleEdges, 1);
+825740	assert.equal(createHash('sha256').update(fs.readFileSync(new URL('./fixtures/reviewed-pair.v1.json', import.meta.url))).digest('hex'), '174ac6824c5a8fa5d161d6529840211d7d94472e2b2a172abdc25643b0230087');
+825741	console.log('Journey UI input contract: canonical shared fixture, deterministic branch/backtrack, polyline/schematic/unlocated, no-seed/nearest/rights/identity/geometry/digest refusals PASS');
+825742	/** Lifecycle negatives use a small DOM/map stub. Native GIS acceptance is browser.test.mjs. */
+825745	import {createJourneyController} from './src/controller.mjs';
+825746	const fixture=JSON.parse(fs.readFileSync(new URL('./fixtures/synthetic-branch.v1.json',import.meta.url)));
+825748	class Target {
+825749	  events=new Map();
+825750	  addEventListener(t,f){if(!this.events.has(t))this.events.set(t,new Set());this.events.get(t).add(f);}
+825751	  removeEventListener(t,f){this.events.get(t)?.delete(f);}
+825752	  emit(t,e={}){for(const f of [...(this.events.get(t)||[])])f({type:t,preventDefault(){},...e});}
+825753	  listeners(){return [...this.events.values()].reduce((n,s)=>n+s.size,0);}
+825754	function harness({planner=planJourney,input=fixture,reduced=false,ready=true,layerHosts=false,layerReady=true}={}) {
+825755	  const D={activeElement:null}, W=new Target(), media=new Target(); media.matches=reduced;
+825756	  let nextRaf=0;const rafs=new Map();W.matchMedia=()=>media;W.requestAnimationFrame=f=>{rafs.set(++nextRaf,f);return nextRaf;};W.cancelAnimationFrame=id=>rafs.delete(id);
+825757	  class E extends Target {
+825758	    constructor(tag){super();this.tag=tag;this.children=[];this.attrs={};this.style={};this.textContent='';this.disabled=false;this.hidden=false;}
+825759	    setAttribute(k,v){this.attrs[k]=v;if(k==='disabled')this.disabled=true;if(k==='hidden')this.hidden=true;}
+825760	    appendChild(e){e.parent=this;this.children.push(e);return e;}
+825761	    replaceChildren(){this.children=[];}
+825762	    remove(){if(this.parent)this.parent.children=this.parent.children.filter(e=>e!==this);}
+825763	    focus(){D.activeElement=this;}
+825764	  const container=new E('div');container.attrs.id='map-container';
+825765	  if(layerHosts)for(const id of ['scada-ui-container','fs-curtain-keys']){const h=new E('div');h.attrs.id=id;h.querySelector=selector=>selector==='input[data-layer-id]'&&layerReady?{focus(){}}:null;container.appendChild(h);}
+825766	  const all=(e=container)=>[e,...e.children.flatMap(c=>all(c))];
+825767	  D.createElement=t=>new E(t);D.getElementById=id=>all().find(e=>e.attrs.id===id)||null;
+825768	  const map=new Target(), sources=new Map(),layers=new Map();map.on=map.addEventListener;map.off=map.removeEventListener;
+825769	  map.getContainer=()=>container;map.getStyle=()=>ready?{layers:[...layers.values()]}:undefined;
+825770	  map.addSource=(id,v)=>{assert.ok(!sources.has(id));sources.set(id,{data:clone(v.data),writes:0,setData(d){this.data=clone(d);this.writes++;}});};
+825771	  map.getSource=id=>sources.get(id);map.removeSource=id=>sources.delete(id);
+825772	  map.addLayer=l=>{assert.ok(!layers.has(l.id));layers.set(l.id,clone(l));};map.getLayer=id=>layers.get(id);map.removeLayer=id=>layers.delete(id);map.fitBounds=()=>{};
+825773	  const c=createJourneyController({map,document:D,window:W,planner,fixture:clone(input),css:'',generation:'test'});
+825774	  const button=s=>all().find(e=>e.tag==='button'&&e.textContent===s),select=()=>all().find(e=>e.tag==='select');
+825775	  function choose(){c.open();button('Load SYNTHETIC demonstration').emit('click');select().value='A1';select().emit('change');}
+825776	  return {D,W,map,media,rafs,sources,layers,c,all,button,choose,ready(v){ready=v;},status:()=>all().find(e=>e.attrs.role==='status')?.textContent,tick(t){const active=[...rafs.values()];rafs.clear();active.forEach(f=>f(t));}};
+825777	async function settled(h){for(let i=0;i<250;i++){if(h.c.snapshot().status!=='withheld'||h.status()?.startsWith('WITHHELD:'))return;await new Promise(r=>setTimeout(r,2));}throw new Error('Planner did not settle');}
+825778	test('missing map refuses before DOM mount',()=>assert.throws(()=>createJourneyController({map:null}),/Native MapLibre/));
+825779	test('explicit demo/seed, branch/backtrack, reset and owned cleanup',async()=>{const h=harness();h.c.open();assert.equal(h.sources.size,0);h.choose();await settled(h);assert.equal(h.layers.size,3);assert.equal(h.sources.size,2);assert.equal(h.c.snapshot().steps,8);for(let i=0;i<8;i++)h.button('Next').emit('click');assert.equal(h.c.snapshot().step,8);assert.match(h.status(),/backtrack B1 → A1/);h.button('Reset').emit('click');assert.equal(h.c.snapshot().step,0);h.c.close();assert.equal(h.sources.size,0);h.c.open();assert.equal(h.layers.size,3);h.c.destroy();assert.equal(h.map.listeners(),0);assert.equal(h.W.listeners(),0);assert.equal(h.media.listeners(),0);assert.equal(h.all().length,1);});
+825780	for(const kind of ['source','layer'])test(`${kind} collision is terminal and never mutates external content`,async()=>{const h=harness();let external;if(kind==='source'){h.map.addSource('gridatlas-gj03-cursor',{data:{owner:'external'}});external=h.sources.get('gridatlas-gj03-cursor');}else{h.map.addLayer({id:'gridatlas-gj03-schematic',source:'external'});external=h.layers.get('gridatlas-gj03-schematic');}h.choose();await settled(h);assert.equal(h.c.snapshot().status,'withheld');assert.match(h.status(),/collision/);assert.equal(h.button('Next').disabled,true);h.button('Next').emit('click');assert.equal(kind==='source'?h.sources.get('gridatlas-gj03-cursor'):h.layers.get('gridatlas-gj03-schematic'),external);if(kind==='source')assert.equal(external.writes,0);h.c.destroy();assert.equal(kind==='source'?h.sources.size:h.layers.size,1);});
+825781	test('style reload installs exactly one owned set without listener growth',async()=>{const h=harness();h.choose();await settled(h);for(let i=0;i<4;i++){h.sources.clear();h.layers.clear();h.map.emit('style.load');assert.equal(h.sources.size,2);assert.equal(h.layers.size,3);assert.equal(h.map.listeners(),3);}let frames=0;h.map.fitBounds=()=>frames++;h.map.emit('resize');assert.equal(frames,1);h.c.destroy();});
+825782	test('replacement source with the same ID after style reload remains foreign',async()=>{const h=harness();h.choose();await settled(h);h.sources.clear();h.layers.clear();h.map.addSource('gridatlas-gj03-cursor',{data:{owner:'external-new-style'}});const foreign=h.sources.get('gridatlas-gj03-cursor');h.map.emit('style.load');assert.match(h.status(),/collision/);assert.equal(h.c.snapshot().status,'withheld');assert.equal(foreign.writes,0);h.c.destroy();assert.equal(h.sources.get('gridatlas-gj03-cursor'),foreign);});
+825783	test('reduced motion is manual; preference changes cancel playback RAF',async()=>{const h=harness({reduced:true});h.choose();await settled(h);h.button('Start · manual').emit('click');assert.equal(h.c.snapshot().step,1);assert.equal(h.rafs.size,0);h.media.matches=false;h.media.emit('change');h.button('Start').emit('click');assert.equal(h.rafs.size,1);h.tick(0);h.tick(400);assert.equal(h.sources.get('gridatlas-gj03-cursor').data.features.length,1);h.media.matches=true;h.media.emit('change');assert.equal(h.rafs.size,0);assert.equal(h.c.snapshot().playing,false);h.c.destroy();});
+825784	test('map removal cancels RAF/listeners and stale callback cannot resurrect UI',async()=>{const h=harness();h.choose();await settled(h);h.button('Start').emit('click');const stale=[...h.rafs.values()][0];h.sources.clear();h.layers.clear();h.map.getLayer=()=>{throw new Error('style already destroyed');};h.map.emit('remove');assert.equal(h.c.snapshot().alive,false);assert.equal(h.rafs.size,0);assert.equal(h.map.listeners(),0);assert.equal(h.W.listeners(),0);stale(1000);h.map.emit('style.load');assert.equal(h.sources.size,0);assert.equal(h.all().length,1);h.c.destroy();});
+825785	test('late asynchronous planning after close/destroy cannot add map resources',async()=>{let resolve;const h=harness({planner:()=>new Promise(r=>{resolve=r;})});h.choose();h.c.close();h.c.destroy();resolve(await planJourney({sourceBytes:fixture.networkText,ledger:fixture.ledger,query:{seed:{chosenNode:'A1'}}}));await new Promise(r=>setTimeout(r,0));assert.equal(h.sources.size,0);assert.equal(h.all().length,1);});
+825786	test('blocked seed rights draws nothing',async()=>{const input=clone(fixture);input.ledger.nodes[0].rights={status:'blocked'};const h=harness({input});h.choose();await settled(h);assert.match(h.status(),/seed_rights_withheld/);assert.equal(h.sources.size,0);h.c.destroy();});
+825787	test('unsupported geometry output is refused by presentation',async()=>{const h=harness({planner:async()=>({status:'complete',steps:[{}],edgeCatalog:[{geometryStatus:'invented'}]})});h.choose();await settled(h);assert.match(h.status(),/Unsupported geometry/);assert.equal(h.sources.size,0);h.c.destroy();});
+825788	test('stylesheet arriving late and real card selection while closed',async()=>{const h=harness({ready:false});h.choose();await settled(h);assert.equal(h.sources.size,0);h.ready(true);h.map.emit('style.load');assert.equal(h.sources.size,2);h.c.close();h.W.emit('gridatlas:card-open');h.c.open();assert.equal(h.c.snapshot().status,'withheld');assert.equal(h.sources.size,0);assert.match(h.status(),/surrounding grid/);h.c.destroy();});
+825789	test('public bootstrap replaces a controller destroyed by native map.remove',()=>{const instances=[], firstMap={},nextMap={}, W={__GRIDATLAS_V9_MAP__:firstMap};const context={window:W,document:{},JourneyEngine:{},JourneyFixture:{},JourneyCSS:'',JourneyGeneration:'test',console,setTimeout,clearTimeout,createJourneyController(options){let alive=true;const c={options,snapshot:()=>({alive}),destroy(){alive=false;}};instances.push(c);return c;}};vm.runInNewContext(fs.readFileSync(new URL('./src/bootstrap.js',import.meta.url),'utf8'),context);assert.equal(instances.length,1);instances[0].destroy();const mounted=W.__GRIDATLAS_MODULES__.gridJourneyPreview.mount(nextMap);assert.equal(instances.length,2);assert.equal(mounted.options.map,nextMap);W.__GRIDATLAS_MODULES__.gridJourneyPreview.destroy();});
+825790	test('missing-map bounded attachment timer is removed by public destroy',()=>{let timer,cleared=false,created=0;const W={};const context={window:W,document:{},JourneyEngine:{},JourneyFixture:{},JourneyCSS:'',JourneyGeneration:'test',console,setTimeout(f){timer=f;return 7;},clearTimeout(id){assert.equal(id,7);cleared=true;},createJourneyController(){created++;}};vm.runInNewContext(fs.readFileSync(new URL('./src/bootstrap.js',import.meta.url),'utf8'),context);assert.equal(typeof timer,'function');W.__GRIDATLAS_MODULES__.gridJourneyPreview.destroy();timer();assert.equal(cleared,true);assert.equal(created,0);});
+825791	// Native launchers all target one controller; real selections must never reuse a demo plan.
+825792	test('Layers groups open the existing controller and are removed with it',()=>{const h=harness({layerHosts:true});assert.equal(h.c.snapshot().layerControls,2);const launchers=h.all().filter(e=>e.textContent==='Open Grid Journey');assert.equal(launchers.length,2);launchers[1].emit('click');assert.equal(h.c.snapshot().opened,true);assert.equal(launchers[0].attrs['aria-expanded'],'true');h.c.close();assert.equal(h.D.activeElement,launchers[1]);assert.equal(launchers[1].attrs['aria-expanded'],'false');h.c.destroy();assert.equal(h.all().filter(e=>e.attrs['data-journey-group']).length,0);});
+825793	test('public Journey event carries labelled context and clears demonstration resources',async()=>{const h=harness();h.choose();await settled(h);h.W.emit('gridatlas:journey-open',{detail:{origin:{name:'<script>unsafe</script>',id:'REPD2470'}}});assert.equal(h.c.snapshot().opened,true);assert.deepEqual(h.c.snapshot().origin,{name:'<script>unsafe</script>',id:'REPD2470'});assert.equal(h.c.snapshot().synthetic,false);assert.equal(h.sources.size,0);assert.equal(h.layers.size,0);assert.match(h.all().find(e=>e.attrs.class==='gj-origin').textContent,/Nearby assets are map context/);assert.equal(h.all().some(e=>e.tag==='script'),false);h.c.destroy();});
+825794	test('public origin update handles malformed context without planning or network',()=>{let calls=0;const h=harness({planner:()=>{calls++;}});h.c.setOrigin({name:{untrusted:'object'},id:{bad:true}});assert.equal(h.c.snapshot().origin,null);assert.equal(h.c.snapshot().synthetic,false);assert.equal(calls,0);h.c.destroy();});
+825795	test('real-grid action delegates exact selected coordinates to the existing vicinity controller',()=>{const h=harness();let args;h.W.__GRIDATLAS_MODULES__={gridVicinity:{open(o){args=o;}}};h.c.open({origin:{id:'REPD2470',name:'Known record',at:[-0.5,52],type:'repd'}});h.button('Explore real grid nearby').emit('click');assert.deepEqual(args,{origin:{name:'Known record',id:'REPD2470',at:[-0.5,52],type:'repd'},radiusKm:10});assert.equal(h.c.snapshot().opened,false);assert.equal(h.sources.size,0);h.c.destroy();});
+825796	test('real-grid action does not forward null-island context or invent a route',()=>{const h=harness();let args;h.W.__GRIDATLAS_MODULES__={gridVicinity:{open(o){args=o;}}};h.c.open({origin:{id:'opaque',at:[0,0]}});h.button('Explore real grid nearby').emit('click');assert.equal(args.origin,undefined);assert.equal(h.sources.size,0);h.c.destroy();});
+825797	test('a real card event without explicit context clears the prior origin',()=>{const h=harness();h.c.open({origin:{id:'old',name:'Old asset',at:[-1,52],type:'repd'}});h.W.emit('gridatlas:card-open',{detail:{owner:'offtakers'}});assert.equal(h.c.snapshot().origin,null);let args;h.W.__GRIDATLAS_MODULES__={gridVicinity:{open(o){args=o;}}};h.button('Explore real grid nearby').emit('click');assert.equal(args.origin,undefined);h.c.destroy();});
+825798	test('without vicinity the primary action opens real native Grid controls and preserves selected coordinates',()=>{const h=harness();const grid=h.D.createElement('button');grid.attrs.id='gridatlas-menu-bar-title-4';grid.getAttribute=k=>grid.attrs[k];let clicks=0,center;grid.click=()=>{clicks++;grid.attrs['aria-expanded']='true';};h.map.getContainer().appendChild(grid);h.map.flyTo=o=>{center=o.center;};h.c.open({origin:{id:'REPD2470',at:[-0.5,52]}});h.button('Explore real grid nearby').emit('click');assert.equal(clicks,1);assert.deepEqual(center,[-0.5,52]);assert.equal(h.c.snapshot().opened,false);assert.equal(h.D.activeElement,grid);assert.equal(h.sources.size,0);h.c.destroy();});
+825799	test('before native menu readiness primary action reveals original real layer controls',()=>{const h=harness({layerHosts:true});const host=h.D.getElementById('scada-ui-container');let scrolled=false;host.scrollIntoView=()=>{scrolled=true;};h.c.open();h.button('Explore real grid nearby').emit('click');assert.equal(scrolled,true);assert.equal(h.c.snapshot().opened,false);assert.equal(h.sources.size,0);h.c.destroy();});
+825800	test('empty native hosts are not falsely marked engine-ready by a Journey key-group',()=>{const h=harness({layerHosts:true,layerReady:false});assert.equal(h.c.snapshot().layerControls,0);assert.equal(h.all().some(e=>e.attrs['data-journey-group']),false);h.c.destroy();});
+825801	test('Close restores visible Grid title when the native menu launcher is hidden',()=>{const h=harness({layerHosts:true});const grid=h.D.createElement('button');grid.attrs.id='gridatlas-menu-bar-title-4';h.map.getContainer().appendChild(grid);const button=h.all().find(e=>e.textContent==='Open Grid Journey');button.getClientRects=()=>[];button.emit('click');h.c.close();assert.equal(h.D.activeElement,grid);h.c.destroy();});
+825802	test('real-grid action stops its original event from closing the native menu it opens',()=>{const h=harness({layerHosts:true});const host=h.D.getElementById('scada-ui-container');host.scrollIntoView=()=>{};let stopped=false;h.c.open();h.button('Explore real grid nearby').emit('click',{stopPropagation(){stopped=true;}});assert.equal(stopped,true);h.c.destroy();});
+825803	export function assembleModule({generation = G} = {}) {
+825804	  assert.match(generation, /^\d{12}$/, "Generation must be a UTC minute identifier");
+825805	  const pin = JSON.parse(read('tools/journey/vendor-pin.json'));
+825806	  assert.equal(pin.commit, '65d48a851fc2ac74b13f939a0184e11298e7e5bd');
+825807	  const wrappers = [];
+825808	  const imports = {
+825809	    'network-topology.js': '',
+825810	    'journey-evidence.js': "import {index as topologyIndex} from './network-topology.js';",
+825811	    'edge-cover-journey.js': "import {canonicalJson, ordinal, prepareJourneyEvidence, sha256} from './journey-evidence.js';"
+825812	  const aliases = {'network-topology.js': '', 'journey-evidence.js': 'const topologyIndex = JourneyTopology.index;', 'edge-cover-journey.js': 'const {canonicalJson, ordinal, prepareJourneyEvidence, sha256} = JourneyEvidence;'};
+825813	  const names = ['JourneyTopology', 'JourneyEvidence', 'JourneyEngine'];
+825814	  for (const [i, p] of pin.files.entries()) {
+825815	    const raw = fs.readFileSync(path.join(ROOT, 'tools/journey', p.vendorPath));
+825816	    assert.equal(raw.length, p.bytes, p.path); assert.equal(hash(raw), p.sha256, p.path);
+825817	    let text = raw.toString('utf8'); const file = path.basename(p.path);
+825818	    if (imports[file]) { assert.ok(text.includes(imports[file])); text = text.replace(imports[file], aliases[file]); }
+825819	    const exports = [...text.matchAll(/^export (?:async )?(?:function|const) ([A-Za-z_$][\w$]*)/gm)].map(m => m[1]);
+825820	    text = text.replace(/^export (?=(?:async )?(?:function|const) )/gm, '');
+825821	    assert.ok(!/^\s*(?:import|export) /m.test(text), 'Unexpected ESM syntax in pinned module');
+825822	    wrappers.push(`const ${names[i]} = (() => {\n${text}\nreturn Object.freeze({${exports.join(',')}});\n})();`);
+825823	  assert.equal(hash(fs.readFileSync(path.join(ROOT, 'tools/journey/fixtures/reviewed-pair.v1.json'))), pin.sharedFixture.sha256);
+825824	  const fixture = JSON.parse(read('tools/journey/fixtures/synthetic-branch.v1.json'));
+825825	  assert.equal(fixture.synthetic, true);
+825826	  const controller = read('tools/journey/src/controller.mjs').replace('export function createJourneyController', 'function createJourneyController');
+825827	  const body = `/* GJ-03 PREVIEW ONLY. Canonical engine ${pin.repository}@${pin.commit}. No live pointer writes. */\n(() => {\n'use strict';\n${wrappers.join('\n')}\nconst JourneyFixture = ${JSON.stringify(fixture)};\nconst JourneyCSS = ${JSON.stringify(read('tools/journey/src/journey.css'))};\nconst JourneyGeneration = '${generation}';\n${controller}\n${read('tools/journey/src/bootstrap.js')}\n})();\n`;
+825828	  assert.ok(Buffer.byteLength(body) <= BUDGET, `Preview exceeds proposed ${BUDGET}B budget: ${Buffer.byteLength(body)}`);
+825829	  return {body, pin, fixture};
+825830	/** Read-only local preview server, serving the same LF text bytes as GitHub Pages. */
+825832	import {ROOT, G} from './build.mjs';
+825833	const types={'.html':'text/html','.json':'application/json','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.geojson':'application/json','.png':'image/png','.wasm':'application/wasm','.pbf':'application/x-protobuf','.woff2':'font/woff2'};
+825834	export async function createPreviewServer(port=0) {
+825835	  const server=http.createServer((req,res)=>{
+825836	    let p;try{p=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400).end();return;}
+825837	    p=path.resolve(ROOT,'.'+p);if(!(p===ROOT||p.startsWith(ROOT+path.sep))){res.writeHead(403).end();return;}
+825838	    try{if(fs.statSync(p).isDirectory())p=path.join(p,'index.html');let bytes=fs.readFileSync(p);const ext=path.extname(p);if(['.html','.json','.js','.mjs','.css','.geojson'].includes(ext))bytes=Buffer.from(bytes.toString('utf8').replace(/\r\n/g,'\n'));res.writeHead(200,{'content-type':types[ext]||'application/octet-stream','cache-control':'no-store'}).end(bytes);}catch{res.writeHead(404).end();}
+825839	  await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(port,'127.0.0.1',resolve);});return server;
+825840	if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
+825841	  const port=Number(process.argv[2]||8084);if(!Number.isInteger(port)||port<1||port>65535)throw new Error('Port must be1..65535');
+825842	  const server=await createPreviewServer(port);console.log(`GJ-03 PREVIEW ONLY http://127.0.0.1:${server.address().port}/atlas/v/${G}/`);
+825843	  process.once('SIGINT',()=>server.close(()=>process.exit(0)));
+825844	export function createJourneyController({map, document: D, window: W, planner, fixture, css, generation}) {
+825845	/** Successor-only recipe for the inherited Pipeline News map lifecycle. */
+825848	const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
+825850	export function applyEdits(source, edits) {
+825851	  assert.ok(Array.isArray(edits) && edits.length);
+825852	  for (const [i, edit] of edits.entries()) {
+825853	    assert.equal(typeof edit.before, 'string');
+825854	    assert.ok(edit.before.length);
+825855	    assert.equal(typeof edit.after, 'string');
+825856	    const at = source.indexOf(edit.before);
+825857	    assert.ok(at >= 0, `Pipeline lifecycle edit ${i} missing`);
+825858	    assert.equal(source.indexOf(edit.before, at + 1), -1, `Pipeline lifecycle edit ${i} ambiguous`);
+825859	    source = source.slice(0, at) + edit.after + source.slice(at + edit.before.length);
+825861	export function buildSubstation(generation, root = ROOT) {
+825862	  const registry = JSON.parse(fs.readFileSync(path.join(root, 'tools/pipeline-lifecycle/generations.json')));
+825863	  const entry = registry.generations[generation];
+825864	  assert.ok(entry, `No Pipeline lifecycle source recipe for ${generation}`);
+825865	  const base = fs.readFileSync(path.join(root, entry.base.path));
+825866	  assert.equal(base.length, entry.base.bytes, 'Pipeline lifecycle base length drift');
+825867	  assert.equal(digest(base), entry.base.sha256, 'Pipeline lifecycle base digest drift');
+825868	  const edits = JSON.parse(fs.readFileSync(path.join(root, entry.edits)));
+825869	  const built = Buffer.from(applyEdits(base.toString('utf8'), edits));
+825870	  assert.equal(built.length, entry.output_bytes, 'Pipeline lifecycle output length drift');
+825871	  assert.equal(digest(built), entry.output_sha256, 'Pipeline lifecycle output digest drift');
+825874	  const arg = name => process.argv[process.argv.indexOf(name) + 1];
+825875	  assert.ok(process.argv.includes('--gen') && process.argv.includes('--out'), 'Use --gen G --out NEW_FILE');
+825876	  const built = buildSubstation(arg('--gen'));
+825877	  fs.writeFileSync(arg('--out'), built, { flag: 'wx' });
+825878	  console.log(`Pipeline lifecycle rebuild: ${built.length} bytes sha256 ${digest(built)}`);
+825879	/** Exercises real inherited/patched functions; VM evaluates only pinned local test inputs. */
+825880	import { applyEdits, buildSubstation } from './build.mjs';
+825881	const base = fs.readFileSync(new URL('../../atlas/cartridges/202609062358-substation-intelligence-v9-63.js', import.meta.url), 'utf8');
+825882	const edits = JSON.parse(fs.readFileSync(new URL('./src/map-removal-edits.json', import.meta.url)));
+825883	const patched = applyEdits(base, edits);
+825884	const extract = (source, name) => {
+825885	  source = source.slice(source.indexOf(" * Module: pipeline-news-layers"));
+825886	  const start = source.indexOf('  function ' + name + '(') >= 0
+825887	    ? source.indexOf('  function ' + name + '(') : source.indexOf('  async function ' + name + '(');
+825888	  assert.ok(start >= 0, name);
+825889	  return source.slice(start, source.indexOf('\n  }', start) + 4);
+825890	function fixture(source = patched, { waiting = false } = {}) {
+825891	  const callbacks = [], removed = [], clears = [], accesses = [], changes = [];
+825892	  let destroyed = false, resolveWait;
+825893	  const map = {
+825894	    addSource() {}, on(event, fn) { assert.equal(event, 'remove'); removed.push(fn); },
+825895	    getLayer(id) { accesses.push(id); if (destroyed) throw Error('style already destroyed'); return {}; },
+825896	    setLayoutProperty() { accesses.push('layout'); }
+825897	  const box = { checked: true };
+825898	  const state = { installed: false, selection: { lon: 0, lat: 51 }, counts: {}, active: ['a'] };
+825899	  let selection = state.selection;
+825900	  const c = { map, window: { __GRIDATLAS_V9_MAP__: map }, state, removedMaps: new WeakSet(), installedMap: null,
+825901	    register: waiting ? null : [{ name: 'live' }], REGISTER_SOURCE: 'src-repd', CONTROLS: [{ id: 'a', keep: () => true }],
+825902	    document: { getElementById(id) { return id === 'scada-ui-container' ? { querySelector: () => true } : null; },
+825903	      querySelector: () => box, querySelectorAll: () => [] },
+825904	    buildGroup() {}, bind() {}, readSelection() { accesses.push('selection'); return destroyed ? null : selection; },
+825905	    readRegisterSource() { accesses.push('register'); if (destroyed) throw Error('style already destroyed'); return null; },
+825906	    primeRegister: () => true, near: rows => rows, collection: rows => rows,
+825907	    ensureLayers() { accesses.push('ensureLayers'); return { sourceId: 'pn' }; },
+825908	    setSourceData() { accesses.push('setData'); }, paintLabels() { changes.push('labels'); }, note() {},
+825909	    setInterval(fn) { callbacks.push(fn); return callbacks.length; }, clearInterval(id) { clears.push(id); },
+825910	    setTimeout(resolve) { resolveWait = resolve; }
+825911	  vm.createContext(c);
+825912	  vm.runInContext(['setVisibility', 'loadRegister', 'refresh', 'install'].map(name => extract(source, name)).join('\n'), c);
+825913	  c.install();
+825914	  return { c, map, callbacks, removed, clears, accesses, changes, state,
+825915	    remove() { destroyed = true; for (const fn of removed) fn(); },
+825916	    clearSelection() { selection = null; }, resolveWait() { resolveWait(); } };
+825917	test('successor recipe is exact-once, compiles, and refuses unknown generations/double application', () => {
+825918	  assert.ok(!base.includes('const removedMaps = new WeakSet()'));
+825919	  assert.throws(() => applyEdits(patched, edits), /missing/);
+825920	  assert.throws(() => applyEdits(base + edits[0].before, edits), /ambiguous/);
+825921	  assert.throws(() => buildSubstation('not-registered'), /No Pipeline/);
+825922	  new vm.Script(buildSubstation('202611180026').toString('utf8'));
+825923	  assert.equal(buildSubstation('202611180026').toString('utf8'), patched);
+825924	test('real baseline poll reproduces inherited destroyed-style failure', () => {
+825925	  const f = fixture(base);
+825926	  f.callbacks[0]();
+825927	  f.remove();
+825928	  assert.throws(() => f.callbacks[0](), /style already destroyed/);
+825929	  assert.equal(f.clears.length, 0);
+825930	test('remove clears captured poll; even an already queued callback never reads destroyed style', () => {
+825931	  const f = fixture(); f.remove(); f.accesses.length = 0; f.changes.length = 0;
+825932	  assert.deepEqual(f.clears, [1]);
+825933	  assert.deepEqual(f.accesses, []); assert.deepEqual(f.changes, []);
+825934	  assert.equal(f.state.installed, false); assert.equal(f.state.selection, null);
+825935	  assert.equal(f.c.install(), false);
+825936	test('live poll and refresh retain layer updates', async () => {
+825937	  const f = fixture(); f.callbacks[0]();
+825938	  assert.ok(f.accesses.includes('selection'));
+825939	  await f.c.refresh(f.map, f.c.CONTROLS[0]);
+825940	  assert.ok(f.accesses.includes('ensureLayers')); assert.ok(f.accesses.includes('setData'));
+825941	test('removal during register hydration exits without another source/style read', async () => {
+825942	  const f = fixture(patched, { waiting: true });
+825943	  const pending = f.c.refresh(f.map, f.c.CONTROLS[0]);
+825944	  f.remove(); f.accesses.length = 0; f.changes.length = 0;
+825945	  f.resolveWait(); await pending;
+825946	test('removal after resolved register but before refresh continuation prevents layer writes', async () => {
+825947	  const f = fixture(); const pending = f.c.refresh(f.map, f.c.CONTROLS[0]);
+825948	  f.remove(); f.accesses.length = 0; await pending;
+825949	  assert.deepEqual(f.accesses, []);
+825950	test('old map removal and in-flight refresh cannot clear newer installed map state', async () => {
+825951	  const newer = {}; f.c.installedMap = newer;
+825952	  const selection = f.state.selection, counts = f.state.counts, active = f.state.active;
+825953	  f.remove(); f.callbacks[0](); await pending;
+825954	  assert.equal(f.c.installedMap, newer); assert.equal(f.state.installed, true);
+825955	  assert.equal(f.state.selection, selection); assert.equal(f.state.counts, counts);
+825956	  assert.equal(f.state.active, active); assert.deepEqual(f.clears, [1]);
+825957	import {proveExplorerGeneration} from '../release/grid-explorer-proof.mjs';
+825958	await proveExplorerGeneration('202611172355', 'grid-journey-preview');
+825959	await proveExplorerGeneration('202611172355', 'sld-sandbox');
+825960	await proveExplorerGeneration('202611180026', 'grid-vicinity');
+825961	await proveExplorerGeneration('202611180026', 'sld-sandbox');
+825962	await proveExplorerGeneration('202611180026', 'substation-intelligence');
+825963	await proveExplorerGeneration('202611180026','uk-gazetteer-flyto');
+825964	/** Cut additive source-built explorer candidates. Never moves the live pointer. */
+825966	import {deriveCurrent, rerootForPreview} from './lib.mjs';
+825967	import {buildSld} from '../sld/build.mjs';
+825969	const read = p => fs.readFileSync(path.join(root, p), 'utf8').replace(/\r\n/g, '\n');
+825970	const json = p => JSON.parse(read(p));
+825971	const write = (p, body) => { const f = path.join(root, p); assert.ok(!fs.existsSync(f), `Refusing historical overwrite ${p}`); fs.mkdirSync(path.dirname(f), {recursive: true}); fs.writeFileSync(f, body); };
+825972	const arg = k => { const i = process.argv.indexOf(k); return i < 0 ? undefined : process.argv[i + 1]; };
+825973	const G = arg('--generation'), version = arg('--version'), stage = arg('--stage');
+825974	assert.ok(/^\d{12}$/.test(G || ''), '--generation YYYYMMDDHHMM required');
+825975	assert.ok(/^v9\.\d+$/.test(version || ''), '--version v9.N required');
+825976	assert.ok(['native', 'vicinity'].includes(stage), '--stage native|vicinity required');
+825977	const cutDate = new Date(`${G.slice(0,4)}-${G.slice(4,6)}-${G.slice(6,8)}T${G.slice(8,10)}:${G.slice(10,12)}:00.000Z`);
+825978	assert.ok(Number.isFinite(cutDate.getTime()) && cutDate <= new Date(), 'Generation must be an actual, non-future UTC minute');
+825979	const parent = json('atlas/current.json'), P = parent.generation;
+825980	assert.ok(G > P, 'Generation must follow live parent');
+825981	assert.ok(Number(version.slice(3)) > Math.max(...fs.readdirSync(path.join(root, 'atlas/manifests')).filter(n => n.endsWith('-composition.json')).flatMap(n => {
+825982	  const m = json(`atlas/manifests/${n}`); return [m.version, m.composition_version].map(v => /^v9\.(\d+)$/.exec(v || '')?.[1]).filter(Boolean).map(Number);
+825983	})), 'Version must exceed every committed candidate');
+825984	const composition = structuredClone(parent);
+825985	Object.assign(composition, {generation: G, previous_generation: P, superseded_generation: P, candidate_predecessor: P,
+825986	  composition_version: version, composition_id: `${G}-gridatlas-${version}`, composition_manifest: `./manifests/${G}-composition.json`,
+825987	  composition_note: stage === 'native' ? 'Mobile arrival summary and native Journey/Layers. Synthetic learning journeys labelled; existing real assets retain factual identity.' : 'Vicinity spatial explorer: 1–50 km, voltage context, local user model; source connections are never inferred.'});
+825988	const own = [];
+825989	if(process.argv.includes('--train-gazetteer')){
+825990	  const {buildGazetteer}=await import('../train/gazetteer/build.mjs');
+825991	  const bytes=buildGazetteer(G),c=composition.cartridges.find(c=>c.id==='uk-gazetteer-flyto');
+825992	  assert.ok(c,'Gazetteer predecessor required');delete c.assembled_from;
+825993	  Object.assign(c,{generation:G,version,path:`./cartridges/${G}-place-global-search-v9-5.js`,sha256:hash(bytes),bytes:bytes.length,source_recipe:'tools/train/gazetteer/generations.json'});
+825994	  c.capabilities=[...c.capabilities,'lookup-only-place-resolver-without-selection-side-effects'];
+825995	  write('atlas/'+c.path,bytes);own.push(c.id);
+825996	if (process.argv.includes('--pipeline-lifecycle')) {
+825997	  const {buildSubstation} = await import('../pipeline-lifecycle/build.mjs');
+825998	  const bytes = buildSubstation(G), c = composition.cartridges.find(c => c.id === 'substation-intelligence');
+825999	  assert.ok(c, 'Substation predecessor required');
+826000	  delete c.assembled_from;
+826001	  Object.assign(c, {generation: G, version, path: `./cartridges/${G}-substation-intelligence-v9-63.js`, sha256: hash(bytes), bytes: bytes.length,
+826002	    source_recipe: 'tools/pipeline-lifecycle/generations.json'});
+826003	  c.capabilities = [...c.capabilities, 'pipeline-selection-poll-map-removal-cleanup'];
+826004	  write('atlas/' + c.path, bytes); own.push(c.id);
+826005	const extraSldEdits = stage === 'native' ? 'tools/sld/src/mobile-arrival-card-edits.json' : arg('--sld-edits');
+826006	if (extraSldEdits) {
+826007	  const registryPath = 'tools/sld/generations.json', registry = json(registryPath), base = registry.generations[P];
+826008	  assert.ok(base, 'Native release requires source-built SLD parent');
+826009	  const editsPath = `tools/sld/src/${G}-mobile-arrival-edits.json`;
+826010	  assert.ok(extraSldEdits.startsWith('tools/sld/src/') && extraSldEdits.endsWith('.json'), 'SLD edits must be a declared local source recipe');
+826011	  const edits = [...json(base.edits), ...json(extraSldEdits)];
+826012	  write(editsPath, JSON.stringify(edits, null, 2) + '\n');
+826013	  let source = read(base.base.path);
+826014	    assert.equal(source.split(edit.before).length - 1, 1, `Edit ${i} must match exactly once`);
+826015	    source = source.replace(edit.before, edit.after);
+826016	  const bytes = Buffer.from(base.header + read(base.owner.path) + '\n' + source);
+826017	  registry.generations[G] = {...base, edits: editsPath, output_sha256: hash(bytes)};
+826018	  fs.writeFileSync(path.join(root, registryPath), JSON.stringify(registry, null, 2) + '\n');
+826019	  assert.deepEqual(buildSld(G), bytes);
+826020	  const c = composition.cartridges.find(c => c.id === 'sld-sandbox');
+826021	  Object.assign(c, {generation: G, version, path: `./cartridges/${G}-sld-sandbox-v9-8.js`, sha256: hash(bytes), bytes: bytes.length});
+826022	  c.capabilities = [...c.capabilities, ...(stage === 'native' ? ['mobile-nearest-summary-before-details', '44px-labelled-details-map-controls'] : ['map-removal-observer-cleanup'])];
+826023	if (stage === 'native') {
+826024	  const {assembleModule} = await import('../journey/build.mjs');
+826025	  const result = assembleModule({generation: G});
+826026	  const body = result.body;
+826027	  assert.ok(Buffer.byteLength(body) <= 72000, 'Journey module budget');
+826028	  const journey = {id: 'grid-journey-preview', generation: G, version, type: 'script', slot: 'after-cartridge', after: 'uk-offtakers-overlay',
+826029	    path: `./modules/${G}-grid-journey-preview.js`, sha256: hash(body), bytes: Buffer.byteLength(body), byte_budget: 72000,
+826030	    immutable_shell_modified: false, real_routes_accepted: 0,
+826031	    capabilities: ['native-maplibre', 'native-layers-launcher', 'explicit-synthetic-learning-cursor', 'manual-reduced-motion', 'removable-lifecycle']};
+826032	  composition.cartridge_order.push(journey.id); composition.cartridges.push(journey); own.push(journey.id);
+826033	  write('atlas/' + journey.path, body);
+826034	  const {assemble, BUDGET: vicinityBudget} = await import('../vicinity/build.mjs');
+826035	  const result = assemble({generation: G});
+826036	  const vicinity = {id: 'grid-vicinity', generation: G, version, type: 'script', slot: 'after-cartridge', after: 'grid-journey-preview',
+826037	    path: `./modules/${G}-grid-vicinity.js`, sha256: result.sha256, bytes: result.bytes, byte_budget: vicinityBudget,
+826038	    immutable_shell_modified: false, capabilities: ['spatial-radius-1-50km', 'source-voltage-context', 'native-layers-launcher', 'validated-origin-intent', 'local-user-model']};
+826039	  assert.ok(composition.cartridge_order.includes(vicinity.after), 'Native Journey predecessor required');
+826040	  composition.cartridge_order.push(vicinity.id); composition.cartridges.push(vicinity); own.push(vicinity.id);
+826041	  write('atlas/' + vicinity.path, result.body);
+826042	const manifest = {...composition, parent_generation: P, version, cut_at_utc: cutDate.toISOString(),
+826043	  candidate_status: 'REVIEW_AND_PUBLIC_ACCEPTANCE_PENDING', note: composition.composition_note,
+826044	  acceptance: {full_application_copies_created: 0, immutable_shell_modified: false,
+826045	    owner_authorization: 'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-6964495738',
+826046	    owner_release_acceptance: 'Session owner authorised overnight release execution; no agent ACCEPT comment manufactured',
+826047	    immutable_releases_tree: execFileSync('git', ['rev-parse', 'HEAD:atlas/releases'], {cwd: root, encoding: 'utf8'}).trim(),
+826048	    stage, real_connections_inferred: 0}};
+826049	const manifestText = JSON.stringify(manifest, null, 1) + '\n';
+826050	write(`atlas/manifests/${G}-composition.json`, manifestText);
+826051	write(`atlas/v/${G}/current.json`, rerootForPreview(deriveCurrent(manifestText)));
+826052	write(`atlas/v/${G}/index.html`, read('atlas/index.html'));
+826053	for (const id of own) write(`tools/proofs/${G}-${id}.proof.mjs`, `import {proveExplorerGeneration} from '../release/grid-explorer-proof.mjs';\nawait proveExplorerGeneration('${G}', '${id}');\n`);
+826054	console.log(JSON.stringify({generation: G, version, stage, parent: P, own, livePointerChanged: false}));
+826055	export async function proveExplorerGeneration(G, id) {
+826056	  const manifestText = read(`atlas/manifests/${G}-composition.json`), m = JSON.parse(manifestText);
+826057	  const parent = JSON.parse(read(`atlas/manifests/${m.parent_generation}-composition.json`));
+826058	  assert.equal(m.generation, G); assert.equal(m.version, m.composition_version);
+826059	  for (const field of ['previous_generation', 'superseded_generation', 'candidate_predecessor']) assert.equal(m[field], parent.generation);
+826060	  assert.equal(read(`atlas/v/${G}/current.json`), rerootForPreview(deriveCurrent(manifestText)));
+826061	  assert.equal(read(`atlas/v/${G}/index.html`), read('atlas/index.html'));
+826062	  assert.equal(m.acceptance.full_application_copies_created, 0); assert.equal(m.acceptance.immutable_shell_modified, false);
+826063	  assert.equal(m.acceptance.real_connections_inferred, 0);
+826064	  assert.equal(execFileSync('git', ['rev-parse', 'HEAD:atlas/releases'], {cwd: root, encoding: 'utf8'}).trim(), m.acceptance.immutable_releases_tree);
+826065	  assert.deepEqual(fs.readdirSync(path.join(root, `atlas/v/${G}`)).sort(), ['current.json', 'index.html']);
+826066	  for (const c of m.cartridges) {
+826067	    const source = read('atlas/' + c.path); assert.equal(hash(source), c.sha256, c.id);
+826068	    if (String(c.generation) !== G) assert.deepEqual(c, parent.cartridges.find(p => p.id === c.id), `Parent cartridge ${c.id}`);
+826069	    if (c.bytes != null) assert.equal(Buffer.byteLength(source), c.bytes, c.id);
+826070	  const cartridge = m.cartridges.find(c => c.id === id); assert.ok(cartridge); assert.equal(cartridge.generation, G);
+826071	  const source = read('atlas/' + cartridge.path); new vm.Script(source);
+826072	  if (id === 'sld-sandbox') {
+826073	    assert.equal(buildSld(G).toString('utf8'), source);
+826074	    assert.ok(source.includes("'Nearest mapped ' + kind")); assert.ok(source.includes('Details'));
+826075	  } else if (id === 'grid-journey-preview') {
+826076	    const {assembleModule} = await import('../journey/build.mjs');
+826077	    assert.equal(assembleModule({generation: G}).body, source); assert.ok(Buffer.byteLength(source) <= cartridge.byte_budget);
+826078	  } else if (id === 'grid-vicinity') {
+826079	    const {assemble} = await import('../vicinity/build.mjs');
+826080	    assert.equal(assemble({generation: G}).body, source); assert.ok(Buffer.byteLength(source) <= cartridge.byte_budget);
+826081	    if(fs.existsSync(path.join(root,'tools/train/station-source.json'))){
+826082	      const pin=JSON.parse(read('tools/train/station-source.json')),raw=fs.readFileSync(path.join(root,pin.path));
+826083	      assert.equal(hash(raw),pin.sha256,'Expected station loader input pin');assert.equal(raw.length,pin.bytes);
+826084	      assert.equal(JSON.parse(raw).features.length,pin.features);
+826085	  } else if (id === 'substation-intelligence') {
+826086	    const {buildSubstation} = await import('../pipeline-lifecycle/build.mjs');
+826087	    assert.equal(buildSubstation(G).toString('utf8'), source);
+826088	  } else if (id === 'uk-gazetteer-flyto') {
+826089	    const {buildGazetteer} = await import('../train/gazetteer/build.mjs');
+826090	    assert.equal(buildGazetteer(G).toString('utf8'),source);
+826091	  } else throw new Error('Unknown explorer source builder ' + id);
+826092	  console.log(`Explorer ${G} ${id}: source rebuild, parent lineage, preview derivation, immutable releases and budget PASS`);
+826096	test('rebuilds every registered generation without the expected cartridge in its source tree',()=>{
+826099	    const inputs = new Set(['tools/sld/generations.json', ...Object.values(registry.generations).flatMap(e => [e.base.path, e.owner.path, e.edits])]);
+826100	    for(const rel of inputs) {
+826116	/** Regression over the real rebuilt SLD functions, including its inherited failure. */
+826117	const original=buildSld('202611161720').toString('utf8');
+826118	const edits=JSON.parse(fs.readFileSync(new URL('./src/map-removal-cleanup-edits.json',import.meta.url)));
+826119	let modified=original;for(const e of edits){assert.equal(modified.split(e.before).length-1,1);modified=modified.replace(e.before,e.after);}new vm.Script(modified);
+826120	const extract=(source,name,indent=2)=>{const pad=' '.repeat(indent),start=source.indexOf(pad+'function '+name+'(');assert.ok(start>=0);return source.slice(start,source.indexOf('\n'+pad+'}',start)+indent+2);};
+826121	function fixture({removed=false,other=false}={}){
+826122	 const calls=[],map={getSource(){calls.push('getSource');if(removed)throw Error('style already destroyed');return{setData(){calls.push('setData');}};}},current=other?{}:map;
+826123	 const c={map,capturedMap:current,popupWatcher:{disconnect(){calls.push('disconnect');}},link:{last_selection:{name:'Before'},links_drawn:5,grid_scope:{before:true}},SRC:'route',SRC_NODES:'nodes',SRC_PIN:'pin',SCOPE_SRC:'scope',SCOPE_BLOCK:'scope-block',scopeResult:{before:true},currentRepdRef:'2470',currentDeclared:{},currentNeso:{},currentNearest400:{},document:{querySelectorAll(){return[];}},invalidatePendingArrival(reason){calls.push('invalidate:'+reason);},stopAnimation(){calls.push('cancel-animation');},setSourceData(m,id){m.getSource(id).setData({});},emptyCollection(){return{type:'FeatureCollection',features:[]};},disarmCardKeeper(){calls.push('disarm-card');},removeArrivalFallback(){calls.push('remove-fallback');},removeCardBlock(){calls.push('remove-block');},clearArrivalEngine(){calls.push('clear-engine');}};
+826124	 vm.createContext(c);vm.runInContext(['clearLinks','clearScope','clearPin'].map(n=>extract(modified,n)).join('\n')+'\n'+extract(modified,'cleanupRemovedMap',4),c);return{c,calls,map};
+826125	test('additive recipe applies exactly once and compiled successor preserves immutable base',()=>{assert.equal(original.includes('function cleanupRemovedMap'),false);assert.ok(modified.includes("map.on('remove', cleanupRemovedMap)"));assert.equal(edits.length,1);});
+826126	test('baseline clearLinks reproduces the inherited destroyed-style error',()=>{const f=fixture({removed:true});assert.throws(()=>f.c.clearLinks(),/style already destroyed/);assert.ok(f.calls.includes('getSource'));});
+826127	test('removed-map cleanup cancels work and clears state without any destroyed-style access',()=>{const f=fixture({removed:true});f.c.cleanupRemovedMap();assert.equal(f.c.capturedMap,null);assert.equal(f.calls.includes('getSource'),false);assert.deepEqual(f.calls,['disconnect','invalidate:clear','cancel-animation','disarm-card','remove-fallback','remove-block','clear-engine']);assert.equal(f.c.link.last_selection,null);assert.equal(f.c.link.links_drawn,0);assert.equal(f.c.link.project_pin.shown,false);assert.equal(f.c.link.grid_scope,null);assert.equal(f.c.scopeResult,null);assert.equal(f.c.currentRepdRef,null);f.c.cleanupRemovedMap();assert.equal(f.calls.filter(c=>c==='invalidate:clear').length,1);});
+826128	test('removal of an obsolete map cannot clear a newer map selection',()=>{const f=fixture({removed:true,other:true});const current=f.c.capturedMap;f.c.cleanupRemovedMap();assert.equal(f.c.capturedMap,current);assert.deepEqual(f.calls,['disconnect']);assert.equal(f.c.link.last_selection.name,'Before');});
+826129	test('ordinary live clear still resets all existing route/node/pin source data',()=>{const f=fixture();f.c.clearLinks();assert.equal(f.calls.filter(c=>c==='setData').length,3);assert.equal(f.c.link.last_selection,null);});
+826130	"""Candidate-only real-browser proof; intercepts pointer/hash and one cartridge.
+826131	Run with the QA Python environment containing Playwright. This is not public
+826132	release acceptance: all other native Atlas assets use their actual URLs.
+826139	OUT = Path(os.environ.get('MOBILE_CARD_OUTPUT', str(ROOT / 'work/mobile-arrival-card')))
+826142	    source = (ROOT / 'atlas/cartridges/202611161720-sld-sandbox-v9-8.js').read_text(encoding='utf-8')
+826143	    for edit in json.loads((ROOT / 'tools/sld/src/mobile-arrival-card-edits.json').read_text(encoding='utf-8')):
+826144	        assert source.count(edit['before']) == 1
+826145	        source = source.replace(edit['before'], edit['after'])
+826146	    pointer = json.loads((ROOT / 'atlas/current.json').read_text(encoding='utf-8'))
+826147	    digest = hashlib.sha256(source.encode()).hexdigest()
+826148	    for entry in pointer['cartridges']:
+826149	        if entry['id'] == 'sld-sandbox':
+826150	            entry['sha256'] = digest
+826151	    receipt = {'mode': 'CANDIDATE_INTERCEPTION_NOT_PUBLIC_ACCEPTANCE', 'startedUTC': datetime.now(timezone.utc).isoformat(), 'candidateSha256': digest, 'errors': [], 'requestFailures': [], 'interceptions': []}
+826153	        async with async_playwright() as p:
+826154	            browser = await p.chromium.launch(channel='chrome', headless=True, args=['--use-gl=angle', '--use-angle=swiftshader', '--enable-webgl', '--ignore-gpu-blocklist'])
+826155	            context = await browser.new_context(viewport={'width': 390, 'height': 844}, has_touch=True, is_mobile=True)
+826156	            page = await context.new_page()
+826157	            page.on('pageerror', lambda e: receipt['errors'].append(str(e)))
+826158	            page.on('requestfailed', lambda r: receipt['requestFailures'].append({'url': r.url, 'failure': r.failure}))
+826159	            async def candidate(route):
+826160	                url = route.request.url
+826161	                if url.split('?')[0].endswith('/atlas/current.json'):
+826162	                    receipt['interceptions'].append(url)
+826163	                    await route.fulfill(body=json.dumps(pointer), content_type='application/json')
+826164	                elif url.split('?')[0].endswith('/202611161720-sld-sandbox-v9-8.js'):
+826165	                    await route.fulfill(body=source, content_type='text/javascript')
+826167	                    await route.continue_()
+826168	            await context.route('https://ventusltd.github.io/gridatlas/**', candidate)
+826169	            await page.goto('https://ventusltd.github.io/gridatlas/atlas/?repd_ref=2470&technology=wind_offshore&latitude=52.1374391&longitude=2.1708996&zoom=12', wait_until='domcontentloaded', timeout=60000)
+826170	            print('receiver loaded', flush=True)
+826171	            summary = page.locator('.gridatlas-arrival-summary').first
+826172	            await summary.wait_for(timeout=120000)
+826173	            await page.wait_for_function("() => window.__GRIDATLAS_NEON_LINKS__?.last_selection?.name === 'East Anglia 3 (EA 3)'", timeout=120000)
+826174	            selection = await page.evaluate('() => window.__GRIDATLAS_NEON_LINKS__.last_selection')
+826175	            assert selection['name'] == 'East Anglia 3 (EA 3)'
+826176	            text = await summary.inner_text()
+826177	            assert selection['nearest_name'] in text
+826178	            assert f"{selection['nearest_km']:.1f} km straight-line" in text
+826179	            assert 'Screening only; connection unverified.' in text
+826180	            popup = page.locator('.maplibregl-popup').first
+826181	            assert 'gridatlas-min' in (await popup.get_attribute('class'))
+826182	            details = page.get_by_role('button', name='Show project details', exact=True)
+826183	            box = await details.bounding_box()
+826184	            assert box['height'] >= 44 and box['width'] >= 44
+826185	            rect = await summary.bounding_box()
+826186	            assert rect['x'] >= 0 and rect['y'] >= 0 and rect['x'] + rect['width'] <= 391 and rect['y'] + rect['height'] <= 845
+826187	            assert await summary.evaluate('(e) => {const r=e.getBoundingClientRect(); const hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return e===hit||e.contains(hit)}')
+826188	            await page.screenshot(path=str(OUT / 'compact.png'))
+826189	            await details.tap()
+826190	            await page.locator('.neon-km').first.wait_for(state='visible')
+826191	            assert 'gridatlas-min' not in (await popup.get_attribute('class'))
+826192	            assert await page.get_by_role('button', name='Minimise project details', exact=True).get_attribute('aria-expanded') == 'true'
+826193	            await page.wait_for_timeout(12000)
+826194	            assert 'gridatlas-min' not in (await popup.get_attribute('class')), 'identity reconciliation must retain reader restore'
+826195	            await page.screenshot(path=str(OUT / 'details.png'))
+826196	            await page.get_by_role('button', name='Minimise project details', exact=True).tap()
+826197	            await page.set_viewport_size({'width': 844, 'height': 390})
+826198	            await page.wait_for_timeout(500)
+826199	            assert rect['x'] >= 0 and rect['y'] >= 0 and rect['x'] + rect['width'] <= 845 and rect['y'] + rect['height'] <= 391
+826200	            assert not await page.evaluate('() => document.documentElement.scrollWidth > innerWidth')
+826201	            assert not receipt['errors']
+826202	            assert len(receipt['interceptions']) >= 2
+826203	            receipt.update({'result': 'PASS', 'renderedSummary': text, 'selection': selection, 'firstDetailsTouch': 'PASS', 'manualRestoreSurvives12Seconds': True, 'rotation': '844x390 bounded', 'physicalHandset': 'UNKNOWN', 'finishedUTC': datetime.now(timezone.utc).isoformat()})
+826206	        receipt.update({'result': 'FAIL', 'failure': str(e)})
+826209	        (OUT / 'receipt.json').write_text(json.dumps(receipt, indent=2), encoding='utf-8')
+826210	        print(json.dumps({k: v for k, v in receipt.items() if k not in ['requestFailures', 'interceptions']}), flush=True)
+826212	const edits = JSON.parse(fs.readFileSync(new URL('./src/mobile-arrival-card-edits.json', import.meta.url)));
+826213	const accepted = buildSld('202611161720').toString('utf8');
+826214	const helper = edits[0].after.replace('  function addCardBar(content) {\n', '');
+826215	function fixture(minimised = true) {
+826216	  const button = {style: {}, attrs: {}, setAttribute(k, v) { this.attrs[k] = v; }};
+826217	  const label = {style: {}, children: [], querySelector() { return this.children[0]; }, appendChild(n) { this.children.push(n); }};
+826218	  const popup = {classList: {contains() { return minimised; }}, querySelector() { return button; }};
+826219	  const content = {closest() { return popup; }, querySelector() { return label; }};
+826220	  const context = {document: {createElement() { return {style: {}, setAttribute() {}}; }}};
+826221	  vm.createContext(context); vm.runInContext(helper, context);
+826222	  return {context, content, button, label};
+826223	test('all edits apply exactly once to rebuilt accepted source and compile without changing history', () => {
+826224	  let source = accepted;
+826225	  for (const edit of edits) {
+826226	    assert.equal(source.split(edit.before).length - 1, 1);
+826227	  new vm.Script(source);
+826228	  assert.equal(accepted.includes('function renderArrivalCardSummary'), false);
+826229	  assert.ok(source.includes('cardPreference = { key: cardPreferenceKey(), minimised:'));
+826230	  assert.ok(source.includes('? cardPreference.minimised'));
+826231	test('collapsed card exposes nearest name, distance and screening scope with labelled Details', () => {
+826232	  const f = fixture();
+826233	  f.context.renderArrivalCardSummary(f.content, [{name: 'Nearest A', km: 38.627}], 'to-substation');
+826234	  assert.equal(f.label.children[0].textContent, 'Nearest mapped substation: Nearest A | 38.6 km straight-line. Screening only; connection unverified.');
+826235	  assert.equal(f.button.textContent, 'Details');
+826236	  assert.equal(f.button.attrs['aria-expanded'], 'false');
+826237	  assert.equal(f.button.style.minHeight, '44px');
+826238	  assert.equal(f.button.attrs['aria-label'], 'Show project details');
+826239	test('a replacement selection updates one summary without stale name or HTML injection', () => {
+826240	  const f = fixture(false);
+826241	  f.context.renderArrivalCardSummary(f.content, [{name: 'Old', km: 1}], 'to-substation');
+826242	  f.context.renderArrivalCardSummary(f.content, [{name: '<img src=x>', km: 0}], 'from-substation');
+826243	  assert.equal(f.label.children.length, 1);
+826244	  assert.equal(f.label.children[0].textContent, 'Nearest mapped project: <img src=x> | 0.0 km straight-line. Screening only; connection unverified.');
+826245	  assert.equal(f.button.textContent, 'Map');
+826246	  assert.equal(f.button.attrs['aria-expanded'], 'true');
+826247	test('beyond-radius distance stays visible and absent/nonfinite distance stays unknown', () => {
+826248	  const links = []; links.beyondRadiusNearest = {name: 'Beyond', km: 52};
+826249	  f.context.renderArrivalCardSummary(f.content, links, 'to-substation');
+826250	  assert.match(f.label.children[0].textContent, /Beyond \| 52.0 km straight-line/);
+826251	  f.context.renderArrivalCardSummary(f.content, [{name: 'Unknown', km: NaN}], 'to-substation');
+826252	  assert.equal(f.label.children[0].textContent, 'No mapped substation distance available. Connection unverified.');
+826253	/** Native new-UI acceptance helper. No route graph/provider interception or scripted selection. */
+826254	// Read painted feature geometry, not the newer serialized source point or its hit halo.
+826255	export function sampleRenderedTrainCursor(){
+826256	 const m=window.__GRIDATLAS_V9_MAP__,ride=window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().train.ride,r=m.getContainer().getBoundingClientRect(),center=m.getCenter(),id='gridatlas-train-cursor';
+826257	 const rendered=(m.getLayer(id)?m.queryRenderedFeatures(undefined,{layers:[id]}):[]).filter(f=>f.geometry?.type==='Point').map(f=>{const at=f.geometry.coordinates.slice(0,2),p=m.project(at),screen=[r.left+p.x,r.top+p.y],hit=document.elementFromPoint(...screen);return{at,screen,uncovered:screen[0]>0&&screen[1]>0&&screen[0]<innerWidth&&screen[1]<innerHeight&&hit?.tagName==='CANVAS',hit:hit?.tagName||null};});
+826258	 return{timestamp:performance.now(),visibility:document.visibilityState,ride,rendered,serialized:m.getSource(id)?.serialize().data.features[0]?.geometry.coordinates||null,camera:[center.lng,center.lat,m.getZoom(),m.getBearing(),m.getPitch()],viewport:{width:innerWidth,height:innerHeight,canvas:[r.left,r.top,r.width,r.height]},sourceLoaded:m.isSourceLoaded?.(id)??null,styleLoaded:m.isStyleLoaded?.()??null};
+826259	export async function waitForPaintedCursorProgress({page,diagnostics,timeoutMs=15000,intervalMs=100,minimumPixels=2,now=Date.now}){
+826260	 const start=now(),samples=[];let baseline=null;
+826261	 diagnostics.paintObservation={minimumPixels,timeoutMs,samples};
+826262	 while(now()-start<timeoutMs){
+826263	  const sample=await page.evaluate(sampleRenderedTrainCursor);if(samples.length<200)samples.push(sample);
+826264	  const point=sample.rendered.find(p=>p.uncovered),valid=point&&sample.visibility==='visible'&&sample.ride.playing===true&&sample.ride.cameraFollow===false;
+826265	  if(valid){
+826266	   const value={...point,timestamp:sample.timestamp,fraction:sample.ride.fraction,camera:sample.camera,viewport:sample.viewport};
+826267	   if(!baseline){baseline=value;diagnostics.paintObservation.baseline=value;}
+826268	   else{
+826269	    const fixed=sample.camera.every((n,i)=>Math.abs(n-baseline.camera[i])<1e-7)&&sample.viewport.canvas.every((n,i)=>Math.abs(n-baseline.viewport.canvas[i])<0.5);
+826270	    assert.ok(fixed,'Follow is OFF: rendered cursor comparison requires the same fitted camera and viewport');
+826271	    const pixels=Math.hypot(value.screen[0]-baseline.screen[0],value.screen[1]-baseline.screen[1]);
+826272	    if(pixels>=minimumPixels&&value.fraction>baseline.fraction&&value.at.some((n,i)=>n!==baseline.at[i])){diagnostics.paintObservation.accepted={...value,pixels};return{firstRendered:baseline,secondRendered:value,pixels};}
+826274	  await page.waitForTimeout(intervalMs);
+826275	 assert.fail('No two actual painted, uncovered cursor positions advanced at least '+minimumPixels+' CSS pixels with active Play and advancing fraction; diagnostic samples preserved.');
+826276	export async function runTrainUiAcceptance({page,panel,snapshot,visibleTap,output,pageErrors=[],diagnostics={}}) {
+826277	 const train=panel.locator('.train-panel'),query=train.locator('#gridatlas-train-query'),role=train.getByRole('combobox',{name:'Use search choice as',exact:true}),results=train.locator('.train-search-results');
+826278	 const readings={scope:'LOCAL_NATIVE_UI_REAL_STATION_SOURCE',caps:[],places:[],motion:{}};
+826279	 const state=async()=>(await snapshot()).train;
+826280	 const clear=async()=>{await visibleTap(train.getByRole('button',{name:'Clear selected stops',exact:true}));assert.equal((await state()).itinerary.selectedCount,0);};
+826281	 const find=async(id)=>{await query.fill(id);await visibleTap(train.getByRole('button',{name:'Find stations',exact:true}));assert.ok(await results.getByRole('button').count());};
+826282	 const choose=async(id,position)=>{await role.selectOption(position);await find(id);await visibleTap(results.getByRole('button').first());};
+826283	 const source=await page.evaluate(()=>{const ns=window.__GRIDATLAS_MODULES__,g=ns.geodesy,features=window.__GRIDATLAS_V9_MAP__.getSource('src-subs').serialize().data.features;return features.filter(f=>f.id&&f.properties?.name&&Array.from(g.voltagesKv(f.properties)).includes(33)).map(f=>({id:String(f.id),name:f.properties.name,at:g.representativePoint(f.geometry),kv:Array.from(g.voltagesKv(f.properties))})).sort((a,b)=>g.distanceKm(-0.404504,51.496403,...a.at)-g.distanceKm(-0.404504,51.496403,...b.at)).filter((row,i,rows)=>i===0||row.at.some((v,j)=>v!==rows[0].at[j])).slice(0,2);});
+826284	 assert.equal(source.length,2);readings.canonicalStations=source;assert.equal((await state()).index.sourceRecords,5800);assert.equal((await state()).index.indexedRecords,5800);assert.equal((await state()).index.datasetPin.sha256,'87976435766a58ddf19c99540b58cd7f18a224148af42ba55075d8851f9e6251');
+826285	 await clear();await query.fill('Kearsley');await visibleTap(train.getByRole('button',{name:'Find stations',exact:true}));assert.match(await results.innerText(),/grid_substations:5799/);await query.fill('qa-no-such-station-uniquely-missing');await visibleTap(train.getByRole('button',{name:'Find stations',exact:true}));assert.equal(await results.getByRole('button').count(),0);await visibleTap(train.getByRole('button',{name:/^Journey .*10 stops$/}));
+826286	 await choose(source[0].id,'start');await choose(source[1].id,'finish');
+826287	 let current=await state();assert.deepEqual(current.itinerary.stops.map(s=>s.stationId),source.map(s=>s.id));assert.deepEqual(current.itinerary.stops.map(s=>s.at),source.map(s=>s.at));
+826288	 await visibleTap(train.locator('.train-stops > li').first().getByRole('button',{name:/^Move down /}));assert.deepEqual((await state()).itinerary.stops.map(s=>s.stationId),source.map(s=>s.id).reverse());await visibleTap(train.locator('.train-stops > li').last().getByRole('button',{name:/^Move up /}));assert.deepEqual((await state()).itinerary.stops.map(s=>s.stationId),source.map(s=>s.id));
+826289	 for(const select of await train.locator('.train-stops select').all())await select.selectOption('33');
+826290	 await visibleTap(train.getByRole('button',{name:'Draw itinerary',exact:true}));current=await state();assert.equal(current.plan.simulated,false);assert.ok(current.plan.legs.some(l=>l.evidence==='MISSING'),'missing documented joins remain missing before opt-in');assert.equal(current.plan.playable,false);
+826291	 const fallback=train.getByRole('checkbox',{name:/Allow my SIMULATED straight-line legs/});await visibleTap(fallback.locator('..'));assert.equal(await fallback.isChecked(),true);
+826292	 await visibleTap(train.getByRole('button',{name:'Draw itinerary',exact:true}));await visibleTap(train.getByRole('button',{name:'Draw itinerary',exact:true}));current=await state();assert.equal(current.plan.playable,true);assert.equal(current.plan.simulated,true);assert.ok(current.plan.legs.every(leg=>leg.electricalFlow==='UNKNOWN'));
+826293	 await page.waitForFunction(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-train-cursor')?.serialize().data.features.length===1,null,{timeout:15000});
+826294	 const cursor=()=>page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-train-cursor')?.serialize().data.features[0]?.geometry.coordinates);
+826295	 await visibleTap(train.getByRole('button',{name:'Fit itinerary on map',exact:true}));
+826296	 const mapControls=page.getByRole('region',{name:'Journey map controls',exact:true});await visibleTap(mapControls.getByRole('button',{name:'Edit journey',exact:true}));
+826297	 const before=await cursor();const speed=train.getByRole('slider',{name:'Seconds per leg',exact:true});await speed.focus();await page.keyboard.press('End');const actualSpeed=Number(await speed.inputValue());assert.equal(actualSpeed,20,'native range End selects 20 seconds per leg');diagnostics.actualSpeedSeconds=actualSpeed;
+826298	 await visibleTap(train.getByRole('button',{name:'Play',exact:true}));const compact=page.getByRole('region',{name:'Journey map controls',exact:true});assert.equal(await compact.isVisible(),true);
+826299	 const {firstRendered,secondRendered}=await waitForPaintedCursorProgress({page,diagnostics});
+826300	 const moving=await cursor();await page.screenshot({path:output+'/train-native-playing.png'});await visibleTap(compact.getByRole('button',{name:'Pause journey',exact:true}));assert.equal((await state()).ride.playing,false);const paused=await cursor();await page.waitForTimeout(150);assert.deepEqual(await cursor(),paused);
+826301	 await visibleTap(compact.getByRole('button',{name:'Next journey stop',exact:true}));assert.equal((await state()).ride.stopIndex,1);await visibleTap(compact.getByRole('button',{name:'Edit journey',exact:true}));readings.motion={actualSpeed,paintObservation:diagnostics.paintObservation,firstRendered,secondRendered,before,moving,paused,afterStep:await cursor(),ride:(await state()).ride};
+826302	 await page.screenshot({path:output+'/train-native-drawn.png'});
+826303	 // Close an active ride through the focused compact Escape control, spanning deferred work.
+826304	 const visitsBeforeClose=(await state()).itinerary.stops.map(stop=>stop.stopId);await visibleTap(train.getByRole('button',{name:'Play',exact:true}));assert.equal((await state()).ride.playing,true);await page.keyboard.press('Escape');assert.equal((await snapshot()).opened,false);
+826305	 const ownedCounts=()=>page.evaluate(()=>Object.fromEntries(['routes','stops','cursor'].map(suffix=>[suffix,window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-train-'+suffix)?.serialize().data.features.length||0])));
+826306	 assert.deepEqual(await ownedCounts(),{routes:0,stops:0,cursor:0});assert.equal((await state()).plan,null);assert.equal((await state()).ride.playing,false);await page.waitForTimeout(1200);assert.deepEqual(await ownedCounts(),{routes:0,stops:0,cursor:0});assert.deepEqual(pageErrors,[]);
+826307	 await visibleTap(page.locator('#gridatlas-menu-bar-title-4'));await visibleTap(page.locator('#gridatlas-menu-bar-panel-4').getByRole('button',{name:'Great Grid Journeys',exact:true}));assert.deepEqual((await state()).itinerary.stops.map(stop=>stop.stopId),visitsBeforeClose);assert.equal((await state()).plan,null);assert.deepEqual(await ownedCounts(),{routes:0,stops:0,cursor:0});readings.close={observationMs:1200,ownedCounts:await ownedCounts(),selectedVisitsPreserved:true,reopenAutoDraw:false};
+826308	 // Place lookup uses the existing live provider; failure is retained, never replaced by a fixture.
+826309	 await clear();await role.selectOption('start');const typed='SW1A 1AA';await query.fill(typed);await visibleTap(train.getByRole('button',{name:'Find place / postcode',exact:true}));
+826310	 await page.waitForFunction(()=>{const e=document.querySelector('.train-status');return e&&!e.textContent.includes('Looking up');},null,{timeout:90000});
+826311	 const places=results.getByRole('button',{name:'Choose stations near this place',exact:true});assert.ok(await places.count(),'existing provider must resolve the typed postcode for positive binding coverage');const selectedProviderCaption=await results.locator('li').first().innerText();await visibleTap(places.first());await visibleTap(results.getByRole('button').first());current=await state();const bound=current.itinerary.stops[0];assert.equal(bound.place.label,typed);assert.ok(bound.place.provider);assert.ok(selectedProviderCaption.includes(bound.place.precision||'precision unknown'));assert.ok(selectedProviderCaption.includes(bound.place.provider));assert.ok(bound.place.distanceKm>=0);assert.ok(bound.stationId.startsWith('grid_substations:'));assert.match(await train.locator('.train-place-binding').innerText(),/SW1A 1AA/);readings.places.push(bound);
+826312	 // Both caps are selected visit limits; repeat visits are intentional and remain separate.
+826313	 await clear();await visibleTap(train.getByRole('button',{name:/^Journey .*10 stops$/}));await role.selectOption('waypoint');await find(source[0].id);
+826314	 for(let n=0;n<10;n++)await visibleTap(results.getByRole('button').first());const atTen=(await state()).itinerary;await visibleTap(results.getByRole('button').first());assert.deepEqual((await state()).itinerary,atTen);readings.caps.push({mode:'journey',count:atTen.selectedCount,refused:11});
+826315	 await visibleTap(train.getByRole('button',{name:/^Vicinity .*90 stops$/}));for(let n=10;n<90;n++)await visibleTap(results.getByRole('button').first());const atNinety=(await state()).itinerary;await visibleTap(results.getByRole('button').first());assert.deepEqual((await state()).itinerary,atNinety);assert.equal(atNinety.selectedCount,90);readings.caps.push({mode:'vicinity',count:90,refused:91});
+826316	 await visibleTap(train.getByRole('button',{name:/^Journey .*10 stops$/}));assert.deepEqual((await state()).itinerary,atNinety,'mode downgrade never truncates');
+826317	 await clear();
+826318	 // Pin a real user-chosen map point; only the separate session proposed store changes.
+826319	 await role.selectOption('start');await visibleTap(train.locator('.train-proposed > summary'));await train.getByRole('textbox',{name:'Proposed customer substation label',exact:true}).fill('QA customer screening');await train.getByRole('combobox',{name:'Proposed customer substation voltage',exact:true}).selectOption('11');
+826320	 if(!(await fallback.isChecked()))await visibleTap(fallback.locator('..'));
+826321	 await visibleTap(train.getByRole('button',{name:'Pin proposed FEED concept',exact:true}));assert.equal((await state()).proposedPicking,true);assert.equal(await panel.isVisible(),false,'pin mode exposes map touch surface');
+826322	 const canvas=page.locator('canvas.maplibregl-canvas');const bounds=await canvas.boundingBox();await page.touchscreen.tap(bounds.x+bounds.width/2,bounds.y+bounds.height/2);await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().train.proposals.count===1);
+826323	 await page.waitForFunction(()=>{const m=window.__GRIDATLAS_V9_MAP__,id='gridatlas-train-proposed-point';return m.getLayer(id)&&m.queryRenderedFeatures(undefined,{layers:[id]}).some(f=>f.properties.evidence==='SESSION_ONLY_USER_PROPOSED'&&f.properties.role==='customer_substation');});
+826324	 const feed=await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__,e=document.querySelector('.train-proposed-map-label'),r=e?.getBoundingClientRect(),style=e?getComputedStyle(e):null;return{colour:m.getPaintProperty('gridatlas-train-proposed-point','circle-color'),marker:e?{text:e.textContent,colour:style.color,borderStyle:style.borderTopStyle,visible:style.display!=='none'&&style.visibility==='visible'&&Number(style.opacity)>0&&r.width>0&&r.height>0&&r.left>=0&&r.top>=0&&r.right<=innerWidth&&r.bottom<=innerHeight}:null,source:m.getSource('gridatlas-train-proposed-stations').serialize().data.features.map(f=>f.properties)};});
+826325	 assert.equal(String(feed.colour).toLowerCase(),'#e0b050');assert.ok(feed.marker?.visible,'the proposed FEED label is visibly on the map');assert.match(feed.marker.text,/Proposed.*FEED/);assert.equal(feed.marker.borderStyle,'dashed');assert.equal(feed.marker.colour,'rgb(224, 176, 80)');assert.equal(feed.source.length,1);assert.ok(feed.source.every(p=>p.evidence==='SESSION_ONLY_USER_PROPOSED'&&p.role==='customer_substation'));readings.feedPaint=feed;
+826326	await page.screenshot({path:output+'/train-proposed-session-map.png'});
+826327	 await visibleTap(compact.getByRole('button',{name:'Edit journey',exact:true}));current=await state();assert.equal(current.proposals.count,1);const proposal=current.proposals.stations[0];assert.match(proposal.id,/^scenario:/);assert.deepEqual(proposal.kv,[11]);assert.equal(proposal.source,'SESSION_ONLY_USER_PROPOSED');assert.equal(current.itinerary.stops[0].stationId,proposal.id);assert.equal(current.index.sourceRecords,5800);
+826328	 const proposalEpochBeforeEdit=current.itinerary.planEpoch;
+826329	 const proposedList=train.getByRole('list',{name:'Session proposed substations',exact:true});await proposedList.getByRole('combobox').selectOption('33');await visibleTap(proposedList.getByRole('button',{name:'Apply proposed label / voltage',exact:true}));current=await state();assert.deepEqual(current.proposals.stations[0].kv,[33]);assert.ok(current.itinerary.planEpoch>proposalEpochBeforeEdit,'the proposed voltage edit itself invalidates the plan');
+826330	 await visibleTap(fallback.locator('..'));assert.equal(await fallback.isChecked(),true,'documented-only refuses active proposed stops');
+826331	 await visibleTap(proposedList.getByRole('button',{name:'Remove proposed pin',exact:true}));current=await state();assert.equal(current.proposals.count,0);assert.equal(current.itinerary.valid,false);assert.equal(current.itinerary.selectedCount,1);await visibleTap(train.getByRole('button',{name:'Draw itinerary',exact:true}));assert.equal((await state()).plan,null,'a deleted proposed station cannot be drawn or assigned a current route');assert.equal((await state()).itinerary.valid,false);await visibleTap(train.locator('.train-stops').getByRole('button',{name:/^Remove /}).first());assert.equal((await state()).itinerary.valid,true);readings.proposed={id:proposal.id,sourceRecords:current.index.sourceRecords,removedInvalidVisitRetained:true,deletedVisitDrawingBlocked:true};
+826332	 await clear();await visibleTap(train.getByRole('button',{name:/^Vicinity .*90 stops$/}));
+826333	 // Reduced motion uses the real public controller lifecycle and the same unchanged source inventory.
+826334	 const contextBefore=await snapshot();await page.emulateMedia({reducedMotion:'reduce'});
+826335	 await page.evaluate(options=>{const module=window.__GRIDATLAS_MODULES__.gridVicinity;module.destroy();module.mount().open(options);},{origin:contextBefore.origin,radiusKm:contextBefore.radiusKm,mode:'journey'});
+826336	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().train?.index?.indexedRecords===5800);
+826337	 await choose(source[0].id,'start');await choose(source[1].id,'finish');for(const select of await train.locator('.train-stops select').all())await select.selectOption('33');
+826338	 const reducedFallback=train.getByRole('checkbox',{name:/Allow my SIMULATED straight-line legs/});await visibleTap(reducedFallback.locator('..'));await visibleTap(train.getByRole('button',{name:'Draw itinerary',exact:true}));await visibleTap(train.getByRole('button',{name:'Play',exact:true}));
+826339	 current=await state();assert.equal(current.ride.reducedMotion,true);assert.equal(current.ride.playing,false);const staticAt=await cursor();await page.waitForTimeout(250);assert.deepEqual(await cursor(),staticAt);readings.reducedMotion={ride:current.ride,staticAt};
+826340	 await visibleTap(compact.getByRole('button',{name:'Edit journey',exact:true}));await clear();await visibleTap(train.getByRole('button',{name:/^Vicinity .*90 stops$/}));
+826341	 const sourceBands=panel.getByRole('group',{name:'Source voltage tags',exact:true});for(const box of await sourceBands.getByRole('checkbox').all()){const wanted=contextBefore.selectedBands.includes(await box.getAttribute('value'));if(await box.isChecked()!==wanted)await visibleTap(box.locator('..'));}
+826342	 const contextAfter=await snapshot();assert.deepEqual(contextAfter.origin,contextBefore.origin);assert.equal(contextAfter.radiusKm,contextBefore.radiusKm);assert.equal(contextAfter.loadedRecords,5800);readings.contextPreserved={origin:contextAfter.origin,radiusKm:contextAfter.radiusKm,loadedRecords:contextAfter.loadedRecords};await page.emulateMedia({reducedMotion:'no-preference'});
+826343	 return readings;
+826344	import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {createHash} from 'node:crypto';
+826345	import {buildStationIndex} from './src/station-index.mjs';import {createItinerary as coreCreateItinerary} from './src/itinerary.mjs';import {createPlaceBridge} from './src/place-bridge.mjs';
+826346	const c={window:{}};vm.runInNewContext(fs.readFileSync(new URL('../../atlas/modules/202609011950-geodesy.js',import.meta.url),'utf8'),c);const geodesy=c.window.__GRIDATLAS_MODULES__.geodesy;
+826347	const point=(id,name='Shared',at=[-0.4,51.5])=>({type:'Feature',id,properties:{name,voltage:'400000;132000',operator:'Source operator',source:'Source reference'},geometry:{type:'Point',coordinates:at}});
+826348	const index=()=>buildStationIndex([point('A'),point('B'),point('C','Distinct',[-0.401,51.5])],{geodesy});
+826349	const createItinerary=(options={})=>coreCreateItinerary({stationIndex:buildStationIndex(Array.from({length:100},(_,n)=>point('s:'+n,'Station '+n)),{geodesy}),...options});
+826350	const stop=(n)=>({stationId:'s:'+n,name:'Station '+n,at:[-0.4,51.5],kv:[132],source:'fixture'});
+826351	test('actual full5800inventory searched beyond display limit and exact dataset pin retained',()=>{const file=new URL('../../atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson',import.meta.url),bytes=fs.readFileSync(file),features=JSON.parse(bytes).features,pin={path:'atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson',bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')},i=buildStationIndex(features,{geodesy,datasetPin:pin});assert.equal(i.snapshot().sourceRecords,5800);assert.equal(i.snapshot().indexedRecords,5800);assert.deepEqual(i.snapshot().datasetPin,pin);assert.equal(i.search('grid_substations:5799',{limit:1}).rows[0].stationId,'grid_substations:5799');assert.equal(i.search('Kearsley').rows.some(r=>r.stationId==='grid_substations:5799'),true);assert.ok(i.search('substation',{limit:10}).matched>10);assert.equal(i.snapshot().indexedRecords,5800);assert.deepEqual(i.get('grid_substations:5799').kv,[400,275,132]);});
+826352	test('ambiguousnames keep distinct stable IDs; noresults and duplicate/conflicting IDs explicit',()=>{const i=index();assert.equal(i.search('shared').ambiguous,true);assert.deepEqual(i.search('shared').rows.map(r=>r.stationId),['A','B']);assert.equal(i.search('notthere').matched,0);const j=buildStationIndex([point('A'),point('A'),point('X'),point('X','Different'),point(null)],{geodesy});assert.equal(j.snapshot().duplicateRecords,2);assert.deepEqual(j.snapshot().conflictingIds,['X']);assert.equal(j.get('X'),null);assert.equal(j.snapshot().invalidRecords,1);});
+826353	test('nearby uses canonical inclusive radius and reports cap separately',()=>{const i=index(),r=i.near([-0.4,51.5],{radiusKm:1,limit:1});assert.equal(r.matched,3);assert.equal(r.rows.length,1);assert.equal(r.truncated,true);assert.equal(r.rows[0].distanceKm,0);for(const radiusKm of [0,51,1.1,true])assert.throws(()=>i.near([-0.4,51.5],{radiusKm}));});
+826354	test('10to11 and90to91 totalstop caps refuse without dataloss',()=>{for(const [mode,cap]of [['journey',10],['vicinity',90]]){const it=createItinerary({mode});for(let n=0;n<cap;n++)it.add(stop(n));const before=it.snapshot();assert.equal(before.selectedCount,cap);assert.throws(()=>it.add(stop(cap)),/limit/);assert.deepEqual(it.snapshot(),before);assert.ok(before.start);assert.ok(before.finish);}});
+826355	test('mode downgrade refuses without truncation; explicit removal then permits',()=>{const i=createItinerary({mode:'vicinity'});for(let n=0;n<11;n++)i.add(stop(n));const before=i.snapshot();assert.throws(()=>i.setMode('journey'));assert.deepEqual(i.snapshot(),before);i.remove(10);assert.equal(i.setMode('journey').selectedCount,10);});
+826356	test('reorder/remove/endpoints edits preserve source/place identities and immutable snapshots',()=>{const i=createItinerary();i.setStart(stop(0));i.setFinish(stop(1));i.add(stop(2),{index:1});const a=i.snapshot();i.move(1,2);assert.deepEqual(i.snapshot().stops.map(s=>s.stationId),['s:0','s:1','s:2']);i.setStart(stop(3));i.setFinish(stop(4));i.remove(i.snapshot().stops[1].stopId);assert.deepEqual(i.snapshot().stops.map(s=>s.stationId),['s:3','s:4']);a.stops[0].at[0]=100;assert.equal(i.snapshot().stops[0].at[0],-0.4);const before=i.snapshot();assert.throws(()=>i.replace(0,{...stop(9),at:[0,0]}));assert.deepEqual(i.snapshot(),before);});
+826357	test('return visits allowed; ambiguous station removal requires selected visitID',()=>{const i=createItinerary();i.add(stop(0));i.add(stop(0));assert.throws(()=>i.remove('s:0'));const s=i.snapshot();assert.notEqual(s.stops[0].stopId,s.stops[1].stopId);i.remove(s.stops[0].stopId);assert.equal(i.snapshot().selectedCount,1);});
+826358	test('existinggazetteer shape preserves typedpostcode and explicit chosen station notnearestassignment',async()=>{const i=index(),bridge=createPlaceBridge({index:i,geodesy,resolve:async()=>[{label:'Resolved postcode',longitude:-0.4,latitude:51.5,provider:'postcodes.io',kind:'postcode'}]});const r=await bridge.lookup('  UB1 1AA  ',{radiusKm:10});assert.equal(r.stationAutomaticallySelected,false);const s=bridge.bind(r.places[0].token,'C');assert.equal(s.stationId,'C');assert.equal(s.place.label,'  UB1 1AA  ');assert.equal(s.place.resolvedLabel,'Resolved postcode');assert.equal(s.place.precision,null);assert.ok(s.place.distanceKm>0);assert.throws(()=>bridge.bind(r.places[0].token,'missing'));const it=createItinerary({stationIndex:i});it.add(s);assert.deepEqual(it.snapshot().stops[0].place,s.place);});
+826359	test('staleasyncresult and stale binding refused; noresults remains explicit',async()=>{let finish;const bridge=createPlaceBridge({index:index(),geodesy,resolve:q=>q==='old'?new Promise(r=>finish=r):Promise.resolve([])});const old=bridge.lookup('old');const current=await bridge.lookup('new');assert.equal(current.status,'NO_RESULTS');finish([{label:'Old',at:[-0.4,51.5],provider:'existing'}]);assert.equal((await old).stale,true);assert.equal(bridge.snapshot().label,'new');assert.throws(()=>bridge.bind('1:0','A'));});
+826360	test('failedlookup keeps stickylabel and doesnotbind; no inventedprovider or nullisland',async()=>{const b=createPlaceBridge({index:index(),geodesy,resolve:async()=>{throw Error('existing provider failed')}});await assert.rejects(b.lookup('Sticky place'));assert.equal(b.snapshot().label,'Sticky place');assert.equal(b.snapshot().status,'FAILED');const invalid=createPlaceBridge({index:index(),geodesy,resolve:async()=>[{at:[0,0],provider:'existing'},{at:[-0.4,51.5]}]});assert.equal((await invalid.lookup('place')).status,'NO_RESULTS');});
+826361	test('caller mutation cannot rewrite inventory count or a selected place binding',async()=>{const features=[point('A')],i=buildStationIndex(features,{geodesy});features.push(point('B'));assert.equal(i.snapshot().sourceRecords,1);assert.equal(i.search('A').matched,1);const bridge=createPlaceBridge({index:i,geodesy,resolve:async()=>[{at:[-0.4,51.5],provider:'existing'}]});const r=await bridge.lookup('Typed');r.places[0].at[0]=100;r.places[0].label='Mutated';const s=bridge.bind(r.places[0].token,'A');assert.deepEqual(s.place.at,[-0.4,51.5]);assert.equal(s.place.label,'Typed');});
+826362	test('cleared or invalid newer query invalidates pending places and old bindingtokens',async()=>{let finish;const bridge=createPlaceBridge({index:index(),geodesy,resolve:()=>new Promise(r=>finish=r)});const old=bridge.lookup('old');await assert.rejects(bridge.lookup(''));finish([{at:[-0.4,51.5],provider:'existing'}]);assert.equal((await old).stale,true);assert.equal(bridge.snapshot().status,'IDLE');});
+826363	test('law is declarative, ordered IDs/repetitions retained, transformer/hypothetical gates typed',async()=>{const {normaliseJourneyLaw}=await import('./src/itinerary.mjs');assert.equal(normaliseJourneyLaw().fallback,'documented-only');const input={mustVisitStationIds:['A','B','A'],allowedVoltageBands:['400','220','220'],fallback:'user-opted-hypothetical',allowTransformers:false};const law=normaliseJourneyLaw(input);assert.deepEqual(law.mustVisitStationIds,['A','B','A']);assert.deepEqual(law.allowedVoltageBands,['400','220']);assert.equal(law.allowTransformers,false);input.mustVisitStationIds[0]='changed';assert.equal(law.mustVisitStationIds[0],'A');for(const bad of [{evaluate:()=>true},{fallback:true},{allowTransformers:'yes'},{allowedVoltageBands:[400]},{mustVisitStationIds:['']}])assert.throws(()=>normaliseJourneyLaw(bad));});
+826364	test('raw source inventory retains1340unnamed and91casefolded duplicate-name groups',()=>{const features=JSON.parse(fs.readFileSync(new URL('../../atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson',import.meta.url))).features,counts=new Map();for(const f of features){const name=f.properties?.name?.trim().toLocaleLowerCase('en');if(name)counts.set(name,(counts.get(name)||0)+1);}assert.equal(features.filter(f=>!f.properties?.name?.trim()).length,1340);assert.equal([...counts.values()].filter(n=>n>1).length,91);const i=buildStationIndex(features,{geodesy});assert.equal(i.search('Unnamed mapped substation').matched,1340);assert.equal(i.snapshot().indexedRecords,5800);});
+826365	test('every selected endpoint/waypoint must be canonical source station, spoofedpoint and nonstation refused',()=>{assert.throws(()=>coreCreateItinerary(),/canonical station index/);const i=createItinerary();for(const id of ['repd:2470','DC-WD-Q100','place:london','freehand'])assert.throws(()=>i.add({...stop(0),stationId:id}));assert.throws(()=>i.add({...stop(0),at:[-1,52]}),/canonical source point/);i.setStart(stop(0));const before=i.snapshot();assert.throws(()=>i.setFinish({...stop(1),stationId:'repd:1'}));assert.deepEqual(i.snapshot(),before);i.add({...stop(1),name:'Spoofed metadata'});assert.equal(i.snapshot().stops[1].name,'Station 1');});
+826366	test('normalised law roundtrips across planner boundary; unknown schema failsclosed',async()=>{const {normaliseJourneyLaw}=await import('./src/itinerary.mjs');const law=normaliseJourneyLaw({mustVisitStationIds:['A'],allowedVoltageBands:['132']});assert.deepEqual(normaliseJourneyLaw(law),law);assert.throws(()=>normaliseJourneyLaw({...law,schema:'executable'}));});
+826367	export function trainLearningFixture(kind = 'local') {
+826368	/** Successor-only public seam, derived from the exact currently composed gazetteer. */
+826369	import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';
+826370	const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../../..');
+826371	export function buildGazetteer(generation,root=ROOT) {
+826372	 const registry=JSON.parse(fs.readFileSync(path.join(root,'tools/train/gazetteer/generations.json'))),entry=registry.generations[generation];assert.ok(entry,'Unknown gazetteer successor generation '+generation);
+826373	 const bytes=fs.readFileSync(path.join(root,entry.base.path)),hash=b=>createHash('sha256').update(b).digest('hex');assert.equal(bytes.length,entry.base.bytes,'Gazetteer base length drift');assert.equal(hash(bytes),entry.base.sha256,'Gazetteer base pin drift');let body=bytes.toString('utf8');
+826374	 for(const [i,edit]of JSON.parse(fs.readFileSync(path.join(root,entry.edits))).entries()){assert.ok(typeof edit.before==='string'&&edit.before.length&&typeof edit.after==='string');const at=body.indexOf(edit.before);assert.ok(at>=0,'Gazetteer edit missing '+i);assert.equal(body.indexOf(edit.before,at+1),-1,'Gazetteer edit ambiguous '+i);body=body.slice(0,at)+edit.after+body.slice(at+edit.before.length);}
+826375	 const built=Buffer.from(body);assert.equal(built.length,entry.output_bytes,'Gazetteer output length drift');assert.equal(hash(built),entry.output_sha256,'Gazetteer output pin drift');return built;
+826376	if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const arg=k=>process.argv[process.argv.indexOf(k)+1];assert.ok(process.argv.includes('--gen')&&process.argv.includes('--out'),'Use --gen G --out NEW_FILE');const bytes=buildGazetteer(arg('--gen'));fs.writeFileSync(arg('--out'),bytes,{flag:'wx'});console.log(JSON.stringify({bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')}));}
+826377	import test from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {createHash} from 'node:crypto';import {buildGazetteer} from './build.mjs';
+826378	const root=path.resolve(new URL('../../..',import.meta.url).pathname.replace(/^\/([A-Za-z]:)/,'$1')),body=buildGazetteer('202611180026').toString();
+826379	function runtime(){const requests=[],events=[],effects=[];const c={document:{documentElement:{dataset:{gridatlasGeneration:'202611180026'}}},window:{addEventListener(...a){events.push(a)},location:{href:'https://ventusltd.github.io/gridatlas/atlas/?repd_ref=2470'},__GRIDATLAS_V9_MAP__:{flyTo(){effects.push('flyTo')}}},history:{replaceState(){effects.push('history')}},console,URL,fetch:async(url)=>{requests.push(String(url));if(String(url).startsWith('https://api.postcodes.io'))return{ok:true,status:200,json:async()=>({result:[{name_1:'London',longitude:-0.1,latitude:51.5,local_type:'City'}]})};return{ok:true,status:200,json:async()=>[{name:'Paris',display_name:'Paris, France',lon:'2.3',lat:'48.8'}]};}};vm.runInNewContext(body,c);return{resolve:c.window.__GRIDATLAS_PLACE_SEARCH__.resolveLocations,state:c.window.__GRIDATLAS_PLACE_SEARCH__,requests,effects,events,c};}
+826380	test('exact pinned successor compiles without editing baseline and failsunknown generation',()=>{new vm.Script(body);assert.throws(()=>buildGazetteer('unknown'));assert.ok(!fs.readFileSync(new URL('../../../atlas/cartridges/202611132345-place-global-search-v9-5.js',import.meta.url),'utf8').includes('state.resolveLocations'));});
+826381	test('default public lookup calls existing UKprovider only, preserving resultshape/provider and no selection',async()=>{const r=runtime(),rows=await r.resolve('London');assert.equal(rows.length,1);assert.equal(rows[0].provider,'postcodes.io');assert.equal(rows[0].kind,'place');assert.equal(rows[0].longitude,-0.1);assert.equal(rows[0].precision,undefined);assert.equal(r.requests.length,1);assert.ok(r.requests[0].startsWith('https://api.postcodes.io/places?'));assert.deepEqual(r.effects,[]);assert.equal(r.state.last_location_selection,null);assert.equal(r.c.window.location.href.endsWith('repd_ref=2470'),true);});
+826382	test('global provider runs only whenexplicit boolean true and retains existingglobal resultshape',async()=>{const r=runtime(),rows=await r.resolve('London',{includeGlobal:true});assert.equal(r.requests.length,2);assert.ok(r.requests[1].startsWith('https://nominatim.openstreetmap.org/search'));assert.equal(rows[1].provider,'Nominatim / OpenStreetMap');assert.equal(rows[1].kind,'global_place');assert.equal(rows[1].latitude,48.8);assert.deepEqual(r.effects,[]);});
+826383	test('invalidtypedquery/globaloption refuse and shortquery causesno network',async()=>{const r=runtime();await assert.rejects(r.resolve(null));await assert.rejects(r.resolve('London',{includeGlobal:'yes'}));assert.equal((await r.resolve('x')).length,0);assert.equal(r.requests.length,0);});
+826384	test('builder closure independently rebuilds in emptytree fromexactfour inputs',()=>{const dir=fs.mkdtempSync(path.join(os.tmpdir(),'train-gazetteer-'));try{for(const rel of ['tools/train/gazetteer/build.mjs','tools/train/gazetteer/generations.json','tools/train/gazetteer/src/lookup-export-edits.json','atlas/cartridges/202611132345-place-global-search-v9-5.js']){const target=path.join(dir,rel);fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(path.join(root,rel),target);}assert.equal(buildGazetteer('202611180026',dir).toString(),body);const registry=JSON.parse(fs.readFileSync(path.join(dir,'tools/train/gazetteer/generations.json')));assert.equal(createHash('sha256').update(Buffer.from(body)).digest('hex'),registry.generations['202611180026'].output_sha256);}finally{fs.rmSync(dir,{recursive:true,force:true});}});
+826385	import test from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';
+826386	import {sampleRenderedTrainCursor,waitForPaintedCursorProgress} from './browser.test.mjs';
+826387	const sample=(x,fraction=.1,playing=true)=>({timestamp:x,visibility:'visible',ride:{fraction,playing,cameraFollow:false},rendered:[{at:[x,51],screen:[x,50],uncovered:true}],serialized:[99,88],camera:[0,51,10,0,0],viewport:{canvas:[0,0,400,800]}});
+826388	function fake(samples){let time=0,index=0;return{now:()=>time,page:{evaluate:async()=>structuredClone(samples[Math.min(index++,samples.length-1)]),waitForTimeout:async ms=>{time+=ms;}}};}
+826389	test('sampler projects actual rendered feature geometry separately from newer serialized source',()=>{const c={window:{__GRIDATLAS_MODULES__:{gridVicinity:{snapshot:()=>({train:{ride:{playing:true,fraction:.2}}})}},__GRIDATLAS_V9_MAP__:{getContainer:()=>({getBoundingClientRect:()=>({left:5,top:6,width:400,height:800})}),getCenter:()=>({lng:0,lat:51}),getLayer:()=>({}),queryRenderedFeatures:()=>[{geometry:{type:'Point',coordinates:[11,22]}}],project:at=>({x:at[0]*2,y:at[1]*2}),getSource:()=>({serialize:()=>({data:{features:[{geometry:{coordinates:[99,88]}}]}})}),getZoom:()=>10,getBearing:()=>0,getPitch:()=>0,isSourceLoaded:()=>true,isStyleLoaded:()=>false}},document:{elementFromPoint:()=>({tagName:'CANVAS'}),visibilityState:'visible'},performance:{now:()=>10},innerWidth:400,innerHeight:800};const value=vm.runInNewContext('('+sampleRenderedTrainCursor.toString()+')()',c);assert.deepEqual(Array.from(value.rendered[0].at),[11,22]);assert.deepEqual(Array.from(value.serialized),[99,88]);assert.deepEqual(Array.from(value.rendered[0].screen),[27,50]);});
+826390	test('repeated painted frame/source changes cannot pass; later2pxactualpaint plus fraction does',async()=>{const diagnostics={},f=fake([sample(10,.1),sample(10,.2),sample(12.5,.3)]);const r=await waitForPaintedCursorProgress({...f,diagnostics,timeoutMs:500});assert.equal(r.pixels,2.5);assert.equal(diagnostics.paintObservation.samples.length,3);});
+826391	test('stalledpaint fails with diagnostics despite advancing playback/source data',async()=>{const diagnostics={},f=fake([sample(10,.1),sample(10,.5)]);await assert.rejects(waitForPaintedCursorProgress({...f,diagnostics,timeoutMs:300}),/No two actual painted/);assert.equal(diagnostics.paintObservation.samples.length,3);assert.equal(diagnostics.paintObservation.accepted,undefined);});
+826392	test('finishedorpausedride and movingcamera cannot satisfy activefixed-camera paintedprogress',async()=>{const f=fake([sample(10,.1),sample(100,1,false)]);await assert.rejects(waitForPaintedCursorProgress({...f,diagnostics:{},timeoutMs:300}),/No two actual painted/);const changed=sample(13,.3);changed.camera[0]=1;await assert.rejects(waitForPaintedCursorProgress({...fake([sample(10),changed]),diagnostics:{},timeoutMs:300}),/same fitted camera/);});
+826393	import {buildRoutePlan} from './src/route-plan.mjs';
+826394	import {trainLearningFixture} from './fixtures/learning-networks.mjs';
+826395	import {createScenarioStationStore} from './src/scenario-stations.mjs';
+826396	import {createItinerary} from './src/itinerary.mjs';
+826397	const geodesy = {distanceKm: (a,b,c,d) => Math.hypot(c-a,d-b)*100};
+826398	const stop = (id,kv=400) => ({source:'SYNTHETIC_TEST',stationId:id,at:[id.charCodeAt(0)/100,51],kv});
+826399	const context = {window:{}}; vm.createContext(context);
+826400	vm.runInContext(fs.readFileSync(new URL('../../atlas/modules/202609012245-electrical-distance.js',import.meta.url),'utf8'),context);
+826401	const electricalDistance = context.window.__GRIDATLAS_MODULES__.electricalDistance;
+826402	function network(removeTransformer=false) {
+826403	  const nodes={A:400,AL:132,BL:132,B:400,C:132,D:400,E:400,F:400,Z:400};
+826404	  const rows=[['A','AL','transformer'],['AL','BL','circuit'],['BL','B','transformer'],
+826405	    ['A','D','circuit'],['D','E','circuit'],['E','F','circuit'],['F','B','circuit'],
+826406	    ...(!removeTransformer?[['B','C','transformer']]:[])].map(([node_1,node_2,kind],i)=>({node_1,node_2,kind,id:'row-'+i}));
+826407	  const graph={schema:'gridatlas.module.network-topology.graph.v1',has:n=>n in nodes,
+826408	    nodeVoltageKv:n=>nodes[n],nodeSiteCode:n=>n,nodesOfSite:n=>n in nodes?[n]:[],
+826409	    edgesAt:n=>rows.filter(r=>r.node_1===n||r.node_2===n).map(row=>({kind:row.kind,row,far:row.node_1===n?'node_2':'node_1'})),
+826410	    ratingsOf:()=>null,parametersOf:()=>null};
+826411	  return {index:{graph:()=>graph,site:code=>code in nodes?{code,name:code}:null},electricalDistance,
+826412	    stationBindings:Object.fromEntries(Object.keys(nodes).map(id=>[id,{stationId:id,siteCode:id,reviewed:true,source:'SYNTHETIC_REVIEW_LEDGER'}])),
+826413	    isReviewedEdge:()=>true,rows};
+826414	test('400-only filters every node before shortest-path search and chooses longer all-400 route',()=>{
+826415	 const n=network(), before=JSON.stringify(n.rows);
+826416	 const p=buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B')],geodesy,network:n,rules:{allowedVoltages:[400],allowTransformers:true}});
+826417	 assert.equal(p.legs[0].topology.hops,4);assert.equal(p.legs[0].evidence,'TOPOLOGY_ONLY');
+826418	 assert.ok(p.legs[0].topology.path.every(h=>h.from_voltage_kv===400&&h.to_voltage_kv===400));assert.equal(JSON.stringify(n.rows),before);
+826419	test('mixed allowed voltages require the explicitly reviewed transformer; removing it refuses',()=>{
+826420	 const options={stops:[stop('B'),stop('C',132)],geodesy,rules:{allowedVoltages:[400,132],allowTransformers:true}};
+826421	 assert.equal(buildRoutePlan({synthetic:true,...options,network:network()}).legs[0].topology.path[0].kind,'transformer');
+826422	 assert.equal(buildRoutePlan({synthetic:true,...options,network:network(true),allowSimulated:true}).legs[0].evidence,'MISSING');
+826423	 assert.equal(buildRoutePlan({synthetic:true,...options,network:network(),rules:{...options.rules,allowTransformers:false}}).legs[0].evidence,'MISSING');
+826424	 const n=network();n.isReviewedEdge=e=>e.kind!=='transformer';
+826425	 assert.equal(buildRoutePlan({synthetic:true,...options,network:n}).legs[0].evidence,'MISSING');
+826426	test('disconnected same-voltage pair needs explicit hypothetical opt-in and never edits source graph',()=>{
+826427	 const n=network(), opts={stops:[stop('A'),stop('Z')],geodesy,network:n};
+826428	 assert.equal(buildRoutePlan({synthetic:true,...opts}).playable,false);const before=JSON.stringify(n.rows);
+826429	 const p=buildRoutePlan({synthetic:true,...opts,allowSimulated:true});assert.equal(p.legs[0].evidence,'SIMULATED');assert.match(p.legs[0].label,/not a cable/);assert.equal(JSON.stringify(n.rows),before);
+826430	test('registry site-name proximity is insufficient; unknown voltage cannot simulate a conversion',()=>{
+826431	 const n=network();n.stationBindings.A.reviewed=false;
+826432	 assert.equal(buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B')],geodesy,network:n}).legs[0].evidence,'MISSING');
+826433	 assert.equal(buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B',132)],geodesy,allowSimulated:true}).playable,false);
+826434	test('geometry needs exact circuit identity, direction and reviewed join; topology stays schematic otherwise',()=>{
+826435	 const n=network(),opts={stops:[stop('D'),stop('E')],geodesy,network:n,rules:{allowedVoltages:[400]}};
+826436	 n.geometryByCircuit={'row-4':{reviewed:true,source:'SYNTHETIC_GIS',circuitId:'wrong',fromNode:'D',toNode:'E',geometry:{type:'LineString',coordinates:[[0,51],[1,51]]}}};
+826437	 assert.equal(buildRoutePlan({synthetic:true,...opts}).legs[0].evidence,'TOPOLOGY_ONLY');n.geometryByCircuit['row-4'].circuitId='row-4';
+826438	 assert.equal(buildRoutePlan({synthetic:true,...opts}).legs[0].evidence,'GIS_REVIEWED');
+826439	test('ordered required visits/revisits and all original teaching presets use the same opt-in planner',()=>{
+826440	 for(const kind of ['local','express','branch']){const f=trainLearningFixture(kind);assert.equal(buildRoutePlan({synthetic:true,...f,geodesy}).playable,false);assert.equal(buildRoutePlan({synthetic:true,...f,geodesy,allowSimulated:true}).playable,true);}
+826441	 assert.throws(()=>buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B')],geodesy,law:{allowedVoltageBands:['400'],mustVisitStationIds:['B','A'],fallback:'documented-only'}}),/declared order/);
+826442	test('production stations require canonical membership and points; selected voltage must be source-declared',()=>{
+826443	 const a={id:'source-a',stationId:'source-a',at:[-1,51],kv:[400,132]},b={id:'source-b',stationId:'source-b',at:[0,51],kv:[132]};
+826444	 const index={get:id=>id===a.id?a:id===b.id?b:null},opts={stops:[a,b],stationIndex:index,geodesy,allowSimulated:true};
+826445	 const p=buildRoutePlan(opts);assert.equal(p.legs[0].simulationVoltageKv,132);assert.equal(p.legs[0].accessStatus,'UNKNOWN');assert.equal(p.legs[0].surveyConstructability,'UNKNOWN');
+826446	 assert.equal(buildRoutePlan({...opts,stops:[{...a,selectedVoltageKv:400},b]}).playable,false);
+826447	 assert.throws(()=>buildRoutePlan({...opts,stops:[{...a,selectedVoltageKv:275},b]}),/canonical station/);
+826448	 assert.throws(()=>buildRoutePlan({...opts,stops:[{...a,at:[3,51]},b]}),/canonical station/);
+826449	 assert.throws(()=>buildRoutePlan({...opts,stops:[{...a,id:'repd:2470',stationId:'repd:2470'},b]}),/canonical station/);
+826450	test('crossed source-looking line geometry cannot establish topology or land rights without reviewed edges',()=>{
+826451	 const n=network();n.isReviewedEdge=()=>false;
+826452	 n.geometryByCircuit={crossing:{reviewed:true,source:'SOURCE_GIS',circuitId:'crossing',geometry:{type:'LineString',coordinates:[[0,50],[2,52]]}}};
+826453	 const p=buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B')],geodesy,network:n});
+826454	 assert.equal(p.legs[0].evidence,'MISSING');assert.equal(p.legs[0].geometry,'UNKNOWN');assert.equal(p.legs[0].electricalTopology,'UNKNOWN');assert.equal(p.legs[0].accessStatus,'UNKNOWN');
+826455	test('two selected stops may traverse more than ninety source nodes; selected caps are not traversal caps',()=>{
+826456	 const rows=Array.from({length:100},(_,i)=>({node_1:'N'+i,node_2:'N'+(i+1),id:'c'+i}));
+826457	 const graph={schema:'gridatlas.module.network-topology.graph.v1',has:n=>/^N(?:\d|\d\d|100)$/.test(n),
+826458	  nodeVoltageKv:()=>400,nodeSiteCode:n=>n,nodesOfSite:n=>[n],ratingsOf:()=>null,parametersOf:()=>null,
+826459	  edgesAt:n=>rows.filter(r=>r.node_1===n||r.node_2===n).map(row=>({kind:'circuit',row,far:row.node_1===n?'node_2':'node_1'}))};
+826460	 const network={index:{graph:()=>graph,site:code=>({code,name:code})},electricalDistance,isReviewedEdge:()=>true,
+826461	  stationBindings:Object.fromEntries(['N0','N100'].map(id=>[id,{stationId:id,siteCode:id,reviewed:true,source:'SYNTHETIC_LEDGER'}]))};
+826462	 const p=buildRoutePlan({synthetic:true,stops:[stop('N0'),stop('N100')],network,geodesy});
+826463	 assert.equal(p.stops.length,2);assert.equal(p.legs[0].topology.hops,100);
+826464	test('whole-leg verification refuses a provider result that escapes the eligible voltage view',()=>{
+826465	 const n=network();n.electricalDistance={between:()=>({schema:'gridatlas.module.electrical-distance.v1',reached:true,from:{code:'A'},to:{code:'B'},path:[{from_node:'A',to_node:'AL',kind:'transformer'},{from_node:'AL',to_node:'B',kind:'circuit'}]})};
+826466	 const p=buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B')],network:n,geodesy,rules:{allowedVoltages:[400],allowTransformers:true}});
+826467	 assert.equal(p.legs[0].evidence,'MISSING');assert.equal(p.playable,false);
+826468	function busNetwork(nodes,edges){
+826469	 const rows=edges.map(([node_1,node_2,kind='circuit'],i)=>({node_1,node_2,kind,id:'busrow-'+i}));
+826470	 const graph={schema:'gridatlas.module.network-topology.graph.v1',has:n=>!!nodes[n],nodeVoltageKv:n=>nodes[n].kv,
+826471	  nodeSiteCode:n=>nodes[n].site,nodesOfSite:site=>Object.keys(nodes).filter(n=>nodes[n].site===site).sort(),ratingsOf:()=>null,parametersOf:()=>null,
+826472	  edgesAt:n=>rows.filter(r=>r.node_1===n||r.node_2===n).map(row=>({kind:row.kind,row,far:row.node_1===n?'node_2':'node_1'}))};
+826473	 const sites=[...new Set(Object.values(nodes).map(n=>n.site))];
+826474	 return {index:{graph:()=>graph,site:code=>sites.includes(code)?{code,name:code}:null},electricalDistance,isReviewedEdge:()=>true,
+826475	  stationBindings:Object.fromEntries(sites.map(id=>[id,{stationId:id,siteCode:id,reviewed:true,source:'SYNTHETIC_BUS_LEDGER'}]))};
+826476	test('arrival bus survives a waypoint: unconnected B400/B132 cannot teleport, reviewed transformer permits it',()=>{
+826477	 const nodes={a:{site:'A',kv:400},b400:{site:'B',kv:400},b132:{site:'B',kv:132},c:{site:'C',kv:132}};
+826478	 const edges=[['a','b400'],['b132','c']],opts={synthetic:true,stops:[stop('A'),stop('B',[400,132]),stop('C',132)],geodesy,rules:{allowedVoltages:[400,132],allowTransformers:true}};
+826479	 const refused=buildRoutePlan({...opts,network:busNetwork(nodes,edges)});assert.equal(refused.playable,false);assert.equal(refused.legs[1].evidence,'MISSING');
+826480	 const accepted=buildRoutePlan({...opts,network:busNetwork(nodes,[...edges,['b400','b132','transformer']])});assert.equal(accepted.playable,true);
+826481	 assert.equal(accepted.legs[0].toBus,accepted.legs[1].fromBus);assert.ok(accepted.legs.some(l=>l.topology.path.some(h=>h.kind==='transformer')));
+826482	 const reordered=buildRoutePlan({...opts,stops:[stop('A'),stop('B',[132,400]),stop('C',132)],network:busNetwork(nodes,[...edges,['b400','b132','transformer']])});
+826483	 assert.deepEqual(reordered.legs.map(l=>l.topology.path),accepted.legs.map(l=>l.topology.path));
+826484	test('same-voltage distinct waypoint buses still require a documented edge',()=>{
+826485	 const n={a:{site:'A',kv:400},b1:{site:'B',kv:400},b2:{site:'B',kv:400},c:{site:'C',kv:400}};
+826486	 const opts={synthetic:true,stops:[stop('A'),stop('B'),stop('C')],geodesy};
+826487	 assert.equal(buildRoutePlan({...opts,network:busNetwork(n,[['a','b1'],['b2','c']])}).playable,false);
+826488	 assert.equal(buildRoutePlan({...opts,network:busNetwork(n,[['a','b1'],['b2','c'],['b1','b2']])}).playable,true);
+826489	test('whole itinerary keeps a longer reachable alternative bus instead of greedy dead-end arrival',()=>{
+826490	 const n={a:{site:'A',kv:400},dead:{site:'B',kv:400},x:{site:'X',kv:400},good:{site:'B',kv:400},c:{site:'C',kv:400}};
+826491	 const p=buildRoutePlan({synthetic:true,stops:[stop('A'),stop('B'),stop('C')],geodesy,
+826492	  network:busNetwork(n,[['a','dead'],['a','x'],['x','good'],['good','c']])});
+826493	 assert.equal(p.playable,true);assert.equal(p.legs[0].toBus,'good');assert.equal(p.legs[0].topology.hops,2);assert.equal(p.legs[1].fromBus,'good');
+826494	test('untouched null voltage law means all known bands, explicit empty means none',()=>{
+826495	 const opts={synthetic:true,stops:[stop('A'),stop('B')],geodesy,law:{allowedVoltageBands:null,mustVisitStationIds:[],fallback:'user-opted-hypothetical',allowTransformers:true}};
+826496	 assert.equal(buildRoutePlan(opts).playable,true);
+826497	 const none=buildRoutePlan({...opts,law:{...opts.law,allowedVoltageBands:[]}});assert.equal(none.playable,false);assert.equal(none.legs[0].evidence,'MISSING');
+826498	test('session-owned proposed11→source11/33→proposed33 cannot convert voltage at the middle station',()=>{
+826499	 const a={id:'scenario:owned:1',stationId:'scenario:owned:1',at:[-1,51],kv:[11],source:'SESSION_ONLY_USER_PROPOSED',proposed:true};
+826500	 const c={...a,id:'scenario:owned:2',stationId:'scenario:owned:2',at:[1,51],kv:[33]};
+826501	 const b={id:'grid_substations:1',stationId:'grid_substations:1',at:[0,51],kv:[11,33],source:'EXISTING_SOURCE'};
+826502	 const owned=new Map([[a.id,a],[c.id,c]]),scenarioStore={get:id=>owned.get(id)},stationIndex={get:id=>id===b.id?b:null};
+826503	 const opts={stops:[a,b,c],scenarioStore,stationIndex,geodesy,law:{allowedVoltageBands:null,fallback:'user-opted-hypothetical',allowTransformers:true}};
+826504	 const plan=buildRoutePlan(opts);assert.equal(plan.legs[0].evidence,'SIMULATED');assert.equal(plan.legs[1].evidence,'MISSING');assert.equal(plan.playable,false);
+826505	 assert.throws(()=>buildRoutePlan({...opts,law:{...opts.law,fallback:'documented-only'}}),/canonical station/);
+826506	 assert.throws(()=>buildRoutePlan({...opts,scenarioStore:{get:()=>null}}),/canonical station/);
+826507	 owned.delete(c.id);assert.throws(()=>buildRoutePlan(opts),/canonical station/);
+826508	test('current owned proposal remains hypothetical and stale pin edits are refused',()=>{
+826509	 const a={id:'scenario:owned:1',stationId:'scenario:owned:1',at:[-1,51],kv:[33],source:'SESSION_ONLY_USER_PROPOSED',proposed:true};
+826510	 const b={id:'grid_substations:1',stationId:'grid_substations:1',at:[0,51],kv:[33]};let current=a;
+826511	 const opts={stops:[a,b],scenarioStore:{get:id=>id===a.id?current:null},stationIndex:{get:id=>id===b.id?b:null},geodesy,law:{allowedVoltageBands:null,fallback:'user-opted-hypothetical'}};
+826512	 assert.equal(buildRoutePlan(opts).legs[0].electricalTopology,'UNKNOWN');
+826513	 current={...a,at:[-2,51]};assert.throws(()=>buildRoutePlan(opts),/canonical station/);
+826514	 assert.equal(buildRoutePlan({...opts,stops:[current,b]}).playable,true);
+826515	test('explicit Other permits only source-known nonstandard bands; Unknown never creates voltage',()=>{
+826516	 const opts={synthetic:true,stops:[stop('A',6.6),stop('B',6.6)],geodesy,law:{allowedVoltageBands:['other'],fallback:'user-opted-hypothetical'}};
+826517	 assert.equal(buildRoutePlan({...opts,law:{...opts.law,allowedVoltageBands:['unknown']}}).playable,false);
+826518	 assert.equal(buildRoutePlan({...opts,stops:[stop('A',[]),stop('B',[])],law:{...opts.law,allowedVoltageBands:null}}).playable,false);
+826519	test('real session store and itinerary enforce the11→11/33→33 no-transformer rule and current owned pins',()=>{
+826520	 const store=createScenarioStationStore({sessionId:'native-law'}),a=store.create({name:'User A',at:[-1,51],kv:[11]}),c=store.create({name:'User C',at:[1,51],kv:[33]});
+826521	 const b={id:'grid_substations:1',stationId:'grid_substations:1',at:[0,51],kv:[11,33]},stationIndex={get:id=>id===b.id?b:null};
+826522	 const itinerary=createItinerary({stationIndex,scenarioStore:store,law:{fallback:'user-opted-hypothetical'}});itinerary.add(a);itinerary.add(b);itinerary.add(c);
+826523	 const selected=itinerary.snapshot(),opts={...selected,stationIndex,scenarioStore:store,geodesy};
+826524	 const plan=buildRoutePlan(opts);assert.equal(plan.legs[0].evidence,'SIMULATED');assert.equal(plan.legs[1].evidence,'MISSING');assert.equal(plan.playable,false);assert.equal(plan.planEpoch,selected.planEpoch);
+826525	 store.edit(a.id,{at:[-2,51]});assert.throws(()=>buildRoutePlan(opts),/canonical station/);
+826526	 assert.doesNotThrow(()=>buildRoutePlan({...itinerary.snapshot(),stationIndex,scenarioStore:store,geodesy}));
+826527	import test from 'node:test';import assert from 'node:assert/strict';import {createScenarioStationStore} from './src/scenario-stations.mjs';import {createItinerary,normaliseJourneyLaw} from './src/itinerary.mjs';
+826528	const real={stationId:'grid_substations:1',id:'grid_substations:1',name:'Real',at:[-0.1,51.5],kv:[33],source:'SOURCE'},stationIndex={get:id=>id===real.stationId?structuredClone(real):null};
+826529	const proposed=store=>store.create({name:'Customer screening',at:[-0.11,51.51],kv:[33]});
+826530	test('sessionnamespace deterministic,11/33explicit,ownedCRUD and noofficialmetadata',()=>{const store=createScenarioStationStore({sessionId:'qa-session'}),row=proposed(store);assert.equal(row.stationId,'scenario:qa-session:1');assert.equal(row.proposed,true);assert.equal(row.source,'SESSION_ONLY_USER_PROPOSED');assert.equal(store.snapshot().official,false);for(const kv of [[132],[],[11,33]])assert.throws(()=>store.create({name:'Bad',at:[-1,51],kv}));assert.throws(()=>store.create({...row,id:'grid_substations:1'}));assert.throws(()=>store.edit(row.stationId,{stationId:'real'}));const changed=store.edit(row.stationId,{name:'Edited',kv:[11]});assert.deepEqual(changed.kv,[11]);assert.equal(changed.name,'Edited');store.remove(row.stationId);assert.equal(store.get(row.stationId),null);assert.throws(()=>store.get('scenario:other:1').name);});
+826531	test('documenteddefault refusesproposal; explicitlawpermitsonlyownedcurrent-sessionproposals',()=>{const a=createScenarioStationStore({sessionId:'A'}),b=createScenarioStationStore({sessionId:'B'}),pa=proposed(a),pb=proposed(b),i=createItinerary({stationIndex,scenarioStore:a});assert.throws(()=>i.add(pa));i.setLaw({fallback:'user-opted-hypothetical'});assert.throws(()=>i.add(pb));i.add(pa);assert.equal(i.snapshot().stops[0].proposed,true);assert.equal(i.snapshot().stops[0].source,'SESSION_ONLY_USER_PROPOSED');const before=i.snapshot();assert.throws(()=>i.setLaw({fallback:'documented-only'}));assert.deepEqual(i.snapshot(),before);assert.deepEqual(real.kv,[33]);});
+826532	test('proposalpin/ruleedits invalidateplanepoch; deletedstopretainedmarkedinvalidwithoutdataloss',()=>{const store=createScenarioStationStore({sessionId:'edit'}),p=proposed(store),i=createItinerary({stationIndex,scenarioStore:store,law:{fallback:'user-opted-hypothetical'}});i.add(real);i.add(p);const first=i.snapshot();store.edit(p.stationId,{at:[-0.2,51.6],name:'Moved'});const moved=i.snapshot();assert.ok(moved.planEpoch>first.planEpoch);assert.deepEqual(moved.stops[1].at,[-0.2,51.6]);assert.equal(moved.stops[1].name,'Moved');i.setLaw({fallback:'user-opted-hypothetical',allowedVoltageBands:['11']});assert.ok(i.snapshot().planEpoch>moved.planEpoch);store.remove(p.stationId);const removed=i.snapshot();assert.equal(removed.selectedCount,2);assert.equal(removed.valid,false);assert.deepEqual(removed.invalidStopIds,[first.stops[1].stopId]);assert.equal(removed.stops[1].invalid,true);i.remove(removed.invalidStopIds[0]);assert.equal(i.snapshot().valid,true);});
+826533	test('proposalstops count toward same10and90selectedcapsincludingends',()=>{for(const [mode,cap]of [['journey',10],['vicinity',90]]){const store=createScenarioStationStore({sessionId:mode}),i=createItinerary({mode,stationIndex,scenarioStore:store,law:{fallback:'user-opted-hypothetical'}});for(let n=0;n<cap;n++)i.add(proposed(store));const before=i.snapshot(),extra=proposed(store);assert.throws(()=>i.add(extra));const after=i.snapshot();assert.equal(after.selectedCount,cap);assert.deepEqual(after.stops,before.stops);assert.equal(after.revision,before.revision);}});
+826534	test('lawdefaultnullALL differs explicitemptyNONE; exactschema roundtripsboth',()=>{const all=normaliseJourneyLaw(),none=normaliseJourneyLaw({allowedVoltageBands:[]});assert.equal(all.allowedVoltageBands,null);assert.deepEqual(none.allowedVoltageBands,[]);assert.deepEqual(normaliseJourneyLaw(all),all);assert.deepEqual(normaliseJourneyLaw(none),none);});
+826535	import {normaliseTrainStop} from './station-index.mjs';
+826536	export function createItinerary({mode = 'journey', stationIndex, scenarioStore = null, law: initialLaw = {}} = {}) {
+826537	export function normaliseJourneyLaw(value = {}) {
+826538	import {normaliseTrainStop,trainCoordinate} from './station-index.mjs';
+826539	export function createPlaceBridge({resolve,index,geodesy}={}) {
+826540	export function buildRoutePlan({stops, stationIndex = null, scenarioStore = null, planEpoch = null, synthetic = false, geodesy, allowSimulated = false, network = null, rules = {}, law = null} = {}) {
+826541	export function createEligibleTrainIndex(index, {allowedVoltages, allowOtherVoltage=false, allowTransformers}, isReviewedEdge) {
+826542	export function createScenarioStationStore({sessionId=globalThis.crypto?.randomUUID?.()}={}) {
+826543	export function trainCoordinate(at) {
+826544	export function normaliseTrainStop(stop) {
+826545	export function buildStationIndex(features, {geodesy, datasetPin = null} = {}) {
+826546	export function createTrainRide({map, geodesy, palette = {}, onState = () => {}, reducedMotion = false, readPlanEpoch = null,
+826547	import {createTrainRide} from './src/train-motion.mjs';
+826548	const geodesy={distanceKm:(a,b,c,d)=>Math.hypot(c-a,d-b)*100};
+826549	const makePlan=()=>buildRoutePlan({synthetic:true,stops:[{source:'SYNTHETIC_TEST',id:'a',at:[0,51],kv:400},{source:'SYNTHETIC_TEST',id:'b',at:[1,51],kv:400},{source:'SYNTHETIC_TEST',id:'c',at:[2,51],kv:400}],geodesy,allowSimulated:true});
+826550	function fixture(reducedMotion=false,extras={},busyAfterSetData=false){
+826551	 const sources=new Map(),layers=new Map(),listeners=new Map(),frames=new Map(),history=[],cameras=[];let serial=0,removed=false,styleReady=true;
+826552	 const access=()=>{if(removed)throw Error('destroyed style');};
+826553	 const map={isStyleLoaded:()=>styleReady,on(n,fn){listeners.set(n,fn);},off(n,fn){if(listeners.get(n)===fn)listeners.delete(n);},
+826554	  getSource(id){access();return sources.get(id);},getLayer(id){access();return layers.get(id);},
+826555	  addSource(id,s){access();sources.set(id,{...s,setData(data){access();this.data=data;history.push(id);if(busyAfterSetData)styleReady=false;}});},addLayer(layer){access();layers.set(layer.id,layer);},
+826556	  removeSource(id){access();sources.delete(id);},removeLayer(id){access();layers.delete(id);},
+826557	  setPaintProperty(id,k,v){access();layers.get(id).paint[k]=v;},easeTo(o){cameras.push(o);}};
+826558	 const ride=createTrainRide({map,geodesy,reducedMotion,requestFrame:fn=>{frames.set(++serial,fn);return serial;},cancelFrame:id=>frames.delete(id),...extras});
+826559	 const run=time=>{const [id,fn]=frames.entries().next().value;frames.delete(id);fn(time);};
+826560	 return{ride,map,sources,layers,frames,history,cameras,run,listeners,setStyleReady(value){styleReady=value;},
+826561	  remove(){removed=true;listeners.get('remove')();},styleReload(){sources.clear();layers.clear();listeners.get('style.load')();}};
+826562	test('explicit play owns one cursor/one bounded loop and leaves native layers intact',()=>{
+826563	 const f=fixture();f.layers.set('native400',{id:'native400'});f.ride.setPlan(makePlan());assert.equal(f.frames.size,0);
+826564	 assert.equal(f.ride.play(),true);assert.equal(f.ride.play(),true);assert.equal(f.frames.size,1);
+826565	 f.run(0);f.run(200);assert.ok(f.ride.snapshot().fraction>0);assert.equal(f.frames.size,1);
+826566	 assert.equal(f.sources.get('gridatlas-train-cursor').data.features.length,1);assert.equal(f.cameras.length,0);
+826567	 f.ride.pause();assert.equal(f.frames.size,0);f.ride.destroy();assert.deepEqual([...f.layers.keys()],['native400']);
+826568	test('plan edit midplay invalidates queued old epoch and never moves replacement cursor',()=>{
+826569	 const f=fixture();f.ride.setPlan(makePlan());f.ride.play();const stale=[...f.frames.values()][0];
+826570	 f.ride.setPlan(makePlan());f.ride.play();stale(100000);assert.equal(f.ride.snapshot().fraction,0);assert.equal(f.frames.size,1);
+826571	test('reduced motion has static manual step/seek and no animation loop',()=>{
+826572	 const f=fixture(true);f.ride.setPlan(makePlan());assert.equal(f.ride.play(),false);assert.equal(f.frames.size,0);
+826573	 assert.equal(f.ride.snapshot().stopIndex,1);assert.equal(f.ride.seekStop(2),true);assert.equal(f.ride.snapshot().stopIndex,2);
+826574	 assert.equal(f.ride.seekStop(-1),false);assert.equal(f.layers.get('gridatlas-train-flow').paint['line-opacity'],0);
+826575	test('style reload restores own overlay paused; map removal cancels and queued callbacks do not access style',()=>{
+826576	 const f=fixture();f.ride.setPlan(makePlan());f.ride.play();f.styleReload();assert.equal(f.ride.snapshot().playing,false);
+826577	 assert.equal(f.layers.size,7);f.ride.play();const stale=[...f.frames.values()][0];f.remove();assert.equal(f.frames.size,0);
+826578	 assert.doesNotThrow(()=>stale(9000));assert.doesNotThrow(()=>f.ride.destroy());assert.equal(f.ride.snapshot().alive,false);
+826579	test('foreign source/layer identities are preserved and block playback',()=>{
+826580	 const f=fixture(),foreign={data:'foreign'};f.sources.set('gridatlas-train-routes',foreign);f.ride.setPlan(makePlan());
+826581	 assert.equal(f.ride.play(),false);f.ride.destroy();assert.equal(f.sources.get('gridatlas-train-routes'),foreign);
+826582	test('missing documented route cannot start motion; setting a plan snapshots later UI mutation',()=>{
+826583	 const f=fixture(),p=makePlan();f.ride.setPlan(p);p.stops[0].at[0]=99;
+826584	 assert.equal(f.sources.get('gridatlas-train-stops').data.features[0].geometry.coordinates[0],0);
+826585	 p.playable=false;f.ride.setPlan(p);assert.equal(f.ride.play(),false);assert.equal(f.frames.size,0);
+826586	test('step and seek cannot cross a missing leg; later stop pins remain and cursor stays on approved prefix',()=>{
+826587	 const f=fixture(),p=makePlan();p.legs[1]={...p.legs[1],evidence:'MISSING',coordinates:null,km:null};p.playable=false;
+826588	 f.ride.setPlan(p);assert.equal(f.ride.snapshot().approvedThroughStop,1);assert.equal(f.sources.get('gridatlas-train-stops').data.features.length,3);
+826589	 assert.equal(f.sources.get('gridatlas-train-routes').data.features.length,1);assert.equal(f.ride.step(),true);
+826590	 const at=f.sources.get('gridatlas-train-cursor').data.features[0].geometry.coordinates;
+826591	 assert.equal(f.ride.step(),false);assert.equal(f.ride.seekStop(2),false);assert.equal(f.ride.play(),false);
+826592	 assert.deepEqual(f.sources.get('gridatlas-train-cursor').data.features[0].geometry.coordinates,at);
+826593	 const gapFirst=makePlan();gapFirst.legs[0]={...gapFirst.legs[0],evidence:'MISSING',coordinates:null};gapFirst.playable=false;
+826594	 f.ride.setPlan(gapFirst);assert.equal(f.ride.step(),false);assert.equal(f.ride.seekStop(1),false);assert.equal(f.sources.get('gridatlas-train-routes').data.features.length,0);
+826595	test('clearPlan atomically removes stale route/cursor, retains current valid pins, and refuses old navigation',()=>{
+826596	 const current=[{id:'new',at:[3,51],kv:[33],proposed:true},{id:'deleted',at:[4,51],invalid:true}];
+826597	 assert.equal(f.ride.clearPlan({stops:current}),true);stale(9999);
+826598	 assert.equal(f.sources.get('gridatlas-train-routes').data.features.length,0);assert.equal(f.sources.get('gridatlas-train-cursor').data.features.length,0);
+826599	 const pins=f.sources.get('gridatlas-train-stops').data.features;assert.equal(pins.length,1);assert.equal(pins[0].properties.kind,'customer_substation');
+826600	 assert.equal(f.layers.get('gridatlas-train-proposals').paint['circle-radius'],5);assert.equal(f.layers.get('gridatlas-train-proposals').paint['circle-stroke-width'],1.5);
+826601	 assert.equal(f.layers.get('gridatlas-train-proposals').paint['circle-color'],'#e0b050');assert.equal(f.layers.get('gridatlas-train-proposals').paint['circle-stroke-color'],'#000c10');
+826602	 assert.equal(f.ride.play(),false);assert.equal(f.ride.seekStop(1),false);assert.equal(f.ride.step(),false);assert.equal(f.frames.size,0);
+826603	 f.styleReload();assert.equal(f.sources.get('gridatlas-train-cursor').data.features.length,0);assert.equal(f.sources.get('gridatlas-train-stops').data.features.length,1);
+826604	test('changed external plan epoch clears the active cursor before a stale frame or seek can run',()=>{
+826605	 let epoch=1;const f=fixture(false,{readPlanEpoch:()=>epoch}),p=makePlan();p.planEpoch=1;f.ride.setPlan(p);f.ride.play();
+826606	 epoch=2;f.run(100);assert.equal(f.ride.snapshot().playing,false);assert.equal(f.frames.size,0);assert.equal(f.sources.get('gridatlas-train-cursor').data.features.length,0);assert.equal(f.ride.seekStop(1),false);
+826607	test('GIS solid, topology long-dash and simulated dots are distinct without relying on colour',()=>{
+826608	 const f=fixture();f.ride.setPlan(makePlan());
+826609	 assert.equal(f.layers.get('gridatlas-train-route-gis').paint['line-dasharray'],undefined);
+826610	 assert.deepEqual(f.layers.get('gridatlas-train-route-topology').paint['line-dasharray'],[5,2]);
+826611	 assert.deepEqual(f.layers.get('gridatlas-train-route-simulated').paint['line-dasharray'],[1,3]);
+826612	 assert.deepEqual(f.layers.get('gridatlas-train-flow').filter,['==',['get','evidence'],'GIS_REVIEWED']);
+826613	test('rejected replacement clears old route, cursor and queued animation before reporting failure',()=>{
+826614	 assert.throws(()=>f.ride.setPlan({schema:'invalid'}),/Invalid/);stale(10000);
+826615	 assert.equal(f.frames.size,0);assert.equal(f.ride.play(),false);assert.equal(f.ride.seekStop(1),false);
+826616	test('stale epoch is rejected before first paint or any mutation of a current valid ride',()=>{
+826617	 const f=fixture(false,{readPlanEpoch:()=>2}),stale=makePlan();stale.planEpoch=1;
+826618	 assert.throws(()=>f.ride.setPlan(stale),/Stale/);assert.equal(f.sources.size,0);assert.equal(f.layers.size,0);assert.equal(f.history.length,0);
+826619	 const current=makePlan();current.planEpoch=2;f.ride.setPlan(current);f.ride.play();const writes=f.history.length;
+826620	 const cursor=structuredClone(f.sources.get('gridatlas-train-cursor').data);
+826621	 assert.throws(()=>f.ride.setPlan(stale),/Stale/);assert.equal(f.history.length,writes);assert.equal(f.frames.size,1);assert.equal(f.ride.snapshot().playing,true);
+826622	 assert.deepEqual(f.sources.get('gridatlas-train-cursor').data,cursor);
+826623	test('owned pending GeoJSON work cannot blank a second Draw or pause its own animation',()=>{
+826624	 const f=fixture(false,{},true);f.ride.setPlan(makePlan());assert.equal(f.map.isStyleLoaded(),false);
+826625	 assert.equal(f.sources.get('gridatlas-train-routes').data.features.length,2);assert.equal(f.sources.get('gridatlas-train-cursor').data.features.length,1);
+826626	 f.ride.clearPlan({stops:makePlan().stops});f.ride.setPlan(makePlan());
+826627	 assert.equal(f.ride.play(),true);f.run(0);f.run(200);assert.equal(f.map.isStyleLoaded(),false);
+826628	 assert.equal(f.ride.snapshot().playing,true);assert.ok(f.ride.snapshot().fraction>0);assert.equal(f.frames.size,1);f.ride.destroy();
+826629	test('only absent sources wait on public readiness; retry is bounded and style-load/destroy clean it up',()=>{
+826630	 const timers=new Map();let serial=0;const f=fixture(false,{setTimer:fn=>{timers.set(++serial,fn);return serial;},clearTimer:id=>timers.delete(id)});
+826631	 f.setStyleReady(false);f.ride.setPlan(makePlan());assert.equal(f.sources.size,0);assert.equal(timers.size,1);
+826632	 for(let i=0;i<12;i++){const next=timers.entries().next().value;if(!next)break;timers.delete(next[0]);next[1]();}
+826633	 assert.equal(timers.size,0);assert.equal(f.sources.size,0);assert.match(f.ride.snapshot().unavailable,/Retry Draw/);
+826634	 f.setStyleReady(true);f.listeners.get('style.load')();assert.equal(f.sources.size,3);assert.equal(timers.size,0);assert.equal(f.ride.snapshot().unavailable,null);
+826635	 f.sources.clear();f.layers.clear();f.setStyleReady(false);f.ride.setPlan(makePlan());assert.equal(timers.size,1);
+826636	 f.ride.destroy();assert.equal(timers.size,0);
+826637	test('camera follows only active opted-in Play; Pause, invalidation, OFF Draw and Step never move it',()=>{
+826638	 const f=fixture();f.ride.setPlan(makePlan());f.ride.play({cameraFollow:true});f.run(0);f.run(200);
+826639	 assert.ok(f.cameras.length>0);f.ride.pause();const before=f.cameras.length;
+826640	 f.ride.step();assert.equal(f.cameras.length,before,'manual step never inherits last Play follow');
+826641	 f.ride.clearPlan({stops:makePlan().stops});assert.equal(f.ride.snapshot().cameraFollow,false);
+826642	 f.ride.setPlan(makePlan());f.ride.step();assert.equal(f.cameras.length,before,'redraw/step after invalidation do not follow');
+826643	 f.ride.play({cameraFollow:false});f.run(300);f.run(500);assert.equal(f.cameras.length,before);
+826644	 f.ride.pause();f.ride.play({cameraFollow:true});f.run(600);f.run(800);assert.ok(f.cameras.length>before,'next explicit opted-in Play can follow again');
+826645	 f.ride.destroy();
+826786	  } else if (c.id === 'uk-gazetteer-flyto' && exists('tools/train/gazetteer/generations.json') && readJson('tools/train/gazetteer/generations.json').generations[G]) {
+826787	    const entry=readJson('tools/train/gazetteer/generations.json').generations[G],tree=path.join(work,'gazetteer-lookup-source');
+826788	    for(const rel of ['tools/train/gazetteer/build.mjs','tools/train/gazetteer/generations.json',entry.base.path,entry.edits]){const to=path.join(tree,rel);fs.mkdirSync(path.dirname(to),{recursive:true});fs.copyFileSync(abs(rel),to);}
+826789	    const out=path.join(work,path.basename(c.file)),r=run(['node',path.join(tree,'tools/train/gazetteer/build.mjs'),'--gen',G,'--out',out]);
+826790	    if(r.code!==0||!fs.existsSync(out)){R.fail(name,'Gazetteer lookup source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,200));continue;}
+826791	    same(name,out,c.file);if(sha256(fs.readFileSync(out))!==c.sha256)R.fail(name+' pin','Rebuilt gazetteer differs from composition pin');
+826792	  } else if (c.id === 'substation-intelligence' && exists('tools/pipeline-lifecycle/generations.json') && readJson('tools/pipeline-lifecycle/generations.json').generations[G]) {
+826793	    const entry = readJson('tools/pipeline-lifecycle/generations.json').generations[G];
+826794	    const tree = path.join(work, 'pipeline-lifecycle-source');
+826795	    for (const rel of ['tools/pipeline-lifecycle/build.mjs', 'tools/pipeline-lifecycle/generations.json', entry.base.path, entry.edits]) {
+826796	      const to = path.join(tree, rel); fs.mkdirSync(path.dirname(to), {recursive: true}); fs.copyFileSync(abs(rel), to);
+826797	    const r = run(['node', path.join(tree, 'tools/pipeline-lifecycle/build.mjs'), '--gen', G, '--out', out]);
+826798	    if (r.code !== 0 || !fs.existsSync(out)) { R.fail(name, 'Pipeline lifecycle source rebuild failed: ' + (r.stderr || r.stdout).trim().slice(0, 200)); continue; }
+826799	    if (sha256(fs.readFileSync(out)) !== c.sha256) R.fail(name + ' pin', 'Rebuilt substation differs from composition pin');
+826809	  } else if (['grid-journey-preview', 'grid-vicinity'].includes(c.id)) {
+826810	    // Rebuild source-owned explorer modules in an empty tree. No expected output enters it.
+826811	    const kind = c.id === 'grid-journey-preview' ? 'journey' : 'vicinity';
+826812	    const tree = path.join(work, `${kind}-source`), rel = `tools/${kind}`;
+826813	    fs.mkdirSync(path.join(tree, 'tools'), {recursive: true});
+826814	    fs.cpSync(abs(rel), path.join(tree, rel), {recursive: true});
+826815	    if (kind === 'vicinity' && exists('tools/train')) fs.cpSync(abs('tools/train'),path.join(tree,'tools/train'),{recursive:true});
+826816	    const entry = kind === 'journey' ? 'build-module.mjs' : 'build.mjs';
+826817	    const r = run(['node', path.join(tree, rel, entry), '--generation', G, '--out', out]);
+826818	    if (r.code !== 0 || !fs.existsSync(out)) { R.fail(name, `${kind} source rebuild failed: ${(r.stderr || r.stdout).trim().slice(0, 200)}`); continue; }
+826819	    if (sha256(fs.readFileSync(out)) !== c.sha256) R.fail(`${name} pin`, 'Rebuilt explorer module differs from the composition pin');
+826879	import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {collectAssetContext} from './src/asset-context.mjs';
+826880	const ctx={window:{}};vm.runInNewContext(fs.readFileSync(new URL('../../atlas/modules/202609011950-geodesy.js',import.meta.url),'utf8'),ctx);const geodesy=ctx.window.__GRIDATLAS_MODULES__.geodesy,origin={at:[-0.4,51.5]};
+826881	const feature=(id,tech,capacity,at=[-0.401,51.5],extra={})=>({type:'Feature',id,geometry:{type:'Point',coordinates:at},properties:{name:id,repd_ref:id,tech,capacity,...extra}});
+826882	const map=features=>({getSource(id){assert.equal(id,'src-repd');return{serialize(){return{data:{type:'FeatureCollection',features}};}};}});
+826883	const collect=(extra={})=>collectAssetContext({origin,radiusKm:10,geodesy,...extra});const cat=(result,id)=>result.categories.find(c=>c.id===id);
+826884	test('full REPD GeoJSON gives typed generation/storage, distance and stable reference without source writes',()=>{const f=[feature('2470','solar',5),feature('2','bess',null),feature('3','wind',8,[2,55])],before=JSON.stringify(f),r=collect({map:map(f)});assert.equal(cat(r,'generation').count,1);assert.equal(cat(r,'generation').rows[0].originId,'repd:2470');assert.equal(cat(r,'generation').rows[0].capacityMw,5);assert.equal(cat(r,'storage').rows[0].capacityMw,null);assert.equal(JSON.stringify(f),before);assert.equal(r.connectionsInferred,0);});
+826885	test('missing/unloaded owner datasets remain NOT_LOADED rather than pretending an empty dataset was searched',()=>{const r=collect();for(const c of r.categories){assert.equal(c.availability,'NOT_LOADED');assert.equal(c.count,0);}const empty=collect({map:map([])});assert.equal(cat(empty,'generation').availability,'NOT_LOADED');assert.equal(cat(empty,'datacentre').availability,'NOT_LOADED');});
+826886	test('unknown, blank, zero, nonfinite and false power stay null; source strings are admitted only as positive decimals',()=>{const values=[null,'',0,NaN,Infinity,false,'unknown','5'];const r=collect({map:map(values.map((v,i)=>feature(String(i),'solar',v)))});assert.deepEqual(cat(r,'generation').rows.map(r=>r.capacityMw),[null,null,null,null,null,null,null,5]);});
+826887	test('coincident postcode-centroid data-centre IDs stay distinct and retain precision and separate MW metrics',()=>{const dots=['DC-A','DC-B'].map((id,i)=>({k:'c',dc:1,a:[-0.401,51.5],n:id,p:{id,location:{precision:'POSTCODE_CENTROID_APPROXIMATE'},it_load_mw:{value:i?null:10},grid_connection_mw:{value:20},unclassified_mw:{value:7}}})),r=collect({registry:{ukOfftakers:{state:{data:{dots}}}}}),c=cat(r,'datacentre');assert.equal(c.count,2);assert.notEqual(c.rows[0].id,c.rows[1].id);for(const row of c.rows){assert.equal(row.precision,'POSTCODE_CENTROID_APPROXIMATE');assert.equal(row.approximateLocation,true);assert.equal(row.capacityMw,null);assert.equal(row.demandMw,null);assert.equal(row.metrics.gridConnectionMw,20);assert.equal(row.facilityVerified,null);}});
+826888	test('source IDs deduplicate repeated rows; missing IDs and coordinate coincidence do not invent or merge identity',()=>{const dots=[{k:'a',a:[-0.4,51.5],n:'A',p:{id:'A'}},{k:'a',a:[-0.4,51.5],n:'A',p:{id:'A'}},{k:'a',a:[-0.4,51.5],n:'No ID',p:{}},{k:'a',a:[-0.4,51.5],n:'No ID',p:{}}];const c=cat(collect({registry:{ukOfftakers:{state:{data:{dots}}}}}),'demand-context');assert.equal(c.count,3);assert.equal(c.rows.filter(r=>r.id===null).length,2);});
+826889	test('listed conventional MW is not current generation and industry emissions never become demand MW',()=>{const dots=[{k:'b',a:[-0.4,51.5],n:'Closed plant',p:{id:'B',status:'closed',size_metric:{unit:'MW installed',value:100}}},{k:'a',a:[-0.4,51.5],n:'Industry',p:{id:'A',size_metric:{unit:'ktCO2e',value:500}}}];const r=collect({registry:{ukOfftakers:{state:{data:{dots}}}}});assert.equal(cat(r,'conventional').rows[0].capacityMw,100);assert.equal(cat(r,'conventional').rows[0].status,'closed');assert.equal(cat(r,'conventional').rows[0].demandMw,null);assert.equal(cat(r,'demand-context').rows[0].capacityMw,null);assert.equal(cat(r,'demand-context').rows[0].demandMw,null);});
+826890	test('integer bounds, null-island, canonical distance, result cap and no network are enforced',()=>{for(const radiusKm of [0,51,1.5,true,null])assert.throws(()=>collect({radiusKm}));assert.throws(()=>collect({origin:{at:[0,0]}}));let calls=0;const f=[feature('A','solar',1),feature('B','solar',2)];const c=cat(collect({map:map(f),limit:1,geodesy:{...geodesy,distanceKm(...args){calls++;return geodesy.distanceKm(...args);}}}),'generation');assert.equal(c.count,2);assert.equal(c.rows.length,1);assert.equal(c.truncated,true);assert.equal(calls,2);});
+826891	test('native BESS layer variants remain storage rather than generation',()=>{const r=collect({map:map(['bess','bess_operational','bess-planning','battery_storage'].map((tech,i)=>feature(String(i),tech,3)))});assert.equal(cat(r,'storage').count,4);assert.equal(cat(r,'generation').count,0);});
+826892	/** Independent native Android QA. Injection mode never counts as publication acceptance. */
+826893	import {runTrainUiAcceptance} from '../train/browser.test.mjs';
+826894	const atlasRoot=path.resolve(process.env.VICINITY_ATLAS_ROOT||path.join(path.dirname(fileURLToPath(import.meta.url)),'../..'));
+826895	const {assemble}=await import(pathToFileURL(path.join(atlasRoot,'tools/vicinity/build.mjs')).href);
+826896	const {parseVicinityIntent}=await import(pathToFileURL(path.join(atlasRoot,'tools/vicinity/src/model.mjs')).href);
+826897	const generation=process.env.VICINITY_BROWSER_GENERATION||'202611172355';
+826898	const injecting=process.env.VICINITY_BROWSER_INJECT==='1';
+826899	const browserName=process.env.VICINITY_BROWSER_ENGINE||'chromium';
+826900	const output=process.env.VICINITY_BROWSER_OUTPUT||path.join(os.tmpdir(),'vicinity-independent-'+new Date().toISOString().replace(/[:.]/g,'-'));
+826902	fs.rmSync(path.join(output,'receipt.json'),{force:true});
+826903	const pwModule=process.env.PLAYWRIGHT_MODULE;
+826904	const pw=await import(pwModule&&path.isAbsolute(pwModule)?pathToFileURL(pwModule).href:pwModule||'playwright');
+826905	const {createPreviewServer}=await import(pathToFileURL(path.join(atlasRoot,'tools/journey/serve.mjs')).href);
+826906	const server=await createPreviewServer(),base='http://127.0.0.1:'+server.address().port;
+826907	const compiled=assemble({generation});
+826908	console.log(JSON.stringify({startedUTC:new Date().toISOString(),output,generation,browser:browserName,candidateSha:compiled.sha256,injecting}));
+826909	const dc={at:[-0.404504,51.496403],type:'datacentre',id:'dcuk-04bb759f3d52d660',name:'Source-listed London data centre'};
+826910	const repd={at:[2.1708996,52.1374391],type:'repd',id:'repd:2470',name:'East Anglia 3 (EA 3)'};
+826911	const errors=[],failed=[],layouts=[],origins=[],radiusChecks=[],renderChecks=[],trainDiagnostics={};
+826912	const startedUTC=new Date().toISOString(),coldStarted=performance.now(),runtimeResponses=[],responseReads=[];
+826913	const sourceHead=execFileSync('git',['rev-parse','HEAD'],{cwd:atlasRoot,encoding:'utf8'}).trim();
+826914	let browser,page,baselineLayers=[],baselineSource=null,lastTouchDiagnostic=null;
+826915	function intent(origin,radius=10){const q=new URLSearchParams({journey:'vicinity',origin_type:origin.type,origin_id:origin.id,latitude:String(origin.at[1]),longitude:String(origin.at[0]),radius_km:String(radius),name:origin.name});return q.toString();}
+826916	async function snapshot(){return page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot());}
+826917	async function visibleTap(locator){
+826918	 lastTouchDiagnostic={phase:'scroll',locator:String(locator)};await locator.scrollIntoViewIfNeeded();
+826919	 const target=await locator.evaluate(e=>{const rect=node=>{if(!node)return null;const r=node.getBoundingClientRect();return{x:r.x,y:r.y,width:r.width,height:r.height,top:r.top,right:r.right,bottom:r.bottom,left:r.left};},selector=node=>node?node.tagName.toLowerCase()+(node.id?'#'+node.id:'')+(node.getAttribute('class')?'.'+node.getAttribute('class').trim().split(/\s+/).slice(0,3).join('.'):''):null,r=e.getBoundingClientRect(),points=[[r.left+2,r.top+2],[r.right-2,r.top+2],[r.left+2,r.bottom-2],[r.right-2,r.bottom-2],[r.left+r.width/2,r.top+r.height/2]].map(([x,y])=>{const hit=document.elementFromPoint(x,y);return{x,y,hit:selector(hit),ancestors:[selector(hit?.parentElement),selector(hit?.parentElement?.parentElement)],uncovered:e===hit||e.contains(hit)};});return{phase:'hit-test',button:e.tagName==='BUTTON'&&!!e.closest('#gridatlas-vicinity,#gridatlas-gj03'),height:r.height,text:e.textContent,selector:selector(e),rect:rect(e),header:rect(document.querySelector('.vic-head')),menu:rect(document.getElementById('gridatlas-menu-bar')),layers:rect(document.getElementById('gridatlas-dash-toggle')),points,uncovered:points.every(p=>p.uncovered)};});
+826920	 lastTouchDiagnostic=target;assert.equal(target.uncovered,true,'whole touch target is uncovered: '+target.text);if(target.button)assert.ok(target.height>=44,'primary touch target is at least44px');await locator.tap();
+826921	async function open(origin,radius=10){await page.evaluate(o=>window.__GRIDATLAS_MODULES__.gridVicinity.open(o),{origin,radiusKm:radius});}
+826922	async function ownData(){return page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-vicinity-context')?.serialize().data);}
+826923	async function assertOwnPoints(radius){const data=await ownData();assert.ok(data);const points=data.features.filter(f=>f.properties.kind==='substation');assert.ok(points.every(f=>Number.isFinite(f.properties.km)&&f.properties.km>=0&&f.properties.km<=radius));return points;}
+826924	async function sourceFingerprint(){return page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__,s=m.getSource('src-subs');return s?JSON.stringify(s.serialize().data):null;});}
+826925	 browser=await pw[browserName].launch({headless:true,...(browserName==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
+826926	 const context=await browser.newContext({...pw.devices[browserName==='webkit'?'iPhone 13':'Pixel 7'],viewport:{width:393,height:852}});
+826927	 page=await context.newPage();page.on('response',r=>{if(r.url().includes('/atlas/')&&/\.(?:js|json)$/.test(new URL(r.url()).pathname))responseReads.push(r.body().then(b=>runtimeResponses.push({url:r.url(),status:r.status(),bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')})).catch(error=>runtimeResponses.push({url:r.url(),bodyUnavailable:String(error.message)})));});page.on('pageerror',e=>errors.push({message:e.message,stack:e.stack}));page.on('requestfailed',r=>failed.push({url:r.url(),error:r.failure()?.errorText}));
+826928	 await page.goto(base+'/atlas/v/'+generation+'/?'+intent(dc),{waitUntil:'domcontentloaded',timeout:90000});
+826929	 await page.waitForFunction(()=>window.__GRIDATLAS_V9_MAP__&&window.__GRIDATLAS_MODULES__?.geodesy,null,{timeout:90000});
+826930	 await page.waitForFunction(()=>window.__GRIDATLAS_V9_MAP__?.getStyle()?.layers?.length>0,null,{timeout:90000});
+826931	 baselineLayers=await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getStyle().layers.filter(l=>!l.id.startsWith('gridatlas-vicinity-')&&!l.id.startsWith('gridatlas-train-')).map(l=>l.id));
+826932	 if(injecting)await page.addScriptTag({content:compiled.body});
+826933	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__?.gridVicinity?.snapshot().opened,null,{timeout:90000});
+826934	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.gridVicinity.snapshot().matching>1,null,{timeout:90000});
+826935	 await page.waitForFunction(()=>{const m=window.__GRIDATLAS_MODULES__?.menuBar;return m?.installed||m?.failure;},null,{timeout:90000});
+826936	 const coldReadyMs=performance.now()-coldStarted;
+826937	 const menu=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.menuBar);
+826938	 assert.equal(menu.installed,true,JSON.stringify(menu));assert.equal(menu.layer_controls,63);
+826939	 const panel=page.getByRole('region',{name:'Vicinity familiarisation'}),close=page.getByRole('button',{name:'Close vicinity explorer',exact:true});
+826940	 const initial=await snapshot();assert.equal(initial.origin.id,dc.id);assert.deepEqual(initial.origin.at,dc.at);assert.equal(initial.radiusKm,10);assert.equal(initial.realConnectionsInferred,0);
+826941	 assert.equal(await page.locator('#gridatlas-vicinity').count(),1);assert.match(await panel.innerText(),/Spatial vicinity, connectivity unknown/);
+826942	 await visibleTap(page.getByRole('button',{name:'Show physical grid',exact:true}));
+826943	 const physicalControls=await page.evaluate(()=>['400','275','220','132','66','subs'].map(id=>{const e=document.querySelector('#scada-ui-container input[data-layer-id=\"'+id+'\"]');return{id,present:!!e,checked:e?.checked};}));
+826944	 assert.ok(physicalControls.filter(c=>c.present).length>0);assert.ok(physicalControls.every(c=>!c.present||c.checked));
+826945	 await page.screenshot({path:path.join(output,'physical-grid-origin.png')});
+826946	 baselineSource=await sourceFingerprint();
+826947	 const sourceCoverage=await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__;return{fullSubstationFeatures:m.getSource('src-subs')?.serialize().data?.features?.length??null,visibleTileFeatures:m.querySourceFeatures('src-subs').length};});
+826948	 assert.equal(sourceCoverage.fullSubstationFeatures,5800);
+826949	 const sourceVoltage=panel.getByRole('group',{name:'Source voltage tags',exact:true});
+826950	 const slider=page.getByRole('slider',{name:'Vicinity radius in kilometres'});
+826951	 radiusChecks.push({radius:10,matching:initial.matching,shown:(await assertOwnPoints(10)).length});
+826952	 const radiusOneStarted=performance.now();await slider.focus();await page.keyboard.press('Home');assert.equal((await snapshot()).radiusKm,1);radiusChecks.push({radius:1,durationMs:performance.now()-radiusOneStarted,matching:(await snapshot()).matching,shown:(await assertOwnPoints(1)).length});
+826953	 const radiusFiftyStarted=performance.now();await page.keyboard.press('End');assert.equal((await snapshot()).radiusKm,50);radiusChecks.push({radius:50,durationMs:performance.now()-radiusFiftyStarted,matching:(await snapshot()).matching,shown:(await assertOwnPoints(50)).length});
+826954	 // Native owner actions load real generation/storage/off-taker context asynchronously.
+826955	 const assetsBefore=(await snapshot()).assetContext;assert.ok(assetsBefore);
+826956	 const assetsStarted=performance.now();await visibleTap(page.getByRole('button',{name:'Load existing asset layers',exact:true}));
+826957	 await page.waitForFunction(()=>{const ns=window.__GRIDATLAS_MODULES__,c=ns.gridVicinity.snapshot().assetContext?.categories,dc=c?.find(x=>x.id==='datacentre');return c?.find(x=>x.id==='generation')?.availability==='LOADED'&&dc?.availability==='LOADED'&&(dc.rows.some(r=>r.source==='ukOfftakers.data-centre-pipeline')||!!ns.ukOfftakers?.state.pe);},null,{timeout:120000});
+826958	 const assetContext=(await snapshot()).assetContext,assetRefreshMs=performance.now()-assetsStarted;
+826959	 for(const id of ['generation','storage','datacentre','conventional','demand-context']){const category=assetContext.categories.find(c=>c.id===id);assert.equal(category.availability,'LOADED',id);assert.ok(category.count>0,id+' actual nearby positive count at50km');assert.ok(category.rows.every(r=>r.km<=50&&r.demandMw===null&&r.facilityVerified===null));assert.ok(category.rows.every(r=>r.capacityMw===null||r.capacityMw>0));}
+826960	 const dcContext=panel.locator('[data-vicinity-category=\"datacentre\"]');await visibleTap(dcContext.locator('summary'));
+826961	 assert.match(await dcContext.innerText(),/Actual electricity demand unknown/);
+826962	 // Lifecycle regression: unchanged owner data must not replace an open category's controls.
+826963	 const assetBeforeRefresh=JSON.stringify((await snapshot()).assetContext);
+826964	 await dcContext.evaluate(e=>{window.__vicinityCategory=e;window.__vicinityAssetButton=e.querySelector('button');window.__GRIDATLAS_V9_MAP__.fire('sourcedata',{sourceId:'src-repd'});});
+826965	 await page.waitForTimeout(180);assert.equal(JSON.stringify((await snapshot()).assetContext),assetBeforeRefresh);
+826966	 assert.equal(await dcContext.evaluate(e=>e===window.__vicinityCategory&&e.open&&e.querySelector('button')===window.__vicinityAssetButton),true,'unchanged source refresh preserves open controls');
+826967	 const assetRow=assetContext.categories.find(c=>c.id==='datacentre').rows[0];
+826968	 await visibleTap(dcContext.getByRole('button',{name:/^Find stations near /}).first());
+826969	 assert.equal((await snapshot()).modelStations.length,0,'context asset does not become a station stop');
+826970	 await visibleTap(panel.locator('.train-search-results').getByRole('button').first());
+826971	 const contextBound=(await snapshot()).train.itinerary.stops.at(-1);assert.ok(contextBound.stationId.startsWith('grid_substations:'));assert.notEqual(contextBound.stationId,assetRow.originId||assetRow.id);
+826972	 await visibleTap(page.getByRole('button',{name:'Clear selected stops',exact:true}));
+826973	 const docs=panel.locator('.vic-document-context');await visibleTap(docs.locator('summary'));assert.match(await docs.innerText(),/Sea Link/);assert.match(await docs.innerText(),/No association|not linked|unassociated/i);
+826974	 assert.equal((await snapshot()).documentContext.verifiedAssetJoins,0);
+826975	 // Native Android taps operate voltage labels; no script-driven state changes.
+826976	 for(const name of ['400 kV','275 kV','132 kV','66 kV','11 kV','Other stated voltage','Voltage not stated']){const box=sourceVoltage.getByRole('checkbox',{name,exact:true});if(await box.isChecked())await visibleTap(box);}
+826977	 assert.deepEqual((await snapshot()).selectedBands,['33']);
+826978	 const filtered=await assertOwnPoints(50);assert.ok(filtered.length>1);assert.ok(filtered.every(f=>f.properties.voltage.split(' / ').some(v=>/^33(?: kV)?$/.test(v))));
+826979	 const added=panel.locator('.vic-results').getByRole('button',{name:/^Add .+ to my model$/});await visibleTap(added.nth(0));await visibleTap(added.nth(1));
+826980	 const scenario=await snapshot();assert.equal(scenario.modelStations.length,2);assert.ok(scenario.train.itinerary.stops.every(row=>row.stationId.startsWith('grid_substations:')));
+826981	 await visibleTap(panel.locator('.train-stops').getByRole('button',{name:/^Remove /}).first());assert.equal((await snapshot()).modelStations.length,1);
+826982	 await visibleTap(page.getByRole('button',{name:'Clear selected stops',exact:true}));assert.equal((await snapshot()).modelStations.length,0);
+826983	 const trainAcceptance=await runTrainUiAcceptance({page,panel,snapshot,visibleTap,output,pageErrors:errors,diagnostics:trainDiagnostics});
+826984	 assert.equal(await sourceFingerprint(),baselineSource,'native source geometry is never rewritten by a local model');
+826985	 await visibleTap(sourceVoltage.getByRole('checkbox',{name:'33 kV',exact:true}));assert.deepEqual((await snapshot()).selectedBands,[]);assert.equal((await snapshot()).matching,0);assert.equal((await assertOwnPoints(50)).length,0);
+826986	 await visibleTap(sourceVoltage.getByRole('checkbox',{name:'Voltage not stated',exact:true}));assert.deepEqual((await snapshot()).selectedBands,['unknown']);assert.ok((await assertOwnPoints(50)).every(f=>f.properties.voltage==='Not stated'));
+826987	 // Restore every filter before checking origin types.
+826988	 for(const box of await sourceVoltage.getByRole('checkbox').all())if(!(await box.isChecked()))await visibleTap(box);
+826989	 for(const origin of [repd,dc]){await open(origin,50);const s=await snapshot();assert.equal(s.origin.id,origin.id);assert.deepEqual(s.origin.at,origin.at);assert.equal(s.realConnectionsInferred,0);if(origin.type==='repd')assert.ok(s.matching>0,'full loaded source includes the known coastal stations within EA3 50 km');origins.push({type:origin.type,id:s.origin.id,at:s.origin.at,matching:s.matching});await assertOwnPoints(50);}
+826990	 await open(dc,50);
+826991	 const station=(await ownData()).features.find(f=>f.properties.kind==='substation');assert.ok(station);
+826992	 const realStation=await page.evaluate(at=>{const ns=window.__GRIDATLAS_MODULES__,f=window.__GRIDATLAS_V9_MAP__.getSource('src-subs').serialize().data.features.find(f=>{const p=ns.geodesy.representativePoint(f.geometry);return p&&p.every((v,i)=>v===at[i]);});return{id:String(f.id),at:ns.geodesy.representativePoint(f.geometry),name:f.properties.name||'Unnamed mapped substation'};},station.geometry.coordinates);
+826993	 await open({...realStation,type:'substation'},10);assert.equal((await snapshot()).origin.id,realStation.id);origins.push({type:'substation',...realStation,matching:(await snapshot()).matching});
+826994	 // Native result control supplies the actual station's coordinates, without a nearest-identity guess.
+826995	 const recenter=panel.locator('.vic-results').getByRole('button',{name:/^Use .+ as origin$/}).first();await visibleTap(recenter);assert.equal((await snapshot()).origin.type,'substation');
+826996	 await visibleTap(close);assert.equal(await page.evaluate(()=>!!window.__GRIDATLAS_V9_MAP__.getSource('gridatlas-vicinity-context')),false);
+826997	 const grid=page.locator('#gridatlas-menu-bar-title-4');await grid.tap();const nativeLaunch=page.locator('#gridatlas-menu-bar-panel-4 [data-vicinity-group]').getByRole('button',{name:/^Explore nearby grid/});await visibleTap(nativeLaunch);assert.equal((await snapshot()).opened,true);await visibleTap(close);assert.equal(await grid.evaluate(e=>e===document.activeElement&&e.getClientRects().length>0),true);
+826998	 await open(dc,10);
+826999	 // Keep both orientations inside the same native map lifecycle. Exit browser Fullscreen API
+827000	 // before Chromium's window resize because Windows rejects Browser.setWindowBounds while fullscreen.
+827001	 const exitedFullscreen=await page.evaluate(async()=>{if(document.fullscreenElement){await document.exitFullscreen();return true;}return false;});
+827002	 for(const [width,height]of[[393,852],[852,393]]){
+827003	  await page.setViewportSize({width,height});await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.resize());
+827004	  const layout=await panel.evaluate(e=>{const p=e.getBoundingClientRect();return{x:p.x,y:p.y,width:p.width,height:p.height,overflow:document.documentElement.scrollWidth>innerWidth};});
+827005	  assert.ok(layout.x>=0&&layout.y>=0&&layout.x+layout.width<=width+1&&layout.y+layout.height<=height+1,JSON.stringify(layout));assert.equal(layout.overflow,false);
+827006	  const chrome=await page.evaluate(()=>({menu:document.getElementById('gridatlas-menu-bar')?.getBoundingClientRect().bottom||0,layers:document.getElementById('gridatlas-dash-toggle')?.getBoundingClientRect().top||innerHeight}));
+827007	  const closeBounds=await close.boundingBox();assert.ok(closeBounds.y>=chrome.menu,'the entire Close touch target clears the native menu');assert.ok(layout.y+layout.height<=chrome.layers,'vicinity panel clears native Layers including its docked-card lift');
+827008	  await visibleTap(close);await page.locator('.vic-launch').tap();assert.equal((await snapshot()).opened,true);
+827009	  if(!(await snapshot()).origin){await visibleTap(page.getByRole('button',{name:'Use map centre',exact:true}));assert.equal((await snapshot()).origin.type,'map-centre');await open(dc,10);}
+827010	  await page.screenshot({path:path.join(output,'vicinity-'+width+'x'+height+'.png')});layouts.push({width,height,layout,chrome,closeBounds});
+827011	  if(height<480){
+827012	   await visibleTap(close);await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.open());
+827013	   const journey=page.locator('#gridatlas-gj03');await visibleTap(journey.getByRole('button',{name:'Load SYNTHETIC demonstration',exact:true}));await journey.getByRole('combobox',{name:'Explicit starting node'}).selectOption('A1');
+827014	   await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().steps===8,null,{timeout:30000});
+827015	   await visibleTap(journey.getByRole('button',{name:'Next',exact:true}));await visibleTap(journey.getByRole('button',{name:'Reset',exact:true}));assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridJourneyPreview.snapshot().step),0);
+827016	   await visibleTap(journey.getByRole('button',{name:'Close Grid Journey',exact:true}));await open(dc,10);
+827017	 // Malformed input is explicit, then a native map-centre action recovers without invented identity.
+827018	 await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.open({origin:{at:[0,0],id:'bad',type:'repd'},radiusKm:10}));assert.equal((await snapshot()).origin,null);assert.equal((await snapshot()).matching,null);assert.equal(await ownData(),undefined);assert.match(await page.locator('.vic-error').innerText(),/valid located origin/);
+827019	 await visibleTap(page.getByRole('button',{name:'Use map centre',exact:true}));assert.equal((await snapshot()).origin.type,'map-centre');assert.equal((await snapshot()).origin.id,null);
+827020	 // Optional news failures degrade independently; the valid physical origin stays useful.
+827021	 await page.evaluate(o=>window.__GRIDATLAS_MODULES__.gridVicinity.open(o),{origin:dc,radiusKm:10,newsContextUrl:'https://globalgrid2050.com/uk_renewables_pipeline/202611171940/',newsTopic:'datacentre'});
+827022	 const goodNews=new URL((await snapshot()).newsHref);assert.equal(goodNews.searchParams.get('news_origin_id'),dc.id);assert.equal(goodNews.hash,'#headlinesHeading');
+827023	 await page.evaluate(o=>window.__GRIDATLAS_MODULES__.gridVicinity.open(o),{origin:dc,radiusKm:10,newsContextUrl:'https://evil.example/not-allowed/',newsTopic:'grid'});
+827024	 assert.equal((await snapshot()).origin.id,dc.id);assert.equal((await snapshot()).phase,'READY');assert.equal((await snapshot()).newsHref,null);assert.ok((await snapshot()).matching>0);
+827025	 await page.evaluate(options=>window.__GRIDATLAS_MODULES__.gridVicinity.open(options),parseVicinityIntent('?journey=vicinity&radius_km=10'));assert.equal((await snapshot()).phase,'CHOOSE_ORIGIN');assert.equal((await snapshot()).origin,null);assert.equal(await ownData(),undefined);
+827026	 await visibleTap(page.getByRole('button',{name:'Use map centre',exact:true}));assert.equal((await snapshot()).phase,'READY');assert.equal((await snapshot()).origin.type,'map-centre');
+827027	 // The same controller handles explicit events; opaque IDs are retained, never interpreted as topology.
+827028	 await page.evaluate(()=>window.dispatchEvent(new CustomEvent('gridatlas:vicinity-open',{detail:{origin:{at:[-0.1,51.5],type:'datacentre',id:'DC-WD-Q',name:'Opaque producer contract fixture'},radiusKm:10}})));assert.equal((await snapshot()).origin.id,'DC-WD-Q');
+827029	 // Existing source and layer collisions remain byte/object-identical through close and destroy.
+827030	 await visibleTap(close);
+827031	 await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__;m.addSource('vicinity-independent-foreign',{type:'geojson',data:{type:'FeatureCollection',features:[]}});m.addLayer({id:'gridatlas-vicinity-radius',type:'line',source:'vicinity-independent-foreign'});window.__vicinityForeign=m.getLayer('gridatlas-vicinity-radius');});
+827032	 await open(dc,10);assert.equal((await snapshot()).sourceUnavailable,true);assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayer('gridatlas-vicinity-radius')===window.__vicinityForeign),true);await visibleTap(close);assert.equal(await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getLayer('gridatlas-vicinity-radius')===window.__vicinityForeign),true);
+827033	 await page.evaluate(()=>{const m=window.__GRIDATLAS_V9_MAP__;m.removeLayer('gridatlas-vicinity-radius');m.removeSource('vicinity-independent-foreign');});
+827034	 await open(dc,10);await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.destroy());assert.equal(await page.locator('#gridatlas-vicinity').count(),0);assert.equal(await page.locator('[data-vicinity-group]').count(),0);
+827035	 const finalLayers=await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.getStyle().layers.map(l=>l.id));assert.ok(baselineLayers.every(id=>finalLayers.includes(id)),'all inherited native layers remain');assert.equal(await sourceFingerprint(),baselineSource);
+827036	 await page.evaluate(()=>window.__GRIDATLAS_MODULES__.gridVicinity.mount().open({origin:{at:[-0.1,51.5],type:'map-centre',id:null},radiusKm:1}));assert.equal((await snapshot()).opened,true);await page.evaluate(()=>window.__GRIDATLAS_V9_MAP__.remove());assert.equal((await snapshot()).alive,false);assert.equal(await page.locator('#gridatlas-vicinity').count(),0);
+827037	 // Span the inherited 1000ms selection poll: immediate assertions miss queued teardown work.
+827038	 await page.waitForTimeout(1200);
+827039	 assert.deepEqual(errors,[]);await Promise.all(responseReads);
+827040	 if(!injecting){const served=runtimeResponses.find(r=>r.url.endsWith('/atlas/modules/'+generation+'-grid-vicinity.js'));assert.ok(served,'browser actually received candidate module');assert.equal(served.sha256,compiled.sha256);assert.equal(served.bytes,compiled.bytes);}
+827041	 const actualModule=injecting?compiled.body:fs.readFileSync(path.join(atlasRoot,'atlas/modules/'+generation+'-grid-vicinity.js'),'utf8').replace(/\r\n/g,'\n');
+827042	 const receipt={result:'PASS',postMapRemovalObservationMs:1200,sourceHead,coldReadyMs,runtimeResponses,trainDiagnostics,trainAcceptance,startedUTC,finishedUTC:new Date().toISOString(),mode:injecting?'CANDIDATE_MODULE_INJECTION_NOT_PUBLIC_ACCEPTANCE':'LOCAL_FULL_COMPOSITION',browser:browserName,device:browserName==='webkit'?'iPhone 13 software regression':'Pixel 7 Android touch emulation',generation,moduleBytes:Buffer.byteLength(actualModule),moduleSha256:createHash('sha256').update(actualModule).digest('hex'),initial,physicalControls,sourceCoverage,assetsBefore,assetContext,assetRefreshMs,radiusChecks,origins,scenario,layouts,exitedFullscreen,baselineLayers:baselineLayers.length,finalLayers:finalLayers.length,errors,failed,physicalPhone:'UNKNOWN',webKitBinaryAvailable:fs.existsSync(pw.webkit.executablePath())};
+827043	 fs.writeFileSync(path.join(output,'receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify({result:'PASS',output,generation,matching:initial.matching,loaded:initial.loadedRecords}));
+827044	}catch(e){if(page)await page.screenshot({path:path.join(output,'failure.png')}).catch(()=>{});fs.writeFileSync(path.join(output,'failure.json'),JSON.stringify({sourceHead,generation,candidateSha:compiled.sha256,trainDiagnostics,runtimeResponses,lastTouchDiagnostic,error:e.message,stack:e.stack,errors,failed,snapshot:page?await snapshot().catch(()=>null):null},null,2));throw e;}
+827045	finally{await browser?.close();await new Promise(resolve=>server.close(resolve));}
+827046	// Native journey search, law and motion remain a small additive module within the 500k repository ceiling.
+827047	export const BUDGET = 140000;
+827048	export function assemble({root = ROOT, generation = 'UNRELEASED'} = {}) {
+827049	  if (!/^(?:UNRELEASED|\d{12})$/.test(generation)) throw new Error('Invalid generation');
+827050	  const read = p => fs.readFileSync(path.join(root, 'tools/vicinity', p), 'utf8').replace(/\r\n/g, '\n');
+827051	  const model = read('src/model.mjs').replace(/^export /gm, '');
+827052	  const adapters = [['asset-context.mjs', 'collectAssetContext'], ['document-context.mjs', 'documentContextFor']].map(([file, api]) =>
+827053	    `const ${api} = (() => {\n${read('src/' + file).replace(/^export /gm, '')}\nreturn ${api};\n})();`).join('\n');
+827054	  const trainRead = file => fs.readFileSync(path.join(root,'tools/train',file),'utf8').replace(/\r\n/g,'\n').replace(/^import .*;\s*$/gm,'').replace(/^export /gm,'');
+827055	  const train = `const TRAIN_STATION_SOURCE_PIN=${JSON.stringify(JSON.parse(fs.readFileSync(path.join(root,'tools/train/station-source.json'),'utf8')))};\nconst TrainCore=(()=>{\n${['src/station-index.mjs','src/scenario-stations.mjs','src/itinerary.mjs','src/place-bridge.mjs','src/route-plan.mjs','src/train-motion.mjs','fixtures/learning-networks.mjs'].map(trainRead).join('\n')}\nreturn {buildStationIndex,createScenarioStationStore,createItinerary,createPlaceBridge,normaliseJourneyLaw,buildRoutePlan,createTrainRide,trainLearningFixture};\n})();\n${trainRead('ui.js')}`;
+827056	  const body = `/* GridAtlas vicinity ${generation}: source-built spatial context, no inferred circuits. */\n(() => {\n'use strict';\nconst VICINITY_GENERATION=${JSON.stringify(generation)};\nconst VICINITY_CSS=${JSON.stringify(read('src/vicinity.css'))};\n${model}\n${adapters}\n${train}\n${read('src/bootstrap.js')}\n})();\n`;
+827057	  if (Buffer.byteLength(body) > BUDGET) throw new Error(`Vicinity module exceeds ${BUDGET} bytes`);
+827058	  return {body, bytes: Buffer.byteLength(body), sha256: createHash('sha256').update(body).digest('hex')};
+827059	  const args = process.argv.slice(2), option = key => { const i = args.indexOf(key); return i < 0 ? undefined : args[i + 1]; };
+827060	  const generation = option('--generation') || 'UNRELEASED', output = option('--out');
+827061	  const result = assemble({generation});
+827062	  if (output) { fs.mkdirSync(path.dirname(path.resolve(output)), {recursive: true}); fs.writeFileSync(output, result.body); }
+827063	  console.log(JSON.stringify({generation, bytes: result.bytes, sha256: result.sha256, output: output || null}));
+827064	import {DOCUMENT_CONTEXT_PROVENANCE, DOCUMENT_CONTEXT_NOTICES, documentContextFor} from './src/document-context.mjs';
+827065	const source = fs.readFileSync(new URL('../../atlas/modules/202609012128-declared-connections.js', import.meta.url), 'utf8').replace(/\r\n/g, '\n');
+827066	const context = {window: {__GRIDATLAS_MODULES__: {geodesy: {distanceKm() { throw Error('No distance calculation permitted'); }}}}};
+827067	vm.runInNewContext(source, context);
+827068	const canonical = context.window.__GRIDATLAS_MODULES__.declaredConnections;
+827069	test('canonical declaration input matches its immutable provenance pin', () => {
+827070	  const pin = DOCUMENT_CONTEXT_PROVENANCE.declaredModule;
+827071	  assert.equal(Buffer.byteLength(source), pin.bytes);
+827072	  assert.equal(createHash('sha256').update(source).digest('hex'), pin.sha256);
+827073	  assert.match(pin.sourceUrl, new RegExp('/blob/' + pin.commit + '/'));
+827074	test('exact REPD owner keys reuse declared works without promoting or mutating owner classification', () => {
+827075	  const before = JSON.stringify(canonical.records['14806']);
+827076	  const result = documentContextFor({type: 'repd', id: 'repd:14806'}, {declaredConnections: canonical});
+827077	  assert.equal(result.matchedRecords.length, 1);
+827078	  const record = result.matchedRecords[0];
+827079	  assert.equal(record.declaredStatus, 'not_built');
+827080	  assert.equal(record.declaration.poc_status_note, canonical.records['14806'].poc_status_note);
+827081	  assert.equal(record.sourceTitle, canonical.records['14806'].source);
+827082	  assert.equal(record.verifiedAssetAssociation, false);
+827083	  assert.equal(record.status, 'EXISTING_PUBLISHED_DECLARATION_UNREVALIDATED');
+827084	  assert.equal(result.verifiedAssetJoins, 0);
+827085	  assert.equal(JSON.stringify(canonical.records['14806']), before);
+827086	test('absent status, dates, capacity and inferred electrical connections stay unknown', () => {
+827087	  const result = documentContextFor({type: 'repd', id: 'repd:10914'}, {declaredConnections: canonical});
+827088	  assert.equal(record.declaredStatus, null);
+827089	  assert.equal(record.date, null);
+827090	  assert.equal(record.datePrecision, 'UNKNOWN');
+827091	  assert.equal(Object.hasOwn(record, 'capacityMw'), false);
+827092	  assert.equal(result.realConnectionsInferred, 0);
+827093	test('nearby coordinates, matching names and a different asset type do not produce joins', () => {
+827094	  for (const origin of [{type: 'substation', id: 'grid_substations:14806', name: 'High Marnham Substation', at: [-0.8, 53]}, {type: 'datacentre', id: '14806'}, {type: 'repd', id: 'repd:2470', name: 'Sea Link'}, {type: 'repd', id: 'repd:014806'}]) {
+827095	    assert.equal(documentContextFor(origin, {declaredConnections: canonical}).matchedRecords.length, 0);
+827096	test('missing or unsupported identity and an absent canonical owner module give explicit gaps', () => {
+827097	  for (const origin of [null, {type: 'location', id: '14806'}, {type: 'repd', id: 14806}, {type: 'repd', id: 'repd:14806\n'}]) {
+827098	    const result = documentContextFor(origin, {declaredConnections: canonical});
+827099	    assert.equal(result.origin, null);
+827100	    assert.equal(result.matchedRecords.length, 0);
+827101	    assert.match(result.limitations[0], /stable source identity/);
+827102	  assert.equal(documentContextFor({type: 'repd', id: 'repd:14806'}).matchedRecords.length, 0);
+827103	test('inherited source arrays or wrong module schemas cannot supply an exact declaration', () => {
+827104	  const inherited = Object.create({'14806': canonical.records['14806']});
+827105	  assert.equal(documentContextFor({type: 'repd', id: 'repd:14806'}, {declaredConnections: {schema: canonical.schema, records: inherited}}).matchedRecords.length, 0);
+827106	  assert.equal(documentContextFor({type: 'repd', id: 'repd:14806'}, {declaredConnections: {schema: 'other', records: canonical.records}}).matchedRecords.length, 0);
+827107	test('Sea Link stays standalone even when an origin has the same name or location', () => {
+827108	  const result = documentContextFor({type: 'substation', id: 'unmatched', name: 'Sea Link', at: [1.5, 52]});
+827109	  assert.equal(result.unassociatedNotices.length, 1);
+827110	  const notice = result.unassociatedNotices[0];
+827111	  assert.equal(notice.applicationRef, 'EN020026');
+827112	  assert.equal(notice.verifiedAssetJoins, 0);
+827113	  for (const key of ['currentCapacityMw', 'commissioned', 'connection', 'repdRef', 'coordinates']) assert.equal(notice[key], null);
+827114	  assert.deepEqual(notice.date, {value: '2026-10-30', precision: 'DAY'});
+827115	  assert.equal(notice.plannedMetric.kind, 'planned_transmission_upper_bound');
+827116	  assert.equal(notice.plannedMetric.value, 2000);
+827117	  assert.match(notice.scope, /No association/);
+827118	test('two government sources preserve historical hashes and qualify changed current HTML separately', () => {
+827119	  const notice = DOCUMENT_CONTEXT_NOTICES[0];
+827120	  assert.equal(notice.sources.length, 2);
+827121	  for (const source of notice.sources) {
+827122	    assert.equal(new URL(source.url).origin, 'https://www.gov.uk');
+827123	    assert.equal(source.sourceUpdatedAt, null);
+827124	    assert.notEqual(source.archivedReceipt.sha256, source.currentObservation.sha256);
+827125	    assert.match(source.currentObservation.scope, /differs from archived/);
+827126	    assert.equal(source.archivedReceipt.bytes, source.currentObservation.bytes);
+827127	  assert.equal(notice.rightsScope, 'government_html_facts_only_no_images_or_third_party_material');
+827128	  assert.equal(DOCUMENT_CONTEXT_PROVENANCE.noticeProducer.reviewReferences.length, 2);
+827129	test('output and source metadata are immutable and contain no generated route geometry', () => {
+827130	  assert.equal(Object.isFrozen(result), true);
+827131	  assert.equal(Object.isFrozen(result.matchedRecords[0].declaration), true);
+827132	  assert.throws(() => { result.matchedRecords[0].declaration.source = 'changed'; });
+827133	  assert.equal(Object.hasOwn(result, 'geometry'), false);
+827134	test('every pinned owner declaration retains its exact source fields, including circuit and unbuilt cases', () => {
+827135	  const refs = Object.keys(canonical.records);
+827136	  assert.equal(refs.length, 19, 'Source records, not unique schemes or physical upgrades');
+827137	  for (const ref of refs) {
+827138	    const result = documentContextFor({type: 'repd', id: 'repd:' + ref}, {declaredConnections: canonical});
+827139	    assert.equal(result.matchedRecords.length, 1, ref);
+827140	    const record = result.matchedRecords[0], raw = canonical.records[ref];
+827141	    for (const key of Object.keys(raw)) assert.equal(record.declaration[key], raw[key], ref + ':' + key);
+827142	    assert.equal(record.declaredStatus, raw.poc_status ?? null);
+827143	    assert.equal(result.counts.verifiedAssetJoins, 0);
+827144	import {validCoordinate, radiusKm, normaliseOrigin, parseVicinityIntent, stationRecords, exploreVicinity, vicinityGeoJSON, VOLTAGE_BANDS, validateNewsContextBase, newsContextHref} from './src/model.mjs';
+827145	import {assemble, BUDGET} from './build.mjs';
+827146	const context = {window: {}};
+827147	vm.runInNewContext(fs.readFileSync(new URL('../../atlas/modules/202609011950-geodesy.js', import.meta.url), 'utf8'), context);
+827148	const geodesy = context.window.__GRIDATLAS_MODULES__.geodesy;
+827149	const origin = {at: [-0.1,51.5], type: 'repd', id: 'repd:2470', name: 'Chosen real project'};
+827150	const link = '?journey=vicinity&origin_type=repd&origin_id=repd%3A2470&latitude=51.5&longitude=-0.1&radius_km=10';
+827151	const feature = (id, at, voltage, extra = {}) => ({type:'Feature',id,geometry:{type:'Point',coordinates:at},properties:{name:id,voltage,...extra}});
+827152	test('radius accepts whole km only, including both boundaries; invalid values do not become defaults', () => {
+827153	  assert.equal(radiusKm(1),1); assert.equal(radiusKm('50'),50);
+827154	  for (const v of [0,51,1.5,'1.5',null,'',undefined,Infinity,NaN,true,false,[2],{},1n]) assert.throws(() => radiusKm(v));
+827155	test('origin coordinates do not accept nulls, strings, null-island or out-of-range positions', () => {
+827156	  for (const at of [[null,51],['-1',51],[0,0],[181,51],[-1,91],[NaN,51]]) assert.equal(validCoordinate(at),false);
+827157	  assert.equal(validCoordinate([0,51.5]),true); assert.equal(validCoordinate([-1,0]),true);
+827158	  assert.deepEqual(normaliseOrigin(origin),origin);
+827159	test('one URL intent consumer preserves opaque identity and explicitly rejects missing/ambiguous fields', () => {
+827160	  assert.deepEqual(parseVicinityIntent(link),{origin:{...origin,name:'repd repd:2470'},radiusKm:10});
+827161	  assert.equal(parseVicinityIntent('?repd_ref=2470'),null);
+827162	  for (const bad of [link.replace('radius_km=10','radius_km=1.5'),link+'&longitude=1',link.replace('origin_id=repd%3A2470','origin_id='),link.replace('origin_type=repd','origin_type=unknown'),link.replace('latitude=51.5','latitude='),link.replace('longitude=-0.1','longitude=null')]) assert.throws(() => parseVicinityIntent(bad));
+827163	  for (const type of ['datacentre','substation']) assert.equal(parseVicinityIntent(link.replace('origin_type=repd','origin_type='+type)).origin.type,type);
+827164	test('originless entry requests explicit manual selection and rejects every partial origin tuple', () => {
+827165	  assert.deepEqual(parseVicinityIntent('?journey=vicinity'),{manual:true,radiusKm:10});
+827166	  assert.deepEqual(parseVicinityIntent('?journey=vicinity&radius_km=50'),{manual:true,radiusKm:50});
+827167	  for (const extra of ['origin_id=x','origin_type=','latitude=51.5','longitude=-0.1','origin_type=repd&origin_id=repd:2470','radius_km=1.5','radius_km=10&radius_km=20']) assert.throws(()=>parseVicinityIntent('?journey=vicinity&'+extra));
+827168	  const optional=parseVicinityIntent('?journey=vicinity&news_context_url=https%3A%2F%2Fevil.test%2F');assert.equal(optional.manual,true);assert.match(optional.newsContextError,/not applied/);
+827169	test('canonical voltage parser keeps explicit units and unknown values; missing IDs remain missing', () => {
+827170	  const rows = stationRecords([feature('volts',[-0.11,51.5],'33000;11000'),feature('traction',[-0.12,51.5],'750'),feature('unknown',[-0.13,51.5],null),feature('kv',[-0.14,51.5],null,{kv:'132'}),{geometry:{type:'Point',coordinates:[-0.15,51.5]},properties:{name:'No source ID'}}],geodesy);
+827171	  assert.deepEqual(rows[0].kv,[33,11]); assert.deepEqual(rows[0].bands,['33','11']);
+827172	  assert.deepEqual(rows[1].kv,[0.75]); assert.deepEqual(rows[1].bands,['other']);
+827173	  assert.deepEqual(rows[2].kv,[]); assert.deepEqual(rows[2].bands,['unknown']);
+827174	  assert.deepEqual(rows[3].kv,[132]); assert.equal(rows[4].id,null);
+827175	test('deduplicates tile repeats, filters only matching known voltage bands and reports all matches before display cap', () => {
+827176	  const a = feature('A',[-0.11,51.5],'33000'), b = feature('B',[-0.12,51.5],'11000');
+827177	  const rows = stationRecords([a,a,b,feature('Far',[2,51.5],'33000')],geodesy);
+827178	  assert.equal(rows.length,3);
+827179	  const result = exploreVicinity({origin,radius:10,records:rows,bands:['33'],geodesy,limit:1});
+827180	  assert.equal(result.matching,1); assert.equal(result.shown[0].name,'A');
+827181	  assert.equal(result.loadedRecords,3); assert.equal(result.truncated,false);
+827182	  const capped = exploreVicinity({origin,radius:10,records:rows,bands:['33','11'],geodesy,limit:1});
+827183	  assert.equal(capped.matching,2); assert.equal(capped.truncated,true); assert.equal(capped.shown.length,1);
+827184	  assert.equal(exploreVicinity({origin,radius:10,records:rows,bands:[],geodesy}).matching,0);
+827185	test('inclusive exact-radius test delegates distance to canonical engine; no electrical graph is created', () => {
+827186	  const edge = geodesy.destinationPoint(...origin.at,10,90), outside = geodesy.destinationPoint(...origin.at,10.01,90);
+827187	  const rows = stationRecords([feature('Near',origin.at,'33000'),feature('Outside',outside,'33000')],geodesy);
+827188	  const result = exploreVicinity({origin,radius:10,records:rows,bands:['33'],geodesy});
+827189	  assert.equal(result.matching,1); assert.equal(result.shown[0].km,0);
+827190	  assert.ok(geodesy.distanceKm(...origin.at,...edge) > 9.9999);
+827191	  assert.match(result.statement,/connectivity unknown/);
+827192	  assert.equal('edges' in result,false);
+827193	test('radius geometry uses canonical destinationPoint and retains actual point coordinates', () => {
+827194	  const rows = stationRecords([feature('A',[-0.11,51.5],'33000')],geodesy);
+827195	  const result = exploreVicinity({origin,radius:50,records:rows,bands:['33'],geodesy});
+827196	  const geo = vicinityGeoJSON(result,geodesy), boundary = geo.features[0];
+827197	  assert.equal(boundary.properties.kind,'radius'); assert.equal(boundary.geometry.coordinates.length,97);
+827198	  for (const at of boundary.geometry.coordinates) assert.ok(Math.abs(geodesy.distanceKm(...origin.at,...at)-50)<1e-8);
+827199	  assert.deepEqual(geo.features[2].geometry.coordinates,[-0.11,51.5]);
+827200	  assert.equal(geo.features.filter(f=>f.geometry.type==='LineString').length,1,'radius boundary only; no inferred circuit');
+827201	test('module source rebuild is deterministic, generation stamped, bounded and syntactically valid', () => {
+827202	  const first=assemble({generation:'202611180100'}),second=assemble({generation:'202611180100'});
+827203	  assert.equal(first.body,second.body); assert.equal(first.sha256,second.sha256); assert.ok(first.bytes<BUDGET);
+827204	  new vm.Script(first.body); assert.match(first.body,/USER_ASSUMED_LOCAL_MODEL/);
+827205	  assert.equal(VOLTAGE_BANDS.length,8); assert.throws(()=>assemble({generation:'../bad'}));
+827206	test('news return links accept only supplied dated exact-host bases and build bounded topic context', () => {
+827207	  const base='https://globalgrid2050.com/uk_renewables_pipeline/202611171940/';
+827208	  assert.equal(validateNewsContextBase(base),base); assert.equal(validateNewsContextBase(base+'index.html'),base+'index.html');
+827209	  for(const bad of [base+'?url=https://evil.test',base+'#x',base.replace('https:','http:'),base.replace('.com/','.com:443/'),base.replace('.com/','.com.evil.test/'),base.replace('globalgrid2050.com','user@globalgrid2050.com'),base.replace('202611171940/','latest/'),'javascript:alert(1)'])assert.throws(()=>validateNewsContextBase(bad));
+827210	  const url=new URL(newsContextHref(base,origin,'wind'));
+827211	  assert.equal(url.searchParams.get('news_origin_id'),'repd:2470');assert.equal(url.searchParams.get('news_topic'),'wind');assert.equal(url.hash,'#headlinesHeading');
+827212	  assert.deepEqual([...url.searchParams.keys()],['news_origin_type','news_origin_id','news_topic']);
+827213	  const intent=parseVicinityIntent(link+'&news_context_url='+encodeURIComponent(base)+'&news_topic=wind');assert.equal(intent.newsContextUrl,base);assert.equal(intent.newsTopic,'wind');
+827214	  for(const optional of ['&news_context_url='+encodeURIComponent(base)+'&news_topic=bad','&news_context_url=https%3A%2F%2Fevil.test%2F','&news_context_url='+encodeURIComponent(base)+'&news_context_url='+encodeURIComponent(base)]) {
+827215	    const degraded=parseVicinityIntent(link+optional);assert.equal(degraded.origin.id,'repd:2470');assert.equal(degraded.radiusKm,10);assert.match(degraded.newsContextError,/not applied/);assert.equal(degraded.newsContextUrl,undefined);
+827216	export const ASSET_CONTEXT_CATEGORIES = Object.freeze([
+827217	export function collectAssetContext({map,registry={},origin,radiusKm,geodesy,limit=200}={}){
+827218	export const DOCUMENT_CONTEXT_PROVENANCE = freezeDocumentContext({
+827219	export const DOCUMENT_CONTEXT_NOTICES = freezeDocumentContext([{
+827220	export function documentContextFor(origin, {declaredConnections} = {}) {
+827221	export const VOLTAGE_BANDS = Object.freeze([
+827222	export function validCoordinate(at) {
+827223	export function radiusKm(value) {
+827224	export function normaliseOrigin(origin, {requireIdentity = false} = {}) {
+827225	export function parseVicinityIntent(search) {
+827226	export function validateNewsContextBase(value) {
+827227	export function normaliseNewsTopic(value, origin) {
+827228	export function newsContextHref(base, origin, topic) {
+827229	export function voltageBands(kv) {
+827230	export function stationRecords(features, geodesy) {
+827231	export function exploreVicinity({origin, radius, records, bands, geodesy, limit = 200}) {
+827232	export function vicinityGeoJSON(result, geodesy) {
+827233	"""Validate the compact coordination index without network or dependencies."""
+827235	root = Path(__file__).resolve().parents[1]
+827236	data = json.loads((root / 'STATUS.json').read_text(encoding='utf-8'))
+827237	if data['schema_version'] != 1:
+827238	    raise SystemExit('Unsupported schema_version')
+827239	stamp = datetime.fromisoformat(data['checked_at_utc'].replace('Z', '+00:00'))
+827240	if stamp.tzinfo is None:
+827241	    raise SystemExit('checked_at_utc requires timezone')
+827242	states = {'HISTORICAL_ACCEPTANCE', 'REPORTED_DRAFT', 'PENDING_OWNER_SCOPE',
+827243	          'IN_PROGRESS', 'BLOCKED', 'RETRYING', 'TESTED', 'REVIEWED', 'MERGED',
+827244	          'PUBLICLY_VERIFIED', 'COMPLETE'}
+827246	for item in data['work']:
+827247	    for field in ('id', 'owner', 'state', 'evidence', 'next_action'):
+827248	        if not isinstance(item.get(field), str) or not item[field].strip():
+827249	            raise SystemExit(f'Missing/non-text {field}')
+827250	    if item['id'] in seen or item['state'] not in states:
+827251	        raise SystemExit(f'Duplicate ID or invalid state: {item["id"]}')
+827252	    seen.add(item['id'])
+827253	for url in [data['channel']] + [item['evidence'] for item in data['work']]:
+827255	    if parsed.scheme != 'https' or parsed.hostname != 'github.com' or parsed.username or parsed.password:
+827256	        raise SystemExit('Evidence must use credential-free GitHub HTTPS links')
+827257	print(f'PASS: {len(seen)} unique work IDs; valid states, timestamp and evidence links')
 ```

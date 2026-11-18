@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-17T23:07:42.077Z",
+ "generated_utc": "2026-11-18T04:41:25.180Z",
  "note": "Chemistry decay messages resolved to the numbered lines that contain them and the families that throw them.",
  "decays": [
   {
@@ -106,6 +106,14 @@
     {
      "family": 173279,
      "name": "(anonymous) in 202611161645-sld-sandbox-v9-8.js"
+    },
+    {
+     "family": 175034,
+     "name": "(anonymous) in 202611172355-sld-sandbox-v9-8.js"
+    },
+    {
+     "family": 175461,
+     "name": "(anonymous) in 202611180026-sld-sandbox-v9-8.js"
     }
    ]
   },
@@ -395,6 +403,14 @@
     {
      "family": 173279,
      "name": "(anonymous) in 202611161645-sld-sandbox-v9-8.js"
+    },
+    {
+     "family": 175034,
+     "name": "(anonymous) in 202611172355-sld-sandbox-v9-8.js"
+    },
+    {
+     "family": 175461,
+     "name": "(anonymous) in 202611180026-sld-sandbox-v9-8.js"
     }
    ]
   }
