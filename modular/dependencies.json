@@ -1,27 +1,27 @@
 {
- "generated_utc": "2026-11-18T14:30:38.171Z",
+ "generated_utc": "2026-11-18T22:18:09.231Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 13665,
+ "families_with_uses": 13676,
  "hubs": [
   {
    "family": 172767,
    "name": "document",
-   "used_by": 2826
+   "used_by": 2830
   },
   {
    "family": 173796,
    "name": "document",
-   "used_by": 2826
+   "used_by": 2830
   },
   {
    "family": 176250,
    "name": "document",
-   "used_by": 2826
+   "used_by": 2830
   },
   {
    "family": 173891,
    "name": "window",
-   "used_by": 1540
+   "used_by": 1543
   },
   {
    "family": 70873,
@@ -31,7 +31,7 @@
   {
    "family": 1318,
    "name": "state",
-   "used_by": 642
+   "used_by": 643
   },
   {
    "family": 72282,
@@ -41,7 +41,7 @@
   {
    "family": 134305,
    "name": "state",
-   "used_by": 475
+   "used_by": 476
   },
   {
    "family": 146349,
@@ -54,13 +54,13 @@
    "used_by": 452
   },
   {
-   "family": 77688,
-   "name": "assert",
-   "used_by": 418
-  },
-  {
    "family": 150844,
    "name": "state",
+   "used_by": 419
+  },
+  {
+   "family": 77688,
+   "name": "assert",
    "used_by": 418
   },
   {
@@ -249,6 +249,21 @@
    "used_by": 159
   },
   {
+   "family": 136068,
+   "name": "status",
+   "used_by": 158
+  },
+  {
+   "family": 142915,
+   "name": "status",
+   "used_by": 158
+  },
+  {
+   "family": 149509,
+   "name": "status",
+   "used_by": 158
+  },
+  {
    "family": 155195,
    "name": "cv",
    "used_by": 153
@@ -262,21 +277,6 @@
    "family": 156340,
    "name": "cv",
    "used_by": 153
-  },
-  {
-   "family": 136068,
-   "name": "status",
-   "used_by": 152
-  },
-  {
-   "family": 142915,
-   "name": "status",
-   "used_by": 152
-  },
-  {
-   "family": 149509,
-   "name": "status",
-   "used_by": 152
   },
   {
    "family": 76405,
@@ -296,12 +296,12 @@
   {
    "family": 1598,
    "name": "escapeHtml",
-   "used_by": 134
+   "used_by": 136
   },
   {
    "family": 3412,
    "name": "escapeHtml",
-   "used_by": 134
+   "used_by": 136
   }
  ]
 }
