@@ -1,5 +1,5 @@
 {
- "next": 2311,
+ "next": 2317,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2247,6 +2247,12 @@
   "gridatlas:tools/release/grid-explorer-proof.mjs": 2307,
   "gridatlas:tools/sld/mobile-arrival-card.browser.py": 2308,
   "gridatlas:tools/train/gazetteer/build.mjs": 2309,
-  "gridatlas:tools/vicinity/build.mjs": 2310
+  "gridatlas:tools/vicinity/build.mjs": 2310,
+  "globalgrid2050:automation/energy_context_ui/{stamp}/model.mjs": 2311,
+  "globalgrid2050:automation/energy_context_ui/{stamp}/prepare_preview.py": 2312,
+  "globalgrid2050:automation/energy_context_ui/{stamp}/view.mjs": 2313,
+  "globalgrid2050:automation/journey_return_ui/{stamp}/browser.mjs": 2314,
+  "globalgrid2050:automation/news/filings/policy_context.py": 2315,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/map-entry.mjs": 2316
  }
 }

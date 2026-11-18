@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-18 04:43 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (122 KB, 136 cards, 430 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-18 14:32 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (122 KB, 136 cards, 432 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (41)
 
@@ -27,6 +27,8 @@ flowchart TD
   estate --> n_Ventusltd_pipelinenews
   n_Ventusltd_data_grid_gb["data-grid-gb · 5 blocks"]:::ok
   estate --> n_Ventusltd_data_grid_gb
+  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 5 blocks"]:::ok
+  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_spiders["spiders · 5 blocks"]:::ok
   estate --> n_Ventusltd_spiders
   n_Ventusltd_claude["claude · 4 blocks"]:::ok
@@ -37,8 +39,6 @@ flowchart TD
   estate --> n_Ventusltd_galaxies_wafers
   n_Ventusltd_layout_tool["layout-tool · 3 blocks"]:::ok
   estate --> n_Ventusltd_layout_tool
-  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 3 blocks"]:::ok
-  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_chatgpt_audits["chatgpt-audits · 2 blocks"]:::ok
   estate --> n_Ventusltd_chatgpt_audits
   n_Ventusltd_companies["companies · 2 blocks"]:::ok

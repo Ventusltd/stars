@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-469,073 unique lines, numbered 1 to 827,257. Generated 2026-11-18T04:43:03.884Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+469,737 unique lines, numbered 1 to 829,169. Generated 2026-11-18T14:32:24.303Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -469076,4 +469076,668 @@
 827255	    if parsed.scheme != 'https' or parsed.hostname != 'github.com' or parsed.username or parsed.password:
 827256	        raise SystemExit('Evidence must use credential-free GitHub HTTPS links')
 827257	print(f'PASS: {len(seen)} unique work IDs; valid states, timestamp and evidence links')
+827258	// Deterministic actual saved-feed replay against the inherited Pipeline page.
+827259	// This is integration evidence, not public served acceptance or live collection proof.
+827262	import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
+827265	const {chromium}=await import(process.env.PLAYWRIGHT_IMPORT||'playwright');
+827266	const root=resolve(process.env.PN_CONTEXT_ROOT||resolve(dirname(fileURLToPath(import.meta.url)),'../../..')),edition=process.env.PN_CONTEXT_EDITION||'202611171940',out=resolve(process.env.PN_CONTEXT_OUTPUT||'work/energy-context');mkdirSync(out,{recursive:true});
+827267	const server=createServer((req,res)=>{try{const pathname=decodeURIComponent(new URL(req.url,'http://local').pathname),path=resolve(root,'.'+pathname+(pathname.endsWith('/')?'index.html':''));assert.ok(path.startsWith(root+sep));res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json'})[extname(path)]||'application/octet-stream');res.end(readFileSync(path));}catch{res.writeHead(404).end();}});
+827268	await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port,canonicalReplay=process.env.PN_CONTEXT_CANONICAL_REPLAY==='true',start=canonicalReplay?'https://globalgrid2050.com':origin,browser=await chromium.launch(),receipts=[];
+827269	try{for(const width of [1440,393,390]){
+827270	 const context=await browser.newContext({viewport:{width,height:844},isMobile:width<500,hasTouch:width<500,reducedMotion:width===390?'reduce':'no-preference'}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+827271	 await context.route('**/*',route=>{if(route.request().url().startsWith(origin))return route.continue();const u=new URL(route.request().url());if(canonicalReplay&&u.origin===start){try{const pathname=decodeURIComponent(u.pathname),path=resolve(root,'.'+pathname+(pathname.endsWith('/')?'index.html':''));assert.ok(path.startsWith(root+sep));return route.fulfill({status:200,contentType:({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.css':'text/css','.json':'application/json'})[extname(path)]||'application/octet-stream',body:readFileSync(path)});}catch{return route.fulfill({status:404,body:'Fixture path unavailable'});}}return route.abort();});
+827272	 await page.goto(`${start}/uk_renewables_pipeline/${edition}/?news_topic=grid&news_origin_type=repd&news_origin_id=2470`,{waitUntil:'domcontentloaded'});
+827273	 await page.waitForFunction(()=>window.pipelineHeadlineDocument?.items?.length>0&&document.querySelector('.pn-news-quality'),null,{timeout:20000});
+827274	 if(process.env.PN_CONTEXT_INTEGRATED!=='true'){
+827275	  await page.addStyleTag({url:start+'/automation/energy_context_ui/20261118/styles.css'});
+827276	  await page.addScriptTag({type:'module',url:start+'/automation/energy_context_ui/20261118/view.mjs'});
+827278	 await page.waitForFunction(()=>['withheld','source-qualified'].includes(document.getElementById('energyPolicyContext')?.dataset.state));
+827279	 const state=await page.locator('#energyPolicyContext').getAttribute('data-state');
+827280	 const hasTopicHook=await page.evaluate(()=>typeof window.pipelineHeadlines?.getViewAdapter==='function');
+827281	 assert.equal(state,'source-qualified','actual two independent policy receipts required');
+827282	 await page.waitForFunction(()=>['withheld','source-qualified'].includes(document.getElementById('energyPolicyContext')?.dataset.gridContext));
+827283	 assert.equal(await page.locator('#energyPolicyContext').getAttribute('data-grid-context'),'source-qualified');
+827284	 await page.waitForFunction(()=>window.pipelineEnergyContext.topic()==='grid'||document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value==='grid'||document.querySelector('.pn-news-header-search input').value==='grid');
+827285	 await page.locator('#energyPolicyContext>summary').click();
+827286	 assert.equal(await page.locator('#energyPolicyContext a[href*="data-centre-covenant"]').count()>0,true);
+827287	 assert.match(await page.locator('#energyPolicyContext').innerText(),/PUE 1\.3 or better/);assert.match(await page.locator('#energyPolicyContext').innerText(),/no project compliance assessment/);
+827288	 await page.locator('[data-official-context="planning:EN020026"]>summary').click();assert.match(await page.locator('[data-official-context]').innerText(),/proposed transmission up to 2 GW/);
+827289	 assert.equal(await page.locator('[data-official-context] a').count(),2);
+827290	 await page.locator('#energyPolicyContext').screenshot({path:resolve(out,`policy-${width}.png`)});
+827291	 await page.getByRole('button',{name:'Read exact grid-document facts',exact:true}).click();
+827292	 assert.equal(await page.locator('.pn-document-facts').evaluate(e=>e.open),true);
+827293	 const before=await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument));
+827294	 await page.locator('#energyPolicyContext button[data-news-topic="grid"]').click();
+827295	 assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()==='grid'||document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value==='grid'||document.querySelector('.pn-news-header-search input').value==='grid'),true);
+827296	 await page.locator('#energyPolicyContext button[data-news-topic="datacentre"]').click();
+827297	 const selection=await page.evaluate(()=>[document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value,document.querySelector('.pn-news-filter-tools select[aria-label="News category"]').value,document.querySelector('.pn-news-header-search input').value]);
+827298	 if(hasTopicHook){assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()),'datacentre');assert.equal(await page.locator('#liveNews .ln-title').evaluateAll(as=>as.some(a=>/Nvidia Earnings|Markets Wrap|Anthropic.*IPO|India Stock Market/.test(a.textContent))),false);}
+827299	 await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));
+827300	 await page.waitForTimeout(50);
+827301	 assert.deepEqual(await page.evaluate(()=>[document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]').value,document.querySelector('.pn-news-filter-tools select[aria-label="News category"]').value,document.querySelector('.pn-news-header-search input').value]),selection,'feed redraw must preserve user filter after return context applied');
+827302	 if(process.env.PN_CONTEXT_RETURN_REPLAY==='true'||process.env.PN_CONTEXT_ASYNC_ENTRY==='true'){
+827303	  assert.ok(canonicalReplay,'async opt-in requires an explicitly labelled canonical-origin fixture');
+827304	  await page.locator('.pipeline-tabs [data-view="solar"]').click();await page.locator('#clearFilters').click();
+827305	  await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.total==='7775');
+827306	  const locationBefore=page.url(),mapsBefore=await page.locator('#tbody a.atlaslink:not(.pn-journey-link)').evaluateAll(items=>items.map(a=>a.href));
+827307	  if(!await page.evaluate(()=>!!window.pipelineJourneyEntry)){
+827308	   assert.notEqual(process.env.PN_CONTEXT_INTEGRATED,'true','integrated source must own its entry runtime');
+827309	   await page.addStyleTag({url:start+'/automation/journey_entry_ui/20261118/styles.css'});
+827310	   await page.addScriptTag({type:'module',url:start+'/automation/journey_entry_ui/20261118/view.mjs'});
+827311	  }else assert.equal(await page.locator('script[src*="journey_entry_ui/20261118/view.mjs"]').count(),1,'actual integrated entry is not injected twice');
+827312	  await page.waitForFunction(()=>window.pipelineJourneyEntry&&document.querySelector('#tbody .pn-journey-link')?.href.includes('news_context_url='));
+827313	  assert.equal(page.url(),locationBefore,'late entry readiness cannot auto-navigate');
+827314	  assert.deepEqual(await page.locator('#tbody a.atlaslink:not(.pn-journey-link)').evaluateAll(items=>items.map(a=>a.href)),mapsBefore);
+827315	  const newsState=expected=>{if(!window.pipelineEnergyContext||!document.querySelector('.pn-news-header-search input'))return false;const state={query:document.querySelector('.pn-news-header-search input').value,...Object.fromEntries(['publisher','topic','category','ranking source type'].map(kind=>[kind,document.querySelector('.pn-news-filter-tools select[aria-label="News '+kind+'"]').value])),context:window.pipelineEnergyContext.topic()};return expected?JSON.stringify(state)===JSON.stringify(expected):state;};
+827316	  for(const kind of ['publisher','ranking source type']){const select=page.locator('.pn-news-filter-tools select[aria-label="News '+kind+'"]'),value=await select.evaluate(node=>[...node.options].find(o=>o.value)?.value);if(value)await select.selectOption(value);}
+827317	  await page.locator('.pn-news-header-search input').fill('data');const wanted=await page.evaluate(newsState);
+827318	  const target=page.locator('#tbody .pn-journey-link').first(),url=new URL(await target.getAttribute('href'));assert.equal(url.searchParams.get('news_context_url'),`${start}/uk_renewables_pipeline/${edition}/`);
+827319	  // Suppress only fixture outbound navigation; actual source handlers store state.
+827320	  await page.evaluate(()=>document.addEventListener('click',event=>event.preventDefault(),{once:true}));await target.click();
+827321	  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin?.origin_type),'repd');
+827322	  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(newsState,wanted);
+827323	  assert.deepEqual(await page.evaluate(newsState),wanted,'typed cold reload retains every News filter and explicit context');
+827324	  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin?.origin_type),'repd','manual follows a saved typed origin without clearing it artificially');
+827325	  await page.locator('.pn-news-header-search input').fill('battery');const manualWanted=await page.evaluate(newsState),manual=page.locator('#journeyAtlasNav');await manual.waitFor();
+827326	  assert.equal(new URL(await manual.getAttribute('href')).searchParams.get('news_context_url'),`${start}/uk_renewables_pipeline/${edition}/`);
+827327	  await page.evaluate(()=>document.addEventListener('click',event=>event.preventDefault(),{once:true}));await manual.click();
+827328	  assert.equal(await page.evaluate(()=>history.state.pipelineEnergyNewsReturn.origin),null,'manual entry creates no asset association');
+827329	  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(newsState,manualWanted);
+827330	  assert.deepEqual(await page.evaluate(newsState),manualWanted,'manual cold reload retains every News filter and explicit context');
+827331	  if(hasTopicHook){await page.locator('#headlineContextStatus button').click();assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()),null);while(await page.locator('#liveNews .ln-more').count())await page.locator('#liveNews .ln-more').click();const all=await page.locator('#liveNews .ln-title').evaluateAll(as=>as.map(a=>a.href).sort());const original=await page.evaluate(()=>window.pipelineHeadlineDocument.items.map(item=>new URL(item.link).href).sort());assert.deepEqual(all,original,'reset exposes every original eligible article');}
+827332	  // Synthetic late-ranking-option lifecycle; original article/feed data is unchanged.
+827333	  await page.evaluate(()=>{const topic=document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]');if(![...topic.options].some(o=>o.value==='storage'))topic.add(new Option('Storage','storage'));topic.value='storage';topic.dispatchEvent(new Event('change'));window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:{origin_type:'repd',origin_id:'repd:2470',technology:'battery'}}));});
+827334	  await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.pipelineEnergyContext&&window.pipelineHeadlineDocument?.items?.length>0);
+827335	  await page.evaluate(()=>{const topic=document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]');if(![...topic.options].some(o=>o.value==='storage'))topic.add(new Option('Storage','storage'));window.dispatchEvent(new CustomEvent('pipeline-feed-loaded',{detail:window.pipelineHeadlineDocument}));});
+827336	  await page.waitForFunction(()=>document.querySelector('.pn-news-filter-tools select[aria-label="News topic"]')?.value==='storage',null,{timeout:3000});
+827337	  await page.evaluate(()=>window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:{origin_type:'repd',origin_id:'repd:2470',technology:'battery'}})));
+827338	  await page.locator('.pn-news-header-search input').fill('solar');
+827339	  await page.waitForTimeout(50);assert.equal(await page.locator('.pn-news-header-search input').inputValue(),'solar','genuine user input cancels a pending metadata restore');
+827340	 await page.evaluate(()=>window.dispatchEvent(new CustomEvent('pipeline-journey-origin',{detail:{origin_type:'datacentre',origin_id:'dc:synthetic-origin'}})));
+827341	 await page.locator('#gridTab').click();await page.locator('#journeyNewsContext>summary').click();
+827342	 assert.match(await page.locator('#journeyNewsContext').innerText(),/DATACENTRE dc:synthetic-origin: topic context only/);
+827343	 assert.equal(await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument)),before);
+827344	 await page.evaluate(()=>window.dispatchEvent(new CustomEvent('pipeline-feed-loaded',{detail:null})));assert.match(await page.locator('#journeyNewsContext').innerText(),/No matching topic headlines/);
+827345	 assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.selectOrigin({origin_type:'unknown',origin_id:'2470'})),false);assert.match(await page.locator('#journeyNewsContext').innerText(),/Choose a REPD project/);
+827346	 assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+827347	 assert.equal(await page.locator('.pn-energy-context input').count(),0,'existing sole news search retained');
+827348	 await page.screenshot({path:resolve(out,`context-${width}.png`)});
+827349	 if(hasTopicHook){
+827350	  await page.goto(`${start}/uk_renewables_pipeline/${edition}/`,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>window.pipelineHeadlineDocument?.items?.length>0&&window.pipelineEnergyContext);
+827351	  assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()),null);assert.equal(await page.locator('#headlineContextStatus').isHidden(),true,'default view remains complete and uncluttered');
+827352	  const original=await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument)),query=await page.locator('.pn-news-header-search input').elementHandle();
+827353	  await page.locator('#energyPolicyContext>summary').click();await page.locator('#energyPolicyContext button[data-news-topic="datacentre"]').click();
+827354	  await page.locator('#headlineContextStatus button').focus();await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>window.pipelineEnergyContext.topic()),null);
+827355	  await page.locator('#liveNews .ln-more').click();assert.equal(await page.locator('#liveNews .ln-title').count(),24);
+827356	  await page.evaluate(()=>window.pipelineHeadlines.render(window.pipelineHeadlineDocument,'snapshot'));assert.equal(await page.locator('#liveNews .ln-title').count(),24,'same-input feed redraw retains expanded original view');
+827357	  assert.equal(await query.evaluate(node=>node===document.querySelector('.pn-news-header-search input')),true,'existing sole search node retained');assert.equal(await page.evaluate(()=>JSON.stringify(window.pipelineHeadlineDocument)),original);
+827358	 assert.deepEqual(errors,[]);receipts.push({width,reduced_motion:width===390,source:'actual_saved_feed_replay',canonical_origin_fixture:canonicalReplay,async_entry:process.env.PN_CONTEXT_ASYNC_ENTRY==='true',return_replay:process.env.PN_CONTEXT_RETURN_REPLAY==='true',main_context_hook:hasTopicHook,policy_state:state,synthetic_origin:true,original_feed_unchanged:true,errors});await context.close();
+827359	}}finally{await browser.close();await new Promise(r=>server.close(r));writeFileSync(resolve(out,'receipt.json'),JSON.stringify({edition,public_acceptance:false,receipts},null,2)+'\n');}
+827360	console.log(JSON.stringify(receipts));
+827363	import {acceptedPolicy,acceptedGridContext,policyHash,policySource,contextForOrigin,validOrigin,classifyHeadline,infrastructureEntries,relatedHeadlines,newsContextBase,newsContextUrl,requestedContext} from './model.mjs';
+827364	const bytes=readFileSync(new URL('./policy.json',import.meta.url),'utf8'),data=JSON.parse(bytes);
+827365	const dc={origin_type:'datacentre',origin_id:'dc:example'},repd={origin_type:'repd',origin_id:'2470',technology:'solar'};
+827366	const article=(title,link='https://publisher.example/story',extra={})=>({title,link,source:'Original publisher',date:'2026-11-17',first_seen:'2026-11-17T10:00:00Z',...extra});
+827367	const approval=()=>({state:'APPROVED_FACTS_ONLY',policy_sha256:policyHash,source_sha256:data.source_sha256,scope:data.rights.scope,reviews:[{role:'GRID_ANALYSER',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-100'},{role:'TRAIN_CONDUCTOR',decision:'PASS',reference:'https://github.com/Ventusltd/neural-link-between-agents/issues/42#issuecomment-101'}]});
+827369	test('actual pinned policy yields national facts only under synthetic approval',async()=>{
+827370	 const result=await acceptedPolicy(bytes,approval());assert.equal(result.source_url,policySource);assert.equal(result.themes.length,5);assert.equal(result.quantities.length,2);assert.equal(result.quantities[1].comparison,'AT_MOST');assert.match(result.quantities[1].meaning,/1\.3 or better/);assert.equal(result.project_compliance,null);assert.equal(result.available_capacity,null);assert.deepEqual(result.asset_associations,[]);
+827372	test('actual independent review receipts admit policy; pending or altered reviews fail closed',async()=>{
+827373	 const recorded=JSON.parse(readFileSync(new URL('./review.json',import.meta.url)));assert.ok(await acceptedPolicy(bytes,recorded));
+827374	 const pending={...recorded,state:'REVIEW_REQUIRED',reviews:[]};assert.equal(await acceptedPolicy(bytes,pending),null);
+827375	 for(const mutate of [r=>r.reviews[1].role=r.reviews[0].role,r=>r.reviews[1].reference=r.reviews[0].reference,r=>r.reviews[1].reference='https://evil.test/fake',r=>r.source_sha256='0'.repeat(64),r=>r.reviews[0].decision='PENDING']){const r=approval();mutate(r);assert.equal(await acceptedPolicy(bytes,r),null);}
+827376	test('changed source/fact bytes or project compliance cannot pass policy pin',async()=>{
+827377	 for(const mutate of [d=>d.quantities[0].value='6000',d=>d.source_url='javascript:alert(1)',d=>d.project_compliance=true,d=>d.connections.push('nearby'),d=>d.themes[0].fragment='evil']){const d=JSON.parse(bytes);mutate(d);assert.equal(await acceptedPolicy(JSON.stringify(d),approval()),null);}
+827378	test('three origin kinds retain stable identity and explicitly only topic context',()=>{
+827379	 for(const o of [repd,dc,{origin_type:'substation',origin_id:'site:XYZ'}]){const result=contextForOrigin(o);assert.equal(result.origin_id,o.origin_id);assert.equal(result.association,'TOPIC_CONTEXT_ONLY');assert.equal(result.compliance,null);assert.equal(result.connection,null);}
+827380	 assert.deepEqual(contextForOrigin(repd).topics,['solar']);assert.deepEqual(contextForOrigin(dc).topics,['datacentre','grid']);
+827381	 assert.deepEqual(contextForOrigin({...repd,technology:'battery'}).topics,['storage']);
+827382	 assert.equal(contextForOrigin({...repd,origin_id:'repd:2470'}).origin_id,'repd:2470');
+827383	test('unknown origin, malformed REPD, oversized and URL IDs are refused',()=>{
+827384	 for(const o of [{},null,{origin_type:'repd',origin_id:'abc'},{origin_type:'repd',origin_id:'2470<script>'},{origin_type:'datacentre',origin_id:'https://evil.test'},{origin_type:'substation',origin_id:'x'.repeat(121)}])assert.equal(validOrigin(o),null);
+827385	test('headline classifier handles UK/US data-centre spelling without AI substring false positives',()=>{
+827386	 for(const title of ['Data centres and grid','Data-center demand','Datacenter demand','AI energy infrastructure'])assert.ok(classifyHeadline(article(title)).includes('datacentre'));
+827387	 assert.deepEqual(classifyHeadline(article('Retail train delays')),[]);
+827388	test('original article fields and clocks preserved, tracking duplicates suppressed only in context',()=>{
+827389	 const first=article('AI power and grid','https://publisher.example/story?utm_source=a'),duplicate=article('Different label','https://publisher.example/story?utm_source=b',{technology:'datacentre'}),other=article('Solar expansion','https://publisher.example/solar');
+827390	 const doc={items:[first,duplicate,other]},before=JSON.stringify(doc),result=relatedHeadlines(doc,dc);assert.equal(result.length,1);assert.equal(result[0].item,first);assert.equal(result[0].item.link,first.link);assert.equal(JSON.stringify(doc),before);
+827391	test('possible match never becomes exact project news or Journey origin',()=>{
+827392	 const item=article('Local retail plan','https://publisher.example/retail',{possible_match:{repd_ref:'2470',site_name:'Example'}});assert.deepEqual(relatedHeadlines({items:[item]},repd),[]);
+827393	test('unsafe URLs, missing credits and arbitrary count inputs do not produce links',()=>{
+827394	 for(const bad of ['javascript:alert(1)','https://user:pass@publisher.example/x','http://publisher.example/x','https://127.0.0.1/x','https://host.internal/x'])assert.deepEqual(relatedHeadlines({items:[article('Data centre grid',bad)]},dc),[]);
+827395	 assert.deepEqual(relatedHeadlines({items:[article('Grid',{},{source:''})]},dc),[]);assert.deepEqual(relatedHeadlines({items:Array(201).fill(article('Grid'))},dc),[]);
+827396	 assert.deepEqual(relatedHeadlines({items:[article('Grid','https://publisher.example/x',{date:'x'.repeat(65)})]},dc),[]);
+827397	 assert.deepEqual(relatedHeadlines({items:[article('Grid')]},dc,{limit:100}),[]);
+827398	test('context links point to current immutable Pipeline edition, no open redirects',()=>{
+827399	 const base='https://globalgrid2050.com/uk_renewables_pipeline/202611171940/';const url=new URL(newsContextUrl(base,dc));assert.equal(url.searchParams.get('news_origin_id'),'dc:example');assert.equal(url.searchParams.get('news_topic'),'datacentre');assert.equal(url.hash,'#headlinesHeading');
+827400	 for(const bad of ['https://evil.test/uk_renewables_pipeline/202611171940/','https://globalgrid2050.com/','javascript:alert(1)',base+'?q=1',base+'#redirect',base.replace('globalgrid2050.com','globalgrid2050.com:8443'),base.replace('globalgrid2050.com','evil@globalgrid2050.com')]){assert.equal(newsContextUrl(bad,dc),null);assert.equal(newsContextBase(bad),null);}
+827401	 assert.equal(newsContextBase(base),base);assert.equal(newsContextBase(base+'index.html'),base+'index.html');
+827402	test('requested context has bounded topics and treats bad origin independently',()=>{
+827403	 assert.deepEqual(requestedContext('?news_topic=grid&news_origin_type=repd&news_origin_id=2470'),{topic:'grid',origin:{origin_type:'repd',origin_id:'2470',technology:null}});
+827404	 assert.equal(requestedContext('?news_topic=<script>'),null);assert.deepEqual(requestedContext('?news_topic=grid&news_origin_type=evil'),{topic:'grid',origin:null});
+827405	test('existing approved government producer yields planning context, never a selected-asset connection',async()=>{
+827406	 const facts=readFileSync(new URL('../../document_facts_ui/20261117-v939/facts.json',import.meta.url),'utf8'),notice=JSON.parse(readFileSync(new URL('../../grid_notice_ui/20261117-v938/notice.json',import.meta.url)));
+827407	 const context=await acceptedGridContext(facts,notice);assert.equal(context.project,'planning:EN020026');assert.equal(context.decision.precision,'DAY');assert.equal(context.decision.value,'2026-10-30');assert.equal(context.planned_upper_bound.value,'2');assert.equal(context.planned_upper_bound.unit,'GW');assert.match(context.planned_upper_bound.meaning,/not current, available or commissioned/);assert.equal(context.documents.length,2);assert.equal(context.selected_asset_association,null);assert.equal(context.available_capacity,null);assert.deepEqual(context.connections,[]);
+827408	 assert.equal(await acceptedGridContext(facts+' ',notice),null);assert.equal(await acceptedGridContext(facts,{...notice,publishable:false}),null);
+827409	test('missing feeds and unknown origins produce no context articles',()=>{
+827410	 assert.deepEqual(relatedHeadlines(null,repd),[]);assert.deepEqual(relatedHeadlines({items:[]},repd),[]);assert.deepEqual(relatedHeadlines({items:[article('Grid')]},{origin_type:'unknown',origin_id:'2470'}),[]);
+827411	test('actual pinned saved feed distinguishes energy infrastructure from generic AI finance',()=>{
+827412	 const feed=JSON.parse(readFileSync(new URL('../../../uk_renewables_pipeline/202611171940/news/pipeline_headlines.snapshot.json',import.meta.url)));assert.equal(feed.items.length,71);
+827413	 for(const index of [0,8,9,11]){assert.equal(feed.items[index].category,'datacentre');assert.equal(classifyHeadline(feed.items[index]).includes('datacentre'),false,'AI finance alone is not infrastructure context');}
+827414	 for(const index of [1,3,4,5,6,10,12,13])assert.ok(classifyHeadline(feed.items[index]).includes('datacentre'));
+827415	 for(const index of [18,45,68])assert.ok(classifyHeadline(feed.items[index]).includes('grid'),'actual pylon/power-cable/transmission items retained');
+827416	 for(const index of [17,19,40,57])assert.ok(classifyHeadline(feed.items[index]).includes('storage'),'battery/BESS/LDES context retained');
+827417	test('explicit main-list infrastructure filtering preserves original references, clocks and default complete view',()=>{
+827418	 const feed=JSON.parse(readFileSync(new URL('../../../uk_renewables_pipeline/202611171940/news/pipeline_headlines.snapshot.json',import.meta.url))),entries=feed.items.map((item,index)=>({item,index})),before=JSON.stringify(entries);
+827419	 assert.equal(infrastructureEntries(entries,null),entries);assert.deepEqual(infrastructureEntries(entries,'unknown'),[]);
+827420	 const selected=infrastructureEntries(entries,'datacentre');for(const index of [0,8,9,11])assert.equal(selected.some(entry=>entry.index===index),false);
+827421	 for(const index of [1,3,4,5,6,10,12,13])assert.ok(selected.some(entry=>entry.index===index));
+827422	 assert.ok(selected.every(entry=>entry===entries[entry.index]));assert.deepEqual(selected.map(e=>e.index),selected.map(e=>e.index).sort((a,b)=>a-b));assert.equal(JSON.stringify(entries),before);
+827423	 assert.ok(infrastructureEntries(entries,'grid').some(entry=>entry.index===45));
+827424	import {acceptedDocuments} from '../../document_facts_ui/20261117-v939/model.mjs';
+827425	export const policySource='https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant';
+827426	export const policyHash='e2ba6c89c9bfd47456442ccb4c20e12d8297682630bca4b135da9a2e83a6d1ff';
+827427	const originKinds=new Set(['repd','datacentre','substation']);
+827428	const topics=new Set(['datacentre','grid','renewables','storage','solar','wind']);
+827429	const themes={datacentre:/\b(?:data[ -]?cent(?:re|er)s?|AI (?:power|energy|infrastructure|demand))\b/i,grid:/\b(?:grid|substation|transmission|distribution|connection|network upgrade|pylon|power cable|overhead line)s?\b/i,storage:/\b(?:battery|batteries|storage|BESS|LDES|pumped hydro|flexibility)\b/i,solar:/\b(?:solar|photovoltaic|PV)\b/i,wind:/\b(?:wind|offshore|onshore)\b/i,renewables:/\b(?:renewable|clean (?:power|energy)|energy transition)s?\b/i};
+827430	const safeUrl=value=>{try{const u=new URL(value);return typeof value==='string'&&u.protocol==='https:'&&!u.username&&!u.password&&(!u.port||u.port==='443')&&!/(^|\.)(localhost|local|internal)$/.test(u.hostname)&&u.hostname.includes('.')&&!/^[\d.]+$/.test(u.hostname)?u:null;}catch{return null;}};
+827431	const digest=async text=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)))).map(v=>v.toString(16).padStart(2,'0')).join('');
+827432	export function validOrigin(origin){
+827433	 if(!origin||!originKinds.has(origin.origin_type)||typeof origin.origin_id!=='string'||!/^[\w:.-]{1,120}$/.test(origin.origin_id))return null;
+827434	 if(origin.origin_type==='repd'&&!/^(?:repd:)?\d+$/.test(origin.origin_id))return null;
+827435	 return {origin_type:origin.origin_type,origin_id:origin.origin_id,technology:typeof origin.technology==='string'?origin.technology.slice(0,50):null};
+827437	export function contextForOrigin(origin){
+827438	 const value=validOrigin(origin);if(!value)return null;
+827439	 const technology=value.technology?.toLowerCase()||'';
+827440	 const selected=value.origin_type==='datacentre'?['datacentre','grid']:value.origin_type==='substation'?['grid']:['solar','wind','storage'].filter(t=>t==='storage'?/storage|battery|bess/.test(technology):technology.includes(t));
+827441	 return {...value,topics:selected.length?selected:['renewables','grid'],association:'TOPIC_CONTEXT_ONLY',compliance:null,connection:null};
+827442	export function classifyHeadline(item){
+827443	 if(!item||typeof item.title!=='string'||typeof item.source!=='string')return [];
+827444	 // Existing discovery categories alone cannot turn generic AI stock/IPO news
+827445	 // into power-infrastructure context. Require the original title or technology.
+827446	 const text=[item.title,item.technology].filter(v=>typeof v==='string').join(' ');
+827447	 return Object.entries(themes).filter(([,rule])=>rule.test(text)).map(([topic])=>topic);
+827448	export function infrastructureEntries(entries,topic){
+827449	 if(!Array.isArray(entries))return [];
+827450	 if(topic===null)return entries;
+827451	 if(!topics.has(topic))return [];
+827452	 const selected=topic==='renewables'?['renewables','solar','wind','storage']:[topic];
+827453	 return entries.filter(entry=>classifyHeadline(entry.item).some(value=>selected.includes(value)));
+827454	export function relatedHeadlines(doc,origin,{limit=6}={}){
+827455	 const context=contextForOrigin(origin);if(!context||!Array.isArray(doc?.items)||doc.items.length>200||!Number.isInteger(limit)||limit<1||limit>12)return [];
+827456	 const seen=new Set(),result=[];
+827457	 for(const item of doc.items){
+827458	  const url=safeUrl(item?.link);if(!url||typeof item.title!=='string'||!item.title.trim()||item.title.length>600||typeof item.source!=='string'||!item.source.trim()||item.source.length>160||[item.date,item.first_seen].some(v=>v!==undefined&&v!==null&&(typeof v!=='string'||v.length>64)))continue;
+827459	  const matches=classifyHeadline(item).filter(t=>context.topics.includes(t));if(!matches.length)continue;
+827460	  // Only the duplicate key is normalised; original publisher URL/text/clocks remain untouched.
+827461	  url.hash='';for(const key of [...url.searchParams.keys()])if(/^utm_/i.test(key))url.searchParams.delete(key);
+827462	  if(seen.has(url.href))continue;seen.add(url.href);
+827463	  result.push({item,topics:matches,association:'TOPIC_CONTEXT_ONLY'});if(result.length===limit)break;
+827465	export function newsContextBase(base){
+827466	 return typeof base==='string'&&/^https:\/\/globalgrid2050\.com\/uk_renewables_pipeline\/\d{12}\/(?:index\.html)?$/.test(base)?base:null;
+827467	export function newsContextUrl(base,origin){
+827468	 const context=contextForOrigin(origin),accepted=newsContextBase(base);if(!context||!accepted)return null;const url=new URL(accepted);
+827469	 url.searchParams.set('news_topic',context.topics[0]);url.searchParams.set('news_origin_type',context.origin_type);url.searchParams.set('news_origin_id',context.origin_id);url.hash='headlinesHeading';return url.href;
+827470	export function requestedContext(search){
+827471	 const p=new URLSearchParams(search),topic=p.get('news_topic');if(!topics.has(topic))return null;
+827472	 const origin=validOrigin({origin_type:p.get('news_origin_type'),origin_id:p.get('news_origin_id')});return {topic,origin};
+827473	export async function acceptedGridContext(facts,notice){
+827474	 const bundle=await acceptedDocuments(facts,notice);if(!bundle)return null;
+827475	 const documents=bundle.documents.map(d=>({title:d.title,publisher:d.publisher,source_url:d.source_url,source_sha256:d.source_version,published_date:d.published_date,retrieved_at:d.retrieved_at}));
+827476	 const decision=bundle.documents.flatMap(d=>d.facts).find(f=>f.id==='consent_decision');
+827477	 const capacity=bundle.documents.flatMap(d=>d.facts).find(f=>f.id==='planned_transmission_upper_bound');
+827478	 if(!decision||!capacity)return null;
+827479	 return {project:'planning:EN020026',title:'Sea Link',documents,decision:decision.value,planned_upper_bound:{value:capacity.value,unit:capacity.unit,meaning:capacity.meaning},association:'OFFICIAL_PROJECT_CONTEXT_ONLY',selected_asset_association:null,connections:[],available_capacity:null};
+827480	export async function acceptedPolicy(bytes,review){
+827482	  if(typeof bytes!=='string'||bytes.length>16000||await digest(bytes)!==policyHash)return null;
+827483	  const data=JSON.parse(bytes);
+827484	  if(data.schema!=='globalgrid2050.energy-policy-context.v1'||data.source_url!==policySource||data.scope!=='NATIONAL_POLICY_CONTEXT_ONLY'||data.publisher!=='HM Treasury'||data.project_compliance!==null||data.available_capacity!==null||data.connections.length||data.asset_associations.length||data.themes.length!==5||data.quantities.length!==2)return null;
+827485	  if(review?.state!=='APPROVED_FACTS_ONLY'||review.policy_sha256!==policyHash||review.source_sha256!==data.source_sha256||review.scope!==data.rights.scope||!Array.isArray(review.reviews)||review.reviews.length!==2)return null;
+827486	  const roles=new Set(),refs=new Set();for(const r of review.reviews){if(!['GRID_ANALYSER','TRAIN_CONDUCTOR','INDEPENDENT_REVIEWER'].includes(r.role)||roles.has(r.role)||refs.has(r.reference)||r.decision!=='PASS'||!/^https:\/\/github\.com\/Ventusltd\/[\w.-]+\/(?:issues|pull)\/\d+#issuecomment-\d+$/.test(r.reference))return null;roles.add(r.role);refs.add(r.reference);}
+827487	  return data;
+827489	"""Create a disposable integrated preview without reserving/editing an edition."""
+827491	import argparse,base64,hashlib,io,json,re,shutil,subprocess,zipfile
+827493	    parser=argparse.ArgumentParser(description=__doc__)
+827494	    parser.add_argument('--source-ref',required=True)
+827495	    parser.add_argument('--edition',required=True)
+827496	    parser.add_argument('--output',type=Path,required=True)
+827497	    parser.add_argument('--journey-ref',help='Optional exact sender commit, copied for explicit async fixture loading')
+827498	    parser.add_argument('--news-hook',action='store_true',help='Preview the new-edition-only current-view getter')
+827499	    args=parser.parse_args()
+827500	    if not re.fullmatch('[a-f0-9]{40}',args.source_ref) or not re.fullmatch('[0-9]{12}',args.edition):
+827501	        raise SystemExit('Exact source commit and dated edition required')
+827502	    if args.journey_ref and not re.fullmatch('[a-f0-9]{40}',args.journey_ref):
+827503	        raise SystemExit('Exact Journey sender commit required')
+827504	    root=Path(__file__).resolve().parents[3]
+827505	    output=args.output.resolve()
+827506	    if output.exists() or output==root or root in output.parents:
+827507	        raise SystemExit('Use a new disposable output outside the source worktree')
+827508	    source_index=subprocess.check_output(['git','-C',str(root),'show',f'{args.source_ref}:uk_renewables_pipeline/{args.edition}/index.html'])
+827509	    references=re.findall(r'(?:src|href)="\.\./\.\./(automation/[^"?]+)',source_index.decode('utf-8'))
+827510	    shared=sorted({str(Path(value).parent).replace('\\','/') for value in references})
+827511	    # Existing dynamic imports/data consumers are outside direct HTML tags.
+827512	    # Reuse their committed closure; never replace a missing input with a mock.
+827513	    shared+=['automation/primary_note_ui','automation/news/grid_watch/sources.json',
+827514	             'uk_renewables_pipeline/202611161747/global-datacentres/projects.json',
+827515	             'dist/major_project_news_v9_5_1.json']
+827516	    archive=subprocess.check_output(['git','-C',str(root),'archive','--format=zip',args.source_ref,f'uk_renewables_pipeline/{args.edition}',*shared],timeout=90)
+827517	    if len(archive)>100_000_000:
+827518	        raise SystemExit('Archive bound exceeded')
+827519	    with zipfile.ZipFile(io.BytesIO(archive)) as files:
+827520	        if sum(item.file_size for item in files.infolist())>200_000_000:
+827521	            raise SystemExit('Expanded preview bound exceeded')
+827522	        for item in files.infolist():
+827523	            if not (output/item.filename).resolve().is_relative_to(output):
+827524	                raise SystemExit('Unsafe archive path')
+827525	        output.mkdir(parents=True)
+827526	        files.extractall(output)
+827527	    if args.journey_ref:
+827528	        sender=subprocess.check_output(['git','-C',str(root),'archive','--format=zip',args.journey_ref,'automation/journey_entry_ui/20261118'],timeout=30)
+827529	        with zipfile.ZipFile(io.BytesIO(sender)) as files:
+827530	            for item in files.infolist():
+827531	                if not (output/item.filename).resolve().is_relative_to(output):
+827532	                    raise SystemExit('Unsafe sender archive path')
+827533	            files.extractall(output)
+827534	    module=Path(__file__).resolve().parent
+827535	    target=output/'automation/energy_context_ui/20261118'
+827536	    shutil.copytree(module,target,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
+827537	    index=output/f'uk_renewables_pipeline/{args.edition}/index.html'
+827538	    original=index.read_bytes()
+827539	    if original!=source_index:
+827540	        raise SystemExit('Archive index differs from committed source')
+827541	    styles=base64.b64encode(hashlib.sha256((module/'styles.css').read_bytes()).digest()).decode()
+827542	    script=base64.b64encode(hashlib.sha256((module/'view.mjs').read_bytes()).digest()).decode()
+827543	    tags=f'<link rel="stylesheet" href="../../automation/energy_context_ui/20261118/styles.css" integrity="sha256-{styles}">\n<script type="module" src="../../automation/energy_context_ui/20261118/view.mjs" integrity="sha256-{script}"></script>\n'
+827544	    text=original.decode('utf-8')
+827545	    if text.count('</body>')!=1 or 'energy_context_ui/20261118/view.mjs' in text:
+827546	        raise SystemExit('Unexpected predecessor context inclusion')
+827547	    index.write_text(text.replace('</body>',tags+'</body>'),encoding='utf-8',newline='\n')
+827548	    hook_delta=0
+827549	    if args.news_hook:
+827550	        renderer=output/f'uk_renewables_pipeline/{args.edition}/scripts/plugins/live-news.js'
+827551	        before=renderer.read_bytes();code=before.decode('utf-8');needle='attachView: function(adapter)'
+827552	        if code.count(needle)!=1:raise SystemExit('Unexpected existing news adapter API')
+827553	        renderer.write_text(code.replace(needle,'getViewAdapter:function(){return qualityAdapter;},'+needle),encoding='utf-8',newline='\n');hook_delta=renderer.stat().st_size-len(before)
+827554	    receipt={'scope':'LOCAL_REVERSIBLE_PREVIEW_ONLY','source_ref':args.source_ref,'edition':args.edition,'original_index_sha256':hashlib.sha256(original).hexdigest(),'index_bytes_before':len(original),'index_bytes_after':index.stat().st_size,'edition_bytes_delta':index.stat().st_size-len(original),'style_sha256':hashlib.sha256((module/'styles.css').read_bytes()).hexdigest(),'module_sha256':hashlib.sha256((module/'view.mjs').read_bytes()).hexdigest(),'new_version_reserved':False,'public_acceptance':False}
+827555	    receipt['journey_sender_ref']=args.journey_ref
+827556	    receipt['news_hook_bytes']=hook_delta
+827557	    receipt['total_edition_bytes_delta']=receipt['edition_bytes_delta']+hook_delta
+827558	    (output/'preview-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+827559	    print(json.dumps(receipt,indent=2))
+827563	const release=resolve(process.argv[2]),root=resolve(release,'../..'),base='automation/energy_context_ui/20261118/';
+827564	const bytes=path=>readFileSync(resolve(root,path)),hash=data=>createHash('sha256').update(data).digest('hex');
+827565	const pin=JSON.parse(readFileSync(resolve(release,'contracts/energy-context.v945.json'))),raw=bytes(base+'closure.json');
+827566	assert.equal(pin.schema,'pipeline.energy-context.v1');assert.match(pin.sha256,/^[a-f0-9]{64}$/);assert.equal(hash(raw),pin.sha256,'context manifest pin');
+827567	const manifest=JSON.parse(raw);assert.equal(manifest.schema,'pipeline.energy-context-closure.v1');
+827568	const expected=['model.mjs','view.mjs','styles.css','policy.json','review.json','verify-closure.mjs'].map(x=>base+x).concat(['automation/document_facts_ui/20261117-v939/model.mjs','automation/document_facts_ui/20261117-v939/facts.json','automation/grid_notice_ui/20261117-v938/notice.json','automation/grid_notice_ui/20261117-v938/model.mjs']);
+827569	assert.deepEqual(Object.keys(manifest.files).sort(),expected.sort(),'complete explicit runtime/checker closure');
+827570	for(const [path,sha]of Object.entries(manifest.files)){assert(!relative(root,resolve(root,path)).startsWith('..'));assert.match(sha,/^[a-f0-9]{64}$/);assert.equal(hash(bytes(path)),sha,path);}
+827572	for(const name of ['view.mjs','styles.css'])assert(html.includes('../../'+base+name+'" integrity="sha256-'+Buffer.from(manifest.files[base+name],'hex').toString('base64')+'"'),name+' actual-byte SRI');
+827573	const source=readFileSync(resolve(release,'scripts/plugins/live-news.js'),'utf8');assert.equal(source.split('getViewAdapter:function(){return qualityAdapter;},').length,2,'single existing-adapter getter');
+827574	console.log('V9.45 complete energy context shared SHA/SRI closure: PASS');
+827575	import {acceptedPolicy,acceptedGridContext,policySource,relatedHeadlines,contextForOrigin,infrastructureEntries,newsContextBase,newsContextUrl,requestedContext} from './model.mjs';
+827576	const D=document,news=D.querySelector('.pn-news-quality'),grid=D.getElementById('gridPanel');
+827577	const el=(tag,text)=>{const n=D.createElement(tag);if(text!==undefined)n.textContent=text;return n;};
+827578	const link=(text,url)=>{const a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;};
+827579	let origin=null,policy=null,gridContext=null,feed=window.pipelineHeadlineDocument,requestApplied=false,activeTopic=null,newsApi=null,viewAdapter=null,lastView=null;
+827580	const returnKey='pipelineEnergyNewsReturn',filterKinds=['source','topic','category','kind'];
+827581	const newsQuery=()=>D.querySelector('.pn-news-header-search input');
+827582	const newsSelect=kind=>D.querySelector('.pn-news-filter-tools select[aria-label="News '+({source:'publisher',topic:'topic',category:'category',kind:'ranking source type'}[kind])+'"]');
+827583	const policyPanel=el('details'),summary=el('summary','AI demand, clean energy and grid policy');policyPanel.className='pn-energy-context';policyPanel.id='energyPolicyContext';policyPanel.append(summary);
+827584	const body=el('div');policyPanel.append(body);news?.append(policyPanel);
+827585	const related=el('details'),relatedBody=el('div');related.className='pn-energy-context';related.id='journeyNewsContext';related.append(el('summary','Journey context — original news and official sources'),relatedBody);grid?.append(related);
+827586	const contextStatus=el('div'),contextLabel=el('span'),allHeadlines=el('button','All original headlines');contextStatus.className='pn-news-context-status';contextStatus.id='headlineContextStatus';contextStatus.hidden=true;contextStatus.setAttribute('role','status');allHeadlines.type='button';contextStatus.append(contextLabel,allHeadlines);D.getElementById('liveNews')?.before(contextStatus);
+827587	const topicLabels={datacentre:'data-centre infrastructure',grid:'grid infrastructure',storage:'storage and flexibility',renewables:'energy transition',solar:'solar',wind:'wind'};
+827588	function showContext(){contextStatus.hidden=!activeTopic;contextStatus.dataset.topic=activeTopic||'';contextLabel.textContent=activeTopic?'Headline context: '+topicLabels[activeTopic]+'. Reset for the complete original view.':'';}
+827589	function renderMain(view=lastView){if(!viewAdapter||!view)return false;viewAdapter({...view,entries:infrastructureEntries(view.entries,activeTopic)});showContext();return true;}
+827590	function connectNews(){const api=window.pipelineHeadlines;if(newsApi===api&&viewAdapter)return true;const adapter=api?.getViewAdapter?.();if(typeof adapter!=='function')return false;newsApi=api;viewAdapter=adapter;api.attachView(view=>{lastView=view;renderMain(view);});const clear=D.querySelector('.pn-news-filter-tools button');clear?.addEventListener('click',()=>{requestApplied=true;activeTopic=null;renderMain();});return true;}
+827591	allHeadlines.addEventListener('click',()=>{requestApplied=true;activeTopic=null;const clear=D.querySelector('.pn-news-filter-tools button');if(clear)clear.click();else renderMain();});
+827592	function topicFilter(topic){
+827593	 const select=D.querySelector('.pn-news-filter-tools select[aria-label="News topic"]'),category=D.querySelector('.pn-news-filter-tools select[aria-label="News category"]'),query=D.querySelector('.pn-news-header-search input');
+827594	 if(!select||!query)return false;
+827595	 for(const node of D.querySelectorAll('.pn-news-filter-tools select'))node.value='';query.value='';
+827596	 if(connectNews()){activeTopic=topic;renderMain();D.getElementById('headlinesHeading')?.scrollIntoView({block:'start'});return true;}
+827597	 if([...select.options].some(o=>o.value===topic)){select.value=topic;select.dispatchEvent(new Event('change',{bubbles:true}));}
+827598	 else if(category&&[...category.options].some(o=>o.value===topic)){category.value=topic;category.dispatchEvent(new Event('change',{bubbles:true}));}
+827599	 else{query.value={grid:'grid',storage:'storage',renewables:'renewable',datacentre:'datacentre'}[topic]||topic;query.dispatchEvent(new Event('input',{bubbles:true}));}
+827600	 D.getElementById('headlinesHeading')?.scrollIntoView({block:'start'});return true;
+827601	function buttons(host){
+827602	 const controls=el('div');controls.className='pn-energy-actions';
+827603	 for(const [topic,label] of [['datacentre','Data-centre news'],['grid','Grid infrastructure news'],['storage','Storage and flexibility'],['renewables','Energy-transition news']]){
+827604	  const button=el('button',label);button.type='button';button.dataset.newsTopic=topic;button.addEventListener('click',()=>{requestApplied=true;const ok=topicFilter(topic);status.textContent=ok?'Applied '+label.toLowerCase()+' to the existing news controls; zero matches is a valid result.':'News controls are not available yet.';});controls.append(button);
+827605	 }const status=el('p');status.setAttribute('role','status');host.append(controls,status);
+827606	function drawPolicy(){
+827607	 body.replaceChildren();body.append(el('p','Explore renewable supply, AI electricity demand and grid upgrades using the existing news topics.' ));buttons(body);
+827608	 body.append(link('UK Government Data Centre Covenant',policySource));
+827609	 if(gridContext){const upgrade=el('details');upgrade.dataset.officialContext='planning:EN020026';upgrade.append(el('summary','Official grid-upgrade context — Sea Link'),el('p',`Consent decision ${gridContext.decision.value} (DAY); proposed transmission up to ${gridContext.planned_upper_bound.value} ${gridContext.planned_upper_bound.unit}. Not commissioned or available capacity; no selected-asset association.`));for(const source of gridContext.documents)upgrade.append(link(source.title,source.source_url),el('p',`${source.publisher} · published ${source.published_date.value} (DAY)`));const show=el('button','Read exact grid-document facts');show.type='button';show.addEventListener('click',()=>{D.getElementById('gridTab')?.click();const facts=D.querySelector('.pn-document-facts');if(facts){facts.open=true;facts.scrollIntoView({block:'start'});}});upgrade.append(show);body.append(upgrade);}
+827610	 if(!policy){body.append(el('p','Policy facts await source-integrity and independent review. The official publication remains available.'));return;}
+827611	 body.append(el('p',`${policy.publisher} · published ${policy.published_date.value} (DAY). National policy context; no project compliance assessment.`));
+827612	 const ul=el('ul');for(const theme of policy.themes){const li=el('li');li.append(link(theme.label,policy.source_url+'#'+theme.fragment));ul.append(li);}body.append(ul);
+827613	 for(const q of policy.quantities)body.append(el('p',`${q.id==='new_facility_pue'?'PUE '+q.value+' or better':q.value+' '+q.unit} — ${q.meaning}.`));
+827614	 const details=el('details');details.append(el('summary','Source and fact provenance'),el('p',`Retrieved ${policy.retrieved_at}. Source SHA-256 ${policy.source_sha256}.`));
+827615	 for(const q of policy.quantities)details.append(el('p',`${q.id}: ${q.locator}; paragraph SHA-256 ${q.text_sha256}`));
+827616	 details.append(link('Open Government Licence v3.0',policy.rights.licence_url),el('p','Government-authored facts only. No image or third-party material reproduced.'));body.append(details);
+827617	function drawRelated(){
+827618	 relatedBody.replaceChildren();const context=contextForOrigin(origin);
+827619	 relatedBody.append(el('p',context?`${context.origin_type.toUpperCase()} ${context.origin_id}: topic context only. Headlines are not evidence of a connection, supply agreement or project association.`:'Choose a REPD project, data centre or substation JOURNEY to retain its origin while exploring related news topics.'));
+827620	 buttons(relatedBody);
+827621	 if(context){const items=relatedHeadlines(feed,origin);const ul=el('ul');for(const {item} of items){const li=el('li');li.append(link(item.title,item.link),el('span',` — ${item.source}; ${item.date?'publisher date '+item.date:item.first_seen?'first collected '+item.first_seen:'article date unknown'}`));ul.append(li);}relatedBody.append(items.length?ul:el('p','No matching topic headlines in the current feed. No project association inferred.'));}
+827622	 relatedBody.append(link('Official Data Centre Covenant policy context',policySource),el('p','Behind the meter: documented on-site generation, storage and demand. Front of meter: documented network assets and upgrades. A nearby asset is not a proven supplier or connection.'));
+827623	function selectOrigin(value){origin=contextForOrigin(value);drawRelated();return !!origin;}
+827624	function rememberNews(savedOrigin=origin){const query=newsQuery();if(!query||query.value.length>2048)return;const filters={query:query.value,...Object.fromEntries(filterKinds.map(kind=>[kind,newsSelect(kind)?.value||'']))};try{history.replaceState({...history.state,[returnKey]:{path:location.pathname,filters,origin:savedOrigin,contextTopic:activeTopic}},'');}catch{}}
+827625	function restoreNews(saved){const query=newsQuery();if(!query||!saved?.filters||typeof saved.filters.query!=='string'||saved.filters.query.length>2048)return false;if(saved.contextTopic&&requestedContext('?news_topic='+encodeURIComponent(saved.contextTopic))&&connectNews()){activeTopic=saved.contextTopic;renderMain();}let complete=true;query.value=saved.filters.query;for(const kind of filterKinds){const select=newsSelect(kind),value=saved.filters[kind];if(select&&typeof value==='string'&&[...select.options].some(o=>o.value===value))select.value=value;else if(value)complete=false;}query.dispatchEvent(new Event('input',{bubbles:true}));if(saved.origin)selectOrigin(saved.origin);return complete;}
+827626	function connectEntry(){const api=window.pipelineJourneyEntry,base=newsContextBase(location.origin+location.pathname);if(!base||api?.schema!=='pipeline.journey-entry.v1'||typeof api.setNewsContextUrl!=='function')return false;try{api.setNewsContextUrl(base);return true;}catch{return false;}}
+827627	window.pipelineEnergyContext={selectOrigin,topic:()=>activeTopic,newsBase:()=>newsContextBase(location.origin+location.pathname),newsUrl:value=>newsContextUrl(location.origin+location.pathname,value)};
+827628	window.addEventListener('pipeline-news-ready',()=>queueMicrotask(connectNews));D.addEventListener('DOMContentLoaded',connectNews,{once:true});connectNews();
+827629	window.addEventListener('pipeline-journey-ready',connectEntry);connectEntry();
+827630	window.addEventListener('pipeline-journey-origin',event=>{if(selectOrigin(event.detail))rememberNews();});
+827631	D.addEventListener('click',event=>{if(event.target.closest?.('#journeyAtlasNav'))rememberNews(null);},true);
+827632	for(const node of [newsQuery(),...filterKinds.map(newsSelect)].filter(Boolean))for(const type of ['input','change'])node.addEventListener(type,event=>{if(event.isTrusted)requestApplied=true;});
+827633	const applyRequest=()=>{if(requestApplied||!Array.isArray(feed?.items))return;const saved=history.state?.[returnKey];if(saved?.path===location.pathname){setTimeout(()=>{if(!requestApplied)requestApplied=restoreNews(saved);},0);return;}const request=requestedContext(location.search);if(request){if(request.origin)selectOrigin(request.origin);setTimeout(()=>{if(!requestApplied)requestApplied=topicFilter(request.topic);},0);}};
+827634	window.addEventListener('pipeline-feed-loaded',event=>{feed=event.detail;drawRelated();applyRequest();});
+827635	drawPolicy();drawRelated();
+827636	if(feed)applyRequest();
+827637	async function boundedText(name,max){const response=await fetch(new URL(name,import.meta.url),{signal:AbortSignal.timeout(4000)});if(!response.ok)throw Error('Source unavailable');const reader=response.body.getReader(),chunks=[];let size=0;try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>max)throw Error('Source bound exceeded');chunks.push(value);}}finally{await reader.cancel();}const bytes=new Uint8Array(size);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}return new TextDecoder('utf-8',{fatal:true}).decode(bytes);}
+827638	try{const [a,b]=await Promise.all([boundedText('policy.json',16000),boundedText('review.json',8000)]);policy=await acceptedPolicy(a,JSON.parse(b));}catch{}
+827639	policyPanel.dataset.state=policy?'source-qualified':'withheld';drawPolicy();
+827640	try{const [facts,notice]=await Promise.all([boundedText('../../document_facts_ui/20261117-v939/facts.json',16000),boundedText('../../grid_notice_ui/20261117-v938/notice.json',16000)]);gridContext=await acceptedGridContext(facts,JSON.parse(notice));}catch{}
+827641	policyPanel.dataset.gridContext=gridContext?'source-qualified':'withheld';drawPolicy();
+827642	// Full local candidate source -> real Atlas -> cold Back. No intercepted runtime/data.
+827645	const root=resolve(dirname(fileURLToPath(import.meta.url)),'../../..'),edition=process.env.PN_JOURNEY_EDITION||'202611180451';
+827646	const out=process.env.JOURNEY_RETURN_OUT||resolve(root,'work/journey-return');mkdirSync(out,{recursive:true});
+827648	const server=createServer((req,res)=>{try{const u=new URL(req.url,'http://local');let p=resolve(root,'.'+decodeURIComponent(u.pathname));assert.ok(p.startsWith(root+sep));if(u.pathname.endsWith('/'))p=resolve(p,'index.html');res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.mjs':'text/javascript','.json':'application/json','.css':'text/css'})[extname(p)]||'application/octet-stream');res.end(readFileSync(p))}catch{res.writeHead(404).end()}});
+827649	await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port,entry='/uk_renewables_pipeline/'+edition+'/';
+827650	const report={scope:'LOCAL_FULL_CANDIDATE_COLD_BACK_REGRESSION_NOT_PUBLIC_ACCEPTANCE',edition,cases:[]};
+827651	function sourceState(expected){
+827652	 const value=id=>document.getElementById(id)?.value??null;
+827653	 const category=document.querySelector('.pipeline-tabs [aria-selected="true"]')?.dataset.view??null;
+827655	 const state={category,technology:document.querySelector('#tech [aria-pressed="true"]')?.dataset.technology??null,status:document.querySelector('#status [aria-pressed="true"]')?.dataset.officialStatus??null,county:value('county'),query:value('search'),sort:value('sortProjects'),years:Object.fromEntries(['submittedYear','updatedYear','operationalYear'].map(id=>[id,document.querySelector('[data-year-filter="'+id+'"]')?.value??null])),dc:category==='datacentre'?{query:dc?.querySelector('input[type="search"]')?.value??null,kind:dc?.querySelector('[data-kind][aria-pressed="true"]')?.dataset.kind??null,country:dc?.querySelector('select[aria-label="Country"]')?.value??null}:null};
+827656	 return expected?JSON.stringify(state)===JSON.stringify(expected):state;
+827657	const browser=await chromium.launch({headless:true,args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']});
+827658	try{for(const category of ['solar','bess'])for(const technology of ['all','wind_offshore']){
+827659	 const context=await browser.newContext({viewport:{width:393,height:852},isMobile:true,hasTouch:true}),page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+827660	 const row={category,technology,errors,phase:'source-load'};report.cases.push(row);
+827661	 await page.goto(base+entry+'?technology=all',{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('#tbody')?.dataset.complete==='true');
+827662	 await page.locator('.pipeline-tabs [data-view="'+category+'"]').tap();await page.locator('#tech [data-technology="'+technology+'"]').tap();
+827663	 const ref=technology==='all'?'12588':'2470';await page.locator('#search').fill(ref);if(technology==='all')await page.locator('#county').selectOption('Oxfordshire');
+827664	 const sort=await page.locator('#sortProjects').evaluate(s=>[...s.options].find(o=>o.value!==s.value)?.value);assert.ok(sort,'real nondefault sort option required');await page.locator('#sortProjects').selectOption(sort);
+827665	 const target=page.locator('#tbody .pn-journey-link[href*="repd_ref='+ref+'"]').first();await target.waitFor();row.before=await page.evaluate(sourceState);assert.equal(row.before.category,category);assert.equal(row.before.technology,technology);assert.equal(row.before.query,ref);row.beforeTime=await page.evaluate(()=>performance.timeOrigin);
+827666	 row.phase='native-arrival';await target.tap();await page.waitForURL('https://ventusltd.github.io/gridatlas/atlas/**');await page.waitForFunction(id=>window.__GRIDATLAS_MODULES__?.gridVicinity?.snapshot().origin?.id===id,'repd:'+ref,{timeout:100000});assert.equal(await page.evaluate(()=>document.documentElement.dataset.gridatlasGeneration),'202611180026');
+827667	 await page.evaluate(async()=>{if(document.fullscreenElement)await document.exitFullscreen()});row.phase='cold-back';await page.goBack({waitUntil:'domcontentloaded'});await page.waitForURL(base+entry+'**');row.first=await page.evaluate(sourceState);
+827668	 await page.waitForFunction(sourceState,row.before,{timeout:60000});row.after=await page.evaluate(sourceState);row.afterTime=await page.evaluate(()=>performance.timeOrigin);assert.notEqual(row.beforeTime,row.afterTime,'a complete cold-document replay is required');assert.deepEqual(row.after,row.before,'all actual controls and category must match, no fields omitted');
+827669	 row.phase='trusted-controls';await page.locator('.pipeline-tabs [data-view="bess"]').tap();assert.equal(await page.evaluate(()=>document.querySelector('#tech [aria-pressed="true"]').dataset.technology),'bess');await page.locator('.pipeline-tabs [data-view="bess"]').press('Home');assert.equal(await page.evaluate(()=>document.querySelector('#tech [aria-pressed="true"]').dataset.technology),'solar');
+827670	 assert.deepEqual(errors,[]);row.pass=true;row.phase='complete';
+827671	 }catch(error){row.pass=false;row.error=String(error);row.last=await page.evaluate(sourceState);row.readiness=await page.evaluate(()=>({url:location.href,ready:document.readyState,complete:document.querySelector('#tbody')?.dataset.complete,total:document.querySelector('#tbody')?.dataset.total}));await page.screenshot({path:resolve(out,category+'-'+technology+'-failure.png')}).catch(()=>{});throw error}
+827672	 finally{writeFileSync(resolve(out,'receipt.json'),JSON.stringify(report,null,2)+'\n');await context.close()}
+827673	}}finally{await browser.close();await new Promise(r=>server.close(r));}
+827677	const edition=process.env.PN_JOURNEY_EDITION||'202611180451';
+827678	const source=readFileSync(resolve('uk_renewables_pipeline',edition,'scripts/plugins/preview-v928.js'),'utf8');
+827679	// Deterministic DOM-event model of the actual complete plugin, not browser proof.
+827680	function fixture({saved,technology='all',query='12588'}={}){
+827681	 const state={technology,query,county:'Oxfordshire',sort:'capacity_asc',years:{submittedYear:'2023',updatedYear:'All',operationalYear:'All'}},calls=[];
+827682	 const tasks=[],nodes=new Map(),listeners=new Map();let active=null;
+827683	 class Node{
+827684	  constructor(id,view){this.id=id;this.dataset=view?{view}:{};this.attributes={};this.events=new Map();this.hidden=false;this.children=[];this.style={};if(view)this.attributes['aria-controls']=['solar','bess'].includes(view)?'repdPanel':view==='grid'?'gridPanel':view==='datacentre'?'datacentrePanel':view+'Panel';}
+827685	  addEventListener(type,fn){this.events.set(type,[...(this.events.get(type)||[]),fn]);}
+827686	  emit(type,event={}){for(const fn of this.events.get(type)||[])fn({target:this,isTrusted:false,preventDefault(){},...event});}
+827687	  click(){this.emit('click');}
+827688	  setAttribute(k,v){this.attributes[k]=String(v);}
+827689	  getAttribute(k){return this.attributes[k];}
+827690	  focus(){active=this;}
+827691	  append(...children){this.children.push(...children);}
+827692	  replaceChildren(...children){this.children=children;}
+827693	  querySelector(selector){return selector==='.ggdc-table'&&this.hasTable?{}:null;}
+827694	 const views=['solar','bess','grid','datacentre','offtakers','prices'],tabs=views.map(view=>new Node(view+'Tab',view));
+827695	 for(const tab of tabs){nodes.set(tab.id,tab);tab.attributes['aria-selected']=String(tab.dataset.view==='solar');}
+827696	 for(const id of ['repdPanel','gridPanel','datacentrePanel','offtakersPanel','pricesPanel','tbody','contextDisclosure','contextHost','gridSourcesHost'])nodes.set(id,new Node(id));
+827697	 nodes.get('tbody').dataset.complete='false';
+827698	 const document={getElementById:id=>{if(!nodes.has(id))nodes.set(id,new Node(id));return nodes.get(id)},querySelectorAll:selector=>selector==='.pipeline-tabs [role="tab"]'?tabs:[],querySelector:selector=>selector.startsWith('#tech ')?{click(){const technology=selector.split('"')[1];state.technology=technology;calls.push({...state,years:{...state.years}});}}:null,createElement:tag=>new Node(tag),createDocumentFragment:()=>new Node('fragment')};
+827699	 const window={addEventListener(type,fn){listeners.set(type,[...(listeners.get(type)||[]),fn]);},dispatchEvent(event){for(const fn of listeners.get(event.type)||[])fn(event);},GGDataCentreUI:{mount:async host=>{host.hasTable=true;}}};
+827700	 class CustomEvent{constructor(type,{detail}={}){this.type=type;this.detail=detail;}}
+827701	 const history={state:saved?{pipelineJourneyReturn:{category:saved}}:null};
+827702	 const context=vm.createContext({document,window,history,location:{href:'https://globalgrid2050.com/example/?technology='+technology+'&q='+query,hostname:'globalgrid2050.com'},URL,CustomEvent,TextDecoder,queueMicrotask:fn=>tasks.push(fn),fetch:async()=>{throw Error('Offline source directory fixture');},console});
+827703	 vm.runInContext(source,context);
+827704	 return{state,calls,history,tab:view=>tabs.find(tab=>tab.dataset.view===view),category:()=>tabs.find(tab=>tab.attributes['aria-selected']==='true')?.dataset.view,focused:()=>active?.dataset.view,complete(){nodes.get('tbody').dataset.complete='true';window.dispatchEvent(new CustomEvent('pipeline-projects-rendered'));while(tasks.length)tasks.shift()();}};
+827705	for(const category of ['solar','bess'])for(const technology of ['all','wind_offshore']){
+827706	 test('cold '+category+' restores '+technology+' and nondefault query/filter state without re-query',()=>{
+827707	  const f=fixture({saved:category,technology,query:technology==='all'?'12588':'2470'}),before=structuredClone(f.state);f.complete();f.tab(category).click();
+827708	  assert.equal(f.category(),category);assert.deepEqual(f.state,before);assert.equal(f.calls.length,0,'category-only restore must not click the technology filter');
+827709	  f.tab(category).click();assert.equal(f.state.technology,category);assert.equal(f.calls.length,1,'the history marker must be consumed exactly once');
+827711	test('trusted mouse and keyboard keep normal solar/BESS defaults after restore',()=>{
+827712	 const f=fixture({saved:'solar'});f.complete();f.tab('solar').click();f.tab('bess').emit('click',{isTrusted:true});assert.equal(f.state.technology,'bess');
+827713	 f.tab('bess').emit('keydown',{isTrusted:true,key:'Home'});assert.equal(f.state.technology,'solar');assert.equal(f.focused(),'solar');assert.equal(f.calls.length,2);
+827714	for(const selected of ['bess','grid','datacentre'])test('early trusted '+selected+' wins over late initialisation and saved restore',async()=>{
+827715	 const f=fixture({saved:'solar',technology:'solar'});f.tab(selected).emit('click',{isTrusted:true});const before=structuredClone(f.state);f.complete();f.tab('solar').click();
+827716	 assert.equal(f.category(),selected);assert.deepEqual(f.state,before);await Promise.resolve();
+827717	test('early trusted keyboard choice survives first project completion',()=>{
+827718	 const f=fixture({saved:'solar',technology:'solar'});f.tab('solar').emit('keydown',{isTrusted:true,key:'ArrowRight'});f.complete();f.tab('solar').click();assert.equal(f.category(),'bess');assert.equal(f.state.technology,'bess');
+827719	test('BFCache-like retained DOM does not reinitialise from later history state',()=>{
+827720	 const f=fixture({technology:'all'});f.complete();f.tab('bess').emit('click',{isTrusted:true});f.state.technology='wind_offshore';const before=structuredClone(f.state);f.history.state={pipelineJourneyReturn:{category:'bess'}};f.complete();assert.deepEqual(f.state,before);assert.equal(f.category(),'bess');
+827721	import '../../journey_entry_ui/20261118/verify-closure.mjs';
+827722	const release=resolve(process.argv[2]);
+827723	const pin=JSON.parse(readFileSync(resolve(release,'contracts/journey-return.v944.json')));
+827724	assert.equal(pin.schema,'pipeline.journey-return.v944');
+827725	assert.equal(createHash('sha256').update(readFileSync(resolve(release,'scripts/plugins/preview-v928.js'))).digest('hex'),pin.preview_sha256);
+827726	console.log('V9.44 own preview and immutable shared Journey closure: PASS');
+827727	"""Offline, bounded GOV.UK policy facts; never project compliance or connectivity."""
+827732	from .documents import BoundedHTML, day
+827733	SOURCE = 'https://www.gov.uk/government/publications/data-centre-covenant/the-data-centre-covenant'
+827734	OGL = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'
+827735	HEADINGS = (
+827736	    ('energy', '1. Lower electricity bills', 'Energy-system costs, clean power and flexibility'),
+827737	    ('community', '2. Invest in improving local communities', 'Benefits for host communities'),
+827738	    ('environment', '3. Adhere to the highest environmental standards', 'Energy, water and heat-reuse context'),
+827739	    ('jobs', '4. Create jobs, apprenticeships, and drive reindustrialisation', 'Jobs, skills and supply chains'),
+827740	    ('resilience', '5. Strengthen Britain’s security', 'Reliable infrastructure and resilience'),
+827742	def extract_covenant(payload: bytes, *, source_url: str, retrieved_at: str) -> dict:
+827743	    """Extract only the named document; output retains locators and policy scope."""
+827744	    if source_url != SOURCE:
+827745	        raise ValueError('source_not_approved')
+827746	    if not isinstance(payload, bytes) or not 100 <= len(payload) <= 250_000:
+827747	        raise ValueError('document_size_bound')
+827748	    retrieved = datetime.fromisoformat(retrieved_at.replace('Z', '+00:00'))
+827749	    if retrieved.tzinfo is None:
+827750	        raise ValueError('retrieval_requires_timezone')
+827752	    parser.feed(payload.decode('utf-8', errors='strict'))
+827753	    mains = [n for n in parser.root.walk() if n.tag == 'main' and n.attrs.get('id') == 'content']
+827755	        raise ValueError('one_main_required')
+827756	    nodes = list(mains[0].walk())
+827757	    if [n.text() for n in nodes if n.tag == 'h1'] != ['The Data Centre Covenant']:
+827758	        raise ValueError('wrong_document_title')
+827759	    dates = [n.text().removeprefix('Published ') for n in nodes if n.tag == 'p' and n.text().startswith('Published ')]
+827760	    if len(dates) != 1 or day(dates[0])['value'] != '2026-10-28':
+827761	        raise ValueError('publication_date_unavailable')
+827762	    publishers = [n.attrs.get('content') for n in parser.root.walk() if n.tag == 'meta' and n.attrs.get('name') == 'govuk:primary-publishing-organisation']
+827763	    if publishers != ['HM Treasury']:
+827764	        raise ValueError('publisher_missing_or_ambiguous')
+827765	    if retrieved.date().isoformat() < '2026-10-28':
+827766	        raise ValueError('publication_after_retrieval')
+827767	    links = {n.attrs.get('href') for n in parser.root.walk() if n.tag == 'a'}
+827768	    if not any(isinstance(link, str) and link.rstrip('/') == OGL.rstrip('/') for link in links):
+827769	        raise ValueError('licence_link_unavailable')
+827771	    for theme, expected, label in HEADINGS:
+827772	        found = [n for n in nodes if n.tag == 'h2' and n.text() == expected]
+827773	        if len(found) != 1:
+827774	            raise ValueError('policy_heading_missing_or_ambiguous')
+827775	        node = found[0]
+827776	        headings.append({'id': theme, 'label': label, 'locator': node.selector(),
+827777	                         'text_sha256': sha256(node.text().encode()).hexdigest(),
+827778	                         'fragment': node.attrs.get('id')})
+827779	    paragraphs = [n for n in nodes if n.tag == 'p']
+827780	    quantities = []
+827781	    for name, expression, value, unit, meaning in (
+827782	        ('national_ai_capacity', r'\b6\s+GW\b.*\b2030\b', '6', 'GW', 'Government estimate of national AI data-centre capacity required by 2030; not existing capacity'),
+827783	        ('new_facility_pue', r'Power Usage Effectiveness of 1\.3 or better', '1.3', 'ratio', 'Policy design expectation of PUE 1.3 or better for new facilities; not a measured project efficiency'),
+827785	        found = [n for n in paragraphs if re.search(expression, n.text())]
+827786	            raise ValueError('policy_quantity_missing_or_ambiguous')
+827787	        quantities.append({'id': name, 'value': value, 'unit': unit, 'meaning': meaning,
+827788	                           'comparison': 'AT_MOST' if name == 'new_facility_pue' else 'ESTIMATE',
+827789	                           'locator': node.selector(), 'text_sha256': sha256(node.text().encode()).hexdigest()})
+827790	    return {'schema': 'globalgrid2050.energy-policy-context.v1', 'title': 'The Data Centre Covenant',
+827791	            'publisher': 'HM Treasury', 'source_url': SOURCE, 'source_sha256': sha256(payload).hexdigest(),
+827792	            'source_bytes': len(payload), 'retrieved_at': retrieved_at,
+827793	            'published_date': {'value': '2026-10-28', 'precision': 'DAY'},
+827794	            'rights': {'licence_url': OGL, 'scope': 'government_authored_facts_only_no_images_or_third_party_material', 'review_state': 'REVIEW_REQUIRED'},
+827795	            'themes': headings, 'quantities': quantities,
+827796	            'scope': 'NATIONAL_POLICY_CONTEXT_ONLY', 'project_compliance': None,
+827797	            'asset_associations': [], 'connections': [], 'available_capacity': None}
+827798	from automation.news.filings.policy_context import HEADINGS, OGL, SOURCE, extract_covenant
+827800	def document(extra=''):
+827801	    headings = ''.join(f'<h2 id="{key}">{text}</h2>' for key, text, _ in HEADINGS)
+827802	    return ('<meta name="govuk:primary-publishing-organisation" content="HM Treasury">'
+827803	            '<main id="content"><h1>The Data Centre Covenant</h1>'
+827804	            '<p>Published 28 October 2026</p>'
+827805	            f'<a href="{OGL}">Licence</a>{headings}'
+827806	            '<p>The Government estimates 6 GW of AI data centre capacity by 2030.</p>'
+827807	            '<p>New facilities should achieve a Power Usage Effectiveness of 1.3 or better.</p>'
+827808	            f'{extra}</main>').encode()
+827809	def extract(data=None, **changes):
+827810	    return extract_covenant(document() if data is None else data,
+827811	                            **{'source_url': SOURCE, 'retrieved_at': '2026-11-18T00:00:00Z', **changes})
+827812	def test_typed_policy_quantities_never_become_project_capacity_or_compliance():
+827813	    result = extract()
+827814	    assert len(result['themes']) == 5
+827815	    assert [(q['value'], q['unit']) for q in result['quantities']] == [('6', 'GW'), ('1.3', 'ratio')]
+827816	    assert result['quantities'][1]['comparison'] == 'AT_MOST'
+827817	    assert '1.3 or better' in result['quantities'][1]['meaning']
+827818	    assert result['published_date'] == {'value': '2026-10-28', 'precision': 'DAY'}
+827819	    assert result['project_compliance'] is result['available_capacity'] is None
+827820	    assert result['connections'] == result['asset_associations'] == []
+827821	    assert result['rights']['review_state'] == 'REVIEW_REQUIRED'
+827822	@pytest.mark.parametrize('url', [SOURCE + '?spoof=1', SOURCE.replace('gov.uk', 'evil.test'), 'file:///policy'])
+827823	def test_unapproved_source_refused(url):
+827824	    with pytest.raises(ValueError, match='source_not_approved'):
+827825	        extract(source_url=url)
+827826	@pytest.mark.parametrize('data', [b'', b'x' * 250001, document().replace(b'The Data Centre Covenant', b'Other policy'), document().replace(b'1.3 or better', b'1.2 or better'), document().replace(b'28 October 2026', b'28 October 2027'), document().replace(OGL.encode(), b'https://evil.test'), document().replace(b'HM Treasury', b'Other authority')])
+827827	def test_missing_or_changed_evidence_fails_closed(data):
+827829	        extract(data)
+827830	def test_duplicate_quantities_and_headings_are_not_silently_selected():
+827831	    for extra in ['<p>Power Usage Effectiveness of 1.3 or better</p>', '<h2>1. Lower electricity bills</h2>']:
+827832	        with pytest.raises(ValueError, match='ambiguous'):
+827833	            extract(document(extra))
+827834	def test_hidden_script_text_cannot_supply_policy_quantity():
+827835	    data = document().replace(b'<p>The Government estimates 6 GW of AI data centre capacity by 2030.</p>', b'<script>6 GW by 2030</script>')
+827836	    with pytest.raises(ValueError, match='quantity_missing'):
+827837	def test_timestamp_and_publication_order():
+827838	    for timestamp in ['2026-10-27T10:00:00Z', '2026-11-18T00:00:00']:
+827840	            extract(retrieved_at=timestamp)
+827841	const edition=process.env.PN_NEWS_RETURN_EDITION||'202611180633';
+827842	const project=readFileSync(`uk_renewables_pipeline/${edition}/scripts/plugins/projects-v9-8.js`,'utf8');
+827843	const energy=readFileSync('automation/energy_context_ui/20261118/view.mjs','utf8');
+827844	function declaration(source,name){
+827845	 const start=source.indexOf(`function ${name}(`);assert.ok(start>=0,name);
+827846	 const open=source.indexOf('{',start);let depth=1,end=open+1;
+827847	 while(depth&&end<source.length){if(source[end]==='{')depth++;if(source[end]==='}')depth--;end++;}
+827848	 assert.equal(depth,0,name);return source.slice(start,end);
+827849	const sync=declaration(project,'syncFilterUrl');
+827850	const restore=declaration(energy,'restoreNews');
+827851	const apply=energy.split('\n').find(line=>line.startsWith('const applyRequest='));assert.ok(apply);
+827852	const origin={origin_type:'substation',origin_id:'grid_substations:0'};
+827853	const saved={path:`/uk_renewables_pipeline/${edition}/`,filters:{query:'storage',source:'GOV.UK',topic:'grid',category:'policy',kind:'government'},origin,contextTopic:'grid'};
+827855	 const history={state:{pipelineEnergyNewsReturn:structuredClone(saved),pipelineJourneyReturn:{category:'grid'},unrelated:{keep:true}},replaceState(state,_title,url){this.state=structuredClone(state);if(url)location.href=url.href;}};
+827856	 const location={pathname:saved.path,href:`https://globalgrid2050.com${saved.path}?news_topic=storage#headlinesHeading`,search:'?news_topic=storage'};
+827857	 const query={value:'',dispatchEvent(){}};
+827858	 const selects=Object.fromEntries(Object.entries(saved.filters).filter(([k])=>k!=='query').map(([k,value])=>[k,{value:'',options:[{value:''},{value}]}]));
+827859	 const tasks=[];const box={window:{location},history,location,URL,query,selects,tasks,Event:class{},structuredClone};
+827860	 vm.createContext(box);vm.runInContext(`let technology='wind_offshore',status='All',county='Oxfordshire',query='12588',sortMode='updated_desc',submittedYear='All',updatedYear='All',operationalYear='All';
+827861	 const returnKey='pipelineEnergyNewsReturn',filterKinds=['source','topic','category','kind'];let requestApplied=false,feed=null,activeTopic=null,selectedOrigin=null;
+827862	 function newsQuery(){return globalThis.query;}function newsSelect(kind){return selects[kind];}function requestedContext(){return {topic:'storage'};}function connectNews(){return true;}function renderMain(){}function selectOrigin(value){selectedOrigin=value;}function topicFilter(topic){activeTopic=topic;return true;}function setTimeout(fn){tasks.push(fn);}
+827863	 ${sync}\n${restore}\n${apply}
+827864	 globalThis.sync=syncFilterUrl;globalThis.feedReady=()=>{feed={items:[]};applyRequest();};globalThis.drain=()=>{while(tasks.length)tasks.shift()();};globalThis.visible=()=>({topic:activeTopic,origin:selectedOrigin,filters:{query:globalThis.query.value,...Object.fromEntries(filterKinds.map(k=>[k,selects[k].value]))}});`,box);
+827865	 return box;
+827866	for(const order of ['sync-before-feed','feed-captured-before-sync'])test(`real URL sync preserves visible context and second cold return: ${order}`,()=>{
+827867	 const f=fixture();const keys=structuredClone(f.history.state);
+827868	 if(order==='sync-before-feed'){f.sync();f.feedReady();}else{f.feedReady();f.sync();}
+827869	 f.drain();assert.deepEqual(f.history.state,keys);
+827870	 assert.equal(new URL(f.location.href).searchParams.get('technology'),'wind_offshore');assert.equal(new URL(f.location.href).searchParams.get('q'),'12588');
+827871	 assert.equal(new URL(f.location.href).searchParams.get('news_topic'),'storage');assert.equal(new URL(f.location.href).hash,'#headlinesHeading');
+827872	 assert.deepEqual(JSON.parse(JSON.stringify(f.visible())),{topic:'grid',origin,filters:saved.filters});
+827873	 const second=fixture();second.history.state=structuredClone(f.history.state);second.sync();second.feedReady();second.drain();
+827874	 assert.deepEqual(JSON.parse(JSON.stringify(second.visible())),{topic:'grid',origin,filters:saved.filters});
+827875	test('a normal filter URL update with no saved return remains usable',()=>{const f=fixture();f.history.state=null;f.sync();assert.equal(f.history.state,null);assert.equal(new URL(f.location.href).searchParams.get('county'),'Oxfordshire');});
+827944	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">Open Pipeline News &rarr;</a></div></details>
+827945	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.44 - Grid Journey entry and exact Back filters</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div></details></td></tr>
+827948	<title>GlobalGrid2050 | Pipeline News V9.44 · 202611180451</title>
+827980	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.44</small></div>
+827982	        <a class="active" href="#" aria-current="page">V9.44 · PIPELINE NEWS</a>
+827984	        <a href="../202611180058/">V9.43 · PREVIOUS EDITION</a>
+827990	<p class="preview-status" data-edition="202611180451">V9.44 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+828154	let journeyRestoreCategory = history.state?.pipelineJourneyReturn?.category;
+828155	let categoryChosenByUser = false;
+828209	function activate(tab, focus = false, preserveTechnology = false) {
+828218	  if (['solar', 'bess'].includes(tab.dataset.view) && !preserveTechnology) {
+828231	  tab.addEventListener('click', event => {
+828232	    const restoring = !event.isTrusted && journeyRestoreCategory === tab.dataset.view;
+828233	    if (restoring) { journeyRestoreCategory = null; if (categoryChosenByUser) return; }
+828234	    if (event.isTrusted) categoryChosenByUser = true;
+828235	    activate(tab, false, restoring);
+828244	    event.preventDefault(); if (event.isTrusted) categoryChosenByUser = true; activate(tabs[index], true);
+828249	    if (categoryChosenByUser) return;
+828282	/* check_v9_44.mjs - Pipeline News V9.44, proven from the bytes and through the
+828292	 * Run: node tests/check_v9_44.mjs
+828303	const VERSION = "9.44";
+828305	const PARENT_ID = "202611180058";
+828388	console.log(`check_v9_44: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+828391	<title>GlobalGrid2050 | Pipeline News V9.45 · 202611180520</title>
+828392	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.45</small></div>
+828393	        <a class="active" href="#" aria-current="page">V9.45 · PIPELINE NEWS</a>
+828394	        <a href="../202611180451/">V9.44 · PREVIOUS EDITION</a>
+828395	<p class="preview-status" data-edition="202611180520">V9.45 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+828396	<link rel="stylesheet" href="../../automation/energy_context_ui/20261118/styles.css" integrity="sha256-Ez3H84FIfGpkoS24sDSnlrbb5nBSYJeDW4GFYtZ9ts4=">
+828397	<script type="module" src="../../automation/energy_context_ui/20261118/view.mjs" integrity="sha256-dIXic4fx7jf9EpVmBzVH1J55WWrsQAXcPT+p6FdkZlA="></script>
+828586	  window.pipelineHeadlines = { label: label, render: render, valid: valid, schema: SCHEMA, validatePriority: validatePriority, prioritySchema: PRIORITY_SCHEMA, getViewAdapter:function(){return qualityAdapter;},attachView: function(adapter) { qualityAdapter=adapter; if(lastQuality)adapter(lastQuality); } };
+828591	/* check_v9_45.mjs - Pipeline News V9.45, proven from the bytes and through the
+828592	 * Run: node tests/check_v9_45.mjs
+828593	const VERSION = "9.45";
+828594	const PARENT_ID = "202611180451";
+828595	console.log(`check_v9_45: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+828596	<title>GlobalGrid2050 | Pipeline News V9.46 · 202611180633</title>
+828597	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.46</small></div>
+828598	        <a class="active" href="#" aria-current="page">V9.46 · PIPELINE NEWS</a>
+828599	        <a href="../202611180520/">V9.45 · PREVIOUS EDITION</a>
+828600	<p class="preview-status" data-edition="202611180633">V9.46 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+828819	history.replaceState(history.state, "", url);
+828995	/* check_v9_46.mjs - Pipeline News V9.46, proven from the bytes and through the
+828996	 * Run: node tests/check_v9_46.mjs
+828997	const VERSION = "9.46";
+828999	const PARENT_ID = "202611180520";
+829000	console.log(`check_v9_46: ${ID} loader PASS - ${fmt(model.projects.length)} records, ${model.metadata.capacity_mw.toLocaleString("en-GB", { minimumFractionDigits: 2 })} MW, `
+829001	<title>GlobalGrid2050 | Pipeline News V9.47 · 202611181019</title>
+829002	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.47</small></div>
+829003	        <a class="active" href="#" aria-current="page">V9.47 · PIPELINE NEWS</a>
+829004	<p class="preview-status" data-edition="202611181019">V9.47 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+829005	<script type="module" src="map-entry.mjs"></script>
+829006	import {buildJourneyUrl,mapOrigin,checkedNewsContextBase} from '../../automation/journey_entry_ui/20261118/model.mjs';
+829021	    element.classList.add('action-link','atlaslink','pn-journey-link');element.href=href;element.target='_blank';element.rel='noopener noreferrer';element.textContent='MAP';
+829024	    element.classList.add('pn-journey-unavailable');element.textContent='NO MAP';
+829025	  if(map?.parentElement===parent){map.after(element);map.hidden=true;map.style.setProperty('display','none','important');}else parent.append(element);
+829043	 // The existing general MAP ATLAS navigation is unchanged.
+829086	<title>GlobalGrid2050 | Pipeline News V9.48 · 202611181032</title>
+829087	<link rel="stylesheet" href="styles/news-compact.css">
+829088	<div class="release-brand"><b>GLOBALGRID2050</b><small>PIPELINE NEWS · V9.48</small></div>
+829089	        <a class="active" href="#" aria-current="page">V9.48 · PIPELINE NEWS</a>
+829090	<p class="preview-status" data-edition="202611181032">V9.48 · 18 NOVEMBER 2026 · REPD OCTOBER 2026 · Source dates and provisional research states retained</p>
+829091	<script type="module" src="news-compact.mjs"></script>
+829092	// V9.48: retain the original controls and listeners; collapse secondary news UI.
+829093	import '../../automation/ticker_neon_ui/20261117-v940/header.mjs';
+829094	import '../../automation/energy_context_ui/20261118/view.mjs';
+829095	const D=document;
+829096	const panel=D.querySelector('.newspaper .pn-news-quality');
+829097	const search=D.querySelector('.newspaper .pn-news-header-search');
+829098	if(panel&&!panel.querySelector('.pn-news-disclosure')){
+829099	  const disclosure=D.createElement('details');
+829100	  disclosure.className='pn-news-disclosure';
+829101	  const summary=D.createElement('summary');
+829102	  summary.textContent='Search, filters & sources';
+829103	  const settings=D.createElement('div');
+829104	  settings.className='pn-news-settings';
+829105	  if(search)settings.append(search);
+829106	  for(const child of [...panel.children])settings.append(child);
+829107	  disclosure.append(summary,settings);
+829108	  panel.append(disclosure);
+829124	<a href="versions.json">versions.json</a>. Generated 2026-11-18T07:11:44Z.</p>
+829129	<tr class="pass"><td><a href="202611180633/"><b>202611180633</b></a><br>V9.46<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-18 06:33:00 UTC</td><td>Preserve captured news topic, filters and selected origin through REPD URL sync and repeated cold Journey return<ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611180520<br><a href="202611180633/CHANGES.md">changes</a></td></tr>
+829130	<tr class="pass"><td><a href="202611180520/"><b>202611180520</b></a><br>V9.45<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-18 05:20:00 UTC</td><td>Energy infrastructure news, national Covenant sources and explicit Journey return<ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611180451<br><a href="202611180520/CHANGES.md">changes</a></td></tr>
+829131	<tr class="pass"><td><a href="202611180451/"><b>202611180451</b></a><br>V9.44<br><span class="state">RELEASE_CANDIDATE_PUBLICATION_BLOCKED</span></td><td>2026-11-18 04:51:00 UTC</td><td>Preserve exact technology and other filters during cold Journey Back while restoring Solar/BESS/Grid/DC views; genuine input wins<ul><li>None recorded.</li></ul></td><td><b class="verdict">PASS</b><br><small>tree unchanged: ok · runner: ok · map contract: ok · grid engine contract: ok · map links identical to parent: ok · data unchanged from parent: ok · features kept: ok · size budget: ok · browser: ok · feature probes: ok · csv export: ok</small></td><td>not yet recorded</td><td>parent 202611180058<br><a href="202611180451/CHANGES.md">changes</a></td></tr>
+829168	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">Open Pipeline News &rarr;</a></div></details>
+829169	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.46 - Energy news context and retained Grid Journey return</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div></details></td></tr>
 ```
