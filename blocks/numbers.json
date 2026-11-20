@@ -1,5 +1,5 @@
 {
- "next": 2319,
+ "next": 2320,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2255,6 +2255,7 @@
   "globalgrid2050:automation/news/filings/policy_context.py": 2315,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/map-entry.mjs": 2316,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/news-compact.mjs": 2317,
-  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/gauges-v9-2.js": 2318
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/gauges-v9-2.js": 2318,
+  "globalgrid2050:automation/pipeline_release/code_census.py": 2319
  }
 }

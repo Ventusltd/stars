@@ -1,11 +1,11 @@
 # Sense of the code universe
 
-Generated 2026-11-20T13:34:02.927Z. 142 nodes, 621 edges, 92.8 KB.
+Generated 2026-11-20T21:31:50.954Z. 142 nodes, 621 edges, 92.8 KB.
 
 This graph is not a list of files. It is globalgrid2050 architecture development's code read in an order that makes sense, so the FOCUS list on the
 Spider dashboard reads as a narrative from the whole to the parts:
 
-1. **The code universe** — 26,547 distinct functions, 710 numbered blocks.
+1. **The code universe** — 26,554 distinct functions, 708 numbered blocks.
 2. **What the code is for** — 11 purposes, each containing the blocks that serve it.
 3. **The blocks** — 63 named blocks (constants, engines, cartridges, layers, apps, tools), wired by *depends-on*
    so a reader can walk from a purpose to a part to what that part needs.

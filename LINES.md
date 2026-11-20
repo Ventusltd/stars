@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-469,995 unique lines, numbered 1 to 832,092. Generated 2026-11-20T13:34:11.469Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+470,163 unique lines, numbered 1 to 832,695. Generated 2026-11-20T21:32:01.027Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -469998,4 +469998,172 @@
 832047	<a href="versions.json">versions.json</a>. Generated 2026-11-19T15:01:12Z.</p>
 832091	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">Open Pipeline News &rarr;</a></div></details>
 832092	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.56 - Compact register and responsive gauges</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div></details></td></tr>
+832095	"""Read-only census of committed Pipeline News files; identical blobs counted once."""
+832104	CODE={'.py','.js','.mjs','.cjs','.ts','.tsx','.jsx','.html','.css','.scss','.sh','.bash','.ps1','.sql','.rs','.go','.java','.c','.cpp','.h','.hpp','.vue','.svelte'}
+832105	DATA={'.json','.jsonl','.ndjson','.csv','.tsv','.geojson','.parquet','.xml','.xlsx','.db','.sqlite','.gpkg','.pbf','.zip','.gz'}
+832106	DOC={'.md','.rst','.txt','.pdf','.docx'}
+832107	AUTOMATION={'news','pipeline_release','repd','pipeline_public','convergence','dc_location_ui','document_facts_ui','energy_context_ui','grid_notice_ui','journey_entry_ui','journey_return_ui','mobile_map_ui','news_history_return','news_quality_ui','price_daily_ui','primary_note_ui','repd_expand_ui','ticker_crisp_ui','ticker_neon_ui','v923-recovery','v924_public','v928_context','v928_intelligence'}
+832108	def git(*args):
+832109	    return subprocess.check_output(['git',*args])
+832110	def group(path):
+832111	    p=PurePosixPath(path)
+832112	    if p.parts[0]=='uk_renewables_pipeline':
+832113	        return 'Current V9.57' if p.parts[1]==current else 'Historical application versions'
+832114	    if p.parts[0]=='automation' and len(p.parts)>2:
+832115	        folder=p.parts[1]
+832116	        if folder=='news': return 'News intelligence engine'
+832117	        if folder=='pipeline_release': return 'Release engineering'
+832118	        if folder in AUTOMATION or re.fullmatch(r'v9\d{2}_preview',folder):
+832119	            return 'Other related automation'
+832120	    if p.parts[:2]==('.github','workflows') and re.search(r'pipeline|repd|pn-v9|news',p.name,re.I):
+832121	        return 'CI/CD workflows'
+832123	def kind(path):
+832124	    p=PurePosixPath(path); parts={s.lower() for s in p.parts}; n=p.name.lower(); ext=p.suffix.lower()
+832125	    if parts & {'vendor','node_modules','third_party','third-party','thirdparty','external'} or n.endswith(('.min.js','.min.css')): return 'Third-party/vendor'
+832126	    if n in {'package-lock.json','yarn.lock','pnpm-lock.yaml','requirements.txt','package.json','pyproject.toml'}: return 'Dependency manifests'
+832127	    if ext in CODE:
+832128	        if parts & {'test','tests','__tests__','spec','specs'} or re.match(r'(test[-_]|check[-_]|validate[-_])',n) or n.endswith(('.test.js','.spec.js','.test.mjs')): return 'Tests'
+832129	        if parts & {'fixtures','generated','dist'}: return 'Generated/fixture code'
+832130	        return 'Application/automation source'
+832131	    if p.parts[:2]==('.github','workflows') and ext in {'.yml','.yaml'}: return 'Workflow configuration'
+832132	    if ext in DATA or parts & {'fixtures'}: return 'Data/fixtures'
+832133	    if ext in DOC: return 'Documentation'
+832134	    if ext in {'.yaml','.yml','.toml','.ini','.cfg'}: return 'Other configuration'
+832135	    return 'Other assets'
+832137	parser.add_argument('--ref',default='HEAD')
+832138	parser.add_argument('--current',default='202611201709')
+832139	parser.add_argument('--output',default='pipeline-code-census')
+832141	current=args.current
+832142	commit=git('rev-parse',args.ref).decode().strip()
+832143	root=Path(args.output);root.mkdir(parents=True,exist_ok=True)
+832144	entries=[]
+832145	for record in git('ls-tree','-rlz',commit).split(b'\0'):
+832146	    if not record: continue
+832147	    meta,path=record.split(b'\t',1); mode,typ,oid,size=meta.decode().split()
+832148	    if typ!='blob': continue
+832149	    path=path.decode('utf-8','surrogateescape'); scope=group(path)
+832150	    if scope: entries.append(dict(path=path,scope=scope,category=kind(path),blob=oid,bytes=int(size)))
+832151	line_kinds={'Application/automation source','Tests','Generated/fixture code','Third-party/vendor','Workflow configuration','Other configuration'}
+832152	metrics={}
+832153	# Persistent Git process: one blob read per unique content, no working-tree writes.
+832154	with subprocess.Popen(['git','cat-file','--batch'],stdin=subprocess.PIPE,stdout=subprocess.PIPE) as proc:
+832156	        oid=e['blob']
+832157	        if e['category'] not in line_kinds or oid in metrics: continue
+832158	        proc.stdin.write((oid+'\n').encode());proc.stdin.flush()
+832159	        header=proc.stdout.readline().split()
+832160	        assert len(header)==3 and header[1]==b'blob',header
+832161	        content=proc.stdout.read(int(header[2]));assert proc.stdout.read(1)==b'\n'
+832162	        try: lines=content.decode('utf-8').splitlines()
+832163	        except UnicodeDecodeError: metrics[oid]=(None,None);continue
+832164	        if b'\0' in content: metrics[oid]=(None,None);continue
+832165	        metrics[oid]=(len(lines),sum(bool(l.strip()) for l in lines))
+832166	    proc.stdin.close()
+832167	for e in entries:
+832168	    e['lines'],e['nonblank_lines']=metrics.get(e['blob'],(None,None)) if e['category'] in line_kinds else (None,None)
+832169	def summarise(items):
+832170	    unique={}
+832171	    for e in items:
+832172	        if e['blob'] not in unique or (unique[e['blob']]['lines'] is None and e['lines'] is not None):unique[e['blob']]=e
+832173	    def total(rows,key):return sum(e[key] or 0 for e in rows)
+832174	    u=list(unique.values())
+832175	    return dict(files=len(items),unique_blobs=len(u),bytes=total(items,'bytes'),unique_bytes=total(u,'bytes'),physical_lines=total(items,'lines'),nonblank_lines=total(items,'nonblank_lines'),unique_physical_lines=total(u,'lines'),unique_nonblank_lines=total(u,'nonblank_lines'),line_counted_files=sum(e['lines'] is not None for e in items))
+832176	scopes={}
+832177	for s in sorted({e['scope'] for e in entries}):
+832178	    items=[e for e in entries if e['scope']==s]
+832179	    scopes[s]={k:summarise([e for e in items if e['category']==k]) for k in sorted({e['category'] for e in items})}
+832180	categories={k:summarise([e for e in entries if e['category']==k]) for k in sorted({e['category'] for e in entries})}
+832181	source=[e for e in entries if e['category']=='Application/automation source']
+832182	current_source=[e for e in source if e['scope']=='Current V9.57']
+832183	current_ids={e['blob'] for e in current_source}
+832184	historical_extra=[e for e in source if e['scope']=='Historical application versions' and e['blob'] not in current_ids]
+832185	report={'commit':commit,'release':current,'method':'Physical and nonblank lines of UTF-8 text; exact content deduplication by Git blob. Comments included, near-duplicates not collapsed. Source is a path/extension classification, not reachability or authorship proof. Data and docs counted as files and bytes, not LOC. Scope excludes external repositories and untracked files. Category and scope totals may overlap by content; estate-wide total deduplicates across scopes.','scopes':scopes,'estate_categories':categories,'historical_source_not_in_current':summarise(historical_extra),'all_source':summarise(source),'all_files':summarise(entries)}
+832186	(root/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
+832187	with (root/'files.csv').open('w',newline='',encoding='utf-8') as f:
+832188	    w=csv.DictWriter(f,fieldnames=['path','scope','category','blob','bytes','lines','nonblank_lines']);w.writeheader();w.writerows(entries)
+832189	lines=['# Pipeline News code census','',f'Commit: `{commit}`',f'Current release: `{current}`','',report['method'],'','| Scope | Category | Files | Unique files | Physical lines | Unique physical lines | Unique nonblank lines | Unique bytes |','|---|---|---:|---:|---:|---:|---:|---:|']
+832190	for s,cats in scopes.items():
+832191	    for k,m in cats.items():
+832192	        values=[m['files'],m['unique_blobs']]+([m['physical_lines'],m['unique_physical_lines'],m['unique_nonblank_lines']] if m['line_counted_files'] else ['—']*3)+[m['unique_bytes']]
+832193	        lines.append('| '+s+' | '+k+' | '+' | '.join(f'{v:,}' if isinstance(v,int) else v for v in values)+' |')
+832194	lines+=['','## Deduplicated estate-wide totals','',f"Application/automation source: {report['all_source']['unique_physical_lines']:,} physical lines; {report['all_source']['unique_nonblank_lines']:,} nonblank lines; {report['all_source']['unique_blobs']:,} unique files.",f"Historical source absent as exact content from current V9.57: {report['historical_source_not_in_current']['unique_physical_lines']:,} unique physical lines.",'','Detailed file ledger: files.csv. Machine-readable results: summary.json.']
+832195	md='\n'.join(lines)+'\n';(root/'summary.md').write_text(md);print(md)
+832266	<title>GlobalGrid2050 | Pipeline News V9.57 · 202611201709</title>
+832460	        <a class="active" href="#" aria-current="page">V9.57 · PIPELINE NEWS</a>
+832466	      </nav><p>REPD October 2026 · V9.57</p></details>
+832505	    // Preserve the renderer-owned project name and status (mobile summary).
+832506	    const desktopLabel = details.querySelector('summary .desktop-details-label');
+832507	    if (desktopLabel) desktopLabel.textContent = 'PROJECT RECORD · SOURCES';
+832563	const base=process.env.HUD_URL||'http://127.0.0.1:8765/uk_renewables_pipeline/202611201709/';
+832586	   assert.match(await page.title(), /V9\.57.*202611201709/);
+832619	await import('./repd-summary-regression.mjs');
+832621	const base = process.env.HUD_URL || 'http://127.0.0.1:8765/uk_renewables_pipeline/202611201709/';
+832622	for (const [engine, launcher] of [['chromium', chromium], ['webkit', webkit]]) {
+832623	  const browser = await launcher.launch({headless:true});
+832624	    const page = await browser.newPage({viewport:{width:393,height:852},reducedMotion:'reduce'});
+832625	    await page.goto(base+'?technology=all',{waitUntil:'domcontentloaded',timeout:60000});
+832626	    await page.waitForFunction(() => document.querySelector('#tbody')?.dataset.total === '7775' &&
+832627	      document.querySelector('#evidenceCoverage')?.dataset.selectionCount === '1000' &&
+832628	      /Evidence snapshot|Evidence unavailable/.test(document.querySelector('[data-evidence-status]')?.textContent || ''),
+832629	      null,{timeout:90000});
+832630	    const canonical = await page.evaluate(async () => {
+832631	      const {loadCanonicalProjectsV9_5_1} = await import(new URL('scripts/data/canonical-projects-v9-5-1.js',location.href).href);
+832632	      const {shortProjectName} = await import(new URL('scripts/plugins/projects-v9-8.js',location.href).href);
+832633	      const {projects} = await loadCanonicalProjectsV9_5_1();
+832634	      const manifest = await fetch('solar1000/manifest.json').then(r=>r.json());
+832635	      return {projects:projects.map(p=>({id:String(p.repd_ref),name:p.name,short:shortProjectName(p.name),status:p.status||'Status not supplied',mw:p.capacity_mw})),ids:manifest.ids.map(String)};
+832637	    const expected = new Map(canonical.projects.map(p=>[p.id,p]));
+832638	    const cohort = new Set(canonical.ids);
+832639	    assert.equal(expected.size,7775);
+832640	    assert.equal(cohort.size,1000);
+832641	    const lyneham=expected.get('2203');
+832642	    assert.match(lyneham.name,/Bradenstoke/i);
+832643	    assert.equal(lyneham.status,'Operational');assert.equal(lyneham.mw,69.8);
+832644	    const seen = new Set();let evidenceCount=0;
+832645	    const readRows = () => page.locator('#tbody > tr[id^="repd-"]').evaluateAll(rows=>rows.map(row=>{
+832646	      const s=row.querySelector('td.site .project-record > summary');
+832647	      const name=s?.querySelector('.phone-project-label'), status=s?.querySelector('.phone-project-status');
+832648	      const visible=e=>!!e&&e.getClientRects().length>0&&getComputedStyle(e).visibility==='visible'&&getComputedStyle(e).display!=='none';
+832649	      return {id:row.id.slice(5),name:name?.textContent,title:name?.title,status:status?.textContent,
+832650	        visible:visible(name)&&visible(status), desktop:row.querySelector('.compact-project-name')?.textContent,
+832651	        evidence:!!row.querySelector('[data-integrated-evidence]'),mw:row.querySelector('td.mw')?.textContent};
+832653	    // Visit every page through the actual UI render and evidence event, not merely source data.
+832654	    const pages=Number(await page.locator('#tbody').getAttribute('data-pages'));
+832655	    assert.equal(pages,156);
+832656	    for(let n=1;n<=pages;n++){
+832657	      const rows=await readRows();
+832658	      assert.equal(rows.length, n===pages?25:50);
+832659	      for(const row of rows){
+832660	        const p=expected.get(row.id);
+832661	        assert.ok(p, 'Unknown record '+row.id);assert.ok(!seen.has(row.id),'Duplicate '+row.id);
+832662	        assert.equal(row.name,p.short,'Mobile name REPD '+row.id);
+832663	        assert.equal(row.title,p.name,'Full name REPD '+row.id);
+832664	        assert.equal(row.desktop,p.name,'Desktop name REPD '+row.id);
+832665	        assert.equal(row.status,p.status,'Status REPD '+row.id);
+832666	        assert.ok(row.visible,'Hidden name/status REPD '+row.id);
+832667	        assert.equal(row.evidence,cohort.has(row.id),'Evidence membership REPD '+row.id);
+832668	        if(row.evidence)evidenceCount++;
+832669	        if(row.id==='2203')assert.equal(row.mw,'69.8 MWp');
+832670	        seen.add(row.id);
+832671	      if(n<pages){
+832672	        await page.locator('#projectPager [data-page-step="1"]').evaluate(b=>b.click());
+832673	        await page.waitForFunction(n=>document.querySelector('#tbody')?.dataset.page===String(n),n+1);
+832674	    assert.equal(seen.size,7775);assert.equal(evidenceCount,1000);
+832675	    // Search re-render and desktop switch; evidence remains available behind the summary.
+832676	    console.log(engine+': PASS all 7775 rendered rows and 1000 evidence memberships; starting interactive checks');
+832677	    const filters = page.locator('.compact-register-filters');
+832678	    if (!(await filters.evaluate(e=>e.open))) await filters.locator(':scope > summary').click();
+832679	    await page.locator('#search').fill('Bradenstoke');
+832680	    const row=page.locator('#repd-2203');
+832681	    await row.waitFor();
+832682	    assert.equal(await row.locator('.phone-project-label').isVisible(),true);
+832683	    assert.equal(await row.locator('.phone-project-status').isVisible(),true);
+832684	    await row.locator('td.site .project-record > summary').click();
+832685	    assert.equal(await row.locator('[data-integrated-evidence]').isVisible(),true);
+832686	    await page.setViewportSize({width:1440,height:900});
+832687	    assert.equal(await row.locator('.compact-project-name').isVisible(),true);
+832688	    assert.equal(await row.locator('.desktop-details-label').textContent(),'PROJECT RECORD · SOURCES');
+832689	    assert.equal(await row.locator('td:nth-child(6)').textContent(),'Operational');
+832690	    console.log(engine+': PASS 7775 unique rendered REPD rows; 1000 evidence summaries; Bradenstoke mobile and desktop');
+832694	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">Open Pipeline News &rarr;</a></div></details>
+832695	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.57 - REPD project identity correction</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div></details></td></tr>
 ```
