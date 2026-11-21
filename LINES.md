@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-470,163 unique lines, numbered 1 to 832,695. Generated 2026-11-21T11:44:55.993Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+470,216 unique lines, numbered 1 to 832,944. Generated 2026-11-21T19:46:13.033Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -470166,4 +470166,57 @@
 832690	    console.log(engine+': PASS 7775 unique rendered REPD rows; 1000 evidence summaries; Bradenstoke mobile and desktop');
 832694	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">Open Pipeline News &rarr;</a></div></details>
 832695	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.57 - REPD project identity correction</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div></details></td></tr>
+832697	"""Compatibility entry point for the BBC RSS collector in news.bbc."""
+832701	if not __package__:
+832702	    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+832703	from news.bbc.articles import TOPIC, canonical_article, merge_items, parse_feed
+832704	from news.bbc.collector import NoRedirect, collect, main
+832705	from news.bbc.sources import MAX_BYTES, MAX_ITEMS, SECTIONS
+832707	    "TOPIC", "canonical_article", "merge_items", "parse_feed",
+832708	    "NoRedirect", "collect", "main", "MAX_BYTES", "MAX_ITEMS", "SECTIONS",
+832712	"""PipelineNews news collection algorithms."""
+832713	"""BBC RSS collection and article metadata rules."""
+832714	"""Parse, identify and retain BBC article metadata."""
+832720	from .sources import MAX_BYTES, MAX_ITEMS
+832777	"""Collect bounded BBC RSS metadata and write a single collection receipt."""
+832783	from .articles import canonical_article, merge_items, parse_feed
+832784	from .sources import MAX_BYTES, MAX_ITEMS, SECTIONS, feed_urls
+832792	    for url in feed_urls():
+832815	    parser.add_argument('--previous', type=pathlib.Path, help='Previous receipt (defaults to the output path)')
+832818	    previous_path = args.previous or path
+832819	    previous = json.loads(previous_path.read_text(encoding='utf-8')) if previous_path.exists() else {}
+832838	"""BBC feed inventory and request limits."""
+832850	def feed_urls():
+832851	    return (f"https://feeds.bbci.co.uk/news/{section}/rss.xml" for section in SECTIONS)
+832855	from news.bbc.articles import canonical_article, merge_items, parse_feed
+832856	from news.bbc.collector import collect, main
+832857	from news.bbc.sources import SECTIONS
+832893	    def test_probe_writes_failed_receipt_without_overwriting_previous(self):
+832894	        observed = NOW.isoformat()
+832895	        previous = {'items': parse_feed(RSS, 'feed', observed), 'last_success_at': observed}
+832896	        def offline_collection(prior, _now):
+832897	            self.assertEqual(prior, previous)
+832898	            return collect(prior, NOW, fetch=lambda url: b'<html/>')
+832900	            previous_path = Path(directory) / 'previous.json'
+832901	            output = Path(directory) / 'probe.json'
+832902	            previous_path.write_text(json.dumps(previous), encoding='utf-8')
+832903	            args = ['collector', '--previous', str(previous_path), '--output', str(output)]
+832904	            with patch('sys.argv', args), patch('news.bbc.collector.collect', offline_collection), patch('builtins.print'):
+832905	                self.assertEqual(main(), 1)
+832906	            self.assertEqual(json.loads(previous_path.read_text(encoding='utf-8')), previous)
+832907	            receipt = json.loads(output.read_text(encoding='utf-8'))
+832908	            self.assertEqual(receipt['status'], 'failed')
+832909	            self.assertEqual(receipt['last_success_at'], observed)
+832910	            self.assertEqual(receipt['items'], previous['items'])
+832922	const sources = [
+832923	  'ui/templates/bbc-rss-intelligence.html',
+832924	  'discovery/bbc_rss.py',
+832925	  'news/__init__.py',
+832926	  'news/bbc/__init__.py',
+832927	  'news/bbc/sources.py',
+832928	  'news/bbc/articles.py',
+832929	  'news/bbc/collector.py',
+832930	  'discovery/products/bbc-rss.json',
+832931	].map(path => ({ path, sha256: digest(blob(path)) }));
+832944	  sources,
 ```

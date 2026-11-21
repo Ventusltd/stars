@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-21 11:43 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
+Updated 2026-11-21 19:44 UTC by GitHub Actions. It reads the current code of 92 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,11 +8,11 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 470,163 |
-| File versions | 8,672 |
-| Elements (functions and classes) | 33,670 |
-| Families (same logic) | 32,515 |
-| Families written in two or more different files (duplicate work) | 7,376 |
+| Unique lines | 470,216 |
+| File versions | 8,680 |
+| Elements (functions and classes) | 33,675 |
+| Families (same logic) | 32,525 |
+| Families written in two or more different files (duplicate work) | 7,375 |
 | Families only copied between versions of one file | 2,902 |
 | Self-contained functions compiled into the library | 758 |
 

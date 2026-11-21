@@ -1,5 +1,5 @@
 {
- "next": 2320,
+ "next": 2325,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2256,6 +2256,11 @@
   "globalgrid2050:uk_renewables_pipeline/{stamp}/map-entry.mjs": 2316,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/news-compact.mjs": 2317,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/plugins/gauges-v9-2.js": 2318,
-  "globalgrid2050:automation/pipeline_release/code_census.py": 2319
+  "globalgrid2050:automation/pipeline_release/code_census.py": 2319,
+  "testcode:backups/{stamp}-pipelinenews-before-repd-2026q3/files/cartridges/provisional-identity.mjs": 2320,
+  "pipelinenews:news/bbc/articles.py": 2321,
+  "pipelinenews:news/bbc/collector.py": 2322,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/data/build_v7_2_spine.py": 2323,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/data/build_v9_1_spine.py": 2324
  }
 }

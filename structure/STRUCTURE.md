@@ -1,7 +1,7 @@
 # Structure of globalgrid2050 architecture development
 
-Updated 2026-11-21 11:44 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
-The same structure, card by card, is `structure/graph.json` (122 KB, 136 cards, 432 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
+Updated 2026-11-21 19:46 UTC by GitHub Actions. Top-down: globalgrid2050 architecture development, its repositories, the categories of the periodic table, the named blocks with their interdependencies, and the canonical modules of the engine in the engine graph's own order.
+The same structure, card by card, is `structure/graph.json` (122 KB, 136 cards, 434 links), registered for the Spider dashboard as **Structure of globalgrid2050 architecture development**. Amber is a block whose value is not yet settled; grey has no function inside yet.
 
 ## Repositories (41)
 
@@ -15,25 +15,25 @@ flowchart TD
   estate["globalgrid2050 architecture development"]:::ok
   n_Ventusltd_ventus_grid_engine["ventus-grid-engine · 23 blocks"]:::ok
   estate --> n_Ventusltd_ventus_grid_engine
-  n_Ventusltd_globalgrid2050["globalgrid2050 · 20 blocks"]:::ok
+  n_Ventusltd_globalgrid2050["globalgrid2050 · 21 blocks"]:::ok
   estate --> n_Ventusltd_globalgrid2050
-  n_Ventusltd_gridatlas["gridatlas · 13 blocks"]:::ok
+  n_Ventusltd_gridatlas["gridatlas · 12 blocks"]:::ok
   estate --> n_Ventusltd_gridatlas
   n_Ventusltd_testcode["testcode · 12 blocks"]:::ok
   estate --> n_Ventusltd_testcode
   n_Ventusltd_code_generator["code-generator · 10 blocks"]:::ok
   estate --> n_Ventusltd_code_generator
-  n_Ventusltd_pipelinenews["pipelinenews · 7 blocks"]:::ok
+  n_Ventusltd_pipelinenews["pipelinenews · 8 blocks"]:::ok
   estate --> n_Ventusltd_pipelinenews
-  n_Ventusltd_data_grid_gb["data-grid-gb · 5 blocks"]:::ok
-  estate --> n_Ventusltd_data_grid_gb
-  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 5 blocks"]:::ok
-  estate --> n_Ventusltd_neural_link_between_agents
   n_Ventusltd_spiders["spiders · 5 blocks"]:::ok
   estate --> n_Ventusltd_spiders
   n_Ventusltd_claude["claude · 4 blocks"]:::ok
   estate --> n_Ventusltd_claude
-  n_Ventusltd_data_gridatlas["data-gridatlas · 4 blocks"]:::ok
+  n_Ventusltd_data_grid_gb["data-grid-gb · 4 blocks"]:::ok
+  estate --> n_Ventusltd_data_grid_gb
+  n_Ventusltd_neural_link_between_agents["neural-link-between-agents · 4 blocks"]:::ok
+  estate --> n_Ventusltd_neural_link_between_agents
+  n_Ventusltd_data_gridatlas["data-gridatlas · 3 blocks"]:::ok
   estate --> n_Ventusltd_data_gridatlas
   n_Ventusltd_galaxies_wafers["galaxies-wafers · 3 blocks"]:::ok
   estate --> n_Ventusltd_galaxies_wafers
@@ -265,10 +265,14 @@ flowchart LR
   n_block_Pn --> n_block_Dt
   n_block_Pn --> n_block_Sa
   n_block_Gp --> n_block_Pr
+  n_block_Gp --> n_block_St
+  n_block_Gp --> n_block_Tp
+  n_block_Gp --> n_block_Gn
+  n_block_Gp --> n_block_Dc
   n_block_Gp --> n_block_Ss
   n_block_Gp --> n_block_Si
   n_block_Gp --> n_block_Wf
-  n_block_Gp --> n_block_Dc
+  n_block_Gp --> n_block_Dt
   n_block_Wf --> n_block_Pr
   n_block_Wf --> n_block_St
   n_block_Wf --> n_block_Tp
