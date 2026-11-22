@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-471,026 unique lines, numbered 1 to 835,019. Generated 2026-11-22T00:40:18.586Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+471,169 unique lines, numbered 1 to 836,092. Generated 2026-11-22T07:27:37.207Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -471029,4 +471029,147 @@
 834980	console.log('PASS: 8 REPD landscape-only browser scenarios');
 834996	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">Open Pipeline News &rarr;</a></div></details>
 835019	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.60 - Landscape-only REPD analytics and projects</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div></details></td></tr>
+835203	        climate_level = P.climate_policy_priority(title)
+835205	        category = P.category_of(title) if topics or climate_level else None
+835220	        # Existing v1 signed weight profile remains byte-identical for published UI.
+835221	        # COP31 and other substantive COP coverage receive an explicit priority
+835222	        # ordering bucket, never a fabricated source/evidence/REPD association.
+835223	        current_policy = not context_only and freshness["state"] not in ("stale", "future")
+835224	        bucket = (-2 if climate_level == 2 else -1 if climate_level == 1 else
+835225	                  0 if topics else 1) if current_policy else 1
+835306	         "link to a REPD project. COP31 and substantive global climate-policy headlines are world policy news "
+835307	         "with no REPD identity inference. Data-centre, China solar and institutional research headlines are world news.")
+835340	# Global climate diplomacy is a bounded policy lane, not REPD project evidence.
+835341	# COP31 gets first research priority; other COP coverage needs a concrete
+835342	# international energy/climate-policy cue. Generic weather/climate is excluded.
+835343	COP31 = _rx(r"COP[\s-]?31")
+835344	COP_SUMMIT = _rx(r"COP[\s-]?\d{2}|UN climate (?:summit|talks|conference)")
+835345	CLIMATE_POLICY_CUE = _rx(r"climate|fossil[\s-]?fuels?|coal|oil|gas|emissions?|net[\s-]?zero|"
+835346	                         r"global warming|carbon|agreement|deal|treaty|negotiat(?:e|ion|ions|ing)|"
+835347	                         r"phase[\s-]?out|transition|adaptation|finance|funding|summit|talks")
+835348	CLIMATE_POLICY_EVENT = _rx(r"deal|negotiat(?:e|ion|ions|ing)|agreement|deadlock|talks|"
+835349	                           r"draft|reject|phase[\s-]?out|funding|finance|pledge|"
+835350	                           r"fossil[\s-]?fuels?|emissions?|coal|oil|gas|policy|commitment|summit")
+835351	def climate_policy_priority(title):
+835352	    """2: COP31 policy, 1: other substantive UN COP climate-policy news, else 0.
+835353	    This title-only, publisher-neutral rule cannot create a REPD association.
+835354	    if not title or EXCLUDE.search(title):
+835356	    if COP31.search(title) and CLIMATE_POLICY_CUE.search(title):
+835358	    if COP_SUMMIT.search(title) and CLIMATE_POLICY_CUE.search(title) and CLIMATE_POLICY_EVENT.search(title):
+835473	    if EXCLUDE.search(title):
+835475	    if climate_policy_priority(title):
+835477	    if not topics:
+835623	        return "policy", None, None  # World policy cannot identify an REPD project.
+835674	                if FOREIGN.search(title) and not UK_WORDS.search(title) and not climate_policy_priority(title):
+835678	                if verdict is not None and not feed.get("uk_only") and not is_uk(title, repd) \
+835679	                        and not climate_policy_priority(title):
+835890	"""Fail-closed legacy replay and exact source guard for the BBC COP31 priority lane.
+835891	Every pre-existing publisher, UK planning record, REPD match and output must
+835892	remain equivalent on the original fixture. No homepage or version edits.
+835905	    "automation/news/news_algorithm.py",
+835906	    "automation/news/tests/test_cop31_climate_priority.py",
+835914	    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json",
+835915	                "automation/news/news_algorithm.py", "automation/news/tests/test_cop31_climate_priority.py"}
+835925	def ensure_only_cop31_bbc_added(base: str) -> None:
+835929	    feeds = new["feeds"]
+835930	    assert len(feeds) == len(legacy) + 1, "Exactly one curated BBC link expected"
+835931	    assert feeds[:len(legacy)] == legacy, "Prior feeds, source order and flags must not change"
+835932	    addition = feeds[-1]
+835933	    assert addition.get("url") == "https://www.bbc.co.uk/news/articles/c6ly5w40eg07o"
+835934	    assert addition.get("source") == "BBC News"
+835935	    assert addition.get("kind") == "curated"
+835936	    assert addition.get("uk_only") is False
+835937	    assert addition.get("title") == "COP31 fossil-fuel negotiations reach a deadlock"
+835938	    assert addition.get("date") == "2026-11-21T07:31:05Z"
+835939	    assert new.get("climate_policy_patch_id") == "20261122-cop31-priority-v1"
+835940	    assert new.get("source_patch_id") == old.get("source_patch_id")
+835941	    assert new.get("excluded_sources") == old.get("excluded_sources") == ["Solar Power Portal"]
+835942	    assert new.get("source_release_id") == old.get("source_release_id")
+835943	    assert len({f["url"] for f in feeds}) == len(feeds), "Duplicate URLs forbidden"
+835944	    print(f"PASS: {len(legacy)} prior feeds byte-equivalent, exactly one BBC COP31 link")
+835951	    ensure_only_cop31_bbc_added(base)
+835988	"""COP31 news-priority contract: international diplomacy is not an REPD fact."""
+835991	sys.path.insert(0,str(ROOT))
+835994	NOW="2026-11-22T00:12:00Z"
+835995	BBC="https://www.bbc.co.uk/news/articles/c6ly5w40eg07o"
+835996	TITLE="Fight over fossil fuels leaves COP31 climate talks in deadlock"
+835997	FEED={"source":"BBC News","url":"https://feeds.bbci.co.uk/news/science_and_environment/rss.xml",
+835998	      "uk_only":True,"lane":"keywords","primary":True}
+835999	REPD=P.Repd([])
+836000	@pytest.mark.parametrize("headline,level",[
+836001	    (TITLE,2),
+836002	    ("COP31 summit agrees new fossil fuel transition language",2),
+836003	    ("Cop 31 climate finance commitments disputed by negotiators",2),
+836004	    ("COP32 climate talks end with emissions deal",1),
+836005	    ("UN climate summit agrees new coal phase-out timetable",1),
+836006	    ("COP31 solar flare observations released",0),
+836007	    ("COP31 football fans fly to Turkey",0),
+836008	    ("Climate change makes spring flowers bloom early",0),
+836009	    ("French energy firm approves a solar farm",0),
+836011	def test_bounded_climate_policy_detection(headline,level):
+836012	    assert P.climate_policy_priority(headline)==level
+836013	def test_bbc_fossil_fuels_story_kept_without_solar_or_data_centre():
+836014	    assert P.topics_of(TITLE)==[]
+836015	    assert P.category_of(TITLE)=="policy"
+836016	    assert P.label(TITLE,REPD)==("policy",None,None)
+836017	    assert P.priority_label(TITLE,"",REPD) is None  # normal BBC lane needs no bypass here
+836019	        assert url==FEED["url"]
+836020	        xml=("<rss><channel><item><title>"+TITLE+"</title><link>"+BBC+
+836021	             "</link><pubDate>Sat, 21 Nov 2026 07:31:05 GMT</pubDate>"+
+836022	             "</item></channel></rss>")
+836023	        return xml.encode()
+836024	    items,health=P.collect([FEED],fetch,REPD,NOW)
+836025	    assert len(items)==1
+836026	    assert items[0]["title"]==TITLE
+836027	    assert items[0]["category"]=="policy"
+836028	    assert items[0]["possible_match"] is None
+836029	    assert items[0]["technology"] is None
+836030	    assert health[0]["kept"]==1
+836031	def test_global_cop_policy_not_discarded_as_foreign_or_unknown_repd():
+836032	    other={"url":"https://www.un.org/en/climatechange/news.rss",
+836033	           "source":"United Nations","uk_only":False}
+836034	    def fetch(_):
+836035	        return ("<rss><channel><item><title>"
+836036	                "COP31 climate deal faces fossil fuel opposition in Turkey"
+836037	                "</title><link>https://www.un.org/en/climatechange/negotiations</link>"
+836038	                "</item></channel></rss>").encode()
+836039	    found,_=P.collect([other],fetch,REPD,NOW)
+836040	    assert len(found)==1 and found[0]["possible_match"] is None
+836041	    assert found[0]["category"]=="policy"
+836042	def test_curated_owner_link_publishes_without_fetching_article_body():
+836043	    feeds=json.loads((ROOT/"pipeline_feeds.json").read_text())["feeds"]
+836044	    special=[x for x in feeds if x["url"]==BBC]
+836045	    assert len(special)==1
+836046	    assert special[0]["kind"]=="curated"
+836047	    assert special[0]["source"]=="BBC News"
+836048	    assert len(feeds)==69
+836049	    def forbidden(_):
+836050	        raise AssertionError("BBC article body must never be requested")
+836051	    items,health=P.collect(special,forbidden,REPD,NOW)
+836052	    assert len(items)==1 and len(health)==1 and health[0]["status"]=="ok"
+836053	    assert items[0]["link"]==BBC
+836054	    assert items[0]["date"].startswith("2026-11-21T07:31")
+836055	def article(title,url,source="BBC News",category="policy"):
+836056	    return {"title":title,"link":url,"source":source,
+836057	            "date":"2026-11-21T07:31:05Z","first_seen":NOW,
+836058	            "category":category,"technology":None,"possible_match":None}
+836059	def test_cop31_ranks_above_standard_news_without_inventing_verification():
+836060	    items=[
+836061	      article("UK solar farm approved in Gloucestershire",
+836062	              "https://www.gov.uk/government/news/solar-decision","GOV.UK","consent"),
+836063	      article(TITLE,BBC)
+836065	    rows=N.rank_headlines(items,as_of=NOW)["items"]
+836066	    assert rows[0]["link"]==BBC
+836067	    assert rows[0]["editorial"]["context_bucket"]==-2
+836068	    assert rows[0]["editorial"]["category_hint"]=="policy"
+836069	    assert rows[0]["editorial"]["topics"]==[]
+836070	    assert rows[0]["editorial"]["verification_status"]=="NOT_VERIFIED"
+836071	    assert rows[0]["possible_match"] is None
+836072	    assert rows[1]["editorial"]["context_bucket"]==0
+836073	    assert N.PROFILE["id"]=="uk-transition-global-context.v1"  # published UI accepts profile
+836074	def test_rejected_publisher_and_general_climate_headlines_remain_rejected():
+836075	    assert P.excluded_publisher("Solar Power Portal","https://www.solarpowerportal.co.uk/solar/")
+836076	    assert P.category_of("Climate causes warm November weather") is None
+836077	    assert P.category_of("COP31 cultural festival opens in Antalya") is None
+836092	    assert len(config["feeds"]) == 69  # 68 unchanged + independent BBC COP31 link
 ```
