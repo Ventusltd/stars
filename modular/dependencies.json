@@ -1,27 +1,27 @@
 {
- "generated_utc": "2026-11-21T19:44:40.700Z",
+ "generated_utc": "2026-11-22T00:38:52.546Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 13698,
+ "families_with_uses": 13724,
  "hubs": [
   {
    "family": 172767,
    "name": "document",
-   "used_by": 2840
+   "used_by": 2855
   },
   {
    "family": 173796,
    "name": "document",
-   "used_by": 2840
+   "used_by": 2855
   },
   {
    "family": 176250,
    "name": "document",
-   "used_by": 2840
+   "used_by": 2855
   },
   {
    "family": 173891,
    "name": "window",
-   "used_by": 1545
+   "used_by": 1556
   },
   {
    "family": 70873,
@@ -35,7 +35,7 @@
   },
   {
    "family": 72282,
-   "name": "invariant",
+   "name": "assert",
    "used_by": 617
   },
   {

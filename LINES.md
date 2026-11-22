@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-470,216 unique lines, numbered 1 to 832,944. Generated 2026-11-21T19:46:13.033Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+471,026 unique lines, numbered 1 to 835,019. Generated 2026-11-22T00:40:18.586Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -470219,4 +470219,814 @@
 832930	  'discovery/products/bbc-rss.json',
 832931	].map(path => ({ path, sha256: digest(blob(path)) }));
 832944	  sources,
+832996	import research_indexes as R  # noqa: E402  bounded HTML index source discovery
+833004	SCOPE = ("Headlines and links from public RSS/Atom, English-language institutional indexes and explicitly curated "
+833005	         "primary-source leads; no article text is stored. Category and technology "
+833007	         "link to a REPD project. Data-centre, China solar and institutional research headlines are world news, not UK "
+833009	WORLD_LANES = ("datacentre_money", "china_solar", "global_context")
+833011	WORLD_LANE_CAPS = {"datacentre_money": 10, "china_solar": 10, "global_context": 35}
+833012	# Owner-excluded publisher, enforced on fresh feeds AND retained historic headlines.
+833013	# Never request or display Solar Power Portal, including syndication links.
+833014	EXCLUDED_PUBLISHERS = frozenset({"solar power portal"})
+833015	EXCLUDED_DOMAIN = "solarpowerportal.co.uk"
+833016	def excluded_publisher(source, link=""):
+833017	    if str(source or "").strip().casefold() in EXCLUDED_PUBLISHERS:
+833020	        host = (urlsplit(str(link or "")).hostname or "").casefold().rstrip(".")
+833023	    return host == EXCLUDED_DOMAIN or host.endswith("." + EXCLUDED_DOMAIN)
+833113	RESEARCH_GRID = _rx(r"electricity (?:grid|networks?|demand|supply)|power (?:grid|supply|demand|system|infrastructure)|"
+833114	                    r"grid (?:capacity|constraints?|connections?|bottlenecks?|reinforcement|investment)|"
+833115	                    r"transmission (?:grids?|networks?|capacity)|energy transition|renewable energy|"
+833116	                    r"electricity infrastructure|energy infrastructure")
+833117	RESEARCH_MACRO = _rx(r"interest rates?|bank rate|federal funds|monetary policy|inflation|"
+833118	                     r"bond yields?|gilt yields?|borrowing costs?|credit conditions?|financial stability|"
+833119	                     r"capital markets?|infrastructure (?:financing|investment)|project finance|"
+833120	                     r"cost of capital")
+833121	RESEARCH_ENERGY = _rx(r"solar|wind (?:power|energy|capacity)|batter(?:y|ies) (?:storage|energy)|BESS|"
+833122	                      r"renewables?|power (?:generation|markets?|prices?)|electricity|energy transition")
+833123	def lane_label(title, lane, focus=None):
+833124	    """World context is attributed discovery, never a REPD fact or implied UK event."""
+833129	    if lane == "global_context":
+833130	        if EXCLUDE.search(title) or BRANDED.search(title) or D.SPONSORED_RE.search(title):
+833132	        if TOPICS["datacentre"].search(title):
+833133	            return ("datacentre", None, None)
+833134	        if TOPICS["grid"].search(title) or RESEARCH_GRID.search(title):
+833135	            return ("grid", None, None)
+833136	        if RESEARCH_ENERGY.search(title):
+833137	            return ("policy" if POLICY.search(title) else "other", technology_of(title), None)
+833138	        if RESEARCH_MACRO.search(title) and focus != "energy_research":
+833139	            return ("finance", None, None)
+833319	    return [f for f in feeds if f.get("url", "").startswith("https://") and f.get("source")
+833320	            and not excluded_publisher(f.get("source"), f.get("url"))]
+833327	        if excluded_publisher(source, url):
+833328	            continue  # No network request and no misleading health result for excluded sources.
+833329	            kind = feed.get("kind", "rss")
+833330	            if kind == "curated":
+833331	                # Curated primary-source lead; no claim of live fetching.
+833332	                entries = [(feed["title"], url, feed.get("date"), "")]
+833335	                entries = (R.index_entries(body, feed) if kind == "html_index" else
+833336	                           R.rss1_entries(body) if kind == "rss1" else D.parse_feed(body))
+833337	                if kind == "html_index" and not entries:
+833338	                    raise ValueError("No eligible index links (possible JS rendering, path mismatch or access block)")
+833348	            if not title or not link or excluded_publisher(source, link) or D.SPONSORED_RE.search(title) or BRANDED.search(title):
+833353	                verdict = lane_label(title, lane, feed.get("focus"))
+833364	        health.append({"url": url, "source": source + (" (curated; not fetched)" if kind == "curated" else ""), "status": "ok", "entries": len(entries), "kept": kept,
+833433	def merge(previous, incoming, repd, now_iso, cap=MAX_ITEMS, max_age_days=MAX_AGE_DAYS, lanes=None, focuses=None):
+833440	    focuses = focuses or {}
+833441	    previous = [i for i in previous if not excluded_publisher(i.get("source"), i.get("link"))]
+833442	    incoming = [i for i in incoming if not excluded_publisher(i.get("source"), i.get("link"))]
+833449	            verdict = lane_label(item.get("title", ""), lane, focuses.get(item.get("source")))
+833465	            if seen[lane] > WORLD_LANE_CAPS.get(lane, LANE_CAP):
+833467	    # New research may use spare room but must never displace a legacy item.
+833468	    # Final output remains newest-first for the existing client contract.
+833469	    legacy = [i for i in capped if lanes.get(i["source"]) != "global_context"]
+833470	    context = [i for i in capped if lanes.get(i["source"]) == "global_context"]
+833471	    selected = legacy[:cap] + context[:max(0, cap - len(legacy))]
+833472	    selected.sort(key=lambda i: (when(i), i["link"]), reverse=True)
+833474	def build(previous, items, health, repd, now_iso, cap=MAX_ITEMS, lanes=None, focuses=None):
+833475	    merged = merge(previous.get("items", []), items, repd, now_iso, cap, lanes=lanes, focuses=focuses)
+833547	    focuses = {f["source"]: f["focus"] for f in feeds if f.get("focus")}
+833551	        report = probe_report(items, merge([], items, repd, now_iso, args.max_items, lanes=lanes, focuses=focuses), health, now_iso,
+833564	    result = build(previous, items, health, repd, now_iso, args.max_items, lanes, focuses=focuses)
+833574	"""Bounded English-language institutional research index discovery.
+833575	Only headline/link metadata; no article bodies, no inferred publication dates, no
+833576	source verification, no REPD project links. Index health is reported by caller.
+833580	MAX_HTML_BYTES = 2_000_000
+833581	MAX_LINKS = 2000
+833582	MAX_KEPT = 250
+833583	class _Anchors(HTMLParser):
+833587	        self.href = None
+833590	        if tag.lower() == "a" and self.href is None:
+833591	            self.href = dict(attrs).get("href", "")
+833592	            self.parts = []
+833594	        if self.href is not None and len(self.parts) < 24:
+833597	        if tag.lower() == "a" and self.href is not None:
+833598	            if len(self.links) < MAX_LINKS:
+833599	                self.links.append((self.href, " ".join(" ".join(self.parts).split())))
+833600	            self.href, self.parts = None, []
+833601	def index_entries(body, feed):
+833602	    """Convert an allowed public HTML index into RSS-shaped headline tuples.
+833603	    Does not crawl individual articles; date unknown rather than invented.
+833604	    Rejects cross-host, cross-language and non-article links.
+833605	    if not isinstance(body, bytes) or len(body) > MAX_HTML_BYTES:
+833606	        raise ValueError("HTML index missing or oversized")
+833607	    root = urlsplit(feed["url"])
+833608	    if root.scheme != "https" or not root.hostname:
+833609	        raise ValueError("invalid source index")
+833610	    prefixes = tuple(feed.get("article_prefixes") or ())
+833611	    if not prefixes or any(not x.startswith("/") for x in prefixes):
+833612	        raise ValueError("approved article prefixes required")
+833613	    parser = _Anchors()
+833614	    parser.feed(body.decode("utf-8", errors="replace"))
+833616	    for href, title in parser.links:
+833617	        if not 18 <= len(title) <= 300:
+833618	        url = urljoin(feed["url"], href)
+833619	        loc = urlsplit(url)
+833620	        if loc.scheme != "https" or loc.hostname != root.hostname or loc.username or loc.password:
+833621	        if not any(loc.path.startswith(prefix) for prefix in prefixes):
+833622	        if loc.path.rstrip("/") == root.path.rstrip("/"):
+833623	        if loc.path.lower().endswith((".pdf", ".jpg", ".png", ".zip")):
+833624	        # Swiss and audit-firm URLs must retain the English-language section.
+833625	        if feed.get("english_only") and not any(key in loc.path.lower()
+833626	                for key in ("/en/", "/en_", "/eng/", "/en-", "/english/")):
+833627	        url = url.split("#", 1)[0]
+833628	        if url not in seen:
+833630	            out.append((title, url, None, ""))
+833631	            if len(out) >= MAX_KEPT:
+833633	RDF = "{http://www.w3.org/1999/02/22-rdf-syntax-ns#}RDF"
+833634	RSS1 = "{http://purl.org/rss/1.0/}"
+833635	DC_DATE = "{http://purl.org/dc/elements/1.1/}date"
+833636	def rss1_entries(body):
+833637	    """RSS 1.0/RDF official publisher feeds, without changing legacy RSS/Atom parsing."""
+833638	        raise ValueError("RSS1 missing or oversized")
+833639	    if b"<!DOCTYPE" in body.upper() or b"<!ENTITY" in body.upper():
+833640	        raise ValueError("Unsafe RSS1 XML")
+833642	    if root.tag != RDF:
+833643	        # Swiss publishers may serve conventional RSS2/Atom despite an
+833644	        # RSS1 catalogue label. Delegate, without modifying the legacy parser.
+833645	        from datacentre_feed import parse_feed
+833646	        return parse_feed(body)
+833648	    for node in root.findall(RSS1 + "item")[:250]:
+833649	        title = node.findtext(RSS1 + "title")
+833650	        link = node.findtext(RSS1 + "link")
+833651	        date = node.findtext(DC_DATE)
+833652	        summary = node.findtext(RSS1 + "description")
+833654	            result.append((title, link, date, summary or ""))
+833656	"""Fail-closed exact legacy replay excluding an owner-rejected publisher.
+833657	All other publishers, records, REPD matches and counts must remain equivalent.
+833658	No existing UI, REPD, publication, or version file may be changed by this PR.
+833662	MODULES = ("pipeline_headlines.py", "datacentre_feed.py", "names.py", "research_indexes.py")
+833663	ALLOWED = {
+833664	    ".github/workflows/pipeline-headlines.yml",
+833665	    "automation/news/pipeline_headlines.py",
+833666	    "automation/news/pipeline_feeds.json",
+833667	    "automation/news/tests/test_pipeline_headlines.py",
+833668	    "automation/news/tests/test_spp_verified_public_links.py",
+833669	    "automation/news/tests/test_spp_excluded.py",
+833670	    "automation/news/tests/compare_legacy_collector.py",
+833672	    return subprocess.check_output(["git", *args], cwd=ROOT)
+833673	def ensure_scope(base: str) -> None:
+833674	    changed = {s for s in git("diff", "--name-only", f"{base}..HEAD").decode().splitlines() if s}
+833675	    forbidden = changed - ALLOWED
+833676	    if forbidden:
+833677	        raise AssertionError("Unrelated change detected: " + ", ".join(sorted(forbidden)))
+833678	    expected = {"automation/news/pipeline_headlines.py", "automation/news/pipeline_feeds.json", "automation/news/tests/test_spp_excluded.py"}
+833679	    if not expected <= changed:
+833680	        raise AssertionError("Expected additive collector/config changes missing")
+833681	def run_once(script: Path, feeds: Path, fixtures: Path, repd: Path, dest: Path) -> dict:
+833683	        [sys.executable, str(script), "--feeds", str(feeds),
+833684	         "--fixtures", str(fixtures), "--repd", str(repd), "--out", str(dest),
+833685	         "--now", "2026-11-14T12:00:00Z"],
+833686	        cwd=ROOT, check=True, capture_output=True, text=True, timeout=60)
+833687	    return json.loads(dest.read_text(encoding="utf-8"))
+833688	def ensure_only_owner_rejected_publisher_removed(base: str) -> None:
+833689	    old = json.loads(git("show", f"{base}:automation/news/pipeline_feeds.json"))
+833690	    new = json.loads((ROOT / "automation/news/pipeline_feeds.json").read_text(encoding="utf-8"))
+833691	    legacy = old["feeds"]
+833692	    excluded = [f for f in legacy if f.get("source") == "Solar Power Portal"]
+833693	    remaining = [f for f in legacy if f.get("source") != "Solar Power Portal"]
+833694	    if len(excluded) != 5:
+833695	        raise AssertionError("Expected five Solar Power Portal original entries")
+833696	    if new["feeds"] != remaining:
+833697	        raise AssertionError("Unrelated source records, order, flags or dates changed")
+833698	    if new.get("excluded_sources") != ["Solar Power Portal"]:
+833699	        raise AssertionError("Publisher exclusion policy missing")
+833700	    if new.get("source_patch_id") != "20261121-exclude-solar-power-portal-v1":
+833701	        raise AssertionError("Unexpected exclusion source patch")
+833702	    if new.get("source_release_id") != old.get("source_release_id"):
+833703	        raise AssertionError("Prior source edition must not change")
+833704	    if any(f.get("url", "").startswith("https://www.solarpowerportal.co.uk/")
+833705	           for f in new["feeds"]):
+833706	        raise AssertionError("Excluded publisher endpoint still in active catalogue")
+833707	    print(f"PASS: {len(remaining)} original nonexcluded sources unchanged; 5 blocked entries removed")
+833710	    ap.add_argument("--base", required=True, help="PR Git base, e.g. HEAD^1")
+833712	    base = args.base
+833713	    ensure_scope(base)
+833714	    ensure_only_owner_rejected_publisher_removed(base)
+833715	    fixtures = ROOT / "automation/news/tests/fixtures/pipeline"
+833716	    with tempfile.TemporaryDirectory(prefix="pn-legacy-comparison-") as tmp:
+833717	        tmp = Path(tmp)
+833718	        baseline = tmp / "baseline" / "automation" / "news"
+833719	        baseline.mkdir(parents=True)
+833720	        for file in MODULES:
+833721	            (baseline / file).write_bytes(git("show", f"{base}:automation/news/{file}"))
+833722	        # Exclude Solar Power Portal from BOTH runs. Every other fixture item
+833723	        # must match the unchanged baseline byte-for-byte.
+833724	        fixture = json.loads(git("show", f"{base}:automation/news/tests/fixtures/pipeline/feeds.json"))
+833725	        fixture["feeds"] = [f for f in fixture["feeds"]
+833726	                            if f.get("source") != "Solar Power Portal"]
+833727	        (tmp / "original_feeds.json").write_text(json.dumps(fixture), encoding="utf-8")
+833728	        repd = tmp / "repd-fixture.csv"
+833729	        with repd.open("w", encoding="utf-8", newline="") as fp:
+833730	            writer = csv.DictWriter(fp, fieldnames=[
+833731	                "Ref ID", "Site Name", "Technology Type", "Operator (or Applicant)",
+833732	                "County", "Planning Authority", "Region"])
+833734	            writer.writerow({
+833735	                "Ref ID": "12588", "Site Name": "Botley West Solar Project",
+833736	                "Technology Type": "Solar Photovoltaics", "Operator (or Applicant)": "SolarFive",
+833737	                "County": "Oxfordshire", "Planning Authority": "West Oxfordshire",
+833738	                "Region": "South East"})
+833739	        old = run_once(baseline / MODULES[0], tmp / "original_feeds.json",
+833740	                       fixtures, repd, tmp / "old.json")
+833741	        new = run_once(ROOT / "automation/news/pipeline_headlines.py",
+833742	                       tmp / "original_feeds.json", fixtures, repd, tmp / "new.json")
+833743	    # Except the explicitly removed publisher, existing article metadata, dates,
+833744	    # REPD association, counts and feed health must remain unchanged.
+833745	    for key in ("items", "counts", "feeds", "status", "schema", "generated_at", "limits"):
+833746	        if old[key] != new[key]:
+833747	            raise AssertionError(f"Legacy output regression: {key}")
+833748	    print(f"PASS: {len(old['items'])} remaining-publisher headlines unchanged; "
+833749	          f"no unrelated release or UI edits")
+833920	    assert d["status"] == "partial" and d["counts"]["feeds_failed"] == 1 and d["counts"]["feeds_ok"] == 5
+833928	    assert d["counts"]["items"] == len(items) >= 10
+833936	    assert {i["category"] for i in botley} == {"dco"}  # gov.uk primary evidence remains
+834047	def test_live_feed_list_has_bbc_first_and_excludes_owner_rejected_publisher():
+834050	    assert sources[0] == "BBC News"
+834051	    assert "Solar Power Portal" not in sources
+834126	"""International research lane regression checks: no weakening of UK/REPD controls."""
+834127	import pipeline_headlines as P
+834128	import research_indexes as R
+834129	NOW = "2026-11-21T16:00:00Z"
+834130	@pytest.mark.parametrize("title,category", [
+834131	    ("A study on data centres shows that the real bottleneck lies in the grid", "datacentre"),
+834132	    ("DNV Energy Transition Outlook 2026: grid and storage investment", "grid"),
+834133	    ("Swissgrid announces electricity transmission grid capacity improvements", "grid"),
+834134	    ("Federal Reserve says interest rates will stay unchanged", "finance"),
+834135	    ("Bank of England monetary policy statement and Bank Rate", "finance"),
+834136	    ("HM Treasury announces infrastructure financing review", "finance"),
+834137	    ("Powering the AI revolution: data centre grid connections", "datacentre"),
+834138	    ("The Swiss electricity grid faces new power demand constraints", "grid"),
+834139	def test_global_context_keep(title, category):
+834140	    assert P.lane_label(title, "global_context") == (category, None, None)
+834141	    "Markets rally as chipmakers announce a share buyback",
+834142	    "Deloitte appoints new chief executive in Zurich",
+834143	    "KPMG wins national audit firm of the year",
+834144	    "Swiss tourism industry reports summer growth",
+834145	    "Federal Reserve publishes staff survey response",
+834146	    "Sponsored feature: data centre grid investments",
+834147	def test_global_context_reject(title):
+834148	    assert P.lane_label(title, "global_context", "energy_research") is None
+834149	def test_institutional_research_rejects_general_financial_marketing():
+834150	    assert P.lane_label("Banking & Capital Markets", "global_context", "energy_research") is None
+834151	    assert P.lane_label("Deloitte confirms interest rates rise", "global_context", "energy_research") is None
+834152	    assert P.lane_label("Data centres face electricity-grid bottleneck", "global_context", "energy_research") == ("datacentre", None, None)
+834153	    assert P.lane_label("Federal Reserve says interest rates rise", "global_context", "macro_policy") == ("finance", None, None)
+834154	def test_no_eligible_html_index_is_reported_unavailable_not_healthy():
+834155	    feed = {"url": "https://www.dnv.com/news/", "source": "DNV", "kind": "html_index",
+834156	            "lane": "global_context", "focus": "energy_research", "article_prefixes": ["/news/"]}
+834157	    items, health = P.collect([feed], lambda url: b"<html><body>No relevant links</body></html>",
+834158	                              P.Repd([]), NOW)
+834159	    assert health[0]["status"] == "failed"
+834160	    assert "No eligible index links" in health[0]["error"]
+834161	def test_uk_standard_lane_still_rejects_swiss_non_uk_context():
+834162	    repd = P.Repd([])
+834163	    title = "Swiss electricity grid constraints hit data centre developers"
+834164	    assert not P.is_uk(title, repd)
+834165	    body = ('<rss><channel><item><title>' + title + '</title>'
+834166	            '<link>https://example.org/swiss</link></item></channel></rss>').encode()
+834167	    items, _ = P.collect([{"url":"https://x.example/feed", "source":"X", "uk_only":False}],
+834168	                         lambda url: body, repd, NOW)
+834169	    assert not items
+834170	def test_curated_deloitte_is_attributed_without_fabricated_date_or_repd():
+834171	    url = "https://www.deloitte.com/ch/en/about/press-room/studie-zu-rechenzentren-zeigt-der-eigentliche-engpass-liegt-im-netz.html"
+834172	    feed = {"url": url, "source": "Deloitte Switzerland", "kind": "curated", "lane": "global_context",
+834173	            "title": "A study on data centres shows that the real bottleneck lies in the grid"}
+834174	    def must_not_fetch(url):
+834175	        raise AssertionError("curated link must not be falsely described as fetched")
+834176	    items, health = P.collect([feed], must_not_fetch, P.Repd([]), NOW)
+834178	    assert items[0]["link"] == url
+834179	    assert items[0]["source"] == "Deloitte Switzerland"
+834180	    assert items[0]["date"] is None and items[0]["possible_match"] is None
+834181	    assert health[0]["kept"] == 1
+834182	def test_bounded_html_index_keeps_english_same_host_only():
+834183	    feed = {"url":"https://www.deloitte.com/ch/en/about/press-room.html",
+834184	            "article_prefixes":["/ch/en/about/press-room/"],"english_only":True}
+834185	    body = b"""<html><body>
+834186	    <a href="/ch/en/about/press-room/data-centres-grid.html">Data centres: electricity grid bottleneck research</a>
+834187	    <a href="/ch/de/about/press-room/studie.html">Data centres on Swiss grid study</a>
+834188	    <a href="https://evil.example/ch/en/about/press-room/fraud.html">Data centres fake offsite study</a>
+834189	    <a href="/ch/en/about/press-room.html">Press room landing page</a>
+834190	    </body></html>"""
+834191	    got = R.index_entries(body, feed)
+834192	    assert len(got) == 1
+834193	    assert got[0][1] == "https://www.deloitte.com/ch/en/about/press-room/data-centres-grid.html"
+834194	    assert got[0][2] is None
+834195	def test_html_discovery_passes_through_context_classification():
+834196	    feed = {"url":"https://www.dnv.com/news/", "source":"DNV", "lane":"global_context",
+834197	            "kind":"html_index","article_prefixes":["/news/"]}
+834198	    body = b"""<html><a href="/news/2026/critical-grid-update/">
+834199	      DNV grid capacity and energy infrastructure study
+834200	    </a><a href="/news/2026/irrelevant/">DNV announces new colleague in Oslo</a></html>"""
+834201	    items, _ = P.collect([feed], lambda u: body, P.Repd([]), NOW)
+834202	def test_research_is_lane_capped_without_crowding_original_world_lanes():
+834203	    assert P.WORLD_LANE_CAPS["global_context"] >= 25
+834204	    assert P.WORLD_LANE_CAPS["china_solar"] == 10
+834205	    assert P.WORLD_LANE_CAPS["datacentre_money"] == 10
+834206	def test_new_context_never_displaces_existing_headlines_at_capacity():
+834207	    def item(title, url, source, date):
+834208	        return {"title": title, "link": url, "source": source, "date": date,
+834209	                "first_seen": NOW, "category": "grid", "technology": None, "possible_match": None}
+834210	    legacy = [item(f"UK National Grid connection reform {n}",
+834211	                   f"https://example.org/uk-{n}", "Original", "2026-11-19T10:00:00Z") for n in range(3)]
+834212	    extra = [item("Swiss data centres need more electricity grid capacity",
+834213	                  "https://example.org/ch", "Swissgrid", "2026-11-21T10:00:00Z")]
+834214	    got = P.merge([], legacy + extra, P.Repd([]), NOW, cap=3,
+834215	                  lanes={"Swissgrid": "global_context"}, focuses={"Swissgrid": "energy_research"})
+834216	    assert len(got) == 3
+834217	    assert {x["link"] for x in got} == {x["link"] for x in legacy}
+834218	    assert all(x["possible_match"] is None for x in got)
+834219	def test_swiss_national_bank_rdf_rss1_is_parsed_without_legacy_feed_changes():
+834220	    xml = b"""<?xml version="1.0"?>
+834221	    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+834222	             xmlns="http://purl.org/rss/1.0/"
+834223	             xmlns:dc="http://purl.org/dc/elements/1.1/">
+834224	       <item rdf:about="https://www.snb.ch/en/example/monetary">
+834225	         <title>Swiss National Bank monetary policy assessment</title>
+834226	         <link>https://www.snb.ch/en/example/monetary</link>
+834227	         <dc:date>2026-11-19T10:00:00Z</dc:date>
+834228	       </item>
+834229	    </rdf:RDF>"""
+834230	    feed = {"url":"https://www.snb.ch/public/rss/en/mopo","source":"Swiss National Bank",
+834231	            "kind":"rss1","lane":"global_context","focus":"macro_policy"}
+834232	    items, health = P.collect([feed], lambda url: xml, P.Repd([]), NOW)
+834233	    assert len(items) == 1 and items[0]["date"] == "2026-11-19T10:00:00Z"
+834234	    assert items[0]["category"] == "finance" and items[0]["possible_match"] is None
+834235	    assert health[0]["status"] == "ok"
+834236	def test_rss1_rejects_unsafe_entities():
+834238	        R.rss1_entries(b'<!DOCTYPE rdf:RDF [<!ENTITY x "wrong">]><rdf:RDF/>')
+834239	def test_publisher_rss1_label_may_serve_valid_rss2_without_legacy_parser_change():
+834240	    feed = b"""<?xml version="1.0"?>
+834241	      <rss version="2.0"><channel><item>
+834242	        <title>Swiss National Bank monetary policy assessment</title>
+834243	        <link>https://www.snb.ch/en/release/monetary</link>
+834244	        <pubDate>Thu, 19 Nov 2026 10:00:00 GMT</pubDate>
+834245	      </item></channel></rss>"""
+834246	    entries = R.rss1_entries(feed)
+834247	    assert entries[0][0] == "Swiss National Bank monetary policy assessment"
+834248	    assert len(entries) == 1
+834249	"""Regression checks: owner-excluded publisher is not fetched or displayed."""
+834250	NOW = "2026-11-21T22:30:00Z"
+834251	BLOCK = "https://www.solarpowerportal.co.uk/solar-projects/uk-solar-farm-approved"
+834252	OTHER = "https://www.gov.uk/government/news/uk-solar-farm-approved"
+834253	def item(source, link, title="UK solar farm approved in Oxfordshire"):
+834254	    return {"title": title, "link": link, "source": source,
+834255	            "date": None, "first_seen": NOW, "category": "consent",
+834256	            "technology": "solar", "possible_match": None}
+834257	def test_config_omits_all_blocked_publisher_feeds():
+834258	    config = json.loads((PKG / "pipeline_feeds.json").read_text(encoding="utf-8"))
+834259	    assert config["excluded_sources"] == ["Solar Power Portal"]
+834260	    assert config["source_patch_id"] == "20261121-exclude-solar-power-portal-v1"
+834261	    assert len(config["feeds"]) == 68
+834262	    assert all(not P.excluded_publisher(f.get("source"), f.get("url")) for f in config["feeds"])
+834263	    assert not any(f["url"].startswith("https://www.solarpowerportal.co.uk/") for f in config["feeds"])
+834264	@pytest.mark.parametrize("source,url,blocked", [
+834265	    ("Solar Power Portal", BLOCK, True),
+834266	    ("solar power portal", OTHER, True),
+834267	    ("BBC News", BLOCK, True),
+834268	    ("BBC News", "https://sub.solarpowerportal.co.uk/solar", True),
+834269	    ("BBC News", "https://www.solarpowerportal.co.uk.evil.example/solar", False),
+834270	    ("BBC News", OTHER, False),
+834271	    ("Swissgrid", "https://www.swissgrid.ch/en/home", False),
+834272	def test_source_or_original_publisher_url_exclusion(source, url, blocked):
+834273	    assert P.excluded_publisher(source, url) is blocked
+834274	def test_manual_feed_input_does_not_trigger_publisher_network_request():
+834275	    feeds = [
+834276	        {"url": "https://www.solarpowerportal.co.uk/rss.xml?content_types=article",
+834277	         "source": "Solar Power Portal", "primary": True},
+834278	        {"url": "https://www.solarpowerportal.co.uk/solar-finance/a",
+834279	         "source": "Solar Power Portal", "kind": "curated",
+834280	         "title": "UK solar finance announced"},
+834281	        {"url": "https://www.gov.uk/feed.xml", "source": "Government", "uk_only": True},
+834283	    requested = []
+834284	        requested.append(url)
+834285	        return (b"<rss><channel><item><title>UK solar farm approved in Oxfordshire</title>"
+834286	                b"<link>https://www.gov.uk/government/news/uk-solar-farm-approved</link>"
+834287	                b"</item></channel></rss>")
+834288	    items, health = P.collect(feeds, fetch, P.Repd([]), NOW)
+834289	    assert requested == ["https://www.gov.uk/feed.xml"]
+834290	    assert len(items) == len(health) == 1
+834291	    assert items[0]["source"] == "Government"
+834292	    assert all("Solar Power Portal" not in str(h) for h in health)
+834293	def test_retained_old_headlines_and_syndicated_links_are_purged():
+834294	    past = [
+834295	        item("Solar Power Portal", BLOCK),
+834296	        item("BBC News", BLOCK),
+834297	        item("GOV.UK", OTHER),
+834298	    current = [
+834299	    merged = P.merge(past, current, P.Repd([]), NOW)
+834300	    assert [x["link"] for x in merged] == [OTHER]
+834301	    assert not any(P.excluded_publisher(x["source"], x["link"]) for x in merged)
+834302	def test_build_drops_publisher_even_when_previous_snapshot_contains_it():
+834303	    prior = {"schema": P.SCHEMA, "items": [
+834304	        item("Solar Power Portal", BLOCK), item("GOV.UK", OTHER),
+834306	    fresh, health = [], [{"source": "GOV.UK", "url": "https://www.gov.uk/feed.xml",
+834307	                         "status": "ok", "entries": 0, "kept": 0, "newest": None}]
+834308	    out = P.build(prior, fresh, health, P.Repd([]), NOW)
+834309	    assert out["counts"]["items"] == 1
+834310	    assert out["items"][0]["link"] == OTHER
+834311	    assert out["counts"]["feeds_failed"] == 0
+834312	def test_load_feeds_filters_disabled_source_from_older_fixture(tmp_path):
+834313	    config = {"feeds": [
+834314	        {"url": "https://www.solarpowerportal.co.uk/rss.xml", "source": "Solar Power Portal"},
+834315	        {"url": "https://www.gov.uk/feed.xml", "source": "GOV.UK"},
+834316	    p = tmp_path / "feeds.json"
+834317	    p.write_text(json.dumps(config), encoding="utf-8")
+834318	    assert [f["source"] for f in P.load_feeds(p)] == ["GOV.UK"]
+834324	<title>GlobalGrid2050 | Pipeline News V9.58 · 202611212308</title>
+834357	<link rel="stylesheet" href="styles/news-maximise.css">
+834523	        <a class="active" href="#" aria-current="page">V9.58 · PIPELINE NEWS</a>
+834529	      </nav><p>REPD October 2026 · V9.58</p></details>
+834554	<script type="module" src="news-maximise.mjs"></script>
+834558	// V9.58: independent news reader expand/restore; never moves or rewrites headlines.
+834561	  const root = document.querySelector('.main > section.newspaper');
+834562	  const list = document.getElementById('liveNews');
+834563	  if (!root || !list || document.getElementById('pnNewsMaximise')) return;
+834564	  const toggle = document.createElement('button');
+834565	  toggle.id = 'pnNewsMaximise';
+834566	  toggle.type = 'button';
+834567	  toggle.setAttribute('aria-controls', 'liveNews');
+834568	  toggle.setAttribute('aria-pressed', 'false');
+834569	  const icon = document.createElement('span');
+834570	  icon.className = 'pn-news-icon';
+834571	  icon.setAttribute('aria-hidden', 'true');
+834572	  toggle.append(icon);
+834573	  root.append(toggle);
+834574	  const otherSections = [...root.parentElement.children].filter(el => el !== root);
+834575	  let opened = false;
+834578	    const text = opened ? 'Restore news window' : 'Maximise news window';
+834579	    icon.textContent = opened ? '⤡' : '⤢';
+834580	    toggle.setAttribute('aria-label', text);
+834581	    toggle.setAttribute('title', text);
+834582	    toggle.setAttribute('aria-pressed', String(opened));
+834584	  function setOpen(next, restoreFocus = true) {
+834585	    if (next === opened) return;
+834586	    if (next) {
+834587	      const body = document.body, html = document.documentElement;
+834588	      saved = {
+834589	        scrollY: window.scrollY,
+834590	        newsScrollTop: list.scrollTop,
+834591	        body: {position:body.style.position, top:body.style.top, left:body.style.left,
+834592	          right:body.style.right, width:body.style.width, overflow:body.style.overflow},
+834593	        htmlOverflow: html.style.overflow,
+834594	        role: root.getAttribute('role'), ariaModal: root.getAttribute('aria-modal'),
+834595	        inert: otherSections.map(el => [el, el.inert])
+834597	      opened = true;
+834598	      root.classList.add('pn-news-maximised');
+834599	      root.setAttribute('role', 'dialog');
+834600	      root.setAttribute('aria-modal', 'true');
+834601	      for (const [el] of saved.inert) el.inert = true;
+834602	      html.classList.add('pn-news-max-open');
+834603	      html.style.overflow = 'hidden';
+834604	      // The full-screen fixed overlay and overflow lock are enough here.
+834605	      // Avoid changing body.position on iPhone Safari: it can zero window.scrollY.
+834606	      body.style.overflow = 'hidden';
+834607	      label();
+834608	      toggle.focus({preventScroll:true});
+834610	    opened = false;
+834611	    root.classList.remove('pn-news-maximised');
+834612	    if (saved.role === null) root.removeAttribute('role');
+834613	    else root.setAttribute('role', saved.role);
+834614	    if (saved.ariaModal === null) root.removeAttribute('aria-modal');
+834615	    else root.setAttribute('aria-modal', saved.ariaModal);
+834616	    for (const [el, inert] of saved.inert) el.inert = inert;
+834617	    const body = document.body, html = document.documentElement;
+834618	    html.classList.remove('pn-news-max-open');
+834619	    html.style.overflow = saved.htmlOverflow;
+834620	    for (const [key, value] of Object.entries(saved.body)) body.style[key] = value;
+834621	    const y = saved.scrollY;
+834622	    const newsScrollTop = saved.newsScrollTop;
+834623	    saved = null;
+834624	    label();
+834625	    if (restoreFocus) toggle.focus({preventScroll:true});
+834626	    // Enlarging may make all rows fit and clamp scrollTop to zero.
+834627	    // After returning to the original short reader, restore its prior position.
+834628	    // Restore after the original reader height is back; no DOM nodes are moved.
+834629	    requestAnimationFrame(() => {
+834630	      list.scrollTop = newsScrollTop;
+834631	      window.scrollTo(0, y);
+834633	        list.scrollTop = newsScrollTop;
+834634	        if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, y);
+834637	  toggle.addEventListener('click', () => setOpen(!opened));
+834638	  document.addEventListener('keydown', event => {
+834639	    if (opened && event.key === 'Escape') {
+834641	      setOpen(false);
+834643	  window.addEventListener('pagehide', () => { if (opened) setOpen(false, false); });
+834646	// V9.58: real Chromium/WebKit interactive news maximise tests; no external news dependency.
+834648	import {chromium, webkit} from 'playwright';
+834649	import {mkdir} from 'node:fs/promises';
+834650	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611212308/';
+834651	const folder='/tmp/pn-v958';
+834652	await mkdir(folder,{recursive:true});
+834654	const views=[[393,852],[667,375],[768,1024],[1440,900]];
+834655	for (const [engine, launcher] of [['chromium',chromium],['webkit',webkit]]) {
+834656	  const browser=await launcher.launch({headless:true});
+834658	    for (const [width,height] of views) {
+834659	      const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'});
+834660	      const errors=[];
+834661	      page.on('pageerror', e => errors.push(e.message));
+834662	      const label=engine+'-'+width;
+834664	        // Test against the committed local news snapshot; third-party connectivity
+834665	        // must not influence this purely presentational feature.
+834666	        await page.route('https://raw.githubusercontent.com/**', route => route.abort());
+834667	        await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+834668	        await page.waitForSelector('#pnNewsMaximise',{state:'visible',timeout:30000});
+834669	        await page.waitForSelector('#liveNews .ln-item',{timeout:30000});
+834670	        assert.match(await page.title(), /V9\.58.*202611212308/);
+834671	        await page.waitForFunction(()=>document.querySelector('#v2')?.textContent.replaceAll(',','')==='3604',null,{timeout:90000});
+834672	        const normal=await page.evaluate(()=>{
+834673	          const root=document.querySelector('.main>.newspaper');
+834674	          return {rect:root.getBoundingClientRect().toJSON(),
+834675	            position:getComputedStyle(root).position, bodyPosition:document.body.style.position,
+834676	            heading:document.getElementById('pipelineHeading').textContent,
+834677	            gauge:document.getElementById('v2').textContent};
+834679	        assert.notEqual(normal.position,'fixed');
+834680	        assert.equal(normal.bodyPosition,'');
+834681	        assert.match(normal.heading, /REPD PIPELINE/);
+834682	        assert.match(normal.gauge,/3,604/);
+834683	        await page.evaluate(()=>{
+834684	          window.scrollTo(0,Math.min(180,document.documentElement.scrollHeight-window.innerHeight));
+834685	          document.getElementById('liveNews').scrollTop=120;
+834686	        // A real tap requires the 44px control to be visible. Playwright
+834687	        // otherwise auto-scrolls only at click time, after the old expectation.
+834688	        await page.locator('#pnNewsMaximise').scrollIntoViewIfNeeded();
+834689	        const expected=await page.evaluate(()=>({
+834690	          y:scrollY, headlines:document.querySelectorAll('#liveNews .ln-item').length,
+834691	          scrollTop:document.getElementById('liveNews').scrollTop,
+834692	          ticker:!!document.getElementById('headlineTicker'),
+834693	          rows:document.querySelectorAll('#tbody tr').length
+834695	        await page.locator('#pnNewsMaximise').click();
+834696	        const full=await page.evaluate(()=>{
+834697	          const e=document.querySelector('.main>.newspaper'), b=e.getBoundingClientRect();
+834698	          const l=document.getElementById('liveNews');
+834699	          return {class:e.classList.contains('pn-news-maximised'),x:b.x,y:b.y,w:b.width,h:b.height,
+834700	            innerWidth:innerWidth,innerHeight:innerHeight,position:getComputedStyle(e).position,
+834701	            role:e.getAttribute('role'),ariaModal:e.getAttribute('aria-modal'),
+834702	            inert:document.getElementById('officialRegister').inert,
+834703	            label:document.getElementById('pnNewsMaximise').getAttribute('aria-label'),
+834704	            scrollTop:l.scrollTop,ticker:document.getElementById('headlineTicker').getBoundingClientRect().height};
+834705	        assert.equal(full.class,true);
+834706	        assert.equal(full.position,'fixed');
+834707	        assert.equal(full.role,'dialog');
+834708	        assert.equal(full.ariaModal,'true');
+834709	        assert.equal(full.inert,true);
+834710	        assert.equal(full.label,'Restore news window');
+834711	        assert.ok(Math.abs(full.x)<2 && Math.abs(full.y)<2,JSON.stringify(full));
+834712	        assert.ok(Math.abs(full.w-full.innerWidth)<3,JSON.stringify(full));
+834713	        assert.ok(Math.abs(full.h-full.innerHeight)<3,JSON.stringify(full));
+834714	        assert.ok(full.ticker>0,'ticker remains visible');
+834715	        assert.ok(full.scrollTop>=0 && full.scrollTop<=expected.scrollTop,'expanded viewport may have less overflow');
+834716	        assert.equal(expected.ticker,true);
+834717	        await page.screenshot({path:folder+'/'+label+'-max.png'});
+834718	        await page.waitForFunction(target => {
+834719	          return !document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised')
+834720	            && Math.abs(window.scrollY-target.y)<3
+834721	            && document.getElementById('liveNews').scrollTop===target.newsTop;
+834722	        }, {y:expected.y,newsTop:expected.scrollTop}, {timeout:10000});
+834723	        const restored=await page.evaluate(()=>({
+834724	          isFull:document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised'),
+834725	          bodyPos:document.body.style.position, y:scrollY,
+834726	          gauge:document.getElementById('v2').textContent,
+834727	          newsCount:document.querySelectorAll('#liveNews .ln-item').length,
+834728	          role:document.querySelector('.main>.newspaper').getAttribute('role'),
+834729	          inert:document.getElementById('officialRegister').inert,
+834730	          horizontal:document.documentElement.scrollWidth-document.documentElement.clientWidth
+834731	        assert.equal(restored.isFull,false);
+834732	        assert.equal(restored.bodyPos,'');
+834733	        assert.ok(Math.abs(restored.y-expected.y)<3,JSON.stringify({expected,restored}));
+834734	        assert.equal(restored.gauge,normal.gauge);
+834735	        assert.equal(restored.newsCount,expected.headlines);
+834736	        assert.equal(restored.scrollTop,expected.scrollTop);
+834737	        assert.equal(restored.inert,false);
+834738	        assert.equal(restored.role,null);
+834739	        assert.ok(restored.horizontal<=3,'no sideways overflow');
+834740	        // Keyboard users can close with Escape and return to the same view.
+834742	        await page.waitForFunction(()=>!document.querySelector('.main>.newspaper').classList.contains('pn-news-maximised'));
+834743	        assert.equal(await page.locator('#pnNewsMaximise').getAttribute('aria-label'),'Maximise news window');
+834744	        assert.deepEqual(errors,[],'Uncaught browser errors');
+834745	        console.log('PASS '+label+' fixed overlay, safe restoration, original REPD/ticker/links');
+834746	      } catch(e) {
+834747	        failures.push(label+': '+(e?.stack||e));
+834748	        await page.screenshot({path:folder+'/'+label+'-failure.png'}).catch(()=>{});
+834749	      } finally {await page.close();}
+834751	if(failures.length)throw Error(failures.join('\n'));
+834752	console.log('PASS: 8 independent browser and viewport combinations');
+834753	<title>GlobalGrid2050 | Pipeline News V9.59 · 202611212340</title>
+834754	        <a class="active" href="#" aria-current="page">V9.59 · PIPELINE NEWS</a>
+834755	        <a href="../202611212308/">V9.58 · PREVIOUS EDITION</a>
+834756	      </nav><p>REPD October 2026 · V9.59</p></details>
+834757	// V9.59: compact button geometry and inherited Chromium/WebKit maximise tests.
+834758	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611212340/';
+834759	const folder='/tmp/pn-v959';
+834760	        assert.match(await page.title(), /V9\.59.*202611212340/);
+834761	        const compact=await page.evaluate(()=>{
+834762	          const b=document.getElementById('pnNewsMaximise').getBoundingClientRect();
+834763	          const list=document.getElementById('liveNews').getBoundingClientRect();
+834764	          const ticker=document.getElementById('headlineTicker').getBoundingClientRect();
+834765	          return {button:{x:b.x,y:b.y,width:b.width,height:b.height,bottom:b.bottom},
+834766	            listBottom:list.bottom,tickerTop:ticker.top,withinWidth:b.right<=innerWidth};
+834767	        assert.equal(compact.button.width,34,'compact button width');
+834768	        assert.equal(compact.button.height,34,'compact button height');
+834769	        assert.equal(compact.withinWidth,true);
+834770	        assert.ok(compact.button.y>=compact.listBottom-8,
+834771	          'news button overlaps headline list '+JSON.stringify(compact));
+834772	        assert.ok(compact.button.bottom<=compact.tickerTop+8,
+834773	          'news button overlaps ticker '+JSON.stringify(compact));
+834774	<title>GlobalGrid2050 | Pipeline News V9.60 · 202611212344</title>
+834775	<link rel="stylesheet" href="styles/repd-landscape.css">
+834776	        <a class="active" href="#" aria-current="page">V9.60 · PIPELINE NEWS</a>
+834777	        <a href="../202611212340/">V9.59 · PREVIOUS EDITION</a>
+834778	      </nav><p>REPD October 2026 · V9.60</p></details>
+834779	<script type="module" src="repd-landscape.mjs"></script>
+834780	// V9.60: REPD landscape-only overlay; reuses the existing gauges, filters and project table.
+834781	  const root=document.getElementById('officialRegister');
+834782	  const table=document.getElementById('repdScroll');
+834783	  if(!root||!table||document.getElementById('pnRepdWideToggle'))return;
+834784	  const orientation=window.matchMedia('(orientation: landscape)');
+834785	  const toggle=document.createElement('button');
+834786	  toggle.id='pnRepdWideToggle';
+834787	  toggle.type='button';
+834788	  toggle.setAttribute('aria-controls','officialRegister');
+834789	  toggle.setAttribute('aria-pressed','false');
+834790	  const icon=document.createElement('span');
+834791	  icon.className='pn-repd-icon';
+834792	  icon.setAttribute('aria-hidden','true');
+834793	  const prompt=document.createElement('div');
+834794	  prompt.id='pnRepdWidePrompt';
+834795	  prompt.hidden=true;
+834796	  prompt.setAttribute('role','status');
+834797	  const note=document.createElement('span');
+834798	  note.textContent='Rotate your device to landscape for the full-width REPD dashboard and project columns.';
+834799	  const cancel=document.createElement('button');
+834800	  cancel.type='button';
+834801	  cancel.textContent='Cancel';
+834802	  prompt.append(note,cancel);
+834803	  root.append(toggle,prompt);
+834804	  let expanded=false,waiting=false,saved=null;
+834805	  const landscape=()=>orientation.matches && window.innerWidth>window.innerHeight;
+834806	  const siblings=()=>[...root.parentElement.children].filter(el=>el!==root);
+834807	  function refreshLabel(){
+834808	    const action=expanded?'Restore REPD dashboard':waiting?'Cancel landscape request':'Maximise REPD dashboard (landscape only)';
+834809	    icon.textContent=expanded?'⤡':'⤢';
+834810	    toggle.setAttribute('aria-label',action);
+834811	    toggle.title=action;
+834812	    toggle.setAttribute('aria-pressed',String(expanded));
+834813	  function cancelRequest(){
+834814	    waiting=false;prompt.hidden=true;refreshLabel();
+834815	  function enter(){
+834816	    if(expanded||!landscape())return;
+834817	    cancelRequest();
+834818	    const html=document.documentElement,body=document.body;
+834819	    saved={
+834820	      y:window.scrollY,rootScroll:root.scrollTop,tableX:table.scrollLeft,
+834821	      htmlOverflow:html.style.overflow,bodyOverflow:body.style.overflow,
+834822	      role:root.getAttribute('role'),modal:root.getAttribute('aria-modal'),
+834823	      inert:siblings().map(el=>[el,el.inert])
+834825	    expanded=true;
+834826	    root.classList.add('pn-repd-wide');
+834827	    root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');
+834828	    for(const [el] of saved.inert)el.inert=true;
+834829	    html.classList.add('pn-repd-wide-open');
+834830	    html.style.overflow='hidden';
+834831	    body.style.overflow='hidden';
+834832	    refreshLabel();
+834833	    toggle.focus({preventScroll:true});
+834834	  function restore(returnFocus=true){
+834835	    if(!expanded)return;
+834836	    expanded=false;
+834837	    root.classList.remove('pn-repd-wide');
+834838	    if(saved.role===null)root.removeAttribute('role');
+834839	    else root.setAttribute('role',saved.role);
+834840	    if(saved.modal===null)root.removeAttribute('aria-modal');
+834841	    else root.setAttribute('aria-modal',saved.modal);
+834842	    for(const [el,inert] of saved.inert)el.inert=inert;
+834843	    const y=saved.y,oldScroll=saved.rootScroll,tableX=saved.tableX;
+834844	    html.classList.remove('pn-repd-wide-open');
+834845	    html.style.overflow=saved.htmlOverflow;
+834846	    body.style.overflow=saved.bodyOverflow;
+834847	    saved=null;
+834848	    if(returnFocus)toggle.focus({preventScroll:true});
+834849	    requestAnimationFrame(()=>{
+834850	      root.scrollTop=oldScroll;
+834851	      table.scrollLeft=tableX;
+834852	      window.scrollTo(0,y);
+834853	      requestAnimationFrame(()=>{
+834854	        table.scrollLeft=tableX;
+834855	        if(Math.abs(window.scrollY-y)>1)window.scrollTo(0,y);
+834856	  function request(){
+834857	    if(expanded){restore();return;}
+834858	    if(waiting){cancelRequest();return;}
+834859	    if(landscape()){enter();return;}
+834860	    waiting=true;prompt.hidden=false;refreshLabel();
+834861	    cancel.focus({preventScroll:true});
+834862	  function orientationChanged(){
+834863	    if(expanded&&!landscape())restore(false);
+834864	    if(waiting&&landscape())enter();
+834865	  toggle.addEventListener('click',request);
+834866	  cancel.addEventListener('click',cancelRequest);
+834867	  document.addEventListener('keydown',e=>{
+834868	    if(e.key!=='Escape')return;
+834869	    if(expanded){e.preventDefault();restore();}
+834870	    else if(waiting){e.preventDefault();cancelRequest();}
+834871	  if(orientation.addEventListener)orientation.addEventListener('change',orientationChanged);
+834872	  else orientation.addListener(orientationChanged);
+834873	  window.addEventListener('resize',orientationChanged);
+834874	  window.addEventListener('pagehide',()=>{if(expanded)restore(false);cancelRequest();});
+834875	  refreshLabel();
+834876	// V9.60: isolated Chromium and WebKit landscape-only REPD dashboard acceptance.
+834877	import {chromium,webkit} from 'playwright';
+834878	const URL='http://127.0.0.1:8765/uk_renewables_pipeline/202611212344/';
+834879	const OUT='/tmp/pn-v960-landscape';
+834880	await mkdir(OUT,{recursive:true});
+834881	const modes=[
+834882	  {name:'phone-portrait-rotate',portrait:[393,852],wide:[852,393]},
+834883	  {name:'tablet-portrait-rotate',portrait:[768,1024],wide:[1024,768]},
+834884	  {name:'phone-landscape',wide:[667,375]},
+834885	  {name:'desktop-landscape',wide:[1440,900]},
+834890	  for(const mode of modes){
+834891	   const [w,h]=mode.portrait||mode.wide;
+834892	   const page=await browser.newPage({viewport:{width:w,height:h},reducedMotion:'reduce'});
+834893	   const errors=[];page.on('pageerror',e=>errors.push(e.message));
+834894	   const label=engine+'-'+mode.name;
+834896	    await page.route('https://raw.githubusercontent.com/**',route=>route.abort());
+834897	    await page.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
+834898	    await page.waitForSelector('#pnRepdWideToggle',{state:'visible',timeout:20000});
+834899	    await page.waitForFunction(()=>document.querySelector('#v2')?.textContent.replaceAll(',','')==='3604' &&
+834900	      document.querySelectorAll('#tbody tr[id^="repd-"]').length>0,null,{timeout:90000});
+834901	    assert.match(await page.title(),/V9\.60.*202611212344/);
+834902	    const original=await page.evaluate(()=>({
+834903	      rows:document.querySelectorAll('#tbody tr[id^="repd-"]').length,
+834904	      gauge:document.getElementById('v2').textContent,
+834905	      newsButton:!!document.getElementById('pnNewsMaximise'),
+834906	      width:document.getElementById('repdScroll').clientWidth,
+834907	      htmlOverflow:document.documentElement.style.overflow,
+834908	      max:document.getElementById('repdScroll').scrollWidth
+834910	    assert.equal(original.newsButton,true,'independent news toggle retained');
+834911	    assert.ok(original.max>original.width,'original table has real horizontal columns');
+834912	    const toggle=page.locator('#pnRepdWideToggle');
+834913	    await toggle.scrollIntoViewIfNeeded();
+834914	    const beforeY=await page.evaluate(()=>scrollY);
+834915	    if(mode.portrait){
+834916	      await toggle.click();
+834917	      assert.equal(await page.locator('#pnRepdWidePrompt').isVisible(),true,'rotate hint in portrait');
+834918	      assert.equal(await page.locator('#officialRegister').evaluate(e=>e.classList.contains('pn-repd-wide')),false,'portrait never expanded');
+834919	      await page.setViewportSize({width:mode.wide[0],height:mode.wide[1]});
+834920	      await page.waitForFunction(()=>document.querySelector('#officialRegister').classList.contains('pn-repd-wide'),null,{timeout:10000});
+834922	    const wide=await page.evaluate(()=>{
+834923	      const root=document.getElementById('officialRegister'),box=root.getBoundingClientRect();
+834924	      const gauges=document.querySelector('#repdPanel>.hud-gauges');
+834925	      const table=document.getElementById('repdScroll');
+834926	      const status=document.querySelector('#repdScroll [data-column-heading="status"]');
+834927	      return {x:box.x,y:box.y,w:box.width,h:box.height,innerWidth:innerWidth,innerHeight:innerHeight,
+834928	        position:getComputedStyle(root).position,role:root.getAttribute('role'),
+834929	        modal:root.getAttribute('aria-modal'),newsInert:document.querySelector('.main>.newspaper').inert,
+834930	        toggleLabel:document.getElementById('pnRepdWideToggle').getAttribute('aria-label'),
+834931	        gaugeText:document.getElementById('v2').textContent,
+834932	        gaugeHeight:gauges.getBoundingClientRect().height,
+834933	        width:table.clientWidth,scrollWidth:table.scrollWidth,
+834934	        rows:document.querySelectorAll('#tbody tr[id^="repd-"]').length,
+834935	        status:status?getComputedStyle(status).display:null,
+834936	        hasHeader:!!document.querySelector('#repdScroll thead [data-column-heading="name"]')};
+834937	    assert.equal(wide.position,'fixed');
+834938	    assert.equal(wide.role,'dialog');assert.equal(wide.modal,'true');
+834939	    assert.equal(wide.newsInert,true);
+834940	    assert.equal(wide.toggleLabel,'Restore REPD dashboard');
+834941	    assert.equal(wide.gaugeText,original.gauge);
+834942	    assert.ok(wide.gaugeHeight>40,'analytics gauges remain in REPD dashboard');
+834943	    assert.equal(wide.rows,original.rows,'unchanged register project rows');
+834944	    assert.ok(wide.hasHeader,'sortable table header remains');
+834945	    assert.notEqual(wide.status,'none','status column visible in wide layout');
+834946	    assert.ok(wide.scrollWidth>wide.width,'all original project columns remain horizontally scrollable');
+834947	    assert.ok(Math.abs(wide.x)<2 && Math.abs(wide.y)<2,JSON.stringify(wide));
+834948	    assert.ok(Math.abs(wide.w-wide.innerWidth)<3 && Math.abs(wide.h-wide.innerHeight)<3,JSON.stringify(wide));
+834949	    await page.screenshot({path:OUT+'/'+label+'.png'});
+834950	    await page.evaluate(()=>document.getElementById('repdScroll').scrollLeft=210);
+834951	    await toggle.click();
+834952	    await page.waitForFunction(()=>!document.querySelector('#officialRegister').classList.contains('pn-repd-wide'),null,{timeout:10000});
+834953	    await page.waitForFunction(y=>Math.abs(window.scrollY-y)<3,beforeY,{timeout:10000});
+834954	    const closed=await page.evaluate(()=>({
+834955	      news:document.getElementById('pnNewsMaximise').getAttribute('aria-label'),
+834956	      role:document.getElementById('officialRegister').getAttribute('role'),
+834957	      newsInert:document.querySelector('.main>.newspaper').inert,
+834958	      tableX:document.getElementById('repdScroll').scrollLeft,
+834959	      hasFull:document.querySelector('#officialRegister').classList.contains('pn-repd-wide')
+834960	    assert.equal(closed.hasFull,false);assert.equal(closed.role,null);
+834961	    assert.equal(closed.newsInert,false);
+834962	    assert.equal(closed.gauge,original.gauge);
+834963	    assert.equal(closed.htmlOverflow,original.htmlOverflow);
+834964	    assert.equal(closed.tableX,0,'horizontal position returns to previous view');
+834965	    assert.equal(closed.news,'Maximise news window');
+834966	    // Open and test automatic exit when device is rotated back to portrait.
+834967	    await page.waitForFunction(()=>document.querySelector('#officialRegister').classList.contains('pn-repd-wide'));
+834968	      await page.setViewportSize({width:mode.portrait[0],height:mode.portrait[1]});
+834969	      await page.waitForFunction(()=>!document.querySelector('#officialRegister').classList.contains('pn-repd-wide'),null,{timeout:10000});
+834970	      assert.equal(await page.locator('#pnRepdWidePrompt').isVisible(),false);
+834972	      await page.waitForFunction(()=>!document.querySelector('#officialRegister').classList.contains('pn-repd-wide'));
+834973	    assert.deepEqual(errors,[],'no uncaught browser errors');
+834974	    console.log('PASS '+label+' orientation gate, gauges, status column, scroll and restore');
+834975	   }catch(error){
+834976	    failures.push(label+': '+(error.stack||error));
+834977	    await page.screenshot({path:OUT+'/'+label+'-FAIL.png'}).catch(()=>{});
+834978	   }finally{await page.close();}
+834980	console.log('PASS: 8 REPD landscape-only browser scenarios');
+834996	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">Open Pipeline News &rarr;</a></div></details>
+835019	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.60 - Landscape-only REPD analytics and projects</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div></details></td></tr>
 ```

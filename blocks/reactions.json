@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-21T19:45:51.696Z",
+ "generated_utc": "2026-11-22T00:39:57.457Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -718,8 +718,8 @@
     "D",
     "Pn"
    ],
-   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611201709/scripts/plugins/",
-   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611201709/scripts/plugins"
+   "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611212344/scripts/plugins/",
+   "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611212344/scripts/plugins"
   },
   {
    "folder": "pipelinenews/tools/intelligence/cartridges/wider-fleet/assets",
@@ -4733,8 +4733,8 @@
    "examples": [
     {
      "title": "Uk renewables pipeline",
-     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611201709/scripts/plugins/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611201709/scripts/plugins"
+     "live": "https://globalgrid2050.com/uk_renewables_pipeline/202611212344/scripts/plugins/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/uk_renewables_pipeline/202611212344/scripts/plugins"
     }
    ],
    "tests": null,

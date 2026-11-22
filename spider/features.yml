@@ -11,7 +11,7 @@ graphs:
     description: "Functions and classes found in two or more different files across the public Ventusltd repositories, wired to the repositories they live in and to other families sharing their name. Node ids are permanent numbers (family:N); GitHub opens the exact lines; External opens the code report (every place it is used, the live page, the numbered lines, copy). Rebuilt hourly on GitHub Actions."
     nodes: 302
     edges: 1012
-    graph_generated_utc: "2026-11-21T19:44:40.700Z"
+    graph_generated_utc: "2026-11-22T00:38:52.546Z"
   - id: "sense"
     title: "Assessment"
     path: "https://ventusltd.github.io/stars/sense/graph.json"
@@ -20,7 +20,7 @@ graphs:
     description: "The code universe charted into sense: what is canonical and what is a copy, what depends on what, what is proven together and what is untested, what is a decision rather than a fact. Ordered from the whole to the parts."
     nodes: 142
     edges: 621
-    graph_generated_utc: "2026-11-21T19:46:04.787Z"
+    graph_generated_utc: "2026-11-22T00:40:10.328Z"
   - id: "proof-of-work"
     title: "Audit"
     path: "https://ventusltd.github.io/stars/proof/graph.json"
@@ -29,7 +29,7 @@ graphs:
     description: "What ran, when, what it produced and which checks it passed: the workflows, their latest runs and their artefacts."
     nodes: 40
     edges: 68
-    graph_generated_utc: "2026-11-21T19:46:04.827Z"
+    graph_generated_utc: "2026-11-22T00:40:10.369Z"
   - id: "structure"
     title: "Structure"
     path: "https://ventusltd.github.io/stars/structure/graph.json"
@@ -37,8 +37,8 @@ graphs:
     source_spider: "stars/modular-star (structure.mjs)"
     description: "globalgrid2050 architecture development, top-down: repositories, the blocks in each, and the engine modules in their canonical order."
     nodes: 136
-    edges: 434
-    graph_generated_utc: "2026-11-21T19:46:12.564Z"
+    edges: 433
+    graph_generated_utc: "2026-11-22T00:40:18.160Z"
   - id: "decisions"
     title: "Decisions"
     path: "https://ventusltd.github.io/stars/decisions/graph.json"
@@ -47,7 +47,7 @@ graphs:
     description: "The judgements attached to the maps' permanent keys: one card per decision record, open (amber), decided (green) or superseded (grey), wired to the block, constant or function family it concerns. A decided record is permission; an open record is a question. Records are made by clicks from the Decision issue form."
     nodes: 37
     edges: 39
-    graph_generated_utc: "2026-11-21T19:45:52.214Z"
+    graph_generated_utc: "2026-11-22T00:39:57.898Z"
   - id: "chemistry"
     title: "Compatibility"
     path: "https://ventusltd.github.io/stars/spider/graphs/chemistry.json"
