@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-11-21`
+# The Random star — 150 links by chance, seed `2026-11-22`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- #8493 auditProjectRows —COULD_REPLACE (0.582)→ #3820 renderNews
-- #1219 toggleAtlasV8GridLayer —MIGHT_TOUCH (0.006)→ Ss(202609030234)
-- #3406 provisional —MIGHT_TOUCH (0.457)→ #3725 deepFreeze
-- #3384 globalgrid2050/promise —ENTANGLED_MAYBE (0.32)→ #1680 presentSummary
-- #411 cartridges —ENTANGLED_MAYBE (0.755)→ Si
-- #4114 mountMapControlsLayout —ENTANGLED_MAYBE (0.117)→ Ss(202609012211)
-- Ek EARTH_KM —RHYMES_WITH (0.195)→ Ss(202609040337)
-- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.71)→ #3579 ratings
-- #3405 ready —ENTANGLED_MAYBE (0.697)→ #3610 testcode/onChange
-- #8436 overlap —WHAT_IF (0.789)→ repo claude
-- #1524 pipelinenews/promise —REMINDS_OF (0.029)→ #3610 globalgrid2050/onChange
-- repo cvaa —RHYMES_WITH (0.471)→ Dd diversified-demand.js
-- #3880 repdUpdatedTimestamp —REMINDS_OF (0.493)→ Vd voltage-drop.js
-- #1465 validateAsset —WHAT_IF (0.765)→ #3610 testcode/onChange
-- #3384 globalgrid2050/promise —MIGHT_TOUCH (0.169)→ #3610 gridatlas/onChange
-- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.276)→ #1531 finiteInRange
-- repo youengineer-code-review —REMINDS_OF (0.089)→ Ss(202609030233)
-- #3579 ratings —MIGHT_TOUCH (0.489)→ #1524 globalgrid2050/promise
-- #3413 centralStats —COULD_REPLACE (0.667)→ #1431 modules
-- #1524 globalgrid2050/promise —ENTANGLED_MAYBE (0.42)→ #1236 updateLegend
-- #6847 cell —MIGHT_TOUCH (0.369)→ #3384 globalgrid2050/promise
-- repo ventus-grid-engine —COULD_REPLACE (0.09)→ At ALLOWED_TECHNOLOGIES
-- #1468 renderRows —ENTANGLED_MAYBE (0.548)→ #3805 validPayload
-- Si(202609041945) —ENTANGLED_MAYBE (0.346)→ #1524 globalgrid2050/promise
-- #3610 globalgrid2050/onChange —ENTANGLED_MAYBE (0.173)→ #3610 globalgrid2050/onChange
-- Ss(202609080850) —ENTANGLED_MAYBE (0.283)→ #1524 globalgrid2050/promise
-- #1524 pipelinenews/promise —RHYMES_WITH (0.036)→ #3384 testcode/promise
-- #980 cells —ENTANGLED_MAYBE (0.905)→ #3855 drawProjectTable
-- #3610 testcode/onChange —WHAT_IF (0.085)→ #8341 blocks
-- #3384 globalgrid2050/promise —RHYMES_WITH (0.62)→ #3384 testcode/promise
-- Si(202609051525) —MIGHT_TOUCH (0.99)→ #3804 renderNews
-- Ss(202609041945) —MIGHT_TOUCH (0.134)→ #1206 setFetchStatus
-- #3409 physicalInputs —MIGHT_TOUCH (0.83)→ #3807 fetchPayload
-- #4305 readJson —COULD_REPLACE (0.196)→ Si(202609040337)
-- #1200 renderFinance —WHAT_IF (0.244)→ Ss(202609080837)
-- Ss(202609030233) —RHYMES_WITH (0.132)→ #3384 globalgrid2050/promise
-- Gg geo-geojson.js —WHAT_IF (0.644)→ #3610 testcode/onChange
-- #2039 Number —COULD_REPLACE (0.882)→ #2926 indexed
-- Ss(202609030119) —COULD_REPLACE (0.846)→ #15 globalgrid2050/renderStats
-- #3406 provisional —WHAT_IF (0.791)→ #3384 testcode/promise
+- #8493 auditProjectRows —MIGHT_TOUCH (0.266)→ #3790 formatLargestV9_2
+- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.868)→ #8336 publishes
+- #1524 globalgrid2050/promise —COULD_REPLACE (0.403)→ Si(202609041957)
+- #3610 gridatlas/onChange —WHAT_IF (0.408)→ Ss(202609071005)
+- #3384 globalgrid2050/promise —REMINDS_OF (0.635)→ #5726 counts
+- #1240 updateExportCableLengthDisplay —MIGHT_TOUCH (0.251)→ #1684 clearWider
+- #8445 distance —MIGHT_TOUCH (0.51)→ #1822 createGeoJSONCircle
+- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.977)→ Si(202609051329)
+- #3384 globalgrid2050/promise —COULD_REPLACE (0.732)→ #15 globalgrid2050/renderStats
+- #1676 writeDeepLink —COULD_REPLACE (0.828)→ repo v11
+- #15 testcode/renderStats —COULD_REPLACE (0.338)→ #1209 intVal
+- #1524 pipelinenews/promise —REMINDS_OF (0.78)→ #3384 testcode/promise
+- #8492 isRetiredReceiver —ENTANGLED_MAYBE (0.305)→ #1205 pickProp
+- #3610 gridatlas/onChange —RHYMES_WITH (0.176)→ #1200 renderFinance
+- Si(202609032246) —ENTANGLED_MAYBE (0.389)→ #1524 globalgrid2050/promise
+- Ss(202609012317) —ENTANGLED_MAYBE (0.223)→ #1529 invariant
+- #3263 finishCableRouteMode —MIGHT_TOUCH (0.677)→ #5403 nativeFetch
+- #1684 clearWider —REMINDS_OF (0.094)→ #15 globalgrid2050/renderStats
+- #1524 pipelinenews/promise —REMINDS_OF (0.496)→ Ss(202609080430)
+- #15 globalgrid2050/renderStats —WHAT_IF (0.79)→ #3384 testcode/promise
+- #3813 signalForProjectV9_5_1 —RHYMES_WITH (0.275)→ #4569 success
+- #5490 pair —COULD_REPLACE (0.168)→ #1524 pipelinenews/promise
+- #3265 addCableRouteWaypoint —RHYMES_WITH (0.908)→ #15 testcode/renderStats
+- #3384 globalgrid2050/promise —RHYMES_WITH (0.411)→ #1476 invariant
+- #3806 payloadTime —ENTANGLED_MAYBE (0.955)→ #15 globalgrid2050/renderStats
+- #1524 pipelinenews/promise —MIGHT_TOUCH (0.642)→ #4 normaliseBurialDepthFieldOnBlur
+- Ss(202609032222) —MIGHT_TOUCH (0.271)→ #3405 ready
+- Si(202609051624) —MIGHT_TOUCH (0.278)→ #15 testcode/renderStats
+- #3384 globalgrid2050/promise —REMINDS_OF (0.545)→ Movement
+- #1532 buildAtlasV9DeepLink —MIGHT_TOUCH (0.564)→ #3384 testcode/promise
+- #1533 selfTest —COULD_REPLACE (0.891)→ #1465 validateAsset
+- #5726 counts —ENTANGLED_MAYBE (0.164)→ repo youengineer-code-review
+- #4052 globalgrid2050/handle —COULD_REPLACE (0.013)→ #3384 globalgrid2050/promise
+- #2039 Number —REMINDS_OF (0.212)→ #3610 gridatlas/onChange
+- Si(202609062358) —RHYMES_WITH (0.217)→ #3384 testcode/promise
+- #22 buildSnapshot —ENTANGLED_MAYBE (0.109)→ #3855 drawProjectTable
+- #43 cable-trench-or-drill/onChange —ENTANGLED_MAYBE (0.227)→ #1684 clearWider
+- #1524 pipelinenews/promise —COULD_REPLACE (0.835)→ #3384 globalgrid2050/promise
+- repo gridmachine1 —MIGHT_TOUCH (0.921)→ Cc connection-capacity.js
+- #8471 edit —MIGHT_TOUCH (0.955)→ #3845 signalForProject
 
 ## For the Spider
-`random/graph.json` — 172 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 176 nodes, 150 edges. Fly it when you want to get lost on purpose.
