@@ -1,5 +1,5 @@
 {
- "next": 2328,
+ "next": 2336,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2264,6 +2264,14 @@
   "globalgrid2050:uk_renewables_pipeline/{stamp}/scripts/data/build_v9_1_spine.py": 2324,
   "globalgrid2050:automation/news/research_indexes.py": 2325,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/news-maximise.mjs": 2326,
-  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-landscape.mjs": 2327
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-landscape.mjs": 2327,
+  "globalgrid2050:automation/pipeline_release/code_line_delta.py": 2328,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-density.mjs": 2329,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-scan.mjs": 2330,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/report-a4.mjs": 2331,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/report-model.mjs": 2332,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/report-pdf.mjs": 2333,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-liquid.mjs": 2334,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-expanded.mjs": 2335
  }
 }

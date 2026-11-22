@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-471,169 unique lines, numbered 1 to 836,092. Generated 2026-11-22T07:27:37.207Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+472,518 unique lines, numbered 1 to 838,305. Generated 2026-11-22T15:40:16.969Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -471172,4 +471172,1353 @@
 836076	    assert P.category_of("Climate causes warm November weather") is None
 836077	    assert P.category_of("COP31 cultural festival opens in Antalya") is None
 836092	    assert len(config["feeds"]) == 69  # 68 unchanged + independent BBC COP31 link
+836150	"""Quick immutable Pipeline News release delta; no checkout of copied app trees."""
+836158	TEXT_EXT = {".html",".css",".js",".mjs",".cjs",".jsx",".ts",".tsx",".py",".sh",".md",".txt",".yml",".yaml",".json5"}
+836159	CODE_EXT = TEXT_EXT - {".md",".txt",".yml",".yaml",".json5"}
+836160	PREFIX = "uk_renewables_pipeline/"
+836162	    return subprocess.check_output(["git",*args])
+836163	def versions(ref):
+836164	    names=git("ls-tree","--name-only","-d",ref+":"+PREFIX.rstrip("/")).decode().splitlines()
+836165	    return sorted(name for name in names if re.fullmatch(r"20\d{10}",name))
+836166	def entries(ref,version):
+836167	    raw=git("ls-tree","-r","-z",ref+":"+PREFIX+version)
+836168	    return {path.decode("utf-8","surrogateescape"):meta.split()[2].decode()
+836169	            for meta,path in (rec.split(b"\t",1) for rec in raw.split(b"\0") if rec)}
+836170	def text_lines(sha):
+836171	    if sha is None: return []
+836172	    data=git("cat-file","blob",sha)
+836173	    if b"\0" in data or len(data)>2000000: return None
+836174	    try: return data.decode("utf-8").splitlines()
+836175	    except UnicodeError: return None
+836176	def compare(ref,previous,current):
+836177	    old,new=entries(ref,previous),entries(ref,current)
+836178	    changes=[]
+836179	    for path in sorted(set(old)|set(new)):
+836180	        if old.get(path)==new.get(path): continue
+836181	        ext=Path(path).suffix.lower()
+836182	        kind="source" if ext in CODE_EXT else "other-text" if ext in TEXT_EXT else "binary/data"
+836183	        added=deleted=None
+836184	        if kind!="binary/data":
+836185	            a,b=text_lines(old.get(path)),text_lines(new.get(path))
+836186	            if a is not None and b is not None:
+836187	                opcodes=difflib.SequenceMatcher(a=a,b=b,autojunk=False).get_opcodes()
+836188	                added=sum(j2-j1 for tag,i1,i2,j1,j2 in opcodes if tag in ("replace","insert"))
+836189	                deleted=sum(i2-i1 for tag,i1,i2,j1,j2 in opcodes if tag in ("replace","delete"))
+836190	        changes.append(dict(path=path,kind=kind,added=added,deleted=deleted,
+836191	                            before=old.get(path),after=new.get(path)))
+836192	    def totals(rows):
+836193	        return dict(added=sum(x["added"] or 0 for x in rows),
+836194	                    deleted=sum(x["deleted"] or 0 for x in rows),
+836195	                    changed_files=len(rows))
+836196	    exact_same=sum(old.get(p)==new.get(p) for p in (set(old)|set(new)))
+836197	    return dict(previous=previous,current=current,git_ref=ref,
+836198	                identical_inherited_files=exact_same,
+836199	                all_text=totals([x for x in changes if x["added"] is not None]),
+836200	                source=totals([x for x in changes if x["kind"]=="source" and x["added"] is not None]),
+836201	                nontext_changed_files=sum(x["added"] is None for x in changes),
+836202	                changed_files=len(changes),files=changes)
+836204	    p=argparse.ArgumentParser()
+836205	    p.add_argument("--ref",default="HEAD")
+836206	    p.add_argument("--current",default="latest")
+836207	    p.add_argument("--previous")
+836208	    p.add_argument("--output",default="/tmp/pipeline-release-delta")
+836209	    args=p.parse_args()
+836210	    v=versions(args.ref)
+836211	    current=v[-1] if args.current=="latest" else args.current
+836212	    if current not in v: p.error("unknown timestamped release: "+current)
+836213	    idx=v.index(current)
+836214	    if idx==0 and args.previous is None: p.error("no predecessor")
+836215	    previous=args.previous or v[idx-1]
+836216	    if previous not in v or previous>=current:p.error("invalid predecessor")
+836217	    report=compare(args.ref,previous,current)
+836218	    out=Path(args.output);out.mkdir(parents=True,exist_ok=True)
+836219	    (out/"delta.json").write_text(json.dumps(report,indent=2)+"\n")
+836220	    total=report["all_text"];code=report["source"]
+836221	    summary="\n".join((
+836222	      "## Pipeline News immutable release delta",
+836224	      f"**{previous} → {current}**",
+836225	      f"**{total['added']:,} lines added, {total['deleted']:,} removed** across {total['changed_files']} text files.",
+836226	      f"Application source: +{code['added']:,} / -{code['deleted']:,} lines in {code['changed_files']} files.",
+836227	      f"Exact inherited unchanged files: {report['identical_inherited_files']:,}.",
+836228	      f"Nontext/data changes: {report['nontext_changed_files']}.",
+836229	      "Counts are source-to-source differences, not duplicated lines from full release copies.",
+836230	      "Full ledger: delta.json",
+836231	      ""
+836233	    (out/"summary.md").write_text(summary)
+836235	if __name__=="__main__": main()
+836256	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">Open Pipeline News &rarr;</a></div></details>
+836280	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.66 - Red Expanded REPD with Operator MAP and A4</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div></details></td></tr>
+836306	<title>GlobalGrid2050 | Pipeline News V9.61 · 202611220100</title>
+836341	<link rel="stylesheet" href="styles/repd-density.css">
+836503	        <a class="active" href="#" aria-current="page">V9.61 · PIPELINE NEWS</a>
+836505	        <a href="../202611212344/">V9.60 · PREVIOUS EDITION</a>
+836509	      </nav><p>REPD October 2026 · V9.61</p></details>
+836536	<script type="module" src="repd-density.mjs"></script>
+836537	// V9.61: independent project-column width and density control. Does not alter data or sort handlers.
+836540	  const panel=document.getElementById('repdPanel');
+836541	  const wrap=document.getElementById('repdScroll');
+836542	  const toolbar=document.querySelector('.column-scroll-tools');
+836543	  const body=document.getElementById('tbody');
+836544	  if(!panel||!wrap||!toolbar||!body||document.getElementById('repdProjectWidth'))return;
+836545	  const select=document.createElement('select');
+836546	  select.id='repdProjectWidth';
+836547	  select.setAttribute('aria-label','Project name column width');
+836548	  select.title='Choose compact, minimised or full project names; all official columns remain available';
+836549	  for(const [value,label] of [['compact','Names: compact'],['mini','Names: minimise'],['full','Names: full']]){
+836550	    const option=document.createElement('option');
+836551	    option.value=value;option.textContent=label;select.append(option);
+836553	  toolbar.prepend(select);
+836554	  let mode='compact';
+836555	  function updateMode(next){
+836556	    if(!['compact','mini','full'].includes(next))return;
+836557	    mode=next;select.value=mode;
+836558	    wrap.classList.toggle('pn-project-mini',mode==='mini');
+836559	    wrap.classList.toggle('pn-project-full',mode==='full');
+836560	    wrap.dispatchEvent(new Event('scroll'));
+836561	  function annotateRows(){
+836562	    for(const row of body.querySelectorAll('tr[id^="repd-"]')){
+836563	      const label=row.querySelector('.phone-project-label');
+836564	      if(label&&!label.dataset.mini){
+836565	        const words=(label.textContent||'').trim().split(/[\s\-]+/).filter(Boolean);
+836566	        label.dataset.mini=(words.length>1?words.slice(0,2).map(w=>w[0]).join(''):words[0]?.slice(0,2)||'P').toUpperCase();
+836567	        if(!label.title)label.title=label.textContent.trim();
+836569	      for(const td of row.cells){
+836570	        if(td.classList.contains('site')||td.title||td.querySelector('button,a'))continue;
+836571	        const value=td.textContent.trim();
+836572	        if(value)td.title=value;
+836574	  select.addEventListener('change',()=>updateMode(select.value));
+836575	  // Opening the existing full-details control restores a readable name column first.
+836576	  body.addEventListener('click',event=>{
+836577	    if(mode==='mini'&&event.target.closest('.project-record > summary'))updateMode('full');
+836579	  window.addEventListener('pipeline-projects-rendered',annotateRows);
+836580	  annotateRows();
+836581	  updateMode('compact');
+836583	// V9.61: regression of compact/minimised REPD columns and short landscape rows.
+836587	const ORIGIN='http://127.0.0.1:8765/uk_renewables_pipeline/202611220100/';
+836588	const OUT='/tmp/pn-v961-density';
+836590	for(const [engine,driver] of [['chromium',chromium],['webkit',webkit]]){
+836591	  const browser=await driver.launch({headless:true});
+836593	    for(const view of [{name:'portrait',w:393,h:852},{name:'landscape',w:852,h:393}]){
+836594	      const page=await browser.newPage({viewport:{width:view.w,height:view.h},reducedMotion:'reduce'});
+836596	        await page.route('https://raw.githubusercontent.com/**',route=>route.abort());
+836597	        await page.goto(ORIGIN,{waitUntil:'domcontentloaded',timeout:60000});
+836598	        await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length>0,null,{timeout:90000});
+836599	        assert.match(await page.title(),/V9\.61/);
+836600	        const select=page.locator('#repdProjectWidth');
+836601	        assert.equal(await select.inputValue(),'compact');
+836602	        const snapshot=async()=>page.evaluate(()=>{
+836603	          const wrap=document.getElementById('repdScroll');
+836604	          const first=wrap.querySelector('th[data-column-heading="name"]');
+836605	          const row=document.querySelector('#tbody tr[id^="repd-"]');
+836606	          const box=wrap.getBoundingClientRect();
+836607	          const visible=[...wrap.querySelectorAll('thead th')].filter(e=>{
+836608	            const r=e.getBoundingClientRect();
+836609	            return getComputedStyle(e).display!=='none'&&r.left<box.right&&r.right>box.left;
+836611	          return {first:first.getBoundingClientRect().width,rowHeight:row.getBoundingClientRect().height,
+836612	            count:document.querySelectorAll('#tbody tr[id^="repd-"]').length,capacity:row.querySelector('td.mw').textContent,
+836613	            visible:visible.length,scroll:wrap.scrollWidth>wrap.clientWidth,
+836614	            frozen:getComputedStyle(row.querySelector('td.site')).position==='sticky',
+836615	            gauges:document.querySelectorAll('#repdPanel .hud-gauges canvas').length};
+836617	        const compact=await snapshot();
+836618	        assert.ok(compact.first<=175&&compact.first>=120,JSON.stringify(compact));
+836619	        assert.ok(compact.rowHeight<=52,JSON.stringify(compact));
+836620	        assert.ok(compact.scroll&&compact.frozen&&compact.gauges===3,JSON.stringify(compact));
+836621	        await select.selectOption('mini');
+836622	        const mini=await snapshot();
+836623	        assert.ok(mini.first>=50&&mini.first<=60,JSON.stringify(mini));
+836624	        assert.equal(mini.count,compact.count);
+836625	        assert.equal(mini.capacity,compact.capacity);
+836626	        if(view.name==='portrait')assert.ok(mini.visible>=4,JSON.stringify(mini));
+836627	        await select.selectOption('full');
+836628	        const full=await snapshot();
+836629	        assert.ok(full.first>=220,JSON.stringify(full));
+836630	        await select.selectOption('compact');
+836631	        if(view.name==='landscape'){
+836632	          assert.ok(compact.visible>=6,JSON.stringify(compact));
+836633	          await page.locator('#pnRepdWideToggle').click();
+836634	          await page.waitForFunction(()=>document.querySelector('#officialRegister').classList.contains('pn-repd-wide'));
+836635	          const wide=await snapshot();
+836636	          assert.ok(wide.visible>=6&&wide.count===compact.count,JSON.stringify(wide));
+836637	          assert.equal(await page.locator('#repdPanel .hud-gauges canvas').count(),3);
+836638	          await page.screenshot({path:OUT+'/'+engine+'-'+view.name+'-wide.png'});
+836639	        }else{
+836640	          await page.screenshot({path:OUT+'/'+engine+'-'+view.name+'-mini.png'});
+836642	        console.log('PASS',engine,view.name,JSON.stringify({compact,mini,fullWidth:full.first}));
+836646	<title>GlobalGrid2050 | Pipeline News V9.62 · 202611220125</title>
+836647	<link rel="stylesheet" href="styles/repd-scan.css">
+836648	<div class="pn-scan-toolbar" id="pnScanToolbar" aria-label="Fast prospect filters">
+836649	  <label class="pn-scan-status" for="pnScanStatus">Status <select id="pnScanStatus" aria-label="Filter by official project status">
+836650	    <option value="All">All</option>
+836651	    <option value="Application Submitted">Submitted</option>
+836652	    <option value="Awaiting Construction">Awaiting</option>
+836653	    <option value="Under Construction">Constructing</option>
+836654	    <option value="Operational">Operational</option>
+836655	  </select></label>
+836656	  <details class="pn-scan-dates" id="pnScanDates">
+836657	    <summary>Dates <span id="pnScanDateCount" aria-live="polite"></span></summary>
+836658	    <div class="pn-scan-date-fields">
+836659	      <label>Submitted <select data-year-filter="submittedYear" aria-label="Application submitted year fast filter"></select></label>
+836660	      <label>Operational <select data-year-filter="operationalYear" aria-label="Operational year fast filter"></select></label>
+836661	      <label>REPD updated <select data-year-filter="updatedYear" aria-label="REPD updated year fast filter"></select></label>
+836664	  <button type="button" id="pnScanModeToggle" aria-controls="repdScroll" aria-pressed="true">All columns</button>
+836665	        <a class="active" href="#" aria-current="page">V9.62 · PIPELINE NEWS</a>
+836666	        <a href="../202611220100/">V9.61 · PREVIOUS EDITION</a>
+836667	      </nav><p>REPD October 2026 · V9.62</p></details>
+836668	<script type="module" src="repd-scan.mjs"></script>
+836669	// V9.62: manual prospect scan. Show only project, real capacity and MAP by default.
+836670	// Status and date selectors use the canonical existing REPD filter handlers, not a duplicate filter engine.
+836671	  const toolbar=document.getElementById('pnScanToolbar');
+836672	  const switcher=document.getElementById('pnScanModeToggle');
+836673	  const statusSelect=document.getElementById('pnScanStatus');
+836674	  const dateCount=document.getElementById('pnScanDateCount');
+836675	  const years=toolbar?.querySelectorAll('[data-year-filter]');
+836676	  if(!panel||!wrap||!toolbar||!switcher||!statusSelect||!years?.length)return;
+836677	  let scan=true;
+836678	  const updateMode=()=>{
+836679	    wrap.classList.toggle('pn-scan-mode',scan);
+836680	    switcher.textContent=scan?'All columns':'Scan view';
+836681	    switcher.setAttribute('aria-pressed',String(scan));
+836682	    switcher.title=scan?'Display the unchanged full REPD table':'Return to Project / MW / MAP';
+836683	    if(scan)wrap.scrollLeft=0;
+836685	  switcher.addEventListener('click',()=>{scan=!scan;updateMode();});
+836686	  statusSelect.addEventListener('change',()=>{
+836687	    const selected=[...document.querySelectorAll('#status [data-official-status]')]
+836688	      .find(button=>button.dataset.officialStatus===statusSelect.value);
+836689	    if(selected)selected.click();
+836691	  const sync=()=>{
+836692	    const active=document.querySelector('#status [data-official-status][aria-pressed="true"]');
+836693	    if(active&&statusSelect.value!==active.dataset.officialStatus)statusSelect.value=active.dataset.officialStatus;
+836694	    const count=[...years].filter(select=>select.value&&select.value!=='All').length;
+836695	    dateCount.textContent=count?String(count):'';
+836696	  for(const select of years)select.addEventListener('change',sync);
+836697	  window.addEventListener('pipeline-projects-rendered',sync);
+836698	  sync();
+836699	  updateMode();
+836700	// V9.62: Project/MW/MAP visible on first paint, status/year filters and full-table opt-in.
+836703	const URL='http://127.0.0.1:8765/uk_renewables_pipeline/202611220125/';
+836704	const OUT='/tmp/pn-v962-scan';
+836705	for(const [name,engine] of [['chromium',chromium],['webkit',webkit]]){
+836706	 const browser=await engine.launch({headless:true});
+836708	  for(const viewport of [{label:'portrait',width:393,height:852,visible:[1,2,13]},
+836709	                         {label:'landscape',width:852,height:393,visible:[1,2,3,4,13]}]){
+836710	   const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},reducedMotion:'reduce'});
+836714	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length>0,null,{timeout:90000});
+836715	    const sample=()=>page.evaluate(()=>{
+836716	      const wrap=document.getElementById('repdScroll'),row=document.querySelector('#tbody tr[id^="repd-"]');
+836717	      return {scan:wrap.classList.contains('pn-scan-mode'),
+836718	        columns:[...wrap.querySelectorAll('thead th')].flatMap((th,i)=>getComputedStyle(th).display==='none'?[]:[i+1]),
+836719	        horizontalScroll:wrap.scrollWidth>wrap.clientWidth+2,
+836720	        rowHeight:row.getBoundingClientRect().height,
+836721	        name:row.querySelector('.phone-project-label')?.textContent,
+836722	        mw:row.querySelector('td.mw')?.textContent,
+836723	        map:row.lastElementChild?.textContent,
+836724	        notesHidden:getComputedStyle(wrap.querySelector('thead th:nth-child(12)')).display==='none',
+836725	        gauges:document.querySelectorAll('#repdPanel>.hud-gauges canvas').length,
+836726	        count:document.querySelectorAll('#tbody tr[id^="repd-"]').length};
+836728	    const baseline=await sample();
+836729	    assert.equal(baseline.scan,true);
+836730	    assert.deepEqual(baseline.columns,viewport.visible);
+836731	    assert.equal(baseline.notesHidden,true);
+836732	    assert.equal(baseline.gauges,3);
+836733	    if(baseline.rowHeight>=50){
+836734	      const heights=await page.evaluate(()=>{
+836735	        const row=document.querySelector('#tbody tr[id^="repd-"]');
+836736	        const selectors=['td.site','.project-record','.project-record>summary','.phone-project-label',
+836737	          'td.mw','td:last-child','td:last-child .project-actions',
+836738	          'td:last-child a.atlaslink','td:last-child .action-link'];
+836739	        return {rowStyle:getComputedStyle(row).cssText,cells:selectors.map(sel=>{
+836740	          const el=row.querySelector(sel),c=el&&getComputedStyle(el);
+836741	          return {sel,height:el?.getBoundingClientRect().height,display:c?.display,
+836742	            minHeight:c?.minHeight,maxHeight:c?.maxHeight,padding:c?.padding,
+836743	            boxSizing:c?.boxSizing,margin:c?.margin,whiteSpace:c?.whiteSpace};
+836744	        })};
+836746	      console.log('ROW HEIGHT DIAGNOSTIC',JSON.stringify(heights));
+836747	    assert.ok(baseline.rowHeight<50,JSON.stringify(baseline));
+836748	    assert.equal(baseline.horizontalScroll,false,JSON.stringify(baseline));
+836749	    assert.ok(baseline.name&&baseline.mw&&baseline.map,JSON.stringify(baseline));
+836750	    assert.ok(await page.locator('#tbody tr[id^="repd-"] td:last-child a.atlaslink').count()>0,'MAP action exists');
+836751	    await page.locator('#pnScanStatus').selectOption('Application Submitted');
+836752	    await page.waitForFunction(()=>new URL(location.href).searchParams.get('status')==='Application Submitted');
+836753	    assert.equal(await page.locator('#pnScanStatus').inputValue(),'Application Submitted');
+836754	    await page.locator('#pnScanStatus').selectOption('All');
+836755	    await page.waitForFunction(()=>!new URL(location.href).searchParams.has('status'));
+836756	    await page.locator('#pnScanDates > summary').click();
+836757	    const fast=page.locator('#pnScanDates select[data-year-filter="updatedYear"]');
+836758	    const options=await fast.locator('option').allTextContents();
+836759	    assert.ok(options.includes('Not supplied')&&options.length>2,JSON.stringify(options));
+836760	    await fast.selectOption('missing');
+836761	    await page.waitForFunction(()=>new URL(location.href).searchParams.get('updated_year')==='missing');
+836762	    assert.equal(await page.locator('#pnScanDateCount').textContent(),'1');
+836763	    await fast.selectOption('All');
+836764	    await page.waitForFunction(()=>!new URL(location.href).searchParams.has('updated_year'));
+836765	    await page.locator('#pnScanModeToggle').click();
+836766	    const full=await sample();
+836767	    assert.equal(full.scan,false);
+836768	    assert.ok(full.columns.length>=10,JSON.stringify(full));
+836769	    const again=await sample();
+836770	    assert.equal(again.scan,true);
+836771	    assert.deepEqual(again.columns,baseline.columns);
+836772	    assert.equal(again.name,baseline.name);
+836773	    assert.equal(again.mw,baseline.mw);
+836774	    await page.screenshot({path:OUT+'/'+name+'-'+viewport.label+'.png'});
+836775	    console.log('PASS',name,viewport.label,JSON.stringify({baseline,fullColumns:full.columns.length,reset:again.scan}));
+836776	   } finally {await page.close();}
+836778	<title>GlobalGrid2050 | Pipeline News V9.63 · 202611220220</title>
+836779	<link rel="stylesheet" href="styles/report-a4.css">
+836780	        <a class="active" href="#" aria-current="page">V9.63 · PIPELINE NEWS</a>
+836781	        <a href="../202611220125/">V9.62 · PREVIOUS EDITION</a>
+836782	      </nav><p>REPD October 2026 · V9.63</p></details>
+836783	<script type="module" src="report-a4.mjs"></script>
+836784	// V9.63: independent thumb-movable A4 report, sourced from the existing REPD model and row MAP.
+836785	import {state} from './scripts/core/state.js';
+836786	import {reportData} from './report-model.mjs';
+836787	import {buildA4Pdf} from './report-pdf.mjs';
+836789	  const tbody=document.getElementById('tbody');
+836790	  if(!table||!tbody||document.getElementById('pnRepdReport'))return;
+836791	  const root=document.createElement('aside');
+836792	  root.id='pnRepdReport';root.hidden=true;
+836793	  root.setAttribute('role','dialog');root.setAttribute('aria-modal','true');
+836794	  root.setAttribute('aria-label','A4 project report preview');
+836795	  root.innerHTML=
+836796	    '<nav class="pn-report-controls" aria-label="Report preview controls">'+
+836797	      '<button type="button" data-report-action="close" aria-label="Close A4 report">Close</button>'+
+836798	      '<button type="button" data-report-action="fitwidth">Fit width</button>'+
+836799	      '<button type="button" data-report-action="fitpage">Fit page</button>'+
+836800	      '<button type="button" data-report-action="minus" aria-label="Zoom out">−</button>'+
+836801	      '<button type="button" data-report-action="plus" aria-label="Zoom in">+</button>'+
+836802	      '<button type="button" data-report-action="rotate">Landscape</button>'+
+836803	      '<button type="button" data-report-action="print">Print</button>'+
+836804	      '<button type="button" data-report-action="pdf">PDF with links</button>'+
+836805	    '</nav>'+
+836806	    '<div class="pn-report-viewport" id="pnReportViewport" role="region" aria-label="Movable and zoomable A4 report preview" tabindex="0">'+
+836807	      '<div class="pn-report-frame" id="pnReportFrame">'+
+836808	        '<article class="pn-report-sheet" id="pnReportSheet">'+
+836809	          '<header class="pn-report-masthead">'+
+836810	            '<p>GLOBALGRID2050  /  REPD PROJECT INTELLIGENCE</p>'+
+836811	            '<h1 id="pnReportName"></h1>'+
+836812	            '<div class="pn-report-ref" id="pnReportRef"></div>'+
+836813	          '</header>'+
+836814	          '<section class="pn-report-identities">'+
+836815	            '<div><h2>REPD OPERATOR</h2><p id="pnReportOperator"></p></div>'+
+836816	            '<div><h2>DEVELOPER</h2><p id="pnReportDeveloper"></p></div>'+
+836817	          '</section>'+
+836818	          '<section class="pn-report-primary" aria-label="Project capacity and location">'+
+836819	            '<div><h2>PROJECT CAPACITY</h2><strong id="pnReportCapacity"></strong></div>'+
+836820	            '<div class="pn-report-location"><h2>PROJECT LOCATION</h2>'+
+836821	              '<p id="pnReportLocation"></p>'+
+836822	              '<a id="pnReportMap" href="#" target="_blank" rel="noopener">OPEN PROJECT MAP</a>'+
+836823	              '<strong id="pnReportNoMap" hidden>MAP not available for this record</strong>'+
+836824	            '</div>'+
+836825	          '<section class="pn-report-facts">'+
+836826	            '<div><h2>OFFICIAL STATUS</h2><p id="pnReportStatus"></p></div>'+
+836827	            '<div><h2>APPLICATION SUBMITTED</h2><p id="pnReportSubmitted"></p></div>'+
+836828	            '<div><h2>OPERATIONAL DATE</h2><p id="pnReportOperational"></p></div>'+
+836829	            '<div><h2>REPD RECORD UPDATED</h2><p id="pnReportUpdated"></p></div>'+
+836830	            '<div><h2>PLANNING CONSENT</h2><p id="pnReportConsent"></p></div>'+
+836831	            '<div><h2>PLANNING AUTHORITY</h2><p id="pnReportAuthority"></p></div>'+
+836832	            '<div><h2>PLANNING REFERENCE</h2><p id="pnReportPlanningRef"></p></div>'+
+836833	          '<footer class="pn-report-footer">'+
+836834	            '<p id="pnReportSource"></p>'+
+836835	            '<p>Project location, capacity, status and dates come from the existing REPD record. MAP is the project-specific map link.</p>'+
+836836	          '</footer>'+
+836837	        '</article>'+
+836838	      '</div>'+
+836839	    '</div>';
+836840	  document.body.append(root);
+836841	  const $=id=>document.getElementById(id);
+836842	  const viewport=$('pnReportViewport'),frame=$('pnReportFrame'),paper=$('pnReportSheet');
+836843	  const set=(id,value)=>{$(id).textContent=value;};
+836844	  let model=null,scale=1,orientation='portrait',fit='width',restore=null,lastTrigger=null,gesture=null;
+836845	  const physical=()=>orientation==='landscape'?{width:1122.52,height:793.7}:{width:793.7,height:1122.52};
+836846	  const button=action=>root.querySelector('[data-report-action="'+action+'"]');
+836847	  function resize(scaleTo,keepCenter=false){
+836848	    const old=scale,oldCenterX=(viewport.scrollLeft+viewport.clientWidth/2)/old;
+836849	    const oldCenterY=(viewport.scrollTop+viewport.clientHeight/2)/old;
+836850	    scale=Math.max(.2,Math.min(2.5,scaleTo));
+836851	    const {width,height}=physical();
+836852	    frame.style.width=(width*scale)+'px';frame.style.height=(height*scale)+'px';
+836853	    paper.style.transform='scale('+scale+')';
+836854	    viewport.dataset.zoom=Math.round(scale*100)+'%';
+836855	    if(keepCenter){
+836856	      viewport.scrollLeft=Math.max(0,oldCenterX*scale-viewport.clientWidth/2);
+836857	      viewport.scrollTop=Math.max(0,oldCenterY*scale-viewport.clientHeight/2);
+836858	  function fitView(which='width'){
+836859	    fit=which;const {width,height}=physical();
+836860	    const availableW=Math.max(260,viewport.clientWidth-28),availableH=Math.max(200,viewport.clientHeight-30);
+836861	    const factor=which==='page'?Math.min(availableW/width,availableH/height):availableW/width;
+836862	    resize(Math.min(1.5,factor));
+836863	    viewport.scrollLeft=0;viewport.scrollTop=0;
+836864	  function render(data){
+836865	    set('pnReportName',data.name);set('pnReportRef',(data.isRePD?'REPD REF ':'REFERENCE ')+data.reference);
+836866	    set('pnReportOperator',data.operator);set('pnReportDeveloper',data.developer);
+836867	    set('pnReportCapacity',data.capacity+' '+data.capacityUnit);
+836868	    set('pnReportLocation',data.location);
+836869	    const map=$('pnReportMap');map.hidden=!data.mapUrl;map.removeAttribute('href');
+836870	    if(data.mapUrl)map.href=data.mapUrl;
+836871	    $('pnReportNoMap').hidden=!!data.mapUrl;
+836872	    for(const [id,value] of [
+836873	      ['pnReportStatus',data.status],['pnReportSubmitted',data.submitted],
+836874	      ['pnReportOperational',data.operational],['pnReportUpdated',data.updated],
+836875	      ['pnReportConsent',data.consent],['pnReportAuthority',data.planningAuthority],
+836876	      ['pnReportPlanningRef',data.planningReference],['pnReportSource',data.dataSource]
+836877	    ])set(id,value);
+836878	  function annotate(){
+836879	    for(const row of tbody.querySelectorAll('tr[id^="repd-"]')){
+836880	      const actions=row.querySelector('td:last-child .project-actions');
+836881	      if(!actions||actions.querySelector('[data-pn-a4]'))continue;
+836882	      const b=document.createElement('button');
+836883	      b.type='button';b.className='pn-report-launch';b.dataset.pnA4=row.id.slice(5);
+836884	      b.textContent='A4';
+836885	      b.title='Open A4 project report (full details and clickable map)';
+836886	      b.setAttribute('aria-label','Open A4 report for '+(row.querySelector('.phone-project-label')?.textContent||row.id.slice(5)));
+836887	      actions.append(b);
+836888	  async function openReport(trigger){
+836889	    const row=trigger.closest('tr[id^="repd-"]');
+836890	    if(!row)return;
+836891	    const ref=row.id.slice(5);
+836892	    const project=(state.all||[]).find(x=>String(x.repd_ref)===ref)||
+836893	      (state.interconnectors||[]).find(x=>String(x.repd_ref)===ref);
+836894	    if(!project)return;
+836895	    const links=[...row.querySelectorAll('td:last-child a[href]')];
+836896	    const originalMap=links.find(anchor=>{const style=getComputedStyle(anchor);
+836897	      return style.display!=='none'&&style.visibility!=='hidden'&&anchor.href.startsWith('https://');}) ||
+836898	      row.querySelector('td:last-child a.atlaslink[href]');
+836899	    const href=originalMap?originalMap.href:'';
+836900	    model=reportData(project,href,state.canonicalModel?.metadata||{});
+836901	    if(!model)return;
+836902	    render(model);
+836903	    restore={bodyOverflow:document.body.style.overflow,
+836904	      mainScroll:document.querySelector('main')?.scrollTop||0,
+836905	      tableScroll:table.scrollTop,tableX:table.scrollLeft,y:window.scrollY};
+836906	    lastTrigger=trigger;
+836907	    document.body.classList.add('pn-report-open');
+836908	    document.body.style.overflow='hidden';
+836909	    root.hidden=false;
+836910	    orientation='portrait';paper.classList.remove('pn-report-landscape');
+836911	    button('rotate').textContent='Landscape';
+836912	    fitView('width');
+836913	    button('close').focus({preventScroll:true});
+836914	  function closeReport(){
+836915	    if(root.hidden)return;
+836916	    root.hidden=true;document.body.classList.remove('pn-report-open');
+836917	    if(restore){
+836918	      document.body.style.overflow=restore.bodyOverflow;
+836919	      const snapshot=restore;restore=null;
+836921	        table.scrollLeft=snapshot.tableX;table.scrollTop=snapshot.tableScroll;
+836922	        const main=document.querySelector('main');
+836923	        if(main)main.scrollTop=snapshot.mainScroll;
+836924	        window.scrollTo(0,snapshot.y);
+836925	    lastTrigger?.focus({preventScroll:true});
+836926	    model=null;gesture=null;
+836927	  async function pdfDownload(){
+836928	    const bytes=buildA4Pdf(model,{landscape:orientation==='landscape'});
+836929	    const blob=new Blob([bytes],{type:'application/pdf'});
+836930	    const url=URL.createObjectURL(blob);
+836931	    const a=document.createElement('a');a.href=url;
+836932	    a.download='REPD-'+model.reference+'-A4-report.pdf';
+836933	    document.body.append(a);a.click();a.remove();
+836934	    setTimeout(()=>URL.revokeObjectURL(url),3000);
+836935	  function action(name){
+836936	    if(name==='close'){closeReport();return;}
+836937	    if(name==='fitwidth'){fitView('width');return;}
+836938	    if(name==='fitpage'){fitView('page');return;}
+836939	    if(name==='minus'||name==='plus'){
+836940	      fit='custom';resize(scale*(name==='plus'?1.2:1/1.2),true);return;
+836941	    if(name==='rotate'){
+836942	      orientation=orientation==='portrait'?'landscape':'portrait';
+836943	      paper.classList.toggle('pn-report-landscape',orientation==='landscape');
+836944	      button('rotate').textContent=orientation==='portrait'?'Landscape':'Portrait';
+836945	      fitView('width');return;
+836946	    if(name==='pdf'){pdfDownload();return;}
+836947	    if(name==='print'){window.print();return;}
+836948	  tbody.addEventListener('click',event=>{
+836949	    const b=event.target.closest('[data-pn-a4]');
+836950	    if(!b)return;
+836951	    event.preventDefault();event.stopPropagation();
+836952	    openReport(b);
+836953	  root.addEventListener('click',event=>{
+836954	    const b=event.target.closest('[data-report-action]');
+836955	    if(b)action(b.dataset.reportAction);
+836956	  window.addEventListener('pipeline-projects-rendered',annotate);
+836957	  document.addEventListener('keydown',event=>{
+836958	    if(event.key==='Escape'&&!root.hidden){
+836959	      event.stopImmediatePropagation();event.preventDefault();closeReport();
+836960	  window.addEventListener('resize',()=>{
+836961	    if(!root.hidden&&fit!=='custom')fitView(fit);
+836962	  },{passive:true});
+836963	  const dist=(a,b)=>Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);
+836964	  viewport.addEventListener('touchstart',event=>{
+836965	    if(event.touches.length===2){
+836966	      gesture={distance:dist(event.touches[0],event.touches[1]),scale};
+836967	  viewport.addEventListener('touchmove',event=>{
+836968	    if(event.touches.length!==2||!gesture)return;
+836969	    if(event.cancelable)event.preventDefault();
+836970	    fit='custom';
+836971	    const factor=dist(event.touches[0],event.touches[1])/Math.max(1,gesture.distance);
+836972	    resize(gesture.scale*factor,true);
+836973	  },{passive:false});
+836974	  viewport.addEventListener('touchend',event=>{
+836975	    if(event.touches.length<2)gesture=null;
+836976	  annotate();
+836977	// V9.63 A4 report: official REPD identity and existing source location. No land area.
+836978	const s=v=>typeof v==='string'?v.trim():'';
+836979	const date=v=>s(v)||'Not reported';
+836980	export function reportData(project,mapHref,metadata={}){
+836981	  if(!project||typeof project.repd_ref!=='string')return null;
+836982	  let mapUrl='';
+836983	  try{const url=new URL(mapHref);if(url.protocol==='https:')mapUrl=url.href;}catch{}
+836984	  const isRePD=project.technology!=='interconnector';
+836985	  const location=[project.county,project.region,project.country].map(s).filter(Boolean).join(' · ')||'Location not reported';
+836987	    reference:String(project.repd_ref),
+836988	    name:s(project.name)||'Project name not reported',
+836989	    operator:s(project.operator)||'Operator not reported',
+836990	    developer:'Developer not separately reported',
+836991	    capacity:Number.isFinite(project.capacity_mw)?project.capacity_mw.toLocaleString('en-GB',{maximumFractionDigits:2}):'Not reported',
+836992	    capacityUnit:project.technology==='solar'?'MWp':'MW',
+836993	    county:s(project.county)||'Not reported',
+836994	    region:s(project.region)||'Not reported',
+836995	    country:s(project.country)||'Not reported',
+836997	    status:s(project.status)||'Not reported',
+836998	    submitted:date(project.planning_application_submitted),
+836999	    operational:date(project.operational),
+837000	    updated:date(project.repd_record_updated),
+837001	    consent:date(project.planning_permission_granted),
+837002	    planningAuthority:s(project.planning_authority)||'Not reported',
+837003	    planningReference:s(project.planning_application_reference)||'Not reported',
+837004	    dataSource:isRePD?(s(metadata.source_dataset)||'DESNZ Renewable Energy Planning Database'):'Separate interconnector dataset - not REPD',
+837005	    mapUrl,isRePD
+837006	// V9.63: deterministic one-page A4 PDF with a real /URI link annotation.
+837007	// No third-party PDF dependency. Text is normalised to basic PDF Helvetica WinAnsi-safe ASCII.
+837008	const ascii=value=>String(value??'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'')
+837009	  .replace(/[^\x20-\x7E]/g,'?');
+837010	const literal=value=>ascii(value).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
+837011	const splitText=(value,max=70)=>{
+837012	  const words=ascii(value).split(/\s+/),rows=[];let line='';
+837013	  for(const word of words){
+837014	    if(!word)continue;
+837015	    if(line.length && line.length+word.length+1>max){rows.push(line);line='';}
+837016	    if(word.length>max){
+837017	      if(line){rows.push(line);line='';}
+837018	      for(let start=0;start<word.length;start+=max)rows.push(word.slice(start,start+max));
+837019	    }else line+=(line?' ':'')+word;
+837020	  if(line)rows.push(line);
+837021	  return rows.length?rows:[''];
+837023	export function buildA4Pdf(details,{landscape=false}={}){
+837024	  if(!details || !details.name)throw new TypeError('Missing project report data');
+837025	  const width=landscape?841.89:595.28, height=landscape?595.28:841.89;
+837026	  const margin=48,maxChars=landscape?115:75;
+837027	  const ops=[],text=(line,y,fontSize=11,x=margin)=>{
+837028	    ops.push('BT /F1 '+fontSize+' Tf '+x+' '+y+' Td ('+literal(line)+') Tj ET');
+837029	  let y=height-58;
+837030	  text('GLOBALGRID2050 / REPD PROJECT REPORT',y,12);y-=29;
+837031	  for(const nameLine of splitText(details.name,landscape?70:43)){
+837032	    text(nameLine,y,18);y-=24;
+837033	  y-=10;
+837034	  const fields=[
+837035	    ['OPERATOR (REPD)',details.operator],
+837036	    ['DEVELOPER',details.developer],
+837037	    ['LOCATION',details.location],
+837038	    ['CAPACITY',details.capacity+' '+details.capacityUnit],
+837039	    ['OFFICIAL STATUS',details.status],
+837040	    ['APPLICATION SUBMITTED',details.submitted],
+837041	    ['OPERATIONAL DATE',details.operational],
+837042	    ['REPD RECORD UPDATED',details.updated],
+837043	    ['PLANNING CONSENT',details.consent],
+837044	    ['PLANNING AUTHORITY',details.planningAuthority],
+837045	    ['PLANNING REFERENCE',details.planningReference],
+837046	    ['REPD REFERENCE',details.reference],
+837047	    ['DATA SOURCE',details.dataSource]
+837049	  for(const [label,value] of fields){
+837050	    if(y<110)break;
+837051	    text(label,y,9);y-=15;
+837052	    for(const row of splitText(value,maxChars)){if(y<100)break;text(row,y,11,margin+12);y-=15;}
+837053	    y-=7;
+837054	  y=Math.max(55,Math.min(y-2,95));
+837055	  const mapText=details.mapUrl?'OPEN PROJECT MAP (clickable link)':'MAP NOT AVAILABLE';
+837056	  text(mapText,y,13);const mapRect=[margin-3,y-4,margin+Math.min(320,mapText.length*8),y+16];
+837057	  const stream=ops.join('\n')+'\n';
+837058	  const objects=[];
+837059	  const add=content=>{objects.push(content);return objects.length;};
+837060	  const font=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+837061	  const contents=add('<< /Length '+stream.length+' >>\nstream\n'+stream+'endstream');
+837062	  const annotations=[];
+837063	  if(details.mapUrl){
+837064	    const url=String(details.mapUrl);
+837065	    if(!/^https:\/\//i.test(url))throw Error('Unsafe MAP URL');
+837066	    annotations.push(add('<< /Type /Annot /Subtype /Link /Rect ['+mapRect.join(' ')+
+837067	      '] /Border [0 0 0] /A << /S /URI /URI ('+literal(url)+') >> >>'));
+837068	  const page=add('');
+837069	  const pages=add('');
+837070	  const catalog=add('');
+837071	  objects[page-1]='<< /Type /Page /Parent '+pages+' 0 R /MediaBox [0 0 '+width+' '+height+
+837072	    '] /Resources << /Font << /F1 '+font+' 0 R >> >> /Contents '+contents+' 0 R'+
+837073	    (annotations.length?' /Annots ['+annotations.map(n=>n+' 0 R').join(' ')+']':'')+' >>';
+837074	  objects[pages-1]='<< /Type /Pages /Kids ['+page+' 0 R] /Count 1 >>';
+837075	  objects[catalog-1]='<< /Type /Catalog /Pages '+pages+' 0 R >>';
+837076	  const enc=new TextEncoder(),parts=['%PDF-1.4\n%GG2050\n'],positions=[0];
+837077	  let offset=enc.encode(parts[0]).length;
+837078	  for(let i=0;i<objects.length;i++){
+837079	    const block=(i+1)+' 0 obj\n'+objects[i]+'\nendobj\n';
+837080	    positions.push(offset);parts.push(block);offset+=enc.encode(block).length;
+837081	  const xref=offset;
+837082	  parts.push('xref\n0 '+(objects.length+1)+'\n0000000000 65535 f \n');
+837083	  for(let i=1;i<positions.length;i++)parts.push(String(positions[i]).padStart(10,'0')+' 00000 n \n');
+837084	  parts.push('trailer\n<< /Size '+(objects.length+1)+' /Root '+catalog+
+837085	    ' 0 R >>\nstartxref\n'+xref+'\n%%EOF\n');
+837086	  return enc.encode(parts.join(''));
+837089	import {reportData} from '../report-model.mjs';
+837090	import {buildA4Pdf} from '../report-pdf.mjs';
+837091	const project={repd_ref:'123',name:'Example Solar',operator:'Operator A',capacity_mw:50,technology:'solar',
+837092	 country:'England',county:'County A',region:'South',status:'Application Submitted'};
+837093	const sourceMap='https://ventusltd.github.io/gridatlas/atlas/?repd=123';
+837094	const report=reportData(project,sourceMap);
+837095	assert.equal(report.operator,'Operator A');
+837096	assert.equal(report.developer,'Developer not separately reported');
+837097	assert.equal(report.location,'County A · South · England');
+837098	assert.equal(report.mapUrl,sourceMap);
+837099	assert.equal(Object.hasOwn(report,'area'),false);
+837100	const raw=Buffer.from(buildA4Pdf(report)).toString('latin1');
+837101	assert.ok(raw.includes('/Subtype /Link')&&raw.includes('/URI'));
+837102	assert.ok(raw.includes('(LOCATION)')&&raw.includes('County A'));
+837103	assert.ok(!raw.includes('PROJECT AREA')&&!raw.includes('AREA EVIDENCE'));
+837104	assert.ok(Buffer.from(buildA4Pdf(report,{landscape:true})).toString('latin1').includes('/MediaBox [0 0 841.89 595.28]'));
+837105	const missing=reportData({...project,county:'',region:'',country:''},'');
+837106	assert.equal(missing.location,'Location not reported');
+837107	assert.ok(!Buffer.from(buildA4Pdf(missing)).toString('latin1').includes('/Subtype /Link'));
+837108	console.log('PASS existing source project location, MAP identity, no area fields, PDF URI structure');
+837109	const out='/tmp/pn-v963-report',url='http://127.0.0.1:8765/uk_renewables_pipeline/202611220220/';
+837111	 const browser=await driver.launch({headless:true});
+837112	  for(const viewport of [{name:'portrait',width:393,height:852},{name:'landscape',width:852,height:393}]){
+837113	   const page=await browser.newPage({viewport:{width:viewport.width,height:viewport.height},acceptDownloads:true,reducedMotion:'reduce'});
+837115	    await page.goto(url,{waitUntil:'domcontentloaded',timeout:60000});
+837116	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50&&
+837117	      document.querySelectorAll('#tbody .pn-report-launch').length===50,null,{timeout:90000});
+837118	    const row=page.locator('#tbody tr[id^="repd-"]').first();
+837119	    const expected={
+837120	      name:await row.locator('.record-grid > div:first-child span').textContent(),
+837121	      operator:(await row.locator('td:nth-child(4)').textContent()).trim(),
+837122	      location:(await row.locator('td:nth-child(3)').textContent()).trim(),
+837123	      mw:await row.locator('td.mw').textContent(),
+837124	      map:await row.evaluate(el=>{const links=[...el.querySelectorAll('td:last-child a[href]')];
+837125	        const selected=links.find(a=>getComputedStyle(a).display!=='none'&&getComputedStyle(a).visibility!=='hidden'&&a.href.startsWith('https://'))||el.querySelector('td:last-child a.atlaslink[href]');
+837126	        return selected?.getAttribute('href')||'';}),
+837128	    const prior=await page.evaluate(()=>({url:location.href,x:document.getElementById('repdScroll').scrollLeft,
+837129	      n:document.querySelectorAll('#tbody tr[id^="repd-"]').length}));
+837130	    await row.locator('button[data-pn-a4]').click();
+837131	    await page.waitForSelector('#pnRepdReport:not([hidden])');
+837132	    assert.equal(await page.locator('#pnReportName').textContent(),expected.name);
+837133	    assert.equal(await page.locator('#pnReportOperator').textContent(),expected.operator||'Operator not reported');
+837134	    assert.ok((await page.locator('#pnReportCapacity').textContent()).startsWith(expected.mw.trim().split(' ')[0]));
+837135	    assert.ok((await page.locator('#pnReportLocation').textContent()).startsWith(expected.location));
+837136	    assert.equal(await page.locator('#pnReportArea').count(),0);
+837137	    assert.equal(await page.locator('#pnReportMap').getAttribute('href'),expected.map);
+837138	    assert.ok(await page.locator('#pnReportSheet').isVisible());
+837139	    await page.locator('[data-report-action="plus"]').click();
+837140	    await page.locator('[data-report-action="fitwidth"]').click();
+837141	    const received=page.waitForEvent('download');
+837142	    await page.locator('[data-report-action="pdf"]').click();
+837143	    const download=await received;
+837144	    await download.saveAs(out+'/'+engine+'-'+viewport.name+'-a4.pdf');
+837145	    assert.match(download.suggestedFilename(),/REPD-.*A4-report\.pdf/);
+837146	    if(engine==='chromium'&&viewport.name==='portrait'){
+837147	      await page.emulateMedia({media:'print'});
+837148	      await writeFile(out+'/chromium-print-a4.pdf',await page.pdf({preferCSSPageSize:true,printBackground:true}));
+837149	      await page.emulateMedia({media:'screen'});
+837150	    await page.locator('[data-report-action="rotate"]').click();
+837151	    assert.equal(await page.locator('#pnReportSheet').evaluate(el=>el.classList.contains('pn-report-landscape')),true);
+837152	    const landscapeDownload=page.waitForEvent('download');
+837153	    await (await landscapeDownload).saveAs(out+'/'+engine+'-'+viewport.name+'-landscape.pdf');
+837154	    await page.screenshot({path:out+'/'+engine+'-'+viewport.name+'.png'});
+837156	    assert.ok(await page.locator('#pnRepdReport').isHidden());
+837157	    const after=await page.evaluate(()=>({url:location.href,x:document.getElementById('repdScroll').scrollLeft,
+837158	    assert.deepEqual(after,prior);assert.deepEqual(errors,[]);
+837159	    console.log('PASS',engine,viewport.name,expected.name,'MAP and A4 link preserved');
+837160	   }finally{await page.close()}
+837161	 }finally{await browser.close()}
+837162	<title>GlobalGrid2050 | Pipeline News V9.64 · 202611221243</title>
+837163	<link rel="stylesheet" href="styles/repd-liquid.css">
+837164	        <a class="active" href="#" aria-current="page">V9.64 · PIPELINE NEWS</a>
+837165	        <a href="../202611220220/">V9.63 · PREVIOUS EDITION</a>
+837166	      </nav><p>REPD October 2026 · V9.64</p></details>
+837167	<script type="module" src="repd-liquid.mjs"></script>
+837168	// V9.64: independent A3/A4 liquid HTML overview. V9.63 individual A4/PDF is untouched.
+837169	import {escapeHtml} from './scripts/core/utils.js';
+837170	import {atlasUrlV9_5_1} from './scripts/plugins/projects-v9-8.js';
+837171	import {buildAtlasInterconnectorLinkV9_8} from './scripts/core/atlas-interconnector-link-v9-8.js';
+837172	  if(!toolbar||!table||document.getElementById('pnLiquidOverview'))return;
+837173	  const launch=document.createElement('button');
+837174	  launch.id='pnLiquidLaunch'; launch.type='button';launch.textContent='A3 OVERVIEW';
+837175	  launch.title='Open the entire filtered REPD register as a scrollable HTML sheet';
+837176	  launch.setAttribute('aria-haspopup','dialog');launch.setAttribute('aria-controls','pnLiquidOverview');
+837177	  toolbar.append(launch);
+837178	  const labels=[
+837179	    ['name','PROJECT'],['capacity','MW / MWp'],['county','COUNTY'],['operator','OPERATOR'],
+837180	    ['technology','TYPE'],['status','STATUS'],['repd','REPD REF'],['globalgrid','GRID REF'],
+837181	    ['updated','REPD UPDATED'],['submitted','SUBMITTED'],['operational','OPERATIONAL'],
+837182	    [null,'NOTES'],[null,'MAP']
+837183	  const widths=[14.7,5.6,7,11,7.4,10,5.6,8.3,6.8,6.8,6.8,5.7,4.3];
+837184	  const overlay=document.createElement('aside');
+837185	  overlay.id='pnLiquidOverview';overlay.hidden=true;
+837186	  overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');
+837187	  overlay.setAttribute('aria-label','Entire REPD register liquid HTML overview');
+837188	  const header=labels.map(item=>'<th'+(item[0]?' data-liquid-key="'+item[0]+'" aria-sort="none"':'')+'>'+
+837189	    (item[0]?'<button type="button" data-liquid-sort="'+item[0]+'">'+item[1]+' <span>↕</span></button>':item[1])+'</th>').join('');
+837190	  overlay.innerHTML=[
+837191	    '<div class="pn-liquid-controls">',
+837192	    '<button type="button" data-liquid-action="close">CLOSE</button><strong>REPD · LIQUID OVERVIEW</strong>',
+837193	    '<select id="pnLiquidFormat" aria-label="Sheet size"><option value="a3">A3 LANDSCAPE</option><option value="a4">A4 LANDSCAPE</option></select>',
+837194	    '<button type="button" data-liquid-action="minus" aria-label="Zoom out">−</button>',
+837195	    '<output id="pnLiquidZoom">100%</output><button type="button" data-liquid-action="plus" aria-label="Zoom in">+</button>',
+837196	    '<button type="button" data-liquid-action="fit">FIT</button></div>',
+837197	    '<div class="pn-liquid-filters">',
+837198	    '<label>SEARCH <input type="search" id="pnLiquidSearch" placeholder="Find projects" aria-label="Search all REPD projects"></label>',
+837199	    '<label>STATUS <select id="pnLiquidStatus" aria-label="Official status"></select></label>',
+837200	    '<label>COUNTY <select id="pnLiquidCounty" aria-label="County"></select></label>',
+837201	    '<label>TYPE <select id="pnLiquidTech" aria-label="Technology"></select></label>',
+837202	    '<button type="button" data-liquid-action="clear">RESET</button>',
+837203	    '<span id="pnLiquidCount" role="status">Loading REPD…</span></div>',
+837204	    '<div id="pnLiquidViewport" role="region" tabindex="0" aria-label="Scroll horizontally and vertically across the whole REPD register">',
+837205	    '<div id="pnLiquidSheet"><div class="pn-liquid-masthead">',
+837206	    '<span>GLOBALGRID2050 · RENEWABLE ENERGY PLANNING DATABASE</span><span id="pnLiquidSourceDate"></span>',
+837207	    '</div><table id="pnLiquidTable" aria-label="All filtered REPD projects with working MAP links">',
+837208	    '<colgroup>'+widths.map(width=>'<col style="width:'+width+'%">').join('')+'</colgroup>',
+837209	    '<thead><tr>'+header+'</tr></thead><tbody id="pnLiquidBody"></tbody></table></div></div>',
+837210	    '<div class="pn-liquid-bottom"><label for="pnLiquidX">COLUMNS ↔</label>',
+837211	    '<input type="range" id="pnLiquidX" min="0" max="100" step="0.2" value="0" aria-label="Horizontal column scrollbar">',
+837212	    '<span>Swipe across rows · Live HTML, not PDF</span></div>'
+837214	  document.body.append(overlay);
+837215	  const viewport=$('pnLiquidViewport'),sheet=$('pnLiquidSheet'),body=$('pnLiquidBody'),xslider=$('pnLiquidX');
+837216	  const WIDTH={a3:1587,a4:1123},ROW=40,OVERSCAN=14;
+837217	  const names={solar:'Solar',bess:'Battery Storage',wind_onshore:'Onshore Wind',
+837218	    wind_offshore:'Offshore Wind',interconnector:'Interconnector'};
+837219	  let format='a3',zoom=1,open=false,lastStart=-1,lastEnd=-1,lastData=null,raf=0,gesture=null,saved=null,focusBack=null;
+837220	  let publishingRows=false;
+837221	  const esc=value=>escapeHtml(String(value??''));
+837222	  const date=value=>{
+837223	    if(!value)return '—';
+837224	    const parts=String(value).split('-');
+837225	    return parts.length===3?parts[2]+'/'+parts[1]+'/'+parts[0]:String(value);
+837226	  const allRows=()=>Array.isArray(state.filtered)?state.filtered:[];
+837227	  const mapUrl=project=>{
+837229	      const result=project.technology==='interconnector'?buildAtlasInterconnectorLinkV9_8(project):atlasUrlV9_5_1(project);
+837230	      const url=new URL(result);return url.protocol==='https:'?url.href:'';
+837231	    }catch{return '';}
+837232	  function rowHtml(project,index){
+837233	    const name=project.name||'Project not reported',ref=project.repd_ref||'';
+837234	    const capacity=Number.isFinite(project.capacity_mw)?
+837235	      project.capacity_mw.toLocaleString('en-GB',{maximumFractionDigits:2})+' '+(project.technology==='solar'?'MWp':'MW'):'—';
+837236	    const values=[
+837237	      name,capacity,project.county||'—',project.operator||'—',
+837238	      names[project.technology]||project.technology||'—',project.status||'—',
+837239	      ref,project.gg_project_id||'—',date(project.repd_record_updated),
+837240	      date(project.planning_application_submitted),date(project.operational)
+837242	    const cells=values.map((value,i)=>'<td title="'+esc(value)+'">'+
+837243	      (i===0?'<span class="pn-liquid-row-no">'+(index+1).toLocaleString('en-GB')+'</span> ':'')+
+837244	      esc(value)+'</td>').join('');
+837245	    const note='<td><button type="button" class="machine-note-button pn-liquid-note" data-note-ref="'+esc(ref)+
+837246	      '" data-note-name="'+esc(name)+'" data-note-status="'+esc(project.status||'')+'">NOTE</button></td>';
+837247	    const href=mapUrl(project);
+837248	    const map=href?'<a class="pn-liquid-map" href="'+esc(href)+
+837249	      '" target="_blank" rel="noopener noreferrer" aria-label="Open '+esc(name)+' in GridAtlas">MAP ↗</a>':
+837250	      '<span class="pn-liquid-map-unavailable">NO MAP</span>';
+837251	    return '<tr class="pn-liquid-project" data-overview-ref="'+esc(ref)+'">'+cells+note+'<td>'+map+'</td></tr>';
+837252	  function decorate(){
+837253	    const sort=new URLSearchParams(location.search).get('sort')||'capacity_desc';
+837254	    for(const th of overlay.querySelectorAll('th[data-liquid-key]')){
+837255	      const key=th.dataset.liquidKey;
+837256	      const mode=sort===key+'_asc'?'ascending':sort===key+'_desc'?'descending':'none';
+837257	      th.setAttribute('aria-sort',mode);
+837258	      const span=th.querySelector('span');
+837259	      if(span)span.textContent=mode==='ascending'?'▲':mode==='descending'?'▼':'↕';
+837260	  function dimensions(){
+837261	    sheet.style.setProperty('--pn-liquid-sheet-width',Math.round(WIDTH[format]*zoom)+'px');
+837262	    sheet.style.setProperty('--pn-liquid-row-height',ROW*zoom+'px');
+837263	    sheet.style.setProperty('--pn-liquid-head-height',43*zoom+'px');
+837264	    sheet.style.setProperty('--pn-liquid-font',12*zoom+'px');
+837265	    $('pnLiquidZoom').textContent=Math.round(zoom*100)+'%';
+837266	    $('pnLiquidFormat').value=format;
+837267	  function updateSlider(){
+837268	    const max=Math.max(0,viewport.scrollWidth-viewport.clientWidth);
+837269	    xslider.disabled=!max;
+837270	    xslider.value=max?100*viewport.scrollLeft/max:0;
+837271	  function draw(force=false){
+837272	    if(!open)return;
+837273	    const data=allRows(),n=data.length,rh=ROW*zoom;
+837274	    const before=sheet.querySelector('.pn-liquid-masthead').getBoundingClientRect().height+
+837275	      sheet.querySelector('thead').getBoundingClientRect().height;
+837276	    const start=Math.max(0,Math.floor(Math.max(0,viewport.scrollTop-before)/rh)-OVERSCAN);
+837277	    const end=Math.min(n,start+Math.ceil(viewport.clientHeight/rh)+2*OVERSCAN+4);
+837278	    if(!force&&start===lastStart&&end===lastEnd&&data===lastData)return;
+837279	    lastStart=start;lastEnd=end;lastData=data;
+837280	    const gap=px=>'<tr class="pn-liquid-gap" aria-hidden="true"><td colspan="13"><div style="height:'+Math.max(0,px)+'px"></div></td></tr>';
+837281	    const originalScrollY=viewport.scrollTop;
+837282	    body.innerHTML=gap(start*rh)+data.slice(start,end).map((record,i)=>rowHtml(record,start+i)).join('')+gap((n-end)*rh);
+837283	    if(Math.abs(viewport.scrollTop-originalScrollY)>1)viewport.scrollTop=originalScrollY;
+837284	    body.dataset.total=String(n);body.dataset.rendered=String(end-start);
+837285	    body.dataset.start=String(start);body.dataset.end=String(end);
+837286	    $('pnLiquidCount').textContent=n.toLocaleString('en-GB')+' projects · '+(n?start+1:0)+'–'+end+' visible · all matches scrollable';
+837287	    decorate();updateSlider();
+837288	    publishingRows=true;
+837289	    try{window.dispatchEvent(new Event('pipeline-projects-rendered'));}
+837290	    finally{publishingRows=false;}
+837291	  function requestDraw(){
+837292	    if(!open||raf)return;
+837293	    raf=requestAnimationFrame(()=>{raf=0;draw();});
+837294	  function zoomTo(value,holdPosition=true){
+837295	    const next=Math.max(.22,Math.min(2.2,value)),old=zoom;
+837296	    const cx=(viewport.scrollLeft+viewport.clientWidth/2)/old;
+837297	    const cy=(viewport.scrollTop+viewport.clientHeight/2)/old;
+837298	    zoom=next;lastStart=-1;dimensions();
+837299	    if(holdPosition){
+837300	      viewport.scrollLeft=Math.max(0,cx*zoom-viewport.clientWidth/2);
+837301	      viewport.scrollTop=Math.max(0,cy*zoom-viewport.clientHeight/2);
+837302	    draw(true);
+837303	  function sync(){
+837304	    $('pnLiquidSearch').value=document.getElementById('search')?.value||'';
+837305	    const originalStatus=$('pnScanStatus');
+837306	    if(originalStatus){
+837307	      const select=$('pnLiquidStatus');
+837308	      select.replaceChildren(...[...originalStatus.options].map(opt=>new Option(opt.textContent,opt.value)));
+837309	      select.value=originalStatus.value;
+837310	    const originalCounty=$('county');
+837311	    if(originalCounty){
+837312	      const select=$('pnLiquidCounty');
+837313	      select.replaceChildren(...[...originalCounty.options].map(opt=>new Option(opt.textContent,opt.value)));
+837314	      select.value=originalCounty.value;
+837315	    const buttons=[...document.querySelectorAll('#tech [data-technology]')],select=$('pnLiquidTech');
+837316	    select.replaceChildren(...buttons.map(button=>new Option(button.textContent.trim()||button.dataset.technology,button.dataset.technology)));
+837317	    const active=buttons.find(button=>button.getAttribute('aria-pressed')==='true');
+837318	    if(active)select.value=active.dataset.technology;
+837319	    $('pnLiquidSourceDate').textContent=(document.getElementById('repdReportDate')?.textContent||'').trim();
+837320	  function show(){
+837321	    if(open)return;
+837322	    focusBack=document.activeElement;
+837323	    saved={body:document.body.style.overflow,html:document.documentElement.style.overflow,
+837324	      y:scrollY,x:table.scrollLeft,tableY:table.scrollTop};
+837325	    document.body.style.overflow='hidden';document.documentElement.style.overflow='hidden';
+837326	    open=true;overlay.hidden=false;format='a3';zoom=1;lastStart=-1;
+837327	    dimensions();sync();viewport.scrollLeft=0;viewport.scrollTop=0;draw(true);
+837328	    overlay.querySelector('[data-liquid-action="close"]').focus({preventScroll:true});
+837329	  function close(){
+837330	    open=false;overlay.hidden=true;
+837331	    if(raf)cancelAnimationFrame(raf);raf=0;
+837332	    lastData=null;lastStart=-1;lastEnd=-1;
+837333	    if(saved){
+837334	      document.body.style.overflow=saved.body;
+837335	      document.documentElement.style.overflow=saved.html;
+837336	      const prior=saved;saved=null;
+837337	      requestAnimationFrame(()=>{table.scrollLeft=prior.x;table.scrollTop=prior.tableY;scrollTo(0,prior.y)});
+837338	    (focusBack||launch).focus({preventScroll:true});
+837339	  launch.addEventListener('click',show);
+837340	  overlay.addEventListener('click',event=>{
+837341	    const action=event.target.closest('[data-liquid-action]');
+837342	    if(action){
+837343	      const value=action.dataset.liquidAction;
+837344	      if(value==='close')close();
+837345	      else if(value==='minus'||value==='plus')zoomTo(zoom*(value==='plus'?1.2:1/1.2));
+837346	      else if(value==='fit'){zoomTo(Math.max(.22,(viewport.clientWidth-20)/WIDTH[format]),false);
+837347	        viewport.scrollLeft=0;viewport.scrollTop=0;draw(true);}
+837348	      else if(value==='clear'){$('clearFilters')?.click();sync();draw(true);}
+837350	    const sort=event.target.closest('[data-liquid-sort]');
+837351	    if(!sort)return;
+837352	    const key=sort.dataset.liquidSort;
+837353	    const selector=({updated:'#sortUpdated',submitted:'#sortSubmitted',operational:'#sortOperational'})[key]||
+837354	      '[data-column-sort="'+key+'"]';
+837355	    const source=document.querySelector('#repdScroll thead '+selector)||document.querySelector(selector);
+837356	    if(source){source.click();draw(true);}
+837357	  $('pnLiquidFormat').addEventListener('change',event=>{
+837358	    const requested=event.target.value;
+837359	    if(!Object.hasOwn(WIDTH,requested))return;
+837360	    const left=(viewport.scrollLeft+viewport.clientWidth/2)/(WIDTH[format]*zoom);
+837361	    format=requested;dimensions();lastStart=-1;
+837362	    viewport.scrollLeft=Math.max(0,left*WIDTH[format]*zoom-viewport.clientWidth/2);draw(true);
+837363	  $('pnLiquidSearch').addEventListener('input',event=>{
+837364	    const source=$('search');if(!source)return;
+837365	    source.value=event.target.value;source.dispatchEvent(new Event('input',{bubbles:true}));
+837366	    viewport.scrollTop=0;draw(true);
+837367	  $('pnLiquidStatus').addEventListener('change',event=>{
+837368	    const source=$('pnScanStatus');if(!source)return;
+837369	    source.value=event.target.value;source.dispatchEvent(new Event('change',{bubbles:true}));
+837370	  $('pnLiquidCounty').addEventListener('change',event=>{
+837371	    const source=$('county');if(!source)return;
+837372	  $('pnLiquidTech').addEventListener('change',event=>{
+837373	    const source=[...document.querySelectorAll('#tech [data-technology]')]
+837374	      .find(button=>button.dataset.technology===event.target.value);
+837375	    if(source)source.click();
+837376	  viewport.addEventListener('scroll',()=>{requestDraw();updateSlider();},{passive:true});
+837377	  xslider.addEventListener('input',()=>{viewport.scrollLeft=Number(xslider.value)/100*
+837378	    Math.max(0,viewport.scrollWidth-viewport.clientWidth);});
+837379	  window.addEventListener('pipeline-projects-rendered',()=>{if(open&&!publishingRows){sync();requestDraw();}});
+837380	  window.addEventListener('resize',()=>{if(open){lastStart=-1;draw(true);}},{passive:true});
+837381	    if(event.key==='Escape'&&open){event.preventDefault();event.stopImmediatePropagation();close();}
+837382	  const distance=touches=>Math.hypot(touches[0].clientX-touches[1].clientX,
+837383	    touches[0].clientY-touches[1].clientY);
+837384	    if(event.touches.length===2)gesture={distance:distance(event.touches),zoom};
+837385	    zoomTo(gesture.zoom*distance(event.touches)/Math.max(1,gesture.distance));
+837386	  viewport.addEventListener('touchend',event=>{if(event.touches.length<2)gesture=null;},{passive:true});
+837387	  window.addEventListener('pagehide',()=>{if(open)close();});
+837388	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611221243/';
+837389	const out='/tmp/pn-v964-liquid';
+837390	  for(const size of [{label:'portrait',width:393,height:852},{label:'landscape',width:852,height:393}]){
+837391	   const page=await browser.newPage({viewport:{width:size.width,height:size.height},reducedMotion:'reduce'});
+837392	   const errors=[];page.on('pageerror',error=>errors.push(error.message));
+837393	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50 &&
+837394	      document.querySelectorAll('#tbody .pn-report-launch').length===50 &&
+837395	      !!document.getElementById('pnLiquidLaunch'),null,{timeout:90000});
+837396	    await page.locator('#pnLiquidLaunch').click();
+837397	    await page.waitForSelector('#pnLiquidOverview:not([hidden])');
+837398	    const initial=await page.evaluate(async()=>{
+837399	      const {state}=await import('./scripts/core/state.js');
+837400	      const {atlasUrlV9_5_1}=await import('./scripts/plugins/projects-v9-8.js');
+837401	      const wrap=document.getElementById('pnLiquidViewport');
+837402	      const body=document.getElementById('pnLiquidBody');
+837403	      const project=state.filtered[0];
+837404	      return {count:state.filtered.length,all:state.all.length,
+837405	        first:project.repd_ref,name:project.name,
+837406	        map:atlasUrlV9_5_1(project),rendered:Number(body.dataset.rendered),
+837407	        width:document.getElementById('pnLiquidSheet').getBoundingClientRect().width,
+837408	        pageWidth:wrap.clientWidth,scrollWidth:wrap.scrollWidth};
+837409	    assert.ok(initial.count>50&&initial.all>=initial.count,JSON.stringify(initial));
+837410	    assert.ok(initial.rendered>0&&initial.rendered<100,JSON.stringify(initial));
+837411	    assert.ok(initial.width>1500&&initial.scrollWidth>initial.pageWidth);
+837412	    assert.equal(await page.locator('#pnLiquidTable thead th').count(),13);
+837413	    assert.equal(await page.locator('#pnLiquidBody tr.pn-liquid-project').first().getAttribute('data-overview-ref'),initial.first);
+837414	    assert.ok((await page.locator('#pnLiquidBody tr.pn-liquid-project').first().textContent()).includes(initial.name));
+837415	    if(initial.map){
+837416	      assert.equal(await page.locator('#pnLiquidBody tr.pn-liquid-project').first().locator('a.pn-liquid-map').getAttribute('href'),initial.map);
+837417	    await page.locator('#pnLiquidBody tr.pn-liquid-project').first().locator('.pn-liquid-note').click();
+837418	    await page.waitForSelector('dialog.machine-note-dialog[open]',{timeout:10000});
+837419	    assert.ok((await page.locator('#machineNoteBody').textContent()).includes(initial.first));
+837421	    await page.locator('[data-liquid-sort="name"]').click();
+837422	    await page.waitForFunction(()=>new URLSearchParams(location.search).get('sort')==='name_asc');
+837423	    const sorted=await page.evaluate(async()=>{
+837424	      return {first:state.filtered[0].repd_ref,name:state.filtered[0].name,last:state.filtered.at(-1).repd_ref};
+837425	    assert.equal(await page.locator('#pnLiquidBody tr.pn-liquid-project').first().getAttribute('data-overview-ref'),sorted.first);
+837426	    console.log('DEBUG before full scroll',JSON.stringify(await page.evaluate(async()=>{
+837427	      const w=document.getElementById('pnLiquidViewport'),b=document.getElementById('pnLiquidBody');
+837428	      const last=b.lastElementChild;
+837429	      return {n:state.filtered.length,all:state.all.length,
+837430	        search:document.getElementById('search')?.value,status:document.getElementById('pnScanStatus')?.value,
+837431	        tech:[...document.querySelectorAll('#tech [data-technology]')].filter(x=>x.getAttribute('aria-pressed')==='true').map(x=>x.dataset.technology),
+837432	        scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,clientHeight:w.clientHeight,
+837433	        bodyHeight:b.getBoundingClientRect().height,lastHeight:last?.getBoundingClientRect().height,
+837434	        lastDivHeight:last?.querySelector('div')?.getBoundingClientRect().height,
+837435	        rendered:b.dataset.rendered,start:b.dataset.start,end:b.dataset.end,
+837436	        url:location.href};
+837438	    // Scroll the complete canonical filtered source, not merely its original first 50 rows.
+837439	    await page.locator('#pnLiquidViewport').evaluate(el=>{el.scrollTop=el.scrollHeight;});
+837440	    await page.waitForFunction(async()=>{
+837441	      const list=[...document.querySelectorAll('#pnLiquidBody tr.pn-liquid-project')];
+837442	      return Number(document.getElementById('pnLiquidBody').dataset.start)>0 && list.length&&
+837443	        list.at(-1).dataset.overviewRef===state.filtered.at(-1).repd_ref;
+837444	    },null,{timeout:30000});
+837445	    console.log('DEBUG after full scroll',JSON.stringify(await page.evaluate(async()=>{
+837446	      return {n:state.filtered.length,scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,
+837447	        clientHeight:w.clientHeight,rendered:b.dataset.rendered,start:b.dataset.start,end:b.dataset.end};
+837448	    await page.waitForTimeout(120); // assert rows remain at the destination after rendering settles
+837449	    const atEnd=await page.locator('#pnLiquidBody').evaluate(el=>({
+837450	      shown:Number(el.dataset.rendered),from:Number(el.dataset.start),to:Number(el.dataset.end)
+837452	    assert.ok(atEnd.from>0&&atEnd.shown<100,JSON.stringify(atEnd));
+837453	    assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),50);
+837454	    // The overview can also expose the complete official REPD universe, not only Solar.
+837455	    const types=await page.locator('#pnLiquidTech option').evaluateAll(options=>options.map(o=>o.value));
+837456	    assert.ok(types.includes('all'),JSON.stringify(types));
+837457	    await page.locator('#pnLiquidTech').selectOption('all');
+837458	      return document.getElementById('pnLiquidBody').dataset.total===String(state.all.length);
+837459	    assert.equal(await page.locator('#pnLiquidBody').getAttribute('data-total'),String(initial.all));
+837460	    // A4/A3 are live HTML widths, not a screenshot or a generated PDF.
+837461	    await page.locator('#pnLiquidFormat').selectOption('a4');
+837462	    const a4=await page.locator('#pnLiquidSheet').evaluate(el=>el.getBoundingClientRect().width);
+837463	    assert.ok(a4>1120&&a4<1127,a4);
+837464	    await page.locator('[data-liquid-action="plus"]').click();
+837465	    assert.notEqual(await page.locator('#pnLiquidZoom').textContent(),'100%');
+837466	    await page.locator('[data-liquid-action="fit"]').click();
+837467	    const fit=await page.locator('#pnLiquidSheet').evaluate(el=>el.getBoundingClientRect().width);
+837468	    assert.ok(fit<=a4,JSON.stringify({fit,a4}));
+837469	    await page.locator('#pnLiquidFormat').selectOption('a3');
+837470	    await page.locator('#pnLiquidX').evaluate(input=>{input.value='100';input.dispatchEvent(new Event('input',{bubbles:true}));});
+837471	    const x=await page.locator('#pnLiquidViewport').evaluate(el=>el.scrollLeft);
+837472	    assert.ok(x>0,JSON.stringify({x}));
+837473	    // User text search delegates to original #search and canonical filtered data.
+837474	    await page.locator('#pnLiquidSearch').fill(sorted.name);
+837475	    await page.waitForFunction(()=>document.querySelector('#pnLiquidBody').dataset.total===
+837476	      document.getElementById('resultsMeta').dataset.filteredCount);
+837477	    const searched=await page.evaluate(async()=>{
+837478	      return state.filtered.length;
+837479	    assert.ok(searched>=1&&searched<=initial.count);
+837480	    await page.locator('[data-liquid-action="clear"]').click();
+837481	    await page.waitForFunction(()=>document.getElementById('search').value==='');
+837482	    await page.screenshot({path:out+'/'+engine+'-'+size.label+'.png'});
+837483	    assert.ok(await page.locator('#pnLiquidOverview').isHidden());
+837484	    assert.equal(await page.locator('#tbody .pn-report-launch').count(),50);
+837485	    // Older individual-project A4 must still work as before, including PDF option.
+837486	    await page.locator('#tbody .pn-report-launch').first().click();
+837487	    assert.equal(await page.locator('[data-report-action="pdf"]').count(),1);
+837488	    assert.ok((await page.locator('#pnReportMap').isVisible())||(await page.locator('#pnReportNoMap').isVisible()));
+837489	    await page.locator('[data-report-action="close"]').click();
+837490	    assert.deepEqual(errors,[]);
+837491	    console.log('PASS',engine,size.label,JSON.stringify({all:initial.count,virtual:initial.rendered,
+837492	      end:atEnd.to,map:!!initial.map,originalA4:true}));
+837495	<title>GlobalGrid2050 | Pipeline News V9.65 · 202611221330</title>
+837496	<link rel="stylesheet" href="styles/repd-expanded.css">
+837497	        <a class="active" href="#" aria-current="page">V9.65 · PIPELINE NEWS</a>
+837498	        <a href="../202611221243/">V9.64 · PREVIOUS EDITION</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+837499	      </nav><p>REPD October 2026 · V9.65</p></details>
+837500	<script type="module" src="repd-expanded.mjs"></script>
+837501	// V9.65: native REPD dashboard maximised, without duplicating tables, gauges or data.
+837502	import {setExpandedPageRows} from './scripts/plugins/projects-v9-8.js';
+837504	  const table=wrap?.querySelector('table');
+837505	  const tech=document.getElementById('tech');
+837506	  const gauges=panel?.querySelector('.hud-gauges');
+837507	  if(!root||!panel||!wrap||!toolbar||!table||!tbody||!tech||!gauges)return;
+837508	  launch.id='pnLiquidLaunch';launch.type='button';
+837509	  launch.textContent='EXPANDED REPD VIEW';
+837510	  launch.title='Maximise the existing REPD table and its real analytics gauges';
+837511	  launch.setAttribute('aria-haspopup','dialog');
+837512	  launch.setAttribute('aria-controls','pnExpandedHost');
+837513	  const host=document.createElement('aside');
+837514	  host.id='pnExpandedHost';host.hidden=true;
+837515	  host.setAttribute('role','dialog');host.setAttribute('aria-modal','true');
+837516	  host.setAttribute('aria-label','Expanded REPD table');
+837517	  host.innerHTML='<div class="pn-expanded-top"><strong>EXPANDED REPD VIEW</strong>'+
+837518	    '<span class="pn-expanded-subtitle">LIVE REPD · 100 ROWS PER PAGE</span>'+
+837519	    '<button type="button" id="pnExpandedClose" aria-label="Close expanded REPD view">CLOSE ×</button></div>'+
+837520	    '<aside id="pnExpandedFilter" hidden aria-label="Column filter"></aside>';
+837522	  const filter=document.getElementById('pnExpandedFilter');
+837523	  const closeButton=document.getElementById('pnExpandedClose');
+837524	  let expanded=false,rootMark=null,techMark=null,snapshot=null,hadScan=false;
+837525	  let lastFocus=null;
+837526	  // Chart.js keeps its old measured canvas after its actual REPD node is moved.
+837527	  // Resize the three real gauges once the expanded container has laid out.
+837528	  function resizeLiveGauges(){
+837529	    if(!window.Chart?.getChart)return;
+837530	    for(const canvas of gauges.querySelectorAll('canvas')){
+837531	      window.Chart.getChart(canvas)?.resize();
+837532	  function scheduleGaugeResize(){
+837533	    requestAnimationFrame(()=>{resizeLiveGauges();requestAnimationFrame(resizeLiveGauges);});
+837534	  const columns=['name','capacity','county','operator','technology','status','repd',null,
+837535	                 'updated','submitted','operational',null,null];
+837536	  // Every filter lives inside its own column heading. Existing heading sort buttons remain native.
+837537	  [...table.querySelectorAll('thead th')].forEach((th,i)=>{
+837538	    const key=columns[i];
+837539	    if(!['name','capacity','county','operator','technology','status','updated','submitted','operational'].includes(key))return;
+837540	    const button=document.createElement('button');
+837541	    button.type='button';button.className='pn-expanded-column-filter';
+837542	    button.dataset.pnExpandedFilter=key;
+837543	    button.setAttribute('aria-label','Filter '+(th.querySelector('[data-column-sort],#sortUpdated,#sortSubmitted,#sortOperational')?.textContent||key).trim());
+837544	    button.textContent='▾';
+837545	    th.append(button);
+837546	  function paintOperators(){
+837548	      const td=row.cells[3];
+837549	      if(!td||td.querySelector('.pn-expanded-operator'))continue;
+837550	      const full=td.textContent.trim();
+837551	      const s=document.createElement('span');s.className='pn-expanded-operator';
+837552	      s.textContent=full;td.textContent='';td.append(s);td.title=full;
+837553	  function updateExpandedPager(){
+837554	    const nav=document.getElementById('projectPager');
+837555	    const meta=nav?.querySelector('.pager-meta');
+837556	    if(!meta||!nav.dataset.page)return;
+837557	    const n=Number(tbody.dataset.total)||0;
+837558	    const start=Number(nav.dataset.from)||0;
+837559	    const end=Number(nav.dataset.to)||0;
+837560	    const current=Number(nav.dataset.page)||1;
+837561	    const pages=Number(nav.dataset.pages)||1;
+837562	    meta.title=start.toLocaleString('en-GB')+'–'+end.toLocaleString('en-GB')+
+837563	      ' of '+n.toLocaleString('en-GB')+' records, page '+current+' of '+pages;
+837564	    meta.textContent=start.toLocaleString('en-GB')+'–'+end.toLocaleString('en-GB')+
+837565	      ' / '+n.toLocaleString('en-GB')+' · '+current+'/'+pages;
+837566	  function dismissFilter(){filter.hidden=true;filter.replaceChildren();}
+837567	  const make=(tag,text,cls)=>{
+837568	    const node=document.createElement(tag);
+837569	    if(text!==null)node.textContent=text;
+837570	    if(cls)node.className=cls;
+837572	  function chooser(label,choices,value,onChange){
+837573	    const l=make('label',label);
+837574	    const s=make('select',null,'pn-expanded-select');
+837575	    for(const [v,t] of choices){
+837576	      const option=new Option(t,v);s.add(option);
+837577	    s.value=value;
+837578	    s.addEventListener('change',()=>{onChange(s.value);dismissFilter();});
+837579	    l.append(s);filter.append(l);return s;
+837580	  function srcSelect(selector){
+837581	    const source=document.querySelector(selector);
+837582	    if(!source)return null;
+837583	    return {source,choices:[...source.options].map(o=>[o.value,o.textContent.trim()])};
+837584	  function openFilter(key,button){
+837585	    if(!filter.hidden&&filter.dataset.key===key){dismissFilter();return;}
+837586	    dismissFilter();filter.dataset.key=key;
+837587	    filter.append(make('strong','FILTER · '+key.toUpperCase()));
+837588	    if(key==='technology'||key==='status'){
+837589	      const selector=key==='technology'?'#tech [data-technology]':'#status [data-official-status]';
+837590	      const buttons=[...document.querySelectorAll(selector)];
+837591	      const prop=key==='technology'?'technology':'officialStatus';
+837592	      const choices=buttons.map(b=>[b.dataset[prop],b.textContent.trim()]);
+837593	      const active=buttons.find(b=>b.getAttribute('aria-pressed')==='true');
+837594	      chooser(key,choices,active?.dataset[prop]||choices[0]?.[0],value=>{
+837595	        buttons.find(b=>b.dataset[prop]===value)?.click();
+837596	    } else if(key==='county'){
+837597	      const c=srcSelect('#county');
+837598	      if(c)chooser('County / location',c.choices,c.source.value,value=>{
+837599	        c.source.value=value;c.source.dispatchEvent(new Event('change',{bubbles:true}));
+837600	    } else if(['updated','submitted','operational'].includes(key)){
+837601	      const field=key==='updated'?'updatedYear':key==='submitted'?'submittedYear':'operationalYear';
+837602	      const c=srcSelect('[data-year-filter="'+field+'"]');
+837603	      if(c)chooser(key+' year',c.choices,c.source.value,value=>{
+837604	    } else if(key==='capacity'){
+837605	      const row=make('div',null,'pn-expanded-range');
+837606	      for(const [id,text] of [['minMW','MIN MW'],['maxMW','MAX MW']]){
+837607	        const label=make('label',text);
+837608	        const input=make('input',null);
+837609	        input.type='number';input.step='any';input.min='0';
+837610	        input.value=document.getElementById(id)?.value||'';
+837611	        input.dataset.for=id;
+837612	        label.append(input);row.append(label);
+837613	      const apply=make('button','APPLY MW','pn-expanded-apply');apply.type='button';
+837614	      const doApply=()=>{
+837615	        for(const input of row.querySelectorAll('input')){
+837616	          document.getElementById(input.dataset.for).value=input.value;
+837617	        document.getElementById('applyMW').click();
+837618	        dismissFilter();
+837620	      apply.addEventListener('click',doApply);
+837621	      row.addEventListener('keydown',e=>{if(e.key==='Enter')doApply();});
+837622	      filter.append(row,apply);
+837623	    } else if(key==='name'||key==='operator'){
+837624	      const label=make('label',key==='operator'?'Find operator or project':'Find project');
+837625	      const input=make('input',null);
+837626	      input.type='search';input.placeholder='Search REPD';
+837627	      const source=document.getElementById('search');
+837628	      input.value=source.value;
+837629	      input.addEventListener('input',()=>{
+837630	        source.value=input.value;
+837631	        source.dispatchEvent(new Event('input',{bubbles:true}));
+837632	      input.addEventListener('keydown',e=>{if(e.key==='Enter')dismissFilter();});
+837633	      label.append(input);filter.append(label);
+837634	    if(filter.children.length===1)return;
+837635	    filter.hidden=false;
+837636	    const rect=button.getBoundingClientRect();
+837637	    const vw=window.innerWidth,vh=window.innerHeight;
+837638	    filter.style.left=Math.max(6,Math.min(rect.left,vw-238))+'px';
+837639	    filter.style.top=Math.max(6,Math.min(rect.bottom+3,vh-290))+'px';
+837640	    filter.querySelector('select,input')?.focus({preventScroll:true});
+837641	    if(expanded)return;
+837642	    lastFocus=document.activeElement;
+837643	    const active=document.querySelector('.pipeline-tabs [role="tab"][aria-selected="true"]');
+837644	    if(active?.id!=='solarTab'&&active?.id!=='bessTab')document.getElementById('solarTab')?.click();
+837645	    const html=document.documentElement;
+837646	    snapshot={overflow:document.body.style.overflow,htmlOverflow:html.style.overflow,
+837647	      pageY:window.scrollY,scrollX:wrap.scrollLeft,scrollY:wrap.scrollTop};
+837648	    rootMark=document.createComment('original REPD register');
+837649	    root.parentNode.insertBefore(rootMark,root);
+837650	    techMark=document.createComment('original technology filters');
+837651	    tech.parentNode.insertBefore(techMark,tech);
+837652	    hadScan=wrap.classList.contains('pn-scan-mode');
+837653	    if(hadScan)document.getElementById('pnScanModeToggle')?.click();
+837654	    host.append(root);
+837655	    gauges.after(tech);
+837657	    host.hidden=false;
+837658	    html.classList.add('pn-expanded-open');
+837659	    document.body.style.overflow='hidden';html.style.overflow='hidden';
+837660	    wrap.classList.add('pn-expanded-grid');
+837661	    setExpandedPageRows(true);
+837662	    wrap.scrollLeft=0;wrap.scrollTop=0;
+837663	    paintOperators();
+837664	    requestAnimationFrame(updateExpandedPager);
+837665	    scheduleGaugeResize();
+837666	    closeButton.focus({preventScroll:true});
+837667	    dismissFilter();setExpandedPageRows(false);
+837668	    if(hadScan&&!wrap.classList.contains('pn-scan-mode'))document.getElementById('pnScanModeToggle')?.click();
+837669	    techMark?.replaceWith(tech);techMark=null;
+837670	    rootMark?.replaceWith(root);rootMark=null;
+837671	    wrap.classList.remove('pn-expanded-grid');
+837672	    host.hidden=true;expanded=false;
+837673	    document.documentElement.classList.remove('pn-expanded-open');
+837674	    const s=snapshot;snapshot=null;
+837675	    if(s){
+837676	      document.body.style.overflow=s.overflow;
+837677	      document.documentElement.style.overflow=s.htmlOverflow;
+837678	        wrap.scrollLeft=s.scrollX;wrap.scrollTop=s.scrollY;window.scrollTo(0,s.pageY);
+837679	        resizeLiveGauges();
+837680	    (lastFocus||launch).focus({preventScroll:true});
+837681	  closeButton.addEventListener('click',close);
+837682	  host.addEventListener('click',event=>{
+837683	    const trigger=event.target.closest('[data-pn-expanded-filter]');
+837684	    if(trigger){event.preventDefault();event.stopPropagation();openFilter(trigger.dataset.pnExpandedFilter,trigger);return;}
+837685	    if(!filter.hidden&&!event.target.closest('#pnExpandedFilter'))dismissFilter();
+837686	    if(!expanded||event.key!=='Escape')return;
+837687	    event.preventDefault();event.stopImmediatePropagation();
+837688	    if(!filter.hidden)dismissFilter();else close();
+837689	  window.addEventListener('pipeline-projects-rendered',()=>{
+837690	    paintOperators();requestAnimationFrame(updateExpandedPager);
+837691	  window.addEventListener('resize',()=>{if(expanded)scheduleGaugeResize();},{passive:true});
+837692	  window.addEventListener('pagehide',()=>{if(expanded)close();});
+837874	let PAGE_ROWS = 50;
+838134	// V9.65: presentation-only page size. Original 50-row register is restored on exit.
+838135	export function setExpandedPageRows(enabled) {
+838136	  const previousFirst = page * PAGE_ROWS;
+838137	  const desired = enabled ? 100 : 50;
+838138	  if (PAGE_ROWS === desired) return;
+838139	  PAGE_ROWS = desired;
+838140	  page = Math.floor(previousFirst / PAGE_ROWS);
+838142	// V9.65: same DOM dashboard/table, all-column fullscreen, original A4 and normal restoration.
+838143	await mkdir('/tmp/pn-v965-native',{recursive:true});
+838144	  for(const vp of [{label:'portrait',width:393,height:852},{label:'landscape',width:852,height:393}]){
+838145	   const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},reducedMotion:'reduce'});
+838146	    await page.route('https://raw.githubusercontent.com/**',r=>r.abort());
+838147	    await page.goto('http://127.0.0.1:8765/uk_renewables_pipeline/202611221330/',{waitUntil:'domcontentloaded',timeout:60000});
+838148	    const originals=await page.evaluate(()=>{window.__originalREPD={
+838149	      root:document.getElementById('officialRegister'),
+838150	      table:document.querySelector('#repdScroll table'),
+838151	      gauges:[...document.querySelectorAll('#repdPanel .hud-gauges canvas')]
+838152	    };return window.__originalREPD.gauges.length;});
+838153	    assert.equal(originals,3);
+838154	    // The original gauges are the persistent REPD cockpit, also in the normal dashboard.
+838155	    assert.equal(await page.locator('#repdPanel > .hud-gauges').evaluate(
+838156	      el=>getComputedStyle(el).position),'sticky');
+838157	    const normalPin=await page.evaluate(()=>{
+838158	      const g=document.querySelector('#repdPanel > .hud-gauges');
+838159	      const panel=document.getElementById('repdPanel');
+838160	      const initialY=window.scrollY;
+838161	      const panelTop=window.scrollY+panel.getBoundingClientRect().top;
+838162	      window.scrollTo(0,panelTop+420);
+838163	      return {initialY,scrollY:window.scrollY};
+838164	    await page.waitForTimeout(80);
+838165	    const normalGauge=await page.locator('#repdPanel > .hud-gauges').boundingBox();
+838166	    assert.ok(normalGauge.y>=-3&&normalGauge.y<80,
+838167	      'Real cockpit must remain visible over normal REPD scrolling: '+JSON.stringify({normalPin,normalGauge}));
+838168	    await page.evaluate(()=>window.scrollTo(0,0));
+838169	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100);
+838170	    const info=await page.evaluate(()=>{
+838171	      const v=document.getElementById('repdScroll');
+838172	      const td=document.querySelector('#tbody tr[id^="repd-"]>td:nth-child(4)');
+838173	      return {sameRoot:window.__originalREPD.root===document.querySelector('#pnExpandedHost #officialRegister'),
+838174	        sameTable:window.__originalREPD.table===document.querySelector('#pnExpandedHost #repdScroll table'),
+838175	        sameGauges:window.__originalREPD.gauges.every(el=>el.closest('#pnExpandedHost')!==null),
+838176	        width:td.getBoundingClientRect().width,scrollWidth:v.scrollWidth,clientWidth:v.clientWidth,
+838177	        firstPosition:getComputedStyle(document.querySelector('#tbody tr[id^="repd-"]>td:first-child')).position,
+838178	        rowHeight:document.querySelector('#tbody tr[id^="repd-"]').getBoundingClientRect().height,
+838179	        gaugeOverflow:Math.max(...[...document.querySelectorAll('#repdPanel>.hud-gauges>.card')]
+838180	          .map(card=>Math.max(0,card.querySelector('canvas').getBoundingClientRect().bottom-
+838181	            card.getBoundingClientRect().bottom))),
+838182	        headCount:document.querySelectorAll('#repdScroll thead th').length};
+838183	    assert.ok(info.sameRoot&&info.sameTable&&info.sameGauges,JSON.stringify(info));
+838184	    assert.equal(info.headCount,13);assert.ok(info.width<105,JSON.stringify(info));
+838185	    const gaugesBefore=await page.locator('#pnExpandedHost #repdPanel > .hud-gauges').boundingBox();
+838186	    await page.locator('#pnExpandedHost #repdScroll').evaluate(el=>{el.scrollTop=600;});
+838187	    await page.waitForTimeout(60);
+838188	    const gaugesAfter=await page.locator('#pnExpandedHost #repdPanel > .hud-gauges').boundingBox();
+838189	    assert.ok(Math.abs(gaugesBefore.y-gaugesAfter.y)<=3,
+838190	      'Expanded REPD table scroll must not displace the cockpit: '+
+838191	      JSON.stringify({gaugesBefore,gaugesAfter}));
+838192	    assert.ok(info.scrollWidth>info.clientWidth,JSON.stringify(info));
+838193	    assert.notEqual(info.firstPosition,'sticky',JSON.stringify(info));
+838194	    assert.ok(info.rowHeight<=43,'Expanded rows must stay compact: '+JSON.stringify(info));
+838195	    assert.ok(info.gaugeOverflow<=4,'Speedometer canvas must stay in card: '+JSON.stringify(info));
+838196	    // Save real full-screen evidence before exiting the native table.
+838197	    await page.screenshot({path:'/tmp/pn-v965-native/'+engine+'-'+vp.label+'-expanded.png'});
+838198	    assert.equal(await page.locator('#pnExpandedHost .pn-expanded-column-filter').count(),9);
+838199	    const tech=page.locator('#pnExpandedHost #tech');
+838200	    for(const type of ['all','solar','bess','wind_onshore','wind_offshore'])
+838201	      assert.equal(await tech.locator('[data-technology="'+type+'"]').count(),1);
+838202	    await tech.locator('[data-technology="bess"]').click();
+838203	    await page.waitForFunction(()=>document.getElementById('tbody').dataset.total===''+
+838204	      document.querySelector('#resultsMeta').dataset.filteredCount);
+838205	    await tech.locator('[data-technology="all"]').click();
+838206	    await page.waitForFunction(()=>document.getElementById('tbody').dataset.total==='7775');
+838207	    await page.locator('[data-pn-expanded-filter="updated"]').click();
+838208	    assert.ok(await page.locator('#pnExpandedFilter select').isVisible());
+838209	    await page.locator('#pnExpandedHost #repdScroll thead [data-column-sort="capacity"]').click();
+838210	    await page.waitForFunction(()=>new URLSearchParams(location.search).get('sort')==='capacity_asc');
+838211	    assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),100);
+838212	    const first=page.locator('#tbody tr[id^="repd-"]').first();
+838213	    assert.ok(await first.locator('a.atlaslink, a.pn-journey-action, .pn-journey-action').count()>=1);
+838214	    await first.locator('.pn-report-launch').click();
+838215	    await page.locator('#pnExpandedClose').click();
+838216	    assert.ok(await page.locator('#pnExpandedHost').isHidden());
+838217	    assert.ok(await page.evaluate(()=>document.getElementById('officialRegister').closest('main')!==null));
+838218	    assert.ok(await page.evaluate(()=>document.getElementById('tech').closest('.compact-register-filters')!==null));
+838219	    // Full-screen news reading is the intentional exception to the cockpit.
+838220	    if(await page.locator('#pnNewsMaximise').count()){
+838221	      await page.locator('#pnNewsMaximise').click();
+838222	      await page.waitForFunction(()=>document.documentElement.classList.contains('pn-news-max-open'));
+838223	      assert.equal(await page.locator('#repdPanel > .hud-gauges').evaluate(
+838224	        el=>getComputedStyle(el).visibility),'hidden');
+838225	      assert.ok(!(await page.evaluate(()=>document.documentElement.classList.contains('pn-news-max-open'))));
+838226	    await page.screenshot({path:'/tmp/pn-v965-native/'+engine+'-'+vp.label+'.png'});
+838227	    console.log('PASS native expanded REPD',engine,vp.label,JSON.stringify(info));
+838228	<title>GlobalGrid2050 | Pipeline News V9.66 · 202611221500</title>
+838229	        <a class="active" href="#" aria-current="page">V9.66 · PIPELINE NEWS</a>
+838230	        <a href="../202611221330/">V9.65 · PREVIOUS EDITION</a><a href="../202611221243/">V9.64 · A3 ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+838231	      </nav><p>REPD October 2026 · V9.66</p></details>
+838232	// V9.66: original dashboard full-screen with minimal red overview and in-operator MAP/A4.
+838233	  // V9.66: move the ORIGINAL working MAP/A4 DOM actions into the operator
+838234	  // cell; never duplicate links, regenerate URLs or modify the source model.
+838235	  // This runs after the existing A4 annotation on every pagination/filter render.
+838236	      const cell=row.cells[3],actions=row.cells[12]?.querySelector('.project-actions');
+838237	      if(!cell||!actions||cell.querySelector('.pn-expanded-actions'))continue;
+838238	      const full=cell.textContent.trim();
+838239	      const label=document.createElement('span');
+838240	      label.className='pn-expanded-operator';
+838241	      label.textContent=full||'—';
+838242	      label.title=full;
+838243	      const holder=document.createElement('span');
+838244	      holder.className='pn-expanded-actions';
+838245	      holder.append(actions); // original MAP anchor + original A4 button
+838246	      cell.replaceChildren(label,holder);
+838247	      cell.title=full;
+838248	    dismissFilter();
+838249	    // Restore normal 50-row DOM BEFORE redrawing; expanded layout must not
+838250	    // leak its relocated actions into the unchanged ordinary REPD dashboard.
+838252	    setExpandedPageRows(false);
+838253	    host.hidden=true;
+838254	// V9.66: same DOM dashboard/table, all-column fullscreen, original A4 and normal restoration.
+838255	await mkdir('/tmp/pn-v966-operator-actions',{recursive:true});
+838256	    await page.goto('http://127.0.0.1:8765/uk_renewables_pipeline/202611221500/',{waitUntil:'domcontentloaded',timeout:60000});
+838257	    assert.equal(info.headCount,13);assert.ok(info.width<=54,JSON.stringify(info));
+838258	    // The original row still has all 13 REPD fields, but Notes and MAP are
+838259	    // visually hidden in this mode and their working actions live in Operator.
+838260	    const controls=await page.evaluate(()=>{
+838261	      const row=document.querySelector('#tbody tr[id^="repd-"]');
+838262	      const td=row.cells[3],actions=td.querySelector('.project-actions');
+838263	      const noteTh=document.querySelector('#repdScroll thead th:nth-child(12)');
+838264	      const mapTh=document.querySelector('#repdScroll thead th:nth-child(13)');
+838265	      const b=td.getBoundingClientRect();
+838266	      const link=actions?.querySelector('.pn-journey-link');
+838267	      const a4=actions?.querySelector('.pn-report-launch');
+838268	      const inside=e=>{if(!e)return true;const r=e.getBoundingClientRect();
+838269	        return r.left>=b.left-1&&r.right<=b.right+1&&r.top>=b.top-1&&r.bottom<=b.bottom+1;};
+838270	      return {note:getComputedStyle(noteTh).display,map:getComputedStyle(mapTh).display,
+838271	        actions:!!actions,mapLink:!!link,a4:!!a4,mapInside:inside(link),a4Inside:inside(a4),
+838272	        width:b.width,shade:getComputedStyle(document.querySelector('#pnExpandedHost .pn-expanded-top strong')).color,
+838273	        originalInMapCell:!!row.cells[12].querySelector('.project-actions')};
+838274	    assert.equal(controls.note,'none');assert.equal(controls.map,'none');
+838275	    assert.ok(controls.actions&&controls.a4&&!controls.originalInMapCell,JSON.stringify(controls));
+838276	    assert.ok(controls.mapInside&&controls.a4Inside,JSON.stringify(controls));
+838277	    assert.equal(controls.shade,'rgb(255, 51, 51)');
+838278	    assert.ok(controls.width<=54,JSON.stringify(controls));
+838279	    assert.ok(info.rowHeight<=67,'Expanded rows must stay compact: '+JSON.stringify(info));
+838280	    await page.screenshot({path:'/tmp/pn-v966-operator-actions/'+engine+'-'+vp.label+'-expanded.png'});
+838281	    assert.ok(await first.locator('td:nth-child(4) .project-actions .pn-report-launch').count()===1);
+838282	    assert.equal(await first.locator('td:nth-child(13) .project-actions').count(),0);
+838283	    const workingMap=page.locator('#tbody td:nth-child(4) a.pn-journey-link').first();
+838284	    assert.ok(await workingMap.count()===1,'At least one direct operator MAP action must exist');
+838285	    const actualMapHref=await workingMap.getAttribute('href');
+838286	    assert.ok(actualMapHref.startsWith('https://ventusltd.github.io/gridatlas/atlas/'),
+838287	      'Operator MAP must keep the actual GridAtlas journey URL');
+838288	    // Prove the relocated MAP element receives a real pointer click.
+838289	    // Prevent external navigation only inside this browser acceptance test.
+838290	    await page.evaluate(()=>{
+838291	      window.__operatorMapClicked=false;
+838292	      document.addEventListener('click',event=>{
+838293	        if(event.target.closest('.pn-expanded-actions .pn-journey-link')){
+838295	          window.__operatorMapClicked=true;
+838296	      },{once:true});
+838297	    await workingMap.click();
+838298	    assert.ok(await page.evaluate(()=>window.__operatorMapClicked),
+838299	      'Operator MAP click did not reach original live link');
+838300	    await first.locator('td:nth-child(4) .pn-report-launch').click();
+838301	    assert.ok(await page.locator('#tbody tr[id^="repd-"] td:last-child .project-actions').count()===50,
+838302	      'Normal view must restore all MAP/A4 actions to their original column');
+838303	    assert.ok(await page.locator('#tbody tr[id^="repd-"] td:nth-child(4) .pn-expanded-actions').count()===0,
+838304	      'Expanded mode must not leak into normal dashboard');
+838305	    await page.screenshot({path:'/tmp/pn-v966-operator-actions/'+engine+'-'+vp.label+'.png'});
 ```
