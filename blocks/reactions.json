@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-11-22T15:39:56.408Z",
+ "generated_utc": "2026-11-22T21:16:09.569Z",
  "note": "Probability is evidence, not chance: composition tests where they exist, otherwise how often two blocks already live in the same app folder. Untested means untested.",
  "apps": [
   {
@@ -425,17 +425,6 @@
    "gh": "https://github.com/Ventusltd/data-gb-electricity/tree/main/pipelines"
   },
   {
-   "folder": "gridatlas/atman",
-   "title": "Atman",
-   "repo": "Ventusltd/gridatlas",
-   "blocks": [
-    "Dt",
-    "Pr"
-   ],
-   "live": "https://ventusltd.github.io/gridatlas/atman/",
-   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
-  },
-  {
    "folder": "globalgrid2050/uk_renewables_pipeline/{stamp}/scripts/data",
    "title": "Uk renewables pipeline",
    "repo": "Ventusltd/globalgrid2050",
@@ -535,6 +524,17 @@
    "gh": "https://github.com/Ventusltd/teleprinter/tree/main/drivers/gridatlas"
   },
   {
+   "folder": "gridatlas/atman",
+   "title": "Atman",
+   "repo": "Ventusltd/gridatlas",
+   "blocks": [
+    "Dt",
+    "Pr"
+   ],
+   "live": "https://ventusltd.github.io/gridatlas/atman/",
+   "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atman"
+  },
+  {
    "folder": "ventus-grid-engine/proofs",
    "title": "Proofs",
    "repo": "Ventusltd/ventus-grid-engine",
@@ -610,6 +610,28 @@
    ],
    "live": "https://ventusltd.github.io/spiders/species/genome-spider/",
    "gh": "https://github.com/Ventusltd/spiders/tree/main/species/genome-spider"
+  },
+  {
+   "folder": "ventus-grid-engine/sources/v9-extracts",
+   "title": "V9 extracts",
+   "repo": "Ventusltd/ventus-grid-engine",
+   "blocks": [
+    "Ss",
+    "Vn"
+   ],
+   "live": "https://ventusltd.github.io/ventus-grid-engine/sources/v9-extracts/",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/sources/v9-extracts"
+  },
+  {
+   "folder": "ventus-grid-engine/deeplink",
+   "title": "Deeplink",
+   "repo": "Ventusltd/ventus-grid-engine",
+   "blocks": [
+    "Dt",
+    "Ss"
+   ],
+   "live": "https://ventusltd.github.io/ventus-grid-engine/deeplink/",
+   "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/deeplink"
   },
   {
    "folder": "code-generator/apps/substation-finder/Vn",
@@ -881,6 +903,33 @@
    "decay": null
   },
   {
+   "a": "Dt",
+   "b": "Ss",
+   "probability": 0.9,
+   "verdict": "seen together",
+   "basis": "already used together in 6 app folders, never composition-tested",
+   "together": 6,
+   "examples": [
+    {
+     "title": "Testcode",
+     "live": null,
+     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
+    },
+    {
+     "title": "Globalgrid2050",
+     "live": "https://globalgrid2050.com/testcode/202609060537/atlas/cartridges/",
+     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060537/atlas/cartridges"
+    },
+    {
+     "title": "Gridatlas",
+     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
+     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
    "a": "Ps",
    "b": "Sp",
    "probability": 0.9,
@@ -937,33 +986,6 @@
   {
    "a": "Dt",
    "b": "Sp",
-   "probability": 0.9,
-   "verdict": "seen together",
-   "basis": "already used together in 5 app folders, never composition-tested",
-   "together": 5,
-   "examples": [
-    {
-     "title": "Testcode",
-     "live": null,
-     "gh": "https://github.com/Ventusltd/testcode/tree/main/sandbox/202609060537/atlas/cartridges"
-    },
-    {
-     "title": "Globalgrid2050",
-     "live": "https://globalgrid2050.com/testcode/202609060537/atlas/cartridges/",
-     "gh": "https://github.com/Ventusltd/globalgrid2050/tree/main/testcode/202609060537/atlas/cartridges"
-    },
-    {
-     "title": "Gridatlas",
-     "live": "https://ventusltd.github.io/gridatlas/atlas/cartridges/",
-     "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/cartridges"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Dt",
-   "b": "Ss",
    "probability": 0.9,
    "verdict": "seen together",
    "basis": "already used together in 5 app folders, never composition-tested",
@@ -1802,6 +1824,28 @@
      "title": "Gridatlas",
      "live": "https://ventusltd.github.io/gridatlas/atlas/modules/",
      "gh": "https://github.com/Ventusltd/gridatlas/tree/main/atlas/modules"
+    }
+   ],
+   "tests": null,
+   "decay": null
+  },
+  {
+   "a": "Ss",
+   "b": "Vn",
+   "probability": 0.7,
+   "verdict": "seen together",
+   "basis": "already used together in 2 app folders, never composition-tested",
+   "together": 2,
+   "examples": [
+    {
+     "title": "Engine",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
+    },
+    {
+     "title": "V9 extracts",
+     "live": "https://ventusltd.github.io/ventus-grid-engine/sources/v9-extracts/",
+     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/sources/v9-extracts"
     }
    ],
    "tests": null,
@@ -4046,23 +4090,6 @@
   {
    "a": "Ss",
    "b": "Vd",
-   "probability": 0.6,
-   "verdict": "seen together",
-   "basis": "already used together in 1 app folder, never composition-tested",
-   "together": 1,
-   "examples": [
-    {
-     "title": "Engine",
-     "live": "https://ventusltd.github.io/ventus-grid-engine/engine/",
-     "gh": "https://github.com/Ventusltd/ventus-grid-engine/tree/main/engine"
-    }
-   ],
-   "tests": null,
-   "decay": null
-  },
-  {
-   "a": "Ss",
-   "b": "Vn",
    "probability": 0.6,
    "verdict": "seen together",
    "basis": "already used together in 1 app folder, never composition-tested",

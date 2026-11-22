@@ -1,5 +1,5 @@
 {
- "next": 2336,
+ "next": 2339,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2272,6 +2272,9 @@
   "globalgrid2050:uk_renewables_pipeline/{stamp}/report-model.mjs": 2332,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/report-pdf.mjs": 2333,
   "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-liquid.mjs": 2334,
-  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-expanded.mjs": 2335
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-expanded.mjs": 2335,
+  "neural-link-between-agents:ARCHIVE/2026-11-18-grid-journeys-beta/atlas/modules/{stamp}-grid-journey-preview.js": 2336,
+  "neural-link-between-agents:ARCHIVE/2026-11-18-grid-journeys-beta/atlas/modules/{stamp}-grid-vicinity.js": 2337,
+  "gridatlas:atlas/modules/{stamp}-vicinity-entry.js": 2338
  }
 }

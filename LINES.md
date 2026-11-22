@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-472,518 unique lines, numbered 1 to 838,305. Generated 2026-11-22T15:40:16.969Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+473,242 unique lines, numbered 1 to 840,364. Generated 2026-11-22T21:16:28.904Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -472521,4 +472521,728 @@
 838303	    assert.ok(await page.locator('#tbody tr[id^="repd-"] td:nth-child(4) .pn-expanded-actions').count()===0,
 838304	      'Expanded mode must not leak into normal dashboard');
 838305	    await page.screenshot({path:'/tmp/pn-v966-operator-actions/'+engine+'-'+vp.label+'.png'});
+838329	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">Open Pipeline News &rarr;</a></div></details>
+838353	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.69 - Full-height REPD with MAP after Project</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div></details></td></tr>
+838379	<title>GlobalGrid2050 | Pipeline News V9.67 · 202611221625</title>
+838597	        <a class="active" href="#" aria-current="page">V9.67 · PIPELINE NEWS</a>
+838599	        <a href="../202611221500/">V9.66 · PREVIOUS EDITION</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+838603	      </nav><p>REPD October 2026 · V9.67</p></details>
+838634	// V9.67: exact native Pipeline News table colours, all columns and original MAP/A4 actions.
+838668	  // Full native REPD table fits the available width on entry; only the table
+838669	  // zooms, so the genuine Chart.js cockpit remains full-size and always visible.
+838670	  // Safari and Chromium understand CSS zoom, which also preserves scroll extents
+838671	  // and native anchor/button hit targets (unlike a visual-only transform).
+838672	  let fitScale=1,scale=1,pinch=null,gesture=null;
+838673	  const scaleClamp=value=>Math.min(2.2,Math.max(Math.min(.15,fitScale),value));
+838674	  function setTableScale(next,clientX=null,clientY=null){
+838676	    const bounds=wrap.getBoundingClientRect();
+838677	    const x=clientX===null?bounds.width/2:clientX-bounds.left;
+838678	    const y=clientY===null?bounds.height/2:clientY-bounds.top;
+838679	    const prior=Math.max(.001,scale);
+838680	    const baseX=(wrap.scrollLeft+x)/prior,baseY=(wrap.scrollTop+y)/prior;
+838681	    scale=scaleClamp(next);
+838682	    table.style.zoom=String(scale);
+838683	    wrap.dataset.zoom=String(scale);
+838684	    wrap.scrollLeft=Math.max(0,baseX*scale-x);
+838685	    wrap.scrollTop=Math.max(0,baseY*scale-y);
+838687	  function fitAllColumns(){
+838688	    const width=parseFloat(getComputedStyle(table).width)||1590;
+838689	    fitScale=Math.min(1,Math.max(.15,(wrap.clientWidth-4)/Math.max(1,width)));
+838690	    // Reset the viewing position, like opening a printed overview.
+838691	    scale=fitScale;
+838693	  function distance(a,b){return Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY);}
+838694	  function centre(a,b){return {x:(a.clientX+b.clientX)/2,y:(a.clientY+b.clientY)/2};}
+838695	  wrap.addEventListener('touchstart',event=>{
+838696	    if(!expanded||event.touches.length!==2)return;
+838697	    const [a,b]=event.touches;
+838698	    const mid=centre(a,b);
+838699	    pinch={distance:Math.max(1,distance(a,b)),startScale:scale};
+838700	    pinch.mid=mid;
+838702	  wrap.addEventListener('touchmove',event=>{
+838703	    if(!expanded||!pinch||event.touches.length!==2)return;
+838705	    const [a,b]=event.touches,mid=centre(a,b);
+838706	    setTableScale(pinch.startScale*distance(a,b)/pinch.distance,mid.x,mid.y);
+838708	  const endPinch=event=>{if(event.touches.length<2)pinch=null;};
+838709	  wrap.addEventListener('touchend',endPinch,{passive:true});
+838710	  wrap.addEventListener('touchcancel',()=>{pinch=null;},{passive:true});
+838711	  // Trackpad pinch gestures also zoom the TABLE, not the browser or gauges.
+838712	  wrap.addEventListener('wheel',event=>{
+838713	    if(!expanded||!event.ctrlKey)return;
+838715	    setTableScale(scale*Math.exp(-event.deltaY*.013),event.clientX,event.clientY);
+838716	  // Safari's GestureEvent is a fallback for iOS browser-host pinch variants.
+838717	  wrap.addEventListener('gesturestart',event=>{
+838718	    gesture={startScale:scale};
+838719	  wrap.addEventListener('gesturechange',event=>{
+838720	    if(!expanded||!gesture)return;
+838721	    setTableScale(gesture.startScale*event.scale,event.clientX,event.clientY);
+838722	  wrap.addEventListener('gestureend',()=>{gesture=null;},{passive:true});
+838866	    // A single frame ensures the full-viewport table has its final dimensions.
+838867	    requestAnimationFrame(fitAllColumns);
+838874	    // Clear view-only zoom BEFORE restoring the standard REPD dashboard.
+838875	    pinch=null;gesture=null;table.style.removeProperty('zoom');delete wrap.dataset.zoom;
+838876	    scale=1;fitScale=1;
+838906	    const wasFit=Math.abs(scale-fitScale)<.01;
+838907	    const priorScale=scale,oldFit=fitScale;
+838908	    fitAllColumns();
+838909	    if(!wasFit)setTableScale(priorScale*(oldFit?fitScale/oldFit:1));
+838912	// V9.67: same DOM dashboard/table, all-column fullscreen, original A4 and normal restoration.
+838916	await mkdir('/tmp/pn-v967-all-columns',{recursive:true});
+838921	   const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},hasTouch:true,reducedMotion:'reduce'});
+838925	    await page.goto('http://127.0.0.1:8765/uk_renewables_pipeline/202611221625/',{waitUntil:'domcontentloaded',timeout:60000});
+838952	      window.__normalColor=getComputedStyle(
+838953	        document.querySelector('#repdScroll thead th:first-child')).color;
+838956	    // Same 13 columns, presented as a fit-to-screen overview before pinch.
+838957	    await page.waitForFunction(()=>{
+838958	      const el=document.querySelector('#repdScroll');
+838959	      return !!el?.dataset.zoom&&el.querySelector('table').getBoundingClientRect().width<=el.clientWidth+5;
+838960	    },null,{timeout:15000});
+838961	    await page.screenshot({path:'/tmp/pn-v967-all-columns/'+engine+'-'+vp.label+'-fit-all-13.png'});
+838968	        width:td.getBoundingClientRect().width,fitZoom:Number(v.dataset.zoom),
+838969	        scrollWidth:v.scrollWidth,clientWidth:v.clientWidth,
+838977	    assert.equal(info.headCount,13);
+838978	    assert.ok(info.fitZoom>0&&info.width/info.fitZoom>=108&&info.width/info.fitZoom<=122,JSON.stringify(info));
+838979	    // Actual source table has all 13 columns visibly available. Original
+838980	    // MAP/A4 controls are in their original far-right actions cell, not Operator.
+838981	    const columns=await page.evaluate(()=>{
+838983	      const header=[...document.querySelectorAll('#repdScroll thead th')];
+838984	      const normal=window.__normalColor;
+838985	      const actions=row.cells[12]?.querySelector('.project-actions');
+838986	      const map=actions?.querySelector('.pn-journey-link');
+838988	      const b=row.cells[12].getBoundingClientRect();
+838989	      const within=(el)=>{
+838990	        if(!el)return false;
+838991	        const r=el.getBoundingClientRect();
+838992	        return r.left>=b.left-1 && r.right<=b.right+1 &&
+838993	          r.top>=b.top-1 && r.bottom<=b.bottom+1;
+838994	      return {visible:header.filter(h=>getComputedStyle(h).display!=='none').length,
+838995	        notes:getComputedStyle(header[11]).display,
+838996	        mapColumn:getComputedStyle(header[12]).display,
+838997	        map:!!map,a4:!!a4,mapWithin:within(map),a4Within:within(a4),
+838998	        operatorActions:row.cells[3].querySelectorAll('.project-actions').length,
+838999	        operatorWidth:row.cells[3].getBoundingClientRect().width,
+839000	        actionsWidth:b.width,
+839001	        expandedColour:getComputedStyle(header[0]).color,
+839002	        normalColour:normal};
+839003	    assert.equal(columns.visible,13,JSON.stringify(columns));
+839004	    assert.notEqual(columns.notes,'none');assert.notEqual(columns.mapColumn,'none');
+839005	    assert.ok(columns.map&&columns.a4&&columns.mapWithin&&columns.a4Within,JSON.stringify(columns));
+839006	    assert.equal(columns.operatorActions,0,JSON.stringify(columns));
+839007	    assert.equal(columns.expandedColour,columns.normalColour,JSON.stringify(columns));
+839015	    assert.ok(info.scrollWidth<=info.clientWidth+5,
+839016	      'At initial fit zoom every REPD column must be in view: '+JSON.stringify(info));
+839017	    // Exercise a real two-finger pinch TouchEvent on the REPD viewport.
+839018	    const pinch=await page.evaluate(()=>{
+839019	      const el=document.getElementById('repdScroll');
+839020	      const before=Number(el.dataset.zoom);
+839021	      const rect=el.getBoundingClientRect();
+839022	      const midX=rect.left+rect.width/2,midY=rect.top+Math.min(150,rect.height/2);
+839023	      // WebKit's Linux runner does not expose an independently constructible
+839024	      // Touch object; dispatch the same native touch event names with touch
+839025	      // coordinates so the actual browser handlers execute in both engines.
+839026	      const touch=(id,x,y)=>({identifier:id,target:el,clientX:x,clientY:y,
+839027	        pageX:x,pageY:y,screenX:x,screenY:y});
+839028	      const send=(type,touches)=>{
+839029	        const ev=new Event(type,{bubbles:true,cancelable:true});
+839030	        Object.defineProperty(ev,'touches',{value:touches});
+839031	        el.dispatchEvent(ev);
+839032	      const a=[touch(1,midX-32,midY),touch(2,midX+32,midY)];
+839033	      const b=[touch(1,midX-156,midY),touch(2,midX+156,midY)];
+839034	      send('touchstart',a);
+839035	      send('touchmove',b);
+839036	      send('touchend',[]);
+839037	      return {before,after:Number(el.dataset.zoom),
+839038	        width:el.querySelector('table').getBoundingClientRect().width,
+839039	        viewport:el.clientWidth,scrollWidth:el.scrollWidth};
+839040	    assert.ok(pinch.before>0&&pinch.before<=1,
+839041	      'Initial preview must fit all 13 columns on a phone: '+JSON.stringify(pinch));
+839042	    assert.ok(pinch.after>pinch.before*3,
+839043	      'Two-finger pinch must magnify the actual REPD table: '+JSON.stringify(pinch));
+839044	    assert.ok(pinch.scrollWidth>pinch.viewport,
+839045	      'At close zoom the user must have horizontal navigation: '+JSON.stringify(pinch));
+839047	    assert.ok(info.rowHeight<=60,'Expanded rows must stay compact: '+JSON.stringify(info));
+839050	    await page.screenshot({path:'/tmp/pn-v967-all-columns/'+engine+'-'+vp.label+'-expanded.png'});
+839066	    assert.equal(await first.locator('td:nth-child(4) .project-actions').count(),0);
+839067	    assert.equal(await first.locator('td:nth-child(13) .project-actions .pn-report-launch').count(),1);
+839068	    const liveMap=page.locator('#tbody td:nth-child(13) .pn-journey-link').first();
+839069	    assert.ok(await liveMap.count()===1);
+839070	    await liveMap.evaluate(el=>{
+839071	      el.addEventListener('click',event=>{event.preventDefault();window.__mapClicked=true;},{once:true});
+839072	    await liveMap.click();
+839073	    assert.equal(await page.evaluate(()=>window.__mapClicked),true);
+839074	    await first.locator('td:nth-child(13) .pn-report-launch').click();
+839080	    assert.equal(await page.locator('#repdScroll table').evaluate(el=>el.style.zoom),'',
+839081	      'Closing the preview must fully reset the original dashboard zoom');
+839083	    assert.equal(await page.locator('#tbody tr[id^="repd-"] td:last-child .project-actions').count(),50,
+839084	      'Normal dashboard MAP/A4 column must be preserved');
+839085	    assert.equal(await page.locator('#tbody tr[id^="repd-"] td:nth-child(4) .project-actions').count(),0);
+839096	    await page.screenshot({path:'/tmp/pn-v967-all-columns/'+engine+'-'+vp.label+'.png'});
+839101	<title>GlobalGrid2050 | Pipeline News V9.68 · 202611221705</title>
+839102	        <a href="../202611221625/">V9.67 · PREVIOUS EDITION</a><a href="../202611221500/">V9.66 · ARCHIVE</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+839103	      </nav><p>REPD October 2026 · V9.68</p></details>
+839104	// V9.68: landscape reading view; native colours and sorting, focused columns, original MAP/A4.
+839105	  launch.title='Open the focused, landscape REPD table';
+839106	    '<span class="pn-expanded-subtitle">100 ROWS · SWIPE TO EXPLORE</span>'+
+839107	  const landscapeGate=document.createElement('div');
+839108	  landscapeGate.id='pnLandscapeGate';
+839109	  landscapeGate.hidden=true;
+839110	  landscapeGate.setAttribute('role','status');
+839111	  landscapeGate.setAttribute('aria-live','polite');
+839112	  landscapeGate.innerHTML='<div class="pn-landscape-message"><strong>LANDSCAPE VIEW</strong>'+
+839113	    '<p>Rotate your device to landscape to explore the REPD table comfortably.</p>'+
+839114	    '<button type="button" id="pnLandscapeCancel">CLOSE</button></div>';
+839115	  document.body.append(landscapeGate);
+839116	  const inLandscape=()=>window.innerWidth>window.innerHeight;
+839117	  let pendingLandscape=false;
+839118	  landscapeGate.querySelector('button').addEventListener('click',()=>close());
+839119	  // A legible landscape reading table starts at its native size.
+839120	  // Pinch scales table content only; the original normal-view gauges stay intact.
+839121	  const scaleClamp=value=>Math.min(2,Math.max(.8,value));
+839122	    // Do not miniaturise columns to fit: readable text and sideways scrolling
+839123	    // are more useful than a tiny screenshot-like overview.
+839124	    fitScale=1;scale=1;
+839125	    table.style.zoom='1';
+839126	    wrap.dataset.zoom='1';
+839127	  // The existing native header buttons remain sortable. Do not add a second
+839128	  // layer of filter arrows to the expanded reading view.
+839129	    if(!inLandscape()){
+839130	      pendingLandscape=true;
+839131	      landscapeGate.hidden=false;
+839133	    pendingLandscape=false;
+839134	    landscapeGate.hidden=true;
+839135	    if(pendingLandscape && inLandscape()){
+839136	      pendingLandscape=false;
+839137	      landscapeGate.hidden=true;
+839138	      show();
+839139	    landscapeGate.hidden=inLandscape();
+839140	    if(!inLandscape())return;
+839141	  window.addEventListener('pagehide',()=>{if(expanded||pendingLandscape)close();});
+839142	// V9.68 regression: landscape-only, focused native table, original actions.
+839143	const base='http://127.0.0.1:8765/uk_renewables_pipeline/202611221705/';
+839145	  const browser=await engine.launch({headless:true});
+839147	    const page=await browser.newPage({viewport:{width:393,height:852},hasTouch:true,reducedMotion:'reduce'});
+839148	    const errors=[];page.on('pageerror',e=>errors.push(e.message));
+839150	      await page.route('https://raw.githubusercontent.com/**',r=>r.abort());
+839151	      await page.goto(base,{waitUntil:'domcontentloaded',timeout:90000});
+839152	      await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50&&
+839153	        document.querySelectorAll('#tbody .pn-report-launch').length===50,{timeout:90000});
+839154	      assert.equal(await page.locator('#repdPanel>.hud-gauges canvas').count(),3);
+839155	      const normal=await page.evaluate(()=>{
+839156	        const header=document.querySelector('#repdScroll thead th');
+839157	        return {colour:getComputedStyle(header).color,
+839158	          hidden:[5,8,12].map(i=>getComputedStyle(document.querySelector('#repdScroll thead th:nth-child('+i+')')).display)};
+839159	      // Normal mobile layout may intentionally hide less-used columns at 393px.
+839160	      // The original 13-column DOM must remain intact outside expanded mode.
+839161	      assert.equal(await page.locator('#repdScroll thead th').count(),13);
+839162	      assert.equal(await page.locator('#tbody tr[id^="repd-"] td').count(),50*13);
+839163	      await page.locator('#pnLiquidLaunch').click();
+839164	      assert.ok(await page.locator('#pnLandscapeGate').isVisible(),'Portrait should request landscape');
+839165	      assert.ok(await page.locator('#pnExpandedHost').isHidden(),'No cramped portrait table');
+839166	      await page.setViewportSize({width:852,height:393});
+839167	      await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100&&
+839168	        !document.getElementById('pnExpandedHost').hidden,{timeout:20000});
+839169	      const layout=await page.evaluate(()=>{
+839170	        const head=[...document.querySelectorAll('#repdScroll thead th')];
+839172	        const wrap=document.querySelector('#repdScroll');
+839174	          count:head.filter(h=>getComputedStyle(h).display!=='none').length,
+839175	          hidden:[4,7,11].map(i=>getComputedStyle(head[i]).display),
+839176	          colour:getComputedStyle(head[0]).color,
+839177	          gauges:getComputedStyle(document.querySelector('#repdPanel>.hud-gauges')).display,
+839178	          tech:getComputedStyle(document.querySelector('#repdPanel>#tech')).display,
+839179	          width:wrap.scrollWidth,viewport:wrap.clientWidth,scale:Number(wrap.dataset.zoom),
+839180	          buttons:!!row.cells[12].querySelector('.pn-journey-link')&&!!row.cells[12].querySelector('.pn-report-launch'),
+839181	          operatorActions:row.cells[3].querySelectorAll('.project-actions').length,
+839182	          extraFilters:document.querySelectorAll('.pn-expanded-column-filter').length
+839184	      assert.equal(layout.count,10,JSON.stringify(layout));
+839185	      assert.deepEqual(layout.hidden,['none','none','none']);
+839186	      assert.equal(layout.colour,normal.colour,'Retain exact normal cyan header colour');
+839187	      assert.equal(layout.gauges,'none');assert.equal(layout.tech,'none');
+839188	      assert.ok(layout.width>layout.viewport,'Native-size table must scroll horizontally');
+839189	      assert.equal(layout.scale,1);assert.ok(layout.buttons&&!layout.operatorActions);
+839190	      assert.equal(layout.extraFilters,0);
+839191	      await page.locator('#repdScroll [data-column-sort="capacity"]').click();
+839192	      await page.waitForFunction(()=>new URLSearchParams(location.search).get('sort')==='capacity_asc',{timeout:15000});
+839193	      const map=page.locator('#tbody tr[id^="repd-"] td:nth-child(13) .pn-journey-link').first();
+839194	      await map.evaluate(el=>el.addEventListener('click',e=>{e.preventDefault();window.__testMapClicked=true},{once:true}));
+839195	      await map.click();assert.equal(await page.evaluate(()=>window.__testMapClicked),true);
+839196	      await page.locator('#tbody tr[id^="repd-"] td:nth-child(13) .pn-report-launch').first().click();
+839197	      await page.waitForSelector('#pnRepdReport:not([hidden])',{timeout:15000});
+839198	      assert.equal(await page.locator('[data-report-action="pdf"]').count(),1);
+839199	      await page.locator('[data-report-action="close"]').click();
+839200	      await page.setViewportSize({width:393,height:852});
+839201	      assert.ok(await page.locator('#pnLandscapeGate').isVisible(),'Rotation back shields expanded table');
+839202	      await page.locator('#pnLandscapeCancel').click();
+839203	      assert.ok(await page.locator('#pnExpandedHost').isHidden());
+839204	      assert.equal(await page.locator('#tbody tr[id^="repd-"]').count(),50);
+839205	      assert.ok(await page.locator('#repdPanel>.hud-gauges').isVisible(),'Normal cockpit restored');
+839206	      assert.ok(await page.evaluate(()=>document.getElementById('tech').closest('.compact-register-filters')!==null),'Normal technology controls restored');
+839207	      assert.deepEqual(errors,[]);
+839208	      console.log('PASS V9.68',name,JSON.stringify(layout));
+839209	    }finally{await page.close()}
+839210	  }finally{await browser.close()}
+839211	<title>GlobalGrid2050 | Pipeline News V9.69 · 202611221850</title>
+839212	        <a href="../202611221705/">V9.68 · PREVIOUS EDITION</a><a href="../202611221625/">V9.67 · ARCHIVE</a><a href="../202611221500/">V9.66 · ARCHIVE</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+839213	      </nav><p>REPD October 2026 · V9.69</p></details>
+839214	// V9.69: both orientations, MAP directly after Project, A4 stays at far right; full-height reading view.
+839215	  launch.title='Open a full-screen REPD table';
+839216	  host.innerHTML='<div class="pn-expanded-top">'+
+839217	    '<button type="button" id="pnExpandedClose" aria-label="Close expanded REPD view">×</button></div>'+
+839218	  // The new MAP cell is a presentation-only clone of the original per-row
+839219	  // link. The last native cell and A4 control remain completely unchanged,
+839220	  // including the original MAP href used by the A4 report model.
+839221	  function syncMapColumn(){
+839222	    const hr=table.tHead?.rows[0];
+839223	    if(hr&&!hr.querySelector('.pn-expanded-map-heading')){
+839224	      const h=document.createElement('th');
+839225	      h.className='pn-expanded-map-heading';
+839226	      h.scope='col';
+839227	      h.textContent='MAP';
+839228	      hr.cells[0].after(h);
+839229	      if(row.querySelector(':scope > .pn-expanded-map-cell'))continue;
+839230	      const actions=row.cells[row.cells.length-1]?.querySelector('.project-actions');
+839231	      // map-entry.mjs hides the original Atlas link once it adds the live
+839232	      // journey link. Prefer that live link and never copy hidden attributes.
+839233	      const candidates=[...(actions?.querySelectorAll('a.pn-journey-link[href],a.atlaslink[href],a.action-link[href]')||[])];
+839234	      const link=candidates.find(a=>!a.hidden&&getComputedStyle(a).display!=='none')||candidates[0];
+839235	      const unavailable=actions?.querySelector('.pn-journey-unavailable,.action-disabled');
+839236	      const cell=document.createElement('td');
+839237	      cell.className='pn-expanded-map-cell';
+839238	      if(link){
+839239	        const a=document.createElement('a');
+839240	        a.className='action-link atlaslink pn-journey-link pn-expanded-map-launch';
+839241	        a.href=link.href;
+839242	        a.target=link.target||'_blank';
+839243	        a.rel=link.rel||'noopener noreferrer';
+839244	        a.textContent='MAP';
+839245	        a.title=link.title||'Open project map';
+839246	        a.setAttribute('aria-label','Open project map');
+839247	        if(link.dataset.mapNavigation)a.dataset.mapNavigation=link.dataset.mapNavigation;
+839248	        cell.append(a);
+839249	      }else if(unavailable){
+839250	        const span=document.createElement('span');
+839251	        span.className='pn-expanded-map-unavailable';
+839252	        span.textContent='—';
+839253	        span.title=unavailable.textContent.trim()||'Map unavailable';
+839254	        cell.append(span);
+839255	      }else cell.textContent='—';
+839256	      row.cells[0].after(cell);
+839257	  function clearMapColumn(){
+839258	    table.tHead?.querySelector('.pn-expanded-map-heading')?.remove();
+839259	    for(const cell of tbody.querySelectorAll('.pn-expanded-map-cell'))cell.remove();
+839260	      const td=row.cells[row.querySelector(':scope > .pn-expanded-map-cell')?4:3];
+839261	    syncMapColumn();
+839262	    // Preserve readable native zoom across portrait and landscape.
+839263	    clearMapColumn();
+839264	    syncMapColumn();paintOperators();requestAnimationFrame(updateExpandedPager);
+839265	    // Rotate without hiding the expanded register or resetting its map column.
+839266	    // The same original table remains accessible in both orientations.
+839267	// V9.69 — full-height portrait/landscape, MAP second, A4 last, normal intact.
+839268	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611221850/';
+839269	for(const [engineName,engine] of [['chromium',chromium],['webkit',webkit]]){
+839270	    for(const vp of [{name:'portrait',width:393,height:852},{name:'landscape',width:852,height:393}]){
+839271	      const page=await browser.newPage({viewport:{width:vp.width,height:vp.height},hasTouch:true,reducedMotion:'reduce'});
+839272	      const errors=[];page.on('pageerror',err=>errors.push(err.message));
+839274	        await page.route('https://raw.githubusercontent.com/**',r=>r.abort());
+839275	        await page.goto(url,{waitUntil:'domcontentloaded',timeout:90000});
+839276	        await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50 &&
+839277	          document.querySelectorAll('#tbody .pn-report-launch').length===50,{timeout:90000});
+839278	        const oldColour=await page.locator('#repdScroll thead th').first().evaluate(e=>getComputedStyle(e).color);
+839279	        await page.locator('#pnLiquidLaunch').click();
+839280	        await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100 &&
+839281	          !!document.querySelector('#pnExpandedHost #repdScroll thead .pn-expanded-map-heading'),{timeout:20000});
+839282	        const v=await page.evaluate(()=>{
+839283	          const rows=[...document.querySelectorAll('#tbody tr[id^="repd-"]')];
+839284	          const h=[...document.querySelectorAll('#repdScroll thead th')];
+839285	          const row=rows.find(r=>r.cells[1]?.querySelector('a.pn-expanded-map-launch'));
+839286	          const actions=row?.cells[row.cells.length-1];
+839287	          const host=document.getElementById('pnExpandedHost'),wrap=document.getElementById('repdScroll');
+839288	          return {headCount:h.length,visible:h.filter(x=>getComputedStyle(x).display!=='none').length,
+839289	            heading:h[1]?.textContent,normalRows:rows.length,mapCount:rows.filter(r=>!!r.cells[1]?.querySelector('a.pn-expanded-map-launch')).length,
+839290	            colour:getComputedStyle(h[0]).color,hostVisible:!host.hidden,
+839291	            topBar:getComputedStyle(document.querySelector('#pnExpandedHost .pn-expanded-top')).position,
+839292	            viewportWidth:wrap.clientWidth,tableWidth:wrap.scrollWidth,
+839293	            originalMap:!!actions?.querySelector('a.pn-journey-link[href],a.atlaslink[href]'),
+839294	            lastA4:!!actions?.querySelector('.pn-report-launch'),
+839295	            cells:row?.cells.length,
+839296	            gauges:getComputedStyle(document.querySelector('#pnExpandedHost .hud-gauges')).display,
+839297	            headerButtons:!!h[2]?.querySelector('[data-column-sort="capacity"]')};
+839299	        assert.equal(v.headCount,14,JSON.stringify(v));
+839300	        assert.equal(v.visible,11,JSON.stringify(v));
+839301	        assert.equal(v.heading,'MAP');
+839302	        assert.equal(v.cells,14);
+839303	        assert.equal(v.normalRows,100);
+839304	        assert.ok(v.mapCount>0,JSON.stringify(v));
+839305	        assert.ok(v.originalMap&&v.lastA4,'MAP cloned but original MAP/A4 still at far right');
+839306	        assert.equal(v.colour,oldColour);
+839307	        assert.ok(v.hostVisible&&v.topBar==='absolute');
+839308	        assert.equal(v.gauges,'none');
+839309	        assert.ok(v.headerButtons);
+839310	        assert.ok(v.tableWidth>v.viewportWidth);
+839311	        await page.locator('#pnExpandedHost #repdScroll [data-column-sort="capacity"]').click();
+839312	        await page.waitForFunction(()=>new URLSearchParams(location.search).get('sort')==='capacity_asc',{timeout:15000});
+839313	        const mapped=page.locator('#pnExpandedHost #tbody tr[id^="repd-"] td:nth-child(2) .pn-expanded-map-launch').first();
+839314	        await mapped.evaluate(el=>el.addEventListener('click',event=>{event.preventDefault();window.__mapHit=true},{once:true}));
+839315	        await mapped.click();assert.equal(await page.evaluate(()=>window.__mapHit),true);
+839316	        const a4=page.locator('#pnExpandedHost #tbody tr[id^="repd-"] td:last-child .pn-report-launch').first();
+839317	        await a4.click();await page.waitForSelector('#pnRepdReport:not([hidden])',{timeout:15000});
+839318	        assert.equal(await page.locator('[data-report-action="pdf"]').count(),1);
+839319	        const map=await page.locator('#pnReportMap').evaluate(el=>({href:el.href,hidden:el.hidden}));
+839320	        assert.ok(!map.hidden&&map.href.startsWith('https://'),'A4 must retain original MAP link');
+839321	        await page.locator('[data-report-action="close"]').click();
+839322	        await page.setViewportSize({width:vp.height,height:vp.width});
+839323	        assert.ok(await page.locator('#pnExpandedHost').isVisible(),'Rotation must not dismiss expanded view');
+839324	        await page.locator('#pnExpandedClose').click();
+839325	        assert.equal(await page.locator('#repdScroll thead th').count(),13);
+839326	        assert.equal(await page.locator('#tbody tr[id^="repd-"] td').count(),50*13);
+839327	        assert.equal(await page.locator('#tbody tr[id^="repd-"] td:last-child .pn-report-launch').count(),50);
+839328	        assert.ok(await page.locator('#repdPanel>.hud-gauges').isVisible(),'Normal cockpit restored');
+839329	        assert.deepEqual(errors,[],JSON.stringify(errors));
+839330	        console.log('PASS V9.69',engineName,vp.name,JSON.stringify(v));
+839331	      }finally{await page.close()}
+839332	<title>GlobalGrid2050 | Pipeline News V9.70 · 202611221900</title>
+839333	  // Expanded MAP must follow the same native, enriched GridAtlas link as normal view.
+839334	  // An early render can contain only the raw Atlas href; map-entry.mjs replaces it
+839335	  // asynchronously with a journey/vicinity URL. Never freeze the early href.
+839336	  function nativeMapLink(row){
+839337	    const actions=row.cells[row.cells.length-1]?.querySelector('.project-actions');
+839338	    const links=[...(actions?.querySelectorAll('a.pn-journey-action.atlaslink[href],a.atlaslink[href],a.action-link[href]')||[])];
+839339	    return links.find(a=>a.classList.contains('pn-journey-action')&&!a.hidden)||
+839340	      links.find(a=>!a.hidden&&getComputedStyle(a).display!=='none')||links[0]||null;
+839341	  function mirrorMapLink(anchor,source){
+839342	    if(!source)return false;
+839343	    anchor.href=source.href;
+839344	    // V9.42's normal-view policy: current-tab with Back on touch,
+839345	    // native desktop new-tab otherwise. Both modes use the same real URL.
+839346	    const touch=matchMedia('(pointer: coarse)').matches;
+839347	    const target=touch?'_self':(source.getAttribute('target')||'_self');
+839348	    anchor.target=target;
+839349	    anchor.rel=source.rel||'noopener noreferrer';
+839350	    anchor.title=source.title||'Open project map';
+839351	    anchor.dataset.mapNavigation=target==='_blank'?'new-tab':'current-tab';
+839352	    anchor.setAttribute('aria-description',target==='_blank'?
+839353	      'Opens the grid map in a new tab.':'Opens the grid map in this tab. Use Back to return to these results.');
+839355	      let cell=row.querySelector(':scope > .pn-expanded-map-cell');
+839356	      if(!cell){
+839357	        cell=document.createElement('td');
+839358	        cell.className='pn-expanded-map-cell';
+839359	        row.cells[0].after(cell);
+839360	      const source=nativeMapLink(row);
+839361	      let anchor=cell.querySelector('.pn-expanded-map-launch');
+839362	      if(source){
+839363	        if(!anchor){
+839364	          cell.replaceChildren();
+839365	          anchor=document.createElement('a');
+839366	          anchor.className='action-link atlaslink pn-journey-link pn-expanded-map-launch';
+839367	          anchor.textContent='MAP';
+839368	          anchor.setAttribute('aria-label','Open project map');
+839369	          // Capture the current native source immediately before browser navigation.
+839370	          // This also works if enrichment occurs after the clone was first rendered.
+839371	          anchor.addEventListener('click',event=>{
+839372	            if(!mirrorMapLink(anchor,nativeMapLink(row)))event.preventDefault();
+839373	          },true);
+839374	          cell.append(anchor);
+839375	        mirrorMapLink(anchor,source);
+839377	        cell.replaceChildren();
+839378	        const unavailable=row.cells[row.cells.length-1]?.querySelector('.pn-journey-unavailable,.action-disabled');
+839379	        span.title=unavailable?.textContent.trim()||'Map unavailable';
+839380	  window.addEventListener('pipeline-journey-ready',syncMapColumn);
+839381	  let mapSyncQueued=false;
+839382	  new MutationObserver(()=>{
+839383	    if(!expanded||mapSyncQueued)return;
+839384	    mapSyncQueued=true;
+839385	    queueMicrotask(()=>{mapSyncQueued=false;syncMapColumn();});
+839386	  }).observe(tbody,{childList:true,subtree:true});
+839387	// V9.70 regression: prove real normal versus expanded MAP navigation, not click events.
+839388	const app='http://127.0.0.1:8765/uk_renewables_pipeline/202611221900/';
+839389	const atlas='https://ventusltd.github.io/gridatlas/atlas/';
+839390	for(const [engineName,engine] of [['Chromium',chromium],['WebKit',webkit]]){
+839391	    for(const cfg of [
+839392	      {name:'portrait-touch',width:393,height:852,touch:true},
+839393	      {name:'landscape-touch',width:852,height:393,touch:true},
+839394	      {name:'desktop',width:1280,height:800,touch:false}
+839395	    ]){
+839396	      const ctx=await browser.newContext({viewport:{width:cfg.width,height:cfg.height},
+839397	        isMobile:cfg.touch,hasTouch:cfg.touch,reducedMotion:'reduce'});
+839398	      const page=await ctx.newPage();
+839399	      const errors=[];page.on('pageerror',e=>errors.push(e.message));
+839400	      await ctx.route('https://raw.githubusercontent.com/**',r=>r.abort());
+839401	      await ctx.route('https://ventusltd.github.io/gridatlas/atlas/**',r=>
+839402	        r.fulfill({status:200,contentType:'text/html',
+839403	          body:'<!doctype html><title>GridAtlas test receiver</title><h1>GridAtlas test receiver</h1>'}));
+839404	      const nativeSelector='#tbody tr[id^="repd-"] td:last-child .pn-journey-action.atlaslink[href]';
+839405	      const expandedSelector='#pnExpandedHost #tbody tr[id^="repd-"] .pn-expanded-map-cell a.pn-expanded-map-launch';
+839406	        await page.goto(app,{waitUntil:'domcontentloaded',timeout:90000});
+839407	        await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50
+839408	          &&document.querySelector('#tbody .pn-journey-action.atlaslink[href]'),{timeout:90000});
+839409	        const native=page.locator(nativeSelector).first();
+839410	        const href=await native.getAttribute('href');
+839411	        assert.ok(href.startsWith(atlas),'native original must link GridAtlas');
+839412	        const normalTarget=await native.getAttribute('target');
+839413	        assert.equal(normalTarget,cfg.touch?'_self':'_blank','native target policy');
+839414	        if(cfg.touch){
+839415	          await Promise.all([page.waitForURL(u=>u.href===href,{timeout:15000}),native.click()]);
+839416	          assert.equal(page.url(),href,'normal MAP must navigate in same tab');
+839417	          await page.goBack({waitUntil:'domcontentloaded'});
+839418	          await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50,{timeout:90000});
+839420	          const popupPromise=page.waitForEvent('popup',{timeout:15000});
+839421	          await native.click();
+839422	          const popup=await popupPromise;
+839423	          await popup.waitForURL(href,{timeout:15000});
+839424	          assert.equal(popup.url(),href,'normal desktop MAP opens real destination');
+839425	          await popup.close();
+839426	        await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100
+839427	          &&document.querySelector('#tbody .pn-expanded-map-launch'),{timeout:20000});
+839428	        const expanded=page.locator(expandedSelector).first();
+839429	        const currentNative=page.locator(nativeSelector).first();
+839430	        assert.equal(await expanded.getAttribute('href'),await currentNative.getAttribute('href'),
+839431	          'expanded must inherit live, enriched MAP target');
+839432	        assert.equal(await expanded.getAttribute('target'),await currentNative.getAttribute('target'),
+839433	          'expanded and normal target policy must match');
+839434	        // Simulate an asynchronously updated native URL after expansion. This was
+839435	        // missed by V9.69's click-only acceptance and permanently stale mirror.
+839436	        const changed=await page.evaluate(()=>{
+839438	          const source=row?.querySelector('td:last-child .pn-journey-action.atlaslink[href]');
+839439	          if(!source)throw Error('Native source missing');
+839440	          const u=new URL(source.href);u.searchParams.set('v970_parity','source-updated');
+839441	          source.href=u.href;return u.href;
+839442	          await Promise.all([page.waitForURL(u=>u.href===changed,{timeout:15000}),expanded.click()]);
+839443	          assert.equal(page.url(),changed,'expanded touch MAP must navigate to newest native URL');
+839444	          await expanded.click();
+839445	          await popup.waitForURL(changed,{timeout:15000});
+839446	          assert.equal(popup.url(),changed,'expanded desktop MAP must open newest native URL');
+839447	          // Expanded mode survives actual desktop MAP click.
+839448	          assert.equal(await page.locator('#pnExpandedHost').isVisible(),true);
+839449	          await page.locator('#pnExpandedClose').click();
+839450	          assert.equal(await page.locator('#repdScroll thead th').count(),13);
+839451	        assert.deepEqual(errors,[],'No browser errors');
+839452	        console.log('PASS V9.70 native MAP parity',engineName,cfg.name);
+839453	      }finally{await ctx.close()}
+839454	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611221900/';
+839455	<title>GlobalGrid2050 | Pipeline News V9.71 · 202611221930</title>
+839456	const app='http://127.0.0.1:8765/uk_renewables_pipeline/202611221930/';
+839457	        assert.equal(await page.locator('#pnRepdWideToggle, #pnRepdWidePrompt').count(),0,'No legacy control');
+839458	        assert.equal(await page.locator('#pnLiquidLaunch').count(),1,'Modern launcher remains');
+839459	const url='http://127.0.0.1:8765/uk_renewables_pipeline/202611221930/';
+839460	        assert.equal(await page.locator('#pnRepdWideToggle').count(),0,'Old REPD maximise must not render');
+839461	        assert.equal(await page.locator('#pnRepdWidePrompt').count(),0,'Old rotation prompt must not render');
+839462	        assert.equal(await page.locator('#pnLiquidLaunch').count(),1,'Keep one modern expanded-view launcher');
+839465	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">Open Pipeline News &rarr;</a></div></details>
+839466	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.71 - Simplified REPD expanded-view controls</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221900/">V9.70 - Expanded MAP navigation parity</a><small class="entity-key">202611221900</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">V9.71 - Simplified REPD expanded-view controls</a><small class="entity-key">202611221930</small></div></details></td></tr>
+839618	pc=()=>{if(S.pp){try{S.pp.swipe?.marker?.remove()}catch(_){}S.pp.remove();S.pp=null}nc()},
+839730	dcc=(m,r,n=15,o={})=>{let p=r.p,project=!!o.project,w=DMW(p),c=cd(m,project?'Vicinity':'Data centre',project?'Project vicinity (screening)':'Data centre (screening)',{open:1,hh:1,foot:'Vicinity only. Not connection, route or capacity assessment.'}),h=c.head,dv=c.det,st=DST[r.t],sr=p.sources||[];
+839731	 Object.assign(c,{r,project,tab:o.tab||'a',sh:o.sh||{},vb:o.vb||'all',rst:o.rst||'all'});S.fk=null;c.foot.dataset.tier='screening';
+839732	 L(h,project?`${NM(r)} · REPD ${cs(p.repd_ref)}`:`${NM(r)} · ${unk(r.op)?'operator not listed':cs(r.op)}`,'color:#e9dcff;font-weight:bold;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis','record');
+839733	 L(h,project?`${cs(p.technology||'Technology not stated')} · ${p.capacity_mw>0?N(p.capacity_mw)+' MW registered':'MW not stated'}`:MWL(w),'color:#9fb3ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis','record');
+839735	 L(dv,project?'REPD project vicinity. Distances are straight-line; connectivity and capacity unknown.':DHEAD,'color:#c9b3ff;margin-top:4px');
+839736	 if(!project){
+839750	 r.dc||L(dv,'Record · '+LIC(r),'color:#8b9aa1','record');}
+839751	 c.cam=o.cam;c.row=o.row;if(project)initProjectSwipe(m,c);dg(m,c,n);return c},
+839765	dt=(m,c)=>{sets(c);if(c.project)updateProjectSwipe(c);let T=c.tl,row=el('div','display:flex;gap:3px;margin:6px 0');T.textContent='';ap(T,row);row.setAttribute('role','tablist');row.setAttribute('aria-label','Data-centre vicinity sets');
+839772	 c.sm.textContent=`${c.project?'Project vicinity':'Data centre'} · ${c.k?pl(c.k.length,'substation'):'…'}, ${c.P?pl(c.P.length,'REPD site'):'…'} within 40 km, ${c.cv?c.cv.length:'…'} conventional listed · details`;cpos()},
+839845	  [(c.project?'REPD project':'data centre'),0,NM(r),id,c.project?cs(r.p.technology||'not stated'):'data centre',sl,'','',c.project?(r.p.capacity_mw||'not stated'):M(w.it),c.project?'registered MW':'IT load',0,x,y,'site',c.project?'PipelineNews map origin':r.dc?'data-centre dataset':'OpenStreetMap',c.project?'REPD (DESNZ)':'ODbL 1.0','']];
+839850	 let s=[`# GridAtlas ${c.project?'REPD project':'data-centre'} vicinity sheet · generation ${GEN} · site ${id} ${NM(r).replace(/[\r\n]/g,' ')} · point ${x},${y} · ${new Date().toISOString()}`,'# Straight-line distances from the site point. Not cable routes, capacity, headroom, connection offers or feasibility.',
+839851	  c.project?'# REPD project context from PipelineNews MAP URL; MW does not establish connection capacity.':`# Site: IT load ${w.it!=null?w.it+' MW':'not stated'} · grid connection ${w.gc!=null?w.gc+' MW':'not stated'}. Never added together. A pipeline entry is not a commitment.`,'# MW columns are installed capacity as each source states it, not export or connection capacity. "not stated" is unknown, not zero.',
+839890	function openProjectVicinity(input){
+839891	 if(!input||typeof input!=='object')return false;
+839892	 const ref=String(input.repdRef||''),at=input.at;
+839893	 if(!/^[1-9]\d{0,11}$/.test(ref)||!Array.isArray(at)||at.length!==2||!at.every(Number.isFinite)||at[0]<-11||at[0]>3||at[1]<49.5||at[1]>61.5)return false;
+839894	 const map=mh();if(!map||!NS.gridScope||typeof NS.gridScope.scope!=='function')return false;
+839895	 try{W.__GRIDATLAS_NEON_LINKS__?.enableSubstationLayer?.()}catch(_){}
+839896	 const name=typeof input.name==='string'&&input.name.trim()?input.name.trim().slice(0,180):'REPD '+ref;
+839897	 const cap=Number(input.capacityMW);
+839898	 const record={id:'repd:'+ref,repd_ref:ref,technology:typeof input.technology==='string'?input.technology.slice(0,80):'',capacity_mw:Number.isFinite(cap)&&cap>0?cap:null,sources:[],status:'unknown'};
+839899	 dcc(map,{k:'c',t:'un',dc:0,n:name,op:'',a:at.slice(),p:record},15,{project:true});
+839900	 return true;
+839901	function initProjectSwipe(map,card){
+839902	 const nav=ap(card.head,el('div','display:flex;align-items:center;gap:4px;margin:8px 0;min-height:46px;touch-action:pan-y;border:1px solid #367078'));
+839903	 function b(txt,aria){const q=ap(nav,el('button','min-width:44px;min-height:44px;background:#07191f;border:1px solid #367078;color:#00ffff;font:18px monospace',txt));q.type='button';q.setAttribute('aria-label',aria);return q}
+839904	 const prev=b('‹','Previous vicinity point'),label=ap(nav,el('span','flex:1;min-width:0;text-align:center;overflow-wrap:anywhere;color:#bfe9ee','Loading nearby assets')),next=b('›','Next vicinity point');
+839905	 label.setAttribute('role','status');label.setAttribute('aria-live','polite');
+839906	 card.swipe={entries:[],index:0,prev,next,label,marker:null};
+839907	 prev.addEventListener('click',()=>stepProjectSwipe(map,card,-1));next.addEventListener('click',()=>stepProjectSwipe(map,card,1));
+839908	 let start=null;
+839909	 card.addEventListener('touchstart',e=>{if(e.touches.length===1)start={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+839910	 card.addEventListener('touchend',e=>{if(!start||!e.changedTouches.length)return;const t=e.changedTouches[0],x=t.clientX-start.x,y=t.clientY-start.y;start=null;if(Math.abs(x)>54&&Math.abs(x)>1.5*Math.abs(y))stepProjectSwipe(map,card,x<0?1:-1)},{passive:true});
+839911	 card.addEventListener('keydown',e=>{if(e.target.closest('button,input,select,textarea,a'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();stepProjectSwipe(map,card,e.key==='ArrowRight'?1:-1)}});
+839912	function updateProjectSwipe(card){
+839913	 const s=card.swipe;if(!s)return;
+839914	 const subs=(card.k||[]).map(e=>({tab:'s',at:e.at,km:e.km,name:e.name||'Unnamed substation',detail:e.kv+' kV'}));
+839915	 const repd=(card.P||[]).slice(0,N3).map(e=>({tab:'r',at:e.a,km:e.km,name:e.parts[0]?.name||'REPD project',detail:e.parts[0]?.status||'Status not stated'}));
+839916	 const power=(card.cv||[]).slice(0,N3).map(e=>({tab:'v',at:e.q.a,km:e.km,name:e.q.n||'Conventional power site',detail:e.q.te||e.q.f||'Power site'}));
+839917	 s.entries=[...subs,...repd,...power];s.index=Math.min(s.index,Math.max(0,s.entries.length-1));
+839918	 const r=s.entries[s.index];s.label.textContent=r?`${s.index+1} / ${s.entries.length} · ${k2(r.km)} km · ${r.name} · ${r.detail}`:'No nearby assets loaded yet';s.prev.disabled=s.next.disabled=!r;
+839919	function stepProjectSwipe(map,card,delta){
+839920	 if(S.pp!==card||!card.swipe?.entries.length)return;
+839921	 const s=card.swipe;s.index=(s.index+delta+s.entries.length)%s.entries.length;
+839922	 const r=s.entries[s.index];card.tab=r.tab;card.sh[r.tab]=1;dt(map,card);dl3(map,card);
+839923	 try{if(s.marker)s.marker.remove();const dot=el('div','width:15px;height:15px;border-radius:50%;background:#ff4fd8;border:2px solid white;box-shadow:0 0 10px #ff4fd8;pointer-events:none');
+839924	   if(W.maplibregl?.Marker)s.marker=new W.maplibregl.Marker({element:dot,anchor:'center'}).setLngLat(r.at).addTo(map);
+839925	   map.easeTo({center:r.at,zoom:Math.max(map.getZoom?.()||8,8),duration:200});
+839926	 }catch(e){note('swipe highlight: '+msg(e))}
+839927	NS.ukOfftakers=Object.freeze({schema:S.schema,generation:GEN,state:S,install:ins,setOn:so,openProjectVicinity});
+839928	/* GridAtlas V9.194 additive PipelineNews MAP VICINITY button. Journey remains discontinued. */
+839929	(function launcher(){
+839930	 'use strict';
+839931	 const W=window,D=document,q=new URLSearchParams(W.location.search);
+839932	 const ref=q.get('repd_ref'),latitude=q.get('latitude'),longitude=q.get('longitude');
+839933	 if(!/^[1-9]\d{0,11}$/.test(ref||'')||!latitude?.trim()||!longitude?.trim())return;
+839934	 if(['repd_ref','latitude','longitude'].some(k=>q.getAll(k).length!==1))return;
+839935	 const lat=Number(latitude),lon=Number(longitude);
+839936	 if(!Number.isFinite(lat)||!Number.isFinite(lon)||lon<-11||lon>3||lat<49.5||lat>61.5)return;
+839937	 const origin={repdRef:ref,at:[lon,lat],name:(q.get('project')||q.get('name')||'REPD '+ref).slice(0,180),technology:(q.get('technology')||'').slice(0,80)};
+839938	 let button,attempts=0;
+839939	 function position(){ const stack=D.querySelector('.map-controls');if(stack&&button?.isConnected)stack.removeAttribute('data-gridatlas-menu-emptied');const layers=D.getElementById('gridatlas-dash-toggle');if(layers){if(stack&&layers.parentElement!==stack)stack.appendChild(layers);layers.style.setProperty('z-index','2147483000','important');layers.style.setProperty('pointer-events','auto','important');} }
+839940	 function mount(){
+839941	   if(button?.isConnected)return true;
+839942	   const map=W.__GRIDATLAS_V9_MAP__,engine=W.__GRIDATLAS_MODULES__?.ukOfftakers;
+839943	   const stack=D.querySelector('.map-controls');if(!map?.getContainer||!stack||!engine?.openProjectVicinity)return false;
+839944	   button=D.createElement('button');button.id='gridatlas-pipeline-vicinity-button';button.type='button';
+839945	   button.textContent='◎ VICINITY';button.title='Explore the nearest 30 substations, 30 REPD sites and 30 conventional power sites';
+839946	   button.setAttribute('aria-label','Open project vicinity screening');
+839947	   button.style.cssText='min-height:44px;min-width:118px;padding:8px 10px;border:1px solid #367078;border-radius:5px;background:#071b21;color:#8de5dc;font:12px monospace;letter-spacing:.04em;cursor:pointer;touch-action:manipulation';
+839948	   for(const type of ['click','pointerdown','mousedown','touchstart','dblclick'])button.addEventListener(type,event=>event.stopPropagation());
+839949	   button.addEventListener('click',()=>{if(!engine.openProjectVicinity(origin)){button.textContent='NOT READY';button.setAttribute('aria-label','Vicinity engine not ready');setTimeout(()=>{if(button?.isConnected){button.textContent='◎ VICINITY';button.setAttribute('aria-label','Open project vicinity screening')}},2500)}});
+839950	   const holder=D.createElement('div');holder.id='gridatlas-pipeline-vicinity-holder';holder.style.cssText='display:flex;align-items:center;position:relative;z-index:21;padding:0;pointer-events:auto';holder.appendChild(button);const tray=D.getElementById('gridatlas-mobile-tray');stack.insertBefore(holder,tray?tray.nextSibling:stack.firstChild);position();
+839951	   return true;
+839953	 const timer=setInterval(()=>{if(mount()||++attempts>160)clearInterval(timer)},250);
+839954	 mount();
+839981	export const build = gen => {
+839982	  if (gen !== '202611222000') return assemble({ variant: 'base', gen, variants: VARIANTS, srcDir: SRC_DIR });
+839983	  // V9.194 is a bounded, explicit change set against the exact source-built
+839984	  // V9.189 offtakers cartridge. Never rebuild an already published edition.
+839985	  const patch = JSON.parse(fs.readFileSync(path.join(HERE, '202611222000-vicinity-delta.json'), 'utf8'));
+839986	  if (patch.schema !== 'gridatlas.offtakers.source-delta.v1' || patch.generation !== gen
+839987	      || patch.source_generation !== '202611132345') throw new Error('V9.194 source recipe not pinned');
+839988	  const lines = assemble({ variant: 'base', gen: patch.source_generation, variants: VARIANTS, srcDir: SRC_DIR }).split('\n');
+839989	  for (const edit of patch.edits.slice().reverse()) {
+839990	    const old = lines.slice(edit.index, edit.index + edit.old.length);
+839991	    if (JSON.stringify(old) !== JSON.stringify(edit.old)) throw new Error('V9.194 predecessor/source delta mismatch at '+edit.index);
+839992	    lines.splice(edit.index, edit.old.length, ...edit.next);
+840023	import fs from 'node:fs';import path from 'node:path';
+840024	import {createHash} from 'node:crypto';import {fileURLToPath} from 'node:url';
+840025	const G='202611222000',expected='0c4c7d39433e2ab084bccc159bf5fad963f4014d391a1daa18882896a87ef05d';
+840026	const args=process.argv.slice(2);let gen,out;
+840027	for(let i=0;i<args.length;i++){
+840028	 if(args[i]==='--generation')gen=args[++i];
+840029	 else if(args[i]==='--out')out=args[++i];
+840030	 else throw Error('unknown flag '+args[i]);
+840031	if(gen!==G||!out)throw Error('expected --generation '+G+' --out FILE');
+840032	const src=path.join(path.dirname(fileURLToPath(import.meta.url)),'src',G+'-entry.js');
+840033	const bytes=fs.readFileSync(src),hash=createHash('sha256').update(bytes).digest('hex');
+840034	if(hash!==expected)throw Error('source SHA mismatch: '+hash);
+840035	fs.writeFileSync(out,bytes);
+840036	console.log('PASS source-built native VICINITY '+bytes.length+' B '+hash);
+840046	// A later live generation may retain this exact source-verified V9.191 SLD.
+840047	const approvedSld=candidate.cartridges.find(c=>c.id==='sld-sandbox');
+840048	const activeSld=live.cartridges.find(c=>c.id==='sld-sandbox');
+840049	assert.ok([parent.generation,G].includes(live.generation)
+840050	 || (activeSld?.generation===G&&activeSld.sha256===approvedSld.sha256&&activeSld.path===approvedSld.path),
+840051	 'later live compositions must carry the identical approved SLD cartridge');
+840091	import './202611222000-vicinity-entry.proof.mjs';
+840092	import assert from 'node:assert/strict';import {createHash} from 'node:crypto';
+840093	const root=path.resolve(import.meta.dirname,'../..'),G='202611222000';
+840094	const manifest=JSON.parse(fs.readFileSync(path.join(root,'atlas/v',G,'current.json'),'utf8'));
+840095	const pin=manifest.cartridges.find(x=>x.id==='pipeline-vicinity-button');
+840096	assert.ok(pin&&pin.generation===G&&pin.slot==='after-cartridge'&&pin.after==='uk-offtakers-overlay');
+840097	const served=fs.readFileSync(path.join(root,'atlas/modules',G+'-vicinity-entry.js'));
+840098	assert.equal(createHash('sha256').update(served).digest('hex'),pin.sha256);
+840099	assert.equal(Buffer.compare(served,fs.readFileSync(path.join(root,'tools/pipeline-vicinity/src',G+'-entry.js'))),0);
+840100	console.log('PASS V9.194 native VICINITY entry source bytes');
+840101	const pin=manifest.cartridges.find(x=>x.id==='uk-offtakers-overlay');
+840102	assert.ok(pin&&pin.generation===G);
+840103	const source=fs.readFileSync(path.join(root,'atlas/modules',G+'-uk-offtakers-overlay.js'));
+840104	assert.equal(createHash('sha256').update(source).digest('hex'),pin.sha256);
+840105	assert.match(source.toString('utf8'),/openProjectVicinity/);
+840106	console.log('PASS V9.194 30/30/30 project origin exact source pin');
+840107	import {createPreviewServer} from '../journey/serve.mjs';
+840108	const engine=process.env.VICINITY_BROWSER||'chromium';
+840109	assert.ok(['chromium','webkit'].includes(engine));
+840110	const browser=await (engine==='webkit'?webkit:chromium).launch({headless:true,...(engine==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
+840111	const server=await createPreviewServer();
+840112	const width=393,height=852;
+840113	const context=await browser.newContext({viewport:{width,height},hasTouch:true,isMobile:true});
+840114	const page=await context.newPage(),errors=[];
+840115	page.on('pageerror',e=>errors.push(String(e)));
+840116	const out=path.resolve('work/vicinity-v9194-'+engine);fs.mkdirSync(out,{recursive:true});
+840117	const origin='repd_ref=12588&latitude=51.8132088&longitude=-1.3489728&project=Botley%20West&technology=solar&journey=vicinity&origin_type=repd&origin_id=repd%3A12588&radius_km=10';
+840118	const url='http://127.0.0.1:'+server.address().port+'/atlas/v/202611222000/?'+origin;
+840119	let receipt={engine,width,height,url,softwareEmulation:true,physicalSafari:false};
+840121	 await page.goto(url,{waitUntil:'domcontentloaded',timeout:90000});
+840122	 await page.waitForFunction(()=>window.__GRIDATLAS_ATLAS__?.generation==='202611222000'&&!!window.__GRIDATLAS_V9_MAP__&&!!window.__GRIDATLAS_MODULES__?.ukOfftakers?.openProjectVicinity,null,{timeout:120000});
+840123	 const before=await page.evaluate(()=>({dash:window.__GRIDATLAS_DASH__?.installed,map:!!window.__GRIDATLAS_V9_MAP__,journey:!!window.__GRIDATLAS_MODULES__?.gridJourneyPreview,offtakers:window.__GRIDATLAS_MODULES__.ukOfftakers.generation}));
+840124	 assert.equal(before.dash,true);assert.equal(before.map,true);assert.equal(before.journey,false,'discontinued Journey is not composed');
+840125	 const button=page.locator('#gridatlas-pipeline-vicinity-button');await button.waitFor({timeout:10000});
+840126	 const target=await button.evaluate(el=>{const r=el.getBoundingClientRect(),hit=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return{width:r.width,height:r.height,visible:r.width>0&&r.height>0,uncovered:hit===el||el.contains(hit),position:{x:r.x,y:r.y}}});
+840127	 assert.ok(target.visible&&target.uncovered&&target.height>=44,'VICINITY must be a fully clickable touch target');
+840128	 await (engine==='webkit'?button.tap():button.click());
+840129	 const card=page.locator('[data-offtakers-card]');await card.waitFor({timeout:30000});
+840130	 assert.match(await card.innerText(),/Project vicinity/i);
+840131	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp?.swipe?.entries?.length>=2,null,{timeout:120000});
+840132	 const source=await page.evaluate(()=>{const s=window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp;const entries=s.swipe.entries;return{total:entries.length,substations:entries.filter(e=>e.tab==='s').length,repd:entries.filter(e=>e.tab==='r').length,conventional:entries.filter(e=>e.tab==='v').length,origin:s.r.p.repd_ref}});
+840133	 assert.ok(source.total<=90&&source.total>=2,'30/30/30 total is bounded to 90');
+840134	 assert.equal(source.origin,'12588');
+840135	 assert.ok(source.substations<=30&&source.repd<=30&&source.conventional<=30);
+840136	 await page.screenshot({path:path.join(out,'01-vicinity-open.png'),fullPage:false});
+840137	 const next=card.getByRole('button',{name:'Next vicinity point'});await next.click();
+840138	 assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp.swipe.index),1);
+840139	 const prev=card.getByRole('button',{name:'Previous vicinity point'});await prev.click();
+840140	 assert.equal(await page.evaluate(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp.swipe.index),0);
+840141	 const tabs=card.locator('[data-offtakers-tab]');assert.equal(await tabs.count(),4);
+840142	 assert.match(await card.innerText(),/Area|5 km|10 km|20 km/);
+840143	 await page.screenshot({path:path.join(out,'02-swiping.png'),fullPage:false});
+840144	 const close=card.getByRole('button',{name:'Close'});await close.click();
+840145	 assert.equal(await page.locator('[data-offtakers-card]').count(),0,'own card removed');
+840146	 const toggle=page.locator('#gridatlas-dash-toggle');await toggle.waitFor();
+840147	 const a=await page.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed);
+840148	 await toggle.click();const b=await page.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed);
+840149	 assert.notEqual(a,b,'Hide Layers button must change actual collapsed state');
+840150	 await toggle.click();assert.equal(await page.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed),a);
+840151	 assert.equal(await button.isVisible(),true);
+840152	 await page.screenshot({path:path.join(out,'03-layers-restored.png'),fullPage:false});
+840153	 receipt={...receipt,result:'PASS',target,source,hideLayersPassed:true,journeyAbsent:true,errors};
+840154	 assert.deepEqual(errors,[],'no uncaught browser errors');
+840155	 console.log('PASS',engine,JSON.stringify({source,target,layerToggle:'PASS'}));
+840156	}catch(e){receipt={...receipt,result:'FAIL',error:String(e),errors};try{await page.screenshot({path:path.join(out,'failure.png'),fullPage:false})}catch{}throw e}
+840157	finally{fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify(receipt,null,2));await context.close();await browser.close();await new Promise(resolve=>server.close(resolve))}
+840160	const gen='202611222000';
+840161	const live=JSON.parse(fs.readFileSync(path.join(root,'atlas/current.json'),'utf8'));
+840162	const candidate=JSON.parse(fs.readFileSync(path.join(root,'atlas/v',gen,'current.json'),'utf8'));
+840163	const predecessor=JSON.parse(fs.readFileSync(path.join(root,'atlas/v/202611161720/current.json'),'utf8'));
+840164	assert.ok(['202611161720',gen].includes(live.generation),'live must be V9.191 or approved V9.194');
+840165	if(live.generation===gen)for(const c of candidate.cartridges){
+840166	 const active=live.cartridges.find(x=>x.id===c.id);
+840167	 assert.ok(active&&active.sha256===c.sha256,'promoted '+c.id+' must have exact candidate SHA');
+840168	assert.equal(candidate.generation,gen);
+840169	assert.deepEqual(candidate.cartridge_order.slice(0,6),predecessor.cartridge_order,'preserve accepted cartridge order');
+840170	assert.deepEqual(candidate.cartridge_order.slice(6),['pipeline-vicinity-button'],'no Journey');
+840171	assert.equal(candidate.cartridges.length,predecessor.cartridges.length+1);
+840172	  const p=path.resolve(root,'atlas/v',gen,c.path);
+840173	  assert.ok(p.startsWith(root+path.sep),'path confined to checkout');
+840174	  assert.ok(fs.existsSync(p),c.id+' path missing');
+840175	  assert.equal(crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex'),c.sha256,c.id+' digest');
+840176	  new vm.Script(fs.readFileSync(p,'utf8'),{filename:p});
+840177	const owner=fs.readFileSync(path.join(root,'atlas/modules',gen+'-uk-offtakers-overlay.js'),'utf8');
+840178	const button=fs.readFileSync(path.join(root,'atlas/modules',gen+'-vicinity-entry.js'),'utf8');
+840179	for(const part of ['openProjectVicinity','initProjectSwipe','updateProjectSwipe','stepProjectSwipe','S.pp.swipe','GRID']){}
+840180	assert.match(owner,/openProjectVicinity/);
+840181	assert.match(owner,/const subs=\(card.k\|\|\[\]\)/);
+840182	assert.match(owner,/const repd=\(card.P\|\|\[\]\)\.slice\(0,N3\)/);
+840183	assert.match(owner,/const power=\(card.cv\|\|\[\]\)\.slice\(0,N3\)/);
+840184	assert.match(owner,/Math\.abs\(x\)>54/,'horizontal swipe threshold');
+840185	assert.match(button,/gridatlas-pipeline-vicinity-button/);
+840186	assert.match(button,/repd_ref/);
+840187	assert.doesNotMatch(button,/gridJourneyPreview|journey=vicinity/,'the discontinued Journey must not be coupled');
+840188	const original=predecessor.cartridges.find(c=>c.id==='uk-offtakers-overlay');
+840189	const next=candidate.cartridges.find(c=>c.id==='uk-offtakers-overlay');
+840190	assert.equal(original.path,'../../modules/202611132345-uk-offtakers-overlay.js');
+840191	assert.notEqual(next.sha256,original.sha256);
+840192	console.log('PASS V9.194: seven byte-pinned cartridges, 90-point swipe ceiling, unchanged V9.191 and no Journey');
+840356	  } else if (c.id === 'pipeline-vicinity-button') {
+840357	    const tree=path.join(work,'pipeline-vicinity-source');
+840358	    for(const rel of ['tools/pipeline-vicinity/build.mjs','tools/pipeline-vicinity/src/202611222000-entry.js']){
+840359	      const dest=path.join(tree,rel);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.copyFileSync(abs(rel),dest);
+840360	    const out=path.join(work,path.basename(c.file));
+840361	    const r=run(['node',path.join(tree,'tools/pipeline-vicinity/build.mjs'),'--generation',G,'--out',out]);
+840362	    if(r.code!==0||!fs.existsSync(out)){R.fail(name,'source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,200));continue;}
+840363	    same(name,out,c.file);
+840364	    if(sha256(fs.readFileSync(out))!==c.sha256)R.fail(name+' pin','source-built launcher SHA differs');
 ```
