@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-474,433 unique lines, numbered 1 to 849,626. Generated 2026-11-23T11:14:02.094Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+475,816 unique lines, numbered 1 to 852,139. Generated 2026-11-23T22:55:30.716Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -474436,4 +474436,1387 @@
 849624	assert.equal(data.length,10350,'source length drift');
 849625	assert.equal(createHash('sha256').update(data).digest('hex'),'8ea2546b2a1fab3007d3b7a81aa509baae323051b888afd252edb6bc4726f14e','source SHA-256 drift');
 849626	console.log('PASS vicinity-focus source built byte for byte at '+path.resolve(out));
+849628	"""V9.76 full source-closure and no-truncation acceptance; original REPD palette is immutable."""
+849632	ROOT=Path(__file__).resolve().parents[3]
+849633	OLD=ROOT/"uk_renewables_pipeline/202611231600"
+849634	NEW=ROOT/"uk_renewables_pipeline/202611232245"
+849635	a={str(p.relative_to(OLD)):p.read_bytes() for p in OLD.rglob("*") if p.is_file()}
+849636	b={str(p.relative_to(NEW)):p.read_bytes() for p in NEW.rglob("*") if p.is_file()}
+849637	assert len(a)==345,("Unexpected accepted V9.75 source inventory",len(a))
+849638	assert set(a).issubset(b),("TRUNCATED files",set(a)-set(b))
+849639	assert set(b)-set(a)=={"styles/repd-mobile-v976.css","tests/v976-mobile-browser.mjs"},(
+849640	    "Unexpected release additions",set(b)-set(a))
+849641	changed={p for p in a if a[p]!=b[p]}
+849642	assert changed=={"index.html"},("Nonvisual source changed",changed)
+849643	for p in a:
+849644	    if p=="index.html":continue
+849645	    assert hashlib.sha256(a[p]).digest()==hashlib.sha256(b[p]).digest(),p
+849646	for p in ("styles/v7.css","styles/repd-reports.css","styles/repd-density.css",
+849647	    "styles/hud-v955.css","styles/compact-register.css","styles/repd-scan.css",
+849648	    "scripts/plugins/projects-v9-8.js","scripts/plugins/gauges-v9-2.js",
+849649	    "repd-reports.mjs","repd-reports-model.mjs","report-a4.mjs","report-pdf.mjs",
+849650	    "map-entry.mjs","repd-expanded.mjs"):
+849651	    assert a[p]==b[p],("Original data/logic/SCADA palette not immutable",p)
+849652	html=b["index.html"].decode()
+849653	assert html.count('styles/repd-mobile-v976.css')==1
+849654	assert html.count('styles/repd-reports.css')==1
+849655	assert html.index('styles/repd-mobile-v976.css')>html.index('styles/repd-reports.css')
+849656	assert html.count('id="repdReportSwipeHint"')==1
+849657	assert "Pipeline News V9.76 · 202611232245" in html
+849658	assert "Cockpit" not in html and "COCKPIT" not in html
+849659	for id in ("repdReportsPanel","repdNativeStatus","repdNativeOperator",
+849660	            "repdNativeRegion","status","repdScroll"):
+849661	    assert html.count('id="'+id+'"')==1,id
+849662	css=b["styles/repd-mobile-v976.css"].decode()
+849663	for selector in ("@media (max-width:768px)","#repdPanel #repdReportsBody",
+849664	                 "#repdPanel #status.filters","white-space:nowrap!important",
+849665	                 "overflow-x:auto!important","width:760px!important"):
+849666	    assert selector in css,("Mobile guard missing",selector)
+849667	assert not any(name in changed for name in ("map-entry.mjs","report-a4.mjs","report-pdf.mjs"))
+849668	print("PASS: V9.76 inherits",len(a),"immutable V9.75 files, 0 missing, 1 HTML link/hint changed, 2 additive CSS/browser test files; no original REPD colour, data, MAP, A4, PDF, or functional JS altered.")
+849670	 * V9.74 candidate composer. Copy the FULL accepted V9.73 page, change only:
+849671	 * index title, report controller, README, CHANGES, and add test+receipt.
+849672	 * No source data, colors, existing CSS, MAP/A4, gauges or GridAtlas edits.
+849673	 * Re-running with changed candidate bytes must fail, never overwrite.
+849680	const root = path.resolve(here, "../../..");
+849681	const oldId = "202611222330";
+849682	const newId = "202611231400";
+849683	const oldDir = path.join(root, "uk_renewables_pipeline", oldId);
+849684	const newDir = path.join(root, "uk_renewables_pipeline", newId);
+849685	const sha = bytes => createHash("sha256").update(bytes).digest("hex");
+849686	async function inventory(folder) {
+849687	  const items = new Map();
+849689	    for (const entry of await fs.readdir(directory, { withFileTypes:true })) {
+849690	      const full = path.join(directory,entry.name);
+849691	      if (entry.isSymbolicLink()) throw new Error("Unreviewed symlink: " + full);
+849692	      if (entry.isDirectory()) await walk(full);
+849693	      else if (entry.isFile()) items.set(path.relative(folder,full).replaceAll("\\","/"),await fs.readFile(full));
+849694	      else throw new Error("Unreviewed entry " + full);
+849697	  await walk(folder);
+849700	if ((await fs.stat(oldDir)).isDirectory() !== true) throw new Error("Missing exact V9.73 source");
+849702	  await fs.stat(newDir);
+849703	  throw new Error("Candidate path already exists; immutable release must not be replaced");
+849704	} catch(e) { if (e.code !== "ENOENT") throw e; }
+849705	const original = await inventory(oldDir);
+849706	if (original.size < 35) throw new Error("Source V9.73 unexpectedly truncated, only " + original.size + " files");
+849707	const mustProtect = [
+849708	  "map-entry.mjs","report-a4.mjs","report-model.mjs","report-pdf.mjs",
+849709	  "repd-expanded.mjs","scripts/plugins/projects-v9-8.js",
+849710	  "scripts/plugins/preview-v928.js","styles/v7.css","styles/repd-reports.css",
+849711	  "data/v9.1/build_manifest.json", "tests/v972-vicinity-a4-pdf.mjs"
+849713	for (const file of mustProtect) if (!original.has(file)) throw new Error("Missing protected V9.73 dependency: " + file);
+849714	const oldHtml = original.get("index.html").toString("utf8");
+849715	if (!oldHtml.includes("V9.73") || !oldHtml.includes(oldId) ||
+849716	    !oldHtml.includes('src="repd-reports.mjs"') ||
+849717	    !oldHtml.includes('data-repd-report="operator"')) {
+849718	  throw new Error("V9.73 page identity/report mounting is not as expected");
+849719	const html = oldHtml.replace("V9.73", "V9.74").replace(oldId,newId);
+849720	const controller = await fs.readFile(path.join(here, "repd-reports-integrated.mjs"),"utf8");
+849721	const browserTest = await fs.readFile(path.join(here,"tests","v974-cockpit-browser.mjs"),"utf8");
+849722	for (const mark of [
+849723	  'import { state } from "./scripts/core/state.js"',
+849724	  'import { buildRepdCapacityReport } from "./repd-reports-model.mjs"',
+849725	  'import { buildCockpitReport, SOURCE_UNAVAILABLE }',
+849726	  'pipeline-projects-rendered', 'atlasUrlV9_5_1',
+849727	  'buildAtlasInterconnectorLinkV9_8'
+849728	]) if (!controller.includes(mark)) throw new Error("Missing integration contract " + mark);
+849729	await fs.cp(oldDir,newDir,{recursive:true,errorOnExist:true,force:false});
+849730	await fs.writeFile(path.join(newDir,"index.html"),html);
+849731	await fs.writeFile(path.join(newDir,"repd-reports.mjs"),controller);
+849732	await fs.writeFile(path.join(newDir,"README.md"),[
+849733	 "# V9.74 — Technology-aware REPD operator, status and region cockpit",
+849734	 "",
+849735	 "Full immutable successor of V9.73 ("+oldId+").",
+849736	 "The SAME existing REPD cockpit now ranks operators by the selected technology.",
+849737	 "Solar shows solar-only MWp and operators; BESS, onshore and offshore use their own MW.",
+849738	 "A status facet covers every original REPD status, including refused, withdrawn",
+849739	 "and not reported. Operator and region facets intersect; switching report buttons",
+849740	 "retains selections. Current Table Filters remains an explicit, separate scope.",
+849741	 "Interconnectors retain their own inventory and are never added to 7,775 REPD records.",
+849742	 "Grid reporting awaits a verified separate source. No measured energy claims.",
+849743	 "No changes to published V9.73, data, styling, colours, original chart gauges,",
+849744	 "ticker, navigation, REPD source, MAP/A4/PDF/expanded view or GridAtlas.",
+849745	 "Only index.html (version title), repd-reports.mjs, README.md and CHANGES.md",
+849746	 "differ from V9.73, plus the new browser test and build receipt.",
+849747	 "Rollback remains /uk_renewables_pipeline/"+oldId+"/.",
+849748	 ""
+849749	].join("\n"));
+849750	await fs.writeFile(path.join(newDir,"CHANGES.md"),[
+849751	 "# V9.74 candidate: REPD cockpit cross-filter integration",
+849752	 "- Existing Operator MW / Status MW / Region MW grouped reports respond to the same",
+849753	 "  Solar / BESS / Onshore / Offshore technology selection as the REPD table.",
+849754	 "- Compact report-native status, operator and region facets, without resetting on",
+849755	 "  switching reports, give ranked operators by recorded selected-technology capacity.",
+849756	 "- All official statuses remain selectable, including statuses absent from the",
+849757	 "  four fast table status buttons; missing labels stay explicit.",
+849758	 "- Native per-project REPD drill-back and MAP/A4 navigation unchanged.",
+849759	 "- Interconnector source kept separate from REPD, not combined in ALL TECH.",
+849760	 "- All original CSS, gauge, ticker, GridAtlas and core data bytes unchanged.",
+849761	await fs.writeFile(path.join(newDir,"tests","v974-cockpit-browser.mjs"),browserTest);
+849762	const after = await inventory(newDir);
+849763	const changed = [], missing=[];
+849764	for (const [rel,originalBytes] of original) {
+849765	  const newBytes=after.get(rel);
+849766	  if (!newBytes) {missing.push(rel);continue;}
+849767	  if (!originalBytes.equals(newBytes)) changed.push(rel);
+849768	const expectedChanged=["index.html","repd-reports.mjs","README.md","CHANGES.md"].sort();
+849769	if (missing.length || JSON.stringify(changed.sort()) !== JSON.stringify(expectedChanged)) {
+849770	  throw new Error("Copied edition's inherited file diff is not exact: " +
+849771	    JSON.stringify({missing,changed,expectedChanged}));
+849772	const added=[...after.keys()].filter(x=>!original.has(x)).sort();
+849773	if (JSON.stringify(added)!==JSON.stringify(["tests/v974-cockpit-browser.mjs"])) {
+849774	  throw new Error("Unreviewed new file additions " + JSON.stringify(added));
+849775	const immutable = [...original.entries()].filter(([name])=>!expectedChanged.includes(name));
+849777	  schema:"ventus.pipeline.cockpit-v974-receipt.v1",
+849778	  originalRelease:oldId, newRelease:newId,
+849779	  originalFileCount:original.size,
+849780	  inheritedUnchangedCount:immutable.length,
+849781	  missingFiles:missing, changedFiles:changed, addedFiles:added,
+849782	  inheritedManifestSha256:sha(Buffer.from(immutable.sort((a,b)=>a[0].localeCompare(b[0]))
+849783	    .map(([rel,buf])=>rel+"\t"+sha(buf)+"\n").join(""))),
+849784	  sourceCssSha256:sha(original.get("styles/v7.css")),
+849785	  candidateCssSha256:sha(after.get("styles/v7.css")),
+849786	  sourceReportCssSha256:sha(original.get("styles/repd-reports.css")),
+849787	  candidateReportCssSha256:sha(after.get("styles/repd-reports.css")),
+849788	  releaseAccepted:false, published:false,
+849789	  status:"ISOLATED_UNVERIFIED_BROWSER_AND_PUBLIC",
+849791	await fs.writeFile(path.join(newDir,"COCKPIT-BUILD-RECEIPT.json"),JSON.stringify(receipt,null,2)+"\n");
+849792	console.log(JSON.stringify(receipt,null,2));
+849793	 * PipelineNews REPD cockpit cross-filter contract (candidate v2).
+849794	 * Pure data module: no DOM, no networking, no source mutation, no publication.
+849795	 * Canonical REPD and interconnectors remain separate datasets.
+849796	export const REPD_TECHNOLOGIES = Object.freeze([
+849797	  "all", "solar", "bess", "wind_onshore", "wind_offshore"
+849799	export const COCKPIT_TECHNOLOGIES = Object.freeze([
+849800	  ...REPD_TECHNOLOGIES, "interconnector", "grid"
+849801	export const REPORT_DIMENSIONS = Object.freeze([
+849802	  "operator", "status", "region", "technology"
+849803	export const SOURCE_UNAVAILABLE = "SOURCE_NOT_AVAILABLE";
+849804	export const UNKNOWN = "Not reported";
+849805	const DECIMAL_SCALE = 1_000_000;
+849807	  const string = value === null || value === undefined ? "" : String(value).trim();
+849808	  return string || UNKNOWN;
+849809	function selected(value) {
+849810	  return value === null || value === undefined || value === "" || value === "All" ? "All" : String(value);
+849811	export function cockpitSelection(filters = {}) {
+849812	  const technology = filters.technology ?? "all";
+849813	  if (!COCKPIT_TECHNOLOGIES.includes(technology)) {
+849814	    throw new TypeError("Unsupported technology selection: " + technology);
+849817	    status: selected(filters.status),
+849818	    operator: selected(filters.operator),
+849819	    region: selected(filters.region),
+849821	function identity(row, source) {
+849822	  const ref = source === "repd"
+849823	    ? row?.repd_ref
+849824	    : row?.asset_id ?? row?.gg_project_id ?? row?.bmrs_code;
+849825	  const id = ref === undefined || ref === null ? "" : String(ref).trim();
+849826	  if (!id || (source === "repd" && !/^\d+$/.test(id))) {
+849827	    throw new Error("Missing or invalid " + source + " project identity");
+849829	export function verifyInventory(rows, source = "repd") {
+849830	  if (!Array.isArray(rows)) throw new TypeError(source + " inventory must be an array");
+849833	    const id = identity(row, source);
+849834	    if (refs.has(id)) throw new Error("Duplicate " + source + " identity: " + id);
+849835	    refs.add(id);
+849836	    if (source === "repd" && row?.technology === "interconnector") {
+849837	      throw new Error("Interconnector record inside REPD inventory: " + id);
+849838	  return refs.size;
+849839	function technologyMatches(row, selection, source) {
+849840	  return source === "interconnector" || selection.technology === "all" ||
+849841	    row?.technology === selection.technology;
+849842	function matches(row, selection, source, except = "") {
+849843	  if (except !== "technology" && !technologyMatches(row, selection, source)) return false;
+849844	  for (const name of ["status", "operator", "region"]) {
+849845	    if (name !== except && selection[name] !== "All" &&
+849846	      label(row?.[name]) !== selection[name]) return false;
+849848	function mwScaled(value) {
+849851	  return Number.isFinite(n) && n >= 0 ? Math.round(n * DECIMAL_SCALE) : null;
+849852	function unit(row, source) {
+849853	  const unitValue = typeof row?.capacity_unit === "string" && row.capacity_unit.trim();
+849854	  if (unitValue) return unitValue;
+849855	  if (source === "repd" && row?.technology === "solar") return "MWp";
+849856	  return "MW";
+849857	function emptyTotals() {
+849858	    projects: 0,
+849859	    missingCapacity: 0,
+849860	    recordedByUnit: {},
+849861	    solarMwp: 0,
+849862	    otherMw: 0,
+849863	    recordedMixed: 0,
+849864	function accumulate(totals, row, source) {
+849865	  totals.projects++;
+849866	  const mw = mwScaled(row?.capacity_mw);
+849867	  if (mw === null) {
+849868	    totals.missingCapacity++;
+849870	  const sourceUnit = unit(row, source);
+849871	  totals.recordedByUnit[sourceUnit] = (totals.recordedByUnit[sourceUnit] ?? 0) + mw;
+849872	  if (source === "repd" && row?.technology === "solar") totals.solarMwp += mw;
+849873	  else totals.otherMw += mw;
+849874	  totals.recordedMixed += mw; // Legacy comparison only: not comparable across MW/MWp.
+849875	function displayTotals(totals) {
+849876	  const convert = value => Number((value / DECIMAL_SCALE).toFixed(6));
+849877	    projects: totals.projects,
+849878	    missingCapacity: totals.missingCapacity,
+849879	    recordedByUnit: Object.fromEntries(Object.entries(totals.recordedByUnit)
+849880	      .map(([k, value]) => [k, convert(value)]).sort((a, b) => a[0].localeCompare(b[0], "en-GB"))),
+849881	    solarMwp: convert(totals.solarMwp),
+849882	    otherMw: convert(totals.otherMw),
+849883	    recordedMixed: convert(totals.recordedMixed),
+849884	    mixedUnitWarning: "Combined recorded MW/MWp is a database sum, not a physically comparable capacity or generation measure.",
+849885	function grouped(rows, dimension, source) {
+849887	  for (const project of rows) {
+849888	    const key = dimension === "technology" && source === "interconnector"
+849889	      ? "Interconnector" : label(project?.[dimension]);
+849890	    if (!groups.has(key)) groups.set(key, { label: key, totals: emptyTotals(), ids: [] });
+849891	    const group = groups.get(key);
+849892	    group.ids.push(identity(project, source));
+849893	    accumulate(group.totals, project, source);
+849894	  return [...groups.values()].map(group => ({
+849895	    label: group.label,
+849896	    ...displayTotals(group.totals),
+849897	    ids: group.ids,
+849898	  })).sort((a, b) => b.recordedMixed - a.recordedMixed ||
+849899	    b.projects - a.projects || a.label.localeCompare(b.label, "en-GB"));
+849900	function facets(rows, selection, source) {
+849902	  for (const dimension of ["technology", "status", "operator", "region"]) {
+849905	      if (!matches(row, selection, source, dimension)) continue;
+849906	      const option = dimension === "technology" && source === "interconnector"
+849907	        ? "interconnector" : label(row?.[dimension]);
+849908	      counts.set(option, (counts.get(option) ?? 0) + 1);
+849909	    result[dimension] = [...counts].map(([value, count]) => ({ value, count }))
+849910	      .sort((a, b) => a.value.localeCompare(b.value, "en-GB"));
+849912	 * Return a single consistent selection for Operator/Status/Region/Technology reports.
+849913	 * All filters intersect, no report button resets a prior cockpit selection.
+849914	 * Interconnectors have their own namespace and never enter the 7,775 REPD total.
+849915	 * Grid is reserved for a future verified source; it is NOT silently shown as zero.
+849916	export function buildCockpitReport(repdRecords, {
+849917	  dimension = "operator", filters = {}, interconnectors = null
+849919	  if (!REPORT_DIMENSIONS.includes(dimension)) {
+849920	    throw new TypeError("Unsupported report dimension: " + dimension);
+849921	  const selection = cockpitSelection(filters);
+849922	  verifyInventory(repdRecords, "repd");
+849923	  const source = selection.technology === "interconnector" ? "interconnector" :
+849924	    selection.technology === "grid" ? "grid" : "repd";
+849925	  if (source === "grid" || (source === "interconnector" && !Array.isArray(interconnectors))) {
+849927	      source, availability: SOURCE_UNAVAILABLE, selection, dimension,
+849928	      sourceProjects: null, matchingProjects: null, groups: [], facets: {},
+849929	      message: source === "grid"
+849930	        ? "Grid reporting requires a verified, separately identified asset inventory."
+849931	        : "Interconnector inventory not supplied; never mixed into REPD.",
+849933	  const universe = source === "interconnector" ? interconnectors : repdRecords;
+849934	  if (source === "interconnector") verifyInventory(universe, source);
+849935	  const rows = universe.filter(row => matches(row, selection, source));
+849936	  const overall = emptyTotals();
+849937	  for (const row of rows) accumulate(overall, row, source);
+849938	    source, availability: "AVAILABLE", dimension, selection,
+849939	    sourceProjects: universe.length,
+849940	    matchingProjects: rows.length,
+849941	    totals: displayTotals(overall),
+849942	    groups: grouped(rows, dimension, source),
+849943	    facets: facets(universe, selection, source),
+849944	    ids: rows.map(row => identity(row, source)),
+849945	    rows, // Original references: retained for native REPD MAP/A4/project drillback.
+849946	 * PipelineNews cockpit skin v1 — source-derived presentation contract.
+849948	 * READS the live REPD V9.73 palette. Does not introduce an alternate theme,
+849949	 * mutate table/gauge/headline styles, or change the application colour scheme.
+849950	 * Pair with cockpit-skin.css in a future immutable release.
+849951	 * Source of truth:
+849952	 *   uk_renewables_pipeline/202611222330/styles/v7.css (:root, .mw, th)
+849953	 *   uk_renewables_pipeline/202611222330/scripts/plugins/projects-v9-8.js (badges)
+849954	export const REPD_ROOT_TOKENS = Object.freeze([
+849955	  "--bg", "--panel", "--line", "--soft", "--text",
+849956	  "--muted", "--accent", "--ok", "--solar", "--bess", "--off"
+849957	// Expected published V9.73 palette, pinned for drift detection; never substituted
+849958	// for live values by the binding function.
+849959	export const REPD_V973_REFERENCE = Object.freeze({
+849960	  "--bg": "#000",
+849961	  "--panel": "#0b0e14",
+849962	  "--line": "#2f343d",
+849963	  "--soft": "#222",
+849964	  "--text": "#fff",
+849965	  "--muted": "#a6adbb",
+849966	  "--accent": "#00ffff",
+849967	  "--ok": "#00ff88",
+849968	  "--solar": "#ffff00",
+849969	  "--bess": "#ffae00",
+849970	  "--off": "#0066ff"
+849972	export const REPD_TECH_BADGE_TOKENS = Object.freeze({
+849973	  solar: "--solar",
+849974	  bess: "--bess",
+849975	  wind_onshore: "--accent",
+849976	  wind_offshore: "--off",
+849977	  interconnector: "--off"
+849978	function requireBrowser(documentRef, windowRef) {
+849979	  if (!documentRef?.documentElement || typeof windowRef?.getComputedStyle !== "function") {
+849980	    throw new Error("REPD skin requires a mounted browser document and getComputedStyle");
+849981	  if (!documentRef.getElementById("repdPanel")) {
+849982	    throw new Error("REPD skin source panel is missing; refusing to invent a palette");
+849983	export function readRepdSkin(documentRef, windowRef) {
+849984	  requireBrowser(documentRef, windowRef);
+849985	  const declarations = windowRef.getComputedStyle(documentRef.documentElement);
+849986	  const tokens = {};
+849987	  for (const name of REPD_ROOT_TOKENS) {
+849988	    const value = declarations.getPropertyValue(name)?.trim();
+849989	    if (!value) throw new Error("Missing official REPD skin token " + name);
+849990	    tokens[name] = value;
+849991	  return Object.freeze(tokens);
+849992	export function verifyRepdSkin(tokens, reference = REPD_V973_REFERENCE) {
+849993	  const differences = [];
+849994	    const actual = tokens?.[name]?.trim()?.toLowerCase();
+849995	    if (!actual) {
+849996	      differences.push({ name, expected: reference[name], actual: "(missing)" });
+849997	    } else if (actual !== reference[name]) {
+849998	      // A future owner-approved source palette revision requires explicit review.
+849999	      differences.push({ name, expected: reference[name], actual });
+850000	  return { matchesV973: differences.length === 0, differences };
+850001	 * Applies the EXISTING REPD theme only to a new cockpit host.
+850002	 * All existing panels and globally defined CSS variables stay unchanged.
+850003	 * Returns a receipt for CI to compare with the source palette.
+850004	export function applyRepdCockpitSkin(host, { documentRef, windowRef } = {}) {
+850005	  if (!host?.style?.setProperty) throw new Error("A cockpit host element is required");
+850006	  const tokens = readRepdSkin(documentRef, windowRef);
+850007	  const aliases = {
+850008	    "--bg": "--pn-cockpit-bg",
+850009	    "--panel": "--pn-cockpit-panel",
+850010	    "--line": "--pn-cockpit-line",
+850011	    "--soft": "--pn-cockpit-soft",
+850012	    "--text": "--pn-cockpit-text",
+850013	    "--muted": "--pn-cockpit-muted",
+850014	    "--accent": "--pn-cockpit-accent",
+850015	    "--ok": "--pn-cockpit-mw",
+850016	    "--solar": "--pn-cockpit-solar",
+850017	    "--bess": "--pn-cockpit-bess",
+850018	    "--off": "--pn-cockpit-offshore"
+850019	  for (const [source, target] of Object.entries(aliases)) {
+850020	    host.style.setProperty(target, tokens[source]);
+850021	  host.style.setProperty("--pn-cockpit-onshore", tokens["--accent"]);
+850022	  const verdict = verifyRepdSkin(tokens);
+850023	  // Do not silently conceal source drift. We deliberately USE the live
+850024	  // palette, and integration QA must resolve any source/reference mismatch.
+850025	  return Object.freeze({ source: "REPD-CURRENT-COMPUTED-STYLE", ...verdict, tokens });
+850026	// PipelineNews V9.74 candidate: same REPD cockpit with source-faithful cross-filters; original visual styles untouched.
+850030	import { buildCockpitReport, SOURCE_UNAVAILABLE } from "../../automation/repd_reporting/v2/cockpit-facets.mjs";
+850031	import { buildAtlasInterconnectorLinkV9_8 } from "./scripts/core/atlas-interconnector-link-v9-8.js";
+850042	let lastSnapshot = null;
+850043	let lastSelection = null;
+850048	// All facets live inside the existing REPD report tablet, never a second dashboard.
+850049	function makeFacet(key, title) {
+850051	  label.className = "repd-cockpit-facet";
+850052	  const span = document.createElement("span");
+850053	  span.textContent = title;
+850055	  select.id = "repdFacet" + key[0].toUpperCase() + key.slice(1);
+850056	  select.setAttribute("aria-label", "Cockpit report " + title);
+850057	  label.append(span, select);
+850058	  if (csvButton?.parentElement) csvButton.parentElement.insertBefore(label, csvButton);
+850059	  select.addEventListener("change", render);
+850061	const statusFacet = panel ? makeFacet("status", "STATUS") : null;
+850062	const operatorFacet = panel ? makeFacet("operator", "OPERATOR") : null;
+850063	const regionFacet = panel ? makeFacet("region", "REGION") : null;
+850064	if (reportScope?.options?.[0]) reportScope.options[0].textContent = "COCKPIT TECHNOLOGY + STATUS";
+850065	if (reportScope?.options?.[1]) reportScope.options[1].textContent = "CURRENT TABLE FILTERS + COCKPIT";
+850066	function selections(select, values, initialLabel, initialValue = "All") {
+850068	  const previous = select.value || initialValue;
+850069	  const options = [new Option(initialLabel, initialValue)];
+850071	    if (value === initialValue) continue;
+850072	    options.push(new Option(value, value));
+850073	  if (![...options].some(option => option.value === previous)) options.push(new Option(previous, previous));
+850074	  select.replaceChildren(...options);
+850075	  select.value = previous;
+850076	function nativeTechnology() {
+850077	  const active = document.querySelector('#tech [data-technology][aria-pressed="true"]');
+850078	  return active?.dataset.technology || new URL(window.location.href).searchParams.get("technology") || "all";
+850079	function nativeStatus() {
+850080	  const active = document.querySelector('#status [data-official-status][aria-pressed="true"]');
+850081	  return active?.dataset.officialStatus || "All";
+850082	function chosenFilter() {
+850083	    technology: nativeTechnology(),
+850084	    status: statusFacet?.value === "FOLLOW" || !statusFacet?.value ? nativeStatus() : statusFacet.value,
+850085	    operator: operatorFacet?.value || "All",
+850086	    region: regionFacet?.value || "All",
+850087	function refreshChoices(report) {
+850088	  const unique = (items) => [...new Set(items)].sort((a,b) => a.localeCompare(b,"en-GB"));
+850089	  const statusValues = unique([...state.all, ...(Array.isArray(state.interconnectors) ? state.interconnectors : [])]
+850090	    .map(row => String(row.status || "Not reported").trim() || "Not reported"));
+850091	  const previous = statusFacet?.value || "FOLLOW";
+850092	  selections(statusFacet, ["All", ...statusValues], "FOLLOW TABLE STATUS", "FOLLOW");
+850093	  if (statusFacet) {
+850094	    if (![...statusFacet.options].some(option => option.value === "All")) {
+850095	      statusFacet.add(new Option("ALL OFFICIAL STATUSES", "All"));
+850096	    const all = [...statusFacet.options].find(option => option.value === "All");
+850097	    if (all) all.textContent = "ALL OFFICIAL STATUSES";
+850098	    statusFacet.value = previous;
+850099	  const values = (key) => report.facets?.[key]?.map(item => item.value) || [];
+850100	  selections(operatorFacet, values("operator"), "ALL OPERATORS");
+850101	  selections(regionFacet, values("region"), "ALL REGIONS");
+850102	function buildInterconnectorCapacityReport(projects, dimension) {
+850103	  // Separate, explicitly labelled interconnector inventory; no REPD ID dedupe or mixing.
+850104	  const empty = () => ({count:0, recordedCapacity:0, solarMwp:0, otherMw:0, missingCapacity:0});
+850105	  const total = empty(), groups = new Map();
+850107	  const add = (target, project) => {
+850108	    target.count++;
+850109	    const capacity = project.capacity_mw;
+850110	    if (typeof capacity !== "number" || !Number.isFinite(capacity) || capacity < 0) target.missingCapacity++;
+850111	    else { target.recordedCapacity+=capacity;target.otherMw+=capacity; }
+850113	    const ref = String(project.asset_id ?? project.gg_project_id ?? project.bmrs_code ?? "").trim();
+850114	    if (!ref || seen.has(ref)) throw new Error("Missing/duplicate interconnector ID: " + ref);
+850116	    const name = String(project[dimension] || "Not reported").trim() || "Not reported";
+850117	    let group = groups.get(name);
+850118	    if (!group) { group = {name, ...empty(), projects:[], statuses:new Map()};groups.set(name,group); }
+850119	    const status = String(project.status || "Not reported").trim() || "Not reported";
+850120	    if (!group.statuses.has(status)) group.statuses.set(status,empty());
+850121	    add(group.statuses.get(status),project);add(group,project);add(total,project);
+850123	  return {dimension,total,groups:[...groups.values()].sort((a,b)=>b.recordedCapacity-a.recordedCapacity || b.count-a.count || a.name.localeCompare(b.name,"en-GB")), uniqueRefs:seen.size};
+850137	  href.searchParams.set("technology", String(project.technology || "all"));
+850141	    if (project.technology === "interconnector") {
+850142	      const link = buildAtlasInterconnectorLinkV9_8(project);
+850143	      return link ? new URL(link, window.location.href).href : "";
+850172	  row.append(el("span", "", project.technology === "interconnector" ? "INTERCONNECTOR " + (project.bmrs_code || project.gg_project_id || "") : "REPD " + project.repd_ref));
+850174	  row.append(el("span", "", (typeof project.capacity_mw === "number" && Number.isFinite(project.capacity_mw) ? formatCapacity(project.capacity_mw) : "Not reported") +
+850205	function makeGroup(group, maximum, index) {
+850208	  heading.append(el("span", "repd-report-name", (active === "operator" ? "#" + String(index + 1) + "  " : "") + group.name));
+850230	  const filters = chosenFilter();
+850231	  const usesTable = reportScope.value === "filtered";
+850232	  const inRepd = filters.technology !== "interconnector";
+850233	  const selectedRows = usesTable && inRepd ? state.filtered : state.all;
+850234	  if (!Array.isArray(selectedRows)) return null;
+850235	  const interconnectors = usesTable && !inRepd ? state.filtered : state.interconnectors;
+850236	  const snapshot = buildCockpitReport(selectedRows, {
+850237	    dimension:active, filters, interconnectors
+850238	  lastSnapshot = snapshot;
+850239	  lastSelection = filters;
+850240	  if (snapshot.availability === SOURCE_UNAVAILABLE) {
+850241	    throw new Error(snapshot.message);
+850242	  // Preserve all original status names, even if the REPD table has only four
+850243	  // fast status buttons. The report's STATUS facet exposes the complete source.
+850244	  refreshChoices(snapshot);
+850245	  return snapshot.rows;
+850249	    const rows = sourceRows();
+850250	    if (!rows) {
+850251	      lastReport = null;
+850252	      reportSummary.textContent = "Loading the canonical REPD records…";
+850254	    const report = lastSnapshot?.source === "interconnector"
+850255	      ? buildInterconnectorCapacityReport(rows, active)
+850256	      : buildRepdCapacityReport(rows, active);
+850258	    const scope = lastSnapshot?.source === "interconnector"
+850259	      ? "Separate interconnector inventory · not REPD" : reportScope.value === "filtered"
+850260	      ? "Current REPD table filters + cockpit" : "Cockpit-filtered official REPD register";
+850261	    const techLabel = lastSelection?.technology === "all" ? "ALL REPD TECHNOLOGIES" : String(lastSelection?.technology || "all").replaceAll("_"," ").toUpperCase();
+850262	    const statusLabel = lastSelection?.status === "All" ? "ALL OFFICIAL STATUSES" : String(lastSelection?.status);
+850263	    reportSummary.textContent = titles[active] + " · " + techLabel + " · " + statusLabel + " · " + scope +
+850264	      " · SOURCE " + formatCount(lastSnapshot?.sourceProjects || 0) + " · SELECTED " + formatCount(lastSnapshot?.matchingProjects || 0) + " · " +
+850275	    for (const [index, group] of report.groups.entries()) fragment.append(makeGroup(group, maximum, index));
+850277	    if (!report.groups.length) reportBody.append(el("p", "", "No projects match the chosen technology, status, operator and region."));
+850280	    lastSnapshot = null;
+850295	  const quote = value => { const text = String(value ?? ""); const safe = /^[=+@\-\t\r\n]/.test(text) ? "'" + text : text; return '"' + safe.replaceAll('"', '""') + '"'; };
+850296	  const rows = [["dimension", "technology selection", "status selection", "operator filter", "region filter", "group", "projects", "recorded MW/MWp", "solar MWp", "other MW", "missing capacity"]];
+850298	    rows.push([active, lastSelection?.technology, lastSelection?.status, lastSelection?.operator, lastSelection?.region,
+850299	      group.name, group.count, group.recordedCapacity, group.solarMwp, group.otherMw, group.missingCapacity]);
+850317	  window.addEventListener("pipeline-category-changed", () => { if (active) render(); });
+850319	    if (active) render();
+850320	 * Spider-style input closure / fail-closed audit for isolated REPD cockpit v2.
+850321	 * No network access, no external dependencies, no mutation of production.
+850322	 * See Ventusltd/spiders/AGENTS.md + Ventusltd/testcode/README.md.
+850323	import { readFileSync, existsSync } from "node:fs";
+850325	const here = fileURLToPath(new URL(".", import.meta.url));
+850326	const root = resolve(here, "../../..");
+850327	const inputs = JSON.parse(readFileSync(join(here, "SPIDER-INPUTS.json"), "utf8"));
+850329	const facts = [];
+850330	function gitBlob(bytes) {
+850331	  return createHash("sha1")
+850332	    .update("blob " + bytes.length + "\0")
+850334	    .digest("hex");
+850336	  if (!condition) problems.push(message);
+850337	function checkSource(source) {
+850338	  const full = join(root, source.path);
+850339	  if (!existsSync(full)) {
+850340	    problems.push("MISSING REQUIRED INPUT " + source.path);
+850341	  const content = readFileSync(full);
+850342	  const sha = gitBlob(content);
+850343	  assert(sha === source.gitBlob,
+850344	    "SOURCE DRIFT " + source.path + " (expected " + source.gitBlob + ", observed " + sha + ")");
+850345	  facts.push({ path: source.path, gitBlob: sha, bytes: content.length });
+850346	for (const source of inputs.sources) checkSource(source);
+850347	for (const candidate of inputs.candidate) {
+850348	  assert(existsSync(join(root, candidate.path)), "MISSING CANDIDATE " + candidate.path);
+850349	function fileText(path) {
+850350	  const full = join(root, path);
+850351	  return existsSync(full) ? readFileSync(full, "utf8") : "";
+850352	const index = fileText("uk_renewables_pipeline/202611222330/index.html");
+850353	const liveReports = fileText("uk_renewables_pipeline/202611222330/repd-reports.mjs");
+850354	const projectControls = fileText("uk_renewables_pipeline/202611222330/scripts/plugins/projects-v9-8.js");
+850355	const facets = fileText("automation/repd_reporting/v2/cockpit-facets.mjs");
+850356	function hasAll(text, markers) {
+850357	  return markers.every(marker => text.includes(marker));
+850358	const indexes = [
+850359	  'data-technology="all"', 'data-technology="solar"',
+850360	  'data-technology="bess"', 'data-technology="wind_onshore"',
+850361	  'data-technology="wind_offshore"', 'data-technology="interconnector"',
+850362	  'data-repd-report="operator"', 'data-repd-report="status"',
+850363	  'data-repd-report="region"', 'id="repdReportsPanel"',
+850364	  'src="repd-reports.mjs"', 'src="report-a4.mjs"'
+850365	assert(hasAll(index, indexes), "MISSING NATIVE V9.73 TECHNOLOGY/REPORT/MAP-A4 DOM CONTRACT");
+850366	assert(hasAll(liveReports, ['import { state }', 'buildRepdCapacityReport',
+850367	  'atlasUrlV9_5_1', 'state.filtered', 'state.all']), "MISSING NATIVE REPORT DATA/MAP CONTRACT");
+850368	assert(hasAll(projectControls, ['state.filtered = filtered', 'updateGaugesV9_2(filtered)',
+850369	  'pipeline-projects-rendered', 'dataset.technology']), "MISSING NATIVE FILTER/GAUGE/RENDER HOOK");
+850370	assert(hasAll(facets, ['buildCockpitReport', 'cockpitSelection', 'sourceProjects',
+850371	  'interconnector', 'SOURCE_UNAVAILABLE', 'verifyInventory']),
+850372	  "MISSING ISOLATED CROSS-FILTER EXPORT OR SOURCE SEPARATION");
+850373	assert(!/\b(?:window|document|fetch|XMLHttpRequest)\s*(?:\.|\(|\[)/.test(facets),
+850374	  "CANDIDATE PURE AGGREGATION HAS DOM OR NETWORK SIDE EFFECT");
+850375	assert(!index.includes("automation/repd_reporting/v2/cockpit-facets.mjs"),
+850376	  "BASELINE HAS BEEN SILENTLY MOUNTED; INTEGRATION MUST BE A NEW IMMUTABLE EDITION");
+850377	assert(inputs.integrationStatus === "ISOLATED_ONLY" && inputs.proofStage === "OFFLINE",
+850378	  "AUDIT CANNOT CLAIM PRODUCTION OR NETWORK ACCEPTANCE");
+850379	// Test that the proof can detect two manufactured failures, without writing files.
+850380	const damagedDOM = index.replace('data-repd-report="operator"', 'data-repd-report="missing"');
+850381	assert(!hasAll(damagedDOM, indexes), "MUTATION TEST FAILED: missing report action not detected");
+850382	const source = inputs.sources[0];
+850383	if (index) {
+850384	  assert(gitBlob(Buffer.from(index + "\nSPIDER-MUTATION")) !== source.gitBlob,
+850385	    "MUTATION TEST FAILED: changed source not detected");
+850387	  schema: "ventus.pipeline.cockpit-spider-audit.v1",
+850388	  success: problems.length === 0,
+850389	  stage: "OFFLINE_ONLY",
+850390	  status: "ISOLATED_NOT_PUBLISHED",
+850391	  baseline: inputs.releaseBaseline,
+850392	  inputsChecked: facts.length,
+850393	  inputFacts: facts,
+850394	  mutationGuards: 2,
+850395	  problems,
+850396	  caveat: "Source pin and code-shape checks, not real-data 7,775-row or browser acceptance."
+850398	console.log(JSON.stringify(summary, null, 2));
+850399	if (problems.length) process.exitCode = 1;
+850403	  buildCockpitReport, cockpitSelection, verifyInventory,
+850404	  SOURCE_UNAVAILABLE
+850405	} from "../cockpit-facets.mjs";
+850406	const p = (repd_ref, technology, status, operator, region, capacity_mw, capacity_unit) =>
+850407	  ({ repd_ref: String(repd_ref), technology, status, operator, region, capacity_mw, capacity_unit });
+850408	const rows = [
+850409	  p(1, "solar", "Operational", "A Solar", "South East", 30, "MWp"),
+850410	  p(2, "solar", "Application Refused", "A Solar", "Wales", 20, "MWp"),
+850411	  p(3, "solar", "Application Submitted", "B Solar", "Wales", 5, "MWp"),
+850412	  p(4, "bess", "Operational", "B Storage", "Wales", 60, "MW"),
+850413	  p(5, "bess", "Withdrawn", "A Solar", "South East", 15, "MW"),
+850414	  p(6, "wind_onshore", "Operational", "Wind Co", "Scotland", 85, "MW"),
+850415	  p(7, "wind_offshore", "Under Construction", "Wind Co", "Offshore", 250, "MW"),
+850416	  p(8, "solar", "", "", "", null, "MWp"),
+850417	const opts = (dimension, filters = {}) => buildCockpitReport(rows, { dimension, filters });
+850418	test("all REPD records remain present by default; statuses never silently excluded", () => {
+850419	  const report = opts("status");
+850420	  assert.equal(report.sourceProjects, 8);
+850421	  assert.equal(report.matchingProjects, 8);
+850422	  assert.deepEqual(report.groups.map(g => g.label).sort(), [
+850423	    "Application Refused", "Application Submitted", "Not reported",
+850424	    "Operational", "Under Construction", "Withdrawn"
+850425	  ].sort());
+850426	  assert.equal(report.totals.missingCapacity, 1);
+850427	  assert.equal(report.groups.reduce((n, g) => n + g.projects, 0), 8);
+850428	test("solar cockpit filters operators; changing status further intersects without reset", () => {
+850429	  const solar = opts("operator", { technology: "solar" });
+850430	  assert.equal(solar.matchingProjects, 4);
+850431	  assert.deepEqual(solar.groups.map(g => g.label).sort(), ["A Solar", "B Solar", "Not reported"].sort());
+850432	  assert.equal(solar.totals.solarMwp, 55);
+850433	  assert.equal(solar.totals.otherMw, 0);
+850434	  const refused = opts("operator", { technology: "solar", status: "Application Refused" });
+850435	  assert.deepEqual(refused.ids, ["2"]);
+850436	  assert.equal(refused.groups[0].label, "A Solar");
+850437	  const byRegion = opts("region", refused.selection);
+850438	  assert.deepEqual(byRegion.ids, ["2"]);
+850439	  assert.equal(byRegion.groups[0].label, "Wales");
+850440	test("BESS, onshore and offshore never mix, and official refused/withdrawn status survives", () => {
+850441	  assert.deepEqual(opts("status", { technology: "bess" }).groups.map(g => g.label).sort(),
+850442	    ["Operational", "Withdrawn"]);
+850443	  assert.equal(opts("operator", { technology: "wind_onshore" }).totals.otherMw, 85);
+850444	  assert.equal(opts("operator", { technology: "wind_offshore" }).totals.otherMw, 250);
+850445	  assert.equal(opts("operator", { technology: "wind_offshore" }).totals.solarMwp, 0);
+850446	test("all three main report dimensions reconcile to same precise selected denominator", () => {
+850447	  const filters = { technology: "bess", status: "Withdrawn" };
+850448	  for (const dimension of ["operator", "status", "region", "technology"]) {
+850449	    const report = opts(dimension, filters);
+850450	    assert.equal(report.matchingProjects, 1);
+850451	    assert.equal(report.totals.recordedMixed, 15);
+850452	    assert.deepEqual(report.ids, ["5"]);
+850453	    assert.deepEqual(report.groups[0].ids, ["5"]);
+850454	test("facet choices remain independently discoverable while retaining applied filters", () => {
+850455	  const report = opts("operator", { technology: "solar", status: "Operational" });
+850456	  assert.equal(report.matchingProjects, 1);
+850457	  assert.ok(report.facets.status.some(x => x.value === "Application Refused"));
+850458	  assert.ok(report.facets.operator.some(x => x.value === "A Solar"));
+850459	  assert.deepEqual(report.selection, {
+850460	    technology: "solar", status: "Operational", operator: "All", region: "All"
+850461	test("interconnectors are separately sourced, never treated as REPD or returned as fake zero", () => {
+850462	  const unavailable = opts("operator", { technology: "interconnector" });
+850463	  assert.equal(unavailable.availability, SOURCE_UNAVAILABLE);
+850464	  assert.equal(unavailable.sourceProjects, null);
+850465	  const interconnectors = [
+850466	    { asset_id: "IC-A", technology: "interconnector", status: "Operational",
+850467	      operator: "Cable Co", region: "East", capacity_mw: 750, capacity_unit: "MW" }
+850469	  const report = buildCockpitReport(rows, {
+850470	    dimension: "operator", filters: { technology: "interconnector" }, interconnectors
+850471	  assert.equal(report.sourceProjects, 1);
+850472	  assert.deepEqual(report.ids, ["IC-A"]);
+850473	  assert.equal(report.totals.recordedByUnit.MW, 750);
+850474	  assert.equal(report.source, "interconnector");
+850475	test("grid is a reserved distinct inventory until its source contract is verified", () => {
+850476	  const report = opts("operator", { technology: "grid" });
+850477	  assert.equal(report.availability, SOURCE_UNAVAILABLE);
+850478	  assert.equal(report.matchingProjects, null);
+850479	test("missing/duplicate REPD identity and accidental interconnector contamination fail closed", () => {
+850480	  assert.throws(() => verifyInventory([rows[0], { ...rows[0] }]), /Duplicate repd identity/);
+850481	  assert.throws(() => verifyInventory([p("", "solar", "Operational", "X", "Y", 1)]), /Missing or invalid/);
+850482	  assert.throws(() => verifyInventory([p(90, "interconnector", "Operational", "X", "Y", 1)]), /inside REPD/);
+850483	test("same underlying REPD rows; no mutation or invented capacity for missing inputs", () => {
+850484	  const original = JSON.stringify(rows);
+850485	  const report = opts("technology");
+850486	  assert.equal(JSON.stringify(rows), original);
+850487	  assert.equal(report.totals.recordedByUnit.MWp, 55);
+850488	  assert.equal(report.totals.recordedByUnit.MW, 410);
+850489	  assert.equal(report.totals.recordedMixed, 465);
+850490	  assert.match(report.totals.mixedUnitWarning, /not a physically comparable capacity/);
+850491	  assert.equal(cockpitSelection({ technology: "solar", status: "Withdrawn" }).status, "Withdrawn");
+850492	  REPD_ROOT_TOKENS, REPD_V973_REFERENCE, REPD_TECH_BADGE_TOKENS,
+850493	  readRepdSkin, verifyRepdSkin, applyRepdCockpitSkin
+850494	} from "../cockpit-skin.mjs";
+850495	function fixture(tokens = REPD_V973_REFERENCE) {
+850496	  const documentRef = {
+850497	    documentElement: { tag: "html" },
+850498	    getElementById: (id) => id === "repdPanel" ? { id } : null,
+850499	  const windowRef = {
+850500	    getComputedStyle(node) {
+850501	      assert.equal(node, documentRef.documentElement);
+850502	      return { getPropertyValue: name => tokens[name] || "" };
+850504	  const touched = new Map();
+850505	  const host = { style: { setProperty: (key, value) => touched.set(key, value) } };
+850506	  return { documentRef, windowRef, host, touched };
+850507	test("palette is exactly the source V9.73 REPD root scheme (no alternative colours)", () => {
+850508	  const env = fixture();
+850509	  assert.deepEqual(readRepdSkin(env.documentRef, env.windowRef), REPD_V973_REFERENCE);
+850510	  const receipt = applyRepdCockpitSkin(env.host, env);
+850511	  assert.equal(receipt.matchesV973, true);
+850512	  assert.deepEqual(receipt.differences, []);
+850513	  assert.equal(env.touched.get("--pn-cockpit-solar"), "#ffff00");
+850514	  assert.equal(env.touched.get("--pn-cockpit-bess"), "#ffae00");
+850515	  assert.equal(env.touched.get("--pn-cockpit-onshore"), "#00ffff");
+850516	  assert.equal(env.touched.get("--pn-cockpit-offshore"), "#0066ff");
+850517	  assert.equal(env.touched.get("--pn-cockpit-mw"), "#00ff88");
+850518	  assert.equal(env.touched.get("--pn-cockpit-bg"), "#000");
+850519	  assert.equal(env.touched.size, REPD_ROOT_TOKENS.length + 1);
+850520	  assert.deepEqual(REPD_TECH_BADGE_TOKENS, {
+850521	    solar: "--solar", bess: "--bess", wind_onshore: "--accent",
+850522	    wind_offshore: "--off", interconnector: "--off",
+850523	test("source palette drift is observed, never silently replaced", () => {
+850524	  const altered = { ...REPD_V973_REFERENCE, "--solar": "#123456" };
+850525	  const env = fixture(altered);
+850526	  assert.equal(receipt.matchesV973, false);
+850527	  assert.deepEqual(receipt.differences, [
+850528	    { name: "--solar", expected: "#ffff00", actual: "#123456" },
+850530	  // Observe new source values, but integration must explicitly review drift.
+850531	  assert.equal(env.touched.get("--pn-cockpit-solar"), "#123456");
+850532	test("fail closed without canonical REPD source, instead of drawing invented colours", () => {
+850533	  env.documentRef.getElementById = () => null;
+850534	  assert.throws(() => readRepdSkin(env.documentRef, env.windowRef), /source panel is missing/);
+850535	  assert.throws(() => applyRepdCockpitSkin(null, env), /host element/);
+850536	test("missing required theme tokens cannot be silently guessed", () => {
+850537	  const env = fixture({ ...REPD_V973_REFERENCE, "--bess": "" });
+850538	  assert.throws(() => readRepdSkin(env.documentRef, env.windowRef), /Missing official REPD skin token --bess/);
+850539	  assert.equal(verifyRepdSkin({ ...REPD_V973_REFERENCE, "--bess": "" }).matchesV973, false);
+850540	test("new CSS uses only scoped custom properties and never restyles existing table", () => {
+850541	  // The Spider audit additionally checks the exact full CSS file for forbidden
+850542	  // global style selectors; this checks semantic token coverage.
+850543	  assert.ok(REPD_ROOT_TOKENS.includes("--accent"));
+850544	  assert.ok(REPD_ROOT_TOKENS.includes("--ok"));
+850546	// Real 7,775-record edition, not a fixture HTML model. Run from repo root
+850547	// after the immutable composer and python3 -m http.server 8765.
+850548	const origin = "http://127.0.0.1:8765/uk_renewables_pipeline/202611231400/";
+850550	  {width:393,height:852, mobile:true},
+850551	  {width:852,height:393, mobile:true},
+850552	  {width:1280,height:800, mobile:false}
+850553	for (const [engineName, engine] of [["chromium",chromium],["webkit",webkit]]) {
+850554	  const browser = await engine.launch({headless:true});
+850555	    for (const vp of viewports) {
+850557	        viewport:{width:vp.width,height:vp.height},
+850558	        isMobile:vp.mobile, hasTouch:vp.mobile,reducedMotion:"reduce"
+850562	      page.on("pageerror", e=>errors.push(e.message));
+850563	      page.on("console", m=>{if(m.type()==="error" && /cockpit|repd-reports/i.test(m.text()))errors.push(m.text());});
+850564	      await page.route("https://raw.githubusercontent.com/**", route=>route.abort());
+850566	        await page.goto(origin,{waitUntil:"domcontentloaded",timeout:90000});
+850568	          document.querySelectorAll("#tbody tr[id^=repd-]").length >= 50 &&
+850569	          document.querySelector('[data-technology="solar"][aria-pressed="true"]'),
+850570	          {timeout:90000});
+850571	        const baseline = await page.evaluate(()=>({
+850572	          theme:Object.fromEntries(["--solar","--bess","--ok","--accent","--off"]
+850573	            .map(k=>[k,getComputedStyle(document.documentElement).getPropertyValue(k).trim()])),
+850574	          charts:[...document.querySelectorAll("#repdPanel .hud-gauges canvas")].length,
+850575	          news:!!document.querySelector("#headlineTicker"),
+850576	          nativeMap:document.querySelector("#tbody .atlaslink[href]")?.getAttribute("href"),
+850578	        assert.deepEqual(baseline.theme,{
+850579	          "--solar":"#ffff00","--bess":"#ffae00","--ok":"#00ff88",
+850580	          "--accent":"#00ffff","--off":"#0066ff"
+850582	        assert.equal(baseline.charts,3);
+850583	        assert.equal(baseline.news,true);
+850584	        // The ONLY existing OPERATOR MW button is reused.
+850585	        assert.equal(await page.locator('[data-repd-report="operator"]').count(),1);
+850586	        await page.locator('[data-repd-report="operator"]').click();
+850587	        await page.locator("#repdReportsPanel").waitFor({state:"visible"});
+850588	          /SOLAR/.test(document.querySelector("#repdReportsSummary")?.textContent||"") &&
+850589	          Number((document.querySelector("#repdReportsSummary")?.textContent||"").match(/SELECTED ([0-9,]+)/)?.[1].replaceAll(",",""))>0);
+850590	        const solarSummary=await page.locator("#repdReportsSummary").textContent();
+850591	        assert.match(solarSummary,/SOLAR/);
+850592	        const solarMatches=Number(solarSummary.match(/SELECTED ([0-9,]+)/)[1].replaceAll(",",""));
+850593	        assert.ok(solarMatches<7775 && solarMatches>100);
+850594	        assert.equal(await page.locator("#repdReportsBody .repd-report-group").count()>2,true);
+850595	        const first=page.locator("#repdReportsBody .repd-report-group").first();
+850596	        assert.match(await first.locator(".repd-report-name").textContent(),/^#1 /);
+850597	        await first.locator("summary").click();
+850598	        await first.locator(".repd-report-project").first().waitFor({state:"visible"});
+850599	        const link=await first.locator(".repd-report-project a").first().getAttribute("href");
+850600	        assert.equal(new URL(link).searchParams.get("technology"),"solar");
+850601	        assert.ok(new URL(link).searchParams.get("q"));
+850602	        const map=first.locator(".repd-report-map").first();
+850603	        if(await map.count()){
+850604	          const mapLink=new URL(await map.getAttribute("href"));
+850605	          assert.equal(mapLink.origin+mapLink.pathname,"https://ventusltd.github.io/gridatlas/atlas/");
+850606	          assert.ok(mapLink.searchParams.get("repd_ref"));
+850608	        await page.locator("#repdFacetStatus").selectOption("Operational");
+850609	        await page.waitForFunction(()=>document.querySelector("#repdReportsSummary")?.textContent?.includes("Operational"));
+850610	        const selectedOperator=await page.locator("#repdFacetOperator option").evaluateAll(
+850611	          opts=>opts.find(x=>x.value!=="All")?.value);
+850612	        assert.ok(selectedOperator);
+850613	        await page.locator("#repdFacetOperator").selectOption(selectedOperator);
+850614	        const selectedRegion=await page.locator("#repdFacetRegion option").evaluateAll(
+850615	        if(selectedRegion)await page.locator("#repdFacetRegion").selectOption(selectedRegion);
+850616	        for(const view of ["status","region","operator"]){
+850617	          await page.locator('[data-repd-report="'+view+'"]').click();
+850618	          assert.equal(await page.locator("#repdFacetOperator").inputValue(),selectedOperator);
+850619	          assert.equal(await page.locator("#repdFacetStatus").inputValue(),"Operational");
+850620	          if(selectedRegion)assert.equal(await page.locator("#repdFacetRegion").inputValue(),selectedRegion);
+850621	          assert.match(await page.locator("#repdReportsSummary").textContent(),/SOLAR/);
+850622	        // Restore ALL report facets, then inspect top-level BESS tab and wind buttons.
+850623	        await page.locator("#repdFacetOperator").selectOption("All");
+850624	        await page.locator("#repdFacetRegion").selectOption("All");
+850625	        await page.locator("#repdFacetStatus").selectOption("FOLLOW");
+850626	        await page.locator("#bessTab").click();
+850627	        await page.waitForFunction(() => document.querySelector('#tech [data-technology="bess"]')?.getAttribute("aria-pressed")==="true"
+850628	          && /BESS/.test(document.querySelector("#repdReportsSummary")?.textContent||""));
+850629	        assert.match(await page.locator("#repdReportsSummary").textContent(),/BESS/);
+850630	        assert.ok(await page.locator("#repdReportsBody .repd-report-group").count()>1);
+850631	        const details=page.locator("details.compact-register-filters");
+850632	        await details.locator("summary").click();
+850633	        for (const category of ["wind_onshore","wind_offshore","solar"]) {
+850634	          await page.locator('#tech [data-technology="'+category+'"]').click();
+850635	          await page.waitForFunction(cat => {
+850636	            const selected=document.querySelector("#tech [data-technology][aria-pressed=true]");
+850637	            return selected?.dataset.technology===cat;
+850638	          },category);
+850639	          assert.match((await page.locator("#repdReportsSummary").textContent()).toUpperCase(),
+850640	            new RegExp(category.replace("_"," ").toUpperCase()));
+850641	        // Facet must not rewrite the source palette nor the original MAP or A4.
+850642	        const after=await page.evaluate(()=>({
+850643	          a4:!!document.querySelector('script[src="report-a4.mjs"]')
+850644	        assert.deepEqual(after.theme,baseline.theme);
+850645	        assert.equal(after.charts,3);
+850646	        assert.ok(after.news && after.a4);
+850647	        assert.deepEqual(errors,[]);
+850648	        console.log("PASS V9.74",engineName,vp.width+"x"+vp.height,
+850649	          "solar operator ranking, status/operator/region facets, BESS, both winds, MAP, A4 and palette");
+850650	      } finally {await context.close();}
+850652	import {chromium,webkit} from "playwright";
+850653	const root="http://127.0.0.1:8765/uk_renewables_pipeline/202611231600/";
+850654	const viewports=[{width:393,height:852},{width:852,height:393},{width:1280,height:800}];
+850655	for(const [engineName,engine] of [["chromium",chromium],["webkit",webkit]]) {
+850658	  for(const viewport of viewports) {
+850659	   const page=await browser.newPage({viewport});
+850660	   const errors=[];
+850661	   page.on("pageerror",err=>errors.push(String(err)));
+850662	   page.on("response",r=>{if(r.status()>=400 && /repd-reports|operator-aliases|projects-v9-8/.test(r.url()))errors.push("HTTP "+r.status()+" "+r.url());});
+850664	    await page.goto(root,{waitUntil:"domcontentloaded",timeout:60000});
+850666	      const v=Number((document.getElementById("v2")?.textContent||"0").replaceAll(",",""));
+850667	      return v===3604;
+850668	    },null,{timeout:60000});
+850669	    assert.equal(await page.locator("#status").count(),1);
+850670	    assert.equal(await page.locator("#repdNativeStatus").count(),1);
+850671	    assert.equal(await page.locator("#repdNativeOperator").count(),1);
+850672	    assert.equal(await page.locator("#repdNativeRegion").count(),1);
+850673	    assert.ok(await page.locator("#repdNativeStatus option").count()>5);
+850674	    assert.ok(await page.locator("#repdNativeOperator option").count()>20);
+850675	    assert.equal(await page.locator("#repdReportScope").count(),0);
+850676	    assert.equal(await page.getByText(/COCKPIT/i).count(),0);
+850677	    assert.equal(await page.locator('[data-repd-report="operator"]').count(),1);
+850678	    await page.locator('[data-repd-report="operator"]').click();
+850679	    await page.locator("#repdReportsPanel").waitFor({state:"visible"});
+850680	    await page.locator("#repdReportsBody table").waitFor({state:"visible"});
+850681	    assert.ok(await page.locator("#repdReportsBody tbody tr").count()>10);
+850682	    const first=await page.evaluate(()=>({
+850683	      report:getComputedStyle(document.querySelector("#repdReportsBody th")).color,
+850684	      original:getComputedStyle(document.querySelector("#repdScroll th")).color
+850686	    assert.equal(first.report,first.original,"Native REPD header colour");
+850687	    let summary=await page.locator("#repdReportsSummary").textContent();
+850688	    assert.match(summary,/SELECTED 3,604/);
+850689	    await page.locator("#repdNativeStatus").selectOption("Operational");
+850690	      const r=document.querySelector("#repdReportsSummary")?.textContent||"";
+850691	      const t=Number(document.querySelector("#tbody")?.dataset.total||0);
+850692	      return v>0&&v<3604&&t===v&&r.includes("SELECTED "+v.toLocaleString("en-GB"));
+850694	    assert.equal(await page.locator("#repdNativeStatus").inputValue(),"Operational");
+850695	    await page.locator("#repdNativeStatus").selectOption("All");
+850696	    assert.ok((await page.locator("#repdNativeOperator option").allTextContents()).includes("Low Carbon"));
+850697	    await page.locator("#repdNativeOperator").selectOption("Low Carbon");
+850698	      const n=Number((document.getElementById("v2")?.textContent||"0").replaceAll(",",""));
+850699	      return n>0&&n<3604&&Number(document.querySelector("#tbody")?.dataset.total||0)===n;
+850700	    const aliasRows=await page.locator("#tbody tr").count();
+850701	    assert.ok(aliasRows>0,"Alias selection returns original REPD project rows");
+850702	    await page.locator("#repdNativeOperator").selectOption("All");
+850703	    await page.locator('[data-repd-report="region"]').click();
+850704	    assert.equal(await page.locator("#repdReportsBody th").count(),5);
+850705	    const region=await page.locator("#repdNativeRegion option").nth(1).getAttribute("value");
+850706	    if(region) {
+850707	      await page.locator("#repdNativeRegion").selectOption(region);
+850708	      await page.waitForFunction(()=>document.querySelector("#repdNativeRegion").value!=="All");
+850709	      const n=Number((await page.locator("#v2").textContent()).replaceAll(",",""));
+850710	      assert.equal(Number(await page.locator("#tbody").getAttribute("data-total")),n);
+850711	    await page.locator("#repdNativeRegion").selectOption("All");
+850712	    await page.locator('details.compact-register-filters > summary').click();
+850713	    await page.locator('#tech [data-technology="bess"]').click();
+850714	    await page.waitForFunction(()=>document.querySelector('#tech [data-technology="bess"]')?.getAttribute("aria-pressed")==="true");
+850715	    const bessCount=Number((await page.locator("#v2").textContent()).replaceAll(",",""));
+850716	    assert.ok(bessCount>0&&bessCount!==3604);
+850717	    assert.match((await page.locator("#repdReportsSummary").textContent()).toUpperCase(),/BESS/);
+850718	    assert.ok(await page.locator('script[src="report-a4.mjs"]').count()===1);
+850719	    assert.ok(await page.locator('script[src="map-entry.mjs"]').count()===1);
+850720	    assert.equal(errors.length,0,errors.join("\n"));
+850721	    console.log("PASS",engineName,viewport.width+"x"+viewport.height,
+850722	      "V9.75 3604 solar, unified status/operator/region, original table colours, BESS, MAP/A4");
+850725	"""Build PipelineNews V9.75 from V9.74 without touching historical release/data/colours.
+850726	Pure stdlib deterministic, fail-closed Python patcher. Repeated CI build is idempotent.
+850727	The matching full Git tree is staged by the GitHub Git Tree API, not a partial copy.
+850730	OLD=ROOT/"uk_renewables_pipeline/202611231400"
+850731	NEW=ROOT/"uk_renewables_pipeline/202611231600"
+850732	def replace(text, before, after, label, expected=1):
+850733	    count=text.count(before)
+850735	        raise AssertionError(f"{label}: expected {expected} anchors, found {count}")
+850736	    return text.replace(before, after, 1)
+850737	def between(text, beginning, ending, replacement, label):
+850738	    assert text.count(beginning)==1, f"{label}: beginning"
+850739	    i=text.index(beginning); j=text.find(ending,i+len(beginning))
+850740	    assert j>=0, f"{label}: ending"
+850741	    return text[:i]+replacement+text[j:]
+850742	def patch(path, f):
+850743	    target=NEW/path
+850744	    old=target.read_text()
+850745	    new=f(old)
+850746	    assert len(new)>200 and new!=old, f"{path}: no change or truncation"
+850747	    target.write_text(new)
+850748	    print("PATCH",path,len(old),"->",len(new))
+850749	def html_patch(s):
+850750	    s=replace(s,"Pipeline News V9.74 · 202611231400","Pipeline News V9.75 · 202611231600","version")
+850751	    status='''<div class="filters" id="status">
+850757	</div>'''
+850758	    s=replace(s,status,"","move native status above reports")
+850759	    filters='''<div class="filters" id="repdNativeFilters" aria-label="REPD source table filters">
+850760	<label for="repdNativeStatus">STATUS <select id="repdNativeStatus" aria-label="Filter official REPD status"><option value="All">ALL OFFICIAL STATUSES</option></select></label>
+850761	<label for="repdNativeOperator">OPERATOR <select id="repdNativeOperator" aria-label="Filter original REPD table by operator"><option value="All">ALL OPERATORS</option></select></label>
+850762	<label for="repdNativeRegion">REGION <select id="repdNativeRegion" aria-label="Filter original REPD table by region"><option value="All">ALL REGIONS</option></select></label>
+850764	'''+status+"\n"
+850765	    s=replace(s,'<div class="repd-report-launch" role="group" aria-label="REPD capacity reports">',filters+'<div class="repd-report-launch" role="group" aria-label="REPD capacity reports">',"native filters at top")
+850766	    s=replace(s,'''<label for="repdReportScope">REPORT DATA <select id="repdReportScope" aria-label="Report project scope">
+850769	</select></label>''','<span class="repd-report-context">CURRENT REPD TABLE FILTERS</span>',"remove report-specific scope")
+850770	    s=replace(s,"Operator entities are not inferred.","Conservative operator spelling variants are grouped for reporting only; source labels remain unchanged.","alias integrity")
+850771	    s=replace(s,'<label class="pn-scan-status" for="pnScanStatus">Status','<label class="pn-scan-status" for="pnScanStatus" hidden style="display:none" aria-hidden="true">Status',"hide duplicate status selector")
+850772	    assert "Cockpit" not in s and "COCKPIT" not in s
+850774	def project_patch(s):
+850775	    s=replace(s,'import { state } from "../core/state.js";','import { state } from "../core/state.js";\nimport { canonicalOperator } from "../../../../automation/repd_reporting/v3/operator-aliases.mjs";',"import explicit operator aliases")
+850776	    s=replace(s,'let county = "All";\nlet query = "";','let county = "All";\nlet operatorFilter = "All", regionFilter = "All";\nlet query = "";',"source filters")
+850777	    s=replace(s,'["technology", "status", "county", "q", "sort",','["technology", "status", "county", "operator", "region", "q", "sort",',"url clear")
+850778	    s=replace(s,'if (county !== "All") url.searchParams.set("county", county);','if (county !== "All") url.searchParams.set("county", county);\nif (operatorFilter !== "All") url.searchParams.set("operator", operatorFilter);\nif (regionFilter !== "All") url.searchParams.set("region", regionFilter);',"url set")
+850779	    s=replace(s,'county,\ntokens,\n}, searchIndex.get(project.repd_ref)) && matchesYear','county,\ntokens,\n}, searchIndex.get(project.repd_ref)) && (status === "All" || (String(project.status || "").trim() || "Not reported") === status) && (operatorFilter === "All" || canonicalOperator(project.operator) === operatorFilter) && (regionFilter === "All" || (String(project.region || "").trim() || "Not reported") === regionFilter) && matchesYear',"single native filter, table plus gauges")
+850780	    s=replace(s,'technology,\nstatus,\ncounty,\ntokens,\n}, searchIndex.get(project.repd_ref))','technology,\nstatus: "All",\ncounty,\ntokens,\n}, searchIndex.get(project.repd_ref))',"include official missing statuses")
+850781	    funcs='''function populateNativeFilters() {
+850782	  const inventory = [...all, ...interconnectors];
+850783	  const labels = key => [...new Set(inventory.map(row=>String(row[key]||"").trim()||"Not reported"))]
+850784	    .sort((a,b)=>a.localeCompare(b,"en-GB"));
+850785	  const statuses=labels("status");
+850786	  for(const value of statuses) ALLOWED_STATUSES.add(value);
+850787	  for(const [id, values, title] of [
+850788	    ["repdNativeStatus", statuses, "ALL OFFICIAL STATUSES"],
+850789	    ["repdNativeOperator", [...new Set(inventory.map(row=>canonicalOperator(row.operator)))].sort((a,b)=>a.localeCompare(b,"en-GB")), "ALL OPERATORS"],
+850790	    ["repdNativeRegion", labels("region"), "ALL REGIONS"]
+850792	    const select=document.getElementById(id);
+850793	    select.replaceChildren(new Option(title,"All"),...values.filter(v=>v!=="All").map(v=>new Option(v,v)));
+850794	  const scan=document.getElementById("pnScanStatus");
+850795	  if(scan) for(const value of statuses) {
+850796	    if(![...scan.options].some(o=>o.value===value)) scan.add(new Option(value,value));
+850797	function syncNativeFilters() {
+850798	  for(const [id,value] of [["repdNativeStatus",status],["repdNativeOperator",operatorFilter],["repdNativeRegion",regionFilter],["pnScanStatus",status]]) {
+850799	    if(select && [...select.options].some(o=>o.value===value)) select.value=value;
+850801	    s=replace(s,"function populateCounties() {",funcs+"function populateCounties() {","populate native selector")
+850802	    s=replace(s,'const requestedCounty = parameters.get("county") || "All";','const requestedCounty = parameters.get("county") || "All";\nconst requestedOperator = parameters.get("operator") || "All";\nconst requestedRegion = parameters.get("region") || "All";',"URL hydrate selectors")
+850803	    s=replace(s,'query = parameters.get("q") || "";','operatorFilter = [...document.getElementById("repdNativeOperator").options].some(o=>o.value===requestedOperator) ? requestedOperator : "All";\nregionFilter = [...document.getElementById("repdNativeRegion").options].some(o=>o.value===requestedRegion) ? requestedRegion : "All";\nquery = parameters.get("q") || "";',"URL hydrate names")
+850804	    start=s.index("function hydrateFiltersFromUrl()")
+850805	    end=s.index("function csvCell(",start)
+850806	    head=s[start:end]
+850807	    head=replace(head,'setButtonState("#status", "officialStatus", status);\ndocument.getElementById("county").value = county;','setButtonState("#status", "officialStatus", status);\nsyncNativeFilters();\ndocument.getElementById("county").value = county;',"hydrate sync")
+850808	    s=s[:start]+head+s[end:]
+850809	    s=replace(s,'county = "All";\nsubmittedYear = updatedYear = operationalYear = "All";','county = "All";\noperatorFilter = "All"; regionFilter = "All";\nsubmittedYear = updatedYear = operationalYear = "All";',"clear native filters")
+850810	    start=s.index("function clearFilters(");end=s.index("async function copyProjectId(",start)
+850811	    head=replace(head,'setButtonState("#status", "officialStatus", status);\ndocument.getElementById("county").value = county;','setButtonState("#status", "officialStatus", status);\nsyncNativeFilters();\ndocument.getElementById("county").value = county;',"clear sync")
+850812	    s=replace(s,"populateCounties();\npopulateDateYears();","populateCounties();\npopulateNativeFilters();\npopulateDateYears();","initial selection inventory")
+850813	    s=replace(s,'status = button.dataset.officialStatus;\nsetButtonState("#status", "officialStatus", status);\napply();','status = button.dataset.officialStatus;\nsetButtonState("#status", "officialStatus", status);\nsyncNativeFilters();\napply();',"native buttons")
+850814	    s=replace(s,'document.getElementById("county").onchange = (event) => { county = event.target.value; apply(); };','''document.getElementById("repdNativeStatus").onchange = event => { status=event.target.value;setButtonState("#status","officialStatus",status);syncNativeFilters();apply(); };
+850815	document.getElementById("repdNativeOperator").onchange = event => { operatorFilter=event.target.value;apply(); };
+850816	document.getElementById("repdNativeRegion").onchange = event => { regionFilter=event.target.value;apply(); };
+850817	document.getElementById("county").onchange = (event) => { county = event.target.value; apply(); };''',"bind original REPD source handler")
+850818	def scan_patch(s):
+850819	    s=replace(s,"if(selected)selected.click();",'''if(selected)selected.click();
+850820	    else { const native=document.getElementById("repdNativeStatus"); if(native) {native.value=statusSelect.value;native.dispatchEvent(new Event("change",{bubbles:true}));} }''',"mobile scan to native status")
+850821	    s=replace(s,'if(active&&statusSelect.value!==active.dataset.officialStatus)statusSelect.value=active.dataset.officialStatus;','''const native=document.getElementById("repdNativeStatus");
+850822	    const current=native?.value || active?.dataset.officialStatus || "All";
+850823	    if(statusSelect.value!==current)statusSelect.value=current;''',"mobile scan sync")
+850824	def model_patch(s):
+850825	    s=replace(s,'export const REPORT_DIMENSIONS =','import { canonicalOperator } from "../../automation/repd_reporting/v3/operator-aliases.mjs";\nexport const REPORT_DIMENSIONS =',"report alias model")
+850826	    return replace(s,'const name = label(project[dimension]);','const name = dimension === "operator" ? canonicalOperator(project.operator) : label(project[dimension]);',"report-only canonical grouping")
+850827	def report_patch(s):
+850828	    s=replace(s,'// PipelineNews V9.74 candidate: same REPD cockpit with source-faithful cross-filters; original visual styles untouched.','// PipelineNews V9.75: reports use the existing filtered REPD table and gauges.',"report banner")
+850829	    s=replace(s,'import { buildCockpitReport, SOURCE_UNAVAILABLE } from "../../automation/repd_reporting/v2/cockpit-facets.mjs";\n',"","remove parallel report filter")
+850830	    s=replace(s,'const reportScope = document.getElementById("repdReportScope");\n',"","remove report scope DOM")
+850831	    s=between(s,'// All facets live inside the existing REPD report tablet, never a second dashboard.','function buildInterconnectorCapacityReport','''function nativeTechnology() {
+850832	  return document.querySelector('#tech [data-technology][aria-pressed="true"]')?.dataset.technology||"all";
+850833	  return {technology:nativeTechnology(),
+850834	    status:document.getElementById("repdNativeStatus")?.value||"All",
+850835	    operator:document.getElementById("repdNativeOperator")?.value||"All",
+850836	    region:document.getElementById("repdNativeRegion")?.value||"All"};
+850837	''',"native read only")
+850838	    summary='''function sourceRows() {
+850839	  if(!Array.isArray(state.all)||!state.all.length)return null;
+850840	  lastSelection=chosenFilter();
+850841	  const ic=lastSelection.technology==="interconnector";
+850842	  const rows=state.filtered||[];
+850843	  lastSnapshot={source:ic?"interconnector":"repd",
+850844	    sourceProjects:ic?(state.interconnectors||[]).length:state.all.length,
+850845	    matchingProjects:rows.length};
+850847	function renderNativeSummary(report) {
+850848	  const wrap=el("div","tablewrap"), table=el("table","repd-native-report-table");
+850849	  wrap.setAttribute("aria-label","Ranked grouping of the original REPD table filters");
+850850	  const head=el("thead"),heading=el("tr");
+850851	  for(const name of ["Group","Projects","Solar MWp","Other MW","Recorded MW/MWp"])
+850852	    heading.append(el("th","",name));
+850853	  head.append(heading);
+850854	  const body=el("tbody");
+850855	  for(const group of report.groups) {
+850856	    const row=el("tr"),name=el("td","site"),action=el("button","btn",group.name);
+850857	    action.type="button";
+850858	    action.title="Apply this exact group to the original REPD table and gauges";
+850859	    action.addEventListener("click",()=>{
+850860	      const id=active==="operator"?"repdNativeOperator":active==="status"?"repdNativeStatus":"repdNativeRegion";
+850861	      const select=document.getElementById(id);
+850862	      if(!select||![...select.options].some(o=>o.value===group.name)) {
+850863	        reportSummary.textContent="No matching source filter for "+group.name;return;
+850865	      select.value=group.name;
+850866	      select.dispatchEvent(new Event("change",{bubbles:true}));
+850867	      document.getElementById("repdScroll")?.scrollIntoView({block:"nearest"});
+850869	    name.append(action);row.append(name);
+850870	    for(const [value,css] of [[group.count,""],[group.solarMwp,"mw"],[group.otherMw,"mw"],[group.recordedCapacity,"mw"]])
+850871	      row.append(el("td",css,css?formatCapacity(value):formatCount(value)));
+850872	    body.append(row);
+850873	  table.append(head,body);wrap.append(table);reportBody.append(wrap);
+850874	    s=between(s,"function sourceRows() {","function render() {",summary,"source authority")
+850875	    renderer='''function render() {
+850876	  if(!active||panel.hidden)return;
+850877	    const rows=sourceRows();
+850878	    if(!rows){lastReport=null;reportSummary.textContent="Loading original REPD register…";return;}
+850879	    const ic=lastSnapshot.source==="interconnector";
+850880	    const report=ic?buildInterconnectorCapacityReport(rows,active):buildRepdCapacityReport(rows,active);
+850881	    lastReport=report;
+850882	    const selection=lastSelection;
+850883	    const tech=selection.technology==="all"?"ALL REPD TECHNOLOGIES":selection.technology.replaceAll("_"," ").toUpperCase();
+850884	    reportSummary.textContent=titles[active]+" · "+tech+" · "+selection.status+
+850885	      " · CURRENT REPD TABLE FILTERS · SOURCE "+formatCount(lastSnapshot.sourceProjects)+
+850886	      " · SELECTED "+formatCount(rows.length)+" · "+formatCount(report.groups.length)+
+850887	      " groups · "+capacityDescription(report.total)+
+850888	      (ic?" · Separate interconnector inventory, not REPD":" · Select a group to filter the original table and gauges");
+850889	    if(ic) {
+850890	      const heading=el("div","repd-report-row repd-report-columns");
+850891	      for(const name of ["Group","Recorded MW","Solar MWp","Other MW","Projects"])heading.append(el("span","",name));
+850892	      heading.append(el("span","",""));
+850893	      reportBody.append(heading);
+850894	      const maximum=report.groups.length?report.groups[0].recordedCapacity:0;
+850895	      for(const [index,group] of report.groups.entries())reportBody.append(makeGroup(group,maximum,index));
+850896	    } else renderNativeSummary(report);
+850897	    if(!report.groups.length)reportBody.append(el("p","","No matching projects in the original REPD table."));
+850898	  } catch(error){
+850899	    lastReport=null;lastSnapshot=null;
+850900	    reportSummary.textContent="Report validation failed: "+String(error?.message||error);
+850901	    s=between(s,"function render() {","function selectReport(dimension) {",renderer,"native report table")
+850902	    s=replace(s,"if (panel && reportScope && reportSummary && reportBody) {","if (panel && reportSummary && reportBody) {","panel guard")
+850903	    s=replace(s,'  reportScope.addEventListener("change", render);\n',"","no second selector")
+850904	    assert not any(word in s for word in ["makeFacet(","reportScope","buildCockpitReport","COCKPIT"])
+850906	    assert OLD.is_dir() and NEW.is_dir()
+850907	    original={str(p.relative_to(OLD)):p.read_bytes() for p in OLD.rglob("*") if p.is_file()}
+850908	    staged={str(p.relative_to(NEW)):p.read_bytes() for p in NEW.rglob("*") if p.is_file()}
+850909	    if (NEW/"README.md").read_text().startswith("# PipelineNews V9.75"):
+850910	        assert set(original).issubset(set(staged)) and set(staged)-set(original)=={"tests/v975-native-browser.mjs"}, "Already-built successor lost source files or gained unapproved files"
+850911	        assert all(original[p]==staged[p] for p in original if p.startswith(("styles/","data/")) or p in ("map-entry.mjs","report-a4.mjs","report-pdf.mjs","repd-expanded.mjs")), "Immutable source/colour/Atlas changed"
+850912	        assert "repdNativeOperator" in (NEW/"index.html").read_text()
+850913	        print("V9.75 existing successor: source, CSS, MAP/A4/PDF closure PASS")
+850915	    assert len(original)>300 and original==staged, "Unsafe or incomplete cloned V9.75 tree"
+850916	    for path,fn in [
+850917	        ("index.html",html_patch),("scripts/plugins/projects-v9-8.js",project_patch),
+850918	        ("repd-scan.mjs",scan_patch),("repd-reports-model.mjs",model_patch),
+850919	        ("repd-reports.mjs",report_patch)]:
+850920	        patch(path,fn)
+850921	    (NEW/"tests/v975-native-browser.mjs").write_text((ROOT/"automation/repd_reporting/v3/browser_v975.mjs").read_text())
+850922	    (NEW/"README.md").write_text("""# PipelineNews V9.75 — REPD native filters and ranked reports
+850923	Single source filtered REPD register drives gauges, project table, CSV and reports.
+850924	Native status buttons near gauges; all official statuses, operator, region exposed above.
+850925	Exact alias grouping only: Low Carbon / Low Carbon Ltd / Low Carbon Limited.
+850926	Never infer ownership or change REPD refs, operator source, MWp/MW or historical data.
+850927	Original CSS/SCADA palette, MAP/A4/PDF/VICINITY, ticker and snapshots unchanged.
+850928	Full Python/Playwright/served-SHA verification required before live promotion.
+850930	    (NEW/"CHANGES.md").write_text("""# V9.75
+850931	- Removed report-specific duplicate filters and user-facing prior naming.
+850932	- Retained and moved source-native status buttons above existing grouped reports.
+850933	- Operator and region selectors now filter original REPD table, gauges, CSV and reports.
+850934	- Report ranking uses the original HTML table style, group click filters source table.
+850935	- Explicit report-only alias list, no project/data/colour/old release changes.
+850936	    print("V9.75 patch composed safely; original",len(original),"files retained")
+850939	/** Conservative, report-only spelling aliases. NOT a corporate ownership assertion.
+850940	 * Never rewrite original REPD operator strings or group unrelated subsidiaries.
+850941	export const OPERATOR_ALIASES_V1=Object.freeze({
+850942	  "low carbon":"Low Carbon",
+850943	  "low carbon ltd":"Low Carbon",
+850944	  "low carbon limited":"Low Carbon"
+850945	export function canonicalOperator(raw) {
+850946	  const source=String(raw??"").normalize("NFKC").replace(/\s+/g," ").trim();
+850947	  if(!source)return "Not reported";
+850948	  const key=source.toLocaleLowerCase("en-GB").replace(/[.,]+$/g,"").replace(/\s+/g," ");
+850949	  return OPERATOR_ALIASES_V1[key]||source;
+850950	import {canonicalOperator,OPERATOR_ALIASES_V1} from "./operator-aliases.mjs";
+850951	import {buildRepdCapacityReport} from "../../../uk_renewables_pipeline/202611231600/repd-reports-model.mjs";
+850952	test("Only explicit Low Carbon spelling aliases, no blind parent inference",()=>{
+850953	  for(const x of ["Low Carbon","LOW CARBON","Low Carbon Ltd","Low Carbon Limited"," low   carbon   limited "])
+850954	    assert.equal(canonicalOperator(x),"Low Carbon");
+850955	  for(const x of ["Low Carbon Energy","Low Carbon Group","Low Carbon Solar UK","Carbon Low Ltd"])
+850956	    assert.equal(canonicalOperator(x),x);
+850957	  assert.equal(canonicalOperator(""),"Not reported");
+850958	  assert.equal(canonicalOperator(null),"Not reported");
+850959	  assert.equal(Object.keys(OPERATOR_ALIASES_V1).length,3);
+850960	test("Alias grouping retains every original REPD ref and unit",()=>{
+850961	  const data=[
+850962	    {repd_ref:"101",operator:"Low Carbon Limited",capacity_mw:15,technology:"solar",status:"Operational"},
+850963	    {repd_ref:"102",operator:"low carbon ltd",capacity_mw:20,technology:"solar",status:"Application Submitted"},
+850964	    {repd_ref:"103",operator:"Low Carbon Group",capacity_mw:2,technology:"bess",status:"Operational"}
+850965	  const result=buildRepdCapacityReport(data,"operator");
+850966	  assert.equal(result.uniqueRefs,3);
+850967	  assert.equal(result.groups.length,2);
+850968	  const low=result.groups.find(g=>g.name==="Low Carbon");
+850969	  assert.equal(low.count,2); assert.equal(low.solarMwp,35); assert.equal(low.otherMw,0);
+850970	  assert.equal(data[0].operator,"Low Carbon Limited");
+850971	  assert.equal(data[1].operator,"low carbon ltd");
+850972	import {readFileSync} from "node:fs";
+850973	import {canonicalOperator} from "./operator-aliases.mjs";
+850974	const root="uk_renewables_pipeline/202611231600/";
+850975	const read=p=>JSON.parse(readFileSync(root+p,"utf8"));
+850976	const close=(a,b)=>assert.ok(Math.abs(a-b)<0.011,a+" != "+b);
+850977	test("V9.75 exact 7,775 REPD refs, three group dimensions and audited operator aliases",()=>{
+850978	 const manifest=read("data/v9.1/build_manifest.json");
+850979	 const rows=manifest.project_partitions.flatMap(x=>read(x.path).projects);
+850980	 assert.equal(rows.length,7775);
+850981	 const reports=["operator","status","region"].map(d=>buildRepdCapacityReport(rows,d));
+850982	 for(const report of reports){
+850983	   assert.equal(report.total.count,rows.length);
+850984	   assert.equal(report.uniqueRefs,rows.length);
+850985	   close(report.total.recordedCapacity,manifest.capacity_mw);
+850986	   close(report.groups.reduce((s,g)=>s+g.count,0),rows.length);
+850987	   close(report.groups.reduce((s,g)=>s+g.recordedCapacity,0),report.total.recordedCapacity);
+850988	   close(report.total.solarMwp+report.total.otherMw,report.total.recordedCapacity);
+850990	 const [operators,statuses,regions]=reports;
+850991	 assert.deepEqual(new Set(statuses.groups.map(x=>x.name)),
+850992	  new Set(rows.map(p=>p.status?.trim()||"Not reported")));
+850993	 assert.deepEqual(new Set(regions.groups.map(x=>x.name)),
+850994	  new Set(rows.map(p=>p.region?.trim()||"Not reported")));
+850995	 const exact=new Set(rows.map(p=>p.operator?.trim()||"Not reported"));
+850996	 const mapped=new Set(rows.map(p=>canonicalOperator(p.operator)));
+850997	 assert.deepEqual(new Set(operators.groups.map(x=>x.name)),mapped);
+850998	 assert.ok(operators.groups.length<=exact.size);
+850999	 assert.ok(exact.has("Low Carbon Limited"),"Source operator preserved");
+851000	 assert.ok(!mapped.has("Low Carbon Limited"),"Reporting alias applied");
+851001	 assert.ok(mapped.has("Low Carbon"));
+851002	 assert.ok(operators.groups.find(g=>g.name==="Low Carbon").projects.some(p=>p.operator==="Low Carbon Limited"));
+851003	 assert.ok(rows.some(p=>p.operator==="Low Carbon Limited"),"Source REPD rows never rewritten");
+851004	 console.log("PASS 7775 true REPD refs, 3 report dimensions, exact legal source intact, operator spelling aliases report-only; original",exact.size,"grouped",mapped.size);
+851005	"""Read-only Python source-closure and nontruncation gate for V9.75."""
+851006	old=ROOT/"uk_renewables_pipeline/202611231400"
+851007	new=ROOT/"uk_renewables_pipeline/202611231600"
+851008	a={str(p.relative_to(old)):p.read_bytes() for p in old.rglob("*") if p.is_file()}
+851009	b={str(p.relative_to(new)):p.read_bytes() for p in new.rglob("*") if p.is_file()}
+851010	assert len(a)>300, ("Suspicious historical source size",len(a))
+851011	assert set(a).issubset(b), ("TRUNCATION",sorted(set(a)-set(b)))
+851012	assert set(b)-set(a)=={"tests/v975-native-browser.mjs"}, ("Unexpected additions",set(b)-set(a))
+851013	changes={name for name in a if a[name]!=b[name]}
+851014	expected={"index.html","repd-reports.mjs","repd-reports-model.mjs","repd-scan.mjs",
+851015	          "scripts/plugins/projects-v9-8.js","README.md","CHANGES.md"}
+851016	assert changes==expected, ("Unexpected changed source",changes^expected)
+851017	for name in a:
+851018	    if name.startswith(("data/","styles/","news/")) or name in (
+851019	            "map-entry.mjs","report-a4.mjs","report-pdf.mjs","repd-expanded.mjs",
+851020	            "scripts/data/canonical-projects-v9-5-1.js","scripts/plugins/gauges-v9-2.js"):
+851021	        assert a[name]==b[name], "Protected source changed: "+name
+851022	report=b["repd-reports.mjs"].decode()
+851023	project=b["scripts/plugins/projects-v9-8.js"].decode()
+851024	assert len(html)>20000 and len(project)>25000 and len(report)>5000, "Truncated functional source"
+851025	for id in ["repdNativeStatus","repdNativeOperator","repdNativeRegion","repdReportsPanel",
+851026	           "g1","g2","g3","repdScroll","pnScanStatus"]:
+851027	    assert ('id="'+id+'"') in html, "Missing native control "+id
+851028	assert html.count('id="status"')==1
+851029	assert not any(x in html for x in ("COCKPIT","Cockpit","repdReportScope"))
+851030	assert "makeFacet(" not in report and "reportScope" not in report
+851031	assert "state.filtered" in report and "updateGaugesV9_2(filtered)" in project
+851032	assert "canonicalOperator(project.operator)" in project
+851033	assert "repdNativeStatus" in project and "repdNativeOperator" in project
+851034	for name in ["report-a4.mjs","report-pdf.mjs","map-entry.mjs"]:
+851035	    assert hashlib.sha256(a[name]).digest()==hashlib.sha256(b[name]).digest()
+851036	print("PASS V9.75 Python source closure",len(a),"preserved,",
+851037	      len(changes),"reviewed changes, 1 browser test, 0 removed, 0 CSS/data/MAP/A4/PDF changes")
+851043	<title>GlobalGrid2050 | Pipeline News V9.74 · 202611231400</title>
+851311	<title>GlobalGrid2050 | Pipeline News V9.75 · 202611231600</title>
+851312	<div class="filters" id="repdNativeFilters" aria-label="REPD source table filters">
+851313	<span class="repd-report-context">CURRENT REPD TABLE FILTERS</span>
+851314	<p class="category-scope">Source-reported REPD capacity: solar MWp is shown separately from other MW. Combined recorded MW/MWp is a database aggregation, not commissioned, available or future generation. Conservative operator spelling variants are grouped for reporting only; source labels remain unchanged. Refused, withdrawn and missing statuses are retained. Offshore is a source region label.</p>
+851315	  <label class="pn-scan-status" for="pnScanStatus" hidden style="display:none" aria-hidden="true">Status <select id="pnScanStatus" aria-label="Filter by official project status">
+851317	import { canonicalOperator } from "../../automation/repd_reporting/v3/operator-aliases.mjs";
+851341	    const name = dimension === "operator" ? canonicalOperator(project.operator) : label(project[dimension]);
+851357	// PipelineNews V9.75: reports use the existing filtered REPD table and gauges.
+851358	if (panel && reportSummary && reportBody) {
+851384	    else { const native=document.getElementById("repdNativeStatus"); if(native) {native.value=statusSelect.value;native.dispatchEvent(new Event("change",{bubbles:true}));} }
+851387	    const native=document.getElementById("repdNativeStatus");
+851388	    if(statusSelect.value!==current)statusSelect.value=current;
+851404	import { canonicalOperator } from "../../../../automation/repd_reporting/v3/operator-aliases.mjs";
+851455	let operatorFilter = "All", regionFilter = "All";
+851634	for (const parameter of ["technology", "status", "county", "operator", "region", "q", "sort", "submitted_year", "updated_year", "operational_year", "min_mw", "max_mw"]) url.searchParams.delete(parameter);
+851638	if (operatorFilter !== "All") url.searchParams.set("operator", operatorFilter);
+851639	if (regionFilter !== "All") url.searchParams.set("region", regionFilter);
+851652	status: "All",
+851655	}, searchIndex.get(project.repd_ref)) && (status === "All" || (String(project.status || "").trim() || "Not reported") === status) && (operatorFilter === "All" || canonicalOperator(project.operator) === operatorFilter) && (regionFilter === "All" || (String(project.region || "").trim() || "Not reported") === regionFilter) && matchesYear(project.planning_application_submitted,submittedYear) && matchesYear(project.repd_record_updated,updatedYear) && matchesYear(project.operational,operationalYear) && capacityWithinMW(project.capacity_mw,minMW,maxMW));
+851669	function populateNativeFilters() {
+851688	const requestedOperator = parameters.get("operator") || "All";
+851689	const requestedRegion = parameters.get("region") || "All";
+851696	operatorFilter = [...document.getElementById("repdNativeOperator").options].some(o=>o.value===requestedOperator) ? requestedOperator : "All";
+851697	regionFilter = [...document.getElementById("repdNativeRegion").options].some(o=>o.value===requestedRegion) ? requestedRegion : "All";
+851704	syncNativeFilters();
+851733	operatorFilter = "All"; regionFilter = "All";
+851788	populateNativeFilters();
+851813	document.getElementById("repdNativeStatus").onchange = event => { status=event.target.value;setButtonState("#status","officialStatus",status);syncNativeFilters();apply(); };
+851855	<title>GlobalGrid2050 | Pipeline News V9.76 · 202611232245</title>
+851856	<link rel="stylesheet" href="styles/repd-mobile-v976.css">
+851857	<p id="repdReportSwipeHint" aria-hidden="true">SWIPE COLUMNS LEFT OR RIGHT TO VIEW ALL VALUES</p>
+851858	// V9.76: real REPD source, iPhone geometry, no vertical digits, native group/filters.
+851859	// Fail the build if numbers are rendered as one character per line.
+851860	const url="http://127.0.0.1:8765/uk_renewables_pipeline/202611232245/";
+851861	const sizes=[
+851862	  {name:"iphone-se",width:320,height:695},
+851863	  {name:"iphone",width:393,height:852},
+851864	  {name:"iphone-max",width:430,height:932},
+851865	  {name:"landscape",width:852,height:393},
+851866	  {name:"desktop",width:1280,height:800}
+851868	    for(const size of sizes) {
+851869	      const page=await browser.newPage({viewport:{width:size.width,height:size.height},
+851870	        hasTouch:size.width<=852,reducedMotion:"reduce"});
+851871	      const errors=[];page.on("pageerror",x=>errors.push(x.message));
+851872	      page.on("response",x=>{
+851873	        if(x.status()>=400&&/repd-mobile-v976|repd-reports|operator-aliases/.test(x.url()))
+851874	          errors.push(x.status()+" "+x.url());
+851875	        await page.goto(url,{waitUntil:"domcontentloaded",timeout:75000});
+851876	        await page.waitForFunction(()=>(document.querySelector("#v2")?.textContent||"").replaceAll(",","").trim()==="3604",{timeout:75000});
+851877	        const oldHeading=await page.locator("#repdScroll th").first().evaluate(x=>getComputedStyle(x).color);
+851878	        const oldGaugeCount=await page.locator("#repdPanel>.hud-gauges>.card").count();
+851879	        assert.equal(oldGaugeCount,3,"All three original gauges");
+851880	        await page.waitForSelector("#repdReportsBody .repd-native-report-table tbody tr");
+851881	        const geometry=await page.evaluate(()=>{
+851882	          const panel=document.querySelector("#repdReportsPanel");
+851883	          const wrap=document.querySelector("#repdReportsBody>.tablewrap");
+851884	          const table=wrap?.querySelector("table.repd-native-report-table");
+851885	          const row=table?.querySelector("tbody tr");
+851886	          const cells=[...(row?.cells||[])];
+851887	          const statuses=document.querySelector("#status");
+851888	          const buttons=[...statuses.querySelectorAll("button")];
+851889	          const hint=document.querySelector("#repdReportSwipeHint");
+851890	          const rect=panel.getBoundingClientRect();
+851892	            rectLeft:rect.left,rectRight:rect.right,screen:window.innerWidth,
+851893	            wrapWidth:wrap.clientWidth,wrapScroll:wrap.scrollWidth,
+851894	            tableWidth:table.getBoundingClientRect().width,cellCount:cells.length,
+851895	            numeric:cells.slice(1).map(x=>({
+851896	              width:x.getBoundingClientRect().width,
+851897	              height:x.getBoundingClientRect().height,
+851898	              whitespace:getComputedStyle(x).whiteSpace,
+851899	              text:x.textContent.trim()})),
+851900	            rowHeight:row.getBoundingClientRect().height,
+851901	            headerColour:getComputedStyle(table.querySelector("th")).color,
+851902	            statusScroll:statuses.scrollWidth,statusWidth:statuses.clientWidth,
+851903	            statusPositions:buttons.map(x=>Math.round(x.getBoundingClientRect().top)),
+851904	            statusWrap:getComputedStyle(statuses).flexWrap,
+851905	            hintDisplay:getComputedStyle(hint).display,
+851906	            groupText:cells[0]?.textContent.trim()||""
+851908	        assert.equal(geometry.cellCount,5,JSON.stringify(geometry));
+851909	        assert.equal(geometry.headerColour,oldHeading,"Inherited native REPD colours");
+851910	        if(size.width<=768) {
+851911	          assert.ok(geometry.rectLeft>=-2&&geometry.rectRight<=geometry.screen+2,
+851912	            "Report panel escaped viewport: "+JSON.stringify(geometry));
+851913	          assert.ok(geometry.wrapScroll>geometry.wrapWidth+200,
+851914	            "Report requires independent sideways swipe: "+JSON.stringify(geometry));
+851915	          assert.ok(geometry.tableWidth>=750,"Report must retain readable numeric columns");
+851916	          assert.equal(geometry.statusWrap,"nowrap","Status buttons must not orphan");
+851917	          assert.equal(new Set(geometry.statusPositions).size,1,"All status buttons must be on the same horizontal row");
+851918	          assert.ok(geometry.statusScroll>geometry.statusWidth+20,"Status buttons need horizontal swiping");
+851919	          assert.equal(geometry.hintDisplay,"block","Mobile-only swipe explanation required");
+851920	          assert.ok(geometry.rowHeight<140,"Digits are stacked vertically: "+JSON.stringify(geometry));
+851921	          for(const cell of geometry.numeric){
+851922	            assert.equal(cell.whitespace,"nowrap","Each number must be on one line");
+851923	            assert.ok(cell.width>=85,"Numbers have a narrow column: "+JSON.stringify(geometry));
+851924	            assert.ok(cell.height<140,"Numbers must not create very tall rows");
+851926	          await page.locator("#repdReportsBody>.tablewrap").evaluate(node=>{node.scrollLeft=node.scrollWidth});
+851927	          const scrolled=await page.locator("#repdReportsBody>.tablewrap").evaluate(node=>node.scrollLeft);
+851928	          assert.ok(scrolled>200,"iOS horizontal swipe target should actually scroll");
+851929	          await page.locator("#status").evaluate(node=>{node.scrollLeft=node.scrollWidth});
+851930	          const statusScrolled=await page.locator("#status").evaluate(node=>node.scrollLeft);
+851931	          assert.ok(statusScrolled>30,"Native status scrolling works");
+851932	          await page.locator('#status [data-official-status="Application Submitted"]').click();
+851933	          await page.waitForFunction(()=>document.querySelector("#repdNativeStatus")?.value==="Application Submitted");
+851934	          const count=Number((await page.locator("#v2").textContent()).replaceAll(",",""));
+851935	          assert.ok(count>0&&count<3604,"Status action still changes original gauge");
+851936	          await page.locator("#repdNativeStatus").selectOption("All");
+851937	          await page.waitForFunction(()=>document.querySelector("#v2")?.textContent?.replaceAll(",","").trim()==="3604");
+851939	          assert.equal(geometry.hintDisplay,"none","Desktop must have original appearance");
+851940	        await page.locator("#repdNativeOperator").selectOption("Low Carbon");
+851941	        await page.waitForFunction(()=>{
+851942	          const n=Number((document.querySelector("#v2")?.textContent||"0").replaceAll(",",""));
+851943	          return n>0 && n<3604 && Number(document.querySelector("#tbody")?.dataset.total||0)===n;
+851944	        },{timeout:15000});
+851945	        assert.match(await page.locator("#repdReportsSummary").textContent(),/SELECTED /);
+851946	        await page.locator("#repdNativeOperator").selectOption("All");
+851947	        await page.locator('[data-repd-report="status"]').click();
+851949	        assert.equal(await page.locator("script[src='report-a4.mjs']").count(),1);
+851950	        assert.equal(await page.locator("script[src='map-entry.mjs']").count(),1);
+851951	        assert.deepEqual(errors,[],"Client errors: "+JSON.stringify(errors));
+851952	        console.log("PASS V9.76",engineName,size.name,size.width+"x"+size.height,
+851953	          "status scroll, numeric columns, panel containment, original colours, operator/status/region, MAP/A4");
+851954	      }finally{await page.close();}
+851971	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Open Pipeline News &rarr;</a></div></details>
+851994	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.76 - Mobile REPD report readability</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221900/">V9.70 - Expanded MAP navigation parity</a><small class="entity-key">202611221900</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">V9.71 - Simplified REPD expanded-view controls</a><small class="entity-key">202611221930</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222222/">V9.72 - VICINITY MAP and A4/PDF link parity</a><small class="entity-key">202611222222</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">V9.73 - Operator, Status and Region MW reports</a><small class="entity-key">202611222330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231400/">V9.74 - Technology-filtered Operator MW cockpit</a><small class="entity-key">202611231400</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231600/">V9.75 - Native REPD Operator, Status and Region filters</a><small class="entity-key">202611231600</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">V9.76 - Mobile REPD report readability</a><small class="entity-key">202611232245</small></div></details></td></tr>
+852014	 * REPD Cockpit visual skin — coordination/reference module v1.
+852015	 * Source of truth: the existing native V9.73 REPD table CSS and computed styles.
+852016	 * This is a read-only design reference in Neural Link, NOT imported by a live
+852017	 * Pipeline News release. A release owner must transplant and test it separately.
+852018	 * Do not repaint the existing REPD table, gauges, ticker or MAP/A4.
+852019	export const REPD_SKIN_CONTRACT_V1 = Object.freeze({
+852020	  sourceRepository: 'Ventusltd/globalgrid2050',
+852021	  sourceEdition: 'uk_renewables_pipeline/202611222330/',
+852022	  anchors: Object.freeze([
+852023	    '#repdScroll thead th',
+852024	    '#repdScroll tbody .mw',
+852025	    '#repdScroll tbody .site',
+852026	    '#repdScroll tbody td'
+852028	  sourceCss: Object.freeze([
+852029	    'styles/v7.css',
+852030	    'styles/repd-scan.css',
+852031	    'styles/repd-expanded.css',
+852032	    'styles/hud-v955.css',
+852033	    'styles/repd-reports.css'
+852034	  secondaryScadaReference: Object.freeze({
+852035	    repository: 'Ventusltd/gridatlas',
+852036	    edition: 'atlas/releases/202608300453-atlas-v9/',
+852037	    css: 'ventusv8.css',
+852038	    shell: 'index.html',
+852039	    liveGenerationAtStudy: '202611222343',
+852040	    visualRoles: Object.freeze({
+852041	      shell: '#000000',
+852042	      hud: '#0a0a0a',
+852043	      instrument: '#00ffff',
+852044	      news: '#ffae00',
+852045	      active: '#00ffff',
+852046	      panel: '#050505'
+852048	    constraint: 'SCADA is a secondary stylistic reference; never replace established native REPD table or physics-significant GridAtlas voltage colours.'
+852050	  crossDisciplineAudit: Object.freeze({
+852051	    datacentres: Object.freeze({
+852052	      source: 'automation/news/datacentre-ui/styles.css',
+852053	      mismatch: 'yellow (#f4df73) headers, alternate teal (#62e7ed) and #142328 headings; different input/border colours',
+852054	      action: 'new scoped adapter must inherit REPD table header cyan, row text, dark substrate and controls'
+852055	    gridAndOfftakers: Object.freeze({
+852056	      source: 'uk_renewables_pipeline/202611222330/scripts/layers/pipeline-layers.css',
+852057	      mismatch: 'selected button amber (#ffd24a), unlike native REPD cyan; source counts also amber',
+852058	      action: 'normalise controls/labels only; preserve true kV and engineering-layer encoding'
+852059	    prices: Object.freeze({
+852060	      source: 'automation/price_daily_ui/78d5360239e1a5fcffa83fcb30d5937c5521acb9/styles.css',
+852061	      mismatch: '10px rounded/glowing cards and red (#ff5555) statistical labels unlike REPD restrained cockpit',
+852062	      action: 'adopt REPD borders, radii, header and neutral data-label hierarchy; keep genuine alarms red'
+852064	  unchangedTechnologyColors: Object.freeze({
+852065	    solar: '#ffff00',
+852066	    bess: '#ffae00',
+852067	    wind_onshore: '#00ffff',
+852068	    wind_offshore: '#0066ff',
+852069	    interconnector: '#0066ff'
+852070	  unchangedTickerColor: '#ff3038',
+852071	  policy: 'Capture and reuse native computed colours. Never override native REPD selectors. Fail closed if anchors cannot be found.'
+852072	const ROLES = Object.freeze({
+852073	  surface: '--pn-repd-match-surface',
+852074	  panel: '--pn-repd-match-panel',
+852075	  border: '--pn-repd-match-border',
+852076	  headerBackground: '--pn-repd-match-header-bg',
+852077	  headerText: '--pn-repd-match-header-text',
+852078	  rowText: '--pn-repd-match-row-text',
+852079	  projectText: '--pn-repd-match-project-text',
+852080	  capacityText: '--pn-repd-match-capacity-text',
+852081	  accent: '--pn-repd-match-accent',
+852082	  solar: '--pn-repd-match-solar',
+852083	  bess: '--pn-repd-match-bess',
+852084	  onshore: '--pn-repd-match-onshore',
+852085	  offshore: '--pn-repd-match-offshore',
+852086	  ticker: '--pn-repd-match-ticker'
+852087	export function captureNativeRepdSkin(doc) {
+852088	  if (!doc || !doc.defaultView || typeof doc.defaultView.getComputedStyle !== 'function') {
+852089	    throw new Error('A rendered REPD document is required to capture the native skin');
+852090	  const pick = (selector) => {
+852091	    const node = doc.querySelector(selector);
+852092	    if (!node) throw new Error('Native REPD skin anchor missing: ' + selector);
+852093	    return doc.defaultView.getComputedStyle(node);
+852094	  const root = pick(':root');
+852095	  const header = pick('#repdScroll thead th');
+852096	  const mw = pick('#repdScroll tbody .mw');
+852097	  const site = pick('#repdScroll tbody .site');
+852098	  const row = pick('#repdScroll tbody td');
+852099	  const panel = pick('#repdScroll');
+852100	  const readVar = (name) => {
+852101	    const value = root.getPropertyValue(name).trim();
+852102	    if (!value) throw new Error('Missing existing REPD CSS token: ' + name);
+852104	  const ticker = doc.querySelector('#headlineTicker .pn-ticker-title');
+852106	    surface: readVar('--bg'),
+852107	    panel: panel.backgroundColor,
+852108	    border: readVar('--line'),
+852109	    headerBackground: header.backgroundColor,
+852110	    headerText: header.color,
+852111	    rowText: row.color,
+852112	    projectText: site.color,
+852113	    capacityText: mw.color,
+852114	    accent: readVar('--accent'),
+852115	    solar: readVar('--solar'),
+852116	    bess: readVar('--bess'),
+852117	    onshore: readVar('--accent'),
+852118	    offshore: readVar('--off'),
+852119	    ticker: ticker ? doc.defaultView.getComputedStyle(ticker).color : null
+852120	 * Assigns ONLY scoped custom properties on a NEW report host. It does not
+852121	 * change existing table, controls, gauges, ticker, body or other disciplines.
+852122	 * Pair with scoped CSS that consumes these --pn-repd-match-* variables.
+852123	export function bindNativeRepdSkinToReportHost(host) {
+852124	  if (!host || !host.ownerDocument || typeof host.style?.setProperty !== 'function') {
+852125	    throw new Error('A rendered report host element is required');
+852126	  if (host.matches('#repdScroll, #officialRegister, #repdPanel, body, html')) {
+852127	    throw new Error('Refusing to restyle a native REPD container');
+852128	  const native = captureNativeRepdSkin(host.ownerDocument);
+852129	  for (const [role, property] of Object.entries(ROLES)) {
+852130	    if (native[role]) host.style.setProperty(property, native[role]);
+852131	  host.dataset.repdSkinContract = 'native-v973-parity-v1';
+852132	  return native;
+852133	export function validateRepdSkinParity(host) {
+852135	    const expected = native[role];
+852136	    if (!expected) continue;
+852137	    const actual = host.style.getPropertyValue(property).trim();
+852138	    if (actual !== expected) missing.push({role, expected, actual});
+852139	  return Object.freeze({pass: missing.length === 0, missing, sourceEdition: REPD_SKIN_CONTRACT_V1.sourceEdition});
 ```

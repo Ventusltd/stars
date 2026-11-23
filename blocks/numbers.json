@@ -1,5 +1,5 @@
 {
- "next": 2345,
+ "next": 2352,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2281,6 +2281,13 @@
   "gridatlas:atlas/modules/{stamp}-sld-without-layout.js": 2341,
   "gridatlas:atlas/modules/{stamp}-vicinity-focus.js": 2342,
   "gridatlas:atlas/modules/{stamp}-vicinity-controls-rescue.js": 2343,
-  "gridatlas:tools/sld/retire-gridatlas-layout.mjs": 2344
+  "gridatlas:tools/sld/retire-gridatlas-layout.mjs": 2344,
+  "globalgrid2050:automation/repd_reporting/v2/repd-reports-integrated.mjs": 2345,
+  "globalgrid2050:automation/repd_reporting/v2/build-v974.mjs": 2346,
+  "globalgrid2050:automation/repd_reporting/v2/cockpit-facets.mjs": 2347,
+  "globalgrid2050:automation/repd_reporting/v2/cockpit-skin.mjs": 2348,
+  "globalgrid2050:automation/repd_reporting/v3/build_v975.py": 2349,
+  "globalgrid2050:automation/repd_reporting/v3/operator-aliases.mjs": 2350,
+  "neural-link-between-agents:CONTRACTS/repd-cockpit-skin.v1.mjs": 2351
  }
 }
