@@ -1,5 +1,5 @@
 {
- "next": 2339,
+ "next": 2345,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2275,6 +2275,12 @@
   "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-expanded.mjs": 2335,
   "neural-link-between-agents:ARCHIVE/2026-11-18-grid-journeys-beta/atlas/modules/{stamp}-grid-journey-preview.js": 2336,
   "neural-link-between-agents:ARCHIVE/2026-11-18-grid-journeys-beta/atlas/modules/{stamp}-grid-vicinity.js": 2337,
-  "gridatlas:atlas/modules/{stamp}-vicinity-entry.js": 2338
+  "gridatlas:atlas/modules/{stamp}-vicinity-entry.js": 2338,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-reports-model.mjs": 2339,
+  "globalgrid2050:uk_renewables_pipeline/{stamp}/repd-reports.mjs": 2340,
+  "gridatlas:atlas/modules/{stamp}-sld-without-layout.js": 2341,
+  "gridatlas:atlas/modules/{stamp}-vicinity-focus.js": 2342,
+  "gridatlas:atlas/modules/{stamp}-vicinity-controls-rescue.js": 2343,
+  "gridatlas:tools/sld/retire-gridatlas-layout.mjs": 2344
  }
 }

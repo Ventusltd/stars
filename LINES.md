@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-473,242 unique lines, numbered 1 to 840,364. Generated 2026-11-22T21:16:28.904Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+474,433 unique lines, numbered 1 to 849,626. Generated 2026-11-23T01:59:13.836Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -473245,4 +473245,1195 @@
 840362	    if(r.code!==0||!fs.existsSync(out)){R.fail(name,'source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,200));continue;}
 840363	    same(name,out,c.file);
 840364	    if(sha256(fs.readFileSync(out))!==c.sha256)R.fail(name+' pin','source-built launcher SHA differs');
+840441	<title>GlobalGrid2050 | Pipeline News V9.72 · 202611222222</title>
+840816	    // A4 HTML/PDF must use this project's native VICINITY MAP action,
+840817	    // including when expanded-view styling hides its original action cell.
+840818	    const validProjectMap=anchor=>{
+840819	      try{const u=new URL(anchor.href);
+840820	        return u.origin==='https://ventusltd.github.io'
+840821	          && u.pathname==='/gridatlas/atlas/'
+840822	          && u.searchParams.get('repd_ref')===ref;
+840823	      }catch{return false}
+840825	    const links=[...row.querySelectorAll('td:last-child a.atlaslink[href]')];
+840826	    const originalMap=links.find(a=>a.classList.contains('pn-journey-link')&&validProjectMap(a))
+840827	      || links.find(validProjectMap);
+840828	    const href=originalMap?.href||'';
+840917	    const u=new URL(mapHref);
+840918	    // A4 and its PDF cannot jump to another REPD Ref or foreign host.
+840919	    if(u.origin==='https://ventusltd.github.io'
+840920	      && u.pathname==='/gridatlas/atlas/'
+840921	      && u.searchParams.get('repd_ref')===project.repd_ref)mapUrl=u.href;
+840922	  }catch{}
+840946	// V9.72: end-to-end REPD identity / normal MAP / A4 HTML / PDF / expanded MAP parity.
+840953	const app='http://127.0.0.1:8765/uk_renewables_pipeline/202611222222/';
+840954	const testProject={repd_ref:'12588',technology:'solar',name:'Cowley pilot',operator:'Test operator'};
+840955	const projectMap=atlas+'?repd_ref=12588&latitude=51.75&longitude=-1.19&journey=vicinity';
+840956	const unit=reportData(testProject,projectMap);
+840957	assert.equal(unit.mapUrl,projectMap,'Report retains exact project URL');
+840958	assert.equal(reportData(testProject,atlas+'?repd_ref=123&latitude=51.75&longitude=-1.19').mapUrl,'','Reject different REPD identity');
+840959	assert.equal(reportData(testProject,'https://example.org/?repd_ref=12588').mapUrl,'','Reject unrelated origins');
+840960	assert.ok(Buffer.from(buildA4Pdf(unit)).toString('latin1').includes('/URI ('+projectMap+')'),'PDF contains real URI annotation');
+840961	const pdfLiteral=url=>url.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
+840962	async function compareA4AndPdf(page, rowSelector, expected){
+840963	  const row=page.locator(rowSelector).first();
+840964	  await row.locator('td:last-child .pn-report-launch').click();
+840965	  await page.locator('#pnRepdReport:not([hidden])').waitFor({timeout:15000});
+840966	  const reportHref=await page.locator('#pnReportMap').getAttribute('href');
+840967	  assert.equal(reportHref,expected,'A4 HTML MAP must equal row MAP');
+840968	  assert.equal(await page.locator('#pnReportMap').isVisible(),true,'A4 MAP action must remain visible');
+840969	  const down=page.waitForEvent('download',{timeout:15000});
+840970	  await page.locator('[data-report-action="pdf"]').click();
+840971	  const download=await down;
+840972	  assert.ok(download.suggestedFilename().endsWith('.pdf'));
+840973	  const content=(await readFile(await download.path())).toString('latin1');
+840974	  assert.ok(content.startsWith('%PDF-1.4'),'Download must be PDF');
+840975	  const uri='/URI ('+pdfLiteral(expected)+')';
+840976	  assert.ok(content.includes(uri),'PDF /URI differs from native MAP: '+content.match(/\/URI \(.{0,250}/)?.[0]);
+840977	  assert.equal((content.match(/\/URI \(/g)||[]).length,1,'Exactly one outbound PDF MAP URI');
+840978	  await page.locator('[data-report-action="close"]').click();
+840982	  for(const vp of [{name:'portrait',width:393,height:852},{name:'landscape',width:852,height:393}]){
+840983	   const context=await browser.newContext({viewport:{width:vp.width,height:vp.height},isMobile:true,hasTouch:true,acceptDownloads:true,reducedMotion:'reduce'});
+840984	   const page=await context.newPage(), errors=[];
+840985	   page.on('pageerror',e=>errors.push(e.message));
+840986	   await context.route('https://raw.githubusercontent.com/**',r=>r.abort());
+840987	   await context.route(atlas+'**',r=>r.fulfill({status:200,contentType:'text/html',body:'<!doctype html><title>GridAtlas test receiver</title>'}));
+840989	    await page.goto(app,{waitUntil:'domcontentloaded',timeout:90000});
+840990	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===50
+840991	      &&document.querySelector('#tbody .pn-journey-link.atlaslink[href]')
+840992	      &&document.querySelector('#tbody .pn-report-launch'),{timeout:90000});
+840993	    const first='#tbody tr[id^="repd-"]';
+840994	    const row=page.locator(first).first();
+840995	    const native=await row.locator('td:last-child .pn-journey-link.atlaslink[href]').getAttribute('href');
+840996	    const ref=await row.getAttribute('id');
+840997	    assert.equal(new URL(native).origin+new URL(native).pathname,atlas);
+840998	    assert.equal(new URL(native).searchParams.get('repd_ref'),ref.slice(5));
+840999	    // Distractor link previously won the A4 first-visible-link heuristic.
+841000	    await row.evaluate(el=>{
+841001	      const other=document.createElement('a');other.href='https://example.org/unrelated';
+841002	      other.textContent='OTHER';other.className='irrelevant-action';
+841003	      el.querySelector('td:last-child').prepend(other);
+841005	    await compareA4AndPdf(page,first,native);
+841007	    await page.waitForFunction(()=>document.querySelectorAll('#tbody tr[id^="repd-"]').length===100
+841008	      &&document.querySelector('#pnExpandedHost #tbody .pn-expanded-map-launch'),{timeout:30000});
+841009	    const expanded='#pnExpandedHost #tbody tr[id^="repd-"]';
+841010	    const expandedRow=page.locator(expanded).first();
+841011	    const expandedMap=await expandedRow.locator('.pn-expanded-map-cell .pn-expanded-map-launch').getAttribute('href');
+841012	    const expandedRef=await expandedRow.getAttribute('id');
+841013	    const expandedNative=await expandedRow.locator('td:last-child .pn-journey-link.atlaslink[href]').getAttribute('href');
+841014	    assert.equal(expandedMap,expandedNative,'Expanded MAP inherits native project map');
+841015	    assert.equal(new URL(expandedMap).searchParams.get('repd_ref'),expandedRef.slice(5));
+841016	    await compareA4AndPdf(page,expanded,expandedMap);
+841017	    // Actual click navigation, not only event propagation: native target is same tab on touch.
+841018	    const link=expandedRow.locator('.pn-expanded-map-cell .pn-expanded-map-launch');
+841019	    await Promise.all([page.waitForURL(u=>u.href===expandedMap,{timeout:15000}),link.click()]);
+841020	    assert.equal(page.url(),expandedMap,'Expanded MAP must navigate to canonical receiver');
+841021	    assert.deepEqual(errors,[],'No uncaught browser errors');
+841022	    console.log('PASS V9.72 MAP/A4/PDF parity',engineName,vp.name,expandedRef);
+841023	   } finally{await context.close();}
+841024	 } finally{await browser.close();}
+841025	<title>GlobalGrid2050 | Pipeline News V9.73 · 202611222330</title>
+841026	<link rel="stylesheet" href="styles/repd-reports.css">
+841027	<div class="repd-report-launch" role="group" aria-label="REPD capacity reports">
+841028	<button type="button" data-repd-report="operator" aria-controls="repdReportsPanel" aria-pressed="false" aria-expanded="false">OPERATOR MW</button>
+841029	<button type="button" data-repd-report="status" aria-controls="repdReportsPanel" aria-pressed="false" aria-expanded="false">STATUS MW</button>
+841030	<button type="button" data-repd-report="region" aria-controls="repdReportsPanel" aria-pressed="false" aria-expanded="false">REGION MW</button>
+841031	<section id="repdReportsPanel" aria-label="REPD capacity intelligence reports" hidden>
+841032	<div class="repd-report-head">
+841033	<label for="repdReportScope">REPORT DATA <select id="repdReportScope" aria-label="Report project scope">
+841034	<option value="all">ALL OFFICIAL REPD STATUSES</option>
+841035	<option value="filtered">CURRENT TABLE FILTERS</option>
+841036	</select></label>
+841037	<button type="button" id="repdReportCsv">EXPORT REPORT CSV</button>
+841038	<button type="button" id="repdReportsClose" class="repd-report-close">CLOSE</button>
+841039	<p id="repdReportsSummary" role="status" aria-live="polite"></p>
+841040	<p class="category-scope">Source-reported REPD capacity: solar MWp is shown separately from other MW. Combined recorded MW/MWp is a database aggregation, not commissioned, available or future generation. Operator entities are not inferred. Refused, withdrawn and missing statuses are retained. Offshore is a source region label.</p>
+841041	<div id="repdReportsBody" aria-label="Capacity group detail"></div>
+841042	<script type="module" src="repd-reports.mjs"></script>
+841043	// PipelineNews V9.73: pure, source-fidelity REPD capacity reporting.
+841044	export const REPORT_DIMENSIONS = Object.freeze(["operator", "status", "region"]);
+841045	export const NOT_REPORTED = "Not reported";
+841046	function label(value) {
+841047	  const result = typeof value === "string" ? value.trim() : "";
+841048	  return result || NOT_REPORTED;
+841049	function emptySummary() {
+841050	  return { count: 0, recordedCapacity: 0, solarMwp: 0, otherMw: 0, missingCapacity: 0 };
+841051	function accumulate(summary, project) {
+841052	  summary.count += 1;
+841053	  const capacity = project.capacity_mw;
+841054	  if (typeof capacity !== "number" || !Number.isFinite(capacity) || capacity < 0) {
+841055	    summary.missingCapacity += 1;
+841057	  summary.recordedCapacity += capacity;
+841058	  if (project.technology === "solar") summary.solarMwp += capacity;
+841059	  else summary.otherMw += capacity;
+841060	export function buildRepdCapacityReport(projects, dimension) {
+841061	  if (!REPORT_DIMENSIONS.includes(dimension)) throw new TypeError("Unsupported REPD report dimension");
+841062	  if (!Array.isArray(projects)) throw new TypeError("REPD report expects an array");
+841064	  const total = emptySummary();
+841065	  const grouped = new Map();
+841067	    if (project?.technology === "interconnector") continue; // never count separate interconnector inventory
+841068	    const ref = String(project?.repd_ref ?? "").trim();
+841069	    if (!ref) throw new Error("Missing REPD identity");
+841070	    if (seen.has(ref)) throw new Error("Duplicate REPD identity: " + ref);
+841072	    const name = label(project[dimension]);
+841073	    let group = grouped.get(name);
+841074	    if (!group) {
+841075	      group = { name, ...emptySummary(), projects: [], statuses: new Map() };
+841076	      grouped.set(name, group);
+841077	    const projectStatus = label(project.status);
+841078	    if (!group.statuses.has(projectStatus)) group.statuses.set(projectStatus, emptySummary());
+841079	    accumulate(group.statuses.get(projectStatus), project);
+841080	    accumulate(group, project);
+841081	    accumulate(total, project);
+841083	  const groups = [...grouped.values()].sort((a, b) =>
+841084	    b.recordedCapacity - a.recordedCapacity ||
+841085	    b.count - a.count ||
+841086	    a.name.localeCompare(b.name, "en-GB"));
+841087	  // Preserve every original status and source operator/region string. No ownership inference.
+841088	  return { dimension, total, groups, uniqueRefs: seen.size };
+841089	// PipelineNews V9.73: additive Operator / Status / Region REPD report panels.
+841090	import { state } from "./scripts/core/state.js";
+841091	import { atlasUrlV9_5_1 } from "./scripts/plugins/projects-v9-8.js";
+841092	import { buildRepdCapacityReport } from "./repd-reports-model.mjs";
+841093	const panel = document.getElementById("repdReportsPanel");
+841094	const reportButtons = [...document.querySelectorAll("[data-repd-report]")];
+841095	const reportScope = document.getElementById("repdReportScope");
+841096	const reportBody = document.getElementById("repdReportsBody");
+841097	const reportSummary = document.getElementById("repdReportsSummary");
+841098	const csvButton = document.getElementById("repdReportCsv");
+841099	const closeButton = document.getElementById("repdReportsClose");
+841100	const titles = { operator: "Capacity by operator", status: "Capacity by official REPD status", region: "Capacity by region" };
+841101	let active = "";
+841102	let lastReport = null;
+841103	function el(tag, className, value) {
+841105	  if (className) result.className = className;
+841106	  if (value !== undefined) result.textContent = String(value);
+841108	function formatCapacity(n) {
+841109	  return Number(n || 0).toLocaleString("en-GB", { maximumFractionDigits: 2 });
+841110	function formatCount(n) {
+841111	  return Number(n || 0).toLocaleString("en-GB");
+841112	function capacityDescription(summary) {
+841113	  return formatCapacity(summary.recordedCapacity) + " recorded MW/MWp · " +
+841114	    formatCapacity(summary.solarMwp) + " solar MWp · " +
+841115	    formatCapacity(summary.otherMw) + " other MW";
+841116	function projectTableLink(project) {
+841117	  const href = new URL(window.location.href);
+841118	  href.hash = "";
+841119	  href.search = "";
+841120	  href.searchParams.set("q", String(project.repd_ref));
+841121	  return href.href;
+841122	function projectMapLink(project) {
+841124	    const href = atlasUrlV9_5_1(project);
+841125	    if (!href) return "";
+841127	    if (url.origin !== "https://ventusltd.github.io" ||
+841128	        url.pathname !== "/gridatlas/atlas/" ||
+841129	        url.searchParams.get("repd_ref") !== String(project.repd_ref)) return "";
+841130	    return url.href;
+841133	function statusDetails(group, destination) {
+841134	  const heading = el("h4", "repd-report-subtitle", "All source-reported statuses");
+841135	  destination.append(heading);
+841136	  const statuses = [...group.statuses].sort((a, b) =>
+841137	    b[1].recordedCapacity - a[1].recordedCapacity || a[0].localeCompare(b[0], "en-GB"));
+841138	  const list = el("div", "repd-report-statuses");
+841139	  for (const [status, stats] of statuses) {
+841140	    const item = el("div", "repd-report-status-item");
+841141	    item.append(el("span", "", status));
+841142	    item.append(el("span", "", formatCount(stats.count) + " projects"));
+841143	    item.append(el("span", "", capacityDescription(stats)));
+841144	    list.append(item);
+841145	  destination.append(list);
+841146	function projectRow(project) {
+841147	  const row = el("div", "repd-report-project");
+841148	  const link = el("a", "", String(project.name || "Unnamed REPD project"));
+841149	  link.href = projectTableLink(project);
+841150	  link.title = "Open this REPD record in the existing PipelineNews table, with MAP and A4";
+841151	  row.append(link);
+841152	  row.append(el("span", "", "REPD " + project.repd_ref));
+841153	  row.append(el("span", "", String(project.status || "Not reported")));
+841154	  row.append(el("span", "", formatCapacity(project.capacity_mw) +
+841155	    (project.technology === "solar" ? " MWp" : " MW")));
+841156	  const mapHref = projectMapLink(project);
+841157	  if (mapHref) {
+841158	    const map = el("a", "repd-report-map", "MAP");
+841159	    map.href = mapHref;
+841160	    map.target = "_blank";
+841161	    map.rel = "noopener noreferrer";
+841162	    map.title = "Open canonical GridAtlas with the selected REPD project";
+841163	    row.append(map);
+841165	    row.append(el("span", "repd-report-no-map", "NO MAP"));
+841167	function projectDetails(group, destination) {
+841168	  destination.append(el("h4", "repd-report-subtitle", "Projects · full REPD membership"));
+841169	  const projects = [...group.projects].sort((a, b) =>
+841170	    (Number(b.capacity_mw) || 0) - (Number(a.capacity_mw) || 0));
+841171	  const list = el("div", "repd-report-project-list");
+841173	  const more = el("button", "repd-report-more", "");
+841174	  more.type = "button";
+841175	  const add = () => {
+841177	    for (const project of projects.slice(shown, shown + 100)) fragment.append(projectRow(project));
+841178	    list.append(fragment);
+841179	    shown = Math.min(projects.length, shown + 100);
+841180	    more.textContent = "SHOW NEXT 100 · " + formatCount(shown) + " / " + formatCount(projects.length);
+841181	    more.hidden = shown >= projects.length;
+841183	  more.addEventListener("click", add);
+841184	  add();
+841185	  destination.append(more);
+841186	function makeGroup(group, maximum) {
+841187	  const details = el("details", "repd-report-group");
+841188	  const heading = el("summary", "repd-report-row");
+841189	  heading.append(el("span", "repd-report-name", group.name));
+841190	  heading.append(el("span", "", formatCapacity(group.recordedCapacity)));
+841191	  heading.append(el("span", "", formatCapacity(group.solarMwp)));
+841192	  heading.append(el("span", "", formatCapacity(group.otherMw)));
+841193	  heading.append(el("span", "", formatCount(group.count)));
+841194	  const track = el("span", "repd-report-track");
+841195	  const bar = el("span", "repd-report-bar");
+841196	  bar.style.width = (maximum > 0 ? Math.max(0, group.recordedCapacity / maximum * 100) : 0) + "%";
+841197	  track.append(bar);
+841198	  heading.append(track);
+841199	  details.append(heading);
+841200	  const content = el("div", "repd-report-group-details");
+841201	  details.append(content);
+841202	  details.addEventListener("toggle", () => {
+841203	    if (!details.open || content.dataset.loaded) return;
+841204	    content.dataset.loaded = "true";
+841205	    statusDetails(group, content);
+841206	    projectDetails(group, content);
+841208	function sourceRows() {
+841209	  if (!Array.isArray(state.all) || !state.all.length) return null;
+841210	  const selection = reportScope.value === "filtered" ? state.filtered : state.all;
+841211	  return Array.isArray(selection) ? selection : [];
+841213	  if (!active || panel.hidden) return;
+841214	  const rows = sourceRows();
+841215	  reportBody.replaceChildren();
+841216	  if (!rows) {
+841217	    lastReport = null;
+841218	    reportSummary.textContent = "Loading the canonical REPD records…";
+841219	    const report = buildRepdCapacityReport(rows, active);
+841220	    lastReport = report;
+841221	    const scope = reportScope.value === "filtered" ? "Current REPD table filters" : "Full official REPD register · all statuses";
+841222	    reportSummary.textContent = titles[active] + " · " + scope + " · " +
+841223	      formatCount(report.total.count) + " projects · " +
+841224	      formatCount(report.groups.length) + " groups · " +
+841225	      capacityDescription(report.total) +
+841226	      (report.total.missingCapacity ? " · " + report.total.missingCapacity + " without a reported capacity" : "");
+841227	    const heading = el("div", "repd-report-row repd-report-columns");
+841228	    for (const name of ["Group", "Recorded MW/MWp", "Solar MWp", "Other MW", "Projects"]) {
+841229	      heading.append(el("span", "", name));
+841230	    heading.append(el("span", "", ""));
+841231	    reportBody.append(heading);
+841232	    const maximum = report.groups.length ? report.groups[0].recordedCapacity : 0;
+841233	    for (const group of report.groups) fragment.append(makeGroup(group, maximum));
+841234	    reportBody.append(fragment);
+841235	    if (!report.groups.length) reportBody.append(el("p", "", "No REPD projects match the chosen scope."));
+841237	    reportSummary.textContent = "Report validation failed: " + String(error?.message || error);
+841238	function selectReport(dimension) {
+841239	  if (active === dimension && !panel.hidden) {
+841241	    active = "";
+841242	    active = dimension;
+841244	  for (const button of reportButtons) {
+841245	    const pressed = button.dataset.repdReport === active;
+841246	    button.setAttribute("aria-pressed", String(pressed));
+841247	    button.setAttribute("aria-expanded", String(pressed));
+841248	  if (active) render();
+841249	function downloadCsv() {
+841250	  if (!lastReport) return;
+841251	  const quote = value => '"' + String(value ?? "").replaceAll('"', '""') + '"';
+841252	  const rows = [["dimension", "group", "projects", "recorded MW/MWp", "solar MWp", "other MW", "missing capacity"]];
+841253	  for (const group of lastReport.groups) {
+841254	    rows.push([active, group.name, group.count, group.recordedCapacity, group.solarMwp, group.otherMw, group.missingCapacity]);
+841255	  const blob = new Blob([rows.map(row => row.map(quote).join(",")).join("\r\n") + "\r\n"], { type: "text/csv;charset=utf-8" });
+841257	  const a = el("a");
+841259	  a.download = "repd-" + active + "-capacity.csv";
+841260	  document.body.append(a);
+841264	if (panel && reportScope && reportSummary && reportBody) {
+841265	  for (const button of reportButtons) button.addEventListener("click", () => selectReport(button.dataset.repdReport));
+841266	  reportScope.addEventListener("change", render);
+841267	  closeButton?.addEventListener("click", () => {
+841268	    for (const button of reportButtons) {
+841270	      button.setAttribute("aria-expanded", "false");
+841271	  csvButton?.addEventListener("click", downloadCsv);
+841272	  window.addEventListener("pipeline-projects-rendered", () => {
+841273	    if (active && reportScope.value === "filtered") render();
+841274	    else if (active && !lastReport) render();
+841276	import { chromium, webkit } from "playwright";
+841277	const origin = "http://127.0.0.1:8765/uk_renewables_pipeline/202611222330/";
+841278	for (const [name, engine] of [["chromium", chromium], ["webkit", webkit]]) {
+841279	  const browser = await engine.launch({ headless: true });
+841280	    for (const viewport of [{width:393,height:852},{width:852,height:393}]) {
+841281	      const context = await browser.newContext({ viewport, isMobile:true, hasTouch:true, reducedMotion:"reduce" });
+841284	      page.on("pageerror", error => errors.push(error.message));
+841285	      await page.route("https://raw.githubusercontent.com/**", route => route.abort());
+841287	        await page.goto(origin, { waitUntil: "domcontentloaded", timeout: 90000 });
+841288	        await page.waitForFunction(() =>
+841289	          document.querySelectorAll("#tbody tr[id^=repd-]").length === 50 &&
+841290	          !!document.querySelector("#tbody .pn-journey-link.atlaslink[href]"),
+841291	          { timeout: 90000 });
+841292	        const initialMap = await page.locator("#tbody .pn-journey-link.atlaslink[href]").first().getAttribute("href");
+841293	        assert.equal(new URL(initialMap).pathname, "/gridatlas/atlas/");
+841294	        for (const dimension of ["operator","status","region"]) {
+841295	          const button = page.locator('[data-repd-report="' + dimension + '"]');
+841296	          await button.click();
+841297	          assert.equal(await button.getAttribute("aria-pressed"), "true");
+841298	          const panel = page.locator("#repdReportsPanel");
+841299	          await panel.waitFor({state:"visible"});
+841300	          await page.waitForFunction(() => document.querySelector("#repdReportsSummary")?.textContent?.includes("7,775 projects"));
+841301	          const groups = await page.locator("#repdReportsBody .repd-report-group").count();
+841302	          assert.ok(groups >= 2, dimension + " must show full REPD grouping");
+841303	          const first = page.locator("#repdReportsBody .repd-report-group").first();
+841304	          await first.locator("summary").click();
+841305	          await first.locator(".repd-report-project").first().waitFor();
+841306	          const refLink = await first.locator(".repd-report-project a").first().getAttribute("href");
+841307	          assert.ok(new URL(refLink).searchParams.get("q"), dimension + " links into original REPD register");
+841308	          const mapLink = first.locator(".repd-report-map").first();
+841309	          if (await mapLink.count()) {
+841310	            const href = new URL(await mapLink.getAttribute("href"));
+841311	            assert.equal(href.origin + href.pathname,"https://ventusltd.github.io/gridatlas/atlas/");
+841312	            assert.ok(href.searchParams.get("repd_ref"));
+841314	          await page.locator("#repdReportsClose").click();
+841315	          assert.equal(await panel.isVisible(), false);
+841316	          assert.equal(await button.getAttribute("aria-pressed"), "false");
+841318	        // Live filters stay in the canonical register, and the filtered report reconciles.
+841319	        await page.locator('[data-repd-report="region"]').click();
+841320	        await page.locator("#repdReportScope").selectOption("filtered");
+841321	        await page.locator("#minMW").fill("1000");
+841322	        await page.locator("#applyMW").click();
+841324	          const text = document.querySelector("#repdReportsSummary")?.textContent || "";
+841325	          const number = text.match(/([0-9,]+) projects/);
+841326	          return number && Number(number[1].replaceAll(",","")) < 7775;
+841328	        const filtered = await page.locator("#repdReportsSummary").textContent();
+841329	        assert.ok(filtered.includes("Current REPD table filters"));
+841330	        await page.locator("#repdReportsClose").click();
+841331	        // The ≥1000 MW subset can legitimately lack coordinates: never assert MAP for every row.
+841332	        await page.locator("#minMW").fill("");
+841333	        await page.waitForFunction(() => !!document.querySelector("#tbody .pn-journey-link.atlaslink[href]"));
+841334	        assert.equal(await page.locator("#tbody .pn-journey-link.atlaslink[href]").first().getAttribute("href"), initialMap,
+841335	          "Restored native REPD MAP must remain unchanged after report filtering");
+841336	        assert.deepEqual(errors, [], "No uncaught errors in REPD/report integration");
+841337	        console.log("PASS V9.73",name,viewport.width+"x"+viewport.height,"operator,status,region,drilldown,filtered,MAP");
+841338	      } finally { await context.close(); }
+841340	import { test } from "node:test";
+841344	import { buildRepdCapacityReport, NOT_REPORTED } from "../repd-reports-model.mjs";
+841345	const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+841346	const read = file => JSON.parse(readFileSync(resolve(root, file), "utf8"));
+841347	const almost = (a, b) => assert.ok(Math.abs(a - b) < 0.011, "Capacity mismatch " + a + " != " + b);
+841348	test("source nulls, all statuses and technologies remain separate", () => {
+841350	    { repd_ref: "1", technology: "solar", capacity_mw: 10.5, operator: "Alpha", region: "South West", status: "Operational" },
+841351	    { repd_ref: "2", technology: "bess", capacity_mw: 20, operator: "Alpha", region: "South West", status: "Application Submitted" },
+841352	    { repd_ref: "3", technology: "wind_onshore", capacity_mw: 1.5, operator: "", region: null, status: "Refused" },
+841353	    { repd_ref: "4", technology: "solar", capacity_mw: 4, operator: "Beta", region: "Scotland", status: "Withdrawn" },
+841354	    { repd_ref: "IC-1", technology: "interconnector", capacity_mw: 9000, operator: "Alpha", status: "Operational" }
+841356	  const operators = buildRepdCapacityReport(rows, "operator");
+841357	  const statuses = buildRepdCapacityReport(rows, "status");
+841358	  const regions = buildRepdCapacityReport(rows, "region");
+841359	  assert.equal(operators.total.count, 4);
+841360	  almost(operators.total.recordedCapacity, 36);
+841361	  almost(operators.total.solarMwp, 14.5);
+841362	  almost(operators.total.otherMw, 21.5);
+841363	  assert.equal(operators.groups.find(g => g.name === "Alpha").count, 2);
+841364	  assert.deepEqual(new Set(statuses.groups.map(g => g.name)), new Set(["Operational", "Application Submitted", "Refused", "Withdrawn"]));
+841365	  assert.equal(regions.groups.find(g => g.name === NOT_REPORTED).count, 1);
+841366	  assert.equal(operators.groups.find(g => g.name === NOT_REPORTED).count, 1);
+841367	  assert.throws(() => buildRepdCapacityReport([rows[0], rows[0]], "operator"), /Duplicate REPD/);
+841368	  assert.throws(() => buildRepdCapacityReport([{}], "region"), /Missing REPD/);
+841369	  assert.throws(() => buildRepdCapacityReport(rows, "country"), /Unsupported/);
+841371	test("actual frozen DESNZ REPD spine reconciles across all three reports", () => {
+841372	  const manifest = read("data/v9.1/build_manifest.json");
+841373	  const rows = manifest.project_partitions.flatMap(item => read(item.path).projects);
+841374	  assert.equal(rows.length, 7775);
+841375	  for (const report of [operators, statuses, regions]) {
+841376	    assert.equal(report.total.count, rows.length, "No silently dropped REPD projects");
+841377	    assert.equal(report.uniqueRefs, rows.length, "Unique REPD identities");
+841378	    almost(report.total.recordedCapacity, manifest.capacity_mw);
+841379	    almost(report.groups.reduce((acc, g) => acc + g.recordedCapacity, 0), report.total.recordedCapacity);
+841380	    assert.equal(report.groups.reduce((acc, g) => acc + g.count, 0), rows.length);
+841381	    for (const group of report.groups) {
+841382	      assert.equal(group.statuses.size, new Set(group.projects.map(p => p.status?.trim() || "Not reported")).size);
+841383	      assert.equal([...group.statuses.values()].reduce((s, x) => s + x.count, 0), group.count);
+841384	      almost([...group.statuses.values()].reduce((s, x) => s + x.recordedCapacity, 0), group.recordedCapacity);
+841385	      almost(group.solarMwp + group.otherMw, group.recordedCapacity);
+841386	  assert.deepEqual(new Set(statuses.groups.map(g => g.name)), new Set(rows.map(p => p.status?.trim() || "Not reported")));
+841387	  assert.deepEqual(new Set(regions.groups.map(g => g.name)), new Set(rows.map(p => p.region?.trim() || "Not reported")));
+841388	  assert.deepEqual(new Set(operators.groups.map(g => g.name)), new Set(rows.map(p => p.operator?.trim() || "Not reported")));
+841389	  console.log("PASS: 7,775 unique REPD projects, three full-dimensional reconciliations; status count", statuses.groups.length,
+841390	    "region count", regions.groups.length, "operator count", operators.groups.length);
+841406	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">Open Pipeline News &rarr;</a></div></details>
+841429	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.73 - Operator, Status and Region MW reports</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221900/">V9.70 - Expanded MAP navigation parity</a><small class="entity-key">202611221900</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">V9.71 - Simplified REPD expanded-view controls</a><small class="entity-key">202611221930</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222222/">V9.72 - VICINITY MAP and A4/PDF link parity</a><small class="entity-key">202611222222</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">V9.73 - Operator, Status and Region MW reports</a><small class="entity-key">202611222330</small></div></details></td></tr>
+847870	    return; // retired: layout panel never mounted
+848079	    return false; // retired: no substation-triggered layout
+848094	    return false; // retired: no project-triggered layout
+848147	    // Preserve fullscreen layers and corridors, not Layout Sandbox UI.
+848152	  }})();
+848534	/* GridAtlas V9.195 candidate: asset-first VICINITY focus.
+848535	 * Adds a single browseable source-backed asset card without changing the V9.194
+848536	 * engine, its 30/30/30 caps, 5/10/20 km calculations or the canonical MAP.
+848537	 * Layout Sandbox is closed and suppressed only while Project vicinity is active.
+848539	 const W=window,D=document,ROOT=D.documentElement;
+848540	 const module=()=>W.__GRIDATLAS_MODULES__?.ukOfftakers;
+848541	 const map=()=>W.__GRIDATLAS_V9_MAP__;
+848542	 const id='gridatlas-vicinity-focus-style';
+848543	 if(!D.getElementById(id)){
+848544	   const css=D.createElement('style');css.id=id;
+848545	   css.textContent=`html[data-vicinity-focus="on"] #gridatlas-sld-panel{display:none!important}
+848546	   [data-vicinity-focus-card]{border:1px solid #367078;border-radius:5px;background:#06151b;padding:10px;margin:7px 0;line-height:1.55;max-width:100%;box-sizing:border-box}
+848547	   [data-vicinity-focus-title]{font:600 15px/1.4 monospace;color:#c3f5f1;overflow-wrap:anywhere}
+848548	   [data-vicinity-focus-row]{display:flex;gap:8px;justify-content:space-between;border-bottom:1px solid #17383b;padding:4px 0;align-items:baseline}
+848549	   [data-vicinity-focus-row]>span:first-child{color:#9badb2;flex:0 0 34%}
+848550	   [data-vicinity-focus-row]>span:last-child{color:#e7f4ef;flex:1;text-align:right;overflow-wrap:anywhere}
+848551	   [data-vicinity-browse-toggle]{display:block;min-height:44px;width:100%;background:#07191f;color:#a6e9e3;border:1px solid #367078;border-radius:4px;margin:4px 0 8px;padding:8px;cursor:pointer;text-align:left;font:12px monospace}`;
+848552	   D.head.appendChild(css);
+848554	 let active=null,observing=null,mapBound=null,shutdown=false;
+848555	 const fmt=n=>Number.isFinite(+n)?Number(n).toLocaleString('en-GB',{maximumFractionDigits:2}):'not stated';
+848556	 const safely=v=>v==null||v===''?'not stated':String(v).slice(0,200);
+848557	 const label=(p,txt,attr)=>{const e=D.createElement('div');if(attr)e.dataset[attr]='';e.textContent=txt;p.appendChild(e);return e};
+848558	 const asset=(card)=>{
+848559	   const s=card.swipe;if(!s)return null;
+848560	   if(card.__vicFocus?.origin){
+848561	     const p=card.r?.p||{};
+848562	     return{title:card.r?.n||'Selected REPD project',kind:'REPD project (origin)',
+848563	       source:'PipelineNews MAP arrival parameters; a location is not a declared grid connection',
+848564	       rows:[['Distance','0 km straight line (origin)'],['REPD reference',safely(p.repd_ref)],
+848565	         ['Technology',safely(p.technology)],['Registered capacity',p.capacity_mw>0?fmt(p.capacity_mw)+' MW':'MW not stated']],
+848566	       index:'origin',count:s.entries?.length||0};
+848568	   if(!s.entries?.length)return null;
+848569	   const r=s.entries[s.index],position=s.entries.slice(0,s.index).filter(x=>x.tab===r.tab).length;
+848570	   const rows=[['Distance',fmt(r.km)+' km straight line']];
+848571	   let title=r.name,kind='Asset',source='',record;
+848572	   if(r.tab==='s'){
+848573	     kind='Substation';record=card.k?.[position];
+848574	     if(record){title=record.name||title;rows.push(['Voltage',fmt(record.kv)+' kV']);if(record.operator)rows.push(['Operator',safely(record.operator)]);}
+848575	     source='Map substation register / OpenStreetMap, ODbL';
+848576	   }else if(r.tab==='r'){
+848577	     kind='REPD project';record=card.P?.[position]?.parts?.[0];
+848578	     if(record){title=record.name||title;rows.push(['Technology',safely(record.raw_tech||record.tech)]);rows.push(['Status',safely(record.status)]);rows.push(['Registered capacity',record.capacity>0?fmt(record.capacity)+' MW':'MW not stated']);if(card.P[position].parts.length>1)rows.push(['Shared site',card.P[position].parts.length+' registered projects']);}
+848579	     source='REPD map register, DESNZ; exact-source details via existing REPD tab';
+848580	   }else if(r.tab==='v'){
+848581	     kind='Conventional power site';record=card.cv?.[position]?.q;
+848582	     if(record){title=record.n||title;rows.push(['Operator',safely(record.op)]);rows.push(['Fuel / technology',[record.f,record.te].filter(Boolean).join(' / ')||'not stated']);rows.push(['Status',safely(record.st)]);rows.push(['Installed capacity',record.mw>0?fmt(record.mw)+' MW':'MW not stated']);}
+848583	     source='Conventional power open register; see detailed source in existing tab';
+848584	   return{title,kind,source,rows,index:s.index+1,count:s.entries.length};
+848586	 function render(card){
+848587	   if(active!==card||!card.isConnected||!card.__vicFocus)return;
+848588	   const ui=card.__vicFocus,a=asset(card);
+848589	   const signature=a?JSON.stringify(a):'empty';
+848590	   if(ui.signature===signature)return;ui.signature=signature;
+848591	   const box=ui.box;box.textContent='';
+848592	   if(!a){label(box,'Loading nearby substations, REPD projects and power stations.','vicinityFocusTitle');return;}
+848593	   label(box,a.kind+' | '+a.index+' of '+a.count,'vicinityFocusKind');
+848594	   label(box,a.title,'vicinityFocusTitle').setAttribute('data-vicinity-focus-title','');
+848595	   for(const [key,value] of a.rows){const row=D.createElement('div');row.setAttribute('data-vicinity-focus-row','');const l=D.createElement('span'),v=D.createElement('span');l.textContent=key;v.textContent=safely(value);row.append(l,v);box.appendChild(row)}
+848596	   label(box,'Source: '+a.source,'vicinityFocusSource').style.cssText='padding-top:7px;color:#9aabb0;font-size:10px';
+848597	   label(box,'Screening only: proximity does not establish a grid connection, route, capacity or headroom.','vicinityFocusCaveat').style.cssText='padding-top:6px;color:#adc4c7;font-size:10px';
+848598	 function navigate(card,type,rank){
+848599	   const s=card.swipe;if(!s||!s.entries?.length)return false;
+848600	   let count=0,target=-1;
+848601	   for(let i=0;i<s.entries.length;i++)if(s.entries[i].tab===type){if(count===rank){target=i;break;}count++}
+848602	   if(target<0)return false;
+848603	   card.__vicFocus.origin=false;s.label.style.visibility='';
+848604	   s.index=(target+s.entries.length-1)%s.entries.length;
+848605	   s.next.click();render(card);
+848607	 function install(card){
+848608	   if(card.__vicFocus)return;
+848609	   const s=card.swipe;if(!s)return;
+848610	   // Keep map and asset foreground; the old four tabs and full listings remain
+848611	   // available from the secondary Browse sets control.
+848612	   const nav=s.prev.parentElement;
+848613	   card.head.insertBefore(nav,card.tl);
+848614	   const panel=D.createElement('div');panel.setAttribute('data-vicinity-focus-card','');
+848615	   panel.setAttribute('role','group');panel.setAttribute('aria-label','Selected vicinity asset');
+848616	   card.head.insertBefore(panel,card.tl);
+848617	   const more=D.createElement('button');more.type='button';more.setAttribute('data-vicinity-browse-toggle','');more.textContent='Browse nearby sets and full records +';
+848618	   more.setAttribute('aria-expanded','false');card.head.insertBefore(more,card.tl);
+848619	   const groups=[card.tl,card.pn,card.csv];
+848620	   groups.forEach(g=>{g.style.display='none'});
+848621	   more.addEventListener('click',()=>{const open=more.getAttribute('aria-expanded')!=='true';more.setAttribute('aria-expanded',String(open));more.textContent=open?'Hide nearby sets -':'Browse nearby sets and full records +';groups.forEach(g=>g.style.display=open?'':'none')});
+848622	   card.d.open=false;card.d.querySelector('summary')?.setAttribute('title','Show 5/10/20 km area analysis');
+848623	   card.setAttribute('aria-label','Project vicinity asset browser');
+848624	   card.__vicFocus={box:panel,more,signature:null,origin:true};
+848625	   // The first card is always the clicked PipelineNews project; the 90
+848626	   // neighbouring locations start only after the first left/right movement.
+848627	   s.label.style.visibility='hidden';
+848628	   for(const [button,direction] of [[s.next,1],[s.prev,-1]]){
+848629	     button.addEventListener('click',()=>{
+848630	       if(!card.__vicFocus?.origin||!s.entries.length)return;
+848631	       card.__vicFocus.origin=false;
+848632	       s.index=direction===1?s.entries.length-1:0;
+848633	       s.label.style.visibility='';
+848634	     },true);
+848635	   let touchOrigin=null;
+848636	   card.addEventListener('touchstart',e=>{if(e.touches.length===1)touchOrigin={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true,capture:true});
+848637	   card.addEventListener('touchend',e=>{
+848638	     if(!card.__vicFocus?.origin||!s.entries.length||!touchOrigin||!e.changedTouches.length)return;
+848639	     const x=e.changedTouches[0].clientX-touchOrigin.x,y=e.changedTouches[0].clientY-touchOrigin.y;
+848640	     touchOrigin=null;
+848641	     if(Math.abs(x)>54&&Math.abs(x)>1.5*Math.abs(y)){
+848642	       s.index=x<0?s.entries.length-1:0;
+848644	   },{passive:true,capture:true});
+848645	   card.addEventListener('click',e=>{
+848646	     if(!card.__vicFocus||!card.isConnected)return;
+848647	     const row=e.target.closest('[data-offtakers-row]');
+848648	     if(!row||!card.contains(row)||!['s','r','v'].includes(card.tab))return;
+848649	     const rank=Number(row.dataset.offtakersRow);
+848650	     if(!Number.isInteger(rank)||rank<0)return;
+848651	     if(navigate(card,card.tab,rank)){e.preventDefault();e.stopImmediatePropagation();if(more.getAttribute('aria-expanded')==='true')more.click()}
+848652	   },true);
+848653	   const watch=new MutationObserver(()=>render(card));watch.observe(s.label,{childList:true,characterData:true,subtree:true});
+848654	   observing?.disconnect();observing=watch;
+848655	   render(card);
+848656	 function sync(){
+848657	   if(shutdown)return;
+848658	   const card=module()?.state?.pp;
+848659	   const focused=!!(card?.project&&card.isConnected&&card.swipe);
+848660	   if(!focused){
+848661	     if(active){observing?.disconnect();observing=null;active=null}
+848662	     ROOT.removeAttribute('data-vicinity-focus');return;
+848663	   ROOT.setAttribute('data-vicinity-focus','on');
+848664	   if(card!==active){
+848665	     active=card;
+848666	     // Stop the unrelated layout calculation panel taking over the screen.
+848667	     const close=D.querySelector('#gridatlas-sld-panel .sld-close');
+848668	     if(close)try{close.click()}catch(_){}
+848669	     install(card);
+848670	   const m=map();
+848671	   if(m&&m!==mapBound&&typeof m.on==='function'){
+848672	     mapBound=m;
+848673	     m.on('click',e=>{
+848674	       const c=active;
+848675	       if(!c?.project||!c.isConnected)return;
+848676	       const layer='gridatlas-offtakers-neon-dc-node';
+848677	       try{
+848678	         if(!m.getLayer(layer))return;
+848679	         const features=m.queryRenderedFeatures(e.point,{layers:[layer]});
+848680	         const key=features?.[0]?.properties?.id;
+848681	         const hit=/^([srv])(\d+)$/.exec(String(key||''));
+848682	         if(hit){navigate(c,hit[1],Number(hit[2]));e.preventDefault?.()}
+848683	       }catch(_){}
+848684	     });
+848685	 const timer=setInterval(sync,250);
+848686	 D.addEventListener('visibilitychange',sync);
+848687	 W.addEventListener('pagehide',()=>{shutdown=true;clearInterval(timer);observing?.disconnect();ROOT.removeAttribute('data-vicinity-focus')},{once:true});
+848689	/* GridAtlas V9.196: keep the inherited Grid Engine; repair PDF/tab wake and Layers hit target. */
+848693	 const ref=q.get('repd_ref'),latRaw=q.get('latitude'),lonRaw=q.get('longitude');
+848694	 if(!/^[1-9]\d{0,11}$/.test(ref||'')||!latRaw?.trim()||!lonRaw?.trim())return;
+848696	 const lat=Number(latRaw),lon=Number(lonRaw);
+848697	 if(!Number.isFinite(lat)||!Number.isFinite(lon)||lat<49.5||lat>61.5||lon< -11||lon>3)return;
+848698	 if(Math.abs(lat-49.766807)<.0001&&Math.abs(lon+7.55716)<.0001)return;
+848699	 const loc=[lon,lat],name=(q.get('project')||q.get('name')||'REPD '+ref).slice(0,180);
+848700	 const tech=(q.get('technology')||'').slice(0,80),mw=Number(q.get('capacity_mw'));
+848701	 const started=Date.now(),qa=W.__GRIDATLAS_VICINITY_LINK_QA__={generation:'202611222325',repd_ref:ref,layers:'pending',grid:'pending',fallback_attempts:0};
+848702	 function answered(){const e=W.__GRIDATLAS_NEON_LINKS__;return Boolean(e?.arrival_engine?.answered===true||e?.links_drawn>0||e?.declared_connection_framed===true)}
+848703	 function floatLayers(){
+848704	   const b=D.getElementById('gridatlas-dash-toggle');if(!b)return;
+848705	   // The V9.194 launcher put this button INSIDE the map-controls stacking
+848706	   // context. Its huge z-index could not outrank the project card.
+848707	   const host=D.fullscreenElement||D.webkitFullscreenElement||D.body;
+848708	   if(!host)return;
+848709	   if(b.parentElement!==host)host.appendChild(b);
+848710	   b.hidden=false;
+848711	   const menu=D.getElementById('gridatlas-menu-bar'),map=W.__GRIDATLAS_V9_MAP__?.getContainer?.();
+848712	   const anchor=menu?.getBoundingClientRect?.().bottom??map?.getBoundingClientRect?.().top??0;
+848713	   const height=Math.max(80,W.innerHeight||D.documentElement.clientHeight||852);
+848714	   const top=Math.min(Math.max(8,Math.ceil(anchor)+8),Math.max(8,height-54));
+848715	   for(const [k,v] of Object.entries({position:'fixed',top:top+'px',bottom:'auto',right:'12px',left:'auto','z-index':'2147483646','pointer-events':'auto','touch-action':'manipulation','min-height':'44px'}))b.style.setProperty(k,v,'important');
+848716	   qa.layers='accessible-floating-toggle';
+848717	 let wakes=0,recovered=false,inflight=false;
+848718	 function wake(){
+848719	   const l=W.__GRIDATLAS_NEON_LINKS__;
+848720	   if(D.visibilityState!=='visible'||answered()||wakes>=2)return;
+848721	   if(!l?.arrival_attempts||l?.arrival_engine?.reason==='DEFERRED_FOR_VISIBILITY'){
+848722	     wakes++;D.dispatchEvent(new Event('visibilitychange'));qa.grid='visible-wake-'+wakes;
+848723	 async function fallback(){
+848724	   if(answered()){qa.grid='answered';return}
+848725	   if(D.visibilityState!=='visible'||Date.now()-started<20000||recovered||inflight)return;
+848726	   if(typeof l?.selectAt!=='function'||l.arrival_engine?.terminal===false)return;
+848727	   if(['FALSE_ORIGIN','NOT_IN_REGISTER','HANDED_TO_INTERCONNECTORS','IDENTITY_REJECTED'].includes(l.arrival_engine?.reason))return;
+848728	   recovered=inflight=true;qa.fallback_attempts++;qa.grid='measuring-original-engine';
+848729	     const ok=await l.selectAt(loc,name,tech,false,Number.isFinite(mw)&&mw>0?mw:null);
+848730	     qa.grid=ok===true?'original-engine-completed':'original-engine-unavailable';
+848731	   }catch(error){qa.grid='original-engine-failed';qa.error=String(error?.message||error).slice(0,160)}
+848732	   finally{inflight=false}
+848733	 function tick(){floatLayers();if(answered()){qa.grid='answered';return}if(Date.now()-started>1500&&wakes===0)wake();void fallback()}
+848734	 const timer=setInterval(tick,1000);
+848735	 const later=()=>setTimeout(tick,0);
+848736	 for(const n of ['focus','pageshow','resize','orientationchange'])W.addEventListener(n,later);
+848737	 for(const n of ['fullscreenchange','webkitfullscreenchange'])D.addEventListener(n,later);
+848738	 D.addEventListener('visibilitychange',later);
+848739	 W.addEventListener('pagehide',()=>clearInterval(timer),{once:true});
+848740	 tick();
+848741	/* V9.197 correction: the native dash toggle controls .scada-wrapper.
+848742	 * In fullscreen (including Safari's CSS-only fullscreen) that wrapper is
+848743	 * outside the visible map; the working original control is #fs-curtain-tab.
+848744	 * Route the same visible floating button into the original curtain handler.
+848745	 * Never claim that a changed .collapsed Boolean means a layer panel appeared.
+848746	(function fullscreenLayerBridge(){
+848747	 const W=window,D=document;
+848748	 const fullMode=()=>!!(D.fullscreenElement||D.webkitFullscreenElement||
+848749	   D.body.classList.contains('fs-active')||
+848750	   D.getElementById('map-container')?.classList.contains('is-fullscreen'));
+848751	 let wired=null,origin=null;
+848752	 const result=W.__GRIDATLAS_LAYER_VISIBILITY_QA__={
+848753	   generation:'202611222343',mode:'waiting',curtain_clicks:0,fullscreen_panel_visible:false};
+848754	 function reflect(){
+848755	   const button=D.getElementById('gridatlas-dash-toggle');
+848756	   const curtain=D.getElementById('fs-curtain');
+848757	   const tab=D.getElementById('fs-curtain-tab');
+848758	   if(!button||!curtain||!tab)return;
+848759	   const nativeFull=D.fullscreenElement||D.webkitFullscreenElement;
+848760	   if(nativeFull&&!nativeFull.contains(curtain)){
+848761	     if(!origin)origin={parent:curtain.parentNode,next:curtain.nextSibling};
+848762	     nativeFull.appendChild(curtain); // moves original controls/listeners, never clones
+848763	   }else if(!nativeFull&&origin){
+848764	     if(origin.next?.parentNode===origin.parent)origin.parent.insertBefore(curtain,origin.next);
+848765	     else origin.parent.appendChild(curtain);
+848766	     origin=null;
+848767	   const fullscreen=fullMode();
+848768	   if(wired!==button){
+848769	     wired=button;
+848770	     button.addEventListener('click',event=>{
+848771	       if(!fullMode())return; // ordinary view keeps original .scada-wrapper logic
+848772	       event.preventDefault();event.stopImmediatePropagation();
+848773	       const target=D.getElementById('fs-curtain-tab');
+848774	       const panel=D.getElementById('fs-curtain');
+848775	       if(!target||!panel){result.mode='missing-original-curtain';return}
+848776	       target.click(); // the original GridAtlas engine owns curtainOpen
+848777	       result.curtain_clicks++;
+848778	       result.mode='fullscreen-curtain';
+848779	       result.fullscreen_panel_visible=panel.classList.contains('curtain-open');
+848780	       reflect();
+848781	   if(fullscreen){
+848782	     button.hidden=false;
+848783	     const shown=curtain.classList.contains('curtain-open');
+848784	     button.textContent=shown?'▴ HIDE LAYERS':'▾ LAYERS';
+848785	     button.setAttribute('aria-label',shown?'Hide the fullscreen layers panel':'Show the fullscreen layers panel');
+848786	     button.setAttribute('aria-pressed',String(shown));
+848787	     result.mode='fullscreen-curtain';
+848788	     result.fullscreen_panel_visible=shown;
+848790	     result.mode='normal-scada-panel';
+848791	     result.fullscreen_panel_visible=false;
+848792	     // The original control still owns ordinary collapse, label and state.
+848793	     const collapsed=W.__GRIDATLAS_DASH__?.collapsed;
+848794	     if(typeof collapsed==='boolean'){
+848795	       button.textContent=collapsed?'▴ LAYERS':'▾ HIDE LAYERS';
+848796	       button.setAttribute('aria-pressed',String(collapsed));
+848797	       button.setAttribute('aria-label',collapsed?'Show the layers panel':'Hide the layers panel');
+848798	 const timer=setInterval(reflect,250);
+848799	 for(const event of ['focus','pageshow','resize','orientationchange'])W.addEventListener(event,reflect);
+848800	 for(const event of ['fullscreenchange','webkitfullscreenchange'])D.addEventListener(event,reflect);
+848801	 reflect();
+848811	const approved195=['202611222130','202611222325','202611222343'].includes(live.generation)&&['pipeline-vicinity-button','uk-offtakers-overlay'].every(id=>{
+848812	 const active=live.cartridges.find(x=>x.id===id),approved=candidate.cartridges.find(x=>x.id===id);
+848813	 return active&&approved&&active.sha256===approved.sha256;
+848814	assert.ok(['202611161720',gen].includes(live.generation)||approved195,'later live may carry V9.194 only with both approved exact cartridge pins');
+848815	if(live.generation===gen||approved195)for(const c of candidate.cartridges.filter(x=>!approved195||x.id!=='sld-sandbox')){
+848844	import {retireLayout,sourcePath,outputPath} from '../sld/retire-gridatlas-layout.mjs';
+848845	const read=x=>fs.readFileSync(path.join(root,x),'utf8');
+848846	const manifest=JSON.parse(read('atlas/manifests/202611222130-composition.json'));
+848847	const preview=JSON.parse(read('atlas/v/202611222130/current.json'));
+848848	const live=JSON.parse(read('atlas/current.json'));
+848849	assert.ok(['202611222000','202611222130','202611222325','202611222343'].includes(live.generation),'live must be V9.194 or verified V9.195');
+848850	if(live.generation==='202611222130')for(const c of manifest.cartridges){
+848851	 assert.ok(active&&active.sha256===c.sha256,'promoted '+c.id+' must match the accepted source pin');
+848852	assert.equal(manifest.generation,'202611222130');
+848853	assert.equal(manifest.previous_generation,'202611222000','immutable V9.194 predecessor must remain fixed before and after publication');
+848854	assert.equal(manifest.acceptance?.full_application_copies_created,0);
+848855	assert.equal(manifest.composition_manifest,'./manifests/202611222130-composition.json');
+848856	for(const key of ['parent_generation','version','cut_at_utc','note','acceptance','candidate_status'])delete manifest[key];
+848857	const canonical=JSON.stringify(manifest,null,1)+'\n';
+848858	const expectedPreview=canonical.replace(/": "(\.\/|\.\.\/)/g,'": "../../');
+848859	assert.equal(read('atlas/v/202611222130/current.json'),expectedPreview,'preview must be the exact live pointer re-rooted');
+848860	const sld=manifest.cartridges.find(c=>c.id==='sld-sandbox');
+848861	assert.equal(sld.generation,'202611222130');
+848862	assert.equal(sld.path,'./modules/202611222130-sld-without-layout.js');
+848863	const original=read(sourcePath),derived=read(outputPath);
+848864	assert.equal(derived,retireLayout(original),'exact minimal layout-only change');
+848865	assert.ok(Buffer.byteLength(derived)>445000,'carrier must not be truncated');
+848866	assert.equal(crypto.createHash('sha256').update(derived).digest('hex'),sld.sha256);
+848867	assert.equal(Buffer.byteLength(derived),sld.bytes);
+848868	new vm.Script(derived);
+848869	assert.ok(!derived.includes('        + `<button class="neon-layout"'));
+848870	assert.ok(derived.includes("return false; // retired: no substation-triggered layout"));
+848871	assert.ok(derived.includes("return false; // retired: no project-triggered layout"));
+848872	assert.ok(derived.includes('function enableSubstationLayer()'));
+848873	assert.ok(derived.includes('window.__GRIDATLAS_NEON_LINKS__'));
+848874	assert.ok(derived.includes('keepLayersInFullscreen();'));
+848875	assert.ok(derived.includes('armCorridorGestures(map);'));
+848876	assert.deepEqual(preview.cartridge_order,manifest.cartridge_order);
+848877	console.log('PASS release V9.195: no SLD UI, untouched source, full Grid Engine and release/preview byte parity');
+848883	const output=path.resolve('work/vicinity-v9195-'+engine);fs.mkdirSync(output,{recursive:true});
+848884	const context=await browser.newContext({viewport:{width:393,height:852},isMobile:true,hasTouch:true});
+848887	const params='repd_ref=12588&latitude=51.8132088&longitude=-1.3489728&project=Botley%20West&technology=solar&journey=vicinity';
+848888	let receipt={engine,softwareEmulation:true,physicalSafari:false};
+848890	 const url='http://127.0.0.1:'+server.address().port+'/atlas/v/202611222130/?'+params;
+848892	 await page.waitForFunction(()=>window.__GRIDATLAS_ATLAS__?.generation==='202611222130'&&!!window.__GRIDATLAS_V9_MAP__&&!!window.__GRIDATLAS_MODULES__?.ukOfftakers?.openProjectVicinity,null,{timeout:120000});
+848893	 // No Layout Sandbox may be launched from a substation OR a project, even
+848894	 // when a client still calls the legacy public method. Grid Engine stays on.
+848895	 const control=await page.evaluate(()=>{
+848896	   const g=window.__GRIDATLAS_MODULES__?.gridScope;
+848897	   const links=window.__GRIDATLAS_NEON_LINKS__;
+848898	   const sld=window.__GRIDATLAS_SLD__;
+848899	   const map=window.__GRIDATLAS_V9_MAP__;
+848900	   return {
+848901	     scope:typeof g?.scope==='function',
+848902	     near:typeof links?.measure?.nearestSubstations==='function',
+848903	     sldPresent:!!sld,
+848904	     openAt:sld?.openAt?.(map,[-1.3489728,51.8132088],'Node','132 kV'),
+848905	     openProject:sld?.openFromProject?.(map,{origin:[-1.3489728,51.8132088],name:'Botley West',links:[]}),
+848906	     active:sld?.active===true
+848909	 assert.equal(control.scope,true,'Grid Scope must remain usable');
+848910	 assert.equal(control.near,true,'nearest substation engine must remain usable');
+848911	 assert.equal(control.sldPresent,true,'carrier object remains for compatibility');
+848912	 assert.equal(control.openAt,false,'direct substation Layout entry disabled');
+848913	 assert.equal(control.openProject,false,'project Layout entry disabled');
+848914	 assert.equal(control.active,false,'layout never becomes active');
+848915	 assert.equal(await page.locator('#gridatlas-sld-panel').count(),0,'layout panel must not exist');
+848916	 assert.equal(await page.locator('button.neon-layout').count(),0,'layout button removed');
+848917	 const button=page.locator('#gridatlas-pipeline-vicinity-button');
+848918	 await button.waitFor({timeout:10000});await (engine==='webkit'?button.tap():button.click());
+848920	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__?.ukOfftakers?.state?.pp?.swipe?.entries?.length>=2,null,{timeout:120000});
+848921	 const focus=card.locator('[data-vicinity-focus-card]');
+848922	 await focus.waitFor({timeout:10000});
+848923	 assert.equal(await page.locator('html[data-vicinity-focus="on"]').count(),1);
+848924	 assert.match(await focus.innerText(),/Substation|REPD project|Conventional power site/);
+848925	 assert.match(await focus.innerText(),/km straight line/);
+848926	 assert.match(await focus.innerText(),/Source:/);
+848927	 const panel=page.locator('#gridatlas-sld-panel');
+848928	 if(await panel.count())assert.equal(await panel.isVisible(),false,'layout must not cover focused asset');
+848929	 assert.equal(await card.locator('[data-vicinity-browse-toggle]').getAttribute('aria-expanded'),'false','full lists secondary');
+848930	 await page.screenshot({path:path.join(output,'01-asset-first.png')});
+848931	 const first=await focus.innerText();
+848932	 assert.match(first,/Botley West/,'first detail card must be the clicked project origin');
+848933	 assert.match(first,/REPD project \(origin\)/);
+848934	 const next=card.getByRole('button',{name:'Next vicinity point'});
+848935	 await next.click();
+848936	 await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp.swipe.index===0);
+848937	 await page.waitForTimeout(450);
+848938	 assert.notEqual(await focus.innerText(),first,'next must change displayed full card');
+848939	 const toggle=card.locator('[data-vicinity-browse-toggle]');
+848940	 await toggle.click();
+848941	 assert.equal(await toggle.getAttribute('aria-expanded'),'true');
+848942	 const rows=card.locator('[data-offtakers-row]');
+848943	 assert.ok(await rows.count()>0,'can browse original source-backed rows');
+848944	 if(await rows.count()>1){
+848945	   await rows.nth(1).click();
+848946	   await page.waitForTimeout(350);
+848947	   assert.equal(await toggle.getAttribute('aria-expanded'),'false','row tap returns to focus card');
+848948	 await page.screenshot({path:path.join(output,'02-selected-asset.png')});
+848949	 const prev=card.getByRole('button',{name:'Previous vicinity point'});
+848950	 await prev.click();
+848951	 await card.getByRole('button',{name:'Close'}).click();
+848952	 await page.waitForFunction(()=>document.documentElement.getAttribute('data-vicinity-focus')!=='on');
+848953	 assert.equal(await page.locator('[data-offtakers-card]').count(),0);
+848954	 // The normal Layers UI remains operational even after focused Vicinity closes.
+848955	 const layers=page.locator('#gridatlas-dash-toggle');
+848956	 await layers.waitFor({timeout:10000});
+848957	 const before=await page.evaluate(()=>window.__GRIDATLAS_DASH__?.collapsed);
+848958	 await layers.click();
+848959	 const during=await page.evaluate(()=>window.__GRIDATLAS_DASH__?.collapsed);
+848960	 assert.notEqual(during,before,'Hide Layers button must still toggle');
+848961	 assert.equal(await page.evaluate(()=>window.__GRIDATLAS_DASH__?.collapsed),before);
+848962	 assert.equal(await page.locator('#gridatlas-sld-panel').count(),0,'layout never reappears after VICINITY closes');
+848963	 assert.deepEqual(errors,[],'no unhandled browser errors');
+848964	 receipt={...receipt,result:'PASS',focusCard:true,layoutSuppressed:true,sourceBackedDetail:true,originalAreaRetained:true,errors};
+848965	 console.log('PASS '+engine+' V9.195 '+JSON.stringify(receipt));
+848966	}catch(e){receipt={...receipt,result:'FAIL',message:String(e),errors};try{await page.screenshot({path:path.join(output,'failure.png')})}catch(_){}throw e}
+848967	finally{fs.writeFileSync(path.join(output,'receipt.json'),JSON.stringify(receipt,null,2));await context.close();await browser.close();await new Promise(resolve=>server.close(resolve))}
+848968	const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+848969	const baseline=JSON.parse(read('atlas/v/202611222000/current.json'));
+848970	const candidate=JSON.parse(read('atlas/v/202611222130/current.json'));
+848971	assert.ok(['202611222000','202611222130','202611222325','202611222343'].includes(live.generation),'live must be V9.194 or approved V9.195');
+848972	if(live.generation==='202611222130')for(const c of candidate.cartridges){
+848973	 assert.ok(active&&active.sha256===c.sha256,'promoted '+c.id+' must match the accepted candidate SHA');
+848974	assert.equal(candidate.generation,'202611222130');
+848975	assert.equal(candidate.previous_generation,'202611222000');
+848976	assert.deepEqual(candidate.cartridge_order,[...baseline.cartridge_order,'vicinity-focus']);
+848977	assert.equal(candidate.cartridges.length,baseline.cartridges.length+1);
+848978	// Release preview re-rooting canonicalises descriptive contract paths; these
+848979	// are not fetched by the loader. Preserve every source byte pin, slot and
+848980	// cartridge field, comparing descriptor paths by their repository identity.
+848981	const normalise=value=>Array.isArray(value)?value.map(normalise):
+848982	 value&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([k,v])=>[k,normalise(v)])):
+848983	 typeof value==='string'&&/^(?:\.\/|\.\.\/)/.test(value)?value.replace(/^(?:\.\.\/|\.\/)+/,''):value;
+848984	for(let i=0;i<baseline.cartridges.length;i++){
+848985	 const before=baseline.cartridges[i],after=candidate.cartridges[i];
+848986	 if(before.id==='sld-sandbox')continue;
+848987	 for(const field of ['id','generation','version','type','slot','replace_script','after','path','sha256'])
+848988	   assert.deepEqual(after[field],before[field],before.id+': runtime field '+field+' must remain unchanged');
+848989	 assert.deepEqual(normalise(after),normalise(before),
+848990	   before.id+': inherited metadata may only differ by relative descriptor path prefix');
+848991	const sld=candidate.cartridges.find(c=>c.id==='sld-sandbox');
+848992	assert.ok(sld&&sld.path.endsWith('/202611222130-sld-without-layout.js'));
+848993	assert.equal(sld.slot,'replace-script');
+848994	assert.equal(derived,retireLayout(original),'ONLY the enumerated minimal UI changes; zero truncation');
+848995	assert.ok(Buffer.byteLength(original)>450000&&Buffer.byteLength(derived)>445000,'full-size engine preserved');
+848996	assert.equal(crypto.createHash('sha256').update(derived).digest('hex'),sld.sha256,'byte-exact no-layout cartridge');
+848997	assert.ok(derived.includes('    return false; // retired: no substation-triggered layout'));
+848998	assert.ok(derived.includes('    return false; // retired: no project-triggered layout'));
+848999	assert.ok(!derived.includes('        + `<button class="neon-layout"'),'visible layout entry must be absent');
+849000	const focus=candidate.cartridges.at(-1);
+849001	assert.equal(focus.slot,'after-cartridge');assert.equal(focus.after,'pipeline-vicinity-button');
+849002	const src=read('atlas/modules/202611222130-vicinity-focus.js');
+849003	assert.equal(crypto.createHash('sha256').update(src).digest('hex'),focus.sha256);
+849004	assert.equal(Buffer.byteLength(src),focus.bytes);
+849005	new vm.Script(src);
+849006	for(const term of ['data-vicinity-focus-card','data-offtakers-row','Project vicinity asset browser','data-vicinity-browse-toggle','gridatlas-offtakers-neon-dc-node','asset-first'])assert.ok(src.includes(term),'missing '+term);
+849007	assert.ok(!/gridJourneyPreview|journey=vicinity/.test(src),'Journey must stay discontinued');
+849008	assert.equal(read('atlas/v/202611222130/index.html'),read('atlas/v/202611222000/index.html'),'composer unchanged');
+849009	console.log('PASS V9.195: full Grid Engine identical except exact retired Layout UI; seven other cartridges pinned; no truncation');
+849010	const name=process.env.VICINITY_BROWSER||'chromium';
+849011	const engine=name==='webkit'?webkit:chromium;
+849012	const browser=await engine.launch({headless:true,...(name==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
+849013	const out=path.resolve('work/vicinity-v9196-'+name);fs.mkdirSync(out,{recursive:true});
+849014	const viewport={width:393,height:852};
+849015	let receipt={engine:name,softwareEmulation:true,physicalSafari:false,generation:'202611222325'};
+849016	const context=await browser.newContext({viewport,isMobile:true,hasTouch:true,acceptDownloads:true,reducedMotion:'reduce'});
+849017	const pipeline=await context.newPage(),errors=[];
+849018	pipeline.on('pageerror',e=>errors.push('pipeline '+String(e)));
+849019	 await pipeline.goto('https://globalgrid2050.com/uk_renewables_pipeline/202611222222/',{waitUntil:'domcontentloaded',timeout:90000});
+849020	 await pipeline.waitForFunction(()=>document.querySelector('#tbody .pn-journey-link[href]')&&document.querySelector('#tbody .pn-report-launch'),null,{timeout:90000});
+849021	 const row=pipeline.locator('#tbody tr[id^="repd-"]').filter({has:pipeline.locator('.pn-journey-link[href]')}).first();
+849022	 const ref=(await row.getAttribute('id')).slice(5);
+849023	 const native=await row.locator('td:last-child a.pn-journey-link[href]').getAttribute('href');
+849024	 assert.equal(new URL(native).searchParams.get('repd_ref'),ref);
+849025	 assert.equal(new URL(native).origin+new URL(native).pathname,'https://ventusltd.github.io/gridatlas/atlas/');
+849026	 await row.locator('.pn-report-launch').click();
+849027	 await pipeline.locator('#pnRepdReport:not([hidden])').waitFor({timeout:15000});
+849028	 const a4=await pipeline.locator('#pnReportMap').getAttribute('href');
+849029	 assert.equal(a4,native,'A4 HTML MAP must be identical to REPD MAP');
+849030	 const downloadTask=pipeline.waitForEvent('download',{timeout:20000});
+849031	 await pipeline.locator('[data-report-action="pdf"]').click();
+849032	 const downloaded=await downloadTask;
+849033	 const pdf=(await fs.promises.readFile(await downloaded.path())).toString('latin1');
+849034	 const lit=native.replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');
+849035	 assert.ok(pdf.includes('/URI ('+lit+')'),'Downloaded A4 PDF must include exact same native MAP URL');
+849036	 assert.equal((pdf.match(/\/URI \(/g)||[]).length,1);
+849037	 await pipeline.screenshot({path:path.join(out,'pipeline-a4.png')});
+849038	 // The PDF's actual URI and the native REPD map must BOTH run the real
+849039	 // Grid Engine. No dummy receiver or mocked arrival is permitted.
+849040	 for(const entry of ['REPD-MAP','A4-PDF']){
+849041	  const map=await context.newPage();
+849042	  map.on('pageerror',e=>errors.push(entry+' '+String(e)));
+849043	  const u=new URL(entry==='REPD-MAP'?native:a4);
+849044	  const target='http://127.0.0.1:'+server.address().port+'/atlas/v/202611222325/'+u.search;
+849045	   await map.goto(target,{waitUntil:'domcontentloaded',timeout:90000});
+849046	   await map.waitForFunction(()=>window.__GRIDATLAS_ATLAS__?.generation==='202611222325'&&window.__GRIDATLAS_VICINITY_LINK_QA__&&window.__GRIDATLAS_MODULES__?.ukOfftakers?.openProjectVicinity,null,{timeout:120000});
+849047	   await map.waitForFunction(()=>window.__GRIDATLAS_NEON_LINKS__?.arrival_engine?.answered===true||window.__GRIDATLAS_NEON_LINKS__?.links_drawn>0,null,{timeout:150000});
+849048	   const result=await map.evaluate(()=>({generation:window.__GRIDATLAS_ATLAS__.generation,answer:window.__GRIDATLAS_NEON_LINKS__?.arrival_engine,
+849049	     drawn:window.__GRIDATLAS_NEON_LINKS__?.links_drawn,qa:window.__GRIDATLAS_VICINITY_LINK_QA__,scope:typeof window.__GRIDATLAS_MODULES__?.gridScope?.scope==='function'}));
+849050	   assert.equal(result.scope,true,'Actual Grid Engine module must survive');
+849051	   const vicinity=map.locator('#gridatlas-pipeline-vicinity-button');await vicinity.waitFor({timeout:15000});
+849052	   await vicinity.click();
+849053	   const card=map.locator('[data-offtakers-card]');await card.waitFor({timeout:30000});
+849054	   const layers=map.locator('#gridatlas-dash-toggle');await layers.waitFor({timeout:15000});
+849055	   const targetHit=await layers.evaluate(el=>{const b=el.getBoundingClientRect(),x=b.left+b.width/2,y=b.top+b.height/2;
+849056	      const hit=document.elementFromPoint(x,y);return{visible:b.width>=44&&b.height>=44,uncovered:hit===el||el.contains(hit),y,top:b.top,parent:el.parentElement?.tagName}});
+849057	   assert.ok(targetHit.visible&&targetHit.uncovered,'Layers toggle must be touch-clickable WHILE VICINITY CARD IS OPEN: '+JSON.stringify(targetHit));
+849058	   assert.ok(targetHit.y<Math.min(viewport.height,420),'Layers control must not hide behind bottom Vicinity card');
+849059	   const before=await map.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed);
+849060	   await layers.click({timeout:12000});
+849061	   assert.notEqual(await map.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed),before,'Layers control must hide/show its real panel');
+849062	   assert.equal(await map.evaluate(()=>window.__GRIDATLAS_DASH__.collapsed),before,'Layers control must reopen');
+849063	   assert.equal((await card.locator('[data-vicinity-focus-card]').count()),1);
+849064	   await map.waitForFunction(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp?.swipe?.entries?.length>=2,null,{timeout:100000});
+849065	   const entries=await map.evaluate(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp.swipe.entries.length);
+849066	   assert.ok(entries>0&&entries<=90,'Preserve source-backed 30/30/30');
+849067	   await map.screenshot({path:path.join(out,entry+'.png')});
+849068	   receipt[entry]={ref,links:native,drawn:result.drawn,answer:result.answer,targetHit,entries,pass:true};
+849069	  }finally{await map.close()}
+849070	 assert.equal(errors.length,0,'No unhandled browser errors: '+errors.join('; '));
+849071	 receipt.result='PASS';console.log('PASS V9.196 '+name+' '+JSON.stringify({ref,native,entries:receipt['REPD-MAP'].entries,grid:'answered from both origins',layers:'visible and toggled while card open'}));
+849072	}catch(e){receipt.result='FAIL';receipt.error=String(e);throw e}
+849073	finally{fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify(receipt,null,2));await pipeline.close();await context.close();await browser.close();await new Promise(resolve=>server.close(resolve))}
+849075	const predecessor=JSON.parse(read('atlas/v/202611222130/current.json'));
+849076	const preview=JSON.parse(read('atlas/v/202611222325/current.json'));
+849077	assert.equal(current.generation,'202611222325');
+849078	assert.equal(current.previous_generation,'202611222130');
+849079	assert.deepEqual(current.cartridge_order,[...predecessor.cartridge_order,'vicinity-controls-rescue']);
+849080	assert.equal(current.cartridges.length,predecessor.cartridges.length+1);
+849081	for(let i=0;i<predecessor.cartridges.length;i++){
+849082	 const a=current.cartridges[i],b=predecessor.cartridges[i];
+849083	 for(const field of ['id','generation','version','type','slot','replace_script','after','sha256'])
+849084	  assert.deepEqual(a[field],b[field],'Inherited cartridge changed '+b.id+' '+field);
+849085	 assert.equal(a.path.replace(/^\.\//,''),b.path.replace(/^\.\.\/\.\.\//,''),'Source changed '+b.id);
+849086	const target=current.cartridges.at(-1);
+849087	assert.equal(target.id,'vicinity-controls-rescue');
+849088	assert.equal(target.after,'vicinity-focus');
+849089	const source=read('atlas/modules/202611222325-vicinity-controls-rescue.js');
+849090	assert.equal(crypto.createHash('sha256').update(source).digest('hex'),target.sha256);
+849091	assert.equal(Buffer.byteLength(source),3865);
+849092	assert.ok(source.includes("D.fullscreenElement||D.webkitFullscreenElement||D.body"));
+849093	assert.ok(source.includes("l.selectAt(loc,name,tech,false"));
+849094	assert.ok(!source.includes("gridJourneyPreview"));
+849096	const canonical=JSON.stringify(current,null,1)+'\n';
+849097	assert.equal(read('atlas/v/202611222325/current.json'),canonical.replace(/": "(?:\.\/|\.\.\/)/g,'": "../../'));
+849098	assert.equal(read('atlas/v/202611222325/index.html'),read('atlas/v/202611222130/index.html'),'Immutable loader changed');
+849099	assert.equal(preview.cartridges.at(-1).sha256,target.sha256);
+849100	let fakeTime=0,tick,visibilityEvents=0,selectCalls=[],parent;
+849101	const style={props:{},setProperty(k,v){this.props[k]=v}};
+849102	const body={appendChild(n){n.parentElement=this;parent=this}};
+849103	const button={parentElement:{id:'map-controls'},hidden:true,style};
+849104	const doc={body,visibilityState:'visible',documentElement:{clientHeight:852},
+849105	 getElementById(id){return id==='gridatlas-dash-toggle'?button:id==='gridatlas-menu-bar'?{getBoundingClientRect:()=>({bottom:56})}:null},
+849106	 addEventListener(){},dispatchEvent(){visibilityEvents++}};
+849107	const engine={arrival_attempts:0,selectAt(...args){selectCalls.push(args);return Promise.resolve(true)}};
+849108	const win={location:{search:'?repd_ref=12588&latitude=51.8132088&longitude=-1.3489728&project=Botley%20West&technology=solar'},
+849109	 innerHeight:852,__GRIDATLAS_NEON_LINKS__:engine,__GRIDATLAS_V9_MAP__:{getContainer:()=>({getBoundingClientRect:()=>({top:80})})},
+849110	 addEventListener(){}};
+849111	class Clock extends Date{static now(){return fakeTime}}
+849112	vm.runInNewContext(source,{window:win,document:doc,URLSearchParams,Date:Clock,
+849113	 Event:class{constructor(type){this.type=type}},setInterval(fn){tick=fn;return 1},setTimeout(){},clearInterval(){}});
+849114	assert.equal(parent,body,'Layer toggle must be outside map-controls stacking context');
+849115	assert.equal(button.hidden,false);
+849116	assert.equal(style.props.top,'64px','Button must be below menu, above card');
+849117	assert.equal(style.props.bottom,'auto');
+849118	assert.equal(style.props['z-index'],'2147483646');
+849119	fakeTime=23000;tick();
+849120	await Promise.resolve();await Promise.resolve();
+849121	assert.equal(selectCalls.length,1,'Unanswered A4 deep link must wake original Grid Engine exactly once');
+849122	assert.deepEqual([...selectCalls[0][0]],[-1.3489728,51.8132088]);
+849123	assert.equal(selectCalls[0][1],'Botley West');
+849124	assert.equal(selectCalls[0][2],'solar');
+849125	assert.equal(visibilityEvents,1,'Safari visible wake dispatched to original handler');
+849126	tick();await Promise.resolve();
+849127	assert.equal(selectCalls.length,1,'No repeated recovery loop');
+849128	console.log('PASS V9.196: preserved inherited cartridge hashes, exact source, independent Layers touch target, one-shot original engine fallback');
+849129	const engineName=process.env.VICINITY_BROWSER||'chromium';
+849130	const engine=engineName==='webkit'?webkit:chromium;
+849131	const browser=await engine.launch({headless:true,...(engineName==='chromium'?{args:['--use-gl=angle','--use-angle=swiftshader','--enable-webgl','--ignore-gpu-blocklist']}: {})});
+849132	const server=await createPreviewServer(),base='http://127.0.0.1:'+server.address().port+'/atlas/v/';
+849133	const out=path.resolve('work/vicinity-v9197-'+engineName);fs.mkdirSync(out,{recursive:true});
+849134	const query='?repd_ref=12588&latitude=51.8132088&longitude=-1.3489728&project=Botley%20West&technology=solar&journey=vicinity';
+849135	const evidence={browser:engineName,physicalSafari:false,headlessEmulation:true,baseline:{},candidate:{}};
+849136	const contexts=[];
+849137	async function launch(generation,viewport){
+849138	 const context=await browser.newContext({viewport,isMobile:true,hasTouch:true,reducedMotion:'reduce'});
+849139	 contexts.push(context);const page=await context.newPage();
+849140	 await page.goto(base+generation+'/'+query,{waitUntil:'domcontentloaded',timeout:90000});
+849141	 await page.waitForFunction(()=>window.__GRIDATLAS_ATLAS__&&window.__GRIDATLAS_V9_MAP__&&window.__GRIDATLAS_DASH__?.installed&&window.__GRIDATLAS_MODULES__?.ukOfftakers?.openProjectVicinity&&document.getElementById('gridatlas-dash-toggle')&&document.getElementById('fs-curtain-tab')&&document.querySelectorAll('#fs-curtain-keys input[data-layer-id]').length>=40,null,{timeout:120000});
+849142	 return page;
+849143	async function fullscreen(page){
+849144	 // The genuine legacy entry applies fs-active even if iOS rejects requestFullscreen.
+849145	 await page.evaluate(()=>window.enterFullscreen());
+849146	 await page.waitForFunction(()=>document.body.classList.contains('fs-active'));
+849147	 await page.waitForTimeout(400);
+849148	async function state(page){
+849149	 return page.evaluate(()=>{const panel=document.getElementById('fs-curtain');
+849150	 const r=panel.getBoundingClientRect(),css=getComputedStyle(panel);
+849151	 return{open:panel.classList.contains('curtain-open'),display:css.display,transform:css.transform,
+849152	  rect:{top:r.top,bottom:r.bottom,height:r.height},controls:panel.querySelectorAll('input[data-layer-id]').length,
+849153	  collapsed:window.__GRIDATLAS_DASH__?.collapsed,fullscreen:document.body.classList.contains('fs-active'),
+849154	  buttonText:document.getElementById('gridatlas-dash-toggle')?.textContent};});
+849155	function panelVisible(s){return s.open&&s.display!=='none'&&s.rect.height>100&&s.rect.bottom>45&&s.rect.top<400;}
+849156	 if(engineName==='chromium'){
+849157	  const v195=await launch('202611222130',{width:393,height:852});
+849158	  await fullscreen(v195);
+849159	  await v195.evaluate(()=>document.getElementById('fs-curtain-tab').click());
+849160	  await v195.waitForTimeout(450);
+849161	  const worked=await state(v195);
+849162	  // Historical baseline is observed, not assumed to work in native fullscreen.
+849163	  evidence.baseline.v195={...worked,actuallyVisible:panelVisible(worked)};
+849164	  console.log('BASELINE V9.195 original curtain:',JSON.stringify(evidence.baseline.v195));
+849165	  await v195.close();
+849166	  const v196=await launch('202611222325',{width:393,height:852});
+849167	  await fullscreen(v196);
+849168	  const button=v196.locator('#gridatlas-dash-toggle');
+849169	  await button.waitFor();
+849170	  const before=await state(v196);
+849171	  await button.click({timeout:15000});
+849172	  await v196.waitForTimeout(450);
+849173	  const broken=await state(v196);
+849174	  assert.equal(broken.open,false,'V9.196 reproduce: floating button must NOT open original fullscreen curtain');
+849175	  assert.notEqual(broken.collapsed,before.collapsed,'V9.196 bug: toggled unrelated hidden SCADA state instead');
+849176	  evidence.baseline.v196={before,after:broken,confirmed:'button changed SCADA state but curtain remained hidden'};
+849177	  await v196.screenshot({path:path.join(out,'baseline-v9196-broken.png')});
+849178	  await v196.close();
+849179	 for(const viewport of [{width:393,height:852},{width:852,height:393}]){
+849180	  const name=viewport.width===393?'portrait':'landscape';
+849181	  const page=await launch('202611222343',viewport);
+849182	  await page.locator('#gridatlas-pipeline-vicinity-button').click({timeout:20000});
+849183	  const card=page.locator('[data-offtakers-card]');
+849184	  await card.waitFor({timeout:30000});
+849185	  await page.waitForFunction(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp?.swipe?.entries?.length>1,null,{timeout:90000});
+849186	  await fullscreen(page);
+849187	  const toggle=page.locator('#gridatlas-dash-toggle');
+849188	  await toggle.waitFor();
+849189	  const initial=await state(page);
+849190	  assert.equal(initial.open,false,'start with original curtain closed');
+849191	  const hit=await toggle.evaluate(el=>{const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
+849192	   const target=document.elementFromPoint(x,y);
+849193	   return{rect:{width:r.width,height:r.height,top:r.top},uncovered:target===el||el.contains(target)};});
+849194	  assert.ok(hit.uncovered&&hit.rect.width>=44&&hit.rect.height>=44,'real touch hit target with card open '+JSON.stringify(hit));
+849195	  await toggle.click({timeout:20000});
+849197	  const opened=await state(page);
+849198	  assert.ok(panelVisible(opened),'tap must SHOW visible original fullscreen curtain, not just change a Boolean: '+JSON.stringify(opened));
+849199	  assert.equal(opened.collapsed,initial.collapsed,'must not toggle hidden SCADA panel in fullscreen');
+849200	  assert.ok(opened.controls>=40,'actual original layer inputs must be present');
+849201	  // The original delegated GridAtlas engine should synchronise the two layer controls.
+849202	  const input=page.locator('#fs-curtain-keys input[data-layer-id]:not([disabled])').first();
+849203	  const id=await input.getAttribute('data-layer-id');
+849204	  const prior=await input.isChecked();
+849205	  await input.click({timeout:16000});
+849206	  assert.notEqual(await input.isChecked(),prior,'fullscreen curtain input must really toggle');
+849207	  const mirror=page.locator('#scada-ui-container input[data-layer-id="'+id+'"]').first();
+849208	  assert.equal(await mirror.isChecked(),!prior,'curtain must drive the original GridAtlas layer control');
+849209	  assert.equal(await mirror.isChecked(),prior,'original layer can be restored without stale proxy');
+849210	  await page.screenshot({path:path.join(out,name+'-real-layers-open.png')});
+849211	  await page.waitForTimeout(480);
+849212	  const closed=await state(page);
+849213	  assert.equal(closed.open,false,'same button must close original layer curtain');
+849214	  assert.ok(closed.rect.bottom<48||closed.transform!=='none','panel is no longer over the map');
+849215	  assert.equal(await card.isVisible(),true,'Vicinity swipe card remains usable');
+849216	  const entries=await page.evaluate(()=>window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp.swipe.entries.length);
+849217	  assert.ok(entries>1&&entries<=90,'90-point source-backed browser preserved');
+849218	  evidence.candidate[name]={hit,initial,opened,closed,entries,layerId:id,synchronised:true};
+849220	 evidence.result='PASS';
+849221	 console.log('PASS V9.197 '+engineName+': V9.195 working curtain, V9.196 bug reproduced, candidate visible original curtain, real controls and full screen touch: '+JSON.stringify(evidence));
+849222	}catch(e){evidence.result='FAIL';evidence.error=String(e);throw e}
+849223	finally{fs.writeFileSync(path.join(out,'receipt.json'),JSON.stringify(evidence,null,2));for(const ctx of contexts)await ctx.close().catch(()=>{});await browser.close();await new Promise(resolve=>server.close(resolve))}
+849224	const root=path.resolve(import.meta.dirname,'../..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
+849225	const old=JSON.parse(read('atlas/v/202611222325/current.json'));
+849226	assert.equal(current.generation,'202611222343');
+849227	assert.equal(current.previous_generation,'202611222325');
+849228	assert.deepEqual(current.cartridge_order,old.cartridge_order,'nine original logical cartridges retained');
+849229	for(let i=0;i<old.cartridges.length-1;i++){
+849230	 const a=current.cartridges[i],b=old.cartridges[i];
+849231	 for(const k of ['id','generation','version','type','slot','after','sha256'])
+849232	  assert.deepEqual(a[k],b[k],'old cartridge changed: '+b.id+' '+k);
+849233	 assert.equal(a.path.replace(/^\.\//,''),b.path.replace(/^\.\.\/\.\.\//,''));
+849234	assert.equal(target.generation,'202611222343');
+849235	assert.equal(target.sha256,'97cb8d05c7c0855b3bdd02ba614f470fbe2d489ed2db7181ca0b7edd5313c8fc');
+849236	const src=read('atlas/modules/202611222343-vicinity-controls-rescue.js');
+849237	const oldSource=read('atlas/modules/202611222325-vicinity-controls-rescue.js');
+849238	assert.ok(src.startsWith(oldSource),'V9.196 PDF/engine and button position code preserved verbatim');
+849239	assert.equal(Buffer.byteLength(src),7367);
+849240	assert.equal(crypto.createHash('sha256').update(src).digest('hex'),target.sha256);
+849241	for(const token of ["D.getElementById('fs-curtain-tab')","target.click()","stopImmediatePropagation()","D.fullscreenElement||D.webkitFullscreenElement","normal-scada-panel"]){assert.ok(src.includes(token),token);}
+849242	assert.equal(read('atlas/v/202611222343/current.json'),JSON.stringify(current,null,1).replace(/": "(?:\.\/|\.\.\/)/g,'": "../../')+'\n');
+849243	assert.equal(read('atlas/v/202611222343/index.html'),read('atlas/v/202611222325/index.html'));
+849244	let onClickCapture,originalClicks=0,timer,full=true,curtainOpen=false,press=0;
+849245	const button={hidden:true,parentElement:{},style:{setProperty(){}},addEventListener(type,cb,cap){if(type==='click'&&cap)onClickCapture=cb;},
+849246	 setAttribute(name,value){this[name]=value;},textContent:''};
+849247	const curtain={parentNode:{},classList:{contains(k){return k==='curtain-open'&&curtainOpen}},getAttribute(){}};
+849248	const tab={click(){curtainOpen=!curtainOpen;}};
+849249	const body={classList:{contains(k){return k==='fs-active'&&full}}};
+849250	const doc={body,documentElement:{classList:{contains(){return false}}},
+849251	 getElementById(k){return {'gridatlas-dash-toggle':button,'fs-curtain':curtain,'fs-curtain-tab':tab,'map-container':{classList:{contains(){return false}}}}[k];},
+849252	 addEventListener(){},fullscreenElement:null,webkitFullscreenElement:null};
+849253	const win={__GRIDATLAS_DASH__:{collapsed:false},addEventListener(){}};
+849254	const bridge=src.slice(src.indexOf('(function fullscreenLayerBridge()'));
+849255	assert.ok(bridge.startsWith('(function fullscreenLayerBridge()'));
+849256	vm.runInNewContext(bridge,{window:win,document:doc,setInterval(fn){timer=fn;return 1},clearInterval(){}});
+849257	assert.equal(typeof onClickCapture,'function');
+849258	function click(){
+849259	 let stopped=false;
+849260	 onClickCapture({preventDefault(){},stopImmediatePropagation(){stopped=true}});
+849261	 if(!stopped)originalClicks++;
+849262	click();assert.equal(curtainOpen,true,'fullscreen button must open actual original curtain');
+849263	assert.equal(originalClicks,0,'must NOT touch hidden normal-view SCADA state');
+849264	assert.equal(button['aria-pressed'],'true');
+849265	click();assert.equal(curtainOpen,false,'same button must close real curtain');
+849266	full=false;timer();click();
+849267	assert.equal(originalClicks,1,'outside fullscreen the original SCADA click handler must remain owner');
+849268	console.log('PASS V9.197: source SHA256, no truncation, old 8 carriers unchanged, original fullscreen curtain route and normal-view delegation');
+849269	/* Surgical no-layout derivative from immutable V9.191 SLD carrier.
+849270	 * Exact transformations protect the complete Grid Engine from truncation.
+849273	export const sourcePath='atlas/cartridges/202611161720-sld-sandbox-v9-8.js';
+849274	export const outputPath='atlas/modules/202611222130-sld-without-layout.js';
+849275	export const retireLayout = function retireLayout(source){
+849276	  function exact(a,b,description){
+849277	    const n=source.split(a).length-1;
+849278	    if(n!==1)throw Error(description+': expected one source anchor, got '+n);
+849279	    source=source.replace(a,b);
+849280	  exact('        + `<button class="neon-layout" type="button">Lay out a scheme here &#9656;</button>`\n',
+849281	        '', 'layout card entry');
+849282	  exact('  function renderSldPanel() {\n',
+849283	        '  function renderSldPanel() {\n    return; // retired: layout panel never mounted\n',
+849284	        'layout panel guard');
+849285	  exact('  function openSldAt(map, gridNode, name, voltage) {\n',
+849286	        '  function openSldAt(map, gridNode, name, voltage) {\n    return false; // retired: no substation-triggered layout\n',
+849287	        'direct substation layout entry');
+849288	  exact('  function openSldFromProject(map, selection) {\n',
+849289	        '  function openSldFromProject(map, selection) {\n    return false; // retired: no project-triggered layout\n',
+849290	        'project layout entry');
+849291	  const start='  function installSld(map) {\n';
+849292	  const end='\n  }\n})();';
+849293	  const i=source.indexOf(start),j=i<0?-1:source.indexOf(end,i);
+849294	  if(i<0||j<0||source.indexOf(start,i+1)>=0)throw Error('installSld boundaries not unique');
+849295	  const removed=source.slice(i,j+5);
+849296	  for(const required of ['installSldStyles();','ensureSldLayers(map);','attachSldDragging(map);','openSldAt(map, at, properties.name','keepLayersInFullscreen();','armCorridorGestures(map);'])if(!removed.includes(required))throw Error('installSld evidence drift: '+required);
+849297	  const kept='  function installSld(map) {\n'
+849298	    +'    // Preserve fullscreen layers and corridors, not Layout Sandbox UI.\n'
+849299	    +'    try { keepLayersInFullscreen(); }\n'
+849300	    +"    catch (error) { link.failures.push('fullscreen: ' + String(error?.message || error)); }\n"
+849301	    +'    try { armCorridorGestures(map); }\n'
+849302	    +"    catch (error) { link.failures.push('corridor sheet: ' + String(error?.message || error)); }\n"
+849303	    +'  }';
+849304	  source=source.slice(0,i)+kept+source.slice(j+5);
+849308	 const expected=retireLayout(fs.readFileSync(path.join(root,sourcePath),'utf8'));
+849309	 const file=path.join(root,outputPath);
+849310	 if(process.argv.includes('--check')){
+849311	   if(fs.readFileSync(file,'utf8')!==expected)throw Error('layout retirement generated bytes differ');
+849312	   console.log('PASS deterministic GridAtlas Layout Sandbox retirement: '+Buffer.byteLength(expected)+' bytes');
+849314	   fs.writeFileSync(file,expected);
+849315	   console.log('wrote '+outputPath);
+849471	  } else if (c.id === 'sld-sandbox' && G === '202611222130') {
+849472	    // Rebuild the full 451 kB carrier from its ORIGINAL immutable V9.191 bytes
+849473	    // and five exact layout-retirement edits. The expected target is absent
+849474	    // from the independent temporary source checkout.
+849475	    const tree=path.join(work,'sld-without-layout-source');
+849476	    for(const rel of [
+849477	      'tools/sld/retire-gridatlas-layout.mjs',
+849478	      'atlas/cartridges/202611161720-sld-sandbox-v9-8.js'
+849480	      const to=path.join(tree,rel);
+849481	      fs.mkdirSync(path.dirname(to),{recursive:true});
+849482	      fs.copyFileSync(abs(rel),to);
+849483	    fs.mkdirSync(path.join(tree,'atlas/modules'),{recursive:true});
+849484	    const out=path.join(tree,c.file);
+849485	    const r=run(['node',path.join(tree,'tools/sld/retire-gridatlas-layout.mjs')],{cwd:tree});
+849486	    if(r.code!==0||!fs.existsSync(out)){
+849487	      R.fail(name,'Layout retirement source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,220));
+849490	    if(sha256(fs.readFileSync(out))!==c.sha256)
+849491	      R.fail(name+' pin','Rebuilt no-layout carrier differs from the composition SHA-256');
+849492	  } else if (c.id === 'vicinity-focus' && G === '202611222130') {
+849493	    // Source-owned, immutable Vicinity focus: copy only its pinned source
+849494	    // and reproducer into a clean tree, never the expected output file.
+849495	    const tree=path.join(work,'vicinity-focus-source');
+849496	      'tools/vicinity-focus/build.mjs',
+849497	      'tools/vicinity-focus/src/202611222130-vicinity-focus.js'
+849499	    const r=run(['node',path.join(tree,'tools/vicinity-focus/build.mjs'),'--generation',G,'--out',out],{cwd:tree});
+849500	      R.fail(name,'Vicinity-focus source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,220));
+849501	      R.fail(name+' pin','Rebuilt vicinity focus differs from composition SHA-256');
+849502	  } else if (c.id === 'vicinity-controls-rescue' && ['202611222325','202611222343'].includes(G)) {
+849503	    // A clean tree contains only the small source and deterministic builder.
+849504	    // Never copy the committed output as the supposed proof of its own bytes.
+849505	    const tree=path.join(work,'vicinity-controls-source');
+849506	      'tools/vicinity-controls/build.mjs',
+849507	      'tools/vicinity-controls/src/'+G+'-vicinity-controls-rescue.js'
+849508	    const r=run(['node',path.join(tree,'tools/vicinity-controls/build.mjs'),'--generation',G,'--out',out],{cwd:tree});
+849509	      R.fail(name,'Vicinity recovery source rebuild failed: '+(r.stderr||r.stdout).trim().slice(0,220));
+849510	      R.fail(name+' pin','V9.196 rebuild differs from composition SHA256');
+849597	/* V9.196/V9.197 independently reproducible vicinity control cartridges.
+849598	 * Only source files, never the expected published target, enter the clean tree.
+849601	const flag=x=>{const i=args.indexOf(x);return i<0?null:args[i+1]};
+849602	const G=flag('--generation')||flag('--gen');
+849603	const ledger={
+849604	 '202611222325':{bytes:3865,sha256:'26754dc642ff6554bb55d25a65e422a16981141f0af5e0b8df9543498176f0f6'},
+849605	 '202611222343':{bytes:7367,sha256:'97cb8d05c7c0855b3bdd02ba614f470fbe2d489ed2db7181ca0b7edd5313c8fc'}
+849606	assert.ok(Object.hasOwn(ledger,G),'unregistered generation');
+849607	const out=flag('--out');assert.ok(out&&typeof out==='string'&&!out.startsWith('--'));
+849608	const data=fs.readFileSync(path.join(root,'tools/vicinity-controls/src/'+G+'-vicinity-controls-rescue.js'));
+849609	assert.equal(data.length,ledger[G].bytes,'source length drift');
+849610	assert.equal(createHash('sha256').update(data).digest('hex'),ledger[G].sha256,'source SHA-256 drift');
+849612	fs.writeFileSync(path.resolve(out),data);
+849613	console.log('PASS '+G+' original vicinity controls cartridge independently reproduced');
+849614	/* V9.195 immutable vicinity-focus cartridge source build.
+849615	 * Copy the exact source register in an empty tree; refuse other generations,
+849616	 * corrupted source or a missing output path. No live files are edited.
+849617	const flag=(x)=>{const i=args.indexOf(x);return i<0?null:args[i+1]};
+849618	const generation=flag('--generation')||flag('--gen');
+849619	const out=flag('--out');
+849620	assert.equal(generation,'202611222130','only the pinned V9.195 source may be built');
+849621	assert.ok(out&&typeof out==='string'&&!out.startsWith('--'),'an explicit output path is required');
+849622	const src=path.join(root,'tools/vicinity-focus/src/202611222130-vicinity-focus.js');
+849623	const data=fs.readFileSync(src);
+849624	assert.equal(data.length,10350,'source length drift');
+849625	assert.equal(createHash('sha256').update(data).digest('hex'),'8ea2546b2a1fab3007d3b7a81aa509baae323051b888afd252edb6bc4726f14e','source SHA-256 drift');
+849626	console.log('PASS vicinity-focus source built byte for byte at '+path.resolve(out));
 ```
