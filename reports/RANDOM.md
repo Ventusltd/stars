@@ -1,47 +1,47 @@
-# The Random star — 150 links by chance, seed `2026-11-22`
+# The Random star — 150 links by chance, seed `2026-11-23`
 
 No logic. Pairs drawn at random from every node the other stars drew (1129 in the pool), joined with a random kind and a random weight. None of it is a finding. It exists because a mind that only follows evidence never trips over anything, and sometimes tripping is how a wire is found. Regenerated with the same seed, it gives the same links; a new day, new chance.
 
-- #8493 auditProjectRows —MIGHT_TOUCH (0.266)→ #3790 formatLargestV9_2
-- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.868)→ #8336 publishes
-- #1524 globalgrid2050/promise —COULD_REPLACE (0.403)→ Si(202609041957)
-- #3610 gridatlas/onChange —WHAT_IF (0.408)→ Ss(202609071005)
-- #3384 globalgrid2050/promise —REMINDS_OF (0.635)→ #5726 counts
-- #1240 updateExportCableLengthDisplay —MIGHT_TOUCH (0.251)→ #1684 clearWider
-- #8445 distance —MIGHT_TOUCH (0.51)→ #1822 createGeoJSONCircle
-- #1524 pipelinenews/promise —ENTANGLED_MAYBE (0.977)→ Si(202609051329)
-- #3384 globalgrid2050/promise —COULD_REPLACE (0.732)→ #15 globalgrid2050/renderStats
-- #1676 writeDeepLink —COULD_REPLACE (0.828)→ repo v11
-- #15 testcode/renderStats —COULD_REPLACE (0.338)→ #1209 intVal
-- #1524 pipelinenews/promise —REMINDS_OF (0.78)→ #3384 testcode/promise
-- #8492 isRetiredReceiver —ENTANGLED_MAYBE (0.305)→ #1205 pickProp
-- #3610 gridatlas/onChange —RHYMES_WITH (0.176)→ #1200 renderFinance
-- Si(202609032246) —ENTANGLED_MAYBE (0.389)→ #1524 globalgrid2050/promise
-- Ss(202609012317) —ENTANGLED_MAYBE (0.223)→ #1529 invariant
-- #3263 finishCableRouteMode —MIGHT_TOUCH (0.677)→ #5403 nativeFetch
-- #1684 clearWider —REMINDS_OF (0.094)→ #15 globalgrid2050/renderStats
-- #1524 pipelinenews/promise —REMINDS_OF (0.496)→ Ss(202609080430)
-- #15 globalgrid2050/renderStats —WHAT_IF (0.79)→ #3384 testcode/promise
-- #3813 signalForProjectV9_5_1 —RHYMES_WITH (0.275)→ #4569 success
-- #5490 pair —COULD_REPLACE (0.168)→ #1524 pipelinenews/promise
-- #3265 addCableRouteWaypoint —RHYMES_WITH (0.908)→ #15 testcode/renderStats
-- #3384 globalgrid2050/promise —RHYMES_WITH (0.411)→ #1476 invariant
-- #3806 payloadTime —ENTANGLED_MAYBE (0.955)→ #15 globalgrid2050/renderStats
-- #1524 pipelinenews/promise —MIGHT_TOUCH (0.642)→ #4 normaliseBurialDepthFieldOnBlur
-- Ss(202609032222) —MIGHT_TOUCH (0.271)→ #3405 ready
-- Si(202609051624) —MIGHT_TOUCH (0.278)→ #15 testcode/renderStats
-- #3384 globalgrid2050/promise —REMINDS_OF (0.545)→ Movement
-- #1532 buildAtlasV9DeepLink —MIGHT_TOUCH (0.564)→ #3384 testcode/promise
-- #1533 selfTest —COULD_REPLACE (0.891)→ #1465 validateAsset
-- #5726 counts —ENTANGLED_MAYBE (0.164)→ repo youengineer-code-review
-- #4052 globalgrid2050/handle —COULD_REPLACE (0.013)→ #3384 globalgrid2050/promise
-- #2039 Number —REMINDS_OF (0.212)→ #3610 gridatlas/onChange
-- Si(202609062358) —RHYMES_WITH (0.217)→ #3384 testcode/promise
-- #22 buildSnapshot —ENTANGLED_MAYBE (0.109)→ #3855 drawProjectTable
-- #43 cable-trench-or-drill/onChange —ENTANGLED_MAYBE (0.227)→ #1684 clearWider
-- #1524 pipelinenews/promise —COULD_REPLACE (0.835)→ #3384 globalgrid2050/promise
-- repo gridmachine1 —MIGHT_TOUCH (0.921)→ Cc connection-capacity.js
-- #8471 edit —MIGHT_TOUCH (0.955)→ #3845 signalForProject
+- #8493 auditProjectRows —RHYMES_WITH (0.967)→ #3706 fetchJson
+- #1524 globalgrid2050/promise —MIGHT_TOUCH (0.564)→ repo gb-electricity-ui
+- Si(202609041250) —WHAT_IF (0.3)→ #19 drawFormation
+- #3610 gridatlas/onChange —ENTANGLED_MAYBE (0.996)→ #3610 testcode/onChange
+- #1524 globalgrid2050/promise —WHAT_IF (0.804)→ #5547 writeText
+- repo claude —REMINDS_OF (0.672)→ #1524 globalgrid2050/promise
+- #1530 buildAtlasV9DeepLink —REMINDS_OF (0.778)→ #15 testcode/renderStats
+- Si(202609040047) —WHAT_IF (0.998)→ repo layout-tool
+- Pp power_plants —COULD_REPLACE (0.722)→ #3384 globalgrid2050/promise
+- #3610 globalgrid2050/onChange —ENTANGLED_MAYBE (0.648)→ #1524 globalgrid2050/promise
+- repo globalgrid2050 —REMINDS_OF (0.606)→ #1431 modules
+- Si(202609051624) —WHAT_IF (0.447)→ #1524 globalgrid2050/promise
+- #1524 pipelinenews/promise —COULD_REPLACE (0.144)→ Ss(202609032222)
+- #1483 displayDate —RHYMES_WITH (0.842)→ #2039 Number
+- Ss(202609040046) —RHYMES_WITH (0.401)→ #1524 globalgrid2050/promise
+- #2039 Number —ENTANGLED_MAYBE (0.35)→ #15 globalgrid2050/renderStats
+- Gc geo-core.js —COULD_REPLACE (0.338)→ #1567 select
+- #1524 globalgrid2050/promise —REMINDS_OF (0.051)→ #4320 gitBlob
+- #3801 signalForProjectV9_2 —RHYMES_WITH (0.076)→ #4304 readText
+- #15 testcode/renderStats —MIGHT_TOUCH (0.309)→ #1524 globalgrid2050/promise
+- repo globalgrid2050 —WHAT_IF (0.384)→ #3806 payloadTime
+- #3384 testcode/promise —REMINDS_OF (0.558)→ Ss(202609042123)
+- #3384 globalgrid2050/promise —WHAT_IF (0.033)→ #3384 globalgrid2050/promise
+- #3880 repdUpdatedTimestamp —REMINDS_OF (0.507)→ #1524 globalgrid2050/promise
+- #3610 testcode/onChange —COULD_REPLACE (0.33)→ #1524 globalgrid2050/promise
+- #3610 gridatlas/onChange —MIGHT_TOUCH (0.031)→ #1524 pipelinenews/promise
+- #3384 testcode/promise —ENTANGLED_MAYBE (0.044)→ #1232 updateSelectedSubstationDisplay
+- #6161 item —MIGHT_TOUCH (0.267)→ Si(202609042123)
+- #1231 renderBenchmark —MIGHT_TOUCH (0.241)→ #3838 queryMatches
+- #1468 renderRows —REMINDS_OF (0.178)→ #3789 formatCapacityV9_2
+- #3610 gridatlas/onChange —RHYMES_WITH (0.786)→ #5 normaliseIntegerFields
+- #2141 scripts —RHYMES_WITH (0.499)→ #3610 globalgrid2050/onChange
+- #3978 click —MIGHT_TOUCH (0.406)→ #4052 globalgrid2050/handle
+- Io industrial_offtakers —REMINDS_OF (0.475)→ #1524 pipelinenews/promise
+- #3610 globalgrid2050/onChange —REMINDS_OF (0.076)→ #15 testcode/renderStats
+- #6743 cartridge —ENTANGLED_MAYBE (0.094)→ #1524 globalgrid2050/promise
+- #3792 setGaugeUniverseV9_2 —RHYMES_WITH (0.869)→ #1792 _zoneDrawCirclePoints
+- #7335 child —ENTANGLED_MAYBE (0.944)→ #3384 globalgrid2050/promise
+- #4466 words —MIGHT_TOUCH (0.157)→ #4621 graph
+- #1524 pipelinenews/promise —COULD_REPLACE (0.626)→ #1524 pipelinenews/promise
 
 ## For the Spider
-`random/graph.json` — 176 nodes, 150 edges. Fly it when you want to get lost on purpose.
+`random/graph.json` — 165 nodes, 150 edges. Fly it when you want to get lost on purpose.
