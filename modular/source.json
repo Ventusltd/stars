@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-11-24T07:04:45.547Z",
+  "generated_utc": "2026-11-24T19:03:52.741Z",
   "repositories": [
     {
       "repo": "Ventusltd/132kV",
@@ -158,12 +158,12 @@
     },
     {
       "repo": "Ventusltd/globalgrid2050",
-      "commit": "bd5e4448cbc016751622267290f24aef2c746e7f",
+      "commit": "b25a3387b31c7bb5a635bf029c47336bf834ecfb",
       "code_files": 19051
     },
     {
       "repo": "Ventusltd/globalgrid2050-homepage",
-      "commit": "63c5e2bfcb56695c0269d4172611e93c062d8ccd",
+      "commit": "7acae9d2cd2b6c3f174c36b9e3ebfcb8a09d5683",
       "code_files": 14
     },
     {
@@ -218,7 +218,7 @@
     },
     {
       "repo": "Ventusltd/kuiper-belt",
-      "commit": "4faf528effcd1b4b882bc6b419f843ab59a4a922",
+      "commit": "f26375800602197923f2609f1dab574bc506a940",
       "code_files": 296
     },
     {
@@ -268,12 +268,12 @@
     },
     {
       "repo": "Ventusltd/particle-physics-drawing-engine",
-      "commit": "69ca2cc18f8486926b536d0c0e2ab96fb55e5431",
+      "commit": "1dd4ea43621a611f1a86b677309994d64a90f52d",
       "code_files": 11
     },
     {
       "repo": "Ventusltd/pipelinenews",
-      "commit": "73ffc952917ab05cf33ebe14dd8cb1f9458f4432",
+      "commit": "58ded9959f77ba2a00995fd5071776940f7d4ffa",
       "code_files": 1026
     },
     {
@@ -295,6 +295,11 @@
       "repo": "Ventusltd/reports",
       "commit": "7648f57c5a50c11982de00b82b1fddac1d009056",
       "code_files": 3
+    },
+    {
+      "repo": "Ventusltd/satnav",
+      "commit": "19737b9975495aebb4bd247e39c6509151fb576f",
+      "code_files": 5
     },
     {
       "repo": "Ventusltd/seed-data",
@@ -343,7 +348,7 @@
     },
     {
       "repo": "Ventusltd/spiders",
-      "commit": "8e8e7eeab05c30d4a7f92d2d9652368e6851203b",
+      "commit": "c6fccc802c3534286c167bb7e96bbf5f4962f6bd",
       "code_files": 50
     },
     {
@@ -408,7 +413,7 @@
     },
     {
       "repo": "Ventusltd/time-stone",
-      "commit": "bea71341947e561a7dd4d898c495c16d7ef52626",
+      "commit": "754302a9df507ef2f32051307f49ed5e3ec701e4",
       "code_files": 1
     },
     {

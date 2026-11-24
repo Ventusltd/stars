@@ -1,22 +1,22 @@
 {
- "generated_utc": "2026-11-24T07:04:45.547Z",
+ "generated_utc": "2026-11-24T19:03:52.741Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 14005,
+ "families_with_uses": 14015,
  "hubs": [
   {
    "family": 172767,
    "name": "document",
-   "used_by": 2969
+   "used_by": 2970
   },
   {
    "family": 173796,
    "name": "document",
-   "used_by": 2969
+   "used_by": 2970
   },
   {
    "family": 176250,
    "name": "document",
-   "used_by": 2969
+   "used_by": 2970
   },
   {
    "family": 173891,
@@ -96,12 +96,12 @@
   {
    "family": 1317,
    "name": "el",
-   "used_by": 287
+   "used_by": 294
   },
   {
    "family": 1686,
    "name": "el",
-   "used_by": 287
+   "used_by": 294
   },
   {
    "family": 129751,

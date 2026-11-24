@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-475,816 unique lines, numbered 1 to 852,139. Generated 2026-11-24T07:06:20.034Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+476,763 unique lines, numbered 1 to 853,224. Generated 2026-11-24T19:05:33.844Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -475819,4 +475819,951 @@
 852137	    const actual = host.style.getPropertyValue(property).trim();
 852138	    if (actual !== expected) missing.push({role, expected, actual});
 852139	  return Object.freeze({pass: missing.length === 0, missing, sourceEdition: REPD_SKIN_CONTRACT_V1.sourceEdition});
+852140	// Agent 24: provisional synthetic-grid core; not a locked product interface.
+852141	// SPDX-License-Identifier: Apache-2.0
+852142	export function routeGrid(grid,start,goal,options={}){
+852143	  const {width:w,height:h,cellMetres:s,cost,known,access,blocked}=grid;
+852144	  if(!Number.isInteger(w)||!Number.isInteger(h)||w<1||h<1||w*h>1000000||!Number.isFinite(s)||s<=0)throw Error("INVALID_GRID");
+852145	  const n=w*h;
+852146	  if(!(cost instanceof Float32Array)||cost.length!==n||[known,access,blocked].some(a=>!(a instanceof Uint8Array)||a.length!==n))throw Error("INVALID_GRID_ARRAYS");
+852147	  if(!Number.isInteger(start)||!Number.isInteger(goal)||start<0||goal<0||start>=n||goal>=n)throw Error("INVALID_ENDPOINT");
+852148	  const pass=i=>known[i]===1&&access[i]===1&&blocked[i]===0&&Number.isFinite(cost[i])&&cost[i]>0;
+852149	  if(!pass(start)||!pass(goal))return {status:"no-route",reason:"ENDPOINT_NOT_PERMITTED"};
+852150	  let min=Infinity;
+852151	  for(let i=0;i<n;i++)if(pass(i))min=Math.min(min,cost[i]);
+852152	  const heuristic=i=>{const dx=Math.abs(i%w-goal%w),dy=Math.abs(Math.floor(i/w)-Math.floor(goal/w));return min*s*(Math.max(dx,dy)+(Math.SQRT2-1)*Math.min(dx,dy));};
+852153	  const g=new Float64Array(n);g.fill(Infinity);g[start]=0;
+852154	  const parent=new Int32Array(n);parent.fill(-1);
+852155	  const heap=[];
+852156	  const less=(a,b)=>a.f<b.f||(a.f===b.f&&(a.g<b.g||(a.g===b.g&&a.i<b.i)));
+852157	  function push(v){let j=heap.length;heap.push(v);while(j){const p=(j-1)>>1;if(!less(v,heap[p]))break;heap[j]=heap[p];j=p;}heap[j]=v;}
+852158	  function pop(){const v=heap[0],tail=heap.pop();if(heap.length){let j=0;while(2*j+1<heap.length){let k=2*j+1;if(k+1<heap.length&&less(heap[k+1],heap[k]))k++;if(!less(heap[k],tail))break;heap[j]=heap[k];j=k;}heap[j]=tail;}return v;}
+852159	  push({i:start,g:0,f:heuristic(start)});
+852160	  let expanded=0;
+852161	  while(heap.length){
+852162	    if(options.cancelled?.())return {status:"cancelled"};
+852163	    const cur=pop(),i=cur.i;if(cur.g!==g[i])continue;
+852164	    if(i===goal){const path=[];for(let k=goal,steps=0;k!==-1&&steps<=n;k=parent[k],steps++){path.push(k);if(k===start)break;}if(path.at(-1)!==start)throw Error("INVALID_PARENT_CHAIN");return {status:"ok",cells:path.reverse(),cost:g[goal],expanded};}
+852165	    if(++expanded>(options.maxExpanded??n))return {status:"no-route",reason:"SEARCH_BUDGET_EXCEEDED"};
+852166	    const x=i%w,y=Math.floor(i/w);
+852167	    for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
+852168	      if(!dx&&!dy)continue;const xx=x+dx,yy=y+dy;if(xx<0||xx>=w||yy<0||yy>=h)continue;const j=yy*w+xx;
+852169	      if(!pass(j)||(dx&&dy&&(!pass(y*w+xx)||!pass(yy*w+x))))continue;
+852170	      const next=g[i]+s*(dx&&dy?Math.SQRT2:1)*(cost[i]+cost[j])/2;
+852171	      if(next<g[j]){g[j]=next;parent[j]=i;push({i:j,g:next,f:next+heuristic(j)});}
+852174	  return {status:"no-route",reason:"DISCONNECTED"};
+852176	import { routeGrid } from '../src/router/grid-search.mjs';
+852177	function runTests(routeGrid){
+852178	  let count=0;
+852179	  function check(v,msg){if(!v)throw Error(msg);count++;}
+852180	  function grid(w,h){return {width:w,height:h,cellMetres:5,cost:new Float32Array(w*h).fill(1),known:new Uint8Array(w*h).fill(1),access:new Uint8Array(w*h).fill(1),blocked:new Uint8Array(w*h)};}
+852181	  function reference(a,start,goal){const n=a.width*a.height,w=a.width;const d=Array(n).fill(Infinity),seen=new Set();
+852182	    function allowed(i){return a.known[i]===1&&a.access[i]===1&&!a.blocked[i]&&a.cost[i]>0&&Number.isFinite(a.cost[i]);}
+852183	    if(!allowed(start)||!allowed(goal))return Infinity;d[start]=0;
+852184	    while(true){let u=-1;for(let i=0;i<n;i++)if(!seen.has(i)&&Number.isFinite(d[i])&&(u===-1||d[i]<d[u]))u=i;if(u===-1||u===goal)return d[goal];seen.add(u);
+852185	      for(let v=0;v<n;v++){const ux=u%w,uy=Math.floor(u/w),vx=v%w,vy=Math.floor(v/w),dx=Math.abs(ux-vx),dy=Math.abs(uy-vy);if(dx>1||dy>1||!(dx+dy)||!allowed(v))continue;if(dx&&dy&&(!allowed(uy*w+vx)||!allowed(vy*w+ux)))continue;d[v]=Math.min(d[v],d[u]+a.cellMetres*Math.hypot(dx,dy)*(a.cost[u]+a.cost[v])/2);}
+852186	  let a=grid(3,3);check(Math.abs(routeGrid(a,0,8).cost-10*Math.SQRT2)<1e-9,"diagonal cost");check(routeGrid(a,4,4).cells.length===1,"same endpoint");a.blocked[1]=1;a.blocked[3]=1;check(routeGrid(a,0,8).status==="no-route","no corner cutting");
+852187	  a=grid(3,3);a.known[8]=0;check(routeGrid(a,0,8).reason==="ENDPOINT_NOT_PERMITTED","unknown endpoint");a.known[8]=1;a.access[8]=0;check(routeGrid(a,0,8).reason==="ENDPOINT_NOT_PERMITTED","no access");a.access[8]=1;a.cost[8]=NaN;check(routeGrid(a,0,8).status==="no-route","nodata cost");a=grid(4,4);check(routeGrid(a,0,15,{cancelled:()=>true}).status==="cancelled","cancel");check(routeGrid(a,0,15,{maxExpanded:0}).reason==="SEARCH_BUDGET_EXCEEDED","budget");
+852188	  let seed=24;function rand(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+852189	  for(let t=0;t<100;t++){a=grid(8,7);for(let i=1;i<55;i++){a.cost[i]=0.2+rand()*8;if(rand()<.19)a.blocked[i]=1;if(rand()<.04)a.known[i]=0;if(rand()<.04)a.access[i]=0;}const expected=reference(a,0,55),got=routeGrid(a,0,55);check(Number.isFinite(expected)?got.status==="ok"&&Math.abs(got.cost-expected)<1e-7:got.status==="no-route","reference "+t);if(got.status==="ok"){check(got.cells[0]===0&&got.cells.at(-1)===55,"endpoints "+t);check(got.cells.every(i=>a.known[i]===1&&a.access[i]===1&&a.blocked[i]===0),"route permission "+t);}}
+852191	console.log('PASS: '+runTests(routeGrid)+' assertions, 100 seeded reference cases');
+852192	// Coordinate contract: GeoJSON order [longitude, latitude], WGS84.
+852193	const modes = new Set(['compass','road_to_field','foot_survey','cable_trench']);
+852194	function coordinate(value,max) {
+852195	  if(typeof value!=='string'||!value.trim()||!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(value.trim())) throw new Error('invalid coordinate');
+852196	  const n=Number(value); if(!Number.isFinite(n)||Math.abs(n)>max) throw new Error('coordinate out of range');return n;
+852197	export function parseDestination(search) {
+852198	  const p=new URLSearchParams(search);
+852199	  for(const k of ['latitude','longitude','to','name','mode','source','id']) if(p.getAll(k).length>1)throw new Error('duplicate '+k);
+852200	  const mode=p.get('mode')??'compass';if(!modes.has(mode))throw new Error('invalid mode');
+852201	  const lat=p.get('latitude'),lon=p.get('longitude'),legacy=p.get('to');
+852202	  if(legacy!==null&&(lat!==null||lon!==null))throw new Error('conflicting coordinates');
+852203	  let pair;
+852204	  if(legacy!==null){const a=legacy.split(',');if(a.length!==2)throw new Error('invalid legacy coordinates');pair=[coordinate(a[1],180),coordinate(a[0],90)];}
+852205	  else if(lat!==null||lon!==null)pair=[coordinate(lon,180),coordinate(lat,90)];
+852207	  const source=p.get('source'),id=p.get('id');
+852208	  if((source===null)!==(id===null)||source===''||id==='')throw new Error('incomplete asset identity');
+852209	  return {coordinates:pair,mode,name:p.get('name')??'',asset:source===null?null:{source,id},accessStatus:'unverified'};
+852210	export function buildDestination({coordinates,mode='compass',name='',asset=null}){
+852211	  if(!Array.isArray(coordinates)||coordinates.length!==2||!coordinates.every(Number.isFinite))throw new Error('invalid coordinates');
+852212	  const [lon,lat]=coordinates;if(Math.abs(lon)>180||Math.abs(lat)>90||!modes.has(mode))throw new Error('invalid destination');
+852213	  const p=new URLSearchParams({latitude:String(lat),longitude:String(lon),mode,name});
+852214	  if(asset!==null){if(typeof asset.source!=='string'||typeof asset.id!=='string'||!asset.source||!asset.id)throw new Error('invalid asset');p.set('source',asset.source);p.set('id',asset.id);}
+852215	  return '?'+p.toString();
+852216	import {distanceKm,initialBearingDeg} from '../vendor/grid-distance-maths/src/geodesy.mjs';
+852217	export function guide(fix,target,now=Date.now()){
+852218	  if(!fix||!target)return null;
+852219	  const {longitude,latitude,accuracyM,timestampMs}=fix;
+852220	  if(![longitude,latitude,accuracyM,timestampMs,now].every(Number.isFinite)||accuracyM<0||Math.abs(longitude)>180||Math.abs(latitude)>90)return null;
+852221	  const age=now-timestampMs;if(age<0||age>15000)return null;
+852222	  const [lon,lat]=target.coordinates;
+852223	  if(![lon,lat].every(Number.isFinite)||Math.abs(lon)>180||Math.abs(lat)>90)return null;
+852224	  const distanceM=distanceKm(longitude,latitude,lon,lat)*1000;
+852225	  return {distanceM,bearingDeg:distanceM<=accuracyM?null:initialBearingDeg(longitude,latitude,lon,lat),accuracyM,fixAgeMs:age,withinAccuracy:distanceM<=accuracyM,kind:'straight_line',accessStatus:'unverified'};
+852228	import {parseDestination,buildDestination} from './place.mjs';
+852229	import {guide} from './compass.mjs';
+852230	test('coordinate order',()=>{assert.deepEqual(parseDestination('?latitude=51.5&longitude=-0.4').coordinates,[-0.4,51.5]);assert.deepEqual(parseDestination('?to=51.5,-0.4').coordinates,[-0.4,51.5]);});
+852231	test('opaque identity and unverified access',()=>{const x={coordinates:[-0.4,51.5],mode:'foot_survey',name:'A & B',asset:{source:'fixture',id:'001'}};assert.deepEqual(parseDestination(buildDestination(x)),{...x,accessStatus:'unverified'});});
+852232	test('invalid inputs',()=>{for(const s of ['?to=91,0','?to=1,181','?to=,1','?latitude=2','?to=1,2&latitude=1','?to=1,2&to=3,4','?to=1,2&mode=unknown','?to=1,2&id=foo','?to=Infinity,0'])assert.throws(()=>parseDestination(s));});
+852233	test('zero and no destination',()=>{assert.deepEqual(parseDestination('?to=0,0').coordinates,[0,0]);assert.equal(parseDestination(''),null);});
+852234	test('straight line east and freshness',()=>{const f={longitude:0,latitude:0,accuracyM:5,timestampMs:1000};const x=guide(f,{coordinates:[0.01,0]},1000);assert.equal(x.kind,'straight_line');assert.ok(Math.abs(x.bearingDeg-90)<1e-9);assert.ok(x.distanceM>1100&&x.distanceM<1120);assert.equal(guide(f,{coordinates:[0.01,0]},17000),null);});
+852235	test('accuracy is not arrival or access',()=>{const x=guide({longitude:0,latitude:0,accuracyM:20,timestampMs:1000},{coordinates:[0,0]},1000);assert.equal(x.bearingDeg,null);assert.equal(x.withinAccuracy,true);assert.equal(x.accessStatus,'unverified');});
+852237	<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>GlobalGrid2050 SatNav — Field compass</title><style>
+852238	:root{color-scheme:dark;--bg:#070b10;--ink:#e6f1ff;--cyan:#00f0ff;--muted:#9bb0c2}*{box-sizing:border-box}body{margin:auto;max-width:720px;background:var(--bg);color:var(--ink);font:16px system-ui;padding:max(16px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom))}h1{font-size:24px;margin:12px 0}small,p{color:var(--muted);line-height:1.5}.panel{border:1px solid #33465b;border-radius:8px;padding:16px;margin:12px 0}label{display:block;margin:8px 0}input,button{font:inherit;min-height:48px;border-radius:6px;border:1px solid #57758c;padding:10px;background:#111c28;color:var(--ink);width:100%}button{color:var(--cyan);font-weight:600;cursor:pointer}.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dial{width:min(230px,70vw);aspect-ratio:1;border:2px solid #46667a;border-radius:50%;position:relative;margin:30px auto;display:grid;place-items:center}.north{position:absolute;top:8px;color:var(--muted)}#arrow{width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-bottom:78px solid var(--cyan);transform-origin:50% 100%;position:absolute;bottom:50%;visibility:hidden}#distance,#bearing{font:600 28px ui-monospace,monospace;color:var(--cyan)}#status{color:#f2b34d}#notice{font-size:14px}button:focus-visible,input:focus-visible{outline:3px solid white}
+852240	<small>GLOBALGRID2050 / SATNAV / DEVELOPMENT PREVIEW</small><h1>Field compass</h1><p id="notice">Straight-line bearing only. Not a road or terrain route. Access, obstacles and destination safety are unverified. Do not follow the arrow through barriers or restricted land.</p>
+852241	<form id="target" class="panel"><div class="row"><label>Latitude<input id="latitude" inputmode="decimal" required></label><label>Longitude<input id="longitude" inputmode="decimal" required></label></div><label>Destination name<input id="name" maxlength="120"></label><button>Set destination</button></form>
+852242	<div class="panel"><div id="status" role="status">Location not requested</div><h2 id="destination">No destination selected</h2><div class="dial" aria-hidden="true"><span class="north">N</span><span id="arrow"></span></div><div class="row"><div><small>STRAIGHT-LINE DISTANCE</small><div id="distance">—</div></div><div><small>TRUE BEARING</small><div id="bearing">—</div></div></div><p id="accuracy">Accuracy unavailable</p><div class="row"><button id="start">Start location</button><button id="stop" disabled>Stop location</button></div></div>
+852243	<p>North-up compass; not a device-heading display. Location remains on this device. No basemap or turn guidance in this first candidate.</p><script type="module" src="./app.mjs"></script></body></html>
+852245	let target=null,fix=null,watch=null,wake=null,generation=0;
+852246	function setTarget(t){target=t;el('destination').textContent=t?.name||'Selected coordinates';if(t){el('latitude').value=t.coordinates[1];el('longitude').value=t.coordinates[0];el('name').value=t.name;}render();}
+852247	function render(){const g=guide(fix,target);el('distance').textContent=g?(g.distanceM>=1000?(g.distanceM/1000).toFixed(2)+' km':Math.round(g.distanceM)+' m'):'—';el('bearing').textContent=g?.bearingDeg!=null?Math.round(g.bearingDeg)%360+'°':'—';el('arrow').style.visibility=g?.bearingDeg!=null?'visible':'hidden';if(g?.bearingDeg!=null)el('arrow').style.transform='rotate('+g.bearingDeg+'deg)';el('accuracy').textContent=g?'Position accuracy ±'+Math.round(g.accuracyM)+' m'+(g.withinAccuracy?' — destination within uncertainty; access not verified':''):'No current destination/fix';if(watch!==null&&fix&&Date.now()-fix.timestampMs>15000)el('status').textContent='Location stale';}
+852248	try{const t=parseDestination(location.search);if(t)setTarget(t);}catch(e){el('status').textContent=e.message;}
+852249	el('target').addEventListener('submit',e=>{e.preventDefault();try{setTarget(parseDestination(buildDestination({coordinates:[Number(el('longitude').value),Number(el('latitude').value)],name:el('name').value})));}catch(err){el('status').textContent=err.message;}});
+852250	async function acquire(){const token=generation;if(watch===null||wake||document.hidden)return;try{const w=await navigator.wakeLock?.request('screen');if(token!==generation||watch===null){await w?.release();return;}wake=w;w?.addEventListener('release',()=>{if(wake===w)wake=null;});}catch{}}
+852251	el('start').onclick=()=>{if(watch!==null)return;if(!navigator.geolocation){el('status').textContent='Location unsupported';return;}const token=++generation;el('status').textContent='Requesting location';watch=navigator.geolocation.watchPosition(p=>{if(token!==generation)return;fix={longitude:p.coords.longitude,latitude:p.coords.latitude,accuracyM:p.coords.accuracy,timestampMs:p.timestamp};el('status').textContent='Location fix received';render();},e=>{if(token!==generation)return;fix=null;el('status').textContent='Location unavailable: '+e.message;render();},{enableHighAccuracy:true,maximumAge:1000,timeout:10000});el('start').disabled=true;el('stop').disabled=false;acquire();};
+852252	el('stop').onclick=()=>{generation++;if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;fix=null;wake?.release().catch(()=>{});wake=null;el('status').textContent='Location stopped';el('start').disabled=false;el('stop').disabled=true;render();};
+852253	document.addEventListener('visibilitychange',()=>{if(!document.hidden){acquire();render();}});window.addEventListener('pagehide',()=>el('stop').click());setInterval(render,1000);
+852254	// Agent 23 synthetic-only candidate; no real access inference.
+852255	// GGH1: Ventusltd/lidar@2ddf7257e4847e5f387e03aaecbc1cc425c4e387.
+852256	export function decodeGgh1(bytes) {
+852257	  if (!(bytes instanceof Uint8Array)) throw new TypeError("Uint8Array required");
+852258	  const n=257,count=n*n;
+852259	  if(bytes.byteLength!==32+count*2) throw new Error("invalid byte length");
+852260	  const v=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
+852261	  if(v.getUint32(0,false)!==0x47474831||v.getUint16(4,true)!==1||v.getUint16(6,true)!==n||v.getUint16(8,true)!==1000||v.getUint16(10,true)!==0)throw new Error("invalid GGH1 header");
+852262	  const elevation=new Float64Array(count),base=v.getInt32(20,true);
+852263	  let missing=0,min=65535,max=0;
+852264	  for(let i=0;i<count;i++){
+852265	    const q=v.getUint16(32+2*i,true);
+852266	    if(q===65535){elevation[i]=NaN;missing++;continue;}
+852267	    elevation[i]=(base+q)/100;min=Math.min(min,q);max=Math.max(max,q);
+852268	  if(missing===count)min=max=0;
+852269	  if(missing!==v.getUint32(28,true)||min!==v.getUint16(24,true)||max!==v.getUint16(26,true))throw new Error("header/body mismatch");
+852270	  return {originE:v.getInt32(12,true),originN:v.getInt32(16,true),spacingM:1,width:n,height:n,crs:"EPSG:27700",rowOrder:"south-to-north",elevation};
+852271	export function buildFixtureGrid(tile,{cellSizeM=5,access,surface,hazard,relativeCost}={}) {
+852272	  if(![5,10].includes(cellSizeM)||tile.width!==257||tile.height!==257||tile.spacingM!==1||tile.crs!=="EPSG:27700"||!(tile.elevation instanceof Float64Array)||tile.elevation.length!==66049||!Number.isFinite(tile.originE)||!Number.isFinite(tile.originN))throw new Error("invalid tile or cell size");
+852273	  const rows=Math.floor(256/cellSizeM),cols=rows,n=rows*cols;
+852274	  function mask(input,max){if(input===undefined)return new Uint8Array(n);if(!(input instanceof Uint8Array)||input.length!==n||input.some(x=>x>max))throw new Error("invalid mask");return input.slice();}
+852275	  const a=mask(access,2),s=mask(surface,6),h=mask(hazard,3);
+852276	  if(relativeCost!==undefined&&(!(relativeCost instanceof Float32Array)||relativeCost.length!==n||relativeCost.some(x=>!Number.isFinite(x)||x<=0)))throw new Error("invalid relative cost");
+852277	  const elevation=new Float32Array(n).fill(NaN),cost=new Float32Array(n).fill(Infinity);
+852278	  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+852279	    const i=r*cols+c;let sum=0,valid=true;
+852280	    for(let dy=0;dy<cellSizeM;dy++)for(let dx=0;dx<cellSizeM;dx++){
+852281	      const z=tile.elevation[(r*cellSizeM+dy)*257+c*cellSizeM+dx];
+852282	      if(!Number.isFinite(z))valid=false;else sum+=z;
+852283	    if(valid){elevation[i]=sum/(cellSizeM*cellSizeM);
+852284	      if(a[i]===1&&(h[i]===1||h[i]===3)&&s[i]!==0&&relativeCost!==undefined)cost[i]=relativeCost[i];
+852285	  return {crs:tile.crs,originX:tile.originE,originY:tile.originN,rows,cols,cellSizeM,elevation,cost,access:a,surface:s,hazard:h,provenance:{synthetic:true,source:"GGH1 synthetic fixture",coverageM:rows*cellSizeM,excludedEdgeM:256-rows*cellSizeM,transformAccuracyM:null,verticalDatum:null}};
+852286	import {decodeGgh1,buildFixtureGrid} from './cost-grid-builder.mjs';
+852287	function syntheticTile({missing=[],flat=false,baseCm=-150}={}){
+852288	  const n=257,bytes=new Uint8Array(32+n*n*2),v=new DataView(bytes.buffer),omit=new Set(missing);
+852289	  v.setUint32(0,0x47474831,false);v.setUint16(4,1,true);v.setUint16(6,n,true);v.setUint16(8,1000,true);v.setInt32(12,400000,true);v.setInt32(16,210000,true);
+852290	  let min=Infinity,max=-Infinity,values=[];
+852291	  for(let i=0;i<n*n;i++){let h=omit.has(i)?null:baseCm+(flat?0:(i%n)*10+Math.floor(i/n)*20);values.push(h);if(h!==null){min=Math.min(min,h);max=Math.max(max,h);}}
+852292	  if(!Number.isFinite(min))min=max=0;
+852293	  v.setInt32(20,min,true);v.setUint16(26,max-min,true);v.setUint32(28,values.filter(x=>x===null).length,true);
+852294	  for(let i=0;i<values.length;i++)v.setUint16(32+2*i,values[i]===null?65535:values[i]-min,true);
+852296	function runTests(decodeGgh1,buildFixtureGrid,syntheticTile){
+852297	  let n=0;const ok=(b,l)=>{if(!b)throw new Error(l);n++;},reject=(f,l)=>{let threw=false;try{f();}catch{threw=true;}ok(threw,l);};
+852298	  const a=decodeGgh1(syntheticTile({missing:[258]}));
+852299	  ok(a.originE===400000&&a.originN===210000&&a.crs==="EPSG:27700","metadata");ok(a.elevation[0]===-1.5,"negative");ok(Math.abs(a.elevation[1]+1.4)<1e-12,"east");ok(Math.abs(a.elevation[257]+1.3)<1e-12,"north");ok(Number.isNaN(a.elevation[258]),"nodata");
+852300	  ok(decodeGgh1(syntheticTile({flat:true,baseCm:0})).elevation[66048]===0,"zero");ok(decodeGgh1(syntheticTile({missing:Array.from({length:66049},(_,i)=>i)})).elevation.every(Number.isNaN),"all nodata");
+852301	  reject(()=>decodeGgh1(new Uint8Array(32)),"truncated");
+852302	  for(const o of [0,4,6,8,10,24,26,28]){const b=syntheticTile();b[o]^=1;reject(()=>decodeGgh1(b),"header "+o);}
+852303	  const buf=new Uint8Array(10+syntheticTile().length);buf.set(syntheticTile(),10);ok(decodeGgh1(buf.subarray(10)).elevation[0]===-1.5,"offset");
+852304	  const g=buildFixtureGrid(a);ok(g.rows===51&&g.cols===51&&g.provenance.excludedEdgeM===1,"coverage");ok(g.cost.every(x=>x===Infinity),"unknown access");ok(Number.isNaN(g.elevation[0]),"unknown terrain");
+852305	  const size=g.rows*g.cols,access=new Uint8Array(size).fill(1),surface=new Uint8Array(size).fill(4),hazard=new Uint8Array(size).fill(1),relativeCost=new Float32Array(size).fill(2);
+852306	  access[2]=2;hazard[3]=2;hazard[4]=0;surface[5]=0;hazard[6]=3;
+852307	  const p=buildFixtureGrid(a,{access,surface,hazard,relativeCost});
+852308	  for(const [i,c] of [[0,Infinity],[1,2],[2,Infinity],[3,Infinity],[4,Infinity],[5,Infinity],[6,2]])ok(p.cost[i]===c,"cost "+i);
+852309	  ok(p.access!==access&&p.hazard!==hazard,"source retained");reject(()=>buildFixtureGrid(a,{access:new Uint8Array(1)}),"length");reject(()=>buildFixtureGrid(a,{relativeCost:new Float32Array(size)}),"zero cost");reject(()=>buildFixtureGrid(a,{cellSizeM:0}),"resolution");
+852311	console.log(`${runTests(decodeGgh1,buildFixtureGrid,syntheticTile)} synthetic checks passed`);
+852312	// Agent 24 candidate adapter; NL-084; transform injected by reviewed contract owner.
+852313	import { routeGrid } from './grid-search.mjs';
+852314	export function routeWithContract(request,{toWgs84, cancelled}={}){
+852315	  const requestId=request?.requestId??null;
+852316	  const reply=(status,reason,extra={})=>({schema:"satnav.route.response.v1",requestId,status,...(reason?{reason}:{}),...extra});
+852317	  if(request?.schema!=="satnav.route.request.v1"||typeof requestId!=="string"||!requestId||!["road_to_field","foot_survey","cable_trench"].includes(request.mode))return reply("invalid","BAD_REQUEST");
+852318	  if(cancelled?.())return reply("cancelled","CANCELLED");
+852319	  const a=request.grid??{}, {rows,cols,cellSizeM,originX,originY,crs,elevation,cost,access,surface,hazard}=a;
+852320	  const n=rows*cols;
+852321	  if(!Number.isInteger(rows)||!Number.isInteger(cols)||rows<1||cols<1||n>360000||!Number.isFinite(cellSizeM)||cellSizeM<=0||!Number.isFinite(originX)||!Number.isFinite(originY)||typeof crs!=="string"||!crs.trim())return reply("invalid","BAD_GRID");
+852322	  if([cost,elevation].some(x=>!(x instanceof Float32Array)||x.length!==n)||[access,surface,hazard].some(x=>!(x instanceof Uint8Array)||x.length!==n))return reply("invalid","BAD_GRID_ARRAYS");
+852323	  if(!Number.isInteger(request.startCell)||!Number.isInteger(request.targetCell)||[request.startCell,request.targetCell].some(i=>i<0||i>=n))return reply("invalid","BAD_ENDPOINT");
+852324	  if(!a.provenance||typeof a.provenance!=="object")return reply("invalid","MISSING_PROVENANCE");
+852325	  if(request.mode==="road_to_field")return reply("unavailable","ROAD_GRAPH_NOT_INTEGRATED");
+852326	  if(typeof toWgs84!=="function")return reply("unavailable","VERIFIED_CRS_TRANSFORM_REQUIRED");
+852327	  const known=new Uint8Array(n),blocked=new Uint8Array(n);
+852328	  for(let i=0;i<n;i++){known[i]=Number.isFinite(elevation[i])&&surface[i]>=1&&surface[i]<=6?1:0;blocked[i]=hazard[i]===1||hazard[i]===3?0:1;}
+852330	  try{result=routeGrid({width:cols,height:rows,cellMetres:cellSizeM,cost,known,access,blocked},request.startCell,request.targetCell,{cancelled});}catch{return reply("invalid","GRID_SEARCH_ERROR");}
+852331	  if(result.status==="cancelled")return reply("cancelled","CANCELLED");
+852332	  if(result.status!=="ok")return reply("no_route",result.reason);
+852333	  const cells=result.cells.length===1?[result.cells[0],result.cells[0]]:result.cells;
+852334	  const coordinates=[],vertices=[],manoeuvres=[];let cumulative2dM=0,cumulative3dM=0;
+852335	  for(let k=0;k<cells.length;k++){
+852336	    const i=cells[k],x=originX+(i%cols+0.5)*cellSizeM,y=originY+(Math.floor(i/cols)+0.5)*cellSizeM;
+852337	    let ll;try{ll=toWgs84(x,y,crs);}catch{return reply("unavailable","CRS_TRANSFORM_FAILED");}
+852338	    if(!Array.isArray(ll)||ll.length!==2||!ll.every(Number.isFinite)||Math.abs(ll[0])>180||Math.abs(ll[1])>90)return reply("unavailable","CRS_TRANSFORM_FAILED");
+852339	    coordinates.push(ll);
+852340	    let slopeDeg=null;
+852341	    if(k){const j=cells[k-1],distance=cellSizeM*Math.hypot(i%cols-j%cols,Math.floor(i/cols)-Math.floor(j/cols)),dz=elevation[i]-elevation[j];cumulative2dM+=distance;cumulative3dM+=Math.hypot(distance,dz);if(distance)slopeDeg=Math.atan2(dz,distance)*180/Math.PI;}
+852342	    vertices.push({elevationM:elevation[i],slopeDeg,surface:surface[i],cumulative2dM,cumulative3dM});
+852343	    if(k&&surface[i]!==surface[cells[k-1]])manoeuvres.push({vertexIndex:k,type:"surface_transition",text:"Mapped surface changes",evidence:{from:surface[cells[k-1]],to:surface[i]},distance:cumulative2dM});
+852344	    if(hazard[i]===3&&(!k||hazard[cells[k-1]]!==3))manoeuvres.push({vertexIndex:k,type:"caution",text:"Mapped caution area",evidence:{hazard:3},distance:cumulative2dM});
+852345	  return reply("ok",null,{route:{type:"Feature",geometry:{type:"LineString",coordinates},properties:{mode:request.mode,indicative:request.mode==="cable_trench"}},vertices,manoeuvres,stats:{weightedCost:result.cost,expanded:result.expanded,distance2dM:cumulative2dM,distance3dM:cumulative3dM},provenance:a.provenance});
+852346	import {routeWithContract} from '../src/router/contract-adapter.mjs';
+852347	function testContract(routeWithContract){
+852348	  let count=0;const assert=(x,s)=>{if(!x)throw Error(s);count++;};
+852349	  const grid={rows:3,cols:3,originX:0,originY:0,cellSizeM:5,crs:"SYNTHETIC_LOCAL",elevation:new Float32Array(9).fill(10),cost:new Float32Array(9).fill(1),access:new Uint8Array(9).fill(1),surface:new Uint8Array(9).fill(3),hazard:new Uint8Array(9).fill(1),provenance:{fixture:"synthetic"}};
+852350	  const q={schema:"satnav.route.request.v1",requestId:"fixture",mode:"foot_survey",grid,startCell:0,targetCell:8};
+852351	  const transform=(x,y)=>[x/100000,y/100000],opts={toWgs84:transform};
+852352	  let a=routeWithContract(q,opts);
+852353	  assert(a.status==="ok"&&a.requestId==="fixture","success envelope");assert(a.route.geometry.coordinates.length===a.vertices.length,"vertex parity");assert(Math.abs(a.stats.distance2dM-10*Math.SQRT2)<1e-8,"metric distance");assert(a.provenance.fixture==="synthetic","provenance");
+852354	  assert(routeWithContract(q).status==="unavailable","no transform");assert(routeWithContract({...q,mode:"road_to_field"},opts).status==="unavailable","no graph");assert(routeWithContract({...q,targetCell:9},opts).status==="invalid","bounds");assert(routeWithContract(q,{...opts,cancelled:()=>true}).status==="cancelled","cancel");
+852355	  grid.hazard[1]=2;grid.hazard[3]=0;assert(routeWithContract(q,opts).status==="no_route","hard and unknown corner");grid.hazard.fill(1);grid.elevation[8]=NaN;assert(routeWithContract(q,opts).status==="no_route","unknown height");grid.elevation[8]=10;grid.surface[8]=0;assert(routeWithContract(q,opts).status==="no_route","unknown surface");grid.surface[8]=3;grid.access[8]=2;assert(routeWithContract(q,opts).status==="no_route","prohibited access");grid.access[8]=1;
+852356	  a=routeWithContract({...q,targetCell:0},opts);assert(a.status==="ok"&&a.route.geometry.coordinates.length===2&&a.stats.distance2dM===0,"zero-length GeoJSON");
+852357	  assert(routeWithContract(q,{toWgs84:()=>[Infinity,0]}).status==="unavailable","invalid transform");
+852358	  grid.surface[4]=2;grid.hazard[4]=3;grid.elevation[4]=13;a=routeWithContract(q,opts);assert(a.manoeuvres.some(x=>x.type==="caution"),"caution evidence");assert(a.manoeuvres.some(x=>x.type==="surface_transition"),"surface evidence");assert(a.stats.distance3dM>a.stats.distance2dM,"3d distance");
+852359	  a=routeWithContract({...q,mode:"cable_trench"},opts);assert(a.route.properties.indicative===true,"planning label");return count;
+852360	console.log('PASS: '+testContract(routeWithContract)+' contract adapter assertions');
+852362	"""Read-only composition of exact committed SatNav candidates. Never pushes or merges."""
+852363	import argparse, hashlib, json, re, subprocess, tempfile, time
+852366	SHA=re.compile(r"^[0-9a-f]{40}$")
+852368	    return subprocess.check_output(["git",*args],timeout=60)
+852369	def safe_path(s):
+852370	    p=PurePosixPath(s)
+852371	    if not s or p.is_absolute() or ".." in p.parts or "\\" in s or ":" in s or str(p)!=s or s=="." or any(x.lower()==".git" for x in p.parts):
+852372	        raise ValueError("unsafe path: "+s)
+852374	def commit(s):
+852375	    if not SHA.fullmatch(s) or git("rev-parse",s+"^{commit}").decode().strip()!=s: raise ValueError("bad commit: "+s)
+852377	def descendants(base,head):
+852378	    if subprocess.run(["git","merge-base","--is-ancestor",base,head],timeout=60).returncode: raise ValueError("head not descended from baseline")
+852379	def tree(head):
+852380	    out={}
+852381	    for item in git("ls-tree","-r","-z",head).split(b"\0"):
+852382	        if not item: continue
+852383	        meta,path=item.split(b"\t",1);mode,kind,oid=meta.decode().split()
+852384	        s=path.decode("utf-8");safe_path(s)
+852385	        if kind!="blob" or mode not in ("100644","100755"): raise ValueError("nonregular source: "+s)
+852386	        out[s]=(mode,oid)
+852388	def assemble(lock,integrator):
+852389	    if lock.get("schema_version")!=1: raise ValueError("bad lock")
+852390	    base=commit(lock["baseline"]);integrator=commit(integrator);descendants(base,integrator)
+852391	    original=tree(base);selected=tree(integrator);owners={p:22 for p in selected}
+852392	    seen=set()
+852393	    for lane in lock["lanes"]:
+852394	        agent=lane["agent"]
+852395	        if agent not in (23,24) or agent in seen:raise ValueError("bad lane")
+852396	        seen.add(agent);head=commit(lane["head"]);descendants(base,head);current=tree(head)
+852397	        changed={p for p in set(original)|set(current) if original.get(p)!=current.get(p)}
+852398	        if changed!=set(lane["paths"]):raise ValueError(f"Agent {agent} path-set mismatch: {sorted(changed)}")
+852399	        for p in sorted(changed):
+852400	            safe_path(p)
+852401	            if p not in current:raise ValueError("deletion forbidden: "+p)
+852402	            if p in selected and selected[p]!=original.get(p):raise ValueError("ownership collision: "+p)
+852403	            if p in original:raise ValueError("baseline modification requires explicit review: "+p)
+852404	            selected[p]=current[p];owners[p]=agent
+852405	    if seen!={23,24}:raise ValueError("missing lane")
+852406	    return selected,owners
+852407	def run(lock,head,out):
+852408	    started=time.monotonic();receipt={"schema_version":1,"integrator":head,"lanes":lock["lanes"],"status":"FAIL","checks":[]}
+852410	        selected,owners=assemble(lock,head)
+852411	        with tempfile.TemporaryDirectory(prefix="satnav-trio-") as tmp:
+852412	            root=Path(tmp);files=[]
+852413	            for path,(_,oid) in sorted(selected.items()):
+852414	                data=git("cat-file","blob",oid)
+852415	                if hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()!=oid:raise ValueError("blob mismatch: "+path)
+852416	                dest=root/safe_path(path);dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(data)
+852417	                files.append({"path":path,"agent":owners[path],"blob":oid,"sha256":hashlib.sha256(data).hexdigest(),"bytes":len(data)})
+852418	            receipt["files"]=files
+852419	            commands=[["node","--test","nav/contracts.test.mjs"],["node","vendor/grid-distance-maths/test/verify.mjs"],["node","prototypes/terrain/cost-grid-builder.test.mjs"],["node","test/router-grid.test.mjs"],["node","test/router-contract.test.mjs"],["node","automation/trio-smoke.mjs"],["node","--check","nav/app.mjs"]]
+852420	            for command in commands:
+852421	                t=time.monotonic()
+852422	                result=subprocess.run(command,cwd=root,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=90)
+852423	                receipt["checks"].append({"command":command,"exit":result.returncode,"seconds":round(time.monotonic()-t,3),"tail":result.stdout[-4000:]})
+852424	                if result.returncode:raise RuntimeError("test failed: "+" ".join(command))
+852425	            receipt["status"]="PASS"
+852426	    except Exception as e:receipt["error"]=str(e)
+852428	        receipt["seconds"]=round(time.monotonic()-started,3);out.parent.mkdir(parents=True,exist_ok=True);out.write_text(json.dumps(receipt,indent=2)+"\n",encoding="utf-8")
+852429	        print(json.dumps({k:v for k,v in receipt.items() if k!="files"},indent=2))
+852430	    return 0 if receipt["status"]=="PASS" else 1
+852432	    p=argparse.ArgumentParser();p.add_argument("--lock",type=Path,default=Path("automation/trio-lock.json"));p.add_argument("--integrator",required=True);p.add_argument("--out",type=Path,default=Path("trio-receipt.json"));a=p.parse_args()
+852433	    return run(json.loads(a.lock.read_text(encoding="utf-8")),a.integrator,a.out)
+852434	if __name__=="__main__":raise SystemExit(main())
+852435	// Cross-agent synthetic fixture. This is NOT a field-ready route.
+852436	import {buildFixtureGrid} from '../prototypes/terrain/cost-grid-builder.mjs';
+852437	const elevation=new Float64Array(257*257).fill(100);
+852438	const tile={width:257,height:257,spacingM:1,crs:'EPSG:27700',originE:0,originN:0,elevation};
+852439	const n=51*51,access=new Uint8Array(n).fill(1),surface=new Uint8Array(n).fill(3),hazard=new Uint8Array(n).fill(1),relativeCost=new Float32Array(n).fill(1);
+852440	const grid=buildFixtureGrid(tile,{cellSizeM:5,access,surface,hazard,relativeCost});
+852441	const req={schema:'satnav.route.request.v1',requestId:'synthetic-only',mode:'foot_survey',grid,startCell:0,targetCell:52};
+852442	const fixtureTransform=(x,y)=>[x/100000,y/100000]; // synthetic coordinate transform only
+852443	const ok=routeWithContract(req,{toWgs84:fixtureTransform});
+852444	assert.equal(ok.status,'ok');assert.equal(ok.provenance.synthetic,true);
+852445	assert.equal(ok.vertices.length,ok.route.geometry.coordinates.length);
+852446	assert.ok(Math.abs(ok.stats.distance2dM-Math.sqrt(50))<1e-6);
+852447	assert.ok(Math.abs(ok.stats.weightedCost-Math.sqrt(50))<1e-6);
+852448	const blocked=buildFixtureGrid(tile,{cellSizeM:5,access:new Uint8Array(n),surface,hazard,relativeCost});
+852449	assert.notEqual(routeWithContract({...req,grid:blocked},{toWgs84:fixtureTransform}).status,'ok');
+852450	assert.equal(routeWithContract(req).status,'unavailable');
+852451	assert.equal(routeWithContract({...req,mode:'road_to_field'},{toWgs84:fixtureTransform}).status,'unavailable');
+852452	console.log('Synthetic terrain → router contract smoke: 8 assertions passed; no real navigation claim.');
+852453	<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SatNav | GlobalGrid2050 — Concept scope</title>
+852454	<style>body{margin:0;background:#10171a;color:#e3e9e9;font:16px/1.6 system-ui,sans-serif}main{max-width:860px;margin:auto;padding:2rem 1.2rem}h1,h2{line-height:1.2;color:#e9eeee}h1{font-size:2.2rem;margin-bottom:.2rem}h2{font-size:1.3rem;margin-top:2rem}small{color:#b9c5c5}a{color:#8dd8df}section{border-top:1px solid #35474b;margin-top:1.5rem}li{margin:.3rem 0}footer{margin-top:2rem;color:#b9c5c5}</style></head>
+852455	<body><main><a href="https://www.globalgrid2050.com/">GLOBALGRID2050</a><h1>SatNav</h1><small>(concept only stage)</small>
+852456	<p>A thin, browser-based SCADA routing and field navigation companion for the United Kingdom. Connect the tools already built; develop only the missing navigation layer. No installation or duplicated engineering platform.</p>
+852457	<section><h2>Purpose</h2><p>Choose an existing asset or a pre-designed route, locate yourself using permissioned phone GPS, follow the route and record field observations. Keep route planning and electrical engineering with their existing owners. A mapped asset is not a verified entrance or permission to enter.</p></section>
+852458	<section><h2>Reuse before building</h2><ul>
+852459	<li><a href="https://github.com/Ventusltd/gridatlas/tree/1c9ed251ea31de67cc9d7e3b3d7908ea6aa39779">GridAtlas and Vicinity</a>: native infrastructure layers, nearby asset search, identity, voltage tags and SCADA map presentation. Existing transmission and distribution coverage is inherited, not claimed complete; 11 kV UKPN coverage subject to source checks.</li>
+852460	<li><a href="https://github.com/Ventusltd/kuiper-belt/tree/f26375800602197923f2609f1dab574bc506a940/see-through/202611020012">See Through</a>: mapped substation visualisation, radar-like asset exploration, MapLibre and 3D reference; its 5,800-record snapshot is not a live sensor or an access register.</li>
+852461	<li><a href="https://github.com/Ventusltd/ventus-grid-engine/tree/7c2a7b42905674fdcd3aa4bb50af14bc352a7747">Ventus Grid Engine</a> and <a href="https://github.com/Ventusltd/grid-distance-maths/tree/8e91b07d8312acca5bcaef43e839f06a3b1d642a">Grid Distance Maths</a>: reuse canonical distance, bearing, spatial indexing and engineering context. Corridor estimates are not traversable routes.</li>
+852462	<li><a href="https://github.com/Ventusltd/gis-sld-sandbox">GIS SLD Sandbox / Solar Design Studio</a>: consume the existing read-only route geometry; return recorded field observations, not a new design engine.</li>
+852463	<li><a href="https://github.com/Ventusltd/lidar/tree/2ddf7257e4847e5f387e03aaecbc1cc425c4e387">LiDAR</a>: reuse existing terrain format, slope methods and data provenance; no assumption of uniform UK coverage.</li>
+852464	<li><a href="https://github.com/Ventusltd/spiders/tree/8e8e7eeab05c30d4a7f92d2d9652368e6851203b/species/genome-spider">Spider</a> and <a href="https://github.com/Ventusltd/kuiper-belt/tree/f26375800602197923f2609f1dab574bc506a940">Kuiper</a>: discover owners, dependencies, duplicated mathematics, evidence and exact source versions. Check current source, licence and tests before selective reuse.</li></ul></section>
+852465	<section><h2>Build only the gap</h2><ol><li>Mobile GPS, accuracy and stale-fix handling; local-only position by default; compass bearing clearly distinguished from travel heading.</li><li>MapLibre and asset/route adapters; selected destination and verified access point kept separate.</li><li>Route-following, cross-track error, travelled distance, optional local GPX/GeoJSON/CSV export; smartphone measurements are not survey-grade.</li><li>Optional public-road router, only with coverage, service terms and explicit location-sharing consent. No straight-line fallback described as a route.</li><li>Optional last-mile A* for authorised field travel where terrain, barriers, access and coverage are known. Synthetic routes are non-navigable. Offline packs only where rights and completeness permit.</li></ol><p>England, Scotland, Wales and Northern Ireland are in scope; use nation-specific coverage, CRS and data rights. Public or owner-authorised access is necessary but not sufficient to establish safe passage. No inference of entry into substations or live electrical sites. Cable design, nationwide off-road cost-surface generation and full offline coverage are later, conditional extensions.</p></section>
+852466	<section><h2>Development and acceptance</h2><p>Three-agent swarm: Agent 22 owns contracts, UI and integration; Agent 23 owns existing terrain/asset adapters, rights and route cross-review; Agent 24 owns routing, cross-track and route-following. Use isolated branches, reciprocal review and reproducible CI, with exact commit receipts and independent acceptance checks. Preserve GridAtlas, Pipeline News and existing immutable releases. No live GPS upload by default.</p><p>Planning targets from 24 November 2026: concept page first; first phone compass/route-following candidate within 1–2 development days, integrated pilot within 3–5 development days, conditional on CI, source rights and handset tests. Full UK offline and last-mile coverage remain unestimated pending coverage audit. Targets are not promises. This page is not a released navigation product.</p><p><a href="https://github.com/Ventusltd/satnav">Standalone repository</a> · <a href="https://github.com/Ventusltd/neural-link-between-agents/issues/84">Development coordination</a></p></section>
+852467	<footer><small>Concept only stage. Not an operational navigation service, survey-grade measurement, access authorisation or approved engineering design.</small></footer></main></body></html>
+852468	    # Lane branches retain the original common baseline; compose the approved
+852469	    # public scope independently, without rebasing another agent's branch.
+852470	    published=commit(lock["published_baseline"]);descendants(base,published)
+852471	    published_tree=tree(published)
+852472	    delta={p for p in set(original)|set(published_tree) if original.get(p)!=published_tree.get(p)}
+852473	    if delta!=set(lock["published_paths"]):raise ValueError("published baseline path-set mismatch")
+852474	    for p in sorted(delta):
+852475	        if p not in published_tree or p in original:raise ValueError("unexpected published baseline change: "+p)
+852476	        if p in selected and selected[p]!=published_tree[p]:raise ValueError("published scope collision: "+p)
+852477	        selected[p]=published_tree[p];owners[p]="published_scope"
+852478	    for p,entry in original.items():
+852479	        if selected.get(p)!=entry:raise ValueError("original baseline modified: "+p)
+852480	    started=time.monotonic();receipt={"schema_version":1,"integrator":head,"published_baseline":lock["published_baseline"],"lanes":lock["lanes"],"status":"FAIL","checks":[]}
+852481	// Tracking only, not routing or authorisation. Inject the pinned canonical maths.
+852482	export function createRouteFollower(geometry,maths){
+852483	  const valid=p=>Array.isArray(p)&&p.length===2&&p.every(Number.isFinite)&&Math.abs(p[0])<=180&&Math.abs(p[1])<=90;
+852484	  if(geometry?.type!=="LineString"||!Array.isArray(geometry.coordinates)||geometry.coordinates.length<2||geometry.coordinates.length>20000||!geometry.coordinates.every(valid))throw Error("INVALID_LINE");
+852485	  const {distanceKm,distanceToSegmentKm,initialBearingDeg}=maths;
+852486	  const coords=geometry.coordinates.map(p=>p.slice()),segments=[];let total=0;
+852487	  for(let i=0;i<coords.length-1;i++){const a=coords[i],b=coords[i+1],length=distanceKm(...a,...b)*1000;if(!Number.isFinite(length)||length>1000)throw Error("SEGMENT_REQUIRES_DENSIFICATION");if(length>0){segments.push({a,b,length,start:total,index:i});total+=length;}}
+852488	  if(!segments.length)throw Error("EMPTY_ROUTE");
+852489	  return function locate(fix,nowMs){
+852490	    if(!valid([fix?.longitude,fix?.latitude])||!Number.isFinite(fix?.accuracyM)||fix.accuracyM<0||!Number.isFinite(fix?.timestampMs)||!Number.isFinite(nowMs))return {status:"invalid"};
+852491	    const age=nowMs-fix.timestampMs;if(age<0||age>10000)return {status:"stale"};
+852492	    if(fix.accuracyM>30)return {status:"uncertain",reason:"GPS_ACCURACY"};
+852493	    const hits=segments.map(s=>{const h=distanceToSegmentKm(fix.longitude,fix.latitude,...s.a,...s.b);return {s,h,distance:h.km*1000,progress:s.start+h.t*s.length};}).sort((a,b)=>a.distance-b.distance||a.s.index-b.s.index);
+852494	    const best=hits[0];
+852495	    if(hits.some(h=>h.distance<=best.distance+Math.max(5,fix.accuracyM)&&Math.abs(h.progress-best.progress)>Math.max(30,2*fix.accuracyM)))return {status:"uncertain",reason:"AMBIGUOUS_ROUTE_POSITION"};
+852496	    let signedCrossTrackM=null;
+852497	    if(best.h.t>0&&best.h.t<1){const direction=initialBearingDeg(...best.s.a,...best.s.b),offset=initialBearingDeg(...best.h.foot,fix.longitude,fix.latitude);signedCrossTrackM=best.distance<1e-6?0:Math.sign(Math.sin((offset-direction)*Math.PI/180))*best.distance;}
+852498	    return {status:"ok",segmentIndex:best.s.index,nearest:best.h.foot,offsetM:best.distance,signedCrossTrackM,progressM:best.progress,remainingM:Math.max(0,total-best.progress),totalM:total,offRoute:best.distance-fix.accuracyM>25,accuracyM:fix.accuracyM,fixAgeMs:age,trackingOnly:true};
+852500	import {createRouteFollower} from '../src/router/route-follower.mjs';
+852503	const maths=await import(pathToFileURL(resolve(process.argv[2]??'vendor/grid-distance-maths/src/geodesy.mjs')).href);
+852504	function runFollowerTests(createRouteFollower,maths){
+852505	  let count=0;const check=(p,m)=>{if(!p)throw Error(m);count++;};
+852506	  for(const [name,lon,lat] of [["England",-0.45,51.5],["Scotland",-4.25,55.86],["Wales",-3.18,51.48],["Northern Ireland",-5.93,54.6]]){
+852507	    const start=[lon,lat],end=maths.destinationPoint(lon,lat,.2,0),mid=maths.destinationPoint(lon,lat,.1,0),east=maths.destinationPoint(...mid,.05,90),west=maths.destinationPoint(...mid,.05,270);
+852508	    const locate=createRouteFollower({type:"LineString",coordinates:[start,end]},maths),fix=(p,accuracyM=3,timestampMs=1000)=>({longitude:p[0],latitude:p[1],accuracyM,timestampMs});
+852509	    const a=locate(fix(mid),1000),b=locate(fix(east),1000),c=locate(fix(west),1000);
+852510	    check(a.status==="ok"&&Math.abs(a.progressM-100)<.1&&Math.abs(a.remainingM-100)<.1,name+" progress");
+852511	    check(b.signedCrossTrackM>49&&b.signedCrossTrackM<51&&b.offRoute,name+" right");
+852512	    check(c.signedCrossTrackM<-49&&c.signedCrossTrackM>-51,name+" left");
+852513	    check(locate(fix(east,30),1000).offRoute===false,name+" accuracy margin");
+852514	    check(locate(fix(mid,31),1000).status==="uncertain",name+" poor accuracy");
+852515	    check(locate(fix(mid),12000).status==="stale",name+" stale");
+852516	    check(locate(fix(mid),999).status==="stale",name+" future");
+852517	    const loop=createRouteFollower({type:"LineString",coordinates:[start,end,start]},maths);
+852518	    check(loop(fix(mid),1000).reason==="AMBIGUOUS_ROUTE_POSITION",name+" out/back ambiguity");
+852519	    check(locate(fix(start),1000).signedCrossTrackM===null,name+" endpoint sign unavailable");
+852520	    check(a.trackingOnly===true,name+" tracking only");
+852521	  for(const g of [{type:"Point",coordinates:[0,0]},{type:"LineString",coordinates:[[0,0],[0,0]]},{type:"LineString",coordinates:[[0,0],[0,10]]}]){let rejected=false;try{createRouteFollower(g,maths);}catch{rejected=true;}check(rejected,"bad geometry");}
+852522	console.log('PASS: '+runFollowerTests(createRouteFollower,maths)+' route-following assertions');
+852523	// Candidate adapter: existing Vicinity performs geometry, voltage and radius maths.
+852524	// Source modules are injected by the integrator; no network or GPS access here.
+852525	export function buildAssetIndex({features, vicinity, geodesy, provenance, classifyUk}) {
+852526	  if (!Array.isArray(features) || !vicinity?.stationRecords || !vicinity?.exploreVicinity ||
+852527	      !vicinity?.validCoordinate || !geodesy?.distanceKm || !geodesy?.representativePoint ||
+852528	      !geodesy?.voltagesKv || typeof classifyUk !== 'function') throw Error('Missing producer dependencies');
+852529	  const {source, revision, coverage, licence, attribution} = provenance || {};
+852530	  if (typeof source !== 'string' || !source.trim() || !/^[a-f0-9]{40}$/.test(revision || '') ||
+852531	      !['partial','declared-complete','synthetic'].includes(coverage) ||
+852532	      typeof licence !== 'string' || !licence.trim() || typeof attribution !== 'string' || !attribution.trim())
+852533	    throw Error('Explicit source, pinned revision, coverage and rights required');
+852534	  const nations = new Set(['England','Scotland','Wales','Northern Ireland']);
+852535	  const rows = new Map(), rejected = {unlocated:0, unidentifiable:0, outsideOrUnknown:0, duplicate:0, conflict:0};
+852536	  const ambiguous = new Set();
+852538	    // Per-feature conversion avoids collapsing distinct IDs at coincident locations.
+852539	    const row = vicinity.stationRecords([f], geodesy)[0];
+852540	    if (!row) { rejected.unlocated++; continue; }
+852541	    const rawId = f?.id ?? f?.properties?.id;
+852542	    if (!((typeof rawId === 'string' && rawId.trim() === rawId && rawId.length > 0 && rawId.length <= 256 && !/[\u0000-\u001f\u007f]/.test(rawId)) ||
+852543	        (typeof rawId === 'number' && Number.isSafeInteger(rawId)))) { rejected.unidentifiable++; continue; }
+852544	    const nation = classifyUk(row.at);
+852545	    if (!nations.has(nation)) { rejected.outsideOrUnknown++; continue; }
+852546	    const key = String(rawId);
+852547	    if (ambiguous.has(key)) { rejected.conflict++; continue; }
+852548	    const record = {...row, id:key, nation, identity:{source,id:key}, destinationKind:'mapped-asset-reference', accessStatus:'unknown', navigationPermitted:false};
+852549	    if (rows.has(key)) {
+852550	      if (JSON.stringify(rows.get(key)) === JSON.stringify(record)) rejected.duplicate++;
+852551	      else { rows.delete(key); ambiguous.add(key); rejected.conflict++; }
+852552	    } else rows.set(key, record);
+852553	  const snapshot = [...rows.values()];
+852554	  const copy = row => ({...row, at:[...row.at], kv:[...row.kv], bands:[...row.bands], identity:{...row.identity}});
+852556	    provenance:{source,revision,coverage,licence,attribution},
+852557	    counts:{input:features.length,eligible:snapshot.length,...rejected},
+852558	    search({origin,radius,bands,limit=50}) {
+852559	      if (!vicinity.validCoordinate(origin?.at) || !nations.has(classifyUk(origin.at))) throw Error('Origin outside verified UK classification');
+852560	      if (!Number.isInteger(limit) || limit < 1 || limit > 200 || !Array.isArray(bands) ||
+852561	          bands.some(b=>!vicinity.VOLTAGE_BANDS.some(v=>v[0]===b))) throw Error('Invalid search bounds');
+852562	      const result = vicinity.exploreVicinity({origin,radius,bands,records:snapshot,geodesy,limit});
+852563	      return {...result, shown:result.shown.map(copy), coverage, navigable:false,
+852564	        statement:result.statement+' Mapped reference points are not entrances or permission to enter.'};
+852566	    get(id) { const row=rows.get(String(id)); return row ? copy(row) : null; }
+852567	import {buildAssetIndex} from './asset-adapter.mjs';
+852568	const root=process.env.SATNAV_UPSTREAM_FIXTURES;
+852569	assert.ok(root,'Pinned upstream source directory required');
+852570	globalThis.window={};
+852571	await import(pathToFileURL(root+'/atlas-geodesy.mjs'));
+852572	const atlas=window.__GRIDATLAS_MODULES__.geodesy;
+852573	const canonical=await import(pathToFileURL(root+'/canonical-geodesy.mjs'));
+852574	const vicinity=await import(pathToFileURL(root+'/vicinity.mjs'));
+852575	const geodesy={...atlas,distanceKm:canonical.distanceKm};
+852576	const f=(id,at,voltage='33000')=>({type:'Feature',id,geometry:{type:'Point',coordinates:at},properties:{name:'Fixture',voltage}});
+852577	const points=[[-0.1,51.5],[-3.2,55.9],[-3.2,51.5],[-5.9,54.6]];
+852578	const names=['England','Scotland','Wales','Northern Ireland'];
+852579	// Exact synthetic classification, deliberately not a jurisdiction polygon.
+852580	const classifyUk=at=>names[points.findIndex(p=>p[0]===at[0]&&p[1]===at[1])] || null;
+852581	const provenance={source:'synthetic-fixtures',revision:'a'.repeat(40),coverage:'synthetic',licence:'test-only',attribution:'synthetic'};
+852582	const features=[...points.map((p,i)=>f(i,p)),f('same-point',points[0],'11000'),f(0,points[0]),f('conflict',points[0]),f('conflict',points[1]),f('outside',[-6.3,53.3]),f(null,points[0]),f('bad',[null,51.5]),f('rail',points[0],'750')];
+852583	const index=buildAssetIndex({features,vicinity,geodesy,provenance,classifyUk});
+852584	assert.equal(index.counts.input,12);
+852585	assert.equal(index.counts.eligible,6);
+852586	assert.equal(index.counts.duplicate,1);
+852587	assert.equal(index.counts.conflict,1);
+852588	assert.equal(index.counts.outsideOrUnknown,1);
+852589	assert.equal(index.counts.unidentifiable,1);
+852590	assert.equal(index.counts.unlocated,1);
+852591	assert.equal(index.get('conflict'),null);
+852592	assert.equal(index.get('0').identity.id,'0');
+852593	assert.equal(index.get('same-point').kv[0],11);
+852594	assert.equal(index.get('rail').kv[0],0.75);
+852595	assert.equal(index.get('0').navigationPermitted,false);
+852596	for(let i=0;i<4;i++){
+852597	  const q=index.search({origin:{at:points[i]},radius:1,bands:['33']});
+852598	  assert.equal(q.shown[0].nation,names[i]);
+852599	  assert.equal(q.shown[0].km,0);
+852600	  assert.equal(q.navigable,false);
+852601	const q=index.search({origin:{at:points[0]},radius:1,bands:['33','11','other'],limit:1});
+852602	assert.equal(q.matching,3);assert.equal(q.shown.length,1);assert.equal(q.truncated,true);
+852603	q.shown[0].at[0]=180;
+852604	assert.deepEqual(index.get('0').at,points[0]);
+852605	assert.throws(()=>index.search({origin:{at:[-6.3,53.3]},radius:1,bands:['33']}));
+852606	assert.throws(()=>index.search({origin:{at:points[0]},radius:0,bands:['33']}));
+852607	assert.throws(()=>index.search({origin:{at:points[0]},radius:1,bands:['99']}));
+852608	assert.throws(()=>buildAssetIndex({features,vicinity,geodesy,provenance:{},classifyUk}));
+852609	assert.throws(()=>buildAssetIndex({features,vicinity,geodesy,provenance}));
+852610	assert.ok(Math.abs(atlas.distanceKm(...points[0],...points[1])-canonical.distanceKm(...points[0],...points[1]))<1e-9);
+852611	console.log('PASS: pinned Vicinity + Atlas metadata + canonical distance adapter; synthetic four-nation fixtures only');
+852616	<meta name="description" content="SatNav: a proposed UK electricity infrastructure navigation companion from GlobalGrid2050.">
+852617	<title>SatNav | GlobalGrid2050</title>
+852619	:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}
+852620	*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font-family:'Courier New',monospace}body{font-size:14px;line-height:1.6}a{color:var(--accent)}a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:3px}.hud-header{background:#0a0a0a;border:1px solid #333;border-radius:6px;padding:12px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.brand{font:800 17px -apple-system,BlinkMacSystemFont,sans-serif;letter-spacing:5px;color:#fff;text-decoration:none}.brand small{display:block;color:#888;letter-spacing:2px;font:10px 'Courier New',monospace}.hud-val{color:var(--accent);font-weight:bold;letter-spacing:1px;text-shadow:0 0 5px #00ffff}.shell{max-width:1120px;margin:auto;padding:12px 20px 28px}.hero,.panel{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:20px;margin:12px 0}.hero h1{font-size:clamp(30px,6vw,52px);line-height:1.1;color:var(--accent);margin:0 0 4px;letter-spacing:2px}.concept{color:var(--muted);font-size:12px}.hero p{max-width:78ch}h2{font-size:16px;color:var(--accent);letter-spacing:1px;margin:0 0 10px}h3{font-size:14px;color:var(--text);margin:0 0 6px}p{margin:8px 0}ul,ol{padding-left:22px;margin:8px 0}li{margin:6px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.grid .panel{margin:0}.key-group{border-left:2px solid #333;padding-left:12px}.key-title{color:#66ccff;font-size:12px;font-weight:bold}.muted,footer{color:var(--muted)}.button{display:inline-flex;align-items:center;min-height:44px;border:1px solid #444;background:#0a0a0a;color:var(--accent);padding:7px 12px;text-decoration:none;font-weight:bold}.button:hover{border-color:var(--accent)}.links{display:flex;gap:8px;flex-wrap:wrap}.links a{max-width:100%;overflow-wrap:anywhere}.notice{border-left:2px solid var(--bess);padding:8px 12px;color:var(--muted)}footer{border-top:1px solid var(--soft);padding-top:12px;font-size:12px}
+852621	#headlineTicker{background:#000;border-block:1px solid #333;overflow:hidden;margin-bottom:4px}.ticker-top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:3px 12px;color:var(--muted);font-size:11px;flex-wrap:wrap}.ticker-top a{color:var(--muted)}.ticker-top button{background:#000;color:#fff;border:1px solid #333;min-height:32px;font:11px 'Courier New',monospace;cursor:pointer}.pn-ticker-viewport{overflow:hidden;min-width:0}.pn-ticker-track{display:flex;width:max-content;animation:pn-neon-flow var(--pn-cycle-duration,120s) linear infinite}.pn-ticker-cycle{display:flex;flex:none;gap:40px;list-style:none;margin:0;padding:0 40px 0 16px}.pn-ticker-item{display:flex;align-items:center;white-space:nowrap;min-height:30px;gap:8px;margin:0}.pn-ticker-title{color:#ff3038;text-shadow:0 0 4px #ff2029b3,0 0 9px #ff20294d;font-weight:700;font-size:11px;text-decoration:none}.pn-ticker-date{color:#f33;font-size:10px}.pn-ticker-copy{pointer-events:none;user-select:none}.ticker-fallback{padding:6px 12px;color:var(--muted)}#headlineTicker[data-reading=true] .pn-ticker-track{animation:none;transform:none}#headlineTicker[data-reading=true] .pn-ticker-copy{display:none}#headlineTicker[data-reading=true] .pn-ticker-viewport{overflow-x:auto}@keyframes pn-neon-flow{to{transform:translateX(-50%)}}@media(hover:hover){#headlineTicker:hover .pn-ticker-track{animation-play-state:paused}}@media(prefers-reduced-motion:reduce){.pn-ticker-track{animation:none!important}.pn-ticker-copy{display:none}.pn-ticker-viewport{overflow-x:auto}}@media(max-width:650px){.shell{padding:6px 9px 16px}.grid{grid-template-columns:minmax(0,1fr)}.hero,.panel{padding:13px}.brand{letter-spacing:3px}.hero h1{font-size:34px}}
+852625	<section id="headlineTicker" aria-label="Pipeline News headlines">
+852626	<div class="ticker-top"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">PIPELINE NEWS</a><span id="newsStatus" role="status">Loading shared headline feed…</span><button id="pauseTicker" type="button" aria-pressed="false">Pause ticker</button></div>
+852627	<div class="pn-ticker-viewport" tabindex="0" aria-label="Headlines; scroll when paused"><div class="pn-ticker-track" id="tickerTrack"><p class="ticker-fallback">Headlines are available on <a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Pipeline News</a>.</p></div></div>
+852628	<noscript><p class="ticker-fallback">JavaScript is disabled. Open Pipeline News for headlines.</p></noscript>
+852631	<header class="hud-header"><a class="brand" href="https://www.globalgrid2050.com/">GLOBALGRID2050<small>VENTUS | ELECTRICITY INFRASTRUCTURE</small></a><span class="hud-val">SATNAV / UNITED KINGDOM</span></header>
+852633	<section class="hero"><h1>SatNav</h1><small class="concept">(concept only stage)</small><p>On-road and authorised off-road navigation for electricity infrastructure.</p><p class="muted">A proposed mobile browser companion connecting mapped substations, power lines and energy projects with location awareness, route following and field observations. Designed to build upon GlobalGrid2050's existing engineering and geospatial tools.</p><div class="links"><a class="button" href="https://ventusltd.github.io/gridatlas/atlas/">Explore GridAtlas</a><a class="button" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Open Pipeline News</a></div></section>
+852634	<section class="panel"><h2>Proposed capabilities</h2><div class="grid">
+852635	<div class="key-group"><h3>01 / Locate</h3><p class="muted">Device-based location, reported GPS accuracy, compass bearing and distance to a selected asset or authorised access point. Location remains on the device by default.</p></div>
+852636	<div class="key-group"><h3>02 / Navigate</h3><p class="muted">Follow a validated route with distance remaining and deviation from the route. Public-road routing and authorised last-mile navigation are separate capabilities.</p></div>
+852637	<div class="key-group"><h3>03 / Observe</h3><p class="muted">Explore surrounding grid infrastructure and terrain, and optionally record or export field observations locally.</p></div>
+852638	<div class="key-group"><h3>04 / Integrate</h3><p class="muted">Use existing project identities, network geometry, terrain information and engineering calculations without creating a competing design platform.</p></div>
+852640	<section class="panel"><h2>Connected tools</h2><div class="grid">
+852641	<div class="key-group"><a class="key-title" href="https://ventusltd.github.io/gridatlas/atlas/">GridAtlas / Vicinity</a><p class="muted">Mapped infrastructure and proximity analysis.</p></div>
+852642	<div class="key-group"><a class="key-title" href="https://ventusltd.github.io/kuiper-belt/see-through/">See Through / Kuiper</a><p class="muted">Substation exploration and infrastructure visualisation.</p></div>
+852643	<div class="key-group"><a class="key-title" href="https://ventusltd.github.io/ventus-grid-engine/">Ventus Grid Engine</a><p class="muted">Existing engineering context and distance calculations.</p></div>
+852644	<div class="key-group"><a class="key-title" href="https://globalgrid2050.com/energy-transition-simulator/202609282123/overlay.html">Solar Design Studio</a><p class="muted">Terrain-based design and proposed route geometry.</p></div>
+852645	<div class="key-group"><a class="key-title" href="https://github.com/Ventusltd/lidar">LiDAR</a><p class="muted">Terrain and elevation data, subject to regional coverage and licensing.</p></div>
+852646	<div class="key-group"><a class="key-title" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Pipeline News</a><p class="muted">Project intelligence and the shared headline feed above.</p></div>
+852647	<section class="panel"><h2>Geographical scope</h2><p>England, Scotland, Wales and Northern Ireland. Data coverage, accuracy, access rights and coordinate systems must be verified for each region. Nationwide routing and offline availability are not currently claimed.</p></section>
+852648	<section class="panel"><h2>Development priorities</h2><ol><li>Mobile location and compass prototype, with accuracy and permission controls.</li><li>Route following and integration with existing mapped asset and design information.</li><li>Authorised last-mile routing and offline coverage where appropriate data and permissions are available.</li></ol><p class="notice">A mapped asset is not an authorised entrance. Routes require appropriate access permissions and field safety assessment. Straight-line bearing and distance are not navigable routes.</p></section>
+852649	</main><footer>SatNav is a concept, not an operational navigation service, survey instrument or approved engineering design. <a href="https://github.com/Ventusltd/satnav">Open-source project</a> · <a href="https://www.globalgrid2050.com/">GlobalGrid2050</a></footer>
+852652	const ticker=document.getElementById('headlineTicker'),track=document.getElementById('tickerTrack'),status=document.getElementById('newsStatus'),pause=document.getElementById('pauseTicker');
+852654	const snapshot='https://raw.githubusercontent.com/Ventusltd/globalgrid2050/032e28629125515650ea14d99091362ba46ee457/uk_renewables_pipeline/202611232245/news/pipeline_headlines.snapshot.json';
+852655	const safeLink=value=>{try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)&&!u.username&&!u.password?u.href:null}catch{return null}};
+852656	function valid(doc){return doc?.schema==='globalgrid2050.news.pipeline-headlines.v1'&&Array.isArray(doc.items)&&Number.isFinite(Date.parse(doc.generated_at))}
+852657	function render(doc,saved){if(!valid(doc))throw Error('Invalid headline feed');const seen=new Set();const items=doc.items.filter(x=>{const url=safeLink(x?.link);if(!url||typeof x.title!=='string'||!x.title.trim()||typeof x.source!=='string'||!x.source.trim()||seen.has(url))return false;seen.add(url);return true}).slice(0,20);if(!items.length)throw Error('No available headlines');
+852658	const cycle=document.createElement('ul');cycle.className='pn-ticker-cycle';for(const item of items){const li=document.createElement('li');li.className='pn-ticker-item';const a=document.createElement('a');a.className='pn-ticker-title';a.href=safeLink(item.link);a.textContent=item.title+' — '+item.source;li.append(a);const date=document.createElement('span');date.className='pn-ticker-date';date.textContent=Number.isFinite(Date.parse(item.date))?item.date.slice(0,10):'Date unavailable';li.append(date);cycle.append(li)}const copy=cycle.cloneNode(true);copy.classList.add('pn-ticker-copy');copy.setAttribute('aria-hidden','true');copy.inert=true;copy.querySelectorAll('a').forEach(a=>a.tabIndex=-1);track.replaceChildren(cycle,copy);track.style.setProperty('--pn-cycle-duration',Math.max(20,items.length*8)+'s');status.textContent=(saved?'Saved snapshot':doc.status==='ok'?'Shared feed':'Shared feed — '+(doc.status==='partial'?'partial collection':doc.status==='failed'?'collection failed':'status unknown'))+' · '+new Date(doc.generated_at).toISOString().slice(0,16).replace('T',' ')+' UTC';if(Date.now()-Date.parse(doc.generated_at)>48*3600000)status.textContent+=' · refresh overdue';}
+852659	function setReading(on){ticker.dataset.reading=String(on);pause.setAttribute('aria-pressed',String(on));pause.textContent=on?'Resume ticker':'Pause ticker'}
+852660	pause.addEventListener('click',()=>setReading(ticker.dataset.reading!=='true'));ticker.querySelector('.pn-ticker-viewport').addEventListener('focusin',()=>setReading(true));ticker.querySelector('.pn-ticker-viewport').addEventListener('pointerdown',()=>setReading(true));
+852661	async function load(url){const ctl=new AbortController();const timer=setTimeout(()=>ctl.abort(),6000);try{const r=await fetch(url,{cache:'no-store',signal:ctl.signal});if(!r.ok)throw Error('Feed unavailable');return await r.json()}finally{clearTimeout(timer)}}
+852662	try{render(await load(live),false)}catch{try{render(await load(snapshot),true)}catch{status.textContent='Headline feed unavailable — open Pipeline News';}}
+852666	            commands=[["node","--test","nav/contracts.test.mjs"],["node","vendor/grid-distance-maths/test/verify.mjs"],["node","prototypes/terrain/cost-grid-builder.test.mjs"],["node","test/router-grid.test.mjs"],["node","test/router-contract.test.mjs"],["node","test/route-follower.test.mjs"],["node","automation/trio-smoke.mjs"],["node","--check","nav/app.mjs"]]
+852668	const maths=await import(pathToFileURL(resolve(process.argv[2])).href);
+852669	function benchmark(createRouteFollower,maths,clock){
+852670	  const n=20000,results=[];
+852671	  const quantile=(a,p)=>a[Math.ceil(a.length*p)-1];
+852672	  for(const kind of ["straight","bends","out-and-back"]){
+852673	    const coordinates=Array.from({length:n},(_,i)=>{
+852674	      const j=kind==="out-and-back"?Math.min(i,n-1-i):i;
+852675	      return [-0.4+(kind==="bends"?0.0002*Math.sin(j/300):0),51.5+j*0.000001];
+852677	    const t=clock(),locate=createRouteFollower({type:"LineString",coordinates},maths),prepareMs=clock()-t;
+852678	    const timings=[],counts={ok:0,uncertain:0};
+852679	    for(let i=0;i<25;i++){
+852680	      const p=coordinates[2000+i*200],fix={longitude:p[0]+0.00002,latitude:p[1],accuracyM:3,timestampMs:1000};
+852681	      const start=clock(),result=locate(fix,1000),elapsed=clock()-start;
+852682	      if(i>=5)timings.push(elapsed);
+852683	      if(result.status==="ok"&&kind!=="out-and-back"&&result.trackingOnly&&Number.isFinite(result.remainingM))counts.ok++;
+852684	      else if(result.status==="uncertain"&&kind==="out-and-back"&&result.reason==="AMBIGUOUS_ROUTE_POSITION")counts.uncertain++;
+852685	      else throw Error("Unexpected "+kind+" status "+JSON.stringify(result));
+852686	    timings.sort((a,b)=>a-b);
+852687	    results.push({kind,vertices:n,measuredFixes:timings.length,prepareMs,p50Ms:quantile(timings,.5),p95Ms:quantile(timings,.95),maxMs:timings.at(-1),counts});
+852688	  const thresholdMs=1000;
+852689	  return {schema:"satnav.route.benchmark.v1",syntheticOnly:true,thresholdMs,thresholdBasis:"provisional CI per-fix p95 ceiling; not device acceptance",pass:results.every(r=>r.p95Ms<=thresholdMs),results};
+852690	const result=benchmark(createRouteFollower,maths,()=>performance.now());
+852692	if(!result.pass)process.exitCode=1;
+852693	"""Bounded read-only CI coordinator. Never writes Git refs or adopts lane heads."""
+852705	BRANCHES = {
+852706	    "22": "agent22/satnav-contracts-20261124",
+852707	    "23": "agent23/satnav-terrain-20261124",
+852708	    "24": "agent24/satnav-hybrid-router-20261124",
+852709	    "public": "main",
+852710	SHA = re.compile(r"^[a-f0-9]{40}$")
+852711	REPO = "Ventusltd/satnav"
+852712	    return subprocess.check_output(["git", *args], text=True, timeout=60).strip()
+852713	def revision(value):
+852714	    if not SHA.fullmatch(value):
+852715	        raise ValueError("invalid revision")
+852717	def observed_heads():
+852718	    return {k: revision(git("rev-parse", "refs/remotes/origin/" + b))
+852719	            for k, b in BRANCHES.items()}
+852720	def read_lock(head):
+852721	    return json.loads(git("show", revision(head) + ":automation/trio-lock.json"))
+852722	def compare(lock, heads):
+852723	    if lock.get("schema_version") != 1:
+852724	        raise ValueError("unsupported lock schema")
+852725	    pins = {str(x["agent"]): revision(x["head"]) for x in lock["lanes"]}
+852726	    if len(lock["lanes"]) != 2 or set(pins) != {"23", "24"}:
+852727	        raise ValueError("missing or duplicate lanes")
+852728	    pins["public"] = revision(lock["published_baseline"])
+852729	    return [{"lane": k, "pinned": v, "observed": heads[k]}
+852730	            for k, v in sorted(pins.items()) if heads[k] != v]
+852731	def get_runs(head):
+852732	    token = os.environ.get("GH_TOKEN")
+852734	        raise RuntimeError("read-only CI token unavailable")
+852735	    url = ("https://api.github.com/repos/" + REPO +
+852736	           "/actions/workflows/trio-integration.yml/runs?" +
+852737	           urlencode({"head_sha": revision(head), "per_page": 20}))
+852738	    req = Request(url, headers={"Authorization": "Bearer " + token,
+852740	        "X-GitHub-Api-Version": "2022-11-28", "User-Agent": "satnav-ci"})
+852741	    with urlopen(req, timeout=20) as response:
+852742	        data = json.loads(response.read(2_000_000))
+852743	    return [r for r in data["workflow_runs"] if r["head_sha"] == head]
+852744	def decision(runs, force=False, daily=False):
+852745	    if force or daily:
+852746	        return "RUN"
+852748	    newest = max(runs, key=lambda r: (r["created_at"], r["id"]))
+852749	    if newest["status"] != "completed":
+852750	        return "WAIT_FOR_CI"
+852751	    if newest["conclusion"] == "success":
+852752	        return "REUSE_EXACT_HEAD_CI"
+852753	    return "FAILED_HEAD_REQUIRES_REVIEW"
+852754	def execute_candidate(head, out):
+852755	    # Test only the exact integrator tree and its explicit lock; observed lane
+852756	    # heads are diagnostics, never substituted. No token in candidate subprocess.
+852757	    env = {k: v for k, v in os.environ.items()
+852758	           if not any(t in k.upper() for t in ("TOKEN", "SECRET", "PASSWORD"))
+852759	           and not k.startswith(("GITHUB_", "ACTIONS_"))}
+852760	    with tempfile.TemporaryDirectory(prefix="satnav-ci-") as tmp:
+852761	        path = Path(tmp) / "candidate"
+852762	        git("worktree", "add", "--detach", str(path), revision(head))
+852764	            proc = subprocess.run(
+852765	                ["python", "automation/integrate_trio.py", "--integrator", head,
+852766	                 "--out", str(out.resolve())], cwd=path, env=env,
+852767	                capture_output=True, text=True, timeout=600)
+852768	            return proc.returncode, (proc.stdout + proc.stderr)[-8000:]
+852770	            git("worktree", "remove", "--force", str(path))
+852771	def main(force=False, out=Path("ci-receipts")):
+852774	    receipt = {"schema_version": 1, "utc": now.isoformat(),
+852775	               "status": "FAIL", "scope": "synthetic CI; not field acceptance"}
+852776	        heads = observed_heads()
+852777	        receipt["observed_heads"] = heads
+852778	        head = heads["22"]
+852779	        lock = read_lock(head)
+852780	        receipt["pinned_lock"] = lock
+852781	        receipt["review_required"] = compare(lock, heads)
+852782	        runs = get_runs(head)
+852783	        receipt["existing_ci"] = [{k: r.get(k) for k in
+852784	            ("id", "head_sha", "status", "conclusion", "html_url", "created_at")}
+852785	            for r in runs]
+852786	        action = decision(runs, force=force, daily=now.hour == 3)
+852787	        receipt["decision"] = action
+852788	        if action == "RUN":
+852789	            code, tail = execute_candidate(head, out / "composition.json")
+852790	            receipt.update(exit_code=code, log_tail=tail)
+852791	            receipt["status"] = "PASS" if code == 0 else "FAIL"
+852792	        elif action == "REUSE_EXACT_HEAD_CI":
+852793	            receipt["status"] = "REUSED_PASS"
+852794	        elif action == "WAIT_FOR_CI":
+852795	            receipt["status"] = "WAITING"
+852797	            receipt["status"] = "FAIL"
+852798	            receipt["error"] = "Latest exact-head CI did not pass; inspect before retry"
+852800	        receipt["error"] = str(exc)
+852801	        (out / "coordinator.json").write_text(
+852802	            json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+852803	        summary = ("SatNav CI: " + receipt["status"] + "; " +
+852804	                   str(len(receipt.get("review_required", []))) +
+852805	                   " observed revisions require lock review")
+852806	        print(summary)
+852807	        if os.environ.get("GITHUB_STEP_SUMMARY"):
+852808	            with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
+852809	                f.write("### " + summary + "\n\n")
+852810	                for item in receipt.get("review_required", []):
+852811	                    f.write("- Lane " + item["lane"] + ": " + item["observed"] +
+852812	                            " differs from pin " + item["pinned"] + "\n")
+852813	                f.write("\nSee JSON receipts. No publication or navigation approval.\n")
+852814	    return int(receipt["status"] == "FAIL")
+852815	class PolicyTests(unittest.TestCase):
+852816	    def test_exact_head_policy(self):
+852817	        a = {"id": 1, "created_at": "2026-01-01", "status": "completed",
+852818	             "conclusion": "success"}
+852819	        b = {**a, "id": 2, "conclusion": "failure"}
+852820	        self.assertEqual(decision([a]), "REUSE_EXACT_HEAD_CI")
+852821	        self.assertEqual(decision([a, b]), "FAILED_HEAD_REQUIRES_REVIEW")
+852822	        self.assertEqual(decision([{**b, "status": "in_progress"}]), "WAIT_FOR_CI")
+852823	        self.assertEqual(decision([]), "RUN")
+852824	        self.assertEqual(decision([b], daily=True), "RUN")
+852825	        self.assertEqual(decision([a], force=True), "RUN")
+852826	    def test_pins_never_follow_observed(self):
+852827	        a, b, c = "a"*40, "b"*40, "c"*40
+852828	        lock = {"schema_version":1, "lanes":[{"agent":23,"head":a},
+852829	                {"agent":24,"head":a}], "published_baseline":a}
+852830	        diff = compare(lock, {"23":b,"24":a,"public":c})
+852831	        self.assertEqual([x["lane"] for x in diff], ["23","public"])
+852832	        self.assertEqual(lock["lanes"][0]["head"], a)
+852834	            compare({**lock,"lanes":lock["lanes"][:1]}, {"23":b,"24":a,"public":c})
+852837	    parser.add_argument("--force", action="store_true")
+852838	    parser.add_argument("--self-test", action="store_true")
+852840	    if args.self_test:
+852841	        unittest.main(argv=["scheduled_ci"], exit=True)
+852842	    raise SystemExit(main(force=args.force))
+852843	"""Read-only route regression runner. Writes JSON receipt even on test failure."""
+852848	    p.add_argument('--maths', required=True, type=pathlib.Path)
+852849	    p.add_argument('--out', required=True, type=pathlib.Path)
+852850	    p.add_argument('--root', default=pathlib.Path('.'), type=pathlib.Path)
+852852	    root = a.root.resolve()
+852853	    maths = a.maths.resolve()
+852854	    receipt = {'schema': 'satnav.router.audit.v1', 'scope': 'synthetic-only', 'steps': [], 'status': 'FAIL'}
+852855	        raw = maths.read_bytes()
+852857	        receipt['maths_blob'] = blob
+852858	        if blob != '5a0320ca6db05273fae14f786b20223b088bc60b':
+852859	            raise ValueError('canonical maths blob mismatch')
+852860	        receipt['head'] = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=root, text=True, timeout=10).strip()
+852861	        commands = [
+852862	            ['node', 'test/router-grid.test.mjs'],
+852863	            ['node', 'test/router-contract.test.mjs'],
+852864	            ['node', 'test/route-follower.test.mjs', str(maths)],
+852865	            ['node', 'test/route-benchmark.mjs', str(maths)],
+852867	        for cmd in commands:
+852868	            start = time.monotonic()
+852869	            step = {'command': cmd[:2]}
+852870	            receipt['steps'].append(step)
+852872	                result = subprocess.run(cmd, cwd=root, capture_output=True, text=True, timeout=90, check=False)
+852873	                step.update(exit_code=result.returncode, stdout=result.stdout[-16000:], stderr=result.stderr[-16000:])
+852874	                if cmd[1].endswith('benchmark.mjs') and result.returncode == 0:
+852875	                    step['benchmark'] = json.loads(result.stdout)
+852876	            except (OSError, subprocess.TimeoutExpired, ValueError) as exc:
+852877	                step.update(exit_code=-1, error=str(exc))
+852879	                step['elapsed_ms'] = round((time.monotonic() - start) * 1000)
+852880	        if all(step['exit_code'] == 0 for step in receipt['steps']):
+852881	            receipt['status'] = 'PASS'
+852882	    except (OSError, subprocess.SubprocessError, ValueError) as exc:
+852883	        receipt['error'] = str(exc)
+852884	        a.out.parent.mkdir(parents=True, exist_ok=True)
+852885	        a.out.write_text(json.dumps(receipt, indent=2) + '\n', encoding='utf-8')
+852886	    return 0 if receipt['status'] == 'PASS' else 1
+852889	<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>GlobalGrid2050 SatNav — Field compass</title><style>
+852890	:root{color-scheme:dark;--bg:#000;--panel:#0b0e14;--line:#2f343d;--soft:#222;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}
+852891	*{box-sizing:border-box}body{margin:auto;max-width:820px;background:var(--bg);color:var(--text);font:16px/1.45 'Courier New',monospace;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}h1{font-size:25px;color:var(--accent);margin:8px 0}h2{font-size:18px;overflow-wrap:anywhere}small,p{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:12px;margin:10px 0;min-width:0}label{display:block;margin:7px 0;min-width:0}input,button{font:inherit;min-height:44px;border-radius:5px;border:1px solid var(--line);padding:8px;background:#0a0a0a;color:var(--text);width:100%;min-width:0}button{color:var(--accent);font-weight:600;cursor:pointer}button:disabled{color:var(--muted);cursor:default}.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dial{width:min(186px,57vw);aspect-ratio:1;border:2px solid var(--line);border-radius:50%;position:relative;margin:18px auto;display:grid;place-items:center}.north{position:absolute;top:5px;color:var(--muted)}#arrow{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:64px solid var(--accent);transform-origin:50% 100%;position:absolute;bottom:50%;visibility:hidden}#distance,#bearing{font:600 24px 'Courier New',monospace;color:var(--accent)}#status,#targetError{color:var(--bess);overflow-wrap:anywhere}#notice{font-size:14px;border-left:2px solid var(--bess);padding-left:8px}button:focus-visible,input:focus-visible{outline:2px solid white;outline-offset:2px}#position,#course,#accuracy{overflow-wrap:anywhere;margin:6px 0}#targetError:empty{display:none}@media(orientation:landscape) and (min-width:600px){.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:start}.dial{width:120px;margin:10px auto}#arrow{border-bottom-width:40px}}
+852892	<small>GLOBALGRID2050 / SATNAV / DEVELOPMENT PREVIEW</small><h1>Field compass</h1><p id="notice">Straight-line bearing only — NOT A ROUTE. Access, obstacles and destination safety are unverified. Do not follow the arrow through barriers or restricted land.</p>
+852893	<div class="workspace">
+852894	<form id="target" class="panel"><div class="row"><label>Latitude<input id="latitude" inputmode="decimal" required></label><label>Longitude<input id="longitude" inputmode="decimal" required></label></div><label>Destination name<input id="name" maxlength="120"></label><button>Set destination</button><p id="targetError" role="alert"></p></form>
+852895	<div class="panel"><div id="status" role="status">Location not requested</div><h2 id="destination">No destination selected</h2><div class="dial" aria-hidden="true"><span class="north">N</span><span id="arrow"></span></div><div class="row"><div><small>STRAIGHT-LINE DISTANCE</small><div id="distance">—</div></div><div><small>TRUE BEARING</small><div id="bearing">—</div></div></div><p id="position">Position unavailable</p><p id="accuracy">Accuracy unavailable</p><p id="course">North-up; course unavailable</p><div class="row"><button id="start" type="button">Start location</button><button id="stop" type="button" disabled>Stop location</button></div></div></div>
+852896	<p>UK concept prototype. North-up bearing, not a device-heading sensor. Course over ground shown only when available. Location remains on this device. No basemap or turn guidance in this first candidate.</p><script type="module" src="./app.mjs"></script></body></html>
+852897	import {parseDestination} from './place.mjs';
+852898	const MAX_AGE_MS=10000, MAX_ACCURACY_M=30;
+852899	let target=null,fix=null,watch=null,wake=null,generation=0,wakePending=false;
+852900	function setTarget(t){
+852901	  target=t;el('destination').textContent=t?(t.name||'Selected coordinates'):'No destination selected';
+852902	  if(t){el('latitude').value=t.coordinates[1];el('longitude').value=t.coordinates[0];el('name').value=t.name;}
+852905	  const now=Date.now(),age=fix?now-fix.timestampMs:Infinity;
+852906	  const fresh=!!fix&&Number.isFinite(age)&&age>=0&&age<=MAX_AGE_MS;
+852907	  const usable=fresh&&fix.accuracyM<=MAX_ACCURACY_M;
+852908	  const g=usable?guide(fix,target,now):null;
+852909	  el('distance').textContent=g?(g.distanceM>=1000?(g.distanceM/1000).toFixed(2)+' km':Math.round(g.distanceM)+' m'):'—';
+852910	  el('bearing').textContent=g?.bearingDeg!=null?Math.round(g.bearingDeg)%360+'°':'—';
+852911	  el('arrow').style.visibility=g?.bearingDeg!=null?'visible':'hidden';
+852912	  if(g?.bearingDeg!=null)el('arrow').style.transform='rotate('+g.bearingDeg+'deg)';
+852913	  el('position').textContent=fresh?'Position '+fix.latitude.toFixed(5)+', '+fix.longitude.toFixed(5):'Position unavailable';
+852914	  el('accuracy').textContent=fresh?'Accuracy ±'+Math.round(fix.accuracyM)+' m'+(!usable?' — too uncertain for guidance':g?.withinAccuracy?' — target within uncertainty; access unverified':''):'Accuracy unavailable';
+852915	  el('course').textContent=usable&&fix.heading!==null?'Course over ground '+Math.round(fix.heading)%360+'° (north-up display)':'North-up; course unavailable';
+852916	  if(watch!==null&&fix)el('status').textContent=!fresh?'Location stale':!usable?'Poor location accuracy':'Location fix received';
+852917	try{const t=parseDestination(location.search);if(t){if(t.mode!=='compass')throw new Error('Only compass mode is available');setTarget(t);}}catch(e){el('targetError').textContent=e.message;}
+852918	el('target').addEventListener('submit',e=>{
+852921	    const p=new URLSearchParams({latitude:el('latitude').value,longitude:el('longitude').value,name:el('name').value});
+852922	    setTarget(parseDestination(p.toString()));el('targetError').textContent='';
+852923	  }catch(err){setTarget(null);el('targetError').textContent=err.message;}
+852925	async function acquire(){
+852926	  const token=generation;if(watch===null||wake||wakePending||document.hidden)return;
+852927	  wakePending=true;
+852928	  try{const w=await navigator.wakeLock?.request('screen');if(token!==generation||watch===null){await w?.release();return;}wake=w;w?.addEventListener('release',()=>{if(wake===w)wake=null;});}
+852929	  catch{}finally{wakePending=false;}
+852930	function stop(message='Location stopped'){
+852931	  generation++;if(watch!==null)navigator.geolocation?.clearWatch(watch);
+852932	  watch=null;fix=null;wake?.release().catch(()=>{});wake=null;
+852933	  el('status').textContent=message;el('start').disabled=false;el('stop').disabled=true;render();
+852934	el('start').onclick=()=>{
+852935	  if(watch!==null)return;
+852936	  if(!isSecureContext||!navigator.geolocation){stop('Location unsupported or insecure context');return;}
+852937	  const token=++generation;el('status').textContent='Requesting location';
+852938	    watch=navigator.geolocation.watchPosition(p=>{
+852939	      if(token!==generation)return;
+852940	      const c=p.coords;
+852941	      if(![c.longitude,c.latitude,c.accuracy,p.timestamp].every(Number.isFinite)||Math.abs(c.longitude)>180||Math.abs(c.latitude)>90||c.accuracy<0){fix=null;el('status').textContent='Invalid location fix';render();return;}
+852942	      fix={longitude:c.longitude,latitude:c.latitude,accuracyM:c.accuracy,timestampMs:p.timestamp,heading:Number.isFinite(c.heading)&&c.heading>=0&&c.heading<360&&Number.isFinite(c.speed)&&c.speed>0?c.heading:null};
+852944	    },e=>{
+852945	      if(e.code===1){stop('Location permission denied');return;}
+852946	      fix=null;el('status').textContent=e.code===3?'Location request timed out':'Location unavailable';render();
+852947	    },{enableHighAccuracy:true,maximumAge:1000,timeout:10000});
+852948	    el('start').disabled=true;el('stop').disabled=false;acquire();
+852949	  }catch{stop('Location request unavailable');}
+852951	el('stop').onclick=()=>stop();
+852952	document.addEventListener('visibilitychange',()=>{if(!document.hidden){acquire();render();}});
+852953	window.addEventListener('pagehide',()=>stop());setInterval(render,1000);
+852954	export const MAX_AGE_MS=10000, MAX_ACCURACY_M=30;
+852955	export function fixQuality(fix,now=Date.now()){
+852956	  if(!fix)return 'missing';
+852957	  if(![longitude,latitude,accuracyM,timestampMs,now].every(Number.isFinite)||accuracyM<0||Math.abs(longitude)>180||Math.abs(latitude)>90)return 'invalid';
+852958	  const age=now-timestampMs;
+852959	  if(age<0||age>MAX_AGE_MS)return 'stale';
+852960	  return accuracyM>MAX_ACCURACY_M?'poor':'usable';
+852961	  if(fixQuality(fix,now)!=='usable'||!Array.isArray(target?.coordinates)||target.coordinates.length!==2)return null;
+852962	  return {distanceM,bearingDeg:distanceM<=accuracyM?null:initialBearingDeg(longitude,latitude,lon,lat),accuracyM,fixAgeMs:now-timestampMs,withinAccuracy:distanceM<=accuracyM,kind:'straight_line',accessStatus:'unverified'};
+852963	import {guide,fixQuality} from './compass.mjs';
+852964	  const now=Date.now(),quality=fixQuality(fix,now);
+852965	  const usable=quality==='usable',fresh=usable||quality==='poor';
+852966	"""Pinned upstream source audit for Agent23; not operational data approval."""
+852969	ATLAS = "1c9ed251ea31de67cc9d7e3b3d7908ea6aa39779"
+852970	MATHS = "8e91b07d8312acca5bcaef43e839f06a3b1d642a"
+852971	LICENSE = "d645695673349e3947e8e5ae42332d0ac3164cd7"
+852973	    ("GridAtlas", ATLAS, "tools/vicinity/src/model.mjs", "4e6573e3798e4f6483ed546b29020da8992f194d", "vicinity.mjs"),
+852974	    ("GridAtlas", ATLAS, "atlas/modules/202609011950-geodesy.js", "bfc364925b05a4295fc916fc6d55ec771b337548", "atlas-geodesy.mjs"),
+852975	    ("grid-distance-maths", MATHS, "src/geodesy.mjs", "5a0320ca6db05273fae14f786b20223b088bc60b", "canonical-geodesy.mjs"),
+852976	    ("GridAtlas", ATLAS, "LICENSE", LICENSE, "atlas-LICENSE"),
+852977	    ("grid-distance-maths", MATHS, "LICENSE", LICENSE, "maths-LICENSE"),
+852979	LIMIT = 1_000_000
+852980	def blob_hash(data):
+852981	    return hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
+852982	def checked_read(path):
+852983	    with path.open("rb") as stream:
+852984	        return stream.read(LIMIT + 1)
+852985	def fetch_source(root, item):
+852986	    repo, revision, path, expected, target = item
+852987	    dest = root / target
+852988	    cached = dest.is_file()
+852989	    if cached:
+852990	        data = checked_read(dest)
+852991	        if len(data) > LIMIT or blob_hash(data) != expected:
+852992	            raise ValueError(f"Invalid cached bytes: {target}")
+852994	        url = f"https://raw.githubusercontent.com/Ventusltd/{repo}/{revision}/{path}"
+852996	            data = response.read(LIMIT + 1)
+852997	            raise ValueError(f"Invalid upstream bytes: {target}")
+852998	        dest.write_bytes(data)
+852999	    return {"repo": repo, "revision": revision, "path": path,
+853000	            "git_blob": expected, "sha256": hashlib.sha256(data).hexdigest(),
+853001	            "bytes": len(data), "cache_hit": cached}
+853003	    parser.add_argument("--fixtures", required=True, type=Path)
+853005	    receipt = {"schema": 1, "status": "FAIL", "sources": [],
+853006	               "scope": "source-code integrity only",
+853007	               "repository_code_licence": "Apache-2.0 (pinned LICENSE files)",
+853008	               "asset_data": {"status": "NOT_APPROVED", "revision": ATLAS,
+853009	                   "historical_path": "atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson",
+853010	                   "tree_blob": "242a63461ba3e07f3fffb6b16677711fa4a644b2",
+853011	                   "tree_bytes": 1192748,
+853012	                   "content_audited": False, "data_licence_verified": False,
+853013	                   "spatial_coverage_verified": False, "access_verified": False,
+853014	                   "navigation_permitted": False},
+853015	               "jurisdiction": {"classifier": "synthetic fixture only",
+853016	                   "operational_four_nation_coverage": False}}
+853017	        args.fixtures.mkdir(parents=True, exist_ok=True)
+853018	        for item in SOURCES:
+853019	            receipt["sources"].append(fetch_source(args.fixtures, item))
+853020	        receipt["status"] = "PASS"
+853022	    args.out.write_text(json.dumps(receipt, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+853026	            commands=[["node","--test","nav/contracts.test.mjs"],["node","vendor/grid-distance-maths/test/verify.mjs"],["node","prototypes/terrain/cost-grid-builder.test.mjs"],["node","prototypes/terrain/asset-adapter.test.mjs"],["node","test/router-grid.test.mjs"],["node","test/router-contract.test.mjs"],["node","test/route-follower.test.mjs"],["node","automation/trio-smoke.mjs"],["node","--check","nav/app.mjs"]]
+853027	import argparse, hashlib, json, re, subprocess, tempfile, time, os, urllib.request
+853028	def asset_fixtures(root):
+853030	    sources=[
+853031	        ("gridatlas","1c9ed251ea31de67cc9d7e3b3d7908ea6aa39779","tools/vicinity/src/model.mjs","4e6573e3798e4f6483ed546b29020da8992f194d","vicinity.mjs"),
+853032	        ("gridatlas","1c9ed251ea31de67cc9d7e3b3d7908ea6aa39779","atlas/modules/202609011950-geodesy.js","bfc364925b05a4295fc916fc6d55ec771b337548","atlas-geodesy.mjs"),
+853033	        ("grid-distance-maths","8e91b07d8312acca5bcaef43e839f06a3b1d642a","src/geodesy.mjs","5a0320ca6db05273fae14f786b20223b088bc60b","canonical-geodesy.mjs"),
+853035	    receipts=[]
+853036	    for repo,rev,path,blob,name in sources:
+853037	        with urllib.request.urlopen(f"https://raw.githubusercontent.com/Ventusltd/{repo}/{rev}/{path}",timeout=30) as response:
+853038	            data=response.read(1000001)
+853039	        if len(data)>1000000 or hashlib.sha1(f"blob {len(data)}\0".encode()+data).hexdigest()!=blob:
+853040	            raise ValueError("upstream fixture integrity mismatch: "+name)
+853041	        (root/name).write_bytes(data)
+853042	        receipts.append({"repo":repo,"revision":rev,"path":path,"blob":blob,"sha256":hashlib.sha256(data).hexdigest(),"scope":"synthetic test only"})
+853043	    return receipts
+853044	            fixture_root=root/".asset-fixtures"
+853045	            receipt["upstream_fixtures"]=asset_fixtures(fixture_root)
+853046	            env={**os.environ,"SATNAV_UPSTREAM_FIXTURES":str(fixture_root)}
+853047	                result=subprocess.run(command,cwd=root,env=env,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,timeout=90)
+853048	  if(![5,10].includes(cellSizeM)||tile.width!==257||tile.height!==257||tile.spacingM!==1||tile.crs!=="EPSG:27700"||tile.rowOrder!=="south-to-north"||!(tile.elevation instanceof Float64Array)||tile.elevation.length!==66049||!Number.isSafeInteger(tile.originE)||!Number.isSafeInteger(tile.originN))throw new Error("invalid tile or cell size");
+853049	  // 10m cells: south-up indexing, residual edge and independent masks.
+853050	  const ten=decodeGgh1(syntheticTile({missing:[9*257+9,255*257+255]}));
+853051	  const m=625,allow=new Uint8Array(m).fill(1),ground=new Uint8Array(m).fill(4),clear=new Uint8Array(m).fill(1),weight=new Float32Array(m).fill(3);
+853052	  const q=buildFixtureGrid(ten,{cellSizeM:10,access:allow,surface:ground,hazard:clear,relativeCost:weight});
+853053	  ok(q.rows===25&&q.cols===25&&q.provenance.coverageM===250&&q.provenance.excludedEdgeM===6,"10m residual coverage");
+853054	  ok(Number.isNaN(q.elevation[0])&&q.cost[0]===Infinity,"10m nodata inside footprint");
+853055	  ok(Math.abs(q.elevation[1]-0.85)<1e-6,"east cell mean");
+853056	  ok(Math.abs(q.elevation[25]-1.85)<1e-6,"north cell mean");
+853057	  ok(q.cost[624]===3,"excluded edge nodata does not poison covered cell");
+853058	  reject(()=>buildFixtureGrid({...ten,rowOrder:"north-to-south"}),"wrong row order");
+853059	  reject(()=>buildFixtureGrid({...ten,crs:"EPSG:4326"}),"wrong CRS");
+853060	  reject(()=>buildFixtureGrid({...ten,originE:400000.5}),"fractional GGH1 origin");
+853061	  reject(()=>buildFixtureGrid(ten,{cellSizeM:10,access:new Uint8Array(m).fill(3)}),"invalid access enum");
+853062	  reject(()=>buildFixtureGrid(ten,{cellSizeM:10,hazard:new Uint8Array(m).fill(4)}),"invalid hazard enum");
+853063	  reject(()=>buildFixtureGrid(ten,{cellSizeM:10,relativeCost:new Float32Array(m).fill(NaN)}),"nonfinite cost");
+853064	// D02/D07: successor destination selector must preserve the existing codec unchanged.
+853065	test('D02 signed west, east and zero survive canonical and legacy URLs',()=>{
+853066	  for(const coordinates of [[-0.4,51.5],[0.4,51.5],[0,0]]) {
+853067	    const selected={coordinates,mode:'compass',name:'Fixture destination'};
+853068	    const parsed=parseDestination(buildDestination(selected));
+853069	    assert.deepEqual(parsed.coordinates,coordinates);
+853070	    assert.equal(parsed.accessStatus,'unverified');
+853071	    assert.deepEqual(parseDestination('?to='+coordinates[1]+','+coordinates[0]).coordinates,coordinates);
+853072	test('D07 encoded locality, Unicode and URL delimiters round-trip as plain data',()=>{
+853073	  const name='A & B / O’Test + % — Cymru';
+853074	  const selected={coordinates:[-2.1,53.4],name};
+853075	  const parsed=parseDestination(buildDestination(selected));
+853076	  assert.equal(parsed.name,name);
+853077	  assert.deepEqual(parsed.coordinates,selected.coordinates);
+853078	  assert.equal(parsed.asset,null);
+853079	test('D06 unverified map point has no implicit source identity or route promotion',()=>{
+853080	  const x=parseDestination(buildDestination({coordinates:[-0.4,51.5],name:'Tapped map point'}));
+853081	  assert.equal(x.mode,'compass');
+853082	  assert.equal(x.accessStatus,'unverified');
+853083	  assert.equal(x.asset,null);
+853084	test('D07 invalid, partial and duplicate selector handoff parameters reject',()=>{
+853085	  for(const s of ['?latitude=51.5&longitude=','?latitude=51.5&longitude=%E2%88%920.4','?latitude=51.5&longitude=-0.4&longitude=0.4','?latitude=51.5&longitude=-0.4&source=map','?latitude=91&longitude=-0.4','?latitude=51.5&longitude=NaN']) assert.throws(()=>parseDestination(s));
+853086	// Standalone, deterministic destination picker. GridAtlas-style result fields;
+853087	// opt-in map point selection mirrors Vicinity's WGS84 event.lngLat contract.
+853088	import {buildDestination,parseDestination} from './place.mjs';
+853090	  {label:'Testbury',sublabel:'North fixture',longitude:-0.4,latitude:51.5,provider:'local fixture'},
+853091	  {label:'Testbury',sublabel:'West fixture',longitude:-2.1,latitude:53.4,provider:'local fixture'},
+853092	  {label:'East fixture',sublabel:'Synthetic east point',longitude:0.4,latitude:51.5,provider:'local fixture'},
+853093	  {label:'West fixture',sublabel:'Synthetic west point',longitude:-4.2,latitude:55.2,provider:'local fixture'}
+853095	export const mapFixtures=Object.freeze(fixtures.map(x=>Object.freeze({...x})));
+853096	export async function fixtureLookup(query){
+853097	  await Promise.resolve();
+853098	  if(/^(fail|failure|timeout|503|429)$/i.test(query.trim()))throw Error('Fixture lookup unavailable');
+853099	  return fixtures.filter(x=>(x.label+' '+x.sublabel).toLowerCase().includes(query.trim().toLowerCase()));
+853100	export function normaliseChoice(raw){
+853101	  const coordinates=Array.isArray(raw?.at)?raw.at:[raw?.longitude,raw?.latitude];
+853102	  if(coordinates.length!==2||!coordinates.every(Number.isFinite))throw Error('Invalid point');
+853103	  const [lon,lat]=coordinates;
+853104	  if(Math.abs(lon)>180||Math.abs(lat)>90)throw Error('Point out of range');
+853105	  const label=String(raw?.label||'Chosen map point').trim().slice(0,120);
+853106	  const locality=String(raw?.sublabel||raw?.locality||'').trim().slice(0,120);
+853107	  if(!label)throw Error('Point label missing');
+853108	  // A visually picked location cannot assert stable asset identity or access.
+853109	  return {coordinates:[lon,lat],name:label,locality,asset:null};
+853110	export function createPicker({lookup=fixtureLookup,onConfirm=()=>{}}={}){
+853111	  let epoch=0,status='idle',message='',results=[],pending=null;
+853112	  const snapshot=()=>({status,message,results:results.map(x=>({...x,coordinates:x.coordinates.slice()})),pending:pending?{...pending,coordinates:pending.coordinates.slice()}:null});
+853113	  function cancel(){epoch++;status='cancelled';message='Selection cancelled; current destination unchanged.';results=[];pending=null;return snapshot();}
+853114	  async function search(query){
+853115	    const request=++epoch;pending=null;results=[];status='searching';message='Searching local fixtures…';
+853116	    if(typeof query!=='string'||!query.trim()){status='invalid';message='Enter a place or postcode.';return snapshot();}
+853118	      const raw=await lookup(query.trim());if(request!==epoch)return {stale:true};
+853119	      if(!Array.isArray(raw))throw Error('Invalid lookup response');
+853120	      results=raw.slice(0,20).map(normaliseChoice);
+853121	      status=results.length?'results':'no_results';
+853122	      message=results.length?'Choose a result, then confirm.':'No matching fixture results.';
+853123	    }catch(error){if(request!==epoch)return {stale:true};status='unavailable';message='Lookup unavailable: '+String(error?.message||'unknown failure');}
+853124	    return snapshot();
+853125	  function chooseResult(index){
+853126	    if(status!=='results'||!Number.isInteger(index)||index<0||index>=results.length)throw Error('Result unavailable');
+853127	    pending={...results[index],coordinates:results[index].coordinates.slice()};
+853128	    status='selected';message='Review destination, then confirm.';return snapshot();
+853129	  function chooseMapPoint(point){
+853130	    epoch++;results=[];pending=normaliseChoice(point);status='selected';message='Review map point, then confirm.';return snapshot();
+853131	  function confirm(){
+853132	    if(!pending)throw Error('Choose a destination first');
+853133	    const selected=parseDestination(buildDestination({coordinates:pending.coordinates,name:pending.name,asset:pending.asset,mode:'compass'}));
+853134	    onConfirm(selected);epoch++;pending=null;results=[];status='confirmed';message='Destination selected. Start location when ready.';return selected;
+853135	  return Object.freeze({snapshot,search,chooseResult,chooseMapPoint,cancel,confirm});
+853136	*{box-sizing:border-box}body{margin:auto;max-width:820px;background:var(--bg);color:var(--text);font:16px/1.45 'Courier New',monospace;padding:max(12px,env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) max(12px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}h1{font-size:25px;color:var(--accent);margin:8px 0}h2{font-size:18px;overflow-wrap:anywhere}small,p{color:var(--muted)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:12px;margin:10px 0;min-width:0}label{display:block;margin:7px 0;min-width:0}input,button{font:inherit;min-height:44px;border-radius:5px;border:1px solid var(--line);padding:8px;background:#0a0a0a;color:var(--text);width:100%;min-width:0}button{color:var(--accent);font-weight:600;cursor:pointer}button:disabled{color:var(--muted);cursor:default}.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dial{width:min(186px,57vw);aspect-ratio:1;border:2px solid var(--line);border-radius:50%;position:relative;margin:18px auto;display:grid;place-items:center}.north{position:absolute;top:5px;color:var(--muted)}#arrow{width:0;height:0;border-left:12px solid transparent;border-right:12px solid transparent;border-bottom:64px solid var(--accent);transform-origin:50% 100%;position:absolute;bottom:50%;visibility:hidden}#distance,#bearing{font:600 24px 'Courier New',monospace;color:var(--accent)}#status,#targetError,#searchStatus{color:var(--bess);overflow-wrap:anywhere}#notice{font-size:14px;border-left:2px solid var(--bess);padding-left:8px}button:focus-visible,input:focus-visible,svg:focus-visible{outline:2px solid white;outline-offset:2px}#position,#course,#accuracy{overflow-wrap:anywhere;margin:6px 0}#targetError:empty{display:none}.choice{margin:4px 0;text-align:left}.choice small{display:block}.map-surface{position:relative;border:1px solid var(--line);background:#111927}#map{width:100%;height:185px;display:block;cursor:crosshair;touch-action:manipulation}.map-surface button{width:auto;min-height:36px;font-size:12px;padding:4px;margin:4px}#pending{color:var(--accent);overflow-wrap:anywhere}details>summary{cursor:pointer;padding:8px;color:var(--accent)}@media(orientation:landscape) and (min-width:600px){.workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:start}.dial{width:120px;margin:10px auto}#arrow{border-bottom-width:40px}}
+853137	<small>GLOBALGRID2050 / SATNAV / FIXTURE TEST CANDIDATE</small><h1>Field compass</h1><p id="notice">Straight-line bearing only — NOT A ROUTE. Access, obstacles and destination safety are unverified. Do not follow the arrow through barriers or restricted land.</p>
+853138	<div class="workspace"><section class="panel" aria-label="Destination selection"><h2>Where are you going?</h2><p>Local synthetic fixtures only. Real address and postcode lookup is not yet enabled.</p>
+853139	<form id="placeSearch"><label>Place, address or postcode<input id="query" autocomplete="off" placeholder="Try Testbury" required></label><button type="submit">Search fixtures</button></form><p id="searchStatus" role="status">Search when ready.</p><div id="results" aria-label="Place results"></div>
+853140	<details id="mapPanel"><summary>Choose on map</summary><p>Isolated Vicinity-style point picker. This is a schematic fixture, not satellite imagery or an access map.</p><div class="map-surface"><svg id="map" viewBox="0 0 360 185" tabindex="0" role="img" aria-label="Schematic coordinate grid; click or tap to select a point, or use the buttons below"><rect width="360" height="185" fill="#111927"/><path d="M0 46H360 M0 92H360 M0 138H360 M90 0V185 M180 0V185 M270 0V185" stroke="#394453" stroke-width="1"/><text x="8" y="18" fill="#a6adbb" font-size="12">Fixture coordinate grid</text></svg></div><div id="mapPins" aria-label="Keyboard accessible map points"></div></details>
+853141	<div id="selection" hidden><p id="pending" role="status"></p><div class="row"><button id="confirm" type="button">Use this destination</button><button id="cancel" type="button">Cancel</button></div></div>
+853142	<details id="advanced"><summary>Enter coordinates (optional)</summary><form id="target"><div class="row"><label>Latitude<input id="latitude" inputmode="text" required></label><label>Longitude (− west, + east)<input id="longitude" inputmode="text" required></label></div><label>Destination name<input id="name" maxlength="120"></label><button>Set destination</button><p id="targetError" role="alert"></p></form></details></section>
+853143	<p>UK concept prototype. North-up bearing, not a device-heading sensor. GPS remains on this device and starts only when requested. Map and place results are offline fixtures; no provider/network search or navigation route.</p><script type="module" src="./app.mjs"></script></body></html>
+853144	import {createPicker,mapFixtures} from './picker.mjs';
+853145	function setFromChoice(t){setTarget(t);history.replaceState(null,'',location.pathname+buildDestination(t));}
+853146	const picker=createPicker({onConfirm:setFromChoice});
+853147	function showPicker(){
+853148	  const state=picker.snapshot();el('searchStatus').textContent=state.message||'Search when ready.';
+853149	  const results=el('results');results.replaceChildren();
+853150	  state.results.forEach((r,i)=>{
+853151	    const button=document.createElement('button');button.type='button';button.className='choice';
+853152	    const label=document.createElement('span'),sub=document.createElement('small');
+853153	    label.textContent=r.name;sub.textContent=r.locality||'Local fixture';button.append(label,sub);
+853154	    button.onclick=()=>{picker.chooseResult(i);showPicker();};results.append(button);
+853156	  el('selection').hidden=!state.pending;
+853157	  el('pending').textContent=state.pending?`${state.pending.name}${state.pending.locality?' · '+state.pending.locality:''} · ${state.pending.coordinates[1]}, ${state.pending.coordinates[0]} · access unverified`:'';
+853158	el('placeSearch').addEventListener('submit',async e=>{
+853159	  e.preventDefault();const current=picker.search(el('query').value);showPicker();await current;showPicker();
+853160	el('cancel').onclick=()=>{picker.cancel();showPicker();};
+853161	el('confirm').onclick=()=>{try{picker.confirm();el('targetError').textContent='';}catch(e){el('searchStatus').textContent=e.message;}showPicker();};
+853162	function pickMap(at,label='Chosen map point'){
+853163	  picker.chooseMapPoint({at,label,sublabel:'Schematic map selection'});showPicker();
+853164	const pins=el('mapPins');mapFixtures.forEach((r,i)=>{
+853165	  const b=document.createElement('button');b.type='button';b.textContent=r.label+' · '+r.sublabel;
+853166	  b.onclick=()=>pickMap([r.longitude,r.latitude],r.label);pins.append(b);
+853167	// Vicinity selection equivalent: a map click supplies event.lngLat → [lng, lat].
+853168	el('map').addEventListener('click',event=>{
+853169	  const rect=el('map').getBoundingClientRect();
+853170	  if(!rect.width||!rect.height)return;
+853171	  const x=Math.min(1,Math.max(0,(event.clientX-rect.left)/rect.width));
+853172	  const y=Math.min(1,Math.max(0,(event.clientY-rect.top)/rect.height));
+853173	  pickMap([Number((-8+10*x).toFixed(5)),Number((59-9*y).toFixed(5))]);
+853174	el('map').addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();pickMap([-0.4,51.5]);}});
+853175	try{const t=parseDestination(location.search);if(t){if(t.mode!=='compass')throw new Error('Only compass mode is available');setTarget(t);}}catch(e){el('targetError').textContent=e.message;el('advanced').open=true;}
+853176	    const parsed=parseDestination(p.toString());setFromChoice(parsed);el('targetError').textContent='';
+853177	  }catch(err){el('targetError').textContent=err.message;}
+853178	    if(!['results','selected'].includes(status)||!Number.isInteger(index)||index<0||index>=results.length)throw Error('Result unavailable');
+853179	    epoch++;results=[];pending=null;
+853180	    try{pending=normaliseChoice(point);}catch(error){status='invalid';message=error.message;return snapshot();}
+853181	    status='selected';message='Review map point, then confirm.';return snapshot();
+853182	    button.onclick=()=>{picker.chooseResult(i);showPicker();el('confirm').focus();};results.append(button);
+853183	  e.preventDefault();const current=picker.search(el('query').value);showPicker();const response=await current;if(!response.stale)showPicker();
+853184	  const svg=el('map'),matrix=svg.getScreenCTM();if(!matrix)return;
+853185	  const point=svg.createSVGPoint();point.x=event.clientX;point.y=event.clientY;
+853186	  const local=point.matrixTransform(matrix.inverse());
+853187	  if(local.x<0||local.x>360||local.y<0||local.y>185)return;
+853188	  const x=local.x/360,y=local.y/185;
+853189	import {createPicker} from './picker.mjs';
+853190	test('picker allows reselection before confirmation',async()=>{
+853191	  const p=createPicker();await p.search('Testbury');p.chooseResult(1);p.chooseResult(0);
+853192	  assert.deepEqual(p.confirm().coordinates,[-0.4,51.5]);
+853193	test('invalid replacement clears pending choice and cannot confirm stale target',async()=>{
+853194	  const p=createPicker();await p.search('Testbury');p.chooseResult(1);
+853195	  assert.equal(p.chooseMapPoint({at:[181,51]}).status,'invalid');
+853196	  assert.equal(p.snapshot().pending,null);assert.throws(()=>p.confirm());
+853224	<section aria-label="Concept projects"><details id="satnav-concept"><summary><span class="number">11</span><span class="title">SatNav<small>(concept only stage)</small></span></summary><div class="inside"><p>UK field navigation and routing on top of GridAtlas, Vicinity, See Through, Ventus Grid Engine and Solar Design Studio. A proposed mobile companion, not an operational navigation service.</p><a class="launch" href="https://ventusltd.github.io/satnav/scope/">Read the SatNav concept scope &rarr;</a></div></details></section>
 ```

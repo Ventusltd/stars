@@ -1,5 +1,5 @@
 {
- "next": 2352,
+ "next": 2355,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2288,6 +2288,9 @@
   "globalgrid2050:automation/repd_reporting/v2/cockpit-skin.mjs": 2348,
   "globalgrid2050:automation/repd_reporting/v3/build_v975.py": 2349,
   "globalgrid2050:automation/repd_reporting/v3/operator-aliases.mjs": 2350,
-  "neural-link-between-agents:CONTRACTS/repd-cockpit-skin.v1.mjs": 2351
+  "neural-link-between-agents:CONTRACTS/repd-cockpit-skin.v1.mjs": 2351,
+  "satnav:preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/place.mjs": 2352,
+  "satnav:preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/app.mjs": 2353,
+  "satnav:preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/compass.mjs": 2354
  }
 }
