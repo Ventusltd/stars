@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-24 19:03 UTC by GitHub Actions. It reads the current code of 93 Ventusltd repositories.
+Updated 2026-11-25 03:09 UTC by GitHub Actions. It reads the current code of 93 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,13 +8,13 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 476,763 |
-| File versions | 8,844 |
-| Elements (functions and classes) | 34,185 |
-| Families (same logic) | 33,036 |
-| Families written in two or more different files (duplicate work) | 7,506 |
+| Unique lines | 477,785 |
+| File versions | 8,855 |
+| Elements (functions and classes) | 34,261 |
+| Families (same logic) | 33,112 |
+| Families written in two or more different files (duplicate work) | 7,559 |
 | Families only copied between versions of one file | 3,004 |
-| Self-contained functions compiled into the library | 765 |
+| Self-contained functions compiled into the library | 766 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
@@ -26,7 +26,7 @@ The same logic written in two or more different files. Copies of one file in tim
 
 | Family | Name | Different files | Places | Repositories | Self-contained | First written | A copy |
 |---|---|---|---|---|---|---|---|
-| #1586 | `invariant` | 47 | 516 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
+| #1586 | `invariant` | 49 | 518 | 6 | yes | 2026-08-28 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L48-L50) |
 | #8770 | `initialBearingDeg` | 15 | 261 | 6 | no | 2026-08-31 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1766-L1772) |
 | #511 | `distanceKm` | 15 | 258 | 6 | no | 2026-09-01 | [claude/sessions/202609031559-skin-architecture/prototype/engine.js](https://github.com/Ventusltd/claude/blob/df9da02425fdf0c65d11a84f32cd9b3ef927b309/sessions/202609031559-skin-architecture/prototype/engine.js#L35-L41) |
 | #8782 | `(anonymous)` | 12 | 361 | 6 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2104-L2108) |
@@ -43,7 +43,7 @@ The same logic written in two or more different files. Copies of one file in tim
 | #8783 | `at` | 10 | 176 | 6 | no | 2026-09-03 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2028-L2145) |
 | #8784 | `index` | 10 | 176 | 6 | no | 2026-09-03 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1942-L2159) |
 | #975 | `sha256` | 67 | 358 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
-| #8285 | `sha256Hex` | 33 | 360 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
+| #8285 | `sha256Hex` | 35 | 362 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
 | #5168 | `escapeHTML` | 24 | 197 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
 | #5609 | `(anonymous)` | 20 | 193 | 5 | no | 2026-04-07 | [code-generator/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609040045-ventus-corev8engine-deep-link-receiver.js#L126-L131) |
 | #8328 | `(anonymous)` | 16 | 90 | 5 | no | 2026-08-30 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L776-L786) |
@@ -77,7 +77,7 @@ These names mean different things in different repositories, so check which vers
 | `walk` | 28 | 13 |
 | `measure` | 26 | 13 |
 | `normalise` | 17 | 13 |
-| `refresh` | 43 | 12 |
+| `refresh` | 45 | 12 |
 | `start` | 86 | 11 |
 | `frame` | 46 | 11 |
 | `step` | 44 | 11 |

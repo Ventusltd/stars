@@ -1,27 +1,27 @@
 {
- "generated_utc": "2026-11-24T19:03:52.741Z",
+ "generated_utc": "2026-11-25T03:09:04.125Z",
  "note": "A family uses the families that define a name it needs; hubs are the most used.",
- "families_with_uses": 14015,
+ "families_with_uses": 14066,
  "hubs": [
   {
    "family": 172767,
    "name": "document",
-   "used_by": 2970
+   "used_by": 2980
   },
   {
    "family": 173796,
    "name": "document",
-   "used_by": 2970
+   "used_by": 2980
   },
   {
    "family": 176250,
    "name": "document",
-   "used_by": 2970
+   "used_by": 2980
   },
   {
    "family": 173891,
    "name": "window",
-   "used_by": 1612
+   "used_by": 1621
   },
   {
    "family": 1318,
@@ -61,7 +61,7 @@
   {
    "family": 5175,
    "name": "fmt",
-   "used_by": 388
+   "used_by": 389
   },
   {
    "family": 7992,
@@ -226,12 +226,12 @@
   {
    "family": 130544,
    "name": "origin",
-   "used_by": 175
+   "used_by": 176
   },
   {
    "family": 144643,
    "name": "origin",
-   "used_by": 175
+   "used_by": 176
   },
   {
    "family": 136068,
@@ -271,7 +271,7 @@
   {
    "family": 775,
    "name": "root",
-   "used_by": 156
+   "used_by": 157
   },
   {
    "family": 155195,

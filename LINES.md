@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-476,763 unique lines, numbered 1 to 853,224. Generated 2026-11-24T19:05:33.844Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+477,785 unique lines, numbered 1 to 855,030. Generated 2026-11-25T03:10:51.358Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -476766,4 +476766,1026 @@
 853195	  assert.equal(p.chooseMapPoint({at:[181,51]}).status,'invalid');
 853196	  assert.equal(p.snapshot().pending,null);assert.throws(()=>p.confirm());
 853224	<section aria-label="Concept projects"><details id="satnav-concept"><summary><span class="number">11</span><span class="title">SatNav<small>(concept only stage)</small></span></summary><div class="inside"><p>UK field navigation and routing on top of GridAtlas, Vicinity, See Through, Ventus Grid Engine and Solar Design Studio. A proposed mobile companion, not an operational navigation service.</p><a class="launch" href="https://ventusltd.github.io/satnav/scope/">Read the SatNav concept scope &rarr;</a></div></details></section>
+853267	/* Native GridAtlas M1 candidate; adapted from Agent33 c07f23de. */
+853268	// Loader v2 composes script text inline; preview route is /atlas/v/<candidate>/.
+853269	const satnavRoot = new URL('../../../', location.href);
+853270	void async function () {
+853271	  const compass = new URL('https://ventusltd.github.io/satnav/preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/');
+853272	  const { buildDestination } = await import(new URL('tools/satnav/place.mjs', satnavRoot));
+853273	  const { normaliseOrigin, validCoordinate } = await import(new URL('tools/vicinity/src/model.mjs', satnavRoot));
+853276	    :root { --gridatlas-satnav-top:128px; }
+853277	    @media (max-width:600px) { :root { --gridatlas-satnav-top:136px; } }
+853278	    @media (max-width:359px) { :root { --gridatlas-satnav-top:214px; } }
+853279	    #gridatlas-satnav-toggle { position:fixed; z-index:10019; left:12px; top:var(--gridatlas-satnav-top); }
+853280	    #gridatlas-satnav-satnav { position:fixed; z-index:10019; right:12px; top:calc(var(--gridatlas-satnav-top) + 52px);
+853281	      width:min(380px,calc(100% - 24px)); max-height:calc(100dvh - var(--gridatlas-satnav-top) - 64px);
+853282	      overflow:auto; box-sizing:border-box; padding:12px;
+853283	      border:1px solid #367078; border-radius:6px; background:#08141bed;
+853284	      color:#e4f7f7; font:14px/1.45 ui-monospace,monospace; }
+853285	    #gridatlas-satnav-satnav h2 { margin:0 0 8px; font:inherit; font-weight:bold; color:#00ffff; }
+853286	    #gridatlas-satnav-satnav p { margin:8px 0 0; overflow-wrap:anywhere; }
+853287	    #gridatlas-satnav-satnav .actions { display:flex; flex-wrap:wrap; gap:6px; }
+853288	    #gridatlas-satnav-toggle, #gridatlas-satnav-satnav button { min-height:44px; max-width:100%; padding:6px 9px;
+853289	      border:1px solid #367078; border-radius:3px; background:#07191f;
+853290	      color:#bff7f9; font:14px/1.45 ui-monospace,monospace; cursor:pointer; text-align:left; touch-action:manipulation; }
+853291	    #gridatlas-satnav-satnav button:disabled { color:#8ba0a2; cursor:default; }
+853292	    #gridatlas-satnav-toggle:focus-visible, #gridatlas-satnav-satnav button:focus-visible { outline:2px solid #fff; outline-offset:1px; }
+853293	    #gridatlas-satnav-satnav summary { display:flex; align-items:center; min-height:44px; cursor:pointer; }
+853294	    #gridatlas-satnav-satnav summary::before { content:'▸'; margin-right:.5em; }
+853295	    #gridatlas-satnav-satnav details[open] summary::before { content:'▾'; }
+853296	    #gridatlas-satnav-satnav input { display:block; box-sizing:border-box; width:100%; min-height:44px;
+853297	      background:#07191f; color:white; border:1px solid #367078; font-size:16px; }
+853298	    #gridatlas-satnav-pin-label { width:100%; }
+853299	    #gridatlas-satnav-satnav [hidden] { display:none; }
+853302	  const panel = document.createElement('section');
+853303	  panel.id = 'gridatlas-satnav-satnav';
+853304	  panel.setAttribute('aria-labelledby', 'gridatlas-satnav-satnav-title');
+853305	  const heading = document.createElement('h2');
+853306	  heading.id = 'gridatlas-satnav-satnav-title';
+853307	  heading.textContent = 'Where are you going?';
+853308	  const actions = document.createElement('div');
+853309	  actions.className = 'actions';
+853310	  const confirmation = document.createElement('div');
+853311	  confirmation.className = 'actions';
+853312	  const status = document.createElement('p');
+853314	  status.textContent = 'Waiting for the GridAtlas map…';
+853315	  function button(id, name, parent = actions) {
+853318	    element.id = `gridatlas-satnav-${id}`;
+853319	    element.textContent = name;
+853320	    parent.append(element);
+853323	  const mapSearch = button('map-search', 'Search projects, places or postcodes');
+853324	  const planned = button('planned', 'Use selected search result');
+853325	  const pick = button('pick', 'Choose point on satellite');
+853326	  const origin = button('origin', 'Use Vicinity origin');
+853327	  const asset = button('asset', 'Use highlighted asset');
+853328	  const confirm = button('confirm', 'Use in SatNav', confirmation);
+853329	  const cancel = button('cancel', 'Cancel', confirmation);
+853330	  const vicinity = button('vicinity', 'Explore this point in Vicinity', confirmation);
+853331	  const pinLabel = document.createElement('label');
+853332	  pinLabel.id = 'gridatlas-satnav-pin-label';
+853333	  pinLabel.textContent = 'Name this pin (optional)';
+853334	  const pinName = document.createElement('input');
+853335	  pinName.type = 'text';
+853336	  pinName.maxLength = 120;
+853337	  pinLabel.append(pinName);
+853338	  confirmation.prepend(pinLabel);
+853339	  const manual = document.createElement('form');
+853340	  const field = (label, id) => {
+853341	    const wrap=document.createElement('label');wrap.textContent=label;
+853342	    const input=document.createElement('input');input.id='gridatlas-satnav-'+id;
+853343	    input.type='text';
+853344	    wrap.append(input);manual.append(wrap);return input;
+853346	  const latitude=field('Latitude (signed WGS84)','latitude');
+853347	  const longitude=field('Longitude (signed WGS84)','longitude');
+853348	  latitude.inputMode=longitude.inputMode='decimal';
+853349	  const manualLabel=field('Optional destination label','label');
+853350	  const commit=button('manual','Choose coordinates',manual);commit.type='submit';
+853351	  const lookup=document.createElement('form');
+853352	  const searchLabel=document.createElement('label');searchLabel.textContent='Existing substation name or source ID';
+853353	  const search=document.createElement('input');search.type='search';searchLabel.append(search);lookup.append(searchLabel);
+853354	  const find=button('search','Find substations',lookup);
+853355	  find.type='submit';
+853356	  const results=document.createElement('div');lookup.append(results);
+853357	  function disclosure(id, title, content) {
+853358	    const details = document.createElement('details');
+853359	    details.id = `gridatlas-satnav-${id}-details`;
+853360	    const summary = document.createElement('summary');
+853361	    summary.textContent = title;
+853362	    details.append(summary, content);
+853363	    return details;
+853364	  panel.append(heading, actions, status, confirmation,
+853365	    disclosure('station', 'Find an existing substation', lookup),
+853366	    disclosure('manual', 'Enter coordinates (advanced)', manual));
+853367	  document.body.append(panel);
+853369	  const toggle = button('toggle','SatNav',document.body);
+853370	  toggle.setAttribute('aria-label','SatNav destination');
+853371	  toggle.setAttribute('aria-controls',panel.id);
+853372	  toggle.setAttribute('aria-expanded','false');
+853373	  const close=button('close','Close destination panel',panel);
+853375	  const samePoint = (a, b) => a?.length === 2 && b?.length === 2 && a[0] === b[0] && a[1] === b[1];
+853376	  const satellite = () => document.querySelector('#scada-ui-container input[name="bm"][value="sat"]');
+853377	  let map, marker, armed = false, pending = null, searchEpoch=0;
+853378	  const defaultStatus = 'Search for a destination, choose a satellite point or use an open Vicinity card.';
+853379	  const projectRef = () => new URLSearchParams(location.search).get('repd_ref');
+853380	  const placeSearch = () => window.__GRIDATLAS_PLACE_SEARCH__;
+853381	  const projectSelection = () => placeSearch()?.last_selection;
+853382	  const searchInput = () => document.getElementById('search-input');
+853384	    if (armed) reset('Selection cancelled.');
+853386	    toggle.setAttribute('aria-expanded', 'false');
+853387	  toggle.onclick = () => {
+853388	    if (!panel.hidden) { closePanel(); return; }
+853390	    toggle.setAttribute('aria-expanded', 'true');
+853391	  close.onclick = () => { closePanel(); toggle.focus({ preventScroll: true }); };
+853392	  mapSearch.onclick = () => {
+853393	    closePanel();
+853394	    searchInput()?.focus();
+853395	  // Read the exact current project or swiped item from the native Vicinity card.
+853396	  function currentCardPoint(kind) {
+853397	    const card = window.__GRIDATLAS_MODULES__?.ukOfftakers?.state.pp;
+853398	    if (!card?.project) return null;
+853399	    if (kind === 'origin') {
+853400	      const selected = projectSelection();
+853401	      const ref = card.r.p.repd_ref;
+853402	      if (ref && ((selected && String(selected.repd_ref) === String(ref) && selected.mapped !== true) ||
+853403	        samePoint(card.r.a, [-7.55716, 49.766807]))) return null;
+853404	      return { card, name: card.r.n, at: card.r.a };
+853406	    if(card.__vicFocus?.origin) return null;
+853407	    const swipe = card.swipe;
+853408	    const entry = swipe?.entries[swipe.index];
+853409	    const highlight = swipe?.marker?.getLngLat();
+853410	    if (!entry || !highlight || !samePoint([highlight.lng, highlight.lat], entry.at)) return null;
+853411	    return { card, index: swipe.index, name: entry.name, at: entry.at };
+853412	  function reset(message) {
+853413	    armed = false;
+853414	    pending = null;
+853415	    pinName.value = '';
+853416	    marker?.remove();
+853418	    status.textContent = message;
+853421	    pick.disabled = !map?.getLayer('l-sat') || !satellite();
+853422	    pick.setAttribute('aria-pressed', String(armed));
+853423	    mapSearch.disabled = !searchInput() || !placeSearch()?.ready;
+853424	    origin.disabled = !currentCardPoint('origin');
+853425	    asset.disabled = !currentCardPoint('asset');
+853426	    origin.hidden = origin.disabled;
+853427	    asset.hidden = asset.disabled;
+853428	    confirmation.hidden = !armed && !pending;
+853429	    confirm.hidden = !pending;
+853430	    vicinity.hidden = !pending;
+853431	    pinLabel.hidden = pending?.kind !== 'map';
+853432	  function stage(kind, selection) {
+853434	    searchEpoch++;
+853435	    results.textContent='';
+853436	    reset('');
+853438	      const value = normaliseOrigin({ at: selection.at, name: selection.name, type: 'map-point' });
+853439	      pending = { kind, selection: { ...selection, at: value.at }, value };
+853440	      if (kind === 'map') marker = new window.maplibregl.Marker({ color: '#00ffff' }).setLngLat(value.at).addTo(map);
+853441	      status.textContent = `${value.name} · ${value.at[1].toFixed(6)}, ${value.at[0].toFixed(6)}`;
+853443	      confirm.focus();
+853445	      reset('Choose a valid map point.');
+853446	  // Same armed MapLibre click and [longitude, latitude] order as Vicinity bootstrap.
+853447	  function mapClick(event) {
+853448	    if (!panel.hidden && armed && event.lngLat) {
+853449	      stage('map', { name: 'Chosen map point', at: [event.lngLat.lng, event.lngLat.lat] });
+853450	  pick.onclick = () => {
+853451	    if (armed) { reset('Selection cancelled.'); return; }
+853452	    reset('Tap a point on the satellite map.');
+853453	    const input = satellite();
+853454	    if (!input.checked) input.click();
+853455	    armed = true;
+853456	  origin.onclick = () => stage('origin', currentCardPoint('origin'));
+853457	  asset.onclick = () => stage('asset', currentCardPoint('asset'));
+853458	  function selectedProject() {
+853459	    const selected = projectSelection();
+853460	    if (selected?.mapped !== true || String(selected.repd_ref) !== projectRef() ||
+853461	      !validCoordinate([selected.longitude, selected.latitude])) return null;
+853462	    // Keep the exact record for source status and address.
+853463	    const rows = placeSearch().last_results.filter(row => row.repd_ref === selected.repd_ref &&
+853464	      row.longitude === selected.longitude && row.latitude === selected.latitude);
+853465	    return rows.length === 1 ? rows[0] : null;
+853466	  function selectedLocation() {
+853467	    const selected = placeSearch()?.last_location_selection;
+853468	    return projectRef() === null && selected?.mapped === true &&
+853469	      validCoordinate([selected.longitude, selected.latitude]) ? selected : null;
+853470	  planned.onclick = () => {
+853471	    if (selected && String(selected.repd_ref) === projectRef() && selected.mapped !== true) {
+853472	      reset('This project has no mapped location. Choose a point on satellite or enter known coordinates.');
+853474	    const record = selectedProject();
+853475	    if (record) {
+853476	      stage('planned', { name: record.name, at: [record.longitude, record.latitude], record });
+853477	      if (pending) status.textContent += ' · ' + [
+853478	        'REPD ' + record.repd_ref, record.status, record.address, record.postcode, 'Source point; entrance unverified',
+853479	      ].filter(Boolean).join(' · ');
+853480	    const place = selectedLocation();
+853481	    if (place) {
+853482	      stage('location', { name: place.label, at: [place.longitude, place.latitude], place });
+853483	      if (pending) status.textContent += ' · ' + [place.sublabel, place.provider, 'Location only'].filter(Boolean).join(' · ');
+853484	    reset('Select a mapped result in GridAtlas search, or choose a point on satellite.');
+853485	  manual.onsubmit=event=>{
+853487	    const number=/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/;
+853488	    if(!number.test(latitude.value.trim())||!number.test(longitude.value.trim())||Math.abs(Number(latitude.value))>90||Math.abs(Number(longitude.value))>180||(!Number(latitude.value)&&!Number(longitude.value))){status.textContent='Enter valid signed latitude and longitude. Previous selection retained.';return;}
+853489	    searchEpoch++;results.textContent='';
+853490	    stage('manual',{name:manualLabel.value.trim()||'Manual coordinate point',at:[Number(longitude.value),Number(latitude.value)]});
+853491	  let stationIndex;
+853492	  search.addEventListener('input', () => {
+853493	    results.textContent = '';
+853495	  lookup.onsubmit=async event=>{
+853496	    const epoch=++searchEpoch;const query=search.value.trim();results.textContent='';
+853497	    if(!query)return;
+853498	    reset('Loading the existing mapped substation snapshot…');
+853500	      if(!stationIndex){
+853501	        const [{buildStationIndex},response]=await Promise.all([import(new URL('tools/train/src/station-index.mjs',satnavRoot)),fetch(new URL('atlas/releases/202608300453-atlas-v9/data/grid_substations.geojson',satnavRoot))]);
+853502	        if(!response.ok)throw Error('Substation source unavailable');
+853504	        const geodesy=window.__GRIDATLAS_MODULES__?.geodesy;
+853505	        if(!geodesy)throw Error('Canonical geodesy is not ready');
+853506	        stationIndex=buildStationIndex(data.features,{geodesy,datasetPin:'gridatlas baseline 1c9ed251ea31de67cc9d7e3b3d7908ea6aa39779'});
+853508	      if(epoch!==searchEpoch)return;
+853509	      const matches=stationIndex.search(query,{limit:25});
+853510	      status.textContent=matches.matched?matches.matched+' source records; select the exact location. Addresses are not supplied by this snapshot.':'No matching substation in the mapped snapshot.';
+853511	      for(const row of matches.rows){
+853512	        const item=button('station-'+results.children.length,row.name+' · '+row.stationId+' · '+row.at[1]+', '+row.at[0],results);
+853513	        item.onclick=()=>{if(epoch!==searchEpoch)return;stage('station',{name:row.name,at:row.at,row});};
+853514	    }catch(error){if(epoch===searchEpoch)status.textContent='Substation provider failed: '+error.message;}
+853515	  function stillCurrent(){
+853516	    if(!pending)return false;
+853517	    if(pending.kind==='planned'&&selectedProject()!==pending.selection.record){reset('Project selection changed. Select it again.');return false;}
+853518	    if(pending.kind==='location'&&selectedLocation()!==pending.selection.place){reset('Location selection changed. Select it again.');return false;}
+853519	    if(['origin','asset'].includes(pending.kind)){
+853520	      const current=currentCardPoint(pending.kind), selection=pending.selection;
+853521	      if(!current||current.card!==selection.card||current.index!==selection.index||current.name!==selection.name||!samePoint(current.at,pending.value.at)){reset('The Vicinity selection changed. Select it again.');return false;}
+853523	  function destinationName(kind, value) {
+853524	    return kind === 'map' ? pinName.value.trim() || value.name : value.name;
+853525	  vicinity.onclick=()=>{
+853526	    if(!stillCurrent())return;
+853527	    const {value,selection,kind}=pending;
+853528	    const opened=window.__GRIDATLAS_MODULES__?.ukOfftakers?.openPointVicinity?.({at:value.at,name:destinationName(kind,value),kind,repdRef:kind==='planned'?selection.record.repd_ref:null,status:kind==='planned'?selection.record.status:null});
+853529	    if(opened){reset('Vicinity opened at the selected source point.');closePanel();}
+853530	    else status.textContent='Vicinity engine not ready. Selection retained; retry when loaded.';
+853531	  cancel.onclick = () => { searchEpoch++;results.textContent='';reset('Selection cancelled.'); pick.focus(); };
+853532	  confirm.onclick = () => {
+853533	    if (!stillCurrent()) return;
+853534	    const { kind, value } = pending;
+853535	    const query = buildDestination({ name: destinationName(kind, value), coordinates: value.at, mode: 'compass' });
+853536	    location.assign(new URL(query, compass));
+853537	  panel.addEventListener('keydown', event => {
+853538	    if (event.key === 'Escape' && (armed || pending)) { event.preventDefault(); cancel.click(); }
+853539	  for (const type of ['click', 'dblclick', 'mousedown', 'pointerdown', 'touchstart']) {
+853540	    panel.addEventListener(type, event => event.stopPropagation());
+853541	  function syncFullscreenHost() {
+853542	    const host = document.fullscreenElement || document.webkitFullscreenElement || document.body;
+853543	    if (toggle.parentElement !== host) host.append(toggle, panel);
+853545	    const nativeMap = window.__GRIDATLAS_V9_MAP__;
+853546	    if (nativeMap && nativeMap !== map && nativeMap.getLayer('l-sat')) {
+853547	      map?.off('click', mapClick);
+853548	      map = nativeMap;
+853549	      map.on('click', mapClick);
+853550	      status.textContent = defaultStatus;
+853551	    syncFullscreenHost();
+853553	  let timer = setInterval(refresh, 250);
+853554	  window.addEventListener('pagehide', () => {
+853556	    map?.off('click', mapClick);
+853557	    reset(defaultStatus);
+853558	    map = null;
+853559	  window.addEventListener('pageshow', event => {
+853560	    if (!event.persisted) return;
+853562	    timer = setInterval(refresh, 250);
+853563	}().catch(error => console.error('Detached SatNav handoff failed', error));
+853593	     return{title:card.r?.n||'Selected REPD project',kind:p.repd_ref?'REPD project (origin)':'Chosen source point (origin)',
+853594	       source:p.repd_ref?'REPD source point; entrance and connection unverified':'Explicit '+(p.origin_kind||'map')+' point; no asset identity inferred',
+853595	       rows:[['Distance','0 km straight line (origin)'],[p.repd_ref?'REPD reference':'Asset identity',p.repd_ref?safely(p.repd_ref):'not asserted'],
+853655	   card.__vicFocus={box:panel,more,signature:null,origin:!s.marker};
+853658	   s.label.style.visibility=card.__vicFocus.origin?'hidden':'';
+853982	dcc=(m,r,n=15,o={})=>{let p=r.p,project=!!o.project,w=DMW(p),c=cd(m,project?'Vicinity':'Data centre',project?(p.repd_ref?'Project vicinity (screening)':'Point vicinity (screening)'):'Data centre (screening)',{open:1,hh:1,foot:'Vicinity only. Not connection, route or capacity assessment.'}),h=c.head,dv=c.det,st=DST[r.t],sr=p.sources||[];
+853984	 L(h,project?`${NM(r)}${p.repd_ref?' · REPD '+cs(p.repd_ref):' · chosen source point'}`:`${NM(r)} · ${unk(r.op)?'operator not listed':cs(r.op)}`,'color:#e9dcff;font-weight:bold;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis','record');
+853987	 L(dv,project?(p.repd_ref?'REPD project vicinity. Distances are straight-line; connectivity and capacity unknown.':'Chosen-point vicinity. No asset identity or connection is inferred.'):DHEAD,'color:#c9b3ff;margin-top:4px');
+854097	  [(c.project?(c.r.p.repd_ref?'REPD project':'chosen point'):'data centre'),0,NM(r),id,c.project?cs(r.p.technology||'not stated'):'data centre',sl,'','',c.project?(r.p.capacity_mw||'not stated'):M(w.it),c.project?'registered MW':'IT load',0,x,y,'site',c.project?(r.p.repd_ref?'REPD source point':'Explicitly selected '+(r.p.origin_kind||'map')+' point'):r.dc?'data-centre dataset':'OpenStreetMap',c.project?(r.p.repd_ref?'REPD (DESNZ)':'not applicable to chosen point'):'ODbL 1.0','']];
+854098	 if(w.gc!=null)rows.push([c.project?(r.p.repd_ref?'REPD project':'chosen point'):'data centre',0,NM(r),id,c.project?'source point':'data centre',sl,'','',w.gc,'grid connection',0,x,y,'site','data-centre dataset','ODbL 1.0','']);
+854102	 let s=[`# GridAtlas ${c.project?(c.r.p.repd_ref?'REPD project':'chosen point'):'data-centre'} vicinity sheet · generation ${GEN} · site ${id} ${NM(r).replace(/[\r\n]/g,' ')} · point ${x},${y} · ${new Date().toISOString()}`,'# Straight-line distances from the site point. Not cable routes, capacity, headroom, connection offers or feasibility.',
+854103	  c.project?(r.p.repd_ref?'# REPD source point; not a confirmed entrance or connection.':'# Explicit chosen point; no asset identity, capacity or entrance is inferred.'):`# Site: IT load ${w.it!=null?w.it+' MW':'not stated'} · grid connection ${w.gc!=null?w.gc+' MW':'not stated'}. Never added together. A pipeline entry is not a commitment.`,'# MW columns are installed capacity as each source states it, not export or connection capacity. "not stated" is unknown, not zero.',
+854142	function openPointVicinity(input){
+854143	 if(!input||!Array.isArray(input.at)||input.at.length!==2||!input.at.every(Number.isFinite)||Math.abs(input.at[0])>180||Math.abs(input.at[1])>90||input.at.every(v=>v===0))return false;
+854144	 const map=mh();if(!map||typeof NS.gridScope?.scope!=='function')return false;
+854145	 const name=String(input.name||'Chosen map point').slice(0,180);
+854146	 const record={sources:[],status:String(input.status||'not stated'),origin_kind:input.kind||'map'};
+854147	 if(input.repdRef&&/^[1-9]\d{0,11}$/.test(input.repdRef))record.repd_ref=String(input.repdRef);
+854148	 const card=dcc(map,{k:'c',t:'un',dc:0,n:name,op:'',a:input.at.slice(),p:record},15,{project:true});
+854149	 card.dataset.satnavOriginKind=record.origin_kind;return true;
+854188	NS.ukOfftakers=Object.freeze({schema:S.schema,generation:GEN,state:S,install:ins,setOn:so,openProjectVicinity,openPointVicinity});
+854189	/* SatNav practice section preview. Positions and section coordinates are session-local. */
+854190	  const root = new URL('../../../', location.href);
+854191	  const p1 = new URL('https://ventusltd.github.io/satnav/preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/');
+854192	  const [maths, { MAX_AGE_MS, fixQuality }, { createPositionOverlay, point }, { validCoordinate }, { buildDestination }] =
+854194	      import(new URL('vendor/grid-distance-maths/src/geodesy.mjs', p1)),
+854195	      import(new URL('nav/compass.mjs', p1)),
+854196	      import(new URL('tools/satnav/line/position-overlay.mjs', root)),
+854197	      import(new URL('tools/vicinity/src/model.mjs', root)),
+854198	      import(new URL('tools/satnav/place.mjs', root)),
+854200	    :root { --line-tracker-top:128px; }
+854201	    @media (max-width:600px) { :root { --line-tracker-top:136px; } }
+854202	    @media (max-width:359px) { :root { --line-tracker-top:214px; } }
+854203	    #line-open { position:fixed; top:var(--line-tracker-top); left:12px; z-index:10019; }
+854204	    #line-panel { position:fixed; top:calc(var(--line-tracker-top) + 52px); right:12px; z-index:10019;
+854205	      width:min(360px,calc(100% - 24px)); max-height:calc(100dvh - var(--line-tracker-top) - 64px);
+854206	      overflow:auto; padding:12px; box-sizing:border-box; color:#e4f7f7;
+854207	      background:#08141bf5; border:1px solid #367078; border-radius:6px;
+854208	      font:14px/1.4 ui-monospace,monospace; }
+854209	    #line-panel h2 { font-size:16px; margin:0 0 8px; color:#00ffff; }
+854210	    #line-panel p { margin:6px 0; }
+854211	    #line-open, #line-panel button { min-height:44px; padding:6px 8px; border:1px solid #367078;
+854212	      border-radius:4px; color:#bff7f9; background:#07191f; font:14px/1.4 ui-monospace,monospace;
+854213	      cursor:pointer; touch-action:manipulation; }
+854214	    #line-panel button:disabled { color:#8ba0a2; cursor:default; }
+854215	    #line-open:focus-visible, #line-panel button:focus-visible { outline:2px solid #fff; outline-offset:1px; }
+854216	    #line-panel .line-controls { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; }
+854217	    #line-panel [hidden], #line-panel[hidden] { display:none; }
+854218	    #line-panel .line-values { display:grid; grid-template-columns:1fr auto; gap:4px 10px; margin:8px 0; }
+854219	    #line-panel dd { margin:0; color:#00ffff; }
+854220	  panel.id = 'line-panel';
+854221	  panel.setAttribute('aria-labelledby', 'line-title');
+854222	  const title = document.createElement('h2');
+854223	  title.id = 'line-title';
+854224	  title.textContent = 'Practice line tracking';
+854225	  const description = document.createElement('p');
+854226	  description.textContent = 'Draw a short practice section on the map. Track your position from a public path.';
+854227	  status.id = 'line-status';
+854228	  status.textContent = 'Waiting for GridAtlas…';
+854229	  const choices = document.createElement('div');
+854230	  choices.className = 'line-controls';
+854231	  const controls = document.createElement('div');
+854232	  controls.className = 'line-controls';
+854233	  function button(id, label, parent) {
+854234	    element.id = 'line-' + id;
+854236	  const open = button('open', 'Line tracker', document.body);
+854237	  open.setAttribute('aria-controls', panel.id);
+854238	  open.setAttribute('aria-expanded', 'false');
+854239	  const dark = button('dark', 'Dark', choices);
+854240	  const satellite = button('satellite', 'Satellite', choices);
+854241	  const draw = button('draw', 'Pick start and end', controls);
+854242	  const cancel = button('cancel', 'Cancel selection', controls);
+854243	  const start = button('start', 'Start location', controls);
+854244	  const stop = button('stop', 'Stop location', controls);
+854245	  const compass = button('compass', 'Compass to end', controls);
+854246	  const close = button('close', 'Close', controls);
+854247	  const values = document.createElement('dl');
+854248	  values.className = 'line-values';
+854249	  function readout(id, label) {
+854250	    const term = document.createElement('dt');
+854251	    term.textContent = label;
+854252	    const value = document.createElement('dd');
+854253	    value.id = 'line-' + id;
+854254	    values.append(term, value);
+854256	  const accuracy = readout('accuracy', 'GPS accuracy');
+854257	  const offset = readout('offset', 'Distance from line');
+854258	  const progress = readout('progress', 'Progress from first tap');
+854259	  const legend = document.createElement('p');
+854260	  legend.textContent = 'Cyan: practice line. Yellow: your GPS. Pink: nearest point on the line.';
+854261	  panel.append(title, description, status, choices, controls, values, legend);
+854262	  const sourceId = 'gridatlas-satnav-line-position';
+854263	  const layerSpecs = [
+854264	    ['accuracy', 'gps-accuracy', 'fill', { 'fill-color': '#ffdf61', 'fill-opacity': 0.22 }],
+854265	    ['section', 'selected-section', 'line', { 'line-color': '#00ffff', 'line-width': 4 }],
+854266	    ['start', 'start-point', 'circle', { 'circle-color': '#00ffff', 'circle-radius': 5 }],
+854267	    ['nearest', 'nearest-on-section', 'circle', { 'circle-color': '#ff65d5', 'circle-radius': 5 }],
+854268	    ['gps', 'measured-gps', 'circle', { 'circle-color': '#ffdf61', 'circle-radius': 6, 'circle-stroke-color': '#171100', 'circle-stroke-width': 2 }],
+854270	  let map, ownedSource, first, end, tracker, fix;
+854271	  let picking = false;
+854272	  let watch = null;
+854273	  let watchGeneration = 0;
+854274	  const formatMetres = value => Math.round(value) + ' m';
+854275	  function drawFeatures(features) {
+854277	    if (!ownedSource) {
+854278	      if (!features.length || map.getSource(sourceId)) return;
+854279	      map.addSource(sourceId, { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
+854280	      ownedSource = map.getSource(sourceId);
+854281	      for (const [id, role, type, paint] of layerSpecs) {
+854283	          id: sourceId + '-' + id, source: sourceId, type, paint,
+854284	          filter: ['==', ['get', 'role'], role],
+854286	    if (map.getSource(sourceId) === ownedSource) ownedSource.setData({ type: 'FeatureCollection', features });
+854287	    const { metrics, features } = tracker ? tracker(fix, Date.now()) :
+854288	      { metrics: null, features: first ? [point('start-point', first)] : [] };
+854289	    drawFeatures(features);
+854290	    choices.hidden = picking;
+854291	    description.hidden = picking || !!tracker;
+854292	    draw.hidden = picking || watch !== null;
+854293	    cancel.hidden = !picking;
+854294	    start.hidden = stop.hidden = values.hidden = legend.hidden = !tracker;
+854295	    compass.hidden = !tracker || watch !== null;
+854296	    draw.disabled = !map;
+854297	    start.disabled = watch !== null || !tracker;
+854298	    stop.disabled = watch === null;
+854299	    const usable = metrics?.status === 'ok';
+854300	    const quality = fixQuality(fix);
+854301	    accuracy.textContent = quality === 'usable' || quality === 'poor' ? '±' + formatMetres(fix.accuracyM) : '—';
+854302	    offset.textContent = usable ? formatMetres(metrics.offsetM) : '—';
+854303	    progress.textContent = usable ? formatMetres(metrics.progressM) + ' / ' + formatMetres(metrics.totalM) : '—';
+854304	    return metrics;
+854305	  function stopTracking(message) {
+854306	    watchGeneration++;
+854307	    if (watch !== null) navigator.geolocation.clearWatch(watch);
+854308	    watch = null;
+854309	    fix = null;
+854310	    if (message) status.textContent = message;
+854311	  function clearSelection(message) {
+854312	    stopTracking(message);
+854313	    tracker = first = end = null;
+854314	    picking = false;
+854315	    if (!picking || panel.hidden || !event.lngLat) return;
+854316	    const at = [event.lngLat.lng, event.lngLat.lat];
+854317	    if (!validCoordinate(at)) return;
+854318	    if (!first) {
+854319	      first = at;
+854320	      status.textContent = 'Tap the end less than 1 km from your first point.';
+854321	    const length = maths.distanceKm(...first, ...at);
+854322	    if (length === 0 || length > 1) {
+854323	      status.textContent = 'Choose a different end within 1 km of your first point.';
+854324	    tracker = createPositionOverlay([first, at], maths);
+854325	    end = at;
+854326	    status.textContent = 'Practice section selected. Start location when ready.';
+854327	  function showPanel(show) {
+854328	    panel.hidden = !show;
+854329	    open.setAttribute('aria-expanded', String(show));
+854330	    if (!show) {
+854331	      if (picking) clearSelection('Selection cancelled.');
+854332	      else stopTracking(tracker ? 'Location stopped. Your practice line is still selected.' : null);
+854333	  open.onclick = () => showPanel(panel.hidden);
+854334	  close.onclick = () => { showPanel(false); open.focus({ preventScroll: true }); };
+854335	  draw.onclick = () => {
+854336	    clearSelection('Tap the start of your practice line.');
+854337	    picking = true;
+854338	  cancel.onclick = () => clearSelection('Selection cancelled.');
+854339	  dark.onclick = () => document.querySelector('#scada-ui-container input[name="bm"][value="dark"]')?.click();
+854340	  satellite.onclick = () => document.querySelector('#scada-ui-container input[name="bm"][value="sat"]')?.click();
+854341	  compass.onclick = () => {
+854342	    if (end) location.assign(new URL(buildDestination({ name: 'Practice line end', coordinates: end }), new URL('nav/', p1)));
+854343	  start.onclick = () => {
+854344	    if (!tracker || watch !== null) return;
+854345	    if (!isSecureContext || !navigator.geolocation) {
+854346	      status.textContent = 'Location needs a secure browser connection.';
+854347	    const generation = ++watchGeneration;
+854348	    status.textContent = 'Waiting for your location…';
+854349	      watch = navigator.geolocation.watchPosition(position => {
+854350	        if (generation !== watchGeneration) return;
+854351	        const { longitude, latitude, accuracy: accuracyM } = position.coords;
+854352	        fix = { longitude, latitude, accuracyM, timestampMs: position.timestamp };
+854353	        const metrics = render();
+854354	        const quality = fixQuality(fix);
+854355	        if (quality === 'usable') {
+854356	          status.textContent = metrics.status === 'ok' ? 'Location fix received.' : 'Progress is uncertain on this section.';
+854357	        } else if (quality === 'poor') {
+854358	          status.textContent = 'GPS accuracy is too low for line progress.';
+854360	          status.textContent = 'Waiting for a usable location fix.';
+854362	      }, error => {
+854363	        if (error.code === 1) stopTracking('Location permission denied.');
+854365	          fix = null;
+854366	          status.textContent = 'Location unavailable. Waiting for another fix.';
+854368	      }, { enableHighAccuracy: true, maximumAge: 1000, timeout: 10000 });
+854369	      stopTracking('Location could not start.');
+854370	  stop.onclick = () => { stopTracking('Location stopped.'); render(); };
+854371	  for (const event of ['click', 'dblclick', 'mousedown', 'pointerdown', 'touchstart']) {
+854372	    panel.addEventListener(event, input => input.stopPropagation());
+854373	    if (event.key === 'Escape') { event.preventDefault(); showPanel(false); open.focus({ preventScroll: true }); }
+854374	    if (open.parentElement !== host) host.append(open, panel);
+854375	    const nextMap = window.__GRIDATLAS_V9_MAP__;
+854376	    if (nextMap && nextMap !== map && nextMap.getLayer('l-sat')) {
+854377	      map = nextMap;
+854378	      ownedSource = null;
+854379	      status.textContent = 'Pick a start and end on the map.';
+854380	    if (fix && Date.now() - fix.timestampMs > MAX_AGE_MS) {
+854381	      fix = null;
+854382	      status.textContent = 'GPS fix is stale. Waiting for a fresh fix.';
+854384	    stopTracking('Location stopped.');
+854385	}().catch(error => console.error('SatNav practice line preview failed', error));
+854390	from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, sync_playwright
+854391	BASE = f"http://127.0.0.1:{os.environ.get('SATNAV_PORT', '8768')}/"
+854392	DEMO = BASE + 'atlas/v/satnav-native-m1/'
+854393	COMPASS = 'https://ventusltd.github.io/satnav/preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/'
+854394	CARD = DEMO + '?' + urlencode({
+854395	    'repd_ref': 12588, 'latitude': 51.8132088, 'longitude': -1.3489728,
+854396	    'project': 'Botley West', 'technology': 'solar', 'journey': 'vicinity',
+854397	    'origin_type': 'repd', 'origin_id': 'repd:12588', 'radius_km': 10,
+854399	MOCK_GPS = '''
+854400	    window.__gpsRequests = 0;
+854401	    Object.defineProperty(navigator, 'geolocation', {configurable: true, value: {
+854402	        watchPosition() { window.__gpsRequests++; return 1; }, clearWatch() {},
+854405	POSTCODE = 'SW1A 2AA'
+854406	POSTCODE_ENDPOINT = 'https://api.postcodes.io/postcodes/SW1A2AA'
+854407	POSTCODE_POINT = [-0.12767, 51.503541]
+854408	PANEL = '#gridatlas-satnav-satnav'
+854409	TOGGLE = '#gridatlas-satnav-toggle'
+854410	CONFIRM = '#gridatlas-satnav-confirm'
+854411	VICINITY = '#gridatlas-satnav-vicinity'
+854412	PICK = '#gridatlas-satnav-pick'
+854413	USE_SEARCH_RESULT = '#gridatlas-satnav-planned'
+854414	def load_map(page, url):
+854415	    page.goto(url, wait_until='domcontentloaded')
+854416	    page.wait_for_function("document.querySelector('#gridatlas-satnav-pick:not(:disabled)')", timeout=45000)
+854417	def click_launcher(page):
+854418	    hit = page.locator(TOGGLE).evaluate('''async button => {
+854419	        await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+854420	        window.__satnavTapEvents = [];
+854421	        const types = ['pointerdown', 'pointerup', 'pointercancel', 'touchstart',
+854422	            'touchend', 'touchcancel', 'click', 'fullscreenchange'];
+854423	        window.__satnavTapTrace?.abort();
+854424	        window.__satnavTapTrace = new AbortController();
+854425	        const record = event => {
+854426	            const point = event.changedTouches?.[0] || event;
+854427	            window.__satnavTapEvents.push({
+854428	                type: event.type, target: event.target.id || event.target.tagName,
+854429	                x: point.clientX, y: point.clientY,
+854430	                launcherTop: button.getBoundingClientRect().top,
+854431	                expanded: button.getAttribute('aria-expanded'),
+854434	        for (const type of types) {
+854435	            window.addEventListener(type, record, {capture: true, signal: window.__satnavTapTrace.signal});
+854436	        const rect = button.getBoundingClientRect();
+854437	        const x = rect.left + rect.width / 2;
+854438	        const y = rect.top + rect.height / 2;
+854439	        const target = document.elementFromPoint(x, y);
+854441	            x, y, width: rect.width, height: rect.height,
+854442	            inViewport: rect.left >= 0 && rect.top >= 0 &&
+854443	                rect.right <= innerWidth && rect.bottom <= innerHeight,
+854444	            reachable: button.contains(target),
+854445	            coveredBy: target && (target.id || target.className || target.tagName),
+854446	            viewport: {
+854447	                width: innerWidth, height: innerHeight, scale: visualViewport.scale,
+854448	                offsetLeft: visualViewport.offsetLeft, offsetTop: visualViewport.offsetTop,
+854449	                fullscreen: Boolean(document.fullscreenElement),
+854452	    assert hit['width'] >= 44 and hit['height'] >= 44, hit
+854453	    assert hit['inViewport'] and hit['reachable'], hit
+854454	    scroll = page.evaluate('[scrollX, scrollY]')
+854455	    if page.evaluate("navigator.maxTouchPoints > 0"):
+854456	        page.touchscreen.tap(hit['x'], hit['y'])
+854458	        page.mouse.click(hit['x'], hit['y'])
+854459	    assert page.evaluate('[scrollX, scrollY]') == scroll
+854460	    return hit
+854461	def open_satnav(page):
+854462	    hit = click_launcher(page)
+854464	        page.locator(PANEL).wait_for(state='visible', timeout=5000)
+854465	    except PlaywrightTimeoutError:
+854466	        print(json.dumps({
+854467	            'missedLauncherTap': hit,
+854468	            'events': page.evaluate('window.__satnavTapEvents'),
+854469	            'expanded': page.locator(TOGGLE).get_attribute('aria-expanded'),
+854470	        }), flush=True)
+854471	        page.screenshot(path='launcher-missed.png')
+854473	def check_launcher_during_search_reflow(page):
+854474	    top = page.locator(TOGGLE).evaluate('button => button.getBoundingClientRect().top')
+854475	    wrapper = page.locator('.search-bar-wrapper')
+854476	    old_top = wrapper.evaluate('element => element.style.top')
+854477	        # Exercise the two native search positions observed during mobile boot.
+854478	        for search_top in ['164px', '72px']:
+854479	            wrapper.evaluate('(element, top) => { element.style.top = top; }', search_top)
+854480	            page.wait_for_timeout(350)
+854481	            assert page.locator(TOGGLE).evaluate('button => button.getBoundingClientRect().top') == top
+854483	        wrapper.evaluate('(element, top) => { element.style.top = top; }', old_top)
+854484	def ready(page, url):
+854485	    load_map(page, url)
+854486	    open_satnav(page)
+854487	def choose_compass(page, name, point):
+854488	    page.locator('#gridatlas-satnav-confirm').click()
+854489	    page.wait_for_url(COMPASS + '?*')
+854490	    assert page.locator('#destination').inner_text() == name
+854491	    query = parse_qs(urlparse(page.url).query)
+854492	    assert query['mode'] == ['compass']
+854493	    assert set(query) == {'latitude', 'longitude', 'name', 'mode'}
+854494	    assert math.isclose(float(query['longitude'][0]), point[0], abs_tol=1e-6)
+854495	    assert math.isclose(float(query['latitude'][0]), point[1], abs_tol=1e-6)
+854496	    assert page.evaluate('window.__gpsRequests') == 0
+854497	    assert page.locator('#start').is_enabled()
+854498	def open_native_card(page):
+854499	    load_map(page, CARD)
+854500	    page.locator('#gridatlas-pipeline-vicinity-button').click(timeout=45000)
+854501	    page.wait_for_function('''() => {
+854502	        const card = window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp;
+854503	        return card?.__vicFocus?.origin === true && card.swipe?.entries?.length >= 2;
+854504	    }''', timeout=45000)
+854505	def open_card(page):
+854506	    open_native_card(page)
+854507	def click_uncovered_map(page):
+854508	    point = page.evaluate('''() => {
+854509	        const canvas = window.__GRIDATLAS_V9_MAP__.getCanvas();
+854510	        const rect = canvas.getBoundingClientRect();
+854511	        for (const [fx, fy] of [[.55, .40], [.60, .55], [.46, .68]]) {
+854512	            const x = rect.left + fx * rect.width;
+854513	            const y = rect.top + fy * rect.height;
+854514	            if (document.elementFromPoint(x, y) === canvas) return [x, y];
+854516	    assert point is not None, 'Expected a genuinely uncovered canvas point'
+854517	    page.mouse.click(*point)
+854518	def pick_search_result(page, query, result_selector):
+854519	    search = page.locator('#search-input')
+854520	    search.fill(query)
+854521	    search.press('Enter')
+854522	    page.locator(result_selector).click(timeout=45000)
+854523	def stale_project_refused(page, action):
+854524	    ready(page, DEMO)
+854525	    map_search = page.locator('#gridatlas-satnav-map-search')
+854526	    map_search.click()
+854527	    pick_search_result(page, '12588', '#search-results [data-repd-ref="12588"]')
+854528	    page.locator(USE_SEARCH_RESULT).click()
+854529	    assert page.locator(CONFIRM).is_visible()
+854530	    pick_search_result(page, '10603', '#search-results [data-repd-ref="10603"]')
+854531	    url = page.url
+854532	    page.locator(action).click()
+854533	    assert 'selection changed' in page.locator(PANEL + ' [role=status]').inner_text()
+854534	    assert page.url == url
+854535	    assert not page.evaluate("Boolean(window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp?.project)")
+854536	    assert page.locator(CONFIRM).is_hidden()
+854537	    assert page.locator(VICINITY).is_hidden()
+854538	def postcode_handoff(page, use_live_provider):
+854539	    if not use_live_provider:
+854540	        page.route(POSTCODE_ENDPOINT, lambda route: route.fulfill(
+854541	            headers={'Access-Control-Allow-Origin': '*'},
+854542	            json={'status': 200, 'result': {
+854543	                'postcode': POSTCODE, 'longitude': POSTCODE_POINT[0], 'latitude': POSTCODE_POINT[1],
+854544	                'admin_district': 'Westminster', 'region': 'London',
+854547	    page.locator('#gridatlas-satnav-map-search').click()
+854548	    assert page.locator(PANEL).is_hidden()
+854549	    assert page.locator('#search-input').evaluate('(input) => document.activeElement === input')
+854550	    pick_search_result(page, POSTCODE, '#search-results [data-location-kind="postcode"]')
+854551	    location = page.evaluate('window.__GRIDATLAS_PLACE_SEARCH__.last_location_selection')
+854552	    assert location['label'] == POSTCODE and location['mapped'] is True, location
+854553	    point = [location['longitude'], location['latitude']]
+854554	        assert point == POSTCODE_POINT
+854555	    choose_compass(page, POSTCODE, point)
+854556	    source = 'live Postcodes.io' if use_live_provider else 'deterministic Postcodes.io response'
+854557	    print(f'PASS postcode handoff through GridAtlas search ({source})', flush=True)
+854558	def selected(page, kind):
+854559	    return page.evaluate('''kind => {
+854560	        if (kind === 'origin') return { name:card.r.n, at:card.r.a };
+854561	        const entry = card.swipe.entries[card.swipe.index];
+854562	        return { name:entry.name, at:entry.at };
+854563	    }''', kind)
+854564	with sync_playwright() as playwright:
+854565	    browser = playwright.chromium.launch(headless=True, args=[
+854566	        '--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader',
+854568	    for width, height, is_mobile, card_open in [
+854569	        (1440, 900, False, False),
+854570	        (390, 844, True, True),
+854571	        (844, 390, True, False),
+854572	        (320, 568, True, False),
+854574	        hit_page = browser.new_page(
+854575	            viewport={'width': width, 'height': height}, is_mobile=is_mobile, has_touch=is_mobile,
+854577	        if card_open:
+854578	            open_native_card(hit_page)
+854580	            load_map(hit_page, DEMO)
+854581	        if width == 320:
+854582	            check_launcher_during_search_reflow(hit_page)
+854583	            print('PASS narrow launcher position stays stable as native search reflows', flush=True)
+854584	        open_satnav(hit_page)
+854585	        print(f'PASS launcher screen hit {width}x{height}, vicinity card open={card_open}', flush=True)
+854586	        hit_page.close()
+854587	    context = browser.new_context(viewport={'width': 1024, 'height': 740})
+854588	    context.add_init_script(MOCK_GPS)
+854589	    page = context.new_page()
+854590	    for use_close_button in [True, False]:
+854591	        page.locator(PICK).click()
+854592	        assert page.locator(PICK).get_attribute('aria-pressed') == 'true'
+854593	        if use_close_button:
+854594	            page.locator('#gridatlas-satnav-close').click()
+854595	            click_launcher(page)
+854596	        page.locator(PANEL).wait_for(state='hidden', timeout=5000)
+854597	        assert page.locator(PICK).get_attribute('aria-pressed') == 'false'
+854598	        click_uncovered_map(page)
+854599	        open_satnav(page)
+854600	        assert page.locator(CONFIRM).is_hidden()
+854601	        assert page.locator(VICINITY).is_hidden()
+854602	    print('PASS both panel close actions disarm map selection and prevent hidden staging', flush=True)
+854603	    unmapped = page.evaluate('window.__GRIDATLAS_PLACE_SEARCH__.last_selection')
+854604	    assert str(unmapped['repd_ref']) == '10603' and unmapped['mapped'] is False, unmapped
+854605	    assert 'has no mapped location' in page.locator(PANEL + ' [role=status]').inner_text()
+854606	    assert page.locator(PICK).is_enabled()
+854607	    assert page.url.startswith(DEMO)
+854608	    print('PASS genuine unmapped REPD 10603 refused for SatNav and Vicinity with pin fallback', flush=True)
+854609	    stale_project_refused(page, CONFIRM)
+854610	    stale_project_refused(page, VICINITY)
+854611	    print('PASS both confirmations refuse stale mapped project after selection changes to unmapped 10603', flush=True)
+854612	    postcode_page = context.new_page()
+854613	    postcode_handoff(postcode_page, use_live_provider=False)
+854614	    postcode_page.close()
+854615	    if os.environ.get('SATNAV_LIVE_POSTCODE') == '1':
+854616	        postcode_page = context.new_page()
+854617	        postcode_handoff(postcode_page, use_live_provider=True)
+854618	        postcode_page.close()
+854619	    tile_responses = []
+854620	    page.on('response', lambda response: tile_responses.append(response.status)
+854621	            if 'World_Imagery/MapServer/tile/' in response.url else None)
+854622	    page.evaluate("window.__GRIDATLAS_V9_MAP__.jumpTo({center:[-2.1,53.4], zoom:9})")
+854623	    canvas = page.locator('.maplibregl-canvas').first.bounding_box()
+854624	    x, y = round(canvas['x'] + canvas['width'] * .58), round(canvas['y'] + canvas['height'] * .39)
+854625	    page.locator('#gridatlas-satnav-pick').click()
+854626	    page.wait_for_function("window.__GRIDATLAS_V9_MAP__.getLayoutProperty('l-sat','visibility') === 'visible'")
+854627	    page.wait_for_function("window.__GRIDATLAS_V9_MAP__.isSourceLoaded('sat-s')", timeout=45000)
+854628	    page.wait_for_timeout(1200)  # Allow the native raster fade-in before capturing the map.
+854629	    page.mouse.click(x, y)
+854630	    page.locator('#gridatlas-satnav-confirm:visible').wait_for()
+854631	    assert page.url == DEMO
+854632	    page.locator('#gridatlas-satnav-cancel').click()
+854633	    assert page.locator('#gridatlas-satnav-confirm').is_hidden()
+854634	    expected = page.evaluate('''([x,y]) => {
+854636	        const rect = map.getCanvas().getBoundingClientRect();
+854637	        return map.unproject([x-rect.left, y-rect.top]).toArray();
+854638	    }''', [x, y])
+854639	    pin_name = 'Future substation field point'
+854640	    page.locator('#gridatlas-satnav-pin-label input').fill(pin_name)
+854641	    page.screenshot(path='satellite-selection.png')
+854642	    assert 200 in tile_responses
+854643	    print(json.dumps({'satelliteTileResponses': tile_responses, 'nativeLayerVisible': True}), flush=True)
+854644	    choose_compass(page, pin_name, expected)
+854645	    print('PASS native satellite click, cancel, named pin, signed compass handoff and GPS opt-in', flush=True)
+854646	    page.locator('#gridatlas-satnav-manual-details summary').click()
+854647	    page.locator('#gridatlas-satnav-latitude').fill('51.5')
+854648	    page.locator('#gridatlas-satnav-longitude').fill('-0.4')
+854649	    page.locator('#gridatlas-satnav-label').fill('Manual field point')
+854650	    page.locator('#gridatlas-satnav-manual').click()
+854651	    page.locator('#gridatlas-satnav-latitude').fill('invalid')
+854652	    assert page.locator('#gridatlas-satnav-confirm').is_visible()
+854653	    choose_compass(page, 'Manual field point', [-0.4, 51.5])
+854654	    print('PASS signed manual destination and invalid edit retains pending selection', flush=True)
+854655	    page.locator('#gridatlas-satnav-vicinity').click()
+854656	      const c=window.__GRIDATLAS_MODULES__.ukOfftakers.state.pp;
+854657	      return c?.project && c.r.a[0]===-0.4 && !c.r.p.repd_ref;
+854658	    assert page.locator('[data-vicinity-focus-title]').inner_text() == 'Manual coordinate point'
+854659	    print('PASS anonymous plain-point native Vicinity without fabricated REPD reference', flush=True)
+854660	    for source_id, point in [
+854661	        ('grid_substations:212', [-0.4978855, 51.5434023]),
+854662	        ('grid_substations:213', [-0.4973463, 51.5416778]),
+854663	        ready(page, DEMO)
+854664	        page.locator('#gridatlas-satnav-station-details summary').click()
+854665	        page.get_by_label('Existing substation name or source ID').fill('Iver')
+854666	        page.locator('#gridatlas-satnav-search').click()
+854667	        page.get_by_role('button', name=f'Iver Substation · {source_id}', exact=False).click(timeout=30000)
+854668	        choose_compass(page, 'Iver Substation', point)
+854669	    print('PASS same-name Iver substations open the compass at their distinct mapped points', flush=True)
+854670	    open_card(page)
+854671	      const s=window.__GRIDATLAS_PLACE_SEARCH__;
+854672	      return s?.last_selection && s.last_results.some(r=>r.repd_ref===s.last_selection.repd_ref);
+854673	    }''',timeout=45000)
+854674	    planned_record=page.evaluate('''() => {
+854675	      return s.last_results.find(r=>r.repd_ref===s.last_selection.repd_ref);
+854676	    page.locator('#gridatlas-satnav-planned').click()
+854677	    choose_compass(page,planned_record['name'],[planned_record['longitude'],planned_record['latitude']])
+854678	    print('PASS exact native selected project record handoff with source status and coordinates',flush=True)
+854679	    origin = selected(page, 'origin')
+854680	    assert page.locator('#gridatlas-satnav-asset').is_disabled()
+854681	    page.locator('#gridatlas-satnav-origin').click()
+854682	    choose_compass(page, origin['name'], origin['at'])
+854683	    print('PASS existing project Vicinity origin', flush=True)
+854684	    next_asset = page.get_by_role('button', name='Next vicinity point')
+854685	    page.locator('#gridatlas-satnav-close').click()
+854686	    next_asset.click()
+854687	    first = selected(page, 'asset')
+854688	    assert first['at'] != origin['at']
+854689	    page.locator('#gridatlas-satnav-asset').click()
+854690	    current = selected(page, 'asset')
+854691	    assert current['at'] != first['at']
+854692	    assert 'selection changed' in page.locator('#gridatlas-satnav-satnav [role=status]').inner_text()
+854693	    choose_compass(page, current['name'], current['at'])
+854694	    print('PASS existing highlighted Vicinity asset and stale selection refusal', flush=True)
+854699	const root = new URL('../../', import.meta.url);
+854700	const read = path => readFileSync(new URL(path, root), 'utf8').replace(/\r\n/g, '\n');
+854701	const write = (path, text) => {
+854702	  const output = new URL(path, root);
+854703	  mkdirSync(new URL('.', output), { recursive: true });
+854704	  writeFileSync(output, text);
+854706	const currentPreview = 'atlas/v/satnav-native-m1/';
+854707	const route = 'atlas/v/satnav-line-preview/';
+854708	const manifest = JSON.parse(read(currentPreview + 'current.json'));
+854709	const oldId = 'satnav-handoff';
+854710	const id = 'satnav-practice-line';
+854711	const entry = manifest.cartridges.find(cartridge => cartridge.id === oldId);
+854712	assert.ok(entry?.preview_only && manifest.cartridge_order.includes(oldId), 'Expected the existing isolated SatNav composition');
+854713	// Agent 24's exact Apache-2.0 follower from SatNav PR1.
+854714	const follower = read('tools/satnav/line/route-follower.mjs');
+854715	const hash = text => createHash('sha256').update(text).digest('hex');
+854716	assert.equal(hash(follower), '6b60f8481d5ff72c2b17bb41b61a9c318dbad375974029f2dbefc617a3581c5c');
+854717	const module = '202611242248-satnav-practice-line.js';
+854718	const source = read('tools/satnav/line/preview.js');
+854719	Object.assign(entry, { id, path: '../../modules/' + module, sha256: hash(source), bytes: Buffer.byteLength(source) });
+854720	manifest.cartridge_order[manifest.cartridge_order.indexOf(oldId)] = id;
+854721	manifest.generation = '202611242248';
+854722	manifest.composition_id = 'satnav-practice-line-preview';
+854723	manifest.composition_note = 'Isolated practice-line field positioning. Section drawn by the user.';
+854724	write('atlas/modules/' + module, source);
+854725	write(route + 'index.html', read(currentPreview + 'index.html'));
+854726	write(route + 'current.json', JSON.stringify(manifest, null, 1) + '\n');
+854727	console.log('Candidate /' + route + ' overlay SHA256 ' + entry.sha256);
+854732	import {rerootForPreview} from '../release/lib.mjs';
+854734	const read=p=>fs.readFileSync(path.join(root,p),'utf8').replace(/\r\n/g,'\n');
+854736	const write=(p,s)=>{fs.mkdirSync(path.dirname(path.join(root,p)),{recursive:true});fs.writeFileSync(path.join(root,p),s);};
+854737	const composition=JSON.parse(read('atlas/current.json'));
+854738	if(composition.generation!=='202611222343')throw Error('Re-review a changed live baseline before building');
+854739	let engine=read('atlas/modules/202611222000-uk-offtakers-overlay.js');
+854740	if(hash(engine)!==composition.cartridges.find(x=>x.id==='uk-offtakers-overlay').sha256)throw Error('Engine source differs from live composition pin');
+854741	const insertion=`function openPointVicinity(input){
+854742	 if(input.repdRef&&/^[1-9]\\d{0,11}$/.test(input.repdRef))record.repd_ref=String(input.repdRef);
+854744	if(!engine.includes('function openProjectVicinity(input){'))throw Error('Missing reviewed engine seam');
+854745	engine=engine.replace('function openProjectVicinity(input){',insertion+'function openProjectVicinity(input){');
+854746	engine=engine.replace('install:ins,setOn:so,openProjectVicinity','install:ins,setOn:so,openProjectVicinity,openPointVicinity');
+854747	engine=engine.replace("project?`${NM(r)} · REPD ${cs(p.repd_ref)}`","project?`${NM(r)}${p.repd_ref?' · REPD '+cs(p.repd_ref):' · chosen source point'}`");
+854748	engine=engine.replace("c.project?'REPD project':'data-centre'","c.project?(c.r.p.repd_ref?'REPD project':'chosen point'):'data-centre'");
+854749	engine=engine.replace("c.project?'REPD project':'data centre'","c.project?(c.r.p.repd_ref?'REPD project':'chosen point'):'data centre'");
+854750	engine=engine.replace("project?'Project vicinity (screening)'", "project?(p.repd_ref?'Project vicinity (screening)':'Point vicinity (screening)')");
+854751	engine=engine.replace("project?'REPD project vicinity. Distances are straight-line; connectivity and capacity unknown.'", "project?(p.repd_ref?'REPD project vicinity. Distances are straight-line; connectivity and capacity unknown.':'Chosen-point vicinity. No asset identity or connection is inferred.')");
+854752	// Generic origins remain anonymous in CSV; no synthetic data-centre identity.
+854753	engine=engine.replace("['data centre',0,NM(r),id,'data centre',sl", "[c.project?(r.p.repd_ref?'REPD project':'chosen point'):'data centre',0,NM(r),id,c.project?'source point':'data centre',sl");
+854754	engine=engine.replace("c.project?'PipelineNews map origin'", "c.project?(r.p.repd_ref?'REPD source point':'Explicitly selected '+(r.p.origin_kind||'map')+' point')");
+854755	engine=engine.replace("c.project?'REPD (DESNZ)'", "c.project?(r.p.repd_ref?'REPD (DESNZ)':'not applicable to chosen point')");
+854756	engine=engine.replace("c.project?'# REPD project context from PipelineNews MAP URL; MW does not establish connection capacity.'", "c.project?(r.p.repd_ref?'# REPD source point; not a confirmed entrance or connection.':'# Explicit chosen point; no asset identity, capacity or entrance is inferred.')");
+854757	const enginePath='atlas/modules/202611242030-satnav-point-vicinity.js';write(enginePath,engine);
+854758	const engineEntry=composition.cartridges.find(x=>x.id==='uk-offtakers-overlay');
+854759	engineEntry.path='./modules/'+path.basename(enginePath);engineEntry.sha256=hash(engine);engineEntry.bytes=Buffer.byteLength(engine);
+854760	let focus=read('atlas/modules/202611222130-vicinity-focus.js');
+854761	if(hash(focus)!==composition.cartridges.find(x=>x.id==='vicinity-focus').sha256)throw Error('Focus source differs from live composition pin');
+854762	focus=focus.replace("kind:'REPD project (origin)'", "kind:p.repd_ref?'REPD project (origin)':'Chosen source point (origin)'");
+854763	focus=focus.replace("source:'PipelineNews MAP arrival parameters; a location is not a declared grid connection'", "source:p.repd_ref?'REPD source point; entrance and connection unverified':'Explicit '+(p.origin_kind||'map')+' point; no asset identity inferred'");
+854764	focus=focus.replace("['REPD reference',safely(p.repd_ref)]", "[p.repd_ref?'REPD reference':'Asset identity',p.repd_ref?safely(p.repd_ref):'not asserted']");
+854765	// If the native swipe ran before focus was attached, keep its existing highlight.
+854766	focus=focus.replace("signature:null,origin:true", "signature:null,origin:!s.marker");
+854767	focus=focus.replace("s.label.style.visibility='hidden';", "s.label.style.visibility=card.__vicFocus.origin?'hidden':'';");
+854768	const focusPath='atlas/modules/202611242030-satnav-origin-focus.js';write(focusPath,focus);
+854769	const focusEntry=composition.cartridges.find(x=>x.id==='vicinity-focus');focusEntry.path='./modules/'+path.basename(focusPath);focusEntry.sha256=hash(focus);focusEntry.bytes=Buffer.byteLength(focus);
+854770	const source=read('tools/satnav/handoff.js'),modulePath='atlas/modules/202611242030-satnav-handoff.js';write(modulePath,source);
+854771	composition.cartridge_order.push('satnav-handoff');
+854772	composition.cartridges.push({id:'satnav-handoff',type:'script',slot:'after-cartridge',after:'vicinity-controls-rescue',path:'./modules/'+path.basename(modulePath),sha256:hash(source),preview_only:true});
+854773	composition.generation='202611242030';composition.composition_id='satnav-native-m1-candidate';
+854774	composition.composition_note='Isolated M1 candidate. No live selection, release or acceptance.';
+854775	// The existing geodesy module supplies the station index canonical geometry.
+854776	if(!read('atlas/modules/202609011950-geodesy.js'))throw Error('Missing geodesy');
+854777	const loader=read('atlas/index.html');
+854778	const route='atlas/v/satnav-native-m1/';
+854779	write(route+'index.html',loader);write(route+'current.json',rerootForPreview(JSON.stringify(composition,null,1))+'\n');
+854780	console.log('Candidate /atlas/v/satnav-native-m1/; handoff SHA256 '+hash(source));
+854781	"""Detached browser checks for the GridAtlas line-tracking practice preview."""
+854783	from urllib.parse import parse_qs, urlsplit
+854784	from playwright.sync_api import expect, sync_playwright
+854785	SITE = os.environ.get(
+854786	    'LINE_TEST_URL', 'http://127.0.0.1:8873/atlas/v/satnav-line-preview/'
+854788	P1 = 'https://ventusltd.github.io/satnav/preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/'
+854789	SOURCE = 'gridatlas-satnav-line-position'
+854790	SECTION = 'selected-section'
+854791	MEASURED = 'measured-gps'
+854792	RING = 'gps-accuracy'
+854793	NEAREST = 'nearest-on-section'
+854794	GPS_SPY = """(() => {
+854796	  const watches = new Map();
+854797	  const records = { starts: [], stops: [] };
+854798	  Object.defineProperty(navigator, 'geolocation', {
+854799	    configurable: true,
+854800	    value: {
+854801	      watchPosition(success, error) {
+854802	        const id = ++nextId;
+854803	        watches.set(id, { success, error });
+854804	        records.starts.push(id);
+854805	        return id;
+854807	      clearWatch(id) {
+854808	        records.stops.push(id);
+854809	        watches.delete(id);
+854811	  window.__lineGpsTest = {
+854813	    emit(coordinates, accuracy, age = 0) {
+854814	      const coords = { longitude: coordinates[0], latitude: coordinates[1], accuracy };
+854815	      const result = { coords, timestamp: Date.now() - age };
+854816	      for (const { success } of watches.values()) success(result);
+854818	def surface_distance(first, second):
+854819	    lon1, lat1 = map(math.radians, first)
+854820	    lon2, lat2 = map(math.radians, second)
+854821	    a = math.sin((lat2 - lat1) / 2) ** 2
+854822	    b = math.cos(lat1) * math.cos(lat2) * math.sin((lon2 - lon1) / 2) ** 2
+854823	    return 6_371_000 * 2 * math.asin(min(1, math.sqrt(a + b)))
+854824	def leg_point(start, end, fraction, offset):
+854825	    lon, lat = [a + (b - a) * fraction for a, b in zip(start, end)]
+854826	    x_scale = 111_195 * math.cos(math.radians(lat))
+854827	    y_scale = 111_195
+854828	    east = (end[0] - start[0]) * x_scale
+854829	    north = (end[1] - start[1]) * y_scale
+854830	    norm = math.hypot(east, north)
+854831	    return [lon + offset * north / (norm * x_scale), lat - offset * east / (norm * y_scale)]
+854832	def map_canvas_tap(page, excluded=None):
+854833	    target = page.wait_for_function("""excluded => {
+854835	      if (map.isMoving()) return null;
+854836	      const canvas = map.getCanvas();
+854837	      const rect = canvas.getBoundingClientRect();
+854838	      for (const fraction of [.83, .74, .65, .54, .44]) {
+854839	        const y = Math.round(rect.top + rect.height * fraction);
+854840	        for (const side of [.24, .7, .42, .57]) {
+854841	          const x = Math.round(rect.left + rect.width * side);
+854842	          if (excluded && Math.hypot(x - excluded.x, y - excluded.y) < 90) continue;
+854843	          if (document.elementFromPoint(x, y) !== canvas) continue;
+854844	          return {x, y, coordinates: map.unproject([x - rect.left, y - rect.top]).toArray()};
+854846	    }""", arg=excluded, timeout=15000).json_value()
+854847	    page.touchscreen.tap(target['x'], target['y'])
+854849	def overlay_roles(page, required, absent=()):
+854850	    data = page.wait_for_function("""({source, required, absent}) => {
+854851	      const data = window.__GRIDATLAS_V9_MAP__?.getSource(source)?.serialize()?.data;
+854852	      if (!Array.isArray(data?.features)) return null;
+854853	      const found = Object.fromEntries(data.features.map(feature => [feature.properties.role, feature]));
+854854	      return required.every(role => found[role]) && absent.every(role => !found[role]) ? found : null;
+854855	    }""", arg={'source': SOURCE, 'required': required, 'absent': absent}, timeout=15000)
+854856	    return data.json_value()
+854857	def check_basemap(page, selector, visibility, geometry):
+854858	    page.locator(selector).tap()
+854859	    page.wait_for_function(
+854860	        """visibility => window.__GRIDATLAS_V9_MAP__.getLayoutProperty('l-sat', 'visibility') === visibility""",
+854861	        arg=visibility,
+854863	    assert overlay_roles(page, [SECTION])[SECTION]['geometry']['coordinates'] == geometry
+854864	def check_browser(browser, label):
+854865	    context = browser.new_context(
+854866	        viewport={'width': 390, 'height': 664},
+854867	        is_mobile=True,
+854868	        has_touch=True,
+854869	    context.add_init_script(GPS_SPY)
+854871	    page.on('pageerror', lambda error: errors.append(str(error)))
+854872	    page.goto(SITE, wait_until='domcontentloaded')
+854873	    page.wait_for_function("window.__GRIDATLAS_V9_MAP__?.getLayer('l-sat')", timeout=45000)
+854874	    expect(page.locator('#line-open')).to_be_visible(timeout=45000)
+854875	    page.locator('#line-open').tap()
+854876	    page.locator('#line-draw').tap()
+854877	    assert page.evaluate('window.__lineGpsTest.records.starts') == []
+854878	    page.evaluate("""window.__GRIDATLAS_V9_MAP__.jumpTo({center: [-1.5, 51.5], zoom: 15})""")
+854879	    discarded_point = map_canvas_tap(page)
+854880	    overlay_roles(page, ['start-point'], absent=[SECTION])
+854881	    page.locator('#line-cancel').tap()
+854882	    expect(page.locator('#line-status')).to_have_text('Selection cancelled.')
+854883	    map_canvas_tap(page, discarded_point)
+854884	    overlay_roles(page, [], absent=['start-point', SECTION])
+854885	    print(f'{label}: cancellation removes the start point and disarms map taps', flush=True)
+854886	    first = map_canvas_tap(page)
+854887	    second = map_canvas_tap(page, first)
+854888	    expected_section = [first['coordinates'], second['coordinates']]
+854889	    selected = overlay_roles(page, [SECTION])[SECTION]
+854890	    geometry = selected['geometry']['coordinates']
+854891	    assert len(geometry) == 2
+854892	    assert 80 < surface_distance(*geometry) < 1000
+854893	    for expected, actual in zip(expected_section, geometry):
+854894	        assert surface_distance(expected, actual) < 2, 'Selected vertex differs from canvas tap'
+854895	    print(f'{label}: two real map taps created a practice section without starting GPS', flush=True)
+854896	    check_basemap(page, '#line-satellite', 'visible', geometry)
+854897	    check_basemap(page, '#line-dark', 'none', geometry)
+854898	    print(f'{label}: dark and satellite controls preserved the selected section', flush=True)
+854899	    expect(page.locator('#line-start')).to_be_enabled()
+854900	    page.locator('#line-start').tap()
+854901	    assert page.evaluate('window.__lineGpsTest.records.starts') == [1]
+854902	    expected_fix = leg_point(*geometry, fraction=0.35, offset=40)
+854903	    page.evaluate('at => window.__lineGpsTest.emit(at, 8)', expected_fix)
+854904	    overlay = overlay_roles(page, [SECTION, MEASURED, RING, NEAREST])
+854905	    actual_fix = overlay[MEASURED]['geometry']['coordinates']
+854906	    nearest = overlay[NEAREST]['geometry']['coordinates']
+854907	    assert actual_fix == expected_fix, 'Measured GPS has been moved'
+854908	    assert abs(surface_distance(actual_fix, nearest) - 40) < 2
+854909	    ring = overlay[RING]['geometry']['coordinates'][0]
+854910	    assert len(ring) >= 25 and ring[0] == ring[-1]
+854911	    assert all(abs(surface_distance(actual_fix, edge) - 8) < 0.2 for edge in ring), (
+854912	        'Accuracy ring must be centred on measured GPS'
+854913	    assert overlay[SECTION]['geometry']['coordinates'] == geometry
+854914	    expect(page.locator('#line-accuracy')).to_contain_text('8')
+854915	    offset = re.search(r'([0-9]+(?:\.[0-9]+)?)\s*m\b', page.locator('#line-offset').inner_text())
+854916	    assert offset and abs(float(offset[1]) - 40) < 2
+854917	    expect(page.locator('#line-progress')).to_be_visible()
+854918	    before_progress = page.locator('#line-progress').inner_text()
+854919	    next_fix = leg_point(*geometry, fraction=0.65, offset=40)
+854920	    page.evaluate('at => window.__lineGpsTest.emit(at, 8)', next_fix)
+854921	    expect(page.locator('#line-progress')).not_to_have_text(before_progress)
+854922	    print(f'{label}: exact GPS marker, 8 m accuracy circle, separate 40 m offset and updating progress', flush=True)
+854923	    page.evaluate('at => window.__lineGpsTest.emit(at, 75)', expected_fix)
+854924	    overlay_roles(page, [SECTION, MEASURED, RING], absent=[NEAREST])
+854925	    page.evaluate('at => window.__lineGpsTest.emit(at, 8, 12000)', expected_fix)
+854926	    overlay_roles(page, [SECTION], absent=[MEASURED, RING, NEAREST])
+854927	    page.locator('#line-stop').tap()
+854928	    assert page.evaluate('window.__lineGpsTest.records.stops') == [1]
+854929	    assert not errors, errors
+854930	    print(f'{label}: poor and stale data withheld projection and Stop cleared the watch', flush=True)
+854931	    page.locator('#line-compass').tap()
+854932	    page.wait_for_url(P1 + '?*', timeout=20000)
+854933	    expect(page.locator('#destination')).to_have_text('Practice line end', timeout=20000)
+854934	    params = parse_qs(urlsplit(page.url).query)
+854935	    assert params['mode'] == ['compass']
+854936	    destination = [float(params['longitude'][0]), float(params['latitude'][0])]
+854937	    assert surface_distance(geometry[-1], destination) < 0.01
+854938	    print(f'{label}: compass handoff kept the exact end point and waited for Start', flush=True)
+854939	    context.close()
+854941	    requested = os.environ.get('LINE_TEST_BROWSERS', 'webkit,chromium').split(',')
+854942	    with sync_playwright() as playwright:
+854943	        for engine in requested:
+854944	            options = {}
+854945	            if engine == 'chromium':
+854946	                options['args'] = [
+854947	                    '--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader',
+854948	                    '--enable-unsafe-swiftshader',
+854950	            browser = getattr(playwright, engine).launch(**options)
+854952	                check_browser(browser, engine)
+854957	import { createRouteFollower } from './route-follower.mjs';
+854958	export const point = (role, coordinates) => ({
+854959	  type: 'Feature',
+854960	  properties: { role },
+854961	  geometry: { type: 'Point', coordinates },
+854963	export function createPositionOverlay(coordinates, maths) {
+854964	  const line = { type: 'LineString', coordinates: coordinates.map(at => at.slice()) };
+854965	  const locate = createRouteFollower(line, maths);
+854966	  return (fix, nowMs) => {
+854967	    const metrics = locate(fix, nowMs);
+854968	    const features = [
+854969	      { type: 'Feature', properties: { role: 'selected-section' }, geometry: line },
+854971	    if (metrics.status === 'ok' || metrics.status === 'uncertain') {
+854972	      const measured = [fix.longitude, fix.latitude];
+854973	      features.push(point('measured-gps', measured));
+854974	      if (fix.accuracyM > 0) {
+854975	        const ring = maths.geodesicCircle(...measured, fix.accuracyM / 1000, 64);
+854976	        features.push({
+854978	          properties: { role: 'gps-accuracy' },
+854979	          geometry: { type: 'Polygon', coordinates: [ring] },
+854980	      if (metrics.status === 'ok') features.push(point('nearest-on-section', metrics.nearest));
+854981	    return { metrics, features };
+854983	const server=await createPreviewServer(Number(process.argv[2]||8768));
+854984	console.log(`Native M1 candidate http://127.0.0.1:${server.address().port}/atlas/v/satnav-native-m1/`);
+854990	<meta name="description" content="SatNav: UK electricity infrastructure navigation in development, with a GPS field compass test preview.">
+854996	.launch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:16px 0}.launch-card{display:flex;flex-direction:column;gap:8px;padding:12px;background:#0a0a0a;border:1px solid var(--line);border-radius:5px;min-width:0}.launch-card:first-child{border-color:var(--accent)}.launch-card p{margin:0;overflow-wrap:anywhere}.launch-status{font-size:11px;letter-spacing:1px;color:var(--muted)}.launch-status.ready{color:var(--ok)}.launch-card .button{margin-top:auto;width:100%;justify-content:center;text-align:center;font:700 14px/1.35 'Courier New',monospace;white-space:normal;overflow-wrap:anywhere;border-radius:3px}.launch-card button:disabled{color:var(--muted);border-color:var(--line);cursor:not-allowed;opacity:1}.launch-card button:disabled:hover{border-color:var(--line)}@media(max-width:760px){.launch-grid{grid-template-columns:minmax(0,1fr)}}
+855008	<section class="hero"><h1>SatNav</h1><small class="concept">Development preview — GPS prototype available</small><p>Mobile location awareness for UK electricity infrastructure.</p><p class="muted">The GPS field compass is available for testing. GridAtlas destination selection and transmission-line positioning are being developed using existing GlobalGrid2050 tools.</p>
+855009	<div class="launch-grid" aria-label="SatNav applications">
+855010	<article class="launch-card"><span class="launch-status ready">AVAILABLE · TEST PREVIEW</span><h3>GPS field compass</h3><p class="muted">Live position and accuracy, straight-line distance and true bearing to a selected destination. Location stays on the device.</p><a id="launch-gps" class="button" href="https://ventusltd.github.io/satnav/preview/9698781539e549deaa6ecaa4a2b34610c1f9fd29/nav/">Launch SatNav — GPS prototype</a></article>
+855011	<article class="launch-card"><span class="launch-status">INTEGRATION IN PROGRESS</span><h3>GridAtlas destination selection</h3><p id="gridatlas-status" class="muted">Choose a destination on existing satellite imagery or through Vicinity, confirm it, then launch the compass. Not yet available.</p><button id="launch-gridatlas" class="button" type="button" disabled aria-describedby="gridatlas-status">GridAtlas Navigation</button></article>
+855012	<article class="launch-card"><span class="launch-status">IN DEVELOPMENT</span><h3>Selected transmission line</h3><p id="line-status" class="muted">Show measured GPS position and accuracy alongside selected line geometry, with a separate nearest point. Not yet available.</p><button id="launch-line" class="button" type="button" disabled aria-describedby="line-status">Transmission-line Navigation</button></article>
+855014	<p class="notice">The GPS preview is a north-up compass, not turn-by-turn navigation or a device-heading sensor. A mapped point or line does not establish permission to enter land.</p><div class="links"><a class="button" href="https://ventusltd.github.io/gridatlas/atlas/">Explore GridAtlas</a><a class="button" href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">Open Pipeline News</a></div></section>
+855015	<section class="panel"><h2>Capabilities and development scope</h2><div class="grid">
+855016	<div class="key-group"><h3>01 / Locate</h3><p class="muted">Device-based location, reported GPS accuracy, true bearing and straight-line distance to a selected point are available in the test preview. Location stays on the device.</p></div>
+855017	<div class="key-group"><h3>02 / Navigate</h3><p class="muted">GridAtlas destination selection and selected-line positioning are in development. Validated route-following and authorised last-mile navigation are later capabilities, not available in this preview.</p></div>
+855018	<div class="key-group"><h3>03 / Observe</h3><p class="muted">Explore surrounding grid infrastructure through the existing connected tools. Local field observations and terrain-assisted workflows are future capabilities.</p></div>
+855029	<section class="panel"><h2>Development priorities</h2><ol><li>Available for testing: mobile location and compass prototype, with accuracy and permission controls.</li><li>Milestone 1: select and confirm a GridAtlas or Vicinity destination, then launch the compass.</li><li>Milestone 2: live measured position and accuracy alongside a selected transmission line.</li><li>Later: validated route following, authorised last-mile routing and offline coverage, subject to evidence and permissions.</li></ol><p class="notice">A mapped asset is not an authorised entrance. Routes require appropriate access permissions and field safety assessment. Straight-line bearing and distance are not navigable routes.</p></section>
+855030	</main><footer>SatNav is a development preview, not an operational navigation service, survey instrument or approved engineering design. <a href="https://github.com/Ventusltd/satnav">Open-source project</a> · <a href="https://www.globalgrid2050.com/">GlobalGrid2050</a></footer>
 ```
