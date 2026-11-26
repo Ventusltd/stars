@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-478,404 unique lines, numbered 1 to 855,745. Generated 2026-11-26T05:26:39.285Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+478,800 unique lines, numbered 1 to 856,520. Generated 2026-11-26T15:45:33.531Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -478407,4 +478407,400 @@
 855743	                            if i+1 < expected_pages:
 855744	                                page.locator("#dictNext").click()
 855745	                        assert not expected
+855815	<details id="vedic"><summary><span class="number">11</span><span class="title">VEDIC<small>The functional dictionary of GlobalGrid2050</small></span></summary><div class="inside"><p>Explore what the estate&#x27;s code does in plain English. Search and sort functional meanings, follow demonstrations, and inspect permanent VEDIC identities, timestamps and linked source evidence.</p><a class="launch" href="https://ventusltd.github.io/vedic-/">Open VEDIC &rarr;</a></div></details>
+855816	<section aria-label="Concept projects"><details id="satnav-concept"><summary><span class="number">12</span><span class="title">SatNav<small>(concept only stage)</small></span></summary><div class="inside"><p>UK field navigation and routing on top of GridAtlas, Vicinity, See Through, Ventus Grid Engine and Solar Design Studio. A proposed mobile companion, not an operational navigation service.</p><a class="launch" href="https://ventusltd.github.io/satnav/scope/">Read the SatNav concept scope &rarr;</a></div></details></section>
+855817	"""Exact release and homepage verification for the manifest-driven VEDIC promotion."""
+855829	ROOT = pathlib.Path.cwd()
+855830	PUBLIC_FILES = {"index.html","data/anatomy.json","data/translation-geodesy.json","data/nearest-spider.json","data/dictionary.json"}
+855831	DOMAIN = "https://globalgrid2050.com/"
+855835	    with urlopen(Request(url,headers={"User-Agent":"GlobalGrid2050-VEDIC-release-verifier","Cache-Control":"no-cache"}),timeout=30) as response:
+855836	        assert response.status == 200,url
+855837	        raw=response.read(1000001)
+855838	        assert 0<len(raw)<=1000000,url
+855840	def match(url,wanted):
+855841	    for i in range(6):
+855843	            got=read(url+("?" if "?" not in url else "&")+"vedic-v2-check="+str(i))
+855844	            if got==wanted:
+855845	                print("MATCH",url,sha(got),flush=True)
+855848	            print("RETRY",url,type(exc).__name__,flush=True)
+855850	    raise AssertionError("Public bytes not verified: "+url)
+855851	def verify_release(release):
+855852	    url=release["url"]
+855853	    manifest_raw=read(url+"release.json")
+855854	    assert sha(manifest_raw)==release["manifest_sha256"],"served release manifest changed"
+855855	    manifest=json.loads(manifest_raw)
+855856	    assert manifest["schema"]=="vedic.pages.release.v1"
+855857	    assert manifest["version"]==release["version"] and manifest["source_commit"]==release["source_commit"]
+855858	    assert manifest["row_count"]==release["row_count"]
+855859	    assert set(manifest["files"])==PUBLIC_FILES
+855860	    raw_base="https://raw.githubusercontent.com/Ventusltd/vedic-/"+release["source_commit"]+"/"
+855861	    for f,digest in manifest["files"].items():
+855862	        wanted=read(raw_base+f)
+855863	        assert sha(wanted)==digest,(f,"source/manifest mismatch")
+855864	        if f=="data/dictionary.json":
+855865	            rows=json.loads(wanted)["entries"]
+855866	            assert len(rows)==release["row_count"]==len({e["gg_id"] for e in rows})
+855867	        match(url+f,wanted)
+855868	        if release.get("root_alias"):
+855869	            match(release["root_alias"]+f,wanted)
+855870	    if release.get("root_alias"):
+855871	        match(release["root_alias"]+"release.json",manifest_raw)
+855872	def import_bundle(root,pin_bytes):
+855873	    (root/"catalogue").mkdir(parents=True,exist_ok=True)
+855874	    (root/"scripts").mkdir(parents=True,exist_ok=True)
+855875	    shutil.copyfile(ROOT/"scripts/import_homepage_owner.py",root/"scripts/import_homepage_owner.py")
+855876	    (root/"catalogue/homepage-owner.json").write_bytes(pin_bytes)
+855877	    subprocess.run([sys.executable,str(root/"scripts/import_homepage_owner.py")],check=True)
+855878	def compare_catalogues(previous,current,m):
+855879	    p=next(e for e in previous["entities"] if e["id"]=="vedic")
+855880	    q=next(e for e in current["entities"] if e["id"]=="vedic")
+855881	    assert [e for e in current["entities"] if e["id"]!="vedic"]==[e for e in previous["entities"] if e["id"]!="vedic"]
+855882	    assert {k:v for k,v in current.items() if k not in ("entities","promotions")}=={k:v for k,v in previous.items() if k not in ("entities","promotions")}
+855883	    assert {k:v for k,v in q.items() if k not in ("releases","operative_release_id")}=={k:v for k,v in p.items() if k not in ("releases","operative_release_id")}
+855884	    assert p["operative_release_id"]=="v1" and q["operative_release_id"]==m["release_id"]
+855885	    assert len(p["releases"])==1 and len(q["releases"])==2
+855886	    old,new=q["releases"]
+855887	    assert old=={**p["releases"][0],"archive_url":m["v1"]["url"],"archive_kind":"app"}
+855888	    assert new["id"]==m["release_id"] and new["url"]==m["v2"]["url"] and new["status"]=="available"
+855889	    assert new["source_ref"]=="https://github.com/Ventusltd/vedic-/tree/"+m["v2"]["source_commit"]
+855890	    promos=previous.get("promotions",[])
+855891	    assert current["promotions"][:-1]==promos
+855892	    promotion=current["promotions"][-1]
+855893	    assert (promotion["entity_id"],promotion["from_release_id"],promotion["to_release_id"])==("vedic","v1",m["release_id"])
+855895	    m=json.loads((ROOT/"catalogue/vedic-v2-release.json").read_bytes())
+855896	    pin_bytes=(ROOT/"catalogue/homepage-owner.json").read_bytes()
+855897	    pin=json.loads(pin_bytes)
+855898	    assert m["schema"]=="vedic.homepage.release.v2"
+855899	    event=os.environ["EVENT"]
+855900	    if event=="workflow_run":
+855901	        assert os.environ["DEPLOY_CONCLUSION"]=="success","Domain deploy not successful"
+855902	    verify_release(m["v1"])
+855903	    verify_release(m["v2"])
+855905	        root=pathlib.Path(tmp)
+855906	        previous,current=root/"previous",root/"current"
+855907	        old_pin=subprocess.check_output(["git","show",m["prior_domain_commit"]+":catalogue/homepage-owner.json"])
+855908	        assert json.loads(old_pin)["commit"]==m["prior_owner_commit"]
+855909	        import_bundle(previous,old_pin)
+855910	        import_bundle(current,pin_bytes)
+855911	        previous_doc=json.loads((previous/"homepage-shell/data/homepage.json").read_bytes())
+855912	        current_doc=json.loads((current/"homepage-shell/data/homepage.json").read_bytes())
+855913	        # Exact owner pin gate for this release, not a stale-pin success skip.
+855914	        if pin["commit"]==m["owner_commit"]:
+855915	            assert pin["files"]==m["owner_files"]
+855916	            compare_catalogues(previous_doc,current_doc,m)
+855917	            snapshot=ROOT/m["snapshot"]
+855918	            metrics=json.loads((ROOT/m["metrics"]).read_bytes())
+855919	            measured=json.loads(subprocess.check_output([sys.executable,str(ROOT/"scripts/measure_homepage_version.py"),str(snapshot)]))[0]
+855920	            for key in ("lines","words","characters","bytes","sha256"):
+855921	                assert measured[key]==metrics[key],key
+855922	            assert metrics["source_commit"]==m["prior_domain_commit"] and metrics["source_owner_commit"]==m["prior_owner_commit"]
+855923	            assert snapshot.read_bytes()==(previous/"index.html").read_bytes(),"restore snapshot mismatch"
+855924	            assert sha((current/"index.html").read_bytes())==metrics["proposed_root_sha256"]
+855925	            if event=="pull_request":
+855926	                match(DOMAIN,snapshot.read_bytes())
+855927	                for f in json.loads(old_pin)["files"]:
+855928	                    if f!="index.html":
+855929	                        match(DOMAIN+"homepage-shell/"+f,(previous/"homepage-shell"/f).read_bytes())
+855931	            # Later unrelated owner promotions must retain these exact VEDIC release routes.
+855932	            e=next(x for x in current_doc["entities"] if x["id"]=="vedic")
+855933	            assert e["operative_release_id"]==m["release_id"],"VEDIC successor requires explicit manifest update"
+855934	            old=next(r for r in e["releases"] if r["id"]=="v1")
+855935	            new=next(r for r in e["releases"] if r["id"]==m["release_id"])
+855936	            assert old["archive_url"]==m["v1"]["url"] and new["url"]==m["v2"]["url"]
+855937	        assert (current/"index.html").read_text().count('id="vedic"')==1
+855938	        assert m["v2"]["url"] in (current/"index.html").read_text()
+855939	        if event=="workflow_run":
+855940	            match(DOMAIN,(current/"index.html").read_bytes())
+855942	                if f!="index.html":
+855943	                    match(DOMAIN+"homepage-shell/"+f,(current/"homepage-shell"/f).read_bytes())
+855944	    print("PASS: immutable VEDIC releases, owner catalogue, importer, restore point and applicable public bytes")
+855949	<details id="vedic"><summary><span class="number">11</span><span class="title">VEDIC<small>The functional dictionary of GlobalGrid2050</small></span></summary><div class="inside"><p>Explore what the estate&#x27;s code does in plain English. Search and sort functional meanings, follow demonstrations, and inspect permanent VEDIC identities, timestamps and linked source evidence.</p><a class="launch" href="https://ventusltd.github.io/vedic-/releases/202611261351/">Open VEDIC &rarr;</a></div></details>
+855965	        self.assertEqual(catalogue["view"]["items"][9], {"entity_id": ID, "open": False})
+855980	class VedicEntryTests(unittest.TestCase):
+855981	    def test_vedic_section(self):
+855982	        d = json.loads((ROOT/"data/homepage.json").read_text())
+855983	        m = json.loads((ROOT/"data/entity-types.json").read_text())
+855984	        h = (ROOT/"index.html").read_text()
+855985	        e = [e for e in d["entities"] if e["id"] == "vedic"]
+855986	        self.assertEqual(len(e),1)
+855987	        self.assertEqual(d["view"]["items"][10], {"entity_id":"vedic","open":False})
+855988	        releases = {r["id"]: r for r in e[0]["releases"]}
+855989	        self.assertEqual(len(releases), len(e[0]["releases"]))
+855990	        self.assertEqual(releases["v1"]["url"],"https://ventusltd.github.io/vedic-/")
+855991	        self.assertEqual(releases["v1"]["archive_url"],"https://ventusltd.github.io/vedic-/releases/202611260135-v1/")
+855992	        self.assertEqual(releases["v1"]["archive_kind"],"app")
+855993	        v2 = releases["202611261351"]
+855994	        self.assertEqual(v2["url"],"https://ventusltd.github.io/vedic-/releases/202611261351/")
+855995	        self.assertEqual(v2["source_ref"],"https://github.com/Ventusltd/vedic-/tree/55ff568b378acff4adae02fb5c758b4f4f8c6bcd")
+855996	        self.assertEqual(v2["status"],"available")
+855997	        promotions = [p for p in d["promotions"] if p["entity_id"] == "vedic"]
+855998	        self.assertEqual((promotions[0]["from_release_id"], promotions[0]["to_release_id"]),("v1","202611261351"))
+855999	        self.assertEqual(promotions[-1]["to_release_id"],e[0]["operative_release_id"])
+856000	        operative = releases[e[0]["operative_release_id"]]
+856001	        self.assertEqual(operative["status"],"available")
+856002	        self.assertEqual(m["records"]["vedic"]["type"],"catalogue")
+856003	        self.assertEqual(h.count('<details id="vedic">'),1)
+856004	        self.assertIn(f'href="{operative["url"]}">Open VEDIC',h)
+856005	        self.assertIn('id="satnav-concept"',h)
+856010	.dict-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}.dict-filters label{min-width:0;color:var(--muted);font-size:11px}.dict-filters select{width:100%;min-height:44px;background:#050505;color:var(--text);border:1px solid var(--line);font:inherit}.dict-scroll{max-width:100%;overflow:auto;overscroll-behavior-x:contain}.dict-table{border-collapse:collapse;min-width:1020px;width:100%;text-align:left}.dict-table td,.dict-table th{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}.dict-table th{color:var(--accent);background:#050505}.dict-table th button{border:0;padding:4px;text-align:left}.dict-table td:first-child,.dict-table th:first-child{position:sticky;left:0;background:var(--panel);z-index:1;min-width:118px}.dict-table td:nth-child(2){white-space:nowrap}.dict-table details{max-width:350px}.dict-table summary{overflow-wrap:anywhere}.dict-table td:last-child{white-space:nowrap}#dictResources{margin-top:12px}@media(max-width:700px){.dict-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.dict-filters label:first-child{grid-column:1/-1}}@media print{.dict-scroll{overflow:visible}.dict-table{min-width:0;font-size:10px}.dict-table td:first-child,.dict-table th:first-child{position:static}.dict-filters{display:none}}/* Pipeline News V9.76 v7.css palette and register pattern; scoped adaptation. */:root{--soft:#222;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}html,body{font-size:13px}.shell{max-width:none;padding:10px 20px 20px}.header{border-radius:0;border:0;border-bottom:1px solid var(--soft);padding:10px 0}.panel{border-radius:0;border:1px solid var(--soft);padding:12px}.dict-table td{color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--soft)}.dict-table td:first-child{color:#fff;font-weight:bold}.dict-table td:nth-child(2) a{color:var(--ok);font-weight:bold}.dict-table th{position:sticky;top:0;z-index:2;background:#050505}.dict-table th:first-child{z-index:3}.dict-scroll{max-height:65vh;background:var(--panel);border:1px solid var(--soft)}.dict-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}.dict-actions button{background:#000;color:var(--muted);border:1px solid var(--line);font:700 11px 'Courier New';min-height:39px}.dict-actions button:disabled{opacity:.4;cursor:default}#dictPage{color:var(--muted)}#dictionary h1{font-size:19px;letter-spacing:2px}.anatomy>summary{font-weight:bold;min-height:28px}.dict-table details{margin-top:0}.dict-table summary{min-height:30px}@media(max-width:768px){.shell{padding:6px 9px 16px}.dict-scroll{max-height:none}.dict-table td,.dict-table th{padding:8px 6px;font-size:11px}.dict-table{min-width:1020px}.dict-table td:first-child,.dict-table th:first-child{min-width:100px}}@media print{.dict-scroll{max-height:none}.dict-actions{display:none}} .code-cell{min-width:120px}.code-cell>a{display:block;white-space:nowrap;font-weight:bold}.code-cell details{margin-top:5px}.code-cell details a{display:block;margin:3px 0}.code-cell small{display:block;white-space:normal}</style></head><body>
+856011	<div class="news"><a href="https://globalgrid2050.com/">GLOBALGRID2050 / PIPELINE NEWS</a> · VEDIC V2 / 202611261351 / 50 meanings</div><div class="shell"><header class="header"><a class="brand" href="https://globalgrid2050.com/">GLOBALGRID2050<small>VENTUS | ELECTRICITY INFRASTRUCTURE</small></a><span class="hud">VEDIC / FUNCTIONAL DICTIONARY</span></header>
+856012	<main><section class="panel" id="dictionary"><h1>VEDIC DICTIONARY</h1><p class="muted">Permanent references · plain-English functions · reusable combinations. Open the existing application and expand a meaning to see how to activate it. The Code column opens the exact committed source; reuse may require imports, data or surrounding application state. Exact runtime mappings remain labelled.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="priority">Priority applications</option><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><div class="dict-actions"><button id="dictClear" type="button">CLEAR FILTERS</button><button id="dictPrev" type="button">PREVIOUS</button><button id="dictNext" type="button">NEXT</button><span id="dictPage"></span></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Application</th><th>Code</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><details class="panel anatomy" id="anatomy"><summary>APPLICATION ANATOMY / SOURCE EVIDENCE</summary><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+856021	function codeSources(entry,records,seen=new Set()){
+856022	  if(seen.has(entry.gg_id))return [];
+856023	  seen.add(entry.gg_id);
+856024	  const t=records.get(entry.translation_ref),s=t?.source||entry.source;
+856025	  if(s)return [{source:s,symbol:t?.name||entry.translation_ref?.split(':').at(-1)||entry.word}];
+856026	  return (entry.components||[]).flatMap(id=>{
+856027	    const component=dictionary.entries.find(x=>x.gg_id===id);
+856028	    return component?codeSources(component,records,seen):[];
+856031	function codeCell(entry,records){
+856032	  const cell=el('td',undefined,'code-cell'),sources=codeSources(entry,records);
+856033	  if(!sources.length){cell.append(el('span','Not mapped','muted'));return cell;}
+856034	  const reuse=el('details'),summary=el('summary','Reuse / dependencies');
+856035	  reuse.append(summary);
+856036	  for(const {source:s,symbol} of sources){
+856037	    const path=s.path.split('/').map(encodeURIComponent).join('/');
+856038	    const exact='https://github.com/'+s.repo+'/blob/'+s.commit+'/'+path+'#L'+s.first+'-L'+s.last;
+856039	    const a=link(sources.length===1?'View code':symbol,exact);
+856040	    a.className='code-source';a.title=symbol+' · lines '+s.first+'–'+s.last;
+856041	    cell.append(a);
+856042	    reuse.append(el('small',symbol+' · L'+s.first+'–'+s.last),link('Raw source file','https://raw.githubusercontent.com/'+s.repo+'/'+s.commit+'/'+path));
+856043	    // Search the actual producer report until a verified occurrence-to-family join is supplied.
+856044	    reuse.append(link('Modular Star code report','https://ventusltd.github.io/stars/code.html'),el('small','Search '+symbol+'; verify the occurrence before copying or importing.'),link('Kuiper repository view','https://ventusltd.github.io/kuiper-belt/see-through/202611020012/#repo='+encodeURIComponent(s.repo.split('/')[1])));
+856046	  reuse.append(el('small','Exact source is copyable; standalone execution is not established. Follow module imports, dependencies, data requirements and the source licence.'));
+856047	  cell.append(reuse);return cell;
+856048	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='priority'?(a.priority??9)-(b.priority??9)||a.number-b.number:sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';const pages=Math.max(1,Math.ceil(rows.length/pageSize));dictPage=Math.min(dictPage,pages-1);$('dictPage').textContent='Page '+(dictPage+1)+' / '+pages;$('dictPrev').disabled=dictPage===0;$('dictNext').disabled=dictPage>=pages-1;for(const e of rows.slice(dictPage*pageSize,(dictPage+1)*pageSize)){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');if(e.application)demo.append(link(e.application.name,e.application.url));else demo.append(el('span','Not mapped','muted'));detail.append(el('summary',t?.purpose||e.purpose),el('p','How to see it: '+(e.application?.instructions||'Application mapping pending')),el('p','Application evidence: '+(e.application?.state||'NOT MAPPED'),'muted'),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Modular Star family / element / line IDs: '+(t?.family_id??e.family_id??'Not yet resolved'),'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t||e.source){const s=t?.source||e.source;if(e.receipt)detail.append(link('Review evidence',e.receipt));detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,codeCell(e,records),meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id),el('td',e.created_utc));root.append(tr)}}
+856060	from urllib.parse import parse_qs, urlparse, quote
+856065	def main(root=ROOT, *, run_demos=True, offline=False, base_path=''):
+856066	    data_root = root / base_path
+856067	    server = ThreadingHTTPServer(("127.0.0.1", 0), partial(SimpleHTTPRequestHandler, directory=str(root)))
+856070	    url = f"http://127.0.0.1:{server.server_port}/" + (base_path.rstrip("/") + "/" if base_path else "")
+856071	    entries = json.loads((data_root / 'data/dictionary.json').read_text(encoding='utf-8'))['entries']
+856072	    translations = {r["id"]: r for r in json.loads((data_root / "data/translation-geodesy.json").read_text(encoding="utf-8"))["records"]}
+856073	    identities = {e["gg_id"]: e for e in entries}
+856074	    def source_records(entry, seen=None):
+856075	        if seen is None:
+856076	            seen = set()
+856077	        if entry["gg_id"] in seen:
+856078	            return []
+856079	        seen.add(entry["gg_id"])
+856080	        t = translations.get(entry.get("translation_ref"), {})
+856081	        source = t.get("source") or entry.get("source")
+856083	            return [source]
+856084	        return [s for identity in entry.get("components", []) for s in source_records(identities[identity], seen)]
+856085	    def expected_links(entry):
+856086	        sources = source_records(entry)
+856088	            ["https://github.com/"+s["repo"]+"/blob/"+s["commit"]+"/"+quote(s["path"], safe="/")+"#L"+str(s["first"])+"-L"+str(s["last"]) for s in sources],
+856089	            ["https://raw.githubusercontent.com/"+s["repo"]+"/"+s["commit"]+"/"+quote(s["path"], safe="/") for s in sources],
+856090	            ["https://ventusltd.github.io/stars/code.html" for s in sources],
+856091	            ["https://ventusltd.github.io/kuiper-belt/see-through/202611020012/#repo="+quote(s["repo"].split("/")[1], safe="") for s in sources]
+856105	                        if offline:
+856106	                            page.route("**/*", lambda route: route.continue_()
+856107	                                       if route.request.url.startswith(url) else route.abort())
+856135	                        assert page.locator("#dictRows .code-cell a.code-source").count() == 2
+856145	                            rows = page.locator("#dictRows tr").evaluate_all("""(rs) => rs.map(r => [r.cells[6].textContent, r.cells[1].querySelector('a').getAttribute('href'), ['a.code-source','a[href^="https://raw.githubusercontent.com/"]','a[href^="https://ventusltd.github.io/stars/code.html"]','a[href^="https://ventusltd.github.io/kuiper-belt/"]'].map(sel => Array.from(r.cells[2].querySelectorAll(sel), a=>a.getAttribute('href')))])""")
+856147	                            for identity, href, links in rows:
+856149	                                assert links == expected_links(identities[identity]), (identity, links)
+856155	                        links = [url + "demo.html?id=GG2050-VEDIC-" + str(i).zfill(6) for i in range(1,7)] if run_demos else []
+856196	"""Exercise the deployable Pages bundle and a private pagination fixture."""
+856197	from tempfile import TemporaryDirectory
+856198	from browser_smoke import main as browser_smoke
+856199	from stage_pages import stage, V1_ROUTE, V2_ROUTE
+856201	def exercise_pagination(site):
+856202	    dictionary = site / "data" / "dictionary.json"
+856203	    data = json.loads(dictionary.read_bytes())
+856204	    entries = data["entries"]
+856205	    if len(entries) < 101:
+856206	        number = max(entry["number"] for entry in entries)
+856207	        template = next(entry for entry in entries if entry.get("source"))
+856208	        for index in range(101 - len(entries)):
+856209	            entries.append({
+856210	                **template,
+856211	                "gg_id": f"UI-FIXTURE-{index + 1}",
+856212	                "number": number + index + 1,
+856213	                "word": f"Pagination fixture {index + 1}",
+856214	                "priority": number + index + 1,
+856216	        dictionary.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+856217	    print(f"Browser pagination fixture: {len(entries)} rows", flush=True)
+856218	    browser_smoke(site, run_demos=False, offline=True)
+856219	def exercise_public(public):
+856220	    browser_smoke(public, run_demos=False, offline=True)
+856221	    for route in (V1_ROUTE,V2_ROUTE):
+856222	        browser_smoke(public, run_demos=False, offline=True, base_path=route)
+856224	    p.add_argument('staged',nargs='?',type=Path)
+856226	    with TemporaryDirectory(prefix="vedic-pages-") as directory:
+856228	        public = args.staged or root / "public"
+856229	        if args.staged is None:
+856230	            stage(public)
+856231	        print("Browser smoke: exact staged Pages payload", flush=True)
+856232	        exercise_public(public)
+856233	        fixture = root / "fixture"
+856234	        shutil.copytree(public, fixture)
+856235	        exercise_pagination(fixture)
+856240	from contextlib import closing
+856278	    with closing(sqlite3.connect(uri, uri=True)) as db:
+856312	"""Stage Git-exact current and historical VEDIC Pages payloads with file digests."""
+856313	PUBLIC_FILES = (
+856315	    "data/anatomy.json",
+856316	    "data/translation-geodesy.json",
+856317	    "data/nearest-spider.json",
+856318	    "data/dictionary.json",
+856320	V1_COMMIT = "b17a153a6c0698902bfa89516a34ec8a956c11e7"
+856321	V1_ROUTE = "releases/202611260135-v1"
+856322	V2_ROUTE = "releases/202611261351"
+856323	V2_COMMIT = "55ff568b378acff4adae02fb5c758b4f4f8c6bcd"
+856324	def git_bytes(ref, name):
+856325	    return subprocess.check_output(["git","show",f"{ref}:{name}"],cwd=ROOT)
+856327	def write_bundle(destination, payload, version, ref):
+856328	    for name, data in payload.items():
+856329	        target=destination/name
+856330	        target.parent.mkdir(parents=True,exist_ok=True)
+856332	        if target.read_bytes()!=data:
+856333	            raise ValueError("staged mismatch: "+name)
+856334	    manifest={"schema":"vedic.pages.release.v1","version":version,"source_commit":ref,
+856335	        "row_count":len(json.loads(payload["data/dictionary.json"])["entries"]),
+856336	        "files":{name:digest(data) for name,data in payload.items()}}
+856337	    (destination/"release.json").write_text(json.dumps(manifest,sort_keys=True,indent=2)+"\n",encoding="utf-8")
+856338	    for name,h in manifest["files"].items():
+856339	        if digest((destination/name).read_bytes())!=h:
+856340	            raise ValueError("digest mismatch "+name)
+856341	        print(f"{h}  {destination/name}",flush=True)
+856342	def stage(destination):
+856343	    head=subprocess.check_output(["git","rev-parse","HEAD"],cwd=ROOT,text=True).strip()
+856344	    current={name:git_bytes(V2_COMMIT,name) for name in PUBLIC_FILES}
+856345	    for name,data in current.items():
+856346	        if git_bytes(head,name)!=data or (ROOT/name).read_bytes()!=data:
+856347	            raise ValueError("working tree differs from committed bytes: "+name)
+856348	    prior={name:git_bytes(V1_COMMIT,name) for name in PUBLIC_FILES}
+856349	    destination.mkdir(parents=True,exist_ok=False)
+856350	    write_bundle(destination,current,"202611261351",V2_COMMIT)
+856351	    write_bundle(destination/V1_ROUTE,prior,"202611260135-v1",V1_COMMIT)
+856352	    write_bundle(destination/V2_ROUTE,current,"202611261351",V2_COMMIT)
+856353	    (destination/".nojekyll").touch()
+856354	    expected={".nojekyll"}|{prefix+name for prefix in ("",V1_ROUTE+"/",V2_ROUTE+"/") for name in (*PUBLIC_FILES,"release.json")}
+856355	    actual={p.relative_to(destination).as_posix() for p in destination.rglob("*") if p.is_file()}
+856356	    if actual!=expected:
+856357	        raise ValueError("public file-set mismatch")
+856358	    p=argparse.ArgumentParser(description=__doc__)
+856359	    p.add_argument("destination",type=Path)
+856360	    stage(p.parse_args().destination)
+856366	            with closing(sqlite3.connect(p)) as db, db:
+856393	"""Mutation checks for deterministic V2 allocation, independent of the online gate."""
+856395	from validate_v2_allocation import read, allocate, verify_receipt
+856396	from validate_dictionary import verify_source_entries
+856397	class V2Tests(unittest.TestCase):
+856399	        self.r=read("data/tacit15-v2-candidate-decisions.json")
+856400	        self.a=read("data/tacit15-v2-allocation.json")
+856401	        self.d=read("data/dictionary.json")
+856402	        self.old=copy.deepcopy(self.d)
+856403	        self.old["entries"]=self.old["entries"][:39]
+856404	        self.old["next_number"]=40
+856405	    def test_deterministic_allocation(self):
+856406	        self.assertEqual(allocate(self.old,self.r,self.a),self.d)
+856407	        self.assertEqual(verify_receipt(self.r,self.a,self.d,self.old),50)
+856408	    def test_old_entry_mutation(self):
+856409	        self.d["entries"][0]["application"]["instructions"]="mutated"
+856411	            verify_receipt(self.r,self.a,self.d,self.old)
+856412	    def test_duplicate_source(self):
+856413	        self.r["selected"].append(copy.deepcopy(self.r["selected"][0]))
+856414	            allocate(self.old,self.r,self.a)
+856415	    def test_wrong_blob(self):
+856416	        e=copy.deepcopy(self.d["entries"][39])
+856417	        with self.assertRaisesRegex(ValueError,"blob mismatch"):
+856418	            verify_source_entries({"entries":[e]},lambda *args:b"wrong")
+856419	    def test_wrong_span(self):
+856421	        raw=b"function describe(a){\n}\n"
+856422	        e["source"].update(blob=hashlib.sha1(b"blob "+str(len(raw)).encode()+b"\0"+raw).hexdigest(),first=1,last=3)
+856423	        with self.assertRaisesRegex(ValueError,"outside file"):
+856424	            verify_source_entries({"entries":[e]},lambda *args:raw)
+856425	"""Deterministic V2 allocation and source/licence replay; never writes permanent IDs outside this recipe."""
+856427	from validate_dictionary import validate, verify_source_entries, require
+856429	    return json.loads((ROOT / path).read_bytes())
+856430	def git_bytes(ref, path):
+856431	    return subprocess.check_output(["git", "show", f"{ref}:{path}"], cwd=ROOT)
+856432	def git_blob(raw):
+856433	    return hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+856434	def allocate(previous, receipt, allocation):
+856435	    result = json.loads(json.dumps(previous))
+856436	    for c in receipt["selected"]:
+856437	        n = result["next_number"]
+856438	        result["next_number"] += 1
+856439	        scope = "kuiper" if c["agent"] == 2 else ("gridatlas-search" if "cartridges/" in c["source"]["path"] else "gridatlas-vicinity")
+856440	        tr = f'tacit15:{scope}:{c["symbol"]}'
+856441	        entry = dict(number=n, gg_id=f"GG2050-VEDIC-{n:06d}", word=c["word"], kind="FUNCTION",
+856442	            translation_ref=tr, inputs=c["inputs"], output=c["output"], demo=None,
+856443	            demo_unavailable_reason="Existing application; exact runtime mapping unverified.",
+856444	            state="STATIC_SOURCE_REVIEW", estate_group=c["estate_group"], discipline=c["discipline"],
+856445	            classification_state="CURATED_CANDIDATE", periodic_category=c["periodic_category"],
+856446	            periodic_block_candidate="Unresolved", vedic_class_candidate=c["vedic_class_candidate"],
+856447	            created_utc=allocation["created_utc"], sense_key="function:"+tr,
+856448	            creation_evidence="https://github.com/Ventusltd/vedic-/commit/"+allocation["candidate_receipt_commit"],
+856449	            priority=2, purpose=c["purpose"], limits=c["limits"], source=c["source"], receipt=c["receipt"],
+856450	            application=c["application"], family_id=None, element_id=None, tablet_id=None, line_ids=None, proof=None)
+856451	        for old in result["entries"]:
+856452	            s, t = old.get("source", {}), entry["source"]
+856453	            same = all(s.get(k) == t[k] for k in ("repo","commit","path","blob"))
+856454	            require(not same or s["last"] < t["first"] or t["last"] < s["first"], "overlapping source meaning")
+856455	        result["entries"].append(entry)
+856457	def verify_receipt(receipt, allocation, current, old, online=False, reader=fetch):
+856458	    require(receipt["proposed"] == len(receipt["selected"])+len(receipt["held"]) == 40, "candidate accounting")
+856459	    require(len({(c["agent"], c["word"]) for c in receipt["selected"]+receipt["held"]}) == 40, "duplicate candidate")
+856460	    require(all(c["decision"]=="ACCEPT_CANDIDATE_FOR_CI" and c["span_kind"]=="WHOLE_FUNCTION" for c in receipt["selected"]), "unreviewed candidate")
+856461	    require(all(c["decision"]=="HELD" and c["reason"] for c in receipt["held"]), "missing hold reason")
+856462	    require(allocate(old,receipt,allocation)==current, "non-deterministic allocation or modified old entries")
+856463	    require(len(old["entries"])==allocation["previous_count"] and len(current["entries"])==allocation["new_count"], "row count")
+856464	    require(current["next_number"]==allocation["next_number"] and len(receipt["held"])==allocation["held"], "identity accounting")
+856465	    require([{"gg_id":e["gg_id"],"sense_key":e["sense_key"],"source":e["source"]} for e in current["entries"][len(old["entries"]):]]==allocation["accepted"], "allocation receipt mismatch")
+856466	    validate(current,read("data/translation-geodesy.json"),old)
+856467	    if online:
+856468	        verify_source_entries(current, reader)
+856470	        for c in receipt["selected"]:
+856471	            s, licence = c["source"], c["licence"]
+856472	            key = (s["repo"],s["commit"],licence["path"])
+856473	            if key not in cache:
+856474	                cache[key] = reader(*key)
+856475	            raw = cache[key]
+856476	            require(git_blob(raw)==licence["blob"] and b"Apache License" in raw and b"Version 2.0" in raw, "licence mismatch")
+856477	        # Emit source excerpt hashes only; do not publish or execute upstream code.
+856478	            s=c["source"]
+856479	            key=(s["repo"],s["commit"],s["path"])
+856480	                cache[key]=reader(*key)
+856481	            raw=cache[key]
+856482	            require(git_blob(raw)==s["blob"],"source blob mismatch")
+856483	            span=b"".join(raw.splitlines(keepends=True)[s["first"]-1:s["last"]])
+856484	            print(c["word"],hashlib.sha256(span).hexdigest(),flush=True)
+856485	    return len(current["entries"])
+856486	    p.add_argument("--online",action="store_true")
+856487	    receipt=read("data/tacit15-v2-candidate-decisions.json")
+856488	    allocation=read("data/tacit15-v2-allocation.json")
+856489	    prior=git_bytes(allocation["baseline_commit"],"data/dictionary.json")
+856490	    source=git_bytes(allocation["candidate_receipt_commit"],"data/tacit15-v2-candidate-decisions.json")
+856491	    require(git_blob(prior)==allocation["prior_dictionary_blob"],"prior blob mismatch")
+856492	    require(git_blob(source)==allocation["candidate_receipt_blob"] and source==(ROOT/"data/tacit15-v2-candidate-decisions.json").read_bytes(),"candidate receipt changed")
+856493	    print("Validated deterministic dictionary allocation:",verify_receipt(receipt,allocation,read("data/dictionary.json"),json.loads(prior),args.online))
+856494	"""Read-only CI checks of the existing Modular Star and Kuiper reuse routes."""
+856495	STARS = ("Ventusltd/stars", "ebf2bf2be0386fcf488735560152d765b046e85e", "code.html", "c27d5d8b6bf533a5e5487a9382e3958d5d9c8df2")
+856496	KUIPER = ("Ventusltd/kuiper-belt", "e8b04bea0d369e422cd6313981f1d51cbc4347b9", "see-through/202611020012/README.md", "1d2c8e2e2678f05a0b3f09e79c75d2b9d9011cbb")
+856497	KUIPER_APP = ("Ventusltd/kuiper-belt", "e8b04bea0d369e422cd6313981f1d51cbc4347b9", "see-through/202611020012/index.html", "b069ce1d879eec5c8f0c8bc4fe12e10a3dadd1c1")
+856498	def pinned(record):
+856499	    repo, commit, path, blob = record
+856500	    raw = fetch(repo, commit, path)
+856501	    assert len(raw) <= 1_000_000
+856502	    assert hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest() == blob, path
+856504	def public(url):
+856505	    with urlopen(Request(url, headers={"User-Agent":"VEDIC-code-reuse-verifier","Cache-Control":"no-cache"}),timeout=30) as r:
+856506	        assert r.status == 200, url
+856507	        body = r.read(1_000_001)
+856508	        assert 0 < len(body) <= 1_000_000
+856510	    public_stars = public("https://ventusltd.github.io/stars/code.html")
+856511	    stars=pinned(STARS)
+856512	    readme=pinned(KUIPER)
+856513	    kuiper=pinned(KUIPER_APP)
+856514	    for marker in (b"Copy the code", b"Copy an import line", b"?family=", b"function search(q)"):
+856515	        assert marker in stars, marker
+856516	        assert marker in public_stars, marker
+856517	    assert b"#repo=gridatlas" in readme
+856518	    assert b'descent.js' in kuiper
+856519	    assert b'descent.js' in public("https://ventusltd.github.io/kuiper-belt/see-through/202611020012/")
+856520	    print("PASS: pinned producer contracts and public Modular Star/Kuiper reuse routes; no family or standalone claim")
 ```

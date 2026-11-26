@@ -1,5 +1,5 @@
 {
- "next": 2377,
+ "next": 2383,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2313,6 +2313,12 @@
   "vedic-:tools/stage_demo.py": 2373,
   "vedic-:tools/test_dictionary.py": 2374,
   "vedic-:tools/validate_dictionary.py": 2375,
-  "vedic-:tools/browser_smoke.py": 2376
+  "vedic-:tools/browser_smoke.py": 2376,
+  "globalgrid2050-homepage:tests/test_vedic_entry.py": 2377,
+  "vedic-:index.html": 2378,
+  "vedic-:tools/check_pages_candidate.py": 2379,
+  "vedic-:tools/stage_pages.py": 2380,
+  "vedic-:tools/test_v2_allocation.py": 2381,
+  "vedic-:tools/validate_v2_allocation.py": 2382
  }
 }
