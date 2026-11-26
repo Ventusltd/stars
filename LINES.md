@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-477,785 unique lines, numbered 1 to 855,030. Generated 2026-11-25T22:45:06.300Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+478,404 unique lines, numbered 1 to 855,745. Generated 2026-11-26T05:26:39.285Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -477788,4 +477788,623 @@
 855018	<div class="key-group"><h3>03 / Observe</h3><p class="muted">Explore surrounding grid infrastructure through the existing connected tools. Local field observations and terrain-assisted workflows are future capabilities.</p></div>
 855029	<section class="panel"><h2>Development priorities</h2><ol><li>Available for testing: mobile location and compass prototype, with accuracy and permission controls.</li><li>Milestone 1: select and confirm a GridAtlas or Vicinity destination, then launch the compass.</li><li>Milestone 2: live measured position and accuracy alongside a selected transmission line.</li><li>Later: validated route following, authorised last-mile routing and offline coverage, subject to evidence and permissions.</li></ol><p class="notice">A mapped asset is not an authorised entrance. Routes require appropriate access permissions and field safety assessment. Straight-line bearing and distance are not navigable routes.</p></section>
 855030	</main><footer>SatNav is a development preview, not an operational navigation service, survey instrument or approved engineering design. <a href="https://github.com/Ventusltd/satnav">Open-source project</a> · <a href="https://www.globalgrid2050.com/">GlobalGrid2050</a></footer>
+855047	<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VEDIC | GlobalGrid2050</title>
+855049	:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff;--ok:#00ff88;--amber:#ffae00;--news:#ff3038}
+855050	*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:14px/1.55 'Courier New',monospace}a{color:var(--accent);overflow-wrap:anywhere}button,input{font:inherit}button{background:#0a0a0a;color:var(--accent);border:1px solid var(--line);min-height:44px;padding:8px 12px;cursor:pointer}button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 -2px var(--accent)}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid white;outline-offset:3px}.shell{max-width:1120px;margin:auto;padding:12px 20px 28px}.header,.panel,.card{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:14px;margin:10px 0;min-width:0}.header{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;background:#0a0a0a}.brand{font:800 17px system-ui,sans-serif;letter-spacing:4px;color:white;text-decoration:none}.brand small{display:block;color:#888;font:10px 'Courier New',monospace;letter-spacing:2px}.hud,h1,h2{color:var(--accent)}.hud{font-weight:bold;text-shadow:0 0 5px var(--accent)}h1{font-size:clamp(26px,5vw,40px);margin:0}h2{font-size:16px;margin:0 0 8px}h3{font-size:15px;margin:0 0 6px}.muted,small{color:var(--muted)}.state{color:var(--amber);font-size:12px}.apps,.links{display:flex;gap:8px;flex-wrap:wrap}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:12px;align-items:start}.cap{display:block;text-align:left;width:100%;margin:8px 0}.card{margin:8px 0;padding:12px}.path{overflow-wrap:anywhere}.metric{color:var(--accent);font-size:18px}.news{border-block:1px solid #333;padding:5px 12px;font-size:11px}.news a{color:var(--news);text-shadow:0 0 5px #ff2029b3}.notice{border-left:2px solid var(--amber);padding-left:10px}.search{background:#000;color:white;border:1px solid var(--line);width:100%;min-height:44px;padding:10px}details{margin-top:8px}summary{cursor:pointer;color:var(--accent);min-height:35px}footer{color:var(--muted);font-size:12px}@media(max-width:700px){.shell{padding:6px 9px 16px}.layout{grid-template-columns:1fr}.header,.panel{padding:12px}.brand{letter-spacing:2px}}@media print{body,.panel,.card{background:white;color:black}.muted,small,.state,a,h1,h2{color:black}.news,.apps,.search,.links,.print{display:none}.layout{display:block}}
+855052	<div class="news"><a href="https://globalgrid2050.com/">GLOBALGRID2050 / PIPELINE NEWS</a> · VEDIC DEVELOPMENT PREVIEW</div><div class="shell"><header class="header"><a class="brand" href="https://globalgrid2050.com/">GLOBALGRID2050<small>VENTUS | ELECTRICITY INFRASTRUCTURE</small></a><span class="hud">VEDIC / APPLICATION ANATOMY</span></header>
+855053	<main><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+855054	<div class="layout"><section class="panel"><h2>01 / Capabilities</h2><label for="search">Find a capability</label><input class="search" id="search" type="search" placeholder="Search in plain English"><div id="capabilities"></div></section><section class="panel" id="detail" aria-live="polite"><h2>02 / Composition</h2><p class="muted">Choose a capability.</p></section></div>
+855055	<section class="panel"><h2>03 / Connected knowledge</h2><div id="links" class="links"></div><p class="muted">Spider Printer integration pending source identification. Browser printing is a provisional local report only.</p><button class="print" id="print" type="button">Print selected capability</button></section></main><footer>Development candidate. Not an engineering assessment or evidence of release acceptance.</footer></div>
+855058	const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
+855059	const link=(text,url)=>{const a=el('a',text);a.href=url;return a};
+855060	let data,app,selected;const bodyBy=new Map();
+855061	function drawApps(){ $('apps').replaceChildren();for(const a of data.apps){const b=el('button',a.name);b.type='button';b.setAttribute('aria-pressed',String(a===app));b.onclick=()=>{app=a;selected=a.capabilities[0]||null;$('search').value='';drawApps();drawCaps();drawDetail()};$('apps').append(b)}}
+855062	function drawCaps(){const q=$('search').value.trim().toLowerCase();const list=app.capabilities.filter(c=>(c.name+' '+c.purpose).toLowerCase().includes(q));$('capabilities').replaceChildren();if(!list.length)$('capabilities').append(el('p',app.capabilities.length?'No matching capabilities.':'Not mapped yet. No capability or completeness claim.','muted'));for(const c of list){const b=el('button',c.name,'cap');b.type='button';b.setAttribute('aria-pressed',String(c===selected));b.onclick=()=>{selected=c;drawCaps();drawDetail()};$('capabilities').append(b)}}
+855063	function drawDetail(){const root=$('detail');root.replaceChildren(el('h2','02 / Composition'));if(!selected){root.append(el('p','No mapped capability.','muted'));return}root.append(el('h3',selected.name),el('p',selected.purpose),el('p',selected.limit,'notice muted'),el('p',selected.body_ids.length+' manifest-linked bodies · unique lines: not measured','metric'),link('Open '+app.name,app.url));for(const id of selected.body_ids){const b=bodyBy.get(id);const card=el('article',undefined,'card');card.append(el('h3',id),el('p','MANIFEST DECLARED · runtime verification pending','state'),el('p',b.path,'path muted'),link('Pinned source','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+b.path));const more=el('details');more.append(el('summary','Source hash and declared behaviours'),el('p','SHA-256 '+b.sha256,'path muted'));const ul=el('ul');for(const s of b.declared)ul.append(el('li',s));more.append(ul,el('p','Permanent block / family / line IDs: not mapped.','muted'));card.append(more);root.append(card)}}
+855064	$('search').addEventListener('input',()=>{if(app)drawCaps()});$('print').onclick=()=>window.print();
+855065	try{const r=await fetch('./data/anatomy.json');if(!r.ok)throw Error('Data unavailable');data=await r.json();if(data.schema!=='vedic.anatomy.v1')throw Error('Unsupported schema');for(const b of data.bodies)bodyBy.set(b.id,b);app=data.apps[0];selected=app.capabilities[0];$('summary').replaceChildren(el('p','GridAtlas manifest '+data.source.generation+' · '+data.bodies.length+' recorded cartridges','metric'),link('Pinned manifest','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+data.source.manifest));for(const [key,url] of Object.entries(data.links))$('links').append(link(key,url));drawApps();drawCaps();drawDetail()}catch(e){$('summary').textContent='Anatomy unavailable: '+e.message}
+855067	"""Validate VEDIC's read-only anatomy against the pinned producer manifest.
+855068	Run python tools/validate_anatomy.py [--online]. No source or release writes.
+855078	def require(ok, message):
+855081	def validate(d):
+855082	    require(d["schema"] == "vedic.anatomy.v1", "schema")
+855083	    s = d["source"]
+855084	    require(re.fullmatch(r"[0-9a-f]{40}", s["commit"]), "source commit")
+855085	    require(re.fullmatch(r"[0-9a-f]{40}", s["git_blob"]), "source blob")
+855086	    require(s["repo"] == "Ventusltd/gridatlas" and s["manifest"] == "atlas/current.json", "source identity")
+855087	    bodies = {b["id"]: b for b in d["bodies"]}
+855088	    require(len(bodies) == len(d["bodies"]) and bodies, "body identity")
+855089	    for b in bodies.values():
+855090	        require(re.fullmatch(r"[0-9a-f]{64}", b["sha256"]), "body hash")
+855091	        require(b["path"].startswith("atlas/") and ".." not in Path(b["path"]).parts, "path")
+855092	        require(b["unique_lines"] is None and b["proof"] is None, "unmeasured body")
+855093	        require(b["block_ids"] == [] and b["family_ids"] == [], "unverified IDs")
+855094	    apps = {a["id"]: a for a in d["apps"]}
+855095	    require(len(apps) == len(d["apps"]), "app identity")
+855097	    for a in apps.values():
+855098	        require(a["status"] in {"MANIFEST_DECLARED", "NOT_MAPPED"}, "app state")
+855099	        require(bool(a["capabilities"]) == (a["status"] == "MANIFEST_DECLARED"), "app coverage")
+855101	        for c in a["capabilities"]:
+855102	            require(c["id"] not in seen, "duplicate capability")
+855103	            seen.add(c["id"])
+855104	            require(c["body_ids"] and len(set(c["body_ids"])) == len(c["body_ids"]), "membership")
+855105	            require(set(c["body_ids"]) <= bodies.keys(), "dangling body")
+855106	            require(c["unique_lines"] is None and c["proof"] is None and c["limit"], "unmeasured capability")
+855108	    return len(apps), count, len(bodies)
+855109	def online(d):
+855110	    base = "https://raw.githubusercontent.com/" + s["repo"] + "/" + s["commit"] + "/"
+855111	    def get(path):
+855112	        with urlopen(base + path, timeout=30) as r:
+855113	            return r.read(5_000_001)
+855114	    raw = get(s["manifest"])
+855115	    require(hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest() == s["git_blob"], "manifest blob differs")
+855116	    m = json.loads(raw)
+855117	    require(m["generation"] == s["generation"], "generation differs")
+855118	    expected = {x["id"]: x for x in m["cartridges"]}
+855119	    require(set(expected) == {x["id"] for x in d["bodies"]}, "manifest coverage")
+855120	    for b in d["bodies"]:
+855121	        e = expected[b["id"]]
+855122	        require(b["path"] == "atlas/" + e["path"].removeprefix("./"), "path mismatch")
+855123	        require(b["sha256"] == e["sha256"] and b["declared"] == e.get("capabilities", []), "manifest metadata mismatch")
+855124	        require(hashlib.sha256(get(b["path"])).hexdigest() == b["sha256"], "source SHA256 mismatch: " + b["id"])
+855127	    p.add_argument("--online", action="store_true")
+855129	    d = json.loads((ROOT / "data/anatomy.json").read_text())
+855130	    print("apps / capabilities / bodies:", validate(d))
+855131	    if args.online:
+855132	        online(d)
+855133	        print("Pinned manifest and cartridge byte hashes verified.")
+855136	from validate_anatomy import validate
+855137	DATA = json.loads((Path(__file__).resolve().parents[1] / "data/anatomy.json").read_text())
+855138	class AnatomyTests(unittest.TestCase):
+855139	    def test_valid(self):
+855140	        self.assertEqual(validate(DATA), (3, 4, 9))
+855141	    def test_dangling(self):
+855142	        d = copy.deepcopy(DATA)
+855143	        d["apps"][0]["capabilities"][0]["body_ids"] = ["missing"]
+855144	        with self.assertRaises(ValueError): validate(d)
+855145	    def test_invented_count(self):
+855146	        d["bodies"][0]["unique_lines"] = 42
+855147	    def test_duplicate(self):
+855148	        d["bodies"].append(d["bodies"][0])
+855149	    def test_unverified_proof(self):
+855150	        d["apps"][0]["capabilities"][0]["proof"] = "PASS"
+855152	<section class="panel"><h2>04 / Connected knowledge</h2><div id="links" class="links"></div><p class="muted">Spider Printer integration pending source identification. Browser printing is a provisional local report only.</p><button class="print" id="print" type="button">Print selected capability</button></section></main><footer>Development candidate. Not an engineering assessment or evidence of release acceptance.</footer></div>
+855153	let data,app,selected,translation=null;const bodyBy=new Map();
+855154	function drawTranslation(root){if(!translation||app.id!==translation.app||selected.id!==translation.capability)return;const section=el('section',undefined,'card');section.append(el('h2','03 / VEDIC functional language'),el('p',translation.relationship,'notice muted'));for(const t of translation.records){const card=el('article',undefined,'card');card.append(el('h3',t.purpose),el('p','STATIC SOURCE REVIEW · runtime use not proven','state'));for(const [label,value] of [['Input',t.inputs],['Output',t.outputs],['Limit',t.limits],['Periodic Table candidate',t.block_candidate]]){const p=el('p');p.append(el('strong',label+': '),document.createTextNode(value));card.append(p)}const s=t.source;card.append(link(t.name+' · source L'+s.first+'–'+s.last,'https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last),el('p','Family / unique line IDs and execution proof: not measured.','muted'));section.append(card)}section.append(link('Translation evidence receipt',translation.receipt));root.append(section)}
+855155	function drawDetail(){const root=$('detail');root.replaceChildren(el('h2','02 / Composition'));if(!selected){root.append(el('p','No mapped capability.','muted'));return}root.append(el('h3',selected.name),el('p',selected.purpose),el('p',selected.limit,'notice muted'),el('p',selected.body_ids.length+' manifest-linked bodies · unique lines: not measured','metric'),link('Open '+app.name,app.url));for(const id of selected.body_ids){const b=bodyBy.get(id);const card=el('article',undefined,'card');card.append(el('h3',id),el('p','MANIFEST DECLARED · runtime verification pending','state'),el('p',b.path,'path muted'),link('Pinned source','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+b.path));const more=el('details');more.append(el('summary','Source hash and declared behaviours'),el('p','SHA-256 '+b.sha256,'path muted'));const ul=el('ul');for(const s of b.declared)ul.append(el('li',s));more.append(ul,el('p','Permanent block / family / line IDs: not mapped.','muted'));card.append(more);root.append(card)}drawTranslation(root)}
+855156	try{const r=await fetch('./data/anatomy.json');if(!r.ok)throw Error('Data unavailable');data=await r.json();try{const tr=await fetch('./data/translation-geodesy.json');if(tr.ok){const candidate=await tr.json();if(candidate.schema==='vedic.translation.v1'&&Array.isArray(candidate.records))translation=candidate}}catch(e){console.warn('Translation data unavailable',e)}if(data.schema!=='vedic.anatomy.v1')throw Error('Unsupported schema');for(const b of data.bodies)bodyBy.set(b.id,b);app=data.apps[0];selected=app.capabilities[0];$('summary').replaceChildren(el('p','GridAtlas manifest '+data.source.generation+' · '+data.bodies.length+' recorded cartridges','metric'),link('Pinned manifest','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+data.source.manifest));for(const [key,url] of Object.entries(data.links))$('links').append(link(key,url));drawApps();drawCaps();drawDetail()}catch(e){$('summary').textContent='Anatomy unavailable: '+e.message}
+855157	"""Fail closed on unsupported VEDIC translation claims; read-only source check."""
+855160	def validate(data, anatomy):
+855161	    require(data["schema"] == "vedic.translation.v1", "translation schema")
+855162	    require(data["receipt"].startswith("https://github.com/Ventusltd/neural-link-between-agents/issues/87#issuecomment-"), "receipt")
+855163	    apps = [a for a in anatomy["apps"] if a["id"] == data["app"]]
+855164	    require(len(apps) == 1 and data["capability"] in {c["id"] for c in apps[0]["capabilities"]}, "translation target missing")
+855165	    require(bool(data["relationship"]), "relationship not explained")
+855166	    require(bool(data["records"]), "empty translation batch")
+855168	    for r in data["records"]:
+855169	        require(r["id"] not in ids, "duplicate translation ID")
+855170	        ids.add(r["id"])
+855171	        for key in ("name", "purpose", "inputs", "outputs", "limits", "block_candidate"):
+855172	            require(isinstance(r[key], str) and bool(r[key].strip()), "missing " + key)
+855173	        require(r["state"] == "STATIC_SOURCE_REVIEW", "unproven state promotion")
+855174	        require(r["proof"] is None and r["family_id"] is None and r["line_ids"] is None, "unverified identity or proof")
+855176	        require(s["repo"] == "Ventusltd/ventus-grid-engine" and s["path"] == "engine/v9-geodesy.js", "unexpected producer")
+855177	        for k in ("commit", "blob"):
+855178	            require(bool(re.fullmatch(r"[0-9a-f]{40}", s[k])), "bad source " + k)
+855179	        require(type(s["first"]) is int and type(s["last"]) is int and 1 <= s["first"] <= s["last"], "source range")
+855180	    return len(ids)
+855181	def verify_source(data, reader):
+855183	        key = (s["repo"], s["commit"], s["path"])
+855184	        if key not in cache:
+855185	            cache[key] = reader(*key)
+855186	        raw = cache[key]
+855187	        blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+855188	        require(blob == s["blob"], "source blob mismatch")
+855189	        lines = raw.decode("utf-8").splitlines()
+855190	        require(s["last"] <= len(lines), "range outside source")
+855191	        excerpt = lines[s["first"]-1:s["last"]]
+855192	        require(excerpt[0].startswith("export function " + r["name"] + "(") and excerpt[-1] == "}", "function boundary mismatch")
+855193	    return len(data["records"])
+855194	def fetch(repo, commit, path):
+855195	    with urlopen("https://raw.githubusercontent.com/" + repo + "/" + commit + "/" + path, timeout=30) as response:
+855196	        return response.read(1_000_001)
+855197	    d = json.loads((ROOT / "data/translation-geodesy.json").read_text())
+855198	    a = json.loads((ROOT / "data/anatomy.json").read_text())
+855199	    print("Translation records:", validate(d, a))
+855200	        print("Pinned source boundaries verified:", verify_source(d, fetch))
+855201	from validate_translation import validate, verify_source
+855202	D = json.loads((ROOT / "data/translation-geodesy.json").read_text())
+855203	A = json.loads((ROOT / "data/anatomy.json").read_text())
+855204	class TranslationTests(unittest.TestCase):
+855205	        self.assertEqual(validate(D, A), 5)
+855206	    def test_unknown_target(self):
+855207	        d = copy.deepcopy(D)
+855208	        d["capability"] = "missing"
+855209	        with self.assertRaises(ValueError): validate(d, A)
+855210	    def test_false_identity(self):
+855211	        d["records"][0]["family_id"] = 511
+855212	    def test_false_proof(self):
+855213	        d["records"][0]["state"] = "TESTED"
+855214	        d["records"].append(d["records"][0])
+855215	    def test_source(self):
+855216	        d["records"] = d["records"][:1]
+855217	        r = d["records"][0]
+855218	        raw = ("export function " + r["name"] + "(a) {\n  return a;\n}\n").encode()
+855219	        r["source"].update(first=1,last=3,blob=hashlib.sha1(b"blob "+str(len(raw)).encode()+b"\0"+raw).hexdigest())
+855220	        self.assertEqual(verify_source(d, lambda *args: raw), 1)
+855221	        with self.assertRaises(ValueError): verify_source(d, lambda *args: raw+b" ")
+855222	        r["source"]["first"] = 2
+855223	        with self.assertRaises(ValueError): verify_source(d, lambda *args: raw)
+855224	<section class="panel"><h2>05 / Connected knowledge</h2><div id="links" class="links"></div><p class="muted">Spider Printer integration pending source identification. Browser printing is a provisional local report only.</p><button class="print" id="print" type="button">Print selected capability</button></section></main><footer>Development candidate. Not an engineering assessment or evidence of release acceptance.</footer></div>
+855225	let data,app,selected,translation=null,nearestGraph=null;const bodyBy=new Map();
+855226	function drawGraph(root){if(!nearestGraph||app.id!=='gridatlas'||selected.id!=='measure')return;const section=el('section',undefined,'card');section.append(el('h2','04 / Source dependency diagram'),el('p',nearestGraph.scope,'notice muted'));const nodes=new Map(nearestGraph.nodes.map(n=>[n.id,n]));for(const e of nearestGraph.edges){const box=el('div',undefined,'card');const from=nodes.get(e.from),to=nodes.get(e.to);box.append(link(from.label,from.gh),el('p','↓ '+e.type,'muted'),link(to.label,to.gh),el('p',to.reason,'muted'));section.append(box)}section.append(link('Spider-compatible graph JSON','./data/nearest-spider.json'));root.append(section)}
+855227	function drawDetail(){const root=$('detail');root.replaceChildren(el('h2','02 / Composition'));if(!selected){root.append(el('p','No mapped capability.','muted'));return}root.append(el('h3',selected.name),el('p',selected.purpose),el('p',selected.limit,'notice muted'),el('p',selected.body_ids.length+' manifest-linked bodies · unique lines: not measured','metric'),link('Open '+app.name,app.url));for(const id of selected.body_ids){const b=bodyBy.get(id);const card=el('article',undefined,'card');card.append(el('h3',id),el('p','MANIFEST DECLARED · runtime verification pending','state'),el('p',b.path,'path muted'),link('Pinned source','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+b.path));const more=el('details');more.append(el('summary','Source hash and declared behaviours'),el('p','SHA-256 '+b.sha256,'path muted'));const ul=el('ul');for(const s of b.declared)ul.append(el('li',s));more.append(ul,el('p','Permanent block / family / line IDs: not mapped.','muted'));card.append(more);root.append(card)}drawTranslation(root);drawGraph(root)}
+855228	try{const r=await fetch('./data/anatomy.json');if(!r.ok)throw Error('Data unavailable');data=await r.json();try{const tr=await fetch('./data/translation-geodesy.json');if(tr.ok){const candidate=await tr.json();if(candidate.schema==='vedic.translation.v1'&&Array.isArray(candidate.records))translation=candidate}}catch(e){console.warn('Translation data unavailable',e)}try{const gr=await fetch('./data/nearest-spider.json');if(gr.ok){const candidate=await gr.json();if(candidate.schema==='vedic.static-spider.v1'&&Array.isArray(candidate.nodes)&&Array.isArray(candidate.edges))nearestGraph=candidate}}catch(e){console.warn('Graph unavailable',e)}if(data.schema!=='vedic.anatomy.v1')throw Error('Unsupported schema');for(const b of data.bodies)bodyBy.set(b.id,b);app=data.apps[0];selected=app.capabilities[0];$('summary').replaceChildren(el('p','GridAtlas manifest '+data.source.generation+' · '+data.bodies.length+' recorded cartridges','metric'),link('Pinned manifest','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+data.source.manifest));for(const [key,url] of Object.entries(data.links))$('links').append(link(key,url));drawApps();drawCaps();drawDetail()}catch(e){$('summary').textContent='Anatomy unavailable: '+e.message}
+855229	"""Validate the initial static dependency graph. No live-use inference."""
+855230	from validate_translation import fetch, require
+855231	def validate(g, reader=None):
+855232	    require(g["schema"] == "vedic.static-spider.v1", "schema")
+855233	    require("not loaded by the live Atlas" in g["scope"], "historical caveat absent")
+855234	    require(g["receipt"].startswith("https://github.com/Ventusltd/neural-link-between-agents/issues/87#issuecomment-"), "receipt")
+855235	    nodes = {n["id"]: n for n in g["nodes"]}
+855236	    require(len(nodes) == len(g["nodes"]) and len(nodes) > 0, "duplicate or empty nodes")
+855237	    def excerpt(s):
+855238	        require(key[0] == "Ventusltd/ventus-grid-engine" and key[2] in ("engine/v9-geodesy.js", "engine/v9-nearest-search.js"), "unapproved source")
+855239	        require(type(s["first"]) is int and type(s["last"]) is int and 1 <= s["first"] <= s["last"], "invalid source range")
+855240	        if reader is None:
+855242	        require(hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest() == s["blob"], "source blob mismatch")
+855243	        return "\n".join(lines[s["first"]-1:s["last"]])
+855244	    scope = excerpt(g["scope_source"])
+855245	    if scope is not None:
+855246	        require("NOT loaded by the live Atlas" in scope, "historical source caveat not found")
+855247	    for n in nodes.values():
+855248	        require(n["id"].startswith("vedic:") and n["rag"] == "grey", "false identity or runtime status")
+855249	        excerpt(n["source"])
+855251	    for e in g["edges"]:
+855252	        key = (e["from"], e["to"], e["type"])
+855253	        require(key not in seen, "duplicate edge")
+855255	        require(e["from"] in nodes and e["to"] in nodes and e["type"] in {"calls","contains"}, "unknown graph endpoint or relationship")
+855256	        ev = e["evidence"]
+855257	        require(bool(ev["contains"]), "missing edge evidence")
+855258	        text = excerpt(ev)
+855259	        if text is not None:
+855260	            require(ev["contains"] in text, "edge evidence absent")
+855261	    require(bool(seen), "empty graph")
+855262	    return len(nodes), len(seen)
+855263	    graph = json.loads((ROOT / "data/nearest-spider.json").read_text())
+855264	    print("Static graph nodes / edges:", validate(graph, fetch if args.online else None))
+855265	from validate_graph import validate
+855266	G = json.loads((Path(__file__).resolve().parents[1] / "data/nearest-spider.json").read_text())
+855267	class GraphTests(unittest.TestCase):
+855268	        self.assertEqual(validate(G), (4, 3))
+855269	    def test_bad_endpoint(self):
+855270	        g = copy.deepcopy(G)
+855271	        g["edges"][0]["to"] = "invented"
+855272	        with self.assertRaises(ValueError): validate(g)
+855273	    def test_live_promotion(self):
+855274	        g["nodes"][0]["rag"] = "green"
+855275	    def test_no_caveat(self):
+855276	        g["scope"] = "Active"
+855277	    def test_bad_evidence(self):
+855278	        g["edges"][0]["evidence"]["contains"] = ""
+855279	def occurrence_key(source):
+855280	    # Physical source range, not a permanent Stars identity.
+855281	    return tuple(source[k] for k in ("repo", "commit", "path", "blob", "first", "last"))
+855282	def validate_aliases(graph, catalogue):
+855283	    records = catalogue["records"]
+855284	    by_id = {r["id"]: r for r in records}
+855285	    by_occurrence = {occurrence_key(r["source"]): r["id"] for r in records}
+855286	    require(len(by_id) == len(records) == len(by_occurrence), "duplicate catalogue occurrence")
+855287	    standalone = set()
+855288	    for n in graph["nodes"]:
+855289	        key = occurrence_key(n["source"])
+855290	        alias = n.get("catalogue_ref")
+855291	        if key in by_occurrence:
+855292	            require(alias == by_occurrence[key], "shared occurrence must reference catalogue")
+855294	            require(alias is None, "alias does not match exact source occurrence")
+855295	            require(key not in standalone, "duplicate standalone graph occurrence")
+855296	            standalone.add(key)
+855297	    # Never use this count as global line/family coverage.
+855298	    return len(by_occurrence) + len(standalone)
+855299	    catalogue = json.loads((ROOT / "data/translation-geodesy.json").read_text())
+855300	    print("Distinct source ranges (not permanent line IDs):", validate_aliases(graph, catalogue))
+855301	from validate_graph import validate, validate_aliases
+855302	    def test_shared_occurrence_alias(self):
+855303	        catalogue = json.loads((Path(__file__).resolve().parents[1] / "data/translation-geodesy.json").read_text())
+855304	        self.assertEqual(validate_aliases(G, catalogue), 8)
+855305	        next(n for n in g["nodes"] if n["id"] == "vedic:distanceKm").pop("catalogue_ref")
+855306	        with self.assertRaises(ValueError): validate_aliases(g, catalogue)
+855307	    def test_alias_cannot_change_identity(self):
+855308	        next(n for n in g["nodes"] if n["id"] == "vedic:distanceKm")["catalogue_ref"] = "geodesy:initialBearingDeg"
+855309	"""Offline UI smoke against the exact checked-out VEDIC candidate."""
+855315	    server = ThreadingHTTPServer(("127.0.0.1", 0), partial(SimpleHTTPRequestHandler, directory=str(ROOT)))
+855318	    url = f"http://127.0.0.1:{server.server_port}/"
+855319	    passed = 0
+855321	        with sync_playwright() as p:
+855322	            for engine in (p.chromium, p.webkit):
+855323	                browser = engine.launch(headless=True)
+855325	                    for width, height in ((1280, 800), (390, 844), (844, 390)):
+855326	                        page = browser.new_page(viewport={"width": width, "height": height})
+855328	                        page.on("pageerror", lambda err: errors.append(str(err)))
+855329	                        page.goto(url)
+855330	                        page.get_by_text("9 recorded cartridges", exact=False).wait_for()
+855331	                        page.get_by_role("button", name="Find nearby grid infrastructure").click()
+855332	                        page.get_by_text("03 / VEDIC functional language", exact=True).wait_for()
+855333	                        page.get_by_text("04 / Source dependency diagram", exact=True).wait_for()
+855334	                        assert page.get_by_text("Measure distance between two geographic points", exact=True).count() == 1
+855335	                        assert page.get_by_text("not loaded by the live Atlas", exact=False).count() == 1
+855336	                        assert page.get_by_role("link", name="Spider-compatible graph JSON").count() == 1
+855337	                        page.locator("#search").fill("vicinity")
+855338	                        assert page.get_by_role("button", name="Explore Vicinity").count() == 1
+855339	                        assert page.get_by_role("button", name="Find nearby grid infrastructure").count() == 0
+855340	                        page.get_by_role("button", name="Explore Vicinity").click()
+855341	                        assert page.get_by_text("03 / VEDIC functional language", exact=True).count() == 0
+855342	                        page.get_by_role("button", name="Pipeline News", exact=True).click()
+855343	                        assert page.get_by_text("Not mapped yet.", exact=False).count() == 1
+855344	                        assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "horizontal overflow"
+855345	                        page.get_by_role("button", name="GridAtlas", exact=True).click()
+855346	                        assert page.get_by_role("button", name="Find a place", exact=True).count() == 1
+855347	                        assert not errors, errors
+855348	                        page.close()
+855349	                        passed += 1
+855350	                        print(f"PASS {engine.name} {width}x{height}", flush=True)
+855352	                    browser.close()
+855356	    assert passed == 6
+855357	    print("6/6 browser/viewport cases passed; no live handset claim")
+855359	"""Verify public Pages files match exact staged bytes; fail if unavailable."""
+855364	base = os.environ["PAGE_URL"].rstrip("/") + "/"
+855365	if not base.startswith("https://"):
+855366	    raise SystemExit("Missing HTTPS Pages URL")
+855367	files = sorted(p for p in Path("_site").rglob("*") if p.is_file() and p.name != ".nojekyll")
+855368	if not files:
+855369	    raise SystemExit("No staged files")
+855370	for attempt in range(12):
+855372	            url = urljoin(base, p.relative_to("_site").as_posix())
+855373	            req = Request(url, headers={"Cache-Control": "no-cache"})
+855374	            with urlopen(req, timeout=15) as response:
+855375	                served = response.read()
+855376	            expected = p.read_bytes()
+855377	            if served != expected:
+855378	                raise ValueError("Served bytes differ: " + url)
+855379	            print(url, hashlib.sha256(served).hexdigest(), flush=True)
+855380	        print("Public byte verification passed")
+855382	    except Exception as err:
+855383	        print(f"Attempt {attempt + 1}: {err}", flush=True)
+855384	        if attempt == 11:
+855386	        time.sleep(10)
+855387	"""Read-only Modular Star consumer. No producer writes and no ID allocation."""
+855393	PRODUCER = "Ventusltd/stars"
+855394	TAG = "modular-star"
+855395	ASSET = "modular.sqlite.gz"
+855396	MAX_BYTES = 4 * 1024**3
+855397	TABLES = ("line", "tablet", "family", "element", "tablet_element", "occurrence", "scan")
+855398	def gh(*args):
+855399	    return subprocess.check_output(["gh", *args], timeout=300)
+855400	def metadata():
+855401	    release = json.loads(gh("api", f"repos/{PRODUCER}/releases/tags/{TAG}"))
+855402	    assets = [a for a in release["assets"] if a["name"] == ASSET and a["state"] == "uploaded"]
+855403	    require(len(assets) == 1, "expected exactly one completed database asset")
+855404	    a = assets[0]
+855405	    return {"release_id": release["id"], "asset_id": a["id"], "size": a["size"],
+855406	            "updated_at": a["updated_at"], "digest": a.get("digest")}
+855408	    with path.open("rb") as f:
+855409	        return hashlib.file_digest(f, "sha256").hexdigest()
+855410	def unpack_snapshot(compressed, database, before, after):
+855411	    require(before == after, "producer asset changed during download; retry later")
+855412	    require(compressed.stat().st_size == before["size"], "asset size mismatch")
+855413	    require(0 < before["size"] <= MAX_BYTES, "compressed size outside bound")
+855414	    compressed_hash = sha256(compressed)
+855415	    if before["digest"] is not None:
+855416	        require(before["digest"] == "sha256:" + compressed_hash, "asset digest mismatch")
+855417	    written = 0
+855418	    with gzip.open(compressed, "rb") as src, database.open("xb") as dst:
+855419	        while chunk := src.read(1024 * 1024):
+855420	            written += len(chunk)
+855421	            require(written <= MAX_BYTES, "uncompressed database exceeds bound")
+855422	            dst.write(chunk)
+855423	    return {"compressed_sha256": compressed_hash, "database_sha256": sha256(database),
+855424	            "database_bytes": written, "asset_digest_verified": before["digest"] is not None}
+855425	def inventory(database):
+855426	    uri = database.resolve().as_uri() + "?mode=ro"
+855427	    with sqlite3.connect(uri, uri=True) as db:
+855428	        db.execute("PRAGMA query_only=ON")
+855429	        require(db.execute("PRAGMA quick_check").fetchall() == [("ok",)], "SQLite integrity check failed")
+855430	        names = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+855431	        require(set(TABLES) <= names, "producer schema incompatible")
+855432	        counts = {table: db.execute(f'SELECT count(*) FROM "{table}"').fetchone()[0] for table in TABLES}
+855433	        require(counts["line"] > 0 and counts["tablet"] > 0, "empty producer inventory")
+855434	        repos = db.execute("SELECT count(DISTINCT repo) FROM occurrence").fetchone()[0]
+855435	        return {"producer_inventory": counts, "repositories_with_occurrences": repos,
+855436	                "translated_unique_lines": None, "active_application_unique_lines": None,
+855437	                "scope": "Producer database inventory, including historical occurrences; not VEDIC translation coverage."}
+855438	def acquire(output):
+855439	    output = output.resolve()
+855441	    require(not output.exists(), "refuse to overwrite existing receipt")
+855442	    with tempfile.TemporaryDirectory(prefix="vedic-stars-") as directory:
+855443	        temp = Path(directory)
+855444	        before = metadata()
+855445	        require(0 < before["size"] <= MAX_BYTES, "asset size outside bound")
+855446	        gh("release", "download", TAG, "--repo", PRODUCER, "--pattern", ASSET, "--dir", str(temp))
+855447	        after = metadata()
+855448	        database = temp / "modular.sqlite"
+855449	        hashes = unpack_snapshot(temp / ASSET, database, before, after)
+855450	        report = {"schema": "vedic.modular-snapshot.v1", "producer": PRODUCER, "release_tag": TAG,
+855451	                  "asset": ASSET, "metadata": before, "snapshot": hashes,
+855452	                  "observed_utc": dt.datetime.now(dt.timezone.utc).isoformat(), **inventory(database)}
+855453	        with output.open("x", encoding="utf-8") as f:
+855454	            json.dump(report, f, sort_keys=True, indent=2)
+855455	            f.write("\n")
+855460	    print(json.dumps(acquire(args.output), indent=2))
+855461	from modular_snapshot import inventory, unpack_snapshot, TABLES
+855462	class SnapshotTests(unittest.TestCase):
+855463	    def test_read_only_inventory(self):
+855465	            p = Path(d) / "test.sqlite"
+855466	            with sqlite3.connect(p) as db:
+855467	                for t in TABLES:
+855468	                    db.execute(f'CREATE TABLE "{t}" (repo TEXT)')
+855469	                db.execute("INSERT INTO line VALUES ('x')")
+855470	                db.execute("INSERT INTO tablet VALUES ('x')")
+855471	                db.execute("INSERT INTO occurrence VALUES ('test')")
+855472	            before = p.read_bytes()
+855473	            result = inventory(p)
+855474	            self.assertEqual(result["producer_inventory"]["line"], 1)
+855475	            self.assertIsNone(result["translated_unique_lines"])
+855476	            self.assertEqual(p.read_bytes(), before)
+855477	    def test_missing_schema(self):
+855478	            p = Path(d) / "empty.sqlite"
+855479	                db.execute("CREATE TABLE other (n INT)")
+855481	                inventory(p)
+855482	    def test_snapshot_pin_and_hash(self):
+855483	            p = Path(d) / "snapshot.gz"
+855484	            payload = b"test bytes"
+855485	            p.write_bytes(gzip.compress(payload, mtime=0))
+855486	            meta = {"size": p.stat().st_size, "digest": "sha256:" + hashlib.sha256(p.read_bytes()).hexdigest(), "asset_id": 1}
+855487	            result = unpack_snapshot(p, Path(d) / "out", meta, dict(meta))
+855488	            self.assertEqual(result["database_sha256"], hashlib.sha256(payload).hexdigest())
+855489	                unpack_snapshot(p, Path(d) / "race", meta, dict(meta, asset_id=2))
+855490	                wrong = dict(meta, digest="sha256:" + "0"*64)
+855491	                unpack_snapshot(p, Path(d) / "bad", wrong, wrong)
+855492	            self.assertFalse((Path(d) / "race").exists())
+855493	"""Stage byte-exact upstream maths for VEDIC demos, never rewrite the engine."""
+855494	from validate_translation import fetch
+855495	PIN = "487ec7bd38dfa5aecb1c75da53b4a866ab2101cb"
+855497	    "engine/v9-geodesy.js": ("14023f06d4ef2ea806437863bd35dee954c46b11", "geodesy.mjs"),
+855498	    "LICENSE": ("d645695673349e3947e8e5ae42332d0ac3164cd7", "LICENSE"),
+855499	    "NOTICE": ("fc080f562deed00d61e2b3e0fe39346cc6c2987e", "NOTICE"),
+855501	    target = ROOT / "demo-engine"
+855502	    target.mkdir(exist_ok=True)
+855503	    for source, (expected, output) in FILES.items():
+855504	        data = fetch("Ventusltd/ventus-grid-engine", PIN, source)
+855505	        actual = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+855507	            raise ValueError("Upstream Git blob mismatch: " + source)
+855508	        (target / output).write_bytes(data)
+855509	        print("Verified and staged", source, actual)
+855510	<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>VEDIC demonstration</title><style>:root{--bg:#000;--panel:#0b0e14;--line:#2f343d;--text:#fff;--muted:#a6adbb;--accent:#00ffff}*{box-sizing:border-box}body{background:var(--bg);color:var(--text);font:14px/1.6 'Courier New',monospace;margin:0}main{max-width:800px;margin:auto;padding:12px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:16px;margin:10px 0}h1,h2,a{color:var(--accent)}h1{font-size:24px}textarea,button{font:inherit;color:var(--text);background:#050505;border:1px solid var(--line);width:100%;padding:10px}textarea{min-height:140px}button{color:var(--accent);min-height:44px}pre{white-space:pre-wrap;overflow-wrap:anywhere}small{color:var(--muted)}a:focus-visible,button:focus-visible,textarea:focus-visible{outline:2px solid #fff;outline-offset:2px}</style></head><body><main><a href="./index.html#dictionary">← VEDIC dictionary</a><section class="panel"><h1 id="word">Demonstration</h1><p id="identity"></p><p id="purpose"></p><small>Runs the pinned, unmodified Ventus Grid Engine geodesy module locally. Example inputs are illustrative, not project data or proof of live GridAtlas operation.</small><p id="limit"></p><label for="args">Example inputs (editable JSON)</label><textarea id="args" spellcheck="false"></textarea><button id="run" disabled>RUN DEMONSTRATION</button><h2>Result</h2><pre id="result" role="status">Loading…</pre><a id="source" href="https://github.com/Ventusltd/ventus-grid-engine/blob/487ec7bd38dfa5aecb1c75da53b4a866ab2101cb/engine/v9-geodesy.js">Pinned original source</a> · <a href="./demo-engine/LICENSE">Licence</a> · <a href="./demo-engine/NOTICE">Notice</a></section></main><script type="module">
+855511	const example={distance:[0,0,1,0],point:[{type:'Polygon',coordinates:[[[0,0],[2,0],[2,2],[0,0]]]}],voltage:[{voltage:'750;132000',kv:33}],destination:[0,0,100,90],bearing:[0,0,1,0],orient:[0,0,1,0]};
+855512	function assert(ok,msg){if(!ok)throw Error(msg)}
+855513	function numeric(a,n){assert(a.length===n&&a.every(x=>typeof x==='number'&&Number.isFinite(x)),'Expected '+n+' finite numbers');assert(Math.abs(a[0])<=180&&Math.abs(a[1])<=90,'Origin longitude/latitude out of range')}
+855514	try{const [d,t,m]=await Promise.all([fetch('./data/dictionary.json').then(r=>{assert(r.ok,'Dictionary unavailable');return r.json()}),fetch('./data/translation-geodesy.json').then(r=>{assert(r.ok,'Translation unavailable');return r.json()}),import('./demo-engine/geodesy.mjs')]);
+855515	const id=new URLSearchParams(location.search).get('id');const entry=d.entries.find(e=>e.gg_id===id);assert(entry,'Unknown dictionary ID');const tr=t.records.find(r=>r.id===entry.translation_ref);$('word').textContent=entry.word;$('identity').textContent=entry.gg_id;$('purpose').textContent=tr?.purpose||entry.purpose;$('limit').textContent=tr?.limits||entry.limits;$('args').value=JSON.stringify(example[entry.demo],null,2);
+855516	const runners={distance:a=>{numeric(a,4);assert(Math.abs(a[2])<=180&&Math.abs(a[3])<=90,'Target out of range');return m.distanceKm(...a)},point:a=>{assert(a.length===1,'Expected one geometry');return m.representativePoint(a[0])},voltage:a=>{assert(a.length===1,'Expected one properties object');return m.voltagesKv(a[0])},destination:a=>{numeric(a,4);assert(a[2]>=0,'Distance must be nonnegative');return m.destinationPoint(...a)},bearing:a=>{numeric(a,4);assert(Math.abs(a[2])<=180&&Math.abs(a[3])<=90,'Target out of range');return m.initialBearingDeg(...a)},orient:a=>{numeric(a,4);assert(Math.abs(a[2])<=180&&Math.abs(a[3])<=90,'Target out of range');return {distance_km:m.distanceKm(...a),initial_bearing_deg:m.initialBearingDeg(...a)}}};assert(Object.hasOwn(runners,entry.demo),'No runnable demo');
+855517	$('run').disabled=false;$('result').textContent='Ready';$('run').onclick=()=>{try{const a=JSON.parse($('args').value);assert(Array.isArray(a),'Expected a JSON array');const result=runners[entry.demo](a);assert(result!==undefined&&!(typeof result==='number'&&!Number.isFinite(result)),'Result not finite');$('result').textContent=JSON.stringify(result,null,2)}catch(e){$('result').textContent='Cannot run: '+e.message}};}catch(e){$('result').textContent='Demonstration unavailable: '+e.message}
+855518	.dict-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}.dict-filters label{min-width:0;color:var(--muted);font-size:11px}.dict-filters select{width:100%;min-height:44px;background:#050505;color:var(--text);border:1px solid var(--line);font:inherit}.dict-scroll{max-width:100%;overflow:auto;overscroll-behavior-x:contain}.dict-table{border-collapse:collapse;min-width:880px;width:100%;text-align:left}.dict-table td,.dict-table th{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}.dict-table th{color:var(--accent);background:#050505}.dict-table th button{border:0;padding:4px;text-align:left}.dict-table td:first-child,.dict-table th:first-child{position:sticky;left:0;background:var(--panel);z-index:1;min-width:118px}.dict-table td:nth-child(2){white-space:nowrap}.dict-table details{max-width:350px}.dict-table summary{overflow-wrap:anywhere}.dict-table td:last-child{white-space:nowrap}#dictResources{margin-top:12px}@media(max-width:700px){.dict-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.dict-filters label:first-child{grid-column:1/-1}}@media print{.dict-scroll{overflow:visible}.dict-table{min-width:0;font-size:10px}.dict-table td:first-child,.dict-table th:first-child{position:static}.dict-filters{display:none}}</style></head><body>
+855519	<section class="panel" id="dictionary"><h2>VEDIC DICTIONARY / GLOBALGRID REGISTER</h2><p class="muted">Permanent references · plain-English functions · reusable combinations. Classification labels are candidates unless independently resolved.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Demo</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><div class="layout"><section class="panel"><h2>01 / Capabilities</h2><label for="search">Find a capability</label><input class="search" id="search" type="search" placeholder="Search in plain English"><div id="capabilities"></div></section><section class="panel" id="detail" aria-live="polite"><h2>02 / Composition</h2><p class="muted">Choose a capability.</p></section></div>
+855520	let dictionary=null;
+855521	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';for(const e of rows){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');demo.append(link('DEMO','./demo.html?id='+encodeURIComponent(e.gg_id)));detail.append(el('summary',t?.purpose||e.purpose),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t){const s=t.source;detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id));root.append(tr)}}
+855522	async function initDictionary(){try{const r=await fetch('./data/dictionary.json');if(!r.ok)throw Error('Dictionary unavailable');dictionary=await r.json();if(dictionary.schema!=='vedic.dictionary.v1')throw Error('Unsupported dictionary schema');for(const [id,key] of [['estateFilter','estate_group'],['disciplineFilter','discipline'],['classFilter','vedic_class_candidate']]){for(const value of [...new Set(dictionary.entries.map(e=>e[key]))].sort()){const opt=el('option',value);opt.value=value;$(id).append(opt)}}for(const [name,url] of Object.entries(dictionary.resources))$('dictResources').append(link(name.replaceAll('_',' '),url));for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','dictSort'])$(id).addEventListener(id==='dictSearch'?'input':'change',drawDictionary);for(const b of document.querySelectorAll('[data-dsort]'))b.onclick=()=>{$('dictSort').value=b.dataset.dsort==='word'&&$('dictSort').value==='word'?'word_desc':b.dataset.dsort;drawDictionary()};drawDictionary()}catch(e){$('dictStatus').textContent='Dictionary unavailable: '+e.message}}
+855523	try{const r=await fetch('./data/anatomy.json');if(!r.ok)throw Error('Data unavailable');data=await r.json();try{const tr=await fetch('./data/translation-geodesy.json');if(tr.ok){const candidate=await tr.json();if(candidate.schema==='vedic.translation.v1'&&Array.isArray(candidate.records))translation=candidate}}catch(e){console.warn('Translation data unavailable',e)}try{const gr=await fetch('./data/nearest-spider.json');if(gr.ok){const candidate=await gr.json();if(candidate.schema==='vedic.static-spider.v1'&&Array.isArray(candidate.nodes)&&Array.isArray(candidate.edges))nearestGraph=candidate}}catch(e){console.warn('Graph unavailable',e)}if(data.schema!=='vedic.anatomy.v1')throw Error('Unsupported schema');for(const b of data.bodies)bodyBy.set(b.id,b);app=data.apps[0];selected=app.capabilities[0];$('summary').replaceChildren(el('p','GridAtlas manifest '+data.source.generation+' · '+data.bodies.length+' recorded cartridges','metric'),link('Pinned manifest','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+data.source.manifest));for(const [key,url] of Object.entries(data.links))$('links').append(link(key,url));drawApps();drawCaps();drawDetail();await initDictionary()}catch(e){$('summary').textContent='Anatomy unavailable: '+e.message}
+855524	"""Validate the append-only VEDIC dictionary and its initial composition."""
+855525	# Frozen allocation: do not replace or renumber these entries.
+855526	GENESIS = ("MEASURE", "REPRESENT", "VOLTAGE", "DESTINATION", "BEARING", "ORIENT")
+855527	DEMO_KEYS = {"distance","point","voltage","destination","bearing","orient"}
+855528	def validate(d, translations, prior=None):
+855529	    require(d["schema"] == "vedic.dictionary.v1", "wrong schema")
+855530	    entries = d["entries"]
+855531	    by_id = {e["gg_id"]: e for e in entries}
+855532	    by_number = {e["number"]: e for e in entries}
+855533	    require(len(entries) == len(by_id) == len(by_number), "duplicate identity")
+855534	    require(len({e["word"] for e in entries}) == len(entries), "duplicate word")
+855535	    require(d["next_number"] == max(by_number, default=0)+1, "wrong next ID")
+855536	    require(set(by_number) == set(range(1, d["next_number"])), "missing permanent number")
+855537	    for i, word in enumerate(GENESIS, 1):
+855538	        require(by_number[i]["word"] == word, "genesis identity changed")
+855539	    source = {r["id"]: r for r in translations["records"]}
+855541	        require(e["gg_id"] == f'GG2050-VEDIC-{e["number"]:06d}', "invalid GlobalGrid ID")
+855542	        require(e["demo"] in DEMO_KEYS, "unregistered demo")
+855543	        for key in ("estate_group","discipline","periodic_category","vedic_class_candidate"):
+855544	            require(bool(e[key]), "missing classification")
+855545	        require(e["vedic_class_candidate"] in {"Structure","Movement","Computation","Flow","Data"}, "unknown class")
+855546	        require(e["classification_state"] == "CURATED_CANDIDATE", "unproven classification")
+855547	        if e["kind"] == "FUNCTION":
+855548	            require(e["translation_ref"] in source, "missing source translation")
+855549	            require(e["state"] == "STATIC_SOURCE_REVIEW", "unsupported proof state")
+855550	        elif e["kind"] == "COMPOSITION":
+855551	            require(e["state"] == "DEMO_CANDIDATE", "unsupported composition status")
+855552	            require(e["composition_mode"] == "shared_inputs", "unsupported composition")
+855553	            components = [by_id[x] for x in e["components"]]
+855554	            require(len(components) >= 2 and len({x["gg_id"] for x in components}) == len(components), "duplicate or absent components")
+855555	            require(all(x["number"] < e["number"] for x in components), "forward reference or cycle")
+855556	            require(all(x["inputs"] == e["inputs"] for x in components), "incompatible component inputs")
+855557	            raise ValueError("unknown kind")
+855559	        for old in prior["entries"]:
+855560	            require(old["gg_id"] in by_id, "deleted permanent ID")
+855561	            for key in ("number","word","kind","translation_ref","components"):
+855562	                require(old.get(key) == by_id[old["gg_id"]].get(key), "changed permanent identity")
+855563	    return len(entries)
+855565	    p.add_argument("--prior", type=Path)
+855566	    d = json.loads((ROOT/"data/dictionary.json").read_text())
+855567	    t = json.loads((ROOT/"data/translation-geodesy.json").read_text())
+855568	    prior = json.loads(args.prior.read_text()) if args.prior else None
+855569	    print("Dictionary entries:", validate(d,t,prior))
+855570	import copy,json,unittest
+855571	from validate_dictionary import validate
+855573	D=json.loads((ROOT/"data/dictionary.json").read_text())
+855574	T=json.loads((ROOT/"data/translation-geodesy.json").read_text())
+855575	class DictionaryTests(unittest.TestCase):
+855576	        self.assertEqual(validate(D,T),6)
+855577	    def test_identity(self):
+855578	        d=copy.deepcopy(D); d["entries"][0]["word"]="OTHER"
+855579	        with self.assertRaises(ValueError): validate(d,T,D)
+855580	    def test_missing_demo(self):
+855581	        d=copy.deepcopy(D); d["entries"][0]["demo"]="unknown"
+855582	        with self.assertRaises(ValueError): validate(d,T)
+855583	    def test_incompatible_inputs(self):
+855584	        d=copy.deepcopy(D); d["entries"][-1]["inputs"]=["kilovolt_list"]
+855586	        d=copy.deepcopy(D); d["entries"][-1]["components"][0]=d["entries"][-1]["gg_id"]
+855587	        d=copy.deepcopy(D); d["entries"].append(d["entries"][0])
+855589	    require(len({e["sense_key"] for e in entries}) == len(entries), "duplicate meaning")
+855590	        require(by_number[i]["created_utc"] == "2026-11-26T01:35:15Z", "genesis timestamp changed")
+855591	        require(by_number[i]["creation_evidence"] == "https://github.com/Ventusltd/vedic-/commit/5ddc2e611dbcccb68cc4f7342637fddb912e5ef1", "genesis creation evidence changed")
+855592	        require(isinstance(e["word"], str) and bool(e["word"].strip()), "empty word")
+855593	        require(bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z", e["created_utc"])), "timestamp must be UTC")
+855594	        datetime.fromisoformat(e["created_utc"].replace("Z", "+00:00"))
+855595	        require(bool(re.fullmatch(r"https://github\.com/Ventusltd/vedic-/commit/[0-9a-f]{40}", e["creation_evidence"])), "missing creation evidence")
+855596	            require(e["sense_key"] == "function:" + e["translation_ref"], "invalid function sense key")
+855597	            require(e["sense_key"] == "composition:" + e["composition_mode"] + ":" + ",".join(e["components"]), "invalid composition sense key")
+855598	            for key in ("number","word","kind","translation_ref","components","sense_key","created_utc","creation_evidence","composition_mode"):
+855599	    def test_same_word_distinct_meaning(self):
+855600	        d=copy.deepcopy(D); t=copy.deepcopy(T)
+855601	        e=copy.deepcopy(d["entries"][0])
+855602	        e.update(number=7,gg_id="GG2050-VEDIC-000007",translation_ref="fixture:distinct_meaning",sense_key="function:fixture:distinct_meaning")
+855603	        t["records"].append({"id":"fixture:distinct_meaning"})
+855604	        d["entries"].append(e); d["next_number"]=8
+855605	        self.assertEqual(validate(d,t,D),7)
+855606	    def test_duplicate_meaning(self):
+855607	        d=copy.deepcopy(D)
+855608	        e=copy.deepcopy(d["entries"][0]); e.update(number=7,gg_id="GG2050-VEDIC-000007",word="OTHER")
+855609	    def test_creation_time_immutable(self):
+855610	        d=copy.deepcopy(D); d["entries"][0]["created_utc"]="2026-11-26T02:00:00Z"
+855611	<section class="panel" id="dictionary"><h2>VEDIC DICTIONARY / GLOBALGRID REGISTER</h2><p class="muted">Permanent references · plain-English functions · reusable combinations. Classification labels are candidates unless independently resolved.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Demo</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><div class="layout"><section class="panel"><h2>01 / Capabilities</h2><label for="search">Find a capability</label><input class="search" id="search" type="search" placeholder="Search in plain English"><div id="capabilities"></div></section><section class="panel" id="detail" aria-live="polite"><h2>02 / Composition</h2><p class="muted">Choose a capability.</p></section></div>
+855612	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';for(const e of rows){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');demo.append(link('DEMO','./demo.html?id='+encodeURIComponent(e.gg_id)));detail.append(el('summary',t?.purpose||e.purpose),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t){const s=t.source;detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id),el('td',e.created_utc));root.append(tr)}}
+855613	                        assert page.locator("#detail").get_by_text("Measure distance between two geographic points", exact=True).count() == 1
+855614	                        page.locator("#dictRows tr").first.wait_for()
+855615	                        assert page.locator("#dictRows tr").count() == 6
+855616	                        assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == "BEARING"
+855617	                        page.locator("#dictSort").select_option("number")
+855618	                        assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == "MEASURE"
+855619	                        page.locator("#dictSearch").fill("ORIENT")
+855620	                        assert page.locator("#dictRows tr").count() == 1
+855621	                        assert "2026-11-26T01:35:15Z" in page.locator("#dictRows").inner_text()
+855622	                        page.locator("#dictSearch").fill("")
+855623	                        links = page.locator("#dictRows a").evaluate_all("(els) => els.map(e => e.href)")
+855624	                        assert len(links) == 6 and len(set(links)) == 6
+855625	                        for demo_url in links:
+855626	                            demo = browser.new_page(viewport={"width":width,"height":height})
+855627	                            demo.goto(demo_url)
+855628	                            demo.get_by_role("button",name="RUN DEMONSTRATION").wait_for()
+855629	                            demo.get_by_role("button",name="RUN DEMONSTRATION").click(timeout=10000)
+855630	                            result = demo.locator("#result").inner_text()
+855631	                            assert result not in ("Ready","Loading…") and not result.startswith(("Cannot run","Demonstration unavailable")), result
+855632	                            demo.locator("#args").fill("not JSON")
+855633	                            demo.get_by_role("button",name="RUN DEMONSTRATION").click()
+855634	                            assert demo.locator("#result").inner_text().startswith("Cannot run:")
+855635	                            demo.close()
+855637	from urllib.parse import parse_qs, urlparse
+855638	                        links = page.locator('#dictRows a[href^="./demo.html?id="]').evaluate_all("(els) => els.map(e => e.href)")
+855639	                            actual = json.loads(result)
+855640	                            identity = parse_qs(urlparse(demo_url).query)["id"][0]
+855641	                            # Independent known-answer checks for the seeded examples.
+855642	                            expected = {
+855643	                                "GG2050-VEDIC-000001": 111.31949079327357,
+855644	                                "GG2050-VEDIC-000002": [1, 0.5],
+855645	                                "GG2050-VEDIC-000003": [132, 33, 0.75],
+855646	                                "GG2050-VEDIC-000004": [0.8983152841195214, 0],
+855647	                                "GG2050-VEDIC-000005": 90,
+855648	                                "GG2050-VEDIC-000006": {"distance_km":111.31949079327357,"initial_bearing_deg":90}
+855649	                            }[identity]
+855650	                            def close(a, b):
+855651	                                if isinstance(b, dict):
+855652	                                    return isinstance(a, dict) and a.keys() == b.keys() and all(close(a[k], b[k]) for k in b)
+855653	                                if isinstance(b, list):
+855654	                                    return isinstance(a, list) and len(a) == len(b) and all(close(x,y) for x,y in zip(a,b))
+855655	                                return isinstance(a,(int,float)) and math.isclose(a,b,rel_tol=1e-9,abs_tol=1e-9)
+855656	                            assert close(actual, expected), (identity,actual,expected)
+855657	.dict-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}.dict-filters label{min-width:0;color:var(--muted);font-size:11px}.dict-filters select{width:100%;min-height:44px;background:#050505;color:var(--text);border:1px solid var(--line);font:inherit}.dict-scroll{max-width:100%;overflow:auto;overscroll-behavior-x:contain}.dict-table{border-collapse:collapse;min-width:880px;width:100%;text-align:left}.dict-table td,.dict-table th{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}.dict-table th{color:var(--accent);background:#050505}.dict-table th button{border:0;padding:4px;text-align:left}.dict-table td:first-child,.dict-table th:first-child{position:sticky;left:0;background:var(--panel);z-index:1;min-width:118px}.dict-table td:nth-child(2){white-space:nowrap}.dict-table details{max-width:350px}.dict-table summary{overflow-wrap:anywhere}.dict-table td:last-child{white-space:nowrap}#dictResources{margin-top:12px}@media(max-width:700px){.dict-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.dict-filters label:first-child{grid-column:1/-1}}@media print{.dict-scroll{overflow:visible}.dict-table{min-width:0;font-size:10px}.dict-table td:first-child,.dict-table th:first-child{position:static}.dict-filters{display:none}}/* Pipeline News V9.76 v7.css palette and register pattern; scoped adaptation. */:root{--soft:#222;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}html,body{font-size:13px}.shell{max-width:none;padding:10px 20px 20px}.header{border-radius:0;border:0;border-bottom:1px solid var(--soft);padding:10px 0}.panel{border-radius:0;border:1px solid var(--soft);padding:12px}.dict-table td{color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--soft)}.dict-table td:first-child{color:#fff;font-weight:bold}.dict-table td:nth-child(2) a{color:var(--ok);font-weight:bold}.dict-table th{position:sticky;top:0;z-index:2;background:#050505}.dict-table th:first-child{z-index:3}.dict-scroll{max-height:65vh;background:var(--panel);border:1px solid var(--soft)}.dict-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}.dict-actions button{background:#000;color:var(--muted);border:1px solid var(--line);font:700 11px 'Courier New';min-height:39px}.dict-actions button:disabled{opacity:.4;cursor:default}#dictPage{color:var(--muted)}#dictionary h1{font-size:19px;letter-spacing:2px}.anatomy>summary{font-weight:bold;min-height:28px}.dict-table details{margin-top:0}.dict-table summary{min-height:30px}@media(max-width:768px){.shell{padding:6px 9px 16px}.dict-scroll{max-height:none}.dict-table td,.dict-table th{padding:8px 6px;font-size:11px}.dict-table{min-width:880px}.dict-table td:first-child,.dict-table th:first-child{min-width:100px}}@media print{.dict-scroll{max-height:none}.dict-actions{display:none}}</style></head><body>
+855658	<div class="news"><a href="https://globalgrid2050.com/">GLOBALGRID2050 / PIPELINE NEWS</a> · VEDIC V1</div><div class="shell"><header class="header"><a class="brand" href="https://globalgrid2050.com/">GLOBALGRID2050<small>VENTUS | ELECTRICITY INFRASTRUCTURE</small></a><span class="hud">VEDIC / FUNCTIONAL DICTIONARY</span></header>
+855659	<main><section class="panel" id="dictionary"><h1>VEDIC DICTIONARY</h1><p class="muted">Permanent references · plain-English functions · reusable combinations. Select a word or demonstration. Source-only classifications remain labelled.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><div class="dict-actions"><button id="dictClear" type="button">CLEAR FILTERS</button><button id="dictPrev" type="button">PREVIOUS</button><button id="dictNext" type="button">NEXT</button><span id="dictPage"></span></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Demo</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><details class="panel anatomy" id="anatomy"><summary>APPLICATION ANATOMY / SOURCE EVIDENCE</summary><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+855660	<section class="panel"><h2>05 / Connected knowledge</h2><div id="links" class="links"></div><p class="muted">Spider Printer and Teleprinter are existing external resources; local browser printing is separate.</p><button class="print" id="print" type="button">Print page</button></section></details></main><footer>Dictionary of existing code capabilities. Not an engineering assessment.</footer></div>
+855661	let dictionary=null,dictPage=0;const pageSize=100;
+855662	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';const pages=Math.max(1,Math.ceil(rows.length/pageSize));dictPage=Math.min(dictPage,pages-1);$('dictPage').textContent='Page '+(dictPage+1)+' / '+pages;$('dictPrev').disabled=dictPage===0;$('dictNext').disabled=dictPage>=pages-1;for(const e of rows.slice(dictPage*pageSize,(dictPage+1)*pageSize)){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');demo.append(link('DEMO','./demo.html?id='+encodeURIComponent(e.gg_id)));detail.append(el('summary',t?.purpose||e.purpose),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Modular Star family / element / line IDs: '+(t?.family_id??'Not yet resolved'),'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t){const s=t.source;detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id),el('td',e.created_utc));root.append(tr)}}
+855663	async function initDictionary(){try{const r=await fetch('./data/dictionary.json');if(!r.ok)throw Error('Dictionary unavailable');dictionary=await r.json();if(dictionary.schema!=='vedic.dictionary.v1')throw Error('Unsupported dictionary schema');for(const [id,key] of [['estateFilter','estate_group'],['disciplineFilter','discipline'],['classFilter','vedic_class_candidate']]){for(const value of [...new Set(dictionary.entries.map(e=>e[key]))].sort()){const opt=el('option',value);opt.value=value;$(id).append(opt)}}for(const [name,url] of Object.entries(dictionary.resources))$('dictResources').append(link(name.replaceAll('_',' '),url));for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','dictSort'])$(id).addEventListener(id==='dictSearch'?'input':'change',()=>{dictPage=0;drawDictionary()});$('dictClear').onclick=()=>{for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter'])$(id).value='';$('dictSort').value='word';dictPage=0;drawDictionary()};$('dictPrev').onclick=()=>{dictPage--;drawDictionary()};$('dictNext').onclick=()=>{dictPage++;drawDictionary()};for(const b of document.querySelectorAll('[data-dsort]'))b.onclick=()=>{$('dictSort').value=b.dataset.dsort==='word'&&$('dictSort').value==='word'?'word_desc':b.dataset.dsort;dictPage=0;drawDictionary()};drawDictionary()}catch(e){$('dictStatus').textContent='Dictionary unavailable: '+e.message}}
+855664	function drawGraph(root){if(!nearestGraph||app.id!=='gridatlas'||selected.id!=='measure')return;const section=el('section',undefined,'card');section.append(el('h2','04 / Source dependency diagram'),el('p',nearestGraph.scope,'notice muted'));const nodes=new Map(nearestGraph.nodes.map(n=>[n.id,n]));for(const e of nearestGraph.edges){const box=el('div',undefined,'card');const from=nodes.get(e.from),to=nodes.get(e.to);box.append(link(from.label,from.gh),el('p','↓ '+e.type,'muted'),link(to.label,to.gh),el('p',to.reason,'muted'));section.append(box)}section.append(link('Static dependency graph JSON','./data/nearest-spider.json'));root.append(section)}
+855665	                        page.locator("#anatomy > summary").click()
+855666	                        assert page.get_by_role("link", name="Static dependency graph JSON").count() == 1
+855667	                        assert page.locator("#dictPage").inner_text() == "Page 1 / 1"
+855668	                        page.get_by_role("button",name="CLEAR FILTERS").click()
+855669	        require(e["demo"] in DEMO_KEYS or (e["demo"] is None and e["kind"] == "FUNCTION" and e["number"] > len(GENESIS) and bool(e.get("demo_unavailable_reason"))), "unregistered demo")
+855670	            if e["translation_ref"] not in source:
+855671	                require(e["demo"] is None, "source-only function cannot claim a demo")
+855672	                require(all(e.get(k) is None for k in ("family_id","element_id","tablet_id","line_ids","proof")), "unverified identity or proof")
+855673	                require(all(isinstance(e.get(k), str) and e[k].strip() for k in ("purpose","limits","receipt")), "missing source description")
+855674	                s = e["source"]
+855675	                require(bool(re.fullmatch(r"Ventusltd/[A-Za-z0-9_.-]+", s["repo"])), "bad source repo")
+855676	                require(all(re.fullmatch(r"[0-9a-f]{40}", s[k]) for k in ("commit","blob")), "bad source pin")
+855677	                require(not s["path"].startswith("/") and ".." not in s["path"].split("/") and bool(s["path"]), "bad source path")
+855678	                require(type(s["first"]) is int and type(s["last"]) is int and 1 <= s["first"] <= s["last"], "bad source span")
+855679	                require(e["receipt"].startswith("https://github.com/Ventusltd/neural-link-between-agents/issues/87#issuecomment-"), "missing receipt")
+855680	def verify_source_entries(d, reader=fetch):
+855681	    for e in d["entries"]:
+855682	        if e["demo"] is not None or "source" not in e:
+855684	        s = e["source"]
+855685	        key = (s["repo"],s["commit"],s["path"])
+855686	            raw = reader(*key)
+855687	            require(len(raw) <= 1_000_000, "source too large")
+855688	            cache[key] = (hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\\0" + raw).hexdigest(),raw.decode("utf-8").splitlines())
+855689	        blob, lines = cache[key]
+855690	        require(s["last"] <= len(lines), "source span outside file")
+855691	        name = e["translation_ref"].rsplit(":",1)[-1]
+855692	        require(re.search(r"\\b(?:function\\s+"+re.escape(name)+r"\\s*\\(|"+re.escape(name)+r"\\s*:)",lines[s["first"]-1]), "source start mismatch")
+855693	        require(lines[s["last"]-1].strip() == "}", "source end mismatch")
+855694	    return len(cache)
+855695	        print("Additional pinned source files:", verify_source_entries(d))
+855696	<main><section class="panel" id="dictionary"><h1>VEDIC DICTIONARY</h1><p class="muted">Permanent references · plain-English functions · reusable combinations. Select a word or demonstration. Source-only classifications remain labelled.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="priority">Priority applications</option><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><div class="dict-actions"><button id="dictClear" type="button">CLEAR FILTERS</button><button id="dictPrev" type="button">PREVIOUS</button><button id="dictNext" type="button">NEXT</button><span id="dictPage"></span></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Demo</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><details class="panel anatomy" id="anatomy"><summary>APPLICATION ANATOMY / SOURCE EVIDENCE</summary><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+855697	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='priority'?(a.priority??9)-(b.priority??9)||a.number-b.number:sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';const pages=Math.max(1,Math.ceil(rows.length/pageSize));dictPage=Math.min(dictPage,pages-1);$('dictPage').textContent='Page '+(dictPage+1)+' / '+pages;$('dictPrev').disabled=dictPage===0;$('dictNext').disabled=dictPage>=pages-1;for(const e of rows.slice(dictPage*pageSize,(dictPage+1)*pageSize)){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');if(e.demo)demo.append(link('DEMO','./demo.html?id='+encodeURIComponent(e.gg_id)));else demo.append(el('span','SOURCE ONLY','muted'));detail.append(el('summary',t?.purpose||e.purpose),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Modular Star family / element / line IDs: '+(t?.family_id??e.family_id??'Not yet resolved'),'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t||e.source){const s=t?.source||e.source;if(e.receipt)detail.append(link('Review evidence',e.receipt));if(e.demo_unavailable_reason)detail.append(el('p',e.demo_unavailable_reason,'muted'));detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id),el('td',e.created_utc));root.append(tr)}}
+855698	        self.assertEqual(validate(D,T),len(D["entries"]))
+855699	        d=copy.deepcopy(D); d["entries"][5]["inputs"]=["kilovolt_list"]
+855700	        d=copy.deepcopy(D); d["entries"][5]["components"][0]=d["entries"][5]["gg_id"]
+855701	        e.update(number=d["next_number"],gg_id=f'GG2050-VEDIC-{d["next_number"]:06d}',translation_ref="fixture:distinct_meaning",sense_key="function:fixture:distinct_meaning")
+855702	        d["entries"].append(e); d["next_number"]+=1
+855703	        self.assertEqual(validate(d,t,D),len(D["entries"])+1)
+855704	        e=copy.deepcopy(d["entries"][0]); e.update(number=d["next_number"],gg_id=f'GG2050-VEDIC-{d["next_number"]:06d}',word="OTHER")
+855705	    def test_source_only_cannot_claim_demo(self):
+855706	        d=copy.deepcopy(D); d["entries"][6]["demo"]="distance"
+855707	    def test_source_only_requires_reason(self):
+855708	        d=copy.deepcopy(D); d["entries"][6].pop("demo_unavailable_reason")
+855709	    def test_source_only_requires_source_pin(self):
+855710	        d=copy.deepcopy(D); d["entries"][6]["source"]["blob"]="invalid"
+855711	                        assert page.locator("#dictRows tr").count() == 19
+855712	                        assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == "AREA"
+855713	                        page.locator("#dictSort").select_option("priority")
+855714	                        assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == "LINK"
+855715	                        assert page.locator("#dictRows").get_by_text("SOURCE ONLY", exact=True).count() == 13
+855716	                        page.locator("#dictSearch").fill("AREA")
+855717	                        assert page.locator("#dictRows tr").count() >= 2
+855718	<main><section class="panel" id="dictionary"><h1>VEDIC DICTIONARY</h1><p class="muted">Permanent references · plain-English functions · reusable combinations. Open the existing application and expand a meaning to see how to activate it. Exact runtime mappings remain labelled.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Word, meaning or GlobalGrid ID"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SORT<select id="dictSort"><option value="priority">Priority applications</option><option value="word">Alphabetical A–Z</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><div class="dict-actions"><button id="dictClear" type="button">CLEAR FILTERS</button><button id="dictPrev" type="button">PREVIOUS</button><button id="dictNext" type="button">NEXT</button><span id="dictPage"></span></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Application</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><details class="panel anatomy" id="anatomy"><summary>APPLICATION ANATOMY / SOURCE EVIDENCE</summary><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+855719	function drawDictionary(){const root=$('dictRows');root.replaceChildren();if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return}const query=$('dictSearch').value.toLowerCase(),estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;const records=new Map((translation?.records||[]).map(r=>[r.id,r]));const rows=dictionary.entries.filter(e=>{const t=records.get(e.translation_ref);return (!estate||e.estate_group===estate)&&(!discipline||e.discipline===discipline)&&(!klass||e.vedic_class_candidate===klass)&&[e.word,e.gg_id,e.estate_group,e.discipline,t?.purpose||e.purpose].join(' ').toLowerCase().includes(query)});rows.sort((a,b)=>sort==='priority'?(a.priority??9)-(b.priority??9)||a.number-b.number:sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));$('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' dictionary entries · global line coverage unknown';const pages=Math.max(1,Math.ceil(rows.length/pageSize));dictPage=Math.min(dictPage,pages-1);$('dictPage').textContent='Page '+(dictPage+1)+' / '+pages;$('dictPrev').disabled=dictPage===0;$('dictNext').disabled=dictPage>=pages-1;for(const e of rows.slice(dictPage*pageSize,(dictPage+1)*pageSize)){const tr=el('tr'),t=records.get(e.translation_ref),word=el('td',e.word),demo=el('td'),meaning=el('td'),detail=el('details');if(e.application)demo.append(link(e.application.name,e.application.url));else demo.append(el('span','Not mapped','muted'));detail.append(el('summary',t?.purpose||e.purpose),el('p','How to see it: '+(e.application?.instructions||'Application mapping pending')),el('p','Application evidence: '+(e.application?.state||'NOT MAPPED'),'muted'),el('p','Input: '+e.inputs.join(', ')),el('p','Output: '+e.output),el('p','Limits: '+(t?.limits||e.limits)),el('p','State: '+e.state+' · '+e.classification_state,'muted'),el('p','Modular Star family / element / line IDs: '+(t?.family_id??e.family_id??'Not yet resolved'),'muted'),el('p','Periodic Table: '+e.periodic_category+' / '+e.periodic_block_candidate+' (candidate); VEDIC class: '+e.vedic_class_candidate,'muted'));if(t||e.source){const s=t?.source||e.source;if(e.receipt)detail.append(link('Review evidence',e.receipt));detail.append(link('Exact source','https://github.com/'+s.repo+'/blob/'+s.commit+'/'+s.path+'#L'+s.first+'-L'+s.last))}else{for(const id of e.components||[]){const component=dictionary.entries.find(x=>x.gg_id===id);detail.append(el('p',component?component.word+' / '+id:id))}}meaning.append(detail);tr.append(word,demo,meaning,el('td',e.estate_group),el('td',e.discipline),el('td',e.gg_id),el('td',e.created_utc));root.append(tr)}}
+855720	try{const r=await fetch('./data/anatomy.json');if(!r.ok)throw Error('Data unavailable');data=await r.json();try{const tr=await fetch('./data/translation-geodesy.json');if(tr.ok){const candidate=await tr.json();if(candidate.schema==='vedic.translation.v1'&&Array.isArray(candidate.records))translation=candidate}}catch(e){console.warn('Translation data unavailable',e)}try{const gr=await fetch('./data/nearest-spider.json');if(gr.ok){const candidate=await gr.json();if(candidate.schema==='vedic.static-spider.v1'&&Array.isArray(candidate.nodes)&&Array.isArray(candidate.edges))nearestGraph=candidate}}catch(e){console.warn('Graph unavailable',e)}if(data.schema!=='vedic.anatomy.v1')throw Error('Unsupported schema');for(const b of data.bodies)bodyBy.set(b.id,b);app=data.apps[0];selected=app.capabilities[0];$('summary').replaceChildren(el('p','GridAtlas manifest '+data.source.generation+' · '+data.bodies.length+' recorded cartridges','metric'),link('Pinned manifest','https://github.com/'+data.source.repo+'/blob/'+data.source.commit+'/'+data.source.manifest));for(const [key,url] of Object.entries(data.links))$('links').append(link(key,url));drawApps();drawCaps();drawDetail();}catch(e){$('summary').textContent='Anatomy unavailable: '+e.message}await initDictionary()
+855721	                        assert page.locator("#dictRows tr td:nth-child(2) a").count() == 19
+855722	                        assert page.locator("#dictRows a[href^='./demo.html']").count() == 0
+855723	                        assert page.locator("#dictRows tr").first.get_by_text("How to see it:", exact=False).count() == 1
+855724	                        assert page.locator("#dictRows tr").first.locator("td:nth-child(2) a").get_attribute("href") == "https://ventusltd.github.io/kuiper-belt/see-through/"
+855725	                        links = [url + "demo.html?id=GG2050-VEDIC-" + str(i).zfill(6) for i in range(1,7)]
+855726	            cache[key] = (hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest(),raw.decode("utf-8").splitlines())
+855727	        require(blob == s["blob"], f"source blob mismatch {key}: expected {s['blob']}, got {blob}")
+855728	        require(re.search(r"\b(?:function\s+"+re.escape(name)+r"\s*\(|"+re.escape(name)+r"\s*:)",lines[s["first"]-1]), f"source start mismatch {e['gg_id']} {name}")
+855729	        require(lines[s["last"]-1].strip() == "}", f"source end mismatch {e['gg_id']} {name}")
+855730	    entries = json.loads((ROOT / 'data/dictionary.json').read_text())['entries']
+855731	    expected_count = min(100, len(entries))
+855732	    expected_pages = max(1, math.ceil(len(entries) / 100))
+855733	                        assert page.locator("#dictRows tr").count() == expected_count
+855734	                        assert page.locator("#dictPage").inner_text() == f"Page 1 / {expected_pages}"
+855735	                        assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == min(entries, key=lambda e: (e.get("priority", 9), e["number"]))["word"]
+855736	                        assert page.locator("#dictRows tr td:nth-child(2) a").count() == expected_count
+855737	                        expected = {e["gg_id"]: e["application"]["url"] for e in entries}
+855738	                        for i in range(expected_pages):
+855739	                            rows = page.locator("#dictRows tr").evaluate_all("(rs) => rs.map(r => [r.cells[5].textContent, r.cells[1].querySelector('a').getAttribute('href')])")
+855740	                            assert len(rows) == min(100, len(entries) - 100*i)
+855741	                            for identity, href in rows:
+855742	                                assert expected.pop(identity) == href
+855743	                            if i+1 < expected_pages:
+855744	                                page.locator("#dictNext").click()
+855745	                        assert not expected
 ```

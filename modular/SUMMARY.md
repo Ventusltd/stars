@@ -1,6 +1,6 @@
 # The Modular star
 
-Updated 2026-11-25 22:43 UTC by GitHub Actions. It reads the current code of 93 Ventusltd repositories.
+Updated 2026-11-26 05:24 UTC by GitHub Actions. It reads the current code of 94 Ventusltd repositories.
 
 Every unique line of code has a permanent number. Each file version is stored as its list of line numbers. Functions and classes are numbered as **elements**, and elements with the same logic, ignoring layout and comments, share a numbered **family**. Numbers never change, so a link to line, element or family #N stays valid.
 
@@ -8,17 +8,17 @@ Every unique line of code has a permanent number. Each file version is stored as
 
 | | count |
 |---|---|
-| Unique lines | 477,785 |
-| File versions | 8,855 |
-| Elements (functions and classes) | 34,261 |
-| Families (same logic) | 33,112 |
-| Families written in two or more different files (duplicate work) | 7,559 |
+| Unique lines | 478,404 |
+| File versions | 8,890 |
+| Elements (functions and classes) | 34,332 |
+| Families (same logic) | 33,183 |
+| Families written in two or more different files (duplicate work) | 7,560 |
 | Families only copied between versions of one file | 3,004 |
 | Self-contained functions compiled into the library | 766 |
 
 Check: 300 randomly chosen files were rebuilt from their numbered lines, and all matched GitHub byte for byte.
 
-History walked: 9,274 of 9,274 commits across 93 repositories (93 complete). Each run continues where the last one stopped.
+History walked: 9,345 of 9,345 commits across 94 repositories (94 complete). Each run continues where the last one stopped.
 
 ## Work already done more than once
 
@@ -42,6 +42,7 @@ The same logic written in two or more different files. Copies of one file in tim
 | #8780 | `graph` | 11 | 183 | 6 | no | 2026-09-01 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1989-L2013) |
 | #8783 | `at` | 10 | 176 | 6 | no | 2026-09-03 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L2028-L2145) |
 | #8784 | `index` | 10 | 176 | 6 | no | 2026-09-03 | [code-generator/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Si/202609062358-substation-intelligence-v9-63.js#L1942-L2159) |
+| #144051 | `require` | 8 | 8 | 6 | no | 2026-09-25 | [globalgrid2050-ip-and-mac-addresses/registry.py](https://github.com/Ventusltd/globalgrid2050-ip-and-mac-addresses/blob/2ba77a48351e70648ab8d122c187a87c47d0f6fc/registry.py#L19-L21) |
 | #975 | `sha256` | 67 | 358 | 5 | no | 2026-08-22 | [data-gridatlas/atman/202608291237-verify-live-data-release.py](https://github.com/Ventusltd/data-gridatlas/blob/8bf88da9e210ce9f61dc0398869d3369f3fa2445/atman/202608291237-verify-live-data-release.py#L27-L32) |
 | #8285 | `sha256Hex` | 35 | 362 | 5 | no | 2026-08-29 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L114-L117) |
 | #5168 | `escapeHTML` | 24 | 197 | 5 | yes | 2026-04-03 | [youengineer-code-review/civilisation-atlas-v8/ventus-corev8engine.js](https://github.com/Ventusltd/youengineer-code-review/blob/f86dcb229b40ea774b2b5af049dbdc4b90b476de/civilisation-atlas-v8/ventus-corev8engine.js#L9-L16) |
@@ -55,7 +56,6 @@ The same logic written in two or more different files. Copies of one file in tim
 | #8321 | `suppliedArrivalFields` | 13 | 85 | 5 | yes | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L605-L628) |
 | #8323 | `retryExactRepdDeepLink` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L723-L732) |
 | #8324 | `(anonymous)` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L742-L747) |
-| #8325 | `(anonymous)` | 13 | 85 | 5 | no | 2026-09-04 | [code-generator/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js](https://github.com/Ventusltd/code-generator/blob/857ea81244848b1da8fe21fffaed74cab568a3b4/apps/substation-finder/Ps/202609040229-place-global-search-arrival-identity.js#L749-L761) |
 
 ## Same name, different code
 
@@ -68,24 +68,24 @@ These names mean different things in different repositories, so check which vers
 | `check` | 65 | 20 |
 | `__init__` | 60 | 19 |
 | `draw` | 125 | 18 |
+| `require` | 20 | 17 |
 | `classify` | 23 | 16 |
-| `require` | 19 | 16 |
+| `fetch` | 45 | 15 |
+| `validate` | 35 | 15 |
 | `verify` | 18 | 15 |
 | `setUp` | 50 | 14 |
-| `fetch` | 44 | 14 |
-| `validate` | 31 | 14 |
 | `walk` | 28 | 13 |
 | `measure` | 26 | 13 |
 | `normalise` | 17 | 13 |
 | `refresh` | 45 | 12 |
+| `sha256` | 26 | 12 |
 | `start` | 86 | 11 |
 | `frame` | 46 | 11 |
 | `step` | 44 | 11 |
-| `sha256` | 25 | 11 |
+| `close` | 34 | 11 |
 | `record` | 24 | 11 |
 | `describe` | 19 | 11 |
 | `write_json` | 19 | 11 |
-| `close` | 33 | 10 |
 | `inspect` | 28 | 10 |
 | `collect` | 25 | 10 |
 

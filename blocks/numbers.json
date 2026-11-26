@@ -1,5 +1,5 @@
 {
- "next": 2365,
+ "next": 2377,
  "auto": {
   "chatgpt-audits:automation/{stamp}-five-hour-study/run_study.py": 64,
   "chatgpt-audits:automation/{stamp}-overnight-swarm/assemble_controller.py": 65,
@@ -2301,6 +2301,18 @@
   "gridatlas:tools/satnav/browser.py": 2361,
   "gridatlas:tools/satnav/build-line-preview.mjs": 2362,
   "gridatlas:tools/satnav/line-browser.py": 2363,
-  "gridatlas:tools/satnav/line/position-overlay.mjs": 2364
+  "gridatlas:tools/satnav/line/position-overlay.mjs": 2364,
+  "vedic-:tools/modular_snapshot.py": 2365,
+  "vedic-:tools/validate_anatomy.py": 2366,
+  "vedic-:tools/test_anatomy.py": 2367,
+  "vedic-:tools/validate_translation.py": 2368,
+  "vedic-:tools/test_translation.py": 2369,
+  "vedic-:tools/validate_graph.py": 2370,
+  "vedic-:tools/test_graph.py": 2371,
+  "vedic-:tools/test_modular_snapshot.py": 2372,
+  "vedic-:tools/stage_demo.py": 2373,
+  "vedic-:tools/test_dictionary.py": 2374,
+  "vedic-:tools/validate_dictionary.py": 2375,
+  "vedic-:tools/browser_smoke.py": 2376
  }
 }
