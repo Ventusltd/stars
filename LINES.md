@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-478,800 unique lines, numbered 1 to 856,520. Generated 2026-11-26T15:45:33.531Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+482,940 unique lines, numbered 1 to 861,600. Generated 2026-11-27T00:48:39.403Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -478803,4 +478803,4144 @@
 856518	    assert b'descent.js' in kuiper
 856519	    assert b'descent.js' in public("https://ventusltd.github.io/kuiper-belt/see-through/202611020012/")
 856520	    print("PASS: pinned producer contracts and public Modular Star/Kuiper reuse routes; no family or standalone claim")
+856591	<details id="vedic"><summary><span class="number">11</span><span class="title">VEDIC<small>The functional dictionary of GlobalGrid2050</small></span></summary><div class="inside"><p>Explore what the estate&#x27;s code does in plain English. Search and sort functional meanings, follow demonstrations, and inspect permanent VEDIC identities, timestamps and linked source evidence.</p><a class="launch" href="https://ventusltd.github.io/vedic-/releases/20261126-v3/">Open VEDIC &rarr;</a></div></details>
+856648	def verify_command_root(target):
+856649	    """Retain the original promotion evidence while checking the stable destination."""
+856650	    git_base = "https://raw.githubusercontent.com/Ventusltd/vedic-/"
+856651	    baseline_pin = target["source_commit"]
+856652	    assert re.fullmatch(r"[0-9a-f]{40}", baseline_pin)
+856653	    baseline = {path: read(git_base + baseline_pin + "/" + path) for path in PUBLIC_FILES}
+856654	    rows = json.loads(baseline["data/dictionary.json"])["entries"]
+856655	    assert len(rows) == target["row_count"]
+856656	    original = {"schema": "vedic.pages.release.v1", "version": target["version"],
+856657	                "source_commit": baseline_pin, "row_count": len(rows),
+856658	                "files": {path: sha(data) for path, data in baseline.items()}}
+856659	    encoded = (json.dumps(original, sort_keys=True, indent=2) + "\n").encode("utf-8")
+856660	    assert sha(encoded) == target["manifest_sha256"], "historical command release evidence changed"
+856661	    url = target["url"]
+856662	    current = json.loads(read(url + "release.json"))
+856663	    source = current["source_commit"]
+856664	    assert current["schema"] == original["schema"] and re.fullmatch(r"[0-9a-f]{40}", source)
+856665	    assert "prose_count" not in current
+856666	    files = current["files"]
+856667	    generated = set(files) - PUBLIC_FILES
+856668	    assert PUBLIC_FILES <= files.keys()
+856669	    assert all(path == "data/command-index.json" or re.fullmatch(r"data/command-pages/\d{6}\.json", path)
+856670	               for path in generated)
+856671	    assert not generated or "data/command-index.json" in generated
+856672	    for path in PUBLIC_FILES:
+856673	        committed = read(git_base + source + "/" + path)
+856674	        assert sha(committed) == files[path], (path, "source/manifest mismatch")
+856675	        match(url + path, committed)
+856676	        if path == "data/dictionary.json":
+856677	            entries = json.loads(committed)["entries"]
+856678	            assert len(entries) == current["row_count"] == len({row["gg_id"] for row in entries})
+856679	            assert entries[:len(rows)] == rows, "original 69 command records changed"
+856680	    for path in sorted(generated):
+856681	        assert sha(read(url + path)) == files[path], (path, "generated file/manifest mismatch")
+856682	    print("PASS: stable VEDIC command root", source, current["row_count"], flush=True)
+856683	def check_evidence_only(v2_payload,v3_payload):
+856684	    """V3 may add public prose, never a producer module or executable package."""
+856685	    assert set(v2_payload)==set(v3_payload)==PUBLIC_FILES
+856686	    for name in PUBLIC_FILES-{"index.html"}:
+856687	        assert v2_payload[name]==v3_payload[name],(name,"historical dictionary/metadata changed")
+856688	    before=v2_payload["index.html"]
+856689	    after=v3_payload["index.html"]
+856691	    scripts=lambda raw: re.findall(rb"<script\b[^>]*>.*?</script\s*>",raw,re.I|re.S)
+856692	    assert scripts(before)==scripts(after),"executable dashboard scripts changed"
+856693	    assert after.count(b'id="package-evidence"')==1
+856694	    section=after.split(b'id="package-evidence"',1)[1].split(b"</section>",1)[0]
+856695	    assert b"Source redistribution remains blocked" in section
+856696	    assert b"not engineering approval or independently accepted software" in section
+856697	    assert b"Package download unavailable" in section
+856698	    assert not re.search(rb"<(?:script|iframe|object|embed|form|link)\b|<[^>]+\s(?:on[a-z]+\s*=|download(?:\s|=|>))",section,re.I),"active or download markup in evidence section"
+856699	    links=re.findall(rb'href="([^"]+)"',section)
+856700	    assert len(links)==5 and all(re.fullmatch(rb"https://github\.com/Ventusltd/vedic-/actions/runs/[0-9]+",link) for link in links),"non-evidence link"
+856701	    # Remove just the approved register and version label, and require the exact V2 bytes.
+856702	    start=after.index(b'<section class="panel" id="package-evidence">')
+856703	    end=after.index(b"</section>",start)+len(b"</section>")
+856704	    restored=(after[:start]+after[end:]).replace(b"VEDIC V3 / 50 meanings + package capability register",b"VEDIC V2 / 202611261351 / 50 meanings")
+856705	    assert restored==before,"unexpected dashboard changes outside evidence register"
+856706	def verify_evidence_only(m):
+856707	    def payload(release):
+856708	        base="https://raw.githubusercontent.com/Ventusltd/vedic-/"+release["source_commit"]+"/"
+856709	        return {name:read(base+name) for name in PUBLIC_FILES}
+856710	    check_evidence_only(payload(m["v2"]),payload(m["v3"]))
+856711	    print("PASS: V3 evidence-only delta, no package bytes, identical dictionary and executable scripts",flush=True)
+856724	    target=m.get("v3",m["v2"])
+856725	    old_id=m["v2"]["version"] if "v3" in m else "v1"
+856726	    assert p["operative_release_id"]==old_id and q["operative_release_id"]==m["release_id"]
+856727	    assert len(q["releases"])==len(p["releases"])+1
+856728	    if "v3" in m:
+856729	        assert q["releases"][:-1]==p["releases"]
+856731	        assert len(p["releases"])==1
+856732	        assert q["releases"][0]=={**p["releases"][0],"archive_url":m["v1"]["url"],"archive_kind":"app"}
+856733	    new=q["releases"][-1]
+856734	    assert new["id"]==m["release_id"] and new["url"]==target["url"] and new["status"]=="available"
+856735	    assert new["source_ref"]=="https://github.com/Ventusltd/vedic-/tree/"+target["source_commit"]
+856739	    assert (promotion["entity_id"],promotion["from_release_id"],promotion["to_release_id"])==("vedic",old_id,m["release_id"])
+856740	def verify_command_successor(manifest):
+856741	    assert manifest["schema"] == "vedic.homepage.commands.v1"
+856742	    target = manifest["commands"]
+856743	    assert target["url"] == "https://ventusltd.github.io/vedic-/"
+856744	    assert target["row_count"] > 50
+856745	    event = os.environ["EVENT"]
+856746	    if event == "workflow_run":
+856747	        assert os.environ["DEPLOY_CONCLUSION"] == "success", "Domain deploy not successful"
+856748	    history = json.loads((ROOT/"catalogue/vedic-v3-release.json").read_bytes())
+856749	    for name in ("v1", "v2", "v3"):
+856750	        prior_release = dict(history[name])
+856751	        prior_release.pop("root_alias", None)
+856752	        verify_release(prior_release)
+856753	    verify_evidence_only(history)
+856754	    verify_command_root(target)
+856755	    pin_bytes = (ROOT/"catalogue/homepage-owner.json").read_bytes()
+856756	    pin = json.loads(pin_bytes)
+856757	    assert pin["commit"] == manifest["owner_commit"]
+856758	    previous_pin = subprocess.check_output(["git", "show",
+856759	        manifest["prior_domain_commit"] + ":catalogue/homepage-owner.json"])
+856760	    old_pin = json.loads(previous_pin)
+856761	    assert old_pin["commit"] == manifest["prior_owner_commit"]
+856762	    assert {k:v for k,v in pin["files"].items() if k not in {"index.html", "data/homepage.json"}} == {
+856763	        k:v for k,v in old_pin["files"].items() if k not in {"index.html", "data/homepage.json"}}
+856765	        scratch = pathlib.Path(tmp)
+856766	        previous, current = scratch/"previous", scratch/"current"
+856767	        import_bundle(previous, previous_pin)
+856768	        import_bundle(current, pin_bytes)
+856769	        old = json.loads((previous/"homepage-shell/data/homepage.json").read_bytes())
+856770	        new = json.loads((current/"homepage-shell/data/homepage.json").read_bytes())
+856771	        old_vedic = next(row for row in old["entities"] if row["id"] == "vedic")
+856772	        new_vedic = next(row for row in new["entities"] if row["id"] == "vedic")
+856773	        assert [row for row in old["entities"] if row["id"] != "vedic"] == [
+856774	            row for row in new["entities"] if row["id"] != "vedic"]
+856775	        exclude = {"releases", "operative_release_id"}
+856776	        assert {k:v for k,v in old_vedic.items() if k not in exclude} == {
+856777	            k:v for k,v in new_vedic.items() if k not in exclude}
+856778	        assert new_vedic["releases"][:-1] == old_vedic["releases"]
+856779	        command = new_vedic["releases"][-1]
+856780	        assert command["id"] == new_vedic["operative_release_id"] == target["version"]
+856781	        assert command["url"] == target["url"] and command["status"] == "available"
+856782	        assert command["source_ref"] == "https://github.com/Ventusltd/vedic-/tree/" + target["source_commit"]
+856783	        assert {k:v for k,v in old.items() if k not in {"entities", "promotions"}} == {
+856784	            k:v for k,v in new.items() if k not in {"entities", "promotions"}}
+856785	        assert new["promotions"][:-1] == old["promotions"]
+856786	        promotion = new["promotions"][-1]
+856787	        assert (promotion["entity_id"], promotion["from_release_id"], promotion["to_release_id"]) == (
+856788	            "vedic", old_vedic["operative_release_id"], target["version"])
+856789	        original = (previous/"index.html").read_bytes()
+856790	        proposed = (current/"index.html").read_bytes()
+856791	        snapshot = ROOT/manifest["snapshot"]
+856792	        assert snapshot.read_bytes() == original and sha(original) == manifest["snapshot_sha256"]
+856793	        assert original.replace(history["v3"]["url"].encode(), target["url"].encode(), 1) == proposed
+856794	        assert (b'href="' + target["url"].encode() + b'">Open VEDIC') in proposed
+856795	        # This successor is already the active homepage promotion.
+856796	        observed = current
+856797	        match(DOMAIN, (observed/"index.html").read_bytes())
+856798	        for path in pin["files"]:
+856799	            if path != "index.html":
+856800	                match(DOMAIN + "homepage-shell/" + path, (observed/"homepage-shell"/path).read_bytes())
+856801	    print("PASS: exact VEDIC command release and navigation-only homepage successor", flush=True)
+856803	    successor = ROOT/"catalogue/vedic-commands-release.json"
+856804	    if successor.exists():
+856805	        verify_command_successor(json.loads(successor.read_bytes()))
+856807	    v3=ROOT/"catalogue/vedic-v3-release.json"
+856808	    m=json.loads((v3 if v3.exists() else ROOT/"catalogue/vedic-v2-release.json").read_bytes())
+856811	    assert m["schema"]==("vedic.homepage.release.v3" if "v3" in m else "vedic.homepage.release.v2")
+856817	        assert not m["v2"].get("root_alias"),"V2 must remain immutable, not current alias"
+856818	        verify_release(m["v3"])
+856819	        verify_evidence_only(m)
+856851	            assert old["archive_url"]==m["v1"]["url"] and new["url"]==target["url"]
+856853	        assert target["url"] in (current/"index.html").read_text()
+856854	        if "v3" in m:
+856855	            assert next(r for r in e["releases"] if r["id"]==m["v2"]["version"])["url"]==m["v2"]["url"]
+856872	.dict-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:8px}.dict-filters label{min-width:0;color:var(--muted);font-size:11px}.dict-filters select{width:100%;min-height:44px;background:#050505;color:var(--text);border:1px solid var(--line);font:inherit}.dict-scroll{max-width:100%;overflow:auto;overscroll-behavior-x:contain}.dict-table{border-collapse:collapse;min-width:1020px;width:100%;text-align:left}.dict-table td,.dict-table th{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}.dict-table th{color:var(--accent);background:#050505}.dict-table th button{border:0;padding:4px;text-align:left}.dict-table td:first-child,.dict-table th:first-child{position:sticky;left:0;background:var(--panel);z-index:1;min-width:118px}.dict-table td:nth-child(2){white-space:nowrap}.dict-table details{max-width:350px}.dict-table summary{overflow-wrap:anywhere}.dict-table td:last-child{white-space:nowrap}#dictResources{margin-top:12px}@media(max-width:700px){.dict-filters{grid-template-columns:repeat(2,minmax(0,1fr))}.dict-filters label:first-child{grid-column:1/-1}}@media print{.dict-scroll{overflow:visible}.dict-table{min-width:0;font-size:10px}.dict-table td:first-child,.dict-table th:first-child{position:static}.dict-filters{display:none}}/* Pipeline News V9.76 v7.css palette and register pattern; scoped adaptation. */:root{--soft:#222;--solar:#ffff00;--bess:#ffae00;--off:#0066ff}html,body{font-size:13px}.shell{max-width:none;padding:10px 20px 20px}.header{border-radius:0;border:0;border-bottom:1px solid var(--soft);padding:10px 0}.panel{border-radius:0;border:1px solid var(--soft);padding:12px}.dict-table td{color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--soft)}.dict-table td:first-child{color:#fff;font-weight:bold}.dict-table td:nth-child(2) a{color:var(--ok);font-weight:bold}.dict-table th{position:sticky;top:0;z-index:2;background:#050505}.dict-table th:first-child{z-index:3}.dict-scroll{max-height:65vh;background:var(--panel);border:1px solid var(--soft)}.dict-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}.dict-actions button{background:#000;color:var(--muted);border:1px solid var(--line);font:700 11px 'Courier New';min-height:39px}.dict-actions button:disabled{opacity:.4;cursor:default}#dictPage{color:var(--muted)}#dictionary h1{font-size:19px;letter-spacing:2px}.anatomy>summary{font-weight:bold;min-height:28px}.dict-table details{margin-top:0}.dict-table summary{min-height:30px}@media(max-width:768px){.shell{padding:6px 9px 16px}.dict-scroll{max-height:none}.dict-table td,.dict-table th{padding:8px 6px;font-size:11px}.dict-table{min-width:1020px}.dict-table td:first-child,.dict-table th:first-child{min-width:100px}}@media print{.dict-scroll{max-height:none}.dict-actions{display:none}} .code-cell{min-width:120px}.code-cell>a{display:block;white-space:nowrap;font-weight:bold}.code-cell details{margin-top:5px}.code-cell details a{display:block;margin:3px 0}.code-cell small{display:block;white-space:normal}</style><style>
+856874	<div class="news"><a href="https://globalgrid2050.com/">GLOBALGRID2050 / PIPELINE NEWS</a> · VEDIC / Computational Commands</div><div class="shell"><header class="header"><a class="brand" href="https://globalgrid2050.com/">GLOBALGRID2050<small>VENTUS | ELECTRICITY INFRASTRUCTURE</small></a><span class="hud">VEDIC / FUNCTIONAL DICTIONARY</span></header>
+856875	<main><section class="panel" id="dictionary"><h1>VEDIC COMMAND DICTIONARY</h1><p class="muted">Permanent references · plain-English functions · reusable combinations. Expand a meaning to see its inputs, limits and source. Search by command, family or permanent ID.</p><div class="dict-filters"><label>SEARCH<input id="dictSearch" class="search" type="search" placeholder="Search all commands, patterns or IDs"></label><label>ESTATE GROUP<select id="estateFilter"><option value="">All estate groups</option></select></label><label>DISCIPLINE<select id="disciplineFilter"><option value="">All disciplines</option></select></label><label>VEDIC CLASS<select id="classFilter"><option value="">All classes</option></select></label><label>SIMILAR FUNCTIONS<select id="patternFilter"><option value="">All patterns</option></select></label><label>SORT<select id="dictSort"><option value="word">Alphabetical A–Z</option><option value="priority">Priority applications</option><option value="word_desc">Alphabetical Z–A</option><option value="number">GlobalGrid ID</option><option value="created_utc">Created UTC</option><option value="estate_group">Estate group</option><option value="discipline">Discipline / function group</option><option value="vedic_class_candidate">VEDIC class</option></select></label></div><div class="dict-actions"><button id="dictClear" type="button">CLEAR FILTERS</button><button id="dictPrev" type="button">PREVIOUS</button><button id="dictNext" type="button">NEXT</button><span id="dictPage"></span></div><p id="dictStatus" role="status">Loading dictionary…</p><div class="dict-scroll" tabindex="0" aria-label="Scrollable dictionary register"><table class="dict-table"><thead><tr><th><button type="button" data-dsort="word">Word ↕</button></th><th>Application</th><th>Code</th><th>Plain English</th><th><button type="button" data-dsort="estate_group">Estate group ↕</button></th><th><button type="button" data-dsort="discipline">Discipline ↕</button></th><th><button type="button" data-dsort="number">GlobalGrid ID ↕</button></th><th><button type="button" data-dsort="created_utc">Created UTC ↕</button></th></tr></thead><tbody id="dictRows"></tbody></table></div><div class="links" id="dictResources"></div></section><details class="panel anatomy" id="anatomy"><summary>APPLICATION ANATOMY / SOURCE EVIDENCE</summary><section class="panel"><h1>What does the code do?</h1><p>Explore applications in plain English. Select a capability, inspect its constituent bodies and follow evidence to the source.</p><p class="notice muted">Manifest-backed initial map. Function IDs, line counts, runtime dependencies and live test results are not yet measured.</p><div id="summary" role="status">Loading anatomy…</div><div id="apps" class="apps" aria-label="Applications"></div></section>
+856877	<section class="panel"><h2>05 / Connected knowledge</h2><div id="links" class="links"></div><p class="muted">Spider Printer and Teleprinter are existing external resources; local browser printing is separate.</p><button class="print" id="print" type="button">Print page</button></section></details><section class="panel" id="package-evidence"><h2>VEDIC V3 / Package capability register</h2><p class="muted">Permanent dictionary identities are preserved. This edition adds an evidence-backed register of engineering software development, not downloadable packages. Results below are historical synthetic development fixtures, not engineering approval or independently accepted software. Source redistribution remains blocked.</p><div class="card"><h3>ORIENT — distance and initial bearing</h3><p>Development proof: 111.31949079327356 km and 90 degrees for a synthetic equatorial example. Reproducible internal package; 35 factory contract tests and 10 invalid-coordinate checks. <a href="https://github.com/Ventusltd/vedic-/actions/runs/45847746988">CI evidence</a>. Package download unavailable.</p></div><div class="card"><h3>Electrical — voltage drop and losses</h3><p>Pre-admission proof: 100 A, 1 km, 0.2 ohm/km, three-phase unity power factor; 34.641 V drop, 6,000 W losses and 26,280 kWh annual loss at 0.5 loss load factor and 8,760 hours. 30 peer tests passed in the factory probe. <a href="https://github.com/Ventusltd/vedic-/actions/runs/45847746988">CI evidence</a>. No admitted package; source receipt pending.</p></div><div class="card"><h3>Geospatial — nearest eligible substation</h3><p>14 synthetic development test groups passed; example returned a candidate 111.31949079327356 km away. Caller-supplied points and voltage filters; not live grid data. <a href="https://github.com/Ventusltd/vedic-/actions/runs/45846716940">CI evidence</a>. Package unavailable.</p></div><div class="card"><h3>Solar — table geometry</h3><p>Two known-answer cases, two source-parity cases, 15 invalid cases and three tamper controls. Synthetic fixed-tilt 2P table: 30 columns, 60 modules, 4.788 m slant. Not terrain, energy yield or construction design. <a href="https://github.com/Ventusltd/vedic-/actions/runs/45846608893">CI evidence</a>. Package unavailable.</p></div><div class="card"><h3>Standalone browser consumer</h3><p>ORIENT legacy internal package: Chromium and WebKit desktop and mobile viewport checks passed (four configurations; 12 known-answer and 12 invalid-input checks). Physical handset testing not established. <a href="https://github.com/Ventusltd/vedic-/actions/runs/45846776149">CI evidence</a>. Consumer download unavailable.</p></div><p class="notice">These records summarise specific completed development runs; subsequent branch changes are not asserted to have passed. Independent acceptance, source identity and redistribution clearance remain separate requirements.</p></section></main><footer>Dictionary of existing code capabilities. Not an engineering assessment.</footer></div>
+856883	let dictionary=null,dictPage=0,indexById=new Map();const pageSize=100,loadedPages=new Map();
+856884	const queryTerms=value=>String(value).replace(/([a-z0-9])([A-Z])/g,"$1 $2").toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
+856885	function loadPage(path){
+856886	  if(!/^data\/command-pages\/\d{6}\.json$/.test(path))throw Error("Invalid command page");
+856887	  if(!loadedPages.has(path)){
+856888	    const pending=(async()=>{
+856889	      const response=await fetch("./"+path);
+856890	      if(!response.ok)throw Error("Command page unavailable");
+856891	      const page=await response.json();
+856892	      if(page.schema!=="vedic.command-page.v1"||!Array.isArray(page.entries)||page.entries.length>pageSize)throw Error("Invalid command page");
+856893	      const rows=new Map(page.entries.map(row=>[row.gg_id,row]));
+856894	      if(rows.size!==page.entries.length||page.entries.some(row=>indexById.get(row.gg_id)?.page!==path))throw Error("Invalid command page identities");
+856897	    loadedPages.set(path,pending);
+856898	    pending.catch(()=>loadedPages.delete(path));
+856900	  return loadedPages.get(path);
+856902	async function loadCommand(summary){
+856903	  const pending=[summary.gg_id],details=new Map();
+856904	  while(pending.length){
+856905	    const id=pending.pop();
+856906	    if(details.has(id))continue;
+856907	    const ref=indexById.get(id);
+856908	    if(!ref)throw Error("Missing command identity");
+856909	    const row=(await loadPage(ref.page)).get(id);
+856910	    if(!row)throw Error("Missing command record");
+856911	    details.set(id,row);
+856912	    pending.push(...(row.components||[]));
+856914	function codeSources(entry,records,details,seen=new Set()){
+856920	    const component=details.get(id);
+856921	    return component?codeSources(component,records,details,seen):[];
+856923	function codeCell(entry,records,details){
+856924	  const cell=el('td',undefined,'code-cell'),sources=codeSources(entry,records,details);
+856939	function drawCommandRow(summary,records){
+856940	  const tr=el('tr'),demo=el('td'),code=el('td',undefined,'code-cell'),meaning=el('td'),detail=el('details');
+856941	  if(summary.launch)demo.append(link(...summary.launch));else demo.append(el('span','Not mapped','muted'));
+856942	  detail.append(el('summary',summary.purpose||summary.word));
+856943	  const evidence=el('button','View code');
+856944	  evidence.type='button';
+856945	  evidence.onclick=()=>{detail.open=true;load();};
+856946	  code.append(evidence);
+856947	  let loading=false,loaded=false;
+856949	    if(loading||loaded)return;
+856950	    loading=true;
+856951	    const status=el('p','Loading command details?','muted');
+856952	    status.setAttribute('role','status');
+856953	    detail.querySelector('[role="status"]')?.remove();
+856954	    detail.append(status);
+856956	      const details=await loadCommand(summary),row=details.get(summary.gg_id),translation=records.get(row.translation_ref);
+856957	      status.remove();
+856958	      detail.append(
+856959	        el('p','How to see it: '+(row.application?.instructions||'Application mapping pending')),
+856960	        el('p','Application evidence: '+(row.application?.state||'NOT MAPPED'),'muted'),
+856961	        el('p','Input: '+row.inputs.join(', ')),
+856962	        el('p','Output: '+row.output),
+856963	        ...(row.aliases?.length?[el('p','Also called: '+row.aliases.join(', '))]:[]),
+856964	        el('p','Limits: '+(translation?.limits||row.limits)),
+856965	        el('p','State: '+row.state+' ? '+row.classification_state,'muted'),
+856966	        el('p','Functional groups: '+(row.patterns.join(' / ')||'Not classified'),'muted'),
+856967	        el('p','Modular Star family IDs: '+(row.modular_family_refs?.join(', ')||translation?.family_id||row.family_id||'Not yet resolved'),'muted'),
+856968	        el('p','Periodic Table: '+row.periodic_category+' / '+row.periodic_block_candidate+' (candidate); VEDIC class: '+row.vedic_class_candidate,'muted')
+856970	      if(row.receipt)detail.append(link(row.policy_receipt?'Source evidence':'Review evidence',row.receipt));
+856971	      const source=translation?.source||row.source;
+856972	      if(source)detail.append(link('Exact source','https://github.com/'+source.repo+'/blob/'+source.commit+'/'+source.path.split('/').map(encodeURIComponent).join('/')+'#L'+source.first+'-L'+source.last));
+856973	      for(const id of row.components||[])detail.append(el('p',details.get(id).word+' / '+id));
+856974	      const related=dictionary.entries.filter(other=>other.gg_id!==summary.gg_id&&other.patterns.some(pattern=>summary.patterns.includes(pattern))).slice(0,6);
+856975	      if(related.length){
+856976	        detail.append(el('p','Related commands by search group','muted'));
+856977	        const list=el('ul');
+856978	        for(const other of related){
+856979	          const item=el('li'),button=el('button',other.word);
+856980	          button.type='button';
+856981	          button.onclick=()=>{$('dictClear').click();$('dictSearch').value=other.gg_id;$('dictSearch').focus();drawDictionary();};
+856982	          item.append(button);list.append(item);
+856984	        detail.append(list);
+856986	      const sourceCell=codeCell(row,records,details);
+856987	      const returnFocus=document.activeElement===evidence;
+856988	      code.replaceChildren(...sourceCell.childNodes);
+856989	      if(returnFocus)(code.querySelector('a.code-source')||detail.querySelector('summary')).focus();
+856990	      loaded=true;
+856992	      status.textContent='Command details unavailable: '+error.message;
+856993	    }finally{loading=false;}
+856994	  detail.addEventListener('toggle',()=>{if(detail.open)load();});
+856995	  meaning.append(detail);
+856996	  tr.append(el('td',summary.word),demo,code,meaning,el('td',summary.estate_group),el('td',summary.discipline),el('td',summary.gg_id),el('td',summary.created_utc));
+856997	  return tr;
+856998	function drawDictionary(){
+856999	  const root=$('dictRows');root.replaceChildren();
+857000	  if(!dictionary){$('dictStatus').textContent='Dictionary unavailable';return;}
+857001	  const raw=$('dictSearch').value.trim(),query=queryTerms(raw),exactId=dictionary.entries.find(row=>row.gg_id.toLowerCase()===raw.toLowerCase())?.gg_id;
+857002	  const pattern=$('patternFilter').value,estate=$('estateFilter').value,discipline=$('disciplineFilter').value,klass=$('classFilter').value,sort=$('dictSort').value;
+857003	  const records=new Map((translation?.records||[]).map(row=>[row.id,row]));
+857004	  const rows=dictionary.entries.filter(row=>(!estate||row.estate_group===estate)&&(!discipline||row.discipline===discipline)&&(!klass||row.vedic_class_candidate===klass)&&(!pattern||row.patterns.includes(pattern))&&(exactId?row.gg_id===exactId:query.every(term=>row.search.includes(term))));
+857005	  rows.sort((a,b)=>sort==='priority'?(a.priority??9)-(b.priority??9)||a.number-b.number:sort==='number'?a.number-b.number:sort==='word_desc'?b.word.localeCompare(a.word):String(a[sort]).localeCompare(String(b[sort]))||a.word.localeCompare(b.word));
+857006	  $('dictStatus').textContent=rows.length+' of '+dictionary.entries.length+' commands';
+857007	  const pages=Math.max(1,Math.ceil(rows.length/pageSize));
+857008	  dictPage=Math.min(dictPage,pages-1);
+857009	  $('dictPage').textContent='Page '+(dictPage+1)+' / '+pages;
+857010	  $('dictPrev').disabled=dictPage===0;
+857011	  $('dictNext').disabled=dictPage>=pages-1;
+857012	  root.append(...rows.slice(dictPage*pageSize,(dictPage+1)*pageSize).map(row=>drawCommandRow(row,records)));
+857013	  root.setAttribute('aria-busy','false');
+857014	async function initDictionary(){try{const r=await fetch('./data/command-index.json');if(!r.ok)throw Error('Dictionary unavailable');dictionary=await r.json();if(dictionary.schema!=='vedic.command-index.v1'||dictionary.count!==dictionary.entries.length||dictionary.page_size!==pageSize)throw Error('Unsupported dictionary schema');indexById=new Map(dictionary.entries.map(e=>[e.gg_id,e]));for(const [id,key] of [['estateFilter','estate_group'],['disciplineFilter','discipline'],['classFilter','vedic_class_candidate']]){for(const value of [...new Set(dictionary.entries.map(e=>e[key]))].sort()){const opt=el('option',value);opt.value=value;$(id).append(opt)}}for(const p of [...new Set(dictionary.entries.flatMap(e=>e.patterns))].sort()){const opt=el('option',p);opt.value=p;$('patternFilter').append(opt)}for(const [name,url] of Object.entries(dictionary.resources))$('dictResources').append(link(name.replaceAll('_',' '),url));for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','patternFilter','dictSort'])$(id).addEventListener(id==='dictSearch'?'input':'change',()=>{dictPage=0;drawDictionary()});$('dictClear').onclick=()=>{for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','patternFilter'])$(id).value='';$('dictSort').value='word';dictPage=0;drawDictionary()};$('dictPrev').onclick=()=>{dictPage--;drawDictionary()};$('dictNext').onclick=()=>{dictPage++;drawDictionary()};for(const b of document.querySelectorAll('[data-dsort]'))b.onclick=()=>{$('dictSort').value=b.dataset.dsort==='word'&&$('dictSort').value==='word'?'word_desc':b.dataset.dsort;dictPage=0;drawDictionary()};drawDictionary()}catch(e){$('dictStatus').textContent='Dictionary unavailable: '+e.message}}
+857023	"""Replay reviewed append-only dictionary admissions against the frozen baseline."""
+857028	from validate_dictionary import require, validate, verify_source_entries
+857029	from validate_v2_allocation import git_blob, git_bytes
+857031	DICTIONARY = "data/dictionary.json"
+857032	DECISIONS = "data/command-distillation-review.json"
+857033	BASE = "205bbd8f9be2f38d1b6f514022a494474fac79a6"
+857034	def normalized(value):
+857035	    return " ".join(re.findall(r"[a-z0-9]+", value.casefold()))
+857036	def labels(entry):
+857037	    return {normalized(text) for text in (entry["word"], *entry.get("aliases", []))}
+857038	def allocate(base, batches, commit, timestamp):
+857039	    result = json.loads(json.dumps(base))
+857040	    known = set().union(*(labels(row) for row in result["entries"]))
+857041	    for batch in batches:
+857042	        require(batch["schema_version"] == 1 and batch["baseline_count"] == len(base["entries"]),
+857043	                "Wrong reviewed-batch version or baseline")
+857044	        for c in batch["records"]:
+857045	            require(c["review_status"] == "STATIC_SOURCE_REVIEW" and c["verified_executable_package"] is False,
+857046	                    "Unsupported command admission status")
+857047	            require(normalized(c["word"]) and c["word"] == c["word"].upper(), "Invalid canonical label")
+857048	            aliases = c.get("aliases", [])
+857049	            require(isinstance(aliases, list) and all(isinstance(alias, str) and normalized(alias) for alias in aliases),
+857050	                    "Invalid alias")
+857051	            names = labels(c)
+857052	            require(len(names) == len(aliases)+1 and not known.intersection(names), "Duplicate command or alias")
+857053	            known.update(names)
+857054	            app_url = urlsplit(c["application"]["url"])
+857055	            require(app_url.scheme == "https" and app_url.hostname and not app_url.username, "Invalid application URL")
+857056	            s = c["source"]
+857057	            for old in result["entries"]:
+857058	                t = old.get("source") or {}
+857059	                same_origin = all(s[key] == t.get(key) for key in ("repo", "commit", "path", "blob"))
+857060	                require(not same_origin or s["first"] > t["last"] or t["first"] > s["last"],
+857061	                        "Overlapping command evidence")
+857062	            number = result["next_number"]
+857063	            result["next_number"] += 1
+857064	            reference = f"msi-command:{s['repo']}:{c['symbol']}"
+857065	            row = {key: c[key] for key in ("word", "purpose", "limits", "inputs", "output", "estate_group",
+857066	                                           "discipline", "periodic_category", "vedic_class_candidate",
+857067	                                           "application", "source", "receipt")}
+857068	            row.update(number=number, gg_id=f"GG2050-VEDIC-{number:06d}", kind="FUNCTION",
+857069	                       translation_ref=reference, sense_key="function:" + reference,
+857070	                       aliases=aliases, fixture_status=c["fixture_status"], demo=None,
+857071	                       demo_unavailable_reason="No independently admitted executable package for this command.",
+857072	                       state="STATIC_SOURCE_REVIEW", classification_state="CURATED_CANDIDATE",
+857073	                       periodic_block_candidate="Unresolved", created_utc=timestamp,
+857074	                       creation_evidence=f"https://github.com/Ventusltd/vedic-/commit/{commit}",
+857075	                       priority=2, family_id=None, element_id=None, tablet_id=None, line_ids=None, proof=None)
+857076	            result["entries"].append(row)
+857079	    parser.add_argument("--allocate-from")
+857081	    parser.add_argument("--online", action="store_true")
+857083	    if bool(args.allocate_from) == args.check:
+857084	        parser.error("Provide --allocate-from or --check")
+857086	    base = json.loads(git_bytes(BASE, DICTIONARY))
+857087	    manifest_path = ROOT / "data/command-distillation-allocation.json"
+857088	    if args.allocate_from:
+857089	        commit = args.allocate_from
+857090	        commit = json.loads(manifest_path.read_bytes())["review_commit"]
+857091	    epoch = subprocess.check_output(["git", "show", "-s", "--format=%ct", commit], cwd=ROOT, text=True)
+857092	    timestamp = datetime.fromtimestamp(int(epoch), timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+857093	    receipt = git_bytes(commit, DECISIONS)
+857094	    working_blob = subprocess.check_output(
+857095	        ["git", "hash-object", "--path", DECISIONS, DECISIONS], cwd=ROOT, text=True
+857097	    require(git_blob(receipt) == working_blob, "Review receipt differs from committed bytes")
+857098	    current = allocate(base, json.loads(receipt)["batches"], commit, timestamp)
+857099	    translations = json.loads((ROOT / "data/translation-geodesy.json").read_bytes())
+857100	    validate(current, translations, base)
+857102	        verify_source_entries(current)
+857103	    target = ROOT / DICTIONARY
+857104	        target.write_bytes((json.dumps(current, ensure_ascii=False, indent=2) + "\n").encode())
+857105	        manifest_path.write_bytes((json.dumps({"review_commit": commit, "baseline_commit": BASE,
+857106	                                              "new_commands": len(current["entries"])-len(base["entries"])}, indent=2)+"\n").encode())
+857107	        from family_pulse import verify_extension
+857108	        queue = json.loads((ROOT / "data/daily-command-queue.json").read_bytes())
+857109	        published = json.loads(target.read_bytes())
+857110	        from source_admissions import ARCHIVE, BASE as SOURCE_BASE, pinned, replay_published
+857111	        historical = pinned(SOURCE_BASE, DICTIONARY)
+857112	        verify_extension(current, historical, queue)
+857113	        archive = json.loads((ROOT / ARCHIVE).read_bytes())
+857114	        require(replay_published(historical, archive) == published, "exact source-admission replay mismatch")
+857115	        validate(published, translations, current)
+857116	        current = published
+857117	    print("Reviewed dictionary entries:", len(current["entries"]))
+857126	from prose_smoke import exercise_published, exercise_local
+857127	from dictionary_shards import write_bundle as write_command_shards
+857128	from stage_pages import FIRST_PROSE_ROUTE, TELEPRINTER_PROSE_ROUTE
+857135	    paged = 'data/command-index.json' in (data_root/'index.html').read_text(encoding='utf-8')
+857136	    if paged and not (data_root/'data/command-index.json').exists():
+857137	        write_command_shards(data_root)
+857160	    catalogue_path = data_root / "data/prose-catalogue.json"
+857161	    catalogue = (json.loads(catalogue_path.read_bytes())
+857162	                 if base_path in (FIRST_PROSE_ROUTE, TELEPRINTER_PROSE_ROUTE) else None)
+857178	                        requests = []
+857179	                        page.on("request", lambda request: requests.append(request.url))
+857181	                        def wait_dictionary():
+857182	                            if paged:
+857183	                                page.locator("#dictRows[aria-busy=false]").wait_for(state="attached")
+857203	                        wait_dictionary()
+857204	                        if paged:
+857205	                            assert any("/data/command-index.json" in x for x in requests)
+857206	                            assert not any("/data/dictionary.json" in x or "/data/prose-catalogue.json" in x for x in requests)
+857207	                            assert not any("/data/command-pages/" in x for x in requests)
+857210	                        ordering = page.locator("#dictSort").input_value()
+857211	                        if ordering != "word":
+857212	                            assert page.locator("#dictRows tr").first.locator("td").first.inner_text() == min(entries, key=lambda e: (e.get("priority", 9), e["number"]))["word"]
+857214	                            first_label = page.evaluate("words => words.sort((a, b) => a.localeCompare(b))[0]", [entry["word"] for entry in entries])
+857215	                            assert page.locator("#dictRows tr td").first.inner_text() == first_label
+857220	                            code_button = page.locator("#dictRows .code-cell button")
+857221	                            code_button.focus()
+857222	                            code_button.press("Enter")
+857223	                            code_link = page.locator("#dictRows .code-cell a.code-source").first
+857224	                            code_link.wait_for()
+857225	                            assert code_link.evaluate("(element) => element === document.activeElement")
+857233	                        if not paged:
+857234	                            assert page.locator("#dictRows tr").first.get_by_text("How to see it:", exact=False).count() == 1
+857241	                                if paged:
+857242	                                    assert all(not group for group in links), (identity, links)
+857243	                                else:
+857244	                                    assert links == expected_links(identities[identity]), (identity, links)
+857247	                                wait_dictionary()
+857281	                        if catalogue:
+857282	                            exercise_published(page, catalogue)
+857283	                            exercise_local(page, url)
+857284	                        if not catalogue:
+857285	                                page.locator("#patternFilter").select_option("Measure and calculate")
+857286	                                assert page.locator("#dictRows tr").count()>0
+857287	                                assert "MEASURE" in page.locator("#dictRows").inner_text()
+857288	                                page.get_by_role("button",name="CLEAR FILTERS").click()
+857289	                            assert not page.locator("#prose-library, #proseSearch, #proseImport").count()
+857290	                            assert "CONTINUOUS ENGLISH LIBRARY" not in page.locator("body").inner_text()
+857291	                            assert all("prose-catalogue.json" not in url for url in requests)
+857292	                            last = entries[-1]
+857293	                            page.locator("#dictSearch").fill(last["gg_id"])
+857294	                            wait_dictionary()
+857295	                            assert page.locator("#dictRows tr").count() == 1
+857296	                            assert page.locator("#dictRows tr td").first.text_content() == last["word"]
+857297	                                before = [request for request in requests if "/data/command-pages/" in request]
+857298	                                row = page.locator("#dictRows tr").first
+857299	                                assert not row.locator("a.code-source").count()
+857300	                                row.locator(".code-cell button").click()
+857301	                                row.locator(".code-cell a.code-source").first.wait_for()
+857302	                                assert row.get_by_text("How to see it:", exact=False).count() == 1
+857303	                                assert row.locator("a.code-source").evaluate_all("(links) => links.map(link => link.href)") == expected_links(last)[0]
+857304	                                after = [request for request in requests if "/data/command-pages/" in request]
+857305	                                assert len(after) >= len(before)
+857306	                                if expected_pages > 1:
+857307	                                    index = json.loads((data_root/"data/command-index.json").read_bytes())
+857308	                                    second = next(entry for entry in index["entries"] if entry["page"].endswith("000002.json"))
+857309	                                    page.locator("#dictSearch").fill(second["gg_id"])
+857310	                                    wait_dictionary()
+857311	                                    assert page.locator("#dictRows tr").count() == 1
+857312	                                    page.locator("#dictRows .code-cell button").click()
+857313	                                    page.locator("#dictRows .code-cell a.code-source").first.wait_for()
+857314	                                    assert any("/"+second["page"] in request for request in requests)
+857315	                            assert not page.locator("#dictRows img").count()
+857316	                            assert all("fixture-should-never-request" not in url for url in requests)
+857328	/** Static Acorn enrichment for pinned canonical files. Input source is never evaluated. */
+857332	const requires = createRequire(resolve(process.argv[2], 'package.json'));
+857333	const acorn = requires('acorn');
+857334	const walk = requires('acorn-walk');
+857335	const files = JSON.parse(readFileSync(0, 'utf8'));
+857336	function groups(file) {
+857337	  if (!file.path.endsWith('.html')) return [{ code: file.text, line: 0 }];
+857338	  const units = [];
+857339	  for (const block of file.text.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\s*>/gi)) {
+857340	    if (/\bsrc\s*=/i.test(block[1])) continue;
+857341	    const mime = block[1].match(/\btype\s*=\s*["']?([^"'\s>]+)/i)?.[1];
+857342	    if (mime && !/^(module|text\/javascript|application\/javascript)$/i.test(mime)) continue;
+857343	    const start = block.index + block[0].indexOf('>') + 1;
+857344	    units.push({ code: block[2], line: file.text.slice(0, start).split('\n').length - 1 });
+857346	function declaredNames(node) {
+857347	  if (node?.id?.name) return [node.id.name];
+857348	  if (node?.type !== 'VariableDeclaration') return [];
+857349	  return node.declarations.map(item => item.id.name).filter(Boolean);
+857350	function parseUnit(unit, result) {
+857351	  let tree;
+857352	  const comments = [];
+857353	  for (const sourceType of ['module', 'script']) {
+857355	      comments.length = 0;
+857356	      tree = acorn.parse(unit.code, {
+857357	        ecmaVersion: 'latest', sourceType, locations: true, onComment: comments,
+857358	        allowHashBang: true, allowReturnOutsideFunction: true, allowAwaitOutsideFunction: true,
+857362	      if (sourceType === 'script') result.issues.push({ line: unit.line + 1, type: error.name });
+857364	  if (!tree) return;
+857365	  const exported = new Set();
+857366	  const line = node => node.loc.start.line + unit.line;
+857367	  const spelling = node => unit.code.slice(node.start, node.end);
+857368	  for (const statement of tree.body) {
+857369	    const isExport = statement.type === 'ExportNamedDeclaration' || statement.type === 'ExportDefaultDeclaration';
+857370	    if (isExport) {
+857371	      declaredNames(statement.declaration).forEach(name => exported.add(name));
+857372	      for (const item of statement.specifiers ?? []) {
+857373	        if (item.local?.name) exported.add(item.local.name);
+857374	        result.exports.push(item.exported?.name ?? item.exported?.value);
+857375	      if (statement.type === 'ExportDefaultDeclaration') result.exports.push('default');
+857376	      else result.exports.push(...declaredNames(statement.declaration));
+857377	    if (statement.source?.value && /^(Import|Export)/.test(statement.type)) {
+857378	      result.imports.push({ module: statement.source.value, line: line(statement) });
+857379	    const declaration = isExport ? statement.declaration : statement;
+857380	    if (declaration?.type === 'VariableDeclaration' && declaration.kind === 'const') {
+857381	      for (const item of declaration.declarations) {
+857382	        if (item.id.type !== 'Identifier') continue;
+857383	        result.constants.push({ name: item.id.name, line: line(item), exported: isExport,
+857384	          initializer_kind: item.init?.type ?? null,
+857385	          literal_json: item.init?.type === 'Literal' && !item.init.regex && !item.init.bigint
+857386	            ? JSON.stringify(item.init.value) : null });
+857387	  walk.fullAncestor(tree, (node, _state, ancestors) => {
+857388	    const parent = ancestors.at(-2);
+857389	    if (node.type === 'ThrowStatement') {
+857390	      const context = ancestors.slice(0, -1).reverse().find(item => item.type === 'IfStatement');
+857391	      result.refusals.push({ line: line(node),
+857392	        condition_hint: context ? spelling(context.test).slice(0, 240) : null,
+857393	        directly_guarded: context?.consequent === node || context?.consequent?.body?.length === 1 &&
+857394	          context.consequent.body[0] === node,
+857395	        error_kind: node.argument?.callee?.name ?? null });
+857396	    if (!['FunctionDeclaration', 'FunctionExpression', 'ArrowFunctionExpression', 'ClassDeclaration', 'ClassExpression'].includes(node.type)) return;
+857397	    const functionName = node.id?.name ?? parent?.id?.name ?? parent?.key?.name ?? null;
+857398	    const scope = parent?.type.startsWith('Export') || parent?.type === 'Program'
+857399	      ? 'top_level' : (parent?.type === 'VariableDeclarator' && ancestors.at(-4)?.type === 'Program')
+857400	        ? 'top_level' : 'nested_or_member';
+857401	    const anchor = parent?.type.startsWith('Export') ? parent.start : node.start;
+857402	    const closest = comments.findLast(c => c.end <= anchor && !unit.code.slice(c.end, anchor).trim());
+857403	    result.symbols.push({
+857404	      name: functionName, kind: node.type, first_line: line(node),
+857405	      last_line: node.loc.end.line + unit.line, scope,
+857406	      exported_binding: scope === 'top_level' && (exported.has(functionName) || parent?.type.startsWith('Export')),
+857407	      parameters: (node.params ?? []).map(param => spelling(param)),
+857408	      doc_comment: closest?.type === 'Block' ? closest.value.trim().slice(0, 900) : null,
+857409	      async: node.async ?? false,
+857411	const output = [];
+857413	  const record = { repository: file.repository, path: file.path, commit: file.commit, blob: file.blob,
+857414	    symbols: [], imports: [], constants: [], refusals: [], exports: [], issues: [] };
+857415	  for (const unit of groups(file)) parseUnit(unit, record);
+857416	  record.exports = [...new Set(record.exports.filter(Boolean))].sort();
+857417	  output.push(record);
+857418	process.stdout.write(JSON.stringify({ acorn_version: acorn.version, files: output }));
+857419	"""Produce private Acorn metadata for canonical bound modules, reusing local Acorn."""
+857421	from time import perf_counter
+857423	from canonical_sources import blob, output_table
+857424	from modular_features import atomic_write
+857425	def build(t1, engine, grid, acorn_root):
+857426	    start = perf_counter()
+857427	    bindings = pq.read_table(t1/"canonical-bindings.parquet").to_pylist()
+857428	    provenance = {}
+857429	    indexed_slots = {}
+857430	    for row in bindings:
+857431	        source_key = tuple(row[key] for key in ("repository", "commit", "path", "blob"))
+857432	        if row["path"].endswith((".js", ".mjs", ".html")):
+857433	            provenance[source_key] = source_key
+857434	            indexed_slots.setdefault(source_key + (row["first_line"], row["last_line"]), []).append(row)
+857436	    for repository, commit, path, expected in sorted(provenance):
+857437	        repo = engine if repository == "Ventusltd/ventus-grid-engine" else grid
+857438	        oid, raw = blob(repo, commit, path)
+857439	        if oid != expected:
+857440	            raise ValueError(f"Canonical source pin mismatch: {path}")
+857441	        sources.append({"repository": repository, "commit": commit, "path": path,
+857442	                        "blob": oid, "text": raw.decode("utf-8")})
+857443	    runner = Path(__file__).with_name("canonical_acorn.mjs")
+857444	    received = subprocess.check_output(["node", str(runner), str(acorn_root)],
+857445	                                       input=json.dumps(sources).encode("utf-8"))
+857446	    report = json.loads(received)
+857447	    metadata, symbols = [], []
+857448	    for row in report["files"]:
+857449	        identity = {key: row[key] for key in ("repository", "commit", "path", "blob")}
+857450	        source_key = tuple(identity.values())
+857451	        metadata.append({**identity, **{key + "_json": json.dumps(row[key], ensure_ascii=False)
+857452	                                          for key in ("imports", "constants", "refusals", "exports", "issues")}})
+857453	        for symbol in row["symbols"]:
+857454	            anchors = indexed_slots.get(source_key + (symbol["first_line"], symbol["last_line"]), [])
+857455	            # Use the name if possible. With ambiguous/anonymous spans retain all
+857456	            # possible anchors explicitly, rather than assigning an identity.
+857457	            named = [candidate for candidate in anchors if candidate["symbol"] == symbol["name"]]
+857458	            exact = named or anchors
+857459	            identifiers = sorted({candidate["element_id"] for candidate in exact})
+857460	            families = sorted({candidate["family_id"] for candidate in exact})
+857461	            symbols.append({**identity, **symbol, "matched_element_ids": identifiers,
+857462	                            "matched_family_ids": families,
+857463	                            "match_status": "unambiguous_name_and_lines" if len(named)==1
+857464	                            else "line_range_candidates" if exact else "outside_indexed_spans"})
+857465	    tables = [output_table(t1/"canonical-file-metadata.parquet", metadata),
+857466	              output_table(t1/"canonical-symbols.parquet", symbols)]
+857467	    summary = {"acorn_version": report["acorn_version"], "files": len(metadata), "symbols": len(symbols),
+857468	               "matches": dict(Counter(row["match_status"] for row in symbols)),
+857469	               "static_imports": sum(len(row["imports"]) for row in report["files"]),
+857470	               "export_bindings": sum(len(row["exports"]) for row in report["files"]),
+857471	               "top_level_constants": sum(len(row["constants"]) for row in report["files"]),
+857472	               "refusal_markers": sum(len(row["refusals"]) for row in report["files"]),
+857473	               "parse_issues": sum(len(row["issues"]) for row in report["files"]),
+857474	               "elapsed_seconds": perf_counter() - start, "tables": tables,
+857475	               "notes": "Static imports are source syntax; browser global bindings and dynamic dependencies are not fully resolved. Refusal markers are source cues."}
+857476	    atomic_write(t1/"canonical-acorn-manifest.json",
+857477	                 lambda p: p.write_text(json.dumps(summary, indent=2)+"\n", encoding="utf-8"))
+857480	    for arg in ("t1", "engine", "grid", "acorn_root"):
+857481	        parser.add_argument(arg, type=Path)
+857482	    print(json.dumps(build(args.t1, args.engine, args.grid, args.acorn_root), indent=2))
+857483	"""Join pinned engine and GridAtlas architecture to existing Modular Star addresses."""
+857489	    return subprocess.check_output(["git", "-C", str(repo), *arguments])
+857490	def blob(repo, commit, path):
+857491	    ref = f"{commit}:{path}"
+857492	    data = git(repo, "cat-file", "blob", ref)
+857493	    return git(repo, "rev-parse", "--verify", ref).decode().strip(), data
+857495	def source_counts(db, library):
+857496	    counts = {name: db.execute(f"SELECT count(*) FROM {name}").fetchone()[0]
+857497	              for name in ("line", "scan", "element", "family", "tablet", "commit_info", "occurrence")}
+857498	    stamp = re.compile(r"(^|[^0-9])\d{8}(\d{4})?(?=[^0-9]|$)")
+857499	    places = defaultdict(set)
+857500	    for family, repo, path in db.execute(
+857501	        """SELECT DISTINCT e.family,o.repo,o.path FROM tablet_element te
+857502	           JOIN element e ON te.element=e.n JOIN occurrence o ON o.tablet=te.tablet
+857503	           JOIN scan s ON s.repo=o.repo AND s.commit_sha=o.commit_sha"""
+857505	        lineage = stamp.sub(r"\1{stamp}", path)
+857506	        places[family].add((repo, lineage))
+857507	    counts["repeated_current_families"] = sum(len(paths) >= 2 for paths in places.values())
+857508	    counts["compiled_function_exports"] = len(re.findall(
+857509	        rb"(?m)^export const f\d+_", library))
+857511	def by_blob(db, repository, commit, path, oid, prefix_scope):
+857513	        {"repository": repository, "commit": commit, "path": path, "blob": oid,
+857514	         "element_id": element, "family_id": family, "symbol": name, "first_line": first,
+857515	         "last_line": last, "kind": kind, "needs": json.loads(needs) if needs else None,
+857516	         "standalone_candidate": bool(standalone), "source_role": prefix_scope}
+857517	        for element, family, name, first, last, kind, needs, standalone in db.execute(
+857518	            """SELECT e.n,e.family,te.name,te.first,te.last,e.kind,e.needs,e.standalone
+857519	               FROM tablet t JOIN tablet_element te ON te.tablet=t.n
+857520	               JOIN element e ON e.n=te.element WHERE t.git_blob=? ORDER BY te.first,e.n""", (oid,))
+857522	def git_line_bases(repo, commit):
+857523	    tree = git(repo, "ls-tree", "-r", "-z", commit)
+857525	    for line in tree.split(b"\0"):
+857528	        header, path = line.split(b"\t", 1)
+857529	        _, kind, oid = header.split()
+857530	        if kind == b"blob":
+857531	            entries.append((path.decode(), oid))
+857532	    received = subprocess.check_output(
+857533	        ["git", "-C", str(repo), "cat-file", "--batch"],
+857534	        input=b"\n".join(oid for _, oid in entries) + b"\n",
+857536	    pos, running = 0, 0
+857537	    offsets = {}
+857538	    for path, expected_oid in entries:
+857539	        stop = received.index(b"\n", pos)
+857540	        oid, kind, length = received[pos:stop].split()
+857541	        if oid != expected_oid or kind != b"blob":
+857542	            raise ValueError("Unexpected Git batch frame")
+857543	        start = stop + 1
+857544	        size = int(length)
+857545	        pos = start + size + 1
+857546	        raw = received[start:pos-1]
+857547	        if received[pos-1:pos] != b"\n" or len(raw) != size:
+857548	            raise ValueError("Unexpected Git blob length")
+857549	        if b"\0" not in raw[:8000]:
+857550	            lines = raw.count(b"\n") + int(bool(raw) and not raw.endswith(b"\n"))
+857551	            offsets[path] = (running, lines)
+857552	            running += lines
+857553	    return offsets, running
+857554	def kuiper_engine_keys(kuiper, engine, engine_commit, rows):
+857555	    wafer = "f7a4cb9e3a764a72b7133bb275bb5387ea083be2"
+857556	    _, register = blob(kuiper, wafer, "cosmos/repos.tsv")
+857557	    _, ledger = blob(kuiper, wafer, "cosmos/wafer.tsv")
+857558	    names = {}
+857559	    for line in register.decode().splitlines():
+857560	        if line and not line.startswith("#"):
+857562	            names[int(fields[0])] = fields[1]
+857563	    offset = 0
+857564	    for line in ledger.decode().splitlines():
+857565	        if not line or line.startswith("#"):
+857566	        _, total, repo_id, prefix, gap, *_ = line.split("\t")
+857567	        offset += int(gap)
+857568	        if names[int(repo_id)] == "ventus-grid-engine" and engine_commit.startswith(prefix):
+857570	        offset += int(total)
+857572	    bases, count = git_line_bases(engine, engine_commit)
+857573	    if count != int(total):
+857574	        raise ValueError("Pinned engine tree and Kuiper wafer line counts disagree")
+857575	    assigned = 0
+857577	        if row["repository"] != "Ventusltd/ventus-grid-engine":
+857578	        base, file_count = bases[row["path"]]
+857579	        if not 1 <= row["first_line"] <= row["last_line"] <= file_count:
+857580	            raise ValueError("Element extends beyond its file")
+857581	        row.update(kuiper_first_key=offset + base + row["first_line"] - 1,
+857582	                   kuiper_last_key=offset + base + row["last_line"] - 1, kuiper_wafer=wafer)
+857583	        assigned += 1
+857584	    return assigned
+857585	def output_table(path, rows):
+857587	        raise ValueError(f"Refusing to replace frozen output {path.name}")
+857588	    records = pa.Table.from_pylist(rows)
+857589	    atomic_write(path, lambda target: pq.write_table(records, target, compression="zstd"))
+857590	    return {"name": path.name, "rows": len(rows), "size_bytes": path.stat().st_size,
+857591	            "sha256": digest(path.read_bytes())}
+857592	def build(db, engine, grid, kuiper, stars, out):
+857593	    engine_commit = "7c2a7b42905674fdcd3aa4bb50af14bc352a7747"
+857594	    grid_commit = "afffa9781f6130529ae93052604cd3d98d172a35"
+857595	    stars_commit = "1cf9c7530c7d287ccf9b3cffd70f693fb83c8402"
+857596	    graph_oid, graph_bytes = blob(engine, engine_commit, "genome/engine-graph.json")
+857597	    atlas_oid, atlas_bytes = blob(grid, grid_commit, "atlas/current.json")
+857598	    _, library = blob(stars, stars_commit, "library/standalone.mjs")
+857599	    graph, atlas = json.loads(graph_bytes), json.loads(atlas_bytes)
+857600	    if atlas["architecture"] != "IMMUTABLE_SHELL_PLUS_HASHED_CARTRIDGES":
+857601	        raise ValueError("Unsupported GridAtlas composition architecture")
+857602	    nodes, edges, bindings, architecture = [], [], [], []
+857603	    with sqlite3.connect(db.resolve().as_uri() + "?mode=ro&immutable=1", uri=True) as cx:
+857604	        counts = source_counts(cx, library)
+857605	        for index, node in enumerate(graph["nodes"]):
+857606	            path = node["label"]
+857607	            source_oid = None
+857608	            if node["type"] == "canonical" and path.startswith("engine/"):
+857609	                source_oid, _ = blob(engine, engine_commit, path)
+857610	                bindings.extend(by_blob(cx, "Ventusltd/ventus-grid-engine", engine_commit, path,
+857611	                                        source_oid, "engine_graph_canonical_module"))
+857612	            nodes.append({"graph_index": index, "label": path, "kind": node["type"],
+857613	                          "recorded_reason": node.get("reason"), "recorded_url": node.get("gh"),
+857614	                          "engine_blob": source_oid, "graph_blob": graph_oid, "graph_commit": engine_commit})
+857615	        for item in graph["edges"]:
+857616	            source, target = item["from"], item["to"]
+857617	            if not 0 <= source < len(nodes) or not 0 <= target < len(nodes):
+857618	                raise ValueError("Engine graph edge endpoint missing")
+857619	            edges.append({"source_graph_index": source, "target_graph_index": target,
+857620	                          "relationship": item["type"], "evidence_json": json.dumps(item.get("evidence")),
+857621	                          "graph_blob": graph_oid})
+857622	        shell = "atlas/" + atlas["shell"]["index"].removeprefix("./")
+857623	        entries = [(item, "runtime_cartridge", "atlas/" + item["path"].removeprefix("./"))
+857624	                   for item in atlas["cartridges"]]
+857625	        entries.extend([({}, "runtime_router", "atlas/index.html"), ({}, "immutable_shell", shell)])
+857626	        positions = {key: idx for idx, key in enumerate(atlas["cartridge_order"])}
+857627	        for item, role, path in entries:
+857628	            if ".." in PurePosixPath(path).parts:
+857629	                raise ValueError("Composition path escapes the atlas")
+857630	            source_oid, raw = blob(grid, grid_commit, path)
+857631	            if item and item["sha256"] != digest(raw):
+857632	                raise ValueError(f"GridAtlas cartridge hash mismatch: {path}")
+857633	            architecture.append({"generation": atlas["generation"], "role": role, "path": path, "blob": source_oid,
+857634	                                 "commit": grid_commit, "composition_blob": atlas_oid, "sha256": digest(raw),
+857635	                                 "cartridge_id": item.get("id"), "load_ordinal": positions.get(item.get("id")),
+857636	                                 "slot": item.get("slot"), "anchor": item.get("after") or item.get("replace_script")})
+857637	            bindings.extend(by_blob(cx, "Ventusltd/gridatlas", grid_commit, path, source_oid, role))
+857638	        row.update(kuiper_first_key=None, kuiper_last_key=None, kuiper_wafer=None)
+857639	    assigned = kuiper_engine_keys(kuiper, engine, engine_commit, bindings)
+857640	    tables = [output_table(out / f"{name}.parquet", rows)
+857641	              for name, rows in (("canonical-bindings", bindings), ("engine-nodes", nodes),
+857642	                                 ("engine-edges", edges), ("gridatlas-composition", architecture))]
+857643	    report = {"inventory_counts": counts, "gridatlas_generation": atlas["generation"],
+857644	              "matched_engine_kuiper_ranges": assigned, "engine_graph_relations": dict(Counter(e["relationship"] for e in edges)),
+857645	              "tables": tables, "notes": "Graph edges are registered evidence claims, not proof of interchangeability or package admission."}
+857646	    atomic_write(out/"canonical-manifest.json", lambda p: p.write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8"))
+857648	    for name in ("db", "engine", "grid", "kuiper", "stars", "out"):
+857649	        parser.add_argument(name, type=Path)
+857650	    print(json.dumps(build(args.db, args.engine, args.grid, args.kuiper, args.stars, args.out), indent=2))
+857654	from dictionary_shards import build as build_command_shards, write_bundle as write_command_shards
+857655	from stage_pages import stage, validate_publication, CATALOGUE, PUBLICATION, FIRST_PROSE_ROUTE, TELEPRINTER_PROSE_ROUTE, V1_ROUTE, V2_ROUTE, V3_ROUTE
+857663	        missing = 101 - len(entries)
+857664	        for index in range(missing):
+857669	                "word": ("<img src=/fixture-should-never-request>" if index == missing - 1 else f"Pagination fixture {index + 1}"),
+857673	    write_command_shards(site)
+857677	    manifest = json.loads((public / "release.json").read_bytes())
+857678	    assert "prose_count" not in manifest
+857679	    for name, raw in build_command_shards(json.loads((public/"data/dictionary.json").read_bytes()), json.loads((public/"data/translation-geodesy.json").read_bytes())).items():
+857680	        assert (public/name).read_bytes()==raw
+857681	    assert manifest["row_count"] == len(json.loads((public / "data/dictionary.json").read_bytes())["entries"])
+857682	    for base in (public, *(public / r for r in (V1_ROUTE, V2_ROUTE, V3_ROUTE))):
+857683	        assert not (base / CATALOGUE).exists()
+857684	        assert not (base / PUBLICATION).exists()
+857685	    prior, latest = (public / route for route in (FIRST_PROSE_ROUTE, TELEPRINTER_PROSE_ROUTE))
+857686	    for archive, count in ((prior, 6), (latest, 8)):
+857687	        assert validate_publication({name: (archive / name).read_bytes() for name in (CATALOGUE, PUBLICATION)}) == count
+857688	    prior_rows = json.loads((prior / CATALOGUE).read_bytes())["records"]
+857689	    archived_rows = json.loads((latest / CATALOGUE).read_bytes())["records"]
+857690	    assert archived_rows[:len(prior_rows)] == prior_rows
+857691	    for base in (public, public / V3_ROUTE):
+857692	        html = (base / 'index.html').read_text(encoding='utf-8')
+857693	        assert 'id="package-evidence"' in html and 'Package download unavailable' in html
+857694	    for route in (V1_ROUTE, V2_ROUTE):
+857695	        assert 'id="package-evidence"' not in (public / route / 'index.html').read_text(encoding='utf-8')
+857696	    baseline = json.loads((latest / "data/dictionary.json").read_bytes())["entries"]
+857697	    current = json.loads((public / "data/dictionary.json").read_bytes())["entries"]
+857698	    assert current[:len(baseline)] == baseline
+857700	    for route in (V1_ROUTE,V2_ROUTE,V3_ROUTE,FIRST_PROSE_ROUTE,TELEPRINTER_PROSE_ROUTE):
+857715	"""Run the nightly NumPy accelerator and retain a compact research checkpoint."""
+857716	from modular_snapshot import download_snapshot, inventory
+857717	SCHEMA = "vedic.daily-accelerator.v1"
+857718	PROBES_PER_GROUP = 16
+857719	FIRST_ELEMENT_SEED = 193908
+857720	FIRST_DOMAIN_SEED = 20261131
+857721	RECEIPT = "accelerator-research.json"
+857722	METHOD_FILES = (
+857723	    "tools/estate_crib_search.py",
+857724	    "tools/estate_domain_scan.py",
+857725	    "tools/modular_features.py",
+857726	    "tools/dictionary_shards.py",
+857727	    "tools/daily_accelerator.py",
+857728	    "data/estate-crib-library.json",
+857730	def validate(state):
+857731	    if not isinstance(state, dict) or state.get("schema") != SCHEMA:
+857732	        raise ValueError("Invalid accelerator checkpoint schema")
+857733	    for key in ("database_sha256", "method_sha256"):
+857734	        if not isinstance(state.get(key), str) or not re.fullmatch(r"[a-f0-9]{64}", state[key]):
+857735	            raise ValueError("Invalid accelerator checkpoint digest")
+857736	    rounds = state.get("completed_rounds")
+857737	    if type(rounds) is not int or rounds < 1:
+857738	        raise ValueError("Invalid accelerator round")
+857739	    coverage = state.get("probe_coverage")
+857740	    if not isinstance(coverage, dict) or not coverage:
+857741	        raise ValueError("Missing accelerator probe coverage")
+857742	    for group, row in coverage.items():
+857743	        if not group or not isinstance(row, dict):
+857744	            raise ValueError("Invalid accelerator probe group")
+857745	        total = row.get("total")
+857746	        if (type(total) is not int or total < PROBES_PER_GROUP or type(row.get("tested")) is not int or
+857747	                row["tested"] != min(total, rounds * PROBES_PER_GROUP)):
+857748	            raise ValueError("Invalid accelerator probe coverage")
+857749	    return state
+857750	def same_campaign(previous, method_sha256):
+857751	    return previous is not None and previous["method_sha256"] == method_sha256
+857752	def verify_advance(previous, current):
+857753	    if current == previous:
+857754	    if current is None:
+857755	        raise ValueError("Missing existing accelerator progress")
+857756	    if same_campaign(previous, current["method_sha256"]):
+857757	        before = {group: row["total"] for group, row in previous["probe_coverage"].items()}
+857758	        after = {group: row["total"] for group, row in current["probe_coverage"].items()}
+857759	        if current["completed_rounds"] != previous["completed_rounds"] + 1 or before != after:
+857760	            raise ValueError("Accelerator checkpoint skipped a round or changed its probe universe")
+857761	    elif current["completed_rounds"] != 1:
+857762	        raise ValueError("A new accelerator campaign must start at its first round")
+857763	def method_digest(root):
+857765	    for name in METHOD_FILES:
+857766	        payload = (root / name).read_bytes().replace(b"\r\n", b"\n")
+857767	        digest.update(name.encode() + b"\0" + hashlib.sha256(payload).digest())
+857769	def research(root, output, previous):
+857771	    import pyarrow.parquet as pq
+857772	    from estate_crib_search import GROUPS, search
+857773	    from estate_domain_scan import scan_estate
+857774	    from modular_features import extract
+857776	        validate(previous)
+857777	    method = method_digest(root)
+857778	    library = root / "data/estate-crib-library.json"
+857779	    with tempfile.TemporaryDirectory(prefix="vedic-accelerator-") as directory:
+857780	        scratch = Path(directory)
+857781	        database, producer, hashes = download_snapshot(scratch, require_digest=True)
+857782	        snapshot = inventory(database)["producer_inventory"]
+857783	        db_digest = hashes["database_sha256"]
+857784	        same = same_campaign(previous, method)
+857785	        round_index = previous["completed_rounds"] if same else 0
+857786	        campaign_seed = int(method, 16)
+857787	        features = scratch / "features.parquet"
+857788	        extracted = extract(database, features, workers=2, limit=None)
+857789	        elements_dir, domains_dir = scratch / "elements", scratch / "domains"
+857790	        element_seed, domain_seed = FIRST_ELEMENT_SEED + round_index, FIRST_DOMAIN_SEED + round_index
+857791	        elements = search(features, database, elements_dir, element_seed, backend="numpy",
+857792	                          campaign=(campaign_seed, round_index))
+857793	        domains = scan_estate(database, library, domains_dir, domain_seed, backend="numpy")
+857794	        if extracted["elements"] != snapshot["element"] or domains["lines"] != snapshot["line"]:
+857795	            raise ValueError("Accelerator did not cover the source snapshot")
+857796	        element_lines = pq.read_table(elements_dir / "lines.parquet")
+857797	        domain_lines = pq.read_table(domains_dir / "domain-lines.parquet")
+857798	        if not np.array_equal(element_lines["line_id"].to_numpy(), domain_lines["line_id"].to_numpy()):
+857799	            raise ValueError("Accelerator passes used different source-line identities")
+857800	        single_group = np.isin(element_lines["command_group"].to_numpy(), [group[0] for group in GROUPS])
+857801	        domain_mask = domain_lines["lexical_domain_mask"].to_numpy() | domain_lines["source_context_mask"].to_numpy()
+857802	        sample = json.loads((elements_dir / "vogel-shots.json").read_bytes())
+857803	        shot_fields = ("element_id", "family_id", "command_group")
+857804	        shots = {kind: [{key: row[key] for key in shot_fields} for row in sample[kind]]
+857805	                 for kind in ("survivors", "unresolved")}
+857806	        domain_shots = json.loads((domains_dir / "vogel-shots.json").read_bytes())
+857807	        checkpoint = validate({"schema": SCHEMA, "database_sha256": db_digest, "method_sha256": method,
+857808	                               "completed_rounds": round_index + 1, "probe_coverage": elements["probe_coverage"]})
+857809	        verify_advance(previous, checkpoint)
+857810	        coverage = checkpoint["probe_coverage"]
+857811	        tested = sum(row["tested"] for row in coverage.values())
+857812	        previously_tested = sum(row["tested"] for row in previous["probe_coverage"].values()) if same else 0
+857814	            "checkpoint": checkpoint,
+857815	            "backend": "numpy",
+857816	            "cpu_gpu_parity": None,
+857817	            "producer_asset": producer,
+857818	            "source_inventory": {key: snapshot[key] for key in ("line", "element", "family")},
+857819	            "seeds": {"elements": element_seed, "domain_sampling": domain_seed},
+857821	                "distinct_hypotheses_tested": tested,
+857822	                "new_hypotheses_tested": tested - previously_tested,
+857823	                "distinct_hypotheses_available": sum(row["total"] for row in coverage.values()),
+857824	                "element_hypothesis_pairs": elements["element_hypothesis_pairs"],
+857825	                "line_domain_pairs": domains["line_group_pairs"],
+857826	                "line_ids_with_one_group_or_domain_context": int(np.count_nonzero(single_group | domain_mask)),
+857827	                "line_ids_with_domain_association": domains["any_domain_lines"],
+857828	                "elements_with_one_group": snapshot["element"] - elements["tables"]["elements"]["counts"].get("REVIEW REQUIRED", 0),
+857829	                "lines_truncated_for_lexical_scan": domains["bounded_long_lines"],
+857830	                "elements_with_truncated_features": extracted["lexically_truncated_elements"],
+857832	            "vogel_samples": {"elements": shots, "domains": domain_shots},
+857833	            "sha256": {"features": extracted["parquet_sha256"], "elements": elements["tables"]["elements"]["sha256"],
+857834	                       "domain_lines": domains["parquet_sha256"]},
+857835	            "scope": "All indexed elements and lines in this snapshot. Cumulative coverage counts configured "
+857836	                     "crib hypotheses across successful snapshots. Results are leads for review.",
+857837	    with (output / RECEIPT).open("x", encoding="utf-8") as stream:
+857838	        json.dump(receipt, stream, indent=2)
+857840	    counts = receipt["counts"]
+857841	    print(f"Nightly accelerator round {checkpoint['completed_rounds']}: "
+857842	          f"{counts['distinct_hypotheses_tested']}/{counts['distinct_hypotheses_available']} "
+857843	          f"crib hypotheses covered, {snapshot['element']} elements and {snapshot['line']} line IDs scanned.")
+857844	    return checkpoint
+857845	"""Discover one pinned computational function for review. No source is executed."""
+857848	PIN = {
+857849	    "repo": "Ventusltd/pipelinenews",
+857850	    "commit": "d71672c221e0b4121e415204f91ccf642bc9894f",
+857851	    "path": "build/python/202609010719-build-sector-intelligence-parquet.py",
+857852	    "blob": "a0431a7383a2fd0166f667a19c922de4919cf3c8",
+857853	SYMBOLS = ("audit_file", "build_browser_projection", "validate_contract", "validate_ledger")
+857854	MAX_BYTES = 256 * 1024
+857855	MAX_FUNCTION_LINES = 180
+857856	PLAN_START = dt.date(2026, 11, 26)
+857858	def fetch(pin):
+857859	    url = f"https://raw.githubusercontent.com/{pin['repo']}/{pin['commit']}/{pin['path']}"
+857860	    with urlopen(Request(url, headers={"User-Agent": "VEDIC-daily-commands"}), timeout=20) as response:
+857862	def discover(raw, dictionary, day, pin=PIN, symbols=SYMBOLS):
+857863	    if len(raw) > MAX_BYTES:
+857864	        raise ValueError("Source exceeds daily byte budget")
+857865	    blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+857866	    if blob != pin["blob"]:
+857867	        raise ValueError("Source blob differs from pinned evidence")
+857868	    if dictionary.get("schema") != "vedic.dictionary.v1" or not isinstance(dictionary.get("entries"), list):
+857869	        raise ValueError("Invalid dictionary evidence")
+857870	    offset = (day - PLAN_START).days
+857871	    if not 0 <= offset < len(symbols):
+857872	        return exhausted(dictionary, day)
+857873	    symbol = symbols[offset]
+857874	    matches = [node for node in ast.parse(raw).body if isinstance(node, ast.FunctionDef)
+857875	               and node.name == symbol]
+857877	        raise ValueError("Pinned computational function is absent or ambiguous")
+857878	    function = matches[0]
+857879	    first = min([function.lineno, *(node.lineno for node in function.decorator_list)])
+857880	    last = function.end_lineno
+857881	    if not 1 <= first <= last or last - first + 1 > MAX_FUNCTION_LINES:
+857882	        raise ValueError("Function exceeds daily line budget")
+857883	    source = {**pin, "first": first, "last": last}
+857884	    label = normalized(symbol).upper()
+857885	    duplicates = []
+857886	    potential_homonyms = []
+857887	    for entry in dictionary["entries"]:
+857888	        existing = entry.get("source") or {}
+857889	        same_origin = all(existing.get(key) == pin[key] for key in pin)
+857890	        known = [entry["word"], *entry.get("aliases", []), entry.get("translation_ref", "").rsplit(":", 1)[-1]]
+857891	        same_span = same_origin and existing["first"] <= last and first <= existing["last"]
+857892	        if same_span:
+857893	            duplicates.append(entry["gg_id"])
+857894	        elif any(isinstance(text, str) and normalized(text) == normalized(symbol) for text in known):
+857895	            potential_homonyms.append(entry["gg_id"])
+857896	    key = sha256(json.dumps(source, sort_keys=True).encode())
+857898	        "schema": "vedic.daily-command-discovery.v1", "utc_date": day.isoformat(),
+857899	        "checkpoint": key, "source": source, "source_sha256": sha256(raw),
+857900	        "dictionary_sha256": sha256(json.dumps(dictionary, sort_keys=True).encode()),
+857901	        "existing_matches": sorted(set(duplicates)), "status": "no_change" if duplicates else "review_required",
+857902	        "candidate": None, "exceptions": [{"reason": "label_collision_requires_semantic_review", "gg_id": value}
+857903	                                            for value in sorted(set(potential_homonyms))],
+857904	    if not duplicates:
+857905	        args = function.args
+857906	        result["candidate"] = {
+857907	            "id": "candidate:" + key, "label_hint": label, "symbol": symbol,
+857908	            "parameters": [node.arg for node in (*args.posonlyargs, *args.args, *args.kwonlyargs)],
+857909	            "output_annotation": ast.unparse(function.returns) if function.returns else None,
+857910	            "evidence": "Pinned function boundary; semantic equivalence and executable behavior require review.",
+857911	def exhausted(dictionary, day):
+857913	        "status": "no_change", "candidate": None, "existing_matches": [],
+857914	        "checkpoint": "pinned-plan-exhausted", "exceptions": [],
+857915	        "reason": "No unvisited scheduled scope in this pinned plan. Renew the plan through reviewed changes.",
+857916	def write_receipt(path, result):
+857917	    body = (json.dumps(result, sort_keys=True, indent=2) + "\n").encode()
+857919	    if path.exists() and path.read_bytes() != body:
+857920	        raise ValueError("Existing receipt differs; choose a new receipt path")
+857922	    print(body.decode(), end="")
+857923	    parser.add_argument("--date", type=dt.date.fromisoformat)
+857924	    parser.add_argument("--output", type=Path, default=ROOT / "receipts" / "daily-research.json")
+857925	    day = args.date or dt.datetime.now(dt.timezone.utc).date()
+857926	        dictionary = json.loads((ROOT / "data/dictionary.json").read_bytes())
+857927	        if not 0 <= (day - PLAN_START).days < len(SYMBOLS):
+857928	            result = exhausted(dictionary, day)
+857929	            result = discover(fetch(PIN), dictionary, day)
+857930	    except (ValueError, OSError, SyntaxError, KeyError, TypeError) as error:
+857931	        write_receipt(args.output, {"schema": "vedic.daily-command-discovery.v1",
+857932	                                    "utc_date": day.isoformat(), "source": PIN,
+857933	                                    "status": "error", "candidate": None, "exceptions": [type(error).__name__]})
+857935	    write_receipt(args.output, result)
+857936	"""Retain scheduled family progress and prepare reviewable VEDIC Git bundles."""
+857937	import daily_accelerator
+857938	STATE_REF = "refs/heads/automation/vedic-daily-state"
+857939	STATE_SCHEMA = "vedic.daily-state.v1"
+857940	FAMILY_SCHEMA = "vedic.daily-family-pulse.v2"
+857941	BUNDLE_REF = "refs/heads/automation/vedic-daily-proposal-bundle"
+857942	PROPOSAL_PREFIX = "automation/vedic-daily-proposal-"
+857943	PROPOSAL_SCHEMA = "vedic.daily-proposal.v1"
+857944	QUEUE = "data/source-command-candidates.json"
+857945	ARCHIVE = "data/admitted-queue-archive.json"
+857946	MAX_BATCH = 20
+857947	MAX_BUNDLE_BYTES = 16 * 1024 * 1024
+857948	IDENTITY = {
+857949	    "GIT_AUTHOR_NAME": "VEDIC daily automation",
+857950	    "GIT_AUTHOR_EMAIL": "vedic-daily@users.noreply.github.com",
+857951	    "GIT_COMMITTER_NAME": "VEDIC daily automation",
+857952	    "GIT_COMMITTER_EMAIL": "vedic-daily@users.noreply.github.com",
+857956	def run(root, *args, data=None, env=None):
+857957	    return subprocess.run(args, cwd=root, input=data, stdout=subprocess.PIPE, check=True,
+857958	                          timeout=200, env={**os.environ, **(env or {})}).stdout
+857959	def git(root, *args, **kwargs):
+857960	    return run(root, "git", *args, **kwargs)
+857961	def gh_json(root, *args):
+857962	    return json.loads(run(root, "gh", *args))
+857966	    return (json.dumps(value, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
+857968	    path.write_bytes(json_bytes(value))
+857969	def oid(value):
+857970	    require(isinstance(value, str) and re.fullmatch(r"[0-9a-f]{40}", value), "invalid Git commit")
+857972	def command(root, *args):
+857973	    return run(root, sys.executable, *args)
+857974	def remote_oid(root, ref):
+857975	    lines = git(root, "ls-remote", "--refs", "origin", ref).decode().splitlines()
+857978	    require(len(lines) == 1 and lines[0].endswith("\t" + ref), "ambiguous remote ref")
+857979	    return oid(lines[0].split("\t")[0])
+857980	def family_receipt(receipt):
+857981	    require(receipt.get("schema") == FAMILY_SCHEMA, "unsupported family checkpoint schema")
+857982	    old, new, count = (receipt.get(key) for key in ("previous_cursor", "next_cursor", "scanned_families"))
+857983	    require(all(type(value) is int for value in (old, new, count)) and 0 <= old <= new and
+857984	            0 <= count <= 100 and (new > old) == (count > 0), "invalid family progress")
+857985	    family_hash = receipt.get("cursor_family_hash")
+857986	    require((new == 0 and family_hash is None) or
+857987	            (isinstance(family_hash, str) and re.fullmatch(r"[0-9a-f]{40,64}", family_hash)),
+857988	            "invalid checkpoint identity")
+857989	    require(receipt.get("status") == ("research_candidates" if count else "no_change"),
+857990	            "invalid family receipt status")
+857992	def state_receipt(state):
+857993	    require(state.get("schema") == STATE_SCHEMA, "unsupported durable checkpoint schema")
+857994	    oid(state["source_commit"])
+857995	    require(type(state.get("run_id")) is int and state["run_id"] > 0, "invalid checkpoint run ID")
+857996	    family_receipt(state["family"])
+857997	    if "accelerator" in state:
+857998	        daily_accelerator.validate(state["accelerator"])
+857999	def load_state(root):
+858000	    existing = remote_oid(root, STATE_REF)
+858003	    git(root, "fetch", "--no-tags", "--depth=1", "origin", STATE_REF)
+858004	    fetched = oid(git(root, "rev-parse", "FETCH_HEAD").decode().strip())
+858005	    return fetched, state_receipt(json.loads(git(root, "show", f"{fetched}:checkpoint.json")))
+858006	def legacy_checkpoint(root, run_id, scratch):
+858007	    current = gh_json(root, "run", "view", str(run_id), "--json", "createdAt")
+858008	    created = current["createdAt"]
+858009	    date = created.split("T", 1)[0]
+858010	    if date < "2026-11-27":
+858011	    runs = gh_json(root, "run", "list", "--workflow", "modular-consumer.yml", "--event", "schedule",
+858012	                   "--branch", "main", "--status", "success", "--created", f"2026-11-27..{date}",
+858013	                   "--limit", "100", "--json", "databaseId,createdAt")
+858014	    prior = max((item for item in runs if item["createdAt"] < created),
+858015	                key=lambda item: item["createdAt"], default=None)
+858016	    if prior is None:
+858017	    previous = str(prior["databaseId"])
+858018	    artifacts = gh_json(root, "api", f"repos/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{previous}/artifacts")
+858019	    available = {record["name"] for record in artifacts["artifacts"] if not record["expired"]}
+858020	    name = f"vedic-research-{previous}"
+858021	    if name not in available:
+858022	        attempt = gh_json(root, "run", "view", previous, "--json", "attempt")["attempt"]
+858023	        name = f"vedic-research-{previous}-{attempt}"
+858024	    require(name in available, "earlier family receipt expired; restore a known durable checkpoint")
+858025	    run(root, "gh", "run", "download", previous, "--name", name,
+858026	        "--dir", str(scratch))
+858027	    receipts = list(scratch.rglob("family-research.json"))
+858028	    require(len(receipts) == 1, "expected one earlier family receipt; restore a known durable checkpoint")
+858029	    return family_receipt(read_json(receipts[0]))
+858030	def research(root, output, source_commit, run_id, accelerator=False):
+858032	    base, state = load_state(root) if run_id else (None, None)
+858033	    if state and state["run_id"] == run_id:
+858034	        write_json(output / "family-research.json", state["family"])
+858035	        if "accelerator" in state:
+858036	            write_json(output / daily_accelerator.RECEIPT, {
+858037	                "status": "already_recorded", "checkpoint": state["accelerator"],
+858038	        write_json(output / "state-update.json", {"base": base, "checkpoint": state})
+858039	        print("Family progress was already recorded for this run.")
+858040	    require(not state or state["run_id"] < run_id, "a later scheduled run already recorded progress")
+858041	    with tempfile.TemporaryDirectory(prefix="vedic-daily-state-") as path:
+858042	        scratch = Path(path)
+858043	        checkpoint = state["family"] if state else legacy_checkpoint(root, run_id, scratch) if run_id else None
+858044	        args = ["tools/family_pulse.py", "--output", str(output)]
+858045	        if checkpoint:
+858046	            checkpoint_path = scratch / "checkpoint.json"
+858047	            write_json(checkpoint_path, checkpoint)
+858048	            args.extend(("--checkpoint", str(checkpoint_path)))
+858049	        print(command(root, *args).decode())
+858050	    receipt = family_receipt(read_json(output / "family-research.json"))
+858051	    require(receipt["previous_cursor"] == (checkpoint["next_cursor"] if checkpoint else 0),
+858052	            "family output does not advance the input cursor")
+858053	    progress = state.get("accelerator") if state else None
+858054	    if accelerator:
+858055	        progress = daily_accelerator.research(root, output, progress)
+858056	    if run_id:
+858057	        result = {"schema": STATE_SCHEMA, "source_commit": oid(source_commit), "run_id": run_id, "family": receipt}
+858058	        if progress is not None:
+858059	            result["accelerator"] = progress
+858060	        write_json(output / "state-update.json", {"base": base, "checkpoint": result})
+858061	def persist(root, update, source_commit, run_id):
+858062	    checkpoint = state_receipt(update["checkpoint"])
+858063	    require(checkpoint["source_commit"] == oid(source_commit) and checkpoint["run_id"] == run_id,
+858064	            "checkpoint does not belong to this scheduled run")
+858065	    base, previous = load_state(root)
+858066	    if previous == checkpoint:
+858067	    require(base == update["base"], "durable checkpoint changed while processing; retry from its latest state")
+858068	    require(not previous or previous["run_id"] < run_id, "scheduled run would replace newer family progress")
+858069	    require(not previous or checkpoint["family"]["previous_cursor"] == previous["family"]["next_cursor"],
+858070	            "checkpoint does not continue durable family progress")
+858071	    daily_accelerator.verify_advance(previous.get("accelerator") if previous else None, checkpoint.get("accelerator"))
+858072	    blob = git(root, "hash-object", "-w", "--stdin", data=json_bytes(checkpoint)).decode().strip()
+858073	    tree = git(root, "mktree", data=f"100644 blob {blob}\tcheckpoint.json\n".encode()).decode().strip()
+858074	    parent = ("-p", base) if base else ()
+858075	    commit = git(root, "commit-tree", tree, *parent, "-m", f"Record VEDIC daily family progress ({run_id})",
+858076	                 env=IDENTITY).decode().strip()
+858077	    git(root, "push", "--porcelain", "origin", f"{oid(commit)}:{STATE_REF}")
+858078	    print(f"Stored family cursor {checkpoint['family']['next_cursor']} at {commit}.")
+858079	def merge_candidates(queue, discovered):
+858080	    from source_admissions import candidate_id
+858081	    require(queue.get("schema") == discovered.get("schema") == "vedic.source-candidates.v1", "candidate schema")
+858082	    require(isinstance(discovered.get("records"), list) and len(discovered["records"]) <= MAX_BATCH,
+858083	            "policy candidate budget")
+858084	    known = {candidate_id(candidate): candidate for candidate in queue["records"]}
+858085	    for candidate in discovered["records"]:
+858086	        key = candidate_id(candidate)
+858087	        if key in known:
+858088	            require(candidate == known[key], "reviewed candidate identity conflicts with existing queue record")
+858089	        known[key] = candidate
+858090	        queue["records"].append(candidate)
+858091	    return queue
+858092	def proposal(root, output, created_at=None):
+858093	    require(not git(root, "branch", "--show-current"), "proposal requires an isolated detached checkout")
+858094	    require(not git(root, "status", "--porcelain", "--untracked-files=no"), "proposal requires a clean checkout")
+858095	    head = oid(git(root, "rev-parse", "HEAD").decode().strip())
+858096	    date = created_at or datetime.now(timezone.utc).isoformat(timespec="seconds")
+858097	    identity = {**IDENTITY, "GIT_AUTHOR_DATE": date, "GIT_COMMITTER_DATE": date}
+858098	    discovery_path = output / "policy-candidates.json"
+858099	    print(command(root, "tools/daily_source_policy.py", "--output", str(discovery_path)).decode())
+858100	    queue_path = root / QUEUE
+858101	    queue = read_json(queue_path)
+858102	    discovery = read_json(discovery_path)
+858103	    initial_count = len(queue["records"])
+858104	    combined = merge_candidates(queue, discovery)
+858105	    if len(combined["records"]) > initial_count:
+858106	        write_json(queue_path, combined)
+858107	        git(root, "add", "--", QUEUE)
+858108	        git(root, "-c", "commit.gpgSign=false", "commit", "-m", "Queue VEDIC source policy candidates", env=identity)
+858109	    manifest = oid(git(root, "log", "-1", "--format=%H", "--", QUEUE).decode().strip())
+858110	    with tempfile.TemporaryDirectory(prefix="vedic-daily-proposal-") as folder:
+858111	        staged = Path(folder) / "staged"
+858112	        result = json.loads(command(root, "tools/source_admissions.py", "--prepare", "--limit", str(MAX_BATCH),
+858113	                                    "--output-dir", str(staged)))
+858114	        receipt = {"schema": PROPOSAL_SCHEMA, "base": head, "manifest_commit": manifest,
+858115	                   "added": result["added"], "held": result["held"], "dictionary_count": result["count"]}
+858116	        if result["added"]:
+858117	            for relative in (DICTIONARY, ARCHIVE):
+858118	                (root / relative).write_bytes((staged / relative).read_bytes())
+858119	            git(root, "add", "--", DICTIONARY, ARCHIVE)
+858120	            git(root, "-c", "commit.gpgSign=false", "commit", "-m", "Apply reviewed VEDIC source admissions", env=identity)
+858121	            print(command(root, "tools/allocate_commands.py", "--check").decode())
+858122	            print(command(root, "tools/source_admissions.py", "--check", "--online").decode())
+858123	            candidate = oid(git(root, "rev-parse", "HEAD").decode().strip())
+858124	            git(root, "update-ref", BUNDLE_REF, candidate)
+858125	            bundle = output / "proposal.bundle"
+858126	            git(root, "bundle", "create", str(bundle), BUNDLE_REF, "^" + head)
+858127	            require(bundle.stat().st_size <= MAX_BUNDLE_BYTES, "proposal bundle exceeds its byte budget")
+858128	            receipt.update(status="ready_for_review", head=candidate, bundle_ref=BUNDLE_REF,
+858129	                           bundle_sha256=hashlib.sha256(bundle.read_bytes()).hexdigest())
+858130	            receipt["status"] = "no_change"
+858131	    write_json(output / "proposal.json", receipt)
+858132	    print(json_bytes(receipt).decode())
+858133	def review_pr(root, output, repository):
+858134	    receipt = read_json(output / "proposal.json")
+858135	    require(receipt["schema"] == PROPOSAL_SCHEMA and receipt["status"] == "ready_for_review", "proposal is not ready")
+858136	    base, candidate = oid(receipt["base"]), oid(receipt["head"])
+858137	    bundle = output / "proposal.bundle"
+858138	    require(bundle.stat().st_size <= MAX_BUNDLE_BYTES and
+858139	            hashlib.sha256(bundle.read_bytes()).hexdigest() == receipt["bundle_sha256"], "proposal bundle integrity")
+858140	    if remote_oid(root, "refs/heads/main") != base:
+858141	        print("Main advanced before PR opening. The proposal remains available for review in the run artifact.")
+858142	    open_prs = gh_json(root, "pr", "list", "--repo", repository, "--base", "main", "--state", "open",
+858143	                       "--limit", "100", "--json", "headRefName,url")
+858144	    for record in open_prs:
+858145	        if record["headRefName"].startswith(PROPOSAL_PREFIX):
+858146	            print(f"A daily review PR is already open: {record['url']}")
+858148	    git(root, "bundle", "verify", str(bundle))
+858149	    local_ref = "refs/vedic-daily/review"
+858150	    git(root, "fetch", str(bundle), f"{BUNDLE_REF}:{local_ref}")
+858151	    require(git(root, "rev-parse", local_ref).decode().strip() == candidate, "bundle head differs from receipt")
+858152	    changed = set(git(root, "diff", "--name-only", base, candidate).decode().splitlines())
+858153	    require({DICTIONARY, ARCHIVE} <= changed <= {QUEUE, DICTIONARY, ARCHIVE}, "unexpected proposal paths")
+858154	    branch = PROPOSAL_PREFIX + candidate[:20]
+858155	    git(root, "push", "--porcelain", "origin", f"{candidate}:refs/heads/{branch}")
+858156	    message = (f"Proposed {len(receipt['added'])} source-reviewed meanings.\n\n"
+858157	               f"Pinned reviewed manifest: `{receipt['manifest_commit']}`.\n\n"
+858158	               "Review evidence and wait for CI. Use a merge commit to retain the pinned manifest commit.")
+858159	    with tempfile.TemporaryDirectory(prefix="vedic-daily-review-") as folder:
+858160	        body = Path(folder) / "body.md"
+858161	        body.write_text(message, encoding="utf-8")
+858162	        print(run(root, "gh", "pr", "create", "--repo", repository, "--base", "main", "--head", branch,
+858163	                  "--title", "VEDIC: apply bounded daily source admissions", "--body-file", str(body)).decode())
+858164	    parser.add_argument("stage", choices=("research", "persist", "proposal", "review-pr"))
+858166	    parser.add_argument("--commit", default=os.environ.get("GITHUB_SHA"))
+858167	    parser.add_argument("--run-id", type=int)
+858168	    parser.add_argument("--accelerator", action="store_true")
+858169	    parser.add_argument("--created-at")
+858170	    parser.add_argument("--repository", default=os.environ.get("GITHUB_REPOSITORY"))
+858172	    if args.stage == "research":
+858173	        research(ROOT, output, args.commit, args.run_id, args.accelerator)
+858174	    elif args.stage == "persist":
+858175	        require(args.run_id is not None, "missing scheduled run ID")
+858176	        persist(ROOT, read_json(output / "state-update.json"), args.commit, args.run_id)
+858177	    elif args.stage == "proposal":
+858178	        proposal(ROOT, output, args.created_at)
+858179	        require(args.repository == "Ventusltd/vedic-", "unexpected repository for review PR")
+858180	        review_pr(ROOT, output, args.repository)
+858181	"""Reproduce static command contracts from a bounded set of reviewed source pins."""
+858183	from daily_intelligence import MAX_BYTES, PIN, ROOT, fetch
+858184	from source_evidence import (
+858185	    LIGHTNING_LAYER_SOURCE,
+858186	    LIGHTNING_LAYER_SYMBOL,
+858187	    source_link,
+858188	    verify_blob,
+858189	    verify_exact_span,
+858190	POLICY = "vedic.static-source.v1"
+858191	# A name or a high similarity score cannot establish these contracts. Each
+858192	# descriptor is scoped to the reviewable immutable source file below.
+858193	CONTRACTS = {
+858194	    "audit_file": {
+858195	        "word": "AUDIT SECTOR PARQUET",
+858196	        "purpose": "Check a sector intelligence Parquet file against its schema, keys and staged values.",
+858197	        "inputs": ["DuckDB connection with the staged dataset", "Parquet file path",
+858198	                   "sector dataset definition", "stage label"],
+858199	        "output": "Audit record with row counts, key checks, typed value checks, null counts, compression and file digest.",
+858200	        "limits": "Requires the matching staged data and sector schema. Refuses schema, key, typed value, required-null or compression mismatches.",
+858202	    "build_browser_projection": {
+858203	        "word": "BUILD SECTOR BROWSER PROJECTION",
+858204	        "purpose": "Build a topic-ranked browser data projection from landed sector intelligence Parquet files.",
+858205	        "inputs": ["DuckDB connection", "landed sector items, topic and binding file paths",
+858206	                   "sector intelligence contract with browser row limit"],
+858207	        "output": "Browser projection with fields, bounded topic rows and counts before the limit.",
+858208	        "limits": "Uses the existing sector release ordering and per-topic cap. Refuses selected rows with project bindings or news eligibility. Publication is separate.",
+858209	    "validate_contract": {
+858210	        "word": "VERIFY SECTOR DATA CONTRACT",
+858211	        "purpose": "Check that a Pipeline News sector release contract matches its declared dataset and storage rules.",
+858212	        "inputs": ["Pipeline News sector release contract for the pinned generation"],
+858213	        "output": "Validated dataset definitions indexed by dataset name.",
+858214	        "limits": "Specific to the source generation, provenance, dataset order, keys, physical types, ZSTD layout and federation policy. A mismatch raises an error.",
+858215	    "validate_ledger": {
+858216	        "word": "CHECK SECTOR DATA LEDGER",
+858217	        "purpose": "Check a Pipeline News sector ledger against its generation, schema, keys and source policy.",
+858218	        "inputs": ["sector data ledger", "validated sector contract", "dataset definitions indexed by name"],
+858219	        "output": "Returns normally when checks pass and raises an error on an invalid ledger.",
+858220	        "limits": "Specific to the pinned generation. Checks UTC provenance, row structure, key and reference integrity, and the pinned source policy.",
+858221	LIGHTNING_CONTRACT = {
+858222	    "word": "REGISTER LIGHTNING MAP LAYER",
+858223	    "purpose": "Add the archived GridAtlas satellite-flash point layer to the map configuration when it is absent.",
+858224	    "inputs": ["GridAtlas map initialization options with a layer-group configuration",
+858225	               "original map initializer captured by the cartridge"],
+858226	    "output": "The original initializer's result after adding the point-layer configuration if needed.",
+858227	    "limits": "Source-only record for the archived cartridge. An existing layer is kept and the feed is registered without preload. The layer describes optical satellite flashes.",
+858228	    "symbol": LIGHTNING_LAYER_SYMBOL,
+858229	    "source": LIGHTNING_LAYER_SOURCE,
+858230	    "estate_group": "GridAtlas",
+858231	    "discipline": "Geospatial visualisation",
+858232	    "periodic_category": "map layers",
+858233	    "vedic_class_candidate": "Computation",
+858234	    "aliases": [],
+858235	    "receipt": source_link(LIGHTNING_LAYER_SOURCE),
+858236	def pinned_functions(raw):
+858237	        raise ValueError("Policy source exceeds the byte budget")
+858238	    git_blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+858239	    if git_blob != PIN["blob"]:
+858240	        raise ValueError("Policy source blob differs from the reviewed pin")
+858242	    except (SyntaxError, ValueError) as error:
+858243	        raise ValueError("Invalid policy Python source") from error
+858244	    for name, contract in CONTRACTS.items():
+858245	        functions = [node for node in tree.body if isinstance(node, ast.FunctionDef) and node.name == name]
+858246	        if len(functions) != 1 or functions[0].decorator_list:
+858247	            raise ValueError(f"Expected one plain top-level policy function: {name}")
+858248	        function = functions[0]
+858249	        source = {**PIN, "first": function.lineno, "last": function.end_lineno}
+858250	        yield source, {
+858251	            **contract,
+858252	            "symbol": name,
+858254	            "estate_group": "Pipeline News",
+858255	            "discipline": "Data engineering",
+858256	            "periodic_category": "sector intelligence",
+858257	            "vedic_class_candidate": "Computation",
+858258	            "aliases": [],
+858259	            "receipt": f"https://github.com/{PIN['repo']}/blob/{PIN['commit']}/{quote(PIN['path'])}"
+858260	                       f"#L{source['first']}-L{source['last']}",
+858261	def reproduce_candidate(source, raw):
+858262	    """Reconstruct the exact allowed command for verification from source bytes."""
+858263	    if source == LIGHTNING_LAYER_SOURCE:
+858264	        verify_blob(source, raw)
+858265	        return LIGHTNING_CONTRACT
+858266	    if any(source.get(key) != value for key, value in PIN.items()):
+858267	        raise ValueError("Source is outside the reviewed static policy")
+858268	    for anchor, candidate in pinned_functions(raw):
+858269	        if source == anchor:
+858270	            return candidate
+858271	    raise ValueError("Source span is outside the reviewed static policy")
+858272	def discover_candidates(raw, archive):
+858273	    from source_admissions import candidate_id, make_policy_receipt
+858274	    admitted = {row["candidate_id"] for row in archive["records"]}
+858276	    for _, candidate in pinned_functions(raw):
+858277	        if candidate_id(candidate) in admitted:
+858278	        records.append({**candidate, "policy_receipt": make_policy_receipt(candidate, raw)})
+858279	    return {"schema": "vedic.source-candidates.v1", "records": records}
+858281	    archive = json.loads((ROOT / "data/admitted-queue-archive.json").read_bytes())
+858282	    queue = discover_candidates(fetch(PIN), archive)
+858283	    from source_admissions import candidate_id, make_policy_receipt, read_policy_source
+858284	    if candidate_id(LIGHTNING_CONTRACT) not in {row["candidate_id"] for row in archive["records"]}:
+858285	        source = LIGHTNING_LAYER_SOURCE
+858286	        raw = read_policy_source(source["repo"], source["commit"], source["path"])
+858287	        verify_exact_span(source, LIGHTNING_LAYER_SYMBOL, raw)
+858288	        queue["records"].append({**LIGHTNING_CONTRACT, "policy_receipt": make_policy_receipt(LIGHTNING_CONTRACT, raw)})
+858290	    args.output.write_text(json.dumps(queue, indent=2) + "\n", encoding="utf-8")
+858291	    print(f"Reproduced {len(queue['records'])} pending static source contracts")
+858292	"""Deterministic Pages-only search index and 100-command detail pages."""
+858293	INDEX = "data/command-index.json"
+858294	PREFIX = "data/command-pages/"
+858295	SIZE = 100
+858297	    "Find and select": "find search choose pick nearest lookup geocode query locate".split(),
+858298	    "Measure and calculate": "measure calculate distance bearing area length loss voltage power energy estimate convert".split(),
+858299	    "Check and validate": "validate verify check assert invariant quality".split(),
+858300	    "Load and transform data": "load fetch read decode normalize normalise parse index sample import export convert".split(),
+858301	    "Filter and rank": "filter rank score sort select".split(),
+858302	    "Navigate and display": "navigate render display fly view open present map browse link guidance".split(),
+858303	    "Explain and inspect": "explain describe inspect report summarise summarize".split(),
+858304	    "Build and combine": "build combine compose aggregate total balance merge".split(),
+858305	def tokens(value):
+858306	    value = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", str(value))
+858307	    return " ".join(re.findall(r"[^\W_]+",value.casefold()))
+858309	    return (json.dumps(value,ensure_ascii=False,separators=(",",":"))+"\n").encode()
+858310	def build(d,t):
+858311	    meanings={r["id"]:r.get("purpose","") for r in t["records"]}
+858312	    rows=sorted(d["entries"],key=lambda e:(e["word"].casefold(),e["number"]))
+858313	    result, index = {}, []
+858314	    for start in range(0,len(rows),SIZE):
+858315	        path=f"{PREFIX}{start//SIZE+1:06d}.json"
+858316	        detail=[]
+858317	        for e in rows[start:start+SIZE]:
+858318	            purpose=meanings.get(e.get("translation_ref"),e.get("purpose","")) or ""
+858319	            symbol=(e.get("translation_ref") or "").rsplit(":",1)[-1]
+858320	            aliases=e.get("aliases",[])
+858321	            tags=e.get("pattern_tags",[])
+858322	            if not isinstance(tags,list) or any(not isinstance(x,str) or not x.strip() or len(x)>64 for x in tags):
+858323	                raise ValueError("invalid reviewed pattern tags")
+858324	            terms=set(tokens(" ".join([e["word"],symbol,purpose,*aliases])).split())
+858325	            patterns=sorted(set(tags+[p for p,w in PATTERNS.items() if terms.intersection(w)]),key=str.casefold)
+858326	            row={k:e[k] for k in ("gg_id","number","word","estate_group","discipline","vedic_class_candidate","created_utc")}
+858327	            app=e.get("application") or {}
+858328	            row.update(purpose=purpose, launch=[app["name"],app["url"]] if app else None,
+858329	                       priority=e.get("priority",9),page=path,components=e.get("components",[]),patterns=patterns,
+858330	                       search=tokens(" ".join([e["word"],e["gg_id"],purpose,e["estate_group"],e["discipline"],
+858331	                             e["vedic_class_candidate"],symbol,*aliases,*patterns,
+858332	                             *("family "+str(n) for n in e.get("modular_family_refs",[]))])))
+858333	            index.append(row)
+858334	            detail.append({**e,"patterns":patterns})
+858335	        result[path]=encode({"schema":"vedic.command-page.v1","entries":detail})
+858336	    result[INDEX]=encode({"schema":"vedic.command-index.v1","count":len(index),"page_size":SIZE,"resources":d["resources"],"entries":index})
+858337	def write_bundle(root):
+858338	    root=Path(root)
+858339	    files=build(json.loads((root/"data/dictionary.json").read_bytes()),json.loads((root/"data/translation-geodesy.json").read_bytes()))
+858340	    for p in (root/PREFIX).glob("*.json"):
+858341	        p.unlink()
+858342	    for name,raw in files.items():
+858343	        p=root/name
+858344	        p.parent.mkdir(parents=True,exist_ok=True)
+858345	        p.write_bytes(raw)
+858347	"""Check exact source strings and whole-block identities in a Modular Star snapshot."""
+858350	def string_matches(database, phrases):
+858351	    results = {phrase: [] for phrase in phrases}
+858352	    keys = [(phrase, phrase.encode()) for phrase in results]
+858353	    for number, raw in database.execute("SELECT n, text FROM line ORDER BY n"):
+858354	        for phrase, encoded in keys:
+858355	            if encoded in raw:
+858356	                results[phrase].append(number)
+858358	def source_block(database, tablet, first, last):
+858359	    packed, = database.execute("SELECT lines FROM tablet WHERE n=?", (tablet,)).fetchone()
+858360	    ids = [line[0] for line in struct.iter_unpack("<I", packed)][first - 1:last]
+858361	    if len(ids) != last - first + 1:
+858362	        raise ValueError("Source block is outside the tablet")
+858363	    text = {}
+858364	    unique = sorted(set(ids))
+858365	    for start in range(0, len(unique), 500):
+858366	        batch = unique[start:start + 500]
+858367	        placeholders = ",".join("?" for _ in batch)
+858368	        text.update(database.execute(f"SELECT n, text FROM line WHERE n IN ({placeholders})", batch))
+858369	    return ids, hashlib.sha256(b"".join(text[number] for number in ids)).hexdigest()
+858370	def block_matches(database, number, phrases):
+858371	    digest, family = database.execute("SELECT lower(hex(sha)), family FROM element WHERE n=?", (number,)).fetchone()
+858372	    placements = []
+858373	    locations = set()
+858374	    for tablet, first, last, name in database.execute(
+858375	        "SELECT tablet, first, last, name FROM tablet_element WHERE element=? ORDER BY tablet, first", (number,)
+858376	        line_ids, actual = source_block(database, tablet, first, last)
+858377	        if actual != digest:
+858378	            raise ValueError(f"Whole block digest mismatch for element {number} in tablet {tablet}")
+858379	        origins = []
+858380	        for repo, commit, path, blob in database.execute(
+858381	            """SELECT o.repo, o.commit_sha, o.path, lower(hex(t.git_blob))
+858382	               FROM occurrence AS o JOIN tablet AS t ON t.n=o.tablet
+858383	               WHERE o.tablet=? ORDER BY o.repo, o.path, o.commit_sha""", (tablet,)
+858385	            locations.add((repo, path))
+858386	            origins.append({"repository": repo, "commit": commit, "path": path, "blob": blob})
+858387	        phrase_hits = [phrase for phrase, hits in phrases.items() if not set(line_ids).isdisjoint(hits)]
+858388	        placements.append({"tablet_id": tablet, "first": first, "last": last, "symbol": name,
+858389	                           "exact_strings": phrase_hits, "origins": origins})
+858390	    if not placements:
+858391	        raise ValueError(f"No whole-block placement for {number}")
+858392	    return {"element_id": number, "family_id": family, "physical_block_sha256": digest,
+858393	            "tablet_placements": len(placements), "repository_paths": len(locations), "matches": placements}
+858394	    parser.add_argument("database", type=Path)
+858395	    parser.add_argument("groups", type=Path, help="elements.parquet from the accelerator")
+858397	    parser.add_argument("--phrase", required=True, action="append", help="exact UTF-8 substring of one indexed line")
+858398	    parser.add_argument("--block", required=True, type=int, action="append", help="existing Modular Star element ID")
+858399	    groups = pq.read_table(args.groups, columns=["element_id", "command_group", "score", "crib"]).to_pylist()
+858400	    by_element = {row["element_id"]: row for row in groups}
+858401	    with sqlite3.connect(args.database.resolve().as_uri() + "?mode=ro", uri=True) as database:
+858402	        phrases = string_matches(database, args.phrase)
+858403	        blocks = [block_matches(database, number, phrases) for number in dict.fromkeys(args.block)]
+858404	        lines, = database.execute("SELECT count(*) FROM line").fetchone()
+858405	    for block in blocks:
+858406	        block["word_and_pattern_result"] = by_element[block["element_id"]]
+858407	    result = {"schema": "vedic.estate-crib-proof.v1", "unique_lines_examined": lines,
+858408	              "exact_strings": phrases, "whole_block_witnesses": blocks}
+858409	    with args.output.open("x", encoding="utf-8") as output:
+858410	        json.dump(result, output, indent=2)
+858411	        output.write("\n")
+858412	    print(json.dumps({"unique_lines_examined": lines,
+858413	                      "string_counts": {key: len(value) for key, value in phrases.items()},
+858414	                      "verified_block_placements": {item["element_id"]: item["tablet_placements"] for item in blocks}}))
+858415	"""VEDIC Virtualised Particle Accelerator command-group search."""
+858421	from dictionary_shards import tokens
+858422	# Each group needs an object clue and evidence of the operation or two object clues.
+858423	GROUPS = (
+858424	    ("MEASURE GEODESIC DISTANCE", "measure calculate compute distance haversine", "haversine geodesic spherical distance radius earth"),
+858425	    ("FIND INITIAL BEARING", "find calculate compute bearing", "bearing azimuth heading geodesic"),
+858426	    ("CHECK GRID CAPACITY", "check assess calculate estimate capacity", "capacity firm transformer substation mva contingency"),
+858427	    ("SIZE ENERGY STORAGE", "size sizing model estimate calculate simulate optimise", "battery bess storage charge discharge peak shaving"),
+858428	    ("CALCULATE ELECTRICAL POWER", "calculate compute measure convert solve", "power watts megawatt apparent reactive factor current mva"),
+858429	    ("ESTIMATE ELECTRICAL LOSSES", "estimate calculate compute measure", "resistance impedance voltage drop losses thermal cable"),
+858430	    ("CONVERT MAP COORDINATES", "convert transform project resolve", "latitude longitude coordinates easting northing mercator tile bbox"),
+858431	    ("DRAW MAP FEATURES", "draw build render create add", "geojson polygon circle marker layer geometry feature map"),
+858432	    ("FIND PROJECT LOCATIONS", "find nearest locate resolve select", "project repd substation vicinity postcode nearby"),
+858433	    ("FILTER PROJECT REGISTER", "filter search select rank match", "project repd register application source status capacity"),
+858434	    ("BUILD PROJECT MAP LINKS", "build encode link parse resolve", "deeplink permalink href project arrival navigation selection"),
+858435	    ("LOAD COLUMNAR DATA", "load read fetch import query scan", "parquet arrow duckdb dataset table schema"),
+858436	    ("VALIDATE SECTOR DATA", "audit validate verify check describe", "sector ledger parquet compression schema dataset integrity"),
+858437	    ("VERIFY SOURCE IDENTITY", "verify validate compare check hash", "blob digest sha256 sha1 hash commit checksum source identity"),
+858438	    ("BUILD RELEASE MANIFESTS", "build emit stage publish package compose", "manifest release generation artifact receipt package archive"),
+858439	    ("TRACK SOURCE PROVENANCE", "record track link resolve audit", "provenance evidence source occurrence licence citation lineage"),
+858440	    ("SCHEDULE RETRY REQUESTS", "schedule retry backoff wait throttle fetch", "retry backoff timeout request delay queue budget"),
+858441	    ("FILTER AND RANK RECORDS", "filter rank sort match select search", "records rows results items score index candidates feature"),
+858442	    ("AGGREGATE DATA RECORDS", "aggregate group count sum average merge combine", "records rows values totals count dataset collection"),
+858443	    ("PARSE STRUCTURED DOCUMENTS", "parse decode extract normalize normalise", "json yaml csv ast token html markdown schema input"),
+858444	    ("CONTROL MAP VIEW", "move pan zoom rotate center centre fit", "map bounds viewport camera layer zoom bearing scale"),
+858445	    ("RENDER USER INTERFACE", "render update draw display build", "panel view button canvas tooltip popup element label html"),
+858446	    ("UPDATE APPLICATION STATE", "update set save restore reset apply", "state config preferences session settings storage cache"),
+858447	    ("CHECK SOFTWARE BEHAVIOUR", "test assert expect compare check", "fixture test mock expected assertion regression behaviour"),
+858448	    ("START APPLICATION", "start boot initialize initialise init launch setup install", "application app module component settings container document window runtime map"),
+858449	    ("BUILD INTERFACE LAYOUT", "layout arrange fit position measure resize update", "width height bounds rect screen viewport panel grid flex scale"),
+858450	    ("WRITE RESEARCH REPORTS", "write export save summarise summarize format report", "report summary output markdown evidence results receipt csv"),
+858451	    ("READ REMOTE DATA", "read fetch request download load get", "response endpoint url headers timeout payload network data"),
+858452	    ("RENDER MAP OVERLAYS", "draw render update attach add show", "overlay canvas layer labels opacity markers feature map"),
+858453	    ("CREATE ELECTRICAL CIRCUITS", "create build draw connect solve calculate", "circuit string wiring inverter feeder segment breaker busbar"),
+858454	    ("MANAGE LOCAL FILES", "open write save read remove replace load", "file files path directory folder cache stream temporary"),
+858455	    ("MATCH DATA IDENTIFIERS", "match resolve normalize normalise find parse canonical", "identifier id ref reference key slug alias name"),
+858456	DOT_CUDA = r"""
+858457	extern "C" __global__ void cross_dot(
+858458	    const float* rows, const float* weights, float* output, int n, int d, int k
+858460	    const int tx = threadIdx.x, ty = threadIdx.y;
+858461	    const int row = blockIdx.y * 16 + ty, column = blockIdx.x * 16 + tx;
+858462	    __shared__ float a[16][16], b[16][16];
+858463	    float sum = 0;
+858464	    for (int offset = 0; offset < d; offset += 16) {
+858465	        a[ty][tx] = row < n && offset + tx < d ? rows[row*d + offset + tx] : 0;
+858466	        b[ty][tx] = column < k && offset + ty < d ? weights[(offset+ty)*k + column] : 0;
+858467	        __syncthreads();
+858468	        #pragma unroll
+858469	        for (int i = 0; i < 16; ++i) sum += a[ty][i] * b[i][tx];
+858470	    if (row < n && column < k) output[row*k + column] = sum;
+858472	@functools.lru_cache(maxsize=200_000)
+858473	def split_words(text):
+858474	    return frozenset(tokens(text).split())
+858475	def feature_matrix(rows, vocabulary):
+858476	    matrix = np.zeros((len(rows), len(vocabulary)), dtype=np.float32)
+858478	        body = set()
+858479	        for term in row["tokens"]:
+858480	            if term.startswith("id:"):
+858481	                body.update(split_words(term[3:]))
+858482	        # Signature and symbol carry more weight than dependencies or body text.
+858483	        parts = (
+858484	            (body, 1),
+858485	            (set().union(*(split_words(name) for name in (row["needs"] or []))), 2),
+858486	            (split_words(row["docstring"] or ""), 3),
+858487	            (split_words(row["signature"] or ""), 4),
+858488	            (split_words(row["symbol"] or ""), 6),
+858490	        for words, weight in parts:
+858491	            columns = [vocabulary[word] for word in words if word in vocabulary]
+858492	            matrix[index, columns] = weight
+858493	    return matrix
+858494	def scheduled_cribs(choices, variants, seed, campaign_seed, round_index):
+858495	    """Randomise order once, then test each choice before wrapping."""
+858496	    permutation = choices.copy()
+858497	    random.Random(campaign_seed).shuffle(permutation)
+858498	    start = min(round_index * variants, len(permutation))
+858499	    end = min(start + variants, len(permutation))
+858500	    selected = permutation[start:end]
+858501	    if len(selected) < variants:
+858502	        selected.extend(seed.sample(permutation[:start], variants - len(selected)))
+858503	    return selected, end
+858504	def build_cribs(vocabulary, variants, seed, frequencies, campaign=None):
+858505	    rng = random.Random(seed)
+858506	    base_weights = np.zeros((len(vocabulary), len(GROUPS) * 2), dtype=np.float32)
+858507	    probe_weights = np.zeros((len(vocabulary), len(GROUPS) * variants), dtype=np.float32)
+858508	    menus = {}
+858509	    coverage = {}
+858510	    for group, (name, action_text, object_text) in enumerate(GROUPS):
+858511	        actions = sorted(set(action_text.split()))
+858512	        objects = sorted(set(object_text.split()))
+858513	        for role, words in enumerate((actions, objects)):
+858514	            for word in words:
+858515	                base_weights[vocabulary[word], group * 2 + role] = 1
+858516	        # One action and two distinct domain terms per hypothesis.
+858517	        choices = list(itertools.product(actions, itertools.combinations(objects, 2)))
+858518	        if campaign is None:
+858519	            chosen = rng.sample(choices, variants)
+858520	            campaign_seed, round_index = campaign
+858521	            chosen, end = scheduled_cribs(choices, variants, rng, campaign_seed + group, round_index)
+858522	            coverage[name] = {"tested": end, "total": len(choices)}
+858523	        menus[name] = [[verb, *nouns] for verb, nouns in chosen]
+858524	        for offset, words in enumerate(menus[name]):
+858525	            for word in set(words):
+858526	                rarity = frequencies[vocabulary[word]]
+858527	                probe_weights[vocabulary[word], group * variants + offset] = (
+858528	                    2 if rarity < 100 else 1
+858530	    return base_weights, probe_weights, menus, coverage
+858531	def evaluate(xp, matrix, scores, roles, variants, multiply):
+858532	    trials = multiply(matrix, scores).reshape(len(matrix), len(GROUPS), variants)
+858533	    role_support = multiply(matrix, roles).reshape(len(matrix), len(GROUPS), 2)
+858534	    # Score an eligible group by its strongest crib and independent object support.
+858535	    grounded = (role_support[:, :, 1] >= 4) & (role_support[:, :, 0] >= 1)
+858536	    strength = trials.max(axis=2) + xp.minimum(role_support[:, :, 1], 15)
+858537	    strength = xp.where(grounded, strength, 0)
+858538	    winner = xp.argmax(strength, axis=1)
+858539	    row = xp.arange(len(matrix))
+858540	    best = strength[row, winner]
+858541	    ties = xp.count_nonzero(strength == best.reshape(-1, 1), axis=1) > 1
+858542	    code = xp.where((best >= 12) & ~ties, winner, -1)
+858543	    return xp.stack((code, best, xp.argmax(trials, axis=2)[row, winner]), axis=1)
+858544	def select_groups(cp, matrix, base, probes, variants):
+858545	    kernel = cp.RawKernel(DOT_CUDA, "cross_dot")
+858546	    def multiply(rows, weights):
+858547	        n, d = rows.shape
+858548	        k = weights.shape[1]
+858549	        output = cp.empty((n, k), dtype=cp.float32)
+858550	        kernel(((k + 15) // 16, (n + 15) // 16), (16, 16),
+858551	               (rows, weights, output, np.int32(n), np.int32(d), np.int32(k)))
+858552	        return output
+858553	    # Compile separately from the transfer-inclusive comparison.
+858554	    warmup = cp.asarray(matrix[:16])
+858555	    evaluate(cp, warmup, cp.asarray(probes), cp.asarray(base), variants, multiply)
+858557	    started = perf_counter()
+858558	    device = cp.asarray(matrix)
+858559	    scores, roles = cp.asarray(probes), cp.asarray(base)
+858560	    start, stop = cp.cuda.Event(), cp.cuda.Event()
+858561	    start.record()
+858562	    classified = cp.concatenate([
+858563	        evaluate(cp, device[i:i + 2048], scores, roles, variants, multiply)
+858564	        for i in range(0, len(device), 2048)
+858566	    stop.record()
+858567	    result = classified.get().astype(np.int32)
+858568	    gpu_seconds = perf_counter() - started
+858569	    gpu_kernel = cp.cuda.get_elapsed_time(start, stop) / 1000
+858570	    gpu_pool = cp.get_default_memory_pool().total_bytes()
+858571	    expected, cpu_seconds = select_groups_numpy(matrix, base, probes, variants)
+858572	    if not np.array_equal(result, expected):
+858573	        raise RuntimeError("CuPy and NumPy group attribution differ")
+858574	    return result, gpu_seconds, gpu_kernel, cpu_seconds, gpu_pool
+858575	def select_groups_numpy(matrix, base, probes, variants):
+858576	    output = np.concatenate([
+858577	        evaluate(np, matrix[i:i + 2048], probes, base, variants, np.matmul)
+858578	        for i in range(0, len(matrix), 2048)
+858579	    ]).astype(np.int32)
+858580	    return output, perf_counter() - started
+858581	def label(code):
+858582	    return GROUPS[code][0] if code >= 0 else "REVIEW REQUIRED"
+858583	def grouped_families(db, rows, results):
+858584	    grouped = defaultdict(Counter)
+858585	    present = Counter()
+858586	    for row, (code, _, _) in zip(rows, results, strict=True):
+858587	        family = row["family_id"]
+858588	        present[family] += 1
+858589	        if code >= 0:
+858590	            grouped[family][int(code)] += 1
+858592	    for family, hexdigest in db.execute("SELECT n, lower(hex(sha)) FROM family ORDER BY n"):
+858593	        groups = grouped[family]
+858594	        disposition = "NO LINKED ELEMENT"
+858595	        if present[family]:
+858596	            disposition = label(next(iter(groups))) if len(groups) == 1 else (
+858597	                "MULTIPLE COMMAND GROUPS" if groups else "REVIEW REQUIRED"
+858599	        result.append({"family_id": family, "family_sha256": hexdigest,
+858600	                       "linked_elements": present[family], "command_group": disposition,
+858601	                       "supported_groups": [label(group) for group in sorted(groups)]})
+858602	def grouped_lines(db, codes):
+858603	    line_ids = np.fromiter((row[0] for row in db.execute("SELECT n FROM line ORDER BY n")), dtype=np.int64)
+858604	    flags = np.zeros(int(line_ids.max()) + 1, dtype=np.uint32)
+858605	    seen = np.zeros(len(flags), dtype=bool)
+858606	    tablets = {n: np.frombuffer(packed, dtype="<u4")
+858607	               for n, packed in db.execute("SELECT n, lines FROM tablet")}
+858608	    for tablet, element, first, last in db.execute(
+858609	        "SELECT tablet, element, first, last FROM tablet_element"
+858610	        indices = tablets[tablet][first - 1:last]
+858611	        seen[indices] = True
+858612	        group = codes[element]
+858613	        if group >= 0:
+858614	            flags[indices] |= np.uint32(1 << group)
+858615	    chosen = flags[line_ids]
+858616	    labels = np.full(len(line_ids), "UNMAPPED SOURCE LINE", dtype="<U32")
+858617	    labels[seen[line_ids]] = "REVIEW REQUIRED"
+858618	    labels[(chosen & (chosen - np.uint32(1))) != 0] = "MULTIPLE COMMAND GROUPS"
+858619	    for group, (name, _, _) in enumerate(GROUPS):
+858620	        labels[chosen == (1 << group)] = name
+858621	    return pa.table({"line_id": line_ids, "command_group": labels.tolist()})
+858622	def disagreement_rows(prior_path, matches):
+858623	    prior_rows = pq.read_table(prior_path, columns=["element_id", "element_sha256", "command_group"]).to_pylist()
+858624	    prior = {row["element_id"]: row for row in prior_rows}
+858625	    if len(prior) != len(prior_rows) or len(prior) != len(matches):
+858626	        raise ValueError("Comparison must cover the same unique elements")
+858628	    for row in matches:
+858629	        original = prior[row["element_id"]]
+858630	        if original["element_sha256"] != row["element_sha256"]:
+858631	            raise ValueError("Comparison element source differs")
+858632	        if original["command_group"] != row["command_group"]:
+858633	            changed.append({**row, "previous_group": original["command_group"]})
+858635	def vogel_shots(rows, seed, count=8):
+858636	    """Use a random rotation and golden-ratio increments on stable-ID order."""
+858637	    rows = sorted(rows, key=lambda row: row["element_id"])
+858638	    size = len(rows)
+858639	    count = min(count, size)
+858640	    rotation = random.Random(seed).getrandbits(64)
+858641	    step = 0x9E3779B97F4A7C15
+858642	    mask = (1 << 64) - 1
+858643	    indices = {}
+858644	    for index in range(size * 4):
+858645	        if len(indices) == count:
+858646	        position = ((((rotation + index * step) & mask) * size) >> 64)
+858647	        indices[position] = None
+858648	    if len(indices) != count:
+858649	        raise RuntimeError("Vogel sample did not reach its distinct shot count")
+858650	    fields = ("element_id", "family_id", "repository", "commit", "blob", "path",
+858651	              "first_line", "last_line", "symbol", "command_group", "previous_group")
+858652	    return [{key: rows[i][key] for key in fields if key in rows[i]} for i in indices]
+858654	    with path.open("rb") as raw:
+858655	        return hashlib.file_digest(raw, "sha256").hexdigest()
+858656	    parser.add_argument("features", type=Path)
+858657	    parser.add_argument("--seed", type=int, default=193904)
+858658	    parser.add_argument("--compare", type=Path, help="prior elements Parquet for disagreement evidence")
+858659	    parser.add_argument("--backend", choices=("numpy", "cupy"), default="cupy")
+858660	    search(args.features, args.database, args.output, args.seed, args.compare, args.backend)
+858661	def search(features, database, output, seed, compare=None, backend="cupy", campaign=None):
+858662	    source_columns = ("element_id", "family_id", "element_sha256", "repository", "commit", "blob", "path",
+858663	                      "symbol", "first_line", "last_line", "path_role", "signature", "docstring",
+858664	                      "tokens", "needs", "tokens_truncated")
+858665	    rows = pq.read_table(features, columns=list(source_columns)).to_pylist()
+858666	    vocabulary = {word: index for index, word in enumerate(
+858667	        sorted({word for _, actions, objects in GROUPS for word in (actions + " " + objects).split()})
+858668	    )}
+858669	    matrix = feature_matrix(rows, vocabulary)
+858670	    variants = 16
+858671	    base, probes, menus, coverage = build_cribs(vocabulary, variants, seed,
+858672	                                               np.count_nonzero(matrix, axis=0), campaign)
+858673	    feature_seconds = perf_counter() - started
+858674	    gpu_seconds = gpu_kernel = pool = parity = None
+858675	    if backend == "cupy":
+858677	        result, gpu_seconds, gpu_kernel, cpu_seconds, pool = select_groups(cp, matrix, base, probes, variants)
+858678	        parity = True
+858679	        result, cpu_seconds = select_groups_numpy(matrix, base, probes, variants)
+858681	    codes = {}
+858682	    export_fields = tuple(key for key in source_columns if key not in {"tokens", "needs", "docstring"})
+858683	    for row, (code, score, menu) in zip(rows, result, strict=True):
+858684	        code = int(code)
+858685	        codes[row["element_id"]] = code
+858686	        group = label(code)
+858687	        matches.append({**{key: row[key] for key in export_fields}, "command_group": group,
+858688	                        "score": int(score), "crib": menus[group][int(menu)] if code >= 0 else []})
+858689	    if len(codes) != len(rows):
+858690	        raise ValueError("Duplicate source element IDs")
+858691	    with closing(sqlite3.connect(database.resolve().as_uri() + "?mode=ro", uri=True)) as db:
+858692	        if {r[0] for r in db.execute("SELECT n FROM element")} != codes.keys():
+858693	            raise ValueError("Element coverage differs from the pinned database")
+858694	        families = grouped_families(db, rows, result)
+858695	        lines = grouped_lines(db, codes)
+858696	    output.mkdir(parents=True, exist_ok=False)
+858697	    tables = {"elements": pa.Table.from_pylist(matches), "families": pa.Table.from_pylist(families), "lines": lines}
+858698	    changed = disagreement_rows(compare, matches) if compare else []
+858700	        tables["disagreements"] = pa.Table.from_pylist(changed)
+858701	    named = [row for row in matches if row["symbol"] not in {None, "", "(anonymous)"}]
+858702	    shots = {
+858703	        "survivors": vogel_shots([row for row in named if row["command_group"] != "REVIEW REQUIRED"], seed + 1),
+858704	        "unresolved": vogel_shots([row for row in named if row["command_group"] == "REVIEW REQUIRED"], seed + 2),
+858705	        "disagreements": vogel_shots(changed, seed + 3),
+858706	    (output / "vogel-shots.json").write_text(json.dumps(shots, indent=2) + "\n", encoding="utf-8")
+858708	    for name, table in tables.items():
+858709	        path = output / (name + ".parquet")
+858710	        pq.write_table(table, path, compression="zstd")
+858711	        receipts[name] = {"rows": len(table), "bytes": path.stat().st_size, "sha256": digest(path),
+858712	                          "counts": dict(Counter(table["command_group"].to_pylist()))}
+858713	    manifest = {"schema": "vedic.estate-crib-search.v1", "seed": seed, "menus": menus,
+858714	                "name": "Virtualised Particle Accelerator",
+858715	                "feature_file_sha256": digest(features), "database_sha256": digest(database),
+858716	                "comparison_sha256": digest(compare) if compare else None,
+858717	                "vogel_shots": {key: len(value) for key, value in shots.items()},
+858718	                "truncated_element_features": sum(bool(row["tokens_truncated"]) for row in rows),
+858719	                "vocabulary_size": len(vocabulary), "hypotheses": probes.shape[1],
+858720	                "element_hypothesis_pairs": len(rows) * probes.shape[1], "tables": receipts,
+858721	                "feature_seconds": feature_seconds, "numpy_seconds": cpu_seconds,
+858722	                "cupy_seconds_including_transfers": gpu_seconds, "cupy_kernel_batch_seconds": gpu_kernel,
+858723	                "backend": backend, "cupy_pool_bytes": pool, "cpu_gpu_classification_equal": parity,
+858724	                "probe_coverage": coverage,
+858725	                "scope": "Lexical and source-span leads. Semantic admission and execution require separate evidence."}
+858726	    (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+858727	    print(json.dumps({key: value for key, value in manifest.items() if key != "menus"}, indent=2))
+858729	"""Compile the domain crib library and scan all unique indexed lines in ID order."""
+858730	from functools import lru_cache
+858731	from estate_crib_search import DOT_CUDA
+858732	BATCH = 8192
+858733	MAX_LINE_BYTES = 4096
+858734	ROTATION_STEP = 0x9E3779B97F4A7C15
+858735	def compile_library(path):
+858736	    document = json.loads(path.read_bytes())
+858737	    groups = document["groups"]
+858738	    if document["schema"] != "vedic.estate-crib-library.v1" or not 1 <= len(groups) <= 64:
+858739	        raise ValueError("Unsupported domain library")
+858740	    titles = [group["title"] for group in groups]
+858741	    if len(set(titles)) != len(titles) or any(not re.fullmatch(r"[A-Z]+(?: [A-Z]+){0,4}", title) for title in titles):
+858742	        raise ValueError("Expected distinct compact domain groups")
+858743	    vocabulary = sorted({word for group in groups for role in ("actions", "objects") for word in group[role]})
+858744	    columns = {word: index for index, word in enumerate(vocabulary)}
+858745	    cues = np.zeros((len(vocabulary), 2 * len(groups)), dtype=np.float32)
+858746	    for index, group in enumerate(groups):
+858747	        for role_index, role in enumerate(("actions", "objects")):
+858748	            if not group[role]:
+858749	                raise ValueError(f"Group needs both action and object clues: {group['title']}")
+858750	            for word in group[role]:
+858751	                cues[columns[word], 2 * index + role_index] = 1
+858752	    return groups, columns, cues
+858753	def source_contexts(database, groups, maximum_id):
+858754	    by_tablet = Counter()
+858755	    origins = database.execute("SELECT DISTINCT repo, path, tablet FROM occurrence")
+858756	    for repo, path, tablet in origins:
+858757	        repository = repo.rsplit("/", 1)[-1].casefold()
+858758	        path = path.casefold()
+858759	        for index, group in enumerate(groups):
+858760	            if repository in group["repositories"] or any(hint in path for hint in group["path_contains"]):
+858761	                by_tablet[tablet] |= 1 << index
+858762	    masks = np.zeros(maximum_id + 1, dtype=np.uint64)
+858763	    for tablet, raw in database.execute("SELECT n, lines FROM tablet"):
+858764	        mask = by_tablet[tablet]
+858765	        if mask:
+858766	            masks[np.frombuffer(raw, dtype="<u4")] |= np.uint64(mask)
+858767	    return masks
+858768	def gpu_scorer(cp, cues, powers):
+858769	    weights = cp.asarray(cues)
+858770	    device_powers = cp.asarray(powers)
+858771	    def score(matrix):
+858772	        device = cp.asarray(matrix)
+858773	        n, width = matrix.shape
+858774	        k = cues.shape[1]
+858775	        scores = cp.empty((n, k), dtype=cp.float32)
+858776	               (device, weights, scores, np.int32(n), np.int32(width), np.int32(k)))
+858777	        hits = (scores[:, 0::2] >= 1) & (scores[:, 1::2] >= 2)
+858778	        return cp.sum(hits * device_powers, axis=1, dtype=cp.uint64).get()
+858779	    score(np.zeros((1, cues.shape[0]), dtype=np.float32))
+858781	def scan(database, columns, cues, backend="cupy"):
+858782	    powers = 2 ** np.arange(cues.shape[1] // 2, dtype=np.uint64)
+858783	    gpu_score = None
+858784	        gpu_score = gpu_scorer(cp, cues, powers)
+858785	    lookup = lru_cache(maxsize=16384)(tokens)
+858786	    elapsed = cpu_seconds = preparation = 0.0
+858787	    line_ids, winners = [], []
+858788	    truncated = 0
+858789	    cursor = database.execute("SELECT n, text FROM line ORDER BY n")
+858790	    while rows := cursor.fetchmany(BATCH):
+858791	        initial = perf_counter()
+858792	        matrix = np.zeros((len(rows), len(columns)), dtype=np.float32)
+858793	        for row, (number, raw) in enumerate(rows):
+858794	            truncated += len(raw) > MAX_LINE_BYTES
+858795	            terms = lookup(raw[:MAX_LINE_BYTES].decode("utf-8", errors="replace")).split()
+858796	            matrix[row, [columns[word] for word in terms if word in columns]] = 1
+858797	            line_ids.append(number)
+858798	        preparation += perf_counter() - initial
+858799	        cpu = matrix @ cues
+858800	        expected = np.sum(((cpu[:, 0::2] >= 1) & (cpu[:, 1::2] >= 2)) *
+858801	                          powers, axis=1, dtype=np.uint64)
+858802	        cpu_seconds += perf_counter() - initial
+858803	        if gpu_score is not None:
+858804	            initial = perf_counter()
+858805	            actual = gpu_score(matrix)
+858806	            elapsed += perf_counter() - initial
+858807	            if not np.array_equal(actual, expected):
+858808	                raise ValueError("CPU and GPU disagree on line domain clues")
+858809	        winners.append(expected)
+858810	    benchmarks = {"cupy_seconds_including_transfers": elapsed if gpu_score is not None else None,
+858811	                  "numpy_seconds": cpu_seconds, "line_preparation_seconds": preparation,
+858812	                  "peak_cached_gpu_bytes": cp.get_default_memory_pool().total_bytes() if gpu_score is not None else None,
+858813	                  "seconds_including_database_iteration": perf_counter() - started}
+858814	    return np.asarray(line_ids), np.concatenate(winners), truncated, benchmarks
+858815	def source_shots(line_ids, lexical, contexts, groups, seed):
+858817	        bit = 1 << index
+858818	        eligible = np.flatnonzero((lexical & bit) != 0)
+858819	        if not len(eligible):
+858820	        rotation = rng.getrandbits(64)
+858821	        positions = {}
+858822	        for shot in range(len(eligible) * 4):
+858823	            if len(positions) == min(4, len(eligible)):
+858825	            selected = ((rotation + shot * ROTATION_STEP) & ((1 << 64) - 1)) * len(eligible) >> 64
+858826	            positions[selected] = None
+858827	        result[group["title"]] = [
+858828	            {"line_id": int(line_ids[eligible[position]]),
+858829	             "same_group_in_source_context": bool(contexts[eligible[position]] & bit)}
+858830	            for position in positions
+858832	    with path.open("rb") as data:
+858833	        return hashlib.file_digest(data, "sha256").hexdigest()
+858834	def spider_evidence(path, groups):
+858835	    genome = json.loads(path.read_bytes())
+858836	    ids = {node["id"] for node in genome["nodes"]}
+858837	    wanted = {"Ventusltd/" + repository for group in groups for repository in group["repositories"]}
+858839	    for edge in genome["edges"]:
+858840	        start, target = edge["from"], edge["to"]
+858841	        start_repo, target_repo = start.split("::", 1)[0], target.split("::", 1)[0]
+858842	        if target_repo != start_repo and target_repo in wanted and start in ids and target in ids:
+858843	            evidence = edge["evidence"]
+858844	            edges.append({"from": start, "to": target, "type": edge["type"],
+858845	                          "file": evidence["file"], "line": evidence["line"], "pin": edge.get("pin")})
+858846	    return {"sha256": sha256(path), "graph_nodes": len(ids), "graph_edges": len(genome["edges"]),
+858847	            "named_group_repositories_present": sorted(ids & wanted), "matching_feed_edges": len(edges),
+858848	            "source_references": edges}
+858849	    parser.add_argument("library", type=Path)
+858850	    parser.add_argument("--seed", type=int, default=20261126)
+858851	    parser.add_argument("--spider", type=Path, help="existing Spiders genome.json for local provenance references")
+858852	    scan_estate(args.database, args.library, args.output, args.seed, args.spider, args.backend)
+858853	def scan_estate(database_path, library, output, seed, spider_path=None, backend="cupy"):
+858854	    groups, columns, cues = compile_library(library)
+858855	    with closing(sqlite3.connect(database_path.resolve().as_uri() + "?mode=ro", uri=True)) as database:
+858856	        maximum_id, = database.execute("SELECT max(n) FROM line").fetchone()
+858857	        context_index = source_contexts(database, groups, maximum_id)
+858858	        ids, lexical, truncated, benchmark = scan(database, columns, cues, backend)
+858859	    contexts = context_index[ids]
+858860	    shots = source_shots(ids, lexical, contexts, groups, seed)
+858861	    spider = spider_evidence(spider_path, groups) if spider_path else None
+858862	    if spider:
+858863	        (output / "spider-references.json").write_text(json.dumps(spider, indent=2) + "\n", encoding="utf-8")
+858864	    parquet = output / "domain-lines.parquet"
+858865	    pq.write_table(pa.table({"line_id": ids, "lexical_domain_mask": lexical,
+858866	                             "source_context_mask": contexts}), parquet, compression="zstd")
+858867	    receipt = {"schema": "vedic.estate-domain-scan.v1", "seed": seed,
+858868	               "library_sha256": sha256(library), "database_sha256": sha256(database_path),
+858869	               "lines": len(ids), "line_group_pairs": len(ids) * len(groups),
+858870	               "source_context_lines": int(np.count_nonzero(contexts)),
+858871	               "lexical_group_lines": int(np.count_nonzero(lexical)),
+858872	               "same_domain_agreement_lines": int(np.count_nonzero(contexts & lexical)),
+858873	               "any_domain_lines": int(np.count_nonzero(contexts | lexical)),
+858874	               "bounded_long_lines": truncated, "backend": backend,
+858875	               "exact_cpu_gpu_mask_parity": True if backend == "cupy" else None,
+858876	               "groups_in_bit_order": [group["title"] for group in groups],
+858877	               "spider_evidence_sha256": spider["sha256"] if spider else None,
+858878	               "spider_cross_repository_references": spider["matching_feed_edges"] if spider else None,
+858879	               "counts": {group["title"]: {
+858880	                   "lexical": int(np.count_nonzero(lexical & (1 << index))),
+858881	                   "context": int(np.count_nonzero(contexts & (1 << index))),
+858882	               } for index, group in enumerate(groups)},
+858883	               "benchmark": benchmark, "parquet_sha256": sha256(parquet), "parquet_bytes": parquet.stat().st_size}
+858884	    (output / "manifest.json").write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+858885	    print(json.dumps({key: value for key, value in receipt.items() if key not in {"groups_in_bit_order", "counts"}}, indent=2))
+858886	"""Bounded daily family discovery and reviewed dictionary allocation. Never execute source."""
+858888	from dictionary_shards import PATTERNS, tokens
+858891	from validate_dictionary import validate, verify_source_entries
+858894	ASSET = "catalog.json.gz"
+858895	MAX_COMPRESSED = 16 * 1024**2
+858896	MAX_UNCOMPRESSED = 96 * 1024**2
+858898	MAX_ADDITIONS = 20
+858899	QUEUE = ROOT / "data/daily-command-queue.json"
+858900	DICT = ROOT / "data/dictionary.json"
+858903	def key(text):
+858904	    return "".join(c for c in unicodedata.normalize("NFKC", text).casefold() if c.isalnum())
+858908	    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+858909	def indexes(entries):
+858910	    words, symbols, families, senses = set(), set(), set(), set()
+858912	        words.add(key(e["word"]))
+858913	        words.update(key(a) for a in e.get("aliases", []))
+858914	        if e.get("translation_ref"):
+858915	            symbols.add(key(e["translation_ref"].rsplit(":", 1)[-1]))
+858916	        families.update(e.get("modular_family_refs", []))
+858917	        if type(e.get("family_id")) is int:
+858918	            families.add(e["family_id"])
+858919	        senses.add(e["sense_key"])
+858920	    return words, symbols, families, senses
+858921	def allocate(dictionary, queue, limit=MAX_ADDITIONS):
+858922	    """Allocate only explicitly reviewed, pinned functions; no inferred semantics."""
+858923	    require(queue["schema"] == "vedic.daily-command-queue.v1", "queue schema")
+858924	    words, symbols, families, senses = indexes(dictionary["entries"])
+858925	    added, held = [], []
+858926	    for c in queue["records"]:
+858927	        require(c["decision"] == "REVIEWED_FOR_ADMISSION", "unreviewed command")
+858928	        require(isinstance(c["family_refs"], list) and c["family_refs"] and
+858929	                all(type(f) is int and f > 0 for f in c["family_refs"]), "family refs")
+858930	        e = c["entry"]
+858931	        name = key(e["word"])
+858932	        sym = key(e["translation_ref"].rsplit(":", 1)[-1])
+858933	        if not name or name in words or name in symbols or sym in words or sym in symbols or e["sense_key"] in senses or families.intersection(c["family_refs"]):
+858934	            held.append({"word": e["word"], "reason": "existing word, symbol, sense or family; reconcile, do not duplicate"})
+858935	        if limit is not None and len(added) >= limit:
+858936	        require(e["word"] == e["word"].upper(), "canonical command must be uppercase")
+858937	        aliases=e.get("aliases", [])
+858938	        require(isinstance(aliases,list) and all(isinstance(a,str) and key(a) for a in aliases), "invalid aliases")
+858939	        require(len({key(e["word"]), *map(key,aliases)}) == len(aliases)+1, "duplicate aliases")
+858940	        require(e["kind"] == "FUNCTION" and e["state"] == "STATIC_SOURCE_REVIEW" and e["demo"] is None, "unsupported admission")
+858941	        require(1 <= len(tokens(e["word"]).split()) <= 5 and
+858942	                len(e["word"]) <= 64 and len(e["purpose"]) <= 240, "command not compact")
+858943	        require(e.get("application") and e["application"]["url"].startswith("https://"), "application/source reference")
+858944	        require(not any(key(a) in words or key(a) in symbols for a in e.get("aliases", [])), "alias collision")
+858945	        n = dictionary["next_number"]
+858946	        row = dict(e, number=n, gg_id=f"GG2050-VEDIC-{n:06d}", modular_family_refs=sorted(set(c["family_refs"])))
+858947	        dictionary["entries"].append(row)
+858948	        dictionary["next_number"] += 1
+858949	        added.append(row["gg_id"])
+858950	        words.add(name); words.update(key(a) for a in e.get("aliases", []))
+858951	        symbols.add(sym); families.update(c["family_refs"]); senses.add(e["sense_key"])
+858952	    return added, held
+858953	def verify_extension(historic, current, queue):
+858954	    """Replay reviewed appended rows without changing any historic allocation."""
+858955	    expected=copy.deepcopy(historic)
+858956	    allocate(expected,queue,limit=None)
+858957	    n=len(current["entries"])
+858958	    require(len(historic["entries"])<=n<=len(expected["entries"]),"unreviewed extension length")
+858959	    expected["entries"]=expected["entries"][:n]
+858960	    expected["next_number"]=historic["next_number"]+n-len(historic["entries"])
+858961	    require(expected==current,"dictionary differs from reviewed daily replay")
+858962	def asset_metadata():
+858963	    release = json.loads(subprocess.check_output(["gh","api",f"repos/{PRODUCER}/releases/tags/{TAG}"], timeout=30))
+858964	    a = [a for a in release["assets"] if a["name"] == ASSET and a["state"] == "uploaded"]
+858965	    require(len(a) == 1, "missing producer catalogue")
+858966	    a = a[0]
+858967	    require(0 < a["size"] <= MAX_COMPRESSED and str(a.get("digest","")).startswith("sha256:"), "producer size/digest")
+858968	    return {k:a[k] for k in ("id","size","digest","updated_at")}
+858969	def acquire(directory):
+858970	    before = asset_metadata()
+858971	    asset_path = directory / ASSET
+858972	    with asset_path.open("wb") as output:
+858973	        subprocess.run(["gh", "api", f"repos/{PRODUCER}/releases/assets/{before['id']}",
+858974	                        "-H", "Accept: application/octet-stream"], stdout=output, check=True, timeout=90)
+858975	    with asset_path.open("rb") as stream:
+858976	        raw = stream.read(MAX_COMPRESSED + 1)
+858977	    require(len(raw) == before["size"] and
+858978	            "sha256:" + hashlib.sha256(raw).hexdigest() == before["digest"], "producer asset changed or corrupt")
+858979	    with gzip.open(directory / ASSET,"rb") as stream:
+858980	        payload = stream.read(MAX_UNCOMPRESSED + 1)
+858981	    require(len(payload) <= MAX_UNCOMPRESSED, "uncompressed catalogue too large")
+858982	    d = json.loads(payload)
+858983	    require(isinstance(d["families"],dict) and isinstance(d["family_by_hash"],dict), "producer schema")
+858984	    return d, before
+858985	def family_identities(catalogue):
+858986	    identities = {}
+858987	    for digest, number in catalogue["family_by_hash"].items():
+858988	        require(isinstance(digest, str) and re.fullmatch(r"[0-9a-f]{40,64}", digest) and
+858989	                type(number) is int and number > 0 and number not in identities,
+858990	                "invalid or duplicate permanent family identity")
+858991	        identities[number] = digest
+858992	    require(identities and all(int(n) in identities for n in catalogue["families"]),
+858993	            "invalid producer placement identities")
+858994	    return identities
+858995	def checkpoint_cursor(checkpoint, identities):
+858996	    if checkpoint is None:
+858997	    require(checkpoint.get("schema") == "vedic.daily-family-pulse.v2", "unsupported checkpoint schema")
+858998	    cursor = checkpoint.get("next_cursor")
+858999	    require(type(cursor) is int and cursor >= 0, "invalid checkpoint cursor")
+859000	    require((cursor == 0 or cursor in identities) and
+859001	            identities.get(cursor) == checkpoint.get("cursor_family_hash"),
+859002	            "checkpoint family identity changed")
+859003	    return cursor
+859004	def family_rows(catalogue, identities, entries, cursor):
+859005	    words, symbols, mapped, _ = indexes(entries)
+859006	    selected = sorted(n for n in identities if n > cursor)[:BATCH]
+859008	    for n in selected:
+859009	        placement = catalogue["families"].get(str(n))
+859010	        v = placement or {}
+859011	        names = [x for x in v.get("names",[]) if isinstance(x,str) and x != "(anonymous)"]
+859012	        possible = sorted({x for x in names if key(x) in words or key(x) in symbols})
+859013	        if n in mapped:
+859014	            status = "MAPPED_FAMILY"
+859015	        elif placement is None:
+859016	            status = "NO_CURRENT_PLACEMENT"
+859017	        elif possible:
+859018	            status = "POSSIBLE_EXISTING_COMMAND"
+859019	            status = "REVIEW_REQUIRED"
+859020	        terms=set(tokens(" ".join(names)).split())
+859021	        groups=sorted(p for p,words in PATTERNS.items() if terms.intersection(words))
+859022	        labels=sorted({tokens(name).upper() for name in names if tokens(name)})
+859023	        rows.append((n,json.dumps(names),int(v.get("repos",0)),json.dumps(v.get("places",[])),status,json.dumps(possible),json.dumps(groups),json.dumps(labels)))
+859024	    return rows, selected[-1] if selected else cursor
+859025	def export_pulse(rows, out):
+859027	    db = duckdb.connect()
+859028	        db.execute("CREATE TABLE pulse(family_id BIGINT, names_json VARCHAR, repository_count INTEGER, occurrences_json VARCHAR, status VARCHAR, possible_matches_json VARCHAR, pattern_groups_json VARCHAR, candidate_labels_json VARCHAR)")
+859030	            db.executemany("INSERT INTO pulse VALUES (?, ?, ?, ?, ?, ?, ?, ?)", rows)
+859031	        # Parameterised destination; never copy code or the whole producer database.
+859032	        db.execute("COPY (SELECT * FROM pulse ORDER BY family_id) TO ? (FORMAT PARQUET, COMPRESSION ZSTD)", [str(out)])
+859033	        require(db.execute("SELECT count(*) FROM read_parquet(?)",[str(out)]).fetchone()[0] == len(rows), "Parquet round trip")
+859034	        db.close()
+859035	    parser.add_argument("--checkpoint", type=Path)
+859036	    parser.add_argument("--output", type=Path, default=ROOT/"receipts")
+859037	    d, queue = read(DICT), read(QUEUE)
+859038	    prior = json.loads(json.dumps(d))
+859039	    with tempfile.TemporaryDirectory(prefix="vedic-family-") as temp:
+859040	        catalogue, asset = acquire(Path(temp))
+859041	        identities = family_identities(catalogue)
+859042	        prior_checkpoint = read(args.checkpoint) if args.checkpoint else None
+859043	        cursor = checkpoint_cursor(prior_checkpoint, identities)
+859044	        for c in queue["records"]:
+859045	            require(set(c["family_refs"]) <= identities.keys(),"unknown Modular Star family")
+859046	        added, held = allocate(d,queue)
+859047	        out = args.output
+859048	        if added:
+859049	            validate(d,read(ROOT/"data/translation-geodesy.json"),prior)
+859050	            verify_source_entries({"entries":[e for e in d["entries"] if e["gg_id"] in added]})
+859051	            write(out/"admission/dictionary.json",d)
+859052	        rows, next_cursor = family_rows(catalogue,identities,d["entries"],cursor)
+859053	        out.mkdir(parents=True,exist_ok=True)
+859054	        export_pulse(rows,out/"family-pulse.parquet")
+859055	        write(out/"family-research.json",{"schema":"vedic.daily-family-pulse.v2","producer_asset":asset,
+859056	              "producer_family_count":len(identities),"current_placement_family_count":len(catalogue["families"]),
+859057	              "scanned_families":len(rows),"previous_cursor":cursor,"next_cursor":next_cursor,
+859058	              "cursor_family_hash":identities.get(next_cursor),"status":"research_candidates" if rows else "no_change",
+859059	              "dictionary_count":len(prior["entries"]),"proposed_dictionary_count":len(d["entries"]),
+859060	              "proposed_additions":added,"held":held,"execution_claim":False,
+859061	              "coverage":"permanent family IDs; placement metadata where present"})
+859062	"""Compute bounded, source-ID-preserving similarity leads for existing Stars families."""
+859063	from scipy.sparse import coo_matrix
+859064	from scipy.sparse.csgraph import connected_components
+859065	THRESHOLDS = (0.85, 0.90, 0.92, 0.95, 0.99)
+859066	POLICY = "vedic-family-signed-hash-tfidf-v1"
+859067	COSINE_CUDA = r"""
+859068	extern "C" __global__ void cosine(
+859069	    const float* features, float* result, int n, int d, int begin, int rows
+859070	    const int local_row = blockIdx.y * 16 + ty;
+859071	    const int row = begin + local_row, col = blockIdx.x * 16 + tx;
+859072	    const int load_col = blockIdx.x * 16 + ty;
+859073	    __shared__ float a[16][17], b[16][17];
+859074	    float acc = 0.0f;
+859075	        a[ty][tx] = local_row < rows ? features[row*d + offset + tx] : 0.0f;
+859076	        b[ty][tx] = load_col < n ? features[load_col*d + offset + tx] : 0.0f;
+859077	        for (int i = 0; i < 16; ++i) acc = fmaf(a[ty][i], b[tx][i], acc);
+859078	    if (local_row < rows && col < n) result[local_row*n+col] = acc;
+859080	    with path.open("rb") as file:
+859081	        return hashlib.file_digest(file, "sha256").hexdigest()
+859082	def read_features(path):
+859083	    """Aggregate supplied existing element occurrences by their permanent family."""
+859085	    required = {"family_id", "element_id", "tokens"}
+859086	    if not required.issubset(table.column_names):
+859087	        raise ValueError(f"Feature file must contain {sorted(required)}")
+859088	    allowed = required | {"counts", "lang", "language", "repo", "path", "symbol"}
+859090	    seen_elements = set()
+859091	    for row in table.select([col for col in table.column_names if col in allowed]).to_pylist():
+859092	        family, element, tokens = (row[k] for k in ("family_id", "element_id", "tokens"))
+859093	        if type(family) is not int or type(element) is not int or family <= 0 or element <= 0:
+859094	            raise ValueError("Expected existing positive integer family and element IDs")
+859095	        if element in seen_elements:
+859096	            raise ValueError(f"Repeated element ID in feature input: {element}")
+859097	        seen_elements.add(element)
+859098	        if not isinstance(tokens, list) or any(not isinstance(value, str) or not value for value in tokens):
+859099	            raise ValueError(f"Invalid token array for element {element}")
+859100	        counts = row.get("counts")
+859101	        if counts is None:
+859102	            features = Counter(tokens)
+859103	            if len(tokens) != len(counts) or any(type(count) is not int or count <= 0 for count in counts):
+859104	                raise ValueError(f"Invalid positive token counts for element {element}")
+859105	            features = Counter()
+859106	            for token, count in zip(tokens, counts, strict=True):
+859107	                features[token] += count
+859108	        groups[family].append((element, features))
+859109	    if not groups:
+859110	        raise ValueError("No computational families were supplied")
+859111	    return groups, len(seen_elements)
+859112	def projection(token):
+859113	    raw = hashlib.blake2b(token.encode(), digest_size=8, person=b"VEDIC-v1").digest()
+859114	    return int.from_bytes(raw[:4], "little"), (1 if raw[4] & 1 else -1)
+859115	def representations(groups, dimension):
+859116	    ids = np.asarray(sorted(groups), dtype=np.int64)
+859117	    docs = []
+859118	    document_frequency = Counter()
+859119	    for family in ids:
+859120	        # Same-logic element variants keep their shared family identity.
+859121	        document = Counter()
+859122	        for _, features in sorted(groups[family]):
+859123	            document |= features
+859124	        docs.append(document)
+859125	        document_frequency.update(document.keys())
+859126	    idf = {k: np.log((1 + len(ids)) / (1 + frequency)) + 1
+859127	           for k, frequency in document_frequency.items()}
+859128	    matrix = np.zeros((len(ids), dimension), dtype=np.float32)
+859129	    metadata = []
+859130	    for index, (family, document) in enumerate(zip(ids, docs, strict=True)):
+859131	        terms = sorted(document.items())
+859132	        fingerprint = hashlib.sha256(json.dumps(terms, separators=(",", ":"), ensure_ascii=False)
+859133	                                      .encode()).hexdigest() if terms else None
+859134	        for term, count in terms:
+859135	            bucket, sign = projection(term)
+859136	            matrix[index, bucket % dimension] += sign * (1 + np.log(count)) * idf[term]
+859137	        metadata.append({
+859138	            "family_id": int(family),
+859139	            "representative_element_id": min(element for element, _ in groups[family]),
+859140	            "element_count": len(groups[family]),
+859141	            "term_count": len(terms),
+859142	            "unprojected_feature_sha256": fingerprint,
+859144	    norms = np.linalg.norm(matrix, axis=1)
+859145	    active = norms > 0
+859146	    matrix[active] /= norms[active, None]
+859147	    return ids, matrix, active, metadata, len(document_frequency)
+859148	def device_score(cp, kernel, data, begin, rows):
+859149	    n, dimension = data.shape
+859150	    scores = cp.empty((rows, n), dtype=cp.float32)
+859151	    kernel(((n + 15) // 16, (rows + 15) // 16), (16, 16),
+859152	           (data, scores, np.int32(n), np.int32(dimension), np.int32(begin), np.int32(rows)))
+859153	    return scores
+859154	def ranked_neighbors(cp, scores, index, active, top_k):
+859155	    count = scores.shape[1]
+859156	    scores[~active[index], :] = -cp.inf
+859157	    scores[:, ~active] = -cp.inf
+859158	    rows = cp.arange(len(index), dtype=cp.int32)
+859159	    scores[rows, index] = -cp.inf
+859160	    # Preserve score order, then resolve exact float32 ties by existing ascending ID order.
+859161	    bits = scores.view(cp.uint32)
+859162	    ordered = bits ^ cp.where(bits & cp.uint32(0x80000000),
+859163	                              cp.uint32(0xFFFFFFFF), cp.uint32(0x80000000))
+859164	    priority = (ordered.astype(cp.uint64) << 32) | (np.uint64(count) - cp.arange(count, dtype=cp.uint64))
+859165	    indices = cp.empty((len(index), top_k), dtype=cp.int32)
+859166	    values = cp.empty((len(index), top_k), dtype=cp.float32)
+859167	    for rank in range(top_k):
+859168	        chosen = cp.argmax(priority, axis=1)
+859169	        indices[:, rank] = chosen
+859170	        values[:, rank] = scores[rows, chosen]
+859171	        priority[rows, chosen] = 0
+859172	    return indices.get(), values.get()
+859173	def benchmark(cp, kernel, matrix):
+859174	    rows = min(2048, len(matrix))
+859175	    sample = np.ascontiguousarray(matrix[np.linspace(0, len(matrix) - 1, rows, dtype=int)])
+859176	    bench_started = perf_counter()
+859177	    device = cp.asarray(sample)
+859178	    start, finish = cp.cuda.Event(), cp.cuda.Event()
+859179	    values = device_score(cp, kernel, device, 0, rows)
+859180	    finish.record()
+859181	    finish.synchronize()
+859182	    gpu_ms = cp.cuda.get_elapsed_time(start, finish)
+859183	    observed = values.get()
+859184	    gpu_total = perf_counter() - bench_started
+859185	    cpu_started = perf_counter()
+859186	    expected = sample @ sample.T
+859187	    cpu_seconds = perf_counter() - cpu_started
+859188	    error = np.abs(expected - observed)
+859189	    close = bool(np.allclose(expected, observed, atol=2e-5, rtol=2e-5))
+859190	    if not close:
+859191	        raise RuntimeError("GPU cosine failed NumPy parity")
+859192	        "families": rows, "score_cells": rows**2, "numpy_score_seconds": cpu_seconds,
+859193	        "gpu_kernel_seconds": gpu_ms / 1000, "gpu_transfer_inclusive_seconds": gpu_total,
+859194	        "numpy_over_transfer_inclusive_ratio": cpu_seconds / gpu_total,
+859195	        "max_absolute_score_difference": float(error.max()), "numpy_parity": close,
+859196	        "threshold_mask_disagreements": {
+859197	            str(t): int(np.count_nonzero((expected >= t) != (observed >= t))) for t in THRESHOLDS
+859199	def matrix_scan(cp, kernel, matrix, active, tile_rows, top_k):
+859200	    n = len(matrix)
+859201	    memory = cp.get_default_memory_pool()
+859202	    uploaded = cp.asarray(matrix)
+859203	    gpu_active = cp.asarray(active)
+859204	    live_columns = cp.arange(n, dtype=cp.int32)
+859205	    ranks = np.empty((n, top_k), dtype=np.int32)
+859206	    values = np.empty((n, top_k), dtype=np.float32)
+859207	    totals = np.zeros(len(THRESHOLDS), dtype=np.int64)
+859208	    score_seconds = 0.0
+859209	    peak_pool = memory.total_bytes()
+859210	    for begin in range(0, n, tile_rows):
+859211	        step = min(tile_rows, n - begin)
+859212	        index = cp.arange(begin, begin + step, dtype=cp.int32)
+859213	        start, finish = cp.cuda.Event(), cp.cuda.Event()
+859214	        start.record()
+859215	        scores = device_score(cp, kernel, uploaded, begin, step)
+859216	        finish.record()
+859217	        cp.clip(scores, -1, 1, out=scores)
+859218	        upper = gpu_active[index, None] & gpu_active[None, :] & (index[:, None] < live_columns)
+859219	        counts = cp.stack([cp.count_nonzero((scores >= threshold) & upper) for threshold in THRESHOLDS])
+859220	        totals += counts.get()
+859221	        ranks[begin:begin+step], values[begin:begin+step] = ranked_neighbors(
+859222	            cp, scores, index, gpu_active, top_k)
+859223	        score_seconds += cp.cuda.get_elapsed_time(start, finish) / 1000
+859224	        peak_pool = max(peak_pool, memory.total_bytes())
+859225	        del scores, upper, counts
+859226	    return ranks, values, totals, score_seconds, peak_pool
+859227	def sparse_components(ids, target, values, limit):
+859228	    count, top_k = target.shape
+859229	    start = np.repeat(np.arange(count), top_k)
+859230	    end = target.ravel()
+859231	    good = np.isfinite(values.ravel()) & (values.ravel() >= limit)
+859232	    graph = coo_matrix((np.ones(np.count_nonzero(good), dtype=np.uint8),
+859233	                       (start[good], end[good])), shape=(count, count)).tocsr()
+859234	    _, components = connected_components(graph, directed=False)
+859235	    size = np.bincount(components)
+859236	    rep = np.full(len(size), np.iinfo(np.int64).max, dtype=np.int64)
+859237	    np.minimum.at(rep, components, ids)
+859238	    return (pa.table({
+859239	        "family_id": ids, "component_representative_family_id": rep[components],
+859240	        "component_size": size[components],
+859241	    }), {"threshold": limit, "non_singleton_components": int((size > 1).sum()),
+859242	         "families_in_non_singleton_components": int(size[size > 1].sum()),
+859243	         "retained_directed_edges": int(good.sum())})
+859244	def neighbor_table(ids, target, values):
+859245	    row = np.repeat(ids, top_k)
+859246	    cols = ids[target.ravel()]
+859247	    scores = values.ravel()
+859248	    order = np.tile(np.arange(1, top_k + 1, dtype=np.int16), count)
+859249	    enabled = np.isfinite(scores)
+859250	    return pa.table({"family_id": row[enabled], "neighbor_family_id": cols[enabled],
+859251	                     "cosine": scores[enabled], "rank": order[enabled]})
+859252	def analyse(input_path, output, dimension, tile_rows, requested_top):
+859255	        raise ValueError("Choose a new immutable output directory")
+859256	    if not (dimension % 16 == 0 and 16 <= dimension <= 4096
+859257	            and 16 <= tile_rows <= 512 and 1 <= requested_top <= 64):
+859258	        raise ValueError("Invalid feature dimension, tile size or neighbor count")
+859259	    digest = sha256_file(input_path)
+859260	    groups, elements = read_features(input_path)
+859261	    ids, matrix, active, metadata, unique_terms = representations(groups, dimension)
+859262	    if len(ids) < 2 or np.count_nonzero(active) < 2:
+859263	        raise ValueError("At least two nonempty families are required")
+859264	    encode_seconds = perf_counter() - started
+859265	    if digest != sha256_file(input_path):
+859266	        raise ValueError("Feature input changed during processing")
+859267	    memory_free, memory_total = cp.cuda.runtime.memGetInfo()
+859268	    estimated_memory = matrix.nbytes + tile_rows * len(ids) * 40
+859269	    if estimated_memory > memory_free // 2:
+859270	        raise MemoryError("Tile and feature estimate exceeds half available VRAM")
+859271	    kernel = cp.RawKernel(COSINE_CUDA, "cosine")
+859272	    warm = cp.asarray(matrix[:16])
+859273	    device_score(cp, kernel, warm, 0, len(warm))
+859274	    bench = benchmark(cp, kernel, matrix)
+859275	    cp.get_default_memory_pool().free_all_blocks()
+859276	    top_k = min(requested_top, len(ids) - 1)
+859277	    ranks, values, totals, score_seconds, pool_peak = matrix_scan(
+859278	        cp, kernel, matrix, active, tile_rows, top_k)
+859279	    wall_scan = perf_counter() - start
+859280	    clusters, cluster_counts = sparse_components(ids, ranks, values, 0.92)
+859281	    neighbors = neighbor_table(ids, ranks, values)
+859282	    counts = Counter(row["unprojected_feature_sha256"] for row in metadata
+859283	                     if row["unprojected_feature_sha256"] is not None)
+859284	    n = len(ids)
+859285	    evaluated = int(np.count_nonzero(active))
+859287	        "schema": "vedic.family-similarity.v1", "feature_method": POLICY,
+859288	        "feature_sha256": digest, "families": n, "nonempty_families": evaluated, "elements": elements,
+859289	        "unique_input_terms": unique_terms, "dimensions": dimension, "tile_rows": tile_rows,
+859290	        "neighbors_per_family_cap": top_k, "neighbor_rows": neighbors.num_rows,
+859291	        "computed_gpu_score_cells_including_diagonal_and_empty": n * n,
+859292	        "ordered_nonself_nonempty_comparisons": evaluated * (evaluated - 1),
+859293	        "unique_nonself_nonempty_pairs": evaluated * (evaluated - 1) // 2,
+859294	        "threshold_totals_unique_unordered": {str(k): int(v) for k, v in zip(THRESHOLDS, totals, strict=True)},
+859295	        "families_with_multiple_producer_elements": sum(len(rows) > 1 for rows in groups.values()),
+859296	        "equal_unprojected_feature_buckets": sum(count > 1 for count in counts.values()),
+859297	        "families_in_equal_unprojected_feature_buckets": sum(count for count in counts.values() if count > 1),
+859298	        "feature_and_normalization_seconds": encode_seconds, "gpu_score_kernel_seconds": score_seconds,
+859299	        "scan_wall_seconds": wall_scan,
+859300	        "ordered_valid_comparisons_per_scan_second": evaluated * (evaluated - 1) / wall_scan,
+859301	        "observed_cupy_pool_bytes_including_cached_blocks": pool_peak,
+859302	        "gpu_vram_free_before_bytes": memory_free, "gpu_vram_total_bytes": memory_total,
+859303	        "benchmark": bench, "graph": cluster_counts,
+859304	        "limits": [
+859305	            "Family IDs come from input. Equal token/count fingerprints are not equal source bytes.",
+859306	            "All dot products are exhaustive at the chosen projected float32 representation.",
+859307	            "Projection collisions and recorded runtime context can change relationships.",
+859308	            "Sparse connected components use retained neighbors, and transitive membership is not equivalence.",
+859309	            "Benchmarked fixed feature scoring, not source extraction, English, or program execution.",
+859312	    with tempfile.TemporaryDirectory(prefix=".family-sim-", dir=output.parent) as temp:
+859313	        staged = Path(temp) / "release"
+859315	        tables = {"families": pa.Table.from_pylist(metadata),
+859316	                  "neighbors": neighbors, "clusters": clusters}
+859317	        for name, table in tables.items():
+859318	            pq.write_table(table, staged / f"{name}.parquet", compression="zstd")
+859319	        summary["artifacts"] = {
+859320	            path.name: {"sha256": sha256_file(path), "bytes": path.stat().st_size}
+859321	            for path in sorted(staged.glob("*.parquet"))
+859322	        (staged / "manifest.json").write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+859323	        os.rename(staged, output)
+859325	    parser.add_argument("--dimensions", type=int, default=1024)
+859326	    parser.add_argument("--tile", type=int, default=192)
+859327	    parser.add_argument("--top-k", type=int, default=12)
+859328	    print(json.dumps(analyse(args.input, args.output, args.dimensions, args.tile, args.top_k), indent=2))
+859329	"""Verify source-index totals and audit selected cosine leads in the original sparse feature space."""
+859330	LEXICAL = {"pair", "op", "id", "literal", "symbol"}
+859331	STRUCTURAL = {"ast", "kind", "lang", "need", "needs", "dep", "signature", "param", "refusal"}
+859332	STAMP = re.compile(r"(^|[^0-9])\d{8}(\d{4})?(?=[^0-9]|$)")
+859333	def audit_index(database, library, repeat_output):
+859334	    with sqlite3.connect(database.resolve().as_uri() + "?mode=ro&immutable=1", uri=True) as db:
+859335	        counts = {table: db.execute(f'SELECT count(*) FROM "{table}"').fetchone()[0]
+859336	                  for table in ("line", "scan", "commit_info", "element", "family", "tablet", "occurrence")}
+859337	        counts["repos_with_occurrence_rows"] = db.execute(
+859338	            "SELECT count(DISTINCT repo) FROM occurrence").fetchone()[0]
+859339	        counts["families_with_elements"] = db.execute(
+859340	            "SELECT count(DISTINCT family) FROM element").fetchone()[0]
+859341	        lineages = defaultdict(set)
+859342	        elements = defaultdict(set)
+859343	        occurrences = Counter()
+859344	        places = db.execute("""
+859345	          SELECT e.family,e.n,te.first,o.repo,o.path FROM tablet_element te
+859346	          JOIN element e ON e.n=te.element JOIN occurrence o ON o.tablet=te.tablet
+859347	          JOIN scan s ON s.repo=o.repo AND s.commit_sha=o.commit_sha
+859349	        element_counts = Counter()
+859350	        for family, element, _, repo, path in places:
+859351	            lineage = (repo, STAMP.sub(r"\1{stamp}", path))
+859352	            lineages[family].add(lineage)
+859353	            elements[family, element].add(lineage)
+859354	            occurrences[family] += 1
+859355	            element_counts[family, element] += 1
+859356	        counts["current_head_families_with_places"] = len(lineages)
+859357	        counts["families_across_multiple_current_file_lineages"] = sum(
+859358	            len(paths) >= 2 for paths in lineages.values())
+859359	        counts["only_same_lineage_multiple_current_places"] = sum(
+859360	            occurrences[family] >= 2 and len(paths) == 1 for family, paths in lineages.items())
+859361	        rows = [{"family_id": family, "element_id": element, "current_file_lineages": len(paths),
+859362	                 "current_places": element_counts[family,element]}
+859363	                for (family,element),paths in sorted(elements.items()) if len(paths) >= 2]
+859364	        counts["exact_producer_element_ids_across_multiple_current_file_lineages"] = len(rows)
+859365	        pq.write_table(pa.Table.from_pylist(rows), repeat_output, compression="zstd")
+859366	    text = library.read_text(encoding="utf-8")
+859367	    counts["compiled_function_candidates_in_library"] = len(re.findall(r"(?m)^// Family #\d+ · element #\d+", text))
+859368	    counts["compiled_js_exports_behind_family_comments"] = len(re.findall(r"(?m)^export const f\d+_", text))
+859369	def sparse_reviews(feature_file, neighbors, witness):
+859370	    families = defaultdict(Counter)
+859371	    for batch in pq.ParquetFile(feature_file).iter_batches(columns=["family_id", "tokens"]):
+859372	        for row in batch.to_pylist():
+859373	            families[row["family_id"]] |= Counter(row["tokens"])
+859374	    source = json.loads(witness.read_bytes())
+859375	    pairs = {(x["families"][0], x["families"][1]) for x in source["pairs"]}
+859376	    ids = sorted({item for pair in pairs for item in pair})
+859377	    df = Counter(term for doc in families.values() for term in doc)
+859378	    presence = defaultdict(lambda: None)
+859379	    edge = pq.read_table(neighbors, filters=[("family_id", "in", ids)],
+859380	                         columns=["family_id", "neighbor_family_id", "cosine", "rank"])
+859381	    for row in edge.to_pylist():
+859382	        presence[row["family_id"],row["neighbor_family_id"]] = (
+859383	            row["cosine"], row["rank"])
+859384	    def scores(left, right, prefixes=None):
+859385	        def weighted(doc):
+859386	            return {term: (1 + math.log(count)) * (1 + math.log((1+len(families))/(1+df[term])))
+859387	                    for term,count in doc.items()
+859388	                    if prefixes is None or term.split(":",1)[0] in prefixes}
+859389	        a, b = weighted(families[left]), weighted(families[right])
+859390	        denominator = math.sqrt(sum(x*x for x in a.values()) * sum(x*x for x in b.values()))
+859391	        return sum(a[k]*b[k] for k in a.keys() & b.keys()) / denominator if denominator else None
+859392	    return [{**row,
+859393	             "projected_retained_forward_score_rank": presence[*row["families"]],
+859394	             "projected_retained_reverse_score_rank": presence[*reversed(row["families"])],
+859395	             "exact_sparse_all_terms_tfidf": scores(*row["families"]),
+859396	             "exact_sparse_lexical_tfidf": scores(*row["families"], LEXICAL),
+859397	             "exact_sparse_structural_tfidf": scores(*row["families"], STRUCTURAL)}
+859398	            for row in source["pairs"]]
+859399	def drift_leads(feature_file, neighbors, output):
+859400	    labels = defaultdict(set)
+859401	    broad = {"default", "constructor", "anonymous", "render", "update", "start", "main", "init",
+859402	             "getvalue", "callback", "cleanup", "normalize", "normalise", "validate"}
+859403	    for batch in pq.ParquetFile(feature_file).iter_batches(columns=["family_id", "symbol"]):
+859404	            name = (row["symbol"] or "").casefold()
+859405	            if name not in broad and re.fullmatch(r"[a-z_$][a-z0-9_$]{3,}", name):
+859406	                labels[row["family_id"]].add(name)
+859407	    candidates = {}
+859408	    for row in pq.read_table(neighbors, filters=[("cosine", ">=", 0.92)],
+859409	                             columns=["family_id", "neighbor_family_id", "cosine"]).to_pylist():
+859410	        left, right = sorted((row["family_id"], row["neighbor_family_id"]))
+859411	        matching = labels[left] & labels[right]
+859412	        if matching:
+859413	            candidates[left, right] = max(candidates.get((left, right), 0), row["cosine"])
+859414	    rows = [{"family_a": left, "family_b": right, "shared_symbol": sorted(labels[left] & labels[right]),
+859415	             "cosine": score} for (left, right), score in sorted(candidates.items())]
+859416	    schema = pa.schema([("family_a", pa.int64()), ("family_b", pa.int64()),
+859417	                        ("shared_symbol", pa.list_(pa.string())), ("cosine", pa.float32())])
+859418	    pq.write_table(pa.Table.from_pylist(rows, schema=schema), output, compression="zstd")
+859420	def cpu_threshold_replay(features, dimension=1024, tile=256):
+859422	    from time import perf_counter
+859423	    from family_similarity import THRESHOLDS, read_features, representations
+859424	    groups, _ = read_features(features)
+859425	    ids, matrix, active, _, _ = representations(groups, dimension)
+859426	    prep = perf_counter() - start
+859427	    counts = np.zeros(len(THRESHOLDS), dtype=np.int64)
+859428	    labels = np.arange(len(ids))
+859429	    seconds = 0.0
+859430	    outer = perf_counter()
+859431	    for begin in range(0, len(ids), tile):
+859432	        stop = min(begin + tile, len(ids))
+859433	        started = perf_counter()
+859434	        scores = matrix[begin:stop] @ matrix.T
+859435	        seconds += perf_counter() - started
+859436	        eligible = active[begin:stop, None] & active[None, :] & (labels[begin:stop, None] < labels)
+859437	        for index, limit in enumerate(THRESHOLDS):
+859438	            counts[index] += np.count_nonzero((scores >= limit) & eligible)
+859439	        "families": len(ids), "dimension": dimension, "row_tile": tile, "score_cells": len(ids)**2,
+859440	        "observed_openblas_threads_setting": os.environ.get("OPENBLAS_NUM_THREADS"),
+859441	        "feature_prep_seconds": prep, "score_only_seconds": seconds,
+859442	        "scoring_and_threshold_reduction_seconds": perf_counter() - outer,
+859443	        "threshold_totals_unique_unordered": {str(t): int(c) for t,c in zip(THRESHOLDS, counts, strict=True)},
+859444	        "scope": "Same float32 feature representation and threshold reduction. CPU replay omits top-k sorting.",
+859445	    parser.add_argument("--database", type=Path, required=True)
+859446	    parser.add_argument("--library", type=Path, required=True)
+859447	    parser.add_argument("--features", type=Path, required=True)
+859448	    parser.add_argument("--neighbors", type=Path, required=True)
+859449	    parser.add_argument("--witness", type=Path, required=True)
+859450	    parser.add_argument("--cpu-replay", action="store_true")
+859451	    args.output.mkdir(parents=True, exist_ok=False)
+859452	    repeat_output = args.output / "repeat-elements.parquet"
+859453	    values = audit_index(args.database, args.library, repeat_output)
+859454	    pairs = sparse_reviews(args.features, args.neighbors, args.witness)
+859455	    drift_output = args.output / "drift-leads.parquet"
+859456	    drift_count = drift_leads(args.features, args.neighbors, drift_output)
+859457	    with repeat_output.open("rb") as stream:
+859458	        digest = hashlib.file_digest(stream, "sha256").hexdigest()
+859460	        "inventory": values, "canonical_relationships_checked": len(pairs), "relationships": pairs,
+859461	        "repeat_elements_sha256": digest, "repeat_elements_bytes": repeat_output.stat().st_size,
+859462	        "same_symbol_different_family_drift_leads_at_0_92": drift_count,
+859463	        "drift_leads_bytes": drift_output.stat().st_size,
+859464	        "drift_leads_sha256": hashlib.sha256(drift_output.read_bytes()).hexdigest(),
+859465	        "cpu_replay": cpu_threshold_replay(args.features) if args.cpu_replay else None,
+859466	        "notes": [
+859467	            "Repeated elements represent the same existing producer element identity across separately normalised current file lineages.",
+859468	            "The compiled-library count is source availability and parse admission, separate from verified executions.",
+859469	            "Sparse exact here means no hash projection in the selected feature vectors. Tokenisation can still omit or truncate context.",
+859470	            "Null projected score means the pair was outside the retained directed top-k; it does not imply a zero score.",
+859471	    (args.output / "manifest.json").write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8")
+859477	const atlas='afffa9781f6130529ae93052604cd3d98d172a35';
+859478	const engine='7c2a7b42905674fdcd3aa4bb50af14bc352a7747';
+859479	const a='E:/VEDIC/offline/gridatlas', e='E:/VEDIC/offline/ventus-grid-engine';
+859480	const modulePath='atlas/modules/202609011950-geodesy.js';
+859481	const sandboxPath='atlas/cartridges/202609012045-sld-sandbox-v9-8.js';
+859482	function gitRaw(repo,commit,path) {
+859483	 return execFileSync('git',['--no-replace-objects','-C',repo,'cat-file','blob',commit+':'+path]);
+859484	const gitBlob=r=>createHash('sha1').update('blob '+r.length+'\0').update(r).digest('hex');
+859485	function extract(raw,start,end,name,constants={}){
+859486	 const code=raw.toString('utf8').split(/\r?\n/).slice(start-1,end).join('\n').replace(/^export /,'');
+859487	 assert.match(code,new RegExp('function\\s+'+name+'\\('));
+859488	 return vm.runInNewContext(code+'\n'+name,constants,{timeout:1000});
+859489	const canonical=gitRaw(a,atlas,modulePath), sandbox=gitRaw(a,atlas,sandboxPath);
+859490	const oldEngine=gitRaw(e,engine,'engine/v9-geodesy.js');
+859491	const constants={DEG:Math.PI/180,EARTH_RADIUS_KM:6378.137,R_ATLAS:6378.137};
+859492	const pairs=[];
+859493	const dist=extract(canonical,24,42,'distanceKm',constants);
+859494	const historicalDist=extract(sandbox,36,42,'distanceKm',constants);
+859495	let diff;
+859496	for(let i=1;i<100&&!diff;i++){
+859497	 const args=[-2,53,-2+i/2048,53+i/4096];
+859498	 const x=dist(...args),y=historicalDist(...args);
+859499	 if(!Object.is(x,y))diff={coordinates:args,canonical_km:x,variant_km:y};
+859500	assert.ok(diff);
+859501	pairs.push({families:[511,32987],classification:'numerical_drift',evidence:diff});
+859502	const dest=extract(oldEngine,121,131,'destinationPoint',constants);
+859503	const oldDest=extract(sandbox,3631,3641,'destinationPoint',constants);
+859504	const templateCases=[[0,0,0,0],[-2,53,115,45],[178,30,350,90]];
+859505	for(const args of templateCases)assert.deepEqual(Array.from(dest(...args)),Array.from(oldDest(...args)));
+859506	pairs.push({families:[8769,33124],classification:'bounded_sample_parity',cases:templateCases.length,
+859507	            evidence:'Equal constants and same observed outputs on zero-distance, ordinary and date-line cases.'});
+859508	const ref='2f4b7cb82ee154fa3c684cba634d45f2183c6e7d';
+859509	const remotePath='pipelinenews_intelligence/202608311558/assets/202608311558-grid-proximity.mjs';
+859510	const remote=await fetch('https://raw.githubusercontent.com/Ventusltd/globalgrid2050/'+ref+'/'+remotePath);
+859511	assert.ok(remote.ok);
+859512	const proximity=Buffer.from(await remote.arrayBuffer());
+859513	assert.equal(gitBlob(proximity),'c275c42a00b0ea40c33b4e03440f1b97c0c0bd54');
+859514	const bearing=extract(canonical,128,134,'initialBearingDeg',constants);
+859515	const other=extract(proximity,591,597,'bearingDeg');
+859516	for(const args of [[-2,53,-1,54],[0,0,-1,0],[178,31,-179,31],[1,2,1,2]])assert.equal(bearing(...args),other(...args));
+859517	pairs.push({families:[8770,1936],classification:'bounded_sample_parity',cases:4,
+859518	            evidence:'Same degree convention and equal tested ordinary, westward, date-line and coincident results.'});
+859519	const byFamilyFiles=[
+859520	 [80283, 'engine/electrification-demand.js',126,136,'averagePowerGw'],
+859521	 [80271, 'engine/diversified-demand.js',134,153,'averageOverWindowGw'],
+859522	 [80284, 'engine/electrification-demand.js',144,158,'peakFromLoadFactorGw'],
+859523	 [80285, 'engine/electrification-demand.js',166,182,'loadFactorFromPeak']
+859525	const modules={};
+859526	for(const name of new Set(byFamilyFiles.map(x=>x[1]))){
+859527	 const raw=gitRaw(e,engine,name);
+859528	 assert.ok(!/^\s*import\s/m.test(raw.toString()));
+859529	 modules[name]=await import('data:text/javascript;base64,'+raw.toString('base64'));
+859530	const demand=modules['engine/electrification-demand.js'],window=modules['engine/diversified-demand.js'];
+859531	assert.equal(demand.averagePowerGw({annualTwh:8.76}).value,window.averageOverWindowGw({annualTwh:8.76,windowHoursPerDay:24}).value);
+859532	assert.equal(window.averageOverWindowGw({annualTwh:8.76,windowHoursPerDay:12}).value,2);
+859533	pairs.push({families:[80283,80271],classification:'conditional_variant',cases:2, evidence:'Equal when the window is 24 hours, distinct at 12 hours.'});
+859534	assert.equal(demand.peakFromLoadFactorGw({averageGw:7,loadFactor:.5}).value,14);
+859535	assert.equal(demand.loadFactorFromPeak({averageGw:7,peakGw:14}).value,.5);
+859536	pairs.push({families:[80284,80285],classification:'distinct_inverse_contracts',cases:2, evidence:'One returns peak power in GW, the other returns a dimensionless load factor.'});
+859537	const c=[-2,53,-1,54];
+859538	assert.ok(dist(...c)>0 && bearing(...c)>=0 && bearing(...c)<360);
+859539	pairs.push({families:[511,8770],classification:'complementary_not_interchangeable',
+859540	            evidence:'Same two positions yield two distinct quantities, distance in kilometres and initial bearing in degrees.'});
+859541	console.log(JSON.stringify({snapshot:"family-similarity canonical witness v1",pairs,
+859542	          blob_map:{[modulePath]:gitBlob(canonical),[sandboxPath]:gitBlob(sandbox),
+859543	            'engine/v9-geodesy.js':gitBlob(oldEngine),[remotePath]:gitBlob(proximity)}},null,2));
+859544	// Candidate apparatus for Faraday's existing numbered runner.
+859546	import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+859549	const requirements = [
+859550	  'VEDIC_PYTHON', 'VEDIC_COMPILER', 'VEDIC_FACTORY_REPO',
+859551	  'VEDIC_ORIENT_ARCHIVE', 'VEDIC_ORIENT_BUILD_RECEIPT',
+859552	const point = (longitude, latitude) => ({ longitude, latitude });
+859553	function run(phrase, values, file) {
+859554	  writeFileSync(file, JSON.stringify(values));
+859555	  const result = spawnSync(process.env.VEDIC_PYTHON, [
+859556	    process.env.VEDIC_COMPILER, phrase, '--input', file,
+859557	    '--factory-repo', process.env.VEDIC_FACTORY_REPO,
+859558	    '--archive', process.env.VEDIC_ORIENT_ARCHIVE,
+859559	    '--build-receipt', process.env.VEDIC_ORIENT_BUILD_RECEIPT,
+859560	  ], { encoding: 'utf8', timeout: 40_000 });
+859561	  if (result.error) throw result.error;
+859562	  return { exit: result.status, receipt: JSON.parse(result.stdout) };
+859563	export default async function experiment() {
+859564	  for (const name of requirements) assert.ok(process.env[name], name);
+859565	  const root = mkdtempSync(join(tmpdir(), 'faraday-vedic-orient-'));
+859566	  const request = join(root, 'coords.json');
+859567	  const input = (a, b, unit = 'degrees') => ({
+859568	    crs: 'WGS84', unit, point_a: a, point_b: b,
+859570	  const failure = [];
+859571	  const confirm = (name, actual, predicate) => {
+859572	    observed[name] = actual;
+859573	    if (!predicate(actual)) failure.push(name);
+859576	    for (const [name, phrase, a, b, degrees, direction] of [
+859577	      ['equator', 'ORIENT', point(0, 0), point(1, 0), 1, 90],
+859578	      ['antimeridian', 'measure distance and bearing', point(179, 0), point(-179, 0), 2, 90],
+859579	      ['meridian', 'orient', point(20, 10), point(20, 13), 3, 0],
+859581	      const result = run(phrase, input(a, b), request);
+859582	      const output = result.receipt.package_execution?.pattern.output;
+859583	      const expected = { distance_km: 6378.137 * degrees * (Math.PI / 180), initial_bearing_deg: direction };
+859584	      confirm(name, {
+859585	        exit: result.exit, state: result.receipt.state, command_id: result.receipt.plan?.command_id,
+859586	        components: result.receipt.plan?.components, output, expected,
+859587	        pattern_sha256: result.receipt.package_execution?.pattern_sha256,
+859588	      }, (x) => x.exit === 0 && x.state === 'EXECUTED_PRIVATE_PACKAGE'
+859589	        && x.command_id === 'GG2050-VEDIC-000006'
+859590	        && x.components.join(',') === 'GG2050-VEDIC-000001,GG2050-VEDIC-000005'
+859591	        && Math.abs(x.output.distance_km - expected.distance_km) <= 1e-9
+859592	        && Math.abs(x.output.initial_bearing_deg - direction) <= 1e-9);
+859593	    for (const [name, phrase, data, reason, packageReason] of [
+859594	      ['coincident', 'ORIENT', input(point(3, 4), point(3, 4)), 'PACKAGE_REFUSED', 'UPSTREAM_RESULT_REFUSED'],
+859595	      ['antipodal', 'ORIENT', input(point(0, 0), point(180, 0)), 'PACKAGE_REFUSED', 'UPSTREAM_RESULT_REFUSED'],
+859596	      ['polar_origin', 'ORIENT', input(point(0, 90), point(1, 20)), 'PACKAGE_REFUSED', 'UPSTREAM_RESULT_REFUSED'],
+859597	      ['wrong_units', 'ORIENT', input(point(0, 0), point(1, 0), 'radians'), 'PACKAGE_REFUSED', 'INPUT_UNITS'],
+859598	      ['missing_coordinate', 'ORIENT', input(point(0, 0), { longitude: 1 }), 'PACKAGE_REFUSED', 'FIELDS'],
+859599	      ['ambiguous_term', 'AREA', {}, 'AMBIGUOUS_COMMAND'],
+859600	      ['unadmitted', 'CHECK POWER CAP', {}, 'PACKAGE_NOT_ADMITTED'],
+859601	      const result = run(phrase, data, request);
+859602	      confirm(name, result, x => x.exit === 2 && x.receipt.state === 'REFUSED'
+859603	        && x.receipt.reason === reason
+859604	        && x.receipt.package_reason === packageReason);
+859606	    rmSync(root, { recursive: true });
+859608	    did: 'Fired the existing VEDIC ORIENT package on three independently calculable spherical cases and seven refusals.',
+859609	    observed: JSON.stringify({ cases: observed, failed: failure }),
+859610	    shows: 'One existing command drives two canonical geodesy operations through the byte-pinned package. The cases exercise its declared units and scope.',
+859611	    result: failure.length ? 'REFUTED' : 'CONFIRMED',
+859612	"""Project deterministic CPU features from the existing immutable Modular Star inventory."""
+859614	import textwrap
+859615	from time import perf_counter, process_time
+859616	VERSION = "modular-feature-v1"
+859617	TOKEN = re.compile(
+859618	    r'//[^\n]*|/\*[\s\S]*?\*/|"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|'
+859619	    r'[A-Za-z_$][\w$]*|\d+(?:\.\d+)?|===|!==|=>|==|!=|<=|>=|&&|\|\||\?\?|'
+859620	    r'\?\.|\*\*|[-+*/%&|^!<>?:=.,;{}()\[\]]'
+859621	NON_PRODUCTION = re.compile(r"(?:^|/)(?:vendor|node_modules|fixtures|tests?|generated|attic|archive)(?:/|$)")
+859622	GENERATED = re.compile(r"(?:\.min\.|/generated/|(?:^|/)bundle\.)")
+859623	WORD_SPLIT = re.compile(r"(?<=[a-z0-9])(?=[A-Z])|[_\W]+")
+859624	STRINGS = ("repository", "commit", "blob", "path", "symbol", "kind", "lang", "element_sha256",
+859625	           "family_sha256", "path_role", "signature", "docstring", "feature_status", "lexer")
+859626	NUMBERS = ("element_id", "family_id", "tablet_id", "first_line", "last_line", "col0", "col1")
+859627	SCHEMA = pa.schema([(name, pa.int64()) for name in NUMBERS]
+859628	                   + [(name, pa.string()) for name in STRINGS]
+859629	                   + [("tokens", pa.list_(pa.string())), ("needs", pa.list_(pa.string())),
+859630	                      ("refusal_markers", pa.list_(pa.string())), ("constants", pa.list_(pa.string())),
+859631	                      ("standalone_candidate", pa.bool_()), ("tokens_truncated", pa.bool_())])
+859632	DB = None
+859633	def atomic_write(path, write):
+859634	    with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as handle:
+859635	        temporary = Path(handle.name)
+859636	        write(temporary)
+859637	        temporary.replace(path)
+859639	def connect(db):
+859640	    return sqlite3.connect(Path(db).resolve().as_uri() + "?mode=ro&immutable=1", uri=True)
+859641	def init_worker(db):
+859642	    global DB
+859643	    DB = connect(db)
+859646	def path_rank(repo, path, is_current):
+859648	    if GENERATED.search(lower):
+859649	        return (8, "generated_path_hint")
+859650	    if NON_PRODUCTION.search(lower):
+859651	        return (7, "vendor_test_archive_path_hint")
+859652	    if "/releases/" in lower or lower.startswith(("editions/", "history/")):
+859653	        return (6, "historical_path_hint")
+859654	    if repo.lower().endswith("ventus-grid-engine") and is_current and lower.startswith("engine/"):
+859655	        return (0, "canonical_engine_path_candidate")
+859656	    if is_current:
+859657	        return (1, "current_snapshot_path_candidate")
+859658	    return (3, "indexed_snapshot_path_candidate")
+859659	def plan(conn, limit):
+859660	    eligible = conn.execute(
+859661	        """SELECT e.n, e.family, hex(e.sha), hex(f.sha), e.kind, e.needs, e.standalone, f.lang
+859662	           FROM element e JOIN family f ON e.family=f.n ORDER BY e.n LIMIT ?""",
+859663	        (limit or -1,),
+859664	    elements = {row[0]: row for row in eligible}
+859665	    locations = {}
+859666	    # One representative path per unchanged file version; all other occurrences
+859667	    # remain addressable by tablet_id in the original Modular Star database.
+859668	    for tablet, repo, revision, path, is_current in conn.execute(
+859669	        """SELECT o.tablet,o.repo,o.commit_sha,o.path,o.commit_sha=s.commit_sha
+859670	           FROM occurrence o LEFT JOIN scan s ON o.repo=s.repo"""
+859671	        priority, role = path_rank(repo, path, is_current)
+859672	        choice = (priority, repo, path, revision, role)
+859673	        if tablet not in locations or choice < locations[tablet]:
+859674	            locations[tablet] = choice
+859675	    choices = {}
+859676	    for tablet, element, first, last, col0, col1, name in conn.execute(
+859677	        """SELECT tablet,element,first,last,col0,col1,name FROM tablet_element"""
+859678	        if element not in elements or tablet not in locations:
+859679	        rank = (locations[tablet], tablet, first, last, -1 if col0 is None else col0, name or "")
+859680	        if element not in choices or rank < choices[element][0]:
+859681	            choices[element] = (rank, tablet, first, last, col0, col1, name)
+859682	    if choices.keys() != elements.keys():
+859683	        raise ValueError("Some existing elements have no indexed source occurrence")
+859684	    for element, (rank, tablet, first, last, col0, col1, name) in choices.items():
+859685	        _, repo, path, revision, role = rank[0]
+859686	        _, family, element_hash, family_hash, kind, needs, standalone, lang = elements[element]
+859687	        groups[tablet].append({
+859688	            "element_id": element, "family_id": family, "tablet_id": tablet,
+859689	            "first_line": first, "last_line": last, "col0": col0, "col1": col1,
+859690	            "repository": repo, "commit": revision, "path": path, "symbol": name,
+859691	            "path_role": role, "element_sha256": element_hash.lower(),
+859692	            "family_sha256": family_hash.lower(), "kind": kind, "lang": lang,
+859693	            "needs": json.loads(needs) if needs else None, "standalone_candidate": bool(standalone),
+859695	def utf16_slice(text, start=None, stop=None):
+859696	    return text.encode("utf-16-le")[slice(None if start is None else start * 2,
+859697	                                             None if stop is None else stop * 2)].decode("utf-16-le")
+859698	def selected_text(lines, start, stop):
+859699	    parts = [line.decode("utf-8", errors="replace") for line in lines]
+859700	    if start is None or stop is None:
+859701	        return "".join(parts)
+859702	    if len(parts) == 1:
+859703	        return utf16_slice(parts[0], start, stop)
+859704	    return utf16_slice(parts[0], start) + "".join(parts[1:-1]) + utf16_slice(parts[-1], stop=stop)
+859705	def feature_row(row, text):
+859706	    kind = row["kind"] or "unknown"
+859707	    features = ["kind:" + kind, "lang:" + row["lang"]]
+859708	    signature = next((line.strip()[:240] for line in text.splitlines() if line.strip()), "")
+859709	    markers = sorted(set(re.findall(r"\b(?:throw|raise|assert)\b|return\s+(?:null|None)\b", text)))
+859710	    constants = []
+859712	    if row["lang"] == "py":
+859713	            tree = ast.parse(textwrap.dedent(text))
+859714	            first = tree.body[0] if tree.body else None
+859715	            if isinstance(first, (ast.FunctionDef, ast.AsyncFunctionDef)):
+859716	                signature = f"{first.name}({ast.unparse(first.args)})"
+859717	            if isinstance(first, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+859718	                doc = (ast.get_docstring(first) or "")[:1024] or None
+859719	            features.extend("ast:" + type(node).__name__ for node in ast.walk(tree))
+859720	        except (SyntaxError, ValueError, RecursionError):
+859722	    for value in (row["symbol"] or "", *(row["needs"] or [])):
+859723	        features.extend("symbol:" + word.lower() for word in WORD_SPLIT.split(value) if word)
+859724	    sequence = []
+859725	    for token in TOKEN.findall(text):
+859726	        if token.startswith(("//", "/*")):
+859727	        if token[0] in "\"'":
+859728	            sequence.append("literal:string")
+859729	        elif token[0].isdigit():
+859730	            sequence.append("literal:number")
+859731	            if len(constants) < 20 and token not in constants:
+859732	                constants.append(token)
+859733	        elif token[0].isalpha() or token[0] in "_$":
+859734	            sequence.append("id:" + token.lower())
+859735	            sequence.append("op:" + token)
+859736	    truncated = len(sequence) > 512 or len(features) > 512
+859737	    sequence = sequence[:512]
+859738	    features = features[:512] + sequence
+859739	    features.extend("pair:" + a + "|" + b for a, b in zip(sequence, sequence[1:]))
+859740	    return {**row, "tokens": features, "signature": signature, "docstring": doc,
+859741	            "constants": constants, "refusal_markers": markers,
+859742	            "tokens_truncated": truncated, "lexer": "bounded_lexical_ngrams_with_indexed_structure",
+859743	            "feature_status": "source_span_reconstructed"}
+859744	def process_tablet(task):
+859745	    tablet, rows = task
+859746	    started = process_time()
+859747	    blob, packed = DB.execute("SELECT git_blob,lines FROM tablet WHERE n=?", (tablet,)).fetchone()
+859748	    numbers = [item[0] for item in struct.iter_unpack("<I", packed)]
+859749	    wanted = sorted({number for row in rows for number in numbers[row["first_line"]-1:row["last_line"]]})
+859750	    lines = {}
+859751	    for offset in range(0, len(wanted), 500):
+859752	        batch = wanted[offset:offset + 500]
+859753	        lines.update(DB.execute(f"SELECT n,text FROM line WHERE n IN ({placeholders})", batch))
+859755	        raw = [lines[n] for n in numbers[row["first_line"]-1:row["last_line"]]]
+859756	        if not raw or digest(b"".join(raw)) != row["element_sha256"]:
+859757	            raise ValueError(f"Indexed source hash mismatch for element {row['element_id']}")
+859758	        body = selected_text(raw, row["col0"], row["col1"])
+859759	        out.append(feature_row({**row, "blob": blob}, body))
+859760	    return out, process_time() - started
+859761	KEYS = ("element_id", "family_id", "element_sha256", "family_sha256", "repository",
+859762	        "commit", "path", "first_line", "last_line", "col0", "col1", "symbol",
+859763	        "path_role", "kind", "lang", "needs", "standalone_candidate")
+859764	def extract(db, output, workers, limit, prior=None):
+859765	        raise ValueError("Refusing to replace frozen output")
+859766	    with closing(connect(db)) as conn:
+859767	        groups = plan(conn, limit)
+859768	    plan_seconds = perf_counter() - start
+859769	    cached = {}
+859770	    if prior is not None:
+859771	        receipt = json.loads(prior.with_suffix(".json").read_text(encoding="utf-8"))
+859772	        if receipt.get("parquet_sha256") != digest(prior.read_bytes()):
+859773	            raise ValueError("Incremental feature input differs from its frozen manifest")
+859774	        table = pq.read_table(prior)
+859775	        if (table.schema.metadata or {}).get(b"feature_version", b"").decode() != VERSION:
+859776	            raise ValueError("Cannot reuse features from a different schema version")
+859777	        cached = {row["element_id"]: row for row in table.to_pylist()}
+859778	    remaining = []
+859779	    cached_count = 0
+859780	    for tablet, rows in sorted(groups.items()):
+859781	        needs_work = []
+859783	            hit = cached.get(row["element_id"])
+859784	            if hit is not None and all(hit.get(key) == row.get(key) for key in KEYS):
+859785	                result.append(hit)
+859786	                cached_count += 1
+859788	                needs_work.append(row)
+859789	        if needs_work:
+859790	            remaining.append((tablet, needs_work))
+859791	    cpu = 0
+859792	    if remaining:
+859793	        if workers == 1:
+859794	            init_worker(db)
+859796	                for rows, seconds in map(process_tablet, remaining):
+859797	                    result.extend(rows)
+859798	                    cpu += seconds
+859800	                DB.close()
+859801	            with ProcessPoolExecutor(max_workers=workers, initializer=init_worker, initargs=(db,)) as pool:
+859802	                for rows, seconds in pool.map(process_tablet, remaining, chunksize=12):
+859803	    result.sort(key=lambda row: row["element_id"])
+859804	    table = pa.Table.from_pylist(result, schema=SCHEMA).replace_schema_metadata({b"feature_version": VERSION.encode()})
+859805	    atomic_write(output, lambda temporary: pq.write_table(table, temporary, compression="zstd"))
+859806	        "feature_version": VERSION, "workers": workers, "planning_wall_seconds": plan_seconds,
+859807	        "cpu_worker_seconds": cpu, "wall_seconds": perf_counter() - start,
+859808	        "elements": len(result), "families": len({row["family_id"] for row in result}),
+859809	        "selected_tablets": len(groups), "reused_elements": cached_count,
+859810	        "lexically_truncated_elements": sum(row["tokens_truncated"] for row in result),
+859811	        "roles": dict(Counter(row["path_role"] for row in result)),
+859812	        "parquet_sha256": digest(output.read_bytes()), "parquet_bytes": output.stat().st_size,
+859813	        "identity_basis": "Existing Modular Star element and family IDs; reconstructed span bytes verified against element SHA-256.",
+859814	    atomic_write(output.with_suffix(".json"), lambda t: t.write_text(json.dumps(report, indent=2)+"\n", encoding="utf-8"))
+859815	    parser.add_argument("sqlite", type=Path)
+859816	    parser.add_argument("parquet", type=Path)
+859817	    parser.add_argument("--workers", type=int, default=1)
+859818	    parser.add_argument("--limit", type=int)
+859819	    parser.add_argument("--reuse", type=Path)
+859820	    if args.workers < 1 or (args.limit is not None and args.limit < 1):
+859821	        parser.error("Worker and sample limits must be positive")
+859822	    print(json.dumps(extract(args.sqlite, args.parquet, args.workers, args.limit, args.reuse), indent=2))
+859866	def download_snapshot(directory, require_digest=False):
+859867	    before = metadata()
+859868	    require(0 < before["size"] <= MAX_BYTES, "asset size outside bound")
+859869	    if require_digest:
+859870	        require(isinstance(before["digest"], str) and before["digest"].startswith("sha256:"),
+859871	                "producer asset is missing its digest")
+859872	    compressed = directory / ASSET
+859873	    with compressed.open("xb") as stream:
+859874	        subprocess.run(["gh", "api", f"repos/{PRODUCER}/releases/assets/{before['asset_id']}",
+859875	                        "-H", "Accept: application/octet-stream"], stdout=stream, check=True, timeout=300)
+859876	    database = directory / "modular.sqlite"
+859877	    hashes = unpack_snapshot(compressed, database, before, metadata())
+859878	    return database, before, hashes
+859883	        database, before, hashes = download_snapshot(Path(directory))
+859892	"""Package local factor tables without modifying the shared catalogue."""
+859894	from canonical_sources import blob, digest, output_table
+859895	STARS = "1cf9c7530c7d287ccf9b3cffd70f693fb83c8402"
+859896	def build(db, t1, stars):
+859897	    library_blob, raw = blob(stars, STARS, "library/standalone.mjs")
+859898	    compiled = re.findall(
+859899	        rb"(?m)^// Family #(\d+) [^\n]*?element #(\d+) [^\n]*? (https://github\.com/\S+)\n"
+859900	        rb"export const (f[0-9]+_[A-Za-z0-9_$]+)\s*=", raw)
+859901	    compiled_rows = [
+859902	        {"family_id": int(family), "element_id": int(element), "recorded_source": url.decode(),
+859903	         "export_name": name.decode(), "producer_commit": STARS, "library_blob": library_blob,
+859904	         "status": "compiled_candidate_no_admission"}
+859905	        for family, element, url, name in compiled
+859906	    if len(compiled_rows) != 766 or len({row["family_id"] for row in compiled_rows}) != len(compiled_rows):
+859907	        raise ValueError("Compiled library exports disagree with this pinned inventory")
+859908	    features = pq.read_table(t1/"element-features.parquet", columns=["family_id", "element_id"])
+859909	    exported_families = {row["family_id"] for row in compiled_rows}
+859910	    with sqlite3.connect(db.resolve().as_uri() + "?mode=ro&immutable=1", uri=True) as conn:
+859911	        coverage = [
+859912	            {"family_id": family, "family_sha256": sha.lower(), "language": lang,
+859913	             "indexed_element_count": elements, "has_feature_row": elements > 0,
+859914	             "compiled_candidate": family in exported_families}
+859915	            for family, sha, lang, elements in conn.execute(
+859916	                "SELECT f.n,hex(f.sha),f.lang,count(e.n) FROM family f LEFT JOIN element e "
+859917	                "ON f.n=e.family GROUP BY f.n ORDER BY f.n")
+859918	    assert sum(row["indexed_element_count"] for row in coverage) == features.num_rows
+859919	    tables = [output_table(t1/"compiled-members.parquet", compiled_rows),
+859920	              output_table(t1/"family-coverage.parquet", coverage)]
+859922	        "element_features": "element-features.parquet",
+859923	        "family_coverage": "family-coverage.parquet",
+859924	        "compiled_members": "compiled-members.parquet",
+859925	        "engine_nodes": "engine-nodes.parquet",
+859926	        "engine_edges": "engine-edges.parquet",
+859927	        "gridatlas_composition": "gridatlas-composition.parquet",
+859928	        "canonical_bindings": "canonical-bindings.parquet",
+859929	        "canonical_symbols": "canonical-symbols.parquet",
+859930	        "canonical_file_metadata": "canonical-file-metadata.parquet",
+859931	    target = t1/"canonical-intelligence.duckdb"
+859932	    scratch = target.with_suffix(".part")
+859933	    if target.exists() or scratch.exists():
+859934	        raise ValueError("Refusing to replace existing intelligence file")
+859935	    with duckdb.connect(str(scratch)) as local:
+859936	        for name, file in files.items():
+859937	            local.execute(f"CREATE TABLE {name} AS SELECT * FROM read_parquet(?)", [str(t1/file)])
+859938	        totals = local.execute("SELECT count(*), count(DISTINCT family_id) FROM element_features").fetchone()
+859939	        assert totals == (features.num_rows, sum(row["has_feature_row"] for row in coverage))
+859940	        local.execute("CHECKPOINT")
+859941	    scratch.rename(target)
+859943	        "tables": tables, "compiled_candidates": len(compiled_rows), "duckdb": target.name,
+859944	        "duckdb_sha256": digest(target.read_bytes()), "duckdb_size_bytes": target.stat().st_size,
+859945	        "database_tables": files, "processing_seconds": perf_counter() - started,
+859946	        "families_without_linked_elements": sum(not row["has_feature_row"] for row in coverage),
+859947	    atomic_write(t1/"t1-intelligence-manifest.json",
+859948	                 lambda p: p.write_text(json.dumps(manifest, indent=2)+"\n", encoding="utf-8"))
+859949	    for name in ("db", "t1", "stars"):
+859950	    print(json.dumps(build(args.db, args.t1, args.stars), indent=2))
+859951	"""Check the real released prose and browser-only catalogue handling."""
+859953	CATALOGUE_URL = "**/data/prose-catalogue.json"
+859954	def fixture_file(records):
+859955	    data = {"schema": "vedic.prose.catalogue.v1", "records": records}
+859956	    return {"name": "test-only.json", "mimeType": "application/json",
+859957	            "buffer": json.dumps(data, ensure_ascii=False).encode("utf-8")}
+859958	def exercise_published(page, catalogue):
+859959	    expected = catalogue["records"]
+859960	    expect(page.locator("#proseStatus")).to_contain_text("Published catalogue")
+859961	    rows = page.locator("#proseRows tr")
+859962	    assert rows.count() == min(100, len(expected))
+859963	    for position, record in enumerate(expected[:100]):
+859964	        row = rows.nth(position)
+859965	        assert row.locator("strong").text_content() == record["id"]
+859966	        assert row.locator(".prose-text").first.text_content() == record["prose"]
+859967	        row.locator("summary").click()
+859968	        assert row.locator("details p").all_text_contents() == [record["provenance"], record["evidence"]]
+859969	    assert page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
+859970	    final = expected[-1]
+859971	    page.locator("#proseSearch").fill(final["id"])
+859972	    assert rows.count() == 1
+859973	    assert rows.first.locator(".prose-text").first.text_content() == final["prose"]
+859974	    page.locator("#proseSearch").fill("")
+859975	    page.locator("#proseApp").select_option(final["software"])
+859976	    assert rows.count() == min(100, sum(r["software"] == final["software"] for r in expected))
+859977	    page.locator("#proseFull").click()
+859978	    expect(page.locator("#proseFull")).to_have_attribute("aria-pressed", "true")
+859979	    page.keyboard.press("Escape")
+859980	    expect(page.locator("#proseFull")).to_have_attribute("aria-pressed", "false")
+859981	def exercise_local(page, url):
+859982	    long_text = "An exact long paragraph \u2014 long enough to wrap. " * 200 + "\n\nA second paragraph and \u00a9."
+859983	    attack = '<img src="/should-never-send-local-import" onerror="window.importExecuted=true">'
+859984	    records = [{"id": f"LOCAL-{i:03}", "software": "Synthetic fixture",
+859985	                "prose": long_text if i == 0 else attack if i == 100 else f"Test passage {i}"}
+859986	               for i in range(101)]
+859987	    page.wait_for_load_state("networkidle")
+859988	    sent = []
+859989	    page.on("request", lambda request: sent.append(request.url))
+859990	    page.locator("#proseImport").set_input_files(fixture_file(records))
+859991	    expect(page.locator("#proseStatus")).to_contain_text("Local file")
+859992	    assert rows.count() == 100
+859993	    assert rows.first.locator(".prose-text").first.text_content() == long_text
+859994	    page.locator("#proseNext").click()
+859995	    assert rows.first.locator(".prose-text").first.text_content() == attack
+859996	    assert page.locator("#proseRows img").count() == 0
+859997	    assert not page.evaluate("Boolean(window.importExecuted)")
+859998	    page.locator("#proseSearch").fill("A second paragraph")
+859999	    assert rows.first.locator("strong").text_content() == "LOCAL-000"
+860000	    page.locator("#proseImport").set_input_files(fixture_file([records[0], records[0]]))
+860001	    expect(page.locator("#proseStatus")).to_contain_text("Import rejected")
+860002	    assert not sent, sent
+860003	    for code, body in ((404, ""), (200, '{"schema":"invalid","records":[]}')):
+860004	        def unavailable(route):
+860005	            route.fulfill(status=code, body=body, content_type="application/json")
+860006	        page.route(CATALOGUE_URL, unavailable)
+860007	        page.goto(url)
+860008	        page.wait_for_load_state("networkidle")
+860009	        expect(page.locator("#proseStatus")).to_contain_text("No published catalogue available")
+860010	        assert rows.count() == 0
+860011	        page.locator("#proseImport").set_input_files(fixture_file(records[:1]))
+860012	        expect(page.locator("#proseStatus")).to_contain_text("Local file")
+860013	        assert rows.first.locator(".prose-text").first.text_content() == long_text
+860014	        page.unroute(CATALOGUE_URL, unavailable)
+860015	    parser.add_argument("url")
+860016	    parser.add_argument("catalogue", type=Path)
+860017	    catalogue = json.loads(args.catalogue.read_bytes())
+860019	        for engine in (playwright.chromium, playwright.webkit):
+860020	            browser = engine.launch(headless=True)
+860021	                for width, height in ((1280, 800), (390, 844), (844, 390)):
+860022	                    page = browser.new_page(viewport={"width": width, "height": height})
+860023	                    errors = []
+860024	                    page.on("pageerror", lambda error: errors.append(str(error)))
+860025	                    page.goto(args.url)
+860026	                    exercise_published(page, catalogue)
+860027	                    exercise_local(page, args.url)
+860028	                    assert not errors, errors
+860030	                    print(f"Prose PASS {engine.name} {width}x{height}", flush=True)
+860032	"""Run the VEDIC ORIENT apparatus using the existing Faraday experiment runner."""
+860033	from semantic_compiler import ROOT, Refusal, need, pinned_git_file, strict_json
+860034	FARADAY = "e439b450f37a8c124fa4a0cb38159ae0dc337062"
+860035	EXPERIMENT = 101
+860037	    "run.mjs": "b0d63f8350f081079f0df7508a120f512ff845c143585c758ae42fb1d1db5be3",
+860038	    "INDEX.tsv": "25bd06cc1a904df3dcd4c63d9e7a43f86558b5b7920989cb46f34ddf4e0fd0d2",
+860039	CANDIDATE_ROW = (
+860040	    "101\tVEDIC packaged geodesy\tDo the known spherical outputs and bounded refusals follow through ORIENT?"
+860041	    "\tExact private package via the VEDIC compiler\tAny mismatched output, scope or refusal"
+860042	    for name in ("faraday", "factory-repo", "private-package", "out"):
+860043	        parser.add_argument("--" + name, required=True, type=Path)
+860044	        source = {name: pinned_git_file(args.faraday, FARADAY, f"experiments/{name}", digest)
+860045	                  for name, digest in FILES.items()}
+860046	        index = source["INDEX.tsv"].decode("utf-8").rstrip("\r\n")
+860047	        numbers = [int(line.split("\t", 1)[0]) for line in index.splitlines()[1:]]
+860048	        need(numbers == list(range(1, EXPERIMENT)), "FARADAY_INDEX_CHANGED")
+860049	        args.out.mkdir()
+860050	        for name, raw in source.items():
+860051	            (args.out / name).write_bytes(raw)
+860052	        (args.out / "INDEX.tsv").write_bytes((index + "\n" + CANDIDATE_ROW + "\n").encode("utf-8"))
+860053	        (args.out / f"e{EXPERIMENT:03}.mjs").write_bytes(
+860054	            (ROOT / "tools/faraday_orient_experiment.mjs").read_bytes())
+860055	        package = args.private_package.resolve()
+860056	        env = {**os.environ, "VEDIC_PYTHON": sys.executable,
+860057	               "VEDIC_COMPILER": str(ROOT / "tools/semantic_compiler.py"),
+860058	               "VEDIC_FACTORY_REPO": str(args.factory_repo.resolve()),
+860059	               "VEDIC_ORIENT_ARCHIVE": str(package / "orient.zip"),
+860060	               "VEDIC_ORIENT_BUILD_RECEIPT": str(package / "build-receipt.json")}
+860061	        outcome = subprocess.run(["node", "--no-addons", "run.mjs", str(EXPERIMENT)],
+860062	                                 cwd=args.out, env=env, check=False, timeout=120)
+860063	        receipt = strict_json((args.out / f"results/e{EXPERIMENT:03}.json").read_bytes())
+860064	        need(outcome.returncode == 0 and receipt["result"] == "CONFIRMED", "FARADAY_NOT_CONFIRMED")
+860065	    except (Refusal, OSError, subprocess.SubprocessError) as exc:
+860066	        print(str(exc), file=sys.stderr)
+860068	    print(f"Confirmed staged Faraday candidate {EXPERIMENT} from {FARADAY}")
+860071	"""Recover the exact private ORIENT archive from its existing build evidence."""
+860075	from semantic_compiler import (BINDINGS, Refusal, need, pinned_git_file, sha256,
+860076	                               small_read, stage_factory, strict_json)
+860077	SOURCE_MEMBERS = {
+860078	    "module.mjs": "source-receipt/v9-geodesy.mjs",
+860079	    "receipt.json": "source-receipt/receipt.json",
+860080	MANIFEST_SHA256 = "67b6f9f39e30449e1a965d1e06334925ee002a5fd3b4429f892fe61f83a3af78"
+860081	def member(archive, name):
+860082	    matches = [entry for entry in archive.infolist() if entry.filename == name]
+860083	    need(len(matches) == 1 and matches[0].file_size <= 2 * 1024 * 1024,
+860084	         "ARTIFACT_MEMBER_MISMATCH", member=name)
+860085	    return archive.read(matches[0])
+860086	def reassemble(vedic, engine, source_artifact, build_artifact):
+860087	    binding = strict_json(small_read(BINDINGS))["bindings"]["GG2050-VEDIC-000006"]
+860088	    package = binding["package"]
+860089	    with zipfile.ZipFile(source_artifact) as source:
+860090	        inputs = {name: member(source, path) for name, path in SOURCE_MEMBERS.items()}
+860091	    with zipfile.ZipFile(build_artifact) as build:
+860092	        manifest = member(build, "manifest.json")
+860093	        receipt = member(build, "build-receipt.json")
+860094	    need(sha256(manifest) == MANIFEST_SHA256
+860095	         and sha256(receipt) == package["build_receipt_sha256"], "BUILD_EVIDENCE_MISMATCH")
+860096	    need(inputs["module.mjs"] == pinned_git_file(
+860097	        engine, "487ec7bd38dfa5aecb1c75da53b4a866ab2101cb", "engine/v9-geodesy.js"),
+860098	        "SOURCE_ARTIFACT_GIT_MISMATCH")
+860099	    with tempfile.TemporaryDirectory(prefix="vedic-package-recovery-") as tmp:
+860101	        stage_factory(vedic, root, package)
+860102	        spec = importlib.util.spec_from_file_location("pinned_factory", root / "tools/package_factory.py")
+860103	        factory = importlib.util.module_from_spec(spec)
+860104	        spec.loader.exec_module(factory)
+860105	        descriptor = strict_json(small_read(root / "packages/factory/admissions/orient.json"))
+860106	        repos = {"Ventusltd/vedic-": vedic, "Ventusltd/ventus-grid-engine": engine}
+860107	        for item in descriptor["inputs"]:
+860108	            if item["filename"] not in inputs:
+860109	                inputs[item["filename"]] = pinned_git_file(
+860110	                    repos[item["repo"]], item["commit"], item["path"])
+860111	        # The published build opens files using Linux-only flags. Supply immutable
+860112	        # in-memory bytes while retaining the original Factory digest checks.
+860113	        with patch.object(factory, "read_file", side_effect=lambda _, name: inputs[name]):
+860114	            payload, _ = factory.assemble(descriptor, None)
+860115	        raw = factory.archive(payload)
+860116	        factory.verify(raw, payload)
+860117	    need(payload["manifest.json"] == manifest and sha256(raw) == package["archive_sha256"],
+860118	         "REASSEMBLED_ARCHIVE_MISMATCH")
+860119	    return raw, receipt
+860120	    for name in ("vedic", "engine", "source-artifact", "build-artifact", "out"):
+860121	        need(not args.out.exists(), "OUTPUT_EXISTS")
+860122	        archive, receipt = reassemble(args.vedic, args.engine, args.source_artifact, args.build_artifact)
+860123	        staging = Path(tempfile.mkdtemp(prefix=".vedic-orient-", dir=args.out.parent))
+860124	            (staging / "orient.zip").write_bytes(archive)
+860125	            (staging / "build-receipt.json").write_bytes(receipt)
+860126	            staging.rename(args.out)
+860128	            if staging.exists():
+860129	                shutil.rmtree(staging)
+860130	    except (ValueError, OSError, zipfile.BadZipFile) as exc:
+860131	        print(json.dumps({"state": "REFUSED", "reason": str(exc)}))
+860133	    print(json.dumps({"state": "EXACT_ARCHIVE_RECOVERED", "archive_bytes": len(archive),
+860134	                      "archive_sha256": sha256(archive), "build_receipt_sha256": sha256(receipt)}))
+860135	"""Resolve the existing VEDIC dictionary and invoke reviewed package bindings."""
+860137	DICTIONARY = ROOT / "data" / "dictionary.json"
+860138	BINDINGS = ROOT / "data" / "command-execution-bindings.json"
+860139	RECEIPT_SCHEMA = "vedic.command-execution.v1"
+860140	PHRASE = re.compile(r"[a-z]+(?: [a-z]+){0,4}")
+860141	class Refusal(ValueError):
+860142	    def __init__(self, code, **details):
+860143	        super().__init__(code)
+860144	        self.details = details
+860145	def need(condition, code, **details):
+860146	        raise Refusal(code, **details)
+860147	def sha256(raw):
+860148	def strict_json(raw):
+860150	        fields = {}
+860152	            need(key not in fields, "DUPLICATE_JSON_KEY")
+860153	            fields[key] = value
+860154	        return fields
+860155	    def finite_number(literal):
+860156	        value = float(literal)
+860157	        need(math.isfinite(value), "NONFINITE_INPUT")
+860159	    def nonfinite(_literal):
+860160	        raise Refusal("NONFINITE_INPUT")
+860161	        return json.loads(raw, object_pairs_hook=unique, parse_float=finite_number,
+860162	                          parse_constant=nonfinite)
+860163	    except Refusal:
+860164	    except (UnicodeError, ValueError, RecursionError) as exc:
+860165	        raise Refusal("INVALID_JSON") from exc
+860166	    return (json.dumps(value, sort_keys=True, ensure_ascii=False, allow_nan=False) + "\n").encode("utf-8")
+860167	def small_read(path, limit=2 * 1024 * 1024):
+860169	        raw = stream.read(limit + 1)
+860170	    need(len(raw) <= limit, "PAYLOAD_TOO_LARGE")
+860172	def phrase_key(phrase):
+860173	    key = " ".join(phrase.strip().lower().split())
+860174	    need(phrase.isascii() and PHRASE.fullmatch(key), "COMMAND_SYNTAX")
+860175	    return key
+860176	def resolve(phrase, dictionary, registry, sense_id=None):
+860177	    key = phrase_key(phrase)
+860178	    entries = dictionary["entries"]
+860179	    bindings = registry["bindings"]
+860180	    matching = []
+860182	        binding = bindings.get(entry["gg_id"], {})
+860183	        names = [entry["word"], *entry.get("aliases", []), *binding.get("aliases", [])]
+860184	        if any(" ".join(name.lower().split()) == key for name in names):
+860185	            if sense_id is None or sense_id == entry["gg_id"]:
+860186	                matching.append(entry)
+860187	    need(matching, "UNKNOWN_COMMAND")
+860188	    need(len(matching) == 1, "AMBIGUOUS_COMMAND",
+860189	         candidates=[entry["gg_id"] for entry in matching])
+860190	    command = matching[0]
+860191	    command_id = command["gg_id"]
+860193	        "command_id": command_id,
+860194	        "canonical": command["word"],
+860195	        "intent": command.get("purpose"),
+860196	        "dictionary_status": command["state"],
+860197	        "inputs": command["inputs"],
+860198	        "output": command["output"],
+860199	        "execution_readiness": "NO_REVIEWED_PACKAGE_BINDING",
+860200	    binding = bindings.get(command_id)
+860201	    if binding:
+860202	        need(binding["sense_key"] == command["sense_key"]
+860203	             and binding["components"] == command["components"]
+860204	             and command["composition_mode"] == "shared_inputs", "DICTIONARY_BINDING_DRIFT")
+860205	        plan["execution_readiness"] = "PRIVATE_FACTORY_PACKAGE"
+860206	        for field in ("aliases", "components", "operations", "ports", "refusals",
+860207	                      "scope", "package", "source_receipt_sha256", "independent_package_acceptance"):
+860208	            plan[field] = binding[field]
+860210	def pinned_git_file(repo, commit, path, expected_sha256=None):
+860211	    environment = {**os.environ, "GIT_NO_LAZY_FETCH": "1", "GIT_NO_REPLACE_OBJECTS": "1"}
+860212	        result = subprocess.run(["git", "-C", str(repo), "show", f"{commit}:{path}"],
+860213	                                check=True, capture_output=True, timeout=15, env=environment)
+860214	    except (OSError, subprocess.SubprocessError) as exc:
+860215	        raise Refusal("PINNED_GIT_OBJECT_UNAVAILABLE", path=path) from exc
+860216	    raw = result.stdout
+860217	    if expected_sha256 is not None:
+860218	        need(sha256(raw) == expected_sha256, "GIT_BYTES_MISMATCH", path=path)
+860219	def stage_factory(repo, factory, package):
+860220	    for relative, digest in package["factory_files"].items():
+860221	        path = factory / relative
+860223	        path.write_bytes(pinned_git_file(repo, package["factory_commit"], relative, digest))
+860224	def execute(plan, values, repo, archive, build_receipt):
+860225	    need(plan["execution_readiness"] == "PRIVATE_FACTORY_PACKAGE", "PACKAGE_NOT_ADMITTED")
+860226	    package = plan["package"]
+860227	    evidence = {field: small_read(path) for path, field in
+860228	                ((archive, "archive_sha256"), (build_receipt, "build_receipt_sha256"))}
+860229	    for field, raw in evidence.items():
+860230	        need(sha256(raw) == package[field], "PACKAGE_EVIDENCE_MISMATCH", evidence=field)
+860231	    request = {
+860232	        "schema": "vedic.typed-package-request.v1",
+860233	        "family": package["family"],
+860234	        "export": package["export"],
+860235	        "archive_sha256": package["archive_sha256"],
+860236	        "descriptor_sha256": package["descriptor_sha256"],
+860237	        "ports": plan["ports"],
+860238	        "input": values,
+860239	    with tempfile.TemporaryDirectory(prefix="vedic-command-") as tmp:
+860240	        factory = Path(tmp)
+860241	        stage_factory(repo, factory, package)
+860242	        runner = factory / "tools/typed_package_execution.py"
+860243	        runner_bytes = runner.read_bytes()
+860244	        runtime_compatibility = "PINNED_FACTORY_RUNNER"
+860246	            # Windows Node's system crypto initialization requires SYSTEMROOT.
+860247	            # Preserve the Factory's minimal environment and its exact checks.
+860248	            original = b'env={"PATH":os.environ["PATH"]}'
+860249	            replacement = b'env={k:os.environ[k] for k in ("PATH","SYSTEMROOT")}'
+860250	            need(runner_bytes.count(original) == 1 and "SYSTEMROOT" in os.environ,
+860251	                 "WINDOWS_RUNNER_SHAPE")
+860252	            runner_bytes = runner_bytes.replace(original, replacement)
+860253	            runner.write_bytes(runner_bytes)
+860254	            runtime_compatibility = "WINDOWS_SYSTEMROOT_ONLY"
+860255	        request_path = factory / "request.json"
+860256	        request_path.write_bytes(json_bytes(request))
+860257	        archive_path = factory / "orient.zip"
+860258	        archive_path.write_bytes(evidence["archive_sha256"])
+860259	        receipt_path = factory / "build-receipt.json"
+860260	        receipt_path.write_bytes(evidence["build_receipt_sha256"])
+860261	        command = [sys.executable, "-E", "-s", str(runner), "--request", str(request_path),
+860262	                   "--archive", str(archive_path), "--receipt", str(receipt_path)]
+860263	            result = subprocess.run(command, capture_output=True, timeout=30, cwd=factory)
+860264	        except (OSError, subprocess.SubprocessError) as exc:
+860265	            raise Refusal("PACKAGE_RUN_ERROR") from exc
+860266	    outcome = strict_json(result.stdout) if result.stdout.strip() else {}
+860268	        raise Refusal("PACKAGE_REFUSED", package_reason=outcome.get("reason", "PACKAGE_RUN_ERROR"))
+860269	    need(outcome.get("state") == "EXECUTED_ADMITTED_ORIENT_ONLY", "PACKAGE_RESULT_MISMATCH")
+860270	    pattern = outcome.get("pattern", {})
+860271	    need(pattern.get("request") == request
+860272	         and pattern.get("source_receipt_sha256") == plan["source_receipt_sha256"]
+860273	         and pattern.get("independent_acceptance") is False, "PACKAGE_RESULT_MISMATCH")
+860274	        "schema": RECEIPT_SCHEMA,
+860275	        "state": "EXECUTED_PRIVATE_PACKAGE",
+860277	        "plan_sha256": sha256(json_bytes(plan)),
+860278	        "runtime_compatibility": runtime_compatibility,
+860279	        "runner_sha256": sha256(runner_bytes),
+860280	        "package_execution": outcome,
+860281	    parser.add_argument("command")
+860282	    parser.add_argument("--sense-id", help="Select an existing ID for a command with several meanings")
+860283	    parser.add_argument("--input", type=Path, help="Execute with this exact JSON input")
+860284	    parser.add_argument("--archive", type=Path)
+860285	    parser.add_argument("--build-receipt", type=Path)
+860286	    parser.add_argument("--factory-repo", type=Path, default=ROOT)
+860287	        registry = strict_json(small_read(BINDINGS))
+860288	        need(registry.get("schema") == "vedic.execution-bindings.v1", "BINDINGS_SCHEMA")
+860289	        plan = resolve(args.command, strict_json(DICTIONARY.read_bytes()), registry, args.sense_id)
+860290	        if args.input:
+860291	            need(plan["execution_readiness"] == "PRIVATE_FACTORY_PACKAGE", "PACKAGE_NOT_ADMITTED")
+860292	            need(args.archive and args.build_receipt, "PACKAGE_EVIDENCE_REQUIRED")
+860293	            result = execute(plan, strict_json(small_read(args.input)), args.factory_repo,
+860294	                             args.archive, args.build_receipt)
+860295	            need(not (args.archive or args.build_receipt), "INPUT_REQUIRED")
+860296	            result = {"state": "RESOLVED", "plan": plan, "plan_sha256": sha256(json_bytes(plan))}
+860297	    except Refusal as exc:
+860298	        result = {"schema": RECEIPT_SCHEMA, "state": "REFUSED", "reason": str(exc), **exc.details}
+860299	        sys.stdout.buffer.write(json_bytes(result))
+860301	        sys.stdout.buffer.write(json_bytes({"schema": RECEIPT_SCHEMA, "state": "REFUSED",
+860302	                                           "reason": "EVIDENCE_IO_ERROR"}))
+860303	    sys.stdout.buffer.write(json_bytes(result))
+860304	"""Bounded, append-only admission of source-reviewed VEDIC contracts.
+860305	No source execution, model API, or renumbering. The source manifest is a
+860306	durable input queue; its entries are not automatically semantic proof.
+860307	from family_pulse import key, read, write, require
+860308	from source_evidence import POLICY, POLICY_SCHEMA, POLICY_STATE, source_link, verify_exact_span
+860311	BASE = "bfc4924495dfe14ab9c074bc7a2af36c32281680"
+860312	LEGACY = "a888ef8f20da773d4056cc64a0821495f9dd7631"
+860313	DICT = "data/dictionary.json"
+860314	SCHEMA = "vedic.source-admission-archive.v1"
+860315	LIMIT = 20
+860316	DEFAULT_OUTPUT = ROOT / "receipts" / "source-admissions"
+860318	    return subprocess.check_output(["git", *args], cwd=ROOT, timeout=30)
+860319	def pinned(commit, path):
+860320	    require(bool(re.fullmatch(r"[0-9a-f]{40}", commit)), "invalid manifest commit")
+860321	    return json.loads(git("show", f"{commit}:{path}"))
+860322	def stamp(commit):
+860323	    epoch = int(git("show", "-s", "--format=%ct", commit).strip())
+860324	    return datetime.fromtimestamp(epoch, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+860325	def contract(c):
+860326	    return hashlib.sha256(json.dumps([key(c["purpose"]), [key(x) for x in c["inputs"]],
+860327	        key(c["output"]), key(c["limits"])], separators=(",", ":")).encode()).hexdigest()
+860328	def candidate_id(c):
+860329	    return hashlib.sha256(json.dumps(c["source"], sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+860330	def contract_payload(candidate):
+860331	    return {key: value for key, value in candidate.items() if key != "policy_receipt"}
+860332	def policy_contract_digest(candidate):
+860333	    body = json.dumps(contract_payload(candidate), ensure_ascii=False, sort_keys=True,
+860335	    return hashlib.sha256(body.encode("utf-8")).hexdigest()
+860336	def make_policy_receipt(candidate, raw):
+860337	        "schema": POLICY_SCHEMA,
+860338	        "policy": POLICY,
+860339	        "source_sha256": hashlib.sha256(raw).hexdigest(),
+860340	        "contract_sha256": policy_contract_digest(candidate),
+860341	def verify_policy_receipt(candidate):
+860342	    receipt = candidate.get("policy_receipt")
+860343	    require(isinstance(receipt, dict) and set(receipt) == {
+860344	        "schema", "policy", "source_sha256", "contract_sha256"
+860345	    }, "missing strict policy receipt")
+860346	    require(receipt["schema"] == POLICY_SCHEMA and receipt["policy"] == POLICY,
+860347	            "unsupported source policy")
+860348	    require(isinstance(receipt["source_sha256"], str) and
+860349	            re.fullmatch(r"[0-9a-f]{64}", receipt["source_sha256"]),
+860350	            "invalid policy source digest")
+860351	    require(receipt["contract_sha256"] == policy_contract_digest(candidate),
+860352	            "policy receipt does not bind candidate contract")
+860353	    source = candidate.get("source")
+860354	    require(isinstance(source, dict) and set(source) == {
+860355	        "repo", "commit", "blob", "path", "first", "last"
+860356	    }, "invalid policy source fields")
+860357	    require(candidate.get("receipt") == source_link(source),
+860358	            "policy evidence must link to the exact pinned source")
+860359	def read_policy_source(repo, commit, path):
+860360	    return fetch(repo, commit, quote(path, safe="/"))
+860361	def verify_policy_candidate(candidate, raw):
+860362	    verify_policy_receipt(candidate)
+860363	    from daily_source_policy import POLICY as REPRODUCER_POLICY, reproduce_candidate
+860364	    require(REPRODUCER_POLICY == POLICY, "unexpected source policy implementation")
+860365	    verify_exact_span(candidate["source"], candidate["symbol"], raw)
+860366	    require(candidate["policy_receipt"] == make_policy_receipt(candidate, raw),
+860367	            "policy receipt does not bind pinned source bytes")
+860368	    require(reproduce_candidate(candidate["source"], raw) == contract_payload(candidate),
+860369	            "candidate differs from exact policy reproduction")
+860370	def allocate_one(d, c, manifest, timestamp):
+860371	    require(isinstance(c, dict), "invalid candidate")
+860372	    w, sym = c["word"], c["symbol"]
+860373	    require(bool(re.fullmatch(r"[A-Z][A-Z0-9]*(?: [A-Z0-9]+){0,4}", w)) and len(w)<=64, "invalid canonical label")
+860374	    require(bool(re.fullmatch(r"[A-Za-z_$][A-Za-z0-9_$]*", sym)), "invalid symbol")
+860375	    require(isinstance(c["purpose"],str) and 0<len(c["purpose"])<=240, "purpose")
+860376	    require(isinstance(c["limits"],str) and 0<len(c["limits"])<=600, "limits")
+860377	    require(isinstance(c["output"],str) and 0<len(c["output"])<=300, "output")
+860378	    require(isinstance(c["inputs"],list) and all(isinstance(x,str) and x for x in c["inputs"]), "inputs")
+860379	    aliases=c.get("aliases",[])
+860380	    require(isinstance(aliases,list) and all(isinstance(x,str) and key(x) for x in aliases), "aliases")
+860381	    labels={key(w),*map(key,aliases)}
+860382	    require(len(labels)==1+len(aliases), "duplicate aliases")
+860383	    s=c["source"]
+860384	    require(bool(re.fullmatch(r"Ventusltd/[A-Za-z0-9][A-Za-z0-9_.-]*",s["repo"])), "source repository")
+860385	    require(all(re.fullmatch(r"[0-9a-f]{40}",s[k]) for k in ("commit","blob")), "source pin")
+860386	    require(bool(re.fullmatch(r"[A-Za-z0-9_. /-]+",s["path"])) and
+860387	            not {"", ".", ".."}.intersection(s["path"].split("/")), "source path")
+860388	    require(type(s["first"]) is int and type(s["last"]) is int and 1<=s["first"]<=s["last"], "source span")
+860389	    ref=f"source-command:{s['repo']}:{sym}"
+860390	    fingerprint = contract(c)
+860391	    for old in d["entries"]:
+860392	        old_labels={key(old["word"]),*map(key,old.get("aliases",[]))}
+860393	        old_sym=key((old.get("translation_ref") or "").rsplit(":",1)[-1])
+860394	        require(not labels.intersection(old_labels|{old_sym}) and key(sym) not in old_labels|{old_sym}, "duplicate label or symbol")
+860395	        require(old["sense_key"]!="function:"+ref, "duplicate sense")
+860396	        t=old.get("source") or {}
+860397	        if all(s[k]==t.get(k) for k in ("repo","path","blob")):
+860398	            require(s["last"]<t["first"] or s["first"]>t["last"], "overlapping source occurrence")
+860399	        if old.get("contract_fingerprint"):
+860400	            require(old["contract_fingerprint"]!=fingerprint, "duplicate contract")
+860401	    n=d["next_number"]
+860402	    row={k:copy.deepcopy(c[k]) for k in ("word","purpose","limits","inputs","output",
+860403	        "estate_group","discipline","periodic_category","vedic_class_candidate","source","receipt")}
+860404	    row.update(number=n,gg_id=f"GG2050-VEDIC-{n:06d}",kind="FUNCTION",
+860405	        translation_ref=ref,sense_key="function:"+ref,aliases=aliases,
+860406	        fixture_status="Static source reviewed; runtime not verified",
+860407	        demo=None,demo_unavailable_reason="No independently admitted executable package.",
+860408	        state="STATIC_SOURCE_REVIEW",classification_state="CURATED_CANDIDATE",
+860409	        periodic_block_candidate="Unresolved",created_utc=timestamp,
+860410	        creation_evidence=f"https://github.com/Ventusltd/vedic-/commit/{manifest}",
+860411	        priority=2,family_id=None,element_id=None,tablet_id=None,line_ids=None,proof=None,
+860412	        contract_fingerprint=fingerprint,admission_policy="source-reviewed-v1",
+860413	        application={"name":c["estate_group"],"url":f"https://github.com/{s['repo']}/blob/{s['commit']}/{quote(s['path'])}#L{s['first']}-L{s['last']}",
+860414	            "instructions":"Inspect the pinned source and input contract.","state":"RELATED_APPLICATION_RUNTIME_UNVERIFIED"})
+860415	    if "policy_receipt" in c:
+860416	        row["admission_policy"] = POLICY
+860417	        row["state"] = POLICY_STATE
+860418	        row["policy_receipt"] = copy.deepcopy(c["policy_receipt"])
+860419	        row["fixture_status"] = "Static source contract reproduced by policy; runtime not verified"
+860420	    d["entries"].append(row)
+860421	    d["next_number"]+=1
+860423	def replay(base, archive, load=pinned, date=stamp, *, legacy_records=(), checker=None):
+860424	    require(archive["schema"]==SCHEMA and archive["baseline_commit"]==BASE,"archive schema")
+860425	    d=copy.deepcopy(base)
+860426	    records = archive["records"]
+860427	    require(isinstance(records, list) and records[:len(legacy_records)] == list(legacy_records),
+860428	            "immutable legacy source-admission archive prefix changed")
+860429	    cache={}
+860431	    for position, a in enumerate(records):
+860432	        m=a["manifest_commit"]
+860433	        if m not in cache:
+860434	            q=load(m,QUEUE)
+860435	            require(q["schema"]=="vedic.source-candidates.v1","manifest schema")
+860436	            cache[m]=(q["records"],date(m))
+860437	        manifest_records,timestamp=cache[m]
+860438	        i=a["index"]
+860439	        require(type(i) is int and 0<=i<len(manifest_records),"manifest index")
+860440	        c=manifest_records[i]
+860441	        require(a["candidate"]==c and a["candidate_id"]==candidate_id(c),"archive evidence mismatch")
+860442	        require(a["candidate_id"] not in seen,"duplicate archived source")
+860443	        seen.add(a["candidate_id"])
+860444	        strict = position >= len(legacy_records)
+860445	        if strict:
+860446	            verify_policy_receipt(c)
+860447	        allocate_one(d,c,m,timestamp)
+860448	        if strict and checker is not None:
+860449	            checker(c)
+860451	def replay_published(base, archive, *, checker=None):
+860452	    legacy = pinned(LEGACY, ARCHIVE)
+860453	    manifests = {item["manifest_commit"] for item in archive["records"][len(legacy["records"]):]}
+860454	    for manifest in manifests:
+860455	        require(bool(re.fullmatch(r"[0-9a-f]{40}", manifest)), "invalid manifest commit")
+860456	        is_ancestor = subprocess.run(
+860457	            ["git", "merge-base", "--is-ancestor", manifest, "HEAD"], cwd=ROOT, timeout=30,
+860458	            check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+860459	        ).returncode == 0
+860460	        require(is_ancestor, "policy manifest must remain in Git history; use a merge commit")
+860461	    return replay(base, archive, legacy_records=legacy["records"], checker=checker)
+860462	def prepare(d, archive, queue, manifest, timestamp, checker, limit=LIMIT):
+860463	    require(queue["schema"]=="vedic.source-candidates.v1","queue schema")
+860464	    require(type(limit) is int and 0<=limit<=LIMIT,"admission budget")
+860465	    known={a["candidate_id"] for a in archive["records"]}
+860466	    held=[];added=[]
+860467	    for i,c in enumerate(queue["records"]):
+860468	        if len(added)>=limit: break
+860469	        before=len(d["entries"])
+860470	            cid=candidate_id(c)
+860471	            if cid in known: continue
+860472	            row=allocate_one(d,c,manifest,timestamp)
+860473	        except (ValueError,KeyError,TypeError,AttributeError,IndexError) as exc:
+860474	            if len(d["entries"])>before:
+860475	                d["entries"].pop();d["next_number"]-=1
+860476	            held.append({"index":i,"reason":str(exc)[:240]})
+860477	        archive["records"].append({"manifest_commit":manifest,"index":i,"candidate_id":cid,"candidate":c})
+860478	        known.add(cid);added.append(row["gg_id"])
+860479	    return added,held
+860480	def stage_proposal(destination, dictionary, archive):
+860481	    destination = destination.resolve()
+860482	    require(not destination.exists(), "proposal destination already exists")
+860484	    with tempfile.TemporaryDirectory(prefix=".admission-", dir=destination.parent) as temporary:
+860485	        snapshot = Path(temporary) / "snapshot"
+860486	        write(snapshot / DICT, dictionary)
+860487	        write(snapshot / ARCHIVE, archive)
+860488	        snapshot.rename(destination)
+860489	    p.add_argument("--check",action="store_true")
+860490	    p.add_argument("--prepare",action="store_true")
+860491	    p.add_argument("--limit",type=int,default=LIMIT)
+860492	    p.add_argument("--online", action="store_true", help="independently reproduce archived policy contracts")
+860493	    p.add_argument("--output-dir", type=Path, help="stage proposed dictionary and archive together")
+860494	    require(args.check!=args.prepare,"choose exactly one mode")
+860495	    require(not args.check or args.output_dir is None, "--output-dir requires --prepare")
+860496	    source_cache = {}
+860497	    def check_policy(candidate):
+860498	        source = candidate["source"]
+860499	        key = source["repo"], source["commit"], source["path"]
+860500	        if key not in source_cache:
+860501	            source_cache[key] = read_policy_source(*key)
+860502	        verify_policy_candidate(candidate, source_cache[key])
+860503	    base=pinned(BASE,DICT)
+860504	    current=read(ROOT/DICT)
+860505	    archive=read(ROOT/ARCHIVE)
+860506	    require(replay_published(base, archive, checker=check_policy if args.online else None) == current,
+860507	            "dictionary differs from exact source-admission replay")
+860509	        print("Exact source-admission replay:",len(current["entries"]))
+860510	    manifest=git("log","-1","--format=%H","--",QUEUE).decode().strip()
+860511	    queue=pinned(manifest,QUEUE)
+860512	    require(queue==read(ROOT/QUEUE),"uncommitted candidate manifest")
+860513	    translations=read(ROOT/"data/translation-geodesy.json")
+860514	    def check(candidate):
+860515	        validate(current,translations,base)
+860516	        check_policy(candidate)
+860517	    added,held=prepare(current,archive,queue,manifest,stamp(manifest),check,args.limit)
+860518	    require(replay_published(base, archive) == current,"proposal replay mismatch")
+860519	    destination = args.output_dir or DEFAULT_OUTPUT
+860520	    if added:
+860521	        stage_proposal(destination, current, archive)
+860522	    print(json.dumps({"added":added,"held":held,"count":len(current["entries"]),
+860523	                      "output_dir": str(destination.resolve()) if added else None}))
+860524	"""Verify immutable source bytes and conservative function boundaries without executing code."""
+860525	from pathlib import PurePosixPath
+860526	MAX_SOURCE_BYTES = 1_000_000
+860527	POLICY_SCHEMA = "vedic.static-policy-receipt.v1"
+860528	POLICY_STATE = "STATIC_POLICY_REPRODUCED"
+860529	LIGHTNING_LAYER_SOURCE = {
+860530	    "repo": "Ventusltd/gridatlas",
+860531	    "commit": "afffa9781f6130529ae93052604cd3d98d172a35",
+860532	    "blob": "9268a1c4aeac981dea019e3ec63ad8e8384ae227",
+860533	    "path": "atlas/cartridges/202610221600-sld-sandbox-v9-8.js",
+860534	    "first": 8680,
+860535	    "last": 8698,
+860536	LIGHTNING_LAYER_SYMBOL = "addPublicLightningLayer"
+860537	LIGHTNING_INITIALIZER = re.compile(
+860538	    r"^[ \t]*window\.initVentusMap[ \t]*=[ \t]*function[ \t]+"
+860539	    + LIGHTNING_LAYER_SYMBOL + r"[ \t]*(?=\()", re.MULTILINE
+860540	JS_FUNCTION = re.compile(
+860541	    r"^[ \t]*(?:export[ \t]+)?(?:async[ \t]+)?function[ \t]+"
+860542	    r"([A-Za-z_$][A-Za-z0-9_$]*)[ \t]*(?=\()", re.MULTILINE
+860543	JS_NON_CODE = re.compile(
+860544	    r"""/\*[\s\S]*?\*/|//[^\r\n]*|'(?:\\[^\r\n]|[^'\\\r\n])*'|"(?:\\[^\r\n]|[^"\\\r\n])*"|[/`'"]"""
+860545	def source_link(source):
+860546	    path = quote(source["path"], safe="/")
+860547	    return (f"https://github.com/{source['repo']}/blob/{source['commit']}/{path}"
+860548	            f"#L{source['first']}-L{source['last']}")
+860549	def verify_blob(source, raw):
+860550	    if not isinstance(raw, bytes) or len(raw) > MAX_SOURCE_BYTES:
+860551	        raise ValueError("source bytes invalid or too large")
+860552	    if blob != source["blob"]:
+860553	        raise ValueError("source blob differs from pinned evidence")
+860554	def python_spans(raw, symbol):
+860555	        raise ValueError("unsupported Python source") from error
+860556	        (min([node.lineno, *(decorator.lineno for decorator in node.decorator_list)]), node.end_lineno)
+860557	        for node in tree.body
+860558	        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name == symbol
+860559	def mask_javascript(match):
+860560	    value = match[0]
+860561	    if len(value) == 1:
+860562	        raise ValueError("JavaScript lexical construct outside supported boundary-check subset")
+860563	    return re.sub(r"[^\r\n]", " ", value)
+860564	def matching_delimiter(text, start, opening, closing):
+860566	    for offset in range(start, len(text)):
+860567	        char = text[offset]
+860568	        if char == opening:
+860570	        elif char == closing:
+860573	                return offset
+860574	    raise ValueError("unclosed JavaScript function delimiter")
+860575	def verify_javascript_syntax(raw):
+860576	        syntax = subprocess.run(
+860577	            ["node", "--check", "--input-type=module"], input=raw,
+860578	            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10,
+860579	    except (OSError, subprocess.TimeoutExpired) as error:
+860580	        raise ValueError("JavaScript syntax verifier unavailable") from error
+860581	    if syntax.returncode != 0:
+860582	        raise ValueError("invalid JavaScript source")
+860583	def javascript_text(raw):
+860584	    text = raw.decode("utf-8").replace("\r\n", "\n")
+860585	    if any(separator in text for separator in ("\r", "\u2028", "\u2029")):
+860586	        raise ValueError("unsupported JavaScript line endings")
+860588	def verify_lightning_initializer(raw, first, last):
+860589	    """Check the complete assignment in the independently reviewed cartridge."""
+860590	    text = javascript_text(raw)
+860591	    matches = list(LIGHTNING_INITIALIZER.finditer(text))
+860592	    if len(matches) != 1 or text.count("\n", 0, matches[0].start()) + 1 != first:
+860593	        raise ValueError("lightning initializer differs from the reviewed assignment")
+860594	    snippet = "\n".join(text.split("\n")[first - 1:last])
+860595	    masked = JS_NON_CODE.sub(mask_javascript, snippet)
+860596	    match = LIGHTNING_INITIALIZER.match(masked)
+860597	    params_end = matching_delimiter(masked, match.end(), "(", ")")
+860598	    body = re.match(r"\s*\{", masked[params_end + 1:])
+860599	    if not body:
+860600	        raise ValueError("lightning initializer has no function body")
+860601	    close = matching_delimiter(masked, params_end + body.end(), "{", "}")
+860602	    if masked[close + 1:].strip() != ";" or masked.count("\n", 0, close) + first != last:
+860603	        raise ValueError("lightning initializer span must end at the complete assignment")
+860604	    verify_javascript_syntax(raw)
+860605	def javascript_spans(raw, symbol):
+860606	    masked = JS_NON_CODE.sub(mask_javascript, javascript_text(raw))
+860608	    for match in JS_FUNCTION.finditer(masked):
+860609	        if match[1] != symbol:
+860610	        prefix = masked[:match.start()]
+860611	        if any(prefix.count(a) != prefix.count(b) for a, b in ("()", "[]", "{}")):
+860612	        # Reject named continuation expressions even when top-level delimiters
+860613	        # are balanced. Only plain declarations in this subset are supported.
+860614	        if prefix.strip() and prefix.rstrip()[-1] not in ";}":
+860615	        params_end = matching_delimiter(masked, match.end(), "(", ")")
+860616	        body = re.match(r"\s*\{", masked[params_end + 1:])
+860617	        if not body:
+860618	        body_start = params_end + body.end()
+860619	        close = matching_delimiter(masked, body_start, "{", "}")
+860620	        if masked[close + 1:].split("\n", 1)[0].strip():
+860621	            raise ValueError("JavaScript function end shares a line with another statement")
+860622	        spans.append((prefix.count("\n") + 1, masked.count("\n", 0, close) + 1))
+860624	def verify_exact_span(source, symbol, raw):
+860625	    verify_blob(source, raw)
+860626	    if source == LIGHTNING_LAYER_SOURCE and symbol == LIGHTNING_LAYER_SYMBOL:
+860627	        verify_lightning_initializer(raw, source["first"], source["last"])
+860628	    extension = PurePosixPath(source["path"]).suffix
+860629	    if extension == ".py":
+860630	        spans = python_spans(raw, symbol)
+860631	    elif extension in {".js", ".mjs"}:
+860632	        spans = javascript_spans(raw, symbol)
+860633	        raise ValueError("unsupported source language")
+860634	    if spans != [(source["first"], source["last"])]:
+860635	        raise ValueError("source span differs from unique complete top-level function")
+860637	from dictionary_shards import build as build_command_shards
+860638	LEGACY_PUBLIC_FILES = (
+860644	CATALOGUE = "data/prose-catalogue.json"
+860645	PUBLICATION = "data/prose-publication.json"
+860646	CURRENT_PUBLIC_FILES = (
+860647	    *LEGACY_PUBLIC_FILES,
+860648	    "data/accelerator-loop-193906.json",
+860649	    "data/accelerator-loop-193907.json",
+860650	PROSE_ARCHIVE_FILES = (*LEGACY_PUBLIC_FILES, CATALOGUE, PUBLICATION)
+860655	V3_ROUTE = "releases/20261126-v3"
+860656	V3_COMMIT = "9d6a3a35b12fc4709f4b65965ca1f17a87277a2d"
+860657	FIRST_PROSE_ROUTE = "releases/20261126-prose-reader"
+860658	FIRST_PROSE_COMMIT = "7ca32d66e96ce8f453a99363ffaf04de265f2f6a"
+860659	TELEPRINTER_PROSE_ROUTE = "releases/20261126-prose-teleprinter"
+860660	TELEPRINTER_PROSE_COMMIT = "205bbd8f9be2f38d1b6f514022a494474fac79a6"
+860663	def validate_publication(payload):
+860664	    raw = payload[CATALOGUE]
+860665	    if len(raw) > 8 * 1024 * 1024:
+860666	        raise ValueError("Public prose requires a bounded catalogue")
+860667	    catalogue = json.loads(raw)
+860668	    publication = json.loads(payload[PUBLICATION])
+860670	    if catalogue["schema"] != "vedic.prose.catalogue.v1" or not isinstance(records, list) or not records:
+860671	        raise ValueError("Missing published prose")
+860672	    if publication["schema"] != "vedic.prose.publication-batch.v1" or publication["catalogue"] != {
+860673	        "path": "prose-catalogue.json", "rows": len(records), "sha256": digest(raw)
+860675	        raise ValueError("Prose catalogue differs from approved batch")
+860677	    hashes = []
+860679	        for field in ("id", "software", "prose", "status", "provenance", "evidence"):
+860680	            if not isinstance(row[field], str) or not row[field].strip():
+860681	                raise ValueError("Invalid public prose field: " + field)
+860682	        if row["id"] in ids:
+860683	            raise ValueError("Duplicate public prose reference: " + row["id"])
+860684	        ids.add(row["id"])
+860685	        hashes.append({"id": row["id"], "sha256": digest(row["prose"].encode("utf-8"))})
+860686	    if hashes != publication["records"]:
+860687	        raise ValueError("Public prose text or reading order differs from approved batch")
+860688	    return len(records)
+860690	    prose_count = validate_publication(payload) if CATALOGUE in payload else None
+860700	    if prose_count is not None:
+860701	        manifest["prose_count"] = prose_count
+860702	    (destination/"release.json").write_bytes((json.dumps(manifest,sort_keys=True,indent=2)+"\n").encode("utf-8"))
+860709	    current={name:git_bytes(head,name) for name in CURRENT_PUBLIC_FILES}
+860710	    v3={name:git_bytes(V3_COMMIT,name) for name in LEGACY_PUBLIC_FILES}
+860711	    v2={name:git_bytes(V2_COMMIT,name) for name in LEGACY_PUBLIC_FILES}
+860713	        if (ROOT/name).read_bytes()!=data:
+860715	    prior={name:git_bytes(V1_COMMIT,name) for name in LEGACY_PUBLIC_FILES}
+860717	    first_prose = {name:git_bytes(FIRST_PROSE_COMMIT,name) for name in PROSE_ARCHIVE_FILES}
+860718	    teleprinter_prose = {name:git_bytes(TELEPRINTER_PROSE_COMMIT,name) for name in PROSE_ARCHIVE_FILES}
+860719	    generated = build_command_shards(json.loads(current["data/dictionary.json"]), json.loads(current["data/translation-geodesy.json"]))
+860720	    current.update(generated)
+860721	    write_bundle(destination,current,"20261126-commands",head)
+860722	    write_bundle(destination/TELEPRINTER_PROSE_ROUTE,teleprinter_prose,"20261126-prose-teleprinter",TELEPRINTER_PROSE_COMMIT)
+860723	    write_bundle(destination/FIRST_PROSE_ROUTE,first_prose,"20261126-prose-reader",FIRST_PROSE_COMMIT)
+860725	    write_bundle(destination/V2_ROUTE,v2,"202611261351",V2_COMMIT)
+860726	    write_bundle(destination/V3_ROUTE,v3,"20261126-v3",V3_COMMIT)
+860728	    expected = {".nojekyll", "release.json", *CURRENT_PUBLIC_FILES, *generated}
+860729	    expected.update(f"{route}/{name}" for route in (V1_ROUTE, V2_ROUTE, V3_ROUTE)
+860730	                    for name in (*LEGACY_PUBLIC_FILES, "release.json"))
+860732	    expected.update(f"{route}/{name}" for route in (FIRST_PROSE_ROUTE, TELEPRINTER_PROSE_ROUTE)
+860733	                    for name in (*PROSE_ARCHIVE_FILES, "release.json"))
+860740	from estate_crib_search import GROUPS, scheduled_cribs, select_groups_numpy
+860741	from estate_domain_scan import scan
+860742	class DailyAcceleratorTests(unittest.TestCase):
+860743	    def progress(self, rounds, database="a", method="b", total=37):
+860744	        return daily_accelerator.validate({
+860745	            "schema": daily_accelerator.SCHEMA,
+860746	            "database_sha256": database * 64,
+860747	            "method_sha256": method * 64,
+860748	            "completed_rounds": rounds,
+860749	            "probe_coverage": {"MEASURE EXAMPLE": {"tested": min(total, rounds * 16), "total": total}},
+860750	    def test_seeded_rotation_covers_every_crib_before_repeating(self):
+860751	        choices = list(range(37))
+860752	        unique = []
+860753	        for round_index in range(4):
+860754	            selected, covered = scheduled_cribs(choices, 16, random.Random(91 + round_index), 123, round_index)
+860755	            self.assertEqual(selected, scheduled_cribs(choices, 16, random.Random(91 + round_index), 123, round_index)[0])
+860756	            self.assertEqual(len(set(selected)), 16)
+860757	            fresh = covered - len(unique)
+860758	            self.assertFalse(set(selected[:fresh]).intersection(unique))
+860759	            self.assertTrue(set(selected[fresh:]).issubset(unique))
+860760	            unique.extend(selected[:fresh])
+860761	        self.assertEqual(set(unique), set(choices))
+860762	    def test_progress_rejects_skips_changed_universes_and_missing_state(self):
+860763	        old = self.progress(1)
+860764	        daily_accelerator.verify_advance(old, old)
+860765	        daily_accelerator.verify_advance(old, self.progress(2))
+860766	        daily_accelerator.verify_advance(old, self.progress(2, database="c"))
+860767	        daily_accelerator.verify_advance(old, self.progress(1, method="c"))
+860768	        with self.assertRaisesRegex(ValueError, "skipped a round"):
+860769	            daily_accelerator.verify_advance(old, self.progress(3))
+860770	        with self.assertRaisesRegex(ValueError, "changed its probe universe"):
+860771	            daily_accelerator.verify_advance(old, self.progress(2, total=38))
+860772	        with self.assertRaisesRegex(ValueError, "first round"):
+860773	            daily_accelerator.verify_advance(old, self.progress(2, method="c"))
+860774	        with self.assertRaisesRegex(ValueError, "Missing existing"):
+860775	            daily_accelerator.verify_advance(old, None)
+860776	    def test_cpu_element_scores_matching_tied_and_ungrounded_clues(self):
+860777	        rows = np.array([[6, 6, 0, 0], [6, 6, 6, 6], [6, 0, 0, 0]], dtype=np.float32)
+860778	        base = np.zeros((4, len(GROUPS) * 2), dtype=np.float32)
+860779	        base[:, :4] = np.eye(4, dtype=np.float32)
+860780	        scores = np.zeros((4, len(GROUPS)), dtype=np.float32)
+860781	        scores[:2, 0] = scores[2:, 1] = 1
+860782	        result, _ = select_groups_numpy(rows, base, scores, 1)
+860783	        self.assertEqual(result.tolist(), [[0, 18, 0], [-1, 18, 0], [-1, 0, 0]])
+860784	    def test_cpu_domain_scan_uses_existing_action_and_object_rule(self):
+860785	        columns = {"draw": 0, "cable": 1, "route": 2}
+860786	        cues = np.array([[1, 0], [0, 1], [0, 1]], dtype=np.float32)
+860787	        with sqlite3.connect(":memory:") as database:
+860788	            database.execute("CREATE TABLE line(n INTEGER, text BLOB)")
+860789	            database.executemany("INSERT INTO line VALUES(?, ?)", [(1, b"draw cable route"), (3, b"draw cable"), (9, b"cable route")])
+860790	            ids, masks, truncated, benchmark = scan(database, columns, cues, backend="numpy")
+860791	        self.assertEqual((ids.tolist(), masks.tolist(), truncated), ([1, 3, 9], [1, 0, 0], 0))
+860792	        self.assertIsNone(benchmark["cupy_seconds_including_transfers"])
+860794	from daily_intelligence import MAX_BYTES, discover
+860795	SOURCE = b"def count_sites(rows) -> int:\n    return len(rows)\n"
+860796	PIN = {"repo": "Ventusltd/fixture", "commit": "a" * 40, "path": "unit.py",
+860797	       "blob": hashlib.sha1(f"blob {len(SOURCE)}\0".encode() + SOURCE).hexdigest()}
+860798	DAY = dt.date(2026, 11, 26)
+860799	class DailyCommandTests(unittest.TestCase):
+860800	    def run_case(self, rows=(), raw=SOURCE, pin=PIN):
+860801	        return discover(raw, {"schema": "vedic.dictionary.v1", "entries": list(rows)},
+860802	                        DAY, pin, ("count_sites",))
+860803	    def test_replays_and_reports_function_range(self):
+860804	        result = self.run_case()
+860805	        self.assertEqual(result, self.run_case())
+860806	        self.assertEqual(result["candidate"]["parameters"], ["rows"])
+860807	        self.assertEqual(result["candidate"]["output_annotation"], "int")
+860808	        self.assertEqual((result["source"]["first"], result["source"]["last"]), (1, 2))
+860809	    def test_existing_alias_and_span_produce_no_change(self):
+860810	        for row in (
+860811	            {"word": "SITE TOTAL", "aliases": ["Count Sites"], "gg_id": "ID"},
+860812	            {"word": "ROW TOTAL", "source": {**PIN,"first":1,"last":2}, "gg_id": "ID"},
+860813	            result = self.run_case([row])
+860814	            self.assertEqual(result["status"], "no_change")
+860815	            self.assertIsNone(result["candidate"])
+860816	            self.assertEqual(result["existing_matches"], ["ID"])
+860817	    def test_rejects_modified_oversized_and_ambiguous_sources(self):
+860818	        with self.assertRaisesRegex(ValueError, "differs"):
+860819	            self.run_case(raw=SOURCE + b"\n")
+860820	        with self.assertRaisesRegex(ValueError, "byte budget"):
+860821	            self.run_case(raw=b"x" * (MAX_BYTES + 1))
+860822	        raw = SOURCE * 2
+860823	        pin = {**PIN, "blob": hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()}
+860824	        with self.assertRaisesRegex(ValueError, "ambiguous"):
+860825	            self.run_case(raw=raw, pin=pin)
+860826	    def test_one_pass_plan_does_not_repeat(self):
+860827	        future = DAY + dt.timedelta(days=1)
+860828	        result = discover(SOURCE, {"schema": "vedic.dictionary.v1", "entries": []},
+860829	                          future, PIN, ("count_sites",))
+860830	        self.assertEqual(result["status"], "no_change")
+860831	        self.assertIsNone(result["candidate"])
+860832	        self.assertEqual(result["checkpoint"], "pinned-plan-exhausted")
+860833	import daily_operations as operations
+860834	def family(previous, current):
+860835	    return {"schema": operations.FAMILY_SCHEMA, "previous_cursor": previous, "next_cursor": current,
+860836	            "scanned_families": 1 if current > previous else 0,
+860837	            "cursor_family_hash": "a" * 40 if current else None,
+860838	            "status": "research_candidates" if current > previous else "no_change"}
+860839	def candidate(first):
+860840	    return {"source": {"path": "test.py", "first": first, "last": first + 1}, "word": "MEASURE TEST"}
+860841	def queue(*records):
+860842	    return {"schema": "vedic.source-candidates.v1", "records": list(records)}
+860843	class DailyOperationsTests(unittest.TestCase):
+860846	        self.addCleanup(self.temporary.cleanup)
+860847	        self.directory = Path(self.temporary.name)
+860848	        self.remote = self.directory / "remote.git"
+860849	        self.repo = self.directory / "producer"
+860850	        self.repo.mkdir()
+860851	        operations.git(self.directory, "init", "--bare", str(self.remote))
+860852	        operations.git(self.repo, "init", "-b", "main")
+860853	        operations.git(self.repo, "config", "core.autocrlf", "false")
+860854	        operations.git(self.repo, "remote", "add", "origin", str(self.remote))
+860855	        operations.write_json(self.repo / operations.QUEUE, queue(candidate(10)))
+860856	        operations.write_json(self.repo / operations.DICTIONARY, {"entries": ["prior"]})
+860857	        operations.write_json(self.repo / operations.ARCHIVE, {"records": []})
+860858	        operations.git(self.repo, "add", "data")
+860859	        operations.git(self.repo, "-c", "commit.gpgSign=false", "commit", "-m", "Baseline", env=operations.IDENTITY)
+860860	        self.base = operations.git(self.repo, "rev-parse", "HEAD").decode().strip()
+860861	        operations.git(self.repo, "push", "origin", "main")
+860862	    def fixture_update(self, number, base, previous_cursor, next_cursor):
+860863	        return {"base": base, "checkpoint": {"schema": operations.STATE_SCHEMA, "source_commit": self.base,
+860864	                                             "run_id": number, "family": family(previous_cursor, next_cursor)}}
+860865	    def test_durable_state_bootstrap_and_retry(self):
+860866	        self.assertEqual(operations.load_state(self.repo), (None, None))
+860867	        initial = self.fixture_update(10, None, 0, 100)
+860868	        operations.persist(self.repo, initial, self.base, 10)
+860869	        state_commit, state = operations.load_state(self.repo)
+860870	        self.assertEqual(state, initial["checkpoint"])
+860871	        self.assertEqual(operations.load_state(self.repo)[0], state_commit)
+860872	        output = self.directory / "retry"
+860873	        with patch.object(operations, "command") as command:
+860874	            operations.research(self.repo, output, self.base, 10)
+860875	            command.assert_not_called()
+860876	        self.assertEqual(operations.read_json(output / "family-research.json"), initial["checkpoint"]["family"])
+860877	    def test_accelerator_checkpoint_is_coupled_to_family_persistence(self):
+860878	        base, _ = operations.load_state(self.repo)
+860879	        progress = {"schema": operations.daily_accelerator.SCHEMA, "database_sha256": "a" * 64,
+860880	                    "method_sha256": "b" * 64, "completed_rounds": 1,
+860881	                    "probe_coverage": {"FIND EXAMPLE": {"tested": 16, "total": 20}}}
+860882	        output = self.directory / "accelerated"
+860883	        def mocked_family(root, *args):
+860884	            operations.write_json(output / "family-research.json", family(100, 200))
+860885	            return b""
+860886	        with patch.object(operations, "command", side_effect=mocked_family), \
+860887	                patch.object(operations.daily_accelerator, "research", return_value=progress) as accelerator:
+860888	            operations.research(self.repo, output, self.base, 11, accelerator=True)
+860889	            accelerator.assert_called_once_with(self.repo, output, None)
+860890	        update = operations.read_json(output / "state-update.json")
+860891	        self.assertEqual(update["base"], base)
+860892	        operations.persist(self.repo, update, self.base, 11)
+860893	        self.assertEqual(state["accelerator"], progress)
+860894	        with patch.object(operations.daily_accelerator, "research") as accelerator:
+860895	            operations.research(self.repo, self.directory / "retry", self.base, 11, accelerator=True)
+860896	            accelerator.assert_not_called()
+860897	        with self.assertRaisesRegex(ValueError, "Missing existing accelerator progress"):
+860898	            operations.persist(self.repo, self.fixture_update(12, state_commit, 200, 300), self.base, 12)
+860899	    def test_stale_and_discontinuous_progress_is_refused(self):
+860900	        state_commit = operations.load_state(self.repo)[0]
+860901	        with self.assertRaisesRegex(ValueError, "changed while processing"):
+860902	            operations.persist(self.repo, self.fixture_update(11, None, 0, 101), self.base, 11)
+860903	        with self.assertRaisesRegex(ValueError, "does not continue"):
+860904	            operations.persist(self.repo, self.fixture_update(11, state_commit, 2, 101), self.base, 11)
+860905	        valid = self.fixture_update(11, state_commit, 100, 200)
+860906	        operations.persist(self.repo, valid, self.base, 11)
+860907	        self.assertEqual(operations.load_state(self.repo)[1], valid["checkpoint"])
+860908	        with self.assertRaisesRegex(ValueError, "later scheduled run"):
+860909	            operations.research(self.repo, self.directory / "old", self.base, 10)
+860910	        self.assertEqual(operations.remote_oid(self.repo, "refs/heads/main"), self.base)
+860911	    def test_migration_advances_legacy_receipt(self):
+860912	        output = self.directory / "migration"
+860913	        legacy = family(0, 100)
+860914	            checkpoint_path = Path(args[args.index("--checkpoint") + 1])
+860915	            self.assertEqual(operations.read_json(checkpoint_path), legacy)
+860916	        with patch.object(operations, "legacy_checkpoint", return_value=legacy), \
+860917	                patch.object(operations, "command", side_effect=mocked_family):
+860918	        operations.persist(self.repo, update, self.base, 10)
+860919	        self.assertEqual(operations.load_state(self.repo)[1]["family"], family(100, 200))
+860920	    def test_unavailable_legacy_artifact_stops_without_state_update(self):
+860921	        output = self.directory / "unavailable"
+860922	        history = [{"databaseId": 9, "createdAt": "2026-11-27T03:37:00Z"}]
+860923	        responses = [{"createdAt": "2026-11-28T03:37:00Z"}, history, {"artifacts": []}, {"attempt": 1}]
+860924	        with patch.object(operations, "gh_json", side_effect=responses), \
+860925	                patch.dict(operations.os.environ, {"GITHUB_REPOSITORY": "Ventusltd/vedic-"}):
+860926	            with self.assertRaisesRegex(ValueError, "earlier family receipt expired"):
+860927	                operations.legacy_checkpoint(self.repo, 10, output)
+860928	        self.assertFalse((output / "family-research.json").exists())
+860929	    def test_malformed_remote_state_stops_instead_of_bootstrapping(self):
+860930	        operations.git(self.repo, "push", "origin", f"{self.base}:{operations.STATE_REF}")
+860931	        with self.assertRaises(operations.subprocess.CalledProcessError):
+860932	            operations.load_state(self.repo)
+860933	    def test_conflicting_candidate_is_refused_and_exact_retry_is_idempotent(self):
+860934	        current = queue(candidate(10))
+860935	        self.assertEqual(operations.merge_candidates(current, queue(candidate(10))), current)
+860936	        changed = {**candidate(10), "word": "DIFFERENT TEST"}
+860937	        with self.assertRaisesRegex(ValueError, "conflicts"):
+860938	            operations.merge_candidates(current, queue(changed))
+860939	    def test_proposal_bundle_replays_exact_manifest_commit(self):
+860940	        output = self.directory / "proposal"
+860941	        operations.git(self.repo, "checkout", "--detach", self.base)
+860942	        def mock_cli(root, tool, *args):
+860943	            if tool.endswith("daily_source_policy.py"):
+860944	                operations.write_json(Path(args[-1]), queue(candidate(20)))
+860945	            elif "--prepare" in args:
+860946	                staged = Path(args[-1])
+860947	                operations.write_json(staged / operations.DICTIONARY, {"entries": ["prior", "new"]})
+860948	                operations.write_json(staged / operations.ARCHIVE, {"records": ["new"]})
+860949	                return operations.json_bytes({"added": ["new"], "held": [], "count": 2})
+860950	        with patch.object(operations, "command", side_effect=mock_cli):
+860951	            operations.proposal(self.repo, output)
+860952	        receipt = operations.read_json(output / "proposal.json")
+860953	        self.assertEqual(receipt["status"], "ready_for_review")
+860954	        self.assertEqual(receipt["base"], self.base)
+860955	        fresh = self.directory / "review"
+860956	        operations.git(self.directory, "clone", "--branch", "main", str(self.remote), str(fresh))
+860957	        ref = "refs/heads/review"
+860958	        operations.git(fresh, "fetch", str(output / "proposal.bundle"), f"{operations.BUNDLE_REF}:{ref}")
+860959	        self.assertEqual(operations.git(fresh, "rev-parse", ref).decode().strip(), receipt["head"])
+860960	        content = operations.git(fresh, "show", f"{receipt['manifest_commit']}:{operations.QUEUE}")
+860961	        self.assertEqual(json.loads(content), queue(candidate(10), candidate(20)))
+860962	    def test_empty_proposal_writes_receipt_without_bundle(self):
+860963	        output = self.directory / "no-change"
+860964	                operations.write_json(Path(args[-1]), queue())
+860965	                return b""
+860966	            return operations.json_bytes({"added": [], "held": [], "count": 1})
+860967	        self.assertEqual(operations.read_json(output / "proposal.json")["status"], "no_change")
+860968	        self.assertFalse((output / "proposal.bundle").exists())
+860969	    def test_proposal_refuses_existing_local_branch(self):
+860970	        with self.assertRaisesRegex(ValueError, "detached checkout"):
+860971	            operations.proposal(self.repo, self.directory / "attached")
+860972	from daily_source_policy import discover_candidates, pinned_functions, reproduce_candidate
+860973	from source_admissions import candidate_id, verify_policy_candidate
+860974	RAW = b"def validate_fixture(rows):\n    return len(rows)\n"
+860975	    "repo": "Ventusltd/fixture",
+860976	    "commit": "a" * 40,
+860977	    "path": "unit.py",
+860978	    "blob": hashlib.sha1(f"blob {len(RAW)}\0".encode() + RAW).hexdigest(),
+860979	CONTRACT = {
+860980	    "word": "COUNT FIXTURE ROWS",
+860981	    "purpose": "Count supplied fixture rows.",
+860982	    "inputs": ["fixture rows"],
+860983	    "output": "Number of supplied rows.",
+860984	    "limits": "Requires a sized collection.",
+860985	class SourcePolicyTests(unittest.TestCase):
+860986	        self.enterContext(patch("daily_source_policy.PIN", PIN))
+860987	        self.enterContext(patch("daily_source_policy.CONTRACTS", {"validate_fixture": CONTRACT}))
+860988	    def test_candidate_is_reproducible_and_emitted_once_after_admission(self):
+860989	        draft = discover_candidates(RAW, {"records": []})
+860990	        candidate, = draft["records"]
+860991	        self.assertEqual(verify_policy_candidate(candidate, RAW),
+860992	                         verify_policy_candidate(candidate, RAW))
+860993	        self.assertEqual(reproduce_candidate(candidate["source"], RAW)["word"], CONTRACT["word"])
+860994	        archive = {"records": [{"candidate_id": candidate_id(candidate)}]}
+860995	        self.assertEqual(discover_candidates(RAW, archive)["records"], [])
+860996	    def test_pin_and_complete_span_are_required(self):
+860997	        anchor, _ = next(pinned_functions(RAW))
+860998	        with self.assertRaisesRegex(ValueError, "reviewed pin"):
+860999	            reproduce_candidate(anchor, RAW + b"\n")
+861000	        with self.assertRaisesRegex(ValueError, "Source span"):
+861001	            reproduce_candidate({**anchor, "last": anchor["last"] - 1}, RAW)
+861002	        with self.assertRaisesRegex(ValueError, "outside the reviewed"):
+861003	            reproduce_candidate({**anchor, "commit": "b" * 40}, RAW)
+861004	from dictionary_shards import build, INDEX, PREFIX, SIZE
+861006	class ShardsTests(unittest.TestCase):
+861007	    def test_full_catalogue(self):
+861008	        d=json.loads((ROOT/"data/dictionary.json").read_bytes())
+861009	        t=json.loads((ROOT/"data/translation-geodesy.json").read_bytes())
+861010	        files=build(d,t);idx=json.loads(files[INDEX])
+861011	        self.assertEqual(idx["count"],len(d["entries"]))
+861012	        self.assertEqual(idx["entries"],sorted(idx["entries"],key=lambda e:(e["word"].casefold(),e["number"])))
+861013	        rows=[]
+861014	        for name,raw in files.items():
+861015	            if name.startswith(PREFIX):
+861016	                page=json.loads(raw)["entries"]
+861017	                self.assertLessEqual(len(page),SIZE)
+861018	                rows.extend(page)
+861019	        self.assertEqual({e["gg_id"] for e in rows},{e["gg_id"] for e in d["entries"]})
+861020	        self.assertTrue(all("source" not in e and "application" not in e for e in idx["entries"]))
+861021	        self.assertTrue(any("Measure and calculate" in e["patterns"] for e in idx["entries"]))
+861022	    def test_101_rows(self):
+861023	        d["entries"]=[dict(d["entries"][0],number=i+1,gg_id=f"fixture-{i+1}",word=f"COMMAND {i+1:03d}") for i in range(101)]
+861024	        files=build(d,t)
+861025	        self.assertEqual(len(json.loads(files[PREFIX+"000001.json"])["entries"]),100)
+861026	        self.assertEqual(len(json.loads(files[PREFIX+"000002.json"])["entries"]),1)
+861027	        self.assertEqual(json.loads(files[INDEX])["entries"][-1]["gg_id"],"fixture-101")
+861028	from family_pulse import allocate, checkpoint_cursor, family_identities, family_rows, key, export_pulse, verify_extension
+861029	def row(word="FILTER ASSETS", sym="filterAssets"):
+861030	    return {"decision":"REVIEWED_FOR_ADMISSION","family_refs":[7],"entry":{
+861031	        "word":word,"translation_ref":"daily:"+sym,"sense_key":"function:daily:"+sym,
+861032	        "kind":"FUNCTION","state":"STATIC_SOURCE_REVIEW","demo":None,"purpose":"Filter assets",
+861033	        "application":{"url":"https://github.com/Ventusltd/gridatlas"} }}
+861034	    return {"schema":"vedic.daily-command-queue.v1","records":list(records)}
+861035	class DailyTests(unittest.TestCase):
+861036	        self.d={"entries":[],"next_number":1}
+861037	    def test_normalisation(self):
+861038	        self.assertEqual(key("Filter Assets"),key("filter_assets"))
+861039	    def test_append_and_replay(self):
+861040	        c=row()
+861041	        self.assertEqual(len(allocate(self.d,queue(c))[0]),1)
+861042	        before=copy.deepcopy(self.d)
+861043	        self.assertEqual(allocate(self.d,queue(c))[0],[])
+861044	        self.assertEqual(self.d,before)
+861045	    def test_family_collision(self):
+861046	        allocate(self.d,queue(row()))
+861047	        self.assertEqual(allocate(self.d,queue(row("OTHER","other")))[0],[])
+861048	    def test_existing_symbol(self):
+861049	        self.d["entries"]=[{"word":"FILTER","translation_ref":"old:filterAssets","sense_key":"old"}]
+861050	        self.assertEqual(allocate(self.d,queue(row()))[0],[])
+861051	    def test_unreviewed(self):
+861052	        c=row();c["decision"]="CANDIDATE"
+861053	        with self.assertRaises(ValueError): allocate(self.d,queue(c))
+861054	    def test_cursor_and_family(self):
+861055	        catalogue={"family_by_hash":{"a"*64:7,"b"*64:8,"c"*64:9},
+861056	                   "families":{"7":{"names":["filterAssets"],"repos":2},"8":{"names":["other"],"repos":1}}}
+861057	        identities=family_identities(catalogue)
+861058	        rows,cursor=family_rows(catalogue,identities,self.d["entries"],0)
+861059	        self.assertEqual((rows[0][4],rows[-1][4],cursor),("MAPPED_FAMILY","NO_CURRENT_PLACEMENT",9))
+861060	        self.assertEqual(family_rows(catalogue,identities,[],9),([],9))
+861061	        checkpoint={"schema":"vedic.daily-family-pulse.v2","next_cursor":9,"cursor_family_hash":"c"*64}
+861062	        self.assertEqual(checkpoint_cursor(checkpoint,identities),9)
+861063	        checkpoint["cursor_family_hash"]="e"*64
+861064	        with self.assertRaises(ValueError): checkpoint_cursor(checkpoint,identities)
+861065	    def test_bounded_labels(self):
+861066	        with self.assertRaisesRegex(ValueError, "command not compact"):
+861067	            allocate(self.d,queue(row("ONE TWO THREE FOUR FIVE SIX")))
+861068	    def test_parquet(self):
+861071	            p=Path(d)/"pulse.parquet"
+861072	            export_pulse([(1,"[]",1,"[]","REVIEW_REQUIRED","[]","[]","[]")],p)
+861073	            self.assertGreater(p.stat().st_size,0)
+861074	            export_pulse([],p)
+861075	    def test_review_replay(self):
+861076	        historic=copy.deepcopy(self.d)
+861077	        allocate(self.d,queue(c))
+861078	        verify_extension(historic,self.d,queue(c))
+861079	        self.d["entries"][0]["word"]="ALTERED"
+861081	            verify_extension(historic,self.d,queue(c))
+861082	"""Regression checks for producer coordinates and immutable incremental feature reuse."""
+861083	from modular_features import digest, extract, selected_text
+861084	class TestModularFeatures(unittest.TestCase):
+861085	    def test_acorn_utf16_single_and_multi_line_columns(self):
+861086	        first = b"before " + "\U0001f600".encode() + b" body\r\n"
+861087	        last = b"finish after\n"
+861088	        self.assertEqual(selected_text([first], 7, 9), "\U0001f600")
+861089	        self.assertEqual(selected_text([first, last], 10, 6), "body\r\nfinish")
+861090	    def test_index_identity_and_incremental_reuse(self):
+861091	        with TemporaryDirectory() as directory:
+861093	            db = root / "modular.sqlite"
+861094	            source = b"function ping(){\n  return 1;\n}\n"
+861095	            lines = source.splitlines(keepends=True)
+861096	            with closing(sqlite3.connect(db)) as cx:
+861097	                cx.executescript("""
+861098	                    CREATE TABLE line(n INTEGER, text BLOB);
+861099	                    CREATE TABLE tablet(n INTEGER, git_blob TEXT, lines BLOB);
+861100	                    CREATE TABLE family(n INTEGER, sha BLOB, lang TEXT);
+861101	                    CREATE TABLE element(n INTEGER, family INTEGER, sha BLOB, kind TEXT,
+861102	                                         needs TEXT, standalone INTEGER);
+861103	                    CREATE TABLE tablet_element(tablet INTEGER, element INTEGER, first INTEGER,
+861104	                                                 last INTEGER, col0 INTEGER, col1 INTEGER, name TEXT);
+861105	                    CREATE TABLE occurrence(tablet INTEGER, repo TEXT, commit_sha TEXT, path TEXT);
+861106	                    CREATE TABLE scan(repo TEXT, commit_sha TEXT);
+861107	                """)
+861108	                cx.executemany("INSERT INTO line VALUES (?,?)", enumerate(lines, start=1))
+861109	                cx.execute("INSERT INTO tablet VALUES (?,?,?)", (123, "a"*40, struct.pack("<III", 1, 2, 3)))
+861110	                cx.execute("INSERT INTO family VALUES (?,?,?)", (81, bytes.fromhex("1"*64), "js"))
+861111	                cx.execute("INSERT INTO element VALUES (?,?,?,?,?,?)",
+861112	                           (321, 81, bytes.fromhex(digest(source)), "function", "[]", 1))
+861113	                cx.execute("INSERT INTO tablet_element VALUES (?,?,?,?,?,?,?)",
+861114	                           (123, 321, 1, 3, 0, 1, "ping"))
+861115	                cx.execute("INSERT INTO occurrence VALUES (?,?,?,?)",
+861116	                           (123, "Ventusltd/test", "b"*40, "src/utils.js"))
+861117	                cx.execute("INSERT INTO scan VALUES (?,?)", ("Ventusltd/test", "b"*40))
+861118	                cx.commit()
+861119	            first, second = root/"first.parquet", root/"second.parquet"
+861120	            extract(db, first, 1, None)
+861121	            report = extract(db, second, 1, None, first)
+861122	            self.assertEqual(report["reused_elements"], 1)
+861123	            entry = pq.read_table(second).to_pylist()[0]
+861124	            self.assertEqual((entry["family_id"], entry["element_id"]), (81, 321))
+861125	            self.assertIn("literal:number", entry["tokens"])
+861126	            first.with_suffix(".json").write_text(json.dumps({"parquet_sha256": "0"*64}))
+861128	                extract(db, root/"rejected.parquet", 1, None, first)
+861129	"""Regression checks for exact command lookup and the package admission boundary."""
+861131	from semantic_compiler import (BINDINGS, DICTIONARY, Refusal, execute, resolve,
+861132	                               strict_json)
+861133	class CommandCompilerTests(unittest.TestCase):
+861136	        cls.dictionary = strict_json(DICTIONARY.read_bytes())
+861137	        cls.registry = strict_json(BINDINGS.read_bytes())
+861138	    def plan(self, phrase, sense_id=None):
+861139	        return resolve(phrase, self.dictionary, self.registry, sense_id)
+861140	    def test_every_dictionary_name_resolves_by_its_existing_id(self):
+861141	        for row in self.dictionary["entries"]:
+861142	            with self.subTest(command=row["gg_id"]):
+861143	                self.assertEqual(self.plan(row["word"], row["gg_id"])["command_id"], row["gg_id"])
+861144	    def test_alias_keeps_the_existing_composition_identity(self):
+861145	        canonical = self.plan("ORIENT")
+861146	        self.assertEqual(canonical, self.plan(" Measure distance and bearing "))
+861147	        self.assertEqual(canonical["components"], [row["vedic_id"] for row in canonical["operations"]])
+861148	        self.assertEqual(canonical["execution_readiness"], "PRIVATE_FACTORY_PACKAGE")
+861149	        self.assertFalse(canonical["independent_package_acceptance"])
+861150	    def test_homonym_requires_an_explicit_existing_sense(self):
+861151	        with self.assertRaisesRegex(Refusal, "AMBIGUOUS_COMMAND") as caught:
+861152	            self.plan("AREA")
+861153	        self.assertEqual(caught.exception.details["candidates"],
+861154	                         ["GG2050-VEDIC-000017", "GG2050-VEDIC-000019"])
+861155	        self.assertEqual(self.plan("AREA", "GG2050-VEDIC-000019")["command_id"], "GG2050-VEDIC-000019")
+861156	    def test_refuses_dictionary_binding_drift_and_alias_collision(self):
+861157	        changed = deepcopy(self.dictionary)
+861158	        next(row for row in changed["entries"] if row["word"] == "ORIENT")["components"].reverse()
+861159	        with self.assertRaisesRegex(Refusal, "DICTIONARY_BINDING_DRIFT"):
+861160	            resolve("ORIENT", changed, self.registry)
+861161	        other = deepcopy(self.dictionary)
+861162	        other["entries"][0]["aliases"] = ["Measure Distance and Bearing"]
+861163	        with self.assertRaisesRegex(Refusal, "AMBIGUOUS_COMMAND"):
+861164	            resolve("measure distance and bearing", other, self.registry)
+861165	    def test_discards_unrecognised_free_text_and_nonfinite_input(self):
+861166	        for text in ("guess the voltage", "measure voltage; orient", "Orıent", "please could you measure the distance"):
+861167	            with self.subTest(text=text), self.assertRaises(Refusal):
+861168	                self.plan(text)
+861169	        for raw, expected in ((b'{"a":1,"a":2}', "DUPLICATE_JSON_KEY"),
+861170	                              (b'{"a":1e400}', "NONFINITE_INPUT"),
+861171	                              (b'{"a":NaN}', "NONFINITE_INPUT")):
+861172	            with self.subTest(raw=raw), self.assertRaisesRegex(Refusal, expected):
+861173	                strict_json(raw)
+861174	    def test_unadmitted_meaning_refuses_before_reading_artifacts(self):
+861175	        with self.assertRaisesRegex(Refusal, "PACKAGE_NOT_ADMITTED"):
+861176	            execute(self.plan("CHECK POWER CAP"), {}, None, None, None)
+861177	    def test_tampered_archive_refuses_before_staging_code(self):
+861179	            path = Path(tmp) / "tampered"
+861180	            path.write_bytes(b"tampered evidence")
+861181	            with self.assertRaisesRegex(Refusal, "PACKAGE_EVIDENCE_MISMATCH"):
+861182	                execute(self.plan("ORIENT"), {}, None, path, path)
+861183	from shutil import which
+861184	from types import SimpleNamespace
+861185	from family_pulse import write
+861186	from source_admissions import (
+861187	    BASE, POLICY, SCHEMA, make_policy_receipt, prepare, replay, stage_proposal,
+861188	    verify_policy_candidate, verify_policy_receipt,
+861189	from source_evidence import source_link, verify_exact_span, verify_lightning_initializer
+861190	MANIFEST = "a" * 40
+861191	TIME = "2026-11-26T00:00:00Z"
+861192	PYTHON = b"@dec\ndef firstCommand(x):\n    if x:\n        return 10\n    return 0\n"
+861193	JAVASCRIPT = b"export function firstCommand(x) {\n  if (x) {\n    return '}';\n  }\n  return 0;\n}\n"
+861194	def source(raw, path="engine/test.py", first=1, last=5):
+861195	    return {"repo": "Ventusltd/test", "commit": "b" * 40, "blob": blob,
+861196	            "path": path, "first": first, "last": last}
+861197	def candidate(word="FIRST COMMAND", symbol="firstCommand", first=10):
+861198	    src = source(PYTHON, first=first, last=first + 2)
+861200	        "word": word, "symbol": symbol, "purpose": "Purpose of " + word,
+861201	        "limits": "Source contract only", "inputs": ["x"], "output": "result",
+861202	        "estate_group": "Test", "discipline": "Test", "periodic_category": "Test",
+861203	        "vedic_class_candidate": "Computation", "aliases": [],
+861204	        "source": src, "receipt": source_link(src),
+861205	    row["policy_receipt"] = make_policy_receipt(row, PYTHON)
+861206	def dictionary():
+861207	    return {"entries": [], "next_number": 1}
+861208	def archive():
+861209	    return {"schema": SCHEMA, "baseline_commit": BASE, "records": []}
+861210	def policy_modules(canonical):
+861211	    module = SimpleNamespace(POLICY=POLICY, reproduce_candidate=lambda source, raw: canonical)
+861212	    return patch.dict(sys.modules, {"daily_source_policy": module})
+861213	class AdmissionTests(unittest.TestCase):
+861214	    def test_bad_record_does_not_consume_id(self):
+861215	        d, a = dictionary(), archive()
+861216	        good = candidate()
+861217	        bad = candidate("lowercase", "bad", 20)
+861218	        added, held = prepare(d, a, queue(bad, good), MANIFEST, TIME, lambda candidate: None)
+861219	        self.assertEqual((added, len(held), d["next_number"]), (["GG2050-VEDIC-000001"], 1, 2))
+861220	    def test_bounded_drain_and_exact_replay(self):
+861221	        q = queue(*(candidate(f"COMMAND {i}", f"cmd{i}", 10 + i * 4) for i in range(21)))
+861222	        self.assertEqual(len(prepare(d, a, q, MANIFEST, TIME, lambda candidate: None)[0]), 20)
+861223	        self.assertEqual(len(prepare(d, a, q, MANIFEST, TIME, lambda candidate: None)[0]), 1)
+861224	        self.assertEqual(prepare(d, a, q, MANIFEST, TIME, lambda candidate: None)[0], [])
+861225	        expected = replay(dictionary(), a, lambda manifest, path: q, lambda manifest: TIME)
+861226	        self.assertEqual(expected, d)
+861227	        self.assertEqual([e["number"] for e in d["entries"]], list(range(1, 22)))
+861228	    def test_duplicate_symbol_and_source(self):
+861229	        q = queue(candidate(), candidate("SECOND", "firstCommand", 20), candidate("THIRD", "third", 11))
+861230	        added, held = prepare(d, a, q, MANIFEST, TIME, lambda candidate: None)
+861231	        self.assertEqual((len(added), len(held)), (1, 2))
+861232	    def test_check_failure_rolls_back(self):
+861233	        q = queue(candidate(), candidate("SECOND", "second", 20))
+861234	        def check(candidate):
+861235	            if candidate["word"] == "FIRST COMMAND":
+861236	                raise ValueError("source mismatch")
+861237	        added, held = prepare(d, a, q, MANIFEST, TIME, check)
+861238	        self.assertEqual((len(added), len(held), d["entries"][0]["number"]), (1, 1, 1))
+861239	    def test_archive_tamper(self):
+861240	        q = queue(candidate())
+861241	        prepare(d, a, q, MANIFEST, TIME, lambda candidate: None)
+861242	        a["records"][0]["candidate"] = copy.deepcopy(a["records"][0]["candidate"])
+861243	        a["records"][0]["candidate"]["purpose"] = "tampered"
+861244	        with self.assertRaisesRegex(ValueError, "archive evidence mismatch"):
+861245	            replay(dictionary(), a, lambda manifest, path: q, lambda manifest: TIME)
+861246	    def test_legacy_prefix_is_immutable(self):
+861247	        legacy = [{"candidate_id": "historic"}]
+861248	        with self.assertRaisesRegex(ValueError, "legacy source-admission archive prefix"):
+861249	            replay(dictionary(), archive(), legacy_records=legacy)
+861250	    def test_new_candidates_refuse_dangling_human_review(self):
+861251	        proposed = candidate()
+861252	        proposed["receipt"] = "https://github.com/Ventusltd/neural-link-between-agents/issues/87#issuecomment-"
+861253	        proposed["policy_receipt"] = make_policy_receipt(proposed, PYTHON)
+861254	        with self.assertRaisesRegex(ValueError, "exact pinned source"):
+861255	            verify_policy_receipt(proposed)
+861256	        proposed.pop("policy_receipt")
+861257	        _, held = prepare(dictionary(), archive(), queue(proposed), MANIFEST, TIME,
+861258	                          lambda candidate: self.fail("unreviewed candidate must not reach the checker"))
+861259	        self.assertIn("strict policy receipt", held[0]["reason"])
+861260	    def test_policy_reproduction_rejects_changed_contract_even_with_recomputed_receipt(self):
+861261	        accepted = candidate(first=1)
+861262	        accepted["source"]["last"] = 5
+861263	        accepted["receipt"] = source_link(accepted["source"])
+861264	        accepted["policy_receipt"] = make_policy_receipt(accepted, PYTHON)
+861265	        canonical = {key: value for key, value in accepted.items() if key != "policy_receipt"}
+861266	        with policy_modules(canonical):
+861267	            verify_policy_candidate(accepted, PYTHON)
+861268	            for field in ("purpose", "output"):
+861269	                changed = dict(accepted, **{field: "Different value"})
+861270	                with self.assertRaisesRegex(ValueError, "does not bind candidate contract"):
+861271	                    verify_policy_candidate(changed, PYTHON)
+861272	                changed["policy_receipt"] = make_policy_receipt(changed, PYTHON)
+861273	                with self.assertRaisesRegex(ValueError, "differs from exact policy reproduction"):
+861274	    def test_stage_proposal_does_not_expose_incomplete_pair(self):
+861276	            parent = Path(directory)
+861277	            dest = parent / "proposal"
+861278	            def write_one(path, value):
+861279	                if path.name == "admitted-queue-archive.json":
+861280	                    raise OSError("simulated failed second write")
+861281	                write(path, value)
+861282	            with patch("source_admissions.write", side_effect=write_one):
+861283	                with self.assertRaisesRegex(OSError, "second write"):
+861284	                    stage_proposal(dest, dictionary(), archive())
+861285	            self.assertFalse(dest.exists())
+861286	            self.assertFalse(list(parent.iterdir()))
+861287	            stage_proposal(dest, dictionary(), archive())
+861288	            self.assertEqual(sorted(p.name for p in (dest / "data").iterdir()),
+861289	                             ["admitted-queue-archive.json", "dictionary.json"])
+861290	            with self.assertRaisesRegex(ValueError, "destination already exists"):
+861291	                stage_proposal(dest, dictionary(), archive())
+861292	class SourceBoundaryTests(unittest.TestCase):
+861293	    def test_python_requires_exact_top_level_span_including_decorator(self):
+861294	        pin = source(PYTHON)
+861295	        verify_exact_span(pin, "firstCommand", PYTHON)
+861296	        for mismatched in (dict(pin, first=2), dict(pin, last=4)):
+861297	            with self.assertRaisesRegex(ValueError, "unique complete top-level function"):
+861298	                verify_exact_span(mismatched, "firstCommand", PYTHON)
+861299	        with self.assertRaisesRegex(ValueError, "pinned evidence"):
+861300	            verify_exact_span(pin, "firstCommand", PYTHON + b"\n")
+861301	        nested = b"def outer():\n    def firstCommand():\n        pass\n"
+861302	        with self.assertRaisesRegex(ValueError, "unique complete top-level function"):
+861303	            verify_exact_span(source(nested, first=2, last=3), "firstCommand", nested)
+861304	    @unittest.skipUnless(which("node"), "JavaScript syntax checking requires Node")
+861305	    def test_javascript_masks_strings_and_refuses_inner_brace_as_end(self):
+861306	        pin = source(JAVASCRIPT, "engine/test.js", last=6)
+861307	        verify_exact_span(pin, "firstCommand", JAVASCRIPT)
+861308	            verify_exact_span(dict(pin, last=4), "firstCommand", JAVASCRIPT)
+861309	    def test_javascript_refuses_unbalanced_and_unsupported_source(self):
+861310	        for body, error in ((JAVASCRIPT[:-2], "invalid JavaScript source"),
+861311	                            (JAVASCRIPT.replace(b"'}'", b"/}/"), "lexical construct")):
+861312	            with self.assertRaisesRegex(ValueError, error):
+861313	                verify_exact_span(source(body, "engine/test.js", last=6), "firstCommand", body)
+861314	    def test_reviewed_initializer_requires_complete_unique_assignment(self):
+861315	        sample = (
+861316	            b"(() => {\n"
+861317	            b"  const label = `Lightning`;\n"
+861318	            b"  window.initVentusMap = function addPublicLightningLayer(options) {\n"
+861319	            b"    return originalInit.call(this, options);\n"
+861320	            b"  };\n"
+861321	            b"})();\n"
+861322	        verify_lightning_initializer(sample, 3, 5)
+861323	        with self.assertRaisesRegex(ValueError, "unclosed"):
+861324	            verify_lightning_initializer(sample, 3, 4)
+861325	        with self.assertRaisesRegex(ValueError, "complete assignment"):
+861326	            verify_lightning_initializer(sample, 3, 6)
+861327	        with self.assertRaisesRegex(ValueError, "reviewed assignment"):
+861328	            verify_lightning_initializer(sample + sample, 3, 5)
+861330	from validate_v2_allocation import read, allocate, verify_receipt, git_bytes
+861335	        self.d=json.loads(git_bytes("55ff568b378acff4adae02fb5c758b4f4f8c6bcd", "data/dictionary.json"))
+861388	            policy = e.get("admission_policy") == POLICY
+861398	                if policy:
+861399	                    receipt = e.get("policy_receipt")
+861400	                    require(isinstance(receipt, dict) and receipt.get("schema") == POLICY_SCHEMA
+861401	                            and receipt.get("policy") == POLICY, "invalid policy receipt")
+861402	                    require(all(isinstance(receipt.get(k), str) and re.fullmatch(r"[0-9a-f]{64}", receipt[k])
+861403	                                for k in ("source_sha256", "contract_sha256")), "invalid policy receipt digest")
+861404	                    require(e["receipt"] == source_link(s), "invalid policy evidence link")
+861406	                    require(re.fullmatch(r"https://github\.com/Ventusltd/neural-link-between-agents/issues/87#issuecomment-[1-9][0-9]*",
+861407	                                         e["receipt"]), "missing receipt")
+861409	            require(e["state"] == (POLICY_STATE if policy else "STATIC_SOURCE_REVIEW"), "unsupported proof state")
+861425	def verify_source_entries(d, reader=None):
+861426	    raw_cache = {}
+861427	    legacy_cache = {}
+861428	    if reader is None:
+861429	        def reader(repo, commit, path):
+861430	            return fetch(repo, commit, quote(path, safe="/"))
+861435	        if key not in raw_cache:
+861436	            raw_cache[key] = reader(*key)
+861437	        raw = raw_cache[key]
+861438	        require(len(raw) <= 1_000_000, "source too large")
+861440	        if e.get("admission_policy") == POLICY:
+861441	            verify_exact_span(s, name, raw)
+861442	        if key not in legacy_cache:
+861443	            blob = hashlib.sha1(f"blob {len(raw)}\0".encode() + raw).hexdigest()
+861444	            legacy_cache[key] = (blob, raw.decode("utf-8").splitlines())
+861445	        blob, lines = legacy_cache[key]
+861450	    return len(raw_cache)
+861456	    d = json.loads((ROOT/"data/dictionary.json").read_text(encoding="utf-8"))
+861457	    t = json.loads((ROOT/"data/translation-geodesy.json").read_text(encoding="utf-8"))
+861458	    prior = json.loads(args.prior.read_text(encoding="utf-8")) if args.prior else None
+861526	    released_v2 = json.loads(git_bytes("55ff568b378acff4adae02fb5c758b4f4f8c6bcd", "data/dictionary.json"))
+861527	    current = read("data/dictionary.json")
+861528	    require(current["entries"][:len(released_v2["entries"])] == released_v2["entries"], "edited V2 entries")
+861529	    print("Validated historical V2 allocation:", verify_receipt(receipt, allocation, released_v2, json.loads(prior), args.online))
+861530	// Replay selected compiled Stars functions and the original firm-capacity engine.
+861534	const [stars, engine] = process.argv.slice(2);
+861535	assert.ok(stars && engine, 'Usage: node tools/verify_semantic_reuse.mjs STARS_REPO ENGINE_REPO');
+861536	const starsCommit = '1cf9c7530c7d287ccf9b3cffd70f693fb83c8402';
+861537	const engineCommit = '7c2a7b42905674fdcd3aa4bb50af14bc352a7747';
+861538	const gitFile = (repo, commit, path, blob) => {
+861539	  const raw = execFileSync('git', ['-C', repo, 'show', `${commit}:${path}`], {
+861540	    env: { ...process.env, GIT_NO_LAZY_FETCH: '1', GIT_NO_REPLACE_OBJECTS: '1' },
+861541	  const actual = createHash('sha1').update(`blob ${raw.length}\0`).update(raw).digest('hex');
+861542	  assert.equal(actual, blob);
+861545	const root = mkdtempSync(join(tmpdir(), 'vedic-semantic-reuse-'));
+861546	const load = async (name, raw) => {
+861547	  const file = join(root, name);
+861548	  writeFileSync(file, raw);
+861549	  return import(pathToFileURL(file));
+861551	  const libraryBlob = '0390a4ecbf9d5c7dd171fbd923a58f4be15f05fb';
+861552	  const library = gitFile(stars, starsCommit, 'library/standalone.mjs', libraryBlob).toString('utf8');
+861553	  const exportCount = [...library.matchAll(/^export const f\d+_/gm)].length;
+861554	  assert.equal(exportCount, 766);
+861555	  const compiledSymbols = ['f8767_representativePoint', 'f8768_voltagesKv', 'f5197_createGeoJSONCircle'];
+861556	  const excerpts = compiledSymbols.map(name => {
+861557	    const start = library.indexOf(`\nexport const ${name} = function `);
+861558	    assert.ok(start >= 0);
+861559	    const end = library.indexOf('\n// Family #', start + 1);
+861560	    const excerpt = library.slice(start + 1, end).trimEnd();
+861561	    assert.ok(excerpt.endsWith('};') && !excerpt.includes('\nexport '));
+861562	    return excerpt;
+861563	  const compiled = await load('compiled-excerpts.mjs', excerpts.join('\n'));
+861564	  const geodesy = await load('geodesy.mjs', gitFile(engine, engineCommit, 'engine/v9-geodesy.js',
+861565	    '14023f06d4ef2ea806437863bd35dee954c46b11'));
+861566	  const firm = await load('firm.mjs', gitFile(engine, engineCommit, 'engine/firm-capacity.js',
+861567	    '8c87c71f29cc27970305c3109efeb22b66fbe568'));
+861569	    [compiled.f8767_representativePoint, geodesy.representativePoint, null, null],
+861570	    [compiled.f8767_representativePoint, geodesy.representativePoint,
+861571	      { type: 'Point', coordinates: [-2, 52, 15] }, [-2, 52]],
+861572	      { type: 'Polygon', coordinates: [[[0, 0], [8, 0], [0, 8], [0, 0]]] }, [2, 2]],
+861573	    [compiled.f8768_voltagesKv, geodesy.voltagesKv, null, []],
+861574	    [compiled.f8768_voltagesKv, geodesy.voltagesKv, { kv: '132;33;132' }, [132, 33]],
+861575	    [compiled.f8768_voltagesKv, geodesy.voltagesKv, { KV: '33;0', VOLTAGE: '33000;11000' }, [33, 11]],
+861577	  for (const [a, b, value, expected] of checks) {
+861578	    assert.deepEqual(a(value), expected);
+861579	    assert.deepEqual(b(value), expected);
+861580	  const vertex = compiled.f5197_createGeoJSONCircle(0, 80, 500).features[0].geometry.coordinates[0][0];
+861581	  const compiledRadiusKm = geodesy.distanceKm(0, 80, ...vertex);
+861582	  assert.ok(Math.abs(compiledRadiusKm - 500) > 1);
+861583	  const boundary = firm.assessAgainstFirm({ units: [20, 15], demandMva: 15 });
+861584	  assert.deepEqual([boundary.withinFirm, boundary.firmMva, boundary.shortfallMva], [true, 15, 0]);
+861585	  const excess = firm.assessAgainstFirm({ units: [20, 15], demandMva: 16 });
+861586	  assert.deepEqual([excess.withinFirm, excess.withinInstalled, excess.shortfallMva], [false, true, 1]);
+861587	  const single = firm.assessAgainstFirm({ units: [20], demandMva: 10 });
+861588	  assert.deepEqual([single.withinFirm, single.firmMva, single.utilisationOfFirm], [false, 0, Infinity]);
+861589	  assert.throws(() => firm.assessAgainstFirm({ units: [], demandMva: 10 }));
+861590	  assert.throws(() => firm.assessAgainstFirm({ units: [20] }));
+861592	    starsCommit, engineCommit, libraryBlob, exportCount,
+861593	    existingCompiledMatches: ['GG2050-VEDIC-000002', 'GG2050-VEDIC-000003'],
+861594	    compiledParityCases: checks.length,
+861595	    withheldGeodesicAlias: { familyId: 5197, requestedRadiusKm: 500, actualVertexDistanceKm: compiledRadiusKm },
+861596	    firmCapacityCases: 5, zeroFirmUtilisation: 'Infinity',
+861597	    packageAdmissions: 0,
+861600	  rmSync(root, { recursive: true });
 ```
