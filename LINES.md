@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-482,940 unique lines, numbered 1 to 861,600. Generated 2026-11-27T00:48:39.403Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+482,975 unique lines, numbered 1 to 861,793. Generated 2026-11-27T10:08:12.225Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -482943,4 +482943,39 @@
 861596	    firmCapacityCases: 5, zeroFirmUtilisation: 'Infinity',
 861597	    packageAdmissions: 0,
 861600	  rmSync(root, { recursive: true });
+861664	SOLAR_LOOP_AREA_SOURCE = {
+861665	    "repo": "Ventusltd/solar-electrical-topology-analysis-engine-text-based",
+861666	    "commit": "d3b4c497144c2c9b3e8f0e82117e7e9abe4672b9",
+861667	    "blob": "e3014bc950722a78e91810e97610b05326e94531",
+861668	    "path": "src/solar_topology/geometry_receipts.py",
+861669	    "first": 50,
+861670	    "last": 122,
+861671	SOLAR_LOOP_AREA_CONTRACT = {
+861672	    "word": "ESTIMATE SOLAR LOOP AREA",
+861673	    "purpose": "Estimate weighted DC conductor loop area for one solar string from declared segment geometry.",
+861674	    "inputs": ["Solar string segment rows with a single run, topology and string and contiguous segment indexes from one",
+861675	               "Conductor length in metres, pole separation in millimetres and a dimensionless participation weight per segment"],
+861676	    "output": "Deterministic geometry receipt with loop area in square metres, per-segment contributions, route lengths, paired-route fraction and warnings.",
+861677	    "limits": "Engineering screening approximation. Supply finite, nonnegative lengths and separations. The estimate uses declared geometry and weights and warns about missing separation on participating segments and assumed or defaulted geometry.",
+861678	    "symbol": "calculate_geometry_receipt",
+861679	    "source": SOLAR_LOOP_AREA_SOURCE,
+861680	    "estate_group": "Solar Electrical Topology",
+861681	    "discipline": "Solar electrical design",
+861682	    "periodic_category": "conductor geometry",
+861683	    "receipt": source_link(SOLAR_LOOP_AREA_SOURCE),
+861684	EXPLICIT_CONTRACTS = (LIGHTNING_CONTRACT, SOLAR_LOOP_AREA_CONTRACT)
+861715	    for candidate in EXPLICIT_CONTRACTS:
+861716	        if source == candidate["source"]:
+861717	            verify_blob(source, raw)
+861742	        verify_exact_span(source, candidate["symbol"], raw)
+861743	        queue["records"].append({**candidate, "policy_receipt": make_policy_receipt(candidate, raw)})
+861785	    def test_explicit_contract_requires_reviewed_blob_and_span(self):
+861786	        anchor = {**PIN, "repo": "Ventusltd/explicit-fixture", "first": 1, "last": 2}
+861787	        candidate = {**CONTRACT, "source": anchor, "symbol": "validate_fixture"}
+861788	        with patch("daily_source_policy.EXPLICIT_CONTRACTS", (candidate,)):
+861789	            self.assertEqual(reproduce_candidate(anchor, RAW), candidate)
+861790	            with self.assertRaisesRegex(ValueError, "blob differs"):
+861791	                reproduce_candidate(anchor, RAW + b"\n")
+861792	            with self.assertRaisesRegex(ValueError, "outside the reviewed"):
+861793	                reproduce_candidate({**anchor, "last": 1}, RAW)
 ```
