@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-482,975 unique lines, numbered 1 to 861,793. Generated 2026-11-27T10:08:12.225Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+483,085 unique lines, numbered 1 to 862,339. Generated 2026-11-27T19:39:46.247Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -482978,4 +482978,114 @@
 861791	                reproduce_candidate(anchor, RAW + b"\n")
 861792	            with self.assertRaisesRegex(ValueError, "outside the reviewed"):
 861793	                reproduce_candidate({**anchor, "last": 1}, RAW)
+861816	      const response=await fetch("./"+path,{cache:"no-cache"});
+861851	  const cell=el('td',undefined,'code-cell'),sources=entry.code_sources??codeSources(entry,records,details);
+861873	  // Source links are available from the initial index; only prose is lazy-loaded.
+861874	  if(Array.isArray(summary.code_sources)){
+861875	    code.append(...codeCell(summary,records,new Map()).childNodes);
+861877	    code.append(evidence); // Compatibility with an older cached index.
+861917	      if(!Array.isArray(summary.code_sources)){
+861918	        const sourceCell=codeCell(row,records,details);
+861919	        const returnFocus=document.activeElement===evidence;
+861920	        code.replaceChildren(...sourceCell.childNodes);
+861921	        if(returnFocus)(code.querySelector('a.code-source')||detail.querySelector('summary')).focus();
+861946	async function initDictionary(){try{const r=await fetch('./data/command-index.json',{cache:'no-cache'});if(!r.ok)throw Error('Dictionary unavailable');dictionary=await r.json();if(dictionary.schema!=='vedic.command-index.v1'||dictionary.count!==dictionary.entries.length||dictionary.page_size!==pageSize)throw Error('Unsupported dictionary schema');indexById=new Map(dictionary.entries.map(e=>[e.gg_id,e]));for(const [id,key] of [['estateFilter','estate_group'],['disciplineFilter','discipline'],['classFilter','vedic_class_candidate']]){for(const value of [...new Set(dictionary.entries.map(e=>e[key]))].sort()){const opt=el('option',value);opt.value=value;$(id).append(opt)}}for(const p of [...new Set(dictionary.entries.flatMap(e=>e.patterns))].sort()){const opt=el('option',p);opt.value=p;$('patternFilter').append(opt)}for(const [name,url] of Object.entries(dictionary.resources))$('dictResources').append(link(name.replaceAll('_',' '),url));for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','patternFilter','dictSort'])$(id).addEventListener(id==='dictSearch'?'input':'change',()=>{dictPage=0;drawDictionary()});$('dictClear').onclick=()=>{for(const id of ['dictSearch','estateFilter','disciplineFilter','classFilter','patternFilter'])$(id).value='';$('dictSort').value='word';dictPage=0;drawDictionary()};$('dictPrev').onclick=()=>{dictPage--;drawDictionary()};$('dictNext').onclick=()=>{dictPage++;drawDictionary()};for(const b of document.querySelectorAll('[data-dsort]'))b.onclick=()=>{$('dictSort').value=b.dataset.dsort==='word'&&$('dictSort').value==='word'?'word_desc':b.dataset.dsort;dictPage=0;drawDictionary()};drawDictionary()}catch(e){$('dictStatus').textContent='Dictionary unavailable: '+e.message}}
+861969	def audit_all_code_rows(page, entries, expected_links):
+861970	    """Exercise every lazy-loaded source control, not just sample rows."""
+861972	        identity = entry["gg_id"]
+861973	        page.locator("#dictSearch").fill(identity)
+861974	        row = page.locator("#dictRows tr")
+861975	        assert row.count() == 1, identity
+861976	        assert row.locator("td").first.inner_text() == entry["word"], identity
+861977	        button = row.locator(".code-cell button")
+861978	        if button.count():
+861979	            button.click()
+861981	            row.locator("a.code-source").first.wait_for(timeout=8000)
+861983	            raise AssertionError(f"{identity} {entry['word']}: {row.inner_text()}") from exc
+861984	        selectors = ['a.code-source', 'a[href^="https://raw.githubusercontent.com/"]',
+861985	                     'a[href^="https://ventusltd.github.io/stars/code.html"]',
+861986	                     'a[href^="https://ventusltd.github.io/kuiper-belt/"]']
+861987	        actual = [row.locator(".code-cell").locator(sel).evaluate_all(
+861988	            "(links) => links.map(link => link.href)") for sel in selectors]
+861989	        assert actual == expected_links(entry), (identity, actual, expected_links(entry))
+861990	        assert not row.get_by_text("Command details unavailable", exact=False).count(), identity
+861991	    print(f"PASS all {len(entries)} command code controls and source targets", flush=True)
+861992	def audit_live():
+861993	    """Read-only audit of the deployed website, independent of the checkout."""
+861994	    url = "https://ventusltd.github.io/vedic-/"
+861995	    with sync_playwright() as p:
+861996	        for engine in (p.chromium, p.webkit):
+861999	                page = browser.new_page(viewport={"width": 390, "height": 844}, is_mobile=True,
+862000	                                        has_touch=True, device_scale_factor=3)
+862001	                errors, failed = [], []
+862002	                page.on("pageerror", lambda err: errors.append(str(err)))
+862003	                page.on("response", lambda response: failed.append((response.status, response.url))
+862004	                        if response.url.startswith(url) and response.status >= 400 else None)
+862005	                page.on("requestfailed", lambda req: failed.append((req.failure, req.url))
+862006	                        if req.url.startswith(url) else None)
+862007	                page.goto(url, wait_until="domcontentloaded", timeout=45000)
+862008	                page.locator("#dictRows tr").first.wait_for(timeout=30000)
+862009	                def live_json(path):
+862010	                    response = page.request.get(url + path, headers={"Cache-Control": "no-cache"}, timeout=30000)
+862011	                    assert response.ok, (path, response.status)
+862012	                    return response.json()
+862013	                release = live_json("release.json")
+862014	                entries = live_json("data/dictionary.json")["entries"]
+862015	                translations = {r["id"]: r for r in live_json("data/translation-geodesy.json")["records"]}
+862016	                identities = {e["gg_id"]: e for e in entries}
+862017	                def sources(entry, seen=None):
+862018	                    if seen is None:
+862019	                        seen = set()
+862020	                    if entry["gg_id"] in seen:
+862021	                        return []
+862022	                    seen.add(entry["gg_id"])
+862023	                    src = translations.get(entry.get("translation_ref"), {}).get("source") or entry.get("source")
+862024	                    if src:
+862025	                        return [src]
+862026	                    return [s for identity in entry.get("components", []) for s in sources(identities[identity], seen)]
+862027	                def expected(entry):
+862028	                    ss = sources(entry)
+862029	                    return [
+862030	                        ["https://github.com/"+s["repo"]+"/blob/"+s["commit"]+"/"+quote(s["path"], safe="/")+"#L"+str(s["first"])+"-L"+str(s["last"]) for s in ss],
+862031	                        ["https://raw.githubusercontent.com/"+s["repo"]+"/"+s["commit"]+"/"+quote(s["path"], safe="/") for s in ss],
+862032	                        ["https://ventusltd.github.io/stars/code.html" for s in ss],
+862033	                        ["https://ventusltd.github.io/kuiper-belt/see-through/202611020012/#repo="+quote(s["repo"].split("/")[1], safe="") for s in ss],
+862035	                assert release["row_count"] == len(entries), release
+862036	                print(f"LIVE {engine.name}: {release['source_commit']} / {len(entries)} commands", flush=True)
+862037	                audit_all_code_rows(page, entries, expected)
+862038	                assert not errors, errors
+862039	                assert not failed, failed
+862040	                page.reload(wait_until="domcontentloaded", timeout=45000)
+862041	                audit_all_code_rows(page, entries[:3], expected)
+862042	                page.close()
+862138	                            code_link.focus()
+862211	                                assert row.locator(".code-cell button").count() == 0
+862212	                                row.locator("td:nth-child(4) summary").click()
+862213	                                row.get_by_text("How to see it:", exact=False).wait_for()
+862224	                                    page.locator("#dictRows td:nth-child(4) summary").click()
+862225	                                    page.locator("#dictRows").get_by_text("How to see it:", exact=False).wait_for()
+862229	                        if paged and not catalogue:
+862230	                            page.locator("#dictClear").click()
+862231	                            audit_all_code_rows(page, entries, expected_links)
+862245	    audit_live()
+862266	    translations={r["id"]:r for r in t["records"]}
+862267	    meanings={key:r.get("purpose","") for key,r in translations.items()}
+862268	    identities={e["gg_id"]:e for e in d["entries"]}
+862269	    def code_sources(entry, seen=None):
+862270	            seen=set()
+862271	        identity=entry["gg_id"]
+862272	        if identity in seen:
+862273	        seen.add(identity)
+862274	        tr=translations.get(entry.get("translation_ref"),{})
+862275	        src=tr.get("source") or entry.get("source")
+862276	        if src:
+862277	            symbol=tr.get("name") or (entry.get("translation_ref") or "").rsplit(":",1)[-1] or entry["word"]
+862278	            return [{"symbol":symbol,"source":{k:src[k] for k in ("repo","commit","path","first","last")}}]
+862279	        return [s for cid in entry.get("components",[]) for s in code_sources(identities[cid],seen)]
+862297	                       priority=e.get("priority",9),page=path,components=e.get("components",[]),patterns=patterns,code_sources=code_sources(e),
+862335	        self.assertTrue(all(e["code_sources"] for e in idx["entries"]))
+862336	        self.assertEqual(len(next(e for e in idx["entries"] if e["word"]=="ORIENT")["code_sources"]),2)
+862337	        for entry in idx["entries"]:
+862338	            for record in entry["code_sources"]:
+862339	                self.assertEqual(set(record["source"]),{"repo","commit","path","first","last"})
 ```
