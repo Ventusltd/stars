@@ -1,6 +1,6 @@
 # Every unique line of code — Ventusltd public repositories
 
-489,399 unique lines, numbered 1 to 870,877. Generated 2026-11-28T02:10:16.499Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
+489,545 unique lines, numbered 1 to 871,992. Generated 2026-11-28T10:52:20.266Z by the modular star from the numbered database (modular.sqlite on the modular-star release). The number is the line's permanent key: it never changes and is never reused. Numbers missing from the sequence were never issued. Each row is `number<tab>code`; the code is shown exactly as written, with its line ending removed (the database keeps the ending). Where a line appears, and in which files: the tablet and occurrence tables of the same database.
 
 ```text
 1	function byId(id) { return document.getElementById(id); }
@@ -489402,4 +489402,150 @@
 870875	        plan = resolve("FIND CAPABILITY", self.dictionary, self.bindings)
 870876	        with self.assertRaisesRegex(Refusal, "^PACKAGE_NOT_ADMITTED$"):
 870877	            execute(plan, {"objective": "audit a captured component"}, None, None, None)
+871023	    receipt_pattern = r"data/accelerator-loop-([0-9]{6})\.json"
+871024	    receipts = {path for path in files if re.fullmatch(receipt_pattern, path)}
+871025	    generated = set(files) - PUBLIC_FILES - receipts
+871038	    for path in sorted(receipts):
+871039	        receipt = json.loads(committed)
+871040	        assert receipt["schema"] == "vedic.accelerator.loop-public.v1", path
+871041	        seed = int(re.fullmatch(receipt_pattern, path)[1])
+871042	        assert receipt["seeds"]["element"] == seed, path
+871169	        # Before merge, compare the public site with the PR base. The deployment
+871170	        # event checks the candidate bytes after Pages switches the live site.
+871171	        if event == "pull_request":
+871172	            payload = json.loads(pathlib.Path(os.environ["GITHUB_EVENT_PATH"]).read_bytes())
+871173	            base_sha = payload["pull_request"]["base"]["sha"]
+871174	            assert re.fullmatch(r"[0-9a-f]{40}", base_sha)
+871175	            base_pin = subprocess.check_output(["git", "show", base_sha + ":catalogue/homepage-owner.json"])
+871176	            if base_pin != live_pin:
+871177	                observed = scratch/"deployed-base"
+871178	                import_bundle(observed, base_pin)
+871248	<title>GlobalGrid2050 | Pipeline News V9.78 · 202611280922</title>
+871483	        <a class="active" href="#" aria-current="page">V9.78 · PIPELINE NEWS</a>
+871485	        <a href="../202611280048/">V9.77 · PREVIOUS EDITION</a><a href="../202611232245/">V9.76 · ARCHIVE</a><a href="../202611221705/">V9.68 · ARCHIVE</a><a href="../202611221625/">V9.67 · ARCHIVE</a><a href="../202611221500/">V9.66 · ARCHIVE</a><a href="../202611221330/">V9.65 · ORIGINAL COLOURS</a><a href="../202611221243/">V9.64 · ARCHIVE</a><a href="../202611220220/">V9.63 · A4 ROLLBACK</a>
+871489	      </nav><p>REPD October 2026 · V9.78</p></details>
+871571	            '<a id="pnReportLegal" target="_blank" rel="noopener" hidden>Legal evidence</a>'+
+871613	    const legal = $('pnReportLegal');
+871614	    legal.hidden = !data.legalEvidenceUrl;
+871615	    if (data.legalEvidenceUrl) legal.href = data.legalEvidenceUrl;
+871616	    else legal.removeAttribute('href');
+871735	import {legalEvidenceURL} from '../../automation/pipeline_legal_evidence/link.mjs';
+871769	    legalEvidenceUrl: isRePD ? legalEvidenceURL(project) : null,
+871772	// One-page A4 project report with clickable source links.
+871822	  const linkRows = [{
+871823	    label: details.mapUrl ? 'OPEN PROJECT MAP (clickable link)' : 'MAP NOT AVAILABLE',
+871824	    url: details.mapUrl, y
+871826	  if (details.legalEvidenceUrl)
+871827	    linkRows.push({label: 'Legal evidence', url: details.legalEvidenceUrl, y: y - 26});
+871828	  for (const row of linkRows) text(row.label, row.y, 13);
+871835	  for (const {label, url, y: linkY} of linkRows) {
+871836	    if (!url) continue;
+871837	    if (!/^https:\/\//i.test(url)) throw Error('Unsafe PDF link URL');
+871838	    const rect = [margin-3, linkY-4, margin+Math.min(320,label.length*8), linkY+16];
+871839	    annotations.push(add('<< /Type /Annot /Subtype /Link /Rect ['+rect.join(' ')+
+871860	"""Check the legal action through the register, A4 sheet and both PDF outputs."""
+871871	EDITION_DIR = Path(__file__).resolve().parents[1]
+871872	EDITION = EDITION_DIR.name
+871873	READER = "/legislation/legal-evidence/"
+871874	class QuietHandler(SimpleHTTPRequestHandler):
+871878	def address(public):
+871880	        yield public.rstrip("/")
+871881	    handler = partial(QuietHandler, directory=str(EDITION_DIR.parents[1]))
+871882	    with ThreadingHTTPServer(("127.0.0.1", 0), handler) as server:
+871884	            yield f"http://127.0.0.1:{server.server_port}"
+871887	def check_pdf(source, expected, landscape):
+871888	    document = PdfReader(source)
+871889	    assert len(document.pages) == 1
+871890	    sheet = document.pages[0]
+871891	    assert (sheet.mediabox.width > sheet.mediabox.height) == landscape
+871892	    assert "Legal evidence" in " ".join(sheet.extract_text().split())
+871893	    uris = {str(link.get_object()["/A"]["/URI"]) for link in sheet.get("/Annots", [])}
+871894	    assert uris == expected, (uris, expected)
+871895	def check_project(browser, base, ref, width, expanded, open_reader):
+871896	    with browser.new_context(viewport={"width": width, "height": 850}, is_mobile=width < 600,
+871897	                             has_touch=width < 600, accept_downloads=True) as context:
+871898	        page = context.new_page()
+871899	        page.goto(f"{base}/uk_renewables_pipeline/{EDITION}/?technology=all&q={ref}",
+871900	                  wait_until="domcontentloaded", timeout=90000)
+871901	        row = page.locator(f"#repd-{ref}")
+871902	        expect(row).to_be_visible(timeout=90000)
+871903	        if expanded:
+871904	            page.locator("#pnLiquidLaunch").click()
+871905	            row = page.locator(f"#pnExpandedHost #repd-{ref}")
+871906	            expect(row).to_be_visible()
+871907	        details = row.locator("details.project-record")
+871908	        if details.get_attribute("open") is None:
+871909	            details.locator("summary").click()
+871910	        name = row.locator(".compact-project-name").inner_text().strip()
+871911	        assert page.locator(f'a[href*="{READER}"]').count() == 0
+871912	        native_map = row.locator("td:last-child .pn-journey-link.atlaslink[href]")
+871913	        map_url = native_map.first.get_attribute("href") if native_map.count() else None
+871914	        if details.get_attribute("open") is not None:
+871915	        row.locator("[data-pn-a4]").click()
+871916	        sheet = page.locator("#pnRepdReport")
+871917	        legal = sheet.get_by_role("link", name="Legal evidence", exact=True)
+871918	        expect(legal).to_be_visible()
+871919	        target = legal.get_attribute("href")
+871920	        parsed = urlsplit(target)
+871921	        assert (parsed.scheme, parsed.netloc, parsed.path) == ("https", "ventusltd.github.io", READER)
+871922	        params = parse_qs(parsed.query)
+871923	        assert params["source_app"] == ["pipelinenews"] and params["source_release"] == [EDITION]
+871924	        assert params["repd_ref"] == [ref] and params["project"] == [name]
+871925	        assert sheet.locator("#pnReportMap").get_attribute("href") == map_url
+871926	        links = {target, map_url} if map_url else {target}
+871927	        assert page.locator(f'a[href*="{READER}"]').count() == 1
+871928	        for landscape in (False, True):
+871929	            if landscape:
+871930	                sheet.locator('[data-report-action="rotate"]').click()
+871931	            with page.expect_download() as download:
+871932	                sheet.locator('[data-report-action="pdf"]').click()
+871933	            check_pdf(download.value.path(), links, landscape)
+871934	            check_pdf(io.BytesIO(page.pdf(prefer_css_page_size=True)), links, landscape)
+871935	        if open_reader:
+871936	            with page.expect_popup() as receiver:
+871937	                legal.click()
+871938	            expect(receiver.value.locator("#context")).to_contain_text(name, timeout=60000)
+871939	            expect(receiver.value.locator("#context")).to_contain_text(EDITION)
+871940	            receiver.value.close()
+871941	        sheet.locator('[data-report-action="close"]').click()
+871942	        expect(legal).to_be_hidden()
+871943	        assert page.locator(f'a[href*="{READER}"]:visible').count() == 0
+871944	        print(f"PASS REPD {ref}, {width}px, expanded={expanded}, A4 and PDF in both orientations", flush=True)
+871947	    parser.add_argument("--origin", help="Test a served edition instead of the local checkout")
+871948	    parser.add_argument("--open-reader", action="store_true", help="Also follow the external link")
+871950	    with address(args.origin) as origin, sync_playwright() as driver:
+871951	        with driver.chromium.launch(executable_path=os.getenv("CHROME_BIN")) as chrome:
+871952	            check_project(chrome, origin, "9873", 1280, False, args.open_reader)
+871953	            check_project(chrome, origin, "12588", 390, True, args.open_reader)
+871955	import {readdir, readFile} from 'node:fs/promises';
+871958	const edition = new URL('../', import.meta.url).pathname.split('/').at(-2);
+871959	globalThis.location = {pathname: `/uk_renewables_pipeline/${edition}/`};
+871960	const directory = new URL('../data/v9.1/projects/', import.meta.url);
+871962	let missingGeometry = 0;
+871963	let example;
+871964	for (const file of await readdir(directory)) {
+871965	  if (!/^part-\d+\.json$/.test(file)) continue;
+871966	  const {projects} = JSON.parse(await readFile(new URL(file, directory), 'utf8'));
+871968	    const ref = project.repd_ref;
+871969	    const legal = new URL(reportData(project, '').legalEvidenceUrl);
+871970	    assert.equal(legal.origin + legal.pathname, 'https://ventusltd.github.io/legislation/legal-evidence/');
+871971	    assert.equal(legal.searchParams.get('repd_ref'), ref);
+871972	    assert.equal(legal.searchParams.get('source_release'), edition);
+871973	    assert.equal(legal.searchParams.get('project'), project.name.trim() || null);
+871974	    assert.ok(!seen.has(ref));
+871976	    if (project.geometry_status === 'missing') {
+871977	      missingGeometry++;
+871978	      example = project;
+871979	assert.equal(seen.size, 7775);
+871980	assert.equal(missingGeometry, 26);
+871981	const noMap = reportData(example, '');
+871982	assert.equal(noMap.mapUrl, '');
+871983	assert.equal((Buffer.from(buildA4Pdf(noMap)).toString().match(/\/Subtype \/Link/g) || []).length, 1);
+871984	for (const invalid of [{...example, technology:'interconnector'}, {...example, gg_project_id:'mismatch'}]) {
+871985	  const model = reportData(invalid, '');
+871986	  assert.equal(model.legalEvidenceUrl, null);
+871987	  assert.ok(!Buffer.from(buildA4Pdf(model)).toString().includes('/Subtype /Link'));
+871988	console.log(`PASS ${seen.size} project identities, including ${missingGeometry} without mapped locations; unsupported identities have no legal action.`);
+871991	<details id="pipeline-news"><summary><span class="number">05</span><span class="title">Pipeline News<small>Follow renewable energy projects</small></span></summary><div class="inside"><p>Explore the project register and follow the renewable energy pipeline.</p><a class="launch" href="https://globalgrid2050.com/uk_renewables_pipeline/202611280922/">Open Pipeline News &rarr;</a></div></details>
+871992	<tr data-entity-id="pipeline-news"><th scope="row"><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611280922/">Pipeline News</a><small class="entity-key">pipeline-news</small></th><td><details class="entity-type"><summary>catalogue</summary><p>Intended purpose: Find renewable-energy projects and follow the project pipeline.</p><p>For: project developers, researchers</p></details></td><td>Follow renewable energy projects</td><td><details class="table-versions"><summary>V9.78 · Project A4 reports</summary><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202609082224/">8 September 2026</a><small class="entity-key">202609082224</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611132345/">October 2026 REPD (14 November 2026)</a><small class="entity-key">202611132345</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611140306/">V9.20 · October 2026 REPD (14 November 2026)</a><small class="entity-key">202611140306</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611141017/">V9.21 · October 2026 REPD · live headlines</a><small class="entity-key">202611141017</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611151300/">V9.22 · October 2026 REPD · project signals (known mobile issue)</a><small class="entity-key">202611151300</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611160020/">V9.23 · October 2026 REPD · brief project news notes (known mobile MAP issue)</a><small class="entity-key">202611160020</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161244/">V9.24 · October 2026 REPD · 1,000 solar project research pilot (0 verified)</a><small class="entity-key">202611161244</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611161757/">V9.28 ? October 2026 REPD ? Headlines and Pipeline</a><small class="entity-key">202611161757</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611162354/">V9.29 - full-width pipeline and Android rotation</a><small class="entity-key">202611162354</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170147/">V9.30 - data-centre address screening</a><small class="entity-key">202611170147</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170243/">V9.31 - daily historical system-sell prices</a><small class="entity-key">202611170243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170324/">V9.32 - primary planning decision note</a><small class="entity-key">202611170324</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611170512/">V9.33 - reviewed development consent notes</a><small class="entity-key">202611170512</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171141/">V9.34 - planning dates, year filters and expanded analytics</a><small class="entity-key">202611171141</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171217/">V9.35 - Operational dates, sorting and year filters</a><small class="entity-key">202611171217</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171507/">V9.36 - searchable static headlines, up to 100 available</a><small class="entity-key">202611171507</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171526/">V9.37 - news filters and source provenance</a><small class="entity-key">202611171526</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171710/">V9.40 - flowing neon headlines with source-qualified grid and document facts</a><small class="entity-key">202611171710</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611171940/">V9.41 - crisp red ticker</a><small class="entity-key">202611171940</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611172355/">V9.42 - mobile MAP handoff</a><small class="entity-key">202611172355</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180451/">V9.44 - Grid Journey entry and exact Back filters</a><small class="entity-key">202611180451</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611180633/">V9.46 - Energy news context and retained Grid Journey return</a><small class="entity-key">202611180633</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611191418/">V9.56 - Compact register and responsive gauges</a><small class="entity-key">202611191418</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611201709/">V9.57 - REPD project identity correction</a><small class="entity-key">202611201709</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212308/">V9.58 - Full-screen news reader</a><small class="entity-key">202611212308</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212340/">V9.59 - Compact non-obscuring news maximise control</a><small class="entity-key">202611212340</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611212344/">V9.60 - Landscape-only REPD analytics and projects</a><small class="entity-key">202611212344</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220100/">V9.61 - Compact REPD mobile register and landscape density</a><small class="entity-key">202611220100</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220125/">V9.62 - Project, MW/MWp and MAP prospect scan</a><small class="entity-key">202611220125</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611220220/">V9.63 - A4 project location report with clickable MAP</a><small class="entity-key">202611220220</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221243/">V9.64 - A3/A4 live REPD HTML table overview</a><small class="entity-key">202611221243</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221330/">V9.65 - Expanded REPD View with persistent analytics cockpit</a><small class="entity-key">202611221330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221500/">V9.66 - Red Expanded REPD with Operator MAP and A4</a><small class="entity-key">202611221500</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221625/">V9.67 - Native Expanded REPD, all columns and pinch zoom</a><small class="entity-key">202611221625</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221705/">V9.68 - Landscape REPD reading view</a><small class="entity-key">202611221705</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221850/">V9.69 - Full-height REPD with MAP after Project</a><small class="entity-key">202611221850</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221900/">V9.70 - Expanded MAP navigation parity</a><small class="entity-key">202611221900</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611221930/">V9.71 - Simplified REPD expanded-view controls</a><small class="entity-key">202611221930</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222222/">V9.72 - VICINITY MAP and A4/PDF link parity</a><small class="entity-key">202611222222</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611222330/">V9.73 - Operator, Status and Region MW reports</a><small class="entity-key">202611222330</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231400/">V9.74 - Technology-filtered Operator MW cockpit</a><small class="entity-key">202611231400</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611231600/">V9.75 - Native REPD Operator, Status and Region filters</a><small class="entity-key">202611231600</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611232245/">V9.76 - Mobile REPD report readability</a><small class="entity-key">202611232245</small></div><div class="release"><span class="release-state">Archived</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611280048/">V9.77 · Legal evidence by REPD project</a><small class="entity-key">202611280048</small></div><div class="release"><span class="release-state">Operative</span><a href="https://globalgrid2050.com/uk_renewables_pipeline/202611280922/">V9.78 · Project A4 reports</a><small class="entity-key">202611280922</small></div></details></td></tr>
 ```
